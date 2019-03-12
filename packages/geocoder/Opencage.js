@@ -49,8 +49,8 @@ function parseResponseItem( { raw }, item ) {
   const parsed = {
     address: _.get( item, 'formatted' ),
     district: _.get( item, 'components.city_district', null ),
-    city: _.get( item, 'components.town', _.get( item, 'components.city', null ) ),
-    department: _.get( item, 'components.county', null ),
+    city: _.get( item, 'components.village', _.get( item, 'components.town', _.get( item, 'components.city', null ) ) ),
+    department: _.get( item, 'components.state_district', null ),
     region: _.get( item, 'components.state', null ),
     timezone: _.get( item, 'annotations.timezone.name', null ),
     latitude: _.get( item, 'geometry.lat', null ),

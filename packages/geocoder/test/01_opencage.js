@@ -41,14 +41,33 @@ describe( 'opencage', () => {
 
     } );
 
-    it( 'Sarzeau is not in Morbihan according to OpenCage', async () => {
+    describe( 'Sarzeau', async () => {
 
-      ( await geocode( 'Sarzeau', {
-        countryCode: 'FR',
-        language: 'fr',
-        first: true,
-        raw: true
-      } ) ).department.should.eql( 'Vannes' );
+      let result;
+
+      before( async () => {
+
+        result = await geocode( 'Sarzeau', {
+          countryCode: 'FR',
+          language: 'fr',
+          first: true,
+          raw: true
+        } );
+
+      } );
+
+      it( 'department is Morbihan', () => {
+
+        result.department.should.equal( 'Morbihan' );
+
+      } );
+
+      it( 'city is Sarzeau', () => {
+
+        result.city.should.equal( 'Sarzeau' );
+
+      } );
+
 
     } );
 
@@ -74,7 +93,7 @@ describe( 'opencage', () => {
         'city', 'department', 'region', 'timezone', 'country', 'countryCode'
       ] ).should.eql( {
         city: 'Mana',
-        department: 'Guyane',
+        department: null,
         region: 'Guyane',
         country: 'France',
         countryCode: 'fr',

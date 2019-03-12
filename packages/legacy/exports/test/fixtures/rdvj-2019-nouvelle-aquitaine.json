@@ -1,0 +1,3651 @@
+{
+  "tagSet": {
+    "groups": [
+      {
+        "name": "Types d'événement",
+        "tags": [
+          {
+            "id": 23131,
+            "label": "Animation jeune public",
+            "slug": "animation-jeune-public"
+          },
+          {
+            "id": 23132,
+            "label": "Animation pour scolaires le vendredi",
+            "slug": "animation-pour-scolaires-le-vendredi"
+          },
+          {
+            "id": 23133,
+            "label": "Atelier / Démonstration / Savoir-faire",
+            "slug": "atelier-demonstration-savoir-faire"
+          },
+          {
+            "id": 23128,
+            "label": "Circuit",
+            "slug": "circuit"
+          },
+          {
+            "id": 23129,
+            "label": "Concert",
+            "slug": "concert"
+          },
+          {
+            "id": 23134,
+            "label": "Conférence / Projection",
+            "slug": "conference-projection"
+          },
+          {
+            "id": 23130,
+            "label": "Exposition",
+            "slug": "exposition"
+          },
+          {
+            "id": 23135,
+            "label": "Spectacle / Lecture",
+            "slug": "spectacle-lecture"
+          },
+          {
+            "id": 23136,
+            "label": "Visite libre",
+            "slug": "visite-libre"
+          },
+          {
+            "id": 23137,
+            "label": "Visite commentée",
+            "slug": "visite-commentee"
+          }
+        ],
+        "required": true,
+        "unique": true
+      },
+      {
+        "name": "Conditions de participation",
+        "tags": [
+          {
+            "id": 23139,
+            "label": "Gratuit",
+            "slug": "gratuit"
+          },
+          {
+            "id": 23138,
+            "label": "Tarif préférentiel",
+            "slug": "tarif-preferentiel"
+          },
+          {
+            "id": 23140,
+            "label": "Tarif habituel",
+            "slug": "tarif-habituel"
+          },
+          {
+            "id": 23141,
+            "label": "Sur inscription",
+            "slug": "sur-inscription"
+          }
+        ],
+        "required": true,
+        "unique": false
+      },
+      {
+        "name": "Thème 2019",
+        "tags": [
+          {
+            "id": 23142,
+            "label": "L'Europe des jardins",
+            "slug": "leurope-des-jardins"
+          }
+        ],
+        "required": false,
+        "unique": false
+      }
+    ]
+  },
+  "events": [
+    {
+      "uid": 26751741,
+      "slug": "165",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/165",
+      "title": {
+        "fr": "Visite découverte des Jardins du Roi et du Parc de la Garenne"
+      },
+      "description": {
+        "fr": "Flâner, écouter, explorer...Vous ne manquerez pas de choses à faire dans les anciens espaces verts royaux. Peut-être que cette promenade bucolique se transformera en balade instructive !"
+      },
+      "longDescription": {
+        "fr": "### Une partie de chasse, une promenade romantique ou encore un tournoi de palemail. Autant de motivations qui sont à l'origine de la création de ce domaine vert autrefois privé et rattaché à la résidence royale et qui reste encore aujourd'hui le poumon vert de la ville de Nérac. Déambulez et découvrez en autonomie, de manière ludique et pédagogique, l'histoire de ce site verdoyant et ressourçant grâce à un parcours de visite sur pupitres en six étapes et une visite virtuelle \"3000 pas vers les Jardins du Roi\", téléchargeable sur smartphone ou sur tablettes tactiles en prêt au Château-musée Henri IV."
+      },
+      "keywords": null,
+      "html": {
+        "fr": "<h3 id=\"une-partie-de-chasse-une-promenade-romantique-ou-encore-un-tournoi-de-palemail-autant-de-motivations-qui-sont-l-39-origine-de-la-cr-ation-de-ce-domaine-vert-autrefois-priv-et-rattach-la-r-sidence-royale-et-qui-reste-encore-aujourd-39-hui-le-poumon-vert-de-la-ville-de-n-rac-d-ambulez-et-d-couvrez-en-autonomie-de-mani-re-ludique-et-p-dagogique-l-39-histoire-de-ce-site-verdoyant-et-ressour-ant-gr-ce-un-parcours-de-visite-sur-pupitres-en-six-tapes-et-une-visite-virtuelle-quot-3000-pas-vers-les-jardins-du-roi-quot-t-l-chargeable-sur-smartphone-ou-sur-tablettes-tactiles-en-pr-t-au-ch-teau-mus-e-henri-iv-\">Une partie de chasse, une promenade romantique ou encore un tournoi de palemail. Autant de motivations qui sont à l&#39;origine de la création de ce domaine vert autrefois privé et rattaché à la résidence royale et qui reste encore aujourd&#39;hui le poumon vert de la ville de Nérac. Déambulez et découvrez en autonomie, de manière ludique et pédagogique, l&#39;histoire de ce site verdoyant et ressourçant grâce à un parcours de visite sur pupitres en six étapes et une visite virtuelle &quot;3000 pas vers les Jardins du Roi&quot;, téléchargeable sur smartphone ou sur tablettes tactiles en prêt au Château-musée Henri IV.</h3>"
+      },
+      "image": "https://cibul.s3.amazonaws.com/b69fac7d60b2429e8309816c10c6adda.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/evtbb69fac7d60b2429e8309816c10c6adda.base.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/evfb69fac7d60b2429e8309816c10c6adda.base.image.jpg",
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "accessibility": [],
+      "updatedAt": "2019-02-20T14:57:22.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "Sébastien Carion",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Jardins du Roi (jardin d'évocation Renaissance) et Parc de la Garenne",
+      "locationUid": 93276144,
+      "address": "Chemin du Jardin du Roy, 47600 Nérac, Lot et Garonne, Nouvelle-Aquitaine",
+      "postalCode": "47600",
+      "city": "Nérac",
+      "district": null,
+      "department": "Lot-et-Garonne",
+      "region": "Aquitaine",
+      "latitude": 44.131723,
+      "longitude": 0.341196,
+      "timings": [
+        {
+          "start": "2019-06-07T06:00:00.000Z",
+          "end": "2019-06-07T21:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T06:00:00.000Z",
+          "end": "2019-06-08T21:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T06:00:00.000Z",
+          "end": "2019-06-09T21:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 93276144,
+        "name": "Jardins du Roi (jardin d'évocation Renaissance) et Parc de la Garenne",
+        "slug": "chateau-henry-iv-de-nerac-parc-de-la-garenne-jardins-du-roi_7694_13238_17900",
+        "address": "Chemin du Jardin du Roy, 47600 Nérac, Lot et Garonne, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location93276144.jpg",
+        "imageCredits": "© Ville de Nérac",
+        "postalCode": "47600",
+        "city": "Nérac",
+        "district": null,
+        "department": "Lot-et-Garonne",
+        "region": "Aquitaine",
+        "latitude": 44.131723,
+        "longitude": 0.341196,
+        "description": {
+          "de": "Schloss (MH), das von den Herren von Albret erbaut(belehrt), Wohnsitz geworden ist, der im 16\\. Jahrhundert königlich ist. Der Park des Hasenwäldchens und die Gärten des Königs entfalteten sich auf den Ufern von Baïse.",
+          "en": "Castle (MH) built by the Lords of Albret, become residence royal in the 16th century. The Park of the Warren and the Gardens of the King spread(displayed) on the banks of Baïse.",
+          "it": "Il castello (MH) costruito dai Signori di Albret, diventate la residenza reale nel 16esimo secolo. Il Parco della Conigliera(Alveare) e i Giardini del Re si diffonde (visualizzato) sulle banche di Baïse.",
+          "fr": "Château (MH) édifié par les seigneurs d'Albret, devenu résidence royal au XVIe siècle. Le Parc de la Garenne et les Jardins du Roi se déployaient sur les berges de la Baïse. \nConstruit sur l'emplacement des anciens jardins royaux, le jardin d'évocation Renaissance a été créé pour redonner vie à l'essence du jardin Renaissance à la française, tel qu'il a pu exister sous Henri III de Navarre, le futur roi de France Henri IV. Le pavillon octogonal du XVIe siècle, parfaitement conservé, parfait cette carte postale bucolique.",
+          "es": "Castillo (MH) edificado por los señores de Albret, hecho residencia real en el siglo 16\\. El Parque del Conejar y los Jardines del Rey se desplegaban sobre las orillas de Baïse."
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": "http://www.nerac.fr",
+        "links": [],
+        "insee": null,
+        "phone": "05 53 65 21 11",
+        "tags": [
+          {
+            "id": 31,
+            "label": "Public garden"
+          },
+          {
+            "id": 27,
+            "label": "Contemporary garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-20T14:38:56.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "08:00",
+      "firstTimeEnd": "23:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "08:00",
+      "lastTimeEnd": "23:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "Ville de Nérac"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "id": 52517
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite libre",
+              "slug": "visite-libre",
+              "id": 52517
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 74784164,
+      "slug": "decouverte-des-jardins-de-l-argentor-a-nanteuil-en-vallee",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/decouverte-des-jardins-de-l-argentor-a-nanteuil-en-vallee",
+      "title": {
+        "fr": "Découverte des jardins de l'Argentor à Nanteuil en Vallée"
+      },
+      "description": {
+        "fr": "Visite libre des jardins"
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": "https://cibul.s3.amazonaws.com/event_decouverte-des-jardins-de-l-argentor-a-nanteuil-en-vallee_723047.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/evtbevent_decouverte-des-jardins-de-l-argentor-a-nanteuil-en-vallee_723047.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/evfevent_decouverte-des-jardins-de-l-argentor-a-nanteuil-en-vallee_723047.jpg",
+      "age": null,
+      "accessibility": [
+        "mi"
+      ],
+      "updatedAt": "2019-02-06T16:07:59.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "© Communauté de Communes Val de Charente",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Les jardins de l'Argentor",
+      "locationUid": 13736693,
+      "address": "Rue de la Gare, 16700 Nanteuil-en-Vallée",
+      "postalCode": "16700",
+      "city": "Nanteuil-en-Vallée",
+      "district": null,
+      "department": "Charente",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 45.998754,
+      "longitude": 0.330825,
+      "timings": [
+        {
+          "start": "2019-06-07T06:00:00.000Z",
+          "end": "2019-06-07T19:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T06:00:00.000Z",
+          "end": "2019-06-08T19:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T06:00:00.000Z",
+          "end": "2019-06-09T19:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 13736693,
+        "name": "Les jardins de l'Argentor",
+        "slug": "les-jardins-de-largentor",
+        "address": "Rue de la Gare, 16700 Nanteuil-en-Vallée",
+        "image": null,
+        "imageCredits": "communauté de communes Val de Charente",
+        "postalCode": "16700",
+        "city": "Nanteuil-en-Vallée",
+        "district": null,
+        "department": "Charente",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 45.998754,
+        "longitude": 0.330825,
+        "description": {
+          "fr": "Lovés dans la vallée de l'Argentor, petit cours d'eau, et de son canal, les jardins de l'Argentor offrent un espace de quiétude et de tranquillité où diversité des végétaux et qualité esthétique se mêlent. Plusieurs jardins se succèdent : les jardins bucoliques de l'architecte paysagiste Bureau du début du XX siècle ; le jardin aquatique avec ses jets d'eau, cascades, marre, bassin ; et enfin le cheminement le long du canal qui ouvre des perspectives sur les jardins de particuliers.\n7 300 m2"
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": "http://www.valdecharente.fr",
+        "links": [],
+        "insee": "16242",
+        "phone": "05 45 31 07 14",
+        "tags": [
+          {
+            "id": 33,
+            "label": "First participation"
+          },
+          {
+            "id": 31,
+            "label": "Public garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-06T16:08:51.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "08:00",
+      "firstTimeEnd": "21:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "08:00",
+      "lastTimeEnd": "21:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "Communauté de Communes Val de Charente"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "id": 52517
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite libre",
+              "slug": "visite-libre",
+              "id": 52517
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 32969996,
+      "slug": "jardins-de-traverse-parcours-dans-les-jardins-ephemeres-du-centre-historique-de-poitiers_447",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/jardins-de-traverse-parcours-dans-les-jardins-ephemeres-du-centre-historique-de-poitiers_447",
+      "title": {
+        "fr": "Jardins de traverse – Parcours dans les jardins éphémères du centre historique de Poitiers"
+      },
+      "description": {
+        "fr": "Prenez des chemins de traverse pour découvrir dans les parcs et jardins de Poitiers, des installations éphémères et originales, entre art des jardins et création contemporaine."
+      },
+      "longDescription": {
+        "fr": "Prenez des **chemins de traverse** pour découvrir dans les parcs et jardins de Poitiers, des installations éphémères tout autant qu’originales, entre art des jardins et création contemporaine.\n\nDe juin à octobre 2019, ces « jardins de traverse » proposés par les **jardiniers de la Ville**, vous donneront un **avant-goût de l’événement artistique et culturel Traversées**, l’art donne rendez-vous à Poitiers."
+      },
+      "keywords": null,
+      "html": {
+        "fr": "<p>Prenez des <strong>chemins de traverse</strong> pour découvrir dans les parcs et jardins de Poitiers, des installations éphémères tout autant qu’originales, entre art des jardins et création contemporaine.</p>\n<p>De juin à octobre 2019, ces « jardins de traverse » proposés par les <strong>jardiniers de la Ville</strong>, vous donneront un <strong>avant-goût de l’événement artistique et culturel Traversées</strong>, l’art donne rendez-vous à Poitiers.</p>"
+      },
+      "image": "https://cibul.s3.amazonaws.com/a0125ea3890f4202bd2686f5a9103bfb.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/evtba0125ea3890f4202bd2686f5a9103bfb.base.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/evfa0125ea3890f4202bd2686f5a9103bfb.base.image.jpg",
+      "age": null,
+      "accessibility": [],
+      "updatedAt": "2019-02-22T12:02:33.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "villes de Poitiers",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Plusieurs jardins dans la ville",
+      "locationUid": 45856000,
+      "address": "86000 Poitiers",
+      "postalCode": "86000",
+      "city": "Poitiers",
+      "district": null,
+      "department": "Vienne",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 46.580929,
+      "longitude": 0.341949,
+      "timings": [
+        {
+          "start": "2019-06-07T06:00:00.000Z",
+          "end": "2019-06-07T18:30:00.000Z"
+        },
+        {
+          "start": "2019-06-08T06:00:00.000Z",
+          "end": "2019-06-08T18:30:00.000Z"
+        },
+        {
+          "start": "2019-06-09T06:00:00.000Z",
+          "end": "2019-06-09T18:30:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 45856000,
+        "name": "Plusieurs jardins dans la ville",
+        "slug": "plusieurs-jardins-dans-la-ville",
+        "address": "86000 Poitiers",
+        "image": null,
+        "imageCredits": null,
+        "postalCode": "86000",
+        "city": "Poitiers",
+        "district": null,
+        "department": "Vienne",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 46.580929,
+        "longitude": 0.341949,
+        "description": {},
+        "access": {},
+        "countryCode": "fr",
+        "website": "http://www.poitiers.fr",
+        "links": [],
+        "insee": "86194",
+        "phone": "05 49 41 39 37",
+        "tags": [
+          {
+            "id": 33,
+            "label": "First participation"
+          },
+          {
+            "id": 27,
+            "label": "Contemporary garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-22T12:04:15.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "08:00",
+      "firstTimeEnd": "20:30",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "08:00",
+      "lastTimeEnd": "20:30",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "Mairie de Poitiers - Direction Espaces verts"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "id": 52517
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite libre",
+              "slug": "visite-libre",
+              "id": 52517
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 53880454,
+      "slug": "visite-commentee-du-jardin-aux-oiseaux",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/visite-commentee-du-jardin-aux-oiseaux",
+      "title": {
+        "fr": "Visite commentée \" Les oiseaux au jardin \""
+      },
+      "description": {
+        "fr": "Visite guidée sur le thème des oiseaux illustrée par des planches ou des photographies."
+      },
+      "longDescription": {
+        "fr": "Dans le cadre de la thématique « les animaux aux jardins », sera présentée une visite guidée spéciale « les oiseaux aux jardins » pour répondre aux questions :\n\n*   Qui fréquentent nos jardins ?\n*   Quels type de nourriture insectivores ou granivores,\n*   Que faire pour les attirer (arbres à baies, fleurs à graines, environnement, nichoirs, mangeoires pour l'hiver...)"
+      },
+      "keywords": null,
+      "html": {
+        "fr": "<p>Dans le cadre de la thématique « les animaux aux jardins », sera présentée une visite guidée spéciale « les oiseaux aux jardins » pour répondre aux questions :</p>\n<ul>\n<li>Qui fréquentent nos jardins ?</li>\n<li>Quels type de nourriture insectivores ou granivores,</li>\n<li>Que faire pour les attirer (arbres à baies, fleurs à graines, environnement, nichoirs, mangeoires pour l&#39;hiver...)</li>\n</ul>"
+      },
+      "image": "https://cibul.s3.amazonaws.com/04b60a19dae744d080644fbf32f6439c.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/04b60a19dae744d080644fbf32f6439c.thumb.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/04b60a19dae744d080644fbf32f6439c.full.image.jpg",
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "accessibility": [
+        "mi"
+      ],
+      "updatedAt": "2019-02-22T15:51:23.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "Photo Alain fradet , licence libre.",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": {
+        "fr": "4€, gratuit -16 ans, 3€ pour les groupes à partir de 5 personnes. Visite commentée dans le jardin, prévoir protections en cas de pluie."
+      },
+      "registrationUrl": null,
+      "locationName": "Le jardin aux oiseaux",
+      "locationUid": 75573405,
+      "address": "5 allée de Gorceix, 87270 Couzeix, Haute-Vienne, Nouvelle-Aquitaine",
+      "postalCode": "87270",
+      "city": "Couzeix",
+      "district": null,
+      "department": "Haute-Vienne",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 45.871238,
+      "longitude": 1.236132,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T12:00:00.000Z",
+          "end": "2019-06-07T16:30:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T12:00:00.000Z",
+          "end": "2019-06-08T16:30:00.000Z"
+        },
+        {
+          "start": "2019-06-09T07:00:00.000Z",
+          "end": "2019-06-09T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T12:00:00.000Z",
+          "end": "2019-06-09T16:30:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 75573405,
+        "name": "Le jardin aux oiseaux",
+        "slug": "le-jardin-aux-oiseaux318_7694_13238_17900",
+        "address": "5 allée de Gorceix, 87270 Couzeix, Haute-Vienne, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location75573405.jpg",
+        "imageCredits": "© R. Mazerolas",
+        "postalCode": "87270",
+        "city": "Couzeix",
+        "district": null,
+        "department": "Haute-Vienne",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 45.871238,
+        "longitude": 1.236132,
+        "description": {
+          "de": "Dieser englische Garten stellt eine Sammlung viburnums, acers, Bäume in Wald(Wäldern), Rosensträucher Lianen, Sträucher im divatiqué Wald und einem einzigen(einzigartigen) Muster gemeinsamer Eiche vor, das in der Wolke geschnitten ist. Zahlreicher Malus und crataegus nehmen am Nourrissage der Vögel im Winter teil. Präsentation der Brutstätten und Krippen in Ton.",
+          "en": "This English-style garden presents a collection of viburnums, of acers, of trees to wood, of rosebushes creepers, of shrubs with divatiqué wood and an unique(only) specimen of common(shared) oak cut in cloud. Numerous loaded premiums and crataegus participate in the feeding of the birds in winter. Presentation(Display) of niches and cribs in clay.",
+          "it": "Questo giardino di stile(classe) inglese presenta una raccolta(collezione) di viburnums, di acers, d'alberi(di tendiscarpe) a legno, di rosai creepers, d'arbusti(di bibite di succo di frutta e aceto) con legno divatiqué e un unico (solo) lo specimen di taglio(riduzione) di quercia (condiviso) comune in nuvola(nube). I premi carichi numerosi e crataegus partecipano alla nutrizione degli uccelli in inverno. Presentazione (Esposizione(Dimostrazione)) di nicchie e culle(mangiatoie) in argilla.",
+          "fr": "Ce jardin de 18 ans vient d'atteindre sa majorité cette année. Il permet la découverte d'une multitude de rosiers dont des lianes qui atteignent maintenant plus de dix mètres ! Une collection d'acers du japon, de viburnums, de sureaux, d'arbres à écorces remarquables, de fusains, de malus et de crataegus participent au nourrisage des oiseaux. Des dizaines de vivaces agrémentent les massifs floraux qui serpentent dans les différentes zones du  jardin. Un spécimen unique de chêne commun taillé en nuage est également à découvrir.",
+          "es": "Este jardín a la inglesa presenta una colección de viburnums, de acers, de árboles a bosque(madera), de rosales bejucos, de arbustos a bosque(madera) divatiqué y una muestra única de roble común cortado en nube. Numerosos malus y crataegus participan en el nourrissage de los pájaros en invierno. Presentación de nidales y comederos de arcilla."
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": "http://www.nichoirenterrecuite.fr",
+        "links": [],
+        "insee": null,
+        "phone": "06 87 70 05 28",
+        "tags": [
+          {
+            "id": 30,
+            "label": "Private garden"
+          },
+          {
+            "id": 25,
+            "label": "English garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-22T15:42:38.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "12:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "14:00",
+      "lastTimeEnd": "18:30",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "jardin aux oiseaux"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Exposition",
+          "slug": "exposition",
+          "id": 52515
+        },
+        {
+          "label": "Les animaux au jardin",
+          "slug": "les-animaux-au-jardin",
+          "id": 52519
+        },
+        {
+          "label": "Tarif habituel",
+          "slug": "tarif-habituel",
+          "id": 52522
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Exposition",
+              "slug": "exposition",
+              "id": 52515
+            }
+          ]
+        },
+        {
+          "name": "Thème 2019",
+          "access": "public",
+          "slug": "theme-2019",
+          "tags": [
+            {
+              "label": "Les animaux au jardin",
+              "slug": "les-animaux-au-jardin",
+              "id": 52519
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Tarif habituel",
+              "slug": "tarif-habituel",
+              "id": 52522
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 23294886,
+      "slug": "decouverte-des-animaux-du-parc-animalier",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/decouverte-des-animaux-du-parc-animalier",
+      "title": {
+        "fr": "Découverte des animaux du parc animalier"
+      },
+      "description": {
+        "fr": "Venez découvrir les animaux du parc animalier et plus précisément les races locales."
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": "https://cibul.s3.amazonaws.com/3e5dd1311d2d468d9efe613498fb8a04.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/3e5dd1311d2d468d9efe613498fb8a04.thumb.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/3e5dd1311d2d468d9efe613498fb8a04.full.image.jpg",
+      "age": {
+        "min": 5,
+        "max": 12
+      },
+      "accessibility": [
+        "mi"
+      ],
+      "updatedAt": "2019-02-21T08:54:50.000Z",
+      "range": {
+        "fr": "Vendredi 7 juin, 09h00, 10h00, 14h00, 15h00",
+        "en": "Friday 7 June, 09:00, 10:00, 14:00, 15:00"
+      },
+      "imageCredits": "Direction des Espaces Verts",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Parc Bordelais",
+      "locationUid": 36907576,
+      "address": "Rue du Bocage, 33000 Bordeaux, Gironde, Nouvelle-Aquitaine",
+      "postalCode": null,
+      "city": "Bordeaux",
+      "district": null,
+      "department": "Gironde",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 44.852117,
+      "longitude": -0.59973,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T08:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T08:00:00.000Z",
+          "end": "2019-06-07T09:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T12:00:00.000Z",
+          "end": "2019-06-07T13:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T13:00:00.000Z",
+          "end": "2019-06-07T14:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 36907576,
+        "name": "Parc Bordelais",
+        "slug": "parc-bordelais958_7694_13238_17900",
+        "address": "Rue du Bocage, 33000 Bordeaux, Gironde, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location24054820.jpg",
+        "imageCredits": "© Ville de Bordeaux",
+        "postalCode": null,
+        "city": "Bordeaux",
+        "district": null,
+        "department": "Gironde",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 44.852117,
+        "longitude": -0.59973,
+        "description": {
+          "de": "Der Park von Bordeaux verschönt die Stadt Bordeaux seit seiner Einweihung 1888\\. Das ist eine der Eugens Bühler mündigen Schöpfungen und seines(ihres) Bruders Denis, die Gartenzahl(Gartenanzahl) in Frankreich im XIX. Jahrhundert realisiert haben. Beide konnten ihren Stil in der Kunst der landschaftlichen Gärten ihrer Zeit(Wetter) vorschreiben. Eichenwäldchen im Stern, setzen(bilden) Wäldchen, Wasserfläche, große Verkehrsalleen, Tiere lokaler Rassen(Geschlechter) und Spielplätze(Sportplätze) diesen Park zusammen. Das Warenkennzeichen ist Bemerkenswerter Garten der Erneuerung im Gange.\nFläche: 28 Ha.",
+          "en": "The park of Bordeaux prettifies the city of Bordeaux since its unveiling in 1888\\. It is one of major creations of Eugene Bühler and of his brother Denis, which realised number of gardens in France in the XIXth century. Both knew how to set their style in the art of the environmental gardens of their time(weather). Oak grove in star, grove, man-made lake, big(great) paths of traffic(circulation), animals of local breeds(races) and playgrounds make up(compose) this park. The label Remarkable Garden is under way of renewal.\nArea: 28 hectares.",
+          "it": "Il parco di Bordeaux abbellisce la città di Bordeaux dal suo scoprimento nel 1888\\. È una di creazioni(universi) principali d'Eugene Bühler e di suo fratello Denis, che realizzò(capì) il numero di giardini in Francia nel secolo XIXth. Entrambi seppero come mettere il loro stile(classe) nell'arte dei giardini ambientali del loro tempo (il tempo). Il boschetto di quercia in stella, il boschetto, il lago artificiale, i sentieri(percorsi) grandi di traffico (la circolazione), gli animali di razze locali (le razze(corse)) e i cortili per la ricreazione(parchi giochi) completano(inventano,finiscono) (compongono) questo parco. L'etichetta Remarkable Garden è in corso di rinnovo.\nArea: 28 ettari.",
+          "fr": "Le parc bordelais embellit la ville de Bordeaux depuis son inauguration en 1888. C'est une des créations majeures d'Eugène Bühler et de son frère Denis, qui ont réalisé nombre de jardins en France au XIXe siècle. Tous deux ont su imposer leur style dans l'art des jardins paysagers de leur temps.  Chênaie en étoile, bosquet, plan d'eau, grandes allées de circulation, animaux de races locales et aires de jeu composent ce parc. Le label Jardin Remarquable est en cours de renouvellement.\n\nSuperficie : 28 ha.",
+          "es": "El parque bordelés embellece la ciudad de Burdeos desde su inauguración en 1888\\. Es una de las creaciones mayores de Eugène Bühler y de su hermano Denis, que realizaron número de jardines en Francia en el siglo XIX. Ellos ambos supieron imponer su estilo en el arte de los jardines paisajísticos(abiertos) de su tiempo. Encinar en estrella, bosquete, estanque, grandes alamedas de circulación, animales de razas locales y campos de juego componen este parque. La marca de fábrica Jardín Notable está en curso de renovación.\nSuperficie: 28 ha."
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": "http://www.bordeaux.fr",
+        "links": [],
+        "insee": null,
+        "phone": "05 56 02 38 92",
+        "tags": [
+          {
+            "id": 38,
+            "label": "Jardin remarquable"
+          },
+          {
+            "id": 31,
+            "label": "Public garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-21T08:52:34.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "10:00",
+      "lastDate": "2019-06-07",
+      "lastTimeStart": "15:00",
+      "lastTimeEnd": "16:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "Bordeaux Métropole"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Animation pour scolaires le vendredi",
+          "slug": "animation-pour-scolaires-le-vendredi",
+          "id": 52510
+        },
+        {
+          "label": "Les animaux au jardin",
+          "slug": "les-animaux-au-jardin",
+          "id": 52519
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Animation pour scolaires le vendredi",
+              "slug": "animation-pour-scolaires-le-vendredi",
+              "id": 52510
+            }
+          ]
+        },
+        {
+          "name": "Thème 2019",
+          "access": "public",
+          "slug": "theme-2019",
+          "tags": [
+            {
+              "label": "Les animaux au jardin",
+              "slug": "les-animaux-au-jardin",
+              "id": 52519
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 63470316,
+      "slug": "jardin-aux-autres-elements-de-vie-eau-air-terre-feu-et-ses-chambres-a-dormira",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/jardin-aux-autres-elements-de-vie-eau-air-terre-feu-et-ses-chambres-a-dormira",
+      "title": {
+        "fr": "Promenade dans la nature autour des quatre éléments : l'eau, l'air, la terre et le feu."
+      },
+      "description": {
+        "fr": "Visite libre et visite guidée à la demande pour une promenade accompagnée par de la poésie, des contes, des mythes grecs autour des 4 éléments."
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": "https://cibul.s3.amazonaws.com/d29d9a3b57e04eedb81952f8bd6c2043.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/evtbd29d9a3b57e04eedb81952f8bd6c2043.base.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/evfd29d9a3b57e04eedb81952f8bd6c2043.base.image.jpg",
+      "age": {
+        "min": 4,
+        "max": 99
+      },
+      "accessibility": [],
+      "updatedAt": "2019-02-12T14:00:18.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "© Laurent Vieillefault.",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": {
+        "fr": "3€ par visiteur, gratuit pour les enfants."
+      },
+      "registrationUrl": null,
+      "locationName": "Les Bucoliques",
+      "locationUid": 67765673,
+      "address": "5 rue de la Ballonnière, 86490 Beaumont Saint-Cyr, Vienne, Nouvelle-Aquitaine",
+      "postalCode": "86490",
+      "city": "Beaumont",
+      "district": null,
+      "department": "Vienne",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 46.749658,
+      "longitude": 0.432617,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T18:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T18:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T07:00:00.000Z",
+          "end": "2019-06-09T18:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 67765673,
+        "name": "Les Bucoliques",
+        "slug": "les-bucoliques453_7694_13238_17900",
+        "address": "5 rue de la Ballonnière, 86490 Beaumont Saint-Cyr, Vienne, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location10598932.jpg",
+        "imageCredits": "© Laurent Vieillefault",
+        "postalCode": "86490",
+        "city": "Beaumont",
+        "district": null,
+        "department": "Vienne",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 46.749658,
+        "longitude": 0.432617,
+        "description": {
+          "de": "Die Besitzer(Besitzerinnen) teilen mit ihren Gastgebern(Gästen), das angenehme und friedliche Leben in diesem Ort, die Ungehobeltheit der Landschaft solcher wie ergibt sie sich aus dem Garten und aus dem Park. Dieser Garten wird durch den Frieden charakterisiert, den Einfachheit und Gleichgewicht eines Spazierganges(Promenade) um die Natur anbieten(schenken). Wasserfall, Becken, Glockenspiele, Gemüsegarten, der von Tausenden Füße des Buchsbaumes, Gloriette, Chalets und Sonnenuhr gezeichnet ist, sind da, um den Besucher zu überraschen.\nFläche: 1,5 Ha",
+          "en": "The owners share with their hosts, the relaxed rhythm of life in this place, the rusticity of landscape such as it gets free of the garden and the park. This garden is characterised by the peace which offer simplicity and balance of a walk around nature. Waterfall(Stunt), ponds, carillons, kitchen garden drawn by thousands of feet of boxwood, gazebo, chalet and sundial are there to surprise the visitor.\nArea: 1,5 hectares",
+          "it": "I proprietari condividono con i loro ospiti(mucchi), il ritmo rilassato di vita in questo posto(luogo), la rusticità di paesaggio come diventa privo di(esente da) del giardino e il parco. Questo giardino è caratterizzato dalla pace che offrono la semplicità e l'equilibrio di una passeggiata intorno a natura. La cascata (l'Acrobazia(Arresto della crescita)), gli stagni, i carillon, l'orto tirato(disegnato) da migliaia di piedi di bosso, belvedere, chalet e meridiana deve là sorprendere il visitatore.\nArea: 1,5 ettari",
+          "fr": "Les propriétaires partagent avec leurs hôtes, la douceur de vivre en ce lieu, la rusticité du paysage tel qu'il se dégage du jardin et du parc. Ce jardin est caractérisé par la paix qu'offrent simplicité et équilibre d'une promenade autour de la nature. Cascade, bassins, carillons, potager dessiné par des milliers de pieds de buis, gloriette, chalet et cadran solaire sont là pour surprendre le visiteur.\n\nSuperficie : 1,5 ha",
+          "es": "Los propietarios comparten con sus huéspedes, la dulzura de vivir en este lugar, la rusticidad del paisaje tal como se libra del jardín y del parque. Este jardín es caracterizado por la paz que ofrecen sencillez y equilibrio de un paseo alrededor de la naturaleza. Cascada, estanques(cuencas), carillones, huerta dibujada por millares de pies de boj, glorieta, chalé y reloj de sol están allí para sorprender al visitante.\nSuperficie: 1,5 ha"
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": "http://www.lesbucoliques.com",
+        "links": [],
+        "insee": "86019",
+        "phone": "06 87 08 07 01",
+        "tags": [
+          {
+            "id": 30,
+            "label": "Private garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2018-12-18T09:05:57.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "20:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "09:00",
+      "lastTimeEnd": "20:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "Les Bucoliques "
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "id": 52517
+        },
+        {
+          "label": "Les animaux au jardin",
+          "slug": "les-animaux-au-jardin",
+          "id": 52519
+        },
+        {
+          "label": "Tarif préférentiel",
+          "slug": "tarif-preferentiel",
+          "id": 52521
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite libre",
+              "slug": "visite-libre",
+              "id": 52517
+            }
+          ]
+        },
+        {
+          "name": "Thème 2019",
+          "access": "public",
+          "slug": "theme-2019",
+          "tags": [
+            {
+              "label": "Les animaux au jardin",
+              "slug": "les-animaux-au-jardin",
+              "id": 52519
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Tarif préférentiel",
+              "slug": "tarif-preferentiel",
+              "id": 52521
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 54865957,
+      "slug": "deambulation-dans-un-jardin-pedagogique",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/deambulation-dans-un-jardin-pedagogique",
+      "title": {
+        "fr": "Déambulation dans un jardin pédagogique"
+      },
+      "description": {
+        "fr": "Découverte des différents ateliers qu'offre ce jardin."
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": "https://cibul.s3.amazonaws.com/ce5ea5ecf5db4335a8f8eb1bd6fe6357.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/ce5ea5ecf5db4335a8f8eb1bd6fe6357.thumb.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/ce5ea5ecf5db4335a8f8eb1bd6fe6357.full.image.jpg",
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "accessibility": [],
+      "updatedAt": "2019-02-18T11:49:21.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "© École maternelle de Celles",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Le jardin de vie",
+      "locationUid": 21806670,
+      "address": "École maternelle - 34 rue de l'Ancienne Forge, 17520 Celles, Charente-Maritime, Nouvelle-Aquitaine",
+      "postalCode": "17520",
+      "city": "Celles",
+      "district": null,
+      "department": "Charente-Maritime",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 45.605108,
+      "longitude": -0.373571,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T17:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T11:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T12:00:00.000Z",
+          "end": "2019-06-09T17:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 21806670,
+        "name": "Le jardin de vie",
+        "slug": "le-jardin-de-vie33_7694_13238_17900",
+        "address": "École maternelle - 34 rue de l'Ancienne Forge, 17520 Celles, Charente-Maritime, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location1631806.jpg",
+        "imageCredits": "© Jardin de vie",
+        "postalCode": "17520",
+        "city": "Celles",
+        "district": null,
+        "department": "Charente-Maritime",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 45.605108,
+        "longitude": -0.373571,
+        "description": {
+          "de": "[STOP_TRANSLATION]Ce projet pédagogique débuté en septembre 2007 consiste à créer un jardin autour des 5 sens et des 4 éléments, un lieu où les élèves de l'école maternelle de Celles puissent travailler, expérimenter, vivre, découvrir la flore et la faune tout en appréhendant les domaines d'activités liés à la maternelle. Il a été créé à partir du projet pédagogique monté par l'instituteur, grâce au travail collectif de Rémi Marcotte, architecte paysagiste, de l'Association des jardins Respectueux, de l'instituteur, des parents d'élèves et surtout des enfants qui investissent ce formidable outil pédagogique le plus souvent possible, devenu depuis le fil rouge des projets et la nouvelle salle de classe de l'école.\nSuperficie : 1 000 m²",
+          "en": "[STOP_TRANSLATION]Ce projet pédagogique débuté en septembre 2007 consiste à créer un jardin autour des 5 sens et des 4 éléments, un lieu où les élèves de l'école maternelle de Celles puissent travailler, expérimenter, vivre, découvrir la flore et la faune tout en appréhendant les domaines d'activités liés à la maternelle. Il a été créé à partir du projet pédagogique monté par l'instituteur, grâce au travail collectif de Rémi Marcotte, architecte paysagiste, de l'Association des jardins Respectueux, de l'instituteur, des parents d'élèves et surtout des enfants qui investissent ce formidable outil pédagogique le plus souvent possible, devenu depuis le fil rouge des projets et la nouvelle salle de classe de l'école.\nSuperficie : 1 000 m²",
+          "it": "[STOP_TRANSLATION] projet di Ce pédagogique débuté in septembre consiste à créer un jardin autour des del 2007 5 sens e des 4 éléments, un luogo où les élèves de l'école maternelle de Celles puissent travailler, expérimenter, vivre, découvrir la flore et la faune tout en appréhendant les domaines d'activités liés à la maternelle. Il un été créé à partir du projet pédagogique monté par l'instituteur, grâce gli au si affaticano collectif de Rémi Marcotte, architecte paysagiste, de l'Association des jardins Respectueux, de l'instituteur, des i genitori il d'élèves et surtout des enfants qui investissent ce l'outil pédagogique le plus souvent formidabile possibile, il devenu depuis le fil i projet des rossi l'et la nouvelle salle de classe de l'école.\nSuperficie: 1 000 m ²",
+          "fr": "Ce projet pédagogique débuté en septembre 2007 consiste à créer un jardin autour des 5 sens et des 4 éléments, un lieu où les élèves de l'école maternelle de Celles puissent travailler, expérimenter, vivre, découvrir la flore et la faune tout en appréhendant les domaines d'activités liés à la maternelle. Il a été créé à partir du projet pédagogique monté par l'instituteur, grâce au travail collectif de Rémi Marcotte, architecte paysagiste, de l'Association des jardins Respectueux, de l'instituteur, des parents d'élèves et surtout des enfants qui investissent ce formidable outil pédagogique le plus souvent possible, devenu depuis le fil rouge des projets et la nouvelle salle de classe de l'école.\n\nSuperficie : 1 000 m²",
+          "es": "[STOP_TRANSLATION]Ce projet pédagogique débuté en septembre 2007 consiste à créer un jardin autour des 5 sens et des 4 éléments, un lieu où les élèves de l'école maternelle de Celles puissent travailler, expérimenter, vivre, découvrir la flore et la faune tout en appréhendant les domaines d'activités liés à la maternelle. Il a été créé à partir du projet pédagogique monté par l'instituteur, grâce au travail collectif de Rémi Marcotte, architecte paysagiste, de l'Association des jardins Respectueux, de l'instituteur, des parents d'élèves et surtout des enfants qui investissent ce formidable outil pédagogique le plus souvent possible, devenu depuis le fil rouge des projets et la nouvelle salle de classe de l'école.\nSuperficie : 1 000 m²"
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": null,
+        "links": [],
+        "insee": null,
+        "phone": "05 46 49 53 04",
+        "tags": [
+          {
+            "id": 30,
+            "label": "Private garden"
+          },
+          {
+            "id": 38,
+            "label": "Jardin remarquable"
+          },
+          {
+            "id": 29,
+            "label": "Vegetable garden, orchard"
+          },
+          {
+            "id": 27,
+            "label": "Contemporary garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-18T11:43:37.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "19:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "14:00",
+      "lastTimeEnd": "19:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "DRAC Nouvelle-Aquitaine"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "id": 52517
+        },
+        {
+          "label": "Les animaux au jardin",
+          "slug": "les-animaux-au-jardin",
+          "id": 52519
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite libre",
+              "slug": "visite-libre",
+              "id": 52517
+            }
+          ]
+        },
+        {
+          "name": "Thème 2019",
+          "access": "public",
+          "slug": "theme-2019",
+          "tags": [
+            {
+              "label": "Les animaux au jardin",
+              "slug": "les-animaux-au-jardin",
+              "id": 52519
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 20062315,
+      "slug": "visites-scolaires-les-animaux-du-jardin",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/visites-scolaires-les-animaux-du-jardin",
+      "title": {
+        "fr": "Visites scolaires \"Les animaux du jardin\""
+      },
+      "description": {
+        "fr": "Visite du jardin et ateliers pédagogiques en partenariat avec le C.P.I.E. et la L.P.O."
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": false,
+      "thumbnail": false,
+      "originalImage": false,
+      "age": {
+        "min": 6,
+        "max": 12
+      },
+      "accessibility": [],
+      "updatedAt": "2019-02-20T16:12:23.000Z",
+      "range": {
+        "fr": "Vendredi 7 juin, 09h00",
+        "en": "Friday 7 June, 09:00"
+      },
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": {
+        "fr": "Réservation obligatoire"
+      },
+      "registrationUrl": "05 55 52 37 98, musee@ville-gueret.fr",
+      "locationName": "Jardin public Ferdinand Villard",
+      "locationUid": 85037850,
+      "address": "Musée d'Art et Archéologie, Avenue de la Sénatorerie, Guéret, Creuse, Nouvelle-Aquitaine",
+      "postalCode": "23000",
+      "city": "Guéret",
+      "district": null,
+      "department": "Creuse",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 46.165922,
+      "longitude": 1.871624,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T14:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 85037850,
+        "name": "Jardin public Ferdinand Villard",
+        "slug": "jardin-public-ferdinand-villard690_7694_13238_17900",
+        "address": "Musée d'Art et Archéologie, Avenue de la Sénatorerie, Guéret, Creuse, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location62398027.jpg",
+        "imageCredits": "© Guéret, musée d'art et d'archéologie",
+        "postalCode": "23000",
+        "city": "Guéret",
+        "district": null,
+        "department": "Creuse",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 46.165922,
+        "longitude": 1.871624,
+        "description": {
+          "de": "Die öffentlichen Anlagen ist Ferdinand Villard an Anfang des 19\\. Jahrhunderts von Germain Sauvanet, dem Departementsarchitekten des Hohlen (1849-1916) eingerichtet worden. Die sich von Pariser Leistungen des Zweiten Kaiserreiches und von der III. Republik inspirierende Garten bietet(schenkt) mehrere Anblicke(Gesichtspunkte) an: \"Englischer\" landschaftlicher Garten, regelmäßiger Garten \"der Französischen\", rückt, den aromatischen Pflanzen geweiht, auseinander... Er bietet(schenkt) auch mehrere Werke zu betrachtenden Bildhauerkünsten an.",
+          "en": "The public garden Ferdinand Villard was done up at the beginning of the 19th century by German Sauvanet, departmental architect of the Creuse (1849-1916). Drawing inspiration from Parisian realisations of the Second Empire and from the IIIth Republic, the garden offers several aspects: \"English-style\" environmental garden, \"French-style\" regular garden, space devoted to the aromatic plants... He(It) also offers several statuary works to contemplate.",
+          "it": "Il giardino Ferdinand Villard pubblico fu rinnovato all'inizio del 19esimo secolo da Sauvanet tedesco, architetto dipartimentale di Creuse (1849-1916). Traendo l'inspirazione da realizzazioni Parigine del Secondo Impero e dalla repubblica IIIth, il giardino offre parecchi aspetti: \"Stile(Classe) inglese\" giardino ambientale, \"stile(classe) francese\" giardino regolare(fisso), spazio dedicato agli impianti(piante) aromatici... Lui anche offre parecchi lavori(opere) statuari per contemplare.",
+          "fr": "Le jardin public Ferdinand Villard a été aménagé au début du XIXe siècle par Germain Sauvanet, architecte départemental de la Creuse (1849-1916). S'inspirant des réalisations parisiennes du Second Empire et de la IIIe République, le jardin offre plusieurs aspects : jardin paysager « à l'anglaise », jardin régulier « à la française », espace dédié aux plantes aromatiques... Il offre aussi plusieurs œuvres statuaires à contempler.",
+          "es": "El parque público Ferdinand Villard ha sido dispuesto al principio del siglo 19 por Germán Sauvanet, arquitecto departamental de la Hueca (1849-1916). Inspirándose en las realizaciones parisinas del Segundo Imperio y de la IIIa República, el jardín ofrece varios aspectos: jardín paisajístico(abierto) «a la inglesa», jardín regular «a la francesa», espacia dedicado a las plantas aromáticas... Él ofrece también varias obras estatuarias que hay que contemplar."
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": null,
+        "links": [],
+        "insee": null,
+        "phone": "05 55 52 37 98",
+        "tags": [
+          {
+            "id": 31,
+            "label": "Public garden"
+          },
+          {
+            "id": 28,
+            "label": "Botanical garden or arboretum"
+          },
+          {
+            "id": 24,
+            "label": "French garden"
+          },
+          {
+            "id": 25,
+            "label": "English garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-20T16:01:28.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [
+        {
+          "value": "05 55 52 37 98",
+          "type": "phone",
+          "prefix": "tel:"
+        },
+        {
+          "value": "musee@ville-gueret.fr",
+          "type": "email",
+          "prefix": "mailto:"
+        }
+      ],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "16:00",
+      "lastDate": "2019-06-07",
+      "lastTimeStart": "09:00",
+      "lastTimeEnd": "16:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "Musée d'art et d'archéologie"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Animation pour scolaires le vendredi",
+          "slug": "animation-pour-scolaires-le-vendredi",
+          "id": 52510
+        },
+        {
+          "label": "Les animaux au jardin",
+          "slug": "les-animaux-au-jardin",
+          "id": 52519
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Animation pour scolaires le vendredi",
+              "slug": "animation-pour-scolaires-le-vendredi",
+              "id": 52510
+            }
+          ]
+        },
+        {
+          "name": "Thème 2019",
+          "access": "public",
+          "slug": "theme-2019",
+          "tags": [
+            {
+              "label": "Les animaux au jardin",
+              "slug": "les-animaux-au-jardin",
+              "id": 52519
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 78256823,
+      "slug": "decouverte-du-jardin-de-badoris_702732",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/decouverte-du-jardin-de-badoris_702732",
+      "title": {
+        "fr": "Découverte du jardin de Badoris"
+      },
+      "description": {
+        "fr": "Visite libre et échanges avec les propriétaires."
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": "https://cibul.s3.amazonaws.com/6adb8d0a950c4fb2a546b57187a9d7ac.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/6adb8d0a950c4fb2a546b57187a9d7ac.thumb.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/6adb8d0a950c4fb2a546b57187a9d7ac.full.image.jpg",
+      "age": null,
+      "accessibility": [],
+      "updatedAt": "2019-02-18T10:28:53.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "© DRAC SB",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Le jardin de Badoris",
+      "locationUid": 40218668,
+      "address": "51 Route de Badoris, Fléac, Charente, Nouvelle-Aquitaine",
+      "postalCode": "16730",
+      "city": "Fléac",
+      "district": null,
+      "department": "Charente",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 45.652967,
+      "longitude": 0.093062,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T12:00:00.000Z",
+          "end": "2019-06-07T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T12:00:00.000Z",
+          "end": "2019-06-08T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T07:00:00.000Z",
+          "end": "2019-06-09T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T12:00:00.000Z",
+          "end": "2019-06-09T16:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 40218668,
+        "name": "Le jardin de Badoris",
+        "slug": "le-jardin-de-badoris84_7694_13238_17900",
+        "address": "51 Route de Badoris, Fléac, Charente, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location61243660.jpg",
+        "imageCredits": "DRAC SB.",
+        "postalCode": "16730",
+        "city": "Fléac",
+        "district": null,
+        "department": "Charente",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 45.652967,
+        "longitude": 0.093062,
+        "description": {
+          "de": "Zwei Leidenschaften im Unisono: Zahlreiche von Gérard wiederbesuchte Gegenstände(Ziele) beleben die Rabatten und von Christiane geschaffene Massive. In diesem Jahr können Sie zahlreiche Gemüsevarietés und vermisste heilkräftige Pflanzen beobachten(einhalten). Das ist eine Einladung zur Entdeckung einer Oase der Ruhe.\nFläche: 1 000 m2",
+          "en": "Two passions in unison: numerous objects visited again by Gérard liven up(lead) beds and massifs created by Christiane. This year, you will be able to observe many varieties of vegetables and missing curative plants. It is an invitation to the discovery of a haven of peace.\nArea: 1 000 m2",
+          "it": "Due passioni in unisono: gli oggetti(scopi) numerosi visitati di nuovo da Gérard ravvivano (conducono) letti e i massicci creati da Christiane. Questo anno, sarà capace di osservare molte varietà di vegetali(verdure) e dispersi d'impianti(di piante) curativi. È un invito alla scoperta di un rifugio di pace.\nArea: 1 000 m2",
+          "fr": "Deux passions à l'unisson : de nombreux objets revisités par Gérard animent les platebandes et massifs créés par Christiane. Cette année, vous pourrez observer de nombreuses variétés de légumes et plantes médicinales disparues. C'est une invitation à la découverte d'un havre de paix.\n\nSuperficie : 1 000 m2",
+          "es": "Dos pasiones al unísono: numerosos objetos vueltos a visitar por Gérard animan(presentan) las platabandas y los macizos creados por Christiane. Este año, usted podrá observar numerosas variedades de verduras y plantas medicinales desaparecidas. Es una invitación en el descubrimiento de un abra de paz.\nSuperficie: 1 000 m2"
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": null,
+        "links": [],
+        "insee": null,
+        "phone": "05 45 91 00 44",
+        "tags": [
+          {
+            "id": 30,
+            "label": "Private garden"
+          },
+          {
+            "id": 32,
+            "label": "Exceptional opening"
+          },
+          {
+            "id": 27,
+            "label": "Contemporary garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-18T10:25:19.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "12:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "14:00",
+      "lastTimeEnd": "18:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "DRAC Nouvelle-Aquitaine"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "id": 52517
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite libre",
+              "slug": "visite-libre",
+              "id": 52517
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 52799520,
+      "slug": "decouverte-du-jardin_96",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/decouverte-du-jardin_96",
+      "title": {
+        "fr": "Découverte du jardin"
+      },
+      "description": {
+        "fr": "Visite libre du jardin."
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": "https://cibul.s3.amazonaws.com/33beeb90ce68438f96be052462a4069b.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/evtb33beeb90ce68438f96be052462a4069b.base.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/evf33beeb90ce68438f96be052462a4069b.base.image.jpg",
+      "age": null,
+      "accessibility": [],
+      "updatedAt": "2019-01-23T11:22:01.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "© Christian Provost",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": {
+        "fr": "Possibilité de contribution au profit de l'AEMC - Amis des Enfants Malades de la Charente."
+      },
+      "registrationUrl": null,
+      "locationName": "Le jardin de Chalonne",
+      "locationUid": 33011982,
+      "address": "415 Route de Vars - Chalonne, 16160 Gond-Pontouvre, Charente, Nouvelle-Aquitaine",
+      "postalCode": "16160",
+      "city": "Gond-Pontouvre",
+      "district": null,
+      "department": "Charente",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 45.692749,
+      "longitude": 0.154843,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T12:00:00.000Z",
+          "end": "2019-06-07T16:30:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T12:00:00.000Z",
+          "end": "2019-06-08T16:30:00.000Z"
+        },
+        {
+          "start": "2019-06-09T07:00:00.000Z",
+          "end": "2019-06-09T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T12:00:00.000Z",
+          "end": "2019-06-09T16:30:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 33011982,
+        "name": "Le jardin de Chalonne",
+        "slug": "le-jardin-de-chalonne443_7694_13238_17900",
+        "address": "415 Route de Vars - Chalonne, 16160 Gond-Pontouvre, Charente, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location83928162.jpg",
+        "imageCredits": "© Propriétaire",
+        "postalCode": "16160",
+        "city": "Gond-Pontouvre",
+        "district": null,
+        "department": "Charente",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 45.692749,
+        "longitude": 0.154843,
+        "description": {
+          "de": "Kleiner Garten in einigen Schritten von Charente, wo Brunnen, Schotter, Durcheinander lebenskräftiger Pflanzen, Blumen taupières und Sträucher entschleiern sich je nach dem Besuch(Besichtigung). Fläche: 1 200 m2",
+          "en": "Small garden a few steps away from the Charente where fountain, rocks, mole traps, muddle of enduring plants, flowers and shrubs come to light according to visit. Area: 1 200 m2",
+          "it": "Il piccolo giardino alcuni passi lontano(via) da Charente dove la fontana, le rocce(i rock), le trappole di neo(molo), la confusione d'impianti(di piante) duraturi, fiori e arbusti(bibite di succo di frutta e aceto) vengono alla luce secondo visita(soggiorno). Area: 1 200 m2",
+          "fr": "Petit jardin à quelques pas de la Charente où fontaine, rocailles, taupières, méli-mélo de plantes vivaces, fleurs et arbustes se dévoilent au fur et à mesure de la visite.\nSuperficie : 1 200 m2",
+          "es": "Pequeño jardín a unos pasos de Charente donde fuente, rocallas, taupières, méli-melodrama de plantas vivaces, flores y arbustos se desvelan a medida que la visita. Superficie: 1 200 m2"
+        },
+        "access": {
+          "de": "D 737 Direktion(Richtung) Aigre Montignac",
+          "en": "D 737 Direction(Management) Aigre Montignac",
+          "it": "D 737 Direzione(Indicazione) (direzione) Aigre Montignac",
+          "fr": "D 737 Direction Aigre Montignac",
+          "es": "D 737 Dirección Aigre Montignac"
+        },
+        "countryCode": "fr",
+        "website": null,
+        "links": [],
+        "insee": "16154",
+        "phone": "06 74 46 22 07",
+        "tags": [
+          {
+            "id": 30,
+            "label": "Private garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2018-12-18T09:02:31.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "12:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "14:00",
+      "lastTimeEnd": "18:30",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "DRAC Nouvelle-Aquitaine"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "id": 52517
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite libre",
+              "slug": "visite-libre",
+              "id": 52517
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 84485425,
+      "slug": "fabrication-dun-nichoir-a-osmies",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/fabrication-dun-nichoir-a-osmies",
+      "title": {
+        "fr": "Fabrication d'un nichoir à osmies"
+      },
+      "description": {
+        "fr": "Venez découvrir l'utilité des insectes au jardin et apprendre à fabriquer un nichoir à osmies."
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": "https://cibul.s3.amazonaws.com/a607e5cfa55f40e7974c47f8ba8528f0.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/a607e5cfa55f40e7974c47f8ba8528f0.thumb.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/a607e5cfa55f40e7974c47f8ba8528f0.full.image.jpg",
+      "age": {
+        "min": 7,
+        "max": 12
+      },
+      "accessibility": [
+        "mi"
+      ],
+      "updatedAt": "2019-02-21T08:50:27.000Z",
+      "range": {
+        "fr": "Vendredi 7 juin, 09h00, 10h00, 14h00, 15h00",
+        "en": "Friday 7 June, 09:00, 10:00, 14:00, 15:00"
+      },
+      "imageCredits": "http://cabanedetellus.free.fr",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Parc Rivière",
+      "locationUid": 69098164,
+      "address": "174 rue Mandron, 33000, Bordeaux, Gironde, Nouvelle-Aquitaine, France",
+      "postalCode": "33300",
+      "city": "Bordeaux",
+      "district": null,
+      "department": "Gironde",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 44.856097,
+      "longitude": -0.584936,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T08:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T08:00:00.000Z",
+          "end": "2019-06-07T09:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T12:00:00.000Z",
+          "end": "2019-06-07T13:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T13:00:00.000Z",
+          "end": "2019-06-07T14:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 69098164,
+        "name": "Parc Rivière",
+        "slug": "parc-riviere422_7694_13238_17900",
+        "address": "174 rue Mandron, 33000, Bordeaux, Gironde, Nouvelle-Aquitaine, France",
+        "image": "//cibul.s3.amazonaws.com/location53018953.jpg",
+        "imageCredits": "© Ville de Bordeaux",
+        "postalCode": "33300",
+        "city": "Bordeaux",
+        "district": null,
+        "department": "Gironde",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 44.856097,
+        "longitude": -0.584936,
+        "description": {
+          "de": "Bewaldeter Park einer ehemaligen bürgerlichen Eigenschaft(Eigentums) im reichen aufgepflanzten Erbe. Er schützt das Haus des Gärtners und der Natur in der Stadt.\nFläche: 4 Hektar",
+          "en": "Wooded park of an old(former) bourgeois property in rich sported heritage. He(It) shelters House of the Gardener and Nature in town.\nArea: 4 hectares",
+          "it": "Parco boscoso della proprietà borghese (vecchia) precedente in eredità sfoggiata ricca (tenute(proprietà)). Lui ripara la Casa del Giardiniere e la Natura in città.\nArea: 4 ettari",
+          "fr": "Parc boisé d'une ancienne propriété bourgeoise au riche patrimoine arboré. Il abrite la Maison du Jardinier et de la Nature en Ville. \n\nSuperficie : 4 hectares",
+          "es": "Parque arbolado de una antigua propiedad burguesa al patrimonio rico y enarbolado(lucido). Él abriega la Casa del Jardinero y la Naturaleza en Ciudad.\nSuperficie: 4 hectáreas"
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": "http://www.bordeaux.fr",
+        "links": [],
+        "insee": null,
+        "phone": "05 56 43 28 90",
+        "tags": [
+          {
+            "id": 31,
+            "label": "Public garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-21T08:40:37.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "10:00",
+      "lastDate": "2019-06-07",
+      "lastTimeStart": "15:00",
+      "lastTimeEnd": "16:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "Bordeaux Métropole"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Animation pour scolaires le vendredi",
+          "slug": "animation-pour-scolaires-le-vendredi",
+          "id": 52510
+        },
+        {
+          "label": "Les animaux au jardin",
+          "slug": "les-animaux-au-jardin",
+          "id": 52519
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Animation pour scolaires le vendredi",
+              "slug": "animation-pour-scolaires-le-vendredi",
+              "id": 52510
+            }
+          ]
+        },
+        {
+          "name": "Thème 2019",
+          "access": "public",
+          "slug": "theme-2019",
+          "tags": [
+            {
+              "label": "Les animaux au jardin",
+              "slug": "les-animaux-au-jardin",
+              "id": 52519
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 27907743,
+      "slug": "visite-commentee-de-mon-jardin-zen",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/visite-commentee-de-mon-jardin-zen",
+      "title": {
+        "fr": "Visite d'un jardin zen"
+      },
+      "description": {
+        "fr": "Promenade relaxante, et gratuite dans un lieu d'inspiration Japonaise."
+      },
+      "longDescription": {
+        "fr": "Une promenade pour partager le goût du jardin japonais, avec un commentaire parfois technique, parfois \"philosophique\", pour comprendre l'histoire, l’évolution, la symbolique de ce type de jardin.\n\nSelon l'intérêt du groupe, certains aspects pourront être abordés :\n\n*   la formation d'un arbre en taille nuage (Niwaki),\n*   les techniques du bonsaï,\n*   les symboles de la culture Japonaise."
+      },
+      "keywords": {
+        "fr": [
+          "Japonais",
+          "Niwaki",
+          "Bonsaï",
+          "Torii",
+          "Zen"
+        ]
+      },
+      "html": {
+        "fr": "<p>Une promenade pour partager le goût du jardin japonais, avec un commentaire parfois technique, parfois &quot;philosophique&quot;, pour comprendre l&#39;histoire, l’évolution, la symbolique de ce type de jardin.</p>\n<p>Selon l&#39;intérêt du groupe, certains aspects pourront être abordés :</p>\n<ul>\n<li>la formation d&#39;un arbre en taille nuage (Niwaki),</li>\n<li>les techniques du bonsaï,</li>\n<li>les symboles de la culture Japonaise.</li>\n</ul>"
+      },
+      "image": "https://cibul.s3.amazonaws.com/event_visite-commentee-de-mon-jardin-zen_780460.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/evtbevent_visite-commentee-de-mon-jardin-zen_780460.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/evfevent_visite-commentee-de-mon-jardin-zen_780460.jpg",
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "accessibility": [
+        "hi",
+        "sl"
+      ],
+      "updatedAt": "2019-02-20T13:07:36.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "libre de licence",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": {
+        "fr": "Entrée gratuite, sans limitation du nombre, les jeunes enfants devront être surveillés par leur parents, à cause de la fragilité de certaines présentations. Je soutiens l'action de Médecin du Monde, une urne sera à disposition, si vous voulez participer."
+      },
+      "registrationUrl": null,
+      "locationName": "Mon jardin zen",
+      "locationUid": 26141148,
+      "address": "60 la Coue 86140 Lencloître",
+      "postalCode": "86140",
+      "city": "Lencloître",
+      "district": null,
+      "department": "Vienne",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 46.821477,
+      "longitude": 0.335936,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T12:00:00.000Z",
+          "end": "2019-06-07T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T12:00:00.000Z",
+          "end": "2019-06-08T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T07:00:00.000Z",
+          "end": "2019-06-09T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T12:00:00.000Z",
+          "end": "2019-06-09T16:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 26141148,
+        "name": "Mon jardin zen",
+        "slug": "86140",
+        "address": "60 la Coue 86140 Lencloître",
+        "image": "//cibul.s3.amazonaws.com/location26141148.jpg",
+        "imageCredits": "libre de lecence",
+        "postalCode": "86140",
+        "city": "Lencloître",
+        "district": null,
+        "department": "Vienne",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 46.821477,
+        "longitude": 0.335936,
+        "description": {
+          "fr": "De forte inspiration asiatique, ce parc a été planté il y a 35 ans par un passionné. Quelques créations ludiques permettront de découvrir les subtilités de la philosophie bouddhiste et l'art du Bonsaïs."
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": null,
+        "links": [],
+        "insee": null,
+        "phone": "06 42 02 68 78",
+        "tags": [
+          {
+            "id": 33,
+            "label": "First participation"
+          },
+          {
+            "id": 32,
+            "label": "Exceptional opening"
+          },
+          {
+            "id": 25,
+            "label": "English garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-20T13:05:29.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "12:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "14:00",
+      "lastTimeEnd": "18:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "Particulier"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite commentée",
+          "slug": "visite-commentee",
+          "id": 52518
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite commentée",
+              "slug": "visite-commentee",
+              "id": 52518
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 49697324,
+      "slug": "rendez-vous-aux-jardins-2019_668",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/rendez-vous-aux-jardins-2019_668",
+      "title": {
+        "fr": "Rendez-vous aux Jardins 2019"
+      },
+      "description": {
+        "fr": "Découvrez le jardin républicain, réalisation unique au monde !"
+      },
+      "longDescription": {
+        "fr": "Les jardins du gué constituent un parc de 4 ha, au bord d'une rivière, dans lequel vous pourrez découvrir le nouvel espace créé en 2018 : le calendrier républicain. En effet, pendant la Révolution Française, un nouveau calendrier avait été institué dans lequel tous les saints avaient été remplacés par des noms de plantes, d'outils ou d'animaux de la vie rurale. C'est ce que nous avons reconstitué et que nous vous invitons à venir découvrir à l'occasion des rendez-vous aux jardins 2019, dans une réalisation unique au monde."
+      },
+      "keywords": null,
+      "html": {
+        "fr": "<p>Les jardins du gué constituent un parc de 4 ha, au bord d&#39;une rivière, dans lequel vous pourrez découvrir le nouvel espace créé en 2018 : le calendrier républicain. En effet, pendant la Révolution Française, un nouveau calendrier avait été institué dans lequel tous les saints avaient été remplacés par des noms de plantes, d&#39;outils ou d&#39;animaux de la vie rurale. C&#39;est ce que nous avons reconstitué et que nous vous invitons à venir découvrir à l&#39;occasion des rendez-vous aux jardins 2019, dans une réalisation unique au monde.</p>"
+      },
+      "image": "https://cibul.s3.amazonaws.com/0cb5874f4ad646629da66a0207dceeb6.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/evtb0cb5874f4ad646629da66a0207dceeb6.base.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/evf0cb5874f4ad646629da66a0207dceeb6.base.image.jpg",
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "accessibility": [],
+      "updatedAt": "2019-03-05T13:06:12.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "Bernard Merlet",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": {
+        "fr": "Adultes : 4€ / Enfants de 7-14 ans :  2,50€."
+      },
+      "registrationUrl": null,
+      "locationName": "Les jardins du Gué",
+      "locationUid": 1535821,
+      "address": "Lieu-dit Le Gué de Flais, 79390 Lhoumois, Deux-Sèvres, Nouvelle-Aquitaine",
+      "postalCode": "79390",
+      "city": "Lhoumois",
+      "district": null,
+      "department": "Deux-Sèvres",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 46.711348,
+      "longitude": -0.145524,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T12:00:00.000Z",
+          "end": "2019-06-07T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T12:00:00.000Z",
+          "end": "2019-06-08T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T07:00:00.000Z",
+          "end": "2019-06-09T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T12:00:00.000Z",
+          "end": "2019-06-09T16:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 1535821,
+        "name": "Les jardins du Gué",
+        "slug": "les-jardins-du-gue_7694_13238_17900",
+        "address": "Lieu-dit Le Gué de Flais, 79390 Lhoumois, Deux-Sèvres, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location33757470.jpg",
+        "imageCredits": "© Bernard Merlet Les Jardins du Gué",
+        "postalCode": "79390",
+        "city": "Lhoumois",
+        "district": null,
+        "department": "Deux-Sèvres",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 46.711348,
+        "longitude": -0.145524,
+        "description": {
+          "de": "Auf dem Flussufer Thouet wird dieser Blumenpark von 4 Hektar von sieben Gärten, Reichen von etwa 2000 Arten gebildet(gegründet). Diesem bukolischen Angestellten(Rahmen) werden Sie den Garten der Reisenden, den Garten der Liebe, den Garten der Köstlichen, den Garten der Künste, den Schlemmerhaften Garten, den Garten der mutigen Männer und den Garten von Zeit(Wetter) nacheinander öffnen(entdecken). Dieser Park hat das Warenkennzeichen Bemerkenswerter Garten und der Große Preis des Nationalen Wettbewerbes der Schrebergärten zum Teil(Seite) Schlemmerhafter Garten erhalten. Zu besuchen, ohne zu zögern. Neuheit 2018: im Garten von Zeit(Wetter), dem Kalender der Französischen Revolution, sicher ein Weltalleinverkauf!",
+          "en": "On the river bank Thouet, this floral park of 4 hectares is established(constituted) of seven gardens, rich of some 2000 sorts(species). In this bucolic executive(frame), you will discover successively the Garden of the Travellers, the Garden of Love, the Garden of the Succulent, the Garden of Arts, the Greedy Garden, the Garden of the Brave men and the Garden of Time(Weather). This park obtained the label Remarkable Garden and the Grand Prix(Prize) of the National Competition(Help) of Vegetable gardens for part(party) Greedy Garden. To visit without hesitating. Novelty 2018: in the Garden of Time(Weather), the French Revolutionary calendar, undoubtedly worldwide exclusive rights!",
+          "it": "Sulla banca fluviale(del fiume) Thouet, questo parco floreale di 4 ettari è istituito (costituito) di sette giardini, ricchi di circa 2000 specie(tipi) (la specie). In questa struttura(cornice) bucolica (il dirigente), scoprirà successivamente il Giardino dei Viaggiatori(Viaggiatori di commercio), il Giardino d'Amore, il Giardino della Pianta grassa, il Giardino d'Arti, il Giardino Avido, il Giardino degli uomini Coraggiosi e il Giardino di Tempo (il Tempo). Questo parco ha ottenuto l'etichetta Remarkable Garden e il Gran premio (il Premio) della Concorrenza(Gara) Nazionale (l'Aiuto) di giardini Vegetali(Di verdura) per parte il Giardino Avido (del partito). Visitare senza esitazione. Novità il 2018: nel Giardino di Tempo (Tempo), il calendario Rivoluzionario(Rotatorio) francese, i diritti esclusivi indubbiamente mondiali! parcheggio di",
+          "fr": "Sur le bord de la rivière Le Thouet, ce parc floral de 4 hectares est constitué de sept jardins, riches de quelques 2000 espèces. Dans ce cadre bucolique, vous découvrirez successivement le Jardin des Voyageurs, le Jardin de l'Amour, le Jardin des Succulentes, le Jardin des Arts, le Jardin Gourmand, le Jardin des Braves et le Jardin du Temps. Ce parc a obtenu le label Jardin Remarquable et le Grand Prix du Concours National des Jardins Potagers pour la partie Jardin Gourmand. A visiter sans hésiter. Nouveauté 2018 : dans le Jardin du Temps, le calendrier républicain, sans doute une exclusivité mondiale !",
+          "es": "Sobre el borde(orilla) del río Thouet, este parque floral de 4 hectáreas está constituido de siete jardines, ricos en unas 2000 especies. En este marco bucólico, usted descubrirá sucesivamente el Jardín de los Viajeros, el Jardín del Amor, el Jardín de las Suculentas, el Jardín de las Artes, el Jardín Goloso, el Jardín de los Valientes y el Jardín del Tiempo. Este parque obtuvo la marca de fábrica Jardín Notable y el Gran Precio del Concurso Nacional de los Huertos de la parte Jardín Goloso. Al visitar sin vacilar. Novedad 2018: ¡en el Jardín del Tiempo, el calendario republicano, sin duda una exclusiva mundial!"
+        },
+        "access": {
+          "de": "Parkplatz",
+          "en": "parking lot",
+          "fr": "parking",
+          "es": "aparcamiento de coches"
+        },
+        "countryCode": "fr",
+        "website": "http://www.jardinsdugue.eu",
+        "links": [
+          "https://www.facebook.com/jardinsdugue/"
+        ],
+        "insee": null,
+        "phone": "05 49 69 88 52",
+        "tags": [
+          {
+            "id": 38,
+            "label": "Jardin remarquable"
+          },
+          {
+            "id": 25,
+            "label": "English garden"
+          },
+          {
+            "id": 28,
+            "label": "Botanical garden or arboretum"
+          },
+          {
+            "id": 29,
+            "label": "Vegetable garden, orchard"
+          },
+          {
+            "id": 30,
+            "label": "Private garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-03-05T13:06:12.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "12:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "14:00",
+      "lastTimeEnd": "18:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "Les Jardins du Gué"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite commentée",
+          "slug": "visite-commentee",
+          "id": 52518
+        },
+        {
+          "label": "Les animaux au jardin",
+          "slug": "les-animaux-au-jardin",
+          "id": 52519
+        },
+        {
+          "label": "Tarif préférentiel",
+          "slug": "tarif-preferentiel",
+          "id": 52521
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite commentée",
+              "slug": "visite-commentee",
+              "id": 52518
+            }
+          ]
+        },
+        {
+          "name": "Thème 2019",
+          "access": "public",
+          "slug": "theme-2019",
+          "tags": [
+            {
+              "label": "Les animaux au jardin",
+              "slug": "les-animaux-au-jardin",
+              "id": 52519
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Tarif préférentiel",
+              "slug": "tarif-preferentiel",
+              "id": 52521
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 86653214,
+      "slug": "decouverte-dun-jardin-prive_693",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/decouverte-dun-jardin-prive_693",
+      "title": {
+        "fr": "Découverte d'un jardin privé"
+      },
+      "description": {
+        "fr": "Visite à la fois ludique et pédagogique"
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": false,
+      "thumbnail": false,
+      "originalImage": false,
+      "age": {
+        "min": 18,
+        "max": 99
+      },
+      "accessibility": [
+        "mi"
+      ],
+      "updatedAt": "2019-03-04T09:32:52.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Le jardin raconté",
+      "locationUid": 88864807,
+      "address": "Le Peuch, 19100 Brive-la-Gaillarde, Corrèze, Nouvelle-Aquitaine",
+      "postalCode": "19100",
+      "city": "Brive-la-Gaillarde",
+      "district": null,
+      "department": "Corrèze",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 45.111574,
+      "longitude": 1.537625,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T15:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T15:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T07:00:00.000Z",
+          "end": "2019-06-09T15:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 88864807,
+        "name": "Le jardin raconté",
+        "slug": "le-jardin-raconte720_7694_13238_17900",
+        "address": "Le Peuch, 19100 Brive-la-Gaillarde, Corrèze, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location80636277.jpg",
+        "imageCredits": "© Jean-Jacques Champ",
+        "postalCode": "19100",
+        "city": "Brive-la-Gaillarde",
+        "district": null,
+        "department": "Corrèze",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 45.111574,
+        "longitude": 1.537625,
+        "description": {
+          "de": "Der Ziergarten stellt ein Hundert Bäume und ursprüngliche Sträucher aller Kontinente, die von zehn Rosensträucher begleitet sind und eine große Zahl(Anzahl) von lebenskräftigen Pflanzen vor. Die Obstbäume bieten an, übertreiben übliche(laufende) Arten, einige weniger gestreute(verschüttete) Varietés (nashi, plaqueminier (Khaki) und Hybriden Pflaumen / Aprikosen). Man findet da ebenfalls kleine Früchte (Erdbeeren, Himbeeren, Johannisbeeren). Der Gemüsegarten wird sowohl ohne Pestizid als auch keinen Kunstdünger bearbeitet.\nFläche: 7 500 m2",
+          "en": "The garden of enjoyment(approval) presents a hundred of trees and shrubs native to all continents accompanied by dozens of rosebushes and a large number of enduring plants. The orchard proposes, outrages(exaggerates) common sorts(species), some less spread varieties (nashi, plaqueminier (persimmon) and hybrids plums / apricots). Small fruits (strawberries, raspberries, redcurrants) are found there also. The kitchen garden is worked without pesticide nor chemical fertilizer.\nArea: 7 500 m2",
+          "it": "Il giardino di godimento (l'approvazione) presenta cento d'abitante del luogo d'arbusti(di bibite di succo di frutta e aceto) e d'alberi(di tendiscarpe) a tutti continenti accompagnati da dozzine di rosai e una grande quantità d'impianti(di piante) duraturi. Il frutteto fa richiesta di matrimonio, gli oltraggi (esagera) specie(tipi) comuni (la specie), un po' meno varietà di diffusione(gamma) (nashi, plaqueminier (il cachi) e le prugne d'ibridi / le albicocche(gli albicocchi)). I piccoli frutti(frutta) (le fragole, i lamponi, redcurrants) sono trovati là anche. L'orto è lavorato senza pesticida, né fertilizzante chimico.\nArea: 7 500 m2",
+          "fr": "Le jardin d'agrément présente une centaine d'arbres et arbustes originaires de tous les continents accompagnés par des dizaines de rosiers et un grand nombre de plantes vivaces. Le verger propose, outre des espèces courantes, quelques variétés moins répandues (nashi, plaqueminier, kaki, et des hybrides prunes/abricots). On y trouve également des petits fruits (fraises, framboises, groseilles). Le potager est travaillé sans pesticide ni engrais chimique.\n\nSuperficie : 7 500 m2",
+          "es": "El jardín de consentimiento presenta una centena de árboles y arbustos originarios de todos los continentes acompañados por decenas de rosales y un gran número de plantas vivaces. El vergel propone, además de especies corrientes, unas variedades menos difundidas (nashi, plaqueminier (caqui) y híbridos ciruelas / albaricoques). Encontramos allí también pequeños frutos (fresas, frambuesas, grosellas). La huerta es trabajada sin plaguicida ni abono químico.\nSuperficie: 7 500 m2"
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": "http://le-jardin-raconté.fr",
+        "links": [],
+        "insee": null,
+        "phone": "05 55 85 81 81",
+        "tags": [
+          {
+            "id": 30,
+            "label": "Private garden"
+          },
+          {
+            "id": 29,
+            "label": "Vegetable garden, orchard"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-03-04T09:32:52.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "17:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "09:00",
+      "lastTimeEnd": "17:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "Le Jardin raconté"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite commentée",
+          "slug": "visite-commentee",
+          "id": 52518
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite commentée",
+              "slug": "visite-commentee",
+              "id": 52518
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 49039318,
+      "slug": "deambulation-libre-dans-le-jardin",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/deambulation-libre-dans-le-jardin",
+      "title": {
+        "fr": "Déambulation libre dans le jardin"
+      },
+      "description": {
+        "fr": "Visite libre."
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": "https://cibul.s3.amazonaws.com/fa280bbbb7264fe199e7ba3570fa252b.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/fa280bbbb7264fe199e7ba3570fa252b.thumb.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/fa280bbbb7264fe199e7ba3570fa252b.full.image.jpg",
+      "age": null,
+      "accessibility": [],
+      "updatedAt": "2019-02-18T12:32:16.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "© Aux portes de l'Océan",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Jardin médiéval",
+      "locationUid": 37495815,
+      "address": "21 route de Saint-Palais, 17200 Saint-Sulpice-de-Royan, Charente-Maritime, Nouvelle-Aquitaine",
+      "postalCode": "17200",
+      "city": "Saint-Sulpice-de-Royan",
+      "district": null,
+      "department": "Charente-Maritime",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 45.672075,
+      "longitude": -1.014892,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T07:00:00.000Z",
+          "end": "2019-06-09T10:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 37495815,
+        "name": "Jardin médiéval",
+        "slug": "jardin-medieval220_7694_13238_17900",
+        "address": "21 route de Saint-Palais, 17200 Saint-Sulpice-de-Royan, Charente-Maritime, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location79747718.jpg",
+        "imageCredits": "© DRAC - SB",
+        "postalCode": "17200",
+        "city": "Saint-Sulpice-de-Royan",
+        "district": null,
+        "department": "Charente-Maritime",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 45.672075,
+        "longitude": -1.014892,
+        "description": {
+          "de": "Der Garten sammelt ungefähr 200 Pflanzen, Bäume und die im Mittelalter benutzten Sträucher und die sorgfältig etikettiert sind. Quadrate, die plessis im Kastanienbaum umgeben sind, nehmen den Gemüsegarten (Samen, Wurzeln, Pflanzen Topf), im einfachen (Heilkräftigen), die Unterschriften und die Giftstoffe, die Textilien und die Tinctoriales, die Schönheitsmittel und der Garten von Marie auf. Das Geräusch des Wassers des zentralen Brunnens verleiht ein Heiterkeitsgefühl in diesem Ort.",
+          "en": "The garden gathers(collects) about 200 plants, trees and shrubs used in Middle Ages and carefully labelled. Squares, surrounded plessis in chestnut, receive the kitchen garden (seeds, roots, plants with jar), the simple (curative), signatures and toxins, textiles(textile industries) and tinctoriales, beauty products and Marie's garden. The water sound of the central fountain confers a feeling of serenity on this place.",
+          "it": "Il giardino si riunisce (raccoglie) circa 200 piante, alberi(tendiscarpe) e arbusti(bibite di succo di frutta e aceto) usati in Mezze età e accuratamente marcati(classificati). I quadrati(Le piazze), plessis circondato in castagna(castagno), ricevono l'orto (i semi, le radici, le piante con vaso), il (rimedio) semplice, le firme(indicazioni) e le tossine, i tessuti (le industrie tessili) e tinctoriales, prodotti di bellezza(bello) e il giardino di Marie. Il suono(rumore) dell'acqua(idrico) della fontana centrale conferisce un sentimento di serenità su questo posto(luogo).",
+          "fr": "Le jardin rassemble environ 200 plantes, arbustes et arbres utilisé au Moyen Âge. Dans des carrés entourés de plessis en tiges de châtaignier, des plantes plus ou moins rares sont regroupées par thèmes de leur utilisation : médicine, nourriture, épice, teinture, textile, décoration, toxicité. Chaque plante est accompagnée de son étiquette avec son nom et son rôle au Moyen Âge. Le bruit de l’eau de la fontaine centrale ajoute à la sérénité du cadre minéral et végétal.",
+          "es": "El jardín reúne cerca de 200 plantas, árboles y arbustos utilizados a la Edad media y cuidadosamente etiquetadas. Cuadrados, rodeados a plessis en castaño, acogen la huerta (semillas, raíces, plantas a vasija), la (medicinales) simples, las firmas(signaturas) y los tóxicos, los tejidos y los tinctoriales, los cosméticos y el jardín de Marie. El ruido del agua de la fuente central confiere un sentimiento de serenidad sobre este lugar."
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": null,
+        "links": [],
+        "insee": null,
+        "phone": "06 29 30 62 19",
+        "tags": [
+          {
+            "id": 23,
+            "label": "Medieval garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-18T12:29:42.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "18:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "09:00",
+      "lastTimeEnd": "12:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "DRAC Nouvelle-Aquitaine"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "id": 52517
+        },
+        {
+          "label": "Les animaux au jardin",
+          "slug": "les-animaux-au-jardin",
+          "id": 52519
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite libre",
+              "slug": "visite-libre",
+              "id": 52517
+            }
+          ]
+        },
+        {
+          "name": "Thème 2019",
+          "access": "public",
+          "slug": "theme-2019",
+          "tags": [
+            {
+              "label": "Les animaux au jardin",
+              "slug": "les-animaux-au-jardin",
+              "id": 52519
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 75723361,
+      "slug": "visite-dujardin-du-chateau-de-la-guyonniere",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/visite-dujardin-du-chateau-de-la-guyonniere",
+      "title": {
+        "fr": "Découverte du jardin du château de la Guyonnière"
+      },
+      "description": {
+        "fr": "Évolution d'une ouche, du XIVe siècle à nos jours, et des animaux qui l'occupent."
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": "https://cibul.s3.amazonaws.com/cda65b659203438699c6a91f50fe2b96.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/cda65b659203438699c6a91f50fe2b96.thumb.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/cda65b659203438699c6a91f50fe2b96.full.image.jpg",
+      "age": null,
+      "accessibility": [],
+      "updatedAt": "2019-02-22T13:00:07.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "© Christian Rome",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Jardin du château de la Guyonnière",
+      "locationUid": 42355668,
+      "address": "Château de la Guyonnière , 79420 Beaulieu-sous-Parthenay, Deux-Sèvres, Nouvelle-Aquitaine",
+      "postalCode": "79420",
+      "city": "Beaulieu-sous-Parthenay",
+      "district": null,
+      "department": "Deux-Sevres",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 46.582763,
+      "longitude": -0.24304,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T11:30:00.000Z",
+          "end": "2019-06-07T15:30:00.000Z"
+        },
+        {
+          "start": "2019-06-08T06:30:00.000Z",
+          "end": "2019-06-08T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T12:00:00.000Z",
+          "end": "2019-06-08T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T06:30:00.000Z",
+          "end": "2019-06-09T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T12:00:00.000Z",
+          "end": "2019-06-09T16:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 42355668,
+        "name": "Jardin du château de la Guyonnière",
+        "slug": "jardin-de-la-guyonniere_13238_17900",
+        "address": "Château de la Guyonnière , 79420 Beaulieu-sous-Parthenay, Deux-Sèvres, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location75037733.jpg",
+        "imageCredits": "© Château de la Guyonnière",
+        "postalCode": "79420",
+        "city": "Beaulieu-sous-Parthenay",
+        "district": null,
+        "department": "Deux-Sevres",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 46.582763,
+        "longitude": -0.24304,
+        "description": {
+          "de": "[STOP_TRANSLATION]Ce jardin d'inspiration médiévale entouré de fossés et de douves est composé de neuf clos sur une île que l'on visite en franchissant un petit pont-levis. Créé par le paysagiste Alain Richert en 1987, chaque petit jardin développe un thème : jardin des abeilles, jardin de petits fruits, paradis, pommes d'or, véroniques, poisons, itéas, papillons, halésias. Des carrés de vivaces, des roses anciennes enlacent des fruitiers centenaires. Le label Jardin Remarquable est en cours de renouvellement.\n1 hectare",
+          "en": "[STOP_TRANSLATION]Ce jardin d'inspiration médiévale entouré de fossés et de douves est composé de neuf clos sur une île que l'on visite en franchissant un petit pont-levis. Créé par le paysagiste Alain Richert en 1987, chaque petit jardin développe un thème : jardin des abeilles, jardin de petits fruits, paradis, pommes d'or, véroniques, poisons, itéas, papillons, halésias. Des carrés de vivaces, des roses anciennes enlacent des fruitiers centenaires. Le label Jardin Remarquable est en cours de renouvellement.\n1 hectare",
+          "it": "[STOP_TRANSLATION] Ce jardin d'inspiration médiévale entouré de fossés et de douves est composé de neuf clos sur une île que l'on visite en franchissant un petit pont-levis. Créé par le paysagiste Alain Richert en il 1987, chaque petit jardin développe un thème: jardin des abeilles, frutti(frutta) di jardin de petits, paradis, pommes d'or, véroniques, veleni, itéas, papillons, halésias. Des carrés de vivaces, des roses anciennes enlacent des fruitiers centenaires. Etichetta Le Jardin Remarquable est en cours de renouvellement.\n1 ettaro",
+          "fr": "Ce jardin d'inspiration médiévale entouré de fossés et de douves est composé de neuf clos sur une île que l'on visite en franchissant un petit pont-levis. Créé par le paysagiste Alain Richert en 1987, chaque petit jardin développe un thème : jardin des abeilles, jardin de petits fruits, paradis, pommes d'or, véroniques, poisons, itéas, papillons, halésias. Des carrés de vivaces, des roses anciennes enlacent des fruitiers centenaires. \n\n1 hectare",
+          "es": "[STOP_TRANSLATION]Ce jardin d'inspiration médiévale entouré de fossés et de douves est composé de neuf clos sur une île que l'on visite en franchissant un petit pont-levis. Créé par le paysagiste Alain Richert en 1987, chaque petit jardin développe un thème : jardin des abeilles, jardin de petits fruits, paradis, pommes d'or, véroniques, poisons, itéas, papillons, halésias. Des carrés de vivaces, des roses anciennes enlacent des fruitiers centenaires. Le label Jardin Remarquable est en cours de renouvellement.\n1 hectare"
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": null,
+        "links": [],
+        "insee": null,
+        "phone": "05 49 70 60 09",
+        "tags": [
+          {
+            "id": 38,
+            "label": "Jardin remarquable"
+          },
+          {
+            "id": 23,
+            "label": "Medieval garden"
+          },
+          {
+            "id": 30,
+            "label": "Private garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-22T12:58:08.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "12:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "14:00",
+      "lastTimeEnd": "18:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "rendez vous au jardin"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite commentée",
+          "slug": "visite-commentee",
+          "id": 52518
+        },
+        {
+          "label": "Les animaux au jardin",
+          "slug": "les-animaux-au-jardin",
+          "id": 52519
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite commentée",
+              "slug": "visite-commentee",
+              "id": 52518
+            }
+          ]
+        },
+        {
+          "name": "Thème 2019",
+          "access": "public",
+          "slug": "theme-2019",
+          "tags": [
+            {
+              "label": "Les animaux au jardin",
+              "slug": "les-animaux-au-jardin",
+              "id": 52519
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 66699536,
+      "slug": "jardin-d-inspiration-japonaise",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/jardin-d-inspiration-japonaise",
+      "title": {
+        "fr": "Jardin d 'inspiration Japonaise"
+      },
+      "description": {
+        "fr": "Expositions d'artistes dispercés dans le jardins"
+      },
+      "longDescription": {
+        "fr": "Jardin d'inspiration Japonaise dans lequel des artistes exposent."
+      },
+      "keywords": null,
+      "html": {
+        "fr": "<p>Jardin d&#39;inspiration Japonaise dans lequel des artistes exposent.</p>"
+      },
+      "image": "https://cibul.s3.amazonaws.com/99444d4894714d03822f2a0816ea4ed4.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/evtb99444d4894714d03822f2a0816ea4ed4.base.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/evf99444d4894714d03822f2a0816ea4ed4.base.image.jpg",
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "accessibility": [],
+      "updatedAt": "2019-02-22T13:05:45.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "Vouneuil sous Biard",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Paysages aquatiques et d'ailleurs",
+      "locationUid": 80027345,
+      "address": "241 rue du Maréchal-Leclerc, 79000 Niort, Deux-Sèvres, Nouvelle-Aquitaine",
+      "postalCode": "79000",
+      "city": "Niort",
+      "district": null,
+      "department": "Deux-Sèvres",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 46.341676,
+      "longitude": -0.446847,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T16:30:00.000Z"
+        },
+        {
+          "start": "2019-06-08T08:00:00.000Z",
+          "end": "2019-06-08T17:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T08:00:00.000Z",
+          "end": "2019-06-09T17:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 80027345,
+        "name": "Paysages aquatiques et d'ailleurs",
+        "slug": "paysages-aquatiques-et-dailleurs458_7694_13238_17900",
+        "address": "241 rue du Maréchal-Leclerc, 79000 Niort, Deux-Sèvres, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location17148167.jpg",
+        "imageCredits": "© Paysages aquatiques et d'ailleurs",
+        "postalCode": "79000",
+        "city": "Niort",
+        "district": null,
+        "department": "Deux-Sèvres",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 46.341676,
+        "longitude": -0.446847,
+        "description": {
+          "de": "Präsentation, bei einem Landschaftsarchitekten, eines Gartens japanischer Inspiration mit Flüssen, Brunnen, tsukubaïs (Waschungsbecken), Bäumen, die in der Wolke-Niwaki-, Terrassen Wald, Laube geschnitten sind.\nFläche: 500 m2",
+          "en": "Presentation(Display), at a landscapist, of a garden of Japanese inspiration with rivers, fountains, tsukubaïs (ponds of ablution), trees cut in cloud-Niwaki-, terraces wood, arbour.\nArea: 500 m2",
+          "it": "Presentazione (Esposizione(Dimostrazione)), a un landscapist, di un giardino d'inspirazione giapponese con fiumi, fontane, tsukubaïs (stagni d'abluzione), taglio(riduzione) d'alberi(di tendiscarpe) in nuvola(nube)-iwaki--, legno di terrazze, pergolato.\nArea: 500 m2",
+          "fr": "Présentation, chez un paysagiste, d'un jardin d'inspiration japonaise avec rivières, fontaines, tsukubaïs (bassins d'ablution), arbres taillés en nuage -Niwaki-, terrasses bois, tonnelle.\n\nSuperficie : 500 m2",
+          "es": "Presentación, en un paisajista, de un jardín de inspiración japonesa con ríos, fuentes, tsukubaïs (estanques(cuencas) de ablución), árboles cortados en nube-Niwaki-, terrazas bosque(madera), cenador.\nSuperficie: 500 m2"
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": "http://www.francis.pillet.com",
+        "links": [],
+        "insee": null,
+        "phone": "06 09 37 20 21",
+        "tags": [
+          {
+            "id": 30,
+            "label": "Private garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-22T13:03:46.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "18:30",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "10:00",
+      "lastTimeEnd": "19:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "JARDINS AQUATIQUES ET D AILLEURS"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Exposition",
+          "slug": "exposition",
+          "id": 52515
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Exposition",
+              "slug": "exposition",
+              "id": 52515
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 98500311,
+      "slug": "rendez-vous-aux-jardins-dordesa",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/rendez-vous-aux-jardins-dordesa",
+      "title": {
+        "fr": "Rendez-vous aux jardins d'ordesa"
+      },
+      "description": {
+        "fr": "Il vous faudra zigzaguer dans le hameau d'Eyparsac, prendre le chemin qui vous fera découvrir le jardin dans son écrin champêtre et bucolique."
+      },
+      "longDescription": {
+        "fr": "Au coeur du Pays de Pompadour, sur la commune de Beyssac, le jardin est invisible de la route. Il vous faudra zigzaguer dans le hameau d'Eyparsac pour prendre le chemin qui vous fera découvrir le jardin dans son écrin champêtre et bucolique.\n\nLe jardin a été conçu autour d'une pépinière, en fonction des éléments naturels et de la topographie du paysage. Différentes mises en scènes de [plantes vivaces, d'arbustes et de graminées](https://www.lesjardinsdordesa.com/catalogue.html), de sculpture en osier vivant, un verger de pommiers ancien et d'autres surprises attendent le visiteur.\n\nAgréé [jardin pédagogique](https://www.lesjardinsdordesa.com/jardins-pedagogiques-article-3-0-4.html) par la chambre d'agriculture en 2014 et refuge LPO sur 2 ha.\n\nVente de végétaux sur place\n\n[Les jardins d'ordesa](https://www.lesjardinsdordesa.com/)"
+      },
+      "keywords": null,
+      "html": {
+        "fr": "<p>Au coeur du Pays de Pompadour, sur la commune de Beyssac, le jardin est invisible de la route. Il vous faudra zigzaguer dans le hameau d&#39;Eyparsac pour prendre le chemin qui vous fera découvrir le jardin dans son écrin champêtre et bucolique.</p>\n<p>Le jardin a été conçu autour d&#39;une pépinière, en fonction des éléments naturels et de la topographie du paysage. Différentes mises en scènes de <a href=\"https://www.lesjardinsdordesa.com/catalogue.html\">plantes vivaces, d&#39;arbustes et de graminées</a>, de sculpture en osier vivant, un verger de pommiers ancien et d&#39;autres surprises attendent le visiteur.</p>\n<p>Agréé <a href=\"https://www.lesjardinsdordesa.com/jardins-pedagogiques-article-3-0-4.html\">jardin pédagogique</a> par la chambre d&#39;agriculture en 2014 et refuge LPO sur 2 ha.</p>\n<p>Vente de végétaux sur place</p>\n<p><a href=\"https://www.lesjardinsdordesa.com/\">Les jardins d&#39;ordesa</a></p>"
+      },
+      "image": "https://cibul.s3.amazonaws.com/1068eb5e44db4e2c93366cc83403c2ee.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/1068eb5e44db4e2c93366cc83403c2ee.thumb.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/1068eb5e44db4e2c93366cc83403c2ee.full.image.jpg",
+      "age": {
+        "min": 1,
+        "max": 99
+      },
+      "accessibility": [],
+      "updatedAt": "2019-02-11T16:53:17.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "Isabelle Berthon",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": null,
+      "registrationUrl": null,
+      "locationName": "Les jardins d'Ordesa",
+      "locationUid": 46919971,
+      "address": "Eyparsac, 19230 Beyssac, Corrèze",
+      "postalCode": "19230",
+      "city": "Beyssac",
+      "district": null,
+      "department": "Corrèze",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 45.382744,
+      "longitude": 1.409062,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T07:00:00.000Z",
+          "end": "2019-06-09T16:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 46919971,
+        "name": "Les jardins d'Ordesa",
+        "slug": "les-jardins-dordesa_7694_13238_17900",
+        "address": "Eyparsac, 19230 Beyssac, Corrèze",
+        "image": "//cibul.s3.amazonaws.com/location7603422.jpg",
+        "imageCredits": "© Propriétaire",
+        "postalCode": "19230",
+        "city": "Beyssac",
+        "district": null,
+        "department": "Corrèze",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 45.382744,
+        "longitude": 1.409062,
+        "description": {
+          "de": "Mitten im Land von Pompadour ist dieser Garten um die Baumschule entsprechend den natürlichen Elementen und der Topografie der Landschaft begriffen(entworfen) worden. Verschiedene Einsätze in den Szenen lebenskräftiger Pflanzen und Gräser, Skulpturen in der Korbweide, Obstbäume alter Apfelbäume... Zugelassener \" pädagogischer Garten \" und Asyl LPO. Gesamtansicht © Besitzer(Besitzerin)",
+          "en": "At the heart of the country of Pompadour, this garden was conceived(designed) around the tree nursery according to the natural elements and to the topography of landscape. Different stakes in stages(scenes) of enduring and gramineous plants, wicker sculptures, an orchard of old(former) apple trees... Recognised(Acknowledged) \" pedagogic garden \" and refuge LPO. General survey © possessing",
+          "it": "Al centro del paese di Pettinatura alla Pompadour, questo giardino è stato concepito (progettato(disegnato)) intorno alla camera dei bambini d'albero(di tendiscarpe) secondo gli elementi naturali e alla topografia di paesaggio. Interessi(Puntate) diversi in scene(luoghi) (stadi(palcoscenici)) di tollerare e impianti(piante) gramineous, sculture di vimini, un frutteto dei meli (vecchi) precedenti... \"Giardino pedagogico (Riconosciuto) riconosciuto\" e rifugio LPO. Quadro generale(Indagine) generale © possesso",
+          "fr": "Au coeur du pays de Pompadour, ce jardin a été conçu autour de la pépinière en fonction des éléments naturels et de la topographie du paysage. Différentes mises en scènes de plantes vivaces et graminées, de sculptures en osier, un verger de pommiers anciens... Agréé « jardin pédagogique » et refuge LPO.\nVue générale © propriétaire",
+          "es": "En el corazón del país de Pompadour, este jardín ha sido concebido alrededor del vivero con arreglo de los elementos naturales y de la topografía del paisaje. Diferentes posturas en escenas de plantas vivaces y gramíneas, de esculturas en mimbre, un vergel de antiguos manzanos... Aceptado \" jardín pedagógico \" y refugio LPO. Vista general © propietario"
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": "http://www.lesjardinsdordesa.com",
+        "links": [],
+        "insee": "19261",
+        "phone": "06 72 41 57 27",
+        "tags": [
+          {
+            "id": 27,
+            "label": "Contemporary garden"
+          },
+          {
+            "id": 30,
+            "label": "Private garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2018-12-18T09:09:02.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "18:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "09:00",
+      "lastTimeEnd": "18:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "Les jardins d'ordesa"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "id": 52517
+        },
+        {
+          "label": "Les animaux au jardin",
+          "slug": "les-animaux-au-jardin",
+          "id": 52519
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite libre",
+              "slug": "visite-libre",
+              "id": 52517
+            }
+          ]
+        },
+        {
+          "name": "Thème 2019",
+          "access": "public",
+          "slug": "theme-2019",
+          "tags": [
+            {
+              "label": "Les animaux au jardin",
+              "slug": "les-animaux-au-jardin",
+              "id": 52519
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 2060416,
+      "slug": "rendez-vous-aux-jardins_329",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/rendez-vous-aux-jardins_329",
+      "title": {
+        "fr": "Découverte d'un jardin naturel en Grande Champagne"
+      },
+      "description": {
+        "fr": "Balade dans ce jardin d’agrément un peu sauvage, où les diverses floraisons des rosiers, arbustes et vivaces apportent des couleurs offrant un voyage dans l’imaginaire."
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": "https://cibul.s3.amazonaws.com/835c75f87f324e9c8a34c9290ab3ea01.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/835c75f87f324e9c8a34c9290ab3ea01.thumb.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/835c75f87f324e9c8a34c9290ab3ea01.full.image.jpg",
+      "age": {
+        "min": 7,
+        "max": 77
+      },
+      "accessibility": [],
+      "updatedAt": "2019-02-06T16:56:22.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "Jacques Léoty",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": {
+        "fr": "Adulte : 2€"
+      },
+      "registrationUrl": null,
+      "locationName": "L'Ouche",
+      "locationUid": 71145166,
+      "address": "Roissac - 521 rue Fontaine François 1er, 16130 Angeac-Champagne, Charente, Nouvelle-Aquitaine",
+      "postalCode": "16130",
+      "city": "Angeac-Champagne",
+      "district": null,
+      "department": "Charente",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 45.623377,
+      "longitude": -0.280946,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T12:00:00.000Z",
+          "end": "2019-06-07T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T12:00:00.000Z",
+          "end": "2019-06-08T16:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T07:00:00.000Z",
+          "end": "2019-06-09T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T12:00:00.000Z",
+          "end": "2019-06-09T16:00:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 71145166,
+        "name": "L'Ouche",
+        "slug": "louche684_7694_13238_17900",
+        "address": "Roissac - 521 rue Fontaine François 1er, 16130 Angeac-Champagne, Charente, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location93795349.jpg",
+        "imageCredits": "© Jacques Léoty",
+        "postalCode": "16130",
+        "city": "Angeac-Champagne",
+        "district": null,
+        "department": "Charente",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 45.623377,
+        "longitude": -0.280946,
+        "description": {
+          "de": "[STOP_TRANSLATION]Le jardin de type « à l'anglaise », propose 600 variétés d'arbres et d'arbustes, ainsi que de nombreux massifs de vivaces. Au gré de la balade, dans ce jardin d'agrément un peu sauvage, iris, rosiers, sauges... apportent les notes pastels ou plus chaudes du mordoré au pourpre offrant un voyage dans l'imaginaire. Plus haut la « Dame aux roses » sculptée dans la pierre de pays, veille. Le regard du promeneur se perd à l'horizon sur l'océan du vignoble et de la campagne paisible, un moment hors du temps. Les options du jardinier sont : l'espace, les perspectives, la variété botanique, et le naturel, sans chimie.\nSuperficie : 2 ha",
+          "en": "[STOP_TRANSLATION]Le jardin de type « à l'anglaise », propose 600 variétés d'arbres et d'arbustes, ainsi que de nombreux massifs de vivaces. Au gré de la balade, dans ce jardin d'agrément un peu sauvage, iris, rosiers, sauges... apportent les notes pastels ou plus chaudes du mordoré au pourpre offrant un voyage dans l'imaginaire. Plus haut la « Dame aux roses » sculptée dans la pierre de pays, veille. Le regard du promeneur se perd à l'horizon sur l'océan du vignoble et de la campagne paisible, un moment hors du temps. Les options du jardinier sont : l'espace, les perspectives, la variété botanique, et le naturel, sans chimie.\nSuperficie : 2 ha",
+          "it": "[STOP_TRANSLATION] il Le jardin de type \"l'à l'anglaise\", proponga 600 variétés d'arbres e d'arbustes, i massicci di ainsi que de nombreux de vivaces. Au gré de la balade, gavitelli ce jardin d'agrément un peu sauvage, iride, rosiers, sauges... pastelli di apportent les notes ou più chaudes du mordoré au pourpre offrant un voyage gavitelli l'imaginaire. Più haut la «Dama aux roses» sculptée gavitelli la pierre de pays, veille. Le considerano(riguardano) il du promeneur se perd à l'horizon sur l'océan du vignoble et de la campagne paisible, un il momento il hors du temps. Opzioni di Les du jardinier sont: l'espace, les prospettive, la variété botanique, et le naturel, sans chimie.\nSuperficie: 2 ah",
+          "fr": "Le jardin de type « à l'anglaise », propose 600 variétés d'arbres et d'arbustes, ainsi que de nombreux massifs de vivaces. Au gré de la balade, dans ce jardin d'agrément un peu sauvage, iris, rosiers, sauges... apportent les notes pastels ou plus chaudes du mordoré au pourpre offrant un voyage dans l'imaginaire. Plus haut la « Dame aux roses » sculptée dans la pierre de pays, veille. Le regard du promeneur se perd à l'horizon sur l'océan du vignoble et de la campagne paisible, un moment hors du temps. Les options du jardinier sont : l'espace, les perspectives, la variété botanique, et le naturel, sans chimie.\n\nSuperficie : 2 ha",
+          "es": "[STOP_TRANSLATION]Le jardin de type « à l'anglaise », propose 600 variétés d'arbres et d'arbustes, ainsi que de nombreux massifs de vivaces. Au gré de la balade, dans ce jardin d'agrément un peu sauvage, iris, rosiers, sauges... apportent les notes pastels ou plus chaudes du mordoré au pourpre offrant un voyage dans l'imaginaire. Plus haut la « Dame aux roses » sculptée dans la pierre de pays, veille. Le regard du promeneur se perd à l'horizon sur l'océan du vignoble et de la campagne paisible, un moment hors du temps. Les options du jardinier sont : l'espace, les perspectives, la variété botanique, et le naturel, sans chimie.\nSuperficie : 2 ha"
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": null,
+        "links": [],
+        "insee": null,
+        "phone": "05 45 83 25 38",
+        "tags": [
+          {
+            "id": 25,
+            "label": "English garden"
+          },
+          {
+            "id": 30,
+            "label": "Private garden"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-06T16:49:33.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "12:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "14:00",
+      "lastTimeEnd": "18:00",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "L'Ouche"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "id": 52517
+        },
+        {
+          "label": "Tarif habituel",
+          "slug": "tarif-habituel",
+          "id": 52522
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite libre",
+              "slug": "visite-libre",
+              "id": 52517
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Tarif habituel",
+              "slug": "tarif-habituel",
+              "id": 52522
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "uid": 79310305,
+      "slug": "rendez-vous-aux-jardins-des-roses",
+      "canonicalUrl": "https://openagenda.com/rdvj-2019-nouvelle-aquitaine/event/rendez-vous-aux-jardins-des-roses",
+      "title": {
+        "fr": "Rendez-vous aux jardins des roses"
+      },
+      "description": {
+        "fr": "Plus de 850 variétés de roses anciennes et modernes et 36 arbres fruitiers"
+      },
+      "longDescription": null,
+      "keywords": null,
+      "html": {
+        "fr": null
+      },
+      "image": "https://cibul.s3.amazonaws.com/9b73cd0d3cb0453dbcafacff151ca3e8.base.image.jpg",
+      "thumbnail": "https://cibul.s3.amazonaws.com/9b73cd0d3cb0453dbcafacff151ca3e8.thumb.image.jpg",
+      "originalImage": "https://cibul.s3.amazonaws.com/9b73cd0d3cb0453dbcafacff151ca3e8.full.image.jpg",
+      "age": null,
+      "accessibility": [
+        "mi",
+        "vi"
+      ],
+      "updatedAt": "2019-02-06T17:11:52.000Z",
+      "range": {
+        "fr": "7 - 9 juin",
+        "en": "7 - 9 June"
+      },
+      "imageCredits": "© Christian Méjerad",
+      "origin": {
+        "uid": 50409423,
+        "title": "Rendez-vous aux jardins 2019 : Nouvelle-Aquitaine",
+        "url": "http://rendezvousauxjardins.fr",
+        "slug": "rdvj-2019-nouvelle-aquitaine",
+        "oaUrl": "https://openagenda.com/agendas/50409423"
+      },
+      "conditions": {
+        "fr": "La roseraie est accessible aux personnes à mobilité réduite."
+      },
+      "registrationUrl": null,
+      "locationName": "Le Jardin des Roses",
+      "locationUid": 80933981,
+      "address": "23 rue de Bellevue, 16710 Saint-Yrieix-sur-Charente, Charente, Nouvelle-Aquitaine",
+      "postalCode": "16710",
+      "city": "Saint-Yrieix-sur-Charente",
+      "district": null,
+      "department": "Charente",
+      "region": "Nouvelle-Aquitaine",
+      "latitude": 45.671475,
+      "longitude": 0.149062,
+      "timings": [
+        {
+          "start": "2019-06-07T07:00:00.000Z",
+          "end": "2019-06-07T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-07T12:00:00.000Z",
+          "end": "2019-06-07T16:30:00.000Z"
+        },
+        {
+          "start": "2019-06-08T07:00:00.000Z",
+          "end": "2019-06-08T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-08T12:00:00.000Z",
+          "end": "2019-06-08T16:30:00.000Z"
+        },
+        {
+          "start": "2019-06-09T07:00:00.000Z",
+          "end": "2019-06-09T10:00:00.000Z"
+        },
+        {
+          "start": "2019-06-09T12:00:00.000Z",
+          "end": "2019-06-09T16:30:00.000Z"
+        }
+      ],
+      "location": {
+        "uid": 80933981,
+        "name": "Le Jardin des Roses",
+        "slug": "jardin-des-roses262_7694_13238_17900",
+        "address": "23 rue de Bellevue, 16710 Saint-Yrieix-sur-Charente, Charente, Nouvelle-Aquitaine",
+        "image": "//cibul.s3.amazonaws.com/location81569449.jpg",
+        "imageCredits": "© Christian Méjeard",
+        "postalCode": "16710",
+        "city": "Saint-Yrieix-sur-Charente",
+        "district": null,
+        "department": "Charente",
+        "region": "Nouvelle-Aquitaine",
+        "latitude": 45.671475,
+        "longitude": 0.149062,
+        "description": {
+          "de": "In den engazonnées Alleen kann der Besucher eine Sammlung von mehr als 650 Varietés alter und moderner Rosen öffnen(entdecken). Der Garten schützt einen Gemüsegarten und zahlreiche Obsthändler ebenfalls. Die Unterhaltung(Erhaltung) wird von den Besitzern(Besitzerinnen) nur gemacht. Der Rosengarten wird von der Französischen Gesellschaft Rosen erkannt, deren Besitzer haftend ist.\nFläche: 3 300 m2",
+          "en": "In the turfed paths, the visitor will be able to discover a collection of more than 650 varieties of modern and old(former) roses. The garden also shelters a kitchen garden and numerous fruiterers. Interview(Maintenance) is only made by the owners. The rose garden is recognised by Roses' French Company(Society), the owner of which is close-fitting(adjacent).\nArea: 3 300 m2",
+          "it": "Nei sentieri(percorsi) ricoperti di zolle erbose, il visitatore sarà capace di scoprire una raccolta(collezione) di più di 650 varietà di roses (vecchio) moderno e precedente. Il giardino anche ripara un orto e fruttivendoli numerosi. L'intervista (la Manutenzione) è solo fatta dai proprietari. Il rosaio è riconosciuto da French Company di Roses (la Società), il proprietario di cui è la prova(l'installazione) della fine (adiacente).\nArea: 3 300 m2",
+          "fr": "Dans les allées engazonnées, le visiteur pourra découvrir une collection de plus de 720 variétés de roses anciennes et modernes. Le jardin abrite également un potager et de nombreux fruitiers. L'entretien est fait uniquement par les propriétaires. La roseraie est reconnue par la Société Française de Roses, dont le propriétaire est adhérent.t. \n\nSuperficie : 3 300 m2",
+          "es": "En las alamedas engazonnées, el visitante podrá descubrir una colección de más de 650 variedades de antiguas y modernas rosas. El jardín también abriega una huerta y a numerosos fruteros. El mantenimiento(entrevista) es hecho únicamente por los propietarios. La rosalera es reconocida por la Sociedad francesa de Rosas, de la que el propietario es adherente.\nSuperficie: 3 300 m2"
+        },
+        "access": {},
+        "countryCode": "fr",
+        "website": "http://www.lejardindesroses-16710.fr/",
+        "links": [],
+        "insee": null,
+        "phone": "05 45 92 45 85",
+        "tags": [
+          {
+            "id": 30,
+            "label": "Private garden"
+          },
+          {
+            "id": 28,
+            "label": "Botanical garden or arboretum"
+          }
+        ],
+        "timezone": "Europe/Paris",
+        "updatedAt": "2019-02-06T17:07:34.000Z",
+        "extId": null,
+        "country": {
+          "en": "France (Metropolitan)",
+          "fr": "France (Métropole)",
+          "code": "FR"
+        }
+      },
+      "registration": [],
+      "firstDate": "2019-06-07",
+      "firstTimeStart": "09:00",
+      "firstTimeEnd": "12:00",
+      "lastDate": "2019-06-09",
+      "lastTimeStart": "14:00",
+      "lastTimeEnd": "18:30",
+      "featured": 0,
+      "hasPrivateCustomFields": false,
+      "custom": {},
+      "contributor": {
+        "organization": "le jardin des roses-16710"
+      },
+      "category": null,
+      "tags": [
+        {
+          "label": "Visite libre",
+          "slug": "visite-libre",
+          "id": 52517
+        },
+        {
+          "label": "Gratuit",
+          "slug": "gratuit",
+          "id": 52520
+        }
+      ],
+      "tagGroups": [
+        {
+          "name": "Types d'événement",
+          "access": "public",
+          "slug": "types-devenement",
+          "tags": [
+            {
+              "label": "Visite libre",
+              "slug": "visite-libre",
+              "id": 52517
+            }
+          ]
+        },
+        {
+          "name": "Conditions de participation",
+          "access": "public",
+          "slug": "conditions-de-participation",
+          "tags": [
+            {
+              "label": "Gratuit",
+              "slug": "gratuit",
+              "id": 52520
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
