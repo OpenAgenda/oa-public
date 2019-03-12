@@ -2,9 +2,9 @@
   "attributes" : [ {
     "name" : "InterfaceLanguage",
     "mapTo" : "interfaceLang"
-  }, { 
-    "name" : "Title", 
-    "mapTo" : "title" 
+  }, {
+    "name" : "Title",
+    "mapTo" : "title"
   }, {
     "name" : "Description",
     "mapTo" : "description"
@@ -48,23 +48,23 @@
     "name" : "GoogleItineraryLink",
     "mapTo" : "googleItineraryLink"
   }, {
-    "name": "DateRange", 
-    "mapTo": "dateRange" 
+    "name": "DateRange",
+    "mapTo": "dateRange"
   }, {
-    "name": "LocationName", 
-    "mapTo": "placeName" 
+    "name": "LocationName",
+    "mapTo": "placeName"
   }, {
-    "name": "PostalCode", 
-    "mapTo": "postalCode" 
+    "name": "PostalCode",
+    "mapTo": "postalCode"
   }, {
-    "name": "Address", 
-    "mapTo": "address" 
+    "name": "Address",
+    "mapTo": "address"
   }, {
-    "name": "Latitude", 
-    "mapTo": "latitude" 
+    "name": "Latitude",
+    "mapTo": "latitude"
   }, {
-    "name": "Longitude", 
-    "mapTo": "longitude" 
+    "name": "Longitude",
+    "mapTo": "longitude"
   }, {
     "name" : "City",
     "mapTo" : "city"
@@ -133,11 +133,11 @@
     "mapTo" : "pinterestShare"
   },{
     "name" : "EmailShareUrl",
-    "mapTo" : "emailShare" 
+    "mapTo" : "emailShare"
   },{
     "name" : "Category",
     "mapTo" : "category"
-  },{ 
+  },{
     "name" : "CategoryLink",
     "mapTo" : "categoryLink"
   }, {
@@ -149,6 +149,9 @@
   }, {
     "name" : "ContributorOrganization",
     "mapTo" : "contributor.organization"
+  }, {
+    "name" : "OriginAgendaSlug",
+    "mapTo" : "origin.slug"
   }, {
     "name" : "OriginAgenda",
     "mapTo" : "origin.title"
