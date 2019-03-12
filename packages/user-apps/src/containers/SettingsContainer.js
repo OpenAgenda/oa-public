@@ -36,10 +36,10 @@ import {
 @connect(
   state => ({
     res: state.res,
-    loading: _.get( state, 'userSettings.loading', true ),
-    user: _.get( state, 'userSettings.user', null ),
-    successMessagesDisplayed: _.get( state, 'userSettings.successMessagesDisplayed', {} ),
-    modal: _.get( state, 'userSettings.modal', {} )
+    loading: state.userSettings.loading,
+    user: state.userSettings.user,
+    successMessagesDisplayed: state.userSettings.successMessagesDisplayed,
+    modal: state.userSettings.modal
   }),
   userSettingsActions
 )

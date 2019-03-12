@@ -24,6 +24,11 @@ const defaults = {
       prefix: '',
       lang: 'fr',
       apiRoot: 'http://localhost:3000'
+    },
+    userSettings: {
+      user: {},
+      modal: {},
+      successMessagesDisplayed: {}
     }
   }
 };
