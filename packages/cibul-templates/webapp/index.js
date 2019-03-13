@@ -51,18 +51,11 @@ history.replace( { state: { notFound: getNotFoundState( apps, history.location.p
 
 history.apps = apps;
 
-const historyActionCreator = historyActionMaker( {
-  history,
-  apps,
-  onLocationChangeStart,
-  onLocationChangeFinish
-} );
-
 const oldHistoryPush = history.push;
 const oldHistoryReplace = history.replace;
 
-history.push = historyActionCreator( oldHistoryPush );
-history.replace = historyActionCreator( oldHistoryReplace );
+history.push = historyActionMaker( { history, apps, action: oldHistoryPush } );
+history.replace = historyActionMaker( { history, apps, action: oldHistoryReplace } );
 
 const headerStore = HeaderManager.createStore( initialState.header );
 

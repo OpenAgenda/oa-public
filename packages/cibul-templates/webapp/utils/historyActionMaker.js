@@ -5,9 +5,10 @@ import getNotFoundState from './getNotFoundState';
 
 export default function historyActionMaker( {
   history,
-  apps
+  apps,
+  action
 } ) {
-  return action => ( path, state ) => {
+  return ( path, state ) => {
     const newLocation = createLocation(
       path,
       state,
