@@ -227,6 +227,34 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
 
     } );
 
+    test( 'should works with a falsy timezone', () => {
+
+      expect( parse.fromEventServiceFormat( {
+        timings: [
+          {
+            "begin": "2019-03-12T23:00:00.000Z",
+            "end": "2019-03-13T22:59:00.000Z"
+          }
+        ]
+      }, {
+        location: { timezone: null }
+      } ).timings ).toEqual( [
+        {
+          "begin": {
+            "date": "2019-03-13",
+            "hours": "00",
+            "minutes": "00"
+          },
+          "end": {
+            "date": "2019-03-13",
+            "hours": "23",
+            "minutes": "59"
+          }
+        }
+      ] );
+
+    } );
+
   } );
 
 } );
