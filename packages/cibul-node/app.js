@@ -72,17 +72,8 @@ if ( TASK || WEB ) {
   require( './agenda/exports' )( app );
 }
 
-app.use( ( req, res, next ) => {
-  next( { code: 404 } );
-} );
+app.use( ( req, res, next ) => next( { code: 404 } ) );
 
-app.use( ( err, req, res, next ) => {
-  // 404s and co are not to be logged by error handler
-  if ( ![ 401, 403, 404, 413 ].includes( _.get( err, 'code', null ) ) ) {
-    errorLogger( 'middleware', err );
-  }
-
-  return cmn.catchError( req, res )( err );
-} );
+app.use( ( err, req, res, next ) => cmn.catchError( req, res )( err ) );
 
 module.exports = app;

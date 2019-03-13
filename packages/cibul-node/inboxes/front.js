@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 const express = require( 'express' );
-const morgan = require( 'morgan' );
 const { promisify } = require( 'util' );
 const ReactDOM = require( 'react-dom/server' );
 
