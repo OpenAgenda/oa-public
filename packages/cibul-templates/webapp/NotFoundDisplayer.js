@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 
 export default class NotFoundDisplayer extends Component {
-  isNotFound = () => Object.values( this.props.apps )
-    .filter( app => app.history )
-    .map( app => ({
-      state: (app.history.location.state || {}),
-      notFoundKey: app.notFoundKey
-    }) )
-    .every( ( { state, notFoundKey } ) => (state.notFound && state.notFound[ notFoundKey ]) );
+  isNotFound = () => {
+    const { history } = this.props;
+    const state = history.location.state || {};
+
+    return Object.values( history.apps )
+      .filter( app => app.notFoundKey )
+      .map( app => app.notFoundKey )
+      .every( notFoundKey => (state.notFound && state.notFound[ notFoundKey ]) );
+  };
 
   state = {
     display: this.isNotFound()
@@ -20,7 +22,7 @@ export default class NotFoundDisplayer extends Component {
   handleLocationChange = () => {
     const display = this.isNotFound();
 
-    if ( display !== this.props.display ) {
+    if ( display !== this.state.display ) {
       this.setState( { display } );
     }
   };
@@ -31,11 +33,8 @@ export default class NotFoundDisplayer extends Component {
     this.unlisten();
   }
 
-  shouldComponentUpdate( nextProps, nextState, nextContext ) {
-    if ( this.state.display !== nextState.display ) {
-      return true;
-    }
-    return false
+  shouldComponentUpdate( nextProps, nextState ) {
+    return this.state.display !== nextState.display;
   }
 
   render() {

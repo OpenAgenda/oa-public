@@ -89,7 +89,7 @@ loadableReady( async () => {
 
       {Object.values( apps ).map( ( { element } ) => element )}
 
-      <NotFoundDisplayer apps={apps} history={history}>
+      <NotFoundDisplayer history={history}>
         <div>Not found !</div>
       </NotFoundDisplayer>
     </HeaderManager>
