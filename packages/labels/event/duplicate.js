@@ -52,7 +52,7 @@ module.exports = {
     "en": "You are about to create a new event based on a precedent."
   },
   "modalReminder": {
-    "fr": "Rappel: un événement unique peut être partagée sur plusieurs agendas. Ne créez pas de doublon ! La duplication permet de créer une annonce différente, généralement pour une nouvelle édition ailleurs dans le temps ou l’espace, en évitant des copier-coller.",
+    "fr": "Rappel: un événement unique peut être partagé sur plusieurs agendas. Ne créez pas de doublon ! La duplication permet de créer une annonce différente, généralement pour une nouvelle édition ailleurs dans le temps ou l’espace, en évitant des copier-coller.",
     "en": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting."
   },
   "createNewEventIn": {
