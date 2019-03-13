@@ -1,6 +1,6 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const VError = require( 'verror' );
 const log = require( '@openagenda/logs' )( 'uncaught' );
 
 process.on( 'uncaughtException', handler.bind( null, 'uncaughtException' ) );
