@@ -1754,30 +1754,6 @@
     core-js "^2.5.7"
     util-deprecate "^1.0.2"
 
-"@storybook/addon-storyshots-puppeteer@^4.1.11":
-  version "4.1.11"
-  resolved "https://registry.npmjs.org/@storybook/addon-storyshots-puppeteer/-/addon-storyshots-puppeteer-4.1.11.tgz#0f3796fe1f927826f05d8bc2dcc209ee56ca4015"
-  integrity sha512-58CNMav/saWaUC3ram45WSDz4VtCBKhb258PEVQD8efBDbaCk3dY3ZsdG57fJJTTxLbJ56SlE+RYgqhi+jZ0Dw==
-  dependencies:
-    "@storybook/node-logger" "4.1.11"
-    core-js "^2.5.7"
-    jest-image-snapshot "^2.6.0"
-    puppeteer "^1.11.0"
-    regenerator-runtime "^0.12.1"
-
-"@storybook/addon-storyshots@^4.1.11":
-  version "4.1.11"
-  resolved "https://registry.npmjs.org/@storybook/addon-storyshots/-/addon-storyshots-4.1.11.tgz#f93ff1a306af1e3b41a4364fddf09ac398d6eb30"
-  integrity sha512-hJfpiAPTGpQJuENuL7bLnDtm2A6MX3a+a0wPo5Jd53dFIICTpbWwISKtFhT0zw8CRRxkHtnLjcQS0qhXqN9TgQ==
-  dependencies:
-    "@storybook/addons" "4.1.11"
-    core-js "^2.5.7"
-    glob "^7.1.3"
-    global "^4.3.2"
-    jest-specific-snapshot "^1.0.0"
-    read-pkg-up "^4.0.0"
-    regenerator-runtime "^0.12.1"
-
 "@storybook/addon-storysource@^4.1.11":
   version "4.1.11"
   resolved "https://registry.npmjs.org/@storybook/addon-storysource/-/addon-storysource-4.1.11.tgz#c758a3b4027775fad4602dda1e1ba77cbcc994ce"
@@ -3808,11 +3784,6 @@ babel-plugin-react-intl@^3.0.1:
     "@babel/runtime" "^7.0.0"
     intl-messageformat-parser "^1.2.0"
     mkdirp "^0.5.1"
-
-babel-plugin-require-context-hook@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/babel-plugin-require-context-hook/-/babel-plugin-require-context-hook-1.0.0.tgz#3f0e7cce87c338f53639b948632fd4e73834632d"
-  integrity sha512-EMZD1563QUqLhzrqcThk759RhuNVX/ZJdrtGK6drwzgvnR+ARjWyXIHPbu+tUNaMGtPz/gQeAM2M6VUw2UiUeA==
 
 babel-plugin-syntax-object-rest-spread@^6.13.0:
   version "6.13.0"
@@ -6086,7 +6057,7 @@ concat-map@0.0.1:
   resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha1-2Klr13/Wjfd5OnMDajug1UBdR3s=
 
-concat-stream@1.6.2, concat-stream@^1.4.1, concat-stream@^1.4.10, concat-stream@^1.4.6, concat-stream@^1.4.7, concat-stream@^1.5.0, concat-stream@^1.5.2, concat-stream@^1.6.0, concat-stream@^1.6.1, concat-stream@~1.6.0:
+concat-stream@^1.4.1, concat-stream@^1.4.10, concat-stream@^1.4.6, concat-stream@^1.4.7, concat-stream@^1.5.0, concat-stream@^1.5.2, concat-stream@^1.6.0, concat-stream@^1.6.1, concat-stream@~1.6.0:
   version "1.6.2"
   resolved "https://registry.npmjs.org/concat-stream/-/concat-stream-1.6.2.tgz#904bdf194cd3122fc675c77fc4ac3d4ff0fd1a34"
   integrity sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==
@@ -8193,7 +8164,7 @@ env-variable@0.0.x:
   resolved "https://registry.npmjs.org/env-variable/-/env-variable-0.0.5.tgz#913dd830bef11e96a039c038d4130604eba37f88"
   integrity sha512-zoB603vQReOFvTg5xMl9I1P2PnHsHQQKTEowsKKD7nseUfJq6UWzK+4YtlWUO1nhiQUxe6XMkk+JleSZD1NZFA==
 
-enzyme-adapter-react-16@^1.1.1, enzyme-adapter-react-16@^1.6.0:
+enzyme-adapter-react-16@^1.1.1:
   version "1.9.1"
   resolved "https://registry.npmjs.org/enzyme-adapter-react-16/-/enzyme-adapter-react-16-1.9.1.tgz#6d49a3a31c3a0fccf527610f31b837e0f307128a"
   integrity sha512-Egzogv1y77DUxdnq/CyHxLHaNxmSSKDDSDNNB/EiAXCZVFXdFibaNy2uUuRQ1n24T2m6KH/1Rw16XDRq+1yVEg==
@@ -8225,14 +8196,14 @@ enzyme-matchers@^7.0.1:
     circular-json-es6 "^2.0.1"
     deep-equal-ident "^1.1.1"
 
-enzyme-to-json@^3.3.0, enzyme-to-json@^3.3.1, enzyme-to-json@^3.3.4:
+enzyme-to-json@^3.3.0, enzyme-to-json@^3.3.1:
   version "3.3.5"
   resolved "https://registry.npmjs.org/enzyme-to-json/-/enzyme-to-json-3.3.5.tgz#f8eb82bd3d5941c9d8bc6fd9140030777d17d0af"
   integrity sha512-DmH1wJ68HyPqKSYXdQqB33ZotwfUhwQZW3IGXaNXgR69Iodaoj8TF/D9RjLdz4pEhGq2Tx2zwNUIjBuqoZeTgA==
   dependencies:
     lodash "^4.17.4"
 
-enzyme@^3.3.0, enzyme@^3.7.0:
+enzyme@^3.3.0:
   version "3.8.0"
   resolved "https://registry.npmjs.org/enzyme/-/enzyme-3.8.0.tgz#646d2d5d0798cb98fdec39afcee8a53237b47ad5"
   integrity sha512-bfsWo5nHyZm1O1vnIsbwdfhU989jk+squU9NKvB+Puwo5j6/Wg9pN5CO0YJelm98Dao3NPjkDZk+vvgwpMwYxw==
@@ -9312,16 +9283,6 @@ extglob@^2.0.4:
     snapdragon "^0.8.1"
     to-regex "^3.0.1"
 
-extract-zip@^1.6.6:
-  version "1.6.7"
-  resolved "https://registry.npmjs.org/extract-zip/-/extract-zip-1.6.7.tgz#a840b4b8af6403264c8db57f4f1a74333ef81fe9"
-  integrity sha1-qEC0uK9kAyZMjbV/Txp0Mz74H+k=
-  dependencies:
-    concat-stream "1.6.2"
-    debug "2.6.9"
-    mkdirp "0.5.1"
-    yauzl "2.4.1"
-
 extsprintf@1.3.0:
   version "1.3.0"
   resolved "https://registry.npmjs.org/extsprintf/-/extsprintf-1.3.0.tgz#96918440e3041a7a414f8c52e3c574eb3c3e1e05"
@@ -9438,7 +9399,7 @@ fbjs@^0.8.0, fbjs@^0.8.1, fbjs@^0.8.9:
     setimmediate "^1.0.5"
     ua-parser-js "^0.7.18"
 
-fd-slicer@~1.0.0, fd-slicer@~1.0.1:
+fd-slicer@~1.0.0:
   version "1.0.1"
   resolved "https://registry.npmjs.org/fd-slicer/-/fd-slicer-1.0.1.tgz#8b5bcbd9ec327c5041bf9ab023fd6750f1177e65"
   integrity sha1-i1vL2ewyfFBBv5qwI/1nUPEXfmU=
@@ -9637,6 +9598,13 @@ final-form@^4.10.0:
   version "4.11.1"
   resolved "https://registry.npmjs.org/final-form/-/final-form-4.11.1.tgz#cf84a995a75140727c3676647d7cdb858869cb22"
   integrity sha512-GuRAcbUE+vs/IFcvsRxMAaz0MQp5QaJKXU8FnNf4qlsVDuKoAyvDJGvvDsSTSgQDixavoxPmqwzJOVXrf0Hw1w==
+  dependencies:
+    "@babel/runtime" "^7.3.1"
+
+final-form@^4.12.0:
+  version "4.12.0"
+  resolved "https://registry.npmjs.org/final-form/-/final-form-4.12.0.tgz#1844e2a3bc9789d51115c76a94d0ea6a19e219c0"
+  integrity sha512-z1fSzDNmIBlDjRMaluM3WgDbcwCFpPm7mvopplgXGMRS49MXR+1n//lteLwPURdGQNOZhWm3GwiEJanEHCItww==
   dependencies:
     "@babel/runtime" "^7.3.1"
 
@@ -13362,19 +13330,6 @@ jest-haste-map@^24.0.0:
     micromatch "^3.1.10"
     sane "^3.0.0"
 
-jest-image-snapshot@^2.6.0:
-  version "2.8.0"
-  resolved "https://registry.npmjs.org/jest-image-snapshot/-/jest-image-snapshot-2.8.0.tgz#9ccccaf532e9e14f2edf1c4fa5a819b4028a3f91"
-  integrity sha512-z1pXPRfCsjg3RqssTgdRJjsEo3W4VNu+0q5d/W8UmmvXTpbjQnTQ3helDn1tX76EZjL5kU79uVhqPhGmeA/m6A==
-  dependencies:
-    chalk "^1.1.3"
-    get-stdin "^5.0.1"
-    lodash "^4.17.4"
-    mkdirp "^0.5.1"
-    pixelmatch "^4.0.2"
-    pngjs "^3.3.3"
-    rimraf "^2.6.2"
-
 jest-jasmine2@^23.6.0:
   version "23.6.0"
   resolved "https://registry.npmjs.org/jest-jasmine2/-/jest-jasmine2-23.6.0.tgz#840e937f848a6c8638df24360ab869cc718592e0"
@@ -13669,22 +13624,6 @@ jest-snapshot@21.2.1:
     natural-compare "^1.4.0"
     pretty-format "^21.2.1"
 
-jest-snapshot@>=20.0.3, jest-snapshot@^24.1.0:
-  version "24.1.0"
-  resolved "https://registry.npmjs.org/jest-snapshot/-/jest-snapshot-24.1.0.tgz#85e22f810357aa5994ab61f236617dc2205f2f5b"
-  integrity sha512-th6TDfFqEmXvuViacU1ikD7xFb7lQsPn2rJl7OEmnfIVpnrx3QNY2t3PE88meeg0u/mQ0nkyvmC05PBqO4USFA==
-  dependencies:
-    "@babel/types" "^7.0.0"
-    chalk "^2.0.1"
-    jest-diff "^24.0.0"
-    jest-matcher-utils "^24.0.0"
-    jest-message-util "^24.0.0"
-    jest-resolve "^24.1.0"
-    mkdirp "^0.5.1"
-    natural-compare "^1.4.0"
-    pretty-format "^24.0.0"
-    semver "^5.5.0"
-
 jest-snapshot@^23.6.0:
   version "23.6.0"
   resolved "https://registry.npmjs.org/jest-snapshot/-/jest-snapshot-23.6.0.tgz#f9c2625d1b18acda01ec2d2b826c0ce58a5aa17a"
@@ -13701,12 +13640,21 @@ jest-snapshot@^23.6.0:
     pretty-format "^23.6.0"
     semver "^5.5.0"
 
-jest-specific-snapshot@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/jest-specific-snapshot/-/jest-specific-snapshot-1.0.0.tgz#157c79e2534a6fea820fd475f5d17740c8f90833"
-  integrity sha512-EjCK8Ob8eneeQCdBuO06J1v1C1jklKK7VvCOG/iwQx+8byZ7iCY8+d9M7xlUJiu76ubycXtSkIrPrL+nqjJsjA==
+jest-snapshot@^24.1.0:
+  version "24.1.0"
+  resolved "https://registry.npmjs.org/jest-snapshot/-/jest-snapshot-24.1.0.tgz#85e22f810357aa5994ab61f236617dc2205f2f5b"
+  integrity sha512-th6TDfFqEmXvuViacU1ikD7xFb7lQsPn2rJl7OEmnfIVpnrx3QNY2t3PE88meeg0u/mQ0nkyvmC05PBqO4USFA==
   dependencies:
-    jest-snapshot ">=20.0.3"
+    "@babel/types" "^7.0.0"
+    chalk "^2.0.1"
+    jest-diff "^24.0.0"
+    jest-matcher-utils "^24.0.0"
+    jest-message-util "^24.0.0"
+    jest-resolve "^24.1.0"
+    mkdirp "^0.5.1"
+    natural-compare "^1.4.0"
+    pretty-format "^24.0.0"
+    semver "^5.5.0"
 
 jest-util@^22.4.3:
   version "22.4.3"
@@ -18423,13 +18371,6 @@ pirates@^4.0.0:
   dependencies:
     node-modules-regexp "^1.0.0"
 
-pixelmatch@^4.0.2:
-  version "4.0.2"
-  resolved "https://registry.npmjs.org/pixelmatch/-/pixelmatch-4.0.2.tgz#8f47dcec5011b477b67db03c243bc1f3085e8854"
-  integrity sha1-j0fc7FARtHe2fbA8JDvB8wheiFQ=
-  dependencies:
-    pngjs "^3.0.0"
-
 pkg-dir@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/pkg-dir/-/pkg-dir-2.0.0.tgz#f6d5d1109e19d63edf428e0bd57e12777615334b"
@@ -18505,11 +18446,6 @@ png-js@>=0.1.0:
   version "0.1.1"
   resolved "https://registry.npmjs.org/png-js/-/png-js-0.1.1.tgz#1cc7c212303acabe74263ec3ac78009580242d93"
   integrity sha1-HMfCEjA6yr50Jj7DrHgAlYAkLZM=
-
-pngjs@^3.0.0, pngjs@^3.3.3:
-  version "3.3.3"
-  resolved "https://registry.npmjs.org/pngjs/-/pngjs-3.3.3.tgz#85173703bde3edac8998757b96e5821d0966a21b"
-  integrity sha512-1n3Z4p3IOxArEs1VRXnZ/RXdfEniAUS9jb68g58FIXMNkPJeZd+Qh4Uq7/e0LVxAQGos1eIUrqrt4FpjdnEd+Q==
 
 point-in-polygon@^1.0.1:
   version "1.0.1"
@@ -19048,7 +18984,7 @@ process@~0.5.1:
   resolved "https://registry.npmjs.org/process/-/process-0.5.2.tgz#1638d8a8e34c2f440a91db95ab9aeb677fc185cf"
   integrity sha1-FjjYqONML0QKkduVq5rrZ3/Bhc8=
 
-progress@^2.0.0, progress@^2.0.1:
+progress@^2.0.0:
   version "2.0.3"
   resolved "https://registry.npmjs.org/progress/-/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA==
@@ -19446,20 +19382,6 @@ punycode@^1.2.4, punycode@^1.3.2, punycode@^1.4.1:
   version "1.4.1"
   resolved "https://registry.npmjs.org/punycode/-/punycode-1.4.1.tgz#c0d5a63b2718800ad8e1eb0fa5269c84dd41845e"
   integrity sha1-wNWmOycYgArY4esPpSachN1BhF4=
-
-puppeteer@^1.11.0:
-  version "1.12.2"
-  resolved "https://registry.npmjs.org/puppeteer/-/puppeteer-1.12.2.tgz#dbc36afc3ba2d7182b1a37523c0081a0e8507c9a"
-  integrity sha512-xWSyCeD6EazGlfnQweMpM+Hs6X6PhUYhNTHKFj/axNZDq4OmrVERf70isBf7HsnFgB3zOC1+23/8+wCAZYg+Pg==
-  dependencies:
-    debug "^4.1.0"
-    extract-zip "^1.6.6"
-    https-proxy-agent "^2.2.1"
-    mime "^2.0.3"
-    progress "^2.0.1"
-    proxy-from-env "^1.0.0"
-    rimraf "^2.6.1"
-    ws "^6.1.0"
 
 pure-color@^1.2.0:
   version "1.3.0"
@@ -20303,7 +20225,7 @@ react-tagsinput@^3.16.1, react-tagsinput@^3.19.0, react-tagsinput@^3.7.0:
   resolved "https://registry.npmjs.org/react-tagsinput/-/react-tagsinput-3.19.0.tgz#6e3b45595f2d295d4657bf194491988f948caabf"
   integrity sha512-ni+/qnZrYrvLg83LtTFHErKy1KQHL0fi0Y6C5jgC1dNUePE9cS/OlQ4XH6JRSjv9GGoeVE0R/ujSBaS1uzCRYQ==
 
-react-test-renderer@^16.0.0-0, react-test-renderer@^16.5.2:
+react-test-renderer@^16.0.0-0:
   version "16.8.1"
   resolved "https://registry.npmjs.org/react-test-renderer/-/react-test-renderer-16.8.1.tgz#72845ad9269be526126e97853311982f781767be"
   integrity sha512-Bd21TN3+YVl6GZwav6O0T6m5UwGfOj+2+xZH5VH93ToD6M5uclN/c+R1DGX49ueG413KZPUx7Kw3sOYz2aJgfg==
@@ -25823,13 +25745,6 @@ ws@^5.2.0, ws@~5.2.0:
   dependencies:
     async-limiter "~1.0.0"
 
-ws@^6.1.0, ws@~6.1.0:
-  version "6.1.3"
-  resolved "https://registry.npmjs.org/ws/-/ws-6.1.3.tgz#d2d2e5f0e3c700ef2de89080ebc0ac6e1bf3a72d"
-  integrity sha512-tbSxiT+qJI223AP4iLfQbkbxkwdFcneYinM2+x46Gx2wgvbaOMO36czfdfVUBRTHvzAMRhDd98sA5d/BuWbQdg==
-  dependencies:
-    async-limiter "~1.0.0"
-
 ws@~3.3.1:
   version "3.3.3"
   resolved "https://registry.npmjs.org/ws/-/ws-3.3.3.tgz#f1cf84fe2d5e901ebce94efaece785f187a228f2"
@@ -25838,6 +25753,13 @@ ws@~3.3.1:
     async-limiter "~1.0.0"
     safe-buffer "~5.1.0"
     ultron "~1.1.0"
+
+ws@~6.1.0:
+  version "6.1.3"
+  resolved "https://registry.npmjs.org/ws/-/ws-6.1.3.tgz#d2d2e5f0e3c700ef2de89080ebc0ac6e1bf3a72d"
+  integrity sha512-tbSxiT+qJI223AP4iLfQbkbxkwdFcneYinM2+x46Gx2wgvbaOMO36czfdfVUBRTHvzAMRhDd98sA5d/BuWbQdg==
+  dependencies:
+    async-limiter "~1.0.0"
 
 x-is-string@^0.1.0:
   version "0.1.0"
@@ -26205,13 +26127,6 @@ yargs@~3.10.0:
     cliui "^2.1.0"
     decamelize "^1.0.0"
     window-size "0.1.0"
-
-yauzl@2.4.1:
-  version "2.4.1"
-  resolved "https://registry.npmjs.org/yauzl/-/yauzl-2.4.1.tgz#9528f442dab1b2284e58b4379bb194e22e0c4005"
-  integrity sha1-lSj0QtqxsihOWLQ3m7GU4i4MQAU=
-  dependencies:
-    fd-slicer "~1.0.1"
 
 yauzl@^2.2.1:
   version "2.10.0"
