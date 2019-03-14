@@ -79,17 +79,19 @@ module.exports = class Languages extends Component {
 
     const labels = flattenLabels( languageLabels, this.props.lang );
 
+    const { strict, required } = this.props.field;
+
     return <div className="language-bar">
       { !this.state.changing ? <ul>
         {pickedLanguages.map( l => <li key={'language-' + l} onClick={this.onChangeStart.bind( this )}>
           <div className="language-item">
             <span>{languages.getLanguageInfo( l ).nativeName}</span>
-            {pickedLanguages.length > 1 && <span className="remove" onClick={this.onRemove.bind( this, l )}>&#10005;</span>}
-            {pickedLanguages.length === 1 && <span className="margin-right-xs"><i className="fa fa-angle-down"></i></span>}
+            {!strict && pickedLanguages.length > 1 && <span className="remove" onClick={this.onRemove.bind( this, l )}>&#10005;</span>}
+            {!strict && pickedLanguages.length === 1 && <span className="margin-right-xs"><i className="fa fa-angle-down"></i></span>}
           </div>
         </li>)}
       </ul> : null }
-      { !this.state.adding && !this.state.changing ? <span className="language-add">
+      { !strict && !this.state.adding && !this.state.changing ? <span className="language-add">
         <a onClick={this.onAddSelectStart.bind( this )}>{labels.addLanguage}</a>
       </span> : null }
       { this.state.adding && <span className="language-add">
