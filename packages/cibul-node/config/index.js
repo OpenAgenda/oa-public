@@ -486,6 +486,10 @@ const config = {
           method: 'get',
           uri: '/:slug/admin/inbox/conversation/:conversationId'
         },
+        agendaSettingsEditApp: {
+          method: 'get',
+          uri: '/:slug/admin/settings'
+        },
         eventShow: {
           method: 'get',
           uri: '/events/:eventSlug'

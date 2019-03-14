@@ -158,25 +158,7 @@ module.exports = path => {
         keysMw.remove(),
         ( req, res, next ) => res.send( { rowAffected: req.result } )
       ]
-    ],
-
-    /**********/
-
-    agendaSettingsEditApp: [ 'get', '/:slug/admin/settings', cmn.verifyIPMiddleware.concat( [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
-      agendaSvc.mw.loadAdminLayout,
-      cmn.loadBaseData( 'oasfmain.css' ),
-      matchEditApp
-    ] ) ],
-
-    agendaSettingsEditSub: [ 'get', '/:slug/admin/settings/?*?', cmn.verifyIPMiddleware.concat( [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
-      agendaSvc.mw.loadAdminLayout,
-      cmn.loadBaseData( 'oasfmain.css' ),
-      matchEditApp
-    ] ) ]
+    ]
   };
 
   const router = modLib.Router( routes );
@@ -192,71 +174,3 @@ module.exports = path => {
   };
 
 };
-
-async function matchEditApp( req, res, next ) {
-  const prefix = req.genUrl( 'agendaSettingsEditApp', { slug: req.params.slug } ).split( '?' )[ 0 ];
-  const lang = req.lang || 'fr';
-  const { element, triggerHooks, store, staticContext, history } = editApp( {
-    req,
-    initialState: {
-      settings: {
-        prefix,
-        lang,
-        apiRoot: `http://localhost:${config.port}`
-      },
-      res: {
-        get: '/agendas/:uid/admin/settings.json',
-        slugAvailable: '/agendas/slugs/available',
-        set: '/:slug/admin/settings/edit',
-        uploadImage: '/:slug/admin/settings/setImage',
-        clearImage: '/:slug/admin/settings/clearImage',
-        remove: '/:slug/admin/settings/remove',
-        keys: {
-          create: '/:slug/admin/settings/keys/create',
-          list: '/:slug/admin/settings/keys/list',
-          update: '/:slug/admin/settings/keys/update',
-          remove: '/:slug/admin/settings/keys/remove'
-        }
-      },
-      agenda: {
-        uid: req.agenda.uid,
-        slug: req.agenda.slug
-      }
-    }
-  } );
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString( element );
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if ( staticContext.status === 404 ) {
-      return next();
-    }
-
-    if ( staticContext.url ) {
-      return res.redirect( 302, staticContext.url );
-    }
-
-    const { pathname, search } = history.location;
-    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-      return res.redirect( 302, pathname );
-    }
-
-    const tab = 'settings_' + (history.location.pathname.substr( prefix.length + 1 ) || 'profile');
-    cmn.render( req, res, 'agendaSettings/edit', {
-      scriptParams: { initialState: state },
-      lang,
-      content,
-      preloaded: true,
-      tab
-    } );
-  } catch ( e ) {
-    next( e );
-  }
-}
