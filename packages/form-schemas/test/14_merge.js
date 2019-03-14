@@ -444,6 +444,40 @@ describe( 'unit - assigning schema properties to another schema', () => {
 
   } );
 
+  it( 'origin value is maintained', () => {
+
+    const schema = {
+      id: 1,
+      fields: [ {
+        field: 'chooseyouravatar',
+        fieldType: 'radio',
+        optional: true,
+        origin: 'tags',
+        options: [ {
+          label: 'Retarded cat',
+          id: 1
+        }, {
+          label: 'Phteven',
+          id: 2
+        } ]
+      } ]
+    };
+
+    const otherSchema = {
+      id: 1,
+      fields: [ {
+        "field": "chooseyouravatar",
+        "fieldType": "abstract",
+        "origin": null
+      } ]
+    };
+
+    const merged = merge( schema, otherSchema );
+
+    merged.fields[ 0 ].origin.should.equal( 'tags' );
+
+  } );
+
 
   it( 'options can be limited to allowed set through a schema merge', () => {
 

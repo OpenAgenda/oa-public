@@ -6,6 +6,96 @@ const generateTagSet = require( '../server/legacy/generateTagSet' );
 
 describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from schema', function() {
 
+  it( 'updates pre-existing tag set', () => {
+
+    const schema = {
+      id: 1,
+      fields: [ {
+        origin: 'tags',
+        field: 'nantes',
+        label: 'Nantes',
+        fieldType: 'checkbox',
+        options: [ {
+          id: 1,
+          value: 'un',
+          label: 'Un'
+        }, {
+          id: 2,
+          value: 'deux',
+          label: 'Deux'
+        } ]
+      }, {
+        origin: 'tags',
+        field: 'paris',
+        label: 'Paris',
+        fieldType: 'checkbox',
+        options: [ {
+          id: 3,
+          value: 'trois',
+          label: 'Trois'
+        }, {
+          id: 4,
+          value: 'quatre',
+          label: 'Quatre'
+        } ]
+      } ]
+    };
+
+    const tagSet = {
+      groups: [ {
+        name: 'Paris',
+        required: true,
+        unique: false,
+        tags: [ {
+          label: 'Trois',
+          slug: 'trois',
+          id: 192018
+        } ]
+      } ]
+    };
+
+    generateTagSet( schema, tagSet ).tagSet.should.eql( {
+      groups: [ {
+        "name": "Paris",
+        "required": true,
+        "unique": false,
+        "tags": [
+          {
+            "label": "Trois",
+            "slug": "trois",
+            "id": 192018, // maintain those, its important
+            "schemaOptionId": "1.3" // add those
+          },
+          {
+            "slug": "quatre",
+            "label": "Quatre",
+            "schemaOptionId": "1.4"
+          }
+        ]
+      },
+        {
+          "name": "Nantes",
+          "required": true,
+          "unique": false,
+          "tags": [
+            {
+              "slug": "un",
+              "label": "Un",
+              "schemaOptionId": "1.1"
+            },
+            {
+              "slug": "deux",
+              "label": "Deux",
+              "schemaOptionId": "1.2"
+            }
+          ]
+        }
+      ]
+    } );
+
+  } );
+
+
   it( 'takes a form schema and returns a matching tag set', () => {
 
     const schema = {

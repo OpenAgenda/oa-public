@@ -8,7 +8,7 @@ import classNames from 'classnames';
 import qs from 'qs';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
-import MenuItem from '../components/MenuItem';
+import { MenuItem } from '../components';
 import menuReducer from '../redux/modules/menu';
 import * as agendasActions from '../redux/modules/agendas';
 import * as eventsActions from '../redux/modules/events';

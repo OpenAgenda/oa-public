@@ -26,6 +26,7 @@ const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/l
 const config = require( '../config' );
 const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
 const genUrl = require( '../services/genUrl' );
+const errorLogger = require( '../services/00_errors' );
 const i18n = require( '../i18n/i18n.js' );
 const model = require( '../services/model' );
 
@@ -494,14 +495,7 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     if ( [ 401, 403, 404, 413 ].indexOf( error.code ) === -1 ) {
 
-      req.log.loadMetadata( { errorStack: error.stack } );
-
-      req.log( 'error', 'received error: %j', error );
-
-      // replaced with 00_errors
-      //console.error( ( new Date ).toUTCString() + ' caught: %j', error );
-
-      //console.error( error.stack ? error.stack : 'no stack' );
+      errorLogger( 'req', error );
 
       errorTemplate = 'error/show';
 
@@ -573,16 +567,6 @@ function errorResponse( req, res, error, jsonResponse ) {
 function catchError( req, res, jsonResponse ) {
 
   return err => {
-
-    if ( typeof err == 'object' && (err.stack || err.message) ) {
-
-      log( 'error', `caught error: ${err.stack ? err.stack : err.message}` );
-
-    } else {
-
-      log( 'error', 'caught error: %j', err );
-
-    }
 
     // For send directly a json error with next( err )
     if ( err.json ) {

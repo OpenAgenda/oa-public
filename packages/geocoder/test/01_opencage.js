@@ -41,14 +41,56 @@ describe( 'opencage', () => {
 
     } );
 
-    it( 'Sarzeau is not in Morbihan according to OpenCage', async () => {
+    describe( 'Courbevoie', async () => {
 
-      ( await geocode( 'Sarzeau', {
-        countryCode: 'FR',
-        language: 'fr',
-        first: true,
-        raw: true
-      } ) ).department.should.eql( 'Vannes' );
+      let result;
+
+      before( async () => {
+
+        result = await geocode( 'Courbevoie', {
+          countryCode: 'FR',
+          language: 'fr',
+          first: true
+        } );
+
+      } );
+
+      it( 'it is in Hauts de Seine', async () => {
+
+        result.department.should.equal( 'Hauts-de-Seine' );
+
+      } );
+
+
+    } );
+
+    describe( 'Sarzeau', async () => {
+
+      let result;
+
+      before( async () => {
+
+        result = await geocode( 'Sarzeau', {
+          countryCode: 'FR',
+          language: 'fr',
+          first: true,
+          raw: true
+        } );
+
+      } );
+
+      it( 'department is Morbihan', () => {
+
+        result.department.should.equal( 'Morbihan' );
+
+      } );
+
+      it( 'city is Sarzeau', () => {
+
+        result.city.should.equal( 'Sarzeau' );
+
+      } );
+
 
     } );
 
@@ -56,12 +98,51 @@ describe( 'opencage', () => {
 
   describe( 'reverse', () => {
 
-    it( 'In Paris', async () => {
+    describe( 'Paris', () => {
 
-      ( await geocode.reverse( 48.867638, 2.352172, {
-        first: true,
-        language: 'fr'
-      } ) ).city.should.equal( 'Paris' );
+      let result;
+
+      before( async () => {
+
+        result = await geocode.reverse( 48.867638, 2.352172, {
+          first: true,
+          language: 'fr'
+        } );
+
+      } );
+
+      it( 'city is Paris', () => {
+
+        result.city.should.equal( 'Paris' );
+
+      } );
+
+      it( 'department is Paris', () => {
+
+        result.department.should.equal( 'Paris' );
+
+      } );
+
+    } );
+
+    describe( 'Courbevoie', () => {
+
+      let result;
+
+      before( async () => {
+
+        result = await geocode.reverse( 48.8953328, 2.2561602, {
+          first: true,
+          language: 'fr'
+        } );
+
+      } );
+
+      it( 'department is Hauts-de-Seine', () => {
+
+        result.department.should.equal( 'Hauts-de-Seine' );
+
+      } );
 
     } );
 
@@ -74,7 +155,7 @@ describe( 'opencage', () => {
         'city', 'department', 'region', 'timezone', 'country', 'countryCode'
       ] ).should.eql( {
         city: 'Mana',
-        department: 'Guyane',
+        department: null,
         region: 'Guyane',
         country: 'France',
         countryCode: 'fr',

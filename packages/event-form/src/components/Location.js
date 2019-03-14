@@ -70,6 +70,7 @@ class LocationComponent extends Component {
     return {
       index: `${res}`,
       geocode: `${res}/geocode`,
+      reverseGeocode: `${res}/geocode/reverse`,
       insee: `${res}/insee`,
       set: `${res}`,
       remove: `${res}/remove`,

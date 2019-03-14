@@ -1,6 +1,6 @@
 "use strict";
 
-const log = require( '@openagenda/logs' )( 'api' );
+const VError = require( 'verror' );
 
 const logRequests = require( '../services/logRequests' );
 
@@ -68,7 +68,14 @@ app.get( '/v2/agendas/:agendaUid/settings', [
 
 app.use( ( err, req, res, next ) => {
 
-  handleError( err );
+  handleError( new VError( {
+    cause: err,
+    info: {
+      url: req.originalUrl,
+      body: req.body,
+      query: req.query
+    }
+  } ) );
 
   return res.status( 500 ).json( {
     message: 'server trouble.. send an short mail to support to receive detailed feedback: support@openagenda.com'

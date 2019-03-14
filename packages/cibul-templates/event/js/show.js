@@ -10,7 +10,7 @@ get = require( '@openagenda/utils/get' ),
 
 session = require( '@openagenda/sessions/client' ),
 
-adminControls = require( '../../user/js/adminControls' ),
+adminControls = require( './adminControls' ),
 
 ownershipTransfer = require( './ownershipTransfer' ),
 
@@ -87,7 +87,13 @@ window.asap( options => {
     log( 'roles: [%s]', roles.join( ',' ) );
 
     let showControls = adminControls( session, {
-      testFunc: function() { return roles.length; },
+      lang: params.lang,
+      eventUid: params.uid,
+      agendaUid: params.agendaUid,
+      agendaSlug: params.agendaSlug,
+      agendaTitle: params.agendaTitle,
+      agendaImage: params.agendaImage,
+      testFunc: () => roles.length,
       displaySelectors: roles.map( r => params.selectors[ r ] )
     } );
 

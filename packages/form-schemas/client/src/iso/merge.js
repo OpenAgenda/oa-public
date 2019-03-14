@@ -45,7 +45,7 @@ function _mergeField( field, mergeWithField ) {
 
   if ( !mergeWithField ) return field;
 
-  const protectedKeys = [ 'field', 'fieldType' ];
+  const protectedKeys = [ 'field', 'fieldType', 'origin' ];
 
   const update = _.keys( mergeWithField )
     .filter( k => !protectedKeys.includes( k ) )

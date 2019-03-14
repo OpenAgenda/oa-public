@@ -37,7 +37,11 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
     notifs: '/home/notifications',
     moderate: '/:slug/admin',
     search: '/agendas'
-  }
+  },
+  menu: {
+    tab: 'agendas'
+  },
+  agendas: {}
 });
 
 

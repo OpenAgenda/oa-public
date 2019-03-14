@@ -35,7 +35,8 @@ const _ = {
   first: require( 'lodash/first' ),
   keys: require( 'lodash/keys' ),
   pick: require( 'lodash/pick' ),
-  upperCase: require( 'lodash/upperCase' )
+  upperCase: require( 'lodash/upperCase' ),
+  isString: require( 'lodash/isString' )
 }
 
 const alternativeMaxLength = 50;
@@ -429,7 +430,7 @@ module.exports = createReactClass( {
 
     if ( item.countryCode && item.countryCode !== this.state.location.countryCode ) {
 
-      decoration.countryCode = { $set: item.countryCode };
+      decoration.countryCode = { $set: _.isString( item.countryCode ) ? item.countryCode.toUpperCase() : null };
 
     }
 

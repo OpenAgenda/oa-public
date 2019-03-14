@@ -69,7 +69,7 @@ on fait le merge, puis on doit ajouter tous les fichiers.
 On ajoute d'abord les fichiers à garder de la branche actuelle (.gitignore et LICENSE avant tout),
 et ensuite ceux de la branche à merger.
 
-Pour séléctionner les fichiers ça se passe en 2 temps (`git checkout` + `git add`),
+Pour sélectionner les fichiers ça se passe en 2 temps (`git checkout` + `git add`),
 `git checkout --ours -- <...files>` pour garder les fichiers de la branche sur
 laquelle on est, et `git checkout --theirs -- <...files>` pour garder les fichiers de
 la branche qu'on souhaite merger. Puis on valide l'ajout de ces mêmes fichiers avec

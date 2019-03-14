@@ -19,7 +19,11 @@ module.exports = {
 }
 
 
-function fromEventServiceFormat( eventServiceEvent ) {
+function fromEventServiceFormat( eventServiceEvent, options = {} ) {
+
+  const { location } = _.assign( {
+    location: null
+  }, options );
 
   if ( !eventServiceEvent ) return {};
 
@@ -46,13 +50,18 @@ function fromEventServiceFormat( eventServiceEvent ) {
 
   }
 
+  const timezone = eventServiceEvent.timezone || _.get( location, 'timezone' ) || 'Europe/Paris';
+
+  // expliciting the timezone is important as it is then
+  // used to convert back un-timezoned timings to event service format
   if ( eventServiceEvent.locationUid ) {
 
-    update.location = { $set: { uid: eventServiceEvent.locationUid } };
+    update.location = { $set: {
+      uid: eventServiceEvent.locationUid,
+      timezone
+    } };
 
   }
-
-  const timezone = _.get( eventServiceEvent, 'timezone', 'Europe/Paris' );
 
   update.timings = {
     $set: _.get( eventServiceEvent, 'timings', [] ).map( t => ( {
@@ -111,7 +120,7 @@ function toEventServiceFormat( formSchemaEvent, files = {}, rawData = null ) {
 
   update.locationUid = { $set: _.get( formSchemaEvent, 'location.uid' ) };
 
-  const timezone = _.get( formSchemaEvent, 'timezone' ) || _.get( formSchemaEvent, 'location.timezone', 'Europe/Paris' );
+  const timezone = _.get( formSchemaEvent, 'timezone' ) || _.get( formSchemaEvent, 'location.timezone' ) || 'Europe/Paris';
 
   update.timezone = {
     $set: timezone

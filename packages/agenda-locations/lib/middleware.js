@@ -12,10 +12,17 @@ const states = require( './states' );
 
 const retrieveInsee = require( '../utils/insee' );
 
-let service, config;
+let service, config, ocGeocoder;
 
 module.exports = _.extend( getMiddleware, {
-  init: ( s, c ) => { service = s; config = c; },
+  init: ( s, c ) => {
+
+    service = s;
+    config = c;
+
+    ocGeocoder = OpenCage( config.opencage || { key: null } );
+
+  },
   get
 } );
 
@@ -29,7 +36,6 @@ function getMiddleware( idRef ) {
 
   }
 
-  const ocGeocoder = OpenCage( config.opencage || { key: null } );
   const dgGeocoder = AdresseDataGouvFR();
 
   return {
@@ -543,10 +549,7 @@ function getMiddleware( idRef ) {
 
     log( 'retrieving reverse geocodes for %s,%s', req.query.latitude, req.query.longitude );
 
-    service.geocode.reverse( {
-      latitude: req.query.latitude,
-      longitude: req.query.longitude
-    }, _handleGeocodeResponse.bind( null, req, res ) );
+    _opencageReverse( req, res );
 
   }
 
@@ -555,10 +558,7 @@ function getMiddleware( idRef ) {
 
     log( 'retrieving geocodes', _.pick( req.query, [ 'address', 'countryCode' ] ) );
 
-    service.utils.geocode( {
-      address: req.query.address,
-      countryCode: req.query.countryCode
-    }, _handleGeocodeResponse.bind( null, req, res ) );
+    _opencageGeocode( req, res )
 
   }
 
@@ -617,11 +617,11 @@ function getMiddleware( idRef ) {
   }
 
 
-  function _openCageGeocode( req, res ) {
+  function _opencageGeocode( req, res ) {
 
     ocGeocoder( _.get( req, 'query.address' ), {
       countryCode: _.get( req, 'query.countryCode' ),
-      language: req.lang
+      language: _.get( req, 'lang', 'fr' )
     } ).then( results => {
 
       res.send( { results } );
@@ -630,7 +630,27 @@ function getMiddleware( idRef ) {
 
       log( 'error', 'OpenCage error: ' + err );
 
-      res.statusCodde = 502;
+      res.statusCode = 502;
+
+      res.send( 'nok' );
+
+    } );
+
+  }
+
+  function _opencageReverse( req, res ) {
+
+    ocGeocoder.reverse( req.query.latitude, req.query.longitude, {
+      language: _.get( req, 'lang', 'fr' )
+    } ).then( results => {
+
+      res.send( { results } );
+
+    }, err => {
+
+      log( 'error', 'OpenCage error: ' + err );
+
+      res.statusCode = 502;
 
       res.send( 'nok' );
 

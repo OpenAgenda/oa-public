@@ -8,7 +8,8 @@ import { connect } from 'react-redux';
 import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import { setTab } from '../redux/modules/menu';
-import { AgendasSearch, Welcome } from '../components';
+import { Welcome } from '../components';
+import AgendasSearch from './AgendasSearch';
 
 @provideHooks( {
   fetch: ( { store: { dispatch } } ) => dispatch( setTab( 'agendas' ) )
@@ -57,13 +58,11 @@ export default class Agendas extends Component {
       <div className="actions">
         {[ 4 ].includes( agenda.stakeholder.credential ) && <a
           href={res.agendas[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug )}
-          className="text-muted"
         >
           {getLabel( 'see' )}
         </a>}
         {[ 2, 3 ].includes( agenda.stakeholder.credential ) && <a
           href={res.agendas.moderate.replace( ':slug', agenda.slug )}
-          className="text-muted"
         >
           {agenda.stakeholder.credential === 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
         </a>}
@@ -78,13 +77,11 @@ export default class Agendas extends Component {
         </a>}
         {![ 2, 3 ].includes( agenda.stakeholder.credential ) && _.get( agenda, 'mailto' ) && <a
           href={_.get( agenda, 'mailto' )}
-          className="text-muted"
         >
           {getLabel( 'contact' )}
         </a>}
         {![ 2, 3 ].includes( agenda.stakeholder.credential ) && !_.get( agenda, 'mailto' ) && <a
           href={res.agendas.contact.replace( ':slug', agenda.slug )}
-          className="text-muted"
         >
           {getLabel( 'contact' )}
         </a>}
@@ -92,10 +89,10 @@ export default class Agendas extends Component {
     );
   }
 
-  onAgendaSearch = values => {
+  onAgendaSearch = value => {
     this.props.history.push( {
       ...this.props.location,
-      search: qs.stringify( { ...this.props.query, search: values.search || undefined } )
+      search: qs.stringify( { ...this.props.query, search: value !== '' ? value : undefined } )
     } );
   };
 
@@ -118,13 +115,12 @@ export default class Agendas extends Component {
       <div className="content">
         <AgendasSearch
           id="homeAgendas"
-          destroyOnUnmount={false}
-          initialValues={{ search: query.search || '' }}
           fieldIsVisible={() => query.search}
-          onSearch={this.onAgendaSearch}
           getTitleLink={this.getAgendaTitleLink}
           Header={this.renderHeader}
           AgendaActionsComponent={this.renderAgendaActions}
+          initialValues={{ search: query.search || '' }}
+          onSearch={this.onAgendaSearch}
         />
       </div>
     );

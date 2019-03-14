@@ -1,4 +1,4 @@
-<div id="admin-bar" class="edge-bar js_admin_controls">
+<div id="admin-bar" class="edge-bar js_admin_controls display-none">
   <ul class="edge-list"><!--
 <% if ( !loner ) { %>
     --><li class="edge-item w25 js_admin_item js_role_agenda_admin js_role_agenda_moderator">
@@ -79,7 +79,7 @@
         </li>
 <% } %>
         <li class="list-group-item js_admin_item js_role_event_editor">
-          <a class="item active" href="<%= !loner ? genUrl( 'agendaEventDuplicate', { slug: slug, eventSlug: event.slug } ) : genUrl( 'eventDuplicate', { eventSlug: event.slug } ) %>" rel="nofollow"><%= __( 'duplicate' ) %></a>
+          <a class="item active js_duplicate_event_link" href="<%= !loner ? genUrl( 'agendaEventDuplicate', { slug: slug, eventSlug: event.slug } ) : genUrl( 'eventDuplicate', { eventSlug: event.slug } ) %>" rel="nofollow"><%= __( 'duplicate' ) %></a>
         </li>
         <li class="list-group-item js_admin_item js_role_event_editor w25">
           <a class="item active js_message_confirm" data-confirm="<%= __( 'areYouSureToDelete' ) %>" data-ok="<%= __( 'confirm' ) %>" data-cancel="<%= __( 'cancel' ) %>" href="<%= genUrl( 'eventRemove', typeof uid !== 'undefined' ? { eventUid: event.uid, agendaUid: uid } : { eventUid: event.uid }) %>" rel="nofollow"><%= __( 'delete' ) %></a>

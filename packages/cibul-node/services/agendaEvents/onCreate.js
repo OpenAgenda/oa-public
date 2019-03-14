@@ -30,6 +30,14 @@ module.exports = async ( ae, context ) => {
 
   const { agenda, event } = await fallbackContextGet( 'onCreate', ae, context );
 
+  if ( !event ) {
+
+    log( 'error', 'could not retrieve event', ae );
+
+    return;
+
+  }
+
   let user;
 
   if ( !context.aggregated ) {
@@ -200,7 +208,7 @@ async function _addToSearchIndex( ae ) {
 
   if ( !_.get( result, 'success' ) ) {
 
-    log( 'warn', 'could not index event in agenda index', { agendaEvent: ae } );
+    log( 'warn', 'could not index event in agenda index (%s.%s)', ae.agendaUid, ae.eventUid );
 
   }
 

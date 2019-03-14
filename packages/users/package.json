@@ -29,7 +29,8 @@
     "lodash": "^4.17.4",
     "mysql": "^2.15.0",
     "uberproto": "^2.0.3",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "verror": "^1.10.0"
   },
   "devDependencies": {
     "@openagenda/files": "^2.0.6",

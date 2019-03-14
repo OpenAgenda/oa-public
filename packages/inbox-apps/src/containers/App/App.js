@@ -73,7 +73,7 @@ export default class App extends Component {
         </Modal> : null}
 
         {closeConfirmationModal.visible ? <Modal
-          title={getLabel( 'closeConfirmation' )}
+          title={getLabel( 'closeConversation' )}
           onClose={() => closeModal( 'closeConfirmation' )}
           classNames={{ overlay: 'popup-overlay big' }}
         >

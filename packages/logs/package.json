@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/logs",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "license": "MIT",
   "scripts": {
     "test": "jest --forceExit --detectOpenHandles"
@@ -12,7 +12,7 @@
     "winston": "^2.3.1"
   },
   "devDependencies": {
-    "jest": "^24.0.0",
+    "jest": "^24.5.0",
     "should": "^13.2.3",
     "sinon": "^3.2.1"
   }

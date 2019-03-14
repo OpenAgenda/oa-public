@@ -1,7 +1,6 @@
 "use strict";
 
 const express = require( 'express' );
-const morgan = require( 'morgan' );
 const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
 const sessions = require( '@openagenda/sessions' );
 const cmn = require( '../lib/commons-app' );

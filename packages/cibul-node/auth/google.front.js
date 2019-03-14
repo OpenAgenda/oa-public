@@ -93,7 +93,7 @@ function signin( req, res, next ) {
   auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
   pLib.authenticate( 'google-signin', {
-    scope: 'email',
+    scope: [ 'email', 'profile' ],
     callbackURL: genUrl.abs( 'googleSigninCallback' )
   } )( req, res, next );
 
@@ -104,7 +104,7 @@ function signup( req, res, next ) {
   auth.saveOptionals( req, res, req.agenda ? { agenda: req.agenda.slug } : {} );
 
   pLib.authenticate( 'google-signup', {
-    scope: 'email',
+    scope: [ 'email', 'profile' ],
     callbackURL: genUrl.abs( 'googleSignupCallback' )
   } )( req, res, next );
 
