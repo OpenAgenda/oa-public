@@ -116,7 +116,7 @@ module.exports = {
     "de": "Schlüsselwörter"
   },
   "keywordsPlaceholder": {
-    "fr": "Séparez les mots clés par des tabulation ou des virgules",
+    "fr": "Séparez les mots clés par des tabulations ou des virgules",
     "en": "Separate each keyword with tabs or commas",
     "it": "Parole chiave separate con schede o virgole",
     "de": "Trennen Sie jedes Keyword durch Tabulatoren oder Kommas."
@@ -152,7 +152,7 @@ module.exports = {
     "de": "Registrierung"
   },
   "registrationSub": {
-    "fr": "Séparez les items par des tabulation ou des virgules",
+    "fr": "Séparez les items par des tabulations ou des virgules",
     "en": "Separate each item with tabs or commas",
     "it": "Separare le voci per tabulazione o virgole",
     "de": "Trennen Sie jedes Element mit Tabs oder Kommas."
