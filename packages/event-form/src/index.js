@@ -8,6 +8,8 @@ import extractLanguages from './utils/extractLanguages';
 import getMultilingualFieldNames from './utils/getMultilingualFieldNames';
 import identifyLanguageChanges from './utils/identifyLanguageChanges';
 import transferMultilingualValues from './utils/transferMultilingualValues';
+import removeMultilingualValues from './utils/removeMultilingualValues';
+import schemaLanguages from './utils/schemaLanguages';
 
 import errorLabels from '@openagenda/labels/event/errors';
 
@@ -30,70 +32,98 @@ export default class EventForm extends Component {
 
     super( props );
 
-    this.state = {
-      values: ih( this.props.values, {
-        languages: {
-          $set: extractLanguages( this.props.values, this.props.lang )
-        }
-      } ),
-      files: [],
-      loading: false
-    };
+    const languages = extractLanguages( this.props.values );
 
-    this.onChange = this.onChange.bind( this );
+    const schema = this.buildEventSchema( languages, props );
+
+    const values = ih( props.values, {
+      languages: {
+        $set: schemaLanguages.getFromSchemaAndValues( schema, props.lang, languages )
+      }
+    } );
+
+    this.state = { values, schema, files: [], loading: false };
 
   }
 
   onChange( { values, errors, files, loading, globalError } ) {
 
-    const changedLanguages = identifyLanguageChanges(
+    const { lang } = this.props;
+
+    const languageChanges = identifyLanguageChanges(
       _.get( this.state, 'values.languages' ), // before
       _.get( values, 'languages' ) // now
     );
 
-    if ( changedLanguages.length ) {
+    const update = {
+      errors,
+      globalError,
+      files,
+      loading
+    };
 
-      // need to update multilingual values AND languages field
+    if ( values ) update.values = values;
 
-      this.setState( {
-        loading: false,
-        values: ih( transferMultilingualValues(
-          this.state.values,
-          getMultilingualFieldNames( eventSchema( {
-            languages: true
-          } ) ),
-          _.get( this, 'state.values.languages.0' ),
-          _.first( changedLanguages )
-        ), {
-          languages: {
-            $set: [ changedLanguages[ 0 ] ]
-          }
-        } ),
-        errors,
-        globalError
+    const multilingualFieldNames = getMultilingualFieldNames( eventSchema( { languages: true } ) );
+
+    // if a unique language has been switcheds, content should not be lost
+    if ( languageChanges.swapped.length ) {
+
+      update.values = ih( transferMultilingualValues(
+        this.state.values,
+        multilingualFieldNames,
+        _.get( this, 'state.values.languages.0' ),
+        _.first( languageChanges.swapped )
+      ), {
+        languages: {
+          $set: [ languageChanges.swapped[ 0 ] ]
+        }
       } );
 
-    } else if ( !values ) {
+    } else if ( languageChanges.removed.length ) {
 
-      this.setState( { errors, files, loading, globalError } );
-
-    } else {
-
-      this.setState( { values, errors, files, loading, globalError } );
+      update.values = ih( removeMultilingualValues(
+        this.state.values,
+        multilingualFieldNames,
+        languageChanges.removed
+      ), {
+        languages: {
+          $set: this.state.values.languages.filter( l => !languageChanges.removed.includes( l ) )
+        }
+      } );
 
     }
 
+    if ( languageChanges.has ) {
+
+      const schema = this.buildEventSchema( _.get( values, 'languages' ) );
+
+      update.schema = schema;
+
+      update.values.languages = schemaLanguages.getFromSchemaAndValues(
+        schema,
+        lang,
+        update.values.languages
+      );
+
+    }
+
+    return this.setState( update );
+
   }
 
-  buildEventSchema() {
+  buildEventSchema( languages, props = null ) {
+
+    const p = props || this.props;
 
     return eventSchema( {
-      suggestionsRes: this.props.suggestionsRes,
-      referencesRes: this.props.referencesRes,
-      locationRes: this.props.locationRes,
-      languages: this.state.values.languages,
-      fileStore: this.props.fileStore,
-      schemaExtensions: this.props.schemaExtensions
+      interfaceLanguage: p.lang,
+      suggestionsRes: p.suggestionsRes,
+      referencesRes: p.referencesRes,
+      locationRes: p.locationRes,
+      languages,
+      fileStore: p.fileStore,
+      schemaExtensions: p.schemaExtensions
     } );
 
   }
@@ -102,23 +132,27 @@ export default class EventForm extends Component {
 
     const {
       lang,
-      values,
       actionComponents,
       onSubmitSuccess,
       classNames
     } = this.props;
 
+    const {
+      values,
+      schema
+    } = this.state;
+
     return <FormSchemaComponent
       stateless={true}
       lang={lang}
       components={eventFormComponents}
-      values={this.state.values}
+      values={values}
       errors={this.state.errors}
       globalError={this.state.globalError}
       loading={this.state.loading}
       files={this.state.files}
-      onChange={this.onChange}
-      schema={this.buildEventSchema()}
+      onChange={this.onChange.bind( this )}
+      schema={schema}
       classNames={ih( classNames, {
         field: { $set: 'padding-v-sm form-group' }
       } )}

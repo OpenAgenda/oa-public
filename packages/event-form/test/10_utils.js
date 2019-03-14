@@ -1,11 +1,156 @@
+import ih from 'immutability-helper';
+
 import getMultilingualFieldNames from '../src/utils/getMultilingualFieldNames';
 import transferMultilingualValues from '../src/utils/transferMultilingualValues';
+import removeMultilingualValues from '../src/utils/removeMultilingualValues';
 import identifyLanguageChanges from '../src/utils/identifyLanguageChanges';
 import getTimingsSpan from '../src/utils/getTimingsSpan';
 import flattenLocationTagSet from '../src/utils/flattenLocationTagSet';
+import schemaLanguages from '../src/utils/schemaLanguages';
 
 
 describe( 'event-form utils unit tests', () => {
+
+  describe( 'schemaLanguages', () => {
+
+    const schema = {
+      fields: [ {
+        field: 'one',
+        languages: []
+      }, {
+        field: 'two'
+      }, {
+        field: 'languages'
+      }, {
+        field: 'three',
+        languages: []
+      } ]
+    };
+
+    // language validator should validate differently depending on languages field config.
+
+    test( 'languages defined by values are used in priority', () => {
+
+      const languagedSchema = schemaLanguages.set( schema, null, [ 'it', 'en' ] );
+
+      expect( languagedSchema ).toEqual( {
+        fields: [ {
+          field: 'one',
+          languages: [ 'it', 'en' ]
+        }, {
+          field: 'two'
+        }, {
+          field: 'languages',
+        }, {
+          field: 'three',
+          languages: [ 'it', 'en' ]
+        } ]
+      } );
+
+    } );
+
+    it( 'if no value languages are defined and interface value is provided, it is used', () => {
+
+      const languagedSchema = schemaLanguages.set( schema, 'is', [] );
+
+      expect( languagedSchema ).toEqual( {
+        fields: [ {
+          field: 'one',
+          languages: [ 'is' ]
+        }, {
+          field: 'two'
+        }, {
+          field: 'languages',
+        }, {
+          field: 'three',
+          languages: [ 'is' ]
+        } ]
+      } );
+
+    } );
+
+    it( 'if no value languages are defined and default values are set, they are used independently of interface language', () => {
+
+      const schemaWithDefaultLanguages = ih( schema, {
+        fields : { 2: { default: { $set: [ 'it', 'de' ] } } }
+      } );
+
+      const languagedSchema = schemaLanguages.set( schemaWithDefaultLanguages, 'is', [] );
+
+      expect( languagedSchema ).toEqual( {
+        fields: [ {
+          field: 'one',
+          languages: [ 'it', 'de' ]
+        }, {
+          field: 'two'
+        }, {
+          field: 'languages',
+          default: [ 'it', 'de' ]
+        }, {
+          field: 'three',
+          languages: [ 'it', 'de' ]
+        } ]
+      } );
+
+    } );
+
+
+    it( 'if required languages exist they should be set independently of value languages', () => {
+
+      const schemaWithDefaultLanguages = ih( schema, {
+        fields : { 2: { required: { $set: [ 'it', 'de' ] } } }
+      } );
+
+      const languagedSchema = schemaLanguages.set( schemaWithDefaultLanguages, 'is', [ 'es' ] );
+
+      expect( languagedSchema ).toEqual( {
+        fields: [ {
+          field: 'one',
+          languages: [ 'it', 'de', 'es' ]
+        }, {
+          field: 'two'
+        }, {
+          field: 'languages',
+          required: [ 'it', 'de' ]
+        }, {
+          field: 'three',
+          languages: [ 'it', 'de', 'es' ]
+        } ]
+      } );
+
+    } );
+
+    it( 'if required languages are strict, they are always set', () => {
+
+      const schemaWithDefaultLanguages = ih( schema, {
+        fields : { 2: {
+          required: { $set: [ 'it', 'de' ] },
+          strict: { $set: true }
+        } }
+      } );
+
+      const languagedSchema = schemaLanguages.set( schemaWithDefaultLanguages, 'is', [ 'es' ] );
+
+      expect( languagedSchema ).toEqual( {
+        fields: [ {
+          field: 'one',
+          languages: [ 'it', 'de' ]
+        }, {
+          field: 'two'
+        }, {
+          field: 'languages',
+          required: [ 'it', 'de' ],
+          strict: true
+        }, {
+          field: 'three',
+          languages: [ 'it', 'de' ]
+        } ]
+      } );
+
+    } );
+
+  } );
+
 
   test( 'getMultilingualFieldNames', () => {
 
@@ -17,6 +162,25 @@ describe( 'event-form utils unit tests', () => {
         languages: []
       } ]
     } ) ).toEqual( [ 'multi' ] );
+
+  } );
+
+  test( 'removeMultilingualValues', () => {
+
+    expect( removeMultilingualValues( {
+      "accessibility":{"hi":true,"sl":true},
+      "references":[45527593],
+      "timings":[{"begin":{"date":"2018-11-27","hours":10,"minutes":10},"end":{"date":"2018-11-27","hours":16,"minutes":16}}],
+      "languages":["de","fr"],
+      "title":{"de":"deuuu","fr":"frrrrr"}
+    }, [ 'title', 'description', 'keywords', 'longDescription', 'conditions' ], [ 'de' ]
+    ) ).toEqual( {
+      "accessibility":{"hi":true,"sl":true},
+      "references":[45527593],
+      "timings":[{"begin":{"date":"2018-11-27","hours":10,"minutes":10},"end":{"date":"2018-11-27","hours":16,"minutes":16}}],
+      "languages":["de","fr"],
+      "title":{"fr":"frrrrr"}
+    } );
 
   } );
 
@@ -45,9 +209,10 @@ describe( 'event-form utils unit tests', () => {
   test( 'identifyLanguageChanges - changing a language', () => {
 
     expect( identifyLanguageChanges( [ 'fr' ], [ 'es' ] ) ).toEqual( {
-      addedLanguages: [ 'es' ],
-      removedLanguages: [ 'fr' ],
-      changedLanguages: [ 'es' ]
+      has: true,
+      added: [ 'es' ],
+      removed: [ 'fr' ],
+      swapped: [ 'es' ]
     } );
 
   } );
