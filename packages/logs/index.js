@@ -136,7 +136,7 @@ function loadMetadata( logger ) {
 
   return metadata => {
     logger.rewriters.push( function load( level, msg, meta ) {
-      if ( meta && meta instanceof Error && meta.stack ) {
+      if ( meta && meta instanceof Error ) {
         return Object.assign( meta, metadata );
       }
 

@@ -1,7 +1,6 @@
 "use strict";
 
 const VError = require( 'verror' );
-const log = require( '@openagenda/logs' )( 'api' );
 
 const logRequests = require( '../services/logRequests' );
 

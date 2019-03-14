@@ -50,9 +50,7 @@ function fromEventServiceFormat( eventServiceEvent, options = {} ) {
 
   }
 
-  const timezone = _.get( eventServiceEvent, 'timezone',
-    _.get( location, 'timezone', 'Europe/Paris' )
-  );
+  const timezone = eventServiceEvent.timezone || _.get( location, 'timezone' ) || 'Europe/Paris';
 
   // expliciting the timezone is important as it is then
   // used to convert back un-timezoned timings to event service format

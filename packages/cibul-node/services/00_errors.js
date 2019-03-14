@@ -1,6 +1,6 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const VError = require( 'verror' );
 const log = require( '@openagenda/logs' )( 'uncaught' );
 
 process.on( 'uncaughtException', handler.bind( null, 'uncaughtException' ) );
@@ -29,11 +29,15 @@ function handler( namespace, err ) {
 
     }
 
-    log( 'error', _.extend( {
-      namespace,
-      error
+    log( 'error', Object.assign( {
+      error,
+      namespace
     }, process.env.NODE_ENV === 'production' ? {
-      stack: _.get( error, 'stack', '' ).split( '\n' )
+      stack: (
+        err instanceof Error
+          ? VError.fullStack( err )
+          : (err.stack || '')
+      ).split( '\n' )
     } : {} ) );
 
   }
