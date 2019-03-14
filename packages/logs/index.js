@@ -98,7 +98,8 @@ function getTransporters( options ) {
       level: 'info',
       token: params.token,
       region: 'eu',
-      json: true
+      json: true,
+      withStack: true
     } ) );
 
   }
@@ -135,7 +136,7 @@ function getCustomProperties( logger ) {
 function loadMetadata( logger ) {
 
   return metadata => {
-    logger.rewriters.push( function load( level, msg, meta ) {
+    logger.rewriters.push( function _loadMetadata( level, msg, meta ) {
       if ( meta && meta instanceof Error ) {
         return Object.assign( meta, metadata );
       }
@@ -151,7 +152,7 @@ function clearMetadata( logger ) {
   return () => {
     logger.rewriters = [];
 
-    if (logger.options.namespace) {
+    if ( logger.options.namespace ) {
       logger.loadMetadata( { namespace: logger.options.namespace } );
     }
   }
@@ -161,7 +162,7 @@ function clearMetadata( logger ) {
 function setConfig( logger, persist = true ) {
 
   return conf => {
-    if (persist) {
+    if ( persist ) {
       logger.persistentConfig = true;
     }
 
@@ -169,7 +170,7 @@ function setConfig( logger, persist = true ) {
       return;
     }
 
-    const rewriters = logger.rewriters.filter( v => v.name === 'load' );
+    const rewriters = logger.rewriters.filter( v => v.name === '_loadMetadata' );
 
     logger.configure( { transports: getTransporters( _.merge( logger.options, conf ) ) } );
 
