@@ -71,7 +71,6 @@ export default class Agendas extends Component {
             ':slug',
             agenda.slug
           )}
-          className="text-muted"
         >
           {getLabel( 'addAnEvent' )}
         </a>}
