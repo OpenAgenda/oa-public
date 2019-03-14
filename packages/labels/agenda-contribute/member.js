@@ -33,7 +33,7 @@ module.exports = {
     "fr": "Téléphone",
     "en": "Telephone",
     "it": "Telefono",
-    "de": "Telefon-Nummer",
+    "de": "Telefonnummer",
     "br": "Pellgomz"
   },
   "phoneSub": {
@@ -68,7 +68,7 @@ module.exports = {
     "fr": "Valider",
     "en": "Submit",
     "it": "Validare",
-    "de": "Validieren",
+    "de": "Weiter",
     "br": "Validañ"
   }
 }
