@@ -1,5 +1,10 @@
 .idea/
+.vscode/
 node_modules/
-testconfig.js
 npm-debug.log
 yarn-error.log
+testconfig.js
+coverage/
+.cache/
+
+build/
