@@ -25,14 +25,14 @@ module.exports = {
 
 async function get( agendaId ) {
 
-  let customFields, 
+  let customFields,
 
-    tagSet, 
+    tagSet,
 
     categorySet,
 
     formData = {
-      fields: [] 
+      fields: []
     };
 
   try {
@@ -65,7 +65,7 @@ async function get( agendaId ) {
 
     categorySet = await _queryStore( config.legacy.schemas.categorySet, agendaId );
 
-    if ( categorySet ) formData = parseTagSet.categories( formData, categorySet );
+    if ( categorySet && categorySet.categories.length ) formData = parseTagSet.categories( formData, categorySet );
 
   } catch( e ) {
 
@@ -93,7 +93,7 @@ async function transfer( agendaId ) {
 
   }
 
-  agenda = await client( config.legacy.schemas.agenda ).select( [ 
+  agenda = await client( config.legacy.schemas.agenda ).select( [
     'form_schema_id'
   ] )
 

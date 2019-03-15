@@ -48,7 +48,7 @@ async function _fetchCategory( formSchema, agendaId, eventId ) {
 
     .andWhere( config.legacy.schemas.agendaEvent + '.review_id', agendaId );
 
-    
+
   if ( eventCategoryLegacyId ) {
 
     eventCategoryLegacyId = eventCategoryLegacyId.category_id;
@@ -73,14 +73,14 @@ async function _fetchTags( formSchema, agendaId, eventId ) {
 
     .leftJoin( config.legacy.schemas.agendaEvent, config.legacy.schemas.agendaEvent + '.id', config.legacy.schemas.agendaEventTag + '.review_article_id' )
 
-    .where( config.legacy.schemas.agendaEvent + '.review_id', agendaId ) 
+    .where( config.legacy.schemas.agendaEvent + '.review_id', agendaId )
 
     .andWhere( config.legacy.schemas.agendaEvent + '.event_id', eventId )
 
     .map( r => r.review_tag_id );
 
   // for each tag, find matching field and option in FormSchema
-  
+
   eventTagLegacyIds.forEach( legacyTagId => {
 
     let matching = _extractMatchingOption( formSchema, legacyTagId );
@@ -92,7 +92,7 @@ async function _fetchTags( formSchema, agendaId, eventId ) {
   } );
 
   return clean;
-  
+
 }
 
 async function _fetchCustomData( formSchema, agendaId, eventId ) {
@@ -173,7 +173,7 @@ async function _fetchCustomData( formSchema, agendaId, eventId ) {
     } else if ( csField.fieldType === 'integer' ) {
 
       clean[ fieldName ] = parseInt( customData[ fieldName ] );
-      
+
     } else {
 
       clean[ fieldName ] = customData[ fieldName ];

@@ -23,7 +23,7 @@ module.exports = ( schema, currentTagSet = null ) => {
 
     const index = tagSetGroups.map( g => g.name ).indexOf( _monoLabel( f.label ) );
 
-    const tags = _defineTags( schema.id, index === -1 ? [] : tagSetGroups[ index ].tags, f.options );
+    const tags = _defineTags( f.schemaId, index === -1 ? [] : tagSetGroups[ index ].tags, f.options );
 
     if ( index === -1 ) {
 
@@ -61,12 +61,11 @@ function _defineTags( schemaId, tags = [], options = [] ) {
     const slug = o.value;
     const schemaOptionId = `${schemaId}.${o.id}`;
 
-    // if schemaOptionId is specified in tag, use it for match
-    if ( _hasSchemaOptionId( tags ) ) {
+    // attempt match on schemaOptionId
+    matchingTagIndex = _.findIndex( tags, { schemaOptionId } );
 
-      matchingTagIndex = _.findIndex( tags, { schemaOptionId } );
-
-    } else { // we match based on label
+    // attempt match on label
+    if ( matchingTagIndex === -1 ) {
 
       matchingTagIndex = _.findIndex( tags, { label: _monoLabel( o.label ) } );
 

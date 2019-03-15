@@ -32,9 +32,9 @@ module.exports = ( formSchema, tagSet, type = 'tag' ) => {
 
 module.exports.categories = ( formSchema, c ) => {
 
-  return module.exports( formSchema, { groups: [ { 
-    name: c.name, 
-    info: c.info, 
+  return module.exports( formSchema, { groups: [ {
+    name: c.name,
+    info: c.info,
     unique: true,
     required: c.required,
     tags: c.categories
