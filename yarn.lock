@@ -1439,11 +1439,6 @@
     slug "0.9.1"
     when "3.7.4"
 
-"@openagenda/basic-logger@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.npmjs.org/@openagenda/basic-logger/-/basic-logger-2.0.0.tgz#025c84230a33fab38b219ec802cee3047a4fadc5"
-  integrity sha512-pgqIk32OQ9ynxUjQBf/kOKpS7nVDfq5FOmOTRHAqVux4RC03Sz9dd2URexXtSxngicA9xBlyNnUqG4HK29VX5w==
-
 "@openagenda/cibul-model@^0.1.25":
   version "0.1.25"
   resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.25.tgz#31908044d4392a9384def5804c044c04e280d7f3"
@@ -1563,12 +1558,12 @@
     when "3.7.3"
     xhr "2.1.0"
 
-"@openagenda/invitations@^1.0.1":
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/@openagenda/invitations/-/invitations-1.1.1.tgz#15f80ed062e3d2b4094c011dd72ff43a5b504df8"
-  integrity sha1-FfgO0GLj0rQJTAEd1y/0OltQTfg=
+"@openagenda/invitations@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/@openagenda/invitations/-/invitations-1.1.2.tgz#0e95e26de18470ce0f635ef2ceb02c98077bb1b8"
+  integrity sha512-vX/R8fGCLb9gNDvmU5y/A6KI+w2FmNg9grQyvsvh18p1A1NViNmao3qAdqHszC45fDOL1LfKhKDjT6P8jFDnFQ==
   dependencies:
-    "@openagenda/basic-logger" "^2.0.0"
+    "@openagenda/logs" "^1.1.2"
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/service-utils" "^2.0.0"
     "@openagenda/validators" "^2.0.1"
