@@ -188,6 +188,7 @@ async function eventMailSend( req, res, next ) {
             }
 
             try {
+
               const getLocaleLabel = field => field.label[ req.lang ] || field.label[ Object.keys( field.label )[ 0 ] ];
               const fieldSchema = _.find( formSchema.fields, [ 'field', key ] );
               const label = getLocaleLabel( fieldSchema );
@@ -200,10 +201,16 @@ async function eventMailSend( req, res, next ) {
                     ? value.map( getLocaleLabel )
                     : getLocaleLabel( value )
               };
+
             } catch ( error ) {
-              req.log( 'error', 'Cannot retrieve the label for the field:', { agenda, key, value, error } );
+
+              req.log( 'error', 'Cannot retrieve the label for the field:', {
+                agenda: req.agenda,
+                key, value, error
+              } );
 
               return result;
+
             }
           },
           {}
