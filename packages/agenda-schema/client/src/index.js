@@ -31,8 +31,6 @@ class Main extends Component {
 
     const { lang, extensions, schema } = this.props;
 
-    console.log( this.props );
-
     return <FormSchemaBuilder
       lang={lang}
       addEnabled={false}

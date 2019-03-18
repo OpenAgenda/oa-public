@@ -1,7 +1,10 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
+
+const log = require( '@openagenda/logs' )( 'router' );
 
 const router = express.Router( { mergeParams: true } );
 
@@ -15,7 +18,9 @@ module.exports = _.assign( router, {
 
 router.use( async ( req, res, next ) => {
 
-  const agenda = await router.service.config.interfaces.getAgenda( {
+  const { interfaces } = router.service.config;
+
+  const agenda = await interfaces.getAgenda( {
     slug: req.params.agendaSlug
   } );
 
@@ -24,13 +29,38 @@ router.use( async ( req, res, next ) => {
   const {
     schema,
     extensions
-  } = await router.service.config.interfaces.getSchemas( agenda );
+  } = await interfaces.getSchemas( agenda );
 
   _.assign( req, { agenda, schema, extensions } );
 
   next();
 
 } );
+
+router.post( '/',
+  bodyParser.json(),
+  async ( req, res ) => {
+
+    const { interfaces } = router.service.config;
+
+    try {
+
+      const schemaUpdate = JSON.parse( req.body.data );
+
+      await interfaces.setSchema( req.agenda, schemaUpdate.fields );
+
+      res.send( 'ok' );
+
+    } catch ( e ) {
+
+      log( 'error', e );
+
+      res.status( 400 ).send( 'nok' )
+
+    }
+
+  }
+);
 
 router.get( '/', ( req, res ) => {
 

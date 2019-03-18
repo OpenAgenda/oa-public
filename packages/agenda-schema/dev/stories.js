@@ -15,7 +15,7 @@ module.exports = [ {
         return {
           schema: null,
           extensions: [ {
-            "schema": {
+            schema: {
               "custom": {},
               "fields": [
                 {
@@ -220,6 +220,12 @@ module.exports = [ {
             }
           } ]
         }
+      },
+      setSchema: async ( agenda, updatedFields ) => {
+
+        console.log( 'saving', agenda, updatedFields );
+
+        return true;
       }
     }
   },
