@@ -21,6 +21,8 @@ const custom = require( './lib/custom' );
 const search = require( '../eventSearch' );
 const searchStats = require( './lib/search' );
 
+const core = require( '../../core' );
+
 const agendasList = promisify( agendasSvc.list );
 
 const log = require( '@openagenda/logs' )( 'services/agendaStatistics' );
@@ -70,8 +72,9 @@ module.exports.transferFormSchema = agenda => {
 
 }
 
-module.exports.formSchemaToTagSet = require( './lib/formSchemaToTagSet' );
-module.exports.formSchemaToCustom = require( './lib/formSchemaToCustom' );
+module.exports.formSchemaToTagSet = ( agenda, force ) => core.agendas( agenda.uid ).settings.legacy.updateTagSet( force );
+
+module.exports.formSchemaToCustom = ( agenda, force ) => core.agendas( agenda.uid ).settings.legacy.updateCustom( force );
 
 module.exports.task = () => {
 

@@ -4,13 +4,14 @@ const _ = require( 'lodash' );
 const formSchemas = require( '@openagenda/form-schemas' );
 const networks = require( '@openagenda/networks' );
 const labels = require( '@openagenda/labels/agenda-admin/agendaSchema' );
+const log = require( '@openagenda/logs' )( 'events/interfaces/getSchemas' );
 
 const eventSchema = require( '@openagenda/event-form/build/schema' );
 
 module.exports = async agenda => {
 
-  const agendaFormSchemaId = _.get( agenda, 'form_schema_id' );
-  const networkUid = _.get( agenda, 'network_uid' );
+  const agendaFormSchemaId = _.get( agenda, 'formSchemaId' );
+  const networkUid = _.get( agenda, 'networkUid' );
 
   const network = networkUid ? ( await networks.get( { uid: networkUid } ) ) : null;
 
@@ -37,6 +38,8 @@ module.exports = async agenda => {
   }
 
   const schema = agendaFormSchemaId ? _.assign( { id: agendaFormSchemaId }, await formSchemas.get( agendaFormSchemaId ) ) : null;
+
+  log( 'info', agendaFormSchemaId ? 'agenda schema is loaded' : 'no agenda schema is defined' );
 
   return {
     schema,

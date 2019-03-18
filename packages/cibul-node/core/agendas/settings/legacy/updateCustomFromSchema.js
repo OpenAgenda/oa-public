@@ -2,13 +2,15 @@
 
 const _ = require( 'lodash' );
 
-const config = require( '../../../config' );
 const generateCustomFields = require( '@openagenda/form-schemas/server/legacy/generateCustomFields' );
-const getMergedSchema = require( './getMergedSchema' );
+const log = require( '@openagenda/logs' )( 'core/agendas/settings/legacy/updateCustom' );
 
-const log = require( '@openagenda/logs' )( 'services/agendaStatistics/formSchemaToCustom' );
+const getAgenda = require( '../../utils/getAgenda' );
+const getMergedSchema = require( '../getMergedSchema' );
 
-module.exports = async ( agenda, force ) => {
+module.exports = async ( config, agendaOrUid, force = false ) => {
+
+  const agenda = _.isObject( agendaOrUid ) ? agendaOrUid : await getAgenda( agendaOrUid );
 
   log( 'transferring from form-schema to custom fields', agenda.uid );
 

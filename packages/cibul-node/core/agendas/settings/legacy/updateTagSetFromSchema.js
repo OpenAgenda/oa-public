@@ -1,19 +1,22 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 
 const agendaTags = require( '@openagenda/agenda-tags' );
-const config = require( '../../../config' );
 const generateTagSet = require( '@openagenda/form-schemas/server/legacy/generateTagSet' );
 
-const getMergedSchema = require( './getMergedSchema' );
+const getAgenda = require( '../../utils/getAgenda' );
+const getMergedSchema = require( '../getMergedSchema' );
 
 const setAgendaTags = promisify( agendaTags.set );
 const getAgendaTags = promisify( agendaTags.get );
 
-const log = require( '@openagenda/logs' )( 'services/agendaStatistics/formSchemaToLegacy' );
+const log = require( '@openagenda/logs' )( 'core/agendas/settings/legacy/updateTagSet' );
 
-module.exports = async ( agenda, force = false ) => {
+module.exports = async ( config, agendaOrUid, force = false ) => {
+
+  const agenda = _.isObject( agendaOrUid ) ? agendaOrUid : await getAgenda( agendaOrUid );
 
   log( 'transferring from form-schema to tag-set and custom fields', agenda.uid );
 
@@ -21,6 +24,7 @@ module.exports = async ( agenda, force = false ) => {
 
   if ( !schema ) return { message: `No schema was found for agenda ${agenda.uid}` };
 
+  // this should take existing tag set into account as in master branch
   const { tagSet, messages } = generateTagSet( schema );
 
   const { id } = await config.knex( 'review' ).first( [ 'id', 'store' ] ).where( 'uid', agenda.uid );
