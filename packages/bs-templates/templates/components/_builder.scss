@@ -19,6 +19,13 @@
 
   }
 
+  .border-h-blue {
+
+    border-left: 2px solid $oa-blue;
+    border-right: 2px solid $oa-blue;
+
+  }
+
   .field-preview-canvas {
 
     &.editing {
