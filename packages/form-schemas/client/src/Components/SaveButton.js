@@ -19,8 +19,10 @@ export default ( { saveState, lang, onClick, disabled } ) => {
   } else if ( saveState === saveStates.LOADING ) {
 
     return <div className="form-inline">
-      <button disabled className="btn btn-primary margin-right-sm">{getLabel( 'buttonSave', lang )}</button>
-      <Spinner mode="inline"/>
+      <button disabled className="btn btn-primary margin-right-sm">
+        <span>{getLabel( 'buttonSave', lang )}</span>
+      </button>
+      <Spinner page={true} />
     </div>
 
   } else if ( !disabled && saveState === saveStates.CHANGED ) {

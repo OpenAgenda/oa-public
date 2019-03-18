@@ -1,16 +1,23 @@
 "use strict";
 
 const _ = {
-  pick: require( 'lodash/pick' ),
-  keys: require( 'lodash/keys' ),
   assign: require( 'lodash/assign' ),
+  get: require( 'lodash/get' ),
   isObject: require( 'lodash/isObject' ),
-  omit: require( 'lodash/omit' )
+  isString: require( 'lodash/isString' ),
+  keys: require( 'lodash/keys' ),
+  omit: require( 'lodash/omit' ),
+  pick: require( 'lodash/pick' )
 }
 
 const ih = require( 'immutability-helper' );
 
+const {
+  extractNextOptionId
+} = require( './fieldOptions' );
+
 const validateField = require( './validateField' );
+const validateFieldAndAssignOptionIds = require( './validateFieldAndAssignOptionIds' );
 
 const getSchema = require( './getSchema' );
 
@@ -30,11 +37,14 @@ module.exports = class {
 
   }
 
-  addField( data ) {
+  addField( fieldData ) {
 
-    const clean = validateField( data, {
-      custom: this.data.custom,
-    } );
+    const {
+      field: clean,
+      nextOptionId
+    } = validateFieldAndAssignOptionIds( fieldData, _.pick( this.data, [
+      'custom', 'defaultLabelLanguage', 'nextOptionId'
+    ] ) );
 
     if ( !this.isFieldNameAvailable( clean.field ) ) {
 
@@ -42,11 +52,32 @@ module.exports = class {
 
     }
 
+    this.data.nextOptionId = nextOptionId;
+
     this.data.fields.push( clean );
 
   }
 
-  getField( index ) {
+  updateField( fieldData ) {
+
+    const {
+      field: clean,
+      nextOptionId
+    } = validateFieldAndAssignOptionIds( fieldData, _.pick( this.data, [
+      'custom', 'defaultLabelLanguage', 'nextOptionId'
+    ] ) );
+
+    const fieldIndex  = this._getFieldIndex( clean.field );
+
+    this.data.nextOptionId = nextOptionId;
+
+    this.data.fields.splice( fieldIndex, 1, clean );
+
+  }
+
+  getField( indexOrName ) {
+
+    const index = this._getFieldIndex( indexOrName );
 
     this._checkFieldIndex( index );
 
@@ -66,19 +97,29 @@ module.exports = class {
 
   }
 
-  moveField( index, moves ) {
+  moveField( indexOrName, moves ) {
 
-    let newIndex = index + moves;
+    const index = this._getFieldIndex( indexOrName );
+
+    this.moveFieldTo( index, index + moves );
+
+  }
+
+  moveFieldTo( indexOrName, newIndex ) {
+
+    const index = this._getFieldIndex( indexOrName );
 
     this._checkFieldIndex( newIndex, 'Move value exceeds possible value' );
 
-    let field = this._popField( index );
+    const field = this._popField( index );
 
     this.data.fields.splice( newIndex, 0, field );
 
   }
 
-  removeField( index ) {
+  removeField( indexOrName ) {
+
+    const index = this._getFieldIndex( indexOrName );
 
     this._checkFieldIndex( index );
 
@@ -110,6 +151,38 @@ module.exports = class {
 
   }
 
+  updateFields( fields ) {
+
+    const updatedFieldsNames = fields.map( f => f.field );
+
+    let updated = this.data;
+
+    // remove
+    _.get( this, 'data.fields' )
+      .filter( f => !updatedFieldsNames.includes( f.field ) )
+      .forEach( fieldToRemove => this.removeField( fieldToRemove ) );
+
+    // add and update
+    fields.forEach( ( f, i ) => {
+
+      if ( this.getFieldExists( f.field ) ) {
+
+        this.updateField( f );
+
+      } else {
+
+        this.addField( f );
+
+      }
+
+    } );
+
+    fields.map( ( f, i ) => this.moveFieldTo( f.field, i ) );
+
+    return this.data.fields;
+
+  }
+
   getValidate( accessType = null, accessLevel = null, options = {}) {
 
     if ( _.isObject( accessType ) ) {
@@ -120,6 +193,26 @@ module.exports = class {
     }
 
     return getSchema( this.data.fields, accessType, accessLevel, ih( options, { custom: { $set: this.data.custom } } ) );
+
+  }
+
+  getFieldExists( indexOrName ) {
+
+    if ( _.isString( indexOrName ) ) {
+
+      return this._getFieldIndex( indexOrName ) === -1 ? false : true;
+
+    }
+
+    return indexOrName < this.data.fields.length;
+
+  }
+
+  _getFieldIndex( indexOrName ) {
+
+    const fieldNames = this.data.fields.map( f => f.field );
+
+    return _.isString( indexOrName ) ? fieldNames.indexOf( indexOrName ) : indexOrName;
 
   }
 
@@ -159,25 +252,30 @@ function validate( data, client = false ) {
   // these we take as is
   clean = _.pick( dirty, [
     'id',
-    'nextOptionId',
     'res',
     'custom',
     'defaultLabelLanguage'
   ] );
+
+  clean.nextOptionId = extractNextOptionId( data );
 
   clean.fields = [];
 
   // clean each field
   dirty.fields.forEach( f => {
 
-    if ( f.fieldType === 'abstract'  || !f.fieldType ) return;
-
     try {
 
-      clean.fields.push( validateField( f, {
-        custom: clean.custom,
-        defaultLabelLanguage: clean.defaultLabelLanguage
-      } ) );
+      const {
+        field: cleanField,
+        nextOptionId: updatedNextOptionId
+      } = validateFieldAndAssignOptionIds( f, _.pick( clean, [
+        'custom', 'defaultLabelLanguage', 'nextOptionId'
+      ] ) );
+
+      clean.nextOptionId = updatedNextOptionId;
+
+      clean.fields.push( cleanField );
 
     } catch ( e ) {
 
@@ -193,29 +291,6 @@ function validate( data, client = false ) {
 
   }
 
-  let biggestId = clean.fields
-
-    // consider fields with options only
-    .filter( f => f.options )
-
-    // build one big options list
-    .reduce( ( options, f ) => options.concat( f.options ), [] )
-
-    // keep biggest id
-    .reduce( ( biggestId, o ) => o.id > biggestId ? o.id : biggestId, 0 );
-
-  if ( _isNew( clean ) ) {
-
-    _assignOptionIds( clean );
-
-  }
-
-  if ( !_isNew( clean ) && biggestId >= clean.nextOptionId ) {
-
-    throw new Error( 'nextOptionId is invalid' );
-
-  }
-
   return client ? clean : _.omit( clean, [ 'res', 'id' ] );
 
 }
@@ -224,30 +299,5 @@ function validate( data, client = false ) {
 function _isNew( data ) {
 
   return data.id === null;
-
-}
-
-
-function _assignOptionIds( data ) {
-
-  data.fields.forEach( field => {
-
-    if ( !field.options ) return;
-
-    field.options.forEach( o => {
-
-      if ( o.id && o.id >= data.nextOptionId ) {
-
-        data.nextOptionId++;
-
-      }
-
-      if ( o.id ) return;
-
-      o.id = data.nextOptionId++;
-
-    } );
-
-  } );
 
 }

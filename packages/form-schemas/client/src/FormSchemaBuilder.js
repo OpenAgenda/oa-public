@@ -207,7 +207,9 @@ export default class FormSchemaBuilder extends Component {
     return <div className="form-schema-builder">
       <div className="margin-bottom-sm">
         <div className="wsq padding-v-sm padding-h-sm">
-          <h2 className="padding-bottom-sm">Paramètres généraux</h2>
+          <div className="pull-right">
+            <SaveButton disabled={mode} lang={lang} onClick={() => this.onSave() } saveState={saveState} />
+          </div>
           <LabelLanguages
             disabled={this.isDisabled( modes.EDITLABELLANGUAGES )}
             lang={lang}
@@ -219,10 +221,6 @@ export default class FormSchemaBuilder extends Component {
             lang={lang}
             onStartOrder={()=>{ this.setState( { mode: modes.ORDERING } )}}
           />
-          <div className="margin-top-sm">
-            <AddField disabled={this.isDisabled( modes.ADDFIELD )} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind( this )} />
-            <SaveButton disabled={mode} lang={lang} onClick={() => this.onSave() } saveState={saveState} />
-          </div>
           { editedField ? <EditField
             isOwnField={isOwnField( schema, editedField )}
             field={editedField}
@@ -233,9 +231,6 @@ export default class FormSchemaBuilder extends Component {
           /> : null }
         </div>
         <div>
-          <div className="wsq padding-v-xs padding-h-sm">
-            <h2>Champs du formulaire</h2>
-          </div>
           { mode === modes.ORDERING ? <FieldOrderActions
             lang={lang}
             fields={mergedSchema.fields}
@@ -247,7 +242,7 @@ export default class FormSchemaBuilder extends Component {
             <Droppable droppableId="droppable">
               {( provided, snapshot ) => (
                 <div
-                  className={'field-preview-canvas wsq' + ( editedField ? ' editing' : '' )}
+                  className={'list-group field-preview-canvas wsq' + ( editedField ? ' editing' : '' )}
                   ref={provided.innerRef}
                   style={getDraggableListStyle(snapshot.isDraggingOver)}
                 >
@@ -259,6 +254,7 @@ export default class FormSchemaBuilder extends Component {
                       index={index}>
                       {(provided, snapshot) => (
                         <div
+                          className="list-group-item"
                           ref={provided.innerRef}
                           {...provided.draggableProps}
                           {...provided.dragHandleProps}
@@ -287,10 +283,13 @@ export default class FormSchemaBuilder extends Component {
             </Droppable>
           </DragDropContext>
         </div>
+        <div className="wsq padding-v-sm padding-h-sm">
+          <div className="pull-right">
+            <SaveButton disabled={mode} lang={lang} onClick={() => this.onSave() } saveState={saveState} />
+          </div>
+          <AddField disabled={this.isDisabled( modes.ADDFIELD )} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind( this )} />
+        </div>
       </div>
-      { addEnabled ?
-        <button className="btn btn-primary">{getLabel( 'addField', this.props.lang )}</button>
-      : null }
     </div>
 
   }

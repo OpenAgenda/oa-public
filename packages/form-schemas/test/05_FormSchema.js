@@ -52,7 +52,7 @@ describe( 'form-schemas -05- FormSchema', () => {
       } );
 
       try {
-        
+
         s.addField( {
           field: 'atextfield',
           label: { fr: 'Un champ texte' },
@@ -162,6 +162,163 @@ describe( 'form-schemas -05- FormSchema', () => {
       } );
 
       s.getField( 3 ).field.should.equal( 'anaddedfield' );
+
+    } );
+
+  } );
+
+  describe( 'updating all fields', () => {
+
+    let s;
+
+    before( () => {
+
+      s =new FormSchema( {
+        nextOptionId: 1000,
+        fields: [ {
+          field: 'aradiofield',
+          fieldType: 'radio',
+          label:'Un choix unique',
+          options: [ {
+            id: 1,
+            label: 'Un',
+            value: 'un'
+          }, {
+            label: 'Deux',
+            value: 'deux'
+          } ]
+        } ]
+      } );
+
+      s.updateFields( [ {
+        field: 'aradiofield',
+        fieldType: 'radio',
+        label:'Un choix unique',
+        options: [ {
+          id: 1,
+          label: 'Un',
+          value: 'un'
+        }, {
+          label: 'Deux',
+          value: 'deux'
+        }, {
+          label: 'Trois',
+          value: 'trois'
+        } ]
+      }, {
+        field: 'acheckboxfield',
+        fieldType: 'checkbox',
+        label: 'Un choix multiple',
+        options: [ {
+          label: 'A',
+          value: 'a'
+        }, {
+          label: 'B',
+          value: 'b'
+        } ]
+      } ] );
+
+    } );
+
+    it( 'adds new fields', () => {
+
+      const s = new FormSchema( {
+        fields: [ {
+          field: 'atextfield',
+          label: { fr: 'Un champ texte' },
+          fieldType: 'text'
+        } ]
+      } );
+
+      s.updateFields( [ {
+        field: 'atextfield',
+        label: 'Un texte',
+        fieldType: 'text'
+      }, {
+        field: 'aninteger',
+        label: 'Un entier',
+        fieldType: 'integer'
+      } ] );
+
+      s.getData().fields.length.should.equal( 2 );
+
+    } );
+
+    it( 'removes absent fields', () => {
+
+      const s = new FormSchema( {
+        fields: [ {
+          field: 'atextfield',
+          label: { fr: 'Un champ texte' },
+          fieldType: 'text'
+        } ]
+      } );
+
+      s.updateFields( [ {
+        field: 'aninteger',
+        label: 'Un entier',
+        fieldType: 'integer'
+      } ] );
+
+      s.getData().fields.length.should.equal( 1 );
+
+      s.getData().fields[ 0 ].field.should.equal( 'aninteger' );
+
+    } );
+
+    it( 'options with missing id have been given one', () => {
+
+      s.getField( 'aradiofield' ).options.map( o => o.id ).should.eql( [ 1, 1001, 1002 ] );
+
+    } );
+
+    it( 'options of newly added fields are given ids', () => {
+
+      s.getField( 'acheckboxfield' ).options.map( o => o.id ).should.eql( [ 1003, 1004 ] );
+
+    } );
+
+    it( 'nextOptionId is incremented', () => {
+
+      s.getData().nextOptionId.should.equal( 1005 );
+
+    } );
+
+    it( 'ordering respects given fields order', () => {
+
+      const s = new FormSchema( {
+        "fields": [
+          {
+            "field": "hello",
+            "fieldType": "abstract"
+          },
+          {
+            "field": "cat",
+            "fieldType": "abstract"
+          }
+        ]
+      } );
+
+      s.updateFields( [
+        {
+          "field": "location",
+          "fieldType": "abstract"
+        },
+        {
+          "field": "hello",
+          "fieldType": "abstract"
+        },
+        {
+          "field": "cat",
+          "fieldType": "abstract"
+        },
+        {
+          "field": "image",
+          "fieldType": "abstract"
+        }
+      ] );
+
+      s.getData().fields.map( f => f.field ).should.eql( [ 'location', 'hello', 'cat', 'image' ] );
 
     } );
 
@@ -328,7 +485,7 @@ describe( 'form-schemas -05- FormSchema', () => {
     it( '.getValidate by default returns a validator that processes the full schema', () => {
 
       try {
-        
+
         validate();
 
       } catch( errors ) {
@@ -336,7 +493,7 @@ describe( 'form-schemas -05- FormSchema', () => {
         // because andanotherfield is required
         errors.length.should.equal( 1 );
 
-        return;        
+        return;
 
       }
 
@@ -398,11 +555,11 @@ describe( 'form-schemas -05- FormSchema', () => {
 
       } catch ( errors ) {
 
-        errors.should.eql( [ { 
+        errors.should.eql( [ {
           code: 'invalid',
           message: 'Not Wigglypoof',
           origin: 'Not wigglypoof',
-          field: 'acustomfield' 
+          field: 'acustomfield'
         } ] );
 
       }
@@ -422,6 +579,7 @@ describe( 'form-schemas -05- FormSchema', () => {
       } );
 
     } );
+
 
   } );
 

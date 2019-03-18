@@ -236,6 +236,20 @@ describe( 'form-schemas -06- validateField', () => {
 
     } );
 
+    it( 'abstract fields do not have required values', () => {
+
+      iso.validateField( {
+        field: 'afield',
+        fieldType: 'abstract',
+        optional: false
+      } ).should.eql( {
+        field: 'afield',
+        optional: false,
+        fieldType: 'abstract'
+      } );
+
+    } );
+
 
     it( 'a field with an enableWith value set will have the value added to the related fields list', () => {
 

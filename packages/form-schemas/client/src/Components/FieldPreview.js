@@ -25,11 +25,10 @@ export default class FieldPreview extends Component {
     return <div
       className={classNames( {
       'field-preview' : true,
-      'padding-top-xs' : true,
       disabled
     } )}>
-      <div className="padding-h-sm">
-        <label className="margin-right-xs">{getPreferredLang( field.label, lang )}</label>
+      <div>
+        <label className="margin-right-xs padding-top-xs">{getPreferredLang( field.label, lang )}</label>
         { schemaInfo ?
           <span title={getPreferredLang( schemaInfo.detail, lang )} className="badge badge-default">{getPreferredLang( schemaInfo.label, lang )}</span>
         : null }

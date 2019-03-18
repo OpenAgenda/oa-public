@@ -9,7 +9,9 @@ const _ = require( 'lodash/core' );
 _.extend( _, {
   assign: require( 'lodash/assign' ),
   includes: require( 'lodash/includes' ),
-  get: require( 'lodash/get' )
+  get: require( 'lodash/get' ),
+  set: require( 'lodash/set' ),
+  keys: require( 'lodash/keys' )
 } );
 
 const choice = require( '@openagenda/validators/choice' );
@@ -26,11 +28,11 @@ schema.register( {
   choice
 } );
 
-const optionedTypes = [ 'radio', 'checkbox', 'select' ];
+const optionedTypes = [ 'radio', 'checkbox', 'select', 'abstract' ];
 
-const minMaxedTypes = [ 'custom', 'checkbox', 'integer', 'number', 'text', 'textarea', 'markdown', 'multilingual', 'html', 'slate' ];
+const minMaxedTypes = [ 'custom', 'checkbox', 'integer', 'number', 'text', 'textarea', 'markdown', 'multilingual', 'html', 'slate', 'abstract' ];
 
-const multilingualTypes = [ 'text', 'textarea', 'html', 'markdown', 'slate' ];
+const multilingualTypes = [ 'text', 'textarea', 'html', 'markdown', 'slate', 'abstract' ];
 
 const validateStandardType = choice( {
   optional: false,
@@ -43,7 +45,7 @@ module.exports = validate;
 
 function validateType( value, custom = {} ) {
 
-  const dirtyType = _.get( value, 'fieldType', null );
+  const dirtyType = _.get( value, 'fieldType', 'abstract' );
 
   if ( custom && _.keys( custom ).includes( dirtyType ) ) {
 
@@ -70,26 +72,16 @@ function validate( value, options = {} ) {
   const type = validateType( value, custom );
 
   const isCustomField = _.keys( custom ).includes( type );
+  const isAbstract = type === 'abstract';
 
-  let errors = [], clean;
+  let errors = [];
 
   const fieldSchema = buildFieldSchema(
     isCustomField ? 'custom' : type, {
     defaultLabelLanguage: options.defaultLabelLanguage
   } );
 
-  try {
-
-    clean = fieldSchema( value );
-
-  } catch( e ) {
-
-    errors = e;
-
-    console.log( e );
-
-  }
-
+  const clean = schema( isAbstract ? _stripUndefinedSchemaFields( fieldSchema, value ) : fieldSchema )( value );
 
   // enableWith tells validator it is active if field specified has a value.
   // if set, the field must be part of related fields
@@ -111,9 +103,9 @@ function validate( value, options = {} ) {
   // validate any optioned type
   if ( optionedTypes.includes( type ) ) {
 
-    const unique = value.options.reduce( ( unique, v ) => unique.indexOf( v.value ) === -1 ? unique.concat( v.value ) : unique, [] );
+    const unique = _.get( value, 'options', [] ).reduce( ( unique, v ) => unique.indexOf( v.value ) === -1 ? unique.concat( v.value ) : unique, [] );
 
-    if ( unique.length !== value.options.length ) {
+    if ( unique.length !== _.get( value, 'options', [] ).length ) {
 
       errors = errors.concat( {
         field: 'options',
@@ -335,6 +327,17 @@ function buildFieldSchema( type, options = {} ) {
 
   }
 
-  return schema( structure );
+  return structure;
+
+}
+
+
+function _stripUndefinedSchemaFields( fieldSchema, value ) {
+
+  return _.keys( fieldSchema ).reduce(
+    ( stripped, key ) => value[ key ] !== undefined
+      ? _.set( stripped, key, fieldSchema[ key ] )
+      : stripped,
+    {} );
 
 }

@@ -8,9 +8,9 @@ describe( 'unit - reordering schema fields', () => {
     fields: [ {
       field: 'one'
     }, {
-      field: 'four'
-    }, {
       field: 'three'
+    }, {
+      field: 'four'
     }, {
       field: 'two'
     }, {
@@ -20,7 +20,9 @@ describe( 'unit - reordering schema fields', () => {
 
   it( 'reorders', () => {
 
-    reorderSchemaFields( schema, 3, 1 ).fields.map( f => f.field ).should.eql( [ 'one', 'two', 'three', 'four', 'five' ] );
+    reorderSchemaFields( schema, 3, 1 ).fields.map( f => f.field ).should.eql( [
+      'one', 'two', 'three', 'four', 'five'
+    ] );
 
   } );
 

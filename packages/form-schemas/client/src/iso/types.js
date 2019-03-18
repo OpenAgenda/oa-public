@@ -14,5 +14,6 @@ module.exports = {
   image: 'pass',
   file: 'pass',
   date: 'date',
-  boolean: 'boolean'
+  boolean: 'boolean',
+  abstract: 'abstract'
 }

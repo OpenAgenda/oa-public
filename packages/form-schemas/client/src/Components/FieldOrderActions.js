@@ -25,7 +25,7 @@ export default class FieldOrder extends Component {
       onCancel
     } = this.props;
 
-    return <div className="padding-all-md wsq border-v-blue">
+    return <div className="padding-all-md wsq border-v-blue border-h-blue">
       <div className="text-center">
         <p>{getLabel( 'orderInstruction', lang )}</p>
         <button className="btn btn-primary margin-h-sm" onClick={() => onFinishOrder() }>

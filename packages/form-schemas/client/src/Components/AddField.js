@@ -72,13 +72,13 @@ export default class AddField extends Component {
 
     if ( disabled ) {
 
-      return <button disabled className="btn btn-primary pull-right">{getLabel( 'addField', lang )}</button>
+      return <button disabled className="btn btn-primary">{getLabel( 'addField', lang )}</button>
 
     }
 
     if ( !this.state.adding ) {
 
-      return <button className="btn btn-primary pull-right" onClick={this.onShowChooseTypeMenu.bind( this )}>{getLabel( 'addField', lang )}</button>
+      return <button className="btn btn-primary" onClick={this.onShowChooseTypeMenu.bind( this )}>{getLabel( 'addField', lang )}</button>
 
     }
 
