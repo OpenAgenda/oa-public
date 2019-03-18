@@ -64,6 +64,8 @@ module.exports = ( options = {} ) => value => {
 
   const isEmpty = !_.isArray( value ) || !value.length;
 
+  const isTooLong = _.isArray( value ) && value.length > 800;
+
   if ( isEmpty && params.default ) {
 
     return params.default;
@@ -79,6 +81,14 @@ module.exports = ( options = {} ) => value => {
   } else if ( isEmpty ) {
 
     return [];
+
+  } else if ( isTooLong ) {
+
+    throw [ {
+      code: 'timings.toolong',
+      message: 'There cannot be more than 800 timings',
+      field: 'timings'
+    } ]
 
   }
 

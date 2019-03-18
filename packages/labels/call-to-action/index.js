@@ -79,15 +79,6 @@ module.exports = {
     en: 'Request to activate a public agenda'
   },
 
-  requestTitleBottomDescription: {
-    fr: 'Texte en pied de description',
-    en: 'Description footer text'
-  },
-  requestMessageBottomDescription: {
-    fr: 'Cette fonctionnalité permet d\'ajouter le texte de votre choix en pied de description de tous les événements de votre agenda.\n\nInterressé(e) ? Laissez nous un message et nous traiterons votre demande dans les plus brefs délais !',
-    en: 'This feature allows you to specify a footer text to be placed at the end of all description fields of the events of your agenda.\n\nGive us details on your requirements and we\'ll get back to you shortly!'
-  },
-
   requestTitleLimitDates: {
     fr: 'Bornez les dates des événements contribués',
     en: 'Add limits to the dates of contributed events'

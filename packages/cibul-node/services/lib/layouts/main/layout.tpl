@@ -2,13 +2,18 @@
 <html lang="<%= lang %>">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/images/favicon.ico" />
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/oasfmain.css?v=1"/>
 <% for ( meta of metas ) { %>
     <meta property="<%= meta.property %>" content="<%= meta.content %>" />
 <% } %>
   </head>
-  <body>
+  <body <% for ( attr of bodyAttributes ) { %>
+    <%- attr.name %>="<%- attr.value %>"
+  <% } %>>
     <nav class="oa-page-header navbar navbar-default navbar-static-top js_top_nav" id="nav">
       <div class="container">
         <div class="navbar-header">
@@ -21,7 +26,7 @@
         </div>
         <div class="navbar-collapse collapse">
           <form class="navbar-left search-form js_agenda_search" role="search" action="/agendas">
-            <input class="search-input" placeholder="<%= labels.search %>" type="text" name="search">
+            <input class="search-input" placeholder="<%= labels.search %>" type="text" name="search" value="<%= querySearch %>">
 <% if ( lang !== 'fr' ) { %>
             <input type="hidden" name="lang" value="<%= lang %>"/>
 <% } %>
@@ -58,5 +63,10 @@
       </div>
     </nav>
     {content}
+    <script type="text/javascript">window.templates='bs';</script>
+    <script type="text/javascript" src="/js/bsLayoutMain.js"></script>
+<% for ( script of scripts.bottom ) { %>
+    <script type="text/javascript" src="<%= script.path %>"></script>
+<% } %>
   </body>
 </html>

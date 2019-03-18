@@ -19,6 +19,7 @@ const locationWillRemove = require( './interfaces/locationWillRemove' );
 module.exports.init = async config => {
 
   await promisify( agendaLocations.init )( {
+    opencage: config.opencage,
     geocodefarm: config.geocodeFarm,
     redis: config.redis,
     elasticsearch: {
@@ -77,7 +78,7 @@ module.exports.init = async config => {
       locationsWillMerge,
       locationWillRemove
     } ),
-    logger: config.getLogConfig( 'svc', 'locations' )
+    logger: config.getLogConfig( 'svc', 'agendaLocations' )
   } );
 
 }

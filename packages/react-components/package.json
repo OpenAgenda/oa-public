@@ -14,8 +14,10 @@
     "@babel/runtime-corejs2": "^7.3.1",
     "@openagenda/dom-utils": "^2.2.0",
     "create-react-class": "^15.5.3",
-    "prop-types": "^15.5.8",
+    "prop-types": "^15.7.2",
     "react-bootstrap": "^0.31.0",
+    "react-final-form": "^4.1.0",
+    "react-waypoint": "^9.0.1",
     "recompose": "^0.30.0",
     "spin.js": "2.3.2"
   },

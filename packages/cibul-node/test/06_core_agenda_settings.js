@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 const mysql = require( 'mysql' );
 const { promisify } = require( 'util' );
+const should = require( 'should' );
 
 const fixtures = require( './fixtures/06_core_agenda_settings' );
 
@@ -42,6 +43,7 @@ const testConfig = {
     stakeholder: 'member',
     stakeholderSettings: 'member_settings'
   },
+  imageSizeLimits: [ 1000, 10000000 ],
   tmpFolderPath: '/var/tmp/',
   aws: {
     bucket: 'openagendatst',

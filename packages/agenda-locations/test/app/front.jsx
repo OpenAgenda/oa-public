@@ -31,7 +31,7 @@ Wrapper = createReactClass( {
   getInitialState: function() {
 
     return {
-      lang: 'de',
+      lang: 'fr',
       display: 'admin', // suggestion, admin, selector
       location: undefined,
       initSelectorMode: 'create',

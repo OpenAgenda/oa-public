@@ -19,19 +19,18 @@ const merge = require( '@openagenda/form-schemas/client/build/iso/merge' );
 
 const eventReferencesField = require( './fields/references' );
 
+const schemaLanguages = require( './utils/schemaLanguages' );
+
 module.exports = ( {
+  interfaceLanguage,
   locationRes,
   referencesRes,
   suggestionsRes,
-  languages: givenLanguages,
+  languages,
   fileStore,
   schemaExtensions,
   excludeEventFields
 } ) => {
-
-  const languages = givenLanguages === true
-    ? []
-    : ( givenLanguages || [] ).filter( l => !!l );
 
   const eventSchema = {
     custom: eventValidators,
@@ -50,9 +49,9 @@ module.exports = ( {
       "label" : labels.imageCredits,
       "enableWith" : "image"
     }, {
-      "field" : "languages",
-      "fieldType" : "languages",
-      "label" : labels.languages
+      field : 'languages',
+      fieldType : 'languages',
+      label : labels.languages
     }, {
       languages: [],
       "field" : "title",
@@ -94,6 +93,7 @@ module.exports = ( {
       "fieldType" : "text",
       "label" : labels.conditions,
       "max" : 255,
+      "placeholder" : labels.conditionsPlaceholder,
       "sub" : labels.conditionsSub
     }, {
       field: 'age',
@@ -105,6 +105,7 @@ module.exports = ( {
       fieldType: 'registration',
       optional: true,
       label: labels.registration,
+      info: labels.registrationInfo,
       placeholder: labels.registrationPlaceholder,
       sub: labels.registrationSub
     }, {
@@ -129,13 +130,9 @@ module.exports = ( {
     } ]
   }
 
-  if ( !_.isArray( schemaExtensions ) ) {
+  const hasExtensions = _.isArray( schemaExtensions );
 
-    return _setLanguages( eventSchema, languages );
-
-  }
-
-  if ( _hasReferencesField( schemaExtensions ) ) {
+  if ( hasExtensions && _hasReferencesField( schemaExtensions ) ) {
 
     eventSchema.fields.push( eventReferencesField( {
       res: {
@@ -146,27 +143,20 @@ module.exports = ( {
 
   }
 
-  const merged = merge.apply( null, [ eventSchema ].concat( schemaExtensions ) );
+  const finalSchema = hasExtensions ? merge.apply( null, [ eventSchema ].concat( schemaExtensions ) ) : eventSchema;
 
-  if ( excludeEventFields ) {
+  if ( hasExtensions && excludeEventFields ) {
 
     const eventSchemaFields = eventSchema.fields.map( f => f.field );
 
-    merged.fields = merged.fields.filter( f => !eventSchemaFields.includes( f.field ) );
+    finalSchema.fields = finalSchema.fields.filter( f => !eventSchemaFields.includes( f.field ) );
 
   }
 
-  return _setLanguages( merged, languages );
+  return schemaLanguages.set( finalSchema, interfaceLanguage, languages );
 
 }
 
-function _setLanguages( schema, languages ) {
-
-  return _.set( schema, 'fields', schema.fields
-    .map( field => field.languages ? _.set( field, 'languages', languages ) : field )
-  );
-
-}
 
 function _hasReferencesField( schemaExtensions ) {
 

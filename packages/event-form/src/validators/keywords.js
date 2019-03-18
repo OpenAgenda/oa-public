@@ -20,7 +20,7 @@ module.exports = () => value => {
 
   _.keys( clean ).forEach( lang => {
 
-    splitCommas[ lang ] = clean[ lang ].reduce( ( carry, value ) => carry.concat( value.split( ',' ).map( v => v.trim() ) ), [] );
+    splitCommas[ lang ] = clean[ lang ].reduce( ( carry, value ) => carry.concat( ( value || '' ).split( ',' ).map( v => v.trim() ) ), [] );
 
   } );
 

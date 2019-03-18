@@ -1,0 +1,169 @@
+"use strict";
+
+const _ = require( 'lodash' );
+const should = require( 'should' );
+const Opencage = require( '../Opencage' );
+const config = require( '../testconfig' );
+
+describe( 'opencage', () => {
+
+  const geocode = Opencage( config.opencage );
+
+  describe( 'forward', () => {
+
+    it( 'An address in roubaix. No district provided', async () => {
+
+      ( await geocode( '139 rue des arts, Roubaix', {
+        countryCode: 'FR',
+        language: 'fr',
+        first: true
+      } ) ).city.should.equal( 'Roubaix' );
+
+    } );
+
+    it( 'Brussels is in Belgium', async () => {
+
+      ( await geocode( 'Place du Jeu de Balle, Bruxelles', {
+        countryCode: 'BE',
+        language: 'fr',
+        first: true
+      } ) ).countryCode.should.eql( 'be' );
+
+    } );
+
+    it( 'St-Malo gives Saint-Malo', async () => {
+
+      ( await geocode( 'Terre-Plein du Naye, 35400 St-Malo, France', {
+        countryCode: 'FR',
+        language: 'fr',
+        first: true
+      } ) ).city.should.eql( 'Saint-Malo' );
+
+    } );
+
+    describe( 'Courbevoie', async () => {
+
+      let result;
+
+      before( async () => {
+
+        result = await geocode( 'Courbevoie', {
+          countryCode: 'FR',
+          language: 'fr',
+          first: true
+        } );
+
+      } );
+
+      it( 'it is in Hauts de Seine', async () => {
+
+        result.department.should.equal( 'Hauts-de-Seine' );
+
+      } );
+
+
+    } );
+
+    describe( 'Sarzeau', async () => {
+
+      let result;
+
+      before( async () => {
+
+        result = await geocode( 'Sarzeau', {
+          countryCode: 'FR',
+          language: 'fr',
+          first: true,
+          raw: true
+        } );
+
+      } );
+
+      it( 'department is Morbihan', () => {
+
+        result.department.should.equal( 'Morbihan' );
+
+      } );
+
+      it( 'city is Sarzeau', () => {
+
+        result.city.should.equal( 'Sarzeau' );
+
+      } );
+
+
+    } );
+
+  } );
+
+  describe( 'reverse', () => {
+
+    describe( 'Paris', () => {
+
+      let result;
+
+      before( async () => {
+
+        result = await geocode.reverse( 48.867638, 2.352172, {
+          first: true,
+          language: 'fr'
+        } );
+
+      } );
+
+      it( 'city is Paris', () => {
+
+        result.city.should.equal( 'Paris' );
+
+      } );
+
+      it( 'department is Paris', () => {
+
+        result.department.should.equal( 'Paris' );
+
+      } );
+
+    } );
+
+    describe( 'Courbevoie', () => {
+
+      let result;
+
+      before( async () => {
+
+        result = await geocode.reverse( 48.8953328, 2.2561602, {
+          first: true,
+          language: 'fr'
+        } );
+
+      } );
+
+      it( 'department is Hauts-de-Seine', () => {
+
+        result.department.should.equal( 'Hauts-de-Seine' );
+
+      } );
+
+    } );
+
+    it( 'In Guyane', async () => {
+
+      _.pick( await geocode.reverse( 5.6688522, -53.7819599, {
+        first: true,
+        language: 'fr'
+      } ), [
+        'city', 'department', 'region', 'timezone', 'country', 'countryCode'
+      ] ).should.eql( {
+        city: 'Mana',
+        department: null,
+        region: 'Guyane',
+        country: 'France',
+        countryCode: 'fr',
+        timezone: 'America/Cayenne'
+      } );
+
+    } );
+
+  } );
+
+} );

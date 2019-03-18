@@ -15,6 +15,7 @@ const extractLanguages = require( '@openagenda/event-form/build/utils/extractLan
 const { fromEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
 const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
+const getLocation = require( '../utils/getLocation' );
 
 module.exports = async ( agendaUid, data ) => {
 
@@ -37,8 +38,10 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
     optionalState: false
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
-  // api provides event data in event service format ( deep image object that includes credits )
-  const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat( data );
+  // api provides event data in event service format ( deep image object that includes credits and variants )
+  const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat( data, {
+    location: await getLocation( data )
+  } );
 
   const schemaExtensions = {
     network: networkFormSchema,

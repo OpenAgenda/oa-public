@@ -2,14 +2,13 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
-import { Link } from 'react-router';
 import { renderRoutes } from 'react-router-config';
 import { formValueSelector } from 'redux-form';
 import classNames from 'classnames';
 import qs from 'qs';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
-import MenuItem from '../components/MenuItem';
+import { MenuItem } from '../components';
 import * as agendasActions from '../redux/modules/agendas';
 
 const selector = formValueSelector( 'homeAgendas' );

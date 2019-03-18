@@ -11,7 +11,7 @@ const should = require( 'should' );
 const config = require( '../testconfig' );
 const svc = require( './service' );
 
-const imageFiles = require( '@openagenda/image-files' );
+const externalServices = require( './service/externalServices' );
 
 describe( 'events -04- functional (server): update', function() {
 
@@ -21,12 +21,12 @@ describe( 'events -04- functional (server): update', function() {
 
   beforeEach( done => {
 
-    imageFiles.init( config.tests.imageFiles );
+    externalServices.init( config.tests );
 
     svc.initAndLoad( ih( config, {
       interfaces: {
         imageFilesLoad: {
-          $set: imageFiles.load
+          $set: externalServices.imageFiles.load
         }
       }
     } ), done );
@@ -66,7 +66,7 @@ describe( 'events -04- functional (server): update', function() {
 
     result.event.title.should.eql( {
       fr: 'Titre toujours à jour'
-    } );    
+    } );
 
   } );
 
@@ -89,11 +89,11 @@ describe( 'events -04- functional (server): update', function() {
 
       result.success.should.equal( false );
 
-      result.errors.should.eql( [ { 
+      result.errors.should.eql( [ {
         field: 'title',
         code: 'required',
         message: 'at least one language entry is required',
-        origin: {} 
+        origin: {}
       } ] );
 
       done();
@@ -140,7 +140,7 @@ describe( 'events -04- functional (server): update', function() {
 
       result.success.should.equal( true );
 
-      result.event.timings.length.should.equal( 1 );  
+      result.event.timings.length.should.equal( 1 );
 
       JSON.stringify( result.event.timings[ 0 ].begin )
         .should.equal( '"2017-10-24T20:00:00.000Z"' );
@@ -174,7 +174,7 @@ describe( 'events -04- functional (server): update', function() {
 
       result.event.id.should.equal( id );
 
-      done();      
+      done();
 
     } );
 
@@ -229,7 +229,7 @@ describe( 'events -04- functional (server): update', function() {
                 agendaUid: null,
                 transferToLegacy: false,
                 updateSearchIndex: true
-              } );  
+              } );
 
               done();
 
@@ -260,7 +260,7 @@ describe( 'events -04- functional (server): update', function() {
 
       _.get( result, 'errors.0.code' ).should.equal( 'ENOTFOUND' );
 
-      _.get( result, 'errors.0.step' ).should.equal( 'image' );   
+      _.get( result, 'errors.0.step' ).should.equal( 'image' );
 
     } );
 

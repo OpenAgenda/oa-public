@@ -24,26 +24,27 @@ module.exports = async ( config, agendaOrUid, force = false ) => {
 
   if ( !schema ) return { message: `No schema was found for agenda ${agenda.uid}` };
 
-  // this should take existing tag set into account as in master branch
-  const { tagSet, messages } = generateTagSet( schema );
-
   const { id } = await config.knex( 'review' ).first( [ 'id', 'store' ] ).where( 'uid', agenda.uid );
 
-  if ( !force && await getAgendaTags( id ) ) {
+  const tagSet =  await getAgendaTags( id );
 
-    return {
-      message: 'tag set already exists for agenda. ?force to force operation'
-    }
+  const { tagSet: updatedTagSet, messages } = generateTagSet( schema, tagSet );
+
+  if ( updatedTagSet ) {
+
+    await setAgendaTags( id, updatedTagSet );
+
+    messages.push( 'generated tag set at id ' + id );
+
+  } else {
+
+    messages.push( 'no tag set generated' );
 
   }
 
-  if ( tagSet ) await setAgendaTags( id, tagSet );
-
-  messages.push( 'generated tag set at id ' + id );
-
   return {
     messages,
-    tagSet,
+    updatedTagSet,
   }
 
 }

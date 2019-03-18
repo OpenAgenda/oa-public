@@ -30,6 +30,14 @@ module.exports = async ( ae, context ) => {
 
   const { agenda, event } = await fallbackContextGet( 'onCreate', ae, context );
 
+  if ( !event ) {
+
+    log( 'error', 'could not retrieve event', ae );
+
+    return;
+
+  }
+
   let user;
 
   if ( !context.aggregated ) {
@@ -73,8 +81,16 @@ module.exports = async ( ae, context ) => {
 
   if ( context.legacy && agenda.formSchemaId ) {
 
-    // this happens after llegacy reference was added
-    await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
+    // this happens after legacy reference was added
+    try {
+
+      await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
+
+    } catch ( e ) {
+
+      log( 'error', 'could not transfer custom data to legacy (%s.%s)', ae.agendaUid, ae.eventUid, e );
+
+    }
 
   }
 
@@ -192,7 +208,7 @@ async function _addToSearchIndex( ae ) {
 
   if ( !_.get( result, 'success' ) ) {
 
-    log( 'warn', 'could not index event in agenda index', { agendaEvent: ae } );
+    log( 'warn', 'could not index event in agenda index (%s.%s)', ae.agendaUid, ae.eventUid );
 
   }
 

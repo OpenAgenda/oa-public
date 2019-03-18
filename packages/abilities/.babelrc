@@ -15,12 +15,5 @@
       }
     ]
   ],
-  "env": {
-    "test": {
-      "plugins": [
-        "babel-plugin-require-context-hook"
-      ]
-    }
-  },
   "sourceType": "unambiguous"
 }

@@ -31,7 +31,7 @@ describe( 'aggregation rules', () => {
         tags: [ 'Tag1', 'Tag2' ]
       }
 
-      expect( rules( ruleset, event, 'value' ) ).toEqual( [ 
+      expect( rules( ruleset, event, 'value' ) ).toEqual( [
         null,
         { state: 'tobecontrolled' },
         { state: 'published' }
@@ -64,6 +64,22 @@ describe( 'aggregation rules', () => {
       expect( rules( ruleset, { intercomunal_interest: false } ) ).toEqual( [] );
 
       expect( rules( ruleset, { intercomunal_interest: true } ) ).toEqual( [ null ] );
+
+    } );
+
+    test( 'rule passes if value in requested fields are truthy', () => {
+
+      const ruleset = [ {
+        truthy: [ 'intercomunal_interest' ]
+      } ];
+
+      expect( rules( ruleset, { intercomunal_interest: false } ) ).toEqual( [] );
+
+      expect( rules( ruleset, { intercomunal_interest: true } ) ).toEqual( [ null ] );
+
+      expect( rules( ruleset, { intercomunal_interest: [] } ) ).toEqual( [] );
+
+      expect( rules( ruleset, { intercomunal_interest: [ 1 ] } ) ).toEqual( [ null ] );
 
     } );
 

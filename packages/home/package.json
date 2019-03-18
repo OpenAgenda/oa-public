@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/home",
-  "version": "2.1.2",
+  "version": "2.1.3",
   "description": "Oh la home",
   "repository": {
     "type": "git",
@@ -34,6 +34,7 @@
     "@openagenda/react-utils": "^4.0.0",
     "classnames": "^2.2.5",
     "connected-react-router": "^6.2.2",
+    "final-form": "^4.12.0",
     "history": "^4.7.2",
     "knex": "^0.16.3",
     "lodash": "^4.17.11",
@@ -41,6 +42,7 @@
     "mysql": "^2.12.0",
     "prop-types": "^15.5.8",
     "qs": "^6.6.0",
+    "react-final-form": "^4.1.0",
     "react-redux": "^6.0.0",
     "react-router": "^4.3.1",
     "react-router-config": "^1.0.0-beta.4",

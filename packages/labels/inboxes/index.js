@@ -20,12 +20,12 @@ module.exports = {
     en: 'ongoing conversation'
   },
   pastConversations: {
-    fr: 'conversations passées',
-    en: 'past conversations'
+    fr: 'conversations fermées',
+    en: 'closed conversations'
   },
   pastConversation: {
-    fr: 'conversation passée',
-    en: 'past conversation'
+    fr: 'conversation fermée',
+    en: 'closed conversation'
   },
   newConversation: {
     fr: 'Nouvelle conversation',

@@ -20,9 +20,7 @@ supervisor( loadTasks => {
 
     if ( err ) {
 
-      console.log( err );
-
-      return log( 'error', 'could not init app: %s', err );
+      return log( 'error', 'could not init app:', err );
 
     }
 

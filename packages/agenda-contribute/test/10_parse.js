@@ -41,6 +41,26 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
 
     } );
 
+    test( 'maintains preexisting image data in image key', () => {
+
+      expect( parse.toEventServiceFormat( {
+        image: { filename: 'something' },
+      }, null, {
+        image: {
+          credits: 'the credits',
+          filename: 'something',
+          variants: [],
+          size: { width: 12, height: 12 }
+        }
+      } ).image ).toEqual( {
+        filename: 'something',
+        size: { width: 12, height: 12 },
+        variants: [],
+        credits: undefined
+      } );
+
+    } );
+
     test( 'only location uid is referenced in locationUid key', () => {
 
       expect( parse.toEventServiceFormat( {
@@ -54,7 +74,10 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
     test( 'timings are converted to date format in default timezone', () => {
 
       expect( parse.toEventServiceFormat( {
-        timezone: 'Europe/Paris',
+        timezone: null,
+        location: {
+          timezone: null
+        },
         timings: [ {
           begin: {
             date: '2019-02-08',
@@ -177,6 +200,58 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
           minutes: '00'
         }
       } ] );
+
+    } );
+
+    test( 'when timezone is not specified in event data, it can be read from provided location', () => {
+
+      expect( parse.fromEventServiceFormat( {
+        timings: [ {
+          begin: new Date( '2019-02-08T19:25:00+0400' ),
+          end: new Date( '2019-02-08T21:00:00+0400' )
+        } ]
+      }, {
+        location: { timezone: 'Asia/Dubai' }
+      } ).timings ).toEqual( [ {
+        begin: {
+          date: '2019-02-08',
+          hours: '19',
+          minutes: '25'
+        },
+        end: {
+          date: '2019-02-08',
+          hours: '21',
+          minutes: '00'
+        }
+      } ] );
+
+    } );
+
+    test( 'should works with a falsy timezone', () => {
+
+      expect( parse.fromEventServiceFormat( {
+        timings: [
+          {
+            "begin": "2019-03-12T23:00:00.000Z",
+            "end": "2019-03-13T22:59:00.000Z"
+          }
+        ]
+      }, {
+        location: { timezone: null }
+      } ).timings ).toEqual( [
+        {
+          "begin": {
+            "date": "2019-03-13",
+            "hours": "00",
+            "minutes": "00"
+          },
+          "end": {
+            "date": "2019-03-13",
+            "hours": "23",
+            "minutes": "59"
+          }
+        }
+      ] );
 
     } );
 

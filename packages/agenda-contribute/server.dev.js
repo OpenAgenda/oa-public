@@ -74,13 +74,9 @@ dev.all(
   require( './dev/loadMemberMw' ),
   require( './dev/loadSchemasMw' ),
   require( './dev/delayMw' ),
-  require( './dev/errorMw' )
+  require( './dev/errorMw' ),
+  require( './dev/loadEventMw' )
 );
-
-dev.all( [
-  '/:agendaSlug/contribute/event/:eventUid',
-  '/:agendaSlug/contribute/event/:eventUid/draft'
-], require( './dev/loadEventMw' ) );
 
 dev.all( [
   '/:agendaSlug/contribute',

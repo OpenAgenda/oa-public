@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 const should = require( 'should' );
 
@@ -58,7 +59,9 @@ describe( 'insee - unit', () => {
 
     const after = await rcHGet( ns, 'ardeche|lamastre' );
 
-    after.should.equal( '[{"nom":"Lamastre","code":"07129","codeDepartement":"07","codeRegion":"84","codesPostaux":["07270"],"population":2404}]' );
+    _.pick( _.first( JSON.parse( after ) ), [ 'nom', 'code' ] ).should.eql( {
+      nom: 'Lamastre', code: '07129'
+    } );
 
   } );
 
@@ -81,7 +84,7 @@ describe( 'insee - unit', () => {
       longitude: 4.5737007
     } );
 
-    insee.fromCache.should.equal( true );    
+    insee.fromCache.should.equal( true );
 
   } );
 

@@ -6,7 +6,8 @@ module.exports = {
     "en": "Today",
     "it": "Oggi",
     "de": "Heute",
-    "pl": "Dzisiaj"
+    "pl": "Dzisiaj",
+    "br" : ""
   },
   "tomorrow": {
     "fr": "Demain",

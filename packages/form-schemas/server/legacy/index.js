@@ -65,7 +65,7 @@ async function get( agendaId ) {
 
     categorySet = await _queryStore( config.legacy.schemas.categorySet, agendaId );
 
-    if ( categorySet ) formData = parseTagSet.categories( formData, categorySet );
+    if ( categorySet && categorySet.categories.length ) formData = parseTagSet.categories( formData, categorySet );
 
   } catch( e ) {
 

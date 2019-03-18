@@ -1,9 +1,13 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const { buildCss, appendCssBuildMiddleware } = require( './css' );
 
 const compileParsers = require( './parsers/compile' );
 const detailedParseEvent = require( './parsers/detailed' );
+
+const log = require( './Log' )( 'launch' );
 
 module.exports = ( app, port = 80 ) => {
 
@@ -30,7 +34,9 @@ module.exports.applyDevelopmentMiddleware = app => {
 
 function _development( app, port ) {
 
-  if ( process.send ) process.send( 'online' );
+  log( 'launching in development environment' );
+
+  _ready();
 
 }
 
@@ -38,9 +44,27 @@ function _production( app, port ) {
 
   if ( !app.locals.root ) throw new Error( 'app root is not set' );
 
-  const { sass, assets } = app.locals;
+  log( 'launching in production environment' );
 
-  buildCss( sass || __dirname + '/../sass/main.scss', assets || __dirname + '/../assets' );
+  const { sass, assets } = _.assign( {
+    sass: __dirname + '/../sass/main.scss',
+    assets: __dirname + '/../assets'
+  }, app.locals );
+
+  buildCss( sass, assets );
+
+  _ready();
+
+}
+
+function _ready() {
+
+  log( '**** app is running and ready ****' );
+
+  // ready: used by PM2 https://pm2.io/doc/en/runtime/best-practices/graceful-shutdown/#graceful-start
+  // online: used by browser-refresh
+
+  if ( process.send ) process.send( process.env.NODE_ENV === 'development' ? 'online' : 'ready' );
 
 }
 

@@ -1,7 +1,7 @@
 <div class="timings js_timings">
   <ul class="months">
   {{#each event.months}}
-    <li class="month {{#if current}}current{{/if}} js_month">
+    <li class="month{{#if current}} current{{/if}}{{#if displayed}} displayed{{/if}} js_month">
       <div class="month-title">
         {{#if hasPrevious}}
         <i class="prev fa fa-chevron-left js_prev"></i>
@@ -38,7 +38,7 @@
 
     function navTimings( direction, e ) {
 
-      $( e.target ).closest( '.js_month' ).removeClass( 'current' )[ direction ]().addClass( 'current' );
+      $( e.target ).closest( '.js_month' ).removeClass( 'displayed' )[ direction ]().addClass( 'displayed' );
 
     }
 

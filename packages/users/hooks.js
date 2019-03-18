@@ -3,6 +3,7 @@
 const debug = require( 'debug' );
 const { inspect } = require( 'util' );
 const _ = require( 'lodash' );
+const VError = require( 'verror' );
 const errors = require( '@feathersjs/errors' );
 const {
   iff,
@@ -402,7 +403,7 @@ module.exports = {
 
     if ( !(context.error instanceof errors.NotFound) ) {
       log.error(
-        `Error in '${context.path}' service method '${context.method}'\n${context.error.stack}\n`,
+        `Error in '${context.path}' service method '${context.method}'\n${VError.fullStack( context.error )}\n`,
         inspect( _.omit( context.error, [ 'hook.app', 'hook.service' ] ), {
           colors: debug.useColors()
         } )

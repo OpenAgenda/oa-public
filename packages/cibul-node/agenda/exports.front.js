@@ -18,6 +18,8 @@ const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const cacheMw = require( '../lib/cache.mw' );
 
+const ODSJSONParser = require( '@openagenda/legacy/exports/ODSJSONParser' );
+
 const perPage = 20;
 const routes = {
 
@@ -186,12 +188,14 @@ function _sleep( ms ) {
 
 function json( req, res ) {
 
+  const events = !_.get( req, 'query.ods', false ) ? req.formatted : ODSJSONParser( req.agenda.tagSet, req.formatted );
+
   cmn.renderJson( req, res, {
     readme: 'Results are paginated. See: https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda',
     total: req.total,
     offset: req.offset,
     limit: req.limit,
-    events: req.formatted,
+    events,
   } );
 
 }

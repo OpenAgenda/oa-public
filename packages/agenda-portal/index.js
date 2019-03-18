@@ -6,26 +6,36 @@ const express = require( 'express' );
 const hbs = require( 'hbs' );
 const qs = require( 'qs' );
 
-const log = require( '@openagenda/logs' )( 'index' );
+const log = require( './lib/Log' )( 'index' );
 
 const paginate = require( './lib/paginate' );
-const Proxy = require( './lib/proxy' );
+const Proxy = require( './lib/Proxy' );
 const launch = require( './lib/launch' );
+const tasks = require( './tasks' );
 
 const mw = {
   index: require( './middleware/renderIndex' ),
   error: require( './middleware/error' ),
   get: require( './middleware/getEvent' ),
+  redirectToNeighbor: require( './middleware/eventNavigation' ).redirectToNeighbor,
   list: require( './middleware/listEvents' ),
   pageGlobals: require( './middleware/pageGlobals' ),
+  redirectLegacyEventQuery: require( './middleware/redirectLegacyEventQuery' ),
   renderList: require( './middleware/renderList' ),
   redirect: require( './middleware/redirectToEvent' ),
-  showPage: require( './middleware/showPage' )
+  showPage: require( './middleware/showPage' ),
+  navigationLinks: require( './middleware/eventNavigation' ).navigationLinks
 }
 
-module.exports = async config => {
+module.exports = async options => {
+
+  log( 'booting' );
 
   const app = express();
+
+  const config = _.assign( {
+    eventsPerPage: 20
+  }, options );
 
   const {
     eventParser,
@@ -34,10 +44,13 @@ module.exports = async config => {
     key, // public key of OA account
     views, // path to views folder
     assets, // optional path to assets folder
-    sass // optional path to sass file
+    sass, // optional path to sass file
+    eventsPerPage, // optional number of events to load per page
+    defaultFilter, // optional: filter that applies when no other filter is set
+    cache
   } = config;
 
-  const proxy = Proxy( { uid, key } );
+  const proxy = Proxy( { uid, key, defaultLimit: eventsPerPage, defaultFilter } );
 
   app.locals.agenda = await proxy.head();
 
@@ -61,13 +74,14 @@ module.exports = async config => {
 
   if ( assets ) app.use( express.static( assets ) );
 
-  app.get( '/', mw.pageGlobals, mw.list, mw.index );
+  app.get( '/', mw.redirectLegacyEventQuery, mw.pageGlobals, mw.list, mw.index );
   app.get( '/p/:page', mw.pageGlobals, mw.list, mw.index );
 
   app.get( '/events/p/:page', mw.list, mw.renderList );
   app.get( '/events', mw.list, mw.renderList );
 
-  app.get( '/events/:slug', mw.pageGlobals, mw.get );
+  app.get( '/events/nav/:direction', mw.redirectToNeighbor );
+  app.get( '/events/:slug', mw.pageGlobals, mw.navigationLinks, mw.get );
   app.get( '/permalinks/events/:uid', mw.redirect );
 
   app.get( '/:page', mw.pageGlobals, mw.showPage );
@@ -77,6 +91,8 @@ module.exports = async config => {
   app.use( mw.error );
 
   app.launch = launch.bind( null, app );
+
+  tasks( { config, proxy } );
 
   return app;
 

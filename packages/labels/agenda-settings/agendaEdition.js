@@ -266,10 +266,6 @@ module.exports = {
     fr: 'Modifiez la description des événements',
     en: 'Edit the description of events'
   },
-  requestBottomDescription: {
-    fr: 'Demander d\'activer la personnalisation des descriptions',
-    en: 'Request to activate descriptions customization'
-  },
   removeKey: {
     fr: 'Supprimer la clé',
     en: 'Remove key'

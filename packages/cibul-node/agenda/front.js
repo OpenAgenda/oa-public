@@ -15,6 +15,8 @@ const registration = require( '@openagenda/registration/src/validate' ).getTypes
 
 const controlDataSvc = require( '../services/legacy' ).controlData;
 
+const layout = require( '../services/lib/layouts' ).main;
+
 const  modLib = require( '../lib/moduleLib' ),
 
   cmn = require( '../lib/commons-app' ),
@@ -398,17 +400,22 @@ function agendaSearchPage( req, res, next ) {
 
   if ( req.xhr ) return next();
 
-  cmn.render( req, res, 'agendaSearch/index', {
-    search: req.query && req.query.search ? req.query.search : '',
-    content: req.content,
-    scriptParams: {
+  req.bodyAttributes = [ {
+    name: 'data-options',
+    value: JSON.stringify( {
       lang: req.lang,
       canvas: '.js_search_canvas',
       agendas: req.data.agendas,
       total: req.data.total,
       res: req.genUrl( 'agendaSearchFormats', { format: 'json' } )
-    }
-  } );
+    } )
+  } ];
+
+  req.scripts = {
+    bottom: [ { path: '/js/agendaSearchIndex.js' } ]
+  };
+
+  res.send( layoutSvc( req, `<div class="js_search_canvas">${req.content}</div>`) );
 
 }
 

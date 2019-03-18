@@ -48,17 +48,19 @@ module.exports = ( timings = [], timezone = 'Europe/Paris', locale = 'en' ) => {
     months: {}
   } );
 
-
   const months = [];
   const today = _getKeys( new Date(), timezone );
   let dayCursor = keyedTimings.first;
 
-  while ( tz( dayCursor, timezone ).format( 'YYYY-MM' ) <= tz( keyedTimings.last, timezone ).format( 'YYYY-MM' ) ) {
+  const last = tz( keyedTimings.last, timezone ).format( 'YYYY-MM' );
+
+  while ( tz( dayCursor, timezone ).format( 'YYYY-MM' ) <= last ) {
 
     const keys = _getKeys( dayCursor, timezone );
 
     months.push( {
       key: keys.month,
+      diff: _monthDiff( today.month, keys.month ),
       current: today.month === keys.month,
       label: _.capitalize( tz( dayCursor, timezone ).format( 'MMMM YYYY' ) ),
       weeks: _monthWeeks( keys.month, keyedTimings.months[ keys.month ], timezone, today )
@@ -68,10 +70,23 @@ module.exports = ( timings = [], timezone = 'Europe/Paris', locale = 'en' ) => {
 
   }
 
+  const nearestMonthIndex = months.reduce( ( { diff, index }, month, monthIndex ) => ( {
+    diff: Math.abs( month.diff ) < diff ? month.diff : diff,
+    index: Math.abs( month.diff ) < diff ? monthIndex : index
+  } ), { diff: Math.abs( months[ 0 ].diff ), index: 0 } ).index;
+
+  months[ nearestMonthIndex ].displayed = true;
+
   return months.map( ( m, index ) => _.assign( m, {
     hasPrevious: index !== 0,
     hasNext: index !== months.length - 1
   } ) );
+
+}
+
+function _monthDiff( currentMonth, month ) {
+
+  return moment( month + '-01' ).diff( currentMonth + '-01', 'months' );
 
 }
 

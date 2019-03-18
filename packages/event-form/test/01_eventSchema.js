@@ -34,7 +34,7 @@ describe( 'event-form eventSchema', () => {
         } ]
       } ]
     } );
-    
+
     expect(
       es.fields.filter( f => f.field === 'description' )[ 0 ].languages
     ).toEqual( [] );
@@ -76,19 +76,19 @@ describe( 'event-form eventSchema', () => {
 
     expect( multilingualFields ).toEqual( [ {
       languages: [ 'fr', 'en' ],
-      field: 'title' 
+      field: 'title'
     }, {
       languages: [ 'fr', 'en' ],
       field: 'description'
     }, {
       languages: [ 'fr', 'en' ],
       field: 'keywords'
-    }, { 
+    }, {
       languages: [ 'fr', 'en' ],
       field: 'longDescription'
     }, {
       languages: [ 'fr', 'en' ],
-      field: 'conditions' 
+      field: 'conditions'
     } ] );
 
   } );

@@ -1,25 +1,30 @@
-Et bim!
-<div data-oapr data-cbctl="{{ agenda.uid }}">
+<h2 class="text-center pb-4">Evénements recommandés</h2>
+<div data-oapr class="preview cbpgpr" data-cbctl="{{ agenda.uid }}">
   <a href="/">Voir l'agenda</a>
   <!--
-    <ul class="list-inline row">
-      {block:Events}
-      <li class="col-sm-3">
-        <a href="{Link}">
-          <span class="title">{Title}</span>
+    <div class="row">
+    {block:Events}
+    <div class="col-md-3">
+      <a class="card-link" href="{Link}">
+        <div class="card">
           {block:ImageUrl}
-          <img src="{ImageUrl}"/>
+          <img class="card-img-top" src="{ImageUrl}" alt="{Title}"/>
           {/block:ImageUrl}
-          <span class="desc">{Description}</span>
-          <span class="range">{DateRange}</span>
-          <span class="place">{LocationName}</span>
-          {block:Tags}
-            <h1>{Tag}</h1>
-          {/block:Tags}
-        </a>
-      </li>
-      {/block:Events}
-    </ul>
+          <div class="card-body">
+            <div class="card-text mb-3">
+              <strong>{Title}</strong>
+            </div>
+            <p class="card-text">{Description}</p>
+            <ul class="list-unstyled">
+              <li>{DateRange}</li>
+              <li>{LocationName}</li>
+            </ul>
+          </div>
+        </div>
+      </a>
+    </div>
+    {/block:Events}
+    </div>
   -->
 </div>
 <script type="text/javascript" src="//openagenda.com/js/embed/oaPreviewWidget.js"></script>

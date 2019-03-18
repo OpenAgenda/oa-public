@@ -27,6 +27,6 @@ export default ( values, defaultLang = null ) => {
 
   if ( languages.length ) return languages;
 
-  return [ defaultLang ];
+  return defaultLang ? [ defaultLang ] : [];
 
 }

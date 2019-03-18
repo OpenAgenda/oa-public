@@ -5,7 +5,6 @@ const _ = require( 'lodash' );
 module.exports = ( req, res, next ) => {
 
   const stylesheets = [
-    //'/bootstrap.css',
     '/main.css'
   ].map( s => ( { href: s } ) );
 

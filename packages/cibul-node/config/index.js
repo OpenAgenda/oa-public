@@ -114,6 +114,9 @@ const config = {
     geocodeFarm: {
       key: prod.geocodeFarm.key
     },
+    opencage: {
+      key: prod.opencage.key
+    },
     db: {
       database: prod.db.name,
       host: prod.db.host,
