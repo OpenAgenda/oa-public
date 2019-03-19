@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Spinner from '@openagenda/react-components/build/Spinner';
+import classNames from 'classnames';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
@@ -8,18 +9,25 @@ import saveStates from '../lib/saveStates';
 
 const getLabel = makeLabelGetter( labels );
 
-export default ( { saveState, lang, onClick, disabled } ) => {
+export default ( { saveState, lang, onClick, disabled, block } ) => {
+
+  const buttonClasses = classNames( {
+    btn: true,
+    'btn-success' : saveState === saveStates.SAVED,
+    'btn-primary' : saveState !== saveStates.SAVED,
+    'btn-block' : block
+  } );
 
   if ( saveState === saveStates.SAVED ) {
 
     return <div className="form-inline">
-      <button disabled className="btn btn-success">{getLabel( 'buttonSaved', lang )}</button>
+      <button disabled className={buttonClasses}>{getLabel( 'buttonSaved', lang )}</button>
     </div>
 
   } else if ( saveState === saveStates.LOADING ) {
 
     return <div className="form-inline">
-      <button disabled className="btn btn-primary margin-right-sm">
+      <button disabled className={buttonClasses}>
         <span>{getLabel( 'buttonSave', lang )}</span>
       </button>
       <Spinner page={true} />
@@ -30,7 +38,7 @@ export default ( { saveState, lang, onClick, disabled } ) => {
     return <div className="form-inline">
       <button
         id="save"
-        className="btn btn-primary"
+        className={buttonClasses}
         onClick={onClick}
       >{getLabel( 'buttonSave', lang )}</button>
     </div>
@@ -39,7 +47,7 @@ export default ( { saveState, lang, onClick, disabled } ) => {
 
     return <div className="form-inline has-error">
       <button
-        className="btn btn-primary margin-right-sm"
+        className={buttonClasses}
         onClick={onClick}
       >{getLabel( 'buttonSave', lang )}</button>
       <label className="control-label" htmlFor="save">{getLabel( 'buttonError', lang )}</label>
@@ -48,7 +56,7 @@ export default ( { saveState, lang, onClick, disabled } ) => {
   }
 
   return <div>
-    <button disabled className="btn btn-primary">{getLabel( 'buttonSave', lang )}</button>
+    <button disabled className={buttonClasses}>{getLabel( 'buttonSave', lang )}</button>
   </div>
 
 }

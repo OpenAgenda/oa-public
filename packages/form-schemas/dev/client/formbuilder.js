@@ -117,7 +117,7 @@ class Main extends Component {
     return <div className="container top-margined">
 
       <div className="row margin-v-md">
-        <div className="col-sm-6">
+        <div className="col-sm-9">
           <div>
             <FormSchemaBuilder
               lang="fr"

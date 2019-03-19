@@ -7,8 +7,8 @@ import labels from '../lib/builderLabels';
 const getLabel = makeLabelGetter( labels );
 
 export default ( { lang, disabled, onStartOrder } ) => <div>
-  <label className="padding-top-sm">{getLabel( 'orderTitle', lang)}</label>
+  <label className="padding-top-xs">{getLabel( 'orderTitle', lang)}</label>
   { disabled ?
-    <button disabled className="btn btn-link">{getLabel( 'orderEdit', lang )}</button>
-    : <button className="btn btn-link" onClick={onStartOrder}>{getLabel( 'orderEdit', lang )}</button> }
+    <button disabled className="btn btn-link pull-right">{getLabel( 'orderEdit', lang )}</button>
+    : <button className="btn btn-link pull-right" onClick={onStartOrder}>{getLabel( 'orderEdit', lang )}</button> }
 </div>
