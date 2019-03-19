@@ -13,6 +13,14 @@ module.exports = {
 
 function parser( data ) {
 
+  if ( !data.bodyAttributes ) data.bodyAttributes = [];
+
+  if ( !data.querySearch ) data.querySearch = '';
+
+  if ( !data.scripts ) data.scripts = {
+    bottom: []
+  };
+
   return ih( data, {
     labels: { $set: flattenLabels( headerLabels, data.lang ) },
     metas: { $set: data.metas || [] }
