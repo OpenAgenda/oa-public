@@ -101,7 +101,7 @@ describe( 'agendas - functional (server): set (update)', function() {
     } );
 
   } );
-  
+
 
   it( 'set by slug works too', done => {
 
@@ -295,6 +295,7 @@ describe( 'agendas - functional (server): set (update)', function() {
           createdAt: result.agenda.createdAt,
           credentials: {
             useContributeApp: false,
+            multiCustomFields: false,
             activatingInvitations: false,
             emailstrategie: false,
             moderators: true,

@@ -22,7 +22,7 @@ describe( 'agendas - unit (server): validate', () => {
       }
 
       try {
-        
+
         clean = publicValidate( data );
 
       } catch( e ) {
@@ -119,7 +119,7 @@ describe( 'agendas - unit (server): validate', () => {
       };
 
       try {
-        
+
         clean = publicValidate( data );
 
       } catch( e ) {
@@ -178,7 +178,7 @@ describe( 'agendas - unit (server): validate', () => {
 
       errors.length.should.equal( 0 );
 
-      clean.should.eql( { 
+      clean.should.eql( {
         title: 'La gargouille',
         slug: 'la-gargouille',
         uid: 122312,
@@ -236,6 +236,7 @@ describe( 'agendas - unit (server): validate', () => {
         url: undefined,
         credentials: {
           useContributeApp: false,
+          multiCustomFields: false,
           activatingInvitations: false,
           emailstrategie: false,
           indesign: false,
