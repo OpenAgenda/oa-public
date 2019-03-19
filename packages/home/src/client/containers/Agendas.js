@@ -94,7 +94,7 @@ export default class Agendas extends Component {
   };
 
   render() {
-    const { isNew, loading, query, res, total, history } = this.props;
+    const { isNew, loading, query, total } = this.props;
 
     if ( isNew && !total ) {
       return <Welcome />
@@ -108,7 +108,6 @@ export default class Agendas extends Component {
       <div className="content">
         <AgendasSearch
           id="homeAgendas"
-          fieldIsVisible={() => query.search}
           getTitleLink={this.getAgendaTitleLink}
           Header={this.renderHeader}
           AgendaActionsComponent={this.renderAgendaActions}
