@@ -389,7 +389,7 @@ $dayInWeek: 7;
     }
 
     .rc-week {
-      
+
       padding: 8px 10px 0;
 
       float: left;
@@ -413,7 +413,7 @@ $dayInWeek: 7;
     .rc-options {
 
       text-align: left;
-      
+
       .is-focused:not(.is-open) > .Select-control {
         box-shadow: none;
       }
@@ -499,7 +499,7 @@ $dayInWeek: 7;
 
           padding: 0px 0px 4px 0;
           display: block;
-          
+
           @include text-overflow(ellipsis);
           text-align: center;
           white-space: nowrap;
@@ -519,7 +519,7 @@ $dayInWeek: 7;
           .rc-day-long { display: none; }
 
           .rc-day-short { display: block; }
-  
+
         }
 
       }
@@ -596,6 +596,7 @@ $dayInWeek: 7;
       .rc-event {
 
         background-color: $eventBackColor;
+        overflow: hidden;
 
         &:hover {
 
@@ -605,7 +606,7 @@ $dayInWeek: 7;
         }
 
         padding: 0;
-        
+
         position: absolute;
         right: 0;
         left: 1px;
@@ -737,7 +738,7 @@ $dayInWeek: 7;
         @extend .border-box;
         border-left: 1px solid $schedulerDayBorderColor;
         border-bottom: 1px solid $calendarBorderColor;
-        
+
         width: part-of($dayInWeek);
         display: inline-block;
         @include word-break("break-word");
@@ -749,7 +750,7 @@ $dayInWeek: 7;
   .rc-reccurencer {
 
     margin-top: 10px;
-    
+
     position: relative;
 
     div {
@@ -787,22 +788,22 @@ $dayInWeek: 7;
   width:250px;
   border:solid 1px $calendarBorderColor;
   margin-bottom:10px;
-  
+
   $spacing:10px;
   $icon-width:40px;
   $header-height:40px;
-  
+
   >div.rc-dp-header {
     float:left;
     width:100%;
-    
+
     height:$header-height;
-    
-    
-    > * { 
+
+
+    > * {
       @include vertical-centre($header-height);
     }
-    
+
     >.rc-icon-wrapper {
       float:left;
       width:$icon-width;
@@ -811,19 +812,19 @@ $dayInWeek: 7;
       @extend .border-box;
       padding:0 $spacing;
       cursor:pointer;
-      
+
     }
-    
+
     >.left {
       text-align:left;
     }
-    
+
     >.right {
       text-align:right;
       margin-left:$icon-width*-1;
     }
-    
-    >span { 
+
+    >span {
       float:left;
       width:100%;
       font-weight:bold;
@@ -840,11 +841,11 @@ $dayInWeek: 7;
     float:left;
     width:100%;
     border-top:solid 1px $calendarBorderColor;
-    
+
     &:first-child {
       border-top:none;
     }
-    
+
     >span.rc-dp-day {
 
       float:left;
@@ -863,19 +864,19 @@ $dayInWeek: 7;
         color: $oa-gray-light;
 
       }
-      
+
       &:first-child {
         border-left:none;
       }
-      
+
       &.today {
         background:$datepickerTodayBackColor;
       }
-      
+
       &.different-month {
         color:$secondaryColor;
       }
-      
+
       &.selected {
         background:$datepickerSelectedBackColor;
         color:$reverseColor;
@@ -885,7 +886,7 @@ $dayInWeek: 7;
         background-color: $datepickerHoverBackColor;
       }
     }
-    
+
     &.rc-dp-names>span {
       color:$primaryColor;
       font-weight:bold;
