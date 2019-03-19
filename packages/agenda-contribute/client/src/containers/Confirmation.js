@@ -3,7 +3,6 @@
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import React from 'react';
-import ReactMarkdown from 'react-markdown';
 
 import labels from '@openagenda/labels/agenda-contribute/confirmation';
 

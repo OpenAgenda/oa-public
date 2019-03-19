@@ -1,8 +1,5 @@
 import _ from 'lodash';
-import ih from 'immutability-helper';
 import sa from 'superagent';
-
-import { push } from 'react-router-redux';
 
 const CREATE = 'agenda-contribute/event/CREATE';
 const UPDATE = 'agenda-contribute/event/UPDATE';
@@ -85,7 +82,7 @@ function updated( values, response ) {
 
 function created( values, response ) {
 
-  return ( dispatch, getState ) => {
+  return ( dispatch, getState, history ) => {
 
     const state = getState();
 
@@ -103,7 +100,7 @@ function created( values, response ) {
 
     dispatch( { type: CREATE, event } );
 
-    return dispatch( push( base + '/confirmation' ) );
+    return history.push( base + '/confirmation' );
 
   }
 
