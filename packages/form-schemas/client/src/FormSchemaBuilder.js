@@ -183,10 +183,33 @@ export default class FormSchemaBuilder extends Component {
 
   }
 
+  renderFieldListHead( mergedSchema ) {
+
+    const { mode, labelLanguages } = this.state;
+    const { lang, renderHead, addEnabled } = this.props;
+
+    if ( mode === modes.ORDERING ) {
+
+      return <FieldOrderActions
+        lang={lang}
+        fields={mergedSchema.fields}
+        onFinishOrder={()=>{ this.setState( { mode: null } )}}
+        onCancel={this.onCancelOrder.bind( this )}
+      />
+
+    }
+
+    return <div>{ renderHead ? renderHead() : null } { addEnabled ? <div className="padding-v-sm padding-h-sm">
+      <AddField disabled={this.isDisabled( modes.ADDFIELD )} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind( this )} />
+    </div> : null }</div>
+
+  }
+
   render() {
 
     const {
       addEnabled,
+      settingsEnabled,
       extendedFrom,
       lang
     } = this.props;
@@ -207,20 +230,20 @@ export default class FormSchemaBuilder extends Component {
     return <div className="form-schema-builder row">
       <div className="col-sm-12 col-md-5 col-md-push-7">
         <div className="wsq padding-all-sm">
-          <LabelLanguages
+          { settingsEnabled ? <LabelLanguages
             disabled={this.isDisabled( modes.EDITLABELLANGUAGES )}
             lang={lang}
             labelLanguages={labelLanguages}
             onUpdate={labelLanguages => this.setState( { labelLanguages } ) }
-          />
-          <div className="padding-top-sm">
+          /> : null }
+          { settingsEnabled ? <div className="padding-bottom-sm">
             <FieldOrder
               disabled={mode === modes.ORDERING || this.isDisabled( modes.ORDERING )}
               lang={lang}
               onStartOrder={()=>{ this.setState( { mode: modes.ORDERING } )}}
             />
-          </div>
-          <div className="padding-top-sm">
+          </div> : null }
+          <div className="padding-bottom-sm">
             <SaveButton
               disabled={mode}
               lang={lang}
@@ -242,12 +265,7 @@ export default class FormSchemaBuilder extends Component {
             onCancel={this.onFieldEditCancel.bind( this )}
           /> : null }
           <div>
-            { mode === modes.ORDERING ? <FieldOrderActions
-              lang={lang}
-              fields={mergedSchema.fields}
-              onFinishOrder={()=>{ this.setState( { mode: null } )}}
-              onCancel={this.onCancelOrder.bind( this )}
-            /> : null }
+            {this.renderFieldListHead( mergedSchema )}
             <DragDropContext
               onDragEnd={this.onDragEnd.bind( this )}>
               <Droppable droppableId="droppable">
@@ -293,12 +311,6 @@ export default class FormSchemaBuilder extends Component {
                 )}
               </Droppable>
             </DragDropContext>
-            <div className="padding-v-sm padding-h-sm">
-              <div className="pull-right">
-                <SaveButton disabled={mode} lang={lang} onClick={() => this.onSave() } saveState={saveState} />
-              </div>
-              <AddField disabled={this.isDisabled( modes.ADDFIELD )} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind( this )} />
-            </div>
           </div>
         </div>
       </div>

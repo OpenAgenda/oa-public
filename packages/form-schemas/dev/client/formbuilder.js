@@ -120,14 +120,17 @@ class Main extends Component {
         <div className="col-sm-9">
           <div>
             <FormSchemaBuilder
+              maxFields={2}
               lang="fr"
-              addEnabled={false}
+              addEnabled={true}
+              settingsEnabled={true}
               devState={{
                 //editedField: 'title'
               }}
               schema={schema}
               extendedFrom={extensions}
               onUpdate={this.onUpdate.bind( this )}
+              renderHead={()=><label className="padding-all-sm">This goes on top of the builder</label>}
             />
           </div>
         </div>

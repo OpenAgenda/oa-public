@@ -78,7 +78,9 @@ export default class AddField extends Component {
 
     if ( !this.state.adding ) {
 
-      return <button className="btn btn-primary" onClick={this.onShowChooseTypeMenu.bind( this )}>{getLabel( 'addField', lang )}</button>
+      return <div className="text-center">
+        <button className="btn btn-primary" onClick={this.onShowChooseTypeMenu.bind( this )}>{getLabel( 'addField', lang )}</button>
+      </div>
 
     }
 
