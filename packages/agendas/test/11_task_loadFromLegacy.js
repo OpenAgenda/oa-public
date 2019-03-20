@@ -129,6 +129,7 @@ describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
         docxExport: false,
         eventOwnershipTransfer: false,
         multiCustomFields: false,
+        useAgendaSchema: false,
         useContributeApp: false
       } );
 

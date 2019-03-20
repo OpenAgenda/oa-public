@@ -236,6 +236,7 @@ describe( 'agendas - unit (server): validate', () => {
         url: undefined,
         credentials: {
           useContributeApp: false,
+          useAgendaSchema: false,
           multiCustomFields: false,
           activatingInvitations: false,
           emailstrategie: false,

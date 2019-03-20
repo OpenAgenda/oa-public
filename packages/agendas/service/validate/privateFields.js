@@ -59,6 +59,12 @@ module.exports = {
       default: false
     },
 
+    useAgendaSchema: {
+      description: 'Use agenda schema app to customize fields',
+      type: 'boolean',
+      default: false
+    },
+
     multiCustomFields: {
       description: 'Allow adding multiple custom fields to agenda form',
       type: 'boolean',

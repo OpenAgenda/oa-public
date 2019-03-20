@@ -295,6 +295,7 @@ describe( 'agendas - functional (server): set (update)', function() {
           createdAt: result.agenda.createdAt,
           credentials: {
             useContributeApp: false,
+            useAgendaSchema: false,
             multiCustomFields: false,
             activatingInvitations: false,
             emailstrategie: false,
