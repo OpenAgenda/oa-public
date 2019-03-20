@@ -43,7 +43,8 @@ module.exports = async agenda => {
 
   return {
     schema,
-    extensions
+    extensions,
+    maxFields: agenda.credentials.multiCustomFields ? 10 : 1
   }
 
 }

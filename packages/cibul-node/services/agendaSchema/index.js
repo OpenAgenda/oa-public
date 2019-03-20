@@ -7,7 +7,7 @@ const AgendaSchema = require( '@openagenda/agenda-schema' );
 
 const agendaSchemaRouter = AgendaSchema.router;
 
-const getSchemas = require( './interfaces/getSchemas' );
+const getSchemaConfiguration = require( './interfaces/getSchemaConfiguration' );
 const setSchema = require( './interfaces/setSchema' );
 const layouts = require( '../lib/layouts' );
 
@@ -32,7 +32,7 @@ module.exports.init = config => {
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/agendaSchema' : null,
     interfaces: {
       getAgenda: _.partialRight( agendas.get, { includeImagePath: true, internal: true , private: null } ),
-      getSchemas,
+      getSchemaConfiguration,
       setSchema
     }
   } ) );
