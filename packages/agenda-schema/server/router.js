@@ -28,10 +28,11 @@ router.use( async ( req, res, next ) => {
 
   const {
     schema,
-    extensions
-  } = await interfaces.getSchemas( agenda );
+    extensions,
+    maxFields
+  } = await interfaces.getSchemaConfiguration( agenda );
 
-  _.assign( req, { agenda, schema, extensions } );
+  _.assign( req, { agenda, schema, extensions, maxFields } );
 
   next();
 
@@ -64,7 +65,9 @@ router.post( '/',
 
 router.get( '/', ( req, res ) => {
 
-  const props = _.pick( req, [ 'schema', 'extensions', 'lang' ] );
+  const props = _.pick( req, [ 'schema', 'extensions', 'lang', 'maxFields' ] );
+
+  props.agenda = _.pick( req.agenda, [ 'slug', 'uid', 'title' ] );
 
   const stringifiedProps = JSON.stringify(
     props,

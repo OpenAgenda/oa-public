@@ -63,11 +63,15 @@ dev.use( '/dist',
   ( req, res, next ) => res.send( 404 ) // if not, unhandled files will be handled by following routes
 );
 
+dev.get( '/style.css', ( req, res ) => res.set( 'Content-Type', 'text/css' ).send( style ) );
+dev.get( '/favicon.ico', ( req, res ) => res.sendStatus( 404 ) );
+dev.use( '/fonts', express.static( __dirname + '/../bs-templates/templates/fonts' ) );
+
 dev.get( '/:story', ( req, res, next ) => {
 
   const story = stories[ req.params.story ];
 
-  if ( !story ) return next();
+  if ( !story ) return res.redirect( 302, '/' );
 
   Service.router.setService( story.service );
 
@@ -76,11 +80,6 @@ dev.get( '/:story', ( req, res, next ) => {
   next();
 
 } );
-
-dev.get( '/style.css', ( req, res ) => res.set( 'Content-Type', 'text/css' ).send( style ) );
-
-dev.use( '/fonts', express.static( __dirname + '/../bs-templates/templates/fonts' ) );
-dev.get( '/favicon.ico', ( req, res ) => res.sendStatus( 404 ) );
 
 dev.use( '/:story', Service.router );
 
