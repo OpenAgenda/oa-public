@@ -45,6 +45,15 @@ module.exports = {
     en: 'Please post at least one event on your agenda before your request for officialization.'
   },
 
+  requestTitleAgendaSchema: {
+    fr: 'Demande de champs personnalisés additionnels',
+    en: 'Request for additional custom fields'
+  },
+  requestMessageAgendaSchema: {
+    fr: 'Vous voulez ajouter plus de champs à votre formulaire, en adapter l\'ordre ou les instructions? Ecrivez nous un rapide message',
+    en: 'You need to add multiple fields to your form,, adapt their order or labels? Send us a short message'
+  },
+
   requestTitlePrivateAgenda: {
     fr: 'Demande d\'activation d\'un agenda privé',
     en: 'Request to activate a private agenda'
