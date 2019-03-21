@@ -56,7 +56,16 @@ async function geocode( key, query, { countryCode, language, raw, first } ) {
 function cleanGeocodeQuery( query, countryCode ) {
 
   return {
-    countryCode: countryCode === 'GP' ? 'FR' : countryCode,
+    countryCode: [
+      'YT',
+      'PF',
+      'GF',
+      'PM',
+      'MQ',
+      'GP',
+      'RE',
+      'NC'
+    ].includes( countryCode ) ? 'FR' : countryCode,
     query
   }
 

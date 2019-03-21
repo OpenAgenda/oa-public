@@ -41,9 +41,72 @@ describe( 'opencage', () => {
 
     } );
 
-    describe( 'Guadeloupe', async () => {
+    describe( 'DOM-TOM', async () => {
 
-      it( '9 rue Nozières, Pointe-à-Pitre 97110, Guadeloupe', async () => {
+      /*it( 'Mayotte addresses respond to YT country code', async () => {
+
+        ( await geocode( 'Espace Canopia- Les Hauts Vallons, Mamoudzou, Mayotte', {
+          countryCode: 'YT',
+          language: 'fr'
+        } ) ).length.should.greaterThan( 0 );
+
+      } );
+
+      it( 'Polynésie Française addresses respond to PF country code', async () => {
+
+        ( await geocode( 'Papeari, PAPEETE, Polynésie française', {
+          countryCode: 'PF',
+          language: 'fr'
+        } ) ).length.should.greaterThan( 0 );
+
+      } );*/
+
+      it( 'Saint Pierre et Miquelon addresses respond to PM country code', async () => {
+
+        ( await geocode( 'Rue du 11 novembre B.P. 4208, Saint-Pierre, Saint-Pierre-et-Miquelon', {
+          countryCode: 'PM',
+          language: 'fr'
+        } ) ).length.should.greaterThan( 0 );
+
+      } );
+
+      it( 'Guyane addresses respond to GF country code', async () => {
+
+        ( await geocode( '78, rue Madame Payé, 97300 Cayenne', {
+          countryCode: 'GF',
+          language: 'fr'
+        } ) ).length.should.greaterThan( 0 );
+
+      } );
+
+      it( 'Nouvelle Calédonie addresses respond to RE country code', async () => {
+
+        ( await geocode( 'Maison Célières, 21, route du Port-Despointes, Faubourg-Blanchot, NOUMEA, Nouvelle-Calédonie', {
+          countryCode: 'NC',
+          language: 'fr'
+        } ) ).length.should.greaterThan( 0 );
+
+      } );
+
+      it( 'Réunion addresses respond to RE country code', async () => {
+
+        ( await geocode( '13, Ruelle Edouard, 97400 Saint-denis', {
+          countryCode: 'RE',
+          language: 'fr'
+        } ) ).length.should.greaterThan( 0 );
+
+      } );
+
+      it( 'Martinique addresses respond to MQ country code', async () => {
+
+        ( await geocode( '9, rue de la Liberté, 97200 Fort-de-France', {
+          countryCode: 'MQ',
+          language: 'fr'
+        } ) ).length.should.greaterThan( 0 );
+
+      } );
+
+      it( 'Guadeloupe addresses respond to GP country code', async () => {
 
         ( await geocode( '9 rue Nozières, Pointe-à-Pitre 97110, Guadeloupe', {
           countryCode: 'GP',
