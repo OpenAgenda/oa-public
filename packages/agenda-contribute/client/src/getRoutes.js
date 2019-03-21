@@ -6,10 +6,10 @@ import Member from './containers/Member';
 
 export default function ( prefix = '' ) {
   return [
-    { path: `${prefix}/`, exact: true, component: Landing },
+    { path: `${prefix}`, exact: true, component: Landing },
     { path: `${prefix}/member`, component: Member },
-    { path: `${prefix}/event`, component: EventNew },
-    { path: `${prefix}/event/:eventUid/draft`, component: EventNew },
+    { path: `${prefix}/event`, exact: true, component: EventNew },
+    { path: `${prefix}/event/:eventUid/draft`, exact: true, component: EventNew },
     { path: `${prefix}/event/:eventUid`, component: EventEdit },
     { path: `${prefix}/confirmation`, component: Confirmation }
   ];
