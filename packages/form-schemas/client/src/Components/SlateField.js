@@ -52,15 +52,26 @@ module.exports = class SlateField extends Component {
 
     }
 
-    this.state = { value }
+    this.state = {
+      value,
+      changed: false
+    };
 
   }
 
+  // slate triggers an onChange on load.
+  // The first can be ignored
   onChange( { value } ) {
 
-    this.setState( { value } );
+    const changed = this.state.changed || (
+      JSON.stringify( value.toJSON() ) !== JSON.stringify( this.state.value.toJSON() )
+    );
 
-    this.props.onChange( this.props.raw ? value : value.toJSON() )
+    this.setState( { value, changed } );
+
+    if ( !changed ) return;
+
+    this.props.onChange( this.props.raw ? value : value.toJSON() );
 
   }
 
@@ -349,4 +360,3 @@ module.exports = class SlateField extends Component {
   }
 
 }
-/*placeholder={this.props.field.placeholder}*/
