@@ -41,7 +41,15 @@ async function set( eventId, fields, data ) {
 
     const matchingOption = f.options ? _.first( f.options.filter( o => o.id === data[ f.field ] ) ) : undefined;
 
-    if ( !f.options ) {
+    if ( _isImage( data[ f.field ] ) ) {
+
+      parsed[ f.field ] = data[ f.field ].filename;
+
+    } else if ( _isFile( data[ f.field ] ) ) {
+
+      parsed[ f.field ] = _parseFileEntry( data[ f.field ] );
+
+    } else if ( !f.options ) {
 
       parsed[ f.field ] = data[ f.field ];
 
@@ -102,5 +110,32 @@ function parse( fields, custom ) {
   } );
 
   return parsed;
+
+}
+
+
+function _parseFileEntry( entry ) {
+
+  return {
+    name: entry.originalName,
+    uploaded: entry.filename
+  }
+
+}
+
+
+function _isFile( entry ) {
+
+  return _.keys( _.pick( entry, [ 'originalName', 'filename' ] ) ).length === 2;
+
+}
+
+function _isImage( entry ) {
+
+  if ( !_isFile( entry ) ) return false;
+
+  const extension = entry.filename.split( '.' ).pop();
+
+  return [ 'bmp', 'png', 'jpg', 'jpeg', 'gif' ].includes( extension );
 
 }

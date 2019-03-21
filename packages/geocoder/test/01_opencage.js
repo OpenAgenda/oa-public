@@ -41,6 +41,20 @@ describe( 'opencage', () => {
 
     } );
 
+    describe( 'Guadeloupe', async () => {
+
+      it( '9 rue Nozières, Pointe-à-Pitre 97110, Guadeloupe', async () => {
+
+        ( await geocode( '9 rue Nozières, Pointe-à-Pitre 97110, Guadeloupe', {
+          countryCode: 'GP',
+          language: 'fr',
+          first: true
+        } ) ).city.should.eql( 'Pointe-à-Pitre' );
+
+      } );
+
+    } );
+
     describe( 'Courbevoie', async () => {
 
       let result;
