@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
-import { replace } from 'react-router-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
@@ -57,7 +56,7 @@ const selector = formValueSelector( 'homeEvents' );
       modals: state.modals
     };
   },
-  { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load, replace }
+  { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load }
 )
 @reduxForm( {
   form: 'homeEvents'
