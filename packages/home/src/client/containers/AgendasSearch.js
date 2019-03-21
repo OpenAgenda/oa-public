@@ -40,7 +40,6 @@ export default class AgendasSearch extends Component {
     listLoading: PropTypes.bool,
     nextLoading: PropTypes.bool,
     perPageLimit: PropTypes.number,
-    fieldIsVisible: PropTypes.func,
     getTitleLink: PropTypes.func,
     createButtonIfEmpty: PropTypes.bool
   };
@@ -51,8 +50,7 @@ export default class AgendasSearch extends Component {
 
   static defaultProps = {
     Header: () => null,
-    AgendaActionsComponent: () => null,
-    fieldIsVisible: () => true
+    AgendaActionsComponent: () => null
   };
 
   state = {
@@ -67,20 +65,27 @@ export default class AgendasSearch extends Component {
     this.mounted = false;
   }
 
-  search = value => {
-    if ( this.mounted ) {
-      this.setState( { value } );
-
-      this.props.list( this.props.id, { search: value } )
-        .then( () => {
-          if ( this.props.onSearch ) {
-            return this.props.onSearch( value );
-          }
-        } );
-    }
+  search = () => {
+    this.props.list( this.props.id, { search: this.state.value } )
+      .then( () => {
+        if ( this.props.onSearch ) {
+          this.props.onSearch( this.state.value );
+        }
+      } );
   };
 
   debouncedSearch = debounce( this.search, 400 );
+
+  onSearch = value => {
+    if ( this.mounted ) {
+      this.setState( {
+        previousValue: this.state.value,
+        value
+      }, () => {
+        this.debouncedSearch();
+      } );
+    }
+  }
 
   nextPage = () => {
     const { page, total, loading, listLoading, nextLoading, agendas, perPageLimit } = this.props;
@@ -91,6 +96,17 @@ export default class AgendasSearch extends Component {
 
   throttledNextPage = throttle( this.nextPage, 400, { trailing: false } );
 
+  fieldIsVisible = () => {
+    const { total, perPageLimit } = this.props;
+    const { value, previousValue } = this.state;
+
+    return (
+      (value && value !== '')
+      || (previousValue && previousValue !== '')
+      || total > perPageLimit
+    );
+  };
+
   render() {
     const {
       id,
@@ -98,29 +114,25 @@ export default class AgendasSearch extends Component {
       agendas,
       listLoading,
       nextLoading,
-      fieldIsVisible,
-      perPageLimit,
-      total,
       getTitleLink,
       AgendaActionsComponent,
       createButtonIfEmpty,
       res,
       initialValues
     } = this.props;
-    const { value } = this.state;
     const { getLabel } = this.context;
 
     return (
       <AgendasSearchComponent
         form={id}
         Header={Header}
-        search={this.debouncedSearch}
+        search={this.onSearch}
         nextPage={this.throttledNextPage}
         agendas={agendas}
         listLoading={listLoading}
         nextLoading={nextLoading}
         getLabel={getLabel}
-        fieldIsVisible={() => ((value && value !== '') || fieldIsVisible() || total > perPageLimit)}
+        fieldIsVisible={this.fieldIsVisible}
         getTitleLink={getTitleLink}
         AgendaActionsComponent={AgendaActionsComponent}
         agendaCreateRes={res.agendas.create}
