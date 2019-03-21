@@ -48,7 +48,7 @@ async function set( formSchemaId, identifier, data, options = {} ) {
 
     try {
 
-      await custom( 
+      await custom(
         eventId,
         customFields,
         data
