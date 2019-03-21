@@ -2,11 +2,11 @@
 
 module.exports = {
   heading: {
-    fr: 'Entête',
-    en: 'Heading'
+    fr: 'Titre',
+    en: 'Title'
   },
   subHeading: {
-    fr: 'Sous-entête',
-    en: 'Subheading'
+    fr: 'Sous-titre',
+    en: 'Sous-title'
   }
 }
