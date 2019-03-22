@@ -106,6 +106,8 @@ export default class EventForm extends Component {
 
     }
 
+    if ( this.props.devOnChange ) this.props.devOnChange( update );
+
     return this.setState( update );
 
   }

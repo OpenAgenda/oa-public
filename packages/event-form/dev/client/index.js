@@ -95,14 +95,53 @@ class Main extends Component {
 
   }
 
+  onValuesChange( changed ) {
+
+    console.log( changed );
+
+    this.setState( {
+      values: changed
+    } );
+
+  }
+
   render() {
+
+    const schemas = _.get( this, 'state.schemas', null );
+    const values = _.get( this, 'state.values', null );
+
+    return <div className="container-fluid top-margined">
+      <div className="row">
+        <div className="col-sm-4">
+          <SchemaEditorComponent onChange={this.onJSONChange.bind( this )} schemas={schemas} />
+        </div>
+        <div className="col-sm-4">
+          <EventForm schemaExtensions={schemas} devOnChange={this.onValuesChange.bind( this )}/>
+        </div>
+        <div className="col-sm-4">
+          <pre>
+            <code>{JSON.stringify( values, null, 2 ) }</code>
+          </pre>
+        </div>
+      </div>
+    </div>
+
+  }
+
+}
+
+render( <Main />, document.getElementById( 'app' ) );
+
+
+
+  /* render() {
 
     const schemas = _.get( this, 'state.schemas', null );
 
     return <div className="container-fluid top-margined">
       <div className="row">
         <div className="col-sm-6">
-          <SchemaEditorComponent onChange={this.onJSONChange.bind( this )} schemas={schemas} />
+
         </div>
         <div className="col-sm-6">
           <div className="row">
@@ -115,8 +154,4 @@ class Main extends Component {
       </div>
     </div>
 
-  }
-
-}
-
-render( <Main />, document.getElementById( 'app' ) );
+  }*/
