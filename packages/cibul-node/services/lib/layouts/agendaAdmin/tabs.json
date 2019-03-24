@@ -41,7 +41,14 @@
 },
 {
   "name" : "schema",
-  "section" : "settings"
+  "section" : "settings",
+  "credential" : "useAgendaSchema"
+},
+{
+  "name" : "customized",
+  "section" : "settings",
+  "route" : "/settings/customize",
+  "credential" : "tags"
 },
 {
   "name" : "settings_contribution",
@@ -51,5 +58,5 @@
 {
   "name" : "settings_advanced",
   "section" : "settings",
-  "route" : "/settings/customize"
+  "route" : "/settings/advanced"
 } ]

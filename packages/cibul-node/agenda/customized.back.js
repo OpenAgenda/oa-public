@@ -1,53 +1,45 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' ),
+const _ = require( 'lodash' );
 
-  labels = require( '@openagenda/labels/agenda-tags/editor' );
+const agendaSvc = require( '@openagenda/agendas' );
+const sessions = require( '@openagenda/sessions' );
 
-var modLib = require( '../lib/moduleLib' ),
+const labels = require( '@openagenda/labels/agenda-tags/editor' );
 
-cmn = require( '../lib/commons-app' ),
+const cmn = require( '../lib/commons-app' );
+const modLib = require( '../lib/moduleLib' );
+const tagMw = require( '@openagenda/agenda-tags' ).mw( 'agenda.id', 'tagSet' );
+const categoryMw = require( '@openagenda/agenda-categories' ).mw( 'agenda.id', 'categorySet' );
 
-agendaSvc = require( '../services/agenda' ),
+const layout = require( '../services/lib/layouts' ).load(
+  'agendaAdmin', { selectedTab: 'customized' }
+);
 
-tagMw = require( '@openagenda/agenda-tags' ).mw( 'agenda.id', 'tagSet' ),
-
-categoryMw = require( '@openagenda/agenda-categories' ).mw( 'agenda.id', 'categorySet' ),
-
-routes = {
-
-  categoryTagShow: [ 'get', '/:slug/admin/tagcat', cmn.verifyIPMiddleware.concat( [
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdministrator(),
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData( 'oasfmain.css' ),
-    deprecatedShow
-  ] ) ],
+const routes = {
 
   customizedShow: [ 'get', '/:slug/admin/settings/customize', cmn.verifyIPMiddleware.concat( [
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdministrator(),
+    _loadAgenda,
+    _checkAdmin,
     cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),
     tagMw.get,
     categoryMw.get,
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData( 'oasfmain.css' ),
     show
   ] ) ],
 
   customizedUpdate: [ 'post', '/:slug/admin/settings/customize', cmn.verifyIPMiddleware.concat( [
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdministrator(),
+    _loadAgenda,
+    _checkAdmin,
     tagMw.set,
     categoryMw.set,
     updateResponse
   ] ) ]
 
-}
+};
 
-module.exports = function( path ) {
+module.exports = path => {
 
-  var router = modLib.Router( routes );
+  const router = modLib.Router( routes );
 
   router.pre( [
     sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) )
@@ -74,28 +66,58 @@ function updateResponse( req, res ) {
 
 function show( req, res ) {
 
-  cmn.render( req, res, 'customized/index', {
-    scriptParams: {
-      updateRes: req.genUrl( 'customizedUpdate', { slug: req.agenda.slug } ),
-      tagSet: req.tagSet,
-      categorySet: req.categorySet,
-      lang: req.lang,
-      useTags: req.hasTagsCred
+  return res.send( layout( '<div class="js_canvas"></div>', {
+    lang: req.lang,
+    agenda: req.agenda,
+    bodyAttributes: [ {
+      name: 'data-options',
+      value: JSON.stringify( {
+        updateRes: req.genUrl( 'customizedUpdate', { slug: req.agenda.slug } ),
+        tagSet: req.tagSet,
+        categorySet: req.categorySet,
+        lang: req.lang,
+        useTags: req.hasTagsCred
+      } )
+    } ],
+    scripts: {
+      bottom: [ { src: '/js/customizedIndex.js' } ]
     }
-  } );
+  } ) );
+
 
 }
 
 
-function deprecatedShow( req, res ) {
 
-  cmn.render( req, res, 'adminRedirect/index', {
-    main: labels.redirectMain[ req.lang ],
-    sub: labels.redirectSub[ req.lang ],
-    tab: 'categories',
-    scriptParams: {
-      redirect: req.genUrl( 'customizedShow', { slug: req.agenda.slug } )
-    }
+function _loadAgenda( req, res, next ) {
+
+  agendaSvc.get( _.pick( req.params, [ 'slug' ] ), {
+    private: null,
+    internal: true,
+    includeImagePath: true
+  } ).then( agenda => {
+
+    if ( !agenda ) return next( { code: 404 } );
+
+    _.assign( req, { agenda } );
+
+    next();
+
+  }, next );
+
+}
+
+
+function _checkAdmin( req, res, next) {
+
+  cmn.loadMemberRole( 'agenda', req, res, err => {
+
+    if ( err ) return next( err );
+
+    if ( [ 'administrator' ].includes( req.role ) ) return next();
+
+    next( { code: 403 } );
+
   } );
 
 }
