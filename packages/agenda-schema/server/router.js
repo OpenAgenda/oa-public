@@ -16,39 +16,13 @@ module.exports = _.assign( router, {
   setLayout: layout => router.layout = layout
 } );
 
-router.use( async ( req, res, next ) => {
-
-  const { interfaces } = router.service.config;
-
-  const agenda = await interfaces.getAgenda( {
-    slug: req.params.agendaSlug
-  } );
-
-  if ( !agenda ) return next( 404 );
-
-  const {
-    schema,
-    extensions,
-    maxFields
-  } = await interfaces.getSchemaConfiguration( agenda );
-
-  _.assign( req, { agenda, schema, extensions, maxFields } );
-
-  next();
-
-} );
-
 router.post( '/',
   bodyParser.json(),
   async ( req, res ) => {
 
-    const { interfaces } = router.service.config;
-
     try {
 
-      const schemaUpdate = JSON.parse( req.body.data );
-
-      await interfaces.setSchema( req.agenda, schemaUpdate.fields );
+      await router.service.setSchemaFields( { slug: req.params.agendaSlug }, JSON.parse( req.body.data ).fields );
 
       res.send( 'ok' );
 
@@ -63,11 +37,28 @@ router.post( '/',
   }
 );
 
-router.get( '/', ( req, res ) => {
+router.get( '/', async ( req, res, next ) => {
 
-  const props = _.pick( req, [ 'schema', 'extensions', 'lang', 'maxFields' ] );
+  const props = { lang: req.lang };
+  const layoutData = { lang: req.lang };
 
-  props.agenda = _.pick( req.agenda, [ 'slug', 'uid', 'title' ] );
+  try {
+
+    const resources = await router.service.loadAppResources( { slug: req.params.agendaSlug } );
+
+    _.assign( props, resources );
+
+    _.assign( layoutData, _.pick( resources, [ 'agenda' ] ) );
+
+  } catch ( e ) {
+
+    console.log(e);
+
+    log( 'error', e );
+
+    return next( 500 );
+
+  }
 
   const stringifiedProps = JSON.stringify(
     props,
@@ -80,7 +71,7 @@ router.get( '/', ( req, res ) => {
       <div class="js_preload_spin" id="app"></div>
       <script type="application/json" id="props">${stringifiedProps}</script>
       <script defer type="text/javascript" src="${_getClientAppPath( router.service.name, router.service.config )}"></script>
-    </div>`, req ) );
+    </div>`, layoutData ) );
 
 } );
 

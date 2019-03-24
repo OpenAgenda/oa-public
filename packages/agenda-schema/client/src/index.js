@@ -7,8 +7,10 @@ import { render } from 'react-dom';
 
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
 import openRequestForm from '@openagenda/call-to-action/dist/client/openRequestForm';
+import labels from '@openagenda/labels/agenda-admin/agendaSchema';
 
 import getSchemaFieldCount from './lib/getSchemaFieldCount';
+
 
 if ( module.hot ) module.hot.accept();
 
@@ -45,19 +47,28 @@ class Main extends Component {
 
   render() {
 
-    const { lang, extensions, schema, agenda, maxFields } = this.props;
+    const { lang, extensions, schema, agenda, maxFields, editableExtensions } = this.props;
 
     return <div>
 
       <FormSchemaBuilder
         lang={lang}
         addEnabled={maxFields > this.state.currentFieldCount}
-        settingsEnabled={maxFields > 1}
+        settingsEnabled={true}
+        editableExtensions={editableExtensions}
         devState={{
           //editedField: 'title'
         }}
         schema={schema}
-        extendedFrom={extensions}
+        extendedFrom={_.keys( extensions )
+          .filter( extKey => extensions[ extKey ] )
+          .map( extKey => ( {
+            schema: extensions[ extKey ],
+            info: {
+              label: _.get( labels, extKey ),
+              detail: _.get( labels, extKey + 'Detail' )
+            }
+          } ) ) }
         onUpdate={this.onUpdate.bind( this )}
         renderHead={this.renderHeadComponent.bind( this )}
       />
