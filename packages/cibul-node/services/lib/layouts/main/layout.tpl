@@ -66,7 +66,7 @@
     <script type="text/javascript">window.templates='bs';</script>
     <script type="text/javascript" src="/js/bsLayoutMain.js"></script>
 <% for ( script of scripts.bottom ) { %>
-    <script type="text/javascript" src="<%= script.path %>"></script>
+    <script type="text/javascript" src="<%= script.src %>"></script>
 <% } %>
   </body>
 </html>

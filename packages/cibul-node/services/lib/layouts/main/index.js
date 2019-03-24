@@ -13,7 +13,7 @@ module.exports = {
 
 function parser( data ) {
 
-  if ( !data.bodyAttributes ) data.bodyAttributes = [];
+  if ( !data.bodyAttributes ) data.bodyAttributes = []; // [ { name, value } ]
 
   if ( !data.querySearch ) data.querySearch = '';
 
