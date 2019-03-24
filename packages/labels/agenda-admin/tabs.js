@@ -77,6 +77,10 @@ module.exports = {
     en: 'Profile',
     fr: 'Profil'
   },
+  schema: {
+    en: 'Form',
+    fr: 'Formulaire'
+  },
   settings_contribution: {
     en: 'Contribution',
     fr: 'Contribution'
