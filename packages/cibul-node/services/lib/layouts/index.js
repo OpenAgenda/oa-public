@@ -24,6 +24,12 @@ module.exports = ( () => {
 
 } )();
 
+module.exports.load = ( layoutName, preLoaded = {} ) => {
+
+  return ( content, data = {} ) => module.exports[ layoutName ]( content, _.assign( {}, preLoaded, data ) );
+
+}
+
 
 function _loadLayouts() {
 

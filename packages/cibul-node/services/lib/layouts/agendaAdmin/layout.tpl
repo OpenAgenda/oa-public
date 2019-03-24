@@ -16,19 +16,16 @@
   <div class="row wsq">
     <div class="col col-sm-3 nav">
       <ul class="list-unstyled">
-        <li>
-          <h2><%= adminLabels.manage %></h2>
-        </li>
-      </ul>
-      <ul class="list-unstyled">
-        <li>
-          <!--<h2><%= adminLabels.export %></h2>-->
-        </li>
-      </ul>
-      <ul class="list-unstyled">
-        <li>
-          <!--<h2><%= adminLabels.settings %></h2>-->
-        </li>
+        <% sections.forEach( function( section ) { %>
+          <li>
+            <h2><%= section.label %></h2>
+          </li>
+          <% section.tabs.forEach( function( { name, label, link, selected } ) { %>
+          <li class="menu-item js_menu_item js_menu_item_<%= name %><%= selected ? ' selected' : '' %>">
+            <a class="<%= selected ? 'active' : ''%>" href="<%= link %>"><%= label %></a>
+          </li>
+          <% } ) %>
+        <% } ) %>
       </ul>
     </div>
     <div class="col col-sm-9 body">

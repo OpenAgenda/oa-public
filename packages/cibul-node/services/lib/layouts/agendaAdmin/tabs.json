@@ -1,0 +1,55 @@
+[ {
+  "name" : "events",
+  "section" : "manage",
+  "php" : true,
+  "route" : ""
+},
+{
+  "name" : "members",
+  "section" : "manage"
+},
+{
+  "name" : "locations",
+  "section" : "manage"
+},
+{
+  "name" : "sources",
+  "section" : "manage",
+  "credential" : "aggregator"
+},
+{
+  "name" : "inbox",
+  "section" : "manage"
+},
+{
+  "name" : "activities",
+  "section" : "manage"
+},
+{
+  "name" : "facebook",
+  "section" : "export"
+},
+{
+  "name" : "web",
+  "section" : "export",
+  "php" : true
+},
+{
+  "name" : "settings_profile",
+  "section" : "settings",
+  "route" : "/settings/profile"
+},
+{
+  "name" : "schema",
+  "section" : "settings"
+},
+{
+  "name" : "settings_contribution",
+  "section" : "settings",
+  "route" : "/settings/contribution"
+},
+{
+  "name" : "settings_advanced",
+  "section" : "settings",
+  "route" : "/settings/customize"
+} ]

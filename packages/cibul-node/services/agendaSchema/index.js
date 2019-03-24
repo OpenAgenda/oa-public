@@ -25,14 +25,18 @@ module.exports = parentApp => {
 
 module.exports.init = config => {
 
-  agendaSchemaRouter.setLayout( layouts.agendaAdmin );
+  agendaSchemaRouter.setLayout( layouts.load( 'agendaAdmin', { selectedTab: 'schema' } ) );
 
   agendaSchemaRouter.setService( AgendaSchema( {
     logger: config.getLogConfig( 'svc', 'agendaSchema' ),
     CDNPath: config.aws.servicesBucketPath,
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/agendaSchema' : null,
     interfaces: {
-      getAgenda: _.partialRight( agendas.get, { includeImagePath: true, internal: true , private: null } ),
+      getAgenda: _.partialRight( agendas.get, {
+        includeImagePath: true,
+        internal: true ,
+        private: null
+      } ),
       getSchemaExtensions,
       getSchema,
       setSchemaFields
