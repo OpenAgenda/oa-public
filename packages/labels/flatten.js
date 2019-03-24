@@ -9,7 +9,7 @@ module.exports = function( labels, lang, fallback ) {
 
   for ( var f in labels ) {
 
-    flat[ f ] = labels[ f ][ lang ];
+    flat[ f ] = labels[ f ][ lang ];
 
     if ( ( typeof flat[ f ] === 'undefined' ) && fallback ) {
 
