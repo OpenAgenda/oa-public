@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-schema",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "server/index",
   "scripts": {
     "prepublish": "yarn dist",
@@ -13,9 +13,9 @@
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "body-parser": "^1.18.2",
+    "lodash": "^4.16.6",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
-    "lodash": "^4.16.6",
     "superagent": "^3.8.3"
   },
   "devDependencies": {
