@@ -240,12 +240,6 @@ function show( req, res ) {
     }
   } ) );
 
-  // attempt a settings load
-
-  /*cmn.render( req, res, 'locations/index', {
-    scriptParams
-  } );*/
-
 }
 
 function forwardCsvExport( req, res, next ) {
