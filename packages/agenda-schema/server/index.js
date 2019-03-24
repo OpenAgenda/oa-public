@@ -38,7 +38,7 @@ async function loadAppResources( load, agendaIdentifiers ) {
   const { agenda, schema, extensions } = await load( agendaIdentifiers );
 
   return {
-    agenda: _.pick( agenda, [ 'slug', 'uid', 'title' ] ),
+    agenda,
     schema,
     maxFields: _.get( agenda, 'credentials.premiumCustomFields' ) ? 10 : 1,
     extensions,

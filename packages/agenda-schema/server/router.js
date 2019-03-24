@@ -48,6 +48,8 @@ router.get( '/', async ( req, res, next ) => {
 
     _.assign( props, resources );
 
+    props.agenda = _.pick( props.agenda, [ 'slug', 'uid' ] );
+
     _.assign( layoutData, _.pick( resources, [ 'agenda' ] ) );
 
   } catch ( e ) {
