@@ -65,7 +65,7 @@ module.exports = {
       default: false
     },
 
-    multiCustomFields: {
+    premiumCustomFields: {
       description: 'Allow adding multiple custom fields to agenda form',
       type: 'boolean',
       default: false

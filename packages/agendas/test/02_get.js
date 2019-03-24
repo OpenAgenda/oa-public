@@ -201,7 +201,7 @@ describe( 'agendas - functional (server): get', function() {
       _.get( agenda, 'credentials' ).should.eql( {
         useContributeApp: false,
         useAgendaSchema: false,
-        multiCustomFields: false,
+        premiumCustomFields: false,
         activatingInvitations: false,
         emailstrategie: false,
         embedsHead: false,

@@ -296,7 +296,7 @@ describe( 'agendas - functional (server): set (update)', function() {
           credentials: {
             useContributeApp: false,
             useAgendaSchema: false,
-            multiCustomFields: false,
+            premiumCustomFields: false,
             activatingInvitations: false,
             emailstrategie: false,
             moderators: true,
