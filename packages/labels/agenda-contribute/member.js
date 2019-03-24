@@ -19,7 +19,7 @@ module.exports = {
     "fr": "Vos informations personnelles ne seront visibles que par l'équipe de l'agenda. Seul le nom de votre organisation pourra être public.",
     "en": "Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed.",
     "it": "Le vostre informazione personale sarano visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
-    "de": "Deine persönlichen Daten sind nur für das Agenda-Mannschaft sichtbar. Nur der Name Ihrer Organisation kann öffentlich sein.",
+    "de": "Schön, dass Du Dein Event eintragen willst. Stell Dich kurz vor, die Daten sind nur für unsere interne Verwendung, es wird lediglich der Name der Organisation für andere User sichtbar sein.",
     "br": "Ne vo gwelet ho titouroù personnel nemet gant skipailh an deiziataer. N'eus nemet anv hoc'h aozadur a c'hallo bezañ foran."
   },
   "organisation": {

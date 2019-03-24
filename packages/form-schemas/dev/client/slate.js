@@ -57,6 +57,7 @@ class Main extends Component {
         }, {
           "field" : "emptyfieldwithlongplaceholder",
           "fieldType" : "slate",
+          "optional" : false,
           "label" : {
             "fr" : "C'est un champ avec un gros placeholder"
           },

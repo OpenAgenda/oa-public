@@ -188,12 +188,29 @@ export default class FormSchemaComponent extends Component {
 
   _getFormSchema() {
 
-    return new FormSchema( ih( this.props.schema, {
-      defaultLabelLanguage: { $set: this.props.lang }
-    } ) );
+    // building the formSchema is a bit costly, so memoizition is usefull here
+
+    const hasChanged = !![ 'hash', 'lang' ].filter(
+      memoizeKey => _.get( this.memoized, memoizeKey, '' ) !== _.get( this.props, memoizeKey, '' )
+    ).length;
+
+    if ( hasChanged ) {
+
+      this.memoized = {
+        formSchema: new FormSchema(
+          ih( this.props.schema, {
+            defaultLabelLanguage: { $set: this.props.lang }
+          } )
+        ),
+        hash: _.get( this, 'props.hash', '' ),
+        lang: _.get( this, 'props.lang', '' )
+      }
+
+    }
+
+    return this.memoized.formSchema;
 
   }
-
 
   sanitize( values, options ) {
 

@@ -36,11 +36,38 @@ async function reverse( key, latitude, longitude, { first, language, raw } ) {
 
 async function geocode( key, query, { countryCode, language, raw, first } ) {
 
+  const {
+    query: cleanQuery,
+    countryCode: cleanCountryCode
+  } = cleanGeocodeQuery( query, countryCode );
+
   const results = await axios.request( {
-    url: forwardURL( query, { key, countryCode, language } ),
+    url: forwardURL( cleanQuery, {
+      key,
+      countryCode: cleanCountryCode,
+      language
+    } )
   } ).then( r => _.get( r, 'data.results' ).map( parseResponseItem.bind( null, { raw } ) ) );
 
   return first ? _.first( results ) : results;
+
+}
+
+function cleanGeocodeQuery( query, countryCode ) {
+
+  return {
+    countryCode: [
+      'YT',
+      'PF',
+      'GF',
+      'PM',
+      'MQ',
+      'GP',
+      'RE',
+      'NC'
+    ].includes( countryCode ) ? 'FR' : countryCode,
+    query
+  }
 
 }
 

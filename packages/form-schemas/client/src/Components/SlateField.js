@@ -52,15 +52,26 @@ module.exports = class SlateField extends Component {
 
     }
 
-    this.state = { value }
+    this.state = {
+      value,
+      changed: false
+    };
 
   }
 
+  // slate triggers an onChange on load.
+  // The first can be ignored
   onChange( { value } ) {
 
-    this.setState( { value } );
+    const changed = this.state.changed || (
+      JSON.stringify( value.toJSON() ) !== JSON.stringify( this.state.value.toJSON() )
+    );
 
-    this.props.onChange( this.props.raw ? value : value.toJSON() )
+    this.setState( { value, changed } );
+
+    if ( !changed ) return;
+
+    this.props.onChange( this.props.raw ? value : value.toJSON() );
 
   }
 
@@ -313,6 +324,12 @@ module.exports = class SlateField extends Component {
 
   }
 
+  triggerFocus() {
+
+    this.editor.focus();
+
+  }
+
   render() {
 
     const labels = flatten( richTextLabels, this.props.lang, true );
@@ -327,10 +344,11 @@ module.exports = class SlateField extends Component {
         {this.renderBlockButton( 'link', <i className="fa fa-link"></i> )}
       </div>
       <div className="textarea-canvas">
-        { this.isEmpty() && this.props.field.placeholder ? <div className="textarea-placeholder">
+        { this.isEmpty() && this.props.field.placeholder ? <div onClick={this.triggerFocus.bind( this )} className="textarea-placeholder">
           {nl2br( this.props.field.placeholder )}
         </div> : null }
         <Editor
+          ref={el => (this.editor = el)}
           spellCheck={false}
           value={this.state.value}
           renderMark={this.renderMark}
@@ -342,4 +360,3 @@ module.exports = class SlateField extends Component {
   }
 
 }
-/*placeholder={this.props.field.placeholder}*/

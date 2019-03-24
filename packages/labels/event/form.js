@@ -206,8 +206,8 @@ module.exports = {
     "de": "Auswählen"
   },
   "languages": {
-    "fr": "Choisissez une langue",
-    "en": "Pick a language",
+    "fr": "Langues de saisie",
+    "en": "Input languages",
     "it": "Scegli una lingua",
     "de": "Wählen Sie eine Sprache"
   },

@@ -1,7 +1,4 @@
 import _ from 'lodash';
-import ih from 'immutability-helper';
-
-import { push } from 'react-router-redux';
 
 const UPDATE = 'agenda-contribute/member/UPDATE';
 
@@ -31,7 +28,7 @@ function reducer( state = {}, action = {} ) {
 
 function updated( member ) {
 
-  return ( dispatch, getState ) => {
+  return ( dispatch, getState, history ) => {
 
     const state = getState();
 
@@ -39,7 +36,7 @@ function updated( member ) {
 
     dispatch( { type: UPDATE, member } );
 
-    return dispatch( push( base + '/event' ) );
+    return history.push( base + '/event' );
 
   }
 

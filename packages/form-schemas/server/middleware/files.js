@@ -111,9 +111,9 @@ function uploadFilesToS3( ns, req, res, next ) {
 
   if ( !_.keys( fileFieldsValues ).length ) return next();
 
-  s3MultipleUploads( fileFieldsValues ).then( 
-    () => next(), 
-    err => next( err ) 
+  s3MultipleUploads( fileFieldsValues ).then(
+    () => next(),
+    err => next( err )
   );
 
 }

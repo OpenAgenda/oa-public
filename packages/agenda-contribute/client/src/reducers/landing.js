@@ -1,8 +1,4 @@
 import _ from 'lodash';
-import ih from 'immutability-helper';
-
-import { push } from 'react-router-redux';
-
 import isMemberValid from '../lib/isMemberValid';
 
 module.exports = _.extend( reducer, {
@@ -22,7 +18,7 @@ function reducer( state = {}, action = {} ) {
  */
 function evaluate( step, requested = false ) {
 
-  return ( dispatch, getState ) => {
+  return ( dispatch, getState, history ) => {
 
     const state = getState();
 
@@ -42,7 +38,7 @@ function evaluate( step, requested = false ) {
 
     } else if ( eventEdition ) {
 
-      return dispatch( push( base + '/event/' + state.event.uid ) );
+      return history.push( base + '/event/' + state.event.uid );
 
     }
 
@@ -68,11 +64,11 @@ function evaluate( step, requested = false ) {
 
     if ( !step || !authorizedRoutes.includes( requestedRoute ) ) {
 
-      dispatch( push( authorizedRoutes.pop() ) );
+      history.push( authorizedRoutes.pop() );
 
     } else if ( requested ) {
 
-      dispatch( push( requestedRoute ) );
+      history.push( requestedRoute );
 
     }
 

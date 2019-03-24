@@ -34,7 +34,7 @@ export default class EventForm extends Component {
 
     const languages = extractLanguages( this.props.values );
 
-    const schema = this.buildEventSchema( languages, props );
+    const { schema, hash } = this.buildEventSchema( languages, props );
 
     const values = ih( props.values, {
       languages: {
@@ -42,7 +42,7 @@ export default class EventForm extends Component {
       }
     } );
 
-    this.state = { values, schema, files: [], loading: false };
+    this.state = { values, schema, hash, files: [], loading: false };
 
   }
 
@@ -96,17 +96,17 @@ export default class EventForm extends Component {
 
     if ( languageChanges.has ) {
 
-      const schema = this.buildEventSchema( _.get( values, 'languages' ) );
-
-      update.schema = schema;
+      _.assign( update, this.buildEventSchema( _.get( values, 'languages' ) ) );
 
       update.values.languages = schemaLanguages.getFromSchemaAndValues(
-        schema,
+        update.schema,
         lang,
         update.values.languages
       );
 
     }
+
+    if ( this.props.devOnChange ) this.props.devOnChange( update );
 
     return this.setState( update );
 
@@ -116,15 +116,18 @@ export default class EventForm extends Component {
 
     const p = props || this.props;
 
-    return eventSchema( {
-      interfaceLanguage: p.lang,
-      suggestionsRes: p.suggestionsRes,
-      referencesRes: p.referencesRes,
-      locationRes: p.locationRes,
-      languages,
-      fileStore: p.fileStore,
-      schemaExtensions: p.schemaExtensions
-    } );
+    return {
+      schema: eventSchema( {
+        interfaceLanguage: p.lang,
+        suggestionsRes: p.suggestionsRes,
+        referencesRes: p.referencesRes,
+        locationRes: p.locationRes,
+        languages,
+        fileStore: p.fileStore,
+        schemaExtensions: p.schemaExtensions
+      } ),
+      hash: JSON.stringify( languages ) // only language changes may trigger schema changes
+    }
 
   }
 
@@ -139,7 +142,8 @@ export default class EventForm extends Component {
 
     const {
       values,
-      schema
+      schema,
+      hash
     } = this.state;
 
     return <FormSchemaComponent
@@ -153,6 +157,7 @@ export default class EventForm extends Component {
       files={this.state.files}
       onChange={this.onChange.bind( this )}
       schema={schema}
+      hash={hash}
       classNames={ih( classNames, {
         field: { $set: 'padding-v-sm form-group' }
       } )}

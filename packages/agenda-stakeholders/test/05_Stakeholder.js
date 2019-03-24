@@ -6,12 +6,12 @@ const Stakeholder = require( '../src/iso/Stakeholder.js' );
 
 const extend = require( 'lodash/extend' );
 
-const validFieldValues = { 
+const validFieldValues = {
   contactName: 'Jeff',
   contactNumber: '01',
   contactPosition: 'Over there',
   organization: 'Jeff corp',
-  email: 'jeff@email.com' 
+  email: 'jeff@email.com'
 };
 
 const server = require( './lib/server' );
@@ -110,7 +110,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
 
       let expectedSequence = [ true, false ], iteration = 0;
 
-      let s = new Stakeholder( validFieldValues, { 
+      let s = new Stakeholder( validFieldValues, {
         res: 'http://localhost:3000',
         onBusyChange: busy => {
 
@@ -127,14 +127,14 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
         // second call for sync verif
         // will NOT trigger a round-trip to server.
         s.isSynced( () => {} );
-        
+
       } );
 
 
       setTimeout( () => {
 
         iteration.should.equal( 2 );
-        
+
         done();
 
       }, ( server.getTestConfig().delay + 100 ) * 2 );
@@ -212,11 +212,11 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
         contactPosition: 'To the right'
       } );
 
-      s.getErrors().should.eql( [ { 
+      s.getErrors().should.eql( [ {
         origin: 'Beeeepbeeepbeeep',
         field: 'contactNumber',
         code: 'phone.invalid',
-        message: 'value is not a phone number' 
+        message: 'value is not a phone number'
       } ] );
 
     } );
@@ -285,21 +285,21 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
       } );
 
       s.set( {
-        fieldValues: extend( {}, validFieldValues, { email: 'Jeffsatemail.com' } ) 
+        fieldValues: extend( {}, validFieldValues, { email: 'Jeffsatemail.com' } )
       } )
 
       .should.eql( [ {
         field: 'email',
         code: 'email.invalid',
         message: 'email is not valid',
-        origin: 'Jeffsatemail.com' 
+        origin: 'Jeffsatemail.com'
       } ] );
 
     } );
 
   } );
 
-  
+
   describe( '.commit', () => {
 
     let broker = {
@@ -324,7 +324,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
         result.success.should.equal( true );
 
         server.getTestConfig().data.should.eql( broker );
-        
+
         done();
 
       } );
@@ -399,15 +399,13 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
         }
       } );
 
-      server.listen( 3000 );
-
     } );
 
     it( 'instanciate', done => {
 
       let s = new Stakeholder( {
         fieldValues: validFieldValues,
-        credential: 1 
+        credential: 1
       }, { res: 'http://localhost:3000' } );
 
       s.isSynced( ( err, synced ) => {
@@ -479,7 +477,7 @@ describe( 'agenda stakeholders - functional (iso): Stakeholder', () => {
           fieldValues: update,
           credential: 2
         } );
-        
+
         done();
 
       } );

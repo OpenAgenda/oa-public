@@ -20,8 +20,8 @@ module.exports = class TimingsComponent extends Component {
 
     return ( value || _.get( this.props, 'field.default', [] ) )
       .map( t => ( {
-        start: new Date( `${t.begin.date}T${t.begin.hours}:${t.begin.minutes}` ),
-        end: new Date( `${t.end.date}T${t.end.hours}:${t.end.minutes}` )
+        start: new Date( `${t.begin.date}T${t.begin.hours}:${t.begin.minutes}${_timezone( t.begin )}` ),
+        end: new Date( `${t.end.date}T${t.end.hours}:${t.end.minutes}${_timezone( t.end )}` )
       } ) );
 
   }
@@ -90,5 +90,14 @@ function _extractDateString( d ) {
 function _fZ( n ) {
 
   return ( ( n + '' ).length === 1 ? '0' : '' ) + n;
+
+}
+
+// safari requires timezone
+function _timezone( { date, hours, minutes } ) {
+
+  const tzh = ( new Date( date + 'T' + hours + ':' + minutes ) ).getTimezoneOffset() / 60;
+
+  return ( tzh >= 0 ? '' : '+' ) + _fZ( - tzh ) + ':00';
 
 }
