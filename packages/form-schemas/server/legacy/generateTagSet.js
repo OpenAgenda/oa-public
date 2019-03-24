@@ -17,7 +17,10 @@ module.exports = ( schema, currentTagSet = null ) => {
     .filter( f => !f.origin )
     .map( f => `${f.field}: field origin is not set` );
 
-  if ( !tagSettableFields.length ) return null;
+  if ( !tagSettableFields.length ) return {
+    messages: [ 'no tag-like fields' ],
+    tagSet: null
+  };
 
   tagSettableFields.forEach( f => {
 

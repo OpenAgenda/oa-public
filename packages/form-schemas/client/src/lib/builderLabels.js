@@ -17,6 +17,21 @@ module.exports = {
     en: 'Edit'
   },
 
+  hideField: {
+    fr: 'Cacher',
+    en: 'Hide'
+  },
+
+  showField: {
+    fr: 'Afficher le champ',
+    en: 'Display the field'
+  },
+
+  hiddenField: {
+    fr: 'Champ caché',
+    en: 'Hidden field'
+  },
+
   removeField: {
     fr: 'Supprimer',
     en: 'Delete'
@@ -80,6 +95,16 @@ module.exports = {
     en: 'List the languages in which the labels of the form will be available'
   },
 
+  uneditableFieldInfo: {
+    fr: 'Ce champ ne peut pas être modifié',
+    en: 'This field cannot be modified'
+  },
+
+  editFieldInfo: {
+    fr: 'Modifier les propriétés de ce champ',
+    en: 'Update properties of this field'
+  },
+
   addLabelLanguages: {
     fr: 'Définir des langues',
     en: 'Define languages'
@@ -95,8 +120,10 @@ module.exports = {
     en: 'Clear languages'
   },
 
-  // DEPR
-  fieldLabelLanguages: { fr: 'Langues des labels', en: 'Label languages' },
+  fieldLabelLanguages: {
+    fr: 'Langues des labels',
+    en: 'Label languages'
+  },
 
   textFieldType: { fr : 'texte', en : 'Text' },
   textMultilingualFieldType: { fr: 'Text multilingue', en: 'Multilingual text' },
@@ -139,6 +166,11 @@ module.exports = {
   fieldFormOptional: {
     fr: 'Ce champ est facultatif',
     en: 'This field is optional'
+  },
+
+  requiredField: {
+    fr: 'Obligatoire',
+    en: 'Required'
   },
 
   fieldFormMaxTextLength: {

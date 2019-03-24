@@ -201,6 +201,29 @@ const cases = {
         } ]
       }
     }
+  },
+  monolingual: {
+    comment: 'When no values have been defined',
+    props: {
+      components: {
+        options: Options
+      },
+      lang: 'fr',
+      values: {
+        optionsfield: []
+      },
+      schema: {
+        custom: {
+          options: optionsValidator
+        },
+        fields: [ {
+          field: 'optionsfield',
+          fieldType: 'options',
+          label: 'Option values',
+          optional: false
+        } ]
+      }
+    }
   }
 }
 

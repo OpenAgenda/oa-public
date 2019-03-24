@@ -194,7 +194,7 @@ export default class FormSchemaComponent extends Component {
       memoizeKey => _.get( this.memoized, memoizeKey, '' ) !== _.get( this.props, memoizeKey, '' )
     ).length;
 
-    if ( hasChanged ) {
+    if ( hasChanged || !this.memoized ) {
 
       this.memoized = {
         formSchema: new FormSchema(

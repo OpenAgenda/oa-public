@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import classNames from 'classnames';
 import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
@@ -125,6 +126,7 @@ export default class FormSchemaBuilder extends Component {
 
   }
 
+
   onFieldRemove( field ) {
 
     this.updateSchema( removeSchemaField( this.getSchema(), field ) );
@@ -183,6 +185,18 @@ export default class FormSchemaBuilder extends Component {
 
   }
 
+  isFieldDisabled( field, forceDisabled ) {
+
+    if ( forceDisabled ) return true;
+
+    const { editedField } = this.state;
+
+    if ( !_.get( field, 'display', true ) ) return true;
+
+    return editedField && ( editedField !== field.field );
+
+  }
+
   renderFieldListHead( mergedSchema ) {
 
     const { mode, labelLanguages } = this.state;
@@ -210,6 +224,7 @@ export default class FormSchemaBuilder extends Component {
     const {
       addEnabled,
       settingsEnabled,
+      editableExtensions,
       extendedFrom,
       lang
     } = this.props;
@@ -283,7 +298,10 @@ export default class FormSchemaBuilder extends Component {
                         index={index}>
                         {(provided, snapshot) => (
                           <div
-                            className="list-group-item"
+                            className={ classNames( {
+                              'list-group-item' : true,
+                              disabled: this.isFieldDisabled( field, disabled ) }
+                            ) }
                             ref={provided.innerRef}
                             {...provided.draggableProps}
                             {...provided.dragHandleProps}
@@ -292,14 +310,17 @@ export default class FormSchemaBuilder extends Component {
                               provided.draggableProps.style
                             )} >
                             <FieldPreview
-                              disabled={disabled || ( editedField && ( editedField !== field.field ) )}
+                              disabled={this.isFieldDisabled( field, disabled )}
                               ordering={mode === modes.ORDERING}
                               field={field}
-                              isOwnField={isOwnField( schema, field )}
+                              isOwn={isOwnField( schema, field )}
+                              editableExtensions={editableExtensions}
                               schemaInfo={extractSchemaInfo( field, extendedFrom )}
                               lang={this.props.lang}
                               labelLanguages={labelLanguages}
                               onEdit={this.onFieldEdit.bind( this, field )}
+                              onHide={() => this.onFieldEditSave( _.assign( field, { display: false } ) )}
+                              onShow={() => this.onFieldEditSave( _.assign( field, { display: true } ) )}
                               onRemove={this.onFieldRemove.bind( this, field )}
                             />
                           </div>

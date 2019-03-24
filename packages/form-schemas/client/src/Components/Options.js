@@ -96,12 +96,12 @@ export default class OptionsField extends Component {
 
       return <button
         onClick={this.setMode.bind( this, modes.ORDERING )}
-        className="btn btn-primary order-action margin-bottom-sm"
+        className="btn btn-primary order-action"
         disabled={this.isOrderingDisabled()}>{getLabel( 'optionOrder', lang )}</button>
 
     }
 
-    return <div className="text-center">
+    return <div className="thisext-center">
       <p className="margin-top-md">{getLabel( 'orderInstruction', lang )}</p>
       <button
         onClick={()=>{this.setMode( null )}}
@@ -140,7 +140,7 @@ export default class OptionsField extends Component {
           otherOptions={this.getOptions()}
           onSubmit={this.addOption.bind( this )}
           lang={lang}
-          languages={field.languages}
+          languages={_.isArray( field.languages ) && field.languages.length ? field.languages : null}
         />
       </div>
 

@@ -20,7 +20,8 @@ const extensions = [ {
       field: 'image',
       fieldType: 'image',
       label: 'Image',
-      optional: true
+      optional: true,
+      display: false
     }, {
       field: 'imageCredits',
       fieldType: 'text',
@@ -64,7 +65,8 @@ const extensions = [ {
     }, {
       field: 'accessibility',
       fieldType: 'accessibility',
-      label: 'Accessibility conditions'
+      label: 'Accessibility conditions',
+      display: false
     }, {
       field: 'location',
       fieldType: 'location',
@@ -121,6 +123,7 @@ class Main extends Component {
           <div>
             <FormSchemaBuilder
               maxFields={2}
+              editableExtensions={true}
               lang="fr"
               addEnabled={true}
               settingsEnabled={true}

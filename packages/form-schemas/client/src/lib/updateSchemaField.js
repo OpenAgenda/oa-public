@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import ih from 'immutability-helper';
 
+const updatableAbstractFieldKeys = [ 'label', 'info', 'placeholder', 'sub', 'display' ];
+
 export default ( schema, field ) => {
 
   const fieldIndex = _.findIndex( schema.fields, sf => sf.field === field.field );
@@ -16,10 +18,10 @@ export default ( schema, field ) => {
   // only labels can be changed for abstract field
   if ( schema.fields[ fieldIndex ].fieldType === 'abstract' ) {
 
-    const update = [ 'label', 'info', 'placeholder', 'sub' ]
-      .filter( label => field[ label ] )
-      .reduce( ( update, label ) => _.set(
-        update, label, { $set: field[ label ] }
+    const update = updatableAbstractFieldKeys
+      .filter( fieldKey => field[ fieldKey ] !== undefined )
+      .reduce( ( update, fieldKey ) => _.set(
+        update, fieldKey, { $set: field[ fieldKey ] }
       ), {} );
 
     updatedField = ih( schema.fields[ fieldIndex ], update );
