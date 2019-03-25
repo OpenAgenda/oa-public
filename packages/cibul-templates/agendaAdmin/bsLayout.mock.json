@@ -47,12 +47,6 @@
     }
   }, {
     "section" : "export",
-    "key" : "swapcard",
-    "label" : "Swapcard",
-    "uri" : "serviceIndex",
-    "uriParams" : { "service" : "swapcard" }
-  }, {
-    "section" : "export",
     "key" : "web",
     "label" : "Web Integration",
     "uri" : "agendaAdminWeb"
@@ -87,5 +81,5 @@
     "label" : "Settings",
     "uri" : "agendaAdminSettings"
   } ]
-  
+
 }
