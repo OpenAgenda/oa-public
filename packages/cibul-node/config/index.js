@@ -325,18 +325,6 @@ const config = {
       name: prod.twitter.name
     },
     imageSizeLimits: [ 2000, 30000000 ],
-    bridges: {
-      swapcard: {
-        redirect: null, // deprecated
-        clientID: null, // deprecated
-        clientSecret: null, // deprecated
-        token: null, // deprecated
-        baseSite: 'https://api.swapcard.com',
-        authorizePath: '/oauth/v2/auth',
-        accessTokenPath: '/oauth/v2/token',
-        emptyImage: 'white300x300.jpg'
-      }
-    },
     comexposium: {
       contributingAgendaUid: 63430882 // le salon de l'agriculture - deprecated
     },
@@ -664,15 +652,6 @@ const config = {
       staticBucketPath: 'https://cibulstatic.s3.amazonaws.com/',
       bucket: 'cibuldev',
       tmpBucket: 'cibuldevtmp'
-    },
-    bridges: {
-      swapcard: {
-        redirect: 'http://d.openagenda.com/services/swapcard/connect/callback',
-        clientID: '5_2teox6oxnwg0k4cscwwk8gs84cwo0ococck0og4wkswwwc4ggc',
-        clientSecret: '4ze5s2xa5y4g48kw0wow8sg8ssc4wcg0kcc8gwks8coww4ssos',
-        token: 'ZmI4YzlhMzFlZGY3ODdkZjg3MzU3YTUxN2MxYmRjNmMwNTdmZGFkM2RlNGE5N2Q3YTBkOWU1NmY2YjI1ZWExMQ',
-        baseSite: 'https://apidev.swapcard.com'
-      }
     }
   },
 
