@@ -139,8 +139,8 @@ body {
 }
 
 /**
- * use for simple full page dialogs, 
- * to give them some margin from the 
+ * use for simple full page dialogs,
+ * to give them some margin from the
  * top of the page
  */
 .top-margined {
@@ -150,7 +150,7 @@ body {
 }
 
 .bottom-margined {
-  
+
   margin-bottom: 60px;
 
 }
@@ -267,13 +267,28 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
 }
 
 .text-muted {
-  
+
   color: $oa-gray;
 
 }
 
 .oa-col-canvas {
-  
+
   max-width: 680px;
+
+}
+
+a.discreet {
+
+  color: inherit;
+  cursor: pointer;
+
+  label { cursor: pointer; }
+
+  &:hover {
+
+    color: $oa-blue;
+
+  }
 
 }

@@ -37,3 +37,9 @@ a.badge:hover {
   background-color: $brand-success;
   border: 1px solid $brand-success;
 }
+
+.badge-danger {
+  color: $oa-white;
+  background-color: $oa-red;
+  border: 1px solid $oa-red;
+}
