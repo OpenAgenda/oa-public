@@ -49,6 +49,8 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], middlewares.event );
 
+  parentApp.get( '/:agendaSlug/contribute/event/:eventUid', middlewares.defineUpdateRedirect );
+
   parentApp.all( [
     '/:agendaSlug/contribute',
     '/:agendaSlug/contribute/:step',
@@ -65,7 +67,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
       suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
       fileStore: { type: 's3', bucket },
       redirects: {
-        //updated: `this should be set when specific redirects are needed on an update`
+        updated: req.updateRedirect,
         seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
         createOtherEvent: `/${req.agenda.slug}/contribute`,
         seeAllEvents: `/home/events`,

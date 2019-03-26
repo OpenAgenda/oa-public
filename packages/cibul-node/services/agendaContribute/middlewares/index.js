@@ -5,5 +5,6 @@ module.exports = {
   member: require( './member' ),
   event: require( './event' ),
   schemaExtensions: require( './schemaExtensions' ),
-  duplicateFromEvent: require( './duplicateFromEvent' )
+  duplicateFromEvent: require( './duplicateFromEvent' ),
+  defineUpdateRedirect: require( './defineUpdateRedirect' )
 }
