@@ -3,7 +3,6 @@
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 
-const imageFiles = require( '@openagenda/image-files' );
 const logger = require( '@openagenda/logs' );
 
 const Agenda = require( './Agenda' );
@@ -78,10 +77,6 @@ function init( c ) {
   slugs.init( schemas, knex );
 
   legacy.init( schemas, knex );
-
-  imageFiles.init( {
-    files: c.files
-  } );
 
   middleware.init( c, service );
 

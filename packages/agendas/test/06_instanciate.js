@@ -4,17 +4,32 @@ process.env.NODE_ENV = 'test';
 
 const async = require( 'async' );
 const fs = require( 'fs' );
+const ih = require( 'immutability-helper' );
 const mysql = require( 'mysql' );
 const should = require( 'should' );
 
 const config = require( '../testconfig' );
 const svc = require( '../' );
 
+const externalServices = require( './fixtures/externalServices' );
+
 describe( 'agendas - functional (server): instanciate', function () {
 
   this.timeout( 30000 );
 
-  before( () => svc.init( config ) );
+  before( () => {
+
+    externalServices.init( config.tests );
+
+    svc.init( ih( config, {
+      interfaces: {
+        imageFilesLoad: { $set: externalServices.imageFiles.load },
+        imageFilesClear: { $set: externalServices.imageFiles.clear },
+        imageFilesGetBasePath: { $set: externalServices.imageFiles.getBucketPath }
+      }
+    } ) );
+
+  } );
 
   before( require( './fixtures/load.js' ).bind( null, {
     mysql: config.mysql,

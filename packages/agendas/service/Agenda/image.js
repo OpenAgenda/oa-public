@@ -1,7 +1,5 @@
 "use strict";
 
-const imageFiles = require( '@openagenda/image-files' );
-
 module.exports = {
   setImage,
   getImage,
@@ -12,7 +10,7 @@ function setImage( { path, url }, cb ) {
 
   let formats = _getFormats.apply( this );
 
-  imageFiles.load( {
+  this.service.getConfig().interfaces.imageFilesLoad( {
     path,
     url,
     formats
@@ -38,7 +36,7 @@ function setImage( { path, url }, cb ) {
 function getImage( includePath = false, useDefaultImage = false ) {
 
   const { defaultImagePath } = this.service.getConfig();
-  const path = imageFiles.getBucketPath();
+  const path = this.service.getConfig().interfaces.imageFilesGetBasePath();
   const image = this.data.image ? this.data.image.split( '/' ).pop() : null;
 
   if ( image === null ) return useDefaultImage ? defaultImagePath : null;
@@ -58,7 +56,7 @@ function clearImage( cb ) {
 
   }
 
-  imageFiles.clear( formats.map( f => f.name ), err => {
+  this.service.getConfig().interfaces.imageFilesClear( formats.map( f => f.name ), err => {
 
     if ( err ) return cb( err );
 

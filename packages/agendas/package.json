@@ -15,7 +15,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@openagenda/image-files": "^1.1.1",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/mysql-utils": "^2.0.0",
     "@openagenda/service-utils": "^2.0.0",
@@ -29,6 +28,10 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
+    "@openagenda/files": "^2.0.7",
+    "@openagenda/images": "^1.1.1",
+    "@openagenda/image-files": "^1.1.1",
+    "immutability-helper": "^2.3.0",
     "mocha": "^5.0.1",
     "should": "^8.2.2"
   }
