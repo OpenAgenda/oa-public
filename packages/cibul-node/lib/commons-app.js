@@ -7,6 +7,7 @@
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const hsts = require( 'hsts' );
+const fs = require( 'fs' );
 const languages = require( 'languages' );
 const qs = require( 'qs' );
 const wn = require( 'when/node' );
@@ -22,6 +23,7 @@ const templater = require( '@openagenda/cibul-templates' );
 const utils = require( '@openagenda/utils' );
 
 const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorized' ) );
+const getErrorLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/errors' ) );
 
 const config = require( '../config' );
 const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
@@ -29,6 +31,9 @@ const genUrl = require( '../services/genUrl' );
 const errorLogger = require( '../services/00_errors' );
 const i18n = require( '../i18n/i18n.js' );
 const model = require( '../services/model' );
+
+const layouts = require( '../services/lib/layouts' );
+const renderError = _.template( fs.readFileSync( __dirname + '/error.tpl', 'utf-8' ) );
 
 const log = logger( 'commons-app' );
 
@@ -461,8 +466,6 @@ function renderUnauthorized() {
 
 function errorResponse( req, res, error, jsonResponse ) {
 
-  let errorTemplate;
-
   if ( !error.code ) {
 
     if ( error.statusCode ) {
@@ -497,13 +500,9 @@ function errorResponse( req, res, error, jsonResponse ) {
 
       errorLogger( 'req', error );
 
-      errorTemplate = 'error/show';
-
       res.code = 500;
 
     } else {
-
-      errorTemplate = 'error/show';
 
       res.code = error.code;
 
@@ -543,21 +542,26 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     }
 
-    if ( req.baseData ) {
+    if ( !error.back && req.agenda ) {
 
-      req.baseData.head.css.main = '/css/compiled.css';
-
-      render( req, res, errorTemplate, error );
-
-    } else {
-
-      loadBaseData()( req, res, function () {
-
-        render( req, res, errorTemplate, error );
-
-      } );
+      error.back = {
+        label: getErrorLabel( 'defaultAgendaBack', req.lang ),
+        link: `/${req.agenda.slug}`
+      }
 
     }
+
+    res.status( error.code || 500 ).send( layouts.main( renderError( {
+      code: error.code,
+      message: error.message,
+      back: _.get( error, 'back', {
+        label: getErrorLabel( 'defaultBack', req.lang ),
+        link: '/'
+      } )
+    } ), {
+      lang: req.lang,
+      title: error.code
+    } ) );
 
   } );
 
@@ -577,7 +581,7 @@ function catchError( req, res, jsonResponse ) {
 
     if ( err.code == 404 ) {
 
-      if ( !err.message ) err.message = 'The page you requested does not exist';
+      if ( !err.message ) err.message = getErrorLabel( 'pageDoesNotExist', req.lang );
 
       res.code = 404;
 
