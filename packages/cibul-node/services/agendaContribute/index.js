@@ -40,6 +40,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     ( req, res, next ) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse( req, res, { code: 404 } ),
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, `/${req.agenda.slug}/signup?redirect=${base64.encode( req.originalUrl )}` ) ),
     middlewares.member,
+    middlewares.verifyMemberAuthorization,
     middlewares.schemaExtensions,
     middlewares.duplicateFromEvent
   ] );

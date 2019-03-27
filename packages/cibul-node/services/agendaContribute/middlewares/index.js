@@ -6,5 +6,6 @@ module.exports = {
   event: require( './event' ),
   schemaExtensions: require( './schemaExtensions' ),
   duplicateFromEvent: require( './duplicateFromEvent' ),
-  defineUpdateRedirect: require( './defineUpdateRedirect' )
+  defineUpdateRedirect: require( './defineUpdateRedirect' ),
+  verifyMemberAuthorization: require( './verifyMemberAuthorization' )
 }
