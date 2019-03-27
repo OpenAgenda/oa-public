@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React from 'react';
-import ReactDOM from 'react-dom/server';
 import { Provider } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Router, useRouterHistory } from 'react-router';
@@ -28,18 +27,6 @@ export default function ( options, routes, fn ) {
 
   const renderRouter = props => {
     return <ReduxAsyncConnect {...props} helpers={{ client }} filter={item => !item.deferred} history={history} />;
-  }
-
-  if ( process.env.NODE_ENV == 'development' && !window.devToolsExtension ) {
-    const devToolsDest = document.createElement( 'div' );
-    window.document.body.insertBefore( devToolsDest, null );
-    const DevTools = require( './containers/DevTools/DevTools' );
-    ReactDOM.render(
-      <Provider store={store} key="provider">
-        <DevTools />
-      </Provider>,
-      devToolsDest
-    );
   }
 
   if ( fn ) fn( { client, store, history } );
