@@ -542,26 +542,43 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     }
 
-    if ( !error.back && req.agenda ) {
-
-      error.back = {
-        label: getErrorLabel( 'defaultAgendaBack', req.lang ),
-        link: `/${req.agenda.slug}`
-      }
-
-    }
-
-    res.status( error.code || 500 ).send( layouts.main( renderError( {
+    const data = {
       code: error.code,
       message: error.message,
       back: _.get( error, 'back', {
         label: getErrorLabel( 'defaultBack', req.lang ),
         link: '/'
       } )
-    } ), {
+    };
+
+    const layoutData = {
       lang: req.lang,
       title: error.code
-    } ) );
+    };
+
+    if ( !error.back && req.agenda ) {
+
+      data.back = {
+        label: getErrorLabel( 'defaultAgendaBack', req.lang ),
+        link: `/${req.agenda.slug}`
+      }
+
+    }
+
+    res.status( error.code || 500 );
+
+    if ( req.agenda ) {
+
+      layoutData.agenda = req.agenda;
+
+      res.send( layouts.agenda( renderError( data ), layoutData ) );
+
+
+    } else {
+
+      res.send( layouts.main( renderError( data ), layoutData ) );
+
+    }
 
   } );
 
