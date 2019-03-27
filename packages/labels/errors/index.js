@@ -85,6 +85,21 @@ module.exports = {
   noOrigin: {
     fr: 'Cet événement est indisponible car il n\'est associé a aucun agenda',
     en: 'This event is unavailable as it is not associated to any agenda.'
+  },
+
+  defaultBack: {
+    fr: 'Revenir à l\'accueil',
+    en: 'Back to the home page'
+  },
+
+  defaultAgendaBack: {
+    fr: 'Revenir à l\'agenda',
+    en: 'Back to the agenda page'
+  },
+
+  pageDoesNotExist: {
+    fr: 'La page que vous avez demandé n\'existe pas',
+    en: 'The page you requested does not exist'
   }
 
 }

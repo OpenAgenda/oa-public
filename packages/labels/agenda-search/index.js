@@ -16,6 +16,11 @@ module.exports = {
     fr: 'Résultats de la recherche "%search%"',
     de: 'Suchergebnisse für "%search%'
   },
+  searchTitle: {
+    en: 'Search agendas',
+    fr: 'Recherche d\'agendas',
+    de: 'Kalendersucher'
+  },
   genericSearchTitle: {
     en: 'Calendar search results',
     fr: 'Résultats de la recherche agendas',
