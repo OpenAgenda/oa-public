@@ -39,19 +39,27 @@ function _spreadByBoostScores( mltRequest, scores, baseQuery = {} ) {
 
   return _.keys( scores ).map( scoredField => {
 
-    const fieldValue = _.get( mltRequest, scoredField );
+    const scoredFieldPath = ( _isCustom( scoredField ) ? 'custom.' : '' ) + scoredField;
+
+    const fieldValue = _.get( mltRequest, scoredFieldPath );
 
     if ( [ undefined, null ].includes( fieldValue ) ) return null;
 
     return getQuery( baseQuery, {}, {
-      mlt: ih( getMoreLikeThis( _.set( {}, scoredField, fieldValue ) ), {
+      mlt: ih( getMoreLikeThis( _.set( {}, scoredFieldPath, fieldValue ) ), {
         boost: { $set: scores[ scoredField ] },
-        fields: { $set: [ scoredField ] }
+        fields: { $set: [ scoredFieldPath ] }
       } )
     } );
 
   } ).filter( q => !!q ).concat( getQuery( baseQuery, {}, {
     mlt: getMoreLikeThis( mltRequest )
   } ) );
+
+}
+
+function _isCustom( field ) {
+
+  return ![ 'title', 'description', 'longDescription', 'conditions', 'keywords', 'location' ].includes( field );
 
 }
