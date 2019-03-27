@@ -15,7 +15,7 @@ const registration = require( '@openagenda/registration/src/validate' ).getTypes
 
 const controlDataSvc = require( '../services/legacy' ).controlData;
 
-const layout = require( '../services/lib/layouts' ).main;
+const layouts = require( '../services/lib/layouts' );
 
 const  modLib = require( '../lib/moduleLib' ),
 
@@ -30,6 +30,8 @@ const  modLib = require( '../lib/moduleLib' ),
   getEventLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) ),
 
   unauthorizedIpLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedIp' ) ),
+
+  getAgendaSearchLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search' ) ),
 
   agendaSvc = require( '../services/agenda' ),
 
@@ -415,7 +417,10 @@ function agendaSearchPage( req, res, next ) {
     bottom: [ { path: '/js/agendaSearchIndex.js' } ]
   };
 
-  res.send( layoutSvc( req, `<div class="js_search_canvas">${req.content}</div>`) );
+  res.send( layouts.main( `<div class="js_search_canvas">${req.content}</div>`, {
+    lang: req.lang,
+    title: getAgendaSearchLabel( 'searchTitle', req.lang )
+  } ) );
 
 }
 
