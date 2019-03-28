@@ -4,6 +4,7 @@ const _ = {
   assign: require( 'lodash/assign' ),
   get: require( 'lodash/get' ),
   isObject: require( 'lodash/isObject' ),
+  isArray: require( 'lodash/isArray' ),
   isString: require( 'lodash/isString' ),
   keys: require( 'lodash/keys' ),
   omit: require( 'lodash/omit' ),
@@ -278,6 +279,8 @@ function validate( data, client = false ) {
       clean.fields.push( cleanField );
 
     } catch ( e ) {
+
+      if ( !_.isArray( e ) ) throw _.assign( e, { message: `Validation of field ${f.field} failed: ${e.message}` } );
 
       errors = errors.concat( e );
 

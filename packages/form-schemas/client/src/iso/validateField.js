@@ -85,9 +85,9 @@ function validate( value, options = {} ) {
 
   // enableWith tells validator it is active if field specified has a value.
   // if set, the field must be part of related fields
-  if ( clean.enableWith && !clean.related.includes( clean.enableWith ) ) {
+  if ( clean.enableWith && !_.get( clean, 'related', [] ).includes( clean.enableWith ) ) {
 
-    clean.related.push( clean.enableWith );
+    clean.related = _.get( clean, 'related', [] ).concat( clean.enableWith );
 
   }
 

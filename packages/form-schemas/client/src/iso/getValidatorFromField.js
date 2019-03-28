@@ -83,7 +83,7 @@ module.exports = ( field, options = {} ) => {
 
   if ( !matchingMapItem ) {
 
-    if ( !_.get( customValidators, field.fieldType ) && !validators[ field.fieldType ] ) throw new Error( 'Unknown field type' );
+    if ( !_.get( customValidators, field.fieldType ) && !validators[ field.fieldType ] ) throw new Error( `Unknown field type ${field.fieldType} for field ${field.field}` );
 
     convertTo( validatorOptions, field );
 
