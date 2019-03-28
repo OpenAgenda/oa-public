@@ -7,13 +7,9 @@ export default function ( history, client, state = {} ) {
   const middleware = applyMiddleware( routerMiddleware( history ), promiseMiddleware( client, state ) );
 
   if ( process.env.NODE_ENV == 'development' && typeof window !== 'undefined' ) {
-    const { persistState } = require( 'redux-devtools' ),
-      DevTools = require( '../containers/DevTools/DevTools' );
-
     enhancer = compose(
       middleware,
-      window.devToolsExtension ? window.devToolsExtension() : DevTools.instrument(),
-      persistState( getDebugSessionKey() )
+      window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : v => v
     );
   } else {
     enhancer = compose( middleware );
@@ -26,13 +22,6 @@ export default function ( history, client, state = {} ) {
   return store;
 
 };
-
-function getDebugSessionKey() {
-  // You can write custom logic here!
-  // By default we try to read the key from ?debug_session=<key> in the address bar
-  const matches = window.location.href.match( /[?&]debug_session=([^&#]+)\b/ );
-  return (matches && matches.length > 0) ? matches[ 1 ] : null;
-}
 
 function promiseMiddleware( client ) {
 
