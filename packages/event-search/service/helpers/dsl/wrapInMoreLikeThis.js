@@ -39,16 +39,18 @@ function _spreadByBoostScores( mltRequest, scores, baseQuery = {} ) {
 
   return _.keys( scores ).map( scoredField => {
 
-    const scoredFieldPath = ( _isCustom( scoredField ) ? 'custom.' : '' ) + scoredField;
+    const scoredFieldPath = ( _mustAddCustomPrefix( scoredField ) ? 'custom.' : '' ) + scoredField;
 
     const fieldValue = _.get( mltRequest, scoredFieldPath );
+
+    const boostedField = _isIntegerLike( fieldValue ) ? ( ( _isCustom( scoredFieldPath ) ? 'custom.' : '' ) + 'search_internals_keywords' ) : scoredFieldPath;
 
     if ( [ undefined, null ].includes( fieldValue ) ) return null;
 
     return getQuery( baseQuery, {}, {
       mlt: ih( getMoreLikeThis( _.set( {}, scoredFieldPath, fieldValue ) ), {
         boost: { $set: scores[ scoredField ] },
-        fields: { $set: [ scoredFieldPath ] }
+        fields: { $set: [ boostedField ] }
       } )
     } );
 
@@ -60,6 +62,20 @@ function _spreadByBoostScores( mltRequest, scores, baseQuery = {} ) {
 
 function _isCustom( field ) {
 
-  return ![ 'title', 'description', 'longDescription', 'conditions', 'keywords', 'location' ].includes( field );
+  return field.split( '.' )[ 0 ] === 'custom';
+
+}
+
+function _mustAddCustomPrefix( field ) {
+
+  if ( _isCustom( field ) ) return false;
+
+  return ![ 'title', 'description', 'longDescription', 'conditions', 'keywords', 'location' ].includes( field.split( '.' )[ 0 ] );
+
+}
+
+function _isIntegerLike( value ) {
+
+  return !isNaN( parseInt( value ) );
 
 }

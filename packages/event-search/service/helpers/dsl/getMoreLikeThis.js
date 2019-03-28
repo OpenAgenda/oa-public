@@ -12,7 +12,7 @@ const fieldMap = {
 
 const getMLTField = field => _.get( fieldMap, field );
 
-const getMLTLocationValue = location => [ 
+const getMLTLocationValue = location => [
   'address', 'city', 'department', 'region'
 ].filter( f => !!location[ f ] ).map( f => location[ f ] ).join( ' ' );
 
@@ -37,7 +37,7 @@ module.exports = mltQuery => {
       const mltCustom = {};
 
       const optionedValues = _.flatten( _.keys( mltQuery.custom )
-        .filter( field => _.isArray( mltQuery.custom[ field ] ) || _.isInteger( mltQuery.custom[ field ] ) )
+        .filter( field => _.isArray( mltQuery.custom[ field ] ) || _isIntegerLike( mltQuery.custom[ field ] ) )
         .map( field => [].concat( mltQuery.custom[ field ] ) ) );
 
       if ( optionedValues.length ) {
@@ -49,7 +49,7 @@ module.exports = mltQuery => {
       }
 
       _.keys( mltQuery.custom )
-        .filter( field => _.isString( mltQuery.custom[ field ] ) )
+        .filter( field => !_isIntegerLike( mltQuery.custom[ field ] ) )
         .filter( field => mltQuery.custom[ field ].length )
         .forEach( field => {
 
@@ -89,5 +89,11 @@ module.exports = mltQuery => {
     min_doc_freq: 1,
     like: like.map( l => ( { doc: l } ) )
   }
+
+}
+
+function _isIntegerLike( value ) {
+
+  return !isNaN( parseInt( value ) );
 
 }

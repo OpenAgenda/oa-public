@@ -906,7 +906,7 @@ describe( 'event-search - unit: more like this search', function() {
             {
               "mlt": {
                 "fields": [
-                  "custom.multichoicefield"
+                  "custom.search_internals_keywords"
                 ],
                 "min_word_length": 3,
                 "min_term_freq": 1,
@@ -929,7 +929,7 @@ describe( 'event-search - unit: more like this search', function() {
             {
               "mlt": {
                 "fields": [
-                  "custom.singlechoicefield"
+                  "custom.search_internals_keywords"
                 ],
                 "min_word_length": 3,
                 "min_term_freq": 1,
