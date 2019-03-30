@@ -41,7 +41,7 @@ dev.use( require( 'webpack-hot-middleware' )( compiler ) );
 
 dev.get( '/', ( req, res ) => {
 
-  res.send( devLayout( '<div class="container margin-top-lg">' +
+  res.send( devLayout( '<div class="margin-top-lg">' +
     _.chunk( _.keys( stories ), 4 ).map( chunk => '<div class="row">' +
       chunk.map( slug => `
         <div class="col-md-3">

@@ -36,7 +36,7 @@ class Main extends Component {
 
     const { maxFields } = this.props;
 
-    return <div>
+    return <div className="padding-all-sm">
       <label>Adaptez la configuration du formulaire événement</label>
       {maxFields === 1 ? <div>
         <p>Vous pouvez ajouter le champ de votre choix au formulaire événement</p>
