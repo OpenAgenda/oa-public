@@ -9,7 +9,7 @@ const schema = {
   fields:[ {
     field: 'myfield',
     fieldType: 'text',
-    label: 'Mon champ'
+    label: { fr: 'Mon champ' }
   } ]
 };
 

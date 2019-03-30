@@ -33,7 +33,7 @@ This is a quick summary. For details, check tests: `test/FormSchema.js`
  * **getField( index )**: gets a field by its position index in schema
  * **getValidate( options )**: get the validation function of the form schema
  * **moveField( index, moves )**: moves field up or down in the schema by given number of moves. Minus goes up, plus goes down
- * **removeField( index )**: remove field from schema 
+ * **removeField( index )**: remove field from schema
 
 
 # Service
@@ -43,6 +43,19 @@ Provides create, update, get and remove methods. See tests for details.
 # Legacy bridge
 
 On the legacy platform, custom field schemas are stored in the agenda data model. A legacy bridge function can parse those to form a FormSchema that can be validated. Otherwise it just throws an error.
+
+# Form Builder
+
+A react app to build a FormSchema form.
+
+## Props
+
+ * **schema**: Object. FormSchema to be edited
+ * **extendedFrom**: List of { schema, info } values representing the schemas the current schema is extending. `schema` is the FormSchema and `info` an object of labels giving some context information on the schema.
+ * **useExtendedLabelLanguages**: Boolean. Defaults at false. If true, extended schema label languages are used to determine which languages should be requested when filling in field labels.
+
+
+
 
 
 # Front app development
