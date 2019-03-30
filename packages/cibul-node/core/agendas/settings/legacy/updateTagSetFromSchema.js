@@ -8,6 +8,7 @@ const generateTagSet = require( '@openagenda/form-schemas/server/legacy/generate
 
 const getAgenda = require( '../../utils/getAgenda' );
 const getMergedSchema = require( '../getMergedSchema' );
+const setSchemaFieldOrigins = require( './setSchemaFieldOrigins' );
 
 const setAgendaTags = promisify( agendaTags.set );
 const getAgendaTags = promisify( agendaTags.get );
@@ -28,23 +29,38 @@ module.exports = async ( config, agendaOrUid, force = false ) => {
 
   const tagSet =  await getAgendaTags( id );
 
-  const { tagSet: updatedTagSet, messages } = generateTagSet( schema, tagSet );
+  const { tagSet: updatedTagSet, messages, fields } = generateTagSet( schema, tagSet );
 
-  if ( updatedTagSet ) {
-
-    await setAgendaTags( id, updatedTagSet );
-
-    messages.push( 'generated tag set at id ' + id );
-
-  } else {
-
-    messages.push( 'no tag set generated' );
-
-  }
-
-  return {
+  const res = {
     messages,
-    updatedTagSet,
+    updatedTagSet
   }
+
+  if ( !updatedTagSet ) {
+
+    res.messages.push( 'no tag set generated' );
+
+    return res;
+
+  }
+
+  await setAgendaTags( id, updatedTagSet );
+
+  res.messages.push( 'generated tag set at id ' + id );
+
+  if ( updatedTagSet.groups.length ) {
+
+    const {
+      message: schemaUpdateMessage,
+      schema: updatedSchema
+    } = await setSchemaFieldOrigins( agenda, fields.map( f => f.field ), 'tags' );
+
+    res.messages.push( schemaUpdateMessage );
+
+    res.updatedSchema = updatedSchema;
+
+  }
+
+  return res;
 
 }

@@ -1,12 +1,16 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const ih = require( 'immutability-helper' );
 
+const formSchemas = require( '@openagenda/form-schemas' );
 const generateCustomFields = require( '@openagenda/form-schemas/server/legacy/generateCustomFields' );
 const log = require( '@openagenda/logs' )( 'core/agendas/settings/legacy/updateCustom' );
 
 const getAgenda = require( '../../utils/getAgenda' );
 const getMergedSchema = require( '../getMergedSchema' );
+const getSchema = require( '../getSchema' );
+const setSchemaFieldOrigins = require( './setSchemaFieldOrigins' );
 
 module.exports = async ( config, agendaOrUid, force = false ) => {
 
@@ -30,7 +34,7 @@ module.exports = async ( config, agendaOrUid, force = false ) => {
   if ( !force && _.get( parsedStore, 'customFields', [] ).length ) {
 
     return {
-      message: 'custom fields already exists for agenda. ?force to force operation'
+      message: 'custom fields already exist for agenda. ?force to force operation'
     }
 
   }
@@ -43,9 +47,24 @@ module.exports = async ( config, agendaOrUid, force = false ) => {
 
   messages.push( 'generated customFields' );
 
-  return {
+  const res = {
     messages,
     customFields
+  };
+
+  if ( customFields.length ) {
+
+    const {
+      message: schemaUpdateMessage,
+      schema: updatedSchema
+    } = await setSchemaFieldOrigins( agenda, customFields.map( f => f.name ), 'custom' );
+
+    res.messages.push( schemaUpdateMessage );
+
+    res.updatedSchema = updatedSchema;
+
   }
+
+  return res;
 
 }
