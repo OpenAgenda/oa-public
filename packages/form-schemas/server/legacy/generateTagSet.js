@@ -49,7 +49,8 @@ module.exports = ( schema, currentTagSet = null ) => {
     tagSet: {
       groups: tagSetGroups
     },
-    messages
+    messages,
+    fields: tagSettableFields
   }
 
 }
