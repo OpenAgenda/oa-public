@@ -39,7 +39,7 @@ module.exports = function( embedService ) {
 
 
 /**
- * render content of embed list, 
+ * render content of embed list,
  * shove result in req.embed.renders.list
  */
 
@@ -105,7 +105,7 @@ function renderHeader( req, res, next ) {
   parser = parserLib( mapping );
 
   parser.load( template );
-  
+
   req.renders.header = parser.render( {
     actionLink: req.actionLink.url,
     actionLabel: req.actionLink.label,
@@ -119,7 +119,7 @@ function renderHeader( req, res, next ) {
 
 function renderEvent( req, res, next ) {
 
-  var mapping = tblr.eventMapping, 
+  var mapping = tblr.eventMapping,
 
   template = tblr.event,
 
@@ -177,7 +177,7 @@ function loadEmbed( paramName, fieldName ) {
       if ( err ) {
 
         return next( {
-          code: 404, 
+          code: 404,
           message: 'embed configuration not found for embed ' + req.params[ paramName ]
         } );
 
@@ -211,7 +211,7 @@ function loadCustomLayoutData( req, res, next ) {
     cascading: 'oaet.css',
     nocss: false
   };
-  
+
   if ( !useDefaultCss.list || layoutMode == 'nocss' ) {
 
     delete req.baseData.head.css.main;
@@ -342,10 +342,10 @@ function _getCustomFields( req, e, mapping, cb ) {
 
   if ( !req.agenda ) return cb( null, {} );
 
-  
+
   // this call works for unconfigured custom fields. Used by MCC 2015 agendas. Need to be
   // deprecated to use getEventPublicCustomData only ( or any single source of structured event data )
-   
+
   e.getCustomFields( req.lang, true, ( err, eventCustomFields ) => {
 
     if ( err ) return cb( err );
@@ -364,7 +364,7 @@ function _getCustomFields( req, e, mapping, cb ) {
 
     } );
 
-  } ); 
+  } );
 
 }
 
