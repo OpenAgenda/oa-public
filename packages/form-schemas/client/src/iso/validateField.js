@@ -1,10 +1,12 @@
 "use strict";
 
-const types = Object.keys( require( './types' ) );
+const _ = require( 'lodash/core' );
 
+const choice = require( '@openagenda/validators/choice' );
 const schema = require( '@openagenda/validators/schema' );
 
-const _ = require( 'lodash/core' );
+const types = Object.keys( require( './types' ) );
+const areFieldLabelsMultilingual = require( './areFieldLabelsMultilingual' )
 
 _.extend( _, {
   assign: require( 'lodash/assign' ),
@@ -13,8 +15,6 @@ _.extend( _, {
   set: require( 'lodash/set' ),
   keys: require( 'lodash/keys' )
 } );
-
-const choice = require( '@openagenda/validators/choice' );
 
 schema.register( {
   pass: require( '@openagenda/validators/pass' ),
@@ -78,7 +78,8 @@ function validate( value, options = {} ) {
 
   const fieldSchema = buildFieldSchema(
     isCustomField ? 'custom' : type, {
-    defaultLabelLanguage: options.defaultLabelLanguage
+    defaultLabelLanguage: options.defaultLabelLanguage,
+    isMultilingual: areFieldLabelsMultilingual( value )
   } );
 
   const clean = schema( isAbstract ? _stripUndefinedSchemaFields( fieldSchema, value ) : fieldSchema )( value );
@@ -154,9 +155,13 @@ function buildFieldSchema( type, options = {} ) {
   const {
     languages,
     defaultLabelLanguage,
+    isMultilingual
   } = _.assign( {
-    defaultLabelLanguage: null
+    defaultLabelLanguage: null,
+    isMultilingual: true
   }, options );
+
+  const labelFieldType = isMultilingual || defaultLabelLanguage ? 'multilingual' : 'text';
 
   const structure = {
     // all custom schema fields must have a field name
@@ -170,14 +175,14 @@ function buildFieldSchema( type, options = {} ) {
 
     // the label to be displayed in the form
     label: {
-      type: 'multilingual',
+      type: labelFieldType,
       optional: false,
       defaultLanguage: defaultLabelLanguage
     },
 
     // the optional help text
     help: {
-      type: 'multilingual',
+      type: labelFieldType,
       optional: true,
       default: null,
       defaultLanguage: defaultLabelLanguage
@@ -196,7 +201,7 @@ function buildFieldSchema( type, options = {} ) {
 
     // an informative text can be added adjacent to the form item
     info: {
-      type: 'multilingual',
+      type: labelFieldType,
       max: 1000,
       optional: true,
       default: null,
@@ -204,14 +209,14 @@ function buildFieldSchema( type, options = {} ) {
     },
 
     sub: {
-      type: 'multilingual',
+      type: labelFieldType,
       optional: true,
       default: null,
       defaultLanguage: defaultLabelLanguage
     },
 
     placeholder: {
-      type: 'multilingual',
+      type: labelFieldType,
       max: 300,
       optional: true,
       default: null,
