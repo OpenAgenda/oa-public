@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const VError = require( 'verror' );
 const validateOptions = require( './validators/options' );
 const config = require( './config' );
@@ -42,7 +44,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
     try {
 
-      clean = validate( data );
+      clean = cleanOptions.partial ? validate.part( _.keys( data ), data ) : validate( data );
 
     } catch ( validationErrors ) {
 
@@ -61,9 +63,11 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
   try {
 
+    const completeClean = cleanOptions.partial ? _.assign( {}, before, clean ) : clean;
+
     let updated = !!( await knex( schemas.custom ).update( {
       updated_at: new Date(),
-      store: JSON.stringify( clean )
+      store: JSON.stringify( completeClean )
     } )
 
     .where( {
@@ -75,7 +79,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
       try {
 
-        await legacy( formSchemaId, identifier, clean, cleanOptions );
+        await legacy( formSchemaId, identifier, completeClean, cleanOptions );
 
       } catch ( e ) {
 
@@ -93,7 +97,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
     return {
       success: true,
-      custom: clean
+      custom: completeClean
     }
 
   } catch ( e ) {

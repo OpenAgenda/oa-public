@@ -92,4 +92,22 @@ describe( 'extended events - functional (server): update', function() {
 
   } );
 
+  it( 'partial update only updates provided fields', async () => {
+
+    await svc( 3819893 ).create( 7666, {
+      edition: 22,
+      contender: 'Stanislas'
+    } );
+
+    const result = await svc( 3819893 ).update( 7666, {
+      contender: 'Boris'
+    }, { partial: true } );
+
+    result.should.eql( {
+      success: true,
+      custom: { edition: 22, contender: 'Boris' }
+    } );
+
+  } );
+
 } );

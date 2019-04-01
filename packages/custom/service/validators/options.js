@@ -28,6 +28,11 @@ module.exports = schema( {
     optional: true,
     default: true
   },
+  partial: {
+    type: 'boolean',
+    optional: true,
+    default: false
+  },
   preloaded: { // in case custom data is already in hand
     type: 'pass',
     optional: true
