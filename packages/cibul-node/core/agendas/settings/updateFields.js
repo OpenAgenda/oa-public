@@ -12,6 +12,7 @@ const setAgenda = promisify( agendas.set );
 const getSchema = require( './getSchema' );
 const updateTagSetFromSchema = require( './legacy/updateTagSetFromSchema' );
 const updateCustomFromSchema = require( './legacy/updateCustomFromSchema' );
+const controlData = require( '../../../services/legacy' ).controlData;
 
 module.exports = async ( config, agendaOrUid, updatedFields ) => {
 
@@ -37,6 +38,7 @@ module.exports = async ( config, agendaOrUid, updatedFields ) => {
 
   await updateTagSetFromSchema( config, agenda, true );
   await updateCustomFromSchema( config, agenda, true );
+  await controlData.setTags( agenda.uid );
 
   return true;
 
