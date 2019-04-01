@@ -30,17 +30,26 @@ module.exports = async ( agendaUid, data ) => {
 
 module.exports.loaded = async function loaded( { formSchema, networkFormSchema }, data, options = {} ) {
 
-  const { draft, evaluateEvent, formSchemaDataFormat, defaultLang, optionalState } = _.assign( {
+  const {
+    draft,
+    partial,
+    evaluateEvent,
+    formSchemaDataFormat,
+    defaultLang,
+    optionalState
+  } = _.assign( {
     defaultLang: null,
     evaluateEvent: true,
     draft: false,
+    partial: false,
     formSchemaDataFormat: false,
     optionalState: false
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
   // api provides event data in event service format ( deep image object that includes credits and variants )
   const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat( data, {
-    location: await getLocation( data )
+    location: await getLocation( data ),
+    partial: true
   } );
 
   const schemaExtensions = {
@@ -78,7 +87,9 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
 
     const validate = new FormSchema( consolidatedSchema ).getValidate( { draft } );
 
-    const consolidatedClean = validate( formSchemaData );
+    const consolidatedClean = partial ?
+      validate.part( _.keys( formSchemaData ), formSchemaData )
+      : validate( formSchemaData );
 
     _.assign( clean, _distributeCleanData( consolidatedClean, schemaExtensions ) );
 
@@ -86,7 +97,7 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
 
     if ( !_.isArray( consolidatedErrors ) ) {
 
-      log( 'error', 'exception during validation', consolidatedErrors );
+      console.log( 'error', 'exception during validation', consolidatedErrors );
 
       throw new VError( 'api validation exception', consolidatedErrors );
 
@@ -98,7 +109,7 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
 
   // clean agenda-event data
 
-  try {
+  if ( !partial ) try {
 
     log( 'evaluating agenda-event reference data' );
 
@@ -110,7 +121,7 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
 
     clean.agendaEvent = validateAgendaEvent( data, { optionalState } );
 
-  } catch( agendaEventErrors ) {
+  } catch ( agendaEventErrors ) {
 
     agendaEventErrors.forEach( err => errors.push( _.set( err, 'step', 'agenda event data validation' ) ) );
 

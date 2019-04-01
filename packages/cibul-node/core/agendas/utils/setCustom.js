@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 
 const custom = require( '@openagenda/custom' );
 
-module.exports = async ( formSchemaId, eventUid, data, { draft, agendaId } ) => {
+module.exports = async ( formSchemaId, eventUid, data, { draft, agendaId, partial } ) => {
 
   const result = {
     errors: []
@@ -16,7 +16,8 @@ module.exports = async ( formSchemaId, eventUid, data, { draft, agendaId } ) => 
       transferToLegacy: !draft,
       context: { legacy: false },
       draft,
-      validate: false
+      validate: false,
+      partial
     }
 
     if ( agendaId ) options.agendaId = agendaId;
