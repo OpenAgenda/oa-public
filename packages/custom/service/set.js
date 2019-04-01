@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const log = require( '@openagenda/logs' )( 'set' );
 
 const get = require( './get' );
@@ -17,9 +19,11 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
   const { knex, schemas, interfaces } = config;
 
-  const operation = ( await get( formSchemaId, identifier ) ) ? 'update' : 'create';
+  const current = await get( formSchemaId, identifier );
 
-  const result = await operations[ operation ]( formSchemaId, identifier, data, options );
+  const operation = current ? 'update' : 'create';
+
+  const result = await operations[ operation ]( formSchemaId, identifier, data, operation === 'create' ? options : _.assign( { preloaded: current }, options ) );
 
   result.operation = operation;
 

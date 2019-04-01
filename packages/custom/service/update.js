@@ -22,6 +22,16 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
   }
 
+  // verify pre-existing
+
+  const before = cleanOptions.preloaded || await get( formSchemaId, identifier );
+
+  if ( !before ) {
+
+    throw new VError( 'entry was not found for %s / %s', formSchemaId, identifier );
+
+  }
+
   let clean = data;
 
   if ( cleanOptions.validate ) {
@@ -47,19 +57,8 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
   }
 
 
-  // verify pre-existing
-  
-  const before = await get( formSchemaId, identifier );
-
-  if ( !before ) {
-
-    throw new VError( 'entry was not found for %s / %s', formSchemaId, identifier );
-
-  }
-
-
   // update
-  
+
   try {
 
     let updated = !!( await knex( schemas.custom ).update( {
