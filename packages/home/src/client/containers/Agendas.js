@@ -38,7 +38,6 @@ export default class Agendas extends Component {
     const { getLabel } = this.context;
 
     return <div className="header">
-      <h2 className="hidden-xs">{getLabel( 'myAgendas' )}</h2>
       <div className="hidden-xs pull-right">
         <a href={res.agendas.create} className="btn btn-primary" type="button">
           {getLabel( 'createAgenda' )}
