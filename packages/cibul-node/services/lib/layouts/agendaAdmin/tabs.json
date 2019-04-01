@@ -32,7 +32,8 @@
 {
   "name" : "web",
   "section" : "export",
-  "php" : true
+  "php" : true,
+  "route" : "/webembed"
 },
 {
   "name" : "settings_profile",
