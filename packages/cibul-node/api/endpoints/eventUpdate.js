@@ -16,7 +16,11 @@ module.exports = async ( req, res, next ) => {
 
   try {
 
-    const result = await core.agendas( req.agenda.uid ).events.update( req.event.uid, _.omit( req.parsedData, [ 'ownerUid', 'creatorUid' ] ) );
+    const result = await core.agendas( req.agenda.uid ).events.update(
+      req.event.uid,
+      _.omit( req.parsedData, [ 'ownerUid', 'creatorUid' ] ),
+      { partial: req.method === 'PATCH' }
+    );
 
     res.json( {
       success: true,
