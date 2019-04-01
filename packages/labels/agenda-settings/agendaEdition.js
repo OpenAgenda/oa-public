@@ -235,8 +235,8 @@ module.exports = {
     en: 'Indexed agenda'
   },
   indexedAgendaDesc: {
-    fr: 'Indexer l\'agenda dans les moteurs de recherche (la désindexation peut prendre 24h)',
-    en: 'Index the agenda in the search engines (the deindexation can take 24 hours)'
+    fr: 'Indexer l\'agenda dans les moteurs de recherche (Un délai est requis pour que tout changement soit pris en compte)',
+    en: 'Index the agenda in the search engines (The index will be updated after a while)'
   },
   notIndexedAgenda: {
     fr: 'Agenda non indexé',
