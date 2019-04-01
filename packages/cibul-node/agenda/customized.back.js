@@ -12,6 +12,7 @@ const modLib = require( '../lib/moduleLib' );
 const tagMw = require( '@openagenda/agenda-tags' ).mw( 'agenda.id', 'tagSet' );
 const categoryMw = require( '@openagenda/agenda-categories' ).mw( 'agenda.id', 'categorySet' );
 
+const controlData = require( '../services/legacy' ).controlData;
 const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'customized' }
 );
@@ -32,10 +33,20 @@ const routes = {
     _checkAdmin,
     tagMw.set,
     categoryMw.set,
+    _updateControlData,
     updateResponse
   ] ) ]
 
 };
+
+async function _updateControlData( req, res, next ) {
+
+  await controlData.setTags( req.agenda.uid );
+  await controlData.setCategories( req.agenda.uid );
+
+  next()
+
+}
 
 module.exports = path => {
 
