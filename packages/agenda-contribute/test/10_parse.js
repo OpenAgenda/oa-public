@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const parse = require( '../server/parse' );
 
 describe( 'agenda-contribute - parse - unit ( server )', () => {
@@ -19,11 +21,11 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
 
       expect( parse.toEventServiceFormat( {
         image: 'path.jpg'
-      }, null, {
+      }, null, { raw: {
         image: {
           path: '/the/full/path.jpg'
         }
-      } ).image.path ).toBe( '/the/full/path.jpg' );
+      } } ).image.path ).toBe( '/the/full/path.jpg' );
 
     } );
 
@@ -35,9 +37,9 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
       expect( parse.toEventServiceFormat( {
         image: null,
         imageCredits: credits
-      }, null, {
+      }, null, { raw: {
         image: { url }
-      } ).image ).toEqual( { url, credits } );
+      } } ).image ).toEqual( { url, credits } );
 
     } );
 
@@ -46,11 +48,13 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
       expect( parse.toEventServiceFormat( {
         image: { filename: 'something' },
       }, null, {
-        image: {
-          credits: 'the credits',
-          filename: 'something',
-          variants: [],
-          size: { width: 12, height: 12 }
+        raw: {
+          image: {
+            credits: 'the credits',
+            filename: 'something',
+            variants: [],
+            size: { width: 12, height: 12 }
+          }
         }
       } ).image ).toEqual( {
         filename: 'something',
@@ -118,6 +122,17 @@ describe( 'agenda-contribute - parse - unit ( server )', () => {
         begin: '2019-02-08T19:25:00+04:00',
         end: '2019-02-08T21:00:00+04:00'
       } ] );
+
+    } );
+
+
+    test( 'partial transform does not add fields', () => {
+
+      expect( _.keys( parse.toEventServiceFormat( {
+        title: {
+          fr: 'Un titre'
+        }
+      }, null, { partial :true } ) ) ).toEqual( [ 'title' ] );
 
     } );
 

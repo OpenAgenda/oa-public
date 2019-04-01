@@ -21,16 +21,22 @@ module.exports = {
 
 function fromEventServiceFormat( eventServiceEvent, options = {} ) {
 
-  const { location } = _.assign( {
-    location: null
+  const { location, partial } = _.assign( {
+    location: null,
+    partial: false
   }, options );
 
   if ( !eventServiceEvent ) return {};
 
   const update = {
-    image: { $unset: [ 'credits' ] },
     $unset: [ 'locationUid' ]
   };
+
+  if ( !partial || eventServiceEvent.image ) {
+
+    update.image = { $unset: [ 'credits' ] };
+
+  }
 
   if ( _.get( eventServiceEvent, 'image.credits' ) ) {
 
@@ -44,7 +50,7 @@ function fromEventServiceFormat( eventServiceEvent, options = {} ) {
       url: _.get( eventServiceEvent, 'image.url' )
     } };
 
-  } else if ( !_.get( eventServiceEvent, 'image.filename' ) ) {
+  } else if ( !partial && !_.get( eventServiceEvent, 'image.filename' ) ) {
 
     update[ 'image' ] = { $set: null };
 
@@ -63,18 +69,30 @@ function fromEventServiceFormat( eventServiceEvent, options = {} ) {
 
   }
 
-  update.timings = {
-    $set: _.get( eventServiceEvent, 'timings', [] ).map( t => ( {
-      begin: _transformTimingToFormSchema( t.begin, timezone ),
-      end: _transformTimingToFormSchema( t.end, timezone )
-    } ) )
-  };
+  if ( !partial || eventServiceEvent.timings ) {
+
+    update.timings = {
+      $set: _.get( eventServiceEvent, 'timings', [] ).map( t => ( {
+        begin: _transformTimingToFormSchema( t.begin, timezone ),
+        end: _transformTimingToFormSchema( t.end, timezone )
+      } ) )
+    };
+
+  }
 
   return ih( eventServiceEvent, update );
 
 }
 
-function toEventServiceFormat( formSchemaEvent, files = {}, rawData = null ) {
+function toEventServiceFormat( formSchemaEvent, files = {}, options = {} ) {
+
+  const {
+    raw,
+    partial
+  } = _.assign( {
+    raw: null,
+    partial: false
+  }, options );
 
   if ( !formSchemaEvent ) return null;
 
@@ -84,20 +102,20 @@ function toEventServiceFormat( formSchemaEvent, files = {}, rawData = null ) {
 
 
   // new image is loaded
-  if ( _.get( rawData, 'image.path' ) ) {
+  if ( _.get( raw, 'image.path' ) ) {
 
     update.image = {
       $set: {
-        path: _.get( rawData, 'image.path' ),
+        path: _.get( raw, 'image.path' ),
         credits: _.get( formSchemaEvent, 'imageCredits' )
       }
     };
 
-  } else if ( _isURL( _.get( rawData, 'image.url' ) ) ) {
+  } else if ( _isURL( _.get( raw, 'image.url' ) ) ) {
 
     update.image = {
       $set: {
-        url: _.get( rawData, 'image.url' ),
+        url: _.get( raw, 'image.url' ),
         credits: _.get( formSchemaEvent, 'imageCredits' )
       }
     };
@@ -112,25 +130,37 @@ function toEventServiceFormat( formSchemaEvent, files = {}, rawData = null ) {
 
     update.image = {
       credits: { $set: _.get( formSchemaEvent, 'imageCredits' ) },
-      variants: { $set: _.get( rawData, 'image.variants' ) },
-      size: { $set: _.get( rawData, 'image.size' ) }
+      variants: { $set: _.get( raw, 'image.variants' ) },
+      size: { $set: _.get( raw, 'image.size' ) }
     };
 
   }
 
-  update.locationUid = { $set: _.get( formSchemaEvent, 'location.uid' ) };
+  if ( !partial || _.get( formSchemaEvent, 'location.uid' ) ) {
+
+    update.locationUid = { $set: _.get( formSchemaEvent, 'location.uid' ) };
+
+  }
 
   const timezone = _.get( formSchemaEvent, 'timezone' ) || _.get( formSchemaEvent, 'location.timezone' ) || 'Europe/Paris';
 
-  update.timezone = {
-    $set: timezone
-  };
+  if ( !partial || _.get( formSchemaEvent, 'timezone' ) || _.get( formSchemaEvent, 'location' ) ) {
 
-  update.timings = {
-    $set: _.get( formSchemaEvent, 'timings', [] ).map( t => ( {
-      begin: _transformFormSchemaTimingsToService( t.begin, timezone ),
-      end: _transformFormSchemaTimingsToService( t.end, timezone )
-    } ) )
+    update.timezone = {
+      $set: timezone
+    };
+
+  }
+
+  if ( !partial || formSchemaEvent.timings ) {
+
+    update.timings = {
+      $set: _.get( formSchemaEvent, 'timings', [] ).map( t => ( {
+        begin: _transformFormSchemaTimingsToService( t.begin, timezone ),
+        end: _transformFormSchemaTimingsToService( t.end, timezone )
+      } ) )
+    }
+
   }
 
   return ih( formSchemaEvent, update );
