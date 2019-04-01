@@ -23,6 +23,9 @@ module.exports = async ( ctl, knex, agendaId ) => {
 
   }
 
+  ctl.tg = [];
+  ctl.t = [];
+
   _.get( store, 'groups', [] ).forEach( ( g, i ) => {
 
     ctl.tg.push( g.name );

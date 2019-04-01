@@ -16,6 +16,7 @@ const queue = require( './lib/queue' );
 const remove = require( './lib/remove' );
 const rebuild = require( './lib/rebuild' );
 const set = require( './lib/set' );
+const setTags = require( './lib/setTags' );
 const task = require( './lib/task' );
 const update = require( './lib/update' );
 
@@ -42,6 +43,7 @@ module.exports = ( { knex, redis, prefix, imagePath } ) => {
     rebuild: rebuild.bind( null, config ),
     remove: remove.bind( null, config ),
     set: set.bind( null, config ),
+    setTags: setTags.bind( null, config ),
     task: task.bind( null, config ),
     update: update.bind( null, config )
   };
