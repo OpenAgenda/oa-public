@@ -63,7 +63,12 @@ module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
 module.exports.moreLikeThis = async ( searchIndex, sample, options ) => {
 
   // do it on keywords, title, custom ids, custom text.
-  return searchIndex.moreLikeThis( sample, options );
+  return searchIndex.moreLikeThis( sample, options, {
+    date: {
+      gte: JSON.stringify( new Date() ).split( 'T' )[ 0 ],
+      timezone: 'Europe/Paris'
+    }
+  } );
 
 }
 
@@ -84,7 +89,7 @@ async function _prepare( agendaUid, options ) {
   const cleanOptions = validateOptions( options );
 
   let searchOptions = _.extend( _.pick( cleanOptions, [
-    'detailed', 
+    'detailed',
     'aggregations',
     'monolingual'
   ] ), {
@@ -92,7 +97,7 @@ async function _prepare( agendaUid, options ) {
       'contributor',
       'state',
       'featured'
-    ] 
+    ]
   } );
 
   let parseEvent = e => e;
