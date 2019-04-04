@@ -132,7 +132,7 @@ function _isFile( entry ) {
 
 function _isImage( entry ) {
 
-  if ( !_isFile( entry ) ) return false;
+  if ( !_isFile( entry ) || !entry.filename ) return false;
 
   const extension = entry.filename.split( '.' ).pop();
 
