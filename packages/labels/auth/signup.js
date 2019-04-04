@@ -112,5 +112,10 @@ module.exports = {
     "it": "Informativa sulla privacy",
     "de": "Datenschutzerklärung",
     "pl": "Polityka prywatności"
+  },
+  "culture": {
+    "fr": "Langue",
+    "en": "Language",
+    "de": "Sprache"
   }
 }

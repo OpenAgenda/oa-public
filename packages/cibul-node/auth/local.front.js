@@ -192,7 +192,7 @@ function signupSubmit( req, res ) {
           fullName: req.body.full_name,
           email: req.body.email,
           password: req.body.password,
-          culture: req.lang
+          culture: req.body.culture || req.lang
         }, {
           detailed: true,
           tokenOptionals: optionals,
