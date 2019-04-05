@@ -599,8 +599,8 @@ const config = {
     auth: {
       local: {
         useCaptcha: true,
-        captchaKey: '6Lee0QMTAAAAAI0t5qoDO_Iduxe-4-oJe3HhggcR',
-        captchaSecret: '6Lee0QMTAAAAAGtqf0sUO8LNVNboDVZ9pQBN5cFA'
+        captchaKey: '6LfMOpwUAAAAAJID3dgKjFyRVmK1tomtBK2Au8gH',
+        captchaSecret: '6LfMOpwUAAAAAOaiGNVsooxicbF8w6yyQr2lh06-'
       },
       facebook: {
         id: '1008853945821827',
