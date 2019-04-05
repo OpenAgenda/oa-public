@@ -20,5 +20,10 @@ module.exports = {
     fr: 'Aide',
     en: 'Help',
     de: 'Hilfe'
+  },
+  noChoice: {
+    fr: 'Aucun choix',
+    en: 'No choice',
+    de: 'Keine Wahl'
   }
 }
