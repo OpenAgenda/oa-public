@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { render } from 'react-dom';
+import ih from 'immutability-helper';
 
 import FormSchemaComponent from '../../client/src/index';
 
@@ -42,8 +43,21 @@ class Main extends Component {
 
     return <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
       <div className="row margin-v-md margin-h-sm">
-        <p>A single choice field</p>
+        <p>A single required choice field</p>
         <FormSchemaComponent { ...props } />
+      </div>
+      <div className="row margin-v-md margin-h-sm">
+        <p>A single optional choice field</p>
+        <FormSchemaComponent { ...ih( props, {
+          schema: {
+            fields: {
+              0: {
+                field: { $set: 'anoptionalradiofield' },
+                optional: { $set: true }
+              }
+            }
+          }
+        } ) } />
       </div>
     </div>
 
