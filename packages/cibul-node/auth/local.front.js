@@ -417,11 +417,26 @@ function _loadCaptcha( req, res, next ) {
       head: {
         js: {
           captcha: {
-            src: "https://www.google.com/recaptcha/api.js?hl=" + req.lang,
+            src: `https://www.google.com/recaptcha/api.js?hl=${req.lang}`,
             async: true,
             defer: true
           }
         },
+      },
+      bottom: {
+        scripts: [
+          `var onSuccessRecaptcha = function(response) {
+            var errorDivs = document.getElementsByClassName('recaptcha-error');
+            if (errorDivs.length) {
+              errorDivs[0].className = '';
+            }
+            var errorMsgs = document.getElementsByClassName('recaptcha-error-message');
+            if (errorMsgs.length) {
+              errorMsgs[0].parentNode.removeChild(errorMsgs[0]);
+            }
+            document.getElementById('signup-form').submit();
+          }`
+        ]
       },
       useCaptcha: true,
       captchaKey: config.auth.local.captchaKey

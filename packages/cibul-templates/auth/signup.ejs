@@ -33,7 +33,7 @@
         <% } %>
         <div class="row margin-top-md">
           <div class="col-md-<%= enabledServices.length ? 6 : 12 %>">
-            <form class="margin-h-sm" method="post">
+            <form id="signup-form" class="margin-h-sm" method="post">
               <div class="form-group<%= errors.full_name ? ' has-error' : '' %>">
                 <label for="full_name" class="control-label"><%= __( 'nameSurname' ) %></label>
                 <input name="full_name" class="form-control" value="<%= full_name %>" />
@@ -85,8 +85,13 @@
               </div>
               <% if ( useCaptcha ) { %>
                 <div class="form-group<%= errors.captcha ? ' has-error' : '' %>">
-                  <div class="captcha">
-                    <div class="g-recaptcha" data-sitekey="<%= captchaKey %>"></div>
+                  <div
+                    id="signup-recaptcha"
+                    class="g-recaptcha"
+                    data-sitekey="<%= captchaKey %>"
+                    data-callback="onSuccessRecaptcha"
+                    data-bind="signup-submit"
+                  >
                   </div>
                   <% if ( errors.captcha ) { %>
                     <span class="text-danger"><%= __( errors.captcha ) %></span>
@@ -94,7 +99,7 @@
                 </div>
               <% } %>
               <div class="form-group">
-                <button class="btn btn-primary" type="submit"><%= __( 'signup' ) %></button>
+                <button id="signup-submit" class="btn btn-primary" type="button"><%= __( 'signup' ) %></button>
               </div>
             </form>
           </div>
