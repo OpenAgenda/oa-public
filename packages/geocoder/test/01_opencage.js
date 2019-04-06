@@ -175,28 +175,67 @@ describe( 'opencage', () => {
 
   describe( 'reverse', () => {
 
-    describe( 'Paris', () => {
+    describe( 'Lille', () => {
 
       let result;
 
       before( async () => {
 
-        result = await geocode.reverse( 48.867638, 2.352172, {
+        result = await geocode.reverse( 50.6310623, 3.012141, {
           first: true,
           language: 'fr'
         } );
 
       } );
 
-      it( 'city is Paris', () => {
+      it( 'city is Lille', () => {
 
-        result.city.should.equal( 'Paris' );
+        result.city.should.equal( 'Lille' );
 
       } );
 
-      it( 'department is Paris', () => {
+      it( 'department is Nord', () => {
 
-        result.department.should.equal( 'Paris' );
+        result.department.should.equal( 'Nord' );
+
+      } );
+
+      it( 'district is Lomme', () => {
+
+        result.district.should.equal( 'Lomme' );
+
+      } );
+
+    } );
+
+    describe( 'Roubaix', () => {
+
+      let result;
+
+      before( async () => {
+
+        result = await geocode.reverse( 50.6879439, 3.1674618, {
+          first: true,
+          language: 'fr'
+        } );
+
+      } );
+
+      it( 'city is Roubaix', () => {
+
+        result.city.should.equal( 'Roubaix' );
+
+      } );
+
+      it( 'department is Nord', () => {
+
+        result.department.should.equal( 'Nord' );
+
+      } );
+
+      it( 'district is Ouest', () => {
+
+        result.district.should.equal( 'Ouest' );
 
       } );
 
