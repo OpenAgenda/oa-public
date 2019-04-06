@@ -60,6 +60,7 @@ module.exports = ( {
       "max" : 140,
       "label" : labels.title,
       "placeholder" : labels.titlePlaceholder,
+      purpose: labels.titlePurpose,
       "sub": labels.titleSub
     }, {
       languages: [],
@@ -68,6 +69,7 @@ module.exports = ( {
       "optional" : false,
       "max" : 200,
       "label" : labels.description,
+      purpose : labels.descriptionPurpose,
       "placeholder" : labels.descriptionPlaceholder,
       "sub": labels.descriptionSub
     }, {
