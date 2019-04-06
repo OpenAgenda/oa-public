@@ -6,6 +6,7 @@ import fg from '../lib/fieldGroups';
 import merge from '../iso/merge';
 import flattenLabels from '../lib/flatten';
 import unflattenLabels from '../lib/unflattenLabels';
+import restrictLabelLanguages from '../lib/restrictLabelLanguages';
 import optionsValidator from '../lib/optionsValidator';
 
 import FormSchemaComponent from '../';
@@ -57,7 +58,7 @@ export default class FieldForm extends Component {
 
   onSubmit( sanitize ) {
 
-    const { lang, field, fieldType } = this.props;
+    const { lang, field, fieldType, labelLanguages } = this.props;
 
     const { values } = this.state;
 
@@ -71,7 +72,7 @@ export default class FieldForm extends Component {
 
     if ( !values || _.get( this, 'state.errors', [] ).length ) return;
 
-    this.props.onSubmit( _.assign( values, {
+    this.props.onSubmit( _.assign( restrictLabelLanguages( values, labelLanguages ), {
       fieldType,
       field: _.get( field, 'field', slugFromLabel( values.label, lang ) )
     } ) );
@@ -93,23 +94,25 @@ export default class FieldForm extends Component {
       options: optionsValidator
     };
 
-    return <FormSchemaComponent
-      stateless={true}
-      values={this.state.values}
-      errors={this.state.errors}
-      components={{
-        options: Options
-      }}
-      onChange={this.onChange.bind( this )}
-      lang={lang}
-      schema={schema}
-      actionComponents={[ {
-        position: 'bottom',
-        Component: ( { sanitize } ) => actionComponent( {
-          onSubmit: this.onSubmit.bind( this, sanitize )
-        } )
-      } ]}
-    />
+    return <div className="margin-top-sm">
+      <FormSchemaComponent
+        stateless={true}
+        values={this.state.values}
+        errors={this.state.errors}
+        components={{
+          options: Options
+        }}
+        onChange={this.onChange.bind( this )}
+        lang={lang}
+        schema={schema}
+        actionComponents={[ {
+          position: 'bottom',
+          Component: ( { sanitize } ) => actionComponent( {
+            onSubmit: this.onSubmit.bind( this, sanitize )
+          } )
+        } ]}
+      />
+    </div>
 
   }
 
