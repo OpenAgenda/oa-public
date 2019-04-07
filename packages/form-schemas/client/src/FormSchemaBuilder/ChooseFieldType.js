@@ -55,6 +55,7 @@ export default class ChooseFieldType extends Component {
           fieldType: 'radio',
           label: getLabel( 'chooseFieldType', lang ),
           default: 1,
+          optional: false,
           options: fieldTypeChoices
         } ]}}
         actionComponents={[ {
