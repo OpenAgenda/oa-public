@@ -109,7 +109,7 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
 
   // clean agenda-event data
 
-  if ( !partial ) try {
+  try {
 
     log( 'evaluating agenda-event reference data' );
 
@@ -119,7 +119,7 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
 
     }
 
-    clean.agendaEvent = validateAgendaEvent( data, { optionalState } );
+    clean.agendaEvent = validateAgendaEvent( data, { optionalState, partial } );
 
   } catch ( agendaEventErrors ) {
 
