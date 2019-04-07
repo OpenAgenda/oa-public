@@ -33,10 +33,15 @@ module.exports = _.extend( v => {
   validateData: ( v, options = {} ) => {
 
     const {
-      optionalState
-    } = _.assign( { optionalState: false }, options );
+      optionalState,
+      partial
+    } = _.assign( { optionalState: false, partial: false }, options );
 
-    const clean = validateData( _preClean( v ) );
+    const preCleaned = _preClean( v );
+
+    const validateFn = partial ? validateData.part.bind( null, _pickSetFields( preCleaned ) ) : validateData;
+
+    const clean = validateFn( preCleaned );
 
     return  _postClean( v, clean, { optionalState } );
 
@@ -125,5 +130,13 @@ function _preClean( v ) {
   return _.extend( {}, v, {
     state: cleanState
   } )
+
+}
+
+function _pickSetFields( preCleaned ) {
+
+  const aeFields = _.keys( validateData.fields );
+
+  return _.keys( preCleaned ).filter( field => aeFields.includes( field ) );
 
 }
