@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import Options from './Options';
 
-import slugFromLabel from '../lib/slugFromLabel';
-import fg from '../lib/fieldGroups';
+import slugFromLabel from './lib/slugFromLabel';
+import fg from './lib/fieldGroups';
 import merge from '../iso/merge';
 import flattenLabels from '../lib/flatten';
-import unflattenLabels from '../lib/unflattenLabels';
-import restrictLabelLanguages from '../lib/restrictLabelLanguages';
-import optionsValidator from '../lib/optionsValidator';
+import unflattenLabels from './lib/unflattenLabels';
+import restrictLabelLanguages from './lib/restrictLabelLanguages';
+import optionsValidator from './lib/optionsValidator';
 
 import FormSchemaComponent from '../';
 

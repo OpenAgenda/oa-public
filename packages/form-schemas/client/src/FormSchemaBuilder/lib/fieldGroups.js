@@ -1,4 +1,4 @@
-import l from './builderLabels';
+import l from './labels';
 
 export default {
   labels,

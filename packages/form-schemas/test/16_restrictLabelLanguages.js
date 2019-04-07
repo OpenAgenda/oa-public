@@ -1,5 +1,5 @@
 import should from 'should';
-import restrictLabelLanguages from '../client/src/lib/restrictLabelLanguages';
+import restrictLabelLanguages from '../client/src/FormSchemaBuilder/lib/restrictLabelLanguages';
 
 describe( '16 - unit - restrictLabelLanguages', () => {
 

@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 
-import FieldForm from './FieldForm';
-
+import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import Modal from '@openagenda/react-components/build/Modal';
 
-import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
-import labels from '../lib/builderLabels';
+import FieldForm from './FieldForm';
+import labels from './lib/labels';
 
 const getLabel = makeLabelGetter( labels );
 

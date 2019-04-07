@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
-import labels from '../lib/builderLabels';
-import slugFromLabel from '../lib/slugFromLabel';
+import labels from './lib/labels';
+import slugFromLabel from './lib/slugFromLabel';
 
 import FormSchemaComponent from '../';
 

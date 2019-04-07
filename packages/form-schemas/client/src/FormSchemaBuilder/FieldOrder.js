@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
-import labels from '../lib/builderLabels';
+import labels from './lib/labels';
 
 const getLabel = makeLabelGetter( labels );
 

@@ -4,8 +4,8 @@ import ReactDOM from 'react-dom';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
-import getPreferredLang from '../lib/getPreferredLang';
-import labels from '../lib/builderLabels';
+import getPreferredLang from './lib/getPreferredLang';
+import labels from './lib/labels';
 import OptionLabelsForm from './OptionLabelsForm';
 
 const getLabel = makeLabelGetter( labels );

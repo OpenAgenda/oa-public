@@ -2,10 +2,10 @@ import classNames from 'classnames';
 import React, { Component } from 'react';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
-import labels from '../lib/builderLabels';
-import fieldLanguages from '../lib/fieldLanguages';
-import getFieldTypeLabel from '../lib/getFieldTypeLabel';
-import getPreferredLang from '../lib/getPreferredLang';
+import labels from './lib/labels';
+import fieldLanguages from './lib/fieldLanguages';
+import getFieldTypeLabel from './lib/getFieldTypeLabel';
+import getPreferredLang from './lib/getPreferredLang';
 
 const getLabel = makeLabelGetter( labels );
 
@@ -105,7 +105,7 @@ export default class FieldPreview extends Component {
           <span>{getPreferredLang( field.purpose, lang )}</span>
         </li>
       </ul> : null }
-      <div class="field-actions padding-h-xs">
+      <div className="field-actions padding-h-xs">
         <button className="btn btn-link" onClick={()=>this.props.onShow()}>{getLabel( 'showField', lang )}</button>
       </div>
     </div>

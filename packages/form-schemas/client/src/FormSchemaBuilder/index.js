@@ -4,11 +4,11 @@ import React, { Component } from 'react';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
-import labels from './lib/builderLabels';
+import labels from './lib/labels';
 
 import isEmptySchema from './lib/isEmptySchema';
 import isOwnField from './lib/isOwnField';
-import merge from './iso/merge';
+import merge from '../iso/merge';
 import {
   getDraggableListStyle,
   getDraggableListItemStyle
@@ -23,15 +23,15 @@ import addSchemaField from './lib/addSchemaField';
 import removeSchemaField from './lib/removeSchemaField';
 import restrictLabelLanguages from './lib/restrictLabelLanguages';
 import extractSchemaLabelLanguages from './lib/extractSchemaLabelLanguages';
-import submit from './lib/submit';
+import submit from '../lib/submit';
 
-import FieldPreview from './Components/FieldPreview';
-import LabelLanguages from './Components/LabelLanguages';
-import FieldOrder from './Components/FieldOrder';
-import FieldOrderActions from './Components/FieldOrderActions';
-import SaveButton from './Components/SaveButton';
-import AddField from './Components/AddField';
-import EditField from './Components/EditField';
+import FieldPreview from './FieldPreview';
+import LabelLanguages from './LabelLanguages';
+import FieldOrder from './FieldOrder';
+import FieldOrderActions from './FieldOrderActions';
+import SaveButton from './SaveButton';
+import AddField from './AddField';
+import EditField from './EditField';
 
 
 const getLabel = makeLabelGetter( labels );

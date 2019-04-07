@@ -5,11 +5,9 @@ import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import Modal from '@openagenda/react-components/build/Modal';
 
 import FormSchemaComponent from '../';
-import labels from '../lib/builderLabels';
+import labels from './lib/labels';
 
 const getLabel = makeLabelGetter( labels );
-
-import ChooseFieldType from './ChooseFieldType';
 
 const fieldTypeChoices = [ {
   id: 1,
@@ -25,7 +23,7 @@ const fieldTypeChoices = [ {
   label: labels.checkboxFieldType
 } ];
 
-export default class AddField extends Component {
+export default class ChooseFieldType extends Component {
 
   onFieldTypeChange( { values } ) {
 

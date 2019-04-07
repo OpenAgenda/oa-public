@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-import labels from './builderLabels';
+import labels from './labels';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
 const getLabel = makeLabelGetter( labels );
