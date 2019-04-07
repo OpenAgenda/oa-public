@@ -1,7 +1,7 @@
 "use strict";
 
-const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
+const { promisify } = require( 'util' );
 const VError = require( 'verror' );
 
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
@@ -73,6 +73,14 @@ module.exports = async ( { agendaEvent, context, agenda, event } ) => {
       },
       lang: creatorLang
     } );
+
+  }
+
+  if ( _.get( context, 'batched' ) ) {
+
+    log( 'part of batch, not sending event update email' );
+
+    return;
 
   }
 

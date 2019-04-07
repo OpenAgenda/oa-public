@@ -26,12 +26,14 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     draft,
     partial,
     formSchemaDataFormat,
-    defaultLang
+    defaultLang,
+    batched
   } = _.assign( {
     draft: false,
     partial: false,
     formSchemaDataFormat: false,
-    defaultLang: 'en'
+    defaultLang: 'en',
+    batched: false
   }, options || {} );
 
   const agenda = await getAgendaWithNetworkAndSchemas( agendaUid );
@@ -106,7 +108,8 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
         legacy: false,
         userUid: contextUserUid,
         event: updated.event,
-        agenda
+        agenda,
+        batched
       }
     } );
 

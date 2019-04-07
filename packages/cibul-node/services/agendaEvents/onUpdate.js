@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const VError = require( 'verror' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/onUpdate' );
 

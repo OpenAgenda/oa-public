@@ -60,6 +60,14 @@ module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
 
   }
 
+  if ( _.get( context, 'batched' ) ) {
+
+    log( 'part of batch, not sending change state email' );
+
+    return;
+
+  }
+
   await mails( {
     template: 'eventChangeState',
     to: members

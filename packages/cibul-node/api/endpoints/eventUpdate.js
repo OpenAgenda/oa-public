@@ -7,6 +7,8 @@ const core = require( '../../core' );
 
 module.exports = async ( req, res, next ) => {
 
+  const update = core.agendas( req.agenda.uid ).events.update;
+
   // if there was an image uploaded with the post, it is loaded in req.file.path with multer
   if ( _.get( req, 'file.path' ) ) {
 
@@ -16,11 +18,12 @@ module.exports = async ( req, res, next ) => {
 
   try {
 
-    const result = await core.agendas( req.agenda.uid ).events.update(
-      req.event.uid,
-      _.omit( req.parsedData, [ 'ownerUid', 'creatorUid' ] ),
-      { partial: req.method === 'PATCH' }
-    );
+    const filtered = _.omit( req.parsedData, [ 'ownerUid', 'creatorUid' ] );
+
+    const result = await update( req.event.uid, filtered, {
+      partial: req.method === 'PATCH',
+      batched: _parseBool( req.body.batched )
+    } );
 
     res.json( {
       success: true,
@@ -42,5 +45,11 @@ module.exports = async ( req, res, next ) => {
     }
 
   }
+
+}
+
+function _parseBool( v ) {
+
+  return typeof v === 'string' ? v === 'true' : !!v;
 
 }
