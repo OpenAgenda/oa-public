@@ -6,8 +6,8 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
-import getPreferredLang from '../lib/getPreferredLang';
-import labels from '../lib/builderLabels';
+import getPreferredLang from './lib/getPreferredLang';
+import labels from './lib/labels';
 import OptionLabelsForm from './OptionLabelsForm';
 import OptionItem from './OptionItem';
 

@@ -156,12 +156,10 @@ module.exports = class {
 
     const updatedFieldsNames = fields.map( f => f.field );
 
-    let updated = this.data;
-
     // remove
     _.get( this, 'data.fields' )
       .filter( f => !updatedFieldsNames.includes( f.field ) )
-      .forEach( fieldToRemove => this.removeField( fieldToRemove ) );
+      .forEach( fieldToRemove => this.removeField( fieldToRemove.field ) );
 
     // add and update
     fields.forEach( ( f, i ) => {

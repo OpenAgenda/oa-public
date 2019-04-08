@@ -87,9 +87,7 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
 
     const validate = new FormSchema( consolidatedSchema ).getValidate( { draft } );
 
-    const consolidatedClean = partial ?
-      validate.part( _.keys( formSchemaData ), formSchemaData )
-      : validate( formSchemaData );
+    const consolidatedClean = ( partial ? validate.part : validate )( formSchemaData );
 
     _.assign( clean, _distributeCleanData( consolidatedClean, schemaExtensions ) );
 
@@ -109,7 +107,7 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
 
   // clean agenda-event data
 
-  if ( !partial ) try {
+  try {
 
     log( 'evaluating agenda-event reference data' );
 
@@ -119,7 +117,7 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
 
     }
 
-    clean.agendaEvent = validateAgendaEvent( data, { optionalState } );
+    clean.agendaEvent = validateAgendaEvent( data, { optionalState, partial } );
 
   } catch ( agendaEventErrors ) {
 

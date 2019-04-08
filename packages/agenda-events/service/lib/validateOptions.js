@@ -67,6 +67,11 @@ const base = {
       sourceAgenda: {
         type: 'pass',
         default: null
+      },
+      // when the update is part of a mass update
+      batched: {
+        type: 'boolean',
+        default: false
       }
     }
   }

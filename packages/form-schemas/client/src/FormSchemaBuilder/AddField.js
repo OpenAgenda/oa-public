@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import Modal from '@openagenda/react-components/build/Modal';
-import FormSchemaComponent from '../';
-import labels from '../lib/builderLabels';
-
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
+import Modal from '@openagenda/react-components/build/Modal';
+import React, { Component } from 'react';
 
 import ChooseFieldType from './ChooseFieldType';
-
 import FieldForm from './FieldForm';
+import FormSchemaComponent from '../';
+import labels from './lib/labels';
 
 const getLabel = makeLabelGetter( labels );
 

@@ -60,4 +60,14 @@ describe( 'agendaEvents - functional (server): validation', function() {
 
   } );
 
+  it( 'validate can do things partially', () => {
+
+    svc.validate( {
+      state: 0
+    }, { partial: true } ).should.eql( {
+      state: 0
+    } );
+
+  } );
+
 } );

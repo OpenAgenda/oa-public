@@ -3,8 +3,8 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 import FormSchemaComponent from '../../client/src/index';
-import Options from '../../client/src/Components/Options';
-import optionsValidator from '../../client/src/lib/optionsValidator';
+import Options from '../../client/src/FormSchemaBuilder/Options';
+import optionsValidator from '../../client/src/FormSchemaBuilder/lib/optionsValidator';
 
 if ( module.hot ) module.hot.accept();
 

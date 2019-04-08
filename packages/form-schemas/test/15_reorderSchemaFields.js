@@ -1,6 +1,6 @@
 
 import should from 'should';
-import reorderSchemaFields from '../client/src/lib/reorderSchemaFields';
+import reorderSchemaFields from '../client/src/FormSchemaBuilder/lib/reorderSchemaFields';
 
 describe( 'unit - reordering schema fields', () => {
 

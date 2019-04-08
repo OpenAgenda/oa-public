@@ -20,6 +20,7 @@ const extensions = [ {
       field: 'image',
       fieldType: 'image',
       label: 'Image',
+      purpose: 'Image principale de l\'événement',
       optional: true,
       display: false
     }, {

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
-import labels from '../lib/builderLabels';
+import labels from './lib/labels';
 
 const getLabel = makeLabelGetter( labels );
 
@@ -25,7 +25,7 @@ export default class FieldOrder extends Component {
       onCancel
     } = this.props;
 
-    return <div className="padding-all-md wsq border-v-blue border-h-blue">
+    return <div className="padding-all-md wsq border-v-blue border-h-blue margin-bottom-md">
       <div className="text-center">
         <p>{getLabel( 'orderInstruction', lang )}</p>
         <button className="btn btn-primary margin-h-sm" onClick={() => onFinishOrder() }>

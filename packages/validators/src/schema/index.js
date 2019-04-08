@@ -5,7 +5,9 @@ import cleanSchema from './clean';
 
 const _ = {
   assign: require( 'lodash/assign' ),
-  isArray: require( 'lodash/isArray' )
+  isArray: require( 'lodash/isArray' ),
+  isObject: require( 'lodash/isObject' ),
+  keys: require( 'lodash/keys' )
 }
 
 const defaults = {
@@ -98,6 +100,15 @@ function schema( options ) {
     if ( _.isArray( path ) ) {
 
       return parts( path, value );
+
+    }
+
+    // only the values to be evaluated are provided
+    if ( _.isObject( path ) ) {
+
+      const schemaFields = _.keys( params.fields );
+
+      return parts( _.keys( path ).filter( field => schemaFields.includes( field ) ), path );
 
     }
 

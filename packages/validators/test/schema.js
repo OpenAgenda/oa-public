@@ -989,6 +989,33 @@ describe( 'schema validator', () => {
 
     } );
 
+    it( 'validates the provided subset of the schema', () => {
+
+      let clean;
+
+      try {
+
+        clean = validate.part( {
+          url: 'https://openagenda.com',
+          settings: {
+            someSetting: 12
+          },
+          extra: 'pourquoi pas..'
+        } );
+
+      } catch ( e ) {
+        console.log(e);
+      }
+
+      clean.should.eql( {
+        url: 'https://openagenda.com',
+        settings: {
+          someSetting: 12
+        }
+      } );
+
+    } );
+
 
     it( 'validates and cleans a part of the schema - object case', () => {
 
@@ -1100,15 +1127,15 @@ describe( 'schema validator', () => {
 
     it( 'when enableWith is used on a required field, it can only be required if related field is set', () => {
 
-      const validate = schema( { 
+      const validate = schema( {
         image: {
-          type: 'text' 
+          type: 'text'
         },
-        imageCredits: { 
+        imageCredits: {
           optional: false,
           enableWith: 'image',
-          type: 'text' 
-        } 
+          type: 'text'
+        }
       } );
 
       let errored = false;

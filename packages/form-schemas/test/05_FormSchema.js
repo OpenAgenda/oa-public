@@ -266,6 +266,37 @@ describe( 'form-schemas -05- FormSchema', () => {
 
     } );
 
+    it( 'removes absent fields (fix)', () => {
+
+      const s = new FormSchema( {
+        id: 9999,
+        "custom": null,
+        "defaultLabelLanguage": null,
+        "nextOptionId": 1,
+        "fields": [ {
+          "field": "description",
+          "label": "Name Band / Künstle",
+          "fieldType": "abstract"
+        }, {
+          "field": "timings",
+          "info": "Darunter ein +, damit man jeweils noch weitere Acts der Veranstaltung innerhalb des Events mit Zeiten anlegen kann, nach denen man dann suchen / nach Uhrzeit filtern kann",
+          "fieldType": "abstract"
+        }, {
+          "field": "keywords",
+          "fieldType": "abstract"
+        } ]
+      } );
+
+      s.updateFields( [ {
+        field: "description",
+        label: "Name Band / Künstle",
+        fieldType: "abstract"
+      } ] );
+
+      s.getData().fields.map( f => f.field ).should.eql( [ "description" ] );
+
+    } );
+
     it( 'options with missing id have been given one', () => {
 
       s.getField( 'aradiofield' ).options.map( o => o.id ).should.eql( [ 1, 1001, 1002 ] );

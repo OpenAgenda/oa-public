@@ -4,9 +4,9 @@ import React, { Component } from 'react';
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 import Modal from '@openagenda/react-components/build/Modal';
 
-import labels from '../lib/builderLabels';
+import labels from './lib/labels';
 
-import Languages from './Languages';
+import Languages from '../Components/Languages';
 
 const getLabel = makeLabelGetter( labels );
 

@@ -4,8 +4,8 @@ import classNames from 'classnames';
 
 import makeLabelGetter from '@openagenda/labels/makeLabelGetter';
 
-import labels from '../lib/builderLabels';
-import saveStates from '../lib/saveStates';
+import labels from './lib/labels';
+import saveStates from './lib/saveStates';
 
 const getLabel = makeLabelGetter( labels );
 
