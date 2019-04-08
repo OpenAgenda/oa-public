@@ -66,7 +66,7 @@ async function asyncLoad( { store: { dispatch, getState } } ) {
 } )
 @withRouter
 export default class ConversationCreate extends Component {
-  FromWrapper = ( { handleSubmit, children, submitting, error } ) => {
+  FormWrapper = ( { handleSubmit, children, submitting, error } ) => {
     const { getLabel, settings, author } = this.props;
     const { belowMessageDesc } = settings;
 
@@ -151,7 +151,7 @@ export default class ConversationCreate extends Component {
               <ConversationForm
                 form="conversation-create"
                 initialValues={initialValues}
-                Wrapper={this.FromWrapper}
+                Wrapper={this.FormWrapper}
                 onSubmit={createConversation}
                 uploadEndpoint={res.messages.prepareAttachment.replace( ':agendaUid', agenda && agenda.uid ) + '/s3/params'}
                 onConversationCreate={conversation => {
@@ -173,6 +173,7 @@ export default class ConversationCreate extends Component {
                   }
                 }}
                 onFileUploaded={attachFileToMessage}
+                autoFocus={settings.autoFocus}
               />
             </div>
           </div>

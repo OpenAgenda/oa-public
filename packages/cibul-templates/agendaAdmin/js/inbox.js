@@ -10,7 +10,8 @@ const defaults = {
       lang: 'fr',
       prefix: '/inboxes/agendaAdmin',
       apiRoot: `localhost:${process.env.PORT || 3000}`,
-      perPageLimit: 20
+      perPageLimit: 20,
+      autoFocus: true
     }
   }
 };

@@ -54,7 +54,8 @@ async function support( req, res, next ) {
         prefix: '/admin/support',
         lang: req.lang,
         apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: 20
+        perPageLimit: 20,
+        autoFocus: true
       },
       res: {
         author: '/admin/support/author.json',
