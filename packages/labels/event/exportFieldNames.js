@@ -49,6 +49,10 @@ module.exports = {
     en: 'Last update',
     fr: 'Dernière mise à jour'
   },
+  createdAt: {
+    en: 'Creation date',
+    fr: 'Création de la fiche'
+  },
   range: {
     en: 'Timings overview',
     fr: 'Résumé horaires'
