@@ -109,7 +109,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         const dstNames = [], suffixes = [];
 
         if ( _.isArray( m ) && m.length === 3 ) {
-        
+
           m[ 2 ].forEach( function( suffix ) {
 
             dstNames.push( m[ 1 ] + '_' + suffix );
@@ -269,6 +269,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         'thumbnail',
         'originalImage',
         'updatedAt',
+        'createdAt'
       ], hasFrench ? [ {
         'sourceField' : [ 'timings', 'location.timezone' ],
         'destField' : 'timings_fr',
@@ -350,7 +351,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
         type: 'private',
         field: 'contributor.email'
       },
-      { 
+      {
         sourceField: 'slug',
         destField: 'link',
         fn: _defineEventUrl( instance )
@@ -431,7 +432,7 @@ module.exports = require( '../../lib/instanceLoader' )( ( loaded, instance ) => 
 
   }
 
-  
+
 } );
 
 function _textFields( fields, languages ) {
@@ -454,16 +455,16 @@ function _extendLocationMapping( agenda, languages ) {
   return [
     'location.image',
     'location.phone',
-    'location.website', 
+    'location.website',
     'location.links',
     'location.imageCredits',
     {
       sourceField: 'location.tags',
       destField: 'location.tags',
       fn: _flattenTags( agenda )
-    } ].concat( 
-    
-      _textFields( [ 
+    } ].concat(
+
+      _textFields( [
         'location.description', 'location.access'
       ], languages )
 
@@ -502,7 +503,7 @@ function _extendMapping( agenda, includePrivateData ) {
 
 function _isMultilingual( value ) {
 
-  if ( typeof value !== 'object' 
+  if ( typeof value !== 'object'
 
   || value === null ) return false;
 
@@ -602,9 +603,9 @@ function _defineEventUrl( instance ) {
 
   return function( slug ) {
 
-    return genUrl( 'agendaEventShow', { 
-      slug: instance.slug, 
-      eventSlug: slug 
+    return genUrl( 'agendaEventShow', {
+      slug: instance.slug,
+      eventSlug: slug
     } );
 
   }

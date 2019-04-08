@@ -107,6 +107,7 @@ function cleanEvent( eInst, options, cb ) {
     age: eInst.getAge(),
     accessibility: eInst.getAccessibility(),
     updatedAt: eInst.updatedAt,
+    createdAt: eInst.createdAt,
     range: {
       fr: eInst.getRange( 'fr' ),
       en: eInst.getRange( 'en' )

@@ -24,6 +24,7 @@ module.exports = _.extend( function( req, res, next ) {
     res,
     formatted: {
       updatedAt: req.event.updatedAt,
+      createdAt: req.event.createdAt,
       timezone: req.event.getLocationDetails().timezone,
       origin: req.event.origin
     },
