@@ -42,14 +42,11 @@ export default function ( { entityName, identifier, getRules } ) {
           ) {
             return relatedRules.reduce(
               ( result, rule ) => {
-                if ( allValues[ rule.key ] === false ) {
-                  return result;
+                if ( allValues[ rule.key ] !== false ) {
+                  result[ rule.key ] = false;
                 }
 
-                return {
-                  ...result,
-                  [ rule.key ]: false
-                };
+                return result;
               },
               { [ field ]: false }
             );
@@ -57,14 +54,11 @@ export default function ( { entityName, identifier, getRules } ) {
 
           if ( value ) {
             return relatedRules.reduce( ( result, rule ) => {
-              if ( allValues[ rule.key ] === true ) {
-                return result;
+              if ( allValues[ rule.key ] !== true ) {
+                result[ rule.key ] = true;
               }
 
-              return {
-                ...result,
-                [ rule.key ]: true
-              };
+              return result;
             }, {} );
           }
 
