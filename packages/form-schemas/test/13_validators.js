@@ -10,7 +10,7 @@ describe( 'deriving validators', () => {
 
   it( 'text field to validator', () => {
 
-    getValidatorFromField( _get( 'text.field' ) ).should.eql( _get( 'text.validator' ) );    
+    getValidatorFromField( _get( 'text.field' ) ).should.eql( _get( 'text.validator' ) );
 
   } );
 
@@ -84,6 +84,31 @@ describe( 'deriving validators', () => {
     errored.should.equal( false );
 
   } );
+
+
+  it( 'getSchema ignores abstract fields', () => {
+
+    const s = getSchema( [ {
+      field: 'atextfield',
+      label: { fr: 'Un champ texte' },
+      fieldType: 'abstract'
+    }, {
+      field: 'anotherfield',
+      label: { fr: 'Un nombre' },
+      fieldType: 'number',
+      min: 2
+    } ] );
+
+    const clean = s( {
+      atextfield: 'Some text',
+      anotherfield: 13
+    } );
+
+    clean.should.eql( {
+      anotherfield: 13
+    } );
+
+  } )
 
 
   it( 'FormSchema builds a schema based on list of field configurations', () => {
