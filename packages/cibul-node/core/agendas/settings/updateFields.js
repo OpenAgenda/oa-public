@@ -6,6 +6,7 @@ const { promisify } = require( 'util' );
 const agendas = require( '@openagenda/agendas' );
 const FormSchema = require( '@openagenda/form-schemas/iso/FormSchema' );
 const formSchemas = require( '@openagenda/form-schemas' );
+const log = require( '@openagenda/logs' )( 'core/agendas/settings/updateFields' );
 
 const getAgenda = require( '../utils/getAgenda' );
 const setAgenda = promisify( agendas.set );
@@ -26,11 +27,17 @@ module.exports = async ( config, agendaOrUid, updatedFields ) => {
 
   if ( !agendaSchema ) {
 
+    log( 'no schema is associated with agenda, creating' );
+
     const { id } = await formSchemas.create( fs.getData() );
 
     await setAgenda( { uid: agenda.uid }, { formSchemaId: id } );
 
+    _.set( agenda, 'formSchemaId', id );
+
   } else {
+
+    log( 'schema is associated with agenda, updating' );
 
     await formSchemas.update( agendaSchema.id, fs.getData() );
 
