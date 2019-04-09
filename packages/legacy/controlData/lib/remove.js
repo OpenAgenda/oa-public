@@ -14,7 +14,7 @@ module.exports = async ( { prefix, redis }, agendaEvent ) => {
 
   const ctlData = await loadControlData( redis, prefix, agendaUid );
 
-  const eventIndex = _.findIndex( ctlData.ev, { u: eventUid } );
+  const eventIndex = ctlData ? _.findIndex( ctlData.ev, { u: eventUid } ) : -1;
 
   if ( eventIndex === -1 ) {
 

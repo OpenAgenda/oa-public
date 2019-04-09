@@ -23978,11 +23978,6 @@ sum-up@^1.0.1:
   dependencies:
     chalk "^1.0.0"
 
-superagent-prefix@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/superagent-prefix/-/superagent-prefix-0.0.2.tgz#b15bbb1353f889b00d25af10b4f11b350d203b06"
-  integrity sha1-sVu7E1P4ibANJa8QtPEbNQ0gOwY=
-
 superagent-proxy@^1.0.2:
   version "1.0.3"
   resolved "https://registry.npmjs.org/superagent-proxy/-/superagent-proxy-1.0.3.tgz#acfa776672f11c24a90ad575e855def8be44f741"
@@ -23990,14 +23985,6 @@ superagent-proxy@^1.0.2:
   dependencies:
     debug "^3.1.0"
     proxy-agent "2"
-
-superagent-use@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/superagent-use/-/superagent-use-0.1.0.tgz#d28dbbbf573ba980329b4645897608bc99501cff"
-  integrity sha1-0o27v1c7qYAym0ZFiXYIvJlQHP8=
-  dependencies:
-    extend "^3.0.0"
-    methods "~1.1.2"
 
 superagent@3.3.1:
   version "3.3.1"
