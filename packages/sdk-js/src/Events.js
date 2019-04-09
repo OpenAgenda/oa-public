@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import parseJsonResponse from './utils/parseJsonResponse';
+import baseUrl from './baseUrl';
 
 export default class Events {
   constructor( sdk ) {
@@ -10,10 +11,10 @@ export default class Events {
     await this.sdk.refreshToken();
 
     return this.sdk.agent
-      .get( `/v1/events/${eventUid}` )
+      .get( `${baseUrl.v1}/events/${eventUid}` )
       .accept( 'json' )
       .query( { key: this.sdk.params.publicKey } )
-      .then( parseJsonResponse() )
+      .then( parseJsonResponse )
       .then( v => v.body.data );
   }
 
@@ -35,7 +36,7 @@ export default class Events {
     await this.sdk.refreshToken();
 
     return this.sdk.agent
-      .post( `/v2/agendas/${agendaUid}/events` )
+      .post( `${baseUrl.v2}/agendas/${agendaUid}/events` )
       .type( 'form' )
       .accept( 'json' )
       .field( {
@@ -43,7 +44,7 @@ export default class Events {
         nonce: _.random( Math.pow( 10, 6 ) ),
         data: JSON.stringify( data )
       } )
-      .then( parseJsonResponse() )
+      .then( parseJsonResponse )
       .then( v => v.body );
   }
 
@@ -51,7 +52,7 @@ export default class Events {
     await this.sdk.refreshToken();
 
     return this.sdk.agent
-      .post( `/v2/agendas/${agendaUid}/events/${eventUid}` )
+      .post( `${baseUrl.v2}/agendas/${agendaUid}/events/${eventUid}` )
       .type( 'form' )
       .accept( 'json' )
       .field( {
@@ -59,7 +60,7 @@ export default class Events {
         nonce: _.random( Math.pow( 10, 6 ) ),
         data: JSON.stringify( data )
       } )
-      .then( parseJsonResponse() )
+      .then( parseJsonResponse )
       .then( v => v.body );
   }
 
@@ -67,14 +68,14 @@ export default class Events {
     await this.sdk.refreshToken();
 
     return this.sdk.agent
-      .delete( `/v2/agendas/${agendaUid}/events/${eventUid}` )
+      .delete( `${baseUrl.v2}/agendas/${agendaUid}/events/${eventUid}` )
       .type( 'form' )
       .accept( 'json' )
       .field( {
         access_token: this.sdk.accessToken,
         nonce: _.random( Math.pow( 10, 6 ) )
       } )
-      .then( parseJsonResponse() )
+      .then( parseJsonResponse )
       .then( v => v.body );
   }
 }
