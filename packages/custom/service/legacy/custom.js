@@ -97,9 +97,17 @@ function parse( fields, custom ) {
 
     const value = custom[ f.field ];
 
-    if ( [ 'text', 'textarea' ].includes( f.fieldType ) ) {
+    if ( [ 'text', 'textarea', 'integer', 'url', 'email' ].includes( f.fieldType ) ) {
 
       parsed[ f.field ] = value;
+
+    } else if ( f.fieldType === 'radio' ) {
+
+      parsed[ f.field ] = _.get( f.options.filter( o => o.value === value ), '0.id' );
+
+    } else if ( f.fieldType === 'checkbox' ) {
+
+      parsed[ f.field ] = f.options.filter( o => o.value === value ).map( o => o.id );
 
     } else {
 

@@ -28,7 +28,7 @@ function parse( fields, categoryLabel ) {
 
   if ( !categoryLabel ) return {};
 
-  const matching = f.options.filter( o => ( _.isObject( o.label ) ? o.label.fr : o.label ) === categoryLabel );
+  const matching = f.options.filter( o => ( _.isObject( o.label ) ? o.label.fr : o.label ).trim() === categoryLabel.trim() );
 
   if ( !matching.length ) return {};
 
