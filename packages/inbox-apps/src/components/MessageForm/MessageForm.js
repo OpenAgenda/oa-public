@@ -28,7 +28,8 @@ export default class MessageForm extends Component {
   };
 
   static defaultProps = {
-    Wrapper: 'div'
+    Wrapper: 'div',
+    autoFocus: false
   };
 
   state = {
@@ -124,7 +125,7 @@ export default class MessageForm extends Component {
   } );
 
   render() {
-    const { submit, submitting, getLabel, lang, Wrapper, error } = this.props;
+    const { autoFocus, submitting, getLabel, lang, Wrapper, error } = this.props;
 
     const numberFiles = Object.keys( this.uppy.getState().files ).length;
 
@@ -133,6 +134,7 @@ export default class MessageForm extends Component {
       { handleSubmit: this.handleSubmit, submitting, error },
       <Fragment>
         <Field
+          autoFocus={autoFocus}
           component={renderTextarea}
           name="body"
           className="form-control"

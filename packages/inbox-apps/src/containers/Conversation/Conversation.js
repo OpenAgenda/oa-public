@@ -96,7 +96,7 @@ export default class Conversation extends Component {
 
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
 
-  FromWrapper = ( { children, handleSubmit, submitting, error } ) => {
+  FormWrapper = ( { children, handleSubmit, submitting, error } ) => {
     const { getLabel, author, messages, conversation } = this.props;
 
     const contextInbox = _.find( conversation.inboxes, [ 'id', conversation.inboxContextId ] );
@@ -108,7 +108,7 @@ export default class Conversation extends Component {
     return (
       <div className="media">
         <div className="media-left media-top">
-          <AuthorAvatar author={author}/>
+          <AuthorAvatar author={author} />
         </div>
 
         <div className="media-body">
@@ -212,10 +212,21 @@ export default class Conversation extends Component {
 
   render() {
     const {
-      loading, loaded,
-      conversations, conversation, messages, user,
-      inboxLoad, triggerAction, showModal, nextLoading,
-      resume, getLabel, settings, res, attachFileToMessage,
+      loading,
+      loaded,
+      conversations,
+      conversation,
+      messages,
+      user,
+      inboxLoad,
+      triggerAction,
+      showModal,
+      nextLoading,
+      resume,
+      getLabel,
+      settings,
+      res,
+      attachFileToMessage,
       agenda
     } = this.props;
 
@@ -228,7 +239,7 @@ export default class Conversation extends Component {
           length: 6,
           radius: 10,
           color: '#666'
-        }}/>
+        }} />
       </div>
       : (
         <Fragment>
@@ -267,7 +278,7 @@ export default class Conversation extends Component {
             {conversation.closedAt && (
               <div className="conversation-resolved well text-center margin-top-lg">
                 <i className="fa fa-lock text-muted" aria-hidden="true"></i>{' '}
-                {this.getClosedLabel()}<br/>
+                {this.getClosedLabel()}<br />
                 <button className="btn btn-link btn-resume" onClick={() => resume( conversation.id )}>
                   {getLabel( 'resumeConversation' )}
                 </button>
@@ -278,7 +289,7 @@ export default class Conversation extends Component {
           {!conversation.closedAt && (
             <MessageForm
               form="message"
-              Wrapper={this.FromWrapper}
+              Wrapper={this.FormWrapper}
               uploadEndpoint={
                 res.messages.prepareAttachment
                   .replace( ':conversationId', conversation.id )
@@ -291,20 +302,21 @@ export default class Conversation extends Component {
               }}
               onFileUploaded={attachFileToMessage}
               conversation={conversation}
+              autoFocus={settings.autoFocus}
             />
           )}
 
-          {messages && messages.length ? <MessageList messages={messages}/> : null}
+          {messages && messages.length ? <MessageList messages={messages} /> : null}
 
           {!messages || !messages.length ? <div className="text-center text-muted margin-v-md">
             {getLabel( 'noResult' )}
           </div> : null}
 
           {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
-            <Spinner/>
+            <Spinner />
           </div>}
 
-          <Waypoint onEnter={this.throttledNextPage}/>
+          <Waypoint onEnter={this.throttledNextPage} />
         </Fragment>
       );
 

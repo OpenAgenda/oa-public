@@ -29,10 +29,11 @@ addLocaleData( [ ...en, ...fr ] );
 
 function getInitialValues( rules ) {
   return rules.reduce(
-    ( result, rule ) => ( {
-      ...result,
-      [ rule.key ]: rule.inverted === undefined ? true : !rule.inverted
-    } ),
+    ( result, rule ) => {
+      result[ rule.key ] = rule.inverted === undefined ? true : !rule.inverted;
+
+      return result;
+    },
     {}
   );
 }
@@ -46,7 +47,11 @@ function getInitialValues( rules ) {
         identifier
       }
     } )
-    .then( ( { data } ) => data.map( v => ( { ...v, key: `rule${_.uniqueId()}` } ) ) ),
+    .then( ( { data } ) => data.map( v => {
+      v.key = `rule${_.uniqueId()}`;
+
+      return v;
+    } ) ),
   { fetchOnMount: true }
 )
 @shouldUpdate(
@@ -90,10 +95,9 @@ class AbilitiesEditor extends Component {
       abilitiesFetcher: { data: rules }
     } = this.props;
 
-    const formIndex = rules.map( rule => ( {
-      ..._.omit( rule, 'key', 'entity', 'relevantRule' ),
-      inverted: !values[ rule.key ]
-    } ) );
+    const formIndex = rules.map( rule =>
+      Object.assign( _.omit( rule, 'key', 'entity', 'relevantRule' ), { inverted: !values[ rule.key ] } )
+    );
 
     if ( typeof onSubmit === 'function' ) {
       return onSubmit( formIndex );
@@ -108,7 +112,11 @@ class AbilitiesEditor extends Component {
       } );
 
       if ( _.isArray( data ) ) {
-        data = data.map( v => ( { ...v, key: `rule${_.uniqueId()}` } ) );
+        data = data.map( v => {
+          v.key = `rule${_.uniqueId()}`;
+
+          return v;
+        } );
 
         receiveAbilitiesData( data );
         form.initialize( getInitialValues( data ) );

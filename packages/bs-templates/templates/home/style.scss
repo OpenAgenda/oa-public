@@ -97,14 +97,9 @@
 
       .actions {
         font-size: 14px;
-        color: #777777;
 
-        a {
-          text-decoration: none;
-
-          &:hover {
-            color: #41acdd;
-          }
+        a:hover, a:focus {
+          text-decoration: underline;
         }
 
         a + a {

@@ -111,7 +111,8 @@ module.exports.init = async config => {
           can( 'receive', 'agendaInboxMessage' );
           can( 'receive', 'event' );
           can( 'receive', 'eventCreation' );
-          can( 'receive', 'eventChangeState' );
+          cannot( 'receive', 'eventChangeState' );
+          can( 'receive', 'eventChangeState', { state: 2 } );
           cannot( 'receive', 'eventUpdate' );
           can( 'receive', 'eventAggregation' );
           can( 'receive', 'myEventCreation' );

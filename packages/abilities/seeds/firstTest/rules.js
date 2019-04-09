@@ -46,6 +46,46 @@ exports.seed = async knex => {
       conditions: '{"verb":"agenda.eventPublished"}',
       fields: null,
       reason: null
+    },
+    {
+      entity_name: 'member',
+      identifier: 60815,
+      actions: 'receive',
+      subject: 'activity',
+      inverted: true,
+      conditions: '{"verb":"agenda.eventChangeState"}',
+      fields: null,
+      reason: null
+    },
+    {
+      entity_name: 'member',
+      identifier: 60815,
+      actions: 'receive',
+      subject: 'activity',
+      inverted: true,
+      conditions: '{"verb":"spam"}',
+      fields: null,
+      reason: null
+    },
+    {
+      entity_name: 'member',
+      identifier: 60818,
+      actions: 'receive',
+      subject: 'activity',
+      inverted: true,
+      conditions: null,
+      fields: null,
+      reason: null
+    },
+    {
+      entity_name: 'member',
+      identifier: 60818,
+      actions: 'receive',
+      subject: 'activity',
+      inverted: false,
+      conditions: '{"verb":"agenda.eventChangeState"}',
+      fields: null,
+      reason: null
     }
   ] );
 };

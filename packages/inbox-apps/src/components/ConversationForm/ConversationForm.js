@@ -49,7 +49,8 @@ export default class ConversationForm extends Component {
   };
 
   static defaultProps = {
-    Wrapper: 'div'
+    Wrapper: 'div',
+    autoFocus: false
   };
 
   state = {
@@ -153,7 +154,7 @@ export default class ConversationForm extends Component {
   } );
 
   render() {
-    const { getLabel, initialValues, submitting, Wrapper, error, lang } = this.props;
+    const { getLabel, initialValues, submitting, Wrapper, error, lang, autoFocus } = this.props;
 
     const numberFiles = Object.keys( this.uppy.getState().files ).length;
 
@@ -193,6 +194,7 @@ export default class ConversationForm extends Component {
               ? getLabel( 'supportPlaceholder' )
               : getLabel( 'yourMessage' )
           }
+          autoFocus={autoFocus}
         />
 
         <p>

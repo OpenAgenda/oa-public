@@ -71,9 +71,9 @@ export function renderInput( { placeholder, className, spellCheck, ...props } ) 
 
 }
 
-export function renderTextarea( { placeholder, className, rows, cols, spellCheck, onKeyDown, ...props } ) {
+export function renderTextarea( { placeholder, className, rows, cols, spellCheck, onKeyDown, autoFocus, ...props } ) {
 
-  const inputAttrs = { placeholder, className, rows, cols, spellCheck, onKeyDown };
+  const inputAttrs = { placeholder, className, rows, cols, spellCheck, onKeyDown, autoFocus };
 
   const content = <div>
     <textarea {...props.input} {...inputAttrs} />

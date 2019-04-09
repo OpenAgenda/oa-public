@@ -295,14 +295,11 @@ class AbilitiesForm extends Component {
       const fieldState = getFieldState( rule.key );
       const indeterminate = isIndeterminate( formState.values, rule, relatedRules );
 
-      if ( !!fieldState.data.indeterminate === !!indeterminate ) {
-        return result;
+      if ( !!fieldState.data.indeterminate !== !!indeterminate ) {
+        result[ rule.key ] = indeterminate;
       }
 
-      return {
-        ...result,
-        [ rule.key ]: indeterminate
-      };
+      return result;
     }, {} );
 
     // set indeterminate prop for each field

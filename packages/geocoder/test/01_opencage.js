@@ -241,6 +241,27 @@ describe( 'opencage', () => {
 
     } );
 
+    describe( 'Berlin', () => {
+
+      let result;
+
+      before( async () => {
+
+        result = await geocode.reverse( 52.5067614, 13.284651, {
+          first: true,
+          language: 'fr'
+        } );
+
+      } );
+
+      it( 'have district', () => {
+
+        result.district.should.equal( 'Charlottenburg-Wilmersdorf' );
+
+      } );
+
+    } );
+
     describe( 'Courbevoie', () => {
 
       let result;

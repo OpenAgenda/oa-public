@@ -11,7 +11,8 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
   settings: {
     lang,
     apiRoot,
-    prefix: ''
+    prefix: '',
+    autoFocus: true
   },
   res: {
     inboxHome: '/',
