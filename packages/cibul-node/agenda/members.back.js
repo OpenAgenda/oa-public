@@ -12,17 +12,14 @@ const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
 
-
-const appMw = [
-  loadAdminLayout,
-  cmn.loadBaseData( 'oasfmain.css' ),
-  matchApp
-];
+const layout = require( '../services/lib/layouts' ).load(
+  'agendaAdmin', { selectedTab: 'members' }
+);
 
 const routes = {
 
-  agendaAdminMembers: [ 'get', '', appMw ],
-  membersSub: [ 'get', '/?*?', appMw ],
+  agendaAdminMembers: [ 'get', '', matchApp ],
+  membersSub: [ 'get', '/?*?', matchApp ],
 
   /**********/
 
@@ -222,13 +219,18 @@ async function matchApp( req, res, next ) {
       return res.redirect( 301, pathname );
     }
 
-    cmn.render( req, res, 'members/index', {
-      scriptParams: { initialState: state },
-      preloaded: true,
-      lang,
-      content,
-      tab: 'members'
-    } );
+    return res.send( layout( `<div class="js_canvas">${content}</div>`, {
+      lang: req.lang,
+      agenda: req.agendaInstance.data,
+      bodyAttributes: [ {
+        name: 'data-options',
+        value: JSON.stringify( { initialState: state } )
+      } ],
+      scripts: {
+        bottom: [ { src: '/js/membersIndex.js' } ]
+      }
+    } ) );
+
   } catch ( e ) {
     next( e );
   }
