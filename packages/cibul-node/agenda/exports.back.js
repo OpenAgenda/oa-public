@@ -1,49 +1,49 @@
 "use strict";
 
-const modLib = require( '../lib/moduleLib' ),
+const locationMw = require( '@openagenda/agenda-locations' ).mw();
+const gaTrack = require( '../lib/gaTrackMw' );
+const modLib = require( '../lib/moduleLib' );
+const agendaSvc = require( '../services/agenda' );
+const cmn = require( '../lib/commons-app' );
+const eventSvc = require( '../services/event' );
 
-  agendaSvc = require( '../services/agenda' ),
 
-  cmn = require( '../lib/commons-app' ),
+const perPage = 20;
 
-  eventSvc = require( '../services/event' ),
+const routes = {
+  agendaAdminCsvEvents: [ 'get', '/events.csv', [
+    cmn.checkAdminOrModeratorOrKey,
+    locationMw.loadSettings( 'locationSettings' ),
+    gaTrack( 'events', 'admin/export', 'csv' ),
+    agendaSvc.mw.buildCsv( true )
+  ] ],
 
-  locationMw = require( '@openagenda/agenda-locations' ).mw(),
+  agendaAdminXlsxEvents: [ 'get', '/events.xlsx', [
+    cmn.checkAdminOrModeratorOrKey,
+    locationMw.loadSettings( 'locationSettings' ),
+    gaTrack( 'events', 'admin/export', 'xlsx' ),
+    agendaSvc.mw.buildXlsx( true )
+  ] ],
 
-  perPage = 20,
+  agendaAdminRssEvents: [ 'get', '/events.rss', [
+    cmn.checkAdminOrModeratorOrKey,
+    agendaSvc.mw.search( perPage, true ),
+    gaTrack( 'events', 'admin/export', 'rss' ),
+    agendaSvc.mw.rss
+  ] ],
 
-  routes = {
+  agendaAdminJsonEvents: [ 'get', '/events.json', [
+    cmn.checkAdminOrModeratorOrKey,
+    agendaSvc.mw.search( perPage, true ),
+    eventSvc.mw.cleanEvents,
+    agendaSvc.mw.decorateEvents( true ),
+    agendaSvc.mw.cleanJson,
+    gaTrack( 'events', 'admin/export', 'json' ),
+    json
+  ] ]
+};
 
-    agendaAdminCsvEvents: [ 'get', '/events.csv', [
-      cmn.checkAdminOrModeratorOrKey,
-      locationMw.loadSettings( 'locationSettings' ),
-      agendaSvc.mw.buildCsv( true )
-    ] ],
-
-    agendaAdminXlsxEvents: [ 'get', '/events.xlsx', [
-      cmn.checkAdminOrModeratorOrKey,
-      locationMw.loadSettings( 'locationSettings' ),
-      agendaSvc.mw.buildXlsx( true )
-    ] ],
-
-    agendaAdminRssEvents: [ 'get', '/events.rss', [
-      cmn.checkAdminOrModeratorOrKey,
-      agendaSvc.mw.search( perPage, true ),
-      agendaSvc.mw.rss
-    ] ],
-
-    agendaAdminJsonEvents: [ 'get', '/events.json', [
-      cmn.checkAdminOrModeratorOrKey,
-      agendaSvc.mw.search( perPage, true ),
-      eventSvc.mw.cleanEvents,
-      agendaSvc.mw.decorateEvents( true ),
-      agendaSvc.mw.cleanJson,
-      json
-    ] ]
-
-  };
-
-module.exports = function( path ) {
+module.exports = function ( path ) {
 
   const router = modLib.Router( routes );
 
