@@ -9,7 +9,12 @@ module.exports = async ( req, res, next ) => {
 
   try {
 
-    const result = await core.agendas( req.agenda.uid ).events.remove( req.event.uid );
+    const result = await core.agendas( req.agenda.uid ).events.remove( req.event.uid, {
+      context: {
+        agendaUid: req.agenda.uid,
+        userUid: req.user.uid
+      }
+    } );
 
     res.json( {
       success: result.success

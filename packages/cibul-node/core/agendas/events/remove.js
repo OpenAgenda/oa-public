@@ -12,7 +12,9 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const getAgenda = require( '../utils/getAgenda' );
 
 
-module.exports = async ( agendaUid, eventUid ) => {
+module.exports = async ( agendaUid, eventUid, options ) => {
+
+  const contextUserUid = _.get( options, 'context.userUid' );
 
   let result;
 
@@ -42,6 +44,8 @@ module.exports = async ( agendaUid, eventUid ) => {
     result = await agendaEvents( agendaUid ).remove( eventUid, {
       transferToLegacy: true,
       context: {
+        agendaUid,
+        userUid: contextUserUid,
         legacy: false,
         deletion: true
       }
@@ -60,6 +64,8 @@ module.exports = async ( agendaUid, eventUid ) => {
     result = await custom( formSchemaId ).remove( eventUid, {
       transferToLegacy: true,
       context: {
+        agendaUid,
+        userUid: contextUserUid,
         legacy: false
       }
     } );
@@ -74,9 +80,16 @@ module.exports = async ( agendaUid, eventUid ) => {
 
   const remaining = await agendaEvents.list.byEventUid( eventUid );
 
-  if ( !remaining.length || ( event.agendaUid === agendaUid ) ) {
+  if ( !remaining.length || (event.agendaUid === agendaUid) ) {
 
-    result = await events.remove( { uid: eventUid }, { transferToLegacy: !event.draft } );
+    result = await events.remove(
+      { uid: eventUid },
+      {
+        agendaUid,
+        userUid: contextUserUid,
+        transferToLegacy: !event.draft
+      }
+    );
 
     if ( result.success ) {
 
@@ -89,6 +102,6 @@ module.exports = async ( agendaUid, eventUid ) => {
   return {
     success: true,
     removed
-  }
+  };
 
 }

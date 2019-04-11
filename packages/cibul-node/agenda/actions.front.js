@@ -346,8 +346,8 @@ function eventRemove( req, res ) {
 
         await agendaEvents( req.agenda.uid ).remove( req.event.uid, { context: {
           userUid: req.user.uid,
-          agendaUid: req.query.sourceAgendaUid,
-          deletion: true
+          agendaUid: req.agenda.uid,
+          deletion: req.agenda.uid === req.event.origin.uid
         } } );
 
       } catch ( e ) {
