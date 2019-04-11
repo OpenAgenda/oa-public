@@ -61,8 +61,8 @@ function listAllLabelFiles( path ) {
 
       if ( pathParts.includes( 'node_modules' ) ) return next();
 
-      // we don't want test files
-      if ( pathParts.pop() === 'test' ) return next();
+      // we don't want test files or lib folder files
+      if ( [ 'test', 'lib' ] .includes( pathParts.pop() ) ) return next();
 
       files.push( {
         path: root + '/' + stat.name,
