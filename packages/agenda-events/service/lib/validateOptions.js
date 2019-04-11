@@ -37,6 +37,10 @@ const base = {
         type: 'integer',
         default: null
       },
+      agendaUid: {
+        type: 'integer',
+        default: null
+      },
       // if operation was done through legacy app
       legacy: {
         type: 'boolean',

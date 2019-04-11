@@ -4,6 +4,8 @@ const VError = require( 'verror' );
 
 const activitiesSvc = require( '@openagenda/activities' );
 const usersSvc = require( '@openagenda/users' );
+const agendasSvc = require( '@openagenda/agendas' );
+const eventsSvc = require( '@openagenda/events' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/beforeRemove' );
 
@@ -27,7 +29,6 @@ module.exports = async ( ae, context ) => {
   }
 
   if ( context.userUid ) {
-
     try {
       user = await usersSvc.get( context.userUid );
     } catch ( e ) {
@@ -41,7 +42,7 @@ module.exports = async ( ae, context ) => {
     }
 
     try {
-      if ( context.deletion && agenda.uid === context.agendaUid ) {
+      if ( context.deletion && agenda.uid === event.agendaUid ) {
         await activitiesSvc.feed( { entityType: 'event', entityUid: event.uid } ).activities.add( {
           actor: 'user:' + user.uid,
           verb: 'event.delete',

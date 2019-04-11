@@ -20,7 +20,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   log( 'processing', { agendaUid, eventUid, options } );
 
-  const contextUserUid = _.get( options, 'context.userUid', _.get( data, 'creatorUid' ) );
+  const contextUserUid = _.get( options, 'context.userUid' ) || _.get( data, 'creatorUid' );
 
   const {
     draft,
