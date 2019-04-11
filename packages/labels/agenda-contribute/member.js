@@ -2,8 +2,8 @@
 
 module.exports = {
   "title": {
-    "fr": "Bienvenue !",
-    "en": "Welcome !",
+    "fr": "Bienvenue !",
+    "en": "Welcome !",
     "it": "Benvenuta !",
     "de": "Willkommen!",
     "br": "Degemer mat deoc'h !"

@@ -3,26 +3,32 @@
 module.exports = {
   "filterList": {
     "fr": "Filtrer",
-    "en": "Filtrer"
+    "en": "Filtrer",
+    "de": "Filtrer"
   },
   "title": {
     "fr": "Titre",
-    "en": "Title"
+    "en": "Title",
+    "de": "Titel"
   },
   "locationName": {
     "fr": "Nom du lieu",
-    "en": "Location name"
+    "en": "Location name",
+    "de": "Standortnamen"
   },
   "region": {
     "fr": "Région",
-    "en": "Region"
+    "en": "Region",
+    "de": "Region"
   },
   "contributor": {
     "fr": "Contributeur",
-    "en": "Contributor"
+    "en": "Contributor",
+    "de": "Beiträger"
   },
   "loading": {
     "fr": "Chargement en cours",
-    "en": "Loading"
+    "en": "Loading",
+    "de": "Wird geladen"
   }
 }

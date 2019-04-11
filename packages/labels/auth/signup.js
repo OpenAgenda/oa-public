@@ -44,8 +44,8 @@ module.exports = {
     "pl": "Spróbuj to jeszcze raz"
   },
   "hasAccount": {
-    "fr": "Vous avez déjà utilisé OpenAgenda ?",
-    "en": "Have you already used OpenAgenda ?",
+    "fr": "Vous avez déjà utilisé OpenAgenda ?",
+    "en": "Have you already used OpenAgenda ?",
     "it": "Hai già utilizzato OpenAgenda ?",
     "de": "Haben Sie bereits die OpenAgenda genutzt?",
     "pl": "Czy korzystałeś już z OpenAgendy?"

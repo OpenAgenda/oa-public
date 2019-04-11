@@ -33,21 +33,21 @@ module.exports = {
     "en": "My Agendas",
     "fr": "Mes Agendas",
     "it": "Le mie agende",
-    "de": "Meine Kalender ",
+    "de": "Meine Kalender",
     "pl": "Moje porządki dzienne"
   },
   "searchAgendas": {
     "en": "Search agenda",
     "fr": "Chercher un agenda",
     "it": "Agenda",
-    "de": "Kalender suchen ",
+    "de": "Kalender suchen",
     "pl": "Porządek dzienny wyszukiwania"
   },
   "createAgenda": {
     "en": "Create an agenda",
     "fr": "Créer un agenda",
     "it": "Creare un agenda",
-    "de": "Kalender erstellen ",
+    "de": "Kalender erstellen",
     "pl": "Stwórz porządek obrad"
   },
   "general": {

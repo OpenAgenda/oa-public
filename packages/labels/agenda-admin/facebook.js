@@ -10,22 +10,27 @@ module.exports = {
   },
   "title": {
     "fr": "Facebook",
-    "en": "Facebook"
+    "en": "Facebook",
+    "de": "Facebook"
   },
   "description": {
     "fr": "Ajoutez votre agenda sur une page Facebook",
-    "en": "Add your agenda to a Facebook page"
+    "en": "Add your agenda to a Facebook page",
+    "de": "Fügen Sie Ihre Agenda zu einer Facebook-Seite"
   },
   "footnote": {
     "fr": "Facebook ayant mis à jour ses %link%, cette fonctionnalité n'est proposée que pour les pages ayant plus de 2000 likes.",
-    "en": "As facebook has updated its %link%, this feature is only available to pages with more than 2000 likes."
+    "en": "As facebook has updated its %link%, this feature is only available to pages with more than 2000 likes.",
+    "de": "Als Facebook seines %link% aktualisiert hat, ist diese Funktion auf Seiten mit mehr als 2000 Leuten zur Verfügung."
   },
   "add": {
     "fr": "Choisir une page Facebook",
-    "en": "Choose a Facebook page"
+    "en": "Choose a Facebook page",
+    "de": "Wählen Sie eine Facebook-Seite"
   },
   "conditions": {
     "fr": "conditions d'utilisation",
-    "en": "terms of use"
+    "en": "terms of use",
+    "de": "Nutzungsbedingungen"
   }
 }

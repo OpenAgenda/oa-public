@@ -49,12 +49,12 @@ module.exports = {
   "upcomingEvent": {
     "en": "1 upcoming event",
     "fr": "1 événement à venir",
-    "de": "1 bevorstehendes Ereignis"
+    "de": "1 bevorstehendes Veranstaltung"
   },
   "upcomingEvents": {
     "en": "%count% upcoming events",
     "fr": "%count% événements à venir",
-    "de": "14 bevorstehende Veranstaltungen"
+    "de": "%count% bevorstehende Veranstaltungen"
   },
   "loadPrevious": {
     "en": "Load previous results",

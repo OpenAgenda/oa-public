@@ -3,18 +3,22 @@
 module.exports = {
   "administrator": {
     "en": "Administrator",
-    "fr": "Administrateur"
+    "fr": "Administrateur",
+    "de": "Administrator"
   },
   "moderator": {
     "en": "Moderator",
-    "fr": "Modérateur"
+    "fr": "Modérateur",
+    "de": "Moderator"
   },
   "contributor": {
     "en": "Contributor",
-    "fr": "Contributeur"
+    "fr": "Contributeur",
+    "de": "Beiträger"
   },
   "reader": {
     "en": "Reader",
-    "fr": "Lecteur"
+    "fr": "Lecteur",
+    "de": "Leser"
   }
 }

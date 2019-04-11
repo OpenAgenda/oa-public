@@ -3,22 +3,27 @@
 module.exports = {
   "administration": {
     "fr": "Administration",
-    "en": "Administration"
+    "en": "Administration",
+    "de": "Verwaltung"
   },
   "back": {
     "fr": "Retour",
-    "en": "Back"
+    "en": "Back",
+    "de": "Zurück"
   },
   "manage": {
     "fr": "Gérer",
-    "en": "Manage"
+    "en": "Manage",
+    "de": "Verwalten"
   },
   "export": {
     "fr": "Exporter",
-    "en": "Export"
+    "en": "Export",
+    "de": "Export"
   },
   "settings": {
     "fr": "Paramétrer",
-    "en": "Settings"
+    "en": "Settings",
+    "de": "die Einstellungen"
   }
 }

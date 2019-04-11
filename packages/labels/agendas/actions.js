@@ -5,7 +5,7 @@ module.exports = {
     "en": "Your action is being processed. Events in the state %oldstate% will shortly be changed to %newstate%.",
     "fr": "Votre demande est en cours de traitement. Les événements portant le statut %oldstate% passeront à %newstate% sous peu.",
     "it": "La sua azione e' in corso di elaborazione. Gli eventi nello stato %oldstate% saranno a breve modificati in %newstate%.",
-    "de": "Ihre Aktion wird bearbeitet. Die Ereignisse im Staat %oldstate% werden in Kürze in %newstate% geändert.",
+    "de": "Ihre Aktion wird bearbeitet. Die Veranstaltungen im Staat %oldstate% werden in Kürze in %newstate% geändert.",
     "pl": "Twoja akcja jest przetwarzana. Wydarzenia w stanie %oldstate% zostaną wkrótce zmienione na %newstate%."
   },
   "ownershipTransfered": {

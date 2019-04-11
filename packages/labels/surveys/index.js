@@ -3,10 +3,12 @@
 module.exports = {
   "confirmation": {
     "fr": "Merci d'avoir participé!",
-    "en": "Thank you for your contribution!"
+    "en": "Thank you for your contribution!",
+    "de": "Danke für Ihren Beitrag!"
   },
   "done": {
     "fr": "Fermer",
-    "en": "Close"
+    "en": "Close",
+    "de": "Schließen"
   }
 }

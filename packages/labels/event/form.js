@@ -51,7 +51,7 @@ module.exports = {
     "fr": "",
     "en": "",
     "it": "",
-    "de": ""
+    "de": "#VALUE!"
   },
   "titlePlaceholder": {
     "fr": "Le titre de votre événement",
@@ -79,7 +79,7 @@ module.exports = {
     "fr": "",
     "en": "",
     "it": "",
-    "de": ""
+    "de": "#VALUE!"
   },
   "image": {
     "fr": "Image de l'événement",
@@ -115,7 +115,7 @@ module.exports = {
     "fr": "",
     "en": "",
     "it": "",
-    "de": ""
+    "de": "#VALUE!"
   },
   "keywords": {
     "fr": "Mots clés",
@@ -151,7 +151,7 @@ module.exports = {
     "fr": "",
     "en": "",
     "it": "",
-    "de": ""
+    "de": "#VALUE!"
   },
   "registration": {
     "fr": "Outils d'inscription",

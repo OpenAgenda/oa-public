@@ -3,62 +3,77 @@
 module.exports = {
   "festival": {
     "en": "festival",
-    "fr": "festival"
+    "fr": "festival",
+    "de": "Festival"
   },
   "fair": {
     "en": "fair",
-    "fr": "salon"
+    "fr": "salon",
+    "de": "Messe"
   },
   "federation": {
     "en": "federation",
-    "fr": "fédération"
+    "fr": "fédération",
+    "de": "Föderation"
   },
   "theatre": {
     "en": "theatre",
-    "fr": "théâtre"
+    "fr": "théâtre",
+    "de": "Theater"
   },
   "city": {
     "en": "city",
-    "fr": "ville"
+    "fr": "ville",
+    "de": "Stadt"
   },
   "association": {
     "en": "association",
-    "fr": "association"
+    "fr": "association",
+    "de": "Verband"
   },
   "university": {
     "en": "university",
-    "fr": "université"
+    "fr": "université",
+    "de": "Universität"
   },
   "company": {
     "en": "company",
-    "fr": "entreprise"
+    "fr": "entreprise",
+    "de": "Unternehmen"
   },
   "conventionCenter": {
     "en": "convention center",
-    "fr": "palais des congrès"
+    "fr": "palais des congrès",
+    "de": "Kongresszentrum"
   },
   "incubator": {
     "en": "incubator",
-    "fr": "fablab"
+    "fr": "fablab",
+    "de": "Inkubator"
   },
   "coworkingSpace": {
     "en": "coworking space",
-    "fr": "tiers-lieu"
+    "fr": "tiers-lieu",
+    "de": "Coworking space"
   },
   "fireStation": {
     "en": "fire station",
-    "fr": "caserne"
+    "fr": "caserne",
+    "de": "Feuerwehr"
   },
   "ministry": {
     "en": "ministry",
-    "fr": "ministère"
+    "fr": "ministère",
+    "de": "Ministerium"
   },
   "church": {
     "en": "church",
-    "fr": "diocèse"
+    "fr": "diocèse",
+    "de": "Kirche"
   },
   "hospital": {
     "en": "hospital",
-    "fr": "hôpital"
+    "fr": "hôpital",
+    "de": "Krankenhaus"
   }
 }

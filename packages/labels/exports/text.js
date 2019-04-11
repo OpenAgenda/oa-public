@@ -3,14 +3,17 @@
 module.exports = {
   "itinerary": {
     "fr": "Itinéraire",
-    "en": "Itinerary"
+    "en": "Itinerary",
+    "de": "Route"
   },
   "register": {
     "fr": "Réservation",
-    "en": "Registration"
+    "en": "Registration",
+    "de": "Anmeldung"
   },
   "accessibility": {
     "fr": "Accessibilité",
-    "en": "Accessibility"
+    "en": "Accessibility",
+    "de": "Zugänglichkeit"
   }
 }

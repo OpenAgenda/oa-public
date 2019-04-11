@@ -3,6 +3,7 @@
 module.exports = {
   "search": {
     "en": "Search",
-    "fr": "Rechercher"
+    "fr": "Rechercher",
+    "de": "Suche"
   }
 }

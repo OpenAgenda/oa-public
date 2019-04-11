@@ -3,22 +3,27 @@
 module.exports = {
   "layoutFeatures": {
     "en": "Features",
-    "fr": "Fonctions"
+    "fr": "Fonctions",
+    "de": "Eigenschaften"
   },
   "layoutTestimonials": {
     "en": "Testimonials",
-    "fr": "Références"
+    "fr": "Références",
+    "de": "Referenzen"
   },
   "layoutPricing": {
     "en": "Pricing",
-    "fr": "Tarifs"
+    "fr": "Tarifs",
+    "de": "Preisgestaltung"
   },
   "layoutSignup": {
     "en": "Sign up",
-    "fr": "Créer un compte"
+    "fr": "Créer un compte",
+    "de": "Anmelden"
   },
   "layoutSignin": {
     "en": "Sign in",
-    "fr": "Connexion"
+    "fr": "Connexion",
+    "de": "Einloggen"
   }
 }

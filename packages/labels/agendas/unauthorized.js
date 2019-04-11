@@ -3,14 +3,17 @@
 module.exports = {
   "title": {
     "en": "This agenda is private",
-    "fr": "Cet agenda est privé"
+    "fr": "Cet agenda est privé",
+    "de": "Diese Agenda ist privat"
   },
   "message": {
     "en": "Access to this agenda is **restricted**. If you require an access, contact the administrar",
-    "fr": "L'accès à cet agenda est **restreint**. Pour obtenir un accès, contactez son administrateur"
+    "fr": "L'accès à cet agenda est **restreint**. Pour obtenir un accès, contactez son administrateur",
+    "de": "Der Zugriff auf diese Agenda ist ** ** eingeschränkt. Wenn Sie einen Zugang benötigen, kontaktieren Sie den administrar"
   },
   "contactAdmin": {
     "en": "Contact the administrator",
-    "fr": "Contacter l'administrateur"
+    "fr": "Contacter l'administrateur",
+    "de": "Kontaktieren Sie den Administrator"
   }
 }

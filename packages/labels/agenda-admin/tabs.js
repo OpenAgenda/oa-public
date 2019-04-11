@@ -3,90 +3,112 @@
 module.exports = {
   "events": {
     "en": "Events",
-    "fr": "Evénements"
+    "fr": "Evénements",
+    "de": "Veranstaltungen"
   },
   "contributors": {
     "en": "Contributors",
-    "fr": "Contributeurs"
+    "fr": "Contributeurs",
+    "de": "Mitwirkende"
   },
   "moderators": {
     "en": "Moderators",
-    "fr": "Modérateurs"
+    "fr": "Modérateurs",
+    "de": "Moderatoren"
   },
   "members": {
     "en": "Members",
-    "fr": "Membres"
+    "fr": "Membres",
+    "de": "Mitglieder"
   },
   "activities": {
     "en": "Activities",
-    "fr": "Activités"
+    "fr": "Activités",
+    "de": "Aktivitäten"
   },
   "newTab": {
     "en": "New !",
-    "fr": "Nouveau !"
+    "fr": "Nouveau !",
+    "de": "Neu !"
   },
   "locations": {
     "en": "Locations",
-    "fr": "Lieux"
+    "fr": "Lieux",
+    "de": "Standorte"
   },
   "categories": {
     "en": "Categories and Tags",
-    "fr": "Catégories et Tags"
+    "fr": "Catégories et Tags",
+    "de": "Kategorien und Schlagwörter"
   },
   "inbox": {
     "en": "Inbox",
-    "fr": "Messagerie"
+    "fr": "Messagerie",
+    "de": "Posteingang"
   },
   "customized": {
     "en": "Customized fields",
-    "fr": "Champs personnalisés"
+    "fr": "Champs personnalisés",
+    "de": "Angepasste Felder"
   },
   "sources": {
     "en": "Sources",
-    "fr": "Sources"
+    "fr": "Sources",
+    "de": "Quellen"
   },
   "facebook": {
     "en": "Facebook",
-    "fr": "Facebook"
+    "fr": "Facebook",
+    "de": "Facebook"
   },
   "swapcard": {
     "en": "Swapcard",
-    "fr": "Swapcard"
+    "fr": "Swapcard",
+    "de": "Swapcard"
   },
   "web": {
     "en": "Web Integration",
-    "fr": "Intégration Web"
+    "fr": "Intégration Web",
+    "de": "Web-Integration"
   },
   "indesign": {
     "en": "Indesign - Xml",
-    "fr": "Indesign - Xml"
+    "fr": "Indesign - Xml",
+    "de": "Indesign - Xml"
   },
   "emailstrategie": {
     "en": "EmailStrategie",
-    "fr": "EmailStrategie"
+    "fr": "EmailStrategie",
+    "de": "EmailStrategie"
   },
   "administrators": {
     "en": "Administrators",
-    "fr": "Administrateurs"
+    "fr": "Administrateurs",
+    "de": "Administratoren"
   },
   "settings": {
     "en": "Settings",
-    "fr": "Paramètres"
+    "fr": "Paramètres",
+    "de": "die Einstellungen"
   },
   "settings_profile": {
     "en": "Profile",
-    "fr": "Profil"
+    "fr": "Profil",
+    "de": "Profil"
   },
   "schema": {
     "en": "Form",
-    "fr": "Formulaire"
+    "fr": "Formulaire",
+    "de": "Bilden"
   },
   "settings_contribution": {
     "en": "Contribution",
-    "fr": "Contribution"
+    "fr": "Contribution",
+    "de": "Beitrag"
   },
   "settings_advanced": {
     "en": "Advanced",
-    "fr": "Avancé"
+    "fr": "Avancé",
+    "de": "fortgeschritten"
   }
 }

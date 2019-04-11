@@ -3,14 +3,17 @@
 module.exports = {
   "title": {
     "fr": "OpenAgenda - Créez un agenda public performant",
-    "en": "OpenAgenda - Create an efficient public calendar"
+    "en": "OpenAgenda - Create an efficient public calendar",
+    "de": "OpenAgenda - Erstellen einer effizienten öffentlichen Kalender"
   },
   "description": {
     "fr": "Diffusez vos événements sur la première plateforme d'agendas collaboratifs, participatifs, contributifs, open data. C'est gratuit!",
-    "en": "Broadcast your events on the first open data collaborative calendar platform. It's free!"
+    "en": "Broadcast your events on the first open data collaborative calendar platform. It's free!",
+    "de": "Übertragen Sie Ihre Veranstaltungen auf dem ersten offenen Daten kollaborative Kalenderplattform. Es ist kostenlos!"
   },
   "keywords": {
     "fr": "agenda collaboratifs, calendrier, événements, outil en ligne, productivité",
-    "en": "collaborative calendars, calendar, events, online tool, productivity"
+    "en": "collaborative calendars, calendar, events, online tool, productivity",
+    "de": "kollaborative Kalender, Kalender, Events, Online-Tool, Produktivität"
   }
 }

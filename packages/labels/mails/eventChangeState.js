@@ -3,46 +3,57 @@
 module.exports = {
   "subject": {
     "fr": "%agenda%: %event% a changé de statut",
-    "en": "%agenda%: %event% changed status"
+    "en": "%agenda%: %event% changed status",
+    "de": "%agenda%: %event% Zustand geändert"
   },
   "title": {
     "fr": "L'événement **%event%** est passé du statut **%beforeState%** au statut **%afterState%** sur l'agenda **%agenda%**.",
-    "en": "The event **%event%** changed from **%beforeState%** status to **%afterState%** status on the agenda **%agenda%**."
+    "en": "The event **%event%** changed from **%beforeState%** status to **%afterState%** status on the agenda **%agenda%**.",
+    "de": "Die Veranstaltung **%event% ** geändert von **%beforeState%** Zustand **%afterState%** Zustand auf der Kalender **%agenda%**."
   },
   "titleText": {
     "fr": "L'événement %event% est passé du statut %beforeState% au statut %afterState% sur l'agenda %agenda%.",
-    "en": "The event %event% changed from %beforeState% status to %afterState% status on the agenda %agenda%."
+    "en": "The event %event% changed from %beforeState% status to %afterState% status on the agenda %agenda%.",
+    "de": "Die Veranstaltung %event% von %beforeState% Zustand geändert %afterState% Zustand auf der Kalender %agenda%."
   },
   "actionDescription": {
     "fr": "Voir l'événement",
-    "en": "See the event"
+    "en": "See the event",
+    "de": "Siehe die Veranstaltung"
   },
   "tocontrol": {
     "fr": "à contrôler",
-    "en": "to be controlled"
+    "en": "to be controlled",
+    "de": "kontrolliert werden"
   },
   "controlled": {
     "fr": "prêt à être publié",
-    "en": "ready to publish"
+    "en": "ready to publish",
+    "de": "bereit zu veröffentlichen"
   },
   "published": {
     "fr": "publié",
-    "en": "published"
+    "en": "published",
+    "de": "veröffentlicht"
   },
   "refused": {
     "fr": "refusé",
-    "en": "refused"
+    "en": "refused",
+    "de": "verweigert"
   },
   "unsubscribe": {
     "fr": "Ne plus recevoir les changements de statut d'événement vers \"{afterState, select, refused {refusé} tocontrol {à contrôller} controlled {prêt à publier} published {publié}}\"",
-    "en": "Stop receiving event state changes to \"{afterState, select, refused {refused} tocontrol {to control} controlled {controlled} published {published}}\""
+    "en": "Stop receiving event state changes to \"{afterState, select, refused {refused} tocontrol {to control} controlled {controlled} published {published}}\"",
+    "de": "Beenden des Empfangs von Veranstaltungzustand wechselt zu „{afterState wählen, verweigerten {verweigert} {tocontrol zu steuern} {gesteuert gesteuert} veröffentlicht {veröffentlicht}}“"
   },
   "memberUnsubscribe": {
     "fr": "Ne plus recevoir les changements de statut d'événement de cet agenda vers \"{afterState, select, refused {refusé} tocontrol {à contrôller} controlled {prêt à publier} published {publié}}\"",
-    "en": "Stop receiving event state changes to \"{afterState, select, refused {refused} tocontrol {to control} controlled {controlled} published {published}}\" on this agenda"
+    "en": "Stop receiving event state changes to \"{afterState, select, refused {refused} tocontrol {to control} controlled {controlled} published {published}}\" on this agenda",
+    "de": "Stop-Veranstaltung Zustandsänderungen empfangen zu „{afterState wählen, verweigerten {verweigert} {tocontrol zu steuern} {gesteuert gesteuert} veröffentlicht {veröffentlicht}}“ auf dieser Agenda"
   },
   "changeEmailSettings": {
     "fr": "Modifier mes paramètres d'envoi d'emails",
-    "en": "Change my email sending settings"
+    "en": "Change my email sending settings",
+    "de": "Ändern Sie per E-Mail zu senden Einstellungen"
   }
 }

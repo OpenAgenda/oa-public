@@ -3,22 +3,27 @@
 module.exports = {
   "year": {
     "fr": "an",
-    "en": "year"
+    "en": "year",
+    "de": "Jahr"
   },
   "years": {
     "fr": "ans",
-    "en": "years"
+    "en": "years",
+    "de": "Jahre"
   },
   "min": {
     "fr": "De",
-    "en": "From"
+    "en": "From",
+    "de": "Von"
   },
   "max": {
     "fr": "à",
-    "en": "to"
+    "en": "to",
+    "de": "zu"
   },
   "select": {
     "fr": "Sélectionner",
-    "en": "Select"
+    "en": "Select",
+    "de": "Wählen"
   }
 }

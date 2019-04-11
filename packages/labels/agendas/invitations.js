@@ -33,7 +33,7 @@ module.exports = {
     "en": "Sent invitations: %count%",
     "fr": "Invitations envoyées: %count%",
     "it": "Inviti inviati: %count% di sconto %.",
-    "de": "Gesendete Einladungen: %count%%.",
+    "de": "Gesendete Einladungen: %count%.",
     "pl": "Zaproszenia wysłane: %count%"
   },
   "resentInvites": {
