@@ -12,7 +12,7 @@ module.exports = {
   cache: sCache
 }
 
-function send( namespace, path, responseType = 'json' ) {
+function send( namespace, path, onSuccess ) {
 
   return cacheMiddleware( namespace, path, ( cached, req, res ) => {
 
@@ -24,6 +24,10 @@ function send( namespace, path, responseType = 'json' ) {
     res.set( 'Content-Type', 'application/json' );
 
     res.send( cached );
+
+    if ( typeof onSuccess === 'function' ) {
+      onSuccess( cached, req, res );
+    }
 
   } );
 

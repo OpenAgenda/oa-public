@@ -1572,10 +1572,10 @@
     slug "0.9.1"
     when "3.7.4"
 
-"@openagenda/cibul-model@^0.1.25":
-  version "0.1.25"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.25.tgz#31908044d4392a9384def5804c044c04e280d7f3"
-  integrity sha512-lTtDA4Tx8UAWnQ+dosU30Eo2ZGpT8x6GDS9XDf0WnxvuoZqG3XaL+mVTjEAlXTlMG3wd58+LSuJ84zoJdH/H0g==
+"@openagenda/cibul-model@^0.1.26":
+  version "0.1.26"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.26.tgz#3252dfcaa86316d89fff879edcf14d8a2b4af006"
+  integrity sha512-+2iNp39o0rjOgYRJ88PsTiJyX+nGz5exr0vFSmk5hUWMMccshxVAOgSriaif4k9OFpoKJDnoCpJKjh3A9a7Cog==
   dependencies:
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/utils" "^1.0.2"
@@ -1622,10 +1622,10 @@
     should "~4.0"
     xml2js "0.4.9"
 
-"@openagenda/es-node@^1.0.9":
-  version "1.0.9"
-  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.9.tgz#24f4864b6033e25744e851e91e3dbe17c6d73041"
-  integrity sha512-SkIOm3HJ/P1F2bVJkD6FVIljkeNw1BWWSnp+m2LNeix2hTPEhsribDhfnoezj3+ydhK4nOEbvNwTWHsL4m09AQ==
+"@openagenda/es-node@^1.0.10":
+  version "1.0.10"
+  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.10.tgz#b4f11ce3d4ede5d9dcf1e2efa877057d527111f0"
+  integrity sha512-GBQ5QnsKWkdkLAWWV+GuhIDQ9pnAvolPV9xmdzoEM+CLZzphJ0o9GFkRwKdmoZea0xUP1Po5pYpMU6NNrVxaCQ==
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "~0.9"
@@ -1832,7 +1832,7 @@
     spin.js "2.3.2"
     xhr "2.2.0"
 
-"@openagenda/test-app@^2.0.3", "@openagenda/test-app@^2.0.4", "@openagenda/test-app@^2.0.7":
+"@openagenda/test-app@^2.0.3", "@openagenda/test-app@^2.0.7":
   version "2.0.7"
   resolved "https://registry.npmjs.org/@openagenda/test-app/-/test-app-2.0.7.tgz#06e1976db59ae53910a507fc0b3b778f25818f0c"
   integrity sha512-R4V4vs/wL4qYvxwRPNrf5UDeuxmrk7XgKfk6WG73G+2vTXYZMPeqtZyFa3X1+rPnDf4Py40gETFnl1A6BKLugw==
@@ -18596,6 +18596,11 @@ p-reduce@^1.0.0:
   resolved "https://registry.npmjs.org/p-reduce/-/p-reduce-1.0.0.tgz#18c2b0dd936a4690a529f8231f58a0fdb6a47dfa"
   integrity sha1-GMKw3ZNqRpClKfgjH1ig/bakffo=
 
+p-throttle@^3.1.0:
+  version "3.1.0"
+  resolved "https://registry.npmjs.org/p-throttle/-/p-throttle-3.1.0.tgz#dee34ce4e77d7cc2dfdc1fea0daedccc64147214"
+  integrity sha512-rLo81NXBihs3GJQhq89IXa0Egj/sbW1zW8/qnyadOwUhIUrZSUvyGdQ46ISRKELFBkVvmMJ4JUqWki4oAh30Qw==
+
 p-try@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npmjs.org/p-try/-/p-try-1.0.0.tgz#cbc79cdbaf8fd4228e13f621f2b1a237c1b207b3"
@@ -23978,11 +23983,6 @@ sum-up@^1.0.1:
   dependencies:
     chalk "^1.0.0"
 
-superagent-prefix@^0.0.2:
-  version "0.0.2"
-  resolved "https://registry.npmjs.org/superagent-prefix/-/superagent-prefix-0.0.2.tgz#b15bbb1353f889b00d25af10b4f11b350d203b06"
-  integrity sha1-sVu7E1P4ibANJa8QtPEbNQ0gOwY=
-
 superagent-proxy@^1.0.2:
   version "1.0.3"
   resolved "https://registry.npmjs.org/superagent-proxy/-/superagent-proxy-1.0.3.tgz#acfa776672f11c24a90ad575e855def8be44f741"
@@ -23990,14 +23990,6 @@ superagent-proxy@^1.0.2:
   dependencies:
     debug "^3.1.0"
     proxy-agent "2"
-
-superagent-use@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/superagent-use/-/superagent-use-0.1.0.tgz#d28dbbbf573ba980329b4645897608bc99501cff"
-  integrity sha1-0o27v1c7qYAym0ZFiXYIvJlQHP8=
-  dependencies:
-    extend "^3.0.0"
-    methods "~1.1.2"
 
 superagent@3.3.1:
   version "3.3.1"

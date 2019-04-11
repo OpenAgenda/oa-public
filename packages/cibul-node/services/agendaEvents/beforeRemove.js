@@ -1,12 +1,10 @@
 "use strict";
 
-const { promisify } = require( 'util' );
 const VError = require( 'verror' );
 
 const activitiesSvc = require( '@openagenda/activities' );
 const usersSvc = require( '@openagenda/users' );
-const agendasSvc = require( '@openagenda/agendas' );
-const eventsSvc = require( '@openagenda/events' );
+const fallbackContextGet = require( './lib/fallbackContextGet' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/beforeRemove' );
 
 const controlDataSvc = require( '../legacy' ).controlData;
@@ -15,21 +13,8 @@ module.exports = async ( ae, context ) => {
 
   log( 'will remove agenda-event %j', ae, { context } );
 
+  const { agenda, event } = await fallbackContextGet( 'beforeRemove', ae, context );
   let user;
-  let agenda;
-  let event;
-
-  try {
-    agenda = await agendasSvc.get( { uid: ae.agendaUid }, { private: null, internal: true } );
-  } catch ( e ) {
-    return log( 'error', new VError( e, 'Error to get agenda %s', ae.agendaUid ) );
-  }
-
-  try {
-    event = await eventsSvc.get( { uid: ae.eventUid }, { private: null, deleted: null, internal: true } );
-  } catch ( e ) {
-    return log( 'error', new VError( e, 'Error to get event %s', ae.eventUid ) );
-  }
 
   if ( ae.state === 2 ) {
 
@@ -56,7 +41,7 @@ module.exports = async ( ae, context ) => {
     }
 
     try {
-      if ( context.deletion && agenda.uid === context.agenda.uid ) {
+      if ( context.deletion && agenda.uid === context.agendaUid ) {
         await activitiesSvc.feed( { entityType: 'event', entityUid: event.uid } ).activities.add( {
           actor: 'user:' + user.uid,
           verb: 'event.delete',
@@ -87,7 +72,7 @@ module.exports = async ( ae, context ) => {
       }
     } catch ( err ) {
       if ( err ) {
-        log( 'error', 'Error to add activity agenda.removeEvent in feed event:%s', event.uid, err );
+        log( 'error', 'Error to add activity event.delete or agenda.removeEvent in feed event:%s', event.uid, err );
       }
     }
   }

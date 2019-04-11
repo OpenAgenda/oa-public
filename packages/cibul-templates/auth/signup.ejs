@@ -70,13 +70,13 @@
                   value="<%= typeof culture !== 'undefined' ? culture : 'fr' %>"
                 >
                   <option value="fr" <%= typeof culture === 'undefined' || !culture ? '' : 'selected' %>>
-                    Langue (FR)
+                    Français
                   </option>
                   <option value="en" <%= typeof culture !== 'undefined' && culture === 'en' ? 'selected' : '' %>>
-                    Language (EN)
+                    English
                   </option>
                   <option value="de" <%= typeof culture !== 'undefined' && culture === 'de' ? 'selected' : '' %>>
-                    Sprache (DE)
+                    Deutsch
                   </option>
                 </select>
                 <% if ( errors.culture ) { %>

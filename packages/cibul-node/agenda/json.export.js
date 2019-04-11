@@ -1,6 +1,9 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const agendasSvc = require( '@openagenda/agendas' );
 const search = require( '../services/eventSearch' );
+const gaTrack = require( '../lib/gaTrackMw' );
 
 
 module.exports = app => {
@@ -13,6 +16,16 @@ module.exports = app => {
       .then( result => req.query.geojson ? search.parsers.geoJSON( result ) : result )
 
       .then( result => res.json( result ) )
+
+      .then( () => {
+        agendasSvc.get( { uid: req.params.agendaUid }, { private: null }, ( err, agenda ) => {
+          if ( !err && agenda ) {
+            req.agenda = agenda;
+
+            gaTrack( 'events', 'export', 'json' )( req );
+          }
+        } );
+      } )
 
       .catch( err => next( err ) );
 

@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/sdk-js",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "main": "dist/index.js",
   "repository": "git+ssh://git@bitbucket.org/openagenda/oa.git",
   "author": "Bertho <kevin.bertho@gmail.com>",
@@ -16,8 +16,6 @@
     "@babel/runtime-corejs2": "^7.3.1",
     "lodash": "^4.17.5",
     "superagent": "^3.8.2",
-    "superagent-prefix": "^0.0.2",
-    "superagent-use": "^0.1.0",
     "verror": "^1.10.0"
   },
   "devDependencies": {

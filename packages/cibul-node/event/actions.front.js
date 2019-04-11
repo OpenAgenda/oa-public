@@ -14,6 +14,7 @@ const config = require( '../config' );
 const eventSvc = require( '../services/event' );
 const model = require( '../services/model' );
 const modLib = require( '../lib/moduleLib' );
+const gaTrack = require( '../lib/gaTrackMw' );
 
 const routes = {
 
@@ -269,6 +270,8 @@ async function eventMailSend( req, res, next ) {
       },
       lang: req.lang
     } );
+
+    gaTrack.batch( new Array( emails.length ).fill( [ 'event', 'share', 'email' ] ) )( req );
 
     sessions.setFlash( req, res, __( 'eventEmailSend', { 'count' : emails.length } ) );
     res.redirect( 302, req.genUrl( req.eventUri, req.eventUriParams ) );
