@@ -1,20 +1,20 @@
 "use strict";
 
 module.exports = {
-  administrator: {
-    en: 'Administrator',
-    fr: 'Administrateur'
+  "administrator": {
+    "en": "Administrator",
+    "fr": "Administrateur"
   },
-  moderator: {
-    en: 'Moderator',
-    fr: 'Modérateur'
+  "moderator": {
+    "en": "Moderator",
+    "fr": "Modérateur"
   },
-  contributor: {
-    en: 'Contributor',
-    fr: 'Contributeur'
+  "contributor": {
+    "en": "Contributor",
+    "fr": "Contributeur"
   },
-  reader: {
-    en: 'Reader',
-    fr: 'Lecteur'
+  "reader": {
+    "en": "Reader",
+    "fr": "Lecteur"
   }
-};
+}

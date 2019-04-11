@@ -1,16 +1,16 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  itinerary: {
-    fr: 'Itinéraire',
-    en: 'Itinerary'
+  "itinerary": {
+    "fr": "Itinéraire",
+    "en": "Itinerary"
   },
-  register: {
-    fr: 'Réservation',
-    en: 'Registration'
+  "register": {
+    "fr": "Réservation",
+    "en": "Registration"
   },
-  accessibility: {
-    fr: 'Accessibilité',
-    en: 'Accessibility'
+  "accessibility": {
+    "fr": "Accessibilité",
+    "en": "Accessibility"
   }
 }

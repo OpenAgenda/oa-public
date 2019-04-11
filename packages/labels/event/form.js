@@ -43,9 +43,9 @@ module.exports = {
     "it": "Titolo",
     "de": "Titel"
   },
-  "titlePurpose" : {
-    "fr" : "Titre de l'événement",
-    "en" : "Title of the event"
+  "titlePurpose": {
+    "fr": "Titre de l'événement",
+    "en": "Title of the event"
   },
   "titleSub": {
     "fr": "",
@@ -65,9 +65,9 @@ module.exports = {
     "it": "Breve descrizione",
     "de": "Kurzbeschreibung"
   },
-  "descriptionPurpose" : {
-    "fr" : "Description pour les affichages réduits ou liste",
-    "en" : "Description for short or list displays"
+  "descriptionPurpose": {
+    "fr": "Description pour les affichages réduits ou liste",
+    "en": "Description for short or list displays"
   },
   "descriptionPlaceholder": {
     "fr": "Une courte description de votre événement",

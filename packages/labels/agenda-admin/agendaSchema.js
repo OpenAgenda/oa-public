@@ -9,12 +9,12 @@ module.exports = {
     "en": "Field required by the agenda network",
     "fr": "Champ requis par le réseau d'agendas"
   },
-  "event" : {
-    "en" : "Standard",
-    "fr" : "Standard"
+  "event": {
+    "en": "Standard",
+    "fr": "Standard"
   },
-  "eventDetail" : {
-    "en" : "Standard event field",
-    "fr" : "Champ événement standard"
+  "eventDetail": {
+    "en": "Standard event field",
+    "fr": "Champ événement standard"
   }
 }

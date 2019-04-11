@@ -1,24 +1,24 @@
 "use strict";
 
 module.exports = {
-  year: {
-    fr: 'an',
-    en: 'year'
+  "year": {
+    "fr": "an",
+    "en": "year"
   },
-  years: {
-    fr: 'ans',
-    en: 'years'
+  "years": {
+    "fr": "ans",
+    "en": "years"
   },
-  min: {
-    fr: 'De',
-    en: 'From'
+  "min": {
+    "fr": "De",
+    "en": "From"
   },
-  max: {
-    fr: 'à',
-    en: 'to'
+  "max": {
+    "fr": "à",
+    "en": "to"
   },
-  select: {
-    fr: 'Sélectionner',
-    en: 'Select'
+  "select": {
+    "fr": "Sélectionner",
+    "en": "Select"
   }
 }

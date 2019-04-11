@@ -1,24 +1,24 @@
 "use strict";
 
 module.exports = {
-  info: {
-    fr: 'Outils d\'inscription',
-    en: 'Registration tools'
+  "info": {
+    "fr": "Outils d'inscription",
+    "en": "Registration tools"
   },
-  placeholder: {
-    en: 'Links, emails or phone numbers. Separate each value with a tab or a comma.',
-    fr: 'Liens, emails ou numéros de téléphone. Séparez chaque valeur par une tabulation ou une virgule.'
+  "placeholder": {
+    "en": "Links, emails or phone numbers. Separate each value with a tab or a comma.",
+    "fr": "Liens, emails ou numéros de téléphone. Séparez chaque valeur par une tabulation ou une virgule."
   },
-  error: {
-    en: 'Invalid entries will not be saved. Separate each value with a tab or a comma.',
-    fr: 'Séparez chaque valeur par une tabulation ou une virgule. Les saisies non valides ne seront pas sauvegardées.'
+  "error": {
+    "en": "Invalid entries will not be saved. Separate each value with a tab or a comma.",
+    "fr": "Séparez chaque valeur par une tabulation ou une virgule. Les saisies non valides ne seront pas sauvegardées."
   },
-  invalid: {
-    en: 'Only links, emails or phone numbers are accepted',
-    fr: 'Seuls les liens, emails ou numéros de téléphone sont acceptés'
+  "invalid": {
+    "en": "Only links, emails or phone numbers are accepted",
+    "fr": "Seuls les liens, emails ou numéros de téléphone sont acceptés"
   },
-  registerBook: {
-    en: 'Register / book',
-    fr: 'S\'inscrire / réserver'
+  "registerBook": {
+    "en": "Register / book",
+    "fr": "S'inscrire / réserver"
   }
 }
