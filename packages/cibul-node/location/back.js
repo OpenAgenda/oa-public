@@ -22,7 +22,7 @@ const config = require( '../config' );
 const routes = {
 
     locationIndex: [ 'get', '/:slug/locations', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.list,
@@ -30,26 +30,25 @@ const routes = {
     ] ],
 
     agendaAdminLocations: [ 'get', '/:slug/admin/locations', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      _checkAdminOrModerator,
-      cmn.loadBaseData( 'oasfmain.css' ),
+      cmn.authorize.moderator,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.loadSettings(),
       show
     ] ],
 
     agendaAdminLocationsCsv: [ 'get', '/:slug/admin/locations/exports.csv', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      _checkAdminOrModerator,
+      cmn.authorize.moderator,
       forwardCsvExport
     ] ],
 
     agendaLocationSet: [ 'post', '/:slug/locations', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       _checkCreate,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -57,7 +56,7 @@ const routes = {
     ] ],
 
     agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -65,35 +64,35 @@ const routes = {
     ] ],
 
     agendaAdminLocationRemove: [ 'post', '/:slug/admin/locations/remove', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      _checkAdminOrModerator,
+      cmn.authorize.moderator,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.remove
     ] ],
 
     agendaAdminLocationMerge: [ 'post', '/:slug/admin/locations/merge', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      _checkAdminOrModerator,
+      cmn.authorize.moderator,
       mw.merge
     ] ],
 
     agendaAdminLocationTerms: [ 'get', '/:slug/admin/locations/terms', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      _checkAdminOrModerator,
+      cmn.authorize.moderator,
       mw.list.terms
     ] ],
 
     locationGetStakeholder: [ 'get', '/:slug/admin/locations/stakeholders/:stakeholderId', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      _checkAdminOrModerator,
+      cmn.authorize.moderator,
       ( req, res, next ) => {
 
         req.agendaId = req.agenda.id;
@@ -106,66 +105,66 @@ const routes = {
     ] ],
 
     locationGeocode: [ 'get', '/:slug/locations/geocode', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.geocode
     ] ],
 
     locationINSEE: [ 'get', '/:slug/locations/insee', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.insee
     ] ],
 
     locationReverseGeocode: [ 'get', '/:slug/locations/geocode/reverse', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.reverseGeocode
     ] ],
 
     locationResync: [ 'get', '/:slug/admin/locations/resync', [
-      _loadAgenda,
+      cmn.loadAgenda,
       cmn.verifyIPMiddleware,
       mw.resync,
       _resyncSuccess
     ] ],
 
     locationToVerifyCount: [ 'get', '/:slug/admin/locations/verifycount', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
-      _checkAdminOrModerator,
+      cmn.authorize.moderator,
       mw.getUnverifiedCount
     ] ],
 
     locationNewImageUpload: [ 'post', '/:slug/locations/image', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.newImageUpload
     ] ],
 
     locationNewImageRemove: [ 'post', '/:slug/locations/image/remove', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.newImageRemove
     ] ],
 
     locationImageUpload: [ 'post', '/:slug/locations/:locationUid/image', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
-      _checkAdminOrModerator,
+      cmn.authorize.moderator,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.imageUpload
     ] ],
 
     locationImageRemove: [ 'post', '/:slug/locations/:locationUid/image/remove', [
-      _loadAgenda,
+      cmn.loadAgenda,
       checkLogging,
-      _checkAdminOrModerator,
+      cmn.authorize.moderator,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.imageRemove
     ] ],
@@ -292,41 +291,5 @@ function _checkCreate( req, res, next ) {
 
   }
 
-  // there is an identifier. So a set is for moderators.
-  _checkAdminOrModerator( req, res, next );
-
-}
-
-
-function _checkAdminOrModerator( req, res, next) {
-
-  cmn.loadMemberRole( 'agenda', req, res, err => {
-
-    if ( err ) return next( err );
-
-    if ( [ 'administrator', 'moderator' ].includes( req.role ) ) return next();
-
-    next( { code: 403 } );
-
-  } );
-
-}
-
-
-function _loadAgenda( req, res, next ) {
-
-  agendaSvc.get( _.pick( req.params, [ 'slug' ] ), {
-    private: null,
-    internal: true,
-    includeImagePath: true
-  } ).then( agenda => {
-
-    if ( !agenda ) return next( { code: 404 } );
-
-    _.assign( req, { agenda } );
-
-    next();
-
-  }, next );
-
+  cmn.authorize.moderator( req, res, next );
 }

@@ -20,8 +20,8 @@ const layout = require( '../services/lib/layouts' ).load(
 const routes = {
 
   customizedShow: [ 'get', '/:slug/admin/settings/customize', cmn.verifyIPMiddleware.concat( [
-    _loadAgenda,
-    _checkAdmin,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
     cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),
     tagMw.get,
     categoryMw.get,
@@ -29,8 +29,8 @@ const routes = {
   ] ) ],
 
   customizedUpdate: [ 'post', '/:slug/admin/settings/customize', cmn.verifyIPMiddleware.concat( [
-    _loadAgenda,
-    _checkAdmin,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
     tagMw.set,
     categoryMw.set,
     _updateControlData,
@@ -95,40 +95,5 @@ function show( req, res ) {
     }
   } ) );
 
-
-}
-
-
-
-function _loadAgenda( req, res, next ) {
-
-  agendaSvc.get( _.pick( req.params, [ 'slug' ] ), {
-    private: null,
-    internal: true,
-    includeImagePath: true
-  } ).then( agenda => {
-
-    if ( !agenda ) return next( { code: 404 } );
-
-    _.assign( req, { agenda } );
-
-    next();
-
-  }, next );
-
-}
-
-
-function _checkAdmin( req, res, next) {
-
-  cmn.loadMemberRole( 'agenda', req, res, err => {
-
-    if ( err ) return next( err );
-
-    if ( [ 'administrator' ].includes( req.role ) ) return next();
-
-    next( { code: 403 } );
-
-  } );
 
 }

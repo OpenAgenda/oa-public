@@ -34,7 +34,7 @@ module.exports = app => {
   } );
 
   app.get( '/events/search/rebuild',
-    cmn.requireAdmin,
+    cmn.requireSuperAdmin,
     ( req, res ) => {
 
       search.rebuild().then( () => { console.log( 'done' ); } );

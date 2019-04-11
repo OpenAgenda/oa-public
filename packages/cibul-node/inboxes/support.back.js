@@ -22,7 +22,7 @@ const preMw = [
     req.creatorInboxUser = { userUid: req.user.uid };
     next();
   },
-  cmn.requireAdmin
+  cmn.requireSuperAdmin
 ];
 
 supportRouter.get( '/conversations/:conversationId/action/:code.json',

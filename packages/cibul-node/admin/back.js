@@ -23,7 +23,7 @@ const supportTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/
 const preMw = [
   cmn.loadBaseData(),
   sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-  cmn.requireAdmin
+  cmn.requireSuperAdmin
 ];
 
 

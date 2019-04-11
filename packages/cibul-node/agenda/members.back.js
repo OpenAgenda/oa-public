@@ -10,7 +10,7 @@ const sessions = require( '@openagenda/sessions' );
 const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
-const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
+const { mw: { load: oldAgendaLoad } } = require( '../services/agenda' );
 
 const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'members' }
@@ -133,7 +133,7 @@ module.exports = path => {
       private: null
     } ),
     oldAgendaLoad( 'slug' ),
-    cmn.checkAdminOrModerator,
+    cmn.authorize.moderator,
     agendasMw.evaluateIPAddress( {
       namespaces: {
         agenda: 'agendaInstance'

@@ -100,8 +100,10 @@ module.exports = {
 
   https,                        // middleware. force https ( redirect to when not )
 
-  requireAdmin,
+  requireSuperAdmin,
   loadBaseData,                 // middleware.
+  loadAgenda: loadAgendaBy( 'slug' ),
+  loadAgendaBy,
   assign,                       // middleware for assigning values to req or res
   checkCredential,              // middleware. check that request agenda has required credential
 
@@ -110,6 +112,10 @@ module.exports = {
   checkContributor,
   checkAdminOrModerator,
   checkAdminOrModeratorOrKey,
+  authorize: {
+    administrator: _authorize( [ 'administrator' ] ),
+    moderator: _authorize( [ 'administrator', 'moderator' ] )
+  },
   checkStakeholder,
   loadMemberRole,
   renderUnauthorized,
@@ -335,6 +341,25 @@ function loadMemberRole( agendaNamespace, req, res, next ) {
     } );
 
   } )
+
+}
+
+
+function _authorize( authorizedRoles = [] ) {
+
+  return ( req, res, next ) => {
+
+    loadMemberRole( 'agenda', req, res, err => {
+
+      if ( err ) return next( err );
+
+      if ( authorizedRoles.includes( req.role ) ) return next();
+
+      next( { code: 403 } );
+
+    } );
+
+  }
 
 }
 
@@ -926,7 +951,7 @@ function https( req, res, next ) {
 }
 
 
-function requireAdmin( req, res, next ) {
+function requireSuperAdmin( req, res, next ) {
 
   sessions.get( req, { detailed: true }, ( err, session ) => {
 
@@ -1086,6 +1111,27 @@ function loadLogger( name ) {
 
 }
 
+function loadAgendaBy( param ) {
+
+  return ( req, res, next ) => {
+
+    agendasSvc.get( _.pick( req.params, [ param ] ), {
+      private: null,
+      internal: true,
+      includeImagePath: true
+    } ).then( agenda => {
+
+      if ( !agenda ) return next( { code: 404 } );
+
+      _.assign( req, { agenda } );
+
+      next();
+
+    }, next );
+
+  }
+
+}
 
 function clearCookie( req, res, key ) {
 

@@ -30,14 +30,14 @@ const page = _.template( `<div class="margin-bottom-lg"><h2><%= labels.title %><
 const routes = {
 
   facebookShow: [ 'get', '/:slug/admin/facebook', [
-    _loadAgenda.bind( null, 'slug' ),
-    _checkAdmin,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
     show
   ] ],
 
   facebookTabLink: [ 'get', '/agendas/:uid/facebook/tab/link', [
-    _loadAgenda.bind( null, 'uid' ),
-    _checkAdmin,
+    cmn.loadAgendaBy( 'uid' ),
+    cmn.authorize.administrator,
     fb.tab.create
   ] ],
 
@@ -99,42 +99,5 @@ function _onComplete( req, res, next ) {
     res.redirect( `/${agenda.slug}/admin/facebook` );
 
   } );
-
-}
-
-
-/**
- * same as locations/back, envisage refactor
- */
-function _checkAdmin( req, res, next) {
-
-  cmn.loadMemberRole( 'agenda', req, res, err => {
-
-    if ( err ) return next( err );
-
-    if ( [ 'administrator' ].includes( req.role ) ) return next();
-
-    next( { code: 403 } );
-
-  } );
-
-}
-
-
-function _loadAgenda( param, req, res, next ) {
-
-  agendaSvc.get( _.pick( req.params, [ param ] ), {
-    private: null,
-    internal: true,
-    includeImagePath: true
-  } ).then( agenda => {
-
-    if ( !agenda ) return next( { code: 404 } );
-
-    _.assign( req, { agenda } );
-
-    next();
-
-  }, next );
 
 }

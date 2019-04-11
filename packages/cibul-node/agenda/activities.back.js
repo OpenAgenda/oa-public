@@ -9,20 +9,18 @@ const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 
-// to be deprecated
-const agendaSvc = require( '../services/agenda' );
-
 const agendas = require( '@openagenda/agendas' );
 
+const layout = require( '../services/lib/layouts' ).load(
+  'agendaAdmin', { selectedTab: 'activities' }
+);
+
 const appMw = [
-  agendaSvc.mw.loadAdminLayout,
-  agendas.middleware.load( {
-    namespaces: {
-      identifiers: { slug: 'params.slug' },
-      result: 'agendaFromService'
-    },
-    private: null
-  } ),
+  cmn.loadAgenda,
+  ( req, res, next ) => {
+    req.agendaFromService = req.agenda;
+    next();
+  },
   agendas.middleware.evaluateIPAddress( {
     private: null,
     namespaces: {
@@ -36,7 +34,6 @@ const appMw = [
 
     }
   } ),
-  cmn.loadBaseData( 'oasfmain.css' ),
   matchApp
 ];
 
@@ -61,8 +58,8 @@ module.exports = path => {
   router.pre( [
     cmn.loadLogger( 'agendaActivities' ),
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdminOrModerator
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
   ] );
 
   return {
@@ -113,7 +110,18 @@ async function matchApp( req, res, next ) {
       return res.redirect( 301, pathname );
     }
 
-    cmn.render( req, res, 'activities/agenda', { scriptParams: { initialState: state }, lang, content, preloaded: true } );
+    res.send( layout( `<div class="js_canvas">${content}</div>`, {
+      lang: req.lang,
+      agenda: req.agenda,
+      bodyAttributes: [ {
+        name: 'data-options',
+        value: JSON.stringify( { initialState: state } )
+      } ],
+      scripts: {
+        bottom: [ { src: '/js/sourcesIndex.js' } ]
+      }
+    } ) );
+
   } catch ( e ) {
     next( e );
   }
