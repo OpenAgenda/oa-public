@@ -1832,7 +1832,7 @@
     spin.js "2.3.2"
     xhr "2.2.0"
 
-"@openagenda/test-app@^2.0.3", "@openagenda/test-app@^2.0.4", "@openagenda/test-app@^2.0.7":
+"@openagenda/test-app@^2.0.3", "@openagenda/test-app@^2.0.7":
   version "2.0.7"
   resolved "https://registry.npmjs.org/@openagenda/test-app/-/test-app-2.0.7.tgz#06e1976db59ae53910a507fc0b3b778f25818f0c"
   integrity sha512-R4V4vs/wL4qYvxwRPNrf5UDeuxmrk7XgKfk6WG73G+2vTXYZMPeqtZyFa3X1+rPnDf4Py40gETFnl1A6BKLugw==
