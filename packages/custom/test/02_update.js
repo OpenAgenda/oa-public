@@ -2,19 +2,16 @@
 
 process.env.NODE_ENV = 'test';
 
-const should = require( 'should' ),
+const _ = require( 'lodash' );
+const ih = require( 'immutability-helper' );
+const mysql = require( 'mysql' );
+const should = require( 'should' );
 
-  _ = require( 'lodash' ),
+const schema = require( '@openagenda/validators/schema' );
 
-  svc = require( './service' ),
+const svc = require( './service' );
 
-  ih = require( 'immutability-helper' ),
-
-  mysql = require( 'mysql' ),
-
-  config = require( '../testconfig' ),
-
-  schema = require( '@openagenda/validators/schema' );
+const config = require( '../testconfig' );
 
 schema.register( {
   integer: require( '@openagenda/validators/integer' ),
@@ -27,18 +24,16 @@ describe( 'extended events - functional (server): update', function() {
 
     await svc.initAndLoad( ih( config, {
       interfaces: {
-        getValidator: { $set: formSchemaId => {
-
-          return schema( {
+        getValidator: {
+          $set: formSchemaId => schema( {
             edition: {
               type: 'integer'
             },
             contender: {
               type: 'text'
             }
-          } );
-
-        } }
+          } )
+        }
       }
     } ) );
 
@@ -46,12 +41,12 @@ describe( 'extended events - functional (server): update', function() {
 
   it( 'update the simplest extended event gives a success response', async () => {
 
-    let result = await svc( 3819893 ).create( 123, {
+    await svc( 3819893 ).create( 123, {
       edition: 12,
       contender: 'steve'
     } );
 
-    result = await svc( 3819893 ).update( 123, {
+    const result = await svc( 3819893 ).update( 123, {
       edition: 13,
       contender: 'bob'
     } );
@@ -74,7 +69,7 @@ describe( 'extended events - functional (server): update', function() {
 
     } ).then( () => {
 
-      let con = mysql.createConnection( config.mysql );
+      const con = mysql.createConnection( config.mysql );
 
       con.query( `select * from ${config.schemas.custom} where form_schema_id = ? and identifier = ?`, [ 12345, 678 ], ( err, rows ) => {
 
@@ -88,6 +83,24 @@ describe( 'extended events - functional (server): update', function() {
 
       } );
 
+    } );
+
+  } );
+
+  it( 'partial update only updates provided fields', async () => {
+
+    await svc( 3819893 ).create( 7666, {
+      edition: 22,
+      contender: 'Stanislas'
+    } );
+
+    const result = await svc( 3819893 ).update( 7666, {
+      contender: 'Boris'
+    }, { partial: true } );
+
+    result.should.eql( {
+      success: true,
+      custom: { edition: 22, contender: 'Boris' }
     } );
 
   } );

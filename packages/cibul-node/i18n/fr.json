@@ -37,10 +37,6 @@
   : "Vous n'êtes pas administrateur",
   "the campaign was updated"
   : "la campagne a été mise à jour",
-  "Your swapcard events are being updated"
-  : "Vos événements Swapcard sont en cours de mise à jour",
-  "Your swapcard events are now being unlinked"
-  : "Vos événements swapcard ne sont désormais plus liés",
   "Your account has been created, you can now login"
   : "Votre compte a été crée, vous pouvez vous connecter",
   "Activate your OpenAgenda account"

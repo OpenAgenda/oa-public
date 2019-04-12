@@ -111,7 +111,7 @@ async function _update( searchIndex, agendaUid, agendaEvent, options = {} ) {
 
   const decorated = await assemble.item( agendaEvent );
 
-  return await searchIndex.update( { uid: agendaEvent.eventUid }, decorated, validateOptions( options ) );
+  return searchIndex.update( { uid: agendaEvent.eventUid }, decorated, validateOptions( options ) );
 
 }
 
@@ -127,6 +127,6 @@ async function _remove( searchIndex, agendaEvent, options = {} ) {
 
   log( 'info', 'removing event %s from agenda index %s', agendaEvent.eventUid, searchIndex.name );
 
-  return await searchIndex.remove( { uid: agendaEvent.eventUid }, validateOptions( options ) );
+  return searchIndex.remove( { uid: agendaEvent.eventUid }, validateOptions( options ) );
 
 }

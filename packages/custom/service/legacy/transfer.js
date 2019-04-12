@@ -23,8 +23,8 @@ module.exports = _.assign( transfer, {
 
 function parse( fields, { custom, tags, category } ) {
 
-  return _.assign( 
-    libs.custom.parse( fields, custom ),
+  return _.assign(
+    libs.custom.parse( fields.filter( f => f.origin === 'custom' ), custom ),
     libs.tags.parse( fields.filter( f => f.origin === 'tags' ), tags ),
     libs.categories.parse( fields.filter( f => f.origin === 'categories' ), category )
   );

@@ -36,7 +36,7 @@ function init( config ) {
       default: config.aws.defaultImagePath,
       formats: [ {
         name: '{fileKey}.base.image.jpg',
-        format: { width: 600 },
+        format: { width: 700 },
         variant: 'base',
         sizeLimits: config.imageSizeLimits
       }, {

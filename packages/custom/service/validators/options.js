@@ -4,7 +4,8 @@ const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
   boolean: require( '@openagenda/validators/boolean' ),
-  integer: require( '@openagenda/validators/integer' )
+  integer: require( '@openagenda/validators/integer' ),
+  pass: require( '@openagenda/validators/pass' )
 } );
 
 module.exports = schema( {
@@ -26,5 +27,14 @@ module.exports = schema( {
     type: 'boolean',
     optional: true,
     default: true
+  },
+  partial: {
+    type: 'boolean',
+    optional: true,
+    default: false
+  },
+  preloaded: { // in case custom data is already in hand
+    type: 'pass',
+    optional: true
   }
 } );

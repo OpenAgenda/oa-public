@@ -43,7 +43,7 @@ export default class References extends Component {
 
     this.setState( { loading: true } );
 
-    this.get( { uid: this.props.value } ).then( events => {
+    this.get( { uids: this.props.value } ).then( events => {
 
       this.setState( {
         loading: false,

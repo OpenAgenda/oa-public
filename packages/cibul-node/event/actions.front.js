@@ -14,6 +14,7 @@ const config = require( '../config' );
 const eventSvc = require( '../services/event' );
 const model = require( '../services/model' );
 const modLib = require( '../lib/moduleLib' );
+const gaTrack = require( '../lib/gaTrackMw' );
 
 const routes = {
 
@@ -188,6 +189,7 @@ async function eventMailSend( req, res, next ) {
             }
 
             try {
+
               const getLocaleLabel = field => field.label[ req.lang ] || field.label[ Object.keys( field.label )[ 0 ] ];
               const fieldSchema = _.find( formSchema.fields, [ 'field', key ] );
               const label = getLocaleLabel( fieldSchema );
@@ -200,10 +202,16 @@ async function eventMailSend( req, res, next ) {
                     ? value.map( getLocaleLabel )
                     : getLocaleLabel( value )
               };
+
             } catch ( error ) {
-              req.log( 'error', 'Cannot retrieve the label for the field:', { agenda, key, value, error } );
+
+              req.log( 'error', 'Cannot retrieve the label for the field:', {
+                agenda: req.agenda,
+                key, value, error
+              } );
 
               return result;
+
             }
           },
           {}
@@ -262,6 +270,8 @@ async function eventMailSend( req, res, next ) {
       },
       lang: req.lang
     } );
+
+    gaTrack.batch( new Array( emails.length ).fill( [ 'event', 'share', 'email' ] ) )( req );
 
     sessions.setFlash( req, res, __( 'eventEmailSend', { 'count' : emails.length } ) );
     res.redirect( 302, req.genUrl( req.eventUri, req.eventUriParams ) );

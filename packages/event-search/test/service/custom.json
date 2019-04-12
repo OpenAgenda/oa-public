@@ -48,9 +48,11 @@
     "visitorprofiles": "End-users, internal and external specifiers",
     "partner": "",
     "partnerurl": "",
-    "organizername": "Reed Expositions France",
+    "organizername": "ADNOC",
     "organizerurl": "http://www.reedexpo.fr/",
-    "authortestimony": ""
+    "authortestimony": "",
+    "singlechoice" : 1,
+    "multichoice" : [ 10, 11 ]
   },
   {
     "periodicity": "annual",
@@ -60,9 +62,11 @@
     "visitorprofiles": "Travel trade professionals (travel agents, market manager from tour operator, travel managers, events planners..)",
     "partner": "",
     "partnerurl": "",
-    "organizername": "Reed Expositions France, Paris",
+    "organizername": "OpenAgenda",
     "organizerurl": "http://www.reedexpo.fr",
-    "authortestimony": ""
+    "authortestimony": "",
+    "singlechoice" : 2,
+    "multichoice" : [ 12, 13 ]
   },
   {
     "periodicity": "annual",

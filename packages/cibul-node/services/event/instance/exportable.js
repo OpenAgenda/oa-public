@@ -69,7 +69,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
   /**
    * format event export-ready version of the event data
    */
-  
+
   function exportable( options, cb ) {
 
     if ( arguments.length === 1 ) {
@@ -98,6 +98,7 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         thumbnail: loaded.getThumbnail(),
         originalImage: loaded.getFullImage(),
         updatedAt: instance.updatedAt,
+        createdAt: instance.createdAt,
         age: instance.getAge(),
         accessibility: instance.getAccessibility(),
         origin: instance.origin,
@@ -133,9 +134,9 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     let timezone = v.exportable.location.timezone || 'Europe/Paris';
 
-    let timings = filterTimings( 
-      v.exportable.timings, 
-      v.filter, 
+    let timings = filterTimings(
+      v.exportable.timings,
+      v.filter,
       timezone
     ).map( t => ( {
       start: new Date( t.start ),
@@ -275,7 +276,7 @@ function _inject( c, l, map ) {
     c[ f ] = null;
 
     if ( l[ map[ f ] ] ) {
-      
+
       c[ f ] = l[ map[ f ] ];
 
     }

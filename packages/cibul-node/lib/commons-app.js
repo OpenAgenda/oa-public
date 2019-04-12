@@ -7,6 +7,7 @@
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const hsts = require( 'hsts' );
+const fs = require( 'fs' );
 const languages = require( 'languages' );
 const qs = require( 'qs' );
 const wn = require( 'when/node' );
@@ -22,6 +23,7 @@ const templater = require( '@openagenda/cibul-templates' );
 const utils = require( '@openagenda/utils' );
 
 const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorized' ) );
+const getErrorLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/errors' ) );
 
 const config = require( '../config' );
 const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
@@ -29,6 +31,9 @@ const genUrl = require( '../services/genUrl' );
 const errorLogger = require( '../services/00_errors' );
 const i18n = require( '../i18n/i18n.js' );
 const model = require( '../services/model' );
+
+const layouts = require( '../services/lib/layouts' );
+const renderError = _.template( fs.readFileSync( __dirname + '/error.tpl', 'utf-8' ) );
 
 const log = logger( 'commons-app' );
 
@@ -95,8 +100,10 @@ module.exports = {
 
   https,                        // middleware. force https ( redirect to when not )
 
-  requireAdmin,
+  requireSuperAdmin,
   loadBaseData,                 // middleware.
+  loadAgenda: loadAgendaBy( 'slug' ),
+  loadAgendaBy,
   assign,                       // middleware for assigning values to req or res
   checkCredential,              // middleware. check that request agenda has required credential
 
@@ -105,6 +112,10 @@ module.exports = {
   checkContributor,
   checkAdminOrModerator,
   checkAdminOrModeratorOrKey,
+  authorize: {
+    administrator: _authorize( [ 'administrator' ] ),
+    moderator: _authorize( [ 'administrator', 'moderator' ] )
+  },
   checkStakeholder,
   loadMemberRole,
   renderUnauthorized,
@@ -334,6 +345,25 @@ function loadMemberRole( agendaNamespace, req, res, next ) {
 }
 
 
+function _authorize( authorizedRoles = [] ) {
+
+  return ( req, res, next ) => {
+
+    loadMemberRole( 'agenda', req, res, err => {
+
+      if ( err ) return next( err );
+
+      if ( authorizedRoles.includes( req.role ) ) return next();
+
+      next( { code: 403 } );
+
+    } );
+
+  }
+
+}
+
+
 function checkAdminOrModerator( req, res, next ) {
 
   _prepareSession( req, res, err => {
@@ -461,8 +491,6 @@ function renderUnauthorized() {
 
 function errorResponse( req, res, error, jsonResponse ) {
 
-  let errorTemplate;
-
   if ( !error.code ) {
 
     if ( error.statusCode ) {
@@ -497,13 +525,9 @@ function errorResponse( req, res, error, jsonResponse ) {
 
       errorLogger( 'req', error );
 
-      errorTemplate = 'error/show';
-
       res.code = 500;
 
     } else {
-
-      errorTemplate = 'error/show';
 
       res.code = error.code;
 
@@ -543,19 +567,41 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     }
 
-    if ( req.baseData ) {
+    const data = {
+      code: error.code,
+      message: error.message,
+      back: _.get( error, 'back', {
+        label: getErrorLabel( 'defaultBack', req.lang ),
+        link: '/'
+      } )
+    };
 
-      req.baseData.head.css.main = '/css/compiled.css';
+    const layoutData = {
+      lang: req.lang,
+      title: error.code
+    };
 
-      render( req, res, errorTemplate, error );
+    if ( !error.back && req.agenda ) {
+
+      data.back = {
+        label: getErrorLabel( 'defaultAgendaBack', req.lang ),
+        link: `/${req.agenda.slug}`
+      }
+
+    }
+
+    res.status( error.code || 500 );
+
+    if ( req.agenda ) {
+
+      layoutData.agenda = req.agenda;
+
+      res.send( layouts.agenda( renderError( data ), layoutData ) );
+
 
     } else {
 
-      loadBaseData()( req, res, function () {
-
-        render( req, res, errorTemplate, error );
-
-      } );
+      res.send( layouts.main( renderError( data ), layoutData ) );
 
     }
 
@@ -577,7 +623,7 @@ function catchError( req, res, jsonResponse ) {
 
     if ( err.code == 404 ) {
 
-      if ( !err.message ) err.message = 'The page you requested does not exist';
+      if ( !err.message ) err.message = getErrorLabel( 'pageDoesNotExist', req.lang );
 
       res.code = 404;
 
@@ -905,7 +951,7 @@ function https( req, res, next ) {
 }
 
 
-function requireAdmin( req, res, next ) {
+function requireSuperAdmin( req, res, next ) {
 
   sessions.get( req, { detailed: true }, ( err, session ) => {
 
@@ -1065,6 +1111,27 @@ function loadLogger( name ) {
 
 }
 
+function loadAgendaBy( param ) {
+
+  return ( req, res, next ) => {
+
+    agendasSvc.get( _.pick( req.params, [ param ] ), {
+      private: null,
+      internal: true,
+      includeImagePath: true
+    } ).then( agenda => {
+
+      if ( !agenda ) return next( { code: 404 } );
+
+      _.assign( req, { agenda } );
+
+      next();
+
+    }, next );
+
+  }
+
+}
 
 function clearCookie( req, res, key ) {
 

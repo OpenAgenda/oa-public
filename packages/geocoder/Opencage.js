@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const axios = require( 'axios' );
+const getDistrict = require( './getDistrict' );
 
 const forwardURL = ( query, { key, pretty, countryCode, language } ) => [
   `https://api.opencagedata.com/geocode/v1/json?key=${key}&q=${encodeURIComponent( query )}`,
@@ -30,17 +31,52 @@ async function reverse( key, latitude, longitude, { first, language, raw } ) {
     url: reverseURL( latitude, longitude, { key, language } ),
   } ).then( r => _.get( r, 'data.results' ).map( parseResponseItem.bind( null, { raw } ) ) );
 
+  await Promise.all(
+    first ? [ attachDistrict( _.first( results ) ) ] : results.map( attachDistrict )
+  );
+
   return first ? _.first( results ) : results;
 
 }
 
 async function geocode( key, query, { countryCode, language, raw, first } ) {
 
+  const {
+    query: cleanQuery,
+    countryCode: cleanCountryCode
+  } = cleanGeocodeQuery( query, countryCode );
+
   const results = await axios.request( {
-    url: forwardURL( query, { key, countryCode, language } ),
+    url: forwardURL( cleanQuery, {
+      key,
+      countryCode: cleanCountryCode,
+      language
+    } )
   } ).then( r => _.get( r, 'data.results' ).map( parseResponseItem.bind( null, { raw } ) ) );
 
+  await Promise.all(
+    first ? [ attachDistrict( _.first( results ) ) ] : results.map( attachDistrict )
+  );
+
   return first ? _.first( results ) : results;
+
+}
+
+function cleanGeocodeQuery( query, countryCode ) {
+
+  return {
+    countryCode: [
+      'YT',
+      'PF',
+      'GF',
+      'PM',
+      'MQ',
+      'GP',
+      'RE',
+      'NC'
+    ].includes( countryCode ) ? 'FR' : countryCode,
+    query
+  }
 
 }
 
@@ -59,8 +95,14 @@ function parseResponseItem( { raw }, item ) {
     countryCode: _.get( item, 'components.country_code', null )
   };
 
-  if ( raw ) parsed.raw = item;
+  if ( raw ) {
+    parsed.raw = item;
+  }
 
   return parsed;
 
+}
+
+async function attachDistrict( location ) {
+  location.district = await getDistrict( location );
 }

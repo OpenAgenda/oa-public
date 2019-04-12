@@ -28,7 +28,8 @@ export default class MessageForm extends Component {
   };
 
   static defaultProps = {
-    Wrapper: 'div'
+    Wrapper: 'div',
+    autoFocus: false
   };
 
   state = {
@@ -50,7 +51,7 @@ export default class MessageForm extends Component {
         ]
       },
       autoProceed: false,
-      locale: uppyLocales.Core[ lang ]
+      locale: uppyLocales.Core[ lang ] || uppyLocales.Core[ 'fr' ]
     } );
 
     uppy.use( AwsS3, {
@@ -124,7 +125,7 @@ export default class MessageForm extends Component {
   } );
 
   render() {
-    const { submit, submitting, getLabel, lang, Wrapper, error } = this.props;
+    const { autoFocus, submitting, getLabel, lang, Wrapper, error } = this.props;
 
     const numberFiles = Object.keys( this.uppy.getState().files ).length;
 
@@ -133,6 +134,7 @@ export default class MessageForm extends Component {
       { handleSubmit: this.handleSubmit, submitting, error },
       <Fragment>
         <Field
+          autoFocus={autoFocus}
           component={renderTextarea}
           name="body"
           className="form-control"
@@ -171,7 +173,7 @@ export default class MessageForm extends Component {
             disableStatusBar={true}
             maxHeight={300}
             note={getLabel( 'uppyNote' )}
-            locale={uppyLocales.Dashboard[ lang ]}
+            locale={uppyLocales.Dashboard[ lang ] || uppyLocales.Dashboard[ 'fr' ]}
           />
 
           <div className="text-center padding-top-md">
@@ -185,7 +187,7 @@ export default class MessageForm extends Component {
           uppy={this.uppy}
           hideUploadButton={true}
           showProgressDetails={true}
-          locale={uppyLocales.StatusBar[ lang ]}
+          locale={uppyLocales.StatusBar[ lang ] || uppyLocales.StatusBar[ 'fr' ]}
         />
       </Fragment>
     );

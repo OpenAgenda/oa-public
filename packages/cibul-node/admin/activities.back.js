@@ -16,9 +16,8 @@ const appMw = [
 const preMw = [
   cmn.loadLogger( 'activities' ),
   sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
-  cmn.requireAdmin
+  cmn.requireSuperAdmin
 ];
-
 
 module.exports = app => {
 
@@ -27,7 +26,6 @@ module.exports = app => {
   app.get( '/admin/activities/list', preMw, mw.list() );
 
 };
-
 
 async function matchApp( req, res, next ) {
   const prefix = '/admin/activities';

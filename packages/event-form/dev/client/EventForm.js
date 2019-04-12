@@ -7,11 +7,12 @@ export default class DevEventForm extends Component {
   render() {
 
     return <EventForm
+      devOnChange={this.props.devOnChange}
       schemaExtensions={this.props.schemaExtensions}
       locationRes="/locations"
       referencesRes="/references"
       suggestionsRes="/references"
-      lang="de"
+      lang="fr"
       classNames={{
         fieldsCanvas: 'padding-all-md wsq',
         bottomErrorsCanvas: 'error-summary padding-all-md',

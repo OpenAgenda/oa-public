@@ -101,19 +101,20 @@ function cleanFileValues( ns, req, res, next ) {
 /**
  * Upload files found in file values namespace to S3
  */
-function uploadFilesToS3( ns, req, res, next ) {
+function uploadFilesToS3( options, req, res, next ) {
 
-  const namespaces = _.assign( {
-    fileFieldValues: 'fileFieldValues'
-  }, ns );
+  const params = _.assign( {
+    fileFieldValues: 'fileFieldValues',
+    ignore: []
+  }, options || {} );
 
-  const fileFieldsValues = req[ namespaces.fileFieldValues ];
+  const fileFieldsValues = _.omit( req[ params.fileFieldValues ], params.ignore );
 
   if ( !_.keys( fileFieldsValues ).length ) return next();
 
-  s3MultipleUploads( fileFieldsValues ).then( 
-    () => next(), 
-    err => next( err ) 
+  s3MultipleUploads( fileFieldsValues ).then(
+    () => next(),
+    err => next( err )
   );
 
 }

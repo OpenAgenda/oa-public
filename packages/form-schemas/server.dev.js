@@ -43,6 +43,21 @@ dev.use( '/fonts', express.static( __dirname + '/../bs-templates/templates/fonts
 
 dev.get( '/:page', ( req, res ) => res.send( render( req.params.page ) ) );
 
+dev.post( '/formbuilder',
+  bodyParser.json(),
+  ( req, res, next ) => {
+
+  console.log( req.body );
+  console.log( 'waiting for a while...' );
+
+  setTimeout( () => {
+
+    res.status( 200 ).send();
+
+  }, 3000 );
+
+} );
+
 dev.post( '/:page',
   bodyParser.json(),
   ( req, res, next ) => {

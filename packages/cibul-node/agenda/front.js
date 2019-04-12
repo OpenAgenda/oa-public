@@ -15,7 +15,7 @@ const registration = require( '@openagenda/registration/src/validate' ).getTypes
 
 const controlDataSvc = require( '../services/legacy' ).controlData;
 
-const layoutSvc = require( '../services/lib/layout' );
+const layouts = require( '../services/lib/layouts' );
 
 const  modLib = require( '../lib/moduleLib' ),
 
@@ -30,6 +30,8 @@ const  modLib = require( '../lib/moduleLib' ),
   getEventLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) ),
 
   unauthorizedIpLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedIp' ) ),
+
+  getAgendaSearchLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search' ) ),
 
   agendaSvc = require( '../services/agenda' ),
 
@@ -153,7 +155,6 @@ const  modLib = require( '../lib/moduleLib' ),
       _redirectSlashed,
       _modifiedSince1am,
       agendaSearch.mw.list,
-      cmn.loadBaseData( 'oasfmain.css' ),
       agendaSearchPage
     ] ],
 
@@ -400,22 +401,23 @@ function agendaSearchPage( req, res, next ) {
 
   if ( req.xhr ) return next();
 
-  req.bodyAttributes = [ {
-    name: 'data-options',
-    value: JSON.stringify( {
-      lang: req.lang,
-      canvas: '.js_search_canvas',
-      agendas: req.data.agendas,
-      total: req.data.total,
-      res: req.genUrl( 'agendaSearchFormats', { format: 'json' } )
-    } )
-  } ];
-
-  req.scripts = {
-    bottom: [ { path: '/js/agendaSearchIndex.js' } ]
-  };
-
-  res.send( layoutSvc( req, `<div class="js_search_canvas">${req.content}</div>`) );
+  res.send( layouts.main( `<div class="js_search_canvas">${req.content}</div>`, {
+    lang: req.lang,
+    title: getAgendaSearchLabel( 'searchTitle', req.lang ),
+    scripts: {
+      bottom: [ { src: '/js/agendaSearchIndex.js' } ]
+    },
+    bodyAttributes: [ {
+      name: 'data-options',
+      value: JSON.stringify( {
+        lang: req.lang,
+        canvas: '.js_search_canvas',
+        agendas: req.data.agendas,
+        total: req.data.total,
+        res: req.genUrl( 'agendaSearchFormats', { format: 'json' } )
+      } )
+    } ]
+  } ) );
 
 }
 

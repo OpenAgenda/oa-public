@@ -9,7 +9,7 @@
     vertical-align: top;
 
   }
-  
+
   li {
 
     display: inline-block;
@@ -23,7 +23,7 @@
       border-radius: 3px;
 
       span {
-      
+
         padding: 8px;
         display: inline-block;
         cursor: pointer;
@@ -79,5 +79,19 @@
     margin-bottom: 9px;
 
   }
- 
+
+  &.thin {
+
+    padding-top: 0;
+
+    ul {
+      margin-bottom: 0;
+    }
+
+    li {
+      padding-bottom: 0;
+    }
+
+  }
+
 }

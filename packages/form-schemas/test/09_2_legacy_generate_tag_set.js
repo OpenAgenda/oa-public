@@ -9,12 +9,12 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
   it( 'updates pre-existing tag set', () => {
 
     const schema = {
-      id: 1,
       fields: [ {
         origin: 'tags',
         field: 'nantes',
         label: 'Nantes',
         fieldType: 'checkbox',
+        schemaId: 1,
         options: [ {
           id: 1,
           value: 'un',
@@ -29,6 +29,7 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
         field: 'paris',
         label: 'Paris',
         fieldType: 'checkbox',
+        schemaId: 1,
         options: [ {
           id: 3,
           value: 'trois',
@@ -99,7 +100,6 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
   it( 'takes a form schema and returns a matching tag set', () => {
 
     const schema = {
-      id: 1,
       nextOptionId: 8,
       "defaultLabelLanguage": null,
       fields: [
@@ -118,6 +118,7 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
           display: true,
           min: null,
           max: null,
+          schemaId: 1,
           options: [ {
             id: 1,
             value: 'ecole',
@@ -167,6 +168,7 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
           read: null,
           "optional": true,
           display: true,
+          schemaId: 1,
           "options": [
             {
               "id": 5,

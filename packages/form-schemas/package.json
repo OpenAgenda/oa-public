@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/form-schemas",
-  "version": "1.4.6",
+  "version": "1.4.19",
   "description": "Handle event data structure configuration storage",
   "main": "server/index.js",
   "repository": {
@@ -9,7 +9,7 @@
   },
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/form-schemas",
   "scripts": {
-    "test": "mocha --exit",
+    "test": "mocha --compilers js:@babel/register --exit",
     "prepublish": "yarn build",
     "start": "nodemon server.dev",
     "build": "rimraf client/build && babel client/src -d client/build -s"
@@ -24,12 +24,18 @@
     "@openagenda/validators": "^2.1.3",
     "aws-sdk": "^2.306.0",
     "body-parser": "^1.18.3",
+    "classnames": "^2.2.6",
     "core-js": "^3.0.1",
     "immutability-helper": "^3.0.0",
     "immutable": "^3.8.2",
     "knex": "^0.16.3",
+    "languages": "^0.1.3",
     "lodash": "^4.16.6",
     "marked": "^0.4.0",
+    "react": "^16.7.0",
+    "react-addons-css-transition-group": "^15.6.2",
+    "react-beautiful-dnd": "^10.0.4",
+    "react-dom": "^16.7.0",
     "react-dropzone": "^5.0.1",
     "slate": "^0.34.7",
     "slate-html-serializer": "^0.6.13",

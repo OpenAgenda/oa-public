@@ -33,7 +33,7 @@ module.exports = {
     "fr": "Mettre à jour",
     "en": "Update",
     "it": "Modificare",
-    "de": "ändern ",
+    "de": "ändern",
     "br": "Hizivaat"
   },
   "editEvent": {

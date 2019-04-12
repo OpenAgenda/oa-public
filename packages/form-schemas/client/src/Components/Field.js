@@ -22,6 +22,7 @@ const FieldComponents = {
   slate: require( './SlateField' ),
   radio: require( './RadioField' ),
   checkbox: require( './CheckboxField' ),
+  boolean: require( './BooleanField' ),
   date: require( './DateField' ),
   file: require( './FileField' ),
   image: require( './ImageField' )
@@ -38,6 +39,9 @@ module.exports = class Field extends Component {
     const hasMaxCounter = field.max
       && !isMultilingual
       && ![ 'integer', 'number' ].includes( field.fieldType );
+
+    // field is decorated with labels
+    const decorated = ![ 'boolean' ].includes( field.fieldType );
 
     const Component = this.getFieldComponent( isMultilingual );
 
@@ -58,16 +62,16 @@ module.exports = class Field extends Component {
       'has-error' : !!error,
       'multilingual-input-field' : isMultilingual
     } ) } key={field.field}>
-      {field.label ? <label className={classNames({
+      {decorated && field.label ? <label className={classNames({
         'control-label' : true,
         'margin-right-xs' : !field.optional || field.help || field.helpLink
       })}>{field.label}</label> : null}
-      {field.optional ? '' : <span className={classNames({
+      {!decorated || field.optional ? '' : <span className={classNames({
         'margin-right-xs' : field.help || field.helpLink,
         error: !!error
       })}>{'(' + labels.required + ')'}</span>}
       {field.help || field.helpLink ? <Help id={'help-' + field.field} content={field.help} lang={lang} link={field.helpLink} /> : null }
-      <Info value={field.info}/>
+      {decorated ? <Info value={field.info}/> : null}
       <Component
         enabled={isEnabled}
         lang={lang}

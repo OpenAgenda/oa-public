@@ -8,7 +8,7 @@ const fs = require( 'fs' );
 const surveys = require( '@openagenda/surveys/server' );
 const { middleware: agendasMw } = require( '@openagenda/agendas' );
 
-const layout = require( '../lib/layout' );
+const layout = require( '../lib/layouts' ).agenda;
 
 module.exports = _.extend( ( parentApp, path = '' ) => {
 

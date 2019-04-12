@@ -42,7 +42,7 @@ dev.use( require( 'webpack-hot-middleware' )( compiler ) );
 
 dev.get( '/', ( req, res ) => {
 
-  res.send( devLayout( req, '<div class="container margin-top-lg">' +
+  res.send( devLayout( '<div class="container margin-top-lg">' +
     _.chunk( scenarios, 4 ).map( chunk => '<div class="row">' +
       chunk.map( scenario => `
         <div class="col-md-3">
@@ -53,7 +53,8 @@ dev.get( '/', ( req, res ) => {
           </div>
         </div>
       ` ).join( '' ) +
-    '</div>' ).join( '' ) + '</div>'
+    '</div>' ).join( '' ) + '</div>',
+    req
   ) );
 
 } );

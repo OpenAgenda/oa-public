@@ -10,7 +10,7 @@ const config = require( '../config' );
 const preMw = [
   cmn.loadBaseData( 'compiledAdmin.css' ),
   sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-  cmn.requireAdmin
+  cmn.requireSuperAdmin
 ];
 
 

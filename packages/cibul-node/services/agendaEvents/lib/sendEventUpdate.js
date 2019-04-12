@@ -1,11 +1,15 @@
 "use strict";
 
-const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
+const { promisify } = require( 'util' );
+const VError = require( 'verror' );
+
+const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventUpdate' );
 const mails = require( '@openagenda/mails' );
 const membersSvc = require( '@openagenda/agenda-stakeholders' );
 const usersSvc = require( '@openagenda/users' );
-const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
+
 const genUrl = require( '../../genUrl' );
 
 
@@ -41,7 +45,12 @@ module.exports = async ( { agendaEvent, context, agenda, event } ) => {
   const creator = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: creatorUser.id } );
   const creatorLang = creatorUser.culture || 'fr';
 
-  if ( agendaEvent.agendaUid === event.agendaUid ) {
+  if ( !creator ) {
+
+    log( 'creator member was not found for user of uid % in agenda %s', event.creatorUid, agenda.slug );
+
+  } else if ( agendaEvent.agendaUid === event.agendaUid ) {
+
      await mails( {
       template: 'myEventUpdate',
       to: {
@@ -64,6 +73,15 @@ module.exports = async ( { agendaEvent, context, agenda, event } ) => {
       },
       lang: creatorLang
     } );
+
+  }
+
+  if ( _.get( context, 'batched' ) ) {
+
+    log( 'part of batch, not sending event update email' );
+
+    return;
+
   }
 
   await mails( {

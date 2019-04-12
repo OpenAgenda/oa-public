@@ -1,20 +1,15 @@
 "use strict";
 
 const React = require( 'react' );
-const ReactDOM = require( 'react-dom/server' );
-const config = require( '../config' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const mw = require( '@openagenda/agenda-settings' ).mw;
-const createApp = require( '@openagenda/agenda-settings/dist/client/createApp' );
-const editApp = require( '@openagenda/agenda-settings/dist/client/editApp' );
 const agendaSvc = require( '../services/agenda' );
 const sessions = require( '@openagenda/sessions' );
 const keysMw = require( '@openagenda/keys/middleware' );
 
 const labels = require( '@openagenda/labels/agenda-settings/agendaEdition' );
 const getLabel = require( '@openagenda/labels' )( labels );
-
 
 module.exports = path => {
 

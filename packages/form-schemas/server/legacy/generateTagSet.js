@@ -17,13 +17,16 @@ module.exports = ( schema, currentTagSet = null ) => {
     .filter( f => !f.origin )
     .map( f => `${f.field}: field origin is not set` );
 
-  if ( !tagSettableFields.length ) return null;
+  if ( !tagSettableFields.length ) return {
+    messages: [ 'no tag-like fields' ],
+    tagSet: null
+  };
 
   tagSettableFields.forEach( f => {
 
     const index = tagSetGroups.map( g => g.name ).indexOf( _monoLabel( f.label ) );
 
-    const tags = _defineTags( schema.id, index === -1 ? [] : tagSetGroups[ index ].tags, f.options );
+    const tags = _defineTags( f.schemaId, index === -1 ? [] : tagSetGroups[ index ].tags, f.options );
 
     if ( index === -1 ) {
 
@@ -46,7 +49,8 @@ module.exports = ( schema, currentTagSet = null ) => {
     tagSet: {
       groups: tagSetGroups
     },
-    messages
+    messages,
+    fields: tagSettableFields
   }
 
 }
@@ -61,12 +65,11 @@ function _defineTags( schemaId, tags = [], options = [] ) {
     const slug = o.value;
     const schemaOptionId = `${schemaId}.${o.id}`;
 
-    // if schemaOptionId is specified in tag, use it for match
-    if ( _hasSchemaOptionId( tags ) ) {
+    // attempt match on schemaOptionId
+    matchingTagIndex = _.findIndex( tags, { schemaOptionId } );
 
-      matchingTagIndex = _.findIndex( tags, { schemaOptionId } );
-
-    } else { // we match based on label
+    // attempt match on label
+    if ( matchingTagIndex === -1 ) {
 
       matchingTagIndex = _.findIndex( tags, { label: _monoLabel( o.label ) } );
 

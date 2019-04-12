@@ -10,8 +10,8 @@ const schemaToCustom = {
   markdown: 'textarea',
   slate: 'textarea',
   html: 'textarea',
-  image: 'text',
-  file: 'text',
+  image: 'image',
+  file: 'file',
   url: 'url',
   email: 'email'
 }

@@ -17,6 +17,7 @@ const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const cacheMw = require( '../lib/cache.mw' );
+const gaTrack = require( '../lib/gaTrackMw' );
 
 const ODSJSONParser = require( '@openagenda/legacy/exports/ODSJSONParser' );
 
@@ -25,7 +26,11 @@ const routes = {
 
   agendaJsonEvents: [ 'get', '/events.json', [
     checkKey(),
-    cacheMw.send( 'agendas', 'params.uid' ),
+    cacheMw.send(
+      'agendas',
+      'params.uid',
+      ( cached, req ) => gaTrack( 'events', 'export', 'json' )( req )
+    ),
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     agendaSvc.mw.search( perPage ),
@@ -39,6 +44,7 @@ const routes = {
       limit: req.limit,
       events: req.formatted,
     } ) ),
+    gaTrack( 'events', 'export', 'json' ),
     json
   ] ],
 
@@ -47,6 +53,7 @@ const routes = {
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     _prepareLocationExport,
     locationMw.list,
+    gaTrack( 'locations', 'export', 'json' ),
     ( req, res ) => cmn.renderJson( req, res, req.locations )
   ] ],
 
@@ -58,6 +65,7 @@ const routes = {
       _loadCategorySet,
       _loadEmbedUids,
       locationMw.loadSettings( 'locationSettings', true ),
+      gaTrack( 'settings', 'export', 'json' ),
       ( req, res ) => cmn.renderJson( req, res, _.assign(
         _.pick( req.agenda, [ 'title', 'description', 'slug', 'url' ] ),
         {
@@ -75,12 +83,14 @@ const routes = {
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     locationMw.loadSettings( 'locationSettings' ),
+    gaTrack( 'events', 'export', 'csv' ),
     agendaSvc.mw.buildCsv( false )
   ] ],
 
   agendaPdfEvents: [ 'get', '/events.pdf', [
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    gaTrack( 'events', 'export', 'pdf' ),
     agendaSvc.mw.buildPdf
   ] ],
 
@@ -88,6 +98,7 @@ const routes = {
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     locationMw.loadSettings( 'locationSettings' ),
+    gaTrack( 'events', 'export', 'xlsx' ),
     agendaSvc.mw.buildXlsx( false )
   ] ],
 
@@ -95,12 +106,14 @@ const routes = {
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     agendaSvc.mw.search( 20 ),
+    gaTrack( 'events', 'export', 'rss' ),
     agendaSvc.mw.rss
   ] ],
 
   agendaIcsEvents: [ 'get', '/events.ics', [
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    gaTrack( 'events', 'export', 'ics' ),
     agendaSvc.mw.buildIcs
   ] ],
 

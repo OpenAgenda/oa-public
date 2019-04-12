@@ -244,7 +244,9 @@ async function agendaEventShow( req, res, next ) {
 
   }
 
-  _addLanguageLinks( req, `/${req.agenda.slug}/events/${req.event.slug}`, reqParams );
+  const eventUrl = `/${req.agenda.slug}/events/${req.event.slug}`;
+
+  _addLanguageLinks( req, eventUrl, reqParams );
 
   _addContactLink( req );
 
@@ -267,6 +269,7 @@ async function agendaEventShow( req, res, next ) {
       agendaId: req.agenda.id,
       private: req.agenda.private,
       adminNav: req.query.admin_nav,
+      redirect: req.query.admin_nav ? new Buffer( `${eventUrl}?${qs.stringify( req.query )}`, 'utf8' ).toString( 'base64' ) : null,
       event: req.formatted,
       components: req.components,
       userStakeholder,

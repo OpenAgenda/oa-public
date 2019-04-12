@@ -82,7 +82,8 @@ function changeStates( req, res, next ) {
   req.agenda.changeEventStates( stateSwitch[ 0 ], stateSwitch[ 1 ], {
     context: {
       userUid: req.user.uid,
-      agendaUid: req.agenda.uid
+      agendaUid: req.agenda.uid,
+      batched: true
     }
   }, err => {
 

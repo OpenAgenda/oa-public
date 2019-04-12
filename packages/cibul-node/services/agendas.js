@@ -4,8 +4,9 @@ const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const activities = require( '@openagenda/activities' );
-const users = require( '@openagenda/users' );
+const imageFiles = require( '@openagenda/image-files' );
 const keys = require( '@openagenda/keys' );
+const users = require( '@openagenda/users' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const model = require( './model' );
 const coms = require( '../lib/coms' );
@@ -38,7 +39,10 @@ module.exports.init = c => {
       onCreate: onCreate.bind( null, config.mainChannel ),
       onUpdate: onUpdate.bind( null, config.mainChannel ),
       beforeRemove,
-      onRemove
+      onRemove,
+      imageFilesLoad: imageFiles.load,
+      imageFilesClear: imageFiles.clear,
+      imageFilesGetBasePath: imageFiles.getBucketPath
     }
   } );
 

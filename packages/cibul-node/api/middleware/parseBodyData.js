@@ -5,11 +5,13 @@ const bodyParser = require( 'body-parser' );
 const qs = require( 'qs' );
 
 module.exports = [
-  bodyParser.raw( {
-    inflate: true,
-    limit: '500kb',
-    type: 'text/plain'
-  } ),
+  ( req, res, next ) => {
+
+    const parser = req.method === 'PATCH' ? bodyParser.json() : bodyParser.raw( { inflate: true, limit: '500kb', type: 'text/plain' } );
+
+    parser( req, res, next );
+
+  },
   ( req, res, next ) => {
 
     if ( _.isBuffer( req.body ) ) {

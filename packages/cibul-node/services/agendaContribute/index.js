@@ -6,7 +6,7 @@ const agendas = require( '@openagenda/agendas' );
 const contribute = require( '@openagenda/agenda-contribute' );
 const sessions = require( '@openagenda/sessions' );
 
-const layout = require( '../lib/layout' );
+const layout = require( '../lib/layouts' ).agenda;
 
 const cmn = require( '../../lib/commons-app' );
 
@@ -40,6 +40,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     ( req, res, next ) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse( req, res, { code: 404 } ),
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, `/${req.agenda.slug}/signup?redirect=${base64.encode( req.originalUrl )}` ) ),
     middlewares.member,
+    middlewares.verifyMemberAuthorization,
     middlewares.schemaExtensions,
     middlewares.duplicateFromEvent
   ] );
@@ -48,6 +49,8 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], middlewares.event );
+
+  parentApp.get( '/:agendaSlug/contribute/event/:eventUid', middlewares.defineUpdateRedirect );
 
   parentApp.all( [
     '/:agendaSlug/contribute',
@@ -61,11 +64,11 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
       base: `/${req.agenda.slug}/contribute`,
       edit: _.get( req, 'event.uid' ) && !_.get( req, 'event.draft' ),
       locationRes: `/${req.agenda.slug}/locations`,
-      referencesRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/references`: null,
+      referencesRes: `/agendas/${req.agenda.uid}/events`,
       suggestionsRes: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/${req.params.eventUid}/suggestions` : `/agendas/${req.agenda.uid}/events/suggestions`,
       fileStore: { type: 's3', bucket },
       redirects: {
-        //updated: `this should be set when specific redirects are needed on an update`
+        updated: req.updateRedirect,
         seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
         createOtherEvent: `/${req.agenda.slug}/contribute`,
         seeAllEvents: `/home/events`,

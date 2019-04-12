@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import ih from 'immutability-helper';
 
 module.exports = _.extend( reducer, {
   redirect

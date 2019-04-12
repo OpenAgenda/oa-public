@@ -9,7 +9,8 @@
   "scripts": {
     "test": "mocha --exit",
     "start": "node test/app",
-    "build": "babel react/src -d react/build -s"
+    "build": "babel react/src -d react/build -s",
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.4.3",

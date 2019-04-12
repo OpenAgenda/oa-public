@@ -47,7 +47,7 @@ module.exports = {
     "en": "on %start% @ %time%",
     "fr": "le %start% @ %time%",
     "it": "lo %start% @ %time%",
-    "de": " %start% @ %time%",
+    "de": "%start% @ %time%",
     "pl": "o %start% @ %time%"
   },
   "draft": {
@@ -159,7 +159,7 @@ module.exports = {
     "en": "Event state",
     "fr": "Etat de l'événement",
     "it": "Stato dell'evento",
-    "de": "Status der Veranstaltung",
+    "de": "Zustand der Veranstaltung",
     "pl": "Stan wydarzenia"
   },
   "published": {
@@ -264,7 +264,7 @@ module.exports = {
     "en": "Click here to change the featured state",
     "fr": "Cliquez ici pour changer l'état 'En une'",
     "it": "Clicca qui per cambiare in selezionato",
-    "de": "Klicken Sie hier, um den Status zu ändern.",
+    "de": "Klicken Sie hier, um den Zustand zu ändern.",
     "pl": "Kliknij tutaj aby zmienić opisany stan"
   },
   "addToFeatured": {
@@ -425,7 +425,7 @@ module.exports = {
     "en": "Hi, could you bring the following changes to the location named '%name'? reference: %uid% - ( add details of the change here )",
     "fr": "Bonjour, pourriez-vous apporter les modifications suivantes au lieu ayant pour nom '%name%' ? reference: %uid% - ( détaillez les modifications ici )",
     "it": "Bongiorno, potreste apportare le modifiche seguenti al luogo chiamato '%name%' riferimento: %uid% - ( dettaglia qui le modifiche )",
-    "de": "Guten Tag, können Sie die folgenden Änderungen zum Standort namens  '%name%'? Referenz: %uid% hinzufügen - ( fügen Sie Details der Änderungen hier an )",
+    "de": "Guten Tag, können Sie die folgenden Änderungen zum Standort namens '%name%'? Referenz: %uid% hinzufügen - ( fügen Sie Details der Änderungen hier an )",
     "pl": "Witaj! Czy mógłbyś nanieść zmiany miejsca określonego mianem '%name%' ? odniesienie: %uid% - (sprecyzuj zmiany tutaj)"
   },
   "moreLinks": {
@@ -439,7 +439,7 @@ module.exports = {
     "en": "State",
     "fr": "Statut",
     "it": "Stato",
-    "de": "Status",
+    "de": "Zustand",
     "pl": "Stan"
   },
   "editLocation": {

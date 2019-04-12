@@ -17,6 +17,7 @@ const agendas = require( '@openagenda/agendas' );
 const ih = require( 'immutability-helper' );
 const eventSvc = require( '@openagenda/events' );
 const formSchemas = require( '@openagenda/form-schemas' );
+const networks = require( '@openagenda/networks' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const log = require( '@openagenda/logs' )( 'services/eventSearch/assemble' );
@@ -103,8 +104,6 @@ async function list( agendaEvents, formSchemaId = null, customValidators = null 
 
 async function item( agendaEvent ) {
 
-  const formSchemaId = await _getAgenda( agendaEvent.agendaUid, 'formSchemaId' );
-
   const event = await _getEvent( agendaEvent );
 
   if ( !event ) {
@@ -113,18 +112,46 @@ async function item( agendaEvent ) {
 
   }
 
+  const formSchemaIds = await _getFormSchemaIds( agendaEvent );
+
+  const custom = await _getCustomData( formSchemaIds, agendaEvent.eventUid );
+
   return _item( {
     event,
-    formSchemaId,
-    validators: await getCustomValidators( formSchemaId ),
+    validators: await getCustomValidators( formSchemaIds ),
     member: _.find( await _getMemberMap( [ agendaEvent ] ), m => m.eventUid === agendaEvent.eventUid ),
-    custom: await _getCustomData( formSchemaId, agendaEvent ),
+    custom,
     state: agendaEvent.state,
     featured: agendaEvent.featured
   } );
 
 }
 
+async function _getFormSchemaIds( agendaEvent ) {
+
+  const formSchemaIds = [];
+
+  const { networkUid, formSchemaId } = await agendas.get( {
+    uid: agendaEvent.agendaUid
+  }, { internal: true } );
+
+  if ( networkUid ) {
+
+    const network = await networks.get( networkUid );
+
+    if ( network && network.formSchemaId ) {
+
+      formSchemaIds.push( network.formSchemaId );
+
+    }
+
+  }
+
+  if ( formSchemaId ) formSchemaIds.push( formSchemaId );
+
+  return formSchemaIds;
+
+}
 
 function _item( { event, validators, member, custom, state, featured } ) {
 
@@ -233,11 +260,11 @@ function _getMemberMap( agendaEvents = [] ) {
  * validators separating custom data by access credentials
  */
 
-async function getCustomValidators( formSchemaId, level = null ) {
+async function getCustomValidators( formSchemaIds, level = null ) {
 
-  if ( !formSchemaId ) return {};
+  if ( !formSchemaIds ) return {};
 
-  let fs = await formSchemas.get( formSchemaId, { instanciate: true } );
+  let fs = await formSchemas.getMerged( formSchemaIds, { instanciate: true } );
 
   if ( fs === null ) return {};
 
@@ -251,15 +278,29 @@ async function getCustomValidators( formSchemaId, level = null ) {
 
 
 
-async function _getCustomData( formSchemaId, agendaEvent ) {
+async function _getCustomData( formSchemaIds, eventUid ) {
 
-  const result = await custom( formSchemaId ).list( { identifier: agendaEvent.eventUid } );
+  const data = {};
 
-  const data = _.head( result.items );
+  for ( const formSchemaId of formSchemaIds ) {
 
-  if ( !data ) return null;
+    _.assign( data, ( await custom( formSchemaId ).get( eventUid ) ) || {} );
 
-  return data.custom;
+  }
+
+  return data;
+
+}
+
+async function _getNetworkCustomData( networkUid, eventUid ) {
+
+  if ( !networkUid ) return null;
+
+  const network = await networks.get( networkUid );
+
+  if ( !network || !network.formSchemaId ) return null;
+
+  return custom( network.formSchemaId ).get( eventUid );
 
 }
 

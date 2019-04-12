@@ -49,7 +49,8 @@ export default class ConversationForm extends Component {
   };
 
   static defaultProps = {
-    Wrapper: 'div'
+    Wrapper: 'div',
+    autoFocus: false
   };
 
   state = {
@@ -71,7 +72,7 @@ export default class ConversationForm extends Component {
         ]
       },
       autoProceed: false,
-      locale: uppyLocales.Core[ lang ]
+      locale: uppyLocales.Core[ lang ] || uppyLocales.Core[ 'fr' ]
     } );
 
     uppy.use( AwsS3, {
@@ -153,7 +154,7 @@ export default class ConversationForm extends Component {
   } );
 
   render() {
-    const { getLabel, initialValues, submitting, Wrapper, error, lang } = this.props;
+    const { getLabel, initialValues, submitting, Wrapper, error, lang, autoFocus } = this.props;
 
     const numberFiles = Object.keys( this.uppy.getState().files ).length;
 
@@ -193,6 +194,7 @@ export default class ConversationForm extends Component {
               ? getLabel( 'supportPlaceholder' )
               : getLabel( 'yourMessage' )
           }
+          autoFocus={autoFocus}
         />
 
         <p>
@@ -219,7 +221,7 @@ export default class ConversationForm extends Component {
             disableStatusBar={true}
             maxHeight={300}
             note={getLabel( 'uppyNote' )}
-            locale={uppyLocales.Dashboard[ lang ]}
+            locale={uppyLocales.Dashboard[ lang ] || uppyLocales.Dashboard[ 'fr' ]}
           />
 
           <div className="text-center padding-top-md">
@@ -233,7 +235,7 @@ export default class ConversationForm extends Component {
           uppy={this.uppy}
           hideUploadButton={true}
           showProgressDetails={true}
-          locale={uppyLocales.StatusBar[ lang ]}
+          locale={uppyLocales.StatusBar[ lang ] || uppyLocales.StatusBar[ 'fr' ]}
         />
       </Fragment>
     );

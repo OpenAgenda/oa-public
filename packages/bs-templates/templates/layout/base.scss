@@ -280,3 +280,18 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
   max-width: 680px;
 
 }
+
+a.discreet {
+
+  color: inherit;
+  cursor: pointer;
+
+  label { cursor: pointer; }
+
+  &:hover {
+
+    color: $oa-blue;
+
+  }
+
+}

@@ -1,16 +1,19 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  title: {
-    fr: 'Réinitialisation du mot de passe',
-    en: 'Activate your OpenAgenda account'
+  "title": {
+    "fr": "Réinitialisation du mot de passe",
+    "en": "Activate your OpenAgenda account",
+    "de": "Aktivieren Sie Ihr Konto OpenAgenda"
   },
-  description: {
-    fr: 'Cliquez sur le bouton suivant pour réinitialiser votre mot de passe:',
-    en: 'Click the following button to reset your password:'
+  "description": {
+    "fr": "Cliquez sur le bouton suivant pour réinitialiser votre mot de passe:",
+    "en": "Click the following button to reset your password:",
+    "de": "Klicken Sie auf die folgende Schaltfläche zum Zurücksetzen des Passworts:"
   },
-  actionDescription: {
-    fr: 'Réinitialiser le mot de passe',
-    en: 'Reset password'
+  "actionDescription": {
+    "fr": "Réinitialiser le mot de passe",
+    "en": "Reset password",
+    "de": "Passwort zurücksetzen"
   }
-};
+}

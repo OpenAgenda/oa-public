@@ -54,7 +54,7 @@ export default class FormSchemaComponent extends Component {
 
       this.state.errors = errors;
 
-    } else if ( errors ) {
+    } else if ( errors && errors.length ) {
 
       this.set( { errors } );
 
@@ -86,7 +86,7 @@ export default class FormSchemaComponent extends Component {
 
   onSubmit( e, options = {} ) {
 
-    e.preventDefault();
+    if ( e ) e.preventDefault();
 
     const { draft } = _.assign( {
       draft: false
@@ -188,12 +188,29 @@ export default class FormSchemaComponent extends Component {
 
   _getFormSchema() {
 
-    return new FormSchema( ih( this.props.schema, {
-      defaultLabelLanguage: { $set: this.props.lang }
-    } ) );
+    // building the formSchema is a bit costly, so memoizition is usefull here
+
+    const hasChanged = !![ 'hash', 'lang' ].filter(
+      memoizeKey => _.get( this.memoized, memoizeKey, '' ) !== _.get( this.props, memoizeKey, '' )
+    ).length;
+
+    if ( hasChanged || !this.memoized ) {
+
+      this.memoized = {
+        formSchema: new FormSchema(
+          ih( this.props.schema, {
+            defaultLabelLanguage: { $set: this.props.lang }
+          } )
+        ),
+        hash: _.get( this, 'props.hash', '' ),
+        lang: _.get( this, 'props.lang', '' )
+      }
+
+    }
+
+    return this.memoized.formSchema;
 
   }
-
 
   sanitize( values, options ) {
 
@@ -218,8 +235,6 @@ export default class FormSchemaComponent extends Component {
           const field = _.first( this._getFormSchema().getFields().filter( f => f.field == e.field ) );
 
           if ( !field ) {
-
-            console.log( e );
 
             throw new Error( 'did not find field matching validation error', e );
 
@@ -375,7 +390,7 @@ export default class FormSchemaComponent extends Component {
 
       const { Component } = matching;
 
-      return <Component onSubmit={this.onSubmit} loading={loading} />
+      return <Component onSubmit={this.onSubmit} loading={loading} sanitize={this.sanitize.bind( this )} />
 
     }
 

@@ -40,7 +40,6 @@ export default class Agendas extends Component {
 
     return (
       <div className="header">
-        <h2 className="hidden-xs">{getLabel( 'myAgendas' )}</h2>
         <div className="hidden-xs pull-right">
           <Link to={res.agendas.create} className="btn btn-primary" type="button">
             {getLabel( 'createAgenda' )}
@@ -114,7 +113,6 @@ export default class Agendas extends Component {
       <div className="content">
         <AgendasSearch
           id="homeAgendas"
-          fieldIsVisible={() => query.search}
           getTitleLink={this.getAgendaTitleLink}
           Header={this.renderHeader}
           AgendaActionsComponent={this.renderAgendaActions}

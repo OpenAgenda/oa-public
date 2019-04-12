@@ -45,18 +45,22 @@ module.exports = {
   },
   "or": {
     "fr": "Ou",
-    "en": "Or"
+    "en": "Or",
+    "de": "Oder"
   },
   "modalBigSentence": {
     "fr": "Vous êtes sur le point de créer un nouvel événement sur la base d’un précédent.",
-    "en": "You are about to create a new event based on a precedent."
+    "en": "You are about to create a new event based on a precedent.",
+    "de": "Sie sind dabei, ein neues Veranstaltung auf der Grundlage einen Präzedenzfall zu schaffen."
   },
   "modalReminder": {
     "fr": "Rappel: un événement unique peut être partagé sur plusieurs agendas. Ne créez pas de doublon ! La duplication permet de créer une annonce différente, généralement pour une nouvelle édition ailleurs dans le temps ou l’espace, en évitant des copier-coller.",
-    "en": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting."
+    "en": "Reminder: A single event can be shared across multiple agendas. Do not create a duplicate! Duplication creates a different ad, usually for a new edition elsewhere in time or space, avoiding copying and pasting.",
+    "de": "Zur Erinnerung: Ein einzelnes Veranstaltung kann über mehrere Kalenders gemeinsam genutzt werden. Sie nicht ein Duplikat erstellt! Eine Vervielfältigung eine andere Anzeige erstellt, in der Regel für eine neue Ausgabe an anderer Stelle in Zeit und Raum, die Vermeidung Kopieren und Einfügen."
   },
   "createNewEventIn": {
     "fr": "Créer le nouvel événement dans",
-    "en": "Create the new event in"
+    "en": "Create the new event in",
+    "de": "Erstellen Sie das neue Veranstaltung in"
   }
 }

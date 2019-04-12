@@ -54,7 +54,8 @@ app.use(
           apiRoot: `http://localhost:${config.port}`,
           perPageLimit: 20,
           emptyInboxLabel: getLabel( 'homeInboxDesc', req.lang ),
-          displayHelp: true
+          displayHelp: true,
+          autoFocus: true
         },
         res: {
           author: '/home/inbox/author.json',

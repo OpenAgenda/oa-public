@@ -6,15 +6,15 @@ const derelativize = require( '../helpers/derelativize' );
 const validateExtension = require( './validateExtension' );
 
 const {
-  getQuery, 
-  getSort, 
-  getSource, 
-  getNav, 
+  getQuery,
+  getSort,
+  getSource,
+  getNav,
   getMoreLikeThis,
-  wrapInMoreLikeThis 
+  wrapInMoreLikeThis
 } = require( '../helpers/dsl' );
 
-module.exports = _.extend( queryToDsl, { 
+module.exports = _.extend( queryToDsl, {
   inflate,
   moreLikeThis,
   derelativize
@@ -23,12 +23,12 @@ module.exports = _.extend( queryToDsl, {
 
 /**
  * convert query object to elasticsearch dsl
- * 
- * @param  {[type]} query    
- * @param  {[type]} nav     
+ *
+ * @param  {[type]} query
+ * @param  {[type]} nav
  * @param  {[type]} extensions  names of extensions to include in query dsl build
- * @param  {array}  includes    fields to be included in search result 
- * @return {[type]}          
+ * @param  {array}  includes    fields to be included in search result
+ * @return {[type]}
  */
 function queryToDsl( query = {}, nav = {}, extensions = null, includes = null ) {
 

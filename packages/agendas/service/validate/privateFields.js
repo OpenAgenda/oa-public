@@ -6,12 +6,12 @@ module.exports = {
     type: 'integer',
     optional: false
   },
-  
+
   ownerId: {
     type: 'integer',
     optional: false
   },
-  
+
   updatedAt: {
     type: 'date',
     optional: false
@@ -36,7 +36,7 @@ module.exports = {
     type: 'date',
     default: null
   },
-  
+
   image: {
     type: 'text'
   },
@@ -55,6 +55,18 @@ module.exports = {
 
     useContributeApp: {
       description: 'Use new contribute application for creating and editing events',
+      type: 'boolean',
+      default: false
+    },
+
+    useAgendaSchema: {
+      description: 'Use agenda schema app to customize fields',
+      type: 'boolean',
+      default: false
+    },
+
+    premiumCustomFields: {
+      description: 'Allow adding multiple custom fields to agenda form',
       type: 'boolean',
       default: false
     },
@@ -105,7 +117,7 @@ module.exports = {
     emailstrategie: {
       description: 'Newsletter app used by Est-Ensemble only. To be deprecated',
       type: 'boolean',
-      default: false 
+      default: false
     },
 
     // agenda can be an aggregator

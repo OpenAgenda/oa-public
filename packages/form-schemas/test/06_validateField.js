@@ -43,6 +43,16 @@ describe( 'form-schemas -06- validateField', () => {
 
     } );
 
+    it( 'field labels can be strings', () => {
+
+      iso.validateField( {
+        field: 'atextfield',
+        fieldType: 'text',
+        label: 'Un champ texte'
+      } ).label.should.equal( 'Un champ texte' );
+
+    } );
+
     it( 'validates a multilingual text field definition', () => {
 
       iso.validateField( {
@@ -236,6 +246,20 @@ describe( 'form-schemas -06- validateField', () => {
 
     } );
 
+    it( 'abstract fields do not have required values', () => {
+
+      iso.validateField( {
+        field: 'afield',
+        fieldType: 'abstract',
+        optional: false
+      } ).should.eql( {
+        field: 'afield',
+        optional: false,
+        fieldType: 'abstract'
+      } );
+
+    } );
+
 
     it( 'a field with an enableWith value set will have the value added to the related fields list', () => {
 
@@ -246,7 +270,7 @@ describe( 'form-schemas -06- validateField', () => {
         enableWith: 'anotherfield'
       } ).should.eql( {
         field: 'afield',
-        label: { en: 'A label' },
+        label: 'A label',
         info: null,
         sub: null,
         placeholder: null,

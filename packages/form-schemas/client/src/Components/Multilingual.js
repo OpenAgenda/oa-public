@@ -29,8 +29,8 @@ module.exports = class MultilingualField extends Component {
     const Component = _.get( this.props, 'component', FieldComponents[ field.fieldType ] );
 
     const languageField = ih( field, {
-      default: { $set: _.get( field, [ 'default', l ], 
-        _.isObject( field.default ) ? null : field.default 
+      default: { $set: _.get( field, [ 'default', l ],
+        _.isObject( field.default ) ? null : field.default
       ) }
     } );
 

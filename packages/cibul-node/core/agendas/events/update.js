@@ -20,16 +20,20 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   log( 'processing', { agendaUid, eventUid, options } );
 
-  const contextUserUid = _.get( options, 'context.userUid', _.get( data, 'creatorUid' ) );
+  const contextUserUid = _.get( options, 'context.userUid' ) || _.get( data, 'creatorUid' );
 
   const {
     draft,
+    partial,
     formSchemaDataFormat,
-    defaultLang
+    defaultLang,
+    batched
   } = _.assign( {
     draft: false,
+    partial: false,
     formSchemaDataFormat: false,
-    defaultLang: 'en'
+    defaultLang: 'en',
+    batched: false
   }, options || {} );
 
   const agenda = await getAgendaWithNetworkAndSchemas( agendaUid );
@@ -47,9 +51,9 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     formSchema: agenda.formSchema,
     networkFormSchema: _.get( agenda, 'network.formSchema' ),
     defaultLang
-  }, data, { draft, formSchemaDataFormat, optionalState: true } );
+  }, data, { draft, formSchemaDataFormat, optionalState: true, partial } );
 
-  try {
+  if ( clean.event.longDescription ) try {
 
     clean.event.links = await processOEmbed( clean.event.longDescription, clean.event.links );
 
@@ -62,7 +66,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
   }
 
   // update the event
-  let result = await events.update( { uid: eventUid }, toEventServiceFormat( clean.event, null, data ), {
+  let result = await events.update( { uid: eventUid }, toEventServiceFormat( clean.event, null, { raw: data, partial } ), {
     context: {
       agendaUid,
       userUid: contextUserUid,
@@ -104,7 +108,8 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
         legacy: false,
         userUid: contextUserUid,
         event: updated.event,
-        agenda
+        agenda,
+        batched
       }
     } );
 
@@ -114,7 +119,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   if ( agenda.formSchemaId && clean.custom ) {
 
-    const result = await setCustom( agenda.formSchemaId, updated.event.uid, clean.custom, { draft, agendaId } );
+    const result = await setCustom( agenda.formSchemaId, updated.event.uid, clean.custom, { draft, agendaId, partial } );
 
     if ( result.success ) updated.custom = result.custom;
 
@@ -122,7 +127,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   if ( agenda.network && clean.networkCustom ) {
 
-    const result = await setCustom( agenda.network.formSchemaId, updated.event.uid, clean.networkCustom, { draft, agendaId } );
+    const result = await setCustom( agenda.network.formSchemaId, updated.event.uid, clean.networkCustom, { draft, agendaId, partial } );
 
     if ( result.success ) updated.networkCustom = result.custom;
 

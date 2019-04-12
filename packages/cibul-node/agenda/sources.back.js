@@ -8,41 +8,40 @@ const cmn = require( '../lib/commons-app' );
 const aggregatorSourcesSvc = require( '@openagenda/aggregator-sources' );
 const createApp  = require( '@openagenda/aggregator-sources/dist/client/app' );
 const aggregatorSvc = require( '../services/aggregator' );
-const agendaSvc = require( '../services/agenda' );
 const mw = aggregatorSourcesSvc.mw;
 const sessions = require( '@openagenda/sessions' );
+
+const layout = require( '../services/lib/layouts' ).load(
+  'agendaAdmin', { selectedTab: 'sources' }
+);
 
 
 const routes = {
 
   aggregatorSourcesList: [ 'get', '/sources/agenda-sources.json', [
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdministrator(),
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
     mw.list
   ] ],
 
   aggregatorSourcesRemove: [ 'get', '/sources/remove', [
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdministrator(),
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
     mw.remove
   ] ],
 
   /**********/
 
   aggregatorSourcesApp: [ 'get', '/sources', [
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdministrator(),
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData( 'oasfmain.css' ),
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
     populateIsAggregator,
     matchApp
   ] ],
 
   aggregatorSourcesSub: [ 'get', '/sources/?*?', [
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdministrator(),
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData( 'oasfmain.css' ),
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
     populateIsAggregator,
     matchApp
   ] ]
@@ -132,13 +131,18 @@ async function matchApp( req, res, next ) {
       return res.redirect( 302, pathname );
     }
 
-    cmn.render( req, res, 'aggregatorSources/index', {
-      scriptParams: { initialState: state },
-      preloaded: true,
-      lang,
-      content,
-      tab: 'sources'
-    } );
+    return res.send( layout( `<div class="js_canvas">${content}</div>`, {
+      lang: req.lang,
+      agenda: req.agenda,
+      bodyAttributes: [ {
+        name: 'data-options',
+        value: JSON.stringify( { initialState: state } )
+      } ],
+      scripts: {
+        bottom: [ { src: '/js/sourcesIndex.js' } ]
+      }
+    } ) );
+
   } catch ( e ) {
     next( e );
   }

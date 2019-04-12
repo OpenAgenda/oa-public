@@ -1,15 +1,14 @@
 import _ from 'lodash';
 import superagent from 'superagent';
-import superagentUse from 'superagent-use';
-import superagentPrefix from 'superagent-prefix';
 import parseJsonResponse from './utils/parseJsonResponse';
+import baseUrl from './baseUrl';
 import Events from './Events';
 import Locations from './Locations';
+
 
 export default class OaSdk {
   constructor( options ) {
     this.params = _.merge( {
-      baseURL: 'https://api.openagenda.com',
       publicKey: null,
       secretKey: null
     }, options );
@@ -17,7 +16,7 @@ export default class OaSdk {
     this.accessToken = null;
     this.expiresIn = null;
 
-    this.agent = superagentUse( superagent ).use( superagentPrefix( this.params.baseURL ) );
+    this.agent = superagent.agent();
   }
 
   events = new Events( this );
@@ -31,14 +30,14 @@ export default class OaSdk {
     }
 
     const response = await this.agent
-      .post( '/v1/requestAccessToken' )
+      .post( `${baseUrl.v1}/requestAccessToken` )
       .type( 'form' )
       .accept( 'json' )
       .send( {
         'grant-type': 'authorization_code',
         code: secretKey || this.params.secretKey
       } )
-      .then( parseJsonResponse() );
+      .then( parseJsonResponse );
 
     this.accessToken = response.body.access_token;
     this.expiresIn = response.body.expires_in;

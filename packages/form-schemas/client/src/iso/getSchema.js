@@ -62,7 +62,9 @@ module.exports = ( fields, accessType = null, accessLevel = null, options = {} )
 
     return false;
 
-  } ).map( f => {
+  } )
+  .filter( f => f.fieldType !== 'abstract' )
+  .map( f => {
 
     const validatorConfiguration = getValidatorFromField( f, params );
 

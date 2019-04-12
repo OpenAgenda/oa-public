@@ -1,16 +1,16 @@
 "use strict";
 
 // generate page with layout
-module.exports = ( req, content ) => {
+module.exports = ( content, data ) => {
 
   const {
     title,
     description
-  } = req.agenda || { 
-    title: 'Scenarios', 
+  } = data.agenda || {
+    title: 'Scenarios',
     description: 'These are development environment scenarios. Each load the contribution app in a different agenda environment'
   };
-  
+
 
   return `<!DOCTYPE html>
     <html>

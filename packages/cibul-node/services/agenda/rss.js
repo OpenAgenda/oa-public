@@ -30,18 +30,10 @@ module.exports = function( req, res ) {
     generator: 'OpenAgenda',
     image_url: req.agenda.image ? config.aws.imageBucketPath + req.agenda.image : false,
     language: req.lang,
-    pubDate: req.agenda.updatedAt,
     ttl: 120,
     custom_namespaces: {
       'ev': 'http://purl.org/rss/1.0/modules/event/'
-    },
-    custom_elements: [ {
-      'ev:startdate': 'Event first start date and time'
-    }, {
-      'ev:enddate': 'Event final end date and time'
-    }, {
-      'ev:location' : 'Name and Address of the location of the event'
-    } ]
+    }
   } );
 
   async.eachSeries( req.events.map( eventSvc.instanciate ), ( eInst, ecb ) => {
@@ -100,24 +92,24 @@ module.exports = function( req, res ) {
 
   } );
 
-  
+
 
 }
 
 function _buildRssDescription( instance, exp, lang ) {
 
-  let longDescription = utils.cleanString( 
+  let longDescription = utils.cleanString(
     exp.html && exp.html[ lang ] ? exp.html[ lang ] : ''
   );
 
-   return [ 
+   return [
     '<p>',
       instance.getDescription(),
-    '</p>', 
+    '</p>',
     '<p>',
       exp.range[ lang ],
-    '</p>', 
+    '</p>',
     longDescription
-  ].join( '' );    
+  ].join( '' );
 
 }

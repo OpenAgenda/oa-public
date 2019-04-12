@@ -128,6 +128,8 @@ describe( 'agendas - functional (server): tasks/loadFromLegacy', function() {
         aggregator: !!test.credRowBefore.aggregator,
         docxExport: false,
         eventOwnershipTransfer: false,
+        premiumCustomFields: false,
+        useAgendaSchema: false,
         useContributeApp: false
       } );
 

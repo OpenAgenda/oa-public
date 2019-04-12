@@ -24,7 +24,7 @@ module.exports = {
 }
 
 const config = {
-  layout: ( req, content ) => 'The service is not ready',
+  layout: ( content, data ) => 'The service is not ready',
   CDNPath: null,
   frontAppPath: null,
   interfaces: {}
@@ -59,12 +59,12 @@ function init( c ) {
       2
     );
 
-    res.send( config.layout( req,
+    res.send( config.layout(
       `<div class="agenda-body">
         <div class="js_preload_spin" id="app"></div>
         <script type="application/json" id="init">${stringified}</script>
         <script defer type="text/javascript" src="${_getClientAppPath()}"></script>
-      </div>` ) );
+      </div>`, req ) );
 
   } );
 
@@ -109,6 +109,8 @@ function init( c ) {
     _readRequestedDraftState,
     formSchemaMw.files.putInTemporary.bind( null, {} ),
     formSchemaMw.files.cleanFileValues.bind( null, {} ),
+    // image is processed by event service, other files need to be put to s3
+    formSchemaMw.files.uploadFilesToS3.bind( null, { ignore: [ 'image' ] } ),
   ( req, res ) => {
 
     // this does not transform other fields than file fields

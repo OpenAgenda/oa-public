@@ -1,232 +1,293 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  uid: {
-    en: 'Identifier',
-    fr: 'Identifiant'
+  "uid": {
+    "en": "Identifier",
+    "fr": "Identifiant",
+    "de": "Kennzeichnung"
   },
-  title: {
-    en: 'Title',
-    fr: 'Titre'
+  "title": {
+    "en": "Title",
+    "fr": "Titre",
+    "de": "Titel"
   },
-  description: {
-    en: 'Description',
-    fr: 'Description'
+  "description": {
+    "en": "Description",
+    "fr": "Description",
+    "de": "Beschreibung"
   },
-  longDescription: {
-    en: 'Long description',
-    fr: 'Description longue'
+  "longDescription": {
+    "en": "Long description",
+    "fr": "Description longue",
+    "de": "Lange Beschreibung"
   },
-  conditions: {
-    en: 'Condition details',
-    fr: 'Détail des conditions'
+  "conditions": {
+    "en": "Condition details",
+    "fr": "Détail des conditions",
+    "de": "Zustand Details"
   },
-  keywords: {
-    en: 'Keywords',
-    fr: 'Mots clés'
+  "keywords": {
+    "en": "Keywords",
+    "fr": "Mots clés",
+    "de": "Schlüsselwörter"
   },
-  html: {
-    en: 'Long description - HTML',
-    fr: 'Description longue - HTML'
+  "html": {
+    "en": "Long description - HTML",
+    "fr": "Description longue - HTML",
+    "de": "Lange Beschreibung - HTML"
   },
-  image: {
-    en: 'Image',
-    fr: 'Image'
+  "image": {
+    "en": "Image",
+    "fr": "Image",
+    "de": "Bild"
   },
-  imageCredits: {
-    en: 'Image credits',
-    fr: 'Crédits image'
+  "imageCredits": {
+    "en": "Image credits",
+    "fr": "Crédits image",
+    "de": "Bildnachweis"
   },
-  thumbnail: {
-    en: 'Thumbnail',
-    fr: 'Aperçu'
+  "thumbnail": {
+    "en": "Thumbnail",
+    "fr": "Aperçu",
+    "de": "Miniaturansicht"
   },
-  originalImage: {
-    en: 'Source image',
-    fr: 'Image source'
+  "originalImage": {
+    "en": "Source image",
+    "fr": "Image source",
+    "de": "Quelle Bild"
   },
-  updatedAt: {
-    en: 'Last update',
-    fr: 'Dernière mise à jour'
+  "updatedAt": {
+    "en": "Last update",
+    "fr": "Dernière mise à jour",
+    "de": "Letztes Update"
   },
-  range: {
-    en: 'Timings overview',
-    fr: 'Résumé horaires'
+  "createdAt": {
+    "en": "Creation date",
+    "fr": "Création de la fiche"
   },
-  firstDate: {
-    en: 'First date',
-    fr: 'Première date'
+  "range": {
+    "en": "Timings overview",
+    "fr": "Résumé horaires",
+    "de": "Timings Überblick"
   },
-  firstTimeStart: {
-    en: 'First start time',
-    fr: 'Première ouverture'
+  "firstDate": {
+    "en": "First date",
+    "fr": "Première date",
+    "de": "Erste Verabredung"
   },
-  firstTimeEnd: {
-    en: 'First end time',
-    fr: 'Première fermeture'
+  "firstTimeStart": {
+    "en": "First start time",
+    "fr": "Première ouverture",
+    "de": "Erste Startzeit"
   },
-  lastDate: {
-    en: 'Last date',
-    fr: 'Dernière date'
+  "firstTimeEnd": {
+    "en": "First end time",
+    "fr": "Première fermeture",
+    "de": "Erste Endzeit"
   },
-  lastTimeStart: {
-    en: 'Last start time',
-    fr: 'Dernière ouverture'
+  "lastDate": {
+    "en": "Last date",
+    "fr": "Dernière date",
+    "de": "Letztes Datum"
   },
-  lastTimeEnd: {
-    en: 'Last time end',
-    fr: 'Dernière fermeture'
+  "lastTimeStart": {
+    "en": "Last start time",
+    "fr": "Dernière ouverture",
+    "de": "Letzte Startzeit"
   },
-  timings: {
-    en: 'Detailed timings',
-    fr: 'Horaires détaillés'
+  "lastTimeEnd": {
+    "en": "Last time end",
+    "fr": "Dernière fermeture",
+    "de": "Zuletzt Ende"
   },
-  isoTimings: {
-    en: 'ISO timings',
-    fr: 'Horaires ISO'
+  "timings": {
+    "en": "Detailed timings",
+    "fr": "Horaires détaillés",
+    "de": "detaillierte Timings"
   },
-  registrationUrl: {
-    en: 'Registration link',
-    fr: 'Lien d\'inscription'
+  "isoTimings": {
+    "en": "ISO timings",
+    "fr": "Horaires ISO",
+    "de": "ISO-Timings"
   },
-  accessibility: {
-    en: 'Accessibility',
-    fr: 'Accessibilité'
+  "registrationUrl": {
+    "en": "Registration link",
+    "fr": "Lien d'inscription",
+    "de": "Registrierungslink"
   },
-  featured: {
-    en: 'Featured',
-    fr: 'En Une'
+  "accessibility": {
+    "en": "Accessibility",
+    "fr": "Accessibilité",
+    "de": "Zugänglichkeit"
   },
-  link: {
-    en: 'Link',
-    fr: 'Lien'
+  "featured": {
+    "en": "Featured",
+    "fr": "En Une",
+    "de": "Hervorgehoben"
   },
-  'location.uid': {
-    en: 'Location identifier',
-    fr: 'Identifiant du lieu'
+  "link": {
+    "en": "Link",
+    "fr": "Lien",
+    "de": "Verknüpfung"
   },
-  'location.latitude': {
-    en: 'Latitude',
-    fr: 'Latitude'
+  "location.uid": {
+    "en": "Location identifier",
+    "fr": "Identifiant du lieu",
+    "de": "Ortskennung"
   },
-  'location.longitude': {
-    en: 'Longitude',
-    fr: 'Longitude'
+  "location.latitude": {
+    "en": "Latitude",
+    "fr": "Latitude",
+    "de": "Breite"
   },
-  'location.name': {
-    en: 'Location name',
-    fr: 'Nom du lieu'
+  "location.longitude": {
+    "en": "Longitude",
+    "fr": "Longitude",
+    "de": "Längengrad"
   },
-  'location.address': {
-    en: 'Address',
-    fr: 'Adresse'
+  "location.name": {
+    "en": "Location name",
+    "fr": "Nom du lieu",
+    "de": "Standortnamen"
   },
-  'location.postalCode': {
-    en: 'Postal code',
-    fr: 'Code postal'
+  "location.address": {
+    "en": "Address",
+    "fr": "Adresse",
+    "de": "Adresse"
   },
-  'location.city': {
-    en: 'City',
-    fr: 'Ville'
+  "location.postalCode": {
+    "en": "Postal code",
+    "fr": "Code postal",
+    "de": "Postleitzahl"
   },
-  'location.department': {
-    en: 'Department',
-    fr: 'Département'
+  "location.city": {
+    "en": "City",
+    "fr": "Ville",
+    "de": "Stadt"
   },
-  'location.region': {
-    en: 'Region',
-    fr: 'Région'
+  "location.department": {
+    "en": "Department",
+    "fr": "Département",
+    "de": "Abteilung"
   },
-  'location.countryCode' : {
-    en: 'Country',
-    fr: 'Pays'
+  "location.region": {
+    "en": "Region",
+    "fr": "Région",
+    "de": "Region"
   },
-  'location.image': {
-    en: 'Location image',
-    fr: 'Image du lieu'
+  "location.countryCode": {
+    "en": "Country",
+    "fr": "Pays",
+    "de": "Land"
   },
-  'location.imageCredits': {
-    en: 'Location image credits',
-    fr: 'Crédits de l\'image du lieu'
+  "location.image": {
+    "en": "Location image",
+    "fr": "Image du lieu",
+    "de": "Ort Bild"
   },
-  'location.phone': {
-    en: 'Location phone',
-    fr: 'Téléphone du lieu'
+  "location.imageCredits": {
+    "en": "Location image credits",
+    "fr": "Crédits de l'image du lieu",
+    "de": "Location image credits"
   },
-  'location.website': {
-    en: 'Location website',
-    fr: 'Site web du lieu'
+  "location.phone": {
+    "en": "Location phone",
+    "fr": "Téléphone du lieu",
+    "de": "Ort Telefon"
   },
-  'location.links': {
-    en: 'Location links',
-    fr: 'Liens du lieu'
+  "location.website": {
+    "en": "Location website",
+    "fr": "Site web du lieu",
+    "de": "Location Website"
   },
-  'location.tags': {
-    en: 'Location tags',
-    fr: 'Tags du lieu'
+  "location.links": {
+    "en": "Location links",
+    "fr": "Liens du lieu",
+    "de": "Ort Links"
   },
-  'location.description': {
-    en: 'Location description',
-    fr: 'Description du lieu'
+  "location.tags": {
+    "en": "Location tags",
+    "fr": "Tags du lieu",
+    "de": "Location-Tags"
   },
-  'location.access': {
-    en: 'Location access / directions',
-    fr: 'Accès / Itinéraire'
+  "location.description": {
+    "en": "Location description",
+    "fr": "Description du lieu",
+    "de": "Ortsbeschreibung"
   },
-  tags: {
-    en: 'Tags',
-    fr: 'Tags'
+  "location.access": {
+    "en": "Location access / directions",
+    "fr": "Accès / Itinéraire",
+    "de": "Standortzugriff / Richtungen"
   },
-  'age.min' : {
-    en: 'Minimum age',
-    fr: 'Age minimum'
+  "tags": {
+    "en": "Tags",
+    "fr": "Tags",
+    "de": "Stichworte"
   },
-  'age.max' : {
-    en: 'Maximum age',
-    fr: 'Age maximum'
+  "age.min": {
+    "en": "Minimum age",
+    "fr": "Age minimum",
+    "de": "Mindestalter"
   },
-  'origin.title' : {
-    en: 'Origin agenda ( title )',
-    fr: 'Agenda d\'origine ( titre )'
+  "age.max": {
+    "en": "Maximum age",
+    "fr": "Age maximum",
+    "de": "Höchstalter"
   },
-  'origin.uid' : {
-    en: 'Origin agenda ( uid )',
-    fr: 'Agenda d\'origine ( uid )'
+  "origin.title": {
+    "en": "Origin agenda ( title )",
+    "fr": "Agenda d'origine ( titre )",
+    "de": "Origin Agenda (Titel)"
   },
-  'contributor.email' : {
-    en: 'Contributor: Email',
-    fr: 'Contributeur: Email'
+  "origin.uid": {
+    "en": "Origin agenda ( uid )",
+    "fr": "Agenda d'origine ( uid )",
+    "de": "Origin Kalender (uid)"
   },
-  'contributor.contactNumber' : {
-    en: 'Contributor: Phone number',
-    fr: 'Contributeur: Téléphone'
+  "contributor.email": {
+    "en": "Contributor: Email",
+    "fr": "Contributeur: Email",
+    "de": "Anbieter: E-Mail"
   },
-  'contributor.contactName' : {
-    en: 'Contributor: Name',
-    fr: 'Contributeur: Nom'
+  "contributor.contactNumber": {
+    "en": "Contributor: Phone number",
+    "fr": "Contributeur: Téléphone",
+    "de": "Anbieter: Telefonnummer"
   },
-  'contributor.contactPosition' : {
-    en: 'Contributor: Title',
-    fr: 'Contributeur: Fonction'
+  "contributor.contactName": {
+    "en": "Contributor: Name",
+    "fr": "Contributeur: Nom",
+    "de": "Contributor: Name"
   },
-  'contributor.organization' : {
-    en: 'Contributor: organization',
-    fr: 'Contributeur: organisation'
+  "contributor.contactPosition": {
+    "en": "Contributor: Title",
+    "fr": "Contributeur: Fonction",
+    "de": "Anbieter: Titel"
   },
-  category : {
-    en: 'Category',
-    fr: 'Catégorie'
+  "contributor.organization": {
+    "en": "Contributor: organization",
+    "fr": "Contributeur: organisation",
+    "de": "Anbieter: Unternehmen"
   },
-  'location.district' : {
-    en: 'District',
-    fr: 'Arrondissement'
+  "category": {
+    "en": "Category",
+    "fr": "Catégorie",
+    "de": "Kategorie"
   },
-  state: {
-    en: 'state',
-    fr: 'statut'
+  "location.district": {
+    "en": "District",
+    "fr": "Arrondissement",
+    "de": "Kreis"
   },
-  references: {
-    en: 'Linked events',
-    fr: 'Evénements liés'
+  "state": {
+    "en": "state",
+    "fr": "statut",
+    "de": "Zustand"
+  },
+  "references": {
+    "en": "Linked events",
+    "fr": "Evénements liés",
+    "de": "Verknüpfte Veranstaltungen"
   }
 }

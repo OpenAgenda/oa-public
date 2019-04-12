@@ -1,18 +1,20 @@
 "use strict";
 
-const types = Object.keys( require( './types' ) );
+const _ = require( 'lodash/core' );
 
+const choice = require( '@openagenda/validators/choice' );
 const schema = require( '@openagenda/validators/schema' );
 
-const _ = require( 'lodash/core' );
+const types = Object.keys( require( './types' ) );
+const areFieldLabelsMultilingual = require( './areFieldLabelsMultilingual' )
 
 _.extend( _, {
   assign: require( 'lodash/assign' ),
   includes: require( 'lodash/includes' ),
-  get: require( 'lodash/get' )
+  get: require( 'lodash/get' ),
+  set: require( 'lodash/set' ),
+  keys: require( 'lodash/keys' )
 } );
-
-const choice = require( '@openagenda/validators/choice' );
 
 schema.register( {
   pass: require( '@openagenda/validators/pass' ),
@@ -26,11 +28,11 @@ schema.register( {
   choice
 } );
 
-const optionedTypes = [ 'radio', 'checkbox', 'select' ];
+const optionedTypes = [ 'radio', 'checkbox', 'select', 'abstract' ];
 
-const minMaxedTypes = [ 'custom', 'checkbox', 'integer', 'number', 'text', 'textarea', 'markdown', 'multilingual', 'html', 'slate' ];
+const minMaxedTypes = [ 'custom', 'checkbox', 'integer', 'number', 'text', 'textarea', 'markdown', 'multilingual', 'html', 'slate', 'abstract' ];
 
-const multilingualTypes = [ 'text', 'textarea', 'html', 'markdown', 'slate' ];
+const multilingualTypes = [ 'text', 'textarea', 'html', 'markdown', 'slate', 'abstract' ];
 
 const validateStandardType = choice( {
   optional: false,
@@ -43,7 +45,7 @@ module.exports = validate;
 
 function validateType( value, custom = {} ) {
 
-  const dirtyType = _.get( value, 'fieldType', null );
+  const dirtyType = _.get( value, 'fieldType', 'abstract' );
 
   if ( custom && _.keys( custom ).includes( dirtyType ) ) {
 
@@ -70,32 +72,23 @@ function validate( value, options = {} ) {
   const type = validateType( value, custom );
 
   const isCustomField = _.keys( custom ).includes( type );
+  const isAbstract = type === 'abstract';
 
-  let errors = [], clean;
+  let errors = [];
 
   const fieldSchema = buildFieldSchema(
     isCustomField ? 'custom' : type, {
-    defaultLabelLanguage: options.defaultLabelLanguage
+    defaultLabelLanguage: options.defaultLabelLanguage,
+    isMultilingual: areFieldLabelsMultilingual( value )
   } );
 
-  try {
-
-    clean = fieldSchema( value );
-
-  } catch( e ) {
-
-    errors = e;
-
-    console.log( e );
-
-  }
-
+  const clean = schema( isAbstract ? _stripUndefinedSchemaFields( fieldSchema, value ) : fieldSchema )( value );
 
   // enableWith tells validator it is active if field specified has a value.
   // if set, the field must be part of related fields
-  if ( clean.enableWith && !clean.related.includes( clean.enableWith ) ) {
+  if ( clean.enableWith && !_.get( clean, 'related', [] ).includes( clean.enableWith ) ) {
 
-    clean.related.push( clean.enableWith );
+    clean.related = _.get( clean, 'related', [] ).concat( clean.enableWith );
 
   }
 
@@ -111,9 +104,9 @@ function validate( value, options = {} ) {
   // validate any optioned type
   if ( optionedTypes.includes( type ) ) {
 
-    const unique = value.options.reduce( ( unique, v ) => unique.indexOf( v.value ) === -1 ? unique.concat( v.value ) : unique, [] );
+    const unique = _.get( value, 'options', [] ).reduce( ( unique, v ) => unique.indexOf( v.value ) === -1 ? unique.concat( v.value ) : unique, [] );
 
-    if ( unique.length !== value.options.length ) {
+    if ( unique.length !== _.get( value, 'options', [] ).length ) {
 
       errors = errors.concat( {
         field: 'options',
@@ -162,9 +155,13 @@ function buildFieldSchema( type, options = {} ) {
   const {
     languages,
     defaultLabelLanguage,
+    isMultilingual
   } = _.assign( {
-    defaultLabelLanguage: null
+    defaultLabelLanguage: null,
+    isMultilingual: true
   }, options );
+
+  const labelFieldType = isMultilingual || defaultLabelLanguage ? 'multilingual' : 'text';
 
   const structure = {
     // all custom schema fields must have a field name
@@ -178,14 +175,14 @@ function buildFieldSchema( type, options = {} ) {
 
     // the label to be displayed in the form
     label: {
-      type: 'multilingual',
+      type: labelFieldType,
       optional: false,
       defaultLanguage: defaultLabelLanguage
     },
 
     // the optional help text
     help: {
-      type: 'multilingual',
+      type: labelFieldType,
       optional: true,
       default: null,
       defaultLanguage: defaultLabelLanguage
@@ -204,7 +201,7 @@ function buildFieldSchema( type, options = {} ) {
 
     // an informative text can be added adjacent to the form item
     info: {
-      type: 'multilingual',
+      type: labelFieldType,
       max: 1000,
       optional: true,
       default: null,
@@ -212,14 +209,14 @@ function buildFieldSchema( type, options = {} ) {
     },
 
     sub: {
-      type: 'multilingual',
+      type: labelFieldType,
       optional: true,
       default: null,
       defaultLanguage: defaultLabelLanguage
     },
 
     placeholder: {
-      type: 'multilingual',
+      type: labelFieldType,
       max: 300,
       optional: true,
       default: null,
@@ -335,6 +332,17 @@ function buildFieldSchema( type, options = {} ) {
 
   }
 
-  return schema( structure );
+  return structure;
+
+}
+
+
+function _stripUndefinedSchemaFields( fieldSchema, value ) {
+
+  return _.keys( fieldSchema ).reduce(
+    ( stripped, key ) => value[ key ] !== undefined
+      ? _.set( stripped, key, fieldSchema[ key ] )
+      : stripped,
+    {} );
 
 }

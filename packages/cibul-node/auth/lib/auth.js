@@ -497,6 +497,8 @@ function _render( template, defaults ) {
 
     data = _.merge( {}, defaults );
 
+    data.culture = req.query.lang || req.lang;
+
     if ( req.agenda ) {
 
       data.agenda = {
@@ -505,7 +507,7 @@ function _render( template, defaults ) {
         description: req.agenda.description,
         image: req.agenda.image,
         url: req.agenda.url
-      }
+      };
 
     }
 

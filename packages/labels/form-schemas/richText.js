@@ -1,12 +1,14 @@
 "use strict";
 
 module.exports = {
-  heading: {
-    fr: 'Entête',
-    en: 'Heading'
+  "heading": {
+    "fr": "Titre",
+    "en": "Title",
+    "de": "Titel"
   },
-  subHeading: {
-    fr: 'Sous-entête',
-    en: 'Subheading'
+  "subHeading": {
+    "fr": "Sous-titre",
+    "en": "Sous-title",
+    "de": "Sous-Titel"
   }
 }

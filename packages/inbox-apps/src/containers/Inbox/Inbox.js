@@ -87,7 +87,7 @@ function asyncLoad( { store: { getState, dispatch }, location, history } ) {
 } )
 @withRouter
 export default class Inbox extends Component {
-  FromWrapper = ( { handleSubmit, error, children } ) => {
+  FormWrapper = ( { handleSubmit, error, children } ) => {
     const { getLabel, settings, author } = this.props;
     const { belowMessageDesc } = settings;
 
@@ -218,7 +218,7 @@ export default class Inbox extends Component {
                 <ConversationForm
                   form="inbox-conversation-create"
                   initialValues={initialValues}
-                  Wrapper={this.FromWrapper}
+                  Wrapper={this.FormWrapper}
                   uploadEndpoint={res.messages.prepareAttachment.replace( ':agendaUid', agenda && agenda.uid ) + '/s3/params'}
                   onSubmit={createConversation}
                   onConversationCreate={conversation => {

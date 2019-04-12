@@ -54,6 +54,7 @@ function load( options ) {
     detailed: false,
     internal: false,
     private: false,
+    includeImagePath: false,
     namespaces: {
       identifiers: {
         id: 'agendaId',
@@ -68,7 +69,7 @@ function load( options ) {
 
     const identifiers = _getIdentifiers( params.namespaces.identifiers, req );
 
-    service.get( identifiers, _.pick( params, [ 'instanciate', 'detailed', 'internal', 'private' ] ),
+    service.get( identifiers, _.pick( params, [ 'instanciate', 'detailed', 'internal', 'private', 'includeImagePath' ] ),
       ( err, agenda ) => {
 
         if ( err ) return next( err );

@@ -33,9 +33,13 @@ export default function createAbility( entityName, identifier, rules ) {
 
     if ( !haveSubjectProp && isObject ) {
       conditionsOrSubject[ SUBJECT_NAME ] = subjectName;
+    } else if ( conditionsOrSubject === undefined ) {
+      conditionsOrSubject = {
+        [ SUBJECT_NAME ]: subjectName
+      };
     }
 
-    const result = func( action, conditionsOrSubject || subjectName, field );
+    const result = func( action, conditionsOrSubject, field );
 
     if ( !haveSubjectProp && isObject ) {
       delete conditionsOrSubject[ SUBJECT_NAME ];

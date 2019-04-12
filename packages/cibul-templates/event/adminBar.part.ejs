@@ -55,8 +55,8 @@
 <% } %>
     </li><!--
     --><li class="edge-item js_admin_item js_role_event_editor w25">
-      <% if ( loner ) { } else if ( useContributeApp ) { %>
-      <a class="edge-link" href="<%= `/${slug}/contribute/event/${event.uid}` %>" rel="nofollow"><%= __( 'edit' ) %></a>
+      <% if ( useContributeApp ) { %>
+      <a class="edge-link" href="<%= `/${slug}/contribute/event/${event.uid}` %><%= ( ( typeof redirect !== 'undefined' ) && redirect ) ? '?redirect=' + redirect : '' %>" rel="nofollow"><%= __( 'edit' ) %></a>
       <% } else { %>
       <a class="edge-link" href="<%= genUrl( 'agendaEventEdit', { eventSlug: event.slug, slug: slug } ) %>" rel="nofollow"><%= __( 'edit' ) %></a>
       <% } %>

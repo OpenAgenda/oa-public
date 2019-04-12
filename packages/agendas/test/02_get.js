@@ -190,7 +190,7 @@ describe( 'agendas - functional (server): get', function() {
     } );
 
   } );
-  
+
 
   it( 'get with internal option gets internal data like credentials and id', done => {
 
@@ -200,6 +200,8 @@ describe( 'agendas - functional (server): get', function() {
 
       _.get( agenda, 'credentials' ).should.eql( {
         useContributeApp: false,
+        useAgendaSchema: false,
+        premiumCustomFields: false,
         activatingInvitations: false,
         emailstrategie: false,
         embedsHead: false,

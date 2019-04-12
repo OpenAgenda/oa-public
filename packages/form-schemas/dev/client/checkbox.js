@@ -42,7 +42,7 @@ class Main extends Component {
 
     return <div className="container wsq top-margined col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-2 col-sm-8">
       <div className="row margin-v-md margin-h-sm">
-        <p>A single choice field</p>
+        <p>A multiple choice field</p>
         <FormSchemaComponent { ...props } />
       </div>
     </div>

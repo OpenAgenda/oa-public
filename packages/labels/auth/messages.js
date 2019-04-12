@@ -5,7 +5,7 @@ module.exports = {
     "en": "You need to be authenticated to access this event. Please sign in",
     "fr": "L' accès à cet événement est restreint. Connectez-vous pour y accéder.",
     "it": "Devi essere autenticato per accedere a questo evento. Accedi",
-    "de": "Sie müssen authentifiziert sein, um auf dieses Ereignis zugreifen zu können. Bitte melden Sie sich an",
+    "de": "Sie müssen authentifiziert sein, um auf dieses Veranstaltung zugreifen zu können. Bitte melden Sie sich an",
     "pl": "Aby uzyskać dostęp do tego wydarzenia, musisz być uwierzytelniony. Proszę się zalogować"
   },
   "limitedAccessAgenda": {

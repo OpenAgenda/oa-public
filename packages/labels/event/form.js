@@ -43,11 +43,15 @@ module.exports = {
     "it": "Titolo",
     "de": "Titel"
   },
+  "titlePurpose": {
+    "fr": "Titre de l'événement",
+    "en": "Title of the event"
+  },
   "titleSub": {
     "fr": "",
     "en": "",
     "it": "",
-    "de": ""
+    "de": "#VALUE!"
   },
   "titlePlaceholder": {
     "fr": "Le titre de votre événement",
@@ -61,6 +65,10 @@ module.exports = {
     "it": "Breve descrizione",
     "de": "Kurzbeschreibung"
   },
+  "descriptionPurpose": {
+    "fr": "Description pour les affichages réduits ou liste",
+    "en": "Description for short or list displays"
+  },
   "descriptionPlaceholder": {
     "fr": "Une courte description de votre événement",
     "en": "A short description of your event",
@@ -71,7 +79,7 @@ module.exports = {
     "fr": "",
     "en": "",
     "it": "",
-    "de": ""
+    "de": "#VALUE!"
   },
   "image": {
     "fr": "Image de l'événement",
@@ -107,7 +115,7 @@ module.exports = {
     "fr": "",
     "en": "",
     "it": "",
-    "de": ""
+    "de": "#VALUE!"
   },
   "keywords": {
     "fr": "Mots clés",
@@ -143,7 +151,7 @@ module.exports = {
     "fr": "",
     "en": "",
     "it": "",
-    "de": ""
+    "de": "#VALUE!"
   },
   "registration": {
     "fr": "Outils d'inscription",
@@ -206,8 +214,8 @@ module.exports = {
     "de": "Auswählen"
   },
   "languages": {
-    "fr": "Choisissez une langue",
-    "en": "Pick a language",
+    "fr": "Langues de saisie",
+    "en": "Input languages",
     "it": "Scegli una lingua",
     "de": "Wählen Sie eine Sprache"
   },

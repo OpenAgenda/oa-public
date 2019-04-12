@@ -10,6 +10,9 @@ module.exports = {
   }, {
     label: 'Displaying errors',
     slug: 'errors'
+  }, {
+    label: 'Form builder',
+    slug: 'builder'
   } ],
   cases: [ {
     name: 'The simplest empty form',
@@ -92,6 +95,11 @@ module.exports = {
     link: '/checkbox',
     group: 'types'
   }, {
+    name: 'A boolean ( unique checkbox )',
+    description: 'When it is a yes or no question',
+    link: '/boolean',
+    group: 'types'
+  }, {
     name: 'A markdown field',
     description: 'A field that outputs a markdown string',
     link: '/markdown',
@@ -142,5 +150,15 @@ module.exports = {
     name: 'missinglanguage',
     description: 'if requested language is not defined in label, other language is used for labels',
     link: '/missinglanguage'
+  }, {
+    group: 'builder',
+    name: 'formbuilder',
+    description: 'A form builder',
+    link: '/formbuilder'
+  }, {
+    group: 'builder',
+    name: 'Options',
+    description: 'For when you need to type in values for checkbox or radio lists',
+    link: '/options'
   } ]
 }

@@ -4,12 +4,16 @@ const _ = require( 'lodash' );
 const http = require( 'http' );
 const ih = require( 'immutability-helper' );
 
-const agendaSvc = require( '../services/agenda' );
+const agendaSvc = require( '@openagenda/agendas' );
 const cmn = require( '../lib/commons-app' );
 const modLib = require( '../lib/moduleLib' );
 
 const mw = require( '@openagenda/agenda-locations' ).mw();
 const sessions = require( '@openagenda/sessions' );
+
+const layout = require( '../services/lib/layouts' ).load(
+  'agendaAdmin', { selectedTab: 'locations' }
+);
 
 const checkLogging = sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) );
 
@@ -18,7 +22,7 @@ const config = require( '../config' );
 const routes = {
 
     locationIndex: [ 'get', '/:slug/locations', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.list,
@@ -26,27 +30,25 @@ const routes = {
     ] ],
 
     agendaAdminLocations: [ 'get', '/:slug/admin/locations', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      cmn.checkAdminOrModerator,
-      agendaSvc.mw.loadAdminLayout,
-      cmn.loadBaseData( 'oasfmain.css' ),
+      cmn.authorize.moderator,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.loadSettings(),
       show
     ] ],
 
     agendaAdminLocationsCsv: [ 'get', '/:slug/admin/locations/exports.csv', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      cmn.checkAdminOrModerator,
+      cmn.authorize.moderator,
       forwardCsvExport
     ] ],
 
     agendaLocationSet: [ 'post', '/:slug/locations', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       _checkCreate,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -54,7 +56,7 @@ const routes = {
     ] ],
 
     agendaAdminLocationSet: [ 'post', '/:slug/admin/locations', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
@@ -62,35 +64,35 @@ const routes = {
     ] ],
 
     agendaAdminLocationRemove: [ 'post', '/:slug/admin/locations/remove', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      cmn.checkAdminOrModerator,
+      cmn.authorize.moderator,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.remove
     ] ],
 
     agendaAdminLocationMerge: [ 'post', '/:slug/admin/locations/merge', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      cmn.checkAdminOrModerator,
+      cmn.authorize.moderator,
       mw.merge
     ] ],
 
     agendaAdminLocationTerms: [ 'get', '/:slug/admin/locations/terms', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      cmn.checkAdminOrModerator,
+      cmn.authorize.moderator,
       mw.list.terms
     ] ],
 
     locationGetStakeholder: [ 'get', '/:slug/admin/locations/stakeholders/:stakeholderId', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.verifyIPMiddleware,
-      cmn.checkAdminOrModerator,
+      cmn.authorize.moderator,
       ( req, res, next ) => {
 
         req.agendaId = req.agenda.id;
@@ -103,66 +105,66 @@ const routes = {
     ] ],
 
     locationGeocode: [ 'get', '/:slug/locations/geocode', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.geocode
     ] ],
 
     locationINSEE: [ 'get', '/:slug/locations/insee', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.insee
     ] ],
 
     locationReverseGeocode: [ 'get', '/:slug/locations/geocode/reverse', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.reverseGeocode
     ] ],
 
     locationResync: [ 'get', '/:slug/admin/locations/resync', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       cmn.verifyIPMiddleware,
       mw.resync,
       _resyncSuccess
     ] ],
 
     locationToVerifyCount: [ 'get', '/:slug/admin/locations/verifycount', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
-      cmn.checkAdminOrModerator,
+      cmn.authorize.moderator,
       mw.getUnverifiedCount
     ] ],
 
     locationNewImageUpload: [ 'post', '/:slug/locations/image', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.newImageUpload
     ] ],
 
     locationNewImageRemove: [ 'post', '/:slug/locations/image/remove', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.newImageRemove
     ] ],
 
     locationImageUpload: [ 'post', '/:slug/locations/:locationUid/image', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
-      cmn.checkAdminOrModerator,
+      cmn.authorize.moderator,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.imageUpload
     ] ],
 
     locationImageRemove: [ 'post', '/:slug/locations/:locationUid/image/remove', [
-      agendaSvc.mw.load( 'slug' ),
+      cmn.loadAgenda,
       checkLogging,
-      cmn.checkAdminOrModerator,
+      cmn.authorize.moderator,
       cmn.assign( 'req.user.uid', 'req.userUid' ),
       mw.imageRemove
     ] ],
@@ -193,41 +195,49 @@ module.exports = function( path ) {
 
 function show( req, res ) {
 
-  // attempt a settings load
-
-  cmn.render( req, res, 'locations/index', {
-    scriptParams: {
-      detailedInfo: req.settings.admin && req.settings.admin.detailed !== undefined ? req.settings.admin.detailed : true,
-      settings: req.settings,
-      lang: req.lang,
-      enableGeocode: true,
-      agenda: {
-        slug: req.agenda.slug,
-        title: req.agenda.title,
-        uid: req.agenda.uid
-      },
-      res: {
-        csv: req.genUrl( 'agendaAdminLocationsCsv', { slug: req.agenda.slug } ),
-        index: req.genUrl( 'locationIndex', { slug: req.agenda.slug } ),
-        geocode: req.genUrl( 'locationGeocode', { slug: req.agenda.slug } ),
-        insee: req.genUrl( 'locationINSEE', { slug: req.agenda.slug } ),
-        reverseGeocode: req.genUrl( 'locationReverseGeocode', { slug: req.agenda.slug } ),
-        seeEvents: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?locationUid=:locationUid',
-        set: req.genUrl( 'agendaAdminLocationSet', { slug: req.agenda.slug } ),
-        get: req.genUrl( 'agendaLocationGet', { slug: req.agenda.slug, locationUid: ':locationUid' } ),
-        getStakeholder: req.genUrl( 'locationGetStakeholder', { slug: req.agenda.slug, stakeholderId: ':stakeholderId' } ),
-        remove: req.genUrl( 'agendaAdminLocationRemove', { slug: req.agenda.slug } ),
-        merge: req.genUrl( 'agendaAdminLocationMerge', { slug: req.agenda.slug } ),
-        removeSuggestion: req.genUrl( 'locationSuggestionRemove', { slug: req.agenda.slug, locationUid: ':locationUid' } ),
-        image: {
-          newUpload: req.genUrl( 'locationNewImageUpload', { slug: req.agenda.slug } ),
-          newRemove: req.genUrl( 'locationNewImageRemove', { slug: req.agenda.slug } ),
-          upload: req.genUrl( 'locationImageUpload', { slug: req.agenda.slug, locationUid: ':locationUid' } ),
-          remove: req.genUrl( 'locationImageRemove', { slug: req.agenda.slug, locationUid: ':locationUid' } )
-        }
+  const scriptParams = {
+    detailedInfo: req.settings.admin && req.settings.admin.detailed !== undefined ? req.settings.admin.detailed : true,
+    settings: req.settings,
+    lang: req.lang,
+    enableGeocode: true,
+    agenda: {
+      slug: req.agenda.slug,
+      title: req.agenda.title,
+      uid: req.agenda.uid
+    },
+    res: {
+      csv: req.genUrl( 'agendaAdminLocationsCsv', { slug: req.agenda.slug } ),
+      index: req.genUrl( 'locationIndex', { slug: req.agenda.slug } ),
+      geocode: req.genUrl( 'locationGeocode', { slug: req.agenda.slug } ),
+      insee: req.genUrl( 'locationINSEE', { slug: req.agenda.slug } ),
+      reverseGeocode: req.genUrl( 'locationReverseGeocode', { slug: req.agenda.slug } ),
+      seeEvents: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?locationUid=:locationUid',
+      set: req.genUrl( 'agendaAdminLocationSet', { slug: req.agenda.slug } ),
+      get: req.genUrl( 'agendaLocationGet', { slug: req.agenda.slug, locationUid: ':locationUid' } ),
+      getStakeholder: req.genUrl( 'locationGetStakeholder', { slug: req.agenda.slug, stakeholderId: ':stakeholderId' } ),
+      remove: req.genUrl( 'agendaAdminLocationRemove', { slug: req.agenda.slug } ),
+      merge: req.genUrl( 'agendaAdminLocationMerge', { slug: req.agenda.slug } ),
+      removeSuggestion: req.genUrl( 'locationSuggestionRemove', { slug: req.agenda.slug, locationUid: ':locationUid' } ),
+      image: {
+        newUpload: req.genUrl( 'locationNewImageUpload', { slug: req.agenda.slug } ),
+        newRemove: req.genUrl( 'locationNewImageRemove', { slug: req.agenda.slug } ),
+        upload: req.genUrl( 'locationImageUpload', { slug: req.agenda.slug, locationUid: ':locationUid' } ),
+        remove: req.genUrl( 'locationImageRemove', { slug: req.agenda.slug, locationUid: ':locationUid' } )
       }
     }
-  } );
+  }
+
+  return res.send( layout( '<div class="js_canvas"></div>', {
+    lang: req.lang,
+    agenda: req.agenda,
+    bodyAttributes: [ {
+      name: 'data-options',
+      value: JSON.stringify( scriptParams )
+    } ],
+    scripts: {
+      bottom: [ { src: '/js/locationsIndex.js' } ]
+    }
+  } ) );
 
 }
 
@@ -281,7 +291,5 @@ function _checkCreate( req, res, next ) {
 
   }
 
-  // there is an identifier. So a set is for moderators.
-  cmn.checkAdminOrModerator( req, res, next );
-
+  cmn.authorize.moderator( req, res, next );
 }

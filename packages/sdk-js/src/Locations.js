@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import parseJsonResponse from './utils/parseJsonResponse';
+import baseUrl from './baseUrl';
 
 export default class Locations {
   constructor( sdk ) {
@@ -17,7 +18,7 @@ export default class Locations {
     await this.sdk.refreshToken();
 
     return this.sdk.agent
-      .post( `/v1/locations` )
+      .post( `${baseUrl.v1}/locations` )
       .type( 'form' )
       .accept( 'json' )
       .field( {
@@ -25,7 +26,7 @@ export default class Locations {
         nonce: _.random( Math.pow( 10, 6 ) ),
         data: JSON.stringify( { ...data, agenda_uid: agendaUid } )
       } )
-      .then( parseJsonResponse() )
+      .then( parseJsonResponse )
       .then( v => v.body );
   }
 }

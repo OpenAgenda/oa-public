@@ -37,6 +37,10 @@ const base = {
         type: 'integer',
         default: null
       },
+      agendaUid: {
+        type: 'integer',
+        default: null
+      },
       // if operation was done through legacy app
       legacy: {
         type: 'boolean',
@@ -67,6 +71,11 @@ const base = {
       sourceAgenda: {
         type: 'pass',
         default: null
+      },
+      // when the update is part of a mass update
+      batched: {
+        type: 'boolean',
+        default: false
       }
     }
   }

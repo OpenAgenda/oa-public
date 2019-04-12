@@ -8,7 +8,6 @@ const cmn = require( '../lib/commons-app' );
 const qs = require( 'qs' );
 
 const activitiesSvc = require( '@openagenda/activities' );
-const agendas = require( '@openagenda/agendas' );
 const agendaEventsSvc = require( '../services/agendaEvents' );
 const controlDataSvc = require( '../services/legacy' ).controlData;
 const sessions = require( '@openagenda/sessions' );
@@ -30,6 +29,7 @@ const logger = require( '@openagenda/logs' );
 const apiLog = logger( 'legacyApi' );
 const log = logger( 'legacy' );
 
+const adminLayout = require( '../services/lib/layouts' ).agendaAdmin;
 
 const preMw = [
   cmn.loadLogger( 'legacy' ),
@@ -47,6 +47,13 @@ module.exports = app => {
     preMw,
     legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
     head
+  );
+
+  app.post(
+    '/legacy/:slug/admin/layout/:tab',
+    preMw,
+    _loadAgenda,
+    agendaAdminLayout
   );
 
   app.get(
@@ -119,17 +126,8 @@ module.exports = app => {
   app.get(
     '/legacy/:slug/credentials',
     preMw,
-    ( req, res, next ) => {
-
-      agendas.get( { slug: req.params.slug }, { private: null, internal: true }, ( err, agenda ) => {
-
-        if ( err ) return next( err );
-
-        res.json( agenda.credentials );
-
-      } );
-
-    }
+    _loadAgenda,
+    ( req, res ) => res.json( req.agenda.credentials )
   );
 
   /**
@@ -198,7 +196,7 @@ module.exports = app => {
     preMw,
     ( req, res, next ) => {
 
-      agendas.get( { uid: req.body.agendaUid }, { private: null }, ( err, agenda ) => {
+      agendaSvc.get( { uid: req.body.agendaUid }, { private: null }, ( err, agenda ) => {
 
         if ( err ) return next( err );
 
@@ -245,16 +243,33 @@ module.exports = app => {
 
 function head( req, res, next ) {
 
-  agendas.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
+  agendaSvc.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
 
     cmn.render( req, res, 'agenda/headPart', {
-      mailto: cmn.agendaMailTo( agenda ),
+      mailto: cmn.agendaMailTo( req.agenda ),
       agenda: req.agenda,
       includeActionLinks: true,
       targetBlank: true
     } );
 
   } );
+
+}
+
+function agendaAdminLayout( req, res ) {
+
+  const { scriptParams, scripts } = req.body;
+
+  res.send( adminLayout( '{content}', {
+    agenda: req.agenda,
+    lang: req.lang,
+    selectedTab: req.params.tab,
+    bodyAttributes: [ {
+      name: 'data-options',
+      value: JSON.stringify( scriptParams )
+    } ],
+    scripts
+  } ) );
 
 }
 
@@ -793,5 +808,23 @@ function _extractRecipients( obj ) {
   for ( let email in obj ) emails.push( email );
 
   return emails;
+
+}
+
+function _loadAgenda( req, res, next ) {
+
+  agendaSvc.get( _.pick( req.params, [ 'slug' ] ), {
+    private: null,
+    internal: true,
+    includeImagePath: true
+  } ).then( agenda => {
+
+    if ( !agenda ) return next( { code: 404 } );
+
+    _.assign( req, { agenda } );
+
+    next();
+
+  }, next );
 
 }

@@ -106,7 +106,7 @@ module.exports = app => {
     },
     _loadAdminOrModerator,
     eventReferences.mw.events,
-    ( req, res ) => res.json( req.events )
+    ( req, res ) => res.json( _.pick( req, [ 'events' ] ) )
   );
 
   app.get(

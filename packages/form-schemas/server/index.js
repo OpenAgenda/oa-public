@@ -7,6 +7,7 @@ const logger = require( '@openagenda/logs' );
 const storeLib = require( '@openagenda/mysql-table-store' );
 
 const FormSchema = require( '../iso/FormSchema' );
+const merge = require( '../iso/merge' );
 const legacy = require( './legacy' );
 const filesMw = require( './middleware/files' );
 
@@ -15,12 +16,36 @@ let client, log, config;
 module.exports = {
   init,
   get,
+  getMerged,
   getValidator,
   create,
   update,
   remove,
   legacy,
   shutdown
+}
+
+
+async function getMerged( ids, options = {} ) {
+
+  const { instanciate } = _.assign( {
+    instanciate: false,
+  }, options );
+
+  const schemas = [];
+
+  for ( const id of ids ) {
+
+    schemas.push( await get( id ) );
+
+  }
+
+  const merged = merge.apply( null, schemas );
+
+  if ( instanciate ) return new FormSchema( merged );
+
+  return merged;
+
 }
 
 async function get( id, options = {} ) {

@@ -222,112 +222,65 @@ const AdminEventsHeader = createReactClass( {
         {this.state.loading ? <Spinner page={true} message={getLabel( 'loading', this.props.lang )} /> : null}
 
         <div className="col col-sm-2">
-
           <div className="form-group">
-
             <div className="state-control">
-
               <Select
-
                 value={this.getQueryPart( 'state' )}
-
                 options={self.getStateOptions()}
-
                 clearable={false}
-
                 placeholder={getStateLabel( 'state', this.props.lang )}
-
                 onChange={function ( state ) {
-
                   self.setQueryPart( 'state', state.value );
-
                 }} />
-
             </div>
-
           </div>
-
         </div>
 
         <div className="col col-sm-10">
-
-          <div className="form-inline">
-
-            <div className="form-group">
-
+          <div className="row margin-bottom-xs">
+            <div className="col-sm-6">
               <input
-
                 className="form-control"
-
                 placeholder={getLabel( 'title', this.props.lang )}
-
                 value={this.getQueryPart( 'title' )}
-
                 onChange={this.onChange( 'title' )}
-
                 onKeyUp={this.onKeyUp( 'title' )} />
-
+            </div>
+            <div className="col-sm-6">
               <LocationField
-
                 res={this.props.res.location}
-
                 getQueryPart={this.getQueryPart}
-
                 onChange={this.onUidFieldChange( 'locationUid', 'locationName' )}
-
                 onKeyUp={this.onKeyUp( 'locationName' )}
-
                 onBlur={this.onBlur( 'locationName' )}
-
                 placeholder={getLabel( 'locationName', this.props.lang )} />
-
             </div>
-
-            <div className="form-group">
-
-              <ContributorField
-
-                res={this.props.res.contributor}
-
-                getQueryPart={this.getQueryPart}
-
-                onChange={this.onUidFieldChange( 'contributorUid', 'contributor' )}
-
-                onKeyUp={this.onKeyUp( 'contributor' )}
-
-                placeholder={getLabel( 'contributor', this.props.lang )} />
-
-              <TermSelectorPicker
-
-                lang={this.props.lang}
-
-                fields={this.props.geographicFields}
-
-                defaultField='region'
-
-                res={this.props.res.terms}
-
-                value={this.state.term}
-
-                labels={{
-
-                  region: { fr: 'région', en: 'region' },
-
-                  department: { fr: 'département', en: 'department' },
-
-                  city: { fr: 'ville', en: 'city' }
-
-                }}
-
-                onChange={this.onTermChange}
-
-              />
-
-
-            </div>
-
           </div>
-
+          <div className="row">
+            <div className="col-sm-6">
+              <ContributorField
+                res={this.props.res.contributor}
+                getQueryPart={this.getQueryPart}
+                onChange={this.onUidFieldChange( 'contributorUid', 'contributor' )}
+                onKeyUp={this.onKeyUp( 'contributor' )}
+                placeholder={getLabel( 'contributor', this.props.lang )} />
+            </div>
+            <div className="col-sm-6">
+              <TermSelectorPicker
+                lang={this.props.lang}
+                fields={this.props.geographicFields}
+                defaultField='region'
+                res={this.props.res.terms}
+                value={this.state.term}
+                labels={{
+                  region: { fr: 'région', en: 'region' },
+                  department: { fr: 'département', en: 'department' },
+                  city: { fr: 'ville', en: 'city' }
+                }}
+                onChange={this.onTermChange}
+              />
+            </div>
+          </div>
         </div>
 
       </div>

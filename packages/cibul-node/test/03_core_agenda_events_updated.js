@@ -264,6 +264,88 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
   } );
 
+  describe( 'successful partial update', () => {
+
+    let createResult, agenda, updateResult;
+
+    before( async () => {
+
+      agenda = agendas.get( { uid: 17026855 }, { internal: true } );
+
+    } );
+
+    before( async () => {
+
+      createResult = await core.agendas( 17026855 ).events.create( {
+        title: {
+          fr: 'Un événement'
+        },
+        description: {
+          fr: 'Une description'
+        },
+        location: {
+          uid: 123
+        },
+        timings: [ {
+          begin: new Date,
+          end: new Date
+        } ],
+        'categories-agenda-metropolitain': 42,
+        'thematiques-bordeaux-metropole' : [ 3, 4 ]
+      } );
+
+    } );
+
+    before( async () => {
+
+      updateResult = await core.agendas( 17026855 ).events.update( createResult.created.event.uid, {
+        title: {
+          fr: 'Un événement mis à jour',
+          en: 'An updated event'
+        },
+        'categories-agenda-metropolitain': 43
+      }, { partial: true } );
+
+    } );
+
+    it( 'event field specified in partial update data is updated', () => {
+
+      updateResult.updated.event.title.should.eql( {
+        fr: 'Un événement mis à jour',
+        en: 'An updated event'
+      } );
+
+    } );
+
+    it( 'custom field specified in partial update data is updated', () => {
+
+      updateResult.updated.custom[ 'categories-agenda-metropolitain' ].should.equal( 43 );
+
+    } );
+
+    it( 'event fields not specified in partial update are not modified', () => {
+
+      _.keys( createResult.created.event ).filter( f => ![ 'title', 'updatedAt' ].includes( f ) ).forEach( field => {
+
+        should( createResult.created.event[ field ] ).eql( updateResult.updated.event[ field ] );
+
+      } );
+
+    } );
+
+    it( 'custom fields not specified in partial update are not modified', () => {
+
+      _.keys( createResult.created.custom ).filter( f => ![ 'categories-agenda-metropolitain' ].includes( f ) ).forEach( field => {
+
+        should( createResult.created.custom[ field ] ).eql( updateResult.updated.custom[ field ] );
+
+      } );
+
+    } );
+
+
+  } );
+
   describe( 'other', () => {
 
     const agendaUid = 17026855;
