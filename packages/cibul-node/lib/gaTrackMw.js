@@ -21,42 +21,46 @@ function extractUserInfos( req ) {
   return { cid, _gid, dl, uip, ua };
 }
 
-module.exports = function gaTrackExport( category, action, label ) {
-  return ( req, res, next ) => {
-    const agendaSettings = typeof req.agenda.getSettings === 'function'
-      ? req.agenda.getSettings()
-      : req.agenda.settings;
-    const gaId = _.get( agendaSettings, 'tracking.googleAnalytics' );
+module.exports = ( category, action, label ) => ( req, res, next ) => {
+  if ( !req.agenda ) {
+    return next ? next() : null;
+  }
 
-    if ( gaId && process.env.NODE_ENV === 'production' ) {
-      const { cid, ...rest } = extractUserInfos( req );
+  const agendaSettings = typeof req.agenda.getSettings === 'function'
+    ? req.agenda.getSettings()
+    : req.agenda.settings;
+  const gaId = _.get( agendaSettings, 'tracking.googleAnalytics' );
 
-      gaTrackEvent( gaId, cid, category, action, label, rest )
-        .catch( e => log.warn( 'Tracking error', e ) );
-    }
+  if ( gaId && process.env.NODE_ENV === 'production' ) {
+    const { cid, ...rest } = extractUserInfos( req );
 
-    if ( typeof next === 'function' ) {
-      next();
-    }
-  };
+    gaTrackEvent( gaId, cid, category, action, label, rest )
+      .catch( e => log.warn( 'Tracking error', e ) );
+  }
+
+  if ( typeof next === 'function' ) {
+    next();
+  }
 };
 
-module.exports.batch = function gaBatchTrackExport( events ) {
-  return ( req, res, next ) => {
-    const agendaSettings = typeof req.agenda.getSettings === 'function'
-      ? req.agenda.getSettings()
-      : req.agenda.settings;
-    const gaId = _.get( agendaSettings, 'tracking.googleAnalytics' );
+module.exports.batch = events => ( req, res, next ) => {
+  if ( !req.agenda ) {
+    return next ? next() : null;
+  }
 
-    if ( gaId && process.env.NODE_ENV === 'production' ) {
-      const { cid, ...rest } = extractUserInfos( req );
+  const agendaSettings = typeof req.agenda.getSettings === 'function'
+    ? req.agenda.getSettings()
+    : req.agenda.settings;
+  const gaId = _.get( agendaSettings, 'tracking.googleAnalytics' );
 
-      gaTrackEvent.batch( gaId, cid, events, rest )
-        .catch( e => log.warn( 'Tracking error', e ) );
-    }
+  if ( gaId && process.env.NODE_ENV === 'production' ) {
+    const { cid, ...rest } = extractUserInfos( req );
 
-    if ( typeof next === 'function' ) {
-      next();
-    }
-  };
-}
+    gaTrackEvent.batch( gaId, cid, events, rest )
+      .catch( e => log.warn( 'Tracking error', e ) );
+  }
+
+  if ( typeof next === 'function' ) {
+    next();
+  }
+};
