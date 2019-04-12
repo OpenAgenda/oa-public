@@ -148,7 +148,7 @@ export default class MainHeader extends Component {
                                   <h3>Général</h3>
                                 </li>
                                 <li>
-                                  <a href="/home/events">Mes événements</a>
+                                  <a href="/home/events" onClick={pushTo( history, '/home/events' )}>Mes événements</a>
                                 </li>
                                 <li>
                                   <a
@@ -168,9 +168,9 @@ export default class MainHeader extends Component {
                               </ul>
                               <ul className="list-unstyled col-md-6">
                                 <li><h3>Agendas</h3></li>
-                                <li><a href="/home">Mes Agendas</a></li>
+                                <li><a href="/home" onClick={pushTo( history, '/home' )}>Mes Agendas</a></li>
                                 <li><a href="/agendas">Chercher un agenda</a></li>
-                                <li><a href="/new">Créer un agenda</a></li>
+                                <li><a href="/new" onClick={pushTo( history, '/new' )}>Créer un agenda</a></li>
                               </ul>
                             </div>
                           </li>

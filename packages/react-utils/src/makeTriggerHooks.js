@@ -13,7 +13,8 @@ export default function makeTriggerHooks( { routes, history, helpers, req } ) {
 
     // Avoid synchronous onStart -> onFinish
     const start = () => setTimeout( () => {
-      if ( !isFinished ) {
+      if ( !isStarted && !isFinished ) {
+        isStarted = true;
         onStart();
       }
     } );
@@ -33,7 +34,6 @@ export default function makeTriggerHooks( { routes, history, helpers, req } ) {
               .filter( v => v.preload )
               .every( v => (typeof v.isReady === 'function' && v.isReady()) )
           ) {
-            isStarted = true;
             start();
           }
 
@@ -44,8 +44,7 @@ export default function makeTriggerHooks( { routes, history, helpers, req } ) {
 
     const compsHaveHooks = haveHooks( hooks, components );
 
-    if ( typeof onStart === 'function' && compsHaveHooks ) {
-      isStarted = true;
+    if ( !notFound && !isStarted && typeof onStart === 'function' && compsHaveHooks ) {
       start();
     }
 
@@ -74,8 +73,10 @@ export default function makeTriggerHooks( { routes, history, helpers, req } ) {
 
     isFinished = true;
 
-    if ( isStarted && typeof onFinish === 'function' && compsHaveHooks ) {
-      setTimeout( () => onFinish() );
+    if ( isStarted && typeof onFinish === 'function' ) {
+      setTimeout( () => {
+        onFinish();
+      } );
     }
   };
 }

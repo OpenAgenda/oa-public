@@ -86,18 +86,11 @@ export default function ( options ) {
   const routes = getRoutes( prefix, notFoundKey );
   const triggerHooks = makeTriggerHooks( { routes, history, helpers, req } );
   const content = (
-    <NotFound.Capture notFoundKey={notFoundKey}>
-      <RouterTrigger
-        trigger={() => triggerHooks( {
-          onStart: onLocationChangeStart,
-          onFinish: onLocationChangeFinish
-        } )}
-      >
-        <Provider store={store} context={ReactReduxContext}>
-          {Header ? <Header history={history} /> : null}
-          {renderRoutes( routes )}
-        </Provider>
-      </RouterTrigger>
+    <NotFound.Capture notFoundKey={notFoundKey} key={notFoundKey}>
+      <Provider store={store} context={ReactReduxContext}>
+        {Header ? <Header history={history} /> : null}
+        {renderRoutes( routes )}
+      </Provider>
     </NotFound.Capture>
   );
 
@@ -105,9 +98,16 @@ export default function ( options ) {
     <LoadableContext.Provider value={extractor} key={notFoundKey}>
       <Router history={history}>
         <ScrollToTop>
-          {req
-            ? <StaticRouter location={req.originalUrl} context={staticContext}>{content}</StaticRouter>
-            : content}
+          <RouterTrigger
+            trigger={() => triggerHooks( {
+              onStart: onLocationChangeStart,
+              onFinish: onLocationChangeFinish
+            } )}
+          >
+            {req
+              ? <StaticRouter location={req.originalUrl} context={staticContext}>{content}</StaticRouter>
+              : content}
+          </RouterTrigger>
         </ScrollToTop>
       </Router>
     </LoadableContext.Provider>
@@ -118,6 +118,7 @@ export default function ( options ) {
     history,
     routes,
     element,
+    content,
     notFoundKey,
     staticContext,
     triggerHooks
