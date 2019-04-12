@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const config = require( '../config' );
@@ -7,13 +8,13 @@ const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const agendaSettings = require( '@openagenda/agenda-settings' );
 const mw = agendaSettings.mw;
-const agendaSvc = require( '../services/agenda' );
 const sessions = require( '@openagenda/sessions' );
 const keysMw = require( '@openagenda/keys/middleware' );
 
 const labels = require( '@openagenda/labels/agenda-settings/agendaEdition' );
 const getLabel = require( '@openagenda/labels' )( labels );
 
+const layout = require( '../services/lib/layouts' ).load( 'agendaAdmin' );
 
 module.exports = path => {
 
@@ -25,18 +26,14 @@ module.exports = path => {
     ] ],
 
     agendaSettingsEditApp: [ 'get', '/:slug/admin/settings', cmn.verifyIPMiddleware.concat( [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
-      agendaSvc.mw.loadAdminLayout,
-      cmn.loadBaseData( 'oasfmain.css' ),
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
       matchEditApp
     ] ) ],
 
     agendaSettingsEditSub: [ 'get', '/:slug/admin/settings/?*?', cmn.verifyIPMiddleware.concat( [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
-      agendaSvc.mw.loadAdminLayout,
-      cmn.loadBaseData( 'oasfmain.css' ),
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
       matchEditApp
     ] ) ],
 
@@ -51,14 +48,14 @@ module.exports = path => {
     ],
 
     agendaSettingsGetAgenda: [ 'get', '/agendas/:uid/admin/settings.json', [
-      agendaSvc.mw.load( 'uid' ),
-      cmn.checkAdministrator(),
+      cmn.loadAgendaBy( 'uid' ),
+      cmn.authorize.administrator,
       mw.get
     ] ],
 
     agendaSettingsEditAgenda: [ 'post', '/:slug/admin/settings/edit', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
       ( req, res, next ) => {
         req.context = { user: req.user };
         next();
@@ -67,20 +64,20 @@ module.exports = path => {
     ] ],
 
     agendaSettingsSetImage: [ 'post', '/:slug/admin/settings/setImage', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
       mw.setImage
     ] ],
 
     agendaSettingsClearImage: [ 'post', '/:slug/admin/settings/clearImage', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
       mw.clearImage
     ] ],
 
     agendaSettingsRemoveAgenda: [ 'post', '/:slug/admin/settings/remove', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
       mw.removeAgenda,
       ( req, res ) => {
         sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
@@ -91,8 +88,8 @@ module.exports = path => {
     /**********/
 
     agendaSettingsKeysCreate: [ 'post', '/:slug/admin/settings/keys/create', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
       ( req, res, next ) => {
         req.identifiers = {
           type: 'agendaFullRead',
@@ -104,8 +101,8 @@ module.exports = path => {
       ( req, res, next ) => res.send( req.result )
     ] ],
     agendaSettingsKeysGet: [ 'get', '/:slug/admin/settings/keys/get', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
       ( req, res, next ) => {
         req.identifiers = {
           type: 'agendaFullRead',
@@ -118,8 +115,8 @@ module.exports = path => {
       ( req, res, next ) => res.send( req.result )
     ] ],
     agendaSettingsKeysList: [ 'get', '/:slug/admin/settings/keys/list', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
       ( req, res, next ) => {
         req.identifiers = {
           type: 'agendaFullRead',
@@ -132,8 +129,8 @@ module.exports = path => {
       ( req, res, next ) => res.send( req.result )
     ] ],
     agendaSettingsKeysUpdate: [ 'patch', '/:slug/admin/settings/keys/update', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
       ( req, res, next ) => {
         req.identifiers = {
           type: 'agendaFullRead',
@@ -146,8 +143,8 @@ module.exports = path => {
       ( req, res, next ) => res.send( req.result )
     ] ],
     agendaSettingsKeysRemove: [ 'delete', '/:slug/admin/settings/keys/remove', [
-      agendaSvc.mw.load( 'slug' ),
-      cmn.checkAdministrator(),
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
       ( req, res, next ) => {
         req.identifiers = {
           type: 'agendaFullRead',
@@ -197,13 +194,19 @@ module.exports = path => {
   function getEditApp( req, res, next, { store, component } = {} ) {
 
     const state = store ? store.getState() : {};
-    const prefix = state.settings.prefix;
-    const lang = req.lang || 'fr';
 
-    const content = component ? ReactDOM.renderToString( component ) : '';
-    const tab = 'settings_' + (state.routing.locationBeforeTransitions.pathname.substr( prefix.length + 1 ) || 'profile');
-
-    cmn.render( req, res, 'agendaSettings/edit', { scriptParams: { state }, lang, content, tab } );
+    res.send( layout( `<div class="js_canvas">${component ? ReactDOM.renderToString( component ) : ''}</div>`, {
+      selectedTab: 'settings_' + ( state.routing.locationBeforeTransitions.pathname.substr( state.settings.prefix.length + 1 ) || 'profile' ),
+      lang: _.get( req, 'lang', 'fr' ),
+      agenda: req.agenda,
+      bodyAttributes: [ {
+        name: 'data-options',
+        value: JSON.stringify( { state } )
+      } ],
+      scripts: {
+        bottom: [ { src: '/js/agendaSettingsEdit.js' } ]
+      }
+    } ) );
 
   }
 
