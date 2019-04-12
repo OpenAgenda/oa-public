@@ -4,7 +4,8 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "build": "webpack --config webpack.config.js"
+    "build": "webpack --config webpack.config.js",
+    "prepublish": "yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.4.3",

@@ -21,7 +21,7 @@ module.exports = ( env = {}, argv = {} ) => {
   const envName = process.env.NODE_ENV || env.NODE_ENV || defaultEnvName;
   const babelEnvName = process.env.BABEL_ENV || env.BABEL_ENV || envName;
 
-  const pushToCDN = envName === 'production' && parseInt( process.env.CI || env.CI );
+  const pushToCDN = envName === 'production' && parseInt( process.env.CDN || env.CDN );
 
   return {
     mode: envName === 'production' ? 'production' : 'development',

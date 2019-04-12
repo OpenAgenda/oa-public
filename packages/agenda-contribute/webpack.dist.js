@@ -8,7 +8,7 @@ const WebpackAssetsManifest = require( 'webpack-assets-manifest' );
 
 const serviceName = require( './package.json' ).name.split( '/' ).pop();
 
-const pushToCDN = process.env.NODE_ENV === 'production' && parseInt( process.env.CI );
+const pushToCDN = process.env.NODE_ENV === 'production' && parseInt( process.env.CDN );
 
 const localDistPath = __dirname + '/client/dist';
 
