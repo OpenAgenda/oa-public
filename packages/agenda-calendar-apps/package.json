@@ -5,6 +5,7 @@
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
   "scripts": {
+    "prepublish": "yarn dist",
     "start": "nodemon server.dev",
     "dist": "webpack --config webpack.dist.js"
   },
