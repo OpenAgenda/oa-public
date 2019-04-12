@@ -23,7 +23,7 @@ let params = {
       canvas: '.js_customize',
       submit: '.js_submit',
       wrapper: 'div',
-      wrapperClass: 'select-menu'
+      wrapperClass: 'select-menu form-inline'
     }
   },
   codeLang: {
@@ -63,9 +63,9 @@ window.run = function(options) {
 var _runSelectForm = function(params) {
 
   selectForm(params.selectors.title, params.selectors.subtitle, params.selectors.detail, {
-    canvas: cn.el(params.selectors.canvas), 
-    submit: cn.els(params.selectors.submit), 
-    wrapper: params.selectors.wrapper, 
+    canvas: cn.el(params.selectors.canvas),
+    submit: cn.els(params.selectors.submit),
+    wrapper: params.selectors.wrapper,
     wrapperClass: params.selectors.wrapperClass
   });
 

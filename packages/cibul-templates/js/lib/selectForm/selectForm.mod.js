@@ -33,6 +33,8 @@ module.exports = function(headSelector, sectionHeadSelector, sectionContent, opt
 
     var i=-1, elemToInsert = select;
 
+    select.className = 'form-control';
+
     if (params.wrapper) {
       elemToInsert = document.createElement(params.wrapper);
 
@@ -41,15 +43,14 @@ module.exports = function(headSelector, sectionHeadSelector, sectionContent, opt
       elemToInsert.appendChild(select);
     }
 
-    cn.el(params.canvas, headSelector).insertAdjacentElement('beforebegin', elemToInsert);
-    
+    cn.el(params.canvas, headSelector).insertAdjacentElement( 'beforebegin', elemToInsert );
 
     // insert title as first select option
 
     select.options[select.options.length] = new Option(_popText(cn.el(params.canvas, headSelector)), i++);
 
     // insert section titles in select
-    while (cn.els(params.canvas, sectionHeadSelector).length) {
+    while ( cn.els( params.canvas, sectionHeadSelector ).length ) {
 
       select.options[select.options.length] = new Option(_popText(cn.el(params.canvas, sectionHeadSelector)), i++);
 
@@ -80,7 +81,7 @@ module.exports = function(headSelector, sectionHeadSelector, sectionContent, opt
       } else {
         sectionElems[i].style.display = 'none';
       }
-      
+
     }
 
   },
