@@ -15,7 +15,7 @@ module.exports = ( { entry, output } ) => ({
   devtool: 'eval-source-map',
   entry: {
     ...entry,
-    webapp: path.join( path.dirname( __dirname ), 'webapp/index.js' )
+    // webapp: path.join( path.dirname( __dirname ), 'webapp/index.js' )
   },
   output: {
     ...output,

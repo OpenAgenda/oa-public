@@ -12,8 +12,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
+    "@babel/runtime-corejs3": "^7.4.3",
     "@openagenda/dom-utils": "^2.2.0",
+    "core-js": "^3.0.1",
     "create-react-class": "^15.5.3",
     "prop-types": "^15.7.2",
     "react-bootstrap": "^0.31.0",
@@ -23,8 +24,8 @@
     "spin.js": "2.3.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
     "@openagenda/bs-templates": "^2.2.0",
     "@storybook/addon-actions": "^4.1.11",
     "@storybook/react": "^4.1.11",

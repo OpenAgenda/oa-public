@@ -22,7 +22,7 @@
     "start-light": "nodemon --exec 'npm' --ignore components/build --ext js,jsx run serve"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
+    "@babel/runtime-corejs3": "^7.4.3",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/countries": "^0.1.1",
     "@openagenda/dom-utils": "^2.2.0",
@@ -39,6 +39,7 @@
     "@openagenda/utils": "^1.0.2",
     "@openagenda/validators": "^2.1.3",
     "async": "^1.5.0",
+    "core-js": "^3.0.1",
     "create-react-class": "^15.5.2",
     "elasticsearch": "^10.0.1",
     "immutability-helper": "^3.0.0",
@@ -58,8 +59,8 @@
     "xhr": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
     "@openagenda/test-app": "^2.0.7",
     "babel-preset-openagenda": "^1.1.1",
     "body-parser": "1.18.3",

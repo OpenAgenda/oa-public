@@ -1,14 +1,10 @@
-if ( !window._babelPolyfill ) require( '@babel/polyfill' );
-
-require( 'dom4' );
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
 import IScroll from 'iscroll';
-import du from '@openagenda/dom-utils';
 import { loadableReady } from '@loadable/component';
+import du from '@openagenda/dom-utils';
 import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 import { HeaderManager, Header } from '@openagenda/react-layouts';
 import createAppHome from '@openagenda/home/src/client/app';

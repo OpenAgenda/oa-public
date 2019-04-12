@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 import { createLocation } from 'history';
+import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 import getNotFoundState from './getNotFoundState';
 
 export default function historyActionMaker( {

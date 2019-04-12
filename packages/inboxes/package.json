@@ -21,7 +21,7 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
+    "@babel/runtime-corejs3": "^7.4.3",
     "@openagenda/agenda-stakeholders": "^2.1.2",
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/logs": "^1.1.1",
@@ -31,6 +31,7 @@
     "ajv-errors": "^1.0.0",
     "ajv-keywords": "^2.1.0",
     "axios": "^0.18.0",
+    "core-js": "^3.0.1",
     "knex": "^0.16.3",
     "lodash": "^4.17.4",
     "mime-types": "^2.1.18",
@@ -41,8 +42,8 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
     "@openagenda/fixtures": "^2.0.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",

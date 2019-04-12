@@ -12,7 +12,7 @@
     "build": "babel react/src -d react/build -s"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
+    "@babel/runtime-corejs3": "^7.4.3",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/labels": "^2.1.0",
@@ -20,6 +20,7 @@
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/utils": "^1.0.2",
+    "core-js": "^3.0.1",
     "create-react-class": "^15.5.2",
     "es6-promise": "^3.2.1",
     "immutability-helper": "^3.0.0",
@@ -33,8 +34,8 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/test-app": "^2.0.3",
     "babel-preset-openagenda": "^1.1.1",

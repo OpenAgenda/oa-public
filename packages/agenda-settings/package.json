@@ -25,7 +25,7 @@
     "react-dom": "^16.8.4"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
+    "@babel/runtime-corejs3": "^7.4.3",
     "@loadable/babel-plugin": "^5.6.0",
     "@loadable/component": "^5.6.1",
     "@openagenda/agendas": "^1.1.4",
@@ -39,6 +39,7 @@
     "@openagenda/react-utils": "^4.0.0",
     "@openagenda/validators": "^2.1.4",
     "classnames": "^2.2.5",
+    "core-js": "^3.0.1",
     "history": "^4.7.2",
     "immutability-helper": "^3.0.0",
     "knex": "^0.16.3",
@@ -60,10 +61,10 @@
     "superagent": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.4.3",
+    "@babel/core": "^7.4.3",
     "@babel/node": "^7.2.2",
-    "@babel/register": "^7.0.0",
+    "@babel/register": "^7.4.0",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/keys": "^2.1.1",
     "@storybook/react": "^4.1.11",
