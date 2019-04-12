@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const uuid = require( 'uuid' );
 const log = require( '@openagenda/logs' )( 'gaTrackExport' );
 const gaTrackEvent = require( './gaTrackEvent' );
@@ -26,7 +27,6 @@ module.exports = function gaTrackExport( category, action, label ) {
       ? req.agenda.getSettings()
       : req.agenda.settings;
     const gaId = _.get( agendaSettings, 'tracking.googleAnalytics' );
-    // const gaId = 'UA-60305866-1';
 
     if ( gaId && process.env.NODE_ENV === 'production' ) {
       const { cid, ...rest } = extractUserInfos( req );
@@ -47,7 +47,6 @@ module.exports.batch = function gaBatchTrackExport( events ) {
       ? req.agenda.getSettings()
       : req.agenda.settings;
     const gaId = _.get( agendaSettings, 'tracking.googleAnalytics' );
-    // const gaId = 'UA-60305866-1';
 
     if ( gaId && process.env.NODE_ENV === 'production' ) {
       const { cid, ...rest } = extractUserInfos( req );
