@@ -188,7 +188,7 @@ export default class FormSchemaComponent extends Component {
 
   _getFormSchema() {
 
-    // building the formSchema is a bit costly, so memoizition is usefull here
+    // building the formSchema is a bit costly, so memoizition is useful here
 
     const hasChanged = !![ 'hash', 'lang' ].filter(
       memoizeKey => _.get( this.memoized, memoizeKey, '' ) !== _.get( this.props, memoizeKey, '' )

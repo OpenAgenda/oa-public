@@ -63,22 +63,23 @@ export default class OptionItem extends Component {
       ref={provided.innerRef}
       {...provided.draggableProps}
       {...provided.dragHandleProps}
-      style={provided.draggableProps.style}
-    >
-      { isEdited ? null : <label className="margin-v-xs">{getPreferredLang( option.label, lang )}</label> }
-      { isEdited ? null : <div className="pull-right">
-        <button
-          disabled={!actionable}
-          onClick={onEdit}
-          className="btn btn-link">{getLabel( 'optionEdit', lang )}</button>
-        <button
-          disabled={!actionable}
-          onClick={onRemove}
-          className="btn btn-link">
-          <span className="text text-danger">{getLabel( 'optionRemove', lang )}</span>
-        </button>
-      </div> }
-      { isEdited ? this.renderEdit() : null }
+      style={provided.draggableProps.style}>{
+        isEdited ? this.renderEdit() :
+        <div>
+          <label className="margin-v-xs">{getPreferredLang( option.label, lang )}</label>
+          <div className="pull-right">
+            <button
+              disabled={!actionable}
+              onClick={onEdit}
+              className="btn btn-link">{getLabel( 'optionEdit', lang )}</button>
+            <button
+              disabled={!actionable}
+              onClick={onRemove}
+              className="btn btn-link">
+              <span className="text text-danger">{getLabel( 'optionRemove', lang )}</span>
+            </button>
+          </div>
+        </div> }
     </li>;
 
     return snapshot.isDragging ? ReactDOM.createPortal( child, portal ) : child;

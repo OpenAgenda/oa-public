@@ -166,7 +166,7 @@ export default class FormSchemaBuilder extends Component {
   getMergedSchema( props ) {
 
     const currentSchema = props ? props.schema : this.getSchema();
-    const extensions = props ? props.extendedFrom : this.props.extendedFrom;
+    const extensions = _.get( props || this.props, 'extendedFrom', [] );
 
     return merge.apply( null, extensions.map( e => e.schema ).concat( currentSchema ) );
 

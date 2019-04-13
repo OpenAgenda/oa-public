@@ -160,5 +160,10 @@ module.exports = {
     name: 'Options',
     description: 'For when you need to type in values for checkbox or radio lists',
     link: '/options'
+  }, {
+    group: 'builder',
+    name: 'A form builder with a loaded Radio field',
+    description: 'Monolingual and multilingual radio field option labels should be displayed',
+    link: '/formbuilderwithradios'
   } ]
 }

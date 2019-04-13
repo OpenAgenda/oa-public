@@ -25,11 +25,23 @@ module.exports = ( field, lang ) => {
 
   if ( field.options ) {
 
-    update.options = field.options.reduce( ( optionsUpdate, o ) => {
+    const optionsUpdate = field.options.reduce( ( optionsUpdate, o, i ) => {
 
-      return optionsUpdate.concat( { label: { $set: _.get( o.label, lang, _.get( o.label, _.first( _.keys( o.label ) ) ) ) } } );
+      if ( _.isString( o.label ) ) return optionsUpdate;
 
-    }, [] );
+      return _.set( optionsUpdate, i, {
+        label: {
+          $set: _.get(
+            o.label,
+            lang,
+            _.get( o.label, _.first( _.keys( o.label ) ) )
+          )
+        }
+      } );
+
+    }, {} );
+
+    if ( _.keys( optionsUpdate ).length ) update.options = optionsUpdate;
 
   }
 
