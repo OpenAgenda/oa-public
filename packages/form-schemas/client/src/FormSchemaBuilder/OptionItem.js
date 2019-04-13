@@ -67,7 +67,7 @@ export default class OptionItem extends Component {
         isEdited ? this.renderEdit() :
         <div>
           <label className="margin-v-xs">{getPreferredLang( option.label, lang )}</label>
-          <div className="pull-right">
+          <div className="form-item-actions padding-h-xs">
             <button
               disabled={!actionable}
               onClick={onEdit}
