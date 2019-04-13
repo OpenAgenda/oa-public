@@ -8,7 +8,7 @@ import labels from './lib/labels';
 
 const getLabel = makeLabelGetter( labels );
 
-export default class EditField extends Component {
+export default class FieldEdit extends Component {
 
   onSubmit( values ) {
 

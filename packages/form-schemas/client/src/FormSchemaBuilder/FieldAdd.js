@@ -9,7 +9,7 @@ import labels from './lib/labels';
 
 const getLabel = makeLabelGetter( labels );
 
-export default class AddField extends Component {
+export default class FieldAdd extends Component {
 
   constructor( props ) {
 

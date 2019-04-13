@@ -30,8 +30,8 @@ import LabelLanguages from './LabelLanguages';
 import FieldOrder from './FieldOrder';
 import FieldOrderActions from './FieldOrderActions';
 import SaveButton from './SaveButton';
-import AddField from './AddField';
-import EditField from './EditField';
+import FieldAdd from './FieldAdd';
+import FieldEdit from './FieldEdit';
 
 
 const getLabel = makeLabelGetter( labels );
@@ -216,7 +216,7 @@ export default class FormSchemaBuilder extends Component {
     }
 
     return <div>{ renderHead ? renderHead() : null } { addEnabled ? <div className="padding-v-sm padding-h-sm">
-      <AddField disabled={this.isDisabled( modes.ADDFIELD )} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind( this )} />
+      <FieldAdd disabled={this.isDisabled( modes.ADDFIELD )} labelLanguages={labelLanguages} lang={lang} onAdd={this.onFieldAdd.bind( this )} />
     </div> : null }</div>
 
   }
@@ -275,7 +275,7 @@ export default class FormSchemaBuilder extends Component {
         </div>
       </div>
       <div className="col-sm-12 col-md-7 col-md-pull-5">
-        { editedField ? <EditField
+        { editedField ? <FieldEdit
           isOwnField={isOwnField( schema, editedField )}
           field={editedField}
           labelLanguages={labelLanguages}
