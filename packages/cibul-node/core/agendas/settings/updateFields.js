@@ -31,7 +31,7 @@ module.exports = async ( config, agendaOrUid, updatedFields ) => {
 
     const { id } = await formSchemas.create( fs.getData() );
 
-    await setAgenda( { uid: agenda.uid }, { formSchemaId: id } );
+    await setAgenda( { uid: agenda.uid }, { formSchemaId: id }, { protected: false } );
 
     _.set( agenda, 'formSchemaId', id );
 
