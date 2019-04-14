@@ -125,7 +125,26 @@ module.exports = {
     en: 'Label languages'
   },
 
-  textFieldType: { fr : 'texte', en : 'Text' },
+  textFieldType: {
+    fr : 'Texte',
+    en : 'Text'
+  },
+
+  textareaFieldType: {
+    fr: 'Texte (Paragraphe)',
+    en: 'Textarea'
+  },
+
+  markdownFieldType: {
+    fr: 'Texte enrichi (Markdown)',
+    en: 'Enriched Textarea (Markdown)'
+  },
+
+  integerFieldType: {
+    fr: 'Nombre entier',
+    en: 'Integer number'
+  },
+
   textMultilingualFieldType: { fr: 'Text multilingue', en: 'Multilingual text' },
   checkboxFieldType: { fr: 'Selection à choix multiples', en: 'Multiple choice selection' },
   radioFieldType: { fr: 'Sélection à choix unique', en: 'Single choice selection' },
