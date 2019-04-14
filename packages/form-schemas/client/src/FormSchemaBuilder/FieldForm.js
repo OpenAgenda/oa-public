@@ -13,27 +13,28 @@ import FormSchemaComponent from '../';
 
 const fieldOrder = order => ( { fields: order.map( f => ( { field: f, fieldType: 'abstract' } ) ) } );
 
-const schemas= {
+const schemas= fieldType => ( {
   labels: ( { labelLanguages } ) => fg.labels( { labelLanguages } ),
-  text: ( { labelLanguages } ) => merge(
+  textLike: ( { labelLanguages } ) => merge(
     fg.labels( { labelLanguages } ),
     fg.minMax( { min: 0, max: 255 } ),
     fg.optional(),
     fieldOrder( [ 'label', 'optional', 'min', 'max', 'info', 'placeholder', 'sub' ] )
   ),
-  checkbox: ( { labelLanguages } ) => merge(
-    fg.labels( { labelLanguages } ),
-    fg.optional(),
-    fg.options( { labelLanguages } ),
-    fieldOrder( [ 'label', 'optional', 'options', 'placeholder', 'sub' ] )
-  ),
-  radio: ( { labelLanguages } ) => merge(
+  radioLike: ( { labelLanguages } ) => merge(
     fg.labels( { labelLanguages } ),
     fg.optional(),
     fg.options( { labelLanguages } ),
     fieldOrder( [ 'label', 'optional', 'options', 'placeholder', 'sub' ] )
   )
-}
+} )[ ( {
+  text: 'textLike',
+  textarea: 'textLike',
+  markdown: 'textLike',
+  radio: 'radioLike',
+  checkboux: 'radioLike',
+  integer: 'textLike'
+} )[ fieldType ] ];
 
 export default class FieldForm extends Component {
 
@@ -88,7 +89,7 @@ export default class FieldForm extends Component {
       actionComponent
     } = this.props;
 
-    const schema = schemas[ fieldType ]( { labelLanguages } );
+    const schema = schemas( fieldType )( { labelLanguages } );
 
     schema.custom = {
       options: optionsValidator
