@@ -17,14 +17,19 @@
     <nav class="oa-page-header navbar navbar-default navbar-static-top js_top_nav" id="nav">
       <div class="container">
         <div class="navbar-header">
-          <button type="button" class="navbar-toggle collapsed js_toggle_trigger">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-navbar-collapse"
+            aria-expanded="false">
             <i class="fa fa-bars"></i>
           </button>
           <a class="navbar-brand" href="/">
             <img src="/images/openagenda.png" width="125" alt="OpenAgenda">
           </a>
         </div>
-        <div class="navbar-collapse collapse">
+        <div class="navbar-collapse collapse" id="bs-navbar-collapse" aria-expanded="false">
           <form class="navbar-left search-form js_agenda_search" role="search" action="/agendas">
             <input class="search-input" placeholder="<%= labels.search %>" type="text" name="search" value="<%= querySearch %>">
 <% if ( lang !== 'fr' ) { %>

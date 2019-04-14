@@ -11,6 +11,8 @@ const unsubscribedSvc = require( '@openagenda/unsubscribed' );
 const log = require( '@openagenda/logs' )( 'newsletter' );
 const config = require( '../config' );
 
+const layout = require( '../services/lib/layouts' ).load( 'corpo' );
+
 const landingPages = landing( {
   en: config.root + '/discover',
   fr: config.root + '/decouvrir',
@@ -44,9 +46,7 @@ module.exports = app => {
     cmn.https,
     sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
     _cache,
-    cmn.loadBaseData( 'oasfmain.css' ),
     _setLang,
-    _counters,
     corpo
   );
 
@@ -94,7 +94,6 @@ module.exports = app => {
     cmn.https,
     _corpoBrowserCache,
     _cache,
-    cmn.loadBaseData( 'oasfmain.css' ),
     _redirectLang,
     _redirectLegacyLinks,
     corpo
@@ -145,22 +144,6 @@ function _corpoBrowserCache( req, res, next ) {
 
 }
 
-function _counters( req, res, next ) {
-
-  getStats().then( stats => {
-
-    req.stats = {
-      agendas: stats[ 0 ].toLocaleString( req.lang ).replace( ',', req.lang === 'fr' ? ' ' : ',' ),
-      contributors: stats[ 1 ].toLocaleString( req.lang ).replace( ',', req.lang === 'fr' ? ' ' : ',' ),
-      events: stats[ 2 ].toLocaleString( req.lang ).replace( ',', req.lang === 'fr' ? ' ' : ',' )
-    }
-
-    next();
-
-  } );
-
-}
-
 
 function _setLang( req, res, next ) {
 
@@ -179,7 +162,7 @@ function _setLang( req, res, next ) {
 }
 
 
-function corpo( req, res, next ) {
+async function corpo( req, res, next ) {
 
   const pageName = req.params.page || req.url.substr( 1 );
 
@@ -199,91 +182,53 @@ function corpo( req, res, next ) {
 
   }
 
-  req.baseData.head.js.slaask = '//cdn.slaask.com/chat.js';
+  const metas = page.getHeadPart();
 
-  req.baseData.bottom.scripts.push( 'setTimeout( function() { _slaask.init( \'6b2ef2b1830ad6e1c43bbc726c8a9f98\' ); }, 5000 );' );
+  const stats = {
+    agendas: await _getStat( 'review' ),
+    contributors: await _getStat( 'reviewer' ),
+    events: await _getStat( 'event' )
+  }
 
-  cmn.renderTemplate( req, 'corpo/empty', {}, ( err, layout ) => {
+  const content = layout(
+    page.render( stats ),
+    {
+      lang: page.getLang(),
+      metas, // used?
+      scripts: [ {
+        content: `window._slaaskSettings = { key: "6b2ef2b1830ad6e1c43bbc726c8a9f98" };`
+      }, {
+        src: '//cdn.slaask.com/chat_loader.js'
+      }, {
+        src: '//code.jquery.com/jquery-2.2.4.min.js'
+      }, {
+        src: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
+      } ]
+    }
+  );
 
-    let content = layout.replace( '<!--content-->', page.render( req.stats ) );
+  cache.set( req.url, content, 60*60, err => {
 
-    content = content.replace( '<!--metas-->', page.getHeadPart() );
+    if ( err ) req.log( 'error', 'could not cache %s', err );
 
-    cache.set( req.url, content, 60*60, err => {
+  } );
 
-      if ( err ) req.log( 'error', 'could not cache %s', err );
+  res.send( content );
 
-    } );
-
-    res.send( content );
-
-    req.log( 'info', {
-      landing: page.getAlternateUrl( 'fr' ).split( '/' ).pop(),
-      lang: req.lang,
-      message: 'discover page: ' + req.params.page,
-      userAgent: req.headers[ 'user-agent' ]
-    } );
-
+  req.log( 'info', {
+    landing: page.getAlternateUrl( 'fr' ).split( '/' ).pop(),
+    lang: req.lang,
+    message: 'discover page: ' + req.params.page,
+    userAgent: req.headers[ 'user-agent' ]
   } );
 
 }
 
+function _getStat( schema, lang ) {
 
-async function getStats() {
-
-  return [
-    await getTotalAgendas(),
-    await getTotalContributors(),
-    await getTotalEvents()
-  ]
-
-}
-
-
-function getTotalAgendas() {
-
-  return new Promise( ( resolve, reject ) => {
-
-    model.lib.query( 'SELECT COUNT(*) AS reviews FROM review', function ( err, rows ) {
-
-      if ( err ) return reject( err );
-
-      resolve( rows[ 0 ].reviews );
-
-    } );
-
-  } );
-
-}
-
-function getTotalContributors() {
-
-  return new Promise( ( resolve, reject ) => {
-
-    model.lib.query( 'SELECT COUNT(*) AS reviewers FROM reviewer', function ( err, rows ) {
-
-      if ( err ) return reject( err );
-      resolve( rows[ 0 ].reviewers );
-
-    } );
-
-  } );
-
-}
-
-function getTotalEvents() {
-
-  return new Promise( ( resolve, reject ) => {
-
-    model.lib.query( 'SELECT COUNT(*) AS events FROM event', function ( err, rows ) {
-
-      if ( err ) return reject( err );
-
-      resolve( rows[ 0 ].events );
-
-    } );
-
-  } );
+  return config.knex( schema )
+    .count( 'id as items' )
+    .then( r => _.get( r, '0.items' ).toLocaleString( lang ).replace( ',', lang === 'fr' ? ' ' : ',' ) );
 
 }
 
