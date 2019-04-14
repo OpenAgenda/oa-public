@@ -178,15 +178,13 @@
 
   @media (max-width: 768px) {
 
-    padding-left: 15px;
-    padding-right: 15px;
-
     .navbar-nav > li, .navbar-nav {
       float: left !important;
     }
 
     .navbar-right {
-      float: right !important;
+      padding: 0 20px;
+      width: 100%;
     }
 
     .navbar-collapse {
@@ -203,6 +201,14 @@
       width: 100%;
       border: none;
       box-shadow: none;
+
+      li {
+
+        a {
+          padding: 6px 20px;
+        }
+
+      }
 
     }
 
@@ -259,7 +265,8 @@
     }
 
     .signin {
-      float: left;
+      position: absolute;
+      right: 0;
       padding-left: 5px;
     }
 
