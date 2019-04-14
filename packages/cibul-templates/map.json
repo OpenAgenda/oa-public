@@ -24,8 +24,6 @@
   "auth/activation",
   "auth/lostPassword",
   "auth/resetPassword",
-  "corpo/index",
-  "corpo/empty",
   "contributors/info",
   "event/show",
   "event/action",
