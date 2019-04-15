@@ -32,7 +32,7 @@ const schemas= fieldType => ( {
   textarea: 'textLike',
   markdown: 'textLike',
   radio: 'radioLike',
-  checkboux: 'radioLike',
+  checkbox: 'radioLike',
   integer: 'textLike'
 } )[ fieldType ] ];
 
