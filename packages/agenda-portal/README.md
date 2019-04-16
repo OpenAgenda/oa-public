@@ -21,29 +21,15 @@ Create a new project and add agenda-portal in your dependencies:
     yarn init --yes
     yarn add @openagenda/agenda-portal
 
-To get your project quickly operational, copy the contents of the dev folder of the agenda-portal library to your project directory. It contains templates and sass file to get you quickly started right await on a functional portal website:
-
-    cp -RT node_modules/@openagenda/agenda-portal/dev/ .
-
-Next step: add the launch command to a scripts section of your `package.json` file
-
-    "scripts" : {
-      "start": "NODE_ENV=development browser-refresh server"
-    }
-
-Open the `server.js` file. You'll find here a few parameters to tweak when the portal is created:
+To get your project quickly operational, make sure you have the following information in hand:
 
  * **uid**: the unique identifier of the agenda the portal will get its events from
  * **lang**: the main language of your portal
- * **key**: your OpenAgenda account public key ( available in your user settings ). By default, the script you copied looks for the content of an `oa.key` file: create the file at the root of your project and put your key in it.
+ * **key**: your OpenAgenda account public key ( available in your user settings ).
 
-Still in the same file, a final tweak to fix the reference to the portal library. Change:
+Run the deploy command:
 
-    const Portal = require( '../' );
-
-With:
-
-    const Portal = require( '@openagenda/agenda-portal' );
+    yarn deploy
 
 ... and your portal should be ready. Launch it with:
 
@@ -51,6 +37,7 @@ With:
 
 See it on your browser on port 3000 if you haven't changed the default port in `server.js`: [localhost:3000](localhost:3000)
 
+You can then edit handlebar templates available in the views folder and the sass files as you wish to adapt the portal design.
 
 # Options
 
