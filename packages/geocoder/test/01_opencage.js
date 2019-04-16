@@ -118,6 +118,22 @@ describe( 'opencage', () => {
 
     } );
 
+    describe( 'Hong Kong', () => {
+
+      it( 'Finds an address in Hong Kong', async () => {
+
+        const result = await geocode( '11 Man Kwong Street, Central, Hong Kong', {
+          countryCode: 'HK',
+          language: 'fr',
+          first: true
+        } );
+
+        result.city.should.equal( 'Hong Kong' );
+
+      } );
+
+    } );
+
     describe( 'Courbevoie', async () => {
 
       let result;

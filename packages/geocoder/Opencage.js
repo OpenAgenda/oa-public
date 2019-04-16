@@ -31,9 +31,13 @@ async function reverse( key, latitude, longitude, { first, language, raw } ) {
     url: reverseURL( latitude, longitude, { key, language } ),
   } ).then( r => _.get( r, 'data.results' ).map( parseResponseItem.bind( null, { raw } ) ) );
 
-  await Promise.all(
-    first ? [ attachDistrict( _.first( results ) ) ] : results.map( attachDistrict )
-  );
+  if ( results.length ) {
+
+    await Promise.all(
+      first ? [ attachDistrict( _.first( results ) ) ] : results.map( attachDistrict )
+    );
+
+  }
 
   return first ? _.first( results ) : results;
 
@@ -54,9 +58,13 @@ async function geocode( key, query, { countryCode, language, raw, first } ) {
     } )
   } ).then( r => _.get( r, 'data.results' ).map( parseResponseItem.bind( null, { raw } ) ) );
 
-  await Promise.all(
-    first ? [ attachDistrict( _.first( results ) ) ] : results.map( attachDistrict )
-  );
+  if ( results.length ) {
+
+    await Promise.all(
+      first ? [ attachDistrict( _.first( results ) ) ] : results.map( attachDistrict )
+    );
+
+  }
 
   return first ? _.first( results ) : results;
 
@@ -64,19 +72,26 @@ async function geocode( key, query, { countryCode, language, raw, first } ) {
 
 function cleanGeocodeQuery( query, countryCode ) {
 
-  return {
-    countryCode: [
-      'YT',
-      'PF',
-      'GF',
-      'PM',
-      'MQ',
-      'GP',
-      'RE',
-      'NC'
-    ].includes( countryCode ) ? 'FR' : countryCode,
-    query
+  for ( const transform of [ {
+    from: [ 'YT', 'PF', 'GF', 'PM', 'MQ', 'GP', 'RE', 'NC' ],
+    to: 'FR'
+  }, {
+    from: [ 'HK' ],
+    to: 'CN'
+  } ] ) {
+
+    if ( transform.from.includes( countryCode ) ) {
+
+      return {
+        countryCode: transform.to,
+        query
+      }
+
+    }
+
   }
+
+  return { countryCode, query };
 
 }
 
