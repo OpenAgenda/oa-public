@@ -50,9 +50,9 @@ describe( 'images - unit (server): download', function() {
     imageSvc.test._download( { url: imageSrc } ).done( null, err => {
 
       err.should.eql( {
-        code: 'image.toobig', 
-        max: 1, 
-        message: 'maximum size exceeded' 
+        code: 'image.toobig',
+        max: 1,
+        message: 'maximum size exceeded'
       } );
 
       done();
@@ -65,14 +65,14 @@ describe( 'images - unit (server): download', function() {
 
     imageSvc.init( testconfig );
 
-    imageSvc.test._download( { 
-      url: 'https://s3.eu-central-1.amazonaws.com/openagendatest/myevents.jpg' 
+    imageSvc.test._download( {
+      url: 'https://s3.eu-central-1.amazonaws.com/openagendatest/myevents.jpg'
     } ).done( null, err => {
 
-      err.should.eql( { 
+      err.should.eql( {
         code: 'invalid.status',
-        message: 'invalid status code', 
-        statusCode: 403 
+        message: 'invalid status code',
+        statusCode: 403
       } );
 
       done();
