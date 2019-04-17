@@ -31,8 +31,8 @@ module.exports = app => {
 
   require( './event/search.front' )( app );
   require( './agenda/back' )( app );
-  require( './inboxes/back' )( app );
-  require( './inboxes/front' )( app );
+  require( './inboxes/endpoints' )( app );
+  require( './inboxes/pages' )( app );
   require( './services/surveys' )( app );
   require( './services/agendaContribute' )( app );
   require( './services/agendaSchema' )( app );

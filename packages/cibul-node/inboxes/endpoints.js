@@ -1,8 +1,8 @@
 "use strict";
 
-const userRouter = require( './user.back' );
-const agendaRouter = require( './agenda.back' );
-const supportRouter = require( './support.back' );
+const userRouter = require( './user' );
+const agendaRouter = require( './agenda' );
+const supportRouter = require( './support' );
 
 module.exports = parentApp => parentApp
   .use( '/agendas/:agendaUid/inbox', agendaRouter )
