@@ -112,6 +112,7 @@ module.exports = path => {
       },
       instanciate: true,
       internal: true,
+      includeImagePath: true,
       private: null
     } ),
     ( req, res, next ) => {
