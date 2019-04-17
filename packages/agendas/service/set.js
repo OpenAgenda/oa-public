@@ -290,6 +290,9 @@ function _doCreate( v ) {
 
   }
 
+  _.set( v, 'clean.credentials.useContributeApp', true );
+  _.set( v, 'clean.credentials.useAgendaSchema', true );
+
   return knex( schemas.agenda )
 
   .insert( dbParse.toDb( v.clean ) )
