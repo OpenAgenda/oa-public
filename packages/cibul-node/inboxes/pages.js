@@ -22,6 +22,10 @@ const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/a
 const app = express();
 const getLabel = makeLabelGetter( labels );
 
+const layout = require( '../services/lib/layouts' ).load(
+  'agendaAdmin', { selectedTab: 'inbox' }
+);
+
 module.exports = ( parentApp, path = '/' ) => parentApp.use( path, app );
 
 const preMw = [
@@ -187,12 +191,7 @@ app.use(
   preMw,
   oldAgendaLoad( 'slug' ),
   cmn.checkAdminOrModerator,
-  loadAdminLayout,
-  cmn.loadBaseData( 'oasfmain.css' ),
-  agendasMw.load( {
-    namespaces: { identifiers: { slug: 'params.slug' } },
-    private: null
-  } ),
+  cmn.loadAgenda,
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
     const { element, triggerHooks, store, context } = createInboxApp( {
@@ -250,12 +249,21 @@ app.use(
         return res.redirect( 301, pathname );
       }
 
-      cmn.render(
-        req,
-        res,
-        'agendaAdmin/inbox',
-        { scriptParams: { initialState: state }, lang, content, preloaded: true }
-      );
+      return res.send( layout(
+        `<div class="inbox inbox-agenda-admin">
+          <div class="js_canvas">${content}</div>
+        </div>`, {
+        lang: req.lang,
+        agenda: req.agenda,
+        bodyAttributes: [ {
+          name: 'data-options',
+          value: JSON.stringify( { initialState: state } )
+        } ],
+        scripts: {
+          bottom: [ { src: '/js/agendaAdminInbox.js' } ]
+        }
+      } ) );
+
     } catch ( e ) {
       next( e );
     }
