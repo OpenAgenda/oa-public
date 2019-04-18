@@ -24,9 +24,17 @@ module.exports = ( validator, options ) => {
 
     value = [ undefined, null ].includes( v ) ? [] : v;
 
-    if ( v === undefined && ( params.default !== undefined ) ) {
+    if ( params.default !== undefined ) {
 
-      return params.default;
+      if ( v === params.default ) {
+
+        return params.default;
+
+      } else if ( v === undefined ) {
+
+        return params.default;
+
+      }
 
     }
 
