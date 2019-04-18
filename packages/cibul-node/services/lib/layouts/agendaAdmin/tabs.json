@@ -36,6 +36,11 @@
   "route" : "/webembed"
 },
 {
+  "name" : "emailstrategie",
+  "section" : "export",
+  "credential" : "emailstrategie"
+},
+{
   "name" : "settings_profile",
   "section" : "settings",
   "route" : "/settings/profile"
