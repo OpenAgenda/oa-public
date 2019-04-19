@@ -48,7 +48,7 @@ class EventEdit extends Component {
 
   render() {
 
-    const { config, event, onUpdateSuccess, onDidMount } = this.props;
+    const { config, event, onUpdateSuccess, onDidMount, member } = this.props;
 
     return <div className="container">
       <div className="row">
@@ -60,6 +60,7 @@ class EventEdit extends Component {
             <Instructions message={_.get( config, 'event.message' )} className="margin-bottom-lg" />
             <div className="wsq">
               <EventForm
+                role={_.get( member, 'role' )}
                 schemaExtensions={config.schemaExtensions}
                 withErrors={false}
                 fileStore={config.fileStore}

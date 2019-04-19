@@ -21,11 +21,12 @@ export default connect(
     onSelectStep: step => dispatch( reducers.landing.evaluate( step, true ) ),
     onDraftDelete: () => dispatch( reducers.event.deleteDraft() )
   } )
-)( ( { config, event, onCreateSuccess, onDidMount, onDraftDelete, onSelectStep, steps } ) => <Canvas {...config} onDidMount={onDidMount} onSelectStep={onSelectStep} steps={steps} event={event}>
+)( ( { config, event, onCreateSuccess, onDidMount, onDraftDelete, onSelectStep, steps, member } ) => <Canvas {...config} onDidMount={onDidMount} onSelectStep={onSelectStep} steps={steps} event={event}>
 
   <Instructions message={_.get( config, 'event.message' )} className="margin-bottom-lg" />
 
   <EventForm
+    role={_.get( member, 'role' )}
     withErrors={false}
     schemaExtensions={config.schemaExtensions}
     fileStore={config.fileStore}
