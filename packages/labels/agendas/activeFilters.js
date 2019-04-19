@@ -12,7 +12,7 @@ module.exports = {
   "passed": {
     "en": "past events",
     "fr": "événements passés",
-    "es": "pasado",
+    "es": "eventos pasados",
     "it": "passato",
     "de": "vergangenheit",
     "br": "darvoudoù tremenet"
@@ -28,7 +28,7 @@ module.exports = {
   "fromTo": {
     "en": "from %start% to %end%",
     "fr": "du %start% au %end%",
-    "es": "desde el %start% hasta %end%",
+    "es": "% De% empezar a% end%",
     "it": "dal %start% al %end%",
     "de": "von %start% bis %end%",
     "br": "eus an %start% d'an %end%"
@@ -148,7 +148,7 @@ module.exports = {
   "wednesday": {
     "en": "wednesday",
     "fr": "mercredi",
-    "es": "miercoles",
+    "es": "miércoles",
     "de": "mittwoch",
     "it": "mercoledì",
     "br": "Merc'her"
@@ -172,7 +172,7 @@ module.exports = {
   "saturday": {
     "en": "saturday",
     "fr": "samedi",
-    "es": "sabado",
+    "es": "sábado",
     "de": "samstag",
     "it": "sabato",
     "br": "Sadorn"

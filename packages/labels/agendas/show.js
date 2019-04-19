@@ -7,7 +7,8 @@ module.exports = {
     "it": "Esportare",
     "de": "exportieren",
     "pl": "Eksportuj",
-    "br": "Ezporzhiañ"
+    "br": "Ezporzhiañ",
+    "es": "exportación"
   },
   "share": {
     "en": "Share",
@@ -15,7 +16,8 @@ module.exports = {
     "it": "Condividere",
     "de": "teilen",
     "pl": "Udostępnij",
-    "br": "Skignañ"
+    "br": "Skignañ",
+    "es": "Compartir, repartir"
   },
   "addEvent": {
     "en": "Add an event",
@@ -23,7 +25,8 @@ module.exports = {
     "it": "Aggiungere un evento ",
     "de": "eine Veranstaltung hinzufügen",
     "pl": "Dodaj wydarzenie",
-    "br": "Ouzhpennañ un darvoud"
+    "br": "Ouzhpennañ un darvoud",
+    "es": "Añadir un evento"
   },
   "startToFinish": {
     "en": "%start% to %finish%",
@@ -31,7 +34,8 @@ module.exports = {
     "it": "Dallo %start% al %finish%",
     "de": "von %start% zu %finish%",
     "pl": "od %start% do %finish%",
-    "br": "eus an %start% d'an %finish%"
+    "br": "eus an %start% d'an %finish%",
+    "es": "del %start% a %finish%"
   },
   "startTime": {
     "en": "%start%, %time%",
@@ -39,7 +43,8 @@ module.exports = {
     "it": "%start%, %time%",
     "de": "%start%, %time%",
     "pl": "%start%, %time%",
-    "br": "%start%, %time%"
+    "br": "%start%, %time%",
+    "es": "%start%, %time%"
   },
   "addToMyAgenda": {
     "en": "Add to my agenda",
@@ -47,7 +52,8 @@ module.exports = {
     "it": "Aggiungere alla mia Agenda",
     "de": "Zu meinem Kalender hinzufügen",
     "pl": "Dodaj do mojego kalendarza",
-    "br": "Ouzhpennañ da'm deiziataer"
+    "br": "Ouzhpennañ da'm deiziataer",
+    "es": "Añadir a mi agenda"
   },
   "searchInThisAgenda": {
     "en": "Search in this agenda",
@@ -55,7 +61,8 @@ module.exports = {
     "it": "Cercare in questa Agenda",
     "de": "in diesem Kalender suchen",
     "pl": "Wyszukaj w tym kalendarzu",
-    "br": "Klask en deiziataer-mañ"
+    "br": "Klask en deiziataer-mañ",
+    "es": "Buscar en este agenda"
   },
   "tags": {
     "en": "Tags",
@@ -63,7 +70,8 @@ module.exports = {
     "it": "Tags",
     "de": "Stichworte",
     "pl": "Etykiety",
-    "br": "Merkoù"
+    "br": "Merkoù",
+    "es": "etiquetas"
   },
   "categories": {
     "en": "Categories",
@@ -71,7 +79,8 @@ module.exports = {
     "it": "Categorie",
     "de": "Kategorien",
     "pl": "Kategorie",
-    "br": "Rummadoù"
+    "br": "Rummadoù",
+    "es": "categorías"
   },
   "organization": {
     "en": "Organization",
@@ -79,7 +88,8 @@ module.exports = {
     "it": "Organizzazione",
     "de": "Organisation",
     "pl": "Organizacja",
-    "br": "Aozadur"
+    "br": "Aozadur",
+    "es": "organización"
   },
   "about": {
     "en": "About",
@@ -87,7 +97,8 @@ module.exports = {
     "it": "Su",
     "de": "über",
     "pl": "Dowiedz się więcej",
-    "br": "Diwar-benn"
+    "br": "Diwar-benn",
+    "es": "A proposito"
   },
   "help": {
     "en": "Help",
@@ -95,7 +106,8 @@ module.exports = {
     "it": "Aiuto",
     "de": "Hilfe",
     "pl": "Pomoc",
-    "br": "Skoazell"
+    "br": "Skoazell",
+    "es": "Ayuda"
   },
   "termsOfUse": {
     "en": "Terms of use",
@@ -103,7 +115,8 @@ module.exports = {
     "it": "Modalità d'utilizzo",
     "de": "Nutzungbestimmungen",
     "pl": "Warunki korzystania",
-    "br": "Penndivizoù implij"
+    "br": "Penndivizoù implij",
+    "es": "condiciones de uso"
   },
   "manage": {
     "en": "Manage",
@@ -111,7 +124,8 @@ module.exports = {
     "it": "Gestire",
     "de": "verwalten",
     "pl": "Zarządzaj",
-    "br": "Merañ"
+    "br": "Merañ",
+    "es": "gestionar"
   },
   "searchWhenMoveMap": {
     "en": "Search when I move the map",
@@ -119,7 +133,8 @@ module.exports = {
     "it": "Cercare quando sposto la mappa",
     "de": "suchen, wenn ich die Karte verschiebe",
     "pl": "Wyszukaj podczas zmiany mapy",
-    "br": "Klask pa zilec'hian ar gartenn"
+    "br": "Klask pa zilec'hian ar gartenn",
+    "es": "Mira cuando muevo el mapa"
   },
   "map": {
     "en": "Map",
@@ -127,7 +142,8 @@ module.exports = {
     "it": "Mappa",
     "de": "Karte",
     "pl": "Mapa",
-    "br": "Kartenn"
+    "br": "Kartenn",
+    "es": "Mapa"
   },
   "selectDates": {
     "en": "Select dates",
@@ -135,7 +151,8 @@ module.exports = {
     "it": "Scegli una data",
     "de": "Wählen Sie ein Datum aus.",
     "pl": "Wybierz datę",
-    "br": "Choazit un deiz"
+    "br": "Choazit un deiz",
+    "es": "Elija una fecha"
   },
   "noResultForSearch": {
     "en": "There are no results for this search",
@@ -143,7 +160,8 @@ module.exports = {
     "it": "Nessun risultato per questa ricerca",
     "de": "Keine Suchergebnisse.",
     "pl": "Brak rezultatów wyszukiwania",
-    "br": "Disoc'h ebet evit an enklask-mañ"
+    "br": "Disoc'h ebet evit an enklask-mañ",
+    "es": "No hay resultados para esta búsqueda"
   },
   "noResultForSearchPleaseWiden": {
     "en": "There are no matching events. Please widen your search.",
@@ -151,7 +169,8 @@ module.exports = {
     "it": "Non ci sono eventi corrispondenti. Si prega di ampliare la ricerca.",
     "de": "Es gibt keine passenden Veranstaltungen. Bitte erweitern Sie Ihre Suche.",
     "pl": "Nie ma pasujących zdarzeń. Proszę rozszerzyć zakres wyszukiwania.",
-    "br": "N'eus bet kavet darvoud ebet. Grit un enklask ledanoc'h, mar plij."
+    "br": "N'eus bet kavet darvoud ebet. Grit un enklask ledanoc'h, mar plij.",
+    "es": "No se han encontrado eventos. Por favor, ampliar su búsqueda."
   },
   "noResultForSearchWithLink": {
     "en": "There are no results for this search. You can make a site-wide search from the page header, or %page%",
@@ -159,7 +178,8 @@ module.exports = {
     "it": "Nessun risultato per questa ricerca. Puoi effettuare una ricerca sulla globalità del sito nella pagina in alto, a %page%",
     "de": "Keine Suchergebnisse. Sie können die gesamte Internetseite oben auf der Seite durchsuchen, oder %page%",
     "pl": "Brak rezultatów wyszukiwania. Możesz przeszukać całą stronę na górze strony, lub %page%",
-    "br": "Disoc'h ebet evit an enklask-mañ. Gallout a rit ober un enklask el lec'hienn a-bezh e krec'h ar bajenn, pe %page%"
+    "br": "Disoc'h ebet evit an enklask-mañ. Gallout a rit ober un enklask el lec'hienn a-bezh e krec'h ar bajenn, pe %page%",
+    "es": "No hay resultados para esta búsqueda. Puede buscar en todo el sitio a la tapa, o la %page%"
   },
   "reloadPage": {
     "en": "reload this page",
@@ -167,7 +187,8 @@ module.exports = {
     "it": "Ricarica la pagina Agenda",
     "de": "Seite neu laden",
     "pl": "Załaduj ponownie stronę",
-    "br": "adkargañ ar bajenn deiziataer"
+    "br": "adkargañ ar bajenn deiziataer",
+    "es": "cargar la página del agenda"
   },
   "agendaHasNotEventsPublished": {
     "en": "This agenda has not published any events yet",
@@ -175,7 +196,8 @@ module.exports = {
     "it": "Questa Agenda non ha ancora pubblicato degli eventi  ",
     "de": "Dieser Kalender hat noch keine Veranstaltungen veröffentlicht.",
     "pl": "Ten kalendarz nie opublikował jeszcze żadnego wydarzenia",
-    "br": "An deiziataer-mañ n'en deus ket embannet darvoudoù c'hoazh"
+    "br": "An deiziataer-mañ n'en deus ket embannet darvoudoù c'hoazh",
+    "es": "Este agenda no ha publicado eventos"
   },
   "contactAdministrator": {
     "en": "Contact administrator",
@@ -183,7 +205,8 @@ module.exports = {
     "it": "Contattare l'Amministratore",
     "de": "Administrator kontaktieren.",
     "pl": "Skontaktuj się z administratorem",
-    "br": "mont e darempred gant ar merour"
+    "br": "mont e darempred gant ar merour",
+    "es": "contacto administrativo"
   },
   "byName": {
     "en": "by %name%",
@@ -191,7 +214,8 @@ module.exports = {
     "it": "Attraverso %name%",
     "de": "durch %name%",
     "pl": "przez %name%",
-    "br": "dre %name%"
+    "br": "dre %name%",
+    "es": "por su %name%"
   },
   "agendaHasNotUpcomingEvents": {
     "en": "There are no upcoming events published in this agenda.",
@@ -199,7 +223,8 @@ module.exports = {
     "it": "Non ci sono eventi futuri pubblicati in questa Agenda.",
     "de": "Keine veröffentlichten künftigen Veranstaltungen in diesem Kalender.",
     "pl": "Nie ma żadnych nadchodzących wydarzeń w tym kalendarzu ",
-    "br": "N'eus ket bet embannet darvoudoù da zont en deiziataer-mañ."
+    "br": "N'eus ket bet embannet darvoudoù da zont en deiziataer-mañ.",
+    "es": "No hay eventos publicados por delante en esta agenda."
   },
   "here": {
     "en": "here",
@@ -207,7 +232,8 @@ module.exports = {
     "it": "qui",
     "de": "hier",
     "pl": "Tutaj",
-    "br": "amañ"
+    "br": "amañ",
+    "es": "aquí"
   },
   "loadMore": {
     "en": "load more",
@@ -215,7 +241,8 @@ module.exports = {
     "it": "Caricare di più",
     "de": "mehr anzeigen",
     "pl": "Załaduj więcej",
-    "br": "gwelet muioc'h"
+    "br": "gwelet muioc'h",
+    "es": "ver más"
   },
   "featured": {
     "en": "Featured",
@@ -223,7 +250,8 @@ module.exports = {
     "it": "Selezionato",
     "de": "ausgewählt",
     "pl": "Opisane",
-    "br": "keleier pennañ"
+    "br": "keleier pennañ",
+    "es": "reflejos"
   },
   "countEvents": {
     "en": "%count% events",
@@ -231,7 +259,8 @@ module.exports = {
     "it": "%count% eventi",
     "de": "%count% Veranstaltungen",
     "pl": "%count% wydarzeń",
-    "br": "%count% a zarvoudoù"
+    "br": "%count% a zarvoudoù",
+    "es": " %count% eventos"
   },
   "countEvent": {
     "en": "1 event",
@@ -239,7 +268,8 @@ module.exports = {
     "it": "1 evento",
     "de": "1 Veranstaltung",
     "pl": "1 wydarzenie",
-    "br": "1 darvoud"
+    "br": "1 darvoud",
+    "es": "1 evento"
   },
   "countUpcomingEvents": {
     "en": "%count% upcoming events",
@@ -247,7 +277,8 @@ module.exports = {
     "it": "%count% eventi futuri",
     "de": "%count% künftige Veranstaltungen",
     "pl": "%count% przyszłych wydarzeń",
-    "br": "%count% a zarvoudoù da zont"
+    "br": "%count% a zarvoudoù da zont",
+    "es": " %count% próximos eventos"
   },
   "includePassedEvents": {
     "en": "include passed events",
@@ -255,7 +286,8 @@ module.exports = {
     "it": "Includere eventi passati",
     "de": "vergangene Veranstaltungen einbeziehen",
     "pl": "Dołącz wydarzenia przeszłe",
-    "br": "lakaat an darvoudoù tremenet e-barzh"
+    "br": "lakaat an darvoudoù tremenet e-barzh",
+    "es": "incluir los eventos pasados"
   },
   "contact": {
     "en": "Contact",
@@ -263,7 +295,8 @@ module.exports = {
     "it": "Contattare",
     "de": "kontaktieren",
     "pl": "Skontaktuj",
-    "br": "Mont e darempred"
+    "br": "Mont e darempred",
+    "es": "Contactar con"
   },
   "officialAgenda": {
     "en": "Official agenda",
@@ -271,7 +304,8 @@ module.exports = {
     "it": "Agenda ufficiale",
     "de": "offizieller Kalender",
     "pl": "Kalendarz formalny",
-    "br": "Deiziataer ofisiel"
+    "br": "Deiziataer ofisiel",
+    "es": "agenda"
   },
   "privateAgenda": {
     "en": "Private agenda",
@@ -279,7 +313,8 @@ module.exports = {
     "it": "Agenda privata",
     "de": "privater Kalender",
     "pl": "Kalendarz prywatny",
-    "br": "Deiziataer prevez"
+    "br": "Deiziataer prevez",
+    "es": "Eventos privados"
   },
   "showCalendar": {
     "en": "Calendar view",
@@ -287,6 +322,7 @@ module.exports = {
     "it": "Guardare il calendario",
     "de": "Kalenderansicht",
     "pl": "Wygląd kalendarza",
-    "br": "Gwel deiziadur"
+    "br": "Gwel deiziadur",
+    "es": "Ver el agenda"
   }
 }

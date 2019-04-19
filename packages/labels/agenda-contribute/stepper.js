@@ -6,20 +6,23 @@ module.exports = {
     "en": "Member form",
     "it": "Informazione membro",
     "de": "Mitgliedsdatei",
-    "br": "Restr ezel"
+    "br": "Restr ezel",
+    "es": "perfil de miembro"
   },
   "event": {
     "fr": "Mon événement",
     "en": "My event",
     "it": "Il moi evento",
     "de": "Meine Veranstaltung",
-    "br": "Ma darvoud"
+    "br": "Ma darvoud",
+    "es": "mi evento"
   },
   "confirmation": {
     "fr": "Confirmation",
     "en": "Confirmation",
     "it": "Confermazione",
     "de": "Bestätigung",
-    "br": "Kadarnaat"
+    "br": "Kadarnaat",
+    "es": "confirmación"
   }
 }

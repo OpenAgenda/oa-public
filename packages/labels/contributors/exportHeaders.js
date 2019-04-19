@@ -4,36 +4,43 @@ module.exports = {
   "name": {
     "en": "Name",
     "fr": "Nom",
-    "de": "Name"
+    "de": "Name",
+    "es": "apellido"
   },
   "email": {
     "en": "Email",
     "fr": "Email",
-    "de": "Email"
+    "de": "Email",
+    "es": "e-mail"
   },
   "organization": {
     "en": "Organization",
     "fr": "Organisation",
-    "de": "Organisation"
+    "de": "Organisation",
+    "es": "organización"
   },
   "phone": {
     "en": "Phone",
     "fr": "Téléphone",
-    "de": "Telefon"
+    "de": "Telefon",
+    "es": "Teléfono"
   },
   "position": {
     "en": "Position",
     "fr": "Fonction",
-    "de": "Position"
+    "de": "Position",
+    "es": "función"
   },
   "contributions": {
     "en": "Contributed events",
     "fr": "Evénements contribués",
-    "de": "Hinzugefügte Events"
+    "de": "Hinzugefügte Events",
+    "es": "eventos contribuyeron"
   },
   "credential": {
     "en": "Role",
     "fr": "Rôle",
-    "de": "Rolle"
+    "de": "Rolle",
+    "es": "papel"
   }
 }

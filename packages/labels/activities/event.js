@@ -8,36 +8,43 @@ module.exports = {
   "agenda.publishEvent": {
     "en": "%user% published %event% on %agenda%.",
     "fr": "%user% a publié %event% sur %agenda%.",
-    "de": "%user% %event% auf %agenda% veröffentlicht."
+    "de": "%user% %event% auf %agenda% veröffentlicht.",
+    "es": "%user% registró %event% sobre el agenda %agenda%."
   },
   "agenda.unpublishEvent": {
     "en": "%user% unpublished %event% on %agenda%.",
     "fr": "%user% a dépublié %event% sur %agenda%.",
-    "de": "%user% nicht veröffentlichtes %event% auf %agenda%."
+    "de": "%user% nicht veröffentlichtes %event% auf %agenda%.",
+    "es": "%user% ha cancellado la publicacion de %event% en la agenda  %agenda%."
   },
   "agenda.removeEvent": {
     "en": "%user% removed %event% from %agenda%.",
     "fr": "%user% a retiré %event% de %agenda%.",
-    "de": "%user% %event% von %agenda% entfernt."
+    "de": "%user% %event% von %agenda% entfernt.",
+    "es": "%user% %event% sobre el agenda %agenda% eliminado."
   },
   "agenda.aggregateEvent": {
     "en": "%agenda% aggregated %event% from %sourceAgenda%.",
     "fr": "%agenda% a agrégé %event% à partir de %sourceAgenda%.",
-    "de": "%agenda %event% from %sourceAgenda% aggregiert."
+    "de": "%agenda %event% from %sourceAgenda% aggregiert.",
+    "es": "%event% del agenda agregada de%sourceAgenda%."
   },
   "event.create": {
     "en": "%user% created %event% in the agenda %agenda%.",
     "fr": "%user% a créé %event% dans l'agenda %agenda%.",
-    "de": "%user% Veranstaltung auf der Kalender %agenda% erstellt."
+    "de": "%user% Veranstaltung auf der Kalender %agenda% erstellt.",
+    "es": "%user% creado %event% en el agenda del %agenda%."
   },
   "event.update": {
     "en": "%user% updated %event% on %agenda%.",
     "fr": "%user% a mis à jour %event% sur %agenda%.",
-    "de": "%user% %event% auf %agenda% aktualisiert."
+    "de": "%user% %event% auf %agenda% aktualisiert.",
+    "es": "%user% ha actualizado%event%de %agenda%."
   },
   "event.delete": {
     "en": "%user% deleted %event% on %agenda%.",
     "fr": "%user% a supprimé %event% sur %agenda%.",
-    "de": "%user% %event% auf %agenda% gelöscht."
+    "de": "%user% %event% auf %agenda% gelöscht.",
+    "es": "%user% elimina eventos de la agenda %agenda%."
   }
 }

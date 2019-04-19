@@ -6,83 +6,95 @@ module.exports = {
     "fr": "Toute la journée",
     "it": "Tutto il giorno",
     "de": "Den ganzen Tag",
-    "pl": "Cały dzień"
+    "pl": "Cały dzień",
+    "es": "Todo el día"
   },
   "previous": {
     "en": "Previous",
     "fr": "Précédent",
     "it": "Precedente",
     "de": "Vorherige",
-    "pl": "Poprzedni"
+    "pl": "Poprzedni",
+    "es": "anterior"
   },
   "next": {
     "en": "Next",
     "fr": "Suivant",
     "it": "Prossimo",
     "de": "Weiter",
-    "pl": "Dalej"
+    "pl": "Dalej",
+    "es": "Próximo"
   },
   "today": {
     "en": "Today",
     "fr": "Aujourd'hui",
     "it": "Oggi",
     "de": "Heute",
-    "pl": "Dziś"
+    "pl": "Dziś",
+    "es": "hoy"
   },
   "month": {
     "en": "Month",
     "fr": "Mois",
     "it": "Mese",
     "de": "Monat",
-    "pl": "Miesiąc"
+    "pl": "Miesiąc",
+    "es": "mes"
   },
   "week": {
     "en": "Week",
     "fr": "Semaine",
     "it": "Settimana",
     "de": "Woche",
-    "pl": "Tydzień"
+    "pl": "Tydzień",
+    "es": "semana"
   },
   "day": {
     "en": "Day",
     "fr": "Jour",
     "it": "Giorno",
     "de": "Tag",
-    "pl": "Dzień"
+    "pl": "Dzień",
+    "es": "Día"
   },
   "agenda": {
     "en": "Agenda",
     "fr": "Journal",
     "it": "agenda",
     "de": "Agenda",
-    "pl": "Porządek obrad"
+    "pl": "Porządek obrad",
+    "es": "periódico"
   },
   "date": {
     "en": "Date",
     "fr": "Date",
     "it": "Data",
     "de": "Datum",
-    "pl": "Data"
+    "pl": "Data",
+    "es": "fecha"
   },
   "time": {
     "en": "Time",
     "fr": "Heure",
     "it": "Tempo",
     "de": "Zeit",
-    "pl": "Czas"
+    "pl": "Czas",
+    "es": "Hora"
   },
   "event": {
     "en": "Event",
     "fr": "Evénement",
     "it": "Evento",
     "de": "Veranstaltung",
-    "pl": "Wydarzenie"
+    "pl": "Wydarzenie",
+    "es": "evento"
   },
   "more": {
     "en": "See all events",
     "fr": "Voir tous les événements",
     "it": "Vedi tutti gli eventi",
     "de": "Alle Veranstaltungen ansehen",
-    "pl": "Zobacz wszystkie wydarzenia"
+    "pl": "Zobacz wszystkie wydarzenia",
+    "es": "Ver todos los eventos"
   }
 }

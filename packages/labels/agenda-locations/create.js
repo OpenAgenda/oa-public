@@ -4,21 +4,25 @@ module.exports = {
   "title": {
     "fr": "Création d'un lieu",
     "en": "Create a location",
-    "de": "Erstellen Sie einen Standort"
+    "de": "Erstellen Sie einen Standort",
+    "es": "Creación de un sitio"
   },
   "info": {
     "fr": "Définissez précisemment le nom, l'adresse et la localisation du lieu",
     "en": "Define the name, address and exact location of the place",
-    "de": "Definieren Sie den Namen, die Adresse und dem genauen Standort des Ortes"
+    "de": "Definieren Sie den Namen, die Adresse und dem genauen Standort des Ortes",
+    "es": "Definir con precisión el nombre, dirección y ubicación del lugar"
   },
   "submit": {
     "fr": "Créer",
     "en": "Create",
-    "de": "Erstellen"
+    "de": "Erstellen",
+    "es": "crear"
   },
   "submitError": {
     "fr": "Le lieu n'a pas pu être créé",
     "en": "The location could not be created",
-    "de": "Die Lage könnte nicht erstellt werden"
+    "de": "Die Lage könnte nicht erstellt werden",
+    "es": "El lugar no puede ser creado"
   }
 }

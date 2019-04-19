@@ -4,86 +4,103 @@ module.exports = {
   "editorTitle": {
     "fr": "Evénements liés",
     "en": "Related events",
-    "de": "ähnliche Veranstaltungen"
+    "de": "ähnliche Veranstaltungen",
+    "es": "eventos relacionados"
   },
   "editorInfo": {
     "fr": "Liez d'autres événements de l'agenda à votre événement",
     "en": "Link other events of the agenda to your event",
-    "de": "Link andere Veranstaltungen der Kalender zu Ihrer Veranstaltung"
+    "de": "Link andere Veranstaltungen der Kalender zu Ihrer Veranstaltung",
+    "es": "Enlace a otros eventos de agenda a su evento"
   },
   "showTitle": {
     "fr": "Voir aussi",
     "en": "See also",
-    "de": "Siehe auch"
+    "de": "Siehe auch",
+    "es": "Ver también"
   },
   "emptyReferences": {
     "fr": "Aucun événement lié n'est encore défini",
     "en": "There are currently no linked events",
-    "de": "Es gibt derzeit keine verknüpfte Veranstaltungen"
+    "de": "Es gibt derzeit keine verknüpfte Veranstaltungen",
+    "es": "Sin acontecimientos relacionados aún no está definida"
   },
   "emptySearch": {
     "fr": "Aucun résultat pour cette recherche",
     "en": "No result for this search",
-    "de": "Kein Ergebnis für diese Suche"
+    "de": "Kein Ergebnis für diese Suche",
+    "es": "No hay resultados para esta búsqueda"
   },
   "addEvent": {
     "fr": "Ajouter un événement",
     "en": "Add an event",
-    "de": "Event eintragen"
+    "de": "Event eintragen",
+    "es": "Añadir un evento"
   },
   "addEventOr": {
     "fr": "ou",
     "en": "or",
-    "de": "oder"
+    "de": "oder",
+    "es": "o"
   },
   "addEventSuggest": {
     "fr": "Charger des événements similaires",
     "en": "Load similar events",
-    "de": "Laden Sie ähnliche Veranstaltungen"
+    "de": "Laden Sie ähnliche Veranstaltungen",
+    "es": "Carga de eventos similares"
   },
   "search": {
     "fr": "Chercher via titre ou lieu",
     "en": "Search by title or location name",
-    "de": "Suche nach Titel oder Ortsnamen"
+    "de": "Suche nach Titel oder Ortsnamen",
+    "es": "Buscar a través de título o lugar"
   },
   "searchResultTitle": {
     "fr": "Résultats de la recherche",
     "en": "Search results",
-    "de": "Suchergebnisse"
+    "de": "Suchergebnisse",
+    "es": "resultados de la búsqueda"
   },
   "suggestionResultTitle": {
     "fr": "Suggestions d'événements similaires",
     "en": "Suggested similar events",
-    "de": "Empfohlene ähnliche Veranstaltungen"
+    "de": "Empfohlene ähnliche Veranstaltungen",
+    "es": "Sugerencias Eventos similares"
   },
   "nothingToSuggestTitle": {
     "fr": "Evénements similaires",
     "en": "Similar events",
-    "de": "ähnliche Veranstaltungen"
+    "de": "ähnliche Veranstaltungen",
+    "es": "Eventos similares"
   },
   "nothingToSuggest": {
     "fr": "Des événements similaires ne peuvent être chargés que si vous avez entamé la saisie de votre événement!",
     "en": "Similar events can only be loaded if you have already filled the event form",
-    "de": "Ähnliche Veranstaltungen können nur geladen werden, wenn Sie bereits über die Veranstaltung Formular ausgefüllt haben"
+    "de": "Ähnliche Veranstaltungen können nur geladen werden, wenn Sie bereits über die Veranstaltung Formular ausgefüllt haben",
+    "es": "Eventos similares sólo pueden ser cargados si usted comenzó a escribir su evento!"
   },
   "noSuggestionsTitle": {
     "fr": "Evénements similaires",
     "en": "Similar events",
-    "de": "ähnliche Veranstaltungen"
+    "de": "ähnliche Veranstaltungen",
+    "es": "Eventos similares"
   },
   "noSuggestions": {
     "fr": "Aucun événement similaire n'a été trouvé",
     "en": "No similar event was found",
-    "de": "Kein ähnlicher Fall wurde gefunden"
+    "de": "Kein ähnlicher Fall wurde gefunden",
+    "es": "No se encontraron eventos relacionados"
   },
   "noOtherSuggestionsTitle": {
     "fr": "Evénements similaires",
     "en": "Similar events",
-    "de": "ähnliche Veranstaltungen"
+    "de": "ähnliche Veranstaltungen",
+    "es": "Eventos similares"
   },
   "noOtherSuggestions": {
     "fr": "Aucun autre événement similaire n'a été trouvé",
     "en": "No other similar event was found",
-    "de": "Kein anderes ähnliches Veranstaltung wurde gefunden"
+    "de": "Kein anderes ähnliches Veranstaltung wurde gefunden",
+    "es": "No se encontraron eventos similares"
   }
 }

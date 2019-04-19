@@ -4,56 +4,67 @@ module.exports = {
   "motorImpairment": {
     "en": "motor impairment",
     "fr": "handicap moteur",
-    "de": "motorische Beeinträchtigung"
+    "de": "motorische Beeinträchtigung",
+    "es": "discapacidad motora"
   },
   "hearingImpairment": {
     "en": "hearing impairment",
     "fr": "handicap auditif",
-    "de": "schwerhörig"
+    "de": "schwerhörig",
+    "es": "discapacidad auditiva"
   },
   "mentalImpairment": {
     "en": "mental impairment",
     "fr": "handicap psychique",
-    "de": "geistige Behinderung"
+    "de": "geistige Behinderung",
+    "es": "discapacidad mental"
   },
   "visualImpairment": {
     "en": "visual impairment",
     "fr": "handicap visuel",
-    "de": "Sehbehinderung"
+    "de": "Sehbehinderung",
+    "es": "discapacitados visuales"
   },
   "signLanguage": {
     "en": "Sign language",
     "fr": "Langue des signes",
-    "de": "Zeichensprache"
+    "de": "Zeichensprache",
+    "es": "Lenguaje de Señas"
   },
   "mi": {
     "en": "Motor impairment",
     "fr": "Handicap moteur",
-    "de": "motorische Beeinträchtigung"
+    "de": "motorische Beeinträchtigung",
+    "es": "Discapacidad física"
   },
   "hi": {
     "en": "Hearing impairment",
     "fr": "Handicap auditif",
-    "de": "Schwerhörig"
+    "de": "Schwerhörig",
+    "es": "la discapacidad auditiva"
   },
   "pi": {
     "en": "Mental impairment",
     "fr": "Handicap psychique",
-    "de": "Geistige Behinderung"
+    "de": "Geistige Behinderung",
+    "es": "discapacidad mental"
   },
   "vi": {
     "en": "Visual impairment",
     "fr": "Handicap visuel",
-    "de": "Sehbehinderung"
+    "de": "Sehbehinderung",
+    "es": "discapacidad visual"
   },
   "sl": {
     "en": "Sign language",
     "fr": "Langue des signes",
-    "de": "Zeichensprache"
+    "de": "Zeichensprache",
+    "es": "Lenguaje de Señas"
   },
   "input": {
     "en": "This event has amenities to facilitate accessibility",
     "fr": "Cet événement inclus des aménagements à l'accessibilité",
-    "de": "Dieses Veranstaltung verfügt über Annehmlichkeiten Zugänglichkeit zu erleichtern"
+    "de": "Dieses Veranstaltung verfügt über Annehmlichkeiten Zugänglichkeit zu erleichtern",
+    "es": "Este evento incluye las mejoras a la accesibilidad"
   }
 }
