@@ -5,8 +5,8 @@
     "field": "participants",
     "optional": true,
     "fieldType": "integer",
-    "read": "moderator",
-    "write": "contributor",
+    "read": [ "moderator" ],
+    "write": [ "contributor" ],
     "min": null,
     "max": null,
     "label": {

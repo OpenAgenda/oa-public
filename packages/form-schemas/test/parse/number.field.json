@@ -2,8 +2,8 @@
   "field": "pi",
   "optional": true,
   "fieldType": "number",
-  "read": "moderator",
-  "write": "contributor",
+  "read": [ "moderator" ],
+  "write": [ "contributor" ],
   "min": null,
   "max": null,
   "label": {

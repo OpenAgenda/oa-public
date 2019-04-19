@@ -7,8 +7,12 @@
     "optional": true,
     "display" : true,
     "fieldType": "number",
-    "read": "moderator",
-    "write": "contributor",
+    "read": [
+      "contributor",
+      "moderator",
+      "administrator"
+    ],
+    "write": null,
     "min": null,
     "max": null,
     "label": {

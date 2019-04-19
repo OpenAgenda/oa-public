@@ -32,7 +32,7 @@ module.exports = schema => {
 
       const custom = {
         name: f.field,
-        type: 'public',
+        type: f.read !== null ? 'private' : 'public',
         fieldType: schemaToCustom[ f.fieldType ],
         optional: !!f.optional,
         label: _multilingualLabel( f.label )

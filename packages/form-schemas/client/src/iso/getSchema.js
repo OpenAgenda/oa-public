@@ -9,7 +9,8 @@ const _ = {
   keyBy: require( 'lodash/keyBy' ),
   assign: require( 'lodash/assign' ),
   omit: require( 'lodash/omit' ),
-  set: require( 'lodash/set' )
+  set: require( 'lodash/set' ),
+  get: require( 'lodash/get' )
 }
 
 schema.register( {
@@ -58,9 +59,9 @@ module.exports = ( fields, accessType = null, accessLevel = null, options = {} )
 
     if ( f[ accessType ] === null && params.includeUnspecified ) return true;
 
-    if ( accessLevel.includes( f[ accessType ] ) ) return true;
-
-    return false;
+    return !!( _.get( f, accessType, [] ) || [] )
+      .filter( t => accessLevel.includes( t ) )
+      .length;
 
   } )
   .filter( f => f.fieldType !== 'abstract' )

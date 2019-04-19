@@ -224,19 +224,15 @@ function buildFieldSchema( type, options = {} ) {
     },
 
     write: {
-      type: 'choice',
-      // potential groups with write access
-      options: [ 'contributor', 'moderator', 'administrator' ],
-      unique: true,
-      optional: true
+      type: 'text',
+      optional: true,
+      list: { default: null }
     },
 
     read: {
-      type: 'choice',
-      // potential groups with read access
-      options: [ 'contributor', 'moderator', 'administrator' ],
-      unique: true,
-      optional: true
+      type: 'text',
+      optional: true,
+      list: { default: null }
     },
 
     optional: {

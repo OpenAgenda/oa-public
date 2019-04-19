@@ -14,7 +14,7 @@
       "sub" : null,
       "help" : null,
       "helpLink" : null,
-      "write": "contributor",
+      "write": null,
       "read": null,
       "optional": false,
       "display" : true,

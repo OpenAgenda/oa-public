@@ -46,6 +46,7 @@ describe( 'FormSchema - access control', () => {
 
   } );
 
+
   it( 'validator is used to clean data to specified read access', () => {
 
     let v = s.getValidate( 'read', 'administrator' );

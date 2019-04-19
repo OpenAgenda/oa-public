@@ -1,7 +1,7 @@
  [ {
   "name": "pi",
   "fieldType": "number",
-  "type": "public",
+  "type": "private",
   "optional" : true,
   "label": {
     "fr": "Quelle est la valeur de PI",

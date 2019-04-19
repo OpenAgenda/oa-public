@@ -6,8 +6,8 @@
   },
   "placeholder" : null,
   "info": null,
-  "write": "contributor",
-  "read": "moderator",
+  "write": [ "contributor" ],
+  "read": [ "moderator" ],
   "optional": true,
   "origin": "custom",
   "options": [

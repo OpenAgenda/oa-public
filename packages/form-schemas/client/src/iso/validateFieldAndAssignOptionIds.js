@@ -24,7 +24,10 @@ module.exports = ( dirtyField, { custom, defaultLabelLanguage, nextOptionId } ) 
 
   } else if ( fieldHasSuperiorOptions( cleanField, nextOptionId ) ) {
 
-    updatedNextOptionId = cleanField.options.reduce( ( max, o ) => max < o.id ? o.id : max ) + 1;
+    updatedNextOptionId = cleanField.options.reduce(
+      ( max, o ) => max < o.id ? o.id : max,
+      updatedNextOptionId
+    ) + 1;
 
   }
 

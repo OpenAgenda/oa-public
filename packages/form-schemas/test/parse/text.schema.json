@@ -19,7 +19,7 @@
     "min": 3,
     "max": 50,
     "read": null,
-    "write": "contributor",
+    "write": null,
     "origin" : "custom",
     "enableWith" : null,
     "default" : null,

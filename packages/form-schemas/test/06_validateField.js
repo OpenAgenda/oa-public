@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const should = require( 'should' );
 
 const iso = require( '../iso' );
@@ -246,6 +247,7 @@ describe( 'form-schemas -06- validateField', () => {
 
     } );
 
+
     it( 'abstract fields do not have required values', () => {
 
       iso.validateField( {
@@ -291,6 +293,33 @@ describe( 'form-schemas -06- validateField', () => {
 
     } );
 
+  } );
+
+  describe( 'read and write field values', () => {
+
+    it( 'defaults are null', () => {
+
+      _.pick( iso.validateField( {
+        field: 'afield',
+        fieldType: 'text',
+        label: 'A label',
+      } ), [ 'write', 'read' ] ).should.eql( {
+        read: null,
+        write: null
+      } );
+
+    } );
+
+    it( 'multiple values can be specified', () => {
+
+      iso.validateField( {
+        field: 'f',
+        fieldType: 'text',
+        label: 'alabel',
+        read: [ 'steve', 'janine' ]
+      } ).read.should.eql( [ 'steve', 'janine' ] );
+
+    } );
 
   } );
 
