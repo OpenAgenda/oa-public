@@ -24,7 +24,7 @@ module.exports = function( req, res, next ) {
 
     if ( !stakeholder ) return next();
 
-    req.member = memberMap.toMember( stakeholder.custom );
+    req.member = memberMap.toMember( stakeholder.custom, stakeholder.credential );
 
     members.agenda( agendaId ).instanciate( stakeholder ).isValid( ( err, is ) => {
 
