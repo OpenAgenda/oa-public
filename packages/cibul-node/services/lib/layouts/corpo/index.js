@@ -14,17 +14,15 @@ module.exports = {
 
 function parser( data ) {
 
-  const languages = [ 'fr', 'en', 'de' ];
-
   return ih( data, {
     labels: { $set: flattenLabels( labels, data.lang ) },
     tel: { $set: '+33142330509' },
     languages: {
-      $set: languages.map( ( l, i ) => ( {
+      $set: data.languages.map( ( l, i ) => ( {
         className: l === data.lang ? 'selected' : '',
         value: l,
         label: l.toUpperCase(),
-        separator: i < languages.length - 1
+        separator: i < data.languages.length - 1
       } ) )
     }
   } );

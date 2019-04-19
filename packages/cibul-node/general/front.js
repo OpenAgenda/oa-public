@@ -11,7 +11,9 @@ const unsubscribedSvc = require( '@openagenda/unsubscribed' );
 const log = require( '@openagenda/logs' )( 'newsletter' );
 const config = require( '../config' );
 
-const layout = require( '../services/lib/layouts' ).load( 'corpo' );
+const layout = require( '../services/lib/layouts' ).load( 'corpo', {
+  languages: config.interfaceLanguages
+} );
 
 const landingPages = landing( {
   en: config.root + '/discover',
@@ -41,7 +43,7 @@ const preMw = [
 module.exports = app => {
 
   app.get(
-    [ '/', '/en', '/de' ],
+    [ '/', '/en', '/de', '/es' ],
     preMw,
     cmn.https,
     sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
@@ -152,7 +154,8 @@ function _setLang( req, res, next ) {
   req.lang = _.get( {
     '/' : 'fr',
     '/en' : 'en',
-    '/de' : 'de'
+    '/de' : 'de',
+    '/es' : 'es'
   }, req.url, null );
 
   if ( !req.lang ) return res.redirect( 302, '/' );
@@ -268,7 +271,7 @@ function newsletterSubscribe( req, res ) {
 
 function _redirectLang( req, res, next ) {
 
-  if ( req.query && req.query.lang && [ 'fr', 'en', 'de' ].indexOf( req.query.lang ) === -1 ) {
+  if ( req.query && req.query.lang && config.interfaceLanguages.indexOf( req.query.lang ) === -1 ) {
 
     return res.redirect( 301, `/discover/${req.params.page}?lang=en` );
 

@@ -15,6 +15,7 @@ const config = {
     corpoLastUpdate: '2017-10-31T12:07:29.000Z',
     jsVersion: 42,
     cssVersion: 2,
+    interfaceLanguages: [ 'fr', 'en', 'de', 'es' ],
     versions: {
       // unused for now
       members: [ {
