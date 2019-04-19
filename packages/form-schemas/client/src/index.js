@@ -13,6 +13,7 @@ import FormSchema from './iso/FormSchema';
 import flatten from './lib/flatten';
 import submit from './lib/submit';
 import getRelatedFieldValues from './lib/getRelatedFieldValues';
+import isFieldDisplayed from './lib/isFieldDisplayed';
 
 const Field = require( './Components/Field' );
 
@@ -298,7 +299,7 @@ export default class FormSchemaComponent extends Component {
 
   render() {
 
-    const { lang, classNames } = this.props;
+    const { lang, classNames, role } = this.props;
 
     const { submitted } = this.state;
 
@@ -318,7 +319,7 @@ export default class FormSchemaComponent extends Component {
 
     return <div className="oa-form">
       <div className={_.get( classNames, 'fieldsCanvas', '' ) }>
-        {this._getFormSchema().getFields().filter( f => f.display ).map( ( f, i ) => {
+        {this._getFormSchema().getFields().filter( isFieldDisplayed.bind( null, role ) ).map( ( f, i ) => {
 
           const flatLabels = flatten( formSchemaLabels, lang );
 

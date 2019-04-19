@@ -40,6 +40,11 @@ module.exports = {
     link: '/simplewithhelp',
     group: 'getting-started'
   }, {
+    name: 'Per-field access control',
+    description: 'Fields are displayed depending on the role of the viewer',
+    link: '/access',
+    group: 'getting-started'
+  }, {
     name: 'A form',
     description: 'This is the dev app before it was split. It shows a form with mixed fields',
     link: '/form',
