@@ -10,7 +10,7 @@ $black: #000;
 
 $xlightBlue: #E3F2FF;
 $lightBlue: #42B0E1;
-$darkblue: #3367C0;
+$darkblue: $oa-blue;
 $green: #1A9E1F;
 $red: #E23737;
 
@@ -989,10 +989,9 @@ $dayInWeek: 7;
   position: relative;
   width: 100%;
   background: #fff;
-  border: 1px solid #eee;
-  font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  font-size: 13px;
   line-height: 1.5;
-  color: #777;
+  color: $oa-black;
 }
 
 /* Utils */
@@ -1004,16 +1003,19 @@ $dayInWeek: 7;
 /* Stats, header */
 
 .rtp__calendar .rtp__stats {
-  float: left;
-  margin-top: 4px;
-  margin-left: 12px;
+  font-size: 14px;
+  background: $oa-gray-lightest;
+  padding: 5px;
+  text-align: center;
 }
 
 .rtp__calendar .rtp__reset {
-  float: right;
-  margin-top: 4px;
-  margin-right: 12px;
+  position: absolute;
+  top: -50px;
+  right: 0;
+  color: $oa-red;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .rtp__calendar .rtp__reset:hover {
@@ -1023,7 +1025,7 @@ $dayInWeek: 7;
 .rtp__calendar .rtp__header {
   text-transform: uppercase;
   font-weight: 700;
-  margin: .5em 0;
+  margin: 1em 0;
 }
 
 .rtp__calendar .rtp__header .rtp__prev-week,
@@ -1033,11 +1035,21 @@ $dayInWeek: 7;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
+  display: inline-block;
+  border: 1px solid $oa-gray-light;
+}
+
+.rtp__calendar .rtp__header .rtp__prev-week {
+  border-radius: 4px 0 0 4px;
+}
+.rtp__calendar .rtp__header .rtp__next-week {
+  border-radius: 0 4px 4px 0;
+  border-left: 0;
 }
 
 .rtp__calendar .rtp__header .rtp__prev-week .rtp__icon,
 .rtp__calendar .rtp__header .rtp__next-week .rtp__icon {
-  margin: 1em;
+  margin: 11px 10px 7px;
   -webkit-transition: .12s ease-out;
   -o-transition: .12s ease-out;
   transition: .12s ease-out;
@@ -1072,17 +1084,28 @@ $dayInWeek: 7;
 .rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector {
   display: inline-block;
   width: 180px;
-  margin-top: 5px;
-  margin-bottom: 5px;
   margin-right: 15px;
+}
+
+/* overwrite of color defined in inline style */
+.rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector div:first-child,
+.rtp__calendar .rtp__header .rtp__selectors .rtp__year-selector div:first-child {
+  color: $oa-black;
+  text-transform: capitalize;
 }
 
 .rtp__calendar .rtp__header .rtp__selectors .rtp__year-selector {
   display: inline-block;
   width: 100px;
-  margin-top: 5px;
-  margin-bottom: 5px;
-  margin-right: 15px;
+  margin-right: 0;
+}
+
+/**
+ * a class to target input canvases would be practical
+ */
+.rtp__selectors > span > div > div {
+  border-color: $oa-gray-light;
+  cursor: pointer;
 }
 
 /* Calendar */
@@ -1109,10 +1132,7 @@ $dayInWeek: 7;
   flex-direction: row;
   text-transform: uppercase;
   font-weight: 400;
-  color: #999;
-  font-size: 11px;
-  padding: 8px 16px 8px 0;
-  border-bottom: 1px solid #eee;
+  padding: 0 16px 4px 0;
 }
 
 .rtp__calendar .rtp__days .rtp__row {
@@ -1146,9 +1166,11 @@ $dayInWeek: 7;
   -ms-flex-pack: center;
   justify-content: center;
   text-align: center;
+  text-transform: capitalize;
 }
 
 .rtp__calendar .rtp__scheduler {
+  border: 1px solid $oa-gray-light;
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -1158,7 +1180,7 @@ $dayInWeek: 7;
   -ms-flex-direction: row;
   flex-direction: row;
   height: 360px;
-  overflow-y: scroll
+  overflow-y: scroll;
 }
 
 .rtp__calendar .rtp__body {
@@ -1227,12 +1249,11 @@ $dayInWeek: 7;
   border-bottom: 1px solid #eee;
 }
 
-.rtp__calendar .rtp__column-timing .rtp__cell:nth-child(2n-1) {
-  background: #f5f5f5;
-}
-
 .rtp__calendar .rtp__column .rtp__cell:nth-child(2n-1) {
-  background: #f5f5f5;
+  background: $oa-gray-lighter;
+}
+.rtp__calendar .rtp__column-timing .rtp__cell:nth-child(2n-1) {
+  background: lighten( $oa-gray-lighter, 5 );
 }
 
 .rtp__calendar .rtp__column .rtp__cell:hover {
@@ -1249,11 +1270,14 @@ $dayInWeek: 7;
   transition: background-color .12s ease-out;
 }
 
+.rtp__calendar .rtp__column-timing .rtp__cell.rtp__timing {
+  border-top: 1px solid transparent;
+  border-bottom: 1px solid transparent;
+}
+
 .rtp__calendar .rtp__column-timing .rtp__cell.rtp__timing .rtp__number {
   position: absolute;
-  font-size: 82.5%;
   line-height: 1;
-  font-weight: 700;
   top: 50%;
   right: 50%;
   -webkit-transform: translate(50%, -50%);
@@ -1294,7 +1318,7 @@ $dayInWeek: 7;
 .rtp__calendar .rtp__body .rtp__selection-timing,
 .rtp__calendar .rtp__body .rtp__selection-moving-timing,
 .rtp__calendar .rtp__body .rtp__selection-resizing-timing {
-  background: #41c2ff;
+  background: $oa-blue;
 }
 
 .rtp__calendar .rtp__body .rtp__disallowed-timing,
@@ -1427,8 +1451,8 @@ $dayInWeek: 7;
 
 .rtp__calendar.rtp__xs .rtp__body .rtp__timing-value {
   height: 11px;
-  line-height: 10px;
-  font-size: 11px;
+  line-height: 12px;
+  font-size: 12px;
 }
 
 .rtp__calendar.rtp__sm .rtp__body .rtp__timing-value,
