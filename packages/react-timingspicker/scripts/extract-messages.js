@@ -9,7 +9,7 @@ const { sync: globSync } = require( 'glob' );
 const DEFAULT_LANG = 'en';
 const LANGS = [ 'en', 'fr' ];
 
-const MESSAGES_PATTERN = './build/messages/**/*.json';
+const MESSAGES_PATTERN = './dist/messages/**/*.json';
 const LOCALE_DIR = './src/locales/';
 
 // Aggregates the default messages that were extracted from the example app's

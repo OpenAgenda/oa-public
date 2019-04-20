@@ -1,0 +1,12 @@
+{
+  "rtp.editForm.title": "Edit timing",
+  "rtp.editForm.invalidTime": "Invalid time",
+  "rtp.editForm.startTime": "Start time",
+  "rtp.editForm.endTime": "End time",
+  "rtp.editForm.adjust": "Adjust",
+  "rtp.editForm.endNotAfterBegin": "End should be after begin",
+  "rtp.definedTimings": "{timingsCount, plural, =0 {No defined timings} one {# defined timing} other {# defined timings}} {timingsCount, plural, =0 {} other {at {when, date, short}}}",
+  "rtp.definedTimingsInRange": "{timingsCount, plural, =0 {No defined timings} one {# defined timing} other {# defined timings}} from {from, date, short} to {to, date, short}",
+  "rtp.defineTiming": "Click and drag on the grid to set a timing",
+  "rtp.reset": "Delete all timings"
+}

@@ -1,0 +1,12 @@
+{
+  "rtp.editForm.title": "Editer l'horaire",
+  "rtp.editForm.invalidTime": "Horaire invalide",
+  "rtp.editForm.startTime": "Horaire de début",
+  "rtp.editForm.endTime": "Horaire de fin",
+  "rtp.editForm.adjust": "Ajuster",
+  "rtp.editForm.endNotAfterBegin": "La fin doit être après le début",
+  "rtp.definedTimings": "{timingsCount, plural, =0 {Aucun horaire défini} one {# horaire défini} other {# horaires définis}} {timingsCount, plural, =0 {} other {le {when, date, short}}}",
+  "rtp.definedTimingsInRange": "{timingsCount, plural, =0 {Aucun horaire défini} one {# horaire défini} other {# horaires définis}} du {from, date, short} au {to, date, short}",
+  "rtp.defineTiming": "Cliquez et faites glisser sur la grille pour définir un horaire",
+  "rtp.reset": "Supprimer tous les horaires"
+}
