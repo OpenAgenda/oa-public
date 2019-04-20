@@ -1,13 +1,16 @@
 import _ from 'lodash';
 import sa from 'superagent';
 
-const CREATE = 'agenda-contribute/event/CREATE';
-const UPDATE = 'agenda-contribute/event/UPDATE';
+const actionTypes = {
+  CREATE: 'agenda-contribute/event/CREATE',
+  UPDATE: 'agenda-contribute/event/UPDATE'
+}
 
-module.exports = _.extend( reducer, {
+module.exports = _.assign( reducer, {
   created,
   updated,
-  deleteDraft
+  deleteDraft,
+  actionTypes
 } );
 
 
@@ -15,11 +18,11 @@ function reducer( state = {}, action = {} ) {
 
   switch ( action.type ) {
 
-    case CREATE:
+    case actionTypes.CREATE:
 
       return action.event;
 
-    case UPDATE:
+    case actionTypes.UPDATE:
 
       return action.event;
 
@@ -98,7 +101,7 @@ function created( values, response ) {
 
     }
 
-    dispatch( { type: CREATE, event } );
+    dispatch( { type: actionTypes.CREATE, event } );
 
     return history.push( base + '/confirmation' );
 

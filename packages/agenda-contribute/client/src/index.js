@@ -17,6 +17,7 @@ if ( module.hot ) module.hot.accept();
 
 import getRoutes from './getRoutes';
 import reducers from './reducers';
+import scrollToTopMiddleware from './lib/scrollToTopMiddleware';
 
 const init = JSON.parse(
   document.getElementById( 'init' ).innerHTML,
@@ -36,7 +37,15 @@ const store = createStore( combineReducers( {
   config: () => config,
 } ), initState, applyMiddleware(
   thunkMiddleware.withExtraArgument( history ),
-  loggerMiddleware
+  loggerMiddleware,
+  scrollToTopMiddleware( {
+    scrollableTypes: [
+      reducers.event.actionTypes.UPDATE,
+      reducers.event.actionTypes.CREATE,
+      reducers.member.actionTypes.UPDATE
+    ],
+    scrollToAnchor: 'stepper'
+  } )
 ) );
 
 const routes = getRoutes( config.base || '' );

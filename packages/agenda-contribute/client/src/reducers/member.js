@@ -1,9 +1,12 @@
 import _ from 'lodash';
 
-const UPDATE = 'agenda-contribute/member/UPDATE';
+const actionTypes = {
+  UPDATE: 'agenda-contribute/member/UPDATE'
+};
 
 module.exports = _.extend( reducer, {
-  updated
+  updated,
+  actionTypes
 } );
 
 
@@ -11,7 +14,7 @@ function reducer( state = {}, action = {} ) {
 
   switch ( action.type ) {
 
-    case UPDATE:
+    case actionTypes.UPDATE:
 
       return action.member;
 
@@ -34,7 +37,7 @@ function updated( member ) {
 
     const { base } = state.config;
 
-    dispatch( { type: UPDATE, member } );
+    dispatch( { type: actionTypes.UPDATE, member } );
 
     return history.push( base + '/event' );
 
