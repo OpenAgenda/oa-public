@@ -13,7 +13,7 @@ import FormSchemaComponent from '../';
 
 const fieldOrder = order => ( { fields: order.map( f => ( { field: f, fieldType: 'abstract' } ) ) } );
 
-const schemas= fieldType => ( {
+const fieldSchemaTypes = {
   labels: ( { labelLanguages } ) => fg.labels( { labelLanguages } ),
   textLike: ( { labelLanguages } ) => merge(
     fg.labels( { labelLanguages } ),
@@ -27,14 +27,24 @@ const schemas= fieldType => ( {
     fg.options( { labelLanguages } ),
     fieldOrder( [ 'label', 'optional', 'options', 'placeholder', 'sub' ] )
   )
-} )[ ( {
-  text: 'textLike',
-  textarea: 'textLike',
-  markdown: 'textLike',
-  radio: 'radioLike',
-  checkbox: 'radioLike',
-  integer: 'textLike'
-} )[ fieldType ] ];
+};
+
+const schemas = fieldType => {
+
+  switch ( fieldType ) {
+    case 'text':
+    case 'textarea':
+    case 'markdown':
+    case 'integer':
+      return fieldSchemaTypes.textLike;
+    case 'radio':
+    case 'checkbox':
+      return fieldSchemaTypes.radioLike;
+  }
+
+  return fieldSchemaTypes.labels;
+
+}
 
 export default class FieldForm extends Component {
 

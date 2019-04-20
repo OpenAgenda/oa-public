@@ -170,5 +170,10 @@ module.exports = {
     name: 'A form builder with a loaded Radio field',
     description: 'Monolingual and multilingual radio field option labels should be displayed',
     link: '/formbuilderwithradios'
+  }, {
+    group: 'builder',
+    name: 'A form builder with a custom field type',
+    description: 'When a field type does not have a defined field schema, only labels can be edited',
+    link: '/formbuilderwithunhandledtypes'
   } ]
 }
