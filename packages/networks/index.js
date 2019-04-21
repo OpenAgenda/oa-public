@@ -5,6 +5,7 @@ const config = require( './config' );
 const get = require( './get' );
 const list = require( './list' );
 const create = require( './create' );
+const update = require( './update' );
 const validate = require( './validate' );
 
 module.exports = ( options = {} ) => {
@@ -18,6 +19,7 @@ module.exports = ( options = {} ) => {
     get: get.bind( null, config ),
     list: list.bind( null, config ),
     create: create.bind( null, config ),
+    update: update.bind( null, config ),
     validate
   }
 

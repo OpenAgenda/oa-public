@@ -10,9 +10,9 @@ const Service = require( '../' );
 const config = require( '../testconfig' );
 const fixtures = require( './fixtures' );
 
-describe( 'networks - functional ( server ): list', function() {
+describe( 'networks - functional ( server ): update', function() {
 
-  let k, svc;
+  let k, svc, network;
 
    before( async () => {
 
@@ -41,28 +41,31 @@ describe( 'networks - functional ( server ): list', function() {
 
   } );
 
+  before( async () => {
+
+    network = await svc.update( 13, { title: 'Ville de Genève' } );
+
+  } );
+
   after( () => {
 
     k.destroy();
 
   } );
 
-  it( 'list lists', async () => {
+  it( 'update returns updated network object', async () => {
 
-    ( await svc.list() ).map( n => _.pick( n, [ 'uid', 'formSchemaId', 'title' ] ) )
-      .should.eql( [ {
-        uid: 1,
-        formSchemaId: 2,
-        title: 'Métropole de Toulouse'
-      }, {
-        uid: 13,
-        formSchemaId: 12,
-        title: 'Métropole de Lille'
-      }, {
-        uid: 3,
-        formSchemaId: 21,
-        title: 'Orléans Métropole'
-      } ] );
+    network.title.should.equal( 'Ville de Genève' );
+
+    network.uid.should.equal( 13 );
+
+  } );
+
+  it( 'update commits network to db', async () => {
+
+    const fromDb = await k( 'network' ).first( 'title' ).where( 'uid', 13 );
+
+    fromDb.title.should.equal( 'Ville de Genève' );
 
   } );
 
