@@ -20,6 +20,12 @@ raw.push( knex( 'network' ).insert( [ {
   updated_at: new Date( '1981-02-28T03:00:00.000Z' ),
   created_at: new Date( '1981-02-28T03:00:00.000Z' ),
   title: 'Métropole de Lille'
+}, {
+  uid: 3,
+  form_schema_id: 21,
+  updated_at: new Date( '1981-02-28T03:00:00.000Z' ),
+  created_at: new Date( '1981-02-28T03:00:00.000Z' ),
+  title: 'Orléans Métropole'
 } ] ) );
 
 module.exports = raw.join( '\n' );

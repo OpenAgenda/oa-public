@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
-module.exports = async function get( { knex, schema }, uid ) {
+module.exports = async function( { knex, schema }, uid ) {
 
   if ( !knex ) throw new VError( 'service is not initialized' );
 

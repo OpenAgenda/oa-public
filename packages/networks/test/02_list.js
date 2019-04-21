@@ -10,7 +10,7 @@ const Service = require( '../' );
 const config = require( '../testconfig' );
 const fixtures = require( './fixtures' );
 
-describe( 'network - functional ( server ): get', function() {
+describe( 'networks - functional ( server ): get', function() {
 
   let k, svc;
 
@@ -47,13 +47,22 @@ describe( 'network - functional ( server ): get', function() {
 
   } );
 
-  it( 'get gets', async () => {
+  it( 'list lists', async () => {
 
-    should( await svc.get( 1 ) ).eql( {
-      uid: 1,
-      formSchemaId: 2,
-      title: 'Métropole de Toulouse'
-    } );
+    ( await svc.list() ).map( n => _.pick( n, [ 'uid', 'formSchemaId', 'title' ] ) )
+      .should.eql( [ {
+        uid: 1,
+        formSchemaId: 2,
+        title: 'Métropole de Toulouse'
+      }, {
+        uid: 13,
+        formSchemaId: 12,
+        title: 'Métropole de Lille'
+      }, {
+        uid: 3,
+        formSchemaId: 21,
+        title: 'Orléans Métropole'
+      } ] );
 
   } );
 

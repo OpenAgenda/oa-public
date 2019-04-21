@@ -3,6 +3,9 @@
 const _ = require( 'lodash' );
 const config = require( './config' );
 const get = require( './get' );
+const list = require( './list' );
+const create = require( './create' );
+const validate = require( './validate' );
 
 module.exports = ( options = {} ) => {
 
@@ -12,7 +15,12 @@ module.exports = ( options = {} ) => {
   }, options );
 
   return {
-    get: get.bind( null, config )
+    get: get.bind( null, config ),
+    list: list.bind( null, config ),
+    create: create.bind( null, config ),
+    validate
   }
 
 }
+
+module.exports.validate = validate;
