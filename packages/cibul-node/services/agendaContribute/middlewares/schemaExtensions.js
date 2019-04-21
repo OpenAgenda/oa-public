@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const formSchemas = require( '@openagenda/form-schemas' );
-const networks = require( '@openagenda/networks' );
+const networks = require( '../../networks' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaContribute/middlewares/schemas' );
 

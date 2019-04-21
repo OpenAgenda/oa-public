@@ -3,7 +3,7 @@
 const { promisify } = require( 'util' );
 const VError = require( 'verror' );
 
-const networks = require( '@openagenda/networks' );
+const networks = require( '../../../services/networks' );
 
 module.exports = async networkUid => {
 
