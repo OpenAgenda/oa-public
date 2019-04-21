@@ -2,7 +2,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const uuidV4 = require( 'uuid/v4' );
 const w = require( 'when' );
 
 const slugs = require( '@openagenda/slugs' );
@@ -302,7 +301,7 @@ async function createPromise( data, options ) {
 
 }
 
-async function _defineUnique( field, generator  ) {
+async function _defineUnique( field, generator ) {
 
   let value = null;
 
