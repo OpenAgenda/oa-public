@@ -4,8 +4,18 @@ module.exports = {
   interfaces: {
     listNetworks,
     getNetworkAndSchema,
+    setNetworkSchema,
     getEventSchema
   }
+}
+
+async function setNetworkSchema( uid, schema ) {
+
+  console.log( 'committing network schema %s', uid );
+  console.log( schema );
+
+  return true;
+
 }
 
 async function getNetworkAndSchema( uid ) {

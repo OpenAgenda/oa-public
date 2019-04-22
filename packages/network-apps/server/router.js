@@ -36,6 +36,20 @@ router.get( '/networks/:uid', async ( req, res, next ) => {
 
 } );
 
+router.post(
+  '/networks/:uid',
+  bodyParser.json(),
+  async ( req, res, next ) => {
+
+    try {
+      await router.service.setNetworkSchema( req.params.uid, JSON.parse( req.body.data ) )
+      res.send( 'ok' );
+    } catch ( e ) {
+      res.status( 500 ).send( e );
+    }
+
+  } );
+
 
 async function _renderPage( req, res, next ) {
 
@@ -70,9 +84,7 @@ function _getClientAppPath( serviceName, config ) {
   const distFileName = manifest[ 'main.js' ];
 
   if ( config.frontAppPath ) {
-
     return config.frontAppPath + '/' + distFileName;
-
   }
 
   if ( process.env.NODE_ENV === 'development' ) return '/js/app.js';

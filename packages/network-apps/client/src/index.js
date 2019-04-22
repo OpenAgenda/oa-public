@@ -10,7 +10,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
-import { BrowserRouter as Router } from "react-router-dom";
+import { Router } from "react-router-dom";
 import { renderRoutes } from 'react-router-config';
 
 if ( module.hot ) module.hot.accept();
