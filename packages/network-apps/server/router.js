@@ -36,16 +36,28 @@ router.get( '/networks/:uid', async ( req, res, next ) => {
 
 } );
 
+router.post( '*', bodyParser.json() );
+
+router.post( '/', async ( req, res, next ) => {
+
+  try {
+    await router.service.createNetwork( req.body );
+    res.send( 'ok' );
+  } catch ( e ) {
+    next( e );
+  }
+
+} );
+
 router.post(
   '/networks/:uid',
-  bodyParser.json(),
   async ( req, res, next ) => {
 
     try {
       await router.service.setNetworkSchema( req.params.uid, JSON.parse( req.body.data ) )
       res.send( 'ok' );
     } catch ( e ) {
-      res.status( 500 ).send( e );
+      next( e );
     }
 
   } );

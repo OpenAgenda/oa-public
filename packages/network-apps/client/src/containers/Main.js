@@ -13,21 +13,42 @@ class Main extends Component {
 
   }
 
+  renderAdd() {
+
+    const { onAddChange, onAddSubmit } = this.props;
+
+    return <form className="form-inline" onSubmit={onAddSubmit}>
+      <div className="form-group">
+        <label className="margin-right-xs" htmlFor="title">Nom du réseau</label>
+        <input type="text" className="form-control margin-right-xs" name="title" onChange={onAddChange.bind( null, 'title' )} />
+      </div>
+      <button type="submit" className="btn btn-primary">Créer</button>
+    </form>
+
+  }
+
   render() {
 
     const networks = _.get( this.props, 'main.networks', [] );
+    const add = _.get( this.props, 'main.add', false );
+    const { onAdd } = this.props;
     const base = this.props.config.base;
 
-    return <ul className="list-unstyled">{networks.map( n => <li key={n.uid}>
-      <div className="margin-v-sm wsq padding-all-sm">
-        <label>{n.title}</label>
-        <ul className="list-inline">
-          <li>
-            <Link to={`${base}/networks/${n.uid}`}>Editer</Link>
-          </li>
-        </ul>
+    return <div>
+      <div className="margin-v-sm text-right">
+        { add ? this.renderAdd() : <button className="btn btn-primary" onClick={onAdd}>Ajouter un nouveau réseau</button> }
       </div>
-    </li> )}</ul>
+      <ul className="list-unstyled">{networks.map( n => <li key={n.uid}>
+        <div className="margin-v-sm wsq padding-all-sm">
+          <label>{n.title}</label>
+          <ul className="list-inline">
+            <li>
+              <Link to={`${base}/networks/${n.uid}`}>Editer</Link>
+            </li>
+          </ul>
+        </div>
+      </li> )}</ul>
+    </div>
 
   }
 
@@ -37,6 +58,9 @@ class Main extends Component {
 export default connect(
   state => state,
   dispatch => ( {
-    onMount: () => dispatch( reducers.main.load() )
+    onMount: () => dispatch( reducers.main.load() ),
+    onAdd: () => dispatch( reducers.main.add() ),
+    onAddChange: ( field, e ) => dispatch( reducers.main.addChange( field, e.target.value ) ),
+    onAddSubmit: e => dispatch( reducers.main.addSubmit( e ) )
   } )
 )( Main );
