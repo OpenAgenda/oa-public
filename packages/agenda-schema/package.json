@@ -13,6 +13,7 @@
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "body-parser": "^1.18.2",
+    "express": "^4.16.2",
     "lodash": "^4.16.6",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
