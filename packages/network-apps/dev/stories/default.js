@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const networks = [ {
   uid: 1,
   title: 'Orléans Métropole'
@@ -21,15 +23,36 @@ const networkSchemas = {
   }
 }
 
+const networkAgendas = {
+  1: [ {
+    uid: 49409342,
+    title: 'Ville d\'Olivet'
+  }, {
+    uid: 97890938,
+    title: 'Ville de Semoy'
+  }, {
+    uid: 3991265,
+    title: 'Agenda de Chécy'
+  } ]
+}
+
 
 module.exports = {
   interfaces: {
     listNetworks,
-    getNetworkAndSchema,
+    getNetwork,
+    getNetworkSchema,
     setNetworkSchema,
+    getNetworkAgendas,
     createNetwork,
     getEventSchema
   }
+}
+
+async function getNetworkAgendas( uid ) {
+
+  return _.get( networkAgendas, uid, [] );
+
 }
 
 async function setNetworkSchema( uid, schema ) {
@@ -54,12 +77,15 @@ async function createNetwork( data ) {
 
 }
 
-async function getNetworkAndSchema( uid ) {
+async function getNetwork( uid ) {
 
-  return {
-    network: networks.filter( n => n.uid === uid )[ 0 ],
-    schema: networkSchemas[ uid ]
-  }
+  return networks.filter( n => n.uid === uid )[ 0 ];
+
+}
+
+async function getNetworkSchema( uid ) {
+
+  return networkSchemas[ uid ]
 
 }
 

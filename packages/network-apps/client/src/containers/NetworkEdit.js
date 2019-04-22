@@ -6,6 +6,9 @@ import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaB
 
 import reducers from '../reducers';
 
+import Loading from '../components/Loading';
+import NetworkHeader from '../components/NetworkHeader';
+
 class NetworkEdit extends Component {
 
   componentDidMount() {
@@ -20,10 +23,10 @@ class NetworkEdit extends Component {
     const { eventSchema, lang } = this.props.config;
     const { onUpdate } = this.props;
 
-    if ( !network ) return <p>ça charge</p>
+    if ( !network ) return <Loading />
 
     return <div className="wsq padding-all-sm">
-      <h1>{network.title}</h1>
+      <NetworkHeader network={network} />
       <FormSchemaBuilder
         lang={lang}
         addEnabled={true}

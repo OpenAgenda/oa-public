@@ -45,6 +45,9 @@ class Main extends Component {
             <li>
               <Link to={`${base}/networks/${n.uid}`}>Editer</Link>
             </li>
+            <li>
+              <Link to={`${base}/networks/${n.uid}/agendas`}>Agendas</Link>
+            </li>
           </ul>
         </div>
       </li> )}</ul>

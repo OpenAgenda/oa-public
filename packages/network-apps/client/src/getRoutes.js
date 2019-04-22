@@ -1,5 +1,6 @@
 import Main from './containers/Main';
 import NetworkEdit from './containers/NetworkEdit';
+import NetworkAgendas from './containers/NetworkAgendas';
 
 export default function( prefix = '' ) {
 
@@ -9,7 +10,11 @@ export default function( prefix = '' ) {
     component: Main
   }, {
     path: `${prefix}/networks/:uid`,
+    exact: true,
     component: NetworkEdit
+  }, {
+    path: `${prefix}/networks/:uid/agendas`,
+    component: NetworkAgendas
   } ]
 
 }

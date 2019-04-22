@@ -16,23 +16,33 @@ module.exports = _.assign( router, {
   setLayout: layout => router.layout = layout
 } );
 
+router.get( '*', ( req, res, next ) => req.headers.accept !== 'application/json' ? _renderPage( req, res, next ) : next() );
+
 router.get( '/', async ( req, res, next ) => {
 
-  if ( req.headers.accept !== 'application/json' ) {
-    return _renderPage( req, res, next );
-  }
-
-  return res.json( await router.service.listNetworks() );
+  res.json( await router.service.listNetworks() );
 
 } );
 
 router.get( '/networks/:uid', async ( req, res, next ) => {
 
-  if ( req.headers.accept !== 'application/json' ) {
-    return _renderPage( req, res, next );
-  }
+  const uid = parseInt( req.params.uid );
 
-  return res.json( await router.service.getNetworkAndSchema( parseInt( req.params.uid ) ) );
+  res.json( {
+    network: await router.service.getNetwork( uid ),
+    schema: await router.service.getNetworkSchema( uid )
+  } );
+
+} );
+
+router.get( '/networks/:uid/agendas', async ( req, res, next ) => {
+
+  const uid = parseInt( req.params.uid );
+
+  res.json( {
+    network: await router.service.getNetwork( uid ),
+    agendas: await router.service.getNetworkAgendas( uid )
+  } )
 
 } );
 
