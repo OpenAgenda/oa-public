@@ -2,6 +2,10 @@
   "name": "@openagenda/network-apps",
   "version": "1.0.0",
   "main": "server/index",
+  "files": [
+    "server",
+    "client/dist"
+  ],
   "scripts": {
     "prepublish": "yarn dist",
     "start": "nodemon dev/server",
