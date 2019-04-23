@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const cmn = require( '../lib/commons-app' );
 const app = require( 'express' )();
 const config = require( '../config' );
@@ -7,6 +9,8 @@ const sessions = require( '@openagenda/sessions' );
 const legacyAgendaSvc = require( '../services/agenda' );
 const agendasSvc = require( '@openagenda/agendas' );
 const agendaStatistics = require( '../services/agendaStatistics' );
+
+const layout = require( '../services/lib/layouts' ).load( 'agendaAdmin' );
 
 const agendaLoad = require( '@openagenda/agendas' ).middleware.load( {
   private: null,
@@ -44,12 +48,6 @@ app.use( [
 
 app.get( '/agendas/:agendaUid/admin/*?(/*)?', agendaAdminRedirect );
 
-app.use( [
-  '/:agendaSlug/admin/getting-started'
-], [
-  legacyAgendaSvc.mw.loadAdminLayout,
-  cmn.loadBaseData( 'oasfmain.css' )
-] );
 
 
 
@@ -130,19 +128,26 @@ app.get( '/:agendaSlug/admin/getting-started', [
   cmn.checkAdministrator( { useLegacy: false } ),
   ( req, res ) => {
 
-    cmn.render( req, res, 'agendaAdmin/gettingStarted', {
+    return res.send( layout( `<div class="js_canvas getting-started"></div>`, {
+      lang: req.lang,
       agenda: req.agenda,
-      scriptParams: {
-        res: {
-          agenda: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
-          setImage: req.genUrl( 'agendaSettingsSetImage', { slug: req.agenda.slug } ),
-          clearImage: req.genUrl( 'agendaSettingsClearImage', { slug: req.agenda.slug } ),
-          addEvent: req.genUrl( 'agendaEventNew', { slug: req.agenda.slug } ),
-          createEmbed: req.genUrl( 'agendaEmbedIndex', { slug: req.agenda.slug } )
-        },
-        lang: req.lang || 'fr'
-      }, lang: req.lang || 'fr'
-    } );
+      bodyAttributes: [ {
+        name: 'data-options',
+        value: JSON.stringify( {
+          res: {
+            agenda: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
+            setImage: req.genUrl( 'agendaSettingsSetImage', { slug: req.agenda.slug } ),
+            clearImage: req.genUrl( 'agendaSettingsClearImage', { slug: req.agenda.slug } ),
+            addEvent: req.genUrl( 'agendaEventNew', { slug: req.agenda.slug } ),
+            createEmbed: req.genUrl( 'agendaEmbedIndex', { slug: req.agenda.slug } )
+          },
+          lang: _.get( req, 'lang', 'fr' )
+        } )
+      } ],
+      scripts: {
+        bottom: [ { src: '/js/agendaAdminGettingStarted.js' } ]
+      }
+    } ) );
 
   }
 ] );
