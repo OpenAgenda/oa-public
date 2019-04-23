@@ -32,7 +32,7 @@ module.exports = schema => {
 
       const custom = {
         name: f.field,
-        type: f.read !== null ? 'private' : 'public',
+        type: _legacyAccessType( f ),
         fieldType: schemaToCustom[ f.fieldType ],
         optional: !!f.optional,
         label: _multilingualLabel( f.label )
@@ -59,5 +59,15 @@ function _multilingualLabel( label ) {
     fr: label,
     en: label
   } : label;
+
+}
+
+function _legacyAccessType( field ) {
+
+  if ( !field.read ) return 'public';
+
+  if ( field.read.includes( 'administrator' ) ) return 'administrator';
+
+  return 'private';
 
 }
