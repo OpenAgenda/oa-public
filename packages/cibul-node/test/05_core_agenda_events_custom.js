@@ -79,7 +79,7 @@ const testConfig = {
 };
 
 
-describe( 'core - functional ( server ): agenda event with custom data', function() {
+describe( '05 - core - functional ( server ): agenda event with custom data', function() {
 
   this.timeout( 20000 );
 
@@ -173,11 +173,18 @@ describe( 'core - functional ( server ): agenda event with custom data', functio
 
   describe( 'no network', function() {
 
+    const agendaUid = 60934473;
+    let createdEventUid;
+
+    before( async () => {
+
+      const result = await core.agendas( agendaUid ).events.create( eventData );
+
+      createdEventUid = result.created.event.uid;
+
+    } );
+
     it( 'legacy entries were created for custom fields', async () => {
-
-      const result = await core.agendas( 60934473 ).events.create( eventData );
-
-      const createdEventUid = result.created.event.uid;
 
       const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( {
         uid: createdEventUid
@@ -209,10 +216,6 @@ describe( 'core - functional ( server ): agenda event with custom data', functio
 
     it( 'legacy entries were created for custom fields of "custom" legacy origin', async () => {
 
-      const result = await core.agendas( 60934473 ).events.create( eventData );
-
-      const createdEventUid = result.created.event.uid;
-
       const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( {
         uid: createdEventUid
       } );
@@ -223,12 +226,11 @@ describe( 'core - functional ( server ): agenda event with custom data', functio
 
     } );
 
-
     it( 'legacy entries were added with update', async () => {
 
       const eventDataWithMissingCustom = _.omit( eventData, [ 'thematiques-metropolitaines', 'types-devenements', 'tag-group-4', 'organisateur', 'public' ] );
 
-      const result = await core.agendas( 60934473 ).events.create( eventDataWithMissingCustom );
+      const result = await core.agendas( agendaUid ).events.create( eventDataWithMissingCustom );
 
       const createdEventUid = result.created.event.uid;
 
@@ -240,11 +242,105 @@ describe( 'core - functional ( server ): agenda event with custom data', functio
 
       ( await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id ) ).length.should.equal( 0 );
 
-      await core.agendas( 60934473 ).events.update( createdEventUid, _.extend( {
+      await core.agendas( agendaUid ).events.update( createdEventUid, _.extend( {
         "tag-group-4": [36]
       }, eventDataWithMissingCustom ) );
 
       ( await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id ) ).length.should.equal( 1 );
+
+    } );
+
+    it( 'get gets the event with agenda custom data', async () => {
+
+      const event = await core.agendas( agendaUid ).events.get( createdEventUid );
+
+      event.uid.should.equal( createdEventUid );
+
+      [ 'public', 'entreelibre', 'thematiques-metropolitaines' ].forEach( field => {
+
+        event[ field ].should.ok();
+
+      } );
+
+    } );
+
+    it( 'agenda information is included in get', async () => {
+
+      const event = await core.agendas( agendaUid ).events.get( createdEventUid );
+
+      event.agenda.should.eql( {
+        uid: agendaUid,
+        slug: 'custom_fielded_agenda',
+        title: 'Custom fielded agenda',
+        description: null,
+        image: null,
+        url: null
+      } );
+
+    } );
+
+    it( 'get with customOnly option only gets custom data', async () => {
+
+      const data = await core.agendas( agendaUid ).events.get( createdEventUid, { customOnly: true } );
+
+      should( data.uid ).equal( undefined );
+
+      data.cle_session.should.equal( 1928391 );
+
+    } );
+
+    it( 'get with includeSchema gets data with event on one side and schema on the other', async () => {
+
+      const { event, schema } = await core.agendas( agendaUid ).events.get( createdEventUid, {
+        includeSchema: true
+      } );
+
+      event.uid.should.equal( createdEventUid );
+
+      schema.fields.map( f => f.field ).should.eql( [
+        'entreelibre',
+        'thematiques-metropolitaines',
+        'types-devenements',
+        'public',
+        'organisateur',
+        'tag-group-4',
+        'cle_session',
+        'category-group'
+       ] );
+
+    } );
+
+    it( 'get with specified access limits fetched custom fields to matching access', async () => {
+
+      const contributorAccessEvent = await core.agendas( agendaUid ).events.get( createdEventUid, {
+        access: 'contributor'
+      } );
+
+      _.keys( contributorAccessEvent ).includes( 'organisateur' ).should.equal( false );
+
+      const administratorAccessEvent = await core.agendas( agendaUid ).events.get( createdEventUid, {
+        access: 'administrator'
+      } );
+
+      _.keys( administratorAccessEvent ).includes( 'organisateur' ).should.equal( true );
+
+    } );
+
+    it( 'get with specified access limits returned schema fields', async () => {
+
+      const { schema: contributorAccessSchema } = await core.agendas( agendaUid ).events.get( createdEventUid, {
+        access: 'contributor',
+        includeSchema: true
+      } );
+
+      const { schema: administratorAccessSchema } = await core.agendas( agendaUid ).events.get( createdEventUid, {
+        access: 'administrator',
+        includeSchema: true
+      } );
+
+      contributorAccessSchema.fields.map( f => f.field ).includes( 'organisateur' ).should.equal( false );
+
+      administratorAccessSchema.fields.map( f => f.field ).includes( 'organisateur' ).should.equal( true );
 
     } );
 

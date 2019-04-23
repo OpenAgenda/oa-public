@@ -72,7 +72,7 @@ const verifyAdminModMiddleware = agendaIdentifiers => [
     private: null,
     internal: true
   } ),
-  loadMemberRole.bind( null, 'agenda' ),
+  loadMemberRole.bind( null, true, 'agenda' ),
   ( req, res, next ) => {
 
     if ( ![ 'administrator', 'moderator' ].includes( req.role ) ) {
@@ -117,7 +117,8 @@ module.exports = {
     moderator: _authorize( [ 'administrator', 'moderator' ] )
   },
   checkStakeholder,
-  loadMemberRole,
+  loadMemberRole: loadMemberRole.bind( null, true ),
+  nonBlockingLoadMemberRole: loadMemberRole.bind( null, false ),
   renderUnauthorized,
 
   verifyAdminModMiddleware,
@@ -316,8 +317,7 @@ function checkContributor( req, res, next ) {
 }
 
 
-
-function loadMemberRole( agendaNamespace, req, res, next ) {
+function loadMemberRole( errorIfNotMember = true, agendaNamespace, req, res, next ) {
 
   req.role = null;
 
@@ -327,20 +327,22 @@ function loadMemberRole( agendaNamespace, req, res, next ) {
 
     stakeholdersSvc( req[ agendaNamespace ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
 
-      if ( !stakeholder ) {
+      if ( !stakeholder && errorIfNotMember ) {
         return next( {
           message: 'Not authorized',
           code: 403
         } );
       }
 
-      req.role = stakeholdersSvc.types.codes.get( stakeholder.credential );
+      req.role = stakeholder
+        ? stakeholdersSvc.types.codes.get( stakeholder.credential )
+        : null;
 
       next();
 
     } );
 
-  } )
+  } );
 
 }
 
@@ -349,7 +351,7 @@ function _authorize( authorizedRoles = [] ) {
 
   return ( req, res, next ) => {
 
-    loadMemberRole( 'agenda', req, res, err => {
+    loadMemberRole( true, 'agenda', req, res, err => {
 
       if ( err ) return next( err );
 

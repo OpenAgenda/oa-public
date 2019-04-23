@@ -139,7 +139,7 @@ async function matchApp( req, res, next ) {
         value: JSON.stringify( { initialState: state } )
       } ],
       scripts: {
-        bottom: [ { src: '/js/sourcesIndex.js' } ]
+        bottom: [ { src: '/js/aggregatorSourcesIndex.js' } ]
       }
     } ) );
 

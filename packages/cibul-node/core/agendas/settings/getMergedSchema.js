@@ -8,7 +8,11 @@ const mergeSchemas = require( '@openagenda/form-schemas/iso/merge' );
 const getAgenda = require( '../utils/getAgenda' );
 const getNetwork = require( '../utils/getNetwork' );
 
-module.exports = async agendaOrUid => {
+module.exports = async ( agendaOrUid, options = {} ) => {
+
+  const { preloadedNetwork } = _.assign( {
+    preloadedNetwork: null
+  }, options );
 
   const agenda = _.isObject( agendaOrUid ) ? agendaOrUid : await getAgenda( agendaOrUid );
 
@@ -18,7 +22,7 @@ module.exports = async agendaOrUid => {
     formSchemaId
   } = agenda;
 
-  const network = await getNetwork( networkUid );
+  const network = preloadedNetwork || await getNetwork( networkUid );
 
   const formSchema = await _loadFormSchema( agendaId, formSchemaId, !!_.get( network, 'formSchemaId' ) );
 
