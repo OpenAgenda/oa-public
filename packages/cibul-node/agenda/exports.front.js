@@ -17,7 +17,7 @@ const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const cacheMw = require( '../lib/cache.mw' );
-const gaTrack = require( '../lib/gaTrackMw' );
+const gaTrack = require( '../lib/gaTrack.mw' );
 
 const ODSJSONParser = require( '@openagenda/legacy/exports/ODSJSONParser' );
 
@@ -29,7 +29,14 @@ const routes = {
     cacheMw.send(
       'agendas',
       'params.uid',
-      ( cached, req ) => gaTrack( 'events', 'export', 'json' )( req )
+      ( cached, req ) => {
+        _.set( req, 'agenda', {
+          uid: req.params.uid,
+          settings: cached.settings
+        } );
+
+        gaTrack( 'events', 'export', 'json' )( req );
+      }
     ),
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
@@ -38,11 +45,14 @@ const routes = {
     agendaSvc.mw.decorateEvents(),
     agendaSvc.mw.cleanJson,
     cacheMw.set( 'agendas', 'agenda.uid', 30, req => JSON.stringify( {
-      readme: 'Results are paginated. See: https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda',
-      total: req.total,
-      offset: req.offset,
-      limit: req.limit,
-      events: req.formatted,
+      settings: req.agenda.getSettings(),
+      response: {
+        readme: 'Results are paginated. See: https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda',
+        total: req.total,
+        offset: req.offset,
+        limit: req.limit,
+        events: req.formatted,
+      }
     } ) ),
     gaTrack( 'events', 'export', 'json' ),
     json

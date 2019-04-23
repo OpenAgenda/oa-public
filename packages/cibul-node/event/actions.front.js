@@ -14,7 +14,7 @@ const config = require( '../config' );
 const eventSvc = require( '../services/event' );
 const model = require( '../services/model' );
 const modLib = require( '../lib/moduleLib' );
-const gaTrack = require( '../lib/gaTrackMw' );
+const gaTrack = require( '../lib/gaTrack.mw' );
 
 const routes = {
 

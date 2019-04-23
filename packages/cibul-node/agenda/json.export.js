@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const agendasSvc = require( '@openagenda/agendas' );
 const search = require( '../services/eventSearch' );
-const gaTrack = require( '../lib/gaTrackMw' );
+const gaTrack = require( '../lib/gaTrack.mw' );
 
 
 module.exports = app => {
