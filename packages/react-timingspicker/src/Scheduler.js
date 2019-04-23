@@ -121,6 +121,8 @@ class Scheduler extends Component {
 
   selectorRef = React.createRef();
 
+  modalRef = React.createRef();
+
   componentDidMount() {
     const { defaultScroll } = this.props;
     const schedulerEl = this.schedulerRef.current;
@@ -128,9 +130,12 @@ class Scheduler extends Component {
     schedulerEl.scrollTop = defaultScroll;
   }
 
-  // componentWillUnmount() {
-  //   document.removeEventListener( 'click', this.handleOutsideClick, false );
-  // }
+  componentWillUnmount() {
+    // document.removeEventListener( 'click', this.handleOutsideClick, false );
+
+    // https://github.com/reactjs/react-modal/pull/750
+    this.modalRef.current.node = null;
+  }
 
   getModalParent = () => this.schedulerRef.current;
 
@@ -139,7 +144,7 @@ class Scheduler extends Component {
     valueToEdit,
     editInitialValues: {
       begin: dateFns.format( valueToEdit.begin, 'HH:mm' ),
-      end: dateFns.format( valueToEdit.end, 'HH:mm' ) //
+      end: dateFns.format( valueToEdit.end, 'HH:mm' )
     }
   } );
 
@@ -318,6 +323,7 @@ class Scheduler extends Component {
         </div>
 
         <ReactModal
+          ref={this.modalRef}
           isOpen={showModal}
           ariaHideApp={false}
           parentSelector={this.getModalParent}
