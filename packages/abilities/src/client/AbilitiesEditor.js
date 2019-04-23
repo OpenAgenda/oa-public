@@ -97,9 +97,7 @@ class AbilitiesEditor extends Component {
       abilitiesFetcher: { data: rules }
     } = this.props;
 
-    const formIndex = rules.map( rule =>
-      Object.assign( _.omit( rule, 'key', 'entity', 'relevantRule' ), { inverted: !values[ rule.key ] } )
-    );
+    const formIndex = rules.map( rule => Object.assign( _.omit( rule, 'key', 'entity', 'relevantRule' ), { inverted: !values[ rule.key ] } ) );
 
     if ( typeof onSubmit === 'function' ) {
       return onSubmit( formIndex );

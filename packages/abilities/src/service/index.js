@@ -184,8 +184,8 @@ export async function updateFormIndex( ability, data ) {
   await Promise.all( [
     toUpdate.length
       ? batchUpdate(
-      { table: config.schemas.rule, column: 'id' },
-      rulesLib.format( toUpdate )
+        { table: config.schemas.rule, column: 'id' },
+        rulesLib.format( toUpdate )
       )
       : null,
     toCreate.length

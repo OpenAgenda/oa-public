@@ -353,7 +353,7 @@ class AbilitiesForm extends Component {
             </div>
           ) : null}
 
-          {searchChildKey && childAbilitiesLength >= MINLEN_REQUIRED_FOR_SEARCH  ? (
+          {searchChildKey && childAbilitiesLength >= MINLEN_REQUIRED_FOR_SEARCH ? (
             <div className="margin-v-md">
               <FilterInput
                 value={search}

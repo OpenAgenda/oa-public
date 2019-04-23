@@ -59,7 +59,7 @@ storiesOf( 'AbilitiesEditor', module )
       }}
       searchChildKey="entity.agendaTitle"
       HeaderComponent={() => (
-        <div>Bon là on ne voit pas le champ de recherche parce qu'il faut au minimum 8 agendas...</div>
+        <div>Bon là on ne voit pas le champ de recherche parce qu&apos;il faut au minimum 8 agendas...</div>
       )}
     />
   ) );

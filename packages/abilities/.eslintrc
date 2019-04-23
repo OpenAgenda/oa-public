@@ -14,11 +14,6 @@
   "parserOptions": {
     "sourceType": "script"
   },
-  "settings": {
-    "react": {
-      "version": "16.5.2"
-    }
-  },
   "rules": {
     "strict": [
       "error",
@@ -68,6 +63,7 @@
         "devDependencies": [
           ".babelrc.js",
           ".storybook/**/*.js",
+          "stories/**/*.js",
           "server.dev.js",
           "test/**/*.js"
         ]
@@ -128,6 +124,7 @@
       "files": [
         "src/**/*.js",
         ".storybook/**/*.js",
+        "stories/**/*.js",
         "server.dev.js",
         "test/**/*.js"
       ],
