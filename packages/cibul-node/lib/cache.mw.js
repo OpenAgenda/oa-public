@@ -21,12 +21,14 @@ function send( namespace, path, onSuccess ) {
       message: 'cached response'
     } );
 
+    const parsedCache = JSON.parse( cached );
+
     res.set( 'Content-Type', 'application/json' );
 
-    res.send( cached );
+    res.send( parsedCache.response );
 
     if ( typeof onSuccess === 'function' ) {
-      onSuccess( cached, req, res );
+      onSuccess( parsedCache, req, res );
     }
 
   } );

@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const axios = require( 'axios' );
-const getDistrict = require( './getDistrict' );
+const getPolygonField = require( './getPolygonField' );
 
 const forwardURL = ( query, { key, pretty, countryCode, language } ) => [
   `https://api.opencagedata.com/geocode/v1/json?key=${key}&q=${encodeURIComponent( query )}`,
@@ -34,7 +34,7 @@ async function reverse( key, latitude, longitude, { first, language, raw } ) {
   if ( results.length ) {
 
     await Promise.all(
-      first ? [ attachDistrict( _.first( results ) ) ] : results.map( attachDistrict )
+      first ? [ attachAdditionalFields( _.first( results ) ) ] : results.map( attachAdditionalFields )
     );
 
   }
@@ -61,7 +61,7 @@ async function geocode( key, query, { countryCode, language, raw, first } ) {
   if ( results.length ) {
 
     await Promise.all(
-      first ? [ attachDistrict( _.first( results ) ) ] : results.map( attachDistrict )
+      first ? [ attachAdditionalFields( _.first( results ) ) ] : results.map( attachAdditionalFields )
     );
 
   }
@@ -99,6 +99,7 @@ function parseResponseItem( { raw }, item ) {
 
   const parsed = {
     address: _.get( item, 'formatted' ),
+    suburb: _.get( item, 'components.suburb', null ),
     district: _.get( item, 'components.city_district', null ),
     city: _.get( item, 'components.village', _.get( item, 'components.town', _.get( item, 'components.city', null ) ) ),
     department: _.get( item, 'components.state_district', null ),
@@ -118,6 +119,8 @@ function parseResponseItem( { raw }, item ) {
 
 }
 
-async function attachDistrict( location ) {
-  location.district = await getDistrict( location );
+async function attachAdditionalFields( location ) {
+  const district = await getPolygonField( 'district', location );
+
+  location.district = district;
 }

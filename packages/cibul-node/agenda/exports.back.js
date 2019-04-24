@@ -1,7 +1,7 @@
 "use strict";
 
 const locationMw = require( '@openagenda/agenda-locations' ).mw();
-const gaTrack = require( '../lib/gaTrackMw' );
+const gaTrack = require( '../lib/gaTrack.mw' );
 const modLib = require( '../lib/moduleLib' );
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );

@@ -187,6 +187,36 @@ describe( 'opencage', () => {
 
     } );
 
+    describe( 'Berlin', async () => {
+
+      let result;
+
+      before( async () => {
+
+        result = await geocode( 'A 100, 10711 Berlin', {
+          countryCode: 'DE',
+          language: 'de',
+          first: true,
+          raw: true
+        } );
+
+      } );
+
+      it( 'suburb is Grunewald', () => {
+
+        result.suburb.should.equal( 'Grunewald' );
+
+      } );
+
+      it( 'district is Charlottenburg-Wilmersdorf', () => {
+
+        result.district.should.equal( 'Charlottenburg-Wilmersdorf' );
+
+      } );
+
+
+    } );
+
   } );
 
   describe( 'reverse', () => {
