@@ -30,13 +30,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
-    agendas.middleware.load( {
-      namespaces: {
-        identifiers: { slug: 'params.agendaSlug' }
-      },
-      private: null,
-      internal: true // required for stakeholders service
-    } ),
+    cmn.loadAgendaBy( { slug: 'agendaSlug' } ),
     ( req, res, next ) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse( req, res, { code: 404 } ),
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, `/${req.agenda.slug}/signup?redirect=${base64.encode( req.originalUrl )}` ) ),
     middlewares.member,

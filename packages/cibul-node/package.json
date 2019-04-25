@@ -62,6 +62,7 @@
     "@openagenda/mails": "^1.4.2",
     "@openagenda/member-apps": "^1.1.2",
     "@openagenda/networks": "^1.1.2",
+    "@openagenda/network-apps": "^1.0.1",
     "@openagenda/newsletter": "^2.0.1",
     "@openagenda/oembed": "^1.1.2",
     "@openagenda/pdf": "^0.1.0",
