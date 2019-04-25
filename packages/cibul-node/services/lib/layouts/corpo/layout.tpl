@@ -39,7 +39,7 @@
             <li>
               <div class="padding-v-sm">
 <% languages.forEach( l => { %>
-                <a href="?lang=<%= l.value %>" hreflang="<%= l.value %>" class="padding-h-sm <%= l.className %>">
+                <a href="/<% if ( l.value !== 'fr' ) { %>?lang=<%= l.value %><% } %>" hreflang="<%= l.value %>" class="padding-h-sm <%= l.className %>">
                   <%= l.label %>
                 </a><%= l.separator ? '|' : '' %>
 <% } ) %>
