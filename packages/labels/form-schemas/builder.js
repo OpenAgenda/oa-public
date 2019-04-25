@@ -69,7 +69,7 @@ module.exports = {
   },
 
   fieldInfoInfo: { fr: 'S\'affiche sous le titre (comme ceci)', en: 'Displayed below the title (like this)' },
-  fieldPlaceholder: { fr: 'Substitut de champ', en: 'Placeholder' },
+  fieldPlaceholder: { fr: 'Substitut', en: 'Placeholder' },
   fieldPlaceholderPlaceholder: { fr: 'S\'affiche à l\'intérieur (comme ceci)', en: 'Is displayed inside the field (like this)' },
   fieldSub: { fr: 'Label de sous-champ', en: 'Sub info label' },
   fieldSubSub: { fr: 'S\'affiche sous le champ (comme ceci)', en: 'Is displayed below the field (like this)' },
