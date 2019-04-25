@@ -35,7 +35,7 @@ export default _.assign( ( state = {}, action = {} ) => {
   add: () => ( { type: actionTypes.ADD } ),
   addChange: ( field, value ) => ( { type: actionTypes.ADD_CHANGE, field, value } ),
   addSubmit,
-  actionTypes
+  dispatchError
 } );
 
 function addSubmit( e ) {
@@ -58,15 +58,31 @@ function load() {
 
   return async ( dispatch, getState ) => {
 
-    const { body: networks } = await sa
-      .get( getState().config.base )
-      .set( 'Accept', 'application/json' );
+    const successDispatch = {
+      type: actionTypes.LOAD_SUCCESS
+    };
 
-    dispatch( {
-      type: actionTypes.LOAD_SUCCESS,
-      networks
-    } );
+    try {
+      const { body: networks } = await sa
+        .get( getState().config.base )
+        .set( 'Accept', 'application/json' );
+
+      _.assign( successDispatch, { networks } );
+    } catch ( e ) {
+      return dispatchError( dispatch, e );
+    }
+
+    dispatch( successDispatch );
 
   }
+
+}
+
+function dispatchError( dispatch, error ) {
+
+  dispatch( {
+    type: actionTypes.SERVER_ERROR,
+    error: _.get( error, 'response.body.message', error.message )
+  } );
 
 }

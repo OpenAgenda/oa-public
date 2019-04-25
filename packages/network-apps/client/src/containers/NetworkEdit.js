@@ -24,28 +24,28 @@ class NetworkEdit extends Component {
     const { eventSchema, lang } = this.props.config;
     const { onUpdate } = this.props;
 
-    if ( !network ) return <Loading />
-
-    return <div className="wsq padding-all-sm">
+    return <div>
       <Header {...this.props} />
-      <NetworkHeader network={network} />
-      <FormSchemaBuilder
-        lang={lang}
-        addEnabled={true}
-        settingsEnabled={true}
-        editableExtensions={true}
-        schema={schema}
-        extendedFrom={[ {
-          schema: eventSchema,
-          info: {
-            label: 'Evénement',
-            info: 'Champ événement.'
-          }
-        } ]}
-        onUpdate={onUpdate}
-      />
-      <pre><code>{JSON.stringify( schema, null, 2 )}</code></pre>
-      <pre><code>{JSON.stringify( eventSchema, null, 2 )}</code></pre>
+      { network ? <div className="wsq padding-all-sm">
+        <NetworkHeader network={network} />
+        <FormSchemaBuilder
+          lang={lang}
+          addEnabled={true}
+          settingsEnabled={true}
+          editableExtensions={true}
+          schema={schema}
+          extendedFrom={[ {
+            schema: eventSchema,
+            info: {
+              label: 'Evénement',
+              info: 'Champ événement.'
+            }
+          } ]}
+          onUpdate={onUpdate}
+        />
+        <pre><code>{JSON.stringify( schema, null, 2 )}</code></pre>
+        <pre><code>{JSON.stringify( eventSchema, null, 2 )}</code></pre>
+      </div> : <Loading /> }
     </div>
 
   }

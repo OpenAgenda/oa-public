@@ -22,7 +22,11 @@ router.get( '*', ( req, res, next ) => req.headers.accept !== 'application/json'
 
 router.get( '/', async ( req, res, next ) => {
 
-  res.json( await router.service.listNetworks() );
+  try {
+    res.json( await router.service.listNetworks() );
+  } catch ( e ) {
+    next( e );
+  }
 
 } );
 
@@ -39,12 +43,16 @@ router.post( '/', async ( req, res, next ) => {
 
 router.get( '/networks/:uid', async ( req, res, next ) => {
 
-  const uid = parseInt( req.params.uid );
+  try {
+    const uid = parseInt( req.params.uid );
 
-  res.json( {
-    network: await router.service.getNetwork( uid ),
-    schema: await router.service.getNetworkSchema( uid )
-  } );
+    res.json( {
+      network: await router.service.getNetwork( uid ),
+      schema: await router.service.getNetworkSchema( uid )
+    } );
+  } catch ( e ) {
+    next( e );
+  }
 
 } );
 

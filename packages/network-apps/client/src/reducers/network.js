@@ -13,7 +13,7 @@ const actionTypes = [
   'ADD_AGENDA_SUCCESS'
 ].reduce( ( a, v ) => _.set( a, v, `network-apps/network/${v}` ), {} );
 
-const mainTypes = require( './main' ).actionTypes
+const { dispatchError } = require( './main' );
 
 export default _.assign( ( state = {}, action = {} ) => {
 
@@ -81,10 +81,7 @@ function loadAgendas() {
 
       _.assign( successDispatch, { network, agendas } );
     } catch ( e ) {
-      return dispatch( {
-        type: mainTypes.SERVER_ERROR,
-        error: _.get( e, 'response.body.message', e.message )
-      } );
+      return dispatchError( dispatch, e );
     }
 
     dispatch( successDispatch );
@@ -112,15 +109,21 @@ function load() {
 
   return async ( dispatch, getState, history ) => {
 
-    const { body: { schema, network } } = await sa
-      .get( history.location.pathname )
-      .set( 'Accept', 'application/json' );
+    const successDispatch = {
+      type: actionTypes.LOAD_SUCCESS
+    }
 
-    dispatch( {
-      type: actionTypes.LOAD_SUCCESS,
-      network,
-      schema
-    } );
+    try {
+      const { body: { schema, network } } = await sa
+        .get( history.location.pathname )
+        .set( 'Accept', 'application/json' );
+
+      _.assign( successDispatch, { schema, network } );
+    } catch ( e ) {
+      return dispatchError( dispatch, e );
+    }
+
+    dispatch( successDispatch );
 
   }
 

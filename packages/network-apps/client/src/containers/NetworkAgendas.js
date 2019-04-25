@@ -33,7 +33,7 @@ class NetworkAgendas extends Component {
             <label>{a.title}</label>
           </li>
         ) )}</ul> : <Loading /> }
-        { add ? <AddAgenda onAdd={onAddSubmit} onCluse={onAddClose} /> : null }
+        { add ? <AddAgenda onAdd={onAddSubmit} onClose={onAddClose} /> : null }
       </div> : <Loading /> }
     </div>
 
