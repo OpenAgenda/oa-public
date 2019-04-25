@@ -140,7 +140,10 @@ function _renderRss( req, res ) {
     feed.item( {
       title: a.title,
       description: a.description,
-      url: url.agenda( a, config.site.url ),
+      url: url.agenda( a, {
+        path: config.site.url,
+        lang: req.lang
+      } ),
       guid: a.uid,
       date: a.createdAt
     } );

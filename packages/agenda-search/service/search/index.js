@@ -155,7 +155,7 @@ async function populate( { client, list, index, obj, image } ) {
 
     count += inserted;
 
-    log( 'added %i items from offset %i', agendas.length, offset );
+    log( 'added %i items from offset %s', agendas.length, offset );
 
     offset += limit;
 
