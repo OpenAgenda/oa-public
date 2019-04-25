@@ -240,7 +240,10 @@ function cleanString( str ) {
     18, // DC2
     19, // DC3
     21, // NAK
+    24, // Cancel
     26, // SUB
+    27, // Esc
+    28, // File separator
     29, // GS group separator
     30, // RS
     31, // Information separator
