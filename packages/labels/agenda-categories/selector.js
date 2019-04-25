@@ -22,7 +22,7 @@ module.exports = {
   "requiredCategoryError": {
     "en": "You must select one item",
     "fr": "Vous devez faire une sélection",
-    "de": "Sie müssen ein Element auswählen",
+    "de": "Du musst ein Element auswählen",
     "es": "Usted debe hacer una selección"
   }
 }

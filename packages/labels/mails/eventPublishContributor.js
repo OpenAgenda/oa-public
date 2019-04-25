@@ -22,7 +22,7 @@ module.exports = {
   "memberUnsubscribe": {
     "fr": "Ne plus recevoir les changements de statut de mes événements sur cet agenda",
     "en": "Stop receiving state changes from my events on this agenda",
-    "de": "Stop-Zustand empfangen Änderungen von meinen Veranstaltungen zu diesem Kalenders",
+    "de": "Erhalte keine Nachrichten mehr zur Statusänderung Deiner Veranstaltungen in diesem Veranstaltungskalender.",
     "es": "Dejar de recibir los cambios de estado de mis eventos en esta agenda"
   },
   "changeEmailSettings": {

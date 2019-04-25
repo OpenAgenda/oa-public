@@ -10,7 +10,7 @@ module.exports = {
   "namePlaceholder": {
     "fr": "Saisissez le nom du lieu de l'événement",
     "en": "Type the name of the location of the event",
-    "de": "Geben Sie den Namen des Orts der Veranstaltung",
+    "de": "Namen des Orts der Veranstaltung",
     "es": "Introduzca el nombre de la ubicación del evento"
   },
   "change": {
@@ -22,7 +22,7 @@ module.exports = {
   "create": {
     "fr": "Créer un nouveau lieu",
     "en": "Create a new location",
-    "de": "Erstellen Sie einen neuen Standort",
+    "de": "Einen neuen Standort erstellen",
     "es": "Crear nuevo lugar"
   },
   "noresult": {
@@ -52,7 +52,7 @@ module.exports = {
   "selectorCreateInfo": {
     "fr": "Décrivez le lieu où se déroule l'événement",
     "en": "Describe the location where the event takes place",
-    "de": "Beschreiben Sie den Ort, an dem das Veranstaltung stattfindet",
+    "de": "Beschreibe den Ort, an dem das Veranstaltung stattfindet",
     "es": "Describir el lugar donde tiene lugar el evento"
   },
   "searching": {

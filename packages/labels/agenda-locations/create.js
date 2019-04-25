@@ -4,13 +4,13 @@ module.exports = {
   "title": {
     "fr": "Création d'un lieu",
     "en": "Create a location",
-    "de": "Erstellen Sie einen Standort",
+    "de": "Erstelle einen Standort",
     "es": "Creación de un sitio"
   },
   "info": {
     "fr": "Définissez précisemment le nom, l'adresse et la localisation du lieu",
     "en": "Define the name, address and exact location of the place",
-    "de": "Definieren Sie den Namen, die Adresse und dem genauen Standort des Ortes",
+    "de": "Definiere den Namen, die Adresse und dem genauen Standort des Ortes",
     "es": "Definir con precisión el nombre, dirección y ubicación del lugar"
   },
   "submit": {

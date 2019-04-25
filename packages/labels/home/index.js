@@ -4,21 +4,21 @@ module.exports = {
   "myAgendas": {
     "fr": "Mes agendas",
     "en": "My agendas",
-    "de": "Meine Kalender",
+    "de": "Meine Veranstaltungskalender",
     "br": "Ma deiziataerioù",
     "es": "mis agendas"
   },
   "createAgenda": {
     "fr": "Créer un agenda",
     "en": "Create an agenda",
-    "de": "Kalender erstellen",
+    "de": "Veranstaltungskalender erstellen",
     "br": "Krouiñ un deiziataer",
     "es": "Crear un agenda"
   },
   "searchAgenda": {
     "fr": "Rechercher un agenda",
     "en": "Search an agenda",
-    "de": "Kalender suchen",
+    "de": "Veranstaltungskalender suchen",
     "br": "Klask un deiziataer",
     "es": "agenda de búsqueda"
   },
@@ -46,7 +46,7 @@ module.exports = {
   "addAnEvent": {
     "fr": "Ajouter un événement",
     "en": "Add an event",
-    "de": "Veranstaltung erstellen",
+    "de": "Veranstaltung hinzufügen",
     "br": "Ouzhpennañ un darvoud",
     "es": "Añadir un evento"
   },
@@ -67,7 +67,7 @@ module.exports = {
   "officialAgenda": {
     "fr": "Agenda officiel",
     "en": "Official agenda",
-    "de": "Offizieller Kalender",
+    "de": "Offizieller Veranstaltungskalender",
     "br": "Deiziataer ofisiel",
     "es": "agenda"
   },
@@ -95,7 +95,7 @@ module.exports = {
   "createEvent": {
     "fr": "Créer un événement",
     "en": "Create an event",
-    "de": "Eine Veranstaltung erstellen",
+    "de": "Neue Veranstaltung erstellen",
     "br": "Krouiñ un darvoud",
     "es": "crear evento"
   },
@@ -109,14 +109,14 @@ module.exports = {
   "selectAgenda": {
     "fr": "Sélectionner l'agenda dans lequel créer l'événement",
     "en": "Select an agenda in which to create the event",
-    "de": "Wählen Sie die Agenda, in der Sie Ihre Veranstaltung eintragen möchten.",
+    "de": "Wähle den Veranstaltungskalender, in dem du deine Veranstaltung eintragen möchtest.",
     "br": "Diuzañ an deiziataer da grouiñ an darvoud ennañ",
     "es": "Seleccione el agenda en el que crear el evento"
   },
   "privateAgenda": {
     "fr": "Agenda privé",
     "en": "Private agenda",
-    "de": "Privater Kalender",
+    "de": "Privater Veranstaltungskalender",
     "br": "Deiziataer prevez",
     "es": "Eventos privados"
   },
@@ -179,7 +179,7 @@ module.exports = {
   "noEventsCreated": {
     "fr": "Vous n'avez encore créé aucun événement",
     "en": "You haven't created any event yet",
-    "de": "Sie haben noch keine Veranstaltung erstellt",
+    "de": "Du hast noch keine Veranstaltung erstellt.",
     "br": "N'ho peus krouet darvoud ebet c'hoazh",
     "es": "No ha creado ningún evento"
   }

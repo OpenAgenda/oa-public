@@ -10,7 +10,7 @@ module.exports = {
   "editorInfo": {
     "fr": "Liez d'autres événements de l'agenda à votre événement",
     "en": "Link other events of the agenda to your event",
-    "de": "Link andere Veranstaltungen der Kalender zu Ihrer Veranstaltung",
+    "de": "Verbinde andere Veranstaltungen des Veranstaltungskalenders mit deiner Veranstaltung. ",
     "es": "Enlace a otros eventos de agenda a su evento"
   },
   "showTitle": {
@@ -34,7 +34,7 @@ module.exports = {
   "addEvent": {
     "fr": "Ajouter un événement",
     "en": "Add an event",
-    "de": "Event eintragen",
+    "de": "Veranstaltung hinzufügen",
     "es": "Añadir un evento"
   },
   "addEventOr": {
@@ -76,7 +76,7 @@ module.exports = {
   "nothingToSuggest": {
     "fr": "Des événements similaires ne peuvent être chargés que si vous avez entamé la saisie de votre événement!",
     "en": "Similar events can only be loaded if you have already filled the event form",
-    "de": "Ähnliche Veranstaltungen können nur geladen werden, wenn Sie bereits über die Veranstaltung Formular ausgefüllt haben",
+    "de": "Ähnliche Veranstaltungen können nur geladen werden, wenn du bereits das Veranstaltungsformular ausgefüllt hast.",
     "es": "Eventos similares sólo pueden ser cargados si usted comenzó a escribir su evento!"
   },
   "noSuggestionsTitle": {

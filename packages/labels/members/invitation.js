@@ -28,19 +28,19 @@ module.exports = {
   "emailSubject": {
     "en": "Invitation to an agenda",
     "fr": "Invitation à un agenda",
-    "de": "Einladung zur Kalender",
+    "de": "Einladung zum Veranstaltungskalender",
     "es": "Invitación a una agenda"
   },
   "emailTitle": {
     "en": "You have been invited to contribute to the agenda %title%",
     "fr": "Vous avez été invité à contribuer à l'agenda %title%",
-    "de": "Sie wurden auf die Kalender %title% beitragen eingeladen",
+    "de": "Du wurdest eingeladen, etwas zum Veranstaltungskalender %title% beizutragen.",
     "es": "Se le ha invitado a contribuir a la agenda %title%"
   },
   "emailTitleForExistantUser": {
     "en": "You have become %credential% of the agenda %title%",
     "fr": "Vous êtes devenu %credential% de l'agenda %title%",
-    "de": "Sie haben %credential% der Kalender %title% werden",
+    "de": "Du bist jetzt %credential% der Veranstaltungskalender %title% ",
     "es": "Usted se convirtió en el título %credencial% de la agenda %title%"
   },
   "emailInscription": {
@@ -64,13 +64,13 @@ module.exports = {
   "emailDescription": {
     "en": "You have been invited to contribute to the agenda **%title%** as a **%credential%**",
     "fr": "Vous avez été invité à contribuer à l'agenda **%title%** en tant que **%credential%**",
-    "de": "Sie werden eingeladen, auf die Kalender gesetzt **%title%** als **%credential%** beitragen",
+    "de": "Du wurdest eingeladen, etwas zum Veranstaltungskalender beizutragen.",
     "es": "Se le ha invitado a contribuir a la agenda ** %title%** como **%credencial%**"
   },
   "newMessage": {
     "en": "The agenda %agenda% wrote you a message",
     "fr": "L'agenda %agenda% vous a écrit un message",
-    "de": "Die Kalender %agenda% schrieb eine Meldung",
+    "de": "Der Veranstaltungskalender %agenda% hat Dir eine Nachricht geschrieben.",
     "es": "El agenda %agenda% escribió un mensaje"
   }
 }

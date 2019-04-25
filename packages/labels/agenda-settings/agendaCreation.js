@@ -94,7 +94,7 @@ module.exports = {
   "contribDefaultStatePublishedText": {
     "fr": "Vous pouvez modifier les événements ensuite.",
     "en": "You can edit the events later.",
-    "de": "Sie können später die Veranstaltungen bearbeiten.",
+    "de": "Du kannst später die Veranstaltungen bearbeiten.",
     "es": "Se pueden cambiar los eventos a continuación."
   },
   "contribDefaultStateUnpublished": {

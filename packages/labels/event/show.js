@@ -157,7 +157,7 @@ module.exports = {
     "en": "Are you sure you want to delete this event?",
     "fr": "Etes-vous sûr de vouloir supprimer cet événement?",
     "it": "Sei sicuro di voler cancellare questo evento ? ",
-    "de": "Sind Sie sicher, diese Veranstaltung löschen zu wollen?",
+    "de": "Bist du sicher, dass du diese Veranstaltung löschen willst?",
     "pl": "Czy napewno chcesz usunąć wydarzenie?",
     "es": "¿Está seguro de que desea eliminar este evento?"
   },
@@ -197,7 +197,7 @@ module.exports = {
     "en": "Publish this event to make it visible on the agenda main page",
     "fr": "Publiez cet événement pour le rendre visible sur l'agenda",
     "it": "Pubblica questo evento per renderlo visibile",
-    "de": "Veröffentlichen Sie diese Veranstaltung, damit sie im Kalender erscheint.",
+    "de": "Veröffentliche diese Veranstaltung, damit sie im Kalender erscheint.",
     "pl": "Opublikuj wydarzenie aby stało się widoczne na stronie głównej kalendarza",
     "es": "Publicar este caso para que sea visible en la agenda"
   },
@@ -229,7 +229,7 @@ module.exports = {
     "en": "This event is not compatible with the agenda and should not be published",
     "fr": "Cet événement n'est pas compatible avec l'agenda et ne sera pas publié",
     "it": "Questo evento non è compatibile con lAgenda e non sarà pubblicato",
-    "de": "Diese Veranstaltung ist nicht mit dem Kalender kompatibel und wird nicht veröffentlicht werden.",
+    "de": "Diese Veranstaltung ist nicht mit dem Veranstaltungskalender kompatibel und wird nicht veröffentlicht werden.",
     "pl": "To wydarzenie nie jest zgodne z kalendarzem. Nie zostanie opublikowane",
     "es": "Este evento no es compatible con el agenda y no será publicada"
   },
@@ -237,7 +237,7 @@ module.exports = {
     "en": "This event is not compatible with the agenda and has been refused by administrators",
     "fr": "Cet événement a été refusé par les administrateurs de l'agenda et ne sera pas publié",
     "it": "Questo evento è stato rifiutato dagli amministratori dell'Agenda e non sarà pubblicato",
-    "de": "Diese Veranstaltung ist vom Administrator des Kalenders abgelehnt worden und wird nicht veröffentlicht.",
+    "de": "Diese Veranstaltung ist vom Administrator des Veranstaltungskalenders abgelehnt worden und wird nicht veröffentlicht.",
     "pl": "To wydarzenie zostało odrzucone przez administratora kalendarza. Nie zostanie opublikowane",
     "es": "Este evento ha sido rechazado por los directores de la agenda y no será publicada"
   },
@@ -549,7 +549,7 @@ module.exports = {
     "en": "Contact agenda administrators",
     "fr": "Contacter les administrateurs",
     "it": "Contattare gli amministratori",
-    "de": "die Administratoren kontaktieren",
+    "de": "die Veranstaltungskalender- Administratoren kontaktieren",
     "pl": "Skontaktuj się z administratorem",
     "es": "administradores de contacto"
   },
@@ -565,7 +565,7 @@ module.exports = {
     "en": "The contribution to this agenda is restricted",
     "fr": "La contribution à cet agenda est restreinte",
     "it": "Il contributo a questa agenda è limitato",
-    "de": "Die Teilnahme an diesem Kalender ist beschränkt.",
+    "de": "Die Teilnahme an diesem Veranstaltungskalender ist beschränkt.",
     "pl": "Udział w tym kalendarzu jest ograniczony",
     "es": "La contribución a este agenda está restringido"
   }

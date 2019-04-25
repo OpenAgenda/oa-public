@@ -4,7 +4,7 @@ module.exports = {
   "newMessageSubject": {
     "fr": "OpenAgenda: vous avez reçu un nouveau message",
     "en": "OpenAgenda: you have received a new message",
-    "de": "OpenAgenda: Sie haben eine neue Nachricht empfangen",
+    "de": "OpenAgenda: du hast eine neue Nachricht erhalten.",
     "es": "OpenAgenda: se recibe un nuevo mensaje"
   },
   "newMessageAction": {
@@ -16,13 +16,13 @@ module.exports = {
   "newMessageBody": {
     "fr": "Vous avez reçu un nouveau message.",
     "en": "You have received a new message.",
-    "de": "Sie haben eine neue Nachricht erhalten haben.",
+    "de": "Du hast eine neue Nachricht erhalten.",
     "es": "Ha recibido un nuevo mensaje."
   },
   "newMessageBodyOnAgenda": {
     "fr": "Vous avez reçu un nouveau message sur la messagerie de l'agenda %agenda%.",
     "en": "You have received a new message on inbox of %agenda%.",
-    "de": "Sie haben eine neue Nachricht in Posteingang %agenda% erhalten.",
+    "de": "Du hast eine neue Nachricht in Posteingang %agenda% erhalten.",
     "es": "Ha recibido un nuevo mensaje en el agenda electrónico %agenda%."
   },
   "unsubscribeInboxAgenda": {
@@ -52,19 +52,19 @@ module.exports = {
   "emailSubjectContactForm": {
     "fr": "Formulaire agenda %agenda%: vous avez reçu un message",
     "en": "Form agenda %agenda%: you have received a message",
-    "de": "Form Agenda %agenda%: Sie haben eine Nachricht erhalten",
+    "de": "VonVerwaltungskalender %agenda%: du hast eine Nachricht erhalten",
     "es": "Forma agenda %agenda%: usted ha recibido un mensaje"
   },
   "emailSubjectEvent": {
     "fr": "Événement %event% sur %agenda%: vous avez reçu un message",
     "en": "Event %event% on %agenda%: you have received a message",
-    "de": "Event %event% auf %agenda%: Sie haben eine Nachricht erhalten",
+    "de": "Veranstaltung der Verwaltungskalender: du hast eine Nachricht erhalten.",
     "es": "evento Evento %agenda%: usted ha recibido un mensaje"
   },
   "emailSubjectRequestContribute": {
     "fr": "Demande de contribution à %agenda%: vous avez reçu un message",
     "en": "Request for contribution to %agenda%: you have received a message",
-    "de": "Antrag auf Beitrag %agenda%: Sie haben eine Nachricht erhalten haben,",
+    "de": "Antrag auf Teilnahme an der  %agenda%: du hast eine Nachricht erhalten.",
     "es": "Solicitud de contribución a la agenda %agenda% : Usted ha recibido un mensaje"
   }
 }

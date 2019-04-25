@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Une erreur est parvenue lors du traitement des invitations. Veuillez retenter dans quelques instants",
     "en": "An error occurred during the processing of the invitations. Please try again in a short while.",
     "it": "Si è verificato un errore durante l'elaborazione degli inviti. Si prega di riprovare in breve tempo.",
-    "de": "Bei der Bearbeitung der Einladungen ist ein Fehler aufgetreten. Bitte versuchen Sie es in Kürze noch einmal.",
+    "de": "Bei der Bearbeitung der Einladungen ist ein Fehler aufgetreten. Bitte versuche es in Kürze noch einmal.",
     "pl": "Podczas przetwarzania zaproszeń wystąpił błąd. Proszę spróbować ponownie za chwilę.",
     "es": "Se ha recibido un error al procesar las invitaciones. Por favor, intente nuevamente en unos momentos"
   },

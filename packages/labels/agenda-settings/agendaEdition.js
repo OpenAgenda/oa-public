@@ -76,7 +76,7 @@ module.exports = {
   "contribDefaultStatePublishedText": {
     "fr": "vous pouvez modifier les événements ensuite",
     "en": "you can edit the events later",
-    "de": "Sie können die Veranstaltungen später bearbeiten",
+    "de": "Du kannst die Veranstaltungen später bearbeiten",
     "es": "puede editar los eventos más adelante"
   },
   "contribDefaultStateUnpublished": {
@@ -178,7 +178,7 @@ module.exports = {
   "contribUseFields": {
     "fr": "Inviter chaque membre à se présenter (organisation, téléphone, nom, prénom, fonction, email)",
     "en": "Invite members to present themselves (organization, phone, name, title, email)",
-    "de": "Laden Sie Mitglieder präsentieren sich (Organisation, Telefon, Name, Titel, E-Mail)",
+    "de": "Lade Mitglieder präsentieren sich (Organisation, Telefon, Name, Titel, E-Mail)",
     "es": "Invite a cada miembro de que se presenten (organización, teléfono, nombre, título, correo electrónico)"
   },
   "removeAgenda": {
@@ -190,7 +190,7 @@ module.exports = {
   "removeAgendaWarning": {
     "fr": "Êtes-vous sûr de vouloir supprimer cet agenda ?",
     "en": "Are you sure you want to remove this agenda ?",
-    "de": "Sind Sie sicher, dass Sie diese Agenda entfernen?",
+    "de": "Bist du sicher, dass Sie dieseVerwaltungskalender entfernen?",
     "es": "¿Está seguro de que desea eliminar este agenda?"
   },
   "close": {
@@ -220,7 +220,7 @@ module.exports = {
   "generateKey": {
     "fr": "Générer une clé",
     "en": "Generate a key",
-    "de": "Generieren Sie einen Schlüssel",
+    "de": "Generiere einen Schlüssel",
     "es": "generar clave"
   },
   "copy": {
@@ -292,7 +292,7 @@ module.exports = {
   "requestOfficialAgenda": {
     "fr": "Demander un agenda officiel",
     "en": "Request a agenda official",
-    "de": "Fordern Sie eine Agenda offiziellen",
+    "de": "Fordern Sie eineVerwaltungskalender offiziellen",
     "es": "Solicitar agenda oficial"
   },
   "learnMore": {
@@ -334,13 +334,13 @@ module.exports = {
   "requestPrivateAgenda": {
     "fr": "Demander un agenda privé",
     "en": "Request a private agenda",
-    "de": "Fordern Sie eine private Agenda",
+    "de": "Fordern Sie eine private Verwaltungskalender",
     "es": "Solicitar un agenda íntimo"
   },
   "requestPublicAgenda": {
     "fr": "Demander un agenda public",
     "en": "Request a public agenda",
-    "de": "Fordern Sie eine öffentliche Agenda",
+    "de": "Fordern Sie eine öffentliche Verwaltungskalender",
     "es": "Solicitar un agenda público"
   },
   "indexedAgenda": {
@@ -394,7 +394,7 @@ module.exports = {
   "editEventsDescription": {
     "fr": "Modifiez la description des événements",
     "en": "Edit the description of events",
-    "de": "Bearbeiten Sie die Beschreibung der Veranstaltungen",
+    "de": "Bearbeite die Beschreibung der Veranstaltungen",
     "es": "Cambiar la descripción de los acontecimientos"
   },
   "removeKey": {
@@ -406,7 +406,7 @@ module.exports = {
   "removeKeyWarning": {
     "fr": "Êtes-vous certain de vouloir supprimer cette clé ?",
     "en": "Are you sure you want to delete this key?",
-    "de": "Sind Sie sicher, dass Sie diesen Schlüssel wirklich löschen?",
+    "de": "Bist du sicher, dass Sie diesen Schlüssel wirklich löschen?",
     "es": "¿Está seguro de que desea eliminar esta clave?"
   },
   "contribModerateOnChangeBy": {
@@ -478,7 +478,7 @@ module.exports = {
   "enableMailtoDesc": {
     "fr": "Désactiver la messagerie: Remplacer les liens de la messagerie par un envoi par email",
     "en": "Disable email: Replace inbox links with email",
-    "de": "Deaktivieren Sie E-Mail: Ersetzen Posteingang Links mit E-Mail",
+    "de": "Deaktiviere E-Mail: Ersetzen Posteingang Links mit E-Mail",
     "es": "Deshabilitar el correo: Reemplazar los lazos de correo mediante el envío de correo electrónico"
   },
   "mailtoEmailDesc": {
@@ -532,13 +532,13 @@ module.exports = {
   "statsTabDescription": {
     "fr": "Paramètrez votre identifiant de suivi Google Analytics",
     "en": "Set your Google Analytics Tracking ID",
-    "de": "Stellen Sie Ihre Google Analytics-Tracking-ID",
+    "de": "Stelle Deine Google Analytics-Tracking-ID",
     "es": "Configurar su ID de seguimiento de Google Analytics"
   },
   "statsDescription": {
     "fr": "Suivez l'affluence des visiteurs sur les pages publiques de votre agenda sur openagenda.com",
     "en": "Follow the crowds of visitors on the public pages of your agenda on openagenda.com",
-    "de": "Folgen Sie den Besucherandrang auf den öffentlichen Seiten Ihrer Agenda auf openagenda.com",
+    "de": "Folge den Besucherandrang auf den öffentlichen Seiten deinerVerwaltungskalender auf openagenda.com",
     "es": "Sigue el número de visitantes en las páginas públicas de su agenda en openagenda.com"
   }
 }

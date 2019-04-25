@@ -10,13 +10,13 @@ module.exports = {
   "info": {
     "fr": "Définissez les informations à retenir pour le lieu fusionné",
     "en": "Define the information to save in the merged location",
-    "de": "Definieren Sie die Informationen in der fusionierten Position zu speichern",
+    "de": "Definiere die Informationen in der fusionierten Position zu speichern",
     "es": "Establecer la información que se utilizará para el lugar fusionada"
   },
   "submit": {
     "fr": "Finaliser la fusion",
     "en": "Finalize the fusion",
-    "de": "Schließen Sie die Fusion",
+    "de": "Schließe die Fusion",
     "es": "Finalizar la fusión"
   },
   "submitError": {

@@ -10,7 +10,7 @@ module.exports = {
   "description": {
     "fr": "Diffusez vos événements sur la première plateforme d'agendas collaboratifs, participatifs, contributifs, open data. C'est gratuit!",
     "en": "Broadcast your events on the first open data collaborative calendar platform. It's free!",
-    "de": "Übertragen Sie Ihre Veranstaltungen auf dem ersten offenen Daten kollaborative Kalenderplattform. Es ist kostenlos!",
+    "de": "Übertrage Deine Veranstaltungen auf dem ersten offenen Daten kollaborative Kalenderplattform. Es ist kostenlos!",
     "es": "Publicar sus eventos en la primera plataforma de agendas de colaboración, participando, contribuyendo, datos abiertos. ¡Es gratis!"
   },
   "keywords": {

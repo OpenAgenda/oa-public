@@ -112,13 +112,13 @@ module.exports = {
   "removeConfirmMessage": {
     "fr": "Êtes-vous sûr de vouloir supprimer cet utilisateur des membres ?",
     "en": "Are you sure you want to delete this user from members ?",
-    "de": "Sind Sie sicher, dass Sie diesen Benutzer von Mitgliedern löschen?",
+    "de": "Bist du sicher, dass du diesen Nutzer von der Mitgliederliste löschen willst?",
     "es": "¿Está seguro de que desea eliminar esta miembros de usuario?"
   },
   "removeModalError": {
     "fr": "Vous ne pouvez pas supprimer ce membre.",
     "en": "You canno't remove this member.",
-    "de": "Sie canno't dieses Mitglied entfernen.",
+    "de": "Du kannst dieses Mitglied nicht entfernen.",
     "es": "No se puede eliminar este usuario."
   },
   "editProfile": {
@@ -232,7 +232,7 @@ module.exports = {
   "credential.downgrade": {
     "fr": "Vous ne pouvez pas baisser le niveau d'un membre",
     "en": "You can not downgrade credential of a member",
-    "de": "Sie können nicht Berechtigungsnachweis eines Mitglieds Herabstufung",
+    "de": "Du kannst nicht den Berechtigungsnachweis eines Mitglieds herabstufen.",
     "es": "No se puede bajar el nivel de un miembro"
   },
   "exportToXlsx": {

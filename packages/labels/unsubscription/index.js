@@ -28,7 +28,7 @@ module.exports = {
   "guestUnsubscriptionSucceed": {
     "en": "You are now unsubscribed.",
     "fr": "Vous êtes maintenant désinscrit.",
-    "de": "Sie sind jetzt abgemeldet.",
+    "de": "Du bist jetzt abgemeldet.",
     "es": "Ahora está de baja."
   }
 }

@@ -52,13 +52,13 @@ module.exports = {
   "noCategories": {
     "en": "You haven't yet defined any categories for this agendda",
     "fr": "Vous n'avez encore défini aucune catégorie pour cet agenda",
-    "de": "Sie haben noch keine Kategorien definiert für diese agendda",
+    "de": "Du hast noch keine Kategorien definiert für diese agendda",
     "es": "No se ha definido ninguna categoría para esta agenda"
   },
   "linkError": {
     "en": "An error occurred while saving your data. Please try again later",
     "fr": "Une erreur est survenue lors de la sauvegarde de vos données. Veuillez retenter l'opération sous peu.",
-    "de": "Ein Fehler ist aufgetreten, während die Daten zu speichern. Bitte versuchen Sie es später noch einmal",
+    "de": "Ein Fehler ist aufgetreten, während die Daten zu speichern. Bitte versuche es später noch einmal",
     "es": "Se produjo un error al guardar los datos. Por favor, intente la operación en breve."
   },
   "cancelUpdateTag": {

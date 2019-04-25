@@ -16,7 +16,7 @@ module.exports = {
   "defaultTagGroupInfo": {
     "en": "Select one or several tags",
     "fr": "Sélectionnez un ou plusieurs tags",
-    "de": "Wählen Sie einen oder mehrere Tags",
+    "de": "Wähle einen oder mehrere Tags",
     "es": "Seleccione una o más etiquetas"
   },
   "required": {
@@ -28,7 +28,7 @@ module.exports = {
   "requiredTagError": {
     "en": "You must select at least one item",
     "fr": "Vous devez faire au minimum une sélection",
-    "de": "Sie müssen mindestens ein Element auswählen",
+    "de": "Du musst mindestens ein Element auswählen",
     "es": "Usted debe hacer al menos una selección"
   },
   "noSelection": {

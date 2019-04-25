@@ -52,7 +52,7 @@ module.exports = {
   "memberUnsubscribe": {
     "fr": "Ne plus recevoir les agrégations de mes événements sur cet agenda",
     "en": "Stop receiving event aggregations of this agenda",
-    "de": "Stop-Veranstaltung Aggregationen dieser Agenda Empfang",
+    "de": "Erhalte keine Nachrichten zur Zusammenlegung von Veranstaltungen in diesem Veranstaltungskalender.",
     "es": "Dejar de recibir agregaciones de mis eventos en esta agenda"
   },
   "changeEmailSettings": {

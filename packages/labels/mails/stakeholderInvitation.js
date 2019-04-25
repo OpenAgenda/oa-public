@@ -10,19 +10,19 @@ module.exports = {
   "title": {
     "fr": "Vous avez été invité à contribuer à l'agenda %agenda%",
     "en": "You have been invited to contribute to the agenda %agenda%",
-    "de": "Sie wurden auf die Kalender %agenda% beitragen eingeladen",
+    "de": "Du wurdest eingeladrn, etwas auf dem Kalender %agenda% beizutragen.",
     "es": "Se le ha invitado a contribuir a la agenda %agenda%"
   },
   "titleForExistantStakeholder": {
     "fr": "Vous êtes devenu %credential% de l'agenda %agenda%",
     "en": "You have become %credential% of the agenda %agenda%",
-    "de": "Sie haben %credential% der Kalender %agenda% werden",
+    "de": "Du hast %credential% der Kalender %agenda% werden",
     "es": "Usted se convirtió en %credencial% del agenda %agenda%"
   },
   "description": {
     "fr": "Vous êtes invité à contribuer à l'agenda %agenda% en tant que %credential%.",
     "en": "You are invited to contribute to the agenda %agenda% as a %credential%.",
-    "de": "Sie sind eingeladen, auf die Kalender %agenda% in %credential% beitragen.",
+    "de": "Du bist eingeladen, etwas in die Kalender %agenda% in %credential% beizutragen.",
     "es": "Usted está invitado a contribuir a la agenda %agenda% como %credencial%."
   },
   "signup": {

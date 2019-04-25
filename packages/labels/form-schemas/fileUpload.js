@@ -16,13 +16,13 @@ module.exports = {
   "tip": {
     "en": "Drag and drop a file in the grayed area.",
     "fr": "Glissez un fichier dans la zone grisée.",
-    "de": "Ziehen Sie eine Datei in den grau hinterlegte Bereich fallen.",
+    "de": "Ziehe eine Dokument in den grau hinterlegten Bereich.",
     "es": "Arrastre un archivo en la zona gris."
   },
   "replace": {
     "en": "Replace the file",
     "fr": "Remplacer le fichier",
-    "de": "Ersetzen Sie die Datei",
+    "de": "Dokument ersetzen",
     "es": "reemplazar archivo"
   },
   "loading": {

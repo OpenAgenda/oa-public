@@ -16,7 +16,7 @@ module.exports = {
   "error": {
     "en": "Invalid entries will not be saved. Separate each value with a tab or a comma.",
     "fr": "Séparez chaque valeur par une tabulation ou une virgule. Les saisies non valides ne seront pas sauvegardées.",
-    "de": "Ungültige Einträge werden nicht gespeichert. Trennen Sie jeden Wert mit einer Registerkarte oder ein Komma.",
+    "de": "Ungültige Einträge werden nicht gespeichert. Trenne jeden Wert mit einer Registerkarte oder ein Komma.",
     "es": "Separar cada valor de un tabulador o una coma. No se guardarán las entradas no válidas."
   },
   "invalid": {

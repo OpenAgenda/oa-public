@@ -4,7 +4,7 @@ module.exports = {
   "aggregatorExplanation": {
     "fr": "Cette fonction permet de récupérer automatiquement les événements des agendas que vous aurez choisi.",
     "en": "This feature allows you to automatically fetch the events added to the agendas of your choice.",
-    "de": "Mit dieser Funktion können Sie automatisch die Veranstaltungen holen auf die Kalenders Ihrer Wahl hinzugefügt.",
+    "de": "Automatisch Import",
     "es": "Esta función recuperará automáticamente el agenda de eventos que ha elegido."
   },
   "createAggregator": {
@@ -28,19 +28,19 @@ module.exports = {
   "addSources": {
     "fr": "Pour ajouter des sources, <a href=\"%searchLink%\">cherchez les agendas</a> que vous voulez utiliser, ouvrez-les et cliquez sur le lien <strong>utiliser comme source</strong>.",
     "en": "To add sources, <a href=\"%searchLink%\">find the agendas</a> you want to use, open them, and click the <strong>use as source</strong> link.",
-    "de": "So fügen Sie Quellen, <a href=\"%searchLink%\"> die Kalenders finden </a> Sie verwenden möchten, öffnen Sie sie, und klicken Sie auf die Schaltfläche <strong> Verwendung als Quelle </ strong>.",
+    "de": "Um ein Kalender automatischerweise zu importieren : Erst<a href=\"%searchLink%\"> finde das Kalender </a>, donn öffne es, endlich klicke auf <strong> Exportieren > als Quelle benützen</ strong>.",
     "es": "Para añadir fuentes, <a href=\"%searchLink%\"> mirando agendas </a> que desea utilizar, abrirlos y hacer clic en el botón <strong> uso como fuente </ strong>."
   },
   "aggregationLoop": {
     "fr": "Cet agenda agrège des événements de l'agenda auquel vous voulez l'ajouter. Les boucles d'agrégation ne sont pas permises.",
     "en": "This agenda agregates events from the agenda you want to add it to. Agregation loops are not permitted.",
-    "de": "Diese Agenda agregates Veranstaltungen von der Kalender Sie es hinzufügen möchten. Agregation Schleifen sind nicht zulässig.",
+    "de": "DieseVerwaltungskalender agregates Veranstaltungen von andere Kalenders.",
     "es": "Este agenda agrupa los eventos del agenda que desee agregar. Los bucles de agregación no están permitidos."
   },
   "searchAgenda": {
     "fr": "Rechercher un agenda",
     "en": "Search an agenda",
-    "de": "Suchen Sie eine Agenda",
+    "de": "Suche eine Verwaltungskalender",
     "es": "agenda de búsqueda"
   },
   "officialAgenda": {
@@ -64,7 +64,7 @@ module.exports = {
   "removeConfirmMessage": {
     "fr": "Êtes-vous sûr de vouloir supprimer cet agenda des sources ?",
     "en": "Are you sure you want to delete this agenda from sources ?",
-    "de": "Sind Sie sicher, dass Sie diese Agenda von Quellen löschen?",
+    "de": "Bist du sicher, dass du dieseVerwaltungskalender von Quellen löschen willst ?",
     "es": "¿Está seguro de que desea eliminar este agenda fuentes?"
   },
   "sourceAdded": {

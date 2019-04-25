@@ -10,37 +10,37 @@ module.exports = {
   "suggestionEditTitle": {
     "fr": "Modifier la suggestion",
     "en": "Change the suggestion",
-    "de": "Ändern Sie den Vorschlag",
+    "de": "Den Vorschlag ändern",
     "es": "Editar sugerencia"
   },
   "info": {
     "fr": "Saisissez les modifications que vous désirez suggérer. Celles-ci seront ensuite traitées par un administrateur.",
     "en": "Type in the changes you wish to bring to the location. These will then be processed by an administrator.",
-    "de": "Geben Sie die Änderungen in Sie an den Ort bringen wollen. Diese werden dann von einem Administrator bearbeitet werden.",
+    "de": "Schreibe die Änderungen in Sie an den Ort bringen wollen. Diese werden dann von einem Administrator bearbeitet werden.",
     "es": "Introducir los cambios que desea sugerir. Estos son entonces procesadas por un administrador."
   },
   "suggestionEditInfo": {
     "fr": "Editez votre suggestion de modification. Rétablissez les valeurs d'origine en cliquant sur les liens situés sous vos modifications",
     "en": "Make changes to your suggestions. Reset the values by clicking on the links located below each one of your changes",
-    "de": "Nehmen Sie Änderungen an Ihre Anregungen. Setzen Sie die Werte durch Klicken auf die Links unten jeder Ihrer Änderungen befinden",
+    "de": "Nehme Änderungen an Deine Anregungen. Setze die Werte durch Klicken auf die Links unten jeder deiner Änderungen befinden",
     "es": "Editar su enmienda propuesta. Restaurar los valores originales haciendo clic en los enlaces bajo sus cambios"
   },
   "submit": {
     "fr": "Envoyer la suggestion",
     "en": "Send the suggestion",
-    "de": "Senden Sie den Vorschlag",
+    "de": "Sende den Vorschlag",
     "es": "Enviar sugerencia"
   },
   "submitError": {
     "fr": "La suggestion n'a pas pu être envoyée. Veuillez retenter dans un instant",
     "en": "The suggestion could not be sent. Please retry in a few moments",
-    "de": "Der Vorschlag kann nicht gesendet werden. Bitte versuchen Sie es in ein paar Minuten Zeit",
+    "de": "Der Vorschlag kann nicht gesendet werden. Bitte versuche es in ein paar Minuten Zeit",
     "es": "La sugerencia no se pudo enviar. Por favor, inténtelo de nuevo en un momento"
   },
   "loadError": {
     "fr": "Le formulaire n'a pas pu être chargé. Veuillez recharger la page.",
     "en": "The form could not be loaded. Please reload the page.",
-    "de": "Das Formular kann nicht geladen werden. Bitte laden Sie die Seite neu.",
+    "de": "Das Formular kann nicht geladen werden. Bitte lade die Seite neu.",
     "es": "La forma no se pudo cargar. Vuelve a cargar la página."
   },
   "currentValue": {
@@ -58,7 +58,7 @@ module.exports = {
   "completeText": {
     "fr": "Un modérateur la traitera prochainement. Vous pouvez la modifier à tout moment en revenant sur la page événement associée.",
     "en": "A moderator will process it shortly. You can update it any time by coming back to the associated event page.",
-    "de": "Ein Moderator wird es in Kürze verarbeiten. Sie können es jederzeit aktualisieren, indem Sie zurück auf die zugehörigen Event-Seite kommen.",
+    "de": "Ein Moderator wird es in Kürze verarbeiten. du kannst es jederzeit aktualisieren, indem Sie zurück auf die zugehörigen Event-Seite kommen.",
     "es": "Un moderador abordará el futuro. Se puede cambiar en cualquier momento volviendo a la página del evento asociado."
   },
   "completeLink": {

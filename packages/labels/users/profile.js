@@ -37,7 +37,7 @@ module.exports = {
     "en": "My Agendas",
     "fr": "Mes Agendas",
     "it": "Le mie agende",
-    "de": "Meine Kalender",
+    "de": "Meine Veranstaltungskalender",
     "pl": "Moje porządki dzienne",
     "es": "mis agendas"
   },
@@ -45,7 +45,7 @@ module.exports = {
     "en": "Search agenda",
     "fr": "Chercher un agenda",
     "it": "Agenda",
-    "de": "Kalender suchen",
+    "de": "Veranstaltungskalender suchen",
     "pl": "Porządek dzienny wyszukiwania",
     "es": "Buscar un agenda"
   },
@@ -53,7 +53,7 @@ module.exports = {
     "en": "Create an agenda",
     "fr": "Créer un agenda",
     "it": "Creare un agenda",
-    "de": "Kalender erstellen",
+    "de": "Veranstaltungskalender erstellen",
     "pl": "Stwórz porządek obrad",
     "es": "Crear un agenda"
   },
@@ -69,7 +69,7 @@ module.exports = {
     "en": "Agendas",
     "fr": "Agendas",
     "it": "Le agende",
-    "de": "Kalendern",
+    "de": "Veranstaltungskalender",
     "pl": "Porządek dzienny",
     "es": "agendas"
   }

@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Saisissez votre événement",
     "en": "Type your event details",
     "it": "Aggiungete il suo evento",
-    "de": "Geben Sie Ihre Veranstaltung ein",
+    "de": "Gebe Deine Veranstaltung ein",
     "br": "Skrivit ho tarvoud",
     "es": "Introduzca su evento"
   },
@@ -21,7 +21,7 @@ module.exports = {
     "fr": "Créer l'événement",
     "en": "Create the event",
     "it": "Registrare l’evento",
-    "de": "Erstellen Sie die Veranstalltung",
+    "de": "Erstelle die Veranstalltung",
     "br": "Krouiñ an darvoud",
     "es": "crear evento"
   },
@@ -45,7 +45,7 @@ module.exports = {
     "fr": "Mettre à jour l'événement",
     "en": "Update the event",
     "it": "Modificare l’evento",
-    "de": "Aktualisieren Sie die Veranstalltung",
+    "de": "Aktualisiere die Veranstalltung",
     "br": "Hizivaat an darvoud",
     "es": "actualización de eventos"
   },
@@ -69,7 +69,7 @@ module.exports = {
     "fr": "Créer l'événement",
     "en": "Create the event",
     "it": "Registrare l’evento",
-    "de": "Erstellen Sie die Veranstalltung",
+    "de": "Die Veranstalltung erstellen",
     "br": "Krouiñ an darvoud",
     "es": "crear evento"
   },
@@ -77,7 +77,7 @@ module.exports = {
     "fr": "Ajouter un événement",
     "en": "Add an event",
     "it": "Aggiungere un evento ",
-    "de": "Eine Veranstaltung hinzufügen",
+    "de": "Veranstaltung hinzufügen",
     "br": "Ouzhpennañ un darvoud",
     "es": "Añadir un evento"
   },

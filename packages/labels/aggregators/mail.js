@@ -16,7 +16,7 @@ module.exports = {
   "newAggregationAction": {
     "fr": "Voir l'événement",
     "en": "See the event",
-    "de": "Siehe die Veranstaltung",
+    "de": "Deine Veranstaltung hier ansehen",
     "es": "Ver evento"
   },
   "toBeControlled": {

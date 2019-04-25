@@ -10,7 +10,7 @@ module.exports = {
   "actionDescription": {
     "fr": "Voir l'agenda",
     "en": "Show agenda",
-    "de": "Show Agenda",
+    "de": "Veranstaltungskalender anzeigen",
     "es": "Ver la agenda"
   },
   "unsubscribe": {

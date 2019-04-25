@@ -4,7 +4,7 @@ module.exports = {
   "unsubscribedSuccess": {
     "en": "You have been successfully unsubscribed",
     "fr": "Vous êtes désormais désinscrit(e)",
-    "de": "Sie haben sich erfolgreich abgemeldet",
+    "de": "Du hast dich erfolgreich abgemeldet.",
     "es": "Ahora está no suscritas (e)"
   },
   "unsubscribedFail": {
@@ -22,7 +22,7 @@ module.exports = {
   "unsubscribeFromAllNotifications": {
     "en": "Unsubscribe me from this agenda",
     "fr": "Me désinscrire des notifications de cet agenda",
-    "de": "Abmelden mich von dieser Agenda",
+    "de": "Abmelden von diesem Veranstaltungskalender",
     "es": "notificaciones Darse de baja de esta agenda"
   },
   "notificationTitle": {
@@ -34,7 +34,7 @@ module.exports = {
   "seeAgenda": {
     "en": "See the agenda",
     "fr": "Voir l'agenda",
-    "de": "Siehe die Kalender",
+    "de": "Veranstaltungskalender anzeigen",
     "es": "Ver la agenda"
   },
   "seeEvent": {
@@ -58,19 +58,19 @@ module.exports = {
   "userNewContributor": {
     "en": "You are now a contributor of the agenda %agenda%.",
     "fr": "Vous êtes désormais contributeur de l'agenda %agenda%.",
-    "de": "Sie sind jetzt ein Beitrag der Kalender %agenda%.",
+    "de": "Du bist jetzt ein Teilnehmer des Veranstaltungskalenders %agenda%.",
     "es": "Ahora se encuentra colaborador agenda %agenda%."
   },
   "agendaNewContributor": {
     "en": "%user% is now contributor of the agenda %agenda%.",
     "fr": "%user% est désormais contributeur de l'agenda %agenda%.",
-    "de": "%user% ist jetzt Beitrag der Kalender %agenda%.",
+    "de": " %user% ist jetzt Teilnehmer des Veranstaltungskalenders %agenda%.",
     "es": "%user% es ahora colaborador agenda %agenda%."
   },
   "agendaNewAdministrator": {
     "en": "%user% is now administrator of the agenda %agenda%.",
     "fr": "%user% est désormais administrateur de l'agenda %agenda%.",
-    "de": "%user% ist jetzt Administrator der Kalender %agenda%.",
+    "de": " %user% ist jetzt Administrator des Veranstaltungskalenders %agenda%.",
     "es": "%user% es ahora director de la agenda %agenda%."
   },
   "userEventUpdate": {
@@ -82,25 +82,25 @@ module.exports = {
   "userNewAdministrator": {
     "en": "You are now an administrator of the agenda %agenda%.",
     "fr": "Vous êtes désormais administrateur de L'agenda %agenda%.",
-    "de": "Sie sind jetzt ein Administrator der Kalender %agenda%.",
+    "de": "Du bist jetzt ein Administrator des Veranstaltungskalenders %agenda%.",
     "es": "Ahora eres administrador de la libreta %agenda%."
   },
   "userNewModerator": {
     "en": "You are now a moderator of the agenda %agenda%.",
     "fr": "Vous êtes désormais modérateur de L'agenda %agenda%.",
-    "de": "Sie sind jetzt ein Moderator der Kalender %agenda%.",
+    "de": "Du bist jetzt ein Moderator des Veranstaltungskalenders %agenda%.",
     "es": "Ahora está moderando el agenda %agenda%."
   },
   "agendaNewModerator": {
     "en": "%user% is now moderator of the agenda %agenda%.",
     "fr": "%user% est désormais modérateur de L'agenda %agenda%.",
-    "de": "%user% ist jetzt Moderator der Kalender %agenda%.",
+    "de": " %user% ist jetzt Moderator des Veranstaltungskalenders %agenda%.",
     "es": "%user% es ahora moderador agenda %agenda%."
   },
   "agendaNewAggregator": {
     "en": "%aggregator% is now importing the events of your agenda %agenda%.",
     "fr": "%aggregator% importe désormais les événements de votre agenda %agenda%.",
-    "de": "%aggregator% importiert nun die Veranstaltungen Ihrer Agenda %agenda%.",
+    "de": "%aggregator% importiert nun die Veranstaltungen Deines Veranstaltungskalenders %agenda%.",
     "es": "%aggregator% de eventos importantes ahora en su agenda %agenda%."
   },
   "agendaEventUpdate": {

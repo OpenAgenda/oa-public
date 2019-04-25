@@ -26,7 +26,7 @@ module.exports = {
     "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
     "en": "If no location matches the name, add a new location by clicking on 'Create a new location'",
     "it": "Se nessun luogo corrisponde alla tua voce, aggiungilo cliccando su 'Crea un luogo'.",
-    "de": "Wenn kein Standort mit dem Namen übereinstimmt, fügen Sie einen neuen Standort hinzu, indem Sie auf \"Neuen Standort erstellen\" klicken.",
+    "de": "Wenn kein Standort mit dem Namen übereinstimmt, füge einen neuen Standort hinzu, indem du auf \"Neuen Standort erstellen\" klickst.",
     "es": "Si hay lugar corresponda a su entrada, añadirlo haciendo clic en 'Crear un lugar'"
   },
   "locationSection": {
@@ -125,7 +125,7 @@ module.exports = {
     "fr": "Saisissez une description détaillée de votre événement.",
     "en": "Type in a detailed description of your event.",
     "it": "Inserisci una descrizione dettagliata del tuo evento.",
-    "de": "Geben Sie eine detaillierte Beschreibung Ihrer Veranstaltung ein.",
+    "de": "Gebe eine detaillierte Beschreibung deiner Veranstaltung ein.",
     "es": "Introduzca una descripción detallada de su evento."
   },
   "longDescriptionSub": {
@@ -146,7 +146,7 @@ module.exports = {
     "fr": "Séparez les mots clés par des tabulations ou des virgules",
     "en": "Separate each keyword with tabs or commas",
     "it": "Parole chiave separate con schede o virgole",
-    "de": "Trennen Sie jedes Keyword durch Tabulatoren oder Kommas.",
+    "de": "Trenne jedes Keyword durch Tabulatoren oder Kommas.",
     "es": "palabras clave separadas por comas o fichas"
   },
   "keywordsSub": {
@@ -188,7 +188,7 @@ module.exports = {
     "fr": "Séparez les items par des tabulations ou des virgules",
     "en": "Separate each item with tabs or commas",
     "it": "Separare le voci per tabulazione o virgole",
-    "de": "Trennen Sie jedes Element mit Tabs oder Kommas.",
+    "de": "Trenne jedes Element mit Tabs oder Kommas.",
     "es": "artículos por separado con tabulaciones o comas"
   },
   "registrationInfo": {
@@ -293,7 +293,7 @@ module.exports = {
     "en": "These are used to index your event in the agenda. Pick one.",
     "fr": "Celles-ci servent pour l'indexation dans l'agenda. Vous pouvez en choisir une.",
     "it": "Questi sono utilizzati per l'indicizzazione nell'agenda. Puoi sceglierne uno.",
-    "de": "Diese werden verwendet, um Ihre Veranstaltung in der Agenda zu indexieren. Such dir einen aus.",
+    "de": "Diese werden verwendet, um Deine Veranstaltung im Veranstaltungskalender zu indexieren. Such dir einen aus.",
     "es": "Estos se utilizan para la indexación en el agenda. Puede elegir uno."
   },
   "defaultTagGroupName": {
@@ -307,7 +307,7 @@ module.exports = {
     "en": "These are used to index your event in the agenda. You can select several.",
     "fr": "Ceux-ci servent pour l'indexation dans l'agenda. Vous pouvez en choisir plusieurs.",
     "it": "Questi sono utilizzati per l'indicizzazione nell'agenda. È possibile sceglierne diversi.",
-    "de": "Diese werden verwendet, um Ihre Veranstaltung in der Agenda zu indexieren. Sie können mehrere auswählen.",
+    "de": "Diese werden verwendet, um Deine Veranstaltung in derVerwaltungskalender zu indexieren. du kannst mehrere auswählen.",
     "es": "Estos se utilizan para la indexación en el agenda. Puede seleccionar más."
   },
   "required": {
@@ -328,14 +328,14 @@ module.exports = {
     "en": "You must select at least one item",
     "fr": "Vous devez faire au minimum une sélection",
     "it": "È necessario effettuare almeno una selezione",
-    "de": "Sie müssen mindestens eine Position auswählen.",
+    "de": "Du musstmindestens eine Position auswählen.",
     "es": "Usted debe hacer al menos una selección"
   },
   "requiredCategoryError": {
     "en": "You must select one item",
     "fr": "Vous devez faire une sélection",
     "it": "È necessario effettuare una selezione",
-    "de": "Sie müssen eine Position auswählen.",
+    "de": "Du mussteine Position auswählen.",
     "es": "Usted debe hacer una selección"
   },
   "noSelection": {

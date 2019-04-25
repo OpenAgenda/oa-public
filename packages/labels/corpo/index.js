@@ -4,7 +4,7 @@ module.exports = {
   "punchLine": {
     "en": "Get an efficient public calendar now",
     "fr": "Créez un agenda public performant",
-    "de": "Sichern Sie sich jetzt einen effizienten öffentlichen Kalender",
+    "de": "Erstellt jetzt einen effizienten, öffentlichen Verasntaltungskalender.",
     "es": "Crear un agenda público eficiente"
   },
   "forYour": {
@@ -22,13 +22,13 @@ module.exports = {
   "createAnAgenda": {
     "en": "Create a calendar",
     "fr": "Créer un agenda",
-    "de": "Erstellen Sie einen Kalender",
+    "de": "Neuen Veranstaltungskalender erstellen",
     "es": "Crear un agenda"
   },
   "searchAnAgenda": {
     "en": "Search a calendar",
     "fr": "Chercher un agenda",
-    "de": "Suchen Sie einen Kalender",
+    "de": "Einen Kalender Suchen",
     "es": "agenda de búsqueda"
   },
   "canCustomize": {
@@ -58,7 +58,7 @@ module.exports = {
   "function1Description": {
     "en": "Your event pages are detailed and you can organize your calendar with multiple criterias.",
     "fr": "Vos événements sont détaillés et vous pouvez organiser votre agenda par de multiples critères !",
-    "de": "Ihre Veranstaltungsseiten sind detailliert und Sie können Ihren Kalender mit mehreren Kriterien organisieren.",
+    "de": "Deine Veranstaltungsseiten sind detailliert und du kannst Deinen Kalender mit mehreren Kriterien organisieren.",
     "es": "Sus eventos son detallados y le pueden organizar su agenda de múltiples criterios!"
   },
   "function2Head": {
@@ -82,7 +82,7 @@ module.exports = {
   "function3Description": {
     "en": "Are you in charge of a federation ? territory ?<br>Equip each local organization with a calendar and get an aggregated view of the event activity of your network !",
     "fr": "Vous animez une fédération ? Un territoire ?<br>Déployez un réseau d'agendas et agrégez en temps réel tous les événements !",
-    "de": "Sind Sie verantwortlich für eine Föderation? Gebiet? <br> jede lokale Organisation mit einem Kalender Anlegen und eine aggregierte Sicht der Veranstaltungaktivität des Netzwerks erhalten!",
+    "de": "Bist du verantwortlich für eine Förderung? Gebiet? <br> Stattet jede lokale Organisation mit einem Kalender aus und Anlegen und seht mit einem Blick die Veranstaltungaktivität des Netzwerks.",
     "es": "A llevar una federación? Un territorio? <br> desplegar una red de agendas y agregados en tiempo real todos los eventos!"
   },
   "function4Head": {
@@ -178,7 +178,7 @@ module.exports = {
   "aggregation": {
     "en": "Agendas aggregation",
     "fr": "Agrégation d'agendas",
-    "de": "Agendas Aggregation",
+    "de": "gemeinsame Veranstaltungskalender",
     "es": "La agregación de los agendas"
   },
   "year": {
@@ -358,7 +358,7 @@ module.exports = {
   "createYourCalendarNow": {
     "en": "Create your calendar now !",
     "fr": "Créez votre agenda !",
-    "de": "Erstellen Sie Ihren Kalender jetzt!",
+    "de": "Erstelle deinen Kalender jetzt!",
     "es": "Crear su agenda!"
   },
   "contact": {
@@ -466,7 +466,7 @@ module.exports = {
   "seeMoreTestimonies": {
     "en": "See more testimonies",
     "fr": "Voir plus de références",
-    "de": "Sehen Sie mehr Zeugnisse",
+    "de": "Mehr Zeugnisse sehen",
     "es": "Ver más referencias"
   }
 }

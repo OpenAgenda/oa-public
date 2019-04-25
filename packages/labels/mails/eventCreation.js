@@ -52,7 +52,7 @@ module.exports = {
   "memberUnsubscribe": {
     "fr": "Ne plus recevoir les créations d'événement de cet agenda",
     "en": "Stop receiving event creations of this agenda",
-    "de": "Stop-Veranstaltung Kreationen dieser Agenda Empfang",
+    "de": "Erhalte keine Benachrichtigungen mehr zu Veranstaltungs-Erstellungen in diesem Veranstaltungskalender.",
     "es": "Optar por esta creación evento del agenda"
   },
   "changeEmailSettings": {

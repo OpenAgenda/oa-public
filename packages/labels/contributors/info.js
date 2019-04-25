@@ -10,7 +10,7 @@ module.exports = {
   "provideGuidelines": {
     "en": "Provide guidelines for users contributing to your agenda",
     "fr": "Donnez des consignes de saisie aux contributeurs de votre agenda",
-    "de": "Geben Sie Richtlinien für die Nutzer auf Ihre Agenda beitragen",
+    "de": "Gebe Richtlinien für die Nutzer auf DeineVerwaltungskalender beitragen",
     "es": "Dar instrucciones de entrada contribuyentes a su agenda"
   },
   "submit": {

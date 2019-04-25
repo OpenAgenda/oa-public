@@ -10,7 +10,7 @@ module.exports = {
   "info": {
     "fr": "Les modifications proposées par le contributeur sont chargées dans les champs actifs. Editez-les avant de les valider.",
     "en": "The changes suggested by the contributor are loaded in the active fields. Edit them before saving the form.",
-    "de": "Durch die Änderungen des Bewerters vorgeschlagen werden in den aktiven Feldern geladen. Bearbeiten Sie sie, bevor Sie das Formular zu speichern.",
+    "de": "Durch die Änderungen des Bewerters vorgeschlagen werden in den aktiven Feldern geladen. Bearbeite sie, bevor Sie das Formular zu speichern.",
     "es": "Los cambios propuestos por el contribuyente se cargan en los campos activos. Editarlas antes de comprometerse."
   },
   "submit": {
@@ -22,7 +22,7 @@ module.exports = {
   "submitError": {
     "fr": "La suggestion n'a pas pu être traitée. Veuillez retenter dans un instant",
     "en": "The suggestion could not be processed. Please retry in a few moments",
-    "de": "Der Vorschlag kann nicht verarbeitet werden. Bitte versuchen Sie es in ein paar Minuten Zeit",
+    "de": "Der Vorschlag kann nicht verarbeitet werden. Bitte versuche es in ein paar Minuten Zeit",
     "es": "La sugerencia no se pudo procesar. Por favor, inténtelo de nuevo en un momento"
   },
   "previous": {
@@ -64,7 +64,7 @@ module.exports = {
   "suggestionDiscard": {
     "fr": "Ignorer cette suggestion",
     "en": "Ignore this suggestion",
-    "de": "Ignorieren Sie diesen Vorschlag",
+    "de": "Ignoriere diesen Vorschlag",
     "es": "Ignorar esta sugerencia"
   },
   "back": {

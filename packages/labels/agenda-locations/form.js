@@ -46,7 +46,7 @@ module.exports = {
   "geocodeError": {
     "fr": "La géolocalisation n'a pas pu aboutir. Ré-essayez ou placez le marqueur manuellement",
     "en": "The geolocation was not successful. Please retry or place the marker manually",
-    "de": "Die Geolocation war nicht erfolgreich. Bitte versuchen Sie es erneut oder die Markierung platzieren manuell",
+    "de": "Die Geolocation war nicht erfolgreich. Bitte versuche es wieder oder die Markierung platzieren manuell",
     "es": "Geolocalización, no se pudo completar. Inténtalo de nuevo o mover el marcador manualmente"
   },
   "geocodeFieldSave": {
@@ -64,7 +64,7 @@ module.exports = {
   "disabledGeocode": {
     "fr": "La fonction de localisation automatique est momentanément indisponible. Localisez votre lieu en glissant le marqueur au bon endroit sur la carte.",
     "en": "The automatic localisation is temporarily unavailable. Drag the marker to the correct location on the map manually.",
-    "de": "Die automatische Lokalisierung ist vorübergehend nicht verfügbar. Ziehen Sie die Markierung an die richtige Stelle auf der Karte manuell.",
+    "de": "Die automatische Lokalisierung ist vorübergehend nicht verfügbar. Ziehe die Markierung an die richtige Stelle auf der Karte manuell.",
     "es": "La función de seguimiento automático no está disponible temporalmente. Encontrar su ubicación arrastrando el marcador en el lugar correcto en el mapa."
   },
   "name": {
@@ -124,7 +124,7 @@ module.exports = {
   "imageInfo": {
     "fr": "Ne sélectionnez que les images pour lesquelles vous disposez d'une licence valide.",
     "en": "Only upload images you have the right to re-use",
-    "de": "Nur Bilder laden Sie das Recht haben, wiederverwenden",
+    "de": "Nur Bilder lade das Recht haben, wiederverwenden",
     "es": "Seleccione sólo las imágenes para las que tenga una licencia válida."
   },
   "imageCredits": {
@@ -256,13 +256,13 @@ module.exports = {
   "extIdInfo": {
     "fr": "Optionnellement, précisez un identifiant unique pour ce lieu",
     "en": "Optionnally, specify a unique identifier for this location",
-    "de": "Optionnally, geben Sie eine eindeutige Kennung für diesen Standort",
+    "de": "Optionnally, gebe eine eindeutige Kennung für diesen Standort",
     "es": "Opcionalmente, especifique un identificador único para este lugar"
   },
   "extIdLink": {
     "fr": "Définir un identifiant unique pour ce lieu",
     "en": "Define a unique identifier for this location",
-    "de": "Definieren Sie eine eindeutige Kennung für diesen Standort",
+    "de": "Definiere eine eindeutige Kennung für diesen Standort",
     "es": "Definir un identificador único para este lugar"
   }
 }

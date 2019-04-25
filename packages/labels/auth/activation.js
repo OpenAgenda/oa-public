@@ -13,7 +13,7 @@ module.exports = {
     "en": "Check your mail for a validation link",
     "fr": "Cliquez sur le lien de validation dans votre boîte de récéption",
     "it": "Controlla la tua mail per un link di convalida",
-    "de": "Überprüfen Sie Ihre Mail auf einen Validierungslink.",
+    "de": "Überprüfe Deine Mail auf einen Validierungslink.",
     "pl": "Sprawdź swoją pocztę pod kątem linku do walidacji",
     "es": "Haga clic en el enlace de validación en su caja de bares"
   },
@@ -21,7 +21,7 @@ module.exports = {
     "en": "An email will be sent to you shortly containing the activation link for your account. Check your inbox to complete your account creation process.",
     "fr": "Un email contenant le lien d'activation de votre compte va vous être envoyé dans un instant. Vérifiez votre boîte de réception pour terminer votre inscription.",
     "it": "A breve ti verrà inviata un'e-mail contenente il link di attivazione del tuo conto. Controlla la tua casella di posta per completare il processo di creazione del tuo conto.",
-    "de": "Sie erhalten in Kürze eine E-Mail mit dem Aktivierungslink für Ihr Konto. Überprüfen Sie Ihren Posteingang, um Ihren Kontoerstellungsprozess abzuschließen.",
+    "de": "Eine E-Mail mit dem Aktivierungslink für dein Konto abgesendet wurde. Überprüfe deinen Posteingang, um deinen Kontoerstellungsprozess abzuschließen.",
     "pl": "Wkrótce zostanie do Ciebie wysłana wiadomość e-mail zawierająca link aktywacyjny dla Twojego konta. Sprawdź swoją skrzynkę odbiorczą, aby zakończyć proces tworzenia konta.",
     "es": "Un correo electrónico con su cuenta de enlace de activación será enviado a usted en un momento. Compruebe su bandeja de entrada para completar su registro."
   },
@@ -29,7 +29,7 @@ module.exports = {
     "en": "Didn't receive any mail? %resend% or write us at %support%",
     "fr": "Vous n'avez pas reçu de mail? %resend% ou écrivez-nous à %support%",
     "it": "Non hai ricevuto nessuna mail? %resend% o scrivi a %support%.",
-    "de": "Sie haben keine Mail erhalten? %resend% oder schreiben Sie uns an %support%.",
+    "de": "Du hast keine Mail erhalten? %resend% oder schreibe uns an %support%.",
     "pl": "Nie otrzymałeś żadnej wiadomości e-mail? %resend% lub napisz do nas na %support%",
     "es": "No se recibe un correo electrónico? %resend% o escribir en %support%"
   },
@@ -37,7 +37,7 @@ module.exports = {
     "en": "Click here to resend",
     "fr": "Cliquez ici pour relancer l'envoi",
     "it": "Clicca qui per inviare nuovamente",
-    "de": "Klicken Sie hier, um erneut zu senden.",
+    "de": "Klicke hier, um wieder zu senden.",
     "pl": "Kliknij tutaj, aby wysłać ponownie",
     "es": "Haga clic aquí para iniciar el envío"
   },
@@ -45,7 +45,7 @@ module.exports = {
     "en": "Stay up to date with what is going on with OpenAgenda!",
     "fr": "Restez au courant de ce qui se passe chez OpenAgenda!",
     "it": "Rimani aggiornato su ciò che sta succedendo con OpenAgenda!",
-    "de": "Bleiben Sie auf dem Laufenden über das Geschehen mit der OpenAgenda!",
+    "de": "Bleibe auf dem Laufenden über das Geschehen mit der OpenAgenda!",
     "pl": "Bądź na bieżąco z tym, co dzieje się z OpenAgendą!",
     "es": "Mantenerse al tanto de lo que está sucediendo en OpenAgenda!"
   },
@@ -53,7 +53,7 @@ module.exports = {
     "en": "Follow us",
     "fr": "Suivez nous",
     "it": "Seguici",
-    "de": "Folgen Sie uns",
+    "de": "Uns folgen",
     "pl": "Podążaj za nami",
     "es": "Síguenos"
   },
@@ -61,7 +61,7 @@ module.exports = {
     "en": "Get our newsletter",
     "fr": "Recevez notre lettre d'information",
     "it": "Ricevi la nostra newsletter",
-    "de": "Abonnieren Sie unseren Newsletter",
+    "de": "Unseren Newsletter bekommen",
     "pl": "Pobierz nasz biuletyn informacyjny",
     "es": "Recibe nuestro boletín"
   },

@@ -45,7 +45,7 @@ module.exports = {
     "fr": "Veuillez ré-essayer",
     "en": "Try this again",
     "it": "Riprovaci ancora una volta",
-    "de": "Versuchen Sie dies noch einmal",
+    "de": "Versuche dies noch einmal",
     "pl": "Spróbuj to jeszcze raz",
     "es": "Por favor, inténtelo de nuevo"
   },
@@ -53,7 +53,7 @@ module.exports = {
     "fr": "Vous avez déjà utilisé OpenAgenda ?",
     "en": "Have you already used OpenAgenda ?",
     "it": "Hai già utilizzato OpenAgenda ?",
-    "de": "Haben Sie bereits die OpenAgenda genutzt?",
+    "de": "Kennst du schon OpenAgenda ?",
     "pl": "Czy korzystałeś już z OpenAgendy?",
     "es": "Ya ha utilizado OpenAgenda?"
   },
@@ -101,7 +101,7 @@ module.exports = {
     "fr": "S'inscrire",
     "en": "Sign Up",
     "it": "Iscriviti",
-    "de": "Registrieren Sie sich",
+    "de": "Registriere dich",
     "pl": "Zarejestruj się",
     "es": "Inscribirse"
   },
@@ -109,7 +109,7 @@ module.exports = {
     "fr": "En créant un compte vous acceptez les %terms% ainsi que la %policy%.",
     "en": "By creating an account you agree to the %terms% and to the %policy%.",
     "it": "Creando un conto si accettano le %terms% e le %policy%.",
-    "de": "Mit der Erstellung eines Kontos erklären Sie sich mit den %terms% und der %policy% einverstanden.",
+    "de": "Mit der Erstellung eines Kontos, akzeptieren Sie den %terms% und der %policy%.",
     "pl": "Tworząc konto zgadzasz się na %terms% i %policy%.",
     "es": "Al crear una cuenta en la que acepta los términos% y la política ."
   },

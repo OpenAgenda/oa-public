@@ -23,7 +23,7 @@ module.exports = {
     "en": "Add an event",
     "fr": "Ajouter un événement",
     "it": "Aggiungere un evento ",
-    "de": "eine Veranstaltung hinzufügen",
+    "de": "Veranstaltung hinzufügen",
     "pl": "Dodaj wydarzenie",
     "br": "Ouzhpennañ un darvoud",
     "es": "Añadir un evento"
@@ -149,7 +149,7 @@ module.exports = {
     "en": "Select dates",
     "fr": "Choisissez une date",
     "it": "Scegli una data",
-    "de": "Wählen Sie ein Datum aus.",
+    "de": "Wähle ein Datum aus.",
     "pl": "Wybierz datę",
     "br": "Choazit un deiz",
     "es": "Elija una fecha"
@@ -167,7 +167,7 @@ module.exports = {
     "en": "There are no matching events. Please widen your search.",
     "fr": "Aucun événement trouvé. Veuillez élargir votre recherche.",
     "it": "Non ci sono eventi corrispondenti. Si prega di ampliare la ricerca.",
-    "de": "Es gibt keine passenden Veranstaltungen. Bitte erweitern Sie Ihre Suche.",
+    "de": "Es gibt keine passenden Veranstaltungen. Bitte erweite Deine Suche.",
     "pl": "Nie ma pasujących zdarzeń. Proszę rozszerzyć zakres wyszukiwania.",
     "br": "N'eus bet kavet darvoud ebet. Grit un enklask ledanoc'h, mar plij.",
     "es": "No se han encontrado eventos. Por favor, ampliar su búsqueda."
@@ -176,7 +176,7 @@ module.exports = {
     "en": "There are no results for this search. You can make a site-wide search from the page header, or %page%",
     "fr": "Pas de résultat pour cette recherche. Vous pouvez effectuer une recherche sur l’ensemble du site en haut de page, ou %page%",
     "it": "Nessun risultato per questa ricerca. Puoi effettuare una ricerca sulla globalità del sito nella pagina in alto, a %page%",
-    "de": "Keine Suchergebnisse. Sie können die gesamte Internetseite oben auf der Seite durchsuchen, oder %page%",
+    "de": "Keine Suchergebnisse. du kannst die gesamte Internetseite oben auf der Seite durchsuchen, oder %page%",
     "pl": "Brak rezultatów wyszukiwania. Możesz przeszukać całą stronę na górze strony, lub %page%",
     "br": "Disoc'h ebet evit an enklask-mañ. Gallout a rit ober un enklask el lec'hienn a-bezh e krec'h ar bajenn, pe %page%",
     "es": "No hay resultados para esta búsqueda. Puede buscar en todo el sitio a la tapa, o la %page%"

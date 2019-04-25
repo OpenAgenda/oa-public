@@ -18,5 +18,23 @@ module.exports = {
     "en": "Help",
     "de": "Hilfe",
     "es": "Ayuda"
+  },
+  "en" : {
+    "fr" : "Anglais",
+    "en" : "English"
+  },
+  "de" : {
+    "fr" : "Allemand",
+    "en" : "German",
+    "es" : "Aleman"
+  },
+  "fr" : {
+    "fr" : "Français",
+    "en" : "French",
+  },
+  "es" : {
+    "fr" : "Espagnol",
+    "en" : "Spanish",
+    "es" : "Español"
   }
 }

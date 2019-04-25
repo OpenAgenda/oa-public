@@ -98,7 +98,7 @@ module.exports = {
   "noOrigin": {
     "fr": "Cet événement est indisponible car il n'est associé a aucun agenda",
     "en": "This event is unavailable as it is not associated to any agenda.",
-    "de": "Dieses Veranstaltung ist nicht verfügbar, da es nicht auf eine Agenda verknüpft ist.",
+    "de": "Dieses Veranstaltung ist nicht verfügbar, weil sie nicht mit einem Veranstaltungskalender verknüpft ist.",
     "es": "Este evento no está disponible porque está asociado con ninguna agenda"
   },
   "defaultBack": {
@@ -110,7 +110,7 @@ module.exports = {
   "defaultAgendaBack": {
     "fr": "Revenir à l'agenda",
     "en": "Back to the agenda page",
-    "de": "Zurück zur Agenda Seite",
+    "de": "Zurück zum Veranstaltungskalender",
     "es": "Volver a la agenda"
   },
   "pageDoesNotExist": {

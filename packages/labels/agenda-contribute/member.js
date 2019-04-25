@@ -13,7 +13,7 @@ module.exports = {
     "fr": "Présentez-vous avant de saisir vos événements",
     "en": "Present yourself before starting to type in your events",
     "it": "Presentatevi prima di aggiungere i vostri eventi",
-    "de": "Stellen Sie sich vor, bevor Sie Ihre Veranstaltungen hinfügen.",
+    "de": "Stelle dich vor, bevor du deine Veranstaltungen hinzufügst.",
     "br": "Lavarit piv oc'h a-raok skrivañ ho tarvoudoù",
     "es": "Presentarse antes de introducir sus eventos"
   },
@@ -21,7 +21,7 @@ module.exports = {
     "fr": "Vos informations personnelles ne seront visibles que par l'équipe de l'agenda. Seul le nom de votre organisation pourra être public.",
     "en": "Your personal information will only be visible by the administration team of the agenda. Only your organisation name will be publicly displayed.",
     "it": "Le vostre informazione personale sarano visibile degli amministratori. Il nome della suo organizzazione sarà un informazione pubblica.",
-    "de": "Schön, dass Du Dein Event eintragen willst. Stell Dich kurz vor, die Daten sind nur für unsere interne Verwendung, es wird lediglich der Name der Organisation für andere User sichtbar sein.",
+    "de": "Schön, dass du Dein Event eintragen willst. Stell Dich kurz vor, die Daten sind nur für unsere interne Verwendung, es wird lediglich der Name der Organisation für andere User sichtbar sein.",
     "br": "Ne vo gwelet ho titouroù personnel nemet gant skipailh an deiziataer. N'eus nemet anv hoc'h aozadur a c'hallo bezañ foran.",
     "es": "Su información personal sólo será visto por el equipo del agenda. Sólo el nombre de su organización será pública."
   },

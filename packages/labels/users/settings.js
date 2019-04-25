@@ -154,13 +154,13 @@ module.exports = {
   "areYouSure": {
     "en": "Are you sure?",
     "fr": "Êtes vous sûr ?",
-    "de": "SInd Sie sicher?",
+    "de": "Bist du sicher?",
     "es": "Está usted seguro ?"
   },
   "deleteModalText": {
     "en": "Are you sure you want to delete your account permanently?\n\n Your calendars and events will remain online, you can delete them manually if you do not want to leave them online",
     "fr": "Êtes vous certain de vouloir supprimer votre compte de manière définitive ?\n\n Vos agendas et événements resteront en ligne, vous pouvez les supprimer manuellement si vous ne souhaitez pas les laisser en ligne",
-    "de": "Sind Sie sicher, dass Sie Ihr Konto dauerhaft löschen wollen ?\n\nIhre Kalender und Veranstaltungen werden online bleiben. Sie können diese manuell löschen, wenn Sie sie online nicht verlassen wollen",
+    "de": "Bist du sicher, dass du Dein Konto dauerhaft löschen willst ?\n\nDeine Kalender und Veranstaltungen werden online bleiben. du kannst diese manuell löschen, wenn du sie online nicht speichern willst.",
     "es": "¿Está seguro de que quiere eliminar su cuenta de forma permanente?\n\n Sus agendas y eventos permanecerán en línea, puede eliminarlos manualmente si no desea permitir en línea"
   },
   "deleteModalButton": {
@@ -214,7 +214,7 @@ module.exports = {
   "validationEmailContent": {
     "en": "Hello, you requested to change the email address associated with your OpenAgenda account.If you are not the author of the request, please ignore this message.",
     "fr": "Bonjour,\n\nVous avez demandé à changer l'adresse email liée à votre compte OpenAgenda.\nSi vous n'êtes pas l'auteur de la demande de changement d'adresse email, ne cliquez pas sur le lien, tout simplement.",
-    "de": "Hallo, Sie aufgefordert, die E-Mail-Adresse zu ändern, die mit Ihrem OpenAgenda account.If Sie nicht der Autor des Antrags sind, ignorieren Sie diese Meldung.",
+    "de": "Hallo, du wurdest aufgefordert, die E-Mail-Adresse zu ändern, die mit Deinem OpenAgenda Account verbunden ist. Wenn du keine Anfrage zur Änderung angefordert hast, ignorier diese Mail. ",
     "es": "Buenos dias,\n\nUsted pedirá que cambie la dirección de correo electrónico asociada con su cuenta de OpenAgenda.\nSi usted no es el autor de la solicitud de cambio de dirección de correo electrónico, no haga clic en el enlace, simplemente."
   },
   "validationEmailAction": {
@@ -232,7 +232,7 @@ module.exports = {
   "generateNewApiKeyModalText": {
     "en": "The old key will be invalidated. Are you sure you want to generate a new one?",
     "fr": "L'ancienne clé sera invalidée. Etes-vous certain de vouloir en générer une nouvelle?",
-    "de": "Der alte Schlüssel wird für ungültig erklärt. Sind Sie sicher, dass Sie ein neues generieren?",
+    "de": "Der alte Schlüssel wird für ungültig erklärt. Bist du sicher, dass du ein neues generieren willst?",
     "es": "se invalidará la clave antigua. ¿Está seguro de que desea generar una nueva?"
   },
   "generateNewApiKeyModalButton": {
@@ -268,7 +268,7 @@ module.exports = {
   "agendaNewAggregator": {
     "en": "Agenda aggregated",
     "fr": "Agenda agrégé",
-    "de": "Agenda aggregiert",
+    "de": "Veranstaltungskalender aggregiert",
     "es": "agenda asociado"
   },
   "notificationsSummary": {
@@ -304,7 +304,7 @@ module.exports = {
   "filterInputPlaceholder": {
     "en": "Search an agenda",
     "fr": "Rechercher un agenda",
-    "de": "Suchen Sie eine Agenda",
+    "de": "Suche einen Veranstaltungskalender.",
     "es": "agenda de búsqueda"
   }
 }

@@ -154,7 +154,7 @@ module.exports = {
   "creationSuccess": {
     "fr": "La conversation a bien été créée, vous pourrez voir les réponses dans votre messagerie personnelle.",
     "en": "The conversation has been created, you will see the answers in your personal inbox.",
-    "de": "Das Gespräch wurde erstellt, werden Sie die Antworten in Ihrem persönlichen Posteingang sehen.",
+    "de": "Das Gespräch wurde erstellt, du wirst die Antworten in Deinem persönlichen Posteingang sehen.",
     "es": "La conversación ha sido creado, verá las respuestas en su buzón personal."
   },
   "creationFail": {
@@ -190,85 +190,85 @@ module.exports = {
   "youreAdminOrModerator": {
     "fr": "Vous êtes administrateur ou modérateur de cet agenda",
     "en": "You are an administrator or moderator of this agenda",
-    "de": "Sie sind ein Administrator oder Moderator dieses Agenda",
+    "de": "Du bist ein Administrator oder Moderator dieser Verwaltungskalender.",
     "es": "Es un administrador o moderador de este agenda"
   },
   "youreNotAdminOrModerator": {
     "fr": "Vous n'êtes pas administrateur ou modérateur de cet agenda.",
     "en": "You are not an administrator or moderator of this agenda.",
-    "de": "Sie sind kein Administrator oder Moderator dieses Programm.",
+    "de": "Du bist kein Administrator oder Moderator dieser Verwaltungskalender.",
     "es": "Usted no es un administrador o moderador de este agenda."
   },
   "youCannotWriteToThisMember": {
     "fr": "Vous ne pouvez pas écrire à ce membre.",
     "en": "You canno't write to this member.",
-    "de": "Sie canno't zu diesem Mitglied schreiben.",
+    "de": "Du kannst diesem Mitglied keine Nachricht schreiben.",
     "es": "No se puede escribir a este miembro."
   },
   "youreAlreadyContributor": {
     "fr": "Vous êtes déjà contributeur de cet agenda",
     "en": "You are already a contributor of this agenda",
-    "de": "Sie sind bereits ein Beitrag dieser Agenda",
+    "de": "Du bist bereits ein Teilnehmer dieser Verwaltungskalender.",
     "es": "Ya es colaborador de esta agenda"
   },
   "youWantToContribute": {
     "fr": "Vous désirez contribuer ? Faites-en la demande aux administrateurs de l'agenda.",
     "en": "You want to contribute? Ask the agenda administrators.",
-    "de": "Sie wollen dazu beitragen? Fragen Sie die Agenda-Administratoren.",
+    "de": "Du willst daran teilnehmen? Frage die Verwaltungskalender-Administratoren.",
     "es": "¿Quieres colaborar? Hacer peticiones a los directores de la agenda."
   },
   "wantContributeMakeRequest": {
     "fr": "Vous désirez contribuer ? Faites-en la demande aux administrateurs.",
     "en": "You want to contribute ? Make requests to administrators.",
-    "de": "Sie wollen dazu beitragen? Stellen Sie Anfragen an Administratoren.",
+    "de": "Du willst daran teilnehmen? Stelle eine Anfragen an Administratoren.",
     "es": "¿Quieres colaborar? Hacer peticiones a los administradores."
   },
   "eventConvDescAdminContributor": {
     "fr": "La conversation que vous allez créer est destinée aux administrateurs et modérateurs de l'agenda.",
     "en": "The conversation you are going to create is for administrators and moderators of the agenda.",
-    "de": "Das Gespräch Sie gehen zu erstellen ist für die Administratoren und Moderatoren der Kalender.",
+    "de": "Das Gespräch, das du erstellst, ist für die Administratoren und Moderatoren der Verwaltungskalender.",
     "es": "La conversación que se crea es para los administradores y moderadores de la agenda."
   },
   "eventConvDescAdminmod": {
     "fr": "La conversation que vous allez créer est destinée au contributeur de l'événement.",
     "en": "The conversation you are going to create is for the contributor of the event.",
-    "de": "Das Gespräch, das Sie gehen, um für den Beitrag der Veranstaltung zu erstellen.",
+    "de": "Das Gespräch, das du erstellst, ist für Teilnehmer der Veranstaltung.",
     "es": "La conversación que se crea es el colaborador del evento."
   },
   "eventConvDescContributor": {
     "fr": "La conversation que vous allez créer est destinée aux administrateurs et modérateurs de l'agenda.",
     "en": "The conversation you are going to create is for administrators and moderators of the agenda.",
-    "de": "Das Gespräch Sie gehen zu erstellen ist für die Administratoren und Moderatoren der Kalender.",
+    "de": "Das Gespräch, das du erstellst, ist für die Administratoren und Moderatoren der Verwaltungskalender.",
     "es": "La conversación que se crea es para los administradores y moderadores de la agenda."
   },
   "eventConvDescSimpleUser": {
     "fr": "La conversation que vous allez créer est destinée aux administrateurs et modérateurs de l'agenda, ainsi qu'au contributeur de l'événement.",
     "en": "The conversation you are going to create is for administrators and moderators of the agenda, as well as the contributor of the event.",
-    "de": "Das Gespräch Sie gehen zu erstellen ist für die Administratoren und Moderatoren der Kalender sowie der Beitrag der Veranstaltung.",
+    "de": "Das Gespräch, das du erstellst, ist für die Administratoren und Moderatoren derVerwaltungskalender als auch die Teilnehmer der Veranstaltung.",
     "es": "La conversación que se crea es para los administradores y moderadores de la agenda, así como el colaborador del evento."
   },
   "agendaInboxDesc": {
     "fr": "Retrouvez ici les messages adressés à votre agenda.",
     "en": "Find here the messages addressed to your agenda.",
-    "de": "Hier finden Sie die auf Ihre Agenda adressierte Nachrichten.",
+    "de": "Hier findest du die Nachrichten Deiner Verwaltungskalender.",
     "es": "Estos son los mensajes a su agenda."
   },
   "homeInboxDesc": {
     "fr": "Vous n'avez pas encore reçu de messages!\nVous retrouverez ici les messages qui vous sont adressés.",
     "en": "You haven't received any messages yet!You will find here the messages that are addressed to you.",
-    "de": "Sie haben keine Nachrichten noch erhalten! Sie hier, um die Nachrichten finden, die an Sie gerichtet sind.",
+    "de": "Du hast noch keine Nachrichten erhalten! Wenn du Nachrichten erhälst, sind diese hier aufgeführt.",
     "es": "No ha recibido ningún mensaje!\nAquí encontrará los mensajes que le envíen."
   },
   "suggestLocationChangeDesc": {
     "fr": "Saisissez les modifications que vous désirez suggérer. Celles-ci seront ensuite traitées par un administrateur.",
     "en": "Enter the changes you wish to suggest. These will then be processed by an administrator.",
-    "de": "Geben Sie die Änderungen, die Sie wünschen vorzuschlagen. Diese werden dann von einem Administrator bearbeitet werden.",
+    "de": "Gib hier die Änderungen ein, die du vorschlägst. Diese werden dann von einem Administrator bearbeitet.",
     "es": "Introducir los cambios que desea sugerir. Estos son entonces procesadas por un administrador."
   },
   "supportInboxDesc": {
     "fr": "Faites une recherche dans notre <a target=\"_blank\" href=\"https://openagenda.zendesk.com/hc/fr\">Centre d'aide</a>. Si l'information que vous recherchez ne s'y trouve pas, écrivez-nous via le formulaire ci-dessous.",
     "en": "Search our <a target=\"_blank\" href=\"https://openagenda.zendesk.com/hc/en-us\">Help center</a>. If the information you are looking for is not listed, write us a message and we will get back to you shortly.",
-    "de": "Suchen Sie in unserer <a target=\"_blank\" href=\"https://openagenda.zendesk.com/hc/en-us\"> Hilfe </a>. Wenn die Informationen, die Sie suchen, nicht aufgeführt ist, schreiben Sie uns eine Nachricht und wir werden in Kürze auf Sie zurückkommen.",
+    "de": "In unserem Bereich <a target=\"_blank\" href=\"https://openagenda.zendesk.com/hc/en-us\"> Hilfe </a> gibt es bereits viele Informationen! Schreibe uns bitte eine Nachricht und wir werden in Kürze antworten.",
     "es": "Buscar en nuestro <a target=\"_blank\" href=\"https://openagenda.zendesk.com/hc/fr\"> </a> Centro de asistencia. Si la información que está buscando no está allí, en contacto con nosotros a través del siguiente formulario."
   },
   "contactContributor": {
@@ -400,19 +400,19 @@ module.exports = {
   "closeConversation": {
     "fr": "Fermer la conversation",
     "en": "Close the conversation",
-    "de": "Schließen Sie das Gespräch",
+    "de": "Schließ das Gespräch",
     "es": "Cerrar conversación"
   },
   "closeConversationDesc": {
     "fr": "Etes-vous sûr de vouloir fermer cette conversation? Elle n'apparaitra plus ni dans vos conversations actives ni dans celles de vos interlocuteurs.",
     "en": "Are you sure you want to close this conversation? It will not appear in your active conversations or in those of your interlocutors.",
-    "de": "Sind Sie sicher, dass Sie dieses Gespräch schließen? Es wird nicht in Ihren aktiven Gesprächen oder in denen Ihren Gesprächspartner erscheinen.",
+    "de": "Bist du sicher, dass du dieses Gespräch schließen willst? Es wird dann nicht mehr in Deinen aktiven Gesprächen oder in denen Deiner Gesprächspartner erscheinen.",
     "es": "¿Seguro que desea cerrar esta conversación? Sí aparece ni en sus conversaciones activas o en las de sus contactos."
   },
   "closeConfirmation": {
     "fr": "Êtes-vous sûr de vouloir fermer cette conversation ?",
     "en": "Are you want sure to close this conversation ?",
-    "de": "Sind Sie sicher, dass dieses Gespräch schließen?",
+    "de": "Bist du sicher, dass du dieses Gespräch schließen willst?",
     "es": "¿Seguro que desea cerrar esta conversación?"
   },
   "wouldLikeToContribute": {
@@ -442,7 +442,7 @@ module.exports = {
   "youRepliedAgo": {
     "fr": "Vous avez répondu il y a %date%",
     "en": "You replied %date% ago",
-    "de": "Sie antwortete %date% vor",
+    "de": "Du hast vor %date% geantwortet",
     "es": "Hace su respuesta es la %date%"
   },
   "contactForm": {
@@ -454,7 +454,7 @@ module.exports = {
   "needHelp": {
     "fr": "Besoin d'aide ?",
     "en": "Need help ?",
-    "de": "Brauche Hilfe ?",
+    "de": "Brauchst du Hilfe ?",
     "es": "Necesidad de ayuda ?"
   },
   "sendMessageError": {
@@ -466,25 +466,25 @@ module.exports = {
   "youContactedTheAgenda": {
     "fr": "Vous avez contacté l'agenda",
     "en": "You contacted the agenda",
-    "de": "Sie kontaktierte die Kalender",
+    "de": "Du hast den Veranstaltungskalender kontaktiert ",
     "es": "Se ha comunicado con el agenda"
   },
   "contactedTheAgenda": {
     "fr": "a contacté l'agenda",
     "en": "contacted the agenda",
-    "de": "die Agenda kontaktiert",
+    "de": "den Veranstaltungskalender kontaktiert",
     "es": "en contacto con la agenda"
   },
   "youContactedTheContributor": {
     "fr": "Vous avez contacté le contributeur",
     "en": "You contacted the contributor",
-    "de": "Sie kontaktierte die Beiträger",
+    "de": "Du hast den Teilnehmer kontaktiert",
     "es": "Se ha comunicado con el contribuyente"
   },
   "youContactedTheContributorOf": {
     "fr": "Vous avez contacté le contributeur de",
     "en": "You contacted the contributor of",
-    "de": "Sie kontaktierte den Beitrag von",
+    "de": "Du hast den Teilnehmer von kontaktiert",
     "es": "Se ha comunicado con el contribuyente"
   },
   "contactedTheContributor": {
@@ -532,31 +532,31 @@ module.exports = {
   "ofTheAgenda": {
     "fr": "de l'agenda",
     "en": "of the agenda",
-    "de": "der Kalender",
+    "de": "des Veranstaltungskalenders",
     "es": "agenda"
   },
   "onTheAgenda": {
     "fr": "sur l'agenda",
     "en": "on the agenda",
-    "de": "an der Kalender",
+    "de": "im Veranstaltungskalender",
     "es": "en la agenda"
   },
   "youWantToContributeToTheAgenda": {
     "fr": "Vous souhaitez contribuer à l'agenda",
     "en": "You want to contribute to the agenda",
-    "de": "Sie wollen die Kalender beizutragen",
+    "de": "Du willst am Veranstaltungskalender teilnehmen",
     "es": "¿Quieres contribuir a la agenda"
   },
   "wantsToContributeToTheAgenda": {
     "fr": "souhaite contribuer à l'agenda",
     "en": "wants to contribute to the agenda",
-    "de": "will die Agenda beitragen",
+    "de": "will am Veranstaltungskalender teilnehmen",
     "es": "desea contribuir a la agenda"
   },
   "youRequestedEditingRights": {
     "fr": "Vous avez demandé les droits d'édition",
     "en": "You requested editing rights",
-    "de": "Sie angeforderte Bearbeitungsrechte",
+    "de": "Du hast Bearbeitungsrechte angefordert",
     "es": "Usted pidió los derechos de publicación"
   },
   "requestedEditingRights": {
@@ -568,7 +568,7 @@ module.exports = {
   "youSuggestedALocationChange": {
     "fr": "Vous avez suggeré une modification sur le lieu",
     "en": "You suggested a change on the location",
-    "de": "Sie schlug vor, eine Änderung auf der Stelle",
+    "de": "Du hast eine Änderung der Örtlichkeit vorgeschlagen",
     "es": "Usted sugirió un cambio en el lugar"
   },
   "suggestedALocationChange": {
@@ -580,7 +580,7 @@ module.exports = {
   "youContactedSupport": {
     "fr": "Vous avez contacté le support OpenAgenda",
     "en": "You contacted the support OpenAgenda",
-    "de": "Sie kontaktierte die Unterstützung OpenAgenda",
+    "de": "Du hast den Hilfebereich von OpenAgenda kontaktiert.",
     "es": "Se ha comunicado con los medios de comunicación OpenAgenda"
   },
   "contactedSupport": {
@@ -592,7 +592,7 @@ module.exports = {
   "conversationCreationSuccess": {
     "fr": "Votre message a bien été envoyé, vous pourrez voir les réponses dans votre messagerie personnelle.",
     "en": "Your message has been sent, you will see the answers in your personal inbox.",
-    "de": "Ihre Nachricht wurde versendet, werden Sie die Antworten in Ihrem persönlichen Posteingang sehen.",
+    "de": "Deine Nachricht wurde versendet, du wirst die Antworten in Deinem persönlichen Posteingang sehen.",
     "es": "Su mensaje ha sido enviado, verá las respuestas en su buzón personal."
   },
   "requestEditionCreationTitle": {
@@ -610,7 +610,7 @@ module.exports = {
   "requestContributeAcceptModal": {
     "fr": "Êtes-vous sûr de vouloir accepter ce contributeur ?",
     "en": "Are you sure you want to accept this contributor ?",
-    "de": "Sind Sie sicher, dass Sie diesen Beitrag akzeptieren?",
+    "de": "Bist du sicher, dass du diesen Beitrag akzeptieren willst?",
     "es": "¿Está seguro de que desea aceptar colaborador?"
   },
   "requestContributeRefuseModalTitle": {
@@ -622,7 +622,7 @@ module.exports = {
   "requestContributeRefuseModal": {
     "fr": "Êtes-vous sûr de vouloir refuser ce contributeur ?",
     "en": "Are you sure you want to refuse this contributor?",
-    "de": "Sind Sie sicher, dass Sie diesen Beitrag verweigern?",
+    "de": "Bist du sicher, dass du diesen Beitrag ablehnen willst?",
     "es": "¿Está seguro de que desea denegar el contribuyente?"
   },
   "requestContributeAccepted": {
@@ -640,13 +640,13 @@ module.exports = {
   "editionRequestAcceptModalTitle": {
     "fr": "Donner les droits d'édition",
     "en": "Give editing rights",
-    "de": "Geben Sie Bearbeitungsrechte",
+    "de": "Die Bearbeitungsrechte geben",
     "es": "Dar a los derechos de publicación"
   },
   "editionRequestAcceptModal": {
     "fr": "Êtes-vous sûr de vouloir donner les droits d'édition sur cet événement ?",
     "en": "Are you sure you want to give editing rights on this event?",
-    "de": "Sind Sie sicher, dass Sie Bearbeitungsrechte zu dieser Veranstaltung geben wollen?",
+    "de": "Bist du sicher, dass du Bearbeitungsrechte zu dieser Veranstaltung vergeben wilsst?",
     "es": "¿Está seguro de que desea dar derechos de edición para este evento?"
   },
   "editionRequestRefuseModalTitle": {
@@ -658,7 +658,7 @@ module.exports = {
   "editionRequestRefuseModal": {
     "fr": "Êtes-vous sûr de vouloir refuser de donner les droits d'édition sur cet événement ?",
     "en": "Are you sure you want to decline to give editing rights on this event?",
-    "de": "Sind Sie sicher, dass Sie ablehnen Bearbeitungsrechte zu dieser Veranstaltung geben?",
+    "de": "Bist du sicher, dass du die Vergabe der Bearbeitungsrechte zu dieser Veranstaltung vergeben willst?",
     "es": "Está seguro de que desea retener los derechos de publicación a este evento?"
   },
   "editionRequestAccepted": {
@@ -676,7 +676,7 @@ module.exports = {
   "uppyNote": {
     "fr": "Vous pouvez télécharger une image ou un fichier de type pdf, doc ou docx.",
     "en": "You can upload an image or a file of type pdf, doc or docx.",
-    "de": "Sie können ein Bild oder eine Datei vom Typ pdf, doc oder docx hochladen.",
+    "de": "Du kannst ein Bild oder eine Dokument vom Typ .pdf, .doc oder .docx hochladen.",
     "es": "Puede descargar una imagen o archivo PDF tipo, doc o docx."
   },
   "uppyModalTitle": {

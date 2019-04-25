@@ -5,7 +5,7 @@ module.exports = {
     "fr": "Fiche membre",
     "en": "Member form",
     "it": "Informazione membro",
-    "de": "Mitgliedsdatei",
+    "de": "Kontaktdaten",
     "br": "Restr ezel",
     "es": "perfil de miembro"
   },

@@ -10,7 +10,7 @@ module.exports = {
   "mainSubtitle": {
     "fr": "Réduisez vos coûts et démultipliez la visibilité de vos événements",
     "en": "Optimize cost and improve your events visibility",
-    "de": "Optimieren Sie Kosten und verbessern Sie Ihre Veranstaltungen Sichtbarkeit",
+    "de": "Optimiere Kosten und verbessern Sie Deine Veranstaltungen Sichtbarkeit",
     "es": "Reducir los costos y multiplicar la visibilidad de sus eventos"
   },
   "mainToday": {
@@ -40,13 +40,13 @@ module.exports = {
   "mainAgendaSearch": {
     "fr": "Chercher un agenda",
     "en": "Look for an agenda",
-    "de": "Suchen Sie nach einer Agenda",
+    "de": "Suche nach einer Verwaltungskalender",
     "es": "agenda de búsqueda"
   },
   "mainAgendaCreate": {
     "fr": "Créer un agenda",
     "en": "Create an agenda",
-    "de": "Erstellen Sie eine Agenda",
+    "de": "Erstelle eine Verwaltungskalender",
     "es": "Crear un agenda"
   },
   "mainDescription": {
@@ -58,7 +58,7 @@ module.exports = {
   "mainConnectWith": {
     "fr": "Connectez votre agenda avec",
     "en": "Connect your agenda with",
-    "de": "Schließen Sie Ihre Agenda mit",
+    "de": "Schließe DeineVerwaltungskalender mit",
     "es": "Conectar su agenda con"
   },
   "mainConnectMedia": {
@@ -100,25 +100,25 @@ module.exports = {
   "mainBroadcastPoint2": {
     "fr": "Ils sont agrégeables par d'autres agendas de la plateforme",
     "en": "They can be aggregated in other agendas",
-    "de": "Sie können auch in anderen Kalenders aggregiert werden",
+    "de": "Du kannst auch in anderen Kalenders aggregiert werden",
     "es": "Ellos aggregatable por otra plataforma agendas"
   },
   "mainBroadcastPoint3": {
     "fr": "Ils sont redifusé par plus de cent médias, dont le Parisien, Ouest France, Viafrance et TootSweet",
     "en": "They are available for reuse by more than a hundred media, including Le Parisien, Ouest France, ViaFrance or TootSweet",
-    "de": "Sie sind für die Wiederverwendung von mehr als hundert Medien einschließlich Le Parisien, Ouest France, Viafrance oder TootSweet",
+    "de": "Du bist für die Wiederverwendung von mehr als hundert Medien einschließlich Le Parisien, Ouest France, Viafrance oder TootSweet",
     "es": "Ellos redifusé por más de un centenar de medios incluyendo el oeste de París Francia, y viaFrance TootSweet"
   },
   "mainBroadcastPoint4": {
     "fr": "Ils sont intégrables sur **[votre site](/decouvrir/votre-site)**",
     "en": "They are embedabble in your **[your website](/discover/your-website)**",
-    "de": "Sie sind embedabble in Ihrem ** [Ihre Website] (/ entdecken / your-Website) **",
+    "de": "Du bist embedabble in Ihrem ** [Deine Website] (/ entdecken / your-Website) **",
     "es": "Se integran en ** [su sitio] (/ descubrir / tu-sitio web) **"
   },
   "mainBETitle": {
     "fr": "Vous organisez un grand événement ?",
     "en": "Are you organizing a big event ?",
-    "de": "Organisieren Sie ein großes Veranstaltung?",
+    "de": "Organisiere ein großes Veranstaltung?",
     "es": "¿Estás organizando un gran evento?"
   },
   "mainBEPoint1": {
@@ -130,7 +130,7 @@ module.exports = {
   "mainBEPoint2": {
     "fr": "Personnalisez vos événements",
     "en": "Customize your events",
-    "de": "Passen Sie Ihre Veranstaltungen",
+    "de": "Personalisiere deine Veranstaltungskalender",
     "es": "Personalizar sus eventos"
   },
   "mainBEPoint3": {
@@ -142,7 +142,7 @@ module.exports = {
   "mainBEPoint4": {
     "fr": "Affichez votre agenda sur votre site",
     "en": "Display your agenda on your site",
-    "de": "Zeigen Sie Ihre Agenda auf Ihrer Website",
+    "de": "Zeige DeineVerwaltungskalender auf deiner Website",
     "es": "Mostrar su agenda en su sitio"
   },
   "mainBEPoint5": {
@@ -154,7 +154,7 @@ module.exports = {
   "mainBEPoint6": {
     "fr": "Bénéficiez d’un support express via un interlocuteur dédié",
     "en": "Get privileged access to a dedicated support contact",
-    "de": "Erhalten Sie einen privilegierten Zugang zu einem dedizierten Support-Kontakt",
+    "de": "Erhalte einen privilegierten Zugang zu einem dedizierten Support-Kontakt",
     "es": "Cuentan con el apoyo expreso a través de un contacto específico"
   },
   "mainPricingTitle": {
@@ -178,7 +178,7 @@ module.exports = {
   "mainPricingAgendaPoint1": {
     "fr": "Lancez maintenant l’agenda de votre lieu, salon, festival, organisation.",
     "en": "Launch now the calendar of your location, exhibition, festival, organisation.",
-    "de": "Starten Sie jetzt den Kalender Ihres Standorts, Ausstellung, Festival, Organisation.",
+    "de": "Starte jetzt den Kalender Ihres Standorts, Ausstellung, Festival, Organisation.",
     "es": "Ahora ejecuta el agenda de su lugar, el salón, la organización del festival."
   },
   "mainPricingAgendaPoint2": {
@@ -214,7 +214,7 @@ module.exports = {
   "mainPricingDiscover": {
     "fr": "Découvrir les offres",
     "en": "Discover the offers",
-    "de": "Entdecken Sie die Angebote",
+    "de": "Entdecke die Angebote",
     "es": "Descubre las ofertas"
   },
   "basicOfferTitle": {
@@ -262,7 +262,7 @@ module.exports = {
   "agendaPricingPresPoint1": {
     "fr": "Vos événements sont détaillés et vous pouvez organiser votre agenda par de multiples critères",
     "en": "Your event pages are detailed and you can organize your calendar with multiple criterias.",
-    "de": "Ihre Veranstaltungsseiten sind detailliert und Sie können Ihren Kalender mit mehreren Kriterien organisieren.",
+    "de": "Deine Veranstaltungsseiten sind detailliert und du kannst deinen Kalender mit mehreren Kriterien organisieren.",
     "es": "Sus eventos son detallados y le pueden organizar su agenda de múltiples criterios"
   },
   "agendaPricingPresPoint2": {
@@ -274,7 +274,7 @@ module.exports = {
   "agendaPricingPresPoint3": {
     "fr": "Votre agenda est synchronisable avec tous vos supports et diffusable par tous",
     "en": "Sync your calendar with your mediums and share it with the whole world as #OpenData.",
-    "de": "Synchronisieren Sie Ihren Kalender mit Ihren Medien und teilen Sie es mit der ganzen Welt als #OpenData.",
+    "de": "Synchronisiere deinen Kalender mit deinen Medien und teile es mit der ganzen Welt als #OpenData.",
     "es": "Su agenda está sincronizado con todos sus medios y distribuir por todos"
   },
   "agendaPricingFreeTitle": {
@@ -286,7 +286,7 @@ module.exports = {
   "agendaPricingFreeAction": {
     "fr": "Créer un agenda",
     "en": "Create an agenda",
-    "de": "Erstellen Sie eine Agenda",
+    "de": "Erstelle eine Verwaltungskalender",
     "es": "Crear un agenda"
   },
   "agendaPricingFreePrice": {
@@ -454,7 +454,7 @@ module.exports = {
   "networkPricingPresTitle": {
     "fr": "Déployez votre réseau d'agendas",
     "en": "Deploy your network of agendas",
-    "de": "Stellen Sie Ihr Netzwerk von Kalenders",
+    "de": "Stelle deinNetzwerk von Kalenders",
     "es": "Desplegar su red agendas"
   },
   "networkPricingPresText": {
@@ -610,7 +610,7 @@ module.exports = {
   "networkHowManyAction": {
     "fr": "Appelez-nous!",
     "en": "Call us!",
-    "de": "Rufen Sie uns an!",
+    "de": "Rufe uns an!",
     "es": "¡Llámenos!"
   },
   "basicOfferHeadTitle": {
@@ -622,13 +622,13 @@ module.exports = {
   "basicOfferHeadDescription": {
     "fr": "Créez un agenda participatif gratuitement pour mieux diffuser vos événements",
     "en": "Create a participative agenda for free to better broadcast your events",
-    "de": "Erstellen Sie eine partizipative Agenda kostenlos besser auf Ihre Veranstaltungen ausgestrahlt",
+    "de": "Erstelle eine partizipativeVerwaltungskalender kostenlos besser auf Deine Veranstaltungen ausgestrahlt",
     "es": "Obtener una agenda participativa libertad para difundir mejor sus eventos"
   },
   "basicOfferDescription": {
     "en": "Create as many agendas as you want, they are free and always will be",
     "fr": "Créez autant d’agendas que vous le souhaitez, c’est gratuit et ça le sera toujours.",
-    "de": "Erstellen Sie so viele Kalenders, wie Sie wollen, sie sind kostenlos und wird es immer sein",
+    "de": "Erstelle so viele Kalenders, wie Sie wollen, du bist kostenlos und wird es immer sein",
     "es": "Crear tantos agendas como desee, es gratis y siempre lo será."
   },
   "unlimitedTitle": {
@@ -646,7 +646,7 @@ module.exports = {
   "unlimitedMembers": {
     "en": "Manage your agenda on your own or mobilize a community around a common agenda",
     "fr": "Pilotez votre agenda seul ou animez une communauté autour d’un agenda commun.",
-    "de": "Verwalten Sie Ihre Agenda auf eigene Faust oder mobilisieren, um eine Gemeinschaft um eine gemeinsame Agenda",
+    "de": "Verwalte deine Verwaltungskalender auf eigene Faust oder mobilisieren, um eine Gemeinschaft um eine gemeinsame Verwaltungskalender",
     "es": "Pilotar su única agenda o llevar una comunidad en torno a una agenda común."
   },
   "unlimitedDownloads": {
@@ -694,7 +694,7 @@ module.exports = {
   "multimediaEventsTitle": {
     "en": "Publish detailed multimedia events",
     "fr": "Publiez des événements détaillés et multimédias",
-    "de": "Veröffentlichen Sie ausführliche Multimedia-Events",
+    "de": "Veröffentliche ausführliche Multimedia-Events",
     "es": "Publicación de eventos detallados y multimedia"
   },
   "multimediaEventsTimings": {
@@ -718,13 +718,13 @@ module.exports = {
   "multimediaEventsGeo": {
     "fr": "Géolocalisation riche: tapez l’adresse et OpenAgenda trouve latitude, longitude, département, région et pays",
     "en": "Rich geocoding: type the address and all localization details are retrieved: latitude, longitude, region, country...",
-    "de": "Rich Geokodierung: Geben Sie die Adresse und alle Lokalisierungs Details abgerufen werden sollen: Breitengrad, Längengrad, Region, Land ...",
+    "de": "Rich Geokodierung: Gebe die Adresse und alle Lokalisierungs Details abgerufen werden sollen: Breitengrad, Längengrad, Region, Land ...",
     "es": "Geolocalización rica: escriba la dirección y se encontró OpenAgenda latitud, longitud, estado y país"
   },
   "broadcastHeadTitle": {
     "fr": "OpenAgenda - Une seule saisie pour de multiples diffusions",
     "en": "OpenAgenda - Type one entry for multiple re-uses",
-    "de": "OpenAgenda - Geben Sie einen Eintrag für mehrere Wiederverwendungen",
+    "de": "OpenAgenda - Gebe einen Eintrag für mehrere Wiederverwendungen",
     "es": "OpenAgenda - Sólo una entrada para múltiples transmisiones"
   },
   "broadcastHeadDescription": {
@@ -736,13 +736,13 @@ module.exports = {
   "broadcastTitle": {
     "fr": "Une seule saisie pour de multiples diffusions",
     "en": "Type one entry for multiple re-uses",
-    "de": "Geben Sie einen Eintrag für mehrere Wiederverwendungen",
+    "de": "Gebe einen Eintrag für mehrere Wiederverwendungen",
     "es": "Una sola entrada para múltiples transmisiones"
   },
   "broadcastText": {
     "fr": "Exportez votre agenda sur de multiples supports:",
     "en": "Export your agenda on multiple mediums:",
-    "de": "Exportieren Sie Ihre Agenda auf mehreren Medien:",
+    "de": "Exportiere DeineVerwaltungskalender auf mehreren Medien:",
     "es": "Exportar su agenda en varios formatos:"
   },
   "broadcastWebsite": {
@@ -784,7 +784,7 @@ module.exports = {
   "getStartedButton": {
     "fr": "Créez votre agenda !",
     "en": "Create an agenda !",
-    "de": "Erstellen Sie eine Agenda!",
+    "de": "Erstelle eine Verwaltungskalender!",
     "es": "Crear su agenda!"
   },
   "premiumOfferTitle": {
@@ -808,7 +808,7 @@ module.exports = {
   "startWithFree": {
     "en": "You get all the features from an Open Agenda, plus...",
     "fr": "Profitez de toutes les fonctions de l'Agenda gratuit, avec en plus...",
-    "de": "Sie erhalten alle Funktionen von Open Agenda, plus ...",
+    "de": "Sie erhalten alle Funktionen von Open Verwaltungskalender, plus ...",
     "es": "Disfrutar de todas las características del agenda libre, con más ..."
   },
   "customizedTitle": {
@@ -820,13 +820,13 @@ module.exports = {
   "customizedChoice": {
     "fr": "Ajoutez des champs de tous types, obligatoires ou facultatifs, publics ou privés",
     "en": "Add fields of any type, required or not, private or public",
-    "de": "Fügen Sie Felder jeglicher Art, erforderlich ist oder nicht, privat oder öffentlich",
+    "de": "Füge Felder jeglicher Art, erforderlich ist oder nicht, privat oder öffentlich",
     "es": "Agregar campos de todo tipo, obligatorias o voluntarias, públicas o privadas"
   },
   "customizedExportable": {
     "fr": "Exportez toutes vos données à tout moment et dans tous formats",
     "en": "Export all your data any time in any format",
-    "de": "Exportieren Sie alle Ihre Daten jederzeit in einem beliebigen Format",
+    "de": "Exportiere alle Deine Daten jederzeit in einem beliebigen Format",
     "es": "Exportar todos sus datos en todo momento y en todos los formatos"
   },
   "boundariesTitle": {
@@ -838,7 +838,7 @@ module.exports = {
   "boundariesTime": {
     "fr": "Spécifiez la période couverte par votre agenda",
     "en": "Specify the period covered by your agenda",
-    "de": "Geben Sie den von Ihrem Programm abgedeckten Zeitraum",
+    "de": "Gebe den von Ihrem Programm abgedeckten Zeitraum",
     "es": "Especificar el período de su agenda"
   },
   "boundariesContribution": {
@@ -862,13 +862,13 @@ module.exports = {
   "customEmbed": {
     "fr": "Proposez un agenda en marque blanche sur votre site",
     "en": "Display a white-label agenda on your site",
-    "de": "Zeigen Sie ein White-Label-Programm auf Ihrer Website",
+    "de": "Zeige ein White-Label-Programm auf deiner Website",
     "es": "Presentar un agenda de marca blanca en su sitio"
   },
   "customEmbedSearch": {
     "fr": "Disposez de toutes les fonctions de recherche d’OpenAgenda directement sur votre site",
     "en": "Get all OpenAgenda search features directly on your website",
-    "de": "Holen Sie sich alle OpenAgenda Suche direkt auf Ihrer Website verfügt",
+    "de": "Hole sich alle OpenAgenda Suche direkt auf deiner Website verfügt",
     "es": "Organizar todas las funciones de búsqueda OpenAgenda directamente en su sitio"
   },
   "customEmbedFeatured": {
@@ -886,7 +886,7 @@ module.exports = {
   "validationProcessTitle": {
     "en": "Get more out of your event validation process",
     "fr": "Profitez d'un circuit de validation plus poussé",
-    "de": "Holen Sie mehr aus Ihrer Veranstaltung Validierungsprozess",
+    "de": "Hole mehr aus deiner Veranstaltung Validierungsprozess",
     "es": "Disfrutar de un circuito de validación más"
   },
   "validationProcessThree": {
@@ -964,19 +964,19 @@ module.exports = {
   "networkEvolving": {
     "en": "Get the benefits of an online specialized solution in constant evolution",
     "fr": "Bénéficiez d’une solution en ligne en constante amélioration.",
-    "de": "Genießen Sie die Vorzüge einer Online-Lösung spezialisiert in ständiger Entwicklung",
+    "de": "Genieße die Vorzüge einer Online-Lösung spezialisiert in ständiger Entwicklung",
     "es": "Disfrutar de una solución en línea en constante mejora."
   },
   "networkSupport": {
     "en": "Get one-to-one dedicated express support",
     "fr": "Bénéficiez d’un support express via un interlocuteur dédié",
-    "de": "Holen Sie one-to-one gewidmet ausdrückliche Unterstützung",
+    "de": "Hole one-to-one gewidmet ausdrückliche Unterstützung",
     "es": "Cuentan con el apoyo expreso a través de un contacto específico"
   },
   "networkPremium": {
     "en": "Get an unlimited number of free agendas plus **20 premium agendas**",
     "fr": "Le nombre d’agendas gratuit est illimité et vous disposez de **20 agendas premium**",
-    "de": "Erhalten Sie eine unbegrenzte Anzahl von freien Kalenders plus ** 20 Premium-Kalenders **",
+    "de": "Erhalte eine unbegrenzte Anzahl von freien Kalenders plus ** 20 Premium-Kalenders **",
     "es": "El número de agenda libre es ilimitado y tiene premium ** 20 ** agendas"
   },
   "networkExport": {
@@ -994,25 +994,25 @@ module.exports = {
   "supportBoard": {
     "en": "Get a personal support through a dedicated ticket board",
     "fr": "Un accès à un support dédié via un tableau de tickets",
-    "de": "Holen Sie sich eine persönliche Betreuung durch ein spezielles Ticket Bord",
+    "de": "Hole sich eine persönliche Betreuung durch ein spezielles Ticket Bord",
     "es": "El acceso a un soporte dedicado a través de las entradas Tabla"
   },
   "supportLaunch": {
     "en": "Get a one-to-one conversation at the start of your project to start on the right foot",
     "fr": "Profitez d'un conseil spécialisé au démarrage de votre projet pour partir sur de bonnes bases",
-    "de": "Holen Sie sich ein Eins-zu-Eins-Gespräch zu Beginn des Projektes auf dem rechten Fuß zu beginnen",
+    "de": "Hole sich ein Eins-zu-Eins-Gespräch zu Beginn des Projektes auf dem rechten Fuß zu beginnen",
     "es": "Disfrutar de asesoramiento de expertos en el inicio de su proyecto desde el derecho básico"
   },
   "multiplePremiumTitle": {
     "en": "Create up to 20 premium agendas",
     "fr": "Créez jusqu'à 20 agendas premium",
-    "de": "Erstellen Sie bis zu 20 Premium-Kalenders",
+    "de": "Erstelle bis zu 20 Premium-Kalenders",
     "es": "Crear hasta 20 agendas premium"
   },
   "multiplePremiumText": {
     "en": "[Discover the premium agenda features](#premium)",
     "fr": "[Découvrez les fonctionnalités d'un agenda premium](#premium)",
-    "de": "[Entdecken Sie die Premium-Agenda Features] (# premium)",
+    "de": "[Entdecke die Premium-Agenda Features] (# premium)",
     "es": "[Descubre las características de un agenda de alta calidad] (# Premium)"
   },
   "footerBasic": {
@@ -1228,7 +1228,7 @@ module.exports = {
   "collaborateTitle": {
     "en": "Collaborate over large event datasets",
     "fr": "Collaborez sur des agendas d'envergure",
-    "de": "Arbeiten Sie über großes Veranstaltung-Datensätze",
+    "de": "Arbeite über großes Veranstaltung-Datensätze",
     "es": "Colaborar en las principales agendas"
   },
   "collaborateHeadTitle": {
@@ -1258,13 +1258,13 @@ module.exports = {
   "stakeholderInfo": {
     "en": "Get details on your contributors such as contact number, role and organization name",
     "fr": "Récuperez des données de contact plus précises de vos contributeurs comme leur numéro, organisation, et fonction",
-    "de": "Informieren Sie sich über Ihre Mitwirkenden wie Telefonnummer, die Rolle und den Namen der Organisation",
+    "de": "Informiere sich über Deine Mitwirkenden wie Telefonnummer, die Rolle und den Namen der Organisation",
     "es": "Obtener datos más precisos de contacto de sus colaboradores, tal como su número, organización y función"
   },
   "buildNetworkTitle": {
     "en": "Build a network of agendas",
     "fr": "Constituez votre réseau d'agendas",
-    "de": "Bauen Sie ein Netzwerk von Kalenders",
+    "de": "Baue ein Netzwerk von Kalenders",
     "es": "Construir su red de agendas"
   },
   "buildNetworkDescription": {
@@ -1276,13 +1276,13 @@ module.exports = {
   "buildNetworkHeadTitle": {
     "en": "OpenAgenda - Build a network of agendas",
     "fr": "OpenAgenda - Constituez votre réseau d'agendas",
-    "de": "OpenAgenda - Bauen Sie ein Netzwerk von Kalenders",
+    "de": "OpenAgenda - Baue ein Netzwerk von Kalenders",
     "es": "OpenAgenda - Construye tu red de agendas"
   },
   "exportsTitle": {
     "en": "Make your events available in all file and export formats",
     "fr": "Rendez vos événements accessibles dans tous les formats d'export",
-    "de": "Machen Sie Ihre Veranstaltungen in allen Datei und Exportformate verfügbar",
+    "de": "Mache Deine Veranstaltungen in allen Dokument und Exportformate verfügbar",
     "es": "Que sus eventos disponible en todos los formatos de exportación"
   },
   "exportsFormats": {
@@ -1306,7 +1306,7 @@ module.exports = {
   "exportsBroadcastTitle": {
     "en": "Broadcast your events",
     "fr": "Diffusez vos événements",
-    "de": "Übertragen Sie Ihre Veranstaltungen",
+    "de": "Übertrage Deine Veranstaltungen",
     "es": "Publique sus eventos"
   },
   "exportsNetworkable": {
@@ -1324,13 +1324,13 @@ module.exports = {
   "privateTitle": {
     "en": "Do you want to limit access to your Agenda?",
     "fr": "Vous avez besoin de limiter les accès à votre Agenda?",
-    "de": "Wollen Sie den Zugriff auf Ihre Agenda begrenzen?",
+    "de": "Wolle den Zugriff auf DeineVerwaltungskalender begrenzen?",
     "es": "Es necesario limitar el acceso a su agenda?"
   },
   "privatePrivate": {
     "en": "Make your agendas **private**",
     "fr": "Gérez des agendas **privés**",
-    "de": "Machen Sie Ihre Kalenders ** ** Privat",
+    "de": "Mache Deine Kalenders ** ** Privat",
     "es": "Administrar agendas ** ** privada"
   },
   "privateVisibility": {
@@ -1354,19 +1354,19 @@ module.exports = {
   "reportingToolHeadTitle": {
     "en": "OpenAgenda - Use a contributive agenda for reporting your specialized event data",
     "fr": "OpenAgenda - Utilisez un agenda contributif pour votre reporting événementiel",
-    "de": "OpenAgenda - eine contributive Agenda Verwenden Sie für Ihre spezielle Veranstaltungdaten Berichterstattung",
+    "de": "OpenAgenda - eine contributiveVerwaltungskalender Verwende für Deine spezielle Veranstaltungdaten Berichterstattung",
     "es": "OpenAgenda - Utilizar un agenda que contribuye para el reporte de eventos"
   },
   "reportingToolDescription": {
     "en": "Define private and public custom fields and download all data in one click",
     "fr": "Définissez des champs publiques ou privés, collectez des informations spécifiques à votre organisation, téléchargez vos contenus en un clic",
-    "de": "Definieren Sie private und öffentliche benutzerdefinierte Felder und laden Sie alle Daten in einem einzigen Klick",
+    "de": "Definiere private und öffentliche benutzerdefinierte Felder und lade alle Daten in einem einzigen Klick",
     "es": "Establecer campos públicos o privados, recogen información específica de su organización, descarga su contenido en un solo clic"
   },
   "paolaScottonTestimony": {
     "en": "The ideal solution to centralize all information related to a common event. The platform is very intuitive and simple to used, it keeps all its promises.",
     "fr": "La solution idéale pour centraliser toutes les informations relatives à un événement commun. L’outil est très intuitif et simple d’utilisation, il tient toutes ses promesses.",
-    "de": "Die ideale Lösung, alle Informationen im Zusammenhang mit einer gemeinsamen Veranstaltung zu zentralisieren. Die Plattform ist sehr intuitiv und einfach zu verwenden, sie alle ihre Versprechen hält.",
+    "de": "Die ideale Lösung, alle Informationen im Zusammenhang mit einer gemeinsamen Veranstaltung zu zentralisieren. Die Plattform ist sehr intuitiv und einfach zu verwenden, sie alle Deine Versprechen hält.",
     "es": "La solución ideal para centralizar toda la información relacionada con un evento común. La herramienta es muy intuitiva y fácil de usar, que mantiene sus promesas."
   },
   "paolaScottonRole": {
@@ -1474,13 +1474,13 @@ module.exports = {
   "contactHeadTitle": {
     "en": "OpenAgenda - Contact us",
     "fr": "OpenAgenda - Contactez-nous",
-    "de": "OpenAgenda - Kontaktieren Sie uns",
+    "de": "OpenAgenda - Kontaktiere uns",
     "es": "OpenAgenda - Póngase en contacto con nosotros"
   },
   "contactDescription": {
     "en": "Give us a call or right a note, we will get back to you shortly",
     "fr": "Appelez nous ou laissez nous un message, nous vous répondrons rapidement",
-    "de": "Rufen Sie uns an oder rechts eine Notiz, wir werden in Kürze bei Ihnen zurück",
+    "de": "Rufe uns an oder rechts eine Notiz, wir werden in Kürze bei Ihnen zurück",
     "es": "Llámenos o dejar un mensaje, vamos a responder con rapidez"
   },
   "testimoniesTitle": {
@@ -1498,7 +1498,7 @@ module.exports = {
   "testimoniesHeadDescription": {
     "en": "Find out what our clients say about OpneAgenda",
     "fr": "Découvrez ce que nos clients pensent d'OpenAgenda",
-    "de": "Finden Sie heraus, was unsere Kunden über OpneAgenda sagen",
+    "de": "Finde heraus, was unsere Kunden über OpneAgenda sagen",
     "es": "Vea lo que nuestros clientes piensan de OpenAgenda"
   },
   "basicSumUnlimitedEvents": {
@@ -1606,13 +1606,13 @@ module.exports = {
   "embedDescription": {
     "en": "Embed your white-labelled OpenAgenda in your site",
     "fr": "Intégrez votre OpenAgenda en marque blanche",
-    "de": "Betten Sie Ihre White-Label OpenAgenda in Ihrer Website",
+    "de": "Bette Deine White-Label OpenAgenda in deiner Website",
     "es": "Integrar su marca blanca OpenAgenda"
   },
   "embedDiscover": {
     "en": "Discover a selection of embedded agendas",
     "fr": "Découvrez une sélection d'OpenAgendas intégrés",
-    "de": "Entdecken Sie eine Auswahl an Embedded-Kalenders",
+    "de": "Entdecke eine Auswahl an Embedded-Kalenders",
     "es": "Descubre una selección de OpenAgendas construidas"
   }
 }

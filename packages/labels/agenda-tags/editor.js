@@ -22,7 +22,7 @@ module.exports = {
   "groupInfoInfo": {
     "en": "Leave empty to keep default text",
     "fr": "Laissez vide pour garder le texte par défaut",
-    "de": "Lassen Sie leer Standardtext zu halten",
+    "de": "Lasse leer Standardtext zu halten",
     "es": "Dejar en blanco para mantener el texto predeterminado"
   },
   "tagListTitle": {
@@ -88,7 +88,7 @@ module.exports = {
   "addGroup": {
     "en": "Add a tag group",
     "fr": "Ajouter un groupe de tags",
-    "de": "Fügen Sie eine Variablengruppe",
+    "de": "Füge eine Variablengruppe",
     "es": "Añadir un grupo de etiquetas"
   },
   "deleteGroup": {
@@ -118,13 +118,13 @@ module.exports = {
   "noTags": {
     "en": "You haven't yet defined any tags for this agenda",
     "fr": "Vous n'avez encore défini aucune tags pour cet agenda",
-    "de": "Sie haben noch keine Tags zu diesem Programm definiert",
+    "de": "Du hast noch keine Tags zu diesem Programm definiert",
     "es": "No se ha definido ninguna etiqueta para esta agenda"
   },
   "linkError": {
     "en": "An error occurred while saving your data. Please try again later",
     "fr": "Une erreur est survenue lors de la sauvegarde de vos données. Veuillez retenter l'opération sous peu.",
-    "de": "Ein Fehler ist aufgetreten, während die Daten zu speichern. Bitte versuchen Sie es später noch einmal",
+    "de": "Ein Fehler ist aufgetreten, während die Daten zu speichern. Bitte versuche es später noch einmal",
     "es": "Se produjo un error al guardar los datos. Por favor, intente la operación en breve."
   },
   "updateTag": {
@@ -166,7 +166,7 @@ module.exports = {
   "customFieldsFeature": {
     "en": "Add custom fields",
     "fr": "Ajouter des champs personnalisés",
-    "de": "Fügen Sie benutzerdefinierte Felder",
+    "de": "Füge benutzerdefinierte Felder",
     "es": "Añadir campos personalizados"
   },
   "redirectMain": {

@@ -13,7 +13,7 @@ module.exports = {
     "en": "Select an action to execute before pressing the button",
     "fr": "Sélectionnez une action à executer avant de cliquer sur le bouton",
     "it": "Selezionare un'azione da eseguire prima di premere il pulsante",
-    "de": "Wählen Sie eine Aktion aus, die ausgeführt werden soll, bevor Sie die Taste drücken.",
+    "de": "Wähle eine Aktion aus, die ausgeführt werden soll, bevor du die Taste drückst.",
     "pl": "Wybierz czynność do wykonania przed naciśnięciem przycisku",
     "es": "Seleccione una acción a ejecutar antes de hacer clic en el botón"
   },

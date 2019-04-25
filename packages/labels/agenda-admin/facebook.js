@@ -18,7 +18,7 @@ module.exports = {
   "description": {
     "fr": "Ajoutez votre agenda sur une page Facebook",
     "en": "Add your agenda to a Facebook page",
-    "de": "Fügen Sie Ihre Agenda zu einer Facebook-Seite",
+    "de": "Füge DeineVerwaltungskalender zu einer Facebook-Seite",
     "es": "Añadir su agenda en una página de Facebook"
   },
   "footnote": {
@@ -30,7 +30,7 @@ module.exports = {
   "add": {
     "fr": "Choisir une page Facebook",
     "en": "Choose a Facebook page",
-    "de": "Wählen Sie eine Facebook-Seite",
+    "de": "Wähle eine Facebook-Seite",
     "es": "Seleccione una página de Facebook"
   },
   "conditions": {

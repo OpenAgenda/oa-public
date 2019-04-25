@@ -4,7 +4,7 @@ module.exports = {
   "title": {
     "fr": "Vous avez reçu un nouveau message.",
     "en": "You have received a new message.",
-    "de": "Sie haben eine neue Nachricht erhalten haben.",
+    "de": "Du hast eine neue Nachricht erhalten.",
     "es": "Ha recibido un nuevo mensaje."
   },
   "titleWithAgenda": {
@@ -40,7 +40,7 @@ module.exports = {
   "memberUnsubscribe": {
     "fr": "Ne plus recevoir les messages de la messagerie de cet agenda",
     "en": "Stop receiving messages from the inbox of this agenda",
-    "de": "Stoppen Sie Nachrichten aus dem Posteingang dieser Agenda Empfang",
+    "de": "Erhalte keine Nachrichten von diesem Veranstaltungskalender.",
     "es": "Dejar de recibir mensajes de correo esta agenda"
   },
   "changeEmailSettings": {

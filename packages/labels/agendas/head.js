@@ -37,7 +37,7 @@ module.exports = {
     "en": "Add an event",
     "fr": "Ajouter un événement",
     "it": "Aggiungere un evento ",
-    "de": "eine Veranstaltung hinzufügen",
+    "de": "Veranstaltung hinzufügen",
     "pl": "Dodaj element",
     "es": "Añadir un evento"
   },

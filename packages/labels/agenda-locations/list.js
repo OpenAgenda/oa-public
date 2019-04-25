@@ -52,25 +52,25 @@ module.exports = {
   "mergedescription": {
     "fr": "Sélectionnez les lieux à fusionner puis",
     "en": "Select the locations to merge, then",
-    "de": "Wählen Sie die Orte zu fusionieren, dann",
+    "de": "Wähle die Orte zu fusionieren, dann",
     "es": "Seleccione la escena a fusionar y"
   },
   "launchmerge": {
     "fr": "Lancer la fusion",
     "en": "Launch merge",
-    "de": "Starten Sie merge",
+    "de": "Starte merge",
     "es": "iniciar la fusión"
   },
   "mergenoselection": {
     "fr": "Une fois votre sélection faite, lancez la fusion. Vous pourrez sélectionner les valeurs à retenir",
     "en": "Once your selection is done, launch the merge to choose the values to save in the merged location",
-    "de": "Sobald Sie Ihre Auswahl abgeschlossen ist, starten Sie die Zusammenführung die Werte zu wählen, in dem fusionierten Ort zu speichern",
+    "de": "Sobald Sie Deine Auswahl abgeschlossen ist, starte die Zusammenführung die Werte zu wählen, in dem fusionierten Ort zu speichern",
     "es": "Una vez hecha la selección, inicie la combinación. Puede seleccionar los valores a ser"
   },
   "mergeselection": {
     "fr": "Vous avez actuellement sélectionné %count% lieux.",
     "en": "You currently selected %count% locations.",
-    "de": "Sie sind zur Zeit %count% Standorte ausgewählt.",
+    "de": "Du bist zur Zeit %count% Standorte ausgewählt.",
     "es": "Ha seleccionado actualmente% lugares de conteo%."
   },
   "seemergelist": {
@@ -94,7 +94,7 @@ module.exports = {
   "verifiedInfo": {
     "fr": "Les lieux créés via le formulaire événement prennent le statut \"à vérifier\" afin de permettre aux administrateurs de l'agenda de les contrôler",
     "en": "Locations that were created on the fly on the event form get a \"to be verified\" status to allow agenda administrators to control them",
-    "de": "Standorte, die im laufenden Betrieb auf das Veranstaltung Form erstellt wurden, erhalten einen „überprüft werden“ Zustand Agenda Administratoren zu ermöglichen, sie zu kontrollieren",
+    "de": "Standorte, die im laufenden Betrieb auf das Veranstaltung Form erstellt wurden, erhalten einen „überprüft werden“ ZustandVerwaltungskalender Administratoren zu ermöglichen, sie zu kontrollieren",
     "es": "Los lugares creados a través del evento toman estado del formulario \"check in\" para permitir que el agenda de control de los administradores"
   },
   "locationselection": {
@@ -142,7 +142,7 @@ module.exports = {
   "removeTitle": {
     "fr": "Supprimer un lieu",
     "en": "Delete a location",
-    "de": "Löschen Sie einen Ort",
+    "de": "Lösche einen Ort",
     "es": "eliminar lugar"
   },
   "confirmRemove": {
@@ -154,7 +154,7 @@ module.exports = {
   "cannotRemove": {
     "fr": "Le lieu est associé à %eventCount% événements. Dissociez les événements avant de finaliser la suppression",
     "en": "The location is associated to %eventCount% events. You need to dissociate these events before you can proceed with the deletion",
-    "de": "Die Lage ist auf %eventCount% Veranstaltungen verbunden. Sie müssen diese Veranstaltungen trennen, bevor Sie mit dem Löschen fortfahren",
+    "de": "Die Lage ist auf %eventCount% Veranstaltungen verbunden. du musst diese Veranstaltungen trennen, bevor Sie mit dem Löschen fortfahren",
     "es": "El lugar se asocia con eventos %eventCount%. Desagrupar los eventos antes de finalizar la eliminación"
   },
   "confirmRemoveMessage": {
