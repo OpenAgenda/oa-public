@@ -16,11 +16,24 @@ module.exports = _.assign( router, {
   setLayout: layout => router.layout = layout
 } );
 
+router.post( '*', bodyParser.json() );
+
 router.get( '*', ( req, res, next ) => req.headers.accept !== 'application/json' ? _renderPage( req, res, next ) : next() );
 
 router.get( '/', async ( req, res, next ) => {
 
   res.json( await router.service.listNetworks() );
+
+} );
+
+router.post( '/', async ( req, res, next ) => {
+
+  try {
+    await router.service.createNetwork( req.body );
+    res.send( 'ok' );
+  } catch ( e ) {
+    next( e );
+  }
 
 } );
 
@@ -32,30 +45,6 @@ router.get( '/networks/:uid', async ( req, res, next ) => {
     network: await router.service.getNetwork( uid ),
     schema: await router.service.getNetworkSchema( uid )
   } );
-
-} );
-
-router.get( '/networks/:uid/agendas', async ( req, res, next ) => {
-
-  const uid = parseInt( req.params.uid );
-
-  res.json( {
-    network: await router.service.getNetwork( uid ),
-    agendas: await router.service.getNetworkAgendas( uid )
-  } )
-
-} );
-
-router.post( '*', bodyParser.json() );
-
-router.post( '/', async ( req, res, next ) => {
-
-  try {
-    await router.service.createNetwork( req.body );
-    res.send( 'ok' );
-  } catch ( e ) {
-    next( e );
-  }
 
 } );
 
@@ -71,6 +60,34 @@ router.post(
     }
 
   } );
+
+router.get(
+  '/networks/:uid/agendas',
+  async ( req, res, next ) => {
+
+    const uid = parseInt( req.params.uid );
+
+    res.json( {
+      network: await router.service.getNetwork( uid ),
+      agendas: await router.service.getNetworkAgendas( uid )
+    } );
+
+  } );
+
+router.post(
+  '/networks/:uid/agendas',
+  async ( req, res, next ) => {
+
+    try {
+      res.json( await router.service.addAgendaToNetwork( req.body.slugOrUrl.split( '/' ).pop() ) );
+    } catch ( e ) {
+      next( e );
+    }
+
+  } );
+
+
+
 
 
 async function _renderPage( req, res, next ) {

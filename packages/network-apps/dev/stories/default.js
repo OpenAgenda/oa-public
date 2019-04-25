@@ -45,13 +45,24 @@ module.exports = {
     setNetworkSchema,
     getNetworkAgendas,
     createNetwork,
-    getEventSchema
+    getEventSchema,
+    addAgendaToNetwork
   }
 }
 
 async function getNetworkAgendas( uid ) {
 
   return _.get( networkAgendas, uid, [] );
+
+}
+
+async function addAgendaToNetwork( slug ) {
+
+  // oh good, we found it
+  return {
+    uid: 12347,
+    title: 'Un super agenda'
+  }
 
 }
 
