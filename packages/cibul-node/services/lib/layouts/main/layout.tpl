@@ -44,8 +44,9 @@
             <li class="js_toggle language-menu js_not_logged js_language_menu" data-toggle="js_languages_menu">
               <a href="#"><%= lang %></a>
               <ul class="dropdown-menu js_languages_menu collapse">
-                <li><a href="?lang=fr" hreflang="fr">Français</a></li>
-                <li><a href="?lang=en" hreflang="en">English</a></li>
+<% interfaceLanguages.forEach( languageCode => { %>
+                <li><a href="?lang=<%= languageCode %>" hreflang="<%= languageCode %>"><%= labels[ languageCode ] %></a></li>
+<% }) %>
               </ul>
             </li>
             <li class="js_not_logged signin">
