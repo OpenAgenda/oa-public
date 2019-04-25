@@ -2,13 +2,14 @@ import _ from 'lodash';
 import ih from 'immutability-helper';
 import sa from 'superagent';
 
-const actionTypes = {
-  LOAD: 'network-apps/main/LOAD',
-  LOAD_SUCCESS: 'network-apps/main/LOAD_SUCCESS',
-  ADD: 'network-apps/main/ADD',
-  ADD_CHANGE: 'network-apps/main/ADD_CHANGE',
-  ADD_SUBMIT: 'network-apps/main/ADD_SUBMIT'
-}
+const actionTypes = [
+  'LOAD',
+  'LOAD_SUCCESS',
+  'ADD',
+  'ADD_CHANGE',
+  'ADD_SUBMIT',
+  'SERVER_ERROR'
+].reduce( ( a, v ) => _.set( a, v, `network-apps/network/${v}` ), {} );
 
 export default _.assign( ( state = {}, action = {} ) => {
 
@@ -22,6 +23,9 @@ export default _.assign( ( state = {}, action = {} ) => {
     case actionTypes.ADD_CHANGE:
       return ih( state, { add: _.set( {}, action.field, { $set: action.value } ) } );
 
+    case actionTypes.SERVER_ERROR:
+      return ih( state, { error: { $set: action.error } } );
+
     default:
       return state;
   }
@@ -30,7 +34,8 @@ export default _.assign( ( state = {}, action = {} ) => {
   load,
   add: () => ( { type: actionTypes.ADD } ),
   addChange: ( field, value ) => ( { type: actionTypes.ADD_CHANGE, field, value } ),
-  addSubmit
+  addSubmit,
+  actionTypes
 } );
 
 function addSubmit( e ) {

@@ -13,29 +13,37 @@ const actionTypes = [
   'ADD_AGENDA_SUCCESS'
 ].reduce( ( a, v ) => _.set( a, v, `network-apps/network/${v}` ), {} );
 
+const mainTypes = require( './main' ).actionTypes
+
 export default _.assign( ( state = {}, action = {} ) => {
 
   switch ( action.type ) {
     case actionTypes.LOAD_SUCCESS:
       return _.pick( action, [ 'network', 'schema' ] );
+
     case actionTypes.SCHEMA_UPDATE:
       return ih( state, { schema: { $set: action.schema } } );
+
     case actionTypes.LOAD_AGENDAS:
       return ih( state, { $unset: [ 'agendas', 'network' ] } );
+
     case actionTypes.LOAD_AGENDAS_SUCCESS:
       return ih( state, {
         agendas: { $set: action.agendas },
         network: { $set: action.network }
       } );
+
     case actionTypes.SHOW_ADD_AGENDA:
       return ih( state, {
         add: { $set: true }
       } );
+
     case actionTypes.ADD_AGENDA_SUCCESS:
       return ih( state, {
         add: { $set: false },
         agendas: { $push: [ action.agenda ] }
       } );
+
     default:
       return state;
   }
@@ -62,15 +70,24 @@ function loadAgendas() {
       type: actionTypes.LOAD_AGENDAS,
     } );
 
-    const { body: { network, agendas } } = await sa
-      .get( history.location.pathname )
-      .set( 'Accept', 'application/json' );
-
-    dispatch( {
+    const successDispatch = {
       type: actionTypes.LOAD_AGENDAS_SUCCESS,
-      agendas,
-      network
-    } );
+    };
+
+    try {
+      const { body: { network, agendas } } = await sa
+        .get( history.location.pathname )
+        .set( 'Accept', 'application/json' );
+
+      _.assign( successDispatch, { network, agendas } );
+    } catch ( e ) {
+      return dispatch( {
+        type: mainTypes.SERVER_ERROR,
+        error: _.get( e, 'response.body.message', e.message )
+      } );
+    }
+
+    dispatch( successDispatch );
 
   }
 

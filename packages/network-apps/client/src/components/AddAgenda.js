@@ -32,13 +32,3 @@ export default class AddAgenda extends Component {
   }
 
 }
-
-/*return <Modal classNames={{ overlay: 'popup-overlay big' }} onClose={this.close.bind( this )}>
-
-  <h3 className="margin-bottom-md">{getLabel( 'addField', lang )}</h3>
-
-  { _.get( this, 'state.fieldType', null ) ?
-    this.renderFieldForm()
-    : <ChooseFieldType lang={lang} onChooseType={this.onChooseType.bind( this )} onCancel={this.close.bind( this )}/>  }
-
-</Modal>*/

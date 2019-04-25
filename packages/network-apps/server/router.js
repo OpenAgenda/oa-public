@@ -67,10 +67,14 @@ router.get(
 
     const uid = parseInt( req.params.uid );
 
-    res.json( {
-      network: await router.service.getNetwork( uid ),
-      agendas: await router.service.getNetworkAgendas( uid )
-    } );
+    try {
+      res.json( {
+        network: await router.service.getNetwork( uid ),
+        agendas: await router.service.getNetworkAgendas( uid )
+      } );
+    } catch ( e ) {
+      next( e );
+    }
 
   } );
 
@@ -79,7 +83,10 @@ router.post(
   async ( req, res, next ) => {
 
     try {
-      res.json( await router.service.addAgendaToNetwork( req.body.slugOrUrl.split( '/' ).pop() ) );
+      res.json( await router.service.addAgendaToNetwork(
+        parseInt( req.params.uid ),
+        req.body.slugOrUrl.split( '/' ).pop()
+      ) );
     } catch ( e ) {
       next( e );
     }
@@ -87,7 +94,15 @@ router.post(
   } );
 
 
+router.use( ( err, req, res, next ) => {
 
+  if ( req.headers.accept === 'application/json' ) {
+    res.status( 500 ).json( _.pick( err, [ 'message' ] ) );
+  } else {
+    next( err );
+  }
+
+} );
 
 
 async function _renderPage( req, res, next ) {

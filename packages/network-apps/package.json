@@ -18,6 +18,7 @@
     "@openagenda/logs": "^1.1.1",
     "@openagenda/react-components": "^2.2.1",
     "body-parser": "^1.18.2",
+    "immutability-helper": "^3.0.0",
     "lodash": "^4.16.6",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",

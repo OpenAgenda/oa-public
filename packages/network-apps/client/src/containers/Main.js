@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 
 import reducers from '../reducers';
 
+import Header from '../components/Header';
+
 class Main extends Component {
 
   componentDidMount() {
@@ -35,6 +37,7 @@ class Main extends Component {
     const base = this.props.config.base;
 
     return <div>
+      <Header {...this.props} />
       <div className="margin-v-sm text-right">
         { add ? this.renderAdd() : <button className="btn btn-primary" onClick={onAdd}>Ajouter un nouveau réseau</button> }
       </div>

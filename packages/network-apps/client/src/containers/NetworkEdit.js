@@ -7,6 +7,7 @@ import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaB
 import reducers from '../reducers';
 
 import Loading from '../components/Loading';
+import Header from '../components/Header';
 import NetworkHeader from '../components/NetworkHeader';
 
 class NetworkEdit extends Component {
@@ -26,6 +27,7 @@ class NetworkEdit extends Component {
     if ( !network ) return <Loading />
 
     return <div className="wsq padding-all-sm">
+      <Header {...this.props} />
       <NetworkHeader network={network} />
       <FormSchemaBuilder
         lang={lang}
