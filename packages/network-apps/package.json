@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/network-apps",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "main": "server/index",
   "files": [
     "server",
@@ -25,7 +25,7 @@
     "react-redux": "^5.0.7",
     "react-router": "^5.0.0",
     "react-router-config": "^5.0.0",
-    "react-router-dom" : "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "redux": "^4.0.0",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
