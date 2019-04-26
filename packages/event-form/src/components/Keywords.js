@@ -137,6 +137,6 @@ function preClean( value, lang ) {
 
   if ( !_.isArray( lValue ) ) return [];
 
-  return _.flatten( lValue.map( v => v.split( ',' ).map( v => v.trim() ) ) );
+  return _.flatten( lValue.map( v => ( v || '' ).split( ',' ).map( v => v.trim() ) ) );
 
 }
