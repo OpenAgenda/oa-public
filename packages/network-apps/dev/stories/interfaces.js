@@ -40,14 +40,14 @@ module.exports = fixtures => {
 
   }
 
-  async function setNetworkSchema( uid, schema ) {
+  async function setNetworkSchemaFields( uid, fields ) {
 
     console.log( 'committing network schema %s', uid );
 
     _.set( networks, [
       _.findIndex( networks, { uid } ),
       'schema'
-    ], schema );
+    ], { fields } );
 
     return true;
 
