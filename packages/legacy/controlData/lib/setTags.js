@@ -14,7 +14,7 @@ module.exports = async ( { prefix, knex, redis }, agendaUid ) => {
 
   if ( !agendaId ) return log( 'no agenda was found for uid %s', agendaUid );
 
-  const ctlData = await loadControlData( redis, prefix, agendaUid );
+  const ctlData = await loadControlData( redis, prefix, agendaUid, { initialize: true } );
 
   await setTags( ctlData, knex, agendaId );
 
