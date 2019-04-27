@@ -15,7 +15,7 @@ export default _.assign( ( state = {}, action = {} ) => {
 
   switch ( action.type ) {
     case actionTypes.LOAD_SUCCESS:
-      return _.pick( action, 'networks' );
+      return _.pick( action, [ 'networks' ] );
 
     case actionTypes.ADD:
       return ih( state, { add: { $set: {} } } );

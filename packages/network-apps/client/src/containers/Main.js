@@ -36,7 +36,7 @@ class Main extends Component {
     const { onAdd } = this.props;
     const base = this.props.config.base;
 
-    return <div>
+    return <div className="container margin-top-lg">
       <Header {...this.props} />
       <div className="margin-v-sm text-right">
         { add ? this.renderAdd() : <button className="btn btn-primary" onClick={onAdd}>Ajouter un nouveau réseau</button> }

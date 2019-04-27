@@ -41,7 +41,7 @@ export default _.assign( ( state = {}, action = {} ) => {
     case actionTypes.ADD_AGENDA_SUCCESS:
       return ih( state, {
         add: { $set: false },
-        agendas: { $push: [ action.agenda ] }
+        agendas: { $splice: [ [ 0, 0, action.agenda ] ] }
       } );
 
     default:

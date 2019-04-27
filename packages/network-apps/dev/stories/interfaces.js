@@ -33,7 +33,7 @@ module.exports = fixtures => {
 
     _.assign( networks, ih( networks, _.set( {},
       [ _.findIndex( networks, { uid } ), 'agendas' ],
-      { $push: [ addedAgenda ] }
+      { $splice: [ [ 0, 0, addedAgenda ] ] }
     ) ) );
 
     return addedAgenda;

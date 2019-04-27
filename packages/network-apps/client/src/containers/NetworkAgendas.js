@@ -23,7 +23,7 @@ class NetworkAgendas extends Component {
 
     const { onAdd, onAddClose, onAddSubmit } = this.props;
 
-    return <div>
+    return <div className="container margin-top-lg">
       <Header {...this.props} />
       { agendas ? <div>
         { network ? <NetworkHeader network={network} /> : null }

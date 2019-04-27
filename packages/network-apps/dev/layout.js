@@ -11,10 +11,8 @@ module.exports = ( content, data ) => {
         <link rel="stylesheet" href="/style.css">
       </head>
       <body>
-          <div class="container margin-top-lg">
-            ${content}
-          </div>
-        </body>
+        ${content}
+      </body>
     </html>`
 
 }

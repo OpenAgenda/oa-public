@@ -24,7 +24,7 @@ class NetworkEdit extends Component {
     const { eventSchema, lang } = this.props.config;
     const { onUpdate } = this.props;
 
-    return <div>
+    return <div className="container margin-top-lg">
       <Header {...this.props} />
       { network ? <div className="wsq padding-all-sm">
         <NetworkHeader network={network} />
