@@ -16,7 +16,14 @@ describe( 'networks - functional ( server ): validate', function() {
       title: 'La Baule',
       createdAt: new Date(),
       updatedAt: new Date()
-    } ) ).should.eql( [ 'id', 'uid', 'title', 'createdAt', 'updatedAt' ] );
+    } ) ).should.eql( [
+      'id',
+      'uid',
+      'title',
+      'formSchemaId',
+      'createdAt',
+      'updatedAt'
+    ] );
 
   } );
 

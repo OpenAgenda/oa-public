@@ -43,7 +43,14 @@ describe( 'networks - functional ( server ): update', function() {
 
   before( async () => {
 
-    network = await svc.update( 13, { title: 'Ville de Genève' } );
+    network = await svc.update( 13, {
+      title: 'Ville de Genève',
+      formSchemaId: 123
+    } );
+
+    await svc.patch( 13, {
+      formSchemaId: 456
+    } );
 
   } );
 
@@ -68,5 +75,14 @@ describe( 'networks - functional ( server ): update', function() {
     fromDb.title.should.equal( 'Ville de Genève' );
 
   } );
+
+  it( 'patch updates specified value only', async () => {
+
+    const fromDb = await k( 'network' ).first( [ 'title', 'form_schema_id' ] ).where( 'uid', 13 );
+
+    fromDb.form_schema_id.should.equal( 456 );
+
+  } );
+
 
 } );

@@ -20,6 +20,7 @@ module.exports = ( options = {} ) => {
     list: list.bind( null, config ),
     create: create.bind( null, config ),
     update: update.bind( null, config ),
+    patch: update.bind( null, _.assign( { patch: true }, config ) ),
     validate
   }
 

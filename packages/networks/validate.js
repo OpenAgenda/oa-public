@@ -27,6 +27,11 @@ module.exports = schema( {
     min: 2,
     max: 255
   },
+  formSchemaId: {
+    type: 'integer',
+    optional: true,
+    max: 99999999
+  },
   createdAt: {
     type: 'date',
     optional: false

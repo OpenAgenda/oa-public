@@ -4,13 +4,17 @@ const _ = require( 'lodash' );
 const validate = require( './validate' );
 const get = require( './get' );
 
-module.exports = async function( { knex, schema }, uid, data ) {
+const updatableFields = [ 'title', 'formSchemaId' ];
+
+module.exports = async function( { knex, schema, patch }, uid, data ) {
 
   const current = await get( { knex, schema }, uid );
 
   if ( !current ) throw new Error( 'no network was found for update' );
 
-  const clean = _.assign( validate.part( [ 'title' ], data ), {
+  const fields = updatableFields.filter( f => _.get( data, f ) !== undefined || !patch );
+
+  const clean = _.assign( validate.part( fields, data ), {
     updatedAt: new Date()
   } );
 
