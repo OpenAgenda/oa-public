@@ -36,7 +36,7 @@ module.exports = app => {
   require( './services/surveys' )( app );
   require( './services/agendaContribute' )( app );
   require( './services/agendaSchema' )( app );
-  require( './services/networks' )( app );
+  require( './services/networkApps' )( app );
   require( './services/users' )( app );
   require( './services/abilities' )( app );
   require( './services/mails/unsubscription' )( app );
