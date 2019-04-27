@@ -44,7 +44,8 @@ module.exports.init = config => {
       getEventSchema: () => eventFormSchema( { languages: true } ),
       listNetworks: core.networks.list,
       getNetwork: uid => core.networks( uid ).get(),
-      getNetworkSchema: uid => core.networks( uid ).getSchema(),
+      getNetworkSchema: uid => core.networks( uid ).schema.get(),
+      setNetworkSchemaFields: ( uid, fields ) => core.networks( uid ).schema.updateFields( fields ),
       getNetworkAgendas: uid => core.networks( uid ).getAgendas(),
       addAgendaToNetwork: _addAgendaToNetwork
     }

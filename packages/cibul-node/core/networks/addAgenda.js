@@ -22,7 +22,6 @@ module.exports = async ( networkUid, agendaUid ) => {
 
   await agendaSet( { uid: agendaUid }, { networkUid }, { protected: false } );
 
-  await agendasCore( agendaUid ).settings.legacy.updateTagSet();
-  await agendasCore( agendaUid ).settings.legacy.updateCustom();
+  await agendasCore( agenda ).settings.legacy.update( true );
 
 }
