@@ -83,7 +83,7 @@ module.exports = {
     "en": "Web Integration",
     "fr": "Intégration Web",
     "de": "Web-Integration",
-    "es": "la integración web"
+    "es": "Integración web"
   },
   "indesign": {
     "en": "Indesign - Xml",
@@ -101,36 +101,36 @@ module.exports = {
     "en": "Administrators",
     "fr": "Administrateurs",
     "de": "Administratoren",
-    "es": "administradores"
+    "es": "Administradores"
   },
   "settings": {
     "en": "Settings",
     "fr": "Paramètres",
-    "de": "die Einstellungen",
-    "es": "configuraciones"
+    "de": "Die Einstellungen",
+    "es": "Configuraciones"
   },
   "settings_profile": {
     "en": "Profile",
     "fr": "Profil",
     "de": "Profil",
-    "es": "perfil"
+    "es": "Perfil"
   },
   "schema": {
     "en": "Form",
     "fr": "Formulaire",
     "de": "Bilden",
-    "es": "formulario"
+    "es": "Formulario"
   },
   "settings_contribution": {
     "en": "Contribution",
     "fr": "Contribution",
     "de": "Beitrag",
-    "es": "contribución"
+    "es": "Contribución"
   },
   "settings_advanced": {
     "en": "Advanced",
     "fr": "Avancé",
-    "de": "fortgeschritten",
-    "es": "avanzado"
+    "de": "Fortgeschritten",
+    "es": "Avanzado"
   }
 }

@@ -11,13 +11,13 @@ module.exports = {
     "fr": "Paramètres",
     "en": "Parameters",
     "de": "Parameter",
-    "es": "configuraciones"
+    "es": "Configuracion"
   },
   "yourAgenda": {
     "fr": "Votre agenda",
     "en": "Your agenda",
     "de": "Ihre Agenda",
-    "es": "su agenda"
+    "es": "Su agenda"
   },
   "subtitle": {
     "fr": "Un agenda est une liste d'événements",
@@ -29,7 +29,7 @@ module.exports = {
     "fr": "Nom",
     "en": "Name",
     "de": "Name",
-    "es": "apellido"
+    "es": "Apellido"
   },
   "namePlaceholder": {
     "fr": "Mon organisation, mon festival, ma ville, autre",
@@ -53,7 +53,7 @@ module.exports = {
     "fr": "Adresse web personnalisée",
     "en": "Personalized web address",
     "de": "Personalisierte Web-Adresse",
-    "es": "dirección web personalizada"
+    "es": "Dirección web personalizada"
   },
   "next": {
     "fr": "Suivant",
@@ -89,7 +89,7 @@ module.exports = {
     "fr": "Publiés",
     "en": "Published",
     "de": "Veröffentlicht",
-    "es": "publicado"
+    "es": "Publicado"
   },
   "contribDefaultStatePublishedText": {
     "fr": "Vous pouvez modifier les événements ensuite.",
@@ -101,7 +101,7 @@ module.exports = {
     "fr": "Non-publiés",
     "en": "Unpublished",
     "de": "unveröffentlicht",
-    "es": "inédito"
+    "es": "Inédito"
   },
   "contribDefaultStateUnpublishedText": {
     "fr": "Les événements ne deviennent publics qu'après votre validation.",
@@ -113,19 +113,19 @@ module.exports = {
     "fr": "Précédent",
     "en": "Previous",
     "de": "Bisherige",
-    "es": "anterior"
+    "es": "Anterior"
   },
   "createAgenda": {
     "fr": "Créer l'agenda",
     "en": "Create agenda",
-    "de": "erstellen Agenda",
-    "es": "crear agenda"
+    "de": "Erstellen Agenda",
+    "es": "Crear agenda"
   },
   "required": {
     "fr": "Requis",
     "en": "Required",
     "de": "Erforderlich",
-    "es": "necesario"
+    "es": "Necesario"
   },
   "string.tooshort": {
     "fr": "La chaîne de caractères est trop courte",
@@ -143,7 +143,7 @@ module.exports = {
     "fr": "Lien invalide",
     "en": "Invalid link",
     "de": "Ungültiger Link",
-    "es": "vínculo no válido"
+    "es": "Vínculo no válido"
   },
   "duplicate": {
     "fr": "Cette valeur est déjà prise par un autre agenda",

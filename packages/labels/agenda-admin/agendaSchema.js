@@ -5,7 +5,7 @@ module.exports = {
     "en": "Network",
     "fr": "Réseau",
     "de": "Netzwerk",
-    "es": "red"
+    "es": "Red"
   },
   "networkDetail": {
     "en": "Field required by the agenda network",
@@ -17,12 +17,12 @@ module.exports = {
     "en": "Standard",
     "fr": "Standard",
     "de": "Standard",
-    "es": "estándar"
+    "es": "Estándar"
   },
   "eventDetail": {
     "en": "Standard event field",
     "fr": "Champ événement standard",
     "de": "Standard Veranstaltungfeld",
-    "es": "campo de evento estándar"
+    "es": "Campo de evento estándar"
   }
 }

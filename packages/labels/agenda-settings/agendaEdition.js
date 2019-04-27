@@ -5,13 +5,13 @@ module.exports = {
     "fr": "Description",
     "en": "Description",
     "de": "Beschreibung",
-    "es": "descripción"
+    "es": "Descripción"
   },
   "name": {
     "fr": "Nom",
     "en": "Name",
     "de": "Name",
-    "es": "apellido"
+    "es": "Apellido"
   },
   "namePlaceholder": {
     "fr": "Mon organisation, mon festival, ma ville, autre",
@@ -35,13 +35,13 @@ module.exports = {
     "fr": "Adresse web personnalisée",
     "en": "Personalized web address",
     "de": "Personalisierte Web-Adresse",
-    "es": "dirección web personalizada"
+    "es": "Dirección web personalizada"
   },
   "contribution": {
     "fr": "Contribution",
     "en": "Contribution",
     "de": "Beitrag",
-    "es": "contribución"
+    "es": "Contribución"
   },
   "contribType": {
     "fr": "Qui peut ajouter des événements à cet agenda ?",
@@ -71,31 +71,31 @@ module.exports = {
     "fr": "Publiés",
     "en": "Published",
     "de": "Veröffentlicht",
-    "es": "publicado"
+    "es": "Publicado"
   },
   "contribDefaultStatePublishedText": {
     "fr": "vous pouvez modifier les événements ensuite",
     "en": "you can edit the events later",
     "de": "Du kannst die Veranstaltungen später bearbeiten",
-    "es": "puede editar los eventos más adelante"
+    "es": "Puede editar los eventos más adelante"
   },
   "contribDefaultStateUnpublished": {
     "fr": "Non-publiés",
     "en": "Unpublished",
     "de": "unveröffentlicht",
-    "es": "inédito"
+    "es": "Inédito"
   },
   "contribDefaultStateUnpublishedText": {
     "fr": "les événements ne deviennent publics qu'après votre validation",
     "en": "events become public only after your validation",
     "de": "Veranstaltungen werden öffentlich erst nach Ihrer Bestätigung",
-    "es": "eventos no se hacen públicas hasta después de su validación"
+    "es": "Eventos no se hacen públicas hasta después de su validación"
   },
   "required": {
     "fr": "Requis",
     "en": "Required",
     "de": "Erforderlich",
-    "es": "necesario"
+    "es": "Necesario"
   },
   "string.tooshort": {
     "fr": "La chaîne de caractères est trop courte",
@@ -113,7 +113,7 @@ module.exports = {
     "fr": "Lien invalide",
     "en": "Invalid link",
     "de": "Ungültiger Link",
-    "es": "vínculo no válido"
+    "es": "Vínculo no válido"
   },
   "duplicate": {
     "fr": "Cette valeur est déjà prise par un autre agenda",
@@ -149,13 +149,13 @@ module.exports = {
     "fr": "Sauvegarde en cours",
     "en": "Saving...",
     "de": "Speichern ...",
-    "es": "ahorro"
+    "es": "Ahorro"
   },
   "saved": {
     "fr": "Modifications sauvegardées",
     "en": "Changes saved",
     "de": "Änderungen gespeichert",
-    "es": "cambios guardan"
+    "es": "Cambios guardan"
   },
   "agendaProfile": {
     "fr": "Profil de l'agenda",
@@ -167,13 +167,13 @@ module.exports = {
     "fr": "Oui",
     "en": "Yes",
     "de": "Ja",
-    "es": "sí"
+    "es": "Sí"
   },
   "no": {
     "fr": "Non",
     "en": "No",
     "de": "Nein",
-    "es": "no"
+    "es": "No"
   },
   "contribUseFields": {
     "fr": "Inviter chaque membre à se présenter (organisation, téléphone, nom, prénom, fonction, email)",
@@ -185,7 +185,7 @@ module.exports = {
     "fr": "Supprimer l'agenda",
     "en": "Delete agenda",
     "de": "löschen Agenda",
-    "es": "eliminar agenda"
+    "es": "Eliminar agenda"
   },
   "removeAgendaWarning": {
     "fr": "Êtes-vous sûr de vouloir supprimer cet agenda ?",
@@ -197,13 +197,13 @@ module.exports = {
     "fr": "Fermer",
     "en": "Close",
     "de": "Schließen",
-    "es": "cerca"
+    "es": "Cerca"
   },
   "remove": {
     "fr": "Supprimer",
     "en": "Remove",
     "de": "Löschen",
-    "es": "eliminar"
+    "es": "Eliminar"
   },
   "agendaRemoved": {
     "fr": "Votre agenda a bien été supprimé",
@@ -221,31 +221,31 @@ module.exports = {
     "fr": "Générer une clé",
     "en": "Generate a key",
     "de": "Generiere einen Schlüssel",
-    "es": "generar clave"
+    "es": "Generar clave"
   },
   "copy": {
     "fr": "Copier",
     "en": "Copy",
     "de": "Kopieren",
-    "es": "copia"
+    "es": "Copia"
   },
   "copied": {
     "fr": "Copié",
     "en": "Copied",
-    "de": "kopierte",
-    "es": "copiado"
+    "de": "Kopierte",
+    "es": "Copiado"
   },
   "save": {
     "fr": "Sauvegarder",
     "en": "Save",
-    "de": "sparen",
-    "es": "guardar"
+    "de": "Sparen",
+    "es": "Guardar"
   },
   "cancel": {
     "fr": "Annuler",
     "en": "Cancel",
     "de": "Stornieren",
-    "es": "anular"
+    "es": "Anular"
   },
   "description.tooManyLines": {
     "fr": "La description ne doit pas dépasser 4 lignes",
@@ -257,31 +257,31 @@ module.exports = {
     "fr": "Avancé",
     "en": "Advanced",
     "de": "fortgeschritten",
-    "es": "avanzado"
+    "es": "Avanzado"
   },
   "accessKeys": {
     "fr": "Clés d'accés",
     "en": "Access keys",
     "de": "Zugriffstasten",
-    "es": "acceso teclas"
+    "es": "Acceso teclas"
   },
   "manageKeys": {
     "fr": "Gérez les clés",
     "en": "Manage keys",
     "de": "verwalten Tasten",
-    "es": "administrar clave"
+    "es": "Administrar clave"
   },
   "labeling": {
     "fr": "Labellisation",
     "en": "Labeling",
     "de": "Beschriftung",
-    "es": "etiquetado"
+    "es": "Etiquetado"
   },
   "officialAgenda": {
     "fr": "Agenda officiel",
     "en": "Official agenda",
-    "de": "offizielle Kalender",
-    "es": "agenda"
+    "de": "Offizielle Kalender",
+    "es": "Agenda"
   },
   "nonOfficialAgenda": {
     "fr": "Agenda non-officiel",
@@ -323,7 +323,7 @@ module.exports = {
     "fr": "Agenda public",
     "en": "Public agenda",
     "de": "öffentliche Agenda",
-    "es": "agenda pública"
+    "es": "Agenda pública"
   },
   "visibility": {
     "fr": "Visibilité",
@@ -359,7 +359,7 @@ module.exports = {
     "fr": "Agenda non indexé",
     "en": "Agenda not indexed",
     "de": "Agenda nicht indiziert",
-    "es": "agenda unindexed"
+    "es": "Agenda unindexed"
   },
   "limitDates": {
     "fr": "Limitation des dates de saisies",
@@ -377,7 +377,7 @@ module.exports = {
     "fr": "Messages personnalisés",
     "en": "Customized messages",
     "de": "Customized Nachrichten",
-    "es": "mensajes personalizados"
+    "es": "ensajes personalizados"
   },
   "requestCustomMessage": {
     "fr": "Demander d'activer la personnalisation des messages",
@@ -389,7 +389,7 @@ module.exports = {
     "fr": "Personnalisation",
     "en": "Personalization",
     "de": "Personalisierung",
-    "es": "personalización"
+    "es": "Personalización"
   },
   "editEventsDescription": {
     "fr": "Modifiez la description des événements",
@@ -400,8 +400,8 @@ module.exports = {
   "removeKey": {
     "fr": "Supprimer la clé",
     "en": "Remove key",
-    "de": "entfernen-Taste",
-    "es": "eliminar clave"
+    "de": "Entfernen-Taste",
+    "es": "Eliminar llave"
   },
   "removeKeyWarning": {
     "fr": "Êtes-vous certain de vouloir supprimer cette clé ?",
@@ -425,13 +425,13 @@ module.exports = {
     "fr": "Messages aux contributeurs",
     "en": "Messages to contributors",
     "de": "Nachrichten an die Mitglieder",
-    "es": "mensajes contribuyentes"
+    "es": "Mensajes contribuyentes"
   },
   "consigne": {
     "fr": "Consigne de saisie",
     "en": "Event form instructions",
     "de": "Veranstaltungsform Anweisungen",
-    "es": "entrada de consigna"
+    "es": "Entrada de consigna"
   },
   "consigneSubLabel": {
     "fr": "La consigne s'affiche au début du formulaire de saisie d'événement",
@@ -443,7 +443,7 @@ module.exports = {
     "fr": "Message de fin de contribution",
     "en": "End of contribution message",
     "de": "Ende der Beitrags Nachricht",
-    "es": "entrada de mensaje de fin"
+    "es": "Entrada de mensaje de fin"
   },
   "contributionMessageCompleteSubLabel": {
     "fr": "S'affiche lorsque le contributeur a soumi sa contribution",
@@ -455,7 +455,7 @@ module.exports = {
     "fr": "Message de publication",
     "en": "Publication message",
     "de": "Veröffentlichung Nachricht",
-    "es": "publicación de mensajes"
+    "es": "Publicación de mensajes"
   },
   "contributionMessagePublicationSubLabel": {
     "fr": "Envoyé au contributeur lorsque son événement a été publié",
@@ -467,7 +467,7 @@ module.exports = {
     "fr": "Messagerie",
     "en": "Inbox",
     "de": "Posteingang",
-    "es": "mensajería"
+    "es": "Mensajería"
   },
   "inboxTabDescription": {
     "fr": "Paramètres de la messagerie",
@@ -491,7 +491,7 @@ module.exports = {
     "fr": "Email de réception",
     "en": "Reception email",
     "de": "Empfang E-Mail",
-    "es": "recibir correo electrónico"
+    "es": "Recibir correo electrónico"
   },
   "emailPlaceholder": {
     "fr": "votre@email.com",
@@ -527,7 +527,7 @@ module.exports = {
     "fr": "Statistiques",
     "en": "Statistics",
     "de": "Statistiken",
-    "es": "estadística"
+    "es": "Estadística"
   },
   "statsTabDescription": {
     "fr": "Paramètrez votre identifiant de suivi Google Analytics",
