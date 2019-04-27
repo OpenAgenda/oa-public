@@ -24,7 +24,9 @@ export default _.assign( ( state = {}, action = {} ) => {
       return ih( state, { add: _.set( {}, action.field, { $set: action.value } ) } );
 
     case actionTypes.SERVER_ERROR:
-      return ih( state, { error: { $set: action.error } } );
+      return ih( state, {
+        error: { $set: action.error }
+      } );
 
     default:
       return state;

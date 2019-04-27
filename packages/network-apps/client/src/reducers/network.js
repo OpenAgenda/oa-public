@@ -44,6 +44,9 @@ export default _.assign( ( state = {}, action = {} ) => {
         agendas: { $splice: [ [ 0, 0, action.agenda ] ] }
       } );
 
+    case actionTypes.CLOSE_ADD_AGENDA:
+      return ih( state, { add: { $set: null } } );
+
     default:
       return state;
   }
@@ -94,12 +97,22 @@ function submitAddAgenda( slugOrUrl ) {
 
   return async ( dispatch, getState, history ) => {
 
-    const res = await sa.post( history.location.pathname, { slugOrUrl } );
+    const successDispatch = {
+      type: actionTypes.ADD_AGENDA_SUCCESS
+    };
 
-    dispatch( {
-      type: actionTypes.ADD_AGENDA_SUCCESS,
-      agenda: res.body
-    } );
+    try {
+      const res = await sa.post( history.location.pathname, {
+        slugOrUrl
+      } ).set( 'Accept', 'application/json' );
+
+      _.assign( successDispatch, { agenda: res.body } );
+    } catch ( e ) {
+      dispatch( { type: actionTypes.CLOSE_ADD_AGENDA } );
+      return dispatchError( dispatch, e );
+    }
+
+    dispatch( successDispatch );
 
   }
 

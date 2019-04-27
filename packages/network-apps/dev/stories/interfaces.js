@@ -11,7 +11,7 @@ module.exports = fixtures => {
     listNetworks,
     getNetwork,
     getNetworkSchema,
-    setNetworkSchema,
+    setNetworkSchemaFields,
     getNetworkAgendas,
     createNetwork,
     getEventSchema,

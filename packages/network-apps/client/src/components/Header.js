@@ -7,7 +7,7 @@ export default props => {
   const { main } = props;
 
   return <div className="text-center margin-bottom-lg">
-    <h1>Application de gestion des agendas</h1>
+    <h1>Application de gestion des réseaux d'agendas</h1>
     { main.error ? <Modal>
       <label className="margin-v-sm">Il y a eu une erreur</label>
       <div className="margin-v-sm">
