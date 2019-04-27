@@ -33,6 +33,9 @@ module.exports = schema( {
     type: 'integer',
     list: { default: null }
   },
+  networkUid: {
+    type: 'integer'
+  },
   updatedAtGreaterThan: {
     type: 'date',
     default: null
