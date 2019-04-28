@@ -40,7 +40,7 @@ async function transfer( formSchemaId, identifier, defaultAgendaId = null ) {
     agendaEventId,
     custom,
     categoryId
-  } = await load( formSchemaId, identifier, defaultAgendaId );
+  } = await load( formSchemaId, identifier, { agendaId: defaultAgendaId } );
 
   const legacyTags = await libs.tags.load( agendaEventId );
 
