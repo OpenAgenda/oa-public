@@ -30,7 +30,7 @@ class NetworkAgendas extends Component {
         <button className="btn btn-primary" onClick={onAdd}>Ajouter un agenda au réseau</button>
         {agendas ? <ul className="list-unstyled">{agendas.map( a => (
           <li className="margin-v-sm padding-all-sm wsq" key={'agenda' + a.uid}>
-            <label>{a.title}</label>
+            <label><a target="_blank" href={`/agendas/${a.uid}`}>{a.title}</a></label>
           </li>
         ) )}</ul> : <Loading /> }
         { add ? <AddAgenda onAdd={onAddSubmit} onClose={onAddClose} /> : null }
