@@ -80,18 +80,12 @@ module.exports = async ( ae, context ) => {
 
 
   if ( context.legacy && agenda.formSchemaId ) {
-
     // this happens after legacy reference was added
     try {
-
       await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
-
     } catch ( e ) {
-
-      log( 'error', 'could not transfer custom data to legacy (%s.%s)', ae.agendaUid, ae.eventUid, e );
-
+      log( 'error', 'could not transfer custom data from legacy (%s.%s)', ae.agendaUid, ae.eventUid, e );
     }
-
   }
 
 

@@ -2,30 +2,28 @@
 
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
+
+const custom = require( '@openagenda/custom' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/onUpdate' );
 
 const aggregatorNotify = require( './lib/aggregatorNotify' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
+const controlDataSvc = require( '../legacy' ).controlData;
 const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 const sendEventUpdate = require( './lib/sendEventUpdate' );
 const sendEventChangeState = require( './lib/sendEventChangeState' );
 
-const controlDataSvc = require( '../legacy' ).controlData;
-
 module.exports = async ( before, after, context ) => {
 
   log( 'updated agenda-event from %j to %j', before, after );
+  log( '%sfrom legacy', context.legacy ? '' : 'not ' );
 
   try {
-
     await eventSearch.agendas( after.agendaUid ).update( after );
-
   } catch ( e ) {
-
     log( 'error', 'could not update event search', e );
-
   }
 
   await _sleepALittle(); // legacy search might try to fetch event content before it is committed to db
@@ -60,6 +58,14 @@ module.exports = async ( before, after, context ) => {
   }
 
   aggregatorNotify.update( { agenda, event, before, after } );
+
+  if ( context.legacy && agenda.formSchemaId ) {
+    try {
+      await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
+    } catch ( e ) {
+      log( 'error', 'could not transfer custom data from legacy (%s.%s)', after.agendaUid, after.eventUid, e );
+    }
+  }
 
   // Send emails
   if ( before.state === after.state ) {
