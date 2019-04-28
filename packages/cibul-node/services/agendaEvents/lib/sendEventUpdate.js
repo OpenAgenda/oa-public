@@ -15,6 +15,14 @@ const genUrl = require( '../../genUrl' );
 
 module.exports = async ( { agendaEvent, context, agenda, event } ) => {
 
+  if ( _.get( context, 'batched' ) ) {
+
+    log( 'part of batch, not sending event update emails' );
+
+    return;
+
+  }
+
   let stateLabel;
 
   // const { agenda, event } = context;
@@ -76,13 +84,6 @@ module.exports = async ( { agendaEvent, context, agenda, event } ) => {
 
   }
 
-  if ( _.get( context, 'batched' ) ) {
-
-    log( 'part of batch, not sending event update email' );
-
-    return;
-
-  }
 
   await mails( {
     template: 'eventUpdate',
