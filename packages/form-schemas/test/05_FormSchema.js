@@ -353,6 +353,31 @@ describe( 'form-schemas -05- FormSchema', () => {
 
     } );
 
+
+    it( 'field-specific keys are kept', () => {
+
+      const s = new FormSchema( {
+        fields: [
+          {
+            "field": "timings",
+            "fieldType": "abstract",
+            "enabledRanges" : "someTimeRange"
+          }
+        ]
+      } );
+
+      s.updateFields( [
+        {
+          "field": "timings",
+          "fieldType": "abstract",
+          "enabledRanges" : "someTimeRange"
+        }
+      ] );
+
+      s.getData().fields[ 0 ].enabledRanges.should.equal( 'someTimeRange' );
+
+    } );
+
   } );
 
   describe( 'getting, moving and removing fields', () => {

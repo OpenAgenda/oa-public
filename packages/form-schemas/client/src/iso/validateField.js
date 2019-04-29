@@ -92,8 +92,8 @@ function validate( value, options = {} ) {
 
   }
 
-  // if is custom field, do not filter out remaining values
-  if ( isCustomField ) {
+  // if is custom or abstract field, do not filter out remaining values
+  if ( isCustomField || isAbstract ) {
 
     _.keys( value )
       .filter( key => !_.includes( _.keys( clean ) ) )
