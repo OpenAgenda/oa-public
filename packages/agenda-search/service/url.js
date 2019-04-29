@@ -15,7 +15,7 @@ function agenda( agenda, options = {} ) {
 
   let res = '#',
 
-  prefix = params.path === undefined ? '' : path;
+  prefix = params.path === undefined ? '' : params.path;
 
   if ( !agenda ) {
 
