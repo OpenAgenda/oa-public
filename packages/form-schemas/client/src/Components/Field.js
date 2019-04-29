@@ -70,7 +70,7 @@ module.exports = class Field extends Component {
         'margin-right-xs' : field.help || field.helpLink,
         error: !!error
       })}>{'(' + labels.required + ')'}</span>}
-      {field.help || field.helpLink ? <Help id={'help-' + field.field} content={field.help} lang={lang} link={field.helpLink} /> : null }
+      {field.help || field.helpLink ? <Help id={'help-' + field.field} label={field.help} lang={lang} link={field.helpLink} /> : null }
       {decorated ? <Info value={field.info}/> : null}
       <Component
         enabled={isEnabled}

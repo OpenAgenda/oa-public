@@ -17,7 +17,7 @@ class Main extends Component {
           field: 'anything',
           fieldType: 'text',
           label: 'The label',
-          help: 'This is the help message. It appears when the help link is hovered on.',
+          help: 'This is the help message.',
           helpLink: 'https://openagenda.com'
         } ]
       }
