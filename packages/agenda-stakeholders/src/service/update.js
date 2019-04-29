@@ -193,26 +193,24 @@ function _doUpdate( base, stakeholder, merged, options, cb ) {
 
 function _merge( stakeholder, data, options, cb ) {
 
+  let merged = null;
+
   try {
 
     const current = utils.toCamelCase( stakeholder.custom );
     const update = utils.toCamelCase( data );
 
-    if ( options.allowPartial ) {
-
-      return cb( null, _.assign( {}, current, update ) );
-
-    }
-
-    cb( null, update );
+    merged = options.allowPartial ? _.assign( {}, current, update ) : update;
 
   } catch ( e ) {
 
     log( 'error', 'Cannot merge data of stakeholder', e );
 
-    cb( err );
+    cb( e );
 
   }
+
+  cb( null, merged );
 
 }
 
