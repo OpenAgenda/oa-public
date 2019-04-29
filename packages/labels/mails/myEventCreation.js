@@ -4,7 +4,7 @@ module.exports = {
   "title": {
     "fr": "Confirmation de création de votre événement sur %agenda%: %event%",
     "en": "Confirmation of your event creation on %agenda%: %event%",
-    "de": "Bestätigung Ihrer Veranstaltungerzeugung auf %agenda%: %event% ",
+    "de": "Anmeldebestätigungen von %event% auf %agenda% ",
     "es": "La confirmación de la creación de su agenda de eventos %:%event%"
   },
   "body": {
@@ -46,19 +46,19 @@ module.exports = {
   "unsubscribe": {
     "fr": "Ne plus recevoir les confirmations de vos créations d'événement",
     "en": "Stop receiving confirmations of your event creations",
-    "de": "Stoppen Sie Bestätigungen Ihrer Veranstaltung Kreationen Empfang",
+    "de": "Ich will dir Anmeldebestätigungen nicht mehr bekommen.",
     "es": "Dejar de recibir las confirmaciones de sus creaciones de eventos"
   },
   "memberUnsubscribe": {
     "fr": "Ne plus recevoir les confirmations de vos créations d'événement sur cet agenda",
     "en": "Stop receiving confirmations of your event creations on this agenda",
-    "de": "Erhalte keine Nachrichten zur Bestätigung deiner Veranstaltungserstellung in diesem Veranstaltungskalender.",
+    "de": "Ich will dir Anmeldebestätigungen von diesem Veranstaltungskalender nicht mehr bekommen.",
     "es": "Dejar de recibir las confirmaciones de sus creaciones de eventos en esta agenda"
   },
   "changeEmailSettings": {
     "fr": "Modifier mes paramètres d'envoi d'emails",
     "en": "Change my email sending settings",
-    "de": "Ändern Sie per E-Mail zu senden Einstellungen",
+    "de": "Auswahl der empfangenen E-Mails ändern",
     "es": "Cambiar mi configuración para enviar mensajes de correo electrónico"
   }
 }
