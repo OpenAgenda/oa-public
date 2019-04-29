@@ -38,8 +38,8 @@ module.exports = {
     "es": "El evento ha sido retirado de la agenda \"%agenda%\"."
   },
   "eventEmailSend": {
-    "fr": "The event is being sent to %count% emails",
-    "en": "L'événement est en cours d'envoi à %count% adresses mail",
+    "fr": "L'événement est en cours d'envoi à %count% adresses mail",
+    "en": "The event is being sent to %count% emails",
     "de": "Die Veranstaltung wurde nach %count% Mail Adressen ",
     "es": "El evento está siendo la sensación de color blanco a mensajes de correo electrónico %count%"
   }
