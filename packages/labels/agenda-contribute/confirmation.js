@@ -49,6 +49,11 @@ module.exports = {
     "br": "Ouzhpennañ un darvoud all",
     "es": "Añadir otro evento"
   },
+  "duplicateEvent" : {
+    "en" : "Dupicate event",
+    "fr" : "Dupliquer l'événement",
+    "de" : "Dublizieren"
+  },
   "seeAllEventsAction": {
     "en": "List all my events",
     "fr": "Voir tous mes événements",
