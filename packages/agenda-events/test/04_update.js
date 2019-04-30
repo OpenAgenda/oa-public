@@ -128,7 +128,6 @@ describe( 'agendaEvents - functional (server): update', function() {
 
     it( 'update is part update', async () => {
 
-
       await svc( 62792452 ).update( 10974548, {
         canEdit: true
       } );
@@ -138,6 +137,22 @@ describe( 'agendaEvents - functional (server): update', function() {
       } );
 
       result.updated.canEdit.should.equal( true );
+
+    } );
+
+    it( 'update without state does not change current state', async () => {
+
+      await svc( 62792452 ).update( 10974548, {
+        state: -1
+      } );
+
+      const result = await svc( 62792452 ).update( 10974548, {
+        create: {
+          canEdit: true
+        }
+      } );
+
+      result.updated.state.should.equal( -1 );
 
     } );
 
