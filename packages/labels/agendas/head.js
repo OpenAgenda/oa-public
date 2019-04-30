@@ -55,6 +55,6 @@ module.exports = {
     "it": "Gestire",
     "de": "verwalten",
     "pl": "Zarządzaj",
-    "es": "gestionar"
+    "es": "Gestionar"
   }
 }

@@ -52,7 +52,7 @@ module.exports = {
   "duplicateEvent" : {
     "en" : "Dupicate event",
     "fr" : "Dupliquer l'événement",
-    "de" : "Dublizieren",
+    "de" : "Event duplizieren",
     "es" : "Duplicar el evento"
   },
   "seeAllEventsAction": {

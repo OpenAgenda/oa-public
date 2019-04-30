@@ -8,7 +8,7 @@ module.exports = {
     "de": "exportieren",
     "pl": "Eksportuj",
     "br": "Ezporzhiañ",
-    "es": "exportación"
+    "es": "Exportación"
   },
   "share": {
     "en": "Share",
@@ -71,7 +71,7 @@ module.exports = {
     "de": "Stichworte",
     "pl": "Etykiety",
     "br": "Merkoù",
-    "es": "etiquetas"
+    "es": "Etiquetas"
   },
   "categories": {
     "en": "Categories",
@@ -80,7 +80,7 @@ module.exports = {
     "de": "Kategorien",
     "pl": "Kategorie",
     "br": "Rummadoù",
-    "es": "categorías"
+    "es": "Categorías"
   },
   "organization": {
     "en": "Organization",
@@ -89,7 +89,7 @@ module.exports = {
     "de": "Organisation",
     "pl": "Organizacja",
     "br": "Aozadur",
-    "es": "organización"
+    "es": "Organización"
   },
   "about": {
     "en": "About",
@@ -116,7 +116,7 @@ module.exports = {
     "de": "Nutzungbestimmungen",
     "pl": "Warunki korzystania",
     "br": "Penndivizoù implij",
-    "es": "condiciones de uso"
+    "es": "Condiciones de uso"
   },
   "manage": {
     "en": "Manage",
@@ -125,7 +125,7 @@ module.exports = {
     "de": "verwalten",
     "pl": "Zarządzaj",
     "br": "Merañ",
-    "es": "gestionar"
+    "es": "Gestionar"
   },
   "searchWhenMoveMap": {
     "en": "Search when I move the map",
@@ -231,7 +231,7 @@ module.exports = {
     "fr": "ici",
     "it": "qui",
     "de": "hier",
-    "pl": "Tutaj",
+    "pl": "tutaj",
     "br": "amañ",
     "es": "aquí"
   },
@@ -250,8 +250,8 @@ module.exports = {
     "it": "Selezionato",
     "de": "ausgewählt",
     "pl": "Opisane",
-    "br": "keleier pennañ",
-    "es": "reflejos"
+    "br": "Keleier pennañ",
+    "es": "Reflejos"
   },
   "countEvents": {
     "en": "%count% events",
@@ -260,7 +260,7 @@ module.exports = {
     "de": "%count% Veranstaltungen",
     "pl": "%count% wydarzeń",
     "br": "%count% a zarvoudoù",
-    "es": " %count% eventos"
+    "es": "%count% eventos"
   },
   "countEvent": {
     "en": "1 event",
@@ -278,7 +278,7 @@ module.exports = {
     "de": "%count% künftige Veranstaltungen",
     "pl": "%count% przyszłych wydarzeń",
     "br": "%count% a zarvoudoù da zont",
-    "es": " %count% próximos eventos"
+    "es": "%count% próximos eventos"
   },
   "includePassedEvents": {
     "en": "include passed events",
@@ -305,7 +305,7 @@ module.exports = {
     "de": "offizieller Kalender",
     "pl": "Kalendarz formalny",
     "br": "Deiziataer ofisiel",
-    "es": "agenda"
+    "es": "Agenda oficial"
   },
   "privateAgenda": {
     "en": "Private agenda",
