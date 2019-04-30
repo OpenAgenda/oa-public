@@ -65,6 +65,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
         updated: req.updateRedirect,
         seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
         createOtherEvent: `/${req.agenda.slug}/contribute`,
+        duplicateEvent: `/${req.agenda.slug}/contribute?eventUid=:eventUid`,
         seeAllEvents: `/home/events`,
         contactAdministrators: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/:eventUid/contact` : `/${req.agenda.slug}/contact`,
         draft: `/home/events`
