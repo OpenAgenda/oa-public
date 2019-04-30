@@ -18,17 +18,8 @@ function redirect( type ) {
 
     const state = getState();
 
-    const redirect = _.get( state , 'config.redirects.' + type );
-
-    if ( [ 'contactAdministrators','seeEvent' ].includes( type ) ) {
-
-      window.location.href = redirect.replace( ':eventUid', _.get( state, 'event.uid' ) );
-
-      return;
-
-    }
-
-    window.location.href = redirect;
+    window.location.href = _.get( state, 'config.redirects.' + type )
+      .replace( ':eventUid', _.get( state, 'event.uid' ) );
 
   }
 
