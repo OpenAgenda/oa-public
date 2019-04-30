@@ -60,6 +60,9 @@
     "name": "Address",
     "mapTo": "address"
   }, {
+    "name" : "District",
+    "mapTo" : "location.district"
+  }, {
     "name": "Latitude",
     "mapTo": "latitude"
   }, {
