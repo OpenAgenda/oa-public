@@ -41,6 +41,9 @@ export default connect(
         <a onClick={onRedirectAction( 'createOtherEvent' )} className="btn btn-default btn-block">{labels.addEventAction[ config.lang ]}</a>
       </li>
       <li className="margin-top-md">
+        <a onClick={onRedirectAction( 'duplicateEvent' )} className="btn btn-default btn-block">{labels.duplicateEvent[ config.lang ]}</a>
+      </li>
+      <li className="margin-top-md">
         <a onClick={onRedirectAction( 'seeAllEvents' )} className="btn btn-default btn-block">{labels.seeAllEventsAction[ config.lang ]}</a>
       </li>
       <li className="margin-top-md">

@@ -13,6 +13,7 @@ const defaultConfig = {
     createOtherEvent: '/?redirect.createOtherEvent',
     seeAllEvents: '/?redirect.seeAllEvents',
     contactAdministrators: '/?redirect.contactAdministrators',
+    duplicateEvent: '/?redirect.duplicateEvent',
     draft: '/?redirect.draft'
   },
   member: {
