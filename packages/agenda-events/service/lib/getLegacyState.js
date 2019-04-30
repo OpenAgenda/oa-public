@@ -16,6 +16,12 @@ module.exports = ( state, isPublished ) => {
 
   }
 
+  if ( state === -1 ) {
+
+    return states.REFUSED;
+
+  }
+
   return states.TOCONTROL;
 
 }
