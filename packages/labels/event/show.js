@@ -15,7 +15,7 @@ module.exports = {
     "it": "Esportare",
     "de": "Exportieren",
     "pl": "Exportuj",
-    "es": "exportación"
+    "es": "Exportación"
   },
   "share": {
     "en": "Share",
@@ -87,7 +87,7 @@ module.exports = {
     "it": "Cancellare",
     "de": "löschen",
     "pl": "Usuń",
-    "es": "eliminar"
+    "es": "Eliminar"
   },
   "about": {
     "en": "About",
@@ -399,7 +399,7 @@ module.exports = {
     "it": "Accessibile nella lingua dei segni",
     "de": "Gebärdensprache verfügbar",
     "pl": "Dostępne w języku migowym",
-    "es": "el lenguaje de signos de Acceso"
+    "es": "El lenguaje de signos de Acceso"
   },
   "accessibilityImpairments": {
     "en": "Accessibility: %impairments%",
@@ -439,7 +439,7 @@ module.exports = {
     "it": "Tags",
     "de": "Stichworte",
     "pl": "Etykiety",
-    "es": "etiquetas"
+    "es": "Etiquetas"
   },
   "category": {
     "en": "Category",
@@ -495,7 +495,7 @@ module.exports = {
     "it": "Contatti in aggiunta",
     "de": "weitere Links",
     "pl": "Więcej linków",
-    "es": "enlaces adicionales"
+    "es": "Enlaces adicionales"
   },
   "state": {
     "en": "State",
@@ -503,7 +503,7 @@ module.exports = {
     "it": "Stato",
     "de": "Zustand",
     "pl": "Stan",
-    "es": "estatus"
+    "es": "Estatus"
   },
   "editLocation": {
     "en": "Edit location",

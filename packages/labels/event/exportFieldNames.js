@@ -336,15 +336,15 @@ module.exports = {
     "es": "ciudad"
   },
   "state": {
-    "en": "state",
-    "fr": "statut",
+    "en": "State",
+    "fr": "Statut",
     "de": "Zustand",
-    "es": "estatus"
+    "es": "Estatus"
   },
   "references": {
     "en": "Linked events",
     "fr": "Evénements liés",
     "de": "Verknüpfte Veranstaltungen",
-    "es": "eventos relacionados"
+    "es": "Eventos relacionados"
   }
 }

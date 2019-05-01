@@ -17,7 +17,7 @@ module.exports = {
     "en": "Categories",
     "fr": "Catégories",
     "de": "Kategorien",
-    "es": "categorías"
+    "es": "Categorías"
   },
   "subtitle": {
     "en": "Categories form a single selection list",
@@ -35,7 +35,7 @@ module.exports = {
     "en": "Information field",
     "fr": "Champ indicatif",
     "de": "Informationsfeld",
-    "es": "campo indicativo"
+    "es": "Campo indicativo"
   },
   "listSection": {
     "en": "Agenda categories",
@@ -47,7 +47,7 @@ module.exports = {
     "en": "Add",
     "fr": "Ajouter",
     "de": "Hinzufügen",
-    "es": "añadir"
+    "es": "Añadir"
   },
   "noCategories": {
     "en": "You haven't yet defined any categories for this agendda",
@@ -65,13 +65,13 @@ module.exports = {
     "en": "Cancel",
     "fr": "Annuler",
     "de": "Stornieren",
-    "es": "anular"
+    "es": "Anular"
   },
   "updateTag": {
     "en": "Ok",
     "fr": "Ok",
     "de": "OK",
-    "es": "bueno"
+    "es": "Ok"
   },
   "required": {
     "en": "Make required. One category must be selected.",

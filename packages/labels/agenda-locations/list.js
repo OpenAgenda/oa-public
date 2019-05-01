@@ -41,7 +41,7 @@ module.exports = {
     "en": "Merge locations",
     "fr": "Fusionner des lieux",
     "de": "Merge Standorte",
-    "es": "combinar lugares"
+    "es": "Combinar lugares"
   },
   "cancelmerge": {
     "fr": "Annuler la fusion",
@@ -59,7 +59,7 @@ module.exports = {
     "fr": "Lancer la fusion",
     "en": "Launch merge",
     "de": "Starte merge",
-    "es": "iniciar la fusión"
+    "es": "Iniciar la fusión"
   },
   "mergenoselection": {
     "fr": "Une fois votre sélection faite, lancez la fusion. Vous pourrez sélectionner les valeurs à retenir",

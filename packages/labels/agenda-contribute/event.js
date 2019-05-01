@@ -15,7 +15,7 @@ module.exports = {
     "it": "Registrare",
     "de": "Registrieren",
     "br": "Enrollañ",
-    "es": "registro"
+    "es": "Registro"
   },
   "create": {
     "fr": "Créer l'événement",
@@ -23,7 +23,7 @@ module.exports = {
     "it": "Registrare l’evento",
     "de": "Erstelle die Veranstalltung",
     "br": "Krouiñ an darvoud",
-    "es": "crear evento"
+    "es": "Crear evento"
   },
   "draft": {
     "fr": "Enregistrer un brouillon",

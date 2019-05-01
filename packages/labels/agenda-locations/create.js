@@ -17,7 +17,7 @@ module.exports = {
     "fr": "Créer",
     "en": "Create",
     "de": "Erstellen",
-    "es": "crear"
+    "es": "Crear"
   },
   "submitError": {
     "fr": "Le lieu n'a pas pu être créé",

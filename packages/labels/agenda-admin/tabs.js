@@ -5,31 +5,31 @@ module.exports = {
     "en": "Events",
     "fr": "Evénements",
     "de": "Veranstaltungen",
-    "es": "eventos"
+    "es": "Eventos"
   },
   "contributors": {
     "en": "Contributors",
     "fr": "Contributeurs",
     "de": "Mitwirkende",
-    "es": "colaboradores"
+    "es": "Colaboradores"
   },
   "moderators": {
     "en": "Moderators",
     "fr": "Modérateurs",
     "de": "Moderatoren",
-    "es": "moderadores"
+    "es": "Moderadores"
   },
   "members": {
     "en": "Members",
     "fr": "Membres",
     "de": "Mitglieder",
-    "es": "miembros"
+    "es": "Miembros"
   },
   "activities": {
     "en": "Activities",
     "fr": "Activités",
     "de": "Aktivitäten",
-    "es": "actividades"
+    "es": "Actividades"
   },
   "newTab": {
     "en": "New !",
@@ -41,7 +41,7 @@ module.exports = {
     "en": "Locations",
     "fr": "Lieux",
     "de": "Standorte",
-    "es": "lugares"
+    "es": "Lugares"
   },
   "categories": {
     "en": "Categories and Tags",
@@ -53,13 +53,13 @@ module.exports = {
     "en": "Inbox",
     "fr": "Messagerie",
     "de": "Posteingang",
-    "es": "mensajería"
+    "es": "Mensajería"
   },
   "customized": {
     "en": "Customized fields",
     "fr": "Champs personnalisés",
     "de": "Angepasste Felder",
-    "es": "campos personalizados"
+    "es": "Campos personalizados"
   },
   "sources": {
     "en": "Sources",

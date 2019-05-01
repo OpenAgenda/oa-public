@@ -53,13 +53,13 @@ module.exports = {
     "fr": "Ok",
     "en": "Ok",
     "de": "OK",
-    "es": "bueno"
+    "es": "Ok"
   },
   "geocodeFieldCancel": {
     "fr": "Annuler",
     "en": "Cancel",
     "de": "Stornieren",
-    "es": "anular"
+    "es": "Anular"
   },
   "disabledGeocode": {
     "fr": "La fonction de localisation automatique est momentanément indisponible. Localisez votre lieu en glissant le marqueur au bon endroit sur la carte.",
@@ -89,19 +89,19 @@ module.exports = {
     "fr": "Détails sur le lieu",
     "en": "Details about the location",
     "de": "Details über den Standort",
-    "es": "detalles de la ubicación"
+    "es": "Detalles de la ubicación"
   },
   "country": {
     "fr": "Pays",
     "en": "Country",
     "de": "Land",
-    "es": "país"
+    "es": "País"
   },
   "address": {
     "fr": "Adresse",
     "en": "Address",
     "de": "Adresse",
-    "es": "dirección"
+    "es": "Dirección"
   },
   "addressPlaceholder": {
     "fr": "Numéro Voie, Ville ( exemple : 82 Boulevard de Clichy, Paris )",
@@ -113,13 +113,13 @@ module.exports = {
     "fr": "Géolocalisation",
     "en": "Geolocation",
     "de": "Geolokalisierung",
-    "es": "geolocalización"
+    "es": "Geolocalización"
   },
   "image": {
     "fr": "Image",
     "en": "Image",
     "de": "Bild",
-    "es": "imagen"
+    "es": "Imagen"
   },
   "imageInfo": {
     "fr": "Ne sélectionnez que les images pour lesquelles vous disposez d'une licence valide.",
@@ -131,7 +131,7 @@ module.exports = {
     "fr": "Crédits de l'image",
     "en": "Image credits",
     "de": "Bildnachweis",
-    "es": "créditos de imágenes"
+    "es": "Créditos de imágenes"
   },
   "addLanguage": {
     "fr": "Ajouter une langue",
@@ -143,7 +143,7 @@ module.exports = {
     "fr": "Annuler",
     "en": "Cancel",
     "de": "Stornieren",
-    "es": "anular"
+    "es": "Anular"
   },
   "back": {
     "fr": "Revenir à la liste",
@@ -155,13 +155,13 @@ module.exports = {
     "fr": "ce champ est requis",
     "en": "this field is required",
     "de": "Dieses Feld wird benötigt",
-    "es": "este campo es obligatorio"
+    "es": "Este campo es obligatorio"
   },
   "location.length": {
     "fr": "la longueur de ce texte doit être comprise entre %min% et %max%",
     "en": "the length must be between %min% and %max% caracters",
     "de": "die Länge muss zwischen %min% und %max% caracters sein",
-    "es": "la longitud de este texto debe estar entre %min% y %max%"
+    "es": "La longitud de este texto debe estar entre %min% y %max%"
   },
   "location.invalid.latitude": {
     "fr": "Le lieu doit être géolocalisé",
@@ -172,7 +172,7 @@ module.exports = {
   "location.invalid.identifier": {
     "fr": "l'identifiant n'est pas valide",
     "en": "the identifier is not valid",
-    "de": "die Kennung ist nicht gültig",
+    "de": "Die Kennung ist nicht gültig",
     "es": "ID no es válido"
   },
   "noMapLocation": {
@@ -185,7 +185,7 @@ module.exports = {
     "fr": "Localiser",
     "en": "Locate",
     "de": "Lokalisieren",
-    "es": "localizar"
+    "es": "Localizar"
   },
   "loadingError": {
     "fr": "Un problème est survenu lors du chargement. Veuillez ré-essayer.",
