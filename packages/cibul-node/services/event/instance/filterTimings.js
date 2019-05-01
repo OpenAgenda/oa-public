@@ -24,12 +24,12 @@ module.exports = ( timings, filter, timezone ) => {
 
 function _filterFrom( timings, fromValue, timezone ) {
 
-  return timings.filter( t => moment.tz( fromValue, timezone ).format( 'YYYY-MM-DD' ) <= moment.tz( t.start, timezone ).format( 'YYYY-MM-DD' ) );
+  return timings.filter( t => moment.tz( fromValue.replace( ' ', '+' ), timezone ).format( 'YYYY-MM-DD' ) <= moment.tz( t.start, timezone ).format( 'YYYY-MM-DD' ) );
 
 }
 
 function _filterTo( timings, toValue, timezone ) {
 
-  return timings.filter( t => moment.tz( toValue, timezone ).format( 'YYYY-MM-DD' ) >= moment.tz( t.start, timezone ).format( 'YYYY-MM-DD' ) );
+  return timings.filter( t => moment.tz( toValue.replace( ' ', '+' ), timezone ).format( 'YYYY-MM-DD' ) >= moment.tz( t.start, timezone ).format( 'YYYY-MM-DD' ) );
 
 }

@@ -236,12 +236,12 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
   }
 
-
   if ( query.when.length == 1 ) {
 
     esQuery.when = {
       type: 'date',
-      value: new Date( query.when[0] ).toJSON()
+      value: new Date( _.get( query, 'when.0', '' ).replace( ' ', '+' ) ).toJSON(),
+      withTime: query.when[0].indexOf( 'T' ) !== -1
     };
 
   } else if ( query.when.length == 2 ) {
@@ -249,9 +249,10 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
     esQuery.when = {
       type: 'period',
       value: {
-        start: new Date( query.when[ 0 ] ).toJSON(),
-        end: new Date( query.when[ 1 ] ).toJSON()
-      }
+        start: new Date( _.get( query, 'when.0', '' ).replace( ' ', '+' ) ).toJSON(),
+        end: new Date( _.get( query, 'when.1', '' ).replace( ' ', '+' ) ).toJSON(),
+      },
+      withTime: query.when[0].indexOf( 'T' ) !== -1
     };
 
   } else if ( query.passed || query.when === false ) {
