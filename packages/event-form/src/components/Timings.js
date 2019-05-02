@@ -79,6 +79,7 @@ module.exports = class TimingsComponent extends Component {
   onChangeActiveWeek = activeWeek => this.setState( { activeWeek } );
 
   render() {
+
     const { field } = this.props;
     const { value, lang, labels, activeWeek, allowedTimings } = this.state;
 
@@ -102,7 +103,8 @@ module.exports = class TimingsComponent extends Component {
             lang={({
               fr: 'fr-FR',
               en: 'en-US',
-              de: 'de-DE'
+              de: 'de-DE',
+              es: 'es-ES'
             })[ lang ]}
             startTime="6:00"
             timings={loadTimings( this.props, 'start' )}
@@ -136,7 +138,7 @@ function _extractDateString( d ) {
 
 function _fZ( n ) {
 
-  return ('0' + n).slice( -2 );
+  return ( n < 0 ? '-' : '' ) + ( Math.abs( n ) < 10 ? '0' : '' ) + Math.abs( n );
 
 }
 
