@@ -125,6 +125,44 @@ describe( 'aggregation rules', () => {
 
     } );
 
+    // this is not useful as aggregation only launches if number of rules
+    // is the same as number of matches
+    test( 'location evaluation matches if only one value is specified', () => {
+
+      const ruleset = [ {
+        query: {
+          location: {
+            city: 'Paris'
+          }
+        }
+      }, {
+        query: {
+          location: {
+            city: 'Bordeaux'
+          }
+        }
+      } ];
+
+      expect( rules( ruleset, event ) ).toEqual( [ null ] );
+
+    } );
+
+    test( 'location evaluation matches if one value of set list specified', () => {
+
+      const ruleset = [ {
+        query: {
+          location: [ {
+            city: 'Paris'
+          }, {
+            city: 'Bordeaux'
+          } ]
+        }
+      } ];
+
+      expect( rules( ruleset, event ) ).toEqual( [ null ] );
+
+    } );
+
   } );
 
 } );

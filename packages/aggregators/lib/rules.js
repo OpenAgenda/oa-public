@@ -52,10 +52,15 @@ module.exports = ( rules, event, key = 'value' ) => {
 
 function _location( location, filter ) {
 
-  const differentFields = _.keys( filter )
-    .filter( locationField => location[ locationField ] !== filter[ locationField ] );
+  return [].concat( filter ).map( locationFilter => {
 
-  return !differentFields.length;
+    const evaluatedLocationFields = _.keys( locationFilter );
+
+    const matchingFields = evaluatedLocationFields.filter( locationField => location[ locationField ] === locationFilter[ locationField ] );
+
+    return matchingFields.length === evaluatedLocationFields.length;
+
+  } ).filter( matching => matching ).length;
 
 }
 
