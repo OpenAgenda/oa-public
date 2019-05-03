@@ -954,6 +954,18 @@ module.exports = createReactClass( {
         bottom={this.renderAlternative( 'website' )}
         validator={validate.field( 'website' )} />
 
+      <InputField
+        name='email'
+        enabled={this.isFieldEnabled( 'email' )}
+        value={this.state.location.email}
+        getLabel={this.getLabel}
+        lang={this.props.lang}
+        info="emailInfo"
+        placeholder="emailPlaceholder"
+        onChange={this.onChange}
+        bottom={this.renderAlternative( 'email' )}
+        validator={validate.field( 'email' )} />
+
       <MultiInputField
         name="links"
         enabled={this.isFieldEnabled( 'links' )}

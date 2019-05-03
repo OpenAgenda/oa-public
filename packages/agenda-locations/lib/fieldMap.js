@@ -53,6 +53,9 @@ module.exports = [ {
   key: 'website',
   detailed: true
 }, {
+  key: 'email',
+  detailed: true
+}, {
   key: 'phone',
   detailed: true
 }, {

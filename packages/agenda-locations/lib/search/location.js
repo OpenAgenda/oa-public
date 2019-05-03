@@ -326,6 +326,7 @@ module.exports.clean = function( l, refreshUpdatedAt ) {
     timezone: l.timezone,
     links: l.links,
     phone: l.phone,
+    email: l.email,
     imageCredits: l.imageCredits,
     access: JSON.stringify( l.access ) || null,
     updatedAt: refreshUpdatedAt ? new Date() : l.updatedAt,

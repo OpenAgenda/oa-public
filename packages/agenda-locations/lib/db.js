@@ -21,7 +21,7 @@ const fields = [
 
 const storeFields = [ // fields kept in store column in schema
   'image', 'description', 'tags',
-  'website', 'phone', 'links', 'access',
+  'website', 'email', 'phone', 'links', 'access',
   'state', 'timezone', 'imageCredits', 'extId'
 ];
 
