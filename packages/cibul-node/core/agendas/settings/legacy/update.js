@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 
+const getAgenda = require( '../../utils/getAgenda' );
 const updateTagSetFromSchema = require( './updateTagSetFromSchema' );
 const updateCustomFromSchema = require( './updateCustomFromSchema' );
 const controlData = require( '../../../../services/legacy' ).controlData;
