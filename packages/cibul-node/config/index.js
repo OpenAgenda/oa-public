@@ -309,7 +309,7 @@ const config = {
         "tumblr",
         "prezi",
         "google",
-        "ted",
+        "\.ted\.",
         "ina\.fr",
         "youtu",
         "calameo",
