@@ -10,14 +10,21 @@ const queues = require( '@openagenda/queues' );
 const config = require( './config' );
 
 const transfer = require( './legacy/transfer' );
+const get = require( './get' );
 
-module.exports = _.extend( task, { resync } );
+const toLegacy = require( './legacy' );
 
-function resync( formSchemaId, agendaId ) {
+module.exports = _.extend( task, {
+  pushLegacyDatasetToCustom: agendaId => config.queue( {
+    job: 'pushLegacyDatasetToCustom',
+    agendaId
+  } ),
+  pushCustomDatasetToLegacy: agendaId => config.queue( {
+    job: 'pushCustomDatasetToLegacy',
+    agendaId
+  } )
+} );
 
-  return config.queue( { job: 'resync', formSchemaId, agendaId } );
-
-}
 
 async function task() {
 
@@ -27,11 +34,26 @@ async function task() {
 
     const { job } = data;
 
+    log( 'received job', _.get( data, 'job' ) );
+
     try {
 
-      if ( job === 'resync' ) {
+      if ( job === 'pushLegacyDatasetToCustom' ) {
 
-        await enqueueLegacyReferences( data.formSchemaId, data.agendaId );
+        await enqueueTransfers( data.agendaId, 'transfer' );
+
+      } else if ( job === 'pushCustomDatasetToLegacy' ) {
+
+        await enqueueTransfers( data.agendaId, 'toLegacy' );
+
+      } else if ( job === 'toLegacy' ) {
+
+        await toLegacy(
+          data.formSchemaId,
+          data.identifier,
+          await get( data.formSchemaId, data.identifier ),
+          _.pick( data, 'agendaId' )
+        );
 
       } else {
 
@@ -49,13 +71,16 @@ async function task() {
 
 }
 
-async function enqueueLegacyReferences( formSchemaId, agendaId ) {
+
+async function enqueueTransfers( agendaId, jobName ) {
 
   const { knex } = config;
   const { schemas } = config.legacy;
-  
+
+  const formSchemaIds = await _getFormSchemaIds( agendaId );
+
   let lastId = 0;
-  let refs = []
+  let refs = [];
 
   while ( ( refs = await knex( schemas.agendaEvent + ' as ra' )
     .select( [
@@ -67,15 +92,54 @@ async function enqueueLegacyReferences( formSchemaId, agendaId ) {
     .limit( 20 )
   ).length ) {
 
-    // a transfer must also be done in the context of an agenda
     for ( const ref of refs ) {
+      for ( const formSchemaId of formSchemaIds ) {
 
-      await config.queue( { job: 'transfer', formSchemaId, identifier: ref.uid, agendaId } );
+        log( 'enqueing %s formSchemaId %s agendaId %s, identifier %s', jobName, formSchemaId, agendaId, ref.uid );
 
+        await config.queue( {
+          job: jobName,
+          formSchemaId,
+          identifier: ref.uid,
+          agendaId
+        } );
+      }
     }
 
     lastId = _.last( refs ).ra_id;
 
   }
+
+}
+
+
+async function _getFormSchemaIds( agendaId ) {
+
+  const { knex } = config;
+  const { schemas } = config.legacy;
+
+  const ids = [];
+
+  const {
+    agendaFormSchemaId,
+    networkUid
+  } = await knex( schemas.agenda ).first( [
+    'form_schema_id as agendaFormSchemaId',
+    'network_uid as networkUid'
+  ] ).where( 'id', agendaId );
+
+  if ( agendaFormSchemaId ) ids.push( agendaFormSchemaId );
+
+  if ( networkUid ) {
+
+    const { form_schema_id: networkFormSchemaId } = await knex( 'network' )
+      .first( 'form_schema_id as networkFormSchemaId' )
+      .where( 'uid', networkUid );
+
+    if ( networkFormSchemaId ) ids.push( networkFormSchemaId );
+
+  }
+
+  return ids;
 
 }

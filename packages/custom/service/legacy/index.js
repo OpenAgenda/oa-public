@@ -26,7 +26,10 @@ async function set( formSchemaId, identifier, data, options = {} ) {
     agendaId,
     eventId,
     agendaEventId
-  } = await load( formSchemaId, identifier, { insertIfNotExists: true, agendaId: options.agendaId } );
+  } = await load( formSchemaId, identifier, {
+    insertIfNotExists: true,
+    agendaId: options.agendaId
+  } );
 
   if ( !fields.filter( f => !!f.origin ).length ) {
 

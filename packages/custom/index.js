@@ -11,8 +11,7 @@ const endpoints = {
   update: require( './service/update' ),
   set: require( './service/set' ),
   remove: require( './service/remove' ),
-  transferFromLegacy: require( './service/legacy/transfer' ),
-  resync: require( './service/task' ).resync
+  transferFromLegacy: require( './service/legacy/transfer' )
 };
 
 module.exports = _.assign( formSchemaId => {
@@ -21,5 +20,7 @@ module.exports = _.assign( formSchemaId => {
 
 }, _.pick( require( './service/config' ), [ 'init', 'shutdown', 'getConfig' ] ), {
   parseLegacy: require( './service/legacy/transfer' ).parse,
+  pushLegacyDatasetToCustom: require( './service/task' ).pushLegacyDatasetToCustom,
+  pushCustomDatasetToLegacy: require( './service/task' ).pushCustomDatasetToLegacy,
   task
 } );
