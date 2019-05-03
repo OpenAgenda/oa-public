@@ -503,7 +503,7 @@ module.exports = {
     "fr": "Mettre à jour",
     "en": "Update",
     "de": "Aktualisieren",
-    "es": "Poner al día"
+    "es": "Guardar"
   },
   "subjectLabel": {
     "fr": "Objet par défaut",

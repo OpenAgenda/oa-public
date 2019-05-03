@@ -17,7 +17,7 @@ module.exports = {
     "fr": "Mettre à jour",
     "en": "Update",
     "de": "Aktualisieren",
-    "es": "Poner al día"
+    "es": "Guardar"
   },
   "submitError": {
     "fr": "Le lieu n'a pas pu être mis à jour",

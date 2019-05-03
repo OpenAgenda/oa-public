@@ -39,7 +39,7 @@ module.exports = {
     "it": "Modificare",
     "de": "ändern",
     "br": "Hizivaat",
-    "es": "Poner al día"
+    "es": "Guardar"
   },
   "editEvent": {
     "fr": "Mettre à jour l'événement",
