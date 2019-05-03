@@ -7,7 +7,11 @@ const { promisify } = require( 'util' );
 
 const agendaGet = promisify( agendas.get );
 
-module.exports = async ( { agendaUid } ) => {
+module.exports = _run.bind( null, 'pushLegacyDatasetToCustom' );
+
+module.exports.toLegacy = _run.bind( null, 'pushCustomDatasetToLegacy' );
+
+async function _run( jobName, { agendaUid } ) {
 
   const agenda = await agendaGet( { uid: agendaUid }, { private: null, internal: true } );
 
@@ -23,6 +27,6 @@ module.exports = async ( { agendaUid } ) => {
 
   }
 
-  return custom( agenda.formSchemaId ).resync( agenda.id );
+  return custom[ jobName ]( agenda.id );
 
 }
