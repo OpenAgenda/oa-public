@@ -5,9 +5,10 @@ import { connect } from 'react-redux';
 import reducers from '../reducers';
 
 import AddAgenda from '../components/AddAgenda';
+import Canvas from '../components/Canvas';
+import ListHead from '../components/ListHead';
 import Loading from '../components/Loading';
-import Header from '../components/Header';
-import NetworkHeader from '../components/NetworkHeader';
+
 
 class NetworkAgendas extends Component {
 
@@ -23,19 +24,22 @@ class NetworkAgendas extends Component {
 
     const { onAdd, onAddClose, onAddSubmit } = this.props;
 
-    return <div className="container margin-top-lg">
-      <Header {...this.props} />
-      { agendas ? <div>
-        { network ? <NetworkHeader network={network} /> : null }
-        <button className="btn btn-primary" onClick={onAdd}>Ajouter un agenda au réseau</button>
+    return <Canvas {...this.props}>
+      <ListHead className="text-center">
+          <button className="btn btn-primary" onClick={onAdd}>Ajouter un agenda au réseau</button>
+      </ListHead>
+      <div>
         {agendas ? <ul className="list-unstyled">{agendas.map( a => (
           <li className="margin-v-sm padding-all-sm wsq" key={'agenda' + a.uid}>
-            <label><a target="_blank" href={`/agendas/${a.uid}`}>{a.title}</a></label>
+            <label>{a.title}</label>
+            <ul className="list-inline">
+              <li><a target="_blank" href={`/agendas/${a.uid}`}>Voir</a></li>
+            </ul>
           </li>
         ) )}</ul> : <Loading /> }
         { add ? <AddAgenda onAdd={onAddSubmit} onClose={onAddClose} /> : null }
-      </div> : <Loading /> }
-    </div>
+      </div>
+    </Canvas>
 
   }
 

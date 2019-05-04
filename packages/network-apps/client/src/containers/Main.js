@@ -5,7 +5,8 @@ import { Link } from "react-router-dom";
 
 import reducers from '../reducers';
 
-import Header from '../components/Header';
+import Canvas from '../components/Canvas';
+import ListHead from '../components/ListHead';
 
 class Main extends Component {
 
@@ -36,11 +37,10 @@ class Main extends Component {
     const { onAdd } = this.props;
     const base = this.props.config.base;
 
-    return <div className="container margin-top-lg">
-      <Header {...this.props} />
-      <div className="margin-v-sm text-right">
+    return <Canvas {...this.props}>
+      <ListHead className="text-center">
         { add ? this.renderAdd() : <button className="btn btn-primary" onClick={onAdd}>Ajouter un nouveau réseau</button> }
-      </div>
+      </ListHead>
       <ul className="list-unstyled">{networks.map( n => <li key={n.uid}>
         <div className="margin-v-sm wsq padding-all-sm">
           <label>{n.title}</label>
@@ -54,7 +54,7 @@ class Main extends Component {
           </ul>
         </div>
       </li> )}</ul>
-    </div>
+    </Canvas>
 
   }
 

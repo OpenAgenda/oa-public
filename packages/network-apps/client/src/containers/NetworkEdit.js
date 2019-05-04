@@ -6,9 +6,10 @@ import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaB
 
 import reducers from '../reducers';
 
+import Canvas from '../components/Canvas';
+import ListHead from '../components/ListHead';
+
 import Loading from '../components/Loading';
-import Header from '../components/Header';
-import NetworkHeader from '../components/NetworkHeader';
 
 class NetworkEdit extends Component {
 
@@ -24,10 +25,8 @@ class NetworkEdit extends Component {
     const { eventSchema, lang } = this.props.config;
     const { onUpdate } = this.props;
 
-    return <div className="container margin-top-lg">
-      <Header {...this.props} />
+    return <Canvas {...this.props}>
       { network ? <div className="wsq padding-all-sm">
-        <NetworkHeader network={network} />
         <FormSchemaBuilder
           lang={lang}
           addEnabled={true}
@@ -46,7 +45,7 @@ class NetworkEdit extends Component {
         <pre><code>{JSON.stringify( schema, null, 2 )}</code></pre>
         <pre><code>{JSON.stringify( eventSchema, null, 2 )}</code></pre>
       </div> : <Loading /> }
-    </div>
+    </Canvas>
 
   }
 
