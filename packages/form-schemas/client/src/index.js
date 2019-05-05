@@ -105,6 +105,15 @@ export default class FormSchemaComponent extends Component {
 
     }
 
+    if ( this.props.onSubmit ) {
+
+      return this.props.onSubmit( {
+        values,
+        files: this.get( 'files' )
+      } );
+
+    }
+
     this.set( { loading: true } );
 
     submit( {
@@ -407,6 +416,7 @@ export default class FormSchemaComponent extends Component {
 FormSchemaComponent.defaultPropTypes = {
   withErrors: false,
   stateless: false, // component handles its own state by default
+  onSubmit: null,
   onSubmitSuccess: null,
   res: {
     post: '',

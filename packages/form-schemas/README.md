@@ -40,9 +40,19 @@ This is a quick summary. For details, check tests: `test/FormSchema.js`
 
 Provides create, update, get and remove methods. See tests for details.
 
-# Legacy bridge
+# Form Component
 
-On the legacy platform, custom field schemas are stored in the agenda data model. A legacy bridge function can parse those to form a FormSchema that can be validated. Otherwise it just throws an error.
+A react form component
+
+## Props
+
+## Use cases
+
+### Handle the submitted data within the front component
+
+Just specify the `onSubmit` prop and the component will call it with the form content when the button is pressed.
+
+### Let the component post the data
 
 # Form Builder
 
