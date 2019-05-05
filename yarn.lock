@@ -2010,10 +2010,10 @@
     slug "0.9.1"
     when "3.7.4"
 
-"@openagenda/cibul-model@^0.1.26":
-  version "0.1.26"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.26.tgz#3252dfcaa86316d89fff879edcf14d8a2b4af006"
-  integrity sha512-+2iNp39o0rjOgYRJ88PsTiJyX+nGz5exr0vFSmk5hUWMMccshxVAOgSriaif4k9OFpoKJDnoCpJKjh3A9a7Cog==
+"@openagenda/cibul-model@^0.1.27":
+  version "0.1.27"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.27.tgz#4746cc13103871b15b771c6f87a827dcded96b15"
+  integrity sha512-EyK3a5eN2VIIjS5o/q+pw6vJuL2URsqb1LrvLwcTDuoFGqWFguEQfouemD67lTPaAhIY4Eu0CLZP2Bq1p+Uq5Q==
   dependencies:
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/utils" "^1.0.2"
@@ -2060,10 +2060,10 @@
     should "~4.0"
     xml2js "0.4.9"
 
-"@openagenda/es-node@^1.0.10":
-  version "1.0.10"
-  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.10.tgz#b4f11ce3d4ede5d9dcf1e2efa877057d527111f0"
-  integrity sha512-GBQ5QnsKWkdkLAWWV+GuhIDQ9pnAvolPV9xmdzoEM+CLZzphJ0o9GFkRwKdmoZea0xUP1Po5pYpMU6NNrVxaCQ==
+"@openagenda/es-node@^1.0.14":
+  version "1.0.14"
+  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.14.tgz#b086bcf1716ad000f9f4baf641e639e8a5c5f3d4"
+  integrity sha512-a74Wq3rstRvEZArcVQfQnYuQTlrFOiRm1RiWJcOm3SaNoPohUAVCiNHPA/2Or+7d1vc88q/L71Vg85ZknAtH5w==
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "~0.9"
