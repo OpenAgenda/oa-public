@@ -22,23 +22,8 @@ schema.register( {
   multilingual: require( '@openagenda/validators/multilingual' ),
   integer: require( '@openagenda/validators/integer' ),
   choice: require( '@openagenda/validators/choice' ),
-  pass: require( '@openagenda/validators/pass' )
-} );
-
-const fileValidator = validatorOptions => schema( {
-  extension: {
-    type: 'text'
-  },
-  originalName: {
-    type: 'text'
-  },
-  filename: {
-    type: 'text'
-  }
-} );
-
-schema.register( {
-  file: fileValidator
+  pass: require( '@openagenda/validators/pass' ),
+  file: require( './fileValidator' )
 } );
 
 module.exports = ( fields, accessType = null, accessLevel = null, options = {} ) => {

@@ -27,6 +27,12 @@ module.exports = {
       "sub" : {
         "fr" : "Le texte dessous"
       }
+    }, {
+      "field" : "somerequiredimage",
+      "fieldType" : "image",
+      "extensions" : [ 'jpg' ],
+      "optional" : false,
+      "label" : "A required image"
     } ]
   }
 }
