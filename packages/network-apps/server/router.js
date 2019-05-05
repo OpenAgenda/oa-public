@@ -87,13 +87,29 @@ router.get(
   } );
 
 router.post(
-  '/networks/:uid/agendas',
+  '/networks/:uid/agendas/add',
   async ( req, res, next ) => {
 
     try {
       res.json( await router.service.addAgendaToNetwork(
         parseInt( req.params.uid ),
         req.body.slugOrUrl.split( '/' ).pop()
+      ) );
+    } catch ( e ) {
+      next( e );
+    }
+
+  } );
+
+router.post(
+  '/networks/:uid/agendas',
+  async ( req, res, next ) => {
+
+    try {
+      res.json( await router.service.createAgenda(
+        parseInt( req.params.uid ),
+        req.body,
+        await router.service.getLoggedUser( req )
       ) );
     } catch ( e ) {
       next( e );

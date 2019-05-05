@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import reducers from '../reducers';
 
 import AddAgenda from '../components/AddAgenda';
+import CreateAgenda from '../components/CreateAgenda';
 import Canvas from '../components/Canvas';
 import ListHead from '../components/ListHead';
 import Loading from '../components/Loading';
@@ -20,13 +21,14 @@ class NetworkAgendas extends Component {
 
   render() {
 
-    const { network, agendas, add } = this.props.network;
+    const { network, agendas, add, create } = this.props.network;
 
-    const { onAdd, onAddClose, onAddSubmit } = this.props;
+    const { onAdd, onAddClose, onAddSubmit, onCreate, onCreateClose, onCreateSubmit } = this.props;
 
     return <Canvas {...this.props}>
       <ListHead className="text-center">
-          <button className="btn btn-primary" onClick={onAdd}>Ajouter un agenda au réseau</button>
+          <button className="btn btn-primary margin-h-sm" onClick={onCreate}>Créer un agenda</button>
+          <button className="btn btn-default margin-h-sm" onClick={onAdd}>Ajouter un agenda existant</button>
       </ListHead>
       <div>
         {agendas ? <ul className="list-unstyled">{agendas.map( a => (
@@ -37,7 +39,14 @@ class NetworkAgendas extends Component {
             </ul>
           </li>
         ) )}</ul> : <Loading /> }
-        { add ? <AddAgenda onAdd={onAddSubmit} onClose={onAddClose} /> : null }
+        { add ? <AddAgenda
+          onAdd={onAddSubmit}
+          onClose={onAddClose}
+        /> : null }
+        { create ? <CreateAgenda
+          onCreate={onCreateSubmit}
+          onClose={onCreateClose}
+        /> : null }
       </div>
     </Canvas>
 
@@ -50,7 +59,10 @@ export default connect(
   dispatch => ( {
     onMount: () => dispatch( reducers.network.loadAgendas() ),
     onAdd: () => dispatch( reducers.network.showAddAgenda() ),
+    onCreate: () => dispatch( reducers.network.showCreateAgenda() ),
     onAddSubmit: slugOrUrl => dispatch( reducers.network.submitAddAgenda( slugOrUrl ) ),
-    onAddClose: () => dispatch( reducers.network.closeAddAgenda() )
+    onCreateSubmit: agenda => dispatch( reducers.network.submitCreateAgenda( agenda ) ),
+    onAddClose: () => dispatch( reducers.network.closeAddAgenda() ),
+    onCreateClose: () => dispatch( reducers.network.closeCreateAgenda() )
   } )
 )( NetworkAgendas );

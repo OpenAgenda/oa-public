@@ -8,9 +8,12 @@ const actionTypes = [
   'SCHEMA_UPDATE',
   'LOAD_AGENDAS',
   'LOAD_AGENDAS_SUCCESS',
-  'SHOW_ADD_AGENDA',
-  'CLOSE_ADD_AGENDA',
-  'ADD_AGENDA_SUCCESS'
+  'ADD_AGENDA_SHOW',
+  'ADD_AGENDA_CLOSE',
+  'ADD_AGENDA_SUCCESS',
+  'CREATE_AGENDA_SHOW',
+  'CREATE_AGENDA_CLOSE',
+  'CREATE_AGENDA_SUCCESS',
 ].reduce( ( a, v ) => _.set( a, v, `network-apps/network/${v}` ), {} );
 
 const { dispatchError } = require( './main' );
@@ -33,10 +36,8 @@ export default _.assign( ( state = {}, action = {} ) => {
         network: { $set: action.network }
       } );
 
-    case actionTypes.SHOW_ADD_AGENDA:
-      return ih( state, {
-        add: { $set: true }
-      } );
+    case actionTypes.ADD_AGENDA_SHOW:
+      return ih( state, { add: { $set: true } } );
 
     case actionTypes.ADD_AGENDA_SUCCESS:
       return ih( state, {
@@ -44,8 +45,20 @@ export default _.assign( ( state = {}, action = {} ) => {
         agendas: { $splice: [ [ 0, 0, action.agenda ] ] }
       } );
 
-    case actionTypes.CLOSE_ADD_AGENDA:
+    case actionTypes.ADD_AGENDA_CLOSE:
       return ih( state, { add: { $set: null } } );
+
+    case actionTypes.CREATE_AGENDA_SHOW:
+      return ih( state, { create: { $set: true } } );
+
+    case actionTypes.CREATE_AGENDA_SUCCESS:
+      return ih( state, {
+        create: { $set: null },
+        agendas: { $splice: [ [ 0, 0, action.agenda ] ] }
+      } );
+
+    case actionTypes.CREATE_AGENDA_CLOSE:
+      return ih( state, { create: { $set: null } } );
 
     default:
       return state;
@@ -54,11 +67,12 @@ export default _.assign( ( state = {}, action = {} ) => {
 }, {
   load,
   loadAgendas,
-  showAddAgenda: () => ( {
-    type: actionTypes.SHOW_ADD_AGENDA
-  } ),
-  closeAddAgenda: () => ( { type: actionTypes.CLOSE_ADD_AGENDA } ),
+  showAddAgenda: () => ( { type: actionTypes.ADD_AGENDA_SHOW } ),
+  closeAddAgenda: () => ( { type: actionTypes.ADD_AGENDA_CLOSE } ),
   submitAddAgenda,
+  showCreateAgenda: () => ( { type: actionTypes.CREATE_AGENDA_SHOW } ),
+  closeCreateAgenda: () => ( { type: actionTypes.CREATE_AGENDA_CLOSE } ),
+  submitCreateAgenda,
   updateSchema: schema => ( {
     type: actionTypes.SCHEMA_UPDATE,
     schema
@@ -73,9 +87,7 @@ function loadAgendas() {
       type: actionTypes.LOAD_AGENDAS,
     } );
 
-    const successDispatch = {
-      type: actionTypes.LOAD_AGENDAS_SUCCESS,
-    };
+    const successDispatch = { type: actionTypes.LOAD_AGENDAS_SUCCESS };
 
     try {
       const { body: { network, agendas } } = await sa
@@ -95,26 +107,44 @@ function loadAgendas() {
 
 function submitAddAgenda( slugOrUrl ) {
 
-  return async ( dispatch, getState, history ) => {
+  return ( dispatch, getState, history ) => _post( {
+    dispatch,
+    successType: actionTypes.ADD_AGENDA_SUCCESS,
+    res: history.location.pathname + '/add',
+    data: { slugOrUrl },
+    failType: actionTypes.ADD_AGENDA_CLOSE
+  } );
 
-    const successDispatch = {
-      type: actionTypes.ADD_AGENDA_SUCCESS
-    };
+}
 
-    try {
-      const res = await sa.post( history.location.pathname, {
-        slugOrUrl
-      } ).set( 'Accept', 'application/json' );
+function submitCreateAgenda( agenda ) {
 
-      _.assign( successDispatch, { agenda: res.body } );
-    } catch ( e ) {
-      dispatch( { type: actionTypes.CLOSE_ADD_AGENDA } );
-      return dispatchError( dispatch, e );
-    }
+  return ( dispatch, getState, history ) => _post( {
+    dispatch,
+    successType: actionTypes.CREATE_AGENDA_SUCCESS,
+    res: '',
+    data: agenda,
+    failType: actionTypes.CREATE_AGENDA_CLOSE
+  } );
 
-    dispatch( successDispatch );
+}
 
+async function _post( { dispatch, successType, res, data, failType } ) {
+
+  const successDispatch = {
+    type: successType
+  };
+
+  try {
+    const response = await sa.post( res, data ).set( 'Accept', 'application/json' );
+
+    _.assign( successDispatch, { agenda: response.body } );
+  } catch ( e ) {
+    dispatch( { type: failType } );
+    return dispatchError( dispatch, e );
   }
+
+  dispatch( successDispatch );
 
 }
 

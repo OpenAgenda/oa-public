@@ -9,11 +9,13 @@ module.exports = fixtures => {
 
   return {
     listNetworks,
+    getLoggedUser,
     getNetwork,
     getNetworkSchema,
     setNetworkSchemaFields,
     getNetworkAgendas,
     createNetwork,
+    createAgenda,
     getEventSchema,
     addAgendaToNetwork
   }
@@ -57,11 +59,29 @@ module.exports = fixtures => {
 
     console.log( 'creating new network %s', data.title );
 
-    data.uid = Math.floor( Math.random() * 1000000 );
+    data.uid = _newUid()
 
     networks.push( data );
 
     return true;
+
+  }
+
+  async function getLoggedUser( req ) {
+
+    return { uid: 123 };
+
+  }
+
+  async function createAgenda( networkUid, user, data ) {
+
+    console.log( 'creating new agenda %s', data.title );
+
+    const agenda = { ...data, uid: _newUid() };
+
+    _.find( networks, { uid: networkUid } ).agendas.splice( 0, 0, agenda );
+
+    return agenda;
 
   }
 
@@ -94,5 +114,11 @@ module.exports = fixtures => {
     }
 
   }
+
+}
+
+function _newUid() {
+
+  return Math.floor( Math.random() * 1000000 );
 
 }
