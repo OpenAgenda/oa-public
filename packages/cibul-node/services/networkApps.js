@@ -49,7 +49,8 @@ module.exports.init = config => {
       getNetworkAgendas: uid => core.networks( uid ).agendas(),
       getLoggedUser: async req => req.user,
       addAgendaToNetwork,
-      createAgenda
+      createAgenda,
+      createNetwork: core.networks.create
     }
   } ) );
 

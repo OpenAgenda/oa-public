@@ -9,6 +9,7 @@ const updateSchemaFields = require( './updateSchemaFields' );
 const getAgendas = require( './getAgendas' );
 const addAgenda = require( './addAgenda' );
 const createAgenda = require( './createAgenda' );
+const networks = require( '../../services/networks' );
 
 module.exports = networkUid => {
 
@@ -27,3 +28,5 @@ module.exports = networkUid => {
 }
 
 module.exports.list = list;
+
+module.exports.create = data => networks.create( data );
