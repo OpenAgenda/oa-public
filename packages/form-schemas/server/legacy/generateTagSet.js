@@ -8,7 +8,7 @@ const uniques = [ 'radio', 'select' ];
 
 module.exports = ( schema, currentTagSet = null ) => {
 
-  const tagSetGroups = currentTagSet ? currentTagSet.groups : [];
+  const currentTagGroups = _.get( currentTagSet, 'groups', [] );
 
   const tagSettableFields = schema.fields
     .filter( f => includeTypes.includes( f.fieldType ) );
@@ -17,37 +17,22 @@ module.exports = ( schema, currentTagSet = null ) => {
     .filter( f => !f.origin )
     .map( f => `${f.field}: field origin is not set` );
 
-  if ( !tagSettableFields.length ) return {
-    messages: [ 'no tag-like fields' ],
-    tagSet: null
-  };
+  const updatedGroups = tagSettableFields.map( f => {
 
-  tagSettableFields.forEach( f => {
+    const index = currentTagGroups.map( g => g.name ).indexOf( _monoLabel( f.label ) );
 
-    const index = tagSetGroups.map( g => g.name ).indexOf( _monoLabel( f.label ) );
-
-    const tags = _defineTags( f.schemaId, index === -1 ? [] : tagSetGroups[ index ].tags, f.options );
-
-    if ( index === -1 ) {
-
-      tagSetGroups.push( {
-        name: _monoLabel( f.label ),
-        required: !f.optional,
-        unique: uniques.includes( f.fieldType ),
-        tags
-      } );
-
-    } else {
-
-      tagSetGroups[ index ].tags = tags ;
-
-    }
+    return {
+      name: _monoLabel( f.label ),
+      required: !f.optional,
+      unique: uniques.includes( f.fieldType ),
+      tags: _defineTags( f.schemaId, index === -1 ? [] : currentTagGroups[ index ].tags, f.options )
+    };
 
   } );
 
   return {
     tagSet: {
-      groups: tagSetGroups
+      groups: updatedGroups
     },
     messages,
     fields: tagSettableFields

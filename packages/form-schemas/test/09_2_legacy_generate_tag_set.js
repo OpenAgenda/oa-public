@@ -52,46 +52,47 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
           slug: 'trois',
           id: 192018
         } ]
+      }, {
+        name: 'Paris',
+        required: true,
+        unique: false,
+        tags: [ {
+          label: 'Trois',
+          slug: 'trois',
+          id: 192018
+        } ]
       } ]
     };
 
     generateTagSet( schema, tagSet ).tagSet.should.eql( {
       groups: [ {
+        "name": "Nantes",
+        "required": true,
+        "unique": false,
+        "tags": [ {
+          "slug": "un",
+          "label": "Un",
+          "schemaOptionId": "1.1"
+        }, {
+          "slug": "deux",
+          "label": "Deux",
+          "schemaOptionId": "1.2"
+        } ]
+      }, {
         "name": "Paris",
         "required": true,
         "unique": false,
-        "tags": [
-          {
-            "label": "Trois",
-            "slug": "trois",
-            "id": 192018, // maintain those, its important
-            "schemaOptionId": "1.3" // add those
-          },
-          {
-            "slug": "quatre",
-            "label": "Quatre",
-            "schemaOptionId": "1.4"
-          }
-        ]
-      },
-        {
-          "name": "Nantes",
-          "required": true,
-          "unique": false,
-          "tags": [
-            {
-              "slug": "un",
-              "label": "Un",
-              "schemaOptionId": "1.1"
-            },
-            {
-              "slug": "deux",
-              "label": "Deux",
-              "schemaOptionId": "1.2"
-            }
-          ]
-        }
-      ]
+        "tags": [ {
+          "label": "Trois",
+          "slug": "trois",
+          "id": 192018, // maintain those, its important
+          "schemaOptionId": "1.3" // add those
+        }, {
+          "slug": "quatre",
+          "label": "Quatre",
+          "schemaOptionId": "1.4"
+        } ]
+      } ]
     } );
 
   } );
