@@ -46,8 +46,10 @@ module.exports.init = config => {
       getNetwork: uid => core.networks( uid ).get(),
       getNetworkSchema: uid => core.networks( uid ).schema.get(),
       setNetworkSchemaFields: ( uid, fields ) => core.networks( uid ).schema.updateFields( fields ),
-      getNetworkAgendas: uid => core.networks( uid ).getAgendas(),
-      addAgendaToNetwork: _addAgendaToNetwork
+      getNetworkAgendas: uid => core.networks( uid ).agendas(),
+      getLoggedUser: async req => req.user,
+      addAgendaToNetwork,
+      createAgenda
     }
   } ) );
 
@@ -55,7 +57,20 @@ module.exports.init = config => {
 }
 
 
-async function _addAgendaToNetwork( uid, dirtySlug ) {
+async function createAgenda( networkUid, data, user ) {
+
+  const { success, agenda } = await core.networks( networkUid ).agendas.create( {
+    ...data,
+    ownerId: user.id
+  } );
+
+  if ( !success ) throw new Error( 'Agenda could not be created' );
+
+  return agenda;
+
+}
+
+async function addAgendaToNetwork( uid, dirtySlug ) {
 
   const slug = (
     dirtySlug.split( '?' ).shift()
@@ -65,7 +80,7 @@ async function _addAgendaToNetwork( uid, dirtySlug ) {
 
   const agenda = await agendas.get( { slug } );
 
-  await core.networks( uid ).addAgenda( agenda.uid );
+  await core.networks( uid ).agendas.add( agenda.uid );
 
   return agenda;
 
