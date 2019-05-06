@@ -1,0 +1,86 @@
+[
+  {
+    "matchEvery": {
+      "city": [
+        "Albigny-sur-Saône",
+        "Bron",
+        "Cailloux-sur-Fontaines",
+        "Caluire-et-Cuire",
+        "Champagne-au-Mont-d'Or",
+        "Charbonnières-les-Bains",
+        "Charly",
+        "Chassieu",
+        "Collonges-au-Mont-d'Or",
+        "Corbas",
+        "Couzon-au-Mont-d'Or",
+        "Craponne",
+        "Curis-au-Mont-d'Or",
+        "Dardilly",
+        "Décines-Charpieu",
+        "Ecully",
+        "Feyzin",
+        "Fleurieu-sur-Saône",
+        "Fontaines-Saint-Martin",
+        "Fontaines-sur-Saône",
+        "Francheville",
+        "Genay",
+        "Givors",
+        "Grigny",
+        "Irigny",
+        "Jonage",
+        "La Mulatière",
+        "La Tour de Salvagny",
+        "Limonest",
+        "Lissieu",
+        "^Lyon(\\s.+|)$",
+        "Marcy-l'Etoile",
+        "Meyzieu",
+        "Mions",
+        "Montanay",
+        "Neuville-sur-Saône",
+        "Oullins",
+        "Pierre-Bénite",
+        "Poleymieux-au-Mont-d'Or",
+        "Quincieux",
+        "Rillieux-la-Pape",
+        "Rochetaillée-sur-Saône",
+        "Saint-Cyr-au-Mont-d'Or",
+        "Saint-Didier-au-Mont-d'Or",
+        "Saint-Fons",
+        "Saint-Genis-Laval",
+        "Saint-Genis-les-Ollières",
+        "Saint-Germain-au-Mont-d'Or",
+        "Saint-Priest",
+        "Saint-Romain-au-Mont-d'Or",
+        "Sainte-Foy-lès-Lyon",
+        "Sathonay-Camp",
+        "Sathonay-Village",
+        "Solaize",
+        "Tassin-la-Demi-Lune",
+        "Vaulx-en-Velin",
+        "Vénissieux",
+        "Vernaison",
+        "Villeurbanne"
+      ]
+    },
+    "update": {
+      "department": "Métropole de Lyon"
+    }
+  },
+  {
+    "matchEvery": {
+      "city": "^Lyon(\\s.+|)$"
+    },
+    "update": {
+      "city": "Lyon"
+    }
+  },
+  {
+    "matchEvery": {
+      "department": "Circonscription départementale du Rhône"
+    },
+    "update": {
+      "department": "Rhône"
+    }
+  }
+]

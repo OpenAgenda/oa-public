@@ -2,7 +2,8 @@
 
 const _ = require( 'lodash' );
 const axios = require( 'axios' );
-const getPolygonField = require( './getPolygonField' );
+const getPolygonField = require( './lib/getPolygonField' );
+const applyTransforms = require( './lib/applyTransforms' );
 
 const forwardURL = ( query, { key, pretty, countryCode, language } ) => [
   `https://api.opencagedata.com/geocode/v1/json?key=${key}&q=${encodeURIComponent( query )}`,
@@ -31,15 +32,9 @@ async function reverse( key, latitude, longitude, { first, language, raw } ) {
     url: reverseURL( latitude, longitude, { key, language } ),
   } ).then( r => _.get( r, 'data.results' ).map( parseResponseItem.bind( null, { raw } ) ) );
 
-  if ( results.length ) {
+  const transformed = await _applyTransforms( results );
 
-    await Promise.all(
-      first ? [ attachAdditionalFields( _.first( results ) ) ] : results.map( attachAdditionalFields )
-    );
-
-  }
-
-  return first ? _.first( results ) : results;
+  return first ? _.first( transformed ) : transformed;
 
 }
 
@@ -58,18 +53,16 @@ async function geocode( key, query, { countryCode, language, raw, first } ) {
     } )
   } ).then( r => _.get( r, 'data.results' ).map( parseResponseItem.bind( null, { raw } ) ) );
 
-  if ( results.length ) {
+  const transformed = await _applyTransforms( results );
 
-    await Promise.all(
-      first ? [ attachAdditionalFields( _.first( results ) ) ] : results.map( attachAdditionalFields )
-    );
-
-  }
-
-  return first ? _.first( results ) : results;
+  return first ? _.first( transformed ) : transformed;
 
 }
 
+
+/**
+ * DOMTOM, HONG KONG... country codes are not known by OpenCage
+ */
 function cleanGeocodeQuery( query, countryCode ) {
 
   for ( const transform of [ {
@@ -119,8 +112,22 @@ function parseResponseItem( { raw }, item ) {
 
 }
 
-async function attachAdditionalFields( location ) {
-  const district = await getPolygonField( 'district', location );
+async function _applyTransforms( geocodeResults ) {
 
-  location.district = district;
+  if ( !geocodeResults.length ) return geocodeResults;
+
+  return Promise.all(
+    geocodeResults.map( _applyTransformsOnGeocodeItem )
+  );
+
+}
+
+async function _applyTransformsOnGeocodeItem( geocodeResult ) {
+
+  const updated = applyTransforms( geocodeResult );
+
+  updated.district = await getPolygonField( 'district', updated );
+
+  return updated;
+
 }

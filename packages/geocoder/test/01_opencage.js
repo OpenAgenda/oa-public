@@ -5,7 +5,9 @@ const should = require( 'should' );
 const Opencage = require( '../Opencage' );
 const config = require( '../testconfig' );
 
-describe( 'opencage', () => {
+describe( 'opencage', function() {
+
+  this.timeout( 10000 );
 
   const geocode = Opencage( config.opencage );
 
@@ -38,6 +40,42 @@ describe( 'opencage', () => {
         language: 'fr',
         first: true
       } ) ).city.should.eql( 'Saint-Malo' );
+
+    } );
+
+    describe( 'Métropole de Lyon, département du Rhône', () => {
+
+      it( 'Maillane is in "Bouches-du-Rhône" department', async () => {
+
+        const result = await geocode( '11 Avenue Lamartine, Maillane', { countryCode: 'FR', first: true } );
+
+        result.department.should.equal( 'Bouches-du-Rhône' );
+
+      } );
+
+      it( 'Bron is in "Métropole de Lyon" department', async () => {
+
+        const result = await geocode( '20 Rue Villard, 69500 Bron', { countryCode: 'FR', first: true, language: 'fr' } );
+
+        result.department.should.equal( 'Métropole de Lyon' );
+
+      } );
+
+      it( 'Taluyers is in "Rhône" department', async () => {
+
+        const result = await geocode( '47 montée de l\'église 69440 Taluyers', { countryCode: 'FR', first: true, language: 'fr' } );
+
+        result.department.should.equal( 'Rhône' );
+
+      } );
+
+      it( '43 rue des Hérideaux, Lyon is in "Métropole de Lyon" department', async () => {
+
+        const result = await geocode( '43 rue des Hérideaux, Lyon', { countryCode: 'FR', first: true, language: 'fr' } );
+
+        result.department.should.equal( 'Métropole de Lyon' );
+
+      } );
 
     } );
 
