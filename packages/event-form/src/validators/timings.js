@@ -98,7 +98,7 @@ module.exports = ( options = {} ) => value => {
 
       const cleanTiming = validateTiming( value );
 
-      carry.clean.push( value );
+      if ( !_isFlat( cleanTiming ) ) carry.clean.push( value );
 
     } catch ( e ) {
 
@@ -113,5 +113,14 @@ module.exports = ( options = {} ) => value => {
   if ( errors.length ) throw errors;
 
   return clean;
+
+}
+
+function _isFlat( timing ) {
+
+  return [ 'date', 'hours', 'minutes' ]
+    .map( k => timing.begin[ k ] === timing.end[ k ] )
+    .filter( same => same )
+    .length === 3;
 
 }
