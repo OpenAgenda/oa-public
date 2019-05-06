@@ -38,6 +38,7 @@ describe( 'agendas - unit (server): validate', () => {
         description: 'Description of the agenda',
         slug: 'title-of-the-agenda',
         official: false,
+        networkUid: null,
         settings: {
           inbox: {
             mailto: {

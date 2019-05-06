@@ -30,6 +30,10 @@ module.exports = {
     type: 'boolean',
     default: false
   },
+  networkUid: {
+    type: 'integer',
+    optional: true
+  },
   settings: {
     tracking: {
       googleAnalytics: {

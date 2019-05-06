@@ -49,6 +49,7 @@ describe( 'agendas - functional (server): set (update)', function() {
         description: 'Des animations pour des expériences autour du goût et des savoir-faire / Numerous events to have experiences around taste and know-how',
         image: 'review_programme-des-animations-du-salon-du-fromage-et-des-produits-laitiers-2016_00.jpg',
         url: 'http://www.salon-fromage.com/',
+        networkUid: null,
         settings: {
           inbox: {
             mailto: {
