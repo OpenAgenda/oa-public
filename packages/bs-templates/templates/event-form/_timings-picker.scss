@@ -596,7 +596,6 @@ $dayInWeek: 7;
       .rc-event {
 
         background-color: $eventBackColor;
-        overflow: hidden;
 
         &:hover {
 
@@ -620,6 +619,8 @@ $dayInWeek: 7;
           font-size: $rcMediumFont;
           color: $eventFrontColor;
           text-align: center;
+          overflow: hidden;
+          max-width: 100%;
 
           span {
 
