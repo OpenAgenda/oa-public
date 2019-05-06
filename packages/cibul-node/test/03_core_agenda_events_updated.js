@@ -160,8 +160,8 @@ describe( 'core - functional ( server ): agenda event update', function() {
           uid: 123
         },
         timings: [ {
-          begin: new Date,
-          end: new Date
+          begin: new Date( '2019-05-06T10:00:00' ),
+          end: new Date( '2019-05-06T11:00:00' )
         } ],
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
@@ -188,8 +188,8 @@ describe( 'core - functional ( server ): agenda event update', function() {
           uid: 123
         },
         timings: [ {
-          begin: new Date,
-          end: new Date
+          begin: new Date( '2019-05-06T10:00:00' ),
+          end: new Date( '2019-05-06T11:00:00' )
         }, {
           begin: new Date,
           end: new Date
@@ -252,7 +252,10 @@ describe( 'core - functional ( server ): agenda event update', function() {
           fr: 'Une description'
         },
         location: { uid: 123 },
-        timings: [ { begin: new Date, end: new Date } ],
+        timings: [ {
+          begin: new Date( '2019-05-06T10:00:00' ),
+          end: new Date( '2019-05-06T11:00:00' )
+        } ],
         'custom_description' : 'Meh',
         'categories-agenda-metropolitain': 43,
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
@@ -287,8 +290,8 @@ describe( 'core - functional ( server ): agenda event update', function() {
           uid: 123
         },
         timings: [ {
-          begin: new Date,
-          end: new Date
+          begin: new Date( '2019-05-06T10:00:00' ),
+          end: new Date( '2019-05-06T11:00:00' )
         } ],
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
@@ -369,8 +372,8 @@ describe( 'core - functional ( server ): agenda event update', function() {
           uid: 123
         },
         timings: [ {
-          begin: new Date,
-          end: new Date
+          begin: new Date( '2019-05-06T10:00:00' ),
+          end: new Date( '2019-05-06T11:00:00' )
         } ],
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
@@ -472,8 +475,8 @@ describe( 'core - functional ( server ): agenda event update', function() {
           uid: 123
         },
         timings: [ {
-          begin: new Date,
-          end: new Date
+          begin: new Date( '2019-05-06T10:00:00' ),
+          end: new Date( '2019-05-06T11:00:00' )
         } ],
         keywords: {
           fr: [ 'un', 'deux', 'trois' ]

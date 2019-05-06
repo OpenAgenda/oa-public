@@ -178,8 +178,8 @@ describe( 'core - functional ( server ): agenda event create', function() {
           fr: 'Un tout petit événement'
         },
         timings: [ {
-          begin: new Date,
-          end: new Date
+          begin: new Date( '2019-05-06T10:00:00' ),
+          end: new Date( '2019-05-06T11:00:00' )
         } ],
         keywords: {
           fr: [ 'un', 'deux', 'trois' ]

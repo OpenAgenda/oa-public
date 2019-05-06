@@ -111,7 +111,7 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
     timings: [
       {
         begin: "2017-12-05T18:30:00.000Z",
-        end: "2017-12-05T18:30:00.000Z"
+        end: "2017-12-05T18:32:00.000Z"
       }
     ],
     accessibility: [],

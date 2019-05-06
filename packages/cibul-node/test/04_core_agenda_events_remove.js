@@ -148,8 +148,8 @@ describe( 'core - functional ( server ): agenda event remove', function() {
           uid: 123
         },
         timings: [ {
-          begin: new Date,
-          end: new Date
+          begin: new Date( '2019-05-06T10:00:00' ),
+          end: new Date( '2019-05-06T11:00:00' )
         } ],
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
