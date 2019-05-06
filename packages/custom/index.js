@@ -20,7 +20,7 @@ module.exports = _.assign( formSchemaId => {
 
 }, _.pick( require( './service/config' ), [ 'init', 'shutdown', 'getConfig' ] ), {
   parseLegacy: require( './service/legacy/transfer' ).parse,
-  pushLegacyDatasetToCustom: require( './service/task' ).pushLegacyDatasetToCustom,
-  pushCustomDatasetToLegacy: require( './service/task' ).pushCustomDatasetToLegacy,
+  pushLegacyDatasetToCustom: task.pushLegacyDatasetToCustom,
+  pushCustomDatasetToLegacy: task.pushCustomDatasetToLegacy,
   task
 } );

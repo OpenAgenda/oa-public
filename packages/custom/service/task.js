@@ -14,7 +14,7 @@ const get = require( './get' );
 
 const toLegacy = require( './legacy' );
 
-module.exports = _.extend( task, {
+module.exports = _.assign( task, {
   pushLegacyDatasetToCustom: agendaId => config.queue( {
     job: 'pushLegacyDatasetToCustom',
     agendaId
@@ -74,6 +74,8 @@ async function task() {
 
 async function enqueueTransfers( agendaId, jobName ) {
 
+  log( 'enqueuing %s for agendaId %s', jobName, agendaId );
+
   const { knex } = config;
   const { schemas } = config.legacy;
 
@@ -132,8 +134,8 @@ async function _getFormSchemaIds( agendaId ) {
 
   if ( networkUid ) {
 
-    const { form_schema_id: networkFormSchemaId } = await knex( 'network' )
-      .first( 'form_schema_id as networkFormSchemaId' )
+    const { networkFormSchemaId } = await knex( 'network' )
+      .first( [ 'form_schema_id as networkFormSchemaId' ] )
       .where( 'uid', networkUid );
 
     if ( networkFormSchemaId ) ids.push( networkFormSchemaId );
