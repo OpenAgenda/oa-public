@@ -60,14 +60,10 @@ module.exports.init = config => {
 
 async function createAgenda( networkUid, data, user ) {
 
-  const { success, agenda } = await core.networks( networkUid ).agendas.create( {
+  return core.networks( networkUid ).agendas.create( {
     ...data,
     ownerId: user.id
   } );
-
-  if ( !success ) throw new Error( 'Agenda could not be created' );
-
-  return agenda;
 
 }
 

@@ -21,7 +21,7 @@ async function _run( jobName, { agendaUid } ) {
 
   }
 
-  if ( !agenda.formSchemaId ) {
+  if ( !agenda.formSchemaId && !agenda.networkUid ) {
 
     return { message: 'Agenda is not linked with a form schema id', uid: agendaUid }
 
