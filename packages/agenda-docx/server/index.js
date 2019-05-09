@@ -2,6 +2,8 @@
 
 const express = require( 'express' );
 
+const logger = require( '@openagenda/logs' );
+
 const AgendaFiles = require( '../server/lib/agendaFiles' );
 const config = require( './config' );
 const queue = require( './queue' );
@@ -11,6 +13,10 @@ const defaultState = require( './defaultState' );
 
 module.exports = {
   init: c => {
+
+    if ( c.logger ) {
+      logger.setModuleConfig( c.logger );
+    }
 
     config.init( c );
 

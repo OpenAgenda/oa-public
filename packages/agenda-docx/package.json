@@ -5,13 +5,14 @@
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.dev",
+    "start": "DEBUG=agendaFiles,fetch,generateDocument nodemon server.dev",
     "dist": "webpack --config webpack.dist.js",
     "test": "jest --runInBand --forceExit",
     "cli": "node cli",
     "prepublish": "yarn dist"
   },
   "dependencies": {
+    "@openagenda/logs": "^1.1.2",
     "@babel/runtime-corejs2": "^7.3.1",
     "angular-expressions": "^0.3.0",
     "aws-sdk": "^2.230.1",

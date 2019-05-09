@@ -1,9 +1,11 @@
 "use strict";
 
-const fs = require( 'fs' );
-const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const AWS = require( 'aws-sdk' );
+const fs = require( 'fs' );
+const { promisify } = require( 'util' );
+
+const log = require( '@openagenda/logs' )( 'agendaFiles' );
 
 module.exports = ( { s3, uid } ) => {
 
@@ -73,7 +75,11 @@ async function getAgendaJSON( client, bucket, uid, name, defaultValue ) {
 
   try {
 
+    log( 'fetching agenda JSON state file for agenda %s', uid );
+
     const result = (await getAgendaFile( client, bucket, uid, name )).toString();
+
+    log( 'retrieved agenda %s state', uid, result );
 
     return JSON.parse( result );
 
@@ -98,7 +104,7 @@ async function setAgendaJSON( client, bucket, uid, name, obj ) {
   return await putObject( {
     Bucket: bucket,
     Key: [ uid, name ].join( '/' ),
-    Body: JSON.stringify( obj ),
+    Body: JSON.stringify( obj, null, 2 ),
     ContentType: "application/json"
   } );
 
