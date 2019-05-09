@@ -273,7 +273,8 @@ async function agendaEventShow( req, res, next ) {
       event: req.formatted,
       components: req.components,
       userStakeholder,
-      user: req.user
+      user: req.user,
+      footerUid: req.formatted.uid
     } );
   } )
 
