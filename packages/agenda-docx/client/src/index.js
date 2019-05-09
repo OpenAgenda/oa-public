@@ -67,11 +67,11 @@ class Main extends Component {
     }
 
     if ( from ) {
-      request.query( { from: from.toISOString() } );
+      request.query( { from: from.toISOString().split( 'T' ).shift() } );
     }
 
     if ( to ) {
-      request.query( { to: to.toISOString() } );
+      request.query( { to: to.toISOString().split( 'T' ).shift() } );
     }
 
     return request.then(
