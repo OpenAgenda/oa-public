@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const ih = require( 'immutability-helper' );
 
 const includeTypes = [ 'radio', 'select', 'checkbox' ];
 
@@ -40,9 +41,9 @@ module.exports = ( schema, currentTagSet = null ) => {
 
 }
 
-function _defineTags( schemaId, tags = [], options = [] ) {
+function _defineTags( schemaId, currentTags = [], options = [] ) {
 
-  options.forEach( o => {
+  return options.map( o => {
 
     let matchingTagIndex = -1;
 
@@ -51,32 +52,32 @@ function _defineTags( schemaId, tags = [], options = [] ) {
     const schemaOptionId = `${schemaId}.${o.id}`;
 
     // attempt match on schemaOptionId
-    matchingTagIndex = _.findIndex( tags, { schemaOptionId } );
+    matchingTagIndex = _.findIndex( currentTags, { schemaOptionId } );
 
     // attempt match on label
     if ( matchingTagIndex === -1 ) {
 
-      matchingTagIndex = _.findIndex( tags, { label: _monoLabel( o.label ) } );
+      matchingTagIndex = _.findIndex( currentTags, { label: _monoLabel( o.label ) } );
 
     }
 
     if ( matchingTagIndex !== -1 ) {
 
-      _.assign( tags[ matchingTagIndex ], { slug, label, schemaOptionId } );
-
-    } else {
-
-      tags.push( {
-        slug,
-        label,
-        schemaOptionId
-      });
+      return ih( currentTags[ matchingTagIndex ], {
+        slug: { $set: slug },
+        label: { $set: label },
+        schemaOptionId: { $set: schemaOptionId }
+      } );
 
     }
 
-  } );
+    return {
+      slug,
+      label,
+      schemaOptionId
+    };
 
-  return tags;
+  } );
 
 }
 

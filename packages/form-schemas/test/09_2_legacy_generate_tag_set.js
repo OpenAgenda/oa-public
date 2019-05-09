@@ -4,7 +4,204 @@ const should = require( 'should' );
 
 const generateTagSet = require( '../server/legacy/generateTagSet' );
 
-describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from schema', function() {
+describe.only( 'form-schemas -09_2- unit (server): generate legacy tag sets from schema', function() {
+
+  it( 'transforms a checkbox field into a tag group', () => {
+
+    const schema = {
+      fields: [ {
+        field: 'nantes',
+        origin: 'categories',
+        label: 'Nantes',
+        fieldType: 'checkbox',
+        schemaId: 1,
+        options: [ {
+          id: 1,
+          value: 'un',
+          lable: 'Un'
+        } ]
+      } ]
+    };
+
+    generateTagSet( schema ).tagSet.groups.length.should.equal( 1 );
+
+
+  } );
+
+  it( 'transforms a radio field into a tag group', () => {
+
+    const schema = {
+      fields: [ {
+        field: 'nantes',
+        label: 'Nantes',
+        fieldType: 'radio',
+        schemaId: 1,
+        options: [ {
+          id: 1,
+          value: 'un',
+          lable: 'Un'
+        } ]
+      } ]
+    };
+
+    generateTagSet( schema ).tagSet.groups.length.should.equal( 1 );
+
+  } );
+
+  it( 'matches a field with an existing tag group based on a monolingual label', () => {
+
+    const schema = {
+      fields: [ {
+        field: 'nantes',
+        label: 'Nantes',
+        fieldType: 'radio',
+        schemaId: 1,
+        options: [ {
+          id: 1,
+          value: 'un',
+          label: 'Un'
+        } ]
+      } ]
+    };
+
+    const tagSet = {
+      groups: [ {
+        name: 'Nantes',
+        tags: [ {
+          id: 122,
+          value: 'un',
+          label: 'Un'
+        } ]
+      } ]
+    };
+
+    generateTagSet( schema, tagSet ).tagSet.groups.length.should.equal( 1 );
+
+    generateTagSet( schema, tagSet ).tagSet.groups[ 0 ].name.should.equal( 'Nantes' );
+
+  } );
+
+  it( 'matches a field with an existing tag group based on a multilingual label', () => {
+
+    const schema = {
+      fields: [ {
+        field: 'nantes',
+        origin: 'categories',
+        label: { fr: 'Nantes', en: 'Nantes' },
+        fieldType: 'radio',
+        schemaId: 1,
+        options: [ {
+          id: 1,
+          value: 'un',
+          lable: 'Un'
+        } ]
+      } ]
+    };
+
+    const tagSet = {
+      groups: [ {
+        name: 'Nantes',
+        tags: []
+      } ]
+    };
+
+    generateTagSet( schema, tagSet ).tagSet.groups.length.should.equal( 1 );
+
+    generateTagSet( schema, tagSet ).tagSet.groups[ 0 ].name.should.equal( 'Nantes' );
+
+  } );
+
+  it( 'a field with a name matching no group is added', () => {
+
+    const schema = {
+      fields: [ {
+        field: 'london',
+        label: { fr: 'Londres', en: 'London' },
+        fieldType: 'radio',
+        schemaId: 1,
+        options: [ {
+          id: 1,
+          value: 'un',
+          label: 'Un'
+        } ]
+      } ]
+    };
+
+    const tagSet = {
+      groups: [ {
+        name: 'Nantes',
+        tags: []
+      } ]
+    };
+
+    generateTagSet( schema, tagSet ).tagSet.groups.length.should.equal( 1 );
+
+    generateTagSet( schema, tagSet ).tagSet.groups[ 0 ].name.should.equal( 'Londres' );
+
+  } );
+
+  it( 'a pre-existing tag is completed with a schemaOptionId key', () => {
+
+    const schema = {
+      fields: [ {
+        field: 'nantes',
+        label: { fr: 'Nantes', en: 'Nantes' },
+        fieldType: 'radio',
+        schemaId: 1,
+        options: [ {
+          id: 1,
+          value: 'un',
+          label: 'Un'
+        } ]
+      } ]
+    };
+
+    const tagSet = {
+      groups: [ {
+        name: 'Nantes',
+        tags: [ {
+          id: 1,
+          value: 'un',
+          label: 'Un'
+        } ]
+      } ]
+    };
+
+    generateTagSet( schema, tagSet ).tagSet.groups[ 0 ].tags[ 0 ].schemaOptionId.should.equal( '1.1' );
+
+  } );
+
+  it( 'a schemaOptionId is used for tag match if set', () => {
+
+    const schema = {
+      fields: [ {
+        field: 'nantes',
+        label: { fr: 'Nantes', en: 'Nantes' },
+        fieldType: 'radio',
+        schemaId: 1,
+        options: [ {
+          id: 1,
+          value: 'un',
+          label: 'Un'
+        } ]
+      } ]
+    };
+
+    const tagSet = {
+      groups: [ {
+        name: 'Nantes',
+        tags: [ {
+          id: 123,
+          schemaOptionId: '1.1',
+          value: 'douze',
+          label: 'Douze'
+        } ]
+      } ]
+    };
+
+    generateTagSet( schema, tagSet ).tagSet.groups[ 0 ].tags[ 0 ].id.should.equal( 123 );
+
+  } );
 
   it( 'updates pre-existing tag set', () => {
 
@@ -48,18 +245,21 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
         required: true,
         unique: false,
         tags: [ {
-          label: 'Trois',
           slug: 'trois',
+          label: 'Trois',
           id: 192018
+        }, {
+          label: 'Cinq',
+          slug: 'cinq'
         } ]
       }, {
-        name: 'Paris',
+        name: 'Lyon',
         required: true,
         unique: false,
         tags: [ {
-          label: 'Trois',
-          slug: 'trois',
-          id: 192018
+          label: 'Six',
+          slug: 'six',
+          id: 192019
         } ]
       } ]
     };
