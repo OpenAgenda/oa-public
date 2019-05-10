@@ -5,11 +5,13 @@ const redis = require( 'redis' );
 const { promisify } = require( 'util' );
 const VError = require( 'verror' );
 
+const v2 = require( './v2' );
+
 const clients = {};
 
 const config = {};
 
-module.exports = _.assign( queue, { init } );
+module.exports = _.assign( queue, { init, v2 } );
 
 function queue( name ) {
 

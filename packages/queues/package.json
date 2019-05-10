@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "jest --runInBand"
+    "test": "mocha"
   },
   "dependencies": {
     "lodash": "^4.17.10",
@@ -12,15 +12,7 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "jest": "^23.6.0"
-  },
-  "jest": {
-    "testMatch": [
-      "<rootDir>/test/*.js"
-    ],
-    "watchPathIgnorePatterns": [
-      "/node_modules/",
-      "<rootDir>/test/data/"
-    ]
+    "mocha": "^4.0.1",
+    "should": "^8.2.2"
   }
 }

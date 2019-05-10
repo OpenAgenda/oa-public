@@ -2,7 +2,17 @@
 
 Utility sitting on top of redis queues to provide queue functionality
 
-# How to use
+
+# V2
+
+New iteration of queue system works as an instanciating call and handles exceptions thrown by called methods to prevent queue blocking.
+
+
+See tests for simple use cases.
+
+# V1
+
+## How to use
 
 Initialize the service by giving a prefix, a redis config:
 
