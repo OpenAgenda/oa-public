@@ -13,14 +13,16 @@ const transfer = require( './legacy/transfer' );
 const get = require( './get' );
 
 const toLegacy = require( './legacy' );
+const loopThroughRefs = require( './legacy/lib/loopThroughRefs' );
+const getFormSchemaIds = require( './legacy/lib/getFormSchemaIds' );
 
 module.exports = _.assign( task, {
-  pushLegacyDatasetToCustom: agendaId => config.queue( {
-    job: 'pushLegacyDatasetToCustom',
+  enqueueLegacyDatasetToCustom: agendaId => config.queue( {
+    job: 'enqueueLegacyDatasetToCustom',
     agendaId
   } ),
-  pushCustomDatasetToLegacy: agendaId => config.queue( {
-    job: 'pushCustomDatasetToLegacy',
+  enqueueCustomDatasetToLegacy: agendaId => config.queue( {
+    job: 'enqueueCustomDatasetToLegacy',
     agendaId
   } )
 } );
@@ -38,11 +40,11 @@ async function task() {
 
     try {
 
-      if ( job === 'pushLegacyDatasetToCustom' ) {
+      if ( job === 'enqueueLegacyDatasetToCustom' ) {
 
         await enqueueTransfers( data.agendaId, 'transfer' );
 
-      } else if ( job === 'pushCustomDatasetToLegacy' ) {
+      } else if ( job === 'enqueueCustomDatasetToLegacy' ) {
 
         await enqueueTransfers( data.agendaId, 'toLegacy' );
 
@@ -71,7 +73,6 @@ async function task() {
 
 }
 
-
 async function enqueueTransfers( agendaId, jobName ) {
 
   log( 'enqueuing %s for agendaId %s', jobName, agendaId );
@@ -79,69 +80,22 @@ async function enqueueTransfers( agendaId, jobName ) {
   const { knex } = config;
   const { schemas } = config.legacy;
 
-  const formSchemaIds = await _getFormSchemaIds( agendaId );
+  const formSchemaIds = await getFormSchemaIds( config.knex, agendaId );
 
-  let lastId = 0;
-  let refs = [];
+  await loopThroughRefs( config.knex, agendaId, async ref => {
 
-  while ( ( refs = await knex( schemas.agendaEvent + ' as ra' )
-    .select( [
-      'ra.id as ra_id',
-      'uid'
-    ] ).leftJoin( schemas.event + ' as e', 'ra.event_id', 'e.id' )
-    .where( 'review_id', agendaId )
-    .andWhere( 'ra.id', '>', lastId )
-    .limit( 20 )
-  ).length ) {
+    for ( const formSchemaId of formSchemaIds ) {
 
-    for ( const ref of refs ) {
-      for ( const formSchemaId of formSchemaIds ) {
+      log( 'enqueing %s formSchemaId %s agendaId %s, identifier %s', jobName, formSchemaId, agendaId, ref.uid );
 
-        log( 'enqueing %s formSchemaId %s agendaId %s, identifier %s', jobName, formSchemaId, agendaId, ref.uid );
-
-        await config.queue( {
-          job: jobName,
-          formSchemaId,
-          identifier: ref.uid,
-          agendaId
-        } );
-      }
+      await config.queue( {
+        job: jobName,
+        formSchemaId,
+        identifier: ref.uid,
+        agendaId
+      } );
     }
 
-    lastId = _.last( refs ).ra_id;
-
-  }
-
-}
-
-
-async function _getFormSchemaIds( agendaId ) {
-
-  const { knex } = config;
-  const { schemas } = config.legacy;
-
-  const ids = [];
-
-  const {
-    agendaFormSchemaId,
-    networkUid
-  } = await knex( schemas.agenda ).first( [
-    'form_schema_id as agendaFormSchemaId',
-    'network_uid as networkUid'
-  ] ).where( 'id', agendaId );
-
-  if ( agendaFormSchemaId ) ids.push( agendaFormSchemaId );
-
-  if ( networkUid ) {
-
-    const { networkFormSchemaId } = await knex( 'network' )
-      .first( [ 'form_schema_id as networkFormSchemaId' ] )
-      .where( 'uid', networkUid );
-
-    if ( networkFormSchemaId ) ids.push( networkFormSchemaId );
-
-  }
-
-  return ids;
+  } );
 
 }

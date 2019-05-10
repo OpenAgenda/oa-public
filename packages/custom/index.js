@@ -4,6 +4,8 @@ const _ = require( 'lodash' );
 
 const task = require( './service/task' );
 
+const legacy = require( './service/legacy' );
+
 const endpoints = {
   get: require( './service/get' ),
   list: require( './service/list' ),
@@ -20,7 +22,8 @@ module.exports = _.assign( formSchemaId => {
 
 }, _.pick( require( './service/config' ), [ 'init', 'shutdown', 'getConfig' ] ), {
   parseLegacy: require( './service/legacy/transfer' ).parse,
-  pushLegacyDatasetToCustom: task.pushLegacyDatasetToCustom,
-  pushCustomDatasetToLegacy: task.pushCustomDatasetToLegacy,
+  pushCustomDatasetToLegacy: legacy.setAll,
+  enqueueCustomDatasetToLegacy: task.enqueueCustomDatasetToLegacy,
+  enqueueLegacyDatasetToCustom: task.enqueueLegacyDatasetToCustom,
   task
 } );
