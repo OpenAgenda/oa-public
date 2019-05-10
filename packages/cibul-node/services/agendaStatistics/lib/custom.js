@@ -7,9 +7,9 @@ const { promisify } = require( 'util' );
 
 const agendaGet = promisify( agendas.get );
 
-module.exports = _run.bind( null, 'pushLegacyDatasetToCustom' );
+module.exports = _run.bind( null, 'enqueueLegacyDatasetToCustom' );
 
-module.exports.toLegacy = _run.bind( null, 'pushCustomDatasetToLegacy' );
+module.exports.toLegacy = _run.bind( null, 'enqueueCustomDatasetToLegacy' );
 
 async function _run( jobName, { agendaUid } ) {
 
