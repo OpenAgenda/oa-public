@@ -21,12 +21,7 @@ module.exports.init = config => {
       knex: config.knex,
       schemas: config.schemas
     },
-    logger: {
-      debug: {
-        prefix: 'form-schemas:'
-      },
-      token: null
-    }
+    logger: config.getLogConfig( 'svc', 'form-schemas' )
   } );
 
 }
