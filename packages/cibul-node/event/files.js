@@ -33,7 +33,7 @@ app.get( '/:slug/events/:eventSlug/files/:file', ( req, res, next ) => {
 
   const s3FilePath = config.aws.imageBucketPath + file.value.uploaded;
 
-  https.get( s3FilePath, s3Res => {
+  https.get( encodeURI( s3FilePath ), s3Res => {
 
     const filename = cleanString( file.value.name );
 
