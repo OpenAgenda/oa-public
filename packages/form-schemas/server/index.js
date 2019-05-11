@@ -194,7 +194,9 @@ function init( c ) {
 
   }
 
-  log = logger( 'form-schemas' );
+  log = logger( 'index' );
+
+  log( 'initializing' );
 
   client = c.knex || knex( {
     client: 'mysql',
