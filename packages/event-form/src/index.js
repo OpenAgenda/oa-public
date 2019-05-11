@@ -55,12 +55,12 @@ export default class EventForm extends Component {
       _.get( values, 'languages' ) // now
     );
 
-    const update = {
+    const update = _.omitBy( {
       errors,
       globalError,
       files,
       loading
-    };
+    }, _.isUndefined );
 
     if ( values ) update.values = values;
 
