@@ -1305,27 +1305,27 @@ module.exports = {
   },
   "TR": {
     "en": "Turkey",
-    "fr": "",
-    "de": "Truthahn",
-    "es": ""
+    "fr": "Turquie",
+    "de": "Türkei",
+    "es": "Turquía"
   },
   "TT": {
     "en": "Trinidad and Tobago",
-    "fr": "",
+    "fr": "Trinidad et Tobago",
     "de": "Trinidad und Tobago",
-    "es": ""
+    "es": "Trinidad y Tobago"
   },
   "TV": {
     "en": "Tuvalu",
-    "fr": "Turquie",
+    "fr": "Tuvalu",
     "de": "Tuvalu",
-    "es": "Turquía"
+    "es": "Tuvalu"
   },
   "TW": {
-    "en": "Taiwan",
-    "fr": "Taiwan",
-    "de": "Taiwan",
-    "es": "Taiwan"
+    "en": "Taiwan, China",
+    "fr": "Taiwan, Chine",
+    "de": "Taiwan, China",
+    "es": "Taiwan, China"
   },
   "TZ": {
     "en": "Tanzania",
