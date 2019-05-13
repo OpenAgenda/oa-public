@@ -9,6 +9,7 @@ const invitations = require( '@openagenda/invitations' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' );
+const setMemberUidRefs = require( './lib/setMemberUidRefs' );
 
 const getRole = agendaStakeholders.types.get;
 
@@ -48,6 +49,8 @@ module.exports = function ( before, stakeholder, context ) {
             await users.setNewFlag( user.uid, false );
 
           }
+
+          await setMemberUidRefs( stakeholder );
 
           controlData.memberSet( { agendaUid: agenda.uid, userUid: user.uid, role: stakeholder.credential } );
 

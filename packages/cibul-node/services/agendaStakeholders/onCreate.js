@@ -9,6 +9,7 @@ const activities = require( '@openagenda/activities' );
 const invitations = require( '@openagenda/invitations' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' );
+const setMemberUidRefs = require( './lib/setMemberUidRefs' );
 
 let log = console.log;
 
@@ -19,11 +20,13 @@ module.exports = function ( stakeholder, context ) {
   agendas.get( { id: stakeholder.agendaId }, {
     private: null,
     includeImagePath: true
-  }, ( err, agenda ) => {
+  }, async ( err, agenda ) => {
 
     if ( err ) return log( 'error', err );
 
     if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
+
+    await setMemberUidRefs( stakeholder );
 
     // user already exists
     if ( stakeholder.userId ) {
