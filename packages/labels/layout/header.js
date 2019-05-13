@@ -19,22 +19,24 @@ module.exports = {
     "de": "Hilfe",
     "es": "Ayuda"
   },
-  "en" : {
-    "fr" : "Anglais",
-    "en" : "English"
+  "en": {
+    "fr": "Anglais",
+    "en": "English",
+    "es": "inglés"
   },
-  "de" : {
-    "fr" : "Allemand",
-    "en" : "German",
-    "es" : "Aleman"
+  "de": {
+    "fr": "Allemand",
+    "en": "German",
+    "es": "Aleman"
   },
-  "fr" : {
-    "fr" : "Français",
-    "en" : "French",
+  "fr": {
+    "fr": "Français",
+    "en": "French",
+    "es": "Francès"
   },
-  "es" : {
-    "fr" : "Espagnol",
-    "en" : "Spanish",
-    "es" : "Español"
+  "es": {
+    "fr": "Espagnol",
+    "en": "Spanish",
+    "es": "Español"
   }
 }

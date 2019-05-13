@@ -105,7 +105,7 @@ module.exports = {
     "en": "%user% deleted %event%.",
     "fr": "%user% a supprimé %event%.",
     "de": "%user% Veranstaltung gelöscht.",
-    "es": "%user% eliminió de %eventos%."
+    "es": "%user% eliminió %eventos%."
   },
   "activities": {
     "en": "Activities",

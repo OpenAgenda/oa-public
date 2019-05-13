@@ -35,7 +35,7 @@ module.exports = {
     "en": "Keywords",
     "fr": "Mots clés",
     "de": "Schlüsselwörter",
-    "es": "Palabras clave"
+    "es": "Palabras llave"
   },
   "html": {
     "en": "Long description - HTML",
@@ -75,7 +75,8 @@ module.exports = {
   },
   "createdAt": {
     "en": "Creation date",
-    "fr": "Création de la fiche"
+    "fr": "Création de la fiche",
+    "es": "La creación de los detalles"
   },
   "range": {
     "en": "Timings overview",
@@ -147,7 +148,7 @@ module.exports = {
     "en": "Featured",
     "fr": "En Une",
     "de": "Hervorgehoben",
-    "es": "en a"
+    "es": "En titular"
   },
   "link": {
     "en": "Link",
@@ -159,7 +160,7 @@ module.exports = {
     "en": "Location identifier",
     "fr": "Identifiant du lieu",
     "de": "Ortskennung",
-    "es": "Nombre del lugar"
+    "es": "Identificador del lugar"
   },
   "location.latitude": {
     "en": "Latitude",
@@ -177,7 +178,7 @@ module.exports = {
     "en": "Location name",
     "fr": "Nom du lieu",
     "de": "Standortnamen",
-    "es": "Lugar Nombre"
+    "es": "Nombre del Lugar"
   },
   "location.address": {
     "en": "Address",
@@ -219,7 +220,7 @@ module.exports = {
     "en": "Location image",
     "fr": "Image du lieu",
     "de": "Ort Bild",
-    "es": "lugar imagen"
+    "es": "Imagen del lugar"
   },
   "location.imageCredits": {
     "en": "Location image credits",
@@ -231,7 +232,7 @@ module.exports = {
     "en": "Location phone",
     "fr": "Téléphone du lieu",
     "de": "Ort Telefon",
-    "es": "establecimiento del teléfono"
+    "es": "teléfono del lugar"
   },
   "location.website": {
     "en": "Location website",
@@ -243,19 +244,19 @@ module.exports = {
     "en": "Location links",
     "fr": "Liens du lieu",
     "de": "Ort Links",
-    "es": "enlaces lugar"
+    "es": "enlaces del lugar"
   },
   "location.tags": {
     "en": "Location tags",
     "fr": "Tags du lieu",
     "de": "Location-Tags",
-    "es": "Etiquetas lugar"
+    "es": "Etiquetas del lugar"
   },
   "location.description": {
     "en": "Location description",
     "fr": "Description du lieu",
     "de": "Ortsbeschreibung",
-    "es": "Descripción de la ubicación"
+    "es": "Descripción del lugar"
   },
   "location.access": {
     "en": "Location access / directions",
@@ -333,18 +334,18 @@ module.exports = {
     "en": "District",
     "fr": "Arrondissement",
     "de": "Kreis",
-    "es": "ciudad"
+    "es": "Barrio"
   },
   "state": {
     "en": "State",
     "fr": "Statut",
     "de": "Zustand",
-    "es": "Estatus"
+    "es": "estatus"
   },
   "references": {
     "en": "Linked events",
     "fr": "Evénements liés",
     "de": "Verknüpfte Veranstaltungen",
-    "es": "Eventos relacionados"
+    "es": "eventos relacionados"
   }
 }

@@ -11,7 +11,7 @@ module.exports = {
     "fr": "Réservation",
     "en": "Registration",
     "de": "Anmeldung",
-    "es": "reserva"
+    "es": "reservación "
   },
   "accessibility": {
     "fr": "Accessibilité",

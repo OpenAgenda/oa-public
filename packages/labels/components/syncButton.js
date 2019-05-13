@@ -5,7 +5,7 @@ module.exports = {
     "en": "Save",
     "fr": "Enregistrer",
     "de": "sparen",
-    "es": "registro"
+    "es": "Guardar"
   },
   "updating": {
     "en": "Updating",
@@ -17,7 +17,7 @@ module.exports = {
     "en": "Saved",
     "fr": "Enregistré",
     "de": "Gerettet",
-    "es": "grabado"
+    "es": "Guardar"
   },
   "syncError": {
     "en": "Could not save. Please try again.",

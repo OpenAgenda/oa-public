@@ -52,7 +52,8 @@ module.exports = {
   },
   "titlePurpose": {
     "fr": "Titre de l'événement",
-    "en": "Title of the event"
+    "en": "Title of the event",
+    "es": "Nombre del evento"
   },
   "titleSub": {
     "fr": "",
@@ -77,7 +78,8 @@ module.exports = {
   },
   "descriptionPurpose": {
     "fr": "Description pour les affichages réduits ou liste",
-    "en": "Description for short or list displays"
+    "en": "Description for short or list displays",
+    "es": "Descripción de las pequeñas pantallas o lista"
   },
   "descriptionPlaceholder": {
     "fr": "Une courte description de votre événement",
@@ -98,7 +100,7 @@ module.exports = {
     "en": "Image of the event",
     "it": "Immagine dell'evento",
     "de": "Bild der Veranstaltung",
-    "es": "Event picture"
+    "es": "imagen del evento"
   },
   "imageInfo": {
     "fr": "Chargez une image d'au moins 300 pixels de large",
@@ -112,7 +114,7 @@ module.exports = {
     "en": "Image credits",
     "it": "Crediti d'immagine",
     "de": "Bildnachweise",
-    "es": "créditos de imágenes"
+    "es": "créditos del imágen"
   },
   "longDescription": {
     "fr": "Description longue",
@@ -140,21 +142,21 @@ module.exports = {
     "en": "Keywords",
     "it": "Parole Chiave",
     "de": "Schlüsselwörter",
-    "es": "Palabras clave"
+    "es": "Palabras llave"
   },
   "keywordsPlaceholder": {
     "fr": "Séparez les mots clés par des tabulations ou des virgules",
     "en": "Separate each keyword with tabs or commas",
     "it": "Parole chiave separate con schede o virgole",
     "de": "Trenne jedes Keyword durch Tabulatoren oder Kommas.",
-    "es": "palabras clave separadas por comas o fichas"
+    "es": "palabras llave separadas por comas o fichas"
   },
   "keywordsSub": {
     "fr": "Les mots clés sont utiles pour les fonctions de recherche",
     "en": "Keywords are useful for search features",
     "it": "Le parole chiave sono utili per le funzioni di ricerca",
     "de": "Keywords sind nützlich für Suchfunktionen.",
-    "es": "Las palabras clave son útiles para las funciones de búsqueda"
+    "es": "Las palabras llave son útiles para las funciones de búsqueda"
   },
   "conditions": {
     "fr": "Conditions de participation, tarifs",

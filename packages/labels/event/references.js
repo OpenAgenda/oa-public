@@ -47,7 +47,7 @@ module.exports = {
     "fr": "Charger des événements similaires",
     "en": "Load similar events",
     "de": "Laden Sie ähnliche Veranstaltungen",
-    "es": "Carga de eventos similares"
+    "es": "Cargar eventos similares"
   },
   "search": {
     "fr": "Chercher via titre ou lieu",
@@ -65,7 +65,7 @@ module.exports = {
     "fr": "Suggestions d'événements similaires",
     "en": "Suggested similar events",
     "de": "Empfohlene ähnliche Veranstaltungen",
-    "es": "Sugerencias Eventos similares"
+    "es": "Sugerencias de eventos similares"
   },
   "nothingToSuggestTitle": {
     "fr": "Evénements similaires",

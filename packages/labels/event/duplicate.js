@@ -6,21 +6,21 @@ module.exports = {
     "en": "Create an agenda",
     "de": "Neuen Veranstaltungskalender erstellen",
     "br": "Krouiñ un deiziataer",
-    "es": "Crear un agenda"
+    "es": "Crear un diario"
   },
   "searchAgenda": {
     "fr": "Rechercher un agenda",
     "en": "Search an agenda",
     "de": "Veranstaltungskalender suchen",
     "br": "Klask un deiziataer",
-    "es": "agenda de búsqueda"
+    "es": "Buscar un agenda"
   },
   "officialAgenda": {
     "fr": "Agenda officiel",
     "en": "Official agenda",
     "de": "Offizieller Veranstaltungskalender",
     "br": "Deiziataer ofisiel",
-    "es": "agenda"
+    "es": "Agenda oficial"
   },
   "noResult": {
     "fr": "Aucun résultat trouvé",
@@ -34,7 +34,7 @@ module.exports = {
     "en": "Search an event",
     "de": "Eine Veranstaltungen finden",
     "br": "Klask un darvoud",
-    "es": "Busca un evento"
+    "es": "Buscar un evento"
   },
   "selectAgenda": {
     "fr": "Sélectionner l'agenda dans lequel créer l'événement",
@@ -48,7 +48,7 @@ module.exports = {
     "en": "Private agenda",
     "de": "Privater Kalender",
     "br": "Deiziataer prevez",
-    "es": "Eventos privados"
+    "es": "Agenda privado"
   },
   "or": {
     "fr": "Ou",

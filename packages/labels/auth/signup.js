@@ -132,6 +132,7 @@ module.exports = {
   "culture": {
     "fr": "Langue",
     "en": "Language",
-    "de": "Sprache"
+    "de": "Sprache",
+    "es": "Idioma"
   }
 }

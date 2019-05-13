@@ -17,7 +17,7 @@ module.exports = {
     "fr": "Enregistrer",
     "en": "Submit",
     "de": "Rekord",
-    "es": "registro"
+    "es": "Guardar"
   },
   "help": {
     "fr": "Aide",
@@ -28,6 +28,7 @@ module.exports = {
   "noChoice": {
     "fr": "Aucun choix",
     "en": "No choice",
-    "de": "Keine Wahl"
+    "de": "Keine Wahl",
+    "es": "otra opción"
   }
 }

@@ -11,7 +11,7 @@ module.exports = {
     "en": "Update the image",
     "fr": "Mettre à jour l'image",
     "de": "Aktualisieren Sie das Bild",
-    "es": "imagen de actualización"
+    "es": "Cambiar imagen"
   },
   "error": {
     "en": "A problem occurred during the upload. Please try again",
@@ -29,7 +29,7 @@ module.exports = {
     "en": "Replace the file",
     "fr": "Remplacer le fichier",
     "de": "Ersetzen Sie die Datei",
-    "es": "reemplazar archivo"
+    "es": "reemplazar documento"
   },
   "loading": {
     "en": "Upload ongoing",
@@ -41,18 +41,18 @@ module.exports = {
     "en": "Remove",
     "fr": "Supprimer",
     "de": "Löschen",
-    "es": "eliminar"
+    "es": "Eliminar"
   },
   "or": {
     "en": "OR",
     "fr": "OU",
     "de": "ODER",
-    "es": "Oregón"
+    "es": "O"
   },
   "acceptedExtensions": {
     "fr": "Fichiers acceptés",
     "en": "Accepted files",
     "de": "akzeptiert Dateien",
-    "es": "de archivo aceptados"
+    "es": "formatos aceptados"
   }
 }

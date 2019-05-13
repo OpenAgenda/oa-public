@@ -15,7 +15,7 @@ module.exports = {
     "it": "Esportare",
     "de": "Exportieren",
     "pl": "Exportuj",
-    "es": "Exportación"
+    "es": "exportación"
   },
   "share": {
     "en": "Share",
@@ -47,7 +47,7 @@ module.exports = {
     "it": "da %start% a %finish%",
     "de": "von %start% bis %finish%",
     "pl": "od %start% do %finish%",
-    "es": "du %start% a %finish%"
+    "es": "Del%start% al %finish %"
   },
   "onAt": {
     "en": "on %start% @ %time%",
@@ -55,7 +55,7 @@ module.exports = {
     "it": "lo %start% @ %time%",
     "de": "%start% @ %time%",
     "pl": "o %start% @ %time%",
-    "es": "el %start% @ %time%"
+    "es": "El %start% @ %time%"
   },
   "draft": {
     "en": "Draft",

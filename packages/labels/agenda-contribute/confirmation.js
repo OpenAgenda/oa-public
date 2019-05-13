@@ -15,7 +15,7 @@ module.exports = {
     "it": "Il suo evento è registrato e sarà controllato. Lei riceverà une notificazione quando il suo evento sarà pubblicato.",
     "de": "Deine Veranstaltung ist gut aufgezeichnet, sie wird moderiert. Sie werden per E-Mail benachrichtigt, sobald es veröffentlicht wird.",
     "br": "Enrollet eo bet ho tarvoud, emañ en gortoz da vezañ habaskaet. Resev a reoc'h ur c'hemenn dre bostel pa vo embannet",
-    "es": "Su evento se registra, está en la moderación. Se le notificará por correo electrónico una vez que se publique."
+    "es": "Su evento ha sido guardado. El espera ahora una moderación. Usted sará notificado de su publicación."
   },
   "readyToPublishRecapDetail": {
     "en": "Your event has been submitted and is ready to be published. You will be notified as soon as it is.",
@@ -23,7 +23,7 @@ module.exports = {
     "it": "Il suo evento è registrato e sarà controllato. Lei riceverà une notificazione quando il suo evento sarà pubblicato.",
     "de": "Deine Veranstaltung ist gut aufgezeichnet, sie wird moderiert. Sie werden per E-Mail benachrichtigt, sobald es veröffentlicht wird.",
     "br": "Enrollet eo bet ho tarvoud ha prest eo da vezañ embannet. Resev a reoc'h ur c'hemenn pa vo embannet.",
-    "es": "Su caso se ha guardado y se fija para ser publicado. Se le notificará de su publicación."
+    "es": "Su evento ha sido guardado. Usted sará notificado de su publicación."
   },
   "publishedRecapDetail": {
     "en": "Your event has been published and is visible on the agenda.",
@@ -31,7 +31,7 @@ module.exports = {
     "it": "Il suo evento è registrato e pubblicato.",
     "de": "Ihre Veranstaltung ist gut aufgezeichnet und wurde auf der Agenda veröffentlicht.",
     "br": "Enrollet hag embannet eo bet ho tarvoud en deiziataer.",
-    "es": "Su evento se registra y publica en el agenda."
+    "es": "Su evento ha sido guardado y publicado en el agenda."
   },
   "seeEventAction": {
     "en": "View my event",
@@ -49,11 +49,11 @@ module.exports = {
     "br": "Ouzhpennañ un darvoud all",
     "es": "Añadir otro evento"
   },
-  "duplicateEvent" : {
-    "en" : "Dupicate event",
-    "fr" : "Dupliquer l'événement",
-    "de" : "Event duplizieren",
-    "es" : "Duplicar el evento"
+  "duplicateEvent": {
+    "en": "Dupicate event",
+    "fr": "Dupliquer l'événement",
+    "de": "Event duplizieren",
+    "es": "Duplicar el evento"
   },
   "seeAllEventsAction": {
     "en": "List all my events",

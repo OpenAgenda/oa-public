@@ -209,19 +209,19 @@ module.exports = {
     "fr": "Votre agenda a bien été supprimé",
     "en": "Your agenda has been deleted",
     "de": "Ihre Agenda wurde gelöscht",
-    "es": "Su agenda ha sido borrado"
+    "es": "Su agenda ha sido eliminado"
   },
   "keyNbr": {
     "fr": "Clé n°%nbr%",
     "en": "Key n°%nbr%",
     "de": "Key n °%nbr%",
-    "es": "Clave #%nbr%"
+    "es": "llave #%nbr%"
   },
   "generateKey": {
     "fr": "Générer une clé",
     "en": "Generate a key",
     "de": "Generiere einen Schlüssel",
-    "es": "Generar clave"
+    "es": "Generar llave"
   },
   "copy": {
     "fr": "Copier",
@@ -269,7 +269,7 @@ module.exports = {
     "fr": "Gérez les clés",
     "en": "Manage keys",
     "de": "verwalten Tasten",
-    "es": "Administrar clave"
+    "es": "Administrar llave"
   },
   "labeling": {
     "fr": "Labellisation",
@@ -407,7 +407,7 @@ module.exports = {
     "fr": "Êtes-vous certain de vouloir supprimer cette clé ?",
     "en": "Are you sure you want to delete this key?",
     "de": "Bist du sicher, dass Sie diesen Schlüssel wirklich löschen?",
-    "es": "¿Está seguro de que desea eliminar esta clave?"
+    "es": "¿Está seguro de que desea eliminar esta llave?"
   },
   "contribModerateOnChangeBy": {
     "fr": "Statut d'un événement après modification",

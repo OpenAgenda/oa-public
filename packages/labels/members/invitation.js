@@ -65,7 +65,7 @@ module.exports = {
     "en": "You have been invited to contribute to the agenda **%title%** as a **%credential%**",
     "fr": "Vous avez été invité à contribuer à l'agenda **%title%** en tant que **%credential%**",
     "de": "Du wurdest eingeladen, etwas zum Veranstaltungskalender beizutragen.",
-    "es": "Se le ha invitado a contribuir a la agenda ** %title%** como **%credencial%**"
+    "es": "Usted ha sido invitado a contribuir a la agenda ** %title%** como **%credencial%**"
   },
   "newMessage": {
     "en": "The agenda %agenda% wrote you a message",

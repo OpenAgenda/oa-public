@@ -35,18 +35,18 @@ module.exports = {
     "en": "OR",
     "fr": "OU",
     "de": "ODER",
-    "es": "Oregón"
+    "es": "O"
   },
   "acceptedExtensions": {
     "fr": "Fichiers acceptés",
     "en": "Accepted files",
     "de": "akzeptiert Dateien",
-    "es": "de archivo aceptados"
+    "es": "formatos aceptados"
   },
   "remove": {
     "fr": "Supprimer",
     "en": "Delete",
     "de": "Löschen",
-    "es": "eliminar"
+    "es": "Eliminar"
   }
 }

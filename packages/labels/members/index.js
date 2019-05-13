@@ -17,7 +17,7 @@ module.exports = {
     "fr": "Rechercher un membre",
     "en": "Search a member",
     "de": "Suche Mitglied",
-    "es": "Buscador de personas"
+    "es": "Buscador un miembro"
   },
   "contributor": {
     "fr": "Contributeur",
@@ -281,7 +281,7 @@ module.exports = {
     "fr": "Utilisateur supprimé",
     "en": "Deleted user",
     "de": "Gelöschter Benutzer",
-    "es": "suprimido"
+    "es": "Usario eliminado"
   },
   "invited": {
     "fr": "Invité",
@@ -305,7 +305,7 @@ module.exports = {
     "fr": "L'invitation n'a pas pu être renvoyée.",
     "en": "The invitation could not be resent.",
     "de": "Die Einladung kann nicht erneut gesendet werden.",
-    "es": "La invitación no podía ser devuelto."
+    "es": "La invitación no podía ser de nuevo enviada."
   },
   "message": {
     "fr": "Message",
@@ -323,7 +323,7 @@ module.exports = {
     "fr": "Actif",
     "en": "Active",
     "de": "Aktiv",
-    "es": "bienes"
+    "es": "Activo"
   },
   "inactive": {
     "fr": "Inactif",
@@ -335,13 +335,13 @@ module.exports = {
     "fr": "n'a pas contribué",
     "en": "did not contribute",
     "de": "nicht beitragen",
-    "es": "no ha ayudado"
+    "es": "no ha añadido evento"
   },
   "deleted": {
     "fr": "Supprimé",
     "en": "Deleted",
     "de": "gelöscht",
-    "es": "suprimido"
+    "es": "Eliminado"
   },
   "sendMessage": {
     "fr": "Envoyer le message",
@@ -431,6 +431,6 @@ module.exports = {
     "fr": "Exporter",
     "en": "Export",
     "de": "Export",
-    "es": "exportación"
+    "es": "Exportar"
   }
 }

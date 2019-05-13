@@ -41,7 +41,7 @@ module.exports = {
     "en": "API keys",
     "fr": "Clés API",
     "de": "API-Schlüssel",
-    "es": "claves de la API"
+    "es": "Llaves de la API"
   },
   "fullname": {
     "en": "Fullname",
@@ -53,7 +53,7 @@ module.exports = {
     "en": "Language",
     "fr": "Langue",
     "de": "Sprache",
-    "es": "Lengua"
+    "es": "Idioma"
   },
   "updateProfileSuccess": {
     "en": "Your profile has been updated successfully.",
@@ -95,7 +95,7 @@ module.exports = {
     "en": "Save",
     "fr": "Sauvegarder",
     "de": "sparen",
-    "es": "guardar"
+    "es": "guardar cambios"
   },
   "image": {
     "en": "Image",
@@ -125,7 +125,7 @@ module.exports = {
     "en": "API key for reading and writing data via OpenAgenda's API.",
     "fr": "Les clés API permettent de lire et écrire des données sur OpenAgenda via l'API.",
     "de": "API-Schlüssel für das Lesen und Schreiben von Daten über OpenAgenda API.",
-    "es": "Las claves de la API se utilizan para leer y escribir datos en OpenAgenda a través de la API."
+    "es": "Las llaves de la API se utilizan para leer y escribir datos en OpenAgenda a través de la API."
   },
   "showDocumentation": {
     "en": "Show documentation",
@@ -137,19 +137,19 @@ module.exports = {
     "en": "Public key",
     "fr": "Clé publique",
     "de": "Öffentlicher Schlüssel",
-    "es": "clave pública"
+    "es": "llave pública"
   },
   "secretKey": {
     "en": "Secret key",
     "fr": "Clé secrète",
     "de": "Geheimer Schlüssel",
-    "es": "clave secreta"
+    "es": "llave secreta"
   },
   "showApiKeys": {
     "en": "Show api keys",
     "fr": "Voir vos clés API",
     "de": "API Schlüssel Zeigen ",
-    "es": "Ver su clave API"
+    "es": "Ver su llave API"
   },
   "areYouSure": {
     "en": "Are you sure?",
@@ -227,13 +227,13 @@ module.exports = {
     "en": "Generate a new API key",
     "fr": "Générer une nouvelle clé API",
     "de": "Erzeugen Sie einen neuen API-Schlüssel",
-    "es": "Generar una nueva clave de API"
+    "es": "Generar una nueva llave de API"
   },
   "generateNewApiKeyModalText": {
     "en": "The old key will be invalidated. Are you sure you want to generate a new one?",
     "fr": "L'ancienne clé sera invalidée. Etes-vous certain de vouloir en générer une nouvelle?",
     "de": "Der alte Schlüssel wird für ungültig erklärt. Bist du sicher, dass du ein neues generieren willst?",
-    "es": "se invalidará la clave antigua. ¿Está seguro de que desea generar una nueva?"
+    "es": "se invalidará la llave antigua. ¿Está seguro de que desea generar una nueva?"
   },
   "generateNewApiKeyModalButton": {
     "en": "Generate",

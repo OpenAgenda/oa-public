@@ -15,7 +15,7 @@ module.exports = {
     "it": "Registrare",
     "de": "Registrieren",
     "br": "Enrollañ",
-    "es": "Registro"
+    "es": "Guardar"
   },
   "create": {
     "fr": "Créer l'événement",
@@ -63,7 +63,7 @@ module.exports = {
     "it": "Cancellare la bozza",
     "de": "Den Entwurf löschen",
     "br": "Dilemel ar brouilhed",
-    "es": "suprimir el proyecto"
+    "es": "Eliminar el proyecto"
   },
   "undraft": {
     "fr": "Créer l'événement",
