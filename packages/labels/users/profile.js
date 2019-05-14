@@ -7,7 +7,8 @@ module.exports = {
     "it": "Il mio profilo",
     "de": "Mein Profil",
     "pl": "Mój profil",
-    "es": "perfil"
+    "es": "perfil",
+    "br": "Ma frofil"
   },
   "myEvents": {
     "en": "My events",
@@ -15,7 +16,8 @@ module.exports = {
     "it": "I miei eventi",
     "de": "Meine Veranstaltungen",
     "pl": "Moje wydarzenia",
-    "es": "Mis eventos"
+    "es": "Mis eventos",
+    "br": "Ma darvoudoù"
   },
   "settings": {
     "en": "Settings",
@@ -23,7 +25,8 @@ module.exports = {
     "it": "Impostazioni",
     "de": "Einstellungen",
     "pl": "Ustawienia",
-    "es": "configuraciones"
+    "es": "configuraciones",
+    "br": "Arventennoù"
   },
   "signout": {
     "en": "Sign out",
@@ -31,7 +34,8 @@ module.exports = {
     "it": "Uscire",
     "de": "Abmelden",
     "pl": "Wyloguj się",
-    "es": "Salir"
+    "es": "Salir",
+    "br": "Digevreañ"
   },
   "myAgendas": {
     "en": "My Agendas",
@@ -39,7 +43,8 @@ module.exports = {
     "it": "Le mie agende",
     "de": "Meine Veranstaltungskalender",
     "pl": "Moje porządki dzienne",
-    "es": "mis agendas"
+    "es": "mis agendas",
+    "br": "Ma Deiziataerioù"
   },
   "searchAgendas": {
     "en": "Search agenda",
@@ -47,7 +52,8 @@ module.exports = {
     "it": "Agenda",
     "de": "Veranstaltungskalender suchen",
     "pl": "Porządek dzienny wyszukiwania",
-    "es": "Buscar un agenda"
+    "es": "Buscar un agenda",
+    "br": "Klask un deiziataer"
   },
   "createAgenda": {
     "en": "Create an agenda",
@@ -55,7 +61,8 @@ module.exports = {
     "it": "Creare un agenda",
     "de": "Veranstaltungskalender erstellen",
     "pl": "Stwórz porządek obrad",
-    "es": "Crear un agenda"
+    "es": "Crear un agenda",
+    "br": "Krouiñ un deiziataer"
   },
   "general": {
     "en": "General",
@@ -63,7 +70,8 @@ module.exports = {
     "it": "In generale",
     "de": "Allgemeines",
     "pl": "Uwagi ogólne",
-    "es": "general"
+    "es": "general",
+    "br": "Dre vras"
   },
   "agendasTitle": {
     "en": "Agendas",
@@ -71,6 +79,7 @@ module.exports = {
     "it": "Le agende",
     "de": "Veranstaltungskalender",
     "pl": "Porządek dzienny",
-    "es": "agendas"
+    "es": "agendas",
+    "br": "Deiziataerioù"
   }
 }

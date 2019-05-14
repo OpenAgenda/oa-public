@@ -54,7 +54,7 @@ module.exports = {
     "en": "Name Surname",
     "it": "Nome e cognome",
     "de": "Vorname Nachname",
-    "br": "Anv-bihan Anv",
+    "br": "Anv Anv-bihan",
     "es": "Nombre Apellido"
   },
   "position": {

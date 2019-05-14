@@ -7,7 +7,8 @@ module.exports = {
     "it": "%count% eventi imminenti",
     "de": "%count% anstehende Veranstaltungen",
     "pl": "%count% nadchodzące wydarzenia",
-    "es": " %count% próximos eventos"
+    "es": " %count% próximos eventos",
+    "br": "%count% a zarvoudoù da zont"
   },
   "upcomingEvent": {
     "en": "1 upcoming event",
@@ -15,7 +16,8 @@ module.exports = {
     "it": "1 evento imminente",
     "de": "1 bevorstehendes Veranstaltung",
     "pl": "1 zbliżające się wydarzenie",
-    "es": "1 próximo evento"
+    "es": "1 próximo evento",
+    "br": "1 darvoud da zont"
   },
   "totalEvents": {
     "en": "%count% events",
@@ -23,7 +25,8 @@ module.exports = {
     "it": "%count% eventi",
     "de": "%count% Veranstaltung",
     "pl": "%count% zdarzenia",
-    "es": " %count% eventos"
+    "es": " %count% eventos",
+    "br": "%count% a zarvoudoù"
   },
   "totalEvent": {
     "en": "1 event",
@@ -31,7 +34,8 @@ module.exports = {
     "it": "1 evento",
     "de": "1 Veranstaltung",
     "pl": "1 zdarzenie",
-    "es": "1 evento"
+    "es": "1 evento",
+    "br": "1 darvoud"
   },
   "includePassed": {
     "en": "Include passed events",
@@ -39,7 +43,8 @@ module.exports = {
     "it": "Includi eventi passati",
     "de": "Einbeziehen von bestandenen Veranstaltungen",
     "pl": "Uwzględnienie zdarzeń, które przeszły",
-    "es": "Incluir los eventos pasados"
+    "es": "Incluir los eventos pasados",
+    "br": "Lakaat an darvoudoù tremenet e-barzh"
   },
   "excludePassed": {
     "en": "Exclude passed events",
@@ -47,6 +52,7 @@ module.exports = {
     "it": "Escludi eventi passati",
     "de": "Vergangene Veranstaltungen ausschließen",
     "pl": "Wyłączyć zdarzenia, które przeszły",
-    "es": "Excluir eventos pasados"
+    "es": "Excluir eventos pasados",
+    "br": "Lezel an darvoudoù tremenet a-gostez"
   }
 }

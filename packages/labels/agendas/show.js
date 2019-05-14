@@ -205,7 +205,7 @@ module.exports = {
     "it": "Contattare l'Amministratore",
     "de": "Administrator kontaktieren.",
     "pl": "Skontaktuj się z administratorem",
-    "br": "mont e darempred gant ar merour",
+    "br": "Mont e darempred gant ar merour",
     "es": "contacto administrativo"
   },
   "byName": {

@@ -7,7 +7,8 @@ module.exports = {
     "it": "Aggiungere alla mia agenda",
     "de": "Zu meinem Kalender hinzufügen",
     "pl": "Dodaj do mojego kalendarza",
-    "es": "Añadir a mi agenda"
+    "es": "Añadir a mi agenda",
+    "br": "Ouzhpennañ da'm deiziataer"
   },
   "export": {
     "en": "Export",
@@ -15,7 +16,8 @@ module.exports = {
     "it": "Esportare",
     "de": "Exportieren",
     "pl": "Exportuj",
-    "es": "exportación"
+    "es": "exportación",
+    "br": "Ezporzhiañ"
   },
   "share": {
     "en": "Share",
@@ -23,7 +25,8 @@ module.exports = {
     "it": "Condividere",
     "de": "Teilen",
     "pl": "Udostępnij",
-    "es": "Compartir, repartir"
+    "es": "Compartir, repartir",
+    "br": "Skignañ"
   },
   "back": {
     "en": "Back",
@@ -31,7 +34,8 @@ module.exports = {
     "it": "Indietro",
     "de": "Zurück",
     "pl": "Wstecz",
-    "es": "regreso"
+    "es": "regreso",
+    "br": "Distreiñ"
   },
   "ticketingLink": {
     "en": "Ticketing link",
@@ -39,7 +43,8 @@ module.exports = {
     "it": "Modalità d'iscrizione",
     "de": "abonnieren",
     "pl": "Zapisz się",
-    "es": "Enlace de registro"
+    "es": "Enlace de registro",
+    "br": "Liamm en em enskrivañ"
   },
   "startToFinish": {
     "en": "%start% to %finish%",
@@ -47,7 +52,8 @@ module.exports = {
     "it": "da %start% a %finish%",
     "de": "von %start% bis %finish%",
     "pl": "od %start% do %finish%",
-    "es": "Del%start% al %finish %"
+    "es": "Del%start% al %finish %",
+    "br": "eus an %start% d'an %finish%"
   },
   "onAt": {
     "en": "on %start% @ %time%",
@@ -55,7 +61,8 @@ module.exports = {
     "it": "lo %start% @ %time%",
     "de": "%start% @ %time%",
     "pl": "o %start% @ %time%",
-    "es": "El %start% @ %time%"
+    "es": "El %start% @ %time%",
+    "br": "da %start% @ %time%"
   },
   "draft": {
     "en": "Draft",
@@ -63,7 +70,8 @@ module.exports = {
     "it": "Bozza",
     "de": "Entwurf",
     "pl": "Wersja robocza",
-    "es": "Borrador"
+    "es": "Borrador",
+    "br": "Brouilhed"
   },
   "private": {
     "en": "Private",
@@ -71,7 +79,8 @@ module.exports = {
     "it": "Privato",
     "de": "Privat",
     "pl": "Prywatne",
-    "es": "privado"
+    "es": "privado",
+    "br": "Prevez"
   },
   "edit": {
     "en": "Edit",
@@ -79,7 +88,8 @@ module.exports = {
     "it": "Modificare",
     "de": "ändern",
     "pl": "Edytuj",
-    "es": "Editar"
+    "es": "Editar",
+    "br": "Kemmañ"
   },
   "delete": {
     "en": "Delete",
@@ -87,7 +97,8 @@ module.exports = {
     "it": "Cancellare",
     "de": "löschen",
     "pl": "Usuń",
-    "es": "Eliminar"
+    "es": "Eliminar",
+    "br": "Dilemel"
   },
   "about": {
     "en": "About",
@@ -95,7 +106,8 @@ module.exports = {
     "it": "Su",
     "de": "über",
     "pl": "Dowiedz się więcej",
-    "es": "A proposito"
+    "es": "A proposito",
+    "br": "Diwar-benn"
   },
   "help": {
     "en": "Help",
@@ -103,7 +115,8 @@ module.exports = {
     "it": "Aiuto",
     "de": "Hilfe",
     "pl": "Pomoc",
-    "es": "Ayuda"
+    "es": "Ayuda",
+    "br": "Skoazell"
   },
   "termsOfUse": {
     "en": "Terms of use",
@@ -111,7 +124,8 @@ module.exports = {
     "it": "Condizioni di utilizzo",
     "de": "Nutzungsbedingungen",
     "pl": "Warunki korzystania",
-    "es": "condiciones de uso"
+    "es": "condiciones de uso",
+    "br": "Penndivizoù implij"
   },
   "descriptionAvailableIn": {
     "en": "Description available in",
@@ -119,7 +133,8 @@ module.exports = {
     "it": "Descrizione disponibile in",
     "de": "Beschreibung verfügbar in",
     "pl": "Opis dostępny po",
-    "es": "Descripción Disponible"
+    "es": "Descripción Disponible",
+    "br": "Deskrivadur da gaout e"
   },
   "dateDetails": {
     "en": "Date details",
@@ -127,7 +142,8 @@ module.exports = {
     "it": "Dettaglio delle date",
     "de": "Datumsangaben",
     "pl": "Szczegóły dat",
-    "es": "Los detalles de fechas"
+    "es": "Los detalles de fechas",
+    "br": "Munudoù diwar-benn an deiziadoù"
   },
   "createdBy": {
     "en": "Created by %owner%",
@@ -135,7 +151,8 @@ module.exports = {
     "it": "Creato da %owner%",
     "de": "erstellt von %owner%",
     "pl": "Utworzone przez %owner%",
-    "es": "Creado por el %owner%"
+    "es": "Creado por el %owner%",
+    "br": "Krouet gant %owner%"
   },
   "pastEvent": {
     "en": "Past event",
@@ -143,7 +160,8 @@ module.exports = {
     "it": "Evento passato",
     "de": "vergangene Veranstaltung",
     "pl": "Wydarzenie przeszłe",
-    "es": "acontecimiento pasado"
+    "es": "acontecimiento pasado",
+    "br": "Darvoud tremenet"
   },
   "seeAllEvents": {
     "en": "see all the events",
@@ -151,7 +169,8 @@ module.exports = {
     "it": "Vedere tutti gli eventi",
     "de": "alle Veranstaltungen ansehen",
     "pl": "Zobacz wszystkie wydarzenia",
-    "es": "ver todos los eventos"
+    "es": "ver todos los eventos",
+    "br": "gwelet an holl darvoudoù"
   },
   "areYouSureToDelete": {
     "en": "Are you sure you want to delete this event?",
@@ -159,7 +178,8 @@ module.exports = {
     "it": "Sei sicuro di voler cancellare questo evento ? ",
     "de": "Bist du sicher, dass du diese Veranstaltung löschen willst?",
     "pl": "Czy napewno chcesz usunąć wydarzenie?",
-    "es": "¿Está seguro de que desea eliminar este evento?"
+    "es": "¿Está seguro de que desea eliminar este evento?",
+    "br": "Ha sur oc'h e fell deoc'h dilemel an darvoud-mañ ?"
   },
   "confirm": {
     "en": "Confirm",
@@ -167,7 +187,8 @@ module.exports = {
     "it": "Confermare",
     "de": "bestätigen",
     "pl": "Potwierdź",
-    "es": "Confirmar"
+    "es": "Confirmar",
+    "br": "Kadarnaat"
   },
   "cancel": {
     "en": "Cancel",
@@ -175,7 +196,8 @@ module.exports = {
     "it": "Annullare",
     "de": "annulieren",
     "pl": "Anuluj",
-    "es": "anular"
+    "es": "anular",
+    "br": "Nullañ"
   },
   "eventState": {
     "en": "Event state",
@@ -183,7 +205,8 @@ module.exports = {
     "it": "Stato dell'evento",
     "de": "Zustand der Veranstaltung",
     "pl": "Stan wydarzenia",
-    "es": "Estado de eventos"
+    "es": "Estado de eventos",
+    "br": "Stad an darvoud"
   },
   "published": {
     "en": "Published",
@@ -191,7 +214,8 @@ module.exports = {
     "it": "Pubblicato",
     "de": "veröffentlicht",
     "pl": "Opublikowano",
-    "es": "publicado"
+    "es": "publicado",
+    "br": "Embannet"
   },
   "publishedInfo": {
     "en": "Publish this event to make it visible on the agenda main page",
@@ -199,7 +223,8 @@ module.exports = {
     "it": "Pubblica questo evento per renderlo visibile",
     "de": "Veröffentliche diese Veranstaltung, damit sie im Kalender erscheint.",
     "pl": "Opublikuj wydarzenie aby stało się widoczne na stronie głównej kalendarza",
-    "es": "Publicar este caso para que sea visible en la agenda"
+    "es": "Publicar este caso para que sea visible en la agenda",
+    "br": "Embannit an darvoud-mañ dezhañ da vezañ gwelet en deiziataer"
   },
   "publishedContributorInfo": {
     "en": "The event is published and displayed on the agenda",
@@ -207,7 +232,8 @@ module.exports = {
     "it": "L'evento è stato pubblicato e reso visibile sull'Agenda",
     "de": "Die Veranstaltung ist veröffentlicht und über den Kalender zugänglich.",
     "pl": "Wydarzenie zostało opublikowane i jest dostępne w kalendarzu",
-    "es": "El evento se publica y accesible en la agenda."
+    "es": "El evento se publica y accesible en la agenda.",
+    "br": "Embannet eo an darvoud ha diskwelet en deiziataer."
   },
   "readyForPublishingContributorInfo": {
     "en": "The event has been validated by moderators. It will be published without further changes",
@@ -215,7 +241,8 @@ module.exports = {
     "it": "L'evento è stato validato dai moderatori",
     "de": "Die Veranstaltung wurde vom Moderator genehmigt. Sie wird ohne weitere Änderungen veröffentlicht.",
     "pl": "Wydarzenie zostało zatwierdzone przez moderatora. Zostanie ono opublikowane bez dodatkowych zmian",
-    "es": "El evento ha sido aprobado por los moderadores. Será publicado sin más cambios"
+    "es": "El evento ha sido aprobado por los moderadores. Será publicado sin más cambios",
+    "br": "Gwiriekaet eo bet an darvoud gant an habaskaerien. Embannet e vo hep kemmoù ouzhpenn"
   },
   "refused": {
     "en": "Refused",
@@ -223,7 +250,8 @@ module.exports = {
     "it": "Rifiutato",
     "de": "abgelehnt",
     "pl": "Odrzucono",
-    "es": "rechazado"
+    "es": "rechazado",
+    "br": "Nac'het"
   },
   "refusedInfo": {
     "en": "This event is not compatible with the agenda and should not be published",
@@ -231,7 +259,8 @@ module.exports = {
     "it": "Questo evento non è compatibile con lAgenda e non sarà pubblicato",
     "de": "Diese Veranstaltung ist nicht mit dem Veranstaltungskalender kompatibel und wird nicht veröffentlicht werden.",
     "pl": "To wydarzenie nie jest zgodne z kalendarzem. Nie zostanie opublikowane",
-    "es": "Este evento no es compatible con el agenda y no será publicada"
+    "es": "Este evento no es compatible con el agenda y no será publicada",
+    "br": "Ne glot ket an darvoud-mañ gant an deiziataer ha ne vo ket embannet"
   },
   "refusedContributorInfo": {
     "en": "This event is not compatible with the agenda and has been refused by administrators",
@@ -239,7 +268,8 @@ module.exports = {
     "it": "Questo evento è stato rifiutato dagli amministratori dell'Agenda e non sarà pubblicato",
     "de": "Diese Veranstaltung ist vom Administrator des Veranstaltungskalenders abgelehnt worden und wird nicht veröffentlicht.",
     "pl": "To wydarzenie zostało odrzucone przez administratora kalendarza. Nie zostanie opublikowane",
-    "es": "Este evento ha sido rechazado por los directores de la agenda y no será publicada"
+    "es": "Este evento ha sido rechazado por los directores de la agenda y no será publicada",
+    "br": "Nac'het eo bet an darvoud-mañ gant merourien an deiziataer ha ne vo ket embannet"
   },
   "toComplete": {
     "en": "To be verified",
@@ -247,7 +277,8 @@ module.exports = {
     "it": "Da verificare",
     "de": "muss bestätigt werden",
     "pl": "W trakcie weryfikacji",
-    "es": "con moderación"
+    "es": "con moderación",
+    "br": "Da habaskaat"
   },
   "toCompleteInfo": {
     "en": "This event needs to be verified and is not ready for publication",
@@ -255,7 +286,8 @@ module.exports = {
     "it": "Questo evento deve essere verificato  e non  è ancora stato pubblicato",
     "de": "Diese Veranstaltung muss bestätigt werden und ist nicht zur Veröffentlichung freigegeben.",
     "pl": "To wydarzenie wymaga weryfikacji. Nie jest jeszcze gotowe do publikacji",
-    "es": "Este evento debe ser moderado y no está listo para ser publicado"
+    "es": "Este evento debe ser moderado y no está listo para ser publicado",
+    "br": "Ret eo d'an darvoud-mañ bezañ gwiriet ha n'eo ket prest da vezañ embannet"
   },
   "toCompleteContributorInfo": {
     "en": "The event will be verified by administrators prior to its publication",
@@ -263,7 +295,8 @@ module.exports = {
     "it": "L'evento deve essere verificato da un amministratore prima di essere pubblicato",
     "de": "Die Veranstaltung muss durch einen Administrator bestätigt werden vor ihrer Veröffentlichung.",
     "pl": "Wydarzenie wymaga weryfikacji administratora zanim zostanie opublikowane",
-    "es": "El evento será moderado por el administrador antes de su publicación"
+    "es": "El evento será moderado por el administrador antes de su publicación",
+    "br": "Gwiriet e vo an darvoud gant merourien a-raok embann anezhañ"
   },
   "readyForPublishing": {
     "en": "Ready for publishing",
@@ -271,7 +304,8 @@ module.exports = {
     "it": "Pronto per essere pubblicato  ",
     "de": "bereit zur Veröffentlichung",
     "pl": "Gotowe do publikacji",
-    "es": "Listo para publicar"
+    "es": "Listo para publicar",
+    "br": "Prest da vezañ embannet"
   },
   "readyForPublishingInfo": {
     "en": "This event has been verified and is ready to be published",
@@ -279,7 +313,8 @@ module.exports = {
     "it": "Questo evento è stato verificato ed è pronto per essere pubblicato",
     "de": "Diese Veranstaltung ist überprüft worden und kann veröffentlicht werden.",
     "pl": "To wydarzenie zostało zweryfikowane. Jest gotowe do publikacji",
-    "es": "El evento fue moderado y se fija para ser publicado."
+    "es": "El evento fue moderado y se fija para ser publicado.",
+    "br": "Gwiriet eo bet an darvoud-mañ ha prest eo da vezañ embannet."
   },
   "unpublished": {
     "en": "Unpublished",
@@ -287,7 +322,8 @@ module.exports = {
     "it": "Non pubblicato",
     "de": "nicht veröffentlicht",
     "pl": "Nie opublikowano",
-    "es": "inédito"
+    "es": "inédito",
+    "br": "N'eo ket embannet"
   },
   "backToDashboard": {
     "en": "Back to the dashboard",
@@ -295,7 +331,8 @@ module.exports = {
     "it": "Indietro",
     "de": "Zurück zum Dashbord",
     "pl": "Powrót do zarządzania wydarzeniami",
-    "es": "Volver a la gestión de eventos"
+    "es": "Volver a la gestión de eventos",
+    "br": "Distreiñ d'ar merañ darvoudoù"
   },
   "changeFeaturedState": {
     "en": "Click here to change the featured state",
@@ -303,7 +340,8 @@ module.exports = {
     "it": "Clicca qui per cambiare in selezionato",
     "de": "Klicken Sie hier, um den Zustand zu ändern.",
     "pl": "Kliknij tutaj aby zmienić opisany stan",
-    "es": "Haga clic aquí para cambiar el estado 'en un'"
+    "es": "Haga clic aquí para cambiar el estado 'en un'",
+    "br": "Klikit amañ evit cheñch ar stad \"Keleier pennañ\""
   },
   "addToFeatured": {
     "en": "Add to featured",
@@ -311,7 +349,8 @@ module.exports = {
     "it": "Seleziona",
     "de": "zur Auswahl hinzufügen",
     "pl": "Dodaj do opisanych",
-    "es": "desarrollar una"
+    "es": "desarrollar una",
+    "br": "Lakaat e-mesk ar c'heleier pennañ"
   },
   "removeFromFeatured": {
     "en": "Remove from featured",
@@ -319,7 +358,8 @@ module.exports = {
     "it": "Cancella da selezionato",
     "de": "aus der Auswahl entfernen",
     "pl": "Usuń z opisanych",
-    "es": "Eliminar de una"
+    "es": "Eliminar de una",
+    "br": "Lemel eus ar c'heleier pennañ"
   },
   "featured": {
     "en": "Featured",
@@ -327,7 +367,8 @@ module.exports = {
     "it": "Selezionato",
     "de": "ausgewählt",
     "pl": "Opisane",
-    "es": "Poner en una"
+    "es": "Poner en una",
+    "br": "E-mesk ar c'heleier pennañ"
   },
   "fromTo": {
     "en": "from %from% to %to%",
@@ -335,7 +376,8 @@ module.exports = {
     "it": "da %from% a  %to%",
     "de": "von %from% zu %to%",
     "pl": "od %from% do %to%",
-    "es": "de %from% a %to%"
+    "es": "de %from% a %to%",
+    "br": "eus %from% da %to%"
   },
   "duplicate": {
     "en": "Duplicate",
@@ -343,7 +385,8 @@ module.exports = {
     "it": "Duplicare ",
     "de": "dublizieren",
     "pl": "Powielić",
-    "es": "duplicar"
+    "es": "duplicar",
+    "br": "Eilañ"
   },
   "startingAt": {
     "en": "Starting at %min% years old",
@@ -351,7 +394,8 @@ module.exports = {
     "it": "A partire da %min% anni",
     "de": "ab %min% Jahren",
     "pl": "Od %min% lat",
-    "es": "De %min% años"
+    "es": "De %min% años",
+    "br": "Adalek an oad a %min% vloaz"
   },
   "minToMaxYearsOld": {
     "en": "%min% to %max% years old",
@@ -359,7 +403,8 @@ module.exports = {
     "it": "Da %min% a %max% anni",
     "de": "von %min% bis %max% Jahren",
     "pl": "Od %min% do %max% lat",
-    "es": "De %min% a %max% años"
+    "es": "De %min% a %max% años",
+    "br": "Eus %min% da %max% vloaz"
   },
   "accessibleToHearing": {
     "en": "Accessible to the hearing impaired",
@@ -367,7 +412,8 @@ module.exports = {
     "it": "Accessibile alle persone con disabilità uditive ",
     "de": "geeignet für Menschen mit Hörbehinderung",
     "pl": "Dostępne dla osób z upośledzeniem słuchu",
-    "es": "Accesible para personas con discapacidad auditiva"
+    "es": "Accesible para personas con discapacidad auditiva",
+    "br": "En aezamant d'an dud pounnerglev"
   },
   "accessibleToMentally": {
     "en": "Accessible to the mentally impaired",
@@ -375,7 +421,8 @@ module.exports = {
     "it": "Accessibile alle persone con disabilità psichiche",
     "de": "geeignet für Menschen mit geistiger Behinderung",
     "pl": "Dostępne dla osób z upośledzeniem psychicznym",
-    "es": "Acceso discapacitados mentales"
+    "es": "Acceso discapacitados mentales",
+    "br": "En aezamant d'an dud dalc'het en o spered"
   },
   "accessibleToMotor": {
     "en": "Accessible to the motor impaired",
@@ -383,7 +430,8 @@ module.exports = {
     "it": "Accessibile alle persone con disabilità motorie",
     "de": "geeignet für Menschen mit körperlicher Behinderung",
     "pl": "Dostępne dla osób z upośledzeniem ruchowym",
-    "es": "Los motores de acceso para minusválidos"
+    "es": "Los motores de acceso para minusválidos",
+    "br": "En aezamant d'an dud dalc'het en o c'heflusk"
   },
   "accessibleToVisually": {
     "en": "Accessible to the visually impaired",
@@ -391,7 +439,8 @@ module.exports = {
     "it": "Accessibile alle persone con disabilità visive",
     "de": "geeignet für Menschen mit Sehbehinderung",
     "pl": "Dostępne dla osób z upośledzeniem wzroku",
-    "es": "Accesible para discapacitados visuales"
+    "es": "Accesible para discapacitados visuales",
+    "br": "En aezamant d'an dud na welont ket mat"
   },
   "signLanguageAvailable": {
     "en": "Sign language available",
@@ -399,7 +448,8 @@ module.exports = {
     "it": "Accessibile nella lingua dei segni",
     "de": "Gebärdensprache verfügbar",
     "pl": "Dostępne w języku migowym",
-    "es": "El lenguaje de signos de Acceso"
+    "es": "El lenguaje de signos de Acceso",
+    "br": "Ober a reer gant yezh ar sinoù"
   },
   "accessibilityImpairments": {
     "en": "Accessibility: %impairments%",
@@ -407,7 +457,8 @@ module.exports = {
     "it": "Accessibilità: %impairments%",
     "de": "zugänglich für: %impairments%",
     "pl": "Dostępność: %impairments%",
-    "es": "%impairments%: Accesibilidad"
+    "es": "%impairments%: Accesibilidad",
+    "br": "Monedusted : %impairments%"
   },
   "transferOwnership": {
     "en": "Transfer ownership",
@@ -415,7 +466,8 @@ module.exports = {
     "it": "Trasferire la proprietà",
     "de": "Eigentumsrechte übertragen",
     "pl": "Zmień właściciela",
-    "es": "Transferir la propiedad"
+    "es": "Transferir la propiedad",
+    "br": "Treuzkas ar berc'henniezh"
   },
   "access": {
     "en": "Access",
@@ -423,7 +475,8 @@ module.exports = {
     "it": "Accesso",
     "de": "Zugang",
     "pl": "Dostęp",
-    "es": "acceso"
+    "es": "acceso",
+    "br": "Moned"
   },
   "aboutTheVenue": {
     "en": "About the venue",
@@ -431,7 +484,8 @@ module.exports = {
     "it": "A proposito del luogo",
     "de": "Ortsbeschreibung",
     "pl": "O miejscu",
-    "es": "Sobre el lugar"
+    "es": "Sobre el lugar",
+    "br": "Diwar-benn al lec'h"
   },
   "tags": {
     "en": "Tags",
@@ -439,7 +493,8 @@ module.exports = {
     "it": "Tags",
     "de": "Stichworte",
     "pl": "Etykiety",
-    "es": "Etiquetas"
+    "es": "Etiquetas",
+    "br": "Merkoù"
   },
   "category": {
     "en": "Category",
@@ -447,7 +502,8 @@ module.exports = {
     "it": "Categorie",
     "de": "Kategorie",
     "pl": "Kategorie",
-    "es": "categoría"
+    "es": "categoría",
+    "br": "Rummad"
   },
   "contact": {
     "en": "Contact",
@@ -455,7 +511,8 @@ module.exports = {
     "it": "Contattare",
     "de": "kontaktieren",
     "pl": "Skontaktuj",
-    "es": "Contactar con"
+    "es": "Contactar con",
+    "br": "Mont e darempred"
   },
   "contactAdministrators": {
     "en": "Contact administrators",
@@ -463,7 +520,8 @@ module.exports = {
     "it": "Contattare gli amministratori",
     "de": "die Administratoren kontaktieren",
     "pl": "Skontaktuj się z administratorem",
-    "es": "administradores de contacto"
+    "es": "administradores de contacto",
+    "br": "Mont e darempred gant ar verourien"
   },
   "requestChangeLocation": {
     "en": "Request a change in the location information",
@@ -471,7 +529,8 @@ module.exports = {
     "it": "Fare una demanda di modifica del luogo. ",
     "de": "eine Änderung der Standortinformationen beantragen",
     "pl": "Zaproponuj zmianę miejsca",
-    "es": "Hacer un lugar de solicitud de cambio"
+    "es": "Hacer un lugar de solicitud de cambio",
+    "br": "Goulenn cheñch al lec'h"
   },
   "locationChangeRequest": {
     "en": "Location information change request: %name%",
@@ -479,7 +538,8 @@ module.exports = {
     "it": "Demanda di modifica  del  luogo: %name%",
     "de": "Änderung der Standortinformationen: %name%",
     "pl": "Zaproponuj zmianę miejsca: %name%",
-    "es": "la solicitud de cambio de sede: %name%"
+    "es": "la solicitud de cambio de sede: %name%",
+    "br": "Goulenn da cheñch al lec'h : %name%"
   },
   "couldYouBringFollowingChanges": {
     "en": "Hi, could you bring the following changes to the location named '%name'? reference: %uid% - ( add details of the change here )",
@@ -487,7 +547,8 @@ module.exports = {
     "it": "Bongiorno, potreste apportare le modifiche seguenti al luogo chiamato '%name%' riferimento: %uid% - ( dettaglia qui le modifiche )",
     "de": "Guten Tag, können Sie die folgenden Änderungen zum Standort namens '%name%'? Referenz: %uid% hinzufügen - ( fügen Sie Details der Änderungen hier an )",
     "pl": "Witaj! Czy mógłbyś nanieść zmiany miejsca określonego mianem '%name%' ? odniesienie: %uid% - (sprecyzuj zmiany tutaj)",
-    "es": "Hola, ¿podría hacer los siguientes cambios en el lugar llamado ' %name%'? Referencia:%uid% - (especificar los cambios aquí)"
+    "es": "Hola, ¿podría hacer los siguientes cambios en el lugar llamado ' %name%'? Referencia:%uid% - (especificar los cambios aquí)",
+    "br": "Demat deoc'h, ha gallout a rafec'h ober ar cheñchamantoù-mañ el lec'h anvet '%name%' ? Dave : %uid% - (Skrivit ar cheñchamantoù amañ )"
   },
   "moreLinks": {
     "en": "More links",
@@ -495,7 +556,8 @@ module.exports = {
     "it": "Contatti in aggiunta",
     "de": "weitere Links",
     "pl": "Więcej linków",
-    "es": "Enlaces adicionales"
+    "es": "Enlaces adicionales",
+    "br": "Liammoù ouzhpenn"
   },
   "state": {
     "en": "State",
@@ -503,7 +565,8 @@ module.exports = {
     "it": "Stato",
     "de": "Zustand",
     "pl": "Stan",
-    "es": "Estatus"
+    "es": "Estatus",
+    "br": "Statud"
   },
   "editLocation": {
     "en": "Edit location",
@@ -511,7 +574,8 @@ module.exports = {
     "it": "Pubblicare il luogo",
     "de": "Ortsbeschreibung bearbeiten",
     "pl": "Edytuj miejsce",
-    "es": "Editar lugar"
+    "es": "Editar lugar",
+    "br": "Aozañ al lec'h"
   },
   "actions": {
     "en": "Actions",
@@ -519,7 +583,8 @@ module.exports = {
     "it": "Azioni",
     "de": "Aktionen",
     "pl": "Działania",
-    "es": "valores"
+    "es": "valores",
+    "br": "Oberoù"
   },
   "activity": {
     "en": "Activity",
@@ -527,7 +592,8 @@ module.exports = {
     "it": "Attività",
     "de": "Aktivitäten",
     "pl": "Działanie",
-    "es": "actividad"
+    "es": "actividad",
+    "br": "Obererezh"
   },
   "inbox": {
     "en": "Inbox",
@@ -535,7 +601,8 @@ module.exports = {
     "it": "Posta elettronica",
     "de": "Posteingang",
     "pl": "Skrzynka z informacjami",
-    "es": "mensajería"
+    "es": "mensajería",
+    "br": "Postelerezh"
   },
   "contactForm": {
     "en": "Contact form",
@@ -543,7 +610,8 @@ module.exports = {
     "it": "Modulo di contatto",
     "de": "Kontaktformular",
     "pl": "Formularz kontaktu",
-    "es": "formulario de contacto"
+    "es": "formulario de contacto",
+    "br": "Furmskrid darempred"
   },
   "contactEmail": {
     "en": "Contact agenda administrators",
@@ -551,7 +619,8 @@ module.exports = {
     "it": "Contattare gli amministratori",
     "de": "die Veranstaltungskalender- Administratoren kontaktieren",
     "pl": "Skontaktuj się z administratorem",
-    "es": "administradores de contacto"
+    "es": "administradores de contacto",
+    "br": "Mont e darempred gant merourien an deiziataer"
   },
   "contactEmailButton": {
     "en": "Send an email",
@@ -559,7 +628,8 @@ module.exports = {
     "it": "Inviare una email",
     "de": "eine email schicken",
     "pl": "Wyślij wiadomość",
-    "es": "Enviar un email"
+    "es": "Enviar un email",
+    "br": "Kas ur postel"
   },
   "contributionRestricted": {
     "en": "The contribution to this agenda is restricted",
@@ -567,6 +637,7 @@ module.exports = {
     "it": "Il contributo a questa agenda è limitato",
     "de": "Die Teilnahme an diesem Veranstaltungskalender ist beschränkt.",
     "pl": "Udział w tym kalendarzu jest ograniczony",
-    "es": "La contribución a este agenda está restringido"
+    "es": "La contribución a este agenda está restringido",
+    "br": "Strishaet eo ar c'hendeurel d'an deiziataer-mañ"
   }
 }

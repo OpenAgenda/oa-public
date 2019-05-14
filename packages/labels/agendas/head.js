@@ -7,7 +7,8 @@ module.exports = {
     "it": "Ufficiale",
     "de": "offiziell",
     "pl": "Oficjalne",
-    "es": "oficial"
+    "es": "oficial",
+    "br": "Ofisiel"
   },
   "privateAgenda": {
     "en": "Private agenda",
@@ -15,7 +16,8 @@ module.exports = {
     "it": "Agenda privata",
     "de": "privater Kalender",
     "pl": "Kalendarz prywatny",
-    "es": "Eventos privados"
+    "es": "Eventos privados",
+    "br": "Deiziataer prevez"
   },
   "contact": {
     "en": "Contact",
@@ -23,7 +25,8 @@ module.exports = {
     "it": "Contattare",
     "de": "kontaktieren",
     "pl": "Skontaktuj",
-    "es": "Contactar con"
+    "es": "Contactar con",
+    "br": "Mont e darempred"
   },
   "export": {
     "en": "Export",
@@ -31,7 +34,8 @@ module.exports = {
     "it": "Esportare",
     "de": "exportieren",
     "pl": "Eksportuj",
-    "es": "exportación"
+    "es": "exportación",
+    "br": "Ezporzhiañ"
   },
   "addEvent": {
     "en": "Add an event",
@@ -39,7 +43,8 @@ module.exports = {
     "it": "Aggiungere un evento ",
     "de": "Veranstaltung hinzufügen",
     "pl": "Dodaj element",
-    "es": "Añadir un evento"
+    "es": "Añadir un evento",
+    "br": "Ouzhpennañ un darvoud"
   },
   "showCalendar": {
     "en": "Display calendar view",
@@ -47,7 +52,8 @@ module.exports = {
     "it": "Installare il Calendario a vista",
     "de": "Kalenderansicht anzeigen",
     "pl": "Wyświetl widok kalendarza",
-    "es": "Mostrar vista del agenda"
+    "es": "Mostrar vista del agenda",
+    "br": "Diskwel ar gwel deiziadur"
   },
   "manage": {
     "en": "Manage",
@@ -55,6 +61,7 @@ module.exports = {
     "it": "Gestire",
     "de": "verwalten",
     "pl": "Zarządzaj",
-    "es": "Gestionar"
+    "es": "Gestionar",
+    "br": "Merañ"
   }
 }

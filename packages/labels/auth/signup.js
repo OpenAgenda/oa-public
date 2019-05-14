@@ -7,7 +7,8 @@ module.exports = {
     "it": "Questo conto di servizio è già in uso",
     "de": "Dieses Servicekonto ist bereits in Gebrauch.",
     "pl": "To konto serwisu jest już w użyciu",
-    "es": "Este servicio ya está en uso en otra cuenta"
+    "es": "Este servicio ya está en uso en otra cuenta",
+    "br": "En implij emañ ar servij-mañ war ur gont all dija"
   },
   "fieldCannotBeEmpty": {
     "en": "This field cannot be empty",
@@ -15,7 +16,8 @@ module.exports = {
     "it": "Questo campo non può essere vuoto",
     "de": "Dieses Feld darf nicht leer sein.",
     "pl": "To pole nie może być puste",
-    "es": "Este campo no debe estar vacía"
+    "es": "Este campo no debe estar vacía",
+    "br": "Ne c'hall ket ar vaezienn-mañ bezañ goullo"
   },
   "usedEmail": {
     "en": "This email is already in use",
@@ -23,7 +25,8 @@ module.exports = {
     "it": "Questa e-mail è già in uso",
     "de": "Diese E-Mail ist bereits in Verwendung.",
     "pl": "Ten e-mail jest już używany",
-    "es": "Este correo electrónico ya está en uso"
+    "es": "Este correo electrónico ya está en uso",
+    "br": "En implij emañ ar chomlec'h postel-mañ dija"
   },
   "invalidEmail": {
     "en": "The email is not valid",
@@ -31,7 +34,8 @@ module.exports = {
     "it": "L'e-mail non è valida",
     "de": "Die E-Mail ist nicht gültig.",
     "pl": "Wiadomość e-mail jest nieważna",
-    "es": "Este correo electrónico no es válida"
+    "es": "Este correo electrónico no es válida",
+    "br": "Direizh eo ar chomlec'h postel-mañ"
   },
   "createAccount": {
     "fr": "Créez un compte",
@@ -39,7 +43,8 @@ module.exports = {
     "it": "Crea un conto",
     "de": "Ein Konto erstellen",
     "pl": "Utwórz konto",
-    "es": "Crear una cuenta"
+    "es": "Crear una cuenta",
+    "br": "Krouiñ ur gont"
   },
   "captchaTryAgain": {
     "fr": "Veuillez ré-essayer",
@@ -47,7 +52,8 @@ module.exports = {
     "it": "Riprovaci ancora una volta",
     "de": "Versuche dies noch einmal",
     "pl": "Spróbuj to jeszcze raz",
-    "es": "Por favor, inténtelo de nuevo"
+    "es": "Por favor, inténtelo de nuevo",
+    "br": "Esaeit adarre"
   },
   "hasAccount": {
     "fr": "Vous avez déjà utilisé OpenAgenda ?",
@@ -55,7 +61,8 @@ module.exports = {
     "it": "Hai già utilizzato OpenAgenda ?",
     "de": "Kennst du schon OpenAgenda ?",
     "pl": "Czy korzystałeś już z OpenAgendy?",
-    "es": "Ya ha utilizado OpenAgenda?"
+    "es": "Ya ha utilizado OpenAgenda?",
+    "br": "Daoust hag implijet ho peus OpenAgenda c'hoazh ?"
   },
   "connect": {
     "fr": "Connectez-vous",
@@ -63,7 +70,8 @@ module.exports = {
     "it": "Connettiti",
     "de": "Anmelden",
     "pl": "Połącz się",
-    "es": "login"
+    "es": "login",
+    "br": "Kevreit"
   },
   "nameSurname": {
     "fr": "Prénom Nom",
@@ -71,7 +79,8 @@ module.exports = {
     "it": "Nome Cognome",
     "de": "Vorname Nachname",
     "pl": "Imię i nazwisko",
-    "es": "Nombre Apellido"
+    "es": "Nombre Apellido",
+    "br": "Anv Anv-bihan"
   },
   "email": {
     "fr": "Email",
@@ -79,7 +88,8 @@ module.exports = {
     "it": "Email eMail",
     "de": "E-Mail",
     "pl": "Poczta elektroniczna",
-    "es": "e-mail"
+    "es": "e-mail",
+    "br": "Postel"
   },
   "password": {
     "fr": "Mot de passe",
@@ -87,7 +97,8 @@ module.exports = {
     "it": "La parola d'accesso",
     "de": "Passwort",
     "pl": "Hasło",
-    "es": "Contraseña"
+    "es": "Contraseña",
+    "br": "Ger-tremen"
   },
   "repeatPassword": {
     "fr": "Répéter le mot de passe",
@@ -95,7 +106,8 @@ module.exports = {
     "it": "Ripetere la parola d'accesso",
     "de": "Passwort wiederholen",
     "pl": "Powtórz hasło",
-    "es": "Repetir contraseña"
+    "es": "Repetir contraseña",
+    "br": "Adskrivañ ar ger-tremen"
   },
   "signup": {
     "fr": "S'inscrire",
@@ -103,7 +115,8 @@ module.exports = {
     "it": "Iscriviti",
     "de": "Registriere dich",
     "pl": "Zarejestruj się",
-    "es": "Inscribirse"
+    "es": "Inscribirse",
+    "br": "En em enskrivañ"
   },
   "agree": {
     "fr": "En créant un compte vous acceptez les %terms% ainsi que la %policy%.",
@@ -111,7 +124,8 @@ module.exports = {
     "it": "Creando un conto si accettano le %terms% e le %policy%.",
     "de": "Mit der Erstellung eines Kontos, akzeptieren Sie den %terms% und der %policy%.",
     "pl": "Tworząc konto zgadzasz się na %terms% i %policy%.",
-    "es": "Al crear una cuenta en la que acepta los términos% y la política ."
+    "es": "Al crear una cuenta en la que acepta los términos% y la política .",
+    "br": "Pa grouit ur gont e asantit d'ar %terms% ha d'ar %policy%."
   },
   "termsOfUse": {
     "fr": "Conditions d'Utilisation",
@@ -119,7 +133,8 @@ module.exports = {
     "it": "Condizioni d'uso",
     "de": "Nutzungsbedingungen",
     "pl": "Warunki użytkowania",
-    "es": "Condiciones de uso"
+    "es": "Condiciones de uso",
+    "br": "Penndivizoù implij"
   },
   "policy": {
     "fr": "Politique de confidentialité",
@@ -127,7 +142,8 @@ module.exports = {
     "it": "Informativa sulla privacy",
     "de": "Datenschutzerklärung",
     "pl": "Polityka prywatności",
-    "es": "política de confidencialidad"
+    "es": "política de confidencialidad",
+    "br": "Reolennoù prevezded"
   },
   "culture": {
     "fr": "Langue",

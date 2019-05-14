@@ -3,7 +3,8 @@
 module.exports = {
   "timings.empty": {
     "fr": "Au moins un horaire doit être renseigné",
-    "en": "At least one timing must be defined"
+    "en": "At least one timing must be defined",
+    "br": "Ret eo lakaat un eur da vihanañ"
   },
   "location.required": {
     "fr": "Le lieu doit être spécifié",

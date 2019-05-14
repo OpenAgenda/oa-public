@@ -7,7 +7,7 @@ module.exports = {
     "it": "Oggi",
     "de": "Heute",
     "pl": "Dzisiaj",
-    "br": "",
+    "br": "Hiziv",
     "es": "hoy"
   },
   "tomorrow": {
@@ -16,7 +16,8 @@ module.exports = {
     "it": "Domani",
     "de": "Morgen",
     "pl": "Jutro",
-    "es": "Mañana"
+    "es": "Mañana",
+    "br": "Warc'hoazh"
   },
   "thisWeekend": {
     "fr": "Ce week-end",
@@ -24,7 +25,8 @@ module.exports = {
     "it": "Questo week end",
     "de": "Dieses Wochenende",
     "pl": "W ten weekend",
-    "es": "Este fin de semana"
+    "es": "Este fin de semana",
+    "br": "An dibenn-sizhun-mañ"
   },
   "thisWeek": {
     "fr": "Cette semaine",
@@ -32,7 +34,8 @@ module.exports = {
     "it": "Questa settimana",
     "de": "Diese Woche",
     "pl": "W tym tygodniu",
-    "es": "Esta semana"
+    "es": "Esta semana",
+    "br": "Ar sizhun-mañ"
   },
   "thisMonth": {
     "fr": "Ce mois-ci",
@@ -40,6 +43,7 @@ module.exports = {
     "it": "In questo mese",
     "de": "Diesen Monat",
     "pl": "W tym miesiącu",
-    "es": "Este mes"
+    "es": "Este mes",
+    "br": "Ar miz-mañ"
   }
 }
