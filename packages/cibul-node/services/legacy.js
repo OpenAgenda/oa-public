@@ -6,7 +6,7 @@ module.exports.controlData = {};
 
 module.exports.init = config => {
 
-  ControlData.updateLoggerConfig( config.getLogConfig( 'svc', 'legacyControlData' ) );
+  ControlData.updateLoggerConfig( config.getLogConfig( 'svc', 'controlData' ) );
 
   Object.assign( module.exports.controlData, ControlData( {
     knex: config.knex,
