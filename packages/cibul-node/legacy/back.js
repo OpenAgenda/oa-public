@@ -268,8 +268,6 @@ function syncMember( req, res, next ) {
 
   res.send( 'ok' );
 
-  console.log( req.body );
-
   setMemberUidRefs( req.body );
 
 }
