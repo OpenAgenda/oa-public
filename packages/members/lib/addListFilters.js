@@ -7,6 +7,8 @@ const schema = require( '@openagenda/validators/schema' );
 const roles = require( './roles' );
 
 schema.register( {
+  integer: require( '@openagenda/validators/integer' ),
+  choice: require( '@openagenda/validators/choice' )
 } );
 
 const validate = schema( {
@@ -39,7 +41,7 @@ module.exports = ( k, query ) => {
     role
   } = validate( query );
 
-  if ( !_.get( cleanQuery, 'agendaUid' ) && !_.get( cleanQuery, 'userUid' ) ) {
+  if ( !agendaUid && !userUid ) {
     throw new Error( 'neither agendaUid or userUid are specified' );
   }
 
@@ -52,7 +54,7 @@ module.exports = ( k, query ) => {
   }
 
   if ( role.length ) {
-    k.whereIn( 'credential', role.map( r => _.isInteger( r ) ? r : roles[ r.toUpperCase() ] )
+    k.whereIn( 'credential', role.map( r => _.isInteger( r ) ? r : roles[ r.toUpperCase() ] ) )
   }
 
 }

@@ -19,6 +19,6 @@ module.exports = entry => {
 
   return Object.keys( entry )
     .filter( field => dbFields.includes( field ) )
-    .reduce( ( mapped, field ) => _.set( mapped, map[ field ], null ), {} );
+    .reduce( ( mapped, field ) => _.set( mapped, map[ field ], entry[ field ] ), {} );
 
 }

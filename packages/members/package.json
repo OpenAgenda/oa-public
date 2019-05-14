@@ -1,6 +1,9 @@
 {
   "name" : "@openagenda/members",
   "version" : "1.0.0",
+  "scripts": {
+    "test": "mocha"
+  },
   "dependencies" : {
     "@openagenda/logs": "^1.1.1",
     "@openagenda/validators": "^2.1.6",
