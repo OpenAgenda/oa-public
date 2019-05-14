@@ -5,6 +5,7 @@ const _ = require( 'lodash' );
 const cmn = require( '../lib/commons-app' );
 const app = require( 'express' )();
 const config = require( '../config' );
+const fs = require( 'fs' );
 const sessions = require( '@openagenda/sessions' );
 const legacyAgendaSvc = require( '../services/agenda' );
 const agendasSvc = require( '@openagenda/agendas' );
@@ -23,12 +24,9 @@ const agendaLoad = require( '@openagenda/agendas' ).middleware.load( {
   }
 } );
 
+const statsTemplate = _.template( fs.readFileSync( __dirname + '/stats.tpl', 'utf-8' ) );
 
-module.exports = parentApp => {
-
-  parentApp.use( '/', app );
-
-}
+module.exports = parentApp => parentApp.use( '/', app );
 
 
 // All paths of this app are accessible to agenda admins only
@@ -57,7 +55,10 @@ app.get( '/agendas/:agendaUid/admin/*?(/*)?', agendaAdminRedirect );
 
 app.get( '/:agendaSlug/admin/stats', async ( req, res, next ) => {
 
-  res.json( await agendaStatistics( req.agenda.uid ) );
+  return res.send( layout(
+    statsTemplate( await agendaStatistics( req.agenda.uid ) ),
+    req
+  ) );
 
 } );
 
