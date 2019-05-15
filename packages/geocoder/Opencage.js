@@ -66,11 +66,14 @@ async function geocode( key, query, { countryCode, language, raw, first } ) {
 function cleanGeocodeQuery( query, countryCode ) {
 
   for ( const transform of [ {
-    from: [ 'YT', 'PF', 'GF', 'PM', 'MQ', 'GP', 'RE', 'NC' ],
+    from: [ 'YT', 'PF', 'GF', 'PM','MQ', 'GP', 'RE', 'NC' ],
     to: 'FR'
   }, {
     from: [ 'HK' ],
     to: 'CN'
+  }, {
+    from: [ 'AW' ],
+    to: 'NL'
   } ] ) {
 
     if ( transform.from.includes( countryCode ) ) {

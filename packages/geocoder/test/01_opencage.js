@@ -43,6 +43,16 @@ describe( 'opencage', function() {
 
     } );
 
+    it( 'Aruba', async () => {
+
+      ( await geocode( 'Koningstraat 38,Oranjestad Aruba', {
+        countryCode: 'AW',
+        language: 'fr',
+        first: true
+      } ) ).city.should.equal( 'Oranjestad' );
+
+    } );
+
     describe( 'Métropole de Lyon, département du Rhône', () => {
 
       it( 'Maillane is in "Bouches-du-Rhône" department', async () => {
@@ -97,7 +107,7 @@ describe( 'opencage', function() {
           language: 'fr'
         } ) ).length.should.greaterThan( 0 );
 
-      } );*/
+      } );
 
       it( 'Saint Pierre et Miquelon addresses respond to PM country code', async () => {
 
@@ -106,7 +116,7 @@ describe( 'opencage', function() {
           language: 'fr'
         } ) ).length.should.greaterThan( 0 );
 
-      } );
+      } );*/
 
       it( 'Guyane addresses respond to GF country code', async () => {
 
