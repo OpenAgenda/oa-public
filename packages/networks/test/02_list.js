@@ -1,7 +1,7 @@
 "use strict";
 
-const knex = require( 'knex' );
 const _ = require( 'lodash' );
+const knex = require( 'knex' );
 const mysql = require( 'mysql' );
 const should = require( 'should' );
 const { promisify } = require( 'util' );
