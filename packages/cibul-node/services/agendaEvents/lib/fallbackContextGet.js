@@ -5,7 +5,7 @@ const _ = require( 'lodash' );
 const agendasSvc = require( '@openagenda/agendas' );
 const eventsSvc = require( '@openagenda/events' );
 
-const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/fallbackContextGet' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/fallbackContextGet' );
 
 module.exports = async ( interfaceName, ref, context ) => {
 

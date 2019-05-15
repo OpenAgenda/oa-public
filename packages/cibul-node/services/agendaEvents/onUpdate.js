@@ -3,7 +3,6 @@
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
-const custom = require( '@openagenda/custom' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/onUpdate' );
 
 const aggregatorNotify = require( './lib/aggregatorNotify' );
@@ -14,6 +13,7 @@ const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 const sendEventUpdate = require( './lib/sendEventUpdate' );
 const sendEventChangeState = require( './lib/sendEventChangeState' );
+const transferCustomFromLegacy = require( './lib/transferCustomFromLegacy' );
 
 module.exports = async ( before, after, context ) => {
 
@@ -59,12 +59,8 @@ module.exports = async ( before, after, context ) => {
 
   aggregatorNotify.update( { agenda, event, before, after } );
 
-  if ( context.legacy && agenda.formSchemaId ) {
-    try {
-      await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
-    } catch ( e ) {
-      log( 'error', 'could not transfer custom data from legacy (%s.%s)', after.agendaUid, after.eventUid, e );
-    }
+  if ( context.legacy ) {
+    await transferCustomFromLegacy( agenda, event );
   }
 
   // Send emails
