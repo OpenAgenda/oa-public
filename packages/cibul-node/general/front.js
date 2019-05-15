@@ -12,7 +12,7 @@ const log = require( '@openagenda/logs' )( 'newsletter' );
 const config = require( '../config' );
 
 const layout = require( '../services/lib/layouts' ).load( 'corpo', {
-  languages: config.interfaceLanguages
+  languages: config.interfaceLanguages.filter( l => l !== 'br' )
 } );
 
 const landingPages = landing( {
@@ -43,7 +43,7 @@ const preMw = [
 module.exports = app => {
 
   app.get(
-    [ '/', '/en', '/de', '/es' ],
+    [ '/', '/en', '/de', '/es', '/br' ],
     preMw,
     cmn.https,
     sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
