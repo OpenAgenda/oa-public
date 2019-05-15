@@ -12,13 +12,14 @@ const log = require( '@openagenda/logs' )( 'newsletter' );
 const config = require( '../config' );
 
 const layout = require( '../services/lib/layouts' ).load( 'corpo', {
-  languages: config.interfaceLanguages.filter( l => l !== 'br' )
+  languages: config.interfaceLanguages
 } );
 
 const landingPages = landing( {
   en: config.root + '/discover',
   fr: config.root + '/decouvrir',
-  de: config.root + '/entdecken'
+  de: config.root + '/entdecken',
+  br: config.root + '/decouvrirbr'
 } );
 
 const legacyPages = {
@@ -155,7 +156,8 @@ function _setLang( req, res, next ) {
     '/' : 'fr',
     '/en' : 'en',
     '/de' : 'de',
-    '/es' : 'es'
+    '/es' : 'es',
+    '/br' : 'br'
   }, req.url, null );
 
   if ( !req.lang ) return res.redirect( 302, '/' );
