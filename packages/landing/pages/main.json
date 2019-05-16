@@ -8,6 +8,12 @@
   }, {
     "lang" : "de",
     "key" : "de"
+  }, {
+    "lang" : "es",
+    "key" : "es"
+  }, {
+    "lang" : "br",
+    "key" : "br"
   } ],
   "head" : {
     "title" : "OpenAgenda",

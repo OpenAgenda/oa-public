@@ -5,6 +5,10 @@
     "lang" : "fr", "key" : "tarifs"
   }, {
     "lang" : "de", "key" : "preisgestaltung"
+  }, {
+    "lang" : "es", "key" : "precios"
+  }, {
+    "lang" : "br", "key" : "tarifs-br"
   } ],
   "head" : {
     "title" : "pricingTitle",

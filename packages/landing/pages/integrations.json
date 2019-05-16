@@ -2,7 +2,9 @@
   "keys" : [
     { "lang" : "en", "key" : "your-website" },
     { "lang" : "fr", "key" : "votre-site" },
-    { "lang" : "de", "key" : "deine-website" }
+    { "lang" : "de", "key" : "deine-website" },
+    { "lang" : "es", "key" : "vuestro-sitio-web" },
+    { "lang" : "br", "key" : "votre-site-br" }
   ],
   "head" : {
     "title" : "embedTitle",

@@ -8,10 +8,19 @@ const _ = require( 'lodash' );
 
 const labels = require( '@openagenda/labels/corpo/pages' );
 
-// let german be english when undefined
-_.keys( labels ).forEach( k => labels[ k ].de = labels[ k ].de || labels[ k ].en );
+// let default label be english
 
 module.exports = function( basePath ) {
+
+  const existingLanguages = _.keys( basePath );
+
+  _.keys( labels ).forEach( field => {
+    existingLanguages.forEach( lang => {
+      if ( lang !== 'en' && !labels[ field ][ lang ] ) {
+        labels[ field ][ lang ] = labels[ field ].en;
+      }
+    } );
+  } );
 
   const params = {
     templates: {},

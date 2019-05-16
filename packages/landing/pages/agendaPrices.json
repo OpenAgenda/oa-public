@@ -5,6 +5,10 @@
     "lang" : "fr", "key" : "tarifs-agenda"
   }, {
     "lang" : "de", "key" : "agenda-preisgestaltung"
+  }, {
+    "lang" : "es", "key" : "precios-agenda"
+  }, {
+    "lang" : "br", "key" : "tarifs-agenda-br"
   } ],
   "head" : {
     "title" : "agendaPricingTitle",

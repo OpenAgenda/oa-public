@@ -2,7 +2,9 @@
   "keys" : [
     { "lang" : "en", "key" : "testimonies" },
     { "lang" : "fr", "key" : "temoignages" },
-    { "lang" : "de", "key" : "referenzen" }
+    { "lang" : "de", "key" : "referenzen" },
+    { "lang" : "es", "key" : "referencias" },
+    { "lang" : "br", "key" : "temoignagesbr" }
   ],
   "head" : {
     "title" : "testimoniesHeadTitle",
