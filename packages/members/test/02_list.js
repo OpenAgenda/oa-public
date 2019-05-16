@@ -74,7 +74,14 @@ describe( 'members - functional - list', () => {
         id: 1,
         agendaUid: 1,
         userUid: 1,
-        role: 2
+        role: 2,
+        custom: {
+          organization: 'Mairie de Saint-Germain-en-Laye',
+          contactName: 'Janine Ponceau',
+          contactNumber: '0130872171',
+          contactPosition: 'Responsable de la diffusion artistique',
+          email: 'janine@ponceau.fr'
+        }
       } );
 
     } );
@@ -100,8 +107,26 @@ describe( 'members - functional - list', () => {
 
     } );
 
-    it( 'when legacy option is set to true, legacy fields are provided', async () => {
+    it( 'when total option is true, total is given in response', async () => {
 
+      const {
+        total,
+        members
+      } = await svc.list( { agendaUid: 1 }, { limit: 1 }, { total: true } );
+
+      total.should.equal( 1 );
+
+    } );
+
+    it( 'when legacy option is set to true, legacy keys are provided', async () => {
+
+      const members = await svc.list( { agendaUid: 1 }, { limit: 1 }, { legacy: true } );
+
+      _.pick( members[ 0 ], [ 'agendaId', 'credential', 'userId' ] ).should.eql( {
+        agendaId: 923,
+        userId: 81289,
+        credential: 2
+      } );
 
     } );
 

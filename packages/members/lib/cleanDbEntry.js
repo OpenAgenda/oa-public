@@ -9,16 +9,50 @@ const map = {
   user_uid: 'userUid',
   created_at: 'createdAt',
   updated_at: 'updatedAt',
+  store: 'store'
+};
+
+const legacyFieldsMap = {
+  review_id: 'agendaId',
+  user_id: 'userId',
+  credential: 'credential'
 };
 
 const dbFields = Object.keys( map );
+const legacyDbFields = Object.keys( legacyFieldsMap );
 
-module.exports = entry => {
+module.exports = ( includeLegacyFields = false, entry ) => {
 
   if ( !entry ) return null;
 
   return Object.keys( entry )
-    .filter( field => dbFields.includes( field ) )
-    .reduce( ( mapped, field ) => _.set( mapped, map[ field ], entry[ field ] ), {} );
+    .filter( field => dbFields.concat( includeLegacyFields ? legacyDbFields : [] ).includes( field ) )
+    .reduce( ( mapped, field ) => {
 
+      if ( field === 'store' ) {
+        mapped.custom = _parseLegacyCustom( entry.store );
+      } else if ( dbFields.includes( field ) ) {
+        _.set( mapped, map[ field ], entry[ field ] );
+      }
+
+      if ( includeLegacyFields && legacyDbFields.includes( field ) ) {
+        _.set( mapped, legacyFieldsMap[ field ], entry[ field ] );
+      }
+
+      return mapped;
+
+    }, {} );
+
+
+}
+
+function _parseLegacyCustom( store ) {
+
+  if ( !_.isString( store ) ) return null;
+
+  const data = _.get( JSON.parse( store ), 'custom_fields', null );
+
+  if ( !data ) return null;
+
+  return _.mapKeys( data, ( v, k ) => _.camelCase( k ) );
 }

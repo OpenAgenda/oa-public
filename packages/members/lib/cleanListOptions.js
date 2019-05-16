@@ -10,5 +10,13 @@ module.exports = schema( {
   detailed: {
     type: 'boolean',
     default: false
+  },
+  total: {
+    type: 'boolean',
+    default : false
+  },
+  legacy: {
+    type: 'boolean',
+    default: false
   }
 } );
