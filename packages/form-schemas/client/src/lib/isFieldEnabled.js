@@ -8,6 +8,8 @@ module.exports = ( field, values, disabledForm = false ) => {
 
   if ( !field.enableWith ) return true;
 
-  return !!_.get( values, field.enableWith );
+  const enableWithValue = _.get( values, field.enableWith );
+
+  return !!( _.isArray( enableWithValue ) ? enableWithValue.length : enableWithValue );
 
 }
