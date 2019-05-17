@@ -19,6 +19,17 @@ class Main extends Component {
           label: 'The label',
           help: 'This is the help message.',
           helpLink: 'https://openagenda.com'
+        }, {
+          field: 'anythingelse',
+          fieldType: 'text',
+          label: 'The other label',
+          help: 'The link is an email',
+          helpLink: 'mailto:support@openagenda.com'
+        }, {
+          field: 'randomthings',
+          fieldType: 'text',
+          label: 'A hover on help',
+          helpContent: 'Explain the things [here](https://openagenda.com)'
         } ]
       }
     }
