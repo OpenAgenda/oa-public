@@ -6,5 +6,7 @@
   "updated_at" : "2019-05-14T18:00:00.000+0200",
   "review_id" : 923,
   "user_id" : 81289,
+  "deleted_user" : false,
+  "actions_counter" : 12,
   "store" : "{\"custom_fields\":{\"organization\":\"Mairie de Saint-Germain-en-Laye\",\"contact_number\":\"0130872171\",\"contact_name\":\"Janine Ponceau\",\"contact_position\":\"Responsable de la diffusion artistique\",\"email\":\"janine@ponceau.fr\"}}"
 } ]

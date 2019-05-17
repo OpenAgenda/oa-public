@@ -40,7 +40,8 @@ describe( 'members - functional - list', () => {
     svc = Service( {
       knex: k,
       interfaces: {
-        getUsersByUid: require( './fixtures/getUsersByUid' )
+        getUsersByUid: require( './fixtures/getUsersByUid' ),
+        getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' )
       }
     } );
 
@@ -81,7 +82,8 @@ describe( 'members - functional - list', () => {
           contactNumber: '0130872171',
           contactPosition: 'Responsable de la diffusion artistique',
           email: 'janine@ponceau.fr'
-        }
+        },
+        deletedUser: false
       } );
 
     } );
@@ -107,6 +109,14 @@ describe( 'members - functional - list', () => {
 
     } );
 
+    it( 'when detailed option is set to true, event count is provided for member', async () => {
+
+      const members = await svc.list( { agendaUid: 1 }, { limit: 1 }, { detailed: true } );
+
+      members[ 0 ].eventCount.should.equal( 12 );
+
+    } );
+
     it( 'when total option is true, total is given in response', async () => {
 
       const {
@@ -122,10 +132,16 @@ describe( 'members - functional - list', () => {
 
       const members = await svc.list( { agendaUid: 1 }, { limit: 1 }, { legacy: true } );
 
-      _.pick( members[ 0 ], [ 'agendaId', 'credential', 'userId' ] ).should.eql( {
+      _.pick( members[ 0 ], [
+        'agendaId',
+        'credential',
+        'userId',
+        'actionsCounter'
+      ] ).should.eql( {
         agendaId: 923,
         userId: 81289,
-        credential: 2
+        credential: 2,
+        actionsCounter: 12
       } );
 
     } );

@@ -9,13 +9,15 @@ const map = {
   user_uid: 'userUid',
   created_at: 'createdAt',
   updated_at: 'updatedAt',
+  deleted_user: 'deletedUser',
   store: 'store'
 };
 
 const legacyFieldsMap = {
   review_id: 'agendaId',
   user_id: 'userId',
-  credential: 'credential'
+  actions_counter: 'actionsCounter',
+  credential: 'credential',
 };
 
 const dbFields = Object.keys( map );
@@ -39,7 +41,9 @@ module.exports = ( includeLegacyFields = false, entry ) => {
         _.set( mapped, legacyFieldsMap[ field ], entry[ field ] );
       }
 
-      return mapped;
+      return Object.assign( mapped, {
+        deletedUser: !!mapped.deletedUser
+      } );
 
     }, {} );
 
