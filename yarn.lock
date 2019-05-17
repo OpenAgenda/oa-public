@@ -2060,10 +2060,10 @@
     should "~4.0"
     xml2js "0.4.9"
 
-"@openagenda/es-node@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.14.tgz#b086bcf1716ad000f9f4baf641e639e8a5c5f3d4"
-  integrity sha512-a74Wq3rstRvEZArcVQfQnYuQTlrFOiRm1RiWJcOm3SaNoPohUAVCiNHPA/2Or+7d1vc88q/L71Vg85ZknAtH5w==
+"@openagenda/es-node@^1.0.15":
+  version "1.0.15"
+  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.15.tgz#e7e51ef098b0923e921cceff311c82822080bd45"
+  integrity sha512-ZgAZsvEhpMTs7qPa08aZJVNDXiHYzfEEumoaj5DPRpohQnPFD4q1kN7hIRSLf/nWbh7bHrBk1y479y3qGrbdTw==
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "~0.9"
