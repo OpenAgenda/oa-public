@@ -9,14 +9,19 @@ module.exports = {
   countByUserUid
 }
 
-function countByUserUid( agendaUid ) {
+function countByUserUid( agendaUid, userUids = null ) {
 
-  return knex( config.schemas.agendaEvent )
+  const k = knex( config.schemas.agendaEvent )
     .select(
       knex.raw( 'count(id) as event_count, user_uid' )
     )
-    .where( 'agenda_uid', agendaUid )
-    .groupBy( 'user_uid' )
+    .where( 'agenda_uid', agendaUid );
+
+  if ( userUids ) {
+    k.whereIn( 'user_uid', userUids );
+  }
+
+  return k.groupBy( 'user_uid' )
     .then( r => r.map( r => ( {
       count: r.event_count,
       userUid: r.user_uid

@@ -16,13 +16,23 @@ describe( 'agendaEvents - functional (server): stats', function() {
 
   } );
 
-  it( 'countByUserUid', async () => {
+  it( 'countByUserUid ( unrestricted )', async () => {
 
     const counts = await svc( 62792452 ).stats.countByUserUid();
 
     counts.should.eql( [ {
       count: 2287, userUid: null
     }, {
+      count: 1, userUid: 12312312
+    } ] );
+
+  } );
+
+  it( 'countByUserUid ( for specific user uids )', async () => {
+
+    const counts = await svc( 62792452 ).stats.countByUserUid( [ 12312312 ] );
+
+    counts.should.eql( [ {
       count: 1, userUid: 12312312
     } ] );
 
