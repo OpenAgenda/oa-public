@@ -1,6 +1,6 @@
 "use strict";
 
-module.exports = async uids => {
+module.exports = async ( agendaUid, uids ) => {
 
   return [ {
     userUid: 1,

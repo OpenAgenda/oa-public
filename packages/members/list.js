@@ -42,6 +42,7 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
 
   if ( detailed && _.get( interfaces, 'getEventCountByUserUid' ) ) {
     ( await interfaces.getEventCountByUserUid(
+      query.agendaUid,
       members.map( m => m.userUid )
     ) ).forEach( stat => {
       _.find( members, { userUid: stat.userUid } ).eventCount = stat.count;
