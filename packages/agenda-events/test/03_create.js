@@ -94,11 +94,13 @@ describe( 'agendaEvents - functional (server): create', function() {
             context.should.eql( {
               userUid: 111,
               aggregated: false,
-              sourceAgenda: null,
+              agendaUid: null,
               transferToLegacy: false,
               agenda: null,
+              sourceAgenda: null,
               event: null,
-              legacy: true
+              legacy: true,
+              batched: false
             } );
 
           }
