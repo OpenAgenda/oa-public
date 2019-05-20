@@ -26,10 +26,7 @@ module.exports = parentApp => {
 
       res.json( await members.list( ih( req.query, {
         agendaUid: { $set: req.agenda.uid }
-      } ), {
-        offset: req.query.offset || 0,
-        limit: req.query.limit || 20
-      }, {
+      } ), req.query, {
         legacy: true,
         detailed: true,
         total: true
