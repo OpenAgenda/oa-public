@@ -31,7 +31,8 @@ module.exports = parentApp => {
         limit: req.query.limit || 20
       }, {
         legacy: true,
-        detailed: true
+        detailed: true,
+        total: true
       } ) );
 
     }
