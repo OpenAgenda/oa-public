@@ -11,6 +11,10 @@ module.exports = schema( {
     type: 'integer',
     default: null
   },
+  offset: {
+    type: 'integer',
+    default: null
+  },
   limit: {
     type: 'integer',
     default: 20

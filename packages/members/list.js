@@ -10,7 +10,7 @@ const cleanListOptions = require( './lib/cleanListOptions' );
 
 module.exports = async function( { knex, schema, interfaces }, query, nav = {}, options = {} ) {
 
-  const { from, limit } = cleanNav( nav );
+  const { from, offset, limit } = cleanNav( nav );
 
   const {
     detailed,
@@ -26,9 +26,13 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     ? await k.count( 'id as total' ).then( r => _.get( r, '0.total' ) )
     : null;
 
-  if ( from ) k.where( 'id', '<', from );
+  if ( from ) {
+    k.where( 'id', '>=', from );
+  } else if ( offset ) {
+    k.offset( offset );
+  };
 
-  k.limit( limit ).orderBy( 'id', 'desc' );
+  k.limit( limit ).orderBy( 'id', 'asc' );
 
   const members = await k.then( rows => rows.map( cleanDbEntry.bind( null, includeLegacyFields ) ) );
 

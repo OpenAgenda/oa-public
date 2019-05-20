@@ -69,6 +69,25 @@ describe( 'members - functional - list', () => {
 
     } );
 
+    it( 'pagination works with "from" and "limit" keys', async () => {
+
+      const query = { agendaUid: 1 };
+
+      const first = await svc.list( query, { limit: 1 } );
+      const second = await svc.list( query, { from: 2, limit: 1 } );
+
+      first[ 0 ].id.should.equal( 1 );
+      second[ 0 ].id.should.equal( 2 );
+
+    } );
+
+    it( 'pagination works with "offset" and "limit" keys', async () => {
+
+      const second = await svc.list( { agendaUid: 1 }, { offset: 1, limit: 1 } );
+      second[ 0 ].id.should.equal( 2 );
+
+    } );
+
     it( 'provides a list in response', async () => {
 
       _.omit( members[ 0 ], [ 'createdAt', 'updatedAt' ] ).should.eql( {
@@ -124,7 +143,7 @@ describe( 'members - functional - list', () => {
         members
       } = await svc.list( { agendaUid: 1 }, { limit: 1 }, { total: true } );
 
-      total.should.equal( 1 );
+      total.should.equal( 2 );
 
     } );
 
