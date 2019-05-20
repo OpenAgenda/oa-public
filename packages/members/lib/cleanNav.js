@@ -18,5 +18,9 @@ module.exports = schema( {
   limit: {
     type: 'integer',
     default: 20
+  },
+  page: {
+    type: 'integer',
+    default: null
   }
 } );

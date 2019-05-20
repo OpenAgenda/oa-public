@@ -5,12 +5,11 @@ const VError = require( 'verror' );
 
 const addListFilters = require( './lib/addListFilters' );
 const cleanDbEntry = require( './lib/cleanDbEntry' );
-const cleanNav = require( './lib/cleanNav' );
+
 const cleanListOptions = require( './lib/cleanListOptions' );
+const addPagination = require( './lib/addPagination' );
 
 module.exports = async function( { knex, schema, interfaces }, query, nav = {}, options = {} ) {
-
-  const { from, offset, limit } = cleanNav( nav );
 
   const {
     detailed,
@@ -18,21 +17,15 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     legacy
   } = cleanListOptions( options );
 
-  const k = knex( schema );
+  const k = knex( schema ).orderBy( 'id', 'asc' );
 
-  addListFilters( k, query, from );
+  addListFilters( k, query );
 
   const total = includeTotal
     ? await k.clone().count( 'id as total' ).then( r => _.get( r, '0.total' ) )
     : null;
 
-  if ( from ) {
-    k.where( 'id', '>=', from );
-  } else if ( offset ) {
-    k.offset( offset );
-  };
-
-  k.limit( limit ).orderBy( 'id', 'asc' );
+  addPagination( k, nav );
 
   const members = await k.then( rows => rows.map( cleanDbEntry.bind( null, legacy ) ) );
 
