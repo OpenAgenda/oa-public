@@ -40,12 +40,14 @@ const validate = schema( {
 
 module.exports = ( k, query ) => {
 
+  const legacyParts = _extractLegacyParts( query );
+
   const {
     agendaUid,
     userUid,
     role,
     search
-  } = validate( query );
+  } = validate( Object.keys( legacyParts ).length ? Object.assign( {}, query, legacyParts ) : query );
 
   if ( !agendaUid && !userUid ) {
     throw new Error( 'neither agendaUid or userUid are specified' );
@@ -66,5 +68,17 @@ module.exports = ( k, query ) => {
   if ( role.length ) {
     k.whereIn( 'credential', role.map( r => _.isInteger( r ) ? r : roles[ r.toUpperCase() ] ) )
   }
+
+}
+
+function _extractLegacyParts( query ) {
+
+  const legacyParts = {}
+
+  if ( _.get( query, 'credentials' ) ) {
+    legacyParts.role = _.get( query, 'credentials' );
+  }
+
+  return legacyParts;
 
 }

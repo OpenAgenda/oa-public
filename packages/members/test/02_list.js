@@ -155,6 +155,17 @@ describe( 'members - functional - list', () => {
 
     } );
 
+    it( 'if query includes "credentials" value, it is interpreted as a "role" filter', async () => {
+
+      const members = await svc.list( {
+        agendaUid: 1,
+        credentials: 'administrator'
+      } );
+
+      members[ 0 ].id.should.equal( 1 );
+
+    } );
+
   } );
 
   describe( 'other', () => {
