@@ -127,6 +127,36 @@ describe( 'members - functional - list', () => {
 
   } );
 
+  describe( 'legacy', () => {
+
+    it( 'when legacy option is set to true, legacy values are provided', async () => {
+
+      const { stakeholders } = await svc.list( { agendaUid: 1 }, { limit: 1 }, { legacy: true } );
+
+      _.pick( stakeholders[ 0 ], [
+        'agendaId',
+        'credential',
+        'userId',
+        'actionsCounter'
+      ] ).should.eql( {
+        agendaId: 923,
+        userId: 81289,
+        credential: 2,
+        actionsCounter: 12
+      } );
+
+    } );
+
+    it( 'if organization is stored as slug/label, only label is given in listed result', async () => {
+
+      const members = await svc.list( { agendaUid: 2 } );
+
+      members[ 0 ].custom.organization.should.equal( 'OpenAgenda' );
+
+    } );
+
+  } );
+
   describe( 'other', () => {
 
     it( 'when detailed option is set to true, user details are provided', async () => {
@@ -167,24 +197,6 @@ describe( 'members - functional - list', () => {
       total.should.equal( 2 );
 
       members.length.should.equal( 1 );
-
-    } );
-
-    it( 'when legacy option is set to true, legacy values are provided', async () => {
-
-      const { stakeholders } = await svc.list( { agendaUid: 1 }, { limit: 1 }, { legacy: true } );
-
-      _.pick( stakeholders[ 0 ], [
-        'agendaId',
-        'credential',
-        'userId',
-        'actionsCounter'
-      ] ).should.eql( {
-        agendaId: 923,
-        userId: 81289,
-        credential: 2,
-        actionsCounter: 12
-      } );
 
     } );
 

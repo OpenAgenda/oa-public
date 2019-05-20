@@ -52,11 +52,15 @@ module.exports = ( includeLegacyFields = false, entry ) => {
 
 function _parseLegacyCustom( store ) {
 
-  if ( !_.isString( store ) ) return null;
+  if ( !_.isString( store ) ) return {};
 
-  const data = _.get( JSON.parse( store ), 'custom_fields', null );
+  const data = _.get( JSON.parse( store ), 'custom_fields', '{}' );
 
-  if ( !data ) return null;
+  if ( !data ) return {};
+
+  if ( _.isObject( data.organization ) ) {
+    data.organization = _.get( data, 'organization.label' );
+  }
 
   return _.mapKeys( data, ( v, k ) => _.camelCase( k ) );
 }
