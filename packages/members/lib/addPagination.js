@@ -4,10 +4,10 @@ const cleanNav = require( './cleanNav' );
 
 module.exports = ( k, nav ) => {
 
-  const { from, offset, limit, page } = cleanNav( nav );
+  const { after, offset, limit, page } = cleanNav( nav );
 
-  if ( from ) {
-    k.where( 'id', '>=', from );
+  if ( after ) {
+    k.where( 'id', '>', after );
   } else if ( offset ) {
     k.offset( offset );
   } else if ( page ) {

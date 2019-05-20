@@ -98,12 +98,12 @@ describe( 'members - functional - list', () => {
 
   describe( 'pagination', () => {
 
-    it( 'with "from" and "limit" keys', async () => {
+    it( 'with "after" and "limit" keys', async () => {
 
       const query = { agendaUid: 1 };
 
       const first = await svc.list( query, { limit: 1 } );
-      const second = await svc.list( query, { from: 2, limit: 1 } );
+      const second = await svc.list( query, { after: 1, limit: 1 } );
 
       first[ 0 ].id.should.equal( 1 );
       second[ 0 ].id.should.equal( 2 );
