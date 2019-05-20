@@ -8,7 +8,8 @@ const roles = require( './roles' );
 
 schema.register( {
   integer: require( '@openagenda/validators/integer' ),
-  choice: require( '@openagenda/validators/choice' )
+  choice: require( '@openagenda/validators/choice' ),
+  text: require( '@openagenda/validators/text' )
 } );
 
 const validate = schema( {
@@ -30,6 +31,10 @@ const validate = schema( {
       roles.CONTRIBUTOR,
       roles.READER
     ]
+  },
+  search: {
+    type: 'text',
+    max: 255
   }
 } );
 
@@ -38,7 +43,8 @@ module.exports = ( k, query ) => {
   const {
     agendaUid,
     userUid,
-    role
+    role,
+    search
   } = validate( query );
 
   if ( !agendaUid && !userUid ) {
@@ -51,6 +57,10 @@ module.exports = ( k, query ) => {
 
   if ( userUid ) {
     k.where( 'user_uid', userUid );
+  }
+
+  if ( search ) {
+    k.andWhere( 'store', 'like', `%${search}%` );
   }
 
   if ( role.length ) {

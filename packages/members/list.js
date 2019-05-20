@@ -15,7 +15,7 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
   const {
     detailed,
     total: includeTotal,
-    legacy: includeLegacyFields
+    legacy
   } = cleanListOptions( options );
 
   const k = knex( schema );
@@ -23,7 +23,7 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
   addListFilters( k, query, from );
 
   const total = includeTotal
-    ? await k.count( 'id as total' ).then( r => _.get( r, '0.total' ) )
+    ? await k.clone().count( 'id as total' ).then( r => _.get( r, '0.total' ) )
     : null;
 
   if ( from ) {
@@ -34,7 +34,7 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
 
   k.limit( limit ).orderBy( 'id', 'asc' );
 
-  const members = await k.then( rows => rows.map( cleanDbEntry.bind( null, includeLegacyFields ) ) );
+  const members = await k.then( rows => rows.map( cleanDbEntry.bind( null, legacy ) ) );
 
   if ( detailed && _.get( interfaces, 'getUsersByUid' ) ) {
     ( await interfaces.getUsersByUid(
@@ -53,9 +53,9 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     } );
   }
 
-  return includeTotal ? {
-    members,
-    total
+  return includeTotal || legacy ? {
+    [ legacy ? 'stakeholders' : 'members' ] : members,
+    ... ( total ? { total } : {} )
   } : members;
 
 }

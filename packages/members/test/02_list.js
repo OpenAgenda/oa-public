@@ -128,6 +128,15 @@ describe( 'members - functional - list', () => {
 
     } );
 
+    it( 'search looks in store field', async () => {
+
+      const members = await svc.list( { agendaUid: 1, search: 'Janine' } );
+
+      members[ 0 ].id.should.equal( 1 );
+      members.length.should.equal( 1 );
+
+    } );
+
     it( 'when detailed option is set to true, event count is provided for member', async () => {
 
       const members = await svc.list( { agendaUid: 1 }, { limit: 1 }, { detailed: true } );
@@ -145,13 +154,15 @@ describe( 'members - functional - list', () => {
 
       total.should.equal( 2 );
 
+      members.length.should.equal( 1 );
+
     } );
 
-    it( 'when legacy option is set to true, legacy keys are provided', async () => {
+    it( 'when legacy option is set to true, legacy values are provided', async () => {
 
-      const members = await svc.list( { agendaUid: 1 }, { limit: 1 }, { legacy: true } );
+      const { stakeholders } = await svc.list( { agendaUid: 1 }, { limit: 1 }, { legacy: true } );
 
-      _.pick( members[ 0 ], [
+      _.pick( stakeholders[ 0 ], [
         'agendaId',
         'credential',
         'userId',
