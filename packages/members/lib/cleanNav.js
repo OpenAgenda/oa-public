@@ -22,5 +22,16 @@ module.exports = schema( {
   page: {
     type: 'integer',
     default: null
+  },
+  order: {
+    type: 'choice',
+    default: 'id.asc',
+    unique: true,
+    options: [
+      'id.asc',
+      'id.desc',
+      'slug.asc',
+      'slug.desc'
+    ]
   }
 } );

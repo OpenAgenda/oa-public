@@ -10,6 +10,7 @@ const map = {
   created_at: 'createdAt',
   updated_at: 'updatedAt',
   deleted_user: 'deletedUser',
+  slug: 'slug',
   store: 'store'
 };
 
@@ -23,7 +24,7 @@ const legacyFieldsMap = {
 const dbFields = Object.keys( map );
 const legacyDbFields = Object.keys( legacyFieldsMap );
 
-module.exports = ( includeLegacyFields = false, entry ) => {
+module.exports = ( { includeLegacyFields, orderField }, entry ) => {
 
   if ( !entry ) return null;
 
@@ -39,6 +40,10 @@ module.exports = ( includeLegacyFields = false, entry ) => {
 
       if ( includeLegacyFields && legacyDbFields.includes( field ) ) {
         _.set( mapped, legacyFieldsMap[ field ], entry[ field ] );
+      }
+
+      if ( field === orderField ) {
+        mapped.order = entry[ field ];
       }
 
       return Object.assign( mapped, {

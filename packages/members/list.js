@@ -7,7 +7,7 @@ const addListFilters = require( './lib/addListFilters' );
 const cleanDbEntry = require( './lib/cleanDbEntry' );
 
 const cleanListOptions = require( './lib/cleanListOptions' );
-const addPagination = require( './lib/addPagination' );
+const addPaginationAndOrder = require( './lib/addPaginationAndOrder' );
 
 module.exports = async function( { knex, schema, interfaces }, query, nav = {}, options = {} ) {
 
@@ -17,7 +17,7 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     legacy
   } = cleanListOptions( options );
 
-  const k = knex( schema ).orderBy( 'id', 'asc' );
+  const k = knex( schema );
 
   addListFilters( k, query );
 
@@ -25,9 +25,12 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     ? await k.clone().count( 'id as total' ).then( r => _.get( r, '0.total' ) )
     : null;
 
-  addPagination( k, nav );
+  const { orderField } = addPaginationAndOrder( k, nav );
 
-  const members = await k.then( rows => rows.map( cleanDbEntry.bind( null, legacy ) ) );
+  const members = await k.then( rows => rows.map( cleanDbEntry.bind( null, {
+    includeLegacyFields: legacy,
+    orderField
+  } ) ) );
 
   if ( detailed && _.get( interfaces, 'getUsersByUid' ) ) {
     ( await interfaces.getUsersByUid(

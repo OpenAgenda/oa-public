@@ -73,9 +73,11 @@ describe( 'members - functional - list', () => {
 
       _.omit( members[ 0 ], [ 'createdAt', 'updatedAt' ] ).should.eql( {
         id: 1,
+        order: 1,
         agendaUid: 1,
         userUid: 1,
         role: 2,
+        slug: 'janine',
         custom: {
           organization: 'Mairie de Saint-Germain-en-Laye',
           contactName: 'Janine Ponceau',
@@ -124,6 +126,24 @@ describe( 'members - functional - list', () => {
 
     } );
 
+    it( 'use order key of previous result to fetch following values', async () => {
+
+      const first = _.first( await svc.list( { agendaUid: 1 }, {
+        order: 'slug.asc',
+        limit: 1
+      } ) );
+
+      first.slug.should.equal( 'albertine' );
+
+      const second = _.first( await svc.list( { agendaUid: 1 }, {
+        order: 'slug.asc',
+        limit: 1,
+        after: first.slug // the last value of the previous fetch
+      } ) );
+
+      second.slug.should.equal( 'janine' );
+
+    } );
 
   } );
 
@@ -168,6 +188,42 @@ describe( 'members - functional - list', () => {
 
   } );
 
+  describe( 'ordering', () => {
+
+    it( 'default ordering is ascending id', async () => {
+
+      const members = await svc.list( { agendaUid: 1 } );
+
+      members.map( m => m.order ).should.eql( [ 1, 2, 4 ] );
+
+    } );
+
+    it( 'ordering by descending id', async () => {
+
+      const members = await svc.list( { agendaUid: 1 }, { order: 'id.desc' } );
+
+      members.map( m => m.order ).should.eql( [ 4, 2, 1 ] );
+
+    } );
+
+    it( 'ordering by ascending slug', async () => {
+
+      const members = await svc.list( { agendaUid: 1 }, { order: 'slug.asc' } );
+
+      members.map( m => m.order ).should.eql( [ 'albertine', 'janine', 'jean-claude' ] );
+
+    } );
+
+    it( 'ordering by descending slug', async () => {
+
+      const members = await svc.list( { agendaUid: 1 }, { order: 'slug.desc' } );
+
+      members.map( m => m.order ).should.eql( [ 'jean-claude', 'janine', 'albertine' ] );
+
+    } );
+
+  } );
+
   describe( 'other', () => {
 
     it( 'when detailed option is set to true, user details are provided', async () => {
@@ -205,7 +261,7 @@ describe( 'members - functional - list', () => {
         members
       } = await svc.list( { agendaUid: 1 }, { limit: 1 }, { total: true } );
 
-      total.should.equal( 2 );
+      total.should.equal( 3 );
 
       members.length.should.equal( 1 );
 
