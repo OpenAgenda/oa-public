@@ -42,7 +42,7 @@ module.exports = ( { includeLegacyFields, orderField }, entry ) => {
         _.set( mapped, legacyFieldsMap[ field ], entry[ field ] );
       }
 
-      if ( field === orderField ) {
+      if ( field === _.snakeCase( orderField ) ) {
         mapped.order = entry[ field ];
       }
 

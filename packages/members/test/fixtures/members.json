@@ -32,6 +32,7 @@
   "created_at" : "2019-05-14T17:38:00.000+0200",
   "updated_at" : "2019-05-14T18:00:00.000+0200",
   "review_id" : 924,
+  "actions_counter" : 10,
   "user_id" : 81289,
   "store" : "{ \"custom_fields\": { \"organization\" : { \"label\" : \"OpenAgenda\", \"slug\" : \"openagenda\" } } }",
   "slug" : "sonny"
@@ -43,6 +44,7 @@
   "created_at" : "2019-05-14T17:38:00.000+0200",
   "updated_at" : "2019-05-14T18:00:00.000+0200",
   "review_id" : 924,
+  "actions_counter" : 5,
   "user_id" : 81289,
   "slug" : "albertine"
 } ]

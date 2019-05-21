@@ -200,7 +200,9 @@ describe( 'members - functional - list', () => {
 
     it( 'ordering by descending id', async () => {
 
-      const members = await svc.list( { agendaUid: 1 }, { order: 'id.desc' } );
+      const members = await svc.list( { agendaUid: 1 }, {
+        order: 'id.desc'
+      } );
 
       members.map( m => m.order ).should.eql( [ 4, 2, 1 ] );
 
@@ -208,7 +210,9 @@ describe( 'members - functional - list', () => {
 
     it( 'ordering by ascending slug', async () => {
 
-      const members = await svc.list( { agendaUid: 1 }, { order: 'slug.asc' } );
+      const members = await svc.list( { agendaUid: 1 }, {
+        order: 'slug.asc'
+      } );
 
       members.map( m => m.order ).should.eql( [ 'albertine', 'janine', 'jean-claude' ] );
 
@@ -216,9 +220,21 @@ describe( 'members - functional - list', () => {
 
     it( 'ordering by descending slug', async () => {
 
-      const members = await svc.list( { agendaUid: 1 }, { order: 'slug.desc' } );
+      const members = await svc.list( { agendaUid: 1 }, {
+        order: 'slug.desc'
+      } );
 
       members.map( m => m.order ).should.eql( [ 'jean-claude', 'janine', 'albertine' ] );
+
+    } );
+
+    it( 'ordering by descending actions', async () => {
+
+      const { stakeholders } = await svc.list( { agendaUid: 1 }, {
+        order: 'actionsCounter.desc'
+      }, { legacy: true } );
+
+      stakeholders.map( m => m.actionsCounter ).should.eql( [ 12, 5, 0 ] );
 
     } );
 

@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const cleanNav = require( './cleanNav' );
 
 module.exports = ( k, nav ) => {
@@ -14,10 +16,10 @@ module.exports = ( k, nav ) => {
 
   const [ orderField, orderDirection ] = order.split( '.' );
 
-  k.orderBy( orderField, orderDirection );
+  k.orderBy( _.snakeCase( orderField ), orderDirection );
 
   if ( after ) {
-    k.where( orderField, '>', after );
+    k.where( _.snakeCase( orderField ), '>', after );
   } else if ( offset ) {
     k.offset( offset );
   } else if ( page ) {

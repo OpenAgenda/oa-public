@@ -31,7 +31,9 @@ module.exports = schema( {
       'id.asc',
       'id.desc',
       'slug.asc',
-      'slug.desc'
+      'slug.desc',
+      'actionsCounter.asc',
+      'actionsCounter.desc'
     ]
   }
 } );
