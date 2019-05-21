@@ -9,7 +9,7 @@ const activities = require( '@openagenda/activities' );
 const invitations = require( '@openagenda/invitations' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' );
-const setMemberUidRefs = require( './lib/setMemberUidRefs' );
+const setMemberUidAndSlugRefs = require( './lib/setMemberUidAndSlugRefs' );
 
 let log = console.log;
 
@@ -26,7 +26,7 @@ module.exports = function ( stakeholder, context ) {
 
     if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
 
-    await setMemberUidRefs( stakeholder );
+    await setMemberUidAndSlugRefs( stakeholder );
 
     // user already exists
     if ( stakeholder.userId ) {

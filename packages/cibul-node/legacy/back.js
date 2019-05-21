@@ -24,7 +24,7 @@ const legacyEvents = require( '../services/events' ).legacy;
 
 const agendaLocations = require( '@openagenda/agenda-locations' );
 
-const setMemberUidRefs = require( '../services/agendaStakeholders/lib/setMemberUidRefs' );
+const setMemberUidAndSlugRefs = require( '../services/agendaStakeholders/lib/setMemberUidAndSlugRefs' );
 
 const logger = require( '@openagenda/logs' );
 
@@ -268,7 +268,7 @@ function syncMember( req, res, next ) {
 
   res.send( 'ok' );
 
-  setMemberUidRefs( req.body );
+  setMemberUidAndSlugRefs( req.body );
 
 }
 
