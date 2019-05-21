@@ -174,8 +174,7 @@ async function matchApp( req, res, next ) {
       },
       res: {
         app: req.genUrl( 'agendaAdminMembers', { slug: req.agenda.slug } ),
-        list: req.genUrl( 'membersList', { slug: req.agenda.slug } ),
-        //list: `/${req.agenda.slug}/admin/members.json`,
+        list: req.query.test ? `/${req.agenda.slug}/admin/members.json` : req.genUrl( 'membersList', { slug: req.agenda.slug } ),
         update: req.genUrl( 'membersUpdate', { slug: req.agenda.slug, id: ':id' } ),
         remove: req.genUrl( 'membersRemove', { slug: req.agenda.slug, id: ':id' } ),
         invite: req.genUrl( 'membersInvite', { slug: req.agenda.slug } ),

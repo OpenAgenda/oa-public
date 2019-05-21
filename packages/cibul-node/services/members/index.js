@@ -26,7 +26,7 @@ module.exports = parentApp => {
 
       res.json( await members.list( ih( req.query, {
         agendaUid: { $set: req.agenda.uid }
-      } ), req.query, {
+      } ), Object.assign( {}, req.query, { order: 'actionsCounter.desc' } ), {
         legacy: true,
         detailed: true,
         total: true
