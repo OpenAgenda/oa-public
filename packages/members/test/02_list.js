@@ -264,9 +264,11 @@ describe( 'members - functional - list', () => {
 
     it( 'when detailed option is set to true, event count is provided for member', async () => {
 
-      const members = await svc.list( { agendaUid: 1 }, { limit: 1 }, { detailed: true } );
+      const members = await svc.list( { agendaUid: 1 }, { limit: 2 }, { detailed: true } );
 
       members[ 0 ].eventCount.should.equal( 12 );
+
+      members[ 1 ].eventCount.should.equal( 0 );
 
     } );
 

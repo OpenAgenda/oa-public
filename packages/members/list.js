@@ -32,6 +32,10 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     orderField
   } ) ) );
 
+  if ( detailed ) {
+    members.forEach( m => Object.assign( m, { eventCount: 0 } ) );
+  }
+
   if ( detailed && _.get( interfaces, 'getUsersByUid' ) ) {
     ( await interfaces.getUsersByUid(
       members.map( m => m.userUid )
