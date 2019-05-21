@@ -28,7 +28,7 @@ module.exports = function( timings, lang, timezone ) {
 
   p = patterns();
 
-  if ( !timings || !timings.length || ! ( timings instanceof Array ) ) {
+  if ( !timings || !timings.length || ! ( timings instanceof Array ) ) {
 
     return _render( labels.noDates[ lang ] );
 
@@ -51,7 +51,7 @@ module.exports = function( timings, lang, timezone ) {
 
   } );
 
-  firstDate = dateMap[ uniqueDates[ 0 ] ];
+  firstDate = dateMap[ uniqueDates[ 0 ] ];
 
   lastDate = dateMap[ uniqueDates[ uniqueDates.length - 1 ] ];
 
@@ -71,7 +71,7 @@ module.exports = function( timings, lang, timezone ) {
 
   } else if ( uniqueDates.length == 2 ) {
 
-    return _render( labels.twoDates[ lang ], {
+    return _render( labels.twoDates[ lang ], {
       firstDate: _renderDate( {
         date: firstDate,
         relativeTo: lastDate,
@@ -153,7 +153,7 @@ function _renderDate( { date, relativeTo, isLast, lang, timezone, oneDate } ) {
 
                 || ( isLast && now.getUTCFullYear() !== date.getUTCFullYear() );
 
-    render.month = render.year || momentDate.month() !== momentRelativeDate.month() || isLast;
+    render.month = render.year || momentDate.month() !== momentRelativeDate.month() || isLast;
 
   }
 
@@ -194,7 +194,7 @@ function _getTimes( timings, lang, timezone ) {
 
     }
 
-    return [ hours, minutes ].map( _pad ).join( labels.minuteSeparator[ lang ] );
+    return [ hours, minutes ].map( _pad ).join( labels.minuteSeparator[ lang ] );
 
   } ).join( ', ' );
 

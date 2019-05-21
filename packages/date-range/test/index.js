@@ -32,27 +32,27 @@ describe( 'date-range', () => {
 
   describe( 'one date', () => {
 
-    it( 'should displays as "Tuesday 18 December, 07:00, 10:00, 11:00"', function() {
+    it( 'should displays as "Tuesday 18 December 2018, 07:00, 10:00, 11:00"', function() {
 
       range( testData.oneDate.winterDefault, 'en' )
 
-      .should.be.equal( 'Tuesday 18 December, 07:00, 10:00, 11:00' );
+      .should.be.equal( 'Tuesday 18 December 2018, 07:00, 10:00, 11:00' );
 
     });
 
-    it( 'should display as "Tuesday 18 December, 08:00, 11:00, 12:00"', () => {
+    it( 'should display as "Tuesday 18 December 2018, 08:00, 11:00, 12:00"', () => {
 
       range( testData.oneDate.winterDefault, 'en', 'Europe/Paris' )
 
-      .should.be.equal( 'Tuesday 18 December, 08:00, 11:00, 12:00' );
+      .should.be.equal( 'Tuesday 18 December 2018, 08:00, 11:00, 12:00' );
 
     } );
 
-    it( 'should display as "Wednesday 18 April, 09:00, 12:00, 13:00"', () => {
+    it( 'should display as "Wednesday 18 April 2018, 09:00, 12:00, 13:00"', () => {
 
       range( testData.oneDate.summerDefault, 'en', 'Europe/Paris' )
 
-      .should.be.equal( 'Wednesday 18 April, 09:00, 12:00, 13:00' );
+      .should.be.equal( 'Wednesday 18 April 2018, 09:00, 12:00, 13:00' );
 
     } );
 
@@ -61,7 +61,7 @@ describe( 'date-range', () => {
     it( 'differentYear should displays as "'+ output2 +'"', () => {
 
       range( testData.oneDate.differentYear, 'en' )
-      
+
       .should.be.equal( output2 );
 
     });
@@ -80,12 +80,12 @@ describe( 'date-range', () => {
 
   describe( 'Case: two dates', () => {
 
-    var output = '16 and 18 December';
+    var output = '16 and 18 December 2018';
 
     it( 'if two dates, displays as "'+ output +'"', () => {
 
       range( testData.twoDates.default, 'en' )
-      
+
       .should.be.equal( output );
 
     } );
@@ -105,7 +105,7 @@ describe( 'date-range', () => {
     it( 'French: if two dates differentYear, displays as "'+ output3 +'"', () => {
 
       range( testData.twoDates.differentYear, 'fr' )
-      
+
       .should.be.equal( output3 );
 
     } );
@@ -136,21 +136,21 @@ describe( 'date-range', () => {
 
   describe( 'Case: more dates', () => {
 
-    var output = '16 - 19 December';
+    var output = '16 - 19 December 2018';
 
     it( 'case:default should display as"'+ output +'"', () => {
 
       range( testData.moreDates.default, 'en' )
 
       .should.be.equal( output );
-      
+
     });
 
     it( 'should display months when more than one', () => {
 
       range( testData.moreDates.multipleMonths, 'en' )
 
-      .should.equal( '16 November - 19 December' );
+      .should.equal( '16 November - 19 December 2018' );
 
     } );
 
@@ -162,9 +162,9 @@ describe( 'date-range', () => {
 
     it( 'renders in english if unknown or non existing language is input', () => {
 
-      range( testData.moreDates.default, 'es' )
+      range( testData.moreDates.default, 'ak' )
 
-      .should.be.equal( '16 - 19 December' );
+      .should.be.equal( '16 - 19 December 2018' );
 
     } );
 
