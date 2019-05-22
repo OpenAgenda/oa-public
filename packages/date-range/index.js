@@ -1,6 +1,6 @@
 "use strict";
 
-var labels = require( './labels' ),
+var labels = require( '@openagenda/labels/agendas/range' ),
 
 patterns = require( './patterns' ),
 

@@ -7,16 +7,11 @@
   "author": "",
   "license": "ISC",
   "scripts": {
-    "test": "mocha",
-    "preversion": "npm test",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish",
-    "release:next": "npm version prerelease && npm publish --tag next"
+    "test": "mocha"
   },
   "dependencies": {
     "@openagenda/utils": "^1.0.2",
+    "@openagenda/labels": "^2.1.0",
     "moment-timezone": "^0.5.3"
   },
   "devDependencies": {
