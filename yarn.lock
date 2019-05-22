@@ -2039,14 +2039,6 @@
     "@openagenda/labels" "^2.0.7"
     lodash "^4.17.4"
 
-"@openagenda/date-range@^2.1.0":
-  version "2.1.2"
-  resolved "https://registry.npmjs.org/@openagenda/date-range/-/date-range-2.1.2.tgz#df7b89dea054b66fbc73d59c29a05d9674a46520"
-  integrity sha512-+xAsLSuPAeVC5EHkV4UbqqsQFnqX2Z/cABiEWruBBnH5cnk/17jJHvOF9ydym2BUh+KhWm9wp5IIQpBYnwXumw==
-  dependencies:
-    "@openagenda/utils" "^1.0.2"
-    moment-timezone "^0.5.3"
-
 "@openagenda/email-strategie@^0.1.0":
   version "0.1.0"
   resolved "https://registry.npmjs.org/@openagenda/email-strategie/-/email-strategie-0.1.0.tgz#a4638da2ef9f79f4b0523cc24ae63c96ad8ce4c4"
@@ -24364,7 +24356,7 @@ should@^7.1.1:
     should-format "0.3.1"
     should-type "0.2.0"
 
-should@^8.0.1, should@^8.2.0, should@^8.2.1, should@^8.2.2, should@^8.3.0:
+should@^8.0.1, should@^8.0.2, should@^8.2.0, should@^8.2.1, should@^8.2.2, should@^8.3.0:
   version "8.4.0"
   resolved "https://registry.npmjs.org/should/-/should-8.4.0.tgz#5e60889d3e644bbdd397a30cd34fad28fcf90bc0"
   integrity sha1-XmCInT5kS73Tl6MM00+tKPz5C8A=
