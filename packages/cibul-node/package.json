@@ -36,7 +36,7 @@
     "@openagenda/cibul-model": "^0.1.27",
     "@openagenda/cibul-templates": "^1.1.3",
     "@openagenda/custom": "^1.2.3",
-    "@openagenda/date-range": "^2.1.0",
+    "@openagenda/date-range": "^2.2.0",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/email-strategie": "^0.1.0",
     "@openagenda/es-node": "^1.0.15",
