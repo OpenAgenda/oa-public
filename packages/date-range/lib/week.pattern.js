@@ -1,6 +1,6 @@
 "use strict";
 
-var labels = require( '../labels' );
+var labels = require( '@openagenda/labels/agendas/range' );
 
 module.exports = function() {
 
@@ -11,7 +11,7 @@ module.exports = function() {
     render: render
   }
 
-  function add( timing ) {  
+  function add( timing ) {
 
     var day = timing.start.getDay();
 
