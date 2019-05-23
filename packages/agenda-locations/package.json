@@ -27,7 +27,6 @@
     "@openagenda/countries": "^0.1.1",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/files": "^2.0.5",
-    "@openagenda/geocode-farm": "^1.0.10",
     "@openagenda/geocoder": "^1.0.1",
     "@openagenda/image-upload": "^1.0.8",
     "@openagenda/images": "^1.1.1",
