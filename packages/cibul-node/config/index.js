@@ -112,9 +112,6 @@ const config = {
     callToActionEmails: prod.sales.emails,
     contactResource: prod.sales.pipedriveForm,
     mapboxAccessToken: prod.mapbox.token,
-    geocodeFarm: {
-      key: prod.geocodeFarm.key
-    },
     opencage: {
       key: prod.opencage.key
     },

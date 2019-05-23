@@ -60,7 +60,6 @@ const testConfig = {
     defaultImagePath: config.aws.defaultImagePath,
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
   },
-  geocodeFarm: { key: 123 },
   esLocation: {
     //log: [  ],
     index: 'locations',

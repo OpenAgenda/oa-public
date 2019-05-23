@@ -20,7 +20,6 @@ module.exports.init = async config => {
 
   await promisify( agendaLocations.init )( {
     opencage: config.opencage,
-    geocodefarm: config.geocodeFarm,
     redis: config.redis,
     elasticsearch: {
       host: _.get( config, 'es.host', 'localhost' ) + ':' + _.get( config, 'es.port', '9200' ),
