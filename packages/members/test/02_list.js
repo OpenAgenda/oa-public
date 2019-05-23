@@ -240,6 +240,33 @@ describe( 'members - functional - list', () => {
 
   } );
 
+  describe( 'stream', () => {
+
+    it( 'takes args as list but without pagination info', done => {
+
+      // limit is not needed here, just for testing buffer refill
+      const stream = svc.stream( { agendaUid: 1 }, { limit: 1 } );
+
+      const streamedMemberIds = [];
+
+      stream.on( 'data', member => {
+
+        streamedMemberIds.push( member.id )
+
+      } );
+
+      stream.on( 'end', () => {
+
+        streamedMemberIds.should.eql( [ 1, 2, 4 ] )
+
+        done();
+
+      } );
+
+    } );
+
+  } );
+
   describe( 'other', () => {
 
     it( 'when detailed option is set to true, user details are provided', async () => {
