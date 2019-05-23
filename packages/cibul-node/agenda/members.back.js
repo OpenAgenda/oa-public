@@ -23,11 +23,11 @@ const routes = {
 
   /**********/
 
-  membersList: [ 'get', '/stakeholders.json', [
+  /*membersList: [ 'get', '/stakeholders.json', [
     stakeholdersMw.agenda( 'agendaInstance.data' ).list( { total: true, detailed: true } ),
     _parseListResult(),
     ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
-  ] ],
+  ] ],*/
 
   membersStats: [ 'get', '/stats', [
     stakeholdersMw.agenda( 'agendaInstance.data' ).stats(),
@@ -174,7 +174,7 @@ async function matchApp( req, res, next ) {
       },
       res: {
         app: req.genUrl( 'agendaAdminMembers', { slug: req.agenda.slug } ),
-        list: req.query.test ? `/${req.agenda.slug}/admin/members.json` : req.genUrl( 'membersList', { slug: req.agenda.slug } ),
+        list: `/${req.agenda.slug}/admin/members.json`,
         update: req.genUrl( 'membersUpdate', { slug: req.agenda.slug, id: ':id' } ),
         remove: req.genUrl( 'membersRemove', { slug: req.agenda.slug, id: ':id' } ),
         invite: req.genUrl( 'membersInvite', { slug: req.agenda.slug } ),
