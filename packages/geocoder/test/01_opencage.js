@@ -13,6 +13,15 @@ describe( 'opencage', function() {
 
   describe( 'forward', () => {
 
+    it( 'Timezone is provided', async () => {
+
+      ( await geocode( 'Masdar, Abu Dhabi', {
+        countryCode: 'AE',
+        first: true
+      } ) ).timezone.should.equal( 'Asia/Dubai' );
+
+    } );
+
     it( 'An address in roubaix. No district provided', async () => {
 
       ( await geocode( '139 rue des arts, Roubaix', {
