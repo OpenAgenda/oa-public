@@ -5,19 +5,19 @@ module.exports = {
     "en": "Name",
     "fr": "Nom",
     "de": "Name",
-    "es": "apellido"
+    "es": "Apellido"
   },
   "email": {
     "en": "Email",
     "fr": "Email",
     "de": "Email",
-    "es": "e-mail"
+    "es": "Email"
   },
   "organization": {
     "en": "Organization",
     "fr": "Organisation",
     "de": "Organisation",
-    "es": "organización"
+    "es": "Organización"
   },
   "phone": {
     "en": "Phone",
@@ -29,18 +29,29 @@ module.exports = {
     "en": "Position",
     "fr": "Fonction",
     "de": "Position",
-    "es": "función"
+    "es": "Función"
   },
   "contributions": {
     "en": "Contributed events",
     "fr": "Evénements contribués",
     "de": "Hinzugefügte Events",
-    "es": "eventos contribuyeron"
+    "es": "eventos contribudos"
   },
   "credential": {
     "en": "Role",
     "fr": "Rôle",
     "de": "Rolle",
-    "es": "papel"
+    "es": "Role"
+  },
+  "role": {
+    "en": "Role",
+    "fr": "Rôle",
+    "de": "Rolle",
+    "es": "Role"
+  },
+  "state" : {
+    "en" : "State",
+    "es" : "Estado",
+    "fr" : "Statut"
   }
 }

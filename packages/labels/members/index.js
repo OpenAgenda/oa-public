@@ -278,7 +278,7 @@ module.exports = {
     "es": "Sin nombre"
   },
   "deletedUser": {
-    "fr": "Utilisateur supprimé",
+    "fr": "Compte supprimé",
     "en": "Deleted user",
     "de": "Gelöschter Benutzer",
     "es": "Usario eliminado"
@@ -288,6 +288,11 @@ module.exports = {
     "en": "Invited",
     "de": "Eingeladen",
     "es": "invitado"
+  },
+  "hasAccount" : {
+    "fr" : "Compte existant",
+    "en" : "Account exists",
+    "es" : "Tiene cuenta"
   },
   "resendInvitation": {
     "fr": "Relancer l'invitation",
