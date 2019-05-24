@@ -9,6 +9,7 @@ schema.register( {
 module.exports = schema( {
   after: {
     type: 'text',
+    list: true,
     default: null
   },
   offset: {

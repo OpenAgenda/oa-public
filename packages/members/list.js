@@ -25,7 +25,9 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     ? await k.clone().count( 'id as total' ).then( r => _.get( r, '0.total' ) )
     : null;
 
-  const { orderField } = addPaginationAndOrder( k, nav );
+  const {
+    orderField
+  } = addPaginationAndOrder( k, nav );
 
   const members = await k.then( rows => rows.map( cleanDbEntry.bind( null, {
     includeLegacyFields: legacy,

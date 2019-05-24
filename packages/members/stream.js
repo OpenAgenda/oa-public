@@ -6,11 +6,11 @@ const { Readable } = require( 'stream' );
 
 const list = require( './list' );
 
-module.exports = ( config, query, options = {} ) => new Stream( config, query, options );
+module.exports = ( config, query = {}, nav = {}, options = {} ) => new Stream( config, query, nav, options );
 
 class Stream extends Readable {
 
-  constructor( config, query = {}, nav = {}, options = {} ) {
+  constructor( config, query, nav, options ) {
 
     super( { objectMode: true } );
 
@@ -20,7 +20,8 @@ class Stream extends Readable {
       nav,
       options,
       after: null,
-      buffer: []
+      buffer: [],
+      transform: _.get( options, 'transform' )
     }
 
   }
@@ -28,7 +29,9 @@ class Stream extends Readable {
   async _read() {
 
     if ( !this._.buffer.length ) {
-      this._.buffer = await this._loadBuffer();
+      this._.buffer = (
+        await this._loadBuffer()
+      ).map( m => this._.transform ? this._.transform( m ) : m );
     }
 
     return this.push( this._.buffer.length ? this._.buffer.shift() : null );

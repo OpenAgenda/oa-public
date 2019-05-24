@@ -11,14 +11,14 @@ const map = {
   updated_at: 'updatedAt',
   deleted_user: 'deletedUser',
   slug: 'slug',
+  actions_counter: 'actionsCounter',
   store: 'store'
 };
 
 const legacyFieldsMap = {
   review_id: 'agendaId',
   user_id: 'userId',
-  actions_counter: 'actionsCounter',
-  credential: 'credential',
+  credential: 'credential'
 };
 
 const dbFields = Object.keys( map );
@@ -43,11 +43,12 @@ module.exports = ( { includeLegacyFields, orderField }, entry ) => {
       }
 
       if ( field === _.snakeCase( orderField ) ) {
-        mapped.order = entry[ field ];
+        mapped.order = field === 'id' ? entry[ field ] : [ entry[ field ], entry.id ];
       }
 
       return Object.assign( mapped, {
-        deletedUser: !!mapped.deletedUser
+        deletedUser: !!mapped.deletedUser,
+        invited: !mapped.deletedUser && !mapped.userId && !mapped.userUid
       } );
 
     }, {} );
