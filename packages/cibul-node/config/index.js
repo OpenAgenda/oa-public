@@ -516,14 +516,6 @@ const config = {
           method: 'get',
           uri: '/messages/new?type=4&slug=:eventSlug'
         },
-        agendaContributorsCsv: {
-          method: 'get',
-          uri: '/:slug/admin/contributors.csv'
-        },
-        agendaContributorsXlsx: {
-          method: 'get',
-          uri: '/:slug/admin/contributors.xlsx'
-        },
         publicEventContact: {
           method: 'get',
           uri: '/:slug/events/:eventSlug/contact'

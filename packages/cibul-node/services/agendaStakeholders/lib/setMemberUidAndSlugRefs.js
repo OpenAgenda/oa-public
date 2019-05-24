@@ -10,8 +10,6 @@ module.exports = async stakeholder => {
 
   const { knex } = config;
 
-  console.log( stakeholder );
-
   try {
 
     const current = await knex( 'reviewer' ).first( [ 'agenda_uid', 'user_uid', 'slug' ] ).where( 'id', stakeholder.id );
@@ -30,7 +28,7 @@ module.exports = async stakeholder => {
 
     if ( _.get( stakeholder, 'custom.contactName', '' ).length ) {
       update.slug = slug( _.get( stakeholder, 'custom.contactName' ), { lower: true } );
-    } else if ( !current.slug ) {
+    } else if ( !current.slug && _.get( stakeholder, 'userId' ) ) {
       const fullName = _.get( await knex( 'user' ).first( 'full_name' ).where( 'id', _.get( stakeholder, 'userId' ) ), 'full_name' );
       update.slug = slug( fullName, { lower: true } );
     }

@@ -181,8 +181,8 @@ async function matchApp( req, res, next ) {
         stats: req.genUrl( 'membersStats', { slug: req.agenda.slug } ),
         showContributor: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?contributorId=:contributorId',
         writeToMember: req.genUrl( 'conversationDiscussion', { uid: ':uid', redirect: ':redirect' } ),
-        exportToCsv: req.genUrl( 'agendaContributorsCsv', { slug: req.agenda.slug } ),
-        exportToXlsx: req.genUrl( 'agendaContributorsXlsx', { slug: req.agenda.slug } ),
+        exportToCsv: `/${req.agenda.slug}/admin/members.csv`,
+        exportToXlsx: `/${req.agenda.slug}/admin/members.xlsx`,
         sendMessage: req.genUrl( 'membersSendMessage', { slug: req.agenda.slug } )
       },
       agenda: {
