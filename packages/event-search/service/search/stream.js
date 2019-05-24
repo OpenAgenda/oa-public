@@ -7,14 +7,14 @@ const scroll = require( './scroll' );
 module.exports = ( alias, query, options ) => {
 
   return new SearchStream( alias, query, options );
-  
+
 }
 
 class SearchStream extends Readable {
 
   constructor( alias, query = {}, options = {} ) {
 
-    // options can contain nav size and 
+    // options can contain nav size and
 
     super( {
       objectMode: true
@@ -31,7 +31,7 @@ class SearchStream extends Readable {
     this._nav = {
       scroll: options.scroll || '10m',
       size: options.size || null
-    };   
+    };
 
   }
 
