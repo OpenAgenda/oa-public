@@ -281,32 +281,38 @@ describe( 'opencage', function() {
 
     describe( 'Lille', () => {
 
-      let result;
+      it( 'city is Lille', async () => {
 
-      before( async () => {
-
-        result = await geocode.reverse( 50.6310623, 3.012141, {
+        ( await geocode.reverse( 50.6310623, 3.012141, {
           first: true,
           language: 'fr'
-        } );
+        } ) ).city.should.equal( 'Lille' );
 
       } );
 
-      it( 'city is Lille', () => {
+      it( 'department is Nord', async () => {
 
-        result.city.should.equal( 'Lille' );
-
-      } );
-
-      it( 'department is Nord', () => {
-
-        result.department.should.equal( 'Nord' );
+        ( await geocode.reverse( 50.6310623, 3.012141, {
+          first: true,
+          language: 'fr'
+        } ) ).department.should.equal( 'Nord' );
 
       } );
 
-      it( 'district is Lomme', () => {
+      it( 'district', async () => {
 
-        result.district.should.equal( 'Lomme' );
+        for ( const [ address, district ] of [ [
+          'Place Augustin Laurent, Lille', 'Lille'
+        ] ] ) {
+
+          await geocode( address, {
+            countryCode: 'FR',
+            language: 'fr',
+            first: true,
+            raw: true
+          } );
+
+        }
 
       } );
 

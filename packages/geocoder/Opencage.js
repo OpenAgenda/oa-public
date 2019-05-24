@@ -128,7 +128,11 @@ async function _applyTransformsOnGeocodeItem( geocodeResult ) {
 
   const updated = applyTransforms( geocodeResult );
 
-  updated.district = await getPolygonField( 'district', updated );
+  const district = await getPolygonField( 'district', updated );
+
+  if ( district ) {
+    updated.district = district;
+  }
 
   return updated;
 
