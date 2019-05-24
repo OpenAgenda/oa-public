@@ -95,8 +95,7 @@ function parseResponseItem( { raw }, item ) {
 
   const parsed = {
     address: _.get( item, 'formatted' ),
-    suburb: _.get( item, 'components.suburb', null ),
-    district: _.get( item, 'components.city_district', null ),
+    district: _.get( item, 'components.city_district', _.get( item, 'components.suburb', null ) ),
     city: _.get( item, 'components.village', _.get( item, 'components.town', _.get( item, 'components.city', null ) ) ),
     department: _.get( item, 'components.state_district', null ),
     region: _.get( item, 'components.state', null ),
