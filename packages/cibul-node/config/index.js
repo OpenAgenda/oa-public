@@ -112,9 +112,6 @@ const config = {
     callToActionEmails: prod.sales.emails,
     contactResource: prod.sales.pipedriveForm,
     mapboxAccessToken: prod.mapbox.token,
-    geocodeFarm: {
-      key: prod.geocodeFarm.key
-    },
     opencage: {
       key: prod.opencage.key
     },
@@ -518,14 +515,6 @@ const config = {
         conversationEventSignal: {
           method: 'get',
           uri: '/messages/new?type=4&slug=:eventSlug'
-        },
-        agendaContributorsCsv: {
-          method: 'get',
-          uri: '/:slug/admin/contributors.csv'
-        },
-        agendaContributorsXlsx: {
-          method: 'get',
-          uri: '/:slug/admin/contributors.xlsx'
         },
         publicEventContact: {
           method: 'get',

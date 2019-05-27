@@ -11,15 +11,14 @@
  */
 
 
+const _ = require( 'lodash' );
+const async = require( 'async' );
 const log = require( '@openagenda/logs' )( 'setLocationTimezones' );
+const OpenCage = require( '@openagenda/geocoder/Opencage' );
 
-var db = require( '../lib/db' ),
+const db = require( '../lib/db' );
 
-async = require( 'async' ),
-
-gf = require( '@openagenda/geocode-farm' ),
-
-utils = require( '@openagenda/utils' );
+let ocGeocoder;
 
 module.exports = function( cb ) {
 
@@ -65,7 +64,7 @@ module.exports = function( cb ) {
 
           store = JSON.parse( slEntry.store || '{}' );
 
-          if ( utils.isArray( store ) && !store.length ) {
+          if ( _.isArray( store ) && !store.length ) {
 
             store = {};
 
@@ -127,7 +126,7 @@ module.exports = function( cb ) {
 
 module.exports.init = function( config, cb ) {
 
-  gf.init( config.geocodefarm );
+  ocGeocoder = OpenCage( config.opencage || { key: null } );
 
   db.init( config.mysql, {}, cb );
 
@@ -237,13 +236,13 @@ function _defineLocationSegment( lEntry ) {
 
   [ 'region', 'department', 'city', 'placename', 'uid' ].forEach( segment => {
 
-    if ( utils.size( updateSegment ) > 1 ) {
+    if ( _.keys( updateSegment ).length > 1 ) {
 
       return;
 
     }
 
-    if ( lEntry[ segment ] && lEntry[ segment ].length ) {
+    if ( lEntry[ segment ] && lEntry[ segment ].length ) {
 
       updateSegment[ segment ] = lEntry[ segment ];
 
@@ -260,41 +259,28 @@ function _fetchTimezone( lEntry, cb ) {
 
   log( '******* doing geocode for %s in %s *******', lEntry.address, lEntry.city );
 
-  // fetch geocode info for location
-  gf( {
-    address: lEntry.address,
-    countryCode: lEntry.country
-  }, ( err, result ) => {
+  updateSegment( lEntry.address, {
+    countryCode: lEntry.country,
+    language: 'fr',
+    first: true
+  } ).then( result => {
 
-    if ( err ) {
+    if ( result ) return cb( null, result.timezone );
 
-      return cb( err );
+    updateSegment( lEntry.city, {
+      countryCode: lEntry.country,
+      language: 'fr',
+      first: true
+    } ).then( result => {
 
-    }
+      if ( result ) return cb( null, result.timezone );
 
-    if ( result.length ) {
+      cb( null, null );
 
-      return cb( null, result[ 0 ].timezone );
+    }, cb );
 
-    }
 
-    gf( {
-      address: lEntry.city,
-      countryCode: lEntry.country
-    }, ( err, result ) => {
 
-      if ( err ) return cb( err );
-
-      if ( result.length ) {
-
-        return cb( null, result[ 0 ].timezone );
-
-      }
-
-      return cb( null, null );
-
-    } );
-
-  } );
+  }, cb );
 
 }

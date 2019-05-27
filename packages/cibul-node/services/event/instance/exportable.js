@@ -104,7 +104,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         origin: instance.origin,
         range: {
           fr: loaded.getRange( 'fr' ),
-          en: loaded.getRange( 'en' )
+          en: loaded.getRange( 'en' ),
+          de: loaded.getRange( 'de' )
         }
       }
     }, options ) )

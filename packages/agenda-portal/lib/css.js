@@ -32,9 +32,17 @@ async function _cssify( src, dst ) {
 
   log( 'creating css %s from %s', dst, src );
 
-  const { css } = await render( { file: src } );
+  try {
 
-  await writeFile( dst, css );
+    const { css } = await render( { file: src } );
+
+    await writeFile( dst, css );
+
+  } catch ( e ) {
+
+    log( '\n\n\nSASS ERROR:\n\nfile: %s\n\n%s\n\n', e.file, e.formatted );
+
+  }
 
 }
 

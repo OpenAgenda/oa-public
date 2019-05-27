@@ -17,7 +17,7 @@ Portal( {
   // site language
   lang: 'fr',
   // associated OA account key
-  key: process.env.PORTAL_KEY || fs.readFileSync( __dirname + '/oa.key', 'utf-8' ),
+  key: process.env.PORTAL_KEY || fs.readFileSync( __dirname + '/oa.key', 'utf-8' ).trim( '\n' ),
   // views folder
   views: __dirname + '/views',
   sass: __dirname + '/sass/main.scss',

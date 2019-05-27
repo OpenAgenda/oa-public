@@ -73,7 +73,7 @@ describe( 'agendaEvents - functional (server): list', function() {
 
     const result = await svc( 62792452 ).list( 0, 1 );
 
-    Object.keys( result.items[ 0 ] ).should.eql([ 
+    Object.keys( result.items[ 0 ] ).should.eql([
       'eventUid',
       'agendaUid',
       'userUid',

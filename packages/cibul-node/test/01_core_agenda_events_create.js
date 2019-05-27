@@ -72,7 +72,6 @@ const testConfig = {
       enable: false
     }
   },
-  geocodeFarm: { key: 123 },
   esLocation: {
     //log: [  ],
     index: 'locations',

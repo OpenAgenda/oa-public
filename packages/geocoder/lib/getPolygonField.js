@@ -5,9 +5,6 @@ const inside = require( 'point-in-polygon' );
 
 
 module.exports = async ( field, location ) => {
-  if ( location[ field ] ) {
-    return location[ field ];
-  }
 
   const set = await getPolygonsSet( field, location ).catch( () => null );
 

@@ -166,12 +166,14 @@ describe( 'agendaEvents - functional (server): update', function() {
 
               context.should.eql( {
                 userUid: 111,
+                agendaUid: null,
                 aggregated: false,
                 sourceAgenda: null,
                 transferToLegacy: false,
                 agenda: null,
                 event: null,
-                legacy: true
+                legacy: true,
+                batched: false
               } );
 
               done();

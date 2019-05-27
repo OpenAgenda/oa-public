@@ -194,6 +194,12 @@ function buildFieldSchema( type, options = {} ) {
       default: null
     },
 
+    helpContent: {
+      type: 'text',
+      optional: true,
+      default: null
+    },
+
     default: {
       type: 'pass', // dependent on type of field
       optional: true

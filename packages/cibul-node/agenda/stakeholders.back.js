@@ -34,18 +34,6 @@ const sessions = require( '@openagenda/sessions' ),
 
   routes = {
 
-    stakeholdersCsvExport: [ 'get', '/contributors.csv', [
-      cmn.checkAdminOrModerator,
-      _loadFlattener,
-      streamCsv
-    ] ],
-
-    stakeholdersXlsxExport: [ 'get', '/contributors.xlsx', [
-      cmn.checkAdminOrModerator,
-      _loadFlattener,
-      streamXlsx
-    ] ],
-
     contributorsInfo: [ 'get', '/contributors/info', [
       cmn.checkAdministrator(),
       agendaSvc.mw.loadAdminLayout,
@@ -60,7 +48,7 @@ const sessions = require( '@openagenda/sessions' ),
       infoSubmit
     ] ],
 
-    eventTransfer: [ 'get', '/contributors/transfer/:eventSlug' , [
+    eventTransfer: [ 'get', '/contributors/transfer/:eventSlug' , [
       eventSvc.mw.load( 'eventSlug', 'slug' ),
       _checkAdminOrModeratorOrEventOwner,
       cmn.checkCredential( 'eventTransfer' ),
@@ -127,96 +115,6 @@ function infoSubmit( req, res ) {
 
     res.redirect( req.genUrl( 'contributorsInfo', { slug: req.agenda.slug } ) );
 
-  } );
-
-}
-
-function _loadFlattener( req, res, next ) {
-
-  req.flatten = flattener( [ {
-    source: [ 'user.full_name', 'custom.contactName' ],
-    transform: ( fullName, contactName ) => contactName || fullName,
-    target: getLabel( 'name', req.lang )
-  }, {
-    source: 'credential',
-    transform: _getCredentialLabel( req.lang ),
-    target: getLabel( 'credential', req.lang )
-  }, {
-    source: 'custom.email',
-    target: getLabel( 'email', req.lang )
-  }, {
-    source: 'custom.organization',
-    target: getLabel( 'organization', req.lang )
-  }, {
-    source: 'custom.contactNumber',
-    target: getLabel( 'phone', req.lang )
-  }, {
-    source: 'custom.contactPosition',
-    target: getLabel( 'position', req.lang )
-  }, {
-    source: 'eventCount',
-    target: getLabel( 'contributions', req.lang )
-  } ] );
-
-  next();
-
-}
-
-
-function _getCredentialLabel( lang ) {
-
-  return c => [
-    getCredentialLabel( 'contributor', lang ),
-    getCredentialLabel( 'administrator', lang ),
-    getCredentialLabel( 'moderator', lang )
-  ][ c - 1 ];
-
-}
-
-
-function streamCsv( req, res ) {
-
-  let listStream = streamUtils.read.list( stakeholders( req.agenda.id ).list, { detailed: true } ),
-
-  transform = streamUtils.transform( req.flatten ),
-
-  csvStream = csv.createWriteStream( {
-    headers: true,
-    delimiter: ';',
-    quote: '"',
-    escape: '"'
-  } );
-
-  listStream.pipe( transform ).pipe( csvStream ).pipe( res );
-
-  res.writeHead( 200, {
-    'Content-Type' : 'text/csv',
-    'content-disposition' : `attachment; filename="contributors.${req.agenda.title}.csv"`
-  } );
-
-}
-
-
-function streamXlsx( req, res, next ) {
-
-  let listStream = streamUtils.read.list( stakeholders( req.agenda.id ).list, { detailed: true } ),
-
-  transform = streamUtils.transform( req.flatten ),
-
-  xlsxStream = new xlsx();
-
-  xlsxStream.getReadStream().pipe( res );
-
-  listStream.pipe( transform )
-
-    .on( 'data', data => xlsxStream.addRow( data ) )
-
-    .on( 'end', () => xlsxStream.finalize() );
-
-
-  res.writeHead( 200, {
-    'Content-Type': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-    'content-disposition' : `attachment; filename="contributors.${req.agenda.title}.xlsx"`
   } );
 
 }

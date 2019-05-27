@@ -10,7 +10,7 @@ const validateListQuery = require( './lib/validateListQuery' );
 
 let config, knex;
 
-module.exports = _.extend( list, { 
+module.exports = _.extend( list, {
   init: ( c, k ) => { config = c; knex = k },
   byUserUid: listByUserUid,
   byEventUid: listByEventUid,

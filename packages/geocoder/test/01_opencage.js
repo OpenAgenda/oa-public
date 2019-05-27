@@ -13,7 +13,16 @@ describe( 'opencage', function() {
 
   describe( 'forward', () => {
 
-    it( 'An address in roubaix. No district provided', async () => {
+    it( 'Timezone is provided', async () => {
+
+      ( await geocode( 'Masdar, Abu Dhabi', {
+        countryCode: 'AE',
+        first: true
+      } ) ).timezone.should.equal( 'Asia/Dubai' );
+
+    } );
+
+    it( 'An address in Roubaix. No district provided', async () => {
 
       ( await geocode( '139 rue des arts, Roubaix', {
         countryCode: 'FR',
@@ -237,28 +246,29 @@ describe( 'opencage', function() {
 
     describe( 'Berlin', async () => {
 
-      let result;
+      it( 'districts', async () => {
 
-      before( async () => {
+        for ( const [ address, district ] of [ [
+          'A 100, 10711 Berlin', 'Charlottenburg-Wilmersdorf'
+        ], [
+          'Hadlichstraße 3, 13187 Berlin', 'Pankow'
+        ], [
+          'Pistoriusstraße 23, 13086 Berlin-Weißensee', 'Weißensee'
+        ], [
+          'Björnsonstraße 5, 10439 Berlin-Prenzlauer Berg', 'Prenzlauer Berg'
+        ], [
+          'Behaimstraße 64, 13086 Berlin-Weißensee', 'Weißensee'
+        ], [
+          'Alt-Karow 14, 13125 Berlin', 'Karow'
+        ] ] ) {
 
-        result = await geocode( 'A 100, 10711 Berlin', {
-          countryCode: 'DE',
-          language: 'de',
-          first: true,
-          raw: true
-        } );
+          ( await geocode( address, {
+            countryCode: 'DE',
+            language: 'de',
+            first: true
+          } ) ).district.should.equal( district );
 
-      } );
-
-      it( 'suburb is Grunewald', () => {
-
-        result.suburb.should.equal( 'Grunewald' );
-
-      } );
-
-      it( 'district is Charlottenburg-Wilmersdorf', () => {
-
-        result.district.should.equal( 'Charlottenburg-Wilmersdorf' );
+        }
 
       } );
 
@@ -271,32 +281,38 @@ describe( 'opencage', function() {
 
     describe( 'Lille', () => {
 
-      let result;
+      it( 'city is Lille', async () => {
 
-      before( async () => {
-
-        result = await geocode.reverse( 50.6310623, 3.012141, {
+        ( await geocode.reverse( 50.6310623, 3.012141, {
           first: true,
           language: 'fr'
-        } );
+        } ) ).city.should.equal( 'Lille' );
 
       } );
 
-      it( 'city is Lille', () => {
+      it( 'department is Nord', async () => {
 
-        result.city.should.equal( 'Lille' );
-
-      } );
-
-      it( 'department is Nord', () => {
-
-        result.department.should.equal( 'Nord' );
+        ( await geocode.reverse( 50.6310623, 3.012141, {
+          first: true,
+          language: 'fr'
+        } ) ).department.should.equal( 'Nord' );
 
       } );
 
-      it( 'district is Lomme', () => {
+      it( 'district', async () => {
 
-        result.district.should.equal( 'Lomme' );
+        for ( const [ address, district ] of [ [
+          'Place Augustin Laurent, Lille', 'Lille'
+        ] ] ) {
+
+          await geocode( address, {
+            countryCode: 'FR',
+            language: 'fr',
+            first: true,
+            raw: true
+          } );
+
+        }
 
       } );
 

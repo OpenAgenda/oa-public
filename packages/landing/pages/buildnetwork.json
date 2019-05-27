@@ -2,7 +2,9 @@
   "keys" : [
     { "lang" : "en", "key" : "build-your-network" },
     { "lang" : "fr", "key" : "construisez-votre-reseau" },
-    { "lang" : "de", "key" : "bauen-sie-ihr-netzwerk-auf" }
+    { "lang" : "de", "key" : "bauen-sie-ihr-netzwerk-auf" },
+    { "lang" : "es", "key" : "construisez-votre-reseau-es" },
+    { "lang" : "br", "key" : "construisez-votre-reseau-br" }
   ],
   "head" : {
     "title" : "buildNetworkHeadTitle",

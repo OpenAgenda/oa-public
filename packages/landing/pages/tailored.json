@@ -2,7 +2,9 @@
   "keys" : [
     { "lang" : "en", "key" : "a-tailored-offer" },
     { "lang" : "fr", "key" : "une-offre-sur-mesure" },
-    { "lang" : "de", "key" : "ein-massgeschneidertes-angebot" }
+    { "lang" : "de", "key" : "ein-massgeschneidertes-angebot" },
+    { "lang" : "es", "key" : "une-offre-sur-mesure-es" },
+    { "lang" : "br", "key" : "une-offre-sur-mesure-br" }
   ],
   "head" : {
     "title" : "tailoredHeadTitle",

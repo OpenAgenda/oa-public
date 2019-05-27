@@ -1,10 +1,10 @@
 "use strict";
 
 const  _ = require( 'lodash' );
+const VError = require( 'verror' );
+const { promisify } = require( 'util' );
 
 const utils = require( '@openagenda/utils' );
-
-const { promisify } = require( 'util' );
 
 const details = require( './details' );
 
@@ -13,7 +13,6 @@ const map = require( './databaseFieldMap' );
 const dbParse = require( '@openagenda/mysql-utils/mapper' )( map );
 
 const validate = require( './validate' );
-
 const validateOptions = require( './validate/getOptions' );
 
 const sUtils = require( './lib/utils' );
@@ -81,7 +80,16 @@ async function promise( identifiers, options = {} ) {
 
   if ( options.private !== null ) k.andWhere( 'private', options.private );
 
-  const rawAgenda = await k.then( result => result ? _applyDefaults( dbParse.toObj( result ) ) : null );
+  let rawAgenda;
+
+  try {
+    const result = await k;
+
+    rawAgenda = result ? _applyDefaults( dbParse.toObj( result, false ) ) : null;
+  } catch ( e ) {
+    throw new VError( e, 'failed to parse agenda %j values', identifiers );
+  }
+
 
   if ( !rawAgenda ) return null;
 

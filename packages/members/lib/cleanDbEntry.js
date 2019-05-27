@@ -9,16 +9,64 @@ const map = {
   user_uid: 'userUid',
   created_at: 'createdAt',
   updated_at: 'updatedAt',
+  deleted_user: 'deletedUser',
+  slug: 'slug',
+  actions_counter: 'actionsCounter',
+  store: 'store'
+};
+
+const legacyFieldsMap = {
+  review_id: 'agendaId',
+  user_id: 'userId',
+  credential: 'credential'
 };
 
 const dbFields = Object.keys( map );
+const legacyDbFields = Object.keys( legacyFieldsMap );
 
-module.exports = entry => {
+module.exports = ( { includeLegacyFields, orderField }, entry ) => {
 
   if ( !entry ) return null;
 
   return Object.keys( entry )
-    .filter( field => dbFields.includes( field ) )
-    .reduce( ( mapped, field ) => _.set( mapped, map[ field ], entry[ field ] ), {} );
+    .filter( field => dbFields.concat( includeLegacyFields ? legacyDbFields : [] ).includes( field ) )
+    .reduce( ( mapped, field ) => {
 
+      if ( field === 'store' ) {
+        mapped.custom = _parseLegacyCustom( entry.store );
+      } else if ( dbFields.includes( field ) ) {
+        _.set( mapped, map[ field ], entry[ field ] );
+      }
+
+      if ( includeLegacyFields && legacyDbFields.includes( field ) ) {
+        _.set( mapped, legacyFieldsMap[ field ], entry[ field ] );
+      }
+
+      if ( field === _.snakeCase( orderField ) ) {
+        mapped.order = field === 'id' ? entry[ field ] : [ entry[ field ], entry.id ];
+      }
+
+      return Object.assign( mapped, {
+        deletedUser: !!mapped.deletedUser,
+        invited: !mapped.deletedUser && !mapped.userId && !mapped.userUid
+      } );
+
+    }, {} );
+
+
+}
+
+function _parseLegacyCustom( store ) {
+
+  if ( !_.isString( store ) ) return {};
+
+  const data = _.get( JSON.parse( store ), 'custom_fields', '{}' );
+
+  if ( !data ) return {};
+
+  if ( _.isObject( data.organization ) ) {
+    data.organization = _.get( data, 'organization.label' );
+  }
+
+  return _.mapKeys( data, ( v, k ) => _.camelCase( k ) );
 }

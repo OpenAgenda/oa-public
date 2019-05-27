@@ -5,6 +5,10 @@
     "lang" : "fr", "key" : "diffusez-vos-evenements"
   }, {
     "lang" : "de", "key" : "sende-deine-ereignisse"
+  }, {
+    "lang" : "es", "key" : "diffusez-vos-evenements-es"
+  }, {
+    "lang" : "br", "key" : "diffusez-vos-evenements-br"
   } ],
   "head" : {
     "title" : "broadcastHeadTitle",

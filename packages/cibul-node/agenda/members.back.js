@@ -23,11 +23,11 @@ const routes = {
 
   /**********/
 
-  membersList: [ 'get', '/stakeholders.json', [
+  /*membersList: [ 'get', '/stakeholders.json', [
     stakeholdersMw.agenda( 'agendaInstance.data' ).list( { total: true, detailed: true } ),
     _parseListResult(),
     ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
-  ] ],
+  ] ],*/
 
   membersStats: [ 'get', '/stats', [
     stakeholdersMw.agenda( 'agendaInstance.data' ).stats(),
@@ -174,15 +174,15 @@ async function matchApp( req, res, next ) {
       },
       res: {
         app: req.genUrl( 'agendaAdminMembers', { slug: req.agenda.slug } ),
-        list: req.genUrl( 'membersList', { slug: req.agenda.slug } ),
+        list: `/${req.agenda.slug}/admin/members.json`,
         update: req.genUrl( 'membersUpdate', { slug: req.agenda.slug, id: ':id' } ),
         remove: req.genUrl( 'membersRemove', { slug: req.agenda.slug, id: ':id' } ),
         invite: req.genUrl( 'membersInvite', { slug: req.agenda.slug } ),
         stats: req.genUrl( 'membersStats', { slug: req.agenda.slug } ),
         showContributor: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?contributorId=:contributorId',
         writeToMember: req.genUrl( 'conversationDiscussion', { uid: ':uid', redirect: ':redirect' } ),
-        exportToCsv: req.genUrl( 'agendaContributorsCsv', { slug: req.agenda.slug } ),
-        exportToXlsx: req.genUrl( 'agendaContributorsXlsx', { slug: req.agenda.slug } ),
+        exportToCsv: `/${req.agenda.slug}/admin/members.csv`,
+        exportToXlsx: `/${req.agenda.slug}/admin/members.xlsx`,
         sendMessage: req.genUrl( 'membersSendMessage', { slug: req.agenda.slug } )
       },
       agenda: {

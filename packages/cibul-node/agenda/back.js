@@ -28,18 +28,20 @@ const statsTemplate = _.template( fs.readFileSync( __dirname + '/stats.tpl', 'ut
 
 module.exports = parentApp => parentApp.use( '/', app );
 
+app.use( '/:agendaSlug/admin/getting-started', [
+  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) )
+] );
 
-// All paths of this app are accessible to agenda admins only
-// As app is used on base path of parent app, routes
-// must be explicited in following use.
 
+/**
+ * stats routes are hit by a ping script and need to be accessible
+ */
 app.use( [
   '/:agendaSlug/admin/stats',
   '/:agendaSlug/admin/stats/resync/:type',
   '/:agendaSlug/admin/getting-started'
 ], [
   cmn.loadLogger( 'agendaBack' ),
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
   agendaLoad
 ] );
 

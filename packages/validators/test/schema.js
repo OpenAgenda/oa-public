@@ -1056,7 +1056,8 @@ describe( 'schema validator', () => {
         text: validators.text,
         link: validators.link,
         number: validators.number,
-        date: validators.date
+        date: validators.date,
+        choice: validators.choice
       } );
 
     } );
@@ -1125,7 +1126,7 @@ describe( 'schema validator', () => {
     } );
 
 
-    it( 'when enableWith is used on a required field, it can only be required if related field is set', () => {
+    it( 'when enableWith is used on a required field, it can only be required if related field has a value', () => {
 
       const validate = schema( {
         image: {
@@ -1143,6 +1144,39 @@ describe( 'schema validator', () => {
       try {
 
         validate( {} );
+
+      } catch ( e ) {
+
+        errored = true;
+
+      }
+
+      errored.should.equal( false );
+
+    } );
+
+    it( 'enableWith with a list value enables field only when the list is not empty', () => {
+
+      const validate = schema( {
+        selection: {
+          type: 'choice'
+        },
+        someField: {
+          optional: false,
+          enableWith: 'selection',
+          type: 'text'
+        }
+      } );
+
+      let errored = false;
+
+      try {
+
+        validate();
+
+        validate( {
+          selection: []
+        } );
 
       } catch ( e ) {
 

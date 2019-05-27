@@ -8,7 +8,8 @@ const roles = require( './roles' );
 
 schema.register( {
   integer: require( '@openagenda/validators/integer' ),
-  choice: require( '@openagenda/validators/choice' )
+  choice: require( '@openagenda/validators/choice' ),
+  text: require( '@openagenda/validators/text' )
 } );
 
 const validate = schema( {
@@ -30,16 +31,23 @@ const validate = schema( {
       roles.CONTRIBUTOR,
       roles.READER
     ]
+  },
+  search: {
+    type: 'text',
+    max: 255
   }
 } );
 
 module.exports = ( k, query ) => {
 
+  const legacyParts = _extractLegacyParts( query );
+
   const {
     agendaUid,
     userUid,
-    role
-  } = validate( query );
+    role,
+    search
+  } = validate( Object.keys( legacyParts ).length ? Object.assign( {}, query, legacyParts ) : query );
 
   if ( !agendaUid && !userUid ) {
     throw new Error( 'neither agendaUid or userUid are specified' );
@@ -53,8 +61,24 @@ module.exports = ( k, query ) => {
     k.where( 'user_uid', userUid );
   }
 
+  if ( search ) {
+    k.andWhere( 'store', 'like', `%${search}%` );
+  }
+
   if ( role.length ) {
     k.whereIn( 'credential', role.map( r => _.isInteger( r ) ? r : roles[ r.toUpperCase() ] ) )
   }
+
+}
+
+function _extractLegacyParts( query ) {
+
+  const legacyParts = {}
+
+  if ( _.get( query, 'credentials' ) ) {
+    legacyParts.role = _.get( query, 'credentials' );
+  }
+
+  return legacyParts;
 
 }

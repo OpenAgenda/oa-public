@@ -5,6 +5,10 @@
     "lang" : "fr", "key" : "tarifs-reseaux"
   }, {
     "lang" : "de", "key" : "netzwerkpreise"
+  }, {
+    "lang" : "es", "key" : "precios-red"
+  }, {
+    "lang" : "br", "key" : "tarifs-reseaux-br"
   } ],
   "head" : {
     "title" : "networkPricingTitle",
