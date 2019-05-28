@@ -21,7 +21,7 @@ module.exports = lang => {
     role: flatLabels[ roleLabelKey( m.role ) ],
     email: _.get( m, 'custom.email' ),
     organization: _.get( m, 'custom.organization' ),
-    phone: _.get( m, 'custom.contactName' ),
+    phone: _.get( m, 'custom.contactNumber' ),
     position: _.get( m, 'custom.contactPosition' ),
     contributions: _.get( m, 'eventCount' ),
   }, ( v, k ) => flatLabels[ k ] );
