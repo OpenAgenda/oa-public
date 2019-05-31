@@ -27,13 +27,21 @@ function parser( data ) {
     .filter( tab => _includeTab( agenda, tab ) )
     .map( tab => _formatTab( { agenda, tab, lang, selectedTab } ) );
 
-  return ih( agendaParser( data ), {
+  const adminData = ih( agendaParser( data ), {
     adminLabels: { $set: flattenLabels( headerLabels, data.lang ) },
     sections: { $set: [ 'manage', 'export', 'settings' ].map( s => ( {
       label: headerLabels[ s ][ lang ],
       tabs: tabs.filter( t => t.section === s )
     } ) ) }
   } );
+
+  _.set( adminData, 'scripts.bottom',
+    _.get( adminData, 'scripts.bottom', [] ).concat( {
+      src: '/js/verifiedLocationsCounter.js'
+    } )
+  );
+
+  return adminData;
 
 }
 

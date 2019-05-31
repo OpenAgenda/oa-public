@@ -10,7 +10,8 @@
 },
 {
   "name" : "locations",
-  "section" : "manage"
+  "section" : "manage",
+  "scriptAnchor" : "<span class=\"js_locations_counter\" data-res=\"/:slug/admin/locations/verifycount\"></span>"
 },
 {
   "name" : "sources",
