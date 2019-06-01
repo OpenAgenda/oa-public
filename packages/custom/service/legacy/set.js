@@ -25,8 +25,6 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
     log( 'warn', 'no origin is defined for fields of schema %s', formSchemaId, { formSchemaId, identifier } );
 
-    return;
-
   }
 
   log( 'info', 'transfering legacy custom data', { formSchemaId, identifier } );
