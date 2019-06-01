@@ -120,6 +120,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
     await core.init( testConfig, {
       enabled: [
+        'queues',
         'events',
         'agendas',
         'agendaEvents',
