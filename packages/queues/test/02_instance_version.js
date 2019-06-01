@@ -67,7 +67,7 @@ describe( 'instance version', () => {
 
     q.run();
 
-    q.on( 'error', error => {
+    q.on( 'error', ( method, args, error ) => {
 
       error.message.should.equal( 'Unregistered method: doUnkownThing' );
 

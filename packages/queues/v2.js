@@ -56,20 +56,25 @@ function run( redis, queueName, methods, ons = {} ) {
 
       if ( blPopResult[ 1 ] === STOP ) return stop();
 
+      let result = null, methodName = null, args = null;
+
       try {
-        const {
-          method: methodName,
-          args
-        } = JSON.parse( blPopResult[ 1 ] );
+        const popped = JSON.parse( blPopResult[ 1 ] );
+        methodName = popped.method;
+        args = popped.args;
 
         if ( !methods[ methodName ] ) {
           throw new Error( 'Unregistered method: ' + methodName );
         }
 
-        await methods[ methodName ].apply( null, args );
+        if ( ons[ 'execute' ] ) ons[ 'execute' ]( methodName, args );
+
+        result = await methods[ methodName ].apply( null, args );
       } catch ( e ) {
-        if ( ons[ 'error' ] ) ons[ 'error' ]( e );
+        if ( ons[ 'error' ] ) ons[ 'error' ]( methodName, args, e );
       }
+
+      if ( ons[ 'success' ] ) ons[ 'success' ]( methodName, args, result );
 
     }
 
