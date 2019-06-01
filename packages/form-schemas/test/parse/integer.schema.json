@@ -21,6 +21,7 @@
     },
     "help" : null,
     "helpLink" : null,
+    "helpContent": null,
     "placeholder" : null,
     "sub" : null,
     "origin" : "custom",

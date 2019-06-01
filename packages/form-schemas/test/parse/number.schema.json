@@ -24,6 +24,7 @@
     "sub" : null,
     "help" : null,
     "helpLink" : null,
+    "helpContent": null,
     "origin" : "custom",
     "enableWith" : null,
     "related" : [],

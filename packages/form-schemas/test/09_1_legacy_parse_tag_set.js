@@ -72,6 +72,7 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
           sub : null,
           help: null,
           helpLink: null,
+          helpContent: null,
           write: null,
           read: null,
           optional: false,
@@ -127,6 +128,7 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
           sub : null,
           help: null,
           helpLink: null,
+          helpContent: null,
           write: null,
           read: null,
           "optional": true,
@@ -239,6 +241,7 @@ describe( 'form-schemas -09- unit (server): legacy tag sets', function() {
         sub : null,
         help: null,
         helpLink: null,
+        helpContent: null,
         enableWith : null,
         default: null,
         related: []
