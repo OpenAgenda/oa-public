@@ -50,7 +50,12 @@ module.exports = async options => {
     cache
   } = config;
 
-  const proxy = Proxy( { uid, key, defaultLimit: eventsPerPage, defaultFilter } );
+  const proxy = Proxy( {
+    uid,
+    key,
+    defaultLimit: eventsPerPage,
+    defaultFilter
+  } );
 
   app.locals.agenda = await proxy.head();
 

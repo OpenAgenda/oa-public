@@ -51,7 +51,7 @@ module.exports = ( { uid, key, defaultLimit, defaultFilter } ) => {
       ( parseInt( _.get( query, 'page', 1 ) ) - 1 ) * limit
     ) );
 
-    log( 'fetching', { res, oaq, offset, limit })
+    log( 'fetching', { res, oaq, offset, limit });
 
     return axios
       .get( `https://openagenda.com/agendas/${uid}/${res}`, {
