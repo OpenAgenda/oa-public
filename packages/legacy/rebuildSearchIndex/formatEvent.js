@@ -3,6 +3,8 @@
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
+const validateLink = require( '@openagenda/validators/link' )();
+
 module.exports = async ( { knex, imageBasePath }, id ) => {
 
   const {
@@ -11,6 +13,7 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
     location,
     articles,
     reviews,
+    categories,
     tags
   } = await _fetch( knex, id );
 
@@ -26,11 +29,12 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
       'uid',
       'store'
     ] ),
-    ..._.pick( event, [
+    ..._pickNonEmpty( event, [
       'title',
       'description',
       'freeText'
     ] ),
+    ..._emptyKeywords( event.tags ) ? {} : { tags: _stringifyKeywords( event.tags ) },
     ..._.pick( legacyEvent, [
       'isPublished',
       'fileKey'
@@ -66,21 +70,28 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
       ..._.pick( location, [
         'agendaId',
         'store',
+      ] ),
+      ...event.registration.length ? { ticketLink: event.registration.join( ', ' ) } : {},
+      ..._isEmpty( event.conditions ) ? {} : { pricingInfo: event.conditions },
+      ..._.pick( location, [
         'eveId',
         'postalCode',
         'insee'
       ] ),
       countryCode: location.country,
-      image: location.image ? imageBasePath + location.image : null,
+      ... location.image ? { image: imageBasePath + location.image } : {},
       ..._.pick( location, [
         'description',
         'tags',
+        'website',
+        'email',
         'phone',
         'links',
         'access',
         'state',
         'timezone',
-        'imageCredits'
+        'imageCredits',
+        'extId'
       ] )
     } ],
     articles: articles.map( a => ( {
@@ -98,12 +109,15 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
         'description',
         'thumbnail'
       ] ),
-      tags: tags.filter( t => t.reviewArticleId === a.id ).map( t => _.pick( t, [
+      tags: _.uniqBy( tags.filter( t => t.reviewArticleId === a.id ).map( t => _.pick( t, [
         'id',
         'slug',
         'label'
-      ] ) ),
-      reviewer: a.reviewer
+      ] ) ), 'id' ),
+      ...a.categoryId ? {
+        category: _.find( categories, { id: a.categoryId } )
+      } : {},
+      ..._isEmpty( a.reviewer ) ? {} : { reviewer: a.reviewer }
     } ) ),
     origin: _.pick( origin, [
       'uid',
@@ -111,13 +125,13 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
       'url',
       'slug'
     ] ),
-    reviewId: origin ? origin.id : null,
-    ..._.pick( legacyEvent, [
+    reviewId: _.get( articles, '0.reviewId' ),
+    ...legacyEvent.image ? _.pick( legacyEvent, [
       'image',
       'thumbnail',
-      'credits',
-      'customFields'
-    ] )
+      'credits'
+    ] ) : {},
+    ..._.pick( legacyEvent, [ 'customFields' ] )
   }
 
   return e;
@@ -140,12 +154,12 @@ async function _fetch( knex, id ) {
     'accessibility',
     'image',
     'image_credits as credits',
-    'custom_fields as customFields'
+    'custom_fields as customFields',
   ] ).where( 'id', id ).then( e => e ? ( {
     ...e,
     thumbnail: e.image ? 'evtb' + e.image : null,
     customFields: ( e.customFields || '' ).length ? JSON.parse( e.customFields ) : {}
-  } ) : null )
+  } ) : null );
 
   if ( !legacyEvent ) throw new Error( 'no legacy event record' );
 
@@ -153,7 +167,10 @@ async function _fetch( knex, id ) {
     'title',
     'description',
     'long_description as freeText',
+    'keywords as tags',
     'location_uid as locationUid',
+    'registration',
+    'conditions',
     'timings',
     'timezone',
     'agenda_uid as agendaUid'
@@ -161,6 +178,10 @@ async function _fetch( knex, id ) {
     .then( e => {
 
       if ( !e ) return null;
+
+      [ 'title', 'description', 'freeText', 'tags', 'conditions', 'registration' ].forEach( f => {
+        e[ f ] = _JSONParse( e[ f ], f );
+      } );
 
       return _.set( e, 'timings', _timings( e ) );
 
@@ -194,22 +215,26 @@ async function _fetch( knex, id ) {
       'image',
       'description',
       'tags',
+      'email',
       'phone',
+      'website',
       'links',
       'access',
       'state',
       'timezone',
-      'imageCredits'
+      'imageCredits',
+      'extId'
     ], 'location' )
   } : null );
 
   if ( !location ) throw new Error( 'no location record' );
 
-  const articles = await knex( 'review_article as ra' ).select( [
+  const articles = _.uniqBy( await knex( 'review_article as ra' ).select( [
     'ra.id as id',
     'ra.user_id as userId',
     'ra.review_id as reviewId',
     'state',
+    'ra.category_id as categoryId',
     'ra.store as store',
     'featured',
     'rr.organization as reviewer.organization',
@@ -220,28 +245,41 @@ async function _fetch( knex, id ) {
       .andOn( 'ra.review_id', '=', 'rr.review_id' );
   } ).where( 'event_id', legacyEvent.id )
     .then( articles => articles.map( a => ( {
-      ...a,
+      ..._.omit( a, [ 'store' ] ),
+      store: _JSONParse( a.store, 'article store' ),
       reviewer: {
         ..._extractFromStore( a[ 'reviewer.store' ], [
           [ 'custom_fields.organization', 'organization' ],
           [ 'custom_fields.contact_number', 'contactNumber' ],
-          [ 'custom_fields.contact_name', 'contactName' ],
-          [ 'custom_fields.contact_position', 'contactPosition' ],
           [ 'custom_fields.email', 'email' ],
+          [ 'custom_fields.contact_name', 'contactName' ],
+          [ 'custom_fields.contact_position', 'contactPosition' ]
         ], 'reviewer' ),
         organizationSlug: a[ 'reviewer.organization' ]
       }
-    } ) ) );
+    } ) ) ), 'id' );
 
-
-knex.select('*').from('users').leftJoin('accounts', function() {
-  this.on('accounts.id', '=', 'users.account_id').orOn('accounts.owner_id', '=', 'users.id')
-})
   if ( !articles.length ) throw new Error( 'no review_article record' );
+
+  const categories = [];
+
+  if ( articles.filter( a => a.categoryId ).length ) {
+    await knex( 'review_category' ).select( [
+      'id',
+      'slug',
+      'category as label'
+    ] ).whereIn(
+      'id',
+      articles.map( a => a.categoryId ).filter( id => !!id )
+    ).then( rows => rows.forEach( r => categories.push(
+      _.pick( r, [ 'id', 'slug', 'label' ] )
+    ) ) );
+  }
 
   const reviews = await knex( 'review' ).select( [
     'id',
     'uid',
+    'url',
     'slug',
     'title',
     'description',
@@ -249,7 +287,7 @@ knex.select('*').from('users').leftJoin('accounts', function() {
   ] ).whereIn( 'id', articles.map( a => a.reviewId ) ).then(
     rows => rows.map( r => ( {
       ...r,
-      thumbnail: r.image ? 'rwtb' + r.image : null
+      thumbnail: r.image ? 'rwtb' + r.image : false
     } ) )
   );
 
@@ -270,7 +308,8 @@ knex.select('*').from('users').leftJoin('accounts', function() {
     location,
     articles,
     reviews,
-    tags
+    tags,
+    categories
   }
 
 }
@@ -289,7 +328,8 @@ function _age( e = {} ) {
 
 function _accessibility( e = {} ) {
 
-  return ( e.accessibility || '' ).split( ',' ).filter( a => a.length );
+  return ( e.accessibility || '' ).length ?
+    _JSONParse( e.accessibility, 'accessibility' ) : [];
 
 }
 
@@ -314,12 +354,58 @@ function _extractFromStore( store, fields, storeOrigin ) {
 
 }
 
-function _timings( e ) {
+function _JSONParse( v, valueOrigin = 'json value' ) {
+  try {
+    return JSON.parse( v );
+  } catch ( e ) {
+    throw new Error( 'invalid ' + valueOrigin );
+  }
+}
 
+function _timings( e ) {
   try {
     return JSON.parse( e.timings );
   } catch ( e ) {
     throw new Error( 'invalid timings' );
   }
+}
+
+function _isEmpty( obj ) {
+  return !_.keys( obj ).filter( k => !!obj[ k ] ).length;
+}
+
+function _pickNonEmpty( obj, fields ) {
+
+  return fields.reduce( ( picked, field ) => _isEmpty( obj[ field ] )
+    ? picked
+    : _.set( picked, field, obj[ field ] ),
+  {} );
+
+}
+
+function _emptyKeywords( keywords ) {
+
+  if ( !_.isObject( keywords ) ) return true;
+
+  return !_.keys( keywords ).filter( lang => keywords[ lang ].length ).length;
+
+}
+
+function _stringifyKeywords( keywords ) {
+
+  return _.mapValues( keywords, v => v.join( ', ' ) );
+
+}
+
+function _extractTicketLink( e ) {
+
+  return _.first( _JSONParse( e.registration, 'registration' ).filter( value => {
+    try {
+      validateLink( value );
+      return true;
+    } catch ( e ) {
+      return false
+    }
+  } ) );
 
 }
