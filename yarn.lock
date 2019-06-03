@@ -2094,17 +2094,6 @@
   dependencies:
     lodash "^4.17.4"
 
-"@openagenda/geocode-farm@^1.0.10":
-  version "1.0.10"
-  resolved "https://registry.npmjs.org/@openagenda/geocode-farm/-/geocode-farm-1.0.10.tgz#b5f2e0b62fda508da8dbb8172341fbadb23c399e"
-  integrity sha512-0Ib8d7DmRSmBvABM4OjtjkqIPjz8SheeC3YRxaoI6J8z2M1hn5OlLg0fdEHSZZ2we1xd8Q/D/EF55xBRZUiBOg==
-  dependencies:
-    "@openagenda/countries" "^0.1.1"
-    lodash "^4.17.4"
-    point-in-polygon "^1.0.1"
-    qs "^6.0.1"
-    robust-point-in-polygon "^1.0.3"
-
 "@openagenda/image-upload@^1.0.8":
   version "1.0.8"
   resolved "https://registry.npmjs.org/@openagenda/image-upload/-/image-upload-1.0.8.tgz#0aeeaaae8305d93dcc3ad53ea2b3cdb85677ae3d"
@@ -21667,7 +21656,7 @@ qs@6.5.2, qs@~6.5.2:
   resolved "https://registry.npmjs.org/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-qs@6.6.0, qs@^6.0.1, qs@^6.1.0, qs@^6.5.0, qs@^6.5.1, qs@^6.5.2, qs@^6.6.0:
+qs@6.6.0, qs@^6.1.0, qs@^6.5.0, qs@^6.5.1, qs@^6.5.2, qs@^6.6.0:
   version "6.6.0"
   resolved "https://registry.npmjs.org/qs/-/qs-6.6.0.tgz#a99c0f69a8d26bf7ef012f871cdabb0aee4424c2"
   integrity sha512-KIJqT9jQJDQx5h5uAVPimw6yVg2SekOKu959OCtktD3FjzbpvaPr8i4zzg07DOMz+igA4W/aNM7OV8H37pFYfA==
@@ -22235,10 +22224,12 @@ react-hotkeys@2.0.0-pre4:
   dependencies:
     prop-types "^15.6.1"
 
-react-icons@^3.6.0:
-  version "3.6.0"
-  resolved "https://registry.npmjs.org/react-icons/-/react-icons-3.6.0.tgz#229ba896ea110c431c9f6dd811babdd31866390f"
-  integrity sha512-oburoiCTdEZm7SSph9qnvqneCRF9+hv7UqbsWASnZeIne4ztiGFPzOdM5py1hq0q84gk5M2cZjqgOs8Dvfrvgg==
+react-icons@^3.7.0:
+  version "3.7.0"
+  resolved "https://registry.npmjs.org/react-icons/-/react-icons-3.7.0.tgz#64fe46231fabfeea27895edeae6c3b78114b8c8f"
+  integrity sha512-7MyPwjIhuyW0D2N3s4DEd0hGPGFf0sK+IIRKhc1FvSpZNVmnUoGvHbmAwzGJU+3my+fvihVWgwU5SDtlAri56Q==
+  dependencies:
+    camelcase "^5.0.0"
 
 react-immutable-proptypes@^2.1.0:
   version "2.1.0"
@@ -23815,41 +23806,6 @@ ripemd160@^2.0.0, ripemd160@^2.0.1:
   dependencies:
     hash-base "^3.0.0"
     inherits "^2.0.1"
-
-robust-orientation@^1.0.2:
-  version "1.1.3"
-  resolved "https://registry.npmjs.org/robust-orientation/-/robust-orientation-1.1.3.tgz#daff5b00d3be4e60722f0e9c0156ef967f1c2049"
-  integrity sha1-2v9bANO+TmByLw6cAVbvln8cIEk=
-  dependencies:
-    robust-scale "^1.0.2"
-    robust-subtract "^1.0.0"
-    robust-sum "^1.0.0"
-    two-product "^1.0.2"
-
-robust-point-in-polygon@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.npmjs.org/robust-point-in-polygon/-/robust-point-in-polygon-1.0.3.tgz#ea68f025a44dfe6aede80f0863788705cf547ec4"
-  integrity sha1-6mjwJaRN/mrt6A8IY3iHBc9UfsQ=
-  dependencies:
-    robust-orientation "^1.0.2"
-
-robust-scale@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/robust-scale/-/robust-scale-1.0.2.tgz#775132ed09542d028e58b2cc79c06290bcf78c32"
-  integrity sha1-d1Ey7QlULQKOWLLMecBikLz3jDI=
-  dependencies:
-    two-product "^1.0.2"
-    two-sum "^1.0.0"
-
-robust-subtract@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/robust-subtract/-/robust-subtract-1.0.0.tgz#e0b164e1ed8ba4e3a5dda45a12038348dbed3e9a"
-  integrity sha1-4LFk4e2LpOOl3aRaEgODSNvtPpo=
-
-robust-sum@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/robust-sum/-/robust-sum-1.0.0.tgz#16646e525292b4d25d82757a286955e0bbfa53d9"
-  integrity sha1-FmRuUlKStNJdgnV6KGlV4Lv6U9k=
 
 rss@^1.2.1, rss@^1.2.2:
   version "1.2.2"
@@ -26751,16 +26707,6 @@ tweetnacl@^0.14.3, tweetnacl@~0.14.0:
   version "0.14.5"
   resolved "https://registry.npmjs.org/tweetnacl/-/tweetnacl-0.14.5.tgz#5ae68177f192d4456269d108afa93ff8743f4f64"
   integrity sha1-WuaBd/GS1EViadEIr6k/+HQ/T2Q=
-
-two-product@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.npmjs.org/two-product/-/two-product-1.0.2.tgz#67d95d4b257a921e2cb4bd7af9511f9088522eaa"
-  integrity sha1-Z9ldSyV6kh4stL16+VEfkIhSLqo=
-
-two-sum@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.npmjs.org/two-sum/-/two-sum-1.0.0.tgz#31d3f32239e4f731eca9df9155e2b297f008ab64"
-  integrity sha1-MdPzIjnk9zHsqd+RVeKyl/AIq2Q=
 
 type-check@~0.3.1, type-check@~0.3.2:
   version "0.3.2"

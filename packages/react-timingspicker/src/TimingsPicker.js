@@ -73,11 +73,11 @@ class TimingsPicker extends Component {
       sm: 640,
       md: 768
     },
-    locale: 'en'
+    locale: 'en',
   };
 
   state = {
-    activeWeek: new Date(),
+    activeWeek: null,
     width: 0,
     height: 0,
     breakpoint: null,
@@ -100,9 +100,10 @@ class TimingsPicker extends Component {
         derivedState.activeWeek = new Date( props.activeWeek );
       } else {
         derivedState.activeWeek = new Date(
+          state.activeWeek ||
           getClosestTiming( props.value ) ||
           getClosestTiming( props.allowedTimings ) ||
-          state.activeWeek
+          new Date()
         );
       }
     }
