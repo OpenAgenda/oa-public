@@ -7,6 +7,8 @@ const should = require( 'should' );
 const svc = require( './service' );
 const config = require( '../testconfig' );
 
+const occurrencesToTimings = require( '../service/lib/occurrencesToTimings' );
+
 describe( 'events - functional (server): legacy bridge', function() {
 
   this.timeout( 60000 );
@@ -150,13 +152,13 @@ describe( 'events - functional (server): legacy bridge', function() {
 
     it( 'oembed links are assembled', () => {
 
-      event.links.should.eql( [ { 
+      event.links.should.eql( [ {
         link: 'http://vimeo.com/24043834',
         data: {
           html: '<div style="left: 0; width: 100%; height: 0; position: relative; padding-bottom: 56.6669%;"><iframe src="https://player.vimeo.com/video/24043834?byline=0&amp;badge=0&amp;portrait=0&amp;title=0" style="border: 0; top: 0; left: 0; width: 100%; height: 100%; position: absolute;" allowfullscreen scrolling="no"></iframe></div>',
-          url: 'http://vimeo.com/24043834' 
+          url: 'http://vimeo.com/24043834'
         },
-        type: 'oembed' 
+        type: 'oembed'
       } ] );
 
     } );
@@ -259,7 +261,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
         done();
 
-      } );    
+      } );
 
     } );
 
@@ -321,13 +323,13 @@ describe( 'events - functional (server): legacy bridge', function() {
 
         result.event.draft.should.equal( 1 );
 
-        result.complete.should.eql( { 
+        result.complete.should.eql( {
           isComplete: false,
           errors: [ {
             field: 'title',
             code: 'required',
             message: 'at least one language entry is required',
-            origin: {} 
+            origin: {}
           } ] }
         );
 
@@ -360,7 +362,7 @@ describe( 'events - functional (server): legacy bridge', function() {
         // change owner
         con.query( 'update legacy_event set owner_id = ?, updated_at = ? where id = ?', [ 2537, new Date(), 147580 ], ( err, rows ) => {
 
-          svc.legacy.transfer( 147580, ( err, result ) => {  
+          svc.legacy.transfer( 147580, ( err, result ) => {
 
             con.query( 'select * from event where uid = ?', 10932458, ( err, rows ) => {
 
@@ -378,7 +380,7 @@ describe( 'events - functional (server): legacy bridge', function() {
 
       } );
 
-    } );  
+    } );
 
 
     it( 'transfer adds a record in new schema', done => {
@@ -503,6 +505,48 @@ describe( 'events - functional (server): legacy bridge', function() {
         } );
 
       } );
+
+    } );
+
+  } );
+
+} );
+
+describe( 'events - unit (server): legacy bridge', function() {
+
+  describe( 'occurrencesToTimings', () => {
+
+    it( 'converts legacy occurrences structure to timings', () => {
+
+      const timings = occurrencesToTimings( [ {
+        date: new Date( '2019-06-03T00:00:00.000Z' ),
+        time_start: '14:08',
+        time_end: '15:00'
+      } ], 'Europe/Paris' );
+
+      JSON.stringify( timings ).should.equal( [
+        '[{',
+          '"begin":"2019-06-03T12:08:00.000Z",',
+          '"end":"2019-06-03T13:00:00.000Z"',
+        '}]'
+      ].join( '' ) );
+
+    } );
+
+    it( 'end part of timing is always after begin', () => {
+
+      const timings = occurrencesToTimings( [ {
+        date: new Date( '2018-04-10T00:00:00.000Z' ),
+        time_start: '10:00:00',
+        time_end: '00:00:00'
+      } ], 'Europe/Paris' );
+
+      JSON.stringify( timings ).should.equal( [
+        '[{',
+          '"begin":"2018-04-10T08:00:00.000Z",',
+          '"end":"2018-04-10T22:00:00.000Z"',
+        '}]'
+      ].join( '' ) );
 
     } );
 

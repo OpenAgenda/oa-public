@@ -8,6 +8,8 @@ const VError = require( 'verror' );
 const w = require( 'when' );
 const wn = require( 'when/node' );
 
+const occurrencesToTimings = require( './lib/occurrencesToTimings' );
+
 const sUtils = require( '@openagenda/service-utils' );
 
 const eventUtils = require( '../utils' );
@@ -274,6 +276,8 @@ function transfer( identifiers, options, cb ) {
 
 function get( identifiers, options, cb ) {
 
+  log( 'getting legacy event', _.pick( identifiers, [ 'id', 'uid', 'slug' ] ) );
+
   if ( arguments.length === 2 ) {
 
     cb = options;
@@ -495,52 +499,28 @@ function _getLocation( v ) {
 
 function _getOccurrences( v ) {
 
-  if ( !v.entries.location ) return v;
+  if ( !v.entries.location ) {
+    log( 'no location was found, skipping occurrences conversion' );
+    return v;
+  }
+
+  log( 'getting occurrence records' );
 
   return knex( schemas.occurrence )
+    .select( v.fields.occurrence )
+    .where( 'event_id', v.entries.event.id )
+    .then( rows => {
 
-  .select( v.fields.occurrence )
+      v.entries.occurrences = rows;
 
-  .where( 'event_id', v.entries.event.id )
+      v.data.timings = occurrencesToTimings(
+        rows,
+        v.data.timezone
+      );
 
-  .then( rows => {
-
-    v.entries.occurrences = rows;
-
-    return v;
-
-  } )
-
-  .then( v => {
-
-    v.data.timings = v.entries.occurrences
-
-    .sort( ( a, b ) => {
-
-      if ( new Date( a.date + 'T' + a.time_start ) < new Date( a.date + 'T' + a.time_end ) ) {
-
-        return 1;
-
-      } else {
-
-        return -1;
-
-      }
-
-    } )
-
-    .map( o => {
-
-      return {
-        begin: _readOccurrenceTime( o, 'time_start', v.data.timezone ),
-        end: _readOccurrenceTime( o, 'time_end', v.data.timezone )
-      }
+      return v;
 
     } );
-
-    return v;
-
-  } );
 
 }
 
@@ -577,16 +557,14 @@ function _loadLegacy( v ) {
 }
 
 
-function _readOccurrenceTime( o, t, timezone ) {
 
-  return new Date( moment.tz( moment( o.date ).format( 'YYYY-MM-DD' ) + ' ' + o[ t ], timezone ).format() );
-
-}
 
 
 function _getAgendas( v ) {
 
   if ( v.entries.agendaEvents.length !== 1 ) return v;
+
+  log( 'getting agenda record' );
 
   return knex( schemas.agenda )
 
@@ -621,6 +599,8 @@ function _getAgendaEvents( v ) {
 
   if ( !v.entries.event ) return v;
 
+  log( 'getting eventAgendaEvent records' );
+
   return knex( schemas.agendaEvent )
 
   .select( v.fields.agendaEvent )
@@ -644,6 +624,8 @@ function _getAgendaEventReferences( v ) {
 
   if ( !v.entries.event ) return v;
 
+  log( 'getting eventAgendaEventReference records' );
+
   return knex( schemas.eventReferences )
     .select( v.fields.eventReferences )
     .where( 'event_id', v.entries.event.id )
@@ -666,6 +648,8 @@ function _getAgendaEventReferences( v ) {
 
 
 function _getEventLocationTranslations( v ) {
+
+  log( 'getting eventLocationTranslation records' );
 
   return knex( schemas.eventLocationTranslation )
 
@@ -704,6 +688,8 @@ function _getEventLocation( v ) {
 
   if ( !v.entries.event ) return v;
 
+  log( 'getting eventLocation record' );
+
   return knex( schemas.eventLocation )
 
   .select( v.fields.eventLocation )
@@ -736,6 +722,8 @@ function _getEventLocation( v ) {
 function _getEventTranslations( v ) {
 
   if ( !v.entries.event ) return v;
+
+  log( 'getting eventTranslation record' );
 
   return knex( schemas.eventTranslation )
 
@@ -797,88 +785,87 @@ function _parseKeywords( keywords ) {
 
 function _getEvent( v ) {
 
+  log( 'getting event record' );
+
   return knex( schemas.event )
+    .select( v.fields.event )
+    .where( v.identifiers )
+    .then( rows => {
 
-  .select( v.fields.event )
+      if ( !rows.length ) return v;
 
-  .where( v.identifiers )
+      v.entries.event = rows[ 0 ];
 
-  .then( rows => {
+      [ 'id', 'uid', 'slug', 'created_at', 'updated_at' ].forEach( field => {
 
-    if ( !rows.length ) return v;
+        v.data[ _.camelCase( field ) ] = v.entries.event[ field ];
 
-    v.entries.event = rows[ 0 ];
-
-    [ 'id', 'uid', 'slug', 'created_at', 'updated_at' ].forEach( field => {
-
-      v.data[ _.camelCase( field ) ] = v.entries.event[ field ];
-
-    } );
+      } );
 
 
-    [
-      'id', 'uid', 'slug', 'created_at', 'updated_at',
-      [ 'file_key', 'fileKey' ],
-      [ 'origin_uid', 'agendaUid' ],
-      [ 'age_min', 'age.min' ],
-      [ 'age_max', 'age.max' ]
-    ].forEach( f => {
+      [
+        'id', 'uid', 'slug', 'created_at', 'updated_at',
+        [ 'file_key', 'fileKey' ],
+        [ 'origin_uid', 'agendaUid' ],
+        [ 'age_min', 'age.min' ],
+        [ 'age_max', 'age.max' ]
+      ].forEach( f => {
 
-      let fromField = _.isArray( f ) ? f[ 0 ] : f,
+        let fromField = _.isArray( f ) ? f[ 0 ] : f,
 
-        toField = _.isArray( f ) ? f[ 1 ] : f;
+          toField = _.isArray( f ) ? f[ 1 ] : f;
 
-      _.set( v.data, toField, _.get( v.entries.event, fromField, null ) );
+        _.set( v.data, toField, _.get( v.entries.event, fromField, null ) );
 
-    } );
+      } );
 
-    if ( v.entries.event.image ) {
+      if ( v.entries.event.image ) {
 
-      v.data.image = {
-        filename: v.entries.event.image,
-        credits: v.entries.event.image_credits,
-        variants: [ {
-          type: 'full',
-          filename: 'evf' + v.entries.event.image
-        }, {
-          type: 'thumbnail',
-          filename: 'evtb' + v.entries.event.image
-        } ]
+        v.data.image = {
+          filename: v.entries.event.image,
+          credits: v.entries.event.image_credits,
+          variants: [ {
+            type: 'full',
+            filename: 'evf' + v.entries.event.image
+          }, {
+            type: 'thumbnail',
+            filename: 'evtb' + v.entries.event.image
+          } ]
+        }
+
       }
 
-    }
+      if ( v.entries.event.accessibility ) {
 
-    if ( v.entries.event.accessibility ) {
+        try {
+
+          let accessibility = JSON.parse( v.entries.event.accessibility );
+
+          accessibility.forEach( a => {
+
+            v.data.accessibility[ a ] = true;
+
+          } );
+
+        } catch( e ) {}
+
+      }
 
       try {
 
-        let accessibility = JSON.parse( v.entries.event.accessibility );
+        v.data.links = _.get( JSON.parse( _.get( v, 'entries.event.store', '{}' ) ), 'links', [] )
+          .filter( link => link.code )
+          .map( ( { link, code } ) => ( { type: 'oembed', link, data: { html: code, url: link } } ) );
 
-        accessibility.forEach( a => {
+      } catch ( e ) {
 
-          v.data.accessibility[ a ] = true;
+        log( 'error', 'could not parse links from legacy store', e );
 
-        } );
+      }
 
-      } catch( e ) {}
+      return v;
 
-    }
-
-    try {
-
-      v.data.links = _.get( JSON.parse( _.get( v, 'entries.event.store', '{}' ) ), 'links', [] )
-        .filter( link => link.code )
-        .map( ( { link, code } ) => ( { type: 'oembed', link, data: { html: code, url: link } } ) );
-
-    } catch ( e ) {
-
-      log( 'error', 'could not parse links from legacy store', e );
-
-    }
-
-    return v;
-
-  } );
+    } );
 
 }
 
