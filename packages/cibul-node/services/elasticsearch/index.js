@@ -1,34 +1,43 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const { promisify } = require( 'util' );
 
-const config = require( '../../config' ),
+const coms = require( '../../lib/coms' );
+const refresh = require( './lib/refresh' );
+const resync = require( './lib/resync' );
 
-legacyLib = require( '@openagenda/es-node' )( config.es ),
+const config = require( '../../config' );
 
-lib = require( '../../lib/lib' ),
+const legacyLib = require( '@openagenda/es-node' )( config.es );
 
-c = require( './lib/clean' ),
+// make things async
+const legacyES = {
+  refreshIndex: promisify( legacyLib.refreshIndex ),
+  resetIndex: promisify( legacyLib.resetIndex ),
+  updateReview: require( './lib/updateReview' )( {
+    update: promisify( legacyLib.reviews().update ),
+    knex: config.knex
+  } ),
+  updateEvent: require( './lib/updateEvent' )( {
+    update: promisify( legacyLib.events().update ),
+    knex: config.knex,
+    imageBasePath: config.aws.imageBucketPath
+  } ),
+  searchReviews: promisify( legacyLib.reviews().search ),
+  searchEvents: promisify( legacyLib.events().search )
+}
 
-coms = require( '../../lib/coms' ),
-
-resync = require( './lib/resync' ),
-
-refresh = require( './lib/refresh' ),
-
-LIMIT = 20;
-
-resync.set( legacyLib );
-
-refresh.set( legacyLib );
+const LIMIT = 20;
 
 module.exports = {
   initless: true,
   agendas,
   search,
   searchAgendas,
-  resync,
-  refresh
+  resync: resync.bind( null, legacyES ),
+  refresh: refresh.bind( null, legacyES ),
+  updateEvent: legacyES.updateEvent
 }
 
 function agendas( agenda ) {
@@ -42,14 +51,11 @@ function agendas( agenda ) {
   function _search( query, options, cb ) {
 
     if ( !cb ) {
-
       cb = options;
-
       options = {};
-
     }
 
-    search( query, lib.extend( {
+    search( query, _.extend( {
       agendaId: agenda.id
     }, options ), cb );
 
@@ -58,14 +64,11 @@ function agendas( agenda ) {
   function _aggregate( query, options, cb ) {
 
     if ( !cb ) {
-
       cb = options;
-
-      options = {}
-
+      options = {};
     }
 
-    aggregate( query, lib.extend( {
+    aggregate( query, _.extend( {
       agendaId: agenda.id
     }, options ), cb );
 
@@ -73,21 +76,19 @@ function agendas( agenda ) {
 
   function _resync( cb ) {
 
-    resync( { agendaId: agenda.id }, err => {
+    resync( legacyES, { agendaId: agenda.id }, err => {
 
-      if ( !err ) {
+      if ( err ) return cb( err );
 
-        coms.publish( config.mainChannel, {
-          name: 'agenda.update',
-          values: {
-            id: agenda.id,
-            type: 'refresh'
-          }
-        } );
+      coms.publish( config.mainChannel, {
+        name: 'agenda.update',
+        values: {
+          id: agenda.id,
+          type: 'refresh'
+        }
+      } );
 
-      }
-
-      cb( err );
+      cb();
 
     } );
 
@@ -99,11 +100,8 @@ function agendas( agenda ) {
 function searchAgendas( query, options, cb ) {
 
   if ( arguments.length == 2 ) {
-
     cb = options;
-
     options = {};
-
   }
 
   _prepare( query, options, function( params, esQuery ) {
@@ -167,7 +165,7 @@ function search( query, options, cb ) {
 
 function _prepare( query, options, cb ) {
 
-  const params = lib.extend( {
+  const params = _.extend( {
     limit: LIMIT,
     agendaId: false,
     showAll: false
@@ -407,9 +405,9 @@ function _clean( query, params ) {
 
     if ( !query[ k ] ) return;
 
-    clean[ k ] = c.parseQueryList( query[ k ] );
+    clean[ k ] = [].concat( query[ k ] );
 
-  });
+  } );
 
 
   if ( [ 'proximity', 'update', 'upcoming', 'latest' ].indexOf( query.order ) !== -1 ) {

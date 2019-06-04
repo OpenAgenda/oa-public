@@ -23,8 +23,6 @@ const ES = require( '@openagenda/es-node' )( config.es );
 
 const jobHandlers = {
   'index.resync' : _resync,
-  'legacy.es.event.create' : _publish( 'events' ),
-  'legacy.es.event.update' : _publish( 'events' ),
   'legacy.es.event.remove' : _delete( 'events' ),
   'event.publish' : _publish( 'events' ),
   'event.create' : _publish( 'events' ),

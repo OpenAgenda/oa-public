@@ -1,34 +1,47 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const async = require( 'async' );
+const fs = require( 'fs' );
+const VError = require( 'verror' );
 
-const async = require( 'async' ),
+const { promisify } = require( 'util' );
 
-  model = require( '../../model' ),
+const log = require( '@openagenda/logs' )( 'services/elasticsearch/resync' );
+const loopThroughTable = require( '@openagenda/legacy/rebuildSearchIndex/loopThroughTable' );
 
-  utils = require( '@openagenda/utils' ),
+const model = require( '../../model' );
 
-  log = require( '@openagenda/logs' )( 'services/elasticsearch/resync' ),
+const { knex, aws: { imageBucketPath: imageBasePath } } = require( '../../../config' );
 
-  loadDetailedLocation = require( './loadDetailedLocation' ),
+const _removeReviewZombies = ES => promisify(
+  _removeZombies( ES, 'reviews' )
+);
+const _removeEventZombies = ( ES, agendaId ) => promisify(
+  _removeZombies( ES, 'events', agendaId ? { reviewId: agendaId } : {} )
+)();
 
-  loadEventReferences = require( './loadEventReferences' );
+const knownBuildErrors = [
+  'no event record',
+  'no review_article record',
+  'no location record',
+  'invalid timings',
+  'invalid location store',
+  'invalid reviewer store',
+  'invalid title',
+  'invalid description',
+  'invalid freeText',
+  'invalid article store'
+];
 
-let lib;
-
-module.exports = ( options, cb ) => {
-
-  var params, operations = [];
+module.exports = async function( ES, options, cb ) {
 
   if ( arguments.length == 1 ) {
-
     cb = options;
-
     options = {};
-
   }
 
-  params = _.assign( {
+  const params = _.assign( {
     agendaId: false,
     isPublished: null,
     interval: 0,
@@ -37,166 +50,93 @@ module.exports = ( options, cb ) => {
   }, options );
 
   if ( params.reset ) {
-
     delete params.agendaId;
-
-    operations.push( lib.resetIndex );
-
+    await ES.resetIndex();
   }
 
+  const agendaId = params.agendaId || params.reviewId;
 
-  if ( params.agendaId ) {
-
-    params.reviewId = params.agendaId;
-
-    delete params.agendaId;
-
-  } else {
-
-    operations.push( _removeZombies( 'reviews' ) );
-
-    operations.push( _update( 'reviews' ) );
-
+  if ( !agendaId ) {
+    await _removeReviewZombies( ES );
+    await _updateReviews( ES );
   }
 
-  operations.push( _removeZombies( 'events', params ) );
+  await _removeEventZombies( ES, agendaId );
 
-  operations.push( _update( 'events', params ) );
+  await _updateEvents( ES, agendaId );
 
-  operations.push( lib.refreshIndex );
+  await ES.refreshIndex();
 
-  if ( !lib ) return cb( 'es is not inited' );
+  cb();
 
-  async.series( operations, function( err ) {
+}
 
-    if ( params.reviewId ) {
 
-      log( 'info', 'resync of agenda %s is complete', params.reviewId );
+async function _updateReviews( ES ) {
 
-    } else {
+  const count = { processed: 0, errors: 0 };
 
-      log( 'info', 'full resync is complete' );
+  await loopThroughTable( knex, 'review', async id => {
 
+    await ES.updateReview( id );
+
+    count.processed++;
+
+    if ( !( count.processed % 100 ) ) {
+      log( 'info', 'updated %s reviews', count.processed );
     }
-
-    cb();
 
   } );
 
 }
 
-module.exports.set = function( l ) {
+async function _updateEvents( ES, agendaId ) {
 
-  lib = l;
+  const count = { processed: 0, errors: 0 };
 
-}
+  await loopThroughTable( knex, agendaId ? 'review_article' : 'event', async id => {
 
-
-
-
-
-
-function _update( type, query ) {
-
-  if ( !query ) query = {};
-
-  return  cb => {
-
-    const count = { processed: 0, errors: 0 };
-
-    _loopThroughDb( type, query, function( dbRef, next ) {
-
-      if ( type !== 'events' ) return _doUpdate( type, dbRef, count, next );
-
-      // events type need to have detailed location fed by location service
-      // before being indexed.
-
-      loadDetailedLocation( dbRef, err => {
-
-        if ( err ) log( 'error', 'could not load detailed location data in event %s', dbRef.id );
-
-        loadEventReferences( dbRef, err => {
-
-          if ( err ) log( 'error', 'could not load reference data in event %s', dbRef.id );
-
-          _doUpdate( type, dbRef, count, next );
-
-        } )
-
-      } );
-
-    }, function( err ) {
-
-      if ( err ) log( 'error', err );
-
-      _logUpdates( type, count );
-
-      cb( err );
-
-    } );
-
-  }
-
-  function _isIndexableEvent( event ) {
-
-    if ( !event.locations ) return false;
-
-    if ( !event.locations[ 0 ].timings.length ) return false;
-
-    return true;
-
-  }
-
-  function _doUpdate( type, obj, count, cb ) {
-
-    if ( type === 'events' && !_isIndexableEvent( obj ) ) {
-
-      log( 'info', 'event cannot be indexed: %s', obj.uid );
-
-      count.processed++;
-      count.errors++;
-
-      return cb();
-
+    try {
+      await ES.updateEvent( id );
+    } catch( e ) {
+      if ( knownBuildErrors.includes( e.message ) ) {
+        log( 'warn', e.message, { eventId: id } );
+      } else if ( e.statusCode ) {
+        log( 'warn', 'failed to index event of id %s', id, e );
+        console.log( JSON.stringify( e.items, null, 2 ) );
+      } else {
+        log( 'error', e );
+        throw new VError( 'failed to build event of id %s', id );
+      }
     }
 
-    lib[ type ]().update( obj, function( err ) {
+    count.processed++;
 
-      count.processed++;
+    if ( !( count.processed % 100 ) ) {
+      log( 'info', 'updated %s events', count.processed );
+    }
 
-      if ( err ) {
-
-        log( 'error', 'es update error for %s: %s', type, JSON.stringify( err ) )
-
-        count.errors++;
-
-      }
-
-      if ( count.processed % 1000 === 0 ) _logUpdates( type, count );
-
-      _delay( query.interval, cb )();
-
-    } );
-
-  }
+  }, {
+    query: agendaId ? { review_id: agendaId } : null,
+    field: agendaId ? 'event_id' : 'id'
+  } );
 
 }
+
 
 function _defineGetQuery( type, params, obj ) {
 
   const q = { id: obj[ type=='reviews' ? 'reviewId' : 'eventId' ] };
 
   if ( type == 'events' && params.reviewId ) {
-
     q.reviewId = params.reviewId;
-
   }
 
   return q;
 
 }
 
-function _removeZombies( type, params ) {
+function _removeZombies( ES, type, params ) {
 
   if ( !params ) params = {};
 
@@ -206,7 +146,7 @@ function _removeZombies( type, params ) {
 
     log( 'info', 'removing %s zombies', type );
 
-    _loopThroughIndex( type, params, ( obj, next ) => {
+    _loopThroughIndex( type === 'reviews' ? ES.searchReviews : ES.searchEvents, params, ( obj, next ) => {
 
       model[ type ]().get( _defineGetQuery( type, params, obj ), function( err, dbRef ) {
 
@@ -234,7 +174,7 @@ function _removeZombies( type, params ) {
 
       } );
 
-    }, function( err ) {
+    }, err => {
 
       if ( err ) return cb( err );
 
@@ -282,28 +222,21 @@ function _logUpdates( type, count ) {
 }
 
 
-
-function _loopThroughIndex( type, params, usageFunc, cb ) {
+function _loopThroughIndex( search, params, usageFunc, cb ) {
 
   let hasMore = true, offset = 0;
 
   const limit = 10;
 
-  async.whilst( function() {
+  async.whilst( () => hasMore, function( wcb ) {
 
-    return hasMore;
+    log( 'info', 'fetching in index offset %s', offset );
 
-  }, function( wcb ) {
-
-    log( 'info', 'fetching in index %s offset %s', type, offset );
-
-    lib[ type ]().search( utils.extend( { options: { from: offset, size: limit } }, params ), function( err, result ) {
-
-      if ( err ) return wcb( err );
+    search( _.extend( { options: { from: offset, size: limit } }, params ) ).then( result => {
 
       hasMore = !!result.data.length;
 
-      async.eachSeries( result.data, usageFunc, function( err ) {
+      async.eachSeries( result.data, usageFunc, err => {
 
         if ( err ) return wcb( err );
 
@@ -313,7 +246,7 @@ function _loopThroughIndex( type, params, usageFunc, cb ) {
 
       } );
 
-    } );
+    }, wcb );
 
   }, cb );
 
@@ -334,7 +267,7 @@ function _loopThroughDb( schema, params, usageFunc, cb ) {
 
     log( 'info', 'fetching in db %s offset %s', schema, offset );
 
-    model[ schema ]().list( utils.extend( {
+    model[ schema ]().list( _.extend( {
       extended: true,
       offset,
       limit

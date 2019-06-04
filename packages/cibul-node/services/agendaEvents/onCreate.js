@@ -15,6 +15,7 @@ const aggregatorNotify = require( './lib/aggregatorNotify' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const eventAggregation = require( './eventAggregation' );
+const legacyEventSearch = require( '../elasticsearch' );
 const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 const sendEventCreation = require( './sendEventCreation' );
@@ -95,13 +96,11 @@ module.exports = async ( ae, context ) => {
      * Anything happening here should NOT be triggered elsewhere by legacy parts of app
      */
 
-    coms.publish( config.mainChannel, {
-      name: 'legacy.es.event.create',
-      values: {
-        uid: event.uid,
-        type: 'create'
-      }
-    } );
+    try {
+      await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
+    } catch ( e ) {
+      log( 'error', 'could not update legacy search for event %s', event.slug );
+    }
 
   }
 

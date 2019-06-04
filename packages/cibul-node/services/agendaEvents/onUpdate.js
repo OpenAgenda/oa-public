@@ -9,6 +9,7 @@ const aggregatorNotify = require( './lib/aggregatorNotify' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const controlDataSvc = require( '../legacy' ).controlData;
+const legacyEventSearch = require( '../elasticsearch' );
 const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 const sendEventUpdate = require( './lib/sendEventUpdate' );
@@ -30,14 +31,11 @@ module.exports = async ( before, after, context ) => {
 
   const { agenda, event } = await fallbackContextGet( 'onUpdate', after, context );
 
-  coms.publish( config.mainChannel, {
-    name: 'legacy.es.event.update',
-    values: {
-      uid: event.uid,
-      type: 'update'
-    }
-  } );
-
+  try {
+    await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
+  } catch ( e ) {
+    log( 'error', 'could not update legacy search for event %s', event.slug );
+  }
 
   if ( after.state === 2 ) {
 
