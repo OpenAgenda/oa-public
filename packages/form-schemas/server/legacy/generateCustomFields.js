@@ -66,7 +66,13 @@ function _legacyAccessType( field ) {
 
   if ( !field.read ) return 'public';
 
-  if ( field.read.includes( 'administrator' ) ) return 'administrator';
+  if ( field.read.includes( 'contributor' ) ) {
+    return 'private';
+  }
+
+  if ( field.read.includes( 'administrator' ) ) {
+    return 'administrator';
+  }
 
   return 'private';
 
