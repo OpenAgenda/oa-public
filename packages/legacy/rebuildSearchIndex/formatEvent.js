@@ -15,7 +15,7 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
     reviews,
     categories,
     tags
-  } = await _fetch( knex, id );
+  } = await _fetch( knex, _.isObject( id ) ? _.pick( id, [ 'id', 'uid' ] ) : { id } );
 
   const origin = _.find( reviews, { uid: event.agendaUid } );
 
@@ -137,7 +137,7 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
   return e;
 }
 
-async function _fetch( knex, id ) {
+async function _fetch( knex, identifier ) {
 
   const legacyEvent = await knex( 'event' ).first( [
     'id',
@@ -155,7 +155,7 @@ async function _fetch( knex, id ) {
     'image',
     'image_credits as credits',
     'custom_fields as customFields',
-  ] ).where( 'id', id ).then( e => e ? ( {
+  ] ).where( identifier ).then( e => e ? ( {
     ...e,
     thumbnail: e.image ? 'evtb' + e.image : null,
     customFields: ( e.customFields || '' ).length ? JSON.parse( e.customFields ) : {}

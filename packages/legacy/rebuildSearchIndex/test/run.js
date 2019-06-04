@@ -49,7 +49,7 @@ function _omit( e ) {
 
 ( async () => {
 
-  const eventFilesPath = '/home/kaore/Dev/tmp/indexed/events/';
+/*  const eventFilesPath = '/home/kaore/Dev/tmp/indexed/events/';
   const diffFilesPath = '/home/kaore/Dev/tmp/indexed/diff/';
 
   try {
@@ -73,7 +73,7 @@ function _omit( e ) {
           imageBasePath: '//cibuldev.s3.amazonaws.com/'
         }, eventId ) ), null, 2 );
 
-        if ( ref !==  newRef ) {
+        if ( ref !== newRef ) {
 
           fs.writeFileSync(
             diffFilesPath + filename,
@@ -110,52 +110,51 @@ function _omit( e ) {
         }
       }
 
-    }
+    }*/
 
     /*console.log( JSON.stringify( await formatEvent( {
       knex: k,
       imageBasePath: '//cibuldev.s3.amazonaws.com/'
     }, 375793 ), null, 2 ) );*/
 
-    /*await loopThroughTable( k, 'event', async id => {
+  await loopThroughTable( k, 'review_article', async id => {
 
-      console.log( id );
+    console.log( id );
 
-      try {
+    try {
 
-        await formatEvent( {
-          knex: k,
-          imageBasePath: '//cibuldev.s3.amazonaws.com/'
-        }, id );
+      await formatEvent( {
+        knex: k,
+        imageBasePath: '//cibuldev.s3.amazonaws.com/'
+      }, id );
 
-      } catch ( e ) {
+    } catch ( e ) {
 
-        if ( [
-          'no event record',
-          'no review_article record',
-          'no location record',
-          'invalid timings',
-          'invalid location store',
-          'invalid reviewer store',
-          'invalid title',
-          'invalid description',
-          'invalid freeText',
-          'invalid article store'
-        ].includes( e.message ) ) {
-          console.log( e );
-        } else {
-          throw e;
-        }
-
+      if ( [
+        'no event record',
+        'no review_article record',
+        'no location record',
+        'invalid timings',
+        'invalid location store',
+        'invalid reviewer store',
+        'invalid title',
+        'invalid description',
+        'invalid freeText',
+        'invalid article store'
+      ].includes( e.message ) ) {
+        console.log( e );
+      } else {
+        throw e;
       }
 
-    } );*/
+    }
 
-    console.log( 'done!' );
+  }, {
+    field: 'event_id',
+    query: { review_id: 218 }
+  } );
 
-  } catch ( e ) {
-    console.log( e );
-  }
+  console.log( 'done!' );
 
   process.exit();
 
