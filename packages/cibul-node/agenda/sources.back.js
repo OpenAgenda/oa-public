@@ -134,6 +134,7 @@ async function matchApp( req, res, next ) {
     return res.send( layout( `<div class="js_canvas">${content}</div>`, {
       lang: req.lang,
       agenda: req.agenda,
+      role: req.role,
       bodyAttributes: [ {
         name: 'data-options',
         value: JSON.stringify( { initialState: state } )

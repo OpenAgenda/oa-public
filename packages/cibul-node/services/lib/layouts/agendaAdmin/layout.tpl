@@ -17,6 +17,7 @@
     <div class="col col-sm-3 nav">
       <ul class="list-unstyled">
         <% sections.forEach( function( section ) { %>
+          <% if ( section && section.tabs.length ) { %>
           <li>
             <h2><%= section.label %></h2>
           </li>
@@ -28,6 +29,7 @@
             <% } %>
           </li>
           <% } ) %>
+          <% } %>
         <% } ) %>
       </ul>
     </div>

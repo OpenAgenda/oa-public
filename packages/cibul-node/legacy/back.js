@@ -274,9 +274,10 @@ function syncMember( req, res, next ) {
 
 function agendaAdminLayout( req, res ) {
 
-  const { scriptParams, scripts } = req.body;
+  const { scriptParams, scripts, role } = req.body;
 
   res.send( adminLayout( '{content}', {
+    role,
     agenda: req.agenda,
     lang: req.lang,
     selectedTab: req.params.tab,

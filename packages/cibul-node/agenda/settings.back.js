@@ -196,6 +196,7 @@ module.exports = path => {
     const state = store ? store.getState() : {};
 
     res.send( layout( `<div class="js_canvas">${component ? ReactDOM.renderToString( component ) : ''}</div>`, {
+      role: req.role,
       selectedTab: 'settings_' + ( state.routing.locationBeforeTransitions.pathname.substr( state.settings.prefix.length + 1 ) || 'profile' ),
       lang: _.get( req, 'lang', 'fr' ),
       agenda: req.agenda,

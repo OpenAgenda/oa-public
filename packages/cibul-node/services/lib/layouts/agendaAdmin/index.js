@@ -21,10 +21,10 @@ module.exports = {
 
 function parser( data ) {
 
-  const { agenda, lang, selectedTab } = data;
+  const { agenda, lang, selectedTab, role } = data;
 
   const tabs = tabReference
-    .filter( tab => _includeTab( agenda, tab ) )
+    .filter( tab => _includeTab( agenda, tab, role ) )
     .map( tab => _formatTab( { agenda, tab, lang, selectedTab } ) );
 
   const adminData = ih( agendaParser( data ), {
@@ -45,7 +45,9 @@ function parser( data ) {
 
 }
 
-function _includeTab( agenda, tab ) {
+function _includeTab( agenda, tab, role ) {
+
+  if ( tab.roles && !tab.roles.includes( role ) ) return false
 
   if ( !tab.credential ) return true;
 

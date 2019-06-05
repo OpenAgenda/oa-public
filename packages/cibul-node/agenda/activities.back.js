@@ -59,7 +59,7 @@ module.exports = path => {
     cmn.loadLogger( 'agendaActivities' ),
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    cmn.authorize.moderator,
   ] );
 
   return {
@@ -111,6 +111,7 @@ async function matchApp( req, res, next ) {
     }
 
     res.send( layout( `<div class="js_canvas">${content}</div>`, {
+      role: req.role,
       lang: req.lang,
       agenda: req.agenda,
       bodyAttributes: [ {

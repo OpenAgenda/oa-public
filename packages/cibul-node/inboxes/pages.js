@@ -190,7 +190,7 @@ app.use(
   '/:slug/admin/inbox',
   preMw,
   oldAgendaLoad( 'slug' ),
-  cmn.checkAdminOrModerator,
+  cmn.authorize.moderator,
   cmn.loadAgenda,
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
@@ -254,6 +254,7 @@ app.use(
           <div class="js_canvas">${content}</div>
         </div>`, {
         lang: req.lang,
+        role: req.role,
         agenda: req.agenda,
         bodyAttributes: [ {
           name: 'data-options',
