@@ -29,14 +29,10 @@ describe( 'form-schemas -02- functional (server): update', () => {
 
   it( 'simple update', async () => {
 
-    let { id } = await svc.create( { data: true } );
-
     let formSchema = JSON.parse( fs.readFileSync( __dirname + '/parse/integer.schema.json', 'utf-8' ) );
 
-    let result = await svc.update( id, formSchema );
-
-    result.should.eql( {
-      id,
+    ( await svc.update( 1, formSchema ) ).should.eql( {
+      id: 1,
       success: true,
       formSchema
     } );

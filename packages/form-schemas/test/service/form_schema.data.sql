@@ -5,3 +5,5 @@ create table if not exists `${schema}` (
   primary key(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+insert into `${schema}` ( `id`, `store` ) values
+( 1, '{"fields":[{"field" : "quisuisje", "fieldType" : "text"}]}' );
