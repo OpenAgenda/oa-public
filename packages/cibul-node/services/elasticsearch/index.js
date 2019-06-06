@@ -23,7 +23,7 @@ const legacyES = {
     update: promisify( legacyLib.events().update ),
     knex: config.knex,
     imageBasePath: config.aws.imageBucketPath
-  } )
+  } ),
   searchReviews: promisify( legacyLib.reviews().search ),
   searchEvents: promisify( legacyLib.events().search ),
 }

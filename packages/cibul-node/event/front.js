@@ -11,7 +11,7 @@ const core = require( '../core' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
 const errorLabels = require( '@openagenda/labels/errors' );
 const sessions = require( '@openagenda/sessions' );
-const stakeholderSvc = require( '@openagenda/agenda-stakeholders' );
+const members = require( '../services/members' );
 const stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 
 const cmn = require( '../lib/commons-app' );
@@ -250,9 +250,10 @@ async function agendaEventShow( req, res, next ) {
 
   _addContactLink( req );
 
-  const userStakeholder = req.user
-    ? await promisify( stakeholderSvc( req.agenda.id ).get )( { userId: req.user.id } )
-    : null;
+  const member = req.user ? await members.get( {
+    agendaUid: req.agenda.uid,
+    userUid: req.user.uid
+  } ) : null;
 
   req.event.getContributor( ( err, contributor ) => {
 
@@ -272,7 +273,7 @@ async function agendaEventShow( req, res, next ) {
       redirect: req.query.admin_nav ? new Buffer( `${eventUrl}?${qs.stringify( req.query )}`, 'utf8' ).toString( 'base64' ) : null,
       event: req.formatted,
       components: req.components,
-      userStakeholder,
+      showRequestLocation: ![ 2, 3 ].includes( _.get( member, 'role', 0 ) ),
       user: req.user,
       footerUid: req.formatted.uid
     } );
