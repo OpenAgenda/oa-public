@@ -33,6 +33,8 @@ function parse( fields, { custom, tags, category } ) {
 
 async function transfer( formSchemaId, identifier, defaultAgendaId = null ) {
 
+  log( 'info', 'transfering event %s legacy to %s', identifier, formSchemaId );
+
   const {
     agendaId,
     fields,
@@ -57,23 +59,23 @@ async function transfer( formSchemaId, identifier, defaultAgendaId = null ) {
 
   if ( emptyLegacyCustom && current ) {
 
-    log( 'removing custom %s.%s', formSchemaId, identifier );
+    log( 'info', 'removing custom %s.%s', formSchemaId, identifier );
 
     await serviceRemove( formSchemaId, identifier );
 
   } else if ( emptyLegacyCustom && !current ) {
 
-    log( 'no custom values to transfer' );
+    log( 'info', 'no custom values to transfer' );
 
   } else if ( current ) {
 
-    log( 'updating custom %s.%s', formSchemaId, identifier );
+    log( 'info', 'updating custom %s.%s', formSchemaId, identifier );
 
     await serviceUpdate( formSchemaId, identifier, toTransfer );
 
   } else {
 
-    log( 'creating custom %s.%s', formSchemaId, identifier );
+    log( 'info', 'creating custom %s.%s', formSchemaId, identifier );
 
     await serviceCreate( formSchemaId, identifier, toTransfer );
 
