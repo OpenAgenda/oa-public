@@ -72,7 +72,7 @@ async function transfer( formSchemaId, identifier, defaultAgendaId = null ) {
     log( 'info', 'updating custom %s.%s', formSchemaId, identifier );
 
     await serviceUpdate( formSchemaId, identifier, toTransfer, {
-      partial: true
+      draft: true
     } );
 
   } else {
@@ -80,7 +80,7 @@ async function transfer( formSchemaId, identifier, defaultAgendaId = null ) {
     log( 'info', 'creating custom %s.%s: %j', formSchemaId, identifier, toTransfer );
 
     const result = await serviceCreate( formSchemaId, identifier, toTransfer, {
-      partial: true
+      draft: true
     } );
 
     if ( !_.get( result, 'success' ) ) {
