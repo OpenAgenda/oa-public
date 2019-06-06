@@ -9,8 +9,8 @@ module.exports = async ( req, res, next ) => {
   try {
 
     req.user = await accessTokens.getUser(
-      _.get( req, 'body.access_token' ),
-      _.get( req, 'body.nonce' )
+      _.get( req, 'headers.access-token', _.get( req, 'body.access_token' ) ),
+      _.get( req, 'headers.nonce', _.get( req, 'body.nonce' ) )
     );
 
     if ( !req.user ) throw new Error( 'could not find user matching token' );
