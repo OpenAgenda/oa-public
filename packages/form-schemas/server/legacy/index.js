@@ -142,7 +142,9 @@ async function transfer( agendaId ) {
 
   formSchema = await get( agendaId );
 
-  formSchema.fields = formSchema.fields.filter( f => !f.network );
+  if ( formSchema ) {
+    formSchema.fields = formSchema.fields.filter( f => !f.network );
+  }
 
   if ( operation === 'update' ) {
 
