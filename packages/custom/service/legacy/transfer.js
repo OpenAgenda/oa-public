@@ -75,9 +75,13 @@ async function transfer( formSchemaId, identifier, defaultAgendaId = null ) {
 
   } else {
 
-    log( 'info', 'creating custom %s.%s', formSchemaId, identifier );
+    log( 'info', 'creating custom %s.%s: %j', formSchemaId, identifier, toTransfer );
 
-    await serviceCreate( formSchemaId, identifier, toTransfer );
+    const result = await serviceCreate( formSchemaId, identifier, toTransfer );
+
+    if ( !_.get( result, 'success' ) ) {
+      log( 'warn', 'could not transfer custom %s.%s: %j', formSchemaId, identifier, result );
+    }
 
   }
 
