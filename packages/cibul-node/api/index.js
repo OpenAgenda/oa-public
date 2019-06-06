@@ -37,6 +37,7 @@ app.patch( /^\/v2.+/, mw.parseBodyData );
 // access token control and user load
 app.post( /^\/v2.+/, mw.verifyAndLoadAccessTokenUser );
 app.patch( /^\/v2.+/, mw.verifyAndLoadAccessTokenUser );
+app.delete( /^\/v2.+/, mw.verifyAndLoadAccessTokenUser );
 
 app.get( /^\/v2.+/, mw.verifyAndLoadKeyUser );
 
@@ -54,6 +55,7 @@ app.patch( '/v2/agendas/:agendaUid/events', mw.verifyMember );
 
 app.post( '/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights );
 app.patch( '/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights );
+app.delete( '/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights );
 
 
 // create the thing
