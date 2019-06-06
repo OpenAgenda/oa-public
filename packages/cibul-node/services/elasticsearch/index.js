@@ -23,9 +23,9 @@ const legacyES = {
     update: promisify( legacyLib.events().update ),
     knex: config.knex,
     imageBasePath: config.aws.imageBucketPath
-  } ),
+  } )
   searchReviews: promisify( legacyLib.reviews().search ),
-  searchEvents: promisify( legacyLib.events().search )
+  searchEvents: promisify( legacyLib.events().search ),
 }
 
 const LIMIT = 20;
@@ -37,7 +37,8 @@ module.exports = {
   searchAgendas,
   resync: resync.bind( null, legacyES ),
   refresh: refresh.bind( null, legacyES ),
-  updateEvent: legacyES.updateEvent
+  updateEvent: legacyES.updateEvent,
+  removeEvent: legacyES.removeEvent
 }
 
 function agendas( agenda ) {
