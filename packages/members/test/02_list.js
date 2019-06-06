@@ -63,7 +63,7 @@ describe( 'members - functional - list', () => {
 
     } );
 
-    it( 'length matches specified limit', async () => {
+    it( 'length matches specified limit', () => {
 
       members.length.should.equal( 1 );
 
