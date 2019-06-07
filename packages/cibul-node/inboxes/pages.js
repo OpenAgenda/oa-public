@@ -18,6 +18,7 @@ const users = require( '@openagenda/users' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
+const members = require( '../services/members' );
 
 const app = express();
 const getLabel = makeLabelGetter( labels );
@@ -928,13 +929,8 @@ app.use(
     private: null
   } ),
   async ( req, res, next ) => {
-    const isContributor = (await Promise.all( [
-      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
-      promisify( req.agendaInstance.isModerator )( { id: req.user.id } ),
-      promisify( req.agendaInstance.isContributor )( { id: req.user.id } )
-    ] )).some( Boolean );
 
-    if ( isContributor ) {
+    if ( await members.get( { agendaUid: req.agenda.uid, userUid: req.user.uid } ) ) {
       sessions.setFlash( req, res, getLabel( 'youreAlreadyContributor', req.lang ) );
       return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
     }
