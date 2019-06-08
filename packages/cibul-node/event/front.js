@@ -270,7 +270,7 @@ async function agendaEventShow( req, res, next ) {
       agendaId: req.agenda.id,
       private: req.agenda.private,
       adminNav: req.query.admin_nav,
-      redirect: req.query.admin_nav ? new Buffer( `${eventUrl}?${qs.stringify( req.query )}`, 'utf8' ).toString( 'base64' ) : null,
+      redirect: req.query.admin_nav ? cmn.makeRedirect( `${eventUrl}?${qs.stringify( req.query )}` ) : null,
       event: req.formatted,
       components: req.components,
       showRequestLocation: ![ 2, 3 ].includes( _.get( member, 'role', 0 ) ),

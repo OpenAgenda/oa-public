@@ -327,7 +327,7 @@ function _redirect( req, res ) {
 
   if ( req.query.redirect ) {
 
-    redirectUrl = req.query.redirect;
+    redirectUrl = cmn.getRedirect( req );
 
   } else if ( req.agenda ) {
 

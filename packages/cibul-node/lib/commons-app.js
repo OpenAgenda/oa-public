@@ -126,6 +126,7 @@ module.exports = {
 
   useEmbedGoogleAnalytics,
 
+  makeRedirect,
   getRedirect,                  // get redirect
 
   writeToCookie,
@@ -1023,6 +1024,12 @@ function checkCredential( name, options ) {
 
 }
 
+
+function makeRedirect( url ) {
+
+  return new Buffer( url, 'utf8' ).toString( 'base64' );
+
+}
 
 function getRedirect( req, paramName ) {
 
