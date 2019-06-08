@@ -90,18 +90,10 @@ module.exports = async ( ae, context ) => {
   }
 
 
-  if ( !context.legacy ) {
-
-    /**
-     * Anything happening here should NOT be triggered elsewhere by legacy parts of app
-     */
-
-    try {
-      await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
-    } catch ( e ) {
-      log( 'error', 'could not update legacy search for event %s', event.slug );
-    }
-
+  try {
+    await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
+  } catch ( e ) {
+    log( 'error', 'could not update legacy search for event %s', event.slug );
   }
 
   aggregatorNotify.create( { agenda, event, agendaEvent: ae } );
