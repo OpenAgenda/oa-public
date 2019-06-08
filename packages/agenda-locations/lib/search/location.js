@@ -1,5 +1,7 @@
 'use strict';
 
+const _ = require( 'lodash' );
+
 const log = require( '@openagenda/logs' )( 'location type' );
 
 var utils = require( '@openagenda/utils' ),
@@ -208,17 +210,16 @@ module.exports.query = function( q, offset, limit ) {
 
   if ( q.search && q.search.length ) {
 
-    query.multi_match = {
-      query : q.search,
-      type : 'cross_fields',
-      operator : 'and',
-      fields : [
+    query.dis_max = {
+      queries: [
         'name', 'address', 'city',
         'countryCode', 'region',
         'department', 'district',
         'postalCode', 'extId'
-      ]
-    }
+      ].map( f => ( {
+        match_phrase_prefix: _.set( {}, f, q.search )
+      } ) )
+    };
 
   }
 
