@@ -1025,39 +1025,24 @@ function checkCredential( name, options ) {
 }
 
 
-function makeRedirect( url ) {
+function makeRedirect( urlOrReq ) {
 
-  return new Buffer( url, 'utf8' ).toString( 'base64' );
+  return new Buffer(
+    _.isObject( urlOrReq ) ? urlOrReq.originalUrl : urlOrReq,
+    'utf8'
+  ).toString( 'base64' );
 
 }
 
-function getRedirect( req, paramName ) {
+function getRedirect( req, paramName = 'redirect' ) {
 
-  let redirectValue;
-
-  if ( !paramName ) {
-
-    paramName = 'redirect';
-
-  }
-
-  if ( !req.query[ paramName ] ) {
-
-    return false;
-
-  }
+  if ( !req.query[ paramName ] ) return false;
 
   try {
-
-    redirectValue = (new Buffer( req.query[ paramName ], 'base64' )).toString()
-
+    return (new Buffer( req.query[ paramName ], 'base64' )).toString();
   } catch ( e ) {
-
     log( 'error', 'invalid redirect value in request: %s', req.query[ paramName ] );
-
   }
-
-  return redirectValue;
 
 }
 
