@@ -26,34 +26,14 @@ const routes = {
 
   agendaJsonEvents: [ 'get', '/events.json', [
     checkKey(),
-    cacheMw.send(
-      'agendas',
-      'params.uid',
-      ( cached, req ) => {
-        _.set( req, 'agenda', {
-          uid: req.params.uid,
-          settings: cached.settings
-        } );
-
-        gaTrack( 'events', 'export', 'json' )( req );
-      }
-    ),
+    cacheMw.send( 'agendas', 'params.uid', cachedJson ),
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     agendaSvc.mw.search( perPage ),
     eventSvc.mw.cleanEvents,
     agendaSvc.mw.decorateEvents(),
     agendaSvc.mw.cleanJson,
-    cacheMw.set( 'agendas', 'agenda.uid', 30, req => JSON.stringify( {
-      settings: req.agenda.getSettings(),
-      response: {
-        readme: 'Results are paginated. See: https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda',
-        total: req.total,
-        offset: req.offset,
-        limit: req.limit,
-        events: req.formatted,
-      }
-    } ) ),
+    cacheMw.set( 'agendas', 'params.uid', 30, _cacheContent ),
     gaTrack( 'events', 'export', 'json' ),
     json
   ] ],
@@ -223,6 +203,22 @@ function json( req, res ) {
 
 }
 
+function cachedJson( cached, req ) {
+
+  const parsedCache = JSON.parse( cached );
+
+  _.set( req, 'agenda', {
+    uid: req.params.uid,
+    settings: cached.settings
+  } );
+
+  gaTrack( 'events', 'export', 'json' )( req );
+
+  res.set( 'Content-Type', 'application/json' );
+
+  res.send( parsedCache.response );
+}
+
 
 function addSource( req, res, next ) {
 
@@ -321,43 +317,17 @@ function _loadEmbedUids( req, res, next ) {
 
 }
 
+function _cacheContent( req ) {
 
-function _cachedJsonResponse( cached, req, res ) {
-
-  req.log( 'info', { cached: 'agenda:' + req.params.uid } );
-
-  res.set( 'Content-Type', 'application/json' );
-
-  res.send( cached );
-
-}
-
-
-function _cacheAgendaResource( req, res, next ) {
-
-  return ( req, res, next ) => {
-
-    sCache( 'agendas', req.agenda.uid ).set( req.url, JSON.stringify( {
+  return JSON.stringify( {
+    settings: req.agenda.getSettings(),
+    response: {
+      readme: 'Results are paginated. See: https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda',
       total: req.total,
       offset: req.offset,
       limit: req.limit,
       events: req.formatted,
-    } ), 10, err => {
-
-      if ( err ) {
-
-        req.log( 'error', { cached: 'agenda:' + req.agenda.uid, error: err, action: 'set' } );
-
-      } else {
-
-        req.log( 'info', { cached: 'agenda:' + req.agenda.uid, action: 'set' } );
-
-      }
-
-    } )
-
-    next();
-
-  }
+    }
+  } );
 
 }

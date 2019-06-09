@@ -21,6 +21,7 @@ const stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware'
 const unauthorizedIpLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedIp' ) );
 const utils = require( '@openagenda/utils' );
 
+const cacheMw = require( '../lib/cache.mw' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const embedSvc = require( '../services/embed' );
@@ -54,7 +55,7 @@ const middlewares = {
     cmn.useEmbedGoogleAnalytics,
     cmn.loadBaseData( _layoutData ),
     embedSvc.mw.loadCustomLayoutData,
-    embedShow
+    renderEmbedShow
   ]
 };
 
@@ -104,17 +105,22 @@ const routes = {
     showXhr( 'agenda/embedShow' ),
     cmn.useEmbedGoogleAnalytics,
     cmn.loadBaseData( _layoutData, 'oae.css' ),  // this needs to switch to embed base css ( can be deactivated )
-    embedShow
+    renderEmbedShow,
+    ( req, res ) => res.send( req.render )
   ] ],
 
   customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [
+    cacheMw.send( 'customEmbedShow', 'params.embedUid', ( cached, req, res ) => res.send( cached ) ),
     cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'uid', { cache: true } ),
-    cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
+    //useless if cache is used cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     embedSvc.mw.browserCache,
     agendaSvc.mw.search( perPage )
-  ].concat( middlewares.embedShow ) ],
+  ].concat( middlewares.embedShow ).concat( [
+    cacheMw.set( 'customEmbedShow', 'params.embedUid', 30, req => req.render ),
+    ( req, res ) => res.send( req.render )
+  ] ) ],
 
   customEmbedShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events', [
     cmn.redirectLegacySearch,
@@ -123,7 +129,9 @@ const routes = {
     cmn.checkAdministrator(),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     agendaSvc.mw.search( perPage, true )
-  ].concat( middlewares.embedShow ) ],
+  ].concat( middlewares.embedShow ).concat( [
+    ( req, res ) => res.send( req.render )
+  ] ) ],
 
   agendaSearch: [ 'get', '/agendas', [
     cmn.https,
@@ -334,7 +342,7 @@ function redirect( req, res, next ) {
 }
 
 
-function embedShow( req, res ) {
+function renderEmbedShow( req, res, next ) {
 
   agendas.get( {
     uid: req.agenda.uid
@@ -343,7 +351,7 @@ function embedShow( req, res ) {
     internal: true
   }, ( err, agenda ) => {
 
-    cmn.render( req, res, 'agenda/embedShow', ih( req.templateData, {
+    cmn.renderTemplate( req, 'agenda/embedShow', ih( req.templateData, {
       agenda: {
         $set: {
           uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
@@ -365,7 +373,15 @@ function embedShow( req, res ) {
           perPage
         }
       }
-    } ) );
+    } ), false, ( err, render ) => {
+
+      if ( err ) return next( err );
+
+      req.render = render;
+
+      next();
+
+    } );
 
   } );
 
