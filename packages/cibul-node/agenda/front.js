@@ -1,217 +1,192 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
-const sessions = require( '@openagenda/sessions' );
-const slugs = require( '@openagenda/slugs' );
-
-const agendaTags = require( '@openagenda/agenda-tags' );
-
+const async = require( 'async' );
 const ih = require( 'immutability-helper' );
-
 const qs = require( 'qs' );
 
-const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
-
+const agendas = require( '@openagenda/agendas' );
+const agendaSearch = require( '@openagenda/agenda-search' );
+const agendaSvc = require( '../services/agenda' );
+const agendaTags = require( '@openagenda/agenda-tags' );
 const controlDataSvc = require( '../services/legacy' ).controlData;
+const fb = require( '@openagenda/facebook' );
+const getAgendaSearchLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search' ) );
+const getEventLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
+const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/show' ) );
+const sessions = require( '@openagenda/sessions' );
+const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
+const slugs = require( '@openagenda/slugs' );
+const stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
+const unauthorizedIpLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedIp' ) );
+const utils = require( '@openagenda/utils' );
 
+const cmn = require( '../lib/commons-app' );
+const config = require( '../config' );
+const embedSvc = require( '../services/embed' );
+const eventFormat = require( '../services/event/middleware/format' );
+const eventSvc = require( '../services/event' );
 const layouts = require( '../services/lib/layouts' );
+const lib = require( '../lib/lib' );
+const mwHelpers = require( '../services/lib/middlewareHelpers' );
+const modLib = require( '../lib/moduleLib' );
 
-const  modLib = require( '../lib/moduleLib' ),
+const perPage = 20;
 
-  cmn = require( '../lib/commons-app' ),
+const middlewares = {
+  show: [
+    agendaSvc.mw.search( perPage ),
+    _format,
+    _formatShowLinks,
+    showXhr( 'agenda/show' ),
+    cmn.loadBaseData( _layoutData, 'oasfmain.css' ),
+    show
+  ],
+  embedShow: [
+    _optionalClearCookie,
+    _loadTagGroups,
+    _format,
+    _formatEmbedHeadLinks,
+    _formatCustomEmbedLinks,
+    embedSvc.mw.renderEventItems,
+    embedSvc.mw.renderHeader,
+    showXhr( 'agenda/embedShow' ),
+    cmn.useEmbedGoogleAnalytics,
+    cmn.loadBaseData( _layoutData ),
+    embedSvc.mw.loadCustomLayoutData,
+    embedShow
+  ]
+};
 
-  config = require( '../config' ),
+const routes = {
 
-  lib = require( '../lib/lib' ),
+  embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [
+    agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
+    cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
+    controlDataSvc.embedMiddleware,
+    controlDataSvc.middleware
+  ] ],
 
-  getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/show' ) ),
+  controlData: [ 'get', '/agendas/:uid/controldata', [
+    agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
+    cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
+    controlDataSvc.middleware
+  ] ],
 
-  getEventLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) ),
+  controlDataPrivate: [ 'get', '/agendas/:uid/controldata.prv', [
+    agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
+    cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'controlData', { uid: 'uid' } ) ),
+    cmn.checkStakeholder,
+    controlDataSvc.middleware
+  ] ],
 
-  unauthorizedIpLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedIp' ) ),
+  agendaFacebook: [ 'post', '/facebook/tab', [
+    cmn.redirectLegacySearch,
+    cmn.useEmbedGoogleAnalytics,
+    fb.tab.loadAgendaId,
+    _loadAgendaByAgendaId,
+    cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
+    _redirectToEmbed
+  ]],
 
-  getAgendaSearchLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search' ) ),
+  agendaEmbedShow: [ 'get', '/agendas/:uid/embed/events', [
+    cmn.redirectLegacySearch,
+    agendaSvc.mw.load( 'uid', { cache: true } ),
+    cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
+    agendaSvc.mw.browserCache,
+    agendaSvc.mw.search( perPage ),
+    _format,
+    _appendFacebookParams,
+    _formatEmbedHeadLinks,
+    _formatEmbedLinks,
+    embedSvc.mw.renderEventItems,
+    embedSvc.mw.renderHeader,
+    showXhr( 'agenda/embedShow' ),
+    cmn.useEmbedGoogleAnalytics,
+    cmn.loadBaseData( _layoutData, 'oae.css' ),  // this needs to switch to embed base css ( can be deactivated )
+    embedShow
+  ] ],
 
-  agendaSvc = require( '../services/agenda' ),
+  customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [
+    cmn.redirectLegacySearch,
+    agendaSvc.mw.load( 'uid', { cache: true } ),
+    cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
+    embedSvc.mw.load( 'embedUid', 'uid' ),
+    embedSvc.mw.browserCache,
+    agendaSvc.mw.search( perPage )
+  ].concat( middlewares.embedShow ) ],
 
-  // newer dedicated service
-  agendas = require( '@openagenda/agendas' ),
+  customEmbedShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events', [
+    cmn.redirectLegacySearch,
+    ( req, res, next ) => { req.preview = true; next() },
+    agendaSvc.mw.load( 'uid', { cache: true } ),
+    cmn.checkAdministrator(),
+    embedSvc.mw.load( 'embedUid', 'uid' ),
+    agendaSvc.mw.search( perPage, true )
+  ].concat( middlewares.embedShow ) ],
 
-  agendaSearch = require( '@openagenda/agenda-search' ),
+  agendaSearch: [ 'get', '/agendas', [
+    cmn.https,
+    _redirectSlashed,
+    _modifiedSince1am,
+    agendaSearch.mw.list,
+    agendaSearchPage
+  ] ],
 
-  eventSvc = require( '../services/event' ),
+  agendaSearchFormats: [ 'get', '/agendas.:format', agendaSearch.mw.list ],
 
-  eventFormat = require( '../services/event/middleware/format' ),
+  agendaSearchRebuild: [ 'get', '/agendas/rebuild', [
+    agendaSearch.mw.rebuild,
+    agendaSearchRedirect.bind( null, 'rebuilding agenda search index' )
+  ] ],
 
-  embedSvc = require( '../services/embed' ),
+  agendaSearchUpdate: [ 'get', '/agendas/update', [
+    agendaSearch.mw.update,
+    agendaSearchRedirect.bind( null, 'updating agenda search index ( with agendas updated less than 1 hour ago )' )
+  ] ],
 
-  mwHelpers = require( '../services/lib/middlewareHelpers' ),
+  agendaRedirect: [ 'get', '/agendas/:uid', [
+    cmn.redirectLegacySearch,
+    agendas.middleware.load( {
+      private: null,
+      namespaces: { identifiers: { uid: 'params.uid' } }
+    } ),
+    redirect
+  ] ],
 
-  stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' ),
+  agendaShowPrivate: [ 'get', '/:slug.prv', [
+    cmn.https,
+    cmn.redirectLegacySearch,
+    agendaSvc.mw.load( 'slug', { cache: true } ),
+    cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug' } ) ),
+    sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', {
+      slug: 'slug',
+      msg: {
+        $raw: 'limitedAccessAgenda'
+      },
+      redirect: {
+        $base64Route: [ 'agendaShowPrivate', { slug: 'slug' } ]
+      }
+    } ) ),
+    stakeholderMw.agenda().get(),
+    cmn.ifIsNot( 'stakeholder', cmn.renderUnauthorized() ),
+  ].concat( middlewares.show ) ],
 
-  perPage = 20,
+  agendaShow: [ 'get', '/:slug', [
+    cmn.https,
+    cmn.redirectLegacySearch,
+    agendaSvc.mw.load( 'slug', { cache: true } ),
+    cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaShowPrivate', { slug: 'slug' } ) ),
+    agendaSvc.mw.browserCache,
+  ].concat( middlewares.show ) ],
 
-  async = require( 'async' ),
+  agendaUnauthorized: [ 'get', '/:slug/unauthorized/ip', [
+    cmn.loadBaseData( 'oasfmain.css' ),
+    agendaSvc.mw.load( 'slug', { cache: true } ),
+    unauthorizedIP
+  ] ]
 
-  fb = require( '@openagenda/facebook' ),
-
-  utils = require( '@openagenda/utils' ),
-
-  middlewares = {
-    show: [
-      agendaSvc.mw.search( perPage ),
-      _format,
-      _formatShowLinks,
-      showXhr( 'agenda/show' ),
-      cmn.loadBaseData( _layoutData, 'oasfmain.css' ),
-      show
-    ],
-    embedShow: [
-      _optionalClearCookie,
-      _loadTagGroups,
-      _format,
-      _formatEmbedHeadLinks,
-      _formatCustomEmbedLinks,
-      embedSvc.mw.renderEventItems,
-      embedSvc.mw.renderHeader,
-      showXhr( 'agenda/embedShow' ),
-      cmn.useEmbedGoogleAnalytics,
-      cmn.loadBaseData( _layoutData ),
-      embedSvc.mw.loadCustomLayoutData,
-      embedShow
-    ]
-  },
-
-  routes = {
-
-    embedControlData: [ 'get', '/agendas/:uid/embeds/:embedUid/controldata', [
-      agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
-      cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
-      controlDataSvc.embedMiddleware,
-      controlDataSvc.middleware
-    ] ],
-
-    controlData: [ 'get', '/agendas/:uid/controldata', [
-      agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
-      cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
-      controlDataSvc.middleware
-    ] ],
-
-    controlDataPrivate: [ 'get', '/agendas/:uid/controldata.prv', [
-      agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
-      cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'controlData', { uid: 'uid' } ) ),
-      cmn.checkStakeholder,
-      controlDataSvc.middleware
-    ] ],
-
-    agendaFacebook: [ 'post', '/facebook/tab', [
-      cmn.redirectLegacySearch,
-      cmn.useEmbedGoogleAnalytics,
-      fb.tab.loadAgendaId,
-      _loadAgendaByAgendaId,
-      cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
-      _redirectToEmbed
-    ]],
-
-    agendaEmbedShow: [ 'get', '/agendas/:uid/embed/events', [
-      cmn.redirectLegacySearch,
-      agendaSvc.mw.load( 'uid', { cache: true } ),
-      cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
-      agendaSvc.mw.browserCache,
-      agendaSvc.mw.search( perPage ),
-      _format,
-      _appendFacebookParams,
-      _formatEmbedHeadLinks,
-      _formatEmbedLinks,
-      embedSvc.mw.renderEventItems,
-      embedSvc.mw.renderHeader,
-      showXhr( 'agenda/embedShow' ),
-      cmn.useEmbedGoogleAnalytics,
-      cmn.loadBaseData( _layoutData, 'oae.css' ),  // this needs to switch to embed base css ( can be deactivated )
-      embedShow
-    ] ],
-
-    customEmbedShow: [ 'get', '/agendas/:uid/embeds/:embedUid/events', [
-      cmn.redirectLegacySearch,
-      agendaSvc.mw.load( 'uid', { cache: true } ),
-      cmn.ifIs( 'agenda.private', ( req, res, next ) => { next( { code: 403 } ) } ),
-      embedSvc.mw.load( 'embedUid', 'uid' ),
-      embedSvc.mw.browserCache,
-      agendaSvc.mw.search( perPage )
-    ].concat( middlewares.embedShow ) ],
-
-    customEmbedShowPreview: [ 'get', '/agendas/:uid/previewEmbeds/:embedUid/events', [
-      cmn.redirectLegacySearch,
-      ( req, res, next ) => { req.preview = true; next() },
-      agendaSvc.mw.load( 'uid', { cache: true } ),
-      cmn.checkAdministrator(),
-      embedSvc.mw.load( 'embedUid', 'uid' ),
-      agendaSvc.mw.search( perPage, true )
-    ].concat( middlewares.embedShow ) ],
-
-    agendaSearch: [ 'get', '/agendas', [
-      cmn.https,
-      _redirectSlashed,
-      _modifiedSince1am,
-      agendaSearch.mw.list,
-      agendaSearchPage
-    ] ],
-
-    agendaSearchFormats: [ 'get', '/agendas.:format', agendaSearch.mw.list ],
-
-    agendaSearchRebuild: [ 'get', '/agendas/rebuild', [
-      agendaSearch.mw.rebuild,
-      agendaSearchRedirect.bind( null, 'rebuilding agenda search index' )
-    ] ],
-
-    agendaSearchUpdate: [ 'get', '/agendas/update', [
-      agendaSearch.mw.update,
-      agendaSearchRedirect.bind( null, 'updating agenda search index ( with agendas updated less than 1 hour ago )' )
-    ] ],
-
-    agendaRedirect: [ 'get', '/agendas/:uid', [
-      cmn.redirectLegacySearch,
-      agendas.middleware.load( {
-        private: null,
-        namespaces: { identifiers: { uid: 'params.uid' } }
-      } ),
-      redirect
-    ] ],
-
-    agendaShowPrivate: [ 'get', '/:slug.prv', [
-      cmn.https,
-      cmn.redirectLegacySearch,
-      agendaSvc.mw.load( 'slug', { cache: true } ),
-      cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug' } ) ),
-      sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', {
-        slug: 'slug',
-        msg: {
-          $raw: 'limitedAccessAgenda'
-        },
-        redirect: {
-          $base64Route: [ 'agendaShowPrivate', { slug: 'slug' } ]
-        }
-      } ) ),
-      stakeholderMw.agenda().get(),
-      cmn.ifIsNot( 'stakeholder', cmn.renderUnauthorized() ),
-    ].concat( middlewares.show ) ],
-
-    agendaShow: [ 'get', '/:slug', [
-      cmn.https,
-      cmn.redirectLegacySearch,
-      agendaSvc.mw.load( 'slug', { cache: true } ),
-      cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaShowPrivate', { slug: 'slug' } ) ),
-      agendaSvc.mw.browserCache,
-    ].concat( middlewares.show ) ],
-
-    agendaUnauthorized: [ 'get', '/:slug/unauthorized/ip', [
-      cmn.loadBaseData( 'oasfmain.css' ),
-      agendaSvc.mw.load( 'slug', { cache: true } ),
-      unauthorizedIP
-    ] ]
-
-  };
+};
 
 module.exports = function( path ) {
 
