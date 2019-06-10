@@ -3,42 +3,52 @@
 const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 
+const ESNode = require( '@openagenda/es-node' );
+
 const coms = require( '../../lib/coms' );
 const refresh = require( './lib/refresh' );
 const resync = require( './lib/resync' );
+const updateReview = require( './lib/updateReview' );
+const updateEvent = require( './lib/updateEvent' );
 
-const config = require( '../../config' );
-
-const legacyLib = require( '@openagenda/es-node' )( config.es );
-
-// make things async
-const legacyES = {
-  refreshIndex: promisify( legacyLib.refreshIndex ),
-  resetIndex: promisify( legacyLib.resetIndex ),
-  updateReview: require( './lib/updateReview' )( {
-    update: promisify( legacyLib.reviews().update ),
-    knex: config.knex
-  } ),
-  updateEvent: require( './lib/updateEvent' )( {
-    update: promisify( legacyLib.events().update ),
-    knex: config.knex,
-    imageBasePath: config.aws.imageBucketPath
-  } ),
-  searchReviews: promisify( legacyLib.reviews().search ),
-  searchEvents: promisify( legacyLib.events().search ),
-}
+let legacyES;
 
 const LIMIT = 20;
 
 module.exports = {
-  initless: true,
-  agendas,
-  search,
-  searchAgendas,
-  resync: resync.bind( null, legacyES ),
-  refresh: refresh.bind( null, legacyES ),
-  updateEvent: legacyES.updateEvent,
-  removeEvent: legacyES.removeEvent
+  init
+}
+
+function init( config ) {
+
+  const legacyLib = ESNode( config.es );
+
+  legacyES = {
+    refreshIndex: promisify( legacyLib.refreshIndex ),
+    resetIndex: promisify( legacyLib.resetIndex ),
+    updateReview: updateReview( {
+      update: promisify( legacyLib.reviews().update ),
+      knex: config.knex
+    } ),
+    updateEvent: updateEvent( {
+      update: promisify( legacyLib.events().update ),
+      knex: config.knex,
+      imageBasePath: config.aws.imageBucketPath
+    } ),
+    searchReviews: promisify( legacyLib.reviews().search ),
+    searchEvents: promisify( legacyLib.events().search ),
+  }
+
+  Object.assign( module.exports, {
+    agendas,
+    search,
+    searchAgendas,
+    resync: resync.bind( null, legacyES ),
+    refresh: refresh.bind( null, legacyES ),
+    updateEvent: legacyES.updateEvent,
+    removeEvent: legacyES.removeEvent
+  } )
+
 }
 
 function agendas( agenda ) {

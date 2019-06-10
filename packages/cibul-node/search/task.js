@@ -19,8 +19,6 @@ const loadEventReferences = require( '../services/elasticsearch/lib/loadEventRef
 const utils = require( '../lib/utils' );
 const model = require( '../services/model' );
 
-const ES = require( '@openagenda/es-node' )( config.es );
-
 const jobHandlers = {
   'index.resync' : _resync,
   //'event.publish' : _publish( 'events' ),
