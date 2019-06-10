@@ -1,10 +1,13 @@
 "use strict";
 
+process.env.NODE_ENV = 'test';
+
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 const fs = require( 'fs' );
 const ih = require( 'immutability-helper' );
 const mysql = require( 'mysql' );
+const redis = require( 'redis' );
 const { promisify } = require( 'util' );
 const should = require( 'should' );
 const VError = require( 'verror' );
@@ -19,6 +22,8 @@ const custom = require( '@openagenda/custom' );
 const config = require( '../config' );
 const core = require( '../core' );
 
+const _sleep = promisify( setTimeout.bind( null, rs => rs() ) );
+
 const testConfig = {
   queues: {},
   db: {
@@ -31,6 +36,7 @@ const testConfig = {
     port: 6379
   },
   schemas: {
+    apiKeySet: 'api_key_set', // required by users svc
     agenda: 'agenda',
     eventService: 'event_2',
     agendaEventService: 'agenda_event',
@@ -39,6 +45,7 @@ const testConfig = {
     occurrence: 'legacy_occurrence',
     eventTranslation: 'legacy_event_translation',
     location: 'location',
+    key: 'key', // users svc
     eventLocation: 'legacy_event_location',
     eventLocationTranslation: 'legacy_event_location_translation',
     eventEditor: 'legacy_event_editor',
@@ -47,7 +54,9 @@ const testConfig = {
     agendaCategory: 'legacy_agenda_category',
     agendaTag: 'legacy_agenda_tag',
     agendaEventTag: 'legacy_agenda_event_tag',
+    unsubscribed: 'unsubscribed', // users svc
     user: 'user',
+    userToken: 'user_token', // users svc
     stakeholder: 'member',
     stakeholderSettings: 'member_settings'
   },
@@ -93,12 +102,37 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
   this.timeout( 20000 );
 
+  const eventData = {
+    slug: 'un-evenement',
+    title: {
+      fr: 'Un événement'
+    },
+    description: {
+      fr: 'Un tout petit événement'
+    },
+    timings: [ {
+      begin: new Date( '2019-05-06T10:00:00' ),
+      end: new Date( '2019-05-06T11:00:00' )
+    } ],
+    keywords: {
+      fr: [ 'un', 'deux', 'trois' ]
+    },
+    location: {
+      uid: 123
+    },
+    'categories-agenda-metropolitain': 42,
+    'thematiques-bordeaux-metropole' : [ 3, 4 ],
+    accessibility: { sl: true }
+  };
+
   before( () => {
 
     testConfig.knex = knexLib( {
       client: 'mysql',
       connection: testConfig.db,
     } );
+
+    testConfig.redisClient = redis.createClient();
 
   } );
 
@@ -128,7 +162,11 @@ describe( 'core - functional ( server ): agenda event create', function() {
         'agendaLocations',
         'formSchemas',
         'custom',
-        'eventSearch'
+        'eventSearch',
+        'members',
+        'legacy',
+        'users',
+        'keys'
       ]
     } );
 
@@ -140,7 +178,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
   } );
 
-  describe( 'successful creates', () => {
+  describe( 'anonymous create', () => {
 
     let event;
 
@@ -169,34 +207,11 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
     before( async () => {
 
-      const result = await core.agendas( 17026855 ).events.create( {
-        slug: 'un-evenement',
-        title: {
-          fr: 'Un événement'
-        },
-        description: {
-          fr: 'Un tout petit événement'
-        },
-        timings: [ {
-          begin: new Date( '2019-05-06T10:00:00' ),
-          end: new Date( '2019-05-06T11:00:00' )
-        } ],
-        keywords: {
-          fr: [ 'un', 'deux', 'trois' ]
-        },
-        location: {
-          uid: 123
-        },
-        'categories-agenda-metropolitain': 42,
-        'thematiques-bordeaux-metropole' : [ 3, 4 ],
-        accessibility: { sl: true }
-      } );
+      const result = await core.agendas( 17026855 ).events.create( eventData );
 
       event = result.created.event;
 
     } );
-
-
 
     after( () => {
 
@@ -411,6 +426,42 @@ describe( 'core - functional ( server ): agenda event create', function() {
     it( 'onCreate interface gets context', () => {
 
       onCreateCalls[ 0 ][ 1 ].transferToLegacy.should.equal( true );
+
+    } );
+
+  } );
+
+
+  describe( 'create by identified user', () => {
+
+    let event;
+
+    before( () => {
+      events.init( events.getConfig() );
+    } );
+
+
+    before( async () => {
+
+      const result = await core.agendas( 17026855 ).events.create( eventData, {
+        context: {
+          userUid: 63170200
+        }
+      } );
+
+      event = result.created.event;
+
+    } );
+
+    it( 'user that was not a member becomes a member on open contribution agenda with no details on member required', async () => {
+
+      // completing member data with userUid and agendaUid is done after
+      // on an onCreate of the agendaStakeholder service.
+      await _sleep( 300 );
+
+      const row = await testConfig.knex( 'member' ).first( '*' ).where( 'user_uid', 63170200 );
+
+      row.user_uid.should.equal( 63170200 );
 
     } );
 
