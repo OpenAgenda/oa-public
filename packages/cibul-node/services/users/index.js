@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const errors = require( '@feathersjs/errors' );
 const users = require( '@openagenda/users' );
 const svcHooks = require( '@openagenda/users/hooks' );
@@ -209,7 +211,10 @@ module.exports.init = async config => {
     },
     knex: config.knex,
     mysql: config.db,
-    schemas: config.schemas,
+    schemas: _.pick( config.schemas, [
+      // explicit list schemas used by service
+      'user', 'apiKeySet', 'unsubscribed', 'key', 'userToken'
+    ] ),
     imagePath: config.aws.imageBucketPath,
     files: {
       bucket: config.aws.bucket,
