@@ -34,7 +34,8 @@ const service = {
   tasks: {
     loadFromLegacy: require( '../tasks/loadFromLegacy' )
   },
-  getConfig: () => config
+  getConfig: () => config,
+  contributionTypes: require( './validate/contributionTypes' )
 };
 
 const log = logger( 'index' );
