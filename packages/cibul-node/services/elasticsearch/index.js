@@ -40,9 +40,9 @@ function init( config ) {
   }
 
   Object.assign( module.exports, {
-    agendas,
-    search,
-    searchAgendas,
+    agendas: agendas.bind( null, legacyLib ),
+    search: search.bind( null, legacyLib ),
+    searchAgendas: search.bind( null, legacyLib ),
     resync: resync.bind( null, legacyES ),
     refresh: refresh.bind( null, legacyES ),
     updateEvent: legacyES.updateEvent,
@@ -51,7 +51,7 @@ function init( config ) {
 
 }
 
-function agendas( agenda ) {
+function agendas( legacyLib, agenda ) {
 
   return {
     search: _search,
@@ -66,7 +66,7 @@ function agendas( agenda ) {
       options = {};
     }
 
-    search( query, _.extend( {
+    search( legacyLib, query, _.extend( {
       agendaId: agenda.id
     }, options ), cb );
 
@@ -79,7 +79,7 @@ function agendas( agenda ) {
       options = {};
     }
 
-    aggregate( query, _.extend( {
+    aggregate( legacyLib, query, _.extend( {
       agendaId: agenda.id
     }, options ), cb );
 
@@ -108,7 +108,7 @@ function agendas( agenda ) {
 }
 
 
-function searchAgendas( query, options, cb ) {
+function searchAgendas( legacyLib, query, options, cb ) {
 
   if ( arguments.length == 2 ) {
     cb = options;
@@ -127,7 +127,7 @@ function searchAgendas( query, options, cb ) {
 }
 
 
-function aggregate( query, options, cb ) {
+function aggregate( legacyLib, query, options, cb ) {
 
   if ( arguments.length == 2 ) {
 
@@ -146,7 +146,7 @@ function aggregate( query, options, cb ) {
 }
 
 
-function search( query, options, cb ) {
+function search( legacyLib, query, options, cb ) {
 
   if ( arguments.length == 2 ) {
 
