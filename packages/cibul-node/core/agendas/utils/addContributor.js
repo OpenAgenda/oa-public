@@ -25,6 +25,6 @@ async function userIsNotMember( agenda, userUid ) {
   return !( await members.get( {
     agendaUid: agenda.uid,
     userUid
-  } ) )
+  } ) );
 
 }

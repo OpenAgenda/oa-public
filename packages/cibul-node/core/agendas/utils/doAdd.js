@@ -82,7 +82,7 @@ module.exports = async ( agenda, eventUid, clean, options = {} ) => {
 
   }
 
-  if ( context.userUid && agendaIsOpen( agenda ) && userIsNotMember( context.userUid ) ) {
+  if ( context.userUid && agendaIsOpen( agenda ) && userIsNotMember( agenda, context.userUid ) ) {
     log( 'user %s is not a member on open contribution agenda that does not require member info.', context.userUid );
     await addContributor( agenda, context.userUid );
   }
