@@ -19,7 +19,7 @@ module.exports = ( { update, remove, knex, imageBasePath } ) => {
     try {
       formatted = await formatEvent( { knex, imageBasePath }, identifier );
     } catch ( e ) {
-      log( 'error', 'event could not be formatted for legacy indexing', identifier, e );
+
       if ( !removeInvalid ) throw e;
 
       toRemoveId = _.isObject( identifier ) ?
