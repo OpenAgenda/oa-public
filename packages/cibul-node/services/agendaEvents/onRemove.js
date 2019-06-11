@@ -27,8 +27,13 @@ module.exports = async ( ae, context ) => {
   /**
    * Anything happening hear should not be triggered elsewhere by legacy parts of app
    */
-
-  if ( context.legacy ) return;
+  if ( !context.deletion ) {
+    try {
+      await legacyEventSearch.updateEvent( { uid: ae.eventUid }, { removeUnreferenced: true } );
+    } catch ( e ) {
+      log( 'error', 'could not update legacy search for event %s', ae.eventUid );
+    }
+  }
 
   if ( !event ) {
 
@@ -38,11 +43,7 @@ module.exports = async ( ae, context ) => {
 
   }
 
-  try {
-    await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ), { removeUnreferenced: true } );
-  } catch ( e ) {
-    log( 'error', 'could not update legacy search for event %s', event.slug );
-  }
+  if ( context.legacy ) return;
 
   aggregatorNotify.remove( { agenda, event } );
 

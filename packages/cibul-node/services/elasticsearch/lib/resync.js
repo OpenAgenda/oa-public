@@ -166,11 +166,13 @@ function _removeZombies( ES, type, params ) {
 
         if ( dbRef ) return _delay( params.interval, next )();
 
-        log( 'info', 'removing %s zombie id %s', type, obj[ type=='reviews' ? 'reviewId' : 'eventId' ] );
+        const id = obj[ type=='reviews' ? 'reviewId' : 'eventId' ];
+
+        log( 'info', 'removing %s zombie id %s', type, id );
 
         count.removed++;
 
-        lib[ type ]().remove( obj[ type=='reviews' ? 'reviewId' : 'eventId' ], _delay( params.interval, next ) );
+        ( type === 'reviews' ? ES.updateReview : ES.updateEvent )( id, { removeUnreferenced: true, removeInvalid: true } ).then( next );
 
       } );
 

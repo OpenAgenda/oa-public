@@ -10,6 +10,7 @@ const refresh = require( './lib/refresh' );
 const resync = require( './lib/resync' );
 const updateReview = require( './lib/updateReview' );
 const updateEvent = require( './lib/updateEvent' );
+const removeEvent = require( './lib/removeEvent' );
 
 let legacyES;
 
@@ -31,27 +32,36 @@ function init( config ) {
       knex: config.knex
     } ),
     updateEvent: updateEvent( {
+      remove: promisify( legacyLib.events().remove ),
       update: promisify( legacyLib.events().update ),
       knex: config.knex,
       imageBasePath: config.aws.imageBucketPath
     } ),
+    removeEvent: removeEvent( {
+      remove: promisify( legacyLib.events().remove ),
+      knex: config.knex
+    } ),
     searchReviews: promisify( legacyLib.reviews().search ),
-    searchEvents: promisify( legacyLib.events().search ),
+    searchEvents: promisify( legacyLib.events().search )
   }
 
   Object.assign( module.exports, {
-    agendas: agendas.bind( null, legacyLib ),
+    agendas: agendas.bind( null, {
+      legacyLib,
+      channel: config.mainChannel
+    } ),
     search: search.bind( null, legacyLib ),
     searchAgendas: search.bind( null, legacyLib ),
     resync: resync.bind( null, legacyES ),
     refresh: refresh.bind( null, legacyES ),
     updateEvent: legacyES.updateEvent,
-    removeEvent: legacyES.removeEvent
+    removeEvent: legacyES.removeEvent,
+    ES: legacyLib
   } )
 
 }
 
-function agendas( legacyLib, agenda ) {
+function agendas( { legacyLib, channel }, agenda ) {
 
   return {
     search: _search,
@@ -91,7 +101,7 @@ function agendas( legacyLib, agenda ) {
 
       if ( err ) return cb( err );
 
-      coms.publish( config.mainChannel, {
+      coms.publish( channel, {
         name: 'agenda.update',
         values: {
           id: agenda.id,
