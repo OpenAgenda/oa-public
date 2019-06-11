@@ -26,6 +26,7 @@ const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const embedSvc = require( '../services/embed' );
 const eventFormat = require( '../services/event/middleware/format' );
+const pickEventImage = require( '../services/event/lib/pickImage' );
 const eventSvc = require( '../services/event' );
 const layouts = require( '../services/lib/layouts' );
 const lib = require( '../lib/lib' );
@@ -526,7 +527,7 @@ function _formatEventItem( event, req, cb ) {
     tags: [],
     title: inst.getTitle(),
     image: img ? img/*.replace( 'cibuldev', 'cibul' )*/ : false,
-    thumbnail: inst.getThumbnail( false ),
+    thumbnail: pickEventImage( config, inst, 'thumbnail' ),
     description: inst.getDescription(),
     freeText: inst.getEnrichedFreeText( false ),
     placeName: inst.getLocationName(),
