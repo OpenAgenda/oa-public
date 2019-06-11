@@ -203,7 +203,7 @@ function json( req, res ) {
 
 }
 
-function cachedJson( cached, req ) {
+function cachedJson( cached, req, res ) {
 
   const parsedCache = JSON.parse( cached );
 
