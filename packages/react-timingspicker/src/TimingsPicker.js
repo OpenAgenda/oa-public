@@ -167,8 +167,6 @@ class TimingsPicker extends Component {
       onChange,
       allowedTimings,
       classNamePrefix,
-      selectStyles,
-      modalStyle,
       locale
     } = this.props;
     const { activeWeek, weekStartsOn, breakpoint } = this.state;
@@ -200,7 +198,6 @@ class TimingsPicker extends Component {
             onMonthChange={this.onMonthChange}
             onYearChange={this.onYearChange}
             classNamePrefix={classNamePrefix}
-            selectStyles={selectStyles}
           />
 
           <div className={`${classNamePrefix}clearfix`} />

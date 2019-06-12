@@ -106,6 +106,17 @@
     margin-right: 15px;
 }
 
+.rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector__Select__option,
+.rtp__calendar .rtp__header .rtp__selectors .rtp__year-selector__Select__option {
+    color: #666666;
+}
+
+.rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector__Select__single-value,
+.rtp__calendar .rtp__header .rtp__selectors .rtp__year-selector__Select__single-value {
+    text-align: left;
+    color: #666666;
+}
+
 /* Calendar */
 
 .rtp__calendar .rtp__index-column {
