@@ -370,7 +370,6 @@
     position: sticky;
     top: 3px;
     color: #fff;
-    height: 13px;
     line-height: 13px;
     font-weight: bold;
     font-size: 13px;
@@ -380,6 +379,9 @@
 }
 
 .rtp__calendar .rtp__body .rtp__timing-remove {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
     float: right;
     color: #fff;
     height: 14px;
@@ -388,6 +390,8 @@
     font-size: 16px;
     padding-right: 2px;
     cursor: pointer;
+    z-index: 1;
+    margin-bottom: 6px;
 }
 
 .rtp__calendar .rtp__body .rtp__selection-timing {
@@ -412,19 +416,16 @@
 /********************/
 
 .rtp__calendar.rtp__md .rtp__body .rtp__timing-value {
-    height: 11px;
     line-height: 11px;
     font-size: 11px;
 }
 
 .rtp__calendar.rtp__sm .rtp__body .rtp__timing-value {
-    height: 11px;
     line-height: 10px;
     font-size: 11px;
 }
 
 .rtp__calendar.rtp__xs .rtp__body .rtp__timing-value {
-    height: 11px;
     line-height: 10px;
     font-size: 11px;
 }
