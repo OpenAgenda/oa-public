@@ -74,6 +74,7 @@ class TimingsPicker extends Component {
       md: 768
     },
     locale: 'en',
+    locales: null
   };
 
   state = {
@@ -81,7 +82,8 @@ class TimingsPicker extends Component {
     width: 0,
     height: 0,
     breakpoint: null,
-    weekStartsOn: 0
+    weekStartsOn: 0,
+    locales: null
   };
 
   schedulerRef = React.createRef();
@@ -106,6 +108,15 @@ class TimingsPicker extends Component {
           new Date()
         );
       }
+    }
+
+    if ( props.locale !== state.locale || props.locales !== state.locales ) {
+      derivedState.locale = props.locale;
+      derivedState.locales = props.locales;
+      derivedState.messages = {
+        ...localeData[ props.locale ],
+        ...(props.locales && props.locales[ props.locale ])
+      };
     }
 
     if ( Object.keys( derivedState ).length ) {
@@ -169,8 +180,7 @@ class TimingsPicker extends Component {
       classNamePrefix,
       locale
     } = this.props;
-    const { activeWeek, weekStartsOn, breakpoint } = this.state;
-    const messages = localeData[ locale ] || localeData.en;
+    const { messages, activeWeek, weekStartsOn, breakpoint } = this.state;
 
     return (
       <IntlProvider locale={locale} key={locale} messages={messages}>

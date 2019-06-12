@@ -35,4 +35,14 @@ storiesOf( 'App', module )
       ]}
       locale="fr"
     />
+  ) )
+  .add( 'override locales', () => (
+    <TimingsPicker
+      locales={{
+        fr: {
+          'rtp.defineTiming': 'Clique et glisse !'
+        }
+      }}
+      locale="fr"
+    />
   ) );
