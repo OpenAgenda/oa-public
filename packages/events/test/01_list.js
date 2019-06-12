@@ -277,6 +277,16 @@ describe( 'events - functional (server): list', function() {
 
   } );
 
+  it( 'only specified fields can be fetched', async () => {
+
+    const { events } = await svc.list( { uid: 48641508 }, 0, 1, { fetched: [ 'uid' ] } );
+
+    events.should.eql( [ {
+      uid: 48641508
+    } ] );
+
+  } );
+
 
   it( 'if image is provided, image path is placed in base key', done => {
 

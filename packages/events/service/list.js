@@ -31,7 +31,8 @@ function list( query, offset, limit, options, cb ) {
       total: false,
       internal: false,
       detailed: false,
-      useDefaultImage: false
+      useDefaultImage: false,
+      fetched: null
     }
   } );
 
@@ -63,6 +64,7 @@ function list( query, offset, limit, options, cb ) {
         order: cleanQuery.order,
         internal: cleanOptions.internal,
         detailed: cleanOptions.detailed,
+        fetched: cleanOptions.fetched,
         useDefaultImage: params.options.useDefaultImage,
         includePrivate,
         includeDraft: cleanQuery.draft || cleanQuery.draft === null
@@ -95,7 +97,7 @@ function list( query, offset, limit, options, cb ) {
 }
 
 
-function _list( knex, limit, offset, { order, internal, detailed, useDefaultImage, includePrivate, includeDraft } ) {
+function _list( knex, limit, offset, { order, internal, detailed, useDefaultImage, includePrivate, includeDraft, fetched } ) {
 
   // get fields which need to be in list
   let listFields = map
@@ -111,6 +113,8 @@ function _list( knex, limit, offset, { order, internal, detailed, useDefaultImag
       return !internalField || ( internalField && displayInternal );
 
     } )
+
+    .filter( f => fetched.length ? fetched.includes( typeof f === 'string' ? f : f.obj ) : true )
 
     .map( f => typeof f === 'string' ? f : f.db );
 
@@ -138,17 +142,13 @@ function _list( knex, limit, offset, { order, internal, detailed, useDefaultImag
 
       return events.map( e => dbParse.toObj( e, true ) )
 
-        .map( event => {
-
-          event.image = decorateImage( event.image, {
+        .map( event => event.image ? Object.assign( event, {
+          image: decorateImage( event.image, {
             imagePath: config.image.base,
             useDefaultPath: useDefaultImage,
             defaultPath: config.image.default
-          } );
-
-          return event;
-
-        } );
+          } )
+        } ) : event );
 
     } );
 
