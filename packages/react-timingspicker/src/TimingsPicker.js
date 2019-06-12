@@ -66,6 +66,8 @@ function getClosestTiming( value ) {
 
 class TimingsPicker extends Component {
   static defaultProps = {
+    value: null,
+    onChange: null,
     timingLimit: ONE_DAY,
     classNamePrefix: 'rtp__',
     breakpoints: {
@@ -119,6 +121,10 @@ class TimingsPicker extends Component {
       };
     }
 
+    if ( props.value !== state.value ) {
+      derivedState.value = props.value || state.value;
+    }
+
     if ( Object.keys( derivedState ).length ) {
       return derivedState;
     }
@@ -149,17 +155,17 @@ class TimingsPicker extends Component {
 
   onYearChange = month => this.updateActiveWeek( date => dateFns.setYear( date, month ) );
 
-  reset = () => {
+  onChange = value => {
     const { onChange } = this.props;
-    const scheduler = this.schedulerRef.current._wrappedInstance;
-    const selector = scheduler.selectorRef.current._wrappedInstance;
 
-    selector.setState( { value: [] } );
+    this.setState( { value } );
 
     if ( typeof onChange === 'function' ) {
-      onChange( [] );
+      onChange( value );
     }
-  };
+  }
+
+  reset = () => this.onChange( [] );
 
   onResize = ( width, height ) => {
     const breakpoint = widthToBreakpoint( this.props.breakpoints, width );
@@ -173,14 +179,12 @@ class TimingsPicker extends Component {
 
   render() {
     const {
-      value,
       timingLimit,
-      onChange,
       allowedTimings,
       classNamePrefix,
       locale
     } = this.props;
-    const { messages, activeWeek, weekStartsOn, breakpoint } = this.state;
+    const { value, messages, activeWeek, weekStartsOn, breakpoint } = this.state;
 
     return (
       <IntlProvider locale={locale} key={locale} messages={messages}>
@@ -217,7 +221,7 @@ class TimingsPicker extends Component {
             activeWeek={activeWeek}
             weekStartsOn={weekStartsOn}
             value={value}
-            onChange={onChange}
+            onChange={this.onChange}
             timingLimit={timingLimit}
             allowedTimings={allowedTimings}
             breakpoint={breakpoint}
