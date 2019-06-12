@@ -75,34 +75,7 @@ class Scheduler extends Component {
     timingFormat: 'HH:mm',
     cellHeight: 40,
     timingLimit: ONE_DAY,
-    defaultScroll: 8 * 40, // 8 hours * cellHeight
-    modalStyle: {
-      overlay: {
-        position: 'absolute',
-        width: '100%',
-        height: '100%',
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        backgroundColor: 'rgba(255, 255, 255, 0.75)'
-      },
-      content: {
-        position: 'absolute',
-        top: '50%',
-        left: '50%',
-        width: '25%',
-        height: '65%',
-        minWidth: '190px',
-        transform: 'translate(-50%,-50%)',
-        border: '1px solid rgb(204, 204, 204)',
-        background: 'rgb(255, 255, 255)',
-        overflow: 'auto',
-        borderRadius: '4px',
-        outline: 'none',
-        padding: '12px'
-      }
-    }
+    defaultScroll: 8 * 40 // 8 hours * cellHeight
   };
 
   state = {
@@ -114,7 +87,10 @@ class Scheduler extends Component {
       y: null
     },
     valueToEdit: null,
-    editInitialValues: null
+    editInitialValues: null,
+    modalStyle: {
+      overlay: {}
+    }
   };
 
   schedulerRef = React.createRef();
@@ -272,13 +248,12 @@ class Scheduler extends Component {
       cellHeight,
       timingLimit,
       defaultScroll,
-      modalStyle,
       allowedTimings,
       breakpoint,
       classNamePrefix,
       intl
     } = this.props;
-    const { showModal, schedulerScroll, editInitialValues } = this.state;
+    const { modalStyle, showModal, schedulerScroll, editInitialValues } = this.state;
 
     modalStyle.overlay.top = `${schedulerScroll.y}px`;
 
@@ -327,6 +302,8 @@ class Scheduler extends Component {
           isOpen={showModal}
           ariaHideApp={false}
           parentSelector={this.getModalParent}
+          className={`${classNamePrefix}modal`}
+          overlayClassName={`${classNamePrefix}overlay`}
           style={modalStyle}
           onAfterOpen={this.handleOpenModal}
           onRequestClose={this.handleCloseModal}

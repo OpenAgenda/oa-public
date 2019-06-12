@@ -51,31 +51,16 @@ gulp.task('styles:dist', () =>
 		.pipe(gulp.dest('dist/styles'));
 });
 
-
-function lint(files)
+gulp.task('html'/*, ['styles']*/, () =>
 {
-	return () =>
-	{
-		//return gulp.src(files)
-		//	.pipe(reload({ stream: true, once: true }))
-		//	.pipe($.eslint({ config: 'eslint.config.json' }))
-		//	.pipe($.eslint.format())
-		//	.pipe($.if(!browserSync.active, $.eslint.failAfterError()));
-	};
-}
-
-gulp.task('lint', lint(['app/scripts/**/*.js', 'app/scripts/**/*.jsx']));
-
-gulp.task('html', ['styles'], () =>
-{
-	const assets = $.useref.assets({ searchPath: ['.tmp', 'app', '.'] });
+	// const assets = $.useref.assets({ searchPath: ['.tmp', 'app', '.'] });
 
 	return gulp.src('app/*.html')
-		.pipe(assets)
-		//.pipe($.if('*.js', $.uglify()))
-		//.pipe($.if('*.css', cleanCSS({ compatibility: '*' })))
-		.pipe(assets.restore())
-		.pipe($.useref())
+		// .pipe(assets)
+		// .pipe($.if('*.js', $.uglify()))
+		// .pipe($.if('*.css', cleanCSS({ compatibility: '*' })))
+		// .pipe(assets.restore())
+		.pipe($.useref( { searchPath: ['.tmp', 'app', '.'] } ))
 		.pipe($.if('*.html', $.minifyHtml({ conditionals: true, loose: true })))
 		.pipe(gulp.dest('.tmp'));
 });
@@ -97,7 +82,7 @@ gulp.task('images', () =>
 		.pipe(gulp.dest('dist/images'));
 });
 
-gulp.task('react', ["react:lib"], () => {
+gulp.task('react'/*, ["react:lib"]*/, () => {
 	return browserify("lib/scripts/main.js", { debug: true })
 		.bundle()
 		.on('error', console.error.bind(console))
@@ -105,7 +90,7 @@ gulp.task('react', ["react:lib"], () => {
 		.pipe(gulp.dest('.tmp/scripts'));
 });
 
-gulp.task('react:dist', ["react:lib"], () => {
+gulp.task('react:dist'/*, ["react:lib"]*/, () => {
 	return browserify("lib/scripts/components/timings-picker.js")
 		.transform('browserify-shim')
 		.bundle()
@@ -127,7 +112,7 @@ gulp.task("react:lib", () => {
 
 gulp.task('clean', del.bind(null, ['.tmp', 'dist', "lib"]));
 
-gulp.task('serve', ['styles', 'react', 'react:dist'], () =>
+gulp.task('serve'/*, ['styles', 'react', 'react:dist']*/, () =>
 {
 	browserSync({
 		notify: false,
@@ -181,7 +166,6 @@ gulp.task('serve:test', () =>
 	});
 
 	gulp.watch('test/spec/**/*.js').on('change', reload);
-	gulp.watch('test/spec/**/*.js', ['lint:test']);
 });
 
 // inject bower components
@@ -196,17 +180,14 @@ gulp.task('wiredep', () =>
 		.pipe(gulp.dest('app'));
 });
 
-gulp.task('build', ['lint', 'html', 'images', 'styles', 'react'], () =>
+gulp.task('build'/*, ['html', 'images', 'styles', 'react']*/, () =>
 {
 	return gulp.src('dist/**/*').pipe($.size({ title: 'build', gzip: true }));
 });
 
-gulp.task('build:dist', ['lint', 'html', 'images', 'styles:dist', 'react:dist'], () =>
+gulp.task('build:dist'/*, ['html', 'images', 'styles:dist', 'react:dist']*/, () =>
 {
 	return gulp.src('dist/**/*').pipe($.size({ title: 'build', gzip: true }));
 });
 
-gulp.task('default', ['clean'], () =>
-{
-	gulp.start('build');
-});
+exports.default = gulp.series( 'clean', 'styles', 'html', 'images', 'styles:dist', 'react:lib', 'react:dist' );

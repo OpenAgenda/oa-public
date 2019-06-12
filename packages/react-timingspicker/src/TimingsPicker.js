@@ -66,6 +66,8 @@ function getClosestTiming( value ) {
 
 class TimingsPicker extends Component {
   static defaultProps = {
+    value: null,
+    onChange: null,
     timingLimit: ONE_DAY,
     classNamePrefix: 'rtp__',
     breakpoints: {
@@ -73,15 +75,17 @@ class TimingsPicker extends Component {
       sm: 640,
       md: 768
     },
-    locale: 'en'
+    locale: 'en',
+    locales: null
   };
 
   state = {
-    activeWeek: new Date(),
+    activeWeek: null,
     width: 0,
     height: 0,
     breakpoint: null,
-    weekStartsOn: 0
+    weekStartsOn: 0,
+    locales: null
   };
 
   schedulerRef = React.createRef();
@@ -100,11 +104,25 @@ class TimingsPicker extends Component {
         derivedState.activeWeek = new Date( props.activeWeek );
       } else {
         derivedState.activeWeek = new Date(
+          state.activeWeek ||
           getClosestTiming( props.value ) ||
           getClosestTiming( props.allowedTimings ) ||
-          state.activeWeek
+          new Date()
         );
       }
+    }
+
+    if ( props.locale !== state.locale || props.locales !== state.locales ) {
+      derivedState.locale = props.locale;
+      derivedState.locales = props.locales;
+      derivedState.messages = {
+        ...localeData[ props.locale ],
+        ...(props.locales && props.locales[ props.locale ])
+      };
+    }
+
+    if ( props.value !== state.value ) {
+      derivedState.value = props.value || state.value;
     }
 
     if ( Object.keys( derivedState ).length ) {
@@ -137,17 +155,17 @@ class TimingsPicker extends Component {
 
   onYearChange = month => this.updateActiveWeek( date => dateFns.setYear( date, month ) );
 
-  reset = () => {
+  onChange = value => {
     const { onChange } = this.props;
-    const scheduler = this.schedulerRef.current._wrappedInstance;
-    const selector = scheduler.selectorRef.current._wrappedInstance;
 
-    selector.setState( { value: [] } );
+    this.setState( { value } );
 
     if ( typeof onChange === 'function' ) {
-      onChange( [] );
+      onChange( value );
     }
-  };
+  }
+
+  reset = () => this.onChange( [] );
 
   onResize = ( width, height ) => {
     const breakpoint = widthToBreakpoint( this.props.breakpoints, width );
@@ -161,17 +179,12 @@ class TimingsPicker extends Component {
 
   render() {
     const {
-      value,
       timingLimit,
-      onChange,
       allowedTimings,
       classNamePrefix,
-      selectStyles,
-      modalStyle,
       locale
     } = this.props;
-    const { activeWeek, weekStartsOn, breakpoint } = this.state;
-    const messages = localeData[ locale ] || localeData.en;
+    const { value, messages, activeWeek, weekStartsOn, breakpoint } = this.state;
 
     return (
       <IntlProvider locale={locale} key={locale} messages={messages}>
@@ -199,7 +212,6 @@ class TimingsPicker extends Component {
             onMonthChange={this.onMonthChange}
             onYearChange={this.onYearChange}
             classNamePrefix={classNamePrefix}
-            selectStyles={selectStyles}
           />
 
           <div className={`${classNamePrefix}clearfix`} />
@@ -209,12 +221,11 @@ class TimingsPicker extends Component {
             activeWeek={activeWeek}
             weekStartsOn={weekStartsOn}
             value={value}
-            onChange={onChange}
+            onChange={this.onChange}
             timingLimit={timingLimit}
             allowedTimings={allowedTimings}
             breakpoint={breakpoint}
             classNamePrefix={classNamePrefix}
-            modalStyle={modalStyle}
           />
           <PatternMaker activeWeek={activeWeek} />
         </div>

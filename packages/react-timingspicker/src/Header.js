@@ -19,20 +19,6 @@ function getYearOptions( activeYear ) {
 }
 
 class Header extends Component {
-  static defaultProps = {
-    selectStyles: {
-      option: provided => ({
-        ...provided,
-        textAlign: 'left',
-        color: '#666666'
-      }),
-      singleValue: provided => ({
-        ...provided,
-        color: '#666666'
-      })
-    }
-  };
-
   state = {
     activeWeek: null,
     selectedMonth: null,
@@ -73,7 +59,6 @@ class Header extends Component {
     const {
       onPrevWeek,
       onNextWeek,
-      selectStyles,
       classNamePrefix
     } = this.props;
     const {
@@ -98,7 +83,8 @@ class Header extends Component {
               value={selectedMonth}
               onChange={this.onMonthChange}
               options={monthOptions}
-              styles={selectStyles}
+              className={`${classNamePrefix}month-selector__Select`}
+              classNamePrefix={`${classNamePrefix}month-selector__Select`}
             />
           </span>
           <span className={`${classNamePrefix}year-selector`}>
@@ -106,7 +92,8 @@ class Header extends Component {
               value={selectedYear}
               onChange={this.onYearChange}
               options={yearOptions}
-              styles={selectStyles}
+              className={`${classNamePrefix}year-selector__Select`}
+              classNamePrefix={`${classNamePrefix}year-selector__Select`}
             />
           </span>
         </div>

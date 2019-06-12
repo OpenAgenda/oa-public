@@ -1088,17 +1088,23 @@ $dayInWeek: 7;
   margin-right: 15px;
 }
 
-/* overwrite of color defined in inline style */
-.rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector div:first-child,
-.rtp__calendar .rtp__header .rtp__selectors .rtp__year-selector div:first-child {
-  color: $oa-black;
-  text-transform: capitalize;
-}
-
 .rtp__calendar .rtp__header .rtp__selectors .rtp__year-selector {
   display: inline-block;
   width: 100px;
   margin-right: 0;
+}
+
+.rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector__Select__option,
+.rtp__calendar .rtp__header .rtp__selectors .rtp__year-selector__Select__option {
+  color: $oa-black;
+  text-transform: capitalize;
+}
+
+.rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector__Select__single-value,
+.rtp__calendar .rtp__header .rtp__selectors .rtp__year-selector__Select__single-value {
+  text-align: left;
+  color: $oa-black;
+  text-transform: capitalize;
 }
 
 /**
@@ -1359,16 +1365,22 @@ $dayInWeek: 7;
 }
 
 .rtp__calendar .rtp__body .rtp__timing-value {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 3px;
   color: #fff;
-  height: 13px;
   line-height: 13px;
   font-weight: bold;
   font-size: 13px;
   text-align: center;
   margin-top: 1px;
+  margin-bottom: 6px;
 }
 
 .rtp__calendar .rtp__body .rtp__timing-remove {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
   float: right;
   color: #fff;
   height: 14px;
@@ -1377,6 +1389,8 @@ $dayInWeek: 7;
   font-size: 16px;
   padding-right: 2px;
   cursor: pointer;
+  z-index: 1;
+  margin-bottom: 6px;
 }
 
 .rtp__calendar .rtp__body .rtp__selection-timing {
@@ -1396,63 +1410,23 @@ $dayInWeek: 7;
   cursor: s-resize;
 }
 
-.rtp__calendar .ReactModal__Content h3 {
-  margin: 0 0 5px 0;
-}
-
-.rtp__calendar .ReactModal__Content input {
-  position: relative;
-  font-size: 12px;
-  border-radius: 0;
-  -webkit-box-shadow: none;
-  box-shadow: none;
-  border: 1px solid #ccc;
-  border-radius: 3px;
-  line-height: 16px;
-  padding: 6px 10px 5px;
-  width: 100%;
-}
-
-.rtp__calendar .ReactModal__Content input:focus {
-  outline: none;
-  border-color: #aaa;
-  -webkit-box-shadow: 0 0 2px 0px #019ece;
-  box-shadow: 0 0 2px 0px #019ece;
-}
-
-.rtp__calendar .ReactModal__Content .error {
-  color: #FF1238;
-  margin-top: 4px;
-}
-
-.rtp__calendar .ReactModal__Content section ~ section {
-  margin-top: 5px;
-}
-
-.rtp__calendar .ReactModal__Content button {
-  margin-top: 12px;
-}
-
 
 /********************/
 /* Size adjustments */
 /********************/
 
 .rtp__calendar.rtp__md .rtp__body .rtp__timing-value {
-  height: 11px;
   line-height: 11px;
   font-size: 11px;
 }
 
 .rtp__calendar.rtp__sm .rtp__body .rtp__timing-value {
-  height: 11px;
   line-height: 10px;
   font-size: 11px;
 }
 
 .rtp__calendar.rtp__xs .rtp__body .rtp__timing-value {
-  height: 11px;
-  line-height: 12px;
+  line-height: 11px;
   font-size: 12px;
 }
 
@@ -1485,4 +1459,72 @@ $dayInWeek: 7;
 .rtp__calendar.rtp__xs .rtp__body .rtp__selection-resizing-timing-thin .rtp__timing-resizer {
   text-align: right;
   padding-right: 3px;
+}
+
+/* Modal */
+
+.rtp__calendar .rtp__overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.75);
+}
+
+.rtp__calendar .rtp__modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 25%;
+  //height: 65%;
+  min-width: 190px;
+  transform: translate(-50%,-50%);
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 12px;
+}
+
+.rtp__calendar .rtp__modal h3 {
+  margin: 0 0 5px 0;
+}
+
+.rtp__calendar .rtp__modal input {
+  position: relative;
+  font-size: 12px;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  line-height: 16px;
+  padding: 6px 10px 5px;
+  width: 100%;
+}
+
+.rtp__calendar .rtp__modal input:focus {
+  outline: none;
+  border-color: #aaa;
+  -webkit-box-shadow: 0 0 2px 0px $oa-blue;
+  box-shadow: 0 0 2px 0px $oa-blue;
+}
+
+.rtp__calendar .rtp__modal .error {
+  color: $oa-red;
+  margin-top: 4px;
+}
+
+.rtp__calendar .rtp__modal section ~ section {
+  margin-top: 5px;
+}
+
+.rtp__calendar .rtp__modal button {
+  @extend .btn;
+  @extend .btn-primary;
+  margin-top: 12px;
 }
