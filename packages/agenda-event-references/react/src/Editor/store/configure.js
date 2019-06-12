@@ -1,11 +1,7 @@
-"use strict";
+import { createStore, applyMiddleware, compose } from 'redux'
+import rootReducer from '../reducers'
+import thunkMiddleware from 'redux-thunk'
 
-if ( process.env.NODE_ENV === 'production' ) {
-
-  module.exports = require( './configure.prod' );
-
-} else {
-
-  module.exports = require( './configure.dev' );
-
-}
+export default compose(
+  applyMiddleware( thunkMiddleware )
+)

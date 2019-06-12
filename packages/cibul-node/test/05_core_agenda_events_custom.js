@@ -1,8 +1,11 @@
 "use strict";
 
+process.env.NODE_ENV = 'test';
+
 const _ = require( 'lodash' );
 const knexLib = require( 'knex' );
 const mysql = require( 'mysql' );
+const redis = require( 'redis' );
 const { promisify } = require( 'util' );
 
 const fixtures = require( './fixtures/05_core_agenda_events_custom' );
@@ -132,6 +135,8 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
 
     testConfig.knex = knexLib( { client: 'mysql', connection: testConfig.db } );
 
+    testConfig.redisClient = redis.createClient();
+
   } );
 
   before( async () => {
@@ -162,7 +167,9 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
         'agendaLocations',
         'formSchemas',
         'custom',
-        'networks'
+        'networks',
+        'elasticsearch',
+        'legacy'
       ]
     } );
 

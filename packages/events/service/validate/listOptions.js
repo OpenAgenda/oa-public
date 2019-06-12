@@ -33,5 +33,10 @@ module.exports = schema( {
   html: {
     type: 'boolean',
     default: false
+  },
+  fetched: {
+    type: 'choice',
+    options: [ 'uid' ],
+    default: null
   }
 } );

@@ -7,6 +7,7 @@ module.exports = {
     password: 'grut'
   },
   schemas: {
+    network: 'network',
     formSchema: 'form_schema'
   },
   legacy: {

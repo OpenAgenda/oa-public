@@ -80,16 +80,6 @@ module.exports = agenda => {
 }
 
 
-function _legacySearchUpdate( eventId ) {
-
-  coms.publish( config.mainChannel, {
-    name: 'search.update',
-    values: { id: eventId }
-  } );
-
-}
-
-
 function _legacyCredCacheClear( agendaId ) {
 
   var cli = redis.createClient( config.redis.port, config.redis.host );

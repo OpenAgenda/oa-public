@@ -12,4 +12,5 @@ insert into `legacy_agenda_tag` ( id, review_id, tag, slug ) values
 ( 27696, 13866, 'Lycée (15 - 16 ans)', 'lycee-15-16-ans' ),
 ( 27697, 13866, 'Etudiants (18 - 25 ans)', 'etudiants-18-25-ans' ),
 ( 9663, 1010101, 'Agroalimentaire', 'agroalimentaire' ),
-( 9664, 1010101, 'Archéologie préventive', 'archeologie-preventive' );
+( 9664, 1010101, 'Archéologie préventive', 'archeologie-preventive' ),
+( 9665, 1010101, 'Une valeur', 'une-valeur' );

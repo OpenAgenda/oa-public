@@ -1,37 +1,67 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const { promisify } = require( 'util' );
 
-const config = require( '../../config' ),
+const ESNode = require( '@openagenda/es-node' );
 
-legacyLib = require( '@openagenda/es-node' )( config.es ),
+const coms = require( '../../lib/coms' );
+const refresh = require( './lib/refresh' );
+const resync = require( './lib/resync' );
+const updateReview = require( './lib/updateReview' );
+const updateEvent = require( './lib/updateEvent' );
+const removeEvent = require( './lib/removeEvent' );
 
-lib = require( '../../lib/lib' ),
+let legacyES;
 
-c = require( './lib/clean' ),
-
-coms = require( '../../lib/coms' ),
-
-resync = require( './lib/resync' ),
-
-refresh = require( './lib/refresh' ),
-
-LIMIT = 20;
-
-resync.set( legacyLib );
-
-refresh.set( legacyLib );
+const LIMIT = 20;
 
 module.exports = {
-  initless: true,
-  agendas,
-  search,
-  searchAgendas,
-  resync,
-  refresh
+  init
 }
 
-function agendas( agenda ) {
+function init( config ) {
+
+  const legacyLib = ESNode( config.es );
+
+  legacyES = {
+    refreshIndex: promisify( legacyLib.refreshIndex ),
+    resetIndex: promisify( legacyLib.resetIndex ),
+    updateReview: updateReview( {
+      update: promisify( legacyLib.reviews().update ),
+      knex: config.knex
+    } ),
+    updateEvent: updateEvent( {
+      remove: promisify( legacyLib.events().remove ),
+      update: promisify( legacyLib.events().update ),
+      knex: config.knex,
+      imageBasePath: config.aws.imageBucketPath
+    } ),
+    removeEvent: removeEvent( {
+      remove: promisify( legacyLib.events().remove ),
+      knex: config.knex
+    } ),
+    searchReviews: promisify( legacyLib.reviews().search ),
+    searchEvents: promisify( legacyLib.events().search )
+  }
+
+  Object.assign( module.exports, {
+    agendas: agendas.bind( null, {
+      legacyLib,
+      channel: config.mainChannel
+    } ),
+    search: search.bind( null, legacyLib ),
+    searchAgendas: search.bind( null, legacyLib ),
+    resync: resync.bind( null, legacyES ),
+    refresh: refresh.bind( null, legacyES ),
+    updateEvent: legacyES.updateEvent,
+    removeEvent: legacyES.removeEvent,
+    ES: legacyLib
+  } )
+
+}
+
+function agendas( { legacyLib, channel }, agenda ) {
 
   return {
     search: _search,
@@ -42,14 +72,11 @@ function agendas( agenda ) {
   function _search( query, options, cb ) {
 
     if ( !cb ) {
-
       cb = options;
-
       options = {};
-
     }
 
-    search( query, lib.extend( {
+    search( legacyLib, query, _.extend( {
       agendaId: agenda.id
     }, options ), cb );
 
@@ -58,14 +85,11 @@ function agendas( agenda ) {
   function _aggregate( query, options, cb ) {
 
     if ( !cb ) {
-
       cb = options;
-
-      options = {}
-
+      options = {};
     }
 
-    aggregate( query, lib.extend( {
+    aggregate( legacyLib, query, _.extend( {
       agendaId: agenda.id
     }, options ), cb );
 
@@ -73,21 +97,19 @@ function agendas( agenda ) {
 
   function _resync( cb ) {
 
-    resync( { agendaId: agenda.id }, err => {
+    resync( legacyES, { agendaId: agenda.id }, err => {
 
-      if ( !err ) {
+      if ( err ) return cb( err );
 
-        coms.publish( config.mainChannel, {
-          name: 'agenda.update',
-          values: {
-            id: agenda.id,
-            type: 'refresh'
-          }
-        } );
+      coms.publish( channel, {
+        name: 'agenda.update',
+        values: {
+          id: agenda.id,
+          type: 'refresh'
+        }
+      } );
 
-      }
-
-      cb( err );
+      cb();
 
     } );
 
@@ -96,14 +118,11 @@ function agendas( agenda ) {
 }
 
 
-function searchAgendas( query, options, cb ) {
+function searchAgendas( legacyLib, query, options, cb ) {
 
   if ( arguments.length == 2 ) {
-
     cb = options;
-
     options = {};
-
   }
 
   _prepare( query, options, function( params, esQuery ) {
@@ -118,7 +137,7 @@ function searchAgendas( query, options, cb ) {
 }
 
 
-function aggregate( query, options, cb ) {
+function aggregate( legacyLib, query, options, cb ) {
 
   if ( arguments.length == 2 ) {
 
@@ -137,7 +156,7 @@ function aggregate( query, options, cb ) {
 }
 
 
-function search( query, options, cb ) {
+function search( legacyLib, query, options, cb ) {
 
   if ( arguments.length == 2 ) {
 
@@ -167,7 +186,7 @@ function search( query, options, cb ) {
 
 function _prepare( query, options, cb ) {
 
-  const params = lib.extend( {
+  const params = _.extend( {
     limit: LIMIT,
     agendaId: false,
     showAll: false
@@ -407,9 +426,9 @@ function _clean( query, params ) {
 
     if ( !query[ k ] ) return;
 
-    clean[ k ] = c.parseQueryList( query[ k ] );
+    clean[ k ] = [].concat( query[ k ] );
 
-  });
+  } );
 
 
   if ( [ 'proximity', 'update', 'upcoming', 'latest' ].indexOf( query.order ) !== -1 ) {

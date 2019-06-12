@@ -4,7 +4,7 @@ const should = require( 'should' );
 
 const generateTagSet = require( '../server/legacy/generateTagSet' );
 
-describe.only( 'form-schemas -09_2- unit (server): generate legacy tag sets from schema', function() {
+describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from schema', function() {
 
   it( 'transforms a checkbox field into a tag group', () => {
 

@@ -83,6 +83,8 @@ module.exports = () => {
 
   require( './services/legacy' ).controlData.task();
 
+  require( './core' ).tasks();
+
 
   if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
 

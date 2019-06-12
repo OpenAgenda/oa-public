@@ -29,7 +29,9 @@ const statsTemplate = _.template( fs.readFileSync( __dirname + '/stats.tpl', 'ut
 module.exports = parentApp => parentApp.use( '/', app );
 
 app.use( '/:agendaSlug/admin/getting-started', [
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) )
+  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  agendaLoad,
+  cmn.authorize.administrator
 ] );
 
 
@@ -38,8 +40,7 @@ app.use( '/:agendaSlug/admin/getting-started', [
  */
 app.use( [
   '/:agendaSlug/admin/stats',
-  '/:agendaSlug/admin/stats/resync/:type',
-  '/:agendaSlug/admin/getting-started'
+  '/:agendaSlug/admin/stats/resync/:type'
 ], [
   cmn.loadLogger( 'agendaBack' ),
   agendaLoad
@@ -134,6 +135,7 @@ app.get( '/:agendaSlug/admin/getting-started', [
     return res.send( layout( `<div class="js_canvas getting-started"></div>`, {
       lang: req.lang,
       agenda: req.agenda,
+      role: req.role,
       bodyAttributes: [ {
         name: 'data-options',
         value: JSON.stringify( {

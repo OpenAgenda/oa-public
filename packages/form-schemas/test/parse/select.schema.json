@@ -13,6 +13,7 @@
     "sub" : null,
     "help" : null,
     "helpLink" : null,
+    "helpContent": null,
     "write": null,
     "read": [ "contributor", "moderator", "administrator" ],
     "optional": true,

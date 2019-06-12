@@ -17,26 +17,21 @@ function initAndLoad( config, files, options, cb ) {
   ];
 
   if ( arguments.length === 3 ) {
-
     cb = options;
-
     options = { reset: true };
-
   } else if ( arguments.length === 2 ) {
-
     cb = files;
-
     options = { reset: true };
-
     files = defaultFiles;
-
   }
 
   svc.init( config );
 
   fixtures.init( { mysql: config.mysql } );
 
-  if ( files.length && !_.difference( Object.keys( files[ 0 ] ), [ 'table', 'src' ] ).length ) {
+  if ( files.length && !_.difference( Object.keys( files[ 0 ] ), [
+    'table', 'src'
+  ] ).length ) {
 
     return fixtures( files, options, cb );
 
@@ -45,6 +40,9 @@ function initAndLoad( config, files, options, cb ) {
   fixtures( [ {
     table: 'form_schema',
     src: __dirname + '/form_schema.data.sql'
+  }, {
+    table: 'network',
+    src: __dirname + '/network.data.sql'
   }, {
     table: 'legacy_tag_set',
     src: __dirname + '/legacy_tag_set.data.sql'

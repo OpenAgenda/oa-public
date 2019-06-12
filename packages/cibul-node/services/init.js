@@ -66,7 +66,10 @@ module.exports = function ( config, options, cb ) {
 
     if ( err ) return cb( err );
 
-    async.eachSeries( services, _init.bind( null, config, cleanOptions ), err => {
+    async.eachSeries( _order( services, [
+      '00_errors',
+      'queues'
+    ] ), _init.bind( null, config, cleanOptions ), err => {
 
       if ( err ) return cb( new VError( err, 'service initialization did not go well' ) );
 
@@ -123,5 +126,11 @@ function _init( config, options, fileOrFolderName, cb ) {
   };
 
   w( service.init( config ) ).done( () => cbWithLog(), cbWithLog );
+
+}
+
+function _order( services, prioritized ) {
+
+  return prioritized.concat( services.filter( s => !prioritized.includes( s.split( '.' )[ 0 ] ) ) );
 
 }

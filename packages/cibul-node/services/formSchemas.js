@@ -15,7 +15,8 @@ module.exports.init = config => {
       'bucket'
     ] ),
     schemas: {
-      formSchema: 'form_schema'
+      formSchema: 'form_schema',
+      network: 'network'
     },
     legacy: {
       knex: config.knex,

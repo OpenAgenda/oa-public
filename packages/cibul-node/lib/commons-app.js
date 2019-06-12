@@ -126,6 +126,7 @@ module.exports = {
 
   useEmbedGoogleAnalytics,
 
+  makeRedirect,
   getRedirect,                  // get redirect
 
   writeToCookie,
@@ -1024,33 +1025,24 @@ function checkCredential( name, options ) {
 }
 
 
-function getRedirect( req, paramName ) {
+function makeRedirect( urlOrReq ) {
 
-  let redirectValue;
+  return new Buffer(
+    _.isObject( urlOrReq ) ? urlOrReq.originalUrl : urlOrReq,
+    'utf8'
+  ).toString( 'base64' );
 
-  if ( !paramName ) {
+}
 
-    paramName = 'redirect';
+function getRedirect( req, paramName = 'redirect' ) {
 
-  }
-
-  if ( !req.query[ paramName ] ) {
-
-    return false;
-
-  }
+  if ( !req.query[ paramName ] ) return false;
 
   try {
-
-    redirectValue = (new Buffer( req.query[ paramName ], 'base64' )).toString()
-
+    return (new Buffer( req.query[ paramName ], 'base64' )).toString();
   } catch ( e ) {
-
     log( 'error', 'invalid redirect value in request: %s', req.query[ paramName ] );
-
   }
-
-  return redirectValue;
 
 }
 

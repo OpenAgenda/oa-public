@@ -10,6 +10,8 @@ const _ = require( 'lodash' );
 const async = require( 'async' );
 const log = require( '@openagenda/logs' )( 'search task' );
 
+const inAppService = require( '../services/elasticsearch' );
+
 const agendaSvc = require( '../services/agenda' );
 const coms = require( '../lib/coms' );
 const config = require( '../config' );
@@ -19,19 +21,14 @@ const loadEventReferences = require( '../services/elasticsearch/lib/loadEventRef
 const utils = require( '../lib/utils' );
 const model = require( '../services/model' );
 
-const ES = require( '@openagenda/es-node' )( config.es );
-
 const jobHandlers = {
   'index.resync' : _resync,
-  'legacy.es.event.create' : _publish( 'events' ),
-  'legacy.es.event.update' : _publish( 'events' ),
-  'legacy.es.event.remove' : _delete( 'events' ),
-  'event.publish' : _publish( 'events' ),
-  'event.create' : _publish( 'events' ),
-  'event.delete' : _delete( 'events' ),
-  'event.remove' : _delete( 'events' ),
-  'search.update' : _update( 'events' ),
-  'event.update' : _update( 'events' ),
+  //'event.publish' : _publish( 'events' ),
+  //'event.create' : _publish( 'events' ),
+  //'event.delete' : _delete( 'events' ),
+  //'event.remove' : _delete( 'events' ),
+  //'search.update' : _update( 'events' ),
+  //'event.update' : _update( 'events' ),
   'review.publish' : _publish( 'reviews' ),
   'agenda.create' : _publish( 'reviews' ),
   'review.delete' : _delete( 'reviews' ),
@@ -324,7 +321,7 @@ function _publish( schema ) {
 
 function _doPublish( schema, obj, cb ) {
 
-  ES[ schema ]().insert( obj, function( err, result ) {
+  inAppService.ES[ schema ]().insert( obj, function( err, result ) {
 
     if ( err ) {
 
@@ -398,7 +395,7 @@ function _update( schema ) {
 
     if ( obj ) {
 
-      ES[ schema ]().update( obj, cb );
+      inAppService.ES[ schema ]().update( obj, cb );
 
     } else {
 
@@ -417,7 +414,7 @@ function _delete( schema ) {
 
     log( 'debug', 'removing %s %s', job.type, job.id );
 
-    ES[ schema ]().remove( job.id, cb );
+    inAppService.ES[ schema ]().remove( job.id, cb );
 
   }
 

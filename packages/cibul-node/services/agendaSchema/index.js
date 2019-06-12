@@ -35,7 +35,10 @@ module.exports = parentApp => {
 
 module.exports.init = config => {
 
-  agendaSchemaRouter.setLayout( layouts.load( 'agendaAdmin', { selectedTab: 'schema' } ) );
+  agendaSchemaRouter.setLayout( layouts.load( 'agendaAdmin', {
+    selectedTab: 'schema',
+    role: 'administrator'
+  } ) );
 
   agendaSchemaRouter.setService( AgendaSchema( {
     logger: config.getLogConfig( 'svc', 'agendaSchema' ),

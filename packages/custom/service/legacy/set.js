@@ -25,8 +25,6 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
     log( 'warn', 'no origin is defined for fields of schema %s', formSchemaId, { formSchemaId, identifier } );
 
-    return;
-
   }
 
   log( 'info', 'transfering legacy custom data', { formSchemaId, identifier } );
@@ -59,7 +57,7 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
   try {
 
-    await tags( agendaEventId, fields.filter( f => f.origin === 'tags' ), data );
+    await tags( agendaEventId, fields.filter( _evaluateAsTag ), data );
 
   } catch ( e ) {
 
@@ -78,5 +76,15 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
     log( 'error', 'could not set legacy category categories', e );
 
   }
+
+}
+
+function _evaluateAsTag( field ) {
+
+   if ( field.origin === 'tags' ) return true;
+
+   if ( field.origin === 'categories' ) return false;
+
+   return !!field.options;
 
 }

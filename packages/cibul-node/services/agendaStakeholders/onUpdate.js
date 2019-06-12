@@ -56,7 +56,7 @@ module.exports = function ( before, stakeholder, context ) {
 
           }
 
-          controlData.memberSet( { agendaUid: agenda.uid, userUid: user.uid, role: stakeholder.credential } );
+          controlDataSvc.memberSet( { agendaUid: agenda.uid, userUid: user.uid, role: stakeholder.credential } );
 
           activities.feed( { entityType: 'user', entityUid: user.uid } )
             .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )

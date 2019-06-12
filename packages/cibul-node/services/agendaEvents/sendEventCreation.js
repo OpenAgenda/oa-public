@@ -14,8 +14,12 @@ module.exports = async ( { agendaEvent, context } ) => {
 
   const { agenda, event } = context;
   const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );
-  const creator = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: creatorUser.id } );
+  const creatorMemberId = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: creatorUser.id } ).then( r => r ? r.userId : null );
   const creatorLang = creatorUser.culture || 'fr';
+
+  if ( !creatorMemberId ) {
+    log( 'warn', 'no member reference was retrieved', _.pick( agendaEvent, [ 'agendaUid', 'eventUid' ] ) );
+  }
 
   let stateLabel;
 
@@ -42,33 +46,35 @@ module.exports = async ( { agendaEvent, context } ) => {
 
   const members = await listAdminmods( { agenda } );
 
-  await mails( {
-    template: 'myEventCreation',
-    to: {
-      address: creatorUser.email,
-      unsubscriptions: [ {
-        rule: [ 'receive', 'myEventCreation' ],
-        dataPath: 'unsubscribeLink'
-      }, {
-        memberId: creator.id,
-        rule: [ 'receive', 'myEventCreation' ],
-        dataPath: 'memberUnsubscribeLink'
-      } ]
-    },
-    data: {
-      event: event.title[ creatorLang ] || _.find( event.title ),
-      agenda: agenda.title,
-      state: stateLabel,
-      logo,
-      link
-    },
-    lang: creatorLang
-  } );
+  if ( creatorMemberId ) {
+    await mails( {
+      template: 'myEventCreation',
+      to: {
+        address: creatorUser.email,
+        unsubscriptions: [ {
+          rule: [ 'receive', 'myEventCreation' ],
+          dataPath: 'unsubscribeLink'
+        }, {
+          memberId: creatorMemberId,
+          rule: [ 'receive', 'myEventCreation' ],
+          dataPath: 'memberUnsubscribeLink'
+        } ]
+      },
+      data: {
+        event: event.title[ creatorLang ] || _.find( event.title ),
+        agenda: agenda.title,
+        state: stateLabel,
+        logo,
+        link
+      },
+      lang: creatorLang
+    } );
+  }
 
   await mails( {
     template: 'eventCreation',
     to: members
-      .filter( member => member.id !== creator.id )
+      .filter( member => member.id !== creatorMemberId )
       .filter( member => {
 
         if ( !member.user ) {

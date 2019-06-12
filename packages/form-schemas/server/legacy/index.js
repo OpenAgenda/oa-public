@@ -25,15 +25,32 @@ module.exports = {
 
 async function get( agendaId ) {
 
-  let customFields,
+  let customFields, tagSet, categorySet, networkFormSchemaId, networkFormSchema, formData = {
+    fields: []
+  };
 
-    tagSet,
+  const networkUid = await client( config.legacy.schemas.agenda )
+    .first( 'network_uid' )
+    .where( 'id', agendaId )
+    .then( r => r ? r.network_uid : null );
 
-    categorySet,
+  if ( networkUid ) {
+    networkFormSchemaId = await client( config.schemas.network )
+      .first( 'form_schema_id' )
+      .where( 'uid', networkUid )
+      .then( r => r ? r.form_schema_id : null );
+  }
 
-    formData = {
-      fields: []
-    };
+  if ( networkFormSchemaId ) {
+    networkFormSchema = await client( config.schemas.formSchema )
+      .first( 'store' )
+      .where( 'id', networkFormSchemaId )
+      .then( r => r ? r.store : null );
+
+    networkFormSchema = networkFormSchema ? JSON.parse( networkFormSchema ) : null;
+  }
+
+  await client( config.schemas.network ).first( 'form_schema_id' ).where
 
   try {
 
@@ -53,7 +70,9 @@ async function get( agendaId ) {
 
     tagSet = await _queryStore( config.legacy.schemas.tagSet, agendaId );
 
-    if ( tagSet ) formData = parseTagSet( formData, tagSet );
+    if ( tagSet ) {
+      formData = parseTagSet( formData, tagSet );
+    }
 
   } catch( e ) {
 
@@ -65,12 +84,20 @@ async function get( agendaId ) {
 
     categorySet = await _queryStore( config.legacy.schemas.categorySet, agendaId );
 
-    if ( categorySet && categorySet.categories.length ) formData = parseTagSet.categories( formData, categorySet );
+    if ( categorySet && categorySet.categories.length ) {
+      formData = parseTagSet.categories( formData, categorySet );
+    }
 
   } catch( e ) {
 
     throw new VError( e, 'could not parse legacy category set for agenda of id %s', agendaId );
 
+  }
+
+  if ( networkFormSchema ) {
+    formData.fields.forEach( ( f, i ) => {
+      formData.fields[ i ].network = networkFormSchema.fields.map( f => f.field ).indexOf( f.field ) !== -1
+    } );
   }
 
   return formData.fields.length ? formData : null;
@@ -114,6 +141,10 @@ async function transfer( agendaId ) {
   operation = agenda[ 'form_schema_id' ] ? 'update' : 'create';
 
   formSchema = await get( agendaId );
+
+  if ( formSchema ) {
+    formSchema.fields = formSchema.fields.filter( f => !f.network );
+  }
 
   if ( operation === 'update' ) {
 

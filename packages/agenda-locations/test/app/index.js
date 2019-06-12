@@ -63,9 +63,7 @@ app.get( '/', ( req, res, next ) => {
   } else {
 
     req.content = [
-      '<div class="js_locations_counter" data-options="',
-      JSON.stringify( { res: '/toverify' } ).replace( /"/g, '&quot;' ),
-      '"></div>',
+      '<div class="js_locations_counter" data-res="/toverify"></div>',
       '<div class="js_locations_canvas"></div>'
     ].join( '' );
 

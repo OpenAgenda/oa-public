@@ -10,6 +10,11 @@ const getNetwork = require( './get' );
 const patchNetwork = require( './patch' );
 const getAgendas = require( './getAgendas' );
 const agendasCore = require( '../agendas' );
+const tasks = require( '../tasks' );
+
+tasks.register( {
+  agendaLegacySettingsUpdate: ( agendaUid, force ) => agendasCore( agendaUid ).settings.legacy.update( force )
+} );
 
 module.exports = async ( networkUid, updatedFields ) => {
 
@@ -52,7 +57,7 @@ module.exports = async ( networkUid, updatedFields ) => {
   // all agendas must have their legacy models resynced.
   for ( const agenda of agendas ) {
 
-    await agendasCore( agenda ).settings.legacy.update( true );
+    tasks.enqueue( 'agendaLegacySettingsUpdate', agenda.uid, true );
 
   }
 

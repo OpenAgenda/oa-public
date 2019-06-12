@@ -11,9 +11,10 @@ const core = require( '../core' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
 const errorLabels = require( '@openagenda/labels/errors' );
 const sessions = require( '@openagenda/sessions' );
-const stakeholderSvc = require( '@openagenda/agenda-stakeholders' );
+const members = require( '../services/members' );
 const stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 
+const cacheMw = require( '../lib/cache.mw' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const embedSvc = require( '../services/embed' );
@@ -49,7 +50,7 @@ const middlewares = {
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
     embedSvc.mw.loadCustomLayoutData,
     _appendSettings,
-    agendaEmbedEventShow
+    renderAgendaEmbedEvent
   ]
 };
 
@@ -154,11 +155,13 @@ module.exports = app => {
     embedSvc.mw.renderEvent,
     cmn.loadBaseData( eventSvc.mw.layoutData, 'oae.css' ),
     _appendFacebookParams,
-    agendaEmbedEventShow
+    renderAgendaEmbedEvent,
+    ( req, res ) => res.send( req.render )
   );
 
   app.get(
     '/agendas/:uid/embeds/:embedUid/events/:eventUid',
+    cacheMw.send( 'customEmbedShow', 'params.embedUid', ( cached, req, res ) => res.send( cached ) ),
     preMw,
     legacyAgendaSvc.mw.load( 'uid' ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
@@ -167,7 +170,9 @@ module.exports = app => {
     eventSvc.mw.format,
     eventSvc.mw.components,
     _formatAgendaLinks( 'customEmbedShow', [ 'uid', 'embedUid' ] ),
-    middlewares.customEmbedEventShow
+    middlewares.customEmbedEventShow,
+    cacheMw.set( 'customEmbedShow', 'params.embedUid', 30, req => req.render ),
+    ( req, res ) => res.send( req.render )
   );
 
   app.get(
@@ -181,7 +186,8 @@ module.exports = app => {
     eventSvc.mw.format,
     eventSvc.mw.components,
     _formatAgendaLinks( 'customEmbedShowPreview', [ 'uid', 'embedUid' ] ),
-    middlewares.customEmbedEventShow
+    middlewares.customEmbedEventShow,
+    ( req, res ) => res.send( req.render )
   );
 
   app.get(
@@ -250,9 +256,10 @@ async function agendaEventShow( req, res, next ) {
 
   _addContactLink( req );
 
-  const userStakeholder = req.user
-    ? await promisify( stakeholderSvc( req.agenda.id ).get )( { userId: req.user.id } )
-    : null;
+  const member = req.user ? await members.get( {
+    agendaUid: req.agenda.uid,
+    userUid: req.user.uid
+  } ) : null;
 
   req.event.getContributor( ( err, contributor ) => {
 
@@ -269,10 +276,10 @@ async function agendaEventShow( req, res, next ) {
       agendaId: req.agenda.id,
       private: req.agenda.private,
       adminNav: req.query.admin_nav,
-      redirect: req.query.admin_nav ? new Buffer( `${eventUrl}?${qs.stringify( req.query )}`, 'utf8' ).toString( 'base64' ) : null,
+      redirect: cmn.makeRedirect( req ),
       event: req.formatted,
       components: req.components,
-      userStakeholder,
+      showRequestLocation: ![ 2, 3 ].includes( _.get( member, 'role', 0 ) ),
       user: req.user,
       footerUid: req.formatted.uid
     } );
@@ -294,15 +301,23 @@ function redirect( req, res, next ) {
 }
 
 
-function agendaEmbedEventShow( req, res ) {
+function renderAgendaEmbedEvent( req, res, next ) {
 
-  cmn.render( req, res, 'event/embedShow', {
+  cmn.renderTemplate( req, 'event/embedShow', {
     eventRender: req.render,
     scriptParams: {
       res: {
         actions: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } )
       }
     }
+  }, false, ( err, render ) => {
+
+    if ( err ) return next( err );
+
+    req.render = render;
+
+    next();
+
   } );
 
 }

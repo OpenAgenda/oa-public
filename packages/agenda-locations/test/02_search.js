@@ -216,7 +216,7 @@ describe( 'search - search', function() {
 
   } );
 
-  it( 'search query on postal code and agendaId', done => {
+  it( 'search query on location name and agendaId', done => {
 
     search.list( {
       search: 'Villette',
@@ -224,6 +224,20 @@ describe( 'search - search', function() {
     }, 0, 20, ( err, locations, total ) => {
 
       total.should.equal( 1 );
+
+      done();
+
+    } );
+
+  } );
+
+  it( 'search should match on partial words as text is input', done => {
+
+    search.list( {
+      search: 'Villet'
+    }, 0, 20, ( err, locations, total ) => {
+
+      total.should.equal( 3 );
 
       done();
 

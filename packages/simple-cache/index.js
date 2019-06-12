@@ -1,12 +1,11 @@
 "use strict";
 
-const _ = require( 'lodash' ),
+const _ = require( 'lodash' );
+const VError = require( 'verror' );
 
-  config = require( './lib/config' ),
+const config = require( './lib/config' );
 
-  VError = require( 'verror' );
-
-module.exports = _.extend( cache, { 
+module.exports = Object.assign( cache, {
   init: c => config.set( c )
 } );
 
@@ -14,7 +13,7 @@ function cache( namespace, identifier = null ) {
 
   if ( !config.client ) throw new VError( 'simple cache needs to be initialized' );
 
-  let cli = config.client;
+  const cli = config.client;
 
   return {
     get,
@@ -49,13 +48,13 @@ function cache( namespace, identifier = null ) {
 
   function clear( key, cb ) {
 
-    
+
 
   }
 
   function _key( key ) {
 
-    let parts = [ config.prefix + namespace, key ];
+    const parts = [ config.prefix + namespace, key ];
 
     if ( identifier !== null ) {
 

@@ -3,9 +3,9 @@ create database if not exists oatest;
 use oatest;
 
 CREATE TABLE agenda (
-  id BIGINT AUTO_INCREMENT, 
+  id BIGINT AUTO_INCREMENT,
   uid BIGINT UNIQUE,
-  main TINYINT(1) DEFAULT '0' NOT NULL, 
+  main TINYINT(1) DEFAULT '0' NOT NULL,
   official TINYINT(1) DEFAULT '0' NOT NULL,
   officialized_at DATETIME,
   private TINYINT(1) DEFAULT '0' NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE agenda (
   settings TEXT,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
-  INDEX owner_id_idx (owner_id), 
+  INDEX owner_id_idx (owner_id),
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
@@ -34,27 +34,28 @@ CREATE TABLE agenda (
 INSERT INTO agenda (
   `id`,
   `title`,
-  `owner_id`, 
-  `slug`, 
-  `description`, 
-  `image`, 
-  `url`, 
-  `collaborative`, 
-  `created_at`, 
-  `updated_at`, 
-  `uid`, 
-  `main`, 
-  `store`, 
-  `contribution_type`, 
-  `contribution_info`, 
-  `official`, 
-  `private`, 
+  `owner_id`,
+  `slug`,
+  `description`,
+  `image`,
+  `url`,
+  `collaborative`,
+  `created_at`,
+  `updated_at`,
+  `uid`,
+  `main`,
+  `store`,
+  `contribution_type`,
+  `contribution_info`,
+  `official`,
+  `private`,
   `credentials`,
-  `form_schema_id`
+  `form_schema_id`,
+  `settings`
 ) VALUES
 
 (
-  218, 
+  218,
   'La Gargouille',
   50304,
   'la-gargouille',
@@ -72,11 +73,12 @@ INSERT INTO agenda (
   0,
   0,
   '{}',
-  2
+  2,
+  '{"contribution":{"type":1}}'
 ),
 
 (
-  219, 
+  219,
   'La Gourgaille',
   50304,
   'la-gourgaille',
@@ -94,7 +96,8 @@ INSERT INTO agenda (
   0,
   0,
   '{}',
-  3
+  3,
+  '{}'
 );
 
 
@@ -124,13 +127,14 @@ CREATE TABLE `user` (
   `uid` bigint(20) DEFAULT NULL,
   `last_signin` datetime DEFAULT NULL,
   `comexposium_id` varchar(255) DEFAULT NULL,
-  `is_new` tinyint(4) DEFAULT '1'
+  `is_new` tinyint(4) DEFAULT '1',
+  `last_inbox_check` datetime DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=50305 DEFAULT CHARSET=utf8;
 
 
-
 INSERT INTO `user` (`id`, `full_name`, `username`, `email`, `image`, `facebook_uid`, `twitter_screen_name`, `culture`, `is_activated`, `main`, `password`, `salt`, `created_at`, `updated_at`, `last_notified`, `is_removed`, `store`, `api_key`, `is_basic`, `twitter_id`, `google_id`, `uid`, `last_signin`, `comexposium_id`, `is_new`) VALUES
-(50304, 'steve', 'steve4460', 'steve@oa.com', NULL, NULL, NULL, 'fr', 1, NULL, 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65', '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3', '2017-11-15 15:50:11', '2017-11-15 15:50:30', NULL, 0, NULL, NULL, 0, NULL, NULL, 63170203, '2017-11-15 15:50:30', NULL, 1);
+(50304, 'steve', 'steve4460', 'steve@oa.com', NULL, NULL, NULL, 'fr', 1, NULL, 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65', '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3', '2017-11-15 15:50:11', '2017-11-15 15:50:30', NULL, 0, NULL, NULL, 0, NULL, NULL, 63170203, '2017-11-15 15:50:30', NULL, 1),
+(50300, 'janine', 'Janine', 'janine@oa.com', NULL, NULL, NULL, 'fr', 1, NULL, 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65', '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3', '2017-11-15 15:50:11', '2017-11-15 15:50:30', NULL, 0, NULL, NULL, 0, NULL, NULL, 63170200, '2017-11-15 15:50:30', NULL, 1);
 
 ALTER TABLE `user` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id_idx` (`id`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `email` (`email`), ADD UNIQUE KEY `email_idx` (`email`), ADD UNIQUE KEY `uid` (`uid`);
 
@@ -146,9 +150,9 @@ INSERT INTO `form_schema` (`id`, `store`) VALUES
 (3, '{"nextOptionId":1,"fields":[]}');
 
 
-ALTER TABLE `form_schema`ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id_idx` (`id`);
+ALTER TABLE `form_schema` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id_idx` (`id`);
 
-ALTER TABLE `form_schema`MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+ALTER TABLE `form_schema` MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 
 
 CREATE TABLE IF NOT EXISTS `member` (
@@ -159,10 +163,13 @@ CREATE TABLE IF NOT EXISTS `member` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `store` longtext,
+  `slug` varchar(255),
   `organization` varchar(255) DEFAULT NULL,
   `creator_id` bigint(20) DEFAULT NULL,
   `deleted_user` tinyint(1) DEFAULT '0',
-  `actions_counter` smallint(6) NOT NULL DEFAULT '0'
+  `actions_counter` smallint(6) NOT NULL DEFAULT '0',
+  `user_uid` bigint(20) DEFAULT NULL,
+  `agenda_uid` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=71390 DEFAULT CHARSET=latin1;
 
 --
@@ -284,8 +291,8 @@ create table if not exists `location` (
   postal_code VARCHAR(20),
   eve_id VARCHAR(100),
   created_at DATETIME NOT NULL,
-  updated_at DATETIME NOT NULL, 
-  UNIQUE INDEX slug_idx (slug), 
+  updated_at DATETIME NOT NULL,
+  UNIQUE INDEX slug_idx (slug),
   INDEX latlng_idx (latitude, longitude),
   INDEX owner_id_idx (owner_id),
   primary key(id)
@@ -387,10 +394,10 @@ CREATE TABLE IF NOT EXISTS `legacy_agenda_event` (
 
 
 CREATE TABLE IF NOT EXISTS `legacy_agenda_event_reference` (
-  id BIGINT, 
-  agenda_id BIGINT, 
-  event_id BIGINT, 
-  ref_event_id BIGINT, 
+  id BIGINT,
+  agenda_id BIGINT,
+  event_id BIGINT,
+  ref_event_id BIGINT,
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
@@ -425,13 +432,13 @@ insert into legacy_agenda_category ( id, slug, category, review_id ) values
 
 
 CREATE TABLE legacy_agenda_tag (
-  id BIGINT AUTO_INCREMENT, 
-  slug VARCHAR(255) NOT NULL, 
-  review_id BIGINT NOT NULL, 
-  tag VARCHAR(255) NOT NULL, 
-  created_at DATETIME NOT NULL, 
-  updated_at DATETIME NOT NULL, 
-  INDEX review_id_idx (review_id), 
+  id BIGINT AUTO_INCREMENT,
+  slug VARCHAR(255) NOT NULL,
+  review_id BIGINT NOT NULL,
+  tag VARCHAR(255) NOT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  INDEX review_id_idx (review_id),
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
@@ -442,7 +449,7 @@ insert into legacy_agenda_tag ( id, slug, review_id, tag ) values
 
 --
 -- cibul-model repo has table names hardcoded. So event table needs to be aliased for interfaces
--- with old code to work 
+-- with old code to work
 --
 CREATE VIEW event AS SELECT * FROM legacy_event;
 CREATE VIEW event_translation AS SELECT * FROM legacy_event_translation;

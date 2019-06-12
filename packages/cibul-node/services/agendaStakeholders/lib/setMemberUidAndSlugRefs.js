@@ -16,6 +16,8 @@ module.exports = async stakeholder => {
 
     const update = {};
 
+    log( 'evaluating', current );
+
     if ( !current.agenda_uid && _.get( stakeholder, 'agendaId' ) ) {
       const agendaUid = _.get( await knex( 'review' ).first( 'uid' ).where( 'id', _.get( stakeholder, 'agendaId' ) ), 'uid' );
       if ( agendaUid ) update.agenda_uid = agendaUid;
@@ -32,6 +34,8 @@ module.exports = async stakeholder => {
       const fullName = _.get( await knex( 'user' ).first( 'full_name' ).where( 'id', _.get( stakeholder, 'userId' ) ), 'full_name' );
       update.slug = slug( fullName, { lower: true } );
     }
+
+    log( 'will update', update );
 
     if ( !_.keys( update ).length ) return;
 

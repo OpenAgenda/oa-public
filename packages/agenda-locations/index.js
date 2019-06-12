@@ -13,6 +13,7 @@ const utils = require( '@openagenda/utils' );
 const db = require( './lib/db' );
 const fieldMap = require( './lib/fieldMap' );
 const insee = require( './utils/insee' );
+const distance = require( './utils/distance' );
 const instanciate = require( './lib/instanciate' );
 const mw = require( './lib/middleware' );
 const sharedConfig = require( './sharedConfig' );
@@ -44,7 +45,8 @@ const service = {
   },
   mw,
   utils: {
-    countries
+    countries,
+    distance // in meters
   },
   tasks: {
     setLocationTimezones: require( './tasks/setLocationTimezones' )

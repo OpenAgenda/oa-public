@@ -11,10 +11,10 @@ const wn = require( 'when/node' );
 const async = require( 'async' );
 const log = require( '@openagenda/logs' )( 'admin/back' );
 const lib = require( '../lib/lib' );
+const membersSvc = require( '../services/members' );
 const model = require( '../services/model' );
 const adminSvc = require( '../services/admin/admin' );
 const usersSvc = require( '@openagenda/users' );
-const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const agendasSvc = require( '@openagenda/agendas' );
 const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
 
@@ -221,22 +221,22 @@ function getUsers( req, res, next ) {
 
         if ( !req.loadedUser.id ) return next( 'User not found' );
 
-        stakeholdersSvc.user( req.loadedUser.id ).list( 0, 500, ( err, stakeholders = [] ) => {
+        membersSvc.list( { userUid: req.loadedUser.uid }, { limit: 500, order: 'id.desc' }, { legacy: true } ).then( ( { stakeholders } ) => {
 
           agendasSvc.list( {
-            ids: stakeholders.map( item => item.agendaId )
+            uid: stakeholders.map( m => m.agendaUid )
           }, 0, 500, { private: null }, ( err, agendas ) => {
 
-            model.lib.query( 'SELECT count(*) as nbrEvents, review_id ' +
-              'FROM review_article WHERE user_id = ? GROUP BY review_id',
-              [ req.loadedUser.id ],
+            model.lib.query( 'SELECT count(*) as nbrEvents, agenda_uid as agendaUid ' +
+              'FROM agenda_event WHERE user_uid = ? GROUP BY agenda_uid',
+              [ req.loadedUser.uid ],
               ( err, counters ) => {
 
                 stakeholders = stakeholders.map( stakeholder => {
 
-                  stakeholder.agenda = agendas.filter( agenda => agenda.id == stakeholder.agendaId )[ 0 ];
+                  stakeholder.agenda = agendas.filter( agenda => agenda.uid == stakeholder.agendaUid )[ 0 ];
 
-                  const counter = counters.filter( counter => counter.review_id == stakeholder.agendaId )[ 0 ];
+                  const counter = counters.filter( counter => counter.agendaUid == stakeholder.agendaUid )[ 0 ];
                   stakeholder.nbrEvents = counter && counter.nbrEvents;
 
                   return stakeholder;

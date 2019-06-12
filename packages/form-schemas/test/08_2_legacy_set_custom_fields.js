@@ -20,6 +20,39 @@ describe( 'form-schemas -08_2- unit (server): generate legacy custom fields from
 
   } );
 
+  it( 'if read right is administrator and moderator, custom field should be administrator', () => {
+
+    const { customFields } = generateCustomFields( {
+      fields: [ {
+        field: 'Montant',
+        fieldType: 'integer',
+        label: 'Somme proposée à la commission',
+        read : [ 'administrator', 'moderator' ],
+        origin: 'custom'
+      } ]
+    } );
+
+    customFields[ 0 ].type.should.equal( 'administrator' );
+
+  } );
+
+  it( 'if read right is administrator, moderator and contributor, custom field should be private', () => {
+
+    const { customFields } = generateCustomFields( {
+      fields: [ {
+        field: 'Présentation',
+        fieldType: 'file',
+        extensions: [ 'pdf' ],
+        read : [ 'administrator', 'moderator', 'contributor' ],
+        label: 'Vous pouvez également charger ici une présentation de votre événement, elle ne sera visible que des délégations et pas du grand public.',
+        origin: 'custom'
+      } ]
+    } );
+
+    customFields[ 0 ].type.should.equal( 'private' );
+
+  } );
+
 } );
 
 function _get( name ) {
