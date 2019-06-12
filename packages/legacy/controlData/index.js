@@ -9,6 +9,8 @@ const batchRemove = require( './lib/batchRemove' );
 const clear = require( './lib/clear' );
 const embedClear = require( './lib/embedClear' );
 const insert = require( './lib/insert' );
+const locationSet = require( './lib/locationSet' );
+const locationRemove = require( './lib/locationRemove' );
 const memberRemove = require( './lib/memberRemove' );
 const memberSet = require( './lib/memberSet' );
 const middleware = require( './lib/middleware' );
@@ -37,6 +39,8 @@ module.exports = ( { knex, redis, prefix, imagePath } ) => {
     insert: insert.bind( null, config ),
     memberRemove: memberRemove.bind( null, config ),
     memberSet: memberSet.bind( null, config ),
+    locationSet: locationSet.bind( null, config ),
+    locationRemove: locationRemove.bind( null, config ),
     middleware: middleware.bind( null, config ),
     embedMiddleware: middleware.embed.bind( null, { knex, redis, prefix, imagePath } ),
     embedClear: embedClear.bind( null, config ),
