@@ -396,11 +396,22 @@ function set( data, settings, cb ) {
 
     if ( v.errors.length ) return v;
 
-    return ( v.operation == 'create' ? _create : _update )( v );
+    return ( v.operation === 'create' ? _create : _update )( v );
 
   } )
 
-  .done( v => {
+  .done( async v => {
+
+    try {
+      if ( v.operation === 'create' &&  _.get( interfaces, 'onCreate' ) ) {
+        await interfaces.onCreate( v.location );
+      } else if ( v.operation === 'update' && _.get( interfaces, 'onUpdate' ) ) {
+        await interfaces.onUpdate( v.currentLocation, v.location );
+      }
+    } catch ( e ) {
+      log( 'error', 'interface error', e );
+    }
+
 
     cb( null, {
       success: !v.errors.length,
