@@ -85,6 +85,8 @@ module.exports = () => {
 
   require( './core' ).tasks();
 
+  require( './services/agendaLocations' ).task();
+
 
   if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
 
