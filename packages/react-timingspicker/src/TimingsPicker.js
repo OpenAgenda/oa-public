@@ -215,7 +215,6 @@ class TimingsPicker extends Component {
             allowedTimings={allowedTimings}
             breakpoint={breakpoint}
             classNamePrefix={classNamePrefix}
-            modalStyle={modalStyle}
           />
           <PatternMaker activeWeek={activeWeek} />
         </div>
