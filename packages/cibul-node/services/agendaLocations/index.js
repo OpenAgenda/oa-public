@@ -21,14 +21,14 @@ const onCreate = require( './interfaces/onCreate' );
 
 const queues = require( '../queues' );
 
-const reindexImpactedEvents = require( './tasks/reindexImpactedEvents' );
+const syncImpactedEventsAndAgendas = require( './tasks/syncImpactedEventsAndAgendas' );
 
 module.exports.init = async config => {
 
   const queue = queues( 'locations' );
 
   queue.register( {
-    reindexImpactedEvents
+    syncImpactedEventsAndAgendas
   } );
 
   queue.on( 'error', ( task, args, err ) => log( 'error', 'task %s error', task, err ) );
