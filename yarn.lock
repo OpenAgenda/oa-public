@@ -2052,10 +2052,10 @@
     should "~4.0"
     xml2js "0.4.9"
 
-"@openagenda/es-node@^1.0.15":
-  version "1.0.15"
-  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.15.tgz#e7e51ef098b0923e921cceff311c82822080bd45"
-  integrity sha512-ZgAZsvEhpMTs7qPa08aZJVNDXiHYzfEEumoaj5DPRpohQnPFD4q1kN7hIRSLf/nWbh7bHrBk1y479y3qGrbdTw==
+"@openagenda/es-node@^1.0.16":
+  version "1.0.16"
+  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.16.tgz#a7a1257a796c55abc22d961988ab68d97a3a41d2"
+  integrity sha512-0s4OBiaW/+eLYSJx8Xb2nWHUPCqhODR9aVvfJQ8TTlqILx/+1/FXjcY0/p+yw52k+ON+yeQ7eQVq3wyWrQRW9g==
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "~0.9"
@@ -11716,6 +11716,11 @@ generic-pool@^2.4.2:
   version "2.5.4"
   resolved "https://registry.npmjs.org/generic-pool/-/generic-pool-2.5.4.tgz#38c6188513e14030948ec6e5cf65523d9779299b"
   integrity sha1-OMYYhRPhQDCUjsblz2VSPZd5KZs=
+
+geolib@^2.0.24:
+  version "2.0.24"
+  resolved "https://registry.npmjs.org/geolib/-/geolib-2.0.24.tgz#eb3d7fbc65f5ea3354a5af6054563ebe9f33e5f4"
+  integrity sha512-NR0AyYyEnGrFS9JvSFmmotQDxVCORJgDHdvBwSatxl5aHarOLMh3KuGI83bCvCfObjfoEiDe8Ung8GGLGAtthw==
 
 get-assigned-identifiers@^1.2.0:
   version "1.2.0"
