@@ -366,6 +366,9 @@
 }
 
 .rtp__calendar .rtp__body .rtp__timing-value {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 3px;
     color: #fff;
     height: 13px;
     line-height: 13px;
@@ -373,6 +376,7 @@
     font-size: 13px;
     text-align: center;
     margin-top: 1px;
+    margin-bottom: 6px;
 }
 
 .rtp__calendar .rtp__body .rtp__timing-remove {
