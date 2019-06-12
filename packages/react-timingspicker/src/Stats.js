@@ -29,8 +29,6 @@ export default class Stats extends Component {
     const { first, last } = this.state;
     const sameDay = dateFns.isSameDay( first, last );
 
-    console.log( 'value', value, first, last );
-
     return (
       <>
         <div className={`${classNamePrefix}stats`}>
