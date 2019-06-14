@@ -114,6 +114,14 @@ Install java
     sudo apt-get update
     sudo apt-get install oracle-java8-installer
 
+**Note (13/06/2019)**: the ppa has been discontinued following an oracle licensing change. OpenJDK install instructions are here: https://docs.datastax.com/en/archived/cassandra/3.0/cassandra/install/installOpenJdkDeb.html
+
+    sudo add-apt-repository ppa:openjdk-r/ppa
+    sudo apt-get update
+    sudo apt-get install openjdk-8-jdk
+
+    java -version
+
 
 ### Database
 
