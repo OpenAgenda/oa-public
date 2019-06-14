@@ -1067,8 +1067,13 @@ module.exports = createReactClass( {
 
       {this.props.showToggler ? <StateToggler
         locationState={this.state.location.state}
-        set={this.set}
-        getLabel={this.getLabel} /> : null}
+        onChange={state => this.setState( {
+          location: update( this.state.location, {
+            state: { $set: state }
+          } )
+        } ) }
+        getLabel={this.getLabel}
+      /> : null}
 
       <InputField
         name="name"
