@@ -90,7 +90,12 @@ module.exports = () => {
 
   if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
 
-    // require( './services/elasticsearch' ).resync( { reset: false }, ( err, res ) => console.log( 'FINI', err, res ) );
+    /*require( './services/elasticsearch' ).resync( {
+      reset: false,
+      since: '2019-05-14',
+      removeZombies: false,
+      logEveryUpdate: true
+    }, ( err, res ) => console.log( 'FINI', err, res ) );*/
 
   }
 

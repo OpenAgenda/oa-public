@@ -46,7 +46,10 @@ module.exports = async function( ES, options, cb ) {
     isPublished: null,
     interval: 0,
     reset: false,
-    showAll: true
+    showAll: true,
+    since: null,
+    removeZombies: true,
+    logEveryUpdate: false
   }, options );
 
   if ( params.reset ) {
@@ -57,13 +60,17 @@ module.exports = async function( ES, options, cb ) {
   const agendaId = params.agendaId || params.reviewId;
 
   if ( !agendaId ) {
-    await _removeReviewZombies( ES );
-    await _updateReviews( ES );
+    if ( params.removeZombies ) {
+      await _removeReviewZombies( ES );
+    }
+    await _updateReviews( ES, _.pick( params, [ 'since', 'logEveryUpdate' ] ) );
   }
 
-  await _removeEventZombies( ES, agendaId );
+  if ( params.removeZombies ) {
+    await _removeEventZombies( ES, agendaId );
+  }
 
-  await _updateEvents( ES, agendaId );
+  await _updateEvents( ES, agendaId, _.pick( params, [ 'since', 'logEveryUpdate' ] ) );
 
   await ES.refreshIndex();
 
@@ -72,13 +79,14 @@ module.exports = async function( ES, options, cb ) {
 }
 
 
-async function _updateReviews( ES ) {
+async function _updateReviews( ES, { since, logEveryUpdate } ) {
 
   const count = { processed: 0, errors: 0 };
 
   await loopThroughTable( knex, 'review', async id => {
 
     await ES.updateReview( id );
+    if ( logEveryUpdate ) log( 'updated agenda of id %s', id );
 
     count.processed++;
 
@@ -86,11 +94,11 @@ async function _updateReviews( ES ) {
       log( 'info', 'updated %s reviews', count.processed );
     }
 
-  } );
+  }, { since } );
 
 }
 
-async function _updateEvents( ES, agendaId ) {
+async function _updateEvents( ES, agendaId, { since, logEveryUpdate } ) {
 
   const count = { processed: 0, errors: 0 };
 
@@ -98,6 +106,7 @@ async function _updateEvents( ES, agendaId ) {
 
     try {
       await ES.updateEvent( id );
+      if ( logEveryUpdate ) log( 'updated event of id %s', id );
     } catch( e ) {
       if ( knownBuildErrors.includes( e.message ) ) {
         log( 'warn', e.message, { eventId: id } );
@@ -118,7 +127,8 @@ async function _updateEvents( ES, agendaId ) {
 
   }, {
     query: agendaId ? { review_id: agendaId } : null,
-    field: agendaId ? 'event_id' : 'id'
+    field: agendaId ? 'event_id' : 'id',
+    since
   } );
 
 }
