@@ -7,16 +7,18 @@ module.exports = async ( knex, table, asyncFn, options = {} ) => {
   const {
     startFromId,
     query,
-    field
+    field,
+    since
   } = Object.assign( {
     startFromId: 99999999,
     query: null,
-    field: 'id'
+    field: 'id',
+    since: null
   }, options );
 
   let lastId = startFromId, ids;
 
-  while ( ( ids = await _buildQuery( { knex, table, field, lastId, query } )
+  while ( ( ids = await _buildQuery( { knex, table, field, lastId, query, since } )
     .then( r => r.map( r => r[ field ] ) )
   ).length ) {
 
@@ -30,7 +32,7 @@ module.exports = async ( knex, table, asyncFn, options = {} ) => {
 
 }
 
-function _buildQuery( { knex, table, field, lastId, query } ) {
+function _buildQuery( { knex, table, field, lastId, query, since } ) {
 
   const k = knex( table )
     .select( field )
@@ -39,6 +41,8 @@ function _buildQuery( { knex, table, field, lastId, query } ) {
     .orderBy( field, 'desc' );
 
   if ( query ) k.where( query );
+
+  if ( since ) k.where( 'updated_at', '>=', since );
 
   return k;
 
