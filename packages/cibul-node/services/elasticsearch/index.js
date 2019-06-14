@@ -8,9 +8,10 @@ const ESNode = require( '@openagenda/es-node' );
 const coms = require( '../../lib/coms' );
 const refresh = require( './lib/refresh' );
 const resync = require( './lib/resync' );
-const updateReview = require( './lib/updateReview' );
 const updateEvent = require( './lib/updateEvent' );
+const updateReview = require( './lib/updateReview' );
 const removeEvent = require( './lib/removeEvent' );
+const removeReview = require( './lib/removeReview' );
 
 let legacyES;
 
@@ -29,6 +30,10 @@ function init( config ) {
     resetIndex: promisify( legacyLib.resetIndex ),
     updateReview: updateReview( {
       update: promisify( legacyLib.reviews().update ),
+      knex: config.knex
+    } ),
+    removeReview: removeReview( {
+      remove: promisify( legacyLib.reviews().remove ),
       knex: config.knex
     } ),
     updateEvent: updateEvent( {
@@ -56,6 +61,8 @@ function init( config ) {
     refresh: refresh.bind( null, legacyES ),
     updateEvent: legacyES.updateEvent,
     removeEvent: legacyES.removeEvent,
+    updateAgenda: legacyES.updateReview,
+    removeAgenda: legacyES.removeReview,
     ES: legacyLib
   } )
 

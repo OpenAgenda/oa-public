@@ -6,8 +6,6 @@ const tfy = require( './lib/taskify' );
 
 module.exports = () => {
 
-  tfy( require( './search/task' ), { bootOffset: 1000 } );
-
   tfy( require( './general/jobs.task' ), { bootOffset: 1000 } );
 
   tfy( require( './general/resetApiCounters.task' ), { period: 'daily', time: '00:00' } );
