@@ -447,7 +447,7 @@ function _clean( query, params ) {
   [
     'neLat', 'neLng', 'swLat', 'swLng',
     'category', 'location', 'locationExtId', 'org',
-    'countryCode'
+    'countryCode', 'lat', 'lng', 'radius'
   ].forEach( function( name ) {
 
     if ( query[ name ] ) clean[ name ] = query[ name ];
