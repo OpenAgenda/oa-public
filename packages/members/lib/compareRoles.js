@@ -14,7 +14,8 @@ const rolePairs = _.toPairs( require( './roles' ) );
 module.exports = {
   isSuperiorTo,
   isSuperiorToOrEqual,
-  isEqualTo
+  isEqualTo,
+  isLessThan
 }
 
 function isEqualTo( role, compareWithRole ) {
@@ -27,6 +28,10 @@ function isSuperiorToOrEqual( role, compareWithRole ) {
 
 function isSuperiorTo( role, compareWithRole ) {
   return roleWeights[ _getRoleStringCode( role ) ] > roleWeights[ _getRoleStringCode( compareWithRole ) ];
+}
+
+function isLessThan( role, compareWithRole ) {
+  return roleWeights[ _getRoleStringCode( role ) ] < roleWeights[ _getRoleStringCode( compareWithRole ) ];
 }
 
 function _getRoleStringCode( role ) {

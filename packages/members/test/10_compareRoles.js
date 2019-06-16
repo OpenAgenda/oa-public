@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 
-const { isSuperiorTo, isSuperiorToOrEqual, isEqualTo } = require( '../' ).utils.compareRoles;
+const { isSuperiorTo, isSuperiorToOrEqual, isEqualTo, isLessThan } = require( '../' ).utils.compareRoles;
 
 describe( 'members - utils - compareRoles', () => {
 
@@ -45,6 +45,18 @@ describe( 'members - utils - compareRoles', () => {
       }
 
       error.message.should.equal( 'Unknown role: CLOWN' );
+    } );
+
+  } );
+
+  describe( 'isLessThan', () => {
+
+    it( 'moderator is less than administrator', () => {
+      isLessThan( 'moderator', 'administrator' ).should.equal( true );
+    } );
+
+    it( 'moderator is not less than reader', () => {
+      isLessThan( 'moderator', 'reader' ).should.equal( false );
     } );
 
   } );
