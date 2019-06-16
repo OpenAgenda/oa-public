@@ -8,6 +8,11 @@ const stream = require( './stream' );
 //const update = require( './update' );
 //const validate = require( './validate' );
 
+const utils = {
+  roles: require( './lib/roles' ),
+  compareRoles: require( './lib/compareRoles' )
+}
+
 module.exports = ( options = {} ) => {
 
   const config = _.assign( {
@@ -28,4 +33,4 @@ module.exports = ( options = {} ) => {
 
 }
 
-//module.exports.validate = validate;
+module.exports.utils = utils;
