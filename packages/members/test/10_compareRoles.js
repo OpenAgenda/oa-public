@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 
-const { isSuperiorTo } = require( '../' ).utils.compareRoles;
+const { isSuperiorTo, isSuperiorToOrEqual, isEqualTo } = require( '../' ).utils.compareRoles;
 
 describe( 'members - utils - compareRoles', () => {
 
@@ -35,10 +35,6 @@ describe( 'members - utils - compareRoles', () => {
       isSuperiorTo( 'moderator', 'moderator' ).should.equal( false );
     } );
 
-    it( 'moderator is superior or equal to moderator', () => {
-      isSuperiorTo( 'moderator', 'moderator', true ).should.equal( true );
-    } );
-
     it( 'Unknown error is thrown if given string is unknown', () => {
       let error;
 
@@ -49,6 +45,30 @@ describe( 'members - utils - compareRoles', () => {
       }
 
       error.message.should.equal( 'Unknown role: CLOWN' );
+    } );
+
+  } );
+
+  describe( 'isSuperiorToOrEqual', () => {
+
+    it( 'moderator is superior or equal to moderator', () => {
+      isSuperiorToOrEqual( 'moderator', 'moderator' ).should.equal( true );
+    } )
+
+    it( 'moderator is not superior to or equal to administrator', () => {
+      isSuperiorToOrEqual( 'moderator', 'administrator' ).should.equal( false );
+    } );
+
+  } );
+
+  describe( 'isEqualTo', () => {
+
+    it( 'contributor is equal to contributor', () => {
+      isEqualTo( 'contributor', 'contributor' ).should.equal( true );
+    } );
+
+    it( 'contributor is not equal to reader', () => {
+      isEqualTo( 'contributor', 'reader' ).should.equal( false );
     } );
 
   } );
