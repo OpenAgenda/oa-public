@@ -68,6 +68,8 @@ module.exports = parentApp => {
 
 };
 
+module.exports.utils = Service.utils;
+
 module.exports.init = config => {
 
   Object.assign( members, Service( {

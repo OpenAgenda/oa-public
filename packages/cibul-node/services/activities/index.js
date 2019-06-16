@@ -3,12 +3,10 @@
 const { promisify } = require( 'util' );
 const activities = require( '@openagenda/activities' );
 const agendasSvc = require( '@openagenda/agendas' );
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const { isLessThan, isSuperiorToOrEqual, isEqualTo } = require( '../members' ).utils.compareRoles;
 const sendSummary = require( './sendSummary' );
 
 module.exports.init = async config => {
-
-  const getRole = agendaStakeholders.types.get;
 
   await activities.init( {
     mysql: config.db,
@@ -77,7 +75,7 @@ module.exports.init = async config => {
         if (
           originFeed.entityType === 'agenda'
           && targetFeed.entityType === 'user'
-          && !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
+          && isLessThan( follow.store.credential, 'moderator' )
         ) {
 
           return cb( null, false );
@@ -92,8 +90,8 @@ module.exports.init = async config => {
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
         if (
-          !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
-          || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' )) // moderator doesn't sees who has invited to become an administrator
+          isLessThan( follow.store.credential, 'moderator' )
+          || ( isEqualTo( follow.store.credential, 'moderator' ) && isEqualTo( activity.store.credential, 'administrator' ) )// moderator doesn't see who has been invited to become an administrator
         ) {
 
           return cb( null, false );
@@ -115,8 +113,8 @@ module.exports.init = async config => {
         }
 
         if (
-          !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // less than moderator
-          || (follow.store.credential === getRole( 'moderator' ) && activity.store.credential === getRole( 'administrator' )) // moderator doesn't sees who has invited to become an administrator
+          isLessThan( follow.store.credential, 'moderator' )
+          || ( isEqualTo( follow.store.credential, 'moderator' ) && isEqualTo( activity.store.credential, 'administrator' ) ) // moderator doesn't sees who has invited to become an administrator
         ) {
 
           return cb( null, false );
@@ -130,13 +128,7 @@ module.exports.init = async config => {
       verb: [ 'agenda.updateProfile', 'agenda.updateContribution' ],
       filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
-        if ( !agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'administrator' ), true ) ) { // less than administrator
-
-          return cb( null, false );
-
-        }
-
-        cb( null, true );
+        cb( null, isSuperiorToOrEqual( follow.store.credential, 'administrator' ) );
 
       }
     }, {
@@ -176,7 +168,7 @@ module.exports.init = async config => {
         if (
           originFeed.entityType === 'agenda'
           && targetFeed.entityType === 'user'
-          && agendaStakeholders.types.isSuperiorTo( follow.store.credential, getRole( 'moderator' ), true ) // more than moderator
+          && isSuperiorToOrEqual( follow.store.credential, 'moderator' )
         ) {
 
           return cb( null, true );
