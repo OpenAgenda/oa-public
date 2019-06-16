@@ -157,6 +157,18 @@ Check if elasticsearch is running
 
     sudo /etc/init.d/elasticsearch status
 
+Tweak configuration by following the [official documentation](https://www.elastic.co/guide/en/elasticsearch/reference/1.3/setup-configuration.html)
+
+1. Change the heap size. On a dedicated ES server, half of available memory is recommended:
+
+  Edit `/etc/init.d/elasticsearch`, uncomment the ES_HEAP_SIZE and adjust the value
+
+2. Reduce swappiness
+
+  Add `vm.swappiness=1` in `/etc/sysctl.conf`
+
+When data is already loaded in Elasticsearch, the service may take a while to boot up before being operational ( particularly for write operations )
+
 
 ### Elasticsearch 5.3
 
