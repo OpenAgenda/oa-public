@@ -95,6 +95,8 @@ module.exports = () => {
       logEveryUpdate: true
     }, ( err, res ) => console.log( 'FINI', err, res ) );*/
 
+    //require( './services/agendaLocations' ).resync();
+
   }
 
   // require( './services/agendaStatistics' ).task.resyncLegacySearch();

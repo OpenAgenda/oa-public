@@ -22,13 +22,15 @@ const onCreate = require( './interfaces/onCreate' );
 const queues = require( '../queues' );
 
 const syncImpactedEventsAndAgendas = require( './tasks/syncImpactedEventsAndAgendas' );
+const resyncAllAgendaLocations = require( './tasks/resyncAllAgendaLocations' );
 
 module.exports.init = async config => {
 
   const queue = queues( 'locations' );
 
   queue.register( {
-    syncImpactedEventsAndAgendas
+    syncImpactedEventsAndAgendas,
+    resyncAllAgendaLocations: resyncAllAgendaLocations.bind( null, config.knex ),
   } );
 
   queue.on( 'error', ( task, args, err ) => log( 'error', 'task %s error', task, err ) );
@@ -78,6 +80,8 @@ module.exports.init = async config => {
   } );
 
   module.exports.task = queue.run;
+
+  module.exports.resync = () => queue( 'resyncAllAgendaLocations' );
 
 }
 

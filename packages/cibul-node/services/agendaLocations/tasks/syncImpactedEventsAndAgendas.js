@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 
 const agendaEvents = require( '@openagenda/agenda-events' );
 const events = require( '@openagenda/events' );
-const log = require( '@openagenda/logs' )( 'agendaLocations/tasks/reindexImpactedEvents' );
+const log = require( '@openagenda/logs' )( 'services/agendaLocations/tasks/reindexImpactedEvents' );
 
 const legacyEventSearch = require( '../../elasticsearch' );
 const controlData = require( '../../legacy' ).controlData;
