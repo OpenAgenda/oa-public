@@ -35,6 +35,10 @@ describe( 'members - utils - compareRoles', () => {
       isSuperiorTo( 'moderator', 'moderator' ).should.equal( false );
     } );
 
+    it( 'undefined or null is not superior to reader', () => {
+      isSuperiorTo( undefined, 'reader' ).should.equal( false );
+    } );
+
     it( 'Unknown error is thrown if given string is unknown', () => {
       let error;
 
@@ -57,6 +61,10 @@ describe( 'members - utils - compareRoles', () => {
 
     it( 'moderator is not less than reader', () => {
       isLessThan( 'moderator', 'reader' ).should.equal( false );
+    } );
+
+    it( 'null is less than reader', () => {
+      isLessThan( null, 'reader' ).should.equal( true );
     } );
 
   } );

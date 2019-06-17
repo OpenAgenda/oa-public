@@ -6,7 +6,8 @@ const roleWeights = {
   ADMINISTRATOR: 100,
   MODERATOR: 50,
   CONTRIBUTOR: 10,
-  READER: 1
+  READER: 1,
+  NOROLE: 0
 }
 
 const rolePairs = _.toPairs( require( './roles' ) );
@@ -41,6 +42,8 @@ function _getRoleStringCode( role ) {
 }
 
 function _getRoleStringCodeFromString( role ) {
+  if ( [ null, undefined ].includes( role ) ) return 'NOROLE';
+
   const matches = rolePairs.filter( p => role.toUpperCase() === p[ 0 ] );
 
   if ( !matches.length ) throw new Error( 'Unknown role: ' + role );
@@ -49,6 +52,9 @@ function _getRoleStringCodeFromString( role ) {
 }
 
 function _getRoleStringCodeFromInteger( role ) {
+
+  if ( [ null, undefined ].includes( role ) ) return 'NOROLE';
+
   const matches = rolePairs.filter( p => role === p[ 1 ] );
 
   if ( !matches.length ) throw new Error( 'Unknown role: ' + role );
