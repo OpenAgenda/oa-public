@@ -616,7 +616,7 @@ function _populate( v ) {
 
         if ( !err && result.errors !== true ) {
 
-          log( 'bulk inserted %s locations', result.items.length );
+          log( 'info', 'bulk inserted %s locations', result.items.length );
 
           indexedCount += result.items.length;
 
