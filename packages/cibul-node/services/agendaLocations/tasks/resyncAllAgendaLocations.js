@@ -8,23 +8,33 @@ const log = require( '@openagenda/logs' )( 'services/agendaLocations/tasks/resyn
 
 const resync = promisify( agendaLocations.resync );
 
-module.exports = async function( knex ) {
+module.exports = async function( knex, startFromId ) {
 
-  let agendaId = 99999999;
+  console.log(startFromId);
 
-  while ( agendaId = await knex( 'review' )
-    .first( [ 'id' ] )
-    .where( 'id', '<', agendaId )
-    .orderBy( 'id', 'desc' )
-    .then( r => _.get( r, 'id' ) )
-  ) {
-
-    log( 'info', 'processing agenda id %s', agendaId );
-
-    const result = await resync( agendaId );
-
-    log( 'info', 'done processing agenda id %s', agendaId, result );
-
+  let agenda = {
+    id: startFromId || 99999999
   }
+
+  while ( agenda = await knex( 'review' )
+    .first( [ 'id', 'slug' ] )
+    .where( 'id', '<', agenda.id )
+    .orderBy( 'id', 'desc' ) ) {
+
+      try {
+
+        log( 'info', 'processing agenda %s', agenda.slug );
+
+        const result = await resync( agenda.id );
+
+        log( 'info', 'done processing agenda %s, (%s)', agenda.slug, agenda.id, result );
+
+      } catch ( e ) {
+
+        log( 'error', 'failed processing agenda %s, (%s)', agenda.slug, agenda.id, e );
+
+      }
+
+    }
 
 }
