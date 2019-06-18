@@ -312,7 +312,8 @@ const config = {
         "calameo",
         "allocine",
         "weezevent",
-        "eventbrite"
+        "eventbrite",
+        "pictoaccess"
       ],
     },
     newsletter: {
