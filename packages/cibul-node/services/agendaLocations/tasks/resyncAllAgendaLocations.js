@@ -10,8 +10,6 @@ const resync = promisify( agendaLocations.resync );
 
 module.exports = async function( knex, startFromId ) {
 
-  console.log(startFromId);
-
   let agenda = {
     id: startFromId || 99999999
   }

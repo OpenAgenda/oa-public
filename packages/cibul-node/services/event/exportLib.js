@@ -2,6 +2,8 @@
 
 const pickEventImage = require( './lib/pickImage' );
 
+const log = require( '@openagenda/logs' )( 'services/event/exportLib' );
+
 const _ = require( 'lodash' ),
 
   async = require( 'async' ),
@@ -91,7 +93,14 @@ function cleanEvent( eInst, options, cb ) {
 
   }
 
-  const dateRange = eInst.getDateRange( true );
+  let dateRange;
+
+  try {
+    dateRange = eInst.getDateRange( true );
+  } catch ( e ) {
+    log( 'error', 'failed fetching date range for event %s, (%s)', eInst.slug, eInst.uid, e );
+    return cb( e );
+  }
 
   const c = {
     uid: eInst.uid,
