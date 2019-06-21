@@ -167,7 +167,7 @@ module.exports = {
     "en": "There are no matching events. Please widen your search.",
     "fr": "Aucun événement trouvé. Veuillez élargir votre recherche.",
     "it": "Non ci sono eventi corrispondenti. Si prega di ampliare la ricerca.",
-    "de": "Es gibt keine passenden Veranstaltungen. Bitte erweite Deine Suche.",
+    "de": "Es gibt keine passenden Veranstaltungen. Bitte erweitere Deine Suche.",
     "pl": "Nie ma pasujących zdarzeń. Proszę rozszerzyć zakres wyszukiwania.",
     "br": "N'eus bet kavet darvoud ebet. Grit un enklask ledanoc'h, mar plij.",
     "es": "No se han encontrado eventos. Por favor, ampliar su búsqueda."
