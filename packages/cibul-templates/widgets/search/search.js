@@ -44,6 +44,8 @@ var widget = function( elem, options ) {
 
   inputElem, buttonElem,
 
+  includePassed = false,
+
   waiting = false; // buffer input to limit server request frequency
 
   ( function() {
@@ -57,9 +59,11 @@ var widget = function( elem, options ) {
     }
 
     if ( elem.hasAttribute( 'data-scope' ) ) {
-
       scope = elem.getAttribute( 'data-scope' ).split( '|' );
+    }
 
+    if ( elem.hasAttribute( 'data-passed' ) ) {
+      includePassed = true;
     }
 
     log = debug( 'search widget ' + uid );
@@ -101,15 +105,11 @@ var widget = function( elem, options ) {
 
     log( 'updating with "%s"', what );
 
-    if ( what ) {
+    const query = what ? { what: what, location: null, scope: scope } : { what: null, scope: null };
 
-      controller.update( 'search', { what: what, location: null, scope: scope } );
+    if ( includePassed ) query.passed = 1;
 
-    } else {
-
-      controller.update( 'search', { what: null, scope: null } );
-
-    }
+    controller.update( 'search', query );
 
   }
 
@@ -120,7 +120,7 @@ var widget = function( elem, options ) {
     if ( !cn.el( elem, 'input' ) ) {
 
       elem.innerHTML += template( { labels : labels } );
-      
+
     }
 
     buttonElem = cn.el( elem, 'button' );
