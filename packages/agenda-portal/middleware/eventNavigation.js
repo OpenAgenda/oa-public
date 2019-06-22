@@ -37,7 +37,7 @@ function redirectToNeighbor( req, res, next ) {
 
   const newIndex = index + ( direction === 'next' ? 1 : - 1 );
 
-  req.app.get( 'proxy' ).list( _.assign( { oaq: search }, {
+  req.app.get( 'proxy' ).list( res.locals.agendaUid, _.assign( { oaq: search }, {
     offset: Math.max( 0, newIndex )
   } ), 1 ).then( ( { total, events } ) => {
 

@@ -9,9 +9,12 @@ module.exports = ( req, res, next ) => {
 
   const parsers = req.app.get( 'parsers' );
 
-  req.app.get( 'proxy' ).list( _.assign( {}, req.query, {
-    page: parseInt( _.get( req, 'params.page', 1 ) )
-  } ) ).then( ( { total, offset, limit, events } ) => {
+  req.app.get( 'proxy' ).list(
+    res.locals.agendaUid,
+    _.assign( {}, req.query, {
+      page: parseInt( _.get( req, 'params.page', 1 ) )
+    } )
+  ).then( ( { total, offset, limit, events } ) => {
 
     req.data = _.assign( req.data || {}, {
       query: req.query,

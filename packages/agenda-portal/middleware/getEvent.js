@@ -7,7 +7,9 @@ module.exports = async ( req, res, next ) => {
   const proxy = req.app.get( 'proxy' );
   const parsers = req.app.get( 'parsers' );
 
-  const event = await req.app.get( 'proxy' ).get( { slug: req.params.slug } );
+  const event = await proxy.get( res.locals.agendaUid, {
+    slug: req.params.slug
+  } );
 
   if ( !event ) return next();
 

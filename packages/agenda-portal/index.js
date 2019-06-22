@@ -51,13 +51,10 @@ module.exports = async options => {
   } = config;
 
   const proxy = Proxy( {
-    uid,
     key,
     defaultLimit: eventsPerPage,
     defaultFilter
   } );
-
-  app.locals.agenda = await proxy.head();
 
   app.set( 'view engine', 'hbs' );
   app.set( 'views', views );
@@ -77,7 +74,19 @@ module.exports = async options => {
 
   app.use( express.static( __dirname + '/assets' ) );
 
-  if ( assets ) app.use( express.static( assets ) );
+  if ( uid ) {
+    app.locals.agenda = await proxy.head( uid );
+  }
+
+  if ( assets ) {
+    app.use( express.static( assets ) );
+  }
+
+  app.use( async ( req, res, next ) => {
+    res.locals.agendaUid = uid || res.locals.agendaUid || req.params.agendaUid;
+    res.locals.agenda = app.locals.agenda || await proxy.head( res.locals.agendaUid );
+    next();
+  } );
 
   app.get( '/', mw.redirectLegacyEventQuery, mw.pageGlobals, mw.list, mw.index );
   app.get( '/p/:page', mw.pageGlobals, mw.list, mw.index );
