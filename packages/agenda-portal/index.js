@@ -47,14 +47,9 @@ module.exports = async options => {
     sass, // optional path to sass file
     eventsPerPage, // optional number of events to load per page
     defaultFilter, // optional: filter that applies when no other filter is set
-    cache
+    cache,
+    proxy
   } = config;
-
-  const proxy = Proxy( {
-    key,
-    defaultLimit: eventsPerPage,
-    defaultFilter
-  } );
 
   app.set( 'view engine', 'hbs' );
   app.set( 'views', views );
@@ -62,14 +57,16 @@ module.exports = async options => {
 
   _.assign( app.locals, config );
 
-  app.set( 'proxy', proxy );
+  app.set( 'proxy', proxy || Proxy( {
+    key,
+    defaultLimit: eventsPerPage,
+    defaultFilter
+  } ) );
 
   // routes
 
   if ( process.env.NODE_ENV === 'development' ) {
-
     launch.applyDevelopmentMiddleware( app );
-
   }
 
   app.use( express.static( __dirname + '/assets' ) );
