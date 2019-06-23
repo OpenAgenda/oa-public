@@ -15,7 +15,7 @@ module.exports = async ( req, res, next ) => {
 
   _.assign( req.data, {
     event: parsers.detailedEvent(
-      parsers.event( event )
+      parsers.event( event, req, res )
     )
   } );
 

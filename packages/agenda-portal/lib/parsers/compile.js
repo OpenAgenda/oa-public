@@ -16,17 +16,16 @@ module.exports = ( {
   eventsPerPage,
   lang, // language in which the event is to be flattened
   eventParser, // project-specific parser
-  root, // root path for portal
-  agenda // agenda of portal
+  root // root path for portal
 } ) => {
 
   moment.locale( lang );
 
-  return ( e, req = null, context ) => [
+  return ( e, req = null, res = null, context = null ) => [
     flatten.bind( null, [ 'range', 'title', 'description', 'html' ], lang ),
     _.partialRight( relativeTimings, { lang, moment } ),
-    _.partialRight( links, { lang, root, agenda } ),
-    req ? applyContextLink.bind( null, { req, context } ) : e => e,
+    _.partialRight( links, { lang, res } ),
+    context ? applyContextLink.bind( null, { req, context } ) : e => e,
     eventParser ? _.partialRight( eventParser, { lang, moment } ) : e => e
   ].reduce( ( e, fn ) => fn( e ), e );
 

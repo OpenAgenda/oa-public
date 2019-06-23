@@ -9,9 +9,10 @@ const log = require( '../lib/Log' )( 'test' );
 
 const Portal = require( '../' );
 
+const devPort = 3000;
+
 Portal( {
-  // used in a non development environment
-  root: process.env.PORTAL_ROOT || 'https://somewhere.com',
+  root: process.env.PORTAL_ROOT || `http://localhost:${devPort}`,
   // agenda uid
   uid: 48353388,
   // site language
@@ -46,7 +47,7 @@ Portal( {
     zoom: 12
   },
   eventParser
-} ).then( app => app.launch( 3000 ) );
+} ).then( ( { app } ) => app.launch( devPort ) );
 
 
 function eventParser( event, { lang, moment } ) {

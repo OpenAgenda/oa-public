@@ -8,6 +8,8 @@ const qs = require( 'qs' );
 
 const log = require( './lib/Log' )( 'index' );
 
+const compileParsers = require( './lib/parsers/compile' );
+const detailedParseEvent = require( './lib/parsers/detailed' );
 const paginate = require( './lib/paginate' );
 const Proxy = require( './lib/Proxy' );
 const launch = require( './lib/launch' );
@@ -27,6 +29,8 @@ const mw = {
   navigationLinks: require( './middleware/eventNavigation' ).navigationLinks
 }
 
+const baseAssetsPath = __dirname + '/assets';
+
 module.exports = async options => {
 
   log( 'booting' );
@@ -34,7 +38,8 @@ module.exports = async options => {
   const app = express();
 
   const config = _.assign( {
-    eventsPerPage: 20
+    eventsPerPage: 20,
+    assetsRoot: null
   }, options );
 
   const {
@@ -48,7 +53,8 @@ module.exports = async options => {
     eventsPerPage, // optional number of events to load per page
     defaultFilter, // optional: filter that applies when no other filter is set
     cache,
-    proxy
+    proxy,
+    assetsRoot
   } = config;
 
   app.set( 'view engine', 'hbs' );
@@ -63,16 +69,23 @@ module.exports = async options => {
     defaultFilter
   } ) );
 
+  app.set( 'parsers', {
+    event: compileParsers( app.locals ),
+    detailedEvent: detailedParseEvent( { lang: app.locals.lang } )
+  } );
+
   // routes
+
+  if ( uid ) {
+    app.locals.assetsRoot = app.locals.root;
+    app.locals.agenda = await app.get( 'proxy' ).head( uid );
+    app.use( express.static( baseAssetsPath ) );
+  } else {
+    if ( !assetsRoot ) throw new Error( 'When portal is not agenda-specific, assets path needs to be explicited at init under "assetsRoot" key' );
+  }
 
   if ( process.env.NODE_ENV === 'development' ) {
     launch.applyDevelopmentMiddleware( app );
-  }
-
-  app.use( express.static( __dirname + '/assets' ) );
-
-  if ( uid ) {
-    app.locals.agenda = await proxy.head( uid );
   }
 
   if ( assets ) {
@@ -82,6 +95,7 @@ module.exports = async options => {
   app.use( async ( req, res, next ) => {
     res.locals.agendaUid = uid || res.locals.agendaUid || req.params.agendaUid;
     res.locals.agenda = app.locals.agenda || await proxy.head( res.locals.agendaUid );
+    res.locals.root = typeof app.locals.root === 'function' ? app.locals.root( res.locals.agenda ) : app.locals.root;
     next();
   } );
 
@@ -105,6 +119,9 @@ module.exports = async options => {
 
   tasks( { config, proxy } );
 
-  return app;
+  return {
+    app,
+    baseAssetsPath
+  }
 
 }
