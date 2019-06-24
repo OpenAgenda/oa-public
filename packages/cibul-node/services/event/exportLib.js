@@ -99,7 +99,6 @@ function cleanEvent( eInst, options, cb ) {
     dateRange = eInst.getDateRange( true );
   } catch ( e ) {
     log( 'error', 'failed fetching date range for event %s, (%s)', eInst.slug, eInst.uid, e );
-    return cb( e );
   }
 
   const c = {
