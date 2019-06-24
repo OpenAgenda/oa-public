@@ -33,7 +33,7 @@ module.exports = app => {
   require( './agenda/back' )( app );
   require( './inboxes/endpoints' )( app );
   require( './inboxes/pages' )( app );
-  require( './services/portals' )( app );
+  //require( './services/portals' )( app );
   require( './services/surveys' )( app );
   require( './services/agendaContribute' )( app );
   require( './services/agendaSchema' )( app );
