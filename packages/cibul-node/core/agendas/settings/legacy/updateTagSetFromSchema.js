@@ -25,9 +25,9 @@ module.exports = async ( config, agendaOrUid, force = false ) => {
 
   if ( !schema ) return { message: `No schema was found for agenda ${agenda.uid}` };
 
-  const { id } = await config.knex( 'review' ).first( [ 'id', 'store' ] ).where( 'uid', agenda.uid );
+  const { id } = await config.knex( 'review' ).first( [ 'id' ] ).where( 'uid', agenda.uid );
 
-  const tagSet =  await getAgendaTags( id );
+  const tagSet = await getAgendaTags( id );
 
   const { tagSet: updatedTagSet, messages, fields } = generateTagSet( schema, tagSet );
 
