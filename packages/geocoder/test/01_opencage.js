@@ -62,6 +62,20 @@ describe( 'opencage', function() {
 
     } );
 
+    describe( 'Bordeaux-Métropole', () => {
+
+      it( 'It is Saint-Aubin de Médoc and not Saint-Aubin-de-Médoc', async () => {
+
+        ( await geocode( 'Saint-Aubin de Médoc', {
+        countryCode: 'FR',
+        language: 'fr',
+        first: true
+      } ) ).city.should.equal( 'Saint-Aubin de Médoc' );
+
+      } );
+
+    } );
+
     describe( 'Métropole de Lyon, département du Rhône', () => {
 
       it( 'Maillane is in "Bouches-du-Rhône" department', async () => {

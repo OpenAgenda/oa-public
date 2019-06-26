@@ -82,5 +82,13 @@
     "update": {
       "department": "Rhône"
     }
+  },
+  {
+    "matchEvery" : {
+      "city" : "Saint-Aubin-de-Médoc"
+    },
+    "update" : {
+      "city" : "Saint-Aubin de Médoc"
+    }
   }
 ]
