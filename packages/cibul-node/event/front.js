@@ -442,6 +442,7 @@ function _formatAgendaLinks( uri, keys ) {
     ] );
 
     req.formatted.googleItineraryLink = _googleItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
+    req.formatted.osmItineraryLink = _osmItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
 
     // link to results for same category in agenda
     req.formatted.categoryLink = false;
@@ -500,6 +501,8 @@ function _formatEmbedLinks( req, res, next ) {
   } );
 
   req.formatted.googleItineraryLink = _googleItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
+  req.formatted.osmItineraryLink = _osmItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
+
 
   req.formatted.categoryLink = false;
 
@@ -543,6 +546,7 @@ function _formatCustomEmbedLinks( req, res, next ) {
   } );
 
   req.formatted.googleItineraryLink = _googleItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
+  req.formatted.osmItineraryLink = _osmItineraryLink( req.event.getLatitude(), req.event.getLongitude() );
 
   req.formatted.categoryLink = false;
 
@@ -720,6 +724,12 @@ function _formatEmbedHeadLinks( req, res, next ) {
 function _googleItineraryLink( lat, lng ) {
 
   return `https://www.google.com/maps/dir//${lat},${lng}/@${lat},${lng},17z`;
+
+}
+
+function _osmItineraryLink( lat, lng ) {
+
+  return `https://www.openstreetmap.org/directions?to=${lat}%2C${lng}`;
 
 }
 

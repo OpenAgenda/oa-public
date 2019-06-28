@@ -48,6 +48,9 @@
     "name" : "GoogleItineraryLink",
     "mapTo" : "googleItineraryLink"
   }, {
+    "name" : "OSMItineraryLink",
+    "mapTo" : "osmItineraryLink"
+  }, {
     "name": "DateRange",
     "mapTo": "dateRange"
   }, {
