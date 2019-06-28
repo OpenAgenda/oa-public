@@ -12,14 +12,9 @@ const loopThroughTable = require( '@openagenda/legacy/rebuildSearchIndex/loopThr
 
 const model = require( '../../model' );
 
-const { knex, aws: { imageBucketPath: imageBasePath } } = require( '../../../config' );
+const eventsSvc = require( '@openagenda/events' );
 
-const _removeReviewZombies = ES => promisify(
-  _removeZombies( ES, 'reviews' )
-);
-const _removeEventZombies = ( ES, agendaId ) => promisify(
-  _removeZombies( ES, 'events', agendaId ? { reviewId: agendaId } : {} )
-)();
+const { knex, aws: { imageBucketPath: imageBasePath } } = require( '../../../config' );
 
 const knownBuildErrors = [
   'no event record',
@@ -60,9 +55,6 @@ module.exports = async function( ES, options, cb ) {
   const agendaId = params.agendaId || params.reviewId;
 
   if ( !agendaId ) {
-    if ( params.removeZombies ) {
-      await _removeReviewZombies( ES );
-    }
     await _updateReviews( ES, _.pick( params, [ 'since', 'logEveryUpdate' ] ) );
   }
 
@@ -90,7 +82,7 @@ async function _updateReviews( ES, { since, logEveryUpdate } ) {
 
     count.processed++;
 
-    if ( !( count.processed % 100 ) ) {
+    if ( !( count.processed % 20 ) ) {
       log( 'info', 'updated %s reviews', count.processed );
     }
 
@@ -121,7 +113,7 @@ async function _updateEvents( ES, agendaId, { since, logEveryUpdate } ) {
 
     count.processed++;
 
-    if ( !( count.processed % 100 ) ) {
+    if ( !( count.processed % 20 ) ) {
       log( 'info', 'updated %s events', count.processed );
     }
 
@@ -146,163 +138,41 @@ function _defineGetQuery( type, params, obj ) {
 
 }
 
-function _removeZombies( ES, type, params ) {
+async function _removeEventZombies( ES, agendaId ) {
 
-  if ( !params ) params = {};
+  log( 'info', agendaId ? 'removing zombie events of agenda id %s' : 'removing zombie events of entire index', agendaId );
 
-  return cb => {
+  const limit = 20;
 
-    const count = { processed: 0, removed: 0, errors: 0 };
+  let offset = 0;
+  let indexedEvents;
+  let totalRemoved = 0;
 
-    log( 'info', 'removing %s zombies', type );
+  while ( ( indexedEvents = await ES.searchEvents( { passed: 1 }, { offset, limit, showAll: true, agendaId } ).then( r => r.events ) ).length ) {
 
-    _loopThroughIndex( type === 'reviews' ? ES.searchReviews : ES.searchEvents, params, ( obj, next ) => {
+    log( 'Checking %s events in index for zombies (offset %s)', indexedEvents.length, offset );
 
-      model[ type ]().get( _defineGetQuery( type, params, obj ), function( err, dbRef ) {
+    const serviceEventUids = await eventsSvc.list( {
+      uid: indexedEvents.map( e => e.uid )
+    }, 0, limit, { fetched: [ 'uid' ], private: null } ).then( ( { events } ) => events.map( e => e.uid ) );
 
-        if ( count.processed % 1000 === 0 ) _logZombies( type, count );
+    let removed = 0;
 
-        count.processed++;
+    const zombieEvents = indexedEvents.filter( e => !serviceEventUids.includes( e.uid ) );
 
-        if ( err ) {
+    for ( const zombieEvent of zombieEvents ) {
+      await ES.removeEvent( zombieEvent.id );
+      removed++;
+    }
 
-          count.errors++;
+    offset += limit - removed;
 
-          log( 'error', 'could not remove agenda from index: %s', err );
+    if ( removed > 0 ) log( 'removed %s zombies', removed );
 
-          return _delay( params.interval, next )();
-
-        }
-
-        if ( dbRef ) return _delay( params.interval, next )();
-
-        const id = obj[ type=='reviews' ? 'reviewId' : 'eventId' ];
-
-        log( 'info', 'removing %s zombie id %s', type, id );
-
-        count.removed++;
-
-        ( type === 'reviews' ? ES.updateReview : ES.updateEvent )( id, { removeUnreferenced: true, removeInvalid: true } ).then( next );
-
-      } );
-
-    }, err => {
-
-      if ( err ) return cb( err );
-
-      _logZombies( type, count );
-
-      cb();
-
-    } );
+    totalRemoved += removed;
 
   }
 
-}
-
-function _delay( sleep, next ) {
-
-  if ( sleep === undefined ) {
-
-    sleep = 0;
-
-  }
-
-  return function( err ) {
-
-    setTimeout( function() {
-
-      next( err );
-
-    }, sleep );
-
-  }
-
-}
-
-
-function _logZombies( type, count ) {
-
-  log( 'info', 'zombies - %s: processed %s, removed %s, errors %s', type, count.processed, count.removed, count.errors );
-
-}
-
-function _logUpdates( type, count ) {
-
-  log( 'info', 'updates - %s: processed %s, errors %s', type, count.processed, count.errors );
-
-}
-
-
-function _loopThroughIndex( search, params, usageFunc, cb ) {
-
-  let hasMore = true, offset = 0;
-
-  const limit = 10;
-
-  async.whilst( () => hasMore, function( wcb ) {
-
-    log( 'info', 'fetching in index offset %s', offset );
-
-    search( _.extend( { options: { from: offset, size: limit } }, params ) ).then( result => {
-
-      hasMore = !!result.data.length;
-
-      async.eachSeries( result.data, usageFunc, err => {
-
-        if ( err ) return wcb( err );
-
-        offset += limit;
-
-        wcb();
-
-      } );
-
-    }, wcb );
-
-  }, cb );
-
-}
-
-
-function _loopThroughDb( schema, params, usageFunc, cb ) {
-
-  const limit = 5;
-
-  let hasMore = true, offset = 0;
-
-  async.whilst( function()  {
-
-    return hasMore;
-
-  }, function( wcb ) {
-
-    log( 'info', 'fetching in db %s offset %s', schema, offset );
-
-    model[ schema ]().list( _.extend( {
-      extended: true,
-      offset,
-      limit
-    }, params ), function( err, result ) {
-
-      log( 'retrieved from db %s offset %s', schema, offset );
-
-      if ( err ) return wcb( err );
-
-      hasMore = !!result.length;
-
-      async.eachSeries( result, usageFunc, function( err ) {
-
-        if ( err ) return wcb( err );
-
-        offset += limit;
-
-        wcb();
-
-      } );
-
-    } );
-
-  }, cb );
+  log( 'info', agendaId ? 'removed %s zombies in agenda id %s' : 'removed %s zombies in all index', totalRemoved, agendaId );
 
 }

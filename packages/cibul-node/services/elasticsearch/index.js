@@ -47,7 +47,7 @@ function init( config ) {
       knex: config.knex
     } ),
     searchReviews: promisify( legacyLib.reviews().search ),
-    searchEvents: promisify( legacyLib.events().search )
+    searchEvents: promisify( search.bind( null, legacyLib ) )
   }
 
   Object.assign( module.exports, {
