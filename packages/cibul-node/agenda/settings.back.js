@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const config = require( '../config' );
+const core = require( '../core' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const agendaSettings = require( '@openagenda/agenda-settings' );
@@ -78,10 +79,11 @@ module.exports = path => {
     agendaSettingsRemoveAgenda: [ 'post', '/:slug/admin/settings/remove', [
       cmn.loadAgenda,
       cmn.authorize.administrator,
-      mw.removeAgenda,
-      ( req, res ) => {
-        sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
-        res.json( { redirectTo: '/home' } );
+      ( req, res, next ) => {
+        core.agendas( req.agenda.uid ).remove().then( () => {
+          sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
+          res.json( { redirectTo: '/home' } );
+        }, next );
       }
     ] ],
 
