@@ -13,7 +13,7 @@ const controlDataSvc = require( '../legacy' ).controlData;
 const onCreate = require( './onCreate' );
 const onUpdate = require( './onUpdate' );
 
-const log = require( '@openagenda/logs' )( 'services/agendas/onCreate' );
+const log = require( '@openagenda/logs' )( 'services/agendas' );
 
 module.exports.init = config=> {
 
@@ -47,7 +47,10 @@ module.exports.init = config=> {
 
 function beforeRemove( agenda, cb ) {
 
-  controlDataSvc.clear( agenda.uid );
+  controlDataSvc.clear( agenda.uid ).then( cb.bind( null, null ), err => {
+    log( 'warn', 'could not clear agenda control data', agenda.uid, err );
+    cb();
+  } );
 
 }
 
