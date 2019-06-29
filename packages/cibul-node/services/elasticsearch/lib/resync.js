@@ -161,7 +161,7 @@ async function _removeEventZombies( ES, agendaId ) {
     const zombieEvents = indexedEvents.filter( e => !serviceEventUids.includes( e.uid ) );
 
     for ( const zombieEvent of zombieEvents ) {
-      await ES.removeEvent( zombieEvent.id );
+      await ES.removeEvent( zombieEvent.eventId );
       removed++;
     }
 
