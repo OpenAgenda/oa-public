@@ -238,6 +238,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
 
   [
     'tags',
+    'tagsOperator',
     'category',
     'org',
     'what',
@@ -447,7 +448,7 @@ function _clean( query, params ) {
   [
     'neLat', 'neLng', 'swLat', 'swLng',
     'category', 'location', 'locationExtId', 'org',
-    'countryCode', 'lat', 'lng', 'radius'
+    'countryCode', 'lat', 'lng', 'radius', 'tagsOperator'
   ].forEach( function( name ) {
 
     if ( query[ name ] ) clean[ name ] = query[ name ];
