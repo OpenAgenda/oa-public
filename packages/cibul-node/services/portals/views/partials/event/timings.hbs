@@ -17,9 +17,7 @@
         <li class="month-item{{#if passed}} passed{{/if}}">
           <span class="day">{{label}}</span>
           {{#each timings}}
-          <a href="{{link}}">
-            <span class="hour">{{labels.start.time}} - {{labels.end.time}}</span>
-          </a>
+          <span class="hour">{{start.label}} - {{end.label}}</span>
           {{/each}}
         </li>
         {{/each}}

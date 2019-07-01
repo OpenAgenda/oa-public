@@ -9,7 +9,7 @@ const qs = require( 'qs' );
 const log = require( './lib/Log' )( 'index' );
 
 const compileParsers = require( './lib/parsers/compile' );
-const detailedParseEvent = require( './lib/parsers/detailed' );
+const detailedParseEvent = require( './lib/events/detailed' );
 const paginate = require( './lib/paginate' );
 const Proxy = require( './lib/Proxy' );
 const launch = require( './lib/launch' );
@@ -106,7 +106,12 @@ module.exports = async options => {
   app.get( '/events', mw.list, mw.renderList );
 
   app.get( '/events/nav/:direction', mw.redirectToNeighbor );
-  app.get( '/events/:slug', mw.pageGlobals, mw.navigationLinks, mw.get );
+
+  app.get( [
+    '/events/:slug',
+    '/events/:slug/t/:timing'
+  ], mw.pageGlobals, mw.navigationLinks, mw.get );
+
   app.get( '/permalinks/events/:uid', mw.redirect );
 
   app.get( '/:page', mw.pageGlobals, mw.showPage );

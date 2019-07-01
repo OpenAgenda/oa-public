@@ -1,0 +1,36 @@
+<div id="event-map"
+  latitude="{{event.location.latitude}}"
+  longitude="{{event.location.longitude}}"
+  tiles="{{map.tiles.link}}"
+  attribution="{{map.tiles.attribution}}">
+</div>
+<style>
+
+  #event-map {
+    height: 300px;
+  }
+
+</style>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"/>
+<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"></script>
+<script type="text/javascript">
+
+  var elem = $( '#event-map' );
+  var coords = [ elem.attr( 'latitude' ), elem.attr( 'longitude' )];
+
+  var map = L.map( 'event-map' ).setView( coords, 13 );
+
+  L.tileLayer( elem.attr( 'tiles' ), {
+    attribution: elem.attr( 'attribution' )
+  }).addTo( map );
+
+  L.marker( coords, {
+    icon: L.icon( {
+      iconUrl: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
+      iconSize: [18, 25],
+      iconAnchor: [9, 25]
+    } )
+  } ).addTo( map );
+
+
+</script>

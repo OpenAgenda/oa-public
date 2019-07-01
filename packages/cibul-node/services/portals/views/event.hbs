@@ -15,9 +15,6 @@
           {{>navigation}}
           <div class="wbg p-4">
             <h1>{{event.title}}</h1>
-            {{#if event.timing}}
-            <p><strong>{{event.timing.labels.start.day }} @ {{event.timing.labels.start.time}} - {{event.timing.labels.end.time}}</strong></p>
-            {{/if}}
             <p>{{event.description}}</p>
           </div>
           {{#if event.image}}
@@ -35,9 +32,4 @@
     </div>
   </div>
 </div>
-{{#if event.timing}}
-<script type="application/ld+json">
-{{{event.timing.JSONLD}}}
-</script>
-{{/if}}
 {{>layout.bottom}}

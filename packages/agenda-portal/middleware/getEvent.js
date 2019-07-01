@@ -15,9 +15,21 @@ module.exports = async ( req, res, next ) => {
 
   _.assign( req.data, {
     event: parsers.detailedEvent(
-      parsers.event( event, req, res )
+      parsers.event( event, req, res ),
+      req
     )
   } );
+
+  if ( req.params.timing ) {
+    req.data.event.timing = _.find(
+      req.data.event.timings,
+      t => new Date( t.start ).getTime() + '' === req.params.timing
+    );
+  }
+
+  if ( req.query.nc ) {
+
+  }
 
   if ( req.query.data !== undefined && process.env.NODE_ENV === 'development' ) {
 
