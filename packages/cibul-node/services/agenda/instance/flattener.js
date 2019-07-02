@@ -555,7 +555,7 @@ function _defineISOTimings( args ) {
 
     .join( '-' );
 
-  } ).join( '\n' );
+  } ).join( '\r\n' );
 
 }
 
