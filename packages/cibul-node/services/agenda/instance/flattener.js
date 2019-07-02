@@ -592,7 +592,7 @@ function _defineTimings( lang ) {
 
       }
 
-    } ).join( '\n' );
+    } ).join( '\r\n' );
 
   }
 
