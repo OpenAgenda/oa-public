@@ -2444,10 +2444,29 @@
     slug "0.9.1"
     when "3.7.4"
 
-"@openagenda/cibul-model@^0.1.27":
-  version "0.1.27"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.27.tgz#4746cc13103871b15b771c6f87a827dcded96b15"
-  integrity sha512-EyK3a5eN2VIIjS5o/q+pw6vJuL2URsqb1LrvLwcTDuoFGqWFguEQfouemD67lTPaAhIY4Eu0CLZP2Bq1p+Uq5Q==
+"@openagenda/agenda-tags@^1.0.5":
+  version "1.0.5"
+  resolved "https://registry.npmjs.org/@openagenda/agenda-tags/-/agenda-tags-1.0.5.tgz#86ad3a854e0c0a8d16850ae71b7199132682fda8"
+  integrity sha512-vut/mmpGiBQmpojFf9Nw9mD8JdjFJrxjmcTTmvR3ONbKCObhi3TgPvXsjC08+1brIbkFdhhui62O/VDT7f9GTA==
+  dependencies:
+    "@openagenda/labels" "^2.0.7"
+    "@openagenda/logs" "^1.1.0"
+    "@openagenda/mysql-table-store" "^1.0.0"
+    async "^1.5.2"
+    create-react-class "^15.5.2"
+    deep-extend "^0.4.0"
+    immutability-helper "^2.2.0"
+    knex "^0.10.0"
+    lodash "^4.17.5"
+    mysql "2.9.0"
+    prop-types "^15.5.8"
+    slug "0.9.1"
+    when "3.7.4"
+
+"@openagenda/cibul-model@^0.1.28":
+  version "0.1.28"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.28.tgz#3f2f054150700568cbec623702f9f2e59de51d7c"
+  integrity sha512-7zsaDl6H9TGDReb3ZJf1J2/ca5iovdB0b4vRfm6HRPEGotWCQ3/+PuZ3xZYPGqrG1CSN5gyaZGxJqslLJXwmGA==
   dependencies:
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/utils" "^1.0.2"
@@ -2486,10 +2505,10 @@
     should "~4.0"
     xml2js "0.4.9"
 
-"@openagenda/es-node@^1.0.16":
-  version "1.0.16"
-  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.0.16.tgz#a7a1257a796c55abc22d961988ab68d97a3a41d2"
-  integrity sha512-0s4OBiaW/+eLYSJx8Xb2nWHUPCqhODR9aVvfJQ8TTlqILx/+1/FXjcY0/p+yw52k+ON+yeQ7eQVq3wyWrQRW9g==
+"@openagenda/es-node@^1.1.0":
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.1.0.tgz#1e67c0f768cfe040e50d6a0046fc04b7ce6cd146"
+  integrity sha512-iskWErUkbfpxHxL4Up+nQd0sOqWymMh2yBpTLJNmD0E6M7QeFnZtd0HECSqaI8WJ2AWT7Ukxc/au2cFmDSYoIg==
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "~0.9"
@@ -3612,6 +3631,11 @@
   version "8.10.39"
   resolved "https://registry.npmjs.org/@types/node/-/node-8.10.39.tgz#e7e87ad00364dd7bc485c940926345b8ec1a26ca"
   integrity sha512-rE7fktr02J8ybFf6eysife+WF+L4sAHWzw09DgdCebEu+qDwMvv4zl6Bc+825ttGZP73kCKxa3dhJOoGJ8+5mA==
+
+"@types/normalize-package-data@^2.4.0":
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/@types/normalize-package-data/-/normalize-package-data-2.4.0.tgz#e486d0d97396d79beedd0a6e33f4534ff6b4973e"
+  integrity sha512-f5j5b/Gf71L+dbqxIpQ4Z2WlmI/mPJ0fOkGGmFgtb6sAu97EPczzbS3/tJKxmcYDj55OX6ssqwDAWOHIYDRDGA==
 
 "@types/q@^1.5.1":
   version "1.5.1"
@@ -12582,6 +12606,11 @@ get-stdin@^5.0.1:
   resolved "https://registry.npmjs.org/get-stdin/-/get-stdin-5.0.1.tgz#122e161591e21ff4c52530305693f20e6393a398"
   integrity sha1-Ei4WFZHiH/TFJTAwVpPyDmOTo5g=
 
+get-stdin@^7.0.0:
+  version "7.0.0"
+  resolved "https://registry.npmjs.org/get-stdin/-/get-stdin-7.0.0.tgz#8d5de98f15171a125c5e516643c7a6d0ea8a96f6"
+  integrity sha512-zRKcywvrXlXsA0v0i9Io4KDRaAw7+a1ZpjRwl9Wox8PFlVCCHra7E9c4kqXCoCM9nR5tBkaTTZRBoCm60bFqTQ==
+
 get-stream@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/get-stream/-/get-stream-3.0.0.tgz#8e943d1358dc37555054ecbe2edb05aa174ede14"
@@ -14063,6 +14092,22 @@ https-proxy-agent@^2.2.1:
   dependencies:
     agent-base "^4.1.0"
     debug "^3.1.0"
+
+husky@^2.4.1:
+  version "2.7.0"
+  resolved "https://registry.npmjs.org/husky/-/husky-2.7.0.tgz#c0a9a6a3b51146224e11bba0b46bba546e461d05"
+  integrity sha512-LIi8zzT6PyFpcYKdvWRCn/8X+6SuG2TgYYMrM6ckEYhlp44UcEduVymZGIZNLiwOUjrEud+78w/AsAiqJA/kRg==
+  dependencies:
+    cosmiconfig "^5.2.0"
+    execa "^1.0.0"
+    find-up "^3.0.0"
+    get-stdin "^7.0.0"
+    is-ci "^2.0.0"
+    pkg-dir "^4.1.0"
+    please-upgrade-node "^3.1.1"
+    read-pkg "^5.1.1"
+    run-node "^1.0.0"
+    slash "^3.0.0"
 
 i18n-iso-countries@~0.7:
   version "0.7.1"
@@ -20187,7 +20232,7 @@ nopt@~2.1.1:
   dependencies:
     abbrev "1"
 
-normalize-package-data@^2.3.0, normalize-package-data@^2.3.2, normalize-package-data@^2.3.4, normalize-package-data@^2.3.5:
+normalize-package-data@^2.3.0, normalize-package-data@^2.3.2, normalize-package-data@^2.3.4, normalize-package-data@^2.3.5, normalize-package-data@^2.5.0:
   version "2.5.0"
   resolved "https://registry.npmjs.org/normalize-package-data/-/normalize-package-data-2.5.0.tgz#e66db1838b200c1dfc233225d12cb36520e234a8"
   integrity sha512-/5CMN3T0R4XTj4DcGaexo+roZSdSFW/0AOOTROrjxzCG1wrWXEsGbRKevjlIL+ZDE4sZlJr5ED4YW0yqmkK+eA==
@@ -21421,7 +21466,7 @@ platform@1.3.4:
   resolved "https://registry.npmjs.org/platform/-/platform-1.3.4.tgz#6f0fb17edaaa48f21442b3a975c063130f1c3ebd"
   integrity sha1-bw+xftqqSPIUQrOpdcBjEw8cPr0=
 
-please-upgrade-node@^3.0.2:
+please-upgrade-node@^3.0.2, please-upgrade-node@^3.1.1:
   version "3.1.1"
   resolved "https://registry.npmjs.org/please-upgrade-node/-/please-upgrade-node-3.1.1.tgz#ed320051dfcc5024fae696712c8288993595e8ac"
   integrity sha512-KY1uHnQ2NlQHqIJQpnh/i54rKkuxCEBx+voJIS/Mvb+L2iYd2NMotwduhKTMjfC1uKoX3VXOxLjIYG66dfJTVQ==
@@ -23743,6 +23788,16 @@ read-pkg@^4.0.1:
     parse-json "^4.0.0"
     pify "^3.0.0"
 
+read-pkg@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.npmjs.org/read-pkg/-/read-pkg-5.1.1.tgz#5cf234dde7a405c90c88a519ab73c467e9cb83f5"
+  integrity sha512-dFcTLQi6BZ+aFUaICg7er+/usEoqFdQxiEBsEMNGoipenihtxxtdrQuBXvyANCEI8VuUIVYFgeHGx9sLLvim4w==
+  dependencies:
+    "@types/normalize-package-data" "^2.4.0"
+    normalize-package-data "^2.5.0"
+    parse-json "^4.0.0"
+    type-fest "^0.4.1"
+
 "readable-stream@1 || 2", readable-stream@2.3.6, readable-stream@^2.0.0, readable-stream@^2.0.1, readable-stream@^2.0.2, readable-stream@^2.0.4, readable-stream@^2.0.5, readable-stream@^2.0.6, readable-stream@^2.1.5, readable-stream@^2.2.2, readable-stream@^2.3.0, readable-stream@^2.3.3, readable-stream@^2.3.5, readable-stream@^2.3.6, readable-stream@~2.3.6:
   version "2.3.6"
   resolved "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"
@@ -24774,6 +24829,11 @@ run-async@^2.2.0:
   dependencies:
     is-promise "^2.1.0"
 
+run-node@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/run-node/-/run-node-1.0.0.tgz#46b50b946a2aa2d4947ae1d886e9856fd9cabe5e"
+  integrity sha512-kc120TBlQ3mih1LSzdAJXo4xn/GWS2ec0l3S+syHDXP9uRr0JAT8Qd3mdMuyjqCzeZktgP3try92cEgf9Nks8A==
+
 run-parallel@^1.0.0:
   version "1.1.9"
   resolved "https://registry.npmjs.org/run-parallel/-/run-parallel-1.1.9.tgz#c9dd3a7cf9f4b2c4b6244e173a6ed866e61dd679"
@@ -25707,6 +25767,11 @@ slash@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/slash/-/slash-2.0.0.tgz#de552851a1759df3a8f206535442f5ec4ddeab44"
   integrity sha512-ZYKh3Wh2z1PpEXWr0MpSBZ0V6mZHAQfYevttO11c51CaWjGTaadiKZ+wVt1PbMlDV5qhMFslpZCemhwOK7C89A==
+
+slash@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
+  integrity sha512-g9Q1haeby36OSStwb4ntCGGGaKsaVSjQ68fBxoQcutl5fS1vuY18H3wSt3jFyFtrkx+Kz0V1G85A4MyAdDMi2Q==
 
 slate-base64-serializer@^0.2.41:
   version "0.2.95"
@@ -27766,6 +27831,11 @@ type-fest@^0.3.0:
   resolved "https://registry.npmjs.org/type-fest/-/type-fest-0.3.1.tgz#63d00d204e059474fe5e1b7c011112bbd1dc29e1"
   integrity sha512-cUGJnCdr4STbePCgqNFbpVNCepa+kAVohJs1sLhxzdH+gnEoOd8VhbYa7pD3zZYGiURWM2xzEII3fQcRizDkYQ==
 
+type-fest@^0.4.1:
+  version "0.4.1"
+  resolved "https://registry.npmjs.org/type-fest/-/type-fest-0.4.1.tgz#8bdf77743385d8a4f13ba95f610f5ccd68c728f8"
+  integrity sha512-IwzA/LSfD2vC1/YDYMv/zHP4rDF1usCwllsDpbolT3D4fUepIO7f9K70jjmUewU/LmGUKJcwcVtDCpnKk4BPMw==
+
 type-is@^1.6.4, type-is@~1.6.14, type-is@~1.6.15, type-is@~1.6.16, type-is@~1.6.4, type-is@~1.6.6:
   version "1.6.16"
   resolved "https://registry.npmjs.org/type-is/-/type-is-1.6.16.tgz#f89ce341541c672b25ee7ae3c73dee3b2be50194"
@@ -28458,6 +28528,11 @@ validator@4.1.0:
   version "4.1.0"
   resolved "https://registry.npmjs.org/validator/-/validator-4.1.0.tgz#5ea370a8d477abeda13d8ccf3a96f59d1836dc0b"
   integrity sha1-XqNwqNR3q+2hPYzPOpb1nRg23As=
+
+validator@^11.0.0:
+  version "11.0.0"
+  resolved "https://registry.npmjs.org/validator/-/validator-11.0.0.tgz#fb10128bfb1fd14ce4ed36b79fc94289eae70667"
+  integrity sha512-+wnGLYqaKV2++nUv60uGzUJyJQwYVOin6pn1tgEiFCeCQO60yeu3Og9/yPccbBX574kxIcEJicogkzx6s6eyag==
 
 validator@^7.0.0:
   version "7.2.0"
