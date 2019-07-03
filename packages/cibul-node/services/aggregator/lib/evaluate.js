@@ -6,7 +6,7 @@ const w = require( 'when' );
 const wn = require( 'when/node' );
 
 const log = require( '@openagenda/logs' )( 'aggregator/evaluate' );
-const rules = require( '@openagenda/aggregators' ).utils.rules;
+const evaluate = require( '@openagenda/aggregators' ).utils.evaluate;
 
 const aggUtils = require( './aggUtils' );
 const loadAgendaCategories = require( './utils/loadAgendaCategories' );
@@ -44,7 +44,6 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
     referenced: null,
     referencedBySource: null,
     shouldAggregate: true,
-    states: [],
     added: false,
     referencedOrAdded: false,
     sourceCategories: [],
@@ -95,7 +94,12 @@ function publish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
     try {
 
-      const inserted = await associateSameTags( config.knex, aggregatingAgendaId, v.event, v.eventSourceTags );
+      const inserted = await associateSameTags( {
+        knex: config.knex,
+        aggregatorAgendaId: aggregatingAgendaId,
+        event: v.event,
+        tagsToMatch: _.get( v, 'evaluatedEvent.tags', [] )
+      } );
 
       log( 'associated %s tags', inserted.length );
 
@@ -213,29 +217,20 @@ function _evaluateShouldAggregate( v ) {
 
     return v;
 
-  } else {
-
-    log( 'evaluating rules %j', v.rules );
-
   }
 
-  const event = _.extend( {
+  const event = Object.assign( {
     location: _.get( v, 'event.locations[0]' ),
     tags: v.eventSourceTags.map( t => t.label )
   }, v.eventSourceCustomFields );
 
-  const matchingRuleValues = rules( v.rules, event );
+  log( 'evaluating rules %j against values %j', v.rules, event );
 
-  // all rules must match to trigger aggregation
-  if ( matchingRuleValues.length !== v.rules.length ) {
+  v.evaluatedEvent = evaluate( v.rules, event );
 
-    v.shouldAggregate = false;
-
-  }
+  v.shouldAggregate = !!v.evaluatedEvent;
 
   log( 'event %s aggregate', v.shouldAggregate ? 'should' : 'should not' );
-
-  v.states = matchingRuleValues.filter( m => m !== null && m.state !== undefined ).map( m => m.state );
 
   return v;
 
@@ -602,9 +597,7 @@ function _addEventToAggregator( v ) {
 
   let d = p.w.defer();
 
-  let state = 2; // published
-
-  if ( v.states.length ) state = v.states.pop();
+  const state = _.get( v.evaluatedEvent, 'state', 2 );
 
   log( 'adding event %s to aggregating agenda %s with state %s', v.event.id, v.aggregatingAgenda.id, state );
 

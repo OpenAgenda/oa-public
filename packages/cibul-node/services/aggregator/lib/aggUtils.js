@@ -189,28 +189,16 @@ function loadRules( config, v ) {
     con.end();
 
     if ( err ) {
-
       return d.reject( new VError( err, 'encountered trouble when evaluating aggregation stores' ) );
-
     }
 
-    let rules = [];
+    v[ params.namespaces.rules ] = _.flatten( [].concat(
+      _.get( aggregatorStore, 'rules', [] )
+    ).concat( [
+      _.get( sourceStore, 'rules', [] )
+    ] ) );
 
-    if ( aggregatorStore && aggregatorStore.rules ) {
-
-      rules = rules.concat( aggregatorStore.rules );
-
-    }
-
-    if ( sourceStore && sourceStore.rules ) {
-
-      rules = rules.concat( sourceStore.rules );
-
-    }
-
-    v[ params.namespaces.rules ] = rules;
-
-    log( 'loaded %s aggregation rules', rules.length );
+    log( 'loaded %s aggregation rules', v[ params.namespaces.rules ].length );
 
     d.resolve( v );
 
