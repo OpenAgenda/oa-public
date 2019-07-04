@@ -83,7 +83,11 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     }
 
-    const dateRange = instance.getDateRange( true );
+    try {
+      const dateRange = instance.getDateRange( true );
+    } catch ( e ) {
+      return cb( e );
+    }
 
     w( _.extend( {
       protocol: null,

@@ -544,6 +544,8 @@ function buildXlsx( includePrivateData ) {
 
           if ( err ) {
 
+            processing--;
+
             req.log( 'error', err );
 
             return stream.resume();
