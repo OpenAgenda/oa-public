@@ -230,7 +230,7 @@ function _evaluateShouldAggregate( v ) {
 
   v.shouldAggregate = !!v.evaluatedEvent;
 
-  log( 'event %s aggregate', v.shouldAggregate ? 'should' : 'should not' );
+  log( 'info', 'event %s %s aggregate', v.event.id, v.shouldAggregate ? 'should' : 'should not' );
 
   return v;
 
@@ -609,7 +609,7 @@ function _addEventToAggregator( v ) {
 
     if ( err ) return d.reject( err );
 
-    log( 'event %s added to aggregating agenda %s with state %s', v.event.id, v.aggregatingAgenda.id, state );
+    log( 'info', 'event %s added to aggregating agenda %s with state %s', v.event.id, v.aggregatingAgenda.id, state );
 
     v.event.loadAgendaContext( v.aggregatingAgendaId, err => {
 
