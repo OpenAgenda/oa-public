@@ -28,7 +28,7 @@ module.exports = ( rules, data ) => {
       .filter( field => ![ 'tags', 'location' ].includes( field ) );
 
     for ( const ruleField of otherRuleFields ) {
-      if ( matches && ( rules.query[ ruleField ] !== _.get( data, ruleField ) ) ) {
+      if ( matches && ( rule.query[ ruleField ] !== _.get( data, ruleField ) ) ) {
         matches = false;
       }
     }
