@@ -181,6 +181,20 @@ It is then possible in an event item or page to target the group like this:
       <a href="?oaq[tags][]={{slug}}">{{label}}</span>
     {{/each}}
 
+
+# Migration
+
+## From 1.x.x to 2.0.0
+
+ * `In server.js`: the Portal call returns an object containing the express app instead of the app itself. Replace `.then( app => ... )` with `.then( ( { app } ) => ... )`
+ * `In server.js`: ensure the protocol is specified in dev environment: `http://localhost:3000` instead of `localhost:3000`
+ * Timing labels have moved in a 'labels' key. For example, `start.label` becomes `labels.start.time`.
+ * 2.0.0 provides a JSON LD for each timing and for each event. Add the following to your event template:
+
+    <script type="application/ld+json">
+      {{{event.JSONLD}}}
+    </script>
+
 # Changelog
 
 2.0.0 - 08/07/2019

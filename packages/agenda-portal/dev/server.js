@@ -47,7 +47,7 @@ Portal( {
     zoom: 12
   },
   eventHook
-} ).then( ( { app } ) => app.launch( devPort ) );
+} ).then( ( { app } ) => app.launch( process.env.PORTAL_PORT || devPort ) );
 
 
 function eventHook( event, { lang, moment } ) {
