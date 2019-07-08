@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 
-const getMonthWeek = require( '../lib/parsers/getMonthWeek' );
+const getMonthWeek = require( '../lib/events/getMonthWeek' );
 
 describe( '11 getMonthWeek', () => {
 

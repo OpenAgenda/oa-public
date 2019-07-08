@@ -8,8 +8,6 @@ const getMonthWeek = require( './getMonthWeek' );
 
 module.exports = ( timings = [], timezone = 'Europe/Paris', locale = 'en' ) => {
 
-  moment.locale( locale );
-
   if ( !timings.length ) return [];
 
   const keyedTimings = timings.reduce( ( carry, timing ) => {
@@ -17,23 +15,17 @@ module.exports = ( timings = [], timezone = 'Europe/Paris', locale = 'en' ) => {
     const start = new Date( timing.start );
 
     if ( !carry.first || start < carry.first ) {
-
       carry.first = start;
-
     }
 
     if ( !carry.last || start > carry.last ) {
-
       carry.last = start;
-
     }
 
     const keys = _getKeys( timing.start, timezone );
 
     if ( !_.get( carry.months, [ keys.month, keys.week, keys.day ] ) ) {
-
       _prepare( carry.months, keys );
-
     }
 
     return _.set( carry, [ 'months', keys.month, keys.week, keys.day ], _.get(
@@ -102,10 +94,7 @@ function _monthWeeks( month, weeks, timezone, today ) {
       day,
       current: today.day === day,
       passed: today.month + today.day > month + day,
-      timings: weeks[ week ][ day ].map( t => ( {
-        start: { value: t.start, label: tz( t.start, timezone ).format( 'LT' ) },
-        end: { value: t.end, label: tz( t.end, timezone ).format( 'LT' ) }
-      } ) ),
+      timings: weeks[ week ][ day ],
       label: _.capitalize( tz( _.get( weeks[ week ][ day ], '0.start' ), timezone ).format( 'dddd D' ) )
     } ) )
   } ) );

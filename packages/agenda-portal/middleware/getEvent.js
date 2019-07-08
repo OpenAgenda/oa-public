@@ -5,7 +5,7 @@ const _ = require( 'lodash' );
 module.exports = async ( req, res, next ) => {
 
   const proxy = req.app.get( 'proxy' );
-  const parsers = req.app.get( 'parsers' );
+  const transform = req.app.get( 'transforms' ).event.show;
 
   const event = await proxy.get( res.locals.agendaUid, {
     slug: req.params.slug
@@ -13,15 +13,14 @@ module.exports = async ( req, res, next ) => {
 
   if ( !event ) return next();
 
-  _.assign( req.data, {
-    event: parsers.detailedEvent(
-      parsers.event( event, req, res )
-    )
-  } );
+  req.data.event = transform( event, req, res );
 
   if ( req.query.data !== undefined && process.env.NODE_ENV === 'development' ) {
 
-    return res.json( _.assign( req.data, req.app.locals ) );
+    return res.json( Object.assign(
+      req.data,
+      req.app.locals
+    ) );
 
   }
 

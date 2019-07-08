@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const axios = require( 'axios' );
 const qs = require( 'qs' );
-const parseSearchQuery = require( './parsers/searchQuery' );
+const parseSearchQuery = require( './utils/searchQuery' );
 const log = require( './Log' )( 'proxy' );
 
 module.exports = ( { key, defaultLimit, defaultFilter } ) => {
