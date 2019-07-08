@@ -1,8 +1,9 @@
 [
   {
     "key": "2018-10",
+    "diff": -9,
     "current": false,
-    "label": "Octobre 2018",
+    "label": "October 2018",
     "weeks": [
       {
         "week": "2",
@@ -15,17 +16,11 @@
             "passed": true,
             "timings": [
               {
-                "start": {
-                  "value": "2018-10-10T09:00:00.000Z",
-                  "label": "11:00"
-                },
-                "end": {
-                  "value": "2018-10-10T10:00:00.000Z",
-                  "label": "12:00"
-                }
+                "start": "2018-10-10T09:00:00.000Z",
+                "end": "2018-10-10T10:00:00.000Z"
               }
             ],
-            "label": "Mercredi 10"
+            "label": "Wednesday 10"
           }
         ]
       }
@@ -35,8 +30,9 @@
   },
   {
     "key": "2018-11",
+    "diff": -8,
     "current": false,
-    "label": "Novembre 2018",
+    "label": "November 2018",
     "weeks": [
       {
         "week": "3",
@@ -49,28 +45,24 @@
             "passed": true,
             "timings": [
               {
-                "start": {
-                  "value": "2018-11-15T09:00:00.000Z",
-                  "label": "10:00"
-                },
-                "end": {
-                  "value": "2018-11-11T14:00:00.000Z",
-                  "label": "15:00"
-                }
+                "start": "2018-11-15T09:00:00.000Z",
+                "end": "2018-11-11T14:00:00.000Z"
               }
             ],
-            "label": "Jeudi 15"
+            "label": "Thursday 15"
           }
         ]
       }
     ],
+    "displayed": true,
     "hasPrevious": true,
     "hasNext": true
   },
   {
     "key": "2018-12",
-    "current": true,
-    "label": "Décembre 2018",
+    "diff": -7,
+    "current": false,
+    "label": "December 2018",
     "weeks": [
       {
         "week": "1",
@@ -83,17 +75,11 @@
             "passed": true,
             "timings": [
               {
-                "start": {
-                  "value": "2018-11-30T23:00:00.000Z",
-                  "label": "00:00"
-                },
-                "end": {
-                  "value": "2018-12-01T00:00:00.000Z",
-                  "label": "01:00"
-                }
+                "start": "2018-11-30T23:00:00.000Z",
+                "end": "2018-12-01T00:00:00.000Z"
               }
             ],
-            "label": "Samedi 1"
+            "label": "Saturday 1"
           }
         ]
       }

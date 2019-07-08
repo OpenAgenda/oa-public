@@ -46,11 +46,11 @@ Portal( {
     },*/
     zoom: 12
   },
-  eventParser
+  eventHook
 } ).then( ( { app } ) => app.launch( devPort ) );
 
 
-function eventParser( event, { lang, moment } ) {
+function eventHook( event, { lang, moment } ) {
 
   //log( JSON.stringify( event, null, 2 ) );
 

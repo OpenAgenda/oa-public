@@ -8,12 +8,13 @@ const qs = require( 'qs' );
 
 const log = require( './lib/Log' )( 'index' );
 
-const compileParsers = require( './lib/parsers/compile' );
-const detailedParseEvent = require( './lib/events/detailed' );
 const paginate = require( './lib/paginate' );
 const Proxy = require( './lib/Proxy' );
 const launch = require( './lib/launch' );
+const loadResLocals = require( './lib/loadResLocals' );
 const tasks = require( './tasks' );
+
+const EventTransforms = require( './lib/events/Transforms' );
 
 const mw = {
   index: require( './middleware/renderIndex' ),
@@ -43,7 +44,7 @@ module.exports = async options => {
   }, options );
 
   const {
-    eventParser,
+    eventHook,
     lang, // main language of portal
     uid, // uid of agenda
     key, // public key of OA account
@@ -69,9 +70,8 @@ module.exports = async options => {
     defaultFilter
   } ) );
 
-  app.set( 'parsers', {
-    event: compileParsers( app.locals ),
-    detailedEvent: detailedParseEvent( { lang: app.locals.lang } )
+  app.set( 'transforms', {
+    event: _.pick( EventTransforms( app.locals ), [ 'listItem', 'show' ] )
   } );
 
   // routes
@@ -92,12 +92,7 @@ module.exports = async options => {
     app.use( express.static( assets ) );
   }
 
-  app.use( async ( req, res, next ) => {
-    res.locals.agendaUid = uid || res.locals.agendaUid || req.params.agendaUid;
-    res.locals.agenda = app.locals.agenda || await proxy.head( res.locals.agendaUid );
-    res.locals.root = typeof app.locals.root === 'function' ? app.locals.root( res.locals.agenda ) : app.locals.root;
-    next();
-  } );
+  app.use( loadResLocals );
 
   app.get( '/', mw.redirectLegacyEventQuery, mw.pageGlobals, mw.list, mw.index );
   app.get( '/p/:page', mw.pageGlobals, mw.list, mw.index );

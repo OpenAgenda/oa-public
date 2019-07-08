@@ -7,7 +7,7 @@ const paginate = require( '../lib/paginate' );
 
 module.exports = ( req, res, next ) => {
 
-  const parsers = req.app.get( 'parsers' );
+  const transform = req.app.get( 'transforms' ).event.listItem;
 
   req.app.get( 'proxy' ).list(
     res.locals.agendaUid,
@@ -20,7 +20,7 @@ module.exports = ( req, res, next ) => {
       query: req.query,
       searchString: qs.stringify( req.query ),
       total: total,
-      events: events.map( ( e, index ) => parsers.event( e, req, res, { total, index: offset + index } ) ),
+      events: events.map( ( e, index ) => transform( e, req, res, { total, index: offset + index } ) ),
       pages: paginate( { offset, limit, total } )
     } );
 

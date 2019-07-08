@@ -49,7 +49,7 @@ These define general portal settings. Default options set in your `server.js` fi
  * **cache**: Optional. Cache management related options. See below for details
  * **defaultFilter**: Optional. Set a filter to be applied to search when no other filter is set. For example: if featured events are displayed in a section other than the main list, it is not desired to load them in the list view at the first list load, to avoid displaying duplicate content.
  * **eventsPerPage**: Optional. Number of events to be loaded in the event list view. 20 is the default value
- * **eventParser**: Optional. event item parse function. Useful to transform event item data before it reaches the template
+ * **eventHook**: Optional. event item parse function. Useful to transform event item data before it reaches the template
  * **key**: Required. OpenAgenda account public key
  * **lang**: Optional. Main portal language
  * **map**: map filter widget settings ( tiles, default center ... )
@@ -84,12 +84,19 @@ The default index template provides an example:
       data-label-one="1 événement" data-label-plural="%total% événements"></span>
 
 
-## Sideways event navigation
+## Navigation
+
+### Progressive load
+
+progressive load is deactivated by default. It can be enabled by setting a specific class on dom element containing the event list: `js_progressive_load`.
+
+Instead of reloading a page when a navigation occurs, a script will perform an xhr query to retrieve the content of the next page, extract the items found in the `js_progressive_load` element and append it to the bottom of the list when it is reached.
+
+### Sideways event navigation
 
 When a search is done on the main agenda page and an event is selected, it is loaded with a navigation context query parameter in its url. Sideway navigation links then allow the user to navigate from event to event within a same search without the need to go back to search result list.
 
 The partial illustrating this is `navigation.hbs`
-
 
 # Miscellaneous
 
@@ -173,3 +180,12 @@ It is then possible in an event item or page to target the group like this:
     {{#each categoryTags}}
       <a href="?oaq[tags][]={{slug}}">{{label}}</span>
     {{/each}}
+
+# Changelog
+
+2.0.0 - 08/07/2019
+
+ * eventParser option is now called eventHook
+ * added progressive load alternative to list view
+ * added rich snippets to event view
+ * miscellaneous refactors

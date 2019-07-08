@@ -12,7 +12,7 @@ module.exports = (
     time: tz( timing.start, timezone ).format( 'LT' )
   },
   end: {
-    day: tz( timing.start, timezone ).format( 'LL' ),
+    day: tz( timing.start, timezone ).format( 'dddd D' ),
     time: tz( timing.end, timezone ).format( 'LT' )
   }
 } );

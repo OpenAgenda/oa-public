@@ -3,7 +3,7 @@
 const fs = require( 'fs' );
 const should = require( 'should' );
 
-const spreadPerMonth = require( '../lib/parsers/spreadPerMonthPerDay' );
+const spreadPerMonth = require( '../lib/events/spreadPerMonthPerDay' );
 
 describe( '10 spreadPerMonthPerDay', () => {
 

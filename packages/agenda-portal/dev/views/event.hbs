@@ -35,9 +35,11 @@
     </div>
   </div>
 </div>
-{{#if event.timing}}
 <script type="application/ld+json">
+{{#if event.timing}}
 {{{event.timing.JSONLD}}}
-</script>
+{{else}}
+{{{event.JSONLD}}}
 {{/if}}
+</script>
 {{>layout.bottom}}

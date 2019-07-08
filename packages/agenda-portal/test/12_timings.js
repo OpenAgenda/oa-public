@@ -11,10 +11,10 @@ describe( '12 - timing helper functions', () => {
 
   it( 'applyTimezone provides timing start and end in specified timezone', () => {
 
-    applyTimezone( 'Europe/Paris', {
+    applyTimezone( {
       start: '2019-06-30T10:00:00Z',
       end: '2019-06-30T12:00:00Z'
-    } ).should.eql( {
+    }, 'Europe/Paris' ).should.eql( {
       start: '2019-06-30T12:00:00+02:00',
       end: '2019-06-30T14:00:00+02:00'
     } );
@@ -38,8 +38,8 @@ describe( '12 - timing helper functions', () => {
       start: '2019-06-30T10:00:00Z',
       end: '2019-06-30T12:00:00Z'
     } ).should.eql( {
-      start: { day: '30 juin 2019', time: '12:00' },
-      end: { day: '30 juin 2019', time: '14:00' }
+      start: { day: 'dimanche 30', time: '12:00' },
+      end: { day: 'dimanche 30', time: '14:00' }
     } );
 
     moment.locale( 'en' );
@@ -48,8 +48,8 @@ describe( '12 - timing helper functions', () => {
       start: '2019-06-30T10:00:00Z',
       end: '2019-06-30T12:00:00Z'
     } ).should.eql( {
-      start: { day: 'June 30, 2019', time: '12:00 PM' },
-      end: { day: 'June 30, 2019', time: '2:00 PM' }
+      start: { day: 'Sunday 30', time: '12:00 PM' },
+      end: { day: 'Sunday 30', time: '2:00 PM' }
     } );
 
   } );

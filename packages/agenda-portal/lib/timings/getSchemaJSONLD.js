@@ -18,6 +18,10 @@ module.exports = ( event, { start, end } ) => JSON.stringify( {
       url: l.value
     } ) )
   } : {},
+  ... event.age ? { typicalAgeRange: [
+    event.age.min,
+    event.age.max
+  ].join( '-' ) } : {},
   location : {
     '@type': 'Place',
     name : event.location.name,
