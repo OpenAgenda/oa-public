@@ -150,7 +150,7 @@ async function _removeEventZombies( ES, agendaId ) {
 
   while ( ( indexedEvents = await ES.searchEvents( { passed: 1 }, { offset, limit, showAll: true, agendaId } ).then( r => r.events ) ).length ) {
 
-    log( 'Checking %s events in index for zombies (offset %s)', indexedEvents.length, offset );
+    log( 'info', 'Checking %s events in index for zombies (offset %s)', indexedEvents.length, offset );
 
     const serviceEventUids = await eventsSvc.list( {
       uid: indexedEvents.map( e => e.uid )
