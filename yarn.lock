@@ -2463,10 +2463,10 @@
     slug "0.9.1"
     when "3.7.4"
 
-"@openagenda/cibul-model@^0.1.28":
-  version "0.1.28"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.28.tgz#3f2f054150700568cbec623702f9f2e59de51d7c"
-  integrity sha512-7zsaDl6H9TGDReb3ZJf1J2/ca5iovdB0b4vRfm6HRPEGotWCQ3/+PuZ3xZYPGqrG1CSN5gyaZGxJqslLJXwmGA==
+"@openagenda/cibul-model@^0.1.29":
+  version "0.1.29"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.29.tgz#ccb445d0969c0e632227c66942950f42eecc33ce"
+  integrity sha512-P7TRKW9ezQwg+wzV31e9FoqTfRmSx3Q/vX38bX5i0GAov9+itVpdhG7ZEqLj62GW1Msp8lzVA34P4QPfNI/lAw==
   dependencies:
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/utils" "^1.0.2"
