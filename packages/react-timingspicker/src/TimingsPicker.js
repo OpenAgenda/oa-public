@@ -12,7 +12,6 @@ import localeFr from './locales/fr';
 import Stats from './Stats';
 import Header from './Header';
 import Scheduler from './Scheduler';
-import PatternMaker from './PatternMaker';
 
 const ONE_DAY = 60 * 60 * 24;
 
@@ -165,7 +164,19 @@ class TimingsPicker extends Component {
     }
   }
 
-  reset = () => this.onChange( [] );
+  reset = () => {
+    const schedulerEl = this.schedulerRef.current._wrappedInstance;
+
+    if ( schedulerEl.state.showRecurrencerModal ) {
+      schedulerEl.handleCloseRecurrencerModal();
+    }
+
+    if ( schedulerEl.state.showEditModal ) {
+      schedulerEl.handleCloseEditModal();
+    }
+
+    this.onChange( [] );
+  }
 
   onResize = ( width, height ) => {
     const breakpoint = widthToBreakpoint( this.props.breakpoints, width );
@@ -227,7 +238,6 @@ class TimingsPicker extends Component {
             breakpoint={breakpoint}
             classNamePrefix={classNamePrefix}
           />
-          <PatternMaker activeWeek={activeWeek} />
         </div>
       </IntlProvider>
     );

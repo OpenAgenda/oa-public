@@ -172,6 +172,35 @@ class DaysSelector extends Component {
     }
   };
 
+  addValues = ( values, force ) => {
+    const { onChange } = this.props;
+    const { value, reducedAllowedTimings } = this.state;
+
+    let valuesToAdd;
+
+    if ( !force ) {
+      const disabledTimings = values.filter( item => this.isDisabledTiming( item, value, reducedAllowedTimings ) );
+
+      if ( disabledTimings.length ) {
+        throw { message: 'someDisabledValues', disabledTimings };
+      }
+
+      valuesToAdd = values;
+    } else {
+      valuesToAdd = values.filter( item => !this.isDisabledTiming( item, value, reducedAllowedTimings ) );
+    }
+
+    const newValue = [ ...value, ...valuesToAdd ];
+
+    this.setState( {
+      value: newValue
+    } );
+
+    if ( typeof onChange === 'function' ) {
+      onChange( newValue );
+    }
+  };
+
   eventToStepPosition = e => {
     const { selectableStep, step, cellHeight } = this.props;
     const body = this.bodyRef.current;

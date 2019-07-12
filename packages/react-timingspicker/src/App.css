@@ -390,7 +390,6 @@
     font-size: 16px;
     padding-right: 2px;
     cursor: pointer;
-    z-index: 1;
     margin-bottom: 6px;
 }
 
@@ -461,7 +460,7 @@
     padding-right: 3px;
 }
 
-/* Modal */
+/* Modals */
 
 .rtp__calendar .rtp__overlay {
     position: absolute;
@@ -479,7 +478,8 @@
     top: 50%;
     left: 50%;
     width: 25%;
-    /*height: 65%;*/
+    max-height: calc( 100% - 20px );
+    /* height: 65%; */
     min-width: 190px;
     transform: translate(-50%,-50%);
     border: 1px solid rgb(204, 204, 204);
@@ -514,15 +514,136 @@
     box-shadow: 0 0 2px 0px #019ece;
 }
 
-.rtp__calendar .rtp__modal .error {
+.rtp__calendar .rtp__modal .rtp__error {
     color: #FF1238;
-    margin-top: 4px;
+    margin-top: 8px;
 }
 
-.rtp__calendar .rtp__modal section ~ section {
+.rtp__calendar .rtp__edit-modal section ~ section {
     margin-top: 5px;
 }
 
-.rtp__calendar .rtp__modal button {
+.rtp__calendar .rtp__edit-modal button[type="submit"] {
     margin-top: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-button {
+    margin-top: 12px;
+    float: right;
+    cursor: pointer;
+}
+
+/* Recurrencer */
+
+/*.rtp__calendar .rtp__recurrencer-modal {*/
+/*    width: 50%;*/
+/*}*/
+
+.rtp__calendar .rtp__recurrencer-modal h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal button[type="submit"] {
+    margin-top: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal input[type="radio"] {
+    width: auto;
+    padding: 4px 8px;
+}
+
+.rtp__calendar input.rtp__recurrencer-interval__input {
+    display: inline-block;
+    width: 65px;
+}
+
+.rtp__calendar input.rtp__recurrencer-count__input {
+    display: inline-block;
+    width: 65px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence {
+    display: inline-block;
+    width: 140px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__control {
+    height: 30px;
+    min-height: 30px;
+    line-height: 1;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__control--is-focused {
+    border-color: #ccc;
+    box-shadow: 0 0 2px 0px #019ece;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__value-container {
+    min-width: 65px;
+    padding: 0 8px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__indicator {
+    padding: 0 8px;
+}
+
+.rtp__calendar .rtp__recurrencer-monthlyIntervalType {
+    margin-top: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__section {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__input-error {
+    color: #FF1238;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-weekday {
+    margin-top: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending {
+    margin-top: 12px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending label {
+    display: inline-block;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending label[for="endType-until"],
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending label[for="endType-count"] {
+    margin-top: 4px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-error__disabledTimings ul {
+    margin: 4px 0;
+    padding-left: 30px;
+}
+
+/* Weekday picker */
+
+.rtp__calendar .rtp__WeekdayPicker {
+    margin-top: 4px;
+    display: inline-block;
+}
+
+.rtp__calendar .rtp__WeekdayPicker .rtp__WeekdayPicker-Weekday {
+    display: inline-block;
+    padding: 4px 8px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.rtp__calendar .rtp__WeekdayPicker .rtp__WeekdayPicker-Weekday--selected {
+    color: #fff;
+    background-color: #019ece;
+}
+
+.rtp__calendar .rtp__WeekdayPicker .rtp__WeekdayPicker-Weekday ~ .rtp__WeekdayPicker-Weekday {
+    margin-left: 4px;
 }
