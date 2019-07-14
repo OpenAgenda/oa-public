@@ -19,13 +19,15 @@ Prerequis: le repo ne doit rien avoir de pas tracké et pas commité
 
 Le repo:
 
+On part du root du repo
+
 git remote add opensource git@github.com:Oagenda/oa.git
 
 ```bash
 git fetch opensource
 # on se met sur sur opensoure
 git checkout opensource/master
-git merge --no-commit --squash origin/master
+git merge --no-commit --squash --allow-unrelated-histories origin/master
 git checkout --ours -- .gitignore LICENSE
 git add .gitignore LICENSE
 git diff --name-only --diff-filter=U | xargs git checkout --theirs --
@@ -36,6 +38,8 @@ git add -A
 # (git diff --cached)
 git commit -am '<message>'
 git push opensource HEAD:master
+# Go back to non open source project
+git checkout master
 ```
 
 # Open Source repo to Main repo procedure
