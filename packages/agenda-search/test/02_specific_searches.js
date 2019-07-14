@@ -2,6 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
+const ih = require( 'immutability-helper' );
 const should = require( 'should' );
 
 const config = require( '../testconfig' );
@@ -9,8 +10,6 @@ const config = require( '../testconfig' );
 const searchLib = require( '../service/search' );
 
 const agendas = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/fixtures/agendas.json', 'utf-8' ) );
-
-const ih = require( 'immutability-helper' );
 
 let search;
 
