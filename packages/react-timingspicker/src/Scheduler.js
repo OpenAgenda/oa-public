@@ -3,8 +3,13 @@ import { injectIntl } from 'react-intl';
 import ReactModal from 'react-modal';
 import { FORM_ERROR } from 'final-form';
 import dateFns from 'date-fns';
+import RRule from 'rrule';
 import DaysSelector from './DaysSelector';
 import EditForm from './EditForm';
+import RecurrencerForm from './RecurrencerForm';
+import getWeekOfMonth from './utils/getWeekOfMonth';
+import convertUTCDateToLocalDate from './utils/convertUTCDateToLocalDate';
+import convertLocalDateToUTCDate from './utils/convertLocalDateToUTCDate';
 
 const ONE_DAY = 60 * 60 * 24;
 
@@ -79,7 +84,11 @@ class Scheduler extends Component {
   };
 
   state = {
-    showModal: false,
+    showEditModal: false,
+    showRecurrencerModal: false,
+    modalStyle: {
+      overlay: {}
+    },
     beforeSchedulerOverflows: null,
     beforeSchedulerPaddingRight: null,
     schedulerScroll: {
@@ -87,17 +96,17 @@ class Scheduler extends Component {
       y: null
     },
     valueToEdit: null,
-    editInitialValues: null,
-    modalStyle: {
-      overlay: {}
-    }
+    valueToDuplicate: null,
+    editInitialValues: null
   };
 
   schedulerRef = React.createRef();
 
   selectorRef = React.createRef();
 
-  modalRef = React.createRef();
+  editModalRef = React.createRef();
+
+  recurrencerModalRef = React.createRef();
 
   componentDidMount() {
     const { defaultScroll } = this.props;
@@ -110,21 +119,18 @@ class Scheduler extends Component {
     // document.removeEventListener( 'click', this.handleOutsideClick, false );
 
     // https://github.com/reactjs/react-modal/pull/750
-    this.modalRef.current.node = null;
+    this.editModalRef.current.node = null;
+    this.recurrencerModalRef.current.node = null;
   }
 
   getModalParent = () => this.schedulerRef.current;
 
-  openEditModal = valueToEdit => this.setState( {
-    showModal: true,
-    valueToEdit,
-    editInitialValues: {
-      begin: dateFns.format( valueToEdit.begin, 'HH:mm' ),
-      end: dateFns.format( valueToEdit.end, 'HH:mm' )
+  startLockScroll = () => {
+    // if already locked
+    if ( this.state.beforeSchedulerOverflows ) {
+      return;
     }
-  } );
 
-  handleOpenModal = () => {
     const schedulerEl = this.schedulerRef.current;
     const schedulerStyle = schedulerEl.style;
     const beforeSchedulerOverflows = {
@@ -154,7 +160,7 @@ class Scheduler extends Component {
     // document.addEventListener( 'click', this.handleOutsideClick, false );
   }
 
-  handleCloseModal = () => {
+  stopLockScroll = () => {
     const { beforeSchedulerOverflows, beforeSchedulerPaddingRight } = this.state;
     const schedulerEl = this.schedulerRef.current;
 
@@ -167,7 +173,6 @@ class Scheduler extends Component {
     );
 
     this.setState( {
-      showModal: false,
       schedulerScroll: {
         x: 0,
         y: 0
@@ -202,39 +207,121 @@ class Scheduler extends Component {
   //     return;
   //   }
   //
-  //   this.handleCloseModal();
+  //   this.handleCloseEditModal();
   // };
+
+  openEditModal = valueToEdit => this.setState( {
+    showEditModal: true,
+    valueToEdit,
+    editInitialValues: {
+      begin: dateFns.format( valueToEdit.begin, 'HH:mm' ),
+      end: dateFns.format( valueToEdit.end, 'HH:mm' )
+    }
+  } );
+
+  openRecurrencerModal = () => this.setState( {
+    showEditModal: false,
+    valueToEdit: null,
+    showRecurrencerModal: true,
+    valueToDuplicate: this.state.valueToEdit
+  } );
+
+  handleCloseEditModal = () => {
+    this.stopLockScroll();
+
+    this.setState( {
+      showEditModal: false,
+      valueToEdit: null
+    } );
+  };
+
+  handleCloseRecurrencerModal = () => {
+    this.stopLockScroll();
+
+    this.setState( {
+      showRecurrencerModal: false,
+      valueToDuplicate: null
+    } );
+  };
 
   handleEditSubmit = value => {
     const { valueToEdit } = this.state;
     const selectorEl = this.selectorRef.current._wrappedInstance;
-    const { begin, end } = value;
-    const [ beginHours, beginMinutes ] = begin.split( ':' );
-    const [ endHours, endMinutes ] = end.split( ':' );
 
-    const newValue = {
-      begin: dateFns.setHours(
-        dateFns.setMinutes( valueToEdit.begin, parseInt( beginMinutes, 10 ) ),
-        parseInt( beginHours, 10 )
-      ),
-      end: dateFns.setHours(
-        dateFns.setMinutes( valueToEdit.end, parseInt( endMinutes, 10 ) ),
-        parseInt( endHours, 10 )
-      )
-    };
+    selectorEl.updateValue( valueToEdit, value );
 
-    if ( !dateFns.isAfter( newValue.end, newValue.begin ) ) {
-      return Promise.resolve( {
-        [ FORM_ERROR ]: 'endNotAfterBegin'
-      } );
+    this.handleCloseEditModal();
+  };
+
+  recurrencerValuesToTimings = values => {
+    const { weekStartsOn } = this.props;
+    const { valueToDuplicate } = this.state;
+
+    const UTCweekdays = [ 'SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA' ];
+    const weekdays = [
+      ...UTCweekdays.slice( weekStartsOn ),
+      ...UTCweekdays.slice( 0, weekStartsOn )
+    ];
+
+    const beginWeekdayIndex = valueToDuplicate.begin.getUTCDay();
+    const beginWeekday = RRule[ UTCweekdays[ beginWeekdayIndex ] ];
+    const wkst = RRule[ UTCweekdays[ weekStartsOn ] ];
+    let countOffset = 0;
+
+    if ( !( values.frequence === 'weekly' && !values.weekday.includes( beginWeekdayIndex ) ) ) {
+      countOffset += 1;
     }
 
-    selectorEl.updateValue(
-      valueToEdit,
-      newValue
-    );
+    const count = values.endType === 'count' ? values.count + countOffset : undefined;
+    const until = values.endType === 'until' ? values.until : undefined
+    const byweekday = values.frequence === 'weekly' && values.weekday && values.weekday.length
+      ? values.weekday.map( v => RRule[ weekdays[ v ] ] )
+      : values.frequence === 'monthly' && values.monthlyIntervalType === 'weekday'
+        ? beginWeekday
+        : undefined;
+    const bymonthday = values.frequence === 'monthly' && values.monthlyIntervalType === 'date'
+      ? valueToDuplicate.begin.getDate()
+      : undefined;
+    const bysetpos = values.frequence === 'monthly' && values.monthlyIntervalType === 'weekday'
+      ? getWeekOfMonth( valueToDuplicate.begin )
+      : undefined;
 
-    this.handleCloseModal();
+    const rule = new RRule( {
+      wkst,
+      dtstart: convertLocalDateToUTCDate( valueToDuplicate.begin ),
+      freq: RRule[ values.frequence.toUpperCase() ],
+      interval: values.interval,
+      count,
+      until,
+      byweekday,
+      bymonthday,
+      bysetpos
+    } );
+
+    const begins = rule.all()
+      .map( convertUTCDateToLocalDate )
+      .filter( v => v.getTime() !== valueToDuplicate.begin.getTime() );
+    const duration = valueToDuplicate.end.getTime() - valueToDuplicate.begin.getTime();
+    const newValues = begins.map( v => ({
+      begin: v,
+      end: new Date( v.getTime() + duration )
+    }) );
+
+    return newValues;
+  };
+
+  handleRecurrencerSubmit = ( values, form ) => {
+    const timings = this.recurrencerValuesToTimings( values );
+    const selectorEl = this.selectorRef.current._wrappedInstance;
+    const { forceTimingsCreation } = form.getFieldState( 'frequence' ).data;
+
+    try {
+      selectorEl.addValues( timings, forceTimingsCreation );
+    } catch ( e ) {
+      return { [FORM_ERROR]: e };
+    }
+
+    this.handleCloseRecurrencerModal();
   };
 
   render() {
@@ -253,7 +340,15 @@ class Scheduler extends Component {
       classNamePrefix,
       intl
     } = this.props;
-    const { modalStyle, showModal, schedulerScroll, editInitialValues } = this.state;
+    const {
+      modalStyle,
+      showEditModal,
+      showRecurrencerModal,
+      schedulerScroll,
+      editInitialValues,
+      valueToEdit,
+      valueToDuplicate
+    } = this.state;
 
     modalStyle.overlay.top = `${schedulerScroll.y}px`;
 
@@ -298,22 +393,45 @@ class Scheduler extends Component {
         </div>
 
         <ReactModal
-          ref={this.modalRef}
-          isOpen={showModal}
+          ref={this.editModalRef}
+          isOpen={showEditModal}
           ariaHideApp={false}
           parentSelector={this.getModalParent}
-          className={`${classNamePrefix}modal`}
+          className={`${classNamePrefix}modal ${classNamePrefix}edit-modal`}
           overlayClassName={`${classNamePrefix}overlay`}
           style={modalStyle}
-          onAfterOpen={this.handleOpenModal}
-          onRequestClose={this.handleCloseModal}
+          onAfterOpen={this.startLockScroll}
+          onRequestClose={this.handleCloseEditModal}
           shouldFocusAfterRender={false}
         >
-          <EditForm
+          {showEditModal ? <EditForm
             initialValues={editInitialValues}
             onSubmit={this.handleEditSubmit}
             classNamePrefix={classNamePrefix}
-          />
+            openRecurrencerModal={this.openRecurrencerModal}
+            valueToEdit={valueToEdit}
+          /> : null}
+        </ReactModal>
+
+        <ReactModal
+          ref={this.recurrencerModalRef}
+          isOpen={showRecurrencerModal}
+          ariaHideApp={false}
+          parentSelector={this.getModalParent}
+          className={`${classNamePrefix}modal ${classNamePrefix}recurrencer-modal`}
+          overlayClassName={`${classNamePrefix}overlay`}
+          style={modalStyle}
+          onAfterOpen={this.startLockScroll}
+          onRequestClose={this.handleCloseRecurrencerModal}
+          shouldFocusAfterRender={false}
+        >
+          {showRecurrencerModal ? <RecurrencerForm
+            weekStartsOn={weekStartsOn}
+            onSubmit={this.handleRecurrencerSubmit}
+            classNamePrefix={classNamePrefix}
+            valueToDuplicate={valueToDuplicate}
+            weekStartsOn={weekStartsOn}
+          /> : null}
         </ReactModal>
       </>
     );

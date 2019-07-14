@@ -2,7 +2,10 @@ import React, { Component } from 'react';
 import { injectIntl, defineMessages } from 'react-intl';
 import { Form, Field } from 'react-final-form';
 import MaskedInput from 'react-text-mask';
+import dateFns from 'date-fns';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
+import RecurrencerButton from './RecurrencerButton';
+import { FORM_ERROR } from "final-form";
 
 const autoCorrectedTimePipe = createAutoCorrectedDatePipe( 'HH:MM' );
 const timeRegex = /\d{2}:\d{2}/;
@@ -67,7 +70,35 @@ function MaskedTimeInput( { input, meta, label, classNamePrefix, intl, ...rest }
 class EditForm extends Component {
   subscription = { submitError: true };
 
-  renderForm = ( { handleSubmit, submitError, classNamePrefix, intl } ) => (
+  handleSubmit = ( values, ...rest ) => {
+    const { valueToEdit, onSubmit } = this.props;
+    const { begin, end } = values;
+    const [ beginHours, beginMinutes ] = begin.split( ':' );
+    const [ endHours, endMinutes ] = end.split( ':' );
+
+    const newValue = {
+      begin: dateFns.setHours(
+        dateFns.setMinutes( valueToEdit.begin, parseInt( beginMinutes, 10 ) ),
+        parseInt( beginHours, 10 )
+      ),
+      end: dateFns.setHours(
+        dateFns.setMinutes( valueToEdit.end, parseInt( endMinutes, 10 ) ),
+        parseInt( endHours, 10 )
+      )
+    };
+
+    if ( !dateFns.isAfter( newValue.end, newValue.begin ) ) {
+      return {
+        [ FORM_ERROR ]: { message: 'endNotAfterBegin' }
+      };
+    }
+
+    if ( typeof onSubmit === 'function' ) {
+      return onSubmit( newValue, ...rest );
+    }
+  };
+
+  renderForm = ( { handleSubmit, submitError, classNamePrefix, intl, openRecurrencerModal } ) => (
     <form onSubmit={handleSubmit}>
       <h3>{intl.formatMessage( messages.title )}</h3>
 
@@ -99,23 +130,29 @@ class EditForm extends Component {
 
       {submitError && (
         <div className={`${classNamePrefix}error`}>
-          {intl.formatMessage( messages[ submitError ] )}
+          {intl.formatMessage( messages[ submitError.message ] )}
         </div>
       )}
+
+      <RecurrencerButton
+        classNamePrefix={classNamePrefix}
+        openRecurrencerModal={openRecurrencerModal}
+      />
     </form>
   );
 
   render() {
-    const { onSubmit, initialValues, classNamePrefix, intl } = this.props;
+    const { initialValues, classNamePrefix, intl, openRecurrencerModal } = this.props;
 
     return (
       <Form
-        onSubmit={onSubmit}
+        onSubmit={this.handleSubmit}
         initialValues={initialValues}
         subscription={this.subscription}
         render={this.renderForm}
         classNamePrefix={classNamePrefix}
         intl={intl}
+        openRecurrencerModal={openRecurrencerModal}
       />
     );
   }
