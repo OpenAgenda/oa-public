@@ -26,7 +26,8 @@ const raw = [
   'legacyDeleted.create.sql',
   'legacyAgendaCategory.create.sql',
   'legacyAgendaTag.create.sql',
-  'legacyTagSet.create.sql'
+  'legacyTagSet.create.sql',
+  'legacyCategorySet.create.sql'
 ].map( fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace( /;(\n|)$/, '' ) );
 
 
@@ -253,7 +254,66 @@ raw.push( knex( 'legacy_agenda_tag' ).insert( [
 
 raw.push( knex( 'tag_set' ).insert( {
   id: 13901,
-  store: `{"groups":[{"name":"Thématiques Métropolitaines","info":"","tags":[{"id":27855,"label":"Toutes","slug":"toutes"},{"id":27854,"label":"Culture","slug":"culture"},{"id":27856,"label":"Déchets recyclage","slug":"dechets-recyclage"},{"id":27857,"label":"Economie - Innovation","slug":"economie-innovation"},{"id":27858,"label":"Éducation","slug":"education"},{"id":27859,"label":"International","slug":"international"},{"id":27860,"label":"Loisirs","slug":"loisirs"},{"id":27861,"label":"Nature - Environnement","slug":"nature-environnement"},{"id":27862,"label":"Patrimoine","slug":"patrimoine"},{"id":27863,"label":"Santé","slug":"sante"},{"id":27864,"label":"Solidarité","slug":"solidarite"},{"id":27865,"label":"Sports","slug":"sports"},{"id":27867,"label":"Transports - Déplacements","slug":"transports-deplacements"},{"id":27866,"label":"Urbanisme","slug":"urbanisme"}],"access":"public","required":true,"unique":false},{"name":"Types d'événements","info":"","tags":[{"id":27868,"label":"Tous","slug":"tous"},{"id":27869,"label":"Conférence","slug":"conference"},{"id":27870,"label":"Congrès - Colloque","slug":"congres-colloque"},{"id":27871,"label":"Conseil de la métropole","slug":"conseil-de-la-metropole"},{"id":27872,"label":"Événement sportif","slug":"evenement-sportif"},{"id":27873,"label":"Exposition","slug":"exposition"},{"id":27874,"label":"Foire - Salon","slug":"foire-salon"},{"id":27875,"label":"Fête - Festival","slug":"fete-festival"},{"id":27876,"label":"Réunion publique","slug":"reunion-publique"},{"id":27878,"label":"Spectacle","slug":"spectacle"},{"id":27877,"label":"Stage - Atelier","slug":"stage-atelier"}],"access":"public","required":true,"unique":false},{"name":"Public","info":"","tags":[{"id":27879,"label":"Tout Public","slug":"tout-public"},{"id":27880,"label":"Adulte","slug":"adulte"},{"id":27881,"label":"Jeune Public","slug":"jeune-public"},{"id":27882,"label":"Personne en situation de handicap","slug":"personne-en-situation-de-handicap"},{"id":27883,"label":"Professionnel","slug":"professionnel"}],"access":"public","required":true,"unique":false},{"name":"Organisateur","info":"","tags":[{"id":27884,"label":"Collectivité","slug":"collectivite"},{"id":27885,"label":"Association","slug":"association"},{"id":27886,"label":"Partenaire","slug":"partenaire"},{"id":27887,"label":"Particulier","slug":"particulier"}],"access":"public","required":true,"unique":false},{"name":"","info":"Participation","tags":[{"id":27888,"label":"Entrée Libre","slug":"entree-libre"}],"access":"public","required":false,"unique":true}]}`
+  store: `{"groups":[{
+    "name":"Thématiques Métropolitaines","info":"",
+    "tags":[
+      {"id":27855,"label":"Toutes","slug":"toutes"},
+      {"id":27854,"label":"Culture","slug":"culture", "schemaOptionId" : "26.3"},
+      {"id":27856,"label":"Déchets recyclage","slug":"dechets-recyclage"},
+      {"id":27857,"label":"Economie - Innovation","slug":"economie-innovation"},
+      {"id":27858,"label":"Éducation","slug":"education"},
+      {"id":27859,"label":"International","slug":"international"},
+      {"id":27860,"label":"Loisirs","slug":"loisirs"},
+      {"id":27861,"label":"Nature - Environnement","slug":"nature-environnement"},
+      {"id":27862,"label":"Patrimoine","slug":"patrimoine"},
+      {"id":27863,"label":"Santé","slug":"sante"},
+      {"id":27864,"label":"Solidarité","slug":"solidarite"},
+      {"id":27865,"label":"Sports","slug":"sports"},
+      {"id":27867,"label":"Transports - Déplacements","slug":"transports-deplacements"},
+      {"id":27866,"label":"Urbanisme","slug":"urbanisme"}
+    ],
+    "access":"public",
+    "required":true,
+    "unique":false
+  },{
+    "name":"Types d'événements",
+    "info":"",
+    "tags":[
+      {"id":27868,"label":"Tous","slug":"tous"},
+      {"id":27869,"label":"Conférence","slug":"conference"},
+      {"id":27870,"label":"Congrès - Colloque","slug":"congres-colloque"},
+      {"id":27871,"label":"Conseil de la métropole","slug":"conseil-de-la-metropole"},
+      {"id":27872,"label":"Événement sportif","slug":"evenement-sportif"},
+      {"id":27873,"label":"Exposition","slug":"exposition"},
+      {"id":27874,"label":"Foire - Salon","slug":"foire-salon"},
+      {"id":27875,"label":"Fête - Festival","slug":"fete-festival"},
+      {"id":27876,"label":"Réunion publique","slug":"reunion-publique"},
+      {"id":27878,"label":"Spectacle","slug":"spectacle","schemaOptionId":"26.25"},
+      {"id":27877,"label":"Stage - Atelier","slug":"stage-atelier"}
+    ],"access":"public","required":true,"unique":false
+  },{
+    "name":"Public","info":"",
+    "tags":[
+      {"id":27879,"label":"Tout Public","slug":"tout-public", "schemaOptionId":"26.27"},
+      {"id":27880,"label":"Adulte","slug":"adulte"},
+      {"id":27881,"label":"Jeune Public","slug":"jeune-public"},
+      {"id":27882,"label":"Personne en situation de handicap","slug":"personne-en-situation-de-handicap"},
+      {"id":27883,"label":"Professionnel","slug":"professionnel"}
+    ],"access":"public","required":true,"unique":false
+  },{
+    "name":"Organisateur","info":"",
+    "tags":[
+      {"id":27884,"label":"Collectivité","slug":"collectivite","schemaOptionId":"26.32"},
+      {"id":27885,"label":"Association","slug":"association"},
+      {"id":27886,"label":"Partenaire","slug":"partenaire"},
+      {"id":27887,"label":"Particulier","slug":"particulier"}
+    ],"access":"public","required":true,"unique":false
+  },{
+    "name":"","info":"Participation",
+    "tags":[
+      {"id":27888,"label":"Entrée Libre","slug":"entree-libre","schemaOptionId":"26.36"}
+    ],"access":"public","required":false,"unique":true
+  }]}`
 } ) );
 
 raw.push( knex( 'form_schema' ).insert( [ {
@@ -520,8 +580,7 @@ raw.push( knex( 'form_schema' ).insert( [ {
           "value": "spectacle",
           "label": {
             "fr": "Spectacle"
-          },
-          "legacyId": 27878
+          }
         },
         {
           "id": 26,
@@ -552,8 +611,7 @@ raw.push( knex( 'form_schema' ).insert( [ {
           "value": "tout-public",
           "label": {
             "fr": "Tout Public"
-          },
-          "legacyId": 27879
+          }
         },
         {
           "id": 28,

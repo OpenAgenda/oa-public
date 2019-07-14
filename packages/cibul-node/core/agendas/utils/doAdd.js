@@ -8,7 +8,8 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 
 const addContributor = require( './addContributor' );
 const { agendaIsOpen, userIsNotMember } = addContributor;
-const setCustom = require( '../utils/setCustom' );
+const legacy = require( '../../../services/legacy' );
+const setCustom = require( './setCustom' );
 
 const log = require( '@openagenda/logs' )( 'core/agendas/utils/doAdd' );
 
@@ -80,6 +81,21 @@ module.exports = async ( agenda, eventUid, clean, options = {} ) => {
 
     added.networkCustom = result.custom;
 
+  }
+
+  if ( !draft ) {
+    log( 'syncing legacy custom and tag data' );
+    try {
+      await legacy.tagsAndCustom.set( agenda.id, eventUid, [
+        agenda.formSchema,
+        _.get( agenda, 'network.formSchema' )
+      ], [
+        clean.custom,
+        clean.networkCustom
+      ] );
+    } catch ( e ) {
+      log( 'error', 'failed to set legacy tags and custom data for agenda id %s and event uid %s', agenda.id, eventUid, e );
+    }
   }
 
   if ( context.userUid && agendaIsOpen( agenda ) && userIsNotMember( agenda, context.userUid ) ) {

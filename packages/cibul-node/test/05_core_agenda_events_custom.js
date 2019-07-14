@@ -157,16 +157,18 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
 
     await core.init( testConfig, {
       enabled: [
+        'queues',
+        'events',
+        'agendas',
         'images',
         'files',
         'imageFiles',
-        'events',
-        'agendas',
         'agendaEvents',
         'agendaStakeholders',
         'agendaLocations',
         'formSchemas',
         'custom',
+        'eventSearch',
         'networks',
         'elasticsearch',
         'legacy'
