@@ -1,0 +1,7 @@
+CREATE TABLE review (
+  id BIGINT,
+  uid BIGINT UNIQUE,
+  title VARCHAR(255) NOT NULL,
+  private TINYINT(1),
+  settings TEXT
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;

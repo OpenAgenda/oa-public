@@ -1,0 +1,111 @@
+{
+  "name": null,
+  "info": null,
+  "categories": [
+    {
+      "id": 300,
+      "label": "Art",
+      "slug": "art"
+    },
+    {
+      "id": 503,
+      "label": "Audiovisuel/Divertissement",
+      "slug": "audiovisueldivertissement"
+    },
+    {
+      "id": 489,
+      "label": "Bâtiment/Construction",
+      "slug": "batimentconstruction"
+    },
+    {
+      "id": 491,
+      "label": "Bijouterie",
+      "slug": "bijouterie"
+    },
+    {
+      "id": 517,
+      "label": "Edition",
+      "slug": "edition"
+    },
+    {
+      "id": 507,
+      "label": "Energies",
+      "slug": "energies"
+    },
+    {
+      "id": 490,
+      "label": "Environnement",
+      "slug": "environnement"
+    },
+    {
+      "id": 502,
+      "label": "Franchise",
+      "slug": "franchise"
+    },
+    {
+      "id": 499,
+      "label": "Hôtellerie/Restauration",
+      "slug": "hotellerierestauration"
+    },
+    {
+      "id": 501,
+      "label": "Impression/Communication visuelle",
+      "slug": "impressioncommunication-visuelle"
+    },
+    {
+      "id": 504,
+      "label": "Ingénierie/Production/Transformation ",
+      "slug": "ingenierieproductiontransformation"
+    },
+    {
+      "id": 519,
+      "label": "Maison/Décoration",
+      "slug": "maisondecoration"
+    },
+    {
+      "id": 506,
+      "label": "Marketing/Services ",
+      "slug": "marketingservices"
+    },
+    {
+      "id": 492,
+      "label": "Nouvelles technologies",
+      "slug": "nouvelles-technologies"
+    },
+    {
+      "id": 493,
+      "label": "Services",
+      "slug": "services"
+    },
+    {
+      "id": 497,
+      "label": "Sport/Loisirs",
+      "slug": "sportloisirs"
+    },
+    {
+      "id": 498,
+      "label": "Santé",
+      "slug": "sante"
+    },
+    {
+      "id": 500,
+      "label": "Sécurité/Sûreté ",
+      "slug": "securitesurete"
+    },
+    {
+      "id": 505,
+      "label": "Transport/Distribution",
+      "slug": "transportdistribution"
+    },
+    {
+      "id": 518,
+      "label": "Tourisme",
+      "slug": "tourisme"
+    },
+    {
+      "id": 530,
+      "label": "Divers",
+      "slug": "divers"
+    }
+  ]
+}
