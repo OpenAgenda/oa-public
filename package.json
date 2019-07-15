@@ -19,23 +19,6 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": [
-      "**/react",
-      "**/react/**",
-      "**/react-dom",
-      "**/react-dom/**",
-      "**/react-redux",
-      "**/react-redux/**",
-      "**/redux-connect",
-      "**/redux-connect/**",
-      "**/redux-form",
-      "**/redux-form/**",
-      "**/prettier-eslint",
-      "**/prettier-eslint-cli",
-      "**/babel-core",
-      "**/babel-register",
-      "**/@storybook/**"
     ]
   },
   "dependencies": {
@@ -45,11 +28,11 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "codecov": "^3.1.0",
-    "husky": "^2.4.1",
+    "husky": "^3.0.0",
     "jest": "^23.6.0",
     "lerna": "^2.11.0",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.4",
+    "react-dom": "^16.8.4"
   },
   "husky": {
     "hooks": {
