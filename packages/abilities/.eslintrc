@@ -65,7 +65,8 @@
           ".storybook/**/*.js",
           "stories/**/*.js",
           "server.dev.js",
-          "test/**/*.js"
+          "test/**/*.js",
+          "scripts/**/*.js"
         ]
       }
     ],
@@ -140,7 +141,10 @@
       }
     },
     {
-      "files": "**/*.{test,spec}.js",
+      "files": [
+        "**/*.{test,spec}.js",
+        "scripts/**/*.js"
+      ],
       "rules": {
         "import/default": "off"
       }
