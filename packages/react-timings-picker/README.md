@@ -1,6 +1,11 @@
 # react-timings-picker
 Picker to define an edit multiple timings in a week view picker
 
+## Status
+
+**This package is no longer maintained, please use [@openagenda/react-timingspicker](https://github.com/Oagenda/oa/tree/master/packages/react-timingspicker)**
+
+
 # Development environment
 1. install node.js
    http://nodejs.org/

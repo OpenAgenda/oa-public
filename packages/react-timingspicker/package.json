@@ -1,6 +1,11 @@
 {
   "name": "@openagenda/react-timingspicker",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+  },
+  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/react-timingspicker",
   "main": "dist/index.js",
   "scripts": {
     "start": "start-storybook -p 9001",
