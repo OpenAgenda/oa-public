@@ -1,16 +1,6 @@
 "use strict";
 
 const webModules = [
-  require( './event/actions.front' )( '' ),
-  require( './auth/facebook.front' )( '' ),
-  require( './auth/twitter.front' )( '' ),
-  require( './auth/google.front' )( '' ),
-  require( './auth/local.front' )( '' ),
-  require( './auth/reset.front' )( '/password' ),
-  require( './agenda/stakeholders.back' )( '/:slug/admin' ),
-  require( './agenda/emailstrategie.back' )( '/:slug/admin/emailstrategie' ),
-  require( './agenda/embeds.back' )( '/:slug/admin/embeds' ),
-  require( './location/front' )( '/locations' ),
   require( './location/back' )( '' ),
   require( './agenda/settings.back' )( '' ),
   require( './agenda/sources.back' )( '/:slug/admin' ),
@@ -55,6 +45,16 @@ module.exports = app => {
   require( './event/tagsForm.back' )( app );
   require( './event/back' )( app );
   require( './event/front' )( app );
+  require( './event/actions.front' )( app );
+  require( './auth/facebook.front' )( app );
+  require( './auth/twitter.front' )( app );
+  require( './auth/google.front' )( app );
+  require( './auth/local.front' )( app );
+  require( './auth/reset.front' )( app );
+  require( './agenda/stakeholders.back' )( app );
+  require( './agenda/emailstrategie.back' )( app );
+  require( './agenda/embeds.back' )( app );
+  require( './location/front' )( app );
 
   webModules.forEach( m => m.load( app ) );
 

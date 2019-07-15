@@ -1,45 +1,38 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const cmn = require( '../lib/commons-app' );
+const agendaSvc = require( '../services/agenda' );
 
-cmn = require( '../lib/commons-app' ),
+const preMw = [
+  agendaSvc.mw.load( 'slug' ),
+  cmn.checkAdministrator(),
+  cmn.checkCredential( 'emailstrategie' ),
+  agendaSvc.mw.loadAdminLayout,
+  cmn.loadBaseData()
+];
 
-agendaSvc = require( '../services/agenda' ),
 
-routes = {
-  emailStrategieNew: [ 'get', '/new', newShow ],
-  emailStrategieNewSubmit: [ 'post', '/new', newSubmit ],
-  emailStrategieShow: [ 'get', '/', show ],
-  emailStrategiePush: [ 'post', '/push', push ],
-  emailStrategieUnlink: [ 'get', '/unlink', unlink ]
-};
+module.exports = app => {
 
-module.exports = function( path ) {
+  app.get( '/:slug/admin/emailstrategie/new', preMw, newShow );
 
-  var router = modLib.Router( routes );
+  app.post( '/:slug/admin/emailstrategie/new', preMw, newSubmit );
 
-  router.pre( [
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdministrator(),
-    cmn.checkCredential( 'emailstrategie' ),
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData()
-  ]);
+  app.get( '/:slug/admin/emailstrategie', preMw, show );
 
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
+  app.post( '/:slug/admin/emailstrategie/push', preMw, push );
+
+  app.get( '/:slug/admin/emailstrategie/unlink', preMw, unlink );
 
 }
 
 function push( req, res, next ) {
 
-  var fields = [],
+  const fields = [];
+  const filters = [];
+  let i;
 
-  filters = [];
-
-  for( var i in req.body.fields ) {
+  for( i in req.body.fields ) {
 
     fields.push( i );
 

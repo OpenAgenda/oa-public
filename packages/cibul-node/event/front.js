@@ -1,6 +1,5 @@
 "use strict";
 
-const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 const qs = require( 'qs' );

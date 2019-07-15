@@ -3,7 +3,7 @@
 
 <div class="btn-adds">
 <% if ( event.imports.length ) { %>
-<% event.imports.forEach( function( i ) { %> 
+<% event.imports.forEach( function( i ) { %>
   <a class="btn btn-default<% if ( event.multipleTimings ) { %> js_modal <% } %>" href="<%= i.uri %>" <% if ( !event.multipleTimings ) { %>target="_blank"<% } %>><%= i.label %></a>
 <% }) %>
 <% } else { %>
@@ -34,7 +34,7 @@
   <p><%= __( 'You do not own any OpenAgenda yet' ) %></p>
   <a class="btn green" href="<%= genUrl( 'agendaNew' ) %>"><%= __( 'Create an agenda' ) %></a>
 </div>
-  
+
 <% } %>
 
 
@@ -42,7 +42,7 @@
 
   <div class="prompt text-center">
     <p><%= __( 'You need to sign in to your account to add this event to your agendas' ) %></p>
-    <a class="btn green" href="<%= genUrl( 'signin' ) %>"><%= __( 'Sign In' ) %></a>
+    <a class="btn green" href="/signin"><%= __( 'Sign In' ) %></a>
   </div>
 
 <% } %>
@@ -57,7 +57,7 @@
   <div class="form-group">
     <textarea
       name="mailsend"
-      class="form-control" 
+      class="form-control"
       rows="3"
     ></textarea>
     <label for="mailsend"><%= __( 'Type in the emails you want to send the event to' )  %></label>
@@ -65,7 +65,7 @@
   <div class="form-group">
     <button type="submit" class="btn green"><%= __( 'Send' ) %></button>
   </div>
-  
+
 </form>
 
 <% } %>

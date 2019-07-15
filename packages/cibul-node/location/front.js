@@ -1,31 +1,16 @@
 "use strict";
 
-var modLib = require( '../lib/moduleLib' ),
+const agendaLocations = require( '@openagenda/agenda-locations' );
+const cmn = require( '../lib/commons-app' );
 
-cmn = require( '../lib/commons-app' ),
 
-al = require( '@openagenda/agenda-locations' ),
+module.exports = app => {
 
-routes = {
-
-  locationShow: [ 'get', '/:locationUid.json', [
-    al.mw.get,
+  app.get(
+    '/locations/:locationUid.json',
+    cmn.loadLogger( 'location front' ),
+    agendaLocations.mw.get,
     ( req, res ) => cmn.renderJson( req, res, req.location )
-  ] ]
+  );
 
 };
-
-module.exports = function( path ) {
-
-  var router = modLib.Router( routes );
-
-  router.pre( [
-    cmn.loadLogger( 'location front' )
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
-
-}

@@ -2,14 +2,12 @@
 
 const _ = require( 'lodash' );
 
-const cmn = require( '../lib/commons-app' );
 const app = require( 'express' )();
-const config = require( '../config' );
 const fs = require( 'fs' );
 const sessions = require( '@openagenda/sessions' );
-const legacyAgendaSvc = require( '../services/agenda' );
 const agendasSvc = require( '@openagenda/agendas' );
 const agendaStatistics = require( '../services/agendaStatistics' );
+const cmn = require( '../lib/commons-app' );
 
 const layout = require( '../services/lib/layouts' ).load( 'agendaAdmin' );
 
@@ -144,7 +142,7 @@ app.get( '/:agendaSlug/admin/getting-started', [
             setImage: req.genUrl( 'agendaSettingsSetImage', { slug: req.agenda.slug } ),
             clearImage: req.genUrl( 'agendaSettingsClearImage', { slug: req.agenda.slug } ),
             addEvent: req.genUrl( 'agendaEventNew', { slug: req.agenda.slug } ),
-            createEmbed: req.genUrl( 'agendaEmbedIndex', { slug: req.agenda.slug } )
+            createEmbed: `/${req.agenda.slug}/admin/webembed`
           },
           lang: _.get( req, 'lang', 'fr' )
         } )

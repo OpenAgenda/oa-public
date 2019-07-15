@@ -3,30 +3,20 @@
 const sessions = require( '@openagenda/sessions' );
 const usersSvc = require( '@openagenda/users' );
 const log = require( '@openagenda/logs' )( 'auth/reset.front' );
-const modLib = require( '../lib/moduleLib' );
 const cmn = require( '../lib/commons-app' );
 
-const routes = {
-    lostPassword: [ 'get', '/lost', lostPassword ],
-    lostPasswordSubmit: [ 'post', '/lost', lostPasswordSubmit ],
-    resetPassword: [ 'get', '/reset/:token', resetPassword ],
-    resetPasswordSubmit: [ 'post', '/reset/:token', resetPasswordSubmit ],
-  };
+const preMw = [
+  cmn.loadBaseData(),
+  sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
+];
 
 
-module.exports = path => {
+module.exports = app => {
 
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    cmn.loadBaseData(),
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes ),
-  };
+  app.get( '/password/lost', preMw, lostPassword );
+  app.post( '/password/lost', preMw, lostPasswordSubmit );
+  app.get( '/password/reset/:token', preMw, resetPassword );
+  app.post( '/password/reset/:token', preMw, resetPasswordSubmit );
 
 };
 
@@ -128,7 +118,7 @@ function _redirectToSignin( req, res, message ) {
 
     sessions.setFlash( req, res, message );
 
-    res.redirect( 302, req.genUrl( 'signin' ) );
+    res.redirect( 302, '/signin' );
 
     values.resolved = true;
 
