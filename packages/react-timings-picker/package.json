@@ -2,9 +2,9 @@
   "name": "react-timings-picker",
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
+    "url": "git+ssh://git@github.com:Oagenda/oa.git"
   },
-  "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/react-timings-picker",
+  "homepage": "https://github.com/Oagenda/oa/tree/master/packages/react-timings-picker",
   "main": "lib/scripts/components/timings-picker.js",
   "version": "0.3.7",
   "engines": {
