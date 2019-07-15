@@ -57,6 +57,7 @@ These define general portal settings. Default options set in your `server.js` fi
  * **sass**: path to the sass folder
  * **uid**: Required. UID of the agenda
  * **views**: Required. Path to the handlebar views folder
+ * **refreshInterval**: interval with which the cache is cleared in milliseconds. Defaults on 1000*60*60 (1 hour)
 
 ## Cache options
 

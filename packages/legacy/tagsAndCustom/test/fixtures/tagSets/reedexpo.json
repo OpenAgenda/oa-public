@@ -1,0 +1,10 @@
+{
+  "groups": [
+    {
+      "tags": [],
+      "access": "public",
+      "required": false,
+      "unique": false
+    }
+  ]
+}

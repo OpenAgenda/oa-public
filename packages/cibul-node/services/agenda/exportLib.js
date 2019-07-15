@@ -185,21 +185,21 @@ function _addFreeTextSuffixes( v ) {
 
 function _addTagGroups( v ) {
 
-  let tagSlugs = [];
+  let tagIds = null;
 
   v.decorated.tagGroups = [];
 
   if ( typeof v.decorated.tags == 'string' ) {
 
-    tagSlugs = [ v.decorated.tags ];
+    tagIds = [ v.decorated.tags ];
 
   } else if ( v.decorated.tags ) {
 
-    tagSlugs = v.decorated.tags.map( t => t.slug );
+    tagIds = v.decorated.tags.map( t => t.id );
 
   }
 
-  if ( !tagSlugs || !tagSlugs.length ) return v;
+  if ( !tagIds || !tagIds.length ) return v;
 
   const tagSet = v.agenda.tagSet;
 
@@ -208,14 +208,14 @@ function _addTagGroups( v ) {
   // includePrivateData
 
   // keep groups containing tags used by event
-  .filter( g => g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).length )
+  .filter( g => g.tags.filter( t => tagIds.indexOf( t.id ) !== -1 ).length )
 
   // keep group tags used by event
   .map( g => ( {
     name: g.name,
     access: g.access || 'public',
     slug: g.name ? slugs.generate( g.name ) : null,
-    tags: g.tags.filter( t => tagSlugs.indexOf( t.slug ) !== -1 ).map( t => ( _.assign( {
+    tags: g.tags.filter( t => tagIds.indexOf( t.id ) !== -1 ).map( t => ( _.assign( {
       label: t.label,
       slug: t.slug,
       id: t.id
