@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require( 'path' );
 const _ = require( 'lodash' );
 const nodemailer = require( 'nodemailer' );
@@ -59,10 +61,9 @@ describe( 'sendMail', () => {
       expect( results ).toHaveLength( 3 );
       expect( errors ).toHaveLength( 0 );
 
-      expect( results.map( v =>
-        _.omit( JSON.parse( v.message ), 'envelopeTime', 'messageId', 'messageTime', 'response' ) )
-      )
-        .toMatchSnapshot();
+      expect(
+        results.map( v => _.omit( JSON.parse( v.message ), 'envelopeTime', 'messageId', 'messageTime', 'response' ) )
+      ).toMatchSnapshot();
     } );
 
     it( 'send a mail to an invalid email returns with errors', async () => {
@@ -78,7 +79,7 @@ describe( 'sendMail', () => {
       expect( errors ).toMatchSnapshot();
     } );
 
-    it( 'send a mail with an error don\'t send anything', async () => {
+    it( "send a mail with an error don't send anything", async () => {
       const { errors } = await mails( {
         template: 'helloWorld',
         to: 'kevin.bertho@@gmail'
@@ -108,11 +109,13 @@ describe( 'sendMail', () => {
       expect( message.data.domain ).toBe( 'https://openagenda.com' );
     } );
 
-    it( 'sendMail with a missing template throw an error', () => expect( mails( {
-      template: 'unknow',
-      to: 'kevin.bertho@gmail.com',
-      queue: false
-    } ) ).rejects.toThrow( 'Email template \'unknow\' does not exist' ) );
+    it( 'sendMail with a missing template throw an error', () => expect(
+      mails( {
+        template: 'unknow',
+        to: 'kevin.bertho@gmail.com',
+        queue: false
+      } )
+    ).rejects.toThrow( "Email template 'unknow' does not exist" ) );
   } );
 
   describe( 'Euthreal transport', () => {
@@ -227,10 +230,12 @@ describe( 'sendMail', () => {
       expect( errors ).toHaveLength( 0 );
       expect( results ).toHaveLength( 1 );
 
-      expect( results.map( v => {
-        v.message = JSON.parse( v.message );
-        return _.omit( v, 'messageId', 'message.messageId' );
-      } ) ).toMatchSnapshot();
+      expect(
+        results.map( v => {
+          v.message = JSON.parse( v.message );
+          return _.omit( v, 'messageId', 'message.messageId' );
+        } )
+      ).toMatchSnapshot();
     } );
 
     it( 'choose a lang per recipient', async () => {
@@ -276,10 +281,12 @@ describe( 'sendMail', () => {
       expect( errors ).toHaveLength( 0 );
       expect( results ).toHaveLength( 1 );
 
-      expect( results.map( v => {
-        v.message = JSON.parse( v.message );
-        return _.omit( v, 'messageId', 'message.messageId' );
-      } ) ).toMatchSnapshot();
+      expect(
+        results.map( v => {
+          v.message = JSON.parse( v.message );
+          return _.omit( v, 'messageId', 'message.messageId' );
+        } )
+      ).toMatchSnapshot();
     } );
   } );
 } );

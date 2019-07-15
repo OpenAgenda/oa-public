@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require( 'path' );
 const _ = require( 'lodash' );
 const nodemailer = require( 'nodemailer' );
@@ -86,7 +88,7 @@ describe( 'task', () => {
     expect( errors ).toHaveLength( 0 );
   } );
 
-  it( 'send a mail with an error don\'t send anything', async () => {
+  it( "send a mail with an error don't send anything", async () => {
     const spy = jest.spyOn( config.transporter, 'sendMail' );
 
     const { results, errors } = await mails( {
@@ -94,7 +96,7 @@ describe( 'task', () => {
       to: 'kevin.bertho@@gmail'
     } );
 
-    expect( spy.mock.calls.length ).toBe( 0 );
+    expect( spy.mock.calls ).toHaveLength( 0 );
     expect( results ).toHaveLength( 0 );
     expect( errors ).toHaveLength( 1 );
   } );
