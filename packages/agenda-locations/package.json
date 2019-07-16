@@ -64,12 +64,12 @@
     "babel-preset-openagenda": "^1.1.1",
     "body-parser": "1.18.3",
     "mocha": "^4.0.1",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "should": "^7.1.1"
   },
   "peerDependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }
