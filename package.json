@@ -19,6 +19,14 @@
   "workspaces": {
     "packages": [
       "packages/*"
+    ],
+    "nohoist": [
+      "**/react-redux",
+      "**/react-redux/**",
+      "**/redux-connect",
+      "**/redux-connect/**",
+      "**/redux-form",
+      "**/redux-form/**"
     ]
   },
   "dependencies": {

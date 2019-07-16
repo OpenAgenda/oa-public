@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import { syncHistoryWithStore } from 'react-router-redux';
 import { Router, useRouterHistory } from 'react-router';
 import createHistory from 'history/lib/createBrowserHistory';
@@ -32,7 +32,7 @@ export default function ( options, routes, fn ) {
   if ( fn ) fn( { client, store, history } );
 
   return (
-    <Provider store={store} key="provider">
+    <Provider store={store} key="provider" context={ReactReduxContext}>
       <Router history={history} render={renderRouter}>
         {routes( store )}
       </Router>

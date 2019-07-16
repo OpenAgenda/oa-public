@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { trigger } from 'redial';
 import { createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { StaticRouter, Route } from 'react-router-dom';
 import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
@@ -79,8 +79,8 @@ export default function renderApp( options = {} ) {
     </RouterRedialTrigger>
   );
   const element = (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
+    <Provider store={store} context={ReactReduxContext}>
+      <ConnectedRouter history={history} context={ReactReduxContext}>
         {req
           ? (
             <Route
