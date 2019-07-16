@@ -7,7 +7,6 @@ const bodyParser = require( 'body-parser' );
 const sessions = require( '@openagenda/sessions' );
 const logger = require( '@openagenda/logs' );
 const cmn = require( './lib/commons-app' );
-const errorLogger = require( './services/00_errors' );
 const genUrl = require( './services/genUrl' ).getSingleton();
 
 const admin = require( './admin' );

@@ -1,9 +1,19 @@
 {
-  "extends": "airbnb-base",
-  "plugins": [
-    "jest"
+  "extends": [
+    "airbnb",
+    "plugin:jest/recommended"
   ],
+  "env": {
+    "node": true
+  },
+  "parserOptions": {
+    "sourceType": "script"
+  },
   "rules": {
+    "strict": [
+      "error",
+      "safe"
+    ],
     "no-param-reassign": "off",
     "no-underscore-dangle": "off",
     "no-restricted-syntax": "off",
@@ -44,8 +54,5 @@
         ]
       }
     ]
-  },
-  "env": {
-    "jest/globals": true
   }
 }

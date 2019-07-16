@@ -13,7 +13,7 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
   const l = ev.getLocationDetails();
 
 
-  const url = genUrl( 'agendaEventShow', { 
+  const url = genUrl( 'agendaEventShow', {
     slug: agenda.slug,
     eventSlug: ev.slug
   }, { protocol: 'https://' } );
@@ -35,7 +35,7 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
 
       timingIndex = parseInt( timingIndex );
 
-    } catch( e ) { 
+    } catch( e ) {
 
       timingIndex = -1;
 
@@ -70,7 +70,7 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
 
     }
 
-    return i <= 10 || t.start.split( 'T' )[ 0 ] >= today;
+    return i <= 10 || t.start.toISOString().split( 'T' )[ 0 ] >= today;
 
   } )
 
@@ -95,7 +95,7 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
 
 module.exports.head = function( agenda, lang = 'fr' ) {
 
-  return [ 
+  return [
     'BEGIN:VCALENDAR',
     'VERSION:2.0',
     'PRODID:-//' + esc( agenda.title )  + '//agenda::' + lang,

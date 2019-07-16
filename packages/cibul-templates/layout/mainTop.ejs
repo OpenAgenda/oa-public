@@ -39,7 +39,7 @@
           <li <% if ( typeof link.className !== 'undefined') { %>class="<%= link.className %>"<% } %>><a href="<%= link.url %>"><%= __(link.label) %></a></li>
 <% }); %>
 <% } %>
-          <li><a class="js_signin_link" href="<%= genUrl('signin') %>" rel="nofollow"><%= __('Sign in') %></a></li>
+          <li><a class="js_signin_link" href="/signin" rel="nofollow"><%= __('Sign in') %></a></li>
           <li class="language-menu js_language_menu js_toggle" data-toggle="language-menu">
             <a class="js_toggle_trigger"><% if ( ( typeof lang == 'undefined' ) || lang=='fr' ) { %>fr<% } else { %>en<% } %></a>
             <ul class="language-menu">

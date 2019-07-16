@@ -401,10 +401,6 @@ const config = {
           method: 'get',
           uri: '/agendas/:uid.xml'
         },
-        agendaEmbedIndex: {
-          method: 'get',
-          uri: '/:slug/admin/webembed'
-        },
         aggregatorCreate: {
           method: 'get',
           uri: '/agenda/:uid/aggregator/create'
@@ -528,6 +524,206 @@ const config = {
         confirmChangeEmail: {
           method: 'get',
           uri: '/users/:uid/confirmChangeEmail'
+        },
+        eventActionDatesShow: {
+          method: 'get',
+          uri: '/events/:eventSlug/action/dates'
+        },
+        agendaEventActionShow: {
+          method: 'get',
+          uri: '/:slug/events/:eventSlug/action'
+        },
+        agendaEventActionDatesShow: {
+          method: 'get',
+          uri: '/:slug/events/:eventSlug/action/dates'
+        },
+        agendaEventMailSend: {
+          method: 'post',
+          uri: '/:slug/events/:eventSlug/email'
+        },
+        agendaEventIcsShow: {
+          method: 'get',
+          uri: '/:slug/events/:eventSlug/ics'
+        },
+        facebookSignin: {
+          method: 'get',
+          uri: '/facebook/signin'
+        },
+        agendaFacebookSignin: {
+          method: 'post',
+          uri: '/:slug/facebook/signin'
+        },
+        facebookSigninCallback: {
+          method: 'get',
+          uri: '/facebook/signin/callback'
+        },
+        facebookSignup: {
+          method: 'get',
+          uri: '/facebook/signup'
+        },
+        agendaFacebookSignup: {
+          method: 'post',
+          uri: '/:slug/facebook/signup'
+        },
+        facebookSignupCallback: {
+          method: 'get',
+          uri: '/facebook/signup/callback'
+        },
+        twitterSignin: {
+          method: 'post',
+          uri: '/twitter/signin'
+        },
+        agendaTwitterSignin: {
+          method: 'get',
+          uri: '/:slug/twitter/signin'
+        },
+        twitterSigninCallback: {
+          method: 'get',
+          uri: '/twitter/signin/callback'
+        },
+        twitterSignup: {
+          method: 'post',
+          uri: '/twitter/signup'
+        },
+        agendaTwitterSignup: {
+          method: 'get',
+          uri: '/:slug/twitter/signup'
+        },
+        twitterEmail: {
+          method: 'get',
+          uri: '/twitter/email'
+        },
+        agendaTwitterEmail: {
+          method: 'post',
+          uri: '/:slug/twitter/email'
+        },
+        twitterSignupCallback: {
+          method: 'get',
+          uri: '/twitter/signup/callback'
+        },
+        googleSignin: {
+          method: 'get',
+          uri: '/google/signin'
+        },
+        agendaGoogleSignin: {
+          method: 'post',
+          uri: '/:slug/google/signin'
+        },
+        googleSigninCallback: {
+          method: 'get',
+          uri: '/google/signin/callback'
+        },
+        googleSignup: {
+          method: 'get',
+          uri: '/google/signup'
+        },
+        agendaGoogleSignup: {
+          method: 'post',
+          uri: '/:slug/google/signup'
+        },
+        googleSignupCallback: {
+          method: 'get',
+          uri: '/google/signup/callback'
+        },
+        signin: {
+          method: 'get',
+          uri: '/signin'
+        },
+        agendaSignin: {
+          method: 'get',
+          uri: '/:slug/signin'
+        },
+        signinSubmit: {
+          method: 'get',
+          uri: '/signin'
+        },
+        agendaSigninSubmit: {
+          method: 'get',
+          uri: '/:slug/signin'
+        },
+        agendaSignup: {
+          method: 'get',
+          uri: '/:slug/signup'
+        },
+        signupSubmit: {
+          method: 'get',
+          uri: '/signup'
+        },
+        agendaSignupSubmit: {
+          method: 'get',
+          uri: '/:slug/signup'
+        },
+        signupComplete: {
+          method: 'get',
+          uri: '/signup/complete'
+        },
+        agendaSignupComplete: {
+          method: 'get',
+          uri: '/:slug/signup/complete'
+        },
+        activateResend: {
+          method: 'get',
+          uri: '/activate/resend'
+        },
+        agendaActivateResend: {
+          method: 'get',
+          uri: '/:slug/activate/resend'
+        },
+        activate: {
+          method: 'get',
+          uri: '/activate/:token'
+        },
+        agendaActivate: {
+          method: 'get',
+          uri: '/:slug/activate/:token'
+        },
+        lostPassword: {
+          method: 'get',
+          uri: '/password/lost'
+        },
+        lostPasswordSubmit: {
+          method: 'post',
+          uri: '/password/lost'
+        },
+        resetPassword: {
+          method: 'get',
+          uri: '/password/reset/:token'
+        },
+        resetPasswordSubmit: {
+          method: 'post',
+          uri: '/password/reset/:token'
+        },
+        contributorsInfo: {
+          method: 'get',
+          uri: '/:slug/admin/contributors/info'
+        },
+        contributorsInfoSubmit: {
+          method: 'post',
+          uri: '/:slug/admin/contributors/info'
+        },
+        eventTransfer: {
+          method: 'get',
+          uri: '/:slug/admin/contributors/transfer/:eventSlug'
+        },
+        emailStrategieNew: {
+          method: 'get',
+          uri: '/:slug/admin/emailstrategie/new'
+        },
+        emailStrategieNewSubmit: {
+          method: 'post',
+          uri: '/:slug/admin/emailstrategie/new'
+        },
+        emailStrategieShow: {
+          method: 'get',
+          uri: '/:slug/admin/emailstrategie'
+        },
+        emailStrategiePush: {
+          method: 'post',
+          uri: '/:slug/admin/emailstrategie/push'
+        },
+        emailStrategieUnlink: {
+          method: 'get',
+          uri: '/:slug/admin/emailstrategie/unlink'
         }
       },
       defaultGlobalsPrefix: ''

@@ -1,7 +1,5 @@
 'use strict';
 
-/* eslint-disable */
-
 const fs = require( 'fs' );
 const _ = require( 'lodash' );
 const { sync: globSync } = require( 'glob' );
@@ -46,7 +44,7 @@ function extractLang( lang ) {
 
   fs.writeFileSync(
     `${LOCALE_DIR}${lang}.json`,
-    JSON.stringify( messages, null, 2 ) + '\n'
+    `${JSON.stringify( messages, null, 2 )}\n`
   );
 }
 

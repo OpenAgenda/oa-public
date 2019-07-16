@@ -1,7 +1,0 @@
-node_modules
-bower_components
-test/bower_components
-dist
-.tmp
-.sass-cache
-.idea

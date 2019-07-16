@@ -29,7 +29,11 @@ export default function ( { entityName, identifier, getRules } ) {
         const formState = getState();
         const fieldState = getFieldState( field );
 
-        if ( formState.pristine && fieldState.initial && fieldState.dirtySinceLastSubmit ) {
+        if (
+          formState.pristine
+          && fieldState.initial
+          && fieldState.dirtySinceLastSubmit
+        ) {
           return {};
         }
 

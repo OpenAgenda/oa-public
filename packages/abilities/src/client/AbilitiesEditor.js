@@ -30,14 +30,11 @@ const localeData = {
 addLocaleData( [ ...en, ...fr, ...de, ...br ] );
 
 function getInitialValues( rules ) {
-  return rules.reduce(
-    ( result, rule ) => {
-      result[ rule.key ] = rule.inverted === undefined ? true : !rule.inverted;
+  return rules.reduce( ( result, rule ) => {
+    result[ rule.key ] = rule.inverted === undefined ? true : !rule.inverted;
 
-      return result;
-    },
-    {}
-  );
+    return result;
+  }, {} );
 }
 
 @withFetcher(
@@ -97,7 +94,9 @@ class AbilitiesEditor extends Component {
       abilitiesFetcher: { data: rules }
     } = this.props;
 
-    const formIndex = rules.map( rule => Object.assign( _.omit( rule, 'key', 'entity', 'relevantRule' ), { inverted: !values[ rule.key ] } ) );
+    const formIndex = rules.map( rule => Object.assign( _.omit( rule, 'key', 'entity', 'relevantRule' ), {
+      inverted: !values[ rule.key ]
+    } ) );
 
     if ( typeof onSubmit === 'function' ) {
       return onSubmit( formIndex );

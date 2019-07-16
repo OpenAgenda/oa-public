@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function makeLabelGetter( labels, defaultLang ) {
   return ( name, values, lang ) => {
     if ( lang === undefined && typeof values === 'string' ) {

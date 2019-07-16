@@ -3,9 +3,7 @@
 const async = require( 'async' );
 const _ = require( 'lodash' );
 
-const customSvc = require( '@openagenda/custom' );
 const formSchemaDecorate = require( '@openagenda/form-schemas/iso/getDecorate' );
-const formSchemasSvc = require( '@openagenda/form-schemas' );
 const mails = require( '@openagenda/mails' );
 const sessions = require( '@openagenda/sessions' );
 
@@ -20,20 +18,21 @@ const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const eventSvc = require( '../services/event' );
 const model = require( '../services/model' );
-const modLib = require( '../lib/moduleLib' );
 const gaTrack = require( '../lib/gaTrack.mw' );
 
-const routes = {
+module.exports = app => {
 
-  eventActionDatesShow: [ 'get', '/events/:eventSlug/action/dates', [
+  app.get(
+    '/events/:eventSlug/action/dates',
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,
     _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
     actionDatesShow
-  ] ],
+  );
 
-  agendaEventActionShow: [ 'get', '/:slug/events/:eventSlug/action', [
+  app.get(
+    '/:slug/events/:eventSlug/action',
     agendaSvc.mw.load( 'slug' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
@@ -41,9 +40,10 @@ const routes = {
     eventSvc.mw.loadUris,
     _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
     actionShow
-  ]],
+  );
 
-  agendaEventActionDatesShow: [ 'get', '/:slug/events/:eventSlug/action/dates', [
+  app.get(
+    '/:slug/events/:eventSlug/action/dates',
     agendaSvc.mw.load( 'slug' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
@@ -51,36 +51,25 @@ const routes = {
     eventSvc.mw.loadUris,
     _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
     actionDatesShow
-  ] ],
+  );
 
-  agendaEventMailSend: [ 'post', '/:slug/events/:eventSlug/email', [
+  app.post(
+    '/:slug/events/:eventSlug/email',
     agendaSvc.mw.load( 'slug' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,
     eventMailSend
-  ] ],
+  );
 
-  agendaEventIcsShow: [ 'get', '/:slug/events/:eventSlug/ics', [
+  app.get(
+    '/:slug/events/:eventSlug/ics',
     agendaSvc.mw.load( 'slug' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.ics
-  ] ]
-
-}
-
-module.exports = function( path ) {
-
-  var router = modLib.Router( routes );
-
-  router.pre( [] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
+  );
 
 };
 

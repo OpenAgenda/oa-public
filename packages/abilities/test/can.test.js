@@ -48,14 +48,18 @@ describe( 'can', () => {
     const ability = await abilities.get( 'member', 60815 );
 
     expect( ability.can( 'receive', 'activity' ) ).toBe( true );
-    expect( ability.can( 'receive', 'activity', { verb: 'agenda.eventChangeState' } ) ).toBe( false );
+    expect(
+      ability.can( 'receive', 'activity', { verb: 'agenda.eventChangeState' } )
+    ).toBe( false );
   } );
 
   test( 'can with reverted conditions before more global rule', async () => {
     const ability = await abilities.get( 'member', 60818 );
 
     expect( ability.can( 'receive', 'activity' ) ).toBe( false );
-    expect( ability.can( 'receive', 'activity', { verb: 'agenda.eventChangeState' } ) ).toBe( true );
+    expect(
+      ability.can( 'receive', 'activity', { verb: 'agenda.eventChangeState' } )
+    ).toBe( true );
   } );
 
   test( 'compose ability for a member entity (agenda + user + member)', async () => {

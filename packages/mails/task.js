@@ -1,3 +1,5 @@
+'use strict';
+
 const _ = require( 'lodash' );
 const logs = require( '@openagenda/logs' );
 const templater = require( './templater' );
@@ -29,7 +31,7 @@ async function sendMail( params ) {
     const defaultLang = params.lang || config.defaults.lang;
     const result = await templater.render( params.template, params.data, {
       ..._.pick( params, 'disableHtml', 'disableText', 'disableSubject' ),
-      lang: defaultLang,
+      lang: defaultLang
     } );
 
     Object.assign( params, result );

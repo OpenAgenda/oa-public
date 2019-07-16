@@ -1,97 +1,62 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' ),
+const validator = require( 'validator' );
+const sessions = require( '@openagenda/sessions' );
+const usersSvc = require( '@openagenda/users' );
+const stakeholdersMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
+const getActionLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) );
+const cmn = require( '../lib/commons-app' );
+const agendaSvc = require( '../services/agenda' );
+const eventSvc = require( '../services/event' );
 
-  streamUtils = require( '@openagenda/stream-utils' ),
 
-  flattener = require( '@openagenda/flattener' ),
+module.exports = app => {
 
-  validator = require( 'validator' ),
+  app.get(
+    '/:slug/admin/contributors/info',
+    agendaSvc.mw.load( 'slug' ),
+    cmn.checkAdministrator(),
+    agendaSvc.mw.loadAdminLayout,
+    cmn.loadBaseData( 'oasfmain.css' ),
+    info
+  );
 
-  csv = require( 'fast-csv' ),
+  app.post(
+    '/:slug/admin/contributors/info',
+    agendaSvc.mw.load( 'slug' ),
+    cmn.checkAdministrator(),
+    agendaSvc.mw.loadAdminLayout,
+    cmn.loadBaseData(),
+    infoSubmit
+  );
 
-  xlsx = require( 'xlsx-writestream' ),
+  app.get(
+    '/:slug/admin/contributors/transfer/:eventSlug',
+    agendaSvc.mw.load( 'slug' ),
+    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    _checkAdminOrModeratorOrEventOwner,
+    cmn.checkCredential( 'eventTransfer' ),
+    stakeholdersMw.agenda().load(),
+    _loadUserByEmail,
+    transfer
+  );
 
-  getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/contributors/exportHeaders' ) ),
-
-  getCredentialLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/contributors/credentials' ) ),
-
-  getActionLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) ),
-
-  modLib = require( '../lib/moduleLib' ),
-
-  cmn = require( '../lib/commons-app' ),
-
-  agendaSvc = require( '../services/agenda' ),
-
-  eventSvc = require( '../services/event' ),
-
-  stakeholders = require( '@openagenda/agenda-stakeholders' ),
-
-  usersSvc = require( '@openagenda/users' ),
-
-  stakeholdersMw = require( '@openagenda/agenda-stakeholders/dist/middleware' ),
-
-  routes = {
-
-    contributorsInfo: [ 'get', '/contributors/info', [
-      cmn.checkAdministrator(),
-      agendaSvc.mw.loadAdminLayout,
-      cmn.loadBaseData( 'oasfmain.css' ),
-      info
-    ] ],
-
-    contributorsInfoSubmit: [ 'post', '/contributors/info', [
-      cmn.checkAdministrator(),
-      agendaSvc.mw.loadAdminLayout,
-      cmn.loadBaseData(),
-      infoSubmit
-    ] ],
-
-    eventTransfer: [ 'get', '/contributors/transfer/:eventSlug' , [
-      eventSvc.mw.load( 'eventSlug', 'slug' ),
-      _checkAdminOrModeratorOrEventOwner,
-      cmn.checkCredential( 'eventTransfer' ),
-      stakeholdersMw.agenda().load(),
-      _loadUserByEmail,
-      transfer
-    ] ],
-
-    stakeholderGet: [ 'get', '/contributors/:uid.json', [
-      cmn.checkAdminOrModerator,
-      _loadUserByUid,
-      stakeholdersMw.agenda().get( { user: 'queriedUser' } ),
-      ( req, res ) => {
-
-        if ( !req.stakeholder ) {
-
-          res.status(404).send( 'Not found' );
-
-        } else {
-
-          res.json( { name: req.queriedUser.fullName } );
-
-        }
-
+  app.get(
+    '/:slug/admin/contributors/:uid.json',
+    agendaSvc.mw.load( 'slug' ),
+    cmn.checkAdminOrModerator,
+    _loadUserByUid,
+    stakeholdersMw.agenda().get( { user: 'queriedUser' } ),
+    ( req, res ) => {
+      if ( !req.stakeholder ) {
+        res.status( 404 ).send( 'Not found' );
+      } else {
+        res.json( { name: req.queriedUser.fullName } );
       }
-    ] ]
+    }
+  );
 
-  };
-
-module.exports = function( path ) {
-
-  var router = modLib.Router( routes );
-
-  router.pre( [
-    agendaSvc.mw.load( 'slug' )
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
-
-}
+};
 
 
 function info( req, res ) {
@@ -102,14 +67,14 @@ function info( req, res ) {
       info
     } );
 
-  });
+  } );
 
 }
 
 
 function infoSubmit( req, res ) {
 
-  req.agenda.setContributionInfo( req.body.info, true, function( err ) {
+  req.agenda.setContributionInfo( req.body.info, true, function ( err ) {
 
     if ( err ) return next( err );
 

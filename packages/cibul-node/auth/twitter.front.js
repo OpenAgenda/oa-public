@@ -1,94 +1,36 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const cmn = require( '../lib/commons-app' );
+const pLib = require( './lib/passport' );
+const auth = require( './lib/auth' )( 'twitter' );
+const sessions = require( '@openagenda/sessions' );
+const usersSvc = require( '@openagenda/users' );
+const genUrl = require( '../services/genUrl' );
+const agendaSvc = require( '../services/agenda' );
+const w = require( 'when' );
+const log = require( '@openagenda/logs' )( 'auth/twitter.front' );
 
-const modLib = require( '../lib/moduleLib' ),
 
-cmn = require( '../lib/commons-app' ),
+const preMw = [
+  agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
+  cmn.loadBaseData( auth.layoutData, 'oa.css' ),
+  sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
+];
 
-config = require( '../config' ),
 
-lib = require( '../lib/lib' ),
+module.exports = app => {
 
-pLib = require( './lib/passport' ),
+  app.get( '/twitter/signin', preMw, signin );
+  app.get( '/:slug/twitter/signin', preMw, signin );
+  app.get( '/twitter/signin/callback', preMw, auth.serviceCallback( _processSignin ) );
+  app.get( '/twitter/signup', preMw, signup );
+  app.get( '/:slug/twitter/signup', preMw, signup );
+  app.get( '/twitter/email', preMw, email );
+  app.get( '/:slug/twitter/email', preMw, email );
+  app.get( '/twitter/signup/callback', preMw, auth.serviceCallback( _processSignup ) );
 
-auth = require( './lib/auth' )( 'twitter' ),
-
-sessions = require( '@openagenda/sessions' ),
-
-usersSvc = require( '@openagenda/users' ),
-
-genUrl = require( '../services/genUrl' ),
-
-agendaSvc = require( '../services/agenda' ),
-
-w = require( 'when' ),
-
-log = require( '@openagenda/logs' )( 'auth/twitter.front' ),
-
-routes = {
-  twitterSignin: [ 'get', '/twitter/signin', signin ],
-  agendaTwitterSignin: [ 'get', '/:slug/twitter/signin', signin ],
-  twitterSigninCallback: [ 'get', '/twitter/signin/callback', auth.serviceCallback( _processSignin ) ],
-  twitterSignup: [ 'get', '/twitter/signup', signup ],
-  agendaTwitterSignup: [ 'get', '/:slug/twitter/signup', signup ],
-  twitterEmail: [ 'get', '/twitter/email', email ],
-  agendaTwitterEmail: [ 'get', '/:slug/twitter/email', email ],
-  twitterSignupCallback: [ 'get', '/twitter/signup/callback', auth.serviceCallback( _processSignup ) ]
 };
-
-
-module.exports = function( path ) {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
-    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
-  ] );
-
-  return {
-    load: load( router, path ),
-    paths: modLib.getPaths( path, routes )
-  }
-
-}
-
-
-function load( router, path ) {
-
-  const key = _.get( config, 'auth.twitter.key' );
-  const secret = _.get( config, 'auth.twitter.secret' );
-
-  const twitterOptions = {
-    consumerKey: key,
-    consumerSecret: secret,
-    passReqToCallback: true,
-    skipExtendedUserProfile: true
-  };
-
-  return function( app ) {
-
-    if ( key ) {
-
-      pLib.loadStrategy( 'twitter', 'passport-twitter' );
-
-      pLib.use( 'twitter-signin', 'twitter', lib.extend( {
-        callbackURL: genUrl.abs( 'twitterSigninCallback' )
-      }, twitterOptions ), _loadTwitterProfile );
-
-      pLib.use( 'twitter-signup', 'twitter', lib.extend({
-        callbackURL: genUrl.abs( 'twitterSignupCallback' )
-      }, twitterOptions ), _loadTwitterProfile );
-
-    }
-
-    return router.load( path )( app );
-
-  }
-
-}
 
 
 /**
