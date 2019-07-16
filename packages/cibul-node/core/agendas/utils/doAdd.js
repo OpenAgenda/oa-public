@@ -15,6 +15,8 @@ const log = require( '@openagenda/logs' )( 'core/agendas/utils/doAdd' );
 
 module.exports = async ( agenda, eventUid, clean, options = {} ) => {
 
+  log( 'info', 'processing agenda %s, event %s', agenda.uid, eventUid );
+
   const { draft, context } = _.assign( {
     draft: false,
     context: {
@@ -84,7 +86,7 @@ module.exports = async ( agenda, eventUid, clean, options = {} ) => {
   }
 
   if ( !draft ) {
-    log( 'syncing legacy custom and tag data' );
+    log( 'info', 'syncing legacy custom and tag data' );
     try {
       await legacy.tagsAndCustom.set( agenda.id, eventUid, [
         agenda.formSchema,

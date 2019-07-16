@@ -23,13 +23,16 @@ module.exports = async ( { knex }, agendaId, eventUid, schemas = [], customValue
     throw new Error( 'no review_article ref could be retrieved' );
   }
 
-  const fieldValueMap = schemas.filter( s => !!s ).reduce( ( fieldValueMap, schema, index ) => fieldValueMap.concat( schema.fields
-    .filter( f => Object.keys( customValues[ index ] ).includes( f.field ) )
-    .map( f => ( {
-      field: f,
-      value: customValues[ index ][ f.field ],
-      schema
-    } ) )
+  const fieldValueMap = schemas
+    .map( ( s, i ) => ( { schema: s, values: customValues[ i ] } ) )
+    .filter( sv => !!sv.schema )
+    .reduce( ( fieldValueMap, sv ) => fieldValueMap.concat(
+      sv.schema.fields.filter( f => Object.keys( sv.values ).includes( f.field ) )
+        .map( f => ( {
+          field: f,
+          value: sv.values[ f.field ],
+          schema: sv.schema
+        } ) )
   ), [] );
 
   await _setTags( knex, agendaId, reviewArticleId, fieldValueMap );
@@ -116,7 +119,7 @@ async function _setTags( knex, agendaId, reviewArticleId, fieldValueMap ) {
   }
 
   const matchingTags = fieldValueMap
-    .filter( f => f.field.options && _.get( f, 'field.origin', 'tags' ) === 'tags' )
+    .filter( f => f.field.options && ( ( f.field.origin || 'tags' ) === 'tags' ) )
     .filter( f => f.value )
     .reduce( ( matchingTags, mapItem ) => matchingTags
       .concat( [].concat( mapItem.value )
