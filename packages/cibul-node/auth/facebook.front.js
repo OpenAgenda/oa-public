@@ -1,10 +1,20 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const sessions = require( '@openagenda/sessions' );
 const cmn = require( '../lib/commons-app' );
 const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'facebook' );
 const agendaSvc = require( '../services/agenda' );
+const genUrl = require( '../services/genUrl' );
+const config = require( '../config' );
+
+const facebookOptions = {
+  clientID: _.get( config, 'auth.facebook.id' ),
+  clientSecret: _.get( config, 'auth.facebook.secret' ),
+  scope: [ 'email', 'public_profile' ],
+  profileFields: ['id', 'email', 'name' ]
+};
 
 const preMw = [
   agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
@@ -13,6 +23,20 @@ const preMw = [
 ];
 
 module.exports = app => {
+
+  if ( _.get( config, 'auth.facebook.id' ) ) {
+    pLib.loadStrategy( 'facebook', 'passport-facebook' );
+
+    pLib.use( 'facebook-signin', 'facebook', {
+      callbackURL: genUrl.abs( 'facebookSigninCallback' ),
+      ...facebookOptions
+    }, _loadFacebookProfile );
+
+    pLib.use( 'facebook-signup', 'facebook', {
+      callbackURL: genUrl.abs( 'facebookSignupCallback' ),
+      ...facebookOptions
+    }, _loadFacebookProfile );
+  }
 
   app.get( '/facebook/signin', preMw, signin );
   app.get( '/:slug/facebook/signin', preMw, signin );
