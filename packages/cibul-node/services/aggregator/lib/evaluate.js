@@ -211,18 +211,20 @@ function unpublish( eventId, sourceId, aggregatingAgendaId, mute, cb ) {
 
 function _evaluateShouldAggregate( v ) {
 
-  if ( !v.rules.length ) {
-
-    log( 'no rules to evaluate, allow aggregation' );
-
-    return v;
-
-  }
-
   const event = Object.assign( {
     location: _.get( v, 'event.locations[0]' ),
     tags: v.eventSourceTags.map( t => t.label )
   }, v.eventSourceCustomFields );
+
+  if ( !v.rules.length ) {
+
+    log( 'no rules to evaluate, allow aggregation' );
+
+    return Object.assign( v, {
+      evaluatedEvent: event
+    } );
+
+  }
 
   log( 'evaluating rules %j against values %j', v.rules, event );
 

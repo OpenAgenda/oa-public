@@ -21,6 +21,8 @@ module.exports = async options => {
     tagsToMatch: []
   }, options );
 
+  log( 'there are %s tags in source to evaluate for correspondance', tagsToMatch.length );
+
   const aggregatorTags = await loadAgendaTags( aggregatorAgendaId );
 
   if ( !aggregatorTags.length ) return;

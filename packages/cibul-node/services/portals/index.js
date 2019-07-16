@@ -30,7 +30,8 @@ module.exports.init = async config => {
   const proxy = {
     head: async agendaUid => _.pick( await agendas.get( { uid: agendaUid } ), [ 'uid', 'title', 'slug' ] ),
     list: list.bind( null, config.port ),
-    get: get.bind( null, config.port )
+    get: get.bind( null, config.port ),
+    clearCache: () => {}
   }
 
   p = await Portal( {

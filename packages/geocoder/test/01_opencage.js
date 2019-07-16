@@ -22,6 +22,15 @@ describe( 'opencage', function() {
 
     } );
 
+    it( 'Postal code is provided', async () => {
+
+      ( await geocode( '31 rue des Francs-Bourgeois 75004 Paris', {
+        countryCode: 'FR',
+        first: true
+      } ) ).postalCode.should.equal( '75003' );
+
+    } );
+
     it( 'An address in Roubaix. No district provided', async () => {
 
       ( await geocode( '139 rue des arts, Roubaix', {
