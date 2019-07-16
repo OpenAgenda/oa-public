@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/legacy",
-  "version": "1.7.0",
+  "version": "1.7.1",
   "description": "handle refactored legacy operations",
   "main": "index.js",
   "license": "MIT",
