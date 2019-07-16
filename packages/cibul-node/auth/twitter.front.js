@@ -1,16 +1,27 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const w = require( 'when' );
+const log = require( '@openagenda/logs' )( 'auth/twitter.front' );
+const sessions = require( '@openagenda/sessions' );
+const usersSvc = require( '@openagenda/users' );
 const cmn = require( '../lib/commons-app' );
 const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'twitter' );
-const sessions = require( '@openagenda/sessions' );
-const usersSvc = require( '@openagenda/users' );
 const genUrl = require( '../services/genUrl' );
 const agendaSvc = require( '../services/agenda' );
-const w = require( 'when' );
-const log = require( '@openagenda/logs' )( 'auth/twitter.front' );
+const config = require( '../config' );
 
+
+const key = _.get( config, 'auth.twitter.key' );
+const secret = _.get( config, 'auth.twitter.secret' );
+
+const twitterOptions = {
+  consumerKey: key,
+  consumerSecret: secret,
+  passReqToCallback: true,
+  skipExtendedUserProfile: true
+};
 
 const preMw = [
   agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
@@ -20,6 +31,20 @@ const preMw = [
 
 
 module.exports = app => {
+
+  if ( key ) {
+    pLib.loadStrategy( 'twitter', 'passport-twitter' );
+
+    pLib.use( 'twitter-signin', 'twitter', {
+      callbackURL: genUrl.abs( 'twitterSigninCallback' ),
+      ...twitterOptions
+    }, _loadTwitterProfile );
+
+    pLib.use( 'twitter-signup', 'twitter', {
+      callbackURL: genUrl.abs( 'twitterSignupCallback' ),
+      ...twitterOptions
+    }, _loadTwitterProfile );
+  }
 
   app.get( '/twitter/signin', preMw, signin );
   app.get( '/:slug/twitter/signin', preMw, signin );

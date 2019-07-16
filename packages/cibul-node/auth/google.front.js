@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const w = require( 'when' );
 const sessions = require( '@openagenda/sessions' );
 const cmn = require( '../lib/commons-app' );
@@ -7,7 +8,13 @@ const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'google' );
 const genUrl = require( '../services/genUrl' );
 const agendaSvc = require( '../services/agenda' );
+const config = require( '../config' );
 
+const googleOptions = {
+  clientID: _.get( config, 'auth.google.id' ),
+  clientSecret: _.get( config, 'auth.google.secret' ),
+  passReqToCallback: true
+};
 
 const preMw = [
   agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
@@ -17,6 +24,20 @@ const preMw = [
 
 
 module.exports = app => {
+
+  if ( _.get( config, 'auth.google.id' ) ) {
+    pLib.loadStrategy( 'google', 'passport-google-oauth', 'OAuth2Strategy' );
+
+    pLib.use( 'google-signin', 'google', {
+      callbackURL: genUrl.abs( 'googleSigninCallback' ),
+      ...googleOptions
+    }, _loadGoogleProfile );
+
+    pLib.use( 'google-signup', 'google', {
+      callbackURL: genUrl.abs( 'googleSignupCallback' ),
+      ...googleOptions
+    }, _loadGoogleProfile );
+  }
 
   app.get( '/google/signin', preMw, signin );
   app.get( '/:slug/google/signin', preMw, signin );
