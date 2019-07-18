@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, FormattedMessage } from 'react-intl';
 import ReactModal from 'react-modal';
 import { FORM_ERROR } from 'final-form';
 import dateFns from 'date-fns';
@@ -7,11 +7,36 @@ import RRule from 'rrule';
 import DaysSelector from './DaysSelector';
 import EditForm from './EditForm';
 import RecurrencerForm from './RecurrencerForm';
+import MultiRecurrencerForm from './MultiRecurrencerForm';
 import getWeekOfMonth from './utils/getWeekOfMonth';
 import convertUTCDateToLocalDate from './utils/convertUTCDateToLocalDate';
 import convertLocalDateToUTCDate from './utils/convertLocalDateToUTCDate';
 
 const ONE_DAY = 60 * 60 * 24;
+
+function duplicateTiming( timing, options ) {
+  const rule = new RRule( {
+    wkst: options.wkst,
+    dtstart: convertLocalDateToUTCDate( timing.begin ),
+    freq: RRule[ options.frequence.toUpperCase() ],
+    interval: options.interval,
+    count: options.count,
+    until: options.until,
+    byweekday: options.byweekday,
+    bymonthday: options.bymonthday,
+    bysetpos: options.bysetpos
+  } );
+
+  const begins = rule.all()
+    .map( convertUTCDateToLocalDate )
+    .filter( v => v.getTime() !== timing.begin.getTime() );
+  const duration = timing.end.getTime() - timing.begin.getTime();
+
+  return begins.map( v => ({
+    begin: v,
+    end: new Date( v.getTime() + duration )
+  }) );
+}
 
 function getScrollbarWidth( elem ) {
   if ( elem ) {
@@ -86,6 +111,7 @@ class Scheduler extends Component {
   state = {
     showEditModal: false,
     showRecurrencerModal: false,
+    showMultiRecurrencerModal: false,
     modalStyle: {
       overlay: {}
     },
@@ -108,6 +134,8 @@ class Scheduler extends Component {
 
   recurrencerModalRef = React.createRef();
 
+  multiRecurrencerModalRef = React.createRef();
+
   componentDidMount() {
     const { defaultScroll } = this.props;
     const schedulerEl = this.schedulerRef.current;
@@ -121,6 +149,7 @@ class Scheduler extends Component {
     // https://github.com/reactjs/react-modal/pull/750
     this.editModalRef.current.node = null;
     this.recurrencerModalRef.current.node = null;
+    this.multiRecurrencerModalRef.current.node = null;
   }
 
   getModalParent = () => this.schedulerRef.current;
@@ -226,6 +255,14 @@ class Scheduler extends Component {
     valueToDuplicate: this.state.valueToEdit
   } );
 
+  openMultiRecurrencerModal = () => this.setState( {
+    showEditModal: false,
+    valueToEdit: null,
+    showRecurrencerModal: false,
+    valueToDuplicate: null,
+    showMultiRecurrencerModal: true
+  } );
+
   handleCloseEditModal = () => {
     this.stopLockScroll();
 
@@ -241,6 +278,14 @@ class Scheduler extends Component {
     this.setState( {
       showRecurrencerModal: false,
       valueToDuplicate: null
+    } );
+  };
+
+  handleCloseMultiRecurrencerModal = () => {
+    this.stopLockScroll();
+
+    this.setState( {
+      showMultiRecurrencerModal: false
     } );
   };
 
@@ -268,12 +313,12 @@ class Scheduler extends Component {
     const wkst = RRule[ UTCweekdays[ weekStartsOn ] ];
     let countOffset = 0;
 
-    if ( !( values.frequence === 'weekly' && !values.weekday.includes( beginWeekdayIndex ) ) ) {
-      countOffset += 1;
+    if ( !(values.frequence === 'weekly' && !values.weekday.includes( beginWeekdayIndex )) ) {
+      countOffset = 1;
     }
 
     const count = values.endType === 'count' ? values.count + countOffset : undefined;
-    const until = values.endType === 'until' ? values.until : undefined
+    const until = values.endType === 'until' ? values.until : undefined;
     const byweekday = values.frequence === 'weekly' && values.weekday && values.weekday.length
       ? values.weekday.map( v => RRule[ weekdays[ v ] ] )
       : values.frequence === 'monthly' && values.monthlyIntervalType === 'weekday'
@@ -286,10 +331,9 @@ class Scheduler extends Component {
       ? getWeekOfMonth( valueToDuplicate.begin )
       : undefined;
 
-    const rule = new RRule( {
+    return duplicateTiming( valueToDuplicate, {
       wkst,
-      dtstart: convertLocalDateToUTCDate( valueToDuplicate.begin ),
-      freq: RRule[ values.frequence.toUpperCase() ],
+      frequence: values.frequence,
       interval: values.interval,
       count,
       until,
@@ -297,17 +341,89 @@ class Scheduler extends Component {
       bymonthday,
       bysetpos
     } );
+  };
 
-    const begins = rule.all()
-      .map( convertUTCDateToLocalDate )
-      .filter( v => v.getTime() !== valueToDuplicate.begin.getTime() );
-    const duration = valueToDuplicate.end.getTime() - valueToDuplicate.begin.getTime();
-    const newValues = begins.map( v => ({
-      begin: v,
-      end: new Date( v.getTime() + duration )
-    }) );
+  extractTimings = frequence => {
+    const { value, activeWeek, weekStartsOn } = this.props;
 
-    return newValues;
+    const start = frequence === 'monthly'
+      ? dateFns.startOfMonth( activeWeek )
+      : dateFns.startOfWeek( activeWeek, { weekStartsOn } );
+    const end = frequence === 'monthly'
+      ? dateFns.endOfMonth( activeWeek )
+      : dateFns.endOfWeek( activeWeek, { weekStartsOn } );
+
+    const startTime = start.getTime();
+    const endTime = end.getTime();
+
+    return value
+      .filter( timing => {
+        const beginTime = timing.begin.getTime();
+
+        return (beginTime >= startTime && beginTime <= endTime);
+      } );
+  };
+
+  multiRecurrencerValuesToTimings = values => {
+    const { weekStartsOn } = this.props;
+
+    const UTCweekdays = [ 'SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA' ];
+    const weekdays = [
+      ...UTCweekdays.slice( weekStartsOn ),
+      ...UTCweekdays.slice( 0, weekStartsOn )
+    ];
+
+    const valuesToDuplicate = this.extractTimings( values.frequence );
+
+    return valuesToDuplicate
+      .map( valueToDuplicate => {
+        const beginWeekdayIndex = valueToDuplicate.begin.getUTCDay();
+        const beginWeekday = RRule[ UTCweekdays[ beginWeekdayIndex ] ];
+        const wkst = RRule[ UTCweekdays[ weekStartsOn ] ];
+        const weekday = [ valueToDuplicate.begin.getDay() - weekStartsOn ];
+        let countOffset = 0;
+
+        if ( !(values.frequence === 'weekly' && !weekday.includes( beginWeekdayIndex )) ) {
+          countOffset = 1;
+        }
+
+        const count = values.endType === 'count' ? values.count + countOffset : undefined;
+        const until = values.endType === 'until' ? values.until : undefined;
+        const byweekday = values.frequence === 'weekly' && weekday && weekday.length
+          ? weekday.map( v => RRule[ weekdays[ v ] ] )
+          : values.frequence === 'monthly' && values.monthlyIntervalType === 'weekday'
+            ? beginWeekday
+            : undefined;
+        const bymonthday = values.frequence === 'monthly' && values.monthlyIntervalType === 'date'
+          ? valueToDuplicate.begin.getDate()
+          : undefined;
+        const bysetpos = values.frequence === 'monthly' && values.monthlyIntervalType === 'weekday'
+          ? getWeekOfMonth( valueToDuplicate.begin )
+          : undefined;
+
+        const rule = new RRule( {
+          wkst,
+          dtstart: convertLocalDateToUTCDate( valueToDuplicate.begin ),
+          freq: RRule[ values.frequence.toUpperCase() ],
+          interval: values.interval,
+          count,
+          until,
+          byweekday,
+          bymonthday,
+          bysetpos
+        } );
+
+        const begins = rule.all()
+          .map( convertUTCDateToLocalDate )
+          .filter( v => v.getTime() !== valueToDuplicate.begin.getTime() );
+        const duration = valueToDuplicate.end.getTime() - valueToDuplicate.begin.getTime();
+        const newValues = begins.map( v => ({
+          begin: v,
+          end: new Date( v.getTime() + duration )
+        }) );
+
+        return newValues;
+      } );
   };
 
   handleRecurrencerSubmit = ( values, form ) => {
@@ -318,10 +434,24 @@ class Scheduler extends Component {
     try {
       selectorEl.addValues( timings, forceTimingsCreation );
     } catch ( e ) {
-      return { [FORM_ERROR]: e };
+      return { [ FORM_ERROR ]: e };
     }
 
     this.handleCloseRecurrencerModal();
+  };
+
+  handleMultiRecurrencerSubmit = ( values, form ) => {
+    const timings = this.multiRecurrencerValuesToTimings( values ).flat();
+    const selectorEl = this.selectorRef.current._wrappedInstance;
+    const { forceTimingsCreation } = form.getFieldState( 'frequence' ).data;
+
+    try {
+      selectorEl.addValues( timings, forceTimingsCreation );
+    } catch ( e ) {
+      return { [ FORM_ERROR ]: e };
+    }
+
+    this.handleCloseMultiRecurrencerModal();
   };
 
   render() {
@@ -344,6 +474,7 @@ class Scheduler extends Component {
       modalStyle,
       showEditModal,
       showRecurrencerModal,
+      showMultiRecurrencerModal,
       schedulerScroll,
       editInitialValues,
       valueToEdit,
@@ -392,6 +523,17 @@ class Scheduler extends Component {
           </div>
         </div>
 
+        <div
+          className={`${classNamePrefix}multi-recurrencer-button`}
+          role="button"
+          onClick={this.openMultiRecurrencerModal}
+        >
+          <FormattedMessage
+            id="rtp.scheduler.openMultiRecurrencerModal"
+            defaultMessage="Define a recurring timings"
+          />
+        </div>
+
         <ReactModal
           ref={this.editModalRef}
           isOpen={showEditModal}
@@ -425,13 +567,36 @@ class Scheduler extends Component {
           onRequestClose={this.handleCloseRecurrencerModal}
           shouldFocusAfterRender={false}
         >
-          {showRecurrencerModal ? <RecurrencerForm
-            weekStartsOn={weekStartsOn}
-            onSubmit={this.handleRecurrencerSubmit}
-            classNamePrefix={classNamePrefix}
-            valueToDuplicate={valueToDuplicate}
-            weekStartsOn={weekStartsOn}
-          /> : null}
+          {showRecurrencerModal ? (
+            <RecurrencerForm
+              weekStartsOn={weekStartsOn}
+              onSubmit={this.handleRecurrencerSubmit}
+              classNamePrefix={classNamePrefix}
+              valueToDuplicate={valueToDuplicate}
+            />
+          ) : null}
+        </ReactModal>
+
+        <ReactModal
+          ref={this.multiRecurrencerModalRef}
+          isOpen={showMultiRecurrencerModal}
+          ariaHideApp={false}
+          parentSelector={this.getModalParent}
+          className={`${classNamePrefix}modal ${classNamePrefix}multi-recurrencer-modal`}
+          overlayClassName={`${classNamePrefix}overlay`}
+          style={modalStyle}
+          onAfterOpen={this.startLockScroll}
+          onRequestClose={this.handleCloseMultiRecurrencerModal}
+          shouldFocusAfterRender={false}
+        >
+          {showMultiRecurrencerModal ? (
+            <MultiRecurrencerForm
+              weekStartsOn={weekStartsOn}
+              activeWeek={activeWeek}
+              onSubmit={this.handleMultiRecurrencerSubmit}
+              classNamePrefix={classNamePrefix}
+            />
+          ) : null}
         </ReactModal>
       </>
     );

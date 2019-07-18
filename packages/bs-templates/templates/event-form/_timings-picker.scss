@@ -1373,6 +1373,7 @@ $dayInWeek: 7;
   font-weight: bold;
   font-size: 13px;
   text-align: center;
+  margin-right: 12px;
   margin-top: 1px;
   margin-bottom: 6px;
 }
@@ -1532,8 +1533,18 @@ $dayInWeek: 7;
 .rtp__calendar .rtp__recurrencer-button {
   @extend .btn;
   @extend .btn-link;
+  display: inline-block;
   margin-top: 12px;
   float: right;
+  cursor: pointer;
+}
+
+.rtp__calendar .rtp__multi-recurrencer-button {
+  @extend .btn;
+  @extend .btn-link;
+  display: inline-block;
+  margin: 0;
+  padding-left: 0;
   cursor: pointer;
 }
 
@@ -1543,100 +1554,123 @@ $dayInWeek: 7;
 /*    width: 50%;*/
 /*}*/
 
-.rtp__calendar .rtp__recurrencer-modal h3 {
+.rtp__calendar .rtp__recurrencer-modal h3,
+.rtp__calendar .rtp__multi-recurrencer-modal h3 {
   font-size: 18px;
   margin-bottom: 12px;
 }
 
-.rtp__calendar .rtp__recurrencer-modal button[type="submit"] {
+.rtp__calendar .rtp__recurrencer-modal button[type="submit"],
+.rtp__calendar .rtp__multi-recurrencer-modal button[type="submit"] {
   @extend .btn;
   @extend .btn-primary;
   margin-top: 12px;
 }
 
-.rtp__calendar .rtp__recurrencer-modal input[type="radio"] {
+.rtp__calendar .rtp__recurrencer-modal input[type="radio"],
+.rtp__calendar .rtp__multi-recurrencer-modal input[type="radio"] {
   width: auto;
   padding: 4px 8px;
 }
 
-.rtp__calendar input.rtp__recurrencer-interval__input {
+.rtp__calendar .rtp__recurrencer-modal input.rtp__recurrencer-interval__input,
+.rtp__calendar .rtp__multi-recurrencer-modal input.rtp__recurrencer-interval__input {
   display: inline-block;
   width: 65px;
 }
 
-.rtp__calendar input.rtp__recurrencer-count__input {
+.rtp__calendar .rtp__recurrencer-modal input.rtp__recurrencer-count__input,
+.rtp__calendar .rtp__multi-recurrencer-modal input.rtp__recurrencer-count__input {
   display: inline-block;
   width: 65px;
 }
 
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-frequence {
   display: inline-block;
   width: 140px;
 }
 
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__control {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__control,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-frequence__Select__control {
   height: 30px;
   min-height: 30px;
   line-height: 1;
 }
 
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__control--is-focused {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__control--is-focused,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-frequence__Select__control--is-focused {
   border-color: $oa-gray-light;
   box-shadow: 0 0 2px 0px $oa-blue;
 }
 
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__value-container {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__value-container,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-frequence__Select__value-container {
   min-width: 65px;
   padding: 0 8px;
 }
 
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__indicator {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-frequence__Select__indicator,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-frequence__Select__indicator {
   padding: 0 8px;
 }
 
-.rtp__calendar .rtp__recurrencer-monthlyIntervalType {
+.rtp__calendar .rtp__recurrencer-monthlyIntervalType,
+.rtp__calendar .rtp__multi-recurrencer-monthlyIntervalType {
   margin-top: 12px;
 }
 
 .rtp__calendar .rtp__recurrencer-until__radio,
-.rtp__calendar .rtp__recurrencer-count__radio {
+.rtp__calendar .rtp__recurrencer-count__radio,
+.rtp__calendar .rtp__multi-recurrencer-until__radio,
+.rtp__calendar .rtp__multi-recurrencer-count__radio {
   @extend .radio;
   margin-top: 4px;
   margin-bottom: 4px;
 }
 
 .rtp__calendar .rtp__recurrencer-until__radio input[type="radio"],
-.rtp__calendar .rtp__recurrencer-count__radio input[type="radio"] {
+.rtp__calendar .rtp__recurrencer-count__radio input[type="radio"],
+.rtp__calendar .rtp__multi-recurrencer-until__radio input[type="radio"],
+.rtp__calendar .rtp__multi-recurrencer-count__radio input[type="radio"] {
   margin-top: 8px;
 }
 
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__section {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__section,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-until__section {
   display: inline-block;
   vertical-align: middle;
 }
 
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__input-error {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__input-error,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-until__input-error {
   color: $oa-red;
 }
 
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-weekday {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-weekday,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-weekday {
   margin-top: 12px;
 }
 
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-ending {
   margin-top: 12px;
 }
 
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending label {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending label,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-ending label {
   display: inline-block;
 }
 
 .rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending label[for="endType-until"],
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending label[for="endType-count"] {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-ending label[for="endType-count"],
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-ending label[for="endType-until"],
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-ending label[for="endType-count"] {
   margin-top: 4px;
 }
 
-.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-error__disabledTimings ul {
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-error__disabledTimings ul,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-error__disabledTimings ul {
   margin: 4px 0;
   padding-left: 30px;
 }

@@ -6,11 +6,9 @@ import setFieldData from 'final-form-set-field-data';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import dateFns from 'date-fns';
 import SelectField from './SelectField';
-import WeekdayInput from './WeekdayInput';
 import NumberInput from './NumberInput';
 import DateInput from './DateInput';
 import deriveDateFormat from './utils/deriveDateFormat';
-import getWeekOfMonth from './utils/getWeekOfMonth';
 import getDateFromFormat from './utils/getDateFromFormat';
 import isValidDate from './utils/isValidDate';
 import parseNumber from './utils/parseNumber';
@@ -23,92 +21,92 @@ const numberMask = createNumberMask( {
 
 const messages = defineMessages( {
   title: {
-    id: 'rtp.recurrencerForm.title',
+    id: 'rtp.multiRecurrencerForm.title',
     defaultMessage: 'Define a recurring timing'
   },
   day: {
-    id: 'rtp.recurrencerForm.day',
+    id: 'rtp.multiRecurrencerForm.day',
     defaultMessage: 'day'
   },
   week: {
-    id: 'rtp.recurrencerForm.week',
+    id: 'rtp.multiRecurrencerForm.week',
     defaultMessage: 'week'
   },
   month: {
-    id: 'rtp.recurrencerForm.month',
+    id: 'rtp.multiRecurrencerForm.month',
     defaultMessage: 'month'
   },
   submit: {
-    id: 'rtp.recurrencerForm.submit',
+    id: 'rtp.multiRecurrencerForm.submit',
     defaultMessage: 'Apply'
   },
   repeatEvery: {
-    id: 'rtp.recurrencerForm.repeatEvery',
+    id: 'rtp.multiRecurrencerForm.repeatEvery',
     defaultMessage: 'Repeat every'
   },
   repeatThe: {
-    id: 'rtp.recurrencerForm.repeatThe',
+    id: 'rtp.multiRecurrencerForm.repeatThe',
     defaultMessage: 'Repeat the'
   },
   the: {
-    id: 'rtp.recurrencerForm.the',
+    id: 'rtp.multiRecurrencerForm.the',
     defaultMessage: 'The'
   },
   after: {
-    id: 'rtp.recurrencerForm.after',
+    id: 'rtp.multiRecurrencerForm.after',
     defaultMessage: 'After'
   },
   occurrences: {
-    id: 'rtp.recurrencerForm.occurrences',
+    id: 'rtp.multiRecurrencerForm.occurrences',
     defaultMessage: 'occurrences'
   },
   ends: {
-    id: 'rtp.recurrencerForm.ends',
+    id: 'rtp.multiRecurrencerForm.ends',
     defaultMessage: 'Ends'
   },
   everyMonthByDate: {
-    id: 'rtp.recurrencerForm.everyMonthByDate',
-    defaultMessage: 'Every {dayNumber, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} of the month'
+    id: 'rtp.multiRecurrencerForm.everyMonthByDate',
+    defaultMessage: 'Every month on the same dates'
   },
   everyMonthByWeekday: {
-    id: 'rtp.recurrencerForm.everyMonthByWeekday',
-    defaultMessage: 'Every {weekNumber, selectordinal, one {#st} two {#nd} few {#rd} other {#th}} {weekday} of the month'
+    id: 'rtp.multiRecurrencerForm.everyMonthByWeekday',
+    defaultMessage: 'Every month week by week'
   },
   invalidFrequence: {
-    id: 'rtp.recurrencerForm.invalidFrequence',
+    id: 'rtp.multiRecurrencerForm.invalidFrequence',
     defaultMessage: 'Invalid frequence'
   },
   intervalTooSmall: {
-    id: 'rtp.recurrencerForm.intervalTooSmall',
+    id: 'rtp.multiRecurrencerForm.intervalTooSmall',
     defaultMessage: 'Interval must be greater than 0'
   },
   invalidDate: {
-    id: 'rtp.recurrencerForm.invalidDate',
+    id: 'rtp.multiRecurrencerForm.invalidDate',
     defaultMessage: 'Invalid end date'
   },
   endBeforeStart: {
-    id: 'rtp.recurrencerForm.endBeforeStart',
+    id: 'rtp.multiRecurrencerForm.endBeforeStart',
     defaultMessage: 'The end date must be after the begin'
   },
   countTooSmall: {
-    id: 'rtp.recurrencerForm.countTooSmall',
+    id: 'rtp.multiRecurrencerForm.countTooSmall',
     defaultMessage: 'Count must be greater than 0'
   },
   invalidMonthlyIntervalType: {
-    id: 'rtp.recurrencerForm.invalidMonthlyIntervalType',
+    id: 'rtp.multiRecurrencerForm.invalidMonthlyIntervalType',
     defaultMessage: 'Invalid monthly interval type'
   },
   someDisabledValues: {
-    id: 'rtp.recurrencerForm.someDisabledValues',
+    id: 'rtp.multiRecurrencerForm.someDisabledValues',
     defaultMessage: 'Some values are disabled'
   },
   forceSubmit: {
-    id: 'rtp.recurrencerForm.forceSubmit',
+    id: 'rtp.multiRecurrencerForm.forceSubmit',
     defaultMessage: 'Create anyway'
   }
 } );
 
-class RecurrencerForm extends Component {
+class MultiRecurrencerForm extends Component {
   subscription = { values: true, submitError: true, dirtySinceLastSubmit: true };
 
   mutators = { setFieldData };
@@ -116,43 +114,35 @@ class RecurrencerForm extends Component {
   state = {
     initialValues: null,
     frequenceOptions: [
-      { value: 'daily', label: this.props.intl.formatMessage( messages.day ) },
       { value: 'weekly', label: this.props.intl.formatMessage( messages.week ) },
       { value: 'monthly', label: this.props.intl.formatMessage( messages.month ) }
     ],
-    monthlyIntervalTypeOptions: []
+    monthlyIntervalTypeOptions: [
+      {
+        label: this.props.intl.formatMessage( messages.everyMonthByDate ),
+        value: 'date'
+      },
+      {
+        label: this.props.intl.formatMessage( messages.everyMonthByWeekday ),
+        value: 'weekday'
+      }
+    ]
   };
 
   static getDerivedStateFromProps( props, state ) {
-    const { intl, valueToDuplicate, weekStartsOn } = props;
+    const { activeWeek } = props;
     const derivedState = {};
 
-    if ( valueToDuplicate !== state.valueToDuplicate || weekStartsOn !== state.weekStartsOn ) {
-      const weekdayName = intl.formatDate( valueToDuplicate.begin, { weekday: 'long' } );
-      const weekNumber = getWeekOfMonth( valueToDuplicate.begin );
-
-      derivedState.valueToDuplicate = valueToDuplicate;
-      derivedState.weekStartsOn = weekStartsOn;
-
-      derivedState.monthlyIntervalTypeOptions = [
-        {
-          label: intl.formatMessage( messages.everyMonthByDate, { dayNumber: valueToDuplicate.begin.getDate() } ),
-          value: 'date'
-        },
-        {
-          label: intl.formatMessage( messages.everyMonthByWeekday, { weekNumber, weekday: weekdayName } ),
-          value: 'weekday'
-        }
-      ];
+    if ( activeWeek !== state.activeWeek ) {
+      derivedState.activeWeek = activeWeek;
 
       derivedState.initialValues = {
         frequence: 'weekly',
-        weekday: [ valueToDuplicate.begin.getDay() - weekStartsOn ],
         interval: 1,
         endType: 'until',
-        until: dateFns.endOfDay( dateFns.addYears( valueToDuplicate.begin, 1 ) ),
+        until: dateFns.endOfWeek( dateFns.addYears( activeWeek, 1 ) ),
         count: 2,
-        monthlyIntervalType: 'date'
+        monthlyIntervalType: 'weekday'
       };
     }
 
@@ -188,9 +178,9 @@ class RecurrencerForm extends Component {
   };
 
   handleSubmit = ( values, ...rest ) => {
-    const { valueToDuplicate, onSubmit } = this.props;
+    const { activeWeek, weekStartsOn, onSubmit } = this.props;
 
-    if ( ![ 'daily', 'weekly', 'monthly' ].includes( values.frequence ) ) {
+    if ( ![ 'weekly', 'monthly' ].includes( values.frequence ) ) {
       return { [ FORM_ERROR ]: new Error( 'invalidFrequence' ) };
     }
 
@@ -198,10 +188,14 @@ class RecurrencerForm extends Component {
       return { [ FORM_ERROR ]: new Error( 'intervalTooSmall' ) };
     }
 
+    const minimumEnd = values.frequence === 'monthly'
+      ? dateFns.endOfMonth( activeWeek )
+      : dateFns.endOfWeek( activeWeek, { weekStartsOn } );
+
     if ( values.endType === 'until' ) {
       if ( !isValidDate( values.until ) ) {
         return { [ FORM_ERROR ]: new Error( 'invalidDate' ) };
-      } else if ( values.until.getTime() <= valueToDuplicate.begin.getTime() ) {
+      } else if ( values.until.getTime() <= minimumEnd.getTime() ) {
         return { [ FORM_ERROR ]: new Error( 'endBeforeStart' ) };
       }
     }
@@ -232,8 +226,6 @@ class RecurrencerForm extends Component {
     dirtySinceLastSubmit,
     classNamePrefix,
     intl,
-    valueToDuplicate,
-    weekStartsOn
   } ) => {
     const { frequenceOptions, monthlyIntervalTypeOptions } = this.state;
 
@@ -265,27 +257,11 @@ class RecurrencerForm extends Component {
             classNameSelect={`${classNamePrefix}recurrencer-frequence__Select`}
             isSearchable={false}
             defaultValue="weekly"
+            initialValue="weekly"
           />
 
           <br />
 
-          {/*{values.frequence === 'weekly' ? (*/}
-            <section className={`${classNamePrefix}recurrencer-weekday`}>
-              {intl.formatMessage( messages.repeatThe )}<br />
-
-              <Field
-                visible={values.frequence === 'weekly'}
-                name="weekday"
-                classNamePrefix={classNamePrefix}
-                intl={intl}
-                valueToDuplicate={valueToDuplicate}
-                weekStartsOn={weekStartsOn}
-                component={WeekdayInput}
-              />
-            </section>
-          {/*) : null}*/}
-
-          {/*{values.frequence === 'monthly' ? (*/}
           <SelectField
             visible={values.frequence === 'monthly'}
             name="monthlyIntervalType"
@@ -293,8 +269,8 @@ class RecurrencerForm extends Component {
             className={`${classNamePrefix}recurrencer-monthlyIntervalType`}
             classNameSelect={`${classNamePrefix}recurrencer-frequence__Select`}
             isSearchable={false}
+            initialValue="date"
           />
-          {/*) : null}*/}
 
           <section className={`${classNamePrefix}recurrencer-ending`}>
             {intl.formatMessage( messages.ends )}<br />
@@ -359,10 +335,9 @@ class RecurrencerForm extends Component {
             <button type="submit">{intl.formatMessage( messages.submit )}</button>
           </div>
 
-          {submitError && submitError.message}
-
           {submitError && !dirtySinceLastSubmit ? (
             <div className={`${classNamePrefix}error`}>
+
               {intl.formatMessage( messages[ submitError.message ] )}
 
               {submitError.message === 'someDisabledValues'
@@ -396,7 +371,7 @@ class RecurrencerForm extends Component {
     } = this.props;
     const {
       initialValues,
-      valueToDuplicate,
+      activeWeek,
       weekStartsOn
     } = this.state;
 
@@ -409,11 +384,11 @@ class RecurrencerForm extends Component {
         render={this.renderForm}
         classNamePrefix={classNamePrefix}
         intl={intl}
-        valueToDuplicate={valueToDuplicate}
+        activeWeek={activeWeek}
         weekStartsOn={weekStartsOn}
       />
     );
   }
 }
 
-export default injectIntl( RecurrencerForm );
+export default injectIntl( MultiRecurrencerForm );

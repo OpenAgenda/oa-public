@@ -4,7 +4,6 @@ import { Form, Field } from 'react-final-form';
 import MaskedInput from 'react-text-mask';
 import dateFns from 'date-fns';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
-import RecurrencerButton from './RecurrencerButton';
 import { FORM_ERROR } from "final-form";
 
 const autoCorrectedTimePipe = createAutoCorrectedDatePipe( 'HH:MM' );
@@ -35,6 +34,10 @@ const messages = defineMessages( {
   endNotAfterBegin: {
     id: 'rtp.editForm.endNotAfterBegin',
     defaultMessage: 'End should be after begin'
+  },
+  openRecurrencerModal: {
+    id: 'rtp.editForm.openRecurrencerModal',
+    defaultMessage: 'Define a recurring timing'
   }
 } );
 
@@ -89,7 +92,7 @@ class EditForm extends Component {
 
     if ( !dateFns.isAfter( newValue.end, newValue.begin ) ) {
       return {
-        [ FORM_ERROR ]: { message: 'endNotAfterBegin' }
+        [ FORM_ERROR ]: new Error( 'endNotAfterBegin' )
       };
     }
 
@@ -134,10 +137,9 @@ class EditForm extends Component {
         </div>
       )}
 
-      <RecurrencerButton
-        classNamePrefix={classNamePrefix}
-        openRecurrencerModal={openRecurrencerModal}
-      />
+      <div className={`${classNamePrefix}recurrencer-button`} role="button" onClick={openRecurrencerModal}>
+        {intl.formatMessage( messages.openRecurrencerModal )}
+      </div>
     </form>
   );
 
