@@ -802,10 +802,8 @@ function loadBaseData( func, cssFile ) {
 
     req.baseData = _.merge( req.baseData || {}, baseData );
 
-    if ( !req.baseData.bottom ) {
-      req.baseData.bottom = {
-        scripts: []
-      };
+    if ( !_.get( req, 'baseData.bottom.scripts' ) ) {
+      _.set( req, 'baseData.bottom.scripts', [] );
     }
 
     req.baseData.bottom.scripts.push(`
