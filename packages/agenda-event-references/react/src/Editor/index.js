@@ -1,5 +1,5 @@
 import React from 'react'
-import { Provider } from 'react-redux'
+import { Provider, ReactReduxContext } from 'react-redux'
 import editorApp from './reducers'
 import Container from './containers'
 import utils from '@openagenda/utils'
@@ -67,7 +67,7 @@ export default options => {
   }
 
 
-  return <Provider store={ store }>
+  return <Provider store={ store } context={ReactReduxContext}>
     <Container />
   </Provider>
 

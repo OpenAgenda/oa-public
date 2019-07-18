@@ -19,8 +19,8 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.3.1",
@@ -62,8 +62,8 @@
     "express": "^4.14.0",
     "morgan": "^1.7.0",
     "nodemon": "^1.18.9",
-    "react": "^16.7.0",
-    "react-dom": "^16.7.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "rimraf": "^2.6.2"
   }
 }

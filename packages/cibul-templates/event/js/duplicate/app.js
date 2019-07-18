@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import { applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import apiClient from '@openagenda/react-utils/dist/apiClient';
 import createStore from '@openagenda/react-utils/dist/createStore';
 import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
@@ -59,7 +59,7 @@ export default function duplicateApp( options ) {
   );
 
   const element = (
-    <Provider store={store}>
+    <Provider store={store} context={ReactReduxContext}>
       <App
         lang={lang}
         eventUid={eventUid}

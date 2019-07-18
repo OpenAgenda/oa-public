@@ -2,7 +2,7 @@ import React from 'react';
 import { trigger } from 'redial';
 import { createBrowserHistory, createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { StaticRouter, Route } from 'react-router-dom';
 import { routerMiddleware, ConnectedRouter } from 'connected-react-router';
@@ -56,8 +56,8 @@ export default function ( options ) {
     </RouterRedialTrigger>
   );
   const element = (
-    <Provider store={store}>
-      <ConnectedRouter history={history}>
+    <Provider store={store} context={ReactReduxContext}>
+      <ConnectedRouter history={history} context={ReactReduxContext}>
         <ScrollToTop>
           {req
             ? (

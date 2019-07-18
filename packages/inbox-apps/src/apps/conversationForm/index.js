@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { createMemoryHistory } from 'history';
 import { applyMiddleware, compose, bindActionCreators } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import apiClient from '@openagenda/react-utils/dist/apiClient';
 import createStore from '@openagenda/react-utils/dist/createStore';
 import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
@@ -86,7 +86,7 @@ export default function ( options = {} ) {
   window.document.body.insertAdjacentElement( 'beforeend', appDest );
 
   const element = (
-    <Provider store={store} key="provider">
+    <Provider store={store} key="provider" context={ReactReduxContext}>
       <ConversationFormApp />
     </Provider>
   );

@@ -7,7 +7,7 @@ import ReactDOM from 'react-dom';
 
 import { createBrowserHistory } from 'history';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import thunkMiddleware from 'redux-thunk';
 import { createLogger } from 'redux-logger';
 import { Router } from 'react-router';
@@ -51,7 +51,7 @@ const store = createStore( combineReducers( {
 const routes = getRoutes( config.base || '' );
 
 ReactDOM.render(
-  <Provider store={store}>
+  <Provider store={store} context={ReactReduxContext}>
     <div>
       <Router history={history}>
         {renderRoutes( routes )}
