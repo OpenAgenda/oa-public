@@ -256,8 +256,6 @@ class MultiRecurrencerForm extends Component {
             className={`${classNamePrefix}recurrencer-frequence`}
             classNameSelect={`${classNamePrefix}recurrencer-frequence__Select`}
             isSearchable={false}
-            defaultValue="weekly"
-            initialValue="weekly"
           />
 
           <br />
@@ -269,7 +267,6 @@ class MultiRecurrencerForm extends Component {
             className={`${classNamePrefix}recurrencer-monthlyIntervalType`}
             classNameSelect={`${classNamePrefix}recurrencer-frequence__Select`}
             isSearchable={false}
-            initialValue="date"
           />
 
           <section className={`${classNamePrefix}recurrencer-ending`}>
