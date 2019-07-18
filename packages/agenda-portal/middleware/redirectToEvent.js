@@ -10,6 +10,6 @@ module.exports = async ( req, res, next ) => {
 
   if ( !event ) return next();
 
-  res.redirect( 301, transform( event ).link );
+  res.redirect( 301, transform( event, req, res ).link );
 
 }
