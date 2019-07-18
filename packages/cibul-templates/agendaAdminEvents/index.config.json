@@ -4,10 +4,10 @@
   "oaCss" : {
     "admin-events-header" : "css/header.scss",
     "agenda-admin-legacy-bridge" : "css/legacy-bridge.scss",
-    "term-selector" : "../node_modules/@openagenda/agenda-locations/sass/terms.scss",
-    "modal": "../node_modules/@openagenda/bs-templates/templates/modal/_modal.scss",
-    "spinner" : "../node_modules/@openagenda/bs-templates/templates/components/_spinner.scss",
-    "spacing": "../node_modules/@openagenda/bs-templates/templates/layout/_spacing.scss"
+    "term-selector" : "@openagenda/agenda-locations/sass/terms.scss",
+    "modal": "@openagenda/bs-templates/templates/modal/_modal.scss",
+    "spinner" : "@openagenda/bs-templates/templates/components/_spinner.scss",
+    "spacing": "@openagenda/bs-templates/templates/layout/_spacing.scss"
   },
 
   "helpers" : {

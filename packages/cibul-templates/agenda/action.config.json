@@ -2,11 +2,11 @@
   "layout" : "bsLayout/main",
 
   "oaCss" : {
-    "agenda-base" : "../node_modules/@openagenda/bs-templates/templates/agenda/_base.scss",
-    "agenda-sidebar" : "../node_modules/@openagenda/bs-templates/templates/agenda/_sidebar.scss",
-    "agenda-header" : "../node_modules/@openagenda/bs-templates/templates/agenda/_header.scss",
-    "agenda-admin-bar" : "../node_modules/@openagenda/bs-templates/templates/agenda/_admin-bar.scss",
-    "agenda-activites" : "../node_modules/@openagenda/bs-templates/templates/activities/_activities.scss",
+    "agenda-base" : "@openagenda/bs-templates/templates/agenda/_base.scss",
+    "agenda-sidebar" : "@openagenda/bs-templates/templates/agenda/_sidebar.scss",
+    "agenda-header" : "@openagenda/bs-templates/templates/agenda/_header.scss",
+    "agenda-admin-bar" : "@openagenda/bs-templates/templates/agenda/_admin-bar.scss",
+    "agenda-activites" : "@openagenda/bs-templates/templates/activities/_activities.scss",
     "share-page" : "css/share-page.scss",
     "share-menu" : "css/share-menu.scss",
     "popup-overlay" : "css/popup-overlay.scss"

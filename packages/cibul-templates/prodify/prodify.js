@@ -285,9 +285,16 @@ var ugly = require( 'uglify-js' ),
 
         }
 
-        log( 'adding content of %s', path.join( __dirname, '..', cssFilename ) );
+        console.log( cssFilename, cssKey );
 
-        fs.readFile( __dirname + '/../' + cssFilename, 'utf-8', function ( err, css ) {
+        const OAIndex = cssFilename.indexOf( '@openagenda/' )
+        const fileToAdd = OAIndex !== -1
+          ? require.resolve( cssFilename.slice( OAIndex ) )
+          : path.join( __dirname, '..', cssFilename );
+
+        log( 'adding content of %s', fileToAdd );
+
+        fs.readFile( fileToAdd, 'utf-8', function ( err, css ) {
 
           if ( err ) return rcb( err );
 
