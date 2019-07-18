@@ -90,6 +90,9 @@
     "name" : "LocationAccess",
     "mapTo" : "location.access"
   }, {
+    "name" : "LocationEmail",
+    "mapTo" : "location.email"
+  }, {
     "name" : "LocationWebsite",
     "mapTo" : "location.website"
   }, {

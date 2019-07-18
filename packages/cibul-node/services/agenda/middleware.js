@@ -762,11 +762,7 @@ function _cleanXlsxRow( row ) {
 
     if ( typeof row[ c ] == 'string' ) {
 
-      clean[ c ] = row[ c ].replace( /\v/g, ' ' );
-
-      clean[ c ] = row[ c ].replace( /\n/g, '\r\n' );
-
-      clean[ c ] = row[ c ].replace( /\u0006/g, '' );
+      clean[ c ] = utils.cleanString( row[ c ] );
 
     } else if ( utils.isArray( row[ c ] ) ) {
 
