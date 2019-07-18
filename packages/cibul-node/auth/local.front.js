@@ -442,6 +442,7 @@ function _loadCaptcha( req, res, next ) {
       },
       bottom: {
         scripts: [
+          ...(_.get( req.baseData, 'bottom.scripts') || []),
           `var onSuccessRecaptcha = function(response) {
             var errorDivs = document.getElementsByClassName('recaptcha-error');
             if (errorDivs.length) {

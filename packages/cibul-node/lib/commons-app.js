@@ -785,9 +785,6 @@ function loadBaseData( func, cssFile ) {
           outdated: '/js/outdated.js'
         }
       },
-      bottom: {
-        scripts: []
-      },
       scriptsBase: '/js'
     }
 
@@ -803,7 +800,15 @@ function loadBaseData( func, cssFile ) {
 
     }
 
-    baseData.bottom.scripts.push(`
+    req.baseData = _.merge( req.baseData || {}, baseData );
+
+    if ( !req.baseData.bottom ) {
+      req.baseData.bottom = {
+        scripts: []
+      };
+    }
+
+    req.baseData.bottom.scripts.push(`
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -814,14 +819,12 @@ function loadBaseData( func, cssFile ) {
 
       const googleAnalyticsId = _.get( req, 'googleAnalyticsId', config.googleAnalyticsId );
 
-      if ( googleAnalyticsId ) baseData.bottom.scripts.push( `
-        ga('create', '${googleAnalyticsId}', 'auto');
-        ga('send', 'pageview');
+      if ( googleAnalyticsId ) req.baseData.bottom.scripts.push( `
+          ga('create', '${googleAnalyticsId}', 'auto');
+          ga('send', 'pageview');
       ` );
 
     }
-
-    req.baseData = _.merge( req.baseData || {}, baseData );
 
     next();
 
