@@ -661,7 +661,7 @@ function buildCsv( includePrivateData ) {
         eInst.exportable( { protocol: 'https:' }, ( err, clean ) => {
 
           if ( err ) {
-            log( 'error', err );
+            req.log( 'error', err );
             return stream.resume();
           }
 
