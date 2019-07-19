@@ -19,9 +19,6 @@ run tests with mocha
 Edit a testconfig.js at the root of this project with configuration to your db, elasticsearch, paths. Example of content:
 
     module.exports = {
-      geocodefarm: {
-        key: 'c90247db-b0de461fb1e9-8517d6450e7b'
-      },
       elasticsearch: {
         host: 'localhost:9200',
         log: [ {

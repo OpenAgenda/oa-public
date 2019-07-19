@@ -1,9 +1,6 @@
 "use strict";
 
 module.exports = {
-  geocodefarm: {
-    key: 'c90247db-b0de461fb1e9-aaaabbbbcccc'
-  },
   elasticsearch: {
     host: 'localhost:9200',
     log: [ {
