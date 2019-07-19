@@ -14,7 +14,7 @@ module.exports = async ( { agendaEvent, context } ) => {
 
   const { agenda, event } = context;
   const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );
-  const creatorMemberId = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: creatorUser.id } ).then( r => r ? r.userId : null );
+  const creatorMemberId = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: creatorUser.id } ).then( r => r ? r.id : null );
   const creatorLang = creatorUser.culture || 'fr';
 
   if ( !creatorMemberId ) {
