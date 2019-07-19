@@ -660,6 +660,11 @@ function buildCsv( includePrivateData ) {
 
         eInst.exportable( { protocol: 'https:' }, ( err, clean ) => {
 
+          if ( err ) {
+            log( 'error', err );
+            return stream.resume();
+          }
+
           // decorate with agenda related data
           svc.exports.decorateEvent( req.agenda, eInst, clean, {
             includePrivateData: !!includePrivateData,
