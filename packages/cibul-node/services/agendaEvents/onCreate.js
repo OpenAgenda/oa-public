@@ -12,8 +12,6 @@ const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const usersSvc = require( '@openagenda/users' );
 
 const aggregatorNotify = require( './lib/aggregatorNotify' );
-const coms = require( '../../lib/coms' );
-const config = require( '../../config' );
 const eventAggregation = require( './eventAggregation' );
 const legacyEventSearch = require( '../elasticsearch' );
 const eventSearch = require( '../eventSearch' );
