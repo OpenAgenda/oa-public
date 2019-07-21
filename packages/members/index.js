@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const get = require( './get' );
 const list = require( './list' );
 const stream = require( './stream' );
-//const create = require( './create' );
+const create = require( './create' );
 //const update = require( './update' );
 //const validate = require( './validate' );
 
@@ -24,6 +24,7 @@ module.exports = ( options = {} ) => {
   return {
     get: get.bind( null, config ),
     list: list.bind( null, config ),
+    create: create.bind( null, config ),
     stream: stream.bind( null, config)
     //create: create.bind( null, config ),
     //update: update.bind( null, config ),

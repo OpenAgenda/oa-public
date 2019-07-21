@@ -4,7 +4,9 @@ const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
 const addListFilters = require( './lib/addListFilters' );
-const cleanDbEntry = require( './lib/cleanDbEntry' );
+const {
+  fromDB
+} = require( './lib/transformDBEntry' );
 
 const cleanListOptions = require( './lib/cleanListOptions' );
 const addPaginationAndOrder = require( './lib/addPaginationAndOrder' );
@@ -29,7 +31,7 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     orderField
   } = addPaginationAndOrder( k, nav );
 
-  const members = await k.then( rows => rows.map( cleanDbEntry.bind( null, {
+  const members = await k.then( rows => rows.map( fromDB.bind( null, {
     includeLegacyFields: legacy,
     orderField
   } ) ) );

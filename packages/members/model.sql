@@ -8,6 +8,7 @@ create table if not exists `${schema}` (
   credential bigint(20),
   deleted_user tinyint(1),
   actions_counter smallint(6) default 0, #legacy field
+  organization varchar(255) default null,
   created_at datetime not null,
   updated_at datetime not null,
   store longtext, # legacy field
