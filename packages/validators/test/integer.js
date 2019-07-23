@@ -64,6 +64,27 @@ describe( 'integer validator', () => {
 
   } );
 
+  it( 'throws an error if is not optional and null default is specified', () => {
+
+    let errors = [];
+
+    try {
+
+      validators.integer( {
+        default: null,
+        optional: false
+      } )();
+
+    } catch( e ) {
+
+      errors = e;
+
+    }
+
+    errors.length.should.equal( 1 );
+
+  } );
+
   it( 'does not validate a number that is not an integer', () => {
 
     let errors = [];

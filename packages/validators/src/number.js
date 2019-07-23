@@ -38,28 +38,21 @@ module.exports = config => {
 
     }
 
-    // we have a clean value, we can check if it fits
-    // in what we want.
-
-    if ( clean === undefined && params.default !== undefined ) {
-
-      return params.default;
-
-    }
-
-    if ( clean === undefined && params.optional ) {
-
-      return null;
-
-    }
-
-    if ( clean === undefined && !params.optional ) {
+    if ( clean === undefined && !params.optional && [ undefined, null ].includes( params.default ) ) {
 
       throw [ _.extend( {
         code: 'required',
         message: 'a number is required',
         origin: value
       }, params.field ? { field: params.field } : {} ) ];
+
+    } else if ( clean === undefined && ( params.default !== undefined ) ) {
+
+      return params.default;
+
+    } else if ( clean === undefined && params.optional ) {
+
+      return null;
 
     }
 

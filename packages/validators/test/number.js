@@ -16,13 +16,23 @@ describe( 'number validator', () => {
 
   } );
 
-  it( 'puts a default value if nothing is specified', () => {
+  it( 'puts a default value if and empty string is specified', () => {
 
     let validate = validators.number( {
       default: 13
     } );
 
     validate( '' ).should.equal( 13 );
+
+  } );
+
+  it( 'puts a default value if nothing is specified', () => {
+
+    let validate = validators.number( {
+      default: 13
+    } );
+
+    validate().should.equal( 13 );
 
   } );
 
@@ -61,7 +71,7 @@ describe( 'number validator', () => {
 
     let validate = validators.number( {
       optional: false
-    }), 
+    }),
 
     errors = [];
 
@@ -78,6 +88,27 @@ describe( 'number validator', () => {
     errors.length.should.equal( 1 );
 
     errors[ 0 ].code.should.equal( 'required' );
+
+  } );
+
+  it( 'throws an error if is not optional and null default is specified', () => {
+
+    let errors = [];
+
+    try {
+
+      validators.number( {
+        default: null,
+        optional: false
+      } )();
+
+    } catch( e ) {
+
+      errors = e;
+
+    }
+
+    errors.length.should.equal( 1 );
 
   } );
 
@@ -123,7 +154,7 @@ describe( 'number validator', () => {
 
     errors.length.should.equal( 1 );
 
-    errors[ 0 ].code.should.equal( 'number.toobig' ); 
+    errors[ 0 ].code.should.equal( 'number.toobig' );
 
   });
 
