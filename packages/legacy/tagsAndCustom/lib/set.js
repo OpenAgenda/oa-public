@@ -150,14 +150,20 @@ async function _setTags( knex, agendaId, reviewArticleId, fieldValueMap ) {
 
 function _mapFileCustomValues( mapItem ) {
 
-  if ( ![ 'file', 'image' ].includes( mapItem.field.fieldType ) ) return mapItem;
+  if ( mapItem.field.fieldType === 'file' ) {
+    return Object.assign( mapItem, {
+      value: {
+        name: mapItem.value.originalName,
+        uploaded: mapItem.value.filename
+      }
+    } );
+  } else if ( mapItem.field.fieldType === 'image' ) {
+    return Object.assign( mapItem, {
+      value: mapItem.value.filename
+    } );
+  }
 
-  return Object.assign( mapItem, {
-    value: {
-      name: mapItem.value.originalName,
-      uploaded: mapItem.value.filename
-    }
-  } );
+  return mapItem;
 
 }
 
