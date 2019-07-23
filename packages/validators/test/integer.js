@@ -134,4 +134,28 @@ describe( 'integer validator', () => {
 
   } );
 
+  it( 'an empty string is read as an empty value', () => {
+
+    const validate = validators.integer( { optional: false } );
+
+    try {
+
+      validate( '' );
+
+    } catch ( e ) {
+
+      e.should.eql( [ {
+        code: 'required',
+        message: 'a integer is required',
+        origin: ''
+      } ] );
+
+      return;
+
+    }
+
+    should.not.ok();
+
+  } );
+
 } );
