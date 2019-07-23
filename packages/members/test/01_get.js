@@ -1,10 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const knex = require( 'knex' );
-const mysql = require( 'mysql' );
 const should = require( 'should' );
-const { promisify } = require( 'util' );
 
 const Service = require( '../' );
 const config = require( '../testconfig' );
@@ -12,33 +9,16 @@ const fixtures = require( './fixtures' );
 
 describe( 'members - functional - get', () => {
 
+  const f = fixtures( config.mysql );
+
   let k, svc;
 
-   before( async () => {
+  before( async () => {
 
-    const con = mysql.createConnection( _.assign( _.pick( config.mysql, [ 'user', 'password' ] ), {
-      multipleStatements: true
-    } ) );
-
-    const query = promisify( con.query.bind( con ) );
-
-    const result = await query( fixtures );
-
-    con.end();
-
-  } );
-
-  before( () => {
-
-    k = knex( {
-      client: 'mysql',
-      connection: _.assign( {
-        database: 'memberstest'
-      }, config.mysql )
-    } );
+    await f.load();
 
     svc = Service( {
-      knex: k,
+      knex: f.client,
       interfaces: {
         getUsersByUid: require( './fixtures/getUsersByUid' ),
         getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' )
@@ -47,11 +27,7 @@ describe( 'members - functional - get', () => {
 
   } );
 
-  after( () => {
-
-    k.destroy();
-
-  } );
+  after( f.destroyClient );
 
   describe( 'basic', () => {
 

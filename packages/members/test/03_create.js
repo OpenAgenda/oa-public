@@ -1,10 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const knex = require( 'knex' );
-const mysql = require( 'mysql' );
 const should = require( 'should' );
-const { promisify } = require( 'util' );
 
 const Service = require( '../' );
 const config = require( '../testconfig' );
@@ -12,46 +9,26 @@ const fixtures = require( './fixtures' );
 
 describe( 'members - functional - create', () => {
 
+  const f = fixtures( config.mysql );
+
   let k, svc;
 
-   before( async () => {
+  before( async () => {
 
-    const con = mysql.createConnection( _.assign( _.pick( config.mysql, [ 'user', 'password' ] ), {
-      multipleStatements: true
-    } ) );
-
-    const query = promisify( con.query.bind( con ) );
-
-    const result = await query( fixtures );
-
-    con.end();
-
-  } );
-
-   before( () => {
-
-    k = knex( {
-      client: 'mysql',
-      connection: _.assign( {
-        database: 'memberstest'
-      }, config.mysql )
-    } );
+    await f.load();
 
     svc = Service( {
-      knex: k,
+      knex: f.client,
       interfaces: {
         getUsersByUid: require( './fixtures/getUsersByUid' ),
+        getAgendasByUid: require( './fixtures/getAgendasByUid' ),
         getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' )
       }
     } );
 
   } );
 
-  after( () => {
-
-    k.destroy();
-
-  } );
+  after( f.destroyClient );
 
   it( 'simple create creates', async () => {
 
@@ -72,6 +49,8 @@ describe( 'members - functional - create', () => {
       id: 5,
       agendaUid: 31,
       userUid: 12,
+      userId: 10293,
+      reviewId: 919002,
       custom: {
         organization: 'OpenAgenda',
         contactName: 'Gaetan',

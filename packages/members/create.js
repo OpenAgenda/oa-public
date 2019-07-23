@@ -14,7 +14,6 @@ module.exports = async ( { knex, schema, interfaces }, data, options = {} )  => 
   const clean = {};
 
   try {
-
     Object.assign(
       clean,
       validate.withCustom( requireCustom )( data ),
@@ -25,6 +24,20 @@ module.exports = async ( { knex, schema, interfaces }, data, options = {} )  => 
       success: false,
       errors
     }
+  }
+
+  if ( clean.agendaUid && interfaces.getAgendasByUid ) {
+    clean.reviewId = _.get(
+      await interfaces.getAgendasByUid( clean.agendaUid ),
+      '0.id'
+    );
+  }
+
+  if ( clean.userUid && interfaces.getUsersByUid ) {
+    clean.userId = _.get(
+      await interfaces.getUsersByUid( clean.userUid ),
+      '0.id'
+    );
   }
 
   if ( clean.userUid && clean.agendaUid ) {
