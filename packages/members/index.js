@@ -10,7 +10,9 @@ const remove = require( './remove' );
 
 const utils = {
   roles: require( './lib/roles' ),
-  compareRoles: require( './lib/compareRoles' )
+  compareRoles: require( './lib/compareRoles' ),
+  getRoleCode: require( './lib/getRoleCode' ),
+  getRoleSlug: require( './lib/getRoleSlug' )
 }
 
 module.exports = ( options = {} ) => {
@@ -28,7 +30,8 @@ module.exports = ( options = {} ) => {
     create: create.bind( null, config ),
     patch: patch.bind( null, config ),
     remove: remove.bind( null, config ),
-    stream: stream.bind( null, config)
+    stream: stream.bind( null, config ),
+    utils
   }
 
 }

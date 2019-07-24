@@ -1,8 +1,8 @@
 "use strict";
 
-module.exports = {
-  ADMINISTRATOR: 2,
-  CONTRIBUTOR: 1,
-  MODERATOR: 3,
-  READER: 4
-}
+const roleValues = require( './roleValues' );
+
+module.exports = roleValues.reduce( ( roles, v ) => ( {
+  ...roles,
+  [ v.key ] : v.code
+} ), {} );
