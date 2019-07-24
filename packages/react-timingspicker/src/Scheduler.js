@@ -38,6 +38,20 @@ function duplicateTiming( timing, options ) {
   }) );
 }
 
+function frequenceToAddFn( value ) {
+  switch ( value ) {
+    case 'yearly':
+      return dateFns.addYears;
+    case 'monthly':
+      return dateFns.addMonths;
+    case 'weekly':
+      return dateFns.addWeeks;
+    case 'daily':
+    default:
+      return dateFns.addDays;
+  }
+}
+
 function getScrollbarWidth( elem ) {
   if ( elem ) {
     return elem.offsetWidth - elem.clientWidth;
@@ -104,8 +118,7 @@ class Scheduler extends Component {
     step: 60 * 60,
     timingFormat: 'HH:mm',
     cellHeight: 40,
-    timingLimit: ONE_DAY,
-    defaultScroll: 8 * 40 // 8 hours * cellHeight
+    timingLimit: ONE_DAY
   };
 
   state = {
@@ -137,19 +150,38 @@ class Scheduler extends Component {
   multiRecurrencerModalRef = React.createRef();
 
   componentDidMount() {
-    const { defaultScroll } = this.props;
+    const { cellHeight, valueToHighlight } = this.props;
     const schedulerEl = this.schedulerRef.current;
+    const defaultScroll = 8 * cellHeight; // 8 hours * cellHeight
 
-    schedulerEl.scrollTop = defaultScroll;
+    schedulerEl.scrollTop = valueToHighlight ? this.dateToScrollTopPos( valueToHighlight ) : defaultScroll;
   }
 
   componentWillUnmount() {
-    // document.removeEventListener( 'click', this.handleOutsideClick, false );
+    document.removeEventListener( 'click', this.handleOutsideClick, false );
 
     // https://github.com/reactjs/react-modal/pull/750
     this.editModalRef.current.node = null;
     this.recurrencerModalRef.current.node = null;
     this.multiRecurrencerModalRef.current.node = null;
+  }
+
+  dateToScrollTopPos = date => {
+    const { step, cellHeight } = this.props;
+    const secondsFromStart = date.getHours() * 60 * 60 + date.getMinutes() * 60;
+    const schedulerEl = this.schedulerRef.current;
+
+    const scrollTop = secondsFromStart / step * cellHeight - schedulerEl.offsetHeight / 2;
+
+    if ( scrollTop > schedulerEl.scrollHeight ) {
+      return schedulerEl.scrollHeight;
+    }
+
+    if ( scrollTop < 0 ) {
+      return 0;
+    }
+
+    return scrollTop;
   }
 
   getModalParent = () => this.schedulerRef.current;
@@ -185,8 +217,6 @@ class Scheduler extends Component {
     } );
 
     this.schedulerRef.current.addEventListener( 'scroll', this.lockSchedulerScroll, false );
-
-    // document.addEventListener( 'click', this.handleOutsideClick, false );
   }
 
   stopLockScroll = () => {
@@ -210,8 +240,6 @@ class Scheduler extends Component {
     } );
 
     schedulerEl.removeEventListener( 'scroll', this.lockSchedulerScroll, false );
-
-    // document.removeEventListener( 'click', this.handleOutsideClick, false );
   }
 
   lockSchedulerScroll = () => {
@@ -231,39 +259,79 @@ class Scheduler extends Component {
     schedulerEl.scrollTop = y;
   }
 
-  // handleOutsideClick = e => {
-  //   if ( this.schedulerRef.current.contains( e.target ) ) {
-  //     return;
-  //   }
-  //
-  //   this.handleCloseEditModal();
-  // };
-
-  openEditModal = valueToEdit => this.setState( {
-    showEditModal: true,
-    valueToEdit,
-    editInitialValues: {
-      begin: dateFns.format( valueToEdit.begin, 'HH:mm' ),
-      end: dateFns.format( valueToEdit.end, 'HH:mm' )
+  handleOutsideClick = e => {
+    if (
+      e.path.some( v => v === this.schedulerRef.current )
+      // || (
+      //   ( this.editModalRef.current && this.editModalRef.current.node.contains( e.target ) )
+      //   || ( this.recurrencerModalRef.current && this.recurrencerModalRef.current.node.contains( e.target ) )
+      //   || ( this.multiRecurrencerModalRef.current && this.multiRecurrencerModalRef.current.node.contains( e.target ) )
+      // )
+    ) {
+      return;
     }
-  } );
 
-  openRecurrencerModal = () => this.setState( {
-    showEditModal: false,
-    valueToEdit: null,
-    showRecurrencerModal: true,
-    valueToDuplicate: this.state.valueToEdit
-  } );
+    const {
+      showEditModal,
+      showRecurrencerModal,
+      showMultiRecurrencerModal
+    } = this.state;
 
-  openMultiRecurrencerModal = () => this.setState( {
-    showEditModal: false,
-    valueToEdit: null,
-    showRecurrencerModal: false,
-    valueToDuplicate: null,
-    showMultiRecurrencerModal: true
-  } );
+    if ( showEditModal ) {
+      return this.handleCloseEditModal();
+    }
+
+    if ( showRecurrencerModal ) {
+      return this.handleCloseRecurrencerModal();
+    }
+
+    if ( showMultiRecurrencerModal ) {
+      return this.handleCloseMultiRecurrencerModal();
+    }
+  };
+
+  openEditModal = valueToEdit => {
+    this.setState( {
+      showEditModal: true,
+      valueToEdit,
+      editInitialValues: {
+        begin: dateFns.format( valueToEdit.begin, 'HH:mm' ),
+        end: dateFns.format( valueToEdit.end, 'HH:mm' )
+      }
+    }, () => {
+      document.addEventListener( 'click', this.handleOutsideClick, false );
+    } );
+  };
+
+  openRecurrencerModal = () => {
+    // execute this after close the current modal
+    setTimeout( () => {
+      document.addEventListener( 'click', this.handleOutsideClick, false );
+
+      this.setState( {
+        showEditModal: false,
+        valueToEdit: null,
+        showRecurrencerModal: true,
+        valueToDuplicate: this.state.valueToEdit
+      } );
+    } );
+  };
+
+  openMultiRecurrencerModal = () => {
+    document.addEventListener( 'click', this.handleOutsideClick, false );
+
+    this.setState( {
+      showEditModal: false,
+      valueToEdit: null,
+      showRecurrencerModal: false,
+      valueToDuplicate: null,
+      showMultiRecurrencerModal: true
+    } );
+  };
 
   handleCloseEditModal = () => {
+    document.removeEventListener( 'click', this.handleOutsideClick, false );
+
     this.stopLockScroll();
 
     this.setState( {
@@ -273,6 +341,8 @@ class Scheduler extends Component {
   };
 
   handleCloseRecurrencerModal = () => {
+    document.removeEventListener( 'click', this.handleOutsideClick, false );
+
     this.stopLockScroll();
 
     this.setState( {
@@ -282,6 +352,8 @@ class Scheduler extends Component {
   };
 
   handleCloseMultiRecurrencerModal = () => {
+    document.removeEventListener( 'click', this.handleOutsideClick, false );
+
     this.stopLockScroll();
 
     this.setState( {
@@ -311,14 +383,12 @@ class Scheduler extends Component {
     const beginWeekdayIndex = valueToDuplicate.begin.getUTCDay();
     const beginWeekday = RRule[ UTCweekdays[ beginWeekdayIndex ] ];
     const wkst = RRule[ UTCweekdays[ weekStartsOn ] ];
-    let countOffset = 0;
 
-    if ( !(values.frequence === 'weekly' && !values.weekday.includes( beginWeekdayIndex )) ) {
-      countOffset = 1;
-    }
+    const addFn = frequenceToAddFn( values.frequence );
 
-    const count = values.endType === 'count' ? values.count + countOffset : undefined;
-    const until = values.endType === 'until' ? values.until : undefined;
+    const until = values.endType === 'until'
+      ? values.until
+      : addFn( valueToDuplicate.begin, values.count );
     const byweekday = values.frequence === 'weekly' && values.weekday && values.weekday.length
       ? values.weekday.map( v => RRule[ weekdays[ v ] ] )
       : values.frequence === 'monthly' && values.monthlyIntervalType === 'weekday'
@@ -335,7 +405,6 @@ class Scheduler extends Component {
       wkst,
       frequence: values.frequence,
       interval: values.interval,
-      count,
       until,
       byweekday,
       bymonthday,
@@ -381,14 +450,12 @@ class Scheduler extends Component {
         const beginWeekday = RRule[ UTCweekdays[ beginWeekdayIndex ] ];
         const wkst = RRule[ UTCweekdays[ weekStartsOn ] ];
         const weekday = [ valueToDuplicate.begin.getDay() - weekStartsOn ];
-        let countOffset = 0;
 
-        if ( !(values.frequence === 'weekly' && !weekday.includes( beginWeekdayIndex )) ) {
-          countOffset = 1;
-        }
+        const addFn = values.frequence === 'weekly' ? dateFns.addWeeks : dateFns.addMonths;
 
-        const count = values.endType === 'count' ? values.count + countOffset : undefined;
-        const until = values.endType === 'until' ? values.until : undefined;
+        const until = values.endType === 'until'
+          ? values.until
+          : addFn( valueToDuplicate.begin, values.count );
         const byweekday = values.frequence === 'weekly' && weekday && weekday.length
           ? weekday.map( v => RRule[ weekdays[ v ] ] )
           : values.frequence === 'monthly' && values.monthlyIntervalType === 'weekday'
@@ -401,28 +468,15 @@ class Scheduler extends Component {
           ? getWeekOfMonth( valueToDuplicate.begin )
           : undefined;
 
-        const rule = new RRule( {
+        return duplicateTiming( valueToDuplicate, {
           wkst,
-          dtstart: convertLocalDateToUTCDate( valueToDuplicate.begin ),
-          freq: RRule[ values.frequence.toUpperCase() ],
+          frequence: values.frequence,
           interval: values.interval,
-          count,
           until,
           byweekday,
           bymonthday,
           bysetpos
         } );
-
-        const begins = rule.all()
-          .map( convertUTCDateToLocalDate )
-          .filter( v => v.getTime() !== valueToDuplicate.begin.getTime() );
-        const duration = valueToDuplicate.end.getTime() - valueToDuplicate.begin.getTime();
-        const newValues = begins.map( v => ({
-          begin: v,
-          end: new Date( v.getTime() + duration )
-        }) );
-
-        return newValues;
       } );
   };
 
@@ -464,7 +518,6 @@ class Scheduler extends Component {
       timingFormat,
       cellHeight,
       timingLimit,
-      defaultScroll,
       allowedTimings,
       breakpoint,
       classNamePrefix,
@@ -515,7 +568,6 @@ class Scheduler extends Component {
               step={step}
               selectableStep={step / 2}
               timingLimit={timingLimit}
-              defaultScroll={defaultScroll}
               allowedTimings={allowedTimings}
               classNamePrefix={classNamePrefix}
               breakpoint={breakpoint}
@@ -552,6 +604,7 @@ class Scheduler extends Component {
             classNamePrefix={classNamePrefix}
             openRecurrencerModal={this.openRecurrencerModal}
             valueToEdit={valueToEdit}
+            closeModal={this.handleCloseEditModal}
           /> : null}
         </ReactModal>
 
@@ -573,6 +626,7 @@ class Scheduler extends Component {
               onSubmit={this.handleRecurrencerSubmit}
               classNamePrefix={classNamePrefix}
               valueToDuplicate={valueToDuplicate}
+              closeModal={this.handleCloseRecurrencerModal}
             />
           ) : null}
         </ReactModal>
@@ -595,6 +649,7 @@ class Scheduler extends Component {
               activeWeek={activeWeek}
               onSubmit={this.handleMultiRecurrencerSubmit}
               classNamePrefix={classNamePrefix}
+              closeModal={this.handleCloseMultiRecurrencerModal}
             />
           ) : null}
         </ReactModal>

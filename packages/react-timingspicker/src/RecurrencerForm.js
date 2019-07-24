@@ -5,6 +5,7 @@ import { FORM_ERROR } from 'final-form';
 import setFieldData from 'final-form-set-field-data';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import dateFns from 'date-fns';
+import { FaRegTimesCircle } from 'react-icons/fa';
 import SelectField from './SelectField';
 import WeekdayInput from './WeekdayInput';
 import NumberInput from './NumberInput';
@@ -58,10 +59,6 @@ const messages = defineMessages( {
     id: 'rtp.recurrencerForm.after',
     defaultMessage: 'After'
   },
-  occurrences: {
-    id: 'rtp.recurrencerForm.occurrences',
-    defaultMessage: 'occurrences'
-  },
   ends: {
     id: 'rtp.recurrencerForm.ends',
     defaultMessage: 'Ends'
@@ -105,6 +102,18 @@ const messages = defineMessages( {
   forceSubmit: {
     id: 'rtp.recurrencerForm.forceSubmit',
     defaultMessage: 'Create anyway'
+  },
+  dailyCount: {
+    id: 'rtp.recurrencerForm.dailyCount',
+    defaultMessage: '{count, plural, one {day} other {days} }'
+  },
+  weeklyCount: {
+    id: 'rtp.recurrencerForm.weeklyCount',
+    defaultMessage: '{count, plural, one {week} other {weeks} }'
+  },
+  monthlyCount: {
+    id: 'rtp.recurrencerForm.monthlyCount',
+    defaultMessage: '{count, plural, one {month} other {months} }'
   }
 } );
 
@@ -150,7 +159,7 @@ class RecurrencerForm extends Component {
         weekday: [ valueToDuplicate.begin.getDay() - weekStartsOn ],
         interval: 1,
         endType: 'until',
-        until: dateFns.endOfDay( dateFns.addYears( valueToDuplicate.begin, 1 ) ),
+        until: dateFns.endOfDay( dateFns.addMonths( valueToDuplicate.begin, 1 ) ),
         count: 2,
         monthlyIntervalType: 'date'
       };
@@ -233,13 +242,20 @@ class RecurrencerForm extends Component {
     classNamePrefix,
     intl,
     valueToDuplicate,
-    weekStartsOn
+    weekStartsOn,
+    closeModal
   } ) => {
     const { frequenceOptions, monthlyIntervalTypeOptions } = this.state;
 
     return (
       <form onSubmit={handleSubmit}>
         <h3>{intl.formatMessage( messages.title )}</h3>
+
+        {typeof closeModal === 'function' ? (
+          <div className={`${classNamePrefix}close-modal`}>
+            <FaRegTimesCircle onClick={closeModal} />
+          </div>
+        ) : null}
 
         <div className={`${classNamePrefix}recurrencer-content`}>
           {intl.formatMessage( messages.repeatEvery )}{' '}
@@ -350,7 +366,17 @@ class RecurrencerForm extends Component {
                   className={`${classNamePrefix}recurrencer-count__input`}
                 />
 
-                {' '}{intl.formatMessage( messages.occurrences )}
+                {' '}
+
+                {values.frequence === 'daily'
+                  ? intl.formatMessage( messages.dailyCount, { count: values.count } )
+                  : null}
+                {values.frequence === 'weekly'
+                  ? intl.formatMessage( messages.weeklyCount, { count: values.count } )
+                  : null}
+                {values.frequence === 'monthly'
+                  ? intl.formatMessage( messages.monthlyCount, { count: values.count } )
+                  : null}
               </label>
             </div>
           </section>
@@ -358,8 +384,6 @@ class RecurrencerForm extends Component {
           <div>
             <button type="submit">{intl.formatMessage( messages.submit )}</button>
           </div>
-
-          {submitError && submitError.message}
 
           {submitError && !dirtySinceLastSubmit ? (
             <div className={`${classNamePrefix}error`}>
@@ -392,7 +416,8 @@ class RecurrencerForm extends Component {
   render() {
     const {
       classNamePrefix,
-      intl
+      intl,
+      closeModal
     } = this.props;
     const {
       initialValues,
@@ -411,6 +436,7 @@ class RecurrencerForm extends Component {
         intl={intl}
         valueToDuplicate={valueToDuplicate}
         weekStartsOn={weekStartsOn}
+        closeModal={closeModal}
       />
     );
   }
