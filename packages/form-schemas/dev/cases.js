@@ -85,8 +85,13 @@ module.exports = {
     link: '/html',
     group: 'types'
   }, {
+    name: 'A set of integer fields',
+    description: 'A field for typing an integer',
+    link: '/integer',
+    group: 'types'
+  }, {
     name: 'A set of number fields',
-    description: 'A field for typing a number or an integer',
+    description: 'A field for typing a number',
     link: '/number',
     group: 'types'
   }, {

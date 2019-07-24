@@ -1057,7 +1057,8 @@ describe( 'schema validator', () => {
         link: validators.link,
         number: validators.number,
         date: validators.date,
-        choice: validators.choice
+        choice: validators.choice,
+        integer: validators.integer,
       } );
 
     } );
@@ -1313,6 +1314,36 @@ describe( 'schema validator', () => {
       }
 
       errors[ 0 ].field.should.equal( 'description' );
+
+    } );
+
+    it( 'A non optional integer generates an error if nothing is given', () => {
+
+      let errors = [];
+
+      const validate = schema( {
+        count: {
+          type: 'integer',
+          optional: false
+        }
+      } );
+
+      try {
+
+        validate( {} );
+
+      } catch ( e ) {
+
+        errors = e;
+
+      }
+
+      errors.should.eql( [ {
+        code: 'required',
+        message: 'a integer is required',
+        origin: undefined,
+        field: 'count'
+      } ] );
 
     } );
 

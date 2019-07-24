@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
-const cleanDbEntry = require( './lib/cleanDbEntry' );
+const { fromDB } = require( './lib/transformDBEntry' );
 
 module.exports = async function( { knex, schema }, identifier ) {
 
@@ -11,7 +11,7 @@ module.exports = async function( { knex, schema }, identifier ) {
     ? _.mapKeys( _.pick( identifier, [ 'userUid', 'agendaUid' ] ), ( v, k ) => _.snakeCase( k ) )
     : { id: identifier };
 
-  return cleanDbEntry( { includeLegacyFields: false },
+  return fromDB( { includeLegacyFields: false },
     await knex( schema ).first( [
       'id', 'agenda_uid', 'credential', 'user_uid'
     ] ).where( where )

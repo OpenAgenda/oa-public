@@ -64,6 +64,27 @@ describe( 'integer validator', () => {
 
   } );
 
+  it( 'throws an error if is not optional and null default is specified', () => {
+
+    let errors = [];
+
+    try {
+
+      validators.integer( {
+        default: null,
+        optional: false
+      } )();
+
+    } catch( e ) {
+
+      errors = e;
+
+    }
+
+    errors.length.should.equal( 1 );
+
+  } );
+
   it( 'does not validate a number that is not an integer', () => {
 
     let errors = [];
@@ -124,6 +145,30 @@ describe( 'integer validator', () => {
         code: 'required',
         message: 'a integer is required',
         origin: undefined
+      } ] );
+
+      return;
+
+    }
+
+    should.not.ok();
+
+  } );
+
+  it( 'an empty string is read as an empty value', () => {
+
+    const validate = validators.integer( { optional: false } );
+
+    try {
+
+      validate( '' );
+
+    } catch ( e ) {
+
+      e.should.eql( [ {
+        code: 'required',
+        message: 'a integer is required',
+        origin: ''
       } ] );
 
       return;

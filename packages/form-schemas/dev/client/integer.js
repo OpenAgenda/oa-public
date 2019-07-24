@@ -8,22 +8,31 @@ if ( module.hot ) module.hot.accept();
 
 class Main extends Component {
 
+  onSubmit( { values } ) {
+
+    alert( JSON.stringify( values, null, 2 ) );
+
+  }
+
   render() {
 
     const props = {
-      res: {
-        post: '',
-        redirect: '/'
-      },
       lang: 'fr',
+      onSubmit: this.onSubmit.bind( this ),
       schema: {
         fields: [ {
-          field: 'anumberfield',
-          fieldType: 'number',
-          label: 'Type a number',
+          field: 'anintegerfield',
+          fieldType: 'integer',
+          label: 'Type an integer',
           max: 100,
           min: 50
-        } ]
+        }, {
+          field: 'arequiredintegerfield',
+          fieldType: 'integer',
+          label: 'A required integer',
+          max: 10,
+          optional: false
+        }  ]
       }
     }
 

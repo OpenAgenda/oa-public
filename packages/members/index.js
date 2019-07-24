@@ -4,9 +4,9 @@ const _ = require( 'lodash' );
 const get = require( './get' );
 const list = require( './list' );
 const stream = require( './stream' );
-//const create = require( './create' );
-//const update = require( './update' );
-//const validate = require( './validate' );
+const create = require( './create' );
+const patch = require( './patch' );
+const remove = require( './remove' );
 
 const utils = {
   roles: require( './lib/roles' ),
@@ -15,20 +15,20 @@ const utils = {
 
 module.exports = ( options = {} ) => {
 
-  const config = _.assign( {
+  const config = {
     knex: null,
     schema: 'member',
-    interfaces: {}
-  }, options );
+    interfaces: {},
+    ... options
+  };
 
   return {
     get: get.bind( null, config ),
     list: list.bind( null, config ),
+    create: create.bind( null, config ),
+    patch: patch.bind( null, config ),
+    remove: remove.bind( null, config ),
     stream: stream.bind( null, config)
-    //create: create.bind( null, config ),
-    //update: update.bind( null, config ),
-    //patch: update.bind( null, _.assign( { patch: true }, config ) ),
-    //validate
   }
 
 }
