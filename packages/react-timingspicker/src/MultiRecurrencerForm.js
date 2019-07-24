@@ -5,6 +5,7 @@ import { FORM_ERROR } from 'final-form';
 import setFieldData from 'final-form-set-field-data';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import dateFns from 'date-fns';
+import { FaRegTimesCircle } from 'react-icons/fa';
 import SelectField from './SelectField';
 import NumberInput from './NumberInput';
 import DateInput from './DateInput';
@@ -103,6 +104,14 @@ const messages = defineMessages( {
   forceSubmit: {
     id: 'rtp.multiRecurrencerForm.forceSubmit',
     defaultMessage: 'Create anyway'
+  },
+  weeklyCount: {
+    id: 'rtp.multiRecurrencerForm.weeklyCount',
+    defaultMessage: '{count, plural, one {week} other {weeks} }'
+  },
+  monthlyCount: {
+    id: 'rtp.multiRecurrencerForm.monthlyCount',
+    defaultMessage: '{count, plural, one {month} other {months} }'
   }
 } );
 
@@ -140,7 +149,7 @@ class MultiRecurrencerForm extends Component {
         frequence: 'weekly',
         interval: 1,
         endType: 'until',
-        until: dateFns.endOfWeek( dateFns.addYears( activeWeek, 1 ) ),
+        until: dateFns.endOfWeek( dateFns.addMonths( activeWeek, 1 ) ),
         count: 2,
         monthlyIntervalType: 'weekday'
       };
@@ -226,12 +235,19 @@ class MultiRecurrencerForm extends Component {
     dirtySinceLastSubmit,
     classNamePrefix,
     intl,
+    closeModal
   } ) => {
     const { frequenceOptions, monthlyIntervalTypeOptions } = this.state;
 
     return (
       <form onSubmit={handleSubmit}>
         <h3>{intl.formatMessage( messages.title )}</h3>
+
+        {typeof closeModal === 'function' ? (
+          <div className={`${classNamePrefix}close-modal`}>
+            <FaRegTimesCircle onClick={closeModal} />
+          </div>
+        ) : null}
 
         <div className={`${classNamePrefix}recurrencer-content`}>
           {intl.formatMessage( messages.repeatEvery )}{' '}
@@ -323,7 +339,14 @@ class MultiRecurrencerForm extends Component {
                   className={`${classNamePrefix}recurrencer-count__input`}
                 />
 
-                {' '}{intl.formatMessage( messages.occurrences )}
+                {' '}
+
+                {values.frequence === 'weekly'
+                  ? intl.formatMessage( messages.weeklyCount, { count: values.count } )
+                  : null}
+                {values.frequence === 'monthly'
+                  ? intl.formatMessage( messages.monthlyCount, { count: values.count } )
+                  : null}
               </label>
             </div>
           </section>
@@ -364,7 +387,8 @@ class MultiRecurrencerForm extends Component {
   render() {
     const {
       classNamePrefix,
-      intl
+      intl,
+      closeModal
     } = this.props;
     const {
       initialValues,
@@ -383,6 +407,7 @@ class MultiRecurrencerForm extends Component {
         intl={intl}
         activeWeek={activeWeek}
         weekStartsOn={weekStartsOn}
+        closeModal={closeModal}
       />
     );
   }

@@ -21,6 +21,28 @@ storiesOf( 'App', module )
       ]}
     />
   ) )
+  .add( 'with defined value', () => (
+    <TimingsPicker
+      value={[
+        {
+          begin: new Date( '2019-08-10T19:30' ),
+          end: new Date( '2019-08-10T22:30' )
+        }
+      ]}
+      locale="fr"
+    />
+  ) )
+  .add( 'with scroll focused on value', () => (
+    <TimingsPicker
+      value={[
+        {
+          begin: new Date( '2019-08-10T04:30' ),
+          end: new Date( '2019-08-10T22:30' )
+        }
+      ]}
+      locale="fr"
+    />
+  ) )
   .add( 'in French language', () => (
     <TimingsPicker
       allowedTimings={[

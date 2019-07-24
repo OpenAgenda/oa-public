@@ -57,8 +57,7 @@ module.exports = class TimingsComponent extends Component {
   }
 
   state = {
-    value: null,
-    activeWeek: new Date()
+    value: null
   };
 
   onTimingsChange = ( timings = [], beginKey = 'begin' ) => {
@@ -76,12 +75,10 @@ module.exports = class TimingsComponent extends Component {
     }) ) );
   }
 
-  onChangeActiveWeek = activeWeek => this.setState( { activeWeek } );
-
   render() {
 
     const { field } = this.props;
-    const { value, lang, labels, activeWeek, allowedTimings } = this.state;
+    const { value, lang, labels, allowedTimings } = this.state;
 
     switch ( field.component ) {
       case '@openagenda/react-timingspicker':
@@ -91,8 +88,6 @@ module.exports = class TimingsComponent extends Component {
             value={value}
             locale={lang}
             weekStartsOn={1}
-            onChangeActiveWeek={this.onChangeActiveWeek}
-            activeWeek={activeWeek}
             allowedTimings={allowedTimings}
           />
         );

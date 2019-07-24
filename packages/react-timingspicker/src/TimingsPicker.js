@@ -101,12 +101,19 @@ class TimingsPicker extends Component {
     if ( props.activeWeek !== state.activeWeek ) {
       if ( props.activeWeek ) {
         derivedState.activeWeek = new Date( props.activeWeek );
+      } else if ( state.activeWeek ) {
+        derivedState.activeWeek = new Date( state.activeWeek );
       } else {
+        const closestValue = getClosestTiming( props.value );
+
+        if ( closestValue ) {
+          derivedState.valueToHighlight = new Date( closestValue );
+        }
+
         derivedState.activeWeek = new Date(
-          state.activeWeek ||
-          getClosestTiming( props.value ) ||
+          closestValue ||
           getClosestTiming( props.allowedTimings ) ||
-          new Date()
+          Date.now()
         );
       }
     }
@@ -195,7 +202,7 @@ class TimingsPicker extends Component {
       classNamePrefix,
       locale
     } = this.props;
-    const { value, messages, activeWeek, weekStartsOn, breakpoint } = this.state;
+    const { value, messages, activeWeek, weekStartsOn, breakpoint, valueToHighlight } = this.state;
 
     return (
       <IntlProvider locale={locale} key={locale} messages={messages}>
@@ -237,6 +244,7 @@ class TimingsPicker extends Component {
             allowedTimings={allowedTimings}
             breakpoint={breakpoint}
             classNamePrefix={classNamePrefix}
+            valueToHighlight={valueToHighlight}
           />
         </div>
       </IntlProvider>

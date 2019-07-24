@@ -4,7 +4,8 @@ import { Form, Field } from 'react-final-form';
 import MaskedInput from 'react-text-mask';
 import dateFns from 'date-fns';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
-import { FORM_ERROR } from "final-form";
+import { FORM_ERROR } from 'final-form';
+import { FaRegTimesCircle } from 'react-icons/fa';
 
 const autoCorrectedTimePipe = createAutoCorrectedDatePipe( 'HH:MM' );
 const timeRegex = /\d{2}:\d{2}/;
@@ -101,9 +102,15 @@ class EditForm extends Component {
     }
   };
 
-  renderForm = ( { handleSubmit, submitError, classNamePrefix, intl, openRecurrencerModal } ) => (
+  renderForm = ( { handleSubmit, submitError, classNamePrefix, intl, openRecurrencerModal, closeModal } ) => (
     <form onSubmit={handleSubmit}>
       <h3>{intl.formatMessage( messages.title )}</h3>
+
+      {typeof closeModal === 'function' ? (
+        <div className={`${classNamePrefix}close-modal`}>
+          <FaRegTimesCircle onClick={closeModal} />
+        </div>
+      ) : null}
 
       <Field
         name="begin"
@@ -131,20 +138,20 @@ class EditForm extends Component {
 
       <button type="submit">{intl.formatMessage( messages.adjust )}</button>
 
+      <div className={`${classNamePrefix}recurrencer-button`} role="button" onClick={openRecurrencerModal}>
+        {intl.formatMessage( messages.openRecurrencerModal )}
+      </div>
+
       {submitError && (
         <div className={`${classNamePrefix}error`}>
           {intl.formatMessage( messages[ submitError.message ] )}
         </div>
       )}
-
-      <div className={`${classNamePrefix}recurrencer-button`} role="button" onClick={openRecurrencerModal}>
-        {intl.formatMessage( messages.openRecurrencerModal )}
-      </div>
     </form>
   );
 
   render() {
-    const { initialValues, classNamePrefix, intl, openRecurrencerModal } = this.props;
+    const { initialValues, classNamePrefix, intl, openRecurrencerModal, closeModal } = this.props;
 
     return (
       <Form
@@ -155,6 +162,7 @@ class EditForm extends Component {
         classNamePrefix={classNamePrefix}
         intl={intl}
         openRecurrencerModal={openRecurrencerModal}
+        closeModal={closeModal}
       />
     );
   }
