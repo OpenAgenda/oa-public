@@ -176,15 +176,20 @@ export default class Dashboard extends Component {
         <div className="header">
           <h2>{getLabel( 'sourceAgendas' )}</h2>
           <p
-            className="text-muted"
+            className="text-muted margin-v-md"
             dangerouslySetInnerHTML={{
-              __html: getLabel( 'sourcesExplanation', { title: `<a href="${res.show.replace( ':slug', agenda.slug )}">${agenda.title}</a>` } )
+              __html: getLabel( 'sourcesExplanation', {
+                title: `<a href="${res.show.replace( ':slug', agenda.slug )}">${agenda.title}</a>`
+              } )
             }}
           />
           <p
-            className="text-muted"
+            className="text-muted margin-v-md"
             dangerouslySetInnerHTML={{
-              __html: getLabel( 'addSources', { searchLink: res.search } )
+              __html: getLabel( 'addSources', {
+                searchLink: res.search,
+                helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/203549842-Agr%C3%A9ger-des-agendas'
+              } )
             }}
           />
           <p>{getLabel( 'totalSources' )}: {total}</p>
