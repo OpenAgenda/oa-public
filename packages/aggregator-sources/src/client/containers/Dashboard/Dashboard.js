@@ -4,10 +4,14 @@ import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { reduxForm, Field, formValueSelector } from 'redux-form';
 import { debounce, throttle } from 'lodash';
+import ReactMarkdown from 'react-markdown';
 import qs from 'qs';
+
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Modal from '@openagenda/react-components/build/Modal';
+import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
+
 import * as agendaActions from '../../redux/modules/agenda';
 import * as sourcesActions from '../../redux/modules/sources';
 import * as modalsActions from '../../redux/modules/modals';
@@ -174,24 +178,24 @@ export default class Dashboard extends Component {
     return (
       <div>
         <div className="header">
+          <div className="pull-right">
+            <MoreInfo
+              id="source-help"
+              content={getLabel( 'sourcesHelp' )}
+              link="https://openagenda.zendesk.com/hc/fr/articles/203549842-Agr%C3%A9ger-des-agendas"
+              placement="left"
+            />
+          </div>
           <h2>{getLabel( 'sourceAgendas' )}</h2>
-          <p
-            className="text-muted margin-v-md"
-            dangerouslySetInnerHTML={{
-              __html: getLabel( 'sourcesExplanation', {
-                title: `<a href="${res.show.replace( ':slug', agenda.slug )}">${agenda.title}</a>`
-              } )
-            }}
-          />
-          <p
-            className="text-muted margin-v-md"
-            dangerouslySetInnerHTML={{
-              __html: getLabel( 'addSources', {
-                searchLink: res.search,
-                helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/203549842-Agr%C3%A9ger-des-agendas'
-              } )
-            }}
-          />
+          <p className="margin-v-md">
+            <ReactMarkdown className="text-muted" source={ getLabel( 'sourcesExplanation', {
+              title: agenda.title,
+              link: res.show.replace( ':slug', agenda.slug )
+            } )  + ' ' + getLabel( 'addSources', {
+              searchLink: res.search,
+              agenda: agenda.title
+            } ) } />
+          </p>
           <p>{getLabel( 'totalSources' )}: {total}</p>
           <form onSubmit={handleSubmit( this.search )}>
             <Field
