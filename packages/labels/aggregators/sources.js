@@ -26,10 +26,10 @@ module.exports = {
     "es": "Eventos publicados por los organizadores figuran en esta lista se añaden automáticamente al agenda %title%."
   },
   "addSources": {
-    "fr": "Pour ajouter des sources, <a href=\"%searchLink%\">cherchez les agendas</a> que vous voulez utiliser, ouvrez-les et cliquez sur le lien <strong>utiliser comme source</strong>.",
-    "en": "To add sources, <a href=\"%searchLink%\">find the agendas</a> you want to use, open them, and click the <strong>use as source</strong> link.",
-    "de": "Um ein Kalender automatischerweise zu importieren : Erst<a href=\"%searchLink%\"> finde das Kalender </a>, donn öffne es, endlich klicke auf <strong> Exportieren > als Quelle benützen</ strong>.",
-    "es": "Para añadir fuentes, <a href=\"%searchLink%\"> mirando agendas </a> que desea utilizar, abrirlos y hacer clic en el botón <strong> uso como fuente </ strong>."
+    "fr": "Pour ajouter des sources, <a href=\"%searchLink%\">trouvez les agendas</a> dont vous voulez agréger les événements, ouvrez-les sélectionnez votre agenda dans le menu Exporter. <a target=\"_blank\" href=\"%helpLink%\">Cliquez ici pour en savoir plus sur l'agrégation</a>",
+    "en": "To add sources, <a href=\"%searchLink%\">find the agendas</a> you want to use, open them, and click on your agenda item in the Export menu. <a target=\"_blank\" href=\"%helpLink%\">Click here to find out more about aggregations</a>",
+    "de": "Um Quellen hinzuzufügen, <a href=\"%searchLink%\"> suchen Sie die Kalender </a>, für die Sie die Ereignisse aggregieren möchten, öffnen Sie sie und wählen Sie Ihren Kalender aus dem Menü \"Exportieren\" aus. <a target=\"_blank\" href=\"%helpLink%\">Weitere Informationen zur Aggregation</a>",
+    "es": "Para añadir fuentes, <a href=\"%searchLink%\"> busca los calendarios</a> desde los que desea agregar eventos, ábralos y selectionna vuestro calendario en el menú Exportar. <a target=\"_blank\" href=\"%helpLink%\">Más información sobre la agregación</a>"
   },
   "aggregationLoop": {
     "fr": "Cet agenda agrège des événements de l'agenda auquel vous voulez l'ajouter. Les boucles d'agrégation ne sont pas permises.",
