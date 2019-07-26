@@ -5,9 +5,9 @@ export default class NotFoundDisplayer extends Component {
   isNotFound = () => {
     const { history, apps } = this.props;
 
-    return !Object.values( apps )
-      .some( app =>
-        app.routes && matchRoutes( app.routes, history.location.pathname ).length
+    return Object.values( apps )
+      .every( app =>
+        !( app.routes && matchRoutes( app.routes, history.location.pathname ).length )
       );
   };
 

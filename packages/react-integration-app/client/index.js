@@ -6,7 +6,6 @@ import NProgress from 'nprogress';
 import IScroll from 'iscroll';
 import { loadableReady } from '@loadable/component';
 import du from '@openagenda/dom-utils';
-import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import RouterTrigger from '@openagenda/react-utils/dist/RouterTrigger';
 import { HeaderManager, Header } from '@openagenda/react-layouts';
@@ -49,26 +48,9 @@ const headerStore = HeaderManager.createStore( initialState.header );
 
 
 loadableReady( async () => {
-  const componentsPerApps = Object.values( apps )
-    .map( app =>
-      app.routes
-      && matchRoutes( app.routes, history.location.pathname ).map( v => v.route.component )
-    );
-
-  const { visibleApps /* , notFoundApps */ } = Object.values( apps )
-    .reduce( ( result, app, key ) => {
-      if ( componentsPerApps[ key ].length ) {
-        result.visibleApps.push( app );
-      } else {
-        result.notFoundApps.push( app );
-      }
-
-      return result;
-    }, { visibleApps: [], notFoundApps: [] } );
-
   // Trigger 'inject' before render, needed for the first render (in @connect)
   await Promise.all(
-    Object.values( visibleApps ).map( app => app.triggerHooks( { hooks: [ 'inject' ] } ) )
+    Object.values( apps ).map( app => app.triggerHooks( { hooks: [ 'inject' ] } ) )
   );
 
   const triggerHooks = () => Promise.all(

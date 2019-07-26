@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.4.3",
-    "@loadable/component": "^5.7.0",
-    "@loadable/server": "^5.8.0",
+    "@loadable/component": "^5.10.2",
+    "@loadable/server": "^5.10.2",
     "@openagenda/agenda-settings": "^1.1.2",
     "@openagenda/home": "^2.1.2",
     "@openagenda/react-layouts": "^1.0.0",

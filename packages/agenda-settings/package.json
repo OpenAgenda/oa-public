@@ -26,8 +26,8 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.4.3",
-    "@loadable/babel-plugin": "^5.6.0",
-    "@loadable/component": "^5.6.1",
+    "@loadable/babel-plugin": "^5.10.0",
+    "@loadable/component": "^5.10.2",
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/call-to-action": "^2.2.2",
     "@openagenda/dom-utils": "^2.2.0",

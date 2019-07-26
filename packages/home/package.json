@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.4.3",
-    "@loadable/component": "^5.6.1",
+    "@loadable/component": "^5.10.2",
     "@openagenda/date-range": "^2.1.0",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/react-components": "^2.2.1",

@@ -2542,6 +2542,13 @@
     "@types/istanbul-reports" "^1.1.1"
     "@types/yargs" "^12.0.9"
 
+"@loadable/babel-plugin@^5.10.0":
+  version "5.10.0"
+  resolved "https://registry.npmjs.org/@loadable/babel-plugin/-/babel-plugin-5.10.0.tgz#9d2b83649c910404214ae0da4c4a84a2a3f583ed"
+  integrity sha512-6hbsDIuHSjgATLK7m/Y7WwZ1t6vmZ22AYTtYsjK5L17KxiPm9v1hvUoheLs3jnDFUTHS6mgzD8vliZJdfsLLQA==
+  dependencies:
+    "@babel/plugin-syntax-dynamic-import" "^7.2.0"
+
 "@loadable/babel-plugin@^5.6.0":
   version "5.6.0"
   resolved "https://registry.npmjs.org/@loadable/babel-plugin/-/babel-plugin-5.6.0.tgz#30b7713c29cbdcc64fba9ecb1bbb5a5340e30ff1"
@@ -2549,24 +2556,18 @@
   dependencies:
     "@babel/plugin-syntax-dynamic-import" "^7.2.0"
 
-"@loadable/component@^5.6.1":
-  version "5.6.1"
-  resolved "https://registry.npmjs.org/@loadable/component/-/component-5.6.1.tgz#7c4cc7619280ae39a770583e05c3e9980bb3a615"
-  integrity sha512-lkRMQiekLmBIANxdx/Ybod8s2KQKnS0yAHl6abv1MenSjV9OmtLMjeOMz3RB7AItgOo6D7GPTWIJr1eHswV/Iw==
+"@loadable/component@^5.10.2":
+  version "5.10.2"
+  resolved "https://registry.npmjs.org/@loadable/component/-/component-5.10.2.tgz#1f51e7a0064cc0f59604b1933bbc7a1bbfd84d18"
+  integrity sha512-pUzGRc/mhGzZ0+xJPQErnS68BQEApFYGwn10iSDqBHdDhOruCASTer1J+rYI4jaJJcegJwnuzh7j/SqMoiCyAQ==
   dependencies:
+    "@babel/runtime" "^7.4.4"
     hoist-non-react-statics "^3.3.0"
 
-"@loadable/component@^5.7.0":
-  version "5.7.0"
-  resolved "https://registry.npmjs.org/@loadable/component/-/component-5.7.0.tgz#6d6b5afc2c18b9bbcb2adf1b581621e5291feecf"
-  integrity sha512-yHe2WrqUqw2zyS5MnHziVfhMONFe7Pd8oMO2UB/G9XxkXLZkSvFZQIpNouHNNE1Kc29asIYXnR42vMD5IjruSQ==
-  dependencies:
-    hoist-non-react-statics "^3.3.0"
-
-"@loadable/server@^5.8.0":
-  version "5.8.0"
-  resolved "https://registry.npmjs.org/@loadable/server/-/server-5.8.0.tgz#b577e181fcdc6edad7a4a811a3970c7319bdf98d"
-  integrity sha512-GSrm360ZBt1xlcwEM6MOuZxteDIbk3nrhDs5aD44952LdUnx3DUl3ctX+S+PQCNhSWpzjPqD54TbKjqzfUtrdg==
+"@loadable/server@^5.10.2":
+  version "5.10.2"
+  resolved "https://registry.npmjs.org/@loadable/server/-/server-5.10.2.tgz#044feee9026eb104ebcbfb9e35dbfe4e7976523a"
+  integrity sha512-6B0/LxiX4iWhucSHEAgiDfQthFjRfd7cfifNv/rlvbRN+KVJh0mJwmAAlRLee3n7bDfEhoRIH3v/7p7O7OfgWw==
   dependencies:
     lodash "^4.17.11"
 
