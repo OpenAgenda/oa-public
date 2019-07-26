@@ -18,6 +18,7 @@ describe( 'form-schemas - functional (server): legacy', function() {
 
     svc.initAndLoad( config, [
       config.schemas.formSchema,
+      config.schemas.network,
       config.legacy.schemas.agenda,
       config.legacy.schemas.tagSet,
       config.legacy.schemas.categorySet,
@@ -37,14 +38,11 @@ describe( 'form-schemas - functional (server): legacy', function() {
     result.should.eql( {
       //legacy text
       citation: 'Celle de participer à une journée digne de notre sport ! ',
-      
-      // legacy radio
-      quisuisje: 1,
 
       // legacy integer
-      participants: 200, 
+      participants: 200,
       // legacy tags
-      'public-cible': [ 20, 21 ], 
+      'public-cible': [ 20, 21 ],
       // legacy category
       theme: 30,
 
@@ -59,7 +57,7 @@ describe( 'form-schemas - functional (server): legacy', function() {
 
     ( await svc.legacy.agendaEventGet( 7292, 152412 ) )
 
-      .should.eql( { 
+      .should.eql( {
         detailedcoms: 'Avec Cetim, Symop, CeA List, Mbway ( soutien Arts et Métiers Alumni)',
         organizertype: 7,
         expectedcount: 75,
@@ -75,10 +73,10 @@ describe( 'form-schemas - functional (server): legacy', function() {
 
     ( await svc.legacy.agendaEventGet( 7796, 166062 ) )
 
-      .should.eql( { 
+      .should.eql( {
         custom_description: 'hip',
-        recurring: null, 
-        intermunicipal_interest: null 
+        recurring: null,
+        intermunicipal_interest: null
       } );
 
   } );
@@ -87,7 +85,7 @@ describe( 'form-schemas - functional (server): legacy', function() {
 
     ( await svc.legacy.agendaEventGet( 7796, 186834 ) )
 
-      .should.eql( { 
+      .should.eql( {
         custom_description: null,
         intermunicipal_interest: 1,
         recurring: null

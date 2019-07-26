@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 
 module.exports = _.extend( require( './lib/aggregators' ), {
   utils: {
-    rules: require( './lib/rules' )
+    evaluate: require( './lib/evaluate' )
   },
   sources: require( './lib/sources' ),
   resync: require( './lib/resync' ),

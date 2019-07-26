@@ -18,6 +18,7 @@ module.exports = app => {
 module.exports.init = config => {
 
   agendaDocx.init( {
+    logger: config.getLogConfig( 'svc', 'agenda-docx' ),
     s3: {
       region: 'eu-west-3',
       bucket: 'oa-docx',

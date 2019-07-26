@@ -17,10 +17,11 @@ const agendas = require( '@openagenda/agendas' );
 const ih = require( 'immutability-helper' );
 const eventSvc = require( '@openagenda/events' );
 const formSchemas = require( '@openagenda/form-schemas' );
-const networks = require( '@openagenda/networks' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const log = require( '@openagenda/logs' )( 'services/eventSearch/assemble' );
+
+const networks = require( '../../networks' );
 
 let knex, maxIndexableTimingCount;
 

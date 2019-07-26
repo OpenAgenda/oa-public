@@ -21,13 +21,7 @@ function send( namespace, path, onSuccess ) {
       message: 'cached response'
     } );
 
-    res.set( 'Content-Type', 'application/json' );
-
-    res.send( cached );
-
-    if ( typeof onSuccess === 'function' ) {
-      onSuccess( cached, req, res );
-    }
+    onSuccess( cached, req, res );
 
   } );
 
@@ -36,6 +30,8 @@ function send( namespace, path, onSuccess ) {
 function set( namespace, path, delay, cacheFunc ) {
 
   return ( req, res, next ) => {
+
+    req.log( 'caching' );
 
     let identifier = _.get( req, path );
 

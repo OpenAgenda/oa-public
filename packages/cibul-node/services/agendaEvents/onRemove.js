@@ -8,6 +8,7 @@ const eventSearch = require( '../eventSearch' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const oldEventSvc = require( '../event' );
+const legacyEventSearch = require( '../elasticsearch' );
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/onRemove' );
 
@@ -26,8 +27,13 @@ module.exports = async ( ae, context ) => {
   /**
    * Anything happening hear should not be triggered elsewhere by legacy parts of app
    */
-
-  if ( context.legacy ) return;
+  if ( !context.deletion ) {
+    try {
+      await legacyEventSearch.updateEvent( { uid: ae.eventUid }, { removeUnreferenced: true } );
+    } catch ( e ) {
+      log( 'error', 'could not update legacy search for event %s', ae.eventUid );
+    }
+  }
 
   if ( !event ) {
 
@@ -37,13 +43,7 @@ module.exports = async ( ae, context ) => {
 
   }
 
-  coms.publish( config.mainChannel, {
-    name: 'legacy.es.event.remove',
-    values: {
-      id: event.id,
-      type: 'remove'
-    }
-  } );
+  if ( context.legacy ) return;
 
   aggregatorNotify.remove( { agenda, event } );
 

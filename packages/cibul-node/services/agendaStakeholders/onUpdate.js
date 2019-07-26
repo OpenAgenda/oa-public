@@ -9,6 +9,7 @@ const invitations = require( '@openagenda/invitations' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' );
+const setMemberUidAndSlugRefs = require( './lib/setMemberUidAndSlugRefs' );
 
 const getRole = agendaStakeholders.types.get;
 
@@ -40,6 +41,12 @@ module.exports = function ( before, stakeholder, context ) {
           removed: null
         } );
 
+        if ( stakeholder.userId ) {
+
+          await setMemberUidAndSlugRefs( stakeholder );
+
+        }
+
         // new user
         if ( stakeholder.userId && before.userId !== stakeholder.userId ) {
 
@@ -49,7 +56,7 @@ module.exports = function ( before, stakeholder, context ) {
 
           }
 
-          controlData.memberSet( { agendaUid: agenda.uid, userUid: user.uid, role: stakeholder.credential } );
+          controlDataSvc.memberSet( { agendaUid: agenda.uid, userUid: user.uid, role: stakeholder.credential } );
 
           activities.feed( { entityType: 'user', entityUid: user.uid } )
             .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )

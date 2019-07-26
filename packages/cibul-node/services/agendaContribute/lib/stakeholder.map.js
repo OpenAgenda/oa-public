@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const roles = require( '@openagenda/agenda-stakeholders' ).types.codes
 
 const map = [ {
   stakeholder: 'contactName',
@@ -19,9 +20,9 @@ const map = [ {
   member: 'email'
 } ];
 
-module.exports.toMember = st => {
+module.exports.toMember = ( st, credential ) => {
 
-  return map.reduce( ( carry, corr ) => {
+  const member = map.reduce( ( carry, corr ) => {
 
     carry[ corr.member ] = _.get( st, corr.stakeholder );
 
@@ -34,6 +35,10 @@ module.exports.toMember = st => {
     return carry;
 
   }, {} );
+
+  if ( credential ) member.role = roles.get( credential );
+
+  return member;
 
 }
 

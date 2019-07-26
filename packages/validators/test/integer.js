@@ -13,7 +13,7 @@ describe( 'integer validator', () => {
     try {
 
       validate( 2 ).should.equal( 2 );
-      
+
     } catch ( e ) {
 
       console.log( e );
@@ -44,7 +44,7 @@ describe( 'integer validator', () => {
 
     errors.length.should.equal( 1 );
 
-    errors[ 0 ].should.eql( { 
+    errors[ 0 ].should.eql( {
       code: 'integer.invalid',
       message: 'not an integer',
       origin: 'one two three'
@@ -58,9 +58,30 @@ describe( 'integer validator', () => {
 
   } );
 
-  it( '...event when default is null', () => {
+  it( '...even when default is null', () => {
 
     should( validators.integer( { default: null } )() ).equal( null );
+
+  } );
+
+  it( 'throws an error if is not optional and null default is specified', () => {
+
+    let errors = [];
+
+    try {
+
+      validators.integer( {
+        default: null,
+        optional: false
+      } )();
+
+    } catch( e ) {
+
+      errors = e;
+
+    }
+
+    errors.length.should.equal( 1 );
 
   } );
 
@@ -80,10 +101,10 @@ describe( 'integer validator', () => {
 
     errors.length.should.equal( 1 );
 
-    errors[ 0 ].should.eql( { 
+    errors[ 0 ].should.eql( {
       code: 'integer.invalid',
       message: 'not an integer',
-      origin: 2.2 
+      origin: 2.2
     } );
 
   } );
@@ -120,10 +141,34 @@ describe( 'integer validator', () => {
 
     } catch ( e ) {
 
-      e.should.eql( [ { 
+      e.should.eql( [ {
         code: 'required',
         message: 'a integer is required',
-        origin: undefined 
+        origin: undefined
+      } ] );
+
+      return;
+
+    }
+
+    should.not.ok();
+
+  } );
+
+  it( 'an empty string is read as an empty value', () => {
+
+    const validate = validators.integer( { optional: false } );
+
+    try {
+
+      validate( '' );
+
+    } catch ( e ) {
+
+      e.should.eql( [ {
+        code: 'required',
+        message: 'a integer is required',
+        origin: ''
       } ] );
 
       return;

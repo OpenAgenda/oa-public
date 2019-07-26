@@ -2,7 +2,8 @@
 
 const _ = require( 'lodash' );
 const axios = require( 'axios' );
-const getDistrict = require( './getDistrict' );
+const getPolygonField = require( './lib/getPolygonField' );
+const applyTransforms = require( './lib/applyTransforms' );
 
 const forwardURL = ( query, { key, pretty, countryCode, language } ) => [
   `https://api.opencagedata.com/geocode/v1/json?key=${key}&q=${encodeURIComponent( query )}`,
@@ -31,11 +32,9 @@ async function reverse( key, latitude, longitude, { first, language, raw } ) {
     url: reverseURL( latitude, longitude, { key, language } ),
   } ).then( r => _.get( r, 'data.results' ).map( parseResponseItem.bind( null, { raw } ) ) );
 
-  await Promise.all(
-    first ? [ attachDistrict( _.first( results ) ) ] : results.map( attachDistrict )
-  );
+  const transformed = await _applyTransforms( results );
 
-  return first ? _.first( results ) : results;
+  return first ? _.first( transformed ) : transformed;
 
 }
 
@@ -54,29 +53,41 @@ async function geocode( key, query, { countryCode, language, raw, first } ) {
     } )
   } ).then( r => _.get( r, 'data.results' ).map( parseResponseItem.bind( null, { raw } ) ) );
 
-  await Promise.all(
-    first ? [ attachDistrict( _.first( results ) ) ] : results.map( attachDistrict )
-  );
+  const transformed = await _applyTransforms( results );
 
-  return first ? _.first( results ) : results;
+  return first ? _.first( transformed ) : transformed;
 
 }
 
+
+/**
+ * DOMTOM, HONG KONG... country codes are not known by OpenCage
+ */
 function cleanGeocodeQuery( query, countryCode ) {
 
-  return {
-    countryCode: [
-      'YT',
-      'PF',
-      'GF',
-      'PM',
-      'MQ',
-      'GP',
-      'RE',
-      'NC'
-    ].includes( countryCode ) ? 'FR' : countryCode,
-    query
+  for ( const transform of [ {
+    from: [ 'YT', 'PF', 'GF', 'PM','MQ', 'GP', 'RE', 'NC' ],
+    to: 'FR'
+  }, {
+    from: [ 'HK' ],
+    to: 'CN'
+  }, {
+    from: [ 'AW' ],
+    to: 'NL'
+  } ] ) {
+
+    if ( transform.from.includes( countryCode ) ) {
+
+      return {
+        countryCode: transform.to,
+        query
+      }
+
+    }
+
   }
+
+  return { countryCode, query };
 
 }
 
@@ -84,8 +95,9 @@ function parseResponseItem( { raw }, item ) {
 
   const parsed = {
     address: _.get( item, 'formatted' ),
-    district: _.get( item, 'components.city_district', null ),
+    district: _.get( item, 'components.city_district', _.get( item, 'components.suburb', null ) ),
     city: _.get( item, 'components.village', _.get( item, 'components.town', _.get( item, 'components.city', null ) ) ),
+    postalCode: _.get( item, 'components.postcode', null ),
     department: _.get( item, 'components.state_district', null ),
     region: _.get( item, 'components.state', null ),
     timezone: _.get( item, 'annotations.timezone.name', null ),
@@ -103,6 +115,26 @@ function parseResponseItem( { raw }, item ) {
 
 }
 
-async function attachDistrict( location ) {
-  location.district = await getDistrict( location );
+async function _applyTransforms( geocodeResults ) {
+
+  if ( !geocodeResults.length ) return geocodeResults;
+
+  return Promise.all(
+    geocodeResults.map( _applyTransformsOnGeocodeItem )
+  );
+
+}
+
+async function _applyTransformsOnGeocodeItem( geocodeResult ) {
+
+  const updated = applyTransforms( geocodeResult );
+
+  const district = await getPolygonField( 'district', updated );
+
+  if ( district ) {
+    updated.district = district;
+  }
+
+  return updated;
+
 }

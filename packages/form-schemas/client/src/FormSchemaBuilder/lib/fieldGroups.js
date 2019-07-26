@@ -47,7 +47,7 @@ function options( { labelLanguages } ) {
       field: 'options',
       fieldType: 'options',
       label: l.fieldOptions,
-      languages: labelLanguages
+      languages: labelLanguages.length ? labelLanguages : null
     } ]
   }
 

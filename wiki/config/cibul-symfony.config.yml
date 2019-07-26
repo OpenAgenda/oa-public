@@ -15,7 +15,6 @@ dev: #values to set are tagged. Do a search on '#config'
   twitter_consumer_secret: fdsqfsdqfdsq
 
   mapquest_key: Fmjtd%dqfsdqfdssq%2Ca0%3Do5-9urn06
-  geocodefarm_key: c90247db-fdqfdsq-8517d6450e7b
 
   active_storage: aws
 
@@ -78,7 +77,6 @@ prod:
   twitter_consumer_secret: rezareza #config
 
   mapquest_key: unused
-  geocodefarm_key: fdsqfsdqfsdsq #config
 
   active_storage: aws
 
@@ -333,16 +331,16 @@ all:
 
     language_list:
       fr: français
-      en: english 
-      es: español 
-      de: deutsch 
+      en: english
+      es: español
+      de: deutsch
       it: italiano
       ne: nederlands
       pt: português
-      ar: العربية 
+      ar: العربية
       is: íslenska
-      tr: türkçe 
-      br: breton 
+      tr: türkçe
+      br: breton
       bz: gallo
 
     language_labels:
@@ -529,7 +527,7 @@ all:
       za: Cuengh / Tôô / 壮语
       zh: 中文
       zu: isiZulu
-      
+
     facebook_tab_labels_en: { program: Program, agenda: Agenda }
     facebook_tab_labels_fr: { programme: Programme, agenda: Agenda }
     facebook_tab_labels_es: { programme: Programa, agenda: Agenda }

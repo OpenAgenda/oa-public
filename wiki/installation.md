@@ -114,6 +114,14 @@ Install java
     sudo apt-get update
     sudo apt-get install oracle-java8-installer
 
+**Note (13/06/2019)**: the ppa has been discontinued following an oracle licensing change. OpenJDK install instructions are here: https://docs.datastax.com/en/archived/cassandra/3.0/cassandra/install/installOpenJdkDeb.html
+
+    sudo add-apt-repository ppa:openjdk-r/ppa
+    sudo apt-get update
+    sudo apt-get install openjdk-8-jdk
+
+    java -version
+
 
 ### Database
 
@@ -148,6 +156,18 @@ Download and install Elasticsearch 1.3.4
 Check if elasticsearch is running
 
     sudo /etc/init.d/elasticsearch status
+
+Tweak configuration by following the [official documentation](https://www.elastic.co/guide/en/elasticsearch/reference/1.3/setup-configuration.html)
+
+1. Change the heap size. On a dedicated ES server, half of available memory is recommended:
+
+  Edit `/etc/init.d/elasticsearch`, uncomment the ES_HEAP_SIZE and adjust the value
+
+2. Reduce swappiness
+
+  Add `vm.swappiness=1` in `/etc/sysctl.conf`
+
+When data is already loaded in Elasticsearch, the service may take a while to boot up before being operational ( particularly for write operations )
 
 
 ### Elasticsearch 5.3

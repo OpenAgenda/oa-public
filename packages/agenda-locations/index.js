@@ -6,7 +6,6 @@ const w = require( 'when' );
 
 const countries = require( '@openagenda/countries' );
 const files = require( '@openagenda/files' );
-const geocodeFarm = require( '@openagenda/geocode-farm' );
 const images = require( '@openagenda/images' );
 const logger = require( '@openagenda/logs' );
 const utils = require( '@openagenda/utils' );
@@ -14,6 +13,7 @@ const utils = require( '@openagenda/utils' );
 const db = require( './lib/db' );
 const fieldMap = require( './lib/fieldMap' );
 const insee = require( './utils/insee' );
+const distance = require( './utils/distance' );
 const instanciate = require( './lib/instanciate' );
 const mw = require( './lib/middleware' );
 const sharedConfig = require( './sharedConfig' );
@@ -36,7 +36,6 @@ const service = {
   rebuild: search.rebuild,
   resync,
   refresh: search.refresh,
-  geocode: geocodeFarm, // deprecate this
   validate: require( './lib/validate' ), // useful for isolated value validation
   copy,
   getSettings, // deprecated
@@ -47,7 +46,7 @@ const service = {
   mw,
   utils: {
     countries,
-    geocode: geocodeFarm
+    distance // in meters
   },
   tasks: {
     setLocationTimezones: require( './tasks/setLocationTimezones' )
@@ -106,8 +105,6 @@ function init( c, cb ) {
     } );
 
   } );
-
-  geocodeFarm.init( config.geocodefarm );
 
   insee.init( { redis: config.redis } )
 

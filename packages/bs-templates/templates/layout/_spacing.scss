@@ -1,6 +1,6 @@
 @mixin createSpacing($type) {
   $directions: all, v, h, top, right, bottom, left;
-  $sizes: ((xs, 6px), (sm, 12px), (md, 24px), (lg, 36px), (xl, 50px));
+  $sizes: ((z, 0px), (xs, 6px), (sm, 12px), (md, 24px), (lg, 36px), (xl, 50px));
 
   @each $direction in $directions {
     @each $size, $pixel in $sizes {
@@ -32,7 +32,7 @@
 
 
 .text-line-bg {
-  
+
   line-height: 2em;
 
 }

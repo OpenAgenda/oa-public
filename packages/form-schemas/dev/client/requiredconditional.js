@@ -26,6 +26,17 @@ class Main extends Component {
           optional: false,
           label: 'This is only enabled if first field is typed',
           enableWith: 'anything'
+        }, {
+          field: 'checkboxes',
+          fieldType: 'checkbox',
+          label: 'Some checkboxes',
+          options: [ { id: 1, label: 'Check this', value: 'check-this' } ]
+        }, {
+          field: 'moreconditioned',
+          fieldType: 'text',
+          optional: false,
+          label: 'This is only enabled if previous checkbox is checked',
+          enableWith: 'checkboxes'
         } ]
       }
     }

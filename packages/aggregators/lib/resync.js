@@ -16,9 +16,7 @@ module.exports = async objectIdentifiers => {
   const aggregator = await aggregators( objectIdentifiers );
 
   if ( !aggregator ) {
-
     throw new Error( 'No aggregator was found for object' );
-
   }
 
   const sources = ( await aggregator.sources.list( { deep: true } ) )

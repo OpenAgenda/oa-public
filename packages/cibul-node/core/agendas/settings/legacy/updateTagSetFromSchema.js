@@ -19,15 +19,15 @@ module.exports = async ( config, agendaOrUid, force = false ) => {
 
   const agenda = _.isObject( agendaOrUid ) ? agendaOrUid : await getAgenda( agendaOrUid );
 
-  log( 'transferring from form-schema to tag-set and custom fields', agenda.uid );
+  log( 'transferring from form-schema to tag-set and custom fields', agenda.uid, agenda.slug );
 
   const schema = await getMergedSchema( agenda );
 
   if ( !schema ) return { message: `No schema was found for agenda ${agenda.uid}` };
 
-  const { id } = await config.knex( 'review' ).first( [ 'id', 'store' ] ).where( 'uid', agenda.uid );
+  const { id } = await config.knex( 'review' ).first( [ 'id' ] ).where( 'uid', agenda.uid );
 
-  const tagSet =  await getAgendaTags( id );
+  const tagSet = await getAgendaTags( id );
 
   const { tagSet: updatedTagSet, messages, fields } = generateTagSet( schema, tagSet );
 
@@ -43,6 +43,8 @@ module.exports = async ( config, agendaOrUid, force = false ) => {
     return res;
 
   }
+
+  log( 'updated tag set has %s groups', updatedTagSet.groups.length );
 
   await setAgendaTags( id, updatedTagSet );
 

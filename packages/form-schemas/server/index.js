@@ -34,7 +34,7 @@ async function getMerged( ids, options = {} ) {
 
   const schemas = [];
 
-  for ( const id of ids ) {
+  for ( const id of [].concat( ids ) ) {
 
     schemas.push( await get( id ) );
 
@@ -194,7 +194,9 @@ function init( c ) {
 
   }
 
-  log = logger( 'form-schemas' );
+  log = logger( 'index' );
+
+  log( 'initializing' );
 
   client = c.knex || knex( {
     client: 'mysql',

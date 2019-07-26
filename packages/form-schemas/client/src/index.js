@@ -13,6 +13,7 @@ import FormSchema from './iso/FormSchema';
 import flatten from './lib/flatten';
 import submit from './lib/submit';
 import getRelatedFieldValues from './lib/getRelatedFieldValues';
+import isFieldDisplayed from './lib/isFieldDisplayed';
 
 const Field = require( './Components/Field' );
 
@@ -104,6 +105,15 @@ export default class FormSchemaComponent extends Component {
 
     }
 
+    if ( this.props.onSubmit ) {
+
+      return this.props.onSubmit( {
+        values,
+        files: this.get( 'files' )
+      } );
+
+    }
+
     this.set( { loading: true } );
 
     submit( {
@@ -188,7 +198,7 @@ export default class FormSchemaComponent extends Component {
 
   _getFormSchema() {
 
-    // building the formSchema is a bit costly, so memoizition is usefull here
+    // building the formSchema is a bit costly, so memoizition is useful here
 
     const hasChanged = !![ 'hash', 'lang' ].filter(
       memoizeKey => _.get( this.memoized, memoizeKey, '' ) !== _.get( this.props, memoizeKey, '' )
@@ -298,7 +308,7 @@ export default class FormSchemaComponent extends Component {
 
   render() {
 
-    const { lang, classNames } = this.props;
+    const { lang, classNames, role } = this.props;
 
     const { submitted } = this.state;
 
@@ -318,7 +328,7 @@ export default class FormSchemaComponent extends Component {
 
     return <div className="oa-form">
       <div className={_.get( classNames, 'fieldsCanvas', '' ) }>
-        {this._getFormSchema().getFields().filter( f => f.display ).map( ( f, i ) => {
+        {this._getFormSchema().getFields().filter( isFieldDisplayed.bind( null, role ) ).map( ( f, i ) => {
 
           const flatLabels = flatten( formSchemaLabels, lang );
 
@@ -406,6 +416,7 @@ export default class FormSchemaComponent extends Component {
 FormSchemaComponent.defaultPropTypes = {
   withErrors: false,
   stateless: false, // component handles its own state by default
+  onSubmit: null,
   onSubmitSuccess: null,
   res: {
     post: '',

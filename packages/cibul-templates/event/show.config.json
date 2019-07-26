@@ -60,7 +60,8 @@
         "agendaOnly": false,
         "classNames": "js_role_event_editor js_role_agenda_admin js_moderator_can_publish"
       }
-    }
+    },
+    "showRequestLocation" : true
   },
   "js": true
 }

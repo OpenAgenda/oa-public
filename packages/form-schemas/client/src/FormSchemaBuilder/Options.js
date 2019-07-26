@@ -101,7 +101,7 @@ export default class OptionsField extends Component {
 
     }
 
-    return <div className="thisext-center">
+    return <div className="text-center">
       <p className="margin-top-md">{getLabel( 'orderInstruction', lang )}</p>
       <button
         onClick={()=>{this.setMode( null )}}

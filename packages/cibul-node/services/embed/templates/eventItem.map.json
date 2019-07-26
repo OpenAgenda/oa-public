@@ -45,6 +45,10 @@
       "name": "City"
     },
     {
+      "mapTo" : "location.district",
+      "name" : "District"
+    },
+    {
       "mapTo" : "location.description",
       "name" : "LocationDescription"
     },
@@ -156,7 +160,7 @@
           "mapTo" : "slug"
         } ]
       } ]
-    }, 
+    },
     {
       "mapTo": "tags",
       "name": "Tags",

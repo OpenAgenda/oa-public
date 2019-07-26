@@ -2,31 +2,37 @@
 
 const async = require( 'async' );
 const _ = require( 'lodash' );
-const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
+
+const formSchemaDecorate = require( '@openagenda/form-schemas/iso/getDecorate' );
 const mails = require( '@openagenda/mails' );
 const sessions = require( '@openagenda/sessions' );
-const formSchemasSvc = require( '@openagenda/form-schemas' );
-const customSvc = require( '@openagenda/custom' );
-const formSchemaDecorate = require( '@openagenda/form-schemas/iso/getDecorate' );
+
+const getActionLabel = require( '@openagenda/labels' )(
+  require( '@openagenda/labels/event/actions' )
+);
+const log = require( '@openagenda/logs' )( 'event/actions' );
+
+const core = require( '../core' );
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const eventSvc = require( '../services/event' );
 const model = require( '../services/model' );
-const modLib = require( '../lib/moduleLib' );
-const gaTrack = require( '../lib/gaTrackMw' );
+const gaTrack = require( '../lib/gaTrack.mw' );
 
-const routes = {
+module.exports = app => {
 
-  eventActionDatesShow: [ 'get', '/events/:eventSlug/action/dates', [
+  app.get(
+    '/events/:eventSlug/action/dates',
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,
     _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
     actionDatesShow
-  ] ],
+  );
 
-  agendaEventActionShow: [ 'get', '/:slug/events/:eventSlug/action', [
+  app.get(
+    '/:slug/events/:eventSlug/action',
     agendaSvc.mw.load( 'slug' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
@@ -34,9 +40,10 @@ const routes = {
     eventSvc.mw.loadUris,
     _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
     actionShow
-  ]],
+  );
 
-  agendaEventActionDatesShow: [ 'get', '/:slug/events/:eventSlug/action/dates', [
+  app.get(
+    '/:slug/events/:eventSlug/action/dates',
     agendaSvc.mw.load( 'slug' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
@@ -44,43 +51,25 @@ const routes = {
     eventSvc.mw.loadUris,
     _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
     actionDatesShow
-  ] ],
+  );
 
-  agendaEventMailSend: [ 'post', '/:slug/events/:eventSlug/email', [
+  app.post(
+    '/:slug/events/:eventSlug/email',
     agendaSvc.mw.load( 'slug' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,
     eventMailSend
-  ] ],
+  );
 
-  agendaEventIcsShow: [ 'get', '/:slug/events/:eventSlug/ics', [
+  app.get(
+    '/:slug/events/:eventSlug/ics',
     agendaSvc.mw.load( 'slug' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.ics
-  ] ],
-
-  eventMailSend: [ 'post', '/events/:eventSlug/email', [
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.format,
-    eventSvc.mw.loadUris,
-    eventMailSend
-  ] ]
-
-}
-
-module.exports = function( path ) {
-
-  var router = modLib.Router( routes );
-
-  router.pre( [] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
+  );
 
 };
 
@@ -169,55 +158,35 @@ function actionDatesShow( req, res ) {
 
 async function eventMailSend( req, res, next ) {
 
+  log( 'eventMailSend' );
+
   req.formatted.uri = req.eventUri;
   req.formatted.uriParams = req.eventUriParams;
 
+  let customData = null;
+
   try {
-    const formSchemaId = _.get( req, 'agenda.formSchemaId' );
-    let customData = null;
 
-    if ( formSchemaId ) {
-      const formSchema = await formSchemasSvc.get( formSchemaId );
-      const customValues = await customSvc( formSchemaId ).get( req.event.uid );
+    const data = await core.agendas( req.agenda.uid ).events.get( req.event.uid, {
+      customOnly: true,
+      includeSchema: true,
+      access: 'public',
+    } );
 
-      if ( formSchema && formSchema.fields && customValues ) {
-        customData = _.reduce(
-          formSchemaDecorate( formSchema.fields )( customValues ),
-          ( result, value, key ) => {
-            if ( value === null ) {
-              return result;
-            }
+    customData = formSchemaDecorate( _.get( data, 'schema.fields', [] ) )( data.event, {
+      labelsAsKeys: true,
+      labelsAsValues: true,
+      ignoreNonArrayObjects: true,
+      lang: req.lang,
+    } );
 
-            try {
+  } catch ( e ) {
 
-              const getLocaleLabel = field => field.label[ req.lang ] || field.label[ Object.keys( field.label )[ 0 ] ];
-              const fieldSchema = _.find( formSchema.fields, [ 'field', key ] );
-              const label = getLocaleLabel( fieldSchema );
+    console.log( e );
 
-              return {
-                ...result,
-                [ label ]: typeof value !== 'object'
-                  ? value
-                  : Array.isArray( value )
-                    ? value.map( getLocaleLabel )
-                    : getLocaleLabel( value )
-              };
+  }
 
-            } catch ( error ) {
-
-              req.log( 'error', 'Cannot retrieve the label for the field:', {
-                agenda: req.agenda,
-                key, value, error
-              } );
-
-              return result;
-
-            }
-          },
-          {}
-        );
-      }
-    }
+  try {
 
     const emails = ( typeof req.body.mailsend === 'string' ? req.body.mailsend : '' ).split( /[\s;,\n\r]+/ );
 
@@ -238,6 +207,8 @@ async function eventMailSend( req, res, next ) {
       { slug: req.agenda.slug, eventSlug: req.event.slug },
       { abs: true, protocol: 'https://' }
     );
+
+    log( 'info', 'queuing event mails for %s', emails.join( '|' ), emails.length );
 
     await mails( {
       template: 'event',
@@ -273,8 +244,9 @@ async function eventMailSend( req, res, next ) {
 
     gaTrack.batch( new Array( emails.length ).fill( [ 'event', 'share', 'email' ] ) )( req );
 
-    sessions.setFlash( req, res, __( 'eventEmailSend', { 'count' : emails.length } ) );
+    sessions.setFlash( req, res, getActionLabel( 'eventEmailSend', { count: emails.length }, req.lang ) );
     res.redirect( 302, req.genUrl( req.eventUri, req.eventUriParams ) );
+
   } catch ( err ) {
     return next( err );
   }

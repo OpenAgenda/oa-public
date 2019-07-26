@@ -78,6 +78,7 @@ function updateResponse( req, res ) {
 function show( req, res ) {
 
   return res.send( layout( '<div class="js_canvas"></div>', {
+    role: req.role,
     lang: req.lang,
     agenda: req.agenda,
     bodyAttributes: [ {

@@ -78,6 +78,12 @@
                   <option value="de" <%= typeof culture !== 'undefined' && culture === 'de' ? 'selected' : '' %>>
                     Deutsch
                   </option>
+                  <option value="es" <%= typeof culture !== 'undefined' && culture === 'es' ? 'selected' : '' %>>
+                    Español
+                  </option>
+                  <option value="br" <%= typeof culture !== 'undefined' && culture === 'br' ? 'selected' : '' %>>
+                    Brezhoneg
+                  </option>
                 </select>
                 <% if ( errors.culture ) { %>
                   <span class="text-danger"><%= __( errors.culture ) %></span>

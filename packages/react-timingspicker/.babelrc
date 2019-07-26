@@ -1,0 +1,19 @@
+{
+  "presets": [
+    [
+      "openagenda",
+      {
+        "modules": "commonjs"
+      }
+    ]
+  ],
+  "plugins": [
+    [
+      "react-intl",
+      {
+        "messagesDir": "./dist/messages/"
+      }
+    ]
+  ],
+  "sourceType": "unambiguous"
+}

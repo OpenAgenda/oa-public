@@ -40,6 +40,11 @@ module.exports = {
     link: '/simplewithhelp',
     group: 'getting-started'
   }, {
+    name: 'Per-field access control',
+    description: 'Fields are displayed depending on the role of the viewer',
+    link: '/access',
+    group: 'getting-started'
+  }, {
     name: 'A form',
     description: 'This is the dev app before it was split. It shows a form with mixed fields',
     link: '/form',
@@ -80,8 +85,13 @@ module.exports = {
     link: '/html',
     group: 'types'
   }, {
+    name: 'A set of integer fields',
+    description: 'A field for typing an integer',
+    link: '/integer',
+    group: 'types'
+  }, {
     name: 'A set of number fields',
-    description: 'A field for typing a number or an integer',
+    description: 'A field for typing a number',
     link: '/number',
     group: 'types'
   }, {
@@ -160,5 +170,15 @@ module.exports = {
     name: 'Options',
     description: 'For when you need to type in values for checkbox or radio lists',
     link: '/options'
+  }, {
+    group: 'builder',
+    name: 'A form builder with a loaded Radio field',
+    description: 'Monolingual and multilingual radio field option labels should be displayed',
+    link: '/formbuilderwithradios'
+  }, {
+    group: 'builder',
+    name: 'A form builder with a custom field type',
+    description: 'When a field type does not have a defined field schema, only labels can be edited',
+    link: '/formbuilderwithunhandledtypes'
   } ]
 }

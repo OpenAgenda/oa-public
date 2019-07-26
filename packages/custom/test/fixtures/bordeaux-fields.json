@@ -362,10 +362,16 @@
     "write": "contributor",
     "read": null,
     "optional": true,
-    "origin": "tags",
+    "origin": null,
     "min": null,
     "max": null,
-    "options": [],
+    "options": [ {
+      "id": 61,
+      "value": "une-valeur",
+      "label": {
+        "fr": "Une valeur"
+      }
+    } ],
     "fieldType": "checkbox"
   },
   {

@@ -3,6 +3,8 @@
 const fs = require( 'fs' );
 const sa = require( 'superagent' );
 
+const log = require( '@openagenda/logs' )( 'fetch' );
+
 module.exports = {
   fetchAndStoreEvents,
   loadEventsFromFile,
@@ -28,12 +30,16 @@ function loadEventsFromFile( file ) {
 
 async function loadAgendaDetails( agendaUid ) {
 
+  log( 'loading agenda details for %s', agendaUid );
+
   return sa.get( `https://openagenda.com/agendas/${agendaUid}/settings.json` ).then( result => result.body );
 
 }
 
 
 async function fetchAndStoreEvents( destFolder, agendaUid, query ) {
+
+  log( 'fetchAndStoreEvents for %s', agendaUid );
 
   const limit = 100;
   let offset = 0, fetched = [], events = [];
@@ -49,6 +55,8 @@ async function fetchAndStoreEvents( destFolder, agendaUid, query ) {
 
     const filePath = destFolder + '/' + agendaUid + '.events.json';
 
+    log( 'storing fetched events for %s at path %s', agendaUid, filePath );
+
     fs.writeFile( filePath, JSON.stringify( events, null, 3 ), 'utf-8', err => {
 
       if ( err ) return rj( err );
@@ -62,6 +70,8 @@ async function fetchAndStoreEvents( destFolder, agendaUid, query ) {
 }
 
 function _fetch( agendaUid, offset, limit, query ) {
+
+  log( 'fetching %s', `https://openagenda.com/agendas/${agendaUid}/events.json`, { offset, limit, query } );
 
   return sa.get( `https://openagenda.com/agendas/${agendaUid}/events.json`, {
     offset,

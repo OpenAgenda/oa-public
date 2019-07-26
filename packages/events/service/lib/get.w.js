@@ -39,7 +39,7 @@ module.exports = options => {
 
       if ( !data ) return d.reject( 'event not found' );
 
-      params.log( 'retrieved agenda of uid %s', data.uid );
+      params.log( 'retrieved event of uid %s', data.uid );
 
       v.id = data.id;
 

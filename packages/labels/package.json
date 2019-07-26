@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/labels",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "description": "The OpenAgenda labels lib. This works both for server and front labels. Label files are independent from each other and can be loaded independently - so things can remain lightweight on the front side.",
   "keywords": [],
   "author": "",
@@ -13,8 +13,8 @@
   "main": "makeLabelGetter.js",
   "scripts": {
     "test": "mocha test --exit",
-    "import-labels" : "node CSVToLabels",
-    "export-labels" : "node labelsToCSV"
+    "import-labels": "node CSVToLabels",
+    "export-labels": "node labelsToCSV"
   },
   "devDependencies": {
     "mocha": "^5.0.0",

@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const src = require( './' ),
 
   rss = require( 'rss' ),
@@ -86,7 +88,7 @@ module.exports = function( req, res ) {
 
     if ( err ) return next( err );
 
-    res.set( 'Content-Type', 'application/rss+xml' );
+    res.set( 'Content-Type', _.get( req, 'headers.user-agent', '' ).includes( 'Mozilla' ) ? 'text/xml' : 'application/rss+xml' );
 
     res.send( feed.xml() );
 

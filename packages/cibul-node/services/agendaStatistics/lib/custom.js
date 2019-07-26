@@ -7,22 +7,22 @@ const { promisify } = require( 'util' );
 
 const agendaGet = promisify( agendas.get );
 
-module.exports = async ( { agendaUid } ) => {
+module.exports = _run.bind( null, 'enqueueLegacyDatasetToCustom' );
+
+module.exports.toLegacy = _run.bind( null, 'enqueueCustomDatasetToLegacy' );
+
+async function _run( jobName, { agendaUid } ) {
 
   const agenda = await agendaGet( { uid: agendaUid }, { private: null, internal: true } );
 
   if ( !agenda ) {
-
     return { message: 'Agenda not found', uid: agendaUid };
-
   }
 
-  if ( !agenda.formSchemaId ) {
-
+  if ( !agenda.formSchemaId && !agenda.networkUid ) {
     return { message: 'Agenda is not linked with a form schema id', uid: agendaUid }
-
   }
 
-  return custom( agenda.formSchemaId ).resync( agenda.id );
+  return custom[ jobName ]( agenda.id );
 
 }

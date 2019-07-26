@@ -6,8 +6,6 @@ const tfy = require( './lib/taskify' );
 
 module.exports = () => {
 
-  tfy( require( './search/task' ), { bootOffset: 1000 } );
-
   tfy( require( './general/jobs.task' ), { bootOffset: 1000 } );
 
   tfy( require( './general/resetApiCounters.task' ), { period: 'daily', time: '00:00' } );
@@ -83,12 +81,23 @@ module.exports = () => {
 
   require( './services/legacy' ).controlData.task();
 
+  require( './core' ).tasks();
+
+  require( './services/agendaLocations' ).task();
+
 
   if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
 
-    // require( './services/elasticsearch' ).resync( { reset: false }, ( err, res ) => console.log( 'FINI', err, res ) );
+    /*require( './services/elasticsearch' ).resync( {
+      reset: false,
+      since: '2019-05-14',
+      removeZombies: false,
+      logEveryUpdate: true
+    }, ( err, res ) => console.log( 'FINI', err, res ) );*/
 
   }
+
+  //require( './services/agendaLocations' ).resync();
 
   // require( './services/agendaStatistics' ).task.resyncLegacySearch();
 

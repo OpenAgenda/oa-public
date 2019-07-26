@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import ReactDom from 'react-dom';
-import { Provider } from 'react-redux';
+import { Provider, ReactReduxContext } from 'react-redux';
 import apiClient from '@openagenda/react-utils/dist/apiClient';
 import createStore from '@openagenda/react-utils/dist/createStore';
 import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
@@ -71,7 +71,7 @@ export default function ( options ) {
   window.document.body.insertAdjacentElement( 'beforeend', appDest );
 
   return ReactDom.render(
-    <Provider store={store} key="provider">
+    <Provider store={store} key="provider" context={ReactReduxContext}>
       <Request />
     </Provider>,
     document.querySelector( '.js_call_to_action_canvas' )

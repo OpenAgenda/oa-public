@@ -1,11 +1,11 @@
 {
   "name": "@openagenda/agenda-docx",
-  "version": "1.1.2",
+  "version": "1.1.3",
   "main": "server/index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon server.dev",
+    "start": "DEBUG=agendaFiles,fetch,generateDocument nodemon server.dev",
     "dist": "webpack --config webpack.dist.js",
     "test": "jest --runInBand --forceExit",
     "cli": "node cli",
@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.4.3",
+    "@openagenda/logs": "^1.1.2",
     "angular-expressions": "^0.3.0",
     "aws-sdk": "^2.230.1",
     "core-js": "^3.0.1",
@@ -43,8 +44,8 @@
     "jest": "^23.6.0",
     "lodash-webpack-plugin": "^0.11.5",
     "nodemon": "^1.17.3",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "rimraf": "^2.6.3",
     "webpack": "^4.1.1",
     "webpack-cli": "^3.2.1",
@@ -52,8 +53,8 @@
     "webpack-hot-middleware": "^2.21.2"
   },
   "peerDependencies": {
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "jest": {
     "testEnvironment": "node",

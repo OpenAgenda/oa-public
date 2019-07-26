@@ -46,7 +46,7 @@ describe( 'form-schemas -08- unit (server): legacy custom fields', function() {
 
   it( 'select custom field to schema', () => {
 
-    parseCustomFields( { fields: [] }, _get( 'select.custom' ) );//.should.eql( _get( 'select.schema' ) );
+    parseCustomFields( { fields: [] }, _get( 'select.custom' ) ).should.eql( _get( 'select.schema' ) );
 
   } );
 

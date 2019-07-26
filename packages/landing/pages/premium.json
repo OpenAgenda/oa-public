@@ -2,7 +2,9 @@
   "keys": [
     { "lang" : "en", "key" : "premium-agenda" },
     { "lang" : "fr", "key" : "agenda-premium" },
-    { "lang" : "de", "key" : "premium-agenda-de" }
+    { "lang" : "de", "key" : "premium-agenda-de" },
+    { "lang" : "es", "key" : "premium-agenda-es" },
+    { "lang" : "br", "key" : "premium-agenda-br" }
   ],
   "head" : {
     "title": "premiumOfferHeadTitle",

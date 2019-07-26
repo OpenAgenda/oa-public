@@ -1,3 +1,5 @@
+'use strict';
+
 const path = require( 'path' );
 const _ = require( 'lodash' );
 const nodemailer = require( 'nodemailer' );
@@ -5,6 +7,10 @@ const mails = require( '../index' );
 const config = require( '../config' );
 
 const templatesDir = path.join( __dirname, '..', 'templates' );
+
+function _sleep( ms ) {
+  return new Promise( resolve => setTimeout( resolve, ms ) );
+}
 
 describe( 'task', () => {
   jest.setTimeout( 30000 );
@@ -46,7 +52,7 @@ describe( 'task', () => {
     jest.restoreAllMocks();
   } );
 
-  it( 'respect rateLimit with pool transporter', async done => {
+  it( 'respect rateLimit with pool transporter', async () => {
     const recipients = [
       'kevin.bertho@gmail.com',
       'kevin.berthommier@openagenda.com',
@@ -70,23 +76,21 @@ describe( 'task', () => {
       to: recipients
     } );
 
-    let idleCounter = 0;
-    config.transporter.on( 'idle', () => {
-      idleCounter += 1;
-
-      if ( spy.mock.calls.length === 9 ) {
-        expect( _.map( spy.mock.calls, '[0].to.address' ) ).toEqual( recipients );
-        expect( idleCounter ).toBe( 9 );
-        expect( Date.now() - start ).toBeGreaterThan( ( recipients.length - 1 ) * 300 );
-        done();
-      }
-    } );
-
     expect( results ).toHaveLength( 9 );
     expect( errors ).toHaveLength( 0 );
+
+    while ( true ) {
+      if ( spy.mock.calls.length === 9 ) {
+        expect( _.map( spy.mock.calls, '[0].to.address' ) ).toEqual( recipients );
+        expect( Date.now() - start ).toBeGreaterThan( recipients.length * 300 );
+        break;
+      }
+
+      await _sleep( 50 );
+    }
   } );
 
-  it( 'send a mail with an error don\'t send anything', async () => {
+  it( "send a mail with an error don't send anything", async () => {
     const spy = jest.spyOn( config.transporter, 'sendMail' );
 
     const { results, errors } = await mails( {
@@ -94,7 +98,7 @@ describe( 'task', () => {
       to: 'kevin.bertho@@gmail'
     } );
 
-    expect( spy.mock.calls.length ).toBe( 0 );
+    expect( spy.mock.calls ).toHaveLength( 0 );
     expect( results ).toHaveLength( 0 );
     expect( errors ).toHaveLength( 1 );
   } );

@@ -12,9 +12,6 @@ import GroupTagSelector from '@openagenda/react-form-components/build/GroupTagSe
 import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader';
 import InputField from '@openagenda/react-form-components/build/InputField';
 import LanguageBar from '@openagenda/react-form-components/build/LanguageBar';
-import Translation from '@openagenda/react-form-components/build/Translation';
-import reverso from '@openagenda/translators/dist/reverso';
-import translationLabels from '@openagenda/labels/event/translation';
 import MultiInputField from '@openagenda/react-form-components/build/MultiInputField';
 import MultilingualInputField from '@openagenda/react-form-components/build/MultilingualInputField';
 import post from '@openagenda/utils/post';
@@ -77,9 +74,7 @@ module.exports = createReactClass( {
     alternatives: PropTypes.array,
 
     // hide alternative when loaded in current values
-    hideCurrentAlternative: PropTypes.bool,
-
-    disableAutoTranslation: PropTypes.bool
+    hideCurrentAlternative: PropTypes.bool
 
   },
 
@@ -94,7 +89,6 @@ module.exports = createReactClass( {
       labels: {},
       alternatives: [],
       hideCurrentAlternative: false,
-      disableAutoTranslation: false,
       disableNoAlternatives: false,
       displayLanguageTabs: true
     }
@@ -113,12 +107,6 @@ module.exports = createReactClass( {
     } );
 
     let initialState = this.actions.initialize( this.props );
-
-    if ( this.useTranslator() ) {
-
-      this.translator = reverso( JSON.parse( base64.decode( this.props.settings.translation.options ) ) );
-
-    }
 
     return initialState;
 
@@ -565,52 +553,31 @@ module.exports = createReactClass( {
     // if stuff is given in args, we need to do a partial update only
     let { data, partial } = this.getSetType( arguments );
 
-    // if translation is set and set is full or multilingual field is to be set,
+    try {
 
-    // clean the location before sending.
-    // no use sending if unclean; just smear it back
-    // in users face.
+      clean = validate( data, this.props.settings, partial );
 
+    } catch ( e ) {
 
-    this.translate( data, partial, ( err, translationError, translatedData ) => {
+      errors = e;
 
-      if ( err ) {
+    }
 
-        console.log( 'translation failed: %s', err );
+    if ( errors ) {
 
-        translatedData = data;
+      return this.actions.setError( errors );
 
-      }
+    }
 
-      try {
+    if ( partial || !this.isNew() ) {
 
-        clean = validate( translatedData, this.props.settings, partial );
+      clean.uid = this.state.location.uid;
 
-      } catch ( e ) {
+    }
 
-        errors = e;
+    this.actions.setStart( this.getLabel( 'saving' ) );
 
-      }
-
-      if ( errors ) {
-
-        return this.actions.setError( errors );
-
-      }
-
-      if ( partial || !this.isNew() ) {
-
-        clean.uid = this.state.location.uid;
-
-      }
-
-      this.actions.setStart( translationError ? translationLabels.savingPartialTranslation[ this.props.lang ] : this.getLabel( 'saving' ) );
-
-      setTimeout( () => {
-        this.post( partial, clean )
-      }, translationError ? 2000 : 0 );
-
-    } );
+    this.post( partial, clean );
 
   },
 
@@ -665,59 +632,6 @@ module.exports = createReactClass( {
     }
 
     return { data, partial };
-
-  },
-
-  translate( data, partial, cb ) {
-
-    let translatableData = {};
-
-    if ( !this.useTranslator() ) {
-
-      return cb( null, false, data );
-
-    }
-
-    // assemble data to translate
-    [ 'description', 'access' ]
-
-      .filter( f => data[ f ] && data[ f ][ this.state.translation.source ] && data[ f ][ this.state.translation.source ].length )
-
-      .forEach( f => {
-
-        translatableData[ f ] = data[ f ][ this.state.translation.source ];
-
-      } );
-
-    if ( !Object.keys( translatableData ).length ) {
-
-      return cb( null, false, data );
-
-    }
-
-    this.actions.startPageSpin( translationLabels.processingTranslation[ this.props.lang ] );
-
-    let set = this.state.translation.sets.filter( s => s.source === this.state.translation.source )[ 0 ];
-
-    this.translator( translatableData, this.state.translation.source, set.checked, ( err, translatedData, translateErrors ) => {
-
-      this.actions.stopPageSpin();
-
-      if ( err ) return cb( err );
-
-      Object.keys( translatedData ).forEach( field => {
-
-        Object.keys( translatedData[ field ] ).forEach( l => {
-
-          data[ field ][ l ] = translatedData[ field ][ l ];
-
-        } );
-
-      } );
-
-      cb( null, !!translateErrors, data );
-
-    } );
 
   },
 
@@ -1040,6 +954,18 @@ module.exports = createReactClass( {
         bottom={this.renderAlternative( 'website' )}
         validator={validate.field( 'website' )} />
 
+      <InputField
+        name='email'
+        enabled={this.isFieldEnabled( 'email' )}
+        value={this.state.location.email}
+        getLabel={this.getLabel}
+        lang={this.props.lang}
+        info="emailInfo"
+        placeholder="emailPlaceholder"
+        onChange={this.onChange}
+        bottom={this.renderAlternative( 'email' )}
+        validator={validate.field( 'email' )} />
+
       <MultiInputField
         name="links"
         enabled={this.isFieldEnabled( 'links' )}
@@ -1067,12 +993,6 @@ module.exports = createReactClass( {
         : null}
 
     </div>
-
-  },
-
-  useTranslator() {
-
-    return this.props.detailedInfo && this.props.settings.translation && this.props.settings.translation.enabled && !this.props.disableAutoTranslation;
 
   },
 
@@ -1147,8 +1067,13 @@ module.exports = createReactClass( {
 
       {this.props.showToggler ? <StateToggler
         locationState={this.state.location.state}
-        set={this.set}
-        getLabel={this.getLabel} /> : null}
+        onChange={state => this.setState( {
+          location: update( this.state.location, {
+            state: { $set: state }
+          } )
+        } ) }
+        getLabel={this.getLabel}
+      /> : null}
 
       <InputField
         name="name"
@@ -1205,18 +1130,6 @@ module.exports = createReactClass( {
       </div>
 
       {this.props.detailedInfo ? this.renderDetailedInfo() : ''}
-
-      {this.useTranslator() ?
-        <Translation
-          source={this.state.translation.source}
-          sets={this.state.translation.sets}
-          check={this.actions.checkLanguage.bind( null, true )}
-          uncheck={this.actions.checkLanguage.bind( null, false )}
-          sourceChange={this.actions.sourceLanguageChange.bind( null )}
-          labels={flattenLabels( _.extend( translationLabels, {
-            info: _.get( this.props, 'settings.labels.translationInfo', translationLabels.translationInfo )
-          } ), this.props.lang )}
-        /> : null}
 
       { this.props.detailedInfo && ( this.state.location.extId || this.state.showExtIdInput ? <InputField
         name='extId'

@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-stakeholders",
-  "version": "2.1.2",
+  "version": "2.1.4",
   "description": "",
   "main": "dist/service/index.js",
   "scripts": {

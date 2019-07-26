@@ -4,7 +4,7 @@
       <% if ( agenda.image ) { %>
       <div class="col-sm-2 avatar-container">
         <a href="/<%= agenda.slug %>">
-          <img class="avatar" src="//cibul.s3.amazonaws.com/<%= agenda.image %>" alt="<%= agenda.title %>">
+          <img class="avatar" src="<%= agenda.image %>" alt="<%= agenda.title %>">
         </a>
       </div>
       <% } %>

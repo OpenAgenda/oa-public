@@ -2,7 +2,9 @@
   "keys" : [
     { "lang" : "en", "key" : "contact-us" },
     { "lang" : "fr", "key" : "contactez-nous" },
-    { "lang" : "de", "key" : "kontaktiere-uns" }
+    { "lang" : "de", "key" : "kontaktiere-uns" },
+    { "lang" : "es", "key" : "contactos" },
+    { "lang" : "br", "key" : "contactez-nous-br" }
   ],
   "head" : {
     "title" : "contactHeadTitle",
@@ -11,9 +13,9 @@
   "title": "contactTitle",
   "description": "contactDescription",
   "layout": "layout",
-  "segments": [ "pipedrive", {
+  "segments": [ {
     "key" : "contact",
-    "background" : "gray",
+    "background" : "white",
     "action" : false
   }, "footer" ]
 }

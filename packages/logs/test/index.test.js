@@ -150,8 +150,7 @@ describe( 'logs', () => {
       sinon.assert.calledWith(
         spy.getCall( 2 ),
         'error',
-        'On a eu une erreur: Error: Une erreur ici !',
-        {}
+        sinon.match( 'On a eu une erreur: Error: Une erreur ici !' )
       );
 
     } );
@@ -409,7 +408,7 @@ describe( 'logs', () => {
       sinon.assert.calledWith(
         spy.getCall( 2 ),
         'error',
-        'On a eu une erreur: Error: Une erreur ici !',
+        sinon.match( 'On a eu une erreur: Error: Une erreur ici !' ),
         { namespace: 'test-5', test: 789 }
       );
 

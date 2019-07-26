@@ -3,5 +3,6 @@
   "phone": "+33 (0)6 50 91 00 12",
   "email": "gaetan@cibul.net",
   "position": "Test user",
-  "organisation": "OpenAgenda Corp."
+  "organisation": "OpenAgenda Corp.",
+  "role" : "contributor"
 }

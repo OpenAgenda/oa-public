@@ -23,12 +23,6 @@ class Main extends Component {
           label: 'Type a number',
           max: 100,
           min: 50
-        }, {
-          field: 'anintegerfield',
-          fieldType: 'integer',
-          label: 'Type an integer',
-          max: 100,
-          min: 50
         } ]
       }
     }

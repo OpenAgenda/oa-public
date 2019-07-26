@@ -1,0 +1,991 @@
+{
+  "id" : 981,
+  "nextOptionId": 31,
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "fields": [
+    {
+      "field": "periodicity",
+      "label": {
+        "fr": "Périodicité",
+        "en": "Periodicity"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 1,
+          "value": "annual",
+          "label": {
+            "fr": "Annuel (une fois par an)",
+            "en": "Annual (once a year)"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 2,
+          "value": "biannual",
+          "label": {
+            "en": "Biannual (twice a year)",
+            "fr": "Bi-Annuel (deux fois par an)"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 3,
+          "value": "biennal",
+          "label": {
+            "en": "Biennal (once every two years)",
+            "fr": "Biennal (une fois tous les 2 ans)"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 4,
+          "value": "triennal",
+          "label": {
+            "en": "Triennal (once every three years)",
+            "fr": "Triennal (une fois tous les 3 ans)"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 5,
+          "value": "quinquennal",
+          "label": {
+            "en": "Quinquennal (once every five years)",
+            "fr": "Quinquennal (une fois tous les 5 ans)"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "radio"
+    },
+    {
+      "field": "visitortypes",
+      "label": {
+        "fr": "Type de visiteurs",
+        "en": "Type of visitors"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 6,
+          "value": "opentopublic",
+          "label": {
+            "fr": "Ouvert au public",
+            "en": "Open to the public"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 7,
+          "value": "professionalsonly",
+          "label": {
+            "fr": "Réservé aux professionnels",
+            "en": "Professionals only"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 8,
+          "value": "mixed",
+          "label": {
+            "fr": "Mixte",
+            "en": "Mixed"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "radio"
+    },
+    {
+      "field": "year",
+      "label": {
+        "fr": "Edition",
+        "en": "Edition"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "integer"
+    },
+    {
+      "field": "siteurl",
+      "label": {
+        "fr": "Url du site web",
+        "en": "Website url"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 300,
+      "fieldType": "text"
+    },
+    {
+      "field": "organizeremail",
+      "label": {
+        "fr": "Email de l’organisateur (info@ du salon)",
+        "en": "Email of the organizer (info@ of the exhibition)"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
+    },
+    {
+      "field": "salesemail",
+      "label": {
+        "fr": "Email contact commercial",
+        "en": "Email of the Sales Service"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
+    },
+    {
+      "field": "nomenclature",
+      "label": {
+        "fr": "Produits et services",
+        "en": "Products and services"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 3000,
+      "languages" : [],
+      "fieldType": "textarea"
+    },
+    {
+      "field": "visitorprofiles",
+      "label": {
+        "fr": "Profils des visiteurs",
+        "en": "Visitor profiles"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 1000,
+      "languages" : [],
+      "fieldType": "textarea"
+    },
+    {
+      "field": "ojs",
+      "label": {
+        "fr": "Chiffres certifiés OJS",
+        "en": "OJS-certified numbers"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 9,
+          "value": "true",
+          "label": {
+            "fr": "Case à cocher si chiffres certifiés OJS",
+            "en": "OJS-certified numbers"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "checkbox"
+    },
+    {
+      "field": "totalnumberofvisitors",
+      "label": {
+        "fr": "N-1 - Nombre total de visiteurs",
+        "en": "N-1 - Total number of visitors"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "integer"
+    },
+    {
+      "field": "brandcount",
+      "label": {
+        "fr": "Nombre de marques (Session N-1)",
+        "en": "Brand count (Session N-1)"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "integer"
+    },
+    {
+      "field": "attendance",
+      "label": {
+        "fr": "Fréquentation  (Session N-1)",
+        "en": "Attendance  (Session N-1)"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "integer"
+    },
+    {
+      "field": "totalnumberexhibitors",
+      "label": {
+        "fr": "N-1 - Nombre total d'exposants",
+        "en": "N-1 - Total number of exhibitors"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "integer"
+    },
+    {
+      "field": "partner",
+      "label": {
+        "fr": "Syndicat/Fédération propriétaire du salon",
+        "en": "Syndicate/Federation exhibition owner"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 300,
+      "fieldType": "text"
+    },
+    {
+      "field": "partnerurl",
+      "label": {
+        "fr": "Site web du Syndicat/Fédération propriétaire du salon",
+        "en": "Website of the Syndicate/Federation exhibition owner"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
+    },
+    {
+      "field": "organizername",
+      "label": {
+        "fr": "Nom de la société organisatrice",
+        "en": "Name of the organizing company"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 200,
+      "fieldType": "text"
+    },
+    {
+      "field": "organizerurl",
+      "label": {
+        "fr": "Url de l'organisateur",
+        "en": "Url of the organizer"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
+    },
+    {
+      "field": "facebookurl",
+      "label": {
+        "fr": "Lien page Facebook",
+        "en": "Facebook page link"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 300,
+      "fieldType": "text"
+    },
+    {
+      "field": "twitterurl",
+      "label": {
+        "fr": "Lien compte Twitter",
+        "en": "Twitter account link"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 300,
+      "fieldType": "text"
+    },
+    {
+      "field": "flickrurl",
+      "label": {
+        "fr": "Galerie Flickr",
+        "en": "Flickr Gallery"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 300,
+      "fieldType": "text"
+    },
+    {
+      "field": "instagramurl",
+      "label": {
+        "fr": "Instagram",
+        "en": "Instagram"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 300,
+      "fieldType": "text"
+    },
+    {
+      "field": "pinteresturl",
+      "label": {
+        "fr": "Pinterest",
+        "en": "Pinterest"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 300,
+      "fieldType": "text"
+    },
+    {
+      "field": "youtubeurl",
+      "label": {
+        "fr": "Youtube",
+        "en": "Youtube"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 300,
+      "fieldType": "text"
+    },
+    {
+      "field": "linkedinurl",
+      "label": {
+        "fr": "LinkedIn",
+        "en": "LinkedIn"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 300,
+      "fieldType": "text"
+    },
+    {
+      "field": "testimony",
+      "label": {
+        "fr": "Témoignage",
+        "en": "Testimony"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": {
+        "fr": "Merci d'ajouter du texte et non des liens!",
+        "en": "Thank you for adding text rather than links!"
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "languages" : [],
+      "fieldType": "textarea"
+    },
+    {
+      "field": "imagetestimony",
+      "label": {
+        "fr": "Url image témoignages",
+        "en": "Url of image of testimonies"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
+    },
+    {
+      "field": "authortestimony",
+      "label": {
+        "fr": "Auteur du témoignage",
+        "en": "Author of the testimony"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
+    },
+    {
+      "field": "illustrationurl",
+      "label": {
+        "fr": "Photo d'illustration",
+        "en": "Illustration photo"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": {
+        "fr": "Collez un lien pointant vers l'illustration",
+        "en": "Paste an url pointing to the illustration"
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text"
+    },
+    {
+      "field": "illustration",
+      "label": {
+        "fr": "Photo d'illustration",
+        "en": "Partner illustration"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": {
+        "fr": "Chargez l'illustration utilisée sur le champ précédent",
+        "en": "Load the image used in the previous field"
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "extensions": ["jpg","bmp","png"],
+      "store": {
+        "type": "s3",
+        "bucket": "cibul"
+      },
+      "fieldType": "image"
+    },
+    {
+      "field": "category-group",
+      "label": {
+        "fr": "Tags"
+      },
+      "help": null,
+      "helpLink": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "categories",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 10,
+          "value": "art",
+          "label": {
+            "fr": "Art"
+          }
+        },
+        {
+          "id": 11,
+          "value": "audiovisueldivertissement",
+          "label": {
+            "fr": "Audiovisuel/Divertissement"
+          }
+        },
+        {
+          "id": 12,
+          "value": "batimentconstruction",
+          "label": {
+            "fr": "Bâtiment/Construction"
+          }
+        },
+        {
+          "id": 13,
+          "value": "bijouterie",
+          "label": {
+            "fr": "Bijouterie"
+          }
+        },
+        {
+          "id": 14,
+          "value": "edition",
+          "label": {
+            "fr": "Edition"
+          }
+        },
+        {
+          "id": 15,
+          "value": "energies",
+          "label": {
+            "fr": "Energies"
+          }
+        },
+        {
+          "id": 16,
+          "value": "environnement",
+          "label": {
+            "fr": "Environnement"
+          }
+        },
+        {
+          "id": 17,
+          "value": "franchise",
+          "label": {
+            "fr": "Franchise"
+          }
+        },
+        {
+          "id": 18,
+          "value": "hotellerierestauration",
+          "label": {
+            "fr": "Hôtellerie/Restauration"
+          }
+        },
+        {
+          "id": 19,
+          "value": "impressioncommunication-visuelle",
+          "label": {
+            "fr": "Impression/Communication visuelle"
+          }
+        },
+        {
+          "id": 20,
+          "value": "ingenierieproductiontransformation",
+          "label": {
+            "fr": "Ingénierie/Production/Transformation"
+          }
+        },
+        {
+          "id": 21,
+          "value": "maisondecoration",
+          "label": {
+            "fr": "Maison/Décoration"
+          }
+        },
+        {
+          "id": 22,
+          "value": "marketingservices",
+          "label": {
+            "fr": "Marketing/Services"
+          }
+        },
+        {
+          "id": 23,
+          "value": "nouvelles-technologies",
+          "label": {
+            "fr": "Nouvelles technologies"
+          }
+        },
+        {
+          "id": 24,
+          "value": "services",
+          "label": {
+            "fr": "Services"
+          }
+        },
+        {
+          "id": 25,
+          "value": "sportloisirs",
+          "label": {
+            "fr": "Sport/Loisirs"
+          }
+        },
+        {
+          "id": 26,
+          "value": "sante",
+          "label": {
+            "fr": "Santé"
+          }
+        },
+        {
+          "id": 27,
+          "value": "securitesurete",
+          "label": {
+            "fr": "Sécurité/Sûreté"
+          }
+        },
+        {
+          "id": 28,
+          "value": "transportdistribution",
+          "label": {
+            "fr": "Transport/Distribution"
+          }
+        },
+        {
+          "id": 29,
+          "value": "tourisme",
+          "label": {
+            "fr": "Tourisme"
+          }
+        },
+        {
+          "id": 30,
+          "value": "divers",
+          "label": {
+            "fr": "Divers"
+          }
+        }
+      ],
+      "fieldType": "radio"
+    },
+    {
+      "field" : "languages",
+      "fieldType" : "abstract",
+      "required" : [ "fr", "en" ]
+    },
+    {
+      "field" : "title",
+      "fieldType" : "abstract"
+    },
+    {
+      "field" : "description",
+      "fieldType" : "abstract"
+    },
+    {
+      "field" : "keywords",
+      "fieldType" : "abstract"
+    },
+    {
+      "field" : "longDescription",
+      "fieldType" : "abstract"
+    },
+    {
+      "field" : "conditions",
+      "fieldType" : "abstract"
+    },
+    {
+      "field" : "registration",
+      "label" : {
+        "fr" : "Outils d’inscription (Pré-enregistrement)",
+        "en" : "Registration tools"
+      },
+      "fieldType" : "abstract"
+    },
+    {
+      "field" : "accessibility",
+      "fieldType" : "abstract"
+    },
+    {
+      "field" : "age",
+      "fieldType" : "abstract"
+    },
+    {
+      "field" : "location",
+      "fieldType" : "abstract"
+    },
+    {
+      "field" : "timings",
+      "fieldType" : "abstract"
+    }
+  ]
+}

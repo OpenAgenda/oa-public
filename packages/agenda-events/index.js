@@ -16,7 +16,15 @@ const endpoints = {
   validate: require( './iso/validate' )
 }
 
-module.exports = agendaId => _.mapValues( endpoints, e => e.bind( null, agendaId ) );
+const stats = require( './service/stats' );
+
+module.exports = agendaUid => {
+
+  return _.assign( _.mapValues( endpoints, e => e.bind( null, agendaUid ) ), {
+    stats: _.mapValues( stats, ( e, k ) => k !== 'init' ? e.bind( null, agendaUid ) : e )
+  } );
+
+}
 
 module.exports.states = require( './iso/states' );
 
@@ -54,6 +62,8 @@ module.exports.init = c => {
   } );
 
   Object.keys( endpoints ).forEach( e => endpoints[ e ].init ? endpoints[ e ].init( config, client, module.exports ) : null );
+
+  stats.init( config, client );
 
   Object.keys( module.exports.tasks ).forEach( k => module.exports.tasks[ k ].init( config, client, module.exports ) );
 

@@ -61,6 +61,7 @@ describe( 'form actions', () => {
         description: undefined,
         access: undefined,
         phone: undefined,
+        email: undefined,
         website: undefined
       },
       autoGeocode: true,
@@ -77,6 +78,7 @@ describe( 'form actions', () => {
         address: 1,
         description: 1,
         access: 1,
+        email: 1,
         phone: 1,
         website: 1,
         latitude: 1,

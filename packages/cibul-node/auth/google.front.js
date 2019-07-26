@@ -1,87 +1,53 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const w = require( 'when' );
+const sessions = require( '@openagenda/sessions' );
+const cmn = require( '../lib/commons-app' );
+const pLib = require( './lib/passport' );
+const auth = require( './lib/auth' )( 'google' );
+const genUrl = require( '../services/genUrl' );
+const agendaSvc = require( '../services/agenda' );
+const config = require( '../config' );
 
-const modLib = require( '../lib/moduleLib' ),
+const googleOptions = {
+  clientID: _.get( config, 'auth.google.id' ),
+  clientSecret: _.get( config, 'auth.google.secret' ),
+  passReqToCallback: true
+};
 
-  cmn = require( '../lib/commons-app' ),
+const preMw = [
+  agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
+  cmn.loadBaseData( auth.layoutData, 'oa.css' ),
+  sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
+];
 
-  config = require( '../config' ),
 
-  lib = require( '../lib/lib' ),
+module.exports = app => {
 
-  pLib = require( './lib/passport' ),
+  if ( _.get( config, 'auth.google.id' ) ) {
+    pLib.loadStrategy( 'google', 'passport-google-oauth', 'OAuth2Strategy' );
 
-  auth = require( './lib/auth' )( 'google' ),
+    pLib.use( 'google-signin', 'google', {
+      callbackURL: genUrl.abs( 'googleSigninCallback' ),
+      ...googleOptions
+    }, _loadGoogleProfile );
 
-  genUrl = require( '../services/genUrl' ),
-
-  agendaSvc = require( '../services/agenda' ),
-
-  w = require( 'when' ),
-
-  routes = {
-    googleSignin: [ 'get', '/google/signin', signin ],
-    agendaGoogleSignin: [ 'get', '/:slug/google/signin', signin ],
-    googleSigninCallback: [ 'get', '/google/signin/callback', auth.serviceCallback( auth.process( 'google', 'signin' ) ) ],
-    googleSignup: [ 'get', '/google/signup', signup ],
-    agendaGoogleSignup: [ 'get', '/:slug/google/signup', signup ],
-    googleSignupCallback: [ 'get', '/google/signup/callback', auth.serviceCallback( auth.process( 'google', 'signup' ) ) ]
-  },
-
-  sessions = require( '@openagenda/sessions' );
-
-module.exports = function( path ) {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
-    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
-  ] );
-
-  return {
-    load: load( router, path ),
-    paths: modLib.getPaths( path, routes )
+    pLib.use( 'google-signup', 'google', {
+      callbackURL: genUrl.abs( 'googleSignupCallback' ),
+      ...googleOptions
+    }, _loadGoogleProfile );
   }
 
-}
+  app.get( '/google/signin', preMw, signin );
+  app.get( '/:slug/google/signin', preMw, signin );
+  app.get( '/google/signin/callback', preMw, auth.serviceCallback( auth.process( 'google', 'signin' ) ) );
 
-function load( router, path ) {
+  app.get( '/google/signup', preMw, signup );
+  app.get( '/:slug/google/signup', preMw, signup );
+  app.get( '/google/signup/callback', preMw, auth.serviceCallback( auth.process( 'google', 'signup' ) ) );
 
-  const id = _.get( config, 'auth.google.id' );
-
-  const googleOptions = {
-    clientID: id,
-    clientSecret: _.get( config, 'auth.google.secret' ),
-    passReqToCallback: true
-  };
-
-  return function( app ) {
-
-    if ( id ) {
-
-      pLib.loadStrategy( 'google', 'passport-google-oauth', 'OAuth2Strategy' );
-
-      pLib.use( 'google-signin', 'google', _.extend( {
-        callbackURL: genUrl.abs( 'googleSigninCallback' )
-      }, googleOptions ), _loadGoogleProfile );
-
-      pLib.use( 'google-signup', 'google', _.extend( {
-        callbackURL: genUrl.abs( 'googleSignupCallback' )
-      }, googleOptions ), _loadGoogleProfile );
-
-    }
-
-    return router.load( path )( app );
-
-  }
-
-}
-
-
-
+};
 
 
 /**

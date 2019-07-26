@@ -116,6 +116,8 @@ function _search( k, query, options ) {
 
   if ( query.uid ) k.whereIn( 'uid', query.uid );
 
+  if ( query.networkUid ) k.where( 'network_uid', query.networkUid );
+
   if ( query.updatedAtGreaterThan ) {
 
     k.where( 'updated_at', '>', query.updatedAtGreaterThan );

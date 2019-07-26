@@ -6,20 +6,26 @@ const should = require( 'should' );
 
 describe( 'extended events - functional (iso): getDecorate', () => {
 
-  it( 'returns a decorated object', () => {
+  let decorate;
 
-    const decorate = getDecorate( [ {
+  before( () => {
+
+    decorate = getDecorate( [ {
       field: 'atextfield',
       label: { fr: 'Un champ texte' },
       fieldType: 'text',
     }, {
       field: 'anotherfield',
-      label: { fr: 'Un nombre' },
+      label: {
+        en: 'A number',
+        fr: 'Un nombre'
+      },
       fieldType: 'number',
       min: 2,
     }, {
       field: 'andanotherfield',
       label: {
+        en: 'A choice',
         fr: 'Un choix',
       },
       fieldType: 'radio',
@@ -34,29 +40,52 @@ describe( 'extended events - functional (iso): getDecorate', () => {
       } ],
     }, {
       field: 'multiplechoicefield',
-      label: { fr: 'Ok' },
+      label: {
+        en: 'A multiple choice',
+        fr: 'Un choix multiple'
+      },
       fieldType: 'checkbox',
       options: [ {
         id: 789,
         value: 'checkbox-1',
-        label: { fr: 'Checkbox 1' },
+        label: {
+          fr: 'La checkbox 1'
+        },
         legacyId: 29190,
       }, {
         id: 101112,
         value: 'checkbox-2',
-        label: { fr: 'Checkbox 2' },
+        label: {
+          en: 'Checkbox 2',
+          fr: 'La checkbox 2'
+        },
       }, {
         id: 101222,
         value: 'checkbox-3',
-        label: { fr: 'Checkbox 3' },
+        label: {
+          en: 'Checkbox 3',
+          fr: 'La checkbox 3'
+        },
       } ],
+    }, {
+      field: 'animage',
+      fieldType: 'image',
+      label: 'An image'
     } ] );
 
+  } );
+
+  it( 'returns a decorated object', () => {
 
     const decorated = decorate( {
       anotherfield: 12,
       andanotherfield: 123,
       multiplechoicefield: [ 789, 101222 ],
+      animage: {
+        filename: 'fhdjqhfjdkql.png',
+        originalName: 'A file.png',
+        extension: 'jpg'
+      }
     } );
 
     decorated.should.eql( {
@@ -73,17 +102,139 @@ describe( 'extended events - functional (iso): getDecorate', () => {
           id: 789,
           value: 'checkbox-1',
           label: {
-            fr: 'Checkbox 1'
+            fr: 'La checkbox 1'
           }
         },
         {
           id: 101222,
           value: 'checkbox-3',
           label: {
-            fr: 'Checkbox 3'
+            en: 'Checkbox 3',
+            fr: 'La checkbox 3'
           }
         }
+      ],
+      animage: {
+        filename: 'fhdjqhfjdkql.png',
+        originalName: 'A file.png',
+        extension: 'jpg'
+      }
+    } );
+
+  } );
+
+  it( 'returns a decorated object with flattened labels', () => {
+
+    const decorated = decorate( {
+      anotherfield: 12,
+      andanotherfield: 123,
+      multiplechoicefield: [ 789, 101222 ],
+    }, { lang: 'en' } );
+
+    decorated.should.eql( {
+      anotherfield: 12,
+      andanotherfield: {
+        id: 123,
+        value: 'option-1',
+        label: 'Option 1'
+      },
+      multiplechoicefield: [
+        {
+          id: 789,
+          value: 'checkbox-1',
+          label: 'La checkbox 1'
+        },
+        {
+          id: 101222,
+          value: 'checkbox-3',
+          label: 'Checkbox 3'
+        }
       ]
+    } );
+
+  } );
+
+  it( 'returns a decorated object with labels as keys', () => {
+
+    const decorated = decorate( {
+      anotherfield: 12,
+      andanotherfield: 123,
+      multiplechoicefield: [ 789, 101222 ],
+    }, { labelsAsKeys: true } );
+
+    decorated.should.eql( {
+      'A number': 12,
+      'A choice': {
+        id: 123,
+        value: 'option-1',
+        label: 'Option 1'
+      },
+      'A multiple choice': [
+        {
+          id: 789,
+          value: 'checkbox-1',
+          label: 'La checkbox 1'
+        },
+        {
+          id: 101222,
+          value: 'checkbox-3',
+          label: 'Checkbox 3'
+        }
+      ]
+    } );
+
+  } );
+
+  it( 'returns a decorated object with labels as values', () => {
+
+    const decorated = decorate( {
+      anotherfield: 12,
+      andanotherfield: 123,
+      multiplechoicefield: [ 789, 101222 ],
+      animage: {
+        filename: 'fhdjqhfjdkql.png',
+        originalName: 'A file.png',
+        extension: 'jpg'
+      }
+    }, {
+      labelsAsKeys: true,
+      labelsAsValues: true
+    } );
+
+    decorated.should.eql( {
+      'A number': 12,
+      'A choice': 'Option 1',
+      'A multiple choice': [ 'La checkbox 1', 'Checkbox 3' ],
+      "An image": {
+        "extension": "jpg",
+        "filename": "fhdjqhfjdkql.png",
+        "originalName": "A file.png"
+      }
+    } );
+
+  } );
+
+  it( 'excludes object values from decorated object', () => {
+
+    const decorated = decorate( {
+      anotherfield: 12,
+      andanotherfield: 123,
+      multiplechoicefield: [ 789, 101222 ],
+      animage: {
+        filename: 'fhdjqhfjdkql.png',
+        originalName: 'A file.png',
+        extension: 'jpg'
+      }
+    }, {
+      labelsAsKeys: true,
+      labelsAsValues: true,
+      ignoreNonArrayObjects: true
+    } );
+
+    decorated.should.eql( {
+      'A number': 12,
+      'A choice': 'Option 1',
+      'A multiple choice': [ 'La checkbox 1', 'Checkbox 3' ]
     } );
 
   } );

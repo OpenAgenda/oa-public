@@ -62,9 +62,9 @@ export default class FieldPreview extends Component {
         <ul className="list-inline margin-bottom-xs">
           <li><span>{field.purpose ? getPreferredLang( field.purpose, lang ) : getFieldTypeLabel( field, lang )}</span></li>
         </ul>
-        { ordering ? <ul className="field-actions list-inline">
+        { ordering ? <ul className="form-item-actions list-inline">
           <li><span className="btn btn-link">{getLabel( 'orderField', lang )}</span></li>
-        </ul> : <div className="field-actions padding-h-xs">
+        </ul> : <div className="form-item-actions padding-h-xs">
           <button
             title={this.getInfoLabel()}
             onClick={()=>!editable || disabled ? ()=>{} : this.props.onEdit()}
@@ -105,7 +105,7 @@ export default class FieldPreview extends Component {
           <span>{getPreferredLang( field.purpose, lang )}</span>
         </li>
       </ul> : null }
-      <div className="field-actions padding-h-xs">
+      <div className="form-item-actions padding-h-xs">
         <button className="btn btn-link" onClick={()=>this.props.onShow()}>{getLabel( 'showField', lang )}</button>
       </div>
     </div>

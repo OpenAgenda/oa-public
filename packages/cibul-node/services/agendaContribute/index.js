@@ -30,15 +30,9 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
-    agendas.middleware.load( {
-      namespaces: {
-        identifiers: { slug: 'params.agendaSlug' }
-      },
-      private: null,
-      internal: true // required for stakeholders service
-    } ),
+    cmn.loadAgendaBy( { slug: 'agendaSlug' } ),
     ( req, res, next ) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse( req, res, { code: 404 } ),
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, `/${req.agenda.slug}/signup?redirect=${base64.encode( req.originalUrl )}` ) ),
+    sessions.middleware.ifUnlogged( _redirectToSignup ),
     middlewares.member,
     middlewares.verifyMemberAuthorization,
     middlewares.schemaExtensions,
@@ -71,6 +65,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
         updated: req.updateRedirect,
         seeEvent: `/agendas/${req.agenda.uid}/events/:eventUid`,
         createOtherEvent: `/${req.agenda.slug}/contribute`,
+        duplicateEvent: `/${req.agenda.slug}/contribute?eventUid=:eventUid`,
         seeAllEvents: `/home/events`,
         contactAdministrators: req.params.eventUid ? `/agendas/${req.agenda.uid}/events/:eventUid/contact` : `/${req.agenda.slug}/contact`,
         draft: `/home/events`
@@ -109,5 +104,12 @@ function init( config ) {
     middlewares,
     interfaces
   } );
+
+}
+
+
+function _redirectToSignup( req, res ) {
+
+  res.redirect( 302, `/${req.agenda.slug}/signup?redirect=${base64.encode( req.originalUrl )}${req.lang !== 'fr' ? '&lang=' + req.lang : ''}` )
 
 }

@@ -1,3 +1,5 @@
+'use strict';
+
 const fs = require( 'fs' );
 const path = require( 'path' );
 const _ = require( 'lodash' );
@@ -17,9 +19,7 @@ function recipientToArray( recipient ) {
 
 function flattenRecipients( recipients ) {
   return ( Array.isArray( recipients ) ? recipients : [ recipients ] ).reduce(
-    ( result, recipient ) => result.concat( typeof recipient === 'string'
-      ? addressParser( recipient )
-      : recipientToArray( recipient ) ),
+    ( result, recipient ) => result.concat( typeof recipient === 'string' ? addressParser( recipient ) : recipientToArray( recipient ) ),
     []
   );
 }
@@ -77,7 +77,7 @@ async function sendMail( options = {} ) {
           const allowed = await config.sendFilter( params );
 
           if ( !allowed ) {
-            log.info( 'Sending filtered', { recipient, template } );
+            log.info( 'Sending filtered', { recipient, template: options.template } );
             continue;
           }
         }
@@ -104,7 +104,9 @@ async function sendMail( options = {} ) {
         }
       }
 
-      const method = params.queue === false ? config.transporter.sendMail.bind( config.transporter ) : config.queue;
+      const method = params.queue === false
+        ? config.transporter.sendMail.bind( config.transporter )
+        : config.queue.bind( config.queue, `pre-${config.queueName}` );
       const result = await method( params );
 
       results.push( result );

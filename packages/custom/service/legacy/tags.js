@@ -116,7 +116,6 @@ async function set( agendaEventId, fields, data ) {
 
   const toBeRemovedLegacyTags = legacyTags.filter( lt => !pickedLabels.includes( lt.tag ) )
 
-
   await knex( schemas.agendaEventTag ).delete()
     .where( 'review_article_id', agendaEventId )
     .whereIn( 'review_tag_id', toBeRemovedLegacyTags.map( t => t.id ) );
@@ -124,6 +123,15 @@ async function set( agendaEventId, fields, data ) {
   let inserts = 0;
 
   for ( const { id } of pickedLegacyTags ) {
+
+    const current = await knex( schemas.agendaEventTag )
+      .first( 'id' )
+      .where( {
+        review_article_id: agendaEventId,
+        review_tag_id: id
+      } );
+
+    if ( current ) continue;
 
     const q = knex( schemas.agendaEventTag ).insert( {
       review_article_id: agendaEventId,

@@ -42,8 +42,8 @@ module.exports = {
     appId: 'facebookappid',
     appSecret: 'facebooksecret'
   },
-  geocodeFarm: {
-    key: 'geocodefarmkey'
+  opencage: {
+    key: 'opencagekey'
   },
   googleAnalytics: {
     // for main site

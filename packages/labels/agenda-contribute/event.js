@@ -5,77 +5,88 @@ module.exports = {
     "fr": "Saisissez votre événement",
     "en": "Type your event details",
     "it": "Aggiungete il suo evento",
-    "de": "Geben Sie Ihre Veranstaltung ein",
-    "br": "Skrivit ho tarvoud"
+    "de": "Gebe Deine Veranstaltung ein",
+    "br": "Skrivit ho tarvoud",
+    "es": "Introduzca su evento"
   },
   "submit": {
     "fr": "Enregistrer",
     "en": "Save",
     "it": "Registrare",
     "de": "Registrieren",
-    "br": "Enrollañ"
+    "br": "Enrollañ",
+    "es": "Guardar"
   },
   "create": {
     "fr": "Créer l'événement",
     "en": "Create the event",
     "it": "Registrare l’evento",
-    "de": "Erstellen Sie die Veranstalltung",
-    "br": "Krouiñ an darvoud"
+    "de": "Erstelle die Veranstalltung",
+    "br": "Krouiñ an darvoud",
+    "es": "Crear evento"
   },
   "draft": {
     "fr": "Enregistrer un brouillon",
     "en": "Save as draft",
     "it": "Registrare una bozza",
     "de": "Einen Entwurf speichern",
-    "br": "Enrollañ ur brouilhed"
+    "br": "Enrollañ ur brouilhed",
+    "es": "Guardar borrador"
   },
   "update": {
     "fr": "Mettre à jour",
     "en": "Update",
     "it": "Modificare",
     "de": "ändern",
-    "br": "Hizivaat"
+    "br": "Hizivaat",
+    "es": "Guardar"
   },
   "editEvent": {
     "fr": "Mettre à jour l'événement",
     "en": "Update the event",
     "it": "Modificare l’evento",
-    "de": "Aktualisieren Sie die Veranstalltung",
-    "br": "Hizivaat an darvoud"
+    "de": "Aktualisiere die Veranstalltung",
+    "br": "Hizivaat an darvoud",
+    "es": "actualización de eventos"
   },
   "updateDraft": {
     "fr": "Mettre à jour le brouillon",
     "en": "Update draft",
     "it": "Modificare la bozza",
     "de": "Den Entwurf aktualisieren",
-    "br": "Hizivaat ar brouilhed"
+    "br": "Hizivaat ar brouilhed",
+    "es": "Actualización del proyecto"
   },
   "deleteDraft": {
     "fr": "Supprimer le brouillon",
     "en": "Delete the draft",
     "it": "Cancellare la bozza",
     "de": "Den Entwurf löschen",
-    "br": "Dilemel ar brouilhed"
+    "br": "Dilemel ar brouilhed",
+    "es": "Eliminar el proyecto"
   },
   "undraft": {
     "fr": "Créer l'événement",
     "en": "Create the event",
     "it": "Registrare l’evento",
-    "de": "Erstellen Sie die Veranstalltung",
-    "br": "Krouiñ an darvoud"
+    "de": "Die Veranstalltung erstellen",
+    "br": "Krouiñ an darvoud",
+    "es": "crear evento"
   },
   "addEvent": {
     "fr": "Ajouter un événement",
     "en": "Add an event",
     "it": "Aggiungere un evento ",
-    "de": "Eine Veranstaltung hinzufügen",
-    "br": "Ouzhpennañ un darvoud"
+    "de": "Veranstaltung hinzufügen",
+    "br": "Ouzhpennañ un darvoud",
+    "es": "Añadir un evento"
   },
   "editDraftTitle": {
     "fr": "Brouillon",
     "en": "Draft",
     "it": "Bozza",
     "de": "Entwurf",
-    "br": "Brouilhed"
+    "br": "Brouilhed",
+    "es": "Borrador"
   }
 }

@@ -195,15 +195,27 @@ describe( 'text validator', () => {
 
     } );
 
-    /*it( 'returns null when null is given when default is null', () => {
+    it( 'returns null when nothing is given when given list default is null', () => {
 
       const validate = validators.text( {
         field: 'text',
-        list: true,
-        default:
+        list: { default: null }
       } );
 
-    } );*/
+      should( validate() ).equal( null );
+
+    } );
+
+    it( 'still returns null when null is given and list default is null', () => {
+
+      const validate = validators.text( {
+        field: 'text',
+        list: { default: null }
+      } );
+
+      should( validate( null ) ).equal( null );
+
+    } );
 
   } );
 
@@ -233,11 +245,11 @@ describe( 'text validator', () => {
 
       } catch ( e ) {
 
-        e.should.eql( [ { 
+        e.should.eql( [ {
           field: 'text',
           code: 'string.invalidtype',
           message: 'not a string',
-          origin: 42 
+          origin: 42
         } ] );
 
       }

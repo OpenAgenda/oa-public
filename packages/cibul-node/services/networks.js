@@ -1,11 +1,15 @@
 "use strict";
 
-const networks = require( '@openagenda/networks' );
+const _ = require( 'lodash' );
+
+const Networks = require( '@openagenda/networks' );
 
 module.exports.init = config => {
 
-  networks.init( {
+  const networks = Networks( {
     knex: config.knex
   } );
+
+  _.assign( module.exports, networks );
 
 }

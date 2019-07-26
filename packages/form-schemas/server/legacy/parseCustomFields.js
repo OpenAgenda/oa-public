@@ -80,8 +80,14 @@ function _parseBase( field, minMaxed = false ) {
     optional: field.optional !== undefined ? !!field.optional : true,
     label: field.label,
     fieldType: _fieldType( field.fieldType ),
-    read: field.type === 'private' ? 'moderator' : null,
-    write: 'contributor'
+    write: null,
+    read: null
+  }
+
+  if ( field.type === 'private' ) {
+
+    base.read = [ 'contributor', 'moderator', 'administrator' ];
+
   }
 
   if ( minMaxed && field.min ) {

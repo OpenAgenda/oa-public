@@ -1,5 +1,7 @@
 "use strict";
 
+const should = require( 'should' );
+
 const queues = require( '../' );
 
 describe( 'basic usage', () => {
@@ -19,31 +21,31 @@ describe( 'basic usage', () => {
 
   } );
 
-  test( 'enqueue and pop', async () => {
+  it( 'enqueue and pop', async () => {
 
     await q( { some: 'data' } );
 
     const popped = await q.pop();
 
-    expect( popped ).toEqual( { some: 'data' } );
+    popped.should.eql( { some: 'data' } );
 
   } );
 
-  test( 'total provides.. total', async () => {
+  it( 'total provides.. total', async () => {
 
     await q( { data: 'some' } );
 
     await q( { data: 'more' } );
 
-    expect( await q.total() ).toEqual( 2 );
+    ( await q.total() ).should.eql( 2 );
 
   } );
 
-  test( 'wait for pop and enqueue', done => {
+  it( 'wait for pop and enqueue', done => {
 
     q.waitAndPop().then( data => {
 
-      expect( data ).toEqual( { et: 'bim' } );
+      data.should.eql( { et: 'bim' } );
 
       done();
 

@@ -1,8 +1,11 @@
+'use strict';
+
 const path = require( 'path' );
 const _ = require( 'lodash' );
 const nodemailer = require( 'nodemailer' );
 const VError = require( 'verror' );
-const queues = require( '@openagenda/queues' );
+const redis = require( 'redis' );
+const queuesLib = require( '@openagenda/queues' );
 const logs = require( '@openagenda/logs' );
 const makeLabelGetter = require( './utils/makeLabelGetter' );
 
@@ -42,7 +45,10 @@ async function init( c = {} ) {
 
   // Queue
   if ( config.defaults.queue !== false ) {
-    queues.init( { redis: config.redis } );
+    const queues = queuesLib.v2( {
+      redis: redis.createClient( config.redis ),
+      prefix: 'mailsQueues:'
+    } );
     config.queue = queues( config.queueName );
   }
 
@@ -54,7 +60,14 @@ async function init( c = {} ) {
   };
 
   // Transporter
-  config.transporter = nodemailer.createTransport( { ...config.transport, logger: transportLogger }, config.defaults );
+  config.transporter = nodemailer.createTransport(
+    {
+      ...config.transport,
+      logger: transportLogger,
+      rateLimit: undefined
+    },
+    config.defaults
+  );
 
   if ( !config.disableVerify ) {
     try {

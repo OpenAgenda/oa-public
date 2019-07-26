@@ -10,12 +10,14 @@
 },
 {
   "name" : "locations",
-  "section" : "manage"
+  "section" : "manage",
+  "scriptAnchor" : "<span class=\"js_locations_counter\" data-res=\"/:slug/admin/locations/verifycount\"></span>"
 },
 {
   "name" : "sources",
   "section" : "manage",
-  "credential" : "aggregator"
+  "credential" : "aggregator",
+  "roles" : [ "administrator" ]
 },
 {
   "name" : "inbox",
@@ -27,37 +29,50 @@
 },
 {
   "name" : "facebook",
-  "section" : "export"
+  "section" : "export",
+  "roles" : [ "administrator" ]
 },
 {
   "name" : "web",
   "section" : "export",
   "php" : true,
-  "route" : "/webembed"
+  "route" : "/webembed",
+  "roles" : [ "administrator" ]
+},
+{
+  "name" : "emailstrategie",
+  "section" : "export",
+  "credential" : "emailstrategie",
+  "roles" : [ "administrator" ]
 },
 {
   "name" : "settings_profile",
   "section" : "settings",
-  "route" : "/settings/profile"
+  "route" : "/settings/profile",
+  "roles" : [ "administrator" ]
 },
 {
   "name" : "schema",
   "section" : "settings",
-  "credential" : "useAgendaSchema"
+  "credential" : "useAgendaSchema",
+  "roles" : [ "administrator" ]
 },
 {
   "name" : "customized",
   "section" : "settings",
   "route" : "/settings/customize",
-  "credential" : "tags"
+  "credential" : "tags",
+  "roles" : [ "administrator" ]
 },
 {
   "name" : "settings_contribution",
   "section" : "settings",
-  "route" : "/settings/contribution"
+  "route" : "/settings/contribution",
+  "roles" : [ "administrator" ]
 },
 {
   "name" : "settings_advanced",
   "section" : "settings",
-  "route" : "/settings/advanced"
+  "route" : "/settings/advanced",
+  "roles" : [ "administrator" ]
 } ]

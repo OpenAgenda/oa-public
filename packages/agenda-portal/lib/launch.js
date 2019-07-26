@@ -4,21 +4,11 @@ const _ = require( 'lodash' );
 
 const { buildCss, appendCssBuildMiddleware } = require( './css' );
 
-const compileParsers = require( './parsers/compile' );
-const detailedParseEvent = require( './parsers/detailed' );
-
 const log = require( './Log' )( 'launch' );
 
 module.exports = ( app, port = 80 ) => {
 
   app.listen( port, () => ( process.env.NODE_ENV === 'development' ? _development : _production )( app, port ) );
-
-  app.locals.root = _setRoot( app, port );
-
-  app.set( 'parsers', {
-    event: compileParsers( app.locals ),
-    detailedEvent: detailedParseEvent( { lang: app.locals.lang } )
-  } );
 
 }
 
@@ -65,17 +55,5 @@ function _ready() {
   // online: used by browser-refresh
 
   if ( process.send ) process.send( process.env.NODE_ENV === 'development' ? 'online' : 'ready' );
-
-}
-
-function _setRoot( app, port ) {
-
-  if ( process.env.NODE_ENV === 'development' ) {
-
-    return 'http://localhost:' + port
-
-  }
-
-  return app.locals.root;
 
 }

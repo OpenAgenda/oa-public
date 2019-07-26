@@ -42,6 +42,8 @@ export default class ProfileSettings extends Component {
         <option value="fr">Français</option>
         <option value="en">English</option>
         <option value="de">Deutsch</option>
+        <option value="es">Español</option>
+        <option value="br">Brezhoneg</option>
       </select>
       {field.meta.touched && field.meta.error && (
         <div className="text-danger">{_.upperFirst( this.context.getLabel( field.meta.error ) )}</div>

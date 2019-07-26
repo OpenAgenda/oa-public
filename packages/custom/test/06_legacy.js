@@ -104,8 +104,7 @@ describe( 'custom - functional (server): legacy', function() {
   it( 'legacy set updates tag references based on given custom values', async () => {
 
     await legacy( 123 /* formSchemaId */, 27434489 /*eventUid*/, {
-      'thematiques-bordeaux-metropole': [ 5 /*9663*/, 6 /*9664*/],
-      'bordeaux-metropole' : [ 45 ]
+      'thematiques-bordeaux-metropole': [ 5 /*9663*/, 6 /*9664*/ ]
     } );
 
     const config = svc.getConfig();
@@ -113,6 +112,20 @@ describe( 'custom - functional (server): legacy', function() {
     const legacyEventTags = await config.knex( config.legacy.schemas.agendaEventTag ).where( 'review_article_id', 111 );
 
     legacyEventTags.map( t => t.review_tag_id ).should.eql( [ 9663, 9664 ] );
+
+  } );
+
+  it( 'if origin is not specified in schema fields and type is optioned, it is evaluated as tag', async () => {
+
+    await legacy( 123, 27434489, {
+      'bordeaux-metropole' : [ 61 ]
+    } );
+
+    const config = svc.getConfig();
+
+    const legacyEventTags = await config.knex( config.legacy.schemas.agendaEventTag ).where( 'review_article_id', 111 );
+
+    legacyEventTags.map( t => t.review_tag_id ).should.eql( [ 9665 ] );
 
   } );
 

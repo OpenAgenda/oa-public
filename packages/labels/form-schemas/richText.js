@@ -4,11 +4,13 @@ module.exports = {
   "heading": {
     "fr": "Titre",
     "en": "Title",
-    "de": "Titel"
+    "de": "Titel",
+    "es": "título"
   },
   "subHeading": {
     "fr": "Sous-titre",
     "en": "Sous-title",
-    "de": "Sous-Titel"
+    "de": "Sous-Titel",
+    "es": "Subtítulos"
   }
 }

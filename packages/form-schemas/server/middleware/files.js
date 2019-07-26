@@ -3,9 +3,14 @@
 const _ = require( 'lodash' );
 const AWS = require( 'aws-sdk' );
 const fs = require( 'fs' );
-const FormSchema = require( '../../iso/FormSchema' );
 const multer = require( 'multer' );
 const { promisify } = require( 'util' );
+
+const fsUnlink = promisify( fs.unlink );
+
+const log = require( '@openagenda/logs' )( 'middleware/files' );
+
+const FormSchema = require( '../../iso/FormSchema' );
 
 // const FILE_FIELD_PREFIX = require( '../../iso/fileFieldPrefix' );
 
@@ -37,7 +42,15 @@ function putInTemporary( ns, req, res, next ) {
 
   req[ namespaces.fileFieldValues ] = {};
 
-  if ( !fileFields.length ) return next();
+  if ( !fileFields.length ) {
+
+    log( 'putInTemporary: there are no file fields in schema' );
+
+    return next();
+
+  }
+
+  log( 'putInTemporary: there are %s file fields in schema', fileFields.length );
 
   multer( {
     storage: multer.diskStorage( {
@@ -61,6 +74,8 @@ function putInTemporary( ns, req, res, next ) {
           filename,
           path: [ temporaryFolder, filename ].join( '/' )
         }
+
+        log( 'stored field file in temporary folder',  field.field, fieldValue );
 
         req[ namespaces.fileFieldValues ][ field.field ] = fieldValue;
 
@@ -110,12 +125,17 @@ function uploadFilesToS3( options, req, res, next ) {
 
   const fileFieldsValues = _.omit( req[ params.fileFieldValues ], params.ignore );
 
-  if ( !_.keys( fileFieldsValues ).length ) return next();
+  if ( !_.keys( fileFieldsValues ).length ) {
 
-  s3MultipleUploads( fileFieldsValues ).then(
-    () => next(),
-    err => next( err )
-  );
+    log( 'uploadFilesToS3 - did not find any files to upload to s3' );
+
+    return next();
+
+  }
+
+  log( 'uploadFilesToS3 - found %s files to upload to s3', _.keys( fileFieldsValues ).length );
+
+  s3MultipleUploads( fileFieldsValues ).then( next, next );
 
 }
 
@@ -123,7 +143,17 @@ async function s3MultipleUploads( fileFieldValues ) {
 
   for ( const fieldName of _.keys( fileFieldValues ) ) {
 
-    await s3Upload( fileFieldValues[ fieldName ].filename );
+    const filename = fileFieldValues[ fieldName ].filename;
+
+    const location = await s3Upload( filename );
+
+    log( 'uploaded %s to s3 location %s', filename, location );
+
+    if ( location ) {
+
+      await fsUnlink( tmpFolder + '/' + filename );
+
+    }
 
   }
 

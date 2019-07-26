@@ -1,82 +1,52 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const sessions = require( '@openagenda/sessions' );
+const cmn = require( '../lib/commons-app' );
+const pLib = require( './lib/passport' );
+const auth = require( './lib/auth' )( 'facebook' );
+const agendaSvc = require( '../services/agenda' );
+const genUrl = require( '../services/genUrl' );
+const config = require( '../config' );
 
-const modLib = require( '../lib/moduleLib' ),
+const facebookOptions = {
+  clientID: _.get( config, 'auth.facebook.id' ),
+  clientSecret: _.get( config, 'auth.facebook.secret' ),
+  scope: [ 'email', 'public_profile' ],
+  profileFields: ['id', 'email', 'name' ]
+};
 
-  cmn = require( '../lib/commons-app' ),
+const preMw = [
+  agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
+  cmn.loadBaseData( auth.layoutData, 'oa.css' ),
+  sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
+];
 
-  config = require( '../config' ),
+module.exports = app => {
 
-  lib = require( '../lib/lib' ),
+  if ( _.get( config, 'auth.facebook.id' ) ) {
+    pLib.loadStrategy( 'facebook', 'passport-facebook' );
 
-  pLib = require( './lib/passport' ),
+    pLib.use( 'facebook-signin', 'facebook', {
+      callbackURL: genUrl.abs( 'facebookSigninCallback' ),
+      ...facebookOptions
+    }, _loadFacebookProfile );
 
-  auth = require( './lib/auth' )( 'facebook' ),
-
-  genUrl = require( '../services/genUrl' ),
-
-  agendaSvc = require( '../services/agenda' ),
-
-  routes = {
-    facebookSignin: [ 'get', '/facebook/signin', signin ],
-    agendaFacebookSignin: [ 'get', '/:slug/facebook/signin', signin ],
-    facebookSigninCallback: [ 'get', '/facebook/signin/callback', auth.process( 'facebook', 'signin' ) ],
-    facebookSignup: [ 'get', '/facebook/signup', signup ],
-    agendaFacebookSignup: [ 'get', '/:slug/facebook/signup', signup ],
-    facebookSignupCallback: [ 'get', '/facebook/signup/callback', auth.process( 'facebook', 'signup' ) ]
-  },
-
-  sessions = require( '@openagenda/sessions' );
-
-module.exports = function( path ) {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
-    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
-  ] );
-
-  return {
-    load: load( router, path ),
-    paths: modLib.getPaths( path, routes )
+    pLib.use( 'facebook-signup', 'facebook', {
+      callbackURL: genUrl.abs( 'facebookSignupCallback' ),
+      ...facebookOptions
+    }, _loadFacebookProfile );
   }
 
-}
+  app.get( '/facebook/signin', preMw, signin );
+  app.get( '/:slug/facebook/signin', preMw, signin );
+  app.get( '/facebook/signin/callback', preMw, auth.process( 'facebook', 'signin' ) );
 
+  app.get( '/facebook/signup', preMw, signup );
+  app.get( '/:slug/facebook/signup', preMw, signup );
+  app.get( '/facebook/signup/callback', preMw, auth.process( 'facebook', 'signup' ) );
 
-function load( router, path ) {
-
-  const facebookOptions = {
-    clientID: _.get( config, 'auth.facebook.id' ),
-    clientSecret: _.get( config, 'auth.facebook.secret' ),
-    scope: [ 'email', 'public_profile' ],
-    profileFields: ['id', 'email', 'name' ]
-  };
-
-  return function( app ) {
-
-    if ( _.get( config, 'auth.facebook.id' ) ) {
-
-      pLib.loadStrategy( 'facebook', 'passport-facebook' );
-
-      pLib.use( 'facebook-signin', 'facebook', lib.extend( {
-        callbackURL: genUrl.abs( 'facebookSigninCallback' )
-      }, facebookOptions ), _loadFacebookProfile );
-
-      pLib.use( 'facebook-signup', 'facebook', lib.extend( {
-        callbackURL: genUrl.abs( 'facebookSignupCallback' )
-      }, facebookOptions ), _loadFacebookProfile );
-
-    }
-
-    return router.load( path )( app );
-
-  }
-
-}
+};
 
 
 /**
@@ -103,7 +73,7 @@ function signup( req, res, next ) {
 
 function _loadFacebookProfile( accessToken, refreshToken, profile, done ) {
 
-  var extracted = {
+  const extracted = {
     id: profile.id,
     fullName: profile.name.givenName + ' ' + profile.name.familyName
   };

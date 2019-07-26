@@ -14,7 +14,7 @@ module.exports = async ( formSchemaId, identifier, options = {} ) => {
     agendaId: null
   }, options );
 
-  log( 'info', 'loading legacy data for %s', formSchemaId );
+  log( 'info', 'loading legacy data for formSchema %s', formSchemaId );
 
   const { knex } = config;
 

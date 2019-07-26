@@ -46,7 +46,8 @@ module.exports = async agendaUid => {
       resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`,
       resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`,
       resyncAggregator: `${config.root}/${agenda.slug}/admin/stats/resync/aggregator`,
-      resyncCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`,
+      resyncLegacyDatasetToCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`,
+      resyncCustomDatasetToLegacy: `${config.root}/${agenda.slug}/admin/stats/resync/customToLegacy`,
       resyncControlData: `${config.root}/${agenda.slug}/admin/stats/resync/controlData`,
       legacyToFormSchema: `${config.root}/${agenda.slug}/admin/stats/transfer-form-schema`,
       formSchemaToTagSet: `${config.root}/${agenda.slug}/admin/stats/transfer-to-tagset`,
@@ -92,6 +93,11 @@ module.exports.task = () => {
       case 'custom' :
 
         custom( data );
+        break;
+
+      case 'customToLegacy' :
+
+        custom.toLegacy( data );
         break;
 
       case 'aggregator':

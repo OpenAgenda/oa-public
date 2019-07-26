@@ -21,13 +21,13 @@ module.exports = {
 
 function parser( data ) {
 
-  const { agenda, lang, selectedTab } = data;
+  const { agenda, lang, selectedTab, role } = data;
 
   const tabs = tabReference
-    .filter( tab => _includeTab( agenda, tab ) )
+    .filter( tab => _includeTab( agenda, tab, role ) )
     .map( tab => _formatTab( { agenda, tab, lang, selectedTab } ) );
 
-  return ih( agendaParser( data ), {
+  const adminData = ih( agendaParser( data ), {
     adminLabels: { $set: flattenLabels( headerLabels, data.lang ) },
     sections: { $set: [ 'manage', 'export', 'settings' ].map( s => ( {
       label: headerLabels[ s ][ lang ],
@@ -35,9 +35,19 @@ function parser( data ) {
     } ) ) }
   } );
 
+  _.set( adminData, 'scripts.bottom',
+    _.get( adminData, 'scripts.bottom', [] ).concat( {
+      src: '/js/verifiedLocationsCounter.js'
+    } )
+  );
+
+  return adminData;
+
 }
 
-function _includeTab( agenda, tab ) {
+function _includeTab( agenda, tab, role ) {
+
+  if ( tab.roles && !tab.roles.includes( role ) ) return false
 
   if ( !tab.credential ) return true;
 

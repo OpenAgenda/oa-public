@@ -3,7 +3,7 @@
 module.exports = {
   fileKey: 'uniquefilekey123',
   values: {
-    somefile: { 
+    somefile: {
       originalName: 'alorsalors.jpg',
       extension: 'jpg',
       filename: 'uniquefilekey123.somefile.jpg'

@@ -24,6 +24,8 @@ const legacyEvents = require( '../services/events' ).legacy;
 
 const agendaLocations = require( '@openagenda/agenda-locations' );
 
+const setMemberUidAndSlugRefs = require( '../services/agendaStakeholders/lib/setMemberUidAndSlugRefs' );
+
 const logger = require( '@openagenda/logs' );
 
 const apiLog = logger( 'legacyApi' );
@@ -47,6 +49,12 @@ module.exports = app => {
     preMw,
     legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
     head
+  );
+
+  app.post(
+    '/legacy/members/sync',
+    preMw,
+    syncMember
   );
 
   app.post(
@@ -256,11 +264,20 @@ function head( req, res, next ) {
 
 }
 
+function syncMember( req, res, next ) {
+
+  res.send( 'ok' );
+
+  setMemberUidAndSlugRefs( req.body );
+
+}
+
 function agendaAdminLayout( req, res ) {
 
-  const { scriptParams, scripts } = req.body;
+  const { scriptParams, scripts, role } = req.body;
 
   res.send( adminLayout( '{content}', {
+    role,
     agenda: req.agenda,
     lang: req.lang,
     selectedTab: req.params.tab,

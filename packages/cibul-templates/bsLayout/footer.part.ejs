@@ -1,10 +1,10 @@
 <footer id="footer">
   <p <% if ( typeof centeredFooter !== 'undefined' && centeredFooter ) { %>class="text-center"<% } %> >
-    <a href="/">OpenAgenda</a> · 
+    <a href="/">OpenAgenda</a> ·
     <a href="http://openagenda.zendesk.com/" target="_blank" ><%= __('help') %></a> ·
     <a href="https://openagenda.zendesk.com/hc/fr/articles/201753991"><%= __('termsOfUse') %></a>
 <% if ( typeof footerUid !== 'undefined' ) { %>
-     · <span>&lt;uid:<%= footerUid %>&gt;</span>
+     · <span class="text-muted">&lt;uid:<%= footerUid %>&gt;</span>
 <% } %>
   </p>
 </footer>

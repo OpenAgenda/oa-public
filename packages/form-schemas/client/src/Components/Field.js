@@ -64,13 +64,19 @@ module.exports = class Field extends Component {
     } ) } key={field.field}>
       {decorated && field.label ? <label className={classNames({
         'control-label' : true,
-        'margin-right-xs' : !field.optional || field.help || field.helpLink
+        'margin-right-xs' : !field.optional || _hasHelp( field )
       })}>{field.label}</label> : null}
       {!decorated || field.optional ? '' : <span className={classNames({
-        'margin-right-xs' : field.help || field.helpLink,
+        'margin-right-xs' : _hasHelp( field ),
         error: !!error
       })}>{'(' + labels.required + ')'}</span>}
-      {field.help || field.helpLink ? <Help id={'help-' + field.field} content={field.help} lang={lang} link={field.helpLink} /> : null }
+      {_hasHelp( field ) ? <Help
+        id={'help-' + field.field}
+        label={field.help}
+        lang={lang}
+        link={field.helpLink}
+        content={field.helpContent}
+      /> : null }
       {decorated ? <Info value={field.info}/> : null}
       <Component
         enabled={isEnabled}
@@ -104,4 +110,9 @@ module.exports = class Field extends Component {
 
   }
 
+}
+
+
+function _hasHelp( field ) {
+  return field.help || field.helpLink || field.helpContent
 }

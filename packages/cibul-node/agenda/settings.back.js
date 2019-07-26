@@ -1,6 +1,7 @@
 "use strict";
 
 const React = require( 'react' );
+const core = require( '../core' );
 const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const mw = require( '@openagenda/agenda-settings' ).mw;
@@ -25,53 +26,44 @@ module.exports = path => {
       mw.slugs.available
     ],
 
-    agendaSettingsGetAgenda: [
-      'get', '/agendas/:uid/admin/settings.json', [
-        agendaSvc.mw.load( 'uid' ),
-        cmn.checkAdministrator(),
-        mw.get
-      ]
-    ],
+    agendaSettingsGetAgenda: [ 'get', '/agendas/:uid/admin/settings.json', [
+      cmn.loadAgendaBy( 'uid' ),
+      cmn.authorize.administrator,
+      mw.get
+    ] ],
 
-    agendaSettingsEditAgenda: [
-      'post', '/:slug/admin/settings/edit', [
-        agendaSvc.mw.load( 'slug' ),
-        cmn.checkAdministrator(),
-        ( req, res, next ) => {
-          req.context = { user: req.user };
-          next();
-        },
-        mw.set
-      ]
-    ],
+    agendaSettingsEditAgenda: [ 'post', '/:slug/admin/settings/edit', [
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
+      ( req, res, next ) => {
+        req.context = { user: req.user };
+        next();
+      },
+      mw.set
+    ] ],
 
-    agendaSettingsSetImage: [
-      'post', '/:slug/admin/settings/setImage', [
-        agendaSvc.mw.load( 'slug' ),
-        cmn.checkAdministrator(),
-        mw.setImage
-      ]
-    ],
+    agendaSettingsSetImage: [ 'post', '/:slug/admin/settings/setImage', [
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
+      mw.setImage
+    ] ],
 
-    agendaSettingsClearImage: [
-      'post', '/:slug/admin/settings/clearImage', [
-        agendaSvc.mw.load( 'slug' ),
-        cmn.checkAdministrator(),
-        mw.clearImage
-      ]
-    ],
+    agendaSettingsClearImage: [ 'post', '/:slug/admin/settings/clearImage', [
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
+      mw.clearImage
+    ] ],
 
-    agendaSettingsRemoveAgenda: [
-      'post', '/:slug/admin/settings/remove', [
-        agendaSvc.mw.load( 'slug' ),
-        cmn.checkAdministrator(),
-        mw.removeAgenda,
-        ( req, res ) => {
+    agendaSettingsRemoveAgenda: [ 'post', '/:slug/admin/settings/remove', [
+      cmn.loadAgenda,
+      cmn.authorize.administrator,
+      ( req, res, next ) => {
+        core.agendas( req.agenda.uid ).remove().then( () => {
           sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
           res.json( { redirectTo: '/home' } );
-        }
-      ]
-    ],
+        }, next );
+      }
+    ] ],
 
     /**********/
 

@@ -48,6 +48,9 @@
     "name" : "GoogleItineraryLink",
     "mapTo" : "googleItineraryLink"
   }, {
+    "name" : "OSMItineraryLink",
+    "mapTo" : "osmItineraryLink"
+  }, {
     "name": "DateRange",
     "mapTo": "dateRange"
   }, {
@@ -59,6 +62,9 @@
   }, {
     "name": "Address",
     "mapTo": "address"
+  }, {
+    "name" : "District",
+    "mapTo" : "location.district"
   }, {
     "name": "Latitude",
     "mapTo": "latitude"
@@ -83,6 +89,9 @@
   }, {
     "name" : "LocationAccess",
     "mapTo" : "location.access"
+  }, {
+    "name" : "LocationEmail",
+    "mapTo" : "location.email"
   }, {
     "name" : "LocationWebsite",
     "mapTo" : "location.website"

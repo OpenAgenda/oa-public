@@ -47,7 +47,7 @@ var fields = {
         type: 'choice',
         optional: false,
         unique: true,
-        options: ['fr', 'en', 'de']
+        options: [ 'fr', 'en', 'de', 'es', 'br' ]
       },
       uid: {
         type: 'integer',

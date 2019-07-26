@@ -9,7 +9,8 @@ const _ = {
   keyBy: require( 'lodash/keyBy' ),
   assign: require( 'lodash/assign' ),
   omit: require( 'lodash/omit' ),
-  set: require( 'lodash/set' )
+  set: require( 'lodash/set' ),
+  get: require( 'lodash/get' )
 }
 
 schema.register( {
@@ -21,23 +22,8 @@ schema.register( {
   multilingual: require( '@openagenda/validators/multilingual' ),
   integer: require( '@openagenda/validators/integer' ),
   choice: require( '@openagenda/validators/choice' ),
-  pass: require( '@openagenda/validators/pass' )
-} );
-
-const fileValidator = validatorOptions => schema( {
-  extension: {
-    type: 'text'
-  },
-  originalName: {
-    type: 'text'
-  },
-  filename: {
-    type: 'text'
-  }
-} );
-
-schema.register( {
-  file: fileValidator
+  pass: require( '@openagenda/validators/pass' ),
+  file: require( './fileValidator' )
 } );
 
 module.exports = ( fields, accessType = null, accessLevel = null, options = {} ) => {
@@ -58,9 +44,9 @@ module.exports = ( fields, accessType = null, accessLevel = null, options = {} )
 
     if ( f[ accessType ] === null && params.includeUnspecified ) return true;
 
-    if ( accessLevel.includes( f[ accessType ] ) ) return true;
-
-    return false;
+    return !!( _.get( f, accessType, [] ) || [] )
+      .filter( t => accessLevel.includes( t ) )
+      .length;
 
   } )
   .filter( f => f.fieldType !== 'abstract' )

@@ -555,7 +555,7 @@ function _defineISOTimings( args ) {
 
     .join( '-' );
 
-  } ).join( '\n' );
+  } ).join( '\r\n' );
 
 }
 
@@ -592,7 +592,7 @@ function _defineTimings( lang ) {
 
       }
 
-    } ).join( '\n' );
+    } ).join( '\r\n' );
 
   }
 

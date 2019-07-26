@@ -1,12 +1,14 @@
 'use strict';
 
+const _ = require( 'lodash' );
 const fs = require( 'fs' );
 const { promisify } = require( 'util' );
-const _ = require( 'lodash' );
 const Docxtemplater = require( 'docxtemplater' );
 const JSZip = require( 'jszip' );
 const expressions = require( 'angular-expressions' );
 const removeMd = require( 'remove-markdown' );
+
+const log = require( '@openagenda/logs' )( 'generateDocument' );
 
 const formatEvent = require( './lib/formatEvent' );
 const reduceByDeep = require( './lib/reduceByDeep' );
@@ -31,6 +33,8 @@ module.exports = async ( {
   language,
   query = {}
 } = {} ) => {
+
+  log( 'generating document for agenda %s', agendaUid );
 
   const outputPath = `${localTmpPath}/${agendaUid}.${new Date().getTime()}.docx`;
 

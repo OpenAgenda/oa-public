@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-contribute",
-  "version": "1.2.9",
+  "version": "1.2.12",
   "main": "server/index",
   "scripts": {
     "prepublish": "yarn dist",
@@ -25,8 +25,8 @@
     "marked": "^0.4.0",
     "moment-timezone": "^0.5.23",
     "prop-types": "^15.6.0",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "react-markdown": "^3.4.1",
     "react-redux": "^5.0.7",
     "react-router": "^5.0.0",

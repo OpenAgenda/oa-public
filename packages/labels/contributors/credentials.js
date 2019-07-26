@@ -4,21 +4,25 @@ module.exports = {
   "administrator": {
     "en": "Administrator",
     "fr": "Administrateur",
-    "de": "Administrator"
+    "de": "Administrator",
+    "es": "administrador"
   },
   "moderator": {
     "en": "Moderator",
     "fr": "Modérateur",
-    "de": "Moderator"
+    "de": "Moderator",
+    "es": "moderador"
   },
   "contributor": {
     "en": "Contributor",
     "fr": "Contributeur",
-    "de": "Beiträger"
+    "de": "Beiträger",
+    "es": "contribuyente"
   },
   "reader": {
     "en": "Reader",
     "fr": "Lecteur",
-    "de": "Leser"
+    "de": "Leser",
+    "es": "lector"
   }
 }

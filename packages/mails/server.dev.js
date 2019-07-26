@@ -1,3 +1,5 @@
+'use strict';
+
 const fs = require( 'fs' );
 const path = require( 'path' );
 const { URL, URLSearchParams } = require( 'url' );
@@ -79,8 +81,7 @@ app.use(
 
 app.get( '/', async ( req, res, next ) => {
   try {
-    const paths = (await recursiveListPaths( config.templatesDir, 'directory', /^((?!fixtures).)*$/ ))
-      .filter( filepath => fs.existsSync( path.join( config.templatesDir, filepath, 'index.mjml' ) ) );
+    const paths = ( await recursiveListPaths( config.templatesDir, 'directory', /^((?!fixtures).)*$/ ) ).filter( filepath => fs.existsSync( path.join( config.templatesDir, filepath, 'index.mjml' ) ) );
 
     res.send(
       [
@@ -153,9 +154,7 @@ app.get( /.mjml$/, async ( req, res, next ) => {
     }
     case 'text': {
       const textPage = `<html><body><pre>${_.escape( text )}</pre></body></html>`;
-      return res.send(
-        (req.query.ignoreReload ? textPage : withReload( textPage ) )
-      );
+      return res.send( req.query.ignoreReload ? textPage : withReload( textPage ) );
     }
     case 'subject': {
       const subjectPage = `<html><body>${subject}</body></html>`;
@@ -173,7 +172,8 @@ app.get( /.mjml$/, async ( req, res, next ) => {
   const iframeSrc = getRawUrl( 'html' );
   iframeSrc.searchParams.set( 'ignoreReload', '1' );
 
-  const preview = htmlToText.fromString( html, { ignoreHref: true, ignoreImage: true } )
+  const preview = htmlToText
+    .fromString( html, { ignoreHref: true, ignoreImage: true } )
     .trim()
     .slice( 0, 160 )
     .replace( /\n/g, ' ' );

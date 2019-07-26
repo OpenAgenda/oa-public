@@ -27,11 +27,6 @@ module.exports = {
     optional: true
   },
 
-  networkUid: {
-    type: 'integer',
-    optional: true
-  },
-
   officializedAt: {
     type: 'date',
     default: null

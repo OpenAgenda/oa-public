@@ -9,15 +9,16 @@ const log = require( '../lib/Log' )( 'test' );
 
 const Portal = require( '../' );
 
+const devPort = 3000;
+
 Portal( {
-  // used in a non development environment
-  root: process.env.PORTAL_ROOT || 'https://somewhere.com',
+  root: process.env.PORTAL_ROOT || `http://localhost:${devPort}`,
   // agenda uid
   uid: 48353388,
   // site language
   lang: 'fr',
   // associated OA account key
-  key: process.env.PORTAL_KEY || fs.readFileSync( __dirname + '/oa.key', 'utf-8' ),
+  key: process.env.PORTAL_KEY || fs.readFileSync( __dirname + '/oa.key', 'utf-8' ).trim( '\n' ),
   // views folder
   views: __dirname + '/views',
   sass: __dirname + '/sass/main.scss',
@@ -45,11 +46,11 @@ Portal( {
     },*/
     zoom: 12
   },
-  eventParser
-} ).then( app => app.launch( 3000 ) );
+  eventHook
+} ).then( ( { app } ) => app.launch( process.env.PORTAL_PORT || devPort ) );
 
 
-function eventParser( event, { lang, moment } ) {
+function eventHook( event, { lang, moment } ) {
 
   //log( JSON.stringify( event, null, 2 ) );
 

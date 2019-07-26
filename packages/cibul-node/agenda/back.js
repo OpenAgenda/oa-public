@@ -1,12 +1,15 @@
 "use strict";
 
-const cmn = require( '../lib/commons-app' );
+const _ = require( 'lodash' );
+
 const app = require( 'express' )();
-const config = require( '../config' );
+const fs = require( 'fs' );
 const sessions = require( '@openagenda/sessions' );
-const legacyAgendaSvc = require( '../services/agenda' );
 const agendasSvc = require( '@openagenda/agendas' );
 const agendaStatistics = require( '../services/agendaStatistics' );
+const cmn = require( '../lib/commons-app' );
+
+const layout = require( '../services/lib/layouts' ).load( 'agendaAdmin' );
 
 const agendaLoad = require( '@openagenda/agendas' ).middleware.load( {
   private: null,
@@ -19,37 +22,31 @@ const agendaLoad = require( '@openagenda/agendas' ).middleware.load( {
   }
 } );
 
+const statsTemplate = _.template( fs.readFileSync( __dirname + '/stats.tpl', 'utf-8' ) );
 
-module.exports = parentApp => {
+module.exports = parentApp => parentApp.use( '/', app );
 
-  parentApp.use( '/', app );
+app.use( '/:agendaSlug/admin/getting-started', [
+  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  agendaLoad,
+  cmn.authorize.administrator
+] );
 
-}
 
-
-// All paths of this app are accessible to agenda admins only
-// As app is used on base path of parent app, routes
-// must be explicited in following use.
-
+/**
+ * stats routes are hit by a ping script and need to be accessible
+ */
 app.use( [
   '/:agendaSlug/admin/stats',
-  '/:agendaSlug/admin/stats/resync/:type',
-  '/:agendaSlug/admin/getting-started'
+  '/:agendaSlug/admin/stats/resync/:type'
 ], [
   cmn.loadLogger( 'agendaBack' ),
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
   agendaLoad
 ] );
 
 
 app.get( '/agendas/:agendaUid/admin/*?(/*)?', agendaAdminRedirect );
 
-app.use( [
-  '/:agendaSlug/admin/getting-started'
-], [
-  legacyAgendaSvc.mw.loadAdminLayout,
-  cmn.loadBaseData( 'oasfmain.css' )
-] );
 
 
 
@@ -59,7 +56,10 @@ app.use( [
 
 app.get( '/:agendaSlug/admin/stats', async ( req, res, next ) => {
 
-  res.json( await agendaStatistics( req.agenda.uid ) );
+  return res.send( layout(
+    statsTemplate( await agendaStatistics( req.agenda.uid ) ),
+    req
+  ) );
 
 } );
 
@@ -130,19 +130,27 @@ app.get( '/:agendaSlug/admin/getting-started', [
   cmn.checkAdministrator( { useLegacy: false } ),
   ( req, res ) => {
 
-    cmn.render( req, res, 'agendaAdmin/gettingStarted', {
+    return res.send( layout( `<div class="js_canvas getting-started"></div>`, {
+      lang: req.lang,
       agenda: req.agenda,
-      scriptParams: {
-        res: {
-          agenda: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
-          setImage: req.genUrl( 'agendaSettingsSetImage', { slug: req.agenda.slug } ),
-          clearImage: req.genUrl( 'agendaSettingsClearImage', { slug: req.agenda.slug } ),
-          addEvent: req.genUrl( 'agendaEventNew', { slug: req.agenda.slug } ),
-          createEmbed: req.genUrl( 'agendaEmbedIndex', { slug: req.agenda.slug } )
-        },
-        lang: req.lang || 'fr'
-      }, lang: req.lang || 'fr'
-    } );
+      role: req.role,
+      bodyAttributes: [ {
+        name: 'data-options',
+        value: JSON.stringify( {
+          res: {
+            agenda: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
+            setImage: req.genUrl( 'agendaSettingsSetImage', { slug: req.agenda.slug } ),
+            clearImage: req.genUrl( 'agendaSettingsClearImage', { slug: req.agenda.slug } ),
+            addEvent: req.genUrl( 'agendaEventNew', { slug: req.agenda.slug } ),
+            createEmbed: `/${req.agenda.slug}/admin/webembed`
+          },
+          lang: _.get( req, 'lang', 'fr' )
+        } )
+      } ],
+      scripts: {
+        bottom: [ { src: '/js/agendaAdminGettingStarted.js' } ]
+      }
+    } ) );
 
   }
 ] );

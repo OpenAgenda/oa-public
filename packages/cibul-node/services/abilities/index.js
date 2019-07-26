@@ -115,9 +115,9 @@ module.exports.init = async config => {
           can( 'receive', 'eventChangeState', { state: 2 } );
           cannot( 'receive', 'eventUpdate' );
           can( 'receive', 'eventAggregation' );
-          can( 'receive', 'myEventCreation' );
+          cannot( 'receive', 'myEventCreation' );
           can( 'receive', 'myEventChangeState' );
-          can( 'receive', 'myEventUpdate' );
+          cannot( 'receive', 'myEventUpdate' );
           can( 'receive', 'myEventAggregation' );
 
           return rules;

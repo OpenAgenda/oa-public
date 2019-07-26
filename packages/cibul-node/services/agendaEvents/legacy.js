@@ -100,12 +100,12 @@ async function evaluate( err, action ) {
 
     } else if ( action.name === 'event.update' && action.values.type !== 'event.remove' ) {
 
-      log( 'transfer of an update' );
+      const eventId = action.values.id;
+      const agendaId = action.values.agendaId || action.values.review_id;
 
-      result = await agendaEvents.legacyTransfer( {
-        eventId: action.values.id,
-        agendaId: action.values.agendaId || action.values.review_id
-      }, {
+      log( 'transfer of an update of eventId %s and agendaId %s', eventId, agendaId );
+
+      result = await agendaEvents.legacyTransfer( { eventId, agendaId }, {
         force: _.get( action, 'values.force' ),
         context: {
           aggregated: !!sourceAgenda,
@@ -150,7 +150,7 @@ async function _loadAgendaEventUids( name, values ) {
 
   const articleId = name === 'review.article_create' ? values.id : null;
 
-  const agendaId = _.get( values, 'agendaId' );
+  const agendaId = _.get( values, 'agendaId', _.get( values, 'review_id' ) );
 
   if ( values.type === 'event.remove' ) {
 

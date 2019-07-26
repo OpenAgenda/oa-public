@@ -37,6 +37,12 @@ module.exports = class FileField extends Component {
 
   }
 
+  hasValue() {
+
+    return !!_.get( this.props, 'value.originalName' );
+
+  }
+
   render() {
 
     const labels = flattenLabels( multilingualLabels, this.props.lang );
@@ -60,7 +66,7 @@ module.exports = class FileField extends Component {
           <button className="btn btn-primary margin-top-sm">
             <label>{labels.upload}</label>
           </button>
-          {this.props.value && <div className="margin-v-xs">
+          {this.hasValue() && <div className="margin-v-xs">
             <label className="control-label">
               <i className="fa fa-check margin-right-xs"></i>
               <span>{_.get( this.props, 'value.originalName' )}</span>

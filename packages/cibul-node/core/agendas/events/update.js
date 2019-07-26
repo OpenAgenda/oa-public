@@ -11,10 +11,10 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/update' );
 const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
 const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
+const legacy = require( '../../../services/legacy' );
 const processOEmbed = require( '../utils/processOEmbed' );
 const setCustom = require( '../utils/setCustom' );
 const validate = require( './validate' );
-
 
 module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
@@ -127,10 +127,24 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   if ( agenda.network && clean.networkCustom ) {
 
-    const result = await setCustom( agenda.network.formSchemaId, updated.event.uid, clean.networkCustom, { draft, agendaId, partial } );
+    const result = await setCustom( agenda.network.formSchemaId, updated.event.uid, clean.networkCustom, { agendaId, partial } );
 
     if ( result.success ) updated.networkCustom = result.custom;
 
+  }
+
+  if ( !draft ) {
+    try {
+      await legacy.tagsAndCustom.set( agenda.id, updated.event.uid, [
+        agenda.formSchema,
+        _.get( agenda, 'network.formSchema' )
+      ], [
+        clean.custom,
+        clean.networkCustom
+      ] );
+    } catch ( e ) {
+      log( 'error', 'failed to set legacy tags and custom data', e );
+    }
   }
 
   return {

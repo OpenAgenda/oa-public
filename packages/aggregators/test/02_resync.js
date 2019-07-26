@@ -12,10 +12,10 @@ describe( 'aggregators - functional ( server ): resync', function() {
 
   let knex;
 
-  beforeAll( async () => {
+  before( async () => {
 
-    knex = knexLib( { 
-      client: 'mysql', 
+    knex = knexLib( {
+      client: 'mysql',
       connection: _.extend( {
         multipleStatements: true
       }, _.omit( config.mysql, [ 'database' ] ) )
@@ -25,19 +25,19 @@ describe( 'aggregators - functional ( server ): resync', function() {
 
   } );
 
-  afterAll( () => {
+  after( () => {
 
     knex.destroy();
 
   } );
 
-  test( 'resync', async () => {
+  it( 'resync', async () => {
 
     const totalItems = _.keys( fixtures.references ).reduce( ( items, key ) => items.concat( fixtures.references[ key ] ), [] );
 
     let evaluatedCount = 0;
 
-    service.init( { 
+    service.init( {
       knex,
       interfaces: {
         getObject: fixtures.getObject,
@@ -52,7 +52,7 @@ describe( 'aggregators - functional ( server ): resync', function() {
 
     await service.resync( { id: 1 } );
 
-    expect( evaluatedCount ).toEqual( totalItems.length );
+    evaluatedCount.should.equal( totalItems.length );
 
   } );
 

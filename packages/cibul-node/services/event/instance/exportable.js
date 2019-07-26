@@ -1,5 +1,7 @@
 "use strict";
 
+const pickEventImage = require( '../lib/pickImage' );
+
 const range = require( '@openagenda/date-range' ),
 
   filterTimings = require( './filterTimings' ),
@@ -9,6 +11,8 @@ const range = require( '@openagenda/date-range' ),
   utils = require( '@openagenda/utils' ),
 
   genUrl = require( '../../genUrl' ),
+
+  config = require( '../../../config' ),
 
   timeHelper = require( '@openagenda/cibul-templates' ).helpers.time,
 
@@ -79,7 +83,11 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
 
     }
 
-    const dateRange = instance.getDateRange( true );
+    try {
+      const dateRange = instance.getDateRange( true );
+    } catch ( e ) {
+      return cb( e );
+    }
 
     w( _.extend( {
       protocol: null,
@@ -95,8 +103,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         html: instance.getEnrichedFreeText( true ),
         image: loaded.getImage(),
         imageCredits: instance.imageCredits,
-        thumbnail: loaded.getThumbnail(),
-        originalImage: loaded.getFullImage(),
+        thumbnail: pickEventImage( config, instance, 'thumbnail' ),
+        originalImage: pickEventImage( config, instance, 'full' ),
         updatedAt: instance.updatedAt,
         createdAt: instance.createdAt,
         age: instance.getAge(),
@@ -104,7 +112,8 @@ module.exports = require( '../../lib/instanceLoader' )( function( loaded, instan
         origin: instance.origin,
         range: {
           fr: loaded.getRange( 'fr' ),
-          en: loaded.getRange( 'en' )
+          en: loaded.getRange( 'en' ),
+          de: loaded.getRange( 'de' )
         }
       }
     }, options ) )

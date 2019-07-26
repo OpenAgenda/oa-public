@@ -206,6 +206,53 @@ describe( 'events -07- unit (iso): validation', () => {
   } );
 
 
+  it( 'timings does not validate if is begin or end are null', () => {
+
+    let errors;
+
+    try {
+
+      frontValidate( {
+        title: {
+          fr: 'Un titre'
+        },
+        timings: [ { begin: null, end: null } ]
+      }, { optionalSlug: true } );
+
+    } catch ( err ) {
+
+      errors = err;
+
+    }
+
+    errors.length.should.equal( 2 );
+
+  } );
+
+  it( 'timings does not validate if is null', () => {
+
+    let errors;
+
+    try {
+
+      frontValidate( {
+        title: {
+          fr: 'Un titre'
+        },
+        timings: null
+      }, { optionalSlug: true } );
+
+    } catch ( err ) {
+
+      errors = err;
+
+    }
+
+    errors.length.should.equal( 1 );
+
+  } );
+
+
   it( 'timings does not validate if there are more than 800 timings', () => {
 
     try {

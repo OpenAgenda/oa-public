@@ -20,8 +20,8 @@
   "author": "",
   "license": "ISC",
   "peerDependencies": {
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.4.3",
@@ -75,8 +75,8 @@
     "mocha": "^5.0.0",
     "morgan": "^1.7.0",
     "mysql": "^2.16.0",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "rimraf": "^2.6.3"
   }
 }

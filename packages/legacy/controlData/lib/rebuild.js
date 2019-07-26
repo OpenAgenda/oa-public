@@ -26,7 +26,7 @@ function isRebuilding( redis, prefix, uid ) {
 
 async function rebuild( { prefix, knex, redis }, uid ) {
 
-  log( 'rebuilding agenda %s', uid );
+  log( 'info', 'rebuilding agenda %s', uid );
 
   await redis.set( prefix + uid + ':rebuild', 1, 'EX', 600 );
 

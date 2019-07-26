@@ -63,8 +63,8 @@ function init( c ) {
 
   config.queue = queues( c.queue.name );
 
-  _.extend( config, _.pick( c, [ 
-    'knex', 
+  _.extend( config, _.pick( c, [
+    'knex',
     'schemas',
     'interfaces',
     'legacy'

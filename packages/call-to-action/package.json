@@ -51,12 +51,12 @@
     "express": "^4.16.4",
     "morgan": "^1.8.2",
     "nodemon": "^1.18.9",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "rimraf": "^2.6.2"
   },
   "peerDependencies": {
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }

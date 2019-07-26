@@ -590,33 +590,6 @@ function getMiddleware( idRef ) {
   }
 
 
-  async function _handleGeocodeResponse( req, res, err, results ) {
-
-    log( 'info', 'received geocodefarm response', results, _.pick( req.query, [ 'address', 'countryCode' ] ) );
-
-    if ( err ) {
-
-      log( 'error', 'geocode farm error: ' + err );
-
-      res.statusCode = 502;
-
-      return res.send( 'nok' );
-
-    };
-
-    if ( !results.length ) {
-
-      log( 'info', 'geocode farm did not find any result', _.pick( req.query, [ 'address', 'countryCode' ] ) );
-
-      _dataGouvGeocode( req, res );
-
-    }
-
-    res.json( { results } );
-
-  }
-
-
   function _opencageGeocode( req, res ) {
 
     ocGeocoder( _.get( req, 'query.address' ), {

@@ -544,6 +544,8 @@ function buildXlsx( includePrivateData ) {
 
           if ( err ) {
 
+            processing--;
+
             req.log( 'error', err );
 
             return stream.resume();
@@ -658,6 +660,11 @@ function buildCsv( includePrivateData ) {
 
         eInst.exportable( { protocol: 'https:' }, ( err, clean ) => {
 
+          if ( err ) {
+            req.log( 'error', err );
+            return stream.resume();
+          }
+
           // decorate with agenda related data
           svc.exports.decorateEvent( req.agenda, eInst, clean, {
             includePrivateData: !!includePrivateData,
@@ -760,11 +767,7 @@ function _cleanXlsxRow( row ) {
 
     if ( typeof row[ c ] == 'string' ) {
 
-      clean[ c ] = row[ c ].replace( /\v/g, ' ' );
-
-      clean[ c ] = row[ c ].replace( /\n/g, '\r\n' );
-
-      clean[ c ] = row[ c ].replace( /\u0006/g, '' );
+      clean[ c ] = utils.cleanString( row[ c ] );
 
     } else if ( utils.isArray( row[ c ] ) ) {
 

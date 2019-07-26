@@ -35,7 +35,9 @@ window.addEventListener( 'load', () => {
 
   if ( !_checkReqs() ) return;
 
-  let params = _.extend( defaults, JSON.parse( anchorElem.getAttribute( 'data-options' ) ) );
+  const params = {
+    res: anchorElem.getAttribute( 'data-res' )
+  };
 
   ReactDom.render( <Counter res={params.res} />, anchorElem );
 
@@ -89,14 +91,6 @@ function _checkReqs() {
   if ( !anchorElem ) {
 
     console.log( 'error', 'no anchor element was found for verified location counter' );
-
-    return false;
-
-  }
-
-  if ( !anchorElem.getAttribute( 'data-options' ) ) {
-
-    console.log( 'verified location counter options are missing' );
 
     return false;
 

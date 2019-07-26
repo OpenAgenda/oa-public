@@ -1,363 +1,178 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const async = require( 'async' );
+const fs = require( 'fs' );
+const VError = require( 'verror' );
 
-const async = require( 'async' ),
+const { promisify } = require( 'util' );
 
-  model = require( '../../model' ),
+const log = require( '@openagenda/logs' )( 'services/elasticsearch/resync' );
+const loopThroughTable = require( '@openagenda/legacy/rebuildSearchIndex/loopThroughTable' );
 
-  utils = require( '@openagenda/utils' ),
+const model = require( '../../model' );
 
-  log = require( '@openagenda/logs' )( 'services/elasticsearch/resync' ),
+const eventsSvc = require( '@openagenda/events' );
 
-  loadDetailedLocation = require( './loadDetailedLocation' ),
+const { knex, aws: { imageBucketPath: imageBasePath } } = require( '../../../config' );
 
-  loadEventReferences = require( './loadEventReferences' );
+const knownBuildErrors = [
+  'no event record',
+  'no review_article record',
+  'no location record',
+  'invalid timings',
+  'invalid location store',
+  'invalid reviewer store',
+  'invalid title',
+  'invalid description',
+  'invalid freeText',
+  'invalid article store'
+];
 
-let lib;
-
-module.exports = ( options, cb ) => {
-
-  var params, operations = [];
+module.exports = async function( ES, options, cb ) {
 
   if ( arguments.length == 1 ) {
-
     cb = options;
-
     options = {};
-
   }
 
-  params = _.assign( {
+  const params = _.assign( {
     agendaId: false,
     isPublished: null,
     interval: 0,
     reset: false,
-    showAll: true
+    showAll: true,
+    since: null,
+    removeZombies: true,
+    logEveryUpdate: false
   }, options );
 
   if ( params.reset ) {
-
     delete params.agendaId;
-
-    operations.push( lib.resetIndex );
-
+    await ES.resetIndex();
   }
 
+  const agendaId = params.agendaId || params.reviewId;
 
-  if ( params.agendaId ) {
-
-    params.reviewId = params.agendaId;
-
-    delete params.agendaId;
-
-  } else {
-
-    operations.push( _removeZombies( 'reviews' ) );
-
-    operations.push( _update( 'reviews' ) );
-
+  if ( !agendaId ) {
+    await _updateReviews( ES, _.pick( params, [ 'since', 'logEveryUpdate' ] ) );
   }
 
-  operations.push( _removeZombies( 'events', params ) );
+  if ( params.removeZombies ) {
+    await _removeEventZombies( ES, agendaId );
+  }
 
-  operations.push( _update( 'events', params ) );
+  await _updateEvents( ES, agendaId, _.pick( params, [ 'since', 'logEveryUpdate' ] ) );
 
-  operations.push( lib.refreshIndex );
+  await ES.refreshIndex();
 
-  if ( !lib ) return cb( 'es is not inited' );
+  cb();
 
-  async.series( operations, function( err ) {
+}
 
-    if ( params.reviewId ) {
 
-      log( 'info', 'resync of agenda %s is complete', params.reviewId );
+async function _updateReviews( ES, { since, logEveryUpdate } ) {
 
-    } else {
+  const count = { processed: 0, errors: 0 };
 
-      log( 'info', 'full resync is complete' );
+  await loopThroughTable( knex, 'review', async id => {
 
+    await ES.updateReview( id );
+    if ( logEveryUpdate ) log( 'updated agenda of id %s', id );
+
+    count.processed++;
+
+    if ( !( count.processed % 20 ) ) {
+      log( 'info', 'updated %s reviews', count.processed );
     }
 
-    cb();
+  }, { since } );
 
+}
+
+async function _updateEvents( ES, agendaId, { since, logEveryUpdate } ) {
+
+  const count = { processed: 0, errors: 0 };
+
+  await loopThroughTable( knex, agendaId ? 'review_article' : 'event', async id => {
+
+    try {
+      await ES.updateEvent( id );
+      if ( logEveryUpdate ) log( 'updated event of id %s', id );
+    } catch( e ) {
+      if ( knownBuildErrors.includes( e.message ) ) {
+        log( 'warn', e.message, { eventId: id } );
+      } else if ( e.statusCode ) {
+        log( 'warn', 'failed to index event of id %s', id, e );
+        console.log( JSON.stringify( e.items, null, 2 ) );
+      } else {
+        log( 'error', e );
+        throw new VError( 'failed to build event of id %s', id );
+      }
+    }
+
+    count.processed++;
+
+    if ( !( count.processed % 20 ) ) {
+      log( 'info', 'updated %s events', count.processed );
+    }
+
+  }, {
+    query: agendaId ? { review_id: agendaId } : null,
+    field: agendaId ? 'event_id' : 'id',
+    since
   } );
 
 }
 
-module.exports.set = function( l ) {
-
-  lib = l;
-
-}
-
-
-
-
-
-
-function _update( type, query ) {
-
-  if ( !query ) query = {};
-
-  return  cb => {
-
-    const count = { processed: 0, errors: 0 };
-
-    _loopThroughDb( type, query, function( dbRef, next ) {
-
-      if ( type !== 'events' ) return _doUpdate( type, dbRef, count, next );
-
-      // events type need to have detailed location fed by location service
-      // before being indexed.
-
-      loadDetailedLocation( dbRef, err => {
-
-        if ( err ) log( 'error', 'could not load detailed location data in event %s', dbRef.id );
-
-        loadEventReferences( dbRef, err => {
-
-          if ( err ) log( 'error', 'could not load reference data in event %s', dbRef.id );
-
-          _doUpdate( type, dbRef, count, next );
-
-        } )
-
-      } );
-
-    }, function( err ) {
-
-      if ( err ) log( 'error', err );
-
-      _logUpdates( type, count );
-
-      cb( err );
-
-    } );
-
-  }
-
-  function _isIndexableEvent( event ) {
-
-    if ( !event.locations ) return false;
-
-    if ( !event.locations[ 0 ].timings.length ) return false;
-
-    return true;
-
-  }
-
-  function _doUpdate( type, obj, count, cb ) {
-
-    if ( type === 'events' && !_isIndexableEvent( obj ) ) {
-
-      log( 'info', 'event cannot be indexed: %s', obj.uid );
-
-      count.processed++;
-      count.errors++;
-
-      return cb();
-
-    }
-
-    lib[ type ]().update( obj, function( err ) {
-
-      count.processed++;
-
-      if ( err ) {
-
-        log( 'error', 'es update error for %s: %s', type, JSON.stringify( err ) )
-
-        count.errors++;
-
-      }
-
-      if ( count.processed % 1000 === 0 ) _logUpdates( type, count );
-
-      _delay( query.interval, cb )();
-
-    } );
-
-  }
-
-}
 
 function _defineGetQuery( type, params, obj ) {
 
   const q = { id: obj[ type=='reviews' ? 'reviewId' : 'eventId' ] };
 
   if ( type == 'events' && params.reviewId ) {
-
     q.reviewId = params.reviewId;
-
   }
 
   return q;
 
 }
 
-function _removeZombies( type, params ) {
+async function _removeEventZombies( ES, agendaId ) {
 
-  if ( !params ) params = {};
+  log( 'info', agendaId ? 'removing zombie events of agenda id %s' : 'removing zombie events of entire index', agendaId );
 
-  return cb => {
+  const limit = 20;
 
-    const count = { processed: 0, removed: 0, errors: 0 };
+  let offset = 0;
+  let indexedEvents;
+  let totalRemoved = 0;
 
-    log( 'info', 'removing %s zombies', type );
+  while ( ( indexedEvents = await ES.searchEvents( { passed: 1 }, { offset, limit, showAll: true, agendaId } ).then( r => r.events ) ).length ) {
 
-    _loopThroughIndex( type, params, ( obj, next ) => {
+    log( 'info', 'Checking %s events in index for zombies (offset %s)', indexedEvents.length, offset );
 
-      model[ type ]().get( _defineGetQuery( type, params, obj ), function( err, dbRef ) {
+    const serviceEventUids = await eventsSvc.list( {
+      uid: indexedEvents.map( e => e.uid )
+    }, 0, limit, { fetched: [ 'uid' ], private: null } ).then( ( { events } ) => events.map( e => e.uid ) );
 
-        if ( count.processed % 1000 === 0 ) _logZombies( type, count );
+    let removed = 0;
 
-        count.processed++;
+    const zombieEvents = indexedEvents.filter( e => !serviceEventUids.includes( e.uid ) );
 
-        if ( err ) {
+    for ( const zombieEvent of zombieEvents ) {
+      await ES.removeEvent( zombieEvent.eventId );
+      removed++;
+    }
 
-          count.errors++;
+    offset += limit - removed;
 
-          log( 'error', 'could not remove agenda from index: %s', err );
+    if ( removed > 0 ) log( 'removed %s zombies', removed );
 
-          return _delay( params.interval, next )();
-
-        }
-
-        if ( dbRef ) return _delay( params.interval, next )();
-
-        log( 'info', 'removing %s zombie id %s', type, obj[ type=='reviews' ? 'reviewId' : 'eventId' ] );
-
-        count.removed++;
-
-        lib[ type ]().remove( obj[ type=='reviews' ? 'reviewId' : 'eventId' ], _delay( params.interval, next ) );
-
-      } );
-
-    }, function( err ) {
-
-      if ( err ) return cb( err );
-
-      _logZombies( type, count );
-
-      cb();
-
-    } );
+    totalRemoved += removed;
 
   }
 
-}
-
-function _delay( sleep, next ) {
-
-  if ( sleep === undefined ) {
-
-    sleep = 0;
-
-  }
-
-  return function( err ) {
-
-    setTimeout( function() {
-
-      next( err );
-
-    }, sleep );
-
-  }
-
-}
-
-
-function _logZombies( type, count ) {
-
-  log( 'info', 'zombies - %s: processed %s, removed %s, errors %s', type, count.processed, count.removed, count.errors );
-
-}
-
-function _logUpdates( type, count ) {
-
-  log( 'info', 'updates - %s: processed %s, errors %s', type, count.processed, count.errors );
-
-}
-
-
-
-function _loopThroughIndex( type, params, usageFunc, cb ) {
-
-  let hasMore = true, offset = 0;
-
-  const limit = 10;
-
-  async.whilst( function() {
-
-    return hasMore;
-
-  }, function( wcb ) {
-
-    log( 'info', 'fetching in index %s offset %s', type, offset );
-
-    lib[ type ]().search( utils.extend( { options: { from: offset, size: limit } }, params ), function( err, result ) {
-
-      if ( err ) return wcb( err );
-
-      hasMore = !!result.data.length;
-
-      async.eachSeries( result.data, usageFunc, function( err ) {
-
-        if ( err ) return wcb( err );
-
-        offset += limit;
-
-        wcb();
-
-      } );
-
-    } );
-
-  }, cb );
-
-}
-
-
-function _loopThroughDb( schema, params, usageFunc, cb ) {
-
-  const limit = 5;
-
-  let hasMore = true, offset = 0;
-
-  async.whilst( function()  {
-
-    return hasMore;
-
-  }, function( wcb ) {
-
-    log( 'info', 'fetching in db %s offset %s', schema, offset );
-
-    model[ schema ]().list( utils.extend( {
-      extended: true,
-      offset,
-      limit
-    }, params ), function( err, result ) {
-
-      log( 'retrieved from db %s offset %s', schema, offset );
-
-      if ( err ) return wcb( err );
-
-      hasMore = !!result.length;
-
-      async.eachSeries( result, usageFunc, function( err ) {
-
-        if ( err ) return wcb( err );
-
-        offset += limit;
-
-        wcb();
-
-      } );
-
-    } );
-
-  }, cb );
+  log( 'info', agendaId ? 'removed %s zombies in agenda id %s' : 'removed %s zombies in all index', totalRemoved, agendaId );
 
 }

@@ -49,7 +49,7 @@ describe( 'search', function() {
     const result = await search.resyncUpdated( before );
 
     // capped at 20
-    result.should.eql( { indexed: 0, updated: 20 } );
+    result.should.eql( { indexed: 20, updated: 0 } );
 
   } );
 

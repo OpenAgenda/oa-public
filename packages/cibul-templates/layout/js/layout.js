@@ -3,6 +3,13 @@
 if ( !window._babelPolyfill ) require( '@babel/polyfill' );
 
 require( 'dom4' );
+require( 'pepjs' );
+
+require( 'intl' );
+require( 'intl/locale-data/jsonp/fr' );
+require( 'intl/locale-data/jsonp/en' );
+require( 'intl/locale-data/jsonp/de' );
+require( 'intl/locale-data/jsonp/br' );
 
 var cn = require( '../../js/lib/common/common.mod.js' );
 

@@ -14,6 +14,18 @@ const fieldTypeChoices = [ {
   value: 'text',
   label: labels.textFieldType
 }, {
+  id: 4,
+  value: 'textarea',
+  label: labels.textareaFieldType
+}, {
+  id: 5,
+  value: 'markdown',
+  label: labels.markdownFieldType
+}, {
+  id: 6,
+  value: 'integer',
+  label: labels.integerFieldType
+}, {
   id: 2,
   value: 'radio',
   label: labels.radioFieldType

@@ -1,12 +1,15 @@
 {
   "name": "@openagenda/agenda-portal",
-  "version": "1.4.1",
+  "version": "2.0.2",
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
   "scripts": {
     "test": "mocha",
     "start": "NODE_ENV=development browser-refresh dev/server"
+  },
+  "bin": {
+    "deploy": "bin/deploy.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -19,8 +22,12 @@
     "lodash": "^4.17.11",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.23",
+    "ncp": "^2.0.0",
     "node-sass": "^4.10.0",
-    "qs": "^6.5.2"
+    "prompt-confirm": "^2.0.4",
+    "prompt-input": "^3.0.0",
+    "qs": "^6.5.2",
+    "validator": "^11.0.0"
   },
   "devDependencies": {
     "mocha": "^5.2.0",

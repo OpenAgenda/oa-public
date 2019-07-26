@@ -15,33 +15,7 @@
     transition: height 0.2s;
   }
 
-  /* .collapsing {
-    ul li {
-      visibility: hidden;
-    }
-  }
-
-  .collapse {
-    &[aria-expanded="false"] {
-      display: none;
-      visibility: hidden;
-    }
-
-    &.in {
-      display: block;
-      visibility: visible;
-    }
-
-    &.navbar-collapse {
-      visibility: visible;
-    }
-  } */
-
   .language-menu {
-    ul a:hover {
-
-    }
-
     & > a {
       text-transform: uppercase;
     }
@@ -69,23 +43,39 @@
         margin: 23px 15px 24px;
       }
 
-      .tel a {
-        color: $oa-white;
-        border-color: darken($oa-white, 5);
+      .tel {
 
-        &:hover, &:focus {
-          color: darken($oa-white, 10);
-          border-color: darken($oa-white, 15);
+        div {
+          padding-top: 24px;
         }
+
+        a {
+          color: $oa-white;
+          border-color: darken($oa-white, 5);
+
+          &:hover, &:focus {
+            color: darken($oa-white, 10);
+            border-color: darken($oa-white, 15);
+          }
+        }
+
       }
 
-      > li > a {
-        padding: 30px 15px;
-        color: $oa-white;
+      > li {
 
-        &:hover, &:focus {
-          color: darken($oa-white, 15);
+        a, div {
+          color: $oa-white;
         }
+
+        > * {
+          padding: 30px 15px;
+
+          &:hover, &:focus {
+            color: darken($oa-white, 15);
+          }
+
+        }
+
       }
 
       > li.signup > a {

@@ -7,6 +7,8 @@ import setFieldDataMutator from 'final-form-set-field-data';
 import { IntlProvider, FormattedMessage, addLocaleData } from 'react-intl';
 import en from 'react-intl/locale-data/en';
 import fr from 'react-intl/locale-data/fr';
+import de from 'react-intl/locale-data/de';
+import br from 'react-intl/locale-data/br';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import localeEn from '../locales/en';
 import localeFr from '../locales/fr';
@@ -25,17 +27,14 @@ const localeData = {
   fr: localeFr
 };
 
-addLocaleData( [ ...en, ...fr ] );
+addLocaleData( [ ...en, ...fr, ...de, ...br ] );
 
 function getInitialValues( rules ) {
-  return rules.reduce(
-    ( result, rule ) => {
-      result[ rule.key ] = rule.inverted === undefined ? true : !rule.inverted;
+  return rules.reduce( ( result, rule ) => {
+    result[ rule.key ] = rule.inverted === undefined ? true : !rule.inverted;
 
-      return result;
-    },
-    {}
-  );
+    return result;
+  }, {} );
 }
 
 @withFetcher(
@@ -95,9 +94,9 @@ class AbilitiesEditor extends Component {
       abilitiesFetcher: { data: rules }
     } = this.props;
 
-    const formIndex = rules.map( rule =>
-      Object.assign( _.omit( rule, 'key', 'entity', 'relevantRule' ), { inverted: !values[ rule.key ] } )
-    );
+    const formIndex = rules.map( rule => Object.assign( _.omit( rule, 'key', 'entity', 'relevantRule' ), {
+      inverted: !values[ rule.key ]
+    } ) );
 
     if ( typeof onSubmit === 'function' ) {
       return onSubmit( formIndex );

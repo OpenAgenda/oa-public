@@ -9,14 +9,14 @@ const VError = require( 'verror' ),
 let config = {};
 
 module.exports = _.extend( config, {
-  set 
+  set
 } );
 
 function set( c ) {
 
   if ( !c.redis ) throw new VError( 'redis configuration is missing' );
 
-  config.prefix = c.prefix || 'simplecache:';
+  config.prefix = c.prefix || 'simplecache:';
 
   try {
 

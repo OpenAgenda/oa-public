@@ -2,7 +2,10 @@
   "keys" : [
     { "lang" : "en", "key" : "your-reporting" },
     { "lang" : "fr", "key" : "votre-reporting" },
-    { "lang" : "de", "key" : "ihre-berichterstattung" }
+    { "lang" : "de", "key" : "ihre-berichterstattung" },
+    { "lang" : "fr", "key" : "votre-reporting" },
+    { "lang" : "es", "key" : "reporting-es" },
+    { "lang" : "br", "key" : "reporting-br" }
   ],
   "head" : {
     "title" : "reportingToolDescription",

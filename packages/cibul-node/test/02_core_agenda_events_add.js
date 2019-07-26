@@ -59,7 +59,6 @@ const testConfig = {
     defaultImagePath: config.aws.defaultImagePath,
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
   },
-  geocodeFarm: { key: 123 },
   esLocation: {
     //log: [  ],
     index: 'locations',
@@ -140,8 +139,8 @@ describe( 'core - functional ( server ): agenda event add', function() {
         uid: 123
       },
       timings: [ {
-        begin: new Date,
-        end: new Date
+        begin: new Date( '2019-05-06T10:00:00' ),
+        end: new Date( '2019-05-06T11:00:00' )
       } ],
       'categories-agenda-metropolitain': 42,
       'thematiques-bordeaux-metropole' : [ 3, 4 ]

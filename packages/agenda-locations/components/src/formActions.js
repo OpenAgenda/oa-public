@@ -2,7 +2,7 @@ import utils from '@openagenda/utils';
 import update from 'immutability-helper';
 import onTranslationCheck from '@openagenda/react-form-components/lib/onTranslationCheck';
 
-const alternativeFields = [ 'name', 'address', 'description', 'access', 'phone', 'website', 'latitude', 'longitude', 'countryCode' ];
+const alternativeFields = [ 'name', 'address', 'description', 'access', 'phone', 'website', 'email', 'latitude', 'longitude', 'countryCode' ];
 
 module.exports = actions;
 

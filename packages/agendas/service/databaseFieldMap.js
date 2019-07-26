@@ -24,7 +24,6 @@ module.exports = [
   {
     db: 'network_uid',
     obj: 'networkUid',
-    internal: true,
     protected: true,
     list: false
   },

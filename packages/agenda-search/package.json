@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-search",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "",
   "main": "service/index.js",
   "scripts": {
@@ -45,12 +45,12 @@
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/test-app": "^2.0.3",
     "babel-preset-openagenda": "^1.1.1",
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "should": "^8.2.0"
   },
   "peerDependencies": {
-    "react": "^16.8.4",
-    "react-dom": "^16.8.4"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }

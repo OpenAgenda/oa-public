@@ -1,286 +1,384 @@
 "use strict";
 
 module.exports = {
-
-  addField: {
-    fr: 'Ajouter un champ',
-    en: 'Add a field'
+  "addField": {
+    "fr": "Ajouter un champ",
+    "en": "Add a field",
+    "es": "Agregar campo"
   },
-
-  draggableField: {
-    fr: 'Glisser-déposer pour trier',
-    en: 'Drag and drop to sort'
+  "draggableField": {
+    "fr": "Glisser-déposer pour trier",
+    "en": "Drag and drop to sort",
+    "es": "Arrastrar y soltar para ordenar"
   },
-
-  editField: {
-    fr: 'Editer',
-    en: 'Edit'
+  "editField": {
+    "fr": "Editer",
+    "en": "Edit",
+    "es": "editar"
   },
-
-  hideField: {
-    fr: 'Cacher',
-    en: 'Hide'
+  "hideField": {
+    "fr": "Cacher",
+    "en": "Hide",
+    "es": "Ocultar"
   },
-
-  showField: {
-    fr: 'Afficher le champ',
-    en: 'Display the field'
+  "showField": {
+    "fr": "Afficher le champ",
+    "en": "Display the field",
+    "es": "campo de visualización"
   },
-
-  hiddenField: {
-    fr: 'Champ caché',
-    en: 'Hidden field'
+  "hiddenField": {
+    "fr": "Champ caché",
+    "en": "Hidden field",
+    "es": "campo oculto"
   },
-
-  removeField: {
-    fr: 'Supprimer',
-    en: 'Delete'
+  "removeField": {
+    "fr": "Supprimer",
+    "en": "Delete",
+    "es": "Editar las etiquetas"
   },
-
-  editFieldLabels: {
-    fr: 'Editer les labels',
-    en: 'Edit labels'
+  "editFieldLabels": {
+    "fr": "Editer les labels",
+    "en": "Edit labels",
+    "es": "Editar las etiquetas"
   },
-
-  editFieldSave: {
-    fr: 'Enregistrer',
-    en: 'Save'
+  "editFieldSave": {
+    "fr": "Enregistrer",
+    "en": "Save",
+    "es": "Guardar"
   },
-  editFieldCancel: {
-    fr : 'Annuler',
-    en: 'Cancel'
+  "editFieldCancel": {
+    "fr": "Annuler",
+    "en": "Cancel",
+    "es": "anular"
   },
-  orderField: {
-    fr: 'Glisser / déposer',
-    en: 'Drag and drop'
+  "orderField": {
+    "fr": "Glisser / déposer",
+    "en": "Drag and drop",
+    "es": "Drag / drop"
   },
-  fieldLabel: {
-    fr: 'Titre du champ',
-    en: 'Field title'
+  "fieldLabel": {
+    "fr": "Titre du champ",
+    "en": "Field title",
+    "es": "campo de título"
   },
-  fieldInfo: {
-    fr: 'Information complémentaire',
-    en: 'Additional information'
+  "fieldInfo": {
+    "fr": "Information complémentaire",
+    "en": "Additional information",
+    "es": "Más información"
   },
-
-  fieldOptions: {
-    fr: 'Valeurs possibles',
-    en: 'Possible values'
+  "fieldOptions": {
+    "fr": "Valeurs possibles",
+    "en": "Possible values",
+    "es": "Los valores posibles"
   },
-
-  fieldInfoInfo: { fr: 'S\'affiche sous le titre (comme ceci)', en: 'Displayed below the title (like this)' },
-  fieldPlaceholder: { fr: 'Substitut de champ', en: 'Placeholder' },
-  fieldPlaceholderPlaceholder: { fr: 'S\'affiche à l\'intérieur (comme ceci)', en: 'Is displayed inside the field (like this)' },
-  fieldSub: { fr: 'Label de sous-champ', en: 'Sub info label' },
-  fieldSubSub: { fr: 'S\'affiche sous le champ (comme ceci)', en: 'Is displayed below the field (like this)' },
-  addLanguages: { fr: 'Ajouter des langues', en: 'Add languages' },
-
-  monolingualLabels: {
-    fr: 'Monolingue',
-    en: 'Monolingual'
+  "fieldInfoInfo": {
+    "fr": "S'affiche sous le titre (comme ceci)",
+    "en": "Displayed below the title (like this)",
+    "es": "Aparece bajo el título (como este)"
   },
-
-  multilingualLabels: {
-    fr: 'Langues des labels',
-    en: 'Label languages'
+  "fieldPlaceholder": {
+    "fr": "Substitut",
+    "en": "Placeholder",
+    "es": "sustituto"
   },
-
-  editLabelLanguages: {
-    fr: 'Editer',
-    en: 'Edit'
+  "fieldPlaceholderPlaceholder": {
+    "fr": "S'affiche à l'intérieur (comme ceci)",
+    "en": "Is displayed inside the field (like this)",
+    "es": "Se muestra el interior (como este)"
   },
-
-  editLabelLanguagesInfo: {
-    fr: 'Listez les langues dans lesquelles devront être déclinées les labels du formulaire',
-    en: 'List the languages in which the labels of the form will be available'
+  "fieldSub": {
+    "fr": "Label de sous-champ",
+    "en": "Sub info label",
+    "es": "subcampo etiqueta"
   },
-
-  uneditableFieldInfo: {
-    fr: 'Ce champ ne peut pas être modifié',
-    en: 'This field cannot be modified'
+  "fieldSubSub": {
+    "fr": "S'affiche sous le champ (comme ceci)",
+    "en": "Is displayed below the field (like this)",
+    "es": "Aparece debajo del campo (como este)"
   },
-
-  editFieldInfo: {
-    fr: 'Modifier les propriétés de ce champ',
-    en: 'Update properties of this field'
+  "addLanguages": {
+    "fr": "Ajouter des langues",
+    "en": "Add languages",
+    "es": "Añadir idiomas"
   },
-
-  addLabelLanguages: {
-    fr: 'Définir des langues',
-    en: 'Define languages'
+  "monolingualLabels": {
+    "fr": "Monolingue",
+    "en": "Monolingual",
+    "es": "monolingüe"
   },
-
-  submitLabelLanguages: {
-    fr: 'Valider',
-    en: 'Submit'
+  "multilingualLabels": {
+    "fr": "Langues des labels",
+    "en": "Label languages",
+    "es": "etiquetas de idioma"
   },
-
-  removeLabelLanguages: {
-    fr: 'Retirer les langues',
-    en: 'Clear languages'
+  "editLabelLanguages": {
+    "fr": "Editer",
+    "en": "Edit",
+    "es": "editar"
   },
-
-  fieldLabelLanguages: {
-    fr: 'Langues des labels',
-    en: 'Label languages'
+  "editLabelLanguagesInfo": {
+    "fr": "Listez les langues dans lesquelles devront être déclinées les labels du formulaire",
+    "en": "List the languages in which the labels of the form will be available",
+    "es": "Enumerar los idiomas que será rechazada etiquetas forman"
   },
-
-  textFieldType: { fr : 'texte', en : 'Text' },
-  textMultilingualFieldType: { fr: 'Text multilingue', en: 'Multilingual text' },
-  checkboxFieldType: { fr: 'Selection à choix multiples', en: 'Multiple choice selection' },
-  radioFieldType: { fr: 'Sélection à choix unique', en: 'Single choice selection' },
-  imageFieldType: { fr: 'Image', en : 'Image' },
-  unknownFieldType: { fr: 'Type inconnu', en: 'Unknown type' },
-  languagesFieldType: { fr: 'Langues de saisie', en: 'Input languages' },
-  markdownFieldType: { fr: 'Texte enrichi', en: 'Rich text' },
-  markdownMultilingualFieldType: { fr: 'Texte enrichi multilingue', en: 'Multilingual rich text' },
-  registrationFieldType: { fr: 'Liens, téléphone, email', en: 'Link, phone, email' },
-  locationFieldType: { fr: 'Choix du lieu', en: 'Location selection' },
-  accessibilityFieldType: { fr: 'Choix accessibilité', en: 'Accessibility selection' },
-  timingsFieldType: { fr: 'Sélection des horaires', en: 'Timings selection' },
-  buttonSave: { fr: 'Enregistrer', en: 'Save' },
-  buttonSaved: { fr: 'Enregistré', en: 'Saved' },
-  buttonError: { fr: 'Il y a eu un souci lors de la sauvegarde tentez de nouveau dans un instant', en: 'There was a problem during save. Try again shortly' },
-
-  orderCancel: {
-    fr: 'Annuler',
-    en: 'Cancel'
+  "uneditableFieldInfo": {
+    "fr": "Ce champ ne peut pas être modifié",
+    "en": "This field cannot be modified",
+    "es": "Este campo no se puede modificar"
   },
-  orderEdit: {
-    fr: 'Modifier',
-    en: 'Edit'
+  "editFieldInfo": {
+    "fr": "Modifier les propriétés de ce champ",
+    "en": "Update properties of this field",
+    "es": "Editar las propiedades de este campo"
   },
-  orderInstruction: {
-    fr: 'Glissez-déposez chaque champ dans l\'emplacement désiré',
-    en: 'Drag and drop fields to the desired position'
+  "addLabelLanguages": {
+    "fr": "Définir des langues",
+    "en": "Define languages",
+    "es": "Establecer idioma"
   },
-  orderSave: {
-    fr: 'Appliquer le nouvel ordre',
-    en: 'Apply the new order'
+  "submitLabelLanguages": {
+    "fr": "Valider",
+    "en": "Submit",
+    "es": "validar"
   },
-  orderTitle: {
-    fr: 'Ordre des champs',
-    en: 'Field order'
+  "removeLabelLanguages": {
+    "fr": "Retirer les langues",
+    "en": "Clear languages",
+    "es": "eliminar idiomas"
   },
-
-  fieldFormOptional: {
-    fr: 'Ce champ est facultatif',
-    en: 'This field is optional'
+  "fieldLabelLanguages": {
+    "fr": "Langues des labels",
+    "en": "Label languages",
+    "es": "etiquetas de idioma"
   },
-
-  requiredField: {
-    fr: 'Obligatoire',
-    en: 'Required'
+  "textFieldType": {
+    "fr": "Champ texte",
+    "en": "Text field",
+    "es": "campo de texto"
   },
-
-  fieldFormMaxTextLength: {
-    fr: 'Longueur maximale du texte saisi',
-    en: 'Maximum length of the typed text'
+  "textareaFieldType": {
+    "fr": "Texte (Paragraphe)",
+    "en": "Textarea",
+    "es": "Texto (Párrafo)"
   },
-
-  fieldFormMinTextLength: {
-    fr: 'Longueur minimal du texte saisi',
-    en: 'Minimum length of the typed text'
+  "markdownFieldType": {
+    "fr": "Texte enrichi",
+    "en": "Rich text",
+    "es": "texto enriquecido"
   },
-
-  chooseFieldType: {
-    fr: 'Sélection du type du champ',
-    en: 'Select the type of the field'
+  "integerFieldType": {
+    "fr": "Nombre entier",
+    "en": "Integer number",
+    "es": "Nombre completo"
   },
-
-  textFieldType: {
-    fr: 'Champ texte',
-    en: 'Text field'
+  "textMultilingualFieldType": {
+    "fr": "Text multilingue",
+    "en": "Multilingual text",
+    "es": "texto en varios idiomas"
   },
-
-  confirmFieldType: {
-    fr: 'Configurer le champ',
-    en: 'Configure the field'
+  "checkboxFieldType": {
+    "fr": "Selection à choix multiples",
+    "en": "Multiple choice selection",
+    "es": "Selección múltiple elección"
   },
-
-  confirmFieldCreate: {
-    fr: 'Créer le champ',
-    en: 'Create the field'
+  "radioFieldType": {
+    "fr": "Sélection à choix unique",
+    "en": "Single choice selection",
+    "es": "la selección de una sola elección"
   },
-
-  confirmFieldUpdate: {
-    fr: 'Mettre à jour',
-    en: 'Update'
+  "imageFieldType": {
+    "fr": "Image",
+    "en": "Image",
+    "es": "imagen"
   },
-
-  backToFieldType: {
-    fr: 'Retour au choix du type',
-    en: 'Back to field type'
+  "unknownFieldType": {
+    "fr": "Type inconnu",
+    "en": "Unknown type",
+    "es": "tipo desconocido"
   },
-
-  cancelFieldEdit: {
-    fr: 'Annuler',
-    en: 'Cancel'
+  "languagesFieldType": {
+    "fr": "Langues de saisie",
+    "en": "Input languages",
+    "es": "idiomas de entrada"
   },
-
-  optionAdd: {
-    fr: 'Ajouter des valeurs',
-    en: 'Add values'
+  "markdownMultilingualFieldType": {
+    "fr": "Texte enrichi multilingue",
+    "en": "Multilingual rich text",
+    "es": "Multilingüe de texto enriquecido"
   },
-
-  optionAddAction: {
-    fr: 'Ajouter',
-    en: 'Add'
+  "registrationFieldType": {
+    "fr": "Liens, téléphone, email",
+    "en": "Link, phone, email",
+    "es": "Enlaces, teléfono, correo electrónico"
   },
-
-  optionUpdateAction: {
-    fr: 'Mettre à jour',
-    en: 'Update'
+  "locationFieldType": {
+    "fr": "Choix du lieu",
+    "en": "Location selection",
+    "es": "Selección del sitio"
   },
-
-  optionEdit: {
-    fr: 'Modifier',
-    en: 'Edit'
+  "accessibilityFieldType": {
+    "fr": "Choix accessibilité",
+    "en": "Accessibility selection",
+    "es": "accesibilidad elección"
   },
-
-  optionEditCancel: {
-    fr: 'Annuler',
-    en: 'Cancel'
+  "timingsFieldType": {
+    "fr": "Sélection des horaires",
+    "en": "Timings selection",
+    "es": "La selección de los horarios"
   },
-
-  optionDrag: {
-    fr: 'Trier',
-    en: 'Sort'
+  "buttonSave": {
+    "fr": "Enregistrer",
+    "en": "Save",
+    "es": "Guardar"
   },
-
-  optionOrder: {
-    fr: 'Trier',
-    en: 'Change order'
+  "buttonSaved": {
+    "fr": "Enregistré",
+    "en": "Saved",
+    "es": "Guardado"
   },
-
-  optionRemove: {
-    fr: 'Supprimer',
-    en: 'Remove'
+  "buttonError": {
+    "fr": "Il y a eu un souci lors de la sauvegarde tentez de nouveau dans un instant",
+    "en": "There was a problem during save. Try again shortly",
+    "es": "Hubo una preocupación al realizar copias de intentarlo de nuevo en un momento"
   },
-
-  optionOrderEndAction: {
-    fr: 'Terminer le tri',
-    en: 'End re-ordering'
+  "orderCancel": {
+    "fr": "Annuler",
+    "en": "Cancel",
+    "es": "anular"
   },
-
-  emptyOptions: {
-    fr: 'Aucune valeur n\'est encore définie',
-    en: 'No option is defined yet'
+  "orderEdit": {
+    "fr": "Modifier",
+    "en": "Edit",
+    "es": "Editar"
   },
-
-  optionDuplicateError: {
-    fr: 'Cette valeur est déjà existante',
-    en: 'This value already exists'
+  "orderInstruction": {
+    "fr": "Glissez-déposez chaque champ dans l'emplacement désiré",
+    "en": "Drag and drop fields to the desired position",
+    "es": "Arrastre cada campo en el lugar deseado"
   },
-
-  optionEmptyError: {
-    fr: 'Les valeurs ne doivent pas être vides',
-    en: 'Values cannot be empty'
+  "orderSave": {
+    "fr": "Appliquer le nouvel ordre",
+    "en": "Apply the new order",
+    "es": "Aplicar el nuevo orden"
   },
-
-  requiredError: {
-    fr: 'Tous les champs sont requis',
-    en: 'All fields are required'
+  "orderTitle": {
+    "fr": "Ordre des champs",
+    "en": "Field order",
+    "es": "Orden de los campos"
+  },
+  "fieldFormOptional": {
+    "fr": "Ce champ est facultatif",
+    "en": "This field is optional",
+    "es": "Este campo es opcional"
+  },
+  "requiredField": {
+    "fr": "Obligatoire",
+    "en": "Required",
+    "es": "obligatorio"
+  },
+  "fieldFormMaxTextLength": {
+    "fr": "Longueur maximale du texte saisi",
+    "en": "Maximum length of the typed text",
+    "es": "La longitud máxima del texto introducido"
+  },
+  "fieldFormMinTextLength": {
+    "fr": "Longueur minimal du texte saisi",
+    "en": "Minimum length of the typed text",
+    "es": "Longitud mínima del texto introducido"
+  },
+  "chooseFieldType": {
+    "fr": "Sélection du type du champ",
+    "en": "Select the type of the field",
+    "es": "Al seleccionar el tipo de campo"
+  },
+  "confirmFieldType": {
+    "fr": "Configurer le champ",
+    "en": "Configure the field",
+    "es": "configurar campo"
+  },
+  "confirmFieldCreate": {
+    "fr": "Créer le champ",
+    "en": "Create the field",
+    "es": "Crear el campo"
+  },
+  "confirmFieldUpdate": {
+    "fr": "Mettre à jour",
+    "en": "Update",
+    "es": "Poner al día"
+  },
+  "backToFieldType": {
+    "fr": "Retour au choix du type",
+    "en": "Back to field type",
+    "es": "Volver a Seleccione el tipo"
+  },
+  "cancelFieldEdit": {
+    "fr": "Annuler",
+    "en": "Cancel",
+    "es": "anular"
+  },
+  "optionAdd": {
+    "fr": "Ajouter des valeurs",
+    "en": "Add values",
+    "es": "Añadir valores"
+  },
+  "optionAddAction": {
+    "fr": "Ajouter",
+    "en": "Add",
+    "es": "añadir"
+  },
+  "optionUpdateAction": {
+    "fr": "Mettre à jour",
+    "en": "Update",
+    "es": "Poner al día"
+  },
+  "optionEdit": {
+    "fr": "Modifier",
+    "en": "Edit",
+    "es": "Editar"
+  },
+  "optionEditCancel": {
+    "fr": "Annuler",
+    "en": "Cancel",
+    "es": "anular"
+  },
+  "optionDrag": {
+    "fr": "Trier",
+    "en": "Sort",
+    "es": "Clasificar"
+  },
+  "optionOrder": {
+    "fr": "Trier",
+    "en": "Change order",
+    "es": "Clasificar"
+  },
+  "optionRemove": {
+    "fr": "Supprimer",
+    "en": "Remove",
+    "es": "Finalizar la clasificación"
+  },
+  "optionOrderEndAction": {
+    "fr": "Terminer le tri",
+    "en": "End re-ordering",
+    "es": "Finalizar la clasificación"
+  },
+  "emptyOptions": {
+    "fr": "Aucune valeur n'est encore définie",
+    "en": "No option is defined yet",
+    "es": "Ningún valor todavía se define"
+  },
+  "optionDuplicateError": {
+    "fr": "Cette valeur est déjà existante",
+    "en": "This value already exists",
+    "es": "Este valor ya existe"
+  },
+  "optionEmptyError": {
+    "fr": "Les valeurs ne doivent pas être vides",
+    "en": "Values cannot be empty",
+    "es": "Los valores no deben estar vacíos"
+  },
+  "requiredError": {
+    "fr": "Tous les champs sont requis",
+    "en": "All fields are required",
+    "es": "Todos los campos requeridos"
   }
-
 }

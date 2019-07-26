@@ -1,6 +1,8 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const log = require( '../lib/Log' )( 'showPage' );
+
 const isStaticFilePath = require( '../lib/isStaticFilePath' );
 
 module.exports = ( req, res, next ) => {

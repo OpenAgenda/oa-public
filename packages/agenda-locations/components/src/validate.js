@@ -43,6 +43,7 @@ const baseValidators = [
   validators.multilingual( { field: 'description', max: 5000, optional: true, defaultLanguage: 'fr' } ),
   validators.multilingual( { field: 'access', max: 1000, optional: true, defaultLanguage: 'fr' } ),
   validators.link( { field: 'website', min: 0, optional: true } ),
+  validators.email( { field: 'email', min: 0, optional: true } ),
   validators.text( { field: 'extId', min: 0, max: 255, optional: true } ),
   validators.text( { field: 'timezone', min: 0, optional: true } ),
   validators.phone( { field: 'phone', min: 0, max: 42, optional: true } ),

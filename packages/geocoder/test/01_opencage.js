@@ -5,13 +5,33 @@ const should = require( 'should' );
 const Opencage = require( '../Opencage' );
 const config = require( '../testconfig' );
 
-describe( 'opencage', () => {
+describe( 'opencage', function() {
+
+  this.timeout( 10000 );
 
   const geocode = Opencage( config.opencage );
 
   describe( 'forward', () => {
 
-    it( 'An address in roubaix. No district provided', async () => {
+    it( 'Timezone is provided', async () => {
+
+      ( await geocode( 'Masdar, Abu Dhabi', {
+        countryCode: 'AE',
+        first: true
+      } ) ).timezone.should.equal( 'Asia/Dubai' );
+
+    } );
+
+    it( 'Postal code is provided', async () => {
+
+      ( await geocode( '31 rue des Francs-Bourgeois 75004 Paris', {
+        countryCode: 'FR',
+        first: true
+      } ) ).postalCode.should.equal( '75003' );
+
+    } );
+
+    it( 'An address in Roubaix. No district provided', async () => {
 
       ( await geocode( '139 rue des arts, Roubaix', {
         countryCode: 'FR',
@@ -41,6 +61,66 @@ describe( 'opencage', () => {
 
     } );
 
+    it( 'Aruba', async () => {
+
+      ( await geocode( 'Koningstraat 38,Oranjestad Aruba', {
+        countryCode: 'AW',
+        language: 'fr',
+        first: true
+      } ) ).city.should.equal( 'Oranjestad' );
+
+    } );
+
+    describe( 'Bordeaux-Métropole', () => {
+
+      it( 'It is Saint-Aubin de Médoc and not Saint-Aubin-de-Médoc', async () => {
+
+        ( await geocode( 'Saint-Aubin de Médoc', {
+        countryCode: 'FR',
+        language: 'fr',
+        first: true
+      } ) ).city.should.equal( 'Saint-Aubin de Médoc' );
+
+      } );
+
+    } );
+
+    describe( 'Métropole de Lyon, département du Rhône', () => {
+
+      it( 'Maillane is in "Bouches-du-Rhône" department', async () => {
+
+        const result = await geocode( '11 Avenue Lamartine, Maillane', { countryCode: 'FR', first: true } );
+
+        result.department.should.equal( 'Bouches-du-Rhône' );
+
+      } );
+
+      it( 'Bron is in "Métropole de Lyon" department', async () => {
+
+        const result = await geocode( '20 Rue Villard, 69500 Bron', { countryCode: 'FR', first: true, language: 'fr' } );
+
+        result.department.should.equal( 'Métropole de Lyon' );
+
+      } );
+
+      it( 'Taluyers is in "Rhône" department', async () => {
+
+        const result = await geocode( '47 montée de l\'église 69440 Taluyers', { countryCode: 'FR', first: true, language: 'fr' } );
+
+        result.department.should.equal( 'Rhône' );
+
+      } );
+
+      it( '43 rue des Hérideaux, Lyon is in "Métropole de Lyon" department', async () => {
+
+        const result = await geocode( '43 rue des Hérideaux, Lyon', { countryCode: 'FR', first: true, language: 'fr' } );
+
+        result.department.should.equal( 'Métropole de Lyon' );
+
+      } );
+
+    } );
+
     describe( 'DOM-TOM', async () => {
 
       /*it( 'Mayotte addresses respond to YT country code', async () => {
@@ -59,7 +139,7 @@ describe( 'opencage', () => {
           language: 'fr'
         } ) ).length.should.greaterThan( 0 );
 
-      } );*/
+      } );
 
       it( 'Saint Pierre et Miquelon addresses respond to PM country code', async () => {
 
@@ -68,7 +148,7 @@ describe( 'opencage', () => {
           language: 'fr'
         } ) ).length.should.greaterThan( 0 );
 
-      } );
+      } );*/
 
       it( 'Guyane addresses respond to GF country code', async () => {
 
@@ -113,6 +193,22 @@ describe( 'opencage', () => {
           language: 'fr',
           first: true
         } ) ).city.should.eql( 'Pointe-à-Pitre' );
+
+      } );
+
+    } );
+
+    describe( 'Hong Kong', () => {
+
+      it( 'Finds an address in Hong Kong', async () => {
+
+        const result = await geocode( '11 Man Kwong Street, Central, Hong Kong', {
+          countryCode: 'HK',
+          language: 'fr',
+          first: true
+        } );
+
+        result.city.should.equal( 'Hong Kong' );
 
       } );
 
@@ -171,38 +267,75 @@ describe( 'opencage', () => {
 
     } );
 
+    describe( 'Berlin', async () => {
+
+      it( 'districts', async () => {
+
+        for ( const [ address, district ] of [ [
+          'A 100, 10711 Berlin', 'Charlottenburg-Wilmersdorf'
+        ], [
+          'Hadlichstraße 3, 13187 Berlin', 'Pankow'
+        ], [
+          'Pistoriusstraße 23, 13086 Berlin-Weißensee', 'Weißensee'
+        ], [
+          'Björnsonstraße 5, 10439 Berlin-Prenzlauer Berg', 'Prenzlauer Berg'
+        ], [
+          'Behaimstraße 64, 13086 Berlin-Weißensee', 'Weißensee'
+        ], [
+          'Alt-Karow 14, 13125 Berlin', 'Karow'
+        ] ] ) {
+
+          ( await geocode( address, {
+            countryCode: 'DE',
+            language: 'de',
+            first: true
+          } ) ).district.should.equal( district );
+
+        }
+
+      } );
+
+
+    } );
+
   } );
 
   describe( 'reverse', () => {
 
     describe( 'Lille', () => {
 
-      let result;
+      it( 'city is Lille', async () => {
 
-      before( async () => {
-
-        result = await geocode.reverse( 50.6310623, 3.012141, {
+        ( await geocode.reverse( 50.6310623, 3.012141, {
           first: true,
           language: 'fr'
-        } );
+        } ) ).city.should.equal( 'Lille' );
 
       } );
 
-      it( 'city is Lille', () => {
+      it( 'department is Nord', async () => {
 
-        result.city.should.equal( 'Lille' );
-
-      } );
-
-      it( 'department is Nord', () => {
-
-        result.department.should.equal( 'Nord' );
+        ( await geocode.reverse( 50.6310623, 3.012141, {
+          first: true,
+          language: 'fr'
+        } ) ).department.should.equal( 'Nord' );
 
       } );
 
-      it( 'district is Lomme', () => {
+      it( 'district', async () => {
 
-        result.district.should.equal( 'Lomme' );
+        for ( const [ address, district ] of [ [
+          'Place Augustin Laurent, Lille', 'Lille'
+        ] ] ) {
+
+          await geocode( address, {
+            countryCode: 'FR',
+            language: 'fr',
+            first: true,
+            raw: true
+          } );
+
+        }
 
       } );
 

@@ -3,9 +3,9 @@
 require( 'outdated-browser-rework' )( {
   browserSupport: {
     'Chrome': 33,
-    'IE': 10,
-    'Safari': 5,
+    'IE': 11,
+    'Safari': 9,
     'Mobile Safari': 5,
-    'Firefox': 24
+    'Firefox': 28
   }
 } );

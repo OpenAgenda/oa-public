@@ -6,7 +6,22 @@ const log = require( '@openagenda/logs' )( 'aggregator/associateSameTags' );
 
 const loadAgendaTags = require( './loadAgendaTags' );
 
-module.exports = async ( knex, aggregatorAgendaId, event, tagsToMatch = [] ) => {
+/**
+ * tagsToMatch: list of labels of tags associated with event in source agenda, transformed as per aggregation rules
+ */
+
+module.exports = async options => {
+
+  const {
+    knex, aggregatorAgendaId, event, tagsToMatch
+  } = Object.assign( {
+    knex: null,
+    aggregatorAgendaId: null,
+    event: null,
+    tagsToMatch: []
+  }, options );
+
+  log( 'there are %s tags in source to evaluate for correspondance', tagsToMatch.length );
 
   const aggregatorTags = await loadAgendaTags( aggregatorAgendaId );
 
@@ -26,9 +41,9 @@ module.exports = async ( knex, aggregatorAgendaId, event, tagsToMatch = [] ) => 
   const existingTagLabels = await loadEventTagLabels( knex, reviewArticleId );
 
   const matchingTags = tagsToMatch
-    .filter( t => aggregatorTags.filter( at => at.label === t.label ).length )
-    .filter( t => !existingTagLabels.includes( t.label ) )
-    .map( t => aggregatorTags.filter( at => at.label === t.label )[ 0 ] );
+    .filter( label => aggregatorTags.filter( at => at.label === label ).length )
+    .filter( label => !existingTagLabels.includes( label ) )
+    .map( label => aggregatorTags.filter( at => at.label === label )[ 0 ] );
 
   if ( !matchingTags.length ) return [];
 

@@ -38,7 +38,7 @@ function evaluate( step, requested = false ) {
 
     } else if ( eventEdition ) {
 
-      return history.push( base + '/event/' + state.event.uid );
+      return history.replace( base + '/event/' + state.event.uid );
 
     }
 
@@ -64,11 +64,11 @@ function evaluate( step, requested = false ) {
 
     if ( !step || !authorizedRoutes.includes( requestedRoute ) ) {
 
-      history.push( authorizedRoutes.pop() );
+      history.replace( authorizedRoutes.pop() );
 
     } else if ( requested ) {
 
-      history.push( requestedRoute );
+      history.replace( requestedRoute );
 
     }
 

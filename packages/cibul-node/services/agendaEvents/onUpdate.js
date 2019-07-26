@@ -2,44 +2,40 @@
 
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
+
 const log = require( '@openagenda/logs' )( 'agendaEvents/onUpdate' );
 
 const aggregatorNotify = require( './lib/aggregatorNotify' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
+const controlDataSvc = require( '../legacy' ).controlData;
+const legacyEventSearch = require( '../elasticsearch' );
 const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 const sendEventUpdate = require( './lib/sendEventUpdate' );
 const sendEventChangeState = require( './lib/sendEventChangeState' );
-
-const controlDataSvc = require( '../legacy' ).controlData;
+const transferCustomFromLegacy = require( './lib/transferCustomFromLegacy' );
 
 module.exports = async ( before, after, context ) => {
 
   log( 'updated agenda-event from %j to %j', before, after );
+  log( '%sfrom legacy', context.legacy ? '' : 'not ' );
 
   try {
-
     await eventSearch.agendas( after.agendaUid ).update( after );
-
   } catch ( e ) {
-
     log( 'error', 'could not update event search', e );
-
   }
 
   await _sleepALittle(); // legacy search might try to fetch event content before it is committed to db
 
   const { agenda, event } = await fallbackContextGet( 'onUpdate', after, context );
 
-  coms.publish( config.mainChannel, {
-    name: 'legacy.es.event.update',
-    values: {
-      uid: event.uid,
-      type: 'update'
-    }
-  } );
-
+  try {
+    await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
+  } catch ( e ) {
+    log( 'error', 'could not update legacy search for event %s', event.slug );
+  }
 
   if ( after.state === 2 ) {
 
@@ -60,6 +56,10 @@ module.exports = async ( before, after, context ) => {
   }
 
   aggregatorNotify.update( { agenda, event, before, after } );
+
+  if ( context.legacy ) {
+    await transferCustomFromLegacy( agenda, event );
+  }
 
   // Send emails
   if ( before.state === after.state ) {

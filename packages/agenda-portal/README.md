@@ -21,29 +21,15 @@ Create a new project and add agenda-portal in your dependencies:
     yarn init --yes
     yarn add @openagenda/agenda-portal
 
-To get your project quickly operational, copy the contents of the dev folder of the agenda-portal library to your project directory. It contains templates and sass file to get you quickly started right await on a functional portal website:
-
-    cp -RT node_modules/@openagenda/agenda-portal/dev/ .
-
-Next step: add the launch command to a scripts section of your `package.json` file
-
-    "scripts" : {
-      "start": "NODE_ENV=development browser-refresh server"
-    }
-
-Open the `server.js` file. You'll find here a few parameters to tweak when the portal is created:
+To get your project quickly operational, make sure you have the following information in hand:
 
  * **uid**: the unique identifier of the agenda the portal will get its events from
  * **lang**: the main language of your portal
- * **key**: your OpenAgenda account public key ( available in your user settings ). By default, the script you copied looks for the content of an `oa.key` file: create the file at the root of your project and put your key in it.
+ * **key**: your OpenAgenda account public key ( available in your user settings ).
 
-Still in the same file, a final tweak to fix the reference to the portal library. Change:
+Run the deploy command:
 
-    const Portal = require( '../' );
-
-With:
-
-    const Portal = require( '@openagenda/agenda-portal' );
+    yarn deploy
 
 ... and your portal should be ready. Launch it with:
 
@@ -51,6 +37,7 @@ With:
 
 See it on your browser on port 3000 if you haven't changed the default port in `server.js`: [localhost:3000](localhost:3000)
 
+You can then edit handlebar templates available in the views folder and the sass files as you wish to adapt the portal design.
 
 # Options
 
@@ -62,7 +49,7 @@ These define general portal settings. Default options set in your `server.js` fi
  * **cache**: Optional. Cache management related options. See below for details
  * **defaultFilter**: Optional. Set a filter to be applied to search when no other filter is set. For example: if featured events are displayed in a section other than the main list, it is not desired to load them in the list view at the first list load, to avoid displaying duplicate content.
  * **eventsPerPage**: Optional. Number of events to be loaded in the event list view. 20 is the default value
- * **eventParser**: Optional. event item parse function. Useful to transform event item data before it reaches the template
+ * **eventHook**: Optional. event item parse function. Useful to transform event item data before it reaches the template
  * **key**: Required. OpenAgenda account public key
  * **lang**: Optional. Main portal language
  * **map**: map filter widget settings ( tiles, default center ... )
@@ -70,6 +57,7 @@ These define general portal settings. Default options set in your `server.js` fi
  * **sass**: path to the sass folder
  * **uid**: Required. UID of the agenda
  * **views**: Required. Path to the handlebar views folder
+ * **refreshInterval**: interval with which the cache is cleared in milliseconds. Defaults on 1000*60*60 (1 hour)
 
 ## Cache options
 
@@ -97,12 +85,19 @@ The default index template provides an example:
       data-label-one="1 événement" data-label-plural="%total% événements"></span>
 
 
-## Sideways event navigation
+## Navigation
+
+### Progressive load
+
+progressive load is deactivated by default. It can be enabled by setting a specific class on dom element containing the event list: `js_progressive_load`.
+
+Instead of reloading a page when a navigation occurs, a script will perform an xhr query to retrieve the content of the next page, extract the items found in the `js_progressive_load` element and append it to the bottom of the list when it is reached.
+
+### Sideways event navigation
 
 When a search is done on the main agenda page and an event is selected, it is loaded with a navigation context query parameter in its url. Sideway navigation links then allow the user to navigate from event to event within a same search without the need to go back to search result list.
 
 The partial illustrating this is `navigation.hbs`
-
 
 # Miscellaneous
 
@@ -186,3 +181,26 @@ It is then possible in an event item or page to target the group like this:
     {{#each categoryTags}}
       <a href="?oaq[tags][]={{slug}}">{{label}}</span>
     {{/each}}
+
+
+# Migration
+
+## From 1.x.x to 2.0.0
+
+ * `In server.js`: the Portal call returns an object containing the express app instead of the app itself. Replace `.then( app => ... )` with `.then( ( { app } ) => ... )`
+ * `In server.js`: ensure the protocol is specified in dev environment: `http://localhost:3000` instead of `localhost:3000`
+ * Timing labels have moved in a 'labels' key. For example, `start.label` becomes `labels.start.time`.
+ * 2.0.0 provides a JSON LD for each timing and for each event. Add the following to your event template:
+
+    <script type="application/ld+json">
+      {{{event.JSONLD}}}
+    </script>
+
+# Changelog
+
+2.0.0 - 08/07/2019
+
+ * eventParser option is now called eventHook
+ * added progressive load alternative to list view
+ * added rich snippets to event view
+ * miscellaneous refactors

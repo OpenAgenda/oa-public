@@ -8,6 +8,12 @@
   }, {
     "lang" : "de",
     "key" : "grundagenda"
+  }, {
+    "lang" : "es",
+    "key" : "agenda-basico"
+  }, {
+    "lang" : "br",
+    "key" : "agenda-basique-br"
   } ],
   "head" : {
     "title" : "basicOfferHeadTitle",

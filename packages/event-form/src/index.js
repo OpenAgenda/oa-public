@@ -55,12 +55,12 @@ export default class EventForm extends Component {
       _.get( values, 'languages' ) // now
     );
 
-    const update = {
+    const update = _.omitBy( {
       errors,
       globalError,
       files,
       loading
-    };
+    }, _.isUndefined );
 
     if ( values ) update.values = values;
 
@@ -137,7 +137,8 @@ export default class EventForm extends Component {
       lang,
       actionComponents,
       onSubmitSuccess,
-      classNames
+      classNames,
+      role
     } = this.props;
 
     const {
@@ -147,6 +148,7 @@ export default class EventForm extends Component {
     } = this.state;
 
     return <FormSchemaComponent
+      role={role}
       stateless={true}
       lang={lang}
       components={eventFormComponents}

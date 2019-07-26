@@ -84,21 +84,6 @@ function navigation( { root, eventsPerPage }, contextStr ) {
 
 }
 
-function navLink( root, contextStr, direction ) {
-
-  const path = root + '/events/nav/' + direction;
-
-  // if neither page or index are available, navigation is not provided
-  if ( _.get( query, 'i', null ) === null ) return null;
-
-  const navQuery = _.assign( { p: 1 }, _.pick( query, [ 'oaq', 'p', 'i' ] ) );
-
-  if ( direction === 'next' && query.l ) return null;
-
-  return path + '?' + qs.stringify( navQuery );
-
-}
-
 function _listLink( { root, eventsPerPage }, context ) {
 
   const page = Math.ceil( ( context.index + 1 ) / eventsPerPage );

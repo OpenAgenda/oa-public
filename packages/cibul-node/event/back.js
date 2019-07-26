@@ -57,10 +57,25 @@ module.exports = app => {
   );
 
   app.get(
+    '/agendas/:uid/events/:eventUid/custom',
+    legacyAgendaSvc.mw.load( 'uid' ),
+    cmn.nonBlockingLoadMemberRole.bind( null, 'agenda' ),
+    ( req, res, next ) => {
+
+      core.agendas( req.agenda.uid ).events.get( req.params.eventUid, {
+        customOnly: true,
+        includeSchema: true,
+        access: req.role || 'nobody',
+      } ).then( result => res.json( result ) );
+
+    }
+  );
+
+  app.get(
     '/agendas/:uid/events/:eventUid/private',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    cmn.loadMemberRole.bind( null, 'agenda' ),
+    cmn.nonBlockingLoadMemberRole.bind( null, 'agenda' ),
     ( req, res, next ) => {
 
       if ( ![ 'contributor', 'moderator', 'administrator' ].includes( req.role ) ) {
@@ -312,7 +327,7 @@ function _redirect( req, res ) {
 
   if ( req.query.redirect ) {
 
-    redirectUrl = req.query.redirect;
+    redirectUrl = cmn.getRedirect( req );
 
   } else if ( req.agenda ) {
 

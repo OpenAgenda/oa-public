@@ -10,92 +10,11 @@ const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/a
 const log = require( '@openagenda/logs' )( 'auth/local' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/activation' ) );
 const agendaSvc = require( '../services/agenda' );
-const modLib = require( '../lib/moduleLib' );
 const cmn = require( '../lib/commons-app' );
 const lib = require( '../lib/lib' );
 const auth = require( './lib/auth' );
 const pLib = require( './lib/passport' );
 const config = require( '../config' );
-
-const routes = {
-
-  signin: [ 'get', '/signin', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
-    _presetEmail,
-    auth.renderSignin
-  ] ],
-
-  agendaSignin: [ 'get', '/:slug/signin', [
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-    _presetEmail,
-    auth.renderSignin
-  ] ],
-
-  signinSubmit: [ 'post', '/signin', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
-    signinSubmit
-  ] ],
-
-  agendaSigninSubmit: [ 'post', '/:slug/signin', [
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-    signinSubmit
-  ] ],
-
-  signup: [ 'get', '/signup', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
-    _loadCaptcha,
-    _guessFullName,
-    auth.renderSignup
-  ] ],
-
-  agendaSignup: [ 'get', '/:slug/signup', [
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-    _loadCaptcha,
-    _guessFullName,
-    auth.renderSignup
-  ] ],
-
-  signupSubmit: [ 'post', '/signup', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
-    signupSubmit
-  ] ],
-
-  agendaSignupSubmit: [ 'post', '/:slug/signup', [
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-    signupSubmit
-  ] ],
-
-  signupComplete: [ 'get', '/signup/complete', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
-    signupComplete
-  ] ],
-
-  agendaSignupComplete: [ 'get', '/:slug/signup/complete', [
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-    signupComplete
-  ] ],
-
-  activateResend: [ 'get', '/activate/resend', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
-    activateResend
-  ] ],
-
-  agendaActivateResend: [ 'get', '/:slug/activate/resend', [
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-    activateResend
-  ] ],
-
-  activate: [ 'get', '/activate/:token', [
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
-    activate
-  ] ],
-
-  agendaActivate: [ 'get', '/:slug/activate/:token', [
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
-    activate
-  ] ]
-
-};
 
 const useOptions = {
   usernameField: 'email',
@@ -103,10 +22,14 @@ const useOptions = {
   passReqToCallback: true
 };
 
+const preMw = [
+  cmn.https,
+  agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
+  cmn.loadBaseData( auth.layoutData, 'oasfmain.css' )
+];
 
-module.exports = function ( path ) {
 
-  const router = modLib.Router( routes );
+module.exports = app => {
 
   log( 'initing' );
 
@@ -114,18 +37,112 @@ module.exports = function ( path ) {
 
   pLib.use( 'local-signin', 'local', useOptions, _handleSigninRequest );
 
-  router.pre( [
-    cmn.https,
-    agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
-    cmn.loadBaseData( auth.layoutData, 'oasfmain.css' )
-  ] );
 
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
+  app.get(
+    '/signin',
+    preMw,
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    _presetEmail,
+    auth.renderSignin
+  );
 
-}
+  app.get(
+    '/:slug/signin',
+    preMw,
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    _presetEmail,
+    auth.renderSignin
+  );
+
+  app.post(
+    '/signin',
+    preMw,
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    signinSubmit
+  );
+
+  app.post(
+    '/:slug/signin',
+    preMw,
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    signinSubmit
+  );
+
+  app.get(
+    '/signup',
+    preMw,
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    _loadCaptcha,
+    _guessFullName,
+    auth.renderSignup
+  );
+
+  app.get(
+    '/:slug/signup',
+    preMw,
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    _loadCaptcha,
+    _guessFullName,
+    auth.renderSignup
+  );
+
+  app.post(
+    '/signup',
+    preMw,
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    signupSubmit
+  );
+
+  app.post(
+    '/:slug/signup',
+    preMw,
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    signupSubmit
+  );
+
+  app.get(
+    '/signup/complete',
+    preMw,
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    signupComplete
+  );
+
+  app.get(
+    '/:slug/signup/complete',
+    preMw,
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    signupComplete
+  );
+
+  app.get(
+    '/activate/resend',
+    preMw,
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    activateResend
+  );
+
+  app.get(
+    '/:slug/activate/resend',
+    preMw,
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    activateResend
+  );
+
+  app.get(
+    '/activate/:token',
+    preMw,
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    activate
+  );
+
+  app.get(
+    '/:slug/activate/:token',
+    preMw,
+    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    activate
+  );
+
+};
 
 
 function signinSubmit( req, res, next ) {
@@ -425,6 +442,7 @@ function _loadCaptcha( req, res, next ) {
       },
       bottom: {
         scripts: [
+          ...(_.get( req.baseData, 'bottom.scripts') || []),
           `var onSuccessRecaptcha = function(response) {
             var errorDivs = document.getElementsByClassName('recaptcha-error');
             if (errorDivs.length) {

@@ -1,20 +1,15 @@
 "use strict";
 
+const _ = require( 'lodash' );
+const async = require( 'async' );
+const elastic = require( 'elasticsearch' );
+const fs = require( 'fs' );
+const w = require( 'when' );
+
 const log = require( '@openagenda/logs' )( 'search' );
+const utils = require( '@openagenda/utils' );
 
-var elastic = require( 'elasticsearch' ),
-
-utils = require( '@openagenda/utils' ),
-
-w = require( 'when' ),
-
-fs = require( 'fs' ),
-
-async = require( 'async' ),
-
-config, db, client,
-
-types = {
+let config, db, client, types = {
   location: require( './location.js' )
 };
 
@@ -204,6 +199,8 @@ function count( query, cb ) {
 
 function resync( agendaId, cb ) {
 
+  log( 'resync' );
+
   if ( !db || !client ) return cb( 'search not initialized' );
 
   w( {
@@ -212,11 +209,9 @@ function resync( agendaId, cb ) {
     agendaId: agendaId
   } )
 
-  .then( _clearGhosts )
-
-  .then( _clear )
-
   .then( _populate )
+
+  .then( _clearGhosts )
 
   .then( _refresh )
 
@@ -474,9 +469,13 @@ function _refresh( v ) {
 
 function _clearGhosts( v ) {
 
+  log( 'clearing ghosts' );
+
   if ( !v.agendaId ) return v;
 
-  var d = w.defer(), has = true, offset = 0, limit = 20, ghosts = [];
+  const limit = 50;
+
+  var d = w.defer(), has = true, offset = 0, ghosts = [];
 
   async.whilst( () => has, wcb => {
 
@@ -539,13 +538,19 @@ function _clearGhosts( v ) {
 
 function _clear( v ) {
 
+  log( 'clearing' );
+
   if ( !v.agendaId ) return v;
 
-  var d = w.defer(), has = true, offset = 0, limit = 20;
+  const limit = 50;
+
+  var d = w.defer(), has = true, lastId = 0;
 
   async.whilst( () => has, wcb => {
 
-    db.list( { agendaId: v.agendaId }, offset, limit, ( err, locations ) => {
+    log( 'clearing %s from %s', v.agendaId, lastId );
+
+    db.list.byLastId( { agendaId: v.agendaId }, lastId, limit, ( err, locations ) => {
 
       if ( err ) return d.reject( err );
 
@@ -567,7 +572,7 @@ function _clear( v ) {
 
         has = !!locations.length;
 
-        offset += limit;
+        lastId = _.get( _.last( locations ), 'id' );
 
         wcb( err );
 
@@ -590,15 +595,23 @@ function _clear( v ) {
 
 function _populate( v ) {
 
-  var d = w.defer(),
+  log( 'populating' );
 
-  pageCount = 0, offset = 0, limit = 20, indexedCount = 0, query = {};
+  const limit = 50;
+
+  var d = w.defer(),
+    pageCount = 0,
+    lastId = 0,
+    indexedCount = 0,
+    query = {};
 
   if ( v.agendaId ) query.agendaId = v.agendaId;
 
   async.doWhilst( wcb => {
 
-    db.list( query, offset, limit, ( err, locations ) => {
+    log( 'populating %s from %s getting %s', v.agendaId, lastId, limit );
+
+    db.list.byLastId( query, lastId, limit, ( err, locations ) => {
 
       if ( err ) {
 
@@ -610,15 +623,15 @@ function _populate( v ) {
 
       pageCount = locations.length;
 
-      offset += limit;
-
       _bulkInsert( v, locations, ( err, result ) => {
 
         if ( !err && result.errors !== true ) {
 
-          log( 'bulk inserted %s locations', result.items.length );
+          log( 'info', 'bulk inserted %s locations', result.items.length );
 
           indexedCount += result.items.length;
+
+          lastId = _.get( _.last( locations ), 'id' );
 
         } else {
 

@@ -26,9 +26,9 @@ describe( 'form-schemas -01- functional (server): create', () => {
 
     let result = await svc.create( { data: true } );
 
-    result.should.eql( { 
+    result.should.eql( {
       success: true,
-      id: 1,
+      id: 2,
       formSchema: {
         custom: null,
         defaultLabelLanguage: null,

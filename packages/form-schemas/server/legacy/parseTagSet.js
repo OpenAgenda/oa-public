@@ -53,13 +53,13 @@ function _parseGroup( g, i, type = 'tag' ) {
     default: null,
     origin: type === 'tag' ? 'tags' : 'categories',
     label: {
-      fr: g.name || 'Tags'
+      fr: g.name || 'Tags'
     },
     info: g.info ? {
       fr: g.info
     } : null,
     read: null,
-    write: 'contributor',
+    write: null,
     fieldType: g.unique ? 'radio' : 'checkbox',
     options: g.tags.map( t => ( {
       label: {

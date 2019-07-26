@@ -314,12 +314,9 @@
           </li>
 <% } %>
 
-<% if (
-  (typeof userStakeholder !== 'undefined' && userStakeholder && ![ 2, 3 ].includes( userStakeholder.credential ) && typeof user !== 'undefined')
-  || (typeof user !== 'undefined' && user && !userStakeholder)
-) { %>
+<% if ( showRequestLocation ) { %>
           <li>
-            <a rel="nofollow" href="<%= `/${slug}/locations/${event.location.uid}/suggest-change` %>">
+            <a class="btn btn-default" rel="nofollow" href="<%= `/${slug}/locations/${event.location.uid}/suggest-change` %>">
               <%= __( 'requestChangeLocation' ) %>
             </a>
           </li>

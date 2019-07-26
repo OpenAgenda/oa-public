@@ -72,7 +72,7 @@ const verifyAdminModMiddleware = agendaIdentifiers => [
     private: null,
     internal: true
   } ),
-  loadMemberRole.bind( null, 'agenda' ),
+  loadMemberRole.bind( null, true, 'agenda' ),
   ( req, res, next ) => {
 
     if ( ![ 'administrator', 'moderator' ].includes( req.role ) ) {
@@ -117,7 +117,8 @@ module.exports = {
     moderator: _authorize( [ 'administrator', 'moderator' ] )
   },
   checkStakeholder,
-  loadMemberRole,
+  loadMemberRole: loadMemberRole.bind( null, true ),
+  nonBlockingLoadMemberRole: loadMemberRole.bind( null, false ),
   renderUnauthorized,
 
   verifyAdminModMiddleware,
@@ -125,6 +126,7 @@ module.exports = {
 
   useEmbedGoogleAnalytics,
 
+  makeRedirect,
   getRedirect,                  // get redirect
 
   writeToCookie,
@@ -316,8 +318,7 @@ function checkContributor( req, res, next ) {
 }
 
 
-
-function loadMemberRole( agendaNamespace, req, res, next ) {
+function loadMemberRole( errorIfNotMember = true, agendaNamespace, req, res, next ) {
 
   req.role = null;
 
@@ -327,20 +328,22 @@ function loadMemberRole( agendaNamespace, req, res, next ) {
 
     stakeholdersSvc( req[ agendaNamespace ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
 
-      if ( !stakeholder ) {
+      if ( !stakeholder && errorIfNotMember ) {
         return next( {
           message: 'Not authorized',
           code: 403
         } );
       }
 
-      req.role = stakeholdersSvc.types.codes.get( stakeholder.credential );
+      req.role = stakeholder
+        ? stakeholdersSvc.types.codes.get( stakeholder.credential )
+        : null;
 
       next();
 
     } );
 
-  } )
+  } );
 
 }
 
@@ -349,7 +352,7 @@ function _authorize( authorizedRoles = [] ) {
 
   return ( req, res, next ) => {
 
-    loadMemberRole( 'agenda', req, res, err => {
+    loadMemberRole( true, 'agenda', req, res, err => {
 
       if ( err ) return next( err );
 
@@ -782,9 +785,6 @@ function loadBaseData( func, cssFile ) {
           outdated: '/js/outdated.js'
         }
       },
-      bottom: {
-        scripts: []
-      },
       scriptsBase: '/js'
     }
 
@@ -800,7 +800,13 @@ function loadBaseData( func, cssFile ) {
 
     }
 
-    baseData.bottom.scripts.push(`
+    req.baseData = _.merge( req.baseData || {}, baseData );
+
+    if ( !_.get( req, 'baseData.bottom.scripts' ) ) {
+      _.set( req, 'baseData.bottom.scripts', [] );
+    }
+
+    req.baseData.bottom.scripts.push(`
       (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -811,14 +817,12 @@ function loadBaseData( func, cssFile ) {
 
       const googleAnalyticsId = _.get( req, 'googleAnalyticsId', config.googleAnalyticsId );
 
-      if ( googleAnalyticsId ) baseData.bottom.scripts.push( `
-        ga('create', '${googleAnalyticsId}', 'auto');
-        ga('send', 'pageview');
+      if ( googleAnalyticsId ) req.baseData.bottom.scripts.push( `
+          ga('create', '${googleAnalyticsId}', 'auto');
+          ga('send', 'pageview');
       ` );
 
     }
-
-    req.baseData = _.merge( req.baseData || {}, baseData );
 
     next();
 
@@ -1022,33 +1026,24 @@ function checkCredential( name, options ) {
 }
 
 
-function getRedirect( req, paramName ) {
+function makeRedirect( urlOrReq ) {
 
-  let redirectValue;
+  return new Buffer(
+    _.isObject( urlOrReq ) ? urlOrReq.originalUrl : urlOrReq,
+    'utf8'
+  ).toString( 'base64' );
 
-  if ( !paramName ) {
+}
 
-    paramName = 'redirect';
+function getRedirect( req, paramName = 'redirect' ) {
 
-  }
-
-  if ( !req.query[ paramName ] ) {
-
-    return false;
-
-  }
+  if ( !req.query[ paramName ] ) return false;
 
   try {
-
-    redirectValue = (new Buffer( req.query[ paramName ], 'base64' )).toString()
-
+    return (new Buffer( req.query[ paramName ], 'base64' )).toString();
   } catch ( e ) {
-
     log( 'error', 'invalid redirect value in request: %s', req.query[ paramName ] );
-
   }
-
-  return redirectValue;
 
 }
 
@@ -1115,7 +1110,11 @@ function loadAgendaBy( param ) {
 
   return ( req, res, next ) => {
 
-    agendasSvc.get( _.pick( req.params, [ param ] ), {
+    const identifier = _.isString( param )
+      ? _.pick( req.params, [ param ] )
+      : _.set( {}, _.keys( param )[ 0 ], req.params[ param[ _.keys( param )[ 0 ] ] ] );
+
+    agendasSvc.get( identifier, {
       private: null,
       internal: true,
       includeImagePath: true

@@ -4,9 +4,11 @@ const _ = require( 'lodash' );
 
 const agendas = require( '@openagenda/agendas' );
 const AgendaSchema = require( '@openagenda/agenda-schema' );
+const sessions = require( '@openagenda/sessions' );
 
 const agendaSchemaRouter = AgendaSchema.router;
 
+const cmn = require( '../../lib/commons-app' );
 const getSchema = require( './interfaces/getSchema' );
 const getSchemaExtensions = require( './interfaces/getSchemaExtensions' );
 const setSchemaFields = require( './interfaces/setSchemaFields' );
@@ -19,13 +21,24 @@ module.exports = parentApp => {
     ( req, res, next ) => res.send( 404 )
   );
 
-  parentApp.use( '/:agendaSlug/admin/schema', agendaSchemaRouter );
+  parentApp.use(
+    '/:agendaSlug/admin/schema',
+    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    cmn.loadAgendaBy( { slug: 'agendaSlug' } ),
+    cmn.authorize.administrator,
+    agendaSchemaRouter
+  );
 
 };
 
+
+
 module.exports.init = config => {
 
-  agendaSchemaRouter.setLayout( layouts.load( 'agendaAdmin', { selectedTab: 'schema' } ) );
+  agendaSchemaRouter.setLayout( layouts.load( 'agendaAdmin', {
+    selectedTab: 'schema',
+    role: 'administrator'
+  } ) );
 
   agendaSchemaRouter.setService( AgendaSchema( {
     logger: config.getLogConfig( 'svc', 'agendaSchema' ),

@@ -12,10 +12,10 @@ describe( 'aggregators - functional ( server ): crud', function() {
 
   let knex;
 
-  beforeAll( async () => {
+  before( async () => {
 
-    knex = knexLib( { 
-      client: 'mysql', 
+    knex = knexLib( {
+      client: 'mysql',
       connection: _.extend( {
         multipleStatements: true
       }, _.omit( config.mysql, [ 'database' ] ) )
@@ -23,7 +23,7 @@ describe( 'aggregators - functional ( server ): crud', function() {
 
     await knex.raw( fixtures.sql );
 
-    service.init( { 
+    service.init( {
       knex,
       interfaces: {
         getObject: fixtures.getObject,
@@ -33,27 +33,27 @@ describe( 'aggregators - functional ( server ): crud', function() {
 
   } );
 
-  afterAll( () => {
+  after( () => {
 
     knex.destroy();
 
   } );
 
-  test( 'get aggregator', async () => {
+  it( 'get aggregator', async () => {
 
     const aggregator = await service( 1 );
 
-    expect( aggregator.object ).toEqual( { id: 1 } );
+    aggregator.object.should.eql( { id: 1 } );
 
   } );
 
-  test( 'list aggregator sources', async () => {
+  it( 'list aggregator sources', async () => {
 
     const aggregator = await service( 1 );
 
     const sources = await aggregator.sources.list();
 
-    expect( sources ).toEqual( [ {
+    sources.should.eql( [ {
       object: { id: 2 }
     }, {
       object: { id: 3 }
@@ -61,32 +61,32 @@ describe( 'aggregators - functional ( server ): crud', function() {
 
   } );
 
-  test( 'list aggregator sources deep', async () => {
+  it( 'list aggregator sources deep', async () => {
 
     const aggregator = await service( 1 );
 
     const sources = await aggregator.sources.list( { deep: true } );
 
-    expect( sources ).toEqual( [ { 
-      object: { id: 2 }, 
-      parent: { id: 1 }, 
-      depth: 1 
+    sources.should.eql( [ {
+      object: { id: 2 },
+      parent: { id: 1 },
+      depth: 1
     }, {
-      object: { id: 4 }, 
-      parent: { id: 2 }, 
+      object: { id: 4 },
+      parent: { id: 2 },
       depth: 2
-    }, { 
-      object: { id: 6 }, 
-      parent: { id: 4 }, 
+    }, {
+      object: { id: 6 },
+      parent: { id: 4 },
       depth: 3
     }, {
-      object: { id: 3 }, 
-      parent: { id: 1 }, 
-      depth: 1 
+      object: { id: 3 },
+      parent: { id: 1 },
+      depth: 1
     }, {
-      object: { id: 5 }, 
+      object: { id: 5 },
       parent: { id: 3 },
-      depth: 2 
+      depth: 2
     } ] )
 
   } );

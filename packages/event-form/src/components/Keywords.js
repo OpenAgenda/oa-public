@@ -8,13 +8,70 @@ import TagsInput from 'react-tagsinput';
 import Sub from '@openagenda/form-schemas/client/build/Components/Sub';
 import Counter from '@openagenda/form-schemas/client/build/Components/FieldCounter';
 
+const separatorRegex = /;|,|\|/;
+
 module.exports = class KeywordsComponent extends Component {
 
+  constructor( props ) {
+
+    super( props );
+
+    this.state = {
+      inputValues: {}
+    };
+
+  }
+
+  onInputBlur( language, e ) {
+
+    if ( !e.target.value.length ) return;
+
+    this.appendValue( language, e.target.value );
+
+  }
+
+  onInputChange( language, e ) {
+
+    const parts = e.target.value.split( separatorRegex );
+
+    if ( parts.length <= 1 ) {
+
+      return this.setState( {
+        inputValues: ih( this.state.inputValues, _.set( {}, language, { $set: e.target.value } ) )
+      } );
+
+    }
+
+    this.appendValue( language, parts[ 0 ] );
+
+  }
+
+  appendValue( language, item ) {
+
+    this.resetInput( language );
+
+    this.props.onChange( ih( this.props.value || {}, _.set( {}, language, {
+      $set: _.uniq( _.get( this, [ 'props', 'value', language ], [] ).concat( item ) )
+    } ) ) );
+
+  }
+
   onChange( language, value ) {
+
+    this.resetInput( language );
 
     this.props.onChange( ih( this.props.value || {}, _.set( {}, language, {
       $set: value
     } ) ) );
+
+  }
+
+  resetInput( language ) {
+
+    this.setState( { inputValues: ih(
+      this.state.inputValues,
+      _.set( {}, language, { $set: '' } )
+    ) } );
 
   }
 
@@ -29,7 +86,10 @@ module.exports = class KeywordsComponent extends Component {
         value={preCleaned}
         onChange={this.onChange.bind(this, l)}
         inputProps={{
+          value: _.get( this, [ 'state', 'inputValues', l ], '' ),
+          onChange: this.onInputChange.bind( this, l ),
           placeholder: field.placeholder,
+          onBlur: this.onInputBlur.bind( this, l ),
           style: !_.get( value, l ) ? { width: '630px' } : null
         }}
       />
@@ -77,6 +137,6 @@ function preClean( value, lang ) {
 
   if ( !_.isArray( lValue ) ) return [];
 
-  return _.flatten( lValue.map( v => v.split( ',' ).map( v => v.trim() ) ) );
+  return _.flatten( lValue.map( v => ( v || '' ).split( ',' ).map( v => v.trim() ) ) );
 
 }

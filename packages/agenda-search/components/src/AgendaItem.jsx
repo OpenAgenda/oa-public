@@ -22,18 +22,20 @@ module.exports = createReactClass( {
   render() {
 
     return <div className="agenda-item media">
-      <a href={url.agenda( this.props.agenda )}>
+      <a href={url.agenda( this.props.agenda, {
+        lang: this.props.lang
+      } )}>
         <div className="media-left">
-          <img 
+          <img
             className="media-object ill avatar"
             src={this.props.agenda.image}
-            alt={this.props.agenda.title} 
+            alt={this.props.agenda.title}
           />
         </div>
         <div className="media-body">
           <div className="title media-heading">
             <strong>{this.props.agenda.title}</strong>
-            { this.props.agenda.official ? 
+            { this.props.agenda.official ?
               <div className="official">
                 <img src="//s3.eu-central-1.amazonaws.com/oastatic/official14.png" alt="officiel" />
                 <div className="tooltip right" role="tooltip">

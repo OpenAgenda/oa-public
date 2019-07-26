@@ -5,6 +5,10 @@
     "lang" : "fr", "key" : "reseau-d-agendas"
   }, {
     "lang" : "de", "key" : "agenda-netzwerk"
+  }, {
+    "lang" : "es", "key" : "red-de-agendas"
+  }, {
+    "lang" : "br", "key" : "reseau-d-agendas-br"
   } ],
   "head" : {
     "title": "networkOfferHeadTitle",

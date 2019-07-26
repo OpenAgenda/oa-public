@@ -88,6 +88,14 @@ window.asap( options => {
     res: options.res
   } );
 
+  try {
+    if ( window.location.href.split( '?' ).pop().indexOf( 'lang=' ) !== -1 ) {
+      cn.el( params.selectors.add ).setAttribute( 'href',
+        cn.el( params.selectors.add ).getAttribute( 'href' ) + '?lang=' + window.location.href.split( 'lang=' ).pop().substr( 0, 2 )
+      )
+    }
+  } catch( e ) { console.log( 'could not assign language to contribute button', e ) }
+
   get( params.res.role.replace( ':agendaUid', uid ), ( err, res ) => {
 
     controller.getControlData( ctl => {
@@ -132,7 +140,7 @@ window.asap( options => {
     } );
 
     _onWidgetLoaded( function() {
-    
+
       log( 'widgets are loaded and initialized' );
 
     } );
@@ -294,7 +302,7 @@ function _copyToSearch( values ) {
 
   cn.forEach( cn.els( params.selectors.searchLinks ) || [], function( el ) {
 
-    var href = el.getAttribute( 'href' ).split( '?' )[ 0 ] 
+    var href = el.getAttribute( 'href' ).split( '?' )[ 0 ]
 
              + '?' + qs.stringify( { oaq: values } );
 
@@ -311,8 +319,8 @@ function _onControllerChange( controller, cb ) {
 
   log( 'registering page list as widget' );
 
-  controller.register( { 
-    name: 'site', 
+  controller.register( {
+    name: 'site',
     enable: function( newValues ) {
 
       if ( !controller.isDifferent( currentSearchValues ) ) {

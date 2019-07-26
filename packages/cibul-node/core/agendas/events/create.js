@@ -17,7 +17,7 @@ const validate = require( './validate' );
 
 module.exports = async ( agendaUid, data, options = {} ) => {
 
-  log( 'processing', { agendaUid, options } );
+  log( 'info', 'processing', { agendaUid, options } );
 
   const contextUserUid = _.get( options, 'context.userUid', _.get( data, 'creatorUid' ) );
 

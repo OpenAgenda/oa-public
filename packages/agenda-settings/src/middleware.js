@@ -11,7 +11,6 @@ module.exports = {
   set,
   setImage,
   clearImage,
-  removeAgenda,
   slugs: {
     available: slugAvailable
   }
@@ -118,20 +117,6 @@ function clearImage( req, res, next ) {
       res.json();
 
     } );
-
-  } );
-
-}
-
-function removeAgenda( req, res, next ) {
-
-  agendasSvc.remove( { slug: req.params.slug }, ( err, result ) => {
-
-    if ( err ) return next( err );
-
-    if ( !result.success ) res.status( 400 ).send();
-
-    next();
 
   } );
 

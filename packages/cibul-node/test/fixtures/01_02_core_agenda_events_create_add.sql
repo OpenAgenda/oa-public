@@ -3,9 +3,9 @@ create database if not exists oatest;
 use oatest;
 
 CREATE TABLE agenda (
-  id BIGINT AUTO_INCREMENT, 
+  id BIGINT AUTO_INCREMENT,
   uid BIGINT UNIQUE,
-  main TINYINT(1) DEFAULT '0' NOT NULL, 
+  main TINYINT(1) DEFAULT '0' NOT NULL,
   official TINYINT(1) DEFAULT '0' NOT NULL,
   officialized_at DATETIME,
   private TINYINT(1) DEFAULT '0' NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE agenda (
   settings TEXT,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
-  INDEX owner_id_idx (owner_id), 
+  INDEX owner_id_idx (owner_id),
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
@@ -34,27 +34,28 @@ CREATE TABLE agenda (
 INSERT INTO agenda (
   `id`,
   `title`,
-  `owner_id`, 
-  `slug`, 
-  `description`, 
-  `image`, 
-  `url`, 
-  `collaborative`, 
-  `created_at`, 
-  `updated_at`, 
-  `uid`, 
-  `main`, 
-  `store`, 
-  `contribution_type`, 
-  `contribution_info`, 
-  `official`, 
-  `private`, 
+  `owner_id`,
+  `slug`,
+  `description`,
+  `image`,
+  `url`,
+  `collaborative`,
+  `created_at`,
+  `updated_at`,
+  `uid`,
+  `main`,
+  `store`,
+  `contribution_type`,
+  `contribution_info`,
+  `official`,
+  `private`,
   `credentials`,
-  `form_schema_id`
+  `form_schema_id`,
+  `settings`
 ) VALUES
 
 (
-  218, 
+  218,
   'La Gargouille',
   50304,
   'la-gargouille',
@@ -72,11 +73,12 @@ INSERT INTO agenda (
   0,
   0,
   '{}',
-  2
+  2,
+  '{"contribution":{"type":1}}'
 ),
 
 (
-  219, 
+  219,
   'La Gourgaille',
   50304,
   'la-gourgaille',
@@ -94,7 +96,8 @@ INSERT INTO agenda (
   0,
   0,
   '{}',
-  3
+  3,
+  '{}'
 );
 
 
@@ -124,13 +127,14 @@ CREATE TABLE `user` (
   `uid` bigint(20) DEFAULT NULL,
   `last_signin` datetime DEFAULT NULL,
   `comexposium_id` varchar(255) DEFAULT NULL,
-  `is_new` tinyint(4) DEFAULT '1'
+  `is_new` tinyint(4) DEFAULT '1',
+  `last_inbox_check` datetime DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=50305 DEFAULT CHARSET=utf8;
 
 
-
 INSERT INTO `user` (`id`, `full_name`, `username`, `email`, `image`, `facebook_uid`, `twitter_screen_name`, `culture`, `is_activated`, `main`, `password`, `salt`, `created_at`, `updated_at`, `last_notified`, `is_removed`, `store`, `api_key`, `is_basic`, `twitter_id`, `google_id`, `uid`, `last_signin`, `comexposium_id`, `is_new`) VALUES
-(50304, 'steve', 'steve4460', 'steve@oa.com', NULL, NULL, NULL, 'fr', 1, NULL, 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65', '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3', '2017-11-15 15:50:11', '2017-11-15 15:50:30', NULL, 0, NULL, NULL, 0, NULL, NULL, 63170203, '2017-11-15 15:50:30', NULL, 1);
+(50304, 'steve', 'steve4460', 'steve@oa.com', NULL, NULL, NULL, 'fr', 1, NULL, 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65', '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3', '2017-11-15 15:50:11', '2017-11-15 15:50:30', NULL, 0, NULL, NULL, 0, NULL, NULL, 63170203, '2017-11-15 15:50:30', NULL, 1),
+(50300, 'janine', 'Janine', 'janine@oa.com', NULL, NULL, NULL, 'fr', 1, NULL, 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65', '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3', '2017-11-15 15:50:11', '2017-11-15 15:50:30', NULL, 0, NULL, NULL, 0, NULL, NULL, 63170200, '2017-11-15 15:50:30', NULL, 1);
 
 ALTER TABLE `user` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id_idx` (`id`), ADD UNIQUE KEY `username` (`username`), ADD UNIQUE KEY `email` (`email`), ADD UNIQUE KEY `email_idx` (`email`), ADD UNIQUE KEY `uid` (`uid`);
 
@@ -141,14 +145,14 @@ CREATE TABLE IF NOT EXISTS `form_schema` (
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 INSERT INTO `form_schema` (`id`, `store`) VALUES
-(2, '{"nextOptionId":61,"fields":[{"field":"custom_description","label":{"fr":"Description personnalisée","en":"Custom description"},"info":null,"write":"contributor","read":null,"optional":true,"origin":"custom","min":null,"max":null,"fieldType":"textarea"},{"field":"title","fieldType":"abstract"},{"field":"location","fieldType":"abstract"},{"field":"intermunicipal_interest","label":{"fr":"Événement d''intérêt intercommunal","en":"Event of inter-municipal interest"},"info":null,"write":"contributor","read":null,"optional":true,"origin":"custom","min":null,"max":null,"options":[{"id":1,"value":"true","label":{"fr":"Événement d''intérêt intercommunal","en":"Event of inter-municipal interest"},"legacyId":null}],"fieldType":"checkbox"},{"field":"recurring","label":{"fr":"Événement récurrent","en":"Recurring Event"},"info":null,"write":"contributor","read":null,"optional":true,"origin":"custom","min":null,"max":null,"options":[{"id":2,"value":"true","label":{"fr":"Événement récurrent","en":"Recurring Event"},"legacyId":null}],"fieldType":"checkbox"},{"field":"thematiques-bordeaux-metropole","label":{"fr":"Thématiques Bordeaux Métropole"},"info":null,"write":"contributor","read":null,"optional":true,"origin":"tags","min":null,"max":null,"options":[{"id":3,"value":"administration","label":{"fr":"Administration"},"legacyId":9661},{"id":4,"value":"aeronautique","label":{"fr":"Aéronautique"},"legacyId":9662},{"id":5,"value":"agroalimentaire","label":{"fr":"Agroalimentaire"},"legacyId":9663},{"id":6,"value":"archeologie-preventive","label":{"fr":"Archéologie préventive"},"legacyId":9664},{"id":7,"value":"citoyennete","label":{"fr":"Citoyenneté"},"legacyId":9665},{"id":8,"value":"consommation-denergie","label":{"fr":"Consommation d’énergie"},"legacyId":9666},{"id":9,"value":"culture","label":{"fr":"Culture"},"legacyId":9667},{"id":10,"value":"dechets-recyclage","label":{"fr":"Déchets - Recyclage"},"legacyId":9668},{"id":11,"value":"developpement-durable","label":{"fr":"Développement durable"},"legacyId":9669},{"id":12,"value":"eau-et-assainissement","label":{"fr":"Eau et assainissement"},"legacyId":9670},{"id":13,"value":"economie","label":{"fr":"Économie"},"legacyId":9671},{"id":14,"value":"education-enseignement","label":{"fr":"Éducation - Enseignement"},"legacyId":9672},{"id":15,"value":"emploi","label":{"fr":"Emploi"},"legacyId":9673},{"id":16,"value":"enfance","label":{"fr":"Enfance"},"legacyId":9674},{"id":17,"value":"environnement","label":{"fr":"Environnement"},"legacyId":9675},{"id":18,"value":"finances","label":{"fr":"Finances"},"legacyId":9676},{"id":19,"value":"grand-projet","label":{"fr":"Grand projet"},"legacyId":9677},{"id":20,"value":"habitat","label":{"fr":"Habitat"},"legacyId":9678},{"id":21,"value":"innovation","label":{"fr":"Innovation"},"legacyId":9679},{"id":22,"value":"international","label":{"fr":"International"},"legacyId":9680},{"id":23,"value":"loisirs","label":{"fr":"Loisirs"},"legacyId":9681},{"id":24,"value":"metropole","label":{"fr":"Métropole"},"legacyId":9682},{"id":25,"value":"nature","label":{"fr":"Nature"},"legacyId":9683},{"id":26,"value":"nautisme-garonne","label":{"fr":"Nautisme - Garonne"},"legacyId":9684},{"id":27,"value":"numerique","label":{"fr":"Numérique"},"legacyId":9685},{"id":28,"value":"oim","label":{"fr":"OIM"},"legacyId":9686},{"id":29,"value":"participation","label":{"fr":"Participation"},"legacyId":9687},{"id":30,"value":"patrimoine","label":{"fr":"Patrimoine"},"legacyId":9688},{"id":31,"value":"politique","label":{"fr":"Politique"},"legacyId":9689},{"id":32,"value":"sante","label":{"fr":"Santé"},"legacyId":9690},{"id":33,"value":"solidarite","label":{"fr":"Solidarité"},"legacyId":9691},{"id":34,"value":"sport","label":{"fr":"Sport"},"legacyId":9692},{"id":35,"value":"tertiaire","label":{"fr":"Tertiaire"},"legacyId":9693},{"id":36,"value":"tourisme","label":{"fr":"Tourisme"},"legacyId":9694},{"id":37,"value":"tramway","label":{"fr":"Tramway"},"legacyId":9695},{"id":38,"value":"transports-deplacements","label":{"fr":"Transports - Déplacements"},"legacyId":9696},{"id":39,"value":"travaux-chantiers","label":{"fr":"Travaux - chantiers"},"legacyId":9697},{"id":40,"value":"urbanisme","label":{"fr":"Urbanisme"},"legacyId":9698},{"id":41,"value":"vie-associative","label":{"fr":"Vie associative"},"legacyId":9699}],"fieldType":"checkbox"},{"field":"bordeaux-metropole","label":{"fr":"Bordeaux Métropole"},"info":null,"write":"contributor","read":null,"optional":true,"origin":"tags","min":null,"max":null,"options":[],"fieldType":"checkbox"},{"field":"categories-agenda-metropolitain","label":{"fr":"Catégories Agenda Métropolitain"},"info":null,"write":"contributor","read":null,"optional":false,"origin":"categories","options":[{"id":42,"value":"animation-loto","label":{"fr":"Animation - Loto"},"legacyId":3454},{"id":43,"value":"atelier","label":{"fr":"Atelier"},"legacyId":3455},{"id":44,"value":"ceremonie","label":{"fr":"Cérémonie"},"legacyId":3456},{"id":45,"value":"cinema-projection","label":{"fr":"Cinéma - Projection"},"legacyId":3457},{"id":46,"value":"concert","label":{"fr":"Concert"},"legacyId":3458},{"id":47,"value":"conference-rencontre","label":{"fr":"Conférence - Rencontre"},"legacyId":3459},{"id":48,"value":"congres-colloque","label":{"fr":"Congrès - Colloque"},"legacyId":3460},{"id":49,"value":"conseil-de-metropole","label":{"fr":"Conseil de métropole"},"legacyId":3461},{"id":50,"value":"conseil-municipal","label":{"fr":"Conseil municipal"},"legacyId":3462},{"id":51,"value":"evenement-sportif","label":{"fr":"Événement sportif"},"legacyId":3463},{"id":52,"value":"exposition","label":{"fr":"Exposition"},"legacyId":3464},{"id":53,"value":"fete-festival","label":{"fr":"Fête - Festival"},"legacyId":3465},{"id":54,"value":"foire-salon","label":{"fr":"Foire - Salon"},"legacyId":3466},{"id":55,"value":"inauguration","label":{"fr":"Inauguration"},"legacyId":3467},{"id":56,"value":"lecture","label":{"fr":"Lecture"},"legacyId":3468},{"id":57,"value":"marche-brocante-vide-grenier","label":{"fr":"Marché-Brocante - Vide grenier"},"legacyId":3469},{"id":58,"value":"reunion-publique","label":{"fr":"Réunion publique"},"legacyId":3470},{"id":59,"value":"spectacle","label":{"fr":"Spectacle"},"legacyId":3471},{"id":60,"value":"visite-balade","label":{"fr":"Visite - Balade"},"legacyId":3472}],"fieldType":"radio"}]}'),
+(2, '{"nextOptionId":61,"fields":[{"field":"custom_description","label":{"fr":"Description personnalisée","en":"Custom description"},"info":null,"write":"contributor","read":null,"optional":true,"origin":"custom","min":null,"max":null,"fieldType":"textarea"},{"field":"title","fieldType":"abstract"},{"field":"location","fieldType":"abstract"},{"field":"intermunicipal_interest","label":{"fr":"Événement d''intérêt intercommunal","en":"Event of inter-municipal interest"},"info":null,"write":"contributor","read":null,"optional":true,"origin":"custom","min":null,"max":null,"options":[{"id":1,"value":"true","label":{"fr":"Événement d''intérêt intercommunal","en":"Event of inter-municipal interest"},"legacyId":null}],"fieldType":"checkbox"},{"field":"recurring","label":{"fr":"Événement récurrent","en":"Recurring Event"},"info":null,"write":"contributor","read":null,"optional":true,"origin":"custom","min":null,"max":null,"options":[{"id":2,"value":"true","label":{"fr":"Événement récurrent","en":"Recurring Event"},"legacyId":null}],"fieldType":"checkbox"},{"field":"thematiques-bordeaux-metropole","label":{"fr":"Thématiques Bordeaux Métropole"},"info":null,"write":"contributor","read":null,"optional":true,"origin":"tags","min":null,"max":null,"options":[{"id":3,"value":"administration","label":{"fr":"Administration"}},{"id":4,"value":"aeronautique","label":{"fr":"Aéronautique"}},{"id":5,"value":"agroalimentaire","label":{"fr":"Agroalimentaire"},"legacyId":9663},{"id":6,"value":"archeologie-preventive","label":{"fr":"Archéologie préventive"},"legacyId":9664},{"id":7,"value":"citoyennete","label":{"fr":"Citoyenneté"},"legacyId":9665},{"id":8,"value":"consommation-denergie","label":{"fr":"Consommation d’énergie"},"legacyId":9666},{"id":9,"value":"culture","label":{"fr":"Culture"},"legacyId":9667},{"id":10,"value":"dechets-recyclage","label":{"fr":"Déchets - Recyclage"},"legacyId":9668},{"id":11,"value":"developpement-durable","label":{"fr":"Développement durable"},"legacyId":9669},{"id":12,"value":"eau-et-assainissement","label":{"fr":"Eau et assainissement"},"legacyId":9670},{"id":13,"value":"economie","label":{"fr":"Économie"},"legacyId":9671},{"id":14,"value":"education-enseignement","label":{"fr":"Éducation - Enseignement"},"legacyId":9672},{"id":15,"value":"emploi","label":{"fr":"Emploi"},"legacyId":9673},{"id":16,"value":"enfance","label":{"fr":"Enfance"},"legacyId":9674},{"id":17,"value":"environnement","label":{"fr":"Environnement"},"legacyId":9675},{"id":18,"value":"finances","label":{"fr":"Finances"},"legacyId":9676},{"id":19,"value":"grand-projet","label":{"fr":"Grand projet"},"legacyId":9677},{"id":20,"value":"habitat","label":{"fr":"Habitat"},"legacyId":9678},{"id":21,"value":"innovation","label":{"fr":"Innovation"},"legacyId":9679},{"id":22,"value":"international","label":{"fr":"International"},"legacyId":9680},{"id":23,"value":"loisirs","label":{"fr":"Loisirs"},"legacyId":9681},{"id":24,"value":"metropole","label":{"fr":"Métropole"},"legacyId":9682},{"id":25,"value":"nature","label":{"fr":"Nature"},"legacyId":9683},{"id":26,"value":"nautisme-garonne","label":{"fr":"Nautisme - Garonne"},"legacyId":9684},{"id":27,"value":"numerique","label":{"fr":"Numérique"},"legacyId":9685},{"id":28,"value":"oim","label":{"fr":"OIM"},"legacyId":9686},{"id":29,"value":"participation","label":{"fr":"Participation"},"legacyId":9687},{"id":30,"value":"patrimoine","label":{"fr":"Patrimoine"},"legacyId":9688},{"id":31,"value":"politique","label":{"fr":"Politique"},"legacyId":9689},{"id":32,"value":"sante","label":{"fr":"Santé"},"legacyId":9690},{"id":33,"value":"solidarite","label":{"fr":"Solidarité"},"legacyId":9691},{"id":34,"value":"sport","label":{"fr":"Sport"},"legacyId":9692},{"id":35,"value":"tertiaire","label":{"fr":"Tertiaire"},"legacyId":9693},{"id":36,"value":"tourisme","label":{"fr":"Tourisme"},"legacyId":9694},{"id":37,"value":"tramway","label":{"fr":"Tramway"},"legacyId":9695},{"id":38,"value":"transports-deplacements","label":{"fr":"Transports - Déplacements"},"legacyId":9696},{"id":39,"value":"travaux-chantiers","label":{"fr":"Travaux - chantiers"},"legacyId":9697},{"id":40,"value":"urbanisme","label":{"fr":"Urbanisme"},"legacyId":9698},{"id":41,"value":"vie-associative","label":{"fr":"Vie associative"},"legacyId":9699}],"fieldType":"checkbox"},{"field":"bordeaux-metropole","label":{"fr":"Bordeaux Métropole"},"info":null,"write":"contributor","read":null,"optional":true,"origin":"tags","min":null,"max":null,"options":[],"fieldType":"checkbox"},{"field":"categories-agenda-metropolitain","label":{"fr":"Catégories Agenda Métropolitain"},"info":null,"write":"contributor","read":null,"optional":false,"origin":"categories","options":[{"id":42,"value":"animation-loto","label":{"fr":"Animation - Loto"},"legacyId":3454},{"id":43,"value":"atelier","label":{"fr":"Atelier"},"legacyId":3455},{"id":44,"value":"ceremonie","label":{"fr":"Cérémonie"},"legacyId":3456},{"id":45,"value":"cinema-projection","label":{"fr":"Cinéma - Projection"},"legacyId":3457},{"id":46,"value":"concert","label":{"fr":"Concert"},"legacyId":3458},{"id":47,"value":"conference-rencontre","label":{"fr":"Conférence - Rencontre"},"legacyId":3459},{"id":48,"value":"congres-colloque","label":{"fr":"Congrès - Colloque"},"legacyId":3460},{"id":49,"value":"conseil-de-metropole","label":{"fr":"Conseil de métropole"},"legacyId":3461},{"id":50,"value":"conseil-municipal","label":{"fr":"Conseil municipal"},"legacyId":3462},{"id":51,"value":"evenement-sportif","label":{"fr":"Événement sportif"},"legacyId":3463},{"id":52,"value":"exposition","label":{"fr":"Exposition"},"legacyId":3464},{"id":53,"value":"fete-festival","label":{"fr":"Fête - Festival"},"legacyId":3465},{"id":54,"value":"foire-salon","label":{"fr":"Foire - Salon"},"legacyId":3466},{"id":55,"value":"inauguration","label":{"fr":"Inauguration"},"legacyId":3467},{"id":56,"value":"lecture","label":{"fr":"Lecture"},"legacyId":3468},{"id":57,"value":"marche-brocante-vide-grenier","label":{"fr":"Marché-Brocante - Vide grenier"},"legacyId":3469},{"id":58,"value":"reunion-publique","label":{"fr":"Réunion publique"},"legacyId":3470},{"id":59,"value":"spectacle","label":{"fr":"Spectacle"},"legacyId":3471},{"id":60,"value":"visite-balade","label":{"fr":"Visite - Balade"},"legacyId":3472}],"fieldType":"radio"}]}'),
 
 (3, '{"nextOptionId":1,"fields":[]}');
 
 
-ALTER TABLE `form_schema`ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id_idx` (`id`);
+ALTER TABLE `form_schema` ADD PRIMARY KEY (`id`), ADD UNIQUE KEY `id_idx` (`id`);
 
-ALTER TABLE `form_schema`MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+ALTER TABLE `form_schema` MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
 
 
 CREATE TABLE IF NOT EXISTS `member` (
@@ -159,10 +163,13 @@ CREATE TABLE IF NOT EXISTS `member` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `store` longtext,
+  `slug` varchar(255),
   `organization` varchar(255) DEFAULT NULL,
   `creator_id` bigint(20) DEFAULT NULL,
   `deleted_user` tinyint(1) DEFAULT '0',
-  `actions_counter` smallint(6) NOT NULL DEFAULT '0'
+  `actions_counter` smallint(6) NOT NULL DEFAULT '0',
+  `user_uid` bigint(20) DEFAULT NULL,
+  `agenda_uid` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=71390 DEFAULT CHARSET=latin1;
 
 --
@@ -284,8 +291,8 @@ create table if not exists `location` (
   postal_code VARCHAR(20),
   eve_id VARCHAR(100),
   created_at DATETIME NOT NULL,
-  updated_at DATETIME NOT NULL, 
-  UNIQUE INDEX slug_idx (slug), 
+  updated_at DATETIME NOT NULL,
+  UNIQUE INDEX slug_idx (slug),
   INDEX latlng_idx (latitude, longitude),
   INDEX owner_id_idx (owner_id),
   primary key(id)
@@ -387,10 +394,10 @@ CREATE TABLE IF NOT EXISTS `legacy_agenda_event` (
 
 
 CREATE TABLE IF NOT EXISTS `legacy_agenda_event_reference` (
-  id BIGINT, 
-  agenda_id BIGINT, 
-  event_id BIGINT, 
-  ref_event_id BIGINT, 
+  id BIGINT,
+  agenda_id BIGINT,
+  event_id BIGINT,
+  ref_event_id BIGINT,
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
@@ -423,15 +430,24 @@ insert into legacy_agenda_category ( id, slug, category, review_id ) values
   ( 3456, 'ceremonie', 'Cérémonie', 218 ),
   ( 3457, 'cinema-projection', 'Cinéma - Projection', 218 );
 
+CREATE TABLE IF NOT EXISTS `category_set` (
+  id bigint(20),
+  store longtext
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into category_set ( id, store ) values (
+  218, '{"categories":[{"id":3454,"label":"Animation - Loto","slug":"animation-loto"},{"id":3455,"label":"Atelier","slug":"atelier"},{"id":3456,"label":"Cérémonie","slug":"ceremonie"},{"id":3457,"label":"Cinéma - Projection","slug":"cinema-projection"}]}'
+);
+
 
 CREATE TABLE legacy_agenda_tag (
-  id BIGINT AUTO_INCREMENT, 
-  slug VARCHAR(255) NOT NULL, 
-  review_id BIGINT NOT NULL, 
-  tag VARCHAR(255) NOT NULL, 
-  created_at DATETIME NOT NULL, 
-  updated_at DATETIME NOT NULL, 
-  INDEX review_id_idx (review_id), 
+  id BIGINT AUTO_INCREMENT,
+  slug VARCHAR(255) NOT NULL,
+  review_id BIGINT NOT NULL,
+  tag VARCHAR(255) NOT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  INDEX review_id_idx (review_id),
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
@@ -439,10 +455,19 @@ insert into legacy_agenda_tag ( id, slug, review_id, tag ) values
   ( 9661, 'administration', 218, 'Administration' ),
   ( 9662, 'aeronautique', 218, 'Aéronautique' );
 
+CREATE TABLE IF NOT EXISTS `tag_set` (
+  id bigint(20),
+  store longtext
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+insert into tag_set ( id, store ) values (
+  218, '{"groups":[{"tags":[{"id":9661,"slug":"administration","label":"Administration","schemaOptionId":"2.3"},{"id":9662,"slug":"aeronautique","label":"Aéronautique","schemaOptionId":"2.4"}]}]}'
+);
+
 
 --
 -- cibul-model repo has table names hardcoded. So event table needs to be aliased for interfaces
--- with old code to work 
+-- with old code to work
 --
 CREATE VIEW event AS SELECT * FROM legacy_event;
 CREATE VIEW event_translation AS SELECT * FROM legacy_event_translation;
@@ -454,5 +479,4 @@ CREATE VIEW review AS SELECT * FROM agenda;
 CREATE VIEW reviewer AS SELECT * FROM member;
 CREATE VIEW review_category as select * from legacy_agenda_category;
 CREATE VIEW review_tag as select * from legacy_agenda_tag;
-
-CREATE TABLE review_tag_article (id BIGINT AUTO_INCREMENT, review_article_id BIGINT NOT NULL, review_tag_id BIGINT NOT NULL, created_at DATETIME NOT NULL, updated_at DATETIME NOT NULL, INDEX review_article_id_idx (review_article_id), INDEX review_tag_id_idx (review_tag_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
+CREATE VIEW review_tag_article AS SELECT * from legacy_agenda_event_tag;

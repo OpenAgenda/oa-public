@@ -47,7 +47,7 @@ async function set( eventId, fields, data ) {
 
     } else if ( _isFile( data[ f.field ] ) ) {
 
-      parsed[ f.field ] = _parseFileEntry( data[ f.field ] );
+      parsed[ f.field ] = _transformFileEntryToLegacy( data[ f.field ] );
 
     } else if ( !f.options ) {
 
@@ -109,6 +109,14 @@ function parse( fields, custom ) {
 
       parsed[ f.field ] = f.options.filter( o => o.value === value ).map( o => o.id );
 
+    } else if ( f.fieldType === 'file' ) {
+
+      parsed[ f.field ] = _transformFileEntryFromLegacy( value );
+
+    } else if ( f.fieldType === 'image' ) {
+
+      parsed[ f.field ] = _transformImageEntryFromLegacy( value );
+
     } else {
 
       log( 'warn', 'unhandled transfer for type %s', f.fieldType || 'unspecified' );
@@ -122,11 +130,29 @@ function parse( fields, custom ) {
 }
 
 
-function _parseFileEntry( entry ) {
+function _transformFileEntryToLegacy( entry ) {
 
   return {
     name: entry.originalName,
     uploaded: entry.filename
+  }
+
+}
+
+function _transformFileEntryFromLegacy( entry ) {
+
+  return {
+    originalName: entry.name,
+    filename: entry.uploaded
+  }
+
+}
+
+function _transformImageEntryFromLegacy( entry ) {
+
+  return {
+    originalName: entry,
+    filename: entry
   }
 
 }

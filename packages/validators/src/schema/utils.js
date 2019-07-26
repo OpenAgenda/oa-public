@@ -4,7 +4,8 @@ const _ = {
   extend: require( 'lodash/extend' ),
   keys: require( 'lodash/keys' ),
   get: require( 'lodash/get' ),
-  pick: require( 'lodash/pick' )
+  pick: require( 'lodash/pick' ),
+  isArray: require( 'lodash/isArray' )
 }
 
 module.exports = {
@@ -53,7 +54,7 @@ function _makeValidator( type, field, options, values ) {
 
   }
 
-  if ( validatorOptions.enableWith && [ undefined, null ].includes( _.get( values, validatorOptions.enableWith ) ) ) {
+  if ( validatorOptions.enableWith && _isFalsy( _.get( values, validatorOptions.enableWith ) ) ) {
 
     validatorOptions.optional = true;
 
@@ -111,5 +112,13 @@ function _extractType( fieldOptions ) {
 function registerValidators( validators ) {
 
   _.extend( registeredValidators, validators );
+
+}
+
+function _isFalsy( value ) {
+
+  if ( _.isArray( value ) && !value.length ) return true;
+
+  return [ undefined, null ].includes( value );
 
 }

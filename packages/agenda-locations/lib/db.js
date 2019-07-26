@@ -21,7 +21,7 @@ const fields = [
 
 const storeFields = [ // fields kept in store column in schema
   'image', 'description', 'tags',
-  'website', 'phone', 'links', 'access',
+  'website', 'email', 'phone', 'links', 'access',
   'state', 'timezone', 'imageCredits', 'extId'
 ];
 
@@ -39,8 +39,9 @@ module.exports = {
   exists,
   remove,
   unlink,
-  list: _.extend( list, {
-    terms: listTerms
+  list: Object.assign( list, {
+    terms: listTerms,
+    byLastId: listFromLastId
   } ),
 
   // decorate a list of locations with
@@ -79,17 +80,17 @@ function resync( agendaId, cb ) {
 
     const limit = 20;
 
-    let offset = 0, more = true;
+    let lastId = 0, more = true;
 
     async.doWhilst( wcb => {
 
-      list( { agendaId }, offset, limit, ( err, locations ) => {
+      list.byLastId( { agendaId }, lastId, limit, ( err, locations ) => {
 
         if ( err ) return cb( err );
 
         more = !!locations.length;
 
-        offset += limit;
+        lastId = _.get( _.last( locations ), 'id' );
 
         async.eachSeries( locations, ( l, ecb ) => {
 
@@ -205,23 +206,31 @@ function copySettings( originAgendaId, destinationAgendaId, cb ) {
 }
 
 
+function listFromLastId( wheres, lastId, limit, cb ) {
+
+  _list( wheres, { limit, lastId }, cb );
+
+}
+
 function list( wheres, offset, limit, cb ) {
 
   if ( arguments.length == 3 ) {
-
     cb = limit;
-
     limit = offset;
-
     offset = wheres;
-
     wheres = {};
-
   }
+
+  _list( wheres, { limit, offset }, cb );
+
+}
+
+function _list( wheres, { offset, limit, lastId }, cb ) {
 
   w( {
     offset,
     limit,
+    lastId,
     locations: false,
     config,
     wheres,
@@ -396,11 +405,22 @@ function set( data, settings, cb ) {
 
     if ( v.errors.length ) return v;
 
-    return ( v.operation == 'create' ? _create : _update )( v );
+    return ( v.operation === 'create' ? _create : _update )( v );
 
   } )
 
-  .done( v => {
+  .done( async v => {
+
+    try {
+      if ( v.operation === 'create' &&  _.get( interfaces, 'onCreate' ) ) {
+        await interfaces.onCreate( v.location );
+      } else if ( v.operation === 'update' && _.get( interfaces, 'onUpdate' ) ) {
+        await interfaces.onUpdate( v.currentLocation, v.location );
+      }
+    } catch ( e ) {
+      log( 'error', 'interface error', e );
+    }
+
 
     cb( null, {
       success: !v.errors.length,
@@ -715,11 +735,13 @@ function _defineListQuery( v ) {
 
   }
 
+  if ( v.lastId !== undefined ) wheres.push( 'id > ' + mysql.escape( v.lastId ) );
+
   v.query = [
     `select ${fields.map( f => typeof f == 'string' ? f : f.db ).join( ', ' )}`,
     `from ${v.config.table}`,
     wheres.length ? `where ${wheres.join( ' and ' )}` : '',
-    `limit ${v.offset}, ${v.limit}`
+    v.offset !== undefined ? `limit ${v.offset}, ${v.limit}` : `limit ${v.limit}`
   ].join( ' ' );
 
   if ( log ) log( 'list query: %s', v.query );

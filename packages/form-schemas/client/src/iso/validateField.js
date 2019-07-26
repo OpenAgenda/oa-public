@@ -92,8 +92,8 @@ function validate( value, options = {} ) {
 
   }
 
-  // if is custom field, do not filter out remaining values
-  if ( isCustomField ) {
+  // if is custom or abstract field, do not filter out remaining values
+  if ( isCustomField || isAbstract ) {
 
     _.keys( value )
       .filter( key => !_.includes( _.keys( clean ) ) )
@@ -194,6 +194,12 @@ function buildFieldSchema( type, options = {} ) {
       default: null
     },
 
+    helpContent: {
+      type: 'text',
+      optional: true,
+      default: null
+    },
+
     default: {
       type: 'pass', // dependent on type of field
       optional: true
@@ -224,19 +230,15 @@ function buildFieldSchema( type, options = {} ) {
     },
 
     write: {
-      type: 'choice',
-      // potential groups with write access
-      options: [ 'contributor', 'moderator', 'administrator' ],
-      unique: true,
-      optional: true
+      type: 'text',
+      optional: true,
+      list: { default: null }
     },
 
     read: {
-      type: 'choice',
-      // potential groups with read access
-      options: [ 'contributor', 'moderator', 'administrator' ],
-      unique: true,
-      optional: true
+      type: 'text',
+      optional: true,
+      list: { default: null }
     },
 
     optional: {
