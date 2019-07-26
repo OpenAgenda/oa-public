@@ -20,16 +20,22 @@ module.exports = {
     "es": "fuentes agendas"
   },
   "sourcesExplanation": {
-    "fr": "Les événements publiés par les agendas listés ici sont automatiquement ajoutés à l'agenda %title%.",
-    "en": "The events published by the agendas listed here are automatically added to the %title% agenda.",
-    "de": "Die Veranstaltungen, die von der Kalender veröffentlicht hier aufgeführt sind, auf die %title% Kalender automatisch hinzugefügt.",
-    "es": "Eventos publicados por los organizadores figuran en esta lista se añaden automáticamente al agenda %title%."
+    "fr": "Les événements publiés par les agendas listés ici sont automatiquement ajoutés à l'agenda [%title%](%link%).",
+    "en": "The events published by the agendas listed here are automatically added to the [%title%](%link%) agenda.",
+    "de": "Die Veranstaltungen, die von der Kalender veröffentlicht hier aufgeführt sind, auf die [%title%](%link%) Kalender automatisch hinzugefügt.",
+    "es": "Eventos publicados por los organizadores figuran en esta lista se añaden automáticamente al agenda [%title%](%link%)."
   },
   "addSources": {
-    "fr": "Pour ajouter des sources, <a href=\"%searchLink%\">trouvez les agendas</a> dont vous voulez agréger les événements, ouvrez-les sélectionnez votre agenda dans le menu Exporter. <a target=\"_blank\" href=\"%helpLink%\">Cliquez ici pour en savoir plus sur l'agrégation</a>",
-    "en": "To add sources, <a href=\"%searchLink%\">find the agendas</a> you want to use, open them, and click on your agenda item in the Export menu. <a target=\"_blank\" href=\"%helpLink%\">Click here to find out more about aggregations</a>",
-    "de": "Um Quellen hinzuzufügen, <a href=\"%searchLink%\"> suchen Sie die Kalender </a>, für die Sie die Ereignisse aggregieren möchten, öffnen Sie sie und wählen Sie Ihren Kalender aus dem Menü \"Exportieren\" aus. <a target=\"_blank\" href=\"%helpLink%\">Weitere Informationen zur Aggregation</a>",
-    "es": "Para añadir fuentes, <a href=\"%searchLink%\"> busca los calendarios</a> desde los que desea agregar eventos, ábralos y selectionna vuestro calendario en el menú Exportar. <a target=\"_blank\" href=\"%helpLink%\">Más información sobre la agregación</a>"
+    "fr": "Pour agréger de nouveaux agendas, [allez sur un agenda que vous souhaitez agréger](%searchLink%), puis cliquez sur Exporter > Agréger dans > **%agenda%**.",
+    "en": "To aggregate new agendas, [go to the page of the agenda](%searchLink%) you wish to add and click on Export > Aggregate in > **%agenda%**",
+    "de": "Um neue Agenden zusammenzufassen, [rufen Sie die Seite](%searchLink%) der Tagesordnung auf, die Sie hinzufügen möchten und klicken Sie auf Exportieren > Agregieren in > **%agenda%**",
+    "es": "Para añadir nuevos calendarios, [abre la pagina del calendario](%searchLink%) que desea y pulsa sobre Exportar > Agregar en > **%agenda%**"
+  },
+  "sourcesHelp" : {
+    "fr": "Cliquez ici pour en savoir plus",
+    "en": "Click here to find out more about aggregations",
+    "de": "Weitere Informationen zur Aggregation",
+    "es": "Más información sobre la agregación"
   },
   "aggregationLoop": {
     "fr": "Cet agenda agrège des événements de l'agenda auquel vous voulez l'ajouter. Les boucles d'agrégation ne sont pas permises.",
