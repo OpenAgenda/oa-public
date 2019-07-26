@@ -1,6 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import TimingsPicker from '../src';
+
+import 'react-day-picker/lib/style.css';
 import '../src/App.css';
 
 storiesOf( 'App', module )

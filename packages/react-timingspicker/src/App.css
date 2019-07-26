@@ -42,14 +42,13 @@
 }
 
 .rtp__calendar .rtp__header {
-    text-transform: uppercase;
-    font-weight: 700;
     margin: .5em 0;
 }
 
 .rtp__calendar .rtp__header .rtp__prev-week,
 .rtp__calendar .rtp__header .rtp__next-week {
     cursor: pointer;
+    font-weight: 700;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
@@ -88,6 +87,8 @@
 .rtp__calendar .rtp__header .rtp__selectors {
     float: right;
     text-align: right;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector {
@@ -622,6 +623,21 @@
 .rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-until__section {
     display: inline-block;
     vertical-align: middle;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__section .DayPicker,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-until__section .DayPicker {
+    font-size: 14px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__section .DayPicker-wrapper,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-until__section .DayPicker-wrapper {
+    padding-bottom: 0;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__section .DayPicker-Month,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-until__section .DayPicker-Month {
+    margin: 4px;
 }
 
 .rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-until__input-error,

@@ -8,9 +8,7 @@ import dateFns from 'date-fns';
 import { FaRegTimesCircle } from 'react-icons/fa';
 import SelectField from './SelectField';
 import NumberInput from './NumberInput';
-import DateInput from './DateInput';
-import deriveDateFormat from './utils/deriveDateFormat';
-import getDateFromFormat from './utils/getDateFromFormat';
+import DatePickerInput from './DatePickerInput';
 import isValidDate from './utils/isValidDate';
 import parseNumber from './utils/parseNumber';
 import formatNumber from './utils/formatNumber';
@@ -162,30 +160,6 @@ class MultiRecurrencerForm extends Component {
     return null;
   }
 
-  parseUntil = value => {
-    const { intl } = this.props;
-    const dateFormat = deriveDateFormat( intl );
-
-    return value && !value.includes( '_' )
-      ? dateFns.endOfDay( new Date( getDateFromFormat( value, dateFormat ) ) )
-      : value;
-  };
-
-  formatUntil = value => {
-    const { intl } = this.props;
-
-    return value && isValidDate( value )
-      ? intl.formatDate( value, {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        // hour:  'numeric',
-        // minute: 'numeric',
-        hour12: false
-      } )
-      : value;
-  };
-
   handleSubmit = ( values, ...rest ) => {
     const { activeWeek, weekStartsOn, onSubmit } = this.props;
 
@@ -235,7 +209,9 @@ class MultiRecurrencerForm extends Component {
     dirtySinceLastSubmit,
     classNamePrefix,
     intl,
-    closeModal
+    weekStartsOn,
+    closeModal,
+    onDayPickerHide
   } ) => {
     const { frequenceOptions, monthlyIntervalTypeOptions } = this.state;
 
@@ -303,12 +279,12 @@ class MultiRecurrencerForm extends Component {
 
                 <Field
                   name="until"
-                  component={DateInput}
-                  format={this.formatUntil}
-                  parse={this.parseUntil}
+                  component={DatePickerInput}
                   autoComplete="off"
                   intl={intl}
                   classNamePrefix={`${classNamePrefix}recurrencer-until__`}
+                  weekStartsOn={weekStartsOn}
+                  onDayPickerHide={onDayPickerHide}
                 />
               </label>
             </div>
@@ -388,7 +364,8 @@ class MultiRecurrencerForm extends Component {
     const {
       classNamePrefix,
       intl,
-      closeModal
+      closeModal,
+      onDayPickerHide
     } = this.props;
     const {
       initialValues,
@@ -408,6 +385,7 @@ class MultiRecurrencerForm extends Component {
         activeWeek={activeWeek}
         weekStartsOn={weekStartsOn}
         closeModal={closeModal}
+        onDayPickerHide={onDayPickerHide}
       />
     );
   }

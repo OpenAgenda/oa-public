@@ -1,3 +1,5 @@
+@import 'react-day-picker/lib/style.css';
+
 /* #region absolute colors */
 
 $tp-white: #fff;
@@ -1024,14 +1026,13 @@ $dayInWeek: 7;
 }
 
 .rtp__calendar .rtp__header {
-  text-transform: uppercase;
-  font-weight: 700;
   margin: 1em 0;
 }
 
 .rtp__calendar .rtp__header .rtp__prev-week,
 .rtp__calendar .rtp__header .rtp__next-week {
   cursor: pointer;
+  font-weight: 700;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
@@ -1080,6 +1081,8 @@ $dayInWeek: 7;
 .rtp__calendar .rtp__header .rtp__selectors {
   float: right;
   text-align: right;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
 .rtp__calendar .rtp__header .rtp__selectors .rtp__month-selector {
@@ -1522,9 +1525,13 @@ $dayInWeek: 7;
   box-shadow: 0 0 2px 0px $oa-blue;
 }
 
-.rtp__calendar .rtp__modal .error {
+.rtp__calendar .rtp__modal .rtp__error {
   color: $oa-red;
   margin-top: 8px;
+}
+
+.rtp__calendar .rtp__modal .rtp__error .rtp__recurrencer-error__disabledTimings button {
+  @extend .btn, .btn-xs, .btn-primary;
 }
 
 .rtp__calendar .rtp__edit-modal section ~ section {

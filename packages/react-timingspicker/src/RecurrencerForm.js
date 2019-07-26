@@ -9,10 +9,8 @@ import { FaRegTimesCircle } from 'react-icons/fa';
 import SelectField from './SelectField';
 import WeekdayInput from './WeekdayInput';
 import NumberInput from './NumberInput';
-import DateInput from './DateInput';
-import deriveDateFormat from './utils/deriveDateFormat';
+import DatePickerInput from './DatePickerInput';
 import getWeekOfMonth from './utils/getWeekOfMonth';
-import getDateFromFormat from './utils/getDateFromFormat';
 import isValidDate from './utils/isValidDate';
 import parseNumber from './utils/parseNumber';
 import formatNumber from './utils/formatNumber';
@@ -172,30 +170,6 @@ class RecurrencerForm extends Component {
     return null;
   }
 
-  parseUntil = value => {
-    const { intl } = this.props;
-    const dateFormat = deriveDateFormat( intl );
-
-    return value && !value.includes( '_' )
-      ? dateFns.endOfDay( new Date( getDateFromFormat( value, dateFormat ) ) )
-      : value;
-  };
-
-  formatUntil = value => {
-    const { intl } = this.props;
-
-    return value && isValidDate( value )
-      ? intl.formatDate( value, {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        // hour:  'numeric',
-        // minute: 'numeric',
-        hour12: false
-      } )
-      : value;
-  };
-
   handleSubmit = ( values, ...rest ) => {
     const { valueToDuplicate, onSubmit } = this.props;
 
@@ -243,7 +217,8 @@ class RecurrencerForm extends Component {
     intl,
     valueToDuplicate,
     weekStartsOn,
-    closeModal
+    closeModal,
+    onDayPickerHide
   } ) => {
     const { frequenceOptions, monthlyIntervalTypeOptions } = this.state;
 
@@ -330,12 +305,12 @@ class RecurrencerForm extends Component {
 
                 <Field
                   name="until"
-                  component={DateInput}
-                  format={this.formatUntil}
-                  parse={this.parseUntil}
+                  component={DatePickerInput}
                   autoComplete="off"
                   intl={intl}
                   classNamePrefix={`${classNamePrefix}recurrencer-until__`}
+                  weekStartsOn={weekStartsOn}
+                  onDayPickerHide={onDayPickerHide}
                 />
               </label>
             </div>
@@ -417,7 +392,8 @@ class RecurrencerForm extends Component {
     const {
       classNamePrefix,
       intl,
-      closeModal
+      closeModal,
+      onDayPickerHide
     } = this.props;
     const {
       initialValues,
@@ -437,6 +413,7 @@ class RecurrencerForm extends Component {
         valueToDuplicate={valueToDuplicate}
         weekStartsOn={weekStartsOn}
         closeModal={closeModal}
+        onDayPickerHide={onDayPickerHide}
       />
     );
   }

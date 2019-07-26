@@ -2604,10 +2604,10 @@
     slug "0.9.1"
     when "3.7.4"
 
-"@openagenda/cibul-model@^0.1.29":
-  version "0.1.29"
-  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-0.1.29.tgz#ccb445d0969c0e632227c66942950f42eecc33ce"
-  integrity sha512-P7TRKW9ezQwg+wzV31e9FoqTfRmSx3Q/vX38bX5i0GAov9+itVpdhG7ZEqLj62GW1Msp8lzVA34P4QPfNI/lAw==
+"@openagenda/cibul-model@^1.0.0":
+  version "1.0.0"
+  resolved "https://registry.npmjs.org/@openagenda/cibul-model/-/cibul-model-1.0.0.tgz#c14df3b276f48310ef55cb5079c281d95d576175"
+  integrity sha512-cyRzZzZxxwYI6fUezrGW/aSHSSXc8bU1bCMZkMy4a/QElpdQYaZSHCodYwxZuPobj/QCRSYWIUeazEQrG5G+Xg==
   dependencies:
     "@openagenda/mysql-utils" "^2.0.0"
     "@openagenda/utils" "^1.0.2"
@@ -21314,6 +21314,13 @@ react-datepicker@^1.6.0:
     prop-types "^15.6.0"
     react-onclickoutside "^6.7.1"
     react-popper "^1.0.2"
+
+react-day-picker@^7.3.0:
+  version "7.3.0"
+  resolved "https://registry.npmjs.org/react-day-picker/-/react-day-picker-7.3.0.tgz#59b6d4e19d274650c79dcf49fbcce2637313467d"
+  integrity sha512-t2kz0Zy4P5U4qwU5YhsBq2QGmypP8L/u+89TSnuD0h4dYKSEDQArFPWfin9gv8erV1ciR1Wzr485TMaYnI7FTw==
+  dependencies:
+    prop-types "^15.6.2"
 
 react-dev-utils@^6.1.0:
   version "6.1.1"

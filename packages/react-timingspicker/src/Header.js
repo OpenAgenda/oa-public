@@ -1,9 +1,16 @@
 import React, { Component } from 'react';
-import { injectIntl } from 'react-intl';
+import { injectIntl, defineMessages } from 'react-intl';
 import Select from 'react-select';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import dateFns from 'date-fns';
 
+
+const messages = defineMessages( {
+  weekIndicator: {
+    id: 'rtp.header.weekIndicator',
+    defaultMessage: 'Week {weekNumber, number}'
+  }
+} );
 
 function getYearOptions( activeYear ) {
   return Array( 5 )
@@ -57,9 +64,11 @@ class Header extends Component {
 
   render() {
     const {
+      activeWeek,
       onPrevWeek,
       onNextWeek,
-      classNamePrefix
+      classNamePrefix,
+      intl
     } = this.props;
     const {
       monthOptions,
@@ -73,6 +82,11 @@ class Header extends Component {
         <span role="button" className={`${classNamePrefix}prev-week`} onClick={onPrevWeek}>
           <FaChevronLeft className={`${classNamePrefix}icon`} />
         </span>
+
+        {/*<span className={`${classNamePrefix}week-indicator`}>
+          {intl.formatMessage( messages.weekIndicator, { weekNumber: dateFns.getISOWeek( activeWeek ) } )}
+        </span>*/}
+
         <span role="button" className={`${classNamePrefix}next-week`} onClick={onNextWeek}>
           <FaChevronRight className={`${classNamePrefix}icon`} />
         </span>

@@ -158,7 +158,7 @@ class Scheduler extends Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener( 'click', this.handleOutsideClick, false );
+    document.removeEventListener( 'click', this.handleOutsideClick, true );
 
     // https://github.com/reactjs/react-modal/pull/750
     this.editModalRef.current.node = null;
@@ -260,14 +260,7 @@ class Scheduler extends Component {
   }
 
   handleOutsideClick = e => {
-    if (
-      e.path.some( v => v === this.schedulerRef.current )
-      // || (
-      //   ( this.editModalRef.current && this.editModalRef.current.node.contains( e.target ) )
-      //   || ( this.recurrencerModalRef.current && this.recurrencerModalRef.current.node.contains( e.target ) )
-      //   || ( this.multiRecurrencerModalRef.current && this.multiRecurrencerModalRef.current.node.contains( e.target ) )
-      // )
-    ) {
+    if ( this.schedulerRef.current.contains( e.target ) ) {
       return;
     }
 
@@ -299,14 +292,14 @@ class Scheduler extends Component {
         end: dateFns.format( valueToEdit.end, 'HH:mm' )
       }
     }, () => {
-      document.addEventListener( 'click', this.handleOutsideClick, false );
+      document.addEventListener( 'click', this.handleOutsideClick, true );
     } );
   };
 
   openRecurrencerModal = () => {
     // execute this after close the current modal
     setTimeout( () => {
-      document.addEventListener( 'click', this.handleOutsideClick, false );
+      document.addEventListener( 'click', this.handleOutsideClick, true );
 
       this.setState( {
         showEditModal: false,
@@ -318,7 +311,7 @@ class Scheduler extends Component {
   };
 
   openMultiRecurrencerModal = () => {
-    document.addEventListener( 'click', this.handleOutsideClick, false );
+    document.addEventListener( 'click', this.handleOutsideClick, true );
 
     this.setState( {
       showEditModal: false,
@@ -330,7 +323,7 @@ class Scheduler extends Component {
   };
 
   handleCloseEditModal = () => {
-    document.removeEventListener( 'click', this.handleOutsideClick, false );
+    document.removeEventListener( 'click', this.handleOutsideClick, true );
 
     this.stopLockScroll();
 
@@ -341,7 +334,7 @@ class Scheduler extends Component {
   };
 
   handleCloseRecurrencerModal = () => {
-    document.removeEventListener( 'click', this.handleOutsideClick, false );
+    document.removeEventListener( 'click', this.handleOutsideClick, true );
 
     this.stopLockScroll();
 
@@ -352,7 +345,7 @@ class Scheduler extends Component {
   };
 
   handleCloseMultiRecurrencerModal = () => {
-    document.removeEventListener( 'click', this.handleOutsideClick, false );
+    document.removeEventListener( 'click', this.handleOutsideClick, true );
 
     this.stopLockScroll();
 
@@ -508,6 +501,24 @@ class Scheduler extends Component {
     this.handleCloseMultiRecurrencerModal();
   };
 
+  onRecurrencerDayPickerHide = () => {
+    const elem = this.recurrencerModalRef.current.node.getElementsByClassName( 'ReactModal__Content' )[ 0 ];
+
+    if ( elem.scrollTop + elem.clientHeight === elem.scrollHeight ) {
+      elem.scrollTop = elem.scrollTop - 1;
+      elem.scrollTop = elem.scrollTop + 1;
+    }
+  };
+
+  onMultiRecurrencerDayPickerHide = () => {
+    const elem = this.multiRecurrencerModalRef.current.node.getElementsByClassName( 'ReactModal__Content' )[ 0 ];
+
+    if ( elem.scrollTop + elem.clientHeight === elem.scrollHeight ) {
+      elem.scrollTop = elem.scrollTop - 1;
+      elem.scrollTop = elem.scrollTop + 1;
+    }
+  };
+
   render() {
     const {
       activeWeek,
@@ -627,6 +638,7 @@ class Scheduler extends Component {
               classNamePrefix={classNamePrefix}
               valueToDuplicate={valueToDuplicate}
               closeModal={this.handleCloseRecurrencerModal}
+              onDayPickerHide={this.onRecurrencerDayPickerHide}
             />
           ) : null}
         </ReactModal>
@@ -650,6 +662,7 @@ class Scheduler extends Component {
               onSubmit={this.handleMultiRecurrencerSubmit}
               classNamePrefix={classNamePrefix}
               closeModal={this.handleCloseMultiRecurrencerModal}
+              onDayPickerHide={this.onMultiRecurrencerDayPickerHide}
             />
           ) : null}
         </ReactModal>
