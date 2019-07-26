@@ -13,9 +13,8 @@ import { HeaderManager, Header } from '@openagenda/react-layouts';
 import createAppHome from '@openagenda/home/src/client/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp';
+import NotFound from './NotFound';
 import NotFoundDisplayer from './NotFoundDisplayer';
-import getNotFoundState from './utils/getNotFoundState';
-import historyActionMaker from './utils/historyActionMaker';
 
 window.IScroll = IScroll;
 
@@ -46,17 +45,8 @@ const apps = {
   } )
 };
 
-history.replace( { state: { notFound: getNotFoundState( apps, history.location.pathname ) } } );
-
-history.apps = apps;
-
-const oldHistoryPush = history.push;
-const oldHistoryReplace = history.replace;
-
-history.push = historyActionMaker( { history, apps, action: oldHistoryPush } );
-history.replace = historyActionMaker( { history, apps, action: oldHistoryReplace } );
-
 const headerStore = HeaderManager.createStore( initialState.header );
+
 
 loadableReady( async () => {
   const componentsPerApps = Object.values( apps )
@@ -67,10 +57,10 @@ loadableReady( async () => {
 
   const { visibleApps /* , notFoundApps */ } = Object.values( apps )
     .reduce( ( result, app, key ) => {
-      if ( componentsPerApps[ key ].some( v => (v && v.isNotFound) ) ) {
-        result.notFoundApps.push( app );
-      } else {
+      if ( componentsPerApps[ key ].length ) {
         result.visibleApps.push( app );
+      } else {
+        result.notFoundApps.push( app );
       }
 
       return result;
@@ -97,13 +87,13 @@ loadableReady( async () => {
         <ScrollToTop>
           <RouterTrigger trigger={triggerHooks}>
             {Object.values( apps ).map( ( { content } ) => content )}
+
+            <NotFoundDisplayer history={history} apps={apps}>
+              <NotFound/>
+            </NotFoundDisplayer>
           </RouterTrigger>
         </ScrollToTop>
       </Router>
-
-      <NotFoundDisplayer history={history}>
-        <div>Not found !</div>
-      </NotFoundDisplayer>
     </HeaderManager>
   );
 

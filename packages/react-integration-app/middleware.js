@@ -108,8 +108,6 @@ module.exports = function match( { apiRoot, hasInboxNews } ) {
         } )
       };
 
-      history.apps = apps;
-
       // Preload routes and filter visible/notFound apps
       const matchPerApps = await Promise.all(
         Object.values( apps )
@@ -120,21 +118,14 @@ module.exports = function match( { apiRoot, hasInboxNews } ) {
         .reduce( ( result, app, key ) => {
           const { components } = matchPerApps[ key ];
 
-          if ( components.some( v => (v && v.isNotFound) ) ) {
-            result.notFoundApps.push( app );
-          } else {
+          if ( components.length ) {
             result.visibleApps.push( app );
+          } else {
+            result.notFoundApps.push( app );
           }
 
           return result;
         }, { visibleApps: [], notFoundApps: [] } );
-
-      // Hide apps that should not be visible
-      // history.replace( {
-      //   state: {
-      //     notFound: notFoundApps.map( v => v.notFoundKey )
-      //   }
-      // } );
 
       // Triggers hooks
       await Promise.all(
@@ -142,7 +133,7 @@ module.exports = function match( { apiRoot, hasInboxNews } ) {
           .filter( v => v.triggerHooks )
           .map( v => v
             .triggerHooks()
-            .catch( err => console.log( `Error in triggerHooks of ${v.notFoundKey} app:`, err ) )
+            .catch( err => console.log( `Error in triggerHooks:`, err ) )
           )
       );
 
@@ -179,11 +170,7 @@ module.exports = function match( { apiRoot, hasInboxNews } ) {
 
       // Check if <Redirect /> is used
       for ( const app of visibleApps ) {
-        if (
-          app.staticContext
-          && app.staticContext.url
-          && !_.get( app, `staticContext.location.state.${app.notFoundKey}` )
-        ) {
+        if ( app.staticContext && app.staticContext.url ) {
           return res.redirect( app.staticContext.status || 302, app.staticContext.url );
         }
       }

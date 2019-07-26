@@ -12,7 +12,6 @@ import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
 import makeTriggerHooks from '@openagenda/react-utils/dist/makeTriggerHooks';
 import RouterTrigger from '@openagenda/react-utils/dist/RouterTrigger';
 import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
-import NotFound from '@openagenda/react-utils/dist/NotFound';
 import getReducers from './redux/reducer';
 import getRoutes from './getRoutes';
 
@@ -45,7 +44,6 @@ export default function ( options ) {
     Header,
     req,
     extractor,
-    notFoundKey = _.uniqueId( 'userSettings' ),
     onLocationChangeStart,
     onLocationChangeFinish
   } = _.merge( {}, defaults, options );
@@ -74,20 +72,18 @@ export default function ( options ) {
   };
   const staticContext = {};
 
-  const routes = getRoutes( prefix, notFoundKey );
+  const routes = getRoutes( prefix );
   const triggerHooks = makeTriggerHooks( { routes, history, helpers, req } );
   const content = (
-    <NotFound.Capture notFoundKey={notFoundKey}>
-      <Provider store={store} context={ReactReduxContext}>
-        {Header ? <Header history={history} /> : null}
-        {renderRoutes( routes )}
-      </Provider>
-    </NotFound.Capture>
+    <Provider store={store} context={ReactReduxContext}>
+      {Header ? <Header history={history} /> : null}
+      {renderRoutes( routes )}
+    </Provider>
   );
 
   const element = (
-    <LoadableContext.Provider value={extractor} key={notFoundKey}>
-      <Router history={history} key={notFoundKey}>
+    <LoadableContext.Provider value={extractor}>
+      <Router history={history}>
         <ScrollToTop>
           <RouterTrigger
             trigger={() => triggerHooks( {
@@ -110,7 +106,6 @@ export default function ( options ) {
     routes,
     element,
     content,
-    notFoundKey,
     staticContext,
     triggerHooks
   };

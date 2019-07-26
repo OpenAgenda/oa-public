@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
+import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 
 export default class NotFoundDisplayer extends Component {
   isNotFound = () => {
-    const { history } = this.props;
-    const state = history.location.state || {};
+    const { history, apps } = this.props;
 
-    return Object.values( history.apps )
-      .filter( app => app.notFoundKey )
-      .map( app => app.notFoundKey )
-      .every( notFoundKey => (state.notFound && state.notFound[ notFoundKey ]) );
+    return !Object.values( apps )
+      .some( app =>
+        app.routes && matchRoutes( app.routes, history.location.pathname ).length
+      );
   };
 
   state = {

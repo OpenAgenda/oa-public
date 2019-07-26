@@ -1,7 +1,7 @@
 const webpack = require( 'webpack' );
 
-module.exports = function ( baseConfig, env, defaultConfig ) {
-  defaultConfig.plugins.push(
+module.exports = function ( { config } ) {
+  config.plugins.push(
     new webpack.DefinePlugin( {
       __CLIENT__: true,
       __SERVER__: false,
@@ -9,7 +9,7 @@ module.exports = function ( baseConfig, env, defaultConfig ) {
     } )
   );
 
-  defaultConfig.optimization.splitChunks.chunks = 'initial';
+  config.optimization.splitChunks.chunks = 'initial';
 
-  return defaultConfig;
+  return config;
 };

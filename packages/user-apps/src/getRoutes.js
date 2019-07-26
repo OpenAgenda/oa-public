@@ -1,4 +1,3 @@
-import NotFound from '@openagenda/react-utils/dist/NotFound';
 import loadable from './loadable';
 
 const App = loadable( () => import( /* webpackChunkName: "userApps-App" */ './containers/App' ) );
@@ -7,9 +6,10 @@ const SettingsContainer = loadable( () => import(
   './containers/SettingsContainer'
   ) );
 
-export default function ( prefix = '', notFoundKey = 'userSettings' ) {
+export default function ( prefix = '' ) {
   return [
     {
+      path: prefix,
       component: App,
       routes: [
         { path: `${prefix}/`, exact: true, component: SettingsContainer },
@@ -18,8 +18,7 @@ export default function ( prefix = '', notFoundKey = 'userSettings' ) {
         { path: `${prefix}/email`, component: SettingsContainer, activeTab: 'email' },
         { path: `${prefix}/password`, component: SettingsContainer, activeTab: 'password' },
         { path: `${prefix}/apiKey`, component: SettingsContainer, activeTab: 'apiKey' },
-        { path: `${prefix}/emails`, component: SettingsContainer, activeTab: 'emails' },
-        { component: NotFound, notFoundKey }
+        { path: `${prefix}/emails`, component: SettingsContainer, activeTab: 'emails' }
       ]
     }
   ];
