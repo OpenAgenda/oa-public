@@ -7,8 +7,11 @@ const config = require( './config' );
 
 const log = logs( 'mails/task' );
 
-// single sending
-async function sendMail( params ) {
+function _sleep( ms ) {
+  return new Promise( resolve => setTimeout( resolve, ms ) );
+}
+
+async function runFilterTask( params ) {
   try {
     if ( typeof config.sendFilter === 'function' ) {
       const allowed = await config.sendFilter( params );
@@ -36,32 +39,37 @@ async function sendMail( params ) {
 
     Object.assign( params, result );
 
-    await config.transporter.sendMail( params );
+    config.queue( config.queueName, params );
   } catch ( error ) {
     log.error( 'Error on sending email', { params, error } );
   }
 }
 
-// send next messages from the pending queue
-async function shiftMessages() {
-  while ( config.transporter.isIdle() ) {
-    await sendMail( await config.queue.waitAndPop() );
+async function runSendTask( params ) {
+  try {
+    const now = Date.now();
+
+    await config.transporter.sendMail( params );
+
+    const timeDiff = Date.now() - now;
+    const interval = config.transport.rateDelta / config.transport.rateLimit;
+    const timeToWait = timeDiff > interval ? 0 : interval - timeDiff;
+
+    if ( timeToWait ) {
+      await _sleep( timeToWait );
+    }
+  } catch ( error ) {
+    log.error( 'Error on sending email', { params, error } );
   }
 }
 
-module.exports = async function task() {
+module.exports = function task() {
   if ( !config.queue ) {
     return;
   }
 
-  if ( config.transporter.isIdle() ) {
-    config.transporter.on( 'idle', shiftMessages );
-    // we need to wait the first mail (https://github.com/nodemailer/nodemailer/issues/768#issuecomment-299127268)
-    await sendMail( await config.queue.waitAndPop() );
-    await shiftMessages();
-  } else {
-    while ( true ) {
-      await sendMail( await config.queue.waitAndPop() );
-    }
-  }
+  config.queue.register( { [ `pre-${config.queueName}` ]: runFilterTask } );
+  config.queue.register( { [ config.queueName ]: runSendTask } );
+
+  config.queue.run();
 };
