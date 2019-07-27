@@ -22,7 +22,7 @@
   "user_id" : 81290,
   "deleted_user" : false,
   "actions_counter" : 5,
-  "store" : null,
+  "store" : "{\"custom_fields\":{\"organization\":\"Idpt\",\"contact_number\":\"013072171\",\"contact_name\":\"JC Ponceau\",\"contact_position\":\"Responsable des pains\",\"email\":\"jc@ponceau.fr\"}}",
   "slug" : "jean-claude"
 }, {
   "id" : 3,

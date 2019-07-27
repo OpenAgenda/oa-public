@@ -60,6 +60,18 @@ describe( 'members - functional - get', () => {
 
     } );
 
+    it( 'custom data is provided in custom key', () => {
+
+      member.custom.should.eql( {
+        organization: 'Idpt',
+        contactNumber: '013072171',
+        contactName: 'JC Ponceau',
+        contactPosition: 'Responsable des pains',
+        email: 'jc@ponceau.fr'
+      } );
+
+    } );
+
   } );
 
 } );

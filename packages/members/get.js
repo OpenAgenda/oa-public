@@ -13,7 +13,7 @@ module.exports = async function( { knex, schema }, identifier ) {
 
   return fromDB( { includeLegacyFields: false },
     await knex( schema ).first( [
-      'id', 'agenda_uid', 'credential', 'user_uid'
+      'id', 'agenda_uid', 'credential', 'user_uid', 'store'
     ] ).where( where )
   )
 
