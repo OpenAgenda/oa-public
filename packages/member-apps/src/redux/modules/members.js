@@ -333,7 +333,7 @@ export function remove( id ) {
     promise: ( { client }, { getState } ) => {
       const { res } = getState();
 
-      return client.get( res.remove.replace( ':id', id ) );
+      return client.delete( res.remove.replace( ':id', id ) );
     }
   };
 }
