@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { defineMessages, injectIntl } from 'react-intl';
 import { Field, Form } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
-import setFieldData from 'final-form-set-field-data';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import dateFns from 'date-fns';
 import { FaRegTimesCircle } from 'react-icons/fa';
@@ -118,8 +117,6 @@ const messages = defineMessages( {
 class RecurrencerForm extends Component {
   subscription = { values: true, submitError: true, dirtySinceLastSubmit: true };
 
-  mutators = { setFieldData };
-
   state = {
     initialValues: null,
     frequenceOptions: [
@@ -203,7 +200,7 @@ class RecurrencerForm extends Component {
   };
 
   forceSubmit = form => {
-    form.mutators.setFieldData( 'frequence', { forceTimingsCreation: true } );
+    form.change( 'forceTimingsCreation', true );
     form.submit();
   };
 
@@ -355,6 +352,12 @@ class RecurrencerForm extends Component {
               </label>
             </div>
           </section>
+
+          <Field
+            name="forceTimingsCreation"
+            component="input"
+            type="hidden"
+          />
 
           <div>
             <button type="submit">{intl.formatMessage( messages.submit )}</button>

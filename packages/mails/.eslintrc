@@ -48,6 +48,7 @@
       "error",
       {
         "devDependencies": [
+          "config.js",
           "server.dev.js",
           "**/*.test.js",
           "**/*.spec.js"
