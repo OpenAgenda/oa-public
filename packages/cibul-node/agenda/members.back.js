@@ -26,22 +26,6 @@ const routes = {
     ( { stats }, res ) => res.json( { stats } )
   ] ],
 
-  membersRemove: [ 'get', '/remove/:id', [
-    ( req, res, next ) => {
-      req.identifiers = { id: req.params.id };
-      next();
-    },
-    stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
-      namespaces: {
-        stakeholder: 'stakeholderToUse',
-        instance: 'stakeholderInstanceToUse'
-      }
-    } ),
-    _protectDeletion(),
-    stakeholdersMw.agenda( 'agendaInstance.data' ).remove(),
-    ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result )
-  ] ],
-
   membersUpdate: [ 'post', '/update/:id', [
     ( req, res, next ) => {
       req.identifiers = { id: req.params.id };
@@ -228,23 +212,6 @@ async function matchApp( req, res, next ) {
   } catch ( e ) {
     next( e );
   }
-
-}
-
-function _protectDeletion() {
-
-  return ( req, res, next ) => {
-    if ( !req.stakeholderToUse ) {
-      return res.status( 400 ).json( { error: 'This stakeholder cannot be found' } );
-    }
-    if ( req.stakeholderToUse.userId === req.agenda.ownerId ) {
-      return res.status( 400 ).json( { error: 'You don\'t have right to remove the owner of this agenda' } );
-    }
-    if ( req.stakeholder.credential === 3 && [ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
-      return res.status( 400 ).json( { error: 'You don\'t have right to remove this stakeholder' } );
-    }
-    next();
-  };
 
 }
 
