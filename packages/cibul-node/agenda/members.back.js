@@ -21,14 +21,6 @@ const routes = {
   agendaAdminMembers: [ 'get', '', matchApp ],
   membersSub: [ 'get', '/?*?', matchApp ],
 
-  /**********/
-
-  /*membersList: [ 'get', '/stakeholders.json', [
-    stakeholdersMw.agenda( 'agendaInstance.data' ).list( { total: true, detailed: true } ),
-    _parseListResult(),
-    ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
-  ] ],*/
-
   membersStats: [ 'get', '/stats', [
     stakeholdersMw.agenda( 'agendaInstance.data' ).stats(),
     ( { stats }, res ) => res.json( { stats } )
@@ -176,7 +168,7 @@ async function matchApp( req, res, next ) {
         app: req.genUrl( 'agendaAdminMembers', { slug: req.agenda.slug } ),
         list: `/${req.agenda.slug}/admin/members.json`,
         update: req.genUrl( 'membersUpdate', { slug: req.agenda.slug, id: ':id' } ),
-        remove: req.genUrl( 'membersRemove', { slug: req.agenda.slug, id: ':id' } ),
+        remove: `/${req.agenda.slug}/admin/members/:id`,
         invite: req.genUrl( 'membersInvite', { slug: req.agenda.slug } ),
         stats: req.genUrl( 'membersStats', { slug: req.agenda.slug } ),
         showContributor: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?contributorId=:contributorId',
@@ -236,20 +228,6 @@ async function matchApp( req, res, next ) {
   } catch ( e ) {
     next( e );
   }
-
-}
-
-
-function _parseListResult() {
-
-  return ( req, res, next ) => {
-    req.stakeholders = req.stakeholders.map( s => {
-      s.invited = !s.userId && !s.deletedUser;
-      s.owner = s.userId === req.user.id;
-      return _.omit( s, 'userId', 'user.id' );
-    } );
-    next();
-  };
 
 }
 

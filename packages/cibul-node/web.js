@@ -27,7 +27,6 @@ module.exports = app => {
   require( './services/surveys' )( app );
   require( './services/agendaContribute' )( app );
   require( './services/agendaSchema' )( app );
-  require( './services/members' )( app );
   require( './services/networkApps' )( app );
   require( './services/users' )( app );
   require( './services/abilities' )( app );
@@ -58,6 +57,8 @@ module.exports = app => {
 
   webModules.forEach( m => m.load( app ) );
 
+  // some routes are to be evaluated after members.back
+  require( './services/members' )( app );
 };
 
 module.exports.webModules = webModules;
