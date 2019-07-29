@@ -473,13 +473,12 @@ class Scheduler extends Component {
       } );
   };
 
-  handleRecurrencerSubmit = ( values, form ) => {
+  handleRecurrencerSubmit = values => {
     const timings = this.recurrencerValuesToTimings( values );
     const selectorEl = this.selectorRef.current._wrappedInstance;
-    const { forceTimingsCreation } = form.getFieldState( 'frequence' ).data;
 
     try {
-      selectorEl.addValues( timings, forceTimingsCreation );
+      selectorEl.addValues( timings, values.forceTimingsCreation );
     } catch ( e ) {
       return { [ FORM_ERROR ]: e };
     }
@@ -487,13 +486,12 @@ class Scheduler extends Component {
     this.handleCloseRecurrencerModal();
   };
 
-  handleMultiRecurrencerSubmit = ( values, form ) => {
+  handleMultiRecurrencerSubmit = values => {
     const timings = this.multiRecurrencerValuesToTimings( values ).flat();
     const selectorEl = this.selectorRef.current._wrappedInstance;
-    const { forceTimingsCreation } = form.getFieldState( 'frequence' ).data;
 
     try {
-      selectorEl.addValues( timings, forceTimingsCreation );
+      selectorEl.addValues( timings, values.forceTimingsCreation );
     } catch ( e ) {
       return { [ FORM_ERROR ]: e };
     }
