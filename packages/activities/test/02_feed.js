@@ -67,14 +67,16 @@ describe( 'activities - feed', function () {
       it( 'get a feed', () => {
 
         return service.feed( { entityType: 'user', entityUid: 42 } ).get()
-          .should.fulfilledWith( { entityType: 'user', entityUid: 42 } );
+          .should.fulfilled()
+          .then( result => result.should.match( { entityType: 'user', entityUid: 42 } ) );
 
       } );
 
       it( 'get a feed by his id', () => {
 
         return service.feed( 2 ).get()
-          .should.fulfilledWith( { entityType: 'user', entityUid: 42 } );
+          .should.fulfilled()
+          .then( result => result.should.match( { entityType: 'user', entityUid: 42 } ) );
 
       } );
 
@@ -125,7 +127,8 @@ describe( 'activities - feed', function () {
       it( 'get a feed by his id in an identifiers object', () => {
 
         return service.feed( { id: 2 } ).get()
-          .should.fulfilledWith( { entityType: 'user', entityUid: 42 } );
+          .should.fulfilled()
+          .then( result => result.should.match( { entityType: 'user', entityUid: 42 } ) );
 
       } );
 
@@ -140,7 +143,8 @@ describe( 'activities - feed', function () {
       it( 'get a feed with protected fields', () => {
 
         return service.feed( 2 ).get( { internal: true } )
-          .should.fulfilledWith( { id: 2, entityType: 'user', entityUid: 42 } );
+          .should.fulfilled()
+          .then( result => result.should.match( { id: 2, entityType: 'user', entityUid: 42 } ) );
 
       } );
 
@@ -151,7 +155,8 @@ describe( 'activities - feed', function () {
       it( 'create a user feed', () => {
 
         return service.feed( { entityType: 'user', entityUid: 2 } ).create()
-          .should.fulfilledWith( { entityType: 'user', entityUid: 2 } );
+          .should.fulfilled()
+          .then( result => result.should.match( { entityType: 'user', entityUid: 2 } ) );
 
       } );
 
