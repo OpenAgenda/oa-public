@@ -72,6 +72,14 @@ describe( 'members - functional - get', () => {
 
     } );
 
+    it( 'member can also be fetched by agenda uid and member id', async () => {
+
+      const member = await svc.get( { agendaUid: 2, id: 3 } );
+
+      member.id.should.equal( 3 );
+
+    } );
+
   } );
 
 } );

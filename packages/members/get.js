@@ -8,7 +8,7 @@ const { fromDB } = require( './lib/transformDBEntry' );
 module.exports = async function( { knex, schema }, identifier ) {
 
   const where = _.isObject( identifier )
-    ? _.mapKeys( _.pick( identifier, [ 'userUid', 'agendaUid' ] ), ( v, k ) => _.snakeCase( k ) )
+    ? _.mapKeys( _.pick( identifier, [ 'userUid', 'agendaUid', 'id' ] ), ( v, k ) => _.snakeCase( k ) )
     : { id: identifier };
 
   return fromDB( { includeLegacyFields: false },
