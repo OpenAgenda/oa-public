@@ -71,5 +71,9 @@ module.exports = function task() {
   config.queue.register( { [ `pre-${config.queueName}` ]: runFilterTask } );
   config.queue.register( { [ config.queueName ]: runSendTask } );
 
+  config.queue.on( 'error', ( method, args, error ) => {
+    log.error( 'Error on sending email in task', { args, error } );
+  } );
+
   config.queue.run();
 };
