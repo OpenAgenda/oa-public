@@ -1,8 +1,13 @@
-exports.up = knex => {
+exports.up = async knex => {
 
   const schemas = knex.client.config.schemas;
+  const exists = await knex.schema.hasTable( schemas.feed_follow );
 
-  return knex.schema.createTableIfNotExists( schemas.feed_follow, table => {
+  if ( exists ) {
+    return;
+  }
+
+  return knex.schema.createTable( schemas.feed_follow, table => {
     table.bigIncrements( 'id' ).unsigned();
     table.bigInteger( 'origin_feed' ).unsigned();
     table.foreign( 'origin_feed' ).references( schemas.feed + '.id' ).onDelete( 'CASCADE' );

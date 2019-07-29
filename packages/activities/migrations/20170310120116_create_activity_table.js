@@ -1,8 +1,13 @@
-exports.up = knex => {
+exports.up = async knex => {
 
   const schemas = knex.client.config.schemas;
+  const exists = await knex.schema.hasTable( schemas.activity );
 
-  return knex.schema.createTableIfNotExists( schemas.activity, table => {
+  if ( exists ) {
+    return;
+  }
+
+  return knex.schema.createTable( schemas.activity, table => {
     table.bigIncrements( 'id' ).unsigned();
     table.string( 'actor' ).notNullable();
     table.string( 'verb' ).notNullable();
