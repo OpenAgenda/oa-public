@@ -52,10 +52,20 @@ module.exports = async ( config, identifiers, data, options = {} ) => {
     .update( toDB( clean ) )
     .where( 'id', member.id );
 
+  const patched = await get( config, member.id, { legacy: true } );
+
+  if ( _.get( interfaces, 'onPatch' ) ) {
+    try {
+      await interfaces.onPatch( member, patched );
+    } catch ( e ) {
+      log( 'error', 'interface onRemove exception for member %s', member.id, e );
+    }
+  }
+
   return {
     success: true,
     errors: [],
-    member: { ...member, ...clean }
+    member: patched
   }
 
 }

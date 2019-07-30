@@ -58,9 +58,11 @@ module.exports.fromDB = ( { includeLegacyFields, orderField }, entry ) => {
 
 module.exports.toDB = member => {
 
+  const allFields = Object.assign( {}, map, legacyFieldsMap );
+
   const entry = _.uniq( dbFields.concat( legacyDbFields ) )
-    .filter( f => member[ _.camelCase( f ) ] !== undefined )
-    .reduce( ( entry, field ) => _.set( entry, field, member[ _.camelCase( field ) ] ), {} );
+    .filter( f => member[ allFields[ f ] ] !== undefined )
+    .reduce( ( entry, field ) => _.set( entry, field, member[ allFields[ field ] ] ), {} );
 
   if ( member.role ) {
     entry.credential = member.role;

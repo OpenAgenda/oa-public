@@ -11,7 +11,7 @@ describe( 'members - functional - patch', () => {
 
   const f = fixtures( config.mysql );
 
-  let svc;
+  let svc, onPatchArguments;
 
   before( async () => {
 
@@ -22,7 +22,8 @@ describe( 'members - functional - patch', () => {
       interfaces: {
         getUsersByUid: require( './fixtures/getUsersByUid' ),
         getAgendasByUid: require( './fixtures/getAgendasByUid' ),
-        getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' )
+        getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' ),
+        onPatch: ( before, after ) => onPatchArguments = { before, after }
       }
     } );
 
@@ -65,6 +66,15 @@ describe( 'members - functional - patch', () => {
     it( 'legacy fields are provided in result', () => {
 
       result.member.userId.should.equal( 81290 );
+
+    } );
+
+    it( 'interface provides member before and after patch', () => {
+
+      const { before, after } = onPatchArguments;
+
+      before.custom.contactName.should.equal( 'JC Ponceau' );
+      after.custom.contactName.should.equal( 'Gaetan' );
 
     } );
 
