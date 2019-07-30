@@ -20,7 +20,7 @@ export default class ActivityItem extends Component {
 
     if ( lang ) formatArgs.push( lang );
 
-    if ( withFilterIcons ) formatArgs.push( withFilterIcons );
+    if ( withFilterIcons ) formatArgs.push( { withFilterIcons } );
 
     return <li>
       <span
