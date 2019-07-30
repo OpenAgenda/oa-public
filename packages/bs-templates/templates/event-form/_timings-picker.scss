@@ -1639,6 +1639,7 @@ $dayInWeek: 7;
 .rtp__calendar .rtp__multi-recurrencer-until__radio,
 .rtp__calendar .rtp__multi-recurrencer-count__radio {
   @extend .radio;
+  color: $oa-black;
   margin-top: 4px;
   margin-bottom: 4px;
 }

@@ -3,7 +3,9 @@
 const path = require( 'path' );
 const _ = require( 'lodash' );
 const axios = require( 'axios' );
+const redis = require( 'redis' );
 const mails = require( '@openagenda/mails' );
+const queuesLib = require( '@openagenda/queues' );
 const usersSvc = require( '@openagenda/users' );
 const log = require( '@openagenda/logs' )( 'services/mails' );
 const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
@@ -37,6 +39,10 @@ module.exports.init = async config => {
     // Queuing
     redis: config.redis,
     queueName: 'mails',
+    queue: queuesLib.v2( {
+      redis: redis.createClient( config.redis ),
+      prefix: 'mails:'
+    } ),
 
     // Logging
     logger: config.getLogConfig( 'svc', 'mails', false ),

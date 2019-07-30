@@ -4,8 +4,6 @@ const path = require( 'path' );
 const _ = require( 'lodash' );
 const nodemailer = require( 'nodemailer' );
 const VError = require( 'verror' );
-const redis = require( 'redis' );
-const queuesLib = require( '@openagenda/queues' );
 const logs = require( '@openagenda/logs' );
 const makeLabelGetter = require( './utils/makeLabelGetter' );
 
@@ -44,12 +42,11 @@ async function init( c = {} ) {
   Object.assign( config, c );
 
   // Queue
-  if ( config.defaults.queue !== false ) {
-    const queues = queuesLib.v2( {
-      redis: redis.createClient( config.redis ),
-      prefix: 'mailsQueues:'
-    } );
-    config.queue = queues( config.queueName );
+  if ( config.queue && config.defaults.queue !== false ) {
+    config.queues = {
+      prepareMails: await config.queue( `pre-${config.queueName}` ),
+      sendMails: await config.queue( config.queueName )
+    };
   }
 
   const transportLogger = {

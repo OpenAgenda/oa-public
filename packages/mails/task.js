@@ -11,6 +11,10 @@ function _sleep( ms ) {
   return new Promise( resolve => setTimeout( resolve, ms ) );
 }
 
+const onError = ( method, args, error ) => {
+  log.error( 'Error on sending email in task', { args, error } );
+};
+
 async function runFilterTask( params ) {
   try {
     if ( typeof config.sendFilter === 'function' ) {
@@ -39,7 +43,7 @@ async function runFilterTask( params ) {
 
     Object.assign( params, result );
 
-    config.queue( config.queueName, params );
+    config.queues.sendMails( 'method', params );
   } catch ( error ) {
     log.error( 'Error on sending email', { params, error } );
   }
@@ -64,16 +68,16 @@ async function runSendTask( params ) {
 }
 
 module.exports = function task() {
-  if ( !config.queue ) {
+  if ( !config.queues ) {
     return;
   }
 
-  config.queue.register( { [ `pre-${config.queueName}` ]: runFilterTask } );
-  config.queue.register( { [ config.queueName ]: runSendTask } );
+  config.queues.prepareMails.register( { method: runFilterTask } );
+  config.queues.sendMails.register( { method: runSendTask } );
 
-  config.queue.on( 'error', ( method, args, error ) => {
-    log.error( 'Error on sending email in task', { args, error } );
-  } );
+  config.queues.prepareMails.on( 'error', onError );
+  config.queues.sendMails.on( 'error', onError );
 
-  config.queue.run();
+  config.queues.prepareMails.run();
+  config.queues.sendMails.run();
 };
