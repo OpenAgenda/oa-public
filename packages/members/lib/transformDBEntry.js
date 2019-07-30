@@ -85,6 +85,7 @@ function _legacyCustomToDB( custom ) {
       organization: organization ? organization.label : null,
       contact_name: custom.contactName || null,
       contact_number: custom.contactNumber || null,
+      contact_position: custom.contactPosition || null,
       email: custom.email || null
     } } ),
     organization: organization ? organization.slug : null

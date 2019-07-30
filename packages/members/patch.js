@@ -17,12 +17,11 @@ module.exports = async ( config, identifiers, data, options = {} ) => {
 
   const clean = {};
 
-  const member = await get( config, identifiers );
+  const member = await get( config, identifiers, { legacy: true } );
 
   if ( !member ) throw new Error( 'Not found' );
 
   try {
-
     Object.assign(
       clean,
       validate.withCustom( requireCustom ).part( _.keys( data ), data ),
@@ -33,6 +32,20 @@ module.exports = async ( config, identifiers, data, options = {} ) => {
       success: false,
       errors
     }
+  }
+
+  if ( clean.userUid !== undefined && interfaces.getUsersByUid ) {
+    clean.userId = _.get(
+      await interfaces.getUsersByUid( clean.userUid ),
+      '0.id'
+    );
+  }
+
+  if ( clean.agendaUid !== undefined && interfaces.getAgendasByUid ) {
+    clean.agendaId = _.get(
+      await interfaces.getAgendasByUid( clean.agendaUid ),
+      '0.id'
+    );
   }
 
   await knex( schema )

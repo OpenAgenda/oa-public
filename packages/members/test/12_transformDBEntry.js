@@ -29,7 +29,7 @@ describe( 'members - unit - transformDBEntry', () => {
       agenda_uid: 31,
       user_uid: 12,
       credential: 1,
-      store: '{"custom_fields":{"organization":"OpenAgenda","contact_name":"Gaetan","contact_number":"01 23 45 67 89","email":"support@openagenda.com"}}',
+      store: '{"custom_fields":{"organization":"OpenAgenda","contact_name":"Gaetan","contact_number":"01 23 45 67 89","contact_position":"Support","email":"support@openagenda.com"}}',
       organization: 'openagenda'
     } );
 
