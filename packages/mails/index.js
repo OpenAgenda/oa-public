@@ -106,7 +106,7 @@ async function sendMail( options = {} ) {
 
       const method = params.queue === false
         ? config.transporter.sendMail.bind( config.transporter )
-        : config.queue.bind( config.queue, `pre-${config.queueName}` );
+        : config.queues.prepareMails.bind( config.queues.prepareMails, 'method' );
       const result = await method( params );
 
       results.push( result );

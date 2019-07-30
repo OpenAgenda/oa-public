@@ -3,6 +3,8 @@
 const path = require( 'path' );
 const _ = require( 'lodash' );
 const nodemailer = require( 'nodemailer' );
+const redis = require( 'redis' );
+const queuesLib = require( '@openagenda/queues' );
 const mails = require( '../index' );
 const config = require( '../config' );
 
@@ -35,14 +37,20 @@ describe( 'task', () => {
         rateDelta: 300
       },
       defaults: {
+        queue: true,
         data: {
           domain: 'https://openagenda.com'
         }
       },
-      queueName: 'mailsTest-task'
+      queueName: 'mailsTest-task',
+      queue: queuesLib.v2( {
+        redis: redis.createClient( config.redis ),
+        prefix: 'mails:'
+      } )
     } );
 
-    await config.queue.clear();
+    await config.queues.prepareMails.clear();
+    await config.queues.sendMails.clear();
 
     mails.task();
   } );
@@ -82,7 +90,7 @@ describe( 'task', () => {
     while ( true ) {
       if ( spy.mock.calls.length === 9 ) {
         expect( _.map( spy.mock.calls, '[0].to.address' ) ).toEqual( recipients );
-        expect( Date.now() - start ).toBeGreaterThan( recipients.length * 300 );
+        expect( Date.now() - start ).toBeGreaterThan( ( recipients.length - 1 ) * 300 );
         break;
       }
 
