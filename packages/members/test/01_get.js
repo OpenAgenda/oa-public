@@ -60,6 +60,26 @@ describe( 'members - functional - get', () => {
 
     } );
 
+    it( 'custom data is provided in custom key', () => {
+
+      member.custom.should.eql( {
+        organization: 'Idpt',
+        contactNumber: '013072171',
+        contactName: 'JC Ponceau',
+        contactPosition: 'Responsable des pains',
+        email: 'jc@ponceau.fr'
+      } );
+
+    } );
+
+    it( 'member can also be fetched by agenda uid and member id', async () => {
+
+      const member = await svc.get( { agendaUid: 2, id: 3 } );
+
+      member.id.should.equal( 3 );
+
+    } );
+
   } );
 
 } );

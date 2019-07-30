@@ -14,7 +14,7 @@ describe( 'members - functional - remove', () => {
 
   const f = fixtures( config.mysql );
 
-  let svc;
+  let svc, result, onRemoveArgument;
 
   before( async () => {
 
@@ -24,25 +24,40 @@ describe( 'members - functional - remove', () => {
       knex: f.client,
       interfaces: {
         getUsersByUid: require( './fixtures/getUsersByUid' ),
-        getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' )
+        getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' ),
+        onRemove: member => onRemoveArgument = member
       }
     } );
 
+  } );
+
+  before( async () => {
+    result = await svc.remove( { userUid: 2, agendaUid: 1 } );
   } );
 
   after( f.destroyClient );
 
   it( 'simple remove removes', async () => {
 
-    const { success } = await svc.remove( { userUid: 2, agendaUid: 1 } );
-
-    success.should.equal( true );
+    result.success.should.equal( true );
 
     const rows = await f.client( 'member' )
       .select( '*' )
       .where( { user_uid: 2, agenda_uid: 1 } );
 
     rows.length.should.equal( 0 );
+
+  } );
+
+  it( 'onRemove interface is given removed member', () => {
+
+    _.pick( onRemoveArgument, [
+      'userUid',
+      'agendaUid'
+    ] ).should.eql( {
+      userUid: 2,
+      agendaUid: 1
+    } );
 
   } );
 

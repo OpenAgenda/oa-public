@@ -33,13 +33,19 @@ Tasks can be queued anywhere in the application where their processing should be
 
     q( 'methodName', methodArg1, methodArg2, methodArg3 );
 
+    q( 'otherMethod', otherMethodArg1 );
+
 ## Where tasks are processed
 
 All functions must be registered before they can be called:
 
     const { methodName } = require( './someLib' );
+    const otherMethod = require( './otherMethod' ).bind( null, someConfig );
 
-    q.register( { methodName } );
+    q.register( {
+      methodName,
+      otherMethod // other method is bound to a specific configuration
+    } );
 
 The register function can be called multiple times and assigns passed functions to a single object.
 

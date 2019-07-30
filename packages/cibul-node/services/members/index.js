@@ -12,20 +12,27 @@ const flatten = require( './lib/flatten' );
 
 const interfaces = {
   getEventCountByUserUid: require( './getEventCountByUserUid' ),
-  getUsersByUid: require( './getUsersByUid' )
+  getUsersByUid: require( './getUsersByUid' ),
+  onRemove: require( './onRemove' )
 }
 
 const members = {};
 
 module.exports = parentApp => {
 
-  parentApp.get(
+  parentApp.all( [
     '/:agendaSlug/admin/members.:format',
+    '/:agendaSlug/admin/members/:id'
+  ], [
     sessions.middleware.ifUnlogged( ( req, res ) => res.status( 403 ).json( {
       message: 'A session must be opened to access this route',
     } ) ),
     cmn.loadAgendaBy( { slug: 'agendaSlug' } ),
-    cmn.authorize.moderator,
+    cmn.authorize.moderator
+  ] );
+
+  parentApp.get(
+    '/:agendaSlug/admin/members.:format',
     ( req, res, next ) => {
       req.order = 'actionsCounter.desc';
       next();
@@ -63,6 +70,12 @@ module.exports = parentApp => {
 
   } );
 
+  parentApp.delete( '/:agendaSlug/admin/members/:id',
+    _loadMember,
+    _verifyDeleteCredentials,
+    _removeMember
+  );
+
   parentApp.get( '/:agendaSlug/admin/members.csv', streamCsv );
   parentApp.get( '/:agendaSlug/admin/members.xlsx', streamXlsx );
 
@@ -79,5 +92,36 @@ module.exports.init = config => {
   } ) );
 
   Object.assign( module.exports, members );
+
+}
+
+function _removeMember( req, res, next ) {
+
+  members.remove( req.member.id ).then( () => {
+    res.status( 200 ).json( { message: 'done.' } );
+  }, next );
+
+}
+
+function _loadMember( req, res, next ) {
+
+  members.get( {
+    agendaUid: req.agenda.uid,
+    id: req.params.id
+  } ).then( member => {
+    if ( !member ) return next( 'Member not found' );
+    req.member = member;
+    next();
+  }, next );
+
+}
+
+function _verifyDeleteCredentials( req, res, next ) {
+
+  if ( req.role === 'moderator' && req.member.role === 'administrator' ) {
+    return res.status( 400 ).json( { error: 'You cannot remove an administrator' } );
+  }
+
+  return next();
 
 }
