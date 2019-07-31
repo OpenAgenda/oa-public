@@ -138,7 +138,7 @@ module.exports = {
     "es": "La actividad de su agenda aparecerá aquí."
   },
   "unknownActivity": {
-    "en": "Activity label missing for verb {verb}",
-    "fr": "Libellé d'activité manquant pour le verbe {verb}"
+    "en": "Activity label missing for {verb}",
+    "fr": "Libellé d'activité manquant pour {verb}"
   }
 }

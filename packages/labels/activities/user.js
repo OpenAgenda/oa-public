@@ -158,7 +158,7 @@ module.exports = {
     "br": "Diskwelet e vo hoc'h obererezhioù amañ."
   },
   "unknownActivity": {
-    "en": "Activity label missing for verb {verb}",
-    "fr": "Libellé d'activité manquant pour le verbe {verb}"
+    "en": "Activity label missing for {verb}",
+    "fr": "Libellé d'activité manquant pour {verb}"
   }
 }
