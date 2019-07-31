@@ -23,7 +23,7 @@ describe( 'members - functional - patch', () => {
         getUsersByUid: require( './fixtures/getUsersByUid' ),
         getAgendasByUid: require( './fixtures/getAgendasByUid' ),
         getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' ),
-        onPatch: ( before, after ) => onPatchArguments = { before, after }
+        onPatch: ( before, after, context ) => onPatchArguments = { before, after, context }
       }
     } );
 
@@ -44,6 +44,10 @@ describe( 'members - functional - patch', () => {
           contactName: 'Gaetan',
           contactPosition: 'Support',
           email: 'kaore@openagenda.com'
+        }
+      }, {
+        context: {
+          lang: 'fr'
         }
       } );
 
@@ -75,6 +79,17 @@ describe( 'members - functional - patch', () => {
 
       before.custom.contactName.should.equal( 'JC Ponceau' );
       after.custom.contactName.should.equal( 'Gaetan' );
+
+    } );
+
+    it( 'if context is provided in patch options it is passed to interface', () => {
+
+      const { context } = onPatchArguments;
+
+      context.should.eql( {
+        lang: 'fr',
+        invitationSender: null
+      } );
 
     } );
 

@@ -12,7 +12,8 @@ module.exports = async ( config, identifiers, data, options = {} ) => {
   const { knex, schema, interfaces } = config;
 
   const {
-    requireCustom
+    requireCustom,
+    context
   } = cleanPatchOptions( options );
 
   const clean = {};
@@ -56,7 +57,7 @@ module.exports = async ( config, identifiers, data, options = {} ) => {
 
   if ( _.get( interfaces, 'onPatch' ) ) {
     try {
-      await interfaces.onPatch( member, patched );
+      await interfaces.onPatch( member, patched, context );
     } catch ( e ) {
       log( 'error', 'interface onRemove exception for member %s', member.id, e );
     }
