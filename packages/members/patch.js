@@ -2,6 +2,8 @@
 
 const _ = require( 'lodash' );
 
+const log = require( '@openagenda/logs' )( 'remove' );
+
 const get = require( './get' );
 const validate = require( './lib/validate' );
 const cleanPatchOptions = require( './lib/cleanPatchOptions' );
@@ -59,7 +61,7 @@ module.exports = async ( config, identifiers, data, options = {} ) => {
     try {
       await interfaces.onPatch( member, patched, context );
     } catch ( e ) {
-      log( 'error', 'interface onRemove exception for member %s', member.id, e );
+      log( 'error', 'interface onPatch exception for member %s', member.id, e );
     }
   }
 
