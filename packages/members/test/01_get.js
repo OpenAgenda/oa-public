@@ -80,6 +80,22 @@ describe( 'members - functional - get', () => {
 
     } );
 
+    it( 'by default, legacy fields are not provided', async () => {
+
+      should( member.userId ).equal( undefined );
+      should( member.agendaId ).equal( undefined );
+
+    } );
+
+    it( 'legacy fields are provided if legacy option is set to true', async () => {
+
+      const member = await svc.get( { agendaUid: 1, userUid: 2 }, { legacy: true } );
+
+      member.userId.should.equal( 81290 );
+      member.agendaId.should.equal( 923 );
+
+    } );
+
   } );
 
 } );

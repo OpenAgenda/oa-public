@@ -11,7 +11,7 @@ describe( 'members - functional - patch', () => {
 
   const f = fixtures( config.mysql );
 
-  let svc;
+  let svc, onPatchArguments;
 
   before( async () => {
 
@@ -21,7 +21,9 @@ describe( 'members - functional - patch', () => {
       knex: f.client,
       interfaces: {
         getUsersByUid: require( './fixtures/getUsersByUid' ),
-        getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' )
+        getAgendasByUid: require( './fixtures/getAgendasByUid' ),
+        getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' ),
+        onPatch: ( before, after, context ) => onPatchArguments = { before, after, context }
       }
     } );
 
@@ -29,33 +31,83 @@ describe( 'members - functional - patch', () => {
 
   after( f.destroyClient );
 
-  it( 'simple patch patches', async () => {
+  describe( 'simple patch', async () => {
 
-    const { member } = await svc.patch( { userUid: 2, agendaUid: 1 }, {
-      custom: {
+    let result;
+
+    before( async () => {
+
+      result = await svc.patch( { userUid: 2, agendaUid: 1 }, {
+        custom: {
+          organization: 'OpenAgenda',
+          contactNumber: '06 50 91 60 26',
+          contactName: 'Gaetan',
+          contactPosition: 'Support',
+          email: 'kaore@openagenda.com'
+        }
+      }, {
+        context: {
+          lang: 'fr'
+        }
+      } );
+
+    } );
+
+    it( 'provided field is updated', async () => {
+
+      const member = await svc.get( { userUid: 2, agendaUid: 1 } );
+
+      member.custom.should.eql( {
         organization: 'OpenAgenda',
         contactNumber: '06 50 91 60 26',
         contactName: 'Gaetan',
         contactPosition: 'Support',
         email: 'kaore@openagenda.com'
-      }
+      } );
+
     } );
 
-    _.omit( member, [ 'updatedAt' ] ).should.eql( {
-      id: 2,
-      deletedUser: false,
-      invited: false,
-      agendaUid: 1,
-      role: 1,
-      userUid: 2,
-      custom: {
-        organization: 'OpenAgenda',
-        contactName: 'Gaetan',
-        contactNumber: '06 50 91 60 26',
-        contactPosition: 'Support',
-        email: 'kaore@openagenda.com'
-      }
+    it( 'legacy fields are provided in result', () => {
+
+      result.member.userId.should.equal( 81290 );
+
     } );
+
+    it( 'interface provides member before and after patch', () => {
+
+      const { before, after } = onPatchArguments;
+
+      before.custom.contactName.should.equal( 'JC Ponceau' );
+      after.custom.contactName.should.equal( 'Gaetan' );
+
+    } );
+
+    it( 'if context is provided in patch options it is passed to interface', () => {
+
+      const { context } = onPatchArguments;
+
+      context.should.eql( {
+        lang: 'fr',
+        invitationSender: null
+      } );
+
+    } );
+
+  } );
+
+  it( 'if user identifier is specified in patch, legacy is updated', async () => {
+
+    const { member } = await svc.patch( { userUid: 1, agendaUid: 2 }, { userUid: 3 } );
+
+    member.userId.should.equal( 10293 );
+
+  } );
+
+  it( 'if agenda identifier is specified in patch, legacy is updated', async () => {
+
+    const { member } = await svc.patch( { userUid: 1, agendaUid: 1 }, { agendaUid: 12 } );
+
+    member.agendaId.should.equal( 919002 );
 
   } );
 
