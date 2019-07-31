@@ -135,7 +135,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
 
     const getIcon = ( activity, type ) => (
       withFilterIcons
-        ? renderIcon( getLocaleValue( activity.store.labels[ type ] ), type, activity[ type ] )
+        ? renderIcon( getLocaleValue( activity.store.labels[ type ], lang ), type, activity[ type ] )
         : ''
     );
 
@@ -148,7 +148,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         return prev.replace( `:${next}`, values[ next ] );
       }, urls[ activity.verb ][ entityType ] );
 
-      const icon = getIcon( getLocaleValue( label ), filterType, `${entityType}:${values[ entityType ]}` );
+      const icon = getIcon( getLocaleValue( label, lang ), filterType, `${entityType}:${values[ entityType ]}` );
 
       return renderHighlight( renderLink( label, url ) + icon );
     };
@@ -296,7 +296,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
             agenda: getUid( activity.target ),
             event: getUid( activity.object )
           },
-          getLocaleValue( activity.store.labels.object ),
+          getLocaleValue( activity.store.labels.object, lang ),
           'object'
         );
 
@@ -321,7 +321,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
             agenda: getUid( activity.target ),
             event: getUid( activity.object )
           },
-          getLocaleValue( activity.store.labels.object ),
+          getLocaleValue( activity.store.labels.object, lang ),
           'object'
         );
 
@@ -344,7 +344,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
             agenda: getUid( activity.target ),
             event: getUid( activity.object )
           },
-          getLocaleValue( activity.store.labels.object ),
+          getLocaleValue( activity.store.labels.object, lang ),
           'object'
         );
 
@@ -365,7 +365,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         return getLabel( 'agenda.removeEvent', {
           agenda: agendaLink,
           user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
-          event: renderHighlight( getLocaleValue( activity.store.labels.object ) + getIcon( activity, 'object' ) )
+          event: renderHighlight( getLocaleValue( activity.store.labels.object, lang ) + getIcon( activity, 'object' ) )
         } );
       }
       case 'agenda.aggregateEvent': {
@@ -387,7 +387,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
             agenda: getUid( activity.target ),
             event: getUid( activity.object )
           },
-          getLocaleValue( activity.store.labels.object ),
+          getLocaleValue( activity.store.labels.object, lang ),
           'object'
         );
 
@@ -410,7 +410,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
             agenda: getUid( activity.target ),
             event: getUid( activity.object )
           },
-          getLocaleValue( activity.store.labels.object ),
+          getLocaleValue( activity.store.labels.object, lang ),
           'object'
         );
 
@@ -433,7 +433,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
             agenda: getUid( activity.target ),
             event: getUid( activity.object )
           },
-          getLocaleValue( activity.store.labels.object ),
+          getLocaleValue( activity.store.labels.object, lang ),
           'object'
         );
 
@@ -490,7 +490,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         return getLabel( 'event.delete', {
           agenda: agendaLink,
           user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
-          event: renderHighlight( getLocaleValue( activity.store.labels.object ) + getIcon( activity, 'object' ) )
+          event: renderHighlight( getLocaleValue( activity.store.labels.object, lang ) + getIcon( activity, 'object' ) )
         } );
       }
       default: {

@@ -1,8 +1,10 @@
 'use strict';
 
 const moment = require( 'moment' );
+const sanitizeHtml = require( 'sanitize-html' );
 
 module.exports = {
+  stripHtml: html => sanitizeHtml( html, { allowedTags: [], allowedAttributes: {} } ),
   root: 'https://d.openagenda.com',
   logo: {
     src: 'https://cibuldev.s3.amazonaws.com/rwtbagenda43032271.jpg',

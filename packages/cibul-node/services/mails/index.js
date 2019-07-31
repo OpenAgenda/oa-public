@@ -4,6 +4,7 @@ const path = require( 'path' );
 const _ = require( 'lodash' );
 const axios = require( 'axios' );
 const redis = require( 'redis' );
+const sanitizeHtml = require( 'sanitize-html' );
 const mails = require( '@openagenda/mails' );
 const queuesLib = require( '@openagenda/queues' );
 const usersSvc = require( '@openagenda/users' );
@@ -12,6 +13,7 @@ const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 const labels = require( '@openagenda/labels/all' ).mails;
 const { isUnsubscribed, createToken } = require( './unsubscription' );
 
+const stripHtml = html => sanitizeHtml( html, { allowedTags: [], allowedAttributes: {} } );
 
 module.exports.init = async config => {
 
@@ -25,6 +27,7 @@ module.exports.init = async config => {
       ...config.mails.defaults,
       data: {
         _,
+        stripHtml,
         root: config.root,
         emailSettingsLink: `https://${config.domain}/settings/emails`
       }

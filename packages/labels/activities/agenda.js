@@ -45,7 +45,7 @@ module.exports = {
     "en": "{user} renamed the agenda {before} to {after}.",
     "fr": "{user} a renommé l'agenda {before} en {after}.",
     "de": "{user} umbenannt die Agenda {before} auf {after}.",
-    "es": "{user} cambió el nombre del agenda {before} a {after} del horario%."
+    "es": "{user} cambió el nombre del agenda {before} a {after} del horario."
   },
   "agenda.setOfficial": {
     "en": "The agenda {agenda} became official.",
@@ -86,7 +86,7 @@ module.exports = {
   "agenda.aggregateEvent": {
     "en": "{agenda} aggregated {event} from {sourceAgenda}.",
     "fr": "{agenda} a agrégé {event} à partir de {sourceAgenda}.",
-    "de": "%agenda {event} from {sourceAgenda} aggregiert.",
+    "de": "{agenda} {event} from {sourceAgenda} aggregiert.",
     "es": "{event} del agenda agregada de {sourceAgenda}."
   },
   "event.create": {

@@ -117,7 +117,7 @@ module.exports = {
   },
   "removeModalError": {
     "fr": "Vous ne pouvez pas supprimer ce membre.",
-    "en": "You canno't remove this member.",
+    "en": "You cannot remove this member.",
     "de": "Du kannst dieses Mitglied nicht entfernen.",
     "es": "No se puede eliminar este usuario."
   },

@@ -1,9 +1,11 @@
-"use strict";
+'use strict';
 
 const get = require( 'lodash/get' );
 const without = require( 'lodash/without' );
 const escape = require( 'lodash/escape' );
 const mapValues = require( 'lodash/mapValues' );
+const transform = require( 'lodash/transform' );
+const mapKeys = require( 'lodash/mapKeys' );
 
 const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 const credentialLabels = require( '@openagenda/labels/contributors/credentials' );
@@ -12,234 +14,188 @@ const credentialTypes = require( '@openagenda/agenda-stakeholders/dist/iso/crede
 
 const groupBy = require( './service/notifications/lib/groupBy' );
 
-const eventStateCodeToLabel = code => [
-  'refused',
-  'tocontrol',
-  'controlled',
-  'published'
-][ code + 1 ];
 
-const defaultGetUrl = ( notification, subjects, userUid, labelSuffix ) => {
+const defaultRenderHighlight = content => `<span class="notif-highlight">${content}</span>`;
+
+const defaultGetUrl = ( notification, { counters }, options = {} ) => {
+  const { userUid } = options;
 
   if (
-    [ 'agenda.addMember', 'agenda.setMemberRole' ].includes( notification.verb )
-    && userUid && notification.store.objects.includes( `user:${userUid}` )
+    [ 'agenda.addMember', 'agenda.setMemberRole' ].includes( notification.verb ) &&
+    notification.store.objects.includes( `user:${userUid}` )
   ) {
-
-    if ( credentialTypes.isSuperiorTo( notification.store.credential, credentialTypes.get( 'contributor' ) ) ) {
-
+    if (
+      credentialTypes.isSuperiorTo(
+        notification.store.credential,
+        credentialTypes.get( 'contributor' )
+      )
+    ) {
       return '/agendas/:target/admin/members';
-
     }
 
     return '/agendas/:target';
-
   }
 
-  const urls = {
-    'agenda.sendInvitation': {
-      singSing: '/agendas/:target/admin/members',
-      singPlur: '/agendas/:target/admin/members',
-      plurSing: '/agendas/:target/admin/members',
-      plurPlur: '/agendas/:target/admin/members'
-    },
-    'agenda.acceptInvitation': {
-      singSing: '/agendas/:target/admin/members',
-      singPlur: '/agendas/:target/admin/members',
-      plurSing: '/agendas/:target/admin/members',
-      plurPlur: '/agendas/:target/admin/members'
-    },
-    'agenda.addMember': {
-      singSing: '/agendas/:target/admin/members',
-      singPlur: '/agendas/:target/admin/members',
-      plurSing: '/agendas/:target/admin/members',
-      plurPlur: '/agendas/:target/admin/members'
-    },
-    'agenda.setMemberRole': {
-      singSing: '/agendas/:target',
-      singPlur: '/agendas/:target/admin/members',
-      plurSing: '/agendas/:target/admin/members',
-      plurPlur: '/agendas/:target/admin/members'
-    },
-    'agenda.create': {
-      sing: '/agendas/:target'
-    },
-    'agenda.updateContribution': {
-      sing: '/agendas/:target/admin/settings/contribution',
-      plur: '/agendas/:target/admin/settings/contribution'
-    },
-    'agenda.updateProfile': {
-      sing: '/agendas/:target/admin/settings/profile',
-      plur: '/agendas/:target/admin/settings/profile'
-    },
-    'agenda.rename': {
-      sing: '/agendas/:target',
-      plur: '/agendas/:target'
-    },
-    'agenda.setOfficial': {
-      sing: '/agendas/:target'
-    },
-    'agenda.setUnofficial': {
-      sing: '/agendas/:target'
-    },
-    'agenda.changeEventState': {
-      singSing: '/agendas/:target/events/:object',
-      singPlur: '/agendas/:target',
-      plurSing: '/agendas/:target/events/:object',
-      plurPlur: '/agendas/:target'
-    },
-    'agenda.publishEvent': {
-      singSing: '/agendas/:target/events/:object',
-      singPlur: '/agendas/:target',
-      plurSing: '/agendas/:target/events/:object',
-      plurPlur: '/agendas/:target'
-    },
-    'agenda.unpublishEvent': {
-      singSing: '/agendas/:target/events/:object',
-      singPlur: '/agendas/:target',
-      plurSing: '/agendas/:target/events/:object',
-      plurPlur: '/agendas/:target'
-    },
-    'agenda.removeEvent': {
-      singSing: '/agendas/:target',
-      singPlur: '/agendas/:target',
-      plurSing: '/agendas/:target',
-      plurPlur: '/agendas/:target'
-    },
-    'agenda.aggregateEvent': {
-      sing: '/agendas/:target/events/:object', // one source, one event
-      plur: '/agendas/:target', // one source, multiple events
-    },
-    'event.create': {
-      singSing: '/agendas/:target/events/:object', // one user, one event
-      singPlur: '/agendas/:target', // one user, multiple events
-      plurPlur: '/agendas/:target' // multiple users, multiple events
-    },
-    'event.update': {
-      singSing: '/agendas/:target/events/:object', // one user, one event
-      singPlur: '/agendas/:target', // one user, multiple events
-      plurSing: '/agendas/:target/events/:object', // multiple users, one event
-      plurPlur: '/agendas/:target' // multiple users, multiple events
-    },
-    'event.delete': {
-      sing: '/agendas/:target',
-      plur: '/agendas/:target'
-    }
-  };
+  switch ( notification.verb ) {
+    case 'agenda.sendInvitation':
+    case 'agenda.acceptInvitation':
+    case 'agenda.addMember':
+      return '/agendas/:target/admin/members';
 
-  return urls[ notification.verb ] && urls[ notification.verb ][ lowerFirstLetter( labelSuffix ) ] || null;
+    case 'agenda.setMemberRole':
+      if ( counters.actor === 1 && counters.object === 1 ) {
+        return '/agendas/:target';
+      }
+      return '/agendas/:target/admin/members';
 
+    case 'agenda.create':
+    case 'agenda.rename':
+    case 'agenda.setOfficial':
+    case 'agenda.setUnofficial':
+    case 'agenda.removeEvent':
+    case 'event.delete':
+      return '/agendas/:target';
+
+    case 'agenda.updateContribution':
+      return '/agendas/:target/admin/settings/contribution';
+    case 'agenda.updateProfile':
+      return '/agendas/:target/admin/settings/profile';
+
+    case 'agenda.changeEventState':
+    case 'agenda.publishEvent':
+    case 'agenda.unpublishEvent':
+    case 'agenda.aggregateEvent':
+    case 'event.create':
+    case 'event.update':
+      if ( counters.object === 1 ) {
+        return '/agendas/:target/events/:object';
+      }
+      return '/agendas/:target';
+
+    default:
+      return null;
+  }
 };
 
-module.exports = ( getUrl, labels, userUid = null, defaultLang = 'fr' ) => {
 
-  if ( !getUrl ) getUrl = defaultGetUrl;
+const eventStateCodeToLabel = code =>
+  [ 'refused', 'tocontrol', 'controlled', 'published' ][ code + 1 ];
+
+const getLocaleValue = ( labels, lang ) => {
+  if ( typeof labels !== 'object' ) {
+    return labels;
+  }
+
+  const keys = Object.keys( labels );
+
+  return keys.find( v => v === lang ) ? labels[ lang ] : labels[ keys[ 0 ] ];
+};
+
+
+module.exports = ( getUrl, labels, options = {} ) => {
+  if ( !getUrl ) {
+    getUrl = defaultGetUrl;
+  }
+
+  const { defaultLang = 'fr', userUid } = options;
+  const renderHighlight = options.renderHighlight || defaultRenderHighlight;
 
   return ( notification, lang = defaultLang ) => {
-
     const getLabel = makeLabelGetter( labels, lang );
     const getCredentialLabel = makeLabelGetter( credentialLabels, lang );
     const getStateLabel = makeLabelGetter( stateLabels, lang );
 
-    const getEventTitle = eventLabels => {
-      const keys = Object.keys( eventLabels );
-      return keys.find( v => v === lang ) ? eventLabels[ lang ] : eventLabels[ keys[ 0 ] ];
-    }
-
-    let labelSuffix = '';
-    const firstUids = {};
-
     const ignoredSubjects = notification.groupBy.split( '|' ).map( v => v.split( ':' )[ 0 ] );
 
-    const subjects = [ 'actor', 'object', 'target' ].reduce( ( result, columnName ) => {
-      if ( !notification.store[ columnName + 's' ] || !notification.store[ columnName + 's' ].length ) {
+    const { subjects, counters, firstUids } = [ 'actor', 'object', 'target' ].reduce(
+      ( result, columnName ) => {
+        if (
+          !notification.store[ columnName + 's' ] ||
+          !notification.store[ columnName + 's' ].length
+        ) {
+          return result;
+        }
+
+        const [ subjectType, firstUid ] = notification.store[ columnName + 's' ][ 0 ].split( ':' );
+        const value = escape( getLocaleValue( notification.store.labels[ columnName ], lang ) );
+
+        result.firstUids[ columnName ] = firstUid;
+        result.counters[ columnName ] = notification.store[ columnName + 's' ].length;
+
+        if ( ignoredSubjects.includes( columnName ) ) {
+          result.subjects[ columnName ] = value;
+        } else {
+          result.subjects[ columnName ] = getLabel( subjectType, {
+            [ subjectType ]: value,
+            others: result.counters[ columnName ] >= 100 ? '99+' : result.counters[ columnName ] - 1
+          } );
+        }
+
         return result;
-      }
+      },
+      { subjects: {}, counters: {}, firstUids: {} }
+    );
 
-      const subjectType = notification.store[ columnName + 's' ][ 0 ].split( ':' )[ 0 ];
-      firstUids[ columnName ] = notification.store[ columnName + 's' ][ 0 ].split( ':' )[ 1 ];
-
-      const value = subjectType === 'event'
-        ? escape( getEventTitle( notification.store.labels[ columnName ] ) )
-        : escape( notification.store.labels[ columnName ] );
-
-      if ( ignoredSubjects.includes( columnName ) ) {
-        result[ columnName ] = value;
-        return result;
-      }
-
-      const numberOfSubjects = notification.store[ columnName + 's' ].length;
-
-      switch ( numberOfSubjects ) {
-        case 1:
-          result[ columnName ] = getLabel( subjectType + 'Singular', { [ subjectType ]: value } );
-          labelSuffix += 'Sing';
-          break;
-        case 2:
-          result[ columnName ] = getLabel( subjectType + 'OneMore', { [ subjectType ]: value } );
-          labelSuffix += 'Plur';
-          break;
-        default:
-          result[ columnName ] = getLabel(
-            subjectType + 'Plural',
-            { [ subjectType ]: value, nbr: numberOfSubjects >= 100 ? '99+' : numberOfSubjects - 1 }
-          );
-          labelSuffix += 'Plur';
-      }
-
+    const additionalSubjects = without(
+      groupBy[ notification.verb ],
+      'actor',
+      'object',
+      'target'
+    ).reduce( ( result, path ) => {
+      result[ path.replace( 'store.', '' ) ] = get( notification, path );
       return result;
     }, {} );
 
-    const additionalSubjects = without( groupBy[ notification.verb ], 'actor', 'object', 'target' )
-      .reduce( ( result, path ) => {
-
-        result[ path.replace( 'store.', '' ) ] = get( notification, path );
-        return result;
-
-      }, {} );
-
     Object.assign( subjects, additionalSubjects );
 
-    let url = getUrl( notification, subjects, userUid, lowerFirstLetter( labelSuffix ) ) || null;
+    let url = getUrl( notification, { subjects, counters, firstUids }, options );
 
     if ( url ) {
-      url = Object.keys( firstUids ).reduce( ( prev, next ) => prev.replace( `:${next}`, firstUids[ next ] ), url );
+      url = Object.keys( firstUids ).reduce(
+        ( prev, key ) => prev.replace( `:${key}`, firstUids[ key ] ),
+        url
+      );
     }
 
     if ( subjects.credential ) {
-      subjects.credential = getCredentialLabel( credentialTypes.codes.get( subjects.credential ) ).toLowerCase();
+      subjects.credential = getCredentialLabel(
+        credentialTypes.codes.get( subjects.credential )
+      ).toLowerCase();
     }
 
     if ( notification.verb === 'agenda.changeEventState' ) {
-      subjects.newState = getStateLabel( eventStateCodeToLabel( subjects.newState ) );
+      subjects.newState = getStateLabel(
+        eventStateCodeToLabel( subjects.newState )
+      );
     }
 
-    if ( notification.verb === 'agenda.setOfficial' && !notification.store.officialized ) {
+    if (
+      notification.verb === 'agenda.setOfficial' &&
+      !notification.store.officialized
+    ) {
       notification.verb = 'agenda.setUnofficial';
     }
 
-    let labelName = `${notification.verb}${labelSuffix ? '.' : ''}${lowerFirstLetter( labelSuffix )}`;
+    const withYou = (
+      [ 'agenda.addMember', 'agenda.setMemberRole' ].includes(
+        notification.verb
+      ) &&
+      userUid &&
+      notification.store.objects.includes( `user:${userUid}` )
+    );
 
-    if (
-      [ 'agenda.addMember', 'agenda.setMemberRole' ].includes( notification.verb )
-      && userUid && notification.store.objects.includes( `user:${userUid}` )
-    ) {
-
-      labelName = `${notification.verb}.withYou`;
-
-    }
-
-    return {
-      content: getLabel( labelName, mapValues( subjects, v => `<span class="notif-highlight">${v}</span>` ) ),
-      url
+    const labelName = withYou ? `${notification.verb}.withYou` : notification.verb;
+    const labelValues = {
+      ...mapValues( subjects, renderHighlight ),
+      ...mapKeys( counters, ( v, k ) => `${k}Count` ),
+      ...transform( counters, ( r, v, k ) => (r[ `${k}More` ] = v - 1) )
     };
 
+    return {
+      content: getLabel( labelName, labelValues ),
+      url
+    };
   };
-
 };
 
 module.exports.defaultGetUrl = defaultGetUrl;
-
-function lowerFirstLetter( string ) {
-  return string.charAt( 0 ).toLowerCase() + string.slice( 1 );
-}
