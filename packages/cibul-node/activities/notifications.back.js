@@ -2,31 +2,25 @@
 
 const sessions = require( '@openagenda/sessions' );
 const mw = require( '@openagenda/activity-apps/dist/middleware' );
-const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 
 
-const routes = {
-  notificationsCount: [ 'get', '/count', mw.notifications.count ],
-  notificationsList: [ 'get', '/list', mw.notifications.list ],
-  notificationsRemove: [ 'get', '/remove/:notifId', mw.notifications.remove ],
-  notificationsMarkRead: [ 'get', '/mark-read/:notifId', mw.notifications.markRead ],
-  notificationsMarkAllRead: [ 'get', '/mark-all-read', mw.notifications.markAllRead ]
-};
+const preMw = [
+  cmn.loadLogger( 'notifications' ),
+  sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) )
+];
 
 
-module.exports = path => {
+module.exports = app => {
 
-  const router = modLib.Router( routes );
+  app.get( '/notifications/count', preMw, mw.notifications.count );
 
-  router.pre( [
-    cmn.loadLogger( 'notifications' ),
-    sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) )
-  ] );
+  app.get( '/notifications/list', preMw, mw.notifications.list );
 
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  };
+  app.get( '/notifications/remove/:notifId', preMw, mw.notifications.remove );
+
+  app.get( '/notifications/mark-read/:notifId', preMw, mw.notifications.markRead );
+
+  app.get( '/notifications/mark-all-read', preMw, mw.notifications.markAllRead );
 
 };
