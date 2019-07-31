@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 
 const get = require( './get' );
 const validate = require( './lib/validate' );
-const cleanUpdateOptions = require( './lib/cleanUpdateOptions' );
+const cleanPatchOptions = require( './lib/cleanPatchOptions' );
 const { toDB } = require( './lib/transformDBEntry' );
 
 module.exports = async ( config, identifiers, data, options = {} ) => {
@@ -13,7 +13,7 @@ module.exports = async ( config, identifiers, data, options = {} ) => {
 
   const {
     requireCustom
-  } = cleanUpdateOptions( options );
+  } = cleanPatchOptions( options );
 
   const clean = {};
 
