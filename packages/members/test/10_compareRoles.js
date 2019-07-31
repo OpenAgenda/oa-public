@@ -19,6 +19,11 @@ describe( 'members - utils - compareRoles', () => {
       isSuperiorTo( 'administrator', 'moderator' ).should.equal( true );
     } );
 
+    it( 'works with mixed', () => {
+      isSuperiorTo( 'administrator', 3 ).should.equal( true );
+      isSuperiorTo( 3, 'administrator' ).should.equal( false );
+    } );
+
     it( 'works with roles as uppercase strings', () => {
       isSuperiorTo( 'ADMINISTRATOR', 'MODERATOR' ).should.equal( true );
     } );

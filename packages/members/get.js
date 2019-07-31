@@ -18,7 +18,7 @@ module.exports = async function( { knex, schema }, identifier, options = {} ) {
 
   return fromDB( { includeLegacyFields: legacy },
     await knex( schema ).first( [
-      'id', 'agenda_uid', 'credential', 'user_uid', 'store'
+      'id', 'agenda_uid', 'credential', 'user_uid', 'store', 'deleted_user'
     ].concat( legacy ? [ 'user_id', 'review_id' ] : [] ) ).where( where )
   )
 
