@@ -1281,11 +1281,14 @@ function _filterNonParsable( str ) {
 
 function loadLegacyRoutes( genUrl ) {
 
-  var legacyRoutes = config.routes.globals;
+  const legacyRoutes = config.routes.globals;
+  const prefix = process.env.NODE_ENV === 'production' ? '' : 'frontend_dev.php';
 
-  for ( var name in legacyRoutes ) {
+  // ajouter le prefix pour les routes legacy: true
 
-    legacyRoutes[ name ] = config.routes.defaultGlobalsPrefix + legacyRoutes[ name ].uri;
+  for ( const name in legacyRoutes ) {
+
+    legacyRoutes[ name ] = `${legacyRoutes[ name ].legacy ? prefix : ''}${legacyRoutes[ name ].uri}`;
 
   }
 

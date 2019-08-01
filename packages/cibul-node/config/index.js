@@ -329,137 +329,82 @@ const config = {
     },
     routes: {
       globals: {
-        authShow: {
+        agendaEventNew: {
           method: 'get',
-          uri: '/auth'
+          uri: '/:slug/addevent',
+          legacy: true
+        },
+        agendaEventEdit: {
+          method: 'get',
+          uri: '/:slug/event/:eventSlug/edit',
+          legacy: true
+        },
+        agendaEventDuplicate: {
+          method: 'get',
+          uri: '/:slug/event/:eventSlug/duplicate',
+          legacy: true
+        },
+        agendaEventShow: {
+          method: 'get',
+          uri: '/:slug/event/:eventSlug',
+          legacy: true
+        },
+        agendaFeed: {
+          method: 'get',
+          uri: '/agendas/:uid.atom',
+          legacy: true
+        },
+        agendaCsv: {
+          method: 'get',
+          uri: '/agendas/:uid.csv',
+          legacy: true
+        },
+        aggregatorCreate: {
+          method: 'get',
+          uri: '/agenda/:uid/aggregator/create',
+          legacy: true
+        },
+        agendaAdminShow: {
+          method: 'get',
+          uri: '/:slug/admin',
+          legacy: true
+        },
+        agendaEventAdminNavigate: {
+          method: 'get',
+          uri: '/:slug/admin/navigate',
+          legacy: true
+        },
+        agendaAdminWeb: {
+          method: 'get',
+          uri: '/:slug/admin/webembed',
+          legacy: true
+        },
+        agendaAdminIndesign: {
+          method: 'get',
+          uri: '/:slug/admin/xml',
+          legacy: true
+        },
+        eventRemove: {
+          method: 'get',
+          uri: '/event/:eventUid/remove',
+          legacy: true
+        },
+        conversationDiscussion: {
+          method: 'get',
+          uri: '/messages/new?uuid=:uid&redirect=:redirect',
+          legacy: true
         },
         signup: {
           method: 'get',
           uri: '/signup'
         },
-        homeMessages: {
-          method: 'get',
-          uri: '/home/messages'
-        },
-        homeNotifications: {
-          method: 'get',
-          uri: '/home/notifications'
-        },
-        homeInbox: {
-          method: 'get',
-          uri: '/home/inbox'
-        },
         homeInboxConversation: {
           method: 'get',
           uri: '/home/inbox/conversation/:conversationId'
         },
-        aboutShow: {
-          method: 'get',
-          uri: '/about'
-        },
-        termsShow: {
-          method: 'get',
-          uri: '/termsofuse'
-        },
         searchEvent: {
           method: 'get',
           uri: '/events/search'
-        },
-        agendaNew: {
-          method: 'get',
-          uri: '/new'
-        },
-        agendaEventNew: {
-          method: 'get',
-          uri: '/:slug/addevent'
-        },
-        agendaEventEdit: {
-          method: 'get',
-          uri: '/:slug/event/:eventSlug/edit'
-        },
-        agendaEventDuplicate: {
-          method: 'get',
-          uri: '/:slug/event/:eventSlug/duplicate'
-        },
-        agendaEventShow: {
-          method: 'get',
-          uri: '/:slug/event/:eventSlug'
-        },
-        agendaFeed: {
-          method: 'get',
-          uri: '/agendas/:uid.atom'
-        },
-        agendaIcal: {
-          method: 'get',
-          uri: '/agendas/:uid.ics'
-        },
-        agendaCsv: {
-          method: 'get',
-          uri: '/agendas/:uid.csv'
-        },
-        agendaXml: {
-          method: 'get',
-          uri: '/agendas/:uid.xml'
-        },
-        aggregatorCreate: {
-          method: 'get',
-          uri: '/agenda/:uid/aggregator/create'
-        },
-        agendaAddAsSource: {
-          method: 'get',
-          uri: '/agenda/:uid/aggregator/addTo/:aggUid'
-        },
-        agendaRemoveAsSource: {
-          method: 'get',
-          uri: '/agenda/:uid/aggregator/removeFrom/:aggUid'
-        },
-        agendaShowByUid: {
-          method: 'get',
-          uri: '/agendas/:uid'
-        },
-        agendaAdminShow: {
-          method: 'get',
-          uri: '/:slug/admin'
-        },
-        agendaEventAdminNavigate: {
-          method: 'get',
-          uri: '/:slug/admin/navigate'
-        },
-        agendaAdminContributors: {
-          method: 'get',
-          uri: '/:slug/admin/contributors'
-        },
-        agendaAdminDataviz: {
-          method: 'get',
-          uri: '/:slug/admin/dataviz'
-        },
-        agendaAdminWeb: {
-          method: 'get',
-          uri: '/:slug/admin/webembed'
-        },
-        agendaAdminIndesign: {
-          method: 'get',
-          uri: '/:slug/admin/xml'
-        },
-        agendaAdminFacebook: {
-          mathod: 'get',
-          uri: '/:slug/admin/facebook'
-        },
-        agendaAdminAdministrators: {
-          method: 'get',
-          uri: '/:slug/admin/admins'
-        },
-        agendaAdminModerators: {
-          method: 'get',
-          uri: '/:slug/admin/moderators'
-        },
-        agendaAdminTheme: {
-          method: 'get',
-          uri: '/:slug/admin/edit'
-        },
-        agendaAdminSettings: {
-          method: 'get',
-          uri: '/:slug/admin/edit'
         },
         agendaAdminInbox: {
           method: 'get',
@@ -472,58 +417,6 @@ const config = {
         eventShow: {
           method: 'get',
           uri: '/events/:eventSlug'
-        },
-        eventShare: {
-          method: 'get',
-          uri: '/share/event/:eventSlug'
-        },
-        eventEdit: {
-          method: 'get',
-          uri: '/event/:eventSlug/edit'
-        },
-        eventDuplicate: {
-          method: 'get',
-          uri: '/event/:eventSlug/duplicate'
-        },
-        eventEmbedEdit: {
-          method: 'get',
-          uri: '/embed/event/:uid/edit'
-        },
-        eventRemove: {
-          method: 'get',
-          uri: '/event/:eventUid/remove'
-        },
-        eventCalendarShare: {
-          method: 'get',
-          uri: '/calendarexport/:eventSlug'
-        },
-        conversationDiscussion: {
-          method: 'get',
-          uri: '/messages/new?uuid=:uid&redirect=:redirect'
-        },
-        conversationAgendaContact: {
-          method: 'get',
-          uri: '/messages/new?type=7&aUid=:uid'
-        },
-        conversationEventClaim: {
-          method: 'get',
-          uri: '/messages/new?type=2&slug=:eventSlug'
-        },
-        conversationEventSignal: {
-          method: 'get',
-          uri: '/messages/new?type=4&slug=:eventSlug'
-        },
-        publicEventContact: {
-          method: 'get',
-          uri: '/:slug/events/:eventSlug/contact'
-        },
-        adminEventContact: {
-          method: 'get',
-          uri: '/:slug/admin/events/:eventSlug/contact'
-        },
-        confirmChangeEmail: {
-          method: 'get',
-          uri: '/users/:uid/confirmChangeEmail'
         },
         eventActionDatesShow: {
           method: 'get',

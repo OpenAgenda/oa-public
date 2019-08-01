@@ -92,7 +92,7 @@ async function matchApp( req, res, next ) {
           show: '/:slug/events/:eventSlug',
           showPrivate: '/:slug.prv/events/:eventSlug',
           showWithoutAgenda: '/events/:eventSlug',
-          edit: '/:slug/event/:eventSlug/edit'
+          edit: `${phpPrefix}/:slug/event/:eventSlug/edit`
         },
         messages: '/home/messages',
         notifs: '/home/notifications',
