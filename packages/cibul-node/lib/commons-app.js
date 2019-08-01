@@ -1282,9 +1282,7 @@ function _filterNonParsable( str ) {
 function loadLegacyRoutes( genUrl ) {
 
   const legacyRoutes = config.routes.globals;
-  const prefix = process.env.NODE_ENV === 'production' ? '' : 'frontend_dev.php';
-
-  // ajouter le prefix pour les routes legacy: true
+  const prefix = config.routes.defaultGlobalsPrefix;
 
   for ( const name in legacyRoutes ) {
 
