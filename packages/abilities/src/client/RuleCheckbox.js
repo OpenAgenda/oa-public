@@ -80,6 +80,14 @@ const ruleMessages = defineMessages( {
   receiveEventAggregation: {
     id: 'Abilities.RulesCheckbox.rules.receiveEventAggregation',
     defaultMessage: 'Receive event aggregations'
+  },
+  receiveEventAddition: {
+    id: 'Abilities.RulesCheckbox.rules.receiveEventAddition',
+    defaultMessage: 'Receive event creations'
+  },
+  receiveMyEventAddition: {
+    id: 'Abilities.RulesCheckbox.rules.receiveMyEventAddition',
+    defaultMessage: 'Receive notifications when someone add my events'
   }
 } );
 

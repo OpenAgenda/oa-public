@@ -74,7 +74,7 @@ module.exports = async ( { agendaEvent, context } ) => {
   await mails( {
     template: 'eventCreation',
     to: members
-      .filter( member => member.id !== creatorMemberId )
+      .filter( member => member.user.uid !== creatorUser.uid )
       .filter( member => {
 
         if ( !member.user ) {

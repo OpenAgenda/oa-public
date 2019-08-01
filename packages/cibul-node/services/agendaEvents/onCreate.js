@@ -18,6 +18,7 @@ const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 const sendEventCreation = require( './sendEventCreation' );
 const sendEventAggregation = require( './sendEventAggregation' );
+const sendEventAddition = require( './sendEventAddition' );
 
 const controlDataSvc = require( '../legacy' ).controlData;
 
@@ -28,6 +29,10 @@ module.exports = async ( ae, context ) => {
   // use context.userUid. will be null when nothing was specified at create
 
   const { agenda, event } = await fallbackContextGet( 'onCreate', ae, context );
+  let user;
+
+  context.agenda = context.agenda || agenda;
+  context.event = context.event || event;
 
   if ( !event ) {
 
@@ -37,7 +42,13 @@ module.exports = async ( ae, context ) => {
 
   }
 
-  let user;
+  if ( context.userUid ) {
+    try {
+      user = await usersSvc.get( context.userUid );
+    } catch ( err ) {
+      log( 'error', err );
+    }
+  }
 
   if ( !context.aggregated ) {
     if ( ae.agendaUid === event.agendaUid ) {
@@ -45,21 +56,22 @@ module.exports = async ( ae, context ) => {
       try {
         await sendEventCreation( { agendaEvent: ae, context } );
       } catch ( error ) {
-        log.error( new VError( error, 'Cannot send event creation emails' ) )
+        log.error( new VError( error, 'Cannot send event creation emails' ) );
       }
     } else {
-      // Sharing
-      log( '==================' );
-      log( 'send mail SHARING' );
-      //   myEventShare to creator                  [ 'receive', 'myEventShare' ]
-      //   eventShare to adminmods (- creator)      [ 'receive', 'eventShare' ]
+      // Adding
+      try {
+        await sendEventAddition( { agendaEvent: ae, context, user } );
+      } catch ( error ) {
+        log.error( new VError( error, 'Cannot send event addition emails' ) );
+      }
     }
   } else if ( context.aggregated ) {
     // Aggregation
     try {
       await sendEventAggregation( { agendaEvent: ae, context } );
     } catch ( error ) {
-      log.error( new VError( error, 'Cannot send event aggregation emails' ) )
+      log.error( new VError( error, 'Cannot send event aggregation emails' ) );
     }
   }
 
@@ -129,14 +141,6 @@ module.exports = async ( ae, context ) => {
       }
     }
 
-    if ( context.userUid ) {
-      try {
-        user = await usersSvc.get( context.userUid );
-      } catch ( err ) {
-        log( 'error', err );
-      }
-    }
-
     try {
       await activitiesSvc.feed( {
         entityType: 'agenda',
@@ -163,17 +167,17 @@ module.exports = async ( ae, context ) => {
 
       if ( ae.agendaUid === event.agendaUid ) {
 
-        await _addCreateEventActivity( eventFeed, { agenda, event, user }, context );
+        await _addEventCreationActivity( eventFeed, { agenda, event, user }, context );
 
       } else {
 
-        log( 'CREATE SHARING ACTIVITY' );
+        await _addEventAdditionActivity( eventFeed, { agenda, event, user }, context );
 
       }
 
     } else if ( context.aggregated ) {
 
-      await _addAggregateEventActivity( eventFeed, { agenda, event }, context );
+      await _addEventAggregationActivity( eventFeed, { agenda, event }, context );
 
     }
 
@@ -197,7 +201,7 @@ async function _addToSearchIndex( ae ) {
 
 }
 
-async function _addCreateEventActivity( eventFeed, { agenda, event, user }, context ) {
+async function _addEventCreationActivity( eventFeed, { agenda, event, user }, context ) {
 
   if ( !user ) {
     return log( 'error', new VError( 'user of uid %s not found', context.userUid ) );
@@ -221,7 +225,7 @@ async function _addCreateEventActivity( eventFeed, { agenda, event, user }, cont
 
 }
 
-async function _addAggregateEventActivity( eventFeed, { agenda, event }, context ) {
+async function _addEventAggregationActivity( eventFeed, { agenda, event }, context ) {
 
   const { sourceAgenda } = context;
 
@@ -236,6 +240,28 @@ async function _addAggregateEventActivity( eventFeed, { agenda, event }, context
         object: event.title,
         target: agenda.title
       }
+    }
+  } );
+
+}
+
+async function _addEventAdditionActivity( eventFeed, { agenda, user, event }, context ) {
+
+  const { sourceAgenda } = context;
+
+  await activitiesSvc.feed( eventFeed ).activities.add( {
+    actor: 'user:' + user.uid,
+    verb: 'agenda.addEvent',
+    object: 'event:' + event.uid,
+    target: 'agenda:' + agenda.uid, // aggregator
+    store: {
+      labels: {
+        actor: user.fullName,
+        object: event.title,
+        target: agenda.title,
+        sourceAgenda: sourceAgenda.title
+      },
+      sourceAgenda: sourceAgenda.uid
     }
   } );
 

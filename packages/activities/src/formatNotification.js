@@ -65,6 +65,7 @@ const defaultGetUrl = ( notification, { counters }, options = {} ) => {
     case 'agenda.publishEvent':
     case 'agenda.unpublishEvent':
     case 'agenda.aggregateEvent':
+    case 'agenda.addEvent':
     case 'event.create':
     case 'event.update':
       if ( counters.object === 1 ) {
@@ -167,6 +168,10 @@ module.exports = ( getUrl, labels, options = {} ) => {
       subjects.newState = getStateLabel(
         eventStateCodeToLabel( subjects.newState )
       );
+    }
+
+    if ( notification.verb === 'agenda.addEvent' ) {
+      subjects.sourceAgenda = notification.store.labels.sourceAgenda;
     }
 
     if (

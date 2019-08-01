@@ -143,6 +143,7 @@ function addActivity() {
               objects: activity.object ? [ activity.object ] : [],
               targets: activity.target ? [ activity.target ] : [],
               labels: {
+                ...activity.store.labels,
                 actor: activity.store && activity.store.labels && activity.store.labels.actor,
                 object: activity.store && activity.store.labels && activity.store.labels.object,
                 target: activity.store && activity.store.labels && activity.store.labels.target

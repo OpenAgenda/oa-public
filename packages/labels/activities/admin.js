@@ -87,7 +87,11 @@ module.exports = {
     "en": "{agenda} aggregated {event} from {sourceAgenda}.",
     "fr": "{agenda} a agrégé {event} à partir de {sourceAgenda}.",
     "de": "{agenda} {event} from {sourceAgenda} aggregiert.",
-    "es": "{event} del agenda agregada de {sourceAgenda}."
+    "es": "{event} del {agenda} agregada de {sourceAgenda}."
+  },
+  "agenda.addEvent": {
+    "en": "{user} added {event} on {agenda} from {sourceAgenda}.",
+    "fr": "{user} a ajouté {event} sur {agenda} à partir de {sourceAgenda}."
   },
   "event.create": {
     "en": "{user} created {event} in the agenda {agenda}.",

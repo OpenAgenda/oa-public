@@ -9,9 +9,9 @@ const usersSvc = require( '@openagenda/users' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const genUrl = require( '../genUrl' );
 
-const log = require( '@openagenda/logs' )( 'services/agendaEvents/sendEventAggregation' );
+const log = require( '@openagenda/logs' )( 'services/agendaEvents/sendEventAddition' );
 
-module.exports = async ( { agendaEvent, context } ) => {
+module.exports = async ( { agendaEvent, user, context } ) => {
 
   const { sourceAgenda, agenda, event } = context;
   let stateLabel;
@@ -48,19 +48,20 @@ module.exports = async ( { agendaEvent, context } ) => {
 
   if ( !agenda.private ) {
     await mails( {
-      template: 'myEventAggregation',
+      template: 'myEventAddition',
       to: {
         address: creatorUser.email,
         unsubscriptions: [ {
-          rule: [ 'receive', 'myEventAggregation' ],
+          rule: [ 'receive', 'myEventAddition' ],
           dataPath: 'unsubscribeLink'
         }, {
           memberId: creator.id,
-          rule: [ 'receive', 'myEventAggregation' ],
+          rule: [ 'receive', 'myEventAddition' ],
           dataPath: 'memberUnsubscribeLink'
         } ]
       },
       data: {
+        user: user.fullName,
         event: event.title[ creatorLang ] || _.find( event.title ),
         agenda: agenda.title,
         state: stateLabel,
@@ -73,7 +74,7 @@ module.exports = async ( { agendaEvent, context } ) => {
   }
 
   await mails( {
-    template: 'eventAggregation',
+    template: 'eventAddition',
     to: members
       .filter( member => member.user.uid !== creatorUser.uid )
       .filter( member => {
@@ -93,11 +94,11 @@ module.exports = async ( { agendaEvent, context } ) => {
           address: member.user.email,
           lang: member.user.culture,
           unsubscriptions: [ {
-            rule: [ 'receive', 'eventAggregation' ],
+            rule: [ 'receive', 'eventAddition' ],
             dataPath: 'unsubscribeLink'
           }, {
             memberId: member.id,
-            rule: [ 'receive', 'eventAggregation' ],
+            rule: [ 'receive', 'eventAddition' ],
             dataPath: 'memberUnsubscribeLink'
           } ],
           data: {
@@ -106,6 +107,7 @@ module.exports = async ( { agendaEvent, context } ) => {
         };
       } ),
     data: {
+      user: user.fullName,
       agenda: agenda.title,
       state: stateLabel,
       logo,

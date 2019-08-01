@@ -5,7 +5,7 @@
 ) %>:
 
 <%- typeof message === 'string'
-  ? message.replace(/(?:\r\n|\r|\n)/g, '<br/>')
+  ? stripHtml( message )
   : __( 'description', { agenda, credential: __( credential ) } ) %>
 
 <%- __( isStakeholder ? 'showAgenda' : 'signup' ) %>: <%- link %>

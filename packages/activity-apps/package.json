@@ -27,7 +27,7 @@
     "@babel/runtime-corejs2": "^7.3.1",
     "@openagenda/activities": "^2.1.2",
     "@openagenda/dom-utils": "^2.2.0",
-    "@openagenda/labels": "^2.1.0",
+    "@openagenda/labels": "^2.1.6",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/react-bootstrap-datetimerangepicker": "^2.0.5",
     "@openagenda/react-form-components": "^2.1.1",

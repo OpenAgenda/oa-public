@@ -139,6 +139,10 @@ module.exports = {
     es: '{target} ha agregado {object} de {actor}.',
     br: '{target} en/he deus toueziet {object} diwar {actor}.'
   },
+  "agenda.addEvent": {
+    "en": "{actor} added {object} on {target} from {sourceAgenda}.",
+    "fr": "{actor} a ajouté {object} sur {target} à partir de {sourceAgenda}."
+  },
   'event.create': {
     en: '{actor} created {object} on {target}.',
     fr: '{actorCount, plural, one {{actor} a créé} other {{actor} ont créé}} {object} sur {target}.'

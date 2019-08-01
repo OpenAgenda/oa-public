@@ -101,6 +101,10 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         agenda: '/agendas/:agenda',
         event: '/agendas/:agenda/events/:event'
       },
+      'agenda.addEvent': {
+        agenda: '/agendas/:agenda',
+        event: '/agendas/:agenda/events/:event'
+      },
       'event.create': {
         agenda: '/agendas/:agenda',
         event: '/agendas/:agenda/events/:event'
@@ -392,6 +396,36 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         );
 
         return getLabel( 'agenda.aggregateEvent', {
+          agenda: agendaLink,
+          event: eventLink,
+          sourceAgenda: sourceAgendaLink
+        } );
+      }
+      case 'agenda.addEvent': {
+        const sourceAgendaLink = makeLink(
+          'agenda',
+          { agenda: activity.store.sourceAgenda },
+          activity.store.labels.sourceAgenda,
+          'actor'
+        );
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
+        const eventLink = makeLink(
+          'event',
+          {
+            agenda: getUid( activity.target ),
+            event: getUid( activity.object )
+          },
+          getLocaleValue( activity.store.labels.object, lang ),
+          'object'
+        );
+
+        return getLabel( 'agenda.addEvent', {
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
           agenda: agendaLink,
           event: eventLink,
           sourceAgenda: sourceAgendaLink

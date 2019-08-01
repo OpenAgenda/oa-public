@@ -20,6 +20,11 @@ const model = require( '../services/model' );
 
 const preMw = [
   agendaSvc.mw.load( 'slug' ),
+  ( req, res, next ) => {
+    req.params.sourceAgendaUid = req.query.sourceAgendaUid;
+    next();
+  },
+  agendaSvc.mw.load( 'sourceAgendaUid', 'uid', { name: 'sourceAgenda', required: false, basicLoad: true } ),
   cmn.loadLogger( 'actions front' )
 ];
 
@@ -299,7 +304,8 @@ function eventAdd( req, res ) {
         context: {
           aggregated: false,
           userUid: req.user.uid,
-          agendaUid: req.agendaUid
+          agendaUid: req.agenda.uid,
+          sourceAgenda: req.sourceAgenda
         }
       } ).then( () => {
 
@@ -307,7 +313,8 @@ function eventAdd( req, res ) {
           message: 'eventAdd added to agenda',
           user: req.user,
           eventUid: req.event.uid,
-          agendaUid: req.agenda.uid
+          agendaUid: req.agenda.uid,
+          sourceAgenda: req.sourceAgenda
         } );
 
       } );

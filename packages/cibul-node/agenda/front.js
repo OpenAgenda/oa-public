@@ -856,9 +856,7 @@ function unauthorizedIP( req, res ) {
     content: unauthorizedIpLabel( 'content', req.lang ),
     actions: [ {
       type: 'primary',
-      href: req.genUrl( 'conversationAgendaContact', {
-        uid: req.agenda.uid,
-      } ),
+      href: `/messages/new?type=7&aUid=${req.agenda.uid}`,
       label: unauthorizedIpLabel( 'contact', req.lang )
     }, {
       type: 'default',
