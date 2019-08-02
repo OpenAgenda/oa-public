@@ -4,11 +4,16 @@ const _ = require( 'lodash' );
 
 const log = require( '@openagenda/logs' )( 'remove' );
 
+const cleanRemoveOptions = require( './lib/cleanRemoveOptions' );
 const get = require( './get' );
 
-module.exports = async ( config, identifiers ) => {
+module.exports = async ( config, identifiers, options = {} ) => {
 
   const { knex, schema, interfaces } = config;
+
+  const {
+    context
+  } = cleanRemoveOptions( options );
 
   const member = await get( config, identifiers );
 
@@ -18,7 +23,7 @@ module.exports = async ( config, identifiers ) => {
 
   if ( _.get( interfaces, 'onRemove' ) ) {
     try {
-      await interfaces.onRemove( member );
+      await interfaces.onRemove( member, context );
     } catch ( e ) {
       log( 'error', 'interface onRemove exception for member %s', member.id, e );
     }

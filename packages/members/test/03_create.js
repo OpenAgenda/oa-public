@@ -58,6 +58,7 @@ describe( 'members - functional - create', () => {
         contactPosition: 'Support',
         email: 'support@openagenda.com'
       },
+      invited: false,
       deletedUser: false,
       role: 1
     } );
@@ -101,6 +102,29 @@ describe( 'members - functional - create', () => {
     }, { requireCustom: false } );
 
     result.errors.length.should.equal( 0 );
+
+  } );
+
+  it( 'if userUid is not specified at create, member is marked as invited', async () => {
+
+    const result = await svc.create( {
+      agendaUid: 123,
+      role: 1
+    }, { requireCustom: false } );
+
+    result.member.invited.should.equal( true );
+
+  } );
+
+  it( 'if userUid is specified at create, member is not marked as invited', async () => {
+
+    const { member } = await svc.create( {
+      agendaUid: 123,
+      userUid: 193,
+      role: 1
+    }, { requireCustom: false } );
+
+    member.invited.should.equal( false );
 
   } );
 
