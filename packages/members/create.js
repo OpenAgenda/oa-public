@@ -40,6 +40,8 @@ module.exports = async ( { knex, schema, interfaces }, data, options = {} )  => 
     );
   }
 
+  clean.invited = !clean.userUid;
+
   if ( clean.userUid && clean.agendaUid ) {
     if ( !!(
       await knex( schema )

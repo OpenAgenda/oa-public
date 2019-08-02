@@ -111,4 +111,12 @@ describe( 'members - functional - patch', () => {
 
   } );
 
+  it( 'deletedUser can be patched', async () => {
+
+    const { member } = await svc.patch( { userUid: 2, agendaUid: 1 }, { deletedUser: true } );
+
+    member.deletedUser.should.equal( true );
+
+  } );
+
 } );

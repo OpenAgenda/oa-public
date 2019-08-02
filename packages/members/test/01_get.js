@@ -21,7 +21,8 @@ describe( 'members - functional - get', () => {
       knex: f.client,
       interfaces: {
         getUsersByUid: require( './fixtures/getUsersByUid' ),
-        getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' )
+        getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' ),
+        getUserUidByEmail: require( './fixtures/getUserUidByEmail' )
       }
     } );
 
@@ -60,6 +61,14 @@ describe( 'members - functional - get', () => {
 
     } );
 
+    it( 'when member is not found, returns null', async () => {
+
+      const member = await svc.get( { agendaUid: 18839, userUid: 3 } );
+
+      should( member ).equal( null );
+
+    } );
+
     it( 'custom data is provided in custom key', () => {
 
       member.custom.should.eql( {
@@ -93,6 +102,22 @@ describe( 'members - functional - get', () => {
 
       member.userId.should.equal( 81290 );
       member.agendaId.should.equal( 923 );
+
+    } );
+
+    it( 'getByEmail looks in record store for queried email', async () => {
+
+      const member = await svc.get.byEmail( { agendaUid: 1, email: 'janine@ponceau.fr' } );
+
+      member.id.should.equal( 1 );
+
+    } );
+
+    it( 'getByEmail gets by email through interface when necessary', async () => {
+
+      const member = await svc.get.byEmail( { agendaUid: 1, email: 'janeen@oa.com' } );
+
+      member.id.should.equal( 4 );
 
     } );
 
