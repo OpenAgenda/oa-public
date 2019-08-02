@@ -40,8 +40,8 @@ module.exports = app => {
   require( './location/back' )( app );
   require( './agenda/settings.back' )( app );
   require( './agenda/sources.back' )( app );
-  require( './agenda/members.back' )( app );
   require( './services/members' )( app );
+  require( './agenda/members.back' )( app );
   require( './agenda/activities.back' )( app );
   require( './agenda/shares.front' )( app );
   require( './agenda/front' )( app );

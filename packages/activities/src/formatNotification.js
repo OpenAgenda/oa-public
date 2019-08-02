@@ -21,7 +21,7 @@ const defaultGetUrl = ( notification, { counters }, options = {} ) => {
   const { userUid } = options;
 
   if (
-    [ 'agenda.addMember', 'agenda.setMemberRole' ].includes( notification.verb ) &&
+    [ 'agenda.addMember', 'agenda.removeMember', 'agenda.setMemberRole' ].includes( notification.verb ) &&
     notification.store.objects.includes( `user:${userUid}` )
   ) {
     if (
@@ -40,6 +40,7 @@ const defaultGetUrl = ( notification, { counters }, options = {} ) => {
     case 'agenda.sendInvitation':
     case 'agenda.acceptInvitation':
     case 'agenda.addMember':
+    case 'agenda.removeMember':
       return '/agendas/:target/admin/members';
 
     case 'agenda.setMemberRole':
@@ -182,7 +183,7 @@ module.exports = ( getUrl, labels, options = {} ) => {
     }
 
     const withYou = (
-      [ 'agenda.addMember', 'agenda.setMemberRole' ].includes(
+      [ 'agenda.addMember', 'agenda.removeMember', 'agenda.setMemberRole' ].includes(
         notification.verb
       ) &&
       userUid &&

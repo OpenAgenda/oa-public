@@ -20,6 +20,10 @@ module.exports = {
     "es": "{originMember} añadió {user} como {credential} de la agenda {agenda}.",
     "br": "{originMember} en/he deus ouzhpennet  {user} evel {credential} war {agenda}."
   },
+  "agenda.removeMember": {
+    "en": "{originMember} removed {user} ({credential}) from {agenda}.",
+    "fr": "{originMember} a retiré {user} ({credential}) de {agenda}."
+  },
   "agenda.setMemberRole": {
     "en": "{user} appointed {originMember} as {credential} on {agenda}.",
     "fr": "{user} a nommé {originMember} {credential} sur {agenda}.",

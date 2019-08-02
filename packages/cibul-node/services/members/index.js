@@ -10,13 +10,13 @@ const streamCsv = require( './lib/streamCsv' );
 const streamXlsx = require( './lib/streamXlsx' );
 const flatten = require( './lib/flatten' );
 
+const members = {};
+
 const interfaces = {
   getEventCountByUserUid: require( './getEventCountByUserUid' ),
   getUsersByUid: require( './getUsersByUid' ),
-  onRemove: require( './onRemove' )
+  onRemove: require( './onRemove' ).bind( null, members )
 }
-
-const members = {};
 
 module.exports = parentApp => {
 
@@ -97,7 +97,7 @@ module.exports.init = config => {
 
 function _removeMember( req, res, next ) {
 
-  members.remove( req.member.id ).then( () => {
+  members.remove( req.member.id, { context: { user: req.user } } ).then( () => {
     res.status( 200 ).json( { message: 'done.' } );
   }, next );
 

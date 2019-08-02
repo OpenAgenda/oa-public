@@ -7,17 +7,19 @@ const agendas = require( '@openagenda/agendas' );
 const users = require( '@openagenda/users' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const invitations = require( '@openagenda/invitations' );
+const activitiesSvc = require( '@openagenda/activities' );
 const { isSuperiorToOrEqual } = require( '@openagenda/members' ).utils.compareRoles;
 
 const controlDataSvc = require( '../legacy' ).controlData;
 const log = require( '@openagenda/logs' )( 'services/members/onRemove' );
 
-module.exports = async member => {
+module.exports = async ( membersSvc, member, context ) => {
 
   log( 'removed', member );
 
   try {
 
+    const { user } = context;
     const agenda = await agendas.get( { uid: member.agendaUid }, { private: null } );
 
     if ( !member.userUid ) {
@@ -25,16 +27,29 @@ module.exports = async member => {
       return;
     }
 
-    const user = await users.findOne( {
+    const memberUser = await users.findOne( {
       query: { uid: member.userUid }
     } );
 
-    if ( !user ) throw new Error( 'User not found' );
+    if ( !memberUser ) {
+      throw new Error( 'User not found' );
+    }
+
+    const userMember = await membersSvc.get( {
+      agendaUid: agenda.uid,
+      userUid: user.uid
+    } );
+
+    try {
+      await addMemberRemoveActivity( { user, member, agenda, userMember, memberUser } );
+    } catch ( e ) {
+      log( 'error', 'failed adding activity of type agenda.removeMember', { member, exception: e } );
+    }
 
     try {
       await controlDataSvc.memberRemove( {
         agendaUid: agenda.uid,
-        userUid: user.uid
+        userUid: memberUser.uid
       } );
     } catch ( e ) {
       log( 'error', 'failed removing member from control data', { member, exception: e } );
@@ -43,7 +58,7 @@ module.exports = async member => {
     try {
       await activities.feed( {
         entityType: 'user',
-        entityUid: user.uid
+        entityUid: memberUser.uid
       } ).unfollow( {
         entityType: 'agenda',
         entityUid: agenda.uid
@@ -58,7 +73,7 @@ module.exports = async member => {
           type: 'agenda',
           identifier: agenda.uid
         } ).users.remove( {
-          userUid: user.uid
+          userUid: memberUser.uid
         } );
       } catch ( e ) {
         log( 'error', 'failed to remove user from agenda inbox', { member, exception: e } );
@@ -98,4 +113,24 @@ async function _removeInvitationsToMember( member ) {
     await invitation.remove();
   }
 
+}
+
+async function addMemberRemoveActivity( { user, member, agenda, userMember, memberUser } ) {
+  await activitiesSvc.feed( {
+    entityType: 'agenda',
+    entityUid: agenda.uid
+  } ).activities.add( {
+    actor: 'user:' + user.uid,
+    verb: 'agenda.removeMember',
+    object: 'user:' + memberUser.uid,
+    target: 'agenda:' + agenda.uid,
+    store: {
+      labels: {
+        actor: userMember.custom.contactName || user.fullName,
+        object: member.custom.contactName || memberUser.fullName,
+        target: agenda.title
+      },
+      credential: member.role
+    }
+  } );
 }

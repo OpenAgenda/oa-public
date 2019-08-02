@@ -64,6 +64,9 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
       'agenda.addMember': {
         agenda: '/agendas/:agenda'
       },
+      'agenda.removeMember': {
+        agenda: '/agendas/:agenda'
+      },
       'agenda.setMemberRole': {
         agenda: '/agendas/:agenda'
       },
@@ -137,6 +140,8 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
     const renderLink = options.renderLink || defaultRenderLink;
     const renderHighlight = options.renderHighlight || defaultRenderHighlight;
 
+
+
     const getIcon = ( activity, type ) => (
       withFilterIcons
         ? renderIcon( getLocaleValue( activity.store.labels[ type ], lang ), type, activity[ type ] )
@@ -152,7 +157,7 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         return prev.replace( `:${next}`, values[ next ] );
       }, urls[ activity.verb ][ entityType ] );
 
-      const icon = getIcon( getLocaleValue( label, lang ), filterType, `${entityType}:${values[ entityType ]}` );
+      const icon = getIcon( activity, filterType );
 
       return renderHighlight( renderLink( label, url ) + icon );
     };
@@ -197,6 +202,21 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
         );
 
         return getLabel( 'agenda.addMember', {
+          originMember: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          user: renderHighlight( escape( activity.store.labels.object ) + getIcon( activity, 'object' ) ),
+          credential: getCredentialLabel( activity.store.credential ),
+          agenda: agendaLink
+        } );
+      }
+      case 'agenda.removeMember': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
+
+        return getLabel( 'agenda.removeMember', {
           originMember: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
           user: renderHighlight( escape( activity.store.labels.object ) + getIcon( activity, 'object' ) ),
           credential: getCredentialLabel( activity.store.credential ),

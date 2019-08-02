@@ -69,6 +69,14 @@ module.exports = {
     es: '{actor} te ha añadido como credencial {target}.',
     br: "{actor} en/he deus ouzhpennet ac'hanoc'h evel {credential} war {target}."
   },
+  'agenda.removeMember': {
+    en: '{actor} removed {object} ({credential}) from {target}.',
+    fr: '{actorCount, plural, one {{actor} a retiré} other {{actor} ont retiré}} {object} ({credential}) de {target}.'
+  },
+  'agenda.removeMember.withYou': {
+    en: '{actor} removed you ({credential}) from {target}.',
+    fr: '{actor} vous a retiré ({credential}) de {target}.',
+  },
   'agenda.setMemberRole': {
     en: '{actor} appointed {object} as {credential} on {target}.',
     fr: '{actorCount, plural, one {{actor} a nommé} other {{actor} ont nommé}} {object} {credential} sur {target}.'

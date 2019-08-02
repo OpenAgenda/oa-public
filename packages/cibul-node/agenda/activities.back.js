@@ -52,12 +52,14 @@ module.exports = app => {
     ( req, res ) => mw.list( { entityType: 'agenda', entityUid: req.agenda.uid } )( req, res )
   );
 
-  app.get( '/:slug/admin/activities',
+  app.get(
+    '/:slug/admin/activities',
     preMw,
     appMw
   );
 
-  app.get( '/:slug/admin/activities/?*?',
+  app.get(
+    '/:slug/admin/activities/?*?',
     preMw,
     appMw
   );
@@ -65,7 +67,7 @@ module.exports = app => {
 };
 
 async function matchApp( req, res, next ) {
-  const prefix = `'/${req.agenda.slug}/admin/activities'`;
+  const prefix = `/${req.agenda.slug}/admin/activities`;
   const lang = req.lang || 'fr';
   const { element, triggerHooks, store, context } = createApp( {
     req,
