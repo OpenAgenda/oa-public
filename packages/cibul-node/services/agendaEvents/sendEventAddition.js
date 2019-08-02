@@ -4,9 +4,10 @@ const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const mails = require( '@openagenda/mails' );
 const agendasSvc = require( '@openagenda/agendas' );
-const membersSvc = require( '@openagenda/agenda-stakeholders' );
+const legacyMembersSvc = require( '@openagenda/agenda-stakeholders' );
 const usersSvc = require( '@openagenda/users' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
+const membersSvc = require( '../../services/members' );
 const genUrl = require( '../genUrl' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaEvents/sendEventAddition' );
@@ -43,8 +44,10 @@ module.exports = async ( { agendaEvent, user, context } ) => {
     uid: event.agendaUid
   }, { internal: true, private: null, includeImagePath: true } );
   const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );
-  const creator = await promisify( membersSvc.agenda( originAgenda.id ).get )( { userId: creatorUser.id } );
+  const creator = await promisify( legacyMembersSvc.agenda( originAgenda.id ).get )( { userId: creatorUser.id } );
   const creatorLang = creatorUser.culture || 'fr';
+
+  const sharerMember = await membersSvc.get( { agendaUid: agenda.uid, userUid: context.userUid } );
 
   if ( !agenda.private ) {
     await mails( {
@@ -61,7 +64,7 @@ module.exports = async ( { agendaEvent, user, context } ) => {
         } ]
       },
       data: {
-        user: user.fullName,
+        user: sharerMember.custom.contactName || user.fullName,
         event: event.title[ creatorLang ] || _.find( event.title ),
         agenda: agenda.title,
         state: stateLabel,
@@ -76,7 +79,7 @@ module.exports = async ( { agendaEvent, user, context } ) => {
   await mails( {
     template: 'eventAddition',
     to: members
-      .filter( member => member.user.uid !== creatorUser.uid )
+      .filter( member => member.user && member.user.uid !== creatorUser.uid )
       .filter( member => {
 
         if ( !member.user ) {
@@ -107,7 +110,7 @@ module.exports = async ( { agendaEvent, user, context } ) => {
         };
       } ),
     data: {
-      user: user.fullName,
+      user: sharerMember.custom.contactName || user.fullName,
       agenda: agenda.title,
       state: stateLabel,
       logo,
@@ -124,7 +127,7 @@ async function listAdminmods( { agenda } ) {
   const members = [];
   let result;
 
-  const _list = promisify( membersSvc.agenda( agenda.id ).list );
+  const _list = promisify( legacyMembersSvc.agenda( agenda.id ).list );
 
   while ( ( result = await _list( { credentials: [ 3, 2 ] }, offset, 50, { detailed: true } ) ).length ) {
     Array.prototype.push.apply( members, result );
