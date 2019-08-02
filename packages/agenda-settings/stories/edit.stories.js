@@ -1,6 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { storiesOf } from '@storybook/react';
+import wrapApp from '@openagenda/react-utils/dist/wrapApp';
 import EditDecorator from './decorators/EditDecorator';
 import createApp from '../src/client/editApp';
 
@@ -38,27 +39,15 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
 
 storiesOf( 'Edit', module )
   .addDecorator( EditDecorator )
-  .add( 'settings', () => {
-    const { element } = createApp( {
-      history: createMemoryHistory(),
-      initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-    } );
-
-    return element;
-  } )
-  .add( 'contribution', () => {
-    const { element } = createApp( {
-      history: createMemoryHistory( { initialEntries: [ '/contribution' ] } ),
-      initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-    } );
-
-    return element;
-  } )
-  .add( 'advanced', () => {
-    const { element } = createApp( {
-      history: createMemoryHistory( { initialEntries: [ '/advanced' ] } ),
-      initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-    } );
-
-    return element;
-  } );
+  .add( 'settings', () => wrapApp( createApp( {
+    history: createMemoryHistory(),
+    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
+  } ) ) )
+  .add( 'contribution', () => wrapApp( createApp( {
+    history: createMemoryHistory( { initialEntries: [ '/contribution' ] } ),
+    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
+  } ) ) )
+  .add( 'advanced', () => wrapApp( createApp( {
+    history: createMemoryHistory( { initialEntries: [ '/advanced' ] } ),
+    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
+  } ) ) );

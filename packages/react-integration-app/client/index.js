@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Router } from 'react-router-dom';
+import * as ReactIs from 'react-is';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
 import IScroll from 'iscroll';
 import { loadableReady } from '@loadable/component';
 import du from '@openagenda/dom-utils';
-import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
-import RouterTrigger from '@openagenda/react-utils/dist/RouterTrigger';
+import wrapApp from '@openagenda/react-utils/dist/wrapApp';
 import { HeaderManager, Header } from '@openagenda/react-layouts';
 import createAppHome from '@openagenda/home/src/client/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
@@ -25,22 +24,20 @@ NProgress.configure( { trickleSpeed: 200 } );
 const onLocationChangeStart = () => NProgress.start();
 const onLocationChangeFinish = () => NProgress.done();
 
-const sharedAppOptions = { history, onLocationChangeStart, onLocationChangeFinish };
-
 // create apps with the good initialState
 const apps = {
   home: createAppHome( {
-    initialState: initialState.home,
+    history,
     // Header: () => <HeaderSelector type="main" />,
-    ...sharedAppOptions
+    initialState: initialState.home
   } ),
   userSettings: createAppUserSettings( {
-    initialState: initialState.userSettings,
-    ...sharedAppOptions
+    history,
+    initialState: initialState.userSettings
   } ),
   agendaSettingsNew: createAgendaSettingsNewApp( {
-    initialState: initialState.agendaSettingsNew,
-    ...sharedAppOptions
+    history,
+    initialState: initialState.agendaSettingsNew
   } )
 };
 
@@ -60,24 +57,28 @@ loadableReady( async () => {
     } ) )
   );
 
-  const canvas = du.el( '#root' );
+  const Content = () => (
+    <>
+      {Object.values( apps )
+        .map( ( { Content }, i ) =>
+          ReactIs.isValidElementType( Content ) ? <Content key={i} /> : Content
+        )}
+
+      <NotFoundDisplayer history={history} apps={apps}>
+        <NotFound />
+      </NotFoundDisplayer>
+    </>
+  );
+
   const element = (
     <HeaderManager store={headerStore}>
       <Header history={history} />
 
-      <Router history={history}>
-        <ScrollToTop>
-          <RouterTrigger trigger={triggerHooks}>
-            {Object.values( apps ).map( ( { content } ) => content )}
-
-            <NotFoundDisplayer history={history} apps={apps}>
-              <NotFound/>
-            </NotFoundDisplayer>
-          </RouterTrigger>
-        </ScrollToTop>
-      </Router>
+      {wrapApp( { Content, history, triggerHooks } )}
     </HeaderManager>
   );
+
+  const canvas = du.el( '#root' );
 
   if ( canvas.hasChildNodes() ) {
     ReactDOM.hydrate( element, canvas );

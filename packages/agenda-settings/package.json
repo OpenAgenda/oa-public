@@ -21,13 +21,18 @@
     "prepublish": "yarn clean && yarn build"
   },
   "peerDependencies": {
+    "@loadable/component": "^5.10.2",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-redux": "^6.0.0",
+    "react-router": "^5.0.0",
+    "react-router-config": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "redux": "^4.0.1"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.4.3",
     "@loadable/babel-plugin": "^5.10.0",
-    "@loadable/component": "^5.10.2",
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/call-to-action": "^2.2.2",
     "@openagenda/dom-utils": "^2.2.0",
@@ -48,13 +53,8 @@
     "prop-types": "^15.5.8",
     "react-copy-to-clipboard": "^5.0.0",
     "react-datepicker": "^0.29.0",
-    "react-redux": "^6.0.0",
-    "react-router": "^5.0.0",
-    "react-router-config": "^5.0.0",
-    "react-router-dom": "^5.0.0",
     "recompose": "^0.30.0",
     "redial": "^0.5.0",
-    "redux": "^4.0.1",
     "redux-form": "^8.1.0",
     "reselect": "^3.0.1",
     "speakingurl": "^14.0.1",
@@ -80,6 +80,11 @@
     "nodemon": "^1.18.9",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^6.0.0",
+    "react-router": "^5.0.0",
+    "react-router-config": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "redux": "^4.0.1",
     "rimraf": "^2.6.2",
     "should": "^11.1.0"
   }

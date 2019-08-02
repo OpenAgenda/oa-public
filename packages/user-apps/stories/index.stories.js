@@ -1,6 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { storiesOf } from '@storybook/react';
+import wrapApp from '@openagenda/react-utils/dist/wrapApp';
 import createApp from '../src/app';
 
 import '@openagenda/bs-templates/compiled/main.css';
@@ -27,11 +28,7 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
 
 
 storiesOf( 'App', module )
-  .add( 'all', () => {
-    const { element } = createApp( {
-      history: createMemoryHistory(),
-      initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-    } );
-
-    return element;
-  } );
+  .add( 'all', () => wrapApp( createApp( {
+    history: createMemoryHistory(),
+    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
+  } ) ) );

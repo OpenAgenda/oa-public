@@ -29,16 +29,20 @@
     "babel-preset-openagenda": "^1.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^6.0.0",
     "react-router": "^5.0.0",
     "react-router-config": "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "redux": "^4.0.1",
     "rimraf": "^2.6.2"
   },
   "peerDependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^6.0.0",
     "react-router": "^5.0.0",
     "react-router-config": "^5.0.0",
+    "react-router-dom": "^5.0.0",
     "redux": "^4.0.1"
   }
 }

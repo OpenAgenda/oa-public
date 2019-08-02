@@ -1,4 +1,4 @@
-import loadable from './loadable';
+import loadable from '@openagenda/react-utils/dist/loadable';
 
 const CreationApp = loadable( () =>
   import( /* webpackChunkName: "agendaSettings-CreationApp" */ './containers/CreationApp/CreationApp' )

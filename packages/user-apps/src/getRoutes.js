@@ -1,4 +1,4 @@
-import loadable from './loadable';
+import loadable from '@openagenda/react-utils/dist/loadable';
 
 const App = loadable( () => import( /* webpackChunkName: "userApps-App" */ './containers/App' ) );
 const SettingsContainer = loadable( () => import(
