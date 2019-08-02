@@ -75,7 +75,7 @@ module.exports = async ( { agendaEvent, context } ) => {
   await mails( {
     template: 'eventAggregation',
     to: members
-      .filter( member => member.id !== creator.id )
+      .filter( member => member.user.uid !== creatorUser.uid )
       .filter( member => {
 
         if ( !member.user ) {
@@ -114,8 +114,8 @@ module.exports = async ( { agendaEvent, context } ) => {
     }
   } );
 
-
 };
+
 
 async function listAdminmods( { agenda } ) {
   let offset = 0;

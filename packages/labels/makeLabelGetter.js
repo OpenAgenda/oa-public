@@ -1,6 +1,6 @@
 "use strict";
 
-var IntlMessageFormat = require( 'intl-messageformat' );
+var IntlMessageFormat = require( 'intl-messageformat' ).default;
 var parser = require( 'intl-messageformat-parser' );
 
 /**
@@ -52,8 +52,8 @@ module.exports = function( labels, defaultLang, fallbackLang ) {
     }
 
     var parsedAST = parser.parse( str );
-    var isICU = parsedAST.elements.some( function ( v ) {
-      return v.type === 'argumentElement';
+    var isICU = parsedAST.some( function ( v ) {
+      return !parser.isLiteralElement( v );
     } );
 
     // ICU message

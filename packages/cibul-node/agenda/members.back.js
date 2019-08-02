@@ -8,7 +8,6 @@ const createApp = require( '@openagenda/member-apps/dist/app' );
 const stakeholdersMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 const sessions = require( '@openagenda/sessions' );
 const config = require( '../config' );
-const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const { mw: { load: oldAgendaLoad } } = require( '../services/agenda' );
 
@@ -16,17 +15,86 @@ const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'members' }
 );
 
-const routes = {
+const preMw = [
+  cmn.loadLogger( 'members' ),
+  sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
+  agendasMw.load( {
+    namespaces: {
+      identifiers: {
+        slug: 'params.slug'
+      },
+      result: 'agendaInstance'
+    },
+    instanciate: true,
+    internal: true,
+    includeImagePath: true,
+    private: null
+  } ),
+  ( req, res, next ) => {
+    if ( !req.agendaInstance ) return next( { code: 404 } );
+    req.identifiers = { userId: req.user.id };
+    next();
+  },
+  stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
+    namespaces: {
+      stakeholder: 'stakeholder',
+      instance: 'stakeholderInstance'
+    }
+  } ),
+  agendasMw.loadRoles( {
+    namespaces: {
+      agenda: 'agendaInstance', // slug with req.params.slug in real world
+      result: 'agendaRoles'
+    },
+    private: null
+  } ),
+  oldAgendaLoad( 'slug' ),
+  cmn.authorize.moderator,
+  agendasMw.evaluateIPAddress( {
+    namespaces: {
+      agenda: 'agendaInstance'
+    },
+    onUnauthorizedIPAddress: ( req, res, next ) => {
 
-  agendaAdminMembers: [ 'get', '', matchApp ],
-  membersSub: [ 'get', '/?*?', matchApp ],
+      if ( process.env.NODE_ENV === 'development' ) return next();
 
-  membersStats: [ 'get', '/stats', [
+      req.log(
+        'info',
+        'IP %s is not authorized for agenda %s',
+        req.header( 'x-forwarded-for' ),
+        req.agendaInstance.data.slug
+      );
+
+      res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agendaInstance.data.slug } ) );
+
+    }
+  } )
+];
+
+module.exports = app => {
+
+  app.get(
+    '/:slug/admin/members',
+    preMw,
+    matchApp
+  );
+
+  app.get(
+    '/:slug/admin/members/?*?',
+    preMw,
+    matchApp
+  );
+
+  app.get(
+    '/:slug/admin/members/stats',
+    preMw,
     stakeholdersMw.agenda( 'agendaInstance.data' ).stats(),
     ( { stats }, res ) => res.json( { stats } )
-  ] ],
+  );
 
-  membersUpdate: [ 'post', '/update/:id', [
+  app.post(
+    '/:slug/admin/members/update/:id',
+    preMw,
     ( req, res, next ) => {
       req.identifiers = { id: req.params.id };
       next();
@@ -47,9 +115,11 @@ const routes = {
       allowPartial: true
     } ),
     ( { result }, res ) => res.status( result.errors.length ? 400 : 200 ).json( result )
-  ] ],
+  );
 
-  membersInvite: [ 'post', '/invite', [
+  app.post(
+    '/:slug/admin/members/invite',
+    preMw,
     _protectInvite(),
     _setInviteContext(),
     stakeholdersMw.agenda( 'agendaInstance.data' ).bulk( {
@@ -63,74 +133,14 @@ const routes = {
       const status = (result.errors && result.errors.length) || !result.success ? 400 : 200;
       res.status( status ).json( result )
     }
-  ] ],
+  );
 
-  membersSendMessage: [ 'post', '/send-message', [
+  app.post(
+    '/:slug/admin/members/send-message',
+    preMw,
     _sendMessage(),
     ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
-  ] ]
-
-};
-
-module.exports = path => {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    cmn.loadLogger( 'members' ),
-    sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
-    agendasMw.load( {
-      namespaces: {
-        identifiers: {
-          slug: 'params.slug'
-        },
-        result: 'agendaInstance'
-      },
-      instanciate: true,
-      internal: true,
-      includeImagePath: true,
-      private: null
-    } ),
-    ( req, res, next ) => {
-      if ( !req.agendaInstance ) return next( { code: 404 } );
-      req.identifiers = { userId: req.user.id };
-      next();
-    },
-    stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
-      namespaces: {
-        stakeholder: 'stakeholder',
-        instance: 'stakeholderInstance'
-      }
-    } ),
-    agendasMw.loadRoles( {
-      namespaces: {
-        agenda: 'agendaInstance', // slug with req.params.slug in real world
-        result: 'agendaRoles'
-      },
-      private: null
-    } ),
-    oldAgendaLoad( 'slug' ),
-    cmn.authorize.moderator,
-    agendasMw.evaluateIPAddress( {
-      namespaces: {
-        agenda: 'agendaInstance'
-      },
-      onUnauthorizedIPAddress: ( req, res, next ) => {
-
-        if ( process.env.NODE_ENV === 'development' ) return next();
-
-        req.log( 'info', 'IP %s is not authorized for agenda %s', req.header( 'x-forwarded-for' ), req.agendaInstance.data.slug );
-
-        res.redirect( 302, req.genUrl( 'agendaUnauthorized', { slug: req.agendaInstance.data.slug } ) );
-
-      }
-    } )
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  };
+  );
 
 };
 
@@ -151,15 +161,15 @@ async function matchApp( req, res, next ) {
       res: {
         app: req.genUrl( 'agendaAdminMembers', { slug: req.agenda.slug } ),
         list: `/${req.agenda.slug}/admin/members.json`,
-        update: req.genUrl( 'membersUpdate', { slug: req.agenda.slug, id: ':id' } ),
+        update: `/${req.agenda.slug}/admin/members/update/:id`,
         remove: `/${req.agenda.slug}/admin/members/:id`,
-        invite: req.genUrl( 'membersInvite', { slug: req.agenda.slug } ),
-        stats: req.genUrl( 'membersStats', { slug: req.agenda.slug } ),
+        invite: `/${req.agenda.slug}/admin/members/invite`,
+        stats: `/${req.agenda.slug}/admin/members/stats`,
         showContributor: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?contributorId=:contributorId',
         writeToMember: req.genUrl( 'conversationDiscussion', { uid: ':uid', redirect: ':redirect' } ),
         exportToCsv: `/${req.agenda.slug}/admin/members.csv`,
         exportToXlsx: `/${req.agenda.slug}/admin/members.xlsx`,
-        sendMessage: req.genUrl( 'membersSendMessage', { slug: req.agenda.slug } )
+        sendMessage: `/${req.agenda.slug}/admin/members/send-message`
       },
       agenda: {
         uid: req.agenda.uid,

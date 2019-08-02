@@ -329,137 +329,82 @@ const config = {
     },
     routes: {
       globals: {
-        authShow: {
+        agendaEventNew: {
           method: 'get',
-          uri: '/auth'
+          uri: '/:slug/addevent',
+          legacy: true
+        },
+        agendaEventEdit: {
+          method: 'get',
+          uri: '/:slug/event/:eventSlug/edit',
+          legacy: true
+        },
+        agendaEventDuplicate: {
+          method: 'get',
+          uri: '/:slug/event/:eventSlug/duplicate',
+          legacy: true
+        },
+        agendaEventShow: {
+          method: 'get',
+          uri: '/:slug/event/:eventSlug',
+          legacy: true
+        },
+        agendaFeed: {
+          method: 'get',
+          uri: '/agendas/:uid.atom',
+          legacy: true
+        },
+        agendaCsv: {
+          method: 'get',
+          uri: '/agendas/:uid.csv',
+          legacy: true
+        },
+        aggregatorCreate: {
+          method: 'get',
+          uri: '/agenda/:uid/aggregator/create',
+          legacy: true
+        },
+        agendaAdminShow: {
+          method: 'get',
+          uri: '/:slug/admin',
+          legacy: true
+        },
+        agendaEventAdminNavigate: {
+          method: 'get',
+          uri: '/:slug/admin/navigate',
+          legacy: true
+        },
+        agendaAdminWeb: {
+          method: 'get',
+          uri: '/:slug/admin/webembed',
+          legacy: true
+        },
+        agendaAdminIndesign: {
+          method: 'get',
+          uri: '/:slug/admin/xml',
+          legacy: true
+        },
+        eventRemove: {
+          method: 'get',
+          uri: '/event/:eventUid/remove',
+          legacy: true
+        },
+        conversationDiscussion: {
+          method: 'get',
+          uri: '/messages/new?uuid=:uid&redirect=:redirect',
+          legacy: true
         },
         signup: {
           method: 'get',
           uri: '/signup'
         },
-        homeMessages: {
-          method: 'get',
-          uri: '/home/messages'
-        },
-        homeNotifications: {
-          method: 'get',
-          uri: '/home/notifications'
-        },
-        homeInbox: {
-          method: 'get',
-          uri: '/home/inbox'
-        },
         homeInboxConversation: {
           method: 'get',
           uri: '/home/inbox/conversation/:conversationId'
         },
-        aboutShow: {
-          method: 'get',
-          uri: '/about'
-        },
-        termsShow: {
-          method: 'get',
-          uri: '/termsofuse'
-        },
         searchEvent: {
           method: 'get',
           uri: '/events/search'
-        },
-        agendaNew: {
-          method: 'get',
-          uri: '/new'
-        },
-        agendaEventNew: {
-          method: 'get',
-          uri: '/:slug/addevent'
-        },
-        agendaEventEdit: {
-          method: 'get',
-          uri: '/:slug/event/:eventSlug/edit'
-        },
-        agendaEventDuplicate: {
-          method: 'get',
-          uri: '/:slug/event/:eventSlug/duplicate'
-        },
-        agendaEventShow: {
-          method: 'get',
-          uri: '/:slug/event/:eventSlug'
-        },
-        agendaFeed: {
-          method: 'get',
-          uri: '/agendas/:uid.atom'
-        },
-        agendaIcal: {
-          method: 'get',
-          uri: '/agendas/:uid.ics'
-        },
-        agendaCsv: {
-          method: 'get',
-          uri: '/agendas/:uid.csv'
-        },
-        agendaXml: {
-          method: 'get',
-          uri: '/agendas/:uid.xml'
-        },
-        aggregatorCreate: {
-          method: 'get',
-          uri: '/agenda/:uid/aggregator/create'
-        },
-        agendaAddAsSource: {
-          method: 'get',
-          uri: '/agenda/:uid/aggregator/addTo/:aggUid'
-        },
-        agendaRemoveAsSource: {
-          method: 'get',
-          uri: '/agenda/:uid/aggregator/removeFrom/:aggUid'
-        },
-        agendaShowByUid: {
-          method: 'get',
-          uri: '/agendas/:uid'
-        },
-        agendaAdminShow: {
-          method: 'get',
-          uri: '/:slug/admin'
-        },
-        agendaEventAdminNavigate: {
-          method: 'get',
-          uri: '/:slug/admin/navigate'
-        },
-        agendaAdminContributors: {
-          method: 'get',
-          uri: '/:slug/admin/contributors'
-        },
-        agendaAdminDataviz: {
-          method: 'get',
-          uri: '/:slug/admin/dataviz'
-        },
-        agendaAdminWeb: {
-          method: 'get',
-          uri: '/:slug/admin/webembed'
-        },
-        agendaAdminIndesign: {
-          method: 'get',
-          uri: '/:slug/admin/xml'
-        },
-        agendaAdminFacebook: {
-          mathod: 'get',
-          uri: '/:slug/admin/facebook'
-        },
-        agendaAdminAdministrators: {
-          method: 'get',
-          uri: '/:slug/admin/admins'
-        },
-        agendaAdminModerators: {
-          method: 'get',
-          uri: '/:slug/admin/moderators'
-        },
-        agendaAdminTheme: {
-          method: 'get',
-          uri: '/:slug/admin/edit'
-        },
-        agendaAdminSettings: {
-          method: 'get',
-          uri: '/:slug/admin/edit'
         },
         agendaAdminInbox: {
           method: 'get',
@@ -472,58 +417,6 @@ const config = {
         eventShow: {
           method: 'get',
           uri: '/events/:eventSlug'
-        },
-        eventShare: {
-          method: 'get',
-          uri: '/share/event/:eventSlug'
-        },
-        eventEdit: {
-          method: 'get',
-          uri: '/event/:eventSlug/edit'
-        },
-        eventDuplicate: {
-          method: 'get',
-          uri: '/event/:eventSlug/duplicate'
-        },
-        eventEmbedEdit: {
-          method: 'get',
-          uri: '/embed/event/:uid/edit'
-        },
-        eventRemove: {
-          method: 'get',
-          uri: '/event/:eventUid/remove'
-        },
-        eventCalendarShare: {
-          method: 'get',
-          uri: '/calendarexport/:eventSlug'
-        },
-        conversationDiscussion: {
-          method: 'get',
-          uri: '/messages/new?uuid=:uid&redirect=:redirect'
-        },
-        conversationAgendaContact: {
-          method: 'get',
-          uri: '/messages/new?type=7&aUid=:uid'
-        },
-        conversationEventClaim: {
-          method: 'get',
-          uri: '/messages/new?type=2&slug=:eventSlug'
-        },
-        conversationEventSignal: {
-          method: 'get',
-          uri: '/messages/new?type=4&slug=:eventSlug'
-        },
-        publicEventContact: {
-          method: 'get',
-          uri: '/:slug/events/:eventSlug/contact'
-        },
-        adminEventContact: {
-          method: 'get',
-          uri: '/:slug/admin/events/:eventSlug/contact'
-        },
-        confirmChangeEmail: {
-          method: 'get',
-          uri: '/users/:uid/confirmChangeEmail'
         },
         eventActionDatesShow: {
           method: 'get',
@@ -724,6 +617,230 @@ const config = {
         emailStrategieUnlink: {
           method: 'get',
           uri: '/:slug/admin/emailstrategie/unlink'
+        },
+        locationIndex: {
+          method: 'get',
+          uri: '/:slug/locations'
+        },
+        agendaAdminLocations: {
+          method: 'get',
+          uri: '/:slug/admin/locations'
+        },
+        agendaAdminLocationsCsv: {
+          method: 'get',
+          uri: '/:slug/admin/locations/exports.csv'
+        },
+        agendaLocationSet: {
+          method: 'post',
+          uri: '/:slug/locations'
+        },
+        agendaAdminLocationSet: {
+          method: 'post',
+          uri: '/:slug/admin/locations'
+        },
+        agendaAdminLocationRemove: {
+          method: 'post',
+          uri: '/:slug/admin/locations/remove'
+        },
+        agendaAdminLocationMerge: {
+          method: 'post',
+          uri: '/:slug/admin/locations/merge'
+        },
+        agendaAdminLocationTerms: {
+          method: 'get',
+          uri: '/:slug/admin/locations/terms'
+        },
+        locationGetStakeholder: {
+          method: 'get',
+          uri: '/:slug/admin/locations/stakeholders/:stakeholderId'
+        },
+        locationGeocode: {
+          method: 'get',
+          uri: '/:slug/locations/geocode'
+        },
+        locationINSEE: {
+          method: 'get',
+          uri: '/:slug/locations/insee'
+        },
+        locationReverseGeocode: {
+          method: 'get',
+          uri: '/:slug/locations/geocode/reverse'
+        },
+        locationResync: {
+          method: 'get',
+          uri: '/:slug/admin/locations/resync'
+        },
+        locationToVerifyCount: {
+          method: 'get',
+          uri: '/:slug/admin/locations/verifycount'
+        },
+        locationNewImageUpload: {
+          method: 'post',
+          uri: '/:slug/locations/image'
+        },
+        locationNewImageRemove: {
+          method: 'post',
+          uri: '/:slug/locations/image/remove'
+        },
+        locationImageUpload: {
+          method: 'post',
+          uri: '/:slug/locations/:locationUid/image'
+        },
+        locationImageRemove: {
+          method: 'post',
+          uri: '/:slug/locations/:locationUid/image/remove'
+        },
+        agendaLocationGet: {
+          method: 'get',
+          uri: '/:slug/locations/:locationUid'
+        },
+        agendaSettingsCreateApp: {
+          method: 'get',
+          uri: '/new'
+        },
+        agendaSettingsEditApp: {
+          method: 'get',
+          uri: '/:slug/admin/settings'
+        },
+        agendaSettingsEditSub: {
+          method: 'get',
+          uri: '/:slug/admin/settings/?*?'
+        },
+        agendaSettingsCreateAgenda: {
+          method: 'post',
+          uri: '/new'
+        },
+        agendaSettingsSlugAvailable: {
+          method: 'post',
+          uri: '/agendas/slugs/available'
+        },
+        agendaSettingsGetAgenda: {
+          method: 'get',
+          uri: '/agendas/:uid/admin/settings.json'
+        },
+        agendaSettingsEditAgenda: {
+          method: 'post',
+          uri: '/:slug/admin/settings/edit'
+        },
+        agendaSettingsSetImage: {
+          method: 'post',
+          uri: '/:slug/admin/settings/setImage'
+        },
+        agendaSettingsClearImage: {
+          method: 'post',
+          uri: '/:slug/admin/settings/clearImage'
+        },
+        agendaSettingsRemoveAgenda: {
+          method: 'post',
+          uri: '/:slug/admin/settings/remove'
+        },
+        agendaSettingsKeysCreate: {
+          method: 'post',
+          uri: '/:slug/admin/settings/keys/create'
+        },
+        agendaSettingsKeysGet: {
+          method: 'get',
+          uri: '/:slug/admin/settings/keys/get'
+        },
+        agendaSettingsKeysList: {
+          method: 'get',
+          uri: '/:slug/admin/settings/keys/list'
+        },
+        agendaSettingsKeysUpdate: {
+          method: 'patch',
+          uri: '/:slug/admin/settings/keys/update'
+        },
+        agendaSettingsKeysRemove: {
+          method: 'delete',
+          uri: '/:slug/admin/settings/keys/remove'
+        },
+        agendaAdminMembers: {
+          method: 'get',
+          uri: '/:slug/admin/members'
+        },
+        agendaAdminActivityApps: {
+          method: 'get',
+          uri: '/:slug/admin/activities'
+        },
+        agendaEmbedShow: {
+          method: 'get',
+          uri: '/agendas/:uid/embed/events'
+        },
+        customEmbedShow: {
+          method: 'get',
+          uri: '/agendas/:uid/embeds/:embedUid/events'
+        },
+        customEmbedShowPreview: {
+          method: 'get',
+          uri: '/agendas/:uid/previewEmbeds/:embedUid/events'
+        },
+        agendaSearch: {
+          method: 'get',
+          uri: '/agendas'
+        },
+        agendaRedirect: {
+          method: 'get',
+          uri: '/agendas/:uid'
+        },
+        agendaShowPrivate: {
+          method: 'get',
+          uri: '/:slug.prv'
+        },
+        agendaShow: {
+          method: 'get',
+          uri: '/:slug'
+        },
+        agendaUnauthorized: {
+          method: 'get',
+          uri: '/:slug/unauthorized/ip'
+        },
+        facebookShow: {
+          method: 'get',
+          uri: '/:slug/admin/facebook'
+        },
+        agendaActionShow: {
+          method: 'get',
+          uri: '/:slug/actions'
+        },
+        agendaEventAdd: {
+          method: 'get',
+          uri: '/:slug/actions/add/:eventUid'
+        },
+        agendaEventRemove: {
+          method: 'get',
+          uri: '/:slug/actions/remove/:eventUid'
+        },
+        agendaJsonEvents: {
+          method: 'get',
+          uri: '/agendas/:uid/events.json'
+        },
+        agendaCsvEvents: {
+          method: 'get',
+          uri: '/agendas/:uid/events.csv'
+        },
+        agendaPdfEvents: {
+          method: 'get',
+          uri: '/agendas/:uid/events.pdf'
+        },
+        agendaXlsxEvents: {
+          method: 'get',
+          uri: '/agendas/:uid/events.xlsx'
+        },
+        agendaRssEvents: {
+          method: 'get',
+          uri: '/agendas/:uid/events.rss'
+        },
+        agendaIcsEvents: {
+          method: 'get',
+          uri: '/agendas/:uid/events.ics'
+        },
+        agendaSourceAdd: {
+          method: 'get',
+          uri: '/agendas/:uid/addTo/:aggUid'
+        },
+        agendaSourceRemove: {
+          method: 'get',
+          uri: '/agendas/:uid/removeFrom/:aggUid'
         }
       },
       defaultGlobalsPrefix: ''

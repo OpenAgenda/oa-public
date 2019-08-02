@@ -184,6 +184,59 @@ module.exports.init = async config => {
         return cb( null, false );
 
       }
+    }, {
+      verb: 'agenda.addEvent',
+      getFeeds: true,
+      filter: ( activity, originFeed, targetFeed, follow, cb ) => {
+
+        // si le target (agenda qui agrège) est le targetFeed
+        if ( targetFeed.entityType === 'agenda' && targetFeed.entityUid === parseInt( activity.target.split( ':' )[ 1 ] ) ) {
+
+          return cb( null, true );
+
+        }
+
+        // si l'agenda source est le targetFeed
+        if (
+          targetFeed.entityType === 'agenda'
+          && targetFeed.entityUid === parseInt( activity.store.sourceAgenda )
+        ) {
+
+          return promisify( agendasSvc.get )( {
+            uid: parseInt( activity.target.split( ':' )[ 1 ] )
+          }, { private: false } )
+            .then( agenda => {
+
+              return cb( null, !!agenda );
+
+            }, () => {
+
+              return cb( null, false );
+
+            } );
+
+        }
+
+        // if it is an adminmods
+        if (
+          originFeed.entityType === 'agenda'
+          && targetFeed.entityType === 'user'
+          && isSuperiorToOrEqual( follow.store.credential, 'moderator' )
+        ) {
+
+          return cb( null, true );
+
+        }
+
+        if ( originFeed.entityType === 'event' && targetFeed.entityType === 'user' ) {
+
+          return cb( null, true );
+
+        }
+
+        return cb( null, false );
+
+      }
     } ],
     logger: config.getLogConfig( 'oa', 'activities', false )
   } );

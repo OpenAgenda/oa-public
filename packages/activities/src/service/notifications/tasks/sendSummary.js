@@ -34,7 +34,7 @@ async function task() {
 
     } catch ( e ) {
 
-      log( 'error', 'Canno\'t send summary of notifications:', e );
+      log( 'error', 'Cannot send summary of notifications:', e );
 
     }
 

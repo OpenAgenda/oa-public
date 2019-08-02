@@ -1,22 +1,5 @@
 "use strict";
 
-const webModules = [
-  require( './location/back' )( '' ),
-  require( './agenda/settings.back' )( '' ),
-  require( './agenda/sources.back' )( '/:slug/admin' ),
-  require( './agenda/members.back' )( '/:slug/admin/members' ),
-  require( './agenda/activities.back' )( '/:slug/admin/activities' ),
-  require( './agenda/shares.front' )( '' ),
-  require( './agenda/front' )( '' ),
-  require( './agenda/exports.back' )( '/agendas/:uid/admin' ),
-  require( './agenda/groupActions.back' )( '/agendas/:uid/admin' ),
-  require( './agenda/facebook.back' )( '' ),
-  require( './agenda/customized.back' )( '' ),
-  require( './agenda/actions.front' )( '/:slug/actions' ),
-  require( './agenda/exports.front' )( '/agendas/:uid' ),
-  require( './activities/notifications.back' )( '/notifications' )
-];
-
 module.exports = app => {
 
   require( './event/search.front' )( app );
@@ -54,11 +37,20 @@ module.exports = app => {
   require( './agenda/emailstrategie.back' )( app );
   require( './agenda/embeds.back' )( app );
   require( './location/front' )( app );
-
-  webModules.forEach( m => m.load( app ) );
-
-  // some routes are to be evaluated after members.back
+  require( './location/back' )( app );
+  require( './agenda/settings.back' )( app );
+  require( './agenda/sources.back' )( app );
+  require( './agenda/members.back' )( app );
   require( './services/members' )( app );
-};
+  require( './agenda/activities.back' )( app );
+  require( './agenda/shares.front' )( app );
+  require( './agenda/front' )( app );
+  require( './agenda/exports.back' )( app );
+  require( './agenda/groupActions.back' )( app );
+  require( './agenda/facebook.back' )( app );
+  require( './agenda/customized.back' )( app );
+  require( './agenda/actions.front' )( app );
+  require( './agenda/exports.front' )( app );
+  require( './activities/notifications.back' )( app );
 
-module.exports.webModules = webModules;
+};

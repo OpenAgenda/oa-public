@@ -24,6 +24,11 @@ module.exports = {
     },
     {
       actions: 'receive',
+      subject: 'myEventAddition',
+      tag: 'contributor'
+    },
+    {
+      actions: 'receive',
       subject: 'eventCreation',
       tag: 'adminmod'
     },
@@ -67,6 +72,11 @@ module.exports = {
     {
       actions: 'receive',
       subject: 'eventAggregation',
+      tag: 'adminmod'
+    },
+    {
+      actions: 'receive',
+      subject: 'eventAddition',
       tag: 'adminmod'
     }
   ],
@@ -114,6 +124,11 @@ module.exports = {
     {
       actions: 'receive',
       subject: 'myEventAggregation',
+      tag: 'contributor'
+    },
+    {
+      actions: 'receive',
+      subject: 'myEventAddition',
       tag: 'contributor'
     },
     {
@@ -167,6 +182,11 @@ module.exports = {
       actions: 'receive',
       subject: 'eventAggregation',
       tag: 'adminmod'
+    },
+    {
+      actions: 'receive',
+      subject: 'eventAddition',
+      tag: 'adminmod'
     }
   ],
   member: ( ability, member ) => {
@@ -194,6 +214,11 @@ module.exports = {
       {
         actions: 'receive',
         subject: 'myEventAggregation',
+        tag: 'contributor'
+      },
+      {
+        actions: 'receive',
+        subject: 'myEventAddition',
         tag: 'contributor'
       }
     ];
@@ -250,6 +275,11 @@ module.exports = {
         {
           actions: 'receive',
           subject: 'eventAggregation',
+          tag: 'adminmod'
+        },
+        {
+          actions: 'receive',
+          subject: 'eventAddition',
           tag: 'adminmod'
         }
       ] );

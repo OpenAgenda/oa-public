@@ -550,10 +550,7 @@ app.use(
 
     if ( !adminOrModerator ) {
       sessions.setFlash( req, res, getLabel( 'youreNotAdminOrModerator', req.lang ) );
-      return res.redirect( 302, req.genUrl( 'publicEventContact', {
-        slug: req.agenda.slug,
-        eventSlug: req.event.slug
-      } ) );
+      return res.redirect( 302, `/${req.agenda.slug}/events/${req.event.slug}/contact` );
     }
 
     const eventShowLink = req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } );
@@ -679,10 +676,7 @@ app.use(
 
     if ( adminOrModerator ) {
       sessions.setFlash( req, res, getLabel( 'youreAdminOrModerator', req.lang ) );
-      return res.redirect( 302, req.genUrl( 'adminEventContact', {
-        slug: req.agenda.slug,
-        eventSlug: req.event.slug
-      } ) );
+      return res.redirect( 302, `/${req.agenda.slug}/admin/events/${req.event.slug}/contact` );
     }
 
     const eventShowLink = req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } );

@@ -1,19 +1,13 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
 const fb = require( '@openagenda/facebook' );
 const sessions = require( '@openagenda/sessions' );
-
 const agendaSvc = require( '@openagenda/agendas' );
-const modLib = require( '../lib/moduleLib' );
-
-const cmn = require( '../lib/commons-app' );
-
 const flattenLabels = require( '@openagenda/labels/flatten' );
 const labels = require( '@openagenda/labels/agenda-admin/facebook' );
 const getLabel = require( '@openagenda/labels/makeLabelGetter' )( labels );
-
+const cmn = require( '../lib/commons-app' );
 const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'facebook' }
 );
@@ -27,41 +21,37 @@ const page = _.template( `<div class="margin-bottom-lg"><h2><%= labels.title %><
   <div><%= footnote %></div>
 </section>` );
 
-const routes = {
+const preMw = [
+  sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) )
+];
 
-  facebookShow: [ 'get', '/:slug/admin/facebook', [
+
+module.exports = app => {
+
+  app.get(
+    '/:slug/admin/facebook',
+    preMw,
     cmn.loadAgenda,
     cmn.authorize.administrator,
     show
-  ] ],
+  );
 
-  facebookTabLink: [ 'get', '/agendas/:uid/facebook/tab/link', [
+  app.get(
+    '/agendas/:uid/facebook/tab/link',
+    preMw,
     cmn.loadAgendaBy( 'uid' ),
     cmn.authorize.administrator,
     fb.tab.create
-  ] ],
+  );
 
-  facebookTabRedirect: [ 'get', '/facebook/tab/create/:state', [
+  app.get(
+    '/facebook/tab/create/:state',
+    preMw,
     fb.tab.redirect,
     _onComplete
-  ] ]
+  );
 
 };
-
-module.exports = path => {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) )
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
-
-}
 
 function show( req, res ) {
 

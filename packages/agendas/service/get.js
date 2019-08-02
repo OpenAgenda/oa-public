@@ -66,8 +66,6 @@ function get( i, o, c ) {
 
 async function promise( identifiers, options = {} ) {
 
-  const filtered = {};
-
   if ( !_.keys( identifiers ).length ) {
 
     throw new Error( 'No known identifiers specified for get: ' + JSON.stringify( identifiers ) );
@@ -89,7 +87,6 @@ async function promise( identifiers, options = {} ) {
   } catch ( e ) {
     throw new VError( e, 'failed to parse agenda %j values', identifiers );
   }
-
 
   if ( !rawAgenda ) return null;
 

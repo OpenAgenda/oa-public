@@ -3,8 +3,8 @@
 </div>
 <section>
 
-  <p><%- __( 'The agenda is linked with the EmailStrategie account %account%', { 
-    '%account%': '<strong>' + accountName + '</strong>' 
+  <p><%- __( 'The agenda is linked with the EmailStrategie account %account%', {
+    '%account%': '<strong>' + accountName + '</strong>'
   } ) %></p>
 
   <% if ( state ) { %>
@@ -52,7 +52,7 @@
       <li>
         <input type="checkbox" name="url" <% if ( !url ) { %>disabled<% } %> value="<%= url %>">
         <label for="url"><%= __( 'Links go to your website ( yourwebsiteagendapage.com ) rather than on your openagenda.com agenda page' ) %></label>
-        <span class="info" style="font-size:0.9em; color:#999;"><%- __( 'Define the url associated to your agenda in the %settings%', { '%settings%' : '<a class="url" href="' + genUrl( 'agendaAdminSettings', { slug : agenda.slug } ) + '">' + __( 'settings tab' ) + '</a>' } ) %></span>
+        <span class="info" style="font-size:0.9em; color:#999;"><%- __( 'Define the url associated to your agenda in the %settings%', { '%settings%' : '<a class="url" href="/' + agenda.slug + '/admin/edit">' + __( 'settings tab' ) + '</a>' } ) %></span>
       </li>
       <li>
         <label for="fields"><strong>4. <%= __( 'Send your selection to EmailStrategie' ) %></strong></label>

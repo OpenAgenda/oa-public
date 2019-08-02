@@ -9,7 +9,6 @@ const agendaSvc = require( '@openagenda/agendas' );
 const contributorLabels = require( '@openagenda/labels/event/contributors' );
 const eventReferences = require( '@openagenda/agenda-event-references' );
 const sessions = require( '@openagenda/sessions' );
-const customSvc = require( '@openagenda/custom' );
 const activitiesSvc = require( '@openagenda/activities' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
 
@@ -166,15 +165,19 @@ module.exports = app => {
       const limit = 20;
 
       const feed = activitiesSvc.feed( {
-        entityType: 'event',
-        entityUid: req.event.uid
+        entityType: 'agenda',
+        entityUid: req.agenda.uid
       } );
 
       feed.get().then( data => {
 
         if ( !data ) return res.json( {} );
 
-        feed.activities.list( req.query.fromId || 0, limit )
+        feed.activities.list(
+          { object: 'event:' + req.event.uid },
+          req.query.fromId || 0,
+          limit
+        )
 
           .then( activities => {
 

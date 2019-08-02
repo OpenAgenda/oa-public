@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 
 const { promisify } = require( 'util' );
 const VError = require( 'verror' );
+const { diff } = require( 'deep-diff' );
 const activitiesSvc = require( '@openagenda/activities' );
 const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
@@ -74,7 +75,12 @@ async function _addActivity( before, after, context ) {
         actor: user.fullName,
         object: before.title,
         target: agenda.title
-      }
+      },
+      diff: diff(
+        before,
+        after,
+        ( path, key ) => [ 'updatedAt', 'location' ].includes( key )
+      )
     }
   }, err => {
 

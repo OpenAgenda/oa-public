@@ -51,9 +51,6 @@ app.use( cmn.lang );
 
 cmn.loadLegacyRoutes( genUrl );
 
-web.webModules
-  .forEach( m => genUrl.load( m.paths ) );
-
 // run 'admin' type modules
 if ( ADMIN ) {
   admin( app );

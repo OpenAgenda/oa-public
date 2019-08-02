@@ -1,9 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
-const config = require( '../config' );
-
 const sessions = require( '@openagenda/sessions' );
 const tagSvc = require( '@openagenda/agenda-tags' );
 const getAggLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/aggregators/sources' ) );
@@ -12,19 +9,28 @@ const locationMw = require( '@openagenda/agenda-locations' ).mw();
 const utils = require( '@openagenda/utils' );
 const cbify = require( '@openagenda/utils/cbify' );
 const keysSvc = require( '@openagenda/keys' );
-const modLib = require( '../lib/moduleLib' );
+const ODSJSONParser = require( '@openagenda/legacy/exports/ODSJSONParser' );
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const cacheMw = require( '../lib/cache.mw' );
 const gaTrack = require( '../lib/gaTrack.mw' );
+const config = require( '../config' );
 
-const ODSJSONParser = require( '@openagenda/legacy/exports/ODSJSONParser' );
 
 const perPage = 20;
-const routes = {
 
-  agendaJsonEvents: [ 'get', '/events.json', [
+const preMw = [
+  cmn.redirectLegacySearch,
+  cmn.loadLogger( 'agenda front' )
+];
+
+
+module.exports = app => {
+
+  app.get(
+    '/agendas/:uid/events.json',
+    preMw,
     checkKey(),
     cacheMw.send( 'agendas', 'params.uid', cachedJson ),
     agendaSvc.mw.load( 'uid' ),
@@ -36,19 +42,22 @@ const routes = {
     cacheMw.set( 'agendas', 'params.uid', 30, _cacheContent ),
     gaTrack( 'events', 'export', 'json' ),
     json
-  ] ],
+  );
 
-  agendaJsonLocations: [ 'get', '/locations.json', [
+  app.get(
+    '/agendas/:uid/locations.json',
+    preMw,
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     _prepareLocationExport,
     locationMw.list,
     gaTrack( 'locations', 'export', 'json' ),
     ( req, res ) => cmn.renderJson( req, res, req.locations )
-  ] ],
+  );
 
-  agendaJsonSettings: [
-    'get', '/settings.json', [
+  app.get(
+    '/agendas/:uid/settings.json',
+          preMw,
       agendaSvc.mw.load( 'uid' ),
       cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
       _loadTagSet,
@@ -66,82 +75,79 @@ const routes = {
           embeds: req.embeds
         }
       ) )
-    ]
-  ],
+  );
 
-  agendaCsvEvents: [ 'get', '/events.csv', [
+  app.get(
+    '/agendas/:uid/events.csv',
+    preMw,
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     locationMw.loadSettings( 'locationSettings' ),
     gaTrack( 'events', 'export', 'csv' ),
     agendaSvc.mw.buildCsv( false )
-  ] ],
+  );
 
-  agendaPdfEvents: [ 'get', '/events.pdf', [
+  app.get(
+    '/agendas/:uid/events.pdf',
+    preMw,
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     gaTrack( 'events', 'export', 'pdf' ),
     agendaSvc.mw.buildPdf
-  ] ],
+  );
 
-  agendaXlsxEvents: [ 'get', '/events.xlsx', [
+  app.get(
+    '/agendas/:uid/events.xlsx',
+    preMw,
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     locationMw.loadSettings( 'locationSettings' ),
     gaTrack( 'events', 'export', 'xlsx' ),
     agendaSvc.mw.buildXlsx( false )
-  ] ],
+  );
 
-  agendaRssEvents: [ 'get', '/events.rss', [
+  app.get(
+    '/agendas/:uid/events.rss',
+    preMw,
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     agendaSvc.mw.search( 20 ),
     gaTrack( 'events', 'export', 'rss' ),
     agendaSvc.mw.rss
-  ] ],
+  );
 
-  agendaIcsEvents: [ 'get', '/events.ics', [
+  app.get(
+    '/agendas/:uid/events.ics',
+    preMw,
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     gaTrack( 'events', 'export', 'ics' ),
     agendaSvc.mw.buildIcs
-  ] ],
+  );
 
-  agendaSourceAdd: [ 'get', '/addTo/:aggUid', [
+  app.get(
+    '/agendas/:uid/addTo/:aggUid',
+    preMw,
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
     cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
     cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
     addSource
-  ] ],
+  );
 
-  agendaSourceRemove: [ 'get', '/removeFrom/:aggUid', [
+  app.get(
+    '/agendas/:uid/removeFrom/:aggUid',
+    preMw,
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
     cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
     cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
     removeSource
-  ] ]
+  );
 
 };
-
-module.exports = function ( path ) {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    cmn.redirectLegacySearch,
-    cmn.loadLogger( 'agenda front' )
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
-
-}
 
 function checkKey() {
 

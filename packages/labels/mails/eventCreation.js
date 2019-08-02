@@ -10,8 +10,14 @@ module.exports = {
   "body": {
     "fr": "**%event%** a été créé sur l'agenda **%agenda%** avec le statut **%state%**.",
     "en": "**%event%** was created on the agenda **%agenda%** with the state **%state%**.",
-    "de": "**%event% ** auf der Kalender erstellt **%agenda%** mit dem Zustand **%state%**.",
-    "es": "**%event%** fue creado en la agenda ** %agenda%** con el estado**%state%**."
+    "de": "**%event%** auf der Kalender erstellt **%agenda%** mit dem Zustand **%state%**.",
+    "es": "**%event%** fue creado en la agenda ** %agenda%** con el estado **%state%**."
+  },
+  "bodyText": {
+    "fr": "%event% a été créé sur l'agenda %agenda% avec le statut %state%.",
+    "en": "%event% was created on the agenda %agenda% with the state %state%.",
+    "de": "%event% auf der Kalender erstellt %agenda% mit dem Zustand %state%.",
+    "es": "%event% fue creado en la agenda  %agenda% con el estado %state%."
   },
   "actionDescription": {
     "fr": "Voir l'événement",

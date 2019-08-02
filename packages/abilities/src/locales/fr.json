@@ -23,5 +23,7 @@
   "Abilities.RulesCheckbox.rules.receiveMyEventCreation": "Recevoir les confirmations de vos créations d'événement",
   "Abilities.RulesCheckbox.rules.receiveEventCreation": "Recevoir les créations d'événements",
   "Abilities.RulesCheckbox.rules.receiveEventUpdate": "Recevoir les mises à jour d'événements",
-  "Abilities.RulesCheckbox.rules.receiveEventAggregation": "Recevoir les agrégations d'événements"
+  "Abilities.RulesCheckbox.rules.receiveEventAggregation": "Recevoir les agrégations d'événements",
+  "Abilities.RulesCheckbox.rules.receiveEventAddition": "Recevoir les ajouts d'événements",
+  "Abilities.RulesCheckbox.rules.receiveMyEventAddition": "Recevoir les notifications lorsque quelqu'un ajoute un de mes événements"
 }

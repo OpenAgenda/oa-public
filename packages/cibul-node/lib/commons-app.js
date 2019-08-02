@@ -1281,11 +1281,12 @@ function _filterNonParsable( str ) {
 
 function loadLegacyRoutes( genUrl ) {
 
-  var legacyRoutes = config.routes.globals;
+  const legacyRoutes = config.routes.globals;
+  const prefix = config.routes.defaultGlobalsPrefix;
 
-  for ( var name in legacyRoutes ) {
+  for ( const name in legacyRoutes ) {
 
-    legacyRoutes[ name ] = config.routes.defaultGlobalsPrefix + legacyRoutes[ name ].uri;
+    legacyRoutes[ name ] = `${legacyRoutes[ name ].legacy ? prefix : ''}${legacyRoutes[ name ].uri}`;
 
   }
 
