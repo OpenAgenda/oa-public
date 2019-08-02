@@ -1,4 +1,15 @@
-"use strict";
+'use strict';
+
+// Polyfill
+if ( !('ListFormat' in Intl) ) {
+  require( 'intl-list-format' );
+}
+
+require( 'intl-list-format/locale-data/en.js' );
+require( 'intl-list-format/locale-data/fr.js' );
+require( 'intl-list-format/locale-data/de.js' );
+require( 'intl-list-format/locale-data/it.js' );
+require( 'intl-list-format/locale-data/br.js' );
 
 const merge = require( 'lodash/merge' );
 const escape = require( 'lodash/escape' );
@@ -6,315 +17,539 @@ const escape = require( 'lodash/escape' );
 const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 const credentialLabels = require( '@openagenda/labels/contributors/credentials' );
 const stateLabels = require( '@openagenda/labels/event/states' );
+const eventFieldLabels = require( '@openagenda/labels/activities/eventFields' );
 const credentialTypes = require( '@openagenda/agenda-stakeholders/dist/iso/credentialTypes' );
+
+
+const defaultRenderIcon = ( label, type, value ) => (
+  `<i 
+    class="fa fa-filter"
+    aria-hidden="true"
+    data-filterlabel="${escape(label)}"
+    data-filtertype="${escape(type)}"
+    data-filtervalue="${escape(value)}"
+  ></i>`
+);
+
+const defaultRenderLink = ( label, url ) => `<a href="${url}">${escape( label )}</a>`;
+
+const defaultRenderHighlight = content => `<span class="activity-highlight">${content}</span>`;
+
 
 const getUid = str => str.split( ':' )[ 1 ];
 
-const eventStateCodeToLabel = code => [
-  'refused',
-  'tocontrol',
-  'controlled',
-  'published'
-][ code + 1 ];
+const eventStateCodeToLabel = code =>
+  [ 'refused', 'tocontrol', 'controlled', 'published' ][ code + 1 ];
+
+const getLocaleValue = ( labels, lang ) => {
+  if ( typeof labels !== 'object' ) {
+    return labels;
+  }
+
+  const keys = Object.keys( labels );
+
+  return keys.find( v => v === lang ) ? labels[ lang ] : labels[ keys[ 0 ] ];
+};
+
 
 module.exports = ( urls, labels, defaultLang = 'fr' ) => {
+  urls = merge(
+    {
+      'agenda.sendInvitation': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.acceptInvitation': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.addMember': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.removeMember': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.setMemberRole': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.create': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.updateContribution': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.updateProfile': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.rename': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.changeEventState': {
+        agenda: '/agendas/:agenda',
+        event: '/agendas/:agenda/events/:event'
+      },
+      'agenda.publishEvent': {
+        agenda: '/agendas/:agenda',
+        event: '/agendas/:agenda/events/:event'
+      },
+      'agenda.unpublishEvent': {
+        agenda: '/agendas/:agenda',
+        event: '/agendas/:agenda/events/:event'
+      },
+      'agenda.removeEvent': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.setOfficial': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.aggregateEvent': {
+        agenda: '/agendas/:agenda',
+        event: '/agendas/:agenda/events/:event'
+      },
+      'agenda.addEvent': {
+        agenda: '/agendas/:agenda',
+        event: '/agendas/:agenda/events/:event'
+      },
+      'event.create': {
+        agenda: '/agendas/:agenda',
+        event: '/agendas/:agenda/events/:event'
+      },
+      'event.update': {
+        agenda: '/agendas/:agenda',
+        event: '/agendas/:agenda/events/:event'
+      },
+      'event.delete': {
+        agenda: '/agendas/:agenda'
+      }
+    },
+    urls
+  );
 
-  urls = merge( {
-    'agenda.sendInvitation': {
-      agenda: '/agendas/:agenda'
-    },
-    'agenda.acceptInvitation': {
-      agenda: '/agendas/:agenda'
-    },
-    'agenda.addMember': {
-      agenda: '/agendas/:agenda'
-    },
-    'agenda.setMemberRole': {
-      agenda: '/agendas/:agenda'
-    },
-    'agenda.create': {
-      agenda: '/agendas/:agenda'
-    },
-    'agenda.updateContribution': {
-      agenda: '/agendas/:agenda'
-    },
-    'agenda.updateProfile': {
-      agenda: '/agendas/:agenda'
-    },
-    'agenda.rename': {
-      agenda: '/agendas/:agenda'
-    },
-    'agenda.changeEventState': {
-      agenda: '/agendas/:agenda',
-      event: '/agendas/:agenda/events/:event'
-    },
-    'agenda.publishEvent': {
-      agenda: '/agendas/:agenda',
-      event: '/agendas/:agenda/events/:event'
-    },
-    'agenda.unpublishEvent': {
-      agenda: '/agendas/:agenda',
-      event: '/agendas/:agenda/events/:event'
-    },
-    'agenda.removeEvent': {
-      agenda: '/agendas/:agenda'
-    },
-    'agenda.setOfficial': {
-      agenda: '/agendas/:agenda'
-    },
-    'agenda.aggregateEvent': {
-      agenda: '/agendas/:agenda',
-      event: '/agendas/:agenda/events/:event'
-    },
-    'event.create': {
-      agenda: '/agendas/:agenda',
-      event: '/agendas/:agenda/events/:event'
-    },
-    'event.update': {
-      agenda: '/agendas/:agenda',
-      event: '/agendas/:agenda/events/:event'
-    },
-    'event.delete': {
-      agenda: '/agendas/:agenda'
-    }
-  }, urls );
-
-  return ( activity, lang = defaultLang, withFilterIcons = false ) => {
+  return (
+    activity,
+    lang = defaultLang,
+    options = {}
+  ) => {
+    const { withFilterIcons } = options;
 
     const getLabel = makeLabelGetter( labels, lang );
-    const getCredentialLabel = makeLabelGetter( credentialLabels, lang );
+    const getCredentialLabel = code =>
+      makeLabelGetter( credentialLabels, lang )( credentialTypes.codes.get( code ) ).toLowerCase();
     const getStateLabel = makeLabelGetter( stateLabels, lang );
+    const getFieldLabel = makeLabelGetter( eventFieldLabels, lang );
 
-    const getEventTitle = labels => {
-      if ( typeof labels !== 'object' ) return labels;
+    const renderIcon = options.renderIcon || defaultRenderIcon;
+    const renderLink = options.renderLink || defaultRenderLink;
+    const renderHighlight = options.renderHighlight || defaultRenderHighlight;
 
-      const keys = Object.keys( labels );
-      return keys.find( v => v === lang ) ? labels[ lang ] : labels[ keys[ 0 ] ];
-    }
 
-    const getIcon = ( activity, type ) => {
-      if ( !withFilterIcons ) return '';
-      return `<i class="fa fa-filter" aria-hidden="true" data-filterlabel="${escape( getEventTitle( activity.store.labels[ type ] ) )}" data-filtertype="${type}" data-filtervalue="${activity[ type ]}"></i>`;
-    };
 
-    const makeUrl = ( entityType, values, label, filterType ) => {
-      if ( !urls[ activity.verb ] || !urls[ activity.verb ][ entityType ] ) return escape( label );
+    const getIcon = ( activity, type ) => (
+      withFilterIcons
+        ? renderIcon( getLocaleValue( activity.store.labels[ type ], lang ), type, activity[ type ] )
+        : ''
+    );
+
+    const makeLink = ( entityType, values, label, filterType ) => {
+      if ( !urls[ activity.verb ] || !urls[ activity.verb ][ entityType ] ) {
+        return escape( label );
+      }
 
       const url = Object.keys( values ).reduce( ( prev, next ) => {
         return prev.replace( `:${next}`, values[ next ] );
       }, urls[ activity.verb ][ entityType ] );
 
-      const icon = `<i class="fa fa-filter" aria-hidden="true" data-filterlabel="${escape( getEventTitle( label ) )}" data-filtertype="${escape( filterType )}" data-filtervalue="${entityType}:${values[ entityType ]}"></i>`;
+      const icon = getIcon( activity, filterType );
 
-      return `<span class="activity-highlight"><a href="${url}">${escape( label )}</a>${withFilterIcons ? icon : ''}</span>`;
+      return renderHighlight( renderLink( label, url ) + icon );
     };
 
-    let agendaUrl;
-    let eventUrl;
-
     switch ( activity.verb ) {
-
-      case 'agenda.sendInvitation':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
+      case 'agenda.sendInvitation': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
 
         return getLabel( 'agenda.sendInvitation', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          email: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>',
-          credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
-          agenda: agendaUrl
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          email: renderHighlight( escape( activity.store.labels.object ) + getIcon( activity, 'object' ) ),
+          credential: getCredentialLabel( activity.store.credential ),
+          agenda: agendaLink
         } );
-
-      case 'agenda.acceptInvitation':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
+      }
+      case 'agenda.acceptInvitation': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
 
         return getLabel( 'agenda.acceptInvitation', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>',
-          credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
-          agenda: agendaUrl
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          originMember: renderHighlight( escape( activity.store.labels.object ) + getIcon( activity, 'object' ) ),
+          credential: getCredentialLabel( activity.store.credential ),
+          agenda: agendaLink
         } );
-
-      case 'agenda.addMember':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
+      }
+      case 'agenda.addMember': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
 
         return getLabel( 'agenda.addMember', {
-          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>',
-          credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
-          agenda: agendaUrl
+          originMember: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          user: renderHighlight( escape( activity.store.labels.object ) + getIcon( activity, 'object' ) ),
+          credential: getCredentialLabel( activity.store.credential ),
+          agenda: agendaLink
         } );
+      }
+      case 'agenda.removeMember': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
 
-      case 'agenda.setMemberRole':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target );
+        return getLabel( 'agenda.removeMember', {
+          originMember: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          user: renderHighlight( escape( activity.store.labels.object ) + getIcon( activity, 'object' ) ),
+          credential: getCredentialLabel( activity.store.credential ),
+          agenda: agendaLink
+        } );
+      }
+      case 'agenda.setMemberRole': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target
+        );
 
         return getLabel( 'agenda.setMemberRole', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          originMember: '<span class="activity-highlight">' + escape( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>',
-          credential: getCredentialLabel( credentialTypes.codes.get( activity.store.credential ) ).toLowerCase(),
-          beforeCredential: getCredentialLabel( credentialTypes.codes.get( activity.store.beforeCredential ) ).toLowerCase(),
-          agenda: agendaUrl
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          originMember: renderHighlight( escape( activity.store.labels.object ) + getIcon( activity, 'object' ) ),
+          credential: getCredentialLabel( activity.store.credential ),
+          beforeCredential: getCredentialLabel( activity.store.beforeCredential ),
+          agenda: agendaLink
         } );
-
-      case 'agenda.create':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
+      }
+      case 'agenda.create': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
 
         return getLabel( 'agenda.create', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          agenda: agendaUrl
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          agenda: agendaLink
         } );
-
-      case 'agenda.updateContribution':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
+      }
+      case 'agenda.updateContribution': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
 
         return getLabel( 'agenda.updateContribution', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          agenda: agendaUrl
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          agenda: agendaLink
         } );
-
-      case 'agenda.updateProfile':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
+      }
+      case 'agenda.updateProfile': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
 
         return getLabel( 'agenda.updateProfile', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          agenda: agendaUrl
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          agenda: agendaLink
         } );
-
-      case 'agenda.rename':
-
+      }
+      case 'agenda.rename': {
         return getLabel( 'agenda.rename', {
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          before: makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.beforeTitle ),
-          after: makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.afterTitle )
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          before: makeLink(
+            'agenda',
+            { agenda: getUid( activity.target ) },
+            activity.store.labels.beforeTitle
+          ),
+          after: makeLink(
+            'agenda',
+            { agenda: getUid( activity.target ) },
+            activity.store.labels.afterTitle
+          )
         } );
+      }
+      case 'agenda.setOfficial': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
 
-      case 'agenda.setOfficial':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
-
-        return getLabel( 'agenda.' + (activity.store.officialized ? 'setOfficial' : 'setUnofficial'), {
-          agenda: agendaUrl
-        } );
-
-      case 'agenda.changeEventState':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
-        eventUrl = makeUrl( 'event', {
-          agenda: getUid( activity.target ),
-          event: getUid( activity.object )
-        }, getEventTitle( activity.store.labels.object ), 'object' );
+        return getLabel(
+          activity.store.officialized ? 'agenda.setOfficial' : 'agenda.setUnofficial',
+          {
+            agenda: agendaLink
+          }
+        );
+      }
+      case 'agenda.changeEventState': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
+        const eventLink = makeLink(
+          'event',
+          {
+            agenda: getUid( activity.target ),
+            event: getUid( activity.object )
+          },
+          getLocaleValue( activity.store.labels.object, lang ),
+          'object'
+        );
 
         return getLabel( 'agenda.changeEventState', {
-          agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          event: eventUrl,
+          agenda: agendaLink,
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          event: eventLink,
           before: getStateLabel( eventStateCodeToLabel( activity.store.oldState ) ),
           after: getStateLabel( eventStateCodeToLabel( activity.store.newState ) )
         } );
-
-      case 'agenda.publishEvent':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
-        eventUrl = makeUrl( 'event', {
-          agenda: getUid( activity.target ),
-          event: getUid( activity.object )
-        }, getEventTitle( activity.store.labels.object ), 'object' );
+      }
+      case 'agenda.publishEvent': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
+        const eventLink = makeLink(
+          'event',
+          {
+            agenda: getUid( activity.target ),
+            event: getUid( activity.object )
+          },
+          getLocaleValue( activity.store.labels.object, lang ),
+          'object'
+        );
 
         return getLabel( 'agenda.publishEvent', {
-          agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          event: eventUrl
+          agenda: agendaLink,
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          event: eventLink
         } );
-
-      case 'agenda.unpublishEvent':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
-        eventUrl = makeUrl( 'event', {
-          agenda: getUid( activity.target ),
-          event: getUid( activity.object )
-        }, getEventTitle( activity.store.labels.object ), 'object' );
+      }
+      case 'agenda.unpublishEvent': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
+        const eventLink = makeLink(
+          'event',
+          {
+            agenda: getUid( activity.target ),
+            event: getUid( activity.object )
+          },
+          getLocaleValue( activity.store.labels.object, lang ),
+          'object'
+        );
 
         return getLabel( 'agenda.unpublishEvent', {
-          agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          event: eventUrl
+          agenda: agendaLink,
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          event: eventLink
         } );
-
-      case 'agenda.removeEvent':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
+      }
+      case 'agenda.removeEvent': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
 
         return getLabel( 'agenda.removeEvent', {
-          agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          event: '<span class="activity-highlight">' + getEventTitle( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>'
+          agenda: agendaLink,
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          event: renderHighlight( getLocaleValue( activity.store.labels.object, lang ) + getIcon( activity, 'object' ) )
         } );
-
-      case 'agenda.aggregateEvent':
-
-        const sourceAgendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.actor ) }, activity.store.labels.actor, 'actor' );
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
-        eventUrl = makeUrl( 'event', {
-          agenda: getUid( activity.target ),
-          event: getUid( activity.object )
-        }, getEventTitle( activity.store.labels.object ), 'object' );
+      }
+      case 'agenda.aggregateEvent': {
+        const sourceAgendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.actor ) },
+          activity.store.labels.actor,
+          'actor'
+        );
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
+        const eventLink = makeLink(
+          'event',
+          {
+            agenda: getUid( activity.target ),
+            event: getUid( activity.object )
+          },
+          getLocaleValue( activity.store.labels.object, lang ),
+          'object'
+        );
 
         return getLabel( 'agenda.aggregateEvent', {
-          agenda: agendaUrl,
-          event: eventUrl,
-          sourceAgenda: sourceAgendaUrl
+          agenda: agendaLink,
+          event: eventLink,
+          sourceAgenda: sourceAgendaLink
         } );
+      }
+      case 'agenda.addEvent': {
+        const sourceAgendaLink = makeLink(
+          'agenda',
+          { agenda: activity.store.sourceAgenda },
+          activity.store.labels.sourceAgenda,
+          'actor'
+        );
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
+        const eventLink = makeLink(
+          'event',
+          {
+            agenda: getUid( activity.target ),
+            event: getUid( activity.object )
+          },
+          getLocaleValue( activity.store.labels.object, lang ),
+          'object'
+        );
 
-      case 'event.create':
-
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
-        eventUrl = makeUrl( 'event', {
-          agenda: getUid( activity.target ),
-          event: getUid( activity.object )
-        }, getEventTitle( activity.store.labels.object ), 'object' );
+        return getLabel( 'agenda.addEvent', {
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          agenda: agendaLink,
+          event: eventLink,
+          sourceAgenda: sourceAgendaLink
+        } );
+      }
+      case 'event.create': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
+        const eventLink = makeLink(
+          'event',
+          {
+            agenda: getUid( activity.target ),
+            event: getUid( activity.object )
+          },
+          getLocaleValue( activity.store.labels.object, lang ),
+          'object'
+        );
 
         return getLabel( 'event.create', {
-          agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          event: eventUrl
+          agenda: agendaLink,
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          event: eventLink
         } );
+      }
+      case 'event.update': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
+        const eventLink = makeLink(
+          'event',
+          {
+            agenda: getUid( activity.target ),
+            event: getUid( activity.object )
+          },
+          getLocaleValue( activity.store.labels.object, lang ),
+          'object'
+        );
 
-      case 'event.update':
+        const { diff } = activity.store;
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
-        eventUrl = makeUrl( 'event', {
-          agenda: getUid( activity.target ),
-          event: getUid( activity.object )
-        }, getEventTitle( activity.store.labels.object ), 'object' );
+        if ( !diff ) {
+          return getLabel( 'event.update', {
+            agenda: agendaLink,
+            user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+            event: eventLink
+          } );
+        }
 
-        return getLabel( 'event.update', {
-          agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          event: eventUrl
-        } );
+        const diffFields = diff
+          .map( v => v.path[ 0 ] )
+          .filter( ( v, i, a ) => ![ 'createdAt', 'updatedAt' ].includes( v ) && a.indexOf( v ) === i );
+        const escapedFields = diffFields.map( v => escape( getFieldLabel( v ) ) ).filter( Boolean );
+        const translatedFields = new Intl.ListFormat( lang, {
+          localeMatcher: 'best fit',
+          style: 'long',
+          type: 'conjunction'
+        } )
+          .formatToParts( escapedFields )
+          .map( v => v.type === 'element' ? renderHighlight( v.value ) : v.value )
+          .join( '' );
 
-      case 'event.delete':
+        const data = {
+          agenda: agendaLink,
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          event: eventLink,
+          fields: translatedFields,
+          fieldsCount: renderHighlight( diffFields.length )
+        };
 
-        agendaUrl = makeUrl( 'agenda', { agenda: getUid( activity.target ) }, activity.store.labels.target, 'target' );
+        if ( diffFields.length === 1 ) {
+          // With one change
+          return getLabel( 'event.updateWithOneChange', data );
+        } else if ( diffFields.length < 3 ) {
+          // With some changes
+          return getLabel( 'event.updateWithSomeChanges', data );
+        } else {
+          // With a lot of changes
+          return getLabel( 'event.updateWithLotOfChanges', data );
+        }
+      }
+      case 'event.delete': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target,
+          'target'
+        );
 
         return getLabel( 'event.delete', {
-          agenda: agendaUrl,
-          user: '<span class="activity-highlight">' + escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) + '</span>',
-          event: '<span class="activity-highlight">' + getEventTitle( activity.store.labels.object ) + getIcon( activity, 'object' ) + '</span>'
+          agenda: agendaLink,
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          event: renderHighlight( getLocaleValue( activity.store.labels.object, lang ) + getIcon( activity, 'object' ) )
         } );
-
-      default:
-
-        return 'Activity label missing for verb ' + activity.verb;
-
+      }
+      default: {
+        return getLabel( 'unknownActivity', { verb: activity.verb } );
+      }
     }
-
   };
-
-}
+};

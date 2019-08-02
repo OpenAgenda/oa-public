@@ -201,7 +201,7 @@ module.exports = {
   },
   "youCannotWriteToThisMember": {
     "fr": "Vous ne pouvez pas écrire à ce membre.",
-    "en": "You canno't write to this member.",
+    "en": "You cannot write to this member.",
     "de": "Du kannst diesem Mitglied keine Nachricht schreiben.",
     "es": "No se puede escribir a este miembro."
   },

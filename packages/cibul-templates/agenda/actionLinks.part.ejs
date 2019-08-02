@@ -1,18 +1,18 @@
 --><div class="col-sm-3 action-container">
   <p class="share"><%= __('share') %>&nbsp;:
-    <a rel="nofollow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'twitter' }) %>" class="tw" target="_blank">
+    <a rel="nofollow" href="<%= `/${agenda.slug}/share/twitter` %>" class="tw" target="_blank">
       <i class="fa fa-twitter"></i>
       <span>twitter</span>
     </a>
-    <a rel="nofollow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'facebook' }) %>" class="fb" target="_blank">
+    <a rel="nofollow" href="<%= `/${agenda.slug}/share/facebook` %>" class="fb" target="_blank">
       <i class="fa fa-facebook"></i>
       <span>facebook</span>
     </a>
-    <a rel="nofollow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'googlePlus' }) %>" class="gp" target="_blank">
+    <a rel="nofollow" href="<%= `/${agenda.slug}/share/googlePlus` %>" class="gp" target="_blank">
       <i class="fa fa-google-plus"></i>
       <span>google plus</span>
     </a>
-    <a rel="nofollow" href="<%= genUrl( 'agendaShare', { slug: agenda.slug, service: 'linkedIn' }) %>" class="li" target="_blank">
+    <a rel="nofollow" href="<%= `/${agenda.slug}/share/linkedIn` %>" class="li" target="_blank">
       <i class="fa fa-linkedin"></i>
       <span>linkedin</span>
     </a>

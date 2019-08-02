@@ -17,7 +17,7 @@ module.exports = _.extend( set, {
 
 async function set( agendaUid, eventUid, data = {}, options = {} ) {
 
-  log( 'info', 'initiating set', { agendaUid, eventUid, data, options } );
+  log( 'info', 'initiating set', { agendaUid, eventUid, data } );
 
   if ( await get( agendaUid, eventUid ) ) {
 

@@ -2,11 +2,11 @@
 
 module.exports = {
   "subject": {
-    "fr": "%nbr% notifications non vues depuis le %date%",
-    "en": "%nbr% notifications not seen since the %date%",
-    "de": "%nbr% Benachrichtigungen nicht seit %date% gesehen",
-    "es": "%nbr% notificaciones no vistas desde la %date%",
-    "br": "%nbr% a gemennoù n'int ket bet gwelet abaoe an %date%"
+    "fr": "{nbr} notifications non vues depuis le {date}",
+    "en": "{nbr} notifications not seen since the {date}",
+    "de": "{nbr} Benachrichtigungen nicht seit {date} gesehen",
+    "es": "{nbr} notificaciones no vistas desde la {date}",
+    "br": "{nbr} a gemennoù n'int ket bet gwelet abaoe an {date}"
   },
   "dailySummary": {
     "fr": "Résumé quotidien de vos notifications",

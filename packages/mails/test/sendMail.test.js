@@ -38,11 +38,8 @@ describe( 'sendMail', () => {
           data: {
             domain: 'https://openagenda.com'
           }
-        },
-        queueName: 'mailsTest-sendMail'
+        }
       } );
-
-      await config.queue.clear();
     } );
 
     it( 'send email - helloWorld template', async () => {
@@ -128,11 +125,8 @@ describe( 'sendMail', () => {
           data: {
             domain: 'https://openagenda.com'
           }
-        },
-        queueName: 'mailsTest-sendMail'
+        }
       } );
-
-      await config.queue.clear();
     } );
 
     it( 'send email directly (without queue) - helloWorld template', async () => {
@@ -214,8 +208,7 @@ describe( 'sendMail', () => {
             }
           },
           makeLabelGetter
-        },
-        queueName: 'mailsTest-sendMail'
+        }
       } );
 
       const { results, errors } = await mails( {
@@ -264,8 +257,7 @@ describe( 'sendMail', () => {
             }
           },
           makeLabelGetter
-        },
-        queueName: 'mailsTest-sendMail'
+        }
       } );
 
       const { results, errors } = await mails( {

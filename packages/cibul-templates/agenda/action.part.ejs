@@ -16,7 +16,7 @@
         <a class="btn btn-default" href="<%= genUrl( 'agendaIcsEvents', { uid: uid }) %>?dl=1">ICS</a>
         <a class="btn btn-default "href="<%= genUrl( 'agendaCsvEvents', { uid: uid, search: { passed: 1 } }) %>">CSV</a>
         <a class="btn btn-default "href="<%= genUrl( 'agendaXlsxEvents', { uid: uid, search: { passed: 1 } }) %>">Excel ( xlsx )</a>
-        <a class="btn btn-default" href="<%= genUrl( 'agendaXml', { uid: uid }) %>?dl=1">XML</a>
+        <a class="btn btn-default" href="<%= `/agendas/${uid}.xml` %>?dl=1">XML</a>
         <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: uid, page: 1, search: { passed: 1 } } ) %>">JSON *</a>
       </div>
 <% if ( hasAggregator ) { %>
@@ -33,7 +33,7 @@
 <% } else { %>
       <div class="text-center">
         <p><%= __('You do not own any OpenAgenda yet') %></p>
-        <a class="btn green" href="<%= genUrl('agendaNew') %>"><%= __( 'Create an agenda' ) %></a>
+        <a class="btn green" href="/new"><%= __( 'Create an agenda' ) %></a>
       </div>
 <% } %>
       </div>

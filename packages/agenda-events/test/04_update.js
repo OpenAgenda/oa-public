@@ -146,11 +146,7 @@ describe( 'agendaEvents - functional (server): update', function() {
         state: -1
       } );
 
-      const result = await svc( 62792452 ).update( 10974548, {
-        create: {
-          canEdit: true
-        }
-      } );
+      const result = await svc( 62792452 ).update( 10974548, {} );
 
       result.updated.state.should.equal( -1 );
 

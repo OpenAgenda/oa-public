@@ -1,6 +1,8 @@
 const _ = require( 'lodash' );
+const sanitizeHtml = require( 'sanitize-html' );
 
 module.exports = {
+  stripHtml: html => sanitizeHtml( html, { allowedTags: [], allowedAttributes: {} } ),
   _,
   root: 'https://d.openagenda.com',
   logo: {

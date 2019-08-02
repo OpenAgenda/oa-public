@@ -133,7 +133,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   }
 
-  if ( !draft ) {
+  if ( !draft && !partial ) {
     try {
       await legacy.tagsAndCustom.set( agenda.id, updated.event.uid, [
         agenda.formSchema,

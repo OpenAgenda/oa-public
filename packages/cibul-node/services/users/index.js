@@ -148,10 +148,7 @@ module.exports = app => {
 
             if ( !token ) return next();
 
-            const link = req.genUrl( 'confirmChangeEmail', {
-              uid: user.uid,
-              token
-            }, { protocol: 'https://' } );
+            const link = `${config.root}/users/${user.uid}/confirmChangeEmail?token=${token}`;
 
             sendEmailForChange( {
               user,

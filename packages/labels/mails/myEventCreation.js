@@ -11,7 +11,13 @@ module.exports = {
     "fr": "Votre événement **%event%** a bien été créé sur l'agenda **%agenda%** avec le statut **%state%**.",
     "en": "Your event **%event%** has been created on the agenda **%agenda%** with the state **%state%**.",
     "de": "Ihre Veranstaltung **%event% ** wurde auf der Agenda **%agenda%** erstellt mit dem Zustand **%state%**.",
-    "es": "Su evento **%event%** ha sido creado en la agenda ** %agenda%** con el estado**%state%**."
+    "es": "Su evento **%event%** ha sido creado en la agenda ** %agenda%** con el estado **%state%**."
+  },
+  "bodyText": {
+    "fr": "Votre événement %event% a bien été créé sur l'agenda %agenda% avec le statut %state%.",
+    "en": "Your event %event% has been created on the agenda %agenda% with the state %state%.",
+    "de": "Ihre Veranstaltung %event%  wurde auf der Agenda %agenda% erstellt mit dem Zustand %state%.",
+    "es": "Su evento %event% ha sido creado en la agenda  %agenda% con el estado %state%."
   },
   "actionDescription": {
     "fr": "Voir l'événement",

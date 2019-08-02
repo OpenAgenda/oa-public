@@ -1,41 +1,44 @@
 "use strict";
 
-const _ = require( 'lodash' );
-
-const agendaSvc = require( '@openagenda/agendas' );
 const sessions = require( '@openagenda/sessions' );
-
-const labels = require( '@openagenda/labels/agenda-tags/editor' );
-
-const cmn = require( '../lib/commons-app' );
-const modLib = require( '../lib/moduleLib' );
 const tagMw = require( '@openagenda/agenda-tags' ).mw( 'agenda.id', 'tagSet' );
 const categoryMw = require( '@openagenda/agenda-categories' ).mw( 'agenda.id', 'categorySet' );
-
+const cmn = require( '../lib/commons-app' );
 const controlData = require( '../services/legacy' ).controlData;
 const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'customized' }
 );
 
-const routes = {
+const preMw = [
+  sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) )
+];
 
-  customizedShow: [ 'get', '/:slug/admin/settings/customize', cmn.verifyIPMiddleware.concat( [
+
+module.exports = app => {
+
+  app.get(
+    '/:slug/admin/settings/customize',
+    preMw,
+    cmn.verifyIPMiddleware,
     cmn.loadAgenda,
     cmn.authorize.administrator,
     cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),
     tagMw.get,
     categoryMw.get,
     show
-  ] ) ],
+  );
 
-  customizedUpdate: [ 'post', '/:slug/admin/settings/customize', cmn.verifyIPMiddleware.concat( [
+  app.post(
+    '/:slug/admin/settings/customize',
+    preMw,
+    cmn.verifyIPMiddleware,
     cmn.loadAgenda,
     cmn.authorize.administrator,
     tagMw.set,
     categoryMw.set,
     _updateControlData,
     updateResponse
-  ] ) ]
+  );
 
 };
 
@@ -45,21 +48,6 @@ async function _updateControlData( req, res, next ) {
   await controlData.setCategories( req.agenda.uid );
 
   next()
-
-}
-
-module.exports = path => {
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) )
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
 
 }
 
@@ -84,7 +72,7 @@ function show( req, res ) {
     bodyAttributes: [ {
       name: 'data-options',
       value: JSON.stringify( {
-        updateRes: req.genUrl( 'customizedUpdate', { slug: req.agenda.slug } ),
+        updateRes: `/${req.agenda.slug}/admin/settings/customize`,
         tagSet: req.tagSet,
         categorySet: req.categorySet,
         lang: req.lang,

@@ -24,7 +24,7 @@ export default function makeTriggerHooks( { routes, history, helpers, req } ) {
       pathname || (req ? req.originalUrl : history.location.pathname),
       {
         skipPreload: comps => {
-          notFound = comps.length;
+          notFound = !comps.length;
 
           if (
             typeof onStart === 'function'

@@ -1,46 +1,29 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' ),
+const sessions = require( '@openagenda/sessions' );
+const cmn = require( '../lib/commons-app' );
+const agendaSvc = require( '../services/agenda' );
+const eventSvc = require( '../services/event' );
 
-  modLib = require( '../lib/moduleLib' ),
+const l = {
+  a: require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) ),
+  e: require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/errors' ) ),
+  s: require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) )
+};
 
-  cmn = require( '../lib/commons-app' ),
 
-  agendaSvc = require( '../services/agenda' ),
+module.exports = app => {
 
-  eventSvc = require( '../services/event' ),
-
-  routes = {
-
-    agendaChangeEventStates: [ 'post', '/events/states', [
-      agendaSvc.mw.load( 'uid' ),
-      changeStates
-    ] ]
-
-  },
-
-  l = {
-    a: require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) ),
-    e: require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/errors' ) ),
-    s: require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) )
-  };
-
-module.exports = function( path ) {
-
-  var router = modLib.Router( routes );
-
-  router.pre( [
+  app.post(
+    '/agendas/:uid/admin/events/states',
     cmn.loadLogger( 'group actions' ),
     agendaSvc.mw.load( 'uid' ),
-    cmn.checkAdminOrModerator
-  ] );
+    cmn.checkAdminOrModerator,
+    agendaSvc.mw.load( 'uid' ),
+    changeStates
+  );
 
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  }
-
-}
+};
 
 function changeStates( req, res, next ) {
 

@@ -14,60 +14,57 @@ const agendaDocx = require( '@openagenda/agenda-docx' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/errors' ) );
 const cmn = require( '../lib/commons-app' );
 const getActionLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/actions' ) );
-const modLib = require( '../lib/moduleLib' );
 const eventSvc = require( '../services/event' );
 const agendaSvc = require( '../services/agenda' );
 const model = require( '../services/model' );
 
-
-const routes = {
-
-    agendaActionShow: [ 'get', '/', [
-      loadKey(),
-      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
-      _loadDocxPath,
-      actionShow
-    ] ],
-
-    agendaEventAdd: [ 'get', '/add/:eventUid', [
-      _verifyIP,
-      sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-      eventSvc.mw.load( 'eventUid', 'uid', { inAgendaContext: false } ),
-      _getRedirect,
-      cmn.checkStakeholder,
-      _verifyAlreadyAdded,
-      eventAdd
-    ] ],
-
-    agendaEventRemove: [ 'get', '/remove/:eventUid', [
-      _verifyIP,
-      sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-      eventSvc.mw.load( 'eventUid', 'uid' ),
-      _getRedirect,
-      cmn.checkStakeholder,
-      _isContributorSharer,
-      eventRemove
-    ] ]
-
-  };
+const preMw = [
+  agendaSvc.mw.load( 'slug' ),
+  ( req, res, next ) => {
+    req.params.sourceAgendaUid = req.query.sourceAgendaUid;
+    next();
+  },
+  agendaSvc.mw.load( 'sourceAgendaUid', 'uid', { name: 'sourceAgenda', required: false, basicLoad: true } ),
+  cmn.loadLogger( 'actions front' )
+];
 
 
+module.exports = app => {
 
-module.exports = function( p ) {
+  app.get(
+    '/:slug/actions',
+    preMw,
+    loadKey(),
+    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    _loadDocxPath,
+    actionShow
+  );
 
-  var router = modLib.Router( routes );
+  app.get(
+    '/:slug/actions/add/:eventUid',
+    preMw,
+    _verifyIP,
+    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    eventSvc.mw.load( 'eventUid', 'uid', { inAgendaContext: false } ),
+    _getRedirect,
+    cmn.checkStakeholder,
+    _verifyAlreadyAdded,
+    eventAdd
+  );
 
-  router.pre( [
-    agendaSvc.mw.load( 'slug' ),
-    cmn.loadLogger( 'actions front' )
-  ] );
+  app.get(
+    '/:slug/actions/remove/:eventUid',
+    preMw,
+    _verifyIP,
+    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    eventSvc.mw.load( 'eventUid', 'uid' ),
+    _getRedirect,
+    cmn.checkStakeholder,
+    _isContributorSharer,
+    eventRemove
+  );
 
-  return {
-    load: router.load( p ),
-    paths: modLib.getPaths( p, routes )
-  };
-
-}
+};
 
 
 function loadKey() {
@@ -307,7 +304,8 @@ function eventAdd( req, res ) {
         context: {
           aggregated: false,
           userUid: req.user.uid,
-          agendaUid: req.agendaUid
+          agendaUid: req.agenda.uid,
+          sourceAgenda: req.sourceAgenda
         }
       } ).then( () => {
 
@@ -315,7 +313,8 @@ function eventAdd( req, res ) {
           message: 'eventAdd added to agenda',
           user: req.user,
           eventUid: req.event.uid,
-          agendaUid: req.agenda.uid
+          agendaUid: req.agenda.uid,
+          sourceAgenda: req.sourceAgenda
         } );
 
       } );

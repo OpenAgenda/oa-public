@@ -1,163 +1,165 @@
 "use strict";
 
-const React = require( 'react' );
 const core = require( '../core' );
-const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 const mw = require( '@openagenda/agenda-settings' ).mw;
-const agendaSvc = require( '../services/agenda' );
 const sessions = require( '@openagenda/sessions' );
 const keysMw = require( '@openagenda/keys/middleware' );
 
 const labels = require( '@openagenda/labels/agenda-settings/agendaEdition' );
 const getLabel = require( '@openagenda/labels' )( labels );
 
-module.exports = path => {
+const preMw = [
+  cmn.loadLogger( 'agendaSettings' ),
+  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) )
+];
 
-  const routes = {
 
-    agendaSettingsCreateAgenda: [
-      'post', '/new',
-      mw.create
-    ],
+module.exports = app => {
 
-    agendaSettingsSlugAvailable: [
-      'post', '/agendas/slugs/available',
-      mw.slugs.available
-    ],
+  app.post(
+    '/new',
+    preMw,
+    mw.create
+  );
 
-    agendaSettingsGetAgenda: [ 'get', '/agendas/:uid/admin/settings.json', [
-      cmn.loadAgendaBy( 'uid' ),
-      cmn.authorize.administrator,
-      mw.get
-    ] ],
+  app.post(
+    '/agendas/slugs/available',
+    preMw,
+    mw.slugs.available
+  );
 
-    agendaSettingsEditAgenda: [ 'post', '/:slug/admin/settings/edit', [
-      cmn.loadAgenda,
-      cmn.authorize.administrator,
-      ( req, res, next ) => {
-        req.context = { user: req.user };
-        next();
-      },
-      mw.set
-    ] ],
+  app.get(
+    '/agendas/:uid/admin/settings.json',
+    preMw,
+    cmn.loadAgendaBy( 'uid' ),
+    cmn.authorize.administrator,
+    mw.get
+  );
 
-    agendaSettingsSetImage: [ 'post', '/:slug/admin/settings/setImage', [
-      cmn.loadAgenda,
-      cmn.authorize.administrator,
-      mw.setImage
-    ] ],
+  app.post(
+    '/:slug/admin/settings/edit',
+    preMw,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
+    ( req, res, next ) => {
+      req.context = { user: req.user };
+      next();
+    },
+    mw.set
+  );
 
-    agendaSettingsClearImage: [ 'post', '/:slug/admin/settings/clearImage', [
-      cmn.loadAgenda,
-      cmn.authorize.administrator,
-      mw.clearImage
-    ] ],
+  app.post(
+    '/:slug/admin/settings/setImage',
+    preMw,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
+    mw.setImage
+  );
 
-    agendaSettingsRemoveAgenda: [ 'post', '/:slug/admin/settings/remove', [
-      cmn.loadAgenda,
-      cmn.authorize.administrator,
-      ( req, res, next ) => {
-        core.agendas( req.agenda.uid ).remove().then( () => {
-          sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
-          res.json( { redirectTo: '/home' } );
-        }, next );
-      }
-    ] ],
+  app.post(
+    '/:slug/admin/settings/clearImage',
+    preMw,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
+    mw.clearImage
+  );
 
-    /**********/
+  app.post(
+    '/:slug/admin/settings/remove',
+    preMw,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
+    ( req, res, next ) => {
+      core.agendas( req.agenda.uid ).remove().then( () => {
+        sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
+        res.json( { redirectTo: '/home' } );
+      }, next );
+    }
+  );
 
-    agendaSettingsKeysCreate: [
-      'post', '/:slug/admin/settings/keys/create', [
-        agendaSvc.mw.load( 'slug' ),
-        cmn.checkAdministrator(),
-        ( req, res, next ) => {
-          req.identifiers = {
-            type: 'agendaFullRead',
-            identifier: req.agenda.uid
-          };
-          next();
-        },
-        keysMw.create(),
-        ( req, res, next ) => res.send( req.result )
-      ]
-    ],
-    agendaSettingsKeysGet: [
-      'get', '/:slug/admin/settings/keys/get', [
-        agendaSvc.mw.load( 'slug' ),
-        cmn.checkAdministrator(),
-        ( req, res, next ) => {
-          req.identifiers = {
-            type: 'agendaFullRead',
-            identifier: req.agenda.uid,
-            key: req.query.key
-          };
-          next();
-        },
-        keysMw.get(),
-        ( req, res, next ) => res.send( req.result )
-      ]
-    ],
-    agendaSettingsKeysList: [
-      'get', '/:slug/admin/settings/keys/list', [
-        agendaSvc.mw.load( 'slug' ),
-        cmn.checkAdministrator(),
-        ( req, res, next ) => {
-          req.identifiers = {
-            type: 'agendaFullRead',
-            identifier: req.agenda.uid
-          };
-          req.options = { total: true };
-          next();
-        },
-        keysMw.list(),
-        ( req, res, next ) => res.send( req.result )
-      ]
-    ],
-    agendaSettingsKeysUpdate: [
-      'patch', '/:slug/admin/settings/keys/update', [
-        agendaSvc.mw.load( 'slug' ),
-        cmn.checkAdministrator(),
-        ( req, res, next ) => {
-          req.identifiers = {
-            type: 'agendaFullRead',
-            identifier: req.agenda.uid,
-            key: req.query.key
-          };
-          next();
-        },
-        keysMw.update(),
-        ( req, res, next ) => res.send( req.result )
-      ]
-    ],
-    agendaSettingsKeysRemove: [
-      'delete', '/:slug/admin/settings/keys/remove', [
-        agendaSvc.mw.load( 'slug' ),
-        cmn.checkAdministrator(),
-        ( req, res, next ) => {
-          req.identifiers = {
-            type: 'agendaFullRead',
-            identifier: req.agenda.uid,
-            key: req.query.key
-          };
-          next();
-        },
-        keysMw.remove(),
-        ( req, res, next ) => res.send( { rowAffected: req.result } )
-      ]
-    ]
-  };
+  app.post(
+    '/:slug/admin/settings/keys/create',
+    preMw,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
+    ( req, res, next ) => {
+      req.identifiers = {
+        type: 'agendaFullRead',
+        identifier: req.agenda.uid
+      };
+      next();
+    },
+    keysMw.create(),
+    ( req, res, next ) => res.send( req.result )
+  );
 
-  const router = modLib.Router( routes );
+  app.get(
+    '/:slug/admin/settings/keys/get',
+    preMw,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
+    ( req, res, next ) => {
+      req.identifiers = {
+        type: 'agendaFullRead',
+        identifier: req.agenda.uid,
+        key: req.query.key
+      };
+      next();
+    },
+    keysMw.get(),
+    ( req, res, next ) => res.send( req.result )
+  );
 
-  router.pre( [
-    cmn.loadLogger( 'agendaSettings' ),
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) )
-  ] );
+  app.get(
+    '/:slug/admin/settings/keys/list',
+    preMw,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
+    ( req, res, next ) => {
+      req.identifiers = {
+        type: 'agendaFullRead',
+        identifier: req.agenda.uid
+      };
+      req.options = { total: true };
+      next();
+    },
+    keysMw.list(),
+    ( req, res, next ) => res.send( req.result )
+  );
 
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  };
+  app.patch(
+    '/:slug/admin/settings/keys/update',
+    preMw,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
+    ( req, res, next ) => {
+      req.identifiers = {
+        type: 'agendaFullRead',
+        identifier: req.agenda.uid,
+        key: req.query.key
+      };
+      next();
+    },
+    keysMw.update(),
+    ( req, res, next ) => res.send( req.result )
+  );
+
+  app.delete(
+    '/:slug/admin/settings/keys/remove',
+    preMw,
+    cmn.loadAgenda,
+    cmn.authorize.administrator,
+    ( req, res, next ) => {
+      req.identifiers = {
+        type: 'agendaFullRead',
+        identifier: req.agenda.uid,
+        key: req.query.key
+      };
+      next();
+    },
+    keysMw.remove(),
+    ( req, res, next ) => res.send( { rowAffected: req.result } )
+  );
 
 };

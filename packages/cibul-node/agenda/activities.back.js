@@ -6,7 +6,6 @@ const sessions = require( '@openagenda/sessions' );
 const mw = require( '@openagenda/activity-apps/dist/middleware' );
 const createApp = require( '@openagenda/activity-apps/dist/client/apps/agenda' );
 const config = require( '../config' );
-const modLib = require( '../lib/moduleLib.js' );
 const cmn = require( '../lib/commons-app' );
 
 const agendas = require( '@openagenda/agendas' );
@@ -14,6 +13,13 @@ const agendas = require( '@openagenda/agendas' );
 const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'activities' }
 );
+
+const preMw = [
+  cmn.loadLogger( 'agendaActivities' ),
+  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  cmn.loadAgenda,
+  cmn.authorize.moderator,
+];
 
 const appMw = [
   cmn.loadAgenda,
@@ -37,40 +43,31 @@ const appMw = [
   matchApp
 ];
 
-module.exports = path => {
 
-  const routes = {
+module.exports = app => {
 
-    agendaAdminActivitiesList: [
-      'get', '/list',
-      ( req, res ) => mw.list( { entityType: 'agenda', entityUid: req.agenda.uid } )( req, res )
-    ],
+  app.get(
+    '/:slug/admin/activities/list',
+    preMw,
+    ( req, res ) => mw.list( { entityType: 'agenda', entityUid: req.agenda.uid } )( req, res )
+  );
 
-    agendaAdminActivityApps: [ 'get', '', appMw ],
-    agendaAdminActivitySub: [ 'get', '/?*?', appMw ]
+  app.get(
+    '/:slug/admin/activities',
+    preMw,
+    appMw
+  );
 
-    /**********/
-
-  };
-
-  const router = modLib.Router( routes );
-
-  router.pre( [
-    cmn.loadLogger( 'agendaActivities' ),
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-    cmn.loadAgenda,
-    cmn.authorize.moderator,
-  ] );
-
-  return {
-    load: router.load( path ),
-    paths: modLib.getPaths( path, routes )
-  };
+  app.get(
+    '/:slug/admin/activities/?*?',
+    preMw,
+    appMw
+  );
 
 };
 
 async function matchApp( req, res, next ) {
-  const prefix = req.genUrl( 'agendaAdminActivityApps', { slug: req.agenda.slug } ).split( '?' )[ 0 ];
+  const prefix = `/${req.agenda.slug}/admin/activities`;
   const lang = req.lang || 'fr';
   const { element, triggerHooks, store, staticContext, history } = createApp( {
     req,
@@ -82,7 +79,7 @@ async function matchApp( req, res, next ) {
         perPageLimit: 20
       },
       res: {
-        list: req.genUrl( 'agendaAdminActivitiesList', { slug: req.agenda.slug } ),
+        list: `/${req.agenda.slug}/admin/activities/list`,
       }
     }
   } );
@@ -114,10 +111,12 @@ async function matchApp( req, res, next ) {
       role: req.role,
       lang: req.lang,
       agenda: req.agenda,
-      bodyAttributes: [ {
-        name: 'data-options',
-        value: JSON.stringify( { initialState: state } )
-      } ],
+      bodyAttributes: [
+        {
+          name: 'data-options',
+          value: JSON.stringify( { initialState: state } )
+        }
+      ],
       scripts: {
         bottom: [ { src: '/js/sourcesIndex.js' } ]
       }
