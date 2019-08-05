@@ -85,6 +85,20 @@ describe( 'opencage', function() {
 
     } );
 
+    describe( 'Arles', () => {
+
+      it( 'District is provided', async () => {
+
+        ( await geocode( '10 rue des Moulins, Arles', {
+          countryCode: 'FR',
+          language: 'fr',
+          first: true
+        } ) ).district.should.equal( 'Mas d\'Auphan' );
+
+      } );
+
+    } );
+
     describe( 'Métropole de Lyon, département du Rhône', () => {
 
       it( 'Maillane is in "Bouches-du-Rhône" department', async () => {
@@ -272,7 +286,7 @@ describe( 'opencage', function() {
       it( 'districts', async () => {
 
         for ( const [ address, district ] of [ [
-          'A 100, 10711 Berlin', 'Charlottenburg-Wilmersdorf'
+          'A 100, 10711 Berlin', 'Grunewald'
         ], [
           'Hadlichstraße 3, 13187 Berlin', 'Pankow'
         ], [
@@ -389,7 +403,7 @@ describe( 'opencage', function() {
 
       it( 'have district', () => {
 
-        result.district.should.equal( 'Charlottenburg-Wilmersdorf' );
+        result.district.should.equal( 'Grunewald' );
 
       } );
 
