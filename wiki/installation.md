@@ -199,6 +199,7 @@ action.auto_create_index: false
 
 http.cors.enabled: true
 http.cors.allow-origin: "*"
+network.host: 0.0.0.0
 ```
 
 Create log&lib folders:
@@ -215,6 +216,9 @@ And phantom config folder, for some reason elasticsearch needs it but does not i
 
     cd /usr/share/elasticsearch-5.3.0/config
     sudo mkdir scripts && sudo chown elasticsearch:ubuntu scripts && sudo chmod 754 scripts
+
+Heap size can be adjusted in `config/jvm.options`
+https://www.elastic.co/guide/en/elasticsearch/reference/5.3/heap-size.html
 
 Run ES 5.3 as a process
 
