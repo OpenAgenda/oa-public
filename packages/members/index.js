@@ -1,6 +1,8 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const logger = require( '@openagenda/logs' );
+
 const get = require( './get' );
 const list = require( './list' );
 const stream = require( './stream' );
@@ -17,7 +19,6 @@ const utils = {
 }
 
 module.exports = ( options = {} ) => {
-
   const config = {
     knex: null,
     schema: 'member',
@@ -26,6 +27,10 @@ module.exports = ( options = {} ) => {
     queues: null,
     ... options
   };
+
+  if ( config.logger ) {
+    logger.setModuleConfig( config.logger );
+  }
 
   return {
     get: Object.assign( get.bind( null, config ), {
@@ -44,7 +49,6 @@ module.exports = ( options = {} ) => {
     task: setByEmail.task.bind( null, config ),
     utils
   }
-
 }
 
 module.exports.utils = utils;

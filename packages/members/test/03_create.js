@@ -50,7 +50,7 @@ describe( 'members - functional - create', () => {
       agendaUid: 31,
       userUid: 12,
       userId: 10293,
-      reviewId: 919002,
+      agendaId: 919002,
       custom: {
         organization: 'OpenAgenda',
         contactName: 'Gaetan',

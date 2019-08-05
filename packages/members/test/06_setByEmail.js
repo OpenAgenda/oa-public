@@ -8,7 +8,7 @@ const config = require( '../testconfig' );
 const fixtures = require( './fixtures' );
 const queues = require( './mock/queues' );
 
-describe( 'members - functional - bulkSetEmails', () => {
+describe( 'members - functional - setByEmail', () => {
 
   const f = fixtures( config.mysql );
 
@@ -130,8 +130,8 @@ describe( 'members - functional - bulkSetEmails', () => {
         queueCalls.filter( c => c.call === 'queue' ).length.should.equal( 2 );
       } );
 
-      it( 'result provides true queued key if bulk is queued', () => {
-        result.queued.should.equal( true );
+      it( 'result provides queued count', () => {
+        result.queued.should.equal( 2 );
       } );
 
       it( 'queued arguments are prepared to be given as is to set method', () => {
@@ -153,7 +153,7 @@ describe( 'members - functional - bulkSetEmails', () => {
           requireCustom: false
         } );
 
-        result.queued.should.equal( false );
+        result.queued.should.equal( 0 );
 
         result.processed.length.should.equal( 1 );
 

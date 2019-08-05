@@ -2,6 +2,8 @@
 
 const _ = require( 'lodash' );
 
+const log = require( '@openagenda/logs' );
+
 const getByEmail = require( './get' ).byEmail;
 const patch = require( './patch' );
 const create = require( './create' );
@@ -79,7 +81,7 @@ async function bulk( config, base, emails = [], options = {} ) {
   const queueJobs = emails.length > bulkThreshold;
 
   const result = {
-    queued: queueJobs,
+    queued: queueJobs ? emails.length : 0,
     processed: []
   };
 

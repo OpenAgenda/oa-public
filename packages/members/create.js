@@ -5,7 +5,11 @@ const validate = require( './lib/validate' );
 const cleanCreateOptions = require( './lib/cleanCreateOptions' );
 const { toDB } = require( './lib/transformDBEntry' );
 
+const log = require( '@openagenda/logs' )( 'create' );
+
 module.exports = async ( { knex, schema, interfaces }, data, options = {} )  => {
+
+  log( 'processing', data );
 
   const {
     requireCustom
@@ -27,7 +31,7 @@ module.exports = async ( { knex, schema, interfaces }, data, options = {} )  => 
   }
 
   if ( clean.agendaUid && interfaces.getAgendasByUid ) {
-    clean.reviewId = _.get(
+    clean.agendaId = _.get(
       await interfaces.getAgendasByUid( clean.agendaUid ),
       '0.id'
     );
@@ -52,6 +56,8 @@ module.exports = async ( { knex, schema, interfaces }, data, options = {} )  => 
       throw new Error( 'Already exists' );
     }
   }
+
+  log( 'inserting member', clean );
 
   clean.id = _.first(
     await knex( schema ).insert( toDB( clean ) )
