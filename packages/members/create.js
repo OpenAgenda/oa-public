@@ -8,7 +8,6 @@ const { toDB } = require( './lib/transformDBEntry' );
 const log = require( '@openagenda/logs' )( 'create' );
 
 module.exports = async ( { knex, schema, interfaces }, data, options = {} )  => {
-
   log( 'processing', data );
 
   const {
@@ -68,5 +67,4 @@ module.exports = async ( { knex, schema, interfaces }, data, options = {} )  => 
     success: true,
     member: clean
   }
-
 }

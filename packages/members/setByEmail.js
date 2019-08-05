@@ -26,13 +26,15 @@ function task( config ) {
     queueName: defaultQueueName
   }, config );
 
-  const q = queues( queueName );
+  const queue = queues( queueName );
 
-  q.register( {
+  queue.register( {
     setByEmail: setByEmail.bind( null, config )
   } );
 
-  q.run();
+  _logQueue( queue );
+
+  queue.run();
 
 }
 
@@ -78,6 +80,8 @@ async function bulk( config, base, emails = [], options = {} ) {
 
   const queue = queues( queueName );
 
+  _logQueue( queue );
+
   const queueJobs = emails.length > bulkThreshold;
 
   const result = {
@@ -93,5 +97,18 @@ async function bulk( config, base, emails = [], options = {} ) {
   }
 
   return result;
+
+}
+
+function _logQueue( queue ) {
+  queue.on( 'error', ( fn, args, error ) => {
+    log( 'error', fn, args, error );
+  } );
+  queue.on( 'execute', ( fn, args ) => {
+    log( 'executing', fn, args );
+  } );
+  queue.on( 'success', ( fn, args, result ) => {
+    log( 'success', fn, args, result );
+  } );
 
 }

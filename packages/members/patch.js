@@ -1,8 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
-const log = require( '@openagenda/logs' )( 'remove' );
+const log = require( '@openagenda/logs' )( 'patch' );
 
 const get = require( './get' );
 const validate = require( './lib/validate' );
@@ -10,7 +9,6 @@ const cleanPatchOptions = require( './lib/cleanPatchOptions' );
 const { toDB } = require( './lib/transformDBEntry' );
 
 module.exports = async ( config, identifiers, data, options = {} ) => {
-
   const { knex, schema, interfaces } = config;
 
   const {
@@ -70,5 +68,4 @@ module.exports = async ( config, identifiers, data, options = {} ) => {
     errors: [],
     member: patched
   }
-
 }

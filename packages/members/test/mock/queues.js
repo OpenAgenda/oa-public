@@ -14,7 +14,8 @@ module.exports = Object.assign( namespace => {
 
   return Object.assign( queue, {
     run,
-    register
+    register,
+    on: () => {}
   } );
 
 }, {
