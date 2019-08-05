@@ -27,6 +27,14 @@ module.exports = {
     "de": "{user} {originMember} bestanden aus {beforeCredential} auf {credential}.",
     "es": "{user} pasó {originMember} de a {beforeCredential} {credential}."
   },
+  "agenda.addSource": {
+    "en": "{user} added {sourceAgenda} as a source.",
+    "fr": "{user} a ajouté {sourceAgenda} aux sources."
+  },
+  "agenda.removeSource": {
+    "en": "{user} removed {sourceAgenda} from the sources.",
+    "fr": "{user} a retiré {sourceAgenda} des sources."
+  },
   "agenda.create": {
     "en": "{user} created the agenda",
     "fr": "{user} a créé l'agenda.",

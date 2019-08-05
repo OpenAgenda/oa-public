@@ -6,6 +6,8 @@ module.exports = {
   'agenda.addMember': [ 'target', 'store.credential' ],
   'agenda.removeMember': [ 'target', 'store.credential' ],
   'agenda.setMemberRole': [ 'target', 'store.credential' ],
+  'agenda.addSource': [ 'target' ],
+  'agenda.removeSource': [ 'target' ],
   'agenda.create': [ 'target' ], // Normally never seen
   'agenda.updateContribution': [ 'target' ],
   'agenda.updateProfile': [ 'target' ],
