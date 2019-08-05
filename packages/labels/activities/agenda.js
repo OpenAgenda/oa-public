@@ -75,7 +75,7 @@ module.exports = {
     "en": "{user} passed {event} from \"{before}\" to \"{after}\".",
     "fr": "{user} a passé {event} de \"{before}\" à \"{after}\".",
     "de": "{user} Veranstaltung von \"{before}\" bestanden \"{after}\".",
-    "es": "{user} pasó del {event}\"{before}\" a \"{after}\"."
+    "es": "{user} pasó del {event} \"{before}\" a \"{after}\"."
   },
   "agenda.publishEvent": {
     "en": "{user} published {event} on {agenda}.",

@@ -118,7 +118,7 @@ async function matchApp( req, res, next ) {
         }
       ],
       scripts: {
-        bottom: [ { src: '/js/sourcesIndex.js' } ]
+        bottom: [ { src: '/js/activitiesAgenda.js' } ]
       }
     } ) );
 
