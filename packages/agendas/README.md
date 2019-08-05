@@ -15,19 +15,27 @@ Do stuff with agendas: list, get, set them.
 
 List agendas
 
-    agendas.list( [ query ], offset, limit, cb );
+... with callback:
+
+    agendas.list( [ query ], offset, limit, options, ( err, agendas, count ) => {
+
+    } );
+
+... or a promise:
+
+    const { agendas } = await agendas.list( [ query ], offset, limit, options );
 
 ## Query parameters
 
- * **ids**: list agendas matching the ids
- * **total**: include total in result ( requires an extra query )
- * **detailed**: include stats about agendas ( query more costly )
+ * **uid**: one or multiple agenda uids
  * **search**: sql like search in title, description and slug
  * **order** : order by last update or creation date - possible values: 'updatedAt.desc', 'updatedAt.asc', 'createdAt.desc', 'createdAt.asc' ( default ).
 
-## Callback
+## Options
 
-    cb( err, agendas, count )
+ * **total**: include total in result ( requires an extra query )
+ * **detailed**: include stats about agendas ( query more costly )
+ * **private**: if true, gets private agendas only, false ( default ) get public agendas, null gets both.
 
 If count was requested, it is given in third param
 
@@ -166,7 +174,7 @@ This service usage is not documentation. More like todos.
 
       .exports
         .pdf
-      
+
       .keys: [ { type, rights } ] // list of hashes found in store
 
       .stakeholders: [ { type, rights, fields } ]
