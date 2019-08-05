@@ -29,10 +29,10 @@ module.exports = ( current, state ) => {
 
   }
 
-  if ( 
+  if (
     memberConfig.dataIsRequired &&
-    current !== 'member' && 
-    isMemberValid( member ) 
+    current !== 'member' &&
+    isMemberValid( member )
   ) {
 
     steps.member.validated = true;
