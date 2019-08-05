@@ -50,11 +50,14 @@ export default class AgendasSearch extends Component {
 
   static defaultProps = {
     Header: () => null,
-    AgendaActionsComponent: () => null
+    AgendaActionsComponent: () => null,
+    initialValues: {}
   };
 
   state = {
-    value: undefined
+    value: this.props.initialValues && this.props.initialValues.search !== ''
+      ? this.props.initialValues.search
+      : undefined
   };
 
   componentDidMount() {
@@ -103,6 +106,7 @@ export default class AgendasSearch extends Component {
     return (
       (value && value !== '')
       || (previousValue && previousValue !== '')
+      || (!previousValue && !value)
       || total > perPageLimit
     );
   };

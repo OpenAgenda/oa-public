@@ -155,6 +155,17 @@ export default class Events extends Component {
     return base + '/' + filename;
   }
 
+  fieldIsVisible = () => {
+    const { total, perPageLimit } = this.props;
+    const { value, previousValue } = this.state;
+
+    return (
+      (value && value !== '')
+      || (previousValue && previousValue !== '')
+      || total > perPageLimit
+    );
+  };
+
   render() {
     const {
       res, handleSubmit, events, loading, listLoading, nextLoading,
