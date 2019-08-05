@@ -1,6 +1,14 @@
 {
   "presets": [
-    "openagenda"
+    [
+      "openagenda",
+      {
+        "modules": "commonjs"
+      }
+    ]
+  ],
+  "plugins": [
+    "@loadable/babel-plugin"
   ],
   "sourceType": "unambiguous"
 }

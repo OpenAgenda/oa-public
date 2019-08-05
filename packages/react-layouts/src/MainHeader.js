@@ -72,9 +72,23 @@ export default class MainHeader extends Component {
         markRead: `${apiRoot}/notifications/mark-read/:notifId`,
         markAllRead: `${apiRoot}/notifications/mark-all-read`,
         seeActivities: `${apiRoot}/home/activities`,
-      }
+      },
+      onSeeActivitiesClick: this.onSeeActivitiesClick
     } );
   }
+
+  onSeeActivitiesClick = e => {
+    const { history } = this.props;
+    const panelElem = document.querySelector( '.js_notifications_panel' );
+
+    e.preventDefault();
+
+    if ( !panelElem.classList.contains( 'hide' ) ) {
+      panelElem.classList.add( 'hide' );
+    }
+
+    history.push( '/home/activities' );
+  };
 
   allowDisplayUserPanel = () => this.setState( {
     preToggleUserPanel: true

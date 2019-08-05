@@ -9,5 +9,7 @@ module.exports = function ( baseConfig, env, defaultConfig ) {
     } ),
   );
 
+  defaultConfig.optimization.splitChunks.chunks = 'initial';
+
   return defaultConfig;
 };

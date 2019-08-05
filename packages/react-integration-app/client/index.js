@@ -11,6 +11,7 @@ import { HeaderManager, Header } from '@openagenda/react-layouts';
 import createAppHome from '@openagenda/home/src/client/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp';
+import createActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
 import NotFound from './NotFound';
 import NotFoundDisplayer from './NotFoundDisplayer';
 
@@ -38,6 +39,10 @@ const apps = {
   agendaSettingsNew: createAgendaSettingsNewApp( {
     history,
     initialState: initialState.agendaSettingsNew
+  } ),
+  userActivities: createActivitiesApp( {
+    history,
+    initialState: initialState.userActivities
   } )
 };
 

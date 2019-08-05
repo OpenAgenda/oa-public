@@ -13,6 +13,7 @@ const homeMw = require( '@openagenda/home/dist/middleware' );
 const createHomeApp = require( '@openagenda/home/dist/client/app' );
 const createUserSettingsApp = require( '@openagenda/user-apps/dist/app' );
 const createAgendaSettingsNewApp = require( '@openagenda/agenda-settings/dist/client/createApp' );
+const createActivitiesApp = require( '@openagenda/activity-apps/dist/client/apps/user' );
 const { Html, HeaderManager, Header } = require( '@openagenda/react-layouts' );
 
 const phpPrefix = process.env.NODE_ENV ? '/frontend_dev.php' : '';
@@ -37,7 +38,8 @@ module.exports = function match( { apiRoot, hasInboxNews } ) {
           history,
           initialState: {
             settings: {
-              prefix: '/home',
+              prefix: '/home', // for links
+              rootPrefix: '/home(|/events)', // because of /home/activities
               apiRoot,
               lang,
               perPageLimit: homeMw.getConfig().mw.limit,
@@ -104,6 +106,21 @@ module.exports = function match( { apiRoot, hasInboxNews } ) {
               create: '/new',
               slugAvailable: '/agendas/slugs/available',
               onCreated: '/:slug/admin/getting-started'
+            }
+          }
+        } ),
+        userActivities: createActivitiesApp( {
+          req,
+          history,
+          initialState: {
+            settings: {
+              prefix: '/home/activities',
+              apiRoot,
+              lang,
+              perPageLimit: homeMw.getConfig().mw.limit
+            },
+            res: {
+              list: '/home/activities/list'
             }
           }
         } )

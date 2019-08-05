@@ -22,7 +22,7 @@ module.exports = app => {
   );
 
   app.get(
-    [ '/home', '/home/events', '/settings/?*?', '/new' ],
+    [ '/home', '/home/events', '/home/activities', '/settings/?*?', '/new' ],
     cmn.loadLogger( 'webapp' ),
     cmn.loadBaseData( 'oasfmain.css' ),
     matchMw( { apiRoot, hasInboxNews } )

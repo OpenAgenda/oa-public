@@ -10,9 +10,9 @@ import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
 import { MenuItem } from '../components';
 import menuReducer from '../redux/modules/menu';
-import * as agendasActions from '../redux/modules/agendas';
-import * as eventsActions from '../redux/modules/events';
-import * as modalsActions from '../redux/modules/modals';
+import agendasReducer, * as agendasActions from '../redux/modules/agendas';
+import eventsReducer from '../redux/modules/events';
+import modalsReducer from '../redux/modules/modals';
 
 const selector = formValueSelector( 'homeAgendas' );
 
@@ -21,9 +21,9 @@ const selector = formValueSelector( 'homeAgendas' );
   inject: ( { store } ) => store.inject( {
     menu: menuReducer,
     form: formReducer,
-    events: eventsActions.default,
-    agendas: agendasActions.default,
-    modals: modalsActions.default
+    events: eventsReducer,
+    agendas: agendasReducer,
+    modals: modalsReducer
   } ),
   fetch: async ( { store: { dispatch, getState }, history, location } ) => {
     const state = getState();
@@ -58,10 +58,6 @@ export default class App extends Component {
   static childContextTypes = {
     lang: PropTypes.string,
     getLabel: PropTypes.func
-  };
-
-  state = {
-    menuOpen: false
   };
 
   getChildContext() {

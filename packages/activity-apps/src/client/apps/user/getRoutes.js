@@ -1,13 +1,19 @@
-import NotFound from '@openagenda/react-utils/dist/NotFound';
-import { UserApp, UserDashboard } from '../../containers';
+import loadable from '@openagenda/react-utils/dist/loadable';
 
-export default function ( prefix = '', notFoundKey ) {
+const UserApp = loadable( () =>
+  import( /* webpackChunkName: "home-UserActivitiesApp" */ '../../containers/UserApp/UserApp' )
+);
+const UserDashboard = loadable( () =>
+  import( /* webpackChunkName: "home-UserActivitiesDashboard" */ '../../containers/UserDashboard/UserDashboard' )
+);
+
+export default function ( prefix = '' ) {
   return [
     {
+      path: prefix,
       component: UserApp,
       routes: [
-        { path: `${prefix}/`, exact: true, component: UserDashboard },
-        { component: NotFound, notFoundKey }
+        { path: `${prefix}/`, exact: true, component: UserDashboard }
       ]
     }
   ];

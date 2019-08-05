@@ -1,5 +1,6 @@
 "use strict";
 
+const React = require( 'react' );
 const sessions = require( '@openagenda/sessions' );
 const homeMw = require( '@openagenda/home/dist/middleware' );
 const activitiesMw = require( '@openagenda/activity-apps/dist/middleware' );

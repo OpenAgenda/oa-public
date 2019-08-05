@@ -54,6 +54,7 @@ module.exports = ( env = {}, argv = {} ) => {
         ),
         ...getBabelModuleRules(
           [
+            '@openagenda/activity-apps',
             '@openagenda/agenda-settings',
             '@openagenda/home',
             '@openagenda/user-apps'

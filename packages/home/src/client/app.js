@@ -35,7 +35,7 @@ export default function ( options ) {
     req
   } = _.merge( {}, defaults, options );
 
-  const { apiRoot, prefix } = initialState.settings;
+  const { apiRoot, prefix, rootPrefix } = initialState.settings;
 
   return createApp( {
     history: options.history,
@@ -45,6 +45,6 @@ export default function ( options ) {
     apiRoot,
     prefix,
     getReducers,
-    getRoutes
+    getRoutes: () => getRoutes( prefix, rootPrefix )
   } );
 }
