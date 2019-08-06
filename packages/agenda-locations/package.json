@@ -14,7 +14,7 @@
     "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
     "knex": "babel-node ./node_modules/.bin/knex",
     "build": "babel components/src -d components/build -s",
-    "clean": "rimraf dist",
+    "clean": "rimraf components/build",
     "prepublish": "yarn clean && yarn build",
     "test": "mocha --exit --require @babel/register"
   },
