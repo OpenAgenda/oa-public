@@ -702,10 +702,6 @@ const config = {
           method: 'get',
           uri: '/new'
         },
-        agendaSettingsEditApp: {
-          method: 'get',
-          uri: '/:slug/admin/settings'
-        },
         agendaSettingsEditSub: {
           method: 'get',
           uri: '/:slug/admin/settings/?*?'

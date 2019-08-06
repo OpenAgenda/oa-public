@@ -126,16 +126,6 @@ module.exports = function match( { apiRoot, hasInboxNews } ) {
         } )
       };
 
-      // Triggers hooks
-      await Promise.all(
-        Object.values( apps )
-          .filter( v => v.triggerHooks )
-          .map( v => v
-            .triggerHooks()
-            .catch( err => console.log( `Error in triggerHooks:`, err ) )
-          )
-      );
-
       // Not found
       const notFound = Object.values( apps )
         .every( app =>
@@ -145,6 +135,16 @@ module.exports = function match( { apiRoot, hasInboxNews } ) {
       if ( notFound ) {
         return next();
       }
+
+      // Triggers hooks
+      await Promise.all(
+        Object.values( apps )
+          .filter( v => v.triggerHooks )
+          .map( v => v
+            .triggerHooks()
+            .catch( err => console.log( `Error in triggerHooks:`, err ) )
+          )
+      );
 
       // Check if redirect in hooks
       if ( redirectIfNeeded( req, res, history ) ) {
