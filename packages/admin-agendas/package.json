@@ -8,10 +8,12 @@
   },
   "scripts": {
     "build": "babel components/src -d components/lib -s",
-    "prepublish": "yarn build",
-    "preserve": "yarn build",
-    "serve": "node test/app",
-    "start": "nodemon --exec 'npm' --ignore components --ext js,jsx run-script serve"
+    "start": "concurrently -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
+    "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM --exec babel-node server.dev.js",
+    "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
+    "knex": "babel-node ./node_modules/.bin/knex",
+    "clean": "rimraf components/lib",
+    "prepublish": "yarn clean && yarn build"
   },
   "repository": {
     "type": "git",
@@ -43,14 +45,23 @@
   "devDependencies": {
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
+    "@babel/node": "^7.2.2",
     "@openagenda/agenda-stakeholders": "^2.1.2",
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
-    "@openagenda/test-app": "^2.0.3",
+    "@storybook/react": "^4.1.11",
+    "babel-loader": "^8.0.4",
     "babel-preset-openagenda": "^1.1.1",
+    "concurrently": "^4.1.0",
+    "cors": "^2.8.5",
+    "errorhandler": "^1.5.0",
+    "express": "^4.16.4",
+    "morgan": "^1.9.1",
+    "nodemon": "^1.18.9",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "rimraf": "^2.6.2",
     "should": "^8.2.0"
   },
   "peerDependencies": {

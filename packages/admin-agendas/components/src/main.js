@@ -1,20 +1,12 @@
 "use strict";
 
-var React = require( 'react' ),
+const React = require( 'react' );
+const ReactDOM = require( 'react-dom' );
+const du = require( '@openagenda/dom-utils' );
+const Body = require( './Body' );
 
-  ReactDom = require( 'react-dom' ),
-
-  du = require( '@openagenda/dom-utils' ),
-
-  dl = require( '@openagenda/dom-utils/documentLocation' ),
-
-  utils = require( '@openagenda/utils' ),
-
-  Body = require( './Body' );
-
-module.exports = function( options ) {
-
-  var params = utils.extend( {
+module.exports = options => {
+  const params = Object.assign( {
     searchRes: '/',
     agendaRes: '/get',
     setAgendaRes: '/get',
@@ -22,10 +14,16 @@ module.exports = function( options ) {
     canvas: '.js_canvas'
   }, options );
 
-  ReactDom.render( React.createElement( Body, {
+  const elem = React.createElement( Body, {
     searchRes: params.searchRes,
     agendaRes: params.agendaRes,
     setAgendaRes: params.setAgendaRes,
     stakeholdersRes: params.stakeholdersRes,
-  } ), du.el( params.canvas ) );
+  } );
+
+  if ( options.skipRender ) {
+    return elem;
+  }
+
+  ReactDOM.render( elem, du.el( params.canvas ) );
 };

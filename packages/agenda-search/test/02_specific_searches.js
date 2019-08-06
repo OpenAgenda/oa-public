@@ -87,10 +87,9 @@ describe( 'specific searches', function() {
   it( 'official search sorts by officialized timestamp', done => {
 
     search.list( { official: true }, 0, 10, ( err, agendas ) => {
+      const agendasUids = agendas.map( a => a.uid ).join( '-' );
 
-      let agendasUids = agendas.sort( ( a, b ) => a.officializedAt > b.officializedAt ? 1 : - 1 ).map( a => a.uid ).join( '-' );
-
-      agendasUids.should.equal( '4-2-1' );
+      agendasUids.should.equal( '2-4-1' );
 
       done();
 
