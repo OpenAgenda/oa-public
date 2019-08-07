@@ -1,5 +1,7 @@
 import { combineReducers, createStore } from 'redux';
 
+const noopReducer = asyncReducers => asyncReducers;
+
 function inject( store, getReducers, newReducers ) {
   for ( const name in newReducers ) {
     const reducer = newReducers[ name ];
@@ -34,7 +36,8 @@ function getNoopReducers( reducers, data ) {
 
 
 export default function ( getReducers, initialState, enhancer ) {
-  const reducers = getReducers() || {};
+  const getter = getReducers || noopReducer;
+  const reducers = getter() || {};
   const noopReducers = getNoopReducers( reducers, initialState );
   const rootReducer = combineReducers( { ...noopReducers, ...reducers } );
 
@@ -43,7 +46,7 @@ export default function ( getReducers, initialState, enhancer ) {
   store.asyncReducers = {};
   store.inject = inject.bind( null, store, asyncReducers => ({
     ...noopReducers,
-    ...getReducers( asyncReducers )
+    ...getter( asyncReducers )
   }) );
 
   return store;

@@ -25,6 +25,7 @@
     "@babel/runtime-corejs3": "^7.4.3",
     "@loadable/component": "^5.10.2",
     "core-js": "^3.0.1",
+    "history": "^4.9.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^6.0.0",

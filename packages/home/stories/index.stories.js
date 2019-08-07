@@ -21,6 +21,7 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
   },
   res: {
     agendas: {
+      contribute: '/:slug/contribute',
       create: '/new',
       list: '/agendas.json',
       show: '/:slug',

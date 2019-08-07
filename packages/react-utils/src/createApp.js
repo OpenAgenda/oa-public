@@ -22,7 +22,8 @@ export default function createApp( options ) {
     apiRoot,
     prefix,
     getReducers,
-    getRoutes
+    getRoutes,
+    reduxMiddleware
   } = options;
 
   const client = apiClient( apiRoot, req );
@@ -32,8 +33,9 @@ export default function createApp( options ) {
     initialState,
     compose(
       applyMiddleware(
-        clientMiddleware( { client } )
+        clientMiddleware( { client } ),
         // ... other middlewares ... (like redux-logger)
+        ...reduxMiddleware
       ),
       __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()

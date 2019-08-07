@@ -9,7 +9,6 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.4.3",
-    "@loadable/component": "^5.10.2",
     "@loadable/server": "^5.10.2",
     "@openagenda/activity-apps": "^1.1.2",
     "@openagenda/agenda-settings": "^1.1.2",
@@ -18,7 +17,6 @@
     "@openagenda/react-utils": "^4.0.0",
     "@openagenda/user-apps": "^1.1.2",
     "core-js": "^3.0.1",
-    "history": "^4.9.0",
     "iscroll": "^5.2.0",
     "lodash": "^4.17.11",
     "nprogress": "^0.2.0",
@@ -38,6 +36,7 @@
   },
   "peerDependencies": {
     "@loadable/component": "^5.10.2",
+    "history": "^4.9.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^6.0.0",
