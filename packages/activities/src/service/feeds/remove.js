@@ -3,21 +3,9 @@
 const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const log = require( '@openagenda/logs' )( 'activities/feeds/remove' );
 
-let config;
-let knex;
-let service;
+module.exports = function remove( config, identifiers, cb ) {
 
-module.exports = Object.assign( remove, { init } );
-
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
-
-function remove( identifiers, cb ) {
+  const { service, knex } = config;
 
   const promise = service.feed( identifiers ).get( { internal: true } )
     .then( feed => {
@@ -41,4 +29,4 @@ function remove( identifiers, cb ) {
 
   return promisePlusCb( promise, cb );
 
-}
+};

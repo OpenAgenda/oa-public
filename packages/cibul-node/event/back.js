@@ -9,13 +9,13 @@ const agendaSvc = require( '@openagenda/agendas' );
 const contributorLabels = require( '@openagenda/labels/event/contributors' );
 const eventReferences = require( '@openagenda/agenda-event-references' );
 const sessions = require( '@openagenda/sessions' );
-const activitiesSvc = require( '@openagenda/activities' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
 
 const core = require( '../core' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
+const activitiesSvc = require( '../services/activities' );
 const STATETYPES = require( '../services/model' ).events().STATETYPES;
 
 const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );

@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 
-const activities = require( '@openagenda/activities' );
+const activities = require( '../activities' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const keys = require( '@openagenda/keys' );

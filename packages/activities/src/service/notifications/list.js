@@ -9,29 +9,19 @@ const log = require( '@openagenda/logs' )( 'activities/notifications/list' );
 const VError = require( 'verror' );
 const notificationStates = require( '../notificationStates' );
 
-let config;
-let knex;
-let service;
-
 schema.register( {
   text: validators.text,
   pass: validators.pass,
   number: validators.number
 } );
 
-module.exports = Object.assign( list, { init } );
+module.exports = list;
 
-function init( { config: c, knex: k, service: s } ) {
+function list( config, identifiers ) {
 
-  config = c;
-  knex = k;
-  service = s;
+  const { service, knex } = config;
 
-}
-
-function list( identifiers ) {
-
-  let args = parseListArguments.apply( null, Array.from( arguments ).slice( 1 ) );
+  let args = parseListArguments.apply( null, Array.from( arguments ).slice( 2 ) );
 
   args.query = _.pick( args.query, [ 'ids', 'actor', 'verb', 'object', 'target', 'groupBy', 'state', 'createdAt' ] );
 

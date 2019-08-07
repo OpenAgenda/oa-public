@@ -3,28 +3,13 @@
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const log = require( '@openagenda/logs' )( 'activities/notifications/tasks/prepareSummary' );
-const usersSvc = require( '@openagenda/users' );
-const unsubscribed = require( '@openagenda/unsubscribed' );
-const sendSummary = require( './sendSummary' );
 
+module.exports = async function prepareSummary( config ) {
 
-let config;
-let knex;
-let service;
-
-module.exports = Object.assign( prepareSummary, { init } );
-
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
-
-async function prepareSummary() {
+  const { service, knex } = config;
 
   _traverseTable(
+    knex,
     config.schemas.feed_notification,
     q => q.select(
       config.schemas.feed_notification + '.*',
@@ -51,17 +36,23 @@ async function prepareSummary() {
 
       } );
 
-      const user = await usersSvc.get( item.entity_uid, { detailed: true } );
+      const { getUser, isUnsubscribed } = config.interfaces;
 
-      unsubscribed( user.uid ).is( { subject: 'notifications', type: 'notifications_summary' }, ( err, is ) => {
+      const user = await getUser( item.entity_uid );
 
-        if ( err ) return cb( err );
+      if ( !user ) {
+        return cb();
+      }
 
-        if ( !is ) sendSummary( { user, notifications } );
+      try {
+        if ( !await isUnsubscribed( user.uid ) ) {
+          service.tasks.notifications.sendSummary( { user, notifications } );
+        }
 
         cb();
-
-      } );
+      } catch ( e ) {
+        return cb( e );
+      }
 
     },
     ( err, rowsAffected ) => {
@@ -73,7 +64,7 @@ async function prepareSummary() {
 
 }
 
-function _traverseTable( table, queryModifier, eachCb, cb ) {
+function _traverseTable( knex, table, queryModifier, eachCb, cb ) {
 
   let rowsCount = 0;
   let rowsAffected = 0;

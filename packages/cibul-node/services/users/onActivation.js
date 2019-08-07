@@ -1,7 +1,7 @@
 'use strict';
 
 const invitationSvc = require( '@openagenda/invitations' );
-const activitiesSvc = require( '@openagenda/activities' );
+const activitiesSvc = require( '../activities' );
 
 
 module.exports = function onActivation() {

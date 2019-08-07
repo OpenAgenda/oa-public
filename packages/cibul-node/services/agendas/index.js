@@ -3,11 +3,10 @@
 const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
-const activities = require( '@openagenda/activities' );
 const imageFiles = require( '@openagenda/image-files' );
 const users = require( '@openagenda/users' );
 const { Inbox } = require( '@openagenda/inboxes' );
-
+const activities = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
 
 const onCreate = require( './onCreate' );

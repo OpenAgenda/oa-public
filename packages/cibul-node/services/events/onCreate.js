@@ -1,9 +1,9 @@
 "use strict";
 
 const users = require( '@openagenda/users' );
-const activitiesSvc = require( '@openagenda/activities' );
-const eventSearch = require( '../eventSearch' );
 const log = require( '@openagenda/logs' )( 'events/interfaces/onCreate' );
+const activitiesSvc = require( '../activities' );
+const eventSearch = require( '../eventSearch' );
 
 module.exports = ( event, context ) => {
 

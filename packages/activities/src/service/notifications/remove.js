@@ -3,21 +3,9 @@
 const VError = require( 'verror' );
 const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 
-let config;
-let knex;
-let service;
+module.exports = function remove( config, identifiers, query, cb ) {
 
-module.exports = Object.assign( remove, { init } );
-
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
-
-function remove( identifiers, query, cb ) {
+  const { service, knex } = config;
 
   if ( identifiers.entityType && identifiers.entityType !== 'user' ) {
 

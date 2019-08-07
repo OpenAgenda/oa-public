@@ -3,7 +3,7 @@ const Program = require( 'caporal/lib/program' );
 const knexLib = require( 'knex' );
 const nodefn = require( 'when/node' );
 const log = require( '@openagenda/logs' )( 'activities/rebuild' );
-const service = require( './index' );
+const Service = require( './index' );
 
 const traverseTable = require( '../utils/traverseTable' );
 
@@ -53,6 +53,8 @@ module.exports.rebuild = rebuild;
 
 async function rebuild( args, options, logger ) {
 
+  let service;
+
   const mysqlConfig = _.pick( options, [ 'database', 'host', 'port', 'user', 'password' ] );
 
   knex = knexLib( {
@@ -63,7 +65,7 @@ async function rebuild( args, options, logger ) {
   const results = {};
 
   if ( options.cli ) {
-    await service.init( {
+    service = await Service.init( {
       mysql: mysqlConfig,
       schemas: {
         activity: options.activityTable,
@@ -86,6 +88,8 @@ async function rebuild( args, options, logger ) {
         }
       }
     } );
+  } else {
+    service = options.service;
   }
 
   if ( logger && logger.setConfig && options.logger ) {

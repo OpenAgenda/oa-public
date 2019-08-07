@@ -2,13 +2,12 @@
 
 const _ = require( 'lodash' );
 
-const activities = require( '@openagenda/activities' );
 const agendas = require( '@openagenda/agendas' );
 const users = require( '@openagenda/users' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const invitations = require( '@openagenda/invitations' );
-const activitiesSvc = require( '@openagenda/activities' );
 const { isSuperiorToOrEqual } = require( '@openagenda/members' ).utils.compareRoles;
+const activities = require( '../activities' );
 
 const controlDataSvc = require( '../legacy' ).controlData;
 const log = require( '@openagenda/logs' )( 'services/members/onRemove' );
@@ -116,7 +115,7 @@ async function _removeInvitationsToMember( member ) {
 }
 
 async function addMemberRemoveActivity( { user, member, agenda, userMember, memberUser } ) {
-  await activitiesSvc.feed( {
+  await activities.feed( {
     entityType: 'agenda',
     entityUid: agenda.uid
   } ).activities.add( {

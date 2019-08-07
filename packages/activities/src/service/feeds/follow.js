@@ -3,19 +3,7 @@
 const log = require( '@openagenda/logs' )( 'activities/feeds/follow' );
 const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 
-let config;
-let knex;
-let service;
-
-module.exports = Object.assign( follow, { init } );
-
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
+module.exports = follow;
 
 function parseArguments( identifiers, originFeedId, store, cb ) {
 
@@ -47,14 +35,16 @@ function parseArguments( identifiers, originFeedId, store, cb ) {
 
 }
 
-function follow() {
+function follow( config ) {
+
+  const { service, knex } = config;
 
   const {
     identifiers,
     originFeedId,
     store,
     cb
-  } = parseArguments.apply( null, arguments );
+  } = parseArguments.apply( null, Array.prototype.slice.call(arguments, 1) );
 
   const promise = service.feed( identifiers ).get( { internal: true } )
     .then( targetFeed => {

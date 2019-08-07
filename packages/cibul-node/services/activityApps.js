@@ -1,7 +1,7 @@
 "use strict";
 
 const activityAppsMw = require( '@openagenda/activity-apps/dist/middleware' );
-const activitiesSvc = require( '@openagenda/activities' );
+const activitiesSvc = require( '../services/activities' );
 
 module.exports.init = config => activityAppsMw.init( {
   limit: 20,

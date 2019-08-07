@@ -43,6 +43,7 @@ module.exports = app => {
   require( './services/members' )( app );
   require( './agenda/members.back' )( app );
   require( './agenda/activities.back' )( app );
+  require( './services/activities' )( app );
   require( './agenda/shares.front' )( app );
   require( './agenda/front' )( app );
   require( './agenda/exports.back' )( app );

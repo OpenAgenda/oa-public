@@ -4,23 +4,26 @@ const _ = require( 'lodash' );
 const should = require( 'should' );
 const VError = require( 'verror' );
 const queue = require( '@openagenda/queue' );
-const service = require( './service' );
-const { addActivity } = require( '../src/service/notifications/tasks/addActivity' );
+const Service = require( './service' );
 const config = require( '../testconfig' );
 
 let q;
+let service;
 
 describe( 'activities - notifications', function () {
 
   this.timeout( 30000 );
 
+
   describe( 'get', () => {
 
     before( async () => {
 
-      await service.initAndLoad( config );
+      service = await Service.initAndLoad( config );
 
     } );
+
+    after( () => service.shutdown );
 
     it( 'get a notification with a bad query', () => {
 
@@ -126,13 +129,13 @@ describe( 'activities - notifications', function () {
 
     beforeEach( async () => {
 
-      await service.initAndLoad( config );
+      service = await Service.initAndLoad( config );
 
     } );
 
     it( 'add an activity to a new notification', () => {
 
-      return addActivity( { entityType: 'user', entityUid: 42 }, {
+      return service.tasks.notifications.addActivity( { entityType: 'user', entityUid: 42 }, {
         actor: 'user:12312312',
         verb: 'event.create',
         object: 'event:78978978',
@@ -174,7 +177,7 @@ describe( 'activities - notifications', function () {
 
     it( 'add an activity grouped by a property in store to a new notification', () => {
 
-      return addActivity( { entityType: 'user', entityUid: 42 }, {
+      return service.tasks.notifications.addActivity( { entityType: 'user', entityUid: 42 }, {
         actor: 'user:12312312',
         verb: 'agenda.changeEventState',
         object: 'event:78978978',
@@ -219,7 +222,7 @@ describe( 'activities - notifications', function () {
 
     it( 'add an activity grouped by a property in store to an existant notification', () => {
 
-      return addActivity( { entityType: 'user', entityUid: 42 }, {
+      return service.tasks.notifications.addActivity( { entityType: 'user', entityUid: 42 }, {
         actor: 'user:12312315',
         verb: 'agenda.changeEventState',
         object: 'event:78978978',
@@ -264,7 +267,7 @@ describe( 'activities - notifications', function () {
 
     it( 'add an activity to an existant notification', () => {
 
-      return addActivity( { entityType: 'user', entityUid: 42 }, {
+      return service.tasks.notifications.addActivity( { entityType: 'user', entityUid: 42 }, {
         actor: 'user:86868686',
         verb: 'event.create',
         object: 'event:12312345',
@@ -307,7 +310,7 @@ describe( 'activities - notifications', function () {
 
     it( 'add an activity to an inexistant feed', () => {
 
-      return addActivity( { entityType: 'user', entityUid: 86 }, {
+      return service.tasks.notifications.addActivity( { entityType: 'user', entityUid: 86 }, {
         actor: 'user:86868686',
         verb: 'event.create',
         object: 'event:12312345',
@@ -330,7 +333,7 @@ describe( 'activities - notifications', function () {
 
     it( 'add an activity to an agenda feed', () => {
 
-      return addActivity( { entityType: 'agenda', entityUid: 86 }, {
+      return service.tasks.notifications.addActivity( { entityType: 'agenda', entityUid: 86 }, {
         actor: 'user:86868686',
         verb: 'agenda.create',
         target: 'agenda:48648352',
@@ -351,7 +354,7 @@ describe( 'activities - notifications', function () {
 
     it( 'queued creates are processed by .task', done => {
 
-      service.tasks.notifications.addActivity( ( err, notif ) => {
+      service.tasks.notifications.addActivity.task( ( err, notif ) => {
 
         should( err ).equal( null );
 
@@ -404,9 +407,11 @@ describe( 'activities - notifications', function () {
 
     before( async () => {
 
-      await service.initAndLoad( config );
+      service = await Service.initAndLoad( config );
 
     } );
+
+    after( () => service.shutdown );
 
     it( 'count notifications of a user feed', () => {
 
@@ -439,9 +444,11 @@ describe( 'activities - notifications', function () {
 
     beforeEach( async () => {
 
-      await service.initAndLoad( config );
+      service = await Service.initAndLoad( config );
 
     } );
+
+    after( () => service.shutdown );
 
     it( 'mark a notification as read', () => {
 
@@ -697,11 +704,13 @@ describe( 'activities - notifications', function () {
 
   describe( 'list', () => {
 
-    before( async () => {
+    beforeEach( async () => {
 
-      await service.initAndLoad( config );
+      service = await Service.initAndLoad( config );
 
     } );
+
+    after( () => service.shutdown );
 
     it( 'simple list of notifications of a feed', () => {
 
@@ -920,9 +929,11 @@ describe( 'activities - notifications', function () {
 
     beforeEach( async () => {
 
-      await service.initAndLoad( config );
+      service = await Service.initAndLoad( config );
 
     } );
+
+    after( () => service.shutdown );
 
     it( 'remove a notification', () => {
 

@@ -3,7 +3,6 @@
 const _ = require( 'lodash' );
 const sessions = require( '@openagenda/sessions' );
 const tagSvc = require( '@openagenda/agenda-tags' );
-const activitiesSvc = require( '@openagenda/activities' );
 const getAggLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/aggregators/sources' ) );
 const categorySvc = require( '@openagenda/agenda-categories' );
 const locationMw = require( '@openagenda/agenda-locations' ).mw();
@@ -15,6 +14,7 @@ const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const membersSvc = require( '../services/members' );
+const activitiesSvc = require( '../services/activities' );
 const cacheMw = require( '../lib/cache.mw' );
 const gaTrack = require( '../lib/gaTrack.mw' );
 const config = require( '../config' );
