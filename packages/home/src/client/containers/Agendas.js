@@ -66,15 +66,12 @@ export default class Agendas extends Component {
           {agenda.stakeholder.credential === 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
         </a>}
         {[ 1, 2, 3 ].includes( agenda.stakeholder.credential ) && (
-          agenda.useContributeApp ? (
-            <Link to={res.agendas.contribute.replace( ':slug', agenda.slug )}>
-              {getLabel( 'addAnEvent' )}
-            </Link>
-          ) : (
-            <a href={res.agendas.addEvent.replace( ':slug', agenda.slug )}>
-              {getLabel( 'addAnEvent' )}
-            </a>
-          )
+          <a
+            href={(agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent)
+              .replace( ':slug', agenda.slug )}
+          >
+            {getLabel( 'addAnEvent' )}
+          </a>
         )}
         {![ 2, 3 ].includes( agenda.stakeholder.credential ) && _.get( agenda, 'mailto' ) && <a
           href={_.get( agenda, 'mailto' )}

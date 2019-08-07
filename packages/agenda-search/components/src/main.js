@@ -1,38 +1,37 @@
 "use strict";
 
-var React = require( 'react' ),
+const React = require( 'react' );
+const ReactDOM = require( 'react-dom' );
+const du = require( '@openagenda/dom-utils' );
+const dl = require( '@openagenda/dom-utils/documentLocation' );
+const utils = require( '@openagenda/utils' );
+const Body = require( './Body' );
 
-  ReactDom = require( 'react-dom' ),
-
-  du = require( '@openagenda/dom-utils' ),
-
-  dl = require( '@openagenda/dom-utils/documentLocation' ),
-
-  utils = require( '@openagenda/utils' ),
-
-  Body = require( './Body' );
-
-module.exports = function( options ) {
-
-  var params = utils.extend( {
+module.exports = options => {
+  const params = utils.extend( {
     res: '/', // where to fetch list.
     canvas: '.js_search_canvas',
     dataTag: 'data-options',
     lang: 'en'
   }, options );
 
-  var data = du.parseJsonAttribute( 'body', params.dataTag, {
+  const data = du.parseJsonAttribute( 'body', params.dataTag, {
     agendas: [],
     total: 0
   } );
 
-  ReactDom.hydrate( React.createElement( Body, {
+  const elem = React.createElement( Body, {
     res: params.res,
     lang: params.lang,
     query: dl.getQuery(),
     page: parseInt( dl.getQueryPart( 'page', 1 ), 10 ),
     agendas: data.agendas,
     total: data.total
-  } ), du.el( params.canvas ) );
+  } );
 
-}
+  if ( options.skipRender ) {
+    return elem;
+  }
+
+  ReactDOM.hydrate( elem, du.el( params.canvas ) );
+};

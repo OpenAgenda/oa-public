@@ -42,13 +42,14 @@ const defaultGetUrl = ( notification, { counters }, options = {} ) => {
     case 'agenda.addMember':
     case 'agenda.removeMember':
       return '/agendas/:target/admin/members';
-
     case 'agenda.setMemberRole':
       if ( counters.actor === 1 && counters.object === 1 ) {
         return '/agendas/:target';
       }
       return '/agendas/:target/admin/members';
-
+    case 'agenda.addSource':
+    case 'agenda.removeSource':
+      return '/agendas/:target/admin/sources';
     case 'agenda.create':
     case 'agenda.rename':
     case 'agenda.setOfficial':
@@ -56,12 +57,10 @@ const defaultGetUrl = ( notification, { counters }, options = {} ) => {
     case 'agenda.removeEvent':
     case 'event.delete':
       return '/agendas/:target';
-
     case 'agenda.updateContribution':
       return '/agendas/:target/admin/settings/contribution';
     case 'agenda.updateProfile':
       return '/agendas/:target/admin/settings/profile';
-
     case 'agenda.changeEventState':
     case 'agenda.publishEvent':
     case 'agenda.unpublishEvent':
@@ -73,7 +72,6 @@ const defaultGetUrl = ( notification, { counters }, options = {} ) => {
         return '/agendas/:target/events/:object';
       }
       return '/agendas/:target';
-
     default:
       return null;
   }

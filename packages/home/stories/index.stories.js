@@ -42,14 +42,16 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
   },
   menu: {
     tab: 'agendas'
-  },
-  agendas: {}
+  }
 });
 
 
 storiesOf( 'App', module )
   .add( 'all', () => wrapApp( createApp( {
-      history: createMemoryHistory(),
-      initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-    } ) )
-  );
+    history: createMemoryHistory(),
+    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
+  } ) ) )
+  .add( 'with search query', () => wrapApp( createApp( {
+    history: createMemoryHistory( { initialEntries: [ '/?search=Paris' ] } ),
+    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
+  } ) ) );

@@ -50,6 +50,13 @@ module.exports = {
     es: '{others, plural, =0 {{email}} one {{email} y 1 otros} other {{email} y {others} otros}}',
     br: '{others, plural, =0 {{email}} one {{email} hag 1 all} other {{email} ha {others} all}}'
   },
+  agenda: {
+    en: '{others, plural, =0 {{agenda}} one {{agenda} and 1 other} other {{agenda} and {others} other}}',
+    fr: '{others, plural, =0 {{agenda}} one {{agenda} et 1 autre} other {{agenda} et {others} autres}}',
+    de: '{others, plural, =0 {{agenda}} one {{agenda} und 1 anderer} other {{agenda} und {others} andere}}',
+    es: '{others, plural, =0 {{agenda}} one {{agenda} y 1 otros} other {{agenda} y {others} otros}}',
+    br: '{others, plural, =0 {{agenda}} one {{agenda} hag 1 all} other {{agenda} ha {others} all}}'
+  },
   'agenda.sendInvitation': {
     en: '{actor} invited {object} as {credential} on {target}.',
     fr: '{actorCount, plural, one {{actor} a invité} other {{actor} ont invité}} {object} comme {credential} sur {target}.'
@@ -87,6 +94,14 @@ module.exports = {
     de: '{actor} Sie als {credential} auf {target} ernannt.',
     es: '{actor} te ha llamado de {credential} en {target}.',
     br: "{actor} en/he deus anvet ac'hanoc'h da {credential} war {target}."
+  },
+  'agenda.addSource': {
+    en: '{actor} added {object} as a source on {target}.',
+    fr: '{actorCount, plural, one {{actor} a ajouté} other {{actor} ont ajouté}} {object} aux sources de {target}.'
+  },
+  'agenda.removeSource': {
+    en: '{actor} removed {object} from the sources on {target}.',
+    fr: '{actorCount, plural, one {{actor} a retiré} other {{actor} ont retiré}} {object} des sources de {target}.'
   },
   'agenda.create': {
     en: '{actor} created the agenda {target}.',

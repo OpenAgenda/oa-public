@@ -70,6 +70,12 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
       'agenda.setMemberRole': {
         agenda: '/agendas/:agenda'
       },
+      'agenda.addSource': {
+        agenda: '/agendas/:agenda'
+      },
+      'agenda.removeSource': {
+        agenda: '/agendas/:agenda'
+      },
       'agenda.create': {
         agenda: '/agendas/:agenda'
       },
@@ -236,6 +242,42 @@ module.exports = ( urls, labels, defaultLang = 'fr' ) => {
           credential: getCredentialLabel( activity.store.credential ),
           beforeCredential: getCredentialLabel( activity.store.beforeCredential ),
           agenda: agendaLink
+        } );
+      }
+      case 'agenda.removeSource': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target
+        );
+        const sourceAgendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.object ) },
+          activity.store.labels.object
+        );
+
+        return getLabel( 'agenda.removeSource', {
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          agenda: agendaLink,
+          sourceAgenda: sourceAgendaLink
+        } );
+      }
+      case 'agenda.addSource': {
+        const agendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.target ) },
+          activity.store.labels.target
+        );
+        const sourceAgendaLink = makeLink(
+          'agenda',
+          { agenda: getUid( activity.object ) },
+          activity.store.labels.object
+        );
+
+        return getLabel( 'agenda.addSource', {
+          user: renderHighlight( escape( activity.store.labels.actor ) + getIcon( activity, 'actor' ) ),
+          agenda: agendaLink,
+          sourceAgenda: sourceAgendaLink
         } );
       }
       case 'agenda.create': {

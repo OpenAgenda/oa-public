@@ -1,5 +1,4 @@
 "use strict";
-
 module.exports = {
   alias: 'agenda_test',
   site: {
@@ -9,29 +8,28 @@ module.exports = {
   mysql : {
     host : '127.0.0.1',
     database : 'agenda_search_test',
-    password : 'fdsqfdsqfdsq',
-    user : 'fdqfdsq'
+    password : 'grut',
+    user : 'root'
   },
   schemas : {
     agenda: 'agenda',
     occurrence: 'occurrence',
-    agendaEvent: 'agenda_event',
-    legacyCredentialSet: 'legacy_credential_set'
+    agendaEvent: 'agenda_event'
   },
   elasticsearch: {
-    host: 'localhost:9200',
-    log: [ {
-      type: 'stdio',
-      level: [ 'error', 'warning' ]
-    } ],
-    apiVersion: '1.3',
-    timeout: 30000
+    //host: 'localhost:9200',
+    host: `http://ns397902.ip-151-80-41.eu:9205`,
+    apiVersion: '5.3',
+    //timeout: 30000
   },
   mw: {
     limit: {
       default: 20,
       max: 100
     }
+  },
+  services: {
+    agendas: false // le service agenda
   },
   image: {
     path: '//cibul.s3.amazonaws.com/',
@@ -40,7 +38,7 @@ module.exports = {
   files: {
     tmpPath: __dirname + '/test/tmp',
     bucket: 'openagendatst',
-    accessKeyId: '',
-    secretAccessKey: ''
-  },
+    accessKeyId: 'AKIAJCTNQBIZSAPX7HUQ',
+    secretAccessKey: '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'
+  }
 }
