@@ -21,7 +21,10 @@ export default class Stats extends Component {
       return result;
     }, { first: null, last: null } );
 
-    return { first, last };
+    return {
+      first: new Date( first ),
+      last: new Date( last )
+    };
   }
 
   render() {
