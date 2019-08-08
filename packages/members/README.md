@@ -16,6 +16,10 @@ Identifiers is an object containing an `agendaUid` and or a `userUid` key.
 
  * **agendaUid**: Optional. The uid of the agenda associated with the member;
  * **userUid**: Optional. The uid of the user associated with the member.
+ * **role**: Optional. List certain roles. Takes on or multiple role slugs
+ * **withUser**: Optional. null (default): include all members, false: exclude members linked with users, true: exclude members not linked with users.
+ * **withActions**: Optional. null (default): no constraint. false: excludes members with a non zero action count. true: excludes members with a zero action count.
+ * **deleted**: Optional. false (default): excludes members marked as deleted. true: excludes members not marked as deleted. null: no constraint.
 
 ### Nav
 

@@ -3,6 +3,8 @@
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
+const log = require( '@openagenda/logs' )( 'list' );
+
 const addListFilters = require( './lib/addListFilters' );
 const {
   fromDB
@@ -12,6 +14,7 @@ const cleanListOptions = require( './lib/cleanListOptions' );
 const addPaginationAndOrder = require( './lib/addPaginationAndOrder' );
 
 module.exports = async function( { knex, schema, interfaces }, query, nav = {}, options = {} ) {
+  log( 'processing', query, nav );
 
   const {
     detailed,
@@ -42,7 +45,7 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
 
   if ( detailed && _.get( interfaces, 'getUsersByUid' ) ) {
     ( await interfaces.getUsersByUid(
-      members.map( m => m.userUid )
+      members.map( m => m.userUid ).filter( m => !!m )
     ) ).forEach( user => {
       _.find( members, { userUid: user.uid } ).user = user;
     } );

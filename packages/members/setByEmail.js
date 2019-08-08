@@ -2,12 +2,12 @@
 
 const _ = require( 'lodash' );
 
-const log = require( '@openagenda/logs' );
-
 const getByEmail = require( './get' ).byEmail;
 const patch = require( './patch' );
 const create = require( './create' );
 const { isSuperiorTo } = require( './lib/compareRoles' );
+
+const log = require( '@openagenda/logs' )( 'setByEmail' );
 
 const defaultQueueName = 'membersBulkSetEmails';
 
@@ -67,6 +67,7 @@ async function setByEmail( config, data, options = {} ) {
 }
 
 async function bulk( config, base, emails = [], options = {} ) {
+  log( 'bulk' );
 
   const {
     bulkThreshold,
@@ -88,6 +89,8 @@ async function bulk( config, base, emails = [], options = {} ) {
     queued: queueJobs ? emails.length : 0,
     processed: []
   };
+
+  log( queueJobs ? 'queueing' : 'processing without queueing' );
 
   for ( const email of emails ) {
     const data = Object.assign( {}, base, { email } );

@@ -9,7 +9,8 @@ const roles = require( './roles' );
 schema.register( {
   integer: require( '@openagenda/validators/integer' ),
   choice: require( '@openagenda/validators/choice' ),
-  text: require( '@openagenda/validators/text' )
+  text: require( '@openagenda/validators/text' ),
+  boolean: require( '@openagenda/validators/boolean' )
 } );
 
 const validate = schema( {
@@ -18,6 +19,19 @@ const validate = schema( {
   },
   userUid: {
     type: 'integer'
+  },
+  withUser: {
+    type: 'boolean',
+    default: null
+  },
+  deleted: {
+    type: 'boolean',
+    default: false,
+    allowNull: true
+  },
+  withActions: {
+    type: 'boolean',
+    default: null
   },
   role: {
     type: 'choice',
@@ -46,7 +60,10 @@ module.exports = ( k, query ) => {
     agendaUid,
     userUid,
     role,
-    search
+    search,
+    withUser,
+    deleted,
+    withActions
   } = validate( Object.keys( legacyParts ).length ? Object.assign( {}, query, legacyParts ) : query );
 
   if ( !agendaUid && !userUid ) {
@@ -59,6 +76,24 @@ module.exports = ( k, query ) => {
 
   if ( userUid ) {
     k.where( 'user_uid', userUid );
+  }
+
+  if ( withUser === true ) {
+    k.whereNotNull( 'user_uid' );
+  } else if ( withUser === false ) {
+    k.whereNull( 'user_uid' );
+  }
+
+  if ( deleted === true ) {
+    k.where( 'deleted_user', true );
+  } else if ( deleted === false ) {
+    k.where( 'deleted_user', false );
+  }
+
+  if ( withActions === true ) {
+    k.where( 'actions', '>', 0 );
+  } else if ( withActions === false ) {
+    k.where( 'actions', '=', 0 );
   }
 
   if ( search ) {

@@ -11,7 +11,8 @@ module.exports = async ( { knex, schema, interfaces }, data, options = {} )  => 
   log( 'processing', data );
 
   const {
-    requireCustom
+    requireCustom,
+    context
   } = cleanCreateOptions( options );
 
   const clean = {};
@@ -61,6 +62,14 @@ module.exports = async ( { knex, schema, interfaces }, data, options = {} )  => 
   clean.id = _.first(
     await knex( schema ).insert( toDB( clean ) )
   );
+
+  if ( _.get( interfaces, 'onCreate' ) ) {
+    try {
+      await interfaces.onCreate( clean, context );
+    } catch ( e ) {
+      log( 'error', 'interface onCreate exception for member %s', clean.id, e );
+    }
+  }
 
   return {
     errors: [],

@@ -9,6 +9,8 @@ const cleanPatchOptions = require( './lib/cleanPatchOptions' );
 const { toDB } = require( './lib/transformDBEntry' );
 
 module.exports = async ( config, identifiers, data, options = {} ) => {
+  log( 'processing', data );
+
   const { knex, schema, interfaces } = config;
 
   const {
@@ -48,6 +50,8 @@ module.exports = async ( config, identifiers, data, options = {} ) => {
       '0.id'
     );
   }
+
+  log( 'patching', clean );
 
   await knex( schema )
     .update( toDB( clean ) )

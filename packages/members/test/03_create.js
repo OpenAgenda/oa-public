@@ -45,8 +45,7 @@ describe( 'members - functional - create', () => {
       }
     } );
 
-    _.omit( member, [ 'createdAt', 'updatedAt' ] ).should.eql( {
-      id: 5,
+    _.omit( member, [ 'id', 'createdAt', 'updatedAt' ] ).should.eql( {
       agendaUid: 31,
       userUid: 12,
       userId: 10293,
