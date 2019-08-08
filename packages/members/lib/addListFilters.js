@@ -14,6 +14,12 @@ schema.register( {
 } );
 
 const validate = schema( {
+  id: {
+    type: 'integer',
+    list: {
+      default: null
+    }
+  },
   agendaUid: {
     type: 'integer'
   },
@@ -24,7 +30,7 @@ const validate = schema( {
     type: 'boolean',
     default: null
   },
-  deleted: {
+  deletedUser: {
     type: 'boolean',
     default: false,
     allowNull: true
@@ -57,21 +63,26 @@ module.exports = ( k, query ) => {
   const legacyParts = _extractLegacyParts( query );
 
   const {
+    id,
     agendaUid,
     userUid,
     role,
     search,
     withUser,
-    deleted,
+    deletedUser,
     withActions
   } = validate( Object.keys( legacyParts ).length ? Object.assign( {}, query, legacyParts ) : query );
 
-  if ( !agendaUid && !userUid ) {
+  if ( !agendaUid && !userUid && !id ) {
     throw new Error( 'neither agendaUid or userUid are specified' );
   }
 
   if ( agendaUid ) {
     k.where( 'agenda_uid', agendaUid );
+  }
+
+  if ( id ) {
+    k.whereIn( 'id', id );
   }
 
   if ( userUid ) {
@@ -84,9 +95,9 @@ module.exports = ( k, query ) => {
     k.whereNull( 'user_uid' );
   }
 
-  if ( deleted === true ) {
+  if ( deletedUser === true ) {
     k.where( 'deleted_user', true );
-  } else if ( deleted === false ) {
+  } else if ( deletedUser === false ) {
     k.where( 'deleted_user', false );
   }
 

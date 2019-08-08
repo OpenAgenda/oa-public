@@ -313,15 +313,15 @@ describe( 'members - functional - list', () => {
 
     } );
 
-    it( 'when deleted is null, members marked as deleted are included in results', async () => {
+    it( 'when deletedUser is null, members marked as associated with deleted user are included in results', async () => {
 
-      const members = await svc.list( { agendaUid: 1, deleted: null } );
+      const members = await svc.list( { agendaUid: 1, deletedUser: null } );
 
       members.filter( m => m.deletedUser === true ).length.should.equal( 1 );
 
     } );
 
-    it( 'when deleted is not provided, members marked as deleted are not in results', async () => {
+    it( 'when deleteUserd is not provided, members marked as associated with deleted user are not in results', async () => {
 
       const members = await svc.list( { agendaUid: 1 } );
 
@@ -329,15 +329,23 @@ describe( 'members - functional - list', () => {
 
     } );
 
-    it( 'when deleted is true, only members marked as deleted are in results', async () => {
+    it( 'when deletedUser is true, only members marked as associated with deleted user are in results', async () => {
 
       const members = await svc.list( {
         agendaUid: 1,
-        deleted: true
+        deletedUser: true
       } );
 
       members.length.should.equal( 1 )
       members[ 0 ].deletedUser.should.equal( true );
+
+    } );
+
+    it( 'when ids are given to list, matching members are provided', async () => {
+
+      const members = await svc.list( { id: [ 3, 5 ] } );
+
+      members.map( m => m.id ).should.eql( [ 3, 5 ] );
 
     } );
 
