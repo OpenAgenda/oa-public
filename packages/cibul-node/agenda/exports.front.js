@@ -13,6 +13,8 @@ const ODSJSONParser = require( '@openagenda/legacy/exports/ODSJSONParser' );
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
+const membersSvc = require( '../services/members' );
+const activitiesSvc = require( '../services/activities' );
 const cacheMw = require( '../lib/cache.mw' );
 const gaTrack = require( '../lib/gaTrack.mw' );
 const config = require( '../config' );
@@ -228,7 +230,7 @@ function cachedJson( cached, req, res ) {
 
 function addSource( req, res, next ) {
 
-  req.aggregatorAgenda.sources.add( req.agenda, ( err, result ) => {
+  req.aggregatorAgenda.sources.add( req.agenda, async ( err, result ) => {
 
     if ( err ) return next( err );
 
@@ -238,6 +240,16 @@ function addSource( req, res, next ) {
         source: '<strong>' + req.agenda.title + '</strong>',
         agg: '<strong>' + req.aggregatorAgenda.title + '</strong>'
       }, req.lang ) );
+
+      let entities = {};
+
+      try {
+        const { user, member, agenda, source } = entities = await loadNeedsForActivity( req );
+
+        await addSourceAddActivity( { user, member, agenda, source } );
+      } catch ( e ) {
+        req.log( 'error', 'failed adding activity of type agenda.addSource', { member: entities.member, exception: e } );
+      }
 
     } else if ( result.loop ) {
 
@@ -255,9 +267,19 @@ function addSource( req, res, next ) {
 
 function removeSource( req, res, next ) {
 
-  req.aggregatorAgenda.sources.remove( req.agenda, function ( err ) {
+  req.aggregatorAgenda.sources.remove( req.agenda, async err => {
 
     if ( err ) return next( err );
+
+    let entities = {};
+
+    try {
+      const { user, member, agenda, source } = entities = await loadNeedsForActivity( req );
+
+      await addRemoveSourceActivity( { user, member, agenda, source } );
+    } catch ( e ) {
+      req.log( 'error', 'failed adding activity of type agenda.removeSource', { member: entities.member, exception: e } );
+    }
 
     sessions.setFlash( req, res, getAggLabel( 'sourceRemoved', {
       source: '<strong>' + req.agenda.title + '</strong>',
@@ -268,6 +290,62 @@ function removeSource( req, res, next ) {
 
   } );
 
+}
+
+async function addSourceAddActivity( { user, member, agenda, source } ) {
+  activitiesSvc.feed( {
+    entityType: 'agenda',
+    entityUid: agenda.uid
+  } ).activities.add( {
+    actor: 'user:' + user.uid,
+    verb: 'agenda.addSource',
+    object: 'agenda:' + source.uid,
+    target: 'agenda:' + agenda.uid,
+    store: {
+      labels: {
+        actor: member.custom.contactName || user.fullName,
+        object: source.title,
+        target: agenda.title
+      }
+    }
+  } );
+}
+
+async function addRemoveSourceActivity( { user, member, agenda, source } ) {
+  activitiesSvc.feed( {
+    entityType: 'agenda',
+    entityUid: agenda.uid
+  } ).activities.add( {
+    actor: 'user:' + user.uid,
+    verb: 'agenda.removeSource',
+    object: 'agenda:' + source.uid,
+    target: 'agenda:' + agenda.uid,
+    store: {
+      labels: {
+        actor: member.custom.contactName || user.fullName,
+        object: source.title,
+        target: agenda.title
+      }
+    }
+  } );
+}
+
+async function loadNeedsForActivity( req ) {
+  const member = await membersSvc.get( {
+    agendaUid: req.aggregatorAgenda.uid,
+    userUid: req.user.uid
+  } );
+
+  if ( !member ) {
+    throw new Error( 'Cannot found member' );
+  }
+
+  return {
+    user: req.user,
+    agenda: req.aggregatorAgenda,
+    member,
+    source: req.agenda
+  };
 }
 
 function _prepareLocationExport( req, res, next ) {

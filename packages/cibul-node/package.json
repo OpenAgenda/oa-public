@@ -5,7 +5,7 @@
   "description": "OpenAgenda main app",
   "scripts": {
     "test": "mocha --exit",
-    "start": "TZ=Etc/UTC NODE_ICU_DATA=../../node_modules/full-icu node server.js web admin task",
+    "start": "TZ=Etc/UTC NODE_ICU_DATA=`yarn --silent node-full-icu-path` node server.js web admin task",
     "watch": "nodemon --ignore node_modules --exec 'yarn start'",
     "background": "nohup npm start >/dev/null 2>&1 &",
     "mails-editor": "oa-mails-editor services/mails/templates -w services/mails/components -w ../labels"
@@ -101,8 +101,8 @@
     "languages": "^0.1.3",
     "lodash": "^4.17.4",
     "marked": "^0.4.0",
-    "mjml-core": "^4.2.1",
-    "mjml-validator": "^4.2.1",
+    "mjml-core": "^4.4.0",
+    "mjml-validator": "^4.4.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.14",
     "morgan": "^1.9.1",

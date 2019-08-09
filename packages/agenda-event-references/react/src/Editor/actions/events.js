@@ -17,6 +17,8 @@ function eventsLoad() {
 
     let state = getState();
 
+    console.log( state.res );
+
     dispatch( eventsRequest() );
 
     get( state.res.events, {

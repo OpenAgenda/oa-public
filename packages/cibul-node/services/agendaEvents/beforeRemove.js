@@ -2,10 +2,10 @@
 
 const VError = require( 'verror' );
 
-const activitiesSvc = require( '@openagenda/activities' );
 const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const eventsSvc = require( '@openagenda/events' );
+const activitiesSvc = require( '../activities' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/beforeRemove' );
 

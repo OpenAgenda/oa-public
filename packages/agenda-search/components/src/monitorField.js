@@ -6,17 +6,19 @@ module.exports = ( selector, cb ) => {
 
   if ( typeof window === 'undefined' || typeof document === 'undefined' ) return; // server!
 
-  let formElem = du.el( selector ),
+  const formElem = du.el( selector );
 
-  inputElem = du.el( formElem, 'input' );
+  if ( !formElem ) return;
 
-  if ( !formElem || !inputElem ) return;
+  const inputElem = du.el( formElem, 'input' );
+
+  if ( !inputElem ) return;
 
   du.addEvent( formElem, 'submit', e => {
 
     e.preventDefault();
 
-    cb( inputElem.value ); 
+    cb( inputElem.value );
 
   } );
 

@@ -2,9 +2,10 @@
 
 const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'activities/rebuild' );
-const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
 const redis = require( 'redis' );
+const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
 const config = require( '../../../config' );
+const activitiesSvc = require( '..' );
 
 module.exports = () => {
 
@@ -33,7 +34,8 @@ module.exports = () => {
         aggregatorTable: config.schemas.aggregator,
         migrationTable: 'activity_migrations',
         logger: config.getLogConfig( 'oa', 'activities', false ),
-        cli: false
+        cli: false,
+        service: activitiesSvc
       },
       log
     )

@@ -5,10 +5,10 @@ const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 const VError = require( 'verror' );
 const { diff } = require( 'deep-diff' );
-const activitiesSvc = require( '@openagenda/activities' );
 const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const log = require( '@openagenda/logs' )( 'events/interfaces/onUpdate' );
+const activitiesSvc = require( '../activities' );
 const eventSearch = require( '../eventSearch' );
 const controlDataSvc = require( '../legacy' ).controlData;
 

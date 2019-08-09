@@ -102,7 +102,7 @@ module.exports = class TimingsComponent extends Component {
               es: 'es-ES'
             })[ lang ]}
             startTime="6:00"
-            timings={loadTimings( this.props, 'start' )}
+            timings={value}
             endTime="6:00"
             activeDays={_.get( field, 'enabledRanges', [] ).map( r => ({ startDate: r.begin, endDate: r.end }) )}
             weekStartDay={1}

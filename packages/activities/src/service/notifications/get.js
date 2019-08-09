@@ -8,26 +8,13 @@ const validators = require( '@openagenda/validators' );
 const notificationStates = require( '../notificationStates' );
 
 
-let config;
-let knex;
-let service;
-
-
 schema.register( {
   choice: validators.choice,
   text: validators.text
 } );
 
 
-module.exports = Object.assign( get, { init } );
-
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
+module.exports = get;
 
 function parseArguments( identifiers, query, options, cb ) {
 
@@ -59,14 +46,16 @@ function parseArguments( identifiers, query, options, cb ) {
 
 }
 
-function get() {
+function get( config ) {
+
+  const { service, knex } = config;
 
   let {
     identifiers,
     query,
     options,
     cb
-  } = parseArguments.apply( null, arguments );
+  } = parseArguments.apply( null, Array.from( arguments ).slice( 1 ) );
 
   const params = _.merge( {
     excludeIds: []

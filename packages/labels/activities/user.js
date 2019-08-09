@@ -20,12 +20,24 @@ module.exports = {
     "es": "{originMember} añadió {user} como {credential} de la agenda {agenda}.",
     "br": "{originMember} en/he deus ouzhpennet  {user} evel {credential} war {agenda}."
   },
+  "agenda.removeMember": {
+    "en": "{originMember} removed {user} ({credential}) from {agenda}.",
+    "fr": "{originMember} a retiré {user} ({credential}) de {agenda}."
+  },
   "agenda.setMemberRole": {
     "en": "{user} appointed {originMember} as {credential} on {agenda}.",
     "fr": "{user} a nommé {originMember} {credential} sur {agenda}.",
     "de": "{user} {originMember} in {credential} auf {agenda} ernannt.",
     "es": "{user} ha nombrado {originMember} {credential} sobre el agenda {agenda}.",
     "br": "{user} en/he deus anvet {originMember} da {credential} war {agenda}."
+  },
+  "agenda.addSource": {
+    "en": "{user} added {sourceAgenda} as a source to {agenda}.",
+    "fr": "{user} a ajouté {sourceAgenda} aux sources de {agenda}."
+  },
+  "agenda.removeSource": {
+    "en": "{user} removed {sourceAgenda} from the sources of {agenda}.",
+    "fr": "{user} a retiré {sourceAgenda} des sources de {agenda}."
   },
   "agenda.create": {
     "en": "{user} created the agenda {agenda}.",

@@ -12,6 +12,7 @@ const { syncAgenda } = require( '@openagenda/inboxes/dist/tasks/sync' );
 const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
 const logs = require( '@openagenda/logs' );
 
+const activitiesSvc = require( '../activities' );
 const agendaEventStats = require( './lib/agendaEventStats' );
 const config = require( '../../config' );
 const controlDataSvc = require( '../legacy' ).controlData;
@@ -157,7 +158,8 @@ module.exports.task = () => {
             aggregatorTable: config.schemas.aggregator,
             migrationTable: 'activity_migrations',
             logger: config.getLogConfig( 'oa', 'agendaStatistics', false ),
-            cli: false
+            cli: false,
+            service: activitiesSvc
           },
           logs( 'activities/rebuild' )
         );

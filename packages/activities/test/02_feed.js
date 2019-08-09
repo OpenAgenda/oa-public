@@ -2,8 +2,10 @@
 
 const _ = require( 'lodash' );
 const should = require( 'should' );
-const service = require( './service' );
+const Service = require( './service' );
 const config = require( '../testconfig' );
+
+let service;
 
 describe( 'activities - feed', function () {
 
@@ -13,12 +15,7 @@ describe( 'activities - feed', function () {
 
     it( 'use feed method throw an error', () => {
 
-      (() => {
-
-        service.feed( { entityType: 'user', entityUid: 1 } ).create();
-
-      }).should.throw( 'service not initialized' );
-
+      return Service( {} ).should.rejectedWith( 'Unable to acquire a connection' );
 
     } );
 
@@ -28,9 +25,11 @@ describe( 'activities - feed', function () {
 
     before( async () => {
 
-      await service.initAndLoad( config, [ 'feed', 'feed_follow' ] );
+      service = await Service.initAndLoad( config, [ 'feed', 'feed_follow' ] );
 
     } );
+
+    after( () => service.shutdown() );
 
 
     it( 'call feed method with bad entity type', () => {

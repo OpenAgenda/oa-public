@@ -8,22 +8,12 @@ const method = require( '../../utils/method' );
 
 const FEED_TYPES = require( '../feedTypes' );
 
-let config;
-let knex;
-
 schema.register( {
   choice: validators.choice,
   number: validators.number
 } );
 
-module.exports = Object.assign( get, { init } );
-
-function init( { config: c, knex: k } ) {
-
-  config = c;
-  knex = k;
-
-}
+module.exports = get;
 
 function parseArguments( identifiers, options, cb ) {
 
@@ -53,13 +43,15 @@ function parseArguments( identifiers, options, cb ) {
 
 }
 
-function get() {
+function get( config ) {
+
+  const { knex } = config;
 
   const {
     identifiers,
     options,
     cb
-  } = parseArguments.apply( null, arguments );
+  } = parseArguments.apply( null, Array.prototype.slice.call(arguments, 1) );
 
   const {
     entityType,
@@ -168,7 +160,7 @@ function get() {
     }, {} );
 
     return knex( config.schemas.feed ).first( columnToSelect ).where( where )
-      
+
       .then( feed => {
 
         if ( !feed || !params.followed ) return feed;
@@ -221,4 +213,4 @@ function get() {
 
   return promisePlusCb( promise, cb );
 
-};
+}

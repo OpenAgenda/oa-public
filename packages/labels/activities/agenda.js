@@ -17,11 +17,23 @@ module.exports = {
     "de": "{originMember} hinzugefügt {user} in {credential}.",
     "es": "{originMember} añadió {user} como {credential}."
   },
+  "agenda.removeMember": {
+    "en": "{originMember} removed {user} ({credential}).",
+    "fr": "{originMember} a retiré {user} ({credential})."
+  },
   "agenda.setMemberRole": {
     "en": "{user} passed {originMember} from {beforeCredential} to {credential}.",
     "fr": "{user} a passé {originMember} de {beforeCredential} à {credential}.",
     "de": "{user} {originMember} bestanden aus {beforeCredential} auf {credential}.",
     "es": "{user} pasó {originMember} de a {beforeCredential} {credential}."
+  },
+  "agenda.addSource": {
+    "en": "{user} added {sourceAgenda} as a source.",
+    "fr": "{user} a ajouté {sourceAgenda} aux sources."
+  },
+  "agenda.removeSource": {
+    "en": "{user} removed {sourceAgenda} from the sources.",
+    "fr": "{user} a retiré {sourceAgenda} des sources."
   },
   "agenda.create": {
     "en": "{user} created the agenda",
@@ -63,7 +75,7 @@ module.exports = {
     "en": "{user} passed {event} from \"{before}\" to \"{after}\".",
     "fr": "{user} a passé {event} de \"{before}\" à \"{after}\".",
     "de": "{user} Veranstaltung von \"{before}\" bestanden \"{after}\".",
-    "es": "{user} pasó del {event}\"{before}\" a \"{after}\"."
+    "es": "{user} pasó del {event} \"{before}\" a \"{after}\"."
   },
   "agenda.publishEvent": {
     "en": "{user} published {event} on {agenda}.",

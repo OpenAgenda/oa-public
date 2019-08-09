@@ -422,7 +422,17 @@ module.exports.init = async c => {
           },
           suggest_location_change: {},
           contact_member: {},
-          support: {}
+          support: {
+            actions: [ {
+              code: 'removeTechnicalSupport',
+              label: {
+                fr: 'Retirer le support technique',
+                en: 'Remove technical support'
+              },
+              kind: 'default',
+              resolve: false
+            } ]
+          }
         },
         defaultImagePath: c.aws.defaultImagePath
       } )

@@ -10,58 +10,52 @@ const notifications = require( './notifications' );
 
 const addActivityTask = require( './notifications/tasks/addActivity' );
 const prepareSummaryTask = require( './notifications/tasks/prepareSummary' );
-const { task: sendSummaryTask } = require( './notifications/tasks/sendSummary' );
+const sendSummary = require( './notifications/tasks/sendSummary' );
 
-let config;
-let knex;
 
-module.exports = {
-  init,
-  shutdown,
-  feed,
-  feeds,
-  activities,
-  tasks: {
-    notifications: {
-      addActivity: addActivityTask,
-      prepareSummary: prepareSummaryTask,
-      sendSummary: sendSummaryTask
-    }
-  }
-};
+module.exports = Service;
 
-async function init( c ) {
-
-  config = c;
+async function Service( c ) {
+  const config = {
+    ...c,
+    knex: c.knex ? c.knex.clone() : knexLib( {
+      client: 'mysql',
+      connection: c.mysql
+    } )
+  };
 
   logger.setModuleConfig( c.logger );
 
-  knex = c.knex ? c.knex.clone() : knexLib( {
-    client: 'mysql',
-    connection: c.mysql
-  } );
-
   if ( c.migrations !== null ) {
-    Object.assign( knex.client.config, {
+    Object.assign( config.knex.client.config, {
       migrations: Object.assign( {}, c.migrations, {
         directory: path.resolve( path.dirname( __dirname ), '../migrations' )
       } ),
-      schemas: config.schemas
+      schemas: c.schemas
     } );
   }
 
-
-  if ( knex.client.config.migrations ) {
-    await knex.migrate.latest();
+  if ( config.knex.client.config.migrations ) {
+    await config.knex.migrate.latest();
   }
 
-  feed.init( { config, knex, service: module.exports } );
-  feeds.init( { config, knex, service: module.exports } );
-  activities.init( { config, knex, service: module.exports } );
-  notifications.init( { config, knex, service: module.exports } );
+  const service = config.service = {};
 
-}
-
-function shutdown() {
-  return knex.destroy();
-}
+  return Object.assign( service, {
+    shutdown: () => config.knex.destroy(),
+    feed: feed.bind( null, config ),
+    feeds: feeds.bind( null, config ),
+    activities: Object.assign(
+      activities.bind( null, config ), // .activities( identifiers ).list
+      activities( config, null ) // .activities.list
+    ),
+    notifications: notifications.bind( null, config ),
+    tasks: {
+      notifications: {
+        addActivity: addActivityTask( config ),
+        prepareSummary: prepareSummaryTask.bind( null, config ),
+        sendSummary: sendSummary( config )
+      }
+    }
+  } );
+};

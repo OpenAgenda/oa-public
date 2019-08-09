@@ -26,7 +26,7 @@ const searchSpinner = {
   radius: 4
 };
 
-module.exports = class Body extends React.Component {
+export default class Body extends React.Component {
 
   constructor( props ) {
     super( props );

@@ -7,7 +7,7 @@ import Switch from 'rc-switch';
 import List from '@openagenda/react-components/build/List';
 
 
-module.exports = createReactClass( {
+export default createReactClass( {
 
   displayName: 'Details',
 

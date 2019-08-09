@@ -52,9 +52,11 @@ module.exports = createReactClass( {
 
   },
 
-  getInitialState() {
-
+  componentDidMount() {
     monitorField( '.js_agenda_search', search => this.resetPage( { search } ) );
+  },
+
+  getInitialState() {
 
     let query = {};
 
@@ -173,7 +175,7 @@ module.exports = createReactClass( {
     </div>
 
   },
-  
+
   render() {
 
     return <div className="container agenda-search top-margined">

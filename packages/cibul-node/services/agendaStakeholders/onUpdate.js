@@ -4,10 +4,10 @@ const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
 const controlDataSvc = require( '../legacy' ).controlData;
 const users = require( '@openagenda/users' );
-const activities = require( '@openagenda/activities' );
 const invitations = require( '@openagenda/invitations' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const { Inbox } = require( '@openagenda/inboxes' );
+const activities = require( '../activities' );
 const sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' );
 const setMemberUidAndSlugRefs = require( './lib/setMemberUidAndSlugRefs' );
 

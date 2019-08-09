@@ -40,8 +40,7 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
   },
   menu: {
     tab: 'agendas'
-  },
-  agendas: {}
+  }
 });
 
 
@@ -49,6 +48,16 @@ storiesOf( 'App', module )
   .add( 'all', () => {
     const { element, triggerHooks } = createApp( {
       history: createMemoryHistory(),
+      initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
+    } );
+
+    triggerHooks();
+
+    return element;
+  } )
+  .add( 'with search query', () => {
+    const { element, triggerHooks } = createApp( {
+      history: createMemoryHistory( { initialEntries: [ '/?search=Paris' ] } ),
       initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
     } );
 

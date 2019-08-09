@@ -2,7 +2,7 @@
 
 const users = require( '@openagenda/users' ),
 
-  activities = require( '@openagenda/activities' ),
+  activities = require( '../activities' ),
 
   VError = require( 'verror' );
 

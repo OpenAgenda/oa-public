@@ -29,6 +29,9 @@
       "**/redux-form/**"
     ]
   },
+  "resolutions": {
+    "mjml-validator": "4.4.0"
+  },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.3.1"
   },

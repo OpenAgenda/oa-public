@@ -2,17 +2,20 @@
 
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
-const config = require( '../config' );
-const cmn = require( '../lib/commons-app' );
+const agendasSvc = require( '@openagenda/agendas' );
 const aggregatorSourcesSvc = require( '@openagenda/aggregator-sources' );
 const createApp  = require( '@openagenda/aggregator-sources/dist/client/app' );
-const aggregatorSvc = require( '../services/aggregator' );
-const mw = aggregatorSourcesSvc.mw;
 const sessions = require( '@openagenda/sessions' );
-
+const aggregatorSvc = require( '../services/aggregator' );
+const membersSvc = require( '../services/members' );
+const activitiesSvc = require( '../services/activities' );
+const cmn = require( '../lib/commons-app' );
+const config = require( '../config' );
 const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'sources' }
 );
+
+const mw = aggregatorSourcesSvc.mw;
 
 const preMw = [
   cmn.loadLogger( 'aggregatorSources' ),
@@ -35,7 +38,7 @@ module.exports = app => {
     preMw,
     cmn.loadAgenda,
     cmn.authorize.administrator,
-    mw.remove
+    removeSource
   );
 
   app.get(
@@ -70,6 +73,66 @@ function populateIsAggregator( req, res, next ) {
 
   } );
 
+}
+
+function removeSource( req, res, next ) {
+  aggregatorSourcesSvc( req.agenda.id ).remove( { uid: req.query.uid } )
+    .then( async result => {
+      res.send( result );
+
+      let entities = {};
+
+      try {
+        const { user, member, agenda, source } = entities = await loadNeedsForActivity( req );
+
+        await addRemoveSourceActivity( { user, member, agenda, source } );
+      } catch ( e ) {
+        req.log( 'error', 'failed adding activity of type agenda.removeSource', { member: entities.member, exception: e } );
+      }
+    }, next );
+}
+
+async function loadNeedsForActivity( req ) {
+  const member = await membersSvc.get( {
+    agendaUid: req.agenda.uid,
+    userUid: req.user.uid
+  } );
+
+  if ( !member ) {
+    throw new Error( 'Cannot found member' );
+  }
+
+  const source = await agendasSvc.get( { uid: req.query.uid }, { private: null } );
+
+  if ( !source ) {
+    throw new Error( 'Cannot found source agenda' );
+  }
+
+  return {
+    user: req.user,
+    agenda: req.agenda,
+    member,
+    source
+  };
+}
+
+function addRemoveSourceActivity( { user, member, agenda, source } ) {
+  activitiesSvc.feed( {
+    entityType: 'agenda',
+    entityUid: agenda.uid
+  } ).activities.add( {
+    actor: 'user:' + user.uid,
+    verb: 'agenda.removeSource',
+    object: 'agenda:' + source.uid,
+    target: 'agenda:' + agenda.uid,
+    store: {
+      labels: {
+        actor: member.custom.contactName || user.fullName,
+        object: source.title,
+        target: agenda.title
+      }
+    }
+  } );
 }
 
 async function matchApp( req, res, next ) {

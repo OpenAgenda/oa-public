@@ -128,7 +128,11 @@ class TimingsPicker extends Component {
     }
 
     if ( props.value !== state.value ) {
-      derivedState.value = props.value || state.value;
+      derivedState.value = (props.value || state.value || [])
+        .map( v => ({
+          begin: v.begin,
+          end: v.end
+        }) );
     }
 
     if ( Object.keys( derivedState ).length ) {

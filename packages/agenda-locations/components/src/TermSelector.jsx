@@ -5,7 +5,7 @@ import createReactClass from 'create-react-class';
 import xhr from 'xhr';
 import Select from 'react-select';
 
-module.exports = createReactClass( {
+export default createReactClass( {
 
   propTypes: {
 
@@ -27,7 +27,7 @@ module.exports = createReactClass( {
 
   },
 
-  getDefaultProps: function () {
+  getDefaultProps() {
 
     return {
       lang: 'en'
@@ -35,7 +35,7 @@ module.exports = createReactClass( {
 
   },
 
-  getInitialState: function () {
+  getInitialState() {
 
     return {
       terms: []
@@ -43,75 +43,73 @@ module.exports = createReactClass( {
 
   },
 
-  componentWillReceiveProps: function ( nextProps ) {
+  componentWillReceiveProps({field}) {
 
-    if ( this.props.field == nextProps.field ) return;
+    if ( this.props.field == field ) return;
 
     this.setState( { terms: [] } );
 
   },
 
-  componentDidUpdate: function ( prevProps, prevState ) {
+  componentDidUpdate({field}, prevState) {
 
-    if ( this.props.field == prevProps.field ) return;
-
-    this.fetchTerms();
-
-  },
-
-  componentDidMount: function () {
+    if ( this.props.field == field ) return;
 
     this.fetchTerms();
 
   },
 
-  fetchTerms: function () {
+  componentDidMount() {
 
-    var self = this;
+    this.fetchTerms();
+
+  },
+
+  fetchTerms() {
+
+    const self = this;
 
     xhr( {
       json: true,
-      uri: this.props.res + '?field=' + this.props.field,
-    }, function ( err, result ) {
-
+      uri: `${this.props.res}?field=${this.props.field}`,
+    }, (err, {body}) => {
       if ( err ) return;
 
-      var firstTerm = self.props.field.split( ',' )[ 0 ],
+      const firstTerm = self.props.field.split( ',' )[ 0 ];
 
-        sortedTerms = result.body.terms.sort( function ( a, b ) {
+      const sortedTerms = body.terms.sort( (a, b) => {
 
-          if ( a[ firstTerm ] > b[ firstTerm ] ) {
+        if ( a[ firstTerm ] > b[ firstTerm ] ) {
 
-            return 1;
+          return 1;
 
-          }
+        }
 
-          if ( a[ firstTerm ] < b[ firstTerm ] ) {
+        if ( a[ firstTerm ] < b[ firstTerm ] ) {
 
-            return -1;
+          return -1;
 
-          }
+        }
 
-          // a must be equal to b
-          return 0;
+        // a must be equal to b
+        return 0;
 
-        } );
+      } );
 
       self.setState( {
         terms: sortedTerms
       } );
-
     } );
 
   },
 
-  onChange: function ( index ) {
+  onChange(index) {
 
     this.props.onChange( this.state.terms[ index ] );
 
   },
 
-  getTermIndex: function ( value ) {
+  getTermIndex(value) {
 
     if ( !value ) return null;
 
@@ -119,7 +117,7 @@ module.exports = createReactClass( {
 
       let found = false;
 
-      for ( var k in t ) {
+      for ( const k in t ) {
 
         if (
           ![ 'country', 'countryCode' ].includes( k )
@@ -138,18 +136,16 @@ module.exports = createReactClass( {
 
   },
 
-  termOption: function ( term, index ) {
+  termOption(term, index) {
+    const option = {
+      value: index,
+      label: ''
+    };
 
-    var option = {
-        value: index,
-        label: ''
-      },
+    const labelParts = [];
+    const self = this;
 
-      labelParts = [],
-
-      self = this;
-
-    this.props.field.split( ',' ).forEach( function ( field ) {
+    this.props.field.split( ',' ).forEach( field => {
 
       // country is specific as it is multilingual
       if ( field == 'country' ) {
@@ -167,24 +163,23 @@ module.exports = createReactClass( {
     option.label = labelParts.join( ', ' );
 
     return option;
-
   },
 
-  render: function () {
+  render() {
 
-    var self = this;
+    const self = this;
 
-    return <div className="terms-selector">
-      <Select
-        value={this.getTermIndex( this.props.value ) || this.props.value }
-        placeholder={this.props.placeholder || null }
-        options={this.state.terms.map( function ( t, i ) {
-          return self.termOption( t, i )
-        } )}
-        onChange={value => this.onChange( value ? value.value : value )}
-        clearable={true} />
-    </div>
+    return (
+      <div className="terms-selector">
+        <Select
+          value={this.getTermIndex( this.props.value ) || this.props.value }
+          placeholder={this.props.placeholder || null }
+          options={this.state.terms.map( (t, i) => self.termOption( t, i ) )}
+          onChange={value => this.onChange( value ? value.value : value )}
+          clearable={true} />
+      </div>
+    );
 
   }
 
-} )
+} );

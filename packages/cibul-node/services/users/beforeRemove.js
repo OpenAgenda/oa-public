@@ -1,6 +1,6 @@
 const { promisify } = require( 'util' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
-const activities = require( '@openagenda/activities' );
+const activities = require( '../activities' );
 
 
 /**

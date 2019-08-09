@@ -19,6 +19,10 @@ module.exports = {
     table: 'location',
     agendaSettingsTableName: 'location_agenda_settings'
   },
+  schemas: {
+    location: 'location',
+    agendaSettings: 'location_agenda_settings'
+  },
   files: {
     tmpPath: __dirname + '/test/tmp',
     bucket: 'openagendatst',

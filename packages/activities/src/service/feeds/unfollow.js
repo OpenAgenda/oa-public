@@ -3,21 +3,9 @@
 const log = require( '@openagenda/logs' )( 'activities/feeds/unfollow' );
 const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 
-let config;
-let knex;
-let service;
+module.exports = function unfollow( config, identifiers, followedFeedIdentifiers, cb ) {
 
-module.exports = Object.assign( unfollow, { init } );
-
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
-
-function unfollow( identifiers, followedFeedIdentifiers, cb ) {
+  const { service, knex } = config;
 
   const promise = service.feed( identifiers ).get( { internal: true } )
 
@@ -56,4 +44,4 @@ function unfollow( identifiers, followedFeedIdentifiers, cb ) {
 
   return promisePlusCb( promise, cb );
 
-}
+};

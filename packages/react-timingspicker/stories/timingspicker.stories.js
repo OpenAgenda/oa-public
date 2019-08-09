@@ -27,8 +27,8 @@ storiesOf( 'App', module )
     <TimingsPicker
       value={[
         {
-          begin: new Date( '2019-08-10T19:30' ),
-          end: new Date( '2019-08-10T22:30' )
+          begin: '2019-08-10T19:30',
+          end: '2019-08-10T22:30'
         }
       ]}
       locale="fr"
@@ -38,8 +38,8 @@ storiesOf( 'App', module )
     <TimingsPicker
       value={[
         {
-          begin: new Date( '2019-08-10T04:30' ),
-          end: new Date( '2019-08-10T22:30' )
+          begin: '2019-08-10T04:30',
+          end: '2019-08-10T22:30'
         }
       ]}
       locale="fr"
@@ -68,5 +68,15 @@ storiesOf( 'App', module )
         }
       }}
       locale="fr"
+    />
+  ) )
+  .add( 'DST', () => (
+    <TimingsPicker
+      value={[
+        {
+          begin: '2019-03-31T00:30:00',
+          end: '2019-03-31T02:30:00'
+        }
+      ]}
     />
   ) );

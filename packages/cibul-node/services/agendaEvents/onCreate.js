@@ -6,7 +6,6 @@ const VError = require( 'verror' );
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/onCreate' );
 
-const activitiesSvc = require( '@openagenda/activities' );
 const custom = require( '@openagenda/custom' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const usersSvc = require( '@openagenda/users' );
@@ -15,6 +14,7 @@ const aggregatorNotify = require( './lib/aggregatorNotify' );
 const eventAggregation = require( './eventAggregation' );
 const legacyEventSearch = require( '../elasticsearch' );
 const eventSearch = require( '../eventSearch' );
+const activitiesSvc = require( '../activities' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 const sendEventCreation = require( './sendEventCreation' );
 const sendEventAggregation = require( './sendEventAggregation' );

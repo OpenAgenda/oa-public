@@ -2,8 +2,8 @@ INSERT INTO ${agendaSettingsTableName} (agenda_id, store) VALUES (${agendaId}, $
 INSERT INTO ${tableName} (id, slug, placename, address, city, country, latitude, longitude, owner_id, created_at, updated_at, main, uid, store, processed_at, department, region, city_district, postal_code, eve_id, agenda_id) VALUES
 (1, 'theatre-du-point-du-jour*941', 'Le Théâtre du Point du Jour', '7 Rue des Aqueducs, 69005 Lyon, France', 'Lyon', 'FR', 45.756903, 4.796665, 1, '2011-04-09 11:48:27', '2014-03-24 09:30:34', 1, 38584748, '{}', '2014-03-22 13:55:22', 'Rhône', 'Rhône-Alpes', 'Lyon 5e Arrondissement', '69005', NULL, ${agendaId}),
 (2, 'theatre-du-grand-rond', 'Théâtre du Grand Rond', '23 Rue des Potiers, 31000 Toulouse, France', 'Toulouse', 'FR', 43.598648, 1.453954, 1, '2011-04-09 12:31:32', '2014-03-24 09:30:34', 1, 58945985, '{"mobile" : "05 61 62 14 85", "website": "grand-rond.org" }', '2014-03-22 13:55:24', 'Haute-Garonne', 'Midi-Pyrénées', NULL, '31000', NULL, ${agendaId}),
-(3, 'fondation-cartier-pour-l-art-contemporain', 'Fondation Cartier pour l''Art Contemporain', '261 Boulevard Raspail, 75014 Paris, France', 'Paris', 'FR', 48.837197, 2.331679, 1, '2011-04-09 16:03:29', '2014-03-24 09:30:34', 1, 11552251, 
-  '{"website" : "fondation.cartier.com", "state" : 0 }', 
+(3, 'fondation-cartier-pour-l-art-contemporain', 'Fondation Cartier pour l''Art Contemporain', '261 Boulevard Raspail, 75014 Paris, France', 'Paris', 'FR', 48.837197, 2.331679, 1, '2011-04-09 16:03:29', '2014-03-24 09:30:34', 1, 11552251,
+  '{"website" : "fondation.cartier.com", "state" : 0 }',
   '2014-03-22 13:55:26', 'Paris', 'Île-de-France', '14e Arrondissement', '75014', NULL, ${agendaId}),
 
 (7, 'le-chapiteau-marciac', 'Le Chapiteau Marciac', '32230 Marciac, France', 'Marciac', 'FR', 43.524737, 0.162832, 1, '2011-04-12 16:54:52', '2014-03-24 09:30:34', 0, 47303599,
@@ -18,7 +18,7 @@ INSERT INTO ${tableName} (id, slug, placename, address, city, country, latitude,
     "suggestions" : [ {
       "stakeholderId" : 123,
       "location" : {
-        "name" : "La Tente Marciac", 
+        "name" : "La Tente Marciac",
         "address" : "Marciac en France",
         "tags":[ {"id":33,"label":"Première participation"} ]
       }
@@ -44,10 +44,10 @@ INSERT INTO ${tableName} (id, slug, placename, address, city, country, latitude,
         "links": [ "https://blarg.com", "https://steve.com" ]
       }
     } ]
-  }', 
+  }',
   '2014-03-22 13:55:29', 'Gers', '', NULL, '32230', NULL, ${agendaId} ),
 
-(8, 'hotel-theater-figi', 'Hotel Theater Figi', 'Het Rond, Zeist, Pays-Bas', 'Zeist', 'NL', 52.082960, 5.240396, 2, '2011-04-13 09:30:57', '2014-03-24 09:30:34', 1, 66638019, 
+(8, 'hotel-theater-figi', 'Hotel Theater Figi', 'Het Rond, Zeist, Pays-Bas', 'Zeist', 'NL', 52.082960, 5.240396, 2, '2011-04-13 09:30:57', '2014-03-24 09:30:34', 1, 66638019,
   '{"state":1}',
   '2014-03-22 13:55:31', NULL, NULL, NULL, '3701 AG', NULL, ${agendaId}),
 
@@ -74,15 +74,15 @@ INSERT INTO ${tableName} (id, slug, placename, address, city, country, latitude,
 (31, 'university-of-san-diego', 'University of San Diego', '5998 Alcala Park, San Diego, Californie 92110, États-Unis', 'San Diego', 'US', 32.771980, -117.187294, 2, '2011-04-17 22:52:03', '2014-03-24 09:30:34', 0, 72210262, '{"state":1}', '2014-03-22 13:56:11', NULL, NULL, NULL, '92110', NULL, ${agendaId}),
 (32, 'sentier-des-halles', 'Sentier des Halles', '50 Rue d''Aboukir, 75002 Paris, France', 'Paris', 'FR', 48.867336, 2.345657, 1, '2011-04-18 21:06:59', '2014-03-24 09:30:34', 1, 39690484, '{"state":1}', '2014-03-22 13:56:13', 'Paris', 'Île-de-France', '2e Arrondissement', '75002', NULL, ${agendaId}),
 
-(34, 'from-a-n-mra-ss-to-riad-el-sol', 'Aïn Mraïssé', 'Beyrouth, Liban', 'Beyrouth', 'LB', 33.899270, 35.470813, 2, '2011-04-18 21:18:56', '2014-07-07 06:34:36', 0, 84466796, 
+(34, 'from-a-n-mra-ss-to-riad-el-sol', 'Aïn Mraïssé', 'Beyrouth, Liban', 'Beyrouth', 'LB', 33.899270, 35.470813, 2, '2011-04-18 21:18:56', '2014-07-07 06:34:36', 0, 84466796,
   '{
-    "state":1, 
-    "website" : "https://lebanon.com", 
+    "state":1,
+    "website" : "https://lebanon.com",
     "phone" : "+93829482",
     "image" : "location84466796.jpg",
     "description" : {
-      "en" : "Somewhere over the sea", 
-      "fr" : "Quelque part de l\'autre coté d la mer" 
+      "en" : "Somewhere over the sea",
+      "fr" : "Quelque part de l\'autre coté d la mer"
     },
     "tags" : [ {
       "id" : 40,
@@ -249,20 +249,20 @@ INSERT INTO ${tableName} (id, slug, placename, address, city, country, latitude,
 (160, 'espace-culturel-decauville*849', 'Espace Culturel Decauville', '78960 Voisins-le-Bretonneux, France', 'Voisins-le-Bretonneux', 'FR', 48.759536, 2.039020, 1, '2011-05-17 12:34:43', '2014-03-24 09:30:35', 0, 6865802, '{"state":1}', '2014-03-22 13:59:59', 'Yvelines', 'Île-de-France', NULL, '78960', NULL, ${agendaId}),
 (161, 'galerie-ligne-13', 'Galerie Ligne 13', '13, rue de la Condamine, Paris', 'Paris', 'FR', 48.887471, 2.323932, 1, '2011-05-17 12:53:55', '2014-03-24 09:30:35', 0, 24865201, '{"state":1}', '2014-03-22 14:00:01', 'Paris', 'Île-de-France', '17e Arrondissement', '75017', NULL, ${agendaId}),
 
-(162, 'centre-culturel-canadien', 'Centre Culturel Canadien', '5 rue de constantine, 75007 Paris', 'Paris 7ème', 'FR', 48.860561, 2.315076, 1, '2011-05-17 13:11:08', '2015-05-14 01:13:52', 1, 85608811, 
+(162, 'centre-culturel-canadien', 'Centre Culturel Canadien', '5 rue de constantine, 75007 Paris', 'Paris 7ème', 'FR', 48.860561, 2.315076, 1, '2011-05-17 13:11:08', '2015-05-14 01:13:52', 1, 85608811,
   '{
-    "state": 0, 
+    "state": 0,
     "phone": "+39420993",
     "website" : "https://canada.paris",
     "image": "location85608811.jpg",
     "description" : {
       "fr" : "Un bla bla",
-      "en" : "Yada yada" 
+      "en" : "Yada yada"
     },
     "access" : {
       "fr" : "Par la porte"
     }
-  }', 
+  }',
   '2015-05-01 08:48:37', 'Paris', 'Île-de-France', 'Paris 7e Arrondissement', '75007', 'd82abff0ffffd36050f1e2edfb7a0a14', ${agendaId}),
 
 (163, 'maison-de-victor-hugo', 'Maison de Victor Hugo', '6, Place des Vosges, Paris', 'Paris', 'FR', 48.854964, 2.365973, 1, '2011-05-17 13:21:00', '2014-03-24 09:30:35', 0, 4836851, '{"state":1}', '2014-03-22 14:00:05', 'Paris', 'Île-de-France', '4e Arrondissement', '75004', NULL, ${agendaId}),

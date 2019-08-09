@@ -7,7 +7,7 @@ const async = require( 'async' );
 const cmn = require( '../lib/commons-app' );
 const qs = require( 'qs' );
 
-const activitiesSvc = require( '@openagenda/activities' );
+const activitiesSvc = require( '../services/activities' );
 const agendaEventsSvc = require( '../services/agendaEvents' );
 const controlDataSvc = require( '../services/legacy' ).controlData;
 const sessions = require( '@openagenda/sessions' );

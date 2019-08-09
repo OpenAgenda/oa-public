@@ -5,24 +5,13 @@ const queue = require( '@openagenda/queue' );
 
 require( 'moment/locale/fr' );
 
-let config;
-let knex;
-let service;
-let q;
+module.exports = config => {
+  const q = queue( config.queue.names.sendSummary, { redis: config.queue.redis } );
 
-module.exports = Object.assign( sendSummary, { init, task } );
+  return Object.assign( q, { task } );
+};
 
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-  q = queue( config.queue.names.sendSummary, { redis: config.queue.redis } );
-
-}
-
-async function task() {
+async function task( config, q ) {
 
   let summary;
 
@@ -39,11 +28,5 @@ async function task() {
     }
 
   }
-
-}
-
-function sendSummary( summary, cb ) {
-
-  q( summary, cb );
 
 }
