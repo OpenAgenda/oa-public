@@ -90,8 +90,6 @@ function haveRealDiff( before, after ) {
   const modifiedFieldList = _.uniq( [ ...Object.keys( before ), ...Object.keys( after ) ] )
     .filter( key => [ 'createdAt', 'updatedAt' ].includes( key ) && before[ key ] !== after[ key ] );
 
-  console.log( 'modifiedFieldList', modifiedFieldList );
-
   return modifiedFieldList.length > 0;
 }
 

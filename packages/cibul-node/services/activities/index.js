@@ -5,7 +5,7 @@ const Service = require( '@openagenda/activities' );
 const usersSvc = require( '@openagenda/users' );
 const unsubscribedSvc = require( '@openagenda/unsubscribed' );
 const agendasSvc = require( '@openagenda/agendas' );
-const { isLessThan, isSuperiorToOrEqual, isEqualTo } = require( '../members' ).utils.compareRoles;
+const { isLessThan, isSuperiorToOrEqual, isEqualTo } = require( '@openagenda/members' ).utils.compareRoles;
 const sendSummary = require( './sendSummary' );
 
 const activities = {};
