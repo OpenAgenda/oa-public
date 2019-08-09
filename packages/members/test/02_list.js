@@ -21,6 +21,7 @@ describe( 'members - functional - list', () => {
       knex: f.client,
       interfaces: {
         getUsersByUid: require( './fixtures/getUsersByUid' ),
+        getAgendasByUid: require( './fixtures/getAgendasByUid' ),
         getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' )
       }
     } );
@@ -258,6 +259,44 @@ describe( 'members - functional - list', () => {
 
   } );
 
+  describe( 'detailed', () => {
+
+    let members;
+
+    before( async () => {
+
+      members = await svc.list( { agendaUid: 1 }, { limit: 2 }, { detailed: true } );
+
+    } );
+
+    it( 'when true, event count is provided', () => {
+
+      members.map( m => m.eventCount ).should.eql( [ 12, 0 ] );
+
+    } );
+
+    it( 'when true, user details are provided in user sub key', () => {
+
+      members[ 0 ].user.should.eql( {
+        id: 10293,
+        uid: 1,
+        fullName: 'Janine Ponceau'
+      } );
+
+    } );
+
+    it( 'when true, agenda details are provided in agenda sub key', () => {
+
+      members[ 0 ].agenda.should.eql( {
+        id: 10932,
+        uid: 1,
+        title: 'Les JEP'
+      } );
+
+    } );
+
+  } );
+
   describe( 'other', () => {
 
     it( 'when withUser is false, only userless members are provided', async () => {
@@ -269,34 +308,12 @@ describe( 'members - functional - list', () => {
 
     } );
 
-    it( 'when detailed option is set to true, user details are provided', async () => {
-
-      const members = await svc.list( { agendaUid: 1 }, { limit: 1 }, { detailed: true } );
-
-      members[ 0 ].user.should.eql( {
-        id: 10293,
-        uid: 1,
-        fullName: 'Janine Ponceau'
-      } );
-
-    } );
-
     it( 'search looks in store field', async () => {
 
       const members = await svc.list( { agendaUid: 1, search: 'Janine' } );
 
       members[ 0 ].id.should.equal( 1 );
       members.length.should.equal( 1 );
-
-    } );
-
-    it( 'when detailed option is set to true, event count is provided for member', async () => {
-
-      const members = await svc.list( { agendaUid: 1 }, { limit: 2 }, { detailed: true } );
-
-      members[ 0 ].eventCount.should.equal( 12 );
-
-      members[ 1 ].eventCount.should.equal( 0 );
 
     } );
 

@@ -44,10 +44,20 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
   }
 
   if ( detailed && _.get( interfaces, 'getUsersByUid' ) ) {
-    ( await interfaces.getUsersByUid(
+    const users = ( await interfaces.getUsersByUid(
       members.map( m => m.userUid ).filter( m => !!m )
-    ) ).forEach( user => {
-      _.find( members, { userUid: user.uid } ).user = user;
+    ) );
+    members.forEach( m => {
+      m.user = _.find( users, { uid: m.userUid } );
+    } );
+  }
+
+  if ( detailed && _.get( interfaces, 'getAgendasByUid' ) ) {
+    const agendas = ( await interfaces.getAgendasByUid(
+      members.map( m => m.agendaUid ).filter( m => !!m )
+    ) );
+    members.forEach( m => {
+      m.agenda = _.find( agendas, { uid: m.agendaUid } );
     } );
   }
 
