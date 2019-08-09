@@ -31,4 +31,4 @@ module.exports = {
   isRegisteredUser: true
 };
 
-module.exports.$labels = require( '@openagenda/labels/mails/stakeholderMessage' );
+module.exports.$labels = require( '@openagenda/labels/mails/memberMessage' );

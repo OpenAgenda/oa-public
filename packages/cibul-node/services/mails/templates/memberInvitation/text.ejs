@@ -1,14 +1,14 @@
 <%- __(
-  isStakeholder
-    ? 'titleForExistantStakeholder'
-    : 'title', { agenda, credential: __( credential ) }
+  isMember
+    ? 'subjectForExistingMember'
+    : 'subject', { agenda, role: __( role ), roleVerb: __( role + 'Verb' ) }
 ) %>:
 
 <%- typeof message === 'string'
   ? stripHtml( message )
-  : __( 'description', { agenda, credential: __( credential ) } ) %>
+  : '' %>
 
-<%- __( isStakeholder ? 'showAgenda' : 'signup' ) %>: <%- link %>
+<%- __( isMember ? 'showAgenda' : 'signup' ) %>: <%- link %>
 
 <%- __( isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest' ) %>: <%- unsubscribeLink %>
 <% if ( isRegisteredUser ) { %><%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %><% } %>
