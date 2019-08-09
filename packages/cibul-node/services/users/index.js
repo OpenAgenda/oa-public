@@ -225,7 +225,7 @@ module.exports.init = async config => {
       onCreate,
       onGenerateApiKey,
       onActivation,
-      sendToken,
+      sendToken: sendToken.bind( null, config ),
       getAgenda: ( agendaUid, cb ) => agendas.get( { uid: agendaUid }, cb ),
       keys: {
         get: identifiers => keys( identifiers ).get(),
