@@ -319,7 +319,7 @@ async function _createAndSend( values ) {
   } );
 
   if ( token ) {
-    await usersSvc.config.interfaces.sendToken()( { result: token, params: { user: values.user, optionals } } );
+    await usersSvc.config.interfaces.sendToken( config )( { result: token, params: { user: values.user, optionals } } );
   } else {
     token = await usersSvc.tokens.create(
       { userId: values.user.id, email: values.user.email, type: 'aa' },
