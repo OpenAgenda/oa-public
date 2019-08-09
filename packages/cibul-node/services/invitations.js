@@ -1,8 +1,11 @@
 "use strict";
 
-const invitations = require( '@openagenda/invitations' );
+const _ = require( 'lodash' );
 
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const invitations = require( '@openagenda/invitations' );
+const log = require( '@openagenda/logs' )( 'services/invitations' );
+
+const members = require( './members' );
 
 module.exports.init = config => {
 
@@ -13,23 +16,33 @@ module.exports.init = config => {
       onAssign: ( action, invitation, cb ) => cb( null )
     },
     actions: {
-      linkStakeholder: ( executeData, actionParams, cb ) => {
-
-        const { user } = executeData;
-        const [ stakeholder, context ] = actionParams;
-
-        agendaStakeholders.agenda( stakeholder.agendaId ).update( {
-          id: stakeholder.id
-        }, {
-          contact_name: user.fullName
-        }, {
-          allowPartial: true,
-          userId: user.id,
-          context
-        }, err => cb( err ) );
-
+      linkMember: ( executeData, actionParams, cb ) => {
+        _linkMember( executeData, actionParams ).then( () => cb(), cb );
       }
     }
   } );
 
+}
+
+async function _linkMember( { user }, [ member, context ] ) {
+
+  log( 'linking', user, member, context );
+
+  const currentMember = await members.get( member.id );
+
+  if ( !currentMember ) throw new Error( 'Member not found' );
+
+  const customData = _.set(
+    currentMember.custom,
+    'contactName',
+    _.get( currentMember, 'custom.contactName', user.fullName )
+  );
+
+  return members.patch( member.id, {
+    userUid: user.uid,
+    custom: customData
+  }, {
+    context,
+    requireCustom: false
+  } );
 }

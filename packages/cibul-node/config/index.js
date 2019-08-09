@@ -73,7 +73,6 @@ const config = {
       oembed: 'oembed',
       controlData: 'agendaControlDataQueue',
       stakeholderCreate: 'stakeholderCreate',
-      stakeholderMessage: 'stakeholderMessage',
       notificationAddActivity: 'notificationAddActivity',
       notificationSendSummary: 'notificationSendSummary',
       inboxesSync: 'inboxesSync'
@@ -517,58 +516,6 @@ const config = {
         googleSignupCallback: {
           method: 'get',
           uri: '/google/signup/callback'
-        },
-        signin: {
-          method: 'get',
-          uri: '/signin'
-        },
-        agendaSignin: {
-          method: 'get',
-          uri: '/:slug/signin'
-        },
-        signinSubmit: {
-          method: 'get',
-          uri: '/signin'
-        },
-        agendaSigninSubmit: {
-          method: 'get',
-          uri: '/:slug/signin'
-        },
-        agendaSignup: {
-          method: 'get',
-          uri: '/:slug/signup'
-        },
-        signupSubmit: {
-          method: 'get',
-          uri: '/signup'
-        },
-        agendaSignupSubmit: {
-          method: 'get',
-          uri: '/:slug/signup'
-        },
-        signupComplete: {
-          method: 'get',
-          uri: '/signup/complete'
-        },
-        agendaSignupComplete: {
-          method: 'get',
-          uri: '/:slug/signup/complete'
-        },
-        activateResend: {
-          method: 'get',
-          uri: '/activate/resend'
-        },
-        agendaActivateResend: {
-          method: 'get',
-          uri: '/:slug/activate/resend'
-        },
-        activate: {
-          method: 'get',
-          uri: '/activate/:token'
-        },
-        agendaActivate: {
-          method: 'get',
-          uri: '/:slug/activate/:token'
         },
         lostPassword: {
           method: 'get',

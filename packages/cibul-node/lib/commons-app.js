@@ -919,13 +919,8 @@ function redirectTo( route, params = {}, options = {} ) {
 }
 
 function redirectToSignin( req, res, next ) {
-
-  return redirectTo( 'signin', {
-    redirect: {
-      $raw: (new Buffer( req.originalUrl, 'utf-8' )).toString( 'base64' )
-    }
-  } )( req, res, next );
-
+  const agenda = req.agenda || _.get( req, 'agendaInstance.data' );
+  res.redirect( 302, `${agenda ? '/' + agenda.slug : ''}/signin?redirect=${( new Buffer( req.originalUrl, 'utf-8' ) ).toString( 'base64' )}` );
 }
 
 

@@ -17,7 +17,6 @@ const layout = require( '../services/lib/layouts' ).load(
 
 const preMw = [
   cmn.loadLogger( 'members' ),
-  sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
   agendasMw.load( {
     namespaces: {
       identifiers: {
@@ -30,6 +29,7 @@ const preMw = [
     includeImagePath: true,
     private: null
   } ),
+  sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
   ( req, res, next ) => {
     if ( !req.agendaInstance ) return next( { code: 404 } );
     req.identifiers = { userId: req.user.id };
@@ -92,32 +92,7 @@ module.exports = app => {
     ( { stats }, res ) => res.json( { stats } )
   );
 
-  app.post(
-    '/:slug/admin/members/update/:id',
-    preMw,
-    ( req, res, next ) => {
-      req.identifiers = { id: req.params.id };
-      next();
-    },
-    stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
-      namespaces: {
-        stakeholder: 'stakeholderToUse',
-        instance: 'stakeholderInstanceToUse'
-      }
-    } ),
-    _setUpdateContext(),
-    _protectUpdate(),
-    stakeholdersMw.agenda( 'agendaInstance.data' ).update( {
-      namespaces: {
-        data: 'body'
-      },
-      credential: true,
-      allowPartial: true
-    } ),
-    ( { result }, res ) => res.status( result.errors.length ? 400 : 200 ).json( result )
-  );
-
-  app.post(
+  /*app.post(
     '/:slug/admin/members/invite',
     preMw,
     _protectInvite(),
@@ -133,14 +108,14 @@ module.exports = app => {
       const status = (result.errors && result.errors.length) || !result.success ? 400 : 200;
       res.status( status ).json( result )
     }
-  );
+  );*/
 
-  app.post(
+  /*app.post(
     '/:slug/admin/members/send-message',
     preMw,
     _sendMessage(),
     ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
-  );
+  );*/
 
 };
 
@@ -161,9 +136,10 @@ async function matchApp( req, res, next ) {
       res: {
         app: req.genUrl( 'agendaAdminMembers', { slug: req.agenda.slug } ),
         list: `/${req.agenda.slug}/admin/members.json`,
-        update: `/${req.agenda.slug}/admin/members/update/:id`,
+        update: `/${req.agenda.slug}/admin/members/:id`,
         remove: `/${req.agenda.slug}/admin/members/:id`,
         invite: `/${req.agenda.slug}/admin/members/invite`,
+        resend: `/${req.agenda.slug}/admin/members/:id/invite/resend`,
         stats: `/${req.agenda.slug}/admin/members/stats`,
         showContributor: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?contributorId=:contributorId',
         writeToMember: req.genUrl( 'conversationDiscussion', { uid: ':uid', redirect: ':redirect' } ),

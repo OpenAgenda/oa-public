@@ -65,8 +65,6 @@ module.exports = () => {
 
   require( '@openagenda/email-strategie' ).task();
 
-  require( '@openagenda/agenda-stakeholders' ).tasks.bulk();
-
   require( '@openagenda/agenda-stakeholders' ).tasks.message();
 
   require( './services/event/oembed' ).task();
@@ -84,6 +82,8 @@ module.exports = () => {
   require( './core' ).tasks();
 
   require( './services/agendaLocations' ).task();
+
+  require( './services/members' ).task();
 
 
   if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
