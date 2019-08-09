@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/members",
-  "version": "1.7.1",
+  "version": "1.8.0",
   "scripts": {
     "test": "mocha"
   },
