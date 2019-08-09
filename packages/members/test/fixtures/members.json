@@ -47,4 +47,27 @@
   "actions_counter" : 5,
   "user_id" : 81289,
   "slug" : "albertine"
+}, {
+  "id" : 5,
+  "user_uid" : null,
+  "agenda_uid" : 1,
+  "credential" : 1,
+  "created_at" : "2019-05-14T17:38:00.000+0200",
+  "updated_at" : "2019-05-14T18:00:00.000+0200",
+  "review_id" : 924,
+  "actions_counter" : 0,
+  "user_id" : null,
+  "slug" : null
+}, {
+  "id" : 6,
+  "user_uid" : null,
+  "agenda_uid" : 1,
+  "credential" : 1,
+  "created_at" : "2019-05-14T17:38:00.000+0200",
+  "updated_at" : "2019-05-14T18:00:00.000+0200",
+  "review_id" : 924,
+  "deleted_user" : true,
+  "actions_counter" : 0,
+  "user_id" : null,
+  "slug" : null
 } ]

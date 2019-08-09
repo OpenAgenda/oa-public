@@ -9,7 +9,7 @@
           <h2><%= __('checkEmail') %></h2>
           <p><%= __('checkEmailInstruction') %></p>
           <p><%- __( 'didNotReceive', {
-            resend : '<a class="url" href="' + genUrl( agenda ? 'agendaActivateResend' : 'activateResend', resendQuery ) + '">' +  __( 'resend' )  + '</a>',
+            resend : `<a class="url" href="${resend}">${__( 'resend' )}</a>`,
             support : '<a class="url" href="mailto:support@openagenda.com">support@openagenda.com</a>'
           } ) %></p>
         </div>

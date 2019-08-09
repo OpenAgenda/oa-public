@@ -1,5 +1,5 @@
 {
-  "name": "Gaetan Latouche",
-  "position": "Test user",
-  "organisation": "OpenAgenda Corp."
+  "contactName": "Gaetan Latouche",
+  "contactPosition": "Test user",
+  "organization": "OpenAgenda Corp."
 }

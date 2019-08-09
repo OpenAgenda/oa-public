@@ -263,31 +263,14 @@ export function update( id, values ) {
   return {
     types: [ UPDATE, UPDATE_SUCCESS, UPDATE_FAIL ],
     id,
-    promise: ( helpers, { getState } ) => {
+    promise: ( { client }, { getState } ) => {
       const { res } = getState();
 
-      const stakeholder = new Stakeholder( {
-        fieldValues: _.omit( values, 'credential' ),
-        credential: values.credential
-      }, { res: res.update.replace( ':id', id ) } );
-
-      const flatErrors = e => e.reduce( ( prev, next ) => ({ ...prev, [next.field]: next.code }), {} );
-
-      const errors = stakeholder.getErrors( true );
-
-      if ( errors.length ) {
-        return Promise.reject( new SubmissionError( flatErrors( errors ) ) );
-      }
-
-      return new Promise( ( resolve, reject ) => {
-        stakeholder.commit( true, ( err, result ) => {
-          if ( err ) return reject( err );
-          if ( result.errors && result.errors.length ) {
-            return reject( new SubmissionError( flatErrors( result.errors ) ) );
-          }
-          resolve( result );
-        } );
+      return client.patch( res.update.replace( ':id', id ), {
+        custom: _.omit( values, 'credential' ),
+        role: values.credential
       } );
+
     }
   };
 }
@@ -297,11 +280,15 @@ export function invite( data ) {
     types: [ INVITE, INVITE_SUCCESS, INVITE_FAIL ],
     promise: ( { client }, { getState } ) => {
       const { res } = getState();
-      const stakeholders = data.emails && data.emails.split( /[\s\n,]+/ ).map( v => v.trim() ).filter( v => !!v )
-          .map( email => ({ email }) );
+      const emails = _.get( data, 'emails', [] )
+        .split( /[\s\n,]+/ )
+        .map( email => email.trim() )
+        .filter( email => !!email )
 
       return client.post( res.invite, {
-        stakeholders, credential: data.credential, context: {
+        emails,
+        role: data.credential,
+        context: {
           message: data.message
         }
       } );
@@ -315,7 +302,7 @@ export function resendInvitation( id ) {
     promise: ( { client }, { getState } ) => {
       const { res } = getState();
 
-      return client.post( res.update.replace( ':id', id ), { fieldValues: {} } );
+      return client.put( res.resend.replace( ':id', id ), {} );
     }
   };
 }

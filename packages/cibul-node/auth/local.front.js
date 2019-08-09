@@ -2,6 +2,7 @@
 
 const https = require( 'https' );
 const _ = require( 'lodash' );
+const qs = require( 'qs' );
 const w = require( 'when' );
 const usersSvc = require( '@openagenda/users' );
 const sessions = require( '@openagenda/sessions' );
@@ -248,13 +249,11 @@ function signupSubmit( req, res ) {
 
 function signupComplete( req, res ) {
 
-  const resendQuery = lib.extend( auth.loadOptionals( req ), { email: req.query.email } );
-
-  if ( req.agenda ) resendQuery.slug = req.agenda.slug;
+  const resendQuery = Object.assign( auth.loadOptionals( req ), { email: req.query.email } );
 
   cmn.render( req, res, 'auth/activation', {
     agenda: req.agenda,
-    resendQuery
+    resend: ( req.agenda ? `/${req.agenda.slug}/activate/resend` : '/activate/resend' ) + qs.stringify( resendQuery, { addQueryPrefix: true } )
   } );
 
 }
@@ -289,7 +288,10 @@ async function activateResend( req, res ) {
       } );
 
       if ( token ) {
-        await usersSvc.config.interfaces.sendToken()( { result: token, params: { user, optionals } } );
+        await usersSvc.config.interfaces.sendToken( config )( {
+          result: token,
+          params: { user, optionals }
+        } );
       } else {
         token = await await usersSvc.tokens.create(
           { userId: user.id, email: user.email, type: 'aa' },
@@ -342,7 +344,7 @@ async function activate( req, res ) {
 
       if ( err || !invitation ) return auth.signin( { req, res, user } );
 
-      const actions = invitation.data.actions.filter( v => v.name === 'linkStakeholder' );
+      const actions = invitation.data.actions.filter( v => v.name === 'linkMember' );
 
       if ( actions.length === 1 ) {
 

@@ -7,6 +7,8 @@ const patch = require( './patch' );
 const create = require( './create' );
 const { isSuperiorTo } = require( './lib/compareRoles' );
 
+const log = require( '@openagenda/logs' )( 'setByEmail' );
+
 const defaultQueueName = 'membersBulkSetEmails';
 
 module.exports = Object.assign( setByEmail, {
@@ -24,13 +26,15 @@ function task( config ) {
     queueName: defaultQueueName
   }, config );
 
-  const q = queues( queueName );
+  const queue = queues( queueName );
 
-  q.register( {
+  queue.register( {
     setByEmail: setByEmail.bind( null, config )
   } );
 
-  q.run();
+  _logQueue( queue );
+
+  queue.run();
 
 }
 
@@ -63,6 +67,7 @@ async function setByEmail( config, data, options = {} ) {
 }
 
 async function bulk( config, base, emails = [], options = {} ) {
+  log( 'bulk' );
 
   const {
     bulkThreshold,
@@ -76,12 +81,16 @@ async function bulk( config, base, emails = [], options = {} ) {
 
   const queue = queues( queueName );
 
+  _logQueue( queue );
+
   const queueJobs = emails.length > bulkThreshold;
 
   const result = {
-    queued: queueJobs,
+    queued: queueJobs ? emails.length : 0,
     processed: []
   };
+
+  log( queueJobs ? 'queueing' : 'processing without queueing' );
 
   for ( const email of emails ) {
     const data = Object.assign( {}, base, { email } );
@@ -91,5 +100,18 @@ async function bulk( config, base, emails = [], options = {} ) {
   }
 
   return result;
+
+}
+
+function _logQueue( queue ) {
+  queue.on( 'error', ( fn, args, error ) => {
+    log( 'error', fn, args, error );
+  } );
+  queue.on( 'execute', ( fn, args ) => {
+    log( 'executing', fn, args );
+  } );
+  queue.on( 'success', ( fn, args, result ) => {
+    log( 'success', fn, args, result );
+  } );
 
 }

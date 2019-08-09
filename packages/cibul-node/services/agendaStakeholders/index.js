@@ -5,7 +5,7 @@ const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const logs = require( '@openagenda/logs' );
 
 const interfaces = {
-    onMessage: require( './onMessage' ),
+    onMessage: ( ...args ) => log( 'error', 'onMessage', args ),
     onCreate: require( './onCreate' ),
     onUpdate: require( './onUpdate' ),
     onRemove: require( './onRemove' ),
@@ -19,7 +19,7 @@ const interfaces = {
 module.exports.init = async config => {
 
   // set interface log functions
-  Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog( logs( 'agendaStakeholders/interfaces/' + k ) ) );
+  Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog && interfaces[ k ].setLog( logs( 'agendaStakeholders/interfaces/' + k ) ) );
 
   require( './lib/sendStakeholderInvitation' ).setLog( logs( 'agendaStakeholders/sendStakeholderInvitation' ) );
 

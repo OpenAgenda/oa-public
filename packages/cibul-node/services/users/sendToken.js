@@ -1,12 +1,13 @@
 'use strict';
 
 const _ = require( 'lodash' );
+const qs = require( 'qs' );
 const log = require( '@openagenda/logs' )( 'services/users/sendToken' );
 const mails = require( '@openagenda/mails' );
 const genUrl = require( '../genUrl' );
 
 
-module.exports = () => {
+module.exports = config => {
   return async context => {
     try {
       const token = context.result;
@@ -18,14 +19,14 @@ module.exports = () => {
 
       if ( token.type === 'aa' ) {
 
-        const linkParams = {
-          token: token.token,
-          ..._.pickBy( _.pick( optionals || {}, 'iToken', 'invitation', 'redirect' ) ),
-        };
+        const query = qs.stringify(
+          _.pickBy( _.pick( optionals || {}, 'iToken', 'invitation', 'redirect' ) ), {
+            addQueryPrefix: true
+          } );
 
-        if ( optionals && optionals.agenda ) linkParams.slug = optionals.agenda.slug;
-
-        const link = genUrl.abs( optionals && optionals.agenda ? 'agendaActivate' : 'activate', linkParams );
+        const link = _.get( optionals, 'agenda' )
+          ? `${config.root}/${optionals.agenda.slug}/activate/${token.token}${query}`
+          : `${config.root}/activate/${token.token}${query}`;
 
         log( `sending activation token - ${link}` );
 

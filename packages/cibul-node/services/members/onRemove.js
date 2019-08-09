@@ -21,6 +21,8 @@ module.exports = async ( membersSvc, member, context ) => {
     const { user } = context;
     const agenda = await agendas.get( { uid: member.agendaUid }, { private: null } );
 
+    if ( !agenda ) throw new Error( 'Agenda not found' );
+
     if ( !member.userUid ) {
       log( 'removed member is not linked to a user account', member );
       return;
@@ -101,7 +103,7 @@ async function _removeInvitationsToMember( member ) {
   if ( !invitation ) return;
 
   const action = invitation.data.actions.find( v => {
-    return v.name === 'linkStakeholder' && v.params[ 0 ].id === member.id;
+    return v.name === 'linkMember' && v.params[ 0 ].id === member.id;
   } );
 
   if ( !action ) return;

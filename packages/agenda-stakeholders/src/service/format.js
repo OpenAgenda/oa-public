@@ -124,7 +124,7 @@ function objToDb( obj, filterNull = false ) {
 function dbToObj( entry, options = {} ) {
 
   let obj = {
-    id: null, 
+    id: null,
     agendaId: null,
     userId: null,
     credential: null,
@@ -172,7 +172,7 @@ function dbToObj( entry, options = {} ) {
 
     if ( typeof obj.custom.organization === 'object' && !params.showSlugs ) {
 
-      obj.custom.organization = obj.custom.organization.label;
+      obj.custom.organization = _.get( obj, 'custom.organization.label' );
 
     }
 

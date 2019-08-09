@@ -88,7 +88,10 @@ describe( 'members - functional - patch', () => {
 
       context.should.eql( {
         lang: 'fr',
-        invitationSender: null
+        sender: {
+          memberName: null,
+          userUid: null
+        }
       } );
 
     } );

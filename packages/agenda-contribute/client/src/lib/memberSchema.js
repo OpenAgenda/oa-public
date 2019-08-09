@@ -4,23 +4,23 @@ const labels = require( '@openagenda/labels/agenda-contribute/member' );
 
 export default {
   fields: [ {
-    field: 'organisation',
+    field: 'organization',
     label: labels.organisation,
     fieldType: 'text',
     optional: false
   }, {
-    field: 'phone',
+    field: 'contactNumber',
     label: labels.phone,
     sub: labels.phoneSub,
     fieldType: 'phone',
     optional: false,
   }, {
-    field: 'name',
+    field: 'contactName',
     label: labels.name,
     fieldType: 'text',
     optional: false
   }, {
-    field: 'position',
+    field: 'contactPosition',
     label: labels.position,
     fieldType: 'text',
     optional: false

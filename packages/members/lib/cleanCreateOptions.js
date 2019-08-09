@@ -5,7 +5,7 @@ const schema = require( '@openagenda/validators/schema' );
 schema.register( {
   boolean: require( '@openagenda/validators/boolean' ),
   text: require( '@openagenda/validators/text' ),
-  pass: require( '@openagenda/validators/pass' )
+  integer: require( '@openagenda/validators/integer' )
 } );
 
 module.exports = schema( {
@@ -19,9 +19,15 @@ module.exports = schema( {
       default: null,
       max: 2
     },
-    invitationSender: {
-      type: 'pass',
-      default: null
+    sender: {
+      userUid: {
+        type: 'integer',
+        default: null
+      },
+      memberName: {
+        type: 'text',
+        default: null
+      }
     }
   }
 } );

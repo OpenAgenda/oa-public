@@ -2,28 +2,34 @@
 
 module.exports = {
   "subject": {
-    "fr": "Invitation à un agenda",
-    "en": "Invitation to an agenda",
-    "de": "Einladung zur Kalender",
-    "es": "Invitación a una agenda"
+    "fr": "Vous avez été invité à %roleVerb% l'agenda \"%agenda%\"",
+    "en": "You have been invited to %roleVerb% \"%agenda%\"",
+    "de": "Sie wurden eingeladen, \"%agenda%\" zu %roleVerb%",
+    "es": "Invitación a %roleVerb% a \"%agenda%\""
   },
-  "title": {
-    "fr": "Vous avez été invité à contribuer à l'agenda %agenda%",
-    "en": "You have been invited to contribute to the agenda %agenda%",
-    "de": "Du wurdest eingeladrn, etwas auf dem Kalender %agenda% beizutragen.",
-    "es": "Se le ha invitado a contribuir a la agenda %agenda%"
+  "contributorVerb" : {
+    "fr" : "contribuer à",
+    "en" : "contribute to",
+    "es" : "contributir",
+    "de" : "beizutragen"
   },
-  "titleForExistantStakeholder": {
-    "fr": "Vous êtes devenu %credential% de l'agenda %agenda%",
-    "en": "You have become %credential% of the agenda %agenda%",
-    "de": "Du hast %credential% der Kalender %agenda% werden",
-    "es": "Usted se convirtió en %credencial% del agenda %agenda%"
+  "moderatorVerb" : {
+    "fr" : "modérer",
+    "en" : "moderate",
+    "es" : "moderar",
+    "de" : "moderieren"
   },
-  "description": {
-    "fr": "Vous êtes invité à contribuer à l'agenda %agenda% en tant que %credential%.",
-    "en": "You are invited to contribute to the agenda %agenda% as a %credential%.",
-    "de": "Du bist eingeladen, etwas in die Kalender %agenda% in %credential% beizutragen.",
-    "es": "Usted está invitado a contribuir a la agenda %agenda% como %credencial%."
+  "administratorVerb" : {
+    "fr" : "administrer",
+    "en" : "administrate",
+    "es" : "administrar",
+    "de" : "verwalten"
+  },
+  "subjectForExistingMember": {
+    "fr": "Vous êtes devenu %role% de l'agenda \"%agenda%\"",
+    "en": "You have become %role% of \"%agenda%\"",
+    "de": "Du hast %role% der Kalender \"%agenda%\" werden",
+    "es": "Usted se convirtió en %role% del agenda \"%agenda%\""
   },
   "signup": {
     "fr": "S'inscrire",

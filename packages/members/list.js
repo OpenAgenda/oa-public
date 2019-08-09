@@ -3,6 +3,8 @@
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
+const log = require( '@openagenda/logs' )( 'list' );
+
 const addListFilters = require( './lib/addListFilters' );
 const {
   fromDB
@@ -12,6 +14,7 @@ const cleanListOptions = require( './lib/cleanListOptions' );
 const addPaginationAndOrder = require( './lib/addPaginationAndOrder' );
 
 module.exports = async function( { knex, schema, interfaces }, query, nav = {}, options = {} ) {
+  log( 'processing', query, nav );
 
   const {
     detailed,
@@ -41,10 +44,20 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
   }
 
   if ( detailed && _.get( interfaces, 'getUsersByUid' ) ) {
-    ( await interfaces.getUsersByUid(
-      members.map( m => m.userUid )
-    ) ).forEach( user => {
-      _.find( members, { userUid: user.uid } ).user = user;
+    const users = ( await interfaces.getUsersByUid(
+      members.map( m => m.userUid ).filter( m => !!m )
+    ) );
+    members.forEach( m => {
+      m.user = _.find( users, { uid: m.userUid } );
+    } );
+  }
+
+  if ( detailed && _.get( interfaces, 'getAgendasByUid' ) ) {
+    const agendas = ( await interfaces.getAgendasByUid(
+      members.map( m => m.agendaUid ).filter( m => !!m )
+    ) );
+    members.forEach( m => {
+      m.agenda = _.find( agendas, { uid: m.agendaUid } );
     } );
   }
 

@@ -30,17 +30,17 @@ module.exports = function beforeCreate() {
       data.isActivated = true;
     }
 
-    return context
+    return context;
   };
 };
 
 async function isInvitedFromAnOfficialAgenda( invitation ) {
-  const linkStakeholderActions = invitation.data.actions.filter( v => v.name === 'linkStakeholder' );
+  const linkMemberActions = invitation.data.actions.filter( v => v.name === 'linkMember' );
 
   let result = false;
 
-  for ( const action of linkStakeholderActions ) {
-    const agenda = await promisify( agendasSvc.get )( action.params[ 0 ].agendaId, { private: null } );
+  for ( const action of linkMemberActions ) {
+    const agenda = await agendasSvc.get( action.params[ 0 ].agendaId, { private: null } );
 
     if ( agenda && agenda.official ) {
       result = true;

@@ -46,13 +46,9 @@ module.exports = ( invitation, stakeholder, context, agenda ) => {
 
   const lang = ( context && context.lang ) || 'fr';
 
-  const link = stakeholder.userId
-    ? genUrl( 'agendaShow', { slug: agenda.slug, lang }, { abs: true, protocol: 'https://' } )
-    : genUrl( 'signup', {
-      invitation: invitation.token,
-      email: stakeholder.custom.email,
-      lang
-    }, { abs: true, protocol: 'https://' } );
+  const link = stakeholder.userId ?
+    `${config.root}/agendas/${agenda.uid}?lang=${lang}` :
+    `${config.root}/${agenda.slug}/signup?lang=${lang}&email=${stakeholder.custom.email}&invitation=${invitation.token}`;
 
   const logo = agenda.image
     ? {

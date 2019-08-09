@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 const w = require( 'when' );
+const qs = require( 'qs' );
 
 const labels = require( '@openagenda/labels/auth/messages' );
 const emailValidator = require( '@openagenda/validators/email' )();
@@ -652,19 +653,21 @@ function redirectToResend( values ) {
 
 function redirectToComplete( values ) {
 
-  let uri;
+  let res;
 
   if ( values.resend ) {
-
-    uri = 'activateResend';
-
+    res = '/activate/resend';
+  } else if ( values.req.agenda ) {
+    res = `/${values.req.agenda.slug}/signup/complete`;
   } else {
-
-    uri = values.req.agenda ? 'agendaSignupComplete' : 'signupComplete';
-
+    res = '/signup/complete';
   }
 
-  values.res.redirect( 302, values.req.genUrl( uri, [ loadOptionals( values.req ), { email: values.user.email }, values.req.agenda ? { slug: values.req.agenda.slug } : {} ] ) );
+  values.res.redirect( 302, `${res}?${qs.stringify( {
+    ... loadOptionals( values.req ),
+    email: values.user.email,
+    ... values.req.agenda ? { slug: values.req.agenda.slug } : {}
+  } )}` );
 
   values.resolved = true;
 
