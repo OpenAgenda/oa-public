@@ -1,9 +1,8 @@
 "use strict";
 
-const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const mails = require( '@openagenda/mails' );
-const membersSvc = require( '@openagenda/agenda-stakeholders' );
+const membersSvc = require( '../members' );
 const usersSvc = require( '@openagenda/users' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const genUrl = require( '../genUrl' );
@@ -14,7 +13,10 @@ module.exports = async ( { agendaEvent, context } ) => {
 
   const { agenda, event } = context;
   const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );
-  const creatorMemberId = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: creatorUser.id } ).then( r => r ? r.id : null );
+  const creatorMemberId = await membersSvc.get( {
+    agendaUid: agendaEvent.agendaUid,
+    userUid: creatorUser.uid
+  } ).then( r => r ? r.id : null );
   const creatorLang = creatorUser.culture || 'fr';
 
   if ( !creatorMemberId ) {
@@ -44,7 +46,7 @@ module.exports = async ( { agendaEvent, context } ) => {
     ? { src: agenda.image.replace( '.com/', '.com/rwtb' ), width: '100px' }
     : { src: 'https://openagenda.com/images/openagenda.png', width: '300px' };
 
-  const members = await listAdminmods( { agenda } );
+  const members = await _listAdminMods( agenda.uid );
 
   if ( creatorMemberId ) {
     await mails( {
@@ -115,18 +117,22 @@ module.exports = async ( { agendaEvent, context } ) => {
 
 };
 
-async function listAdminmods( { agenda } ) {
-  let offset = 0;
-  const members = [];
-  let result;
+function _listAdminMods( agendaUid ) {
+  return new Promise( ( rs, rj ) => {
+    const stream = membersSvc.stream( {
+      agendaUid,
+      role: [ 'administrator', 'moderator' ],
+      withUser: true
+    }, {}, { detailed: true } );
 
-  const _list = promisify( membersSvc.agenda( agenda.id ).list );
+    const members = [];
 
-  while ( ( result = await _list( { credentials: [ 3, 2 ] }, offset, 50, { detailed: true } ) ).length ) {
-    Array.prototype.push.apply( members, result );
-
-    offset += result.length;
-  }
-
-  return members;
+    stream.on( 'data', member => {
+      members.push( member );
+    } );
+    stream.on( 'end', () => {
+      rs( members );
+    } );
+    stream.on( 'error', rj );
+  } );
 }
