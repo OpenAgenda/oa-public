@@ -19,6 +19,12 @@ module.exports = {
     "de": "Stoppen Sie Nachrichten aus dem „Schreibe sie“ -Funktion Empfang",
     "es": "Dejar de recibir mensajes desde el \"escribir su\""
   },
+  "unsubscribeGuest": {
+    "fr": "Ne plus recevoir les emails d'OpenAgenda",
+    "en": "Stop receiving emails from OpenAgenda",
+    "de": "Stoppen Sie E-Mails von OpenAgenda Empfang",
+    "es": "Dejar de recibir correos electrónicos de OpenAgenda"
+  },
   "memberUnsubscribe": {
     "fr": "Ne plus recevoir les messages de la fonction \"Leur écrire\" de cet agenda",
     "en": "Stop receiving messages from the \"Write to them\" feature of this agenda",
