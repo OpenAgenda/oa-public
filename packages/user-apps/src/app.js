@@ -28,13 +28,14 @@ export default function ( options ) {
 
   const client = apiClient( apiRoot, req );
   const history = options.history || getDefaultHistory( req );
+  const helpers = {};
   const store = createStore(
     getReducers.bind( null, history ),
     initialState,
     compose(
       applyMiddleware(
         routerMiddleware( history ),
-        clientMiddleware( { client } )
+        clientMiddleware( helpers )
         // ... other middlewares ... (like redux-logger)
       ),
       __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
@@ -42,7 +43,12 @@ export default function ( options ) {
         : v => v
     )
   );
-  const helpers = { client, store };
+  Object.assign( helpers, {
+    client,
+    store,
+    history,
+    location: history.location
+  } );
   const context = {};
 
   const routes = getRoutes( prefix );
