@@ -3,23 +3,14 @@ import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
 import dateFns from 'date-fns';
 
+import isDisabledTiming from './utils/isDisabledTiming';
+import normalizeEndOfTiming from './utils/normalizeEndOfTiming';
+import secondsToHeight from './utils/secondsToHeight';
+import splitSelection from './utils/splitSelection';
+import stepPositionToSelection from './utils/stepPositionToSelection';
+import timingUtils from './utils/timing';
+
 const ONE_DAY = 60 * 60 * 24;
-
-const noop = v => v;
-
-function normalizeEndOfTiming( datetime ) {
-  const laterDate = dateFns.addMilliseconds( datetime, 1 );
-
-  if ( dateFns.isEqual( dateFns.startOfDay( datetime ), datetime ) ) {
-    return dateFns.subMilliseconds( datetime, 1 );
-  }
-
-  if ( dateFns.isSameDay( laterDate, datetime ) && !dateFns.isSameMinute( laterDate, datetime ) ) {
-    return laterDate;
-  }
-
-  return datetime;
-}
 
 function formatTimingValue( intl, begin, end, breakpoint ) {
   const formatTime = time => intl.formatTime( time, { hour12: false } );
@@ -157,7 +148,7 @@ class DaysSelector extends Component {
     const { value, reducedAllowedTimings } = this.state;
 
     const filteredValue = value.filter( v => !(v.begin === valueToUpdate.begin && v.end === valueToUpdate.end) );
-    const isDisabled = this.isDisabledTiming( submittedValue, filteredValue, reducedAllowedTimings );
+    const isDisabled = isDisabledTiming( submittedValue, filteredValue, reducedAllowedTimings );
 
     if ( !isDisabled ) {
       const newValue = [ ...filteredValue, submittedValue ];
@@ -179,7 +170,7 @@ class DaysSelector extends Component {
     let valuesToAdd;
 
     if ( !force ) {
-      const disabledTimings = values.filter( item => this.isDisabledTiming( item, value, reducedAllowedTimings ) );
+      const disabledTimings = values.filter( item => isDisabledTiming( item, value, reducedAllowedTimings ) );
 
       if ( disabledTimings.length ) {
         throw { message: 'someDisabledValues', disabledTimings };
@@ -187,7 +178,7 @@ class DaysSelector extends Component {
 
       valuesToAdd = values;
     } else {
-      valuesToAdd = values.filter( item => !this.isDisabledTiming( item, value, reducedAllowedTimings ) );
+      valuesToAdd = values.filter( item => !isDisabledTiming( item, value, reducedAllowedTimings ) );
     }
 
     const newValue = [ ...value, ...valuesToAdd ];
@@ -228,38 +219,6 @@ class DaysSelector extends Component {
     return { left, top };
   };
 
-  stepPositionToSelection = ( position, selectionStart = null, ignoreRound = false ) => {
-    const { top, left } = position;
-    const { activeWeek, weekStartsOn, selectableStep } = this.props;
-
-    const startOfActiveWeek = dateFns.startOfWeek( activeWeek, { weekStartsOn } );
-    const dayHover = dateFns.addDays( startOfActiveWeek, left );
-    let timingHover = dateFns.addSeconds( dayHover, top * selectableStep );
-    let begin;
-    let end;
-
-    if ( !dateFns.isBefore( selectionStart, timingHover ) ) {
-      const startOfBeginDay = dateFns.startOfDay( timingHover );
-      const diffToNext =
-        (ignoreRound ? noop : Math.floor)(
-          dateFns.differenceInMilliseconds( timingHover, startOfBeginDay ) / selectableStep / 1000
-        ) * selectableStep;
-
-      begin = dateFns.addSeconds( startOfBeginDay, diffToNext );
-      end = dateFns.addSeconds( selectionStart, selectableStep );
-    } else {
-      const diffToNext =
-        (ignoreRound ? noop : Math.ceil)(
-          dateFns.differenceInMilliseconds( timingHover, dayHover ) / selectableStep / 1000
-        ) * selectableStep;
-
-      begin = selectionStart;
-      end = dateFns.addSeconds( dayHover, diffToNext );
-    }
-
-    return { begin, end };
-  };
-
   valueToStepPosition = value => {
     const { begin, end } = value;
     const { activeWeek, weekStartsOn, selectableStep } = this.props;
@@ -287,42 +246,6 @@ class DaysSelector extends Component {
     };
   };
 
-  splitSelection = ( { begin, end } ) => {
-    const { activeWeek, weekStartsOn, selectableStep, timingLimit } = this.props;
-    const startOfActiveWeek = dateFns.startOfWeek( activeWeek, { weekStartsOn } );
-
-    const timingDuration = dateFns.differenceInMilliseconds( end, begin ) / 1000;
-    const usedEnd = normalizeEndOfTiming( end );
-
-    if ( timingDuration <= timingLimit ) {
-      return [ { begin, end: usedEnd } ];
-    }
-
-    const daysNumber = dateFns.differenceInDays( dateFns.endOfDay( usedEnd ), begin );
-    const timeOfBegin = dateFns.subDays( begin, dateFns.differenceInDays( begin, startOfActiveWeek ) );
-    const timeOfEnd = dateFns.subDays( usedEnd, dateFns.differenceInDays( usedEnd, startOfActiveWeek ) );
-    const selection = [];
-    let derivedBegin;
-    let derivedEnd;
-
-    if ( !dateFns.isAfter( timeOfEnd, timeOfBegin ) ) {
-      derivedBegin = dateFns.subDays( dateFns.subSeconds( usedEnd, selectableStep ), daysNumber );
-      derivedEnd = dateFns.addDays( dateFns.addSeconds( begin, selectableStep ), daysNumber );
-    } else {
-      derivedBegin = dateFns.addDays( timeOfBegin, dateFns.differenceInDays( begin, timeOfBegin ) );
-      derivedEnd = dateFns.addDays( timeOfEnd, dateFns.differenceInDays( usedEnd, timeOfEnd ) );
-    }
-
-    for ( let i = 0; i <= daysNumber; i++ ) {
-      selection.push( {
-        begin: dateFns.addDays( derivedBegin, i ),
-        end: dateFns.subDays( derivedEnd, daysNumber - i )
-      } );
-    }
-
-    return selection;
-  };
-
   onSelectionMouseDown = e => {
     if ( e.cancelable ) {
       e.preventDefault();
@@ -330,7 +253,7 @@ class DaysSelector extends Component {
 
     const { selectableStep } = this.props;
     const stepPosition = this.eventToStepPosition( e );
-    const { end } = this.stepPositionToSelection( stepPosition );
+    const { end } = stepPositionToSelection( this.props, stepPosition );
 
     const selectionStart = dateFns.subSeconds( end, selectableStep );
     const selection = [
@@ -370,9 +293,9 @@ class DaysSelector extends Component {
     }
 
     const stepPosition = this.eventToStepPosition( e );
-    const { begin, end } = this.stepPositionToSelection( stepPosition, selectionStart );
+    const { begin, end } = stepPositionToSelection( this.props, stepPosition, selectionStart );
 
-    const selection = this.splitSelection( { begin, end: normalizeEndOfTiming( end ) } );
+    const selection = splitSelection( this.props, { begin, end: normalizeEndOfTiming( end ) } );
 
     this.setState( {
       selection,
@@ -394,10 +317,10 @@ class DaysSelector extends Component {
     }
 
     const stepPosition = this.eventToStepPosition( e );
-    const { begin, end } = this.stepPositionToSelection( stepPosition, selectionStart );
+    const { begin, end } = stepPositionToSelection( this.props, stepPosition, selectionStart );
 
-    const selection = this.splitSelection( { begin, end: normalizeEndOfTiming( end ) } ).filter(
-      item => !this.isDisabledTiming( item, value, reducedAllowedTimings )
+    const selection = splitSelection( this.props, { begin, end: normalizeEndOfTiming( end ) } ).filter(
+      item => !isDisabledTiming( item, value, reducedAllowedTimings )
     );
 
     clearInterval( this.autoScrollInterval );
@@ -432,7 +355,7 @@ class DaysSelector extends Component {
 
     const { value } = this.state;
     const stepPosition = this.eventToStepPosition( e );
-    const { end } = this.stepPositionToSelection( stepPosition, null, true );
+    const { end } = stepPositionToSelection( this.props, stepPosition, null, true );
 
     const usedEnd = normalizeEndOfTiming( end );
     const valueToMove = value.find( v => dateFns.isAfter( usedEnd, v.begin ) && !dateFns.isAfter( usedEnd, v.end ) );
@@ -491,7 +414,7 @@ class DaysSelector extends Component {
       diff.left
     );
 
-    const selectionMoving = this.stepPositionToSelection( newValuePosition, newPositionStart, true );
+    const selectionMoving = stepPositionToSelection( this.props, newValuePosition, newPositionStart, true );
 
     selectionMoving.end = normalizeEndOfTiming( selectionMoving.end );
 
@@ -548,12 +471,12 @@ class DaysSelector extends Component {
       diff.left
     );
 
-    const selectionMoving = this.stepPositionToSelection( newValuePosition, newPositionStart, true );
+    const selectionMoving = stepPositionToSelection( this.props, newValuePosition, newPositionStart, true );
 
     selectionMoving.end = normalizeEndOfTiming( selectionMoving.end );
 
     const filteredValue = value.filter( v => !(v.begin === valueToMove.begin && v.end === valueToMove.end) );
-    const isDisabled = this.isDisabledTiming( selectionMoving, filteredValue, reducedAllowedTimings );
+    const isDisabled = isDisabledTiming( selectionMoving, filteredValue, reducedAllowedTimings );
 
     if (
       !isDisabled &&
@@ -585,7 +508,7 @@ class DaysSelector extends Component {
 
     const { value } = this.state;
     const stepPosition = this.eventToStepPosition( e );
-    const { end } = this.stepPositionToSelection( stepPosition, null, true );
+    const { end } = stepPositionToSelection( this.props, stepPosition, null, true );
 
     const usedEnd = normalizeEndOfTiming( end );
     const valueToResize = value.find( v => dateFns.isAfter( usedEnd, v.begin ) && !dateFns.isAfter( usedEnd, v.end ) );
@@ -638,7 +561,7 @@ class DaysSelector extends Component {
       diff.left
     );
 
-    const selection = this.stepPositionToSelection(
+    const selection = stepPositionToSelection( this.props,
       {
         top: dateFns.isBefore( dateFns.addSeconds( newPositionStart, timingLimit ), valueToResize.begin )
           ? valueStepPosition.begin.top + 1
@@ -649,7 +572,7 @@ class DaysSelector extends Component {
       true
     );
 
-    const selectionResizing = this.splitSelection( selection );
+    const selectionResizing = splitSelection( props, selection );
 
     this.setState( {
       selectionResizing,
@@ -680,8 +603,9 @@ class DaysSelector extends Component {
       dateFns.addSeconds( valueToResize.begin, (valueStepPosition.steps + diff.top - 1) * selectableStep ),
       diff.left
     );
-    const selection = this.splitSelection(
-      this.stepPositionToSelection(
+    const selection = splitSelection(
+      this.props,
+      stepPositionToSelection( this.props,
         {
           top: dateFns.isBefore( dateFns.addSeconds( newPositionStart, timingLimit ), valueToResize.begin )
             ? valueStepPosition.begin.top + 1
@@ -693,7 +617,7 @@ class DaysSelector extends Component {
       )
     );
     const filteredValue = value.filter( v => !(v.begin === valueToResize.begin && v.end === valueToResize.end) );
-    const isDisabled = selection.some( item => this.isDisabledTiming( item, filteredValue, reducedAllowedTimings ) );
+    const isDisabled = selection.some( item => isDisabledTiming( item, filteredValue, reducedAllowedTimings ) );
 
     clearInterval( this.autoScrollInterval );
 
@@ -742,7 +666,7 @@ class DaysSelector extends Component {
     const { onRemove, onChange } = this.props;
     const { value } = this.state;
     const stepPosition = this.eventToStepPosition( e );
-    const { end } = this.stepPositionToSelection( stepPosition, null, true );
+    const { end } = stepPositionToSelection( this.props, stepPosition, null, true );
 
     const usedEnd = normalizeEndOfTiming( end );
     const valueToRemove = value.find( v => dateFns.isAfter( usedEnd, v.begin ) && !dateFns.isAfter( usedEnd, v.end ) );
@@ -783,48 +707,13 @@ class DaysSelector extends Component {
     }
   };
 
-  secondsToHeight = seconds => {
-    const { selectableStep, step, cellHeight } = this.props;
-
-    return (seconds / selectableStep) * ((cellHeight / step) * selectableStep);
-  };
-
-  isDisabledTiming = ( { begin, end }, disabled, enabled ) => {
-    const inEnabled =
-      enabled && enabled.length
-        ? enabled.some( enabledTiming => (
-          dateFns.isWithinRange(
-            begin,
-            enabledTiming.begin,
-            enabledTiming.end
-          ) && dateFns.isWithinRange(
-            end,
-            enabledTiming.begin,
-            enabledTiming.end
-          )
-        ) )
-        : true;
-
-    const isDisabled =
-      disabled &&
-      disabled.length &&
-      disabled.some(
-        disabledTiming =>
-          (!dateFns.isBefore( begin, disabledTiming.begin ) && dateFns.isBefore( begin, disabledTiming.end )) ||
-          (dateFns.isAfter( end, disabledTiming.begin ) && !dateFns.isAfter( end, disabledTiming.end )) ||
-          (dateFns.isBefore( begin, disabledTiming.begin ) && dateFns.isAfter( end, disabledTiming.end ))
-      );
-
-    return !inEnabled || isDisabled;
-  };
-
   addDisabledProps = ( timings, disabled, enabled ) => {
     if ( (!disabled || !disabled.length) && (!enabled || !enabled.length) ) {
       return timings;
     }
 
     return timings.reduce(
-      ( result, item ) => [ ...result, { ...item, disabled: this.isDisabledTiming( item, disabled, enabled ) } ],
+      ( result, item ) => [ ...result, { ...item, disabled: isDisabledTiming( item, disabled, enabled ) } ],
       []
     );
   };
@@ -878,7 +767,7 @@ class DaysSelector extends Component {
     const timings = this.addDisabledProps( value, disabledTimings, reducedAllowedTimings );
     const startOfActiveWeek = dateFns.startOfWeek( activeWeek, { weekStartsOn } );
     const endOfActiveWeek = dateFns.endOfWeek( activeWeek, { weekStartsOn } );
-    const maxTop = this.secondsToHeight( ONE_DAY );
+    const maxTop = secondsToHeight( this.props, ONE_DAY );
     const selectionElems = [];
 
     for ( let i = 0; i < timings.length; i++ ) {
@@ -886,8 +775,10 @@ class DaysSelector extends Component {
       const beginStartOfDay = dateFns.startOfDay( begin );
       const leftOffset = dateFns.differenceInDays( beginStartOfDay, startOfActiveWeek );
       const numberOfParts = dateFns.differenceInDays( end, beginStartOfDay );
-      const firstColumnTop = dateFns.differenceInMilliseconds( begin, beginStartOfDay ) / 1000;
+
       let actual = begin;
+
+      const top = timingUtils.top( this.props, timings[ i ] );
 
       for ( let j = 0; j <= numberOfParts; j++ ) {
         if ( dateFns.isBefore( actual, startOfActiveWeek ) || dateFns.isAfter( actual, endOfActiveWeek ) ) {
@@ -899,10 +790,9 @@ class DaysSelector extends Component {
         const endOfActualDay = dateFns.endOfDay( actual );
         const timingBegin = j === 0 ? begin : beginOfActualDay;
         const timingEnd = dateFns.isBefore( end, endOfActualDay ) ? end : endOfActualDay;
-        const top = j === 0 ? this.secondsToHeight( firstColumnTop ) : 0; // px
         const left = (100 / 7) * (leftOffset + j); // %
         const height = Math.round(
-          this.secondsToHeight( dateFns.differenceInMilliseconds( timingEnd, timingBegin ) / 1000 )
+          secondsToHeight( this.props, dateFns.differenceInMilliseconds( timingEnd, timingBegin ) / 1000 )
         ); // px
 
         selectionElems.push(
@@ -913,7 +803,7 @@ class DaysSelector extends Component {
             last: j === numberOfParts,
             begin,
             end,
-            top,
+            top: j === 0 ? top : 0,
             left,
             height: top + height === maxTop ? height - 1 : height,
             disabled
