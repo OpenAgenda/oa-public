@@ -73,8 +73,8 @@
 <% } %>
         </li>
 <% } %>
-<% if ( !loner && hasOwnershipTransfer ) { %>
-        <li class="list-group-item js_role_agenda_moderator js_ownership_transfer" data-res="<%= genUrl( 'eventTransfer', { slug: slug, eventSlug: event.slug } ) %>">
+<% if ( hasOwnershipTransfer ) { %>
+        <li class="list-group-item js_role_agenda_moderator js_ownership_transfer" data-res="/<%= slug %>/admin/members/transfer/<%= event.slug %>">
           <a class="item active" rel="nofollow"><%= __( 'transferOwnership' ) %></a>
         </li>
 <% } %>

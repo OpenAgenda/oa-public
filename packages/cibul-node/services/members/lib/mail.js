@@ -29,7 +29,7 @@ async function resendInvitation( config, { agenda, member } ) {
     throw new Error( 'There is no invitation for this member' );
   }
 
-  return send( config, { invitation, agenda, member } );
+  return sendInvitation( config, { invitation, agenda, member } );
 }
 
 async function send( config, { member, context, agenda, message } ) {

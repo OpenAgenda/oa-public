@@ -11,6 +11,7 @@ const log = require( '@openagenda/logs' )( 'services/members' );
 const mail = require( './lib/mail' );
 const streamCsv = require( './lib/streamCsv' );
 const streamXlsx = require( './lib/streamXlsx' );
+const transferEvent = require( './lib/transferEvent' );
 const queues = require( '../queues' );
 
 const getEventCountByUserUid = require( './getEventCountByUserUid' );
@@ -21,15 +22,16 @@ const onRemove = require( './onRemove' );
 const onPatch = require( './onPatch' );
 
 const mw = {
+  authorize: require( './middleware/authorize' ),
   list: require( './middleware/list' ),
   loadAgenda: require( './middleware/loadAgenda' ),
+  loadEvent: require( './middleware/loadEvent' ),
   loadMember: require( './middleware/loadMember' ),
   loadTargetMember: require( './middleware/loadTargetMember' ),
   loadContext: require( './middleware/loadContext' ),
   invite: require( './middleware/invite' ),
   sendMessage: require( './middleware/sendMessage' ),
-  spreadsheet: require( './middleware/spreadsheet' ),
-  authorize: require( './middleware/authorize' )
+  spreadsheet: require( './middleware/spreadsheet' )
 }
 
 const members = {};
@@ -120,7 +122,7 @@ function plugApp( parentApp ) {
   );
 
   parentApp.post( '/:agendaSlug/admin/members/send-message',
-    mw.authorize.agendaHasInvitationMessageCredential,
+    mw.authorize.agendaHasCredential.bind( null, 'invitationMessage' ),
     mw.sendMessage
   );
 
@@ -151,6 +153,20 @@ function plugApp( parentApp ) {
       member: req.targetMember
     } ).then( () => res.status( 200 ).json( { message: 'pabim.' } ), next )
   );
+
+  // should be put
+  parentApp.post( '/:agendaSlug/admin/members/transfer/:eventSlug',
+    mw.loadAgenda,
+    mw.loadEvent,
+    mw.loadMember.bind( null, members ),
+    mw.authorize.adminModOrEventOwner,
+    mw.authorize.agendaHasCredential.bind( null, 'eventOwnershipTransfer' ),
+    mw.loadTargetMember.byEmail.bind( null, members ),
+    ( req, res, next ) => transferEvent( req.event, req.targetMember ).then( () => {
+      res.redirect( 302, `/${req.agenda.slug}/events/${req.event.slug}` );
+    }, next )
+  );
+
 
   parentApp.get( '/:agendaSlug/admin/members.csv', streamCsv );
   parentApp.get( '/:agendaSlug/admin/members.xlsx', streamXlsx );

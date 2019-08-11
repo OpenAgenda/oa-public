@@ -44,7 +44,10 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], middlewares.event );
 
-  parentApp.get( '/:agendaSlug/contribute/event/:eventUid', middlewares.defineUpdateRedirect );
+  parentApp.get( '/:agendaSlug/contribute/event/:eventUid',
+    middlewares.defineUpdateRedirect,
+    middlewares.verifyMemberAuthorization.edit
+  );
 
   parentApp.all( [
     '/:agendaSlug/contribute',

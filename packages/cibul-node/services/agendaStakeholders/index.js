@@ -9,8 +9,8 @@ const interfaces = {
     onCreate: require( './onCreate' ),
     onUpdate: require( './onUpdate' ),
     onRemove: require( './onRemove' ),
-    onTransferEvent: require( './onTransferEvent' ),
-    beforeTransferEvent: require( './beforeTransferEvent' ),
+    onTransferEvent: ( ...args ) => log( 'error', 'onTransferEvent', args ),
+    beforeTransferEvent: ( ...args ) => log( 'error', 'beforeTransferEvent', args ),
     getUser: require( './getUser' ),
     getExistingCredentials: require( './getExistingCredentials' ),
     getEventCount: require( './getEventCount' )
@@ -20,8 +20,6 @@ module.exports.init = async config => {
 
   // set interface log functions
   Object.keys( interfaces ).forEach( k => interfaces[ k ].setLog && interfaces[ k ].setLog( logs( 'agendaStakeholders/interfaces/' + k ) ) );
-
-  require( './lib/sendStakeholderInvitation' ).setLog( logs( 'agendaStakeholders/sendStakeholderInvitation' ) );
 
   await promisify( agendaStakeholders.init )( {
     queue: {
