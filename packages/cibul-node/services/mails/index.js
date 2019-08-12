@@ -2,13 +2,9 @@
 
 const _ = require( 'lodash' );
 const path = require( 'path' );
-const axios = require( 'axios' );
-const redis = require( 'redis' );
 const sanitizeHtml = require( 'sanitize-html' );
 
 const mails = require( '@openagenda/mails' );
-const queuesLib = require( '@openagenda/queues' );
-const log = require( '@openagenda/logs' )( 'services/mails' );
 const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 const labels = require( '@openagenda/labels/all' ).mails;
 

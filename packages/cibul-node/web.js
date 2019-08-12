@@ -52,6 +52,5 @@ module.exports = app => {
   require( './agenda/customized.back' )( app );
   require( './agenda/actions.front' )( app );
   require( './agenda/exports.front' )( app );
-  require( './activities/notifications.back' )( app );
 
 };
