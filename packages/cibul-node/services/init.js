@@ -121,7 +121,7 @@ function _init( config, options, fileOrFolderName, cb ) {
 
     log( 'info', `${name}: ${err ? 'NOK' : 'ok'} ${new Date().getTime() - t.getTime()}ms` );
 
-    return cb( err );
+    return cb( err ? new VError( err, name ) : null );
 
   };
 

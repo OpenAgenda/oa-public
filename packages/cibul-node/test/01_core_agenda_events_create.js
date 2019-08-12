@@ -3,11 +3,9 @@
 process.env.NODE_ENV = 'test';
 
 const _ = require( 'lodash' );
-const knexLib = require( 'knex' );
 const fs = require( 'fs' );
 const ih = require( 'immutability-helper' );
 const mysql = require( 'mysql' );
-const redis = require( 'redis' );
 const { promisify } = require( 'util' );
 const should = require( 'should' );
 const VError = require( 'verror' );
@@ -24,6 +22,10 @@ const core = require( '../core' );
 
 const _sleep = promisify( setTimeout.bind( null, rs => rs() ) );
 
+const schemaNames = require( './mock/schemaNames' );
+const getLogConfig = require( './mock/getLogConfig' );
+const assignClients = require( './utils/assignClients' );
+
 const testConfig = {
   queues: {},
   db: {
@@ -35,31 +37,7 @@ const testConfig = {
     host: 'localhost',
     port: 6379
   },
-  schemas: {
-    apiKeySet: 'api_key_set', // required by users svc
-    agenda: 'agenda',
-    eventService: 'event_2',
-    agendaEventService: 'agenda_event',
-    deleted: 'legacy_deleted',
-    event: 'legacy_event',
-    occurrence: 'legacy_occurrence',
-    eventTranslation: 'legacy_event_translation',
-    location: 'location',
-    key: 'key', // users svc
-    eventLocation: 'legacy_event_location',
-    eventLocationTranslation: 'legacy_event_location_translation',
-    eventEditor: 'legacy_event_editor',
-    agendaEvent: 'legacy_agenda_event',
-    eventReferences: 'legacy_agenda_event_reference',
-    agendaCategory: 'legacy_agenda_category',
-    agendaTag: 'legacy_agenda_tag',
-    agendaEventTag: 'legacy_agenda_event_tag',
-    unsubscribed: 'unsubscribed', // users svc
-    user: 'user',
-    userToken: 'user_token', // users svc
-    stakeholder: 'member',
-    stakeholderSettings: 'member_settings'
-  },
+  schemas: schemaNames,
   tmpFolderPath: '/var/tmp',
   aws: {
     bucket: 'openagendatest',
@@ -69,12 +47,7 @@ const testConfig = {
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
   },
   mainChannel: 'maintest',
-  getLogConfig: ( prefix, key ) => ( {
-    debug: {
-      prefix: prefix + ':' + key + ':'
-    },
-    token: null
-  } ),
+  getLogConfig,
   logger: {
     debug: {
       prefix: 'oa:',
@@ -125,16 +98,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
     accessibility: { sl: true }
   };
 
-  before( () => {
-
-    testConfig.knex = knexLib( {
-      client: 'mysql',
-      connection: testConfig.db,
-    } );
-
-    testConfig.redisClient = redis.createClient();
-
-  } );
+  before( () => assignClients( testConfig ) );
 
   before( async () => {
 
