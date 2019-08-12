@@ -8,6 +8,8 @@ const agendasSvc = require( '@openagenda/agendas' );
 const { isLessThan, isSuperiorToOrEqual, isEqualTo } = require( '@openagenda/members' ).utils.compareRoles;
 const sendSummary = require( './sendSummary' );
 
+const log = require( '@openagenda/logs' )( 'activities' );
+
 const activities = {};
 
 module.exports = app => {
@@ -50,6 +52,10 @@ module.exports.init = async config => {
         filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
           if ( targetFeed.entityType === 'agenda' && targetFeed.entityUid !== parseInt( activity.target.split( ':' )[ 1 ] ) ) {
+            return cb( null, false );
+          }
+
+          if ( activity.verb === 'event.update' && !activity.store.diff ) {
             return cb( null, false );
           }
 

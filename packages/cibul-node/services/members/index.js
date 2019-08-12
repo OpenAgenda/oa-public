@@ -75,6 +75,13 @@ function init( c ) {
         log( 'running tasks' );
         members.task();
         messages.task();
+      },
+      mw: {
+        load: mw.loadMember.bind( null, members ),
+        list: mw.list.bind( null, members ),
+        authorize: {
+          moderator: mw.authorize.moderator
+        }
       }
     }
   );

@@ -2,6 +2,7 @@
 
 const _ = require( 'lodash' );
 
+const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const eventsSvc = require( '@openagenda/events' );
 
@@ -12,6 +13,8 @@ module.exports = async ( interfaceName, ref, context ) => {
   let event = _.get( context, 'event' );
 
   let agenda = _.get( context, 'agenda' );
+
+  let user = _.get( context, 'user' );
 
   if ( !event ) {
 
@@ -48,7 +51,27 @@ module.exports = async ( interfaceName, ref, context ) => {
 
   }
 
-  return { agenda, event };
+  if ( !user ) {
+
+    try {
+
+      log( 'warn', 'user is missing in context', ref );
+
+      user = await usersSvc.findOne( { query: { uid: context.userUid } } );
+
+    } catch ( e ) {
+
+      log( 'error', 'could not load user' );
+
+    }
+
+  } else {
+
+    log( 'user is in context' );
+
+  }
+
+  return { agenda, event, user };
 
 }
 

@@ -338,11 +338,6 @@ const config = {
           uri: '/:slug/event/:eventSlug/edit',
           legacy: true
         },
-        agendaEventDuplicate: {
-          method: 'get',
-          uri: '/:slug/event/:eventSlug/duplicate',
-          legacy: true
-        },
         agendaEventShow: {
           method: 'get',
           uri: '/:slug/event/:eventSlug',
