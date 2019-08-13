@@ -789,7 +789,7 @@ function _layoutData( req, res ) {
 
   req.log( 'loading layout data' );
 
-  const url = req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } );
+  const url = `${config.root}/${req.agenda.slug}`;
 
   const data = {
     agenda: {
@@ -802,7 +802,7 @@ function _layoutData( req, res ) {
       uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
       lang: req.lang,
       res: {
-        actions: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } )
+        actions: url + '/actions'
       }
     },
     metas: {
