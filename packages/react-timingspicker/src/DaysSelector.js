@@ -8,6 +8,7 @@ import normalizeEndOfTiming from './utils/normalizeEndOfTiming';
 import secondsToHeight from './utils/secondsToHeight';
 import splitSelection from './utils/splitSelection';
 import stepPositionToSelection from './utils/stepPositionToSelection';
+import valueToStepPosition from './utils/valueToStepPosition';
 import timingUtils from './utils/timing';
 
 const ONE_DAY = 60 * 60 * 24;
@@ -34,8 +35,8 @@ function formatTimingValue( intl, begin, end, breakpoint ) {
 
 class DaysSelector extends Component {
   static defaultProps = {
-    step: 60 * 60,
-    selectableStep: 30 * 60,
+    step: 60 * 60, // seconds in a grid visible vertical increment
+    selectableStep: 30 * 60, // seconds in a grid vertical selectable increment
     cellHeight: 40,
     timingLimit: ONE_DAY,
     value: null,
@@ -219,33 +220,6 @@ class DaysSelector extends Component {
     return { left, top };
   };
 
-  valueToStepPosition = value => {
-    const { begin, end } = value;
-    const { activeWeek, weekStartsOn, selectableStep } = this.props;
-
-    const startOfActiveWeek = dateFns.startOfWeek( activeWeek, { weekStartsOn } );
-    const startOfBeginDay = dateFns.startOfDay( begin );
-    const startOfEndDay = dateFns.startOfDay( end );
-
-    const beginTop = dateFns.differenceInMilliseconds( begin, startOfBeginDay ) / selectableStep / 1000;
-    const beginLeft = dateFns.differenceInDays( startOfBeginDay, startOfActiveWeek );
-    const endTop = dateFns.differenceInMilliseconds( end, startOfEndDay ) / selectableStep / 1000;
-    const endLeft = dateFns.differenceInDays( startOfEndDay, startOfActiveWeek );
-    const steps = dateFns.differenceInMilliseconds( end, begin ) / selectableStep / 1000;
-
-    return {
-      begin: {
-        top: beginTop,
-        left: beginLeft
-      },
-      end: {
-        top: endTop,
-        left: endLeft
-      },
-      steps
-    };
-  };
-
   onSelectionMouseDown = e => {
     if ( e.cancelable ) {
       e.preventDefault();
@@ -404,7 +378,7 @@ class DaysSelector extends Component {
       top: Math.round( stepPosition.top - movePositionStart.top ),
       left: Math.round( stepPosition.left - movePositionStart.left )
     };
-    const valueStepPosition = this.valueToStepPosition( valueToMove );
+    const valueStepPosition = valueToStepPosition( this.props, valueToMove );
     const newValuePosition = {
       top: valueStepPosition.begin.top + diff.top,
       left: valueStepPosition.begin.left + diff.left
@@ -461,7 +435,7 @@ class DaysSelector extends Component {
       top: Math.round( stepPosition.top - movePositionStart.top ),
       left: Math.round( stepPosition.left - movePositionStart.left )
     };
-    const valueStepPosition = this.valueToStepPosition( valueToMove );
+    const valueStepPosition = valueToStepPosition( this.props, valueToMove );
     const newValuePosition = {
       top: valueStepPosition.begin.top + diff.top,
       left: valueStepPosition.begin.left + diff.left
@@ -555,7 +529,7 @@ class DaysSelector extends Component {
       top: Math.round( stepPosition.top - resizePositionStart.top ),
       left: Math.round( stepPosition.left - resizePositionStart.left )
     };
-    const valueStepPosition = this.valueToStepPosition( valueToResize );
+    const valueStepPosition = valueToStepPosition( this.props, valueToResize );
     const newPositionStart = dateFns.addDays(
       dateFns.addSeconds( valueToResize.begin, (valueStepPosition.steps + diff.top - 1) * selectableStep ),
       diff.left
@@ -572,7 +546,7 @@ class DaysSelector extends Component {
       true
     );
 
-    const selectionResizing = splitSelection( props, selection );
+    const selectionResizing = splitSelection( this.props, selection );
 
     this.setState( {
       selectionResizing,
@@ -598,7 +572,7 @@ class DaysSelector extends Component {
       top: Math.round( stepPosition.top - resizePositionStart.top ),
       left: Math.round( stepPosition.left - resizePositionStart.left )
     };
-    const valueStepPosition = this.valueToStepPosition( valueToResize );
+    const valueStepPosition = valueToStepPosition( this.props, valueToResize );
     const newPositionStart = dateFns.addDays(
       dateFns.addSeconds( valueToResize.begin, (valueStepPosition.steps + diff.top - 1) * selectableStep ),
       diff.left

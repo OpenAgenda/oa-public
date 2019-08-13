@@ -9,14 +9,27 @@ const noop = v => v;
 export default ( {
   activeWeek,
   weekStartsOn,
-  selectableStep
-}, { top, left }, selectionStart = null, ignoreRound = false ) => {
-  const startOfActiveWeek = dateFns.startOfWeek( activeWeek, { weekStartsOn } );
-  const dayHover = dateFns.addDays( startOfActiveWeek, left );
-  const timingHover = dateFns.addSeconds( dayHover, top * selectableStep );
-  const startOfBeginDay = dateFns.startOfDay( timingHover );
+  selectableStep,
+  step,
+  cellHeight
+}, {
+  top, // cursor position: count of selectable steps from start of day?
+  left // cursor position: count of steps from begin of week
+}, selectionStart = null, ignoreRound = false ) => {
 
-  _applyDSTOffset( startOfBeginDay, timingHover );
+  // moment the week starts
+  const startOfActiveWeek = dateFns.startOfWeek( activeWeek, { weekStartsOn } );
+
+  // moment the day under the cursor begins
+  const dayHover = dateFns.addDays( startOfActiveWeek, left );
+
+  // moment under the cursor
+  const timingHover = dateFns.addSeconds( dayHover, top * selectableStep - 60 );
+
+  DST.applyOffset( timingHover );
+
+  // isn't this always the same as the dayHover?
+  const startOfBeginDay = dateFns.startOfDay( timingHover );
 
   let begin;
   let end;
@@ -41,10 +54,3 @@ export default ( {
 
   return { begin, end };
 };
-
-function _applyDSTOffset( ref, d ) {
-  if ( !d || !DST.hasSwitched( ref, d ) ) return;
-
-  d.setHours( d.getHours() + DST.dayOffset( d ) );
-}
-

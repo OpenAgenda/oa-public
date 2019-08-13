@@ -1,8 +1,34 @@
+import dateFns from 'date-fns';
+
 export default {
   dayOffset,
   hasSwitched,
   isObserved,
-  isSwitchObserved
+  isSwitchObserved,
+  offsetTop,
+  applyOffset
+}
+
+function applyOffset( d ) {
+  if ( !d ) return;
+  const ref = dateFns.startOfDay( d );
+  if ( !hasSwitched( ref, d ) ) return;
+
+  d.setHours( d.getHours() + dayOffset( d ) );
+}
+
+function offsetTop( { step, cellHeight }, d, top ) {
+  if ( !d ) return top;
+
+  const date = typeof d === 'string' ? new Date( d ) : d;
+
+  if ( !hasSwitched( dateFns.startOfDay( date ), date ) ) return top;
+
+  const offset = (
+    dayOffset( date ) * 60 * 60 / step // DST offset in pixels
+  ) * cellHeight;
+
+  return top - offset;
 }
 
 function dayOffset( d ) {

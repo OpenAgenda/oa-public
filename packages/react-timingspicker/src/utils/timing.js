@@ -20,20 +20,9 @@ function top( {
   ) / 1000;
 
   const top = secondsToHeight( { selectableStep, step, cellHeight }, firstColumnTop );
-  const beginAsDate = new Date( begin );
 
   // DST switch means there is one dead cell
   // or one ghost cell in column. Top needs to be offset
   // that will mess up positionning
-  if ( DST.hasSwitched(
-    startOfDay,
-    beginAsDate
-  ) ) {
-    const offset = (
-      DST.dayOffset( beginAsDate ) * 60 * 60 / step // DST offset in pixels
-    ) * cellHeight;
-    return top - offset;
-  }
-
-  return top;
+  return DST.offsetTop( { step, cellHeight }, begin, top );
 }
