@@ -69,7 +69,6 @@ function plugApp( parentApp ) {
   parentApp.get( '/:agendaSlug/events/:eventSlug/state/:state',
     members.mw.load,
     members.mw.authorize.moderator,
-    mw.requireCanEdit,
     mw.changeState
   );
 
