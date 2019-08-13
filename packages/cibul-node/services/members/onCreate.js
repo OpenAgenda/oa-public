@@ -41,7 +41,7 @@ module.exports = async ( config, member, context ) => {
   }
 }
 
-async function _memberIsExistingUser( { member, user, agenda, context } ) {
+async function _memberIsExistingUser( config, { member, user, agenda, context } ) {
   log( 'member is existing user', member );
 
   if ( user.isNew ) {

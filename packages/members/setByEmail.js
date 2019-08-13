@@ -45,11 +45,26 @@ async function setByEmail( config, data, options = {} ) {
   }
 
   const member = await getByEmail( config, _.pick( data, [ 'agendaUid', 'email' ] ) );
-  const role = _.get( data, 'role' );
 
-  if ( member && isSuperiorTo( role, member.role ) ) {
+  const userUid = _.get( member, 'userUid' ) || (
+    config.interfaces
+      && config.interfaces.getUserByEmail
+      && await config.interfaces.getUserByEmail( data.email ).then( u => u ? u.uid : null )
+  );
+
+  const clean = {};
+
+  if ( !_.get( member, 'userUid' ) && userUid ) {
+    clean.userUid = userUid;
+  }
+
+  if ( !member || isSuperiorTo( _.get( data, 'role' ), member.role ) ) {
+    clean.role = data.role;
+  }
+
+  if ( member && Object.keys( clean ).length ) {
     return {
-      ... ( await patch( config, member.id, { role }, options ) ),
+      ... ( await patch( config, member.id, clean, options ) ),
       operation: 'patch'
     }
   } else if ( member ) {
@@ -59,7 +74,9 @@ async function setByEmail( config, data, options = {} ) {
     }
   } else {
     return {
-      ...( await create( config, _.assign( data, { custom: { email: data.email } } ), options ) ),
+      ...( await create( config, Object.assign( {
+        agendaUid: data.agendaUid
+      }, clean, { custom: { email: data.email } } ), options ) ),
       operation: 'create'
     }
   }

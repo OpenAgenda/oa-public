@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 
-const activities = require( '@openagenda/activities' );
 const invitations = require( '@openagenda/invitations' );
 const mails = require( '@openagenda/mails' );
 const members = require( '@openagenda/members' );
@@ -10,6 +9,7 @@ const users = require( '@openagenda/users' );
 
 const log = require( '@openagenda/logs' )( 'members/mail' );
 
+const activites = require( '../../activities' );
 const agendaLogo = require( './agendaLogo' );
 const extractInvitationContext = require( './invitationContext' );
 

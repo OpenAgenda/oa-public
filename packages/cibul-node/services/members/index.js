@@ -16,6 +16,7 @@ const queues = require( '../queues' );
 
 const getEventCountByUserUid = require( './getEventCountByUserUid' );
 const getUsersByUid = require( './getUsersByUid' );
+const getUserByEmail = require( './getUserByEmail' );
 const getAgendasByUid = require( './getAgendasByUid' );
 const onCreate = require( './onCreate' );
 const onRemove = require( './onRemove' );
@@ -55,6 +56,7 @@ function init( c ) {
       getEventCountByUserUid,
       getUsersByUid,
       getAgendasByUid,
+      getUserByEmail,
       onCreate: onCreate.bind( null, config ),
       onRemove,
       onPatch: onPatch.bind( null, config )
@@ -136,7 +138,9 @@ function plugApp( parentApp ) {
   parentApp.delete( '/:agendaSlug/admin/members/:id',
     mw.loadTargetMember.bind( null, members ),
     mw.authorize.moderatorCannotEditAdministrator,
-    ( req, res, next ) => members.remove( req.targetMember.id ).then( () => {
+    ( req, res, next ) => members.remove( req.targetMember.id, {
+      context: { user: req.user }
+    } ).then( () => {
       res.status( 200 ).json( { message: 'done.' } );
     }, next )
   );
@@ -154,7 +158,21 @@ function plugApp( parentApp ) {
   );
 
   parentApp.put( '/:agendaSlug/admin/members/:id/invite/resend',
+    mw.loadContext,
     mw.loadTargetMember.bind( null, members ),
+    ( req, res, next ) => {
+      members.set.byEmail( {
+        agendaUid: req.agenda.uid,
+        email: req.targetMember.custom.email
+      }, { context: req.context } ).then( ( {
+        member
+      } ) => {
+        if ( member.userUid ) {
+          return res.status( 200 ).json( { message: 'user is member' } )
+        }
+        next();
+      }, next );
+    },
     ( req, res, next ) => mail.resendInvitation( config, {
       agenda: req.agenda,
       member: req.targetMember
