@@ -71,7 +71,7 @@ describe( 'multilingual validator', () => {
 
         validate();
 
-      } catch( e ) { 
+      } catch( e ) {
 
         errors = e;
 
@@ -149,6 +149,8 @@ describe( 'multilingual validator', () => {
         languages: [ 'fr', 'en' ],
       } );
 
+      let error;
+
       try {
 
         validate( {
@@ -157,15 +159,49 @@ describe( 'multilingual validator', () => {
 
       } catch ( e ) {
 
-        e.should.eql( [ {
-          lang: 'en',
-          field: false,
-          code: 'required',
-          message: 'a string is required',
-          origin: '' 
-        } ] );
+        error = e;
 
       }
+
+      error.should.eql( [ {
+        lang: 'en',
+        field: false,
+        code: 'required',
+        message: 'a string is required',
+        origin: ''
+      } ] );
+
+    } );
+
+    it( 'a non optional validator returns errors when given null on requested langauges', () => {
+
+      const validate = multilingual( {
+        optional: false,
+        languages: [ 'fr', 'en' ],
+      } );
+
+      let error;
+
+      try {
+
+        validate( {
+          fr: 'Cette langue',
+          en: null
+        } );
+
+      } catch ( e ) {
+
+        error = e;
+
+      }
+
+      error.should.eql( [ {
+        lang: 'en',
+        field: false,
+        code: 'required',
+        message: 'a string is required',
+        origin: null
+      } ] );
 
     } );
 
@@ -213,7 +249,7 @@ describe( 'multilingual validator', () => {
 
     it( 'corresponding default language value is used when available', () => {
 
-      const validate = multilingual( { 
+      const validate = multilingual( {
         type: 'multilingual',
         default: { fr: 'Une desc', en: 'A desc' },
         languages: [ 'fr' ]
@@ -225,7 +261,7 @@ describe( 'multilingual validator', () => {
 
     it( 'corresponding default value is used for any language when provided as string', () => {
 
-      const validate = multilingual( { 
+      const validate = multilingual( {
         type: 'multilingual',
         default: 'Une desc',
         languages: [ 'fr' ]
