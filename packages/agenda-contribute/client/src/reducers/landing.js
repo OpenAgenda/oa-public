@@ -48,7 +48,7 @@ function evaluate( step, requested = false ) {
 
     const authorizedRoutes = [ base + '/member' ];
 
-    if ( !memberConfig.dataIsRequired || isMemberValid( state.member ) || state.member.role === 'administrator' ) {
+    if ( !memberConfig.dataIsRequired || isMemberValid( state.member ) || _.get( state, 'member.role' ) === 'administrator' ) {
 
       authorizedRoutes.push( base + (
         draftEvent ? `/event/${_.get( state, 'event.uid' )}/draft` : '/event'
