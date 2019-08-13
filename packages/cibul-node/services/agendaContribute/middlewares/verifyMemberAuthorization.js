@@ -28,7 +28,7 @@ module.exports = ( req, res, next ) => {
 }
 
 module.exports.edit = ( req, res, next ) => {
-  if ( isSuperiorTo( req.role, 'contributor' ) ) {
+  if ( isSuperiorTo( req.member.role, 'contributor' ) ) {
     return next();
   }
 
