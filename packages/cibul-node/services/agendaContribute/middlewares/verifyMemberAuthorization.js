@@ -33,6 +33,11 @@ module.exports.edit = ( req, res, next ) => {
   }
 
   agendaEvents( req.agenda.uid ).get( req.event.uid ).then( ae => {
+    if ( !ae ) return next( {
+      code: 404,
+      message: getLabel( 'eventNotLinkedToAgenda', req.lang )
+    } );
+
     if ( ae.userUid === req.user.uid ) {
       return next();
     }

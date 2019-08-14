@@ -10,5 +10,9 @@ module.exports = {
   "noAccessToEdit": {
     "fr": "Vous n'avez pas accès à l'édition de cet événement",
     "en": "You do not have edit rights to this event",
+  },
+  "eventNotLinkedToAgenda" : {
+    "fr" : "L'événement n'est pas réferencé sur l'agenda",
+    "en" : "This event is not listed in agenda"
   }
 }
