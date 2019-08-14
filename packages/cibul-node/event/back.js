@@ -73,7 +73,6 @@ module.exports = app => {
     '/agendas/:uid/events/:eventUid/references',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    _loadAdminOrModerator,
     eventSvc.mw.components.getReferences,
     ( req, res, next ) => {
 
