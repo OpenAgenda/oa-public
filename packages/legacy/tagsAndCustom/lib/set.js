@@ -5,7 +5,7 @@ const log = require( '@openagenda/logs' )( 'set' );
 
 module.exports = async ( { knex }, agendaId, eventUid, schemas = [], customValues = [] ) => {
 
-  log( 'setting tags and custom for agenda id %s, event uid %s', agendaId, eventUid );
+  log( 'info', 'setting tags and custom for agenda id %s, event uid %s', agendaId, eventUid );
 
   const eventId = await knex( 'event' )
     .first( 'id' )
@@ -105,7 +105,7 @@ function _optionFlatLabel( option ) {
 
 async function _setTags( knex, agendaId, reviewArticleId, fieldValueMap ) {
 
-  log( 'setting tags for agenda id %s, raId %s', agendaId, reviewArticleId );
+  log( 'info', 'setting tags for agenda id %s, raId %s', agendaId, reviewArticleId );
 
   const tagSet = await knex( 'tag_set' )
     .first( 'store' )
@@ -127,12 +127,12 @@ async function _setTags( knex, agendaId, reviewArticleId, fieldValueMap ) {
         .map( v => [ mapItem.schema.id, v ].join( '.' ) )
       ), [] )
     .map( schemaOptionId => {
-      const tag = _.find( tagSetTags, { schemaOptionId } )
+      const tag = _.find( tagSetTags, { schemaOptionId } );
       if ( !tag ) log( 'warn', 'schema option does not have a matching tag', schemaOptionId );
       return tag;
     } ).filter( tag => !!tag );
 
-  log( 'identified %s matching tags', matchingTags.length );
+  log( 'info', 'identified %s matching tags', matchingTags.length );
 
   await knex( 'review_tag_article' )
     .where( 'review_article_id', reviewArticleId )
