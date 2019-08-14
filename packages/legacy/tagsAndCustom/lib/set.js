@@ -75,7 +75,7 @@ async function loadAndSet( { knex }, agendaId, eventUid ) {
     const {
       networkFormSchemaId
     } = await knex( 'network' )
-      .first( [ 'form_schema_id' ] )
+      .first( [ 'form_schema_id as networkFormSchemaId' ] )
       .where( 'uid', networkUid );
 
     if ( networkFormSchemaId ) {
@@ -171,7 +171,7 @@ function _optionFlatLabel( option ) {
 
 async function _setTags( knex, agendaId, reviewArticleId, fieldValueMap ) {
 
-  log( 'info', 'setting tags for agenda id %s, raId %s', agendaId, reviewArticleId );
+  log( 'setting tags for agenda id %s, raId %s', agendaId, reviewArticleId );
 
   const tagSet = await knex( 'tag_set' )
     .first( 'store' )
@@ -198,7 +198,7 @@ async function _setTags( knex, agendaId, reviewArticleId, fieldValueMap ) {
       return tag;
     } ).filter( tag => !!tag );
 
-  log( 'info', 'identified %s matching tags', matchingTags.length );
+  log( 'info', 'identified %s matching tags', matchingTags.length, agendaId, reviewArticleId );
 
   await knex( 'review_tag_article' )
     .where( 'review_article_id', reviewArticleId )
