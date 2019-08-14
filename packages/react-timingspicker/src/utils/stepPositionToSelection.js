@@ -24,7 +24,7 @@ export default ( {
   const dayHover = dateFns.addDays( startOfActiveWeek, left );
 
   // moment under the cursor
-  const timingHover = dateFns.addSeconds( dayHover, top * selectableStep - 60 );
+  const timingHover = dateFns.addSeconds( dayHover, top * selectableStep );
 
   DST.applyOffset( timingHover );
 

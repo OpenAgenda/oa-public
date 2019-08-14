@@ -48,7 +48,7 @@ class DaysSelector extends Component {
     selectionStart: null,
     selection: null,
 
-    movePositionStart: null,
+    cursorStartStepPosition: null,
     valueToMove: null,
     selectionMoving: null,
 
@@ -340,7 +340,7 @@ class DaysSelector extends Component {
 
     this.setState(
       {
-        movePositionStart: stepPosition,
+        cursorStartStepPosition: stepPosition,
         valueToMove,
         selectionMoving: valueToMove,
         firstMousePosition: {
@@ -361,24 +361,29 @@ class DaysSelector extends Component {
     window.addEventListener( 'pointerup', this.onDragMouseUp, { once: true, capture: false } );
   };
 
+  /**
+   * for when a timing is dragged around
+   */
   onDragMouseMove = e => {
     if ( e.cancelable ) {
       e.preventDefault();
     }
 
     const { selectableStep } = this.props;
-    const { movePositionStart, valueToMove } = this.state;
+    const { cursorStartStepPosition, valueToMove } = this.state;
 
-    if ( !movePositionStart ) {
+    if ( !cursorStartStepPosition ) {
       return;
     }
 
-    const stepPosition = this.eventToStepPosition( e );
+    const cursorCurrentStepPosition = this.eventToStepPosition( e );
+
     const diff = {
-      top: Math.round( stepPosition.top - movePositionStart.top ),
-      left: Math.round( stepPosition.left - movePositionStart.left )
+      top: Math.round( cursorCurrentStepPosition.top - cursorStartStepPosition.top ),
+      left: Math.round( cursorCurrentStepPosition.left - cursorStartStepPosition.left )
     };
     const valueStepPosition = valueToStepPosition( this.props, valueToMove );
+
     const newValuePosition = {
       top: valueStepPosition.begin.top + diff.top,
       left: valueStepPosition.begin.left + diff.left
@@ -409,19 +414,19 @@ class DaysSelector extends Component {
     window.removeEventListener( 'pointermove', this.onDragMouseMove );
 
     const { onMove, onChange, openEditModal, selectableStep } = this.props;
-    const { firstMousePosition, value, movePositionStart, valueToMove, reducedAllowedTimings } = this.state;
+    const { firstMousePosition, value, cursorStartStepPosition, valueToMove, reducedAllowedTimings } = this.state;
 
     clearInterval( this.autoScrollInterval );
 
     this.setState( {
-      movePositionStart: null,
+      cursorStartStepPosition: null,
       valueToMove: null,
       selectionMoving: null,
       firstMousePosition: null,
       mousePosition: null
     } );
 
-    if ( !movePositionStart ) {
+    if ( !cursorStartStepPosition ) {
       return;
     }
 
@@ -432,8 +437,8 @@ class DaysSelector extends Component {
 
     const stepPosition = this.eventToStepPosition( e );
     const diff = {
-      top: Math.round( stepPosition.top - movePositionStart.top ),
-      left: Math.round( stepPosition.left - movePositionStart.left )
+      top: Math.round( stepPosition.top - cursorStartStepPosition.top ),
+      left: Math.round( stepPosition.left - cursorStartStepPosition.left )
     };
     const valueStepPosition = valueToStepPosition( this.props, valueToMove );
     const newValuePosition = {
