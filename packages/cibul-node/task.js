@@ -77,7 +77,7 @@ module.exports = () => {
 
   require( '@openagenda/mails' ).task();
 
-  require( './services/legacy' ).controlData.task();
+  require( './services/legacy' ).task();
 
   require( './core' ).tasks();
 

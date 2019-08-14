@@ -3,11 +3,14 @@
 const logger = require( '@openagenda/logs' );
 
 const set = require( './lib/set' );
+const setAll = require( './lib/setAll' );
 
-module.exports = ( { knex } ) => {
+module.exports = ( { knex, queue } ) => {
 
   return {
-    set: set.bind( null, { knex } )
+    set: set.bind( null, { knex } ),
+    setAll: setAll.bind( null, { knex, queue } ),
+    task: setAll.task.bind( null, { knex, queue } )
   }
 
 }

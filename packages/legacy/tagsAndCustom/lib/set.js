@@ -3,8 +3,11 @@
 const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'set' );
 
-module.exports = async ( { knex }, agendaId, eventUid, schemas = [], customValues = [] ) => {
+module.exports = Object.assign( set, {
+  loadAndSet
+} );
 
+async function set( { knex }, agendaId, eventUid, schemas = [], customValues = [] ) {
   log( 'info', 'setting tags and custom for agenda id %s, event uid %s', agendaId, eventUid );
 
   const eventId = await knex( 'event' )
@@ -41,6 +44,69 @@ module.exports = async ( { knex }, agendaId, eventUid, schemas = [], customValue
 
   await _setCategories( knex, agendaId, reviewArticleId, fieldValueMap )
 
+}
+
+async function loadAndSet( { knex }, agendaId, eventUid ) {
+  log( 'processing load' );
+
+  const schemas = [];
+  const customValues = [];
+
+  const {
+    agendaUid,
+    formSchemaId,
+    networkUid
+  } = await knex( 'review' ).first( [
+    'uid as agendaUid',
+    'form_schema_id as formSchemaId',
+    'network_uid as networkUid'
+  ] ).where( 'id', agendaId );
+
+  if ( formSchemaId ) {
+    const formSchema = await _getSchema( knex, formSchemaId );
+    const custom = await _getCustom( knex, formSchemaId, eventUid );;
+    if ( custom ) {
+      schemas.push( formSchema );
+      customValues.push( custom );
+    }
+  }
+
+  if ( networkUid ) {
+    const {
+      networkFormSchemaId
+    } = await knex( 'network' )
+      .first( [ 'form_schema_id' ] )
+      .where( 'uid', networkUid );
+
+    if ( networkFormSchemaId ) {
+      const formSchema = await _getSchema( knex, networkFormSchemaId );
+      const custom = await _getCustom( knex, networkFormSchemaId, eventUid );;
+      if ( custom ) {
+        schemas.push( formSchema );
+        customValues.push( custom );
+      }
+    }
+  }
+
+  return set( { knex }, agendaId, eventUid, schemas, customValues );
+}
+
+async function _getSchema( knex, formSchemaId ) {
+  return knex( 'form_schema' )
+    .first( [ 'store' ] )
+    .where( 'id', formSchemaId )
+    .then( r => r ? Object.assign( {
+      id: formSchemaId
+    }, JSON.parse( r.store ) ) : null )
+}
+
+async function _getCustom( knex, formSchemaId, identifier ) {
+  return knex( 'custom' )
+    .first( [ 'store' ] )
+    .where( {
+      identifier,
+      form_schema_id: formSchemaId
+    } ).then( c => c ? JSON.parse( c.store ) : null )
 }
 
 async function _setCustomValues( knex, eventId, fieldValueMap ) {
