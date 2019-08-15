@@ -46,7 +46,11 @@ module.exports = function( textName, identifierName ) {
 
         if ( data === null ) return;
 
-        self.setState( { value: data.name } );
+        self.setState( {
+          value: data.custom && data.custom.contactName
+            ? data.custom.contactName
+            : ( data.user && data.user.fullName ? data.user.fullName : '' )
+        } );
 
       } );
 

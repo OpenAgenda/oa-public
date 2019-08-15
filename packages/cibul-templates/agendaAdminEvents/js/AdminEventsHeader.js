@@ -11,12 +11,13 @@ import makeGetterLabel from '@openagenda/labels';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import utils from '@openagenda/utils';
 import UidTextField from './UidTextField.jsx';
+import MemberTextField from './MemberTextField.jsx';
 
 const getLabel = makeGetterLabel( labels );
 const getStateLabel = makeGetterLabel( stateLabels );
 
 const LocationField = UidTextField( 'locationName', 'locationUid' );
-const ContributorField = UidTextField( 'contributor', 'contributorUid' );
+const ContributorField = MemberTextField( 'contributor', 'contributorId' );
 
 const AdminEventsHeader = createReactClass( {
 
@@ -261,7 +262,7 @@ const AdminEventsHeader = createReactClass( {
               <ContributorField
                 res={this.props.res.contributor}
                 getQueryPart={this.getQueryPart}
-                onChange={this.onUidFieldChange( 'contributorUid', 'contributor' )}
+                onChange={this.onUidFieldChange( 'contributorId', 'contributor' )}
                 onKeyUp={this.onKeyUp( 'contributor' )}
                 placeholder={getLabel( 'contributor', this.props.lang )} />
             </div>
