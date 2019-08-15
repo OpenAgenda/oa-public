@@ -16,7 +16,13 @@ async function get( config, identifier, options = {} ) {
     options: cleanOptions
   } = _getQueryAndOptions( config, identifier, options );
 
-  return fromDB( { includeLegacyFields: cleanOptions.legacy }, await query );
+  const member = await fromDB( { includeLegacyFields: cleanOptions.legacy }, await query );
+
+  if ( member && cleanOptions.detailed ) {
+    await _decorateWithDetailed( config, member );
+  }
+
+  return member;
 }
 
 async function getByEmail( config, identifier, options = {} ) {
@@ -31,26 +37,41 @@ async function getByEmail( config, identifier, options = {} ) {
     options: cleanOptions
   } = await _getQueryAndOptions( config, identifier, options );
 
-  const member = fromDB( {
+  let member = fromDB( {
     includeLegacyFields: cleanOptions.legacy
   }, await query.where( 'store', 'like', `%${identifier.email}%` ) );
 
-  if ( member ) return member;
-
-  if ( _.get( config, 'interfaces.getUserUidByEmail' ) ) {
+  if ( !member && _.get( config, 'interfaces.getUserUidByEmail' ) ) {
     const userUid = await config.interfaces.getUserUidByEmail( identifier.email );
 
-    return userUid
+    member = userUid
       ? get( config, Object.assign( {}, identifier, { userUid } ), options )
       : null;
   }
 
-  return null;
+  if ( member && cleanOptions.detailed ) {
+    await _decorateWithDetailed( config, member );
+  }
+
+  return member;
+}
+
+async function _decorateWithDetailed( { interfaces }, member ) {
+
+  if ( !member.userUid ) {
+    return;
+  }
+
+  if ( interfaces.getUsersByUid ) {
+    member.user = _.first( await interfaces.getUsersByUid( [ member.userUid ] ) );
+  }
+
 }
 
 function _getQueryAndOptions( { knex, schema }, identifier, options = {} ) {
   const {
-    legacy
+    legacy,
+    detailed
   } = cleanGetOptions( options );
 
   const where = _.isObject( identifier )
@@ -62,6 +83,7 @@ function _getQueryAndOptions( { knex, schema }, identifier, options = {} ) {
       'id', 'agenda_uid', 'credential', 'user_uid', 'store', 'deleted_user'
     ].concat( legacy ? [ 'user_id', 'review_id' ] : [] ) ).where( where ),
     options: {
+      detailed,
       legacy
     }
   }
