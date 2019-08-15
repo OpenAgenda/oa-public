@@ -37,8 +37,8 @@ class DaysSelector extends Component {
   static defaultProps = {
     step: 60 * 60, // seconds in a grid visible vertical increment
     selectableStep: 30 * 60, // seconds in a grid vertical selectable increment
-    cellHeight: 40,
-    timingLimit: ONE_DAY,
+    cellHeight: 40, // in pixels
+    timingLimit: ONE_DAY, // maximum allow duration of a timing
     value: null,
     onChange: null
   };

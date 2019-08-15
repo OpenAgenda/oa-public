@@ -7,28 +7,7 @@ import '../src/App.css';
 
 storiesOf( 'App', module )
   .add( 'default', () => (
-    <TimingsPicker
-      allowedTimings={[
-        {
-          begin: '2019-10-27',
-          end: '2019-10-31'
-        },
-        {
-          begin: '2019-03-31',
-          end: '2019-04-10'
-        }
-      ]}
-      value={[
-        {
-          begin: '2019-10-27T10:00',
-          end: '2019-10-27T14:00'
-        },
-        {
-          begin: '2019-10-28T10:00',
-          end: '2019-10-28T14:00'
-        }
-      ]}
-    />
+    <TimingsPicker />
   ) )
   .add( 'with allowed timings', () => (
     <TimingsPicker
