@@ -1,5 +1,9 @@
 "use strict";
 
+const pickEventImage = require( '../lib/pickImage' );
+
+const config = require( '../../../config' );
+
 var w = require( 'when' ),
 
 React = require( 'react' ),
@@ -103,7 +107,7 @@ function _references( v ) {
 
           ev.events.push( ( {
             uid: e.uid,
-            image: e.getThumbnail( false ),
+            image: pickEventImage( config, e, 'thumbnail' ),
             link: `/${v.req.agenda.slug}/events/${e.slug}`,
             title: e.title,
             location: {
