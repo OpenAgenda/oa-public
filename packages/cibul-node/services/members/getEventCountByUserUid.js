@@ -10,7 +10,7 @@ module.exports = ( agendaUid, userUids = [] ) => {
 
   if ( !agendaUid ) return [];
 
-  log( 'processing', agendaUid, _.uniq( [].concat( userUids ).join( ',' ) ) );
+  log( 'processing', agendaUid, _.uniq( [].concat( userUids ) ).join( ',' ) );
 
   return agendaEvents( agendaUid ).stats.countByUserUid( _.uniq( userUids ) );
 }

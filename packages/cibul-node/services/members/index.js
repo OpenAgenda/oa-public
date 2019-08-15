@@ -96,6 +96,7 @@ function plugApp( parentApp ) {
     '/:agendaSlug/admin/members/invite',
     '/:agendaSlug/admin/members/send-message',
     '/:agendaSlug/admin/members/:id',
+    '/:agendaSlug/admin/members/:id/details',
     '/:agendaSlug/admin/members/:id/invite/resend'
   ], [
     sessions.middleware.ifUnlogged( ( req, res ) => res.status( 403 ).json( {
@@ -135,8 +136,21 @@ function plugApp( parentApp ) {
     mw.sendMessage
   );
 
+  // keep 'details' part as long as there are controllers in agenda/members.back.js
+  parentApp.get( '/:agendaSlug/admin/members/:id/details',
+    mw.loadTargetMember.bind( null, { detailed: true, members } ),
+    ( req, res, next ) => res.json( { ..._.pick( req.targetMember, [
+      'id',
+      'role',
+      'userUid',
+      'custom'
+    ] ),
+      user: _.pick( req.targetMember.user, [ 'uid', 'fullName' ] )
+    } )
+  );
+
   parentApp.delete( '/:agendaSlug/admin/members/:id',
-    mw.loadTargetMember.bind( null, members ),
+    mw.loadTargetMember.bind( null, { members } ),
     mw.authorize.moderatorCannotEditAdministrator,
     ( req, res, next ) => members.remove( req.targetMember.id, {
       context: { user: req.user }
@@ -146,7 +160,7 @@ function plugApp( parentApp ) {
   );
 
   parentApp.patch( '/:agendaSlug/admin/members/:id',
-    mw.loadTargetMember.bind( null, members ),
+    mw.loadTargetMember.bind( null, { members } ),
     mw.authorize.moderatorCannotEditAdministrator,
     mw.loadContext,
     ( req, res, next ) => members.patch( req.targetMember.id, req.body, {
@@ -159,7 +173,7 @@ function plugApp( parentApp ) {
 
   parentApp.put( '/:agendaSlug/admin/members/:id/invite/resend',
     mw.loadContext,
-    mw.loadTargetMember.bind( null, members ),
+    mw.loadTargetMember.bind( null, { members } ),
     ( req, res, next ) => {
       members.set.byEmail( {
         agendaUid: req.agenda.uid,
@@ -186,7 +200,7 @@ function plugApp( parentApp ) {
     mw.loadMember.bind( null, members ),
     mw.authorize.adminModOrEventOwner,
     mw.authorize.agendaHasCredential.bind( null, 'eventOwnershipTransfer' ),
-    mw.loadTargetMember.byEmail.bind( null, members ),
+    mw.loadTargetMember.byEmail.bind( null, { members } ),
     ( req, res, next ) => transferEvent( req.event, req.targetMember ).then( () => {
       res.redirect( 302, `/${req.agenda.slug}/events/${req.event.slug}` );
     }, next )
