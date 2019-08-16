@@ -57,7 +57,7 @@ module.exports.edit = ( req, res, next ) => {
   }, next );
 }
 
-function _draft( req, res,next ) {
+function _draft( req, res, next ) {
   log( 'event is draft' );
 
   if ( req.user.uid !== req.event.creatorUid ) {
