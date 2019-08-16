@@ -24,7 +24,7 @@ app
   .use( bodyParser.json( { limit: '5mb' } ) )
   .use( bodyParser.urlencoded( { limit: '500kb', extended: true } ) )
   .use( sessions.middleware )
-  .use( sessions.middleware.load( { detailed: true } ) );
+  .use( sessions.middleware.load( { detailed: true } ) )
 
 app.use( ( req, res, next ) => {
   res.setHeader( 'X-Powered-By', 'OpenAgenda' );

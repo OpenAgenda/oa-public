@@ -67,6 +67,8 @@ const middlewares = {
 
 module.exports = app => {
 
+  app.options( '*/controldata*', ( req, res ) => res.sendStatus(200) );
+
   app.get(
     '/agendas/:uid/embeds/:embedUid/controldata',
     preMw,
