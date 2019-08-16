@@ -45,9 +45,12 @@ module.exports = async ( agendaUid, eventUid, options = {} ) => {
   let network;
 
   if ( !customOnly ) {
-
-    _.assign( result.event, await events.get( { uid: eventUid } ) );
-
+    Object.assign(
+      result.event,
+      await events
+        .get( { uid: eventUid }, { internal } )
+        .then( e => _.omit( e, [ 'id' ] ) )
+      );
   }
 
   const loadCustomFields = _eventIsLoaded( result.event ) || customOnly;
