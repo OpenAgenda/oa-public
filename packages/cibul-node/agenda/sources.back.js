@@ -30,7 +30,17 @@ module.exports = app => {
     preMw,
     cmn.loadAgenda,
     cmn.authorize.administrator,
-    mw.list
+    mw.list.bind( null, { send: true } )
+  );
+
+  app.get(
+    '/agendas/:agendaUid/sources.json',
+    cmn.loadAgendaBy( { uid: 'agendaUid' } ),
+    mw.list.bind( null, { send: false } ),
+    ( req, res, next ) => res.json( {
+      total: req.result.total,
+      agendas: req.result.reviews
+    } )
   );
 
   app.get(
