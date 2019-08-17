@@ -10,7 +10,7 @@ module.exports = ( { event, req }, timing ) => ( {
   labels: getLabels( event.location.timezone, timing ),
   'JSONLD': getSchemaJSONLD(
     event,
-    applyTimezone( timing, event.location.timezone )
+    timing
   ),
   ... links( { event, req }, timing )
 } );

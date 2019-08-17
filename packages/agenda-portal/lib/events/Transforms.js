@@ -13,24 +13,25 @@ const spreadPerMonthPerDay = require( './spreadPerMonthPerDay' );
 
 module.exports = options => {
 
-  const base = baseEventTransform.bind( null, options );
+  const preTransform = _preEventTransform.bind( null, options );
+  const postTransform = _postEventTransform.bind( null, options );
 
   return {
     listItem: ( event, req, res, context ) => {
 
       moment.locale( res.locals.lang );
 
-      const transformed = base( event, req, res );
+      const transformed = preTransform( event, req, res );
 
       return applyContextLink( {
         req, context
-      }, transformed );
+      }, postTransform( transformed, res, res ) );
     },
     show: ( event, req, res ) => {
 
       moment.locale( res.locals.lang );
 
-      const transformed = base( event, req, res );
+      const transformed = preTransform( event, req, res );
 
       transformed.timings = transformed.timings.map(
         detailedTiming.bind( null, { event: transformed, req } )
@@ -48,24 +49,25 @@ module.exports = options => {
         );
       }
 
-      return transformed;
+      return postTransform( transformed, res, res );
     }
   }
 
 }
 
-function baseEventTransform( {
-  eventsPerPage,
-  eventHook,
-  root
-}, event, req, res, context = null ) {
-
+function _preEventTransform( {}, event, req, res, context = null ) {
   return [
     flatten.bind( null, [ 'range', 'title', 'description', 'html' ], res.locals.lang ),
     relativeTimings,
-    links.bind( null, res.locals ),
+    links.bind( null, res.locals )
+  ].reduce( ( e, fn ) => fn( e ), event );
+}
+
+function _postEventTransform( {
+  eventHook
+}, event, req, res, context = null ) {
+  return [
     applySchemaJSONLD,
     eventHook ? _.partialRight( eventHook, res.locals ) : e => e
   ].reduce( ( e, fn ) => fn( e ), event );
-
 }

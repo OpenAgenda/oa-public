@@ -6,44 +6,54 @@ const getTimingJSONLD = require( '../lib/timings/getSchemaJSONLD' );
 
 describe( '13 - schema.org', () => {
 
+  const event = {
+    title: 'Exposition Florentin Brigaud le monde animalier',
+    permalink: 'https://openagenda.com/agendas/36668061/events/53601020',
+    description: 'Exposition temporaire dédiée aux oeuvres du sculpteur animalier Florentin Brigaud',
+    registration: [ {
+      type: 'link',
+      value: 'https://www.voulez-vous.fr/'
+    }, {
+      type: 'email',
+      value: 'contact@brigaud.fr'
+    } ],
+    image: 'https://cibul.s3.amazonaws.com/73a0e0e58db448ffbd6e21dee5151642.base.image.jpg',
+    location: {
+      name: 'Château-musée de Gien',
+      address: '5 Place du Château, 45500 Gien',
+      city: 'Gien',
+      region: 'Centre-Val de Loire',
+      postalCode: '45500',
+      countryCode: 'FR',
+      latitude: 47.685759,
+      longitude: 2.630589,
+      timezone: 'Europe/Paris'
+    },
+    timings: [ {
+      start: '2019-06-15T06:30:00.000Z',
+      end: '2019-06-15T07:30:00.000Z',
+    } ]
+  }
+
+  const timing = event.timings[ 0 ];
+
+  const parsedEventJSONLD = JSON.parse( getTimingJSONLD( event, timing ) );
+
+  describe( 'schema.org/Event', () => {
+    // https://schema.org/Event
+
+    it( 'identifier is the event page permalink when no permalink is defined for timing', () => {
+      parsedEventJSONLD[ '@id' ].should.equal( 'https://openagenda.com/agendas/36668061/events/53601020' );
+    } );
+
+    it( 'url is the same as the identifier', () => {
+      parsedEventJSONLD[ 'url' ].should.equal( 'https://openagenda.com/agendas/36668061/events/53601020' );
+    } );
+
+  } );
+
   describe( 'Google guidelines', () => {
-    //https://developers.google.com/search/docs/data-types/event
-
-    const event = {
-      title: 'Exposition Florentin Brigaud le monde animalier',
-      description: 'Exposition temporaire dédiée aux oeuvres du sculpteur animalier Florentin Brigaud',
-      share: {
-        permalink: 'https://openagenda.com/agendas/36668061/events/53601020'
-      },
-      registration: [ {
-        type: 'link',
-        value: 'https://www.voulez-vous.fr/'
-      }, {
-        type: 'email',
-        value: 'contact@brigaud.fr'
-      } ],
-      image: 'https://cibul.s3.amazonaws.com/73a0e0e58db448ffbd6e21dee5151642.base.image.jpg',
-      location: {
-        name: 'Château-musée de Gien',
-        address: '5 Place du Château, 45500 Gien',
-        city: 'Gien',
-        region: 'Centre-Val de Loire',
-        postalCode: '45500',
-        countryCode: 'FR',
-        latitude: 47.685759,
-        longitude: 2.630589,
-        timezone: 'Europe/Paris'
-      },
-      timings: [ {
-        start: '2019-06-15T06:30:00.000Z',
-        end: '2019-06-15T07:30:00.000Z',
-      } ]
-    }
-
-    const timing = event.timings[ 0 ];
-
-    const eventJSONLD = getTimingJSONLD( event, timing );
-    const parsedEventJSONLD = JSON.parse( eventJSONLD );
+    // https://developers.google.com/search/docs/data-types/event
 
     describe( 'required properties', () => {
 

@@ -1,15 +1,18 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const tz = require( 'moment-timezone' ).tz;
 
 const getJSONDuration = require( './getJSONDuration' );
 
-module.exports = ( event, { start, end } ) => JSON.stringify( {
+module.exports = ( event, { start, end, permalink } ) => JSON.stringify( {
+  '@id' : permalink || event.permalink || `https://openagenda.com/events/${event.slug}`,
   '@context': 'http://schema.org',
   '@type' : 'Event',
   name : event.title,
   description : event.description,
-  url : event.share.permalink,
+  url : permalink || event.permalink || `https://openagenda.com/events/${event.slug}`,
   ... event.image ? { image: [ event.image ] } : {},
   startDate: tz( start, event.location.timezone ).format( 'YYYY-MM-DDTHH:mm' ),
   endDate: tz( end, event.location.timezone ).format( 'YYYY-MM-DDTHH:mm' ),
