@@ -50,6 +50,10 @@ describe( '13 - schema.org', () => {
       parsedEventJSONLD[ 'url' ].should.equal( 'https://openagenda.com/agendas/36668061/events/53601020' );
     } );
 
+    it( 'location country code is Alpha-2 code', () => {
+      parsedEventJSONLD.location.address.addressCountry.should.equal( 'FR' );
+    } );
+
   } );
 
   describe( 'Google guidelines', () => {

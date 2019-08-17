@@ -6,7 +6,7 @@ const should = require( 'should' );
 
 const spreadPerMonth = require( '../lib/events/spreadPerMonthPerDay' );
 
-describe( '10 spreadPerMonthPerDay', () => {
+describe( '10 - spreadPerMonthPerDay', () => {
 
   describe( 'basics', () => {
 

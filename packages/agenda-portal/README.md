@@ -5,8 +5,23 @@ This library provides functionalities to build a fully customizable events websi
 Here is a website built with this library: [https://agenda.albi.fr](https://agenda.albi.fr)
 
 [Handlebars](https://handlebarsjs.com/) is the main templating engine.
-[Sass](https://sass-lang.com/) for styling. The default template uses [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/theming/)
+[Sass](https://sass-lang.com/) for styling. Default templates use [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/theming/)
 
+# Features
+
+## For site users
+
+ * **Event search** : mirrors search featured available on [OpenAgenda](https://openagenda.com) by forwarding filters to the matching agenda **JSON** export
+ * **Event list pagination**: event lists can be either paginated or loaded progressively as the user scrolls
+ * **Lateral navigation**: When a search is made and an event is opened, the user can shuffle through events of the current search without going back to the list
+ * **Caching**: redis caching
+
+## For developers
+
+ * **Bootstrap client**: to start a running sandbox project in a matter of minutes
+ * **Live reload for integrators**: The portal reloads as templates or styles are customized on file saves
+ * **Structured event data**: ready-to-use `json+ld` sets are ready for use on templates for search engine indexing
+ * **Filter widgets**: Customizable map, tag, search field, calendar components
 
 # Quick start
 

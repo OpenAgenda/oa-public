@@ -4,7 +4,7 @@ const should = require( 'should' );
 
 const getMonthWeek = require( '../lib/events/getMonthWeek' );
 
-describe( '11 getMonthWeek', () => {
+describe( '11 - getMonthWeek', () => {
 
   it( 'returns week of month', () => {
 
