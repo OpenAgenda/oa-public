@@ -12,7 +12,8 @@
     "jest": "^23.6.0",
     "knex": "^0.16.2",
     "mysql": "^2.16.0",
-    "redis": "^2.8.0"
+    "redis": "^2.8.0",
+    "should": "^13.2.3"
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.1",
