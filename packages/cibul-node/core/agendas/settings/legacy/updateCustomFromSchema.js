@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 
 const formSchemas = require( '@openagenda/form-schemas' );
-const generateCustomFields = require( '@openagenda/form-schemas/server/legacy/generateCustomFields' );
+const generateCustomFields = require( '@openagenda/legacy/tagsAndCustom' ).utils.generateCustomFields;
 const log = require( '@openagenda/logs' )( 'core/agendas/settings/legacy/updateCustom' );
 
 const getAgenda = require( '../../utils/getAgenda' );

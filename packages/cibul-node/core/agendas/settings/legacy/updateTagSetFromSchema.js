@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 
 const agendaTags = require( '@openagenda/agenda-tags' );
-const generateTagSet = require( '@openagenda/form-schemas/server/legacy/generateTagSet' );
+const generateTagSet = require( '@openagenda/legacy/tagsAndCustom' ).utils.generateTagSet;
 
 const getAgenda = require( '../../utils/getAgenda' );
 const getMergedSchema = require( '../getMergedSchema' );
