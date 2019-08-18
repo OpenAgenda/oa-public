@@ -12,7 +12,8 @@ module.exports = ( schema, currentTagSet = null ) => {
   const currentTagGroups = _.get( currentTagSet, 'groups', [] );
 
   const tagSettableFields = schema.fields
-    .filter( f => includeTypes.includes( f.fieldType ) );
+    .filter( f => includeTypes.includes( f.fieldType ) )
+    .filter( f => f.origin == 'tags' || !f.origin );
 
   const messages = tagSettableFields
     .filter( f => !f.origin )

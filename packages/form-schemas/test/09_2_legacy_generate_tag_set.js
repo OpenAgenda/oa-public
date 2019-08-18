@@ -11,7 +11,7 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
     const schema = {
       fields: [ {
         field: 'nantes',
-        origin: 'categories',
+        origin: 'tags',
         label: 'Nantes',
         fieldType: 'checkbox',
         schemaId: 1,
@@ -24,7 +24,6 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
     };
 
     generateTagSet( schema ).tagSet.groups.length.should.equal( 1 );
-
 
   } );
 
@@ -45,6 +44,27 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
     };
 
     generateTagSet( schema ).tagSet.groups.length.should.equal( 1 );
+
+  } );
+
+  it( 'does not consider field if origin is set to another value than "tags"', () => {
+
+    const schema = {
+      fields: [ {
+        field: 'nantes',
+        label: 'Nantes',
+        fieldType: 'radio',
+        schemaId: 1,
+        origin: 'custom',
+        options: [ {
+          id: 1,
+          value: 'un',
+          lable: 'Un'
+        } ]
+      } ]
+    };
+
+    generateTagSet( schema ).tagSet.groups.length.should.equal( 0 );
 
   } );
 
@@ -86,7 +106,7 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
     const schema = {
       fields: [ {
         field: 'nantes',
-        origin: 'categories',
+        origin: 'tags',
         label: { fr: 'Nantes', en: 'Nantes' },
         fieldType: 'radio',
         schemaId: 1,
