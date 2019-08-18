@@ -24,152 +24,133 @@
           "value": "club",
           "label": {
             "fr": "Clubs"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 2,
           "value": "comite",
           "label": {
             "fr": "Comités"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 3,
           "value": "ligue",
           "label": {
             "fr": "Ligues"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 4,
           "value": "clubcomite",
           "label": {
             "fr": "Clubs / Comités"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 5,
           "value": "clubligue",
           "label": {
             "fr": "Clubs / Ligues"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 6,
           "value": "comiteligue",
           "label": {
             "fr": "Comités / Ligues"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 7,
           "value": "unss",
           "label": {
             "fr": "Fédérations scolaires et universitaires : UNSS"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 8,
           "value": "usep",
           "label": {
             "fr": "Fédérations scolaires et universitaires : USEP"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 9,
           "value": "edunat",
           "label": {
             "fr": "Fédérations scolaires et universitaires : éducation nationale"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 10,
           "value": "ugsel",
           "label": {
             "fr": "Fédérations scolaires et universitaires : UGSEL"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 11,
           "value": "ffsu",
           "label": {
             "fr": "Fédérations scolaires et universitaires : FFSU"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 12,
           "value": "AutreAssociationSportive",
           "label": {
             "fr": "Autre association sportive"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 13,
           "value": "AssoEtudiante",
           "label": {
             "fr": "Association étudiante"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 14,
           "value": "Ecole",
           "label": {
             "fr": "École"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 15,
           "value": "Collectivite",
           "label": {
             "fr": "Collectivité"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 16,
           "value": "AssoCulturelle",
           "label": {
             "fr": "Association culturelle"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 17,
           "value": "BarRestoBoite",
           "label": {
             "fr": "Bar-restaurant-boîte de nuit"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 18,
           "value": "Entreprises",
           "label": {
             "fr": "Entreprises"
-          },
-          "legacyId" : null
+          }
         },
         {
           "id": 19,
           "value": "Autre",
           "label": {
             "fr": "Autre"
-          },
-          "legacyId" : null
+          }
         }
       ],
       "fieldType": "radio",

@@ -323,10 +323,6 @@ function buildFieldSchema( type, options = {} ) {
             type: 'multilingual',
             optional: false,
             defaultLanguage: defaultLabelLanguage
-          },
-          legacyId: {
-            type: 'integer',
-            optional: true
           }
         }
       }

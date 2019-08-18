@@ -31,28 +31,6 @@ describe( 'form-schemas - functional (server): legacy', function() {
 
   after( () => svc.shutdown );
 
-  it( '.agendaEventGet gets custom data of agenda event reference in agenda form schema format', async () => {
-
-    let result = await svc.legacy.agendaEventGet( 3868, 80445 );
-
-    result.should.eql( {
-      //legacy text
-      citation: 'Celle de participer à une journée digne de notre sport ! ',
-
-      // legacy integer
-      participants: 200,
-      // legacy tags
-      'public-cible': [ 20, 21 ],
-      // legacy category
-      theme: 30,
-
-      'etes-vous-candidat-a-la-labellisation-tous-prets' : null,
-      partners: null,
-      phenomenal: null
-    } );
-
-  } );
-
   it( '.agendaEventGet transfers multichoice to checkbox field type', async () => {
 
     ( await svc.legacy.agendaEventGet( 7292, 152412 ) )
