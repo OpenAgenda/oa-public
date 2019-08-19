@@ -5,6 +5,8 @@ const usersSvc = require( '@openagenda/users' );
 const log = require( '@openagenda/logs' )( 'auth/reset.front' );
 const cmn = require( '../lib/commons-app' );
 
+const config = require( '../config' );
+
 const preMw = [
   cmn.loadBaseData(),
   sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
