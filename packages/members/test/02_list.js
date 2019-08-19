@@ -381,6 +381,18 @@ describe( 'members - functional - list', () => {
 
     } );
 
+    it( 'fix: limit can be set as zero to fetch totals only', async () => {
+
+      const { members, total } = await svc.list( { agendaUid: 1 }, { limit: 0 }, {
+        total: true,
+        detailed: true
+      } );
+
+      members.length.should.equal( 0 );
+      total.should.greaterThan( 0 );
+
+    } );
+
   } );
 
 } );

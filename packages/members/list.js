@@ -54,7 +54,10 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     } );
   }
 
-  if ( detailed && _.get( interfaces, 'getAgendasByUid' ) ) {
+  if ( detailed
+    && _.get( interfaces, 'getAgendasByUid' )
+    && members.length
+  ) {
     const agendas = ( await interfaces.getAgendasByUid(
       members.map( m => m.agendaUid ).filter( m => !!m )
     ) );
@@ -63,7 +66,10 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     } );
   }
 
-  if ( detailed && _.get( interfaces, 'getEventCountByUserUid' ) ) {
+  if ( detailed
+    && members.length
+    && _.get( interfaces, 'getEventCountByUserUid' )
+  ) {
     ( await interfaces.getEventCountByUserUid(
       query.agendaUid,
       members.map( m => m.userUid )
