@@ -93,6 +93,7 @@ function plugApp( parentApp ) {
 
   parentApp.all( [
     '/:agendaSlug/admin/members.:format',
+    '/:agendaSlug/admin/members/stats',
     '/:agendaSlug/admin/members/invite',
     '/:agendaSlug/admin/members/send-message',
     '/:agendaSlug/admin/members/:id',
@@ -118,6 +119,11 @@ function plugApp( parentApp ) {
   parentApp.get(
     '/:agendaSlug/admin/members.json',
     mw.list.bind( null, members )
+  );
+
+  parentApp.get(
+    '/:agendaSlug/admin/members/stats',
+    mw.list.stats.bind( null, members )
   );
 
   parentApp.get( [
