@@ -9,9 +9,9 @@ export default {
   applyOffset
 }
 
-function applyOffset( d ) {
+function applyOffset( ref, d ) {
   if ( !d ) return;
-  const ref = dateFns.startOfDay( d );
+
   if ( !hasSwitched( ref, d ) ) return;
 
   d.setHours( d.getHours() + dayOffset( d ) );
@@ -32,13 +32,12 @@ function offsetTop( { step, cellHeight }, d, top ) {
 }
 
 function dayOffset( d ) {
-  const dayStart = new Date( d );
-  const dayFinish = new Date( d );
+  const dayBefore = new Date( d );
+  dayBefore.setDate( dayBefore.getDate() - 1 );
+  const dayAfter = new Date( d );
+  dayAfter.setDate( dayAfter.getDate() + 1 );
 
-  dayStart.setHours( 0 );
-  dayFinish.setHours( 24 );
-
-  return ( dayFinish.getTime() - dayStart.getTime() ) / 60 / 60 / 1000 - 24;
+  return ( dayAfter.getTime() - dayBefore.getTime() ) / 60 / 60 / 1000 - ( 24 * 2 );
 }
 
 function hasSwitched( d1, d2 ) {

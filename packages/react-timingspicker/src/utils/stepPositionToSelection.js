@@ -26,9 +26,8 @@ export default ( {
   // moment under the cursor
   const timingHover = dateFns.addSeconds( dayHover, top * selectableStep );
 
-  DST.applyOffset( timingHover );
+  DST.applyOffset( dayHover, timingHover );
 
-  // isn't this always the same as the dayHover?
   const startOfBeginDay = dateFns.startOfDay( timingHover );
 
   let begin;

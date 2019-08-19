@@ -31,4 +31,58 @@ describe( '01 - unit - stepPositionToSelection', () => {
     JSON.stringify( end ).should.equal( '"2019-10-28T09:00:00.000Z"' );
   } );
 
+  describe( 'DST days', () => {
+
+    it( 'fix: before is evaluated correctly', () => {
+
+      const props = {
+        activeWeek: new Date( '2019-10-27T02:00:00+0200' ),
+        weekStartsOn: 0,
+        selectableStep: 1800
+      };
+
+      const { begin: begin1 } = stepPositionToSelection( props, {
+        top: 20.95,
+        left: 0
+      }, new Date( '2019-10-27T10:00:00+0100' ) );
+
+      const { begin: begin2 } = stepPositionToSelection( props, {
+        top: 21,
+        left: 0
+      }, new Date( '2019-10-27T10:00:00+0100' ) );
+
+      JSON.stringify( begin1 ).should.equal( JSON.stringify( begin2 ) );
+
+    } );
+
+    it( 'fix: time increment cannot exceed step value', () => {
+
+      const selectableStep = 1800;
+
+      const props = {
+        activeWeek: new Date( '2019-03-31T00:00:00.000Z' ),
+        weekStartsOn: 0,
+        selectableStep: 1800
+      };
+
+      const {
+        end
+      } = stepPositionToSelection( props, {
+        top: 45.95,
+        left: 0
+      }, new Date( '2019-03-31T19:00:00.000Z' ) );
+
+      const {
+        end: end2
+      } = stepPositionToSelection( props, {
+        top: 46.05,
+        left: 0
+      }, new Date( '2019-03-31T19:00:00.000Z' ) );
+
+      ( ( end2.getTime() - end.getTime() ) / 1000 ).should.equal( selectableStep );
+
+    } );
+
+  } );
+
 } );
