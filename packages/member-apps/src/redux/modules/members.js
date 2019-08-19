@@ -72,7 +72,7 @@ export default function reducer( state = initialState, action ) {
     case GET_STATS_SUCCESS:
       return {
         ...state,
-        stats: action.result.stats
+        stats: action.result
       };
     case LIST:
       return {
@@ -162,7 +162,7 @@ export default function reducer( state = initialState, action ) {
     case REMOVE_SUCCESS:
       const index = state.data.findIndex( sh => sh.id === action.id );
       const stakeholder = state.data[ index ];
-      const credential = credentialsTypes.codes.get( stakeholder.credential );
+      const role = credentialsTypes.codes.get( stakeholder.credential );
       return {
         ...state,
         data: [ ...state.data.slice( 0, index ), ...state.data.slice( index + 1 ) ],
@@ -170,9 +170,9 @@ export default function reducer( state = initialState, action ) {
         stats: {
           ...state.stats,
           total: state.stats.total - 1,
-          credentialTotals: {
-            ...state.stats.credentialTotals,
-            [credential]: state.stats.credentialTotals[ credential ] - 1
+          totalPerRole: {
+            ...state.stats.totalPerRole,
+            [ role ]: state.stats.totalPerRole[ role ] - 1
           }
         }
       };

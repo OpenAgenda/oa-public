@@ -92,8 +92,13 @@ app.get(
 
 app.get(
   '/stats',
-  stakeholdersMw.agenda( 'agenda.data' ).stats(),
-  ( { stats }, res ) => res.json( { stats } )
+  ( { stats }, res ) => res.json( {
+    total,
+    totalPerRole: {
+      contributor: 14,
+      administrator: 3
+    }
+  } )
 );
 
 app.get(
