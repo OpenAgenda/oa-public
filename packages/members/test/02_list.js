@@ -295,6 +295,21 @@ describe( 'members - functional - list', () => {
 
     } );
 
+    it( 'when total and detailed are true, counts for each role are provided', async () => {
+
+      const members = await svc.list( {
+        agendaUid: 1
+      }, { limit: 1 }, { total: true, detailed: true } );
+
+      members.total.should.equal( 4 );
+
+      members.totalPerRole.should.eql( {
+        contributor: 3,
+        administrator: 1
+      } );
+
+    } );
+
   } );
 
   describe( 'other', () => {
