@@ -232,7 +232,9 @@ module.exports = app => {
     cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'slug', { cache: true } ),
     ( req, res, next ) => {
-      if ( req.agenda.private ) res.redirect( 302, `/${req.agenda.slug}.prv` );
+      if ( req.agenda.private ) {
+        return res.redirect( 302, `/${req.agenda.slug}.prv` );
+      }
       next();
     },
     agendaSvc.mw.browserCache,

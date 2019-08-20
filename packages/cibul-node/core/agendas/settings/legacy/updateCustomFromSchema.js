@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 
 const formSchemas = require( '@openagenda/form-schemas' );
-const generateCustomFields = require( '@openagenda/legacy/tagsAndCustom' ).utils.generateCustomFields;
+const generateCustomSet = require( '@openagenda/legacy/tagsAndCustom' ).utils.generateCustomSet;
 const log = require( '@openagenda/logs' )( 'core/agendas/settings/legacy/updateCustom' );
 
 const getAgenda = require( '../../utils/getAgenda' );
@@ -23,7 +23,7 @@ module.exports = async ( config, agendaOrUid, force = false ) => {
 
   if ( !schema ) return { message: `No form schema was found for agenda ${agenda.uid}` };
 
-  const { customFields, messages } = generateCustomFields( schema );
+  const { customFields, messages } = generateCustomSet( schema );
 
   const {
     id, store
