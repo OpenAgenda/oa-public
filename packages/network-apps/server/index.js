@@ -1,12 +1,17 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const logger = require( '@openagenda/logs' );
 
 const name = require( '../package.json' ).name.split( '/' ).pop();
 
 module.exports = _.assign( ( config = {} ) => {
 
   let eventSchema;
+
+  if ( config.logger ) {
+    logger.setModuleConfig( config.logger );
+  }
 
   return _.assign( {
     name,
