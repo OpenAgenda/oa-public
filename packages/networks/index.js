@@ -1,6 +1,8 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const logger = require( '@openagenda/logs' );
+
 const config = require( './config' );
 const get = require( './get' );
 const list = require( './list' );
@@ -14,6 +16,10 @@ module.exports = ( options = {} ) => {
     knex: null,
     schema: 'network'
   }, options );
+
+  if ( config.logger ) {
+    logger.setModuleConfig( config.logger );
+  }
 
   return {
     get: get.bind( null, config ),
