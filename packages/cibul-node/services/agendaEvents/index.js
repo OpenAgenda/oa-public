@@ -24,7 +24,11 @@ const mw = {
 
 module.exports = Object.assign( plugApp, {
   init,
-  legacy
+  legacy,
+  mw: {
+    // make the variants load and loadOrFail
+    loadOrFail: mw.load
+  }
 } );
 
 function init( config ) {

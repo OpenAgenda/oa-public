@@ -6,7 +6,8 @@ const w = require( 'when' );
 
 const agendas = require( '@openagenda/agendas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const agendaEventsMw = require( '../services/agendaEvents' ).mw;
+const members = require( '../services/members' );
 const cbify = require( '@openagenda/utils/cbify' );
 const sessions = require( '@openagenda/sessions' );
 const keysSvc = require( '@openagenda/keys' );
@@ -35,7 +36,7 @@ module.exports = app => {
     '/:slug/actions',
     preMw,
     loadKey(),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     _loadDocxPath,
     actionShow
   );
@@ -47,7 +48,7 @@ module.exports = app => {
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
     eventSvc.mw.load( 'eventUid', 'uid', { inAgendaContext: false } ),
     _getRedirect,
-    cmn.checkStakeholder,
+    members.mw.loadOrFail,
     _verifyAlreadyAdded,
     eventAdd
   );
@@ -59,8 +60,9 @@ module.exports = app => {
     sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     _getRedirect,
-    cmn.checkStakeholder,
-    _isContributorSharer,
+    agendaEventsMw.loadOrFail,
+    members.mw.loadOrFail,
+    _isMemberSharer,
     eventRemove
   );
 
@@ -385,38 +387,16 @@ function _verifyIP( req, res, next ) {
 }
 
 
-function _isContributorSharer( req, res, next ) {
+function _isMemberSharer( req, res, next ) {
+  if ( members.utils.compareRoles.isSuperiorTo( req.member.role, 'contributor' ) ) {
+    return next();
+  }
 
-  agendaStakeholders.agenda( req.agenda.id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
+  if ( req.agendaEvent.userUid === req.user.uid ) {
+    return next();
+  }
 
-    if ( err ) return next( err );
-
-    if ( !stakeholder ) return _unauthorized( req, res );
-
-    const role = agendaStakeholders.types.codes.get( stakeholder.credential );
-
-    // if user is moderator or admin, we can proceed
-    if ( [ 'administrator', 'moderator' ].includes( role ) ) {
-
-      return next();
-
-    }
-
-    // user can remove only if he added the event.
-    model.lib.query( 'select user_id from review_article where event_id = ? and review_id = ? limit 1', [ req.event.id, req.agenda.id ], ( err, rows ) => {
-
-      if ( err ) return next( err );
-
-      if ( !rows.length ) return _unauthorized( req, res );
-
-      if ( rows[ 0 ].user_id !== req.user.id ) return _unauthorized( req, res );
-
-      next();
-
-    } );
-
-  } );
-
+  return _unauthorized( req, res );
 }
 
 function _unauthorized( req, res ) {

@@ -4,11 +4,25 @@ const log = require( '@openagenda/logs' )( 'services/members/middleware/loadMemb
 
 module.exports = ( members, req, res, next ) => {
   log( 'loading current user member reference' );
-  members.get( {
+  _load( members, req ).then( next, next );
+}
+
+module.exports.loadOrFail = ( members, req, res, next ) => {
+  log( 'loading current user member reference... or fail' );
+  _load( members, req ).then( () => {
+    if ( !req.member ) {
+      res.setStatus( 403 );
+      return next( 'Not a member' );
+    }
+    next();
+  } );
+}
+
+function _load( members, req ) {
+  return members.get( {
     agendaUid: req.agenda.uid,
     userUid: req.user.uid
   } ).then( member => {
     req.member = member;
-    next();
-  }, next );
+  } );
 }

@@ -80,6 +80,7 @@ function init( c ) {
       },
       mw: {
         load: mw.loadMember.bind( null, members ),
+        loadOrFail: mw.loadMember.loadOrFail.bind( null, members ),
         list: mw.list.bind( null, members ),
         authorize: {
           moderator: mw.authorize.moderator
