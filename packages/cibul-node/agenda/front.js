@@ -17,7 +17,6 @@ const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/a
 const sessions = require( '@openagenda/sessions' );
 const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
 const slugs = require( '@openagenda/slugs' );
-const stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 const unauthorizedIpLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedIp' ) );
 const utils = require( '@openagenda/utils' );
 

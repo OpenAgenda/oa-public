@@ -9,6 +9,7 @@ const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'services/members' );
 
 const mail = require( './lib/mail' );
+const activities = require( './lib/activities' );
 const streamCsv = require( './lib/streamCsv' );
 const streamXlsx = require( './lib/streamXlsx' );
 const transferEvent = require( './lib/transferEvent' );
@@ -22,17 +23,22 @@ const onCreate = require( './onCreate' );
 const onRemove = require( './onRemove' );
 const onPatch = require( './onPatch' );
 
+const {
+  middleware: agendasMw
+} = require( '@openagenda/agendas' );
+
 const mw = {
   authorize: require( './middleware/authorize' ),
   list: require( './middleware/list' ),
   loadAgenda: require( './middleware/loadAgenda' ),
   loadEvent: require( './middleware/loadEvent' ),
-  loadMember: require( './middleware/loadMember' ),
+  load: require( './middleware/load' ),
   loadTargetMember: require( './middleware/loadTargetMember' ),
   loadContext: require( './middleware/loadContext' ),
   invite: require( './middleware/invite' ),
   sendMessage: require( './middleware/sendMessage' ),
-  spreadsheet: require( './middleware/spreadsheet' )
+  spreadsheet: require( './middleware/spreadsheet' ),
+  page: require( './middleware/page' )
 }
 
 const members = {};
@@ -46,6 +52,9 @@ module.exports = Object.assign( plugApp, {
 function init( c ) {
   Object.assign( config, c );
 
+  const activityQueue = queues( 'memberActivities' );
+  const messageQueue = queues( 'memberMessages' );
+
   Object.assign( members, Service( {
     knex: config.knex,
     schema: 'reviewer',
@@ -58,15 +67,19 @@ function init( c ) {
       getAgendasByUid,
       getUserByEmail,
       onCreate: onCreate.bind( null, config ),
-      onRemove,
+      onRemove: onRemove.bind( null, { members, activityQueue } ),
       onPatch: onPatch.bind( null, config )
     }
   } ) );
 
   const messages = mail.messages( config, {
-    queues,
-    members
+    members,
+    queue: messageQueue
   } );
+
+  const {
+    task: activityTask
+  } = activities( { queue: activityQueue } );
 
   mw.sendMessage.init( messages );
 
@@ -77,10 +90,11 @@ function init( c ) {
         log( 'running tasks' );
         members.task();
         messages.task();
+        activityTask();
       },
       mw: {
-        load: mw.loadMember.bind( null, members ),
-        loadOrFail: mw.loadMember.loadOrFail.bind( null, members ),
+        load: mw.load.bind( null, members ),
+        loadOrFail: mw.load.loadOrFail.bind( null, members ),
         list: mw.list.bind( null, members ),
         authorize: {
           moderator: mw.authorize.moderator
@@ -91,8 +105,8 @@ function init( c ) {
 }
 
 function plugApp( parentApp ) {
-
   parentApp.all( [
+    '/:agendaSlug/admin/members',
     '/:agendaSlug/admin/members.:format',
     '/:agendaSlug/admin/members/stats',
     '/:agendaSlug/admin/members/invite',
@@ -105,8 +119,11 @@ function plugApp( parentApp ) {
       message: 'A session must be opened to access this route',
     } ) ),
     mw.loadAgenda,
-    mw.loadMember.bind( null, members ),
-    mw.authorize.moderator
+    mw.load.loadOrFail.bind( null, members ),
+    mw.authorize.moderator,
+    agendasMw.evaluateIPAddress( {
+      onUnauthorizedIPAddress: _onUnauthorizedIPAddress
+    } )
   ] );
 
   parentApp.get(
@@ -115,6 +132,12 @@ function plugApp( parentApp ) {
       req.order = 'actionsCounter.desc';
       next();
     }
+  );
+
+  parentApp.get(
+    '/:agendaSlug/admin/members',
+    mw.loadAgenda.roles,
+    mw.page.bind( null, _.pick( config, [ 'port' ] ) )
   );
 
   parentApp.get(
@@ -204,7 +227,7 @@ function plugApp( parentApp ) {
   parentApp.post( '/:agendaSlug/admin/members/transfer/:eventSlug',
     mw.loadAgenda,
     mw.loadEvent,
-    mw.loadMember.bind( null, members ),
+    mw.load.bind( null, members ),
     mw.authorize.adminModOrEventOwner,
     mw.authorize.agendaHasCredential.bind( null, 'eventOwnershipTransfer' ),
     mw.loadTargetMember.byEmail.bind( null, { members } ),
@@ -213,8 +236,17 @@ function plugApp( parentApp ) {
     }, next )
   );
 
-
   parentApp.get( '/:agendaSlug/admin/members.csv', streamCsv );
   parentApp.get( '/:agendaSlug/admin/members.xlsx', streamXlsx );
-
 };
+
+function _onUnauthorizedIPAddress( req, res, next ) {
+  if ( process.env.NODE_ENV === 'development' ) return next();
+  log(
+    'info',
+    'IP %s is not authorized for agenda %s',
+    req.header( 'x-forwarded-for' ),
+    req.agenda.slug
+  );
+  res.redirect( 302, `/${req.agenda.slug}/unauthorized/ip` );
+}

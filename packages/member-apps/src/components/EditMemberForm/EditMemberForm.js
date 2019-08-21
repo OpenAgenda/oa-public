@@ -7,7 +7,7 @@ import { renderField, renderInput, renderSelect } from '../../utils/form';
 
 @connect(
   ( state, props ) => {
-    const custom = props.stakeholder && props.stakeholder.custom;
+    const custom = props.member && props.member.custom;
     return {
       initialValues: {
         organization: custom.organization,
@@ -15,10 +15,10 @@ import { renderField, renderInput, renderSelect } from '../../utils/form';
         contactNumber: custom.contactNumber,
         contactName: custom.contactName,
         contactPosition: custom.contactPosition,
-        credential: props.stakeholder.credential
+        credential: props.member.role
       },
       roles: state.agenda.roles,
-      userCredential: state.stakeholder.credential
+      userCredential: state.member.role
     };
   }
 )
@@ -44,7 +44,7 @@ export default class EditMembersForm extends Component {
     const { handleSubmit, roles, userCredential } = this.props;
     const { getLabel } = this.context;
 
-    const haveRole = value => roles.some( role => role.value === value );
+    const haveRole = value => roles.some( role => role.code === value );
 
     return (
       <form onSubmit={handleSubmit}>

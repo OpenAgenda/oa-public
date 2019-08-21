@@ -11,7 +11,7 @@ import { renderField, renderTextarea, renderSelect, renderMarkdownInput } from '
   state => ({
     roles: state.agenda.roles,
     invitationMessage: state.agenda.credentials.invitationMessage,
-    userCredential: state.stakeholder.credential,
+    userCredential: state.member.role,
     inviteLoading: state.members.inviteLoading
   })
 )
@@ -38,7 +38,7 @@ export default class InviteMembersForm extends Component {
     const { handleSubmit, userCredential, invitationMessage, inviteLoading } = this.props;
     const { getLabel } = this.context;
 
-    const haveRole = value => this.props.roles.some( role => role.value === value );
+    const haveRole = value => this.props.roles.some( role => role.code === value );
 
     return (
       <form onSubmit={handleSubmit} className="invite-members-form">

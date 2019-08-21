@@ -2,17 +2,15 @@ global.__CLIENT__ = false;
 global.__SERVER__ = true;
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
-import http from 'http';
 import _ from 'lodash';
-import usersSvc from '@openagenda/users';
-import agendasSvc, { middleware as agendasMw } from '@openagenda/agendas';
-import stakeholdersSvc from '@openagenda/agenda-stakeholders';
-import stakeholdersMw from '@openagenda/agenda-stakeholders/dist/middleware';
+import http from 'http';
+
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
 import errorHandler from 'errorhandler';
-import testconfig from './testconfig';
+
+import memberListResult from './fixtures/members.json';
 
 const app = express();
 
@@ -23,14 +21,6 @@ app.server = server;
 /*
  * Run `yarn knex migrate:latest` and `yarn knex seed:run` before to run the dev server
  * */
-
-if ( process.env.NODE_ENV !== 'test' ) {
-  usersSvc.init( testconfig );
-  agendasSvc.init( testconfig );
-  stakeholdersSvc.init( testconfig, () => {
-    stakeholdersSvc.tasks.message();
-  } );
-}
 
 if ( [ 'development', 'test' ].includes( process.env.NODE_ENV ) ) {
   app.use( morgan( 'dev' ) );
@@ -52,48 +42,49 @@ app.use( ( req, res, next ) => {
 
 /********/
 
-app.use( agendasMw.load( {
-  namespaces: {
-    identifiers: {
-      id: 'agenda.id' // slug with req.params.slug in real world
+app.use( ( req, res, next ) => {
+  req.agenda = {
+    uid: 1938,
+    title: 'Un agenda'
+  }
+  next();
+} );
+
+app.use( ( req, res, next ) => {
+  req.member = {
+    id: 1,
+    userUid: 123,
+    agendaUid: 1234,
+    custom: {
     }
-  },
-  instanciate: true,
-  internal: true
-} ) );
-
-app.use( stakeholdersMw.agenda( 'agenda.data' ).get( {
-  namespaces: {
-    stakeholder: 'stakeholder',
-    instance: 'stakeholderInstance'
   }
-} ) );
+  next();
+} )
 
-app.use( agendasMw.loadRoles( {
-  namespaces: {
-    agenda: 'agenda', // slug with req.params.slug in real world
-    result: 'agendaRoles'
-  }
-} ) );
+app.use( function loadRoles( req, res, next ) {
+  req.roles = [ {
+    code: 1,
+    slug: 'contributor'
+  }, {
+    code: 2,
+    slug: 'administrator'
+  }, {
+    code: 3,
+    slug: 'moderator'
+  } ];
+  next();
+} );
 
 app.get(
   '/members.json',
-  stakeholdersMw.agenda( 'agenda.data' ).list( { total: true, detailed: true } ),
   ( req, res, next ) => {
-    req.stakeholders = req.stakeholders.map( s => {
-      s.invited = !s.userId && !s.deletedUser;
-      s.owner = s.userId === req.user.id;
-      return _.omit( s, 'userId', 'user.id' );
-    } );
-    next();
-  },
-  ( { stakeholders, total }, res ) => res.json( { stakeholders, total } )
-);
+    res.json( memberListResult );
+  } );
 
 app.get(
   '/stats',
-  ( { stats }, res ) => res.json( {
-    total,
+  ( req, res ) => res.json( {
+    total: 17,
     totalPerRole: {
       contributor: 14,
       administrator: 3
@@ -101,141 +92,48 @@ app.get(
   } )
 );
 
-app.get(
+app.delete(
   '/remove/:id',
   ( req, res, next ) => {
-    req.identifiers = { id: req.params.id };
+    req.result = { success: true };
     next();
   },
-  stakeholdersMw.agenda( 'agenda.data' ).get( {
-    namespaces: {
-      stakeholder: 'stakeholderToUse',
-      instance: 'stakeholderInstanceToUse'
-    }
-  } ),
-  ( req, res, next ) => {
-    if ( req.stakeholder.credential === 3 && [ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
-      return next( new Error( 'You don\'t have right to remove this stakeholder' ) );
-    }
-    next();
-  },
-  stakeholdersMw.agenda( 'agenda.data' ).remove(),
   ( { result }, res ) => res.status( !result.success ? 400 : 200 ).json( result )
 );
 
-app.post(
+app.patch(
   '/update/:id',
   ( req, res, next ) => {
-    req.identifiers = { id: req.params.id };
+    req.result = {
+      role: 2,
+      custom: {
+        contactName: 'Server result member name',
+        organization: 'Members Org'
+      },
+      errors: []
+    };
     next();
   },
-  stakeholdersMw.agenda( 'agenda.data' ).get( {
-    namespaces: {
-      stakeholder: 'stakeholderToUse',
-      instance: 'stakeholderInstanceToUse'
-    }
-  } ),
-  ( req, res, next ) => {
-    if ( req.stakeholder.credential !== 3 || ![ 2, 3 ].includes( req.stakeholderToUse.credential ) ) {
-      return next();
-    }
-    next( new Error( 'You don\'t have right to update this stakeholder' ) );
-  },
-  stakeholdersMw.agenda( 'agenda.data' ).update( {
-    namespaces: {
-      data: 'body'
-    },
-    credential: true,
-    allowPartial: true
-  } ),
   ( { result }, res ) => res.status( result.errors.length ? 400 : 200 ).json( result )
 );
 
 app.post(
   '/invite',
   ( req, res, next ) => {
-    if ( req.stakeholder.credential !== 3 || ![ 2, 3 ].includes( req.body.credential ) ) {
-      return next();
-    }
-    next( new Error( 'You don\'t have right to invite members with this role' ) );
-  },
-  ( req, res, next ) => {
-    req.context = {
-      lang: req.user.lang
-    }
-    next();
-  },
-  stakeholdersMw.agenda( 'agenda.data' ).bulk( {
-    namespaces: {
-      data: 'body',
-      context: 'context'
-    },
-    allowPartial: true
-  } ),
-  ( req, res, next ) => {
-
-    const { queued } = req.result;
-    const [ errors, results ] = _.unzip( req.result.results ).map( _.compact );
-
-    if ( errors && errors.length ) {
-      return res.status( 400 ).json( { errors } );
-    }
-
-    const emailsRejected = _.compact( (results || []).reduce( ( prev, nextResult, i ) => {
-      let emailRejected;
-      if ( nextResult.errors && nextResult.errors.length ) {
-        emailRejected = nextResult.errors.reduce( ( prev, nextError ) => {
-          return (nextError.code && req.body.stakeholders[ i ].email) || null;
-        }, null );
-      }
-      return prev.concat( emailRejected );
-    }, [] ) );
-
-    req.result = { queued, emailsRejected, success: !emailsRejected.length };
-
-    next();
-
-  },
-  ( { result }, res ) => {
-    const status = (result.errors && result.errors.length) || !result.success ? 400 : 200;
-    res.status( status ).json( result );
+    res.json( { queued: true, emailsRejected: [], success: true } );
   }
 );
 
 app.post(
   '/send-message',
-  ( req, res, next ) => {
-    req.context = {
-      lang: req.user.lang,
-      replyTo: req.body.replyTo
-    };
-    next();
-  },
-  ( req, res, next ) => stakeholdersMw.agenda( 'agenda.data' ).message( {
-    namespaces: {
-      message: 'body.message'
-    },
-    actionsCounterEqualZero: req.query.inactive ? true : null
-  } )( req, res, next ),
-  ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
+  ( req, res, next ) => res.json( { success: true } )
 );
 
 app.post(
   '/send-a-message/:id',
   ( req, res, next ) => {
-    req.context = {
-      lang: req.user.lang,
-      replyTo: req.body.replyTo
-    };
-    next();
-  },
-  ( req, res, next ) => stakeholdersMw.agenda( 'agenda.data' ).message( {
-    namespaces: {
-      message: 'body.message'
-    },
-    id: parseInt( req.params.id ) || 0
-  } )( req, res, next ),
-  ( { result }, res ) => res.status( result.errors && result.errors.length ? 400 : 200 ).json( result )
+    res.json( { success: true } );
+  }
 );
 
 /********/

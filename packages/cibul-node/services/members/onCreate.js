@@ -16,7 +16,7 @@ const { send, sendInvitation } = require( './lib/mail' );
 module.exports = async ( config, member, context ) => {
   const usersSvc = app.service( '/users' );
 
-  log( 'created', member );
+  log( 'created', member, context );
 
   try {
     const agenda = await agendas.get( {

@@ -11,9 +11,7 @@ const log = require( '@openagenda/logs' )( 'services/members/messages' );
 const agendaLogo = require( './agendaLogo' );
 const invitationContext = require( './invitationContext' );
 
-module.exports = ( config, { queues, members } ) => {
-  const queue = queues( 'memberMessages' );
-
+module.exports = ( config, { queue, members } ) => {
   return Object.assign(
     ( query, data ) => queue( 'stream', query, data ), {
       task: task.bind( null, config, { queue, members } )

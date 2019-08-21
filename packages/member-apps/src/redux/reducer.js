@@ -7,7 +7,7 @@ export default ( history, asyncReducers ) => ({
   router: connectRouter( history ),
   form,
   agenda: ( s = {} ) => s,
-  stakeholder: ( s = {} ) => s,
+  member: ( m = {} ) => m,
   members,
   modals,
   res: ( s = {} ) => s,

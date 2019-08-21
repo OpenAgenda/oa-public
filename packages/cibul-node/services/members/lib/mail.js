@@ -66,7 +66,7 @@ async function sendInvitation( config, { invitation, member, context, agenda } )
 };
 
 function _send( config, { member, agenda, link, message, lang } ) {
-  log( 'sending link', link );
+  log( 'sending link', link, message );
 
   return mails( {
     template: 'memberInvitation',

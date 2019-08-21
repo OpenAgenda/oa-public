@@ -39,26 +39,24 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
       embedsTemplates: false
     },
     roles: [ {
-      value: 1,
-      code: 'contributor'
+      code: 1,
+      slug: 'contributor'
     }, {
-      value: 2,
-      code: 'administrator'
+      code: 2,
+      slug: 'administrator'
     } ]
   },
-  stakeholder: {
+  member: {
     actionsCounter: 0,
-    agendaId: 4608,
     createdAt: '2015-12-08T16:30:34.000Z',
-    credential: 2,
+    role: 2,
     custom: {
       contactName: 'Romain Lange - OpenAgenda'
     },
     deletedUser: false,
     id: 6478,
     linkStore: null,
-    updatedAt: '2015-12-08T16:30:34.000Z',
-    userId: 2
+    updatedAt: '2015-12-08T16:30:34.000Z'
   }
 });
 
