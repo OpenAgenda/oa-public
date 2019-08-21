@@ -67,7 +67,7 @@ app.use( function loadRoles( req, res, next ) {
     slug: 'contributor'
   }, {
     code: 2,
-    code: 'administrator'
+    slug: 'administrator'
   }, {
     code: 3,
     slug: 'moderator'

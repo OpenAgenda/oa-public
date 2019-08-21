@@ -38,7 +38,7 @@ export default class InviteMembersForm extends Component {
     const { handleSubmit, userCredential, invitationMessage, inviteLoading } = this.props;
     const { getLabel } = this.context;
 
-    const haveRole = value => this.props.roles.some( role => role.value === value );
+    const haveRole = value => this.props.roles.some( role => role.code === value );
 
     return (
       <form onSubmit={handleSubmit} className="invite-members-form">

@@ -39,11 +39,11 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
       embedsTemplates: false
     },
     roles: [ {
-      value: 1,
-      code: 'contributor'
+      code: 1,
+      slug: 'contributor'
     }, {
-      value: 2,
-      code: 'administrator'
+      code: 2,
+      slug: 'administrator'
     } ]
   },
   member: {
