@@ -1,15 +1,16 @@
-import Stakeholder from '@openagenda/agenda-stakeholders/dist/iso/Stakeholder';
+import validate from '@openagenda/members/lib/validate';
 
-export default function validate( values ) {
+const validateCustom = validate.custom( false );
 
-  const flatErrors = e => e.reduce( ( prev, next ) => ({ ...prev, [next.field]: next.code }), {} );
-
-  const errors = new Stakeholder( values ).getErrors( true );
-
-  if ( errors.length ) {
-    return flatErrors( errors );
+export default function( values ) {
+  try {
+    validateCustom( values );
+  } catch ( e ) {
+    return flatErrors( e );
   }
-
   return true;
+}
 
+function flatErrors( e ) {
+  return e.reduce( ( prev, next ) => ({ ...prev, [next.field]: next.code }), {} );
 }

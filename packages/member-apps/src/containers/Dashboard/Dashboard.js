@@ -11,11 +11,14 @@ import upperFirst from 'lodash/upperFirst';
 import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import { Base64 } from 'js-base64';
 import qs from 'qs';
+
+import getRoleSlug from '@openagenda/members/lib/getRoleSlug';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Modal from '@openagenda/react-components/build/Modal';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import openRequestForm from '@openagenda/call-to-action/dist/client/openRequestForm';
+
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
 import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
 import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
@@ -50,9 +53,9 @@ const dashboardValuesSelector = formValueSelector( 'membersDashboard' );
       query,
       res: state.res,
       credentials: state.agenda.credentials,
-      userShId: state.stakeholder.id,
-      userCredential: state.stakeholder.credential,
-      stakeholders: state.members.data,
+      userShId: state.member.id,
+      userCredential: state.member.role,
+      members: state.members.data,
       page: state.members.page,
       total: state.members.total,
       loading: state.members.loading,
@@ -81,7 +84,7 @@ export default class Dashboard extends Component {
     nextPage: PropTypes.func,
     res: PropTypes.object,
     userCredential: PropTypes.number,
-    stakeholders: PropTypes.array,
+    members: PropTypes.array,
     addCredFilter: PropTypes.func,
     removeCredFilter: PropTypes.func,
     cleanCredFilters: PropTypes.func,
@@ -126,8 +129,8 @@ export default class Dashboard extends Component {
   debouncedSearch = debounce( this.props.handleSubmit( this.search ), 400 );
 
   nextPage = () => {
-    const { page, total, search, credFilters, loading, nextLoading, stakeholders, perPageLimit } = this.props;
-    if ( !stakeholders || !stakeholders.length || loading || nextLoading || page * perPageLimit >= total ) return;
+    const { page, total, search, credFilters, loading, nextLoading, members, perPageLimit } = this.props;
+    if ( !members || !members.length || loading || nextLoading || page * perPageLimit >= total ) return;
     this.props.nextPage( { search: search || undefined, credentials: credFilters }, (page || 1) + 1 );
   };
 
@@ -155,21 +158,10 @@ export default class Dashboard extends Component {
     this.forceUpdate( () => this.search( { search } ) );
   };
 
-  credentialToStr( credential ) {
-
+  roleLabel( role ) {
     const { getLabel } = this.context;
 
-    switch ( credential ) {
-      case 1:
-        return getLabel( 'contributor' );
-      case 2:
-        return getLabel( 'administrator' );
-      case 3:
-        return getLabel( 'moderator' );
-      case 4:
-        return getLabel( 'reader' );
-    }
-
+    return getLabel( getRoleSlug( role ) );
   }
 
   componentDidMount() {
@@ -180,14 +172,14 @@ export default class Dashboard extends Component {
     monitorBottomHit.stop();
   }
 
-  renderStakeholder( stakeholder ) {
-    const { id, credential, invited, custom, eventCount, user, deletedUser, owner } = stakeholder;
-    const { res, showModal, userShId, userCredential, resendInvitation, location, agenda } = this.props;
+  renderMember( member ) {
+    const { id, role, invited, custom, eventCount, user, deletedUser, owner } = member;
+    const { res, showModal, userShId, userRole, resendInvitation, location, agenda } = this.props;
     const { getLabel } = this.context;
 
-    const stakeholderType = (() => {
+    const memberType = (() => {
       if ( invited && !deletedUser ) return 'invited';
-      if ( credential === 1 && eventCount === 0 ) return 'noContrib';
+      if ( role === 1 && eventCount === 0 ) return 'noContrib';
       if ( deletedUser && !invited ) return 'deleted';
     })();
 
@@ -202,24 +194,24 @@ export default class Dashboard extends Component {
               (invited ? custom.email || getLabel( 'invited' ) : getLabel( 'noName' ))}
             </strong>
             {' '}
-            <span className="text-muted small">{this.credentialToStr( credential )}</span>
+            <span className="text-muted small">{this.roleLabel( role )}</span>
             {' '}
             <MoreInfo
               id={`moreinfo-${id}`}
-              content={getLabel( 'moreinfo' + upperFirst( stakeholderType ) )}
+              content={getLabel( 'moreinfo' + upperFirst( memberType ) )}
             >
               <span
                 className={classNames( 'badge', 'badge-sm', {
-                  'badge-info': stakeholderType === 'invited',
-                  'badge-default': stakeholderType === 'inactive',
-                  'badge-success': stakeholderType === 'active',
-                  'badge-warning': [ 'deleted', 'noContrib' ].includes( stakeholderType )
+                  'badge-info': memberType === 'invited',
+                  'badge-default': memberType === 'inactive',
+                  'badge-success': memberType === 'active',
+                  'badge-warning': [ 'deleted', 'noContrib' ].includes( memberType )
                 } )}
               >
                 {/*{stakeholderType === 'active' && getLabel( 'active' )}*/}
-                {stakeholderType === 'noContrib' && getLabel( 'noContrib' )}
-                {stakeholderType === 'invited' && getLabel( 'invited' )}
-                {stakeholderType === 'deleted' && getLabel( 'deleted' )}
+                {memberType === 'noContrib' && getLabel( 'noContrib' )}
+                {memberType === 'invited' && getLabel( 'invited' )}
+                {memberType === 'deleted' && getLabel( 'deleted' )}
               </span>
             </MoreInfo>
           </div>
@@ -243,17 +235,17 @@ export default class Dashboard extends Component {
               {eventCount} {getLabel( eventCount && eventCount > 1 ? 'events' : 'event' )}
               {/*</span>*/}
             </a>
-            {(userCredential !== 3 || ![ 2, 3 ].includes( credential )) && <a
+            {(userRole !== 3 || ![ 2, 3 ].includes( role )) && <a
               role="button"
               className="text-muted"
-              onClick={() => showModal( 'editMember', { stakeholder } )}
+              onClick={() => showModal( 'editMember', { member } )}
             >
               {getLabel( 'editProfile' )}
             </a>}
-            {!owner && (userCredential !== 3 || ![ 2, 3 ].includes( credential )) && <a
+            {!owner && (userRole !== 3 || ![ 2, 3 ].includes( role )) && <a
               role="button"
               className="text-muted"
-              onClick={() => showModal( 'removeMember', { stakeholder } )}
+              onClick={() => showModal( 'removeMember', { member } )}
             >
               {getLabel( 'removeMember' )}
             </a>}
@@ -266,8 +258,8 @@ export default class Dashboard extends Component {
             {invited && <a
               role="button"
               onClick={() => resendInvitation( id )
-                .then( () => showModal( 'memberReinvited', { stakeholder, success: true } ) )
-                .catch( () => showModal( 'memberReinvited', { stakeholder, success: false } ) )}
+                .then( () => showModal( 'memberReinvited', { member, success: true } ) )
+                .catch( () => showModal( 'memberReinvited', { member, success: false } ) )}
               className="text-muted"
             >
               {getLabel( 'resendInvitation' )}
@@ -312,7 +304,7 @@ export default class Dashboard extends Component {
 
   render() {
     const {
-      res, handleSubmit, stakeholders, total, loading, nextLoading, stats, search, getStats,
+      res, handleSubmit, members, total, loading, nextLoading, stats, search, getStats,
       showModal, closeModal, setModal, modals, update, invite, remove, sendMessage, credFilters,
       showInviteResult, cleanInviteResult, inviteError, credentials, agenda,
       query
@@ -425,9 +417,9 @@ export default class Dashboard extends Component {
         </div>
 
         <div>
-          {stakeholders && stakeholders.map( s => this.renderStakeholder( s ) )}
+          {members && members.map( s => this.renderMember( s ) )}
 
-          {!stakeholders || !stakeholders.length ? <div className="text-center text-muted margin-v-md">
+          {!members || !members.length ? <div className="text-center text-muted margin-v-md">
             {getLabel( 'noResult' )}
           </div> : null}
 
@@ -441,8 +433,8 @@ export default class Dashboard extends Component {
           onClose={() => closeModal( 'editMember' )}
         >
           <EditMemberForm
-            stakeholder={editModal.stakeholder}
-            onSubmit={( ...params ) => update( editModal.stakeholder.id, ...params )
+            member={editModal.member}
+            onSubmit={( ...params ) => update( editModal.member.id, ...params )
               .then( async result => {
                 closeModal( 'editMember' );
 
@@ -482,7 +474,7 @@ export default class Dashboard extends Component {
             <div className="text-center">
               <button
                 className="btn btn-danger"
-                onClick={() => remove( removeModal.stakeholder.id )
+                onClick={() => remove( removeModal.member.id )
                   .then( () => closeModal( 'removeMember' ) )
                   .catch( () => setModal( 'removeMember', { error: true } ) )}
               >

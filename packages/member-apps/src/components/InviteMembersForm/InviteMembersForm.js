@@ -11,7 +11,7 @@ import { renderField, renderTextarea, renderSelect, renderMarkdownInput } from '
   state => ({
     roles: state.agenda.roles,
     invitationMessage: state.agenda.credentials.invitationMessage,
-    userCredential: state.stakeholder.credential,
+    userCredential: state.member.role,
     inviteLoading: state.members.inviteLoading
   })
 )

@@ -1,7 +1,6 @@
 import _ from 'lodash';
 import { SubmissionError } from 'redux-form';
-import Stakeholder from '@openagenda/agenda-stakeholders/dist/iso/Stakeholder';
-import * as credentialsTypes from '@openagenda/agenda-stakeholders/dist/iso/credentialTypes';
+import getRoleSlug from '@openagenda/members/lib/getRoleSlug';
 
 const LOAD = 'member-apps/members/LOAD';
 const LOAD_SUCCESS = 'member-apps/members/LOAD_SUCCESS';
@@ -53,7 +52,7 @@ export default function reducer( state = initialState, action ) {
       return {
         ...state,
         loaded: true,
-        data: action.result.stakeholders,
+        data: action.result.members,
         total: action.result.total,
         credFilters: [].concat( action.query.credentials || [] ),
         page: 1,
@@ -82,7 +81,7 @@ export default function reducer( state = initialState, action ) {
     case LIST_SUCCESS:
       return {
         ...state,
-        data: action.result.stakeholders,
+        data: action.result.members,
         total: action.result.total,
         page: 1,
         error: null,
@@ -105,7 +104,7 @@ export default function reducer( state = initialState, action ) {
     case NEXT_PAGE_SUCCESS:
       return {
         ...state,
-        data: [ ...state.data, ...action.result.stakeholders ],
+        data: [ ...state.data, ...action.result.members ],
         total: action.result.total,
         page: action.page,
         error: null,
@@ -125,8 +124,8 @@ export default function reducer( state = initialState, action ) {
     case UPDATE_SUCCESS:
       const data = state.data.map( sh => (sh.id === action.id ? {
         ...sh,
-        credential: action.result.credential || sh.credential,
-        custom: { ...sh.custom, ...action.result.fieldValues }
+        role: action.result.role || sh.role,
+        custom: { ...sh.custom, ...action.result.custom }
       } : sh) );
       return {
         ...state,
@@ -161,8 +160,8 @@ export default function reducer( state = initialState, action ) {
       };
     case REMOVE_SUCCESS:
       const index = state.data.findIndex( sh => sh.id === action.id );
-      const stakeholder = state.data[ index ];
-      const role = credentialsTypes.codes.get( stakeholder.credential );
+      const member = state.data[ index ];
+      const role = getRoleSlug( member.role );
       return {
         ...state,
         data: [ ...state.data.slice( 0, index ), ...state.data.slice( index + 1 ) ],
