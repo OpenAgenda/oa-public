@@ -5,14 +5,16 @@ const _ = require( 'lodash' );
 const mails = require( '@openagenda/mails' );
 const agendasSvc = require( '@openagenda/agendas' );
 const legacyMembersSvc = require( '@openagenda/agenda-stakeholders' );
-const usersSvc = require( '@openagenda/users' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
+const app = require( '../../app' );
 const membersSvc = require( '../../services/members' );
 const genUrl = require( '../genUrl' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaEvents/sendEventAddition' );
 
 module.exports = async ( { agendaEvent, user, context } ) => {
+
+  const usersSvc = app.service( '/users' );
 
   const { sourceAgenda, agenda, event } = context;
   let stateLabel;

@@ -7,12 +7,13 @@ const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const keys = require( '@openagenda/keys' );
 const log = require( '@openagenda/logs' )( 'services/agendas/onCreate' );
-const users = require( '@openagenda/users' );
-
+const app = require( '../../app' );
 const controlDataSvc = require( '../legacy' ).controlData;
 const legacyEventSearch = require( '../elasticsearch' );
 
 module.exports = async ( agenda, cb ) => {
+
+  const usersSvc = app.service( '/users' );
 
   if ( agenda.settings.contribution.useFields ) {
 
@@ -44,7 +45,7 @@ module.exports = async ( agenda, cb ) => {
 
     if ( err ) return log( 'error', err );
 
-    users.findOne( {
+    usersSvc.findOne( {
       query: {
         id: agenda.ownerId
       }
@@ -53,7 +54,7 @@ module.exports = async ( agenda, cb ) => {
 
         if ( user.isNew ) {
 
-          await users.setNewFlag( user.uid, false );
+          await usersSvc.setNewFlag( user.uid, { isNew: false } );
 
         }
 

@@ -4,7 +4,6 @@ const https = require( 'https' );
 const _ = require( 'lodash' );
 const qs = require( 'qs' );
 const w = require( 'when' );
-const usersSvc = require( '@openagenda/users' );
 const sessions = require( '@openagenda/sessions' );
 const invitationsSvc = require( '@openagenda/invitations' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/signin' ) );
@@ -12,7 +11,6 @@ const log = require( '@openagenda/logs' )( 'auth/local' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/activation' ) );
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
-const lib = require( '../lib/lib' );
 const auth = require( './lib/auth' );
 const pLib = require( './lib/passport' );
 const config = require( '../config' );
@@ -187,6 +185,8 @@ function signinSubmit( req, res, next ) {
 
 function signupSubmit( req, res ) {
 
+  const usersSvc = req.app.service( '/users' );
+
   w( { req, res, data: req.body } )
 
     .then( _passwordMatchCheck )
@@ -261,6 +261,8 @@ function signupComplete( req, res ) {
 
 async function activateResend( req, res ) {
 
+  const usersSvc = req.app.service( '/users' );
+
   if ( !req.query.email ) {
     auth.renderEmail( { req, res, title: 'Resend activation mail' } );
   } else {
@@ -293,7 +295,7 @@ async function activateResend( req, res ) {
           params: { user, optionals }
         } );
       } else {
-        token = await await usersSvc.tokens.create(
+        token = await usersSvc.tokens.create(
           { userId: user.id, email: user.email, type: 'aa' },
           { user, optionals }
         );
@@ -328,6 +330,7 @@ async function activateResend( req, res ) {
 
 async function activate( req, res ) {
 
+  const usersSvc = req.app.service( '/users' );
   const optionals = _.pickBy( _.pick( req.query, 'iToken', 'invitation', 'redirect', 'agenda' ) );
 
   try {
@@ -386,6 +389,8 @@ async function activate( req, res ) {
 
 
 function _handleSigninRequest( req, email, password, cb ) {
+
+  const usersSvc = req.app.service( '/users' );
 
   usersSvc.verifyPassword( password, {
     query: { email }

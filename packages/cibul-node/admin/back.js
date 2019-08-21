@@ -3,20 +3,20 @@
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const ReactDOM = require( 'react-dom/server' );
-const sessions = require( '@openagenda/sessions' );
-const cmn = require( '../lib/commons-app' );
-const config = require( '../config' );
 const moment = require( 'moment' );
 const wn = require( 'when/node' );
 const async = require( 'async' );
+const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'admin/back' );
+const agendasSvc = require( '@openagenda/agendas' );
+const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
+const cmn = require( '../lib/commons-app' );
 const lib = require( '../lib/lib' );
 const membersSvc = require( '../services/members' );
 const model = require( '../services/model' );
 const adminSvc = require( '../services/admin/admin' );
-const usersSvc = require( '@openagenda/users' );
-const agendasSvc = require( '@openagenda/agendas' );
-const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
+const config = require( '../config' );
+const app = require( '../app' );
 
 const supportTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/support.tpl', 'utf-8' ) );
 
@@ -291,7 +291,7 @@ function userChangePassword( req, res ) {
 
   const { uid, password } = req.query;
 
-  usersSvc
+  req.app.service( '/users' )
     .changePassword( uid, { password } )
     .then( () => {
 
@@ -313,7 +313,8 @@ async function userActivate( req, res ) {
 
     try {
 
-      req.loadedUser = await usersSvc.patch( req.loadedUser.uid, { isActivated: true }, { internal: true } );
+      req.loadedUser = await req.app.service( '/users' )
+        .patch( req.loadedUser.uid, { isActivated: true }, { internal: true } );
 
       return cmn.renderJson( req, res, { success: true } );
 
@@ -328,6 +329,8 @@ async function userActivate( req, res ) {
 }
 
 function userUpdate( req, res, next ) {
+
+  const usersSvc = req.app.service( '/users' )
 
   usersSvc.get( req.loadedUser.uid, { detailed: true, removed: null } )
     .then( async user => {
@@ -383,7 +386,7 @@ function _loadUser( type = 'get' ) {
 
     const uid = request.uid;
 
-    usersSvc.get( uid, { removed: null, detailed: true } )
+    req.app.service( '/users' ).get( uid, { removed: null, detailed: true } )
       .then( user => {
 
         req.loadedUser = user;
@@ -479,6 +482,8 @@ function eventsDiff( req, res ) {
 
 function _getFork( begin, end ) {
 
+  const usersSvc = app.service( '/users' );
+
   return Promise.all( [
     promisify( model.reviews().total )( { createdAt: { gte: begin, lte: end } } ),
     promisify( model.events().total )( { createdAt: { gte: begin, lte: end } } ),
@@ -489,6 +494,8 @@ function _getFork( begin, end ) {
 }
 
 function _getTotals( cb ) {
+
+  const usersSvc = app.service( '/users' );
 
   async.parallel( [
 
@@ -503,6 +510,8 @@ function _getTotals( cb ) {
 }
 
 function _getTotalsWeek( cb ) {
+
+  const usersSvc = app.service( '/users' );
 
   var weekStart = moment().subtract( 1, 'week' ).startOf( 'week' ).toDate(),
 
@@ -521,6 +530,8 @@ function _getTotalsWeek( cb ) {
 }
 
 function _getTotalsMonth( cb ) {
+
+  const usersSvc = app.service( '/users' );
 
   var monthStart = moment().subtract( 1, 'month' ).startOf( 'month' ).toDate(),
 

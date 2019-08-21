@@ -1,19 +1,18 @@
-const config = require( '../config' );
-
 module.exports = function generateApiKey() {
   return async context => {
+    const { config } = context.service;
     const { keys } = config.interfaces;
     const { publicKey, secretKey } = context.params;
 
     async function _generate( type ) {
       await keys.remove( {
         type,
-        identifier: context.params.before.uid
+        identifier: context.id
       } );
 
       await keys.create( {
         type,
-        identifier: context.params.before.uid
+        identifier: context.id
       } );
     }
 

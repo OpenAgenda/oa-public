@@ -2,6 +2,7 @@
 
 module.exports = app => {
 
+  require( './services/users' )( app );
   require( './event/search.front' )( app );
   require( './agenda/back' )( app );
   require( './inboxes/endpoints' )( app );
@@ -11,7 +12,6 @@ module.exports = app => {
   require( './services/agendaContribute' )( app );
   require( './services/agendaSchema' )( app );
   require( './services/networkApps' )( app );
-  require( './services/users' )( app );
   require( './services/abilities' )( app );
   require( './services/mails/unsubscription' )( app );
   require( './event/files' )( app );

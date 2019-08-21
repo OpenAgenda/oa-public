@@ -1,13 +1,8 @@
 "use strict";
 
-const validator = require( 'validator' );
-const sessions = require( '@openagenda/sessions' );
-const usersSvc = require( '@openagenda/users' );
 const stakeholdersMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
-const getActionLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) );
 const cmn = require( '../lib/commons-app' );
 const agendaSvc = require( '../services/agenda' );
-const eventSvc = require( '../services/event' );
 
 
 module.exports = app => {
@@ -76,6 +71,8 @@ function infoSubmit( req, res ) {
 async function _loadUserByUid( req, res, next ) {
 
   try {
+
+    const usersSvc = req.app.service( '/users' );
 
     req.queriedUser = await usersSvc.get( req.params.uid );
 

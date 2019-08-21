@@ -13,7 +13,6 @@ const locationSvc = require( '@openagenda/agenda-locations' );
 const labels = require( '@openagenda/labels/inboxes' );
 const makeLabelGetter = require( '@openagenda/labels' );
 const sessions = require( '@openagenda/sessions' );
-const users = require( '@openagenda/users' );
 
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
@@ -39,12 +38,10 @@ app.use(
   preMw,
   cmn.loadBaseData( 'oasfmain.css' ),
   ( req, res, next ) => {
-    users.refresh( {
+    req.app.service( '/users' ).refresh( req.user.uid, {
       lastInboxCheck: true
-    }, {
-      query: { uid: req.user.uid }
     } )
-      .then( () => next() );
+      .then( () => next() ).catch( next );
   },
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';

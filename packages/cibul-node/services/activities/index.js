@@ -4,7 +4,6 @@ const { promisify } = require( 'util' );
 const Service = require( '@openagenda/activities' );
 const sessions = require( '@openagenda/sessions' );
 const mw = require( '@openagenda/activity-apps/dist/middleware' );
-const usersSvc = require( '@openagenda/users' );
 const unsubscribedSvc = require( '@openagenda/unsubscribed' );
 const agendasSvc = require( '@openagenda/agendas' );
 const { isLessThan, isSuperiorToOrEqual, isEqualTo } = require( '@openagenda/members' ).utils.compareRoles;
@@ -25,7 +24,7 @@ module.exports = app => {
   app.get( '/notifications/mark-all-read', preMw, mw.notifications.markAllRead );
 };
 
-module.exports.init = async config => {
+module.exports.init = async ( config, app ) => {
   const service = await Service( {
     mysql: config.db,
     schemas: config.schemas,
@@ -40,7 +39,7 @@ module.exports.init = async config => {
       redis: config.redis
     },
     interfaces: {
-      getUser: uid => usersSvc.get( uid, { detailed: true } ),
+      getUser: uid => app.service( '/users' ).get( uid, { detailed: true } ),
       isUnsubscribed: uid => promisify( unsubscribedSvc( uid ).is )( {
         subject: 'notifications',
         type: 'notifications_summary'

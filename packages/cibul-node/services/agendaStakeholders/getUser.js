@@ -1,13 +1,13 @@
 "use strict";
 
 const { callbackify } = require( 'util' );
-const users = require( '@openagenda/users' );
+const app = require( '../../app' );
 
 let log = console.log;
 
 module.exports = ( identifiers, cb ) => {
 
-  callbackify( users.findOne )( {
+  callbackify( app.service( '/users' ).findOne )( {
     query: identifiers
   }, cb )
 

@@ -1,9 +1,9 @@
-const _ = require( 'lodash' );
 const { alterItems } = require( 'feathers-hooks-common' );
-const config = require( '../config' );
 
 module.exports = function includeImagePathParamHook() {
   return context => {
+    const { config } = context.service;
+
     if ( !context.params.includeImagePath || context.result === null ) {
       return context;
     }

@@ -15,7 +15,6 @@ const VError = require( 'verror' );
 
 const agendasSvc = require( '@openagenda/agendas' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
-const usersSvc = require( '@openagenda/users' );
 const keysSvc = require( '@openagenda/keys' );
 const logger = require( '@openagenda/logs' );
 const sessions = require( '@openagenda/sessions' );
@@ -421,6 +420,8 @@ function checkStakeholder( req, res, next ) {
 }
 
 function checkAdminOrModeratorOrKey( req, res, next ) {
+
+  const usersSvc = req.app.service( '/users' );
 
   checkAdminOrModerator( req, res, async err => {
 

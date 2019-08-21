@@ -1,5 +1,5 @@
 const _ = require( 'lodash' );
-const _fields = require( '../utils/fields' );
+const _fields = require( '../service/fields' );
 
 module.exports = function detailedParamHook() {
   return context => {

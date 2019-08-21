@@ -79,14 +79,14 @@ module.exports = function softDelete( field, additionalParams = {} ) {
         .then( data => {
           delete params.query.$disableSoftDelete;
 
-          if ( data[ deleteField ] ) {
+          if ( !data || data[ deleteField ] ) {
             throw new errors.NotFound( 'Item has been soft deleted' );
           }
 
           return data;
         } )
         .catch( e => {
-          throw new errors.NotFound( new VError( e, 'Item not found' ) );
+          throw new errors.NotFound( new VError( e, 'No record found' ) );
         } );
     }
   };

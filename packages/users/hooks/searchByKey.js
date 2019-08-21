@@ -1,7 +1,7 @@
-const config = require( '../config' );
-
 module.exports = function searchByKey() {
   return async context => {
+    const { config } = context.service;
+
     context.params.query = context.params.query || {};
 
     const key = context.params.query.key;

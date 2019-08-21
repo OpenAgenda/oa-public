@@ -50,7 +50,7 @@
     "@babel/node": "^7.0.0",
     "@openagenda/agenda-stakeholders": "^2.1.2",
     "@openagenda/agendas": "^1.1.4",
-    "@openagenda/users": "^2.2.2",
+    "@openagenda/users": "^3.0.0",
     "@storybook/addon-a11y": "^4.1.11",
     "@storybook/addon-actions": "^4.1.11",
     "@storybook/addon-knobs": "^4.1.11",

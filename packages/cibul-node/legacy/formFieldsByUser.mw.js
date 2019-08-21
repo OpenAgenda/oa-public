@@ -5,7 +5,6 @@ const _ = require( 'lodash' );
 const agendaTags = require( '@openagenda/agenda-tags' );
 const agendaCategories = require( '@openagenda/agenda-categories' );
 const members = require( '@openagenda/agenda-stakeholders' );
-const users = require( '@openagenda/users' );
 
 const getRole = members.types.codes.get;
 
@@ -16,7 +15,7 @@ const getAgendaCategories = promisify( agendaCategories.get );
 
 module.exports = async ( req, res, next ) => {
 
-  const user = await users().get( req.params.userUid );
+  const user = await req.app.service( '/users' ).get( req.params.userUid );
 
   if ( !user ) return res.sendStatus( 404 );
 
@@ -48,7 +47,7 @@ function _filterTagGroupsByRole( role, tagSet = null ) {
 
     if ( g.access === 'administrator' ) return false;
 
-    return true;    
+    return true;
 
   } ) } );
 

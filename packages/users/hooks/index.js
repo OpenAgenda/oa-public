@@ -1,5 +1,4 @@
 module.exports = {
-  actionFromClient: require( './actionFromClient' ),
   callInterface: require( './callInterface' ),
   camelCase: require( './camelCase' ),
   camelCaseQuery: require( './camelCaseQuery' ),
@@ -16,7 +15,6 @@ module.exports = {
   generateUid: require( './generateUid' ),
   hashPassword: require( './hashPassword' ),
   includeImagePathParamHook: require( './includeImagePathParamHook' ),
-  isAction: require( './isAction' ),
   isValidToken: require( './isValidToken' ),
   parseStore: require( './parseStore' ),
   removedParamHook: require( './removedParamHook' ),

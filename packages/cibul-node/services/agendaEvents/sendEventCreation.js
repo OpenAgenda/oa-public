@@ -3,13 +3,15 @@
 const _ = require( 'lodash' );
 const mails = require( '@openagenda/mails' );
 const membersSvc = require( '../members' );
-const usersSvc = require( '@openagenda/users' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
+const app = require( '../../app' );
 const genUrl = require( '../genUrl' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaEvents/sendEventCreation' );
 
 module.exports = async ( { agendaEvent, context } ) => {
+
+  const usersSvc = app.service( '/users' );
 
   const { agenda, event } = context;
   const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );

@@ -11,6 +11,7 @@ const VError = require( 'verror' );
 const w = require( 'when' );
 const logs = require( '@openagenda/logs' );
 const schema = require( '@openagenda/validators/schema' );
+const app = require( '../app' );
 
 const SERVICES_PATH = __dirname;
 
@@ -125,7 +126,7 @@ function _init( config, options, fileOrFolderName, cb ) {
 
   };
 
-  w( service.init( config ) ).done( () => cbWithLog(), cbWithLog );
+  w( service.init( config, app ) ).done( () => cbWithLog(), cbWithLog );
 
 }
 

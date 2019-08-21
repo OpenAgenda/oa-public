@@ -4,6 +4,16 @@ const _ = require( 'lodash' );
 const { Service } = require( 'feathers-knex' );
 
 class Tokens extends Service {
+  constructor( options ) {
+    const config = Object.assign( {
+      id: 'id'
+    }, options );
+
+    super( config );
+
+    this.config = config;
+  }
+
   async findOne( params ) {
     params = params || {};
     params.query = params.query || {};

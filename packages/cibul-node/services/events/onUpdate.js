@@ -1,13 +1,12 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
 const { promisify } = require( 'util' );
 const VError = require( 'verror' );
 const { diff } = require( 'deep-diff' );
-const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const log = require( '@openagenda/logs' )( 'events/interfaces/onUpdate' );
+const app = require( '../../app' );
 const activitiesSvc = require( '../activities' );
 const eventSearch = require( '../eventSearch' );
 const controlDataSvc = require( '../legacy' ).controlData;
@@ -34,6 +33,7 @@ module.exports = async ( before, after, context ) => {
 
 async function _addActivity( before, after, context ) {
 
+  const usersSvc = app.service( '/users' );
   let user;
   let agenda;
 
