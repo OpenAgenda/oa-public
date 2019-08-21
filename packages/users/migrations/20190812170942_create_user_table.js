@@ -3,9 +3,9 @@
 exports.up = async knex => {
   const { schemas } = knex.client.config;
 
-  const exists = await knex.schema.hasTable( schemas.user );
+  const exists = await knex.schema.hasTable(schemas.user);
 
-  if ( !exists ) {
+  if (!exists) {
     await knex.schema.raw(
       `CREATE TABLE \`${schemas.user}\` (
         \`id\` bigint(20) NOT NULL,
@@ -36,9 +36,10 @@ exports.up = async knex => {
         \`is_new\` tinyint(4) DEFAULT '1',
         \`last_inbox_check\` datetime DEFAULT NULL
       ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-    ` );
+    `
+    );
 
-    await knex.raw( `
+    await knex.raw(`
       ALTER TABLE \`${schemas.user}\`
       ADD PRIMARY KEY (\`id\`),
       ADD UNIQUE KEY \`id_idx\` (\`id\`),
@@ -47,17 +48,17 @@ exports.up = async knex => {
       ADD UNIQUE KEY \`email_idx\` (\`email\`),
       ADD UNIQUE KEY \`uid\` (\`uid\`),
       ADD UNIQUE KEY \`reply_token\` (\`reply_token\`);
-    ` );
+    `);
 
-    await knex.raw( `
+    await knex.raw(`
       ALTER TABLE \`${schemas.user}\`
       MODIFY \`id\` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91514;
-    ` );
+    `);
   }
 };
 
 exports.down = knex => {
   const { schemas } = knex.client.config;
 
-  return knex.schema.dropTableIfExists( schemas.user );
+  return knex.schema.dropTableIfExists(schemas.user);
 };

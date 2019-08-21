@@ -1,6 +1,8 @@
-const _ = require( 'lodash' );
-const { alterItems } = require( 'feathers-hooks-common' );
+'use strict';
+
+const _ = require('lodash');
+const { alterItems } = require('feathers-hooks-common');
 
 module.exports = function snakeCase() {
-  return alterItems( record => _.mapKeys( record, ( value, key ) => _.snakeCase( key ) ) );
-}
+  return alterItems(record => _.mapKeys(record, (value, key) => _.snakeCase(key)));
+};

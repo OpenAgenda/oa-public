@@ -1,17 +1,27 @@
 {
   "name": "@openagenda/users",
   "version": "3.0.0",
-  "main": "service/index.js",
-  "scripts": {
-    "knex": "babel-node ./node_modules/.bin/knex",
-    "test": "jest --testEnvironment node --detectOpenHandles --forceExit"
-  },
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
   },
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/users",
+  "main": "service/index.js",
+  "scripts": {
+    "knex": "babel-node ./node_modules/.bin/knex",
+    "test": "jest --testEnvironment node --detectOpenHandles --forceExit",
+    "lint": "eslint -c .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc",
+      "git add"
+    ]
+  },
   "dependencies": {
     "@feathersjs/errors": "^4.3.0-pre.3",
     "@feathersjs/express": "^4.3.0-pre.3",
@@ -22,15 +32,27 @@
     "feathers-knex": "^6.0.1",
     "knex": "^0.19.1",
     "lodash": "^4.17.15",
-    "mysql": "^2.17.1"
+    "mysql": "^2.17.1",
+    "uuid": "^3.3.3",
+    "verror": "^1.10.0"
   },
   "devDependencies": {
     "@feathersjs/feathers": "^4.3.0-pre.3",
+    "@openagenda/eslint-config": "^1.0.0",
     "@openagenda/files": "^2.0.7",
+    "@openagenda/fixtures": "^2.0.1",
     "@openagenda/image-files": "^1.1.2",
     "@openagenda/images": "^1.1.1",
+    "@openagenda/keys": "^2.1.1",
+    "eslint": "^6.2.1",
     "jest": "^24.8.0",
+    "lint-staged": "^9.2.3",
+    "prettier-eslint-cli": "^5.0.0",
     "sinon": "^7.4.1",
     "tmp": "^0.1.0"
+  },
+  "peerDependencies": {
+    "@openagenda/image-files": "^1.1.2",
+    "@openagenda/keys": "^2.1.1"
   }
 }

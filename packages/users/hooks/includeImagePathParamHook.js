@@ -1,16 +1,21 @@
-const { alterItems } = require( 'feathers-hooks-common' );
+'use strict';
+
+const { alterItems } = require('feathers-hooks-common');
 
 module.exports = function includeImagePathParamHook() {
   return context => {
     const { config } = context.service;
 
-    if ( !context.params.includeImagePath || context.result === null ) {
+    if (!context.params.includeImagePath || context.result === null) {
       return context;
     }
 
-    return alterItems( record => ({
+    return alterItems(record => ({
       ...record,
-      image: record.image && config.imagePath ? config.imagePath + record.image : record.image
-    }) )( context );
+      image:
+        record.image && config.imagePath
+          ? config.imagePath + record.image
+          : record.image
+    }))(context);
   };
-}
+};
