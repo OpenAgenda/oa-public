@@ -2,7 +2,17 @@
   "name": "@openagenda/members",
   "version": "1.12.1",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha",
+    "lint": "eslint -c .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc",
+      "git add"
+    ]
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.1",
@@ -12,8 +22,12 @@
     "slug": "0.9.1"
   },
   "devDependencies": {
+    "@openagenda/eslint-config": "^1.0.0",
+    "eslint": "^6.2.1",
+    "lint-staged": "^9.2.3",
     "mocha": "^4.0.1",
     "mysql": "^2.13.0",
+    "prettier-eslint": "^9.0.0",
     "should": "^8.2.2"
   }
 }

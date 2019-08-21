@@ -1,90 +1,102 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const VError = require('verror');
 
-const cleanGetOptions = require( './lib/cleanGetOptions' );
-const { fromDB } = require( './lib/transformDBEntry' );
+const cleanGetOptions = require('./lib/cleanGetOptions');
+const { fromDB } = require('./lib/transformDBEntry');
 
-module.exports = Object.assign( get, {
+module.exports = Object.assign(get, {
   byEmail: getByEmail
-} );
+});
 
-async function get( config, identifier, options = {} ) {
-  const {
-    query,
-    options: cleanOptions
-  } = _getQueryAndOptions( config, identifier, options );
+async function get(config, identifier, options = {}) {
+  const { query, options: cleanOptions } = _getQueryAndOptions(
+    config,
+    identifier,
+    options
+  );
 
-  const member = await fromDB( { includeLegacyFields: cleanOptions.legacy }, await query );
+  const member = await fromDB(
+    { includeLegacyFields: cleanOptions.legacy },
+    await query
+  );
 
-  if ( member && cleanOptions.detailed ) {
-    await _decorateWithDetailed( config, member );
+  if (member && cleanOptions.detailed) {
+    await _decorateWithDetailed(config, member);
   }
 
   return member;
 }
 
-async function getByEmail( config, identifier, options = {} ) {
-  if ( !_.isObject( identifier ) ) {
-    throw new Error( 'Bad request: identifier must be an object containing at least an email and another identifier' );
-  } else if ( !identifier.email ) {
-    throw new Error( 'Bad request: email is missing in identifier' );
-  };
-
-  const {
-    query,
-    options: cleanOptions
-  } = await _getQueryAndOptions( config, identifier, options );
-
-  let member = fromDB( {
-    includeLegacyFields: cleanOptions.legacy
-  }, await query.where( 'store', 'like', `%${identifier.email}%` ) );
-
-  if ( !member && _.get( config, 'interfaces.getUserUidByEmail' ) ) {
-    const userUid = await config.interfaces.getUserUidByEmail( identifier.email );
-
-    member = userUid
-      ? get( config, Object.assign( {}, identifier, { userUid } ), options )
-      : null;
+async function getByEmail(config, identifier, options = {}) {
+  if (!_.isObject(identifier)) {
+    throw new Error(
+      'Bad request: identifier must be an object containing at least an email and another identifier'
+    );
+  } else if (!identifier.email) {
+    throw new Error('Bad request: email is missing in identifier');
   }
 
-  if ( member && cleanOptions.detailed ) {
-    await _decorateWithDetailed( config, member );
+  const { query, options: cleanOptions } = await _getQueryAndOptions(
+    config,
+    identifier,
+    options
+  );
+
+  let member = fromDB(
+    {
+      includeLegacyFields: cleanOptions.legacy
+    },
+    await query.where('store', 'like', `%${identifier.email}%`)
+  );
+
+  if (!member && _.get(config, 'interfaces.getUserUidByEmail')) {
+    const userUid = await config.interfaces.getUserUidByEmail(identifier.email);
+
+    member = userUid ? get(config, { ...identifier, userUid }, options) : null;
+  }
+
+  if (member && cleanOptions.detailed) {
+    await _decorateWithDetailed(config, member);
   }
 
   return member;
 }
 
-async function _decorateWithDetailed( { interfaces }, member ) {
-
-  if ( !member.userUid ) {
+async function _decorateWithDetailed({ interfaces }, member) {
+  if (!member.userUid) {
     return;
   }
 
-  if ( interfaces.getUsersByUid ) {
-    member.user = _.first( await interfaces.getUsersByUid( [ member.userUid ] ) );
+  if (interfaces.getUsersByUid) {
+    member.user = _.first(await interfaces.getUsersByUid([member.userUid]));
   }
-
 }
 
-function _getQueryAndOptions( { knex, schema }, identifier, options = {} ) {
-  const {
-    legacy,
-    detailed
-  } = cleanGetOptions( options );
+function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
+  const { legacy, detailed } = cleanGetOptions(options);
 
-  const where = _.isObject( identifier )
-    ? _.mapKeys( _.pick( identifier, [ 'userUid', 'agendaUid', 'id' ] ), ( v, k ) => _.snakeCase( k ) )
+  const where = _.isObject(identifier)
+    ? _.mapKeys(_.pick(identifier, ['userUid', 'agendaUid', 'id']), (v, k) => _.snakeCase(k))
     : { id: identifier };
 
   return {
-    query: knex( schema ).first( [
-      'id', 'agenda_uid', 'credential', 'user_uid', 'store', 'deleted_user'
-    ].concat( legacy ? [ 'user_id', 'review_id' ] : [] ) ).where( where ),
+    query: knex(schema)
+      .first(
+        [
+          'id',
+          'agenda_uid',
+          'credential',
+          'user_uid',
+          'store',
+          'deleted_user'
+        ].concat(legacy ? ['user_id', 'review_id'] : [])
+      )
+      .where(where),
     options: {
       detailed,
       legacy
     }
-  }
+  };
 }
