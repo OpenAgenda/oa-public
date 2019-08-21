@@ -20,7 +20,7 @@
     "@openagenda/labels": "^2.1.0",
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-utils": "^4.0.0",
-    "@openagenda/users": "^2.2.2",
+    "@openagenda/users": "^3.0.0",
     "@openagenda/utils": "^1.0.3",
     "connected-react-router": "^6.2.2",
     "history": "^4.7.2",
@@ -48,7 +48,8 @@
     "@storybook/react": "^4.1.11",
     "async": "^2.6.1",
     "babel-loader": "^8.0.4",
-    "babel-preset-openagenda": "^1.1.1",
+
+"@openagenda/babel-preset": "^1.1.1",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.0",

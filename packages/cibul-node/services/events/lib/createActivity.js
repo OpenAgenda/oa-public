@@ -1,13 +1,11 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const fs = require( 'fs' );
 const { diff } = require( 'deep-diff' );
 const VError = require( 'verror' );
 
 const agendasSvc = require( '@openagenda/agendas' );
-const usersSvc = require( '@openagenda/users' );
-
+const app = require( '../../../app' );
 const activitiesSvc = require( '../../activities' );
 
 const log = require( '@openagenda/logs' )( 'events/createActivity' );
@@ -23,7 +21,7 @@ module.exports = async ( before, after, context ) => {
   }
 
   try {
-    user = await usersSvc.get( context.userUid );
+    user = await app.service( '/users' ).get( context.userUid );
   } catch ( e ) {
     return log( 'error', new VError( e, 'Error to get user %s', context.userUid ) );
   }

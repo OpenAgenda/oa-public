@@ -2,6 +2,7 @@
 
 module.exports = app => {
 
+  require( './services/users' )( app );
   require( './event/search.front' )( app );
   require( './agenda/back' )( app );
   require( './inboxes/endpoints' )( app );
@@ -12,7 +13,6 @@ module.exports = app => {
   require( './services/agendaEvents' )( app );
   require( './services/agendaSchema' )( app );
   require( './services/networkApps' )( app );
-  require( './services/users' )( app );
   require( './services/abilities' )( app );
   require( './services/mails/unsubscription' )( app );
   require( './event/files' )( app );
@@ -52,6 +52,5 @@ module.exports = app => {
   require( './agenda/customized.back' )( app );
   require( './agenda/actions.front' )( app );
   require( './agenda/exports.front' )( app );
-  require( './activities/notifications.back' )( app );
 
 };

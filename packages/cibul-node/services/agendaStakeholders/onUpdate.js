@@ -2,12 +2,12 @@
 
 const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
-const controlDataSvc = require( '../legacy' ).controlData;
-const users = require( '@openagenda/users' );
 const invitations = require( '@openagenda/invitations' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const { Inbox } = require( '@openagenda/inboxes' );
+const app = require( '../../app' );
 const activities = require( '../activities' );
+const controlDataSvc = require( '../legacy' ).controlData;
 const sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' );
 const setMemberUidAndSlugRefs = require( './lib/setMemberUidAndSlugRefs' );
 
@@ -16,6 +16,8 @@ const getRole = agendaStakeholders.types.get;
 let log = console.log;
 
 module.exports = function ( before, stakeholder, context ) {
+
+  const usersSvc = app.service( '/users' );
 
   log( 'updated member %s', stakeholder.id );
 
@@ -26,7 +28,7 @@ module.exports = function ( before, stakeholder, context ) {
     if ( !agenda ) return log( 'info', 'agenda not found: %s', stakeholder.agendaId );
 
     // Activities
-    users.findOne( {
+    usersSvc.findOne( {
       query: {
         id: stakeholder.userId
       },
@@ -34,7 +36,7 @@ module.exports = function ( before, stakeholder, context ) {
     } )
       .then( async user => {
 
-        const senderUser = await users.findOne( {
+        const senderUser = await usersSvc.findOne( {
           query: {
             id: context.invitationSender.userId
           },
@@ -52,7 +54,7 @@ module.exports = function ( before, stakeholder, context ) {
 
           if ( user.isNew ) {
 
-            await users.setNewFlag( user.uid, false );
+            await usersSvc.setNewFlag( user.uid, { isNew: false } );
 
           }
 

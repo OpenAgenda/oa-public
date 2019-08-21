@@ -2,21 +2,31 @@
 
 const { promisify } = require( 'util' );
 const Service = require( '@openagenda/activities' );
-const usersSvc = require( '@openagenda/users' );
+const sessions = require( '@openagenda/sessions' );
+const mw = require( '@openagenda/activity-apps/dist/middleware' );
 const unsubscribedSvc = require( '@openagenda/unsubscribed' );
 const agendasSvc = require( '@openagenda/agendas' );
 const { isLessThan, isSuperiorToOrEqual, isEqualTo } = require( '@openagenda/members' ).utils.compareRoles;
 const sendSummary = require( './sendSummary' );
+const cmn = require( '../../lib/commons-app' );
 
 const log = require( '@openagenda/logs' )( 'activities' );
 
 const activities = {};
+const preMw = [
+  cmn.loadLogger( 'notifications' ),
+  sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) )
+];
 
 module.exports = app => {
-  //
+  app.get( '/notifications/count', preMw, mw.notifications.count );
+  app.get( '/notifications/list', preMw, mw.notifications.list );
+  app.get( '/notifications/remove/:notifId', preMw, mw.notifications.remove );
+  app.get( '/notifications/mark-read/:notifId', preMw, mw.notifications.markRead );
+  app.get( '/notifications/mark-all-read', preMw, mw.notifications.markAllRead );
 };
 
-module.exports.init = async config => {
+module.exports.init = async ( config, app ) => {
   const service = await Service( {
     mysql: config.db,
     schemas: config.schemas,
@@ -31,7 +41,7 @@ module.exports.init = async config => {
       redis: config.redis
     },
     interfaces: {
-      getUser: uid => usersSvc.get( uid, { detailed: true } ),
+      getUser: uid => app.service( '/users' ).get( uid, { detailed: true } ),
       isUnsubscribed: uid => promisify( unsubscribedSvc( uid ).is )( {
         subject: 'notifications',
         type: 'notifications_summary'

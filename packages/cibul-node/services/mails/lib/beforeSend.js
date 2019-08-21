@@ -1,21 +1,28 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const usersSvc = require( '@openagenda/users' );
-
+const log = require( '@openagenda/logs' )( 'services/mails/beforeSend' );
 const createUnsubscriptionToken = require( './createUnsubscriptionToken' );
+const app = require( '../../../app' );
 
-const log = require( '@openagenda/logs' )( 'services/mails/defineUnsubscriptionLinks' );
 
 module.exports = async ( config, params ) => {
+  await defineUnsubscriptionLinks( config, params );
+
+  await defineReplyToHeaders( config, params );
+};
+
+
+async function defineUnsubscriptionLinks( config, params ) {
   log( 'processing', _.get( params, 'to.address' ) );
+
   const {
     unsubscriptions,
     address: email
   } = params.to;
 
   // user or email
-  const user = await usersSvc.findOne( { query: { email } } );
+  const user = await app.service( '/users' ).findOne( { query: { email } } );
 
   params.data.isRegisteredUser = !!user;
 
@@ -50,3 +57,10 @@ module.exports = async ( config, params ) => {
 
   log( 'done', params.list );
 }
+
+async function defineReplyToHeaders( config, params ) {
+  // Only for inboxMessage for now
+
+
+}
+

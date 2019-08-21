@@ -53,11 +53,8 @@ export default async function syncTask() {
 }
 
 export async function defineJob( q, stats ) {
-  const {
-    agendas: agendasSvc,
-    users: usersSvc
-  } = services;
-
+  const agendasSvc = services.agendas();
+  const usersSvc = services.users();
   const agendasList = promisify( agendasSvc.list );
 
   const limit = 200;
@@ -130,10 +127,8 @@ export async function syncUser( user, stats ) {
 }
 
 export async function syncAgenda( agenda, stats ) {
-  const {
-    stakeholders: stakeholdersSvc,
-    users: usersSvc
-  } = services;
+  const stakeholdersSvc = services.stakeholders();
+  const usersSvc = services.users();
 
   // create Inbox
   const inboxIdentifiers = { type: 'agenda', identifier: agenda.uid };

@@ -16,7 +16,7 @@ module.exports = async ( before, after, context ) => {
   try {
     await createActivity( before, after, context );
   } catch ( e ) {
-    log( 'error', 'failed to create activity', err );
+    log( 'error', 'failed to create activity', e );
   }
 
   try {

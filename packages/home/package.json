@@ -63,7 +63,8 @@
     "@openagenda/fixtures": "^2.0.1",
     "@storybook/react": "^4.1.11",
     "babel-loader": "^8.0.4",
-    "babel-preset-openagenda": "^1.1.1",
+
+"@openagenda/babel-preset": "^1.1.1",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.0",

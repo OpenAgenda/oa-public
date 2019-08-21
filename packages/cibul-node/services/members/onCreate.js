@@ -1,12 +1,12 @@
 "use strict";
 
-const activities = require( '@openagenda/activities' );
 const agendas = require( '@openagenda/agendas' );
-const controlDataSvc = require( '../legacy' ).controlData;
 const invitations = require( '@openagenda/invitations' );
-const users = require( '@openagenda/users' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const log = require( '@openagenda/logs' )( 'services/members/onCreate' );
+const app = require( '../../app' );
+const activities = require( '../activities' );
+const controlDataSvc = require( '../legacy' ).controlData;
 const {
   isSuperiorOrEqualTo
 } = require( '@openagenda/members' ).utils.compareRoles;
@@ -14,6 +14,8 @@ const {
 const { send, sendInvitation } = require( './lib/mail' );
 
 module.exports = async ( config, member, context ) => {
+  const usersSvc = app.service( '/users' );
+
   log( 'created', member, context );
 
   try {
@@ -23,7 +25,7 @@ module.exports = async ( config, member, context ) => {
 
     if ( !agenda ) throw new Error( 'Agenda not found' );
 
-    const user = member.userUid ? await users.findOne( {
+    const user = member.userUid ? await usersSvc.findOne( {
       query: { uid: member.userUid },
       removed: null
     } ) : null;
@@ -41,11 +43,13 @@ module.exports = async ( config, member, context ) => {
   }
 }
 
-async function _memberIsExistingUser( config, { member, user, agenda, context } ) {
+async function _memberIsExistingUser( { member, user, agenda, context } ) {
+  const usersSvc = app.service( '/users' );
+
   log( 'member is existing user', member );
 
   if ( user.isNew ) {
-    await users.setNewFlag( user.uid, false );
+    await usersSvc.setNewFlag( user.uid, { isNew: false } );
   }
 
   try {
@@ -81,7 +85,7 @@ async function _memberIsExistingUser( config, { member, user, agenda, context } 
     log( 'error', 'could not make user feed follow agenda feed', member.id );
   }
 
-  const senderUser = await users.findOne( {
+  const senderUser = await usersSvc.findOne( {
     query: { uid: _.get( context, 'sender.userUid' ) },
     removed: null
   } );

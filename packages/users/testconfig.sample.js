@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-const keysSvc = require( '@openagenda/keys' );
+const keysSvc = require('@openagenda/keys');
 
 module.exports = {
   paginate: {
@@ -28,17 +28,23 @@ module.exports = {
   },
   imagePath: '//openagendatst.s3.amazonaws.com/',
   interfaces: {
-    getAgenda: ( agendaUid, cb ) => cb( null, agendaUid === 85870128 ? {
-      slug: 'journees-arts-culture-sup-2017',
-      title: '2017 : Journées des Arts et de la Culture dans l\'Enseignement Supérieur'
-    } : {
-      slug: 'semaineindustrie2017',
-      title: 'Semaine de l\'Industrie 2017'
-    } ),
+    getAgenda: (agendaUid, cb) => cb(
+      null,
+      agendaUid === 85870128
+        ? {
+          slug: 'journees-arts-culture-sup-2017',
+          title:
+                "2017 : Journées des Arts et de la Culture dans l'Enseignement Supérieur"
+        }
+        : {
+          slug: 'semaineindustrie2017',
+          title: "Semaine de l'Industrie 2017"
+        }
+    ),
     keys: {
-      get: identifiers => keysSvc( identifiers ).get(),
-      create: ( identifiers, data ) => keysSvc( identifiers ).create( data ),
-      remove: identifiers => keysSvc( identifiers ).remove()
+      get: identifiers => keysSvc(identifiers).get(),
+      create: (identifiers, data) => keysSvc(identifiers).create(data),
+      remove: identifiers => keysSvc(identifiers).remove()
     }
   },
   redis: {

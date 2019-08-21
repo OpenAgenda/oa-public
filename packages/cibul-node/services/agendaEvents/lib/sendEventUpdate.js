@@ -2,18 +2,18 @@
 
 const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
-const VError = require( 'verror' );
 
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventUpdate' );
 const mails = require( '@openagenda/mails' );
 const membersSvc = require( '@openagenda/agenda-stakeholders' );
-const usersSvc = require( '@openagenda/users' );
-
+const app = require( '../../../app' );
 const genUrl = require( '../../genUrl' );
 
 
 module.exports = async ( { agendaEvent, context, agenda, event } ) => {
+
+  const usersSvc = app.service( '/users' );
 
   if ( _.get( context, 'batched' ) ) {
 

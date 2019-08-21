@@ -5,13 +5,13 @@ const wn = require( 'when/node' );
 const _ = require( 'lodash' );
 const { default: inboxes, Conversation } = require( '@openagenda/inboxes' );
 const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
-const usersSvc = require( '@openagenda/users' );
 const agendasSvc = require( '@openagenda/agendas' );
 const agendaEventsSvc = require( '@openagenda/agenda-events' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const log = require( '@openagenda/logs' )( 'services/inboxes' );
 const inboxesLabels = require( '@openagenda/labels/inboxes' );
 const onMessageCreate = require( './onMessageCreate' );
+const app = require( '../../app' );
 const config = require( '../../config' );
 
 
@@ -25,6 +25,8 @@ async function getUsersDetails( usersToBeDetailed ) {
   if ( usersToBeDetailed.length === 0 ) {
     return [];
   }
+
+  const usersSvc = app.service( '/users' );
 
   return (await usersSvc.find( {
     query: {
@@ -76,6 +78,8 @@ async function getInboxesDetails( inboxesToBeDetailed ) {
 }
 
 async function onInboxCreate( Inbox ) {
+  const usersSvc = app.service( '/users' );
+
   switch ( Inbox.data.type ) {
     case 'user': {
       const inboxUser = await Inbox.users.add( { userUid: Inbox.data.identifier } );
@@ -147,6 +151,8 @@ async function onInboxCreate( Inbox ) {
 }
 
 async function filterAction( inbox, conversation, action ) {
+  const usersSvc = app.service( '/users' );
+
   if ( action.code === 'involveTechnicalSupport' ) {
     if ( inbox.type !== 'agenda' ) {
       return false;
@@ -208,6 +214,8 @@ async function filterAction( inbox, conversation, action ) {
 }
 
 async function onAction( conversation, action ) {
+  const usersSvc = app.service( '/users' );
+
   if ( action.code === 'involveTechnicalSupport' ) {
     const supportInbox = await inboxes( {
       type: 'support',
@@ -304,7 +312,7 @@ const interfaces = {
   onAction
 };
 
-module.exports.init = async c => {
+module.exports.init = async ( c, app ) => {
   await inboxes.init(
     _.merge(
       _.pick( c, [
@@ -326,9 +334,9 @@ module.exports.init = async c => {
           tableName: 'inboxes_migrations'
         },
         services: {
-          agendas: agendasSvc,
-          stakeholders: stakeholdersSvc,
-          users: usersSvc
+          agendas: () => agendasSvc,
+          stakeholders: () => stakeholdersSvc,
+          users: () => app.service( '/users' )
         },
         interfaces,
         defaultAction: {

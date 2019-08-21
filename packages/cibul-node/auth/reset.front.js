@@ -1,9 +1,9 @@
 'use strict';
 
 const sessions = require( '@openagenda/sessions' );
-const usersSvc = require( '@openagenda/users' );
 const log = require( '@openagenda/logs' )( 'auth/reset.front' );
 const cmn = require( '../lib/commons-app' );
+const app = require( '../app' );
 
 const config = require( '../config' );
 
@@ -132,6 +132,8 @@ function _redirectToSignin( req, res, message ) {
 
 async function _createAndSend( values ) {
 
+  const usersSvc = app.service( '/users' );
+
   log( 'creating activation token' );
 
   const user = values.user ? _.pick( values.user, 'id', 'uid', 'email' ) : { email: values.email };
@@ -190,6 +192,8 @@ async function _createAndSend( values ) {
 
 async function _verifyToken( values ) {
 
+  const usersSvc = app.service( '/users' );
+
   const token = await usersSvc.tokens.findOne( {
     query: {
       token: values.token,
@@ -212,6 +216,8 @@ async function _verifyToken( values ) {
 }
 
 async function updatePassword( values ) {
+
+  const usersSvc = app.service( '/users' );
 
   await _verifyToken( values );
 

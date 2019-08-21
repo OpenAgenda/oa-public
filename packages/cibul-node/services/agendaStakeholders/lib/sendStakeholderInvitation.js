@@ -1,10 +1,9 @@
 "use strict";
 
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
-const users = require( '@openagenda/users' );
 const mails = require( '@openagenda/mails' );
+const app = require( '../../../app' );
 const activities = require( '../../activities' );
-const genUrl = require( '../../genUrl' );
 const config = require( '../../../config' );
 
 let log = console.log;
@@ -13,7 +12,7 @@ module.exports = ( invitation, stakeholder, context, agenda ) => {
 
   if ( !stakeholder.userId ) {
 
-    users.findOne( {
+    app.service( '/users' ).findOne( {
       query: {
         id: context.invitationSender.userId
       }

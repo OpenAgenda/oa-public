@@ -4,10 +4,8 @@ const _ = require( 'lodash' );
 const async = require( 'async' );
 const abilitiesSvc = require( '@openagenda/abilities' );
 const agendasSvc = require( '@openagenda/agendas' );
-const usersSvc = require( '@openagenda/users' );
 const editableRules = require( './editableRules' );
 const cmn = require( '../../lib/commons-app' );
-
 const membersSvc = require( '../members' );
 
 const secureMw = ( req, res, next ) => {
@@ -71,7 +69,7 @@ module.exports = app => {
   );
 };
 
-module.exports.init = async config => {
+module.exports.init = async ( config, app ) => {
   abilitiesSvc.init( {
     knex: config.knex,
     mysql: config.db,
@@ -86,7 +84,7 @@ module.exports.init = async config => {
       getEntity: {
         agenda: uid => agendasSvc.get( { uid }, { private: null } ),
         member: id => membersSvc.get( id ),
-        user:  uid => usersSvc.get( uid )
+        user:  uid => app.service( '/users' ).get( uid )
       },
       listEntities: {
         agenda: uids => agendasSvc.list( { uid: uids, order: 'updatedAt.desc' }, { private: null } ),
@@ -96,7 +94,7 @@ module.exports.init = async config => {
             m.agenda ? Object.assign( m, { agendaTitle: m.agenda.title } ) : m,
             [ 'agenda', 'user' ]
           ) ) ),
-        user: async uids => (await usersSvc.find( { query: { uid: { $in: uids } } } )).data
+        user: async uids => (await app.service( '/users' ).find( { query: { uid: { $in: uids } } } )).data
       },
       defaultFor: {
         user( { can, cannot, rules } ) {

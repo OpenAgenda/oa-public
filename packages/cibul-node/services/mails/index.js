@@ -2,18 +2,14 @@
 
 const _ = require( 'lodash' );
 const path = require( 'path' );
-const axios = require( 'axios' );
-const redis = require( 'redis' );
 const sanitizeHtml = require( 'sanitize-html' );
 
 const mails = require( '@openagenda/mails' );
-const queuesLib = require( '@openagenda/queues' );
-const log = require( '@openagenda/logs' )( 'services/mails' );
 const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 const labels = require( '@openagenda/labels/all' ).mails;
 
 const unsubscription = require( './unsubscription' );
-const defineUnsubscriptionLinks = require( './lib/defineUnsubscriptionLinks' );
+const beforeSend = require( './lib/beforeSend' );
 const filterBouncingAndUnsubscribed = require( './lib/filterBouncingAndUnsubscribed' );
 
 const Queues = require( '../queues' );
@@ -58,7 +54,7 @@ module.exports.init = async config => {
 
     // Unsubscription
     sendFilter: filterBouncingAndUnsubscribed.bind( null, config ),
-    beforeSend: defineUnsubscriptionLinks.bind( null, config )
+    beforeSend: beforeSend.bind( null, config )
   } );
 
 };

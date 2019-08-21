@@ -3,19 +3,20 @@
 const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 const VError = require( 'verror' );
+const marked = require( 'marked' );
 
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const mails = require( '@openagenda/mails' );
 const membersSvc = require( '@openagenda/agenda-stakeholders' );
-const usersSvc = require( '@openagenda/users' );
 
-const marked = require( 'marked' );
-
+const app = require( '../../../app' );
 const genUrl = require( '../../genUrl' );
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/sendEventChangeState' );
 
 module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
+
+  const usersSvc = app.service( '/users' );
 
   // const { agenda, event } = context;
   const afterStateLabel = getStateLabel( agendaEvent.state );

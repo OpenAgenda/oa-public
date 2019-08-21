@@ -13,7 +13,7 @@ const facebookOptions = {
   clientID: _.get( config, 'auth.facebook.id' ),
   clientSecret: _.get( config, 'auth.facebook.secret' ),
   scope: [ 'email', 'public_profile' ],
-  profileFields: ['id', 'email', 'name' ]
+  profileFields: [ 'id', 'email', 'name' ]
 };
 
 const preMw = [

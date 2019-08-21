@@ -1,35 +1,3 @@
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET time_zone = "+00:00";
-
-CREATE TABLE `${schema}` (
-  `id` bigint(20) NOT NULL,
-  `full_name` varchar(50) DEFAULT NULL,
-  `username` varchar(50) DEFAULT NULL,
-  `email` varchar(50) DEFAULT NULL,
-  `image` varchar(255) DEFAULT NULL,
-  `facebook_uid` varchar(255) DEFAULT NULL,
-  `twitter_screen_name` varchar(255) DEFAULT NULL,
-  `culture` varchar(5) DEFAULT NULL,
-  `is_activated` tinyint(1) DEFAULT '0',
-  `main` varchar(2) DEFAULT NULL,
-  `password` varchar(40) NOT NULL,
-  `salt` varchar(32) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `last_notified` datetime DEFAULT NULL,
-  `last_inbox_check` datetime DEFAULT NULL,
-  `is_removed` tinyint(1) NOT NULL DEFAULT '0',
-  `store` longtext,
-  `api_key` varchar(32) DEFAULT NULL,
-  `is_basic` tinyint(1) NOT NULL DEFAULT '0',
-  `twitter_id` varchar(255) DEFAULT NULL,
-  `google_id` varchar(255) DEFAULT NULL,
-  `uid` bigint(20) DEFAULT NULL,
-  `last_signin` datetime DEFAULT NULL,
-  `comexposium_id` varchar(255) DEFAULT NULL,
-  `is_new` tinyint DEFAULT 1
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
 INSERT INTO `${schema}` (`id`, `full_name`, `username`, `email`, `image`, `facebook_uid`, `twitter_screen_name`, `culture`, `is_activated`, `main`, `password`, `salt`, `created_at`, `updated_at`, `last_notified`, `is_removed`, `store`, `api_key`, `is_basic`, `twitter_id`, `google_id`, `uid`, `last_signin`, `comexposium_id`) VALUES
 (618, 'Yoann Saludes', 'yoann-saludes', 'y@saludes.fr', NULL, NULL, NULL, 'fr', 1, NULL, '3a463e05a5e58c9c199e037e2c081905420b5808', '74d26d680f6691135279cd9647cedefa', '2012-03-18 13:24:02', '2015-11-19 06:32:33', '2012-05-10 10:48:10', 0, '{"ES_cibul":false,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"205":"205"},"uid":"35004666"}', '8d1140cd0f9e060321b2d4d456588690', 0, NULL, NULL, 11065529, NULL, NULL),
 (439, 'Antoine Gallet', 'antoinegallet', 'contact@diesellecompagnie.fr', 'user_agallet_68.jpg', NULL, 'LaDieselleCie', 'fr', 1, NULL, '172ebec306a9df6be07a70e17ab853d48bf63afe', 'fa7913d831bc5c4991a0b5fe04c61e1e', '2011-12-23 13:42:51', '2015-11-19 06:32:31', '2015-04-25 16:21:34', 0, '{"p_order":"date","p_passed":"0","ES_cibul":true,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"149":"149"},"enable_secret":false,"announcement":false,"uid":"88644561"}', '856f1b3a6a8e9e4c5b035dc106bd6c99', 0, NULL, NULL, 53546737, NULL, NULL),
@@ -57,16 +25,3 @@ INSERT INTO `${schema}` (`id`, `full_name`, `username`, `email`, `image`, `faceb
 (1797, 'Josse Blais', 'josse-blais', 'josse.blais@etu-webschoolfactory.fr', NULL, NULL, NULL, 'fr', 1, NULL, '8eea4a3600ab47335771d0dcf27f94ec12d7c7f2', '59ee4de59ef501c67dff1cf6b337cf18', '2013-11-26 12:29:13', '2015-11-19 06:32:47', NULL, 0, '{"uid":"46377925"}', '', 0, NULL, NULL, 38157927, NULL, NULL),
 (3589, 'Fé', 'Fe', 'musiquedefe@gmail.com', NULL, NULL, NULL, 'fr', 1, NULL, '23162fca37e1cb7c5823fa552c7c26d9461dc46e', 'niKKXI0fSViKeupGQaX6Ka5WpgMJhJmV', '2015-03-30 17:27:00', '2015-03-30 18:27:00', NULL, 0, NULL, '', 0, '', '', 99999972, NULL, NULL),
 (119, 'Gaetan Latouche', 'gaetan', 'gaetan@cibul.net', '//graph.facebook.com/100002280111541/picture', '100002280111541', NULL, 'fr', 1, NULL, 'd347a7e8e804b4cc630cdeb43a14eef6e522a50c', 'OJOmvCd4V3GbHmaNzsVdotoaiQK2RS1E', '2011-07-04 07:52:37', '2016-03-15 17:39:55', '2015-02-24 16:46:14', 0, '{"ES_cibul":true,"ES_facebook":false,"ES_twitter":false,"ES_reviews":{"429":"429"},"p_order":"publication","p_passed":"1","announcement":false,"uid":"50306799"}', NULL, 0, NULL, NULL, 27639980, '2016-03-15 17:39:55', NULL);
-
-
-ALTER TABLE `${schema}`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `id_idx` (`id`),
-  ADD UNIQUE KEY `username` (`username`),
-  ADD UNIQUE KEY `email` (`email`),
-  ADD UNIQUE KEY `email_idx` (`email`),
-  ADD UNIQUE KEY `uid` (`uid`);
-
-
-ALTER TABLE `${schema}`
-  MODIFY `id` bigint(20) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12571;

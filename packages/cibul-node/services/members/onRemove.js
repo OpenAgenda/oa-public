@@ -1,18 +1,18 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
 const agendas = require( '@openagenda/agendas' );
-const users = require( '@openagenda/users' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const invitations = require( '@openagenda/invitations' );
 const { isSuperiorToOrEqual } = require( '@openagenda/members' ).utils.compareRoles;
-const activities = require( '../activities' );
-
-const controlDataSvc = require( '../legacy' ).controlData;
 const log = require( '@openagenda/logs' )( 'services/members/onRemove' );
+const app = require( '../../app' );
+const activities = require( '../activities' );
+const controlDataSvc = require( '../legacy' ).controlData;
 
 module.exports = async ( { members, activityQueue }, member, context ) => {
+
+  const usersSvc = app.service( '/users' );
 
   log( 'removed', member );
 
@@ -28,7 +28,7 @@ module.exports = async ( { members, activityQueue }, member, context ) => {
       return;
     }
 
-    const memberUser = await users.findOne( {
+    const memberUser = await usersSvc.findOne( {
       query: { uid: member.userUid }
     } );
 

@@ -1,144 +1,125 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const should = require( 'should' );
+const _ = require('lodash');
+const should = require('should');
 
-const Service = require( '../' );
-const config = require( '../testconfig' );
-const fixtures = require( './fixtures' );
+const Service = require('../');
+const config = require('../testconfig');
+const fixtures = require('./fixtures');
 
-describe( 'members - functional - get', () => {
+describe('members - functional - get', () => {
+  const f = fixtures(config.mysql);
 
-  const f = fixtures( config.mysql );
+  let k;
+  let svc;
 
-  let k, svc;
-
-  before( async () => {
-
+  before(async () => {
     await f.load();
 
-    svc = Service( {
+    svc = Service({
       knex: f.client,
       interfaces: {
-        getUsersByUid: require( './fixtures/getUsersByUid' ),
-        getEventCountByUserUid: require( './fixtures/getEventCountByUserUid' ),
-        getUserUidByEmail: require( './fixtures/getUserUidByEmail' )
+        getUsersByUid: require('./fixtures/getUsersByUid'),
+        getEventCountByUserUid: require('./fixtures/getEventCountByUserUid'),
+        getUserUidByEmail: require('./fixtures/getUserUidByEmail')
       }
-    } );
+    });
+  });
 
-  } );
+  after(f.destroyClient);
 
-  after( f.destroyClient );
-
-  describe( 'basic', () => {
-
+  describe('basic', () => {
     let member;
 
-    before( async () => {
+    before(async () => {
+      member = await svc.get({ agendaUid: 1, userUid: 2 });
+    });
 
-      member = await svc.get( { agendaUid: 1, userUid: 2 } );
-
-    } );
-
-    it( 'fetched member includes user and agenda uids', () => {
-
-      _.pick( member, [ 'userUid', 'agendaUid' ] ).should.eql( {
+    it('fetched member includes user and agenda uids', () => {
+      _.pick(member, ['userUid', 'agendaUid']).should.eql({
         agendaUid: 1,
         userUid: 2
-      } );
+      });
+    });
 
-    } );
+    it('fetched member includes role', () => {
+      member.role.should.equal(1);
+    });
 
-    it( 'fetched member includes role', () => {
+    it('by default, legacy fields are not provided', () => {
+      should(member.credential).equal(undefined);
+    });
 
-      member.role.should.equal( 1 );
+    it('by default, user details is not provided', () => {
+      should(member.user).equal(undefined);
+    });
 
-    } );
+    it('when member is not found, returns null', async () => {
+      const member = await svc.get({ agendaUid: 18839, userUid: 3 });
 
-    it( 'by default, legacy fields are not provided', () => {
+      should(member).equal(null);
+    });
 
-      should( member.credential ).equal( undefined );
-
-    } );
-
-    it( 'by default, user details is not provided', () => {
-
-      should( member.user ).equal( undefined );
-
-    } );
-
-    it( 'when member is not found, returns null', async () => {
-
-      const member = await svc.get( { agendaUid: 18839, userUid: 3 } );
-
-      should( member ).equal( null );
-
-    } );
-
-    it( 'custom data is provided in custom key', () => {
-
-      member.custom.should.eql( {
+    it('custom data is provided in custom key', () => {
+      member.custom.should.eql({
         organization: 'Idpt',
         contactNumber: '013072171',
         contactName: 'JC Ponceau',
         contactPosition: 'Responsable des pains',
         email: 'jc@ponceau.fr'
-      } );
+      });
+    });
 
-    } );
+    it('member can also be fetched by agenda uid and member id', async () => {
+      const member = await svc.get({ agendaUid: 2, id: 3 });
 
-    it( 'member can also be fetched by agenda uid and member id', async () => {
+      member.id.should.equal(3);
+    });
 
-      const member = await svc.get( { agendaUid: 2, id: 3 } );
+    it('by default, legacy fields are not provided', async () => {
+      should(member.userId).equal(undefined);
+      should(member.agendaId).equal(undefined);
+    });
 
-      member.id.should.equal( 3 );
+    it('legacy fields are provided if legacy option is set to true', async () => {
+      const member = await svc.get(
+        { agendaUid: 1, userUid: 2 },
+        { legacy: true }
+      );
 
-    } );
+      member.userId.should.equal(81290);
+      member.agendaId.should.equal(923);
+    });
 
-    it( 'by default, legacy fields are not provided', async () => {
+    it('user detail is provided when detailed option is set to true', async () => {
+      const member = await svc.get(
+        { agendaUid: 1, userUid: 2 },
+        { detailed: true }
+      );
 
-      should( member.userId ).equal( undefined );
-      should( member.agendaId ).equal( undefined );
-
-    } );
-
-    it( 'legacy fields are provided if legacy option is set to true', async () => {
-
-      const member = await svc.get( { agendaUid: 1, userUid: 2 }, { legacy: true } );
-
-      member.userId.should.equal( 81290 );
-      member.agendaId.should.equal( 923 );
-
-    } );
-
-    it( 'user detail is provided when detailed option is set to true', async () => {
-
-      const member = await svc.get( { agendaUid: 1, userUid: 2 }, { detailed: true } );
-
-      member.user.should.eql( {
+      member.user.should.eql({
         id: 10293,
         uid: 1,
         fullName: 'Janine Ponceau'
-      } );
+      });
+    });
 
-    } );
+    it('getByEmail looks in record store for queried email', async () => {
+      const member = await svc.get.byEmail({
+        agendaUid: 1,
+        email: 'janine@ponceau.fr'
+      });
 
-    it( 'getByEmail looks in record store for queried email', async () => {
+      member.id.should.equal(1);
+    });
 
-      const member = await svc.get.byEmail( { agendaUid: 1, email: 'janine@ponceau.fr' } );
+    it('getByEmail gets by email through interface when necessary', async () => {
+      const member = await svc.get.byEmail({
+        agendaUid: 1,
+        email: 'janeen@oa.com'
+      });
 
-      member.id.should.equal( 1 );
-
-    } );
-
-    it( 'getByEmail gets by email through interface when necessary', async () => {
-
-      const member = await svc.get.byEmail( { agendaUid: 1, email: 'janeen@oa.com' } );
-
-      member.id.should.equal( 4 );
-
-    } );
-
-  } );
-
-} );
+      member.id.should.equal(4);
+    });
+  });
+});

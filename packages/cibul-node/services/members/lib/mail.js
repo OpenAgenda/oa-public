@@ -1,14 +1,11 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
 const invitations = require( '@openagenda/invitations' );
 const mails = require( '@openagenda/mails' );
 const members = require( '@openagenda/members' );
-const users = require( '@openagenda/users' );
-
 const log = require( '@openagenda/logs' )( 'members/mail' );
-
+const app = require( '../../../app' );
 const activities = require( '../../activities' );
 const agendaLogo = require( './agendaLogo' );
 const extractInvitationContext = require( './invitationContext' );
@@ -93,7 +90,7 @@ function _send( config, { member, agenda, link, message, lang } ) {
 }
 
 async function _createSenderActivity( { agenda, invitationContext, member } ) {
-  const user = await users.findOne( {
+  const user = await app.service( '/users' ).findOne( {
     query: {
       uid: invitationContext.sender.userUid
     }

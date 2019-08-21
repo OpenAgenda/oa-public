@@ -5,11 +5,12 @@ const { promisify } = require( 'util' );
 
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const contributionTypes = require( '@openagenda/agendas' ).contributionTypes;
-const users = require( '@openagenda/users' );
 
 const members = require( '../../../services/members' );
 
 module.exports = Object.assign( async ( agenda, userUid ) => {
+
+  const users = app.service( '/users' );
 
   return promisify( agendaStakeholders.agenda( agenda.id ).create )( {
     email: ( await users.get( userUid ) ).email

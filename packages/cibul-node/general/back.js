@@ -4,7 +4,6 @@ const _ = require( 'lodash' );
 const callToActionMw = require( '@openagenda/call-to-action/dist/middleware' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const sessions = require( '@openagenda/sessions' );
-const users = require( '@openagenda/users' );
 const cmn = require( '../lib/commons-app' );
 
 
@@ -29,6 +28,8 @@ module.exports = app => {
 
 
 function _loadUser( detailed, req, res, next ) {
+
+  const users = req.app.service( '/users' );
 
   users.findOne( { query: { id: req.user.id }, detailed: true } )
     .then( user => {

@@ -2,14 +2,13 @@
 
 const _ = require( 'lodash' );
 
-const activities = require( '@openagenda/activities' );
 const agendas = require( '@openagenda/agendas' );
-const controlDataSvc = require( '../legacy' ).controlData;
 const { Inbox } = require( '@openagenda/inboxes' );
 const invitations = require( '@openagenda/invitations' );
 const log = require( '@openagenda/logs' )( 'services/members/onPatch' );
-const users = require( '@openagenda/users' );
-
+const app = require( '../../app' );
+const activities = require( '../activities' );
+const controlDataSvc = require( '../legacy' ).controlData;
 const { sendInvitation } = require( './lib/mail' );
 
 const {
@@ -17,6 +16,8 @@ const {
 } = require( '@openagenda/members' ).utils.compareRoles;
 
 module.exports = async ( config, before, member, context ) => {
+  const usersSvc = app.service( '/users' );
+
   log( 'patched', member );
 
   try {
@@ -25,14 +26,14 @@ module.exports = async ( config, before, member, context ) => {
 
     if ( !agenda ) throw new Error( 'Agenda not found' );
 
-    const user = member.userUid ? await users.findOne( {
+    const user = member.userUid ? await usersSvc.findOne( {
       query: { uid: member.userUid },
       removed: null
     } ) : null;
 
     if ( !user && member.userUid ) throw new Error( 'User not found' );
 
-    const senderUser = await users.findOne( {
+    const senderUser = await usersSvc.findOne( {
       query: { uid: _.get( context, 'sender.userUid' ) },
       removed: null
     } );
@@ -164,8 +165,10 @@ async function _onRoleChange( { user, before, member, agenda, context, senderUse
 
 async function _onNewMember( { agenda, user, senderUser, context, member } ) {
 
+  const usersSvc = app.service( '/users' );
+
   if ( user.isNew ) {
-    await users.setNewFlag( user.uid, false );
+    await usersSvc.setNewFlag( user.uid, { isNew: false } );
   }
 
   try {

@@ -59,7 +59,8 @@
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/keys": "^2.1.1",
     "@openagenda/test-app": "^3.0.1-6",
-    "babel-preset-openagenda": "^1.1.1",
+
+"@openagenda/babel-preset": "^1.1.1",
     "body-parser": "^1.15.2",
     "concurrently": "^3.5.0",
     "cookie-parser": "^1.4.3",
