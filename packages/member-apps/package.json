@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/member-apps",
-  "version": "1.1.4",
+  "version": "2.0.0",
   "description": "",
   "keywords": [],
   "author": "",
@@ -26,10 +26,10 @@
   },
   "dependencies": {
     "@babel/runtime-corejs2": "^7.3.1",
-    "@openagenda/members": "^1.11.0",
     "@openagenda/call-to-action": "^2.2.2",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.0",
+    "@openagenda/members": "^1.11.0",
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",
