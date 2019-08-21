@@ -9,6 +9,7 @@ const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'services/members' );
 
 const mail = require( './lib/mail' );
+const activities = require( './lib/activities' );
 const streamCsv = require( './lib/streamCsv' );
 const streamXlsx = require( './lib/streamXlsx' );
 const transferEvent = require( './lib/transferEvent' );
@@ -46,6 +47,9 @@ module.exports = Object.assign( plugApp, {
 function init( c ) {
   Object.assign( config, c );
 
+  const activityQueue = queues( 'memberActivities' );
+  const messageQueue = queues( 'memberMessages' );
+
   Object.assign( members, Service( {
     knex: config.knex,
     schema: 'reviewer',
@@ -58,15 +62,19 @@ function init( c ) {
       getAgendasByUid,
       getUserByEmail,
       onCreate: onCreate.bind( null, config ),
-      onRemove,
+      onRemove: onRemove.bind( null, { members, activityQueue } ),
       onPatch: onPatch.bind( null, config )
     }
   } ) );
 
   const messages = mail.messages( config, {
-    queues,
-    members
+    members,
+    queue: messageQueue
   } );
+
+  const {
+    task: activityTask
+  } = activities( { queue: activityQueue } );
 
   mw.sendMessage.init( messages );
 
@@ -77,6 +85,7 @@ function init( c ) {
         log( 'running tasks' );
         members.task();
         messages.task();
+        activityTask();
       },
       mw: {
         load: mw.loadMember.bind( null, members ),

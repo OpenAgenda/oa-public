@@ -12,7 +12,7 @@ const activities = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
 const log = require( '@openagenda/logs' )( 'services/members/onRemove' );
 
-module.exports = async ( membersSvc, member, context ) => {
+module.exports = async ( { members, activityQueue }, member, context ) => {
 
   log( 'removed', member );
 
@@ -36,13 +36,13 @@ module.exports = async ( membersSvc, member, context ) => {
       throw new Error( 'User not found' );
     }
 
-    const userMember = await membersSvc.get( {
+    const userMember = await members.get( {
       agendaUid: agenda.uid,
       userUid: user.uid
     } );
 
     try {
-      await addMemberRemoveActivity( { user, member, agenda, userMember, memberUser } );
+      await activityQueue( 'addMemberRemoveActivity', { user, member, agenda, userMember, memberUser } );
     } catch ( e ) {
       log( 'error', 'failed adding activity of type agenda.removeMember', { member, exception: e } );
     }
@@ -97,7 +97,6 @@ module.exports = async ( membersSvc, member, context ) => {
 
 
 async function _removeInvitationsToMember( member ) {
-
   const { invitation } = await invitations.get( { email: member.custom.email } );
 
   if ( !invitation ) return;
@@ -113,25 +112,4 @@ async function _removeInvitationsToMember( member ) {
   } else {
     await invitation.remove();
   }
-
-}
-
-async function addMemberRemoveActivity( { user, member, agenda, userMember, memberUser } ) {
-  await activities.feed( {
-    entityType: 'agenda',
-    entityUid: agenda.uid
-  } ).activities.add( {
-    actor: 'user:' + user.uid,
-    verb: 'agenda.removeMember',
-    object: 'user:' + memberUser.uid,
-    target: 'agenda:' + agenda.uid,
-    store: {
-      labels: {
-        actor: userMember.custom.contactName || user.fullName,
-        object: member.custom.contactName || memberUser.fullName,
-        target: agenda.title
-      },
-      credential: member.role
-    }
-  } );
 }

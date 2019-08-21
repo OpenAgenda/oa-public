@@ -27,6 +27,8 @@
           </h1>
         </mj-text>
 
+        <mj-markdown><%- message %></mj-markdown>
+
         <mj-button
           background-color="#41acdd"
           color="white"

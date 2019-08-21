@@ -21,7 +21,6 @@ function _list( members, req, query = {}, order = null ) {
     agendaUid: { $set: req.agenda.uid },
     deletedUser: { $set: null }
   } ), Object.assign( {}, query, { order } ), {
-    legacy: true,
     detailed: true,
     total: true
   } );

@@ -60,7 +60,7 @@
     "@openagenda/legacy": "^1.0.0",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/mails": "^1.4.2",
-    "@openagenda/member-apps": "^1.1.2",
+    "@openagenda/member-apps": "^2.0.0",
     "@openagenda/members": "^1.0.1",
     "@openagenda/network-apps": "^1.0.1",
     "@openagenda/networks": "^1.1.2",

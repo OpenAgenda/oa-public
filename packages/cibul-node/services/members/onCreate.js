@@ -14,7 +14,7 @@ const {
 const { send, sendInvitation } = require( './lib/mail' );
 
 module.exports = async ( config, member, context ) => {
-  log( 'created', member );
+  log( 'created', member, context );
 
   try {
     const agenda = await agendas.get( {

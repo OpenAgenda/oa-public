@@ -3,9 +3,11 @@
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const _ = require( 'lodash' );
+
+const members = require( '../services/members' );
+
 const { middleware: agendasMw } = require( '@openagenda/agendas' );
 const createApp = require( '@openagenda/member-apps/dist/app' );
-const stakeholdersMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 const sessions = require( '@openagenda/sessions' );
 const config = require( '../config' );
 const cmn = require( '../lib/commons-app' );
@@ -29,18 +31,19 @@ const preMw = [
     includeImagePath: true,
     private: null
   } ),
+  ( req, res, next ) => {
+    req.agenda = {
+      uid: req.agendaInstance.data.uid
+    };
+    next();
+  },
   sessions.middleware.ifUnlogged( cmn.redirectToSignin ),
   ( req, res, next ) => {
     if ( !req.agendaInstance ) return next( { code: 404 } );
     req.identifiers = { userId: req.user.id };
     next();
   },
-  stakeholdersMw.agenda( 'agendaInstance.data' ).get( {
-    namespaces: {
-      stakeholder: 'stakeholder',
-      instance: 'stakeholderInstance'
-    }
-  } ),
+  members.mw.load,
   agendasMw.loadRoles( {
     namespaces: {
       agenda: 'agendaInstance', // slug with req.params.slug in real world
@@ -49,7 +52,7 @@ const preMw = [
     private: null
   } ),
   oldAgendaLoad( 'slug' ),
-  cmn.authorize.moderator,
+  members.mw.authorize.moderator,
   agendasMw.evaluateIPAddress( {
     namespaces: {
       agenda: 'agendaInstance'
@@ -123,7 +126,7 @@ async function matchApp( req, res, next ) {
         credentials: req.agendaInstance.data.credentials,
         roles: req.agendaRoles
       },
-      stakeholder: req.stakeholder
+      member: req.member
     }
   } );
 
