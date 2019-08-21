@@ -93,5 +93,6 @@ module.exports = Object.assign( schema( fields.base ), {
   withLegacy: schema( Object.assign(
     {}, fields.base, fields.legacy
   ) ),
-  withCustom: required => schema( Object.assign( {}, fields.base, { custom: custom( required ) } ) )
+  withCustom: required => schema( Object.assign( {}, fields.base, { custom: custom( required ) } ) ),
+  custom: required => schema( custom( required ) )
 } );
