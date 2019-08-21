@@ -126,27 +126,23 @@ function plugApp( parentApp ) {
     } )
   ] );
 
-  parentApp.get(
-    '/:agendaSlug/admin/members.:format',
+  parentApp.get( '/:agendaSlug/admin/members.:format',
     ( req, res, next ) => {
       req.order = 'actionsCounter.desc';
       next();
     }
   );
 
-  parentApp.get(
-    '/:agendaSlug/admin/members',
+  parentApp.get( '/:agendaSlug/admin/members',
     mw.loadAgenda.roles,
     mw.page.bind( null, _.pick( config, [ 'port' ] ) )
   );
 
-  parentApp.get(
-    '/:agendaSlug/admin/members.json',
+  parentApp.get( '/:agendaSlug/admin/members.json',
     mw.list.bind( null, members )
   );
 
-  parentApp.get(
-    '/:agendaSlug/admin/members/stats',
+  parentApp.get( '/:agendaSlug/admin/members/stats',
     mw.list.stats.bind( null, members )
   );
 
@@ -197,7 +193,7 @@ function plugApp( parentApp ) {
       context: req.context,
       requireCustom: false
     } ).then( result => {
-      res.status( 200 ).json( { message: 'woopidoo' } );
+      res.status( 200 ).json( _.pick( result.member, [ 'custom', 'role' ] ) );
     }, next )
   );
 
