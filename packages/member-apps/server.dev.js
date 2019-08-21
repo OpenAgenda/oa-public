@@ -63,14 +63,14 @@ app.use( ( req, res, next ) => {
 
 app.use( function loadRoles( req, res, next ) {
   req.roles = [ {
-    value: 1,
-    code: 'contributor'
+    code: 1,
+    slug: 'contributor'
   }, {
-    value: 2,
+    code: 2,
     code: 'administrator'
   }, {
-    value: 3,
-    code: 'moderator'
+    code: 3,
+    slug: 'moderator'
   } ];
   next();
 } );

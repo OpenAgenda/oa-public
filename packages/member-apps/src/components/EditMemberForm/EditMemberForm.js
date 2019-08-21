@@ -44,7 +44,7 @@ export default class EditMembersForm extends Component {
     const { handleSubmit, roles, userCredential } = this.props;
     const { getLabel } = this.context;
 
-    const haveRole = value => roles.some( role => role.value === value );
+    const haveRole = value => roles.some( role => role.code === value );
 
     return (
       <form onSubmit={handleSubmit}>
