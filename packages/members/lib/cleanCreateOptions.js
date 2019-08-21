@@ -28,6 +28,10 @@ module.exports = schema( {
         type: 'text',
         default: null
       }
+    },
+    message: {
+      type: 'text',
+      default: null
     }
   }
 } );

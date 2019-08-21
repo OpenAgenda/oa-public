@@ -91,7 +91,8 @@ describe( 'members - functional - patch', () => {
         sender: {
           memberName: null,
           userUid: null
-        }
+        },
+        message: null
       } );
 
     } );
