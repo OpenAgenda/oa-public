@@ -58,7 +58,7 @@ export default class InviteMembersForm extends Component {
         <Field
           label={getLabel( 'role' )}
           component={this.renderSelect}
-          name="credential"
+          name="role"
           type="select"
           classNameGroup="margin-top-md margin-bottom-lg"
           className="form-control"

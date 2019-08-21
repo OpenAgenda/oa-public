@@ -13,11 +13,8 @@ export default function validate( values ) {
   values.emails = values.emails && values.emails.split( /[\s\n,]+/ ).map( v => v.trim() ).filter( v => !!v );
 
   try {
-
-    // TODO limit to possible credentials
-
     schema( {
-      credential: {
+      role: {
         type: 'number',
         optional: false,
         min: 1,
@@ -29,7 +26,6 @@ export default function validate( values ) {
         list: true
       }
     } )( values );
-
   } catch ( e ) {
 
     Object.assign( errors, ...e.map( v => ({ [v.field]: v.code }) ) );

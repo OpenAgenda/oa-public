@@ -120,7 +120,7 @@ export default class Dashboard extends Component {
   search = ( { search } ) => {
     const { list, location, credFilters, history } = this.props;
 
-    const query = { search: search || undefined, credentials: credFilters };
+    const query = { search: search || undefined, role: credFilters };
 
     return list( query )
       .then( () => history.push( { ...location, search: qs.stringify( query, { arrayFormat: 'brackets' } ) } ) );
@@ -131,7 +131,7 @@ export default class Dashboard extends Component {
   nextPage = () => {
     const { page, total, search, credFilters, loading, nextLoading, members, perPageLimit } = this.props;
     if ( !members || !members.length || loading || nextLoading || page * perPageLimit >= total ) return;
-    this.props.nextPage( { search: search || undefined, credentials: credFilters }, (page || 1) + 1 );
+    this.props.nextPage( { search: search || undefined, role: credFilters }, (page || 1) + 1 );
   };
 
   addFilter( e, key ) {
@@ -405,7 +405,7 @@ export default class Dashboard extends Component {
             onClick={() => {
               if ( credentials.invitationMessage ) {
                 return showModal( 'writeToMembers', {
-                  query: { search: search || undefined, credentials: credFilters }
+                  query: { search: search || undefined, role: credFilters }
                 } );
               }
               return openRequestForm( { lang, subject: 'writeToAll', agenda: agenda.slug } );

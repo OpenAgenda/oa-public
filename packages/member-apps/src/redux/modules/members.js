@@ -184,12 +184,12 @@ export default function reducer( state = initialState, action ) {
     case ADD_CRED_FILTER:
       return {
         ...state,
-        credFilters: [ ...state.credFilters, action.credential ]
+        credFilters: [ ...state.credFilters, action.role ]
       };
     case REMOVE_CRED_FILTER:
       return {
         ...state,
-        credFilters: state.credFilters.filter( credential => credential !== action.credential )
+        credFilters: state.credFilters.filter( role => role !== action.role )
       };
     case CLEAN_CRED_FILTERS:
       return {
@@ -266,8 +266,8 @@ export function update( id, values ) {
       const { res } = getState();
 
       return client.patch( res.update.replace( ':id', id ), {
-        custom: _.omit( values, 'credential' ),
-        role: values.credential
+        custom: _.omit( values, 'role' ),
+        role: values.role
       } );
 
     }
@@ -286,7 +286,7 @@ export function invite( data ) {
 
       return client.post( res.invite, {
         emails,
-        role: data.credential,
+        role: data.role,
         context: {
           message: data.message
         }
@@ -335,17 +335,17 @@ export function sendMessage( data, query ) {
   };
 }
 
-export function addCredFilter( credential ) {
+export function addCredFilter( role ) {
   return {
     type: ADD_CRED_FILTER,
-    credential
+    role
   };
 }
 
-export function removeCredFilter( credential ) {
+export function removeCredFilter( role ) {
   return {
     type: REMOVE_CRED_FILTER,
-    credential
+    role
   };
 }
 
