@@ -6,6 +6,7 @@ const VError = require( 'verror' );
 const log = require( '@openagenda/logs' )( 'list' );
 
 const addListFilters = require( './lib/addListFilters' );
+const getRoleSlug = require( './lib/getRoleSlug' );
 const {
   fromDB
 } = require( './lib/transformDBEntry' );
@@ -26,9 +27,10 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
 
   addListFilters( k, query );
 
-  const total = includeTotal
-    ? await k.clone().count( 'id as total' ).then( r => _.get( r, '0.total' ) )
-    : null;
+  const {
+    total,
+    totalPerRole
+  } = await _getTotal( knex, k, includeTotal, detailed );
 
   const {
     orderField
@@ -52,7 +54,10 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     } );
   }
 
-  if ( detailed && _.get( interfaces, 'getAgendasByUid' ) ) {
+  if ( detailed
+    && _.get( interfaces, 'getAgendasByUid' )
+    && members.length
+  ) {
     const agendas = ( await interfaces.getAgendasByUid(
       members.map( m => m.agendaUid ).filter( m => !!m )
     ) );
@@ -61,7 +66,10 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
     } );
   }
 
-  if ( detailed && _.get( interfaces, 'getEventCountByUserUid' ) ) {
+  if ( detailed
+    && members.length
+    && _.get( interfaces, 'getEventCountByUserUid' )
+  ) {
     ( await interfaces.getEventCountByUserUid(
       query.agendaUid,
       members.map( m => m.userUid )
@@ -72,7 +80,39 @@ module.exports = async function( { knex, schema, interfaces }, query, nav = {}, 
 
   return includeTotal || legacy ? {
     [ legacy ? 'stakeholders' : 'members' ] : members,
-    ... ( total ? { total } : {} )
+    ... ( total ? { total } : {} ),
+    ... ( totalPerRole ? { totalPerRole } : {} )
   } : members;
 
+}
+
+async function _getTotal( knex, k, includeTotal = false, detailed = false ) {
+  if ( !includeTotal ) return {
+    total: null,
+    totalPerRole: null
+  };
+
+  const query = k.clone();
+
+  if ( !detailed ) {
+    return query.count( 'id as total' )
+      .then( r => ( {
+        total: _.get( r, '0.total' ),
+        totalPerRole: null
+      } ) );
+  } else {
+    return query.select(
+      knex.raw( 'credential as role, count( id ) as total' )
+    ).groupBy( 'role' ).then( rows => rows.reduce( ( { total, totalPerRole }, row ) => ( {
+      totalPerRole: _.set(
+        totalPerRole,
+        getRoleSlug( row.role ),
+        _.get( totalPerRole, getRoleSlug( row.role ), 0 ) + row.total
+      ),
+      total: total + row.total
+    } ), {
+      total: 0,
+      totalPerRole: {}
+    } ) );
+  }
 }

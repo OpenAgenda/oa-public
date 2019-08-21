@@ -16,6 +16,10 @@ module.exports = state => {
 
     legacyState = 1;
 
+  } else if ( state === states.REFUSED ) {
+
+    legacyState = -1;
+
   } else {
 
     legacyState = 0;

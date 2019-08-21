@@ -1,5 +1,11 @@
 "use strict";
 
+const pickEventImage = require( '../lib/pickImage' );
+
+const config = require( '../../../config' );
+
+const log = require( '@openagenda/logs' )( 'services/event/middleware/components' );
+
 var w = require( 'when' ),
 
 React = require( 'react' ),
@@ -26,6 +32,7 @@ module.exports = Object.assign( buildComponents, {
 
 
 function getReferences( req, res, next ) {
+  log( 'getReferences' );
 
   w( {
     req,
@@ -67,12 +74,21 @@ function _references( v ) {
 
   let d = w.defer();
 
+  const objIds = {
+    agenda: v.req.agenda.id,
+    event: v.req.event.id
+  }
+
+  log( 'get references', objIds );;
+
   // get references if any, then fetch from db, then render component.
   aer( v.req.agenda.id ).get( v.req.event.id, ( err, eventIds ) => {
 
     if ( err ) return d.reject( err );
 
     if ( !eventIds.length ) return d.resolve( v );
+
+    log( 'retrieved event ids %s', eventIds.join( ',' ), objIds );
 
     v.req.agenda.events.list( {
       ids: eventIds,
@@ -88,6 +104,8 @@ function _references( v ) {
 
       }
 
+      log( 'retrieved %s events', events.length, objIds );
+
       const ev = {
         lang: v.req.lang,
         events: []
@@ -99,11 +117,11 @@ function _references( v ) {
 
         e.getState( ( err, state ) => {
 
-          if ( !v.includeUnpublished && state!==2 ) return ecb();
+          if ( !v.includeUnpublished && state!=='published' ) return ecb();
 
           ev.events.push( ( {
             uid: e.uid,
-            image: e.getThumbnail( false ),
+            image: pickEventImage( config, e, 'thumbnail' ),
             link: `/${v.req.agenda.slug}/events/${e.slug}`,
             title: e.title,
             location: {

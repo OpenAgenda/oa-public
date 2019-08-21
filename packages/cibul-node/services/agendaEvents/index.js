@@ -3,6 +3,9 @@
 const legacy = require( './legacy' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const eventStates = require( '@openagenda/agendas/service/validate/eventStates' );
+const sessions = require( '@openagenda/sessions' );
+
+const members = require( '../members' );
 
 const interfaces = {
   onCreate: require( './onCreate' ),
@@ -11,10 +14,22 @@ const interfaces = {
   beforeRemove: require( './beforeRemove' )
 };
 
-module.exports = {
-  init,
-  legacy
+const mw = {
+  loadAgenda: require( '../members/middleware/loadAgenda' ),
+  loadEvent: require( '../members/middleware/loadEvent' ),
+  load: require( './middleware/load' ),
+  requireCanEdit: require( './middleware/requireCanEdit' ),
+  changeState: require( './middleware/changeState' )
 }
+
+module.exports = Object.assign( plugApp, {
+  init,
+  legacy,
+  mw: {
+    // make the variants load and loadOrFail
+    loadOrFail: mw.load
+  }
+} );
 
 function init( config ) {
 
@@ -39,5 +54,26 @@ function init( config ) {
     eventStates,
     interfaces
   } );
+
+}
+
+function plugApp( parentApp ) {
+
+  parentApp.all( [
+    '/:agendaSlug/events/:eventSlug/state/:state'
+  ], [
+    sessions.middleware.ifUnlogged( ( req, res, next ) => next( {
+      code: 403, error: 'requiredLogged', message: 'You need to be logged'
+    } ) ),
+    mw.loadAgenda,
+    mw.loadEvent,
+    mw.load
+  ] );
+
+  parentApp.get( '/:agendaSlug/events/:eventSlug/state/:state',
+    members.mw.load,
+    members.mw.authorize.moderator,
+    mw.changeState
+  );
 
 }

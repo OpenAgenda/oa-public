@@ -8,9 +8,9 @@ PropTypes = require( 'prop-types' ),
 
 utils = require( '@openagenda/utils' ),
 
-get = require( '@openagenda/utils/get' ); 
+get = require( '@openagenda/utils/get' );
 
-module.exports = function( textName, uidName ) {
+module.exports = function( textName, identifierName ) {
 
   return createReactClass( {
 
@@ -34,13 +34,13 @@ module.exports = function( textName, uidName ) {
 
       var self = this,
 
-      uid = this.props.getQueryPart( uidName ),
+      identifier = this.props.getQueryPart( identifierName ),
 
       res = this.props.res;
 
-      if ( !uid ) return;
+      if ( !identifier ) return;
 
-      get( res.replace( ':uid', uid ), function( err, data ) {
+      get( res.replace( ':identifier', identifier ), function( err, data ) {
 
         if ( err ) return console.error( err );
 

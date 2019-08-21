@@ -1,27 +1,29 @@
 "use strict";
 
-const _ = require( 'lodash' );
 const fs = require( 'fs' );
 const should = require( 'should' );
 
-const generateCustomFields = require( '../server/legacy/generateCustomFields' );
+const generateCustomFields = require( '../lib/utils/generateCustomSet' );
 
-describe( 'form-schemas -08_2- unit (server): generate legacy custom fields from schema', function() {
+describe( '03 - utils - generateCustomSet', () => {
 
   it( 'schema to text custom field', () => {
-
-    generateCustomFields( _get( 'text.schema' ) ).customFields.should.eql( _get( 'text.custom' ) );
-
+    generateCustomFields(
+      _get( 'schemas/text.json' )
+    ).customFields.should.eql(
+      _get( 'customSets/text.json' )
+    );
   } );
 
   it( 'schema to number custom field', () => {
-
-    generateCustomFields( _get( 'number.schema' ) ).customFields.should.eql( _get( 'number.custom.fromSchema' ) );
-
+    generateCustomFields(
+      _get( 'schemas/number.json' )
+    ).customFields.should.eql(
+      _get( 'customSets/number.json' )
+    );
   } );
 
   it( 'if read right is administrator and moderator, custom field should be administrator', () => {
-
     const { customFields } = generateCustomFields( {
       fields: [ {
         field: 'Montant',
@@ -31,13 +33,10 @@ describe( 'form-schemas -08_2- unit (server): generate legacy custom fields from
         origin: 'custom'
       } ]
     } );
-
     customFields[ 0 ].type.should.equal( 'administrator' );
-
   } );
 
   it( 'if read right is administrator, moderator and contributor, custom field should be private', () => {
-
     const { customFields } = generateCustomFields( {
       fields: [ {
         field: 'Présentation',
@@ -48,15 +47,12 @@ describe( 'form-schemas -08_2- unit (server): generate legacy custom fields from
         origin: 'custom'
       } ]
     } );
-
     customFields[ 0 ].type.should.equal( 'private' );
-
   } );
 
 } );
 
-function _get( name ) {
-
-  return JSON.parse( fs.readFileSync( __dirname + '/parse/' + name + '.json', 'utf-8' ) );
-
+function _get( fixtureFile ) {
+  return JSON.parse( fs.readFileSync( `${__dirname}/fixtures/${fixtureFile}`, 'utf-8' ) );
 }
+

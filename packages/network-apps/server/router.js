@@ -96,6 +96,7 @@ router.post(
         req.body.slugOrUrl.split( '/' ).pop()
       ) );
     } catch ( e ) {
+      log( 'error', 'agenda add', e );
       next( e );
     }
 

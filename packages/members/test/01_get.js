@@ -61,6 +61,12 @@ describe( 'members - functional - get', () => {
 
     } );
 
+    it( 'by default, user details is not provided', () => {
+
+      should( member.user ).equal( undefined );
+
+    } );
+
     it( 'when member is not found, returns null', async () => {
 
       const member = await svc.get( { agendaUid: 18839, userUid: 3 } );
@@ -102,6 +108,18 @@ describe( 'members - functional - get', () => {
 
       member.userId.should.equal( 81290 );
       member.agendaId.should.equal( 923 );
+
+    } );
+
+    it( 'user detail is provided when detailed option is set to true', async () => {
+
+      const member = await svc.get( { agendaUid: 1, userUid: 2 }, { detailed: true } );
+
+      member.user.should.eql( {
+        id: 10293,
+        uid: 1,
+        fullName: 'Janine Ponceau'
+      } );
 
     } );
 

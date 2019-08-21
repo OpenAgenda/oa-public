@@ -295,6 +295,21 @@ describe( 'members - functional - list', () => {
 
     } );
 
+    it( 'when total and detailed are true, counts for each role are provided', async () => {
+
+      const members = await svc.list( {
+        agendaUid: 1
+      }, { limit: 1 }, { total: true, detailed: true } );
+
+      members.total.should.equal( 4 );
+
+      members.totalPerRole.should.eql( {
+        contributor: 3,
+        administrator: 1
+      } );
+
+    } );
+
   } );
 
   describe( 'other', () => {
@@ -363,6 +378,18 @@ describe( 'members - functional - list', () => {
       const members = await svc.list( { id: [ 3, 5 ] } );
 
       members.map( m => m.id ).should.eql( [ 3, 5 ] );
+
+    } );
+
+    it( 'fix: limit can be set as zero to fetch totals only', async () => {
+
+      const { members, total } = await svc.list( { agendaUid: 1 }, { limit: 0 }, {
+        total: true,
+        detailed: true
+      } );
+
+      members.length.should.equal( 0 );
+      total.should.greaterThan( 0 );
 
     } );
 

@@ -25,6 +25,7 @@ const cacheMw = require( '../lib/cache.mw' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const embedSvc = require( '../services/embed' );
+const members = require( '../services/members' );
 const eventFormat = require( '../services/event/middleware/format' );
 const pickEventImage = require( '../services/event/lib/pickImage' );
 const eventSvc = require( '../services/event' );
@@ -65,6 +66,8 @@ const middlewares = {
 
 
 module.exports = app => {
+
+  app.options( '*/controldata*', ( req, res ) => res.sendStatus(200) );
 
   app.get(
     '/agendas/:uid/embeds/:embedUid/controldata',
@@ -202,18 +205,23 @@ module.exports = app => {
     cmn.https,
     cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'slug', { cache: true } ),
-    cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'agendaShow', { slug: 'slug' } ) ),
-    sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignin', {
-      slug: 'slug',
-      msg: {
-        $raw: 'limitedAccessAgenda'
-      },
-      redirect: {
-        $base64Route: [ 'agendaShowPrivate', { slug: 'slug' } ]
+    ( req, res, next ) => {
+      if ( !req.agenda.private ) {
+        return res.redirect( 302, `/${req.agenda.slug}` );
       }
-    } ) ),
-    stakeholderMw.agenda().get(),
-    cmn.ifIsNot( 'stakeholder', cmn.renderUnauthorized() ),
+      next();
+    },
+    ( req, res, next ) => {
+      if ( !req.user ) {
+        return res.redirect( `/${req.agenda.slug}/signin?msg=limitedAccessAgenda` );
+      }
+      next();
+    },
+    members.mw.load,
+    ( req, res, next ) => {
+      if ( !req.member ) return cmn.renderUnauthorized( req, res, next );
+      next();
+    },
     middlewares.show
   );
 
@@ -223,7 +231,12 @@ module.exports = app => {
     cmn.https,
     cmn.redirectLegacySearch,
     agendaSvc.mw.load( 'slug', { cache: true } ),
-    cmn.ifIs( 'agenda.private', cmn.redirectTo( 'agendaShowPrivate', { slug: 'slug' } ) ),
+    ( req, res, next ) => {
+      if ( req.agenda.private ) {
+        return res.redirect( 302, `/${req.agenda.slug}.prv` );
+      }
+      next();
+    },
     agendaSvc.mw.browserCache,
     middlewares.show
   );
@@ -780,7 +793,7 @@ function _layoutData( req, res ) {
 
   req.log( 'loading layout data' );
 
-  const url = req.genUrl( 'agendaShow', { slug: req.agenda.slug }, { abs: true } );
+  const url = `${config.root}/${req.agenda.slug}`;
 
   const data = {
     agenda: {
@@ -793,7 +806,7 @@ function _layoutData( req, res ) {
       uid: req.agenda.uid + ( req.embed ? '/' + req.embed.uid : '' ),
       lang: req.lang,
       res: {
-        actions: req.genUrl( 'agendaActionShow', { slug: req.agenda.slug } )
+        actions: url + '/actions'
       }
     },
     metas: {

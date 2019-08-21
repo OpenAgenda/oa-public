@@ -15,9 +15,9 @@ const fallbackContextGet = require( './lib/fallbackContextGet' );
 const sendEventUpdate = require( './lib/sendEventUpdate' );
 const sendEventChangeState = require( './lib/sendEventChangeState' );
 const transferCustomFromLegacy = require( './lib/transferCustomFromLegacy' );
+const createActivities = require( './lib/createActivities' );
 
 module.exports = async ( before, after, context ) => {
-
   log( 'updated agenda-event from %j to %j', before, after );
   log( '%sfrom legacy', context.legacy ? '' : 'not ' );
 
@@ -27,9 +27,7 @@ module.exports = async ( before, after, context ) => {
     log( 'error', 'could not update event search', e );
   }
 
-  await _sleepALittle(); // legacy search might try to fetch event content before it is committed to db
-
-  const { agenda, event } = await fallbackContextGet( 'onUpdate', after, context );
+  const { agenda, event, user } = await fallbackContextGet( 'onUpdate', after, context );
 
   try {
     await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
@@ -84,17 +82,17 @@ module.exports = async ( before, after, context ) => {
     }
   }
 
+  if ( user ) {
+    try {
+      await createActivities( { agenda, event, user }, before, after );
+    } catch ( e ) {
+      log.error( new VError( error, 'Cannot create state change activities' ) );
+    }
+  }
 }
 
 function haveRealDiff( before, after ) {
-  const modifiedFieldList = _.uniq( [ ...Object.keys( before ), ...Object.keys( after ) ] )
-    .filter( key => [ 'createdAt', 'updatedAt' ].includes( key ) && before[ key ] !== after[ key ] );
-
-  return modifiedFieldList.length > 0;
-}
-
-function _sleepALittle() {
-
-  return new Promise( rs => setTimeout( () => rs(), 2000 ) );
-
+  _.uniq( [ ...Object.keys( before ), ...Object.keys( after ) ] )
+    .filter( key => [ 'createdAt', 'updatedAt', 'state' ].includes( key ) && before[ key ] !== after[ key ] )
+    .length > 0;
 }

@@ -40,9 +40,11 @@ Portal( {
       link: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     },
+    auto: true,
     /*center: {
       latitude: 43.597198,
-      longitude: 1.441136
+      longitude: 1.441136,
+      zoom: 20
     },*/
     zoom: 12
   },

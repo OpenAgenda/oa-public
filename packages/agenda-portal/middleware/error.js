@@ -8,12 +8,16 @@ const pageGlobals = require( './pageGlobals' );
 
 module.exports = ( err, req, res, next ) => {
 
-  log( 'error', err );
+  const message = _.get( err, 'response.data.error',
+    _.get( err, 'message' )
+  );
+
+  log( 'error', message || err );
 
   pageGlobals( req, res, () => {
 
     res.status( 500 ).render( 'error', _.assign( req.data || {}, {
-      message: process.env.NODE_ENV === 'development' ? err.message : null
+      message: process.env.NODE_ENV === 'development' ? message : null
     } ) );
 
   } );

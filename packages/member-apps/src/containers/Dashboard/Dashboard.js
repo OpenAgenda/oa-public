@@ -324,7 +324,7 @@ export default class Dashboard extends Component {
       moderator: totalModerator,
       contributor: totalContributor,
       reader: totalReader
-    } = stats.credentialTotals || {};
+    } = stats.totalPerRole || {};
 
     const editModal = modals.editMember || {};
     const removeModal = modals.removeMember || {};

@@ -17,7 +17,6 @@ const schemaToCustom = {
 }
 
 module.exports = schema => {
-
   const messages = [];
 
   const customFields = schema.fields
@@ -25,9 +24,7 @@ module.exports = schema => {
     .map( f => {
 
       if ( !f.origin ) {
-
         messages.push( `${f.field}: field origin is not set` );
-
       }
 
       const custom = {
@@ -50,20 +47,16 @@ module.exports = schema => {
     customFields,
     messages
   }
-
 }
 
 function _multilingualLabel( label ) {
-
   return _.isString( label ) ? {
     fr: label,
     en: label
   } : label;
-
 }
 
 function _legacyAccessType( field ) {
-
   if ( !field.read ) return 'public';
 
   if ( field.read.includes( 'contributor' ) ) {
@@ -75,5 +68,4 @@ function _legacyAccessType( field ) {
   }
 
   return 'private';
-
 }

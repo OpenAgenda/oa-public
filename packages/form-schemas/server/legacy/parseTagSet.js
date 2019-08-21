@@ -65,8 +65,7 @@ function _parseGroup( g, i, type = 'tag' ) {
       label: {
         fr: t.label
       },
-      value: t.slug,
-      legacyId: t.id
+      value: t.slug
     } ) )
   }, g.unique ? {} : {
     min: null,

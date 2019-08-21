@@ -24,28 +24,6 @@ const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 module.exports = app => {
 
   app.get(
-    '/events/:eventSlug/state/:type',
-    legacyAgendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.checkEventEditor,
-    _checkAuthorizedChanges( [ STATETYPES.PUBLISHED ] ),
-    _changeState,
-    _redirect
-  );
-
-  app.get(
-    '/:slug/events/:eventSlug/state/:type',
-    legacyAgendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    cmn.checkAdminOrModerator,
-    _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED, STATETYPES.REFUSED ] ),
-    _changeStateCredential,
-    _changeState,
-    _xhrResponse,
-    _redirect
-  );
-
-  app.get(
     '/:slug/events/:eventSlug/featured/:type',
     legacyAgendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
@@ -95,7 +73,6 @@ module.exports = app => {
     '/agendas/:uid/events/:eventUid/references',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    _loadAdminOrModerator,
     eventSvc.mw.components.getReferences,
     ( req, res, next ) => {
 
@@ -347,104 +324,6 @@ function _redirect( req, res ) {
   req.log( 'redirecting to %s', redirectUrl );
 
   res.redirect( redirectUrl );
-
-}
-
-
-function _changeStateCredential( req, res, next ) {
-
-  if ( parseInt( req.params.type ) !== STATETYPES.PUBLISHED ) {
-
-    cmn.checkAdminOrModerator( req, res, next );
-
-  } else {
-
-    agendaSvc.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
-
-      const moderatorsCanPublish = _.get( agenda, 'settings.contribution.canPublish', [ 'moderators', 'administrators' ] ).includes( 'moderators' );
-
-      if ( moderatorsCanPublish ) return cmn.checkAdminOrModerator( req, res, next );
-
-      cmn.checkAdministrator( {
-        message: 'Only agenda administrators may publish events',
-        redirect: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } )
-      } )( req, res, next );
-
-    } );
-
-  }
-
-}
-
-
-function _changeState( req, res, next ) {
-
-  req.log( 'updating state to %s', req.params.type );
-
-  req.event.setState( req.params.type, req.user, function ( err, result, { oldState, newState } ) {
-
-    if ( err ) {
-
-      return next( { code: 500 } );
-
-    }
-
-    oldState = parseInt( oldState );
-    newState = parseInt( newState );
-
-    if ( !req.xhr ) {
-
-      sessions.setFlash( req, res, __( 'stateChanged', req.lang ) );
-
-    }
-
-    if ( newState === 2 || oldState === 2 ) {
-
-      activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).activities.add( {
-        actor: 'user:' + req.user.uid,
-        verb: 'agenda.' + ( newState === 2 ? 'publish' : 'unpublish' ) + 'Event',
-        object: 'event:' + req.event.uid,
-        target: 'agenda:' + req.agenda.uid,
-        store: {
-          labels: {
-            actor: req.user.name,
-            object: req.event.title,
-            target: req.agenda.title
-          },
-          // origin is not always set. When the event was created by script for example.
-          originAgendaUid: req.event.origin ? req.event.origin.uid : null
-        }
-      }, () => {
-
-        next();
-
-      } );
-
-    } else if ( newState !== oldState ) {
-
-      activitiesSvc.feed( { entityType: 'agenda', entityUid: req.agenda.uid } ).activities.add( {
-        actor: 'user:' + req.user.uid,
-        verb: 'agenda.changeEventState',
-        object: 'event:' + req.event.uid,
-        target: 'agenda:' + req.agenda.uid,
-        store: {
-          labels: {
-            actor: req.user.name,
-            object: req.event.title,
-            target: req.agenda.title
-          },
-          oldState,
-          newState
-        }
-      }, () => {
-
-        next();
-
-      } );
-
-    }
-
-  } );
 
 }
 

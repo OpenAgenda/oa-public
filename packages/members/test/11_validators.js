@@ -52,4 +52,22 @@ describe( 'members - unit - validate', () => {
 
   } );
 
+  it( 'validate custom data only', () => {
+
+    const validateCustom = validate.custom( false );
+
+    const clean = validateCustom( {
+      organization: 'OA'
+    } );
+
+    clean.should.eql( {
+      contactName: null,
+      contactNumber: null,
+      contactPosition: null,
+      email: null,
+      organization: 'OA'
+    } );
+
+  } );
+
 } );

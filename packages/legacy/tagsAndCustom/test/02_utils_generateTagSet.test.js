@@ -2,16 +2,16 @@
 
 const should = require( 'should' );
 
-const generateTagSet = require( '../server/legacy/generateTagSet' );
+const generateTagSet = require( '../lib/utils/generateTagSet' );
 
-describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from schema', function() {
+describe( '02 - utils - generateTagSet', () => {
 
   it( 'transforms a checkbox field into a tag group', () => {
 
-    const schema = {
+    generateTagSet( {
       fields: [ {
         field: 'nantes',
-        origin: 'categories',
+        origin: 'tags',
         label: 'Nantes',
         fieldType: 'checkbox',
         schemaId: 1,
@@ -21,16 +21,13 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
           lable: 'Un'
         } ]
       } ]
-    };
-
-    generateTagSet( schema ).tagSet.groups.length.should.equal( 1 );
-
+    } ).tagSet.groups.length.should.equal( 1 );
 
   } );
 
   it( 'transforms a radio field into a tag group', () => {
 
-    const schema = {
+    generateTagSet( {
       fields: [ {
         field: 'nantes',
         label: 'Nantes',
@@ -42,14 +39,29 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
           lable: 'Un'
         } ]
       } ]
-    };
-
-    generateTagSet( schema ).tagSet.groups.length.should.equal( 1 );
+    } ).tagSet.groups.length.should.equal( 1 );
 
   } );
 
-  it( 'matches a field with an existing tag group based on a monolingual label', () => {
+  it( 'does not consider field if origin is set to another value than "tags"', () => {
 
+    generateTagSet( {
+      fields: [ {
+        field: 'nantes',
+        label: 'Nantes',
+        fieldType: 'radio',
+        schemaId: 1,
+        origin: 'custom',
+        options: [ {
+          id: 1,
+          value: 'un',
+          lable: 'Un'
+        } ]
+      } ]
+    } ).tagSet.groups.length.should.equal( 0 );
+  } );
+
+  it( 'matches a field with an existing tag group based on a monolingual label', () => {
     const schema = {
       fields: [ {
         field: 'nantes',
@@ -86,7 +98,7 @@ describe( 'form-schemas -09_2- unit (server): generate legacy tag sets from sche
     const schema = {
       fields: [ {
         field: 'nantes',
-        origin: 'categories',
+        origin: 'tags',
         label: { fr: 'Nantes', en: 'Nantes' },
         fieldType: 'radio',
         schemaId: 1,

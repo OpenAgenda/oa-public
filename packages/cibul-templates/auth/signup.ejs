@@ -15,12 +15,7 @@
           <div class="col-sm-12">
             <div class="info-block text-center margin-v-lg">
               <label><%= __( 'hasAccount' ) %></label>
-              <a
-                href="<%= genUrl(
-                  agenda ? 'agendaSignin' : 'signin',
-                  [ optionals, agenda ? { slug: agenda.slug } : {} ]
-                ) %>" class="btn btn-primary"
-              ><%= __( 'connect' ) %></a>
+              <a href="<%= signin %>" class="btn btn-primary"><%= __( 'connect' ) %></a>
             </div>
           </div>
         </div>

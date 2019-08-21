@@ -65,8 +65,6 @@ module.exports = () => {
 
   require( '@openagenda/email-strategie' ).task();
 
-  require( '@openagenda/agenda-stakeholders' ).tasks.message();
-
   require( './services/event/oembed' ).task();
 
   require( './services/agendaStatistics' ).task();
@@ -77,7 +75,7 @@ module.exports = () => {
 
   require( '@openagenda/mails' ).task();
 
-  require( './services/legacy' ).controlData.task();
+  require( './services/legacy' ).task();
 
   require( './core' ).tasks();
 

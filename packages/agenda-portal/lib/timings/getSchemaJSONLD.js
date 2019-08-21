@@ -1,22 +1,27 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
+const tz = require( 'moment-timezone' ).tz;
+
 const getJSONDuration = require( './getJSONDuration' );
 
-module.exports = ( event, { start, end } ) => JSON.stringify( {
+module.exports = ( event, { start, end, permalink } ) => JSON.stringify( {
+  '@id' : permalink || event.permalink || `https://openagenda.com/events/${event.slug}`,
   '@context': 'http://schema.org',
   '@type' : 'Event',
   name : event.title,
   description : event.description,
-  url : event.share.permalink,
-  ... event.image ? { image: event.image } : {},
-  start,
-  end,
+  url : permalink || event.permalink || `https://openagenda.com/events/${event.slug}`,
+  ... event.image ? { image: [ event.image ] } : {},
+  startDate: tz( start, event.location.timezone ).format( 'YYYY-MM-DDTHH:mm' ),
+  endDate: tz( end, event.location.timezone ).format( 'YYYY-MM-DDTHH:mm' ),
   duration: getJSONDuration( start, end ),
-  ... event.registration.length ? {
-    offers: event.registration.filter( r => r.type === 'link' ).map( l => ( {
+  ... event.registration.filter( r => r.type === 'link' ).length ? {
+    offers: {
       '@type': 'Offer',
-      url: l.value
-    } ) )
+      url: event.registration.filter( r => r.type === 'link' )[ 0 ].value
+    }
   } : {},
   ... event.age ? { typicalAgeRange: [
     event.age.min,

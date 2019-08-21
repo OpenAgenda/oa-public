@@ -16,9 +16,9 @@ module.exports = function( req, res, next ) {
   if ( !agendaUid ) return next( 404 );
 
   members.get( { agendaUid, userUid } ).then( member => {
-    if ( !member ) return next( 'Member not found' );
-    req.member = _.get( member, 'custom' );
-    req.role = member.role;
+    req.member = member ? { ..._.get( member, 'custom' ),
+      role: members.utils.getRoleSlug( member.role )
+    } : null;
     next();
   }, next );
 }

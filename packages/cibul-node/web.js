@@ -10,6 +10,7 @@ module.exports = app => {
   //require( './services/portals' )( app );
   require( './services/surveys' )( app );
   require( './services/agendaContribute' )( app );
+  require( './services/agendaEvents' )( app );
   require( './services/agendaSchema' )( app );
   require( './services/networkApps' )( app );
   require( './services/abilities' )( app );

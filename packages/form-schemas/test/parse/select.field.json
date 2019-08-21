@@ -17,8 +17,7 @@
       "label": {
         "fr": "1 - Rosny",
         "en": "1 - Rosny"
-      },
-      "legacyId": null
+      }
     },
     {
       "id": 2,
@@ -26,8 +25,7 @@
       "label": {
         "fr": "2 - Flicourt",
         "en": "2 - Flicourt"
-      },
-      "legacyId": null
+      }
     },
     {
       "id": 3,
@@ -35,8 +33,7 @@
       "label": {
         "fr": "3 - Moisson",
         "en": "3 - Moisson"
-      },
-      "legacyId": null
+      }
     },
     {
       "id": 4,
@@ -44,8 +41,7 @@
       "label": {
         "fr": "4 - Roche-Guyon",
         "en": "4 - Roche-Guyon"
-      },
-      "legacyId": null
+      }
     }
   ],
   "fieldType": "radio"

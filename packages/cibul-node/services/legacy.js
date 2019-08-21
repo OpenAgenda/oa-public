@@ -3,6 +3,8 @@
 const ControlData = require( '@openagenda/legacy/controlData' );
 const TagsAndCustom = require( '@openagenda/legacy/tagsAndCustom' );
 
+const Queues = require( './queues' );
+
 module.exports.controlData = {};
 module.exports.tagsAndCustom = {};
 
@@ -19,7 +21,13 @@ module.exports.init = config => {
   } ) );
 
   Object.assign( module.exports.tagsAndCustom, TagsAndCustom( {
-    knex: config.knex
+    knex: config.knex,
+    queue: Queues( 'legacyTagsAndCustom' )
   } ) );
 
+}
+
+module.exports.task = () => {
+  module.exports.controlData.task();
+  module.exports.tagsAndCustom.task();
 }

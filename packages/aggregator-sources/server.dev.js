@@ -41,7 +41,7 @@ app.use( ( req, res, next ) => {
   next();
 } );
 
-app.get( '/sources.json', mw.list );
+app.get( '/sources.json', mw.list.bind( null, { send: true } ) );
 app.get( '/remove', mw.remove );
 
 app.use( errorHandler( { log: true } ) );

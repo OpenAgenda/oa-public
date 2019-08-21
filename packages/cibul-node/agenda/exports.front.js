@@ -30,10 +30,12 @@ const preMw = [
 
 module.exports = app => {
 
+  app.options( '*/events.json*', ( req, res ) => res.sendStatus(200) );
+
   app.get(
     '/agendas/:uid/events.json',
     preMw,
-    checkKey(),
+    _checkKey( ( req, res, next ) => res.status( 400 ).json( { error: 'Provided key is invalid' } ) ),
     cacheMw.send( 'agendas', 'params.uid', cachedJson ),
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
@@ -151,12 +153,14 @@ module.exports = app => {
 
 };
 
-function checkKey() {
+function _checkKey( onError ) {
 
   return cbify( async ( req, res, next ) => {
 
     if ( !req.query.key ) {
+
       return _sleep( 400 )( req, res, next );
+
     }
 
     try {
@@ -165,13 +169,13 @@ function checkKey() {
 
       if ( !key ) {
 
-        return next( new Error( 'Key is invalid' ) );
+        return onError( req, res, next );
 
       }
 
     } catch ( e ) {
 
-      return next( new Error( 'Key is invalid' ) );
+      return onError( req, res, next );
 
     }
 

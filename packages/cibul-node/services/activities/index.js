@@ -10,6 +10,8 @@ const { isLessThan, isSuperiorToOrEqual, isEqualTo } = require( '@openagenda/mem
 const sendSummary = require( './sendSummary' );
 const cmn = require( '../../lib/commons-app' );
 
+const log = require( '@openagenda/logs' )( 'activities' );
+
 const activities = {};
 const preMw = [
   cmn.loadLogger( 'notifications' ),
@@ -60,6 +62,10 @@ module.exports.init = async ( config, app ) => {
         filter: ( activity, originFeed, targetFeed, follow, cb ) => {
 
           if ( targetFeed.entityType === 'agenda' && targetFeed.entityUid !== parseInt( activity.target.split( ':' )[ 1 ] ) ) {
+            return cb( null, false );
+          }
+
+          if ( activity.verb === 'event.update' && !activity.store.diff ) {
             return cb( null, false );
           }
 

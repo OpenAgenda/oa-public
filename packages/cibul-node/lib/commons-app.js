@@ -465,26 +465,22 @@ function checkAdminOrModeratorOrKey( req, res, next ) {
 }
 
 
-function renderUnauthorized() {
+function renderUnauthorized( req, res, next ) {
 
-  return ( req, res, next ) => {
+  loadBaseData( 'oasfmain.css' )( req, res, () => {
 
-    loadBaseData( 'oasfmain.css' )( req, res, () => {
-
-      render( req, res, 'dialog/index', {
-        agenda: req.agenda,
-        title: getUnauthLabels( 'title', req.lang ),
-        content: getUnauthLabels( 'message', req.lang ),
-        actions: [ {
-          type: 'primary',
-          href: req.agenda.slug + '/contact',
-          label: getUnauthLabels( 'contactAdmin', req.lang )
-        } ]
-      } );
-
+    render( req, res, 'dialog/index', {
+      agenda: req.agenda,
+      title: getUnauthLabels( 'title', req.lang ),
+      content: getUnauthLabels( 'message', req.lang ),
+      actions: [ {
+        type: 'primary',
+        href: req.agenda.slug + '/contact',
+        label: getUnauthLabels( 'contactAdmin', req.lang )
+      } ]
     } );
 
-  }
+  } );
 
 }
 

@@ -3,12 +3,26 @@
 const ih = require( 'immutability-helper' );
 
 module.exports = async ( members, req, res, next ) => {
-  res.json( await members.list( ih( req.query, {
+  res.json( await _list( members, req, req.query, req.order ) );
+}
+
+module.exports.stats = async ( members, req, res, next ) => {
+  _list( members, req, { limit: 0 } ).then( ( {
+    totalPerRole,
+    total
+  } ) => res.json( {
+    totalPerRole,
+    total
+  } ) );
+}
+
+function _list( members, req, query = {}, order = null ) {
+  return members.list( ih( query, {
     agendaUid: { $set: req.agenda.uid },
     deletedUser: { $set: null }
-  } ), Object.assign( {}, req.query, { order: req.order } ), {
+  } ), Object.assign( {}, query, { order } ), {
     legacy: true,
     detailed: true,
     total: true
-  } ) );
+  } );
 }

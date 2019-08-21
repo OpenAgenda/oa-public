@@ -19,6 +19,10 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const config = require( '../config' );
 const core = require( '../core' );
 
+const schemaNames = require( './mock/schemaNames' );
+const getLogConfig = require( './mock/getLogConfig' );
+const assignClients = require( './utils/assignClients' );
+
 const testConfig = {
   queues: {},
   db: {
@@ -30,27 +34,7 @@ const testConfig = {
     host: 'localhost',
     port: 6379
   },
-  schemas: {
-    agenda: 'agenda',
-    eventService: 'event_2',
-    agendaEventService: 'agenda_event',
-    deleted: 'legacy_deleted',
-    event: 'legacy_event',
-    occurrence: 'legacy_occurrence',
-    eventTranslation: 'legacy_event_translation',
-    location: 'location',
-    eventLocation: 'legacy_event_location',
-    eventLocationTranslation: 'legacy_event_location_translation',
-    agendaEvent: 'legacy_agenda_event',
-    eventReferences: 'legacy_agenda_event_reference',
-    eventEditor: 'legacy_event_editor',
-    agendaCategory: 'legacy_agenda_category',
-    agendaTag: 'legacy_agenda_tag',
-    agendaEventTag: 'legacy_agenda_event_tag',
-    user: 'user',
-    stakeholder: 'member',
-    stakeholderSettings: 'member_settings'
-  },
+  schemas: schemaNames,
   tmpFolderPath: '/var/tmp',
   aws: {
     bucket: 'openagendatest',
@@ -73,25 +57,15 @@ const testConfig = {
     host: process.env.ELASTICSEARCH_533_DEV_HOST,
     port: process.env.ELASTICSEARCH_533_DEV_PORT
   },
-  getLogConfig: () => null
+  getLogConfig
 };
-
-
-
 
 
 describe( 'core - functional ( server ): agenda event update', function() {
 
   this.timeout( 20000 );
 
-  before( () => {
-
-    testConfig.knex = knexLib( {
-      client: 'mysql',
-      connection: testConfig.db,
-    } );
-
-  } )
+  before( () => assignClients( testConfig ) );
 
   before( async () => {
 
@@ -111,13 +85,19 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
     await core.init( testConfig, {
       enabled: [
+        'queues',
         'events',
         'agendas',
         'agendaEvents',
-        'agendaLocations',
         'agendaStakeholders',
+        'agendaLocations',
         'formSchemas',
-        'custom'
+        'custom',
+        'eventSearch',
+        'members',
+        'legacy',
+        'users',
+        'keys'
       ]
     } );
 
@@ -345,6 +325,61 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
     } );
 
+
+  } );
+
+  describe( 'state change through partial update', () => {
+
+    let createResult, agenda, updateResult;
+
+    before( async () => {
+
+      agenda = agendas.get( { uid: 17026855 }, { internal: true } );
+
+    } );
+
+    before( async () => {
+
+      createResult = await core.agendas( 17026855 ).events.create( {
+        state: 0,
+        title: {
+          fr: 'Un événement à modérer'
+        },
+        description: {
+          fr: 'Une description d\'événement à modérer'
+        },
+        location: {
+          uid: 123
+        },
+        timings: [ {
+          begin: new Date( '2019-08-12T10:00:00' ),
+          end: new Date( '2019-08-12T11:00:00' )
+        } ],
+        'categories-agenda-metropolitain': 42,
+        'thematiques-bordeaux-metropole' : [ 3, 4 ]
+      } );
+
+    } );
+
+    before( async () => {
+
+      updateResult = await core.agendas( 17026855 ).events.update( createResult.created.event.uid, {
+        state: 2
+      }, { partial: true } );
+
+    } );
+
+    it( 'event state was not published at creation', () => {
+
+      createResult.created.agendaEvent.state.should.equal( 0 );
+
+    } );
+
+    it( 'event state is published after update', () => {
+
+      updateResult.updated.agendaEvent.state.should.equal( 2 );
+
+    } );
 
   } );
 

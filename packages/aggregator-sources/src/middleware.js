@@ -21,14 +21,25 @@ function init( s, c ) {
 
 }
 
-function list( req, res ) {
+function list( options = {}, req, res, next ) {
 
-  const offset = (( req.query.page || 1 ) - 1) * config.mw.limit;
-  const limit = config.mw.limit;
+  const {
+    send
+  } = Object.assign( {
+    send: true
+  }, options || {} );
+
+  const limit = req.query.limit ? parseInt( req.query.limit ) : config.mw.limit;
+  const offset = req.query.offset ? parseInt( req.query.offset ) : (( req.query.page || 1 ) - 1) * limit;
 
   service( req.agenda.id ).list( { search: req.query.search }, offset, limit, { total: true } )
     .then( result => {
-      res.send( result );
+      if ( send ) {
+        res.send( result );
+      } else {
+        req.result = result;
+        next();
+      }
     } )
     .catch( err => {
       res.status( 400 ).send( err );

@@ -1,6 +1,5 @@
 "use strict";
 
-const stakeholdersMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 const cmn = require( '../lib/commons-app' );
 const agendaSvc = require( '../services/agenda' );
 
@@ -23,21 +22,6 @@ module.exports = app => {
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData(),
     infoSubmit
-  );
-
-  app.get(
-    '/:slug/admin/contributors/:uid.json',
-    agendaSvc.mw.load( 'slug' ),
-    cmn.checkAdminOrModerator,
-    _loadUserByUid,
-    stakeholdersMw.agenda().get( { user: 'queriedUser' } ),
-    ( req, res ) => {
-      if ( !req.stakeholder ) {
-        res.status( 404 ).send( 'Not found' );
-      } else {
-        res.json( { name: req.queriedUser.fullName } );
-      }
-    }
   );
 
 };
@@ -65,23 +49,5 @@ function infoSubmit( req, res ) {
     res.redirect( req.genUrl( 'contributorsInfo', { slug: req.agenda.slug } ) );
 
   } );
-
-}
-
-async function _loadUserByUid( req, res, next ) {
-
-  try {
-
-    const usersSvc = req.app.service( '/users' );
-
-    req.queriedUser = await usersSvc.get( req.params.uid );
-
-    next();
-
-  } catch ( err ) {
-
-    return next( err );
-
-  }
 
 }

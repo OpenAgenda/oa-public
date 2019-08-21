@@ -21,6 +21,7 @@ const legacySearch = require( './lib/legacySearch' );
 const custom = require( './lib/custom' );
 const search = require( '../eventSearch' );
 const searchStats = require( './lib/search' );
+const legacyTagsAndCustom = require( '../legacy' ).tagsAndCustom;
 
 const core = require( '../../core' );
 
@@ -98,7 +99,7 @@ module.exports.task = () => {
 
       case 'customToLegacy' :
 
-        custom.toLegacy( data );
+        legacyTagsAndCustom.setAll( data.agendaUid );
         break;
 
       case 'aggregator':

@@ -70,7 +70,9 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
 
     }
 
-    return i <= 10 || t.start.toISOString().split( 'T' )[ 0 ] >= today;
+    const start = typeof t.start === 'string' ? t.start : t.start.toISOString();
+
+    return i <= 10 || start.split( 'T' )[ 0 ] >= today;
 
   } )
 
