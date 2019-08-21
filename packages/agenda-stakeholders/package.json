@@ -33,7 +33,8 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@openagenda/fixtures": "^2.0.1",
-    "babel-preset-openagenda": "^1.1.1",
+
+"@openagenda/babel-preset": "^1.1.1",
     "express": "^4.14.0",
     "mocha": "^4.0.1",
     "redis": "^2.6.5",

@@ -1,7 +1,7 @@
 {
   "presets" : [
     [
-      "openagenda",
+      "@openagenda",
       { "modules": "commonjs" }
     ]
   ],

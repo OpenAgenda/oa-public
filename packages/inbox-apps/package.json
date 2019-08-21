@@ -69,7 +69,8 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "babel-loader": "^8.0.4",
-    "babel-preset-openagenda": "^1.1.1",
+
+"@openagenda/babel-preset": "^1.1.1",
     "body-parser": "^1.18.3",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
