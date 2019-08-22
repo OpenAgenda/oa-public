@@ -1,15 +1,13 @@
-"use strict";
+'use strict';
 
-module.exports = async ( req, res, next ) => {
+module.exports = async (req, res, next) => {
+  const transform = req.app.get('transforms').event.show;
 
-  const transform = req.app.get( 'transforms' ).event.show;
-
-  const event = await req.app.get( 'proxy' ).get( res.locals.agendaUid, {
+  const event = await req.app.get('proxy').get(res.locals.agendaUid, {
     uid: req.params.uid
-  } );
+  });
 
-  if ( !event ) return next();
+  if (!event) return next();
 
-  res.redirect( 301, transform( event, req, res ).link );
-
-}
+  res.redirect(301, transform(event, req, res).link);
+};
