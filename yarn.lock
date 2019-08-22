@@ -3050,6 +3050,37 @@
   dependencies:
     leaflet "~0.7.1"
 
+"@openagenda/member-apps@^1.1.2":
+  version "1.1.4"
+  resolved "https://registry.npmjs.org/@openagenda/member-apps/-/member-apps-1.1.4.tgz#0590d18b3c7e643bb25f0fc17a8eb619035d7950"
+  integrity sha512-6TWO+ciqlB+P5csyWlzgbmInMMe9sHAow3vANm3/GFA8vvoPzIPFgh9SjLw15qdT6/Ed9jlK66YNl/IGCkFIAA==
+  dependencies:
+    "@babel/runtime-corejs2" "^7.3.1"
+    "@openagenda/agenda-stakeholders" "^2.1.2"
+    "@openagenda/call-to-action" "^2.2.2"
+    "@openagenda/dom-utils" "^2.2.0"
+    "@openagenda/labels" "^2.1.0"
+    "@openagenda/react-components" "^2.2.1"
+    "@openagenda/react-form-components" "^2.1.1"
+    "@openagenda/react-utils" "^4.0.0"
+    async "^2.1.4"
+    classnames "^2.2.5"
+    connected-react-router "^6.2.2"
+    history "^4.7.2"
+    js-base64 "^2.5.1"
+    knex "^0.16.3"
+    lodash "^4.17.4"
+    prop-types "^15.5.8"
+    qs "^6.6.0"
+    react-bootstrap "^0.32.4"
+    react-redux "^6.0.0"
+    react-router "^5.0.0"
+    react-router-config "^5.0.0"
+    react-router-dom "^5.0.0"
+    redial "^0.5.0"
+    redux "^4.0.1"
+    redux-form "^8.1.0"
+
 "@openagenda/mysql-table-store@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@openagenda/mysql-table-store/-/mysql-table-store-1.0.0.tgz#a117ce69e4c84f811347b3f415e1a5b7a1829b7c"
