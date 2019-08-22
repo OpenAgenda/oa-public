@@ -10,17 +10,6 @@ const ons = {
   queue: () => {}
 };
 
-module.exports = Object.assign(
-  namespace => Object.assign(queue, {
-    run,
-    register,
-    on: () => {}
-  }),
-  {
-    mockOn: on
-  }
-);
-
 function queue(...args) {
   ons.queue.apply(null, args);
 }
@@ -34,5 +23,16 @@ function register(methods) {
 }
 
 function on(action, fn) {
-  ons[ action ] = fn;
+  ons[action] = fn;
 }
+
+module.exports = Object.assign(
+  () => Object.assign(queue, {
+    run,
+    register,
+    on: () => {}
+  }),
+  {
+    mockOn: on
+  }
+);

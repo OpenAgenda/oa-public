@@ -1,11 +1,14 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const boolean = require('@openagenda/validators/boolean');
+const text = require('@openagenda/validators/text');
+const integer = require('@openagenda/validators/integer');
 
 schema.register({
-  boolean: require('@openagenda/validators/boolean'),
-  text: require('@openagenda/validators/text'),
-  integer: require('@openagenda/validators/integer')
+  boolean,
+  text,
+  integer
 });
 
 module.exports = schema({

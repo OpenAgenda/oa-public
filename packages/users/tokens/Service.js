@@ -18,7 +18,7 @@ class Tokens extends Service {
 
     const result = await this.find(params);
     const data = result.data || result;
-    let token = Array.isArray(data) ? data[ 0 ] : data;
+    let token = Array.isArray(data) ? data[0] : data;
 
     if (!token && params.createIfNotExist) {
       token = await this.create(

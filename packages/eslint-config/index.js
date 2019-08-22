@@ -3,7 +3,7 @@
 module.exports = {
   root: true,
 
-  parser: 'babel-eslint',
+  parser: '@przemyslawzalewski/babel-eslint',
 
   extends: [
     'airbnb',
@@ -51,7 +51,7 @@ module.exports = {
     'max-len': [ 'off', 80 ],
     'arrow-parens': [ 'error', 'as-needed' ],
     'comma-dangle': [ 'error', 'only-multiline' ],
-    'computed-property-spacing': [ 'error', 'always' ],
+    // 'computed-property-spacing': [ 'error', 'always' ],
     // 'array-bracket-spacing': [ 'error', 'always' ],
 
     'import/no-unresolved': 'error',

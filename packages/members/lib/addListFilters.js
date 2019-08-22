@@ -1,16 +1,18 @@
 'use strict';
 
 const _ = require('lodash');
-
 const schema = require('@openagenda/validators/schema');
-
+const integer = require('@openagenda/validators/integer');
+const choice = require('@openagenda/validators/choice');
+const text = require('@openagenda/validators/text');
+const boolean = require('@openagenda/validators/boolean');
 const roles = require('./roles');
 
 schema.register({
-  integer: require('@openagenda/validators/integer'),
-  choice: require('@openagenda/validators/choice'),
-  text: require('@openagenda/validators/text'),
-  boolean: require('@openagenda/validators/boolean')
+  integer,
+  choice,
+  text,
+  boolean
 });
 
 const validate = schema({
@@ -57,6 +59,16 @@ const validate = schema({
     max: 255
   }
 });
+
+function _extractLegacyParts(query) {
+  const legacyParts = {};
+
+  if (_.get(query, 'credentials')) {
+    legacyParts.role = _.get(query, 'credentials');
+  }
+
+  return legacyParts;
+}
 
 module.exports = (k, query) => {
   const legacyParts = _extractLegacyParts(query);
@@ -115,17 +127,7 @@ module.exports = (k, query) => {
   if (role.length) {
     k.whereIn(
       'credential',
-      role.map(r => (_.isInteger(r) ? r : roles[ r.toUpperCase() ]))
+      role.map(r => (_.isInteger(r) ? r : roles[r.toUpperCase()]))
     );
   }
 };
-
-function _extractLegacyParts(query) {
-  const legacyParts = {};
-
-  if (_.get(query, 'credentials')) {
-    legacyParts.role = _.get(query, 'credentials');
-  }
-
-  return legacyParts;
-}

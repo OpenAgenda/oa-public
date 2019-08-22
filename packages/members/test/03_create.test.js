@@ -1,34 +1,34 @@
 'use strict';
 
 const _ = require('lodash');
-const should = require('should');
 
 const Service = require('../');
 const config = require('../testconfig');
 const fixtures = require('./fixtures');
+const getUsersByUid = require('./fixtures/getUsersByUid');
+const getEventCountByUserUid = require('./fixtures/getEventCountByUserUid');
+const getAgendasByUid = require('./fixtures/getAgendasByUid');
 
 describe('members - functional - create', () => {
   const f = fixtures(config.mysql);
-
-  let k;
   let svc;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
       knex: f.client,
       interfaces: {
-        getUsersByUid: require('./fixtures/getUsersByUid'),
-        getAgendasByUid: require('./fixtures/getAgendasByUid'),
-        getEventCountByUserUid: require('./fixtures/getEventCountByUserUid')
+        getUsersByUid,
+        getAgendasByUid,
+        getEventCountByUserUid
       }
     });
   });
 
-  after(f.destroyClient);
+  afterAll(f.destroyClient);
 
-  it('simple create creates', async () => {
+  test('simple create creates', async () => {
     const { member } = await svc.create({
       userUid: 12,
       agendaUid: 31,
@@ -42,7 +42,7 @@ describe('members - functional - create', () => {
       }
     });
 
-    _.omit(member, ['id', 'createdAt', 'updatedAt']).should.eql({
+    expect(_.omit(member, ['id', 'createdAt', 'updatedAt'])).toEqual({
       agendaUid: 31,
       userUid: 12,
       userId: 10293,
@@ -60,7 +60,7 @@ describe('members - functional - create', () => {
     });
   });
 
-  it('if member with same userUid and agendaUid already exists, error is thrown', async () => {
+  test('if member with same userUid and agendaUid already exists, error is thrown', async () => {
     let error = null;
 
     try {
@@ -76,19 +76,19 @@ describe('members - functional - create', () => {
       error = e;
     }
 
-    error.message.should.equal('Already exists');
+    expect(error.message).toBe('Already exists');
   });
 
-  it('by default, custom data is required for create', async () => {
+  test('by default, custom data is required for create', async () => {
     const result = await svc.create({
       userUid: 1,
       role: 2
     });
 
-    result.errors.length.should.equal(5);
+    expect(result.errors).toHaveLength(5);
   });
 
-  it('if requireCustom is false, custom data is optional', async () => {
+  test('if requireCustom is false, custom data is optional', async () => {
     const result = await svc.create(
       {
         userUid: 1,
@@ -97,10 +97,10 @@ describe('members - functional - create', () => {
       { requireCustom: false }
     );
 
-    result.errors.length.should.equal(0);
+    expect(result.errors).toHaveLength(0);
   });
 
-  it('if userUid is not specified at create, member is marked as invited', async () => {
+  test('if userUid is not specified at create, member is marked as invited', async () => {
     const result = await svc.create(
       {
         agendaUid: 123,
@@ -109,10 +109,10 @@ describe('members - functional - create', () => {
       { requireCustom: false }
     );
 
-    result.member.invited.should.equal(true);
+    expect(result.member.invited).toBe(true);
   });
 
-  it('if userUid is specified at create, member is not marked as invited', async () => {
+  test('if userUid is specified at create, member is not marked as invited', async () => {
     const { member } = await svc.create(
       {
         agendaUid: 123,
@@ -122,6 +122,6 @@ describe('members - functional - create', () => {
       { requireCustom: false }
     );
 
-    member.invited.should.equal(false);
+    expect(member.invited).toBe(false);
   });
 });

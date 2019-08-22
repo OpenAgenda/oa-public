@@ -1,38 +1,13 @@
 'use strict';
 
 const _ = require('lodash');
-
+const log = require('@openagenda/logs')('setByEmail');
 const getByEmail = require('./get').byEmail;
 const patch = require('./patch');
 const create = require('./create');
 const { isSuperiorTo } = require('./lib/compareRoles');
 
-const log = require('@openagenda/logs')('setByEmail');
-
 const defaultQueueName = 'membersBulkSetEmails';
-
-module.exports = Object.assign(setByEmail, {
-  task,
-  bulk
-});
-
-function task(config) {
-  const { queues, queueName } = {
-    queues: null,
-    queueName: defaultQueueName,
-    ...config
-  };
-
-  const queue = queues(queueName);
-
-  queue.register({
-    setByEmail: setByEmail.bind(null, config)
-  });
-
-  _logQueue(queue);
-
-  queue.run();
-}
 
 async function setByEmail(config, data, options = {}) {
   if (!_.get(data, 'agendaUid')) {
@@ -84,6 +59,36 @@ async function setByEmail(config, data, options = {}) {
   };
 }
 
+function _logQueue(queue) {
+  queue.on('error', (fn, args, error) => {
+    log('error', fn, args, error);
+  });
+  queue.on('execute', (fn, args) => {
+    log('executing', fn, args);
+  });
+  queue.on('success', (fn, args, result) => {
+    log('success', fn, args, result);
+  });
+}
+
+function task(config) {
+  const { queues, queueName } = {
+    queues: null,
+    queueName: defaultQueueName,
+    ...config
+  };
+
+  const queue = queues(queueName);
+
+  queue.register({
+    setByEmail: setByEmail.bind(null, config)
+  });
+
+  _logQueue(queue);
+
+  queue.run();
+}
+
 async function bulk(config, base, emails = [], options = {}) {
   log('bulk');
 
@@ -109,22 +114,18 @@ async function bulk(config, base, emails = [], options = {}) {
 
   for (const email of emails) {
     const data = { ...base, email };
-    queueJobs
-      ? await queue('setByEmail', data, options)
-      : result.processed.push(await setByEmail(config, data, options));
+
+    if (queueJobs) {
+      await queue('setByEmail', data, options);
+    } else {
+      result.processed.push(await setByEmail(config, data, options));
+    }
   }
 
   return result;
 }
 
-function _logQueue(queue) {
-  queue.on('error', (fn, args, error) => {
-    log('error', fn, args, error);
-  });
-  queue.on('execute', (fn, args) => {
-    log('executing', fn, args);
-  });
-  queue.on('success', (fn, args, result) => {
-    log('success', fn, args, result);
-  });
-}
+module.exports = Object.assign(setByEmail, {
+  task,
+  bulk
+});

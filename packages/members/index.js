@@ -1,8 +1,6 @@
 'use strict';
 
-const _ = require('lodash');
 const logger = require('@openagenda/logs');
-
 const get = require('./get');
 const list = require('./list');
 const stream = require('./stream');
@@ -10,12 +8,16 @@ const create = require('./create');
 const patch = require('./patch');
 const remove = require('./remove');
 const setByEmail = require('./setByEmail');
+const roles = require('./lib/roles');
+const compareRoles = require('./lib/compareRoles');
+const getRoleCode = require('./lib/getRoleCode');
+const getRoleSlug = require('./lib/getRoleSlug');
 
 const utils = {
-  roles: require('./lib/roles'),
-  compareRoles: require('./lib/compareRoles'),
-  getRoleCode: require('./lib/getRoleCode'),
-  getRoleSlug: require('./lib/getRoleSlug')
+  roles,
+  compareRoles,
+  getRoleCode,
+  getRoleSlug
 };
 
 module.exports = (options = {}) => {

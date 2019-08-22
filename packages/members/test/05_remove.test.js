@@ -1,11 +1,10 @@
 'use strict';
 
-const _ = require('lodash');
-const should = require('should');
-
 const Service = require('../');
 const config = require('../testconfig');
 const fixtures = require('./fixtures');
+const getUsersByUid = require('./fixtures/getUsersByUid');
+const getEventCountByUserUid = require('./fixtures/getEventCountByUserUid');
 
 describe('members - functional - remove', () => {
   const f = fixtures(config.mysql);
@@ -14,20 +13,22 @@ describe('members - functional - remove', () => {
   let result;
   let onRemoveArguments;
 
-  before(async () => {
+  beforeAll(async () => {
     await f.load();
 
     svc = Service({
       knex: f.client,
       interfaces: {
-        getUsersByUid: require('./fixtures/getUsersByUid'),
-        getEventCountByUserUid: require('./fixtures/getEventCountByUserUid'),
-        onRemove: (...args) => (onRemoveArguments = args)
+        getUsersByUid,
+        getEventCountByUserUid,
+        onRemove: (...args) => {
+          onRemoveArguments = args;
+        }
       }
     });
   });
 
-  before(async () => {
+  beforeAll(async () => {
     result = await svc.remove(
       { userUid: 2, agendaUid: 1 },
       {
@@ -38,21 +39,21 @@ describe('members - functional - remove', () => {
     );
   });
 
-  after(f.destroyClient);
+  afterAll(f.destroyClient);
 
-  it('simple remove removes', async () => {
-    result.success.should.equal(true);
+  test('simple remove removes', async () => {
+    expect(result.success).toBe(true);
 
     const rows = await f
       .client('member')
       .select('*')
       .where({ user_uid: 2, agenda_uid: 1 });
 
-    rows.length.should.equal(0);
+    expect(rows).toHaveLength(0);
   });
 
-  it('onRemove interface is given removed member and context', () => {
-    onRemoveArguments.should.eql([
+  test('onRemove interface is given removed member and context', () => {
+    expect(onRemoveArguments).toEqual([
       {
         id: 2,
         deletedUser: false,

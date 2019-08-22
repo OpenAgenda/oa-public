@@ -1,16 +1,24 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const integer = require('@openagenda/validators/integer');
+const date = require('@openagenda/validators/date');
+const choice = require('@openagenda/validators/choice');
+const pass = require('@openagenda/validators/pass');
+const boolean = require('@openagenda/validators/boolean');
+const email = require('@openagenda/validators/email');
+const phone = require('@openagenda/validators/phone');
+const text = require('@openagenda/validators/text');
 
 schema.register({
-  integer: require('@openagenda/validators/integer'),
-  date: require('@openagenda/validators/date'),
-  choice: require('@openagenda/validators/choice'),
-  pass: require('@openagenda/validators/pass'),
-  boolean: require('@openagenda/validators/boolean'),
-  email: require('@openagenda/validators/email'),
-  phone: require('@openagenda/validators/phone'),
-  text: require('@openagenda/validators/text')
+  integer,
+  date,
+  choice,
+  pass,
+  boolean,
+  email,
+  phone,
+  text
 });
 
 const roles = require('./roles');

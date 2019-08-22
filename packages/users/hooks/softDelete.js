@@ -38,7 +38,7 @@ module.exports = function softDelete(field, additionalParams = {}) {
         .then(data => {
           delete params.query.$disableSoftDelete;
 
-          if (!data || data[ deleteField ]) {
+          if (!data || data[deleteField]) {
             throw new errors.NotFound('Item has been soft deleted');
           }
 
@@ -51,7 +51,7 @@ module.exports = function softDelete(field, additionalParams = {}) {
 
     switch (context.method) {
       case 'find':
-        context.params.query[ deleteField ] = 0;
+        context.params.query[deleteField] = 0;
         return context;
       case 'get':
         return throwIfItemDeleted(context.id, true).then(data => {
@@ -65,7 +65,7 @@ module.exports = function softDelete(field, additionalParams = {}) {
         if (context.id !== null) {
           return throwIfItemDeleted(context.id).then(() => context);
         }
-        context.params.query[ deleteField ] = 0;
+        context.params.query[deleteField] = 0;
         return context;
       case 'remove':
         return Promise.resolve()
@@ -74,7 +74,7 @@ module.exports = function softDelete(field, additionalParams = {}) {
             const date = new Date();
             const { before } = context.params;
 
-            context.data[ deleteField ] = 1;
+            context.data[deleteField] = 1;
             context.data.isActivated = 0;
             context.data.username = `*removed-${date.getFullYear()}-${date.getMonth()
               + 1}-${date.getDate()}-${before.id}`;
@@ -82,7 +82,7 @@ module.exports = function softDelete(field, additionalParams = {}) {
 
             await setInStore('email', 'params.before.email')(context);
 
-            context.params.query[ deleteField ] = 0;
+            context.params.query[deleteField] = 0;
             context.params.query.$disableSoftDelete = true;
             context.params.internal = true;
 

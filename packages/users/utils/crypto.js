@@ -7,7 +7,7 @@ function randomHash(length = 32) {
   let salt = '';
 
   for (let i = 0; i < length; i++) {
-    salt += chars[ Math.floor(Math.random() * chars.length) ];
+    salt += chars[Math.floor(Math.random() * chars.length)];
   }
 
   return salt;

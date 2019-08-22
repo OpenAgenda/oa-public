@@ -171,7 +171,7 @@ describe('methods', () => {
       });
 
       expect(total).toBe(1);
-      expect(users[ 0 ]).toMatchObject({
+      expect(users[0]).toMatchObject({
         fullName: 'Gaetan Latouche'
       });
     });
@@ -199,8 +199,8 @@ describe('methods', () => {
         detailed: true
       });
 
-      expect(users[ 0 ]).toHaveProperty('isRemoved');
-      expect(users[ 0 ]).toHaveProperty('isActivated');
+      expect(users[0]).toHaveProperty('isRemoved');
+      expect(users[0]).toHaveProperty('isActivated');
     });
 
     it('find with removed param at true', async () => {
@@ -210,7 +210,7 @@ describe('methods', () => {
       });
 
       expect(total).toBe(1);
-      expect(users[ 0 ]).toMatchObject({
+      expect(users[0]).toMatchObject({
         isRemoved: true
       });
     });
@@ -222,7 +222,7 @@ describe('methods', () => {
       });
 
       expect(total).toBe(25);
-      expect(users[ 0 ]).toMatchObject({
+      expect(users[0]).toMatchObject({
         isRemoved: false
       });
     });

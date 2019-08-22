@@ -1,11 +1,10 @@
 'use strict';
 
 const _ = require('lodash');
+const log = require('@openagenda/logs')('create');
 const validate = require('./lib/validate');
 const cleanCreateOptions = require('./lib/cleanCreateOptions');
 const { toDB } = require('./lib/transformDBEntry');
-
-const log = require('@openagenda/logs')('create');
 
 module.exports = async ({ knex, schema, interfaces }, data, options = {}) => {
   log('processing', data);
