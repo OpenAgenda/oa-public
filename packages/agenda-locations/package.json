@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-locations",
-  "version": "1.5.0",
+  "version": "1.5.1",
   "description": "",
   "main": "index.js",
   "repository": {
@@ -59,12 +59,11 @@
     "@babel/cli": "^7.2.3",
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
+    "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
     "@storybook/react": "^4.1.11",
     "babel-loader": "^8.0.4",
-
-"@openagenda/babel-preset": "^1.1.1",
     "body-parser": "1.18.3",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
