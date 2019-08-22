@@ -6,6 +6,7 @@ const fixtures = require('./fixtures');
 const queues = require('./mock/queues');
 const getUsersByUid = require('./fixtures/getUsersByUid');
 const getEventCountByUserUid = require('./fixtures/getEventCountByUserUid');
+const getUserUidByEmail = require('./fixtures/getUserUidByEmail');
 
 describe('members - functional - setByEmail', () => {
   const f = fixtures(config.mysql);
@@ -20,6 +21,7 @@ describe('members - functional - setByEmail', () => {
       interfaces: {
         getUsersByUid,
         getEventCountByUserUid,
+        getUserUidByEmail,
         onRemove: () => {}
       },
       queues,
@@ -30,7 +32,7 @@ describe('members - functional - setByEmail', () => {
   afterAll(f.destroyClient);
 
   describe('setByEmail', () => {
-    describe('set creates', () => {
+    describe('creates', () => {
       let result;
       let member;
 
@@ -61,7 +63,7 @@ describe('members - functional - setByEmail', () => {
       });
     });
 
-    describe('set promotes', () => {
+    describe('promotes', () => {
       let result;
       let member;
 
@@ -88,6 +90,26 @@ describe('members - functional - setByEmail', () => {
       });
 
       test('member is admin after set', async () => {
+        expect(result.member.role).toBe(2);
+      });
+    });
+
+    describe('looks into getUserUidByEmail when email is not found in store', () => {
+      let result;
+
+      beforeAll(async () => {
+        result = await svc.set.byEmail({
+          email: 'truc@delinterface.fr',
+          agendaUid: 1,
+          role: 2
+        });
+      });
+
+      test('operation is patch', () => {
+        expect(result.operation).toBe('patch');
+      });
+
+      test('role is updated', () => {
         expect(result.member.role).toBe(2);
       });
     });
