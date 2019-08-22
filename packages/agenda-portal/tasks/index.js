@@ -1,9 +1,7 @@
-"use strict";
+'use strict';
 
-const cacheTask = require( './cache' );
+const cacheTask = require('./cache');
 
-module.exports = ( { config, proxy } ) => {
-
-  cacheTask( proxy, config.cache );
-
-}
+module.exports = ({ config, proxy }) => {
+  cacheTask(proxy, config.cache);
+};

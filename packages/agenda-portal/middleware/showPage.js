@@ -1,32 +1,22 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const log = require( '../lib/Log' )( 'showPage' );
+const _ = require('lodash');
+const log = require('../lib/Log')('showPage');
 
-const isStaticFilePath = require( '../lib/isStaticFilePath' );
+const isStaticFilePath = require('../lib/isStaticFilePath');
 
-module.exports = ( req, res, next ) => {
+module.exports = (req, res, next) => {
+  if (isStaticFilePath(req)) return next();
 
-  if ( isStaticFilePath( req ) ) return next();
-
-  res.render( 'pages/' + req.params.page, req.data, ( err, html ) => {
-
-    if ( _.get( err, 'message', '' ).indexOf( 'Failed to lookup view' ) !== -1 ) {
-
+  res.render(`pages/${req.params.page}`, req.data, (err, html) => {
+    if (_.get(err, 'message', '').indexOf('Failed to lookup view') !== -1) {
       next();
+    } else if (err) {
+      log('error', err);
 
-    } else if ( err ) {
-
-      log( 'error', err );
-
-      next( err );
-
+      next(err);
     } else {
-
-      res.send( html );
-
+      res.send(html);
     }
-
-  } );
-
-}
+  });
+};
