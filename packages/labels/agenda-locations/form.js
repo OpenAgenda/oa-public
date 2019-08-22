@@ -219,7 +219,7 @@ module.exports = {
     "br": "Lec'hiañ"
   },
   "geocodeNoResults" : {
-    "fr": "Nous n'avons pas pu localiser cette adresse. Remplacez votre saisie par le nom de la commune uniquement, placez le marqueur au bon endroit sur la carte et terminez en complétant l'adresse.",
+    "fr": "Nous n'avons pas pu localiser cette adresse. Editez votre saisie pour n'y laisser que le nom de la commune, placez le marqueur au bon endroit sur la carte et terminez en complétant l'adresse.",
     "en": "We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed."
   },
   "loadingError": {
