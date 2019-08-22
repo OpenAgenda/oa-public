@@ -43,7 +43,7 @@ module.exports = function stashBefore(prop, additionalParams = {}) {
     return context.service.get(context.id, params).then(data => {
       delete params.query.$disableStashBefore;
 
-      context.params[ beforeField ] = JSON.parse(JSON.stringify(data));
+      context.params[beforeField] = JSON.parse(JSON.stringify(data));
       return context;
     });
   };

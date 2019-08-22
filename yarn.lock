@@ -3050,6 +3050,37 @@
   dependencies:
     leaflet "~0.7.1"
 
+"@openagenda/member-apps@^1.1.2":
+  version "1.1.4"
+  resolved "https://registry.npmjs.org/@openagenda/member-apps/-/member-apps-1.1.4.tgz#0590d18b3c7e643bb25f0fc17a8eb619035d7950"
+  integrity sha512-6TWO+ciqlB+P5csyWlzgbmInMMe9sHAow3vANm3/GFA8vvoPzIPFgh9SjLw15qdT6/Ed9jlK66YNl/IGCkFIAA==
+  dependencies:
+    "@babel/runtime-corejs2" "^7.3.1"
+    "@openagenda/agenda-stakeholders" "^2.1.2"
+    "@openagenda/call-to-action" "^2.2.2"
+    "@openagenda/dom-utils" "^2.2.0"
+    "@openagenda/labels" "^2.1.0"
+    "@openagenda/react-components" "^2.2.1"
+    "@openagenda/react-form-components" "^2.1.1"
+    "@openagenda/react-utils" "^4.0.0"
+    async "^2.1.4"
+    classnames "^2.2.5"
+    connected-react-router "^6.2.2"
+    history "^4.7.2"
+    js-base64 "^2.5.1"
+    knex "^0.16.3"
+    lodash "^4.17.4"
+    prop-types "^15.5.8"
+    qs "^6.6.0"
+    react-bootstrap "^0.32.4"
+    react-redux "^6.0.0"
+    react-router "^5.0.0"
+    react-router-config "^5.0.0"
+    react-router-dom "^5.0.0"
+    redial "^0.5.0"
+    redux "^4.0.1"
+    redux-form "^8.1.0"
+
 "@openagenda/mysql-table-store@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@openagenda/mysql-table-store/-/mysql-table-store-1.0.0.tgz#a117ce69e4c84f811347b3f415e1a5b7a1829b7c"
@@ -3218,6 +3249,17 @@
     qs "^6.1.0"
     when "^3.7.8"
     xhr "^2.2.2"
+
+"@przemyslawzalewski/babel-eslint@^10.0.3":
+  version "10.0.3"
+  resolved "https://registry.npmjs.org/@przemyslawzalewski/babel-eslint/-/babel-eslint-10.0.3.tgz#70857c992d98ce31104e48d40bcaea83b5ea6dce"
+  integrity sha512-SKvK5DemP9MYCS0Z/MK2Uw0AvCue5tEFhtmwUKLYyItzG6/kpFAQXBjBvnMSnEk60v4nuZKQjlKp1tGt1ee6Pg==
+  dependencies:
+    "@babel/code-frame" "^7.0.0"
+    "@babel/parser" "^7.0.0"
+    "@babel/traverse" "^7.0.0"
+    "@babel/types" "^7.0.0"
+    eslint-visitor-keys "^1.0.0"
 
 "@purest/config@^1.0.0":
   version "1.0.1"
@@ -5776,18 +5818,6 @@ babel-eslint@^10.0.1:
   version "10.0.1"
   resolved "https://registry.npmjs.org/babel-eslint/-/babel-eslint-10.0.1.tgz#919681dc099614cd7d31d45c8908695092a1faed"
   integrity sha512-z7OT1iNV+TjOwHNLLyJk+HN+YVWX+CLE6fPD2SymJZOZQBs+QIexFjhm4keGTm8MW9xr4EC9Q0PbaLB24V5GoQ==
-  dependencies:
-    "@babel/code-frame" "^7.0.0"
-    "@babel/parser" "^7.0.0"
-    "@babel/traverse" "^7.0.0"
-    "@babel/types" "^7.0.0"
-    eslint-scope "3.7.1"
-    eslint-visitor-keys "^1.0.0"
-
-babel-eslint@^10.0.2:
-  version "10.0.2"
-  resolved "https://registry.npmjs.org/babel-eslint/-/babel-eslint-10.0.2.tgz#182d5ac204579ff0881684b040560fdcc1558456"
-  integrity sha512-UdsurWPtgiPgpJ06ryUnuaSXC2s0WoSZnQmEpbAH65XZSdwowgN5MvyP7e88nW07FYXv72erVtpBkxyDVKhH1Q==
   dependencies:
     "@babel/code-frame" "^7.0.0"
     "@babel/parser" "^7.0.0"
@@ -13884,6 +13914,13 @@ immutability-helper@^3.0.0:
   version "3.0.0"
   resolved "https://registry.npmjs.org/immutability-helper/-/immutability-helper-3.0.0.tgz#a74e989c60e2ddab85a6abeed8078981b2d13271"
   integrity sha512-Ww7oOSnBIRb9ihT9UH9eHz0uhie0rw9bpqGYCb7qD5VpsdOLv+fx/KCRgHqvX/13LgSM5sDfsLpeSIM6kodUxQ==
+  dependencies:
+    invariant "^2.2.4"
+
+immutability-helper@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.npmjs.org/immutability-helper/-/immutability-helper-3.0.1.tgz#4f609c5afbf8d78cb297970e8af2fba8b0eda1d6"
+  integrity sha512-U92ROQQt7XkIwrdqCByUI118TQM1hXdKnRQpvKeA0HRyGSnJipu9IWHe4UD8zCN00O8UnQjQzPCgZ1CC3yBzHA==
   dependencies:
     invariant "^2.2.4"
 

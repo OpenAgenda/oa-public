@@ -1,14 +1,45 @@
 'use strict';
 
 const _ = require('lodash');
-const VError = require('verror');
-
 const cleanGetOptions = require('./lib/cleanGetOptions');
 const { fromDB } = require('./lib/transformDBEntry');
 
-module.exports = Object.assign(get, {
-  byEmail: getByEmail
-});
+async function _decorateWithDetailed({ interfaces }, member) {
+  if (!member.userUid) {
+    return;
+  }
+
+  if (interfaces.getUsersByUid) {
+    member.user = _.first(await interfaces.getUsersByUid([member.userUid]));
+  }
+}
+
+function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
+  const { legacy, detailed } = cleanGetOptions(options);
+
+  const where = _.isObject(identifier)
+    ? _.mapKeys(_.pick(identifier, ['userUid', 'agendaUid', 'id']), (v, k) => _.snakeCase(k))
+    : { id: identifier };
+
+  return {
+    query: knex(schema)
+      .first(
+        [
+          'id',
+          'agenda_uid',
+          'credential',
+          'user_uid',
+          'store',
+          'deleted_user'
+        ].concat(legacy ? ['user_id', 'review_id'] : [])
+      )
+      .where(where),
+    options: {
+      detailed,
+      legacy
+    }
+  };
+}
 
 async function get(config, identifier, options = {}) {
   const { query, options: cleanOptions } = _getQueryAndOptions(
@@ -64,39 +95,6 @@ async function getByEmail(config, identifier, options = {}) {
   return member;
 }
 
-async function _decorateWithDetailed({ interfaces }, member) {
-  if (!member.userUid) {
-    return;
-  }
-
-  if (interfaces.getUsersByUid) {
-    member.user = _.first(await interfaces.getUsersByUid([member.userUid]));
-  }
-}
-
-function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
-  const { legacy, detailed } = cleanGetOptions(options);
-
-  const where = _.isObject(identifier)
-    ? _.mapKeys(_.pick(identifier, ['userUid', 'agendaUid', 'id']), (v, k) => _.snakeCase(k))
-    : { id: identifier };
-
-  return {
-    query: knex(schema)
-      .first(
-        [
-          'id',
-          'agenda_uid',
-          'credential',
-          'user_uid',
-          'store',
-          'deleted_user'
-        ].concat(legacy ? ['user_id', 'review_id'] : [])
-      )
-      .where(where),
-    options: {
-      detailed,
-      legacy
-    }
-  };
-}
+module.exports = Object.assign(get, {
+  byEmail: getByEmail
+});

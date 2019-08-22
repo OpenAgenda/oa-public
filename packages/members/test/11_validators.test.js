@@ -1,18 +1,16 @@
 'use strict';
 
-const should = require('should');
-
 const validate = require('../lib/validate');
 
 describe('members - unit - validate', () => {
-  it('simple validation', () => {
+  test('simple validation', () => {
     const clean = validate({
       role: 1,
       agendaUid: 1,
       userUid: 1
     });
 
-    clean.should.eql({
+    expect(clean).toEqual({
       agendaUid: 1,
       userUid: 1,
       createdAt: undefined,
@@ -23,14 +21,14 @@ describe('members - unit - validate', () => {
     });
   });
 
-  it('validation with custom data validation', () => {
+  test('validation with custom data validation', () => {
     const clean = validate.withCustom(false)({
       role: 1,
       agendaUid: 1,
       userUid: 1
     });
 
-    clean.should.eql({
+    expect(clean).toEqual({
       agendaUid: 1,
       userUid: 1,
       createdAt: undefined,
@@ -47,14 +45,14 @@ describe('members - unit - validate', () => {
     });
   });
 
-  it('validate custom data only', () => {
+  test('validate custom data only', () => {
     const validateCustom = validate.custom(false);
 
     const clean = validateCustom({
       organization: 'OA'
     });
 
-    clean.should.eql({
+    expect(clean).toEqual({
       contactName: null,
       contactNumber: null,
       contactPosition: null,

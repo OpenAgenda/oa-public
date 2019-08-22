@@ -4,6 +4,21 @@ const _ = require('lodash');
 
 const cleanNav = require('./cleanNav');
 
+function _isMonoFieldSeek(after) {
+  return _.isArray(after) && after.length === 1;
+}
+
+function _isMultiFieldSeek(after) {
+  return _.isArray(after) && after.length === 2;
+}
+
+function _operator(direction, reverse = false) {
+  if (!reverse) {
+    return direction === 'desc' ? '<=' : '>=';
+  }
+  return direction === 'desc' ? '>=' : '<=';
+}
+
 module.exports = (k, nav) => {
   const {
     after, offset, limit, page, order
@@ -18,7 +33,7 @@ module.exports = (k, nav) => {
       .where(
         _.snakeCase(orderField),
         _operator(orderDirection),
-        after[ 0 ] || 0
+        after[0] || 0
       )
       .whereRaw(
         `not (${_.snakeCase(orderField)} = ? and id ${_operator('desc')} ?)`,
@@ -51,18 +66,3 @@ module.exports = (k, nav) => {
     orderField
   };
 };
-
-function _isMonoFieldSeek(after) {
-  return _.isArray(after) && after.length === 1;
-}
-
-function _isMultiFieldSeek(after) {
-  return _.isArray(after) && after.length === 2;
-}
-
-function _operator(direction, reverse = false) {
-  if (!reverse) {
-    return direction === 'desc' ? '<=' : '>=';
-  }
-  return direction === 'desc' ? '>=' : '<=';
-}

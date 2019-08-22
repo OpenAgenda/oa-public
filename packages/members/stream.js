@@ -1,12 +1,10 @@
 'use strict';
 
+const { Readable } = require('stream');
 const _ = require('lodash');
 const ih = require('immutability-helper');
-const { Readable } = require('stream');
 
 const list = require('./list');
-
-module.exports = (config, query = {}, nav = {}, options = {}) => new Stream(config, query, nav, options);
 
 class Stream extends Readable {
   constructor(config, query, nav, options) {
@@ -50,3 +48,5 @@ class Stream extends Readable {
     return members;
   }
 }
+
+module.exports = (config, query = {}, nav = {}, options = {}) => new Stream(config, query, nav, options);

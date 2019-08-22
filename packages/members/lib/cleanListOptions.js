@@ -1,9 +1,10 @@
 'use strict';
 
 const schema = require('@openagenda/validators/schema');
+const boolean = require('@openagenda/validators/boolean');
 
 schema.register({
-  boolean: require('@openagenda/validators/boolean')
+  boolean
 });
 
 module.exports = schema({

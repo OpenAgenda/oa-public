@@ -1,12 +1,9 @@
 'use strict';
 
-const _ = require('lodash');
-const should = require('should');
-
-const { fromDB, toDB } = require('../lib/transformDBEntry');
+const { toDB } = require('../lib/transformDBEntry');
 
 describe('members - unit - transformDBEntry', () => {
-  it('toDB', () => {
+  test('toDB', () => {
     const entry = toDB({
       userUid: 12,
       agendaUid: 31,
@@ -20,7 +17,7 @@ describe('members - unit - transformDBEntry', () => {
       }
     });
 
-    entry.should.eql({
+    expect(entry).toEqual({
       agenda_uid: 31,
       user_uid: 12,
       credential: 1,
