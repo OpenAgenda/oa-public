@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/members",
-  "version": "1.12.1",
+  "version": "1.12.2",
   "scripts": {
     "test": "jest --runInBand --testEnvironment=node",
     "lint": "eslint -c .eslintrc '**/*.js'",
