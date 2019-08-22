@@ -15,7 +15,7 @@ import { renderField, renderInput, renderSelect } from '../../utils/form';
         contactNumber: custom.contactNumber,
         contactName: custom.contactName,
         contactPosition: custom.contactPosition,
-        credential: props.member.role
+        role: props.member.role
       },
       roles: state.agenda.roles,
       userCredential: state.member.role
@@ -91,7 +91,7 @@ export default class EditMembersForm extends Component {
         <Field
           label={getLabel( 'role' )}
           component={this.renderSelect}
-          name="credential"
+          name="role"
           type="select"
           classNameGroup="margin-top-md margin-bottom-lg"
           className="form-control"
