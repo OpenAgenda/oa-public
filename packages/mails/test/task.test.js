@@ -87,17 +87,20 @@ describe('task', () => {
     expect(results).toHaveLength(9);
     expect(errors).toHaveLength(0);
 
-    while (true) {
+    const test = async () => {
       if (spy.mock.calls.length === 9) {
-        expect(_.map(spy.mock.calls, '[0].to.address')).toEqual(recipients);
-        expect(Date.now() - start).toBeGreaterThan(
-          (recipients.length - 1) * 300
-        );
-        break;
+        return;
       }
 
       await _sleep(50);
-    }
+
+      return test();
+    };
+
+    await test();
+
+    expect(_.map(spy.mock.calls, '[0].to.address')).toEqual(recipients);
+    expect(Date.now() - start).toBeGreaterThan((recipients.length - 1) * 300);
   });
 
   it("send a mail with an error don't send anything", async () => {

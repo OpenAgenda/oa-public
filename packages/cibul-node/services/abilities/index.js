@@ -47,7 +47,7 @@ module.exports = app => {
   app.get(
     '/abilities/form-index',
     secureMw,
-    abilitiesSvc.middleware.getFormIndex( {
+    abilitiesSvc.middleware.getFormIndex( abilitiesSvc, {
       namespaces: {
         entityName: 'query.entityName',
         identifier: 'query.identifier'
@@ -59,7 +59,7 @@ module.exports = app => {
   app.patch(
     '/abilities/form-index',
     secureMw,
-    abilitiesSvc.middleware.updateFormIndex( {
+    abilitiesSvc.middleware.updateFormIndex( abilitiesSvc, {
       namespaces: {
         entityName: 'query.entityName',
         identifier: 'query.identifier',

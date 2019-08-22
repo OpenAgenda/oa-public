@@ -31,7 +31,7 @@ describe('members - functional - patch', () => {
 
   afterAll(f.destroyClient);
 
-  describe('simple patch', async () => {
+  describe('simple patch', () => {
     let result;
 
     beforeAll(async () => {

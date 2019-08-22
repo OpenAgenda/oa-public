@@ -1,6 +1,6 @@
 'use strict';
 
-const abilities = require( './src/service' );
+const abilities = require('./src/service');
 
 const editableRules = {
   agenda: () => [
@@ -164,46 +164,46 @@ module.exports = {
   },
   interfaces: {
     getEntity: {
-      agenda: uid => ( {
+      agenda: uid => ({
         uid,
         title: "Titre de l'agenda"
-      } ),
-      member: id => ( {
+      }),
+      member: id => ({
         // needs agendaTitle
         id,
         agendaUid: 456789,
         agendaTitle: "Titre de l'agenda",
         crendential: 1,
         userUid: 99999999
-      } ),
-      user: uid => ( {
+      }),
+      user: uid => ({
         uid,
         fullName: 'Bertho'
-      } )
+      })
     },
     listEntities: {
-      agenda: uids => uids.map( uid => ( {
+      agenda: uids => uids.map(uid => ({
         uid,
         title: "Titre de l'agenda"
-      } ) ),
-      member: ids => ids.map( id => ( {
+      })),
+      member: ids => ids.map(id => ({
         // needs all agendaTitle
         id,
         agendaUid: 456789,
         agendaTitle: "Titre de l'agenda",
         crendential: 1,
         userUid: 99999999
-      } ) ),
-      user: uids => uids.map( uid => ( {
+      })),
+      user: uids => uids.map(uid => ({
         uid,
         fullName: 'Bertho'
-      } ) )
+      }))
     },
     defaultFor: {
-      user( { can, cannot, rules } ) {
-        can( 'create', 'event' );
-        can( 'receive', 'activity' );
-        cannot( 'receive', 'activity', { verb: 'spam' } );
+      user({ can, cannot, rules }) {
+        can('create', 'event');
+        can('receive', 'activity');
+        cannot('receive', 'activity', { verb: 'spam' });
 
         return rules;
       }
@@ -213,28 +213,28 @@ module.exports = {
       // user = user
       // member = agenda + user + member
 
-      async agenda( agenda, builder, options = {} ) {
-        const defaultRules = abilities.rules.getDefaultFor( 'agenda' );
-        const agendaRules = options.rules || ( await abilities.rules.list( 'agenda', agenda.uid ) );
+      async agenda(agenda, builder, options = {}) {
+        const defaultRules = abilities.rules.getDefaultFor('agenda');
+        const agendaRules = options.rules || (await abilities.rules.list('agenda', agenda.uid));
 
         return defaultRules
-          .concat( builder.rules ) // the rules defined with can/cannot in this block
-          .concat( agendaRules );
+          .concat(builder.rules) // the rules defined with can/cannot in this block
+          .concat(agendaRules);
       },
-      async user( user, builder, options = {} ) {
-        const defaultRules = abilities.rules.getDefaultFor( 'user' );
-        const userRules = options.rules || ( await abilities.rules.list( 'user', user.uid ) );
+      async user(user, builder, options = {}) {
+        const defaultRules = abilities.rules.getDefaultFor('user');
+        const userRules = options.rules || (await abilities.rules.list('user', user.uid));
 
         return defaultRules
-          .concat( builder.rules ) // the rules defined with can/cannot in this block
-          .concat( userRules );
+          .concat(builder.rules) // the rules defined with can/cannot in this block
+          .concat(userRules);
       },
-      async member( member, builder, options = {} ) {
-        const defaultRules = abilities.rules.getDefaultFor( 'member' );
-        const memberRules = options.rules || ( await abilities.rules.list( 'member', member.id ) );
-        const agendaRules = ( await abilities.get( 'agenda', member.agendaUid ) )
+      async member(member, builder, options = {}) {
+        const defaultRules = abilities.rules.getDefaultFor('member');
+        const memberRules = options.rules || (await abilities.rules.list('member', member.id));
+        const agendaRules = (await abilities.get('agenda', member.agendaUid))
           .rules;
-        const userRules = ( await abilities.get( 'user', member.userUid ) ).rules;
+        const userRules = (await abilities.get('user', member.userUid)).rules;
 
         // if ( isAdmin( user ) {
         //   can( ... );
@@ -243,20 +243,20 @@ module.exports = {
         // }
 
         return agendaRules
-          .concat( userRules )
-          .concat( defaultRules )
-          .concat( builder.rules ) // the rules defined with can/cannot in this block
-          .concat( memberRules );
+          .concat(userRules)
+          .concat(defaultRules)
+          .concat(builder.rules) // the rules defined with can/cannot in this block
+          .concat(memberRules);
       }
     },
     completeFormIndex: {
-      user: async ( ability, options ) => {
+      user: async (ability, options) => {
         // const { entity: user } = ability;
 
         // await membersSvc.user( user.uid ).list( 0, 500 );
         const members = options.entities
           ? options.entities.members
-          : [ { id: 60815, agendaUid: 48959239, userUid: 99999999 } ];
+          : [{ id: 60815, agendaUid: 48959239, userUid: 99999999 }];
         // const agendas = options.entities
         //   ? options.entities.agendas
         //   : [ { uid: 48959239 } ] // await agendasSvc.list( { ids: _.map( members, 'agendaId' ) } );
@@ -264,10 +264,10 @@ module.exports = {
         return {
           user: ability.identifier,
           // agenda: agendas.map( v => v.uid ),
-          member: members.map( v => v.id )
+          member: members.map(v => v.id)
         };
       },
-      agenda: async ability => ( { agenda: ability.identifier } )
+      agenda: async ability => ({ agenda: ability.identifier })
     },
     editableRules
   }

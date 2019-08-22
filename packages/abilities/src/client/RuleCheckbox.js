@@ -4,7 +4,7 @@ import { Field } from 'react-final-form';
 import { defineMessages, FormattedMessage } from 'react-intl';
 import { shouldUpdate, shallowEqual } from 'recompose';
 
-const stateMessages = defineMessages( {
+const stateMessages = defineMessages({
   '-1': {
     id: 'Abilities.RulesCheckbox.states.refused',
     defaultMessage: 'refused'
@@ -21,9 +21,9 @@ const stateMessages = defineMessages( {
     id: 'Abilities.RulesCheckbox.states.published',
     defaultMessage: 'published'
   }
-} );
+});
 
-const ruleMessages = defineMessages( {
+const ruleMessages = defineMessages({
   receiveInvitation: {
     id: 'Abilities.RulesCheckbox.rules.receiveInvitation',
     defaultMessage: 'Receive invitations'
@@ -89,30 +89,30 @@ const ruleMessages = defineMessages( {
     id: 'Abilities.RulesCheckbox.rules.receiveMyEventAddition',
     defaultMessage: 'Receive notifications when someone add my events'
   }
-} );
+});
 
 const RuleLabel = shouldUpdate(
-  ( props, nextProps ) => !shallowEqual( props.rule, nextProps.rule )
-)( ( { rule } ) => {
+  (props, nextProps) => !shallowEqual(props.rule, nextProps.rule)
+)(({ rule }) => {
   const values = {};
 
-  if ( rule.actions === 'receive' && rule.subject === 'eventChangeState' ) {
+  if (rule.actions === 'receive' && rule.subject === 'eventChangeState') {
     values.state = (
-      <FormattedMessage {...stateMessages[ rule.conditions.state ]} />
+      <FormattedMessage {...stateMessages[rule.conditions.state]} />
     );
   }
 
-  const messageKey = `${rule.actions}${_.upperFirst( rule.subject )}`;
+  const messageKey = `${rule.actions}${_.upperFirst(rule.subject)}`;
 
-  if ( !ruleMessages[ messageKey ] ) {
+  if (!ruleMessages[messageKey]) {
     return messageKey;
   }
 
-  return <FormattedMessage {...ruleMessages[ messageKey ]} values={values} />;
-} );
+  return <FormattedMessage {...ruleMessages[messageKey]} values={values} />;
+});
 
 export default class RuleCheckbox extends PureComponent {
-  renderField = ( { input, meta } ) => {
+  renderField = ({ input, meta }) => {
     const { rule } = this.props;
 
     return (
@@ -122,7 +122,7 @@ export default class RuleCheckbox extends PureComponent {
             type="checkbox"
             id={rule.key}
             ref={ref => {
-              if ( ref ) {
+              if (ref) {
                 ref.indeterminate = meta.data.indeterminate;
               }
             }}

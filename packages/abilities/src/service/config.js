@@ -5,10 +5,10 @@ import logs from '@openagenda/logs';
 
 const config = {};
 
-function getKnexConfig( c ) {
+function getKnexConfig(c) {
   let knexConfig;
 
-  if ( c.knex ) {
+  if (c.knex) {
     knexConfig = {
       ...c.knex.client.config,
       pool: c.knex.client.pool,
@@ -25,40 +25,40 @@ function getKnexConfig( c ) {
     };
   }
 
-  if ( c.migrations ) {
+  if (c.migrations) {
     knexConfig.migrations = {
-      ...( c.knex ? c.knex.client.config.migrations : {} ),
+      ...(c.knex ? c.knex.client.config.migrations : {}),
       ...c.migrations,
-      directory: path.join( __dirname, '..', '..', 'migrations' )
+      directory: path.join(__dirname, '..', '..', 'migrations')
     };
   }
 
   return knexConfig;
 }
 
-export function init( c = {} ) {
-  if ( c.logger ) {
-    logs.setModuleConfig( c.logger );
+export function init(c = {}) {
+  if (c.logger) {
+    logs.setModuleConfig(c.logger);
   }
 
-  config.knex = knexLib( getKnexConfig( c ) );
+  config.knex = knexLib(getKnexConfig(c));
 
   _.extend(
     config,
-    _.pick( c, [ 'mysql', 'schemas', 'migrations', 'interfaces', 'entityMapping' ] )
+    _.pick(c, ['mysql', 'schemas', 'migrations', 'interfaces', 'entityMapping'])
   );
 }
 
-export function migrate( options ) {
-  return config.knex.migrate.latest( {
-    directory: path.join( __dirname, '..', '..', 'migrations' ),
+export function migrate(options) {
+  return config.knex.migrate.latest({
+    directory: path.join(__dirname, '..', '..', 'migrations'),
     ...options
-  } );
+  });
 }
 
-export function seed( options ) {
+export function seed(options) {
   const directory = typeof options === 'string'
-    ? path.join( __dirname, '..', '..', 'seeds', options )
+    ? path.join(__dirname, '..', '..', 'seeds', options)
     : path.join(
       __dirname,
       '..',
@@ -67,17 +67,17 @@ export function seed( options ) {
       options && options.scenarioName ? options.scenarioName : ''
     );
 
-  return config.knex.seed.run( {
+  return config.knex.seed.run({
     directory,
     ...options
-  } );
+  });
 }
 
-_.extend( config, {
+_.extend(config, {
   init,
   migrate,
   seed,
   getConfig: () => config
-} );
+});
 
 export default config;
