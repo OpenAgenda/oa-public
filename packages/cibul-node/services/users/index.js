@@ -1,68 +1,72 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const { iff, isProvider, disallow } = require( 'feathers-hooks-common' );
-const update = require( 'immutability-helper' );
-const express = require( '@feathersjs/express' );
-const errors = require( '@feathersjs/errors' );
-const Users = require( '@openagenda/users' );
-const keys = require( '@openagenda/keys' );
-const agendas = require( '@openagenda/agendas' );
-const sessions = require( '@openagenda/sessions' );
-const mails = require( '@openagenda/mails' );
-const imageUploadMw = require( '@openagenda/image-upload/lib/middleware' );
-const labels = require( '@openagenda/labels/users/settings' );
-const getLabels = require( '@openagenda/labels/makeLabelGetter' )( labels );
-const beforeCreate = require( './beforeCreate' );
-const beforeRemove = require( './beforeRemove' );
-const onCreate = require( './onCreate' );
-const onGenerateApiKey = require( './onGenerateApiKey' );
-const onActivation = require( './onActivation' );
-const sendToken = require( './sendToken' );
-const config = require( '../../config' );
+const _ = require('lodash');
+const Proto = require('uberproto');
+const { iff, isProvider, disallow } = require('feathers-hooks-common');
+const update = require('immutability-helper');
+const feathers = require('@feathersjs/feathers');
+const express = require('@feathersjs/express');
+const errors = require('@feathersjs/errors');
+const Users = require('@openagenda/users');
+const keys = require('@openagenda/keys');
+const agendas = require('@openagenda/agendas');
+const sessions = require('@openagenda/sessions');
+const mails = require('@openagenda/mails');
+const imageUploadMw = require('@openagenda/image-upload/lib/middleware');
+const labels = require('@openagenda/labels/users/settings');
+const getLabels = require('@openagenda/labels/makeLabelGetter')(labels);
+const beforeCreate = require('./beforeCreate');
+const beforeRemove = require('./beforeRemove');
+const onCreate = require('./onCreate');
+const onGenerateApiKey = require('./onGenerateApiKey');
+const onActivation = require('./onActivation');
+const sendToken = require('./sendToken');
+const config = require('../../config');
+
+const service = Object.create(Users.prototype);
 
 function restrictToCurrentUser() {
   return context => {
-    if ( !context.params.user ) {
-      throw new errors.NotAuthenticated( 'You are not authenticated.' );
+    if (!context.params.user) {
+      throw new errors.NotAuthenticated('You are not authenticated.');
     }
 
-    if ( context.params.user.uid === undefined ) {
-      throw new errors.Forbidden( 'uid is missing from current user.' );
+    if (context.params.user.uid === undefined) {
+      throw new errors.Forbidden('uid is missing from current user.');
     }
 
-    if ( context.params.user.uid !== context.id ) {
-      throw new errors.Forbidden( 'You do not have the permissions to access this.' );
+    if (context.params.user.uid !== context.id) {
+      throw new errors.Forbidden('You do not have the permissions to access this.');
     }
   };
 }
 
 function restrictToUnlogged() {
   return context => {
-    if ( context.params.user ) {
-      throw new errors.Forbidden( `You must not be logged in.` );
+    if (context.params.user) {
+      throw new errors.Forbidden(`You must not be logged in.`);
     }
   };
 }
 
 const restrictToCurrentUserIfExternal = [
   iff(
-    isProvider( 'external' ),
+    isProvider('external'),
     restrictToCurrentUser(),
   )
 ];
 
-const hooks = update( Users.hooks, {
+const hooks = update(Users.hooks, {
   before: {
     all: {
       $unshift: [
         context => {
-          if ( context.id !== 'me' ) {
+          if (context.id !== 'me') {
             return;
           }
 
-          if ( !context.params.user || !context.params.user.uid ) {
-            throw new errors.NotAuthenticated( 'You should be logged' );
+          if (!context.params.user || !context.params.user.uid) {
+            throw new errors.NotAuthenticated('You should be logged');
           }
 
           context.id = context.params.user.uid;
@@ -72,7 +76,7 @@ const hooks = update( Users.hooks, {
     create: {
       $unshift: [
         iff(
-          isProvider( 'external' ),
+          isProvider('external'),
           restrictToUnlogged()
         )
       ]
@@ -82,7 +86,7 @@ const hooks = update( Users.hooks, {
     },
     find: {
       $unshift: [
-        disallow( 'external' )
+        disallow('external')
       ]
     },
     update: {
@@ -119,22 +123,24 @@ const hooks = update( Users.hooks, {
       $unshift: restrictToCurrentUserIfExternal
     },
   }
-} );
+});
 
-module.exports = app => {
-  app.use( '/users', ( req, res, next ) => {
+module.exports = service;
+
+module.exports.expose = app => {
+  app.use('/users', (req, res, next) => {
     req.feathers.user = req.user;
     req.feathers.authenticated = req.authenticated = !!req.user;
 
     next();
-  } );
+  });
 
-  app.post( '/users/:__feathersId/setImageProfile', ( req, res, next ) => {
-    imageUploadMw( {
+  app.post('/users/:__feathersId/setImageProfile', (req, res, next) => {
+    imageUploadMw({
       dest: config.tmpFolderPath,
-      handler: async ( path, info, cb ) => {
+      handler: async (path, info, cb) => {
         try {
-          const result = await app.service( '/users' ).setImageProfile(
+          const result = await app.service('/users').setImageProfile(
             req.params.__feathersId,
             { path },
             {
@@ -146,15 +152,95 @@ module.exports = app => {
 
           res.data = result;
 
-          cb( null, result.uploadedPaths[ 0 ] );
-        } catch ( e ) {
-          next( e );
+          cb(null, result.uploadedPaths[0]);
+        } catch (e) {
+          next(e);
         }
       }
-    } )( req, res, next );
-  } );
+    })(req, res, next);
+  });
 
-  app.use( '/users', new Users( {
+  app.use('/users', service);
+
+  // update session after a user patch
+  app.patch(
+    '/users/:__feathersId',
+    sessions.middleware.open('user', 'sessionResult'),
+    (req, res, next) => {
+      if (!res.data) {
+        return next();
+      }
+
+      sessions.middleware.sync('syncResult')(req, res, next);
+    }
+  );
+
+  // send confirmation email after requestChangeEmail
+  app.patch(
+    '/users/:__feathersId/requestChangeEmail',
+    (req, res, next) => {
+      if (res.data) {
+        app.service('/users').get(res.data.uid, { internal: true })
+          .then(user => {
+            const email = user.store && user.store.newEmail;
+            const token = user.store && user.store.newEmailToken;
+
+            if (!token) {
+              return next();
+            }
+
+            const link = `${config.root}/users/${user.uid}/confirmChangeEmail?token=${token}`;
+
+            sendEmailForChange({
+              user,
+              email,
+              link,
+              lang: req.lang
+            });
+
+            next();
+
+          })
+          .catch(next);
+      }
+    }
+  );
+
+  // set flash message after confirm change of email
+  app.get(
+    '/users/:__feathersId/confirmChangeEmail',
+    (req, res, next) => {
+      if (res.data) {
+        sessions.setFlash(
+          req,
+          res,
+          getLabels(res.data ? 'changeEmailSuccess' : 'changeEmailFail', req.lang)
+        );
+
+        return res.redirect('/home');
+      }
+
+      next();
+    }
+  );
+
+  // set flash & redirect message after account deletion
+  app.delete(
+    '/users/:__feathersId',
+    (req, res, next) => {
+      if (res.data) {
+        sessions.setFlash(req, res, getLabels('accountRemoved', req.lang));
+      }
+
+      next();
+    }
+  );
+
+  app.use('/users', express.errorHandler({ html: false }));
+};
+
+module.exports.init = config => {
+  const instance = new Users({
     Model: config.knex,
     name: config.schemas.user,
     paginate: {
@@ -162,10 +248,10 @@ module.exports = app => {
       max: 100
     },
     multi: true,
-    schemas: _.pick( config.schemas, [
+    schemas: _.pick(config.schemas, [
       // explicit list schemas used by service
       'user', 'apiKeySet', 'unsubscribed', 'key', 'userToken'
-    ] ),
+    ]),
     imagePath: config.aws.imageBucketPath,
     files: {
       bucket: config.aws.bucket,
@@ -179,107 +265,36 @@ module.exports = app => {
       onCreate,
       onGenerateApiKey,
       onActivation,
-      sendToken: sendToken.bind( null, config ),
-      getAgenda: ( agendaUid, cb ) => agendas.get( { uid: agendaUid }, cb ),
+      sendToken: sendToken.bind(null, config),
+      getAgenda: (agendaUid, cb) => agendas.get({ uid: agendaUid }, cb),
       keys: {
-        get: identifiers => keys( identifiers ).get(),
-        create: ( identifiers, data ) => keys( identifiers ).create( data ),
-        remove: identifiers => keys( identifiers ).remove()
+        get: identifiers => keys(identifiers).get(),
+        create: (identifiers, data) => keys(identifiers).create(data),
+        remove: identifiers => keys(identifiers).remove()
       }
     },
-    logger: config.getLogConfig( 'svc', 'users', false )
-  } ) );
+    logger: config.getLogConfig('svc', 'users', false)
+  });
 
-  const service = app.service( '/users' );
+  const subApp = feathers()
+    .use( '/', instance )
+    .setup();
 
-  service.hooks( hooks );
+  const svc = subApp
+    .service('/')
+    .hooks(hooks);
 
-  // update session after a user patch
-  app.patch(
-    '/users/:__feathersId',
-    sessions.middleware.open( 'user', 'sessionResult' ),
-    ( req, res, next ) => {
-      if ( !res.data ) {
-        return next();
-      }
-
-      sessions.middleware.sync( 'syncResult' )( req, res, next );
-    }
-  );
-
-  // send confirmation email after requestChangeEmail
-  app.patch(
-    '/users/:__feathersId/requestChangeEmail',
-    ( req, res, next ) => {
-      if ( res.data ) {
-        app.service( '/users' ).get( res.data.uid, { internal: true } )
-          .then( user => {
-            const email = user.store && user.store.newEmail;
-            const token = user.store && user.store.newEmailToken;
-
-            if ( !token ) {
-              return next();
-            }
-
-            const link = `${config.root}/users/${user.uid}/confirmChangeEmail?token=${token}`;
-
-            sendEmailForChange( {
-              user,
-              email,
-              link,
-              lang: req.lang
-            } );
-
-            next();
-
-          } )
-          .catch( next );
-      }
-    }
-  );
-
-  // set flash message after confirm change of email
-  app.get(
-    '/users/:__feathersId/confirmChangeEmail',
-    ( req, res, next ) => {
-      if ( res.data ) {
-        sessions.setFlash(
-          req,
-          res,
-          getLabels( res.data ? 'changeEmailSuccess' : 'changeEmailFail', req.lang )
-        );
-
-        return res.redirect( '/home' );
-      }
-
-      next();
-    }
-  );
-
-  // set flash & redirect message after account deletion
-  app.delete(
-    '/users/:__feathersId',
-    ( req, res, next ) => {
-      if ( res.data ) {
-        sessions.setFlash( req, res, getLabels( 'accountRemoved', req.lang ) );
-      }
-
-      next();
-    }
-  );
-
-  app.use( '/users', express.errorHandler( { html: false } ) );
+  Proto.mixin(svc, service);
 };
 
-module.exports.initless = true;
 
-function sendEmailForChange( { user, email, link, lang } ) {
-  mails( {
+function sendEmailForChange({ user, email, link, lang }) {
+  mails({
     template: 'changeEmail',
     to: email,
     data: {
       link
     },
     lang
-  } );
+  });
 }

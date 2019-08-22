@@ -5,7 +5,7 @@ const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const agendas = require( '@openagenda/agendas' );
 const invitations = require( '@openagenda/invitations' );
 const { Inbox } = require( '@openagenda/inboxes' );
-const app = require( '../../app' );
+const usersSvc = require( '../users' );
 const activities = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
 const sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' );
@@ -14,8 +14,6 @@ const setMemberUidAndSlugRefs = require( './lib/setMemberUidAndSlugRefs' );
 let log = console.log;
 
 module.exports = function ( stakeholder, context ) {
-
-  const usersSvc = app.service( '/users' );
 
   log( 'processing invitation for member %j', stakeholder );
 

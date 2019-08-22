@@ -2,7 +2,7 @@
 
 module.exports = app => {
 
-  require( './services/users' )( app );
+  require( './services/users' ).expose( app );
   require( './event/search.front' )( app );
   require( './agenda/back' )( app );
   require( './inboxes/endpoints' )( app );

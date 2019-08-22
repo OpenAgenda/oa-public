@@ -1,13 +1,13 @@
 "use strict";
 
 const { callbackify } = require( 'util' );
-const app = require( '../../app' );
+const usersSvc = require( '../../services/users' );
 
 let log = console.log;
 
 module.exports = ( identifiers, cb ) => {
 
-  callbackify( app.service( '/users' ).findOne )( {
+  callbackify( usersSvc.findOne ).call( usersSvc, {
     query: identifiers
   }, cb )
 

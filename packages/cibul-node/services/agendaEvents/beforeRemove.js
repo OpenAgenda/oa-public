@@ -2,14 +2,12 @@
 
 const VError = require( 'verror' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/beforeRemove' );
-const app = require( '../../app' );
+const usersSvc = require( '../users' );
 const activitiesSvc = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 
 module.exports = async ( ae, context ) => {
-
-  const usersSvc = app.service( '/users' );
 
   log( 'will remove agenda-event %j', ae, { context } );
 
