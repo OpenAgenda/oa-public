@@ -1,49 +1,11 @@
 {
   "extends": [
-    "airbnb",
-    "plugin:jest/recommended"
+    "@openagenda"
   ],
-  "env": {
-    "node": true
-  },
   "parserOptions": {
     "sourceType": "script"
   },
   "rules": {
-    "strict": [
-      "error",
-      "safe"
-    ],
-    "no-param-reassign": "off",
-    "no-underscore-dangle": "off",
-    "no-restricted-syntax": "off",
-    "no-continue": "off",
-    "no-await-in-loop": "off",
-    "consistent-return": "off",
-    "space-in-parens": [
-      "error",
-      "always"
-    ],
-    "max-len": [
-      "warn",
-      120
-    ],
-    "arrow-parens": [
-      "error",
-      "as-needed"
-    ],
-    "comma-dangle": [
-      "error",
-      "only-multiline"
-    ],
-    "computed-property-spacing": [
-      "error",
-      "always"
-    ],
-    "array-bracket-spacing": [
-      "error",
-      "always"
-    ],
     "import/no-extraneous-dependencies": [
       "error",
       {

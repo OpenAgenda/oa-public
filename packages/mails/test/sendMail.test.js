@@ -1,16 +1,16 @@
 'use strict';
 
-const path = require( 'path' );
-const _ = require( 'lodash' );
-const nodemailer = require( 'nodemailer' );
-const mails = require( '../index' );
-const config = require( '../config' );
-const makeLabelGetter = require( '../utils/makeLabelGetter' );
+const path = require('path');
+const _ = require('lodash');
+const nodemailer = require('nodemailer');
+const mails = require('../index');
+const config = require('../config');
+const makeLabelGetter = require('../utils/makeLabelGetter');
 
-const templatesDir = path.join( __dirname, '..', 'templates' );
+const templatesDir = path.join(__dirname, '..', 'templates');
 
 let account;
-const getEtherealTransport = () => ( {
+const getEtherealTransport = () => ({
   host: 'smtp.ethereal.email',
   port: 587,
   secure: false, // true for 465, false for other ports
@@ -18,18 +18,18 @@ const getEtherealTransport = () => ( {
     user: account.user, // generated ethereal user
     pass: account.pass // generated ethereal password
   }
-} );
+});
 
-beforeAll( async () => {
+beforeAll(async () => {
   account = await nodemailer.createTestAccount();
-} );
+});
 
-describe( 'sendMail', () => {
-  jest.setTimeout( 30000 );
+describe('sendMail', () => {
+  jest.setTimeout(30000);
 
-  describe( 'JSON transport', () => {
-    beforeAll( async () => {
-      await config.init( {
+  describe('JSON transport', () => {
+    beforeAll(async () => {
+      await config.init({
         templatesDir,
         transport: {
           jsonTransport: true
@@ -39,54 +39,63 @@ describe( 'sendMail', () => {
             domain: 'https://openagenda.com'
           }
         }
-      } );
-    } );
+      });
+    });
 
-    it( 'send email - helloWorld template', async () => {
-      const { results, errors } = await mails( {
+    it('send email - helloWorld template', async () => {
+      const { results, errors } = await mails({
         template: 'helloWorld',
         data: {
           username: 'bertho'
         },
         to: [
           'kevin.bertho@gmail.com, kevin.berthommier@openagenda.com',
-          { address: '"Kaoré" <kaore@openagenda.com>', data: { username: 'kaore' } }
+          {
+            address: '"Kaoré" <kaore@openagenda.com>',
+            data: { username: 'kaore' }
+          }
         ],
         queue: false
-      } );
+      });
 
-      expect( results ).toHaveLength( 3 );
-      expect( errors ).toHaveLength( 0 );
+      expect(results).toHaveLength(3);
+      expect(errors).toHaveLength(0);
 
       expect(
-        results.map( v => _.omit( JSON.parse( v.message ), 'envelopeTime', 'messageId', 'messageTime', 'response' ) )
+        results.map(v => _.omit(
+          JSON.parse(v.message),
+          'envelopeTime',
+          'messageId',
+          'messageTime',
+          'response'
+        ))
       ).toMatchSnapshot();
-    } );
+    });
 
-    it( 'send a mail to an invalid email returns with errors', async () => {
-      const { errors } = await mails( {
+    it('send a mail to an invalid email returns with errors', async () => {
+      const { errors } = await mails({
         template: 'helloWorld',
         data: {
           username: 'bertho'
         },
         to: 'kevin.bertho@@gmail',
         queue: false
-      } );
+      });
 
-      expect( errors ).toMatchSnapshot();
-    } );
+      expect(errors).toMatchSnapshot();
+    });
 
-    it( "send a mail with an error don't send anything", async () => {
-      const { errors } = await mails( {
+    it("send a mail with an error don't send anything", async () => {
+      const { errors } = await mails({
         template: 'helloWorld',
         to: 'kevin.bertho@@gmail'
-      } );
+      });
 
-      expect( errors ).toMatchSnapshot();
-    } );
+      expect(errors).toMatchSnapshot();
+    });
 
-    it( 'sendMail can not override the defaults', async () => {
-      const { results } = await mails( {
+    it('sendMail can not override the defaults', async () => {
+      const { results } = await mails({
         template: 'helloWorld',
         data: {
           domain: 'https://google.com',
@@ -99,25 +108,25 @@ describe( 'sendMail', () => {
           }
         },
         queue: false
-      } );
+      });
 
-      const message = JSON.parse( results[ 0 ].message );
+      const message = JSON.parse(results[0].message);
 
-      expect( message.data.domain ).toBe( 'https://openagenda.com' );
-    } );
+      expect(message.data.domain).toBe('https://openagenda.com');
+    });
 
-    it( 'sendMail with a missing template throw an error', () => expect(
-      mails( {
+    it('sendMail with a missing template throw an error', () => expect(
+      mails({
         template: 'unknow',
         to: 'kevin.bertho@gmail.com',
         queue: false
-      } )
-    ).rejects.toThrow( "Email template 'unknow' does not exist" ) );
-  } );
+      })
+    ).rejects.toThrow("Email template 'unknow' does not exist"));
+  });
 
-  describe( 'Euthreal transport', () => {
-    beforeAll( async () => {
-      await config.init( {
+  describe('Euthreal transport', () => {
+    beforeAll(async () => {
+      await config.init({
         templatesDir,
         transport: getEtherealTransport(),
         defaults: {
@@ -126,11 +135,11 @@ describe( 'sendMail', () => {
             domain: 'https://openagenda.com'
           }
         }
-      } );
-    } );
+      });
+    });
 
-    it( 'send email directly (without queue) - helloWorld template', async () => {
-      const { results, errors } = await mails( {
+    it('send email directly (without queue) - helloWorld template', async () => {
+      const { results, errors } = await mails({
         template: 'helloWorld',
         data: {
           username: 'Bertho'
@@ -140,22 +149,24 @@ describe( 'sendMail', () => {
           { address: 'kaore@openagenda.com', data: { username: 'Kaore' } }
         ],
         queue: false
-      } );
+      });
 
-      expect( errors ).toHaveLength( 0 );
+      expect(errors).toHaveLength(0);
 
-      for ( const result of results ) {
-        console.log( `Preview URL: ${nodemailer.getTestMessageUrl( result )}` );
-        expect( result.response ).toContain( '250' );
+      for (const result of results) {
+        console.log(`Preview URL: ${nodemailer.getTestMessageUrl(result)}`);
+        expect(result.response).toContain('250');
       }
 
-      expect( results.map( v => _.omit( v, 'envelopeTime', 'messageId', 'messageTime', 'response' ) ) ).toMatchSnapshot();
-    } );
+      expect(
+        results.map(v => _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response'))
+      ).toMatchSnapshot();
+    });
 
-    it( 'override default "from" value', async () => {
+    it('override default "from" value', async () => {
       const from = 'admin@openagenda.com';
 
-      const { results, errors } = await mails( {
+      const { results, errors } = await mails({
         template: 'helloWorld',
         from,
         to: [
@@ -166,24 +177,26 @@ describe( 'sendMail', () => {
           }
         ],
         queue: false
-      } );
+      });
 
-      expect( errors ).toHaveLength( 0 );
+      expect(errors).toHaveLength(0);
 
-      for ( const result of results ) {
-        console.log( `Preview URL: ${nodemailer.getTestMessageUrl( result )}` );
-        expect( result.response ).toContain( '250' );
+      for (const result of results) {
+        console.log(`Preview URL: ${nodemailer.getTestMessageUrl(result)}`);
+        expect(result.response).toContain('250');
       }
 
-      expect( results[ 0 ].envelope.from ).toBe( from );
+      expect(results[0].envelope.from).toBe(from);
 
-      expect( results.map( v => _.omit( v, 'envelopeTime', 'messageId', 'messageTime', 'response' ) ) ).toMatchSnapshot();
-    } );
-  } );
+      expect(
+        results.map(v => _.omit(v, 'envelopeTime', 'messageId', 'messageTime', 'response'))
+      ).toMatchSnapshot();
+    });
+  });
 
-  describe( 'translations', () => {
-    it( 'take a default lang', async () => {
-      await config.init( {
+  describe('translations', () => {
+    it('take a default lang', async () => {
+      await config.init({
         templatesDir,
         transport: {
           jsonTransport: true
@@ -209,30 +222,30 @@ describe( 'sendMail', () => {
           },
           makeLabelGetter
         }
-      } );
+      });
 
-      const { results, errors } = await mails( {
+      const { results, errors } = await mails({
         template: 'helloWorld-i18n',
         to: {
           address: 'kevin.bertho@gmail.com',
           data: { username: 'bertho' }
         },
         queue: false
-      } );
+      });
 
-      expect( errors ).toHaveLength( 0 );
-      expect( results ).toHaveLength( 1 );
+      expect(errors).toHaveLength(0);
+      expect(results).toHaveLength(1);
 
       expect(
-        results.map( v => {
-          v.message = JSON.parse( v.message );
-          return _.omit( v, 'messageId', 'message.messageId' );
-        } )
+        results.map(v => {
+          v.message = JSON.parse(v.message);
+          return _.omit(v, 'messageId', 'message.messageId');
+        })
       ).toMatchSnapshot();
-    } );
+    });
 
-    it( 'choose a lang per recipient', async () => {
-      await config.init( {
+    it('choose a lang per recipient', async () => {
+      await config.init({
         templatesDir,
         transport: {
           jsonTransport: true
@@ -258,9 +271,9 @@ describe( 'sendMail', () => {
           },
           makeLabelGetter
         }
-      } );
+      });
 
-      const { results, errors } = await mails( {
+      const { results, errors } = await mails({
         template: 'helloWorld-i18n',
         to: {
           address: 'kevin.bertho@gmail.com',
@@ -268,17 +281,17 @@ describe( 'sendMail', () => {
           lang: 'fr'
         },
         queue: false
-      } );
+      });
 
-      expect( errors ).toHaveLength( 0 );
-      expect( results ).toHaveLength( 1 );
+      expect(errors).toHaveLength(0);
+      expect(results).toHaveLength(1);
 
       expect(
-        results.map( v => {
-          v.message = JSON.parse( v.message );
-          return _.omit( v, 'messageId', 'message.messageId' );
-        } )
+        results.map(v => {
+          v.message = JSON.parse(v.message);
+          return _.omit(v, 'messageId', 'message.messageId');
+        })
       ).toMatchSnapshot();
-    } );
-  } );
-} );
+    });
+  });
+});

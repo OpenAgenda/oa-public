@@ -1,26 +1,26 @@
 'use strict';
 
-const path = require( 'path' );
-const _ = require( 'lodash' );
-const nodemailer = require( 'nodemailer' );
-const redis = require( 'redis' );
-const queuesLib = require( '@openagenda/queues' );
-const mails = require( '../index' );
-const config = require( '../config' );
+const path = require('path');
+const _ = require('lodash');
+const nodemailer = require('nodemailer');
+const redis = require('redis');
+const Queues = require('@openagenda/queues');
+const mails = require('../index');
+const config = require('../config');
 
-const templatesDir = path.join( __dirname, '..', 'templates' );
+const templatesDir = path.join(__dirname, '..', 'templates');
 
-function _sleep( ms ) {
-  return new Promise( resolve => setTimeout( resolve, ms ) );
+function _sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-describe( 'task', () => {
-  jest.setTimeout( 30000 );
+describe('task', () => {
+  jest.setTimeout(30000);
 
-  beforeAll( async () => {
+  beforeAll(async () => {
     const account = await nodemailer.createTestAccount();
 
-    await config.init( {
+    await config.init({
       templatesDir,
       transport: {
         pool: true,
@@ -42,25 +42,25 @@ describe( 'task', () => {
           domain: 'https://openagenda.com'
         }
       },
-      queueName: 'mailsTest-task',
-      queue: queuesLib.v2( {
-        redis: redis.createClient( config.redis ),
+      Queues: Queues.v2({
+        redis: redis.createClient(config.redis),
         prefix: 'mails:'
-      } )
-    } );
+      }),
+      queueName: 'mailsTest-task'
+    });
 
     await config.queues.prepareMails.clear();
     await config.queues.sendMails.clear();
 
     mails.task();
-  } );
+  });
 
-  beforeEach( () => {
+  beforeEach(() => {
     jest.resetAllMocks();
     jest.restoreAllMocks();
-  } );
+  });
 
-  it( 'respect rateLimit with pool transporter', async () => {
+  it('respect rateLimit with pool transporter', async () => {
     const recipients = [
       'kevin.bertho@gmail.com',
       'kevin.berthommier@openagenda.com',
@@ -74,40 +74,42 @@ describe( 'task', () => {
     ];
 
     const start = Date.now();
-    const spy = jest.spyOn( config.transporter, 'sendMail' );
+    const spy = jest.spyOn(config.transporter, 'sendMail');
 
-    const { results, errors } = await mails( {
+    const { results, errors } = await mails({
       template: 'helloWorld',
       data: {
         username: 'unknown'
       },
       to: recipients
-    } );
+    });
 
-    expect( results ).toHaveLength( 9 );
-    expect( errors ).toHaveLength( 0 );
+    expect(results).toHaveLength(9);
+    expect(errors).toHaveLength(0);
 
-    while ( true ) {
-      if ( spy.mock.calls.length === 9 ) {
-        expect( _.map( spy.mock.calls, '[0].to.address' ) ).toEqual( recipients );
-        expect( Date.now() - start ).toBeGreaterThan( ( recipients.length - 1 ) * 300 );
+    while (true) {
+      if (spy.mock.calls.length === 9) {
+        expect(_.map(spy.mock.calls, '[0].to.address')).toEqual(recipients);
+        expect(Date.now() - start).toBeGreaterThan(
+          (recipients.length - 1) * 300
+        );
         break;
       }
 
-      await _sleep( 50 );
+      await _sleep(50);
     }
-  } );
+  });
 
-  it( "send a mail with an error don't send anything", async () => {
-    const spy = jest.spyOn( config.transporter, 'sendMail' );
+  it("send a mail with an error don't send anything", async () => {
+    const spy = jest.spyOn(config.transporter, 'sendMail');
 
-    const { results, errors } = await mails( {
+    const { results, errors } = await mails({
       template: 'helloWorld',
       to: 'kevin.bertho@@gmail'
-    } );
+    });
 
-    expect( spy.mock.calls ).toHaveLength( 0 );
-    expect( results ).toHaveLength( 0 );
-    expect( errors ).toHaveLength( 1 );
-  } );
-} );
+    expect(spy.mock.calls).toHaveLength(0);
+    expect(results).toHaveLength(0);
+    expect(errors).toHaveLength(1);
+  });
+});
