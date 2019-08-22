@@ -39,11 +39,15 @@ describe( '02 - unit - DST', () => {
       DST.dayOffset( new Date( '2019-10-28T02:00:00+0200' ) ).should.equal( 0 );
     } );
 
+    it( 'Early next day offset is 0', () => {
+      DST.dayOffset( new Date( '2019-10-28T01:00:00+0200' ) ).should.equal( 0 );
+    } );
+
   } );
 
   describe( 'applyOffset', () => {
 
-    it( 'apply offset should work for dates going over to next day before offset', () => {
+    it( 'apply offset should work for dates going over to next day before offset but not after', () => {
 
       const d = new Date( '2019-03-31T23:00:00.000Z' );
 

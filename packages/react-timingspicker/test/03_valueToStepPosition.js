@@ -9,7 +9,7 @@ describe( '03 - unit - valueToStepPosition', () => {
     selectableStep: 1800
   };
 
-  it( 'DST', () => {
+  it( 'DST early morning of next day', () => {
 
     const result = valueToStepPosition( props, {
       begin: new Date( '2019-10-28T01:00:00.000Z' ),

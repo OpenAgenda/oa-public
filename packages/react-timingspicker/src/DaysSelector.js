@@ -388,6 +388,7 @@ class DaysSelector extends Component {
       top: valueStepPosition.begin.top + diff.top,
       left: valueStepPosition.begin.left + diff.left
     };
+
     const newPositionStart = dateFns.addDays(
       dateFns.addSeconds( valueToMove.begin, (valueStepPosition.steps + diff.top - 1) * selectableStep ),
       diff.left

@@ -4,7 +4,6 @@ export default {
   dayOffset,
   hasSwitched,
   isObserved,
-  isSwitchObserved,
   offsetTop,
   applyOffset
 }
@@ -14,7 +13,7 @@ function applyOffset( ref, d ) {
 
   if ( !hasSwitched( ref, d ) ) return;
 
-  d.setHours( d.getHours() + dayOffset( d ) );
+  d.setHours( d.getHours() + dayOffset( d, true ) );
 }
 
 function offsetTop( { step, cellHeight }, d, top ) {
@@ -31,7 +30,7 @@ function offsetTop( { step, cellHeight }, d, top ) {
   return top - offset;
 }
 
-function dayOffset( d ) {
+function dayOffset( d, preventNextDayOverlap = false ) {
 
   const ref = new Date( d );
 
@@ -39,7 +38,7 @@ function dayOffset( d ) {
   // the next day, it will not be offsetted even if
   // should have been. In grid and local time, it sits
   // in the same day.
-  if ( ref.getUTCHours() >= 22 ) {
+  if ( preventNextDayOverlap && ref.getUTCHours() >= 22 ) {
     ref.setHours( ref.getHours() - 2 );
   }
 
@@ -59,17 +58,6 @@ function dayOffset( d ) {
 function hasSwitched( d1, d2 ) {
   return isObserved( d1 ) !== isObserved( d2 );
 }
-
-function isSwitchObserved( d ) {
-  const dayStart = new Date( d );
-  const dayFinish = new Date( d );
-
-  dayStart.setHours( 0 );
-  dayFinish.setHours( 24 );
-
-  return isObserved( dayStart ) !== isObserved( dayFinish );
-}
-
 
 function isObserved( d ) {
   const jan = new Date(d.getFullYear(), 0, 1);
