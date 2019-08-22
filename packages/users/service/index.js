@@ -45,31 +45,20 @@ class Users extends Service {
     };
 
     // expose methods with express
-    this.setImageProfile = httpMethod('POST', ':__feathersId/setImageProfile')(
-      this.setImageProfile
+    httpMethod('POST', ':__feathersId/setImageProfile')(this.setImageProfile);
+    httpMethod('POST', ':__feathersId/clearImageProfile')(
+      this.clearImageProfile
     );
-    this.clearImageProfile = httpMethod(
-      'POST',
-      ':__feathersId/clearImageProfile'
-    )(this.clearImageProfile);
-    this.requestChangeEmail = httpMethod(
-      'PATCH',
-      ':__feathersId/requestChangeEmail'
-    )(this.requestChangeEmail);
-    this.confirmChangeEmail = httpMethod(
-      'GET',
-      ':__feathersId/confirmChangeEmail'
-    )(this.confirmChangeEmail);
-    this.changePassword = httpMethod('PATCH', ':__feathersId/changePassword')(
-      this.changePassword
+    httpMethod('PATCH', ':__feathersId/requestChangeEmail')(
+      this.requestChangeEmail
     );
-    this.generateApiKey = httpMethod('GET', ':__feathersId/generateApiKey')(
-      this.generateApiKey
+    httpMethod('GET', ':__feathersId/confirmChangeEmail')(
+      this.confirmChangeEmail
     );
-    this.setNewFlag = httpMethod('PATCH', ':__feathersId/setNewFlag')(
-      this.setNewFlag
-    );
-    this.refresh = httpMethod('PATCH', ':__feathersId/refresh')(this.refresh);
+    httpMethod('PATCH', ':__feathersId/changePassword')(this.changePassword);
+    httpMethod('GET', ':__feathersId/generateApiKey')(this.generateApiKey);
+    httpMethod('PATCH', ':__feathersId/setNewFlag')(this.setNewFlag);
+    httpMethod('PATCH', ':__feathersId/refresh')(this.refresh);
   }
 
   static getImageFormats(name, includeExtension = false) {
@@ -109,6 +98,8 @@ class Users extends Service {
     this.tokens = app.service(`${path}/tokens`);
 
     this.tokens.hooks(tokensHooks);
+
+    this.init = null;
   }
 
   async findOne(params = {}) {
@@ -118,7 +109,7 @@ class Users extends Service {
     const result = await this.find(params);
     const data = result.data || result;
 
-    return Array.isArray(data) ? data[ 0 ] : data;
+    return Array.isArray(data) ? data[0] : data;
   }
 
   async setImageProfile(uid, { path, url }, params = {}) {
@@ -131,7 +122,7 @@ class Users extends Service {
     await this._patch(
       uid,
       {
-        image: result.uploadedPaths[ 0 ].split('/').pop()
+        image: result.uploadedPaths[0].split('/').pop()
       },
       { internal: true }
     );
