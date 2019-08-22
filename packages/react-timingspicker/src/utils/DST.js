@@ -32,12 +32,28 @@ function offsetTop( { step, cellHeight }, d, top ) {
 }
 
 function dayOffset( d ) {
-  const dayBefore = new Date( d );
-  dayBefore.setDate( dayBefore.getDate() - 1 );
-  const dayAfter = new Date( d );
-  dayAfter.setDate( dayAfter.getDate() + 1 );
 
-  return ( dayAfter.getTime() - dayBefore.getTime() ) / 60 / 60 / 1000 - ( 24 * 2 );
+  const ref = new Date( d );
+
+  // if a time that should be offsetted leans over
+  // the next day, it will not be offsetted even if
+  // should have been. In grid and local time, it sits
+  // in the same day.
+  if ( ref.getUTCHours() >= 22 ) {
+    ref.setHours( ref.getHours() - 2 );
+  }
+
+  const startOfDay = new Date( ref );
+  startOfDay.setHours( 0 );
+  startOfDay.setMinutes( 0 );
+  startOfDay.setSeconds( 0 );
+
+  const endOfDay = new Date( startOfDay );
+  endOfDay.setHours( 23 );
+  endOfDay.setMinutes( 0 );
+  endOfDay.setSeconds( 0 );
+
+  return ( endOfDay.getTime() - startOfDay.getTime() ) / 60 / 60 / 1000 - 23
 }
 
 function hasSwitched( d1, d2 ) {

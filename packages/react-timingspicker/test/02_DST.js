@@ -28,11 +28,31 @@ describe( '02 - unit - DST', () => {
     } );
 
     it( '1 if switch is plus one hour', () => {
-      DST.dayOffset( new Date( '2019-10-27' ) ).should.equal( 1 );
+      DST.dayOffset( new Date( '2019-10-27T10:00:00+0200' ) ).should.equal( 1 );
     } );
 
-    it( '-1 if switch is minus one houre', () => {
-      DST.dayOffset( new Date( '2019-03-31' ) ).should.equal( -1 );
+    it( '-1 if switch is minus one hour', () => {
+      DST.dayOffset( new Date( '2019-03-31T06:00:00+0200' ) ).should.equal( -1 );
+    } );
+
+    it( 'Next day offset is 0', () => {
+      DST.dayOffset( new Date( '2019-10-28T02:00:00+0200' ) ).should.equal( 0 );
+    } );
+
+  } );
+
+  describe( 'applyOffset', () => {
+
+    it( 'apply offset should work for dates going over to next day before offset', () => {
+
+      const d = new Date( '2019-03-31T23:00:00.000Z' );
+
+      const timeBefore = d.getTime();
+
+      DST.applyOffset( new Date( '2019-10-31T00:00:00.000Z' ), d );
+
+      ( ( timeBefore - d.getTime() ) / 1000 / 60 / 60 ).should.equal( 1 );
+
     } );
 
   } );
