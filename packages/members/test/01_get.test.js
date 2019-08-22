@@ -113,7 +113,7 @@ describe('members - functional - get', () => {
     test('getByEmail gets by email through interface when necessary', async () => {
       const otherMember = await svc.get.byEmail({
         agendaUid: 1,
-        email: 'janeen@oa.com'
+        email: 'truc@delinterface.fr'
       });
 
       expect(otherMember.id).toBe(4);
