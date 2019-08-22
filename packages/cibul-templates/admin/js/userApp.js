@@ -66,7 +66,7 @@ class UserApp extends Component {
 
   get( uid ) {
 
-    remote.getXmlHttp( config.res.users, { data: { uid: uid } }, ( responseType, data ) => {
+    remote.getXmlHttp( config.res.users, { timeout: 10000, data: { uid: uid } }, ( responseType, data ) => {
 
       if ( responseType !== 'success' ) return alert( 'schplof.' );
 
