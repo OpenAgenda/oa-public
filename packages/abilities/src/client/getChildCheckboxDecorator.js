@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import createDecorator from 'final-form-calculate';
 
-export default function ( { entityName, identifier, getRules } ) {
+export default function ({ entityName, identifier, getRules }) {
   return form => {
     const {
       mutators: { setFieldData },
@@ -9,25 +9,25 @@ export default function ( { entityName, identifier, getRules } ) {
       getFieldState
     } = form;
 
-    return createDecorator( {
+    return createDecorator({
       field: /rule\d+/,
-      updates: ( value, field, allValues ) => {
+      updates: (value, field, allValues) => {
         const rules = getRules();
-        const [ firstEntityRules, otherRules ] = _.partition(
+        const [firstEntityRules, otherRules] = _.partition(
           rules,
-          _.matches( {
+          _.matches({
             entityName,
             identifier
-          } )
+          })
         );
-        const concernedRule = rules.find( v => v.key === field );
+        const concernedRule = rules.find(v => v.key === field);
         const relatedRules = _.filter(
           otherRules,
-          _.matches( _.pick( concernedRule, 'actions', 'subject', 'conditions' ) )
+          _.matches(_.pick(concernedRule, 'actions', 'subject', 'conditions'))
         );
 
         const formState = getState();
-        const fieldState = getFieldState( field );
+        const fieldState = getFieldState(field);
 
         if (
           formState.pristine
@@ -37,33 +37,33 @@ export default function ( { entityName, identifier, getRules } ) {
           return {};
         }
 
-        if ( _.isMatch( concernedRule, { entityName, identifier } ) ) {
+        if (_.isMatch(concernedRule, { entityName, identifier })) {
           // when UNcheck an indeterminate checkbox OR all related rules are checked
           if (
             fieldState.data.indeterminate
-            || ( relatedRules.length
-              && relatedRules.every( rule => allValues[ rule.key ] === true ) )
+            || (relatedRules.length
+              && relatedRules.every(rule => allValues[rule.key] === true))
           ) {
             return relatedRules.reduce(
-              ( result, rule ) => {
-                if ( allValues[ rule.key ] !== false ) {
-                  result[ rule.key ] = false;
+              (result, rule) => {
+                if (allValues[rule.key] !== false) {
+                  result[rule.key] = false;
                 }
 
                 return result;
               },
-              { [ field ]: false }
+              { [field]: false }
             );
           }
 
-          if ( value ) {
-            return relatedRules.reduce( ( result, rule ) => {
-              if ( allValues[ rule.key ] !== true ) {
-                result[ rule.key ] = true;
+          if (value) {
+            return relatedRules.reduce((result, rule) => {
+              if (allValues[rule.key] !== true) {
+                result[rule.key] = true;
               }
 
               return result;
-            }, {} );
+            }, {});
           }
 
           return {};
@@ -71,15 +71,15 @@ export default function ( { entityName, identifier, getRules } ) {
 
         const relatedFirstRule = _.find(
           firstEntityRules,
-          _.matches( _.pick( concernedRule, 'actions', 'subject', 'conditions' ) )
+          _.matches(_.pick(concernedRule, 'actions', 'subject', 'conditions'))
         );
 
-        if ( relatedFirstRule && allValues[ relatedFirstRule.key ] ) {
-          setFieldData( relatedFirstRule.key, { indeterminate: true } );
+        if (relatedFirstRule && allValues[relatedFirstRule.key]) {
+          setFieldData(relatedFirstRule.key, { indeterminate: true });
         }
 
         return {};
       }
-    } )( form );
+    })(form);
   };
 }

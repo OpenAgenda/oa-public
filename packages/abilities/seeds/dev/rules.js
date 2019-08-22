@@ -4,9 +4,9 @@ exports.seed = async knex => {
   const { schemas } = knex.client.config;
 
   // Deletes ALL existing entries
-  await knex( schemas.rule ).del();
+  await knex(schemas.rule).del();
 
-  return knex( schemas.rule ).insert( [
+  return knex(schemas.rule).insert([
     {
       entity_name: 'user',
       identifier: 99999999,
@@ -57,5 +57,5 @@ exports.seed = async knex => {
       fields: null,
       reason: null
     }
-  ] );
+  ]);
 };

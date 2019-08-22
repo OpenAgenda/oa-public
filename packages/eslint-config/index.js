@@ -39,18 +39,18 @@ module.exports = {
   },
 
   rules: {
-    strict: [ 'error', 'safe' ],
-    'no-param-reassign': [ "error", { "props": false } ],
+    strict: ['error', 'safe'],
+    'no-param-reassign': ["error", { "props": false }],
     'no-underscore-dangle': 'off',
     'no-restricted-syntax': 'off',
-    'no-plusplus': [ "error", { "allowForLoopAfterthoughts": true } ],
+    'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
     'no-continue': 'off',
     'no-await-in-loop': 'off',
     'consistent-return': 'off',
     // 'space-in-parens': [ 'error', 'always' ],
-    'max-len': [ 'off', 80 ],
-    'arrow-parens': [ 'error', 'as-needed' ],
-    'comma-dangle': [ 'error', 'only-multiline' ],
+    'max-len': ['off', 80],
+    'arrow-parens': ['error', 'as-needed'],
+    'comma-dangle': ['error', 'only-multiline'],
     // 'computed-property-spacing': [ 'error', 'always' ],
     // 'array-bracket-spacing': [ 'error', 'always' ],
 
@@ -69,14 +69,14 @@ module.exports = {
     'import/order': [
       'error',
       {
-        groups: [ 'builtin', 'external', 'parent', 'sibling', 'index' ]
+        groups: ['builtin', 'external', 'parent', 'sibling', 'index']
       }
     ],
 
     'react/jsx-filename-extension': [
       'error',
       {
-        extensions: [ '.js', '.jsx' ]
+        extensions: ['.js', '.jsx']
       }
     ],
     'react/jsx-one-expression-per-line': 'off',
@@ -84,6 +84,16 @@ module.exports = {
       'error',
       {
         skipUndeclared: true
+      }
+    ],
+    'react/jsx-props-no-spreading': [
+      'error',
+      {
+        html: 'enforce',
+        custom: 'ignore',
+        exceptions: [
+          'input'
+        ]
       }
     ],
 
@@ -96,9 +106,9 @@ module.exports = {
     'jsx-a11y/label-has-associated-control': [
       'error',
       {
-        labelComponents: [ 'label' ],
-        labelAttributes: [ 'htmlFor' ],
-        controlComponents: [ 'Field', 'input' ]
+        labelComponents: ['label'],
+        labelAttributes: ['htmlFor'],
+        controlComponents: ['Field', 'input']
       }
     ],
 

@@ -1,6 +1,6 @@
 'use strict';
 
-const testconfig = require( './testconfig' );
+const testconfig = require('./testconfig');
 
 // Useful for the knex CLI
 

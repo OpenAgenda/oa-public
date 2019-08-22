@@ -16,10 +16,10 @@ import AbilitiesForm from './AbilitiesForm';
 import withFetcher from './withFetcher';
 import getChildCheckboxDecorator from './getChildCheckboxDecorator';
 
-if ( process.env.NODE_ENV === 'development' ) {
+if (process.env.NODE_ENV === 'development') {
   // eslint-disable-next-line
   const { whyDidYouUpdate } = require('why-did-you-update');
-  whyDidYouUpdate( React );
+  whyDidYouUpdate(React);
 }
 
 const localeData = {
@@ -27,63 +27,57 @@ const localeData = {
   fr: localeFr
 };
 
-addLocaleData( [ ...en, ...fr, ...de, ...br ] );
+addLocaleData([...en, ...fr, ...de, ...br]);
 
-function getInitialValues( rules ) {
-  return rules.reduce( ( result, rule ) => {
-    result[ rule.key ] = rule.inverted === undefined ? true : !rule.inverted;
+function getInitialValues(rules) {
+  return rules.reduce((result, rule) => {
+    result[rule.key] = rule.inverted === undefined ? true : !rule.inverted;
 
     return result;
-  }, {} );
+  }, {});
 }
 
 @withFetcher(
   'abilities',
-  async ( { res, entityName, identifier } ) => axios
-    .get( res.formIndex, {
+  async ({ res, entityName, identifier }) => axios
+    .get(res.formIndex, {
       params: {
         entityName,
         identifier
       }
-    } )
-    .then( ( { data } ) => data.map( v => {
+    })
+    .then(({ data }) => data.map(v => {
       v.key = `rule${_.uniqueId()}`;
 
       return v;
-    } ) ),
+    })),
   { fetchOnMount: true }
 )
 @shouldUpdate(
-  ( props, nextProps ) => !shallowEqual(
-    _.pick( props, [ 'entityName', 'identifier', 'locale' ] ),
-    _.pick( nextProps, [ 'entityName', 'identifier', 'locale' ] )
-  ) || !shallowEqual( props.abilitiesFetcher, nextProps.abilitiesFetcher )
+  (props, nextProps) => !shallowEqual(
+    _.pick(props, ['entityName', 'identifier', 'locale']),
+    _.pick(nextProps, ['entityName', 'identifier', 'locale'])
+  ) || !shallowEqual(props.abilitiesFetcher, nextProps.abilitiesFetcher)
 )
 class AbilitiesEditor extends Component {
-  static defaultProps = {
-    locale: 'en',
-    filterInput: false,
-    filterInputPlaceholder: ''
-  };
-
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
 
     const { entityName, identifier } = this.props;
 
     this.handleSubmit = ::this.handleSubmit;
 
-    this.childCheckboxDecorator = getChildCheckboxDecorator( {
+    this.childCheckboxDecorator = getChildCheckboxDecorator({
       entityName,
       identifier,
       getRules: () => {
         const { abilitiesFetcher } = this.props;
         return abilitiesFetcher.data;
       }
-    } );
+    });
   }
 
-  async handleSubmit( values, form ) {
+  async handleSubmit(values, form) {
     const {
       onSubmit,
       res,
@@ -94,34 +88,34 @@ class AbilitiesEditor extends Component {
       abilitiesFetcher: { data: rules }
     } = this.props;
 
-    const formIndex = rules.map( rule => Object.assign( _.omit( rule, 'key', 'entity', 'relevantRule' ), {
-      inverted: !values[ rule.key ]
-    } ) );
+    const formIndex = rules.map(rule => Object.assign(_.omit(rule, 'key', 'entity', 'relevantRule'), {
+      inverted: !values[rule.key]
+    }));
 
-    if ( typeof onSubmit === 'function' ) {
-      return onSubmit( formIndex );
+    if (typeof onSubmit === 'function') {
+      return onSubmit(formIndex);
     }
 
     try {
-      let { data } = await axios.patch( res.formIndex, formIndex, {
+      let { data } = await axios.patch(res.formIndex, formIndex, {
         params: {
           entityName,
           identifier
         }
-      } );
+      });
 
-      if ( _.isArray( data ) ) {
-        data = data.map( v => {
+      if (_.isArray(data)) {
+        data = data.map(v => {
           v.key = `rule${_.uniqueId()}`;
 
           return v;
-        } );
+        });
 
-        receiveAbilitiesData( data );
-        form.initialize( getInitialValues( data ) );
+        receiveAbilitiesData(data);
+        form.initialize(getInitialValues(data));
       }
-    } catch ( e ) {
-      receiveAbilitiesError( e );
+    } catch (e) {
+      receiveAbilitiesError(e);
     }
   }
 
@@ -133,7 +127,7 @@ class AbilitiesEditor extends Component {
       filterInputPlaceholder
     } = this.props;
 
-    if ( loading ) {
+    if (loading) {
       return (
         <div style={{ position: 'relative', height: '50px' }}>
           <Spinner />
@@ -141,7 +135,7 @@ class AbilitiesEditor extends Component {
       );
     }
 
-    if ( error ) {
+    if (error) {
       return (
         <FormattedMessage
           id="Abilities.AbilitiesEditor.error"
@@ -156,9 +150,9 @@ class AbilitiesEditor extends Component {
         // debug={console.log}
         validateOnBlur
         subscription={{}}
-        initialValues={getInitialValues( rules )}
+        initialValues={getInitialValues(rules)}
         onSubmit={this.handleSubmit}
-        decorators={[ this.childCheckboxDecorator ]}
+        decorators={[this.childCheckboxDecorator]}
         mutators={{ setFieldData: setFieldDataMutator }}
         component={AbilitiesForm}
         rules={rules}
@@ -171,7 +165,7 @@ class AbilitiesEditor extends Component {
 
   render() {
     const { locale } = this.props;
-    const messages = localeData[ locale ] || localeData.en;
+    const messages = localeData[locale] || localeData.en;
 
     return (
       <IntlProvider locale={locale} key={locale} messages={messages}>
@@ -180,5 +174,11 @@ class AbilitiesEditor extends Component {
     );
   }
 }
+
+AbilitiesEditor.defaultProps = {
+  locale: 'en',
+  filterInput: false,
+  filterInputPlaceholder: ''
+};
 
 export default AbilitiesEditor;

@@ -30,11 +30,9 @@
     "walk": "^2.3.14"
   },
   "devDependencies": {
+    "@openagenda/eslint-config": "^1.0.0",
     "@openagenda/queues": "^1.2.2",
-    "eslint": "^4.19.1",
-    "eslint-config-airbnb-base": "^13.0.0",
-    "eslint-plugin-import": "^2.13.0",
-    "eslint-plugin-jest": "^21.17.0",
+    "eslint": "^6.2.1",
     "html-to-text": "^4.0.0",
     "jest": "^24.6.0",
     "lint-staged": "^7.2.0",

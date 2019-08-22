@@ -299,7 +299,7 @@ describe('methods', () => {
           email: 'gaetan@cibul.net',
           password: 'pa**word'
         })
-      ).rejects.toThrowError('Already exist');
+      ).rejects.toThrow('Already exist');
     });
 
     it('create an activated user', async () => {

@@ -7,12 +7,12 @@ export const SUBJECT_NAME = Symbol(
   '@openagenda/abilities/Ability:SUBJECT_NAME'
 );
 
-function getSubjectName( subject ) {
-  if ( subject && subject[ SUBJECT_NAME ] ) {
-    return subject[ SUBJECT_NAME ];
+function getSubjectName(subject) {
+  if (subject && subject[SUBJECT_NAME]) {
+    return subject[SUBJECT_NAME];
   }
 
-  if ( !subject || typeof subject === 'string' ) {
+  if (!subject || typeof subject === 'string') {
     return subject;
   }
 
@@ -21,35 +21,36 @@ function getSubjectName( subject ) {
   return Type.modelName || Type.name;
 }
 
-export default function createAbility( entityName, identifier, rules ) {
-  const ability = new Ability( rulesLib.parse( rules ), {
+export default function createAbility(entityName, identifier, rules) {
+  const ability = new Ability(rulesLib.parse(rules), {
     subjectName: getSubjectName,
     RuleType: Rule
-  } );
+  });
 
-  function checkWrapper( func, action, subjectName, conditionsOrSubject, field ) {
-    const haveSubjectProp = conditionsOrSubject && !!conditionsOrSubject[ SUBJECT_NAME ];
-    const isObject = _.isObject( conditionsOrSubject );
+  function checkWrapper(func, action, subjectName, conditionsOrSubject, field) {
+    let subject = conditionsOrSubject;
+    const haveSubjectProp = subject && !!subject[SUBJECT_NAME];
+    const isObject = _.isObject(subject);
 
-    if ( !haveSubjectProp && isObject ) {
-      conditionsOrSubject[ SUBJECT_NAME ] = subjectName;
-    } else if ( conditionsOrSubject === undefined ) {
-      conditionsOrSubject = {
-        [ SUBJECT_NAME ]: subjectName
+    if (!haveSubjectProp && isObject) {
+      subject[SUBJECT_NAME] = subjectName;
+    } else if (subject === undefined) {
+      subject = {
+        [SUBJECT_NAME]: subjectName
       };
     }
 
-    const result = func( action, conditionsOrSubject, field );
+    const result = func(action, subject, field);
 
-    if ( !haveSubjectProp && isObject ) {
-      delete conditionsOrSubject[ SUBJECT_NAME ];
+    if (!haveSubjectProp && isObject) {
+      delete subject[SUBJECT_NAME];
     }
 
     return result;
   }
 
-  ability.can = _.wrap( ability.can.bind( ability ), checkWrapper );
-  ability.cannot = _.wrap( ability.cannot.bind( ability ), checkWrapper );
+  ability.can = _.wrap(ability.can.bind(ability), checkWrapper);
+  ability.cannot = _.wrap(ability.cannot.bind(ability), checkWrapper);
 
   ability.entityName = entityName;
   ability.identifier = identifier;
