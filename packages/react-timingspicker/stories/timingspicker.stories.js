@@ -27,11 +27,10 @@ storiesOf( 'App', module )
     <TimingsPicker
       value={[
         {
-          begin: '2019-08-10T19:30',
-          end: '2019-08-10T22:30'
+          begin: '2019-10-31T10:30',
+          end: '2019-10-31T22:30'
         }
       ]}
-      locale="fr"
     />
   ) )
   .add( 'with scroll focused on value', () => (

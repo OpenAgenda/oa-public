@@ -1924,6 +1924,18 @@
     pirates "^4.0.0"
     source-map-support "^0.5.9"
 
+"@babel/register@^7.5.5":
+  version "7.5.5"
+  resolved "https://registry.npmjs.org/@babel/register/-/register-7.5.5.tgz#40fe0d474c8c8587b28d6ae18a03eddad3dac3c1"
+  integrity sha512-pdd5nNR+g2qDkXZlW1yRCWFlNrAn2PPdnZUB72zjX4l1Vv4fMRRLwyf+n/idFCLI1UgVGboUU8oVziwTBiyNKQ==
+  dependencies:
+    core-js "^3.0.0"
+    find-cache-dir "^2.0.0"
+    lodash "^4.17.13"
+    mkdirp "^0.5.1"
+    pirates "^4.0.0"
+    source-map-support "^0.5.9"
+
 "@babel/runtime-corejs2@^7.0.0", "@babel/runtime-corejs2@^7.2.0", "@babel/runtime-corejs2@^7.3.1":
   version "7.3.1"
   resolved "https://registry.npmjs.org/@babel/runtime-corejs2/-/runtime-corejs2-7.3.1.tgz#0c113242e2328f9674d42703a89bee6ebebe9a82"
@@ -3197,37 +3209,6 @@
   integrity sha1-1eOjEGvNNdzHGAqX0MX/VI9AyY4=
   dependencies:
     leaflet "~0.7.1"
-
-"@openagenda/member-apps@^1.1.2":
-  version "1.1.4"
-  resolved "https://registry.npmjs.org/@openagenda/member-apps/-/member-apps-1.1.4.tgz#0590d18b3c7e643bb25f0fc17a8eb619035d7950"
-  integrity sha512-6TWO+ciqlB+P5csyWlzgbmInMMe9sHAow3vANm3/GFA8vvoPzIPFgh9SjLw15qdT6/Ed9jlK66YNl/IGCkFIAA==
-  dependencies:
-    "@babel/runtime-corejs2" "^7.3.1"
-    "@openagenda/agenda-stakeholders" "^2.1.2"
-    "@openagenda/call-to-action" "^2.2.2"
-    "@openagenda/dom-utils" "^2.2.0"
-    "@openagenda/labels" "^2.1.0"
-    "@openagenda/react-components" "^2.2.1"
-    "@openagenda/react-form-components" "^2.1.1"
-    "@openagenda/react-utils" "^4.0.0"
-    async "^2.1.4"
-    classnames "^2.2.5"
-    connected-react-router "^6.2.2"
-    history "^4.7.2"
-    js-base64 "^2.5.1"
-    knex "^0.16.3"
-    lodash "^4.17.4"
-    prop-types "^15.5.8"
-    qs "^6.6.0"
-    react-bootstrap "^0.32.4"
-    react-redux "^6.0.0"
-    react-router "^5.0.0"
-    react-router-config "^5.0.0"
-    react-router-dom "^5.0.0"
-    redial "^0.5.0"
-    redux "^4.0.1"
-    redux-form "^8.1.0"
 
 "@openagenda/mysql-table-store@^1.0.0":
   version "1.0.0"
@@ -9049,6 +9030,11 @@ core-js@^2.6.5:
   version "2.6.5"
   resolved "https://registry.npmjs.org/core-js/-/core-js-2.6.5.tgz#44bc8d249e7fb2ff5d00e0341a7ffb94fbf67895"
   integrity sha512-klh/kDpwX8hryYL14M9w/xei6vrv6sE8gTHDG7/T/+SEovB/G4ejwcfE/CBzO6Edsu+OETZMZ3wcX/EjUkrl5A==
+
+core-js@^3.0.0:
+  version "3.2.0"
+  resolved "https://registry.npmjs.org/core-js/-/core-js-3.2.0.tgz#0a835fdf6aa677fff83a823a7b5276c9e7cebb76"
+  integrity sha512-gybgLzmr7SQRSF6UzGYXducx4eE10ONQlyEnQoqiGPbmbn7zLkb73tPfc4YbZN0lvcTQwoLNPjq4RuCaCumGyQ==
 
 core-js@^3.0.1:
   version "3.1.3"

@@ -88,14 +88,17 @@ function Weekdays( { activeWeek, weekStartsOn, classNamePrefix, intl } ) {
 function Timetable( props ) {
   const { activeWeek, step, timingFormat, cellHeight, classNamePrefix } = props;
   const timings = [];
-  let actual = dateFns.startOfDay( activeWeek );
+  let cursor = dateFns.startOfDay( activeWeek );
+  // no DST in first of january
+  cursor.setMonth( 0 );
+  cursor.setDate( 1 );
 
   for ( let j = 0; j < ONE_DAY; j += step ) {
-    const formattedDate = dateFns.format( actual, timingFormat );
+    const formattedDate = dateFns.format( cursor, timingFormat );
 
     timings.push(
       <div
-        key={actual}
+        key={cursor}
         className={`${classNamePrefix}cell ${classNamePrefix}timing`}
         style={{ height: `${cellHeight}px` }}
       >
@@ -103,7 +106,7 @@ function Timetable( props ) {
       </div>
     );
 
-    actual = dateFns.addSeconds( actual, step );
+    cursor = dateFns.addSeconds( cursor, step );
   }
 
   return (
