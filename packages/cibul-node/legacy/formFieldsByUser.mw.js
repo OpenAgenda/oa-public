@@ -4,9 +4,9 @@ const _ = require( 'lodash' );
 
 const agendaTags = require( '@openagenda/agenda-tags' );
 const agendaCategories = require( '@openagenda/agenda-categories' );
-const members = require( '@openagenda/agenda-stakeholders' );
 
-const getRole = members.types.codes.get;
+const members = require( '../services/members' );
+const getRoleSlug = members.utils.getRoleSlug;
 
 const { promisify } = require( 'util' );
 
@@ -19,20 +19,18 @@ module.exports = async ( req, res, next ) => {
 
   if ( !user ) return res.sendStatus( 404 );
 
-  const member = await promisify( members( req.agenda.id ).get )( { userId: user.id } );
+  const member = await members.get( {
+    agendaUid: req.agenda.uid,
+    userUid: user.uid
+  } );
 
-  const role = getRole( _.get( member, 'credential', 1 ) );
+  const role = getRoleSlug( _.get( member, 'role', 1 ) );
 
-  // get custom fields, tags and categories
-
-  const sets = {
+  res.json( {
     custom: req.agenda.getCustomFieldsConfig().filter( _filterFieldByRole.bind( null, role ) ),
     tagSet: _filterTagGroupsByRole( role, await getAgendaTags( req.agenda.id ) ),
     categorySet: await getAgendaCategories( req.agenda.id )
-  };
-
-  res.json( sets );
-
+  } );
 }
 
 function _filterTagGroupsByRole( role, tagSet = null ) {
