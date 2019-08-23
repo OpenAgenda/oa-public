@@ -128,6 +128,9 @@ const hooks = update(Users.hooks, {
 module.exports = service;
 
 module.exports.expose = app => {
+  express(feathers(), app); // extend app with .configure, .service and .use
+  express.rest(null).call(app, app); // add handler for requests
+
   app.use('/users', (req, res, next) => {
     req.feathers.user = req.user;
     req.feathers.authenticated = req.authenticated = !!req.user;
@@ -161,6 +164,9 @@ module.exports.expose = app => {
   });
 
   app.use('/users', service);
+
+  // ensure to use the service with the good app
+  Proto.mixin(app.service( '/users' ), service);
 
   // update session after a user patch
   app.patch(
