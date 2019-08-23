@@ -19,15 +19,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
+    "@babel/runtime-corejs2": "^7.5.5",
     "@openagenda/utils": "^1.0.2",
     "lodash": "^4.17.2",
     "validator": "^7.0.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/register": "^7.0.0",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/register": "^7.5.5",
     "@openagenda/babel-preset": "^1.1.1",
     "mocha": "^5.2.0",
     "npm-watch": "^0.1.5",

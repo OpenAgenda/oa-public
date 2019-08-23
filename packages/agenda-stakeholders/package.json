@@ -12,7 +12,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
+    "@babel/runtime-corejs2": "^7.5.5",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/mysql-table-store": "^1.0.0",
     "@openagenda/process-service": "^2.0.0",
@@ -30,8 +30,8 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/fixtures": "^2.0.1",
     "express": "^4.14.0",

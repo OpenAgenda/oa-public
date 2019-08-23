@@ -20,7 +20,7 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
+    "@babel/runtime-corejs2": "^7.5.5",
     "async": "^2.1.2",
     "crypto-js": "^3.1.9-1",
     "lodash": "^4.17.1",
@@ -30,8 +30,8 @@
     "to-markdown": "^3.0.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
     "@openagenda/babel-preset": "^1.1.1",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",

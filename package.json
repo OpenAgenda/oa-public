@@ -33,11 +33,11 @@
     "mjml-validator": "4.4.0"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1"
+    "@babel/runtime-corejs2": "^7.5.5"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
     "codecov": "^3.1.0",
     "husky": "^3.0.0",
     "jest": "^24.9.0",
