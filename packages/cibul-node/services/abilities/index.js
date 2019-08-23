@@ -176,7 +176,7 @@ module.exports.init = async ( config, app ) => {
         user: async ( ability, options ) => {
           const members = options.entities
             ? options.entities.members
-            : await membersSvc.list( { userUid: ability.identifier } );
+            : await membersSvc.list( { userUid: ability.identifier }, { limit: 200 } );
 
           return {
             user: ability.identifier,
