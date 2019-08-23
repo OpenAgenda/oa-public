@@ -26,6 +26,21 @@ a.badge:hover {
   border: 1px solid $oa-blue;
 }
 
+.badge-outline-primary {
+  border: 1px solid $oa-blue;
+  color: $oa-blue;
+}
+
+.badge-outline-warn {
+  border: 1px solid $oa-warning;
+  color: $oa-warning;
+}
+
+.badge-outline-danger {
+  border: 1px solid $oa-red;
+  color: $oa-red;
+}
+
 .badge-info {
   color: $oa-blue;
   background-color: transparent;

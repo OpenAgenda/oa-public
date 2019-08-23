@@ -45,7 +45,7 @@
     "@openagenda/inbox-apps": "^1.1.2",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/leaflet.markercluster": "^0.4.0",
-    "@openagenda/member-apps": "^1.1.2",
+    "@openagenda/member-apps": "^2.0.1",
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",

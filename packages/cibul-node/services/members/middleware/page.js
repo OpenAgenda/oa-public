@@ -9,6 +9,8 @@ const layout = require( '../../lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'members' }
 );
 
+const { getRoleSlug } = require( '@openagenda/members' ).utils;
+
 module.exports = async ( { port }, req, res, next ) => {
   const prefix = `/${req.agenda.slug}/admin/members`;
   const lang = req.lang || 'fr';
@@ -72,7 +74,7 @@ module.exports = async ( { port }, req, res, next ) => {
     }
 
     return res.send( layout( `<div class="js_canvas">${content}</div>`, {
-      role: req.role,
+      role: getRoleSlug( req.member.role ),
       lang: req.lang,
       agenda: req.agenda,
       bodyAttributes: [ {

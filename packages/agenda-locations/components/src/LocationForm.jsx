@@ -298,7 +298,8 @@ module.exports = createReactClass( {
       let updated = {
         geocodeLoading: { $set: false },
         geocodeError: { $set: false },
-        geocodeEdit: { $set: false }
+        geocodeEdit: { $set: false },
+        geocodeNoResults: { $set: false }
       };
 
       updated.location = this.decorateLocation( result, true );
@@ -336,7 +337,8 @@ module.exports = createReactClass( {
       let updated = {
         geocodeLoading: { $set: false },
         geocodeError: { $set: false },
-        geocodeEdit: { $set: false }
+        geocodeEdit: { $set: false },
+        geocodeNoResults: { $set: false }
       };
 
       if ( err ) {
@@ -364,9 +366,10 @@ module.exports = createReactClass( {
         updated.location = location;
 
         updated.autoGeocode = { $set: true };
-
         updated.showGeocodeLink = { $set: false };
 
+      } else {
+        updated.geocodeNoResults = { $set: true };
       }
 
       this.setState( update( this.state, updated ) );
@@ -1006,6 +1009,8 @@ module.exports = createReactClass( {
 
   renderGeoData() {
 
+    {this.state.geocodeNoResults ? 'geocodeNoResults' : 'addressInfo' }
+
     const geo = {};// _.pick( this.state.location,  );
 
     [ 'region', 'department', 'city', 'postalCode' ].forEach( field => {
@@ -1021,7 +1026,9 @@ module.exports = createReactClass( {
       && _.get( this.state, 'location.latitude' )
     ) {
 
-      geo.insee = _.get( this.state, 'location.insee' );
+      [ 'city', 'region', 'department', 'postalCode', 'insee' ].forEach( field => {
+        geo[ field ] = _.get( this.state, [ 'location', field ], null );
+      } );
 
     }
 
@@ -1048,18 +1055,24 @@ module.exports = createReactClass( {
 
     }
 
-    return <ul className="list-inline">
-      {_.keys( geo ).map( field => <li key={'geo-' + field}>
-        <a className="badge badge-default margin-bottom-xs" onClick={() => this.editGeocode( field, _.get( this.state, [ 'location', field ] ) )}>
-          <span>{this.getLabel( field )}: {geo[ field ]}&nbsp;</span>
-          <i className="fa fa-pencil"></i>
-        </a>
-      </li> )}
-    </ul>
+    return <div>
+    {this.state.geocodeNoResults ? <div className="alert alert-warning" role="alert">
+      <a href="#" className="alert-link">{this.getLabel('geocodeNoResults')}</a>
+    </div> : null}
+      <ul className="list-inline">
+        {_.keys( geo ).map( field => <li key={'geo-' + field}>
+          <a className={'badge badge-default margin-bottom-xs ' + ( geo[ field ] && geo[ field ].length ? 'badge-outline-primary' : 'badge-outline-warn')} onClick={() => this.editGeocode( field, _.get( this.state, [ 'location', field ] ) )}>
+            <span>{this.getLabel( field )}: {geo[ field ]}&nbsp;</span>
+            <i className="fa fa-pencil"></i>
+          </a>
+        </li> )}
+      </ul>
+    </div>
 
   },
 
   render() {
+
 
     return <div ref={r => this[ 'location-form' ] = r} className="location-form">
 
