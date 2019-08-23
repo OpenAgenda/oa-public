@@ -66,9 +66,9 @@ function init( c ) {
       getUsersByUid,
       getAgendasByUid,
       getUserByEmail,
-      onCreate: onCreate.bind( null, config ),
+      onCreate: onCreate.bind( null, { config, activityQueue } ),
       onRemove: onRemove.bind( null, { members, activityQueue } ),
-      onPatch: onPatch.bind( null, config )
+      onPatch: onPatch.bind( null, { config, activityQueue } )
     }
   } ) );
 
