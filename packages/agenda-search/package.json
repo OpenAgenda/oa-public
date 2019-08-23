@@ -44,11 +44,10 @@
     "@babel/core": "^7.2.2",
     "@babel/node": "^7.2.2",
     "@openagenda/agendas": "^1.1.4",
+    "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "@storybook/react": "^4.1.11",
     "babel-loader": "^8.0.4",
-
-"@openagenda/babel-preset": "^1.1.1",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.0",
