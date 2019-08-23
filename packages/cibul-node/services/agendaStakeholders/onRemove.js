@@ -5,7 +5,7 @@ const agendas = require( '@openagenda/agendas' );
 const invitations = require( '@openagenda/invitations' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
-const app = require( '../../app' );
+const usersSvc = require( '../users' );
 const activities = require( '../activities' );
 
 const controlDataSvc = require( '../legacy' ).controlData;
@@ -13,8 +13,6 @@ const controlDataSvc = require( '../legacy' ).controlData;
 let log = console.log;
 
 module.exports = function ( stakeholder ) {
-
-  const usersSvc = app.service( '/users' );
 
   agendas.get( { id: stakeholder.agendaId }, { private: null }, ( err, agenda ) => {
 

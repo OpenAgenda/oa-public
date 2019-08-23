@@ -13,7 +13,7 @@ const log = require( '@openagenda/logs' )( 'auth/lib/auth' );
 const cmn = require( '../../lib/commons-app' );
 const lib = require( '../../lib/lib' );
 const config = require( '../../config' );
-const app = require( '../../app' );
+const usersSvc = require( '../../services/users' );
 const pLib = require( './passport' );
 const loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } );
 
@@ -295,8 +295,6 @@ function serviceCreate( fieldName, activate ) {
 
     log( 'creating user with %j', createData );
 
-    const usersSvc = app.service( '/users' );
-
     usersSvc.create( createData, { detailed: true, tokenOptionals: optionals, optionals } )
       .then( user => {
         if ( user ) {
@@ -328,8 +326,6 @@ function serviceAuthenticate( fieldName ) {
       fieldName,
       id,
     };
-
-    const usersSvc = app.service( '/users' );
 
     usersSvc.findOne( {
       query: { [ fieldName ]: id },
@@ -400,8 +396,6 @@ function signin( values ) {
   values.resolved = true;
 
   values.req.log( 'info', 'signing in user %s', user.email );
-
-  const usersSvc = req.app.service( '/users' );
 
   sessions.open( req, res, user, async ( err, session ) => {
 

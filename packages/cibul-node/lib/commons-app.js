@@ -30,6 +30,7 @@ const genUrl = require( '../services/genUrl' );
 const errorLogger = require( '../services/00_errors' );
 const i18n = require( '../i18n/i18n.js' );
 const model = require( '../services/model' );
+const usersSvc = require( '../services/users' );
 
 const layouts = require( '../services/lib/layouts' );
 const renderError = _.template( fs.readFileSync( __dirname + '/error.tpl', 'utf-8' ) );
@@ -420,8 +421,6 @@ function checkStakeholder( req, res, next ) {
 }
 
 function checkAdminOrModeratorOrKey( req, res, next ) {
-
-  const usersSvc = req.app.service( '/users' );
 
   checkAdminOrModerator( req, res, async err => {
 

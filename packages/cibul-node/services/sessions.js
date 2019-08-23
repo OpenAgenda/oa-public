@@ -4,7 +4,7 @@ const _ = require( 'lodash' );
 const VError = require( 'verror' );
 const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'sessions' );
-const app = require( '../app' );
+const usersSvc = require( './users' );
 
 
 module.exports.init = config => {
@@ -30,8 +30,6 @@ module.exports.init = config => {
 }
 
 function getUser( imageBucketPath, query, cb ) {
-
-  const usersSvc = app.service( '/users' );
 
   log( 'info', 'requested user with %j', query );
 

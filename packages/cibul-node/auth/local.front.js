@@ -10,6 +10,7 @@ const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/a
 const log = require( '@openagenda/logs' )( 'auth/local' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/activation' ) );
 const agendaSvc = require( '../services/agenda' );
+const usersSvc = require( '../services/users' );
 const cmn = require( '../lib/commons-app' );
 const auth = require( './lib/auth' );
 const pLib = require( './lib/passport' );
@@ -185,8 +186,6 @@ function signinSubmit( req, res, next ) {
 
 function signupSubmit( req, res ) {
 
-  const usersSvc = req.app.service( '/users' );
-
   w( { req, res, data: req.body } )
 
     .then( _passwordMatchCheck )
@@ -261,8 +260,6 @@ function signupComplete( req, res ) {
 
 async function activateResend( req, res ) {
 
-  const usersSvc = req.app.service( '/users' );
-
   if ( !req.query.email ) {
     auth.renderEmail( { req, res, title: 'Resend activation mail' } );
   } else {
@@ -330,7 +327,6 @@ async function activateResend( req, res ) {
 
 async function activate( req, res ) {
 
-  const usersSvc = req.app.service( '/users' );
   const optionals = _.pickBy( _.pick( req.query, 'iToken', 'invitation', 'redirect', 'agenda' ) );
 
   try {
@@ -389,8 +385,6 @@ async function activate( req, res ) {
 
 
 function _handleSigninRequest( req, email, password, cb ) {
-
-  const usersSvc = req.app.service( '/users' );
 
   usersSvc.verifyPassword( password, {
     query: { email }

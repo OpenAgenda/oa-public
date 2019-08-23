@@ -9,14 +9,12 @@ const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const mails = require( '@openagenda/mails' );
 const membersSvc = require( '@openagenda/agenda-stakeholders' );
 
-const app = require( '../../../app' );
+const usersSvc = require( '../../users' );
 const genUrl = require( '../../genUrl' );
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/sendEventChangeState' );
 
 module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
-
-  const usersSvc = app.service( '/users' );
 
   // const { agenda, event } = context;
   const afterStateLabel = getStateLabel( agendaEvent.state );

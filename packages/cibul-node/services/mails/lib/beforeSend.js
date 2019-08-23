@@ -3,8 +3,7 @@
 const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'services/mails/beforeSend' );
 const createUnsubscriptionToken = require( './createUnsubscriptionToken' );
-const app = require( '../../../app' );
-
+const usersSvc = require( '../../users' );
 
 module.exports = async ( config, params ) => {
   await defineUnsubscriptionLinks( config, params );
@@ -22,7 +21,7 @@ async function defineUnsubscriptionLinks( config, params ) {
   } = params.to;
 
   // user or email
-  const user = await app.service( '/users' ).findOne( { query: { email } } );
+  const user = await usersSvc.findOne( { query: { email } } );
 
   params.data.isRegisteredUser = !!user;
 

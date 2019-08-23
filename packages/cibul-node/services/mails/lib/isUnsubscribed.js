@@ -1,12 +1,10 @@
 "use strict";
 
 const abilitiesSvc = require( '@openagenda/abilities' );
-const app = require( '../../../app' );
-
+const usersSvc = require( '../../users' );
 const getUnsubscriptionTarget = require( './getUnsubscriptionTarget' );
 
 module.exports = async ( { knex }, entity, action, subject, conditions, fields ) => {
-  const usersSvc = app.service( '/users' );
   const target = getUnsubscriptionTarget( entity );
 
   if ( !target ) {

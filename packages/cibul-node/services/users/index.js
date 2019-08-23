@@ -140,7 +140,7 @@ module.exports.expose = app => {
       dest: config.tmpFolderPath,
       handler: async (path, info, cb) => {
         try {
-          const result = await app.service('/users').setImageProfile(
+          const result = await service.setImageProfile(
             req.params.__feathersId,
             { path },
             {
@@ -180,7 +180,7 @@ module.exports.expose = app => {
     '/users/:__feathersId/requestChangeEmail',
     (req, res, next) => {
       if (res.data) {
-        app.service('/users').get(res.data.uid, { internal: true })
+        service.get(res.data.uid, { internal: true })
           .then(user => {
             const email = user.store && user.store.newEmail;
             const token = user.store && user.store.newEmailToken;

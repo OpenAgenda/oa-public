@@ -15,8 +15,8 @@ const lib = require( '../lib/lib' );
 const membersSvc = require( '../services/members' );
 const model = require( '../services/model' );
 const adminSvc = require( '../services/admin/admin' );
+const usersSvc = require( '../services/users' );
 const config = require( '../config' );
-const app = require( '../app' );
 
 const supportTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/support.tpl', 'utf-8' ) );
 
@@ -291,7 +291,7 @@ function userChangePassword( req, res ) {
 
   const { uid, password } = req.query;
 
-  req.app.service( '/users' )
+  usersSvc
     .changePassword( uid, { password } )
     .then( () => {
 
@@ -313,7 +313,7 @@ async function userActivate( req, res ) {
 
     try {
 
-      req.loadedUser = await req.app.service( '/users' )
+      req.loadedUser = await usersSvc
         .patch( req.loadedUser.uid, { isActivated: true }, { internal: true } );
 
       return cmn.renderJson( req, res, { success: true } );
@@ -329,8 +329,6 @@ async function userActivate( req, res ) {
 }
 
 function userUpdate( req, res, next ) {
-
-  const usersSvc = req.app.service( '/users' )
 
   usersSvc.get( req.loadedUser.uid, { detailed: true, removed: null } )
     .then( async user => {
@@ -386,7 +384,7 @@ function _loadUser( type = 'get' ) {
 
     const uid = request.uid;
 
-    req.app.service( '/users' ).get( uid, { removed: null, detailed: true } )
+    usersSvc.get( uid, { removed: null, detailed: true } )
       .then( user => {
 
         req.loadedUser = user;
@@ -482,8 +480,6 @@ function eventsDiff( req, res ) {
 
 function _getFork( begin, end ) {
 
-  const usersSvc = app.service( '/users' );
-
   return Promise.all( [
     promisify( model.reviews().total )( { createdAt: { gte: begin, lte: end } } ),
     promisify( model.events().total )( { createdAt: { gte: begin, lte: end } } ),
@@ -494,8 +490,6 @@ function _getFork( begin, end ) {
 }
 
 function _getTotals( cb ) {
-
-  const usersSvc = app.service( '/users' );
 
   async.parallel( [
 
@@ -510,8 +504,6 @@ function _getTotals( cb ) {
 }
 
 function _getTotalsWeek( cb ) {
-
-  const usersSvc = app.service( '/users' );
 
   var weekStart = moment().subtract( 1, 'week' ).startOf( 'week' ).toDate(),
 
@@ -530,8 +522,6 @@ function _getTotalsWeek( cb ) {
 }
 
 function _getTotalsMonth( cb ) {
-
-  const usersSvc = app.service( '/users' );
 
   var monthStart = moment().subtract( 1, 'month' ).startOf( 'month' ).toDate(),
 

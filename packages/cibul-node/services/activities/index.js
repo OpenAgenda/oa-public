@@ -10,11 +10,12 @@ const { isLessThan, isSuperiorToOrEqual, isEqualTo } = require( '@openagenda/mem
 const sendSummary = require( './sendSummary' );
 const cmn = require( '../../lib/commons-app' );
 
+const usersSvc = require( '../users' );
+
 const log = require( '@openagenda/logs' )( 'activities' );
 
 const activities = {};
 const preMw = [
-  cmn.loadLogger( 'notifications' ),
   sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) )
 ];
 
@@ -41,7 +42,7 @@ module.exports.init = async ( config, app ) => {
       redis: config.redis
     },
     interfaces: {
-      getUser: uid => app.service( '/users' ).get( uid, { detailed: true } ),
+      getUser: uid => usersSvc.get( uid, { detailed: true } ),
       isUnsubscribed: uid => promisify( unsubscribedSvc( uid ).is )( {
         subject: 'notifications',
         type: 'notifications_summary'

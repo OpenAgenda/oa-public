@@ -18,6 +18,7 @@ const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
 const members = require( '../services/members' );
+const usersSvc = require( '../services/users' );
 
 const app = express();
 const getLabel = makeLabelGetter( labels );
@@ -38,7 +39,7 @@ app.use(
   preMw,
   cmn.loadBaseData( 'oasfmain.css' ),
   ( req, res, next ) => {
-    req.app.service( '/users' ).refresh( req.user.uid, {
+    usersSvc.refresh( req.user.uid, {
       lastInboxCheck: true
     } )
       .then( () => next() ).catch( next );

@@ -4,7 +4,8 @@ const _ = require( 'lodash' );
 
 const agendasSvc = require( '@openagenda/agendas' );
 const eventsSvc = require( '@openagenda/events' );
-const app = require( '../../../app' );
+
+const usersSvc = require( '../../users' );
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/fallbackContextGet' );
 
@@ -57,7 +58,7 @@ module.exports = async ( interfaceName, ref, context ) => {
 
       log( 'warn', 'user is missing in context', ref );
 
-      user = await app.service( '/users' ).findOne( { query: { uid: context.userUid } } );
+      user = await usersSvc.findOne( { query: { uid: context.userUid } } );
 
     } catch ( e ) {
 

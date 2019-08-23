@@ -9,7 +9,7 @@
 
 const VError = require( 'verror' );
 const log = require( '@openagenda/logs' )( 'services/accessTokens' );
-const app = require( '../../app' );
+const usersSvc = require( '../users' );
 
 let knex;
 
@@ -38,7 +38,7 @@ async function getUserFromKey( keyString = null ) {
 
   }
 
-  return app.service( '/users' ).findOne( {
+  return usersSvc.findOne( {
     query: {
       id: apiKeySet.user_id
     }
@@ -64,7 +64,7 @@ async function getUser( tokenString = null, nonce = null ) {
 
   }
 
-  return app.service( '/users' ).findOne( {
+  return usersSvc.findOne( {
     query: {
       id: apiKeySet.user_id
     }

@@ -6,6 +6,7 @@ const agendaTags = require( '@openagenda/agenda-tags' );
 const agendaCategories = require( '@openagenda/agenda-categories' );
 
 const members = require( '../services/members' );
+const usersSvc = require( '../services/users' );
 const getRoleSlug = members.utils.getRoleSlug;
 
 const { promisify } = require( 'util' );
@@ -15,7 +16,7 @@ const getAgendaCategories = promisify( agendaCategories.get );
 
 module.exports = async ( req, res, next ) => {
 
-  const user = await req.app.service( '/users' ).get( req.params.userUid );
+  const user = await usersSvc.get( req.params.userUid );
 
   if ( !user ) return res.sendStatus( 404 );
 
