@@ -46,7 +46,7 @@
 "@openagenda/babel-preset": "^1.1.1",
     "clean-webpack-plugin": "^1.0.1",
     "compression-webpack-plugin": "^1.1.11",
-    "jest": "^23.6.0",
+    "jest": "^24.9.0",
     "lodash-webpack-plugin": "^0.11.5",
     "nodemon": "^1.17.3",
     "webpack": "^4.1.1",
