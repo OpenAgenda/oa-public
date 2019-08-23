@@ -111,15 +111,13 @@ describe( 'events', () => {
         begin: moment().add( 1, 'day' ),
         end: moment().add( 1, 'day' ).add( 1, 'hour' )
       } ]
-    } )
-      .catch( ::console.log );
+    } );
 
     expect( success ).to.equal( true );
     expect( event.uid ).to.be.a( 'number' );
     expect( event.title.fr ).to.be.equal( 'Un titre' );
 
-    await oa.events.delete( testconfig.agendaUid, event.uid )
-      .catch( ::console.log );
+    await oa.events.delete( testconfig.agendaUid, event.uid );
   } );
 
   it( 'create & delete an event - with keywords', async () => {
@@ -147,15 +145,13 @@ describe( 'events', () => {
       keywords: {
         fr: [ 'Toulouse', 'Toulouse Centre', 'Culture', 'Exposition', 'Tout public' ]
       }
-    } )
-      .catch( ::console.log );
+    } );
 
     expect( success ).to.equal( true );
     expect( event.uid ).to.be.a( 'number' );
     expect( event.title.fr ).to.be.equal( 'Un titre' );
 
-    await oa.events.delete( testconfig.agendaUid, event.uid )
-      .catch( ::console.log );
+    await oa.events.delete( testconfig.agendaUid, event.uid );
   } );
 
   it( 'fails to create an event', async () => {
@@ -180,11 +176,24 @@ describe( 'events', () => {
       } );
     } catch ( e ) {
       expect( e.response.body ).to.be.eql( {
-        errors: [ {
-          field: 'title',
-          code: 'required',
-          message: 'at least one language entry is required'
-        } ]
+        errors: [
+          {
+            code: 'required',
+            field: 'title',
+            lang: 'fr',
+            message: 'a string is required',
+            origin: '',
+            step: 'validation'
+          },
+          {
+            code: 'required',
+            field: 'title',
+            lang: 'en',
+            message: 'a string is required',
+            origin: '',
+            step: 'validation'
+          }
+        ]
       } );
     }
   } );
@@ -215,15 +224,13 @@ describe( 'events', () => {
         begin: moment().add( 1, 'day' ),
         end: moment().add( 1, 'day' ).add( 1, 'hour' )
       } ]
-    } )
-      .catch( ::console.log );
+    } );
 
     const event = await oa.events.get( createdEvent.uid );
 
     expect( parseInt( event.uid, 10 ) ).to.be.equal( createdEvent.uid );
 
-    await oa.events.delete( testconfig.agendaUid, createdEvent.uid )
-      .catch( ::console.log );
+    await oa.events.delete( testconfig.agendaUid, createdEvent.uid );
   } );
 
   it( 'update an event', async () => {
@@ -248,8 +255,7 @@ describe( 'events', () => {
         begin: moment().add( 1, 'day' ),
         end: moment().add( 1, 'day' ).add( 1, 'hour' )
       } ]
-    } )
-      .catch( ::console.log );
+    } );
 
     const { event: updatedEvent } = await oa.events.update( testconfig.agendaUid, event.uid, {
       slug: event.slug,
@@ -258,15 +264,13 @@ describe( 'events', () => {
         en: 'Updated title'
       },
       timings: event.timings
-    } )
-      .catch( ::console.log );
+    } );
 
     expect( success ).to.equal( true );
     expect( event.uid ).to.be.a( 'number' );
     expect( event.title.fr ).to.be.equal( 'Un titre' );
     expect( updatedEvent.title.fr ).to.be.equal( 'Titre mise à jour' );
 
-    await oa.events.delete( testconfig.agendaUid, event.uid )
-      .catch( ::console.log );
+    await oa.events.delete( testconfig.agendaUid, event.uid );
   } );
 } );

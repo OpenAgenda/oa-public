@@ -5,7 +5,7 @@
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
   "scripts": {
-    "test": "jest --testEnvironment=node",
+    "test": "jest",
     "start": "NODE_ENV=development browser-refresh dev/server",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",

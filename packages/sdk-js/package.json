@@ -28,7 +28,7 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "chai-jest-diff": "^1.0.2",
-    "jest": "^23.6.0",
+    "jest": "^24.9.0",
     "moment": "^2.20.1",
     "reload": "^2.2.2",
     "rimraf": "^2.6.2",

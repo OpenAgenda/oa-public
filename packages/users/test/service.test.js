@@ -1,7 +1,7 @@
 'use strict';
 
 // const fs = require('fs');
-// const path = require('path');
+const path = require('path');
 const sinon = require('sinon');
 const tmp = require('tmp');
 const knexLib = require('knex');
@@ -56,6 +56,7 @@ beforeEach(async () => {
       ...config,
       mysql: { ...config.mysql, database },
       migrations: {
+        directory: path.join(__dirname, '../../keys/migrations'),
         tableName: 'knex_migrations_keys'
       }
     },
@@ -71,8 +72,10 @@ beforeEach(async () => {
   images.init({ tmpPath: config.files.tmpPath });
   imageFiles.init({ images, files });
 
-  await knex.migrate.latest();
-  await knex.seed.run({ directory: './seeds/dev' });
+  await knex.migrate.latest({
+    directory: path.join(__dirname, '../migrations')
+  });
+  await knex.seed.run({ directory: path.join(__dirname, '../seeds/dev') });
 });
 
 afterEach(async () => {

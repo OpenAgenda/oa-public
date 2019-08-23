@@ -10,7 +10,7 @@
   "main": "service/index.js",
   "scripts": {
     "knex": "babel-node ./node_modules/.bin/knex",
-    "test": "jest --testEnvironment node --detectOpenHandles --forceExit",
+    "test": "jest --detectOpenHandles --forceExit",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
     "lint-staged": "lint-staged"
@@ -45,7 +45,7 @@
     "@openagenda/images": "^1.1.1",
     "@openagenda/keys": "^2.1.1",
     "eslint": "^6.2.1",
-    "jest": "^24.8.0",
+    "jest": "^24.9.0",
     "lint-staged": "^9.2.3",
     "prettier-eslint-cli": "^5.0.0",
     "sinon": "^7.4.1",
