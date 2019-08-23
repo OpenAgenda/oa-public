@@ -55,7 +55,7 @@ export default class Events {
     await this.sdk.refreshToken();
 
     return this.sdk.agent
-      .post( `${baseUrl.v2}/agendas/${agendaUid}/events/${eventUid}` )
+      .patch( `${baseUrl.v2}/agendas/${agendaUid}/events/${eventUid}` )
       .type( 'form' )
       .accept( 'json' )
       .query( { key: this.sdk.params.publicKey } )
