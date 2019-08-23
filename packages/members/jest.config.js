@@ -3,5 +3,6 @@
 module.exports = {
   displayName: '@openagenda/members',
 
-  testEnvironment: 'node'
+  testEnvironment: 'node',
+  transform: {}
 };
