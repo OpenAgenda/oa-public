@@ -21,7 +21,7 @@ module.exports = async ( config, member, context ) => {
   try {
     const agenda = await agendas.get( {
       uid: member.agendaUid
-    }, { private: null } );
+    }, { private: null, includeImagePath: true } );
 
     if ( !agenda ) throw new Error( 'Agenda not found' );
 
