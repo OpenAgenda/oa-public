@@ -1,7 +1,5 @@
 "use strict";
 
-const should = require( 'should' );
-
 const validators = require( '../src' );
 
 describe( 'number validator', () => {
@@ -12,7 +10,7 @@ describe( 'number validator', () => {
       optional: true
     } );
 
-    should( optionalValidate() ).equal( null );
+    expect( optionalValidate() ).toBeNull();
 
   } );
 
@@ -22,7 +20,7 @@ describe( 'number validator', () => {
       default: 13
     } );
 
-    validate( '' ).should.equal( 13 );
+    expect(validate( '' )).toBe(13);
 
   } );
 
@@ -32,13 +30,13 @@ describe( 'number validator', () => {
       default: 13
     } );
 
-    validate().should.equal( 13 );
+    expect(validate()).toBe(13);
 
   } );
 
   it( 'default value can be 0', () => {
 
-    validators.number( { default: 0 } )().should.equal( 0 );
+    expect(validators.number( { default: 0 } )()).toBe(0);
 
   } );
 
@@ -61,9 +59,9 @@ describe( 'number validator', () => {
 
     }
 
-    errors.length.should.equal( 0 );
+    expect(errors.length).toBe(0);
 
-    clean.should.equal( 8 );
+    expect(clean).toBe(8);
 
   } );
 
@@ -85,9 +83,9 @@ describe( 'number validator', () => {
 
     }
 
-    errors.length.should.equal( 1 );
+    expect(errors.length).toBe(1);
 
-    errors[ 0 ].code.should.equal( 'required' );
+    expect(errors[ 0 ].code).toBe('required');
 
   } );
 
@@ -108,7 +106,7 @@ describe( 'number validator', () => {
 
     }
 
-    errors.length.should.equal( 1 );
+    expect(errors.length).toBe(1);
 
   } );
 
@@ -128,9 +126,9 @@ describe( 'number validator', () => {
 
     }
 
-    errors.length.should.equal( 1 );
+    expect(errors.length).toBe(1);
 
-    errors[ 0 ].code.should.equal( 'number.invalid' );
+    expect(errors[ 0 ].code).toBe('number.invalid');
 
   } );
 
@@ -152,9 +150,9 @@ describe( 'number validator', () => {
 
     }
 
-    errors.length.should.equal( 1 );
+    expect(errors.length).toBe(1);
 
-    errors[ 0 ].code.should.equal( 'number.toobig' );
+    expect(errors[ 0 ].code).toBe('number.toobig');
 
   });
 
@@ -167,7 +165,7 @@ describe( 'number validator', () => {
       optional: false,
     } );
 
-    validate( '11' ).should.equal( 11 );
+    expect(validate( '11' )).toBe(11);
 
   });
 
@@ -175,7 +173,7 @@ describe( 'number validator', () => {
 
     const validate = validators.number();
 
-    validate( '11.1' ).should.equal( 11.1 );
+    expect(validate( '11.1' )).toBe(11.1);
 
   } );
 

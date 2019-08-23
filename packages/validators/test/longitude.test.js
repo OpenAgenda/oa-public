@@ -1,8 +1,6 @@
 "use strict";
 
-var should = require( 'should' ),
-
-validators = require( '../src' );
+var validators = require( '../src' );
 
 describe( 'longitude validator', () => {
 
@@ -22,12 +20,12 @@ describe( 'longitude validator', () => {
 
     }
 
-    errors.should.eql( [ {
+    expect(errors).toEqual([ {
       field: false,
       code: 'longitude.toosmall',
       message: 'longitude cannot be less than -180',
       origin: -181
-    } ] );
+    } ]);
 
   } );
 
@@ -45,12 +43,12 @@ describe( 'longitude validator', () => {
 
     }
 
-    errors.should.eql( [ {
+    expect(errors).toEqual([ {
       field: false,
       code: 'longitude.toobig',
       message: 'longitude cannot be more than 180',
       origin: 181
-    } ] );
+    } ]);
 
   } );
 
@@ -68,12 +66,12 @@ describe( 'longitude validator', () => {
 
     }
 
-    errors.should.eql( [ {
+    expect(errors).toEqual([ {
       field: false,
       code: 'longitude.invalid',
       message: 'not a number',
       origin: 'fdsqfdsq'
-    } ] );
+    } ]);
 
   } );
 
@@ -83,7 +81,7 @@ describe( 'longitude validator', () => {
 
     try {
 
-      validate( '2.4534' ).should.equal( 2.4534 );
+      expect(validate( '2.4534' )).toBe(2.4534);
 
     } catch ( e ) {
 
@@ -91,7 +89,7 @@ describe( 'longitude validator', () => {
 
     }
 
-    errors.should.equal( false );
+    expect(errors).toBe(false);
 
   } );
 

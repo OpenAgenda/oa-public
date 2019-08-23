@@ -1,8 +1,5 @@
 "use strict";
 
-require( 'source-map-support' ).install();
-
-const should = require( 'should' );
 const utils = require( '@openagenda/utils' );
 
 const validators = require( '../src' );
@@ -13,7 +10,7 @@ describe( 'schema validator', () => {
 
   describe( 'shallow schemas', () => {
 
-    before( () => {
+    beforeAll( () => {
 
       // load up the validators
       // that will be used by the schema lib
@@ -35,13 +32,11 @@ describe( 'schema validator', () => {
         }
       } );
 
-      validate( {
+      expect(validate( {
         title: 'Simple!'
-      } )
-
-      .should.eql( {
+      } )).toEqual({
         title: 'Simple!'
-      } );
+      });
 
     } );
 
@@ -57,15 +52,13 @@ describe( 'schema validator', () => {
         }
       } );
 
-      validate( {
+      expect(validate( {
         title: 'This is not a link',
         link: 'this.is.not.a.title'
-      } )
-
-      .should.eql( {
+      } )).toEqual({
         title: 'This is not a link',
         link: 'http://this.is.not.a.title'
-      } );
+      });
 
     } );
 
@@ -91,12 +84,12 @@ describe( 'schema validator', () => {
 
       }
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         field: 'title',
         code: 'required',
         message: 'a string is required',
         origin: undefined
-      } ] );
+      } ]);
 
     } );
 
@@ -119,14 +112,14 @@ describe( 'schema validator', () => {
 
       try {
 
-        validate.default.should.eql( {
+        expect(validate.default).toEqual({
           title: 'default text',
           url: null,
-        } );
+        });
 
       } catch( e ) { errors = e };
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
     } );
 
@@ -136,7 +129,7 @@ describe( 'schema validator', () => {
 
     let validate;
 
-    before( () => {
+    beforeAll( () => {
 
       // load up the validators
       // that will be used by the schema lib
@@ -166,19 +159,17 @@ describe( 'schema validator', () => {
 
     it( 'shallow-maps deeper schemas', () => {
 
-      validate( {
+      expect(validate( {
         title: 'Testing',
         sub: {
           description: 'a description'
         }
-      } )
-
-      .should.eql( {
+      } )).toEqual({
         title: 'Testing',
         sub: {
           description: 'a description'
         }
-      } );
+      });
 
     } );
 
@@ -228,7 +219,7 @@ describe( 'schema validator', () => {
         }
       } );
 
-      cleanObject.should.eql( {
+      expect(cleanObject).toEqual({
         title: 'Puma',
         description: 'A feline',
         url: 'https://openagenda.com',
@@ -239,7 +230,7 @@ describe( 'schema validator', () => {
             universe: 42
           }
         }
-      } );
+      });
 
     } );
 
@@ -271,14 +262,14 @@ describe( 'schema validator', () => {
 
       } catch( e ) { errors = e; }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         contribution: {
           type: 0,
           message: null
         }
-      } );
+      });
 
     } );
 
@@ -308,11 +299,11 @@ describe( 'schema validator', () => {
 
       }
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         subobj: {
           somefield: 'thedefaultvalue'
         }
-      } );
+      });
 
     } );
 
@@ -330,12 +321,12 @@ describe( 'schema validator', () => {
 
       } catch ( e ) { errors = e; }
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         field: 'sub.description',
         code: 'required',
         message: 'a string is required',
         origin: undefined
-      } ] );
+      } ]);
 
     } );
 
@@ -393,7 +384,7 @@ describe( 'schema validator', () => {
 
       }
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         field: 'title',
         code: 'required',
         message: 'a string is required',
@@ -408,7 +399,7 @@ describe( 'schema validator', () => {
         code: 'number.invalid',
         message: 'not a number',
         origin: 'here'
-      } ] );
+      } ]);
 
     } );
 
@@ -444,12 +435,12 @@ describe( 'schema validator', () => {
 
       }
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         title: 'Testing',
         sub: {
           description: 'Boom'
         }
-      } );
+      });
 
     } );
 
@@ -481,13 +472,13 @@ describe( 'schema validator', () => {
         ignoredValue: 'fdsfds'
       } );
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         title: 'the title',
         url: 'https://openagenda.com',
         settings: {
           someSetting: 23
         }
-      } );
+      });
 
     } );
 
@@ -513,13 +504,13 @@ describe( 'schema validator', () => {
 
       try {
 
-        validate.default.should.eql( {
+        expect(validate.default).toEqual({
           title: null,
           url: null,
           settings: {
             someSetting: null
           }
-        } );
+        });
 
       } catch( e ) { console.log( e ); }
 
@@ -549,7 +540,7 @@ describe( 'schema validator', () => {
 
   describe( 'lists in schemas', () => {
 
-    before( () => {
+    beforeAll( () => {
 
       // load up the validators
       // that will be used by the schema lib
@@ -577,9 +568,9 @@ describe( 'schema validator', () => {
         }
       } );
 
-      validators.default.should.eql( {
+      expect(validators.default).toEqual({
         aList: []
-      } );
+      });
 
     } );
 
@@ -607,11 +598,11 @@ describe( 'schema validator', () => {
 
       }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         aListOfTexts: [ 'a', 'b', 'c' ]
-      } );
+      });
 
     } );
 
@@ -637,14 +628,14 @@ describe( 'schema validator', () => {
 
       } catch( e ) { errors = e; }
 
-      errors.length.should.equal( 1 );
+      expect(errors.length).toBe(1);
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         field: 'aListOfTexts',
         code: 'list.tooshort',
         message: 'list is too short',
         origin: [ 'ladida' ]
-      } ] );
+      } ]);
 
     } );
 
@@ -671,14 +662,14 @@ describe( 'schema validator', () => {
 
       } catch( e ) { errors = e; }
 
-      errors.length.should.equal( 1 );
+      expect(errors.length).toBe(1);
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         field: 'aListOfTexts',
         code: 'list.toolong',
         message: 'list is too long',
         origin: [ 'la', 'dida' ]
-      } ] );
+      } ]);
 
     } );
 
@@ -704,7 +695,7 @@ describe( 'schema validator', () => {
 
       } catch( e ) { errors = e; }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
     } );
 
@@ -738,15 +729,15 @@ describe( 'schema validator', () => {
 
       } catch( e ) { errors = e; }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         aListOfObjects: [
           { message: 'One' },
           { message: 'Two' },
           { message: 'Three' }
         ]
-      } );
+      });
 
     } );
 
@@ -763,7 +754,7 @@ describe( 'schema validator', () => {
 
       try {
 
-        validate().should.eql( [] );
+        expect(validate()).toEqual([]);
 
       } catch( e ) {
 
@@ -771,7 +762,7 @@ describe( 'schema validator', () => {
 
       }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
 
     } );
@@ -807,7 +798,7 @@ describe( 'schema validator', () => {
 
       } catch( e ) { errors = e; }
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         field: 'aListOfObjects',
         code: 'list.tooshort',
         message: 'list is too short',
@@ -818,7 +809,7 @@ describe( 'schema validator', () => {
         }, {
           message: 'Three'
         } ] }
-      ] );
+      ]);
 
     } );
 
@@ -829,7 +820,7 @@ describe( 'schema validator', () => {
 
     let validate;
 
-    before( () => {
+    beforeAll( () => {
 
       schema.register( {
         text: validators.text,
@@ -853,15 +844,13 @@ describe( 'schema validator', () => {
 
     it( 'list validator validates a data of potentially multiple types', () => {
 
-      validate( {
+      expect(validate( {
         title: 'Yay',
         registration: [ '031', 'yay@site.com' ]
-      } )
-
-      .should.eql( {
+      } )).toEqual({
         title: 'Yay',
         registration: [ '031', 'yay@site.com' ]
-      } );
+      });
 
     } );
 
@@ -882,9 +871,9 @@ describe( 'schema validator', () => {
 
       }
 
-      errors.length.should.equal( 2 );
+      expect(errors.length).toBe(2);
 
-      errors[ 0 ].field.should.equal( 'registration' );
+      expect(errors[ 0 ].field).toBe('registration');
 
     } );
 
@@ -895,7 +884,7 @@ describe( 'schema validator', () => {
 
     let validate;
 
-    before( () => {
+    beforeAll( () => {
 
       // load up the validators
       // that will be used by the schema lib
@@ -928,7 +917,7 @@ describe( 'schema validator', () => {
 
       let clean = validate.part( 'url', 'https://openagenda.com' );
 
-      clean.should.equal( 'https://openagenda.com' );
+      expect(clean).toBe('https://openagenda.com');
 
     } );
 
@@ -937,7 +926,7 @@ describe( 'schema validator', () => {
 
       let clean = validate.part( 'settings.someSetting', '12' );
 
-      clean.should.equal( 12 );
+      expect(clean).toBe(12);
 
     } );
 
@@ -951,12 +940,12 @@ describe( 'schema validator', () => {
         }
       } );
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         url: 'https://openagenda.com',
         settings: {
           someSetting: 12
         }
-      } );
+      });
 
     } );
 
@@ -981,11 +970,11 @@ describe( 'schema validator', () => {
 
       }
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         code: 'field.notdefined',
         message: 'field isn\'t defined',
         field: 'extra'
-      } ] );
+      } ]);
 
     } );
 
@@ -1007,12 +996,12 @@ describe( 'schema validator', () => {
         console.log(e);
       }
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         url: 'https://openagenda.com',
         settings: {
           someSetting: 12
         }
-      } );
+      });
 
     } );
 
@@ -1033,11 +1022,11 @@ describe( 'schema validator', () => {
 
       }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         someSetting: 45
-      } );
+      });
 
     } );
 
@@ -1048,7 +1037,7 @@ describe( 'schema validator', () => {
 
   describe( 'particular cases', () => {
 
-    before( () => {
+    beforeAll( () => {
 
       // load up the validators
       // that will be used by the schema lib
@@ -1090,13 +1079,13 @@ describe( 'schema validator', () => {
 
       }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         contribution: {
           type: 42
         }
-      } );
+      });
 
     } );
 
@@ -1122,7 +1111,7 @@ describe( 'schema validator', () => {
 
       }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
     } );
 
@@ -1152,7 +1141,7 @@ describe( 'schema validator', () => {
 
       }
 
-      errored.should.equal( false );
+      expect(errored).toBe(false);
 
     } );
 
@@ -1185,7 +1174,7 @@ describe( 'schema validator', () => {
 
       }
 
-      errored.should.equal( false );
+      expect(errored).toBe(false);
 
     } );
 
@@ -1209,14 +1198,14 @@ describe( 'schema validator', () => {
 
       } catch( e ) {
 
-        e.length.should.equal( 1 );
+        expect(e.length).toBe(1);
 
-        e[ 0 ].should.eql( {
+        expect(e[ 0 ]).toEqual({
           field: 'tags',
           origin: 'libre, conférence',
           code: 'string.invalidtype',
           message: 'not an object'
-        } );
+        });
 
       }
 
@@ -1250,15 +1239,15 @@ describe( 'schema validator', () => {
 
       }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         settings: {
           contribution: {
             message: 'thedefaultvalue'
           }
         }
-      } );
+      });
 
     } );
 
@@ -1288,7 +1277,7 @@ describe( 'schema validator', () => {
 
       }
 
-      errors[ 0 ].field.should.equal( 'description.fr' );
+      expect(errors[ 0 ].field).toBe('description.fr');
 
     } );
 
@@ -1313,7 +1302,7 @@ describe( 'schema validator', () => {
 
       }
 
-      errors[ 0 ].field.should.equal( 'description' );
+      expect(errors[ 0 ].field).toBe('description');
 
     } );
 
@@ -1338,12 +1327,12 @@ describe( 'schema validator', () => {
 
       }
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         code: 'required',
         message: 'a integer is required',
         origin: undefined,
         field: 'count'
-      } ] );
+      } ]);
 
     } );
 
@@ -1369,7 +1358,7 @@ describe( 'schema validator', () => {
 
       }
 
-      errors[ 0 ].field.should.equal( 'description' );
+      expect(errors[ 0 ].field).toBe('description');
 
     } );
 

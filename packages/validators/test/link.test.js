@@ -1,7 +1,5 @@
 "use strict";
 
-const should = require( 'should' );
-
 const validators = require( '../src' );
 
 describe( 'link validator', () => {
@@ -24,7 +22,7 @@ describe( 'link validator', () => {
 
       }
 
-      errors.length.should.equal( 1 );
+      expect(errors.length).toBe(1);
 
     } );
 
@@ -33,7 +31,7 @@ describe( 'link validator', () => {
 
       const clean = validate( 'mailto:email@gmail.com' );
 
-      clean.should.equal( 'mailto:email@gmail.com' );
+      expect(clean).toBe('mailto:email@gmail.com');
 
     } );
 
@@ -52,7 +50,7 @@ describe( 'link validator', () => {
 
       }
 
-      errors.length.should.equal( 1 );
+      expect(errors.length).toBe(1);
 
     } );
 
@@ -82,7 +80,7 @@ describe( 'link validator', () => {
 
       var clean = validate( 'lemonde.fr' );
 
-      clean.should.equal( 'http://lemonde.fr' );
+      expect(clean).toBe('http://lemonde.fr');
 
     } );
 
@@ -121,7 +119,7 @@ describe( 'link validator', () => {
 
       } );
 
-      notLinks.length.should.equal( 0 );
+      expect(notLinks.length).toBe(0);
 
     } );
 
@@ -153,7 +151,7 @@ describe( 'link validator', () => {
 
       } );
 
-      areLinks.length.should.equal( 0 );
+      expect(areLinks.length).toBe(0);
 
     } );
 
@@ -170,11 +168,11 @@ describe( 'link validator', () => {
 
         caught = true;
 
-        e[ 0 ].code.should.equal( 'link.invalid' );
+        expect(e[ 0 ].code).toBe('link.invalid');
 
       }
 
-      caught.should.equal( true );
+      expect(caught).toBe(true);
 
     } );
 
@@ -186,7 +184,7 @@ describe( 'link validator', () => {
 
     it( 'empty input is ignored', () => {
 
-      should( validate() ).equal( undefined );
+      expect( validate() ).toBeUndefined();
 
     } );
 
@@ -194,7 +192,7 @@ describe( 'link validator', () => {
 
       const validate = validators.link( { field: 'link', optional: true, default: null } );
 
-      should( validate() ).equal( null );
+      expect( validate() ).toBeNull();
 
     } );
 
@@ -212,7 +210,7 @@ describe( 'link validator', () => {
 
       }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
     } );
 

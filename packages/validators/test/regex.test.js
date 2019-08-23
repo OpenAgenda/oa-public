@@ -1,8 +1,6 @@
 "use strict";
 
-const should = require( 'should' ),
-
-validators = require( '../src' );
+const validators = require( '../src' );
 
 describe( 'regex validator', () => {
 
@@ -22,7 +20,7 @@ describe( 'regex validator', () => {
 
     }
 
-    errors.length.should.equal( 0 );
+    expect(errors.length).toBe(0);
 
   } );
 
@@ -32,7 +30,7 @@ describe( 'regex validator', () => {
 
     try { validate( '+++' ) } catch( e ) { errors = e; }
 
-    errors.length.should.equal( 1 );
+    expect(errors.length).toBe(1);
 
   } );
 
@@ -44,9 +42,9 @@ describe( 'regex validator', () => {
 
     try { clean = validate( '/image/path.png' ); } catch( e ) { errors = e; }
 
-    errors.length.should.equal( 0 );
+    expect(errors.length).toBe(0);
 
-    clean.should.equal( 'path.png' );
+    expect(clean).toBe('path.png');
 
   } );
 

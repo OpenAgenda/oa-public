@@ -1,14 +1,12 @@
 "use strict";
 
-let should = require( 'should' ),
-
-validators = require( '../src' );
+let validators = require( '../src' );
 
 describe( 'boolean validator', () => {
 
   it( 'cleans true to true', () => {
 
-    validators.boolean()( true ).should.equal( true );
+    expect(validators.boolean()( true )).toBe(true);
 
   } );
 
@@ -18,7 +16,7 @@ describe( 'boolean validator', () => {
       optional: true
     } );
 
-    should( optionalValidate() ).equal( null );
+    expect( optionalValidate() ).toBeNull();
 
   } );
 
@@ -29,7 +27,7 @@ describe( 'boolean validator', () => {
       default: null
     } );
 
-    should( optionalValidate( null ) ).equal( null );
+    expect( optionalValidate( null ) ).toBeNull();
 
   } );
 
@@ -39,7 +37,7 @@ describe( 'boolean validator', () => {
       default: true
     } );
 
-    validate().should.equal( true );
+    expect(validate()).toBe(true);
 
   } );
 
@@ -61,9 +59,9 @@ describe( 'boolean validator', () => {
 
     }
 
-    errors.length.should.equal( 1 );
+    expect(errors.length).toBe(1);
 
-    errors[ 0 ].code.should.equal( 'required' );
+    expect(errors[ 0 ].code).toBe('required');
 
   } );
 
@@ -75,19 +73,19 @@ describe( 'boolean validator', () => {
       optional: false,
     } );
 
-    validate( '11' ).should.equal( true );
+    expect(validate( '11' )).toBe(true);
 
   });
 
   it( 'cleans \'0\' to false', () => {
 
-    validators.boolean()( '0' ).should.equal( false );
+    expect(validators.boolean()( '0' )).toBe(false);
 
   } );
 
   it( 'cleans \'false\' to false', () => {
 
-    validators.boolean()( 'false' ).should.equal( false );
+    expect(validators.boolean()( 'false' )).toBe(false);
 
   } );
 
@@ -98,7 +96,7 @@ describe( 'boolean validator', () => {
       default: null
     } );
 
-    should( validate() ).equal( null );
+    expect( validate() ).toBeNull();
 
   } );
 
@@ -109,7 +107,7 @@ describe( 'boolean validator', () => {
       default: null
     } );
 
-    should( validate( null ) ).equal( null );
+    expect( validate( null ) ).toBeNull();
 
   } );
 
@@ -119,7 +117,7 @@ describe( 'boolean validator', () => {
       field: 'meh'
     } );
 
-    validate( null ).should.equal( false );
+    expect(validate( null )).toBe(false);
 
   } );
 
@@ -130,7 +128,7 @@ describe( 'boolean validator', () => {
       allowNull: true
     } );
 
-    should( validate( null ) ).equal( null );
+    expect( validate( null ) ).toBeNull();
 
   } );
 

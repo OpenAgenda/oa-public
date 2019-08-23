@@ -1,8 +1,6 @@
 "use strict";
 
-const should = require( 'should' ),
-
-validators = require( '../src' );
+const validators = require( '../src' );
 
 describe( 'pass validator', () => {
 
@@ -10,9 +8,7 @@ describe( 'pass validator', () => {
 
   it( 'passes anything', () => {
 
-    validate( 'anything' )
-
-    .should.equal( 'anything' );
+    expect(validate( 'anything' )).toBe('anything');
 
   } );
 
@@ -20,19 +16,15 @@ describe( 'pass validator', () => {
 
     let listOfAnything = [ 'fdsqfdss', 123, { a: 'b' } ];
 
-    validators.pass( { list: true } )( listOfAnything )
-
-      .should.eql( listOfAnything );
+    expect(validators.pass( { list: true } )( listOfAnything )).toEqual(listOfAnything);
 
   } );
 
   it( 'passes default if nothing is given and default is defined', () => {
 
-    validators.pass( {
+    expect(validators.pass( {
       default: 'grut'
-    } )()
-
-      .should.equal( 'grut' );
+    } )()).toBe('grut');
 
   } );;
 
