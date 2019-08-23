@@ -1,15 +1,26 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const bodyParser = require( 'body-parser' );
-const qs = require( 'qs' );
+const _ = require('lodash');
+const bodyParser = require('body-parser');
+const qs = require('qs');
 
 module.exports = [
-  ( req, res, next ) => {
+  (req, res, next) => {
 
-    const parser = req.method === 'PATCH' ? bodyParser.json() : bodyParser.raw( { inflate: true, limit: '500kb', type: 'text/plain' } );
+    let parser = bodyParser.json();
 
-    parser( req, res, next );
+    if (
+      ( req.headers['content-type'] !== 'application/json' )
+      && req.method !== 'PATCH'
+    ) {
+      parser = bodyParser.raw({
+        inflate: true,
+        limit: '500kb',
+        type: 'text/plain'
+      });
+    }
+
+    parser(req, res, next);
 
   },
   ( req, res, next ) => {
@@ -20,16 +31,18 @@ module.exports = [
 
     }
 
+    req.parsedData = req.body.data || req.body;
+
     try {
-
-      req.parsedData = JSON.parse( req.body.data );
-
+      if ( typeof req.parsedData === 'string' ) {
+        req.parsedData = JSON.parse( req.parsedData );
+      }
     } catch ( e ) {
 
       return res.status( 400 ).json( {
         error: 'provided json is invalid',
         agendaUid: req.params.agendaUid,
-        json: req.body.data
+        body: req.body
       } );
 
     }
