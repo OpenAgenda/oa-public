@@ -5,7 +5,6 @@ const bodyParser = require( 'body-parser' );
 const ih = require( 'immutability-helper' );
 
 const Service = require( '@openagenda/members' );
-const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'services/members' );
 
 const mail = require( './lib/mail' );
@@ -14,6 +13,7 @@ const streamCsv = require( './lib/streamCsv' );
 const streamXlsx = require( './lib/streamXlsx' );
 const transferEvent = require( './lib/transferEvent' );
 const queues = require( '../queues' );
+const sessions = require( '../sessions' );
 
 const getEventCountByUserUid = require( './getEventCountByUserUid' );
 const getUsersByUid = require( './getUsersByUid' );
@@ -94,9 +94,9 @@ function init( c ) {
       },
       mw: {
         load: mw.load.bind( null, members ),
-        loadOrFail: mw.load.loadOrFail.bind( null, members ),
+        loadOrFail: mw.load.orFail.bind( null, members ),
         list: mw.list.bind( null, members ),
-        loadAndAuthorize: mw.load.loadAndAuthorize.bind( null, members ),
+        loadAndAuthorize: mw.load.andAuthorize.bind( null, members ),
         authorize: {
           moderator: mw.authorize.moderator
         }
@@ -116,12 +116,9 @@ function plugApp( parentApp ) {
     '/:agendaSlug/admin/members/:id/details',
     '/:agendaSlug/admin/members/:id/invite/resend'
   ], [
-    sessions.middleware.ifUnlogged( ( req, res ) => res.status( 403 ).json( {
-      message: 'A session must be opened to access this route',
-    } ) ),
     mw.loadAgenda,
-    mw.load.loadOrFail.bind( null, members ),
-    mw.authorize.moderator,
+    sessions.mw.loadOrRedirect,
+    mw.load.andAuthorize(members, 'moderator'),
     agendasMw.evaluateIPAddress( {
       onUnauthorizedIPAddress: _onUnauthorizedIPAddress
     } )

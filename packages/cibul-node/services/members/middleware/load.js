@@ -15,7 +15,7 @@ module.exports = ( members, req, res, next ) => {
   _load( members, req ).then( next, next );
 }
 
-module.exports.loadAndAuthorize = (members, requiredRole) => {
+module.exports.andAuthorize = (members, requiredRole) => {
   return (req, res, next) => {
     log( 'load and authorize', requiredRole );
     _load(members, req).then(() => {
@@ -32,7 +32,7 @@ module.exports.loadAndAuthorize = (members, requiredRole) => {
   }
 }
 
-module.exports.loadOrFail = ( members, req, res, next ) => {
+module.exports.orFail = ( members, req, res, next ) => {
   log( 'loading current user member reference... or fail' );
   _load( members, req ).then( () => {
     if ( !req.member ) {
