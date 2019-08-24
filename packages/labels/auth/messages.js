@@ -1,6 +1,10 @@
 "use strict";
 
 module.exports = {
+  "authRequired": {
+    "en": "You need to be authenticated to access this page.",
+    "fr": "L' accès à la page demandée est restreint. Connectez-vous pour y accéder."
+  },
   "limitedAccessEvent": {
     "en": "You need to be authenticated to access this event. Please sign in",
     "fr": "L' accès à cet événement est restreint. Connectez-vous pour y accéder.",

@@ -96,6 +96,7 @@ function init( c ) {
         load: mw.load.bind( null, members ),
         loadOrFail: mw.load.loadOrFail.bind( null, members ),
         list: mw.list.bind( null, members ),
+        loadAndAuthorize: mw.load.loadAndAuthorize.bind( null, members ),
         authorize: {
           moderator: mw.authorize.moderator
         }

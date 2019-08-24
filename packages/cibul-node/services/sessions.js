@@ -6,9 +6,17 @@ const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'sessions' );
 const usersSvc = require( './users' );
 
+const service = {
+  mw: {
+    loadOrRedirect: Object.assign(loadOrRedirect, {
+      options: loadOrRedirectOptions
+    })
+  }
+};
+
+module.exports = service;
 
 module.exports.init = config => {
-
   sessions.init( {
     redis: {
       host: config.redis.host,
@@ -27,6 +35,27 @@ module.exports.init = config => {
     logger: config.getLogConfig( 'oa', 'sessions', false )
   } );
 
+  Object.assign( service, sessions );
+}
+
+function loadOrRedirect(req, res, next) {
+  return _loadOrRedirect({ detailed: false, msg: 'authRequired' }, req, res, next);
+}
+
+function loadOrRedirectOptions(options) {
+  return _loadOrRedirect.bind(null, options);
+}
+
+function _loadOrRedirect({detailed, msg}, req, res, next) {
+  sessions.get(req, {detailed: false}, (err, user) => {
+    if (err) return next(err);
+    if (!user) {
+      const redirect = new Buffer(req.originalUrl, 'utf-8').toString('base64');
+      return res.redirect(302, `${req.agenda?'/'+req.agenda.slug:''}/signin?redirect=${redirect}&msg=${msg}`);
+    }
+    req.user = user;
+    next();
+  } );
 }
 
 function getUser( imageBucketPath, query, cb ) {

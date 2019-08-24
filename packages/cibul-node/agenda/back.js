@@ -4,10 +4,12 @@ const _ = require( 'lodash' );
 
 const app = require( 'express' )();
 const fs = require( 'fs' );
-const sessions = require( '@openagenda/sessions' );
 const agendasSvc = require( '@openagenda/agendas' );
 const agendaStatistics = require( '../services/agendaStatistics' );
 const cmn = require( '../lib/commons-app' );
+
+const members = require( '../services/members' );
+const sessions = require( '../services/sessions' );
 
 const layout = require( '../services/lib/layouts' ).load( 'agendaAdmin' );
 
@@ -26,11 +28,11 @@ const statsTemplate = _.template( fs.readFileSync( __dirname + '/stats.tpl', 'ut
 
 module.exports = parentApp => parentApp.use( '/', app );
 
-app.use( '/:agendaSlug/admin/getting-started', [
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+app.use('/:agendaSlug/admin/getting-started', [
+  sessions.mw.loadOrRedirect,
   agendaLoad,
-  cmn.authorize.administrator
-] );
+  members.mw.loadAndAuthorize('administrator')
+]);
 
 
 /**
