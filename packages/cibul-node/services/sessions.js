@@ -47,7 +47,7 @@ function loadOrRedirectOptions(options) {
 }
 
 function _loadOrRedirect({detailed, msg}, req, res, next) {
-  sessions.get(req, {detailed: false}, (err, user) => {
+  sessions.get(req, {detailed}, (err, user) => {
     if (err) return next(err);
     if (!user) {
       const redirect = new Buffer(req.originalUrl, 'utf-8').toString('base64');

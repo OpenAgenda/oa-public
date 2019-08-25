@@ -3,24 +3,24 @@
 const express = require( 'express' );
 const VError = require( 'verror' );
 const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
-const sessions = require( '@openagenda/sessions' );
 const agendasMw = require( '@openagenda/agendas/middleware' );
 const { mw: { load: oldAgendaLoad } } = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const errorLogger = require( '../services/00_errors' );
 const config = require( '../config' );
 
+const sessions = require( '../services/sessions' );
+const members = require( '../services/members' );
 
 const preMw = [
-  cmn.loadLogger( 'inboxes/back' ),
-  sessions.middleware.ifUnlogged( ( req, res ) => res.status( 400 ).json( { error: 'Not logged' } ) ),
+  sessions.mw.loadOrRedirect,
   ( req, res, next ) => {
     req.type = 'agenda';
     req.creatorInboxUser = { userUid: req.user.uid };
     next();
   },
   oldAgendaLoad( 'agendaUid', 'uid' ),
-  cmn.checkAdminOrModerator,
+  members.mw.loadAndAuthorize( 'moderator' ),
   agendasMw.load( {
     namespaces: { identifiers: { uid: 'params.agendaUid' } },
     private: null
