@@ -2,19 +2,21 @@
 
 const _ = require( 'lodash' );
 const async = require( 'async' );
-const sessions = require( '@openagenda/sessions' );
 const agendaTags = require( '@openagenda/agenda-tags' );
 const agendaCategories = require( '@openagenda/agenda-categories' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/tagsForm' ) );
 const cmn = require( '../lib/commons-app' );
+
 const agendaSvc = require( '../services/agenda' );
 const eventSvc = require( '../services/event' );
+const members = require('../services/members');
+const sessions = require('../services/sessions');
 
 const preMw = [
   agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
   eventSvc.mw.load( 'eventSlug', 'slug' ),
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-  cmn.checkAdminOrModerator
+  sessions.mw.loadOrRedirect,
+  members.mw.loadAndAuthorize('administrator')
 ];
 
 

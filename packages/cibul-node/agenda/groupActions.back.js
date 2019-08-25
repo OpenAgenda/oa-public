@@ -1,9 +1,10 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' );
-const cmn = require( '../lib/commons-app' );
-const agendaSvc = require( '../services/agenda' );
-const eventSvc = require( '../services/event' );
+const cmn = require('../lib/commons-app');
+const agendaSvc = require('../services/agenda');
+const eventSvc = require('../services/event');
+const members = require('../services/members');
+const sessions = require('../services/sessions');
 
 const l = {
   a: require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/actions' ) ),
@@ -13,41 +14,31 @@ const l = {
 
 
 module.exports = app => {
-
   app.post(
     '/agendas/:uid/admin/events/states',
-    cmn.loadLogger( 'group actions' ),
-    agendaSvc.mw.load( 'uid' ),
-    cmn.checkAdminOrModerator,
-    agendaSvc.mw.load( 'uid' ),
+    sessions.mw.loadOrRedirect,
+    agendaSvc.mw.load('uid'),
+    members.mw.loadAndAuthorize('moderator'),
     changeStates
   );
-
 };
 
 function changeStates( req, res, next ) {
+  const redirectRes = `/${req.agenda.slug}/admin/events`;
 
-  let redirectRes = req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ),
+  const labels = {
+    [eventSvc.STATETYPES.NOTVALIDATED]: 'tobecontrolled',
+    [eventSvc.STATETYPES.VALIDATED]: 'controlled',
+    [eventSvc.STATETYPES.PUBLISHED]: 'published'
+  };
 
-  labels = {},
-
-  stateSwitch;
-
-  labels[ eventSvc.STATETYPES.NOTVALIDATED ] = 'tobecontrolled';
-  labels[ eventSvc.STATETYPES.VALIDATED ] = 'controlled';
-  labels[ eventSvc.STATETYPES.PUBLISHED ] = 'published';
-
-  if ( !req.body.state.length ) {
-
+  if (!req.body.state.length) {
     sessions.setFlash( req, res, l.e( 'selectActionBefore', req.lang ) );
-
     res.redirect( 302, redirectRes );
-
     return;
-
   }
 
-  stateSwitch = {
+  const stateSwitch = {
     readytopublished: [ eventSvc.STATETYPES.VALIDATED, eventSvc.STATETYPES.PUBLISHED ],
     publishedtoready: [ eventSvc.STATETYPES.PUBLISHED, eventSvc.STATETYPES.VALIDATED ],
     tocontroltoready: [ eventSvc.STATETYPES.NOTVALIDATED, eventSvc.STATETYPES.VALIDATED ],

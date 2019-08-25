@@ -8,7 +8,6 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaSvc = require( '@openagenda/agendas' );
 const contributorLabels = require( '@openagenda/labels/event/contributors' );
 const eventReferences = require( '@openagenda/agenda-event-references' );
-const sessions = require( '@openagenda/sessions' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
 
 const core = require( '../core' );
@@ -16,7 +15,9 @@ const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
 const activitiesSvc = require( '../services/activities' );
-const STATETYPES = require( '../services/model' ).events().STATETYPES;
+const sessions = require('../services/sessions');
+const members = require('../services/members');
+const STATETYPES = require('../services/model').events().STATETYPES;
 
 const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 
@@ -25,9 +26,10 @@ module.exports = app => {
 
   app.get(
     '/:slug/events/:eventSlug/featured/:type',
+    sessions.mw.loadOrRedirect,
     legacyAgendaSvc.mw.load( 'slug' ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
-    cmn.checkAdminOrModerator,
+    members.mw.loadAndAuthorize('moderator'),
     _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
     _changeFeatured,
     _redirect
@@ -86,18 +88,18 @@ module.exports = app => {
 
   app.get(
     '/agendas/:uid/events',
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.mw.loadOrRedirect,
     legacyAgendaSvc.mw.load( 'uid' ),
-    ( req, res, next ) => {
-
+    members.mw.load,
+    (req, res, next) => {
       req.agendaId = req.agenda.id;
-
+      if (req.member) {
+        req.access = members.utils.getRoleSlug(req.member.role);
+      }
       next();
-
     },
-    _loadAdminOrModerator,
     eventReferences.mw.events,
-    ( req, res ) => res.json( _.pick( req, [ 'events' ] ) )
+    (req, res) => res.json( _.pick( req, [ 'events' ] ) )
   );
 
   app.get(
@@ -136,7 +138,7 @@ module.exports = app => {
     '/agendas/:uid/events/:eventUid/activities',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    cmn.checkAdminOrModerator,
+    members.mw.loadAndAuthorize('moderator'),
     ( req, res, next ) => {
 
       const limit = 20;
@@ -385,16 +387,5 @@ function _checkAuthorizedChanges( authorizedTypes ) {
     next();
 
   }
-
-}
-
-function _loadAdminOrModerator( req, res, next ) {
-
-  // load req.access without throwing error
-  cmn.checkAdminOrModerator( req, res, err => {
-
-    next();
-
-  } );
 
 }
