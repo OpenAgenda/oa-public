@@ -30,6 +30,7 @@ const genUrl = require( '../services/genUrl' );
 const errorLogger = require( '../services/00_errors' );
 const i18n = require( '../i18n/i18n.js' );
 const model = require( '../services/model' );
+const members = require( '../services/members' );
 const usersSvc = require( '../services/users' );
 
 const layouts = require( '../services/lib/layouts' );
@@ -107,7 +108,6 @@ module.exports = {
   assign,                       // middleware for assigning values to req or res
   checkCredential,              // middleware. check that request agenda has required credential
   checkAgendaCredential,
-  checkModerator,
   checkContributor,
   checkAdminOrModerator,
   checkAdminOrModeratorOrKey,
@@ -177,34 +177,6 @@ function agendaMailTo( agenda ) {
   if ( !queryParts.length ) return 'mailto:' + config.email;
 
   return 'mailto:' + config.email + '?' + queryParts.join( '&' );
-
-}
-
-function checkModerator( req, res, next ) {
-
-  _prepareSession( req, res, err => {
-
-    if ( err ) return next( err );
-
-    if ( !req.user ) return next( { code: 403 } );
-
-    wn.call( req.agenda.isModerator, { id: req.user.id } )
-
-      .then( function ( isModerator ) {
-
-        if ( !isModerator ) throw { message: 'You do not have access to the moderation of this agenda.', code: 403 };
-
-        next();
-
-      } )
-
-      .catch( function ( err ) {
-
-        errorResponse( req, res, err );
-
-      } );
-
-  } );
 
 }
 
@@ -325,47 +297,90 @@ function checkStakeholder( req, res, next ) {
 
 }
 
-function checkAdminOrModeratorOrKey( req, res, next ) {
+async function checkAdminOrModeratorOrKey(req, res, next) {
+  let authorized = false;
 
-  checkAdminOrModerator( req, res, async err => {
-
-    if ( !err ) return next(); // If admin or moderator
-
-    let agendaKey;
-    let adminmodKey;
-
-    try {
-      agendaKey = await keysSvc( { type: 'agendaFullRead', identifier: req.agenda.uid, key: req.query.key } ).get();
-    } catch ( e ) {
-    }
-
-    try {
-      adminmodKey = await keysSvc( { type: 'userPublic', key: req.query.key } ).get();
-
-      if ( adminmodKey ) {
-        const user = await usersSvc.findOne( { query: { uid: adminmodKey.identifier }, detailed: true } );
-        const member = await promisify( stakeholdersSvc.user( user.id ).get )();
-
-        if ( !stakeholdersSvc.types.isSuperiorTo( member.credential, stakeholdersSvc.types.get( 'moderator' ), true ) ) {
-          adminmodKey = null;
+  try {
+    // if is logged and is adminmod, we are good
+    if (req.user) {
+      try {
+        log('evaluating logged user');
+        const member = await members.get({
+          agendaUid: req.agenda.uid,
+          userUid: req.user.uid
+        });
+        if (member && members.utils.compareRoles.isSuperiorToOrEqual(member.role, 'moderator')) {
+          log('user is logged and an adminmod, authorized');
+          authorized = true;
         }
+      } catch(e) {
+        log('error', e);
       }
-    } catch ( e ) {
     }
 
-    if ( !agendaKey && !adminmodKey ) {
+    if (!authorized && req.query.key) {
+      try {
+        log('evaluating agenda key');
+        const agendaKey = await keysSvc({
+          type: 'agendaFullRead',
+          identifier: req.agenda.uid,
+          key: req.query.key
+        }).get();
 
-      return next( {
-        message: 'the key is invalid',
-        code: 403
-      } );
-
+        if (agendaKey) {
+          log('the agenda key is valid and provided, authorized');
+          authorized = true;
+        }
+      } catch (e) {
+        log('error', e);
+      }
     }
 
-    next();
+    if (!authorized && req.query.key) {
+      try {
+        log('evaluating user key');
+        const memberKey = await keysSvc({
+          type: 'userPublic',
+          key: req.query.key
+        }).get();
 
-  } );
+        if (memberKey) {
+          const user = await usersSvc.findOne( {
+            query: { uid: memberKey.identifier },
+            detailed: true
+          } );
 
+          if (!user) throw new Error('User not found');
+
+          const member = await members.get( {
+            agendaUid: req.agenda.uid,
+            userUid: user.uid
+          } );
+
+          if (member && members.utils.compareRoles.isSuperiorToOrEqual(member.role, 'moderator')) {
+            log('the user key is valid and identifies user as adminmod member, authorized');
+            authorized = true;
+          }
+        } else {
+          log('could not retrieve user key');
+        }
+      } catch (e) {
+        log('error', e);
+      }
+    }
+
+  } catch (err) {
+    return next(err);
+  }
+
+  if (!authorized) {
+    return next( {
+      message: 'the key is invalid',
+      code: 403
+    } );
+  }
+
+  next();
 }
 
 
