@@ -8,73 +8,66 @@ const core = require( '../core' );
 const cmn = require( '../lib/commons-app' );
 const agendaSettings = require( '@openagenda/agenda-settings' );
 const mw = agendaSettings.mw;
-const sessions = require( '@openagenda/sessions' );
 const keysMw = require( '@openagenda/keys/middleware' );
 
 const labels = require( '@openagenda/labels/agenda-settings/agendaEdition' );
 const getLabel = require( '@openagenda/labels' )( labels );
 
-const layout = require( '../services/lib/layouts' ).load( 'agendaAdmin' );
-
-
-const preMw = [
-  cmn.loadLogger( 'agendaSettings' ),
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) )
-];
-
+const layout = require('../services/lib/layouts').load( 'agendaAdmin' );
+const members = require('../services/members');
+const sessions = require('../services/sessions');
 
 module.exports = app => {
-
   app.get(
     '/new',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadBaseData( 'oasfmain.css' ),
     getNewApp
   );
 
   app.get(
     '/:slug/admin/settings',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.verifyIPMiddleware,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     matchEditApp
   );
 
   app.get(
     '/:slug/admin/settings/?*?',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.verifyIPMiddleware,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     matchEditApp
   );
 
   app.post(
     '/new',
-    preMw,
+    sessions.mw.loadOrRedirect,
     mw.create
   );
 
   app.post(
     '/agendas/slugs/available',
-    preMw,
+    sessions.mw.loadOrRedirect,
     mw.slugs.available
   );
 
   app.get(
     '/agendas/:uid/admin/settings.json',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgendaBy( 'uid' ),
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     mw.get
   );
 
   app.post(
     '/:slug/admin/settings/edit',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
       req.context = { user: req.user };
       next();
@@ -84,25 +77,25 @@ module.exports = app => {
 
   app.post(
     '/:slug/admin/settings/setImage',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     mw.setImage
   );
 
   app.post(
     '/:slug/admin/settings/clearImage',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     mw.clearImage
   );
 
   app.post(
     '/:slug/admin/settings/remove',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
       core.agendas( req.agenda.uid ).remove().then( () => {
         sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
@@ -113,9 +106,9 @@ module.exports = app => {
 
   app.post(
     '/:slug/admin/settings/keys/create',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
       req.identifiers = {
         type: 'agendaFullRead',
@@ -129,9 +122,9 @@ module.exports = app => {
 
   app.get(
     '/:slug/admin/settings/keys/get',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
       req.identifiers = {
         type: 'agendaFullRead',
@@ -146,9 +139,9 @@ module.exports = app => {
 
   app.get(
     '/:slug/admin/settings/keys/list',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
       req.identifiers = {
         type: 'agendaFullRead',
@@ -163,9 +156,9 @@ module.exports = app => {
 
   app.patch(
     '/:slug/admin/settings/keys/update',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
       req.identifiers = {
         type: 'agendaFullRead',
@@ -180,9 +173,9 @@ module.exports = app => {
 
   app.delete(
     '/:slug/admin/settings/keys/remove',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     ( req, res, next ) => {
       req.identifiers = {
         type: 'agendaFullRead',
@@ -194,7 +187,6 @@ module.exports = app => {
     keysMw.remove(),
     ( req, res, next ) => res.send( { rowAffected: req.result } )
   );
-
 };
 
 
@@ -224,7 +216,7 @@ function getEditApp( req, res, next, { store, component } = {} ) {
   const state = store ? store.getState() : {};
 
   res.send( layout( `<div class="js_canvas">${component ? ReactDOM.renderToString( component ) : ''}</div>`, {
-    role: req.role,
+    role: req.member.role,
     selectedTab: 'settings_' + (state.routing.locationBeforeTransitions.pathname.substr( state.settings.prefix.length + 1 ) || 'profile'),
     lang: _.get( req, 'lang', 'fr' ),
     agenda: req.agenda,

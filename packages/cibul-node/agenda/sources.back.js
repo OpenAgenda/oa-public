@@ -5,9 +5,7 @@ const ReactDOM = require( 'react-dom/server' );
 const agendasSvc = require( '@openagenda/agendas' );
 const aggregatorSourcesSvc = require( '@openagenda/aggregator-sources' );
 const createApp  = require( '@openagenda/aggregator-sources/dist/client/app' );
-const sessions = require( '@openagenda/sessions' );
 const aggregatorSvc = require( '../services/aggregator' );
-const membersSvc = require( '../services/members' );
 const activitiesSvc = require( '../services/activities' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
@@ -15,21 +13,17 @@ const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'sources' }
 );
 
+const sessions = require('../services/sessions');
+const members = require('../services/members');
+
 const mw = aggregatorSourcesSvc.mw;
 
-const preMw = [
-  cmn.loadLogger( 'aggregatorSources' ),
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) )
-];
-
-
 module.exports = app => {
-
   app.get(
     '/:slug/admin/sources/agenda-sources.json',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     mw.list.bind( null, { send: true } )
   );
 
@@ -45,30 +39,29 @@ module.exports = app => {
 
   app.get(
     '/:slug/admin/sources/remove',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     removeSource
   );
 
   app.get(
     '/:slug/admin/sources',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     populateIsAggregator,
     matchApp
   );
 
   app.get(
     '/:slug/admin/sources/?*?',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     populateIsAggregator,
     matchApp
   );
-
 };
 
 
@@ -103,7 +96,7 @@ function removeSource( req, res, next ) {
 }
 
 async function loadNeedsForActivity( req ) {
-  const member = await membersSvc.get( {
+  const member = await members.get( {
     agendaUid: req.agenda.uid,
     userUid: req.user.uid
   } );
@@ -201,7 +194,7 @@ async function matchApp( req, res, next ) {
     return res.send( layout( `<div class="js_canvas">${content}</div>`, {
       lang: req.lang,
       agenda: req.agenda,
-      role: req.role,
+      role: req.member.role,
       bodyAttributes: [ {
         name: 'data-options',
         value: JSON.stringify( { initialState: state } )

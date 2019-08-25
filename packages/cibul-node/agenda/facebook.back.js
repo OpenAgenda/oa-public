@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 const fb = require( '@openagenda/facebook' );
-const sessions = require( '@openagenda/sessions' );
 const agendaSvc = require( '@openagenda/agendas' );
 const flattenLabels = require( '@openagenda/labels/flatten' );
 const labels = require( '@openagenda/labels/agenda-admin/facebook' );
@@ -11,6 +10,9 @@ const cmn = require( '../lib/commons-app' );
 const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'facebook' }
 );
+
+const sessions = require( '../services/sessions' );
+const members = require('../services/members');
 
 const page = _.template( `<div class="margin-bottom-lg"><h2><%= labels.title %></h2></div>
 <section>
@@ -21,32 +23,27 @@ const page = _.template( `<div class="margin-bottom-lg"><h2><%= labels.title %><
   <div><%= footnote %></div>
 </section>` );
 
-const preMw = [
-  sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) )
-];
-
-
 module.exports = app => {
 
   app.get(
     '/:slug/admin/facebook',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     show
   );
 
   app.get(
     '/agendas/:uid/facebook/tab/link',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.loadAgendaBy( 'uid' ),
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     fb.tab.create
   );
 
   app.get(
     '/facebook/tab/create/:state',
-    preMw,
+    sessions.mw.loadOrRedirect,
     fb.tab.redirect,
     _onComplete
   );
@@ -56,6 +53,8 @@ module.exports = app => {
 function show( req, res ) {
 
   const flatLabels = flattenLabels( labels, req.lang );
+
+  req.role = req.member.role;
 
   res.send( layout( page( {
     agenda: req.agenda,

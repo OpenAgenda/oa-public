@@ -112,10 +112,6 @@ module.exports = {
   checkContributor,
   checkAdminOrModerator,
   checkAdminOrModeratorOrKey,
-  authorize: {
-    administrator: _authorize( [ 'administrator' ] ),
-    moderator: _authorize( [ 'administrator', 'moderator' ] )
-  },
   checkStakeholder,
   loadMemberRole: loadMemberRole.bind( null, true ),
   nonBlockingLoadMemberRole: loadMemberRole.bind( null, false ),
@@ -344,25 +340,6 @@ function loadMemberRole( errorIfNotMember = true, agendaNamespace, req, res, nex
     } );
 
   } );
-
-}
-
-
-function _authorize( authorizedRoles = [] ) {
-
-  return ( req, res, next ) => {
-
-    loadMemberRole( true, 'agenda', req, res, err => {
-
-      if ( err ) return next( err );
-
-      if ( authorizedRoles.includes( req.role ) ) return next();
-
-      next( { code: 403 } );
-
-    } );
-
-  }
 
 }
 
