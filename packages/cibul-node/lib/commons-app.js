@@ -106,8 +106,7 @@ module.exports = {
   loadAgendaBy,
   assign,                       // middleware for assigning values to req or res
   checkCredential,              // middleware. check that request agenda has required credential
-
-  checkAdministrator,           // middleware. checks that logged user is administrator of loaded agenda
+  checkAgendaCredential,
   checkModerator,
   checkContributor,
   checkAdminOrModerator,
@@ -178,77 +177,6 @@ function agendaMailTo( agenda ) {
   if ( !queryParts.length ) return 'mailto:' + config.email;
 
   return 'mailto:' + config.email + '?' + queryParts.join( '&' );
-
-}
-
-
-/**
- * middleware for checking that logged user is administrator of
- * agenda loaded in request
- */
-
-function checkAdministrator( options ) {
-
-  const params = utils.extend( {
-    name: 'agenda',
-    message: 'You do not have access to the administration of this agenda.',
-    redirect: false,
-    useLegagy: true
-  }, options ? options : {} );
-
-  return function ( req, res, next ) {
-
-    function _resolve( isAdmin ) {
-
-      if ( isAdmin ) return next();
-
-      if ( params.redirect ) {
-
-        sessions.setFlash( req, res, params.message );
-
-        return res.redirect( params.redirect );
-
-      }
-
-      next( {
-        message: params.message,
-        code: 403
-      } );
-
-    }
-
-    _prepareSession( req, res, err => {
-
-      if ( err ) return next( err );
-
-      if ( !req.user ) return next( { code: 403 } );
-
-      if ( !params.useLegacy ) {
-
-        // rely on agenda-stakeholders
-
-        return stakeholdersSvc( req[ params.name ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
-
-          if ( !stakeholder ) {
-            return _resolve( false );
-          }
-
-          const role = stakeholdersSvc.types.codes.get( stakeholder.credential );
-
-          _resolve( role === 'administrator' );
-
-        } );
-
-      }
-
-      wn.call( req[ params.name ].isAdministrator, { id: req.user.id } )
-
-        .then( _resolve )
-
-        .catch( errorResponse.bind( null, req, res ) );
-
-    } );
-  }
 
 }
 
@@ -946,6 +874,16 @@ function requireSuperAdmin( req, res, next ) {
   } )
 
 
+}
+
+function checkAgendaCredential(name) {
+  return (req, res, next) => {
+    if (!req.agenda.credentials[name]) {
+      errorResponse( req, res, 'user does not have required creds' );
+    } else {
+      next();
+    }
+  }
 }
 
 /**

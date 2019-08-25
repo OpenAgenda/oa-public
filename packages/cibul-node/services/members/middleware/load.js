@@ -1,24 +1,26 @@
 "use strict";
 
+const _ = require('lodash');
+
 const getLabel = require('@openagenda/labels/makeLabelGetter')(
   require('@openagenda/labels/members')
 );
 const {
   isSuperiorToOrEqual
-} = require( '@openagenda/members' ).utils.compareRoles;
-const log = require( '@openagenda/logs' )( 'services/members/middleware/loadMember' );
+} = require('@openagenda/members').utils.compareRoles;
+const log = require('@openagenda/logs')('services/members/middleware/loadMember');
 
 const sessions = require('../../sessions');
 
-module.exports = ( members, req, res, next ) => {
+module.exports = (members, req, res, next) => {
   log( 'loading current user member reference' );
-  _load( members, req ).then( next, next );
+  _load( members, { agenda: 'agenda' }, req ).then( next, next );
 }
 
-module.exports.andAuthorize = (members, requiredRole) => {
+module.exports.andAuthorize = (members, requiredRole, options = {}) => {
   return (req, res, next) => {
     log( 'load and authorize', requiredRole );
-    _load(members, req).then(() => {
+    _load(members, options, req).then(() => {
       if (req.member && isSuperiorToOrEqual(req.member.role, requiredRole)) {
         next();
       } else if (!req.member) {
@@ -32,9 +34,9 @@ module.exports.andAuthorize = (members, requiredRole) => {
   }
 }
 
-module.exports.orFail = ( members, req, res, next ) => {
+module.exports.orFail = (members, req, res, next) => {
   log( 'loading current user member reference... or fail' );
-  _load( members, req ).then( () => {
+  _load(members, {agendaNamespace: 'agenda'}, req).then( () => {
     if ( !req.member ) {
       res.setStatus( 403 );
       return next( 'Not a member' );
@@ -43,9 +45,9 @@ module.exports.orFail = ( members, req, res, next ) => {
   } );
 }
 
-function _load( members, req ) {
+function _load(members, {agendaNamespace}, req) {
   return members.get( {
-    agendaUid: req.agenda.uid,
+    agendaUid: _.get(req, agendaNamespace || 'agenda').uid,
     userUid: req.user.uid
   } ).then( member => {
     req.member = member;

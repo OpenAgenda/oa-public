@@ -129,7 +129,6 @@ function agendaAdminRedirect( req, res, next ) {
  */
 
 app.get( '/:agendaSlug/admin/getting-started', [
-  cmn.checkAdministrator( { useLegacy: false } ),
   ( req, res ) => {
 
     return res.send( layout( `<div class="js_canvas getting-started"></div>`, {

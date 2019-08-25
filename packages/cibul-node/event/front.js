@@ -180,7 +180,7 @@ module.exports = app => {
     '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid',
     preMw,
     legacyAgendaSvc.mw.load( 'uid' ),
-    cmn.checkAdministrator(),
+    members.mw.loadAndAuthorize('administrator'),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     _switchEmbedLang,

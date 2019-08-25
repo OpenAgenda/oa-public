@@ -150,7 +150,7 @@ module.exports = app => {
       next()
     },
     agendaSvc.mw.load( 'uid', { cache: true } ),
-    cmn.checkAdministrator(),
+    members.mw.loadAndAuthorize('administrator'),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     agendaSvc.mw.search( perPage, true ),
     middlewares.embedShow,

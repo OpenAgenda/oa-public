@@ -34,7 +34,6 @@ module.exports = app => {
   require( './auth/google.front' )( app );
   require( './auth/local.front' )( app );
   require( './auth/reset.front' )( app );
-  require( './agenda/stakeholders.back' )( app );
   require( './agenda/emailstrategie.back' )( app );
   require( './agenda/embeds.back' )( app );
   require( './location/front' )( app );

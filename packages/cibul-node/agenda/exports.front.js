@@ -13,7 +13,7 @@ const ODSJSONParser = require( '@openagenda/legacy/exports/ODSJSONParser' );
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
-const membersSvc = require( '../services/members' );
+const members = require( '../services/members' );
 const activitiesSvc = require( '../services/activities' );
 const cacheMw = require( '../lib/cache.mw' );
 const gaTrack = require( '../lib/gaTrack.mw' );
@@ -136,7 +136,7 @@ module.exports = app => {
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
     cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
-    cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
+    members.mw.loadAndAuthorize('administrator', {agendaNamespace: 'aggregatorAgenda'}),
     addSource
   );
 
@@ -147,7 +147,7 @@ module.exports = app => {
     cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
     agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
     cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
-    cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
+    members.mw.loadAndAuthorize('administrator', {agendaNamespace: 'aggregatorAgenda'}),
     removeSource
   );
 
@@ -335,7 +335,7 @@ async function addRemoveSourceActivity( { user, member, agenda, source } ) {
 }
 
 async function loadNeedsForActivity( req ) {
-  const member = await membersSvc.get( {
+  const member = await members.get( {
     agendaUid: req.aggregatorAgenda.uid,
     userUid: req.user.uid
   } );
