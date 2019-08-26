@@ -38,7 +38,8 @@ module.exports = async (conversation, message) => {
           $limit: chunk.length
         },
         removed: false,
-        detailed: true
+        detailed: true,
+        internal: true
       })).data;
 
       for (const user of users) {
@@ -157,6 +158,8 @@ async function sendMail({ inboxUser, conversation, message }) {
     ];
 
   const reference = `inboxMessage/${conversation.id}@mail.openagenda.com`;
+  const agendaTitle = agenda ? agenda.title : null;
+
 
   return mails({
     template: 'inboxMessage',
@@ -164,8 +167,12 @@ async function sendMail({ inboxUser, conversation, message }) {
       name: senderName,
       address: 'notifications@mail.openagenda.com'
     },
+    replyTo: {
+      name: agendaTitle || 'OpenAgenda',
+      address: `reply+${user.replyToken}@mail.openagenda.com`
+    },
     to: {
-      name: agenda ? agenda.title : null,
+      name: agendaTitle,
       address: `${agenda ? agenda.slug : 'inbox'}@mail.openagenda.com`,
       unsubscriptions
     },
@@ -174,18 +181,16 @@ async function sendMail({ inboxUser, conversation, message }) {
       address: user.email,
       unsubscriptions
     },
+    references: reference,
+    inReplyTo: reference,
     data: {
       subject,
       logo,
       link,
       senderName,
-      agenda: agenda ? agenda.title : null,
+      agenda: agendaTitle,
       message: message.body
     },
-    lang,
-    headers: {
-      References: reference,
-      'In-Reply-To': reference
-    }
+    lang
   });
 }
