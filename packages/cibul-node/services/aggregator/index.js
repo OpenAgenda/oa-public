@@ -92,7 +92,9 @@ async function enqueueEvaluate( method, eventUid, sourceAgendaUid, aggregatorAge
 
   }
 
-  const event = await interfaces.getEvent( { uid: eventUid } );
+  const event = await config.knex('event')
+    .first([ 'id' ])
+    .where({ uid: eventUid })
 
   const sourceAgenda = await interfaces.getAgenda( sourceAgendaUid );
 
