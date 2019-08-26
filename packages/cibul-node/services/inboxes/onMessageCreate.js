@@ -71,7 +71,6 @@ async function inboxIdsToInboxUsers(inboxes, ids) {
 }
 
 async function getSenderName({ inboxUser, conversation, message }) {
-  const usersSvc = app.service('/users');
   const conv = await Inbox.user(inboxUser.userUid).conversations.get(conversation.id);
   const msg = await conv.messages.get(message.id);
 

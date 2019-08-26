@@ -25,7 +25,7 @@ async function defineUnsubscriptionLinks(config, recipientUser, params) {
     address: email
   } = params.to;
 
-  params.data.isRegisteredUser = !!user;
+  params.data.isRegisteredUser = !!recipientUser;
 
   if (!unsubscriptions || !unsubscriptions.length) {
     log('found no unsubscriptions');
