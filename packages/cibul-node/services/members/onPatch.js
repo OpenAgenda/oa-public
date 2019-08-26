@@ -20,12 +20,15 @@ module.exports = async ( { config, activityQueue }, before, member, context ) =>
   log( 'patched', member );
 
   try {
-    const agenda = await agendas.get( { uid: member.agendaUid }, { private: null } );
+    const agenda = await agendas.get({ uid: member.agendaUid }, {
+      private: null,
+      includeImagePath: true
+    });
 
     if ( !agenda ) throw new Error( 'Agenda not found' );
 
     const user = member.userUid ? await usersSvc.findOne( {
-      query: { uid: member.userUid },
+      query: {uid: member.userUid},
       removed: null
     } ) : null;
 
