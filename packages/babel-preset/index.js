@@ -2,13 +2,19 @@
 
 const { declare } = require( '@babel/helper-plugin-utils' );
 
+function isBabelLoader( caller ) {
+  return !!(caller && caller.name === 'babel-loader');
+}
+
 
 module.exports = declare( ( api, options ) => {
   api.assertVersion( 7 );
 
+  const isWebpack = api.caller( isBabelLoader );
+
   const debug = typeof options.debug === 'boolean' ? options.debug : false;
-  const useBuiltIns = typeof options.useBuiltIns !== 'undefined' ? options.useBuiltIns : false;
-  const corejs = typeof options.corejs !== 'undefined' ? options.corejs : 2;
+  const useBuiltIns = typeof options.useBuiltIns !== 'undefined' ? options.useBuiltIns : 'usage';
+  const corejs = typeof options.corejs !== 'undefined' ? options.corejs : { version: 3, proposals: true };
   const modules = typeof options.modules !== 'undefined' ? options.modules : 'auto';
   const development = typeof options.development === 'boolean'
     ? options.development
@@ -53,6 +59,10 @@ module.exports = declare( ( api, options ) => {
         corejs
       }
     ],
+    require( '@babel/plugin-syntax-dynamic-import' ).default,
+    isWebpack
+      ? null
+      : require( 'babel-plugin-dynamic-import-node' ),
 
     require( '@babel/plugin-proposal-object-rest-spread' ).default,
 

@@ -12,10 +12,11 @@
     "prepublish": "yarn dist"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.5.5",
+    "@babel/runtime-corejs3": "^7.5.5",
     "@openagenda/logs": "^1.1.2",
     "angular-expressions": "^0.3.0",
     "aws-sdk": "^2.230.1",
+    "core-js": "^3.2.1",
     "date-fns": "^1.29.0",
     "docxtemplater": "^3.9.7",
     "final-form": "^4.10.0",

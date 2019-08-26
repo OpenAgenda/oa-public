@@ -1,7 +1,5 @@
 "use strict";
 
-if ( !window._babelPolyfill ) require( '@babel/polyfill' );
-
 require( 'dom4' );
 require( 'pepjs' );
 

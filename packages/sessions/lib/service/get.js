@@ -1,138 +1,12 @@
 "use strict";
 
-var _regenerator = require('babel-runtime/regenerator');
+require("core-js/modules/es.array.join");
 
-var _regenerator2 = _interopRequireDefault(_regenerator);
+var _regeneratorRuntime = require("@babel/runtime-corejs3/regenerator");
 
-var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
+require("regenerator-runtime/runtime");
 
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var get = function () {
-  var _ref = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(uidOrRequest) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    return _regenerator2.default.wrap(function _callee$(_context) {
-      while (1) {
-        switch (_context.prev = _context.next) {
-          case 0:
-            if (_.isObject(uidOrRequest) && uidOrRequest.cookies) {
-              _context.next = 2;
-              break;
-            }
-
-            return _context.abrupt('return', _getFromUid(uidOrRequest, options));
-
-          case 2:
-            return _context.abrupt('return', _getFromRequest(uidOrRequest, options));
-
-          case 3:
-          case 'end':
-            return _context.stop();
-        }
-      }
-    }, _callee, this);
-  }));
-
-  return function get(_x2) {
-    return _ref.apply(this, arguments);
-  };
-}();
-
-var _getFromRequest = function () {
-  var _ref2 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee2(request) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var cookieUser, stored;
-    return _regenerator2.default.wrap(function _callee2$(_context2) {
-      while (1) {
-        switch (_context2.prev = _context2.next) {
-          case 0:
-            cookieUser = cleanSession(request.session).user;
-
-            if (cookieUser) {
-              _context2.next = 3;
-              break;
-            }
-
-            return _context2.abrupt('return', null);
-
-          case 3:
-            _context2.next = 5;
-            return _getFromUid(cookieUser.uid, options);
-
-          case 5:
-            stored = _context2.sent;
-
-            if (stored) {
-              _context2.next = 8;
-              break;
-            }
-
-            return _context2.abrupt('return', null);
-
-          case 8:
-            return _context2.abrupt('return', _.extend(cookieUser, stored));
-
-          case 9:
-          case 'end':
-            return _context2.stop();
-        }
-      }
-    }, _callee2, this);
-  }));
-
-  return function _getFromRequest(_x4) {
-    return _ref2.apply(this, arguments);
-  };
-}();
-
-var _getFromUid = function () {
-  var _ref3 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee3(uid) {
-    var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-    var result;
-    return _regenerator2.default.wrap(function _callee3$(_context3) {
-      while (1) {
-        switch (_context3.prev = _context3.next) {
-          case 0:
-            _context3.next = 2;
-            return redisCommand('get', [config.redis.prefix, uid].join(':'));
-
-          case 2:
-            result = _context3.sent;
-
-            if (result) {
-              _context3.next = 5;
-              break;
-            }
-
-            return _context3.abrupt('return', null);
-
-          case 5:
-            _context3.prev = 5;
-            return _context3.abrupt('return', JSON.parse(result));
-
-          case 9:
-            _context3.prev = 9;
-            _context3.t0 = _context3['catch'](5);
-
-
-            log('error', 'could not parse store for user %s: %s', uid, result);
-
-            return _context3.abrupt('return', null);
-
-          case 13:
-          case 'end':
-            return _context3.stop();
-        }
-      }
-    }, _callee3, this, [[5, 9]]);
-  }));
-
-  return function _getFromUid(_x6) {
-    return _ref3.apply(this, arguments);
-  };
-}();
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _asyncToGenerator = require("@babel/runtime-corejs3/helpers/asyncToGenerator");
 
 var config = require('./config');
 
@@ -142,14 +16,12 @@ var _require = require('./helpers'),
     redisCommand = _require.redisCommand;
 
 var log = require('@openagenda/logs')('get');
+
 var _ = require('lodash');
 
 module.exports = function (uidOrRequest, options, cb) {
-
   if (cb === undefined) {
-
     cb = options;
-
     options = {};
   }
 
@@ -157,4 +29,142 @@ module.exports = function (uidOrRequest, options, cb) {
 };
 
 module.exports.promise = get;
+
+function get(_x) {
+  return _get.apply(this, arguments);
+}
+
+function _get() {
+  _get = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee(uidOrRequest) {
+    var options,
+        _args = arguments;
+    return _regeneratorRuntime.wrap(function _callee$(_context) {
+      while (1) {
+        switch (_context.prev = _context.next) {
+          case 0:
+            options = _args.length > 1 && _args[1] !== undefined ? _args[1] : {};
+
+            if (_.isObject(uidOrRequest) && uidOrRequest.cookies) {
+              _context.next = 3;
+              break;
+            }
+
+            return _context.abrupt("return", _getFromUid(uidOrRequest, options));
+
+          case 3:
+            return _context.abrupt("return", _getFromRequest(uidOrRequest, options));
+
+          case 4:
+          case "end":
+            return _context.stop();
+        }
+      }
+    }, _callee);
+  }));
+  return _get.apply(this, arguments);
+}
+
+function _getFromRequest(_x2) {
+  return _getFromRequest2.apply(this, arguments);
+}
+
+function _getFromRequest2() {
+  _getFromRequest2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee2(request) {
+    var options,
+        cookieUser,
+        stored,
+        _args2 = arguments;
+    return _regeneratorRuntime.wrap(function _callee2$(_context2) {
+      while (1) {
+        switch (_context2.prev = _context2.next) {
+          case 0:
+            options = _args2.length > 1 && _args2[1] !== undefined ? _args2[1] : {};
+            cookieUser = cleanSession(request.session).user;
+
+            if (cookieUser) {
+              _context2.next = 4;
+              break;
+            }
+
+            return _context2.abrupt("return", null);
+
+          case 4:
+            _context2.next = 6;
+            return _getFromUid(cookieUser.uid, options);
+
+          case 6:
+            stored = _context2.sent;
+
+            if (stored) {
+              _context2.next = 9;
+              break;
+            }
+
+            return _context2.abrupt("return", null);
+
+          case 9:
+            return _context2.abrupt("return", _.extend(cookieUser, stored));
+
+          case 10:
+          case "end":
+            return _context2.stop();
+        }
+      }
+    }, _callee2);
+  }));
+  return _getFromRequest2.apply(this, arguments);
+}
+
+function _getFromUid(_x3) {
+  return _getFromUid2.apply(this, arguments);
+}
+
+function _getFromUid2() {
+  _getFromUid2 = _asyncToGenerator(
+  /*#__PURE__*/
+  _regeneratorRuntime.mark(function _callee3(uid) {
+    var options,
+        result,
+        _args3 = arguments;
+    return _regeneratorRuntime.wrap(function _callee3$(_context3) {
+      while (1) {
+        switch (_context3.prev = _context3.next) {
+          case 0:
+            options = _args3.length > 1 && _args3[1] !== undefined ? _args3[1] : {};
+            _context3.next = 3;
+            return redisCommand('get', [config.redis.prefix, uid].join(':'));
+
+          case 3:
+            result = _context3.sent;
+
+            if (result) {
+              _context3.next = 6;
+              break;
+            }
+
+            return _context3.abrupt("return", null);
+
+          case 6:
+            _context3.prev = 6;
+            return _context3.abrupt("return", JSON.parse(result));
+
+          case 10:
+            _context3.prev = 10;
+            _context3.t0 = _context3["catch"](6);
+            log('error', 'could not parse store for user %s: %s', uid, result);
+            return _context3.abrupt("return", null);
+
+          case 14:
+          case "end":
+            return _context3.stop();
+        }
+      }
+    }, _callee3, null, [[6, 10]]);
+  }));
+  return _getFromUid2.apply(this, arguments);
+}
 //# sourceMappingURL=get.js.map

@@ -1,7 +1,9 @@
 "use strict";
 
 var schema = require('@openagenda/validators/schema');
+
 var cookieUserFields = require('../../iso/cookie.validate').validateLogged.fields.user.fields;
+
 var extend = require('lodash/extend');
 
 schema.register({
@@ -13,7 +15,6 @@ schema.register({
   date: require('@openagenda/validators/date'),
   link: require('@openagenda/validators/link')
 });
-
 module.exports = schema(extend({
   id: {
     type: 'integer',

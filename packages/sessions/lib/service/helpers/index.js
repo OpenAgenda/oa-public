@@ -1,19 +1,23 @@
 "use strict";
 
-var _keys = require('babel-runtime/core-js/object/keys');
+var _forEachInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/for-each");
 
-var _keys2 = _interopRequireDefault(_keys);
+var _Object$keys = require("@babel/runtime-corejs3/core-js/object/keys");
 
-var _promise = require('babel-runtime/core-js/promise');
+var _concatInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/concat");
 
-var _promise2 = _interopRequireDefault(_promise);
+var _Promise = require("@babel/runtime-corejs3/core-js/promise");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+var _bindInstanceProperty = require("@babel/runtime-corejs3/core-js/instance/bind");
 
 var _ = require('lodash');
+
 var cookieValidate = require('../../../iso/cookie.validate');
+
 var log = require('@openagenda/logs')('helpers');
+
 var config = require('../config');
+
 var redisCommand = require('./redisCommand');
 
 module.exports = {
@@ -27,59 +31,50 @@ module.exports = {
 };
 
 function getUser(identifier) {
-
   try {
-
     return interfaces('getUser', identifier);
   } catch (e) {
-
     log('error', e);
-
     throw e;
   }
 }
 
 function callbackify(p, cb) {
-
   p.then(function (result) {
-
     // do not handle sync errors in callback with promise
-    process.nextTick(cb.bind(null, null, result));
+    process.nextTick(_bindInstanceProperty(cb).call(cb, null, null, result));
   }, function (err) {
-
-    process.nextTick(cb.bind(null, err));
+    process.nextTick(_bindInstanceProperty(cb).call(cb, null, err));
   });
 }
 
 function interfaces(name, args) {
+  return new _Promise(function (rs, rj) {
+    var _context;
 
-  return new _promise2.default(function (rs, rj) {
-
-    config.interfaces[name].apply(null, (_.isArray(args) ? args : [args]).concat(function (err, result) {
-
+    config.interfaces[name].apply(null, _concatInstanceProperty(_context = _.isArray(args) ? args : [args]).call(_context, function (err, result) {
       if (err) return rj(err);
-
       rs(result);
     }));
   });
 }
 
 function cleanSession() {
+  var _context2;
+
   var session = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
   var data = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
-
-  var filtered = _.pick(session, (0, _keys2.default)(session)),
+  var filtered = _.pick(session, _Object$keys(session)),
       clean = {};
 
   try {
-
     clean = cookieValidate(_.extend(filtered, data));
   } catch (e) {
     log('error', e);
   }
 
-  (0, _keys2.default)(clean).forEach(function (k) {
+  _forEachInstanceProperty(_context2 = _Object$keys(clean)).call(_context2, function (k) {
     return session[k] = clean[k];
   });
 
@@ -87,12 +82,10 @@ function cleanSession() {
 }
 
 function init() {
-
   redisCommand.init();
 }
 
 function shutdown() {
-
   redisCommand.shutdown();
 }
 //# sourceMappingURL=index.js.map

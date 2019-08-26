@@ -24,13 +24,14 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.5.5",
+    "@babel/runtime-corejs3": "^7.5.5",
     "@casl/ability": "^2.4.2",
     "@openagenda/bs-templates": "^2.2.1",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/react-components": "^2.2.1",
     "axios": "^0.18.0",
     "classnames": "^2.2.6",
+    "core-js": "^3.2.1",
     "final-form": "^4.10.0",
     "final-form-calculate": "^1.2.1",
     "final-form-set-field-data": "^1.0.1",

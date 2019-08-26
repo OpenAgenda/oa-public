@@ -26,7 +26,7 @@
     "react-dom": "^16.8.6"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.5.5",
+    "@babel/runtime-corejs3": "^7.5.5",
     "@openagenda/date-range": "^2.1.0",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/react-components": "^2.2.1",
@@ -34,6 +34,7 @@
     "@openagenda/react-utils": "^4.0.0",
     "classnames": "^2.2.5",
     "connected-react-router": "^6.2.2",
+    "core-js": "^3.2.1",
     "final-form": "^4.12.0",
     "history": "^4.7.2",
     "knex": "^0.16.3",

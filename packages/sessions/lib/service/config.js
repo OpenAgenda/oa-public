@@ -1,6 +1,7 @@
 "use strict";
 
 var _ = require('lodash');
+
 var isoConfig = require('../../iso/config');
 
 var config = {
@@ -10,11 +11,11 @@ var config = {
   redis: null,
   interfaces: {}
 };
-
-module.exports = _.extend(config, { init: init });
+module.exports = _.extend(config, {
+  init: init
+});
 
 function init(c) {
-
   _.extend(config, _.pick(c, ['sessionCookie', 'writableCookie', 'redis', 'interfaces', 'expire']));
 
   _.extend(config.sessionCookie, {
