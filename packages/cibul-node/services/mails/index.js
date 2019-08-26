@@ -25,6 +25,10 @@ module.exports.expose = app => {
       query: req.query
     });
 
+    // check the replyToken
+    // check if the user is an inboxUser of the conversation
+    // add the message to the conversation
+
     next();
   });
 };
