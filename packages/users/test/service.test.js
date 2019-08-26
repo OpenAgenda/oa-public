@@ -125,6 +125,8 @@ describe('methods', () => {
       const user = await service.get(kaoreUid);
 
       expect(user.fullName).toBe('Kari Olafsson');
+      expect(user).not.toHaveProperty('isRemoved');
+      expect(user).not.toHaveProperty('isActivated');
     });
 
     it('get inexistent user', async () => {
@@ -138,6 +140,12 @@ describe('methods', () => {
 
       expect(user).toHaveProperty('isRemoved');
       expect(user).toHaveProperty('isActivated');
+    });
+
+    it('get user with internal option', async () => {
+      const user = await service.get(kaoreUid, { internal: true });
+
+      expect(user).toHaveProperty('replyToken');
     });
 
     it('get user with removed option at null', async () => {
