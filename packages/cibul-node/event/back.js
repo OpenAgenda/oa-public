@@ -99,7 +99,9 @@ module.exports = app => {
 
   app.get(
     [ '/agendas/:uid/events/suggestions', '/agendas/:uid/events/:eventUid/suggestions' ],
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.mw.loadOrRedirect,
+    cmn.loadAgendaBy('uid'),
+    members.mw.load,
     ( req, res, next ) => {
 
       req.agendaUid = req.params.uid;

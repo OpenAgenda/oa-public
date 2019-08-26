@@ -2,6 +2,7 @@
 
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
+const log = require('@openagenda/logs')('services/agendaEventReferences');
 const agendaEventReferences = require( '@openagenda/agenda-event-references' );
 const internalEventSvc = require( './event' );
 const internalAgendaSvc = require( './agenda' );
@@ -24,10 +25,14 @@ module.exports.init = async config => {
 
 function suggestions( agendaUid, sample, options = {}, cb ) {
 
+  log('retrieving suggestions for agenda', agendaUid, { sample } );
+
   search.agendas( agendaUid ).moreLikeThis( sample, options )
-    .then( result => _.get( result, 'events', [] ).filter( e => !_.get( options, 'exclude', [] ).includes( '' + e.uid ) ) )
-    .then( events => cb( null, events ) )
-    .catch( err => cb( err ) );
+    .then(result => _.get(result, 'events', [] ).filter( e => !_.get( options, 'exclude', [] ).includes( '' + e.uid ) ) )
+    .then(events => {
+      log('retrieved %s suggestions', events.length);
+      cb(null, events);
+    }).catch( err => cb( err ) );
 
 }
 

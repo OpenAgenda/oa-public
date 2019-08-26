@@ -17,7 +17,7 @@ function suggestions( req, res, next ) {
   if ( !_pre( req, res, next ) ) return;
 
   config.interfaces.suggestions( req.agendaUid, _.get( req.query, 'sample', {} ), {
-    showAll: !!req.access, 
+    showAll: !![2, 3].includes(req.member && req.member.role),
     exclude: req.query.exclude,
     boost: req.query.boost
   }, _respond.bind( null, req, res, next ) );
