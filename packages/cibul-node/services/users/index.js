@@ -59,7 +59,7 @@ module.exports.expose = app => {
   // send confirmation email after requestChangeEmail
   app.patch(
     '/users/:__feathersId/requestChangeEmail',
-    sendChangeEmail()
+    sendChangeEmail(service)
   );
 
   // set flash message after confirm change of email
