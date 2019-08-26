@@ -1,8 +1,6 @@
 "use strict";
 
-var should = require( 'should' ),
-
-  dateValidator = require( '../src/date' );
+var dateValidator = require( '../src/date' );
 
 describe( 'date validator', () => {
 
@@ -10,7 +8,7 @@ describe( 'date validator', () => {
 
     let validate = dateValidator();
 
-    should( validate() ).equal( undefined );
+    expect( validate() ).toBeUndefined();
 
   } );
 
@@ -22,7 +20,7 @@ describe( 'date validator', () => {
 
     time = validate().getTime(), kTime = kBirth.getTime();
 
-    time.should.equal( kTime );
+    expect(time).toBe(kTime);
 
   } );
 
@@ -30,7 +28,7 @@ describe( 'date validator', () => {
 
     let validate = dateValidator();
 
-    should( validate( null ) ).equal( null );
+    expect( validate( null ) ).toBeNull();
 
   } );
 
@@ -38,7 +36,7 @@ describe( 'date validator', () => {
 
     let validate = dateValidator( { default: null } );
 
-    should( validate() ).equal( null );
+    expect( validate() ).toBeNull();
 
   } );
 
@@ -54,8 +52,8 @@ describe( 'date validator', () => {
 
       let validatedDefaultTime = validate().getTime();
 
-      ( validatedDefaultTime - time ).should.be.belowOrEqual( delta + 10 );
-      ( validatedDefaultTime - time ).should.be.aboveOrEqual( delta - 10 );
+      expect(validatedDefaultTime - time).toBeGreaterThanOrEqual( delta - 10 );
+      expect(validatedDefaultTime - time).toBeLessThanOrEqual( delta + 10 );
 
       done();
 
@@ -67,7 +65,7 @@ describe( 'date validator', () => {
 
     let validate = dateValidator();
 
-    should( validate( '2011-11-11T00:00:00Z' ) instanceof Date ).equal( true );
+    expect( validate( '2011-11-11T00:00:00Z' ) instanceof Date ).toBe(true);
 
   } );
 
@@ -76,7 +74,7 @@ describe( 'date validator', () => {
 
     let validate = dateValidator();
 
-    should( validate( '2011-11-11T00:00:00Z' ).getTime() ).equal( ( new Date( '2011-11-11T00:00:00Z' ) ).getTime() );
+    expect( validate( '2011-11-11T00:00:00Z' ).getTime() ).toBe(( new Date( '2011-11-11T00:00:00Z' ) ).getTime());
 
   } );
 
@@ -95,11 +93,11 @@ describe( 'date validator', () => {
 
     }
 
-    errors.should.eql( [ {
+    expect(errors).toEqual([ {
       code: 'date.invalid',
       message: 'not a date',
-      origin: 'fdqfdsqf' 
-    } ] );
+      origin: 'fdqfdsqf'
+    } ]);
 
   } );
 
@@ -119,11 +117,11 @@ describe( 'date validator', () => {
 
     }
 
-    errors.should.eql( [ { 
+    expect(errors).toEqual([ {
       code: 'date.required',
       message: 'a date is required',
-      origin: undefined 
-    } ] );
+      origin: undefined
+    } ]);
 
   } );
 
@@ -148,12 +146,12 @@ describe( 'date validator', () => {
 
     }
 
-    errors.should.eql( [ { 
+    expect(errors).toEqual([ {
       code: 'date.toosmall',
       message: 'date is too small',
       values: { min: errors[ 0 ].values.min },
       origin: errors[ 0 ].origin
-    } ] );
+    } ]);
 
   } );
 
@@ -178,12 +176,12 @@ describe( 'date validator', () => {
 
     }
 
-    errors.should.eql( [ { 
+    expect(errors).toEqual([ {
       code: 'date.toobig',
       message: 'date is too big',
       values: { max: errors[ 0 ].values.max },
       origin: errors[ 0 ].origin
-    } ] );
+    } ]);
 
   } );
 

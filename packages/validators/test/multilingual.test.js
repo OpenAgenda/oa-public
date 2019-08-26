@@ -1,7 +1,5 @@
 "use strict";
 
-const should = require( 'should' );
-
 const multilingual = require( '../src/multilingual' );
 
 describe( 'multilingual validator', () => {
@@ -31,9 +29,9 @@ describe( 'multilingual validator', () => {
 
       }
 
-      errors.length.should.equal( 1 );
+      expect(errors.length).toBe(1);
 
-      errors[ 0 ].should.eql( {
+      expect(errors[ 0 ]).toEqual({
         field: 'multitext',
         code: 'string.tooshort',
         message: 'the string is too short',
@@ -43,7 +41,7 @@ describe( 'multilingual validator', () => {
         },
         origin: 'En',
         lang: 'en'
-      } );
+      });
 
     } );
 
@@ -55,10 +53,10 @@ describe( 'multilingual validator', () => {
         fr: 'Contenu Français'
       } );
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         en: 'English content',
         fr: 'Contenu Français'
-      } );
+      });
 
     } );
 
@@ -77,14 +75,14 @@ describe( 'multilingual validator', () => {
 
       }
 
-      errors.length.should.equal( 1 );
+      expect(errors.length).toBe(1);
 
-      errors[ 0 ].should.eql( {
+      expect(errors[ 0 ]).toEqual({
         field: 'multitext',
         code: 'required',
         message: 'at least one language entry is required',
         origin: undefined
-      } );
+      });
 
     } );
 
@@ -104,10 +102,10 @@ describe( 'multilingual validator', () => {
 
       const clean = validate();
 
-      should( clean ).eql( {
+      expect( clean ).toEqual({
         fr: null,
         en: null
-      } );
+      });
 
     } );
 
@@ -118,10 +116,10 @@ describe( 'multilingual validator', () => {
         en: 'A nifty validator'
       } );
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         fr: 'Un super validateur',
         en: 'A nifty validator'
-      } );
+      });
 
     } );
 
@@ -129,7 +127,7 @@ describe( 'multilingual validator', () => {
 
       const clean = validateWithDefaultLang( 'Un super validateur' );
 
-      should( clean ).eql( { fr: 'Un super validateur' } );
+      expect( clean ).toEqual({ fr: 'Un super validateur' });
 
     } );
 
@@ -137,7 +135,7 @@ describe( 'multilingual validator', () => {
 
       const clean = validate( 'Un super validateur' );
 
-      should( clean ).eql( { fr: 'Un super validateur', en: 'Un super validateur' } );
+      expect( clean ).toEqual({ fr: 'Un super validateur', en: 'Un super validateur' });
 
     } );
 
@@ -163,13 +161,13 @@ describe( 'multilingual validator', () => {
 
       }
 
-      error.should.eql( [ {
+      expect(error).toEqual([ {
         lang: 'en',
         field: false,
         code: 'required',
         message: 'a string is required',
         origin: ''
-      } ] );
+      } ]);
 
     } );
 
@@ -195,13 +193,13 @@ describe( 'multilingual validator', () => {
 
       }
 
-      error.should.eql( [ {
+      expect(error).toEqual([ {
         lang: 'en',
         field: false,
         code: 'required',
         message: 'a string is required',
         origin: null
-      } ] );
+      } ]);
 
     } );
 
@@ -228,11 +226,11 @@ describe( 'multilingual validator', () => {
       } catch( e ) {
       }
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         en: [],
         fr: [ 'Texte en français' ],
         es: [ 'Una pequena palabra' ]
-      } );
+      });
 
     } );
 
@@ -243,7 +241,7 @@ describe( 'multilingual validator', () => {
         default: null
       } );
 
-      should( validate() ).equal( null );
+      expect( validate() ).toBeNull();
 
     } );
 
@@ -255,7 +253,7 @@ describe( 'multilingual validator', () => {
         languages: [ 'fr' ]
       } );
 
-      validate().should.eql( { fr: 'Une desc' } )
+      expect(validate()).toEqual({ fr: 'Une desc' })
 
     } );
 
@@ -267,7 +265,7 @@ describe( 'multilingual validator', () => {
         languages: [ 'fr' ]
       } );
 
-      validate().should.eql( { fr: 'Une desc' } )
+      expect(validate()).toEqual({ fr: 'Une desc' })
 
     } );
 
@@ -293,11 +291,11 @@ describe( 'multilingual validator', () => {
 
       }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
-      clean.should.eql( {
+      expect(clean).toEqual({
         fr: 'Le texte anglais est franchement nul.'
-      } );
+      });
 
     } );
 

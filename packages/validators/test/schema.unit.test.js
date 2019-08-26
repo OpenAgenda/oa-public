@@ -2,19 +2,16 @@
 
 const _ = require( 'lodash' );
 
-require( 'source-map-support' ).install();
-
-const should = require( 'should' );
-
 const utils = require( '../src/schema/utils' );
 
 const registered = {
+  schema: require( '../src/schema' ),
   text: require( '../src/text' )
 }
 
 describe( 'schema functions ( unit tests )', () => {
 
-  before( () => {
+  beforeAll( () => {
 
     utils.registerValidators( registered );
 
@@ -24,21 +21,21 @@ describe( 'schema functions ( unit tests )', () => {
 
     it( 'flattens given values into a single list and associates corresponding validators', () => {
 
-      const flattened = utils.mapValuesToValidators( 
+      const flattened = utils.mapValuesToValidators(
         // fields object
-        { title: { type: 'text', min: 2 } }, 
+        { title: { type: 'text', min: 2 } },
         // values
         { title: 'This is the first getFlat test' }
       );
 
-      flattened.length.should.equal( 1 );
+      expect(flattened.length).toBe(1);
 
-      _.keys( flattened[ 0 ] ).should.eql( [ 'field', 'validator', 'value' ] );
+      expect(_.keys( flattened[ 0 ] )).toEqual([ 'field', 'validator', 'value' ]);
 
-      _.pick( flattened[ 0 ], [ 'field', 'value' ] ).should.eql( {
+      expect(_.pick( flattened[ 0 ], [ 'field', 'value' ] )).toEqual({
         field: 'title',
         value: 'This is the first getFlat test'
-      } );
+      });
 
     } );
 
@@ -54,9 +51,9 @@ describe( 'schema functions ( unit tests )', () => {
         credits: 'Nobody'
       } );
 
-      flattened.length.should.equal( 3 );
+      expect(flattened.length).toBe(3);
 
-      flattened.map( f => f.value ).should.eql( [ 'Jeff', null, null ] );
+      expect(flattened.map( f => f.value )).toEqual([ 'Jeff', null, null ]);
 
     } );
 
@@ -82,7 +79,7 @@ describe( 'schema functions ( unit tests )', () => {
 
       }
 
-      errored.should.equal( false );
+      expect(errored).toBe(false);
 
     } );
 
@@ -110,9 +107,9 @@ describe( 'schema functions ( unit tests )', () => {
         }
       );
 
-      flattened.length.should.equal( 2 );
+      expect(flattened.length).toBe(2);
 
-      flattened.map( f => _.pick( f, [ 'field', 'value' ] ) ).should.eql( [ {
+      expect(flattened.map( f => _.pick( f, [ 'field', 'value' ] ) )).toEqual([ {
         field: 'title',
         value: 'My Reign',
       }, {
@@ -121,7 +118,7 @@ describe( 'schema functions ( unit tests )', () => {
           name: 'The',
           surname: 'Queen'
         }
-      } ] );
+      } ]);
 
     } );
 

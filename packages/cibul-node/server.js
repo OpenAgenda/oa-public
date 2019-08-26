@@ -28,8 +28,6 @@ supervisor( loadTasks => {
 
     log( 'info', 'running server' );
 
-    const feathers = require( '@feathersjs/feathers' );
-    const express = require( '@feathersjs/express' );
     const sessions = require( '@openagenda/sessions' );
     const app = require( './app' );
     const cmn = require( './lib/commons-app' );
@@ -37,10 +35,6 @@ supervisor( loadTasks => {
     const config = require( './config' );
     const admin = require( './admin' );
     const web = require( './web' );
-
-    express( feathers(), app );
-
-    app.configure( express.rest( null ) );
 
     app.use( sessions.middleware );
     app.use( sessions.middleware.load( { detailed: true } ) );
@@ -79,7 +73,17 @@ supervisor( loadTasks => {
       require( './agenda/exports' )( app );
     }
 
-    app.use( express.rest.formatter );
+    app.use( (req, res, next) => {
+      if ( res.data === undefined ) {
+        return next();
+      }
+
+      res.format( {
+        'application/json': function () {
+          res.json( res.data );
+        }
+      } );
+    } );
 
     app.use( ( req, res, next ) => next( { code: 404 } ) );
 

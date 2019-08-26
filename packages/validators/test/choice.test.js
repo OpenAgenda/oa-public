@@ -1,7 +1,5 @@
 "use strict";
 
-const should = require( 'should' );
-
 const validators = require( '../src' );
 
 describe( 'choice validator', () => {
@@ -14,25 +12,25 @@ describe( 'choice validator', () => {
 
     it( 'is optional by default', () => {
 
-      validate().should.eql( [] );
+      expect(validate()).toEqual([]);
 
     } );
 
     it( 'keeps known values in clean result', () => {
 
-      validate( [ 1, 2, 3 ] ).should.eql( [ 2 ] );
+      expect(validate( [ 1, 2, 3 ] )).toEqual([ 2 ]);
 
     } );
 
     it( 'single value is handled as 1 value array', () => {
 
-      validate( 2 ).should.eql( [ 2 ] );
+      expect(validate( 2 )).toEqual([ 2 ]);
 
     } );
 
     it( 'validator is of type "choice"', () => {
 
-      validate.type.should.equal( 'choice' );
+      expect(validate.type).toBe('choice');
 
     } );
 
@@ -48,9 +46,7 @@ describe( 'choice validator', () => {
 
     it( 'cleans keyed values', () => {
 
-      validate( [ { id: 2, 'label': 'two' }, { id: 12, value: 'twelve' } ] )
-
-      .should.eql( [ 2, 12 ] );
+      expect(validate( [ { id: 2, 'label': 'two' }, { id: 12, value: 'twelve' } ] )).toEqual([ 2, 12 ]);
 
     } );
 
@@ -68,11 +64,11 @@ describe( 'choice validator', () => {
 
       }
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         code: 'choice.required',
         message: 'a (known) value must be chosen',
         origin: 3
-      } ] );
+      } ]);
 
     } );
 
@@ -93,7 +89,7 @@ describe( 'choice validator', () => {
 
       } catch( e ) {}
 
-      clean.should.eql( [ 2 ] );
+      expect(clean).toEqual([ 2 ]);
 
     } );
 
@@ -112,7 +108,7 @@ describe( 'choice validator', () => {
 
       } catch( e ) {}
 
-      clean.should.equal( 2 );
+      expect(clean).toBe(2);
 
     } );
 
@@ -131,7 +127,7 @@ describe( 'choice validator', () => {
 
       } catch( e ) {}
 
-      should( clean ).equal( null );
+      expect( clean ).toBeNull();
 
     } );
 
@@ -151,7 +147,7 @@ describe( 'choice validator', () => {
 
       } catch( e ) {}
 
-      clean.should.equal( 22 );
+      expect(clean).toBe(22);
 
     } );
 
@@ -175,7 +171,7 @@ describe( 'choice validator', () => {
 
       } catch( e ) { errors = e };
 
-      errors[ 0 ].field.should.equal( 'etpaf' );
+      expect(errors[ 0 ].field).toBe('etpaf');
 
     } );
 
@@ -199,12 +195,12 @@ describe( 'choice validator', () => {
 
       } catch( e ) { errors = e; }
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         code: 'choice.required.min',
         message: 'between %min% and %max% choices must be made',
         values: { min: 2, max: 3 },
         origin: 2
-      } ] );
+      } ]);
 
     } );
 
@@ -218,12 +214,12 @@ describe( 'choice validator', () => {
 
       } catch( e ) { errors = e; }
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         code: 'choice.required.max',
         message: 'between %min% and %max% choices must be made',
         values: { min: 2, max: 3 },
         origin: [ 2, 4, 12, 13 ]
-      } ] );
+      } ]);
 
     } );
 

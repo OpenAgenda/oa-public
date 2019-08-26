@@ -23,7 +23,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/admin-agendas",
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
+    "@babel/runtime-corejs2": "^7.5.5",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
@@ -43,9 +43,9 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
     "@openagenda/agenda-stakeholders": "^2.1.2",
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/babel-preset": "^1.1.1",

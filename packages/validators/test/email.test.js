@@ -1,8 +1,6 @@
 "use strict";
 
-var should = require( 'should' ),
-
-validators = require( '../src' );
+var validators = require( '../src' );
 
 describe( 'email validator', () => {
 
@@ -12,13 +10,13 @@ describe( 'email validator', () => {
 
     let clean = validate( ' kaore@cibul.net ' );
 
-    clean.should.equal( 'kaore@cibul.net' );
+    expect(clean).toBe('kaore@cibul.net');
 
   } );
 
   it( 'returns null if input is null and validaor is optional', () => {
 
-    should( validators.email( { optional: true } )() ).equal( null );
+    expect( validators.email( { optional: true } )() ).toBeNull();
 
   } );
 
@@ -34,7 +32,7 @@ describe( 'email validator', () => {
 
       caught = true;
 
-      e[ 0 ].code.should.equal( 'email.invalid' );
+      expect(e[ 0 ].code).toBe('email.invalid');
 
     }
 
@@ -52,11 +50,11 @@ describe( 'email validator', () => {
 
       caught = true;
 
-      e[ 0 ].code.should.equal( 'email.invalid' );
+      expect(e[ 0 ].code).toBe('email.invalid');
 
     }
 
-    caught.should.equal( true );
+    expect(caught).toBe(true);
 
   } );
 
@@ -70,9 +68,7 @@ describe( 'email validator', () => {
       'mmier@gmail.com'
     ];
 
-    validators.email( { list: true } )( emails )
-
-    .should.eql( emails );
+    expect(validators.email( { list: true } )( emails )).toEqual(emails);
 
   } );
 
@@ -100,7 +96,7 @@ describe( 'email validator', () => {
 
     } );
 
-    notEmails.length.should.equal( errors.length );
+    expect(notEmails.length).toBe(errors.length);
 
   } );
 
@@ -120,12 +116,12 @@ describe( 'email validator', () => {
 
     }
 
-    errors.should.eql( [ { 
+    expect(errors).toEqual([ { 
       field: undefined,
       code: 'list.required',
       message: 'list cannot be empty',
       origin: [] 
-    } ] );
+    } ]);
 
   } );
 

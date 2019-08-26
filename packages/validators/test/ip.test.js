@@ -1,8 +1,6 @@
 "use strict";
 
-const should = require( 'should' ),
-
-  validators = require( '../src' );
+const validators = require( '../src' );
 
 describe( 'ip validator', () => {
 
@@ -12,7 +10,7 @@ describe( 'ip validator', () => {
 
     let clean = validate( '191.168.0.1' );
 
-    clean.should.equal( '191.168.0.1' );
+    expect(clean).toBe('191.168.0.1');
 
   } );
 
@@ -30,12 +28,12 @@ describe( 'ip validator', () => {
 
     }
 
-    errors.should.eql( [ { 
+    expect(errors).toEqual([ { 
       origin: 'nimpornawak',
       field: 'ip',
       code: 'ip.invalid',
       message: 'ip address is invalid' 
-    } ] );
+    } ]);
 
   } );
 
@@ -45,25 +43,25 @@ describe( 'ip validator', () => {
 
     it( 'is a list of ips', () => {
 
-      validate( [
+      expect(validate( [
         '192.3.1.2',
         '192.12.0.1'
-      ] ).should.eql( [
+      ] )).toEqual([
         '192.3.1.2',
         '192.12.0.1'
-      ] );
+      ]);
 
     } );
 
     it( 'nothing given to list returns an empty list', () => {
 
-      validate().should.eql( [] );
+      expect(validate()).toEqual([]);
 
     } );
 
     it( 'null given to list returns an empty list', () => {
 
-      validate( null ).should.eql( [] );
+      expect(validate( null )).toEqual([]);
 
     } );
 

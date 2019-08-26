@@ -1,8 +1,6 @@
 "use strict";
 
-var should = require( 'should' ),
-
-validators = require( '../src' );
+var validators = require( '../src' );
 
 describe( 'latitude validator', () => {
 
@@ -22,12 +20,12 @@ describe( 'latitude validator', () => {
 
     }
 
-    errors.should.eql( [ {
+    expect(errors).toEqual([ {
       field: false,
       code: 'latitude.toosmall',
       message: 'latitude cannot be less than -90',
       origin: -91
-    } ] );
+    } ]);
 
   } );
 
@@ -45,12 +43,12 @@ describe( 'latitude validator', () => {
 
     }
 
-    errors.should.eql( [ {
+    expect(errors).toEqual([ {
       field: false,
       code: 'latitude.toobig',
       message: 'latitude cannot be more than 90',
       origin: 91
-    } ] );
+    } ]);
 
   } );
 
@@ -68,12 +66,12 @@ describe( 'latitude validator', () => {
 
     }
 
-    errors.should.eql( [ {
+    expect(errors).toEqual([ {
       field: false,
       code: 'latitude.invalid',
       message: 'not a number',
       origin: 'fdsqfdsq'
-    } ] );
+    } ]);
 
   } );
 
@@ -83,7 +81,7 @@ describe( 'latitude validator', () => {
 
     try {
 
-      validate( '2.4534' ).should.equal( 2.4534 );
+      expect(validate( '2.4534' )).toBe(2.4534);
 
     } catch ( e ) {
 
@@ -91,7 +89,7 @@ describe( 'latitude validator', () => {
 
     }
 
-    errors.should.equal( false );
+    expect(errors).toBe(false);
 
   } );
 
@@ -99,7 +97,7 @@ describe( 'latitude validator', () => {
 
     let result = validate();
 
-    should( result ).equal( null );
+    expect( result ).toBeNull();
 
   } );
 

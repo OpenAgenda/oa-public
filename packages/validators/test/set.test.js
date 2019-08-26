@@ -1,8 +1,6 @@
 "use strict";
 
-var validators = require( '../src' ),
-
-should = require( 'should' );
+var validators = require( '../src' );
 
 describe( 'set validator', () => {
 
@@ -24,7 +22,7 @@ describe( 'set validator', () => {
 
     it( 'returns compacted clean values', () => {
 
-      var clean = validate( [ {
+      var clean = expect(validate( [ {
         field: 'name',
         value: 'Toto'
       }, {
@@ -33,13 +31,11 @@ describe( 'set validator', () => {
       }, {
         field: 'user_phone',
         value: '04 50 49 12 22'
-      } ] )
-
-      .should.eql( {
+      } ] )).toEqual({
         name: 'Toto',
         user_email: 'to.to@tata.com',
         user_phone: '04 50 49 12 22'
-      } );
+      });
 
     } );
 
@@ -85,13 +81,13 @@ describe( 'set validator', () => {
 
       }
 
-      errors.length.should.equal( 3 );
+      expect(errors.length).toBe(3);
 
-      errors[ 0 ].field.should.equal( 'name' );
+      expect(errors[ 0 ].field).toBe('name');
 
-      errors[ 1 ].field.should.equal( 'user_email' );
+      expect(errors[ 1 ].field).toBe('user_email');
 
-      errors[ 2 ].field.should.equal( 'user_phone' );
+      expect(errors[ 2 ].field).toBe('user_phone');
 
     } );
 
@@ -119,9 +115,9 @@ describe( 'set validator', () => {
 
       }
 
-      should( errors ).equal( null );
+      expect( errors ).toBeNull();
 
-      clean.should.eql( [ {
+      expect(clean).toEqual([ {
         field: 'name',
         value: 'Toto'
       }, {
@@ -130,7 +126,7 @@ describe( 'set validator', () => {
       }, {
         field: 'user_phone',
         value: '04 50 49 12 22'
-      } ] );
+      } ]);
 
     } );
 

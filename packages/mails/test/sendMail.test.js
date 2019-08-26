@@ -154,7 +154,7 @@ describe('sendMail', () => {
       expect(errors).toHaveLength(0);
 
       for (const result of results) {
-        console.log(`Preview URL: ${nodemailer.getTestMessageUrl(result)}`);
+        // console.log(`Preview URL: ${nodemailer.getTestMessageUrl(result)}`);
         expect(result.response).toContain('250');
       }
 
@@ -182,7 +182,7 @@ describe('sendMail', () => {
       expect(errors).toHaveLength(0);
 
       for (const result of results) {
-        console.log(`Preview URL: ${nodemailer.getTestMessageUrl(result)}`);
+        // console.log(`Preview URL: ${nodemailer.getTestMessageUrl(result)}`);
         expect(result.response).toContain('250');
       }
 

@@ -1,7 +1,5 @@
 "use strict";
 
-const should = require( 'should' );
-
 const validators = require( '../src' );
 
 describe( 'list validator', () => {
@@ -18,8 +16,8 @@ describe( 'list validator', () => {
 
       let clean = validate.clean( [ 'fdfdsqf', 'mail@gmail.com', 'fdsqfdsq' ] );
 
-      clean.length.should.equal( 1 );
-      clean[ 0 ].should.equal( 'mail@gmail.com' );
+      expect(clean.length).toBe(1);
+      expect(clean[ 0 ]).toBe('mail@gmail.com');
 
     } );
 
@@ -28,14 +26,14 @@ describe( 'list validator', () => {
 
       let clean = validate( [ 'contact@email.com', '06' ] );
 
-      clean.should.eql( [ 'contact@email.com', '06' ] );
+      expect(clean).toEqual([ 'contact@email.com', '06' ]);
 
     } );
 
 
     it( 'undefined input is handled as empty list', () => {
 
-      validate().should.eql( [] );
+      expect(validate()).toEqual([]);
 
     } );
 
@@ -54,7 +52,7 @@ describe( 'list validator', () => {
 
       }
 
-      errors.length.should.equal( 3 );
+      expect(errors.length).toBe(3);
 
     } );
 
@@ -71,7 +69,7 @@ describe( 'list validator', () => {
 
       errors.forEach( e => {
 
-        e.index.should.equal( 1 );
+        expect(e.index).toBe(1);
 
       } );
 
@@ -83,7 +81,7 @@ describe( 'list validator', () => {
 
       errors.forEach( e => {
 
-        e.index.should.equal( 2 );
+        expect(e.index).toBe(2);
 
       } );
 
@@ -94,10 +92,10 @@ describe( 'list validator', () => {
 
       var dec = validate.decorateItem( ' youpidou@gmail.com ' );
 
-      dec.should.eql( {
+      expect(dec).toEqual({
         value: 'youpidou@gmail.com',
         type: 'email'
-      } );
+      });
 
     } );
 
@@ -106,9 +104,9 @@ describe( 'list validator', () => {
 
       var dec = validate.decorateItem( 'fdfqds' );
 
-      dec.value.should.equal( 'fdfqds' );
+      expect(dec.value).toBe('fdfqds');
 
-      dec.errors.length.should.equal( 3 );
+      expect(dec.errors.length).toBe(3);
 
     } );
 
@@ -127,7 +125,7 @@ describe( 'list validator', () => {
 
       }
 
-      errors.length.should.equal( 3 );
+      expect(errors.length).toBe(3);
 
     } );
 
@@ -135,7 +133,7 @@ describe( 'list validator', () => {
 
       var clean = validate.validateItem( 'phone@number.com' );
 
-      clean.should.equal( 'phone@number.com' );
+      expect(clean).toBe('phone@number.com');
 
     } );
 
@@ -154,9 +152,7 @@ describe( 'list validator', () => {
 
     it( 'includes stuff', () => {
 
-      validate( [ '08381', 'email@site.com', 'https://oa.com' ] )
-
-      .should.eql( [ '08381', 'email@site.com', 'https://oa.com' ] );
+      expect(validate( [ '08381', 'email@site.com', 'https://oa.com' ] )).toEqual([ '08381', 'email@site.com', 'https://oa.com' ]);
 
     } );
 
@@ -188,7 +184,7 @@ describe( 'list validator', () => {
 
       }
 
-      errors[ 0 ].field.should.equal( 'myfield' );
+      expect(errors[ 0 ].field).toBe('myfield');
 
     } );
 
@@ -204,9 +200,7 @@ describe( 'list validator', () => {
 
     it( 'no input returns empty list', () => {
 
-      validate()
-
-      .should.eql( [] );
+      expect(validate()).toEqual([]);
 
     } );
 

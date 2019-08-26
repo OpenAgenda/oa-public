@@ -8,8 +8,9 @@ module.exports = {
     '<rootDir>/packages/logs',
     '<rootDir>/packages/mails',
     '<rootDir>/packages/members',
-    // '<rootDir>/packages/sdk-js',
-    '<rootDir>/packages/users'
+    '<rootDir>/packages/sdk-js',
+    '<rootDir>/packages/users',
+    '<rootDir>/packages/validators'
   ],
   collectCoverage: true,
 };

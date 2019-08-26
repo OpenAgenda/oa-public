@@ -1,10 +1,6 @@
 "use strict";
 
-const validators = require( '../src' ),
-
-should = require( 'should' ),
-
-utils = require( '@openagenda/utils' );
+const validators = require( '../src' ), utils = require( '@openagenda/utils' );
 
 describe( 'object validator', () => {
 
@@ -25,13 +21,13 @@ describe( 'object validator', () => {
         value: 'José'
       } ] );
 
-      cleanValue.should.eql( [ {
+      expect(cleanValue).toEqual([ {
         field: 'name',
         value: 'Okay'
       }, {
         field: 'code',
         value: 'José'
-      } ] );
+      } ]);
 
     } );
 
@@ -57,7 +53,7 @@ describe( 'object validator', () => {
 
       }
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         field: 'name',
         code: 'string.tooshort',
         message: 'the string is too short',
@@ -68,7 +64,7 @@ describe( 'object validator', () => {
         code: 'required',
         message: 'a string is required',
         origin: undefined 
-      } ] );
+      } ]);
 
     } );
 
@@ -96,13 +92,13 @@ describe( 'object validator', () => {
         } ]
       } ] );
 
-      clean.should.eql( [ {
+      expect(clean).toEqual([ {
         field: 'name',
         value: 'valid'
       }, {
         field: 'details.contact',
         value: 'contact@email.com'
-      } ] );
+      } ]);
 
 
     } );
@@ -130,7 +126,7 @@ describe( 'object validator', () => {
 
       }
 
-      errors.should.eql( [ {
+      expect(errors).toEqual([ {
         field: 'name',
         code: 'string.tooshort',
         message: 'the string is too short',
@@ -141,7 +137,7 @@ describe( 'object validator', () => {
         code: 'email.invalid',
         message: 'email is not valid',
         origin: 'fdsqfdq'
-      } ] );
+      } ]);
 
     } );
 

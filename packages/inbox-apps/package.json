@@ -25,7 +25,7 @@
     "react-dom": "^16.8.6"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.3.1",
+    "@babel/runtime-corejs2": "^7.5.5",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
@@ -59,18 +59,16 @@
     "uppy": "^0.23.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.2.3",
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@babel/node": "^7.5.5",
+    "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/inboxes": "^1.1.2",
     "@storybook/react": "^4.1.11",
-    "babel-core": "^7.0.0-bridge.0",
-    "babel-jest": "^23.6.0",
+    "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.4",
-
-"@openagenda/babel-preset": "^1.1.1",
     "body-parser": "^1.18.3",
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",

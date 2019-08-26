@@ -1,18 +1,12 @@
 "use strict";
 
-require( 'source-map-support' ).install();
-
-const validators = require( '../src' ),
-
-  schema = require( '../src/schema' ),
-
-  should = require( 'should' );
+const validators = require( '../src' ), schema = require( '../src/schema' );
 
 describe( 'schema validator', () => {
 
   describe( 'schema with few registered validators', () => {
 
-    before( () => {
+    beforeAll( () => {
 
       schema.register( {
         link: validators.link
@@ -30,11 +24,11 @@ describe( 'schema validator', () => {
 
       try {
 
-        validate( 123 ); 
+        validate( 123 );
 
       } catch ( e ) {
 
-        e.message.should.equal( 'Unregistered type: integer' );
+        expect(e.message).toBe('Unregistered type: integer');
 
       }
 

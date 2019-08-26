@@ -1,7 +1,5 @@
 "use strict";
 
-const should = require( 'should' );
-
 const validators = require( '../src' );
 
 describe( 'phone validator', () => {
@@ -12,7 +10,7 @@ describe( 'phone validator', () => {
 
     const clean = validate( '06 50 91 60' );
 
-    clean.should.equal( '06 50 91 60' );
+    expect(clean).toBe('06 50 91 60');
 
   } );
 
@@ -20,7 +18,7 @@ describe( 'phone validator', () => {
 
     const clean = validate( '+33 (0)6 50 91 60 26' );
 
-    clean.should.equal( '+33 (0)6 50 91 60 26' );
+    expect(clean).toBe('+33 (0)6 50 91 60 26');
 
   } );
 
@@ -28,7 +26,7 @@ describe( 'phone validator', () => {
 
     const clean = validate( '+(1) 800-123-123' );
 
-    clean.should.equal( '+(1) 800-123-123' );    
+    expect(clean).toBe('+(1) 800-123-123');    
 
   } );
 
@@ -46,12 +44,12 @@ describe( 'phone validator', () => {
 
     }
 
-    errors[ 0 ].should.eql( { 
+    expect(errors[ 0 ]).toEqual({ 
       origin: undefined,
       field: 'telephone',
       code: 'required',
       message: 'value must not be empty' 
-    } );
+    });
 
   } );
 
@@ -59,7 +57,7 @@ describe( 'phone validator', () => {
 
     let clean = validate( ' 06509160 ' );
 
-    clean.should.equal( '06509160' );
+    expect(clean).toBe('06509160');
 
   } );
 
@@ -75,9 +73,9 @@ describe( 'phone validator', () => {
 
       caught = true;
 
-      e[ 0 ].code.should.equal( 'phone.invalid' );
+      expect(e[ 0 ].code).toBe('phone.invalid');
 
-      e[ 0 ].field.should.equal( 'telephone' ); 
+      expect(e[ 0 ].field).toBe('telephone'); 
 
     }
 
@@ -99,9 +97,9 @@ describe( 'phone validator', () => {
 
     }
 
-    errors.length.should.equal( 0 );
+    expect(errors.length).toBe(0);
 
-    should( clean ).equal( null );
+    expect( clean ).toBeNull();
 
   } );
 

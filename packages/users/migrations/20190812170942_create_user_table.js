@@ -26,7 +26,6 @@ exports.up = async knex => {
         \`is_removed\` tinyint(1) NOT NULL DEFAULT '0',
         \`store\` longtext,
         \`api_key\` varchar(32) DEFAULT NULL,
-        \`reply_token\` varchar(255) DEFAULT NULL,
         \`is_basic\` tinyint(1) NOT NULL DEFAULT '0',
         \`twitter_id\` varchar(255) DEFAULT NULL,
         \`google_id\` varchar(255) DEFAULT NULL,
@@ -46,8 +45,7 @@ exports.up = async knex => {
       ADD UNIQUE KEY \`username\` (\`username\`),
       ADD UNIQUE KEY \`email\` (\`email\`),
       ADD UNIQUE KEY \`email_idx\` (\`email\`),
-      ADD UNIQUE KEY \`uid\` (\`uid\`),
-      ADD UNIQUE KEY \`reply_token\` (\`reply_token\`);
+      ADD UNIQUE KEY \`uid\` (\`uid\`);
     `);
 
     await knex.raw(`

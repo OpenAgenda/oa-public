@@ -8,6 +8,7 @@ module.exports = declare( ( api, options ) => {
 
   const debug = typeof options.debug === 'boolean' ? options.debug : false;
   const useBuiltIns = typeof options.useBuiltIns !== 'undefined' ? options.useBuiltIns : false;
+  const corejs = typeof options.corejs !== 'undefined' ? options.corejs : 2;
   const modules = typeof options.modules !== 'undefined' ? options.modules : 'auto';
   const development = typeof options.development === 'boolean'
     ? options.development
@@ -19,6 +20,7 @@ module.exports = declare( ( api, options ) => {
       {
         debug,
         useBuiltIns,
+        corejs,
         modules,
         targets: {
           browsers: [
@@ -48,7 +50,7 @@ module.exports = declare( ( api, options ) => {
     [
       require( '@babel/plugin-transform-runtime' ).default,
       {
-        corejs: 2
+        corejs
       }
     ],
 

@@ -1,8 +1,6 @@
 "use strict";
 
-var should = require( 'should' ),
-
-validators = require( '../src' );
+var validators = require( '../src' );
 
 describe( 'text validator', () => {
 
@@ -20,7 +18,7 @@ describe( 'text validator', () => {
 
       let clean = validate( ' pneu ' );
 
-      clean.should.equal( 'pneu' );
+      expect(clean).toBe('pneu');
 
     } );
 
@@ -33,7 +31,7 @@ describe( 'text validator', () => {
 
       } catch( e ) {
 
-        e[ 0 ].code.should.equal( 'string.invalidtype' )
+        expect(e[ 0 ].code).toBe('string.invalidtype')
 
       }
 
@@ -48,7 +46,7 @@ describe( 'text validator', () => {
 
       } catch( e ) {
 
-        e[ 0 ].code.should.equal( 'string.toolong' );
+        expect(e[ 0 ].code).toBe('string.toolong');
 
       }
 
@@ -63,7 +61,7 @@ describe( 'text validator', () => {
 
       } catch( e ) {
 
-        e[ 0 ].code.should.equal( 'string.tooshort' );
+        expect(e[ 0 ].code).toBe('string.tooshort');
 
       }
 
@@ -90,9 +88,11 @@ describe( 'text validator', () => {
 
       }
 
-      errors.length.should.equal( 0 );
+      expect(errors.length).toBe(0);
 
-      clean.should.equal( 'Mama, I just killed a man, put a gun against his head, pulled my trigger now he\'s dead' );
+      expect(clean).toBe(
+        'Mama, I just killed a man, put a gun against his head, pulled my trigger now he\'s dead'
+      );
 
     } );
 
@@ -113,7 +113,7 @@ describe( 'text validator', () => {
 
       }
 
-      errors.length.should.equal( 1 );
+      expect(errors.length).toBe(1);
 
     } );
 
@@ -126,9 +126,7 @@ describe( 'text validator', () => {
 
       let validate = validators.text( { field: 'text', min: 3, max: 10 } );
 
-      should( validate() )
-
-        .equal( null );
+      expect( validate() ).toBeNull();
 
     } );
 
@@ -136,9 +134,7 @@ describe( 'text validator', () => {
 
       let validate = validators.text( { field: 'text', min: 3, max: 10 } );
 
-      should( validate( null ) )
-
-        .equal( null );
+      expect( validate( null ) ).toBeNull();
 
     } );
 
@@ -146,9 +142,7 @@ describe( 'text validator', () => {
 
       let validate = validators.text( { field: 'text', min: 3, max: 10 } );
 
-      should( validate( '' ) )
-
-      .equal( null );
+      expect( validate( '' ) ).toBeNull();
 
     } );
 
@@ -165,9 +159,7 @@ describe( 'text validator', () => {
         optional: false
       } );
 
-      should( validate( [ 'fsqfsdqs', 'fds' ] ) )
-
-        .eql( [ 'fsqfsdqs', 'fds' ] );
+      expect( validate( [ 'fsqfsdqs', 'fds' ] ) ).toEqual([ 'fsqfsdqs', 'fds' ]);
 
     } );
 
@@ -178,9 +170,7 @@ describe( 'text validator', () => {
         list: true
       } );
 
-      should( validate() )
-
-        .eql( [] );
+      expect( validate() ).toEqual([]);
 
     } );
 
@@ -191,7 +181,7 @@ describe( 'text validator', () => {
         list: true
       } );
 
-      validate( 'a text' ).should.eql( [ 'a text' ] );
+      expect(validate( 'a text' )).toEqual([ 'a text' ]);
 
     } );
 
@@ -202,7 +192,7 @@ describe( 'text validator', () => {
         list: { default: null }
       } );
 
-      should( validate() ).equal( null );
+      expect( validate() ).toBeNull();
 
     } );
 
@@ -213,7 +203,7 @@ describe( 'text validator', () => {
         list: { default: null }
       } );
 
-      should( validate( null ) ).equal( null );
+      expect( validate( null ) ).toBeNull();
 
     } );
 
@@ -228,7 +218,7 @@ describe( 'text validator', () => {
         optional: false
       } );
 
-      validate( 42 ).should.equal( '42' );
+      expect(validate( 42 )).toBe('42');
 
     } );
 
@@ -245,12 +235,12 @@ describe( 'text validator', () => {
 
       } catch ( e ) {
 
-        e.should.eql( [ {
+        expect(e).toEqual([ {
           field: 'text',
           code: 'string.invalidtype',
           message: 'not a string',
           origin: 42
-        } ] );
+        } ]);
 
       }
 
@@ -275,7 +265,7 @@ describe( 'text validator', () => {
 
       }
 
-      errors.length.should.equal( 1 );
+      expect(errors.length).toBe(1);
 
     } );
 
