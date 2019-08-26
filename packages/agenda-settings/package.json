@@ -23,7 +23,7 @@
     "react-dom": "^16.8.6"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.5.5",
+    "@babel/runtime-corejs3": "^7.5.5",
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/call-to-action": "^2.2.2",
     "@openagenda/dom-utils": "^2.2.0",
@@ -34,6 +34,7 @@
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/validators": "^2.1.4",
     "classnames": "^2.2.5",
+    "core-js": "^3.2.1",
     "history": "^3.3.0",
     "immutability-helper": "^3.0.0",
     "knex": "^0.16.3",

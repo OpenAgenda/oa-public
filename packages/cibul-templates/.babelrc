@@ -3,8 +3,7 @@
     [
       "@openagenda",
       {
-        "modules": "commonjs",
-        "useBuiltIns": "usage"
+        "modules": "commonjs"
       }
     ]
   ],

@@ -170,6 +170,10 @@ async function filterAction( inbox, conversation, action ) {
   }
 
   if ( action.code === 'removeTechnicalSupport' ) {
+    if ( conversation.type === 'support' ) {
+      return false;
+    }
+
     if ( inbox.type === 'support' ) {
       return !!conversation.inboxes.find( inbox => inbox.type === 'support' );
     }

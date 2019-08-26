@@ -29,7 +29,7 @@ module.exports.expose = app => {
     // check if the user is an inboxUser of the conversation
     // add the message to the conversation
 
-    next();
+    res.sendStatus(200);
   });
 };
 

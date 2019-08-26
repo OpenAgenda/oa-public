@@ -105,9 +105,9 @@ app.use(
 app.use(
   '/support',
   sessions.mw.loadOrRedirect,
-  members.mw.loadAndAuthorize('moderator'),
   cmn.loadBaseData( 'oasfmain.css' ),
   async ( req, res, next ) => {
+    const lang = req.lang || 'fr';
     const { element, triggerHooks, store, context } = createInboxApp( {
       req,
       initialState: {

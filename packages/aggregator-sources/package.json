@@ -23,7 +23,7 @@
     "react-dom": "^16.8.6"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.5.5",
+    "@babel/runtime-corejs3": "^7.5.5",
     "@openagenda/dom-utils": "^2.1.0",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
@@ -32,6 +32,7 @@
     "@openagenda/react-utils": "^4.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "connected-react-router": "^6.2.2",
+    "core-js": "^3.2.1",
     "history": "^4.7.2",
     "knex": "^0.16.3",
     "lodash": "^4.17.11",

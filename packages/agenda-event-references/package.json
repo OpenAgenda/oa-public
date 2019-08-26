@@ -17,13 +17,14 @@
     "prepublish": "yarn clean && yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs2": "^7.5.5",
+    "@babel/runtime-corejs3": "^7.5.5",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/mysql-utils": "^2.0.0",
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/utils": "^1.0.2",
+    "core-js": "^3.2.1",
     "create-react-class": "^15.5.2",
     "es6-promise": "^3.2.1",
     "immutability-helper": "^3.0.0",
