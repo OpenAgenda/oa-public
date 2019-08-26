@@ -8,7 +8,9 @@
   "main": "lib/service/index.js",
   "scripts": {
     "build": "rimraf lib && babel src -d lib -s",
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "clean": "rimraf dist",
+    "prepublish": "yarn clean && yarn build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.5.5",
