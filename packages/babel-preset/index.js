@@ -22,7 +22,7 @@ module.exports = declare( ( api, options ) => {
 
   const presets = [
     [
-      require( '@babel/preset-env' ).default,
+      require( '@babel/preset-env' ),
       {
         debug,
         useBuiltIns,
@@ -43,7 +43,7 @@ module.exports = declare( ( api, options ) => {
       }
     ],
     [
-      require( '@babel/preset-react' ).default,
+      require( '@babel/preset-react' ),
       {
         development
       }
@@ -54,43 +54,44 @@ module.exports = declare( ( api, options ) => {
     require( 'babel-plugin-lodash' ),
     require( 'babel-plugin-add-module-exports' ),
     [
-      require( '@babel/plugin-transform-runtime' ).default,
+      require( '@babel/plugin-transform-runtime' ),
       {
         corejs
       }
     ],
-    require( '@babel/plugin-syntax-dynamic-import' ).default,
+    require( '@babel/plugin-syntax-dynamic-import' ),
     isWebpack
       ? null
       : require( 'babel-plugin-dynamic-import-node' ),
 
-    require( '@babel/plugin-proposal-object-rest-spread' ).default,
+    require( '@babel/plugin-proposal-object-rest-spread' ),
 
     // Stage 0
-    require( '@babel/plugin-proposal-function-bind' ).default,
+    require( '@babel/plugin-proposal-function-bind' ),
 
     // Stage 1
-    require( '@babel/plugin-proposal-export-default-from' ).default,
-    require( '@babel/plugin-proposal-do-expressions' ).default,
+    require( '@babel/plugin-proposal-export-default-from' ),
+    require( '@babel/plugin-proposal-do-expressions' ),
 
     // Stage 2
     [
-      require( '@babel/plugin-proposal-decorators' ).default,
+      require( '@babel/plugin-proposal-decorators' ),
       {
         legacy: true
       }
     ],
-    require( '@babel/plugin-proposal-export-namespace-from' ).default,
-    require( '@babel/plugin-proposal-throw-expressions' ).default,
+    require( '@babel/plugin-proposal-export-namespace-from' ),
+    require( '@babel/plugin-proposal-throw-expressions' ),
 
     // Stage 3
     [
-      require( '@babel/plugin-proposal-class-properties' ).default,
+      require( '@babel/plugin-proposal-class-properties' ),
       {
         loose: true
       }
     ]
-  ];
+  ]
+    .filter( v => v !== null );
 
   return {
     presets,
