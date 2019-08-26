@@ -1,30 +1,21 @@
 "use strict";
 
-const pickEventImage = require( '../lib/pickImage' );
+const _ = require('lodash');
+const async = require('async');
+const aer = require( '@openagenda/agenda-event-references' );
+const w = require('when');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const templater = require('@openagenda/cibul-templates');
+
+const References = React.createFactory( require( '@openagenda/agenda-event-references/react/build/Show' ) );
+const Registration = React.createFactory( require( '@openagenda/registration/lib/Display' ) );
 
 const config = require( '../../../config' );
-
+const eventSvc = require( '../../event' );
 const log = require( '@openagenda/logs' )( 'services/event/middleware/components' );
-
-var w = require( 'when' ),
-
-React = require( 'react' ),
-
-ReactDOMServer = require( 'react-dom/server' ),
-
-Registration = React.createFactory( require( '@openagenda/registration/lib/Display' ) ),
-
-References = React.createFactory( require( '@openagenda/agenda-event-references/react/build/Show' ) ),
-
-aer = require( '@openagenda/agenda-event-references' ),
-
-templater = require( '@openagenda/cibul-templates' ),
-
-genUrl = require( '../../genUrl' ),
-
-async = require( 'async' ),
-
-eventSvc = require( '../../event' );
+const members = require('../../members');
+const pickEventImage = require( '../lib/pickImage' );
 
 module.exports = Object.assign( buildComponents, {
   getReferences
@@ -38,7 +29,7 @@ function getReferences( req, res, next ) {
     req,
     res,
     referencesRender: null,
-    includeUnpublished: !!req.access
+    includeUnpublished: !![2,3].includes(_.get( req, 'member.role'))
   } )
 
   .then( _references )
