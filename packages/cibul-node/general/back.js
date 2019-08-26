@@ -6,6 +6,8 @@ const { Inbox } = require( '@openagenda/inboxes' );
 const sessions = require( '@openagenda/sessions' );
 const cmn = require( '../lib/commons-app' );
 
+const users = require( '../services/users' );
+
 
 module.exports = app => {
 
@@ -28,8 +30,6 @@ module.exports = app => {
 
 
 function _loadUser( detailed, req, res, next ) {
-
-  const users = req.app.service( '/users' );
 
   users.findOne( { query: { id: req.user.id }, detailed: true } )
     .then( user => {

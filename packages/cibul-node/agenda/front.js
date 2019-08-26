@@ -90,7 +90,7 @@ module.exports = app => {
     preMw,
     agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
     cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'controlData', { uid: 'uid' } ) ),
-    cmn.checkStakeholder,
+    members.mw.loadAndAuthorize('reader'),
     controlDataSvc.middleware
   );
 
@@ -150,7 +150,7 @@ module.exports = app => {
       next()
     },
     agendaSvc.mw.load( 'uid', { cache: true } ),
-    cmn.checkAdministrator(),
+    members.mw.loadAndAuthorize('administrator'),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     agendaSvc.mw.search( perPage, true ),
     middlewares.embedShow,

@@ -6,14 +6,12 @@ const { Inbox } = require( '@openagenda/inboxes' );
 const invitations = require( '@openagenda/invitations' );
 const { isSuperiorToOrEqual } = require( '@openagenda/members' ).utils.compareRoles;
 const log = require( '@openagenda/logs' )( 'services/members/onRemove' );
-const app = require( '../../app' );
+
 const activities = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
+const usersSvc = require( '../users' );
 
 module.exports = async ( { members, activityQueue }, member, context ) => {
-
-  const usersSvc = app.service( '/users' );
-
   log( 'removed', member );
 
   try {
@@ -42,7 +40,9 @@ module.exports = async ( { members, activityQueue }, member, context ) => {
     } );
 
     try {
-      await activityQueue( 'addMemberRemoveActivity', { user, member, agenda, userMember, memberUser } );
+      await activityQueue( 'addMemberRemove', {
+        user, member, agenda, userMember, memberUser
+      } );
     } catch ( e ) {
       log( 'error', 'failed adding activity of type agenda.removeMember', { member, exception: e } );
     }

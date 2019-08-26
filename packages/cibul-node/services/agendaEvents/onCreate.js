@@ -9,7 +9,6 @@ const log = require( '@openagenda/logs' )( 'agendaEvents/onCreate' );
 const custom = require( '@openagenda/custom' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 
-const app = require( '../../app' );
 const aggregatorNotify = require( './lib/aggregatorNotify' );
 const eventAggregation = require( './eventAggregation' );
 const legacyEventSearch = require( '../elasticsearch' );
@@ -21,10 +20,9 @@ const sendEventAggregation = require( './sendEventAggregation' );
 const sendEventAddition = require( './sendEventAddition' );
 
 const controlDataSvc = require( '../legacy' ).controlData;
+const usersSvc = require( '../users' );
 
 module.exports = async ( ae, context ) => {
-
-  const usersSvc = app.service( '/users' );
 
   log( 'created agenda-event %j', ae, _.pick( context, [ 'legacy' ] ) );
 

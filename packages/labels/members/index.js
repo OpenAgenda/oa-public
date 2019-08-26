@@ -312,6 +312,10 @@ module.exports = {
     "de": "Die Einladung kann nicht erneut gesendet werden.",
     "es": "La invitación no podía ser de nuevo enviada."
   },
+  "roleInsufficient": {
+    "en": "You do not have access to the requested page. Contact administrators via the 'Contact' button.",
+    "fr": "Vous n'avez pas accès à la page demandée. Contactez les administrateurs via le bouton 'Contacter'.",
+  },
   "message": {
     "fr": "Message",
     "en": "Message",
@@ -389,6 +393,10 @@ module.exports = {
     "en": "Close",
     "de": "Schließen",
     "es": "cerca"
+  },
+  "memberRequired": {
+    "en": "You need to be a member of the agenda to access this page. Contact the administrators of the agenda using the 'Contact' button.",
+    "fr": "La page à laquelle vous avez tenté de chargée n'est accessible que pour les membres de l'agenda. Contactez les administrateurs via le bouton 'Contacter'."
   },
   "moreinfoActive": {
     "fr": "Utilisateur membre de l'agenda ayant contribué des événements",

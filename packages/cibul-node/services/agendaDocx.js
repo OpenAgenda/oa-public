@@ -3,12 +3,19 @@
 const agendaDocx = require( '@openagenda/agenda-docx' );
 const cmn = require( '../lib/commons-app' );
 
+const sessions = require('./sessions');
+const members = require('./members');
+
 module.exports = app => {
 
   // not necessary
   app.use( '/docx/dist', agendaDocx.dist );
 
-  app.use( '/docx/:agendaUid', cmn.verifyAdminModMiddleware( { uid: 'params.agendaUid' } ) );
+  app.use( '/docx/:agendaUid',
+    cmn.loadAgendaBy({uid: 'agendaUid'}),
+    sessions.mw.loadOrRedirect,
+    members.mw.loadAndAuthorize('moderator')
+  );
 
   app.use( '/docx', agendaDocx.app );
 

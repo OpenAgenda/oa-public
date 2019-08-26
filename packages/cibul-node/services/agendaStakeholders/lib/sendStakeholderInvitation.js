@@ -2,7 +2,7 @@
 
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const mails = require( '@openagenda/mails' );
-const app = require( '../../../app' );
+const usersSvc = require( '../../users' );
 const activities = require( '../../activities' );
 const config = require( '../../../config' );
 
@@ -12,7 +12,7 @@ module.exports = ( invitation, stakeholder, context, agenda ) => {
 
   if ( !stakeholder.userId ) {
 
-    app.service( '/users' ).findOne( {
+    usersSvc.findOne( {
       query: {
         id: context.invitationSender.userId
       }

@@ -1,13 +1,15 @@
 "use strict";
 
 const cmn = require( '../lib/commons-app' );
-const agendaSvc = require( '../services/agenda' );
+
+const legacyAgendaSvc = require( '../services/agenda' );
+const members = require('../services/members');
 
 const preMw = [
-  agendaSvc.mw.load( 'slug' ),
-  cmn.checkAdministrator(),
-  cmn.checkCredential( 'emailstrategie' ),
-  agendaSvc.mw.loadAdminLayout,
+  legacyAgendaSvc.mw.load('slug'),
+  members.mw.loadAndAuthorize('administrator'),
+  cmn.checkCredential('emailstrategie'),
+  legacyAgendaSvc.mw.loadAdminLayout,
   cmn.loadBaseData()
 ];
 

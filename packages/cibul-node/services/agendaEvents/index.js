@@ -71,8 +71,7 @@ function plugApp( parentApp ) {
   ] );
 
   parentApp.get( '/:agendaSlug/events/:eventSlug/state/:state',
-    members.mw.load,
-    members.mw.authorize.moderator,
+    members.mw.loadAndAuthorize('moderator'),
     mw.changeState
   );
 

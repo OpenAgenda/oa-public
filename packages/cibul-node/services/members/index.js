@@ -5,7 +5,6 @@ const bodyParser = require( 'body-parser' );
 const ih = require( 'immutability-helper' );
 
 const Service = require( '@openagenda/members' );
-const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'services/members' );
 
 const mail = require( './lib/mail' );
@@ -14,6 +13,7 @@ const streamCsv = require( './lib/streamCsv' );
 const streamXlsx = require( './lib/streamXlsx' );
 const transferEvent = require( './lib/transferEvent' );
 const queues = require( '../queues' );
+const sessions = require( '../sessions' );
 
 const getEventCountByUserUid = require( './getEventCountByUserUid' );
 const getUsersByUid = require( './getUsersByUid' );
@@ -33,7 +33,7 @@ const mw = {
   loadAgenda: require( './middleware/loadAgenda' ),
   loadEvent: require( './middleware/loadEvent' ),
   load: require( './middleware/load' ),
-  loadTargetMember: require( './middleware/loadTargetMember' ),
+  loadTarget: require( './middleware/loadTarget' ),
   loadContext: require( './middleware/loadContext' ),
   invite: require( './middleware/invite' ),
   sendMessage: require( './middleware/sendMessage' ),
@@ -66,9 +66,9 @@ function init( c ) {
       getUsersByUid,
       getAgendasByUid,
       getUserByEmail,
-      onCreate: onCreate.bind( null, config ),
+      onCreate: onCreate.bind( null, { config, activityQueue } ),
       onRemove: onRemove.bind( null, { members, activityQueue } ),
-      onPatch: onPatch.bind( null, config )
+      onPatch: onPatch.bind( null, { config, activityQueue } )
     }
   } ) );
 
@@ -94,11 +94,12 @@ function init( c ) {
       },
       mw: {
         load: mw.load.bind( null, members ),
-        loadOrFail: mw.load.loadOrFail.bind( null, members ),
+        loadOrFail: mw.load.orFail.bind( null, members ),
         list: mw.list.bind( null, members ),
-        authorize: {
-          moderator: mw.authorize.moderator
-        }
+        loadAndAuthorize: mw.load.andAuthorize.bind( null, members ),
+        loadTarget: Object.assign( mw.loadTarget.bind( null, members ), {
+          options: mw.loadTarget.options.bind( null, members )
+        } )
       }
     }
   );
@@ -115,12 +116,9 @@ function plugApp( parentApp ) {
     '/:agendaSlug/admin/members/:id/details',
     '/:agendaSlug/admin/members/:id/invite/resend'
   ], [
-    sessions.middleware.ifUnlogged( ( req, res ) => res.status( 403 ).json( {
-      message: 'A session must be opened to access this route',
-    } ) ),
     mw.loadAgenda,
-    mw.load.loadOrFail.bind( null, members ),
-    mw.authorize.moderator,
+    sessions.mw.loadOrRedirect,
+    mw.load.andAuthorize(members, 'moderator'),
     agendasMw.evaluateIPAddress( {
       onUnauthorizedIPAddress: _onUnauthorizedIPAddress
     } )
@@ -164,7 +162,7 @@ function plugApp( parentApp ) {
 
   // keep 'details' part as long as there are controllers in agenda/members.back.js
   parentApp.get( '/:agendaSlug/admin/members/:id/details',
-    mw.loadTargetMember.bind( null, { detailed: true, members } ),
+    mw.loadTarget.options.bind(null, members, {detailed: true}),
     ( req, res, next ) => res.json( { ..._.pick( req.targetMember, [
       'id',
       'role',
@@ -176,7 +174,7 @@ function plugApp( parentApp ) {
   );
 
   parentApp.delete( '/:agendaSlug/admin/members/:id',
-    mw.loadTargetMember.bind( null, { members } ),
+    mw.loadTarget.bind( null, members),
     mw.authorize.moderatorCannotEditAdministrator,
     ( req, res, next ) => members.remove( req.targetMember.id, {
       context: { user: req.user }
@@ -186,7 +184,7 @@ function plugApp( parentApp ) {
   );
 
   parentApp.patch( '/:agendaSlug/admin/members/:id',
-    mw.loadTargetMember.bind( null, { members } ),
+    mw.loadTarget.bind( null, members),
     mw.authorize.moderatorCannotEditAdministrator,
     mw.loadContext,
     ( req, res, next ) => members.patch( req.targetMember.id, req.body, {
@@ -199,7 +197,7 @@ function plugApp( parentApp ) {
 
   parentApp.put( '/:agendaSlug/admin/members/:id/invite/resend',
     mw.loadContext,
-    mw.loadTargetMember.bind( null, { members } ),
+    mw.loadTarget.bind( null, members),
     ( req, res, next ) => {
       members.set.byEmail( {
         agendaUid: req.agenda.uid,
@@ -226,7 +224,7 @@ function plugApp( parentApp ) {
     mw.load.bind( null, members ),
     mw.authorize.adminModOrEventOwner,
     mw.authorize.agendaHasCredential.bind( null, 'eventOwnershipTransfer' ),
-    mw.loadTargetMember.byEmail.bind( null, { members } ),
+    mw.loadTarget.byEmail.bind(null, members),
     ( req, res, next ) => transferEvent( req.event, req.targetMember ).then( () => {
       res.redirect( 302, `/${req.agenda.slug}/events/${req.event.slug}` );
     }, next )

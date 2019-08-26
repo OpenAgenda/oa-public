@@ -41,7 +41,7 @@ module.exports.expose = app => {
 
   app.post(
     '/users/:__feathersId/setImageProfile',
-    setImageProfile
+    setImageProfile(service)
   );
 
   app.use('/users', service);
@@ -53,25 +53,25 @@ module.exports.expose = app => {
   app.patch(
     '/users/:__feathersId',
     sessions.middleware.open('user', 'sessionResult'),
-    resyncSession
+    resyncSession()
   );
 
   // send confirmation email after requestChangeEmail
   app.patch(
     '/users/:__feathersId/requestChangeEmail',
-    sendChangeEmail
+    sendChangeEmail()
   );
 
   // set flash message after confirm change of email
   app.get(
     '/users/:__feathersId/confirmChangeEmail',
-    setFlashChangeEmail
+    setFlashChangeEmail()
   );
 
   // set flash & redirect message after account deletion
   app.delete(
     '/users/:__feathersId',
-    setFlashAccountRemoved
+    setFlashAccountRemoved()
   );
 
   app.use('/users', express.errorHandler({ html: false }));

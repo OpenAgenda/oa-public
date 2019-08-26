@@ -11,9 +11,8 @@ const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const log = require( '@openagenda/logs' )( 'services/inboxes' );
 const inboxesLabels = require( '@openagenda/labels/inboxes' );
 const onMessageCreate = require( './onMessageCreate' );
-const app = require( '../../app' );
+const usersSvc = require( '../users' );
 const config = require( '../../config' );
-
 
 const loggerConfig = config.getLogConfig( 'oa', 'inboxes', false );
 
@@ -25,8 +24,6 @@ async function getUsersDetails( usersToBeDetailed ) {
   if ( usersToBeDetailed.length === 0 ) {
     return [];
   }
-
-  const usersSvc = app.service( '/users' );
 
   return (await usersSvc.find( {
     query: {
@@ -78,7 +75,6 @@ async function getInboxesDetails( inboxesToBeDetailed ) {
 }
 
 async function onInboxCreate( Inbox ) {
-  const usersSvc = app.service( '/users' );
 
   switch ( Inbox.data.type ) {
     case 'user': {
@@ -151,7 +147,6 @@ async function onInboxCreate( Inbox ) {
 }
 
 async function filterAction( inbox, conversation, action ) {
-  const usersSvc = app.service( '/users' );
 
   if ( action.code === 'involveTechnicalSupport' ) {
     if ( inbox.type !== 'agenda' ) {
@@ -214,7 +209,6 @@ async function filterAction( inbox, conversation, action ) {
 }
 
 async function onAction( conversation, action ) {
-  const usersSvc = app.service( '/users' );
 
   if ( action.code === 'involveTechnicalSupport' ) {
     const supportInbox = await inboxes( {
@@ -336,7 +330,7 @@ module.exports.init = async ( c, app ) => {
         services: {
           agendas: () => agendasSvc,
           stakeholders: () => stakeholdersSvc,
-          users: () => app.service( '/users' )
+          users: () => usersSvc
         },
         interfaces,
         defaultAction: {

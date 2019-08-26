@@ -1,22 +1,23 @@
 "use strict";
 
+const _ = require( 'lodash' );
+
 const agendas = require( '@openagenda/agendas' );
 const invitations = require( '@openagenda/invitations' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const log = require( '@openagenda/logs' )( 'services/members/onCreate' );
-const app = require( '../../app' );
 const activities = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
 const {
-  isSuperiorOrEqualTo
+  isSuperiorToOrEqual
 } = require( '@openagenda/members' ).utils.compareRoles;
 
 const { send, sendInvitation } = require( './lib/mail' );
 
-module.exports = async ( config, member, context ) => {
-  const usersSvc = app.service( '/users' );
+const usersSvc = require( '../users' );
 
-  log( 'created', member, context );
+module.exports = async ( { config, activityQueue }, member, context ) => {
+  log( 'created', member );
 
   try {
     const agenda = await agendas.get( {
@@ -33,9 +34,9 @@ module.exports = async ( config, member, context ) => {
     if ( !user && member.userUid ) throw new Error( 'User not found' );
 
     if ( member.userUid ) {
-      return _memberIsExistingUser( config, { member, user, agenda, context } );
+      return _memberIsExistingUser( { config, activityQueue }, { member, user, agenda, context } );
     } else {
-      return _memberIsInvitedNonUser( config, { member, agenda, context } );
+      return _memberIsInvitedNonUser( { config, activityQueue }, { member, agenda, context } );
     }
 
   } catch ( e ) {
@@ -43,9 +44,7 @@ module.exports = async ( config, member, context ) => {
   }
 }
 
-async function _memberIsExistingUser( { member, user, agenda, context } ) {
-  const usersSvc = app.service( '/users' );
-
+async function _memberIsExistingUser( { config, activityQueue }, { member, user, agenda, context } ) {
   log( 'member is existing user', member );
 
   if ( user.isNew ) {
@@ -62,7 +61,7 @@ async function _memberIsExistingUser( { member, user, agenda, context } ) {
     log( 'error', 'could not set member in control data', member, e );
   }
 
-  const isAdminMod = isSuperiorOrEqualTo( member.role, 'moderator' );
+  const isAdminMod = isSuperiorToOrEqual( member.role, 'moderator' );
   if ( isAdminMod ) {
     try {
       await new Inbox( {
@@ -99,29 +98,15 @@ async function _memberIsExistingUser( { member, user, agenda, context } ) {
   } );
 
   try {
-    await activities.feed( {
-      entityType: 'agenda',
-      entityUid: agenda.uid
-    } ).activities.add( {
-      actor: 'user:' + senderUser.uid,
-      verb: 'agenda.addMember',
-      object: 'user:' + user.uid,
-      target: 'agenda:' + agenda.uid,
-      store: {
-        labels: {
-          actor: context.sender.memberName,
-          object: _.get( member, 'custom.contactName' ) || user.fullName,
-          target: agenda.title
-        },
-        credential: member.role
-      }
+    await activityQueue( 'addMemberCreate', {
+      user, member, agenda, context, senderUser
     } );
   } catch ( e ) {
     log( 'error', 'could not add addMember activity to agenda feed', agenda, member, e );
   }
 }
 
-async function _memberIsInvitedNonUser( config, { member, agenda, context } ) {
+async function _memberIsInvitedNonUser( { config }, { member, agenda, context } ) {
   log( 'member is not existing user, is invited' );
 
   const { invitation } = await invitations.assign( {

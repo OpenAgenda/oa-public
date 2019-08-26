@@ -5,7 +5,6 @@ const _ = require( 'lodash' );
 
 const formSchemaDecorate = require( '@openagenda/form-schemas/iso/getDecorate' );
 const mails = require( '@openagenda/mails' );
-const sessions = require( '@openagenda/sessions' );
 
 const getActionLabel = require( '@openagenda/labels' )(
   require( '@openagenda/labels/event/actions' )
@@ -17,7 +16,9 @@ const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const eventSvc = require( '../services/event' );
+const members = require( '../services/members' );
 const model = require( '../services/model' );
+const sessions = require( '../services/sessions' );
 const gaTrack = require( '../lib/gaTrack.mw' );
 
 module.exports = app => {
@@ -34,7 +35,7 @@ module.exports = app => {
   app.get(
     '/:slug/events/:eventSlug/action',
     agendaSvc.mw.load( 'slug' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,
@@ -45,7 +46,7 @@ module.exports = app => {
   app.get(
     '/:slug/events/:eventSlug/action/dates',
     agendaSvc.mw.load( 'slug' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,
@@ -56,7 +57,7 @@ module.exports = app => {
   app.post(
     '/:slug/events/:eventSlug/email',
     agendaSvc.mw.load( 'slug' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,
@@ -66,7 +67,7 @@ module.exports = app => {
   app.get(
     '/:slug/events/:eventSlug/ics',
     agendaSvc.mw.load( 'slug' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     eventSvc.mw.ics
   );

@@ -9,6 +9,7 @@ create table if not exists `${schema}` (
   created_at datetime not null,
   updated_at datetime not null,
   legacy_id varchar(30),
+  index user_uid_idx (user_uid),
   index agenda_uid_idx (agenda_uid),
   index event_uid_idx (event_uid),
   index legacy_id_idx (legacy_id),
@@ -571,7 +572,7 @@ INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `
 (447796, 62792452, 2088492, 1, 0, '2016-02-25 16:59:23', '2016-02-25 16:59:23'),
 (447808, 62792452, 42558069, 1, 0, '2016-02-25 17:21:38', '2016-02-25 17:21:38');
 
-INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES 
+INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
 (447810, 62792452, 22175636, 1, 0, '2016-02-25 17:28:25', '2016-02-25 17:28:25'),
 (447850, 62792452, 62367678, 1, 0, '2016-02-25 21:49:10', '2016-02-25 21:49:10'),
 (447894, 62792452, 1047649, 1, 0, '2016-02-26 08:50:54', '2016-02-26 08:50:54'),

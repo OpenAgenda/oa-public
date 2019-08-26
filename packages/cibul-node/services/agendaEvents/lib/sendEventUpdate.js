@@ -7,13 +7,12 @@ const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventUpdate' );
 const mails = require( '@openagenda/mails' );
 const membersSvc = require( '@openagenda/agenda-stakeholders' );
-const app = require( '../../../app' );
+
+const usersSvc = require( '../../users' );
 const genUrl = require( '../../genUrl' );
 
 
 module.exports = async ( { agendaEvent, context, agenda, event } ) => {
-
-  const usersSvc = app.service( '/users' );
 
   if ( _.get( context, 'batched' ) ) {
 

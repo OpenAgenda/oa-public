@@ -6,22 +6,20 @@ const agendas = require( '@openagenda/agendas' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const invitations = require( '@openagenda/invitations' );
 const log = require( '@openagenda/logs' )( 'services/members/onPatch' );
-const app = require( '../../app' );
+
+const usersSvc = require( '../users' );
 const activities = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
 const { sendInvitation } = require( './lib/mail' );
 
 const {
-  isSuperiorOrEqualTo
+  isSuperiorToOrEqual
 } = require( '@openagenda/members' ).utils.compareRoles;
 
-module.exports = async ( config, before, member, context ) => {
-  const usersSvc = app.service( '/users' );
-
+module.exports = async ( { config, activityQueue }, before, member, context ) => {
   log( 'patched', member );
 
   try {
-
     const agenda = await agendas.get( { uid: member.agendaUid }, { private: null } );
 
     if ( !agenda ) throw new Error( 'Agenda not found' );
@@ -46,11 +44,11 @@ module.exports = async ( config, before, member, context ) => {
     const isNewMember = member.userUid && !before.userUid;
     const hasChangedRole = member.userUid && ( before.role !== member.role );
     const isPromotedToAdminMod = hasChangedRole
-      && !isSuperiorOrEqualTo( before.role, 'moderator' )
-      && isSuperiorOrEqualTo( member.role, 'moderator' );
+      && !isSuperiorToOrEqual( before.role, 'moderator' )
+      && isSuperiorToOrEqual( member.role, 'moderator' );
     const isDemotedToContributor = hasChangedRole
-      && isSuperiorOrEqualTo( before.role, 'moderator' )
-      && !isSuperiorOrEqualTo( member.role, 'moderator' );
+      && isSuperiorToOrEqual( before.role, 'moderator' )
+      && !isSuperiorToOrEqual( member.role, 'moderator' );
     const isDeleted = member.deletedUser && !before.deletedUser;
     const isInvited = !isDeleted && !member.userUid;
     const emailChanged = before.custom.email !== member.custom.email;
@@ -59,14 +57,14 @@ module.exports = async ( config, before, member, context ) => {
       log( 'user is a newly associated member' );
       if ( !senderUser ) throw new Error( 'Sender user not found' );
       try {
-        await _onNewMember( { agenda, user, senderUser, context, member } );
+        await _onNewMember( { agenda, user, senderUser, context, member, activityQueue } );
       } catch ( e ) {
         log( 'error', 'failed to register new member', e );
       }
     } else if ( hasChangedRole ) {
       log( 'member has changed role' );
       try {
-        await _onRoleChange( { user, before, member, agenda, context, senderUser } );
+        await activityQueue( 'addMemberRoleChange', { user, before, member, agenda, context, senderUser } );
       } catch ( e ) {
         log( 'error', 'failed to process role change', e );
       }
@@ -100,7 +98,11 @@ module.exports = async ( config, before, member, context ) => {
       invitation = getResult.invitation;
     }
 
-    log( invitation ? 'an invitation is linked to member' : 'no invitation is linked to member', invitation, member );
+    if ( invitation ) {
+      log( 'an invitation is linked to member', invitation, member.id );
+    } else {
+      log( 'no invitation is linked to member', member.id );
+    }
 
     if ( invitation && isDeleted ) {
       try {
@@ -123,49 +125,7 @@ module.exports = async ( config, before, member, context ) => {
   }
 }
 
-async function _onRoleChange( { user, before, member, agenda, context, senderUser } ) {
-
-  const userFeed = activities.feed( {
-    entityType: 'user',
-    entityUid: user.uid
-  } );
-
-  const agendaFeed = activities.feed( {
-    entityType: 'agenda',
-    entityUid: agenda.uid
-  } );
-
-  await userFeed.unfollow( {
-    entityType: 'agenda',
-    entityUid: agenda.uid
-  } );
-
-  await userFeed.follow( {
-    entityType: 'agenda',
-    entityUid: agenda.uid
-  }, { credential: member.role } );
-
-  await agendaFeed.activities.add( {
-    actor: 'user:' + senderUser.uid,
-    verb: 'agenda.setMemberRole',
-    object: 'user:' + user.uid,
-    target: 'agenda:' + agenda.uid,
-    store: {
-      labels: {
-        actor: context.sender.memberName,
-        object: member.custom.contactName || user.fullName,
-        target: agenda.title
-      },
-      beforeCredential: before.role,
-      credential: member.role
-    }
-  } );
-
-}
-
-async function _onNewMember( { agenda, user, senderUser, context, member } ) {
-
-  const usersSvc = app.service( '/users' );
+async function _onNewMember( { agenda, user, senderUser, context, member, activityQueue } ) {
 
   if ( user.isNew ) {
     await usersSvc.setNewFlag( user.uid, { isNew: false } );
@@ -191,22 +151,8 @@ async function _onNewMember( { agenda, user, senderUser, context, member } ) {
     credential: member.role
   } );
 
-  await activities.feed( {
-    entityType: 'agenda',
-    entityUid: agenda.uid
-  } ).activities.add( {
-    actor: 'user:' + user.uid,
-    verb: 'agenda.acceptInvitation',
-    object: 'user:' + senderUser.uid,
-    target: 'agenda:' + agenda.uid,
-    store: {
-      labels: {
-        actor: member.custom.contactName || user.fullName,
-        object: context.sender.memberName,
-        target: agenda.title
-      },
-      credential: member.role
-    }
+  await activityQueue( 'addMemberAcceptInvitation', {
+    agenda, user, senderUser, member, context
   } );
 
 }

@@ -7,13 +7,13 @@ const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const keys = require( '@openagenda/keys' );
 const log = require( '@openagenda/logs' )( 'services/agendas/onCreate' );
-const app = require( '../../app' );
+
+
 const controlDataSvc = require( '../legacy' ).controlData;
 const legacyEventSearch = require( '../elasticsearch' );
+const usersSvc = require( '../users' );
 
 module.exports = async ( agenda, cb ) => {
-
-  const usersSvc = app.service( '/users' );
 
   if ( agenda.settings.contribution.useFields ) {
 

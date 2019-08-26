@@ -9,8 +9,8 @@ const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'twitter' );
 const genUrl = require( '../services/genUrl' );
 const agendaSvc = require( '../services/agenda' );
+const usersSvc = require( '../services/users' );
 const config = require( '../config' );
-const app = require( '../app' );
 
 
 const key = _.get( config, 'auth.twitter.key' );
@@ -220,7 +220,6 @@ function _loadTwitterProfile( req, token, refreshToken, profile, done ) {
 
 function _attemptUsernameLoad( values ) {
 
-  const usersSvc = app.service( '/users' );
 
   return w.promise( function( resolve, reject ) {
 
@@ -287,8 +286,6 @@ function _redirectEmailFormIfNoProfileEmail( values ) {
 }
 
 async function _createAndSend( values ) {
-
-  const usersSvc = app.service( '/users' );
 
   log( 'creating activation token' );
 

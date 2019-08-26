@@ -5,7 +5,7 @@ const invitations = require( '@openagenda/invitations' );
 const mails = require( '@openagenda/mails' );
 const members = require( '@openagenda/members' );
 const log = require( '@openagenda/logs' )( 'members/mail' );
-const app = require( '../../../app' );
+const usersSvc = require( '../../users' );
 const activities = require( '../../activities' );
 const agendaLogo = require( './agendaLogo' );
 const extractInvitationContext = require( './invitationContext' );
@@ -90,7 +90,7 @@ function _send( config, { member, agenda, link, message, lang } ) {
 }
 
 async function _createSenderActivity( { agenda, invitationContext, member } ) {
-  const user = await app.service( '/users' ).findOne( {
+  const user = await usersSvc.findOne( {
     query: {
       uid: invitationContext.sender.userUid
     }

@@ -3,7 +3,7 @@
 const log = require( '@openagenda/logs' )( 'events/interfaces/onCreate' );
 const activitiesSvc = require( '../activities' );
 const eventSearch = require( '../eventSearch' );
-const app = require( '../../app' );
+const usersSvc = require( '../users' );
 
 module.exports = ( event, context ) => {
 
@@ -40,8 +40,6 @@ async function _registerActivity( event ) {
 }
 
 function _unsetNewUser( event ) {
-
-  const usersSvc = app.service( '/users' );
 
   usersSvc.get( event.creatorUid )
     .then( async user => {

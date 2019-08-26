@@ -6,7 +6,9 @@ const abilitiesSvc = require( '@openagenda/abilities' );
 const agendasSvc = require( '@openagenda/agendas' );
 const editableRules = require( './editableRules' );
 const cmn = require( '../../lib/commons-app' );
+
 const membersSvc = require( '../members' );
+const usersSvc = require( '../users' );
 
 const secureMw = ( req, res, next ) => {
   switch( req.query.entityName ) {
@@ -27,14 +29,7 @@ const secureMw = ( req, res, next ) => {
             }
           }
         } ),
-        ( req, res, next ) => cmn.loadMemberRole( 'agenda', req, res, next ),
-        ( req, res, next ) => {
-          if ( ![ 'moderator', 'administrator' ].includes( req.role ) ) {
-            res.status( 403 );
-            throw new Error( 'You cannot get this rules index' );
-          }
-          next();
-        }
+        membersSvc.mw.loadAndAuthorize('moderator')
       ], req, res, next );
     default:
       res.status( 403 );
@@ -84,7 +79,7 @@ module.exports.init = async ( config, app ) => {
       getEntity: {
         agenda: uid => agendasSvc.get( { uid }, { private: null } ),
         member: id => membersSvc.get( id ),
-        user:  uid => app.service( '/users' ).get( uid )
+        user:  uid => usersSvc.get( uid )
       },
       listEntities: {
         agenda: uids => agendasSvc.list( { uid: uids, order: 'updatedAt.desc' }, { private: null } ),
@@ -94,7 +89,7 @@ module.exports.init = async ( config, app ) => {
             m.agenda ? Object.assign( m, { agendaTitle: m.agenda.title } ) : m,
             [ 'agenda', 'user' ]
           ) ) ),
-        user: async uids => (await app.service( '/users' ).find( { query: { uid: { $in: uids } } } )).data
+        user: async uids => (await usersSvc.find( { query: { uid: { $in: uids } } } )).data
       },
       defaultFor: {
         user( { can, cannot, rules } ) {
