@@ -2905,10 +2905,10 @@
     lodash "^4.17.5"
     node-mailjet "^3.2.1"
 
-"@openagenda/pdf@^0.1.0":
-  version "0.1.0"
-  resolved "https://registry.npmjs.org/@openagenda/pdf/-/pdf-0.1.0.tgz#cb076012cbcb3a0a65e1df346eb1d39bedf5efef"
-  integrity sha1-ywdgEsvLOgpl4d80brHTm+317+8=
+"@openagenda/pdf@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.npmjs.org/@openagenda/pdf/-/pdf-0.1.1.tgz#6c2e363fb35bdc27af1f7c928563e804fbc41b39"
+  integrity sha512-U/4PbPwwpVgC1qvqPwdUA54vdGWSJ5d3LsGM3/W+3vPwSuRGWNHvfr7We1mOG5LPqUbxf7Ui5seH7p3YooU9nQ==
   dependencies:
     async "^1.5.0"
     gm "^1.17.0"
