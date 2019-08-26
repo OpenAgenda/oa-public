@@ -205,7 +205,7 @@ function plugApp( parentApp ) {
       }, { context: req.context } ).then( ( {
         member
       } ) => {
-        if ( member.userUid ) {
+        if (member && member.userUid) {
           return res.status( 200 ).json( { message: 'user is member' } )
         }
         next();

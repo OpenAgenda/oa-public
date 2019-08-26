@@ -20,9 +20,12 @@ module.exports = async ( { config, activityQueue }, member, context ) => {
   log( 'created', member );
 
   try {
-    const agenda = await agendas.get( {
+    const agenda = await agendas.get({
       uid: member.agendaUid
-    }, { private: null } );
+    }, {
+      private: null,
+      includeImagePath: true
+    });
 
     if ( !agenda ) throw new Error( 'Agenda not found' );
 
