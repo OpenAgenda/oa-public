@@ -87,17 +87,17 @@ describe('task', () => {
     expect(results).toHaveLength(9);
     expect(errors).toHaveLength(0);
 
-    const test = async () => {
+    const wait = async () => {
       if (spy.mock.calls.length === 9) {
         return;
       }
 
       await _sleep(50);
 
-      return test();
+      return wait();
     };
 
-    await test();
+    await wait();
 
     expect(_.map(spy.mock.calls, '[0].to.address')).toEqual(recipients);
     expect(Date.now() - start).toBeGreaterThan((recipients.length - 1) * 300);
