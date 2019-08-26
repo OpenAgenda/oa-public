@@ -14,7 +14,6 @@ const wn = require( 'when/node' );
 const VError = require( 'verror' );
 
 const agendasSvc = require( '@openagenda/agendas' );
-const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const keysSvc = require( '@openagenda/keys' );
 const logger = require( '@openagenda/logs' );
 const sessions = require( '@openagenda/sessions' );
@@ -64,29 +63,6 @@ const verifyIPMiddleware = [
   } )
 ];
 
-const verifyAdminModMiddleware = agendaIdentifiers => [
-  agendasSvc.middleware.load( {
-    namespaces: {
-      identifiers: agendaIdentifiers || { slug: 'params.slug' },
-      result: 'agenda'
-    },
-    private: null,
-    internal: true
-  } ),
-  loadMemberRole.bind( null, true, 'agenda' ),
-  ( req, res, next ) => {
-
-    if ( ![ 'administrator', 'moderator' ].includes( req.role ) ) {
-
-      return next( { code: 403 } );
-
-    }
-
-    next();
-
-  }
-]
-
 module.exports = {
 
   loadLogger,
@@ -108,15 +84,9 @@ module.exports = {
   assign,                       // middleware for assigning values to req or res
   checkCredential,              // middleware. check that request agenda has required credential
   checkAgendaCredential,
-  checkContributor,
-  checkAdminOrModerator,
   checkAdminOrModeratorOrKey,
-  checkStakeholder,
-  loadMemberRole: loadMemberRole.bind( null, true ),
-  nonBlockingLoadMemberRole: loadMemberRole.bind( null, false ),
   renderUnauthorized,
 
-  verifyAdminModMiddleware,
   verifyIPMiddleware,
 
   useEmbedGoogleAnalytics,
@@ -180,125 +150,9 @@ function agendaMailTo( agenda ) {
 
 }
 
-
-function checkContributor( req, res, next ) {
-
-  _prepareSession( req, res, err => {
-
-    if ( err ) return next( err );
-
-    if ( !req.user ) return next( { code: 403 } );
-
-    async.parallel( [
-      async.apply( req.agenda.isAdministrator, { id: req.user.id } ),
-      async.apply( req.agenda.isModerator, { id: req.user.id } ),
-      async.apply( req.agenda.isContributor, { id: req.user.id } )
-    ], ( err, results ) => {
-
-      if ( err ) return next( err );
-
-      if ( !results.filter( ( r ) => {
-          return r;
-        } ).length ) {
-
-        return next( { code: 403 } );
-
-      }
-
-      next();
-
-    } );
-
-  } );
-
-}
-
-
-function loadMemberRole( errorIfNotMember = true, agendaNamespace, req, res, next ) {
-
-  req.role = null;
-
-  _prepareSession( req, res, err => {
-
-    if ( err ) return next( err );
-
-    stakeholdersSvc( req[ agendaNamespace ].id ).get( { userId: req.user.id }, ( err, stakeholder ) => {
-
-      if ( !stakeholder && errorIfNotMember ) {
-        return next( {
-          message: 'Not authorized',
-          code: 403
-        } );
-      }
-
-      req.role = stakeholder
-        ? stakeholdersSvc.types.codes.get( stakeholder.credential )
-        : null;
-
-      next();
-
-    } );
-
-  } );
-
-}
-
-
-function checkAdminOrModerator( req, res, next ) {
-
-  _prepareSession( req, res, err => {
-
-    if ( err ) return next( err );
-
-    if ( !req.user ) return next( { code: 403 } );
-
-    async.parallel( [
-      async.apply( req.agenda.isAdministrator, { id: req.user.id } ),
-      async.apply( req.agenda.isModerator, { id: req.user.id } )
-    ], function ( err, results ) {
-
-      if ( err ) return next( err );
-
-      if ( !results[ 0 ] && !results[ 1 ] ) return next( { code: 403 } );
-
-      req.access = results[ 0 ] ? 'administrator' : 'moderator';
-
-      next();
-
-    } );
-
-  } );
-
-}
-
-function checkStakeholder( req, res, next ) {
-
-  _prepareSession( req, res, err => {
-
-    if ( err ) return next( err );
-
-    if ( !req.user ) {
-
-      return next( { code: 403 } );
-
-    }
-
-    req.agenda.isStakeholder( { id: req.user.id }, ( err, is ) => {
-
-      if ( err ) return next( err );
-
-      if ( !is ) return next( { code: 403 } );
-
-      next();
-
-    } );
-
-  } );
-
-}
-
 async function checkAdminOrModeratorOrKey(req, res, next) {
-  let authorized = false;
+  log('checkAdminOrModeratorOrKey');
+  req.member = null;
 
   try {
     // if is logged and is adminmod, we are good
@@ -311,14 +165,14 @@ async function checkAdminOrModeratorOrKey(req, res, next) {
         });
         if (member && members.utils.compareRoles.isSuperiorToOrEqual(member.role, 'moderator')) {
           log('user is logged and an adminmod, authorized');
-          authorized = true;
+          req.member = member;
         }
       } catch(e) {
         log('error', e);
       }
     }
 
-    if (!authorized && req.query.key) {
+    if (!req.member && req.query.key) {
       try {
         log('evaluating agenda key');
         const agendaKey = await keysSvc({
@@ -329,14 +183,14 @@ async function checkAdminOrModeratorOrKey(req, res, next) {
 
         if (agendaKey) {
           log('the agenda key is valid and provided, authorized');
-          authorized = true;
+          req.member = member;
         }
       } catch (e) {
         log('error', e);
       }
     }
 
-    if (!authorized && req.query.key) {
+    if (!req.member && req.query.key) {
       try {
         log('evaluating user key');
         const memberKey = await keysSvc({
@@ -359,7 +213,7 @@ async function checkAdminOrModeratorOrKey(req, res, next) {
 
           if (member && members.utils.compareRoles.isSuperiorToOrEqual(member.role, 'moderator')) {
             log('the user key is valid and identifies user as adminmod member, authorized');
-            authorized = true;
+            req.member = member;
           }
         } else {
           log('could not retrieve user key');
@@ -373,7 +227,7 @@ async function checkAdminOrModeratorOrKey(req, res, next) {
     return next(err);
   }
 
-  if (!authorized) {
+  if (!req.member) {
     return next( {
       message: 'the key is invalid',
       code: 403

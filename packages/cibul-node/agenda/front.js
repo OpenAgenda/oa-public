@@ -90,7 +90,7 @@ module.exports = app => {
     preMw,
     agendaSvc.mw.load( 'uid', { basicLoad: true, cache: true } ),
     cmn.ifIsNot( 'agenda.private', cmn.redirectTo( 'controlData', { uid: 'uid' } ) ),
-    cmn.checkStakeholder,
+    members.mw.loadAndAuthorize('reader'),
     controlDataSvc.middleware
   );
 

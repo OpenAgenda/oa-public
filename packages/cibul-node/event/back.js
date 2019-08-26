@@ -38,15 +38,14 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/events/:eventUid/custom',
     legacyAgendaSvc.mw.load( 'uid' ),
-    cmn.nonBlockingLoadMemberRole.bind( null, 'agenda' ),
+    sessions.mw.loadOrRedirect,
+    members.mw.load,
     ( req, res, next ) => {
-
       core.agendas( req.agenda.uid ).events.get( req.params.eventUid, {
         customOnly: true,
         includeSchema: true,
-        access: req.role || 'nobody',
+        access: req.member ? members.utils.getRoleSlug( req.member.role ) : 'nobody',
       } ).then( result => res.json( result ) );
-
     }
   );
 
@@ -54,17 +53,13 @@ module.exports = app => {
     '/agendas/:uid/events/:eventUid/private',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    cmn.nonBlockingLoadMemberRole.bind( null, 'agenda' ),
+    sessions.mw.loadOrRedirect,
+    members.mw.load,
     ( req, res, next ) => {
-
-      if ( ![ 'contributor', 'moderator', 'administrator' ].includes( req.role ) ) {
-
+      if (!req.member || !members.utils.compareRoles.isSuperiorToOrEqual('contributor')) {
         return res.sendStatus( 403 );
-
       }
-
       next();
-
     },
     eventSvc.mw.format,
     legacyAgendaSvc.mw.decorateEvent( true ),

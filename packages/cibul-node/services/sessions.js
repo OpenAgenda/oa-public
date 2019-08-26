@@ -10,7 +10,8 @@ const service = {
   mw: {
     loadOrRedirect: Object.assign(loadOrRedirect, {
       options: loadOrRedirectOptions
-    })
+    }),
+    load: load
   }
 };
 
@@ -38,6 +39,10 @@ module.exports.init = config => {
   Object.assign( service, sessions );
 }
 
+function load(req, res, next) {
+  _load({detailed: false}, req, res, next);
+}
+
 function loadOrRedirect(req, res, next) {
   return _loadOrRedirect({ detailed: false, msg: 'authRequired' }, req, res, next);
 }
@@ -47,9 +52,13 @@ function loadOrRedirectOptions(options) {
 }
 
 function _loadOrRedirect({detailed, msg}, req, res, next) {
+  _load({detailed, redirect: true, msg}, req, res, next)
+}
+
+function _load({detailed, redirect, msg}, req, res, next) {
   sessions.get(req, {detailed}, (err, user) => {
     if (err) return next(err);
-    if (!user) {
+    if (!user && redirect) {
       const redirect = new Buffer(req.originalUrl, 'utf-8').toString('base64');
       return res.redirect(302, `${req.agenda?'/'+req.agenda.slug:''}/signin?redirect=${redirect}&msg=${msg}`);
     }

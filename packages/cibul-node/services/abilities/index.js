@@ -29,14 +29,7 @@ const secureMw = ( req, res, next ) => {
             }
           }
         } ),
-        ( req, res, next ) => cmn.loadMemberRole( 'agenda', req, res, next ),
-        ( req, res, next ) => {
-          if ( ![ 'moderator', 'administrator' ].includes( req.role ) ) {
-            res.status( 403 );
-            throw new Error( 'You cannot get this rules index' );
-          }
-          next();
-        }
+        membersSvc.mw.loadAndAuthorize('moderator')
       ], req, res, next );
     default:
       res.status( 403 );

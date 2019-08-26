@@ -3,22 +3,23 @@
 const _ = require( 'lodash' );
 const multer = require( 'multer' );
 const imageUpload = require( '@openagenda/image-upload/lib/middleware' );
-const sessions = require( '@openagenda/sessions' );
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
 const eventSvc = require( '../services/event' );
 
+const sessions = require('../services/sessions');
+const members = require('../services/members');
+
 const preMw = [
+  sessions.mw.loadOrRedirect,
   agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
-  cmn.checkContributor,
+  members.mw.loadAndAuthorize('contributor'),
   _checkField
 ];
 
 
 module.exports = app => {
-
   app.post(
     '/:slug/events/new/custom/:field/upload/key/:fileKey',
     preMw,
@@ -48,7 +49,6 @@ module.exports = app => {
     _loadFieldType,
     agendaEventCustomRemove
   );
-
 }
 
 
