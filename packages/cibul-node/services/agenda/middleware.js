@@ -7,6 +7,7 @@ const xlsx = require( 'xlsx-writestream' );
 
 const pdf = require( '@openagenda/pdf' );
 const utils = require( '@openagenda/utils' );
+const log = require( '@openagenda/logs' )( 'services/legacyAgenda/middleware' );
 const tabLabels = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-admin/tabs' ) );
 
 const svcConfig = require( './config' );
@@ -467,12 +468,8 @@ function buildPdf( req, res, next ) {
 
     eInst.exportable( { filter: req.query.oaq }, ( err, clean ) => {
 
-      if ( err ) {
-
-        req.log( 'error', err );
-
+      if (_handleExportableError('pdf', eventData, err)) {
         return stream.resume();
-
       }
 
       pdfStream.write( clean );
@@ -491,6 +488,18 @@ function buildPdf( req, res, next ) {
 
   } );
 
+}
+
+function _handleExportableError(type, event, err) {
+  if (!err) return false;
+
+  if (err && err.message === 'Cannot read property \'getUTCHours\' of null') {
+    log('warn', 'exportable warning', type, {err, event});
+  } else {
+    log('error', 'exportable error', type, {err, event});
+  }
+
+  return true;
 }
 
 
@@ -542,14 +551,9 @@ function buildXlsx( includePrivateData ) {
         // clean event
         eInst.exportable( ( err, clean ) => {
 
-          if ( err ) {
-
+          if (_handleExportableError('xlsx', eventData, err)) {
             processing--;
-
-            req.log( 'error', err );
-
             return stream.resume();
-
           }
 
           // decorate with agenda related data
@@ -660,8 +664,8 @@ function buildCsv( includePrivateData ) {
 
         eInst.exportable( { protocol: 'https:' }, ( err, clean ) => {
 
-          if ( err ) {
-            req.log( 'error', err );
+          if (_handleExportableError('csv', eventData, err)) {
+            processing--;
             return stream.resume();
           }
 
