@@ -329,7 +329,11 @@ function searchEvents( limit, showAll ) {
       showAll
     }, ( err, data ) => {
 
-      if ( err ) return next( err );
+      if (err) return next({
+        message: 'invalid query',
+        query: req.query.oaq,
+        elasticsearch: err
+      });
 
       req.events = data.events;
 
