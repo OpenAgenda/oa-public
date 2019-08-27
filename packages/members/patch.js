@@ -4,7 +4,7 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('patch');
 
 const get = require('./get');
-const validate = require('./lib/validate');
+const validate = require('./iso/validate');
 const cleanPatchOptions = require('./lib/cleanPatchOptions');
 const { toDB } = require('./lib/transformDBEntry');
 

@@ -6,7 +6,7 @@ const integer = require('@openagenda/validators/integer');
 const choice = require('@openagenda/validators/choice');
 const text = require('@openagenda/validators/text');
 const boolean = require('@openagenda/validators/boolean');
-const roles = require('./roles');
+const roles = require('../iso/roles');
 
 schema.register({
   integer,
