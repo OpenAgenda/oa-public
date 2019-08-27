@@ -2405,15 +2405,15 @@
   resolved "https://registry.npmjs.org/@feathersjs/commons/-/commons-1.4.4.tgz#cd8c0a4dfc7ba1027d359ae80542381241564728"
   integrity sha512-ZPpzyZA3CPfoa9AuFv3BJUI/ubzaaXixp8T/pqeMFPT6DOaU/6oF7lz1RxwimzfJNna4gy/HByt0EoLSI3BKWg==
 
-"@feathersjs/commons@^4.0.0", "@feathersjs/commons@^4.0.0-pre.5":
+"@feathersjs/commons@^4.0.0", "@feathersjs/commons@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.npmjs.org/@feathersjs/commons/-/commons-4.3.0.tgz#6b0993ac790382aa28ec8a138f3e91501973b418"
+  integrity sha512-N3CDavCNRp+usgyfDSFXCwETnp4nIEevl5v1nqULGhPYco0SjF15zu4hYyd3GCn0aAwzaIehYyaMcdee9Eo1KQ==
+
+"@feathersjs/commons@^4.0.0-pre.5":
   version "4.0.0"
   resolved "https://registry.npmjs.org/@feathersjs/commons/-/commons-4.0.0.tgz#ae49bae4025c35aaeb9aacb6a0c27a3d1def5062"
   integrity sha512-hyCLse4RiNt7WLPQ0KSudjoVnwiRykhYzIZdtDon9i2usPaoYkFw/fEYZrkE5HVB+sUTwphZoZ1oOntRk1MShg==
-
-"@feathersjs/commons@^4.3.0-pre.3":
-  version "4.3.0-pre.3"
-  resolved "https://registry.npmjs.org/@feathersjs/commons/-/commons-4.3.0-pre.3.tgz#a12bde8d4194a109671744cca14817a15d285522"
-  integrity sha512-T89RnoXweWGJsHlmvbnNuFLec3X8KcelrugQXZ+kVRg1cl7g/+HuySxsXZj2iyiqwe/C6lHLZzF2QwCby9AYrw==
 
 "@feathersjs/errors@^3.3.0":
   version "3.3.6"
@@ -2429,20 +2429,20 @@
   dependencies:
     debug "^4.1.1"
 
-"@feathersjs/errors@^4.3.0-pre.3":
-  version "4.3.0-pre.3"
-  resolved "https://registry.npmjs.org/@feathersjs/errors/-/errors-4.3.0-pre.3.tgz#93be755c4b3d46abbde3ca14ac05b97df321274a"
-  integrity sha512-bgRm3tw8obFFxZeG/slIWTSUIyQAi0FUpI6TAf9oi7276Hqvc81a9wFuLJjWlnQmYNHjM+SPxu/jl/kwOF/Y0w==
+"@feathersjs/errors@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.npmjs.org/@feathersjs/errors/-/errors-4.3.0.tgz#7ac89396ef868061b6a1d9b0f9005f6403cafbf6"
+  integrity sha512-tOwBpJmLYy0Fq/Dp8Y3dO2/B6ojfqSrTFXixTYH2qBR3aFS/U0VzhoyEa1O+/FcJRDqgW54HNCyy520zqYB/pw==
   dependencies:
     debug "^4.1.1"
 
-"@feathersjs/express@^4.3.0-pre.3":
-  version "4.3.0-pre.3"
-  resolved "https://registry.npmjs.org/@feathersjs/express/-/express-4.3.0-pre.3.tgz#bcf7634afe2cfcf7dea1f6ef7fdc3dc5b04dd9d8"
-  integrity sha512-DSE3JCSoE5GsCsHC+g98qMuoz4c/e/tGdBd+ZVpDEWa32QV/LkrGpApvUONKAtxnNd2SgnIGh7E/v502n3MlSg==
+"@feathersjs/express@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.npmjs.org/@feathersjs/express/-/express-4.3.0.tgz#cded2849641c1903c1f5353cad27ab1e11beecaf"
+  integrity sha512-QztSAHUE0Yl8Pv5/9ZeLq6CGCc9KgANb4BSImdmo5zv4gwe37qb05rw7v8gy3k0hHWg2OwzflLOBL5T437gSFw==
   dependencies:
-    "@feathersjs/commons" "^4.3.0-pre.3"
-    "@feathersjs/errors" "^4.3.0-pre.3"
+    "@feathersjs/commons" "^4.3.0"
+    "@feathersjs/errors" "^4.3.0"
     "@types/express" "^4.17.1"
     debug "^4.1.1"
     express "^4.17.1"
@@ -2469,12 +2469,12 @@
     events "^3.0.0"
     uberproto "^2.0.4"
 
-"@feathersjs/feathers@^4.3.0-pre.3":
-  version "4.3.0-pre.3"
-  resolved "https://registry.npmjs.org/@feathersjs/feathers/-/feathers-4.3.0-pre.3.tgz#b06ebbf5c03c912563fd5098096b8f6b4a7cc7b7"
-  integrity sha512-zG1eSt9bRUM9bNucQkUQrAaMhytHvUYzNR1HnrTgz6Y9GJ/a4pMCTXJ28357roOB0YaJ9JrQy6T+1kVTN3mmKg==
+"@feathersjs/feathers@^4.3.0":
+  version "4.3.0"
+  resolved "https://registry.npmjs.org/@feathersjs/feathers/-/feathers-4.3.0.tgz#aa9a8b491f7bfabce10919f0c6b753466b8e065c"
+  integrity sha512-iH/T8UGvv5gbDqHnU2Rlf5NZxqBmFvrl9BdNPNl2EYPGBvkfi/Dxp3+xJLyw8MZFbtgG+4fxP1KyFG1uGivGrA==
   dependencies:
-    "@feathersjs/commons" "^4.3.0-pre.3"
+    "@feathersjs/commons" "^4.3.0"
     debug "^4.1.1"
     events "^3.0.0"
     uberproto "^2.0.4"
@@ -3961,9 +3961,11 @@
     "@types/node" "*"
 
 "@types/graphql@^14.0.4":
-  version "14.0.5"
-  resolved "https://registry.npmjs.org/@types/graphql/-/graphql-14.0.5.tgz#e696292fd2d77dc168b5b791710f83463aa39abd"
-  integrity sha512-bwGYLE0SRy5ZraC91dqI2bxbspfm10kyJ2Yjuvk4OjdGznh7fkoWW+xXZHfFydJaqu9syZi099cpiZw3GlPDiA==
+  version "14.5.0"
+  resolved "https://registry.npmjs.org/@types/graphql/-/graphql-14.5.0.tgz#a545fb3bc8013a3547cf2f07f5e13a33642b75d6"
+  integrity sha512-MOkzsEp1Jk5bXuAsHsUi6BVv0zCO+7/2PTiZMXWDSsMXvNU6w/PLMQT2vHn8hy2i0JqojPz1Sz6rsFjHtsU0lA==
+  dependencies:
+    graphql "*"
 
 "@types/istanbul-lib-coverage@*":
   version "2.0.1"
@@ -11295,23 +11297,6 @@ feathers-authentication-hooks@^0.3.0:
     debug "^3.1.0"
     lodash "^4.17.5"
 
-feathers-hooks-common@^4.20.2:
-  version "4.20.2"
-  resolved "https://registry.npmjs.org/feathers-hooks-common/-/feathers-hooks-common-4.20.2.tgz#5a6744497b51154d98030c49ef989dbb2c374b86"
-  integrity sha512-kYGmSBfi0ie6k4NEvzEvnFFZ+BP7KZfyLaLrb4u3AzOfTfEsOhwtcZ8zG4MDeB2Ep0Fcp+VVAVeFDBJAUYDbeg==
-  dependencies:
-    "@feathers-plus/batch-loader" "^0.3.0"
-    "@feathersjs/commons" "^1.4.0"
-    "@feathersjs/errors" "^3.3.0"
-    "@feathersjs/feathers" "^3.1.3"
-    "@types/graphql" "^14.0.4"
-    ajv "^5.5.2"
-    debug "^3.1.0"
-    graphql "^14.0.2"
-    libphonenumber-js "^1.6.8"
-    process "0.11.10"
-    traverse "^0.6.6"
-
 feathers-hooks-common@^4.20.7:
   version "4.20.7"
   resolved "https://registry.npmjs.org/feathers-hooks-common/-/feathers-hooks-common-4.20.7.tgz#df731842838f88af3094c8eb31d72a22c8b5d8a8"
@@ -11329,10 +11314,10 @@ feathers-hooks-common@^4.20.7:
     process "0.11.10"
     traverse "^0.6.6"
 
-feathers-knex@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.npmjs.org/feathers-knex/-/feathers-knex-6.0.1.tgz#e2d3ee9a46a24399d2e293df463b63da47634f7d"
-  integrity sha512-+UmIsK7N+r351PO+nZeDdHfudvuW+6ZqD0lCsblh+sU/dE4OPPdH9iWX94oS5c0baCPBLzbMWIGtKsVkF9FUxQ==
+feathers-knex@^6.0.2:
+  version "6.0.2"
+  resolved "https://registry.npmjs.org/feathers-knex/-/feathers-knex-6.0.2.tgz#bbc7381bdc901e4a000ebb3872784df8f6abd025"
+  integrity sha512-m7tF3y4w3YpYIfmw3NMqSdiamYQocNLhmnmm8qSrAvejgrvL07OAa9HD3+7PAok172QUsGJamlVuEzyXrjuzgQ==
   dependencies:
     "@feathersjs/adapter-commons" "^4.0.0-pre.4"
     "@feathersjs/commons" "^4.0.0"
@@ -12624,10 +12609,10 @@ grant@3.8.0:
     qs "6.4.0"
     request "2.81.0"
 
-graphql@^14.0.2:
-  version "14.1.1"
-  resolved "https://registry.npmjs.org/graphql/-/graphql-14.1.1.tgz#d5d77df4b19ef41538d7215d1e7a28834619fac0"
-  integrity sha512-C5zDzLqvfPAgTtP8AUPIt9keDabrdRAqSWjj2OPRKrKxI9Fb65I36s1uCs1UUBFnSWTdO7hyHi7z1ZbwKMKF6Q==
+graphql@*, graphql@^14.0.2:
+  version "14.5.3"
+  resolved "https://registry.npmjs.org/graphql/-/graphql-14.5.3.tgz#e025851cc413e153220f4edbbb25d49f55104fa0"
+  integrity sha512-W8A8nt9BsMg0ZK2qA3DJIVU6muWhxZRYLTmc+5XGwzWzVdUdPVlAAg5hTBjiTISEnzsKL/onasu6vl3kgGTbYg==
   dependencies:
     iterall "^1.2.2"
 
@@ -15646,12 +15631,11 @@ levn@^0.3.0, levn@~0.3.0:
     type-check "~0.3.2"
 
 libphonenumber-js@^1.6.8:
-  version "1.7.8"
-  resolved "https://registry.npmjs.org/libphonenumber-js/-/libphonenumber-js-1.7.8.tgz#2af21013f52201e41cde8721c1db88e4594d957f"
-  integrity sha512-aetBci3aETmuhHVILBH0/Ly7DlmRRwcQ1BpV+iB5rl65pj3eQq7hqq3EzRFTNnYC8rPmSPOfaVt4aa4puhWwbA==
+  version "1.7.22"
+  resolved "https://registry.npmjs.org/libphonenumber-js/-/libphonenumber-js-1.7.22.tgz#e206e3c227ec47ff306f7405ac52c331911e1b35"
+  integrity sha512-KCK4874gp640B+d1zjNi2ZiZ3ubEUPH/0B9AwcuhHDVAL6NdthxC8obbdhGlo7FcEpjFVwEMDoHRfi+lI8NM/g==
   dependencies:
     minimist "^1.2.0"
-    semver-compare "^1.0.0"
     xml2js "^0.4.17"
 
 liftoff@2.5.0:
