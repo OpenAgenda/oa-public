@@ -76,12 +76,10 @@ module.exports = app => {
     eventSvc.mw.load( 'eventUid', 'uid' ),
     eventSvc.mw.components.getReferences,
     ( req, res, next ) => {
-
       res.json( {
         references: req.referencesRender,
         events: _monolingual( _.get( req, 'references', [] ), [ 'title', 'dateRange', 'description' ], req.lang )
       } );
-
     }
   );
 
