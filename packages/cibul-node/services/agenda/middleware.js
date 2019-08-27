@@ -331,6 +331,7 @@ function searchEvents( limit, showAll ) {
 
       if (err) return next({
         message: 'invalid query',
+        url: req.originalUrl,
         query: req.query.oaq,
         elasticsearch: err
       });
