@@ -7,7 +7,7 @@ const labels = Object.assign( {},
   require( '@openagenda/labels/contributors/exportHeaders' )
 );
 const flatten = require( '@openagenda/labels/flatten' );
-const roles = require( '@openagenda/members/lib/roles' );
+const roles = require( '@openagenda/members/iso/roles' );
 
 const roleLabelKey = role => _.first( _.keys( roles ).filter( code => roles[ code ] === role ) ).toLowerCase();
 
