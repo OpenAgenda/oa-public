@@ -44,9 +44,9 @@ module.exports.or = (members, orFn) => (req, res, next) => {
 module.exports.orFail = (members, req, res, next) => {
   log( 'loading current user member reference... or fail' );
   _load(members, {agendaNamespace: 'agenda'}, req).then( () => {
-    if ( !req.member ) {
-      res.setStatus( 403 );
-      return next( 'Not a member' );
+    if (!req.member) {
+      res.status(403);
+      return next('Not a member');
     }
     next();
   } );
