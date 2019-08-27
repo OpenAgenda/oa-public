@@ -12,7 +12,7 @@ import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import { Base64 } from 'js-base64';
 import qs from 'qs';
 
-import getRoleSlug from '@openagenda/members/lib/getRoleSlug';
+import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Modal from '@openagenda/react-components/build/Modal';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';

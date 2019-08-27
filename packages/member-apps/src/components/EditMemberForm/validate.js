@@ -1,4 +1,4 @@
-import validate from '@openagenda/members/lib/validate';
+import validate from '@openagenda/members/build/validate';
 
 const validateCustom = validate.custom( false );
 
