@@ -93,12 +93,13 @@ function init( c ) {
         activityTask();
       },
       mw: {
-        load: mw.load.bind( null, members ),
-        loadOrFail: mw.load.orFail.bind( null, members ),
-        list: mw.list.bind( null, members ),
-        loadAndAuthorize: mw.load.andAuthorize.bind( null, members ),
-        loadTarget: Object.assign( mw.loadTarget.bind( null, members ), {
-          options: mw.loadTarget.options.bind( null, members )
+        load: mw.load.bind(null, members),
+        loadOrFail: mw.load.orFail.bind(null, members),
+        loadOr: mw.load.or.bind(null, members),
+        list: mw.list.bind(null, members),
+        loadAndAuthorize: mw.load.andAuthorize.bind(null, members),
+        loadTarget: Object.assign( mw.loadTarget.bind(null, members), {
+          options: mw.loadTarget.options.bind(null, members)
         } )
       }
     }
