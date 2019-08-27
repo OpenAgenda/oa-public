@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const log = require('@openagenda/logs')('list');
 const addListFilters = require('./lib/addListFilters');
-const getRoleSlug = require('./lib/getRoleSlug');
+const getRoleSlug = require('./iso/getRoleSlug');
 const { fromDB } = require('./lib/transformDBEntry');
 const cleanListOptions = require('./lib/cleanListOptions');
 const addPaginationAndOrder = require('./lib/addPaginationAndOrder');

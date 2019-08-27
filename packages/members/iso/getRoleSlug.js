@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 
-const roleValues = require('../iso/roleValues');
+const roleValues = require('./roleValues');
 
 module.exports = code => {
   const slug = _.first(
