@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 
 const custom = require( '@openagenda/custom' );
-const networks = require( '@openagenda/networks' );
+const networks = require('../../networks');
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/transferCustomFromLegacy' );
 
