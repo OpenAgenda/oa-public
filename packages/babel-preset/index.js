@@ -1,26 +1,9 @@
 'use strict';
 
-const path = require('path');
 const { declare } = require('@babel/helper-plugin-utils');
 
 function isBabelLoader(caller) {
   return !!(caller && caller.name === 'babel-loader');
-}
-
-function getBabelRuntimeName(corejs) {
-  if (!corejs) {
-    return '@babel/runtime';
-  }
-
-  if (typeof corejs === 'number') {
-    return `@babel/runtime-corejs${corejs}`;
-  }
-
-  if (typeof corejs.version === 'number') {
-    return `@babel/runtime-corejs${corejs.version}`;
-  }
-
-  throw new Error(`Preset @openagenda: 'corejs' option is invalid.`);
 }
 
 
@@ -36,11 +19,6 @@ module.exports = declare((api, options) => {
   const development = typeof options.development === 'boolean'
     ? options.development
     : api.cache(() => process.env.NODE_ENV !== 'production');
-
-  const useAbsoluteRuntime = typeof options.absoluteRuntime === 'boolean' ? options.absoluteRuntime : true;
-  const absoluteRuntimePath = useAbsoluteRuntime
-    ? path.dirname(require.resolve(`${getBabelRuntimeName(corejs)}/package.json`))
-    : undefined;
 
   const presets = [
     [
@@ -78,8 +56,7 @@ module.exports = declare((api, options) => {
     [
       require('@babel/plugin-transform-runtime'),
       {
-        corejs,
-        absoluteRuntime: absoluteRuntimePath
+        corejs
       }
     ],
     require('@babel/plugin-syntax-dynamic-import'),
