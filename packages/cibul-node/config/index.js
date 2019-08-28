@@ -830,14 +830,12 @@ const config = {
     //useCache: false,
     db: {
       database: 'oadev',
-      //database: 'ville_de_geneve',
+      //database: 'oa',
       host: 'localhost',
+      //host: 'oatest.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
       user: 'root',
-      /*
-      host: 'ec2-54-195-244-5.eu-west-1.compute.amazonaws.com',
-      user: 'dev',
-      */
       password: 'grut',
+      //password: prod.db.password,
       cache: true,
       //debug: true,
       timezone: 'UTC'
