@@ -2,6 +2,8 @@
 
 const _ = require( 'lodash' );
 
+const log = require('@openagenda/logs')('generateCustomSet');
+
 const schemaToCustom = {
   integer: 'integer',
   number: 'number',
@@ -13,14 +15,18 @@ const schemaToCustom = {
   image: 'image',
   file: 'file',
   url: 'url',
-  email: 'email'
+  email: 'email',
+  checkbox: 'checkbox',
+  radio: 'radio'
 }
 
-module.exports = schema => {
+module.exports = ( schema, customOriginOnly = false ) => {
   const messages = [];
+  log('processing', JSON.stringify( schema, null, 2));
 
   const customFields = schema.fields
     .filter( f => _.keys( schemaToCustom ).includes( f.fieldType ) )
+    .filter( f => customOriginOnly ? f.origin === 'custom' : true )
     .map( f => {
 
       if ( !f.origin ) {
@@ -42,6 +48,8 @@ module.exports = schema => {
       return custom;
 
     } );
+
+  log('extracted', customFields);
 
   return {
     customFields,
