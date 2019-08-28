@@ -16,12 +16,6 @@ import AbilitiesForm from './AbilitiesForm';
 import withFetcher from './withFetcher';
 import getChildCheckboxDecorator from './getChildCheckboxDecorator';
 
-if (process.env.NODE_ENV === 'development') {
-  // eslint-disable-next-line
-  const { whyDidYouUpdate } = require('why-did-you-update');
-  whyDidYouUpdate(React);
-}
-
 const localeData = {
   en: localeEn,
   fr: localeFr

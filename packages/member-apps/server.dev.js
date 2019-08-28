@@ -2,7 +2,6 @@ global.__CLIENT__ = false;
 global.__SERVER__ = true;
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
-import _ from 'lodash';
 import http from 'http';
 
 import express from 'express';
@@ -78,7 +77,24 @@ app.use( function loadRoles( req, res, next ) {
 app.get(
   '/members.json',
   ( req, res, next ) => {
-    res.json( memberListResult );
+    const { search } = req.query;
+
+    if (!search) {
+      return res.json( memberListResult );
+    }
+
+    const reg = new RegExp(search, 'i');
+
+    const members = memberListResult.members.filter(v => (
+      (v.custom.contactName && v.custom.contactName.match(reg))
+      || (v.user.fullName && v.user.fullName.match(reg))
+    ));
+    const total = members.length;
+
+    res.json( {
+      members,
+      total
+    } );
   } );
 
 app.get(

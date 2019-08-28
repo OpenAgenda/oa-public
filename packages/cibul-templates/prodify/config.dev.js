@@ -41,7 +41,7 @@ module.exports = ( { entry, output } ) => {
       symlinks: false,
       extensions: [ '.js', '.jsx', '.json' ],
       alias: {
-        'react': require.resolve( 'react' ),
+        'react': require.resolve( 'react' )
       }
     },
     performance: {

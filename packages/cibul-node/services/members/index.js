@@ -1,93 +1,91 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const bodyParser = require( 'body-parser' );
-const ih = require( 'immutability-helper' );
+const _ = require('lodash');
 
-const Service = require( '@openagenda/members' );
-const log = require( '@openagenda/logs' )( 'services/members' );
+const Service = require('@openagenda/members');
+const log = require('@openagenda/logs')('services/members');
 
-const mail = require( './lib/mail' );
-const activities = require( './lib/activities' );
-const streamCsv = require( './lib/streamCsv' );
-const streamXlsx = require( './lib/streamXlsx' );
-const transferEvent = require( './lib/transferEvent' );
-const queues = require( '../queues' );
-const sessions = require( '../sessions' );
+const mail = require('./lib/mail');
+const activities = require('./lib/activities');
+const streamCsv = require('./lib/streamCsv');
+const streamXlsx = require('./lib/streamXlsx');
+const transferEvent = require('./lib/transferEvent');
+const queues = require('../queues');
+const sessions = require('../sessions');
 
-const getEventCountByUserUid = require( './getEventCountByUserUid' );
-const getUsersByUid = require( './getUsersByUid' );
-const getUserByEmail = require( './getUserByEmail' );
-const getAgendasByUid = require( './getAgendasByUid' );
-const onCreate = require( './onCreate' );
-const onRemove = require( './onRemove' );
-const onPatch = require( './onPatch' );
+const getEventCountByUserUid = require('./getEventCountByUserUid');
+const getUsersByUid = require('./getUsersByUid');
+const getUserByEmail = require('./getUserByEmail');
+const getAgendasByUid = require('./getAgendasByUid');
+const onCreate = require('./onCreate');
+const onRemove = require('./onRemove');
+const onPatch = require('./onPatch');
 
 const {
   middleware: agendasMw
-} = require( '@openagenda/agendas' );
+} = require('@openagenda/agendas');
 
 const mw = {
-  authorize: require( './middleware/authorize' ),
-  list: require( './middleware/list' ),
-  loadAgenda: require( './middleware/loadAgenda' ),
-  loadEvent: require( './middleware/loadEvent' ),
-  load: require( './middleware/load' ),
-  loadTarget: require( './middleware/loadTarget' ),
-  loadContext: require( './middleware/loadContext' ),
-  invite: require( './middleware/invite' ),
-  sendMessage: require( './middleware/sendMessage' ),
-  spreadsheet: require( './middleware/spreadsheet' ),
-  page: require( './middleware/page' )
+  authorize: require('./middleware/authorize'),
+  list: require('./middleware/list'),
+  loadAgenda: require('./middleware/loadAgenda'),
+  loadEvent: require('./middleware/loadEvent'),
+  load: require('./middleware/load'),
+  loadTarget: require('./middleware/loadTarget'),
+  loadContext: require('./middleware/loadContext'),
+  invite: require('./middleware/invite'),
+  sendMessage: require('./middleware/sendMessage'),
+  spreadsheet: require('./middleware/spreadsheet'),
+  page: require('./middleware/page')
 }
 
 const members = {};
 const config = {};
 
-module.exports = Object.assign( plugApp, {
+module.exports = Object.assign(plugApp, {
   init,
   utils: Service.utils
-} );
+});
 
-function init( c ) {
-  Object.assign( config, c );
+function init(c) {
+  Object.assign(config, c);
 
-  const activityQueue = queues( 'memberActivities' );
-  const messageQueue = queues( 'memberMessages' );
+  const activityQueue = queues('memberActivities');
+  const messageQueue = queues('memberMessages');
 
-  Object.assign( members, Service( {
+  Object.assign(members, Service({
     knex: config.knex,
     schema: 'reviewer',
     queues,
     bulkThreshold: 10,
-    logger: config.getLogConfig( 'svc', 'members' ),
+    logger: config.getLogConfig('svc', 'members'),
     interfaces: {
       getEventCountByUserUid,
       getUsersByUid,
       getAgendasByUid,
       getUserByEmail,
-      onCreate: onCreate.bind( null, { config, activityQueue } ),
-      onRemove: onRemove.bind( null, { members, activityQueue } ),
-      onPatch: onPatch.bind( null, { config, activityQueue } )
+      onCreate: onCreate.bind(null, { config, activityQueue }),
+      onRemove: onRemove.bind(null, { members, activityQueue }),
+      onPatch: onPatch.bind(null, { config, activityQueue })
     }
-  } ) );
+  }));
 
-  const messages = mail.messages( config, {
+  const messages = mail.messages(config, {
     members,
     queue: messageQueue
-  } );
+  });
 
   const {
     task: activityTask
-  } = activities( { queue: activityQueue } );
+  } = activities({ queue: activityQueue });
 
-  mw.sendMessage.init( messages );
+  mw.sendMessage.init(messages);
 
   Object.assign(
     module.exports,
     members, {
       task: () => {
-        log( 'running tasks' );
+        log('running tasks');
         members.task();
         messages.task();
         activityTask();
@@ -106,8 +104,8 @@ function init( c ) {
   );
 }
 
-function plugApp( parentApp ) {
-  parentApp.all( [
+function plugApp(parentApp) {
+  parentApp.all([
     '/:agendaSlug/admin/members',
     '/:agendaSlug/admin/members.:format',
     '/:agendaSlug/admin/members/stats',
@@ -120,128 +118,144 @@ function plugApp( parentApp ) {
     mw.loadAgenda,
     sessions.mw.loadOrRedirect,
     mw.load.andAuthorize(members, 'moderator'),
-    agendasMw.evaluateIPAddress( {
+    agendasMw.evaluateIPAddress({
       onUnauthorizedIPAddress: _onUnauthorizedIPAddress
-    } )
-  ] );
+    })
+  ]);
 
-  parentApp.get( '/:agendaSlug/admin/members.:format',
-    ( req, res, next ) => {
+  parentApp.get(
+    '/:agendaSlug/admin/members.:format',
+    (req, res, next) => {
       req.order = 'actionsCounter.desc';
       next();
     }
   );
 
-  parentApp.get( '/:agendaSlug/admin/members',
+  parentApp.get(
+    '/:agendaSlug/admin/members',
     mw.loadAgenda.roles,
-    mw.page.bind( null, _.pick( config, [ 'port' ] ) )
+    mw.page.bind(null, _.pick(config, ['port']))
   );
 
-  parentApp.get( '/:agendaSlug/admin/members.json',
-    mw.list.bind( null, members )
+  parentApp.get(
+    '/:agendaSlug/admin/members.json',
+    (req, res, next) => {
+      req.order = req.query.order || req.order;
+      next();
+    },
+    mw.list.bind(null, members)
   );
 
-  parentApp.get( '/:agendaSlug/admin/members/stats',
-    mw.list.stats.bind( null, members )
+  parentApp.get(
+    '/:agendaSlug/admin/members/stats',
+    mw.list.stats.bind(null, members)
   );
 
-  parentApp.get( [
+  parentApp.get([
     '/:agendaSlug/admin/members.csv',
     '/:agendaSlug/admin/members.xlsx'
-  ], mw.spreadsheet.stream.bind( null, members ) );
+  ], mw.spreadsheet.stream.bind(null, members));
 
-  parentApp.post( '/:agendaSlug/admin/members/invite',
+  parentApp.post(
+    '/:agendaSlug/admin/members/invite',
     mw.authorize.moderatorCannotInviteAdministrator,
     mw.loadContext,
-    mw.invite.bind( null, members )
+    mw.invite.bind(null, members)
   );
 
-  parentApp.post( '/:agendaSlug/admin/members/send-message',
-    mw.authorize.agendaHasCredential.bind( null, 'invitationMessage' ),
+  parentApp.post(
+    '/:agendaSlug/admin/members/send-message',
+    mw.authorize.agendaHasCredential.bind(null, 'invitationMessage'),
     mw.sendMessage
   );
 
   // keep 'details' part as long as there are controllers in agenda/members.back.js
-  parentApp.get( '/:agendaSlug/admin/members/:id/details',
-    mw.loadTarget.options.bind(null, members, {detailed: true}),
-    ( req, res, next ) => res.json( { ..._.pick( req.targetMember, [
-      'id',
-      'role',
-      'userUid',
-      'custom'
-    ] ),
-      user: _.pick( req.targetMember.user, [ 'uid', 'fullName' ] )
-    } )
+  parentApp.get(
+    '/:agendaSlug/admin/members/:id/details',
+    mw.loadTarget.options.bind(null, members, { detailed: true }),
+    (req, res, next) => res.json({
+      ..._.pick(req.targetMember, [
+        'id',
+        'role',
+        'userUid',
+        'custom'
+      ]),
+      user: _.pick(req.targetMember.user, ['uid', 'fullName'])
+    })
   );
 
-  parentApp.delete( '/:agendaSlug/admin/members/:id',
-    mw.loadTarget.bind( null, members),
+  parentApp.delete(
+    '/:agendaSlug/admin/members/:id',
+    mw.loadTarget.bind(null, members),
     mw.authorize.moderatorCannotEditAdministrator,
-    ( req, res, next ) => members.remove( req.targetMember.id, {
+    (req, res, next) => members.remove(req.targetMember.id, {
       context: { user: req.user }
-    } ).then( () => {
-      res.status( 200 ).json( { message: 'done.' } );
-    }, next )
+    }).then(() => {
+      res.status(200).json({ message: 'done.' });
+    }, next)
   );
 
-  parentApp.patch( '/:agendaSlug/admin/members/:id',
-    mw.loadTarget.bind( null, members),
+  parentApp.patch(
+    '/:agendaSlug/admin/members/:id',
+    mw.loadTarget.bind(null, members),
     mw.authorize.moderatorCannotEditAdministrator,
     mw.loadContext,
-    ( req, res, next ) => members.patch( req.targetMember.id, req.body, {
+    (req, res, next) => members.patch(req.targetMember.id, req.body, {
       context: req.context,
       requireCustom: false
-    } ).then( result => {
-      res.status( 200 ).json( _.pick( result.member, [ 'custom', 'role' ] ) );
-    }, next )
+    }).then(result => {
+      res.status(200).json(_.pick(result.member, ['custom', 'role']));
+    }, next)
   );
 
-  parentApp.put( '/:agendaSlug/admin/members/:id/invite/resend',
+  parentApp.put(
+    '/:agendaSlug/admin/members/:id/invite/resend',
     mw.loadContext,
-    mw.loadTarget.bind( null, members),
-    ( req, res, next ) => {
-      members.set.byEmail( {
+    mw.loadTarget.bind(null, members),
+    (req, res, next) => {
+      members.set.byEmail({
         agendaUid: req.agenda.uid,
         email: req.targetMember.custom.email
-      }, { context: req.context } ).then( ( {
+      }, { context: req.context }).then(({
         member
-      } ) => {
+      }) => {
         if (member && member.userUid) {
-          return res.status( 200 ).json( { message: 'user is member' } )
+          return res.status(200).json({ message: 'user is member' })
         }
         next();
-      }, next );
+      }, next);
     },
-    ( req, res, next ) => mail.resendInvitation( config, {
+    (req, res, next) => mail.resendInvitation(config, {
       agenda: req.agenda,
       member: req.targetMember
-    } ).then( () => res.status( 200 ).json( { message: 'pabim.' } ), next )
+    }).then(() => res.status(200).json({ message: 'pabim.' }), next)
   );
 
   // should be put
-  parentApp.post( '/:agendaSlug/admin/members/transfer/:eventSlug',
+  parentApp.post(
+    '/:agendaSlug/admin/members/transfer/:eventSlug',
     mw.loadAgenda,
     mw.loadEvent,
-    mw.load.bind( null, members ),
+    mw.load.bind(null, members),
     mw.authorize.adminModOrEventOwner,
-    mw.authorize.agendaHasCredential.bind( null, 'eventOwnershipTransfer' ),
+    mw.authorize.agendaHasCredential.bind(null, 'eventOwnershipTransfer'),
     mw.loadTarget.byEmail.bind(null, members),
-    ( req, res, next ) => transferEvent( req.event, req.targetMember ).then( () => {
-      res.redirect( 302, `/${req.agenda.slug}/events/${req.event.slug}` );
-    }, next )
+    (req, res, next) => transferEvent(req.event, req.targetMember).then(() => {
+      res.redirect(302, `/${req.agenda.slug}/events/${req.event.slug}`);
+    }, next)
   );
 
-  parentApp.get( '/:agendaSlug/admin/members.csv', streamCsv );
-  parentApp.get( '/:agendaSlug/admin/members.xlsx', streamXlsx );
+  parentApp.get('/:agendaSlug/admin/members.csv', streamCsv);
+  parentApp.get('/:agendaSlug/admin/members.xlsx', streamXlsx);
 };
 
-function _onUnauthorizedIPAddress( req, res, next ) {
-  if ( process.env.NODE_ENV === 'development' ) return next();
+function _onUnauthorizedIPAddress(req, res, next) {
+  if (process.env.NODE_ENV === 'development') return next();
   log(
     'info',
     'IP %s is not authorized for agenda %s',
-    req.header( 'x-forwarded-for' ),
+    req.header('x-forwarded-for'),
     req.agenda.slug
   );
-  res.redirect( 302, `/${req.agenda.slug}/unauthorized/ip` );
+  res.redirect(302, `/${req.agenda.slug}/unauthorized/ip`);
 }

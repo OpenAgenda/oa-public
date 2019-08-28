@@ -445,5 +445,21 @@ module.exports = {
     "en": "Export",
     "de": "Export",
     "es": "Exportar"
+  },
+  "order.arrivalDate": {
+    "fr": "date d'arrivée",
+    "en": "arrival date"
+  },
+  "order.name": {
+    "fr": "nom",
+    "en": "name"
+  },
+  "order.activity": {
+    "fr": "activité",
+    "en": "activity"
+  },
+  "orderSort": {
+    "fr": "Ordre de tri",
+    "en": "Sort order"
   }
 }
