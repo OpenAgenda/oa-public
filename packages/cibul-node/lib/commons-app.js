@@ -153,6 +153,7 @@ function agendaMailTo( agenda ) {
 async function checkAdminOrModeratorOrKey(req, res, next) {
   log('checkAdminOrModeratorOrKey');
   req.member = null;
+  let hasAccess = false;
 
   try {
     // if is logged and is adminmod, we are good
@@ -166,13 +167,14 @@ async function checkAdminOrModeratorOrKey(req, res, next) {
         if (member && members.utils.compareRoles.isSuperiorToOrEqual(member.role, 'moderator')) {
           log('user is logged and an adminmod, authorized');
           req.member = member;
+          hasAccess = true;
         }
       } catch(e) {
         log('error', e);
       }
     }
 
-    if (!req.member && req.query.key) {
+    if (!hasAccess && req.query.key) {
       try {
         log('evaluating agenda key');
         const agendaKey = await keysSvc({
@@ -183,14 +185,14 @@ async function checkAdminOrModeratorOrKey(req, res, next) {
 
         if (agendaKey) {
           log('the agenda key is valid and provided, authorized');
-          req.member = member;
+          hasAccess = true;
         }
       } catch (e) {
         log('error', e);
       }
     }
 
-    if (!req.member && req.query.key) {
+    if (!hasAccess && req.query.key) {
       try {
         log('evaluating user key');
         const memberKey = await keysSvc({
@@ -214,6 +216,7 @@ async function checkAdminOrModeratorOrKey(req, res, next) {
           if (member && members.utils.compareRoles.isSuperiorToOrEqual(member.role, 'moderator')) {
             log('the user key is valid and identifies user as adminmod member, authorized');
             req.member = member;
+            hasAccess = true;
           }
         } else {
           log('could not retrieve user key');
@@ -227,7 +230,7 @@ async function checkAdminOrModeratorOrKey(req, res, next) {
     return next(err);
   }
 
-  if (!req.member) {
+  if (!hasAccess) {
     return next( {
       message: 'the key is invalid',
       code: 403
