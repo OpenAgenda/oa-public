@@ -8,9 +8,6 @@ const unsubscribedSvc = require( '@openagenda/unsubscribed' );
 const agendasSvc = require( '@openagenda/agendas' );
 const { isLessThan, isSuperiorToOrEqual, isEqualTo } = require( '@openagenda/members' ).utils.compareRoles;
 const sendSummary = require( './sendSummary' );
-const cmn = require( '../../lib/commons-app' );
-
-const usersSvc = require( '../users' );
 
 const log = require( '@openagenda/logs' )( 'activities' );
 
@@ -42,7 +39,7 @@ module.exports.init = async ( config, app ) => {
       redis: config.redis
     },
     interfaces: {
-      getUser: uid => usersSvc.get( uid, { detailed: true } ),
+      getUser: uid => app.service( '/users' ).get(uid, { detailed: true }),
       isUnsubscribed: uid => promisify( unsubscribedSvc( uid ).is )( {
         subject: 'notifications',
         type: 'notifications_summary'
