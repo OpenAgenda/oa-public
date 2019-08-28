@@ -21,30 +21,22 @@
       "packages/*"
     ],
     "nohoist": [
-      "**/react-redux",
-      "**/react-redux/**",
-      "**/redux-connect",
-      "**/redux-connect/**",
-      "**/redux-form",
-      "**/redux-form/**"
+      "**/redux-form"
     ]
   },
   "resolutions": {
-    "mjml-validator": "4.4.0"
-  },
-  "dependencies": {
-    "@babel/runtime-corejs3": "^7.5.5",
-    "core-js": "^3.2.1"
+    "**/final-form": "4.18.5",
+    "**/mjml-validator": "4.4.0",
+    "**/react": "^16.9.0",
+    "**/react-dom": "^16.9.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
+    "@babel/runtime-corejs3": "^7.5.5",
     "codecov": "^3.1.0",
+    "core-js": "^3.2.1",
     "husky": "^3.0.0",
     "jest": "^24.9.0",
-    "lerna": "^2.11.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "lerna": "^2.11.0"
   },
   "husky": {
     "hooks": {
