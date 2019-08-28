@@ -224,6 +224,10 @@ function signupSubmit( req, res ) {
           values.data.errors = { email: 'usedEmail' };
         }
 
+        if ( err && _.find( err.errors, { field: 'fullName', code: 'required' } ) ) {
+          values.data.errors = { fullName: 'fieldCannotBeEmpty' };
+        }
+
         if ( _.isObject( err.errors ) && Object.keys( err.errors ) > 0 ) {
           values.data.errors = err.errors;
         }

@@ -96,9 +96,7 @@ module.exports = {
         : context.error;
 
       log.error(
-        `Error in '${context.path}' service method '${
-          context.method
-        }'\n${errorStack}\n`,
+        `Error in service method '${context.method}'\n${errorStack}\n`,
         typeof context.error === 'object'
           ? inspect(_.omit(context.error, ['hook.app', 'hook.service']), {
             colors: debug.useColors()
