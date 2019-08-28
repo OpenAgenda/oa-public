@@ -270,7 +270,7 @@ app.use(
   members.mw.load,
   cmn.loadBaseData( 'oasfmain.css' ),
   async ( req, res, next ) => {
-    if (members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
+    if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
       sessions.setFlash( req, res, getLabel( 'youreAdminOrModerator', req.lang ) );
       return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
     }
