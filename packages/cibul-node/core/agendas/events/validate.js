@@ -93,13 +93,7 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
 
   } catch ( consolidatedErrors ) {
 
-    if ( !_.isArray( consolidatedErrors ) ) {
-
-      console.log( 'error', 'exception during validation', consolidatedErrors );
-
-      throw new VError( 'api validation exception', consolidatedErrors );
-
-    }
+    if ( !_.isArray( consolidatedErrors ) ) throw consolidatedErrors;
 
     consolidatedErrors.forEach( err => errors.push( _.set( err, 'step', 'validation' ) ) );
 

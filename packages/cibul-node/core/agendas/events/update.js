@@ -65,18 +65,33 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   }
 
-  // update the event
-  let result = await events.update( { uid: eventUid }, toEventServiceFormat( clean.event, null, { raw: data, partial } ), {
-    context: {
-      agendaUid,
-      userUid: contextUserUid,
-      updateSearchIndex: false
-    },
-    detailed: true,
-    internal: true,
-    transferToLegacy: !draft,
-    draft
+  let result;
+
+  const eventServiceDataFormat = toEventServiceFormat( clean.event, null, {
+    raw: data,
+    partial
   } );
+
+  try {
+    result = await events.update( { uid: eventUid }, eventServiceDataFormat, {
+    context: {
+        agendaUid,
+        userUid: contextUserUid,
+        updateSearchIndex: false
+      },
+      detailed: true,
+      internal: true,
+      transferToLegacy: !draft,
+      draft
+    } );
+  } catch ( e ) {
+    log( 'error', 'failed to update event', {
+      agendaUid: agenda.uid,
+      eventUid,
+      eventServiceDataFormat
+    } );
+    throw e;
+  }
 
   if ( !result.valid ) {
 
