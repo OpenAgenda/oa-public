@@ -47,7 +47,7 @@
   "rtp.recurrencerForm.endBeforeStart": "The end date must be after the begin",
   "rtp.recurrencerForm.countTooSmall": "Count must be greater than 0",
   "rtp.recurrencerForm.invalidMonthlyIntervalType": "Invalid monthly interval type",
-  "rtp.recurrencerForm.someDisabledValues": "Some values are disabled",
+  "rtp.recurrencerForm.someDisabledValues": "Some timings are already used or not open for entry:",
   "rtp.recurrencerForm.forceSubmit": "Create anyway",
   "rtp.recurrencerForm.dailyCount": "{count, plural, one {day} other {days}}",
   "rtp.recurrencerForm.weeklyCount": "{count, plural, one {week} other {weeks}}",
