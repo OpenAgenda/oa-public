@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import { SubmissionError } from 'redux-form';
-import getRoleSlug from '@openagenda/members/lib/getRoleSlug';
+import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 
 const LOAD = 'member-apps/members/LOAD';
 const LOAD_SUCCESS = 'member-apps/members/LOAD_SUCCESS';

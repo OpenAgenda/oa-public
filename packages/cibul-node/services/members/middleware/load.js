@@ -34,18 +34,26 @@ module.exports.andAuthorize = (members, requiredRole, options = {}) => {
   }
 }
 
+module.exports.or = (members, orFn) => (req, res, next) => {
+  _load(members, {agendaNamespace: 'agenda'}, req).then(() => {
+    if (!req.member) return orFn(req, res, next);
+    next();
+  });
+}
+
 module.exports.orFail = (members, req, res, next) => {
   log( 'loading current user member reference... or fail' );
   _load(members, {agendaNamespace: 'agenda'}, req).then( () => {
-    if ( !req.member ) {
-      res.setStatus( 403 );
-      return next( 'Not a member' );
+    if (!req.member) {
+      res.status(403);
+      return next('Not a member');
     }
     next();
   } );
 }
 
-function _load(members, {agendaNamespace}, req) {
+async function _load(members, {agendaNamespace}, req) {
+  if (!req.user) return;
   return members.get( {
     agendaUid: _.get(req, agendaNamespace || 'agenda').uid,
     userUid: req.user.uid

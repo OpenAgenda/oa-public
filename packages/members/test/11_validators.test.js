@@ -1,6 +1,6 @@
 'use strict';
 
-const validate = require('../lib/validate');
+const validate = require('../iso/validate');
 
 describe('members - unit - validate', () => {
   test('simple validation', () => {

@@ -10,7 +10,7 @@ const roleWeights = {
   NOROLE: 0
 };
 
-const rolePairs = _.toPairs(require('./roles'));
+const rolePairs = _.toPairs(require('../iso/roles'));
 
 function _getRoleStringCodeFromString(role) {
   if ([null, undefined].includes(role)) return 'NOROLE';

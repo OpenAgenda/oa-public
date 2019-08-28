@@ -23,7 +23,7 @@ module.exports = async ( config, agendaOrUid, force = false ) => {
 
   if ( !schema ) return { message: `No form schema was found for agenda ${agenda.uid}` };
 
-  const { customFields, messages } = generateCustomSet( schema );
+  const { customFields, messages } = generateCustomSet( schema, true );
 
   const {
     id, store

@@ -70,16 +70,16 @@ module.exports = app => {
     '/agendas/:uid/events/:eventUid/references',
     legacyAgendaSvc.mw.load( 'uid' ),
     sessions.mw.load,
-    members.mw.load,
+    members.mw.loadOr((req, res) => {
+      res.json({ references: null });
+    }),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     eventSvc.mw.components.getReferences,
     ( req, res, next ) => {
-
       res.json( {
         references: req.referencesRender,
         events: _monolingual( _.get( req, 'references', [] ), [ 'title', 'dateRange', 'description' ], req.lang )
       } );
-
     }
   );
 

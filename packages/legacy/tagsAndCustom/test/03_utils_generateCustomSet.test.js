@@ -4,6 +4,9 @@ const fs = require( 'fs' );
 const should = require( 'should' );
 
 const generateCustomFields = require( '../lib/utils/generateCustomSet' );
+const fixtures = {
+  maisonDesAines: require('./fixtures/schemas/maison-des-aines.json')
+}
 
 describe( '03 - utils - generateCustomSet', () => {
 
@@ -49,6 +52,12 @@ describe( '03 - utils - generateCustomSet', () => {
     } );
     customFields[ 0 ].type.should.equal( 'private' );
   } );
+
+  it('fix: maison des aines (villeneuve d\'ascq should see', () => {
+    const { customFields } = generateCustomFields(fixtures.maisonDesAines, true);
+
+    customFields.map( f => f.name ).should.eql( [ 'interetintercommunal', 'recurringevent' ] );
+  });
 
 } );
 

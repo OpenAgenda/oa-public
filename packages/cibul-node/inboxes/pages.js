@@ -270,7 +270,7 @@ app.use(
   members.mw.load,
   cmn.loadBaseData( 'oasfmain.css' ),
   async ( req, res, next ) => {
-    if (members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
+    if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
       sessions.setFlash( req, res, getLabel( 'youreAdminOrModerator', req.lang ) );
       return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
     }
@@ -612,7 +612,7 @@ app.use(
   cmn.loadBaseData( 'oasfmain.css' ),
   eventLoad(),
   async ( req, res, next ) => {
-    if (req.member && isSuperiorToOrEqual('moderator')) {
+    if (req.member && members.utils.compareRoles.isSuperiorToOrEqual('moderator')) {
       sessions.setFlash( req, res, getLabel( 'youreAdminOrModerator', req.lang ) );
       return res.redirect( 302, `/${req.agenda.slug}/admin/events/${req.event.slug}/contact` );
     }
@@ -957,7 +957,7 @@ app.use(
   async ( req, res, next ) => {
     const agendaLink = `/${req.agenda.slug}`;
 
-    if (req.member && isSuperiorToOrEqual('moderator')) {
+    if (req.member && members.utils.compareRoles.isSuperiorToOrEqual('moderator')) {
       sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
       return res.redirect(302, agendaLink);
     }

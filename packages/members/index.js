@@ -8,10 +8,10 @@ const create = require('./create');
 const patch = require('./patch');
 const remove = require('./remove');
 const setByEmail = require('./setByEmail');
-const roles = require('./lib/roles');
+const roles = require('./iso/roles');
 const compareRoles = require('./lib/compareRoles');
-const getRoleCode = require('./lib/getRoleCode');
-const getRoleSlug = require('./lib/getRoleSlug');
+const getRoleCode = require('./iso/getRoleCode');
+const getRoleSlug = require('./iso/getRoleSlug');
 
 const utils = {
   roles,

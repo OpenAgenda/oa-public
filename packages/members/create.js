@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const log = require('@openagenda/logs')('create');
-const validate = require('./lib/validate');
+const validate = require('./iso/validate');
 const cleanCreateOptions = require('./lib/cleanCreateOptions');
 const { toDB } = require('./lib/transformDBEntry');
 

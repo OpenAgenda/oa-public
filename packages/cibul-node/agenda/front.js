@@ -14,7 +14,7 @@ const fb = require( '@openagenda/facebook' );
 const getAgendaSearchLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agenda-search' ) );
 const getEventLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/show' ) );
-const sessions = require( '@openagenda/sessions' );
+const sessions = require( '../services/sessions' );
 const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
 const slugs = require( '@openagenda/slugs' );
 const unauthorizedIpLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/agendas/unauthorizedIp' ) );
@@ -210,13 +210,7 @@ module.exports = app => {
       }
       next();
     },
-    ( req, res, next ) => {
-      if ( !req.user ) {
-        return res.redirect( `/${req.agenda.slug}/signin?msg=limitedAccessAgenda` );
-      }
-      next();
-    },
-    members.mw.load,
+    sessions.mw.loadOrRedirect,
     ( req, res, next ) => {
       if ( !req.member ) return cmn.renderUnauthorized( req, res, next );
       next();
