@@ -1,5 +1,6 @@
 "use strict";
 
+const _ = require( 'lodash' );
 const validate = require( '../validate' );
 
 module.exports = ( { target, log } ) => v => {
@@ -11,6 +12,8 @@ module.exports = ( { target, log } ) => v => {
     v.clean = validateFunc( v[ target ] );
 
   } catch( e ) {
+
+    if ( !_.isArray( e ) ) throw e;
 
     log( 'validation failed with %s errors', e.length );
 
