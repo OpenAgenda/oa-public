@@ -181,6 +181,8 @@ async function createPromise( data, options ) {
 
     } catch ( validationErrors ) {
 
+      if ( !_.isArray( validationErrors ) ) throw validationErrors;
+
       log( 'loaded event data did not validate', validationErrors );
 
       validationErrors.forEach( e => errors.push( _.assign( e, { step: 'validation' } ) ) );
