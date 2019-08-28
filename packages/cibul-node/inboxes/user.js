@@ -4,7 +4,7 @@ const express = require( 'express' );
 const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
 const sessions = require( '@openagenda/sessions' );
 const cmn = require( '../lib/commons-app' );
-const errorLogger = require( '../services/00_errors' );
+const errorLogger = require( '../services/errors' );
 const config = require( '../config' );
 
 

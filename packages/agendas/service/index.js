@@ -87,8 +87,6 @@ function init( c ) {
 
   } );
 
-  log( 'init done' );
-
 }
 
 

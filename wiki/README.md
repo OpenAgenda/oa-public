@@ -713,7 +713,7 @@ Some random guidelines:
 
 Each service is subject to errors. When these occur, three scenarios arrise:
 
-1/ The error is not handled by the service. In that case, the integrating app catches it through the in-app service 00_errors. The error will be visible in logentries
+1/ The error is not handled by the service. In that case, the integrating app catches it through the in-app service `errors`. The error will be visible in logentries
 
 2/ The error is handled by the service. A service interface can be used to pass on the error to the integrating app: `.onError`, defined at service initialization. The in-app errors service exposes a function taking a namespace and the error to log it in the proper place ( logentries ).
 

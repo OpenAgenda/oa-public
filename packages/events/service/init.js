@@ -44,8 +44,6 @@ module.exports = endpoints => {
 
     } );
 
-    log( 'init done' );
-
   }
 
   function shutdown( cb ) {

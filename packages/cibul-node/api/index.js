@@ -22,7 +22,7 @@ const settings = {
   get: require( './endpoints/settingsGet' )
 }
 
-const handleError = require( '../services/00_errors' ).bind( null, 'api' );
+const handleError = require( '../services/errors' ).bind( null, 'api' );
 
 app.use( logRequests.middleware );
 

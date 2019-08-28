@@ -5,8 +5,7 @@ const VError = require( 'verror' );
 const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
 const agendasMw = require( '@openagenda/agendas/middleware' );
 const { mw: { load: oldAgendaLoad } } = require( '../services/agenda' );
-const cmn = require( '../lib/commons-app' );
-const errorLogger = require( '../services/00_errors' );
+const errorLogger = require( '../services/errors' );
 const config = require( '../config' );
 
 const sessions = require( '../services/sessions' );

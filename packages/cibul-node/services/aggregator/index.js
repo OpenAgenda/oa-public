@@ -14,7 +14,7 @@ const notify = require( './lib/notify' );
 const sources = require( './lib/sources' );
 const task = require( './lib/task' );
 
-const onError = require( '../00_errors' ).bind( null, 'aggregator' );
+const onError = require( '../errors' ).bind( null, 'aggregator' );
 
 const q = queue( config.queues.aggregator, {
   redis: config.redis,

@@ -28,13 +28,13 @@ module.exports = () => {
   } );*/
 
   tfy( require( './services/activities' ).tasks.notifications.prepareSummary, {
-    // bootOffset: 1000
+    // bootOffset: 1000,
     period: 'daily',
     time: '05:00'
   } );
 
   tfy( require( './services/activities' ).tasks.notifications.sendSummary, {
-    // bootOffset: 5000
+    // bootOffset: 5000,
     period: 'daily',
     time: '08:00'
   } );

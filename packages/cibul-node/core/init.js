@@ -1,11 +1,5 @@
 "use strict";
 
-const { promisify } = require('util');
+const servicesInit = require( '../services/init' );
 
-const servicesInit = promisify( require( '../services/init' ) );
-
-module.exports = async ( config, options = {} ) => {
-
-  await servicesInit( config, options );
-
-}
+module.exports = servicesInit;
