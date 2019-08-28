@@ -123,7 +123,7 @@ function createInitier(config, options) {
         log('info', name);
       })
       .catch(err => {
-        throw new VError(err, `service '${name}'initialization did not go well`);
+        throw new VError(err, `service '${name}' initialization did not go well`);
       });
   };
 }
