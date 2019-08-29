@@ -34,7 +34,6 @@
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",
-    "async": "^2.1.4",
     "classnames": "^2.2.5",
     "connected-react-router": "^6.2.2",
     "core-js": "^3.2.1",
