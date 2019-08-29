@@ -13,5 +13,5 @@ module.exports = async userUids => {
         $in: [].concat( userUids )
       }
     }
-  } ) ).data.map( d => _.pick( d, [ 'id', 'uid', 'fullName' ] ) );
+  } ) ).data.map( d => _.pick( d, ['id', 'uid', 'fullName', 'culture'] ) );
 }

@@ -7,12 +7,10 @@ const sessions = require( '@openagenda/sessions' );
 
 const members = require( '../members' );
 
-const interfaces = {
-  onCreate: require( './onCreate' ),
-  onUpdate: require( './onUpdate' ),
-  onRemove: require( './onRemove' ),
-  beforeRemove: require( './beforeRemove' )
-};
+const onCreate = require( './onCreate' );
+const onUpdate = require( './onUpdate' );
+const onRemove = require( './onRemove' );
+const beforeRemove = require( './beforeRemove' );
 
 const mw = {
   loadAgenda: require( '../members/middleware/loadAgenda' ),
@@ -31,7 +29,7 @@ module.exports = Object.assign( plugApp, {
   }
 } );
 
-function init( config ) {
+function init(config) {
 
   agendaEvents.init( {
     mysql: config.db,
@@ -52,7 +50,12 @@ function init( config ) {
       interval: 1000
     },
     eventStates,
-    interfaces
+    interfaces: {
+      onCreate: onCreate.bind( null, config ),
+      onUpdate,
+      onRemove,
+      beforeRemove,
+    }
   } );
 
 }

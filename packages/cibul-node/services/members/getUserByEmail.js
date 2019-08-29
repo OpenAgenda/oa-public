@@ -9,5 +9,5 @@ module.exports = async email => {
 
   return usersSvc.findOne( {
     query: { email }
-  } ).then( u => u && _.pick( u, [ 'id', 'uid', 'fullName' ] ) );
+  } ).then( u => u && _.pick( u, ['id', 'uid', 'fullName', 'culture'] ) );
 }

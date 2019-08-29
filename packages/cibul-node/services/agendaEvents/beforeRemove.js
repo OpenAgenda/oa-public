@@ -1,7 +1,7 @@
 "use strict";
 
 const VError = require( 'verror' );
-const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/beforeRemove' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/beforeRemove' );
 const usersSvc = require( '../users' );
 const activitiesSvc = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;

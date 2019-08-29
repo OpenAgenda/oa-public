@@ -6,11 +6,11 @@ const mails = require( '@openagenda/mails' );
 const agendasSvc = require( '@openagenda/agendas' );
 const legacyMembersSvc = require( '@openagenda/agenda-stakeholders' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
-const usersSvc = require( '../users' );
-const membersSvc = require( '../../services/members' );
-const genUrl = require( '../genUrl' );
+const usersSvc = require( '../../users' );
+const membersSvc = require( '../../members' );
+const genUrl = require( '../../genUrl' );
 
-const log = require( '@openagenda/logs' )( 'services/agendaEvents/sendEventAddition' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventAddition' );
 
 module.exports = async ( { agendaEvent, user, context } ) => {
 
