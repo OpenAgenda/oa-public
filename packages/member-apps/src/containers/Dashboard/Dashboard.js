@@ -61,7 +61,7 @@ function OrderField({ action, input, title }) {
       title={title}
       onClick={onClick}
     >
-      <i className={`fa fa-sort-amount-${input.value === 'desc' ? 'asc' : 'desc'}`} aria-hidden="true"></i>
+      <i className={`fa fa-sort-amount-${input.value === 'desc' ? 'desc' : 'asc'}`} aria-hidden="true"></i>
     </button>
   );
 }

@@ -57,7 +57,8 @@ schema.register({
 const creationSchema = {
   fullName: {
     type: 'text',
-    min: 2
+    min: 2,
+    optional: false
   },
   username: {
     type: 'text'
@@ -65,7 +66,8 @@ const creationSchema = {
   culture: {
     type: 'text',
     min: 2,
-    max: 2
+    max: 2,
+    default: 'fr'
   },
   email: {
     type: 'email',
@@ -427,9 +429,7 @@ module.exports = {
         : context.error;
 
       log.error(
-        `Error in '${context.path}' service method '${
-          context.method
-        }'\n${errorStack}\n`,
+        `Error in service method '${context.method}'\n${errorStack}\n`,
         typeof context.error === 'object'
           ? inspect(_.omit(context.error, ['hook.app', 'hook.service']), {
             colors: debug.useColors()

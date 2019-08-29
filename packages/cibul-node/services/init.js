@@ -46,6 +46,7 @@ module.exports = async function (configObject, options = {}) {
 
   await init('errors', require('./errors'));
   await init('queues', require('./queues'));
+  await init('users', require('./users'));
   await init('abilities', require('./abilities'));
   await init('accessTokens', require('./accessTokens'));
   await init('users', require('./users'));
@@ -127,7 +128,7 @@ function createInitier(config, options) {
         log('info', name);
       })
       .catch(err => {
-        throw new VError(err, 'service initialization did not go well');
+        throw new VError(err, `service '${name}' initialization did not go well`);
       });
   }, { services });
 }

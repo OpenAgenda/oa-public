@@ -8,7 +8,6 @@ const unsubscribedSvc = require( '@openagenda/unsubscribed' );
 const agendasSvc = require( '@openagenda/agendas' );
 const { isLessThan, isSuperiorToOrEqual, isEqualTo } = require( '@openagenda/members' ).utils.compareRoles;
 const sendSummary = require( './sendSummary' );
-const cmn = require( '../../lib/commons-app' );
 
 const log = require( '@openagenda/logs' )( 'activities' );
 
