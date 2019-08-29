@@ -38,6 +38,26 @@ describe( 'agendaEvents - functional (server): get', function() {
 
   } );
 
+  it('explicit error is thrown when event uid is not provided', async () => {
+    let error;
+    try {
+      await svc(62792452).get();
+    } catch (e) {
+      error = e;
+    }
+    error.message.should.equal('Event uid is missing');
+  });
+
+  it('explicit error is thrown when agenda uid is not provided', async () => {
+    let error;
+    try {
+      await svc().get(10974548);
+    } catch (e) {
+      error = e;
+    }
+    error.message.should.equal('Agenda uid is missing');
+  });
+
 
   it( 'get by legacy id', async () => {
 

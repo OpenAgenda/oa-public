@@ -24,7 +24,7 @@ module.exports = app => {
   app.get( '/notifications/mark-all-read', preMw, mw.notifications.markAllRead );
 };
 
-module.exports.init = async ( config, app ) => {
+module.exports.init = async (config, services) => {
   const service = await Service( {
     mysql: config.db,
     schemas: config.schemas,
@@ -39,7 +39,7 @@ module.exports.init = async ( config, app ) => {
       redis: config.redis
     },
     interfaces: {
-      getUser: uid => app.service( '/users' ).get(uid, { detailed: true }),
+      getUser: uid => services.users.get(uid, {detailed: true}),
       isUnsubscribed: uid => promisify( unsubscribedSvc( uid ).is )( {
         subject: 'notifications',
         type: 'notifications_summary'
@@ -279,4 +279,6 @@ module.exports.init = async ( config, app ) => {
 
   Object.assign( activities, service );
   Object.assign( module.exports, activities );
+
+  return service;
 }

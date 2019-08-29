@@ -123,4 +123,6 @@ module.exports.init = config => {
     .hooks(hooks);
 
   Proto.mixin(svc, service);
+
+  return svc;
 };

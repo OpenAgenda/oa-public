@@ -64,7 +64,7 @@ module.exports = app => {
   );
 };
 
-module.exports.init = async ( config, app ) => {
+module.exports.init = async config => {
   abilitiesSvc.init( {
     knex: config.knex,
     mysql: config.db,

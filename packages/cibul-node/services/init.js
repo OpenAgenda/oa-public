@@ -49,6 +49,7 @@ module.exports = async function (configObject, options = {}) {
   await init('users', require('./users'));
   await init('abilities', require('./abilities'));
   await init('accessTokens', require('./accessTokens'));
+  await init('users', require('./users'));
   await init('activities', require('./activities'));
   await init('activityApps', require('./activityApps'));
   await init('adminAgendas', require('./adminAgendas'));
@@ -104,11 +105,14 @@ module.exports = async function (configObject, options = {}) {
   const timeDiff = new Date().getTime() - t.getTime();
 
   log(`initialized in ${debug.useColors() ? color(3, timeDiff) : timeDiff}ms`);
+
+  return init.services;
 }
 
 
 function createInitier(config, options) {
-  return (name, service) => {
+  const services = {};
+  return Object.assign((name, service) => {
     if (options.enabled && options.enabled.length && !options.enabled.includes(name)) {
       return;
     }
@@ -118,12 +122,13 @@ function createInitier(config, options) {
       return;
     }
 
-    return Promise.resolve(service.init(config, app))
-      .then( () => {
+    return Promise.resolve(service.init(config, services))
+      .then( svc => {
+        if (svc) services[name] = svc;
         log('info', name);
       })
       .catch(err => {
         throw new VError(err, `service '${name}' initialization did not go well`);
       });
-  };
+  }, { services });
 }
