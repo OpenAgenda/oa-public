@@ -412,7 +412,7 @@ function _clean( query, params ) {
 
     }
 
-    clean.uids = uids.map( uid => parseInt( uid ) );
+    clean.uids = uids.map( uid => parseInt( uid ) ).filter( uid => !!uid );
 
   }
 
