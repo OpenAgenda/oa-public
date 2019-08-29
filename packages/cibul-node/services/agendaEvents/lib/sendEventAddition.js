@@ -1,26 +1,23 @@
 "use strict";
 
-const { promisify } = require( 'util' );
-const _ = require( 'lodash' );
-const mails = require( '@openagenda/mails' );
-const agendasSvc = require( '@openagenda/agendas' );
-const legacyMembersSvc = require( '@openagenda/agenda-stakeholders' );
-const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
-const usersSvc = require( '../../users' );
-const membersSvc = require( '../../members' );
-const genUrl = require( '../../genUrl' );
+const _ = require('lodash');
+const mails = require('@openagenda/mails');
+const agendasSvc = require('@openagenda/agendas');
+const agendaEventStates = require('@openagenda/agenda-events/iso/states');
+const usersSvc = require('../../users');
+const membersSvc = require('../../members');
 
-const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventAddition' );
+const log = require('@openagenda/logs')(
+  'agendaEvents/sendEventAddition'
+);
 
-module.exports = async ( { agendaEvent, user, context } ) => {
+module.exports = async ({ root }, { agendaEvent, user, context }) => {
+  log('processing');
 
   const { sourceAgenda, agenda, event } = context;
   let stateLabel;
 
-  const link = genUrl( 'agendaEventShow', {
-    slug: agenda.slug,
-    eventSlug: event.slug
-  }, { abs: true } );
+  const link = `${root}/${agenda.slug}/events/${event.slug}`;
 
   switch ( agendaEvent.state ) {
     case agendaEventStates.TOCONTROL:
@@ -38,16 +35,34 @@ module.exports = async ( { agendaEvent, user, context } ) => {
     ? { src: agenda.image.replace( '.com/', '.com/rwtb' ), width: '100px' }
     : { src: 'https://openagenda.com/images/openagenda.png', width: '300px' };
 
-  const members = await listAdminmods( { agenda } );
+  const members = await membersSvc.list({
+    agendaUid: agenda.uid,
+    roles: ['administrator','moderator']
+  }, { limit: 1000 }, { detailed: true });
 
-  const originAgenda = await promisify( agendasSvc.get )( {
+  const originAgenda = await agendasSvc.get({
     uid: event.agendaUid
-  }, { internal: true, private: null, includeImagePath: true } );
-  const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );
-  const creator = await promisify( legacyMembersSvc.agenda( originAgenda.id ).get )( { userId: creatorUser.id } );
+  }, {
+    internal: true,
+    private: null,
+    includeImagePath: true
+  });
+
+  const creatorUser = await usersSvc.findOne({
+    query: {
+      uid: event.creatorUid
+    }
+  });
+  const creator = await membersSvc.get({
+    agendaUid: originAgenda.uid,
+    userUid: creatorUser.uid
+  });
   const creatorLang = creatorUser.culture || 'fr';
 
-  const sharerMember = await membersSvc.get( { agendaUid: agenda.uid, userUid: context.userUid } );
+  const sharerMember = await membersSvc.get( {
+    agendaUid: agenda.uid,
+    userUid: context.userUid
+  } );
 
   if ( !agenda.private ) {
     await mails( {
@@ -119,21 +134,5 @@ module.exports = async ( { agendaEvent, user, context } ) => {
     }
   } );
 
+  log('all good');
 };
-
-
-async function listAdminmods( { agenda } ) {
-  let offset = 0;
-  const members = [];
-  let result;
-
-  const _list = promisify( legacyMembersSvc.agenda( agenda.id ).list );
-
-  while ( ( result = await _list( { credentials: [ 3, 2 ] }, offset, 50, { detailed: true } ) ).length ) {
-    Array.prototype.push.apply( members, result );
-
-    offset += result.length;
-  }
-
-  return members;
-}

@@ -61,7 +61,7 @@ module.exports = async ( config, ae, context ) => {
     } else {
       // Adding
       try {
-        await sendEventAddition( { agendaEvent: ae, context, user } );
+        await sendEventAddition(config, { agendaEvent: ae, context, user });
       } catch ( error ) {
         log.error( new VError( error, 'Cannot send event addition emails' ) );
       }
