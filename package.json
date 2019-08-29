@@ -19,9 +19,6 @@
   "workspaces": {
     "packages": [
       "packages/*"
-    ],
-    "nohoist": [
-      "**/redux-form"
     ]
   },
   "resolutions": {
