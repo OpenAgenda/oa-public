@@ -82,7 +82,7 @@ function loadEvent( paramName, fieldName, options ) {
       // event is restricted and user is not logged
       if ( !await v.user.logged ) {
 
-        const redirect = new Buffer(  `/${req.agenda.slug}/events/${req.event.slug}` ).toString( 'base64' );
+        const redirect = new Buffer(req.originalUrl).toString( 'base64' );
 
         return res.redirect( `/${req.agenda.slug}/signin?msg=limitedAccessEvent&redirect=${redirect}` );
 
