@@ -18,17 +18,23 @@ module.exports = (members, req, res, next) => {
 }
 
 module.exports.andAuthorize = (members, requiredRole, options = {}) => {
+  const orFn = _.get( options, 'or', (req, res) => {
+    if (!req.member) {
+      sessions.setFlash(req, res, getLabel('memberRequired', req.lang))
+      res.redirect(302, `/${req.agenda.slug}`);
+    } else {
+      sessions.setFlash(req, res, getLabel('roleInsufficient', req.lang))
+      res.redirect(302, `/${req.agenda.slug}`);
+    }
+  });
+
   return (req, res, next) => {
     log( 'load and authorize', requiredRole );
     _load(members, options, req).then(() => {
       if (req.member && isSuperiorToOrEqual(req.member.role, requiredRole)) {
         next();
-      } else if (!req.member) {
-        sessions.setFlash(req, res, getLabel('memberRequired', req.lang))
-        res.redirect(302, `/${req.agenda.slug}`);
       } else {
-        sessions.setFlash(req, res, getLabel('roleInsufficient', req.lang))
-        res.redirect(302, `/${req.agenda.slug}`);
+        orFn(req, res, next);
       }
     });
   }

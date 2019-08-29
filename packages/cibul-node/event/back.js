@@ -137,7 +137,9 @@ module.exports = app => {
     '/agendas/:uid/events/:eventUid/activities',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    members.mw.loadAndAuthorize('moderator'),
+    members.mw.loadAndAuthorize('moderator', {
+      or: (req, res) => res.json({ count: 0})
+    }),
     ( req, res, next ) => {
 
       const limit = 20;
