@@ -13,6 +13,9 @@ module.exports = _.extend( get, {
 
 async function get( agendaUid, eventUid ) {
 
+  if (!agendaUid) throw new Error('Agenda uid is missing');
+  if (!eventUid) throw new Error('Event uid is missing');
+
   return await _get( {
     'agenda_uid' : agendaUid,
     'event_uid' : eventUid
