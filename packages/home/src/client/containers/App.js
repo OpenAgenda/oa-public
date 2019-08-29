@@ -3,15 +3,12 @@ import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import { formValueSelector } from 'redux-form';
 import classNames from 'classnames';
 import qs from 'qs';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
 import { MenuItem } from '../components';
 import * as agendasActions from '../redux/modules/agendas';
-
-const selector = formValueSelector( 'homeAgendas' );
 
 @provideHooks( {
   fetch: async ( { store: { dispatch, getState }, location } ) => {
@@ -28,7 +25,6 @@ const selector = formValueSelector( 'homeAgendas' );
 } )
 @connect(
   state => ({
-    agendasSearch: selector( state, 'search' ),
     res: state.res,
     lang: state.settings.lang,
     isNew: state.settings.isNew,
@@ -59,7 +55,7 @@ export default class App extends Component {
 
   render() {
 
-    const { route, agendasSearch, tab, isNew, prefix, total } = this.props;
+    const { route, tab, isNew, prefix, total } = this.props;
     const { getLabel } = this.getChildContext();
 
     if ( isNew && !total ) {
@@ -82,7 +78,7 @@ export default class App extends Component {
           <div className="col-sm-8 col-sm-offset-2">
             <ul className="home-nav list-inline">
               <MenuItem
-                linkTo={{ pathname: prefix || '/', search: qs.stringify( { search: agendasSearch || undefined } ) }}
+                linkTo={prefix || '/'}
                 active={tab === 'agendas'}>
                 {getLabel( 'myAgendas' )}
               </MenuItem>
