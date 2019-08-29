@@ -6,7 +6,6 @@ schema.register( {
 } );
 
 export default function validate( values ) {
-
   let errors = {};
 
   values = { ...values };
@@ -41,7 +40,4 @@ export default function validate( values ) {
   if ( Object.keys( errors ).length ) {
     return errors;
   }
-
-  return true;
-
 };

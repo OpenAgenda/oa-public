@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
-import { reduxForm, SubmissionError } from 'redux-form';
 import { Form, Field } from 'react-final-form';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
@@ -107,9 +106,6 @@ function OrderField({ action, input, title }) {
   },
   { ...membersActions, ...modalsActions }
 )
-@reduxForm({
-  form: 'membersDashboard'
-})
 @withRouter
 export default class Dashboard extends Component {
   static propTypes = {
@@ -517,13 +513,6 @@ export default class Dashboard extends Component {
 
                 return result;
               })
-              .catch(error => {
-                if (error && error instanceof SubmissionError) {
-                  throw new SubmissionError(error.errors);
-                }
-
-                throw error;
-              })
             }
           />
         </Modal>}
@@ -587,12 +576,6 @@ export default class Dashboard extends Component {
                 await getStats();
                 return result;
               })
-              .catch(error => {
-                if (error && error instanceof SubmissionError) {
-                  throw new SubmissionError(error.errors);
-                }
-                throw error;
-              })
             }
           />}
         </Modal>}
@@ -619,12 +602,6 @@ export default class Dashboard extends Component {
           {!writeToMembersModal.confirmation
             ? <SendMessageForm
               onSubmit={data => sendMessage(data, writeToMembersModal.query)
-                .catch(error => {
-                  if (error && error instanceof SubmissionError) {
-                    throw new SubmissionError(error.errors);
-                  }
-                  throw error;
-                })
                 .then(() => setModal('writeToMembers', { confirmation: true }))
               }
             />

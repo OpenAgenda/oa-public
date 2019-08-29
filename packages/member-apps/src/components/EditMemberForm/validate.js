@@ -6,9 +6,8 @@ export default function( values ) {
   try {
     validateCustom( values );
   } catch ( e ) {
-    return flatErrors( e );
+    return flatErrors( e.errors || e );
   }
-  return true;
 }
 
 function flatErrors( e ) {
