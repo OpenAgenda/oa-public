@@ -3,19 +3,18 @@
   "version": "0.1.0",
   "description": "interface to EmailStrategie emailing service",
   "scripts": {
-    "test": "mocha",
-    "postversion": "git push origin && git push origin --tags",
-    "release:patch": "npm version patch && npm publish",
-    "release:minor": "npm version minor && npm publish",
-    "release:major": "npm version major && npm publish"
+    "test": "mocha"
   },
   "dependencies": {
     "@openagenda/queue": "^1.0.0",
     "@openagenda/utils": "^1.0.2",
     "async": "1.2.1",
-    "mysql": "2.6.2",
-    "redis": "~0.12",
+    "mysql": "^2.17.1",
+    "redis": "^2.8.0",
     "should": "~4.0",
     "xml2js": "0.4.9"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.0"
   }
 }
