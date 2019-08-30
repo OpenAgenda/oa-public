@@ -2,9 +2,14 @@
 
 const _ = require('lodash');
 
-module.exports = namespace => (...args) => {
-  console.log.apply(
-    null,
-    [`${namespace}: ${_.get(args, '0', '')}`].concat(args.slice(1))
+let createLog = namespace => (...args) => {
+  console.log(
+    ...[`${namespace}: ${_.get(args, '0', '')}`].concat(args.slice(1))
   );
+};
+
+module.exports = namespace => (...args) => createLog(namespace)(...args);
+
+module.exports.set = logger => {
+  createLog = logger;
 };

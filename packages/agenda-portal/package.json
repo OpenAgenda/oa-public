@@ -22,6 +22,7 @@
     ]
   },
   "dependencies": {
+    "@openagenda/logs": "^1.1.2",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",
     "browser-refresh": "^1.7.3",
