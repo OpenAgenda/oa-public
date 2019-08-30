@@ -91,22 +91,24 @@ describe('members - functional - patch', () => {
     });
   });
 
-  test('if user identifier is specified in patch, legacy is updated', async () => {
-    const { member } = await svc.patch(
-      { userUid: 1, agendaUid: 2 },
-      { userUid: 3 }
-    );
+  describe('legacy', () => {
+    test('if user identifier is specified in patch, legacy is updated', async () => {
+      const { member } = await svc.patch(
+        { userUid: 1, agendaUid: 2 },
+        { userUid: 3 }
+      );
 
-    expect(member.userId).toBe(10293);
-  });
+      expect(member.userId).toBe(10293);
+    });
 
-  test('if agenda identifier is specified in patch, legacy is updated', async () => {
-    const { member } = await svc.patch(
-      { userUid: 1, agendaUid: 1 },
-      { agendaUid: 12 }
-    );
+    test('if agenda identifier is specified in patch, legacy is updated', async () => {
+      const { member } = await svc.patch(
+        { userUid: 1, agendaUid: 1 },
+        { agendaUid: 12 }
+      );
 
-    expect(member.agendaId).toBe(919002);
+      expect(member.agendaId).toBe(919002);
+    });
   });
 
   test('deletedUser can be patched', async () => {
@@ -116,5 +118,15 @@ describe('members - functional - patch', () => {
     );
 
     expect(member.deletedUser).toBe(true);
+  });
+
+  test('increment increments actions counter', async () => {
+    const memberBefore = await svc.get({ agendaUid: 1, userUid: 22 });
+
+    await svc.patch.actions.increment({ agendaUid: 1, userUid: 22 });
+
+    const memberAfter = await svc.get({ agendaUid: 1, userUid: 22 });
+
+    expect(memberAfter.actionsCounter).toEqual(memberBefore.actionsCounter + 1);
   });
 });

@@ -10,21 +10,21 @@ const custom = require( '@openagenda/custom' );
 const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 
 const aggregatorNotify = require( './lib/aggregatorNotify' );
-const eventAggregation = require( './eventAggregation' );
+const eventAggregation = require( './lib/eventAggregation' );
 const legacyEventSearch = require( '../elasticsearch' );
 const eventSearch = require( '../eventSearch' );
 const activitiesSvc = require( '../activities' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
-const sendEventCreation = require( './sendEventCreation' );
-const sendEventAggregation = require( './sendEventAggregation' );
-const sendEventAddition = require( './sendEventAddition' );
+const sendEventCreation = require( './lib/sendEventCreation' );
+const sendEventAggregation = require( './lib/sendEventAggregation' );
+const sendEventAddition = require( './lib/sendEventAddition' );
 
 const controlDataSvc = require( '../legacy' ).controlData;
 const usersSvc = require( '../users' );
 
-module.exports = async ( ae, context ) => {
+module.exports = async ( config, ae, context ) => {
 
-  log( 'created agenda-event %j', ae, _.pick( context, [ 'legacy' ] ) );
+  log('created agenda-event %j', ae, _.pick(context, ['legacy', 'aggregated']));
 
   // use context.userUid. will be null when nothing was specified at create
 
@@ -61,7 +61,7 @@ module.exports = async ( ae, context ) => {
     } else {
       // Adding
       try {
-        await sendEventAddition( { agendaEvent: ae, context, user } );
+        await sendEventAddition(config, { agendaEvent: ae, context, user });
       } catch ( error ) {
         log.error( new VError( error, 'Cannot send event addition emails' ) );
       }
@@ -76,19 +76,20 @@ module.exports = async ( ae, context ) => {
   }
 
   // if reference was created through aggregation, email administrators
-  if ( context.aggregated && agenda.settings.mailing && agenda.settings.mailing.eventAggregation ) {
+  if (context.aggregated) {
+    log('queuing mail send for admins of agenda %s for aggregation of event %s', agenda.uid, event.uid);
 
-    log( 'queuing mail send for admins of agenda %s for aggregation of event %s', agenda.uid, event.uid );
-
-    eventAggregation( {
-      eventUid: event.uid,
-      aggregatorAgendaUid: agenda.uid,
-      sourceAgendaUid: context.sourceAgenda.uid,
-      state: ae.state
-    } ).catch( error => log.error( 'Error on sending \'eventAggregation\' email', error ) );
-
+    try {
+      await eventAggregation(config, {
+        eventUid: event.uid,
+        aggregatorAgendaUid: agenda.uid,
+        sourceAgendaUid: context.sourceAgenda.uid,
+        state: ae.state
+      });
+    } catch (e) {
+      log.error( new VError( error, 'Cannot send event aggregation emails to adminmods' ) );
+    }
   }
-
 
   if ( context.legacy && agenda.formSchemaId ) {
     // this happens after legacy reference was added
@@ -98,7 +99,6 @@ module.exports = async ( ae, context ) => {
       log( 'error', 'could not transfer custom data from legacy (%s.%s)', ae.agendaUid, ae.eventUid, e );
     }
   }
-
 
   try {
     await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
@@ -124,7 +124,6 @@ module.exports = async ( ae, context ) => {
   }
 
   _addToSearchIndex( ae );
-
 
   try {
 

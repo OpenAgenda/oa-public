@@ -49,6 +49,9 @@ const fields = {
       unique: true,
       optional: false,
       options: Object.values(roles)
+    },
+    actionsCounter: {
+      type: 'integer'
     }
   },
   legacy: {
@@ -56,9 +59,6 @@ const fields = {
       type: 'integer'
     },
     agendaId: {
-      type: 'integer'
-    },
-    actionsCounter: {
       type: 'integer'
     },
     credential: {

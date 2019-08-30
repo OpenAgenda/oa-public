@@ -833,9 +833,9 @@ const config = {
       //database: 'oa',
       host: 'localhost',
       //host: 'oatest.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
-      user: 'root',
       password: 'grut',
       //password: prod.db.password,
+      user: 'root',
       cache: true,
       //debug: true,
       timezone: 'UTC'

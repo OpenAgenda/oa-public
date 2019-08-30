@@ -63,12 +63,6 @@ module.exports = {
         }
       }
     },
-    mailing: {
-      eventAggregation: {
-        type: 'boolean',
-        default: false
-      }
-    },
     contribution: {
       type: {
         default: c.MEMBERS_ONLY,

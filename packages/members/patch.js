@@ -8,7 +8,7 @@ const validate = require('./iso/validate');
 const cleanPatchOptions = require('./lib/cleanPatchOptions');
 const { toDB } = require('./lib/transformDBEntry');
 
-module.exports = async (config, identifiers, data, options = {}) => {
+async function patch(config, identifiers, data, options = {}) {
   log('processing', data);
 
   const { knex, schema, interfaces } = config;
@@ -66,4 +66,16 @@ module.exports = async (config, identifiers, data, options = {}) => {
     errors: [],
     member: patched
   };
-};
+}
+
+async function actionsIncrement(config, identifiers) {
+  const member = await get(config, identifiers);
+
+  return patch(config, identifiers, {
+    actionsCounter: _.get(member, 'actionsCounter', 0) + 1
+  });
+}
+
+module.exports = Object.assign(patch, {
+  actionsIncrement
+});

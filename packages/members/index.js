@@ -40,7 +40,11 @@ module.exports = (options = {}) => {
     }),
     list: list.bind(null, config),
     create: create.bind(null, config),
-    patch: patch.bind(null, config),
+    patch: Object.assign(patch.bind(null, config), {
+      actions: {
+        increment: patch.actionsIncrement.bind(null, config)
+      }
+    }),
     remove: remove.bind(null, config),
     stream: stream.bind(null, config),
     set: {

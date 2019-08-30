@@ -67,7 +67,8 @@ describe('members - functional - remove', () => {
           contactName: 'JC Ponceau',
           contactPosition: 'Responsable des pains',
           email: 'jc@ponceau.fr'
-        }
+        },
+        actionsCounter: 5
       },
       {
         user: { uid: 1920 }

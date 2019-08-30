@@ -33,6 +33,7 @@ describe('members - functional - create', () => {
       userUid: 12,
       agendaUid: 31,
       role: 1,
+      actionsCounter: null,
       custom: {
         organization: 'OpenAgenda',
         contactName: 'Gaetan',
@@ -56,6 +57,7 @@ describe('members - functional - create', () => {
       },
       invited: false,
       deletedUser: false,
+      actionsCounter: null,
       role: 1
     });
   });

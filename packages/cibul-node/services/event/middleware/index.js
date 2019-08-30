@@ -84,7 +84,7 @@ function loadEvent( paramName, fieldName, options ) {
 
         const redirect = new Buffer(req.originalUrl).toString( 'base64' );
 
-        return res.redirect( `/${req.agenda.slug}/signin?msg=limitedAccessEvent&redirect=${redirect}` );
+        return res.redirect( `${req.agenda?'/'+req.agenda.slug:''}/signin?msg=limitedAccessEvent&redirect=${redirect}` );
 
       }
 
