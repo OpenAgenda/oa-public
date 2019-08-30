@@ -30,7 +30,8 @@ function _getQueryAndOptions({ knex, schema }, identifier, options = {}) {
           'credential',
           'user_uid',
           'store',
-          'deleted_user'
+          'deleted_user',
+          'actions_counter'
         ].concat(legacy ? ['user_id', 'review_id'] : [])
       )
       .where(where),
