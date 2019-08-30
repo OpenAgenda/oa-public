@@ -74,7 +74,10 @@ module.exports.expose = app => {
     setFlashAccountRemoved()
   );
 
-  app.use('/users', express.errorHandler({ html: false }));
+  app.use('/users', express.errorHandler({
+    html: false,
+    logger: null
+  }));
 };
 
 module.exports.init = config => {

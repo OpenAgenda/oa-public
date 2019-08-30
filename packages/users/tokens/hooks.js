@@ -92,16 +92,14 @@ module.exports = {
 
     if (!(_.get(context, 'error.name') === 'NotFound')) {
       const errorStack = context.error instanceof Error
-        ? VError.fullStack(context.error)
-        : context.error;
+        ? `\n${VError.fullStack(context.error)}`
+        : '';
 
       log.error(
-        `Error in service method '${context.method}'\n${errorStack}\n`,
-        typeof context.error === 'object'
-          ? inspect(_.omit(context.error, ['hook.app', 'hook.service']), {
-            colors: debug.useColors()
-          })
-          : undefined
+        `Error in service method '${context.method}'${errorStack}\n`,
+        inspect(_.omit(context.error, ['hook.app', 'hook.service']), {
+          colors: debug.useColors()
+        })
       );
     }
   }
