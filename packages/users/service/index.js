@@ -116,7 +116,7 @@ class Users extends Service {
     const result = await imageFiles.load({
       path,
       url,
-      formats: this.constructor.getImageFormats(`user.profile.${uid}`)
+      formats: Users.getImageFormats(`user.profile.${uid}`)
     });
 
     await this._patch(
@@ -136,9 +136,10 @@ class Users extends Service {
     const user = await this.get(uid);
 
     const extension = user.image.split('.').pop();
-    const paths = this.constructor
-      .getImageFormats(`user.profile.${user.uid}`, extension)
-      .map(v => v.name);
+    const paths = Users.getImageFormats(
+      `user.profile.${user.uid}`,
+      extension
+    ).map(v => v.name);
 
     await promisify(imageFiles.clear)(paths);
 

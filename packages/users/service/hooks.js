@@ -403,7 +403,7 @@ module.exports = {
     ],
     remove: [],
     setImageProfile: [],
-    clearImageProfile: afterAll,
+    clearImageProfile: [],
     requestChangeEmail: afterAll,
     confirmChangeEmail: afterAll,
     changePassword: afterAll,
