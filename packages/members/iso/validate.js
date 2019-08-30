@@ -51,7 +51,8 @@ const fields = {
       options: Object.values(roles)
     },
     actionsCounter: {
-      type: 'integer'
+      type: 'integer',
+      default: 0
     }
   },
   legacy: {

@@ -9,7 +9,7 @@ const config = require( '../../config' );
 const VError = require( 'verror' );
 const _ = require( 'lodash' );
 const q = require( '@openagenda/queue' )( 'agendaEventsLegacy', { redis: config.redis } );
-const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/legacy' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/legacy' );
 
 const agendaGetOptions = {
   private: null,

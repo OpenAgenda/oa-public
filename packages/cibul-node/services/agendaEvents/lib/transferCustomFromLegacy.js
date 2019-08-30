@@ -8,7 +8,6 @@ const networks = require('../../networks');
 const log = require( '@openagenda/logs' )( 'agendaEvents/transferCustomFromLegacy' );
 
 module.exports = async ( agenda, event ) => {
-
   try {
 
     const network = agenda.networkUid ? await networks.get( agenda.networkUid ) : null;
@@ -26,5 +25,4 @@ module.exports = async ( agenda, event ) => {
   } catch ( e ) {
     log( 'error', 'could not transfer custom data from legacy (%s.%s)', agenda.uid, event.uid, e );
   }
-
 }

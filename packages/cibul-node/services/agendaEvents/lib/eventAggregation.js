@@ -10,7 +10,10 @@ const log = require('@openagenda/logs')('agendaEvents/eventAggregation');
 
 const membersSvc = require('../../members');
 
+const eventLink = require('./utils/eventLink');
+
 module.exports = async (config, { eventUid, aggregatorAgendaUid, sourceAgendaUid, state }) => {
+  log('processing');
   try {
     const event = await eventSvc.get({ uid: eventUid });
 
@@ -40,6 +43,7 @@ module.exports = async (config, { eventUid, aggregatorAgendaUid, sourceAgendaUid
   } catch (e) {
     log('error', e);
   }
+  log('done');
 }
 
 
@@ -50,7 +54,7 @@ function _sendEmail({ root }, member, agenda, sourceAgenda, event, state) {
 
   const eventTitle = event.title[ lang ] || _.find( event.title );
 
-  const link = `${root}/${agenda.slug}/events/${event.slug}`;
+  const link = eventLink(root, agenda, event);
 
   switch ( state ) {
     case agendaEventStates.TOCONTROL:
