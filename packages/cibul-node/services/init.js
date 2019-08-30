@@ -8,7 +8,6 @@ const debug = require('debug');
 const VError = require('verror');
 const logs = require('@openagenda/logs');
 const schema = require('@openagenda/validators/schema');
-const app = require('../app');
 
 
 schema.register({
