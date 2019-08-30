@@ -1,26 +1,26 @@
 "use strict";
 
-const { promisify } = require( 'util' );
-const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const { promisify } = require('util');
+const _ = require('lodash');
+const VError = require('verror');
 
-const log = require( '@openagenda/logs' )( 'agendaEvents/onCreate' );
+const log = require('@openagenda/logs' )( 'agendaEvents/onCreate');
 
-const custom = require( '@openagenda/custom' );
-const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
+const custom = require('@openagenda/custom');
 
-const aggregatorNotify = require( './lib/aggregatorNotify' );
-const eventAggregation = require( './lib/eventAggregation' );
-const legacyEventSearch = require( '../elasticsearch' );
-const eventSearch = require( '../eventSearch' );
-const activitiesSvc = require( '../activities' );
-const fallbackContextGet = require( './lib/fallbackContextGet' );
-const sendEventCreation = require( './lib/sendEventCreation' );
-const sendEventAggregation = require( './lib/sendEventAggregation' );
-const sendEventAddition = require( './lib/sendEventAddition' );
+const aggregatorNotify = require('./lib/aggregatorNotify');
+const eventAggregation = require('./lib/eventAggregation');
+const legacyEventSearch = require('../elasticsearch');
+const eventSearch = require('../eventSearch');
+const activitiesSvc = require('../activities');
+const fallbackContextGet = require('./lib/fallbackContextGet');
+const sendEventCreation = require('./lib/sendEventCreation');
+const sendEventAggregation = require('./lib/sendEventAggregation');
+const sendEventAddition = require('./lib/sendEventAddition');
 
-const controlDataSvc = require( '../legacy' ).controlData;
-const usersSvc = require( '../users' );
+const controlDataSvc = require('../legacy').controlData;
+const membersSvc = require('../members');
+const usersSvc = require('../users');
 
 module.exports = async ( config, ae, context ) => {
 
@@ -54,7 +54,7 @@ module.exports = async ( config, ae, context ) => {
     if ( ae.agendaUid === event.agendaUid ) {
       // Creation
       try {
-        await sendEventCreation( { agendaEvent: ae, context } );
+        await sendEventCreation(config, { agendaEvent: ae, context });
       } catch ( error ) {
         log.error( new VError( error, 'Cannot send event creation emails' ) );
       }
@@ -69,7 +69,7 @@ module.exports = async ( config, ae, context ) => {
   } else if ( context.aggregated ) {
     // Aggregation
     try {
-      await sendEventAggregation( { agendaEvent: ae, context } );
+      await sendEventAggregation(config, { agendaEvent: ae, context });
     } catch ( error ) {
       log.error( new VError( error, 'Cannot send event aggregation emails' ) );
     }
@@ -200,13 +200,12 @@ async function _addToSearchIndex( ae ) {
 
 }
 
-async function _addEventCreationActivity( eventFeed, { agenda, event, user }, context ) {
-
-  if ( !user ) {
+async function _addEventCreationActivity(eventFeed, { agenda, event, user }, context) {
+  if (!user) {
     return log( 'error', new VError( 'user of uid %s not found', context.userUid ) );
   }
 
-  await activitiesSvc.feed( eventFeed ).activities.add( {
+  await activitiesSvc.feed(eventFeed).activities.add({
     actor: 'user:' + user.uid,
     verb: 'event.create',
     object: 'event:' + event.uid,
@@ -218,14 +217,15 @@ async function _addEventCreationActivity( eventFeed, { agenda, event, user }, co
         target: agenda.title
       }
     }
-  } );
+  });
 
-  await promisify( stakeholdersSvc.agenda( agenda.id ).increment )( { userId: user.id } );
-
+  await membersSvc.patch.actions.increment({
+    agendaUid: agenda.uid,
+    userUid: user.uid
+  });
 }
 
-async function _addEventAggregationActivity( eventFeed, { agenda, event }, context ) {
-
+async function _addEventAggregationActivity(eventFeed, { agenda, event }, context) {
   const { sourceAgenda } = context;
 
   await activitiesSvc.feed( eventFeed ).activities.add( {
@@ -241,14 +241,12 @@ async function _addEventAggregationActivity( eventFeed, { agenda, event }, conte
       }
     }
   } );
-
 }
 
-async function _addEventAdditionActivity( eventFeed, { agenda, user, event }, context ) {
-
+async function _addEventAdditionActivity(eventFeed, { agenda, user, event }, context) {
   const { sourceAgenda } = context;
 
-  await activitiesSvc.feed( eventFeed ).activities.add( {
+  await activitiesSvc.feed(eventFeed).activities.add( {
     actor: 'user:' + user.uid,
     verb: 'agenda.addEvent',
     object: 'event:' + event.uid,
@@ -263,5 +261,4 @@ async function _addEventAdditionActivity( eventFeed, { agenda, user, event }, co
       sourceAgenda: sourceAgenda.uid
     }
   } );
-
 }

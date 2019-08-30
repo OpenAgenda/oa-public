@@ -17,7 +17,7 @@ const sendEventChangeState = require( './lib/sendEventChangeState' );
 const transferCustomFromLegacy = require( './lib/transferCustomFromLegacy' );
 const createActivities = require( './lib/createActivities' );
 
-module.exports = async ( before, after, context ) => {
+module.exports = async (config, before, after, context) => {
   log( 'updated agenda-event from %j to %j', before, after );
   log( '%sfrom legacy', context.legacy ? '' : 'not ' );
 
@@ -68,16 +68,16 @@ module.exports = async ( before, after, context ) => {
     // eventUpdate
     // myEventUpdate
     try {
-      await sendEventUpdate( { agendaEvent: after, before, context, agenda, event } );
-    } catch ( error ) {
-      log.error( new VError( error, 'Cannot send event update emails' ) );
+      await sendEventUpdate(config, { agendaEvent: after, before, context, agenda, event });
+    } catch (error) {
+      log.error( new VError(error, 'Cannot send event update emails' ));
     }
   } else {
     // eventChangeState
     // myEventChangeState
     try {
-      await sendEventChangeState( { agendaEvent: after, before, context, agenda, event } );
-    } catch ( error ) {
+      await sendEventChangeState(config, { agendaEvent: after, before, context, agenda, event });
+    } catch (error) {
       log.error( new VError( error, 'Cannot send event change state emails' ) );
     }
   }

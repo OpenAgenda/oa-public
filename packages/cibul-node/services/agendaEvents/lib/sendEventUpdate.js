@@ -1,34 +1,29 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const { promisify } = require( 'util' );
 
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventUpdate' );
 const mails = require( '@openagenda/mails' );
-const membersSvc = require( '@openagenda/agenda-stakeholders' );
 
+const membersSvc = require( '../../members' );
 const usersSvc = require( '../../users' );
 const genUrl = require( '../../genUrl' );
 
+const agendaLogo = require('./utils/agendaLogo');
+const eventLink = require('./utils/eventLink');
+const listAdminMods = require('./utils/listAdminMods').bind(null, membersSvc);
 
-module.exports = async ( { agendaEvent, context, agenda, event } ) => {
-
-  if ( _.get( context, 'batched' ) ) {
-
-    log( 'part of batch, not sending event update emails' );
-
+module.exports = async ({ root }, { agendaEvent, context, agenda, event }) => {
+  log('processing');
+  if (_.get(context, 'batched')) {
+    log('part of batch, not sending event update emails');
     return;
-
   }
 
   let stateLabel;
 
-  // const { agenda, event } = context;
-  const link = genUrl( 'agendaEventShow', {
-    slug: agenda.slug,
-    eventSlug: event.slug
-  }, { abs: true } );
+  const link = eventLink(root, agenda, event);
 
   switch ( agendaEvent.state ) {
     case agendaEventStates.TOCONTROL:
@@ -42,21 +37,22 @@ module.exports = async ( { agendaEvent, context, agenda, event } ) => {
       break;
   }
 
-  const logo = agenda && agenda.image
-    ? { src: agenda.image.replace( '.com/', '.com/rwtb' ), width: '100px' }
-    : { src: 'https://openagenda.com/images/openagenda.png', width: '300px' };
+  const logo = agendaLogo(agenda);
 
-  const members = await listAdminmods( { agenda } );
+  const members = await listAdminMods(agenda.uid);
 
-  const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );
-  const creator = await promisify( membersSvc.agenda( agenda.id ).get )( { userId: creatorUser.id } );
+  const creatorUser = await usersSvc.findOne({
+    query: { uid: event.creatorUid }
+  });
+  const creator = await membersSvc.get({
+    agendaUid: agenda.uid,
+    userUid: creatorUser.uid
+  });
   const creatorLang = creatorUser.culture || 'fr';
 
-  if ( !creator ) {
-
+  if (!creator) {
     log( 'creator member was not found for user of uid % in agenda %s', event.creatorUid, agenda.slug );
-
-  } else if ( agendaEvent.agendaUid === event.agendaUid ) {
+  } else if (agendaEvent.agendaUid === event.agendaUid) {
 
      await mails( {
       template: 'myEventUpdate',
@@ -82,7 +78,6 @@ module.exports = async ( { agendaEvent, context, agenda, event } ) => {
     } );
 
   }
-
 
   await mails( {
     template: 'eventUpdate',
@@ -116,22 +111,5 @@ module.exports = async ( { agendaEvent, context, agenda, event } ) => {
       link
     }
   } );
-
+  log('done');
 };
-
-
-async function listAdminmods( { agenda } ) {
-  let offset = 0;
-  const members = [];
-  let result;
-
-  const _list = promisify( membersSvc.agenda( agenda.id ).list );
-
-  while ( ( result = await _list( { credentials: [ 3, 2 ] }, offset, 50, { detailed: true } ) ).length ) {
-    Array.prototype.push.apply( members, result );
-
-    offset += result.length;
-  }
-
-  return members;
-}

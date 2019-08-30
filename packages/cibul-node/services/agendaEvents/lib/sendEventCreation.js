@@ -5,12 +5,16 @@ const mails = require( '@openagenda/mails' );
 const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
 
 const membersSvc = require( '../../members' );
-const genUrl = require( '../../genUrl' );
 const usersSvc = require( '../../users' );
+
+const agendaLogo = require('./utils/agendaLogo');
+const eventLink = require('./utils/eventLink');
+const listAdminMods = require('./utils/listAdminMods').bind(null, membersSvc);
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventCreation' );
 
-module.exports = async ( { agendaEvent, context } ) => {
+module.exports = async ({ root }, { agendaEvent, context }) => {
+  log('processing');
   const { agenda, event } = context;
   const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );
   const creatorMemberId = await membersSvc.get( {
@@ -25,10 +29,7 @@ module.exports = async ( { agendaEvent, context } ) => {
 
   let stateLabel;
 
-  const link = genUrl( 'agendaEventShow', {
-    slug: agenda.slug,
-    eventSlug: event.slug
-  }, { abs: true } );
+  const link = eventLink(root, agenda, event);
 
   switch ( agendaEvent.state ) {
     case agendaEventStates.TOCONTROL:
@@ -42,11 +43,9 @@ module.exports = async ( { agendaEvent, context } ) => {
       break;
   }
 
-  const logo = agenda && agenda.image
-    ? { src: agenda.image.replace( '.com/', '.com/rwtb' ), width: '100px' }
-    : { src: 'https://openagenda.com/images/openagenda.png', width: '300px' };
+  const logo = agendaLogo(agenda);
 
-  const members = await _listAdminMods( agenda.uid );
+  const members = await listAdminMods(agenda.uid);
 
   if ( creatorMemberId ) {
     await mails( {
@@ -113,26 +112,5 @@ module.exports = async ( { agendaEvent, context } ) => {
       link
     }
   } );
-
-
+  log('done');
 };
-
-function _listAdminMods( agendaUid ) {
-  return new Promise( ( rs, rj ) => {
-    const stream = membersSvc.stream( {
-      agendaUid,
-      role: [ 'administrator', 'moderator' ],
-      withUser: true
-    }, {}, { detailed: true } );
-
-    const members = [];
-
-    stream.on( 'data', member => {
-      members.push( member );
-    } );
-    stream.on( 'end', () => {
-      rs( members );
-    } );
-    stream.on( 'error', rj );
-  } );
-}

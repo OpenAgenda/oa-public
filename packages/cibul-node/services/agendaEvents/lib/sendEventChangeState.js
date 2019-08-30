@@ -1,48 +1,44 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const { promisify } = require( 'util' );
-const VError = require( 'verror' );
-const marked = require( 'marked' );
+const _ = require('lodash');
+const VError = require('verror');
+const marked = require('marked');
 
-const agendaEventStates = require( '@openagenda/agenda-events/iso/states' );
-const mails = require( '@openagenda/mails' );
-const membersSvc = require( '@openagenda/agenda-stakeholders' );
+const agendaEventStates = require('@openagenda/agenda-events/iso/states');
+const mails = require('@openagenda/mails');
 
-const usersSvc = require( '../../users' );
-const genUrl = require( '../../genUrl' );
+const membersSvc = require('../../members');
+const usersSvc = require('../../users');
 
-const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/sendEventChangeState' );
+const agendaLogo = require('./utils/agendaLogo');
+const eventLink = require('./utils/eventLink');
+const listAdminMods = require('./utils/listAdminMods').bind(null, membersSvc);
 
-module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
+const log = require('@openagenda/logs' )( 'agendaEvents/sendEventChangeState');
 
-  // const { agenda, event } = context;
-  const afterStateLabel = getStateLabel( agendaEvent.state );
-  const beforeStateLabel = getStateLabel( before.state );
+module.exports = async ({ root }, { agendaEvent, before, context, agenda, event }) => {
+  log('processing');
+  const afterStateLabel = getStateLabel(agendaEvent.state);
+  const beforeStateLabel = getStateLabel(before.state);
 
-  const link = genUrl( 'agendaEventShow', {
-    slug: agenda.slug,
-    eventSlug: event.slug
-  }, { abs: true } );
+  const link = eventLink(root, agenda, event);
+  const logo = agendaLogo(agenda);
 
-  const logo = agenda && agenda.image
-    ? { src: agenda.image.replace( '.com/', '.com/rwtb' ), width: '100px' }
-    : { src: 'https://openagenda.com/images/openagenda.png', width: '300px' };
+  const members = await listAdminMods(agenda.uid);
 
-  const members = await listAdminmods( { agenda } );
+  const contributorUser = await usersSvc.findOne({
+    query: { uid: agendaEvent.userUid }
+  });
 
-  const contributorUser = await usersSvc.findOne( { query: { uid: agendaEvent.userUid } } );
-
-  const contributor = contributorUser ? await promisify( membersSvc.agenda( agenda.id ).get )( { userId: contributorUser.id } ) : null;
+  const contributor = contributorUser ? await membersSvc.get({
+    agendaUid: agenda.uid,
+    userUid: contributorUser.uid
+  }) : null;
 
   if ( agendaEvent.agendaUid === event.agendaUid ) {
-
     if ( !contributorUser ) {
-
       throw new VError( 'User matching agendaEvent.userUid %s was not found', _.get( agendaEvent, 'userUid' ) );
-
     } else {
-
       await _sendToContributor( {
         contributor,
         contributorUser,
@@ -54,17 +50,12 @@ module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
         beforeStateLabel,
         afterStateLabel
       } );
-
     }
-
   }
 
-  if ( _.get( context, 'batched' ) ) {
-
-    log( 'part of batch, not sending change state email' );
-
+  if (_.get( context, 'batched' )) {
+    log( 'part of batch, not sending change state email');
     return;
-
   }
 
   await mails( {
@@ -72,16 +63,13 @@ module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
     to: members
       .filter( member => member.id !== _.get( contributor, 'id' ) )
       .filter( member => {
-
         if ( !member.user ) {
           log( 'warn', 'no user was found matching member %s', member.id );
         }
 
         return !!member.user;
-
       } )
       .map( member => {
-
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[ lang ] || _.find( event.title );
 
@@ -109,8 +97,7 @@ module.exports = async ( { agendaEvent, before, context, agenda, event } ) => {
       link
     }
   } );
-
-
+  log('done');
 };
 
 
@@ -130,7 +117,7 @@ async function _sendToContributor( {
 
   const sendAgendaPublicationMessage = (
     agendaEvent.state === agendaEventStates.PUBLISHED
-  ) && _.get( agenda, 'settings.contribution.messages.publication' );
+  ) && _.get( agenda, 'settings.contribution.messages.publication');
 
   const to = {
     address: contributorUser.email,
@@ -181,22 +168,6 @@ async function _sendToContributor( {
 
   }
 
-}
-
-async function listAdminmods( { agenda } ) {
-  let offset = 0;
-  const members = [];
-  let result;
-
-  const _list = promisify( membersSvc.agenda( agenda.id ).list );
-
-  while ( ( result = await _list( { credentials: [ 3, 2 ] }, offset, 50, { detailed: true } ) ).length ) {
-    Array.prototype.push.apply( members, result );
-
-    offset += result.length;
-  }
-
-  return members;
 }
 
 function getStateLabel( state ) {

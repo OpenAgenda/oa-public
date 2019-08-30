@@ -10,9 +10,11 @@ module.exports = async ( { agenda, event, user }, before, after ) => {
   const hasUnpublished = before.state === 2 && after.state !== 2;
   const hasPublished = after.state === 2 && before.state !== 2;
 
+  let result;
+
   if ( hasUnpublished || hasPublished ) {
     log( before.state === 2 ? 'unpublishing' : 'publishing' );
-    return activitiesSvc.feed( {
+    result = await activitiesSvc.feed( {
       entityType: 'event',
       entityUid: event.uid
     } ).activities.add( {
@@ -31,7 +33,7 @@ module.exports = async ( { agenda, event, user }, before, after ) => {
       }
     } );
   } else if ( before.state !== after.state ) {
-    return activitiesSvc.feed( {
+    result = await activitiesSvc.feed( {
       entityType: 'agenda',
       entityUid: agenda.uid
     } ).activities.add( {
@@ -50,4 +52,7 @@ module.exports = async ( { agenda, event, user }, before, after ) => {
       }
     } );
   }
+
+  log('done');
+  return result;
 }

@@ -51,8 +51,8 @@ function init(config) {
     },
     eventStates,
     interfaces: {
-      onCreate: onCreate.bind( null, config ),
-      onUpdate,
+      onCreate: onCreate.bind(null, config),
+      onUpdate: onUpdate.bind(null, config),
       onRemove,
       beforeRemove,
     }
