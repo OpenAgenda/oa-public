@@ -4,8 +4,8 @@ const CLOSE = 'member-apps/modals/CLOSE';
 
 const initialState = {};
 
-export default function reducer( state = initialState, action ) {
-  switch ( action.type ) {
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
     case SHOW:
       return {
         ...state,
@@ -35,7 +35,7 @@ export default function reducer( state = initialState, action ) {
   }
 }
 
-export function showModal( name, options = {} ) {
+export function showModal(name, options = {}) {
   return {
     type: SHOW,
     name,
@@ -43,7 +43,7 @@ export function showModal( name, options = {} ) {
   };
 }
 
-export function setModal( name, options = {} ) {
+export function setModal(name, options = {}) {
   return {
     type: SET,
     name,
@@ -51,7 +51,7 @@ export function setModal( name, options = {} ) {
   };
 }
 
-export function closeModal( name ) {
+export function closeModal(name) {
   return {
     type: CLOSE,
     name

@@ -1,3 +1,5 @@
+/* global __CLIENT__, __DEVELOPMENT__ */
+
 import React from 'react';
 import { trigger } from 'redial';
 import { createBrowserHistory, createMemoryHistory } from 'history';
@@ -15,26 +17,26 @@ import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import getReducers from './redux/reducer';
 import getRoutes from './getRoutes';
 
-function getDefaultHistory( req ) {
+function getDefaultHistory(req) {
   return req
-    ? createMemoryHistory( { initialEntries: [ req.originalUrl ] } )
+    ? createMemoryHistory({ initialEntries: [req.originalUrl] })
     : createBrowserHistory();
 }
 
-export default function ( options ) {
+export default function (options) {
   const { initialState, req } = options;
   const { apiRoot, prefix } = initialState.settings;
 
-  const client = apiClient( apiRoot, req );
-  const history = options.history || getDefaultHistory( req );
+  const client = apiClient(apiRoot, req);
+  const history = options.history || getDefaultHistory(req);
   const helpers = {};
   const store = createStore(
-    getReducers.bind( null, history ),
+    getReducers.bind(null, history),
     initialState,
     compose(
       applyMiddleware(
-        routerMiddleware( history ),
-        clientMiddleware( helpers )
+        routerMiddleware(history),
+        clientMiddleware(helpers)
         // ... other middlewares ... (like redux-logger)
       ),
       __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
@@ -42,33 +44,36 @@ export default function ( options ) {
         : v => v
     )
   );
-  Object.assign( helpers, {
+  Object.assign(helpers, {
     client,
     store,
     history,
     location: history.location
-  } );
+  });
   const context = {};
 
-  const routes = getRoutes( prefix );
+  const routes = getRoutes(prefix);
   const content = (
     <RouterRedialTrigger routes={routes} helpers={helpers}>
-      {renderRoutes( routes )}
+      {renderRoutes(routes)}
     </RouterRedialTrigger>
   );
   const element = (
     <Provider store={store} context={ReactReduxContext}>
       <ConnectedRouter history={history} context={ReactReduxContext}>
         <ScrollToTop>
-          {req
-            ? (
-              <Route
-                path={prefix}
-                component={() =>
-                  <StaticRouter location={req.originalUrl} context={context}>{content}</StaticRouter>
-                }
-              />
-            ) : content}
+          {req ? (
+            <Route
+              path={prefix}
+              component={() => (
+                <StaticRouter location={req.originalUrl} context={context}>
+                  {content}
+                </StaticRouter>
+              )}
+            />
+          ) : (
+            content
+          )}
         </ScrollToTop>
       </ConnectedRouter>
     </Provider>
@@ -92,16 +97,16 @@ export default function ( options ) {
       };
 
       // Don't fetch data for initial route, server has already done the work:
-      if ( !req && typeof window !== 'undefined' && window.__PRELOADED__ ) {
+      if (!req && typeof window !== 'undefined' && window.__PRELOADED__) {
         // Delete initial data so that subsequent data fetches can occur:
         delete window.__PRELOADED__;
       } else {
         // Fetch mandatory data dependencies for 2nd route change onwards:
-        await trigger( 'fetch', components, triggerLocals );
+        await trigger('fetch', components, triggerLocals);
       }
 
-      if ( !req ) {
-        await trigger( 'defer', components, triggerLocals );
+      if (!req) {
+        await trigger('defer', components, triggerLocals);
       }
     }
   };

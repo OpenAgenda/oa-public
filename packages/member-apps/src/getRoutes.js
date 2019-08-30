@@ -1,8 +1,7 @@
-import React from 'react';
 import NotFound from '@openagenda/react-utils/dist/NotFound';
 import { App, Dashboard } from './containers';
 
-export default function ( prefix = '' ) {
+export default function (prefix = '') {
   return [
     {
       component: App,
@@ -12,4 +11,4 @@ export default function ( prefix = '' ) {
       ]
     }
   ];
-};
+}

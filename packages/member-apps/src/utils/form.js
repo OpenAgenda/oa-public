@@ -1,6 +1,7 @@
 import React from 'react';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import MarkdownComponent from '@openagenda/react-form-components/build/MarkdownComponent';
+import I18nContext from '../contexts/I18nContext';
 
 const searchSpinner = {
   width: 1,
@@ -8,114 +9,197 @@ const searchSpinner = {
   radius: 4
 };
 
-export function renderField( {
-                               content, input: { name, value }, label, subLabel, max, classNameGroup, visible,
-                               displayError, displayFeedback = true, errorOnDirty, meta
-                             } ) {
-
+export function renderField({
+  content,
+  input: { name, value },
+  label,
+  subLabel,
+  max,
+  classNameGroup,
+  visible,
+  displayError,
+  displayFeedback = true,
+  errorOnDirty,
+  meta
+}) {
   const { touched, error, dirty } = meta;
-  displayError = displayError ? displayError( meta ) : (errorOnDirty ? dirty || touched : touched);
+  let errorDisplayed;
 
-  if ( visible === false ) return <div></div>;
+  if (displayError) {
+    errorDisplayed = displayError(meta);
+  } else if (errorOnDirty) {
+    errorDisplayed = dirty || touched;
+  } else {
+    errorDisplayed = touched;
+  }
+
+  if (visible === false) {
+    return <div />;
+  }
 
   return (
-    <div className={`form-group ${classNameGroup} ${displayError && error ? 'has-error has-feedback' : ''}`}>
-      {label && <label htmlFor={name}>{label}</label>}
-      {subLabel}
-      {content}
-      {displayError && displayFeedback && error && <span className="form-control-feedback">
-          <i className="fa fa-times" aria-hidden="true"></i>
-        </span>}
-      {displayError && error && <div className={`text-danger ${max && 'pull-left' || ''}`}>
-        {this.context.getLabel( error )}
-      </div>}
-      {max && <div className={`text-right ${max - value.length < 0 && 'text-danger' || ''}`}>
-        {max - value.length}
-      </div>}
-    </div>
+    <I18nContext.Consumer>
+      {({ getLabel }) => (
+        <div
+          className={`form-group ${classNameGroup} ${
+            errorDisplayed && error ? 'has-error has-feedback' : ''
+          }`}
+        >
+          {label && <label htmlFor={name}>{label}</label>}
+          {subLabel}
+          {content}
+          {errorDisplayed && displayFeedback && error && (
+            <span className="form-control-feedback">
+              <i className="fa fa-times" aria-hidden="true" />
+            </span>
+          )}
+          {errorDisplayed && error && (
+            <div className={`text-danger ${(max && 'pull-left') || ''}`}>
+              {getLabel(error)}
+            </div>
+          )}
+          {max && (
+            <div
+              className={`text-right ${(max - value.length < 0
+                && 'text-danger')
+                || ''}`}
+            >
+              {max - value.length}
+            </div>
+          )}
+        </div>
+      )}
+    </I18nContext.Consumer>
   );
-
 }
 
-export function renderInput( { placeholder, className, spellCheck, ...props } ) {
-
+export function renderInput({
+  placeholder, className, spellCheck, ...props
+}) {
   const inputAttrs = { placeholder, className, spellCheck };
 
   const content = <input {...props.input} {...inputAttrs} />;
 
-  return this::renderField( { content, ...props } );
-
+  return this::renderField({ content, ...props });
 }
 
-export function renderCheckbox( { label, placeholder, className, spellCheck, ...props } ) {
-
-  const inputAttrs = { placeholder, className, spellCheck };
+export function renderCheckbox({
+  label,
+  id,
+  placeholder,
+  className,
+  spellCheck,
+  ...props
+}) {
+  const inputAttrs = {
+    id,
+    placeholder,
+    className,
+    spellCheck
+  };
 
   const content = (
     <div className="checkbox">
-      <label>
+      <label htmlFor={props.id}>
         <input type="checkbox" {...props.input} {...inputAttrs} />
         {label}
       </label>
     </div>
   );
 
-  return this::renderField( { content, ...props } );
-
+  return this::renderField({ content, ...props });
 }
 
-export function renderTextarea( { placeholder, className, rows, cols, spellCheck, ...props } ) {
+export function renderTextarea({
+  placeholder,
+  className,
+  rows,
+  cols,
+  spellCheck,
+  ...props
+}) {
+  const inputAttrs = {
+    placeholder,
+    className,
+    rows,
+    cols,
+    spellCheck
+  };
 
-  const inputAttrs = { placeholder, className, rows, cols, spellCheck };
+  const content = (
+    <div>
+      <textarea {...props.input} {...inputAttrs} />
+    </div>
+  );
 
-  const content = <div>
-    <textarea {...props.input} {...inputAttrs} />
-  </div>;
-
-  return this::renderField( { content, ...props } );
-
+  return this::renderField({ content, ...props });
 }
 
-export function renderSelect( { className, children, ...props } ) {
-
+export function renderSelect({ className, children, ...props }) {
   const inputAttrs = { className };
 
-  const content = <select {...props.input} {...inputAttrs}>
-    {children}
-  </select>;
+  const content = (
+    <select {...props.input} {...inputAttrs}>
+      {children}
+    </select>
+  );
 
-  return this::renderField( { content, ...props } );
-
+  return this::renderField({ content, ...props });
 }
 
-export function renderSearchInput( { type, placeholder, className, spellCheck, action, loading, ...props } ) {
-
-  const inputAttrs = { type, placeholder, className, spellCheck };
+export function renderSearchInput({
+  type,
+  placeholder,
+  className,
+  spellCheck,
+  action,
+  loading,
+  ...props
+}) {
+  const inputAttrs = {
+    type,
+    placeholder,
+    className,
+    spellCheck
+  };
   const onChange = e => {
-    props.input.onChange( e.target.value );
+    props.input.onChange(e.target.value);
     action();
   };
 
-  const content = <div className="input-icon-right">
-    <input {...props.input} {...inputAttrs} onChange={onChange} />
-    <button type="submit" className="btn">
-      {loading ? <Spinner spinner={searchSpinner} /> : <i className="fa fa-search" aria-hidden="true"></i>}
-    </button>
-  </div>;
+  const content = (
+    <div className="input-icon-right">
+      <input {...props.input} {...inputAttrs} onChange={onChange} />
+      <button type="submit" className="btn">
+        {loading ? (
+          <Spinner spinner={searchSpinner} />
+        ) : (
+          <i className="fa fa-search" aria-hidden="true" />
+        )}
+      </button>
+    </div>
+  );
 
-  return this::renderField( { content, ...props } );
+  return this::renderField({ content, ...props });
+}
 
-};
+export function renderMarkdownInput({
+  lang = 'fr',
+  label,
+  placeholder,
+  className,
+  loadComponent,
+  ...props
+}) {
+  const inputAttrs = {
+    lang,
+    placeholder,
+    label,
+    className,
+    loadComponent
+  };
 
-export function renderMarkdownInput( { lang = 'fr', label, placeholder, className, loadComponent, ...props } ) {
+  const content = <MarkdownComponent {...props.input} {...inputAttrs} />;
 
-  const inputAttrs = { lang, placeholder, label, className, loadComponent };
-
-  const content = <MarkdownComponent
-    {...props.input}
-    {...inputAttrs}
-  />;
-
-  return this::renderField( { content, ...props } );
-
-};
+  return this::renderField({ content, ...props });
+}

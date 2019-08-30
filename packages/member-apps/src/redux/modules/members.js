@@ -33,15 +33,13 @@ const SEND_MESSAGE = 'member-apps/members/SEND_MESSAGE';
 const SEND_MESSAGE_SUCCESS = 'member-apps/members/SEND_MESSAGE_SUCCESS';
 const SEND_MESSAGE_FAIL = 'member-apps/members/SEND_MESSAGE_FAIL';
 
-
 const initialState = {
   loaded: false,
   credFilters: []
 };
 
-export default function reducer( state = initialState, action ) {
-
-  switch ( action.type ) {
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
     case LOAD:
       return {
         ...state,
@@ -53,7 +51,7 @@ export default function reducer( state = initialState, action ) {
         loaded: true,
         data: action.result.members,
         total: action.result.total,
-        credFilters: [].concat( action.query.credentials || [] ),
+        credFilters: [].concat(action.query.credentials || []),
         page: 1,
         error: null,
         loading: false
@@ -103,7 +101,7 @@ export default function reducer( state = initialState, action ) {
     case NEXT_PAGE_SUCCESS:
       return {
         ...state,
-        data: [ ...state.data, ...action.result.members ],
+        data: [...state.data, ...action.result.members],
         total: action.result.total,
         page: action.page,
         error: null,
@@ -120,18 +118,21 @@ export default function reducer( state = initialState, action ) {
         ...state,
         updateLoading: true
       };
-    case UPDATE_SUCCESS:
-      const data = state.data.map( sh => (sh.id === action.id ? {
-        ...sh,
-        role: action.result.role || sh.role,
-        custom: { ...sh.custom, ...action.result.custom }
-      } : sh) );
+    case UPDATE_SUCCESS: {
+      const data = state.data.map(sh => (sh.id === action.id
+        ? {
+          ...sh,
+          role: action.result.role || sh.role,
+          custom: { ...sh.custom, ...action.result.custom }
+        }
+        : sh));
       return {
         ...state,
         data,
         updateError: null,
         updateLoading: false
       };
+    }
     case UPDATE_FAIL:
       return {
         ...state,
@@ -157,23 +158,24 @@ export default function reducer( state = initialState, action ) {
         inviteLoading: false,
         showInviteResult: true
       };
-    case REMOVE_SUCCESS:
-      const index = state.data.findIndex( sh => sh.id === action.id );
-      const member = state.data[ index ];
-      const role = getRoleSlug( member.role );
+    case REMOVE_SUCCESS: {
+      const index = state.data.findIndex(sh => sh.id === action.id);
+      const member = state.data[index];
+      const role = getRoleSlug(member.role);
       return {
         ...state,
-        data: [ ...state.data.slice( 0, index ), ...state.data.slice( index + 1 ) ],
+        data: [...state.data.slice(0, index), ...state.data.slice(index + 1)],
         total: state.total - 1,
         stats: {
           ...state.stats,
           total: state.stats.total - 1,
           totalPerRole: {
             ...state.stats.totalPerRole,
-            [ role ]: state.stats.totalPerRole[ role ] - 1
+            [role]: state.stats.totalPerRole[role] - 1
           }
         }
       };
+    }
     case CLEAN_INVITE_RESULT:
       return {
         ...state,
@@ -183,12 +185,12 @@ export default function reducer( state = initialState, action ) {
     case ADD_CRED_FILTER:
       return {
         ...state,
-        credFilters: [ ...state.credFilters, action.role ]
+        credFilters: [...state.credFilters, action.role]
       };
     case REMOVE_CRED_FILTER:
       return {
         ...state,
-        credFilters: state.credFilters.filter( role => role !== action.role )
+        credFilters: state.credFilters.filter(role => role !== action.role)
       };
     case CLEAN_CRED_FILTERS:
       return {
@@ -197,110 +199,111 @@ export default function reducer( state = initialState, action ) {
       };
     default:
       return state;
-
   }
-
 }
 
-export function isLoaded( globalState ) {
+export function isLoaded(globalState) {
   return globalState.members && globalState.members.loaded;
 }
 
-export function load( query = {} ) {
+export function load(query = {}) {
   return {
-    types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
+    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     query,
-    promise: ( { client }, { getState } ) => {
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.list, { params: query } );
+      return client.get(res.list, { params: query });
     }
   };
 }
 
 export function getStats() {
   return {
-    types: [ GET_STATS, GET_STATS_SUCCESS, GET_STATS_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [GET_STATS, GET_STATS_SUCCESS, GET_STATS_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.stats );
+      return client.get(res.stats);
     }
   };
 }
 
-export function list( query = {} ) {
+export function list(query = {}) {
   return {
-    types: [ LIST, LIST_SUCCESS, LIST_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [LIST, LIST_SUCCESS, LIST_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.list, { params: query } );
+      return client.get(res.list, { params: query });
     }
   };
 }
 
-export function nextPage( query, page ) {
+export function nextPage(query, page) {
   return {
-    types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
+    types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
     page,
-    promise: ( { client }, { getState } ) => {
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.list, {
+      return client.get(res.list, {
         params: {
           ...query,
           page
         }
-      } );
+      });
     }
   };
 }
 
-export function update( id, values ) {
+export function update(id, values) {
   return {
-    types: [ UPDATE, UPDATE_SUCCESS, UPDATE_FAIL ],
+    types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
     id,
-    promise: ( { client }, { getState } ) => {
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.patch( res.update.replace( ':id', id ), {
-        custom: _.omit( values, 'role' ),
+      return client.patch(res.update.replace(':id', id), {
+        custom: _.omit(values, 'role'),
         role: values.role
-      } );
-
+      });
     }
   };
 }
 
-export function invite( data ) {
+export function invite(data) {
   return {
-    types: [ INVITE, INVITE_SUCCESS, INVITE_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [INVITE, INVITE_SUCCESS, INVITE_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
-      const emails = _.get( data, 'emails', [] )
-        .split( /[\s\n,]+/ )
-        .map( email => email.trim() )
-        .filter( email => !!email )
+      const emails = _.get(data, 'emails', [])
+        .split(/[\s\n,]+/)
+        .map(email => email.trim())
+        .filter(email => !!email);
 
-      return client.post( res.invite, {
+      return client.post(res.invite, {
         emails,
         role: data.role,
         context: {
           message: data.message
         }
-      } );
+      });
     }
   };
 }
 
-export function resendInvitation( id ) {
+export function resendInvitation(id) {
   return {
-    types: [ RESEND_INVITATION, RESEND_INVITATION_SUCCESS, RESEND_INVITATION_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [
+      RESEND_INVITATION,
+      RESEND_INVITATION_SUCCESS,
+      RESEND_INVITATION_FAIL
+    ],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.put( res.resend.replace( ':id', id ), {} );
+      return client.put(res.resend.replace(':id', id), {});
     }
   };
 }
@@ -311,37 +314,37 @@ export function cleanInviteResult() {
   };
 }
 
-export function remove( id ) {
+export function remove(id) {
   return {
-    types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
+    types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
     id,
-    promise: ( { client }, { getState } ) => {
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.delete( res.remove.replace( ':id', id ) );
+      return client.delete(res.remove.replace(':id', id));
     }
   };
 }
 
-export function sendMessage( data, query ) {
+export function sendMessage(data, query) {
   return {
-    types: [ SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.post( res.sendMessage, data, { params: query } );
+      return client.post(res.sendMessage, data, { params: query });
     }
   };
 }
 
-export function addCredFilter( role ) {
+export function addCredFilter(role) {
   return {
     type: ADD_CRED_FILTER,
     role
   };
 }
 
-export function removeCredFilter( role ) {
+export function removeCredFilter(role) {
   return {
     type: REMOVE_CRED_FILTER,
     role

@@ -18,7 +18,17 @@
     "knex": "babel-node ./node_modules/.bin/knex",
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
-    "prepublish": "yarn clean && yarn build"
+    "prepublish": "yarn clean && yarn build",
+    "lint": "eslint -c .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc",
+      "git add"
+    ]
   },
   "peerDependencies": {
     "final-form": "^4.18.5",
@@ -34,10 +44,12 @@
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",
+    "@openagenda/validators": "^2.2.1",
     "classnames": "^2.2.5",
     "connected-react-router": "^6.2.2",
     "core-js": "^3.2.1",
     "history": "^4.7.2",
+    "hoist-non-react-statics": "^3.3.0",
     "js-base64": "^2.5.1",
     "knex": "^0.16.3",
     "lodash": "^4.17.4",
@@ -58,6 +70,7 @@
     "@babel/node": "^7.5.5",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
+    "@openagenda/eslint-config": "^1.0.1",
     "@storybook/react": "^5.1.11",
     "babel-loader": "^8.0.6",
     "concurrently": "^4.1.0",
@@ -65,10 +78,13 @@
     "errorhandler": "^1.5.0",
     "express": "^4.16.4",
     "final-form": "^4.18.5",
+    "lint-staged": "^9.2.5",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.9",
+    "prettier-eslint-cli": "^5.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "webpack": "^4.39.3"
   }
 }

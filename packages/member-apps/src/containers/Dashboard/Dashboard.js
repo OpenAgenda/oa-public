@@ -1,6 +1,8 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+/* global __CLIENT__ */
+
+import React, { Component } from 'react';
 import { provideHooks } from 'redial';
+import hoistNonReactStatics from 'hoist-non-react-statics';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
@@ -25,8 +27,11 @@ import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
 import * as membersActions from '../../redux/modules/members';
 import * as modalsActions from '../../redux/modules/modals';
 import { renderField, renderSearchInput } from '../../utils/form';
+import I18nContext from '../../contexts/I18nContext';
 
-function SimpleSelect({ action, children, input, meta, ...otherProps }) {
+function SimpleSelect({
+  action, children, input, meta, ...otherProps
+}) {
   const onChange = e => {
     input.onChange(e);
 
@@ -55,12 +60,17 @@ function OrderField({ action, input, title }) {
 
   return (
     <button
-      role="button"
+      type="button"
       className="btn btn-default"
       title={title}
       onClick={onClick}
     >
-      <i className={`fa fa-sort-amount-${input.value === 'desc' ? 'desc' : 'asc'}`} aria-hidden="true"></i>
+      <i
+        className={`fa fa-sort-amount-${
+          input.value === 'desc' ? 'desc' : 'asc'
+        }`}
+        aria-hidden="true"
+      />
     </button>
   );
 }
@@ -102,96 +112,18 @@ function OrderField({ action, input, title }) {
       perPageLimit: state.settings.perPageLimit,
       modals: state.modals,
       roles: state.agenda.roles
-    }
+    };
   },
   { ...membersActions, ...modalsActions }
 )
 @withRouter
-export default class Dashboard extends Component {
-  static propTypes = {
-    list: PropTypes.func,
-    remove: PropTypes.func,
-    nextPage: PropTypes.func,
-    res: PropTypes.object,
-    userCredential: PropTypes.number,
-    members: PropTypes.array,
-    addCredFilter: PropTypes.func,
-    removeCredFilter: PropTypes.func,
-    cleanCredFilters: PropTypes.func,
-    credFilters: PropTypes.array,
-    page: PropTypes.number,
-    total: PropTypes.number,
-    stats: PropTypes.object,
-    loading: PropTypes.bool,
-    nextLoading: PropTypes.bool,
-    slug: PropTypes.string,
-    perPageLimit: PropTypes.number,
-    showModal: PropTypes.func,
-    closeModal: PropTypes.func,
-    modals: PropTypes.object,
-    stopSubmit: PropTypes.func
-  };
-
-  static contextTypes = {
-    getLabel: PropTypes.func,
-    lang: PropTypes.string
-  };
-
+class Dashboard extends Component {
   constructor(props) {
     super(props);
-    this.addFilter = ::this.addFilter;
-    this.removeFilter = ::this.removeFilter;
-    this.cleanFilters = ::this.cleanFilters;
     this.renderField = this::renderField;
     this.renderSearchInput = this::renderSearchInput;
-  }
 
-  search = ({ search, sortBy, sortOrder }) => {
-    const { list, location, credFilters, history } = this.props;
-
-    const order = sortBy && sortOrder ? `${sortBy}.${sortOrder}` : undefined;
-    const query = { search: search || undefined, role: credFilters, order };
-
-    return list(query)
-      .then(() => history.push({ ...location, search: qs.stringify(query, { arrayFormat: 'brackets' }) }));
-  }
-
-  debouncedSearch = debounce(this.search, 400);
-
-  nextPage = () => {
-    const { page, total, search, credFilters, loading, nextLoading, members, perPageLimit } = this.props;
-    if (!members || !members.length || loading || nextLoading || page * perPageLimit >= total) return;
-    this.props.nextPage({ search: search || undefined, role: credFilters }, (page || 1) + 1);
-  };
-
-  addFilter(e, key) {
-    e.preventDefault();
-
-    const { addCredFilter, search } = this.props;
-    addCredFilter(key);
-    this.forceUpdate(() => this.search({ search }));
-  }
-
-  removeFilter(e, key) {
-    e.preventDefault();
-
-    const { removeCredFilter, search } = this.props;
-    removeCredFilter(key);
-    this.forceUpdate(() => this.search({ search }));
-  };
-
-  cleanFilters(e) {
-    e.preventDefault();
-
-    const { cleanCredFilters, search } = this.props;
-    cleanCredFilters();
-    this.forceUpdate(() => this.search({ search }));
-  };
-
-  roleLabel(role) {
-    const { getLabel } = this.context;
-
-    return getLabel(getRoleSlug(role));
+    this.debouncedSearch = debounce(this.search, 400);
   }
 
   componentDidMount() {
@@ -202,10 +134,101 @@ export default class Dashboard extends Component {
     monitorBottomHit.stop();
   }
 
+  addFilter = (e, key) => {
+    e.preventDefault();
+
+    const { addCredFilter, search } = this.props;
+    addCredFilter(key);
+    this.forceUpdate(() => this.search({ search }));
+  };
+
+  removeFilter = (e, key) => {
+    e.preventDefault();
+
+    const { removeCredFilter, search } = this.props;
+    removeCredFilter(key);
+    this.forceUpdate(() => this.search({ search }));
+  };
+
+  // cleanFilters = e => {
+  //   e.preventDefault();
+  //
+  //   const { cleanCredFilters, search } = this.props;
+  //   cleanCredFilters();
+  //   this.forceUpdate(() => this.search({ search }));
+  // }
+
+  roleLabel = role => {
+    const {
+      i18n: { getLabel }
+    } = this.props;
+
+    return getLabel(getRoleSlug(role));
+  };
+
+  nextPage = () => {
+    const {
+      page,
+      total,
+      search,
+      credFilters,
+      loading,
+      nextLoading,
+      members,
+      perPageLimit,
+      nextPage
+    } = this.props;
+    if (
+      !members
+      || !members.length
+      || loading
+      || nextLoading
+      || page * perPageLimit >= total
+    ) {
+      return;
+    }
+    nextPage(
+      { search: search || undefined, role: credFilters },
+      (page || 1) + 1
+    );
+  };
+
+  search = ({ search, sortBy, sortOrder }) => {
+    const {
+      list, location, credFilters, history
+    } = this.props;
+
+    const order = sortBy && sortOrder ? `${sortBy}.${sortOrder}` : undefined;
+    const query = { search: search || undefined, role: credFilters, order };
+
+    return list(query).then(() => history.push({
+      ...location,
+      search: qs.stringify(query, { arrayFormat: 'brackets' })
+    }));
+  };
+
   renderMember(member) {
-    const { id, role, invited, custom, eventCount, user, deletedUser, owner } = member;
-    const { res, showModal, userShId, userRole, resendInvitation, location, agenda } = this.props;
-    const { getLabel } = this.context;
+    const {
+      id,
+      role,
+      invited,
+      custom,
+      eventCount,
+      user,
+      deletedUser,
+      owner
+    } = member;
+    const {
+      res,
+      showModal,
+      userShId,
+      userRole,
+      resendInvitation,
+      location,
+      agenda,
+      i18n
+    } = this.props;
+    const { getLabel } = i18n;
 
     const memberType = (() => {
       if (invited && !deletedUser) return 'invited';
@@ -215,20 +238,25 @@ export default class Dashboard extends Component {
 
     const base64url = Base64.encode(location.pathname + location.search);
 
+    const resendInvitationHandler = () => resendInvitation(id)
+      .then(() => showModal('memberReinvited', { member, success: true }))
+      .catch(() => showModal('memberReinvited', { member, success: false }));
+
     return (
       <div key={id} className="bo-list-item media">
         <div className="media-body">
           <div className="title media-heading">
             <strong>
-              {custom.contactName || (user && user.fullName) ||
-              (invited ? custom.email || getLabel('invited') : getLabel('noName'))}
-            </strong>
-            {' '}
-            <span className="text-muted small">{this.roleLabel(role)}</span>
-            {' '}
+              {custom.contactName
+                || (user && user.fullName)
+                || (invited
+                  ? custom.email || getLabel('invited')
+                  : getLabel('noName'))}
+            </strong>{' '}
+            <span className="text-muted small">{this.roleLabel(role)}</span>{' '}
             <MoreInfo
               id={`moreinfo-${id}`}
-              content={getLabel('moreinfo' + upperFirst(memberType))}
+              content={getLabel(`moreinfo${upperFirst(memberType)}`)}
             >
               <span
                 className={classNames('badge', 'badge-sm', {
@@ -238,7 +266,7 @@ export default class Dashboard extends Component {
                   'badge-warning': ['deleted', 'noContrib'].includes(memberType)
                 })}
               >
-                {/*{stakeholderType === 'active' && getLabel( 'active' )}*/}
+                {/* {stakeholderType === 'active' && getLabel( 'active' )} */}
                 {memberType === 'noContrib' && getLabel('noContrib')}
                 {memberType === 'invited' && getLabel('invited')}
                 {memberType === 'deleted' && getLabel('deleted')}
@@ -246,54 +274,79 @@ export default class Dashboard extends Component {
             </MoreInfo>
           </div>
           <div className="actions">
-            {(custom.organization || custom.contactPosition) && <p>
-              {<span className="text-muted">{custom.organization || null}</span>}
-              {custom.organization && custom.contactPosition && ' - '}
-              {<span className="text-muted">{custom.contactPosition || null}</span>}
-            </p>}
-            {!invited && (custom.email || custom.contactNumber) && <p>
-              {<span className="text-muted">{custom.email || null}</span>}
-              {custom.email && custom.contactNumber && ' - '}
-              {<span className="text-muted">{custom.contactNumber || null}</span>}
-            </p>}
+            {(custom.organization || custom.contactPosition) && (
+              <p>
+                {
+                  <span className="text-muted">
+                    {custom.organization || null}
+                  </span>
+                }
+                {custom.organization && custom.contactPosition && ' - '}
+                {
+                  <span className="text-muted">
+                    {custom.contactPosition || null}
+                  </span>
+                }
+              </p>
+            )}
+            {!invited && (custom.email || custom.contactNumber) && (
+              <p>
+                {<span className="text-muted">{custom.email || null}</span>}
+                {custom.email && custom.contactNumber && ' - '}
+                {
+                  <span className="text-muted">
+                    {custom.contactNumber || null}
+                  </span>
+                }
+              </p>
+            )}
 
             <a
               href={res.showContributor.replace(':contributorId', id)}
               className="text-muted"
             >
-              {/*<span className="badge badge-info">*/}
-              {eventCount} {getLabel(eventCount && eventCount > 1 ? 'events' : 'event')}
-              {/*</span>*/}
+              {/* <span className="badge badge-info"> */}
+              {eventCount}{' '}
+              {getLabel(eventCount && eventCount > 1 ? 'events' : 'event')}
+              {/* </span> */}
             </a>
-            {(userRole !== 3 || ![2, 3].includes(role)) && <a
-              role="button"
-              className="text-muted"
-              onClick={() => showModal('editMember', { member })}
-            >
-              {getLabel('editProfile')}
-            </a>}
-            {!owner && (userRole !== 3 || ![2, 3].includes(role)) && <a
-              role="button"
-              className="text-muted"
-              onClick={() => showModal('removeMember', { member })}
-            >
-              {getLabel('removeMember')}
-            </a>}
-            {user && id !== userShId ? <a
-              className="text-muted"
-              href={`/${agenda.slug}/admin/members/${id}/contact?creationRedirect=${base64url}`}
-            >
-              {getLabel('sendAMessage')}
-            </a> : null}
-            {invited && <a
-              role="button"
-              onClick={() => resendInvitation(id)
-                .then(() => showModal('memberReinvited', { member, success: true }))
-                .catch(() => showModal('memberReinvited', { member, success: false }))}
-              className="text-muted"
-            >
-              {getLabel('resendInvitation')}
-            </a>}
+            {(userRole !== 3 || ![2, 3].includes(role)) && (
+              <button
+                type="button"
+                className="btn btn-link text-muted"
+                onClick={() => showModal('editMember', { member })}
+              >
+                {getLabel('editProfile')}
+              </button>
+            )}
+            {!owner && (userRole !== 3 || ![2, 3].includes(role)) && (
+              <button
+                type="button"
+                className="btn btn-link text-muted"
+                onClick={() => showModal('removeMember', { member })}
+              >
+                {getLabel('removeMember')}
+              </button>
+            )}
+            {user && id !== userShId ? (
+              <a
+                className="text-muted"
+                href={`/${
+                  agenda.slug
+                }/admin/members/${id}/contact?creationRedirect=${base64url}`}
+              >
+                {getLabel('sendAMessage')}
+              </a>
+            ) : null}
+            {invited && (
+              <button
+                type="button"
+                onClick={resendInvitationHandler}
+                className="btn btn-link text-muted"
+              >
+                {getLabel('resendInvitation')}
+              </button>
+            )}
           </div>
         </div>
       </div>
@@ -301,11 +354,12 @@ export default class Dashboard extends Component {
   }
 
   renderFilter(nbr, key) {
-    const { credFilters /* , credentials, agenda */ } = this.props;
-    const { getLabel } = this.context;
+    const { i18n, credFilters /* , credentials, agenda */ } = this.props;
+    const { getLabel } = i18n;
 
     const label = key + (nbr > 1 ? 's' : '');
-    const toggleFilter = credFilters.includes(key) ? this.removeFilter : this.addFilter;
+
+    const toggleFilter = e => (credFilters.includes(key) ? this.removeFilter : this.addFilter)(e, key);
 
     /* if ( key === 'moderator' && !credentials.moderators ) {
 
@@ -322,11 +376,18 @@ export default class Dashboard extends Component {
 
     if (!nbr) return null;
 
+    const active = credFilters.includes(key);
+
     return (
-      <li role="presentation" className={classNames({ active: credFilters.includes(key) })}>
-        <a href="#" onClick={e => toggleFilter(e, key)}>
+      <li role="presentation" className={classNames({ active })}>
+        {/* eslint-disable-next-line */}
+        <a href="#" type="button" className="nav-link" onClick={toggleFilter}>
           <strong>{nbr || 0}</strong> {getLabel(label)}{' '}
-          <i className={classNames('fa fa-times', { invisible: !credFilters.includes(key) })} />
+          <i
+            className={classNames('fa fa-times', {
+              invisible: !active
+            })}
+          />
         </a>
       </li>
     );
@@ -334,12 +395,32 @@ export default class Dashboard extends Component {
 
   render() {
     const {
-      res, members, total, loading, nextLoading, stats, search, getStats,
-      showModal, closeModal, setModal, modals, update, invite, remove, sendMessage, credFilters,
-      showInviteResult, cleanInviteResult, inviteError, credentials, agenda,
-      query
+      res,
+      members,
+      total,
+      loading,
+      nextLoading,
+      stats,
+      search,
+      getStats,
+      showModal,
+      closeModal,
+      setModal,
+      modals,
+      update,
+      invite,
+      remove,
+      sendMessage,
+      credFilters,
+      showInviteResult,
+      cleanInviteResult,
+      inviteError,
+      credentials,
+      agenda,
+      query,
+      i18n
     } = this.props;
-    const { getLabel, lang } = this.context;
+    const { getLabel, lang } = i18n;
 
     const {
       administrator: totalAdministrator,
@@ -361,7 +442,10 @@ export default class Dashboard extends Component {
 
           <div className="pull-right">
             <div className="btn-group">
-              <DropdownButton title={getLabel('export')} id="nested-export-dropdown">
+              <DropdownButton
+                title={getLabel('export')}
+                id="nested-export-dropdown"
+              >
                 <MenuItem href={res.exportToXlsx}>XLSX</MenuItem>
                 <MenuItem href={res.exportToCsv}>CSV</MenuItem>
               </DropdownButton>
@@ -373,14 +457,18 @@ export default class Dashboard extends Component {
               {!credentials.invitationMessage && (
                 <DropdownButton
                   id="nested-more-dropdown"
-                  title={<i className="fa fa-ellipsis-v" aria-hidden="true"></i>}
+                  title={<i className="fa fa-ellipsis-v" aria-hidden="true" />}
                   pullRight
                   noCaret
                 >
                   <MenuItem
-                    onClick={() => openRequestForm({ lang, subject: 'moderators', agenda: agenda.slug })}
+                    onClick={() => openRequestForm({
+                      lang,
+                      subject: 'moderators',
+                      agenda: agenda.slug
+                    })}
                   >
-                    <i className="golden-icon"></i>{' '}{getLabel('nameModerators')}
+                    <i className="golden-icon" /> {getLabel('nameModerators')}
                   </MenuItem>
                 </DropdownButton>
               )}
@@ -409,7 +497,7 @@ export default class Dashboard extends Component {
           }}
           onSubmit={this.search}
           subscription={{ values: true }}
-          render={({ handleSubmit, form, values }) => (
+          render={({ handleSubmit, form }) => (
             <form onSubmit={handleSubmit}>
               <Field
                 component={this.renderSearchInput}
@@ -423,23 +511,20 @@ export default class Dashboard extends Component {
               />
 
               <div className="text-right form-group form-inline">
-                Trié par
-                {' '}
+                Trié par{' '}
                 <Field
                   name="sortBy"
                   className="form-control"
-                  component="select"
                   type="select"
                   component={SimpleSelect}
                   action={() => this.search(form.getState().values)}
                 >
                   <option value="id">{getLabel('order.arrivalDate')}</option>
                   <option value="slug">{getLabel('order.name')}</option>
-                  <option value="actionsCounter">{getLabel('order.activity')}</option>
-                </Field>
-
-                {' '}
-
+                  <option value="actionsCounter">
+                    {getLabel('order.activity')}
+                  </option>
+                </Field>{' '}
                 <Field
                   name="sortOrder"
                   title={getLabel('orderSort')}
@@ -461,165 +546,214 @@ export default class Dashboard extends Component {
 
         <div className="margin-v-md">
           {getLabel('total')}: <strong>{stats.total || 0}</strong>
-
-          {( // if there is a search or filter(s)
-            (total > 0 && total < (stats.total || 0)) // if total differ of 0 or stats.total
-            || (((credFilters && credFilters.length) || (!!search && search === query.search)) && !loading)
-          ) ? (
-            <span className="margin-left-sm">
-              {getLabel('result')}: <strong>{total}</strong> {getLabel(total <= 1 ? 'member' : 'members').toLowerCase()}
-            </span>
-          ) : null}
-
-          {total > 0 ? <button
-            className="btn btn-default btn-medium margin-left-sm"
-            onClick={() => {
-              if (credentials.invitationMessage) {
-                return showModal('writeToMembers', {
-                  query: { search: search || undefined, role: credFilters }
+          {// if there is a search or filter(s)
+          (total > 0 && total < (stats.total || 0)) // if total differ of 0 or stats.total
+          || (((credFilters && credFilters.length)
+            || (!!search && search === query.search))
+            && !loading) ? (
+              <span className="margin-left-sm">
+                {getLabel('result')}: <strong>{total}</strong>{' '}
+                {getLabel(total <= 1 ? 'member' : 'members').toLowerCase()}
+              </span>
+            ) : null
+}
+          {total > 0 ? (
+            <button
+              type="button"
+              className="btn btn-default btn-medium margin-left-sm"
+              onClick={() => {
+                if (credentials.invitationMessage) {
+                  return showModal('writeToMembers', {
+                    query: { search: search || undefined, role: credFilters }
+                  });
+                }
+                return openRequestForm({
+                  lang,
+                  subject: 'writeToAll',
+                  agenda: agenda.slug
                 });
-              }
-              return openRequestForm({ lang, subject: 'writeToAll', agenda: agenda.slug });
-            }}
-          >
-            {credentials.invitationMessage ? null : <Fragment><i className="golden-icon"></i>{' '}</Fragment>}
-            {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
-          </button> : null}
+              }}
+            >
+              {credentials.invitationMessage ? null : (
+                <>
+                  <i className="golden-icon" />{' '}
+                </>
+              )}
+              {getLabel(total > 1 ? 'writeToThem' : 'writeToHim')}
+            </button>
+          ) : null}
         </div>
 
         <div>
           {members && members.map(s => this.renderMember(s))}
 
-          {!members || !members.length ? <div className="text-center text-muted margin-v-md">
-            {getLabel('noResult')}
-          </div> : null}
+          {!members || !members.length ? (
+            <div className="text-center text-muted margin-v-md">
+              {getLabel('noResult')}
+            </div>
+          ) : null}
 
-          {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
-            <Spinner />
-          </div>}
+          {nextLoading && (
+            <div className="padding-v-md" style={{ position: 'relative' }}>
+              <Spinner />
+            </div>
+          )}
         </div>
 
-        {editModal.visible && <Modal
-          title={getLabel('editProfile')}
-          onClose={() => closeModal('editMember')}
-        >
-          <EditMemberForm
-            member={editModal.member}
-            onSubmit={(...params) => update(editModal.member.id, ...params)
-              .then(async result => {
+        {editModal.visible && (
+          <Modal
+            title={getLabel('editProfile')}
+            onClose={() => closeModal('editMember')}
+          >
+            <EditMemberForm
+              member={editModal.member}
+              onSubmit={(...params) => update(editModal.member.id, ...params).then(async result => {
                 closeModal('editMember');
 
                 await getStats();
 
                 return result;
-              })
-            }
-          />
-        </Modal>}
-
-        {removeModal.visible && <Modal
-          title={getLabel('removeMember')}
-          visible={removeModal.visible || false}
-          onClose={() => closeModal('removeMember')}
-        >
-          {removeModal.error ? <div className="text-center">
-            <div className="margin-v-sm">
-              {getLabel('removeModalError')}
-            </div>
-
-            <button
-              onClick={() => closeModal('removeMember')}
-              className="btn btn-danger"
-            >
-              {getLabel('close')}
-            </button>
-          </div> : <div>
-            <p className="margin-top-sm">{getLabel('removeConfirmMessage')}</p>
-            <div className="text-center">
-              <button
-                className="btn btn-danger"
-                onClick={() => remove(removeModal.member.id)
-                  .then(() => closeModal('removeMember'))
-                  .catch(() => setModal('removeMember', { error: true }))}
-              >
-                {getLabel('removeMember')}
-              </button>
-            </div>
-          </div>}
-        </Modal>}
-
-        {inviteMembersModal.visible && <Modal
-          title={getLabel('inviteMembers')}
-          onClose={() => {
-            closeModal('inviteMembers');
-            cleanInviteResult();
-          }}
-          classNames={{
-            overlay: 'popup-overlay big'
-          }}
-          disableBodyScroll
-        >
-          {showInviteResult ? <div>
-            {inviteError ? <div>
-              {inviteError.emailsRejected && inviteError.emailsRejected.length ? <div>
-                {getLabel('emailsCouldNotBeInvited')} <b>{inviteError.emailsRejected.join(', ')}</b>
-              </div> : <div>
-                {getLabel('invitationProblem')}
-              </div>}
-            </div> : <div>
-              {getLabel('membersInvited')}
-            </div>}
-          </div> : <InviteMembersForm
-            onSubmit={data => invite(data)
-              .then(async result => {
-                await this.search({ search });
-                await getStats();
-                return result;
-              })
-            }
-          />}
-        </Modal>}
-
-        {memberReinvitedModal.visible && <Modal
-          title={getLabel('inviteMembers')}
-          onClose={() => {
-            closeModal('memberReinvited');
-          }}
-        >
-          {memberReinvitedModal.success ?
-            <div>{getLabel('invitationResended')}</div> :
-            <div>{getLabel('invitationNotResended')}</div>}
-        </Modal>}
-
-        {writeToMembersModal.visible && <Modal
-          title={getLabel('sendMessageToMembers')}
-          visible={writeToMembersModal.visible || false}
-          onClose={() => closeModal('writeToMembers')}
-          classNames={{
-            overlay: 'popup-overlay big'
-          }}
-        >
-          {!writeToMembersModal.confirmation
-            ? <SendMessageForm
-              onSubmit={data => sendMessage(data, writeToMembersModal.query)
-                .then(() => setModal('writeToMembers', { confirmation: true }))
-              }
+              })}
             />
-            : <div className="text-center">
-              <div className="margin-v-sm">
-                {getLabel('messageSent')}
-              </div>
+          </Modal>
+        )}
 
-              <button
-                onClick={() => closeModal('writeToMembers')}
-                className="btn btn-danger"
-              >
-                {getLabel('close')}
-              </button>
-            </div>}
-        </Modal>}
+        {removeModal.visible && (
+          <Modal
+            title={getLabel('removeMember')}
+            visible={removeModal.visible || false}
+            onClose={() => closeModal('removeMember')}
+          >
+            {removeModal.error ? (
+              <div className="text-center">
+                <div className="margin-v-sm">
+                  {getLabel('removeModalError')}
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => closeModal('removeMember')}
+                  className="btn btn-danger"
+                >
+                  {getLabel('close')}
+                </button>
+              </div>
+            ) : (
+              <div>
+                <p className="margin-top-sm">
+                  {getLabel('removeConfirmMessage')}
+                </p>
+                <div className="text-center">
+                  <button
+                    type="button"
+                    className="btn btn-danger"
+                    onClick={() => remove(removeModal.member.id)
+                      .then(() => closeModal('removeMember'))
+                      .catch(() => setModal('removeMember', { error: true }))}
+                  >
+                    {getLabel('removeMember')}
+                  </button>
+                </div>
+              </div>
+            )}
+          </Modal>
+        )}
+
+        {inviteMembersModal.visible && (
+          <Modal
+            title={getLabel('inviteMembers')}
+            onClose={() => {
+              closeModal('inviteMembers');
+              cleanInviteResult();
+            }}
+            classNames={{
+              overlay: 'popup-overlay big'
+            }}
+            disableBodyScroll
+          >
+            {showInviteResult ? (
+              <div>
+                {inviteError ? (
+                  <div>
+                    {inviteError.emailsRejected
+                    && inviteError.emailsRejected.length ? (
+                      <div>
+                        {getLabel('emailsCouldNotBeInvited')}{' '}
+                        <b>{inviteError.emailsRejected.join(', ')}</b>
+                      </div>
+                      ) : (
+                        <div>{getLabel('invitationProblem')}</div>
+                      )}
+                  </div>
+                ) : (
+                  <div>{getLabel('membersInvited')}</div>
+                )}
+              </div>
+            ) : (
+              <InviteMembersForm
+                onSubmit={data => invite(data).then(async result => {
+                  await this.search({ search });
+                  await getStats();
+                  return result;
+                })}
+              />
+            )}
+          </Modal>
+        )}
+
+        {memberReinvitedModal.visible && (
+          <Modal
+            title={getLabel('inviteMembers')}
+            onClose={() => {
+              closeModal('memberReinvited');
+            }}
+          >
+            {memberReinvitedModal.success ? (
+              <div>{getLabel('invitationResended')}</div>
+            ) : (
+              <div>{getLabel('invitationNotResended')}</div>
+            )}
+          </Modal>
+        )}
+
+        {writeToMembersModal.visible && (
+          <Modal
+            title={getLabel('sendMessageToMembers')}
+            visible={writeToMembersModal.visible || false}
+            onClose={() => closeModal('writeToMembers')}
+            classNames={{
+              overlay: 'popup-overlay big'
+            }}
+          >
+            {!writeToMembersModal.confirmation ? (
+              <SendMessageForm
+                onSubmit={data => sendMessage(data, writeToMembersModal.query).then(() => setModal('writeToMembers', { confirmation: true }))}
+              />
+            ) : (
+              <div className="text-center">
+                <div className="margin-v-sm">{getLabel('messageSent')}</div>
+
+                <button
+                  type="button"
+                  onClick={() => closeModal('writeToMembers')}
+                  className="btn btn-danger"
+                >
+                  {getLabel('close')}
+                </button>
+              </div>
+            )}
+          </Modal>
+        )}
       </div>
     );
-
   }
-};
+}
+
+export default hoistNonReactStatics(
+  props => (
+    <I18nContext.Consumer>
+      {i18n => <Dashboard {...props} i18n={i18n} />}
+    </I18nContext.Consumer>
+  ),
+  Dashboard
+);
