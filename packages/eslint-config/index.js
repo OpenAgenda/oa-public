@@ -28,7 +28,8 @@ module.exports = {
     ecmaVersion: 6,
     sourceType: 'module',
     ecmaFeatures: {
-      jsx: true
+      jsx: true,
+      legacyDecorators: true
     }
   },
 
@@ -92,7 +93,9 @@ module.exports = {
         html: 'enforce',
         custom: 'ignore',
         exceptions: [
-          'input'
+          'input',
+          'textarea',
+          'select'
         ]
       }
     ],
@@ -108,7 +111,7 @@ module.exports = {
       {
         labelComponents: ['label'],
         labelAttributes: ['htmlFor'],
-        controlComponents: ['Field', 'input']
+        controlComponents: ['Field', 'input', 'textarea', 'select']
       }
     ],
 
