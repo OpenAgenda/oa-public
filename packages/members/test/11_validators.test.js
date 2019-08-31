@@ -17,7 +17,7 @@ describe('members - unit - validate', () => {
       updatedAt: undefined,
       custom: undefined,
       deletedUser: false,
-      actionsCounter: null,
+      actionsCounter: 0,
       role: 1
     });
   });
@@ -42,7 +42,7 @@ describe('members - unit - validate', () => {
         email: null
       },
       deletedUser: false,
-      actionsCounter: null,
+      actionsCounter: 0,
       role: 1
     });
   });
