@@ -81,14 +81,12 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
   success = insertIds.length === 1;
 
   if ( success ) {
-
-    created = await get( clean.agendaUid, clean.eventUid );
-
+    created = await get(clean.agendaUid, clean.eventUid, { detailed: true });
   }
 
   if ( success && options.transferToLegacy ) {
 
-    log( 'info', 'transfering to legacy %j', created );
+    log('info', 'transfering to legacy %j', created);
 
     try {
 

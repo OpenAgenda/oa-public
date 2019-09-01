@@ -2,29 +2,35 @@
 
 process.env.NODE_ENV = 'test';
 
-const svc = require( './service' );
-
-const get = require( '../service/get' );
-
-const config = require( '../testconfig' );
-
 const _ = require( 'lodash' );
-
 const should = require( 'should' );
 
-describe( 'agendaEvents - functional (server): get', function() {
+const svc = require( './service' );
+const get = require( '../service/get' );
+const config = require( '../testconfig' );
+
+const membersFixtures = require('./service/membersFixtures.json');
+
+describe('agendaEvents - functional (server): get', function() {
 
   this.timeout( 5000 );
 
   before( done => {
 
-    svc.initAndLoad( config, done );
+    config.interfaces.getMembers = async aes => {
+      return aes.map(ae => _.find(
+        membersFixtures, {
+          agendaUid: ae.agendaUid,
+          userUid: ae.userUid
+        }
+      ));
+    };
 
+    svc.initAndLoad(config, done );
   } );
 
-  it( 'simple get', async () => {
-
-    let ref = await svc( 62792452 ).get( 10974548 );
+  it('simple get', async () => {
+    const ref = await svc( 62792452 ).get( 10974548 );
 
     _.omit( ref, [ 'updatedAt', 'createdAt' ] ).should.eql( {
       agendaUid: 62792452,
@@ -35,8 +41,13 @@ describe( 'agendaEvents - functional (server): get', function() {
       canEdit: false,
       legacyId: '42.24'
     } );
+  });
 
-  } );
+  it('get with decorate to get member details', async () => {
+    const ref = await svc(62792452).get(10974548, { decorate: ['member'] });
+
+    ref.member.should.eql({ agendaUid: 62792452, userUid: 12312312, role: 1 });
+  });
 
   it('explicit error is thrown when event uid is not provided', async () => {
     let error;

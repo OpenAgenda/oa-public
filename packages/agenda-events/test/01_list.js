@@ -1,17 +1,28 @@
 "use strict";
 
-process.env.NODE_ENV = 'test';
+const _ = require('lodash');
 
 const svc = require( './service' );
 const config = require( '../testconfig' );
 const should = require( 'should' );
 const states = require( '../iso/states' );
 
+const membersFixtures = require('./service/membersFixtures.json');
+
 describe( 'agendaEvents - functional (server): list', function() {
 
   this.timeout( 5000 );
 
   before( done => {
+
+    config.interfaces.getMembers = async aes => {
+      return aes.map(ae => _.find(
+        membersFixtures, {
+          agendaUid: ae.agendaUid,
+          userUid: ae.userUid
+        }
+      )).filter(ae => !!ae);
+    };
 
     svc.initAndLoad( config, done );
 
@@ -23,6 +34,18 @@ describe( 'agendaEvents - functional (server): list', function() {
 
     Object.keys( result ).should.eql( [ 'items', 'total' ] );
 
+  } );
+
+  it( 'list with member decorate provides members for each returned item', async () => {
+    const { items } = await svc(62792452).list(100, 10, { decorate: ['member'] });
+
+    items.filter(i => i.member).length.should.equal(4);
+
+    items.filter(i => i.member)[0].member.should.eql({
+      agendaUid: 62792452,
+      userUid: 123,
+      role: 2
+    });
   } );
 
   it( 'list filtered by state using code in query', async () => {
