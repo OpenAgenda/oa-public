@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/members",
-  "version": "1.14.0",
+  "version": "1.15.0",
   "scripts": {
     "prepublish": "yarn build",
     "test": "jest --runInBand --testEnvironment=node",
