@@ -5,7 +5,7 @@ const uuid = require('uuid/v4');
 
 module.exports = function generateUniqueToken(key) {
   return async context => {
-    const token = uuid().replace(/-/g, '');
+    const token = uuid();
 
     const query = {};
 

@@ -380,7 +380,7 @@ describe('methods', () => {
       );
 
       expect(typeof user.replyToken).toBe('string');
-      expect(user.replyToken).toHaveLength(32);
+      expect(user.replyToken).toHaveLength(36);
     });
   });
 
