@@ -148,5 +148,6 @@ module.exports = Object.assign(
     task,
     init: config.init
   },
-  templater
+  templater,
+  addressParser
 );
