@@ -14,7 +14,9 @@ module.exports = function generateUid() {
     if (result.total) {
       return generateUid()(context);
     }
+
     context.data.uid = uid;
+
     return context;
   };
 };

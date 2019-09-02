@@ -30,6 +30,7 @@ const {
   generateToken,
   generateHash,
   generateUid,
+  generateUniqueToken,
   hashPassword,
   includeImagePathParamHook,
   isValidToken,
@@ -228,6 +229,7 @@ module.exports = {
       checkUnicity('email'),
       generateUid(),
       generateHash('salt'),
+      generateUniqueToken('replyToken'),
       iff(
         context => _.get(context.data, 'password'),
         hashPassword('data.password', 'data.salt')

@@ -366,6 +366,22 @@ describe('methods', () => {
       expect(user.email).toBe(email);
       expect(token).toBeUndefined();
     });
+
+    it('create generate a reply token', async () => {
+      const email = 'jean-eude@oa.com';
+      const user = await service.create(
+        {
+          fullName: 'Jean-Eude',
+          email,
+          password: 'pa**word',
+          isActivated: true
+        },
+        { detailed: true, internal: true }
+      );
+
+      expect(typeof user.replyToken).toBe('string');
+      expect(user.replyToken).toHaveLength(32);
+    });
   });
 
   describe('patch', () => {

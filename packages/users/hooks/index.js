@@ -14,6 +14,7 @@ const generateApiKey = require('./generateApiKey');
 const generateHash = require('./generateHash');
 const generateToken = require('./generateToken');
 const generateUid = require('./generateUid');
+const generateUniqueToken = require('./generateUniqueToken');
 const hashPassword = require('./hashPassword');
 const includeImagePathParamHook = require('./includeImagePathParamHook');
 const isValidToken = require('./isValidToken');
@@ -44,6 +45,7 @@ module.exports = {
   generateHash,
   generateToken,
   generateUid,
+  generateUniqueToken,
   hashPassword,
   includeImagePathParamHook,
   isValidToken,
