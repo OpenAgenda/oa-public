@@ -146,8 +146,8 @@ module.exports = Object.assign(
   sendMail,
   {
     task,
-    init: config.init
+    init: config.init,
+    addressParser
   },
-  templater,
-  addressParser
+  templater
 );
