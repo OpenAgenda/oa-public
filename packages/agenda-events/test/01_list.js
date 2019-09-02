@@ -58,6 +58,14 @@ describe( 'agendaEvents - functional (server): list', function() {
 
   } );
 
+  it( 'query can be omitted', async () => {
+
+    const result = await svc( 62792452 ).list( 0, 10 );
+
+    result.items.length.should.equal(10);
+
+  } );
+
   it( 'list filtered by state using string in query', async () => {
 
     const result = await svc( 62792452 ).list( {

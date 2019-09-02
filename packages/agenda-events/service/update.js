@@ -29,7 +29,7 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   const params = validateOptions( options, 'update' );
 
-  const current = await get( agendaUid, eventUid );
+  const current = await get( agendaUid, eventUid, params );
 
   log( 'current for %s.%s', agendaUid, eventUid, current );
 
@@ -97,7 +97,7 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   if ( success ) {
 
-    updated = await get( clean.agendaUid, clean.eventUid );
+    updated = await get( clean.agendaUid, clean.eventUid, params );
 
     log( 'updated %s.%s', agendaUid, eventUid, updated );
 

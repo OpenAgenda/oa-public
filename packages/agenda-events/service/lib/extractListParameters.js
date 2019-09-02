@@ -17,18 +17,11 @@ module.exports = (agendaUid, query, offset, limit, options) => {
       limit,
       options
     });
-  } else if (typeof query !== 'object' && (limit !== undefined)) {
+  } else if (typeof query !== 'object') {
     Object.assign(params, {
       offset: query,
       limit: offset,
-      options: limit
-    });
-  } else if (typeof query !== 'object') {
-    Object.assign(params, {
-      query: Object.assign(params.query, validateListQuery(query)),
-      offset,
-      limit,
-      options: {}
+      options: limit || {}
     });
   } else {
     Object.assign(params, {
