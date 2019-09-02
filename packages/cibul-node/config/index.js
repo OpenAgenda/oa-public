@@ -592,10 +592,6 @@ const config = {
           method: 'get',
           uri: '/:slug/admin/locations/terms'
         },
-        locationGetStakeholder: {
-          method: 'get',
-          uri: '/:slug/admin/locations/stakeholders/:stakeholderId'
-        },
         locationGeocode: {
           method: 'get',
           uri: '/:slug/locations/geocode'
