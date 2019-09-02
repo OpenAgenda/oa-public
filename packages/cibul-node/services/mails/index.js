@@ -7,11 +7,12 @@ const sanitizeHtml = require('sanitize-html');
 const mails = require('@openagenda/mails');
 const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
 const labels = require('@openagenda/labels/all').mails;
-const log = require('@openagenda/logs')( 'services/mails' );
 
 const unsubscription = require('./unsubscription');
 const beforeSend = require('./lib/beforeSend');
 const filterBouncingAndUnsubscribed = require('./lib/filterBouncingAndUnsubscribed');
+const incomingEmailsMw = require('./lib/incomingEmailsMw');
+let services;
 
 const Queues = require('../queues');
 
@@ -19,21 +20,12 @@ const stripHtml = html =>
   sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} });
 
 module.exports.expose = app => {
-  app.post('/incoming-emails', (req, res, next) => {
-    log.info('Incoming email', {
-      body: req.body,
-      query: req.query
-    });
-
-    // check the replyToken
-    // check if the user is an inboxUser of the conversation
-    // add the message to the conversation
-
-    res.sendStatus(200);
-  });
+  app.post('/incoming-emails', incomingEmailsMw({ services }));
 };
 
-module.exports.init = async config => {
+module.exports.init = async (config, _services) => {
+  services = _services;
+
   unsubscription.init(config);
 
   await mails.init({

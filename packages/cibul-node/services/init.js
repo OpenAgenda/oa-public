@@ -106,7 +106,7 @@ module.exports = async function (configObject, options = {}) {
   log(`initialized in ${debug.useColors() ? color(3, timeDiff) : timeDiff}ms`);
 
   return init.services;
-}
+};
 
 
 function createInitier(config, options) {
