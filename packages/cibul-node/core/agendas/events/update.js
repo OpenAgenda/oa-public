@@ -125,7 +125,8 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
         event: updated.event,
         agenda,
         batched
-      }
+      },
+      decorate: ['member']
     } );
 
     updated.agendaEvent = result.set;

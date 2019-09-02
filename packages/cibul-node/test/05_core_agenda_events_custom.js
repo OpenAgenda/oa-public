@@ -83,7 +83,7 @@ const testConfig = {
 
 describe( '05 - core - functional ( server ): agenda event with custom data', function() {
 
-  this.timeout( 20000 );
+  this.timeout( 60000 );
 
   const eventData = {
     title: {

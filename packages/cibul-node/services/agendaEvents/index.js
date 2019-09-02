@@ -7,6 +7,7 @@ const sessions = require( '@openagenda/sessions' );
 
 const members = require( '../members' );
 
+const getMembers = require('./getMembers');
 const onCreate = require( './onCreate' );
 const onUpdate = require( './onUpdate' );
 const onRemove = require( './onRemove' );
@@ -55,6 +56,7 @@ function init(config) {
       onUpdate: onUpdate.bind(null, config),
       onRemove,
       beforeRemove,
+      getMembers
     }
   } );
 
