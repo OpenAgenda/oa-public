@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const imageFiles = require( '@openagenda/image-files' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const activities = require( '../activities' );
@@ -25,7 +24,6 @@ module.exports.init = config=> {
       accessKeyId: config.aws.accessKeyId,
       secretAccessKey: config.aws.secretAccessKey
     },
-    existingRoles: agendaStakeholders.types.types,
     imagePath: config.aws.imageBucketPath,
     defaultImagePath: config.aws.defaultImagePath,
     logger: config.getLogConfig( 'svc', 'agendas' ),

@@ -1,8 +1,9 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' ),
+const _ = require('lodash');
 
-  validate = require( '../iso/validate' );
+const validate = require('../iso/validate');
+const validateOptions = require('./lib/validateOptions');
 
 let config, knex;
 
@@ -11,15 +12,24 @@ module.exports = _.extend( get, {
   byLegacyId
 } );
 
-async function get( agendaUid, eventUid ) {
-
+async function get(agendaUid, eventUid, options = {}) {
   if (!agendaUid) throw new Error('Agenda uid is missing');
   if (!eventUid) throw new Error('Event uid is missing');
 
-  return await _get( {
+  const {
+    decorate
+  } = validateOptions(options);
+
+  const ae = await _get( {
     'agenda_uid' : agendaUid,
     'event_uid' : eventUid
   } );
+
+  if (decorate.includes('member') && config.interfaces.getMembers) {
+    ae.member = ae.userUid ? _.get( await config.interfaces.getMembers([ae]), '0') : null;
+  }
+
+  return ae;
 
 }
 

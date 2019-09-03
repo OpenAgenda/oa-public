@@ -76,14 +76,6 @@ app.get( '/:locationUid/suggestion*', ( req, res, next ) => {
   next();
 } );
 
-app.get( '/stakeholders/:stakeholderId', ( req, res, next ) => {
-  req.stakeholderId = req.params.stakeholderId;
-  req.agendaId = 123;
-  next();
-} );
-
-app.get( '/stakeholders/:stakeholderId', mw.getStakeholder );
-
 app.post( '/:locationUid/suggestion*', ( req, res, next ) => {
   req.stakeholderId = 456;
   next();

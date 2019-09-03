@@ -165,7 +165,7 @@ function _create( data, options, cb ) {
     includeImagePath: params.includeImagePath
   } ) )
 
-  .done( v => {
+  .done( async v => {
 
     const response = {
       agenda: params.internal ? v.created : dbParse.exclude( v.created, 'internal' ),
@@ -174,14 +174,12 @@ function _create( data, options, cb ) {
       errors: v.errors
     };
 
-    if ( v.success && interfaces && interfaces.onCreate && _hasCallback( interfaces.onCreate ) ) {
-
-      return interfaces.onCreate( v.created, () => cb( null, response ) );
-
-    } else if ( v.success && interfaces && interfaces.onCreate ) {
-
-      interfaces.onCreate( v.created );
-
+    if (v.success && _.get(interfaces, 'onCreate')) {
+      try {
+        await interfaces.onCreate(v.created);
+      } catch (e) {
+        log('error', 'interface onCreate call errored', e);
+      }
     }
 
     cb( null, response );

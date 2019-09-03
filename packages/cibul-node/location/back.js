@@ -214,10 +214,6 @@ function show( req, res ) {
       seeEvents: req.genUrl( 'agendaAdminShow', { slug: req.agenda.slug } ) + '?locationUid=:locationUid',
       set: req.genUrl( 'agendaAdminLocationSet', { slug: req.agenda.slug } ),
       get: req.genUrl( 'agendaLocationGet', { slug: req.agenda.slug, locationUid: ':locationUid' } ),
-      getStakeholder: req.genUrl(
-        'locationGetStakeholder',
-        { slug: req.agenda.slug, stakeholderId: ':stakeholderId' }
-      ),
       remove: req.genUrl( 'agendaAdminLocationRemove', { slug: req.agenda.slug } ),
       merge: req.genUrl( 'agendaAdminLocationMerge', { slug: req.agenda.slug } ),
       removeSuggestion: req.genUrl(

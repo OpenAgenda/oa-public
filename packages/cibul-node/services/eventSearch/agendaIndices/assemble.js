@@ -18,7 +18,7 @@ const ih = require( 'immutability-helper' );
 const eventSvc = require( '@openagenda/events' );
 const formSchemas = require( '@openagenda/form-schemas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const membersSvc = require('../../members');
 const log = require( '@openagenda/logs' )( 'services/eventSearch/assemble' );
 
 const networks = require( '../../networks' );
@@ -41,8 +41,6 @@ module.exports = {
 async function list( agendaEvents, formSchemaId = null, customValidators = null ) {
 
   const validators = customValidators === null ? await getCustomValidators( formSchemaId ) : customValidators;
-
-  const memberMap = await _getMemberMap( agendaEvents );
 
   const eventUids = agendaEvents.map( ae => ae.eventUid );
 
@@ -85,7 +83,7 @@ async function list( agendaEvents, formSchemaId = null, customValidators = null 
       const assembledItem = _item( {
         event: ae.event,
         validators,
-        member: _.find( memberMap, m => m.uid === ae.userUid ),
+        member: _parseMember(ae),
         custom: custom ? custom.custom : null,
         state: ae.state,
         featured: ae.featured
@@ -101,7 +99,6 @@ async function list( agendaEvents, formSchemaId = null, customValidators = null 
   }
 
 }
-
 
 async function item( agendaEvent ) {
 
@@ -120,7 +117,7 @@ async function item( agendaEvent ) {
   return _item( {
     event,
     validators: await getCustomValidators( formSchemaIds ),
-    member: _.find( await _getMemberMap( [ agendaEvent ] ), m => m.eventUid === agendaEvent.eventUid ),
+    member: _parseMember(agendaEvent),
     custom,
     state: agendaEvent.state,
     featured: agendaEvent.featured
@@ -201,62 +198,6 @@ function _getAgenda( agendaUid, field = null ) {
 
 }
 
-
-function _getMemberMap( agendaEvents = [] ) {
-
-  if ( !agendaEvents.length ) return [];
-
-  const agendaUid = _.head( agendaEvents.map( ae => ae.agendaUid ) );
-
-  return new Promise( ( rs, rj ) => {
-
-    // agenda & event ids need to be retrieved as stakeholder service does not reference uids.
-    agendas.get( { uid: agendaUid }, { internal: true, private: null }, async ( err, agenda ) => {
-
-      if ( err ) return rj( new VError( err, 'could not get agenda %s', agendaUid ) );
-
-      if ( !agenda ) return rj( new VError( 'could not find agenda %s of first agendaEvent %s', agendaUid, JSON.stringify( agendaEvents[ 0 ] ) ) );
-
-      let users = await _getUsersByUid( agendaEvents.map( ae => ae.userUid ).filter( uid => !!uid ) );
-
-      agendaStakeholders( agenda.id ).list( { userId: users.map( u => u.id ) }, ( err, members ) => {
-
-        // we need to stick members to the given agendaEvents. We have the userUid on the ae, the userId on the member.
-
-        rs( agendaEvents.map( ae => {
-
-          const m = {
-            eventUid: ae.eventUid,
-            member: null
-          };
-
-          let user = _.find( users, u => ae.userUid === u.uid );
-
-          if ( !user ) return m;
-
-          let member = _.find( members, m => m.userId === user.id );
-
-          if ( !member ) return m;
-
-          m.member = {
-            uid: _.find( users, u => u.id === member.userId ).uid,
-            name: member.custom.contactName,
-            organization: member.custom.organization
-          };
-
-          return m;
-
-        } ).map( m => m.member ).filter( m => !!m ) )
-
-      } );
-
-    } );
-
-  } );
-
-}
-
-
 /**
  * validators separating custom data by access credentials
  */
@@ -320,4 +261,12 @@ async function _getUsersByUid( uids ) {
     .select( 'id', 'uid' )
     .where( 'uid', 'in', uids )
 
+}
+
+function _parseMember(ae) {
+  return ae.member ? {
+    uid: ae.userUid,
+    name: _.get(ae, 'member.custom.contactName'),
+    organization: _.get(ae, 'member.custom.organization')
+  } : null
 }

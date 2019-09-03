@@ -75,8 +75,6 @@ function init( c, cb ) {
       locationDidUpdate: ( lId, cb ) => { if ( cb ) cb() },
       // signal location merge
       locationsWillMerge: ( mergeInLocation, location, cb ) => { cb(); },
-      // get stakeholder data
-      getStakeholder: ( stakeholderId, cb ) => { cb() },
       // get agenda settings
       getAgendaSettings: ( agendaId, cb ) => { cb( null, {} ) },
       // get location settings

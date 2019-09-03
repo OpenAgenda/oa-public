@@ -45,6 +45,10 @@ describe('members - utils - compareRoles', () => {
       expect(isSuperiorTo(undefined, 'reader')).toBe(false);
     });
 
+    test('administrator is superior to reader', () => {
+      expect(isSuperiorTo('administrator', 'reader')).toBe(true);
+    });
+
     test('Unknown error is thrown if given string is unknown', () => {
       let error;
 

@@ -39,7 +39,8 @@ module.exports = async ( agenda, eventUid, clean, options = {} ) => {
 
       const { created } = await agendaEvents( agenda.uid ).create( eventUid, clean.agendaEvent, {
         transferToLegacy: true, // directive to replicate to legacy data structure
-        context: ih( context, { legacy: { $set: false } } )
+        context: ih( context, { legacy: { $set: false } } ),
+        decorate: ['member']
       } );
 
       added.agendaEvent = created;

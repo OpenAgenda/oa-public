@@ -5,7 +5,6 @@ const _ = require( 'lodash' );
 const logger = require( '@openagenda/logs' );
 
 const image = require( './image' );
-const getRoles = require( './getRoles' );
 const validate = require( '../validate' );
 
 const publicValidate = require( '../validate/public' );
@@ -36,10 +35,8 @@ Object.assign(
   Agenda.prototype,
   image,
   {
-    getRoles,
     getData,
-    _loadInternals,
-    _getExistingRoles
+    _loadInternals
   }
 );
 
@@ -62,12 +59,6 @@ function _loadInternals( cb ) {
     cb();
 
   } );
-
-}
-
-function _getExistingRoles() {
-
-  return service.getConfig().existingRoles;
 
 }
 

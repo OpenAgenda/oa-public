@@ -26,7 +26,10 @@ const validate = schema({
     type: 'integer'
   },
   userUid: {
-    type: 'integer'
+    type: 'integer',
+    list: {
+      default: null
+    }
   },
   withUser: {
     type: 'boolean',
@@ -98,8 +101,10 @@ module.exports = (k, query) => {
     k.whereIn('id', id);
   }
 
-  if (userUid) {
+  if (userUid && userUid.length === 1) {
     k.where('user_uid', userUid);
+  } else if (userUid) {
+    k.whereIn('user_uid', userUid);
   }
 
   if (withUser === true) {

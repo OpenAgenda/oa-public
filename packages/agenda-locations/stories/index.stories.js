@@ -47,7 +47,6 @@ const Wrapper = createReactClass( {
         insee: `${apiRoot}/insee`,
         get: `${apiRoot}/:locationUid`,
         set: `${apiRoot}/`,
-        getStakeholder: `${apiRoot}/stakeholders/:stakeholderId`,
         remove: `${apiRoot}/remove`,
         merge: `${apiRoot}/merge`,
         csv: '#csv',

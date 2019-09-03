@@ -6,7 +6,9 @@ const VError = require( 'verror' );
 
 const validate = require( '../iso/validate' );
 
-const validateListQuery = require( './lib/validateListQuery' );
+const validateListQuery = require('./lib/validateListQuery');
+const extractListParameters = require('./lib/extractListParameters');
+const validateOptions = require('./lib/validateOptions');
 
 let config, knex;
 
@@ -17,41 +19,32 @@ module.exports = _.extend( list, {
   byLastId: listByLastId
 } );
 
-async function list( agendaUid, query, offset, limit ) {
-
-  const args = {
-    query: {
-      agendaUid: arguments[ 0 ]
-    }
-  };
-
-  if ( arguments.length === 3 ) {
-
-    _.extend( args, {
-      offset: arguments[ 1 ],
-      limit: arguments[ 2 ]
-    } );
-
-  } else {
-
-    args.query = _.extend( {
-      agendaUid: arguments[ 0 ]
-    }, validateListQuery( arguments[ 1 ] ) );
-
-    _.extend( args, {
-      offset: arguments[ 2 ],
-      limit: arguments[ 3 ]
-    } );
-
+async function list(agendaUid, query, offset, limit, options) {
+  const params = extractListParameters(agendaUid, query, offset, limit, options);
+  const {
+    decorate
+  } = validateOptions(params.options);
+  if (!knex) {
+    throw new VError( 'agenda-events service is not configured' );
   }
 
-  if ( !knex ) throw new VError( 'agenda-events service is not configured' );
+  const items = (await _list(
+    params.query,
+    _.pick(params, ['offset', 'limit']))
+  ).map(validate);
+
+  if (decorate.includes('member') && _.get(config, 'interfaces.getMembers')) {
+    const members = await config.interfaces.getMembers(items);
+
+    items.forEach(item => {
+      item.member = _.find(members, { userUid: item.userUid });
+    });
+  }
 
   return {
-    items: ( await _list( args.query, { offset: args.offset, limit: args.limit } ) ).map( validate ),
-    total: await _total( args.query )
+    items,
+    total: await _total(params.query)
   }
-
 }
 
 async function listByLastId( agendaUid, query, lastId, limit = 20 ) {
@@ -80,36 +73,31 @@ async function listByLastId( agendaUid, query, lastId, limit = 20 ) {
 
   return {
     items: items.map( validate ),
-    total: await _total( cleanQuery ),
+    total: await _total(cleanQuery),
     lastId: _.get( _.last( items ), 'id' )
   }
 
 }
 
 async function listByUserUid( userUid, offset, limit ) {
-
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
   return {
     items: ( await _list( { userUid }, { offset, limit } ) ).map( validate ),
-    total: await _total( { userUid } )
+    total: await _total({ userUid })
   }
-
 }
 
 async function listByEventUid( eventUid, offset = 0, limit = 20 ) {
-
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
   return {
     items: ( await _list( { eventUid }, { offset, limit } ) ).map( validate ),
-    total: await _total( { eventUid } )
+    total: await _total({ eventUid })
   }
-
 }
 
 function _total( query ) {
-
   const k = knex( config.schemas.agendaEvent );
 
   _query( k, query );
@@ -117,11 +105,9 @@ function _total( query ) {
   return k.count( 'id as total' )
 
     .then( rows => rows[ 0 ][ 'total' ] );
-
 }
 
-function _list( query, nav ) {
-
+function _list(query, nav) {
   const {
     limit,
     offset,
@@ -137,47 +123,33 @@ function _list( query, nav ) {
   }
 
   const k = knex( config.schemas.agendaEvent )
+    .select( fields );
 
-    .select( fields )
-
-    .limit( limit );
+  if (limit !== undefined) {
+    k.limit(limit);
+  }
 
   if ( lastId !== undefined ) {
-
     k.where( 'id', '>', lastId );
-
   } else {
-
     k.offset( offset );
-
   }
 
   _query( k, query );
 
   return k.then( rows => rows.map( r => _.mapKeys( r, ( v, k ) => _.camelCase( k ) ) ) );
-
 }
 
 function _query( k, query ) {
-
   if ( query.agendaUid !== undefined ) {
-
     k.where( 'agenda_uid', query.agendaUid );
-
   } else if ( query.userUid !== undefined ) {
-
     k.where( 'user_uid', query.userUid );
-
   } else {
-
     k.where( 'event_uid', query.eventUid );
-
   }
 
   if ( query.state !== undefined ) {
-
     k.andWhere( 'state', query.state );
-
   }
-
 }

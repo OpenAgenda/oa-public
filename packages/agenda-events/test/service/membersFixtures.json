@@ -1,0 +1,13 @@
+[{
+  "agendaUid": 62792452,
+  "userUid": 12312312,
+  "role": 1
+}, {
+  "agendaUid": 62792452,
+  "userUid": 123,
+  "role": 2
+}, {
+  "agendaUid": 62792452,
+  "userUid": 456,
+  "role": 3
+}]
