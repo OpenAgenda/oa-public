@@ -65,11 +65,11 @@ describe('members - functional - list', () => {
     });
 
     test('get member references for multiple userUids', async () => {
-      const members = await svc.list({
+      const otherMembers = await svc.list({
         agendaUid: 1,
         userUid: [1, 2, 22]
       });
-      expect(members.map(m => m.id)).toEqual([1, 2, 4]);
+      expect(otherMembers.map(m => m.id)).toEqual([1, 2, 4]);
     });
   });
 
