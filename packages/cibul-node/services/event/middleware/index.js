@@ -272,7 +272,7 @@ function layoutData( req, res ) {
 
   data.metas.ogUrl = {
     property: 'og:url',
-    content: `${config.root}/agendas/${req.agenda.uid}/events/${req.event.uid}?lang=${req.lang}`
+    content: `${config.root}${req.agenda ? `/agendas/${req.agenda.uid}` : ''}/events/${req.event.uid}?lang=${req.lang}`
   };
 
   data.scriptParams = {
