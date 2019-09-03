@@ -1,82 +1,58 @@
-"use strict";
+const queue = require('../server/queue');
 
-const config = require( '../config.dev' ).queue;
-const queue = require( '../server/queue' );
-
-describe( 'unit - queue', () => {
-
-  describe( 'init', () => {
-
-    test( 'redis availability is tested at init', async () => {
-
+describe('unit - queue', () => {
+  describe('init', () => {
+    test('redis availability is tested at init', async () => {
       try {
-
-        await queue.init( {
+        await queue.init({
           namespace: 'testoadocx',
           redis: {
             port: 6389,
             host: 'localhost'
           }
-        } );
-
-      } catch ( e ) {
-
-        expect( e.jse_shortmsg ).toBe( 'oa-docx init - Could not connect to redis' );
-
+        });
+      } catch (e) {
+        expect(e.jse_shortmsg).toBe(
+          'oa-docx init - Could not connect to redis'
+        );
       }
+    });
+  });
 
-    } );
-
-  } );
-
-  describe( 'queue operations', () => {
-
-    beforeAll( async () => {
-
-      await queue.init( {
+  describe('queue operations', () => {
+    beforeAll(async () => {
+      await queue.init({
         namespace: 'testoadocx',
         redis: {
           port: 6379,
           host: 'localhost'
         }
-      } );
+      });
+    });
 
-    } );
-
-    beforeEach( async () => {
-
+    beforeEach(async () => {
       await queue.clear();
+    });
 
-    } );
+    test('queue and pop queue', async () => {
+      expect(await queue.total()).toEqual(0);
 
-    test( 'queue and pop queue', async () => {
+      await queue({ uid: 123, data: 'oui?' });
 
-      expect( await queue.total() ).toEqual( 0 );
+      expect(await queue.total()).toEqual(1);
 
-      await queue( { uid: 123, data: 'oui?' } );
+      expect(await queue.pop()).toEqual({ uid: 123, data: 'oui?' });
+    });
 
-      expect( await queue.total() ).toEqual( 1 );
-
-      expect( await queue.pop() ).toEqual( { uid: 123, data: 'oui?' } );
-
-    } );
-
-
-    test( 'wait for queue', cb => {
-
+    test('wait for queue', cb => {
       // nothing has been queued at time of call
-      queue.waitAndPop().then( data => {
-
-        expect( data ).toEqual( { et: 'bim' } );
+      queue.waitAndPop().then(data => {
+        expect(data).toEqual({ et: 'bim' });
 
         cb();
+      });
 
-      } );
-
-      queue( { et: 'bim' } );
-
-    } );
-
-  } );
-
-} );
+      queue({ et: 'bim' });
+    });
+  });
+});

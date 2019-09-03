@@ -170,8 +170,8 @@ module.exports = {
     fr: 'Suisse'
   },
   CI: {
-    en: 'Cote D\'Ivoire',
-    fr: 'Cote D\'Ivoire'
+    en: "Cote D'Ivoire",
+    fr: "Cote D'Ivoire"
   },
   CK: {
     en: 'Cook Islands',
@@ -419,7 +419,7 @@ module.exports = {
   },
   IO: {
     en: 'British Indian Ocean Territory'
-  }, 
+  },
   IQ: {
     en: 'Iraq',
     fr: 'Irak'
@@ -493,7 +493,7 @@ module.exports = {
     fr: 'Kazakhstan'
   },
   LA: {
-    en: 'Lao People\'s Democratic Republic',
+    en: "Lao People's Democratic Republic",
     fr: 'Laos'
   },
   LB: {
@@ -590,7 +590,7 @@ module.exports = {
   },
   MS: {
     en: 'Montserrat'
-  }, 
+  },
   MT: {
     en: 'Malta',
     fr: 'Malte'
@@ -869,7 +869,7 @@ module.exports = {
   },
   TR: {
     en: 'Turkey'
-  }, 
+  },
   TT: {
     en: 'Trinidad and Tobago'
   },
@@ -965,4 +965,4 @@ module.exports = {
     en: 'Zimbabwe',
     fr: 'Zimbabwe'
   }
-}
+};

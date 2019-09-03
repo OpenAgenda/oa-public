@@ -1,88 +1,95 @@
 import _ from 'lodash';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
-import React, { Component, Fragment } from 'react';
+import fr from 'date-fns/locale/fr';
+import en from 'date-fns/locale/en';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
 import sa from 'superagent';
 import { Form, Field } from 'react-final-form';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import flattenLabels from './utils/flattenLabels';
-
-const locales = {
-  fr: require( 'date-fns/locale/fr' ),
-  en: require( 'date-fns/locale/en' )
-};
-
-if ( module.hot ) module.hot.accept();
-
 import Modal from './Modal';
 
-const anchor = _.first( document.getElementsByClassName( 'js_oa_docx_anchor' ) );
+const locales = { fr, en };
+
+if (module.hot) module.hot.accept();
+
+const anchor = _.first(document.getElementsByClassName('js_oa_docx_anchor'));
 
 class Main extends Component {
-  constructor( props ) {
-    super( props );
+  constructor(props) {
+    super(props);
 
     this.state = {
       open: false,
       service: null,
       loading: false,
-      labels: flattenLabels( this.props.labels, this.props.locale ),
+      labels: flattenLabels(props.labels, props.locale),
       limitDates: false
     };
 
-    this.dateToString = date =>
-      distanceInWordsToNow( date, { locale: locales[ this.props.locale ] } );
-
-    this.open = this.open.bind( this );
-    this.queue = this.queue.bind( this );
-    this.send = this.send.bind( this );
-    this.renderGenerateForm = this.renderGenerateForm.bind( this );
-    this.renderQueueControl = this.renderQueueControl.bind( this );
+    this.open = this.open.bind(this);
+    this.queue = this.queue.bind(this);
+    this.send = this.send.bind(this);
+    this.renderGenerateForm = this.renderGenerateForm.bind(this);
+    this.renderQueueControl = this.renderQueueControl.bind(this);
   }
 
-  open() {
-    this.send( 'get', '/state' ).then( body => {
-      this.setState( { service: body, open: true } );
-    } );
-  }
+  dateToString = date => {
+    const { locale } = this.props;
 
-  queue( data ) {
-    this.send( 'post', '/queue', data ).then( body => {
-      this.setState( { service: body } );
-    } );
-  }
+    return distanceInWordsToNow(date, { locale: locales[locale] });
+  };
 
-  send( method, res, data = {} ) {
+  open = () => {
+    this.send('get', '/state').then(body => {
+      this.setState({ service: body, open: true });
+    });
+  };
+
+  queue = data => {
+    this.send('post', '/queue', data).then(body => {
+      this.setState({ service: body });
+    });
+  };
+
+  send = (method, res, data = {}) => {
+    const { agendaUid, res: prefix } = this.props;
     const { templateName, from, to } = data;
 
-    this.setState( { loading: true } );
+    this.setState({ loading: true });
 
-    const request = sa[ method ](
-      this.props.res + '/' + this.props.agendaUid + res
-    );
+    const request = sa[method](`${prefix}/${agendaUid}${res}`);
 
-    if ( templateName ) {
-      request.query( { templateName } );
+    if (templateName) {
+      request.query({ templateName });
     }
 
-    if ( from ) {
-      request.query( { from: from.toISOString().split( 'T' ).shift() } );
+    if (from) {
+      request.query({
+        from: from
+          .toISOString()
+          .split('T')
+          .shift()
+      });
     }
 
-    if ( to ) {
-      request.query( { to: to.toISOString().split( 'T' ).shift() } );
+    if (to) {
+      request.query({
+        to: to
+          .toISOString()
+          .split('T')
+          .shift()
+      });
     }
 
     return request.then(
-      ( { body } ) =>
-        new Promise( resolve =>
-          this.setState( { loading: false }, () => resolve( body ) )
-        )
+      ({ body }) => new Promise(resolve => this.setState({ loading: false }, () => resolve(body)))
     );
-  }
+  };
 
-  renderGenerateForm() {
+  renderGenerateForm = () => {
     const { locale } = this.props;
     const { labels, service, limitDates } = this.state;
 
@@ -92,37 +99,36 @@ class Main extends Component {
         initialValues={{
           templateName:
             service.templates && service.templates.length
-              ? service.templates[ 0 ].name
+              ? service.templates[0].name
               : undefined
         }}
-        render={( { handleSubmit, invalid } ) => (
+        render={({ handleSubmit, invalid }) => (
           <form onSubmit={handleSubmit}>
             <div className="checkbox">
-              <label style={{ color: 'inherit' }}>
+              <label htmlFor="limitDates" style={{ color: 'inherit' }}>
                 <input
+                  id="limitDates"
                   type="checkbox"
                   checked={limitDates}
-                  onChange={e =>
-                    this.setState( { limitDates: e.target.checked } )
-                  }
+                  onChange={e => this.setState({ limitDates: e.target.checked })}
                 />
                 {labels.limitDates}
               </label>
             </div>
 
             {limitDates && (
-              <Fragment>
+              <>
                 <Field
                   name="from"
-                  format={value => value && value.startOf( 'day' ).toISOString()}
-                  parse={value => value && moment( value )}
-                  validate={( value, values ) => {
-                    if ( values.to && moment( value ).isAfter( values.to ) ) {
+                  format={value => value && value.startOf('day').toISOString()}
+                  parse={value => value && moment(value)}
+                  validate={(value, values) => {
+                    if (values.to && moment(value).isAfter(values.to)) {
                       return labels.fromBeforeToError;
                     }
                   }}
                 >
-                  {( { input, meta } ) => (
+                  {({ input, meta }) => (
                     <div className="form-group margin-all-sm">
                       {labels.from}{' '}
                       <div style={{ display: 'inline-block' }}>
@@ -131,13 +137,13 @@ class Main extends Component {
                           locale={locale}
                           className="form-control"
                           selected={
-                            input.value ? moment( input.value ) : input.value
+                            input.value ? moment(input.value) : input.value
                           }
                           value={
                             input.value
-                              ? moment( input.value )
-                                .locale( locale )
-                                .format( 'LL' )
+                              ? moment(input.value)
+                                .locale(locale)
+                                .format('LL')
                               : input.value
                           }
                           autoComplete="off"
@@ -152,15 +158,15 @@ class Main extends Component {
 
                 <Field
                   name="to"
-                  format={value => value && value.endOf( 'day' ).toISOString()}
-                  parse={value => value && moment( value )}
-                  validate={( value, values ) => {
-                    if ( values.from && moment( value ).isBefore( values.from ) ) {
+                  format={value => value && value.endOf('day').toISOString()}
+                  parse={value => value && moment(value)}
+                  validate={(value, values) => {
+                    if (values.from && moment(value).isBefore(values.from)) {
                       return labels.toAfterFromError;
                     }
                   }}
                 >
-                  {( { input, meta } ) => (
+                  {({ input, meta }) => (
                     <div className="form-group margin-bottom-sm margin-h-sm">
                       {labels.to}{' '}
                       <div style={{ display: 'inline-block' }}>
@@ -169,13 +175,13 @@ class Main extends Component {
                           locale={locale}
                           className="form-control"
                           selected={
-                            input.value ? moment( input.value ) : input.value
+                            input.value ? moment(input.value) : input.value
                           }
                           value={
                             input.value
-                              ? moment( input.value )
-                                .locale( locale )
-                                .format( 'LL' )
+                              ? moment(input.value)
+                                .locale(locale)
+                                .format('LL')
                               : input.value
                           }
                           autoComplete="off"
@@ -187,18 +193,22 @@ class Main extends Component {
                     </div>
                   )}
                 </Field>
-              </Fragment>
+              </>
             )}
 
             {service.templates && service.templates.length ? (
-              <Fragment>
+              <>
                 <p className="margin-top-sm">{labels.template}</p>
 
                 <div className="form-group">
-                  {service.templates.map( ( template, index ) => (
-                    <div className="radio" key={index}>
-                      <label style={{ color: 'inherit' }}>
+                  {service.templates.map(template => (
+                    <div className="radio" key={template.name}>
+                      <label
+                        htmlFor="templateName"
+                        style={{ color: 'inherit' }}
+                      >
                         <Field
+                          id="templateName"
                           name="templateName"
                           component="input"
                           type="radio"
@@ -207,9 +217,9 @@ class Main extends Component {
                         {template.name}
                       </label>
                     </div>
-                  ) )}
+                  ))}
                 </div>
-              </Fragment>
+              </>
             ) : null}
 
             <div>
@@ -225,12 +235,12 @@ class Main extends Component {
         )}
       />
     );
-  }
+  };
 
-  renderQueueControl( asPrimary = false ) {
+  renderQueueControl = (asPrimary = false) => {
     const { labels } = this.state;
 
-    if ( asPrimary ) {
+    if (asPrimary) {
       return (
         <div className="text-center margin-v-md">
           <div>{labels.launch}</div>
@@ -242,25 +252,23 @@ class Main extends Component {
 
     return (
       <div className="text-center">
-        <div className="margin-bottom-sm label-or">
-          <label>{labels.or}</label>
-        </div>
+        <div className="margin-bottom-sm label-or">{labels.or}</div>
         <div>{labels.launch}</div>
 
         {this.renderGenerateForm()}
       </div>
     );
-  }
+  };
 
   render() {
-    const { labels } = this.state;
+    const { service, open, labels } = this.state;
 
-    const hasFile = this.state.service && this.state.service.file.name;
-    const isQueued = this.state.service && this.state.service.queued;
+    const hasFile = service && service.file.name;
+    const isQueued = service && service.queued;
 
-    const svcState = _.get( this.state, 'service', {} );
+    const svcState = _.get(this.state, 'service', {});
 
-    if ( !this.state.open ) {
+    if (!open) {
       return (
         <div>
           <a href="#docx" onClick={() => this.open()}>
@@ -273,7 +281,7 @@ class Main extends Component {
     return (
       <Modal
         title={labels.modalTitle}
-        onClose={() => this.setState( { open: false } )}
+        onClose={() => this.setState({ open: false })}
       >
         <div className="text-center margin-v-md">
           {hasFile ? (
@@ -283,6 +291,7 @@ class Main extends Component {
                   className="btn btn-primary"
                   href={svcState.file.path}
                   target="_blank"
+                  rel="noopener noreferrer"
                 >
                   {labels.download}
                   <sup>(1)</sup>
@@ -290,17 +299,15 @@ class Main extends Component {
               </div>
               <small>
                 {labels.lastUpdate}:{' '}
-                {this.dateToString( svcState.file.createdAt )}
+                {this.dateToString(svcState.file.createdAt)}
               </small>
             </div>
           ) : (
             <p>{labels.noFileAvailable}</p>
           )}
         </div>
-        {isQueued ? <p>{labels.queued}</p> : this.renderQueueControl( !hasFile )}
-        {!isQueued ? (
-          <span>{labels.eventsLimit}</span>
-        ) : null}
+        {isQueued ? <p>{labels.queued}</p> : this.renderQueueControl(!hasFile)}
+        {!isQueued ? <span>{labels.eventsLimit}</span> : null}
         {hasFile ? (
           <div className="margin-top-md">
             <sup>(1)</sup> : <span>{labels.downloadInfo}</span>
@@ -387,16 +394,16 @@ Main.defaultProps = {
     },
     eventsLimit: {
       en: 'The export can include a maximum of 1000 events per document.',
-      fr: 'L\'export peut intégrer au maximum 1000 événements par document.'
+      fr: "L'export peut intégrer au maximum 1000 événements par document."
     }
   }
 };
 
 const props = {
-  locale: anchor.getAttribute( 'data-locale' ) || 'fr',
-  agendaUid: anchor.getAttribute( 'data-agenda-uid' ),
-  labels: anchor.getAttribute( 'data-labels' ) || undefined,
-  res: anchor.getAttribute( 'data-res' ) || '#res'
+  locale: anchor.getAttribute('data-locale') || 'fr',
+  agendaUid: anchor.getAttribute('data-agenda-uid'),
+  labels: anchor.getAttribute('data-labels') || undefined,
+  res: anchor.getAttribute('data-res') || '#res'
 };
 
-render( <Main {...props} />, anchor );
+render(<Main {...props} />, anchor);

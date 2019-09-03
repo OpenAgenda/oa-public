@@ -1,13 +1,11 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const config = {}
+const config = {};
 
-module.exports = _.extend( config, { init } );
-
-function init( c ) {
-
-  _.extend( config, c );
-
+function init(c) {
+  _.extend(config, c);
 }
+
+module.exports = _.extend(config, { init });
