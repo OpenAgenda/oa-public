@@ -4,7 +4,7 @@ const fs = require('fs');
 const { promisify } = require('util');
 const _ = require('lodash');
 const Docxtemplater = require('docxtemplater');
-const JSZip = require('jszip');
+const PizZip = require('pizzip');
 const expressions = require('angular-expressions');
 const removeMd = require('remove-markdown');
 
@@ -50,7 +50,7 @@ module.exports = async ({
 
   const doc = new Docxtemplater();
 
-  doc.loadZip(new JSZip(content));
+  doc.loadZip(new PizZip(content));
 
   let formattedEvents = events.map(e => formatEvent(e, { lang: language, from: query.from, to: query.to }));
   let reduced = reduceByDeep(formattedEvents, reducer);

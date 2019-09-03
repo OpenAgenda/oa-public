@@ -9513,10 +9513,10 @@ doctypes@^1.1.0:
   resolved "https://registry.npmjs.org/doctypes/-/doctypes-1.1.0.tgz#ea80b106a87538774e8a3a4a5afe293de489e0a9"
   integrity sha1-6oCxBqh1OHdOijpKWv4pPeSJ4Kk=
 
-docxtemplater@^3.9.7:
-  version "3.9.7"
-  resolved "https://registry.npmjs.org/docxtemplater/-/docxtemplater-3.9.7.tgz#61a3277ac4e46e0324c11ac3c8e0876b00edec01"
-  integrity sha512-lT9GTF24dl2Li22CWFqI5+W2YyEwQ5BY1F74JJCUbhKvhQRJpSL0Bc0apSbNjf1revQ5SitDjJSyOWOhBnA6Ew==
+docxtemplater@^3.14.2:
+  version "3.14.2"
+  resolved "https://registry.yarnpkg.com/docxtemplater/-/docxtemplater-3.14.2.tgz#671ff6f9b1c1890f6e8d61649f931d90618a2349"
+  integrity sha512-xcAHTY2a2kYJsq374dIIgi2Kh1zJHXpLsDmhRr+c7JvgDBxgR8DqVUsk7QSomZ9LtZvXk5sJZcBMFiNwy0V+8g==
   dependencies:
     xmldom "^0.1.27"
 
@@ -11471,7 +11471,7 @@ final-form-set-field-data@^1.0.2:
   resolved "https://registry.npmjs.org/final-form-set-field-data/-/final-form-set-field-data-1.0.2.tgz#ce19095af5d607148c1e6ce3403d75d40223d848"
   integrity sha512-gAnENimyQ5GW3OEGca5pbwm4lYshW2orzfBlPUYqzcm7ZxkQrVO8FqCAgEcCM+Rq9U1OU0q+D+UkqETvvDY6jw==
 
-final-form@^4.18.5:
+final-form@4.18.5, final-form@^4.18.5:
   version "4.18.5"
   resolved "https://registry.yarnpkg.com/final-form/-/final-form-4.18.5.tgz#e359cfaf2892ef135d92fcf22e06b475dda3a885"
   integrity sha512-DH/I2W7fWxU8J8ZsbYJ5jLvUbhbatCvLhIKlsU17MvY6W3QnetPEyuX5mcxXgIGFNFKxfvqsG3pDy/1/VwOiTw==
@@ -15262,13 +15262,6 @@ jsx-ast-utils@^2.1.0, jsx-ast-utils@^2.2.1:
     array-includes "^3.0.3"
     object.assign "^4.1.0"
 
-jszip@2:
-  version "2.6.1"
-  resolved "https://registry.npmjs.org/jszip/-/jszip-2.6.1.tgz#b88f3a7b2e67a2a048152982c7a3756d9c4828f0"
-  integrity sha1-uI86ey5noqBIFSmCx6N1bZxIKPA=
-  dependencies:
-    pako "~1.0.2"
-
 juice@^5.2.0:
   version "5.2.0"
   resolved "https://registry.npmjs.org/juice/-/juice-5.2.0.tgz#a40ea144bde2845fe2aade46a81f493f8ea677a0"
@@ -17603,20 +17596,15 @@ moment-timezone@^0.5.11, moment-timezone@^0.5.13, moment-timezone@^0.5.14, momen
   dependencies:
     moment ">= 2.9.0"
 
-moment@2.24.0, "moment@>= 2.9.0", moment@^2.13.0, moment@^2.18.0, moment@^2.20.1, moment@^2.6.0, moment@^2.9.0:
+moment@2.24.0, "moment@>= 2.9.0", moment@^2.13.0, moment@^2.18.0, moment@^2.20.1, moment@^2.24.0, moment@^2.6.0, moment@^2.9.0:
   version "2.24.0"
-  resolved "https://registry.npmjs.org/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
+  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 moment@2.8.3:
   version "2.8.3"
   resolved "https://registry.npmjs.org/moment/-/moment-2.8.3.tgz#a01427bf8910f014fc4baa1b8d96f17f7e3f29a2"
   integrity sha1-oBQnv4kQ8BT8S6objZbxf34/KaI=
-
-moment@^2.24.0:
-  version "2.24.0"
-  resolved "https://registry.yarnpkg.com/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
-  integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
 
 moo-server@*, moo-server@1.3.x:
   version "1.3.0"
@@ -19362,6 +19350,13 @@ pirates@^4.0.1:
   dependencies:
     node-modules-regexp "^1.0.0"
 
+pizzip@^3.0.6:
+  version "3.0.6"
+  resolved "https://registry.yarnpkg.com/pizzip/-/pizzip-3.0.6.tgz#223485511f9e23abbb2888fd67734e12fc7861a8"
+  integrity sha512-CYmQJQ6ShNhScp2zrpGetRfamQ2CtUdsfcXaauqsQ0h/HVdQTTlHNUaNzMO0i+l8XTNctHJ6PrmFP+YZoF4iZw==
+  dependencies:
+    pako "~1.0.2"
+
 pkg-dir@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/pkg-dir/-/pkg-dir-2.0.0.tgz#f6d5d1109e19d63edf428e0bd57e12777615334b"
@@ -20925,7 +20920,7 @@ react-docgen@^4.1.0:
     node-dir "^0.1.10"
     recast "^0.17.3"
 
-react-dom@^16.0.0, react-dom@^16.6.3, react-dom@^16.7.0, react-dom@^16.8.3, react-dom@^16.8.6:
+react-dom@^16.0.0, react-dom@^16.6.3, react-dom@^16.7.0, react-dom@^16.8.3, react-dom@^16.8.6, react-dom@^16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.9.0.tgz#5e65527a5e26f22ae3701131bcccaee9fb0d3962"
   integrity sha512-YFT2rxO9hM70ewk9jq0y6sQk8cL02xm4+IzYBz75CQGlClQQ1Bxq0nhHF6OtSbit+AIahujJgb/CPRibFkMNJQ==
@@ -21542,7 +21537,7 @@ react-waypoint@^9.0.1:
     prop-types "^15.0.0"
     react-is "^16.6.3"
 
-react@^16.0.0, react@^16.6.3, react@^16.7.0, react@^16.8.3, react@^16.8.6:
+react@^16.0.0, react@^16.6.3, react@^16.7.0, react@^16.8.3, react@^16.8.6, react@^16.9.0:
   version "16.9.0"
   resolved "https://registry.yarnpkg.com/react/-/react-16.9.0.tgz#40ba2f9af13bc1a38d75dbf2f4359a5185c4f7aa"
   integrity sha512-+7LQnFBwkiw+BobzOF6N//BdoNw0ouwmSJTEm9cglOOmsg/TMiFHZLe2sEoN5M7LgJTj9oHH0gxklfnQe66S1w==

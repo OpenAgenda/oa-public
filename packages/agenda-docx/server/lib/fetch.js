@@ -2,8 +2,9 @@
 
 const fs = require('fs');
 const sa = require('superagent');
-
 const log = require('@openagenda/logs')('fetch');
+
+const EVENTS_MAX_LIMIT = Infinity;
 
 function loadEventsFromFile(file) {
   return new Promise((rs, rj) => {
@@ -47,7 +48,7 @@ async function fetchAndStoreEvents(destFolder, agendaUid, query) {
   let events = [];
   let fetched = await _fetch(agendaUid, offset, limit, query);
 
-  while (fetched.length && offset + limit <= 1000) {
+  while (fetched.length && offset + limit <= EVENTS_MAX_LIMIT) {
     events = events.concat(fetched);
     offset += limit;
 
