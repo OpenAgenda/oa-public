@@ -36,7 +36,7 @@ function putInTemporary( ns, req, res, next ) {
 
   const temporaryFolder = tmpFolder || process.env.TMP_FOLDER;
 
-  if ( !temporaryFolder ) return next( 'form-schemas middleware are not initialized' );
+  if ( !temporaryFolder ) return next( new Error( 'form-schemas middleware are not initialized' ) );
 
   const fileFields = ( new FormSchema( req[ namespaces.schema ] ) ).getFileFields();
 

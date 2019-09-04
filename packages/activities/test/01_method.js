@@ -260,7 +260,7 @@ describe( 'method', function () {
 
             f.bofProperty = 'mabite';
 
-            next( 'the error' );
+            next( new Error( 'the error' ) );
 
           }
         ]
@@ -271,7 +271,7 @@ describe( 'method', function () {
       async.compose.apply( null, _hooks.reverse() )( hook, ( err, h ) => {
 
         should( err ).not.equal( null );
-        should( err ).eql( _.merge( {}, hook, { error: 'the error' } ) );
+        should( err ).eql( _.merge( {}, hook, { error: new Error( 'the error' ) } ) );
         should( h ).equal( undefined );
         err.fields[ 0 ].should.eql( Object.assign( {}, field, { morue: '...', bofProperty: 'mabite' } ) );
 

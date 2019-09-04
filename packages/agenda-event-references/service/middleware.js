@@ -41,7 +41,7 @@ function _pre( req, res, next ) {
 
   if ( !req.agendaId && !req.agendaUid ) {
 
-    next( 'no agenda was specified' );
+    next( new Error( 'no agenda was specified' ) );
 
     return false;
 
