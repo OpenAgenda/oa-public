@@ -27,18 +27,20 @@ import 'moment/locale/fr';
     lang: PropTypes.string,
     getLabel: PropTypes.func,
   },
-  ( { settings } ) => ({
+  ({ settings }) => ({
     lang: settings.lang,
-    getLabel: ( label, values = {} ) => makeGetterLabel( labels )( label, values, settings.lang )
+    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, settings.lang)
   })
 )
-@getContext( {
+@getContext({
   lang: PropTypes.string,
   getLabel: PropTypes.func
-} )
+})
 export default class App extends Component {
-  componentWillMount() {
-    moment.locale( this.props.lang || 'fr' );
+  constructor(props) {
+    super(props);
+
+    moment.locale(props.lang || 'fr');
   }
 
   render() {
@@ -53,40 +55,42 @@ export default class App extends Component {
 
     const content = (
       <Fragment>
-        {renderRoutes( route.routes )}
+        {renderRoutes(route.routes)}
 
         {messageSentModal.visible ? <Modal
-          title={getLabel( 'messageSent' )}
-          onClose={() => closeModal( 'messageSent' )}
+          title={getLabel('messageSent')}
+          onClose={() => closeModal('messageSent')}
           classNames={{ overlay: 'popup-overlay big' }}
         >
           <div className="margin-top-sm text-center">
             {messageSentModal.params.onConversationCreateFlash
               ? messageSentModal.params.onConversationCreateFlash
-              : getLabel( 'yourMessageHasBeenSent' )}
+              : getLabel('yourMessageHasBeenSent')}
           </div>
           <div className="margin-top-sm text-center">
-            <button className="btn btn-primary" onClick={() => closeModal( 'messageSent' )}>
-              {getLabel( 'close' )}
+            <button className="btn btn-primary" onClick={() => closeModal('messageSent')}>
+              {getLabel('close')}
             </button>
           </div>
         </Modal> : null}
 
         {closeConfirmationModal.visible ? <Modal
-          title={getLabel( 'closeConversation' )}
-          onClose={() => closeModal( 'closeConfirmation' )}
+          title={getLabel('closeConversation')}
+          onClose={() => closeModal('closeConfirmation')}
           classNames={{ overlay: 'popup-overlay big' }}
         >
-          <div className="margin-top-sm text-center">{getLabel( 'closeConversationDesc' )}</div>
+          <div className="margin-top-sm text-center">{getLabel('closeConversationDesc')}</div>
           <div className="margin-top-sm">
-            <button className="btn btn-primary" onClick={() => closeModal( 'closeConfirmation' )}>
-              {getLabel( 'cancel' )}
+            <button className="btn btn-primary" onClick={() => closeModal('closeConfirmation')}>
+              {getLabel('cancel')}
             </button>
-            <button className="btn btn-danger pull-right" onClick={async () => {
-              await closeConfirmationModal.params.onAction( closeConfirmationModal.params.action.code );
-              closeModal( 'closeConfirmation' );
-            }}>
-              {getLabel( 'close' )}
+            <button
+              className="btn btn-danger pull-right" onClick={async () => {
+              await closeConfirmationModal.params.onAction(closeConfirmationModal.params.action.code);
+              closeModal('closeConfirmation');
+            }}
+            >
+              {getLabel('close')}
 
               {actionLoading && (
                 <span className="margin-h-sm">
@@ -98,25 +102,25 @@ export default class App extends Component {
         </Modal> : null}
 
         {actionConfirmationModal.visible ? <Modal
-          title={actionConfirmationModal.params.action.confirmationModalTitle[ lang ]}
-          onClose={() => closeModal( 'actionConfirmation' )}
+          title={actionConfirmationModal.params.action.confirmationModalTitle[lang]}
+          onClose={() => closeModal('actionConfirmation')}
           classNames={{ overlay: 'popup-overlay big' }}
         >
           <div className="margin-top-sm text-center">
-            {actionConfirmationModal.params.action.confirmationModalLabel[ lang ]}
+            {actionConfirmationModal.params.action.confirmationModalLabel[lang]}
           </div>
           <div className="margin-top-sm">
-            <button className="btn btn-primary" onClick={() => closeModal( 'actionConfirmation' )}>
-              {getLabel( 'cancel' )}
+            <button className="btn btn-primary" onClick={() => closeModal('actionConfirmation')}>
+              {getLabel('cancel')}
             </button>
             <button
-              className={cn( 'btn', `btn-${actionConfirmationModal.params.action.kind}`, 'pull-right' )}
+              className={cn('btn', `btn-${actionConfirmationModal.params.action.kind}`, 'pull-right')}
               onClick={async () => {
-                await actionConfirmationModal.params.onAction( actionConfirmationModal.params.action.code );
-                closeModal( 'actionConfirmation' );
+                await actionConfirmationModal.params.onAction(actionConfirmationModal.params.action.code);
+                closeModal('actionConfirmation');
               }}
             >
-              {getLabel( 'confirm' )}
+              {getLabel('confirm')}
 
               {actionLoading && (
                 <span className="margin-h-sm">
@@ -129,7 +133,7 @@ export default class App extends Component {
       </Fragment>
     );
 
-    if ( Wrapper ) {
+    if (Wrapper) {
       return (
         <Wrapper>
           {content}

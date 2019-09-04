@@ -28,7 +28,6 @@ module.exports = async (conversation, message) => {
     const chunks = _.chunk(inboxUsersToNotify, 100);
 
     for (const chunk of chunks) {
-
       const users = (await usersSvc.find({
         query: {
           uid: {
@@ -42,24 +41,27 @@ module.exports = async (conversation, message) => {
         internal: true
       })).data;
 
-      for (const user of users) {
+      const sendMailPromises = [];
 
+      for (const user of users) {
         const inboxUserToNotify = _.chain(inboxUsersToNotify)
           .remove(['userUid', user.uid])
           .head()
           .assign({ user })
           .value();
 
-        await sendMail({ inboxUser: inboxUserToNotify, conversation, message });
-
+        sendMailPromises.push(
+          sendMail({ inboxUser: inboxUserToNotify, conversation, message })
+        );
       }
 
+      Promise.all(sendMailPromises)
+        .catch(e => {
+          log('error', e);
+        });
     }
-
   } catch (e) {
-
     log('error', e);
-
   }
 
 };

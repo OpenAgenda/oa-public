@@ -16,6 +16,10 @@ describe('members - utils - compareRoles', () => {
       expect(isSuperiorTo(administrator, moderator)).toBe(true);
     });
 
+    test('works with roles as integers (reader > contributor)', () => {
+      expect(isSuperiorTo('1', '2')).toBe(false);
+    });
+
     test('works with roles as smallcase strings', () => {
       expect(isSuperiorTo('administrator', 'moderator')).toBe(true);
     });

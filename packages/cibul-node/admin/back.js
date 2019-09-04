@@ -219,7 +219,7 @@ function getUsers( req, res, next ) {
 
       return _loadUser()( req, res, () => {
 
-        if ( !req.loadedUser.id ) return next( 'User not found' );
+        if ( !req.loadedUser.id ) return next( new Error( 'User not found' ) );
 
         membersSvc.list( { userUid: req.loadedUser.uid }, { limit: 500, order: 'id.desc' }, { legacy: true } ).then( ( { stakeholders } ) => {
 

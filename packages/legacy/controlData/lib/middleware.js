@@ -38,7 +38,7 @@ async function main( { prefix, knex, redis }, req, res, next ) {
 
   const agendaUid = _.get( req, 'agenda.uid' );
 
-  if ( !agendaUid ) return next( 'Identifier is missing' );
+  if ( !agendaUid ) return next( new Error( 'Identifier is missing' ) );
 
   log( 'fetching control data for agenda %s', agendaUid );
 

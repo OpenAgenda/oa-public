@@ -9,4 +9,4 @@ chai.use( chaiJestDiff() );
 
 chai.should();
 global.expect = expect;
-// global.should = expect;
+global.should = expect;
