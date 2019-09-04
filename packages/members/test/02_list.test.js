@@ -345,7 +345,7 @@ describe('members - functional - list', () => {
       expect(members.filter(m => m.deletedUser === true)).toHaveLength(1);
     });
 
-    test('when deleteUserd is not provided, members marked as associated with deleted user are not in results', async () => {
+    test('when deletedUser is not provided, members marked as associated with deleted user are not in results', async () => {
       const members = await svc.list({ agendaUid: 1 });
 
       expect(members.filter(m => m.deletedUser === true)).toHaveLength(0);
