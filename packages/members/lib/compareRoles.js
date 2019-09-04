@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const roles = require('../iso/roles');
 
 const roleWeights = {
   ADMINISTRATOR: 100,
@@ -10,32 +11,20 @@ const roleWeights = {
   NOROLE: 0
 };
 
-const rolePairs = _.toPairs(require('../iso/roles'));
+const rolePairs = _.toPairs(roles);
 
-function _getRoleStringCodeFromString(role) {
-  if ([null, undefined].includes(role)) return 'NOROLE';
-
-  const matches = rolePairs.filter(p => role.toUpperCase() === p[0]);
-
-  if (!matches.length) throw new Error(`Unknown role: ${role}`);
-
-  return _.first(matches)[0];
-}
-
-function _getRoleStringCodeFromInteger(role) {
-  if ([null, undefined].includes(role)) return 'NOROLE';
-
-  const matches = rolePairs.filter(p => role === p[1]);
-
-  if (!matches.length) throw new Error(`Unknown role: ${role}`);
-
-  return _.first(matches)[0];
-}
+const isNumberLike = value => !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
 
 function _getRoleStringCode(role) {
-  return typeof role === 'string'
-    ? _getRoleStringCodeFromString(role)
-    : _getRoleStringCodeFromInteger(role);
+  if ([null, undefined].includes(role)) return 'NOROLE';
+
+  const match = rolePairs.find(p => (isNumberLike(role)
+    ? Number(role) === p[1]
+    : String(role).toUpperCase() === p[0]));
+
+  if (!match) throw new Error(`Unknown role: ${role}`);
+
+  return match[0];
 }
 
 function isEqualTo(role, compareWithRole) {
