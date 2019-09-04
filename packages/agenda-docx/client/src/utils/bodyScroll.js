@@ -1,58 +1,48 @@
-"use strict";
+import * as du from './dom';
 
-const du = require( './dom' );
+function _stringifyStyle(style) {
+  return Object.keys(style)
+    .filter(k => !!k.length)
+    .map(k => `${k}:${style[k]}`)
+    .join(';');
+}
 
+function _parseStyle(style) {
+  const parsed = {};
+
+  (style || '').split(';').forEach(part => {
+    if (!part.length) return;
+
+    const [key, value] = part.split('=');
+
+    parsed[key] = value;
+  });
+
+  return parsed;
+}
 
 // remove overflow:hidden from body
 export function enable() {
+  const bodyElem = du.el('body');
 
-  const bodyElem = du.el( 'body' );
+  if (!bodyElem) return;
 
-  if ( !bodyElem ) return;
-
-  const style = _parseStyle( bodyElem.getAttribute( 'style' ) );
+  const style = _parseStyle(bodyElem.getAttribute('style'));
 
   style.overflow = undefined;
 
-  bodyElem.setAttribute( 'style', _stringifyStyle( style ) );
-
+  bodyElem.setAttribute('style', _stringifyStyle(style));
 }
 
 // add overflow:hidden to body
 export function disable() {
+  const bodyElem = du.el('body');
 
-  const bodyElem = du.el( 'body' );
+  if (!bodyElem) return;
 
-  if ( !bodyElem ) return;
-
-  const style = _parseStyle( bodyElem.getAttribute( 'style' ) );
+  const style = _parseStyle(bodyElem.getAttribute('style'));
 
   style.overflow = 'hidden';
 
-  bodyElem.setAttribute( 'style', _stringifyStyle( style ) );
-
-}
-
-function _stringifyStyle( style ) {
-
-  return Object.keys( style ).filter( k => !!k.length ).map( k => k + ':' + style[ k ] ).join( ';' );
-
-}
-
-function _parseStyle( style ) {
-
-  const parsed = {};
-
-  ( style || '' ).split( ';' ).forEach( part => {
-
-    if ( !part.length ) return;
-
-    const bits = part.split( '=' );
-
-    parsed[ bits[ 0 ] ] = bits[ 1 ];
-
-  } );
-
-  return parsed;
-
+  bodyElem.setAttribute('style', _stringifyStyle(style));
 }

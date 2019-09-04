@@ -1,3 +1,3 @@
 'use strict';
 
-module.exports = num => !isNaN( num ) && Number.isFinite( num );
+module.exports = num => !Number.isNaN(Number(num)) && Number.isFinite(parseInt(num, 10));

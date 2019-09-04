@@ -1,162 +1,152 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ReactDOM from 'react-dom';
 import * as bodyScroll from './utils/bodyScroll';
 
+class Modal extends Component {
+  constructor(props) {
+    super(props);
 
-export default class Modal extends Component {
+    this.state = {
+      clickOnModal: false
+    };
 
-  static propTypes = {
-    title: PropTypes.node,
-    visible: PropTypes.bool,
-    onClose: PropTypes.func,
-    disableBodyScroll: PropTypes.bool
-  };
-
-  static defaultProps = {
-    title: null,
-    visible: true,
-    disableBodyScroll: false,
-    classNames: {
-      overlay: 'popup-overlay'
-    }
-  };
-
-  constructor( props ) {
-    super( props );
-    this.handleModalClick = ::this.handleModalClick;
-    this.handleOverlayClick = ::this.handleOverlayClick;
-    this.handleClose = ::this.handleClose;
-    this.handleEsc = ::this.handleEsc;
-    this.setModalRef = ::this.setModalRef;
-  }
-
-  state = {
-    clickOnModal: false
-  };
-
-  componentDidUpdate() {
-
-    if ( this.props.visible ) {
-
-      this.addClickEvents();
-
-    } else {
-
-      this.removeClickEvents();
-
-    }
-
-  }
-
-  addClickEvents() {
-
-    const modalDomNode = ReactDOM.findDOMNode( this.modalRef );
-    const overlayDomNode = ReactDOM.findDOMNode( this.overlayRef );
-
-    if ( modalDomNode ) modalDomNode.addEventListener( 'click', this.handleModalClick );
-    if ( overlayDomNode ) overlayDomNode.addEventListener( 'click', this.handleOverlayClick );
-
-    document.addEventListener( 'keydown', this.handleEsc );
-
-  }
-
-  removeClickEvents() {
-
-    const modalDomNode = ReactDOM.findDOMNode( this.modalRef );
-    const overlayDomNode = ReactDOM.findDOMNode( this.overlayRef );
-
-    if ( modalDomNode ) modalDomNode.removeEventListener( 'click', this.handleModalClick );
-    if ( overlayDomNode ) overlayDomNode.removeEventListener( 'click', this.handleOverlayClick );
-
-    document.removeEventListener( 'keydown', this.handleEsc );
-
+    this.modalRef = React.createRef();
+    this.overlayRef = React.createRef();
   }
 
   componentDidMount() {
+    const { visible, disableBodyScroll } = this.props;
 
-    if ( this.props.visible ) this.addClickEvents();
+    if (visible) {
+      this.addClickEvents();
+    }
 
-    if ( this.props.disableBodyScroll ) bodyScroll.disable();
+    if (disableBodyScroll) {
+      bodyScroll.disable();
+    }
+  }
 
+  componentDidUpdate() {
+    const { visible } = this.props;
+
+    if (visible) {
+      this.addClickEvents();
+    } else {
+      this.removeClickEvents();
+    }
   }
 
   componentWillUnmount() {
-
     this.removeClickEvents();
 
-    if ( this.props.disableBodyScroll ) bodyScroll.enable();
+    const { disableBodyScroll } = this.props;
 
+    if (disableBodyScroll) {
+      bodyScroll.enable();
+    }
   }
 
-  handleModalClick() {
+  handleEsc = event => {
+    if (event.key === 'Escape') this.handleClose();
+  };
 
-    this.state.clickOnModal = true;
+  handleClose = () => {
+    const { onClose } = this.props;
 
-  }
+    if (onClose) onClose();
+  };
 
-  handleOverlayClick( e ) {
+  handleOverlayClick = () => {
+    const { visible } = this.props;
+    const { clickOnModal } = this.state;
 
-    if ( this.props.visible && !this.state.clickOnModal ) {
-
+    if (visible && !clickOnModal) {
       this.handleClose();
-
     }
 
     this.state.clickOnModal = false;
-  }
+  };
 
-  handleClose() {
+  handleModalClick = () => {
+    this.state.clickOnModal = true;
+  };
 
-    const { onClose } = this.props;
+  addClickEvents = () => {
+    const modalDomNode = this.modalRef.current;
+    const overlayDomNode = this.overlayRef.current;
 
-    if ( onClose ) onClose();
+    if (modalDomNode) modalDomNode.addEventListener('click', this.handleModalClick);
+    if (overlayDomNode) overlayDomNode.addEventListener('click', this.handleOverlayClick);
 
-  }
+    document.addEventListener('keydown', this.handleEsc);
+  };
 
-  handleEsc( event ) {
-    if ( event.key === 'Escape' ) this.handleClose();
-  }
+  removeClickEvents = () => {
+    const modalDomNode = this.modalRef.current;
+    const overlayDomNode = this.overlayRef.current;
 
-  setModalRef( ref ) {
-    this.modalRef = ref;
-    if ( this.props.modalRef ) this.props.modalRef( ref );
-  }
+    if (modalDomNode) modalDomNode.removeEventListener('click', this.handleModalClick);
+    if (overlayDomNode) overlayDomNode.removeEventListener('click', this.handleOverlayClick);
 
-  getModalRef() {
-    return this.modalRef;
-  }
+    document.removeEventListener('keydown', this.handleEsc);
+  };
 
   render() {
+    const {
+      title, children, visible, classNames
+    } = this.props;
 
-    const { title, children, visible } = this.props;
-
-    if ( !visible ) {
+    if (!visible) {
       return null;
     }
 
     return (
       <div
-        className={this.props.classNames.overlay}
+        role="button"
+        tabIndex={0}
+        className={classNames.overlay}
         onKeyPress={this.onKeyPress}
-        ref={ref => this.overlayRef = ref}
+        ref={this.overlayRef}
       >
-        <section ref={this.setModalRef}>
-          { title ?
+        <section ref={this.modalRef}>
+          {title ? (
             <header className="popup-title">
               <h2>{title}</h2>
-              <a onClick={this.handleClose} className="close-link">
+              <button
+                type="button"
+                tabIndex={0}
+                onClick={this.handleClose}
+                className="btn btn-link close-link"
+              >
                 <i className="fa fa-times fa-lg" />
-              </a>
+              </button>
             </header>
-            : null }
-          <div className="popup-content">
-            {children}
-          </div>
+          ) : null}
+          <div className="popup-content">{children}</div>
         </section>
       </div>
     );
-
   }
-
 }
+
+Modal.propTypes = {
+  children: PropTypes.node,
+  title: PropTypes.node,
+  visible: PropTypes.bool,
+  onClose: PropTypes.func,
+  disableBodyScroll: PropTypes.bool,
+  classNames: PropTypes.objectOf(PropTypes.string)
+};
+
+Modal.defaultProps = {
+  children: null,
+  title: null,
+  visible: true,
+  disableBodyScroll: false,
+  onClose: null,
+  classNames: {
+    overlay: 'popup-overlay'
+  }
+};
+
+export default Modal;

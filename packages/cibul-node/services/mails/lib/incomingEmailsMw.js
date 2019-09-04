@@ -41,7 +41,7 @@ module.exports = ({ services }) => async (req, res, next) => {
     }
 
     const referenceMatches = referenceEmail.match(REFERENCE_REG);
-    const conversationId = referenceMatches && referenceMatches[1];
+    const conversationId = parseInt(referenceMatches && referenceMatches[1], 10);
 
     if (!conversationId) {
       return res.sendStatus(200);
@@ -60,7 +60,7 @@ module.exports = ({ services }) => async (req, res, next) => {
     log.info('Incoming email', {
       userUid: user.uid,
       conversationId,
-      body: req.body['stripped-html']
+      data: req.body
     });
 
     await conversation.messages.create({

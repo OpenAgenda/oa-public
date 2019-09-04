@@ -52,7 +52,7 @@ module.exports.orFail = (members, req, res, next) => {
   _load(members, {agendaNamespace: 'agenda'}, req).then( () => {
     if (!req.member) {
       res.status(403);
-      return next('Not a member');
+      return next(new Error('Not a member'));
     }
     next();
   } );

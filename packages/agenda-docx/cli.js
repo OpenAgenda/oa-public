@@ -1,8 +1,7 @@
-"use strict";
+'use strict';
 
-const fs = require( 'fs' );
-const prompt = require( 'prompt-input' );
-const generateDocument = require( './server/generateDocument' );
+const Prompt = require('prompt-input');
+const generateDocument = require('./server/generateDocument');
 
 const reducer = undefined;
 // const reducer = [
@@ -60,32 +59,37 @@ const reducer = undefined;
 //   }
 // ];
 
+function _term(message, options = {}) {
+  return new Prompt(Object.assign(options, { message })).run();
+}
 
-( async () => {
-
+(async () => {
   try {
+    const templatePath = await _term(
+      'What is the path to the input docx template ?',
+      {
+        // default: '/home/bertho/Téléchargements/template4.docx'
+        default: `${__dirname}/input.docx`
+      }
+    );
 
-    const templatePath = await _term( 'What is the path to the input docx template ?', {
-      // default: '/home/bertho/Téléchargements/template4.docx'
-      default: __dirname + '/input.docx'
-    } );
+    const localTmpPath = await _term(
+      'Where should the generated file be placed?',
+      {
+        // default: '/home/bertho/Téléchargements'
+        default: '/var/tmp/docx'
+      }
+    );
 
-    const localTmpPath = await _term( 'Where should the generated file be placed?', {
-      // default: '/home/bertho/Téléchargements'
-      default: '/var/tmp/docx'
-    } );
-
-    const agendaUid = await _term( 'What is the uid of the agenda to export?', {
+    const agendaUid = await _term('What is the uid of the agenda to export?', {
       // default: 59272362 // chatellerault
       // default: 1298686 // jnarchi-2018-auvergne-rhone-alpes
       default: 63106080 // jep 2018 guyane
-    } );
+    });
 
-    console.log( 'generating output...' );
+    console.log('generating output...');
 
-    const {
-      outputPath
-    } = await generateDocument( {
+    const { outputPath } = await generateDocument({
       agendaUid,
       localTmpPath,
       templatePath,
@@ -95,28 +99,18 @@ const reducer = undefined;
         // from: '2017-12-31T23:00:00.000Z',
         // to: '2018-12-31T22:59:59.999Z'
       }
-    } );
+    });
 
-    console.log( 'output generated at %s', outputPath );
+    console.log('output generated at %s', outputPath);
 
     process.exit();
+  } catch (e) {
+    console.log('generation failed', e);
 
-  } catch ( e ) {
-
-    console.log( 'generation failed', e );
-
-    if ( e.properties && e.properties.errors ) {
-      e.properties.errors.forEach( error => {
-        console.log( 'Error:', error );
-      } );
+    if (e.properties && e.properties.errors) {
+      e.properties.errors.forEach(error => {
+        console.log('Error:', error);
+      });
     }
-
   }
-
-} )();
-
-function _term( message, options = {} ) {
-
-  return new prompt(Object.assign( options, { message } ) ).run();
-
-}
+})();
