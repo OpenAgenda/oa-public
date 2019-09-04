@@ -13,39 +13,39 @@ import { renderTextarea } from '../../utils/form';
 import * as uppyLocales from '../../locales/uppyLocales';
 
 
-function parseJsonValue( value ) {
+function parseJsonValue(value) {
   try {
-    return JSON.parse( value );
-  } catch ( e ) {
+    return JSON.parse(value);
+  } catch (e) {
     return value;
   }
 }
 
 
-@reduxForm( {
+@reduxForm({
   form: 'conversation',
   validate
-} )
-@mapProps( props => (props.initialValues ? {
+})
+@mapProps(props => (props.initialValues ? {
   ...props,
   initialValues: {
     ...props.initialValues,
-    destinationInbox: parseJsonValue( props.initialValues.destinationInbox ),
+    destinationInbox: parseJsonValue(props.initialValues.destinationInbox),
     type: props.initialValues.type,
-    params: parseJsonValue( props.initialValues.params )
+    params: parseJsonValue(props.initialValues.params)
   }
-} : props) )
-@getContext( {
+} : props))
+@getContext({
   getLabel: PropTypes.func,
   lang: PropTypes.string,
   store: PropTypes.object
-} )
+})
 export default class ConversationForm extends Component {
   static propTypes = {
-    Wrapper: PropTypes.oneOfType( [
+    Wrapper: PropTypes.oneOfType([
       PropTypes.func,
       PropTypes.element
-    ] )
+    ])
   };
 
   static defaultProps = {
@@ -57,10 +57,12 @@ export default class ConversationForm extends Component {
     modalOpen: false
   };
 
-  componentWillMount() {
-    const { uploadEndpoint, lang } = this.props;
+  constructor(props) {
+    super(props);
 
-    const uppy = this.uppy = Uppy( {
+    const { uploadEndpoint, lang } = props;
+
+    const uppy = this.uppy = Uppy({
       restrictions: {
         maxNumberOfFiles: 4,
         allowedFileTypes: [
@@ -72,22 +74,22 @@ export default class ConversationForm extends Component {
         ]
       },
       autoProceed: false,
-      locale: uppyLocales.Core[ lang ] || uppyLocales.Core[ 'fr' ]
-    } );
+      locale: uppyLocales.Core[lang] || uppyLocales.Core['fr']
+    });
 
-    uppy.use( AwsS3, {
+    uppy.use(AwsS3, {
       // host: uploadEndpoint,
-      getUploadParameters( file ) {
+      getUploadParameters(file) {
         return superagent
-          .get( uploadEndpoint.replace( ':conversationId', uppy.getState().meta.conversationId ) )
-          .query( {
+          .get(uploadEndpoint.replace(':conversationId', uppy.getState().meta.conversationId))
+          .query({
             filename: file.name,
             type: file.type,
             meta: uppy.getState().meta
-          } )
-          .then( response => response.body );
+          })
+          .then(response => response.body);
       }
-    } )
+    })
       .run();
   }
 
@@ -96,67 +98,67 @@ export default class ConversationForm extends Component {
   }
 
   handleOpen = () => {
-    this.setState( {
+    this.setState({
       modalOpen: true
-    } );
+    });
   };
 
   handleClose = () => {
-    this.setState( {
+    this.setState({
       modalOpen: false
-    } )
+    })
   };
 
-  handleSubmit = this.props.handleSubmit( async data => {
+  handleSubmit = this.props.handleSubmit(async data => {
     const { reset, onSubmit, onConversationCreate, onFileUploaded, getLabel } = this.props;
 
     let conversation;
 
     try {
-      ({ conversation } = await onSubmit( data ));
-    } catch ( e ) {
-      throw new SubmissionError( { _error: getLabel( 'sendMessageError' ) } );
+      ({ conversation } = await onSubmit(data));
+    } catch (e) {
+      throw new SubmissionError({ _error: getLabel('sendMessageError') });
     }
 
     const { latestMessage: message } = conversation;
     reset();
 
-    this.uppy.setMeta( { messageId: message.id, conversationId: conversation.id } );
+    this.uppy.setMeta({ messageId: message.id, conversationId: conversation.id });
 
     const uppyState = this.uppy.getState();
-    const uncompleteUploads = Object.values( uppyState.files ).filter( v => !v.progress.uploadComplete );
+    const uncompleteUploads = Object.values(uppyState.files).filter(v => !v.progress.uploadComplete);
 
-    if ( uncompleteUploads.length ) {
+    if (uncompleteUploads.length) {
       try {
         const uploadResult = await this.uppy.upload();
 
-        if ( uploadResult.failed.length ) { // or uppyState.totalProgress !== 100
-          throw new SubmissionError( { _error: getLabel( 'uploadError' ) } );
+        if (uploadResult.failed.length) { // or uppyState.totalProgress !== 100
+          throw new SubmissionError({ _error: getLabel('uploadError') });
         } else {
-          for ( const file of Object.values( uploadResult.successful ) ) {
-            await onFileUploaded( conversation.id, message.id, file );
+          for (const file of Object.values(uploadResult.successful)) {
+            await onFileUploaded(conversation.id, message.id, file);
           }
 
           this.uppy.reset();
         }
-      } catch ( e ) {
-        if ( e instanceof SubmissionError ) {
+      } catch (e) {
+        if (e instanceof SubmissionError) {
           throw e;
         }
-        console.log( 'Error on upload:', e );
-        throw new SubmissionError( { _error: getLabel( 'uploadError' ) } );
+        console.log('Error on upload:', e);
+        throw new SubmissionError({ _error: getLabel('uploadError') });
       }
     }
 
-    if ( onConversationCreate ) {
-      await onConversationCreate( conversation );
+    if (onConversationCreate) {
+      await onConversationCreate(conversation);
     }
-  } );
+  });
 
   render() {
     const { getLabel, initialValues, submitting, Wrapper, error, lang, autoFocus } = this.props;
 
-    const numberFiles = Object.keys( this.uppy.getState().files ).length;
+    const numberFiles = Object.keys(this.uppy.getState().files).length;
 
     return createElement(
       Wrapper,
@@ -185,28 +187,28 @@ export default class ConversationForm extends Component {
           rows="3"
           getErrorLabel={getLabel}
           onKeyDown={e => {
-            if ( e.keyCode === 13 && e.ctrlKey ) {
+            if (e.keyCode === 13 && e.ctrlKey) {
               this.handleSubmit();
             }
           }}
           placeholder={
-            _.isMatch( initialValues, { destinationInbox: { identifier: 1, type: 'support' }, type: 'support' } )
-              ? getLabel( 'supportPlaceholder' )
-              : getLabel( 'yourMessage' )
+            _.isMatch(initialValues, { destinationInbox: { identifier: 1, type: 'support' }, type: 'support' })
+              ? getLabel('supportPlaceholder')
+              : getLabel('yourMessage')
           }
           autoFocus={autoFocus}
         />
 
         <p>
           <a role="button" onClick={this.handleOpen}>
-            {numberFiles === 0 ? getLabel( 'attachFile' ) : null}
-            {numberFiles === 1 ? getLabel( 'oneAttachment' ) : null}
-            {numberFiles > 1 ? getLabel( 'nAttachments', { number: numberFiles } ) : null}
+            {numberFiles === 0 ? getLabel('attachFile') : null}
+            {numberFiles === 1 ? getLabel('oneAttachment') : null}
+            {numberFiles > 1 ? getLabel('nAttachments', { number: numberFiles }) : null}
           </a>
         </p>
 
         {this.state.modalOpen && <Modal
-          title={getLabel( 'uppyModalTitle' )}
+          title={getLabel('uppyModalTitle')}
           visible={this.state.modalOpen}
           onClose={this.handleClose}
           classNames={{
@@ -220,13 +222,13 @@ export default class ConversationForm extends Component {
             hideUploadButton={true}
             disableStatusBar={true}
             maxHeight={300}
-            note={getLabel( 'uppyNote' )}
-            locale={uppyLocales.Dashboard[ lang ] || uppyLocales.Dashboard[ 'fr' ]}
+            note={getLabel('uppyNote')}
+            locale={uppyLocales.Dashboard[lang] || uppyLocales.Dashboard['fr']}
           />
 
           <div className="text-center padding-top-md">
             <button className="btn btn-info" onClick={this.handleClose}>
-              {getLabel( 'validate' )}
+              {getLabel('validate')}
             </button>
           </div>
         </Modal>}
@@ -235,7 +237,7 @@ export default class ConversationForm extends Component {
           uppy={this.uppy}
           hideUploadButton={true}
           showProgressDetails={true}
-          locale={uppyLocales.StatusBar[ lang ] || uppyLocales.StatusBar[ 'fr' ]}
+          locale={uppyLocales.StatusBar[lang] || uppyLocales.StatusBar['fr']}
         />
       </Fragment>
     );
