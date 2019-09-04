@@ -86,7 +86,7 @@ function getMiddleware( idRef ) {
 
       if ( err ) return next( err );
 
-      if ( !location ) return next( 'unknown location' );
+      if ( !location ) return next( new Error( 'unknown location' ) );
 
       req.location = location;
 
@@ -144,7 +144,7 @@ function getMiddleware( idRef ) {
 
     if ( !req.params.locationUid ) {
 
-      return next( 'location uid is missing' );
+      return next( new Error( 'location uid is missing' ) );
 
     }
 
@@ -152,7 +152,7 @@ function getMiddleware( idRef ) {
 
       if ( err ) return next( err );
 
-      if ( !location ) return next( 'location not found' );
+      if ( !location ) return next( new Error( 'location not found' ) );
 
       iuMw( {
         dest: config.files.tmpPath,
@@ -181,7 +181,7 @@ function getMiddleware( idRef ) {
 
     if ( !req.params.locationUid ) {
 
-      return next( 'location uid is missing' );
+      return next( new Error( 'location uid is missing' ) );
 
     }
 
@@ -214,7 +214,7 @@ function getMiddleware( idRef ) {
 
     if ( !req.userUid ) {
 
-      return next( 'user uid is missing' );
+      return next( new Error( 'user uid is missing' ) );
 
     }
 
@@ -250,7 +250,7 @@ function getMiddleware( idRef ) {
 
     if ( !req.userUid ) {
 
-      return next( 'user uid is missing' );
+      return next( new Error( 'user uid is missing' ) );
 
     }
 
@@ -331,7 +331,7 @@ function getMiddleware( idRef ) {
 
       if ( err ) return next( err );
 
-      if ( !location ) return next( 'location of uid ' + data.uid + ' not found' );
+      if ( !location ) return next( new Error( 'location of uid ' + data.uid + ' not found' ) );
 
       config.interfaces.getEventCount( location, ( err, agendaEventsCount, allEventsCount ) => {
 
@@ -660,7 +660,7 @@ function getMiddleware( idRef ) {
 
     if ( !data ) {
 
-      next( 'data is missing' );
+      next( new Error( 'data is missing' ) );
 
       return false;
 
@@ -670,7 +670,7 @@ function getMiddleware( idRef ) {
 
     if ( agendaRequired && !agendaId ) {
 
-      next( 'missing agenda reference' );
+      next( new Error( 'missing agenda reference' ) );
 
       return false;
 
@@ -711,7 +711,7 @@ function get( req, res, next ) {
 
     if ( err ) return next( err );
 
-    if ( !location ) return next( 'unknown location' );
+    if ( !location ) return next( new Error( 'unknown location' ) );
 
     req.location = location;
 

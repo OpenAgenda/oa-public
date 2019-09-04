@@ -103,7 +103,7 @@ function loadAgenda( paramName, fieldName, options ) {
 
         } else {
 
-          return next( 'agenda service error' );
+          return next( new Error( 'agenda service error' ) );
 
         }
 

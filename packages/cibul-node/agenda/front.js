@@ -523,7 +523,7 @@ function _redirectToEmbed( req, res, next ) {
 
 function _loadAgendaByAgendaId( req, res, next ) {
 
-  if ( !req.agendaId ) return next( 'agenda identifier missing' );
+  if ( !req.agendaId ) return next( new Error(  'agenda identifier missing' ) );
 
   agendaSvc.get( { id: req.agendaId }, function( err, agenda ) {
 

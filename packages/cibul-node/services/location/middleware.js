@@ -36,7 +36,7 @@ function loadLocation( paramName, fieldName ) {
 
         } else {
 
-          return next( 'location service error' );
+          return next( new Error( 'location service error' ) );
 
         }
 

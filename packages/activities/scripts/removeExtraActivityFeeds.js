@@ -107,7 +107,7 @@ function removeExtraActivityFeeds( { schemas } ) {
 
       /* if ( index >= 100000 ) {
 
-        return next( 'Stop to 100000 entries' );
+        return next( new Error( 'Stop to 100000 entries' ) );
 
       } */
 

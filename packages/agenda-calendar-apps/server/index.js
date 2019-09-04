@@ -25,7 +25,7 @@ app.get( '/', ( req, res, next ) => {
 
   if ( !req.agendaUid ) {
 
-    return next( 'agendaUid is missing in request' );
+    return next( new Error( 'agendaUid is missing in request' ) );
 
   }
 
