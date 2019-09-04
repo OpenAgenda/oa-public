@@ -296,7 +296,7 @@ function _loadEventByUid( req, res, next ) {
 
     if ( err ) return next( err );
 
-    if ( !event ) return next( 'no event found' );
+    if ( !event ) return next( new Error( 'no event found' ) );
 
     req.event = event;
 
@@ -769,7 +769,7 @@ function _checkLocalhost( req, res, next ) {
   // lets just block legacy queries at the nginx level
   if ( req.header( 'x-forwarded-for' ) ) {
 
-    return next( 'Not allowed.' );
+    return next( new Error( 'Not allowed.' ) );
 
   }
 

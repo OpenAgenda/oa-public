@@ -150,9 +150,9 @@ async function _createAndSend( values ) {
 
     log( 'loaded user %s', JSON.stringify( result ) );
 
-    if ( !result ) throw 'No account matching this email was found';
+    if ( !result ) throw new Error( 'No account matching this email was found' );
 
-    if ( !result.isActivated ) throw 'The account matching this email is not yet activated';
+    if ( !result.isActivated ) throw new Error( 'The account matching this email is not yet activated' );
 
     values.user = result;
 

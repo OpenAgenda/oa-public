@@ -3,9 +3,12 @@ import uppy from 'uppy-server';
 import axios from 'axios';
 import mime from 'mime-types';
 import VError from 'verror';
+import logs from '@openagenda/logs';
 import Inboxes from './';
 import Conversations from './Conversations';
 import { aws, knex, schemas } from './config';
+
+const log = logs('inboxes/middleware');
 
 export let config;
 
@@ -134,6 +137,11 @@ export const conversations = {
           type: _.get( req, namespaces.type ),
           identifier: parseInt( _.get( req, namespaces.identifier ) ),
         } )
+      } );
+
+      log.info( 'Middleware - conversation create', {
+        ...data,
+        ...optionalData
       } );
 
       const conversation = await conversations.create(
