@@ -285,7 +285,7 @@ module.exports = {
     "es": "Código postal",
     "br": "Kod-post"
   },
-  "cityDistrict": {
+  "district": {
     "fr": "Quartier",
     "en": "District",
     "de": "Kreis",
