@@ -63,7 +63,7 @@
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
-    "@storybook/react": "^4.1.11",
+    "@storybook/react": "^5.1.11",
     "babel-loader": "^8.0.4",
     "body-parser": "1.18.3",
     "concurrently": "^4.1.0",
