@@ -21,7 +21,8 @@ export default async function syncTask() {
     agendasToSync: 0,
     userInboxesCreated: 0,
     agendaInboxesCreated: 0,
-    inboxUsersAdded: 0
+    inboxUsersAdded: 0,
+    inboxUsersRemoved: 0
   };
 
   if ( !await q.len() ) {
@@ -47,9 +48,7 @@ export default async function syncTask() {
     i++;
   }
 
-  log( 'info', '%d user inboxes created', stats.userInboxesCreated );
-  log( 'info', '%d agenda inboxes created', stats.agendaInboxesCreated );
-  log( 'info', '%d inboxUsers added', stats.inboxUsersAdded );
+  log( 'info', stats );
 }
 
 export async function defineJob( q, stats ) {
@@ -61,7 +60,7 @@ export async function defineJob( q, stats ) {
   let pos = 0;
   let users;
 
-  while ( { users } = (await usersSvc.find( { query: { $skip: pos, $limit: limit } } )).data ) {
+  while ( users = (await usersSvc.find( { query: { $skip: pos, $limit: limit } } )) ) {
     if ( !users.length ) break;
     pos = pos + users.length;
 
@@ -144,52 +143,60 @@ export async function syncAgenda( agenda, stats ) {
   const limit = 200;
   let pos = 0;
   let result;
-  const stakeholders = [];
+  const members = [];
 
   const shList = () => membersSvc.list(
     {
       agendaUid: agenda.uid,
-      credentials: [ 'administrator', 'moderator' ],
+      // credentials: [ 'administrator', 'moderator' ],
       deletedUser: false
     },
-    { offset: pos, limit }
+    { offset: pos, limit },
+    // { detailed: true }
   );
 
   while ( result = await shList() ) {
     if ( !result.length ) break;
     pos = pos + result.length;
 
-    Array.prototype.push.apply( stakeholders, result );
+    Array.prototype.push.apply( members, result );
   }
 
   pos = 0;
   const users = [];
-  const userIds = _.map( stakeholders, 'userId' );
+  const userUids = _.map( members, 'userUid' );
 
   while ( result = (await usersSvc.find( {
     query: {
-      id: {
-        $in: userIds
+      uid: {
+        $in: userUids
       },
       $skip: pos,
       $limit: limit
     },
     removed: null
-  } )).data ) {
+  } )) ) {
     if ( !result.length ) break;
     pos = pos + limit;
 
     Array.prototype.push.apply( users, result );
   }
 
-  for ( const user of users ) {
-    const inboxUserIdentifiers = { userUid: user.uid };
-    const inboxUser = await Inbox.users.get( inboxUserIdentifiers );
+  for ( const member of members ) {
+    const inboxUserIdentifiers = { userUid: member.userUid };
 
-    if ( !inboxUser.data ) {
-      await Inbox.users.add( { userUid: user.uid } );
-      upStats( stats, 'inboxUsersAdded' );
-      log( 'info', 'InboxUser %j is added to inbox %j', inboxUserIdentifiers, inboxIdentifiers );
+    if (!member.deletedUser && member.userUid) {
+      const inboxUser = await Inbox.users.get( inboxUserIdentifiers );
+
+      if ( [2, 3].includes( parseInt( member.role, 10 ) ) && !inboxUser.data ) {
+        await Inbox.users.add( inboxUserIdentifiers );
+        upStats( stats, 'inboxUsersAdded' );
+        log( 'info', 'InboxUser %j is added to inbox %j', inboxUserIdentifiers, inboxIdentifiers );
+      } else if ( ![2, 3].includes( member.role ) && inboxUser.data ) {
+        await Inbox.users.remove( inboxUserIdentifiers );
+        upStats( stats, 'inboxUsersRemoved' );
+        log( 'info', 'InboxUser %j is removed to inbox %j', inboxUserIdentifiers, inboxIdentifiers );
+      }
     }
   }
 }
