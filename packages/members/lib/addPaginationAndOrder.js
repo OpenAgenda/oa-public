@@ -1,8 +1,10 @@
 'use strict';
 
 const _ = require('lodash');
-
+const roleValues = require('../iso/roleValues');
 const cleanNav = require('./cleanNav');
+
+const rolesOrder = roleValues.map(v => v.code);
 
 function _isMonoFieldSeek(after) {
   return _.isArray(after) && after.length === 1;
@@ -17,6 +19,35 @@ function _operator(direction, reverse = false) {
     return direction === 'desc' ? '<=' : '>=';
   }
   return direction === 'desc' ? '>=' : '<=';
+}
+
+function orderBy(k, after, column, orderDirection) {
+  if (column === 'credential') {
+    const rolesOrdered = orderDirection === 'ASC' ? rolesOrder.reverse() : rolesOrder;
+
+    if (_isMultiFieldSeek(after)) {
+      k.orderByRaw(`field(\`${column}\`,${rolesOrdered.join(',')})`);
+      k.orderBy({
+        column: 'id',
+        order: 'asc'
+      });
+    } else {
+      k.orderByRaw(`field(\`${column}\`,${rolesOrdered.join(',')})`);
+    }
+  } else if (_isMultiFieldSeek(after)) {
+    k.orderBy([
+      {
+        column,
+        order: orderDirection
+      },
+      {
+        column: 'id',
+        order: 'asc'
+      }
+    ]);
+  } else {
+    k.orderBy(column, orderDirection);
+  }
 }
 
 module.exports = (k, nav) => {
@@ -46,20 +77,7 @@ module.exports = (k, nav) => {
     k.offset((page - 1) * limit);
   }
 
-  if (_isMultiFieldSeek(after)) {
-    k.orderBy([
-      {
-        column,
-        order: orderDirection
-      },
-      {
-        column: 'id',
-        order: 'asc'
-      }
-    ]);
-  } else {
-    k.orderBy(column, orderDirection);
-  }
+  orderBy(k, after, column, orderDirection);
 
   k.limit(limit);
 

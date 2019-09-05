@@ -7,14 +7,14 @@ module.exports = [
     slugs: ['administrator', 'administrators']
   },
   {
-    code: 1,
-    key: 'CONTRIBUTOR',
-    slugs: ['contributor', 'contributors']
-  },
-  {
     code: 3,
     key: 'MODERATOR',
     slugs: ['moderator', 'moderators']
+  },
+  {
+    code: 1,
+    key: 'CONTRIBUTOR',
+    slugs: ['contributor', 'contributors']
   },
   {
     code: 4,
