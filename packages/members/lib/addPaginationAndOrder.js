@@ -25,18 +25,19 @@ module.exports = (k, nav) => {
   } = cleanNav(nav);
 
   const [orderField, orderDirection] = order.split('.');
+  let column = _.snakeCase(orderField);
+
+  if (column === 'role') {
+    column = 'credential';
+  }
 
   if (_isMonoFieldSeek(after)) {
     k.where('id', '>', after);
   } else if (_isMultiFieldSeek(after)) {
     k.where(builder => builder
-      .where(
-        _.snakeCase(orderField),
-        _operator(orderDirection),
-        after[0] || 0
-      )
+      .where(column, _operator(orderDirection), after[0] || 0)
       .whereRaw(
-        `not (${_.snakeCase(orderField)} = ? and id ${_operator('desc')} ?)`,
+        `not (${column} = ? and id ${_operator('desc')} ?)`,
         after || 0
       ));
   } else if (offset) {
@@ -48,7 +49,7 @@ module.exports = (k, nav) => {
   if (_isMultiFieldSeek(after)) {
     k.orderBy([
       {
-        column: _.snakeCase(orderField),
+        column,
         order: orderDirection
       },
       {
@@ -57,7 +58,7 @@ module.exports = (k, nav) => {
       }
     ]);
   } else {
-    k.orderBy(_.snakeCase(orderField), orderDirection);
+    k.orderBy(column, orderDirection);
   }
 
   k.limit(limit);
