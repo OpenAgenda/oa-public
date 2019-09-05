@@ -48,7 +48,6 @@ module.exports = async function (configObject, options = {}) {
   await init('users', require('./users'));
   await init('abilities', require('./abilities'));
   await init('accessTokens', require('./accessTokens'));
-  await init('users', require('./users'));
   await init('activities', require('./activities'));
   await init('activityApps', require('./activityApps'));
   await init('members', require('./members'));

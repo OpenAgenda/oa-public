@@ -27,12 +27,11 @@ module.exports = app => {
   app.get(
     '/:slug/events/:eventSlug/featured/:type',
     sessions.mw.loadOrRedirect,
-    legacyAgendaSvc.mw.load( 'slug' ),
+    cmn.loadAgenda,
     eventSvc.mw.load( 'eventSlug', 'slug' ),
     members.mw.loadAndAuthorize('moderator'),
     _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
-    _changeFeatured,
-    _redirect
+    _changeFeatured
   );
 
   app.get(
@@ -302,62 +301,21 @@ function _xhrResponse( req, res, next ) {
 
 }
 
-function _redirect( req, res ) {
-
-  const query = { eventSlug: req.event.slug };
-
-  let redirectUrl;
-
-  if ( req.query.redirect ) {
-
-    redirectUrl = cmn.getRedirect( req );
-
-  } else if ( req.agenda ) {
-
-    query.slug = req.agenda.slug;
-
-    redirectUrl = req.genUrl( 'agendaEventShow', query );
-
-  } else {
-
-    redirectUrl = req.genUrl( 'eventShow', query );
-
-  }
-
-  req.log( 'redirecting to %s', redirectUrl );
-
-  res.redirect( redirectUrl );
-
-}
-
 
 function _changeFeatured( req, res, next ) {
+  req.log('updating featured to %s', req.params.type);
 
-  const funcs = {
-    featured: req.agenda.setEventFeatured,
-    notfeatured: req.agenda.setEventUnfeatured
-  };
-
-  req.log( 'updating featured to %s', req.params.type );
-
-  agendaEvents( req.agenda.uid ).update( req.event.uid, {
+  core.agendas(req.agenda.uid).events.update(req.event.uid, {
     featured: req.params.type === 'featured'
-  }, { context: { userUid: req.user.uid } } );
-
-  funcs[ req.params.type ]( req.event, err => {
-
-    if ( err ) {
-
-      return next( { code: 500 } );
-
+  }, {
+    partial: true,
+    context: {
+      userUid: req.user.uid
     }
-
-    sessions.setFlash( req, res, __( req.params.type === 'featured' ? 'featuredChange' : 'unfeaturedChange', req.lang ) );
-
-    next();
-
-  } );
-
+  }).then(() => {
+    sessions.setFlash(req, res, __( req.params.type === 'featured' ? 'featuredChange' : 'unfeaturedChange', req.lang ));
+    res.redirect( 302, cmn.getRedirect( req ) || `/${req.agenda.slug}/events/${req.event.slug}` );
+  }, next);
 }
 
 
