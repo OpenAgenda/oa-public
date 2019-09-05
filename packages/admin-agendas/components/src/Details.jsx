@@ -13,10 +13,10 @@ export default createReactClass( {
 
   propTypes: {
     agenda: PropTypes.object,
-    stakeholders: PropTypes.array,
+    members: PropTypes.array,
     pageRange: PropTypes.array,
     total: PropTypes.number,
-    getStakeholdersPage: PropTypes.func,
+    getMembersPage: PropTypes.func,
     setAgenda: PropTypes.func,
     limit: PropTypes.number
   },
@@ -34,7 +34,7 @@ export default createReactClass( {
     const query = this.props.getQuery();
 
     return {
-      tab: (query && query.tab) || 'stakeholders'
+      tab: (query && query.tab) || 'members'
     };
 
   },
@@ -94,7 +94,7 @@ export default createReactClass( {
     );
   },
 
-  renderStakeholdersTable() {
+  renderMembersTable() {
 
     return (
       <table className="table table-striped table-hover">
@@ -110,8 +110,8 @@ export default createReactClass( {
         </tr>
         </thead>
         <List
-          items={this.props.stakeholders || []}
-          renderItem={this.renderStakeholderItem}
+          items={this.props.members || []}
+          renderItem={this.renderMemberItem}
           renderEmpty={() => <tr>
             <td colSpan="7" className="text-center">Y'a personne !</td>
           </tr>}
@@ -125,38 +125,38 @@ export default createReactClass( {
 
   },
 
-  renderStakeholderItem( stakeholder ) {
+  renderMemberItem( member ) {
 
-    if ( stakeholder.deletedUser ) {
+    if ( member.deletedUser ) {
       return (
-        <tr key={stakeholder.id}>
+        <tr key={member.id}>
           <td className="text-danger text-center" colSpan={7}>User deleted</td>
         </tr>
       );
     }
 
-    if ( !stakeholder.user ) {
+    if ( member.invited ) {
       return (
-        <tr key={stakeholder.id}>
+        <tr key={member.id}>
           <td className="text-info text-center" colSpan={7}>
             User invited (
-            {stakeholder.custom.contactName ? <Fragment>{stakeholder.custom.contactName}: </Fragment> : null}
-            {stakeholder.custom.email})
+            {member.custom.contactName ? <Fragment>{member.custom.contactName}: </Fragment> : null}
+            {member.custom.email})
           </td>
         </tr>
       );
     }
 
     return (
-      <tr key={stakeholder.id}>
-        <td className="text-primary">{stakeholder.user.uid}</td>
-        <td>{credentialsToString( stakeholder.credential )}</td>
-        <td>{stakeholder.user.full_name}</td>
-        <td>{stakeholder.user.username}</td>
-        <td>{stakeholder.user.email}</td>
-        <td>le {stakeholder.user.created_at}</td>
+      <tr key={member.id}>
+        <td className="text-primary">{member.user.uid}</td>
+        <td>{roleToString( member.role )}</td>
+        <td>{member.user.fullName}</td>
+        <td>{member.user.username}</td>
+        <td>{member.user.email}</td>
+        <td>le {member.user.createdAt}</td>
         <td>
-          <a href={'/admin/users/signin?uid=' + stakeholder.user.uid}>
+          <a href={'/admin/users/signin?uid=' + member.user.uid}>
             <i className="fa fa-sign-in" aria-hidden="true"></i>
           </a>
         </td>
@@ -172,7 +172,7 @@ export default createReactClass( {
         <tr>
           <td colSpan="6" className="text-center">
             <button className="btn btn-default"
-                    onClick={this.props.getStakeholdersPage.bind( null, false )}>Précédent
+                    onClick={this.props.getMembersPage.bind( null, false )}>Précédent
             </button>
           </td>
         </tr>
@@ -188,7 +188,7 @@ export default createReactClass( {
         <tr>
           <td colSpan="6" className="text-center">
             <button className="btn btn-default"
-                    onClick={this.props.getStakeholdersPage.bind( null, true )}>Suivant
+                    onClick={this.props.getMembersPage.bind( null, true )}>Suivant
             </button>
           </td>
         </tr>
@@ -245,9 +245,9 @@ export default createReactClass( {
         {this.props.agenda ? this.renderAgendaHeader() : ''}
 
         <div className="nav nav-tabs">
-          <li role="presentation" className={tab == 'stakeholders' ? 'active' : ''}
-              onClick={() => this.setTab( 'stakeholders' )}>
-            <a href="#">Stakeholders</a>
+          <li role="presentation" className={tab == 'members' ? 'active' : ''}
+              onClick={() => this.setTab( 'members' )}>
+            <a href="#">Member</a>
           </li>
           <li role="presentation" className={tab == 'features' ? 'active' : ''}
               onClick={() => this.setTab( 'features' )}>
@@ -255,7 +255,7 @@ export default createReactClass( {
           </li>
         </div>
 
-        {tab == 'stakeholders' && this.renderStakeholdersTable()}
+        {tab == 'members' && this.renderMembersTable()}
         {tab == 'features' && this.renderFeaturesTab()}
       </div>
     </div>;
@@ -264,7 +264,7 @@ export default createReactClass( {
 
 } );
 
-function credentialsToString( type ) {
+function roleToString( type ) {
   switch ( type ) {
     case 1:
       return 'Contributeur';
@@ -272,7 +272,9 @@ function credentialsToString( type ) {
       return 'Administrateur';
     case 3:
       return 'Modérateur';
+    case 3:
+      return 'Lecteur';
     default:
-      'Inconnu'
+      return 'Inconnu';
   }
 }

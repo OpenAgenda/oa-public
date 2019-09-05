@@ -41,6 +41,9 @@ exports.seed = async knex => {
       table: schemas.event,
       src: path.resolve( __dirname, 'event.sql' )
     }, {
+      table: schemas.member,
+      src: path.resolve( __dirname, 'member.sql' )
+    }, , {
       table: schemas.stakeholder,
       src: path.resolve( __dirname, 'stakeholder.sql' )
     }, {
