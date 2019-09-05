@@ -15,7 +15,7 @@ export default createReactClass( {
 
   render: function() {
 
-    return <div className="agenda-item media cursor-pointer" onClick={this.props.onSelect.bind(null, this.props.agenda.id, 1)}>
+    return <div className="agenda-item media cursor-pointer" onClick={this.props.onSelect.bind(null, this.props.agenda.uid, 1)}>
       <a>
         <div className="media-body">
           <h4 className="title media-heading">{this.props.agenda.title}</h4>

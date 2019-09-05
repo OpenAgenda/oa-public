@@ -50,6 +50,7 @@ module.exports = async function (configObject, options = {}) {
   await init('accessTokens', require('./accessTokens'));
   await init('activities', require('./activities'));
   await init('activityApps', require('./activityApps'));
+  await init('members', require('./members'));
   await init('adminAgendas', require('./adminAgendas'));
   await init('agendaCalendar', require('./agendaCalendar'));
   await init('agendaCategories', require('./agendaCategories'));
@@ -88,7 +89,6 @@ module.exports = async function (configObject, options = {}) {
   await init('legacy', require('./legacy'));
   await init('logRequests', require('./logRequests'));
   await init('mails', require('./mails'));
-  await init('members', require('./members'));
   await init('model', require('./model'));
   await init('networkApps', require('./networkApps'));
   await init('networks', require('./networks'));

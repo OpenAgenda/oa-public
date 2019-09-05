@@ -4,7 +4,7 @@ global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
 import http from 'http';
 import agendasSvc from '@openagenda/agendas';
-import agendaStakeholdersSvc from '@openagenda/agenda-stakeholders';
+import MembersSvc from '@openagenda/members';
 import express from 'express';
 import morgan from 'morgan';
 import cors from 'cors';
@@ -23,12 +23,14 @@ app.server = server;
  * Run `yarn knex migrate:latest` and `yarn knex seed:run` before to run the dev server
  * */
 
+const membersSvc = MembersSvc(testconfig);
+
 if ( process.env.NODE_ENV !== 'test' ) {
   agendasSvc.init( testconfig );
   service.init( Object.assign( {}, testconfig, {
     services: {
       agendas: agendasSvc,
-      agendaStakeholders: agendaStakeholdersSvc
+      members: membersSvc
     }
   } ) );
 }
@@ -44,7 +46,7 @@ app.use( express.urlencoded( { extended: true } ) );
 app.get( '/', mw.agendas.list );
 app.get( '/get', mw.agendas.get );
 app.post( '/set/:uid', mw.agendas.set );
-app.get( '/stakeholders', mw.stakeholders.list );
+app.get( '/members', mw.members.list );
 
 app.use( errorHandler( { log: true } ) );
 

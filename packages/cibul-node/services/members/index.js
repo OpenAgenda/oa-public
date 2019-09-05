@@ -81,7 +81,7 @@ function init(c) {
 
   mw.sendMessage.init(messages);
 
-  Object.assign(
+  return Object.assign(
     module.exports,
     members, {
       task: () => {

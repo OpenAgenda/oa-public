@@ -71,6 +71,15 @@ describe('members - functional - list', () => {
       });
       expect(otherMembers.map(m => m.id)).toEqual([1, 2, 4]);
     });
+
+    test('throw error when agenda does not exist', async () => {
+      const otherMembers = await svc.list({
+        agendaUid: 42,
+        userUid: [1, 2, 22]
+      });
+
+      expect(otherMembers).toHaveLength(0);
+    });
   });
 
   describe('pagination', () => {
@@ -345,7 +354,7 @@ describe('members - functional - list', () => {
       expect(members.filter(m => m.deletedUser === true)).toHaveLength(1);
     });
 
-    test('when deleteUserd is not provided, members marked as associated with deleted user are not in results', async () => {
+    test('when deletedUser is not provided, members marked as associated with deleted user are not in results', async () => {
       const members = await svc.list({ agendaUid: 1 });
 
       expect(members.filter(m => m.deletedUser === true)).toHaveLength(0);

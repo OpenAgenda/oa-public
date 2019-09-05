@@ -73,6 +73,11 @@ module.exports.fromDB = ({ includeLegacyFields, orderField }, entry) => {
         _.set(mapped, map[field], entry[field]);
       }
 
+      if (field === 'credential') {
+        // cast enum to int
+        _.set(mapped, map[field], parseInt(entry[field], 10));
+      }
+
       if (includeLegacyFields && legacyDbFields.includes(field)) {
         _.set(mapped, legacyFieldsMap[field], entry[field]);
       }

@@ -2,9 +2,11 @@
 
 const schema = require('@openagenda/validators/schema');
 const boolean = require('@openagenda/validators/boolean');
+const pass = require('@openagenda/validators/pass');
 
 schema.register({
-  boolean
+  boolean,
+  pass
 });
 
 module.exports = schema({
@@ -19,5 +21,8 @@ module.exports = schema({
   legacy: {
     type: 'boolean',
     default: false
+  },
+  userOptions: {
+    type: 'pass'
   }
 });

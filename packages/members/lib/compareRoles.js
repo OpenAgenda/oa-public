@@ -1,7 +1,7 @@
 'use strict';
 
-const _ = require('lodash');
-const roles = require('../iso/roles');
+const toRoleCode = require('../iso/toRoleCode');
+const getRoleSlug = require('../iso/getRoleSlug');
 
 const roleWeights = {
   ADMINISTRATOR: 100,
@@ -11,30 +11,21 @@ const roleWeights = {
   NOROLE: 0
 };
 
-const rolePairs = _.toPairs(roles);
+function _getRoleSlug(role) {
+  if ([null, undefined].includes(role)) {
+    return 'NOROLE';
+  }
 
-const isNumberLike = value => !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
-
-function _getRoleStringCode(role) {
-  if ([null, undefined].includes(role)) return 'NOROLE';
-
-  const match = rolePairs.find(p => (isNumberLike(role)
-    ? Number(role) === p[1]
-    : String(role).toUpperCase() === p[0]));
-
-  if (!match) throw new Error(`Unknown role: ${role}`);
-
-  return match[0];
+  return getRoleSlug(toRoleCode(role)).toUpperCase();
 }
 
 function isEqualTo(role, compareWithRole) {
-  return _getRoleStringCode(role) === _getRoleStringCode(compareWithRole);
+  return _getRoleSlug(role) === _getRoleSlug(compareWithRole);
 }
 
 function isSuperiorTo(role, compareWithRole) {
   return (
-    roleWeights[_getRoleStringCode(role)]
-    > roleWeights[_getRoleStringCode(compareWithRole)]
+    roleWeights[_getRoleSlug(role)] > roleWeights[_getRoleSlug(compareWithRole)]
   );
 }
 
@@ -46,8 +37,7 @@ function isSuperiorToOrEqual(role, compareWithRole) {
 
 function isLessThan(role, compareWithRole) {
   return (
-    roleWeights[_getRoleStringCode(role)]
-    < roleWeights[_getRoleStringCode(compareWithRole)]
+    roleWeights[_getRoleSlug(role)] < roleWeights[_getRoleSlug(compareWithRole)]
   );
 }
 

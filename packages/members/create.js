@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const log = require('@openagenda/logs')('create');
 const validate = require('./iso/validate');
+const toRoleCode = require('./iso/toRoleCode');
 const cleanCreateOptions = require('./lib/cleanCreateOptions');
 const { toDB } = require('./lib/transformDBEntry');
 
@@ -12,6 +13,8 @@ module.exports = async ({ knex, schema, interfaces }, data, options = {}) => {
   const { requireCustom, context } = cleanCreateOptions(options);
 
   const clean = {};
+
+  data.role = toRoleCode(data.role);
 
   try {
     Object.assign(clean, validate.withCustom(requireCustom)(data), {

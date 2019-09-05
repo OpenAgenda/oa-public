@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
+const VError = require('verror');
 const agendas = require( '@openagenda/agendas' );
 const invitations = require( '@openagenda/invitations' );
 const { Inbox } = require( '@openagenda/inboxes' );
@@ -87,12 +87,19 @@ async function _memberIsExistingUser( { config, activityQueue }, { member, user,
     log( 'error', 'could not make user feed follow agenda feed', member.id );
   }
 
+  const senderUserUid = _.get(context, 'sender.userUid');
+
+  // If it's an agenda creation
+  if (!senderUserUid) {
+    return;
+  }
+
   const senderUser = await usersSvc.findOne( {
-    query: { uid: _.get( context, 'sender.userUid' ) },
+    query: { uid: senderUserUid },
     removed: null
   } );
 
-  if ( !senderUser ) throw new Error( 'Sender user not found' );
+  if ( !senderUser ) throw new VError( 'Sender user %j not found', { uid: senderUserUid } );
 
   await send( config, {
     member,

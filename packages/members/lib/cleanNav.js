@@ -32,6 +32,8 @@ module.exports = schema({
     options: [
       'id.asc',
       'id.desc',
+      'role.asc',
+      'role.desc',
       'slug.asc',
       'slug.desc',
       'actionsCounter.asc',

@@ -11,5 +11,5 @@ storiesOf( 'App', module )
     searchRes: '/',
     agendaRes: '/get',
     setAgendaRes: '/set',
-    stakeholdersRes: '/stakeholders'
+    membersRes: '/members'
   } ) );

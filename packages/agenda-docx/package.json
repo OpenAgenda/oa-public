@@ -41,6 +41,7 @@
     "react-datepicker": "^1.6.0",
     "react-final-form": "^6.3.0",
     "redis": "^2.8.0",
+    "regenerator-runtime": "^0.13.3",
     "remove-markdown": "^0.3.0",
     "superagent": "^3.8.3",
     "verror": "^1.10.0"

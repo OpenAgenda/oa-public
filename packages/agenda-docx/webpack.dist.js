@@ -6,7 +6,8 @@ module.exports = {
   mode: 'production',
   context: __dirname,
   entry: [
-    // 'babel-polyfill', // for async await ( cannot be used twice https://github.com/babel/babel-loader/issues/401 )
+    'core-js/stable',
+    'regenerator-runtime/runtime',
     './client/src/index.js'
   ],
   output: {

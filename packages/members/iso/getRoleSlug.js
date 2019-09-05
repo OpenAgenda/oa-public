@@ -1,15 +1,14 @@
 'use strict';
 
-const _ = require('lodash');
-
 const roleValues = require('./roleValues');
+const toRoleCode = require('./toRoleCode');
 
-module.exports = code => {
-  const slug = _.first(
-    roleValues.filter(v => v.code === code).map(v => v.slugs[0])
-  );
+module.exports = input => {
+  const code = toRoleCode(input);
+  const role = roleValues.find(v => v.code === code);
+  const slug = role && role.slugs && role.slugs[0];
 
-  if (slug === undefined) {
+  if (!slug) {
     throw new Error('Unknown role');
   }
 

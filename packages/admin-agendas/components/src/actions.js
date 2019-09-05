@@ -88,47 +88,47 @@ module.exports = {
       $set: agenda
     };
 
-    changes.stakeholdersPageRange = {
+    changes.membersPageRange = {
       $set: [ parseInt( page ), parseInt( page ) ]
     };
 
-    changes.stakeholdersTotal = {
+    changes.membersTotal = {
       $set: data.total
     };
 
-    changes.stakeholders = {
-      $set: data.stakeholders
+    changes.members = {
+      $set: data.members
     };
 
     return update( currentState, changes );
 
   },
 
-  addStakeholdersItems( currentState, next, data ) {
+  addMembersItems( currentState, next, data ) {
 
     var changes = {};
 
-    changes.stakeholdersPageRange = {
+    changes.membersPageRange = {
       $set: [
-        currentState.stakeholdersPageRange[ 0 ] + ( next ? 0 : -1 ),
-        currentState.stakeholdersPageRange[ 1 ] + ( next ? 1 : 0 )
+        currentState.membersPageRange[ 0 ] + ( next ? 0 : -1 ),
+        currentState.membersPageRange[ 1 ] + ( next ? 1 : 0 )
       ]
     };
 
-    changes.stakeholdersTotal = {
+    changes.membersTotal = {
       $set: data.total
     };
 
     if ( next ) {
 
-      changes.stakeholders = {
-        $push: data.stakeholders
+      changes.members = {
+        $push: data.members
       }
 
     } else {
 
-      changes.stakeholders = {
-        $splice: [ [ 0, 0 ].concat( data.stakeholders ) ]
+      changes.members = {
+        $splice: [ [ 0, 0 ].concat( data.members ) ]
       };
 
     }

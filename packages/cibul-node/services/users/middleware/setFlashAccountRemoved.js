@@ -1,5 +1,6 @@
 'use strict';
 
+const sessions = require('@openagenda/sessions');
 const labels = require('@openagenda/labels/users/settings');
 const getLabels = require('@openagenda/labels/makeLabelGetter')(labels);
 

@@ -49,9 +49,14 @@ module.exports = async (
   nav = {},
   options = {}
 ) => {
-  log('processing', query, nav);
+  log('processing', query, nav, options);
 
-  const { detailed, total: includeTotal, legacy } = cleanListOptions(options);
+  const {
+    detailed,
+    total: includeTotal,
+    legacy,
+    userOptions
+  } = cleanListOptions(options);
 
   const k = knex(schema);
 
@@ -79,7 +84,8 @@ module.exports = async (
 
   if (detailed && _.get(interfaces, 'getUsersByUid')) {
     const users = await interfaces.getUsersByUid(
-      _.uniq(members.map(m => m.userUid).filter(m => !!m))
+      _.uniq(members.map(m => m.userUid).filter(m => !!m)),
+      userOptions
     );
     members.forEach(m => {
       m.user = _.find(users, { uid: m.userUid });
