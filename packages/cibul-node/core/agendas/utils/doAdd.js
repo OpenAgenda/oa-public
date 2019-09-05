@@ -9,6 +9,7 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const addContributor = require( './addContributor' );
 const { agendaIsOpen, userIsNotMember } = addContributor;
 const legacy = require( '../../../services/legacy' );
+const legacyEventSearch = require('../../../services/elasticsearch');
 const setCustom = require( './setCustom' );
 
 const log = require( '@openagenda/logs' )( 'core/agendas/utils/doAdd' );
@@ -104,6 +105,14 @@ module.exports = async ( agenda, eventUid, clean, options = {} ) => {
   if ( context.userUid && agendaIsOpen( agenda ) && await userIsNotMember( agenda, context.userUid ) ) {
     log( 'user %s is not a member on open contribution agenda that does not require member info.', context.userUid );
     await addContributor( agenda, context.userUid );
+  }
+
+  if (!draft) {
+    try {
+      await legacyEventSearch.updateEvent({ uid: eventUid });
+    } catch (e) {
+      log('error', 'could not update legacy search for event %s', eventUid);
+    }
   }
 
   return {

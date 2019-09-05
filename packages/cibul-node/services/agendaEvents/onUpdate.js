@@ -29,11 +29,6 @@ module.exports = async (config, before, after, context) => {
 
   const { agenda, event, user } = await fallbackContextGet( 'onUpdate', after, context );
 
-  try {
-    await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
-  } catch ( e ) {
-    log( 'error', 'could not update legacy search for event %s', event.slug );
-  }
 
   if ( after.state === 2 ) {
 
@@ -56,7 +51,13 @@ module.exports = async (config, before, after, context) => {
   aggregatorNotify.update( { agenda, event, before, after } );
 
   if ( context.legacy ) {
-    await transferCustomFromLegacy( agenda, event );
+    await transferCustomFromLegacy(agenda, event);
+
+    try {
+      await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
+    } catch ( e ) {
+      log( 'error', 'could not update legacy search for event %s', event.slug );
+    }
   }
 
   if ( haveRealDiff( before, after ) ) {
