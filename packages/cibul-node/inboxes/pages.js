@@ -6,7 +6,6 @@ const { promisify } = require( 'util' );
 const ReactDOM = require( 'react-dom/server' );
 
 const eventsSvc = require( '@openagenda/events' );
-const agendasMw = require( '@openagenda/agendas/middleware' );
 const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
 const locationSvc = require( '@openagenda/agenda-locations' );
 const labels = require( '@openagenda/labels/inboxes' );
@@ -14,7 +13,6 @@ const makeLabelGetter = require( '@openagenda/labels' );
 
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
-const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
 
 const members = require( '../services/members' );
 const sessions = require( '../services/sessions' );
