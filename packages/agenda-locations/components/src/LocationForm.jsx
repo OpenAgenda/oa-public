@@ -1026,7 +1026,7 @@ module.exports = createReactClass( {
       && _.get( this.state, 'location.latitude' )
     ) {
 
-      [ 'city', 'region', 'department', 'postalCode', 'insee' ].forEach( field => {
+      [ 'district', 'city', 'region', 'department', 'postalCode', 'insee' ].forEach( field => {
         geo[ field ] = _.get( this.state, [ 'location', field ], null );
       } );
 

@@ -103,16 +103,12 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   }
 
-  if ( success && config.interfaces.onUpdate ) {
-
-    config.interfaces.onUpdate( current, updated, params.context );
-
+  if ( success && params.transferToLegacy ) {
+    await legacyTransfer.to( updated );
   }
 
-  if ( success && params.transferToLegacy ) {
-
-    await legacyTransfer.to( updated );
-
+  if ( success && config.interfaces.onUpdate ) {
+    config.interfaces.onUpdate( current, updated, params.context );
   }
 
   return {

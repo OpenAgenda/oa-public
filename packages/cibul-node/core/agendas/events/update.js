@@ -11,7 +11,8 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/update' );
 const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
 const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
-const legacy = require( '../../../services/legacy' );
+const legacy = require('../../../services/legacy');
+const legacyEventSearch = require('../../../services/elasticsearch');
 const processOEmbed = require( '../utils/processOEmbed' );
 const setCustom = require( '../utils/setCustom' );
 const validate = require( './validate' );
@@ -160,6 +161,14 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
       ] );
     } catch ( e ) {
       log( 'error', 'failed to set legacy tags and custom data', e );
+    }
+  }
+
+  if (!draft) {
+    try {
+      await legacyEventSearch.updateEvent({ uid: eventUid });
+    } catch (e) {
+      log('error', 'could not update legacy search for event %s', eventUid, e);
     }
   }
 
