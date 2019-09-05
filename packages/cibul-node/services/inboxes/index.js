@@ -1,13 +1,16 @@
 "use strict";
 
-const wn = require('when/node');
 const _ = require('lodash');
-const { default: inboxes, Conversation } = require('@openagenda/inboxes');
+const { default: inboxes } = require('@openagenda/inboxes');
 const inboxMw = require('@openagenda/inboxes/dist/middleware');
 const agendasSvc = require('@openagenda/agendas');
-const agendaEventsSvc = require('@openagenda/agenda-events');
 const log = require('@openagenda/logs')('services/inboxes');
 const inboxesLabels = require('@openagenda/labels/inboxes');
+const filterAction = require('./filterAction');
+const getInboxesDetails = require('./getInboxesDetails');
+const getUsersDetails = require('./getUsersDetails');
+const onAction = require('./onAction');
+const onInboxCreate = require('./onInboxCreate');
 const onMessageCreate = require('./onMessageCreate');
 const usersSvc = require('../users');
 const membersSvc = require('../members');
@@ -18,268 +21,6 @@ const loggerConfig = config.getLogConfig('oa', 'inboxes', false);
 log.setConfig(loggerConfig);
 
 
-async function getUsersDetails(usersToBeDetailed) {
-
-  if (usersToBeDetailed.length === 0) {
-    return [];
-  }
-
-  return (await usersSvc.find({
-    query: {
-      uid: {
-        $in: usersToBeDetailed.map(v => v.userUid)
-      },
-      $skip: 0,
-      $limit: 100
-    },
-    removed: null
-  }))
-    .data
-    .map(user => ({
-      uid: user.uid,
-      name: user.fullName,
-      avatar: user.image ? config.aws.imageBucketPath + user.image : config.aws.defaultImagePath
-    }));
-
-}
-
-async function getInboxesDetails(inboxesToBeDetailed) {
-  const usersToBeDetailed = inboxesToBeDetailed
-    .filter(v => v.type === 'user')
-    .map(v => ({ userUid: v.identifier }));
-  const agendasToBeDetailed = inboxesToBeDetailed.filter(v => v.type === 'agenda');
-  const supportToBeDetailed = inboxesToBeDetailed.filter(v => v.type === 'support');
-
-  const users = await getUsersDetails(usersToBeDetailed);
-  const agendas = agendasToBeDetailed.length === 0 ? [] : (await wn.call(
-    agendasSvc.list,
-    { uid: agendasToBeDetailed.map(v => v.identifier) },
-    {
-      private: null,
-      includeImagePath: true,
-      useDefaultImage: true
-    }
-  ))[0].map(v => ({
-    uid: v.uid,
-    name: v.title,
-    avatar: v.image || config.aws.defaultImagePath
-  }));
-  const supports = supportToBeDetailed.map(v => ({
-    ...v,
-    uid: 1,
-    name: 'Support - OpenAgenda',
-    avatar: config.aws.oaLogoIcon
-  }));
-
-  return [...users, ...agendas, ...supports];
-}
-
-async function onInboxCreate(Inbox) {
-
-  switch (Inbox.data.type) {
-    case 'user': {
-      const inboxUser = await Inbox.users.add({ userUid: Inbox.data.identifier });
-
-      if (!inboxUser.data) {
-        log('warn', 'Cannot get/create InboxUser (%j) on inbox (%j)', { userUid: Inbox.data.identifier }, Inbox.data);
-      }
-
-      break;
-    }
-    case 'agenda': {
-      // get all adminmods
-      // create inboxUsers
-
-      const members = [];
-      const limit = 100;
-      let pos = 0;
-      let result;
-      const shList = () => membersSvc.list(
-        {
-          agendaUid: Inbox.data.identifier,
-          role: ['administrator', 'moderator'],
-          deletedUser: false
-        },
-        { offset: pos, limit }
-      );
-
-      while (result = await shList()) {
-        if (!result.length) break;
-        pos = pos + limit;
-
-        Array.prototype.push.apply(members, result);
-      }
-
-      for (const member of members) {
-        await Inbox.users.add({ userUid: member.userUid });
-      }
-
-      break;
-    }
-  }
-}
-
-async function filterAction(inbox, conversation, action) {
-
-  if (action.code === 'involveTechnicalSupport') {
-    if (inbox.type !== 'agenda') {
-      return false;
-    }
-
-    const { userUid } = conversation.inboxUser;
-    const agendaUid = inbox.identifier;
-
-    const sh = await membersSvc.get({
-      userUid,
-      agendaUid,
-      role: ['moderator', 'administrator']
-    });
-
-    if (!sh) {
-      return false;
-    }
-
-    return !conversation.inboxes.find(inbox => inbox.type === 'support');
-  }
-
-  if (action.code === 'removeTechnicalSupport') {
-    if (conversation.type === 'support') {
-      return false;
-    }
-
-    if (inbox.type === 'support') {
-      return !!conversation.inboxes.find(inbox => inbox.type === 'support');
-    }
-
-    if (inbox.type !== 'agenda') {
-      return false;
-    }
-
-    const { userUid } = conversation.inboxUser;
-    const agendaUid = inbox.identifier;
-
-    const sh = await membersSvc.get({
-      userUid,
-      agendaUid,
-      role: ['moderator', 'administrator']
-    });
-
-    if (!sh) {
-      return false;
-    }
-
-    return !!conversation.inboxes.find(inbox => inbox.type === 'support');
-  }
-
-  switch (conversation.type) {
-    case 'contact_form':
-      return inbox.type === 'agenda';
-    case 'event':
-      return inbox.type === 'agenda';
-    case 'request_contribute':
-      return inbox.type === 'agenda';
-    case 'edition_request':
-      return inbox.type === 'user';
-    default:
-      return true;
-  }
-}
-
-async function onAction(conversation, action) {
-
-  if (action.code === 'involveTechnicalSupport') {
-    const supportInbox = await inboxes({
-      type: 'support',
-      identifier: 1
-    }).get();
-
-    await Conversation.link({ conversationId: conversation.id, inboxId: supportInbox.data.id });
-  }
-
-  if (action.code === 'removeTechnicalSupport') {
-    const supportInbox = await inboxes({
-      type: 'support',
-      identifier: 1
-    }).get();
-
-    await Conversation.unlink({ conversationId: conversation.id, inboxId: supportInbox.data.id });
-  }
-
-  switch (conversation.type) {
-    case 'request_contribute': {
-
-      if (action.code === 'accept') {
-
-        if (conversation.creatorInbox && conversation.creatorInbox.type === 'user') {
-
-          try {
-
-            const userUid = conversation.creatorInbox.identifier;
-            const agendaUid = conversation.typeIdentifier;
-
-            const sh = await membersSvc.get({
-              userUid,
-              agendaUid
-            });
-
-            if (!sh) {
-
-              const newMember = await membersSvc.create(
-                {
-                  agendaUid,
-                  userUid,
-                  role: 'contributor'
-                },
-                { requireCustom: false }
-              );
-
-              console.log(newMember);
-
-              log('info', 'Contribution request accepted', { member: newMember });
-
-            }
-
-          } catch (err) {
-
-            log('error', 'Cannot accept a contribution request', err);
-
-          }
-
-        }
-
-      }
-
-    }
-    case 'edition_request': {
-
-      if (action.code === 'accept') {
-
-        try {
-
-          await agendaEventsSvc(conversation.store.params.agendaUid)
-            .update(
-              conversation.typeIdentifier,
-              { canEdit: true },
-              { transferToLegacy: true }
-            );
-
-          log('info', 'Edition rights request accepted', {
-            agendaUid: conversation.store.params.agendaUid,
-            eventUid: conversation.typeIdentifier
-          });
-
-        } catch (err) {
-
-          log('error', 'Cannot accept an edition rights request', err);
-
-        }
-
-      }
-
-    }
-  }
-}
-
 const interfaces = {
   getUsersDetails,
   getInboxesDetails,
@@ -289,7 +30,7 @@ const interfaces = {
   onAction
 };
 
-module.exports.init = async (c, app) => {
+module.exports.init = async c => {
   await inboxes.init(
     _.merge(
       _.pick(c, [
