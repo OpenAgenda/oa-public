@@ -158,6 +158,8 @@ function dbToObj( entry, options = {} ) {
 
   } catch( e ) {}
 
+  obj.credential = parseInt( entry.credential, 10 );
+
   obj.linkStore = store.linkStore || null;
 
   if ( store.custom_fields ) {
