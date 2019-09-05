@@ -53,8 +53,6 @@ module.exports = async function onAction(conversation, action) {
                 { requireCustom: false }
               );
 
-              console.log(newMember);
-
               log('info', 'Contribution request accepted', { member: newMember });
 
             }

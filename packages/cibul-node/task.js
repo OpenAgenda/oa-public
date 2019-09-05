@@ -40,6 +40,7 @@ module.exports = () => {
   } );
 
   tfy( require( '@openagenda/inboxes' ).tasks.sync, {
+    // bootOffset: 5000,
     period: 'weekly',
     day: 'sunday',
     time: '11:00'
