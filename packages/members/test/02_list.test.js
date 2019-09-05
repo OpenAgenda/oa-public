@@ -71,6 +71,15 @@ describe('members - functional - list', () => {
       });
       expect(otherMembers.map(m => m.id)).toEqual([1, 2, 4]);
     });
+
+    test('throw error when agenda does not exist', async () => {
+      const otherMembers = await svc.list({
+        agendaUid: 42,
+        userUid: [1, 2, 22]
+      });
+
+      expect(otherMembers).toHaveLength(0);
+    });
   });
 
   describe('pagination', () => {
