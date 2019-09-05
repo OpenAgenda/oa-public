@@ -127,7 +127,7 @@ export async function syncUser( user, stats ) {
 }
 
 export async function syncAgenda( agenda, stats ) {
-  const stakeholdersSvc = services.stakeholders();
+  const membersSvc = services.members();
   const usersSvc = services.users();
 
   // create Inbox
@@ -146,11 +146,13 @@ export async function syncAgenda( agenda, stats ) {
   let result;
   const stakeholders = [];
 
-  const shList = () => promisify( stakeholdersSvc.agenda( agenda.id ).list )(
-    { credentials: [ 'administrator', 'moderator' ] },
-    pos,
-    limit,
-    { deletedUser: false }
+  const shList = () => membersSvc.list(
+    {
+      agendaUid: agenda.uid,
+      credentials: [ 'administrator', 'moderator' ],
+      deletedUser: false
+    },
+    { offset: pos, limit }
   );
 
   while ( result = await shList() ) {

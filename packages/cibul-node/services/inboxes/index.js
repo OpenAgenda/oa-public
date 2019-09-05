@@ -1,87 +1,87 @@
 "use strict";
 
-const { promisify } = require( 'util' );
-const wn = require( 'when/node' );
-const _ = require( 'lodash' );
-const { default: inboxes, Conversation } = require( '@openagenda/inboxes' );
-const inboxMw = require( '@openagenda/inboxes/dist/middleware' );
-const agendasSvc = require( '@openagenda/agendas' );
-const agendaEventsSvc = require( '@openagenda/agenda-events' );
-const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
-const log = require( '@openagenda/logs' )( 'services/inboxes' );
-const inboxesLabels = require( '@openagenda/labels/inboxes' );
-const onMessageCreate = require( './onMessageCreate' );
-const usersSvc = require( '../users' );
-const config = require( '../../config' );
+const wn = require('when/node');
+const _ = require('lodash');
+const { default: inboxes, Conversation } = require('@openagenda/inboxes');
+const inboxMw = require('@openagenda/inboxes/dist/middleware');
+const agendasSvc = require('@openagenda/agendas');
+const agendaEventsSvc = require('@openagenda/agenda-events');
+const log = require('@openagenda/logs')('services/inboxes');
+const inboxesLabels = require('@openagenda/labels/inboxes');
+const onMessageCreate = require('./onMessageCreate');
+const usersSvc = require('../users');
+const membersSvc = require('../members');
+const config = require('../../config');
 
-const loggerConfig = config.getLogConfig( 'oa', 'inboxes', false );
+const loggerConfig = config.getLogConfig('oa', 'inboxes', false);
 
-log.setConfig( loggerConfig );
+log.setConfig(loggerConfig);
 
 
-async function getUsersDetails( usersToBeDetailed ) {
+async function getUsersDetails(usersToBeDetailed) {
 
-  if ( usersToBeDetailed.length === 0 ) {
+  if (usersToBeDetailed.length === 0) {
     return [];
   }
 
-  return (await usersSvc.find( {
+  return (await usersSvc.find({
     query: {
       uid: {
-        $in: usersToBeDetailed.map( v => v.userUid )
+        $in: usersToBeDetailed.map(v => v.userUid)
       },
       $skip: 0,
       $limit: 100
     },
     removed: null
-  } ))
+  }))
     .data
-    .map( user => ({
+    .map(user => ({
       uid: user.uid,
       name: user.fullName,
       avatar: user.image ? config.aws.imageBucketPath + user.image : config.aws.defaultImagePath
-    }) );
+    }));
 
 }
 
-async function getInboxesDetails( inboxesToBeDetailed ) {
+async function getInboxesDetails(inboxesToBeDetailed) {
   const usersToBeDetailed = inboxesToBeDetailed
-    .filter( v => v.type === 'user' )
-    .map( v => ({ userUid: v.identifier }) );
-  const agendasToBeDetailed = inboxesToBeDetailed.filter( v => v.type === 'agenda' );
-  const supportToBeDetailed = inboxesToBeDetailed.filter( v => v.type === 'support' );
+    .filter(v => v.type === 'user')
+    .map(v => ({ userUid: v.identifier }));
+  const agendasToBeDetailed = inboxesToBeDetailed.filter(v => v.type === 'agenda');
+  const supportToBeDetailed = inboxesToBeDetailed.filter(v => v.type === 'support');
 
-  const users = await getUsersDetails( usersToBeDetailed );
-  const agendas = agendasToBeDetailed.length === 0 ? [] : (await wn.call( agendasSvc.list,
-    { uid: agendasToBeDetailed.map( v => v.identifier ) },
+  const users = await getUsersDetails(usersToBeDetailed);
+  const agendas = agendasToBeDetailed.length === 0 ? [] : (await wn.call(
+    agendasSvc.list,
+    { uid: agendasToBeDetailed.map(v => v.identifier) },
     {
       private: null,
       includeImagePath: true,
       useDefaultImage: true
     }
-  ))[ 0 ].map( v => ({
+  ))[0].map(v => ({
     uid: v.uid,
     name: v.title,
     avatar: v.image || config.aws.defaultImagePath
-  }) );
-  const supports = supportToBeDetailed.map( v => ({
+  }));
+  const supports = supportToBeDetailed.map(v => ({
     ...v,
     uid: 1,
     name: 'Support - OpenAgenda',
     avatar: config.aws.oaLogoIcon
-  }) );
+  }));
 
-  return [ ...users, ...agendas, ...supports ];
+  return [...users, ...agendas, ...supports];
 }
 
-async function onInboxCreate( Inbox ) {
+async function onInboxCreate(Inbox) {
 
-  switch ( Inbox.data.type ) {
+  switch (Inbox.data.type) {
     case 'user': {
-      const inboxUser = await Inbox.users.add( { userUid: Inbox.data.identifier } );
+      const inboxUser = await Inbox.users.add({ userUid: Inbox.data.identifier });
 
-      if ( !inboxUser.data ) {
-        log( 'warn', 'Cannot get/create InboxUser (%j) on inbox (%j)', { userUid: Inbox.data.identifier }, Inbox.data );
+      if (!inboxUser.data) {
+        log('warn', 'Cannot get/create InboxUser (%j) on inbox (%j)', { userUid: Inbox.data.identifier }, Inbox.data);
       }
 
       break;
@@ -90,55 +90,28 @@ async function onInboxCreate( Inbox ) {
       // get all adminmods
       // create inboxUsers
 
-      const agendaGet = promisify( agendasSvc.get );
-      const agenda = await agendaGet(
-        { uid: Inbox.data.identifier },
-        { private: null, internal: true }
-      );
-
-      if ( !agenda ) {
-        log( 'warn', 'Cannot retrieve agenda %j', { uid: Inbox.data.identifier } );
-        break;
-      }
-
-      const stakeholders = [];
+      const members = [];
       const limit = 100;
       let pos = 0;
       let result;
-      const shList = () => promisify( stakeholdersSvc.agenda( agenda.id ).list )(
-        { credentials: [ 'administrator', 'moderator' ] },
-        pos,
-        limit,
-        { deletedUser: false }
+      const shList = () => membersSvc.list(
+        {
+          agendaUid: Inbox.data.identifier,
+          role: ['administrator', 'moderator'],
+          deletedUser: false
+        },
+        { offset: pos, limit }
       );
 
-      while ( result = await shList() ) {
-        if ( !result.length ) break;
+      while (result = await shList()) {
+        if (!result.length) break;
         pos = pos + limit;
 
-        Array.prototype.push.apply( stakeholders, result );
+        Array.prototype.push.apply(members, result);
       }
 
-      pos = 0;
-      const users = [];
-      const userIds = _.map( stakeholders, 'userId' );
-
-      while ( result = (await usersSvc.find( {
-        query: {
-          id: { $in: userIds },
-          $skip: pos,
-          $limit: limit
-        },
-        removed: null
-      })).data ) {
-        if ( !result.length ) break;
-        pos = pos + limit;
-
-        Array.prototype.push.apply( users, result );
-      }
-
-      for ( const user of users ) {
-        await Inbox.users.add( { userUid: user.uid } );
+      for (const member of members) {
+        await Inbox.users.add({ userUid: member.userUid });
       }
 
       break;
@@ -146,59 +119,59 @@ async function onInboxCreate( Inbox ) {
   }
 }
 
-async function filterAction( inbox, conversation, action ) {
+async function filterAction(inbox, conversation, action) {
 
-  if ( action.code === 'involveTechnicalSupport' ) {
-    if ( inbox.type !== 'agenda' ) {
+  if (action.code === 'involveTechnicalSupport') {
+    if (inbox.type !== 'agenda') {
       return false;
     }
 
-    const user = await usersSvc.get( conversation.inboxUser.userUid, { removed: null } );
+    const { userUid } = conversation.inboxUser;
+    const agendaUid = inbox.identifier;
 
-    const agenda = await promisify( agendasSvc.get )(
-      { uid: inbox.identifier },
-      { private: null, internal: true }
-    );
+    const sh = await membersSvc.get({
+      userUid,
+      agendaUid,
+      role: ['moderator', 'administrator']
+    });
 
-    const sh = await promisify( stakeholdersSvc.agenda( agenda.id ).get )( { userId: user.id } );
-
-    if ( !sh || !stakeholdersSvc.types.isSuperiorTo( sh.credential, stakeholdersSvc.types.get( 'moderator' ), true ) ) {
+    if (!sh) {
       return false;
     }
 
-    return !conversation.inboxes.find( inbox => inbox.type === 'support' );
+    return !conversation.inboxes.find(inbox => inbox.type === 'support');
   }
 
-  if ( action.code === 'removeTechnicalSupport' ) {
-    if ( conversation.type === 'support' ) {
+  if (action.code === 'removeTechnicalSupport') {
+    if (conversation.type === 'support') {
       return false;
     }
 
-    if ( inbox.type === 'support' ) {
-      return !!conversation.inboxes.find( inbox => inbox.type === 'support' );
+    if (inbox.type === 'support') {
+      return !!conversation.inboxes.find(inbox => inbox.type === 'support');
     }
 
-    if ( inbox.type !== 'agenda' ) {
+    if (inbox.type !== 'agenda') {
       return false;
     }
 
-    const user = await usersSvc.get( conversation.inboxUser.userUid, { removed: null } );
+    const { userUid } = conversation.inboxUser;
+    const agendaUid = inbox.identifier;
 
-    const agenda = await promisify( agendasSvc.get )(
-      { uid: inbox.identifier },
-      { private: null, internal: true }
-    );
+    const sh = await membersSvc.get({
+      userUid,
+      agendaUid,
+      role: ['moderator', 'administrator']
+    });
 
-    const sh = await promisify( stakeholdersSvc.agenda( agenda.id ).get )( { userId: user.id } );
-
-    if ( !sh || !stakeholdersSvc.types.isSuperiorTo( sh.credential, stakeholdersSvc.types.get( 'moderator' ), true ) ) {
+    if (!sh) {
       return false;
     }
 
-    return !!conversation.inboxes.find( inbox => inbox.type === 'support' );
+    return !!conversation.inboxes.find(inbox => inbox.type === 'support');
   }
 
-  switch ( conversation.type ) {
+  switch (conversation.type) {
     case 'contact_form':
       return inbox.type === 'agenda';
     case 'event':
@@ -212,57 +185,63 @@ async function filterAction( inbox, conversation, action ) {
   }
 }
 
-async function onAction( conversation, action ) {
+async function onAction(conversation, action) {
 
-  if ( action.code === 'involveTechnicalSupport' ) {
-    const supportInbox = await inboxes( {
+  if (action.code === 'involveTechnicalSupport') {
+    const supportInbox = await inboxes({
       type: 'support',
       identifier: 1
-    } ).get();
+    }).get();
 
-    await Conversation.link( { conversationId: conversation.id, inboxId: supportInbox.data.id } );
+    await Conversation.link({ conversationId: conversation.id, inboxId: supportInbox.data.id });
   }
 
-  if ( action.code === 'removeTechnicalSupport' ) {
-    const supportInbox = await inboxes( {
+  if (action.code === 'removeTechnicalSupport') {
+    const supportInbox = await inboxes({
       type: 'support',
       identifier: 1
-    } ).get();
+    }).get();
 
-    await Conversation.unlink( { conversationId: conversation.id, inboxId: supportInbox.data.id } );
+    await Conversation.unlink({ conversationId: conversation.id, inboxId: supportInbox.data.id });
   }
 
-  switch ( conversation.type ) {
+  switch (conversation.type) {
     case 'request_contribute': {
 
-      if ( action.code === 'accept' ) {
+      if (action.code === 'accept') {
 
-        if ( conversation.creatorInbox && conversation.creatorInbox.type === 'user' ) {
+        if (conversation.creatorInbox && conversation.creatorInbox.type === 'user') {
 
           try {
 
-            const user = await usersSvc.get( conversation.creatorInbox.identifier, { removed: null } );
-            const agenda = await promisify( agendasSvc.get )(
-              { uid: conversation.typeIdentifier },
-              { private: null, internal: true }
-            );
+            const userUid = conversation.creatorInbox.identifier;
+            const agendaUid = conversation.typeIdentifier;
 
-            const sh = await promisify( stakeholdersSvc.agenda( agenda.id ).get )( { userId: user.id } );
+            const sh = await membersSvc.get({
+              userUid,
+              agendaUid
+            });
 
-            if ( !sh ) {
+            if (!sh) {
 
-              const sh = await promisify( stakeholdersSvc.agenda( agenda.id ).create )(
-                { email: user.email },
-                { allowPartial: true }
+              const newMember = await membersSvc.create(
+                {
+                  agendaUid,
+                  userUid,
+                  role: 'contributor'
+                },
+                { requireCustom: false }
               );
 
-              log( 'info', 'Contribution request accepted', { stakeholder: sh } );
+              console.log(newMember);
+
+              log('info', 'Contribution request accepted', { member: newMember });
 
             }
 
-          } catch ( err ) {
+          } catch (err) {
 
-            log( 'error', 'Cannot accept a contribution request', err );
+            log('error', 'Cannot accept a contribution request', err);
 
           }
 
@@ -273,25 +252,25 @@ async function onAction( conversation, action ) {
     }
     case 'edition_request': {
 
-      if ( action.code === 'accept' ) {
+      if (action.code === 'accept') {
 
         try {
 
-          await agendaEventsSvc( conversation.store.params.agendaUid )
+          await agendaEventsSvc(conversation.store.params.agendaUid)
             .update(
               conversation.typeIdentifier,
               { canEdit: true },
               { transferToLegacy: true }
             );
 
-          log( 'info', 'Edition rights request accepted', {
+          log('info', 'Edition rights request accepted', {
             agendaUid: conversation.store.params.agendaUid,
             eventUid: conversation.typeIdentifier
-          } );
+          });
 
-        } catch ( err ) {
+        } catch (err) {
 
-          log( 'error', 'Cannot accept an edition rights request', err );
+          log('error', 'Cannot accept an edition rights request', err);
 
         }
 
@@ -310,10 +289,10 @@ const interfaces = {
   onAction
 };
 
-module.exports.init = async ( c, app ) => {
+module.exports.init = async (c, app) => {
   await inboxes.init(
     _.merge(
-      _.pick( c, [
+      _.pick(c, [
         'mysql',
         'knex',
         'redis',
@@ -325,7 +304,7 @@ module.exports.init = async ( c, app ) => {
         'schemas.messageAttachment',
         'queues.inboxesSync',
         'aws'
-      ] ),
+      ]),
       {
         logger: loggerConfig,
         migrations: {
@@ -333,7 +312,7 @@ module.exports.init = async ( c, app ) => {
         },
         services: {
           agendas: () => agendasSvc,
-          stakeholders: () => stakeholdersSvc,
+          members: () => membersSvc,
           users: () => usersSvc
         },
         interfaces,
@@ -347,101 +326,112 @@ module.exports.init = async ( c, app ) => {
         },
         types: {
           event: {
-            actions: [ {
-              code: 'involveTechnicalSupport',
-              label: {
-                fr: 'Impliquer le support technique',
-                en: 'Involve technical support'
-              },
-              kind: 'default',
-              resolve: false
-            }, {
-              code: 'removeTechnicalSupport',
-              label: {
-                fr: 'Retirer le support technique',
-                en: 'Remove technical support'
-              },
-              kind: 'default',
-              resolve: false
-            } ]
+            actions: [
+              {
+                code: 'involveTechnicalSupport',
+                label: {
+                  fr: 'Impliquer le support technique',
+                  en: 'Involve technical support'
+                },
+                kind: 'default',
+                resolve: false
+              }, {
+                code: 'removeTechnicalSupport',
+                label: {
+                  fr: 'Retirer le support technique',
+                  en: 'Remove technical support'
+                },
+                kind: 'default',
+                resolve: false
+              }
+            ]
           },
           contact_form: {
-            actions: [ {
-              code: 'involveTechnicalSupport',
-              label: {
-                fr: 'Impliquer le support technique',
-                en: 'Involve technical support'
-              },
-              kind: 'default',
-              resolve: false
-            }, {
-              code: 'removeTechnicalSupport',
-              label: {
-                fr: 'Retirer le support technique',
-                en: 'Remove technical support'
-              },
-              kind: 'default',
-              resolve: false
-            } ]
+            actions: [
+              {
+                code: 'involveTechnicalSupport',
+                label: {
+                  fr: 'Impliquer le support technique',
+                  en: 'Involve technical support'
+                },
+                kind: 'default',
+                resolve: false
+              }, {
+                code: 'removeTechnicalSupport',
+                label: {
+                  fr: 'Retirer le support technique',
+                  en: 'Remove technical support'
+                },
+                kind: 'default',
+                resolve: false
+              }
+            ]
           },
           request_contribute: {
-            actions: [ {
-              code: 'accept',
-              label: {
-                fr: 'Ajouter en tant que contributeur',
-                en: 'Add as a contributor'
-              },
-              kind: 'primary',
-              confirmationModalTitle: inboxesLabels.requestContributeAcceptModalTitle,
-              confirmationModalLabel: inboxesLabels.requestContributeAcceptModal
-            }, {
-              code: 'refuse',
-              label: {
-                fr: 'Refuser la demande',
-                en: 'Refuse the request'
-              },
-              kind: 'danger',
-              confirmationModalTitle: inboxesLabels.requestContributeRefuseModalTitle,
-              confirmationModalLabel: inboxesLabels.requestContributeRefuseModal
-            } ]
+            actions: [
+              {
+                code: 'accept',
+                label: {
+                  fr: 'Ajouter en tant que contributeur',
+                  en: 'Add as a contributor'
+                },
+                kind: 'primary',
+                confirmationModalTitle: inboxesLabels.requestContributeAcceptModalTitle,
+                confirmationModalLabel: inboxesLabels.requestContributeAcceptModal
+              }, {
+                code: 'refuse',
+                label: {
+                  fr: 'Refuser la demande',
+                  en: 'Refuse the request'
+                },
+                kind: 'danger',
+                confirmationModalTitle: inboxesLabels.requestContributeRefuseModalTitle,
+                confirmationModalLabel: inboxesLabels.requestContributeRefuseModal
+              }
+            ]
           },
           edition_request: {
-            actions: [ {
-              code: 'accept',
-              label: {
-                fr: 'Accepter la demande',
-                en: 'Accept the request'
-              },
-              kind: 'primary',
-              confirmationModalTitle: inboxesLabels.editionRequestAcceptModalTitle,
-              confirmationModalLabel: inboxesLabels.editionRequestAcceptModal
-            }, {
-              code: 'refuse',
-              label: {
-                fr: 'Refuser la demande',
-                en: 'Refuse the request'
-              },
-              kind: 'danger',
-              confirmationModalTitle: inboxesLabels.editionRequestRefuseModalTitle,
-              confirmationModalLabel: inboxesLabels.editionRequestRefuseModal
-            } ]
+            actions: [
+              {
+                code: 'accept',
+                label: {
+                  fr: 'Accepter la demande',
+                  en: 'Accept the request'
+                },
+                kind: 'primary',
+                confirmationModalTitle: inboxesLabels.editionRequestAcceptModalTitle,
+                confirmationModalLabel: inboxesLabels.editionRequestAcceptModal
+              }, {
+                code: 'refuse',
+                label: {
+                  fr: 'Refuser la demande',
+                  en: 'Refuse the request'
+                },
+                kind: 'danger',
+                confirmationModalTitle: inboxesLabels.editionRequestRefuseModalTitle,
+                confirmationModalLabel: inboxesLabels.editionRequestRefuseModal
+              }
+            ]
           },
           suggest_location_change: {},
           contact_member: {},
           support: {
-            actions: [ {
-              code: 'removeTechnicalSupport',
-              label: {
-                fr: 'Retirer le support technique',
-                en: 'Remove technical support'
-              },
-              kind: 'default',
-              resolve: false
-            } ]
+            actions: [
+              {
+                code: 'removeTechnicalSupport',
+                label: {
+                  fr: 'Retirer le support technique',
+                  en: 'Remove technical support'
+                },
+                kind: 'default',
+                resolve: false
+              }
+            ]
           }
         },
         defaultImagePath: c.aws.defaultImagePath
-      } )
+      }
+    )
   );
-  await inboxMw.init( _.merge( {}, c, { interfaces, mw: { limit: 20 } } ) );
+  await inboxMw.init(_.merge({}, c, { interfaces, mw: { limit: 20 } }));
 };
