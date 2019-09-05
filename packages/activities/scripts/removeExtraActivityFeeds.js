@@ -28,11 +28,11 @@ const knex = knexClient( {
 removeExtraActivityFeeds( c )
   .then( result => {
     console.log( 'Result:', result );
-    knex.destroy();
+    return knex.destroy();
   } )
   .catch( err => {
     console.error( 'Error:', err );
-    knex.destroy();
+    return knex.destroy();
   } );
 
 function removeExtraActivityFeeds( { schemas } ) {
