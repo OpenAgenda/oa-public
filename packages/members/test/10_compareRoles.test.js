@@ -62,7 +62,7 @@ describe('members - utils - compareRoles', () => {
         error = e;
       }
 
-      expect(error.message).toBe('Unknown role: CLOWN');
+      expect(error.message).toBe('Unknown role');
     });
   });
 

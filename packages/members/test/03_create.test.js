@@ -32,7 +32,7 @@ describe('members - functional - create', () => {
     const { member } = await svc.create({
       userUid: 12,
       agendaUid: 31,
-      role: 1,
+      role: 'contributor',
       actionsCounter: 0,
       custom: {
         organization: 'OpenAgenda',
