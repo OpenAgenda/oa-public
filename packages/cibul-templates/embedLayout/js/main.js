@@ -1,12 +1,23 @@
-var utils = require( '@openagenda/utils' ),
+require( 'core-js/stable' );
+require( 'regenerator-runtime/runtime' );
+require( 'dom4' );
+require( 'pepjs' );
+
+require( 'intl' );
+require( 'intl/locale-data/jsonp/fr' );
+require( 'intl/locale-data/jsonp/en' );
+require( 'intl/locale-data/jsonp/de' );
+require( 'intl/locale-data/jsonp/br' );
+
+var layout = require( '../../layout/js/layout' ),
+
+utils = require( '@openagenda/utils' ),
 
 du = require( '../../js/lib/domUtils' ),
 
 debug = require( 'debug' ),
 
 log = debug( 'main' ),
-
-layout = require( '../../layout/js/layout' ),
 
 ran = false, asapRan = false,
 

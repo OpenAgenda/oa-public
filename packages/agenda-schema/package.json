@@ -14,10 +14,12 @@
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "body-parser": "^1.18.2",
+    "core-js": "^3.2.1",
     "express": "^4.16.2",
     "lodash": "^4.16.6",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "regenerator-runtime": "^0.13.3",
     "superagent": "^3.8.3"
   },
   "devDependencies": {

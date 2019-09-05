@@ -104,6 +104,7 @@
     "react-transform-catch-errors": "^1.0.2",
     "redbox-react": "^1.5.0",
     "redux": "^4.0.1",
+    "regenerator-runtime": "^0.13.3",
     "source-map-loader": "^0.2.1",
     "spin.js": "2.3.2",
     "st": "1.2.2",
