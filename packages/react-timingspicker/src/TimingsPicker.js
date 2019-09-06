@@ -25,13 +25,13 @@ const weekStartsDay = {
   fr: 1
 };
 
-addLocaleData( [ ...en, ...fr, ...de, ...br ] );
+addLocaleData([...en, ...fr, ...de, ...br]);
 
-function widthToBreakpoint( breakpoints, width ) {
-  for ( const key of Object.keys( breakpoints ) ) {
-    const breakpoint = breakpoints[ key ];
+function widthToBreakpoint(breakpoints, width) {
+  for (const key of Object.keys(breakpoints)) {
+    const breakpoint = breakpoints[key];
 
-    if ( width < breakpoint ) {
+    if (width < breakpoint) {
       return key;
     }
   }
@@ -39,26 +39,29 @@ function widthToBreakpoint( breakpoints, width ) {
   return null;
 }
 
-function getClosestTiming( value ) {
-  if ( !value || !value.length ) {
+function getClosestTiming(value) {
+  if (!value || !value.length) {
     return null;
   }
 
-  const { first, next } = value
-    .reduce( ( result, val ) => {
-      if ( !result.first || dateFns.isBefore( val.begin, result.first ) ) {
+  const { first, next } = value.reduce(
+    (result, val) => {
+      if (!result.first || dateFns.isBefore(val.begin, result.first)) {
         result.first = val.begin;
       }
 
       if (
-        !result.next && dateFns.isAfter( val.begin, Date.now() ) ||
-        dateFns.isAfter( val.begin, Date.now() ) && dateFns.isBefore( val.begin, result.next )
+        (!result.next && dateFns.isAfter(val.begin, Date.now()))
+        || (dateFns.isAfter(val.begin, Date.now())
+          && dateFns.isBefore(val.begin, result.next))
       ) {
         result.next = val.begin;
       }
 
       return result;
-    }, { first: null, next: null } );
+    },
+    { first: null, next: null }
+  );
 
   return next || first;
 }
@@ -89,53 +92,50 @@ class TimingsPicker extends Component {
 
   schedulerRef = React.createRef();
 
-  static getDerivedStateFromProps( props, state ) {
+  static getDerivedStateFromProps(props, state) {
     const derivedState = {};
 
-    if ( props.weekStartsOn !== state.weekStartsOn ) {
+    if (props.weekStartsOn !== state.weekStartsOn) {
       derivedState.weekStartsOn = typeof props.weekStartsOn === 'number'
         ? props.weekStartsOn
-        : weekStartsDay[ props.locale ] || 0;
+        : weekStartsDay[props.locale] || 0;
     }
 
-    if ( props.activeWeek !== state.activeWeek ) {
-      if ( props.activeWeek ) {
-        derivedState.activeWeek = new Date( props.activeWeek );
-      } else if ( state.activeWeek ) {
-        derivedState.activeWeek = new Date( state.activeWeek );
+    if (props.activeWeek !== state.activeWeek) {
+      if (props.activeWeek) {
+        derivedState.activeWeek = new Date(props.activeWeek);
+      } else if (state.activeWeek) {
+        derivedState.activeWeek = new Date(state.activeWeek);
       } else {
-        const closestValue = getClosestTiming( props.value );
+        const closestValue = getClosestTiming(props.value);
 
-        if ( closestValue ) {
-          derivedState.valueToHighlight = new Date( closestValue );
+        if (closestValue) {
+          derivedState.valueToHighlight = new Date(closestValue);
         }
 
         derivedState.activeWeek = new Date(
-          closestValue ||
-          getClosestTiming( props.allowedTimings ) ||
-          Date.now()
+          closestValue || getClosestTiming(props.allowedTimings) || Date.now()
         );
       }
     }
 
-    if ( props.locale !== state.locale || props.locales !== state.locales ) {
+    if (props.locale !== state.locale || props.locales !== state.locales) {
       derivedState.locale = props.locale;
       derivedState.locales = props.locales;
       derivedState.messages = {
-        ...localeData[ props.locale ],
-        ...(props.locales && props.locales[ props.locale ])
+        ...localeData[props.locale],
+        ...(props.locales && props.locales[props.locale])
       };
     }
 
-    if ( props.value !== state.value ) {
-      derivedState.value = (props.value || state.value || [])
-        .map( v => ({
-          begin: v.begin,
-          end: v.end
-        }) );
+    if (props.value !== state.value) {
+      derivedState.value = (props.value || state.value || []).map(v => ({
+        begin: v.begin,
+        end: v.end
+      }));
     }
 
-    if ( Object.keys( derivedState ).length ) {
+    if (Object.keys(derivedState).length) {
       return derivedState;
     }
 
@@ -146,75 +146,78 @@ class TimingsPicker extends Component {
     const { onChangeActiveWeek } = this.props;
     const { activeWeek } = this.state;
 
-    const newActiveWeek = fn( activeWeek );
+    const newActiveWeek = fn(activeWeek);
 
-    this.setState( {
+    this.setState({
       activeWeek: newActiveWeek
-    } );
+    });
 
-    if ( typeof onChangeActiveWeek === 'function' ) {
-      onChangeActiveWeek( newActiveWeek );
+    if (typeof onChangeActiveWeek === 'function') {
+      onChangeActiveWeek(newActiveWeek);
     }
   };
 
-  onPrevWeek = () => this.updateActiveWeek( date => dateFns.subDays( date, 7 ) );
+  onPrevWeek = () => this.updateActiveWeek(date => dateFns.subDays(date, 7));
 
-  onNextWeek = () => this.updateActiveWeek( date => dateFns.addDays( date, 7 ) );
+  onNextWeek = () => this.updateActiveWeek(date => dateFns.addDays(date, 7));
 
-  onMonthChange = month => this.updateActiveWeek( date => dateFns.setMonth( date, month ) );
+  onMonthChange = month => this.updateActiveWeek(date => dateFns.setMonth(date, month));
 
-  onYearChange = month => this.updateActiveWeek( date => dateFns.setYear( date, month ) );
+  onYearChange = month => this.updateActiveWeek(date => dateFns.setYear(date, month));
 
   onChange = value => {
     const { onChange } = this.props;
 
-    this.setState( { value } );
+    this.setState({ value });
 
-    if ( typeof onChange === 'function' ) {
-      onChange( value );
+    if (typeof onChange === 'function') {
+      onChange(value);
     }
-  }
+  };
 
   reset = () => {
     const schedulerEl = this.schedulerRef.current._wrappedInstance;
 
-    if ( schedulerEl.state.showRecurrencerModal ) {
+    if (schedulerEl.state.showRecurrencerModal) {
       schedulerEl.handleCloseRecurrencerModal();
     }
 
-    if ( schedulerEl.state.showEditModal ) {
+    if (schedulerEl.state.showEditModal) {
       schedulerEl.handleCloseEditModal();
     }
 
-    this.onChange( [] );
-  }
+    this.onChange([]);
+  };
 
-  onResize = ( width, height ) => {
-    const breakpoint = widthToBreakpoint( this.props.breakpoints, width );
+  onResize = (width, height) => {
+    const breakpoint = widthToBreakpoint(this.props.breakpoints, width);
 
-    this.setState( {
+    this.setState({
       width,
       height,
       breakpoint
-    } );
+    });
   };
 
   render() {
     const {
-      timingLimit,
-      allowedTimings,
-      classNamePrefix,
-      locale
+      timingLimit, allowedTimings, classNamePrefix, locale
     } = this.props;
-    const { value, messages, activeWeek, weekStartsOn, breakpoint, valueToHighlight } = this.state;
+    const {
+      value,
+      messages,
+      activeWeek,
+      weekStartsOn,
+      breakpoint,
+      valueToHighlight
+    } = this.state;
 
     return (
       <IntlProvider locale={locale} key={locale} messages={messages}>
         <div
-          className={classNames(
-            `${classNamePrefix}calendar`,
-            { [ classNamePrefix + breakpoint ]: breakpoint }
-          )}
+          className={classNames(`${classNamePrefix}calendar`, {
+            [classNamePrefix + breakpoint]: breakpoint
+          })}
         >
           <ReactResizeDetector
             handleWidth
