@@ -152,6 +152,10 @@ class Scheduler extends Component {
 
   multiRecurrencerModalRef = React.createRef();
 
+  recurrencerCloserTimeoutId = null;
+
+  multiRecurrencerCloserTimeoutId = null;
+
   componentDidMount() {
     const { cellHeight, valueToHighlight } = this.props;
     const schedulerEl = this.schedulerRef.current;
@@ -337,6 +341,8 @@ class Scheduler extends Component {
   };
 
   handleCloseRecurrencerModal = () => {
+    clearTimeout(this.recurrencerCloserTimeoutId);
+
     document.removeEventListener( 'click', this.handleOutsideClick, true );
 
     this.stopLockScroll();
@@ -348,6 +354,8 @@ class Scheduler extends Component {
   };
 
   handleCloseMultiRecurrencerModal = () => {
+    clearTimeout(this.multiRecurrencerCloserTimeoutId);
+
     document.removeEventListener( 'click', this.handleOutsideClick, true );
 
     this.stopLockScroll();
@@ -486,7 +494,7 @@ class Scheduler extends Component {
       return { [ FORM_ERROR ]: e };
     }
 
-    this.handleCloseRecurrencerModal();
+    this.recurrencerCloserTimeoutId = setTimeout(this.handleCloseRecurrencerModal, 1600);
   };
 
   handleMultiRecurrencerSubmit = values => {
@@ -499,7 +507,7 @@ class Scheduler extends Component {
       return { [ FORM_ERROR ]: e };
     }
 
-    this.handleCloseMultiRecurrencerModal();
+    this.multiRecurrencerCloserTimeoutId = setTimeout(this.handleCloseMultiRecurrencerModal, 1600);
   };
 
   onRecurrencerDayPickerHide = () => {

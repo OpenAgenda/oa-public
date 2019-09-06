@@ -673,6 +673,14 @@
     padding-left: 30px;
 }
 
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-confirmation-icon,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-confirmation-icon {
+    text-align: center;
+    margin-top: 12px;
+    font-size: 24px;
+    color: mediumseagreen;
+}
+
 /* Weekday picker */
 
 .rtp__calendar .rtp__WeekdayPicker {

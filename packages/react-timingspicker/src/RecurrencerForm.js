@@ -4,7 +4,7 @@ import { Field, Form } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
 import dateFns from 'date-fns';
-import { FaRegTimesCircle } from 'react-icons/fa';
+import { FaRegTimesCircle, FaCheck } from 'react-icons/fa';
 import SelectField from './SelectField';
 import WeekdayInput from './WeekdayInput';
 import NumberInput from './NumberInput';
@@ -111,6 +111,10 @@ const messages = defineMessages( {
   monthlyCount: {
     id: 'rtp.recurrencerForm.monthlyCount',
     defaultMessage: '{count, plural, one {month} other {months} }'
+  },
+  confirmation: {
+    id: 'rtp.recurrencerForm.confirmation',
+    defaultMessage: 'Recurring timings have been added.'
   }
 } );
 
@@ -218,6 +222,31 @@ class RecurrencerForm extends Component {
     onDayPickerHide
   } ) => {
     const { frequenceOptions, monthlyIntervalTypeOptions } = this.state;
+    const formState = form.getState();
+
+    if (formState.submitSucceeded) {
+      return (
+        <>
+          <h3>{intl.formatMessage( messages.title )}</h3>
+
+          {typeof closeModal === 'function' ? (
+            <div className={`${classNamePrefix}close-modal`}>
+              <FaRegTimesCircle onClick={closeModal} />
+            </div>
+          ) : null}
+
+          <div className={`${classNamePrefix}recurrencer-confirmation`}>
+            {intl.formatMessage( messages.confirmation )}
+
+            <br />
+
+            <div className={`${classNamePrefix}recurrencer-confirmation-icon`}>
+              <FaCheck />
+            </div>
+          </div>
+        </>
+      );
+    }
 
     return (
       <form onSubmit={handleSubmit}>

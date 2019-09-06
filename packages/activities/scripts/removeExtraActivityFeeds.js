@@ -39,17 +39,25 @@ function removeExtraActivityFeeds( { schemas } ) {
 
   let preOffset = 0;
   let deleted = 0;
+  let lastFeedId = 0;
+  let lastActivityId = 0;
   const itemsToRemove = {};
 
   return _traverseTable(
     schemas.feed_activity,
     q => q.join( schemas.activity, `${schemas.feed_activity}.activity_id`, `${schemas.activity}.id` )
       .join( schemas.feed, `${schemas.feed_activity}.feed_id`, `${schemas.feed}.id` )
-      .whereIn( `${schemas.activity}.verb`, [ 'agenda.changeEventState', 'agenda.removeEvent' ] ),
-    offset => offset - deleted + preOffset,
+      .whereIn( `${schemas.activity}.verb`, [ 'agenda.changeEventState', 'agenda.removeEvent' ] )
+      .where( `${schemas.feed_activity}.feed_id`, '>=', lastFeedId )
+      .where( `${schemas.feed_activity}.activity_id`, '>=', lastActivityId )
+      .orderBy( [`${schemas.feed_activity}.feed_id`, `${schemas.feed_activity}.activity_id`] ),
+    offset => 0/*offset - deleted + preOffset*/,
     async ( item, index, next ) => {
 
-      console.log( '=============', index );
+      console.log( '=============', index, item.feed_id, item.activity_id );
+
+      lastFeedId = item.feed_id;
+      lastActivityId = item.activity_id;
 
       // If it's another agenda
       if ( item.entity_type === 'agenda' ) {
