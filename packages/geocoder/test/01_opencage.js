@@ -93,7 +93,7 @@ describe( 'opencage', function() {
           countryCode: 'FR',
           language: 'fr',
           first: true
-        } ) ).district.should.equal( 'Mas d\'Auphan' );
+        } ) ).district.should.equal('Centre Ville');
 
       } );
 
@@ -403,7 +403,7 @@ describe( 'opencage', function() {
 
       it( 'have district', () => {
 
-        result.district.should.equal( 'Grunewald' );
+        result.district.should.equal( 'Charlottenburg' );
 
       } );
 
