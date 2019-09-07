@@ -6,21 +6,23 @@ import dateFnsFormat from 'date-fns/format';
 import dateFnsParse from 'date-fns/parse';
 import deriveDateFormat from './utils/deriveDateFormat';
 
-function parseDate( str, format, locale ) {
-  const parsed = dateFnsParse( str, format, { locale } );
-  if ( DateUtils.isDate( parsed ) ) {
+function parseDate(str, format, locale) {
+  const parsed = dateFnsParse(str, format, { locale });
+  if (DateUtils.isDate(parsed)) {
     return parsed;
   }
   return undefined;
 }
 
-function formatDate( date, format, locale ) {
-  return dateFnsFormat( date, format, { locale } );
+function formatDate(date, format, locale) {
+  return dateFnsFormat(date, format, { locale });
 }
 
 
-export default function DatePickerInput( { input, meta, label, classNamePrefix, intl, weekStartsOn, ...rest } ) {
-  const derivedDateFormat = deriveDateFormat( intl ).toUpperCase();
+export default function DatePickerInput({
+  input, meta, label, classNamePrefix, intl, weekStartsOn, ...rest
+}) {
+  const derivedDateFormat = deriveDateFormat(intl).toUpperCase();
   const dayPickerProps = {
     firstDayOfWeek: weekStartsOn,
     locale: intl.locale,
@@ -29,15 +31,15 @@ export default function DatePickerInput( { input, meta, label, classNamePrefix, 
     weekdaysShort: []
   };
 
-  const startDate = dateFns.startOfWeek( new Date() );
-  const formatMonth = val => intl.formatDate( new Date( startDate.getFullYear(), val ), { month: 'long' } );
-  dayPickerProps.months = Array( 12 ).fill().map( ( e, i ) => formatMonth( i ) );
+  const startDate = dateFns.startOfWeek(new Date());
+  const formatMonth = val => intl.formatDate(new Date(startDate.getFullYear(), val), { month: 'long' });
+  dayPickerProps.months = Array(12).fill().map((e, i) => formatMonth(i));
 
-  for ( let i = 0; i < 7; i++ ) {
-    const day = dateFns.addDays( startDate, i );
+  for (let i = 0; i < 7; i++) {
+    const day = dateFns.addDays(startDate, i);
 
-    dayPickerProps.weekdaysLong.push( intl.formatDate( day, { weekday: 'long' } ) );
-    dayPickerProps.weekdaysShort.push( intl.formatDate( day, { weekday: 'short' } ) );
+    dayPickerProps.weekdaysLong.push(intl.formatDate(day, { weekday: 'long' }));
+    dayPickerProps.weekdaysShort.push(intl.formatDate(day, { weekday: 'short' }));
   }
 
   const inputRef = React.createRef();
@@ -45,8 +47,8 @@ export default function DatePickerInput( { input, meta, label, classNamePrefix, 
   const onDayPickerShow = () => {
     inputRef.current.overlayHasFocus = true;
 
-    if ( inputRef.current.inputFocusTimeout ) {
-      clearTimeout( inputRef.current.inputFocusTimeout );
+    if (inputRef.current.inputFocusTimeout) {
+      clearTimeout(inputRef.current.inputFocusTimeout);
     }
   };
 
@@ -59,6 +61,7 @@ export default function DatePickerInput( { input, meta, label, classNamePrefix, 
         locale={intl.locale}
         {...input}
         {...rest}
+        onDayChange={input.onChange}
         onDayPickerShow={onDayPickerShow}
         className={`${classNamePrefix}DatePicker`}
         formatDate={formatDate}
@@ -71,7 +74,7 @@ export default function DatePickerInput( { input, meta, label, classNamePrefix, 
 
       {meta.touched && meta.error ? (
         <div className={`${classNamePrefix}input-error`}>
-          {intl.formatMessage( messages[ meta.error ] )}
+          {meta.error}
         </div>
       ) : null}
     </section>

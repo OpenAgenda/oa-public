@@ -5,11 +5,9 @@ import TimingsPicker from '../src';
 import 'react-day-picker/lib/style.css';
 import '../src/App.css';
 
-storiesOf( 'App', module )
-  .add( 'default', () => (
-    <TimingsPicker />
-  ) )
-  .add( 'with allowed timings', () => (
+storiesOf('App', module)
+  .add('default', () => <TimingsPicker />)
+  .add('with allowed timings', () => (
     <TimingsPicker
       allowedTimings={[
         {
@@ -22,8 +20,8 @@ storiesOf( 'App', module )
         }
       ]}
     />
-  ) )
-  .add( 'with defined value', () => (
+  ))
+  .add('with defined value', () => (
     <TimingsPicker
       value={[
         {
@@ -32,8 +30,8 @@ storiesOf( 'App', module )
         }
       ]}
     />
-  ) )
-  .add( 'with scroll focused on value', () => (
+  ))
+  .add('with scroll focused on value', () => (
     <TimingsPicker
       value={[
         {
@@ -43,8 +41,8 @@ storiesOf( 'App', module )
       ]}
       locale="fr"
     />
-  ) )
-  .add( 'in French language', () => (
+  ))
+  .add('in French language', () => (
     <TimingsPicker
       allowedTimings={[
         {
@@ -58,8 +56,8 @@ storiesOf( 'App', module )
       ]}
       locale="fr"
     />
-  ) )
-  .add( 'override locales', () => (
+  ))
+  .add('override locales', () => (
     <TimingsPicker
       locales={{
         fr: {
@@ -68,8 +66,8 @@ storiesOf( 'App', module )
       }}
       locale="fr"
     />
-  ) )
-  .add( 'DST', () => (
+  ))
+  .add('DST', () => (
     <TimingsPicker
       value={[
         {
@@ -78,4 +76,4 @@ storiesOf( 'App', module )
         }
       ]}
     />
-  ) );
+  ));
