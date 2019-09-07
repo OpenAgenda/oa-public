@@ -100,6 +100,7 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
   return {
     success,
+    before: current,
     updated
   }
 }

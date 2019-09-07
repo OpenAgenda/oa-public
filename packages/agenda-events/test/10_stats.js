@@ -23,8 +23,9 @@ describe( 'agendaEvents - functional (server): stats', function() {
     counts.should.eql( [ {
       count: 2282, userUid: null
     }, {
-    }, {
       count: 1, userUid: 1
+    }, {
+      count: 2, userUid: 123
     }, {
       count: 2, userUid: 456
     }, {

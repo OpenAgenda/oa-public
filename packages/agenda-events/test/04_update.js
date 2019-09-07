@@ -30,6 +30,30 @@ describe( 'agendaEvents - functional (server): update', function() {
 
   } );
 
+  describe('simple update', () => {
+
+    let result;
+
+    before(async () => {
+      result = await svc( 62792452 ).update( 10974548, { featured: true, state: 2 } );
+    });
+
+    it('result provides success boolean', () => {
+      result.success.should.equal(true);
+    });
+
+    it('result provides updated value', () => {
+      result.updated.featured.should.equal(true);
+      result.updated.state.should.equal(2);
+    });
+
+    it('result provides value prior to update in before key', () => {
+      result.before.featured.should.equal(false);
+      result.before.state.should.equal(1);
+    });
+
+  });
+
   describe( 'handling protected values', () => {
 
     let protectedRef, unprotectedRef;
@@ -88,17 +112,10 @@ describe( 'agendaEvents - functional (server): update', function() {
 
   } );
 
+
   describe( 'other', () => {
 
-    it( 'simple update', async () => {
-
-      let result = await svc( 62792452 ).update( 10974548, { featured: true, state: 1 } );
-
-      result.success.should.equal( true );
-
-    } );
-
-    it( 'simple update cleans state given as string', async () => {
+    it( 'cleans state given as string', async () => {
 
       let result = await svc( 62792452 ).update( 10974548, { featured: true, state: '1' } );
 
