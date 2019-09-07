@@ -3,6 +3,7 @@ create table if not exists `${schema}` (
   agenda_uid bigint(20) not null,
   event_uid bigint(20) not null,
   user_uid bigint(20),
+  source_agenda_uid varchar(300),
   state tinyint(1) not null default 0,
   featured tinyint(1) not null default 0,
   can_edit tinyint(1) default 0,
@@ -19,6 +20,9 @@ create table if not exists `${schema}` (
 INSERT INTO `${schema}` (`id`, `legacy_id`, `agenda_uid`, `event_uid`, `user_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
 (435378, '42.24', 62792452, 10974548, 12312312, 1, 0, '2016-01-13 10:12:18', '2016-01-13 10:12:18');
 
+INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `user_uid`, `source_agenda_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
+(437141, 62792452, 60059313, 1, '[11,22,33]', 0, '2016-01-25 16:19:30', '2016-01-25 16:19:30', '2019-09-07 10:12:18');
+
 INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`, `user_uid`) VALUES
 (436064, 62792452, 53117383, 0, 0, '2016-01-19 13:52:59', '2016-01-19 13:52:59', null),
 (436091, 62792452, 16425580, 1, 0, '2016-01-19 16:04:30', '2016-01-19 16:04:30', null),
@@ -26,7 +30,6 @@ INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `
 (436370, 62792452, 15624695, 1, 0, '2016-01-20 15:50:11', '2016-01-20 15:50:11', null),
 (436503, 62792452, 8994990, 1, 0, '2016-01-21 13:29:25', '2016-01-21 13:29:25', null),
 (436513, 62792452, 6973928, 1, 0, '2016-01-21 14:23:39', '2016-01-21 14:23:39', null),
-(437141, 62792452, 60059313, 1, 0, '2016-01-25 16:19:30', '2016-01-25 16:19:30', null),
 (437223, 62792452, 54434612, 1, 0, '2016-01-26 09:50:19', '2016-01-26 09:50:19', null),
 (437234, 62792452, 28028226, 1, 0, '2016-01-26 10:17:06', '2016-01-26 10:17:06', null),
 (437235, 62792452, 37379380, 1, 0, '2016-01-26 10:31:00', '2016-01-26 10:31:00', null),

@@ -63,6 +63,10 @@ function init( { eventStates } ) {
     userUid: {
       type: 'integer'
     },
+    sourceAgendaUid: {
+      type: 'integer',
+      list: true
+    },
     featured: {
       type: 'boolean',
       default: false

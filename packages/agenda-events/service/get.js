@@ -2,6 +2,7 @@
 
 const _ = require('lodash');
 
+const utils = require('./lib/utils');
 const validate = require('../iso/validate');
 const validateOptions = require('./lib/validateOptions');
 
@@ -42,25 +43,23 @@ async function byLegacyId( agendaId, eventId ) {
 }
 
 async function _get( where ) {
-
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  const ref = await knex( config.schemas.agendaEvent )
-    .first( [
+  const entry = await knex(config.schemas.agendaEvent)
+    .first([
       'agenda_uid',
       'event_uid',
       'user_uid',
+      'source_agenda_uid',
       'state',
       'can_edit',
       'featured',
       'created_at',
       'updated_at',
       'legacy_id'
-    ] )
-    .where( where );
+    ]).where(where);
 
-  if ( !ref ) return null;
+  if (!entry) return null;
 
-  return validate( _.mapKeys( ref, ( v, k ) => _.camelCase( k ) ) );
-
+  return validate(utils.fromEntry(entry));
 }

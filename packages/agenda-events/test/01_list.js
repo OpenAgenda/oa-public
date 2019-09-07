@@ -108,6 +108,7 @@ describe( 'agendaEvents - functional (server): list', function() {
       'eventUid',
       'agendaUid',
       'userUid',
+      'sourceAgendaUid',
       'featured',
       'canEdit',
       'state',

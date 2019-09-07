@@ -3,6 +3,7 @@ create table if not exists `${schema}` (
   agenda_uid bigint(20) not null,
   event_uid bigint(20) not null,
   user_uid bigint(20),
+  source_agenda_uid varchar(300),
   state tinyint(1) not null default 0,
   featured tinyint(1) not null default 0,
   can_edit tinyint(1) default 0,
