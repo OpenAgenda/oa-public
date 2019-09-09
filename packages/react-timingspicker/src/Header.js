@@ -25,13 +25,17 @@ function getYearOptions(activeYear) {
 }
 
 class Header extends Component {
-  state = {
-    activeWeek: null,
-    selectedMonth: null,
-    selectedYear: null,
-    monthOptions: [],
-    yearOptions: []
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeWeek: null,
+      selectedMonth: null,
+      selectedYear: null,
+      monthOptions: [],
+      yearOptions: []
+    };
+  }
 
   static getDerivedStateFromProps(props, state) {
     const { activeWeek, intl } = props;
@@ -62,19 +66,23 @@ class Header extends Component {
     };
   }
 
-  onMonthChange = option => this.props.onMonthChange(option.value);
+  onMonthChange = option => {
+    const { onMonthChange } = this.props;
 
-  onYearChange = option => this.props.onYearChange(option.value);
+    return onMonthChange(option.value);
+  };
+
+  onYearChange = option => {
+    const { onYearChange } = this.props;
+
+    return onYearChange(option.value);
+  };
 
   render() {
+    const { classNamePrefix } = this.props;
     const {
-      activeWeek,
       onPrevWeek,
       onNextWeek,
-      classNamePrefix,
-      intl
-    } = this.props;
-    const {
       monthOptions,
       yearOptions,
       selectedMonth,
@@ -85,8 +93,10 @@ class Header extends Component {
       <div className={`${classNamePrefix}header`}>
         <span
           role="button"
+          tabIndex={0}
           className={`${classNamePrefix}prev-week`}
           onClick={onPrevWeek}
+          onKeyPress={onPrevWeek}
         >
           <FaChevronLeft className={`${classNamePrefix}icon`} />
         </span>
@@ -97,8 +107,10 @@ class Header extends Component {
 
         <span
           role="button"
+          tabIndex={0}
           className={`${classNamePrefix}next-week`}
           onClick={onNextWeek}
+          onKeyPress={onNextWeek}
         >
           <FaChevronRight className={`${classNamePrefix}icon`} />
         </span>

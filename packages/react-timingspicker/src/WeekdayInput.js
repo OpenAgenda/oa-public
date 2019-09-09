@@ -2,15 +2,7 @@ import React, { Component } from 'react';
 import dateFns from 'date-fns';
 import WeekdayPicker from './WeekdayPicker';
 
-export default class WeekdayInput extends Component {
-  state = {
-    selected: []
-  };
-
-  static defaultProps = {
-    visible: true
-  };
-
+class WeekdayInput extends Component {
   static getDerivedStateFromProps(props, state) {
     const { input, intl, weekStartsOn } = props;
     const derivedState = {};
@@ -46,13 +38,33 @@ export default class WeekdayInput extends Component {
   }
 
   localeUtils = {
-    formatWeekdayLong: weekday => this.state.weekdays.long[weekday],
-    formatWeekdayShort: weekday => this.state.weekdays.short[weekday]
+    formatWeekdayLong: weekday => {
+      const { weekdays } = this.state;
+
+      return weekdays.long[weekday];
+    },
+    formatWeekdayShort: weekday => {
+      const { weekdays } = this.state;
+
+      return weekdays.short[weekday];
+    }
   };
 
   modifiers = {
-    selected: weekday => this.state.selected.includes(weekday)
+    selected: weekday => {
+      const { selected } = this.state;
+
+      return selected.includes(weekday);
+    }
   };
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selected: []
+    };
+  }
 
   handleWeekdayClick = (e, value) => {
     const { input } = this.props;
@@ -88,3 +100,9 @@ export default class WeekdayInput extends Component {
     );
   }
 }
+
+WeekdayInput.defaultProps = {
+  visible: true
+};
+
+export default WeekdayInput;

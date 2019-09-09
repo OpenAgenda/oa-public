@@ -67,30 +67,18 @@ function getClosestTiming(value) {
 }
 
 class TimingsPicker extends Component {
-  static defaultProps = {
-    value: null,
-    onChange: null,
-    timingLimit: ONE_DAY,
-    classNamePrefix: 'rtp__',
-    breakpoints: {
-      xs: 590,
-      sm: 640,
-      md: 768
-    },
-    locale: 'en',
-    locales: null
-  };
-
-  state = {
-    activeWeek: null,
-    width: 0,
-    height: 0,
-    breakpoint: null,
-    weekStartsOn: 0,
-    locales: null
-  };
-
   schedulerRef = React.createRef();
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeWeek: null,
+      breakpoint: null,
+      weekStartsOn: 0,
+      locales: null
+    };
+  }
 
   static getDerivedStateFromProps(props, state) {
     const derivedState = {};
@@ -157,9 +145,25 @@ class TimingsPicker extends Component {
     }
   };
 
-  onPrevWeek = () => this.updateActiveWeek(date => dateFns.subDays(date, 7));
+  onPrevWeek = e => {
+    e.preventDefault();
 
-  onNextWeek = () => this.updateActiveWeek(date => dateFns.addDays(date, 7));
+    if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
+      return;
+    }
+
+    return this.updateActiveWeek(date => dateFns.subDays(date, 7));
+  };
+
+  onNextWeek = e => {
+    e.preventDefault();
+
+    if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
+      return;
+    }
+
+    return this.updateActiveWeek(date => dateFns.addDays(date, 7));
+  };
 
   onMonthChange = month => this.updateActiveWeek(date => dateFns.setMonth(date, month));
 
@@ -175,7 +179,13 @@ class TimingsPicker extends Component {
     }
   };
 
-  reset = () => {
+  reset = e => {
+    e.preventDefault();
+
+    if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
+      return;
+    }
+
     const schedulerEl = this.schedulerRef.current._wrappedInstance;
 
     if (schedulerEl.state.showRecurrencerModal) {
@@ -189,14 +199,11 @@ class TimingsPicker extends Component {
     this.onChange([]);
   };
 
-  onResize = (width, height) => {
-    const breakpoint = widthToBreakpoint(this.props.breakpoints, width);
+  onResize = width => {
+    const { breakpoints } = this.props;
+    const breakpoint = widthToBreakpoint(breakpoints, width);
 
-    this.setState({
-      width,
-      height,
-      breakpoint
-    });
+    this.setState({ breakpoint });
   };
 
   render() {
@@ -258,5 +265,19 @@ class TimingsPicker extends Component {
     );
   }
 }
+
+TimingsPicker.defaultProps = {
+  value: null,
+  onChange: null,
+  timingLimit: ONE_DAY,
+  classNamePrefix: 'rtp__',
+  breakpoints: {
+    xs: 590,
+    sm: 640,
+    md: 768
+  },
+  locale: 'en',
+  locales: null
+};
 
 export default TimingsPicker;

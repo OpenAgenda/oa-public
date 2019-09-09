@@ -1,11 +1,8 @@
 import dateFns from 'date-fns';
 import DST from './DST';
-import secondsToHeight from './secondsToHeight';
 
 export default (
-  {
-    activeWeek, weekStartsOn, selectableStep, step, cellHeight
-  },
+  { activeWeek, weekStartsOn, selectableStep },
   { begin, end }
 ) => {
   const startOfActiveWeek = dateFns.startOfWeek(activeWeek, { weekStartsOn });

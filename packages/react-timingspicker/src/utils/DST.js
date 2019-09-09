@@ -1,34 +1,5 @@
 import dateFns from 'date-fns';
 
-export default {
-  dayOffset,
-  hasSwitched,
-  isObserved,
-  offsetTop,
-  applyOffset
-};
-
-function applyOffset(ref, d) {
-  if (!d) return;
-
-  if (!hasSwitched(ref, d)) return;
-
-  d.setHours(d.getHours() + dayOffset(d, true));
-}
-
-function offsetTop({ step, cellHeight }, d, top) {
-  if (!d) return top;
-
-  const date = typeof d === 'string' ? new Date(d) : d;
-
-  if (!hasSwitched(dateFns.startOfDay(date), date)) return top;
-
-  const offset = ((dayOffset(date) * 60 * 60) / step) // DST offset in pixels
-    * cellHeight;
-
-  return top - offset;
-}
-
 function dayOffset(d, preventNextDayOverlap = false) {
   const ref = new Date(d);
 
@@ -53,10 +24,6 @@ function dayOffset(d, preventNextDayOverlap = false) {
   return (endOfDay.getTime() - startOfDay.getTime()) / 60 / 60 / 1000 - 23;
 }
 
-function hasSwitched(d1, d2) {
-  return isObserved(d1) !== isObserved(d2);
-}
-
 function isObserved(d) {
   const jan = new Date(d.getFullYear(), 0, 1);
   const jul = new Date(d.getFullYear(), 6, 1);
@@ -66,3 +33,36 @@ function isObserved(d) {
     < Math.max(jan.getTimezoneOffset(), jul.getTimezoneOffset())
   );
 }
+
+function hasSwitched(d1, d2) {
+  return isObserved(d1) !== isObserved(d2);
+}
+
+function applyOffset(ref, d) {
+  if (!d) return;
+
+  if (!hasSwitched(ref, d)) return;
+
+  d.setHours(d.getHours() + dayOffset(d, true));
+}
+
+function offsetTop({ step, cellHeight }, d, top) {
+  if (!d) return top;
+
+  const date = typeof d === 'string' ? new Date(d) : d;
+
+  if (!hasSwitched(dateFns.startOfDay(date), date)) return top;
+
+  const offset = ((dayOffset(date) * 60 * 60) / step) // DST offset in pixels
+    * cellHeight;
+
+  return top - offset;
+}
+
+export default {
+  dayOffset,
+  hasSwitched,
+  isObserved,
+  offsetTop,
+  applyOffset
+};

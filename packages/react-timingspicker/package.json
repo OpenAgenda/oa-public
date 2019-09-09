@@ -16,7 +16,7 @@
     "prepublish": "yarn clean && yarn build",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
-    "lint-staged": "# lint-staged"
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "**/*.js": [
