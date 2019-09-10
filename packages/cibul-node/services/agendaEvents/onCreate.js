@@ -91,7 +91,7 @@ module.exports = async ( config, ae, context ) => {
     }
   }
 
-  if ( context.legacy && agenda.formSchemaId ) {
+  if (context.legacy && context.aggregated && agenda.formSchemaId) {
     // this happens after legacy reference was added
     try {
       await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
@@ -100,7 +100,7 @@ module.exports = async ( config, ae, context ) => {
     }
   }
 
-  if (context.legacy) {
+  if (context.legacy && context.aggregated) {
     try {
       await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
     } catch ( e ) {

@@ -63,6 +63,7 @@ module.exports = () => {
   require( './services/agenda/task' )();
 
   require( './services/aggregator' ).task();
+  require( './services/aggregator' ).instance.task();
 
   require( '@openagenda/email-strategie' ).task();
 
@@ -84,12 +85,11 @@ module.exports = () => {
 
   require( './services/members' ).task();
 
-
   if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
 
     /*require( './services/elasticsearch' ).resync( {
       reset: false,
-      since: '2019-05-14',
+      //since: '2019-05-14',
       removeZombies: false,
       logEveryUpdate: true
     }, ( err, res ) => console.log( 'FINI', err, res ) );*/

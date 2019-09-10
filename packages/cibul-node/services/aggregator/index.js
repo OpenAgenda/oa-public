@@ -29,8 +29,8 @@ const pQ = queue( config.queues.aggregator + ':priority', {
 } );
 
 module.exports = {
+  instance: {},
   isAggregator,
-  notify: aggregators.notify, // experimental use.
   notifyPublish: notify.publish,
   notifyUnpublish: notify.unpublish,
   sourceAdd: sources.add,
@@ -42,7 +42,20 @@ module.exports = {
     process: sources.process
   },
   task,
-  init: config => {
+  init: (config, services) => {
+    Object.assign(
+      module.exports.instance,
+      aggregators.createInstance({
+        knex: config.knex,
+        queues: services.queues,
+        interfaces: {
+          getAggregatorSchemas: async agendaUid => ({
+            agenda: await services.core.agendas(agendaUid).settings.schema.get(),
+            network: await services.core.agendas(agendaUid).settings.schema.getNetwork()
+          })
+        }
+      })
+    );
 
     aggregators.init( {
       knex: config.knex,
@@ -71,7 +84,6 @@ module.exports = {
         }
       }
     } );
-
   }
 }
 

@@ -18,10 +18,10 @@ module.exports = Object.assign( name => {
 }, { init } );
 
 function init( config ) {
-
   queues = Queues( {
     redis: config.redisClient || redis.createClient( config.port, config.host ),
     prefix: 'q:'
   } );
 
+  return queues;
 }

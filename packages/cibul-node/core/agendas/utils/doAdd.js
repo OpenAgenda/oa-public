@@ -9,6 +9,7 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const addContributor = require( './addContributor' );
 const { agendaIsOpen, userIsNotMember } = addContributor;
 const legacy = require( '../../../services/legacy' );
+const aggregators = require('../../../services/aggregator').instance;
 const legacyEventSearch = require('../../../services/elasticsearch');
 const setCustom = require( './setCustom' );
 
@@ -35,7 +36,6 @@ module.exports = async ( agenda, eventUid, clean, options = {} ) => {
   }
 
   if ( !draft ) {
-
     try {
 
       const { created } = await agendaEvents( agenda.uid ).create( eventUid, clean.agendaEvent, {
@@ -47,11 +47,8 @@ module.exports = async ( agenda, eventUid, clean, options = {} ) => {
       added.agendaEvent = created;
 
     } catch ( e ) {
-
       throw new VError( e, 'Could not create agenda-event reference for agenda uid %s and event uid %s', agenda.uid, eventUid );
-
     }
-
   }
 
   // create custom data
@@ -115,9 +112,21 @@ module.exports = async ( agenda, eventUid, clean, options = {} ) => {
     }
   }
 
+  if (false) {
+    if (_.get(added, 'agendaEvent.state')===2) {
+      aggregators.notifyPublish({
+        ..._.pick(added, ['event', 'agendaEvent', 'custom', 'networkCustom']),
+        agenda,
+        formSchemas: {
+          agenda: _.get(agenda, 'formSchema'),
+          network: _.get(agenda, 'network.formSchema')
+        }
+      })
+    }
+  }
+
   return {
     success: true,
     added
   }
-
 }

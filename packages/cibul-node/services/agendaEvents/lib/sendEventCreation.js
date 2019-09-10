@@ -16,6 +16,9 @@ const log = require( '@openagenda/logs' )( 'agendaEvents/sendEventCreation' );
 module.exports = async ({ root }, { agendaEvent, context }) => {
   log('processing');
   const { agenda, event } = context;
+  if (!event.creatorUid) {
+    throw new Error('event creator reference is missing');
+  }
   const creatorUser = await usersSvc.findOne( { query: { uid: event.creatorUid } } );
   const creatorMemberId = await membersSvc.get( {
     agendaUid: agendaEvent.agendaUid,

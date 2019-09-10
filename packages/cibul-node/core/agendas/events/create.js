@@ -15,7 +15,7 @@ const processOEmbed = require( '../utils/processOEmbed' );
 const validate = require( './validate' );
 
 
-module.exports = async ( agendaUid, data, options = {} ) => {
+module.exports = async (agendaUid, data, options = {}) => {
 
   log( 'info', 'processing', { agendaUid, options } );
 

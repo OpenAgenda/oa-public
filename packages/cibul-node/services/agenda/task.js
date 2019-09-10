@@ -8,7 +8,6 @@ const log = require( '@openagenda/logs' )( 'services/agenda/task' );
 
 const utils = require( '@openagenda/utils' );
 
-const aggregator = require( '../aggregator' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const dispatcher = require( './dispatcher' );

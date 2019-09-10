@@ -11,7 +11,6 @@ const interfaces = {
 }
 
 module.exports.init = config => {
-
   custom.init( {
     logger: config.getLogConfig( 'svc', 'custom' ),
     knex: config.knex,
@@ -42,4 +41,5 @@ module.exports.init = config => {
     }
   } );
 
+  return custom;
 }

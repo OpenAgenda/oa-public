@@ -19,14 +19,12 @@ const getEventCounts = require( './interfaces/getEventCounts' );
 const onUpdate = require( './interfaces/onUpdate' );
 const onCreate = require( './interfaces/onCreate' );
 
-const queues = require( '../queues' );
-
 const syncImpactedEventsAndAgendas = require( './tasks/syncImpactedEventsAndAgendas' );
 const resyncAllAgendaLocations = require( './tasks/resyncAllAgendaLocations' );
 
-module.exports.init = async config => {
+module.exports.init = async (config, services) => {
 
-  const queue = queues( 'locations' );
+  const queue = services.queues('locations');
 
   queue.register( {
     syncImpactedEventsAndAgendas,

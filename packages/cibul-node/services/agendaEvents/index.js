@@ -60,6 +60,8 @@ function init(config) {
     }
   } );
 
+  return agendaEvents;
+
 }
 
 function plugApp( parentApp ) {
