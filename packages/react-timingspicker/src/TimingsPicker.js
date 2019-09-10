@@ -149,7 +149,6 @@ class TimingsPicker extends Component {
   };
 
   onPrevWeek = e => {
-    console.log('onPrevWeek');
     if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
       e.preventDefault();
       return;
