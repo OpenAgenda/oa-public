@@ -193,9 +193,9 @@ class Scheduler extends Component {
   getModalParent = () => this.schedulerRef.current;
 
   startLockScroll = () => {
-    const { beforeSchedulerOverflows } = this.state;
+    const { beforeSchedulerOverflows: alreadyLocked } = this.state;
     // if already locked
-    if (beforeSchedulerOverflows) {
+    if (alreadyLocked) {
       return;
     }
 
@@ -203,6 +203,12 @@ class Scheduler extends Component {
     const schedulerStyle = schedulerEl.style;
     const beforeSchedulerPaddingRight = schedulerStyle.paddingRight || 0;
     const scrollbarWidth = getScrollbarWidth(schedulerEl);
+
+    const beforeSchedulerOverflows = {
+      overflow: schedulerStyle.overflow,
+      overflowX: schedulerStyle.overflowX,
+      overflowY: schedulerStyle.overflowY
+    };
 
     Object.assign(schedulerStyle, {
       overflowY: 'hidden',
@@ -214,11 +220,7 @@ class Scheduler extends Component {
         x: schedulerEl.scrollLeft,
         y: schedulerEl.scrollTop
       },
-      beforeSchedulerOverflows: {
-        overflow: schedulerStyle.overflow,
-        overflowX: schedulerStyle.overflowX,
-        overflowY: schedulerStyle.overflowY
-      },
+      beforeSchedulerOverflows,
       beforeSchedulerPaddingRight
     });
 
