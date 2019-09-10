@@ -53,7 +53,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     formSchema: agenda.formSchema,
     networkFormSchema: _.get( agenda, 'network.formSchema' ),
     defaultLang
-  }, data, { draft, formSchemaDataFormat, optionalState: true, partial } );
+  }, data, { draft, formSchemaDataFormat, optionalStateAndFeatured: true, partial } );
 
   if ( clean.event.longDescription ) try {
 
