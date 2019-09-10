@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { injectIntl } from 'react-intl';
 import classNames from 'classnames';
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 
 import isDisabledTiming from './utils/isDisabledTiming';
 import normalizeEndOfTiming from './utils/normalizeEndOfTiming';
@@ -61,7 +61,10 @@ class DaysSelector extends Component {
 
     const derivedState = {};
 
-    if (allowedTimings !== state.allowedTimings || activeWeek !== state.activeWeek) {
+    if (
+      allowedTimings !== state.allowedTimings
+      || activeWeek !== state.activeWeek
+    ) {
       derivedState.allowedTimings = allowedTimings;
       derivedState.activeWeek = activeWeek;
 
@@ -70,14 +73,32 @@ class DaysSelector extends Component {
         const weekEnd = dateFns.endOfWeek(activeWeek, { weekStartsOn });
 
         derivedState.reducedAllowedTimings = allowedTimings
+          .map(timing => ({
+            begin:
+              typeof timing.begin === 'string'
+                ? dateFns.parseISO(timing.begin)
+                : timing.begin,
+            end:
+              typeof timing.end === 'string'
+                ? dateFns.parseISO(timing.end)
+                : timing.end
+          }))
           .sort((a, b) => dateFns.compareAsc(a.begin, b.begin))
           .reduce((accu, allowedTiming) => {
             if (
               accu.length
-              && !dateFns.isAfter(allowedTiming.begin, accu[accu.length - 1].end)
-              && !dateFns.isBefore(allowedTiming.begin, accu[accu.length - 1].begin)
+              && !dateFns.isAfter(
+                allowedTiming.begin,
+                accu[accu.length - 1].end
+              )
+              && !dateFns.isBefore(
+                allowedTiming.begin,
+                accu[accu.length - 1].begin
+              )
             ) {
-              if (dateFns.isAfter(allowedTiming.end, accu[accu.length - 1].end)) {
+              if (
+                dateFns.isAfter(allowedTiming.end, accu[accu.length - 1].end)
+              ) {
                 accu[accu.length - 1].end = allowedTiming.end;
               }
 
@@ -92,8 +113,8 @@ class DaysSelector extends Component {
             return accu;
           }, []);
 
-        derivedState.disallowedTimings = derivedState.reducedAllowedTimings
-          .reduce((accu, allowedTiming, i, array) => {
+        derivedState.disallowedTimings = derivedState.reducedAllowedTimings.reduce(
+          (accu, allowedTiming, i, array) => {
             if (!accu.length) {
               // begin from week start
               if (dateFns.isBefore(allowedTiming.begin, weekStart)) {
@@ -115,7 +136,10 @@ class DaysSelector extends Component {
               });
             }
 
-            if (i + 1 === array.length && dateFns.isBefore(allowedTiming.end, weekEnd)) {
+            if (
+              i + 1 === array.length
+              && dateFns.isBefore(allowedTiming.end, weekEnd)
+            ) {
               // end to week end
               accu.push({
                 begin: allowedTiming.end,
@@ -124,7 +148,9 @@ class DaysSelector extends Component {
             }
 
             return accu;
-          }, []);
+          },
+          []
+        );
       }
     }
 
@@ -143,8 +169,14 @@ class DaysSelector extends Component {
     const { onChange } = this.props;
     const { value, reducedAllowedTimings } = this.state;
 
-    const filteredValue = value.filter(v => !(v.begin === valueToUpdate.begin && v.end === valueToUpdate.end));
-    const isDisabled = isDisabledTiming(submittedValue, filteredValue, reducedAllowedTimings);
+    const filteredValue = value.filter(
+      v => !(v.begin === valueToUpdate.begin && v.end === valueToUpdate.end)
+    );
+    const isDisabled = isDisabledTiming(
+      submittedValue,
+      filteredValue,
+      reducedAllowedTimings
+    );
 
     if (!isDisabled) {
       const newValue = [...filteredValue, submittedValue];
@@ -178,7 +210,9 @@ class DaysSelector extends Component {
 
       valuesToAdd = values;
     } else {
-      valuesToAdd = values.filter(item => !isDisabledTiming(item, value, reducedAllowedTimings));
+      valuesToAdd = values.filter(
+        item => !isDisabledTiming(item, value, reducedAllowedTimings)
+      );
     }
 
     const newValue = [...value, ...valuesToAdd];
@@ -197,7 +231,9 @@ class DaysSelector extends Component {
     const body = this.bodyRef.current;
     const bodyPosition = body.getBoundingClientRect();
     const maxTop = ONE_DAY / selectableStep;
-    let left = Math.floor((e.clientX - bodyPosition.left) / (body.clientWidth / 7));
+    let left = Math.floor(
+      (e.clientX - bodyPosition.left) / (body.clientWidth / 7)
+    );
     let top = (e.clientY - bodyPosition.top) / ((cellHeight / step) * selectableStep);
 
     if (left < 0) {
@@ -251,7 +287,10 @@ class DaysSelector extends Component {
     );
 
     window.addEventListener('pointermove', this.onSelectionMouseMove, false);
-    window.addEventListener('pointerup', this.onSelectionMouseUp, { once: true, capture: false });
+    window.addEventListener('pointerup', this.onSelectionMouseUp, {
+      once: true,
+      capture: false
+    });
   };
 
   onSelectionMouseMove = e => {
@@ -266,9 +305,16 @@ class DaysSelector extends Component {
     }
 
     const stepPosition = this.eventToStepPosition(e);
-    const { begin, end } = stepPositionToSelection(this.props, stepPosition, selectionStart);
+    const { begin, end } = stepPositionToSelection(
+      this.props,
+      stepPosition,
+      selectionStart
+    );
 
-    const selection = splitSelection(this.props, { begin, end: normalizeEndOfTiming(end) });
+    const selection = splitSelection(this.props, {
+      begin,
+      end: normalizeEndOfTiming(end)
+    });
 
     this.setState({
       selection,
@@ -290,11 +336,16 @@ class DaysSelector extends Component {
     }
 
     const stepPosition = this.eventToStepPosition(e);
-    const { begin, end } = stepPositionToSelection(this.props, stepPosition, selectionStart);
-
-    const selection = splitSelection(this.props, { begin, end: normalizeEndOfTiming(end) }).filter(
-      item => !isDisabledTiming(item, value, reducedAllowedTimings)
+    const { begin, end } = stepPositionToSelection(
+      this.props,
+      stepPosition,
+      selectionStart
     );
+
+    const selection = splitSelection(this.props, {
+      begin,
+      end: normalizeEndOfTiming(end)
+    }).filter(item => !isDisabledTiming(item, value, reducedAllowedTimings));
 
     clearInterval(this.autoScrollInterval);
 
@@ -328,10 +379,12 @@ class DaysSelector extends Component {
 
     const { value } = this.state;
     const stepPosition = this.eventToStepPosition(e);
-    const { end } = stepPositionToSelection(this.props, stepPosition, null, true);
+    const { end } = stepPositionToSelection(this.props, stepPosition, 0, true);
 
     const usedEnd = normalizeEndOfTiming(end);
-    const valueToMove = value.find(v => dateFns.isAfter(usedEnd, v.begin) && !dateFns.isAfter(usedEnd, v.end));
+    const valueToMove = value.find(
+      v => dateFns.isAfter(usedEnd, v.begin) && !dateFns.isAfter(usedEnd, v.end)
+    );
 
     if (!valueToMove) {
       return;
@@ -357,7 +410,10 @@ class DaysSelector extends Component {
     );
 
     window.addEventListener('pointermove', this.onDragMouseMove, false);
-    window.addEventListener('pointerup', this.onDragMouseUp, { once: true, capture: false });
+    window.addEventListener('pointerup', this.onDragMouseUp, {
+      once: true,
+      capture: false
+    });
   };
 
   /**
@@ -378,8 +434,12 @@ class DaysSelector extends Component {
     const cursorCurrentStepPosition = this.eventToStepPosition(e);
 
     const diff = {
-      top: Math.round(cursorCurrentStepPosition.top - cursorStartStepPosition.top),
-      left: Math.round(cursorCurrentStepPosition.left - cursorStartStepPosition.left)
+      top: Math.round(
+        cursorCurrentStepPosition.top - cursorStartStepPosition.top
+      ),
+      left: Math.round(
+        cursorCurrentStepPosition.left - cursorStartStepPosition.left
+      )
     };
     const valueStepPosition = valueToStepPosition(this.props, valueToMove);
 
@@ -389,11 +449,19 @@ class DaysSelector extends Component {
     };
 
     const newPositionStart = dateFns.addDays(
-      dateFns.addSeconds(valueToMove.begin, (valueStepPosition.steps + diff.top - 1) * selectableStep),
+      dateFns.addSeconds(
+        valueToMove.begin,
+        (valueStepPosition.steps + diff.top - 1) * selectableStep
+      ),
       diff.left
     );
 
-    const selectionMoving = stepPositionToSelection(this.props, newValuePosition, newPositionStart, true);
+    const selectionMoving = stepPositionToSelection(
+      this.props,
+      newValuePosition,
+      newPositionStart,
+      true
+    );
 
     selectionMoving.end = normalizeEndOfTiming(selectionMoving.end);
 
@@ -417,7 +485,11 @@ class DaysSelector extends Component {
       onMove, onChange, openEditModal, selectableStep
     } = this.props;
     const {
-      firstMousePosition, value, cursorStartStepPosition, valueToMove, reducedAllowedTimings
+      firstMousePosition,
+      value,
+      cursorStartStepPosition,
+      valueToMove,
+      reducedAllowedTimings
     } = this.state;
 
     clearInterval(this.autoScrollInterval);
@@ -435,7 +507,10 @@ class DaysSelector extends Component {
     }
 
     // If it's a click
-    if (firstMousePosition.clientX === e.clientX && firstMousePosition.clientY === e.clientY) {
+    if (
+      firstMousePosition.clientX === e.clientX
+      && firstMousePosition.clientY === e.clientY
+    ) {
       return setTimeout(() => openEditModal(valueToMove));
     }
 
@@ -450,16 +525,30 @@ class DaysSelector extends Component {
       left: valueStepPosition.begin.left + diff.left
     };
     const newPositionStart = dateFns.addDays(
-      dateFns.addSeconds(valueToMove.begin, (valueStepPosition.steps + diff.top - 1) * selectableStep),
+      dateFns.addSeconds(
+        valueToMove.begin,
+        (valueStepPosition.steps + diff.top - 1) * selectableStep
+      ),
       diff.left
     );
 
-    const selectionMoving = stepPositionToSelection(this.props, newValuePosition, newPositionStart, true);
+    const selectionMoving = stepPositionToSelection(
+      this.props,
+      newValuePosition,
+      newPositionStart,
+      true
+    );
 
     selectionMoving.end = normalizeEndOfTiming(selectionMoving.end);
 
-    const filteredValue = value.filter(v => !(v.begin === valueToMove.begin && v.end === valueToMove.end));
-    const isDisabled = isDisabledTiming(selectionMoving, filteredValue, reducedAllowedTimings);
+    const filteredValue = value.filter(
+      v => !(v.begin === valueToMove.begin && v.end === valueToMove.end)
+    );
+    const isDisabled = isDisabledTiming(
+      selectionMoving,
+      filteredValue,
+      reducedAllowedTimings
+    );
 
     if (
       !isDisabled
@@ -491,10 +580,12 @@ class DaysSelector extends Component {
 
     const { value } = this.state;
     const stepPosition = this.eventToStepPosition(e);
-    const { end } = stepPositionToSelection(this.props, stepPosition, null, true);
+    const { end } = stepPositionToSelection(this.props, stepPosition, 0, true);
 
     const usedEnd = normalizeEndOfTiming(end);
-    const valueToResize = value.find(v => dateFns.isAfter(usedEnd, v.begin) && !dateFns.isAfter(usedEnd, v.end));
+    const valueToResize = value.find(
+      v => dateFns.isAfter(usedEnd, v.begin) && !dateFns.isAfter(usedEnd, v.end)
+    );
 
     if (!valueToResize) {
       return;
@@ -516,7 +607,10 @@ class DaysSelector extends Component {
     );
 
     window.addEventListener('pointermove', this.onResizeMouseMove, false);
-    window.addEventListener('pointerup', this.onResizeMouseUp, { once: true, capture: false });
+    window.addEventListener('pointerup', this.onResizeMouseUp, {
+      once: true,
+      capture: false
+    });
   };
 
   onResizeMouseMove = e => {
@@ -540,19 +634,27 @@ class DaysSelector extends Component {
     };
     const valueStepPosition = valueToStepPosition(this.props, valueToResize);
     const newPositionStart = dateFns.addDays(
-      dateFns.addSeconds(valueToResize.begin, (valueStepPosition.steps + diff.top - 1) * selectableStep),
+      dateFns.addSeconds(
+        valueToResize.begin,
+        (valueStepPosition.steps + diff.top - 1) * selectableStep
+      ),
       diff.left
     );
 
-    const selection = stepPositionToSelection(this.props,
+    const selection = stepPositionToSelection(
+      this.props,
       {
-        top: dateFns.isBefore(dateFns.addSeconds(newPositionStart, timingLimit), valueToResize.begin)
+        top: dateFns.isBefore(
+          dateFns.addSeconds(newPositionStart, timingLimit),
+          valueToResize.begin
+        )
           ? valueStepPosition.begin.top + 1
           : valueStepPosition.begin.top,
         left: valueStepPosition.begin.left
       },
       newPositionStart,
-      true);
+      true
+    );
 
     const selectionResizing = splitSelection(this.props, selection);
 
@@ -572,7 +674,10 @@ class DaysSelector extends Component {
       onResize, onChange, selectableStep, timingLimit
     } = this.props;
     const {
-      value, resizePositionStart, valueToResize, reducedAllowedTimings
+      value,
+      resizePositionStart,
+      valueToResize,
+      reducedAllowedTimings
     } = this.state;
 
     if (!resizePositionStart) {
@@ -586,22 +691,32 @@ class DaysSelector extends Component {
     };
     const valueStepPosition = valueToStepPosition(this.props, valueToResize);
     const newPositionStart = dateFns.addDays(
-      dateFns.addSeconds(valueToResize.begin, (valueStepPosition.steps + diff.top - 1) * selectableStep),
+      dateFns.addSeconds(
+        valueToResize.begin,
+        (valueStepPosition.steps + diff.top - 1) * selectableStep
+      ),
       diff.left
     );
     const selection = splitSelection(
       this.props,
-      stepPositionToSelection(this.props,
+      stepPositionToSelection(
+        this.props,
         {
-          top: dateFns.isBefore(dateFns.addSeconds(newPositionStart, timingLimit), valueToResize.begin)
+          top: dateFns.isBefore(
+            dateFns.addSeconds(newPositionStart, timingLimit),
+            valueToResize.begin
+          )
             ? valueStepPosition.begin.top + 1
             : valueStepPosition.begin.top,
           left: valueStepPosition.begin.left
         },
         newPositionStart,
-        true)
+        true
+      )
     );
-    const filteredValue = value.filter(v => !(v.begin === valueToResize.begin && v.end === valueToResize.end));
+    const filteredValue = value.filter(
+      v => !(v.begin === valueToResize.begin && v.end === valueToResize.end)
+    );
     const isDisabled = selection.some(item => isDisabledTiming(item, filteredValue, reducedAllowedTimings));
 
     clearInterval(this.autoScrollInterval);
@@ -651,16 +766,20 @@ class DaysSelector extends Component {
     const { onRemove, onChange } = this.props;
     const { value } = this.state;
     const stepPosition = this.eventToStepPosition(e);
-    const { end } = stepPositionToSelection(this.props, stepPosition, null, true);
+    const { end } = stepPositionToSelection(this.props, stepPosition, 0, true);
 
     const usedEnd = normalizeEndOfTiming(end);
-    const valueToRemove = value.find(v => dateFns.isAfter(usedEnd, v.begin) && !dateFns.isAfter(usedEnd, v.end));
+    const valueToRemove = value.find(
+      v => dateFns.isAfter(usedEnd, v.begin) && !dateFns.isAfter(usedEnd, v.end)
+    );
 
     if (!valueToRemove) {
       return;
     }
 
-    const newValue = value.filter(v => !(v.begin === valueToRemove.begin && v.end === valueToRemove.end));
+    const newValue = value.filter(
+      v => !(v.begin === valueToRemove.begin && v.end === valueToRemove.end)
+    );
 
     this.setState({
       value: newValue
@@ -681,7 +800,9 @@ class DaysSelector extends Component {
     const tableElem = body.parentElement.parentElement;
     const bodyPosition = body.getBoundingClientRect();
     const topOut = mousePosition.clientY - bodyPosition.top - tableElem.scrollTop;
-    const bottomOut = bodyPosition.top + tableElem.offsetHeight - (mousePosition.clientY - tableElem.scrollTop);
+    const bottomOut = bodyPosition.top
+      + tableElem.offsetHeight
+      - (mousePosition.clientY - tableElem.scrollTop);
 
     if (topOut < 0) {
       tableElem.scrollBy(0, Math.floor(topOut / 15));
@@ -698,14 +819,21 @@ class DaysSelector extends Component {
     }
 
     return timings.reduce(
-      (result, item) => [...result, { ...item, disabled: isDisabledTiming(item, disabled, enabled) }],
+      (result, item) => [
+        ...result,
+        { ...item, disabled: isDisabledTiming(item, disabled, enabled) }
+      ],
       []
     );
   };
 
   renderDays = () => {
     const {
-      activeWeek, weekStartsOn, step, cellHeight, classNamePrefix
+      activeWeek,
+      weekStartsOn,
+      step,
+      cellHeight,
+      classNamePrefix
     } = this.props;
     const startOfActiveWeek = dateFns.startOfWeek(activeWeek, { weekStartsOn });
     const columns = [];
@@ -738,7 +866,11 @@ class DaysSelector extends Component {
     return columns;
   };
 
-  renderTimings = ({ value: rawValue, disabled: disabledTimings, Component: TimingComponent }) => {
+  renderTimings = ({
+    value: rawValue,
+    disabled: disabledTimings,
+    Component: TimingComponent
+  }) => {
     if (!rawValue) {
       return null;
     }
@@ -751,7 +883,11 @@ class DaysSelector extends Component {
 
     const { activeWeek, weekStartsOn } = this.props;
     const { reducedAllowedTimings } = this.state;
-    const timings = this.addDisabledProps(value, disabledTimings, reducedAllowedTimings);
+    const timings = this.addDisabledProps(
+      value,
+      disabledTimings,
+      reducedAllowedTimings
+    );
     const startOfActiveWeek = dateFns.startOfWeek(activeWeek, { weekStartsOn });
     const endOfActiveWeek = dateFns.endOfWeek(activeWeek, { weekStartsOn });
     const maxTop = secondsToHeight(this.props, ONE_DAY);
@@ -760,7 +896,10 @@ class DaysSelector extends Component {
     for (let i = 0; i < timings.length; i++) {
       const { begin, end, disabled } = timings[i];
       const beginStartOfDay = dateFns.startOfDay(begin);
-      const leftOffset = dateFns.differenceInDays(beginStartOfDay, startOfActiveWeek);
+      const leftOffset = dateFns.differenceInDays(
+        beginStartOfDay,
+        startOfActiveWeek
+      );
       const numberOfParts = dateFns.differenceInDays(end, beginStartOfDay);
 
       let actual = begin;
@@ -768,7 +907,10 @@ class DaysSelector extends Component {
       const top = timingUtils.top(this.props, timings[i]);
 
       for (let j = 0; j <= numberOfParts; j++) {
-        if (dateFns.isBefore(actual, startOfActiveWeek) || dateFns.isAfter(actual, endOfActiveWeek)) {
+        if (
+          dateFns.isBefore(actual, startOfActiveWeek)
+          || dateFns.isAfter(actual, endOfActiveWeek)
+        ) {
           actual = dateFns.addDays(actual, 1);
           continue;
         }
@@ -776,10 +918,15 @@ class DaysSelector extends Component {
         const beginOfActualDay = dateFns.startOfDay(dateFns.addDays(begin, j));
         const endOfActualDay = dateFns.endOfDay(actual);
         const timingBegin = j === 0 ? begin : beginOfActualDay;
-        const timingEnd = dateFns.isBefore(end, endOfActualDay) ? end : endOfActualDay;
+        const timingEnd = dateFns.isBefore(end, endOfActualDay)
+          ? end
+          : endOfActualDay;
         const left = (100 / 7) * (leftOffset + j); // %
         const height = Math.round(
-          secondsToHeight(this.props, dateFns.differenceInMilliseconds(timingEnd, timingBegin) / 1000)
+          secondsToHeight(
+            this.props,
+            dateFns.differenceInMilliseconds(timingEnd, timingBegin) / 1000
+          )
         ); // px
 
         selectionElems.push(
@@ -805,7 +952,12 @@ class DaysSelector extends Component {
 
   render() {
     const {
-      classNamePrefix, breakpoint, cellHeight, step, selectableStep, intl
+      classNamePrefix,
+      breakpoint,
+      cellHeight,
+      step,
+      selectableStep,
+      intl
     } = this.props;
     const {
       disallowedTimings,
@@ -850,12 +1002,22 @@ class DaysSelector extends Component {
           {this.renderTimings({
             value: value || null,
             Component: ({
-              key, begin, end, top, left, height, first, last
+              key,
+              begin,
+              end,
+              top,
+              left,
+              height,
+              first,
+              last
             }) => (
               <div
                 key={`value-${key}`}
                 className={classNames(`${classNamePrefix}value-timing`, {
-                  [`${classNamePrefix}value-timing-thin`]: first && last && height <= (cellHeight * selectableStep) / step
+                  [`${classNamePrefix}value-timing-thin`]:
+                    first
+                    && last
+                    && height <= (cellHeight * selectableStep) / step
                 })}
                 role="button"
                 touch-action="none"
@@ -867,34 +1029,42 @@ class DaysSelector extends Component {
                   width: `${100 / 7}%`,
                   height: `${height}px`,
                   display:
-                    !(valueToMove && begin === valueToMove.begin && end === valueToMove.end)
-                    && !(valueToResize && begin === valueToResize.begin && end === valueToResize.end)
+                    !(
+                      valueToMove
+                      && begin === valueToMove.begin
+                      && end === valueToMove.end
+                    )
+                    && !(
+                      valueToResize
+                      && begin === valueToResize.begin
+                      && end === valueToResize.end
+                    )
                       ? 'inline-block'
                       : 'none'
                 }}
               >
                 {first && (
-                <div
-                  role="presentation"
-                  className={`${classNamePrefix}timing-remove`}
-                  touch-action="none"
-                  onPointerDown={this.onRemoveMouseDown}
-                  onClick={this.onRemoveClick}
-                >
-                  ×
-                </div>
+                  <div
+                    role="presentation"
+                    className={`${classNamePrefix}timing-remove`}
+                    touch-action="none"
+                    onPointerDown={this.onRemoveMouseDown}
+                    onClick={this.onRemoveClick}
+                  >
+                    ×
+                  </div>
                 )}
                 {first && (
-                <div className={`${classNamePrefix}timing-value`}>
-                  {formatTimingValue(intl, begin, end, breakpoint)}
-                </div>
+                  <div className={`${classNamePrefix}timing-value`}>
+                    {formatTimingValue(intl, begin, end, breakpoint)}
+                  </div>
                 )}
                 {last && (
-                <div
-                  className={`${classNamePrefix}timing-resizer`}
-                  touch-action="none"
-                  onPointerDown={this.onResizeMouseDown}
-                />
+                  <div
+                    className={`${classNamePrefix}timing-resizer`}
+                    touch-action="none"
+                    onPointerDown={this.onResizeMouseDown}
+                  />
                 )}
               </div>
             )
@@ -904,13 +1074,24 @@ class DaysSelector extends Component {
             value: selection,
             disabled: value,
             Component: ({
-              key, begin, end, top, left, height, disabled, first, last
+              key,
+              begin,
+              end,
+              top,
+              left,
+              height,
+              disabled,
+              first,
+              last
             }) => (
               <div
                 key={`selection-${key}`}
                 className={classNames(`${classNamePrefix}selection-timing`, {
                   [`${classNamePrefix}disabled`]: disabled,
-                  [`${classNamePrefix}selection-timing-thin`]: first && last && height <= (cellHeight * selectableStep) / step
+                  [`${classNamePrefix}selection-timing-thin`]:
+                    first
+                    && last
+                    && height <= (cellHeight * selectableStep) / step
                 })}
                 style={{
                   position: 'absolute',
@@ -922,11 +1103,13 @@ class DaysSelector extends Component {
               >
                 {disabled ? null : (
                   <>
-                    {first && <div className={`${classNamePrefix}timing-remove`}>×</div>}
                     {first && (
-                    <div className={`${classNamePrefix}timing-value`}>
-                      {formatTimingValue(intl, begin, end, breakpoint)}
-                    </div>
+                      <div className={`${classNamePrefix}timing-remove`}>×</div>
+                    )}
+                    {first && (
+                      <div className={`${classNamePrefix}timing-value`}>
+                        {formatTimingValue(intl, begin, end, breakpoint)}
+                      </div>
                     )}
                     {/* last && <div className={`${classNamePrefix}timing-resizer`} /> */}
                   </>
@@ -938,17 +1121,37 @@ class DaysSelector extends Component {
           {this.renderTimings({
             value: selectionMoving,
             disabled: value
-              ? value.filter(v => !(valueToMove && v.begin === valueToMove.begin && v.end === valueToMove.end))
+              ? value.filter(
+                v => !(
+                  valueToMove
+                      && v.begin === valueToMove.begin
+                      && v.end === valueToMove.end
+                )
+              )
               : value,
             Component: ({
-              key, begin, end, top, left, height, disabled, first, last
+              key,
+              begin,
+              end,
+              top,
+              left,
+              height,
+              disabled,
+              first,
+              last
             }) => (
               <div
                 key={`selection-moving-${key}`}
-                className={classNames(`${classNamePrefix}selection-moving-timing`, {
-                  [`${classNamePrefix}disabled`]: disabled,
-                  [`${classNamePrefix}selection-moving-timing-thin`]: first && last && height <= (cellHeight * selectableStep) / step
-                })}
+                className={classNames(
+                  `${classNamePrefix}selection-moving-timing`,
+                  {
+                    [`${classNamePrefix}disabled`]: disabled,
+                    [`${classNamePrefix}selection-moving-timing-thin`]:
+                      first
+                      && last
+                      && height <= (cellHeight * selectableStep) / step
+                  }
+                )}
                 style={{
                   position: 'absolute',
                   top: `${top}px`,
@@ -959,13 +1162,17 @@ class DaysSelector extends Component {
               >
                 {disabled ? null : (
                   <>
-                    {first && <div className={`${classNamePrefix}timing-remove`}>×</div>}
                     {first && (
-                    <div className={`${classNamePrefix}timing-value`}>
-                      {formatTimingValue(intl, begin, end, breakpoint)}
-                    </div>
+                      <div className={`${classNamePrefix}timing-remove`}>×</div>
                     )}
-                    {last && <div className={`${classNamePrefix}timing-resizer`} />}
+                    {first && (
+                      <div className={`${classNamePrefix}timing-value`}>
+                        {formatTimingValue(intl, begin, end, breakpoint)}
+                      </div>
+                    )}
+                    {last && (
+                      <div className={`${classNamePrefix}timing-resizer`} />
+                    )}
                   </>
                 )}
               </div>
@@ -975,17 +1182,37 @@ class DaysSelector extends Component {
           {this.renderTimings({
             value: selectionResizing,
             disabled: value
-              ? value.filter(v => !(valueToResize && v.begin === valueToResize.begin && v.end === valueToResize.end))
+              ? value.filter(
+                v => !(
+                  valueToResize
+                      && v.begin === valueToResize.begin
+                      && v.end === valueToResize.end
+                )
+              )
               : value,
             Component: ({
-              key, begin, end, top, left, height, disabled, first, last
+              key,
+              begin,
+              end,
+              top,
+              left,
+              height,
+              disabled,
+              first,
+              last
             }) => (
               <div
                 key={`selection-resizing-${key}`}
-                className={classNames(`${classNamePrefix}selection-resizing-timing`, {
-                  [`${classNamePrefix}disabled`]: disabled,
-                  [`${classNamePrefix}selection-resizing-timing-thin`]: first && last && height <= (cellHeight * selectableStep) / step
-                })}
+                className={classNames(
+                  `${classNamePrefix}selection-resizing-timing`,
+                  {
+                    [`${classNamePrefix}disabled`]: disabled,
+                    [`${classNamePrefix}selection-resizing-timing-thin`]:
+                      first
+                      && last
+                      && height <= (cellHeight * selectableStep) / step
+                  }
+                )}
                 style={{
                   position: 'absolute',
                   top: `${top}px`,
@@ -996,13 +1223,17 @@ class DaysSelector extends Component {
               >
                 {disabled ? null : (
                   <>
-                    {first && <div className={`${classNamePrefix}timing-remove`}>×</div>}
                     {first && (
-                    <div className={`${classNamePrefix}timing-value`}>
-                      {formatTimingValue(intl, begin, end, breakpoint)}
-                    </div>
+                      <div className={`${classNamePrefix}timing-remove`}>×</div>
                     )}
-                    {last && <div className={`${classNamePrefix}timing-resizer`} />}
+                    {first && (
+                      <div className={`${classNamePrefix}timing-value`}>
+                        {formatTimingValue(intl, begin, end, breakpoint)}
+                      </div>
+                    )}
+                    {last && (
+                      <div className={`${classNamePrefix}timing-resizer`} />
+                    )}
                   </>
                 )}
               </div>

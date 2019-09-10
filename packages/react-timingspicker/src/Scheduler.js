@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import ReactModal from 'react-modal';
 import { FORM_ERROR } from 'final-form';
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 import RRule from 'rrule';
 import DaysSelector from './DaysSelector';
 import EditForm from './EditForm';
@@ -193,9 +193,9 @@ class Scheduler extends Component {
   getModalParent = () => this.schedulerRef.current;
 
   startLockScroll = () => {
-    const { beforeSchedulerOverflows } = this.state;
+    const { beforeSchedulerOverflows: alreadyLocked } = this.state;
     // if already locked
-    if (beforeSchedulerOverflows) {
+    if (alreadyLocked) {
       return;
     }
 
@@ -203,6 +203,12 @@ class Scheduler extends Component {
     const schedulerStyle = schedulerEl.style;
     const beforeSchedulerPaddingRight = schedulerStyle.paddingRight || 0;
     const scrollbarWidth = getScrollbarWidth(schedulerEl);
+
+    const beforeSchedulerOverflows = {
+      overflow: schedulerStyle.overflow,
+      overflowX: schedulerStyle.overflowX,
+      overflowY: schedulerStyle.overflowY
+    };
 
     Object.assign(schedulerStyle, {
       overflowY: 'hidden',
@@ -214,11 +220,7 @@ class Scheduler extends Component {
         x: schedulerEl.scrollLeft,
         y: schedulerEl.scrollTop
       },
-      beforeSchedulerOverflows: {
-        overflow: schedulerStyle.overflow,
-        overflowX: schedulerStyle.overflowX,
-        overflowY: schedulerStyle.overflowY
-      },
+      beforeSchedulerOverflows,
       beforeSchedulerPaddingRight
     });
 
@@ -311,9 +313,8 @@ class Scheduler extends Component {
   };
 
   openRecurrencerModal = e => {
-    e.preventDefault();
-
     if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
+      e.preventDefault();
       return;
     }
 
@@ -333,9 +334,8 @@ class Scheduler extends Component {
   };
 
   openMultiRecurrencerModal = e => {
-    e.preventDefault();
-
     if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
+      e.preventDefault();
       return;
     }
 

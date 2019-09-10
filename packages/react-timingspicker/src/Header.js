@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { injectIntl /* , defineMessages */ } from 'react-intl';
 import Select from 'react-select';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 
 // const messages = defineMessages({
 //   weekIndicator: {
@@ -25,13 +25,17 @@ function getYearOptions(activeYear) {
 }
 
 class Header extends Component {
-  state = {
-    activeWeek: null,
-    selectedMonth: null,
-    selectedYear: null,
-    monthOptions: [],
-    yearOptions: []
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeWeek: null,
+      selectedMonth: null,
+      selectedYear: null,
+      monthOptions: [],
+      yearOptions: []
+    };
+  }
 
   static getDerivedStateFromProps(props, state) {
     const { activeWeek, intl } = props;
@@ -62,18 +66,20 @@ class Header extends Component {
     };
   }
 
-  onMonthChange = option => this.props.onMonthChange(option.value);
+  onMonthChange = option => {
+    const { onMonthChange } = this.props;
 
-  onYearChange = option => this.props.onYearChange(option.value);
+    return onMonthChange(option.value);
+  };
+
+  onYearChange = option => {
+    const { onYearChange } = this.props;
+
+    return onYearChange(option.value);
+  };
 
   render() {
-    const {
-      activeWeek,
-      onPrevWeek,
-      onNextWeek,
-      classNamePrefix,
-      intl
-    } = this.props;
+    const { classNamePrefix, onPrevWeek, onNextWeek } = this.props;
     const {
       monthOptions,
       yearOptions,
@@ -83,25 +89,29 @@ class Header extends Component {
 
     return (
       <div className={`${classNamePrefix}header`}>
-        <span
+        <div
           role="button"
+          tabIndex={0}
           className={`${classNamePrefix}prev-week`}
           onClick={onPrevWeek}
+          onKeyPress={onPrevWeek}
         >
           <FaChevronLeft className={`${classNamePrefix}icon`} />
-        </span>
+        </div>
 
         {/* <span className={`${classNamePrefix}week-indicator`}>
           {intl.formatMessage( messages.weekIndicator, { weekNumber: dateFns.getISOWeek( activeWeek ) } )}
         </span> */}
 
-        <span
+        <div
           role="button"
+          tabIndex={0}
           className={`${classNamePrefix}next-week`}
           onClick={onNextWeek}
+          onKeyPress={onNextWeek}
         >
           <FaChevronRight className={`${classNamePrefix}icon`} />
-        </span>
+        </div>
 
         <div className={`${classNamePrefix}selectors`}>
           <span className={`${classNamePrefix}month-selector`}>

@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 
 export default class Stats extends Component {
-  state = {
-    first: null,
-    last: null
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      first: null,
+      last: null
+    };
+  }
 
   static getDerivedStateFromProps(props) {
     const { value } = props;
@@ -70,7 +74,13 @@ export default class Stats extends Component {
         </div>
 
         {value && value.length ? (
-          <div className={`${classNamePrefix}reset`} onClick={reset}>
+          <div
+            role="button"
+            tabIndex={0}
+            onClick={reset}
+            onKeyPress={reset}
+            className={`${classNamePrefix}reset`}
+          >
             <FormattedMessage
               id="rtp.reset"
               defaultMessage="Delete all timings"

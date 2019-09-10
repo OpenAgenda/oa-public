@@ -16,7 +16,7 @@
     "prepublish": "yarn clean && yarn build",
     "lint": "eslint -c .eslintrc '**/*.js'",
     "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
-    "lint-staged": "# lint-staged"
+    "lint-staged": "lint-staged"
   },
   "lint-staged": {
     "**/*.js": [
@@ -29,7 +29,7 @@
     "@babel/runtime-corejs3": "^7.5.5",
     "classnames": "^2.2.6",
     "core-js": "^3.2.1",
-    "date-fns": "^1.29.0",
+    "date-fns": "^2.1.0",
     "react-day-picker": "^7.3.0",
     "react-final-form": "^6.3.0",
     "react-icons": "^3.7.0",
