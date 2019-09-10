@@ -2,9 +2,9 @@
 
 const should = require( 'should' );
 
-const  evaluate = require( '../lib/evaluate' );
+const  evaluate = require( '../lib/rules' );
 
-describe( 'evaluate', () => {
+describe( 'evaluateRules', () => {
 
   describe( 'tag evaluates, no transform', () => {
 
