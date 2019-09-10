@@ -766,12 +766,7 @@ class DaysSelector extends Component {
     const { onRemove, onChange } = this.props;
     const { value } = this.state;
     const stepPosition = this.eventToStepPosition(e);
-    const { end } = stepPositionToSelection(
-      this.props,
-      stepPosition,
-      null,
-      true
-    );
+    const { end } = stepPositionToSelection(this.props, stepPosition, 0, true);
 
     const usedEnd = normalizeEndOfTiming(end);
     const valueToRemove = value.find(
