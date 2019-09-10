@@ -33,9 +33,9 @@ module.exports = _.extend( v => {
   validateData: ( v, options = {} ) => {
 
     const {
-      optionalState,
+      optionalStateAndFeatured,
       partial
-    } = _.assign( { optionalState: false, partial: false }, options );
+    } = _.assign( { optionalStateAndFeatured: false, partial: false }, options );
 
     const preCleaned = _preClean( v );
 
@@ -43,7 +43,7 @@ module.exports = _.extend( v => {
 
     const clean = validateFn( preCleaned );
 
-    return  _postClean( v, clean, { optionalState } );
+    return  _postClean( v, clean, { optionalStateAndFeatured } );
 
   }
 });
@@ -103,14 +103,21 @@ function init( { eventStates } ) {
 }
 
 
-function _postClean( v, c, { optionalState } ) {
+function _postClean( v, c, { optionalStateAndFeatured } ) {
 
-  if ( !optionalState ) return c;
+  if ( !optionalStateAndFeatured ) return c;
 
-  if ( _.get( v, 'state', null ) === null ) return _.omit( c, [ 'state' ] );
+  const omitted = [];
 
-  return c;
+  if ( _.get( v, 'state', null ) === null ) {
+    omitted.push('state');
+  }
 
+  if ( _.get( v, 'featured', null ) === null ) {
+    omitted.push('featured');
+  }
+
+  return _.omit(c, omitted);
 }
 
 function _preClean( v ) {
