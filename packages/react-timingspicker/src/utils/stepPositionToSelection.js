@@ -1,4 +1,4 @@
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 import DST from './DST';
 
 const noop = v => v;
@@ -12,7 +12,7 @@ export default (
     top, // cursor position: count of selectable steps from start of day?
     left // cursor position: count of steps from begin of week
   },
-  selectionStart = null,
+  selectionStart = 0,
   ignoreRound = false
 ) => {
   // moment the week starts

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { injectIntl, FormattedMessage } from 'react-intl';
 import ReactModal from 'react-modal';
 import { FORM_ERROR } from 'final-form';
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 import RRule from 'rrule';
 import DaysSelector from './DaysSelector';
 import EditForm from './EditForm';
@@ -311,9 +311,8 @@ class Scheduler extends Component {
   };
 
   openRecurrencerModal = e => {
-    e.preventDefault();
-
     if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
+      e.preventDefault();
       return;
     }
 
@@ -333,9 +332,8 @@ class Scheduler extends Component {
   };
 
   openMultiRecurrencerModal = e => {
-    e.preventDefault();
-
     if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
+      e.preventDefault();
       return;
     }
 

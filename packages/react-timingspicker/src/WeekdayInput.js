@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 import WeekdayPicker from './WeekdayPicker';
 
 class WeekdayInput extends Component {

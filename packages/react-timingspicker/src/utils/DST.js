@@ -1,4 +1,4 @@
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 
 function dayOffset(d, preventNextDayOverlap = false) {
   const ref = new Date(d);

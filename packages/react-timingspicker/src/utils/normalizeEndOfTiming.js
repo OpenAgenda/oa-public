@@ -1,4 +1,4 @@
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 
 export default datetime => {
   const laterDate = dateFns.addMilliseconds(datetime, 1);

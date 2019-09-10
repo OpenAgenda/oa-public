@@ -3,7 +3,7 @@ import { defineMessages, injectIntl } from 'react-intl';
 import { Field, Form } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
 import createNumberMask from 'text-mask-addons/dist/createNumberMask';
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 import { FaRegTimesCircle, FaCheck } from 'react-icons/fa';
 import SelectField from './SelectField';
 import WeekdayInput from './WeekdayInput';
@@ -342,7 +342,13 @@ class RecurrencerForm extends Component {
             <div className={`${classNamePrefix}recurrencer-until__radio`}>
               <label
                 htmlFor="endType-until"
-                onClick={() => form.change('endType', 'until')}
+                onClick={e => {
+                  if (formState.values.endType === 'until') {
+                    e.preventDefault();
+                    return;
+                  }
+                  form.change('endType', 'until');
+                }}
               >
                 <Field
                   name="endType"
@@ -368,7 +374,13 @@ class RecurrencerForm extends Component {
             <div className={`${classNamePrefix}recurrencer-count__radio`}>
               <label
                 htmlFor="endType-count"
-                onClick={() => form.change('endType', 'count')}
+                onClick={e => {
+                  if (formState.values.endType === 'count') {
+                    e.preventDefault();
+                    return;
+                  }
+                  form.change('endType', 'count');
+                }}
               >
                 <Field
                   name="endType"

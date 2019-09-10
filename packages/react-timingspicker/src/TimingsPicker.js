@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 import ReactResizeDetector from 'react-resize-detector';
 import classNames from 'classnames';
 import { IntlProvider, addLocaleData } from 'react-intl';
@@ -46,16 +46,18 @@ function getClosestTiming(value) {
 
   const { first, next } = value.reduce(
     (result, val) => {
-      if (!result.first || dateFns.isBefore(val.begin, result.first)) {
-        result.first = val.begin;
+      const begin = typeof val.begin === 'string' ? dateFns.parseISO(val.begin) : val.begin;
+
+      if (!result.first || dateFns.isBefore(begin, result.first)) {
+        result.first = begin;
       }
 
       if (
-        (!result.next && dateFns.isAfter(val.begin, Date.now()))
-        || (dateFns.isAfter(val.begin, Date.now())
-          && dateFns.isBefore(val.begin, result.next))
+        (!result.next && dateFns.isAfter(begin, Date.now()))
+        || (dateFns.isAfter(begin, Date.now())
+          && dateFns.isBefore(begin, result.next))
       ) {
-        result.next = val.begin;
+        result.next = begin;
       }
 
       return result;
@@ -118,8 +120,9 @@ class TimingsPicker extends Component {
 
     if (props.value !== state.value) {
       derivedState.value = (props.value || state.value || []).map(v => ({
-        begin: v.begin,
-        end: v.end
+        begin:
+          typeof v.begin === 'string' ? dateFns.parseISO(v.begin) : v.begin,
+        end: typeof v.end === 'string' ? dateFns.parseISO(v.end) : v.end
       }));
     }
 
@@ -146,9 +149,9 @@ class TimingsPicker extends Component {
   };
 
   onPrevWeek = e => {
-    e.preventDefault();
-
+    console.log('onPrevWeek');
     if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
+      e.preventDefault();
       return;
     }
 
@@ -156,9 +159,8 @@ class TimingsPicker extends Component {
   };
 
   onNextWeek = e => {
-    e.preventDefault();
-
     if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
+      e.preventDefault();
       return;
     }
 
@@ -180,9 +182,8 @@ class TimingsPicker extends Component {
   };
 
   reset = e => {
-    e.preventDefault();
-
     if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
+      e.preventDefault();
       return;
     }
 

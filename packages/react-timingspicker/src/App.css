@@ -47,6 +47,7 @@
 
 .rtp__calendar .rtp__header .rtp__prev-week,
 .rtp__calendar .rtp__header .rtp__next-week {
+    display: inline-block;
     cursor: pointer;
     font-weight: 700;
     -webkit-user-select: none;

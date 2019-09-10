@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { injectIntl /* , defineMessages */ } from 'react-intl';
 import Select from 'react-select';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 
 // const messages = defineMessages({
 //   weekIndicator: {
@@ -79,10 +79,8 @@ class Header extends Component {
   };
 
   render() {
-    const { classNamePrefix } = this.props;
+    const { classNamePrefix, onPrevWeek, onNextWeek } = this.props;
     const {
-      onPrevWeek,
-      onNextWeek,
       monthOptions,
       yearOptions,
       selectedMonth,
@@ -91,7 +89,7 @@ class Header extends Component {
 
     return (
       <div className={`${classNamePrefix}header`}>
-        <span
+        <div
           role="button"
           tabIndex={0}
           className={`${classNamePrefix}prev-week`}
@@ -99,13 +97,13 @@ class Header extends Component {
           onKeyPress={onPrevWeek}
         >
           <FaChevronLeft className={`${classNamePrefix}icon`} />
-        </span>
+        </div>
 
         {/* <span className={`${classNamePrefix}week-indicator`}>
           {intl.formatMessage( messages.weekIndicator, { weekNumber: dateFns.getISOWeek( activeWeek ) } )}
         </span> */}
 
-        <span
+        <div
           role="button"
           tabIndex={0}
           className={`${classNamePrefix}next-week`}
@@ -113,7 +111,7 @@ class Header extends Component {
           onKeyPress={onNextWeek}
         >
           <FaChevronRight className={`${classNamePrefix}icon`} />
-        </span>
+        </div>
 
         <div className={`${classNamePrefix}selectors`}>
           <span className={`${classNamePrefix}month-selector`}>

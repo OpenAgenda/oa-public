@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 
 export default class Stats extends Component {
   constructor(props) {
