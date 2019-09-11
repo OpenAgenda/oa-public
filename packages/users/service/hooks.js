@@ -409,7 +409,7 @@ module.exports = {
     requestChangeEmail: afterAll,
     confirmChangeEmail: afterAll,
     changePassword: afterAll,
-    generateApiKey: afterAll,
+    generateApiKey: [...afterAll, callInterface('onGenerateApiKey')],
     setNewFlag: afterAll,
     refresh: afterAll
   },
