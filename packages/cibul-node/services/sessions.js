@@ -17,7 +17,7 @@ const service = {
 
 module.exports = service;
 
-module.exports.init = config => {
+module.exports.init = (config, services) => {
   sessions.init( {
     redis: {
       host: config.redis.host,
@@ -31,7 +31,7 @@ module.exports.init = config => {
     },
     expire: config.session.maxAge / 1000,
     interfaces: {
-      getUser: getUser.bind( null, config.aws.imageBucketPath )
+      getUser: getUser.bind( null, services, config.aws.imageBucketPath )
     },
     logger: config.getLogConfig( 'oa', 'sessions', false )
   } );
@@ -67,11 +67,11 @@ function _load({detailed, redirect, msg}, req, res, next) {
   } );
 }
 
-function getUser( imageBucketPath, query, cb ) {
+function getUser( services, imageBucketPath, query, cb ) {
 
   log( 'info', 'requested user with %j', query );
 
-  usersSvc.findOne( { query: _.pick( query, 'id', 'uid', 'email' ), detailed: true } )
+  services.users.findOne( { query: _.pick( query, 'id', 'uid', 'email' ), detailed: true } )
     .then( user => {
 
       if ( !user ) {

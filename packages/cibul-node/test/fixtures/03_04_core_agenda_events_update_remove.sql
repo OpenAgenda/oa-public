@@ -3,9 +3,9 @@ create database if not exists oatest;
 use oatest;
 
 CREATE TABLE agenda (
-  id BIGINT AUTO_INCREMENT, 
+  id BIGINT AUTO_INCREMENT,
   uid BIGINT UNIQUE,
-  main TINYINT(1) DEFAULT '0' NOT NULL, 
+  main TINYINT(1) DEFAULT '0' NOT NULL,
   official TINYINT(1) DEFAULT '0' NOT NULL,
   officialized_at DATETIME,
   private TINYINT(1) DEFAULT '0' NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE agenda (
   settings TEXT,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
-  INDEX owner_id_idx (owner_id), 
+  INDEX owner_id_idx (owner_id),
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
@@ -34,27 +34,27 @@ CREATE TABLE agenda (
 INSERT INTO agenda (
   `id`,
   `title`,
-  `owner_id`, 
-  `slug`, 
-  `description`, 
-  `image`, 
-  `url`, 
-  `collaborative`, 
-  `created_at`, 
-  `updated_at`, 
-  `uid`, 
-  `main`, 
-  `store`, 
-  `contribution_type`, 
-  `contribution_info`, 
-  `official`, 
-  `private`, 
+  `owner_id`,
+  `slug`,
+  `description`,
+  `image`,
+  `url`,
+  `collaborative`,
+  `created_at`,
+  `updated_at`,
+  `uid`,
+  `main`,
+  `store`,
+  `contribution_type`,
+  `contribution_info`,
+  `official`,
+  `private`,
   `credentials`,
   `form_schema_id`
 ) VALUES
 
 (
-  218, 
+  218,
   'La Gargouille',
   50304,
   'la-gargouille',
@@ -187,7 +187,8 @@ CREATE TABLE IF NOT EXISTS `agenda_event` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `legacy_id` varchar(30) DEFAULT NULL,
-  `user_uid` bigint(20) DEFAULT NULL
+  `user_uid` bigint(20) DEFAULT NULL,
+  `source_agenda_uid` varchar(300) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=954070 DEFAULT CHARSET=utf8;
 
 
@@ -263,8 +264,8 @@ create table if not exists `location` (
   insee VARCHAR(20),
   eve_id VARCHAR(100),
   created_at DATETIME NOT NULL,
-  updated_at DATETIME NOT NULL, 
-  UNIQUE INDEX slug_idx (slug), 
+  updated_at DATETIME NOT NULL,
+  UNIQUE INDEX slug_idx (slug),
   INDEX latlng_idx (latitude, longitude),
   INDEX owner_id_idx (owner_id),
   primary key(id)
@@ -366,10 +367,10 @@ CREATE TABLE IF NOT EXISTS `legacy_agenda_event` (
 
 
 CREATE TABLE IF NOT EXISTS `legacy_agenda_event_reference` (
-  id BIGINT, 
-  agenda_id BIGINT, 
-  event_id BIGINT, 
-  ref_event_id BIGINT, 
+  id BIGINT,
+  agenda_id BIGINT,
+  event_id BIGINT,
+  ref_event_id BIGINT,
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 
@@ -401,13 +402,13 @@ insert into legacy_agenda_category ( id, slug, category, review_id ) values
 
 
 CREATE TABLE legacy_agenda_tag (
-  id BIGINT AUTO_INCREMENT, 
-  slug VARCHAR(255) NOT NULL, 
-  review_id BIGINT NOT NULL, 
-  tag VARCHAR(255) NOT NULL, 
-  created_at DATETIME NOT NULL, 
-  updated_at DATETIME NOT NULL, 
-  INDEX review_id_idx (review_id), 
+  id BIGINT AUTO_INCREMENT,
+  slug VARCHAR(255) NOT NULL,
+  review_id BIGINT NOT NULL,
+  tag VARCHAR(255) NOT NULL,
+  created_at DATETIME NOT NULL,
+  updated_at DATETIME NOT NULL,
+  INDEX review_id_idx (review_id),
   PRIMARY KEY(id)
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
 

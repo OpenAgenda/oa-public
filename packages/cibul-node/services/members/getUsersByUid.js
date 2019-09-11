@@ -2,12 +2,11 @@
 
 const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'services/members/getUsersByUid' );
-const users = require( '../users' )
 
-module.exports = async (userUids, userOptions = {}) => {
+module.exports = async (services, userUids, userOptions) => {
   log( 'processing', [].concat( userUids ).join( ',' ), userOptions );
 
-  return ( await users.find( {
+  return ( await services.users.find( {
     query: {
       uid: {
         $in: [].concat( userUids )

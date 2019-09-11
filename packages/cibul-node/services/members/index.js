@@ -47,7 +47,7 @@ module.exports = Object.assign(plugApp, {
   utils: Service.utils
 });
 
-function init(c) {
+function init(c, services) {
   Object.assign(config, c);
 
   const activityQueue = queues('memberActivities');
@@ -61,12 +61,12 @@ function init(c) {
     logger: config.getLogConfig('svc', 'members'),
     interfaces: {
       getEventCountByUserUid,
-      getUsersByUid,
+      getUsersByUid: getUsersByUid.bind(null, services),
+      getUserByEmail: getUserByEmail.bind(null, services),
       getAgendasByUid,
-      getUserByEmail,
       onCreate: onCreate.bind(null, { config, activityQueue }),
       onRemove: onRemove.bind(null, { members, activityQueue }),
-      onPatch: onPatch.bind(null, { config, activityQueue })
+      onPatch: onPatch.bind(null, { services, config, activityQueue })
     }
   }));
 

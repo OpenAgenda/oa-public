@@ -5,20 +5,9 @@ const config = require( '../../config' );
 const log = require( '@openagenda/logs' )( 'agenda service' );
 const es = require( '../elasticsearch' );
 const model = require( '../model' );
-
-module.exports = {
-  initless: true,
-  list: model.agendas().list,
-  search,
-  get,
-  instanciate: require( './instance' )
-}
-
-module.exports.mw = require( './middleware' )( module.exports );
-
-module.exports.exports = require( './exportLib' )( module.exports );
-
-module.exports.tagsAndCategories = require( './tagsAndCategories' )( module.exports );
+const mw = require('./middleware');
+const exportLib = require('./exportLib');
+const tagsAndCategories = require('./tagsAndCategories');
 
 function search( query, options, cb ) {
 
@@ -60,3 +49,17 @@ function get( queryParams, options, cb ) {
   });
 
 }
+
+module.exports = {
+  initless: true,
+  list: model.agendas().list,
+  search,
+  get,
+  instanciate: require( './instance' )
+}
+
+module.exports.mw = mw( module.exports );
+
+module.exports.exports = exportLib( module.exports );
+
+module.exports.tagsAndCategories = tagsAndCategories( module.exports );
