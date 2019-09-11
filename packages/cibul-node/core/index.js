@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-  init: require( '../services/init' ), // use if core is used separately from app.js
+  init: require( '../services/init' ),
   agendas: require( './agendas' ),
   networks: require( './networks' ),
   tasks: require( './tasks' )

@@ -17,8 +17,6 @@ async function create( { agenda, event, agendaEvent } ) {
 
   log( 'notify create for event %s on agenda %s with state %s', event.slug, agenda.slug, agendaEvent.state );
 
-  aggregator.notify( 'create', { agenda, event, agendaEvent } );
-
   if ( agendaEvent.state === 2 ) {
 
     await _sleep( 3 );
@@ -35,9 +33,6 @@ async function create( { agenda, event, agendaEvent } ) {
 async function update( { agenda, event, before, after } ) {
 
   log( 'notify update for event %s on agenda %s with before state %s and after state %s', event.slug, agenda.slug, before.state, after.state );
-
-  // currently for logging only. Not used yet for actual aggregation
-  aggregator.notify( 'update', { agenda, event, before, after } );
 
   if ( before.state === after.state ) return;
 

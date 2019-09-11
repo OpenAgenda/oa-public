@@ -11,6 +11,7 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/update' );
 const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
 const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
+const aggregators = require('../../../services/aggregator').instance;
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
 const processOEmbed = require( '../utils/processOEmbed' );
@@ -52,7 +53,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     formSchema: agenda.formSchema,
     networkFormSchema: _.get( agenda, 'network.formSchema' ),
     defaultLang
-  }, data, { draft, formSchemaDataFormat, optionalState: true, partial } );
+  }, data, { draft, formSchemaDataFormat, optionalStateAndFeatured: true, partial } );
 
   if ( clean.event.longDescription ) try {
 
@@ -131,6 +132,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     } );
 
     updated.agendaEvent = result.set;
+    updated.agendaEventBefore = result.before;
 
   }
 
@@ -169,6 +171,24 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
       await legacyEventSearch.updateEvent({ uid: eventUid });
     } catch (e) {
       log('error', 'could not update legacy search for event %s', eventUid, e);
+    }
+  }
+
+  if (false) {
+    if (_.get(updated, 'agendaEvent.state')===2 && (_.get(updated, 'agendaEventBefore.state')!==2)) {
+      aggregators.notifyPublish({
+        ..._.pick(updated, ['event', 'agendaEvent', 'custom', 'networkCustom']),
+        agenda,
+        formSchemas: {
+          agenda: _.get(agenda, 'formSchema'),
+          network: _.get(agenda, 'network.formSchema')
+        }
+      });
+    } else if (_.get(updated, 'agendaEvent.state')!==2 && (_.get(updated, 'agendaEventBefore.state')===2)) {
+      aggregators.notifyUnpublish({
+        ..._.pick(updated, ['event', 'agendaEvent', 'custom', 'networkCustom']),
+        agenda
+      });
     }
   }
 

@@ -43,6 +43,13 @@ const testConfig = {
     defaultImagePath: config.aws.defaultImagePath,
     imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
   },
+  getLogConfig,
+  logger: {
+    debug: {
+      prefix: 'oa:',
+      enable: false
+    }
+  },
   esLocation: {
     //log: [  ],
     index: 'locations',
@@ -69,7 +76,6 @@ describe( 'core - functional ( server ): agenda event add', function() {
   before( () => assignClients( testConfig ) );
 
   before( async () => {
-
     const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), {
       multipleStatements: true
     } ) );
@@ -105,6 +111,13 @@ describe( 'core - functional ( server ): agenda event add', function() {
   } );
 
   before( async () => {
+
+    try {
+    } catch(e) {
+      console.log('**');
+      console.log(JSON.stringify(e,null,2));
+      throw e;
+    }
 
     const result = await core.agendas( 17026855 ).events.create( {
       slug: 'un-event',

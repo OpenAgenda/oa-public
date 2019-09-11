@@ -11,7 +11,9 @@ const WEB = process.argv.includes('web');
 
 supervisor(async loadTasks => {
   try {
-    await require('./services/init')();
+    const services = await require('./services/init')();
+
+    services.core = require('./core');
 
     if (__DEVELOPMENT__) {
       require('source-map-support').install({ hookRequire: true });

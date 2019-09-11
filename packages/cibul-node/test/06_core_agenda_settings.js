@@ -11,6 +11,10 @@ const fixtures = require( './fixtures/06_core_agenda_settings' );
 const config = require( '../config' );
 const core = require( '../core' );
 
+const schemaNames = require( './mock/schemaNames' );
+const getLogConfig = require( './mock/getLogConfig' );
+const assignClients = require( './utils/assignClients' );
+
 const testConfig = {
   queues: {},
   db: {
@@ -22,27 +26,7 @@ const testConfig = {
     host: 'localhost',
     port: 6379
   },
-  schemas: {
-    agenda: 'agenda',
-    eventService: 'event_2',
-    agendaEventService: 'agenda_event',
-    deleted: 'legacy_deleted',
-    event: 'legacy_event',
-    occurrence: 'legacy_occurrence',
-    eventTranslation: 'legacy_event_translation',
-    location: 'location',
-    eventLocation: 'legacy_event_location',
-    eventLocationTranslation: 'legacy_event_location_translation',
-    eventEditor: 'legacy_event_editor',
-    agendaEvent: 'legacy_agenda_event',
-    eventReferences: 'legacy_agenda_event_reference',
-    agendaEventTag: 'legacy_agenda_event_tag',
-    agendaCategory: 'legacy_agenda_category',
-    agendaTag: 'legacy_agenda_tag',
-    user: 'user',
-    stakeholder: 'member',
-    stakeholderSettings: 'member_settings'
-  },
+  schemas: schemaNames,
   imageSizeLimits: [ 1000, 10000000 ],
   tmpFolderPath: '/var/tmp/',
   aws: {
@@ -66,7 +50,7 @@ const testConfig = {
     host: process.env.ELASTICSEARCH_533_DEV_HOST,
     port: process.env.ELASTICSEARCH_533_DEV_PORT
   },
-  getLogConfig: () => null
+  getLogConfig
 };
 
 
@@ -88,12 +72,13 @@ describe( 'core - functional ( server ): settings get', function() {
 
   } );
 
-  before( async () => {
+  before( () => assignClients( testConfig ) );
 
-    testConfig.knex = knexLib( { client: 'mysql', connection: testConfig.db } );
+  before( async () => {
 
     await core.init( testConfig, {
       enabled: [
+        'queues',
         'events',
         'agendas',
         'agendaEvents',
@@ -101,7 +86,12 @@ describe( 'core - functional ( server ): settings get', function() {
         'agendaLocations',
         'formSchemas',
         'custom',
-        'networks'
+        'eventSearch',
+        'members',
+        'networks',
+        'legacy',
+        'users',
+        'keys'
       ]
     } );
 

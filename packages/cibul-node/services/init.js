@@ -9,7 +9,6 @@ const VError = require('verror');
 const logs = require('@openagenda/logs');
 const schema = require('@openagenda/validators/schema');
 
-
 schema.register({
   pass: require('@openagenda/validators/pass')
 });

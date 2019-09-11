@@ -50,7 +50,7 @@ module.exports = async (config, before, after, context) => {
 
   aggregatorNotify.update( { agenda, event, before, after } );
 
-  if ( context.legacy ) {
+  if ( context.aggregated ) {
     await transferCustomFromLegacy(agenda, event);
 
     try {

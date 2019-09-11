@@ -97,7 +97,7 @@ async function _updateEvents( ES, agendaId, { since, logEveryUpdate } ) {
   await loopThroughTable( knex, agendaId ? 'review_article' : 'event', async id => {
 
     try {
-      await ES.updateEvent( id );
+      const result = await ES.updateEvent( id );
       if ( logEveryUpdate ) log( 'updated event of id %s', id );
     } catch( e ) {
       if ( knownBuildErrors.includes( e.message ) ) {
