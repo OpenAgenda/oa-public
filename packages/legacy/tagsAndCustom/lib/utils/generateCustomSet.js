@@ -14,7 +14,7 @@ const schemaToCustom = {
   html: 'textarea',
   image: 'image',
   file: 'file',
-  url: 'url',
+  link: 'url',
   email: 'email',
   checkbox: 'checkbox',
   radio: 'radio'
