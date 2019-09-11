@@ -1,12 +1,14 @@
 const { promisify } = require( 'util' );
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
-const activities = require( '../activities' );
-
 
 /**
  * this interface will prevent user removal if not correctly executed
  */
-module.exports = function beforeRemove() {
+module.exports = function beforeRemove( { services } ) {
+
+  const {
+    activities: activitiesSvc,
+    members: membersSvc
+  } = services;
 
   return async ctx => {
 
@@ -16,28 +18,24 @@ module.exports = function beforeRemove() {
       return ctx;
     }
 
-    // remove 100 stakeholders
+    // remove 100 members
 
-    await promisify( activities.feed( { entityType: 'user', entityUid: user.uid } ).remove )();
+    await promisify( activitiesSvc.feed( { entityType: 'user', entityUid: user.uid } ).remove )();
 
-    const stakeholders = await promisify( agendaStakeholders.user( user.id ).list )( 0, 100 );
+    const members = await membersSvc.list( { userUid: user.uid }, { limit: 500 } );
 
-    for ( const sh of stakeholders ) {
+    for ( const member of members ) {
 
       try {
 
-        await promisify( agendaStakeholders.agenda( sh.agendaId ).update )(
-          { id: sh.id },
-          {},
-          {
-            allowPartial: true,
-            deletedUser: true
-          }
+        await membersSvc.patch(
+          member.id,
+          { deletedUser: true }
         );
 
       } catch ( err ) {
 
-        log( 'error', 'could not remove stakeholder ', err );
+        log( 'error', 'could not remove member ', err );
 
       }
 

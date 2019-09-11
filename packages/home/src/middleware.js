@@ -19,15 +19,11 @@ module.exports = {
   }
 };
 
-function init( c, cb ) {
-
+function init( c ) {
   config = c;
-
-  if ( cb ) cb();
-
 }
 
-function agendasList( req, res, next ) {
+async function agendasList( req, res, next ) {
 
   /**
    * most of this code should be in interface code of integrating app.
@@ -35,19 +31,19 @@ function agendasList( req, res, next ) {
 
   const {
     agendas: { list: agendasList },
-    stakeholders: { list: stakeholdersList },
+    members: { list: membersList },
     agendaMailTo
   } = config.interfaces;
 
-  const offset = (( req.query.page || 1 ) - 1) * config.mw.limit;
+  const page = req.query.page || 1;
+  const offset = (page - 1) * config.mw.limit;
   const limit = config.mw.limit;
 
-  stakeholdersList( req.user.id, 0, 500, /* hmmmm.. */ ( err, stakeholders ) => {
+  try {
+    const members = await membersList({ userUid: req.user.uid }, { offset: 0, limit: 500 });
 
-    if ( err ) return next( err );
-
-    agendasList( {
-      ids: stakeholders.map( s => s.agendaId ),
+    const { total, agendas } = await agendasList( {
+      uid: members.map( s => s.agendaUid ),
       search: req.query.search
     }, offset, limit, {
       includeImagePath: true,
@@ -55,22 +51,19 @@ function agendasList( req, res, next ) {
       total: true,
       useDefaultImage: true,
       includeFields: [ 'settings', 'credentials' ]
-    }, ( err, reviews, total ) => {
-
-      if ( err ) return next( err );
-
-      res.send( {
-        total,
-        reviews: reviews.map( review => _.assign( _.omit( review, [ 'credentials' ] ), {
-          stakeholder: stakeholders.find( s => s.agendaId === review.id ),
-          useContributeApp: _.get( review, 'credentials.useContributeApp', false ),
-          mailto: agendaMailTo( review ) // hacky. Ideally, the full list should be in integrating app
-        } ) )
-      } );
-
     } );
 
-  } );
+    res.send( {
+      total,
+      agendas: agendas.map( agenda => _.assign( _.omit( agenda, [ 'credentials' ] ), {
+        member: members.find( s => s.agendaUid === agenda.uid ),
+        useContributeApp: _.get( agenda, 'credentials.useContributeApp', false ),
+        mailto: agendaMailTo( agenda ) // hacky. Ideally, the full list should be in integrating app
+      } ) )
+    } );
+  } catch (e) {
+    next(e);
+  }
 
 }
 

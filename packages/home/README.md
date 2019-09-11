@@ -4,7 +4,7 @@ Oh la home (pour un type connecté)
 
 # Backend
 
-Two object types will be queried by the front app: agendas and events. The agendas listed on the home are the ones for which the user is a stakeholder.
+Two object types will be queried by the front app: agendas and events. The agendas listed on the home are the ones for which the user is a member.
 
 La première implémentation du service backend la home/agendas va requêter directement dans la structure de la base actuelle pour ressortir les agendas mis à jour le plus récemment en premier.
 
@@ -28,7 +28,7 @@ Le service doit être accessible de cette manière:
     const svc = require( 'home' );
 
     // image = { default, path }
-    // schemas = { agendas, stakeholder }
+    // schemas = { agendas, member }
     
     svc.init( { mysql, schemas, image } );
 
