@@ -1,7 +1,6 @@
 import path from 'path';
 import { promisify } from 'util';
 import fixtures from '@openagenda/fixtures';
-// import stakeholdersSvc from '@openagenda/agenda-stakeholders/test/service';
 import agendasFixtures from '@openagenda/agendas/test/fixtures/load';
 
 const agendasSvcRoot = path.dirname( require.resolve( '@openagenda/agendas/package.json' ) );
@@ -10,12 +9,6 @@ exports.seed = async knex => {
   const { testconfig, schemas } = knex.client.config;
 
   fixtures.init( testconfig );
-
-  // stakeholdersSvc.init( testconfig, () => {
-  //
-  //   stakeholdersSvc.tasks.message();
-  //
-  // } );
 
   await agendasFixtures( {
     mysql: testconfig.mysql,
@@ -33,8 +26,6 @@ exports.seed = async knex => {
       legacyCredential: 'legacy_credential_set'
     }
   } );
-
-  // await promisify( stakeholdersSvc.initAndLoad )( testconfig, { reset: false } );
 
   await promisify( fixtures )( [
     {

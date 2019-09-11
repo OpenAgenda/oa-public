@@ -441,7 +441,7 @@ The node-sass module includes a time-consuming build that slows down library ins
 
  * service repositories: plural.
  * repo grouping front applications which are focused on the presentation of a service: <singularnameoftheservice>-apps
- * names are smallcased, with dashes used for word separation. ex: member-apps or agenda-stakeholders
+ * names are smallcased, with dashes used for word separation. ex: member-apps or agenda-docx
  * requires are made at the beginning of a file, grouped by origin: first external references, second openagenda repos, third and last the current repo requires. Second degree order is alphabetical ( [reference](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/order.md) )
 
 ## Building process
