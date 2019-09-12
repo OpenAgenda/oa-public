@@ -221,10 +221,10 @@ function getUsers( req, res, next ) {
 
         if ( !req.loadedUser.id ) return next( new Error( 'User not found' ) );
 
-        membersSvc.list( { userUid: req.loadedUser.uid }, { limit: 500, order: 'id.desc' }, { legacy: true } ).then( ( { stakeholders } ) => {
+        membersSvc.list( { userUid: req.loadedUser.uid }, { limit: 500, order: 'id.desc' } ).then( members => {
 
           agendasSvc.list( {
-            uid: stakeholders.map( m => m.agendaUid )
+            uid: members.map( m => m.agendaUid )
           }, 0, 500, { private: null }, ( err, agendas ) => {
 
             model.lib.query( 'SELECT count(*) as nbrEvents, agenda_uid as agendaUid ' +
@@ -232,14 +232,14 @@ function getUsers( req, res, next ) {
               [ req.loadedUser.uid ],
               ( err, counters ) => {
 
-                stakeholders = stakeholders.map( stakeholder => {
+                members = members.map( member => {
 
-                  stakeholder.agenda = agendas.filter( agenda => agenda.uid == stakeholder.agendaUid )[ 0 ];
+                  member.agenda = agendas.filter( agenda => agenda.uid == member.agendaUid )[ 0 ];
 
-                  const counter = counters.filter( counter => counter.agendaUid == stakeholder.agendaUid )[ 0 ];
-                  stakeholder.nbrEvents = counter && counter.nbrEvents;
+                  const counter = counters.filter( counter => counter.agendaUid == member.agendaUid )[ 0 ];
+                  member.nbrEvents = counter && counter.nbrEvents;
 
-                  return stakeholder;
+                  return member;
 
                 } );
 
@@ -257,7 +257,7 @@ function getUsers( req, res, next ) {
                     'apiSecret',
                     'store'
                   ] ),
-                  stakeholders
+                  members
                 } );
 
               } );
