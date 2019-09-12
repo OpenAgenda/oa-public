@@ -1,6 +1,6 @@
 import stepPositionToSelection from '../src/utils/stepPositionToSelection';
 
-describe('01 - unit - stepPositionToSelection', () => {
+describe('unit - stepPositionToSelection', () => {
   describe('basic', () => {
     const props = {
       activeWeek: new Date('2019-11-02T09:45:49+0100'),
@@ -30,7 +30,7 @@ describe('01 - unit - stepPositionToSelection', () => {
         left: 1
       });
 
-      expect(begin).toBeNull();
+      expect(begin).toBe(0);
       expect(end.toISOString()).toBe('2019-10-28T09:00:00.000Z');
     });
   });

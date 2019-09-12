@@ -3,55 +3,13 @@ import { injectIntl, FormattedMessage } from 'react-intl';
 import ReactModal from 'react-modal';
 import { FORM_ERROR } from 'final-form';
 import * as dateFns from 'date-fns';
-import RRule from 'rrule';
 import DaysSelector from './DaysSelector';
 import EditForm from './EditForm';
 import RecurrencerForm from './RecurrencerForm';
 import MultiRecurrencerForm from './MultiRecurrencerForm';
-import getWeekOfMonth from './utils/getWeekOfMonth';
-import convertUTCDateToLocalDate from './utils/convertUTCDateToLocalDate';
-import convertLocalDateToUTCDate from './utils/convertLocalDateToUTCDate';
+import duplicateTiming from './utils/duplicateTiming';
 
 const ONE_DAY = 60 * 60 * 24;
-
-function duplicateTiming(timing, options) {
-  const rule = new RRule({
-    wkst: options.wkst,
-    dtstart: convertLocalDateToUTCDate(timing.begin),
-    freq: RRule[options.frequence.toUpperCase()],
-    interval: options.interval,
-    count: options.count,
-    until: options.until,
-    byweekday: options.byweekday,
-    bymonthday: options.bymonthday,
-    bysetpos: options.bysetpos
-  });
-
-  const begins = rule
-    .all()
-    .map(convertUTCDateToLocalDate)
-    .filter(v => v.getTime() !== timing.begin.getTime());
-  const duration = timing.end.getTime() - timing.begin.getTime();
-
-  return begins.map(v => ({
-    begin: v,
-    end: new Date(v.getTime() + duration)
-  }));
-}
-
-function frequenceToAddFn(value) {
-  switch (value) {
-    case 'yearly':
-      return dateFns.addYears;
-    case 'monthly':
-      return dateFns.addMonths;
-    case 'weekly':
-      return dateFns.addWeeks;
-    case 'daily':
-    default:
-      return dateFns.addDays;
-  }
-}
 
 function getScrollbarWidth(elem) {
   if (elem) {
@@ -395,57 +353,6 @@ class Scheduler extends Component {
     this.handleCloseEditModal();
   };
 
-  recurrencerValuesToTimings = values => {
-    const { weekStartsOn } = this.props;
-    const { valueToDuplicate } = this.state;
-
-    const UTCweekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
-    const weekdays = [
-      ...UTCweekdays.slice(weekStartsOn),
-      ...UTCweekdays.slice(0, weekStartsOn)
-    ];
-
-    const beginWeekdayIndex = valueToDuplicate.begin.getUTCDay();
-    const beginWeekday = RRule[UTCweekdays[beginWeekdayIndex]];
-    const wkst = RRule[UTCweekdays[weekStartsOn]];
-
-    const addFn = frequenceToAddFn(values.frequence);
-
-    const until = values.endType === 'until'
-      ? values.until
-      : addFn(valueToDuplicate.begin, values.count);
-    const bymonthday = values.frequence === 'monthly' && values.monthlyIntervalType === 'date'
-      ? valueToDuplicate.begin.getDate()
-      : undefined;
-    const bysetpos = values.frequence === 'monthly' && values.monthlyIntervalType === 'weekday'
-      ? getWeekOfMonth(valueToDuplicate.begin)
-      : undefined;
-    let byweekday;
-
-    if (
-      values.frequence === 'weekly'
-      && values.weekday
-      && values.weekday.length
-    ) {
-      byweekday = values.weekday.map(v => RRule[weekdays[v]]);
-    } else if (
-      values.frequence === 'monthly'
-      && values.monthlyIntervalType === 'weekday'
-    ) {
-      byweekday = beginWeekday;
-    }
-
-    return duplicateTiming(valueToDuplicate, {
-      wkst,
-      frequence: values.frequence,
-      interval: values.interval,
-      until,
-      byweekday,
-      bymonthday,
-      bysetpos
-    });
-  };
-
   extractTimings = frequence => {
     const { value, activeWeek, weekStartsOn } = this.props;
 
@@ -466,49 +373,24 @@ class Scheduler extends Component {
     });
   };
 
+  recurrencerValuesToTimings = values => {
+    const { weekStartsOn } = this.props;
+    const { valueToDuplicate } = this.state;
+
+    return duplicateTiming(valueToDuplicate, {
+      weekStartsOn,
+      ...values
+    }).filter(v => v.begin.getTime() !== valueToDuplicate.begin.getTime());
+  };
+
   multiRecurrencerValuesToTimings = values => {
     const { weekStartsOn } = this.props;
-    const UTCweekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
     const valuesToDuplicate = this.extractTimings(values.frequence);
 
-    return valuesToDuplicate.map(valueToDuplicate => {
-      const beginWeekdayIndex = valueToDuplicate.begin.getUTCDay();
-      const beginWeekday = RRule[UTCweekdays[beginWeekdayIndex]];
-      const wkst = RRule[UTCweekdays[weekStartsOn]];
-
-      const addFn = values.frequence === 'weekly' ? dateFns.addWeeks : dateFns.addMonths;
-
-      const until = values.endType === 'until'
-        ? values.until
-        : addFn(valueToDuplicate.begin, values.count);
-      const bymonthday = values.frequence === 'monthly' && values.monthlyIntervalType === 'date'
-        ? valueToDuplicate.begin.getDate()
-        : undefined;
-      const bysetpos = values.frequence === 'monthly'
-        && values.monthlyIntervalType === 'weekday'
-        ? getWeekOfMonth(valueToDuplicate.begin)
-        : undefined;
-      let byweekday;
-
-      if (values.frequence === 'weekly') {
-        byweekday = beginWeekday;
-      } else if (
-        values.frequence === 'monthly'
-        && values.monthlyIntervalType === 'weekday'
-      ) {
-        byweekday = beginWeekday;
-      }
-
-      return duplicateTiming(valueToDuplicate, {
-        wkst,
-        frequence: values.frequence,
-        interval: values.interval,
-        until,
-        byweekday,
-        bymonthday,
-        bysetpos
-      });
-    });
+    return valuesToDuplicate.map(valueToDuplicate => duplicateTiming(valueToDuplicate, {
+      weekStartsOn,
+      ...values
+    }).filter(v => v.begin.getTime() !== valueToDuplicate.begin.getTime()));
   };
 
   handleRecurrencerSubmit = values => {

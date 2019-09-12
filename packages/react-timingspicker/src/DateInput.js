@@ -4,7 +4,12 @@ import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrect
 import deriveDateFormat from './utils/deriveDateFormat';
 
 export default function DateInput({
-  input, meta, label, classNamePrefix, intl, ...rest
+  input,
+  meta,
+  label,
+  classNamePrefix,
+  intl,
+  ...rest
 }) {
   const derivedDateFormat = deriveDateFormat(intl)
     .split('')
@@ -18,10 +23,13 @@ export default function DateInput({
         default:
           return v;
       }
-    }).join('');
+    })
+    .join('');
 
   const pipe = createAutoCorrectedDatePipe(derivedDateFormat);
-  const mask = derivedDateFormat.split('').map(char => (/[a-z]/gi.test(char) ? /\d/ : char));
+  const mask = derivedDateFormat
+    .split('')
+    .map(char => (/[a-z]/gi.test(char) ? /\d/ : char));
 
   return (
     <section className={`${classNamePrefix}section`}>
@@ -37,9 +45,7 @@ export default function DateInput({
       />
 
       {meta.touched && meta.error ? (
-        <div className={`${classNamePrefix}input-error`}>
-          {meta.error}
-        </div>
+        <div className={`${classNamePrefix}input-error`}>{meta.error}</div>
       ) : null}
     </section>
   );
