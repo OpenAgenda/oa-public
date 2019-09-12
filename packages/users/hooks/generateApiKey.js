@@ -21,6 +21,8 @@ module.exports = function generateApiKey() {
     if (publicKey) await _generate('userPublic');
     if (secretKey) await _generate('userPrivate');
 
-    context.result = context.params.before;
+    // context.result = context.params.before;
+
+    return context;
   };
 };

@@ -468,20 +468,13 @@ class Scheduler extends Component {
 
   multiRecurrencerValuesToTimings = values => {
     const { weekStartsOn } = this.props;
-
     const UTCweekdays = ['SU', 'MO', 'TU', 'WE', 'TH', 'FR', 'SA'];
-    const weekdays = [
-      ...UTCweekdays.slice(weekStartsOn),
-      ...UTCweekdays.slice(0, weekStartsOn)
-    ];
-
     const valuesToDuplicate = this.extractTimings(values.frequence);
 
     return valuesToDuplicate.map(valueToDuplicate => {
       const beginWeekdayIndex = valueToDuplicate.begin.getUTCDay();
       const beginWeekday = RRule[UTCweekdays[beginWeekdayIndex]];
       const wkst = RRule[UTCweekdays[weekStartsOn]];
-      const weekday = [valueToDuplicate.begin.getDay() - weekStartsOn];
 
       const addFn = values.frequence === 'weekly' ? dateFns.addWeeks : dateFns.addMonths;
 
@@ -497,8 +490,8 @@ class Scheduler extends Component {
         : undefined;
       let byweekday;
 
-      if (values.frequence === 'weekly' && weekday && weekday.length) {
-        byweekday = weekday.map(v => RRule[weekdays[v]]);
+      if (values.frequence === 'weekly') {
+        byweekday = beginWeekday;
       } else if (
         values.frequence === 'monthly'
         && values.monthlyIntervalType === 'weekday'
