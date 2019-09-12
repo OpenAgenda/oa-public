@@ -1,6 +1,6 @@
 import DST from '../src/utils/DST';
 
-describe('02 - unit - DST', () => {
+describe('unit - DST', () => {
   describe('hasSwitched', () => {
     it('hasSwitched gives true when DST has occurred between dates', () => {
       expect(

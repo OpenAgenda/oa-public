@@ -1,6 +1,6 @@
 import valueToStepPosition from '../src/utils/valueToStepPosition';
 
-describe('03 - unit - valueToStepPosition', () => {
+describe('unit - valueToStepPosition', () => {
   const props = {
     activeWeek: new Date('2019-10-27T00:00:00.000Z'),
     weekStartsOn: 0,
