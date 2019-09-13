@@ -6,8 +6,6 @@ const { Inbox, InboxUsers } = require('@openagenda/inboxes');
 const agendasSvc = require('@openagenda/agendas');
 const stakeholdersSvc = require('@openagenda/agenda-stakeholders');
 const mails = require('@openagenda/mails');
-const makeLabelGetter = require('@openagenda/labels');
-const getInboxLabel = makeLabelGetter(require('@openagenda/labels/inboxes/mail'));
 const log = require('@openagenda/logs')('services/inboxes/onMessageCreate');
 const genUrl = require('../genUrl');
 const usersSvc = require('../../services/users');
@@ -93,22 +91,6 @@ async function getSenderName({ inboxUser, conversation, message }) {
   }
 }
 
-function getSubjectLabel({ conversation, agenda, lang }) {
-  switch (conversation.type) {
-    case 'contact_form':
-      return getInboxLabel('emailSubjectContactForm', { agenda: agenda.title }, lang);
-    case 'event':
-      return getInboxLabel('emailSubjectEvent', {
-        agenda: agenda.title,
-        event: conversation.store.params.eventTitle
-      }, lang);
-    case 'request_contribute':
-      return getInboxLabel('emailSubjectRequestContribute', { agenda: agenda.title }, lang);
-  }
-
-  return getInboxLabel('newMessageSubject', lang);
-}
-
 async function sendMail({ inboxUser, conversation, message }) {
   const getAgenda = promisify(agendasSvc.get);
 
@@ -120,8 +102,6 @@ async function sendMail({ inboxUser, conversation, message }) {
       { uid: conversation.store.params.agendaUid },
       { private: null, includeImagePath: true, internal: true }
     ) : null;
-
-  const subject = getSubjectLabel({ conversation, agenda, lang });
 
   const logo = agenda && agenda.image
     ? { src: agenda.image.replace('.com/', '.com/rwtb'), width: '100px' }
@@ -186,7 +166,6 @@ async function sendMail({ inboxUser, conversation, message }) {
     references: reference,
     inReplyTo: reference,
     data: {
-      subject,
       logo,
       link,
       senderName,

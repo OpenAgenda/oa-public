@@ -1,6 +1,18 @@
 "use strict";
 
 module.exports = {
+  "subject": {
+    "fr": "OpenAgenda | Nouveau message",
+    "en": "OpenAgenda | New message",
+    "de": "OpenAgenda | Neue Nachricht",
+    "es": "OpenAgenda | Nuevo mensaje"
+  },
+  "subjectWithAgenda": {
+    "fr": "OpenAgenda | %agenda% | Nouveau message",
+    "en": "OpenAgenda | %agenda% | New message",
+    "de": "OpenAgenda | %agenda% | Neue Nachricht",
+    "es": "OpenAgenda | %agenda% | Nuevo mensaje"
+  },
   "title": {
     "fr": "Vous avez reçu un nouveau message.",
     "en": "You have received a new message.",

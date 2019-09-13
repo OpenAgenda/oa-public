@@ -10,28 +10,49 @@
     <%- include( '../partials/header.mjml' ) %>
 
     <mj-content>
-      <mj-column>
-        <mj-text>
-          <h1 class="title"><%= __( 'title', { agenda, event } ) %></h1>
-        </mj-text>
+      <mj-section>
+        <mj-column>
+          <mj-text>
+            <h1 class="title"><%= __( 'title', { agenda, event } ) %></h1>
+          </mj-text>
 
-        <mj-markdown>
-          <%- __( 'body', {
-            event: _.escape( event ),
-            sourceAgenda: _.escape( sourceAgenda ),
-            state: __( state )
-          } ) %>
-        </mj-markdown>
+          <mj-markdown>
+            <%- __( 'body', {
+              event: _.escape( event ),
+              sourceAgenda: _.escape( sourceAgenda ),
+              state: __( state )
+            } ) %>
+          </mj-markdown>
+        </mj-column>
+      </mj-section>
 
-        <mj-button
-          background-color="#41acdd"
-          color="white"
-          align="center"
-          href="<%= link %>"
-        >
-          <%= __( 'actionDescription' ) %>
-        </mj-button>
-      </mj-column>
+      <mj-section>
+        <mj-column>
+          <mj-button
+            align="<%= typeof contactLink !== 'undefined' ? 'right' : 'center' %>"
+            background-color="#41acdd"
+            color="white"
+            align="center"
+            href="<%= link %>"
+          >
+            <%= __( 'actionDescription' ) %>
+          </mj-button>
+        </mj-column>
+
+        <% if (typeof contactLink !== 'undefined') { %>
+        <mj-column>
+          <mj-button
+            align="left"
+            background-color="#41acdd"
+            color="white"
+            align="center"
+            href="<%= contactLink %>"
+          >
+            <%= __( 'contactAgenda' ) %>
+          </mj-button>
+        </mj-column>
+        <% } %>
+      </mj-section>
     </mj-content>
 
     <%- include( '../partials/footer.mjml' ) %>

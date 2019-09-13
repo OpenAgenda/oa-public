@@ -66,6 +66,7 @@ module.exports = async ({ root }, { agendaEvent, context }) => {
         state: stateLabel,
         logo,
         link,
+        contactLink: `${root}/${agenda.slug}/contact`,
         sourceAgenda: sourceAgenda.title
       },
       lang: creatorLang

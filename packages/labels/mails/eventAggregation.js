@@ -2,21 +2,21 @@
 
 module.exports = {
   "title": {
-    "fr": "%agenda% a agrégé un nouvel événement: %event%",
-    "en": "%agenda% has aggregated a new event: %event%",
+    "fr": "%agenda% a repris un nouvel événement: %event%",
+    "en": "%agenda% took over a new event: %event%",
     "de": "%agenda% hat ein neues Veranstaltung aggregiert : %event% ",
-    "es": " %agenda% recaudó un nuevo evento:%event%"
+    "es": "%agenda% recaudó un nuevo evento: %event%"
   },
   "body": {
-    "fr": "**%event%** provenant de l'agenda **%sourceAgenda%** a été agrégé avec le statut **%state%**.",
-    "en": "**%event%** from the agenda **%sourceAgenda%** has been aggregated with the state **%state%**.",
+    "fr": "**%event%** provenant de l'agenda **%sourceAgenda%** a été repris avec le statut **%state%**.",
+    "en": "**%event%** from the agenda **%sourceAgenda%** was taken up with the state **%state%**.",
     "de": "**%event%** von der Kalender **%sourceAgenda%** hat sich mit dem Zustand **%state%** zusammengefasst.",
     "es": "**%event%** del agenda **%sourceAgenda%** fue asociado con el estado de **%state%**."
   },
   "bodyText": {
-    "fr": "%event% provenant de l'agenda %sourceAgenda% a été agrégé avec le statut %state%.",
-    "en": "%event% from the agenda %sourceAgenda% has been aggregated with the state %state%.",
-    "de": "%event%  von der Kalender %sourceAgenda% hat sich mit dem Zustand %state% zusammengefasst.",
+    "fr": "%event% provenant de l'agenda %sourceAgenda% a été repris avec le statut %state%.",
+    "en": "%event% from the agenda %sourceAgenda% was taken up with the state %state%.",
+    "de": "%event% von der Kalender %sourceAgenda% hat sich mit dem Zustand %state% zusammengefasst.",
     "es": "%event% del agenda %sourceAgenda% fue asociado con el estado de %state%."
   },
   "actionDescription": {
