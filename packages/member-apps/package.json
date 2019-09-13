@@ -32,8 +32,14 @@
   },
   "peerDependencies": {
     "final-form": "^4.18.5",
+    "history": "^4.10.1",
     "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react-dom": "^16.8.6",
+    "react-redux": "^7.1.1",
+    "react-router": "^5.0.0",
+    "react-router-config": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "redux": "^4.0.1"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.5.5",
@@ -47,21 +53,15 @@
     "@openagenda/validators": "^2.2.1",
     "classnames": "^2.2.5",
     "core-js": "^3.2.1",
-    "history": "^4.9.0",
     "hoist-non-react-statics": "^3.3.0",
     "js-base64": "^2.5.1",
-    "knex": "^0.16.3",
+    "knex": "^0.19.4",
     "lodash": "^4.17.4",
     "prop-types": "^15.5.8",
     "qs": "^6.6.0",
     "react-bootstrap": "^0.32.4",
     "react-final-form": "^6.3.0",
-    "react-redux": "^7.1.1",
-    "react-router": "^5.0.0",
-    "react-router-config": "^5.0.0",
-    "react-router-dom": "^5.0.0",
-    "redial": "^0.5.0",
-    "redux": "^4.0.1"
+    "redial": "^0.5.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.5",
@@ -78,13 +78,19 @@
     "eslint": "^6.2.1",
     "express": "^4.16.4",
     "final-form": "^4.18.5",
+    "history": "^4.10.1",
     "lint-staged": "^9.2.5",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.9",
     "prettier-eslint-cli": "^5.0.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.1",
+    "react-router": "^5.0.0",
+    "react-router-config": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "redux": "^4.0.1",
     "rimraf": "^2.6.2",
-    "webpack": "^4.39.3"
+    "webpack": "^4.40.1"
   }
 }

@@ -12,7 +12,7 @@
     "clean": "rimraf build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.4.3",
+    "@babel/runtime-corejs3": "^7.6.0",
     "@openagenda/activity-apps": "^1.1.2",
     "@openagenda/react-utils": "^4.0.0",
     "core-js": "^3.0.1",
@@ -22,8 +22,8 @@
     "redux": "^4.0.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
+    "@babel/cli": "^7.6.0",
+    "@babel/core": "^7.6.0",
     "babel-preset-openagenda": "^1.1.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",

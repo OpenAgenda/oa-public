@@ -21,17 +21,13 @@ module.exports = ( env = {}, argv = {} ) => {
   const envName = process.env.NODE_ENV || env.NODE_ENV || defaultEnvName;
   const babelEnvName = process.env.BABEL_ENV || env.BABEL_ENV || envName;
 
-  const pushToCDN = envName === 'production' && parseInt( process.env.CDN || env.CDN );
+  const pushToCDN = envName === 'production' && parseInt( process.env.CDN || env.CDN, 10 );
 
   return {
     mode: envName === 'production' ? 'production' : 'development',
     devtool: envName === 'production' ? 'source-map' : 'eval-source-map',
     entry: {
-      webapp: [
-        '@babel/polyfill',
-        'dom4',
-        path.join( __dirname, 'client/index.js' )
-      ]
+      webapp: path.join( __dirname, 'client/index.js' )
     },
     output: {
       path: path.join( __dirname, 'dist' ),
