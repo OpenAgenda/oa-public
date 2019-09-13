@@ -1,19 +1,38 @@
 {
   "name": "@openagenda/members",
-  "version": "1.7.0",
+  "version": "1.15.0",
   "scripts": {
-    "test": "mocha"
+    "prepublish": "yarn build",
+    "test": "jest --runInBand --testEnvironment=node",
+    "lint": "eslint -c .eslintrc '**/*.js'",
+    "build": "rimraf build && babel iso -d build -s",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc",
+      "git add"
+    ]
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.1",
     "@openagenda/validators": "^2.1.6",
+    "immutability-helper": "^3.0.1",
     "knex": "^0.16.3",
     "lodash": "^4.17.4",
     "slug": "0.9.1"
   },
   "devDependencies": {
-    "mocha": "^4.0.1",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/eslint-config": "^1.0.0",
+    "eslint": "^6.2.1",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.3",
     "mysql": "^2.13.0",
-    "should": "^8.2.2"
+    "prettier-eslint-cli": "^5.0.0"
   }
 }

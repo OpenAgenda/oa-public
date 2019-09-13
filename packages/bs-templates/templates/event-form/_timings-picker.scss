@@ -1031,6 +1031,7 @@ $dayInWeek: 7;
 
 .rtp__calendar .rtp__header .rtp__prev-week,
 .rtp__calendar .rtp__header .rtp__next-week {
+  display: inline-block;
   cursor: pointer;
   font-weight: 700;
   -webkit-user-select: none;
@@ -1688,6 +1689,14 @@ $dayInWeek: 7;
 .rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-error__disabledTimings ul {
   margin: 4px 0;
   padding-left: 30px;
+}
+
+.rtp__calendar .rtp__recurrencer-modal .rtp__recurrencer-confirmation-icon,
+.rtp__calendar .rtp__multi-recurrencer-modal .rtp__recurrencer-confirmation-icon {
+  text-align: center;
+  margin-top: 12px;
+  font-size: 24px;
+  color: $oa-green;
 }
 
 /* Weekday picker */

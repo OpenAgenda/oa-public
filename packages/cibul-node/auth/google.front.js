@@ -87,19 +87,19 @@ function _processSignin( req, res, next ) {
       res: res
     })
 
-    .then( auth.attemptAuth )
+      .then( auth.attemptAuth )
 
-    .then( auth.ifUserLoaded( false, auth.attemptCreate ) )
+      .then( auth.ifUserLoaded( false, auth.attemptCreate ) )
 
-    .then( auth.ifUserLoaded( false, auth.errors.existingEmail ) )
+      .then( auth.ifUserLoaded( false, auth.errors.existingEmail ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.signin ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.signin ) ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.defaultMessage ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.defaultMessage ) ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.renderSignin ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.renderSignin ) ) )
 
-    .done( auth.done , cmn.catchError( req, res ) );
+      .done( auth.done , cmn.catchError( req, res ) );
 
   } )( req, res, next );
 
@@ -118,19 +118,19 @@ function _processSignup( req, res, next ) {
       data: data
     } )
 
-    .then( auth.attemptCreate )
+      .then( auth.attemptCreate )
 
-    .then( auth.ifUserLoaded( false, auth.errors.existingEmail ) )
+      .then( auth.ifUserLoaded( false, auth.errors.existingEmail ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.attemptAuth ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.attemptAuth ) ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.signin ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.signin ) ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.defaultMessage  )) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.defaultMessage  )) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.renderSignup ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.renderSignup ) ) )
 
-    .done( auth.done , cmn.catchError( req, res ) );
+      .done( auth.done , cmn.catchError( req, res ) );
 
   } )( req, res, next );
 

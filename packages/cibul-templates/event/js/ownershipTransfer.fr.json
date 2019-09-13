@@ -2,5 +2,7 @@
   "Ownership transfer"
   : "Transfert de propriété",
   "Type the email of the user to which you want to handover this event"
-  : "Saisissez l'email de l'utilisateur vers qui transférer cet événement"
+  : "Saisissez l'email de l'utilisateur vers qui transférer cet événement",
+  "Transfer"
+  : "Transférer"
 }

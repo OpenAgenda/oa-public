@@ -2,6 +2,8 @@
 
 module.exports = app => {
 
+  require( './services/users' ).expose( app );
+  require( './services/mails' ).expose( app );
   require( './event/search.front' )( app );
   require( './agenda/back' )( app );
   require( './inboxes/endpoints' )( app );
@@ -9,9 +11,9 @@ module.exports = app => {
   //require( './services/portals' )( app );
   require( './services/surveys' )( app );
   require( './services/agendaContribute' )( app );
+  require( './services/agendaEvents' )( app );
   require( './services/agendaSchema' )( app );
   require( './services/networkApps' )( app );
-  require( './services/users' )( app );
   require( './services/abilities' )( app );
   require( './services/mails/unsubscription' )( app );
   require( './event/files' )( app );
@@ -32,7 +34,6 @@ module.exports = app => {
   require( './auth/google.front' )( app );
   require( './auth/local.front' )( app );
   require( './auth/reset.front' )( app );
-  require( './agenda/stakeholders.back' )( app );
   require( './agenda/emailstrategie.back' )( app );
   require( './agenda/embeds.back' )( app );
   require( './location/front' )( app );
@@ -41,8 +42,8 @@ module.exports = app => {
   require( './agenda/settings.back' )( app );
   require( './agenda/sources.back' )( app );
   require( './services/members' )( app );
-  require( './agenda/members.back' )( app );
   require( './agenda/activities.back' )( app );
+  require( './services/activities' )( app );
   require( './agenda/shares.front' )( app );
   require( './agenda/front' )( app );
   require( './agenda/exports.back' )( app );
@@ -51,6 +52,5 @@ module.exports = app => {
   require( './agenda/customized.back' )( app );
   require( './agenda/actions.front' )( app );
   require( './agenda/exports.front' )( app );
-  require( './activities/notifications.back' )( app );
 
 };

@@ -3,7 +3,7 @@
     "scriptParams" : {
       "res": {
         "agendas": "agendas.data.json",
-        "stakeholders": "stakeholders.data.json"
+        "members": "members.data.json"
       }
     }
   }

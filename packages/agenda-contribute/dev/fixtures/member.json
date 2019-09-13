@@ -1,8 +1,8 @@
 {
-  "name": "Gaetan Latouche",
-  "phone": "+33 (0)6 50 91 00 12",
+  "contactName": "Gaetan Latouche",
+  "contactNumber": "+33 (0)6 50 91 00 12",
   "email": "gaetan@cibul.net",
-  "position": "Test user",
-  "organisation": "OpenAgenda Corp.",
+  "contactPosition": "Test user",
+  "organization": "OpenAgenda Corp.",
   "role" : "contributor"
 }

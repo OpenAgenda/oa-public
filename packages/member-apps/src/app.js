@@ -1,3 +1,5 @@
+/* global __CLIENT__, __DEVELOPMENT__ */
+
 import _ from 'lodash';
 import React from 'react';
 import { createBrowserHistory, createMemoryHistory } from 'history';
@@ -34,29 +36,30 @@ const defaults = {
   }
 };
 
-function getDefaultHistory( req ) {
+function getDefaultHistory(req) {
   return req
-    ? createMemoryHistory( { initialEntries: [ req.originalUrl ] } )
+    ? createMemoryHistory({ initialEntries: [req.originalUrl] })
     : createBrowserHistory();
 }
 
-export default function ( options ) {
+export default function (options) {
   const {
     initialState,
     Header,
     req,
-    notFoundKey = _.uniqueId( 'members' )
-  } = _.merge( {}, defaults, options );
+    notFoundKey = _.uniqueId('members')
+  } = _.merge({}, defaults, options);
   const { apiRoot, prefix } = initialState.settings;
 
-  const client = apiClient( apiRoot, req );
-  const history = options.history || getDefaultHistory( req );
+  const client = apiClient(apiRoot, req);
+  const history = options.history || getDefaultHistory(req);
+  const helpers = {};
   const store = createStore(
     getReducers,
     initialState,
     compose(
       applyMiddleware(
-        clientMiddleware( { client } )
+        clientMiddleware(helpers)
         // ... other middlewares ... (like redux-logger)
       ),
       __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
@@ -64,22 +67,27 @@ export default function ( options ) {
         : v => v
     )
   );
-  const helpers = {
+  Object.assign(helpers, {
     client,
     store,
     history,
     location: history.location
-  };
+  });
   const staticContext = {};
 
-  const routes = getRoutes( prefix, notFoundKey );
-  const triggerHooks = makeTriggerHooks( { routes, history, helpers, req } );
+  const routes = getRoutes(prefix, notFoundKey);
+  const triggerHooks = makeTriggerHooks({
+    routes,
+    history,
+    helpers,
+    req
+  });
   const content = (
     <NotFound.Capture notFoundKey={notFoundKey}>
       <RouterTrigger trigger={triggerHooks}>
         <Provider store={store} context={ReactReduxContext}>
           {Header ? <Header history={history} /> : null}
-          {renderRoutes( routes )}
+          {renderRoutes(routes)}
         </Provider>
       </RouterTrigger>
     </NotFound.Capture>
@@ -87,9 +95,13 @@ export default function ( options ) {
   const element = (
     <Router history={history}>
       <ScrollToTop>
-        {req
-          ? <StaticRouter location={req.originalUrl} context={staticContext}>{content}</StaticRouter>
-          : content}
+        {req ? (
+          <StaticRouter location={req.originalUrl} context={staticContext}>
+            {content}
+          </StaticRouter>
+        ) : (
+          content
+        )}
       </ScrollToTop>
     </Router>
   );
@@ -103,4 +115,4 @@ export default function ( options ) {
     staticContext,
     triggerHooks
   };
-};
+}

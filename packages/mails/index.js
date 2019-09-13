@@ -1,52 +1,56 @@
 'use strict';
 
-const fs = require( 'fs' );
-const path = require( 'path' );
-const _ = require( 'lodash' );
-const addressParser = require( 'nodemailer/lib/addressparser' );
-const isEmail = require( 'isemail' );
-const VError = require( 'verror' );
-const log = require( '@openagenda/logs' )( 'mails/index' );
-const task = require( './task' );
-const templater = require( './templater' );
-const config = require( './config' );
+const fs = require('fs');
+const path = require('path');
+const _ = require('lodash');
+const addressParser = require('nodemailer/lib/addressparser');
+const isEmail = require('isemail');
+const VError = require('verror');
+const log = require('@openagenda/logs')('mails/index');
+const task = require('./task');
+const templater = require('./templater');
+const config = require('./config');
 
-function recipientToArray( recipient ) {
+function recipientToArray(recipient) {
   return typeof recipient === 'object' && recipient !== null
-    ? addressParser( recipient.address ).map( v => ( { ...recipient, ...v } ) )
+    ? addressParser(recipient.address).map(v => ({ ...recipient, ...v }))
     : recipient;
 }
 
-function flattenRecipients( recipients ) {
-  return ( Array.isArray( recipients ) ? recipients : [ recipients ] ).reduce(
-    ( result, recipient ) => result.concat( typeof recipient === 'string' ? addressParser( recipient ) : recipientToArray( recipient ) ),
+function flattenRecipients(recipients) {
+  return (Array.isArray(recipients) ? recipients : [recipients]).reduce(
+    (result, recipient) => result.concat(
+      typeof recipient === 'string'
+        ? addressParser(recipient)
+        : recipientToArray(recipient)
+    ),
     []
   );
 }
 
-async function sendMail( options = {} ) {
-  if ( options.template ) {
-    const templateDir = path.join( config.templatesDir || '', options.template );
+async function sendMail(options = {}) {
+  if (options.template) {
+    const templateDir = path.join(config.templatesDir || '', options.template);
 
-    if ( !fs.existsSync( templateDir ) ) {
-      throw new Error( `Email template '${options.template}' does not exist` );
+    if (!fs.existsSync(templateDir)) {
+      throw new Error(`Email template '${options.template}' does not exist`);
     }
   }
 
   const defaultLang = options.lang || config.defaults.lang;
   const compiled = options.template && options.queue === false
-    ? await templater.compile( options.template, {
-      ..._.pick( options, 'disableHtml', 'disableText', 'disableSubject' ),
+    ? await templater.compile(options.template, {
+      ..._.pick(options, 'disableHtml', 'disableText', 'disableSubject'),
       lang: defaultLang
-    } )
+    })
     : null;
-  const recipients = flattenRecipients( options.to );
+  const recipients = flattenRecipients(options.to);
 
   const results = [];
   const errors = [];
 
-  for ( const recipient of recipients ) {
-    if ( !isEmail.validate( recipient.address ) ) {
+  for (const recipient of recipients) {
+    if (!isEmail.validate(recipient.address)) {
       const error = new VError(
         {
           info: {
@@ -55,8 +59,8 @@ async function sendMail( options = {} ) {
         },
         'Invalid email address'
       );
-      log.error( error );
-      errors.push( error );
+      log.error(error);
+      errors.push(error);
       continue;
     }
 
@@ -72,45 +76,54 @@ async function sendMail( options = {} ) {
     };
 
     try {
-      if ( params.queue === false ) {
-        if ( typeof config.sendFilter === 'function' ) {
-          const allowed = await config.sendFilter( params );
+      if (params.queue === false) {
+        if (typeof config.sendFilter === 'function') {
+          const allowed = await config.sendFilter(params);
 
-          if ( !allowed ) {
-            log.info( 'Sending filtered', { recipient, template: options.template } );
+          if (!allowed) {
+            log.info('Sending filtered', {
+              recipient,
+              template: options.template
+            });
             continue;
           }
         }
 
-        if ( typeof config.beforeSend === 'function' ) {
-          await config.beforeSend( params );
+        if (typeof config.beforeSend === 'function') {
+          await config.beforeSend(params);
         }
 
-        if ( compiled ) {
-          const labels = ( config.translations.labels || {} )[ params.template ] || {};
-          params.data.__ = config.translations.makeLabelGetter( labels, params.data.lang );
+        if (compiled) {
+          const labels = (config.translations.labels || {})[params.template] || {};
+          params.data.__ = config.translations.makeLabelGetter(
+            labels,
+            params.data.lang
+          );
 
-          if ( !params.disableHtml && compiled.html ) {
-            params.html = compiled.html( params.data );
+          if (!params.disableHtml && compiled.html) {
+            params.html = compiled.html(params.data);
           }
 
-          if ( !params.disableText && compiled.text ) {
-            params.text = compiled.text( params.data );
+          if (!params.disableText && compiled.text) {
+            params.text = compiled.text(params.data);
           }
 
-          if ( !params.disableSubject && compiled.subject ) {
-            params.subject = compiled.subject( params.data );
+          if (!params.disableSubject && compiled.subject) {
+            params.subject = compiled.subject(params.data);
           }
         }
       }
 
       const method = params.queue === false
-        ? config.transporter.sendMail.bind( config.transporter )
-        : config.queues.prepareMails.bind( config.queues.prepareMails, 'method' );
-      const result = await method( params );
+        ? config.transporter.sendMail.bind(config.transporter)
+        : config.queues.prepareMails.bind(
+          config.queues.prepareMails,
+          'method'
+        );
+      const result = await method(params);
 
-      results.push( result );
-    } catch ( error ) {
+      results.push(result);
+    } catch (error) {
       const wrappedError = new VError(
         {
           info: params,
@@ -118,8 +131,8 @@ async function sendMail( options = {} ) {
         },
         'Error on sending mail'
       );
-      log.error( wrappedError );
-      errors.push( wrappedError );
+      log.error(wrappedError);
+      errors.push(wrappedError);
     }
   }
 
@@ -133,7 +146,8 @@ module.exports = Object.assign(
   sendMail,
   {
     task,
-    init: config.init
+    init: config.init,
+    addressParser
   },
   templater
 );

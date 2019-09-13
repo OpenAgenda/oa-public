@@ -30,28 +30,27 @@ module.exports = ( { entry, output } ) => ({
         enforce: 'pre',
         loader: 'source-map-loader'
       },
-      getBabelRule( path.join( __dirname, '..' ) ),
-      ...getBabelModuleRules( [
+      getBabelRule(path.join(__dirname, '..')),
+      ...getBabelModuleRules([
         '@openagenda/agenda-settings',
         '@openagenda/home',
         '@openagenda/user-apps'
-      ] ),
+      ]),
       {
         test: /\.ejs$/,
-        loader: 'ejs-compiled-loader-webpack4',
+        loader: 'ejs-compiled-loader-webpack4'
       },
       {
         test: /\.(css|html|tblr)$/,
-        loader: 'raw-loader',
+        loader: 'raw-loader'
       }
     ]
   },
   resolve: {
     // symlinks: false,
-    extensions: [ '.js', '.jsx', '.json' ],
+    extensions: ['.js', '.jsx', '.json'],
     alias: {
-      'react': require.resolve( 'react' ),
-      'react-dom': require.resolve( 'react-dom' )
+      'react': require.resolve('react')
     }
   },
   performance: {
@@ -60,17 +59,17 @@ module.exports = ( { entry, output } ) => ({
   },
   plugins: [
     new ManifestPlugin(),
-    new ProgressBar( { minimal: false } ),
-    new CleanWebpackPlugin( {
-      cleanOnceBeforeBuildPatterns: [ '**/*.chunk.js' ]
-    } ),
-    new webpack.DefinePlugin( {
+    new ProgressBar({ minimal: false }),
+    new CleanWebpackPlugin({
+      cleanOnceBeforeBuildPatterns: ['**/*.chunk.js']
+    }),
+    new webpack.DefinePlugin({
       'process.env.NODE_ENV': '"development"',
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true,
       __DEVTOOLS__: true
-    } ),
+    }),
     new LoadablePlugin(),
     new webpack.NamedModulesPlugin()
   ],

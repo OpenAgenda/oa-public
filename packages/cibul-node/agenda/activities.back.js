@@ -13,12 +13,13 @@ const agendas = require( '@openagenda/agendas' );
 const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'activities' }
 );
+const members = require('../services/members');
 
 const preMw = [
   cmn.loadLogger( 'agendaActivities' ),
   sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
   cmn.loadAgenda,
-  cmn.authorize.moderator,
+  members.mw.loadAndAuthorize('moderator')
 ];
 
 const appMw = [
@@ -108,7 +109,7 @@ async function matchApp( req, res, next ) {
     }
 
     res.send( layout( `<div class="js_canvas">${content}</div>`, {
-      role: req.role,
+      role: req.member.role,
       lang: req.lang,
       agenda: req.agenda,
       bodyAttributes: [

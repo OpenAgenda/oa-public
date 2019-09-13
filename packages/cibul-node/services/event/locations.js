@@ -6,8 +6,6 @@ const config = require( '../../config' );
 
 const model = require( '../model' );
 
-const stakeholders = require( '@openagenda/agenda-stakeholders' );
-
 const log = require( '@openagenda/logs' )( 'services/event/locations' );
 
 let svc;
@@ -18,8 +16,7 @@ module.exports = function( s ) {
 
   return {
     getEventCount,
-    locationDidUpdate,
-    getStakeholder
+    locationDidUpdate
   }
 
 }

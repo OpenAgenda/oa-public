@@ -1,7 +1,7 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const validators = require( '@openagenda/validators' );
+const _ = require('lodash');
+const validators = require('@openagenda/validators');
 
 let service;
 let config;
@@ -14,12 +14,12 @@ module.exports = {
     get,
     set
   },
-  stakeholders: {
-    list: agendaStakeholdersList
+  members: {
+    list: membersList
   }
 };
 
-function init( s, c ) {
+function init(s, c) {
 
   service = s;
 
@@ -31,7 +31,7 @@ function init( s, c ) {
       }
     },
     c.mw || {},
-    _.pick( c, 'interfaces' )
+    _.pick(c, 'interfaces')
   );
 
   agendas = c.services.agendas;
@@ -39,7 +39,7 @@ function init( s, c ) {
 }
 
 
-function list( req, res, next ) {
+function list(req, res, next) {
 
   let query = req.query.oas,
 
@@ -51,82 +51,80 @@ function list( req, res, next ) {
 
   try {
 
-    page = validators.number( {
+    page = validators.number({
       min: 1,
       default: 1
-    } )( req.query.searchPage );
+    })(req.query.searchPage);
 
-    offset = ( page - 1 ) * limit;
+    offset = (page - 1) * limit;
 
-  } catch ( e ) {
+  } catch (e) {
   }
 
-  if ( !req.xhr ) return next();
+  if (!req.xhr) return next();
 
   // bad practice to call a service inside another service
-  agendas.list( query, offset, limit, {
+  agendas.list(query, offset, limit, {
     total: true,
     detailed: true,
     private: null
-  }, ( err, agendas, total ) => {
+  }, (err, agendas, total) => {
 
-    if ( err ) return next( err );
+    if (err) return next(err);
 
-    return res.json( { agendas, total } );
+    return res.json({ agendas, total });
 
-  } );
+  });
 
 }
 
-function get( req, res, next ) {
+function get(req, res, next) {
 
   // bad practice to call a service inside another service
-  agendas.get( req.query, { detailed: true, internal: true, private: null }, ( err, agenda ) => {
+  agendas.get(req.query, { detailed: true, internal: true, private: null }, (err, agenda) => {
 
-    if ( err ) return next( err );
+    if (err) return next(err);
 
-    return res.json( _extendWithConfig( agenda ) );
+    return res.json(_extendWithConfig(agenda));
 
-  } );
+  });
 
 }
 
-function _extendWithConfig( agenda ) {
+function _extendWithConfig(agenda) {
 
-  return _.extend( agenda, {
+  return _.extend(agenda, {
     config: {
       credentials: config.interfaces.getAgendaCredentialDetails()
     }
-  } )
+  })
 
 }
 
-function set( req, res, next ) {
+function set(req, res, next) {
 
   // bad practice to call a service inside another service
-  agendas.set( { uid: req.params.uid }, req.body, {
+  agendas.set({ uid: req.params.uid }, req.body, {
     internal: true,
     protected: false,
     private: null,
     context: req.context || null
-  }, ( err, result ) => {
+  }, (err, result) => {
 
-    if ( err ) return next( err );
+    if (err) return next(err);
 
-    result.agenda = _extendWithConfig( result.agenda );
+    result.agenda = _extendWithConfig(result.agenda);
 
-    return res.json( result );
+    return res.json(result);
 
-  } );
+  });
 
 }
 
 
-function agendaStakeholdersList( req, res, next ) {
+async function membersList(req, res, next) {
 
-  let agendaId = req.query.agendaId,
-
-    query = { order: 'credential' },
+  let agendaUid = parseInt( req.query.agendaUid, 10 ),
 
     offset = 0,
 
@@ -136,26 +134,33 @@ function agendaStakeholdersList( req, res, next ) {
 
   try {
 
-    page = validators.number( {
+    page = validators.number({
       min: 1,
       default: 1
-    } )( req.query.stakeholdersPage );
+    })(req.query.membersPage);
 
-    offset = ( page - 1 ) * limit;
+    offset = (page - 1) * limit;
 
-  } catch ( e ) {
+  } catch (e) {
   }
 
   // bad practice to call a service inside another service
-  service.stakeholders.list( agendaId, query, offset, limit, { deletedUser: null }, ( err, stakeholders, total ) => {
+  try {
+    const { total, members } = await service.members.list(
+      {
+        agendaUid,
+        deletedUser: null
+      },
+      { order: 'role.desc', offset, limit },
+      { total: true, detailed: true, userOptions: { detailed: true } }
+    );
 
-    if ( err ) return next( err );
-
-    return res.json( {
-      stakeholders: stakeholders,
-      total: total
+    res.json( {
+      members,
+      total
     } );
-
-  } );
+  } catch (e) {
+    return next(e);
+  }
 
 }

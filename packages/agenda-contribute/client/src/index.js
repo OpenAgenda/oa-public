@@ -1,5 +1,3 @@
-if ( !window._babelPolyfill ) require( '@babel/polyfill' );
-
 import _ from 'lodash';
 
 import React from 'react';

@@ -1,6 +1,8 @@
-"use strict";
+'use strict';
 
 module.exports = {
-  testEnvironment: 'node',
-  setupTestFrameworkScriptFile: '<rootDir>/test/setup.js'
+  displayName: '@openagenda/users',
+  transform: {},
+
+  testEnvironment: 'node'
 };

@@ -7,22 +7,22 @@ import AbilitiesEditor from '../src/client/AbilitiesEditor';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
-function withJestSleep( ms = 1 ) {
-  return element => ( process.env.STORYBOOK_MODE === 'test'
+function withJestSleep(ms = 1) {
+  return element => (process.env.STORYBOOK_MODE === 'test'
     ? {
       element,
       jestWaitTime: ms
     }
-    : element );
+    : element);
 }
 
-const getHostname = () => ( typeof window !== 'undefined' ? window.location.hostname : 'localhost' );
+const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
-storiesOf( 'AbilitiesEditor', module )
-  .addDecorator( withKnobs )
-  .add( 'for a user', () => withJestSleep( 1500 )(
+storiesOf('AbilitiesEditor', module)
+  .addDecorator(withKnobs)
+  .add('for a user', () => withJestSleep(1500)(
     <AbilitiesEditor
-      locale={select( 'Locale', { Français: 'fr', English: 'en' }, 'fr' )}
+      locale={select('Locale', { Français: 'fr', English: 'en' }, 'fr')}
       entityName="user"
       identifier={99999999}
       res={{
@@ -32,10 +32,10 @@ storiesOf( 'AbilitiesEditor', module )
         }/abilities/form-index`
       }}
     />
-  ) )
-  .add( 'with HeaderComponent', () => withJestSleep( 1500 )(
+  ))
+  .add('with HeaderComponent', () => withJestSleep(1500)(
     <AbilitiesEditor
-      locale={select( 'Locale', { Français: 'fr', English: 'en' }, 'fr' )}
+      locale={select('Locale', { Français: 'fr', English: 'en' }, 'fr')}
       entityName="user"
       identifier={99999999}
       res={{
@@ -46,10 +46,10 @@ storiesOf( 'AbilitiesEditor', module )
       }}
       HeaderComponent={() => <div>Un header bidon</div>}
     />
-  ) )
-  .add( 'with filter input', () => withJestSleep( 1500 )(
+  ))
+  .add('with filter input', () => withJestSleep(1500)(
     <AbilitiesEditor
-      locale={select( 'Locale', { Français: 'fr', English: 'en' }, 'fr' )}
+      locale={select('Locale', { Français: 'fr', English: 'en' }, 'fr')}
       entityName="user"
       identifier={99999999}
       res={{
@@ -66,4 +66,4 @@ storiesOf( 'AbilitiesEditor', module )
         </div>
       )}
     />
-  ) );
+  ));

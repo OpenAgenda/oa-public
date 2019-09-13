@@ -49,4 +49,24 @@ storiesOf( 'App', module )
         </div>
       </div>
     );
+  } )
+  .add( 'unavailable conversation', () => {
+    const { element, triggerHooks } = createApp( {
+      history: createMemoryHistory( { initialEntries: [ '/conversation/123' ] } ),
+      initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
+    } );
+
+    triggerHooks();
+
+    return (
+      <div className="container top-margined">
+        <div className="row wsq">
+          <div className="margin-all-sm">
+            <div className="inbox inbox-user">
+              {element}
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   } );

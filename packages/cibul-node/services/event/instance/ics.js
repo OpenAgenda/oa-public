@@ -70,7 +70,9 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
 
     }
 
-    return i <= 10 || t.start.toISOString().split( 'T' )[ 0 ] >= today;
+    const start = t.start instanceof Date ? t.start.toISOString() : t.start + '';
+
+    return i <= 10 || start.split( 'T' )[ 0 ] >= today;
 
   } )
 

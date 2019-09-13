@@ -82,7 +82,7 @@ function agenda( aId ) {
     transferEvent: transferEvent( agendaId ),
     instanciate: agendaStakeholderInstanciate,
     new: newStakeholder,
-    settings: { 
+    settings: {
       get: s.get,
       set: s.set,
       clear: s.clear,
@@ -164,7 +164,7 @@ function init( c, cb ) {
     if ( c.logger ) {
 
       logger.setModuleConfig( c.logger );
-      
+
     }
 
   } )
@@ -269,9 +269,9 @@ function init( c, cb ) {
 
   .then( () => {
 
-    stats.init( { 
-      knex, 
-      schemas, 
+    stats.init( {
+      knex,
+      schemas,
       interfaces: config.interfaces
     } );
 
@@ -316,8 +316,6 @@ function init( c, cb ) {
   } )
 
   .done( err  => {
-
-    log( 'init done' );
 
     if ( !cb ) return;
 

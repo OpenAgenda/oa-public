@@ -11,7 +11,6 @@ const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/e
 const errorLabels = require( '@openagenda/labels/errors' );
 const sessions = require( '@openagenda/sessions' );
 const members = require( '../services/members' );
-const stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 
 const cacheMw = require( '../lib/cache.mw' );
 const cmn = require( '../lib/commons-app' );
@@ -93,8 +92,11 @@ module.exports = app => {
         res.redirect( 302, `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirect}` );
       }
     ),
-    stakeholderMw.agenda().get(),
-    cmn.ifIsNot( 'stakeholder', cmn.renderUnauthorized() ),
+    members.mw.load,
+    ( req, res, next ) => {
+      if ( !req.member ) return cmn.renderUnauthorized( req, res, next );
+      next();
+    },
     middlewares.agendaEventShow
   );
 
@@ -178,7 +180,7 @@ module.exports = app => {
     '/agendas/:uid/previewEmbeds/:embedUid/events/:eventUid',
     preMw,
     legacyAgendaSvc.mw.load( 'uid' ),
-    cmn.checkAdministrator(),
+    members.mw.loadAndAuthorize('administrator'),
     embedSvc.mw.load( 'embedUid', 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
     _switchEmbedLang,

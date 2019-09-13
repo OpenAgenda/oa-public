@@ -1,36 +1,34 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const log = require( '@openagenda/logs' )( 'remove' );
+const log = require('@openagenda/logs')('remove');
 
-const cleanRemoveOptions = require( './lib/cleanRemoveOptions' );
-const get = require( './get' );
+const cleanRemoveOptions = require('./lib/cleanRemoveOptions');
+const get = require('./get');
 
-module.exports = async ( config, identifiers, options = {} ) => {
-
+module.exports = async (config, identifiers, options = {}) => {
   const { knex, schema, interfaces } = config;
 
-  const {
-    context
-  } = cleanRemoveOptions( options );
+  const { context } = cleanRemoveOptions(options);
 
-  const member = await get( config, identifiers );
+  const member = await get(config, identifiers);
 
-  if ( !member ) throw new Error( 'Not found' );
+  if (!member) throw new Error('Not found');
 
-  await knex( schema ).delete().where( 'id', member.id );
+  await knex(schema)
+    .delete()
+    .where('id', member.id);
 
-  if ( _.get( interfaces, 'onRemove' ) ) {
+  if (_.get(interfaces, 'onRemove')) {
     try {
-      await interfaces.onRemove( member, context );
-    } catch ( e ) {
-      log( 'error', 'interface onRemove exception for member %s', member.id, e );
+      await interfaces.onRemove(member, context);
+    } catch (e) {
+      log('error', 'interface onRemove exception for member %s', member.id, e);
     }
   }
 
   return {
     success: true
-  }
-
-}
+  };
+};

@@ -55,30 +55,27 @@ export default class Agendas extends Component {
 
     return (
       <div className="actions">
-        {[ 4 ].includes( agenda.stakeholder.credential ) && <a
+        {[ 4 ].includes( agenda.member.role ) && <a
           href={res.agendas[ agenda.private ? 'showPrivate' : 'show' ].replace( ':slug', agenda.slug )}
         >
           {getLabel( 'see' )}
         </a>}
-        {[ 2, 3 ].includes( agenda.stakeholder.credential ) && <a
+        {[ 2, 3 ].includes( agenda.member.role ) && <a
           href={res.agendas.moderate.replace( ':slug', agenda.slug )}
         >
-          {agenda.stakeholder.credential === 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
+          {agenda.member.role === 2 ? getLabel( 'manage' ) : getLabel( 'moderate' )}
         </a>}
-        {[ 1, 2, 3 ].includes( agenda.stakeholder.credential ) && (
-          <a
-            href={(agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent)
-              .replace( ':slug', agenda.slug )}
-          >
-            {getLabel( 'addAnEvent' )}
-          </a>
-        )}
-        {![ 2, 3 ].includes( agenda.stakeholder.credential ) && _.get( agenda, 'mailto' ) && <a
+        {[ 1, 2, 3 ].includes( agenda.member.role ) && <a
+          href={( agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent ).replace( ':slug', agenda.slug )}
+        >
+          {getLabel( 'addAnEvent' )}
+        </a>}
+        {![ 2, 3 ].includes( agenda.member.role ) && _.get( agenda, 'mailto' ) && <a
           href={_.get( agenda, 'mailto' )}
         >
           {getLabel( 'contact' )}
         </a>}
-        {![ 2, 3 ].includes( agenda.stakeholder.credential ) && !_.get( agenda, 'mailto' ) && <a
+        {![ 2, 3 ].includes( agenda.member.role ) && !_.get( agenda, 'mailto' ) && <a
           href={res.agendas.contact.replace( ':slug', agenda.slug )}
         >
           {getLabel( 'contact' )}

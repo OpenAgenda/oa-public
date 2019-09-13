@@ -11,7 +11,9 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/update' );
 const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
 const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
-const legacy = require( '../../../services/legacy' );
+const aggregators = require('../../../services/aggregator').instance;
+const legacy = require('../../../services/legacy');
+const legacyEventSearch = require('../../../services/elasticsearch');
 const processOEmbed = require( '../utils/processOEmbed' );
 const setCustom = require( '../utils/setCustom' );
 const validate = require( './validate' );
@@ -51,7 +53,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     formSchema: agenda.formSchema,
     networkFormSchema: _.get( agenda, 'network.formSchema' ),
     defaultLang
-  }, data, { draft, formSchemaDataFormat, optionalState: true, partial } );
+  }, data, { draft, formSchemaDataFormat, optionalStateAndFeatured: true, partial } );
 
   if ( clean.event.longDescription ) try {
 
@@ -65,18 +67,33 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
 
   }
 
-  // update the event
-  let result = await events.update( { uid: eventUid }, toEventServiceFormat( clean.event, null, { raw: data, partial } ), {
-    context: {
-      agendaUid,
-      userUid: contextUserUid,
-      updateSearchIndex: false
-    },
-    detailed: true,
-    internal: true,
-    transferToLegacy: !draft,
-    draft
+  let result;
+
+  const eventServiceDataFormat = toEventServiceFormat( clean.event, null, {
+    raw: data,
+    partial
   } );
+
+  try {
+    result = await events.update( { uid: eventUid }, eventServiceDataFormat, {
+    context: {
+        agendaUid,
+        userUid: contextUserUid,
+        updateSearchIndex: false
+      },
+      detailed: true,
+      internal: true,
+      transferToLegacy: !draft,
+      draft
+    } );
+  } catch ( e ) {
+    log( 'error', 'failed to update event', {
+      agendaUid: agenda.uid,
+      eventUid,
+      eventServiceDataFormat
+    } );
+    throw e;
+  }
 
   if ( !result.valid ) {
 
@@ -110,10 +127,12 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
         event: updated.event,
         agenda,
         batched
-      }
+      },
+      decorate: ['member']
     } );
 
     updated.agendaEvent = result.set;
+    updated.agendaEventBefore = result.before;
 
   }
 
@@ -144,6 +163,32 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
       ] );
     } catch ( e ) {
       log( 'error', 'failed to set legacy tags and custom data', e );
+    }
+  }
+
+  if (!draft) {
+    try {
+      await legacyEventSearch.updateEvent({ uid: eventUid });
+    } catch (e) {
+      log('error', 'could not update legacy search for event %s', eventUid, e);
+    }
+  }
+
+  if (false) {
+    if (_.get(updated, 'agendaEvent.state')===2 && (_.get(updated, 'agendaEventBefore.state')!==2)) {
+      aggregators.notifyPublish({
+        ..._.pick(updated, ['event', 'agendaEvent', 'custom', 'networkCustom']),
+        agenda,
+        formSchemas: {
+          agenda: _.get(agenda, 'formSchema'),
+          network: _.get(agenda, 'network.formSchema')
+        }
+      });
+    } else if (_.get(updated, 'agendaEvent.state')!==2 && (_.get(updated, 'agendaEventBefore.state')===2)) {
+      aggregators.notifyUnpublish({
+        ..._.pick(updated, ['event', 'agendaEvent', 'custom', 'networkCustom']),
+        agenda
+      });
     }
   }
 

@@ -4,12 +4,12 @@ const _ = require( 'lodash' );
 const w = require( 'when' );
 const log = require( '@openagenda/logs' )( 'auth/twitter.front' );
 const sessions = require( '@openagenda/sessions' );
-const usersSvc = require( '@openagenda/users' );
 const cmn = require( '../lib/commons-app' );
 const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'twitter' );
 const genUrl = require( '../services/genUrl' );
 const agendaSvc = require( '../services/agenda' );
+const usersSvc = require( '../services/users' );
 const config = require( '../config' );
 
 
@@ -117,25 +117,25 @@ function _processSignin( req, res, next ) {
 
     w( { err, profile, req, res } )
 
-    .then( auth.attemptAuth )
+      .then( auth.attemptAuth )
 
-    .then( auth.ifUserLoaded( false, _attemptUsernameLoad ) )
+      .then( auth.ifUserLoaded( false, _attemptUsernameLoad ) )
 
-    .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, _resendActivationToken ) ) )
+      .then( auth.ifUserLoaded( true, auth.ifUserActivated( false, _resendActivationToken ) ) )
 
-    .then( auth.ifUserLoaded( false, _attemptTwitterCreate ) )
+      .then( auth.ifUserLoaded( false, _attemptTwitterCreate ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.defaultMessage ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.defaultMessage ) ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.renderSignup ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.renderSignup ) ) )
 
-    .done( function( values ) {
+      .done( function( values ) {
 
-      req.log( 'signinCallback controller complete' );
+        req.log( 'signinCallback controller complete' );
 
-    }, cmn.catchError( req, res ) );
+      }, cmn.catchError( req, res ) );
 
   } )(req, res, next );
 
@@ -150,19 +150,19 @@ function _processSignup( req, res, next ) {
 
     w( { req: req, res: res, err: err, profile: profile, data: data } )
 
-    .then( auth.attemptAuth )
+      .then( auth.attemptAuth )
 
-    .then( auth.ifUserLoaded( false, _attemptTwitterCreate ) )
+      .then( auth.ifUserLoaded( false, _attemptTwitterCreate ) )
 
-    // .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( false, _resendActivationToken ) ) ) )
+      // .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( false, _resendActivationToken ) ) ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToComplete ) ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( false, auth.redirectToComplete ) ) ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( true, auth.ifUserActivated( true, auth.signin ) ) ) )
 
-    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.renderSignup ) ) )
+      .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.renderSignup ) ) )
 
-    .done( auth.done, cmn.catchError( req, res ) );
+      .done( auth.done, cmn.catchError( req, res ) );
 
   })( req, res, next );
 
@@ -177,9 +177,9 @@ function _resendActivationToken( values ) {
 
   return w( values )
 
-  .then( _createAndSend )
+    .then( _createAndSend )
 
-  .then( auth.redirectToComplete );
+    .then( auth.redirectToComplete );
 
 }
 
@@ -190,11 +190,11 @@ function _attemptTwitterCreate( values ) {
 
   return w( values )
 
-  .then( _redirectEmailFormIfNoProfileEmail )
+    .then( _redirectEmailFormIfNoProfileEmail )
 
-  .then( auth.ifUnresolved( auth.attemptCreate ) )
+    .then( auth.ifUnresolved( auth.attemptCreate ) )
 
-  .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.existingEmail ) ) );
+    .then( auth.ifUnresolved( auth.ifUserLoaded( false, auth.errors.existingEmail ) ) );
 
 }
 
@@ -219,6 +219,7 @@ function _loadTwitterProfile( req, token, refreshToken, profile, done ) {
 
 
 function _attemptUsernameLoad( values ) {
+
 
   return w.promise( function( resolve, reject ) {
 
@@ -319,7 +320,7 @@ async function _createAndSend( values ) {
   } );
 
   if ( token ) {
-    await usersSvc.config.interfaces.sendToken()( { result: token, params: { user: values.user, optionals } } );
+    await usersSvc.config.interfaces.sendToken( config )( { result: token, params: { user: values.user, optionals } } );
   } else {
     token = await usersSvc.tokens.create(
       { userId: values.user.id, email: values.user.email, type: 'aa' },

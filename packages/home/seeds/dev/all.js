@@ -11,9 +11,6 @@ exports.seed = async knex => {
   await promisify( fixtures )( [ {
     table: schemas.agenda,
     src: __dirname + '/review.sql'
-  }, {
-    table: schemas.stakeholder,
-    src: __dirname + '/reviewer.sql'
   } ] );
 
   await promisify( eventsSvc.initAndLoad )( _.merge( {}, testconfig, testconfig.services.events ), [

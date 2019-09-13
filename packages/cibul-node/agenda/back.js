@@ -4,10 +4,12 @@ const _ = require( 'lodash' );
 
 const app = require( 'express' )();
 const fs = require( 'fs' );
-const sessions = require( '@openagenda/sessions' );
 const agendasSvc = require( '@openagenda/agendas' );
 const agendaStatistics = require( '../services/agendaStatistics' );
 const cmn = require( '../lib/commons-app' );
+
+const members = require( '../services/members' );
+const sessions = require( '../services/sessions' );
 
 const layout = require( '../services/lib/layouts' ).load( 'agendaAdmin' );
 
@@ -26,11 +28,12 @@ const statsTemplate = _.template( fs.readFileSync( __dirname + '/stats.tpl', 'ut
 
 module.exports = parentApp => parentApp.use( '/', app );
 
-app.use( '/:agendaSlug/admin/getting-started', [
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+app.use('/:agendaSlug/admin/getting-started', [
+  sessions.mw.loadOrRedirect,
   agendaLoad,
-  cmn.authorize.administrator
-] );
+  members.mw.loadAndAuthorize('administrator'),
+  _gettingStarted
+]);
 
 
 /**
@@ -40,8 +43,9 @@ app.use( [
   '/:agendaSlug/admin/stats',
   '/:agendaSlug/admin/stats/resync/:type'
 ], [
-  cmn.loadLogger( 'agendaBack' ),
-  agendaLoad
+  sessions.mw.load,
+  agendaLoad,
+  cmn.checkAdminOrModeratorOrKey
 ] );
 
 
@@ -54,14 +58,12 @@ app.get( '/agendas/:agendaUid/admin/*?(/*)?', agendaAdminRedirect );
  * statistics route
  */
 
-app.get( '/:agendaSlug/admin/stats', async ( req, res, next ) => {
-
-  return res.send( layout(
+app.get( '/:agendaSlug/admin/stats',
+  async (req, res, next) => res.send( layout(
     statsTemplate( await agendaStatistics( req.agenda.uid ) ),
-    req
-  ) );
-
-} );
+    {...req, role: req.member.role}
+  ) )
+)
 
 app.get( '/:agendaSlug/admin/stats/transfer-form-schema', async ( req, res ) => {
 
@@ -126,31 +128,27 @@ function agendaAdminRedirect( req, res, next ) {
  * getting started route
  */
 
-app.get( '/:agendaSlug/admin/getting-started', [
-  cmn.checkAdministrator( { useLegacy: false } ),
-  ( req, res ) => {
+function _gettingStarted(req, res, next) {
+  return res.send( layout( `<div class="js_canvas getting-started"></div>`, {
+    lang: req.lang,
+    agenda: req.agenda,
+    role: req.member.role,
+    bodyAttributes: [ {
+      name: 'data-options',
+      value: JSON.stringify( {
+        res: {
+          agenda: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
+          setImage: req.genUrl( 'agendaSettingsSetImage', { slug: req.agenda.slug } ),
+          clearImage: req.genUrl( 'agendaSettingsClearImage', { slug: req.agenda.slug } ),
+          addEvent: req.genUrl( 'agendaEventNew', { slug: req.agenda.slug } ),
+          createEmbed: `/${req.agenda.slug}/admin/webembed`
+        },
+        lang: _.get( req, 'lang', 'fr' )
+      } )
+    } ],
+    scripts: {
+      bottom: [ { src: '/js/agendaAdminGettingStarted.js' } ]
+    }
+  } ) );
 
-    return res.send( layout( `<div class="js_canvas getting-started"></div>`, {
-      lang: req.lang,
-      agenda: req.agenda,
-      role: req.role,
-      bodyAttributes: [ {
-        name: 'data-options',
-        value: JSON.stringify( {
-          res: {
-            agenda: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
-            setImage: req.genUrl( 'agendaSettingsSetImage', { slug: req.agenda.slug } ),
-            clearImage: req.genUrl( 'agendaSettingsClearImage', { slug: req.agenda.slug } ),
-            addEvent: req.genUrl( 'agendaEventNew', { slug: req.agenda.slug } ),
-            createEmbed: `/${req.agenda.slug}/admin/webembed`
-          },
-          lang: _.get( req, 'lang', 'fr' )
-        } )
-      } ],
-      scripts: {
-        bottom: [ { src: '/js/agendaAdminGettingStarted.js' } ]
-      }
-    } ) );
-
-  }
-] );
+}

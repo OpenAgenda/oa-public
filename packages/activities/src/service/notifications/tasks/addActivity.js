@@ -7,28 +7,20 @@ const queue = require( '@openagenda/queue' );
 const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const groupBy = require( '../lib/groupBy' );
 
-let config;
-let knex;
-let service;
-let q;
+module.exports = config => {
+  const q = queue( config.queue.names.addActivity, { redis: config.queue.redis } );
 
-module.exports = Object.assign( task, { init, addActivity } );
+  return Object.assign(
+    addActivity.bind( null, config ),
+    { task: task.bind( null, config, q ) }
+  );
+};
 
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-  q = queue( config.queue.names.addActivity, { redis: config.queue.redis } );
-
-}
-
-function task( onAdd = null ) {
+function task( config, q, onAdd = null ) {
 
   q.setConsumer( ( { identifiers, activity }, cb ) => {
 
-    addActivity( identifiers, activity, ( err, result ) => {
+    addActivity( config, identifiers, activity, ( err, result ) => {
 
       if ( err && err.message !== 'The notifications concern only user feeds' ) {
         log( 'error', 'Error in addActivity task: %s', err );
@@ -80,14 +72,16 @@ function parseArguments( identifiers, activity, options, cb ) {
 
 }
 
-function addActivity() {
+function addActivity( config ) {
+
+  const { service, knex } = config;
 
   let {
     identifiers,
     activity,
     options,
     cb
-  } = parseArguments.apply( null, arguments );
+  } = parseArguments.apply( null, Array.from( arguments ).slice( 1 ) );
 
   const params = _.merge( {
     excludeIds: []

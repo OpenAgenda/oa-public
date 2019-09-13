@@ -2,16 +2,16 @@
 
 const https = require( 'https' );
 const _ = require( 'lodash' );
+const qs = require( 'qs' );
 const w = require( 'when' );
-const usersSvc = require( '@openagenda/users' );
 const sessions = require( '@openagenda/sessions' );
 const invitationsSvc = require( '@openagenda/invitations' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/signin' ) );
 const log = require( '@openagenda/logs' )( 'auth/local' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/activation' ) );
 const agendaSvc = require( '../services/agenda' );
+const usersSvc = require( '../services/users' );
 const cmn = require( '../lib/commons-app' );
-const lib = require( '../lib/lib' );
 const auth = require( './lib/auth' );
 const pLib = require( './lib/passport' );
 const config = require( '../config' );
@@ -224,6 +224,10 @@ function signupSubmit( req, res ) {
           values.data.errors = { email: 'usedEmail' };
         }
 
+        if ( err && _.find( err.errors, { field: 'fullName', code: 'required' } ) ) {
+          values.data.errors = { fullName: 'fieldCannotBeEmpty' };
+        }
+
         if ( _.isObject( err.errors ) && Object.keys( err.errors ) > 0 ) {
           values.data.errors = err.errors;
         }
@@ -248,13 +252,11 @@ function signupSubmit( req, res ) {
 
 function signupComplete( req, res ) {
 
-  const resendQuery = lib.extend( auth.loadOptionals( req ), { email: req.query.email } );
-
-  if ( req.agenda ) resendQuery.slug = req.agenda.slug;
+  const resendQuery = Object.assign( auth.loadOptionals( req ), { email: req.query.email } );
 
   cmn.render( req, res, 'auth/activation', {
     agenda: req.agenda,
-    resendQuery
+    resend: ( req.agenda ? `/${req.agenda.slug}/activate/resend` : '/activate/resend' ) + qs.stringify( resendQuery, { addQueryPrefix: true } )
   } );
 
 }
@@ -289,9 +291,12 @@ async function activateResend( req, res ) {
       } );
 
       if ( token ) {
-        await usersSvc.config.interfaces.sendToken()( { result: token, params: { user, optionals } } );
+        await usersSvc.config.interfaces.sendToken( config )( {
+          result: token,
+          params: { user, optionals }
+        } );
       } else {
-        token = await await usersSvc.tokens.create(
+        token = await usersSvc.tokens.create(
           { userId: user.id, email: user.email, type: 'aa' },
           { user, optionals }
         );
@@ -342,7 +347,7 @@ async function activate( req, res ) {
 
       if ( err || !invitation ) return auth.signin( { req, res, user } );
 
-      const actions = invitation.data.actions.filter( v => v.name === 'linkStakeholder' );
+      const actions = invitation.data.actions.filter( v => v.name === 'linkMember' );
 
       if ( actions.length === 1 ) {
 

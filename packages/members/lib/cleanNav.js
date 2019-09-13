@@ -1,12 +1,13 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
+const text = require('@openagenda/validators/text');
 
-schema.register( {
-  text: require( '@openagenda/validators/text' )
-} );
+schema.register({
+  text
+});
 
-module.exports = schema( {
+module.exports = schema({
   after: {
     type: 'text',
     list: true,
@@ -31,10 +32,12 @@ module.exports = schema( {
     options: [
       'id.asc',
       'id.desc',
+      'role.asc',
+      'role.desc',
       'slug.asc',
       'slug.desc',
       'actionsCounter.asc',
       'actionsCounter.desc'
     ]
   }
-} );
+});

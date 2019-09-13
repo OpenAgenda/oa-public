@@ -18,7 +18,8 @@ let legacyES;
 const LIMIT = 20;
 
 module.exports = {
-  init
+  init,
+  updateEvent: () => { throw new Error('Service is not initialized'); }
 }
 
 function init( config ) {
@@ -412,7 +413,7 @@ function _clean( query, params ) {
 
     }
 
-    clean.uids = uids.map( uid => parseInt( uid ) );
+    clean.uids = uids.map( uid => parseInt( uid ) ).filter( uid => !!uid );
 
   }
 

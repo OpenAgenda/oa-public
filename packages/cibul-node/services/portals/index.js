@@ -6,8 +6,10 @@ const express = require( 'express' );
 const qs = require( 'qs' );
 
 const agendas = require( '@openagenda/agendas' );
-const log = require( '@openagenda/logs' )( 'services/portals' );
+const logs = require( '@openagenda/logs' );
+const log = logs( 'services/portals' );
 const Portal = require( '@openagenda/agenda-portal' );
+const portalLogger = require( '@openagenda/agenda-portal/lib/Log' );
 
 let p;
 
@@ -33,6 +35,18 @@ module.exports.init = async config => {
     get: get.bind( null, config.port ),
     clearCache: () => {}
   }
+
+  portalLogger.set(namespace => {
+    const logger = logs(`agenda-portal:${namespace}`);
+
+    logger.setConfig( {
+      debug: {
+        prefix: 'svc:'
+      }
+    } )
+
+    return logger;
+  })
 
   p = await Portal( {
     root: agenda => `${config.root}/portals/${agenda.uid}`,

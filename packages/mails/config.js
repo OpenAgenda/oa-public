@@ -1,17 +1,18 @@
 'use strict';
 
-const path = require( 'path' );
-const _ = require( 'lodash' );
-const nodemailer = require( 'nodemailer' );
-const VError = require( 'verror' );
-const logs = require( '@openagenda/logs' );
-const makeLabelGetter = require( './utils/makeLabelGetter' );
+const path = require('path');
+const _ = require('lodash');
+const nodemailer = require('nodemailer');
+const VError = require('verror');
+const logs = require('@openagenda/logs');
+const makeLabelGetter = require('./utils/makeLabelGetter');
 
-const log = logs( 'mails/config' );
-const logTransporter = logs( 'mails/transporter' );
+const log = logs('mails/config');
+const logTransporter = logs('mails/transporter');
 
 const config = {
-  templatesDir: process.env.MAILS_TEMPLATES_DIR || path.join( process.cwd(), 'templates' ),
+  templatesDir:
+    process.env.MAILS_TEMPLATES_DIR || path.join(process.cwd(), 'templates'),
   transport: {
     pool: true,
     host: '127.0.0.1',
@@ -34,26 +35,26 @@ const config = {
   disableVerify: false
 };
 
-async function init( c = {} ) {
-  if ( c.logger ) {
-    logs.setModuleConfig( c.logger );
+async function init(c = {}) {
+  if (c.logger) {
+    logs.setModuleConfig(c.logger);
   }
 
-  Object.assign( config, c );
+  Object.assign(config, c);
 
   // Queue
-  if ( config.queue && config.defaults.queue !== false ) {
+  if (config.Queues && config.defaults.queue !== false) {
     config.queues = {
-      prepareMails: await config.queue( `pre-${config.queueName}` ),
-      sendMails: await config.queue( config.queueName )
+      prepareMails: await config.Queues(`pre-${config.queueName}`),
+      sendMails: await config.Queues(config.queueName)
     };
   }
 
   const transportLogger = {
-    error: ( data, ...rest ) => logTransporter.error( ...rest, data ),
-    warn: ( data, ...rest ) => logTransporter.warn( ...rest, data ),
-    info: ( data, ...rest ) => logTransporter.info( ...rest, data ),
-    debug: ( data, ...rest ) => logTransporter.debug( ...rest, data )
+    error: (data, ...rest) => logTransporter.error(...rest, data),
+    warn: (data, ...rest) => logTransporter.warn(...rest, data),
+    info: (data, ...rest) => logTransporter.info(...rest, data),
+    debug: (data, ...rest) => logTransporter.debug(...rest, data)
   };
 
   // Transporter
@@ -66,18 +67,21 @@ async function init( c = {} ) {
     config.defaults
   );
 
-  if ( !config.disableVerify ) {
+  if (!config.disableVerify) {
     try {
       await config.transporter.verify();
-    } catch ( error ) {
-      const wrappedError = new VError( error, 'Invalid transporter configuration' );
-      log.error( wrappedError );
+    } catch (error) {
+      const wrappedError = new VError(
+        error,
+        'Invalid transporter configuration'
+      );
+      log.error(wrappedError);
       throw wrappedError;
     }
   }
 }
 
-module.exports = _.extend( config, {
+module.exports = _.extend(config, {
   init,
   getConfig: () => config
-} );
+});

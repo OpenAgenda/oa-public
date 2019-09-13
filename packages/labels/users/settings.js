@@ -31,6 +31,12 @@ module.exports = {
     "de": "Email",
     "es": "e-mail"
   },
+  "newEmail": {
+    "en": "New e-mail address",
+    "fr": "Nouvelle adresse email",
+    "de": "Neue E-Mail-Adresse",
+    "es": "Nueva dirección de correo electrónico"
+  },
   "password": {
     "en": "Password",
     "fr": "Mot de passe",

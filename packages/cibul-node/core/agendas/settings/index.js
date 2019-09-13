@@ -15,7 +15,8 @@ module.exports = agendaUid => {
   return {
     get: getMergedSchema.bind( null, agendaUid ), // deprecate
     schema: {
-      get: getSchema.bind( null, agendaUid ),
+      get: getSchema.bind(null, agendaUid),
+      getNetwork: getSchema.network.bind(null, agendaUid),
       getMerged: getMergedSchema.bind( null, agendaUid ),
       updateFields: updateSchemaFields.bind( null, config, agendaUid )
     },

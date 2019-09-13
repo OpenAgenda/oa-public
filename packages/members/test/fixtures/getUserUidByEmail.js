@@ -1,3 +1,8 @@
-"use strict";
+'use strict';
 
-module.exports = async email => 22;
+module.exports = async email => {
+  if (email === 'truc@delinterface.fr') {
+    return 22;
+  }
+  return null;
+};

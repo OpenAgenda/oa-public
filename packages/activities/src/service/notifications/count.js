@@ -8,26 +8,13 @@ const validators = require( '@openagenda/validators' );
 const notificationStates = require( '../notificationStates' );
 
 
-let config;
-let knex;
-let service;
-
-
 schema.register( {
   choice: validators.choice,
   text: validators.text
 } );
 
 
-module.exports = Object.assign( count, { init } );
-
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
+module.exports = count;
 
 function parseArguments( identifiers, query, cb ) {
 
@@ -57,13 +44,15 @@ function parseArguments( identifiers, query, cb ) {
 
 }
 
-function count() {
+function count( config ) {
+
+  const { service, knex } = config;
 
   let {
     identifiers,
     query,
     cb
-  } = parseArguments.apply( null, arguments );
+  } = parseArguments.apply( null, Array.from( arguments ).slice( 1 ) );
 
   if ( identifiers.entityType && identifiers.entityType !== 'user' ) {
 

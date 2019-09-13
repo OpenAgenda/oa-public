@@ -50,8 +50,7 @@ describe( 'extended events - functional (iso): getDecorate', () => {
         value: 'checkbox-1',
         label: {
           fr: 'La checkbox 1'
-        },
-        legacyId: 29190,
+        }
       }, {
         id: 101112,
         value: 'checkbox-2',

@@ -6,8 +6,11 @@
     </header>
     <div class="js_popup_content popup-content">
       <p><%= __( 'Type the email of the user to which you want to handover this event') %></p>
-      <form class="form-group" method="get" action="<%= res %>">
-        <input class="form-control" type="email" placeholder="email" name="email"/>
+      <form class="form-inline" method="post" action="<%= res %>">
+        <div class="form-group">
+          <input class="form-control" type="email" placeholder="email" name="email" style="width:20em;"/>
+        </div>
+        <button type="submit" class="btn btn-primary"><%= __( 'Transfer' ) %></button>
       </form>
     </div>
   </section>

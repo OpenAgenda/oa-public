@@ -5,8 +5,24 @@ This library provides functionalities to build a fully customizable events websi
 Here is a website built with this library: [https://agenda.albi.fr](https://agenda.albi.fr)
 
 [Handlebars](https://handlebarsjs.com/) is the main templating engine.
-[Sass](https://sass-lang.com/) for styling. The default template uses [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/theming/)
+[Sass](https://sass-lang.com/) for styling. Default templates use [Bootstrap 4](https://getbootstrap.com/docs/4.0/getting-started/theming/)
 
+# Features
+
+## For site users
+
+ * **Event search** : mirrors search featured available on [OpenAgenda](https://openagenda.com) by forwarding filters to the matching agenda **JSON** export
+ * **Event list pagination**: event lists can be either paginated or loaded progressively as the user scrolls
+ * **Lateral navigation**: When a search is made and an event is opened, the user can shuffle through events of the current search without going back to the list
+ * **Caching**: redis caching
+
+## For developers
+
+ * **Bootstrap client**: to start working on a sandbox project in a matter of minutes
+ * **Live reload for integrators**: The portal reloads as templates or styles are customized on file saves
+ * **Structured event data**: ready-to-use `json+ld` sets are ready for use on templates for search engine indexing
+ * **Filter widgets**: Customizable map, tag, search field, calendar components
+ * **View variables**: add `?data` to current url to see available data for use in templates
 
 # Quick start
 
@@ -99,6 +115,26 @@ When a search is done on the main agenda page and an event is selected, it is lo
 
 The partial illustrating this is `navigation.hbs`
 
+### Filtering javascript widgets
+
+Look for the widgets folder in the sample partial templates for an example of implementation. These widgets provide navigation features:
+
+ * **Map widget**: Placed next to the main event list, this widget allows filtering the events dynamically by navigating in the map.
+ * **Calendar widget**: Placed next to the main event list, this widget provides date and date range filtering.
+ * **Tags**: Placed next to the main event list, this widget provides grouped tags filtering.
+ * **Search**: Placed next to the main event list, this widget provides text search filtering.
+ * **Preview**: This widget can be placed on any page. By default, it loads the three first events of the agenda. It is demoed on the provided 404 template page.
+
+*Important note*: OpenAgenda provides the same widgets for iframe integration. The iframe variants of the widgets are not directly compatible with this library. Use the codes as provided in the sample templates, under the `widgets` folder.
+
+#### Map
+
+Place the partial `widgets/map.hbs` where the map is to appear. Widget options can be set under the `map` key of the Portal call in your `server.js` file:
+
+ * `tiles`: the map tiles to be used.
+ * `auto`: boolean. If `true` panning and zooming actions on the map will update the current list filter accordingly.
+ * `center`: Preset center at initialization. Object of 3 required keys: `latitude`, `longitude`, `center`
+
 # Miscellaneous
 
 ## Static pages
@@ -120,19 +156,6 @@ You can access the value in a template like this:
     {{yourOwnKey}}
 
 This is useful if you need to specify additional account keys, such as google analytics for example, or a facebook page url...
-
-
-## Front javascript widgets
-
-Look for the widgets folder in the sample partial templates for an example of implementation. These widgets provide navigation features:
-
- * **Map widget**: Placed next to the main event list, this widget allows filtering the events dynamically by navigating in the map.
- * **Calendar widget**: Placed next to the main event list, this widget provides date and date range filtering.
- * **Tags**: Placed next to the main event list, this widget provides grouped tags filtering.
- * **Search**: Placed next to the main event list, this widget provides text search filtering.
- * **Preview**: This widget can be placed on any page. By default, it loads the three first events of the agenda. It is demoed on the provided 404 template page.
-
-*Important note*: OpenAgenda provides the same widgets for iframe integration. The iframe variants of the widgets are not directly compatible with this library. Use the codes as provided in the sample templates, under the `widgets` folder.
 
 ## Displaying raw data
 

@@ -8,15 +8,16 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaSvc = require( '@openagenda/agendas' );
 const contributorLabels = require( '@openagenda/labels/event/contributors' );
 const eventReferences = require( '@openagenda/agenda-event-references' );
-const sessions = require( '@openagenda/sessions' );
-const activitiesSvc = require( '@openagenda/activities' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
 
 const core = require( '../core' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
-const STATETYPES = require( '../services/model' ).events().STATETYPES;
+const activitiesSvc = require( '../services/activities' );
+const sessions = require('../services/sessions');
+const members = require('../services/members');
+const STATETYPES = require('../services/model').events().STATETYPES;
 
 const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 
@@ -24,49 +25,26 @@ const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 module.exports = app => {
 
   app.get(
-    '/events/:eventSlug/state/:type',
-    legacyAgendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.checkEventEditor,
-    _checkAuthorizedChanges( [ STATETYPES.PUBLISHED ] ),
-    _changeState,
-    _redirect
-  );
-
-  app.get(
-    '/:slug/events/:eventSlug/state/:type',
-    legacyAgendaSvc.mw.load( 'slug' ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    cmn.checkAdminOrModerator,
-    _checkAuthorizedChanges( [ STATETYPES.VALIDATED, STATETYPES.NOTVALIDATED, STATETYPES.PUBLISHED, STATETYPES.REFUSED ] ),
-    _changeStateCredential,
-    _changeState,
-    _xhrResponse,
-    _redirect
-  );
-
-  app.get(
     '/:slug/events/:eventSlug/featured/:type',
-    legacyAgendaSvc.mw.load( 'slug' ),
+    sessions.mw.loadOrRedirect,
+    cmn.loadAgenda,
     eventSvc.mw.load( 'eventSlug', 'slug' ),
-    cmn.checkAdminOrModerator,
+    members.mw.loadAndAuthorize('moderator'),
     _checkAuthorizedChanges( [ 'featured', 'notfeatured' ] ),
-    _changeFeatured,
-    _redirect
+    _changeFeatured
   );
 
   app.get(
     '/agendas/:uid/events/:eventUid/custom',
     legacyAgendaSvc.mw.load( 'uid' ),
-    cmn.nonBlockingLoadMemberRole.bind( null, 'agenda' ),
+    sessions.mw.loadOrRedirect,
+    members.mw.load,
     ( req, res, next ) => {
-
       core.agendas( req.agenda.uid ).events.get( req.params.eventUid, {
         customOnly: true,
         includeSchema: true,
-        access: req.role || 'nobody',
+        access: req.member ? members.utils.getRoleSlug( req.member.role ) : 'nobody',
       } ).then( result => res.json( result ) );
-
     }
   );
 
@@ -74,17 +52,13 @@ module.exports = app => {
     '/agendas/:uid/events/:eventUid/private',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    cmn.nonBlockingLoadMemberRole.bind( null, 'agenda' ),
+    sessions.mw.loadOrRedirect,
+    members.mw.load,
     ( req, res, next ) => {
-
-      if ( ![ 'contributor', 'moderator', 'administrator' ].includes( req.role ) ) {
-
+      if (!req.member || !members.utils.compareRoles.isSuperiorToOrEqual('contributor')) {
         return res.sendStatus( 403 );
-
       }
-
       next();
-
     },
     eventSvc.mw.format,
     legacyAgendaSvc.mw.decorateEvent( true ),
@@ -94,38 +68,41 @@ module.exports = app => {
   app.get(
     '/agendas/:uid/events/:eventUid/references',
     legacyAgendaSvc.mw.load( 'uid' ),
+    sessions.mw.load,
+    members.mw.loadOr((req, res) => {
+      res.json({ references: null });
+    }),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    _loadAdminOrModerator,
     eventSvc.mw.components.getReferences,
     ( req, res, next ) => {
-
       res.json( {
         references: req.referencesRender,
         events: _monolingual( _.get( req, 'references', [] ), [ 'title', 'dateRange', 'description' ], req.lang )
       } );
-
     }
   );
 
   app.get(
     '/agendas/:uid/events',
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.mw.loadOrRedirect,
     legacyAgendaSvc.mw.load( 'uid' ),
-    ( req, res, next ) => {
-
+    members.mw.load,
+    (req, res, next) => {
       req.agendaId = req.agenda.id;
-
+      if (req.member) {
+        req.access = members.utils.getRoleSlug(req.member.role);
+      }
       next();
-
     },
-    _loadAdminOrModerator,
     eventReferences.mw.events,
-    ( req, res ) => res.json( _.pick( req, [ 'events' ] ) )
+    (req, res) => res.json( _.pick( req, [ 'events' ] ) )
   );
 
   app.get(
     [ '/agendas/:uid/events/suggestions', '/agendas/:uid/events/:eventUid/suggestions' ],
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    sessions.mw.loadOrRedirect,
+    cmn.loadAgendaBy('uid'),
+    members.mw.load,
     ( req, res, next ) => {
 
       req.agendaUid = req.params.uid;
@@ -159,7 +136,9 @@ module.exports = app => {
     '/agendas/:uid/events/:eventUid/activities',
     legacyAgendaSvc.mw.load( 'uid' ),
     eventSvc.mw.load( 'eventUid', 'uid' ),
-    cmn.checkAdminOrModerator,
+    members.mw.loadAndAuthorize('moderator', {
+      or: (req, res) => res.json({ count: 0})
+    }),
     ( req, res, next ) => {
 
       const limit = 20;
@@ -322,160 +301,21 @@ function _xhrResponse( req, res, next ) {
 
 }
 
-function _redirect( req, res ) {
-
-  const query = { eventSlug: req.event.slug };
-
-  let redirectUrl;
-
-  if ( req.query.redirect ) {
-
-    redirectUrl = cmn.getRedirect( req );
-
-  } else if ( req.agenda ) {
-
-    query.slug = req.agenda.slug;
-
-    redirectUrl = req.genUrl( 'agendaEventShow', query );
-
-  } else {
-
-    redirectUrl = req.genUrl( 'eventShow', query );
-
-  }
-
-  req.log( 'redirecting to %s', redirectUrl );
-
-  res.redirect( redirectUrl );
-
-}
-
-
-function _changeStateCredential( req, res, next ) {
-
-  if ( parseInt( req.params.type ) !== STATETYPES.PUBLISHED ) {
-
-    cmn.checkAdminOrModerator( req, res, next );
-
-  } else {
-
-    agendaSvc.get( { uid: req.agenda.uid }, { private: null }, ( err, agenda ) => {
-
-      const moderatorsCanPublish = _.get( agenda, 'settings.contribution.canPublish', [ 'moderators', 'administrators' ] ).includes( 'moderators' );
-
-      if ( moderatorsCanPublish ) return cmn.checkAdminOrModerator( req, res, next );
-
-      cmn.checkAdministrator( {
-        message: 'Only agenda administrators may publish events',
-        redirect: req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } )
-      } )( req, res, next );
-
-    } );
-
-  }
-
-}
-
-
-function _changeState( req, res, next ) {
-
-  req.log( 'updating state to %s', req.params.type );
-
-  req.event.setState( req.params.type, req.user, function ( err, result, { oldState, newState } ) {
-
-    if ( err ) {
-
-      return next( { code: 500 } );
-
-    }
-
-    oldState = parseInt( oldState );
-    newState = parseInt( newState );
-
-    if ( !req.xhr ) {
-
-      sessions.setFlash( req, res, __( 'stateChanged', req.lang ) );
-
-    }
-
-    if ( newState === 2 || oldState === 2 ) {
-
-      activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).activities.add( {
-        actor: 'user:' + req.user.uid,
-        verb: 'agenda.' + ( newState === 2 ? 'publish' : 'unpublish' ) + 'Event',
-        object: 'event:' + req.event.uid,
-        target: 'agenda:' + req.agenda.uid,
-        store: {
-          labels: {
-            actor: req.user.name,
-            object: req.event.title,
-            target: req.agenda.title
-          },
-          // origin is not always set. When the event was created by script for example.
-          originAgendaUid: req.event.origin ? req.event.origin.uid : null
-        }
-      }, () => {
-
-        next();
-
-      } );
-
-    } else if ( newState !== oldState ) {
-
-      activitiesSvc.feed( { entityType: 'agenda', entityUid: req.agenda.uid } ).activities.add( {
-        actor: 'user:' + req.user.uid,
-        verb: 'agenda.changeEventState',
-        object: 'event:' + req.event.uid,
-        target: 'agenda:' + req.agenda.uid,
-        store: {
-          labels: {
-            actor: req.user.name,
-            object: req.event.title,
-            target: req.agenda.title
-          },
-          oldState,
-          newState
-        }
-      }, () => {
-
-        next();
-
-      } );
-
-    }
-
-  } );
-
-}
-
 
 function _changeFeatured( req, res, next ) {
+  req.log('updating featured to %s', req.params.type);
 
-  const funcs = {
-    featured: req.agenda.setEventFeatured,
-    notfeatured: req.agenda.setEventUnfeatured
-  };
-
-  req.log( 'updating featured to %s', req.params.type );
-
-  agendaEvents( req.agenda.uid ).update( req.event.uid, {
+  core.agendas(req.agenda.uid).events.update(req.event.uid, {
     featured: req.params.type === 'featured'
-  }, { context: { userUid: req.user.uid } } );
-
-  funcs[ req.params.type ]( req.event, err => {
-
-    if ( err ) {
-
-      return next( { code: 500 } );
-
+  }, {
+    partial: true,
+    context: {
+      userUid: req.user.uid
     }
-
-    sessions.setFlash( req, res, __( req.params.type === 'featured' ? 'featuredChange' : 'unfeaturedChange', req.lang ) );
-
-    next();
-
-  } );
-
+  }).then(() => {
+    sessions.setFlash(req, res, __( req.params.type === 'featured' ? 'featuredChange' : 'unfeaturedChange', req.lang ));
+    res.redirect( 302, cmn.getRedirect( req ) || `/${req.agenda.slug}/events/${req.event.slug}` );
+  }, next);
 }
 
 
@@ -506,16 +346,5 @@ function _checkAuthorizedChanges( authorizedTypes ) {
     next();
 
   }
-
-}
-
-function _loadAdminOrModerator( req, res, next ) {
-
-  // load req.access without throwing error
-  cmn.checkAdminOrModerator( req, res, err => {
-
-    next();
-
-  } );
 
 }

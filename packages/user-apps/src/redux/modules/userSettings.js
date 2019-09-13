@@ -136,7 +136,7 @@ export function load() {
 
       dispatch( changeFieldValue( 'profileSettings', 'fullName', user.fullName ) );
       dispatch( changeFieldValue( 'profileSettings', 'culture', user.culture ) );
-      dispatch( changeFieldValue( 'emailSettings', 'newEmail', user.email ) );
+      // dispatch( changeFieldValue( 'emailSettings', 'newEmail', user.email ) );
       dispatch( changeFieldValue( 'apiKeySettings', 'apiKey', user.apiKey ) );
       dispatch( changeFieldValue( 'apiKeySettings', 'apiSecret', user.apiSecret ) );
 

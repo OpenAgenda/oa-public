@@ -7,6 +7,8 @@ const redis = require( 'redis' );
 const logs = require( '@openagenda/logs' );
 const promisifyRedis = require( '@openagenda/service-utils/promisifyRedis' );
 
+const log = require( '@openagenda/logs' )( 'config' );
+
 const config = {
   knex: null,
   redis: {
@@ -47,7 +49,11 @@ async function init( c ) {
   promisifyRedis( config.redis.client );
 
   if ( config.knex.client.config.migrations ) {
-    await config.knex.migrate.latest();
+    try {
+      await config.knex.migrate.latest();
+    } catch ( e ) {
+      log( 'error', 'failed to migrate to latest', e );
+    }
   }
 
 }

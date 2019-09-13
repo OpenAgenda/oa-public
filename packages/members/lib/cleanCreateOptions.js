@@ -1,14 +1,17 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
+const boolean = require('@openagenda/validators/boolean');
+const text = require('@openagenda/validators/text');
+const integer = require('@openagenda/validators/integer');
 
-schema.register( {
-  boolean: require( '@openagenda/validators/boolean' ),
-  text: require( '@openagenda/validators/text' ),
-  pass: require( '@openagenda/validators/pass' )
-} );
+schema.register({
+  boolean,
+  text,
+  integer
+});
 
-module.exports = schema( {
+module.exports = schema({
   requireCustom: {
     type: 'boolean',
     default: true
@@ -19,9 +22,19 @@ module.exports = schema( {
       default: null,
       max: 2
     },
-    invitationSender: {
-      type: 'pass',
+    sender: {
+      userUid: {
+        type: 'integer',
+        default: null
+      },
+      memberName: {
+        type: 'text',
+        default: null
+      }
+    },
+    message: {
+      type: 'text',
       default: null
     }
   }
-} );
+});

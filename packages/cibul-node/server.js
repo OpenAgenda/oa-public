@@ -2,58 +2,105 @@
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
-[ 'web', 'admin', 'task' ].forEach( argItem => {
+const supervisor = require('./lib/supervisor');
 
-  if ( process.argv.includes( argItem ) ) {
-    process.env[ argItem.toUpperCase() ] = 'true';
-  }
+const ADMIN = process.argv.includes('admin');
+const TASK = process.argv.includes('task');
+const WEB = process.argv.includes('web');
 
-} );
 
-const supervisor = require( './lib/supervisor' );
+supervisor(async loadTasks => {
+  try {
+    const services = await require('./services/init')();
 
-supervisor( loadTasks => {
+    services.core = require('./core');
 
-  require( './services/init' )( err => {
-
-    const log = require( '@openagenda/logs' )( 'server' );
-
-    if ( err ) {
-
-      return log( 'error', 'could not init app:', err );
-
+    if (__DEVELOPMENT__) {
+      require('source-map-support').install({ hookRequire: true });
     }
 
-    if ( __DEVELOPMENT__ ) {
-      require( 'source-map-support' ).install( { hookRequire: true } );
+    const logs = require('@openagenda/logs');
+    const log = logs('server');
+
+    log('info', 'running server');
+
+    const sessions = require('@openagenda/sessions');
+    const app = require('./app');
+    const cmn = require('./lib/commons-app');
+    const genUrl = require('./services/genUrl').getSingleton();
+    const config = require('./config');
+    const admin = require('./admin');
+    const web = require('./web');
+
+    app.use(sessions.middleware);
+    app.use(sessions.middleware.load({ detailed: true }));
+
+    app.use(require('./services/logRequests').middleware);
+
+    // load gen url everywhere
+    app.use((req, res, next) => {
+      req.genUrl = genUrl.copy(); // need genUrl only for request lifecycle
+      next();
+    });
+
+    app.use((req, res, next) => {
+      req.log = logs('req', { url: req.originalUrl });
+      next();
+    });
+
+    app.use(cmn.lang);
+
+    cmn.loadLegacyRoutes(genUrl);
+
+    // run 'admin' type modules
+    if (ADMIN) {
+      admin(app);
     }
 
-    log( 'info', 'running server' );
+    // run 'web' type modules
+    if (WEB) {
+      web(app);
+    }
 
-    const { WEB, TASK } = process.env;
-    const app = require( './app' );
-    const config = require( './config' );
+    if (TASK || WEB) {
+      require('./legacy/back')(app);
+      require('./general/unsubscribed.front')(app);
+      require('./agenda/json.export')(app);
+      require('./agenda/exports')(app);
+    }
 
-    app.server.listen( config.port, () => {
+    app.use((req, res, next) => {
+      if (res.data === undefined) {
+        return next();
+      }
 
-      console.log( `-- Server listening on port ${config.port} --` );
+      res.format({
+        'application/json': function () {
+          res.json(res.data);
+        }
+      });
+    });
 
-    } );
+    app.use((req, res, next) => next({ code: 404 }));
+    app.use((err, req, res, next) => cmn.catchError(req, res)(err));
 
-    if ( WEB ) {
+    app.listen(config.port, () => {
+      console.log(`-- Server listening on port ${config.port} --`);
+    });
 
-      require( './api' );
-
+    if (WEB) {
+      require('./api');
     }
 
     // only one process runs background tasks. supervisor handles that.
     // only 'task' types run tasks
-    if ( loadTasks && TASK ) {
-
-      require( './task' )();
-
+    if (loadTasks && TASK) {
+      require('./task')();
     }
+  } catch (e) {
+    const logs = require('@openagenda/logs');
+    const log = logs('server');
 
-  } );
-
-} );
+    log('error', 'could not init app:', e);
+  }
+});

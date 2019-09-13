@@ -43,7 +43,6 @@
         <i class="sticker"></i>
         <span><%= __( 'state' ) %>: <%= __( states[ event.currentState ].label ) %></span>
       </span>
-<% if ( !loner ) { %>
       <ul class="list-group js_dropdown_menu w380">
         <li class="list-group-info-item">
           <span><%= __( states[ event.currentState ].label + 'ContributorInfo' ) %></span>
@@ -52,7 +51,6 @@
           </div>
         </li>
       </ul>
-<% } %>
     </li><!--
     --><li class="edge-item js_admin_item js_role_event_editor w25">
       <% if ( useContributeApp ) { %>
@@ -64,7 +62,6 @@
     --><li class="edge-item js_admin_item js_role_event_editor js_role_agenda_admin js_toggle w25" data-toggle="js_dropdown_menu">
       <span class="edge-selected"><%= __( 'actions' ) %></span>
       <ul class="list-group js_dropdown_menu">
-<% if ( !loner ) { %>
         <li class="list-group-item js_admin_item js_role_agenda_admin js_role_agenda_moderator">
 <% if ( event.featured ) { %>
           <a class="item starify active" href="<%= `/${slug}/events/${event.slug}/featured/notfeatured?redirect=${redirect}` %>" rel="nofollow"><span><%= __( 'featured' ) %></span><span class="hovered"><%= __('removeFromFeatured') %></span><i class="fa fa-thumb-tack"></i><i class="fa fa-thumb-tack"></i></a>
@@ -72,14 +69,13 @@
           <a class="item starify active" href="<%= `/${slug}/events/${event.slug}/featured/featured?redirect=${redirect}` %>" rel="nofollow"><%= __('addToFeatured') %><i class="fa fa-thumb-tack-o"></i><i class="fa fa-thumb-tack"></i></a>
 <% } %>
         </li>
-<% } %>
-<% if ( !loner && hasOwnershipTransfer ) { %>
-        <li class="list-group-item js_role_agenda_moderator js_ownership_transfer" data-res="<%= genUrl( 'eventTransfer', { slug: slug, eventSlug: event.slug } ) %>">
+<% if ( hasOwnershipTransfer ) { %>
+        <li class="list-group-item js_role_agenda_moderator js_ownership_transfer" data-res="/<%= slug %>/admin/members/transfer/<%= event.slug %>">
           <a class="item active" rel="nofollow"><%= __( 'transferOwnership' ) %></a>
         </li>
 <% } %>
         <li class="list-group-item js_admin_item js_role_event_editor">
-          <a class="item active js_duplicate_event_link" href="<%= !loner ? genUrl( 'agendaEventDuplicate', { slug: slug, eventSlug: event.slug } ) : genUrl( 'eventDuplicate', { eventSlug: event.slug } ) %>" rel="nofollow"><%= __( 'duplicate' ) %></a>
+          <a class="item active js_duplicate_event_link" href="/<%= slug %>/event/<%= event.slug %>/duplicate" rel="nofollow"><%= __( 'duplicate' ) %></a>
         </li>
         <li class="list-group-item js_admin_item js_role_event_editor w25">
           <a class="item active js_message_confirm" data-confirm="<%= __( 'areYouSureToDelete' ) %>" data-ok="<%= __( 'confirm' ) %>" data-cancel="<%= __( 'cancel' ) %>" href="<%= genUrl( 'eventRemove', typeof uid !== 'undefined' ? { eventUid: event.uid, agendaUid: uid } : { eventUid: event.uid }) %>" rel="nofollow"><%= __( 'delete' ) %></a>

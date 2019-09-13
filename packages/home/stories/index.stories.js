@@ -27,7 +27,8 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
       show: '/:slug',
       showPrivate: '/:slug.prv',
       addEvent: '/:slug/addevent',
-      moderate: '/:slug/admin'
+      moderate: '/:slug/admin',
+      contribute: '/:slug/contribute'
     },
     events: {
       list: '/events.json',

@@ -1,47 +1,42 @@
-"use strict";
+'use strict';
 
-const reduceBy = require( './reduceBy' );
-const sortBy = require( './sortBy' );
+const reduceBy = require('./reduceBy');
+const sortBy = require('./sortBy');
 
-module.exports = reduceByDeep;
+function reduceByDeep(items, deepReduceByOptions = []) {
+  const reduceByOptions = deepReduceByOptions[0];
 
-function reduceByDeep( items, deepReduceByOptions = [] ) {
+  const remainingOptions = deepReduceByOptions.slice(1);
 
-  const reduceByOptions = deepReduceByOptions[ 0 ];
-
-  const remainingOptions = deepReduceByOptions.slice( 1 );
-
-  if ( reduceByOptions.childrenKey && !reduceByOptions.key ) {
-
-    let result = remainingOptions.length ? reduceByDeep( items, remainingOptions ) : items;
+  if (reduceByOptions.childrenKey && !reduceByOptions.key) {
+    let result = remainingOptions.length
+      ? reduceByDeep(items, remainingOptions)
+      : items;
 
     // Sort first level
-    if ( reduceByOptions.sortChildrenBy ) {
-
-      result = sortBy( result, reduceByOptions.sortChildrenBy );
-
+    if (reduceByOptions.sortChildrenBy) {
+      result = sortBy(result, reduceByOptions.sortChildrenBy);
     }
 
     return {
-      [ reduceByOptions.childrenKey ]: result
+      [reduceByOptions.childrenKey]: result
     };
-
   }
 
-  const reducedItems = reduceBy( items, reduceByOptions.key, reduceByOptions );
+  const reducedItems = reduceBy(items, reduceByOptions.key, reduceByOptions);
 
-  if ( !remainingOptions.length ) {
-
+  if (!remainingOptions.length) {
     return reducedItems;
-
   }
 
-  return reducedItems.map( item => {
-
-    item[ reduceByOptions.childrenKey ] = reduceByDeep( item[ reduceByOptions.childrenKey ], remainingOptions );
+  return reducedItems.map(item => {
+    item[reduceByOptions.childrenKey] = reduceByDeep(
+      item[reduceByOptions.childrenKey],
+      remainingOptions
+    );
 
     return item;
-
-  } );
-
+  });
 }
+
+module.exports = reduceByDeep;

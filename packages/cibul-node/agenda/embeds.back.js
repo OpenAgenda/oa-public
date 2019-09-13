@@ -3,8 +3,8 @@
 const cmn = require( '../lib/commons-app' );
 const agendaSvc = require( '../services/agenda' );
 const embedSvc = require( '../services/embed' );
+const members = require( '../services/members' );
 const model = require( '../services/model' );
-
 
 module.exports = app => {
 
@@ -12,7 +12,7 @@ module.exports = app => {
     '/:slug/admin/embeds/:embedUid/switch',
     agendaSvc.mw.load( 'slug' ),
     embedSvc.mw.load( 'embedUid', 'uid' ),
-    cmn.checkAdministrator(),
+    members.mw.loadAndAuthorize('administrator'),
     switchToV2
   );
 

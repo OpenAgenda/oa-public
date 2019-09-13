@@ -918,6 +918,10 @@ function widget( elem, options ) {
 
     if ( data.ebd && data.ebd.ma ) auto = data.ebd.ma;
 
+    if ( elem.hasAttribute( 'data-auto' ) ) {
+      auto = elem.getAttribute( 'data-auto' ) === 'true';
+    }
+
     // if geolocation is used, controller sets it to true
     // and preempts default config
     if ( data.geolocate ) auto = true;

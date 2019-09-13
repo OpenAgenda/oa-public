@@ -1,10 +1,9 @@
 "use strict";
 
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
-const users = require( '@openagenda/users' );
-const activities = require( '@openagenda/activities' );
 const mails = require( '@openagenda/mails' );
-const genUrl = require( '../../genUrl' );
+const usersSvc = require( '../../users' );
+const activities = require( '../../activities' );
 const config = require( '../../../config' );
 
 let log = console.log;
@@ -13,7 +12,7 @@ module.exports = ( invitation, stakeholder, context, agenda ) => {
 
   if ( !stakeholder.userId ) {
 
-    users.findOne( {
+    usersSvc.findOne( {
       query: {
         id: context.invitationSender.userId
       }
@@ -46,13 +45,9 @@ module.exports = ( invitation, stakeholder, context, agenda ) => {
 
   const lang = ( context && context.lang ) || 'fr';
 
-  const link = stakeholder.userId
-    ? genUrl( 'agendaShow', { slug: agenda.slug, lang }, { abs: true, protocol: 'https://' } )
-    : genUrl( 'signup', {
-      invitation: invitation.token,
-      email: stakeholder.custom.email,
-      lang
-    }, { abs: true, protocol: 'https://' } );
+  const link = stakeholder.userId ?
+    `${config.root}/agendas/${agenda.uid}?lang=${lang}` :
+    `${config.root}/${agenda.slug}/signup?lang=${lang}&email=${stakeholder.custom.email}&invitation=${invitation.token}`;
 
   const logo = agenda.image
     ? {

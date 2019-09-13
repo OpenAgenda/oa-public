@@ -39,19 +39,6 @@ module.exports = {
       cb( null, 0, 0 );
 
     },
-    getStakeholder: ( agendaId, stakeholderId, cb ) => {
-
-      cb( null, {
-        contactName: 'LARROUMEC',
-        organization: {
-          label: 'DRAC PACA',
-          slug: 'drac-paca'
-        },
-        contactPosition: 'CORRESPONDANT',
-        contactNumber: '04 42 16 19 75'
-      } );
-
-    },
     getAgendaSettings: ( agendaId, cb ) => {
 
       cb( null, {

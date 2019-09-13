@@ -4,7 +4,6 @@ global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
 import http from 'http';
 import agendasSvc from '@openagenda/agendas';
-import stakeholdersSvc from '@openagenda/agenda-stakeholders';
 import eventsSvc from '@openagenda/events/test/service';
 import _ from 'lodash';
 import express from 'express';
@@ -27,7 +26,6 @@ app.server = server;
 if ( process.env.NODE_ENV !== 'test' ) {
   mw.init( testconfig );
   agendasSvc.init( _.merge( {}, testconfig, testconfig.services.agendas ) );
-  stakeholdersSvc.init( _.merge( {}, testconfig, testconfig.services.agendaStakeholders ) );
   eventsSvc.init( _.merge( {}, testconfig, testconfig.services.events ) );
 }
 

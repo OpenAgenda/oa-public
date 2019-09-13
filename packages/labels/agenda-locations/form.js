@@ -218,6 +218,10 @@ module.exports = {
     "es": "Localizar",
     "br": "Lec'hiañ"
   },
+  "geocodeNoResults" : {
+    "fr": "Nous n'avons pas pu localiser cette adresse. Editez votre saisie pour n'y laisser que le nom de la commune, placez le marqueur au bon endroit sur la carte et terminez en complétant l'adresse.",
+    "en": "We could not locate this address. Start over by typing the name of the town or city only, position the marker on the map in the right location and then specify the complete address once the marker is correctly placed."
+  },
   "loadingError": {
     "fr": "Un problème est survenu lors du chargement. Veuillez ré-essayer.",
     "en": "A problem occurred during the load. Please retry.",
@@ -281,7 +285,7 @@ module.exports = {
     "es": "Código postal",
     "br": "Kod-post"
   },
-  "cityDistrict": {
+  "district": {
     "fr": "Quartier",
     "en": "District",
     "de": "Kreis",

@@ -31,12 +31,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
     cmn.loadAgendaBy( { slug: 'agendaSlug' } ),
-    ( req, res, next ) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse( req, res, { code: 404 } ),
-    sessions.middleware.ifUnlogged( _redirectToSignup ),
-    middlewares.member,
-    middlewares.verifyMemberAuthorization,
-    middlewares.schemaExtensions,
-    middlewares.duplicateFromEvent
+    ( req, res, next ) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse( req, res, { code: 404 } )
   ] );
 
   parentApp.all( [
@@ -44,7 +39,31 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], middlewares.event );
 
-  parentApp.get( '/:agendaSlug/contribute/event/:eventUid', middlewares.defineUpdateRedirect );
+  parentApp.all( [
+    '/:agendaSlug/contribute',
+    '/:agendaSlug/contribute/:step',
+    '/:agendaSlug/contribute/event/:eventUid',
+    '/:agendaSlug/contribute/event/:eventUid/draft'
+  ], [
+    sessions.middleware.ifUnlogged( _redirectToSignup ),
+    middlewares.member,
+    middlewares.schemaExtensions,
+    middlewares.duplicateFromEvent
+  ] );
+
+  parentApp.get( [
+    '/:agendaSlug/contribute',
+    '/:agendaSlug/contribute/:step'
+  ], middlewares.verifyMemberAuthorization );
+
+  parentApp.get( [
+    '/:agendaSlug/contribute/event/:eventUid',
+    '/:agendaSlug/contribute/event/:eventUid/draft'
+  ], middlewares.verifyMemberAuthorization.edit );
+
+  parentApp.get( '/:agendaSlug/contribute/event/:eventUid',
+    middlewares.defineUpdateRedirect
+  );
 
   parentApp.all( [
     '/:agendaSlug/contribute',

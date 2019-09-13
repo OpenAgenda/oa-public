@@ -4,8 +4,9 @@ const _ = require( 'lodash' );
 const callToActionMw = require( '@openagenda/call-to-action/dist/middleware' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const sessions = require( '@openagenda/sessions' );
-const users = require( '@openagenda/users' );
 const cmn = require( '../lib/commons-app' );
+
+const users = require( '../services/users' );
 
 
 module.exports = app => {

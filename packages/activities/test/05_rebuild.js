@@ -5,7 +5,6 @@ const should = require( 'should' );
 const knexLib = require( 'knex' );
 const service = require( './service' );
 const { rebuild } = require( '../src/service/rebuild' );
-const winston = require( 'winston' );
 const config = require( '../testconfig' );
 
 describe.skip( 'activities - rebuid', function () {
@@ -54,7 +53,10 @@ describe.skip( 'activities - rebuid', function () {
       feedNotificationTable: config.schemas.feed_notification,
 
       migrationTable: config.migrations.tableName
-    } ), winston )
+    } ), {
+      info: console.log,
+      error: console.error
+    } )
       .then( result => {
 
         console.log( result );

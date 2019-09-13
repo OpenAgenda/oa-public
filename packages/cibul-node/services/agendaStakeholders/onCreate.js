@@ -3,11 +3,11 @@
 const _ = require( 'lodash' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
 const agendas = require( '@openagenda/agendas' );
-const controlDataSvc = require( '../legacy' ).controlData;
-const users = require( '@openagenda/users' );
-const activities = require( '@openagenda/activities' );
 const invitations = require( '@openagenda/invitations' );
 const { Inbox } = require( '@openagenda/inboxes' );
+const usersSvc = require( '../users' );
+const activities = require( '../activities' );
+const controlDataSvc = require( '../legacy' ).controlData;
 const sendStakeholderInvitation = require( './lib/sendStakeholderInvitation' );
 const setMemberUidAndSlugRefs = require( './lib/setMemberUidAndSlugRefs' );
 
@@ -33,7 +33,7 @@ module.exports = function ( stakeholder, context ) {
 
       log( 'member (id %s) is created and associated with user (id %s)', stakeholder.id, stakeholder.userId );
 
-      users.findOne( {
+      usersSvc.findOne( {
         query: {
           id: stakeholder.userId
         }
@@ -42,7 +42,7 @@ module.exports = function ( stakeholder, context ) {
 
           if ( user.isNew ) {
 
-            await users.setNewFlag( user.uid, false );
+            await usersSvc.setNewFlag( user.uid, { isNew: false } );
 
           }
 
@@ -64,7 +64,7 @@ module.exports = function ( stakeholder, context ) {
             .follow( { entityType: 'agenda', entityUid: agenda.uid }, { credential: stakeholder.credential } )
             .then( async result => {
 
-              const senderUser = await users.findOne( {
+              const senderUser = await usersSvc.findOne( {
                 query: {
                   id: context.invitationSender.userId
                 }

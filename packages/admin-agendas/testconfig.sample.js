@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 module.exports = {
   mysql : {
@@ -10,6 +10,10 @@ module.exports = {
   schemas : {
     agenda: 'agenda',
     user: 'user',
+    event: 'event',
+    member: 'member',
+    stakeholder: 'stakeholder',
+    stakeholderSettings: 'stakeholder_settings'
   },
   mw: {
     limit: {
@@ -19,7 +23,7 @@ module.exports = {
   },
   services: {
     agendas: false,
-    agendaStakeholders: false
+    members: false
   },
   queue: {
     names: {
@@ -43,7 +47,7 @@ module.exports = {
       cb( null, {
         id: identifiers.id || 123,
         uid: 128492293,
-        full_name: 'Zorg',
+        fullName: 'Zorg',
         email: identifiers.email || 'zorg@galactic.uv'
       } );
 
@@ -57,10 +61,10 @@ module.exports = {
 
     getAgendaCredentialDetails: () => require( '@openagenda/agendas/service/validate/privateFields' ).credentials,
 
-    onCreate: stakeholder => {},
+    onCreate: member => {},
     onUpdate: ( before, after ) => {},
-    onMessage: ( stakeholder, message, context, cb ) => {
-      console.log( stakeholder, message );
+    onMessage: ( member, message, context, cb ) => {
+      console.log( member, message );
       cb();
     }
   }

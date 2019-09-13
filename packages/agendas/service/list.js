@@ -66,7 +66,7 @@ async function promise( query, offset, limit, options = {} ) {
     .limit( limit || 0 )
     .offset( offset || 0 );
 
-  const agendas = rows.map( _parseDbEntry.bind( null, options, config ) );
+  const agendas = rows.map( _parseDbEntry.bind( null, cleanOptions, config ) );
 
   if ( cleanOptions.detailed ) {
 

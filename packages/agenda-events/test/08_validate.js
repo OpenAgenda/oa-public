@@ -53,7 +53,7 @@ describe( 'agendaEvents - functional (server): validation', function() {
 
     svc.validate( {
       featured: true
-    }, { optionalState: true } ).should.eql( {
+    }, { optionalStateAndFeatured: true } ).should.eql( {
       featured: true,
       userUid: null
     } );

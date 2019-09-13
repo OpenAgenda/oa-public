@@ -1,15 +1,11 @@
 "use strict";
 
 const VError = require( 'verror' );
-
-const activitiesSvc = require( '@openagenda/activities' );
-const usersSvc = require( '@openagenda/users' );
-const agendasSvc = require( '@openagenda/agendas' );
-const eventsSvc = require( '@openagenda/events' );
-const fallbackContextGet = require( './lib/fallbackContextGet' );
-const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/beforeRemove' );
-
+const log = require( '@openagenda/logs' )( 'agendaEvents/beforeRemove' );
+const usersSvc = require( '../users' );
+const activitiesSvc = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
+const fallbackContextGet = require( './lib/fallbackContextGet' );
 
 module.exports = async ( ae, context ) => {
 

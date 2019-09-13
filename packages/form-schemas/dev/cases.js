@@ -129,6 +129,10 @@ module.exports = {
     description: 'Multilingual fields when only one language is active',
     link: '/multilingualwithonelanguage'
   }, {
+    name: 'Required multilingual field',
+    description: 'Multilingual field when optional is false',
+    link: '/requiredmultilingual'
+  }, {
     name: 'A form with a custom field',
     description: 'A form that includes a custom component',
     link: '/customcomponentform'

@@ -1,5 +1,7 @@
 module.exports = {
   coveragePathIgnorePatterns: [ '/migrations/' ],
-  setupTestFrameworkScriptFile: '<rootDir>/test/setup.js',
+  setupFilesAfterEnv: [
+    '<rootDir>/test/setup.js'
+  ],
   testURL: 'http://localhost/'
 };

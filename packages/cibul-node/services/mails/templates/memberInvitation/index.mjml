@@ -1,0 +1,44 @@
+<mjml>
+  <mj-head>
+    <mj-title><%= isMember
+      ? __( 'subjectForExistingMember', { agenda, role: __( role ) } )
+      : __( 'subject', { agenda, roleVerb: __( role + 'Verb' ) } )
+    %></mj-title>
+    <mj-preview>
+      <%= isMember
+        ? __( 'subjectForExistingMember', { agenda, role: __( role ) } )
+        : __( 'subject', { agenda, roleVerb: __( role + 'Verb' ) } )
+      %>
+    </mj-preview>
+    <%- include( '../partials/defaultStyle.mjml' ) %>
+  </mj-head>
+
+  <mj-body>
+    <%- include( '../partials/header.mjml' ) %>
+
+    <mj-content>
+      <mj-column>
+        <mj-text>
+          <h1 class="title" align="center">
+            <%= isMember
+              ? __( 'subjectForExistingMember', { agenda, role: __( role ) } )
+              : __( 'subject', { agenda, roleVerb: __( role + 'Verb' ) } )
+            %>
+          </h1>
+        </mj-text>
+
+        <mj-markdown><%- message %></mj-markdown>
+
+        <mj-button
+          background-color="#41acdd"
+          color="white"
+          align="center"
+          href="<%= link %>">
+          <%= __( isMember ? 'showAgenda' : 'signup' ) %>
+        </mj-button>
+      </mj-column>
+    </mj-content>
+
+    <%- include( '../partials/footer.mjml' ) %>
+  </mj-body>
+</mjml>

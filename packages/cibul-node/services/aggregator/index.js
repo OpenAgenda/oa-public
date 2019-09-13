@@ -14,7 +14,7 @@ const notify = require( './lib/notify' );
 const sources = require( './lib/sources' );
 const task = require( './lib/task' );
 
-const onError = require( '../00_errors' ).bind( null, 'aggregator' );
+const onError = require( '../errors' ).bind( null, 'aggregator' );
 
 const q = queue( config.queues.aggregator, {
   redis: config.redis,
@@ -29,8 +29,8 @@ const pQ = queue( config.queues.aggregator + ':priority', {
 } );
 
 module.exports = {
+  instance: {},
   isAggregator,
-  notify: aggregators.notify, // experimental use.
   notifyPublish: notify.publish,
   notifyUnpublish: notify.unpublish,
   sourceAdd: sources.add,
@@ -42,7 +42,20 @@ module.exports = {
     process: sources.process
   },
   task,
-  init: config => {
+  init: (config, services) => {
+    Object.assign(
+      module.exports.instance,
+      aggregators.createInstance({
+        knex: config.knex,
+        queues: services.queues,
+        interfaces: {
+          getAggregatorSchemas: async agendaUid => ({
+            agenda: await services.core.agendas(agendaUid).settings.schema.get(),
+            network: await services.core.agendas(agendaUid).settings.schema.getNetwork()
+          })
+        }
+      })
+    );
 
     aggregators.init( {
       knex: config.knex,
@@ -71,7 +84,6 @@ module.exports = {
         }
       }
     } );
-
   }
 }
 
@@ -92,7 +104,9 @@ async function enqueueEvaluate( method, eventUid, sourceAgendaUid, aggregatorAge
 
   }
 
-  const event = await interfaces.getEvent( { uid: eventUid } );
+  const event = await config.knex('event')
+    .first([ 'id' ])
+    .where({ uid: eventUid })
 
   const sourceAgenda = await interfaces.getAgenda( sourceAgendaUid );
 

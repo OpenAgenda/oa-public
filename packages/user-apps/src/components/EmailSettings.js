@@ -26,7 +26,7 @@ export default class EmailSettings extends Component {
 
   renderNewEmailInput = field => (
     <div className="form-group">
-      <label htmlFor="newEmail">{this.context.getLabel( 'email' )} *</label>
+      <label htmlFor="newEmail">{this.context.getLabel( 'newEmail' )} *</label>
       <input {...field.input} className="form-control" type="text" />
       {field.meta.touched && field.meta.error && (
         <div className="text-danger">{_.upperFirst( this.context.getLabel( field.meta.error ) )}</div>

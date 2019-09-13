@@ -1,24 +1,21 @@
 "use strict";
 
-var w = require( 'when' ),
+const _ = require('lodash');
+const async = require('async');
+const aer = require( '@openagenda/agenda-event-references' );
+const w = require('when');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const templater = require('@openagenda/cibul-templates');
 
-React = require( 'react' ),
+const References = React.createFactory( require( '@openagenda/agenda-event-references/react/build/Show' ) );
+const Registration = React.createFactory( require( '@openagenda/registration/lib/Display' ) );
 
-ReactDOMServer = require( 'react-dom/server' ),
-
-Registration = React.createFactory( require( '@openagenda/registration/lib/Display' ) ),
-
-References = React.createFactory( require( '@openagenda/agenda-event-references/react/build/Show' ) ),
-
-aer = require( '@openagenda/agenda-event-references' ),
-
-templater = require( '@openagenda/cibul-templates' ),
-
-genUrl = require( '../../genUrl' ),
-
-async = require( 'async' ),
-
-eventSvc = require( '../../event' );
+const config = require( '../../../config' );
+const eventSvc = require( '../../event' );
+const log = require( '@openagenda/logs' )( 'services/event/middleware/components' );
+const members = require('../../members');
+const pickEventImage = require( '../lib/pickImage' );
 
 module.exports = Object.assign( buildComponents, {
   getReferences
@@ -26,12 +23,13 @@ module.exports = Object.assign( buildComponents, {
 
 
 function getReferences( req, res, next ) {
+  log( 'getReferences' );
 
   w( {
     req,
     res,
     referencesRender: null,
-    includeUnpublished: !!req.access
+    includeUnpublished: !![2,3].includes(_.get( req, 'member.role'))
   } )
 
   .then( _references )
@@ -67,12 +65,21 @@ function _references( v ) {
 
   let d = w.defer();
 
+  const objIds = {
+    agenda: v.req.agenda.id,
+    event: v.req.event.id
+  }
+
+  log( 'get references', objIds );;
+
   // get references if any, then fetch from db, then render component.
   aer( v.req.agenda.id ).get( v.req.event.id, ( err, eventIds ) => {
 
     if ( err ) return d.reject( err );
 
     if ( !eventIds.length ) return d.resolve( v );
+
+    log( 'retrieved event ids %s', eventIds.join( ',' ), objIds );
 
     v.req.agenda.events.list( {
       ids: eventIds,
@@ -88,6 +95,8 @@ function _references( v ) {
 
       }
 
+      log( 'retrieved %s events', events.length, objIds );
+
       const ev = {
         lang: v.req.lang,
         events: []
@@ -99,11 +108,11 @@ function _references( v ) {
 
         e.getState( ( err, state ) => {
 
-          if ( !v.includeUnpublished && state!==2 ) return ecb();
+          if ( !v.includeUnpublished && state!=='published' ) return ecb();
 
           ev.events.push( ( {
             uid: e.uid,
-            image: e.getThumbnail( false ),
+            image: pickEventImage( config, e, 'thumbnail' ),
             link: `/${v.req.agenda.slug}/events/${e.slug}`,
             title: e.title,
             location: {

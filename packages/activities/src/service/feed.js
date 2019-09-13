@@ -1,27 +1,12 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const feeds = require( './feeds' );
-const activities = require( './activities' );
-const notifications = require( './notifications' );
-
 const FEED_TYPES = require( './feedTypes' );
 
-let config;
-let knex;
 
+module.exports = function feed( config, identifiers ) {
 
-module.exports = Object.assign( feed, { init } );
-
-
-function init( { config: c, knex: k } ) {
-
-  config = c;
-  knex = k;
-
-}
-
-function feed( identifiers ) {
+  const { feeds, activities, notifications } = config.service;
 
   if ( !_.isObject( identifiers ) ) identifiers = { id: identifiers };
 

@@ -1,27 +1,24 @@
 "use strict";
 
-const sessions = require( '@openagenda/sessions' );
 const tagMw = require( '@openagenda/agenda-tags' ).mw( 'agenda.id', 'tagSet' );
 const categoryMw = require( '@openagenda/agenda-categories' ).mw( 'agenda.id', 'categorySet' );
 const cmn = require( '../lib/commons-app' );
 const controlData = require( '../services/legacy' ).controlData;
+
+const sessions = require( '../services/sessions' );
+const members = require('../services/members');
 const layout = require( '../services/lib/layouts' ).load(
   'agendaAdmin', { selectedTab: 'customized' }
 );
-
-const preMw = [
-  sessions.middleware.ifUnlogged( cmn.redirectTo( 'agendaSignup', { slug: 'slug' } ) )
-];
-
 
 module.exports = app => {
 
   app.get(
     '/:slug/admin/settings/customize',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.verifyIPMiddleware,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     cmn.checkCredential( 'tags', { namespace: 'hasTagsCred' } ),
     tagMw.get,
     categoryMw.get,
@@ -30,10 +27,10 @@ module.exports = app => {
 
   app.post(
     '/:slug/admin/settings/customize',
-    preMw,
+    sessions.mw.loadOrRedirect,
     cmn.verifyIPMiddleware,
     cmn.loadAgenda,
-    cmn.authorize.administrator,
+    members.mw.loadAndAuthorize('administrator'),
     tagMw.set,
     categoryMw.set,
     _updateControlData,
@@ -66,7 +63,7 @@ function updateResponse( req, res ) {
 function show( req, res ) {
 
   return res.send( layout( '<div class="js_canvas"></div>', {
-    role: req.role,
+    role: req.member.role,
     lang: req.lang,
     agenda: req.agenda,
     bodyAttributes: [ {

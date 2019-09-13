@@ -6,7 +6,7 @@ create table if not exists `${schema}` (
   agenda_uid bigint(20),
   review_id bigint(20), # legacy field
   credential bigint(20),
-  deleted_user tinyint(1),
+  deleted_user tinyint(1) default 0,
   actions_counter smallint(6) default 0, #legacy field
   organization varchar(255) default null,
   created_at datetime not null,

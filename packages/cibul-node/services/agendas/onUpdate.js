@@ -2,8 +2,7 @@
 
 const _ = require( 'lodash' );
 
-const activities = require( '@openagenda/activities' );
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const activities = require( '../activities' );
 
 const log = require( '@openagenda/logs' )( 'services/agendas/onCreate' );
 const legacyEventSearch = require( '../elasticsearch' );
@@ -29,21 +28,6 @@ module.exports = async ( before, after, context ) => {
     _.omit( after, [ 'settings', 'credentials', 'title', 'official', 'officializedAt', 'updatedAt' ] )
   ) ) {
     updateType = 'profile';
-  }
-
-  // set stakeholder field requirements
-  if ( !before.settings.contribution.useFields && after.settings.contribution.useFields ) {
-
-    agendaStakeholders( before.id ).settings.setDefault( err => {
-
-      if ( err ) log( 'error', {
-        message: 'agenda update default stakeholder settings could not be created',
-        error: err,
-        agendaId: before.id
-      } );
-
-    } );
-
   }
 
   if ( context && context.user ) {

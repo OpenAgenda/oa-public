@@ -1,0 +1,127 @@
+"use strict";
+
+const _ = require( 'lodash' );
+const VError = require('verror');
+const agendas = require( '@openagenda/agendas' );
+const invitations = require( '@openagenda/invitations' );
+const { Inbox } = require( '@openagenda/inboxes' );
+const log = require( '@openagenda/logs' )( 'services/members/onCreate' );
+const activities = require( '../activities' );
+const controlDataSvc = require( '../legacy' ).controlData;
+const {
+  isSuperiorToOrEqual
+} = require( '@openagenda/members' ).utils.compareRoles;
+
+const { send, sendInvitation } = require( './lib/mail' );
+
+const usersSvc = require( '../users' );
+
+module.exports = async ( { config, activityQueue }, member, context ) => {
+  log( 'created', member );
+
+  try {
+    const agenda = await agendas.get({
+      uid: member.agendaUid
+    }, {
+      private: null,
+      includeImagePath: true
+    });
+
+    if ( !agenda ) throw new Error( 'Agenda not found' );
+
+    const user = member.userUid ? await usersSvc.findOne( {
+      query: { uid: member.userUid },
+      removed: null
+    } ) : null;
+
+    if ( !user && member.userUid ) throw new Error( 'User not found' );
+
+    if ( member.userUid ) {
+      return _memberIsExistingUser( { config, activityQueue }, { member, user, agenda, context } );
+    } else {
+      return _memberIsInvitedNonUser( { config, activityQueue }, { member, agenda, context } );
+    }
+
+  } catch ( e ) {
+    log( 'error', 'failed', { member, exception: e } );
+  }
+}
+
+async function _memberIsExistingUser( { config, activityQueue }, { member, user, agenda, context } ) {
+  log( 'member is existing user', member );
+
+  if ( user.isNew ) {
+    await usersSvc.setNewFlag( user.uid, { isNew: false } );
+  }
+
+  try {
+    controlDataSvc.memberSet( {
+      agendaUid: agenda.uid,
+      userUid: user.uid,
+      role: member.role
+    } );
+  } catch ( e ) {
+    log( 'error', 'could not set member in control data', member, e );
+  }
+
+  const isAdminMod = isSuperiorToOrEqual( member.role, 'moderator' );
+  if ( isAdminMod ) {
+    try {
+      await new Inbox( {
+        type: 'agenda',
+        identifier: agenda.uid
+      } ).users.add( {
+        userUid: user.uid
+      } );
+    } catch ( e ) {
+      log( 'error', 'could not add member to agenda inbox', e );
+    }
+  }
+
+  const userFeedId = { entityType: 'user', entityUid: user.uid };
+  const agendaFeedId = { entityType: 'agenda', entityUid: agenda.uid }
+  try {
+    await activities.feed( userFeedId )
+      .follow( agendaFeedId, { credential: member.role } );
+  } catch ( e ) {
+    log( 'error', 'could not make user feed follow agenda feed', member.id );
+  }
+
+  const senderUserUid = _.get(context, 'sender.userUid');
+
+  // If it's an agenda creation
+  if (!senderUserUid) {
+    return;
+  }
+
+  const senderUser = await usersSvc.findOne( {
+    query: { uid: senderUserUid },
+    removed: null
+  } );
+
+  if ( !senderUser ) throw new VError( 'Sender user %j not found', { uid: senderUserUid } );
+
+  await send( config, {
+    member,
+    agenda,
+    context
+  } );
+
+  try {
+    await activityQueue( 'addMemberCreate', {
+      user, member, agenda, context, senderUser
+    } );
+  } catch ( e ) {
+    log( 'error', 'could not add addMember activity to agenda feed', agenda, member, e );
+  }
+}
+
+async function _memberIsInvitedNonUser( { config }, { member, agenda, context } ) {
+  log( 'member is not existing user, is invited' );
+
+  const { invitation } = await invitations.assign( {
+    email: member.custom.email
+  }, 'linkMember', [ member, context ] );
+
+  return sendInvitation( config, { invitation, member, context, agenda } );
+}

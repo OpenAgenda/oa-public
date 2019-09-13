@@ -1,6 +1,5 @@
 "use strict";
 
-const _ = require( 'lodash' );
 const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const schema = require( '@openagenda/validators/schema' );
 const validators = require( '@openagenda/validators' );
@@ -9,24 +8,12 @@ const method = require( '../../utils/method' );
 
 const FEED_TYPES = require( '../feedTypes' );
 
-let config;
-let knex;
-let service;
-
 schema.register( {
   choice: validators.choice,
   number: validators.number
 } );
 
-module.exports = Object.assign( create, { init } );
-
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
+module.exports = create;
 
 function parseArguments( identifiers, options, cb ) {
 
@@ -56,13 +43,14 @@ function parseArguments( identifiers, options, cb ) {
 
 }
 
-function create() {
+function create( config ) {
 
+  const { service, knex } = config;
   const {
     identifiers,
     options,
     cb
-  } = parseArguments.apply( null, arguments );
+  } = parseArguments.apply( null, Array.prototype.slice.call(arguments, 1) );
 
   const {
     entityType,

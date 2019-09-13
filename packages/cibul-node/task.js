@@ -27,19 +27,20 @@ module.exports = () => {
     time: '19:00'
   } );*/
 
-  tfy( require( '@openagenda/activities' ).tasks.notifications.prepareSummary, {
-    // bootOffset: 1000
+  tfy( require( './services/activities' ).tasks.notifications.prepareSummary, {
+    // bootOffset: 1000,
     period: 'daily',
     time: '05:00'
   } );
 
-  tfy( require( '@openagenda/activities' ).tasks.notifications.sendSummary, {
-    // bootOffset: 5000
+  tfy( require( './services/activities' ).tasks.notifications.sendSummary, {
+    // bootOffset: 5000,
     period: 'daily',
     time: '08:00'
   } );
 
   tfy( require( '@openagenda/inboxes' ).tasks.sync, {
+    // bootOffset: 5000,
     period: 'weekly',
     day: 'sunday',
     time: '11:00'
@@ -62,12 +63,9 @@ module.exports = () => {
   require( './services/agenda/task' )();
 
   require( './services/aggregator' ).task();
+  require( './services/aggregator' ).instance.task();
 
   require( '@openagenda/email-strategie' ).task();
-
-  require( '@openagenda/agenda-stakeholders' ).tasks.bulk();
-
-  require( '@openagenda/agenda-stakeholders' ).tasks.message();
 
   require( './services/event/oembed' ).task();
 
@@ -75,22 +73,23 @@ module.exports = () => {
 
   require( '@openagenda/custom' ).task();
 
-  require( '@openagenda/activities' ).tasks.notifications.addActivity();
+  require( './services/activities' ).tasks.notifications.addActivity.task();
 
   require( '@openagenda/mails' ).task();
 
-  require( './services/legacy' ).controlData.task();
+  require( './services/legacy' ).task();
 
   require( './core' ).tasks();
 
   require( './services/agendaLocations' ).task();
 
+  require( './services/members' ).task();
 
   if ( process.env.NODE_ENV !== 'production' ) { // COMMENT THIS WITH PRECAUTIOIN
 
     /*require( './services/elasticsearch' ).resync( {
       reset: false,
-      since: '2019-05-14',
+      //since: '2019-05-14',
       removeZombies: false,
       logEveryUpdate: true
     }, ( err, res ) => console.log( 'FINI', err, res ) );*/

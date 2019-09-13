@@ -441,7 +441,7 @@ The node-sass module includes a time-consuming build that slows down library ins
 
  * service repositories: plural.
  * repo grouping front applications which are focused on the presentation of a service: <singularnameoftheservice>-apps
- * names are smallcased, with dashes used for word separation. ex: member-apps or agenda-stakeholders
+ * names are smallcased, with dashes used for word separation. ex: member-apps or agenda-docx
  * requires are made at the beginning of a file, grouped by origin: first external references, second openagenda repos, third and last the current repo requires. Second degree order is alphabetical ( [reference](https://github.com/benmosher/eslint-plugin-import/blob/master/docs/rules/order.md) )
 
 ## Building process
@@ -713,7 +713,7 @@ Some random guidelines:
 
 Each service is subject to errors. When these occur, three scenarios arrise:
 
-1/ The error is not handled by the service. In that case, the integrating app catches it through the in-app service 00_errors. The error will be visible in logentries
+1/ The error is not handled by the service. In that case, the integrating app catches it through the in-app service `errors`. The error will be visible in logentries
 
 2/ The error is handled by the service. A service interface can be used to pass on the error to the integrating app: `.onError`, defined at service initialization. The in-app errors service exposes a function taking a namespace and the error to log it in the proper place ( logentries ).
 

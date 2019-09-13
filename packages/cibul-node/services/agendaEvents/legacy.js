@@ -9,7 +9,7 @@ const config = require( '../../config' );
 const VError = require( 'verror' );
 const _ = require( 'lodash' );
 const q = require( '@openagenda/queue' )( 'agendaEventsLegacy', { redis: config.redis } );
-const log = require( '@openagenda/logs' )( 'agendaEvents/interfaces/legacy' );
+const log = require( '@openagenda/logs' )( 'agendaEvents/legacy' );
 
 const agendaGetOptions = {
   private: null,
@@ -39,13 +39,9 @@ async function evaluate( err, action ) {
   if ( err ) return log( 'error', 'coms subscribe error', err );
 
   if ( monitored.includes( action.name ) ) {
-
-    log( 'evaluating action %j', action );
-
+    log('info', 'evaluating action %j', action);
   } else {
-
-    return log( 'ignoring action %s', action.name );
-
+    return log('info', 'ignoring action %s', action.name);
   }
 
   let result = null;
@@ -59,7 +55,11 @@ async function evaluate( err, action ) {
       eventUid
     } = await _loadAgendaEventUids( action.name, action.values );
 
-    const event = await events.get( { uid: eventUid }, { private: null, internal: true, detailed: true } );
+    log('info', 'extracted agenda uid %s, event uid %s', agendaUid, eventUid);
+
+    const event = await events.get({
+      uid: eventUid
+    }, { private: null, internal: true, detailed: true });
 
     const sourceAgenda = _.get( action, 'values.sourceAgendaUid' )
       ? await agendas.get( { uid: _.get( action, 'values.sourceAgendaUid' ) }, agendaGetOptions )
@@ -73,20 +73,16 @@ async function evaluate( err, action ) {
       log( 'info', 'new event was not found for eventUid %s, %j', eventUid, action.values );
 
       if ( action.increment < 10 ) {
-
         q( _.extend( action, { increment: action.increment + 1 } ) );
-
       } else {
-
-        log( 'info', 'retried too many times. Leaving it be' );
-
+        log('info', 'retried too many times. Leaving it be', { agendaUid, eventUid });
       }
 
       result = { queued: true, action };
 
     } else if ( action.name === 'review.article_create' ) {
 
-      log( 'transfer of a create' );
+      log('info', 'transfer of a create', { agendaUid, eventUid });
 
       result = await agendaEvents.legacyTransfer( action.values.id, {
         context: {
@@ -118,25 +114,17 @@ async function evaluate( err, action ) {
       } );
 
     } else if ( action.name === 'event.remove' ) {
-
-      log( 'not acting on remove through legacy transfer. remove should be done through event interface' );
-
+      log('info', 'not acting on remove through legacy transfer. remove should be done through event interface');
     } else {
-
-      log( 'not acting on action %s', action.name );
-
+      log('info', 'not acting on action %s', action.name);
     }
 
-    if ( result ) {
-
-      log( 'transfer result: %s', JSON.stringify( result ) );
-
+    if (result) {
+      log( 'info', 'transfer result: %s', JSON.stringify( result ) );
     }
 
-  } catch ( e ) {
-
-    log( 'error', 'legacyTransfer failed for action with values %s: %s', JSON.stringify( action ), e );
-
+  } catch (e) {
+    log('error', 'legacyTransfer failed for action with values %s: %s', JSON.stringify( action ), e);
   }
 
 }

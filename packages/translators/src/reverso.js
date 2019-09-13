@@ -1,7 +1,7 @@
 "use strict";
 
 const settings = {
-  res: 'https://taas.reverso.net/riws/RestTranslation.svc/v1/output=json/TranslateHtml'
+  res: 'https://api.translation.ent.reverso.net/ri6/riws/Services/RestTranslation.svc/v1/TranslateHtml'
 }
 
 
@@ -205,7 +205,7 @@ module.exports = options => {
       }
     } )[ lang ][ destLang ],
 
-    res = [ 
+    res = [
       settings.res + '/direction=',
       _parseLang( lang ), '-', _parseLang( destLang ),
       '?template=General&isUserTemplate=',
@@ -258,7 +258,7 @@ function _reversoCreated() {
 
   var now = new Date();
 
-  return [ 
+  return [
     _fZ( now.getMonth() + 1 ),
     _fZ( now.getDate() ),
     _fZ( now.getFullYear() )

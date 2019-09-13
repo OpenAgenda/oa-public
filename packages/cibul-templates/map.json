@@ -22,7 +22,6 @@
   "auth/activation",
   "auth/lostPassword",
   "auth/resetPassword",
-  "contributors/info",
   "event/show",
   "event/action",
   "event/embedShow",

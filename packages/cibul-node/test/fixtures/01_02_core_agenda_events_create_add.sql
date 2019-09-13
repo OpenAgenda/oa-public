@@ -215,7 +215,8 @@ CREATE TABLE IF NOT EXISTS `agenda_event` (
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `legacy_id` varchar(30) DEFAULT NULL,
-  `user_uid` bigint(20) DEFAULT NULL
+  `user_uid` bigint(20) DEFAULT NULL,
+  `source_agenda_uid` bigint(20) DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=954070 DEFAULT CHARSET=utf8;
 
 

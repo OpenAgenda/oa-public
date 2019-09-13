@@ -37,7 +37,7 @@ export default class Body extends React.Component {
     this.onSearchChange = ::this.onSearchChange;
     this.getSearchPage = ::this.getSearchPage;
     this.onSelectAgenda = ::this.onSelectAgenda;
-    this.getStakeholdersPage = ::this.getStakeholdersPage;
+    this.getMembersPage = ::this.getMembersPage;
     this.setAgenda = ::this.setAgenda;
   }
 
@@ -45,7 +45,7 @@ export default class Body extends React.Component {
     searchRes: PropTypes.string,
     agendaRes: PropTypes.string,
     setAgendaRes: PropTypes.string,
-    stakeholdersRes: PropTypes.string,
+    membersRes: PropTypes.string,
 
     agenda: PropTypes.object
   };
@@ -59,9 +59,9 @@ export default class Body extends React.Component {
       pageRange: [ 1, 1 ]
     },
     agenda: {},
-    stakeholders: [],
-    stakeholdersPageRange: [ 1, 1 ],
-    stakeholdersTotal: 0
+    members: [],
+    membersPageRange: [ 1, 1 ],
+    membersTotal: 0
   }
 
   componentDidMount() {
@@ -73,12 +73,13 @@ export default class Body extends React.Component {
         search: ''
       },
       searchPage: 1,
+      agendaUid: null,
       agendaId: null,
-      stakeholdersPage: 1
+      membersPage: 1
     }, getQuery() );
 
     if ( !this.state.search.agendas.length ) this.resetSearchPage( q.oas, q.searchPage, () => {
-      if ( q.agendaId ) this.onSelectAgenda( q.agendaId, q.stakeholdersPage );
+      if ( q.agendaUid ) this.onSelectAgenda( q.agendaUid, q.membersPage );
     } );
 
   }
@@ -153,22 +154,22 @@ export default class Body extends React.Component {
 
   }
 
-  onSelectAgenda( id, page = 1 ) {
+  onSelectAgenda( uid, page = 1 ) {
 
     var query = {
-      agendaId: id,
-      stakeholdersPage: page
+      agendaUid: uid,
+      membersPage: page
     };
 
-    get( this.props.stakeholdersRes, query, ( err, stakeholders ) => {
+    get( this.props.membersRes, query, ( err, members ) => {
 
       if ( err ) return console.log( 'error', err );
 
-      get( this.props.agendaRes, { id }, ( err, agenda ) => {
+      get( this.props.agendaRes, { uid }, ( err, agenda ) => {
 
         if ( err ) return console.log( 'error', err );
 
-        this.setState( actions.selectAgenda( this.state, agenda, stakeholders, page ) );
+        this.setState( actions.selectAgenda( this.state, agenda, members, page ) );
 
         updateHref( Object.assign( getQuery() || {}, query ) );
 
@@ -178,26 +179,26 @@ export default class Body extends React.Component {
 
   }
 
-  getStakeholdersPage( next ) {
+  getMembersPage( next ) {
 
     if ( this.state.loading ) return;
 
     var query = {
-      agendaId: this.state.agenda.id,
-      stakeholdersPage: this.state.stakeholdersPageRange[ next ? 1 : 0 ] + ( next ? +1 : -1 )
+      agendaUid: this.state.agenda.uid,
+      membersPage: this.state.membersPageRange[ next ? 1 : 0 ] + ( next ? +1 : -1 )
     };
 
-    if ( this.state.stakeholders.length >= this.state.stakeholdersTotal ) return;
+    if ( this.state.members.length >= this.state.membersTotal ) return;
 
     this.setState( actions.loading( this.state, true ) );
 
-    get( this.props.stakeholdersRes, query, ( err, data ) => {
+    get( this.props.membersRes, query, ( err, data ) => {
 
       if ( err ) return console.log( 'error', err );
 
       this.setState( actions.loading( this.state, false ) );
 
-      this.setState( actions.addStakeholdersItems( this.state, next, data ) );
+      this.setState( actions.addMembersItems( this.state, next, data ) );
 
       updateHref( Object.assign( getQuery() || {}, query ) );
 
@@ -240,10 +241,10 @@ export default class Body extends React.Component {
           />
           <Details
             agenda={this.state.agenda}
-            stakeholders={this.state.stakeholders}
-            total={this.state.stakeholdersTotal}
-            pageRange={this.state.stakeholdersPageRange}
-            getStakeholdersPage={this.getStakeholdersPage}
+            members={this.state.members}
+            total={this.state.membersTotal}
+            pageRange={this.state.membersPageRange}
+            getMembersPage={this.getMembersPage}
             setAgenda={this.setAgenda}
             updateHref={updateHref}
             getQuery={getQuery}
@@ -263,14 +264,14 @@ function updateHref( query ) {
       search: ''
     },
     searchPage: 1,
-    stakeholdersPage: 1,
-    tab: 'stakeholders'
+    membersPage: 1,
+    tab: 'members'
   }, query );
 
   if ( q.searchPage <= 1 ) delete q.searchPage;
   if ( q.oas.search == '' ) delete q.oas.search;
-  if ( q.stakeholdersPage <= 1 ) delete q.stakeholdersPage;
-  if ( q.tab == 'stakeholders' ) delete q.tab;
+  if ( q.membersPage <= 1 ) delete q.membersPage;
+  if ( q.tab == 'members' ) delete q.tab;
 
   _updateHref( q );
 

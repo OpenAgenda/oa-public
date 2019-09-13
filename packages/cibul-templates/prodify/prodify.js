@@ -285,8 +285,6 @@ var ugly = require( 'uglify-js' ),
 
         }
 
-        console.log( cssFilename, cssKey );
-
         const OAIndex = cssFilename.indexOf( '@openagenda/' )
         const fileToAdd = OAIndex !== -1
           ? require.resolve( cssFilename.slice( OAIndex ) )

@@ -1,125 +1,110 @@
-"use strict";
+'use strict';
 
-var listSelector = '.events';
-var nextProgressiveLoadPage = 2, rockBottom;
+const listSelector = '.events';
+let nextProgressiveLoadPage = 2; let
+  rockBottom;
 
 window.oa = {
-  onWidgetUpdate: function( widget, query ) {
-
+  onWidgetUpdate(widget, query) {
     nextProgressiveLoadPage = 2;
     rockBottom = false;
 
-    loadListContent( '/events', { oaq: query }, function( err, result ) {
+    loadListContent('/events', { oaq: query }, (err, result) => {
+      $(listSelector).html(result.html);
+      updateTotal(result.total);
 
-      $( listSelector ).html( result.html );
-      updateTotal( result.total );
+      const pageMatch = window.location.href.match(/\/p\/[0-9]+/);
 
-      var pageMatch = window.location.href.match( /\/p\/[0-9]+/ );
-
-      if ( pageMatch ) {
-        window.history.pushState({},'', window.location.href.replace( pageMatch[ 0 ], '/p/1' ) );
+      if (pageMatch) {
+        window.history.pushState({}, '', window.location.href.replace(pageMatch[0], '/p/1'));
       }
-
-    } );
-
+    });
   },
-  onWidgetReady: function() {
+  onWidgetReady() {
   }
-}
+};
 
-function loadListContent( url, data, cb ) {
-
+function loadListContent(url, data, cb) {
   spin();
 
-  $.ajax({ url: url, data: data,
-    success: function( result ) {
+  $.ajax({
+    url,
+    data,
+    success(result) {
       spin.stop();
-      cb( null, result )
+      cb(null, result);
     }
   });
-
 }
 
-$(function() {
+$(() => {
+  $('.js_trigger_spin').on('click', spin);
 
-  $( '.js_trigger_spin' ).on( 'click', spin );
-
-  progressiveLoad( '.js_progressive_load' );
+  progressiveLoad('.js_progressive_load');
 
   updateTotal();
-
-} );
+});
 
 function spin() {
   spin.spinning = true;
-  $( 'body' ).spin({
+  $('body').spin({
     width: 1,
     length: 6,
     radius: 10,
     opacity: 6,
     color: '#333',
-    bgColor: "white"
+    bgColor: 'white'
   }); // show the spinner
 }
 
-spin.stop = function() {
+spin.stop = function () {
   spin.spinning = false;
-  $( 'body' ).spin(false);
-}
+  $('body').spin(false);
+};
 
-spin.isSpinning = function() {
+spin.isSpinning = function () {
   return spin.spinning;
-}
+};
 
-function updateTotal( total ) {
+function updateTotal(total) {
+  if (!$('.js_total').length) return;
 
-  if ( !$( '.js_total' ).length ) return;
-
-  if ( typeof total === 'undefined' ) {
-    total = parseInt( $( '.js_total' ).attr( 'data-total' ) );
+  if (typeof total === 'undefined') {
+    total = parseInt($('.js_total').attr('data-total'));
   }
 
-  $( '.js_total' ).html(
-    $( '.js_total' ).attr( total === 0
+  $('.js_total').html(
+    $('.js_total').attr(total === 0
       ? 'data-label-none'
-      : total === 1 ? 'data-label-one' : 'data-label-plural'
-    ).replace( '%total%', total )
+      : total === 1 ? 'data-label-one' : 'data-label-plural').replace('%total%', total)
   );
-
 }
 
-function progressiveLoad( canvasSelector ) {
+function progressiveLoad(canvasSelector) {
+  if (!$(canvasSelector).first().length) return;
 
-  if ( !$( canvasSelector ).first().length ) return;
+  $(window).on('scroll', () => {
+    if (spin.isSpinning() || rockBottom) return;
 
-  $(window).on("scroll", function() {
+    const scrollHeight = $(document).height();
+    const scrollPosition = $(window).height() + $(window).scrollTop();
 
-    if ( spin.isSpinning() || rockBottom ) return;
-
-    var scrollHeight = $(document).height();
-    var scrollPosition = $(window).height() + $(window).scrollTop();
-
-    if ( ( scrollHeight - scrollPosition ) / scrollHeight !== 0 ) {
+    if ((scrollHeight - scrollPosition) / scrollHeight !== 0) {
       return;
     }
 
-    var queryPart = window.location.href.split( '?' ).length === 2
-      ? '?' + window.location.href.split( '?' ).pop()
+    const queryPart = window.location.href.split('?').length === 2
+      ? `?${window.location.href.split('?').pop()}`
       : '';
 
-    loadListContent( '/events/p/' + (nextProgressiveLoadPage++) + queryPart, null, function( err, result ) {
+    loadListContent(`/events/p/${nextProgressiveLoadPage++}${queryPart}`, null, (err, result) => {
+      const eventItemsHTML = $(result.html).filter(canvasSelector).get(0).innerHTML.trim();
 
-      var eventItemsHTML = $( result.html ).filter( canvasSelector ).get( 0 ).innerHTML.trim()
-
-      if ( eventItemsHTML.length ) {
-        $( canvasSelector ).first().append( eventItemsHTML );
+      if (eventItemsHTML.length) {
+        $(canvasSelector).first().append(eventItemsHTML);
       } else {
         rockBottom = true;
       }
-
-    } );
-
+    });
   });
-
 }
-

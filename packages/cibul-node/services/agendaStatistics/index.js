@@ -12,6 +12,7 @@ const { syncAgenda } = require( '@openagenda/inboxes/dist/tasks/sync' );
 const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
 const logs = require( '@openagenda/logs' );
 
+const activitiesSvc = require( '../activities' );
 const agendaEventStats = require( './lib/agendaEventStats' );
 const config = require( '../../config' );
 const controlDataSvc = require( '../legacy' ).controlData;
@@ -20,6 +21,7 @@ const legacySearch = require( './lib/legacySearch' );
 const custom = require( './lib/custom' );
 const search = require( '../eventSearch' );
 const searchStats = require( './lib/search' );
+const legacyTagsAndCustom = require( '../legacy' ).tagsAndCustom;
 
 const core = require( '../../core' );
 
@@ -97,7 +99,7 @@ module.exports.task = () => {
 
       case 'customToLegacy' :
 
-        custom.toLegacy( data );
+        legacyTagsAndCustom.setAll( data.agendaUid );
         break;
 
       case 'aggregator':
@@ -157,7 +159,8 @@ module.exports.task = () => {
             aggregatorTable: config.schemas.aggregator,
             migrationTable: 'activity_migrations',
             logger: config.getLogConfig( 'oa', 'agendaStatistics', false ),
-            cli: false
+            cli: false,
+            service: activitiesSvc
           },
           logs( 'activities/rebuild' )
         );

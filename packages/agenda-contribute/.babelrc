@@ -1,8 +1,10 @@
 {
-  "presets" : [
+  "presets": [
     [
-      "openagenda",
-      { "modules": "commonjs" }
+      "@openagenda",
+      {
+        "modules": "commonjs"
+      }
     ]
   ],
   "sourceType": "unambiguous"

@@ -253,9 +253,9 @@ function transfer( identifiers, options, cb ) {
       context: v.context,
       evaluateLegacyIdentifiers: false,
       legacy: true,
+      internal: true,
       detailed: true
     }, ( err, r ) => {
-
       if ( err ) return cb( err );
 
       cb( null, _.extend( {

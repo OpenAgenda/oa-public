@@ -87,6 +87,7 @@ function initialize( props ) {
     showGeocodeLink: false,
     geocodeLoading: false,
     enableGeocode: props.enableGeocode,
+    geocodeNoResults: false,
     loadingError: false,
     errors: false,
     geocodeError: false,

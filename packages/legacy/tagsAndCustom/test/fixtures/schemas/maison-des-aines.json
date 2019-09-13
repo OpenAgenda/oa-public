@@ -1,0 +1,621 @@
+{
+  "custom": null,
+  "fields": [
+    {
+      "field": "interetintercommunal",
+      "label": {
+        "fr": "Événement d'intérêt intercommunal",
+        "en": "Événement d'intérêt intercommunal"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": [
+        1
+      ],
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 1,
+          "value": "true",
+          "label": {
+            "fr": "Événement d'intérêt intercommunal",
+            "en": "Événement d'intérêt intercommunal"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 246
+    },
+    {
+      "field": "recurringevent",
+      "label": {
+        "fr": "Événement récurrent",
+        "en": "Événement récurrent"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 2,
+          "value": "true",
+          "label": {
+            "fr": "Événement récurrent",
+            "en": "Événement récurrent"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 246
+    },
+    {
+      "field": "categories-metropolitaines",
+      "label": {
+        "fr": "Catégories Métropolitaines",
+        "en": "Catégories Métropolitaines"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 3,
+          "value": "atelier",
+          "label": {
+            "fr": "Atelier"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 4,
+          "value": "braderie-brocante",
+          "label": {
+            "fr": "Braderie - Brocante"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 5,
+          "value": "ceremonie",
+          "label": {
+            "fr": "Cérémonie"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 6,
+          "value": "cinema",
+          "label": {
+            "fr": "Cinéma"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 7,
+          "value": "conference-rencontre",
+          "label": {
+            "fr": "Conférence - Rencontre"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 8,
+          "value": "conseil-municipal",
+          "label": {
+            "fr": "Conseil Municipal"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 9,
+          "value": "danse",
+          "label": {
+            "fr": "Danse"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 10,
+          "value": "developpement-durable",
+          "label": {
+            "fr": "Développement durable"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 11,
+          "value": "emploi",
+          "label": {
+            "fr": "Emploi"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 12,
+          "value": "exposition",
+          "label": {
+            "fr": "Exposition"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 13,
+          "value": "fete-festival",
+          "label": {
+            "fr": "Fête - Festival"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 14,
+          "value": "formation",
+          "label": {
+            "fr": "Formation"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 15,
+          "value": "lecture",
+          "label": {
+            "fr": "Lecture"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 16,
+          "value": "mode",
+          "label": {
+            "fr": "Mode"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 17,
+          "value": "musique",
+          "label": {
+            "fr": "Musique"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 18,
+          "value": "reunion-publique",
+          "label": {
+            "fr": "Réunion publique"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 19,
+          "value": "sante",
+          "label": {
+            "fr": "Santé"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 20,
+          "value": "spectacle",
+          "label": {
+            "fr": "Spectacle"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 21,
+          "value": "sport",
+          "label": {
+            "fr": "Sport"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 22,
+          "value": "theatre",
+          "label": {
+            "fr": "Théâtre"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 23,
+          "value": "visite-balade",
+          "label": {
+            "fr": "Visite - Balade"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 246
+    },
+    {
+      "field": "label",
+      "label": {
+        "fr": "Label",
+        "en": "Label"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 24,
+          "value": "50-ans-de-la-mel",
+          "label": {
+            "fr": "50 ans de la MEL"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 25,
+          "value": "design",
+          "label": {
+            "fr": "Design"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 26,
+          "value": "grand-barouf",
+          "label": {
+            "fr": "Grand Barouf"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 246
+    },
+    {
+      "field": "categories-villeneuvoises",
+      "label": {
+        "fr": "Catégories villeneuvoises",
+        "en": "Categories"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 27,
+          "value": "commemoration-du-massacre-dascq",
+          "label": {
+            "fr": "Commémoration du Massacre d'Ascq"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 28,
+          "value": "permanences-de-mme-girard",
+          "label": {
+            "fr": "Permanences de Mme Girard"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 29,
+          "value": "lautomne-bleu",
+          "label": {
+            "fr": "L'Automne bleu"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 30,
+          "value": "dispositif-grand-stade",
+          "label": {
+            "fr": "Dispositif grand stade"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 31,
+          "value": "info-pratique-villeneuvoise",
+          "label": {
+            "fr": "Info pratique villeneuvoise"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 32,
+          "value": "conseils-de-quartier",
+          "label": {
+            "fr": "Conseils de quartier"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 33,
+          "value": "reunion-creation-dentreprise",
+          "label": {
+            "fr": "Réunion création d'entreprise"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 34,
+          "value": "piscine",
+          "label": {
+            "fr": "Piscine"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 35,
+          "value": "social-solidarite",
+          "label": {
+            "fr": "Social, solidarité"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 36,
+          "value": "jeunesse",
+          "label": {
+            "fr": "Jeunesse"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 37,
+          "value": "animation",
+          "label": {
+            "fr": "Animation"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 38,
+          "value": "universite",
+          "label": {
+            "fr": "Université"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 39,
+          "value": "centenaire-de-larmistice-1918",
+          "label": {
+            "fr": "Centenaire de l'armistice 1918"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 49,
+          "value": "decouverte-multimedia",
+          "label": {
+            "fr": "Découverte / multimédia",
+            "en": "Découverte / multimédia"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 50,
+          "value": "divertissement-loisir",
+          "label": {
+            "fr": "Divertissement / Loisir",
+            "en": "Divertissement / Loisir"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 51,
+          "value": "sante-bien-etre",
+          "label": {
+            "fr": "Santé / bien-être",
+            "en": "Santé / bien-être"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 40,
+          "value": "telethon",
+          "label": {
+            "fr": "Téléthon"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 41,
+          "value": "festivites-de-fin-dannee",
+          "label": {
+            "fr": "Festivités de fin d'année"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 42,
+          "value": "festival-des-solidarites",
+          "label": {
+            "fr": "Festival des Solidarités"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 43,
+          "value": "nuit-des-musees",
+          "label": {
+            "fr": "Nuit des musées"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 44,
+          "value": "marches-de-plein-air",
+          "label": {
+            "fr": "Marchés de plein air"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 45,
+          "value": "la-belle-saison",
+          "label": {
+            "fr": "La belle saison"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 46,
+          "value": "fete-nationale",
+          "label": {
+            "fr": "Fête nationale"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 47,
+          "value": "fete-de-la-musique",
+          "label": {
+            "fr": "Fête de la musique"
+          },
+          "legacyId": null
+        },
+        {
+          "id": 48,
+          "value": "journees-europeennes-du-patrimoine",
+          "label": {
+            "fr": "Journées Européennes du Patrimoine",
+            "en": "Journées Européennes du Patrimoine"
+          },
+          "legacyId": null
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 246
+    },
+    {
+      "field": "image",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "imageCredits",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "languages",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "title",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "description",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "keywords",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "longDescription",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "conditions",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "age",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "registration",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "accessibility",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "location",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "timings",
+      "fieldType": "abstract",
+      "schemaId": null
+    }
+  ]
+}

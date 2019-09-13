@@ -63,18 +63,18 @@ module.exports = app => {
   );
 
   app.get(
-    '/admin/agendas/stakeholders/search',
+    '/admin/agendas/members/search',
     preMw,
     ( req, res, next ) => {
 
       req.query.agendaId = req.query.agendaId ? parseInt( req.query.agendaId ) : null;
 
-      req.query.order = 'credential';
+      req.query.order = 'role.desc';
 
       next();
 
     },
-    mw.stakeholders.list
+    mw.members.list
   );
 
 };

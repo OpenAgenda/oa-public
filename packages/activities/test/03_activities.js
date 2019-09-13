@@ -3,13 +3,14 @@
 const _ = require( 'lodash' );
 const should = require( 'should' );
 const knexLib = require( 'knex' );
-const service = require( './service' );
+const Service = require( './service' );
 const config = require( '../testconfig' );
 
 describe( 'activities - activities', function () {
 
   this.timeout( 60000 );
 
+  let service;
   let knex;
 
   before( async () => {
@@ -19,8 +20,13 @@ describe( 'activities - activities', function () {
       connection: config.mysql
     } );
 
-    await service.initAndLoad( config );
+    service = await Service.initAndLoad( config );
 
+  } );
+
+  after( async () => {
+    await knex.destroy();
+    await service.shutdown();
   } );
 
   describe( 'list', () => {
@@ -511,7 +517,9 @@ describe( 'activities - activities', function () {
 
     it( 'add an activity that passes through the followFilters', async () => {
 
-      await service.init( Object.assign( {}, config, {
+      await service.shutdown();
+
+      service = await Service( Object.assign( {}, config, {
         filterFollows: [ {
           verb: 'event.publish',
           getFeeds: true,
@@ -574,12 +582,6 @@ describe( 'activities - activities', function () {
             }
           } );
 
-          return service.init( config );
-
-        } )
-        .catch( async err => {
-          await service.init( config );
-          return Promise.reject( err );
         } );
 
     } );

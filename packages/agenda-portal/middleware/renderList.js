@@ -1,13 +1,9 @@
-"use strict";
+'use strict';
 
-module.exports = ( req, res, next ) => {
+module.exports = (req, res, next) => {
+  req.app.render('partials/list', req.data, (err, html) => {
+    if (err) return next(err);
 
-  req.app.render( 'partials/list', req.data, ( err, html ) => {
-
-    if ( err ) return next( err );
-
-    res.json( { html, total: req.data.total } );
-
-  } );
-
-}
+    res.json({ html, total: req.data.total });
+  });
+};

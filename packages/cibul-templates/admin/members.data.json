@@ -1,0 +1,628 @@
+{
+  "members": [
+    {
+      "id": 6478,
+      "agendaId": 4608,
+      "userId": 2,
+      "credential": 2,
+      "updatedAt": "2015-12-08T15:30:34.000Z",
+      "createdAt": "2015-12-08T15:30:34.000Z",
+      "custom": {},
+      "user": {
+        "id": 2,
+        "fullName": "Romain Lange - OpenAgenda",
+        "username": "romainlange",
+        "email": "romain.lange@gmail.com",
+        "image": null,
+        "facebookUid": "656120718",
+        "twitterScreenName": "romainlange",
+        "culture": "fr",
+        "isActivated": 1,
+        "createdAt": "2011-04-12T11:21:41.000Z",
+        "updatedAt": "2016-03-31T10:22:09.000Z",
+        "twitterId": "20989152",
+        "googleId": "",
+        "uid": 99999999,
+        "lastSignin": "2016-03-31T10:22:09.000Z"
+      }
+    },
+    {
+      "id": 6480,
+      "agendaId": 4608,
+      "userId": 3083,
+      "credential": 2,
+      "updatedAt": "0000-00-00 00:00:00",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {},
+      "user": {
+        "id": 3083,
+        "fullName": "Jerome Messina",
+        "username": "96570247",
+        "email": "jerome.messina@culture.gouv.fr",
+        "image": null,
+        "facebookUid": null,
+        "twitterScreenName": null,
+        "culture": "fr",
+        "isActivated": 1,
+        "createdAt": "2015-01-26T14:32:08.000Z",
+        "updatedAt": "2016-03-31T07:08:08.000Z",
+        "twitterId": null,
+        "googleId": null,
+        "uid": 7627883,
+        "lastSignin": "2016-03-31T07:08:08.000Z"
+      }
+    },
+    {
+      "id": 6769,
+      "agendaId": 4608,
+      "userId": 1,
+      "credential": 2,
+      "updatedAt": "0000-00-00 00:00:00",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {},
+      "user": {
+        "id": 1,
+        "fullName": "Kari Olafsson",
+        "username": "kaore-olafsson",
+        "email": "kaoreolafsson@gmail.com",
+        "image": "review_kaore-olafsson_01.jpg",
+        "facebookUid": "592025090",
+        "twitterScreenName": "ka0re",
+        "culture": "fr",
+        "isActivated": 1,
+        "createdAt": "2011-04-09T06:27:01.000Z",
+        "updatedAt": "2016-03-31T13:53:57.000Z",
+        "twitterId": "125366137",
+        "googleId": null,
+        "uid": 75052324,
+        "lastSignin": "2016-03-31T13:53:57.000Z"
+      }
+    },
+    {
+      "id": 6856,
+      "agendaId": 4608,
+      "userId": 3078,
+      "credential": 2,
+      "updatedAt": "0000-00-00 00:00:00",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {},
+      "user": {
+        "id": 3078,
+        "fullName": "Driss",
+        "username": "85753998",
+        "email": "driss.tsila@culture.gouv.fr",
+        "image": null,
+        "facebookUid": null,
+        "twitterScreenName": null,
+        "culture": "fr",
+        "isActivated": 1,
+        "createdAt": "2015-01-26T13:15:10.000Z",
+        "updatedAt": "2016-03-23T15:35:17.000Z",
+        "twitterId": null,
+        "googleId": null,
+        "uid": 91725896,
+        "lastSignin": "2016-03-23T13:03:14.000Z"
+      }
+    },
+    {
+      "id": 6886,
+      "agendaId": 4608,
+      "userId": 3084,
+      "credential": 3,
+      "updatedAt": "0000-00-00 00:00:00",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {},
+      "user": {
+        "id": 3084,
+        "full_name": "Eve-Marie Thivolle",
+        "username": "13114445",
+        "email": "eve.thivolle@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2015-01-26T14:46:42.000Z",
+        "updated_at": "2016-03-31T11:11:38.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 59252808,
+        "last_signin": "2016-03-31T11:11:38.000Z"
+      }
+    },
+    {
+      "id": 6975,
+      "agendaId": 4608,
+      "userId": 2576,
+      "credential": 3,
+      "updatedAt": "2016-02-04T20:20:21.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "DRAC de Bourgogne Franche-Comté",
+          "slug": "drac-de-bourgogne-franche-comte"
+        },
+        "contactNumber": "0380685005",
+        "contactName": "Isabelle Boucher-Doigneau",
+        "contactPosition": "Communication"
+      },
+      "user": {
+        "id": 2576,
+        "full_name": "DRAC de Bourgogne",
+        "username": "DRACBourgogne*tw",
+        "email": "isabelle.boucher-doigneau@culture.gouv.fr",
+        "image": "http://pbs.twimg.com/profile_images/466542024707948544/sFN9D0md_normal.jpeg",
+        "facebook_uid": null,
+        "twitter_screen_name": "DRACBourgogne",
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2014-07-30T13:03:47.000Z",
+        "updated_at": "2016-03-09T14:52:23.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 48882459,
+        "last_signin": "2016-03-09T14:43:35.000Z"
+      }
+    },
+    {
+      "id": 6976,
+      "agendaId": 4608,
+      "userId": 7347,
+      "credential": 3,
+      "updatedAt": "0000-00-00 00:00:00",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {},
+      "user": {
+        "id": 7347,
+        "full_name": "DEVERNAY",
+        "username": "devernay",
+        "email": "anne-lise.devernay@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-20T14:07:53.000Z",
+        "updated_at": "2016-01-26T09:18:05.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 5403137,
+        "last_signin": "2016-01-26T09:18:05.000Z"
+      }
+    },
+    {
+      "id": 6977,
+      "agendaId": 4608,
+      "userId": 7348,
+      "credential": 3,
+      "updatedAt": "2016-02-04T20:20:21.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "DRAC Nord - Pas-de-Calais Picardie",
+          "slug": "drac-nord-pas-de-calais-picardie"
+        },
+        "contactNumber": "03 28 36 62 35",
+        "contactName": "Barrois",
+        "contactPosition": "Chargé de communication"
+      },
+      "user": {
+        "id": 7348,
+        "full_name": "Barrois",
+        "username": "barrois",
+        "email": "laurent.barrois@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-20T14:13:39.000Z",
+        "updated_at": "2016-03-31T10:09:09.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 16187734,
+        "last_signin": "2016-03-31T10:09:09.000Z"
+      }
+    },
+    {
+      "id": 6978,
+      "agendaId": 4608,
+      "userId": 7349,
+      "credential": 3,
+      "updatedAt": "2016-02-04T20:20:21.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "Drac Nord Pas de calais picardie",
+          "slug": "drac-nord-pas-de-calais-picardie"
+        },
+        "contactNumber": "calin",
+        "contactName": "adjoint ",
+        "contactPosition": "0328366235"
+      },
+      "user": {
+        "id": 7349,
+        "full_name": "calin",
+        "username": "calin",
+        "email": "frederic.calin@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-20T14:15:42.000Z",
+        "updated_at": "2016-03-30T07:33:42.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 55876802,
+        "last_signin": "2016-03-30T07:33:42.000Z"
+      }
+    },
+    {
+      "id": 6996,
+      "agendaId": 4608,
+      "userId": 7368,
+      "credential": 3,
+      "updatedAt": "2016-02-04T20:20:21.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "DRAC PACA",
+          "slug": "drac-paca"
+        },
+        "contactNumber": "04 42 16 19 75",
+        "contactName": "LARROUMEC",
+        "contactPosition": "CORRESPONDANT"
+      },
+      "user": {
+        "id": 7368,
+        "full_name": "Larroumec",
+        "username": "larroumec",
+        "email": "brigitte.larroumec@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-21T13:38:20.000Z",
+        "updated_at": "2016-03-31T10:37:10.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 55547930,
+        "last_signin": "2016-03-31T10:37:04.000Z"
+      }
+    },
+    {
+      "id": 7035,
+      "agendaId": 4608,
+      "userId": 7412,
+      "credential": 1,
+      "updatedAt": "2016-02-04T20:20:41.000Z",
+      "createdAt": "2016-01-23T16:18:24.000Z",
+      "custom": {
+        "organization": {
+          "label": "Ministère de la culture",
+          "slug": "ministere-de-la-culture"
+        },
+        "contactNumber": "0140153647",
+        "contactName": "Valérie_contributeur",
+        "contactPosition": "Multi-rôles"
+      },
+      "user": {
+        "id": 7412,
+        "full_name": "Valérie_contributeur",
+        "username": "valrie_contributeur",
+        "email": "contact@marval.info",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-23T16:04:21.000Z",
+        "updated_at": "2016-03-18T16:23:27.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 64920900,
+        "last_signin": "2016-03-18T16:23:27.000Z"
+      }
+    },
+    {
+      "id": 7055,
+      "agendaId": 4608,
+      "userId": 3812,
+      "credential": 3,
+      "updatedAt": "0000-00-00 00:00:00",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {},
+      "user": {
+        "id": 3812,
+        "full_name": "Françoise KERSEBET",
+        "username": "franoise-kersebet",
+        "email": "francoise.kersebet@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2015-04-30T08:18:06.000Z",
+        "updated_at": "2015-06-12T09:43:07.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 59597815,
+        "last_signin": null
+      }
+    },
+    {
+      "id": 7056,
+      "agendaId": 4608,
+      "userId": 7445,
+      "credential": 3,
+      "updatedAt": "2016-02-04T20:20:22.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "DRAC ALPC",
+          "slug": "drac-alpc"
+        },
+        "contactNumber": "05 57 95 01 84",
+        "contactName": "DEYRES Joëlle",
+        "contactPosition": "coordination régionale manifestations patrimoine"
+      },
+      "user": {
+        "id": 7445,
+        "full_name": "DEYRES Joëlle",
+        "username": "deyres-jolle",
+        "email": "joelle.deyres@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-25T13:24:56.000Z",
+        "updated_at": "2016-01-29T08:29:31.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 19056417,
+        "last_signin": "2016-01-29T08:29:31.000Z"
+      }
+    },
+    {
+      "id": 7059,
+      "agendaId": 4608,
+      "userId": 7447,
+      "credential": 3,
+      "updatedAt": "2016-02-04T20:20:22.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "DRAC NORMANDIE",
+          "slug": "drac-normandie"
+        },
+        "contactNumber": "02 32 10 71 03",
+        "contactName": "PHILIPPE ELODIE",
+        "contactPosition": "Chargée de communication"
+      },
+      "user": {
+        "id": 7447,
+        "full_name": "Elodie Philippe",
+        "username": "elodie-philippe",
+        "email": "elodie.philippe@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-25T13:46:13.000Z",
+        "updated_at": "2016-03-31T09:50:51.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 97947185,
+        "last_signin": "2016-03-31T09:47:11.000Z"
+      }
+    },
+    {
+      "id": 7060,
+      "agendaId": 4608,
+      "userId": 7450,
+      "credential": 3,
+      "updatedAt": "2016-02-04T20:20:22.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "DRAC Pays de la Loire",
+          "slug": "drac-pays-de-la-loire"
+        },
+        "contactNumber": "02 40 14 28 28",
+        "contactName": "Guillaume de la Chapelle",
+        "contactPosition": "Responsable communication"
+      },
+      "user": {
+        "id": 7450,
+        "full_name": "de la Chapelle",
+        "username": "de-la-chapelle",
+        "email": "guillaume.de-la-chapelle@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-25T14:08:29.000Z",
+        "updated_at": "2016-03-30T09:26:27.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 4070765,
+        "last_signin": "2016-03-30T09:26:27.000Z"
+      }
+    },
+    {
+      "id": 7065,
+      "agendaId": 4608,
+      "userId": 7448,
+      "credential": 3,
+      "updatedAt": "2016-02-04T20:20:22.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "DRAC",
+          "slug": "drac"
+        },
+        "contactNumber": "05 49 36 21 52",
+        "contactName": "Bérusseau Stéphanie",
+        "contactPosition": "Correspondant jardin"
+      },
+      "user": {
+        "id": 7448,
+        "full_name": "BÉRUSSEAU",
+        "username": "brusseau",
+        "email": "stephanie.berusseau@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-25T13:47:16.000Z",
+        "updated_at": "2016-03-31T05:08:49.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 42609709,
+        "last_signin": "2016-03-31T05:08:49.000Z"
+      }
+    },
+    {
+      "id": 7067,
+      "agendaId": 4608,
+      "userId": 7411,
+      "credential": 3,
+      "updatedAt": "2016-02-08T10:02:04.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "MCC",
+          "slug": "mcc"
+        },
+        "contactNumber": "0140157621",
+        "contactName": "Stagiaire Multimédia",
+        "contactPosition": "Assistante Multimédia"
+      },
+      "user": {
+        "id": 7411,
+        "full_name": "Stagiaire Multimédia",
+        "username": "stagiaire-multimdia",
+        "email": "stagiaire.multimedia@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-23T15:57:14.000Z",
+        "updated_at": "2016-03-29T06:24:56.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 16084767,
+        "last_signin": "2016-03-29T06:24:56.000Z"
+      }
+    },
+    {
+      "id": 7075,
+      "agendaId": 4608,
+      "userId": 7464,
+      "credential": 3,
+      "updatedAt": "2016-02-04T20:20:23.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "DRAC Aquitaine - Limousin - Poitou-Charentes",
+          "slug": "drac-aquitaine-limousin-poitou-charentes"
+        },
+        "contactNumber": "05 55 45 66 07",
+        "contactName": "Pradoux Josiane",
+        "contactPosition": "Chargée de la valorisation du patrimoine"
+      },
+      "user": {
+        "id": 7464,
+        "full_name": "Pradoux",
+        "username": "pradoux",
+        "email": "josiane.pradoux@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-26T09:26:26.000Z",
+        "updated_at": "2016-03-11T12:35:15.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 86741423,
+        "last_signin": "2016-03-11T12:35:15.000Z"
+      }
+    },
+    {
+      "id": 7084,
+      "agendaId": 4608,
+      "userId": 7480,
+      "credential": 3,
+      "updatedAt": "2016-02-04T20:20:23.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "DRAC CENTRE VAL DE LOIRE",
+          "slug": "drac-centre-val-de-loire"
+        },
+        "contactNumber": "0238788552",
+        "contactName": "Dominique Masson",
+        "contactPosition": "Conseillère pour les jardins"
+      },
+      "user": {
+        "id": 7480,
+        "full_name": "Dominique Masson",
+        "username": "dominique-masson",
+        "email": "dominique-agnes.masson@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-26T14:59:02.000Z",
+        "updated_at": "2016-03-16T12:47:05.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 12465533,
+        "last_signin": "2016-03-16T12:47:05.000Z"
+      }
+    },
+    {
+      "id": 7103,
+      "agendaId": 4608,
+      "userId": 7509,
+      "credential": 3,
+      "updatedAt": "2016-02-04T20:20:23.000Z",
+      "createdAt": "0000-00-00 00:00:00",
+      "custom": {
+        "organization": {
+          "label": "DAC GUYANE",
+          "slug": "dac-guyane"
+        },
+        "contactNumber": "05 94 25 54 15",
+        "contactName": "Edith Mathis",
+        "contactPosition": "Référent événements"
+      },
+      "user": {
+        "id": 7509,
+        "full_name": "Edith Mathis",
+        "username": "edith-mathis",
+        "email": "edith.mathis@culture.gouv.fr",
+        "image": null,
+        "facebook_uid": null,
+        "twitter_screen_name": null,
+        "culture": "fr",
+        "is_activated": 1,
+        "created_at": "2016-01-27T11:43:30.000Z",
+        "updated_at": "2016-03-21T11:54:02.000Z",
+        "twitter_id": null,
+        "google_id": null,
+        "uid": 11265469,
+        "last_signin": "2016-03-21T11:52:03.000Z"
+      }
+    }
+  ]
+}

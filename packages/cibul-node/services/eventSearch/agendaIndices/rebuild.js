@@ -7,6 +7,8 @@ const formSchemas = require( '@openagenda/form-schemas' );
 const schema = require( '@openagenda/validators/schema' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 
+const log = require( '@openagenda/logs' )( 'services/eventSearch/agendaIndices/rebuild' );
+
 schema.register( {
   integer: require( '@openagenda/validators/integer' )
 } );
@@ -26,7 +28,7 @@ module.exports = async ( searchIndex, uid ) => {
         default: false
       }
     } )
-  }, 
+  },
 
     extensions = {
       state: {

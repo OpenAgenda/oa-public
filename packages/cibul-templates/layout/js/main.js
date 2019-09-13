@@ -1,10 +1,20 @@
 "use strict";
 
-const openRequestForm = require( '@openagenda/call-to-action/dist/client/openRequestForm' );
+require( 'core-js/stable' );
+require( 'regenerator-runtime/runtime' );
+require( 'dom4' );
+require( 'pepjs' );
+
+require( 'intl' );
+require( 'intl/locale-data/jsonp/fr' );
+require( 'intl/locale-data/jsonp/en' );
+require( 'intl/locale-data/jsonp/de' );
+require( 'intl/locale-data/jsonp/br' );
 
 // import ie8 from 'dom-utils/ie8'; // useful for ie11 too
 // import ie9 from 'dom-utils/ie9'; // useful for ie11 too
 
+const layout = require( './layout' );
 
 var utils = require( '@openagenda/utils' ),
 
@@ -25,8 +35,6 @@ var utils = require( '@openagenda/utils' ),
   preloadSpin = require( './preloadSpin' ),
 
   debug = require( 'debug' ),
-
-  layout = require( './layout' ),
 
   log = debug( 'main' ),
 

@@ -1,50 +1,58 @@
 {
   "name": "@openagenda/users",
-  "version": "2.2.2",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "jest --forceExit"
-  },
+  "version": "3.0.0",
   "repository": {
     "type": "git",
     "url": "git+ssh://git@bitbucket.org/openagenda/oa.git"
   },
-  "author": "",
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/users",
+  "main": "service/index.js",
+  "scripts": {
+    "knex": "babel-node ./node_modules/.bin/knex",
+    "test": "jest --detectOpenHandles --forceExit",
+    "lint": "eslint -c .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc",
+      "git add"
+    ]
+  },
   "dependencies": {
-    "@feathersjs/commons": "^1.4.1",
-    "@feathersjs/errors": "^3.3.0",
-    "@feathersjs/express": "^1.2.2",
-    "@feathersjs/feathers": "^3.1.4",
-    "@openagenda/image-files": "^1.1.1",
-    "@openagenda/image-upload": "^1.0.8",
-    "@openagenda/logs": "^1.1.1",
-    "@openagenda/validators": "^2.1.3",
-    "debug": "^3.2.6",
-    "feathers-hooks-common": "^4.20.2",
-    "feathers-knex": "^3.1.0",
-    "knex": "^0.16.3",
-    "lodash": "^4.17.4",
-    "mysql": "^2.15.0",
-    "uberproto": "^2.0.3",
-    "uuid": "^3.2.1",
+    "@feathersjs/errors": "^4.3.0",
+    "@feathersjs/express": "^4.3.0",
+    "@openagenda/logs": "^1.1.2",
+    "@openagenda/validators": "^2.2.0",
+    "debug": "^4.1.1",
+    "feathers-hooks-common": "^4.20.7",
+    "feathers-knex": "^6.0.2",
+    "knex": "^0.19.1",
+    "lodash": "^4.17.15",
+    "mysql": "^2.17.1",
+    "uuid": "^3.3.3",
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "@openagenda/files": "^2.0.6",
+    "@feathersjs/feathers": "^4.3.0",
+    "@openagenda/eslint-config": "^1.0.0",
+    "@openagenda/files": "^2.0.7",
     "@openagenda/fixtures": "^2.0.1",
+    "@openagenda/image-files": "^1.1.2",
+    "@openagenda/images": "^1.1.1",
     "@openagenda/keys": "^2.1.1",
-    "axios": "^0.18.0",
-    "bluebird": "^3.5.1",
-    "chai": "^4.1.2",
-    "chai-as-promised": "^7.1.1",
-    "chai-jest-diff": "^1.0.2",
-    "express": "^4.16.3",
-    "form-data": "^2.3.2",
-    "jest": "^23.6.0",
-    "sinon": "^5.0.3",
-    "tmp": "^0.0.33"
+    "eslint": "^6.2.1",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.3",
+    "prettier-eslint-cli": "^5.0.0",
+    "sinon": "^7.4.1",
+    "tmp": "^0.1.0"
+  },
+  "peerDependencies": {
+    "@openagenda/image-files": "^1.1.2",
+    "@openagenda/keys": "^2.1.1"
   }
 }

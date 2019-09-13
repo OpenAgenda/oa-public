@@ -73,7 +73,6 @@ const config = {
       oembed: 'oembed',
       controlData: 'agendaControlDataQueue',
       stakeholderCreate: 'stakeholderCreate',
-      stakeholderMessage: 'stakeholderMessage',
       notificationAddActivity: 'notificationAddActivity',
       notificationSendSummary: 'notificationSendSummary',
       inboxesSync: 'inboxesSync'
@@ -339,11 +338,6 @@ const config = {
           uri: '/:slug/event/:eventSlug/edit',
           legacy: true
         },
-        agendaEventDuplicate: {
-          method: 'get',
-          uri: '/:slug/event/:eventSlug/duplicate',
-          legacy: true
-        },
         agendaEventShow: {
           method: 'get',
           uri: '/:slug/event/:eventSlug',
@@ -522,58 +516,6 @@ const config = {
           method: 'get',
           uri: '/google/signup/callback'
         },
-        signin: {
-          method: 'get',
-          uri: '/signin'
-        },
-        agendaSignin: {
-          method: 'get',
-          uri: '/:slug/signin'
-        },
-        signinSubmit: {
-          method: 'get',
-          uri: '/signin'
-        },
-        agendaSigninSubmit: {
-          method: 'get',
-          uri: '/:slug/signin'
-        },
-        agendaSignup: {
-          method: 'get',
-          uri: '/:slug/signup'
-        },
-        signupSubmit: {
-          method: 'get',
-          uri: '/signup'
-        },
-        agendaSignupSubmit: {
-          method: 'get',
-          uri: '/:slug/signup'
-        },
-        signupComplete: {
-          method: 'get',
-          uri: '/signup/complete'
-        },
-        agendaSignupComplete: {
-          method: 'get',
-          uri: '/:slug/signup/complete'
-        },
-        activateResend: {
-          method: 'get',
-          uri: '/activate/resend'
-        },
-        agendaActivateResend: {
-          method: 'get',
-          uri: '/:slug/activate/resend'
-        },
-        activate: {
-          method: 'get',
-          uri: '/activate/:token'
-        },
-        agendaActivate: {
-          method: 'get',
-          uri: '/:slug/activate/:token'
-        },
         lostPassword: {
           method: 'get',
           uri: '/password/lost'
@@ -653,10 +595,6 @@ const config = {
         agendaAdminLocationTerms: {
           method: 'get',
           uri: '/:slug/admin/locations/terms'
-        },
-        locationGetStakeholder: {
-          method: 'get',
-          uri: '/:slug/admin/locations/stakeholders/:stakeholderId'
         },
         locationGeocode: {
           method: 'get',
@@ -888,14 +826,12 @@ const config = {
     //useCache: false,
     db: {
       database: 'oadev',
-      //database: 'ville_de_geneve',
+      //database: 'oa',
       host: 'localhost',
-      user: 'root',
-      /*
-      host: 'ec2-54-195-244-5.eu-west-1.compute.amazonaws.com',
-      user: 'dev',
-      */
+      //host: 'oatest.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
       password: 'grut',
+      //password: prod.db.password,
+      user: 'root',
       cache: true,
       //debug: true,
       timezone: 'UTC'

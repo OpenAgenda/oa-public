@@ -3,12 +3,19 @@ import MaskedInput from 'react-text-mask';
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe';
 import deriveDateFormat from './utils/deriveDateFormat';
 
-export default function DateInput( { input, meta, label, classNamePrefix, intl, ...rest } ) {
-  const derivedDateFormat = deriveDateFormat( intl )
-    .split( '' )
-    .map( v => {
+export default function DateInput({
+  input,
+  meta,
+  label,
+  classNamePrefix,
+  intl,
+  ...rest
+}) {
+  const derivedDateFormat = deriveDateFormat(intl)
+    .split('')
+    .map(v => {
       // Reverse MM and mm for text-mask (see https://github.com/text-mask/text-mask/issues/951)
-      switch ( v ) {
+      switch (v) {
         case 'M':
           return 'm';
         case 'm':
@@ -16,10 +23,13 @@ export default function DateInput( { input, meta, label, classNamePrefix, intl, 
         default:
           return v;
       }
-    } ).join( '' );
+    })
+    .join('');
 
-  const pipe = createAutoCorrectedDatePipe( derivedDateFormat );
-  const mask = derivedDateFormat.split( '' ).map( char => (/[a-z]/gi.test( char ) ? /\d/ : char) );
+  const pipe = createAutoCorrectedDatePipe(derivedDateFormat);
+  const mask = derivedDateFormat
+    .split('')
+    .map(char => (/[a-z]/gi.test(char) ? /\d/ : char));
 
   return (
     <section className={`${classNamePrefix}section`}>
@@ -35,9 +45,7 @@ export default function DateInput( { input, meta, label, classNamePrefix, intl, 
       />
 
       {meta.touched && meta.error ? (
-        <div className={`${classNamePrefix}input-error`}>
-          {intl.formatMessage( messages[ meta.error ] )}
-        </div>
+        <div className={`${classNamePrefix}input-error`}>{meta.error}</div>
       ) : null}
     </section>
   );

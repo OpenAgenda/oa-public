@@ -1,32 +1,23 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/members';
+import I18nContext from '../../contexts/I18nContext';
 
-@connect(
-  state => ({
-    res: state.res,
-    lang: state.settings.lang
-  })
-)
+@connect(state => ({
+  res: state.res,
+  lang: state.settings.lang
+}))
 export default class App extends Component {
-  static childContextTypes = {
-    lang: PropTypes.string,
-    getLabel: PropTypes.func
-  };
+  constructor(props) {
+    super(props);
 
-  state = {
-    menuOpen: false
-  };
+    const { lang } = props;
 
-  getChildContext() {
-    const { lang } = this.props;
-
-    return {
+    this.i18nContextValue = {
       lang,
-      getLabel: (label, values = {}) => makeGetterLabel( labels )( label, values, lang )
+      getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, lang)
     };
   }
 
@@ -34,9 +25,9 @@ export default class App extends Component {
     const { route } = this.props;
 
     return (
-      <div className="members-admin">
-        {renderRoutes( route.routes )}
-      </div>
+      <I18nContext.Provider value={this.i18nContextValue}>
+        <div className="members-admin">{renderRoutes(route.routes)}</div>
+      </I18nContext.Provider>
     );
   }
 }

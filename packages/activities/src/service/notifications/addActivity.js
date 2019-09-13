@@ -2,25 +2,14 @@
 
 const queue = require( '@openagenda/queue' );
 
-let config;
-let knex;
-let service;
-let q;
+module.exports = config => {
+  const q = queue( config.queue.names.addActivity, { redis: config.queue.redis } );
 
-module.exports = Object.assign( addActivity, { init } );
+  function addActivity( identifiers, activity, cb ) {
 
-function init( { config: c, knex: k, service: s } ) {
+    q( { identifiers, activity }, cb );
 
-  config = c;
-  knex = k;
-  service = s;
+  }
 
-  q = queue( config.queue.names.addActivity, { redis: config.queue.redis } );
-
-}
-
-function addActivity( identifiers, activity, cb ) {
-
-  q( { identifiers, activity }, cb );
-
-}
+  return addActivity;
+};

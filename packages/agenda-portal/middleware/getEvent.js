@@ -1,29 +1,20 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+module.exports = async (req, res, next) => {
+  const proxy = req.app.get('proxy');
+  const transform = req.app.get('transforms').event.show;
 
-module.exports = async ( req, res, next ) => {
-
-  const proxy = req.app.get( 'proxy' );
-  const transform = req.app.get( 'transforms' ).event.show;
-
-  const event = await proxy.get( res.locals.agendaUid, {
+  const event = await proxy.get(res.locals.agendaUid, {
     slug: req.params.slug
-  } );
+  });
 
-  if ( !event ) return next();
+  if (!event) return next();
 
-  req.data.event = transform( event, req, res );
+  req.data.event = transform(event, req, res);
 
-  if ( req.query.data !== undefined && process.env.NODE_ENV === 'development' ) {
-
-    return res.json( Object.assign(
-      req.data,
-      req.app.locals
-    ) );
-
+  if (req.query.data !== undefined && process.env.NODE_ENV === 'development') {
+    return res.json(Object.assign(req.data, req.app.locals));
   }
 
-  res.render( 'event', req.data );
-
-}
+  res.render('event', req.data);
+};

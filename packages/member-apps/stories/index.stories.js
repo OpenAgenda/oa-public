@@ -1,14 +1,13 @@
-import React from 'react';
 import { createMemoryHistory } from 'history';
 import { storiesOf } from '@storybook/react';
-import PageDecorator from './decorators/PageDecorator';
 import createApp from '../src/app';
+import PageDecorator from './decorators/PageDecorator';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
 const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
-const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
+const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
   settings: {
     lang,
     apiRoot,
@@ -38,38 +37,40 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
       embedsHead: false,
       embedsTemplates: false
     },
-    roles: [ {
-      value: 1,
-      code: 'contributor'
-    }, {
-      value: 2,
-      code: 'administrator'
-    } ]
+    roles: [
+      {
+        code: 1,
+        slug: 'contributor'
+      },
+      {
+        code: 2,
+        slug: 'administrator'
+      }
+    ]
   },
-  stakeholder: {
+  member: {
     actionsCounter: 0,
-    agendaId: 4608,
     createdAt: '2015-12-08T16:30:34.000Z',
-    credential: 2,
+    role: 2,
     custom: {
       contactName: 'Romain Lange - OpenAgenda'
     },
     deletedUser: false,
     id: 6478,
     linkStore: null,
-    updatedAt: '2015-12-08T16:30:34.000Z',
-    userId: 2
+    updatedAt: '2015-12-08T16:30:34.000Z'
   }
 });
 
-
-storiesOf( 'App', module )
-  .addDecorator( PageDecorator )
-  .add( 'all', () => {
-    const { element } = createApp( {
+storiesOf('App', module)
+  .addDecorator(PageDecorator)
+  .add('all', () => {
+    const { element } = createApp({
       history: createMemoryHistory(),
-      initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-    } );
+      initialState: getDefaultState({
+        apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}`
+      })
+    });
 
     return element;
-  } );
+  });

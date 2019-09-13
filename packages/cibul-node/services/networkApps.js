@@ -75,7 +75,7 @@ async function addAgendaToNetwork( uid, dirtySlug ) {
 
   log( 'extracted slug %s', slug );
 
-  const agenda = await agendas.get( { slug } );
+  const agenda = await agendas.get( { slug }, { private: null } );
 
   await core.networks( uid ).agendas.add( agenda.uid );
 

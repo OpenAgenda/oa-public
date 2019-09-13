@@ -1,9 +1,13 @@
-module.exports = ( baseConfig, env, defaultConfig ) => {
-  defaultConfig.module.rules.push( {
-    test: /\.stories\.jsx?$/,
-    loaders: [ require.resolve( '@storybook/addon-storysource/loader' ) ],
-    enforce: 'pre'
-  } );
+const webpack = require('webpack');
 
-  return defaultConfig;
+module.exports = ({ config }) => {
+  config.plugins.push(
+    new webpack.DefinePlugin({
+      __CLIENT__: true,
+      __SERVER__: false,
+      __DEVELOPMENT__: true
+    })
+  );
+
+  return config;
 };

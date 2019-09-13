@@ -6,7 +6,7 @@ const w = require( 'when' );
 const wn = require( 'when/node' );
 
 const log = require( '@openagenda/logs' )( 'aggregator/evaluate' );
-const evaluate = require( '@openagenda/aggregators' ).utils.evaluate;
+const evaluate = require( '@openagenda/aggregators' ).utils.evaluateRules;
 
 const aggUtils = require( './aggUtils' );
 const loadAgendaCategories = require( './utils/loadAgendaCategories' );

@@ -48,9 +48,6 @@ describe( 'agendas - unit (server): validate', () => {
               body: null
             }
           },
-          mailing: {
-            eventAggregation: false
-          },
           tracking: {
             googleAnalytics: null
           },
@@ -201,9 +198,6 @@ describe( 'agendas - unit (server): validate', () => {
               subject: null,
               body: null
             }
-          },
-          mailing: {
-            eventAggregation: false
           },
           contribution: {
             allowLocationCreate: true,

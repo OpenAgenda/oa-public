@@ -66,13 +66,13 @@ class UserApp extends Component {
 
   get( uid ) {
 
-    remote.getXmlHttp( config.res.users, { data: { uid: uid } }, ( responseType, data ) => {
+    remote.getXmlHttp( config.res.users, { timeout: 10000, data: { uid: uid } }, ( responseType, data ) => {
 
       if ( responseType !== 'success' ) return alert( 'schplof.' );
 
       this.setState( {
         user: data.user,
-        stakeholders: data.stakeholders
+        members: data.members
       } );
 
     } );
@@ -195,7 +195,7 @@ class UserApp extends Component {
 
   render() {
 
-    const { page, perPage, total, users, displaySessionModal, user, stakeholders } = this.state;
+    const { page, perPage, total, users, displaySessionModal, user, members } = this.state;
 
     return (
       <div className="container-fluid">
@@ -226,7 +226,7 @@ class UserApp extends Component {
           <div className="col-md-8">
             <UserShow
               user={user}
-              stakeholders={stakeholders}
+              members={members}
               onUserActivation={this.handleUserActivation}
               onUserSignin={this.handleUserSignin}
               onUserChangePassword={this.handleChangePassword}

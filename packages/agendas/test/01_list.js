@@ -103,6 +103,18 @@ describe( 'agendas - functional (server): list', function () {
 
   } );
 
+  it( 'list with includeImagePath includes full image path', done => {
+
+    svc.list( {}, 0, 1, {
+      includeImagePath: true,
+      detailed: true
+    }, ( err, agendas ) => {
+      agendas[ 0 ].image.should.equal( '//openagendatst.s3.amazonaws.com/review_sylvie-et-pascal-verger_00.jpg' );
+      done();
+    } );
+
+  } );
+
 
   it( 'DEPRECATE - list with { detailed: true } gets agendas with detailed info', done => {
 

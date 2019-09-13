@@ -5,8 +5,9 @@ const _ = require( 'lodash' );
 const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
-  boolean: require( '@openagenda/validators/boolean' ),
-  pass: require( '@openagenda/validators/pass' )
+  boolean: require('@openagenda/validators/boolean'),
+  pass: require('@openagenda/validators/pass'),
+  choice: require('@openagenda/validators/choice')
 } );
 
 module.exports = ( values, operation = 'default' ) => {
@@ -27,6 +28,10 @@ const base = {
   transferToLegacy: {
     type: 'boolean',
     default: false
+  },
+  decorate: {
+    type: 'choice',
+    options: ['member']
   },
   context: {
     optional: true,

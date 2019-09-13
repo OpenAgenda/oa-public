@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import { expect } from 'chai';
 import sinon from 'sinon';
 import moment from 'moment';
 import OaSdk from '../src';
@@ -12,22 +11,22 @@ describe( 'connection', () => {
     const oa = new OaSdk( { secretKey: testconfig.secretKey } );
     await oa.connect();
 
-    expect( oa.accessToken ).to.be.a( 'string' ).to.have.lengthOf( 32 );
+    expect( oa.accessToken ).toHaveLength( 32 );
   } );
 
   it( 'simple connect - key provided on connect', async () => {
     const oa = new OaSdk();
     await oa.connect( testconfig.secretKey );
 
-    expect( oa.accessToken ).to.be.a( 'string' ).to.have.lengthOf( 32 );
+    expect( oa.accessToken ).toHaveLength( 32 );
   } );
 
   it( 'fail connection', async () => {
     const oa = new OaSdk();
 
-    expect(
+    await expect(
       oa.connect( 'inexistant' )
-    ).to.be.rejectedWith( 'Bad Request' );
+    ).rejects.toThrow( 'Bad Request' );
   } );
 } );
 
@@ -43,13 +42,13 @@ describe( 'refresh expired token', () => {
 
     await oa.events.get( 12345678 );
 
-    expect( spy.callCount ).to.be.equal( 1 );
+    expect( spy.callCount ).toBe( 1 );
 
     clock.tick( oa.expiresIn * 1000 );
 
     await oa.events.get( 12345678 );
 
-    expect( spy.callCount ).to.be.equal( 2 );
+    expect( spy.callCount ).toBe( 2 );
 
     clock.restore();
   } );
@@ -67,7 +66,9 @@ describe( 'locations', () => {
       longitude: 5.2723537
     } );
 
-    expect( location ).to.have.property( 'uid' ).that.is.a( 'number' );
+    expect( location ).toMatchObject({
+      uid: expect.any(Number)
+    })
   } );
 
   it( 'fails to create a location', async () => {
@@ -80,7 +81,7 @@ describe( 'locations', () => {
         address: 'Lieu dit Le Cugnet, 55220 Les Trois-Domaines'
       } );
     } catch ( e ) {
-      expect( e.response.body ).to.be.eql( {
+      expect( e.response.body ).toEqual( {
         error: 'invalid_request',
         error_description: 'latitude: Latitude is required, longitude: Longitude is required'
       } );
@@ -111,15 +112,13 @@ describe( 'events', () => {
         begin: moment().add( 1, 'day' ),
         end: moment().add( 1, 'day' ).add( 1, 'hour' )
       } ]
-    } )
-      .catch( ::console.log );
+    } );
 
-    expect( success ).to.equal( true );
-    expect( event.uid ).to.be.a( 'number' );
-    expect( event.title.fr ).to.be.equal( 'Un titre' );
+    expect(success).toBeTruthy();
+    expect(typeof event.uid).toBe('number');
+    expect(event.title.fr).toBe('Un titre');
 
-    await oa.events.delete( testconfig.agendaUid, event.uid )
-      .catch( ::console.log );
+    await oa.events.delete( testconfig.agendaUid, event.uid );
   } );
 
   it( 'create & delete an event - with keywords', async () => {
@@ -147,15 +146,13 @@ describe( 'events', () => {
       keywords: {
         fr: [ 'Toulouse', 'Toulouse Centre', 'Culture', 'Exposition', 'Tout public' ]
       }
-    } )
-      .catch( ::console.log );
+    } );
 
-    expect( success ).to.equal( true );
-    expect( event.uid ).to.be.a( 'number' );
-    expect( event.title.fr ).to.be.equal( 'Un titre' );
+    expect( success ).toBeTruthy();
+    expect( typeof event.uid ).toBe( 'number' );
+    expect( event.title.fr ).toBe( 'Un titre' );
 
-    await oa.events.delete( testconfig.agendaUid, event.uid )
-      .catch( ::console.log );
+    await oa.events.delete( testconfig.agendaUid, event.uid );
   } );
 
   it( 'fails to create an event', async () => {
@@ -179,12 +176,25 @@ describe( 'events', () => {
         } ]
       } );
     } catch ( e ) {
-      expect( e.response.body ).to.be.eql( {
-        errors: [ {
-          field: 'title',
-          code: 'required',
-          message: 'at least one language entry is required'
-        } ]
+      expect( e.response.body ).toEqual( {
+        errors: [
+          {
+            code: 'required',
+            field: 'title',
+            lang: 'fr',
+            message: 'a string is required',
+            origin: '',
+            step: 'validation'
+          },
+          {
+            code: 'required',
+            field: 'title',
+            lang: 'en',
+            message: 'a string is required',
+            origin: '',
+            step: 'validation'
+          }
+        ]
       } );
     }
   } );
@@ -215,15 +225,13 @@ describe( 'events', () => {
         begin: moment().add( 1, 'day' ),
         end: moment().add( 1, 'day' ).add( 1, 'hour' )
       } ]
-    } )
-      .catch( ::console.log );
+    } );
 
     const event = await oa.events.get( createdEvent.uid );
 
-    expect( parseInt( event.uid, 10 ) ).to.be.equal( createdEvent.uid );
+    expect( parseInt( event.uid, 10 ) ).toBe( createdEvent.uid );
 
-    await oa.events.delete( testconfig.agendaUid, createdEvent.uid )
-      .catch( ::console.log );
+    await oa.events.delete( testconfig.agendaUid, createdEvent.uid );
   } );
 
   it( 'update an event', async () => {
@@ -248,8 +256,7 @@ describe( 'events', () => {
         begin: moment().add( 1, 'day' ),
         end: moment().add( 1, 'day' ).add( 1, 'hour' )
       } ]
-    } )
-      .catch( ::console.log );
+    } );
 
     const { event: updatedEvent } = await oa.events.update( testconfig.agendaUid, event.uid, {
       slug: event.slug,
@@ -258,15 +265,13 @@ describe( 'events', () => {
         en: 'Updated title'
       },
       timings: event.timings
-    } )
-      .catch( ::console.log );
+    } );
 
-    expect( success ).to.equal( true );
-    expect( event.uid ).to.be.a( 'number' );
-    expect( event.title.fr ).to.be.equal( 'Un titre' );
-    expect( updatedEvent.title.fr ).to.be.equal( 'Titre mise à jour' );
+    expect( success ).toBeTruthy();
+    expect( typeof event.uid ).toBe('number');
+    expect( event.title.fr ).toBe( 'Un titre' );
+    expect( updatedEvent.title.fr ).toBe( 'Titre mise à jour' );
 
-    await oa.events.delete( testconfig.agendaUid, event.uid )
-      .catch( ::console.log );
+    await oa.events.delete( testconfig.agendaUid, event.uid );
   } );
 } );

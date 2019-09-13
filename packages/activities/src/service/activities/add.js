@@ -9,24 +9,12 @@ const schema = require( '@openagenda/validators/schema' );
 const validators = require( '@openagenda/validators' );
 const method = require( '../../utils/method' );
 
-let config;
-let knex;
-let service;
-
 schema.register( {
   text: validators.text,
   pass: validators.pass
 } );
 
-module.exports = Object.assign( add, { init } );
-
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
+module.exports = add;
 
 function parseArguments( identifiers, data, feedsIdentifiers, cb ) {
 
@@ -58,14 +46,16 @@ function parseArguments( identifiers, data, feedsIdentifiers, cb ) {
 
 }
 
-function add() {
+function add( config ) {
+
+  const { service, knex } = config;
 
   const {
     identifiers,
     data,
     feedsIdentifiers,
     cb
-  } = parseArguments.apply( null, arguments );
+  } = parseArguments.apply( null, Array.prototype.slice.call(arguments, 1) );
 
   const defaultHook = _.merge( {}, {
     data
@@ -145,7 +135,7 @@ function add() {
     }, {} );
 
     const feedsToGet = (identifiers ? [ identifiers ] : []).concat( feedsIdentifiers || [] );
-    
+
     return nodefn.call( async.mapSeries,
       feedsToGet,
       ( item, mcb ) => service.feed( item ).get( {

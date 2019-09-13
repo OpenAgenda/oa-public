@@ -22,7 +22,7 @@ module.exports = async ( req, res, next ) => {
 
     const result = await update( req.event.uid, filtered, {
       partial: req.method === 'PATCH',
-      batched: _parseBool( req.body.batched ),
+      batched: _parseBool( req.headers.batched || req.body.batched ),
       context: {
         userUid: req.user.uid
       }

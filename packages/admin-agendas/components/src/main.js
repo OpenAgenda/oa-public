@@ -10,7 +10,7 @@ module.exports = options => {
     searchRes: '/',
     agendaRes: '/get',
     setAgendaRes: '/get',
-    stakeholdersRes: '/stakeholders',
+    membersRes: '/members',
     canvas: '.js_canvas'
   }, options );
 
@@ -18,7 +18,7 @@ module.exports = options => {
     searchRes: params.searchRes,
     agendaRes: params.agendaRes,
     setAgendaRes: params.setAgendaRes,
-    stakeholdersRes: params.stakeholdersRes,
+    membersRes: params.membersRes,
   } );
 
   if ( options.skipRender ) {

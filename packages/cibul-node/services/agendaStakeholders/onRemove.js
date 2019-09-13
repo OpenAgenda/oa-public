@@ -2,11 +2,11 @@
 
 const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
-const users = require( '@openagenda/users' );
-const activities = require( '@openagenda/activities' );
 const invitations = require( '@openagenda/invitations' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
+const usersSvc = require( '../users' );
+const activities = require( '../activities' );
 
 const controlDataSvc = require( '../legacy' ).controlData;
 
@@ -22,7 +22,7 @@ module.exports = function ( stakeholder ) {
 
     if ( !stakeholder.userId ) return;
 
-    users.findOne( {
+    usersSvc.findOne( {
       query: {
         id: stakeholder.userId
       }

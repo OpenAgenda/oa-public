@@ -27,9 +27,7 @@ describe( 'reverso', function() {
 
       r( 'Les portes du temps des jeunes et des patrimoines', 'en', ( err, translation ) => {
 
-        should( err ).equal( null );
-
-        translation.should.equal( 'The doors of the time(weather) of the young people and of heritages' );
+        translation.should.equal('The gates of youth and heritage times');
 
         done();
 
@@ -43,7 +41,7 @@ describe( 'reverso', function() {
 
         should( err ).equal( null );
 
-        translation.should.equal( 'Bien cela travaille juste la houle le monsieur' );
+        translation.should.equal( 'Eh bien, ça marche, monsieur' );
 
         done();
 
@@ -55,7 +53,7 @@ describe( 'reverso', function() {
 
       r( 'I sure hope this works|||And this as well', 'en', 'fr', ( err, translation ) => {
 
-        translation.should.equal( 'Je l\'espoir sûr cela travaille ||| Et cela aussi' );
+        translation.should.equal( 'J’espère que ça marchera|||Et ça aussi' );
 
         done();
 
@@ -92,12 +90,12 @@ describe( 'reverso', function() {
 
         translation.split( '\n' ).should.eql( [
           '# Summary',
-          'This translates of the markdown',
+          'This translates from the markdown',
           '## How?',
           'Simple:',
-          '*   the markdown is interpreté in html before translation',
-          '*   and the html of answer is translated into markdown afterwards',
-          '*   that translates of everywhere.'
+          '*   the markdown is interpreted in html before translation',
+          '*   and the html of the response is translated into markdown after',
+          '*   It translates from everywhere.'
         ] );
 
         done();
@@ -113,7 +111,7 @@ describe( 'reverso', function() {
         should( err ).equal( null );
 
         translations.should.eql( {
-          en: 'The socks of the archduchess are dry or extremely - sandbanks',
+          en: 'Are the Archduchess’s socks dry or super-dry',
           es: 'Los calcetines de la archiduquesa son secos o archi-secos'
         } );
 
@@ -137,7 +135,7 @@ describe( 'reverso', function() {
 
       r( 'Peut-être un peu trop fragile', 'fr', 'en', ( err, translation ) => {
 
-        translation.should.equal( 'Maybe slightly too fragile' );
+        translation.should.equal( 'Maybe a little too fragile' );
 
         done();
 
@@ -149,7 +147,7 @@ describe( 'reverso', function() {
 
       r( 'Allo maman bobo', 'fr', 'it', ( err, translation ) => {
 
-        translation.should.equal( 'Ciao mamma di boho' );
+        translation.should.equal( 'Ciao mamma bobo' );
 
         done();
 
@@ -165,8 +163,8 @@ describe( 'reverso', function() {
       }, 'en', ( err, translatedObject ) => {
 
         translatedObject.should.eql( {
-          title: 'The fork(range)',
-          description: 'The fork(range) is a place setting of table or an utensil of cooking(kitchen) allowing to catch food, without affecting(touching) them directly with fingers.'
+          title: 'The fork',
+          description: 'The fork is a table cover or kitchen utensil for catching food without touching it directly with your fingers.'
         } );
 
         done();
@@ -186,12 +184,12 @@ describe( 'reverso', function() {
 
         translatedObject.should.eql( {
           title: {
-            en: 'The fork(range)',
+            en: 'The fork',
             es: 'El tenedor'
           },
           description: {
-            en: 'The fork(range) is a place setting of table or an utensil of cooking(kitchen) allowing to catch food, without affecting(touching) them directly with fingers.',
-            es: 'El tenedor es un cubierto de mesa o un utensilio de cocina que permite coger los alimentos, sin tocarlos directamente con los dedos.'
+            en: 'The fork is a table cover or kitchen utensil for catching food without touching it directly with your fingers.',
+            es: 'El tenedor es un cubierto de mesa o un utensilio de cocina que permite coger los alimentos sin tocarlos directamente con los dedos.'
           }
         } );
 
@@ -208,7 +206,7 @@ describe( 'reverso', function() {
         title: 'La fourchette'
       }, [ 'en' ], ( err, obj ) => {
 
-        obj.should.eql( { title: { en: 'The fork(range)' } } );
+        obj.should.eql( { title: { en: 'The range' } } );
 
         done();
 

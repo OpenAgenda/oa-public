@@ -1,7 +1,7 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const slug = require( 'slug' );
+const _ = require('lodash');
+const slug = require('slug');
 
 const map = {
   id: 'id',
@@ -22,90 +22,89 @@ const legacyFieldsMap = {
   credential: 'credential'
 };
 
-const dbFields = Object.keys( map );
-const legacyDbFields = Object.keys( legacyFieldsMap );
+const dbFields = Object.keys(map);
+const legacyDbFields = Object.keys(legacyFieldsMap);
 
-module.exports.fromDB = ( { includeLegacyFields, orderField }, entry ) => {
+function _legacyCustomToDB(custom) {
+  const organization = custom.organization
+    ? {
+      slug: slug(custom.organization, { lower: true }),
+      label: custom.organization
+    }
+    : null;
 
-  if ( !entry ) return null;
-
-  return Object.keys( entry )
-    .filter( field => dbFields.concat( includeLegacyFields ? legacyDbFields : [] ).includes( field ) )
-    .reduce( ( mapped, field ) => {
-
-      if ( field === 'store' ) {
-        mapped.custom = _legacyCustomFromDB( entry.store );
-      } else if ( dbFields.includes( field ) ) {
-        _.set( mapped, map[ field ], entry[ field ] );
+  return {
+    store: JSON.stringify({
+      custom_fields: {
+        organization: organization ? organization.label : null,
+        contact_name: custom.contactName || null,
+        contact_number: custom.contactNumber || null,
+        contact_position: custom.contactPosition || null,
+        email: custom.email || null
       }
-
-      if ( includeLegacyFields && legacyDbFields.includes( field ) ) {
-        _.set( mapped, legacyFieldsMap[ field ], entry[ field ] );
-      }
-
-      if ( field === _.snakeCase( orderField ) ) {
-        mapped.order = field === 'id' ? entry[ field ] : [ entry[ field ], entry.id ];
-      }
-
-      return Object.assign( mapped, {
-        deletedUser: !!mapped.deletedUser,
-        invited: !mapped.deletedUser && !mapped.userId && !mapped.userUid
-      } );
-
-    }, {} );
-
+    }),
+    organization: organization ? organization.slug : null
+  };
 }
 
+function _legacyCustomFromDB(store) {
+  if (!_.isString(store)) return {};
+
+  const data = _.get(JSON.parse(store), 'custom_fields', '{}');
+
+  if (!data) return {};
+
+  if (_.isObject(data.organization)) {
+    data.organization = _.get(data, 'organization.label');
+  }
+
+  return _.mapKeys(data, (v, k) => _.camelCase(k));
+}
+
+module.exports.fromDB = ({ includeLegacyFields, orderField }, entry) => {
+  if (!entry) return null;
+
+  return Object.keys(entry)
+    .filter(field => dbFields.concat(includeLegacyFields ? legacyDbFields : []).includes(field))
+    .reduce((mapped, field) => {
+      if (field === 'store') {
+        mapped.custom = _legacyCustomFromDB(entry.store);
+      } else if (dbFields.includes(field)) {
+        _.set(mapped, map[field], entry[field]);
+      }
+
+      if (includeLegacyFields && legacyDbFields.includes(field)) {
+        _.set(mapped, legacyFieldsMap[field], entry[field]);
+      }
+
+      if (field === _.snakeCase(orderField)) {
+        mapped.order = field === 'id' ? entry[field] : [entry[field], entry.id];
+      }
+
+      return Object.assign(mapped, {
+        deletedUser: !!mapped.deletedUser,
+        invited: !mapped.deletedUser && !mapped.userId && !mapped.userUid
+      });
+    }, {});
+};
+
 module.exports.toDB = member => {
+  const allFields = { ...map, ...legacyFieldsMap };
 
-  const allFields = Object.assign( {}, map, legacyFieldsMap );
+  const entry = _.uniq(dbFields.concat(legacyDbFields))
+    .filter(f => member[allFields[f]] !== undefined)
+    .reduce(
+      (result, field) => _.set(result, field, member[allFields[field]]),
+      {}
+    );
 
-  const entry = _.uniq( dbFields.concat( legacyDbFields ) )
-    .filter( f => member[ allFields[ f ] ] !== undefined )
-    .reduce( ( entry, field ) => _.set( entry, field, member[ allFields[ field ] ] ), {} );
-
-  if ( member.role ) {
+  if (member.role) {
     entry.credential = member.role;
   }
 
-  if ( member.custom ) {
-    Object.assign( entry, _legacyCustomToDB( member.custom ) );
+  if (member.custom) {
+    Object.assign(entry, _legacyCustomToDB(member.custom));
   }
 
   return entry;
-}
-
-function _legacyCustomToDB( custom ) {
-
-  const organization = custom.organization ? {
-    slug: slug( custom.organization, { lower: true } ),
-    label: custom.organization
-  } : null;
-
-  return {
-    store: JSON.stringify( { custom_fields: {
-      organization: organization ? organization.label : null,
-      contact_name: custom.contactName || null,
-      contact_number: custom.contactNumber || null,
-      contact_position: custom.contactPosition || null,
-      email: custom.email || null
-    } } ),
-    organization: organization ? organization.slug : null
-  }
-
-}
-
-function _legacyCustomFromDB( store ) {
-
-  if ( !_.isString( store ) ) return {};
-
-  const data = _.get( JSON.parse( store ), 'custom_fields', '{}' );
-
-  if ( !data ) return {};
-
-  if ( _.isObject( data.organization ) ) {
-    data.organization = _.get( data, 'organization.label' );
-  }
-
-  return _.mapKeys( data, ( v, k ) => _.camelCase( k ) );
-}
+};

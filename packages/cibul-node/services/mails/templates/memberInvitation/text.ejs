@@ -1,0 +1,15 @@
+<%- __(
+  isMember
+    ? 'subjectForExistingMember'
+    : 'subject', { agenda, role: __( role ), roleVerb: __( role + 'Verb' ) }
+) %>:
+
+<%- typeof message === 'string'
+  ? stripHtml( message )
+  : '' %>
+
+<%- __( isMember ? 'showAgenda' : 'signup' ) %>: <%- link %>
+
+<%- __( isRegisteredUser ? 'unsubscribe' : 'unsubscribeGuest' ) %>: <%- unsubscribeLink %>
+<% if ( isRegisteredUser ) { %><%- __( 'changeEmailSettings' ) %>: <%- emailSettingsLink %><% } %>
+

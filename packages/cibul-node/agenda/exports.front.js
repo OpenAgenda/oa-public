@@ -1,9 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const sessions = require( '@openagenda/sessions' );
 const tagSvc = require( '@openagenda/agenda-tags' );
-const activitiesSvc = require( '@openagenda/activities' );
 const getAggLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/aggregators/sources' ) );
 const categorySvc = require( '@openagenda/agenda-categories' );
 const locationMw = require( '@openagenda/agenda-locations' ).mw();
@@ -14,7 +12,9 @@ const ODSJSONParser = require( '@openagenda/legacy/exports/ODSJSONParser' );
 const agendaSvc = require( '../services/agenda' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
-const membersSvc = require( '../services/members' );
+const members = require( '../services/members' );
+const activitiesSvc = require( '../services/activities' );
+const sessions = require( '../services/sessions' );
 const cacheMw = require( '../lib/cache.mw' );
 const gaTrack = require( '../lib/gaTrack.mw' );
 const config = require( '../config' );
@@ -30,13 +30,15 @@ const preMw = [
 
 module.exports = app => {
 
+  app.options( '*/events.json*', ( req, res ) => res.sendStatus(200) );
+
   app.get(
     '/agendas/:uid/events.json',
     preMw,
-    checkKey(),
+    _checkKey( ( req, res, next ) => res.status( 400 ).json( { error: 'Provided key is invalid' } ) ),
     cacheMw.send( 'agendas', 'params.uid', cachedJson ),
     agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     agendaSvc.mw.search( perPage ),
     eventSvc.mw.cleanEvents,
     agendaSvc.mw.decorateEvents(),
@@ -50,7 +52,7 @@ module.exports = app => {
     '/agendas/:uid/locations.json',
     preMw,
     agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     _prepareLocationExport,
     locationMw.list,
     gaTrack( 'locations', 'export', 'json' ),
@@ -61,7 +63,7 @@ module.exports = app => {
     '/agendas/:uid/settings.json',
           preMw,
       agendaSvc.mw.load( 'uid' ),
-      cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+      cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
       _loadTagSet,
       _loadCategorySet,
       _loadEmbedUids,
@@ -83,7 +85,7 @@ module.exports = app => {
     '/agendas/:uid/events.csv',
     preMw,
     agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     locationMw.loadSettings( 'locationSettings' ),
     gaTrack( 'events', 'export', 'csv' ),
     agendaSvc.mw.buildCsv( false )
@@ -93,7 +95,7 @@ module.exports = app => {
     '/agendas/:uid/events.pdf',
     preMw,
     agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     gaTrack( 'events', 'export', 'pdf' ),
     agendaSvc.mw.buildPdf
   );
@@ -102,7 +104,7 @@ module.exports = app => {
     '/agendas/:uid/events.xlsx',
     preMw,
     agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     locationMw.loadSettings( 'locationSettings' ),
     gaTrack( 'events', 'export', 'xlsx' ),
     agendaSvc.mw.buildXlsx( false )
@@ -112,7 +114,7 @@ module.exports = app => {
     '/agendas/:uid/events.rss',
     preMw,
     agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     agendaSvc.mw.search( 20 ),
     gaTrack( 'events', 'export', 'rss' ),
     agendaSvc.mw.rss
@@ -122,7 +124,7 @@ module.exports = app => {
     '/agendas/:uid/events.ics',
     preMw,
     agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     gaTrack( 'events', 'export', 'ics' ),
     agendaSvc.mw.buildIcs
   );
@@ -131,10 +133,10 @@ module.exports = app => {
     '/agendas/:uid/addTo/:aggUid',
     preMw,
     agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
     cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
-    cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
+    members.mw.loadAndAuthorize('administrator', {agendaNamespace: 'aggregatorAgenda'}),
     addSource
   );
 
@@ -142,21 +144,23 @@ module.exports = app => {
     '/agendas/:uid/removeFrom/:aggUid',
     preMw,
     agendaSvc.mw.load( 'uid' ),
-    cmn.ifIs( 'agenda.private', cmn.checkStakeholder ),
+    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     agendaSvc.mw.load( 'aggUid', 'uid', { name: 'aggregatorAgenda' } ),
     cmn.checkCredential( 'aggregator', { name: 'aggregatorAgenda' } ),
-    cmn.checkAdministrator( { name: 'aggregatorAgenda' } ),
+    members.mw.loadAndAuthorize('administrator', {agendaNamespace: 'aggregatorAgenda'}),
     removeSource
   );
 
 };
 
-function checkKey() {
+function _checkKey( onError ) {
 
   return cbify( async ( req, res, next ) => {
 
     if ( !req.query.key ) {
+
       return _sleep( 400 )( req, res, next );
+
     }
 
     try {
@@ -165,13 +169,13 @@ function checkKey() {
 
       if ( !key ) {
 
-        return next( new Error( 'Key is invalid' ) );
+        return onError( req, res, next );
 
       }
 
     } catch ( e ) {
 
-      return next( new Error( 'Key is invalid' ) );
+      return onError( req, res, next );
 
     }
 
@@ -331,7 +335,7 @@ async function addRemoveSourceActivity( { user, member, agenda, source } ) {
 }
 
 async function loadNeedsForActivity( req ) {
-  const member = await membersSvc.get( {
+  const member = await members.get( {
     agendaUid: req.aggregatorAgenda.uid,
     userUid: req.user.uid
   } );

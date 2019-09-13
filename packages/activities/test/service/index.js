@@ -4,9 +4,9 @@
 
 const wn = require( 'when/node' );
 const fixtures = require( '@openagenda/fixtures' );
-const svc = require( '../../src/service' );
+const Service = require( '../../src/service' );
 
-module.exports = svc;
+module.exports = Service;
 
 module.exports.initAndLoad = async function ( config, files, options ) {
 
@@ -44,7 +44,7 @@ module.exports.initAndLoad = async function ( config, files, options ) {
 
   await wn.call( fixtures, [], { reset: params.reset } );
 
-  await svc.init( config );
+  const service = await Service( config );
 
   await wn.call( fixtures, [ {
     table: config.schemas.activity,
@@ -80,5 +80,7 @@ module.exports.initAndLoad = async function ( config, files, options ) {
     table: config.schemas.rebuild_aggregator,
     src: __dirname + '/rebuild_aggregator.data.sql'
   } ].filter( f => files.includes( f.src.split( '/' ).pop().split( '.' )[ 0 ] ) ), { reset: false } );
+
+  return service;
 
 };

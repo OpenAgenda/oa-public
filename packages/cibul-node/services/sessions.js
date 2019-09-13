@@ -2,13 +2,22 @@
 
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
-const usersSvc = require( '@openagenda/users' );
 const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'sessions' );
+const usersSvc = require( './users' );
 
+const service = {
+  mw: {
+    loadOrRedirect: Object.assign(loadOrRedirect, {
+      options: loadOrRedirectOptions
+    }),
+    load: load
+  }
+};
 
-module.exports.init = config => {
+module.exports = service;
 
+module.exports.init = (config, services) => {
   sessions.init( {
     redis: {
       host: config.redis.host,
@@ -22,18 +31,47 @@ module.exports.init = config => {
     },
     expire: config.session.maxAge / 1000,
     interfaces: {
-      getUser: getUser.bind( null, config.aws.imageBucketPath )
+      getUser: getUser.bind( null, services, config.aws.imageBucketPath )
     },
     logger: config.getLogConfig( 'oa', 'sessions', false )
   } );
 
+  Object.assign( service, sessions );
 }
 
-function getUser( imageBucketPath, query, cb ) {
+function load(req, res, next) {
+  _load({detailed: false}, req, res, next);
+}
+
+function loadOrRedirect(req, res, next) {
+  return _loadOrRedirect({ detailed: false, msg: 'authRequired' }, req, res, next);
+}
+
+function loadOrRedirectOptions(options) {
+  return _loadOrRedirect.bind(null, options);
+}
+
+function _loadOrRedirect({detailed, msg}, req, res, next) {
+  _load({detailed, redirect: true, msg}, req, res, next)
+}
+
+function _load({detailed, redirect, msg}, req, res, next) {
+  sessions.get(req, {detailed}, (err, user) => {
+    if (err) return next(err);
+    if (!user && redirect) {
+      const redirect = new Buffer(req.originalUrl, 'utf-8').toString('base64');
+      return res.redirect(302, `${req.agenda?'/'+req.agenda.slug:''}/signin?redirect=${redirect}&msg=${msg}`);
+    }
+    req.user = user;
+    next();
+  } );
+}
+
+function getUser( services, imageBucketPath, query, cb ) {
 
   log( 'info', 'requested user with %j', query );
 
-  usersSvc.findOne( { query: _.pick( query, 'id', 'uid', 'email' ), detailed: true } )
+  services.users.findOne( { query: _.pick( query, 'id', 'uid', 'email' ), detailed: true } )
     .then( user => {
 
       if ( !user ) {

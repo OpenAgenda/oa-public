@@ -3,20 +3,20 @@
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const ReactDOM = require( 'react-dom/server' );
-const sessions = require( '@openagenda/sessions' );
-const cmn = require( '../lib/commons-app' );
-const config = require( '../config' );
 const moment = require( 'moment' );
 const wn = require( 'when/node' );
 const async = require( 'async' );
+const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'admin/back' );
+const agendasSvc = require( '@openagenda/agendas' );
+const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
+const cmn = require( '../lib/commons-app' );
 const lib = require( '../lib/lib' );
 const membersSvc = require( '../services/members' );
 const model = require( '../services/model' );
 const adminSvc = require( '../services/admin/admin' );
-const usersSvc = require( '@openagenda/users' );
-const agendasSvc = require( '@openagenda/agendas' );
-const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
+const usersSvc = require( '../services/users' );
+const config = require( '../config' );
 
 const supportTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/support.tpl', 'utf-8' ) );
 
@@ -219,12 +219,12 @@ function getUsers( req, res, next ) {
 
       return _loadUser()( req, res, () => {
 
-        if ( !req.loadedUser.id ) return next( 'User not found' );
+        if ( !req.loadedUser.id ) return next( new Error( 'User not found' ) );
 
-        membersSvc.list( { userUid: req.loadedUser.uid }, { limit: 500, order: 'id.desc' }, { legacy: true } ).then( ( { stakeholders } ) => {
+        membersSvc.list( { userUid: req.loadedUser.uid }, { limit: 500, order: 'id.desc' } ).then( members => {
 
           agendasSvc.list( {
-            uid: stakeholders.map( m => m.agendaUid )
+            uid: members.map( m => m.agendaUid )
           }, 0, 500, { private: null }, ( err, agendas ) => {
 
             model.lib.query( 'SELECT count(*) as nbrEvents, agenda_uid as agendaUid ' +
@@ -232,14 +232,14 @@ function getUsers( req, res, next ) {
               [ req.loadedUser.uid ],
               ( err, counters ) => {
 
-                stakeholders = stakeholders.map( stakeholder => {
+                members = members.map( member => {
 
-                  stakeholder.agenda = agendas.filter( agenda => agenda.uid == stakeholder.agendaUid )[ 0 ];
+                  member.agenda = agendas.filter( agenda => agenda.uid == member.agendaUid )[ 0 ];
 
-                  const counter = counters.filter( counter => counter.agendaUid == stakeholder.agendaUid )[ 0 ];
-                  stakeholder.nbrEvents = counter && counter.nbrEvents;
+                  const counter = counters.filter( counter => counter.agendaUid == member.agendaUid )[ 0 ];
+                  member.nbrEvents = counter && counter.nbrEvents;
 
-                  return stakeholder;
+                  return member;
 
                 } );
 
@@ -257,7 +257,7 @@ function getUsers( req, res, next ) {
                     'apiSecret',
                     'store'
                   ] ),
-                  stakeholders
+                  members
                 } );
 
               } );
@@ -313,7 +313,8 @@ async function userActivate( req, res ) {
 
     try {
 
-      req.loadedUser = await usersSvc.patch( req.loadedUser.uid, { isActivated: true }, { internal: true } );
+      req.loadedUser = await usersSvc
+        .patch( req.loadedUser.uid, { isActivated: true }, { internal: true } );
 
       return cmn.renderJson( req, res, { success: true } );
 

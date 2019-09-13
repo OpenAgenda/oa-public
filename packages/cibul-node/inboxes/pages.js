@@ -6,19 +6,17 @@ const { promisify } = require( 'util' );
 const ReactDOM = require( 'react-dom/server' );
 
 const eventsSvc = require( '@openagenda/events' );
-const agendasMw = require( '@openagenda/agendas/middleware' );
-const stakeholderMw = require( '@openagenda/agenda-stakeholders/dist/middleware' );
 const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
 const locationSvc = require( '@openagenda/agenda-locations' );
 const labels = require( '@openagenda/labels/inboxes' );
 const makeLabelGetter = require( '@openagenda/labels' );
-const sessions = require( '@openagenda/sessions' );
-const users = require( '@openagenda/users' );
 
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
-const { mw: { loadAdminLayout, load: oldAgendaLoad } } = require( '../services/agenda' );
+
 const members = require( '../services/members' );
+const sessions = require( '../services/sessions' );
+const usersSvc = require( '../services/users' );
 
 const app = express();
 const getLabel = makeLabelGetter( labels );
@@ -29,22 +27,14 @@ const layout = require( '../services/lib/layouts' ).load(
 
 module.exports = ( parentApp, path = '/' ) => parentApp.use( path, app );
 
-const preMw = [
-  cmn.loadLogger( 'inboxes/front' ),
-  sessions.middleware.ifUnlogged( cmn.redirectToSignin )
-];
-
 app.use(
   '/home/inbox',
-  preMw,
-  cmn.loadBaseData( 'oasfmain.css' ),
+  sessions.mw.loadOrRedirect,
+  cmn.loadBaseData('oasfmain.css'),
   ( req, res, next ) => {
-    users.refresh( {
+    usersSvc.refresh( req.user.uid, {
       lastInboxCheck: true
-    }, {
-      query: { uid: req.user.uid }
-    } )
-      .then( () => next() );
+    } ).then( () => next() ).catch( next );
   },
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
@@ -112,7 +102,7 @@ app.use(
 
 app.use(
   '/support',
-  preMw,
+  sessions.mw.loadOrRedirect,
   cmn.loadBaseData( 'oasfmain.css' ),
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
@@ -189,10 +179,9 @@ app.use(
 
 app.use(
   '/:slug/admin/inbox',
-  preMw,
-  oldAgendaLoad( 'slug' ),
-  cmn.authorize.moderator,
+  sessions.mw.loadOrRedirect,
   cmn.loadAgenda,
+  members.mw.loadAndAuthorize('moderator'),
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
     const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
@@ -255,7 +244,7 @@ app.use(
           <div class="js_canvas">${content}</div>
         </div>`, {
         lang: req.lang,
-        role: req.role,
+        role: req.member.role,
         agenda: req.agenda,
         bodyAttributes: [ {
           name: 'data-options',
@@ -274,20 +263,12 @@ app.use(
 
 app.use(
   '/:slug/contact',
-  preMw,
-  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
+  sessions.mw.loadOrRedirect,
+  cmn.loadAgenda,
+  members.mw.load,
   cmn.loadBaseData( 'oasfmain.css' ),
-  agendasMw.load( {
-    namespaces: { identifiers: { slug: 'params.slug' } },
-    private: null
-  } ),
   async ( req, res, next ) => {
-    const adminOrModerator = (await Promise.all( [
-      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
-      promisify( req.agendaInstance.isModerator )( { id: req.user.id } )
-    ] )).some( Boolean );
-
-    if ( adminOrModerator ) {
+    if (req.member && members.utils.compareRoles.isSuperiorToOrEqual(req.member.role, 'moderator')) {
       sessions.setFlash( req, res, getLabel( 'youreAdminOrModerator', req.lang ) );
       return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
     }
@@ -370,7 +351,7 @@ app.use(
 
       const baseData = {
         event: {
-          backLink: req.genUrl( 'agendaShow', { slug: req.agenda.slug } )
+          backLink: `/${req.agenda.slug}`
         },
         image: req.agenda.image,
         title: req.agenda.title
@@ -390,51 +371,28 @@ app.use(
 );
 
 app.use(
-  '/:slug/admin/members/:stakeholderId/contact',
-  ( req, res, next ) => {
-    req.shIdentifiers = { id: req.params.stakeholderId };
-    next();
-  },
-  preMw,
-  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
+  '/:slug/admin/members/:memberId/contact',
+  sessions.mw.loadOrRedirect,
+  cmn.loadAgenda,
+  members.mw.loadTarget.options({detailed: true}),
+  members.mw.loadAndAuthorize('moderator'),
   cmn.loadBaseData( 'oasfmain.css' ),
-  agendasMw.load( {
-    namespaces: { identifiers: { slug: 'params.slug' } },
-    private: null
-  } ),
-  stakeholderMw.agenda( 'agendaInstance' ).get( { // from
-    namespaces: { stakeholder: 'userSh' }
-  } ),
-  stakeholderMw.agenda( 'agendaInstance' ).get( { // to
-    namespaces: { identifiers: 'shIdentifiers' },
-    options: { detailed: true }
-  } ),
   async ( req, res, next ) => {
-    if ( !req.stakeholder || !req.stakeholder.id ) {
-      sessions.setFlash( req, res, getLabel( 'youCannotWriteToThisMember', req.lang ) );
-      return res.redirect( 302, `/${req.agenda.slug}/admin` );
-    }
+    const targetIsAdminMod = members.utils.compareRoles.isSuperiorToOrEqual(
+      req.targetMember.role,
+      'moderator'
+    );
 
-    const adminOrModerator = (await Promise.all( [
-      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
-      promisify( req.agendaInstance.isModerator )( { id: req.user.id } )
-    ] )).some( Boolean );
-
-    if ( !adminOrModerator ) {
-      sessions.setFlash( req, res, getLabel( 'youreNotAdminOrModerator', req.lang ) );
-      return res.redirect( 302, `/${req.agenda.slug}/admin` );
-    }
-
-    const shIsAdminmod = [ 2, 3 ].includes( req.stakeholder.credential );
-
-    const destinationInbox = shIsAdminmod ? {
+    const destinationInbox = targetIsAdminMod ? {
       type: 'user',
-      identifier: req.stakeholder.user.uid
+      identifier: req.targetMember.user.uid
     } : [];
 
-    const userName = req.stakeholder.custom.contactName || req.stakeholder.user.fullName;
+    const userName = _.get( req.targetMember, 'custom.contactName',
+      req.targetMember.user.fullName
+    );
 
-    const resPrefix = shIsAdminmod ? '/home' : `/agendas/${req.agenda.uid}`;
+    const resPrefix = targetIsAdminMod ? '/home' : `/agendas/${req.agenda.uid}`;
 
     const lang = req.lang || 'fr';
     const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
@@ -459,11 +417,11 @@ app.use(
           onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
           defaultQuery: {
             type: 'contact_member',
-            typeIdentifier: req.stakeholder.id,
+            typeIdentifier: req.targetMember.id,
             params: {
               agendaTitle: req.agenda.title,
               agendaUid: req.agenda.uid,
-              userUid: req.stakeholder.user.uid,
+              userUid: req.targetMember.user.uid,
               userName
             },
             destinationInbox
@@ -534,26 +492,14 @@ app.use(
 
 app.use(
   '/:slug/admin/events/:eventSlug/contact',
-  preMw,
-  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
+  sessions.mw.loadOrRedirect,
+  cmn.loadAgenda,
   cmn.loadBaseData( 'oasfmain.css' ),
-  agendasMw.load( {
-    namespaces: { identifiers: { slug: 'params.slug' } },
-    private: null
-  } ),
+  members.mw.loadAndAuthorize('moderator'),
   eventLoad(),
   async ( req, res, next ) => {
-    const adminOrModerator = (await Promise.all( [
-      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
-      promisify( req.agendaInstance.isModerator )( { id: req.user.id } )
-    ] )).some( Boolean );
 
-    if ( !adminOrModerator ) {
-      sessions.setFlash( req, res, getLabel( 'youreNotAdminOrModerator', req.lang ) );
-      return res.redirect( 302, `/${req.agenda.slug}/events/${req.event.slug}/contact` );
-    }
-
-    const eventShowLink = req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } );
+    const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
     const lang = req.lang || 'fr';
     const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
@@ -660,26 +606,18 @@ app.use(
 
 app.use(
   '/:slug/events/:eventSlug/contact',
-  preMw,
-  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
+  sessions.mw.loadOrRedirect,
+  cmn.loadAgenda,
+  members.mw.load,
   cmn.loadBaseData( 'oasfmain.css' ),
-  agendasMw.load( {
-    namespaces: { identifiers: { slug: 'params.slug' } },
-    private: null
-  } ),
   eventLoad(),
   async ( req, res, next ) => {
-    const adminOrModerator = (await Promise.all( [
-      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
-      promisify( req.agendaInstance.isModerator )( { id: req.user.id } )
-    ] )).some( Boolean );
-
-    if ( adminOrModerator ) {
+    if (req.member && members.utils.compareRoles.isSuperiorToOrEqual('moderator')) {
       sessions.setFlash( req, res, getLabel( 'youreAdminOrModerator', req.lang ) );
       return res.redirect( 302, `/${req.agenda.slug}/admin/events/${req.event.slug}/contact` );
     }
 
-    const eventShowLink = req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } );
+    const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
     const lang = req.lang || 'fr';
     const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
@@ -786,29 +724,13 @@ app.use(
 
 app.use(
   '/:slug/admin/events/:eventSlug/edition-request',
-  preMw,
-  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
-  cmn.loadBaseData( 'oasfmain.css' ),
-  agendasMw.load( {
-    namespaces: { identifiers: { slug: 'params.slug' } },
-    private: null
-  } ),
+  sessions.mw.loadOrRedirect,
+  cmn.loadAgenda,
+  members.mw.loadAndAuthorize('moderator'),
+  cmn.loadBaseData('oasfmain.css'),
   eventLoad(),
   async ( req, res, next ) => {
-    const adminOrModerator = (await Promise.all( [
-      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
-      promisify( req.agendaInstance.isModerator )( { id: req.user.id } )
-    ] )).some( Boolean );
-
-    if ( !adminOrModerator ) {
-      sessions.setFlash( req, res, getLabel( 'youreNotAdminOrModerator', req.lang ) );
-      return res.redirect( 302, req.genUrl( 'agendaEventShow', {
-        slug: req.agenda.slug,
-        eventSlug: req.event.slug
-      } ) );
-    }
-
-    const eventShowLink = req.genUrl( 'agendaEventShow', { slug: req.agenda.slug, eventSlug: req.event.slug } );
+    const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
     const lang = req.lang || 'fr';
     const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
@@ -866,7 +788,7 @@ app.use(
         agenda: req.agenda,
         event: req.event
       }
-    } );
+    });
 
     try {
       await triggerHooks();
@@ -894,7 +816,7 @@ app.use(
       const baseData = {
         event: {
           ...req.event,
-          backLink: req.genUrl( 'agendaShow', { slug: req.agenda.slug } )
+          backLink: `/${req.agenda.slug}`
         },
         image: req.agenda.image,
         title: req.agenda.title
@@ -915,18 +837,15 @@ app.use(
 
 app.use(
   '/:slug/request-contribute',
-  preMw,
-  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
-  cmn.loadBaseData( 'oasfmain.css' ),
-  agendasMw.load( {
-    namespaces: { identifiers: { slug: 'params.slug' } },
-    private: null
-  } ),
+  sessions.mw.loadOrRedirect,
+  cmn.loadAgenda,
+  members.mw.load,
+  cmn.loadBaseData('oasfmain.css'),
   async ( req, res, next ) => {
 
-    if ( await members.get( { agendaUid: req.agenda.uid, userUid: req.user.uid } ) ) {
-      sessions.setFlash( req, res, getLabel( 'youreAlreadyContributor', req.lang ) );
-      return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
+    if (req.member) {
+      sessions.setFlash(req, res, getLabel('youreAlreadyContributor', req.lang));
+      return res.redirect(302, `/${req.agenda.slug}`);
     }
 
     const lang = req.lang || 'fr';
@@ -1030,25 +949,33 @@ app.use(
 
 app.use(
   '/:slug/locations/:locationUid/suggest-change',
-  preMw,
-  oldAgendaLoad( 'slug', { name: 'agendaInstance' } ),
+  sessions.mw.loadOrRedirect,
+  cmn.loadAgenda,
+  members.mw.load,
   cmn.loadBaseData( 'oasfmain.css' ),
-  agendasMw.load( {
-    namespaces: { identifiers: { slug: 'params.slug' } },
-    private: null,
-    internal: true
-  } ),
-  locationSvc.mw( 'agenda.id' ).load,
+  locationSvc.mw('agenda.id').load,
   async ( req, res, next ) => {
-    const adminOrModerator = (await Promise.all( [
-      promisify( req.agendaInstance.isAdministrator )( { id: req.user.id } ),
-      promisify( req.agendaInstance.isModerator )( { id: req.user.id } ),
-    ] )).some( Boolean );
+    const agendaLink = `/${req.agenda.slug}`;
 
-    if ( adminOrModerator ) {
-      sessions.setFlash( req, res, getLabel( 'youreAdminOrModerator', req.lang ) );
-      return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
+    if (req.member && members.utils.compareRoles.isSuperiorToOrEqual('moderator')) {
+      sessions.setFlash(req, res, getLabel('youreAdminOrModerator', req.lang));
+      return res.redirect(302, agendaLink);
     }
+
+    log.info('Show inbox for suggest-change, defaultQuery:', {
+      type: 'suggest_location_change',
+      typeIdentifier: req.location.uid,
+      params: {
+        agendaTitle: req.agenda.title,
+        agendaUid: req.agenda.uid,
+        locationName: req.location.name,
+        locationUid: req.location.uid
+      },
+      destinationInbox: {
+        type: 'agenda',
+        identifier: req.agenda.uid
+      }
+    });
 
     const lang = req.lang || 'fr';
     const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
@@ -1071,7 +998,7 @@ app.use(
           // topListForm: true, // add a conversation form on top of conversation list
           creationDesc: getLabel( 'suggestLocationChangeDesc', req.lang ),
           belowMessageDesc: getLabel( 'retrieveConversationsOnHome', { url: '/home/inbox' }, req.lang ),
-          onConversationCreateRedirect: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
+          onConversationCreateRedirect: agendaLink,
           onConversationCreateFlash: getLabel( 'conversationCreationSuccess', req.lang ),
           defaultQuery: {
             type: 'suggest_location_change',
@@ -1129,6 +1056,21 @@ app.use(
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 302, pathname );
       }
+
+      log.info('Show inbox for suggest-change, defaultQuery on render:', {
+        type: 'suggest_location_change',
+        typeIdentifier: req.location.uid,
+        params: {
+          agendaTitle: req.agenda.title,
+          agendaUid: req.agenda.uid,
+          locationName: req.location.name,
+          locationUid: req.location.uid
+        },
+        destinationInbox: {
+          type: 'agenda',
+          identifier: req.agenda.uid
+        }
+      });
 
       const baseData = {
         event: {

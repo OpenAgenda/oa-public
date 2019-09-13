@@ -17,14 +17,11 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@openagenda/agenda-events": "^1.3.12",
     "@openagenda/agenda-stakeholders": "^2.1.2",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/queue": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
-    "@openagenda/unsubscribed": "^2.1.1",
-    "@openagenda/users": "^2.2.2",
     "@openagenda/validators": "^2.1.3",
     "async": "^2.3.0",
     "caporal": "^0.4.1",
@@ -36,11 +33,10 @@
     "when": "^3.7.8"
   },
   "devDependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
     "@openagenda/fixtures": "^2.0.1",
     "mocha": "^5.0.1",
-    "should": "^11.2.1",
-    "winston": "^2.3.1"
+    "should": "^11.2.1"
   }
 }

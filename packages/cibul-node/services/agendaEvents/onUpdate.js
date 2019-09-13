@@ -15,9 +15,9 @@ const fallbackContextGet = require( './lib/fallbackContextGet' );
 const sendEventUpdate = require( './lib/sendEventUpdate' );
 const sendEventChangeState = require( './lib/sendEventChangeState' );
 const transferCustomFromLegacy = require( './lib/transferCustomFromLegacy' );
+const createActivities = require( './lib/createActivities' );
 
-module.exports = async ( before, after, context ) => {
-
+module.exports = async (config, before, after, context) => {
   log( 'updated agenda-event from %j to %j', before, after );
   log( '%sfrom legacy', context.legacy ? '' : 'not ' );
 
@@ -27,15 +27,8 @@ module.exports = async ( before, after, context ) => {
     log( 'error', 'could not update event search', e );
   }
 
-  await _sleepALittle(); // legacy search might try to fetch event content before it is committed to db
+  const { agenda, event, user } = await fallbackContextGet( 'onUpdate', after, context );
 
-  const { agenda, event } = await fallbackContextGet( 'onUpdate', after, context );
-
-  try {
-    await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
-  } catch ( e ) {
-    log( 'error', 'could not update legacy search for event %s', event.slug );
-  }
 
   if ( after.state === 2 ) {
 
@@ -57,8 +50,14 @@ module.exports = async ( before, after, context ) => {
 
   aggregatorNotify.update( { agenda, event, before, after } );
 
-  if ( context.legacy ) {
-    await transferCustomFromLegacy( agenda, event );
+  if ( context.aggregated ) {
+    await transferCustomFromLegacy(agenda, event);
+
+    try {
+      await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
+    } catch ( e ) {
+      log( 'error', 'could not update legacy search for event %s', event.slug );
+    }
   }
 
   if ( haveRealDiff( before, after ) ) {
@@ -70,33 +69,31 @@ module.exports = async ( before, after, context ) => {
     // eventUpdate
     // myEventUpdate
     try {
-      await sendEventUpdate( { agendaEvent: after, before, context, agenda, event } );
-    } catch ( error ) {
-      log.error( new VError( error, 'Cannot send event update emails' ) );
+      await sendEventUpdate(config, { agendaEvent: after, before, context, agenda, event });
+    } catch (error) {
+      log.error( new VError(error, 'Cannot send event update emails' ));
     }
   } else {
     // eventChangeState
     // myEventChangeState
     try {
-      await sendEventChangeState( { agendaEvent: after, before, context, agenda, event } );
-    } catch ( error ) {
+      await sendEventChangeState(config, { agendaEvent: after, before, context, agenda, event });
+    } catch (error) {
       log.error( new VError( error, 'Cannot send event change state emails' ) );
     }
   }
 
+  if ( user ) {
+    try {
+      await createActivities( { agenda, event, user }, before, after );
+    } catch ( e ) {
+      log.error( new VError( error, 'Cannot create state change activities' ) );
+    }
+  }
 }
 
 function haveRealDiff( before, after ) {
-  const modifiedFieldList = _.uniq( [ ...Object.keys( before ), ...Object.keys( after ) ] )
-    .filter( key => [ 'createdAt', 'updatedAt' ].includes( key ) && before[ key ] !== after[ key ] );
-
-  console.log( 'modifiedFieldList', modifiedFieldList );
-
-  return modifiedFieldList.length > 0;
-}
-
-function _sleepALittle() {
-
-  return new Promise( rs => setTimeout( () => rs(), 2000 ) );
-
+  _.uniq( [ ...Object.keys( before ), ...Object.keys( after ) ] )
+    .filter( key => [ 'createdAt', 'updatedAt', 'state' ].includes( key ) && before[ key ] !== after[ key ] )
+    .length > 0;
 }

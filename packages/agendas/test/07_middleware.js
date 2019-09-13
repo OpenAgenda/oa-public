@@ -54,33 +54,6 @@ describe( 'agendas - functional (server): middleware', function () {
 
     } );
 
-    it( '.load optionally loads agenda instance in req', done => {
-
-      const req = {
-        agendaUid: 94345899
-      },
-
-        res = {};
-
-      svc.middleware.load( { instanciate: true } )( req, res, next );
-
-      function next() {
-
-        req.agenda.getRoles( ( err, roles ) => {
-
-          roles.should.eql( [
-            { value: 1, code: 'contributor' },
-            { value: 2, code: 'administrator' }
-          ] );
-
-          done();
-
-        } );
-
-      }
-
-    } );
-
     it( '.load namespaces can be specified', done => {
 
       const req = {
@@ -127,83 +100,6 @@ describe( 'agendas - functional (server): middleware', function () {
 
     } );
 
-    it( '.loadRoles with a preloaded agenda as instance load roles in req', done => {
-
-      const req = {
-        uid: 94345899
-      },
-
-      res = {};
-
-      svc.middleware.load( {
-        namespaces: {
-          identifiers: { uid: 'uid' },
-          result: 'a'
-        },
-        instanciate: true
-      } )( req, res, () => {
-
-        svc.middleware.loadRoles( {
-          namespaces: {
-            agenda: 'a' ,
-            result: 'r'
-          },
-          instanciate: true
-        } )( req, res, next );
-
-      } );
-
-      function next( err ) {
-
-        req.r.should.eql( [
-          { code: 'contributor', value: 1 },
-          { code: 'administrator', value: 2 }
-        ] );
-
-        done();
-
-      }
-
-    } );
-
-    it( '.loadRoles with a preloaded agenda as object load roles in req', done => {
-
-      const req = {
-        uid: 94345899
-      },
-
-      res = {};
-
-      svc.middleware.load( {
-        namespaces: {
-          identifiers: { uid: 'uid' },
-          result: 'a'
-        }
-      } )( req, res, () => {
-
-        svc.middleware.loadRoles( {
-          namespaces: {
-            agenda: 'a' ,
-            result: 'r'
-          },
-          instanciate: true
-        } )( req, res, next );
-
-      } );
-
-      function next( err ) {
-
-        req.r.should.eql( [
-          { code: 'contributor', value: 1 },
-          { code: 'administrator', value: 2 }
-        ] );
-
-        done();
-
-      }
-
-    } );
-
   } );
 
   describe( '.evaluateIPAddress', () => {
@@ -234,8 +130,8 @@ describe( 'agendas - functional (server): middleware', function () {
         svc.middleware.load()( req, res, () => {
 
           // loaded, we can use evaluateIPAddress now
-          
-          evaluateIPAddress( req, res, () => { 
+
+          evaluateIPAddress( req, res, () => {
 
             throw new Error( 'should not reach here' );
 
@@ -269,8 +165,8 @@ describe( 'agendas - functional (server): middleware', function () {
         svc.middleware.load()( req, res, () => {
 
           // loaded, we can use evaluateIPAddress now
-          
-          evaluateIPAddress( req, res, () => { 
+
+          evaluateIPAddress( req, res, () => {
 
             should( req ).be.ok;
 
@@ -311,8 +207,8 @@ describe( 'agendas - functional (server): middleware', function () {
         svc.middleware.load()( req, res, () => {
 
           // loaded, we can use evaluateIPAddress now
-          
-          evaluateIPAddress( req, res, () => { 
+
+          evaluateIPAddress( req, res, () => {
 
             should( req ).be.ok;
 

@@ -1,20 +1,17 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
-const activities = require( '@openagenda/activities' );
 const agendas = require( '@openagenda/agendas' );
-const users = require( '@openagenda/users' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const invitations = require( '@openagenda/invitations' );
-const activitiesSvc = require( '@openagenda/activities' );
 const { isSuperiorToOrEqual } = require( '@openagenda/members' ).utils.compareRoles;
-
-const controlDataSvc = require( '../legacy' ).controlData;
 const log = require( '@openagenda/logs' )( 'services/members/onRemove' );
 
-module.exports = async ( membersSvc, member, context ) => {
+const activities = require( '../activities' );
+const controlDataSvc = require( '../legacy' ).controlData;
+const usersSvc = require( '../users' );
 
+module.exports = async ( { members, activityQueue }, member, context ) => {
   log( 'removed', member );
 
   try {
@@ -22,12 +19,14 @@ module.exports = async ( membersSvc, member, context ) => {
     const { user } = context;
     const agenda = await agendas.get( { uid: member.agendaUid }, { private: null } );
 
+    if ( !agenda ) throw new Error( 'Agenda not found' );
+
     if ( !member.userUid ) {
       log( 'removed member is not linked to a user account', member );
       return;
     }
 
-    const memberUser = await users.findOne( {
+    const memberUser = await usersSvc.findOne( {
       query: { uid: member.userUid }
     } );
 
@@ -35,13 +34,15 @@ module.exports = async ( membersSvc, member, context ) => {
       throw new Error( 'User not found' );
     }
 
-    const userMember = await membersSvc.get( {
+    const userMember = await members.get( {
       agendaUid: agenda.uid,
       userUid: user.uid
     } );
 
     try {
-      await addMemberRemoveActivity( { user, member, agenda, userMember, memberUser } );
+      await activityQueue( 'addMemberRemove', {
+        user, member, agenda, userMember, memberUser
+      } );
     } catch ( e ) {
       log( 'error', 'failed adding activity of type agenda.removeMember', { member, exception: e } );
     }
@@ -96,13 +97,12 @@ module.exports = async ( membersSvc, member, context ) => {
 
 
 async function _removeInvitationsToMember( member ) {
-
   const { invitation } = await invitations.get( { email: member.custom.email } );
 
   if ( !invitation ) return;
 
   const action = invitation.data.actions.find( v => {
-    return v.name === 'linkStakeholder' && v.params[ 0 ].id === member.id;
+    return v.name === 'linkMember' && v.params[ 0 ].id === member.id;
   } );
 
   if ( !action ) return;
@@ -112,25 +112,4 @@ async function _removeInvitationsToMember( member ) {
   } else {
     await invitation.remove();
   }
-
-}
-
-async function addMemberRemoveActivity( { user, member, agenda, userMember, memberUser } ) {
-  await activitiesSvc.feed( {
-    entityType: 'agenda',
-    entityUid: agenda.uid
-  } ).activities.add( {
-    actor: 'user:' + user.uid,
-    verb: 'agenda.removeMember',
-    object: 'user:' + memberUser.uid,
-    target: 'agenda:' + agenda.uid,
-    store: {
-      labels: {
-        actor: userMember.custom.contactName || user.fullName,
-        object: member.custom.contactName || memberUser.fullName,
-        target: agenda.title
-      },
-      credential: member.role
-    }
-  } );
 }

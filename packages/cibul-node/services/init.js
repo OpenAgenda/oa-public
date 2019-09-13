@@ -4,133 +4,128 @@ global.__CLIENT__ = false;
 global.__SERVER__ = true;
 global.__DEVELOPMENT__ = process.env.NODE_ENV !== 'production';
 
-const path = require( 'path' );
-const fs = require( 'fs' );
-const async = require( 'async' );
-const VError = require( 'verror' );
-const w = require( 'when' );
-const logs = require( '@openagenda/logs' );
-const schema = require( '@openagenda/validators/schema' );
+const debug = require('debug');
+const VError = require('verror');
+const logs = require('@openagenda/logs');
+const schema = require('@openagenda/validators/schema');
 
-const SERVICES_PATH = __dirname;
+schema.register({
+  pass: require('@openagenda/validators/pass')
+});
 
-schema.register( {
-  pass: require( '@openagenda/validators/pass' )
-} );
-
-const validateOptions = schema( {
+const validateOptions = schema({
   enabled: {
     list: true,
     type: 'pass'
   }
-} );
+});
+
+const color = (nbr, str) => `\x1b[3${nbr}m${str}\x1b[0m`;
 
 let log;
 
 
-module.exports = function ( config, options, cb ) {
+module.exports = async function (configObject, options = {}) {
 
   const t = new Date();
+  const config = configObject || require('../config');
 
-  // define config to use
-  if ( arguments.length == 1 && typeof config === 'function' ) {
+  const cleanOptions = validateOptions(options);
 
-    cb = config;
-    config = require( '../config' );
-    options = {};
+  logs.init(config.logger || config.getLogConfig('oa', 'oa', false));
 
-  } else if ( arguments.length === 0 ) {
+  log = logs('services/init');
 
-    config = require( '../config' );
-    cb = () => {};
+  log('-- initialization started --');
 
-  } else if ( arguments.length === 2 ) {
-
-    cb = options;
-    config = require( '../config' );
-    options = {};
-
-  }
-
-  const cleanOptions = validateOptions( options );
-
-  // init logger
-
-  logs.init( config.logger || config.getLogConfig( 'oa', 'oa', false ) );
-
-  log = logs( 'services/init' );
+  const init = createInitier(config, cleanOptions);
 
   // init services
 
-  fs.readdir( SERVICES_PATH, ( err, services ) => {
+  await init('errors', require('./errors'));
+  await init('queues', require('./queues'));
+  await init('users', require('./users'));
+  await init('abilities', require('./abilities'));
+  await init('accessTokens', require('./accessTokens'));
+  await init('activities', require('./activities'));
+  await init('activityApps', require('./activityApps'));
+  await init('members', require('./members'));
+  await init('adminAgendas', require('./adminAgendas'));
+  await init('agendaCalendar', require('./agendaCalendar'));
+  await init('agendaCategories', require('./agendaCategories'));
+  await init('agendaContribute', require('./agendaContribute'));
+  await init('agendaDocx', require('./agendaDocx'));
+  await init('agendaEventReferences', require('./agendaEventReferences'));
+  await init('agendaEvents', require('./agendaEvents'));
+  await init('agendaLocations', require('./agendaLocations'));
+  await init('agendaMonitor', require('./agendaMonitor'));
+  await init('agendaSchema', require('./agendaSchema'));
+  await init('agendaSearch', require('./agendaSearch'));
+  await init('agendaSettings', require('./agendaSettings'));
+  await init('agendaStakeholders', require('./agendaStakeholders'));
+  await init('agendaStatistics', require('./agendaStatistics'));
+  await init('agendaTags', require('./agendaTags'));
+  await init('agendas', require('./agendas'));
+  await init('aggregator', require('./aggregator'));
+  await init('aggregatorSources', require('./aggregatorSources'));
+  await init('cache', require('./cache'));
+  await init('callToAction', require('./callToAction'));
+  await init('custom', require('./custom'));
+  await init('elasticsearch', require('./elasticsearch'));
+  await init('emailStrategie', require('./emailStrategie'));
+  await init('eventSearch', require('./eventSearch'));
+  await init('events', require('./events'));
+  await init('facebook', require('./facebook'));
+  await init('files', require('./files'));
+  await init('formSchemas', require('./formSchemas'));
+  await init('genUrl', require('./genUrl'));
+  await init('home', require('./home'));
+  await init('imageFiles', require('./imageFiles'));
+  await init('images', require('./images'));
+  await init('inboxes', require('./inboxes'));
+  await init('invitations', require('./invitations'));
+  await init('keys', require('./keys'));
+  await init('legacy', require('./legacy'));
+  await init('logRequests', require('./logRequests'));
+  await init('mails', require('./mails'));
+  await init('model', require('./model'));
+  await init('networkApps', require('./networkApps'));
+  await init('networks', require('./networks'));
+  await init('newsletter', require('./newsletter'));
+  await init('oembed', require('./oembed'));
+  await init('portals', require('./portals'));
+  await init('sessions', require('./sessions'));
+  await init('simpleCache', require('./simpleCache'));
+  await init('surveys', require('./surveys'));
+  await init('unsubscribed', require('./unsubscribed'));
 
-    if ( err ) return cb( err );
+  const timeDiff = new Date().getTime() - t.getTime();
 
-    async.eachSeries( _order( services, [
-      '00_errors',
-      'queues'
-    ] ), _init.bind( null, config, cleanOptions ), err => {
+  log(`initialized in ${debug.useColors() ? color(3, timeDiff) : timeDiff}ms`);
 
-      if ( err ) return cb( new VError( err, 'service initialization did not go well' ) );
-
-      log( 'info', 'ok %s', ( new Date().getTime() - t.getTime() ) + 'ms' );
-
-      cb();
-
-    } );
-
-  } );
-
-}
-
-// init does not need to be initialized by init.
-module.exports.initless = true;
+  return init.services;
+};
 
 
-function _init( config, options, fileOrFolderName, cb ) {
+function createInitier(config, options) {
+  const services = {};
+  return Object.assign((name, service) => {
+    if (options.enabled && options.enabled.length && !options.enabled.includes(name)) {
+      return;
+    }
 
-  const t = new Date();
+    if (typeof service.init !== 'function') {
+      log('warn', '%s: missing init', name);
+      return;
+    }
 
-  const name = fileOrFolderName.split( '.' )[ 0 ];
-  const service = require( path.join( SERVICES_PATH, name ) );
-
-  if ( options.enabled.length && !options.enabled.includes( name ) ) {
-
-    return cb();
-
-  }
-
-  if ( service.initless ) {
-
-    // not worth logging, no need to worry.
-    return cb();
-
-  }
-
-  if ( !service.init ) {
-
-    log( 'error', '%s: >>>>>>>>>>>>>>>>>>>>>> init missing! <<<<<<<<<<<<<<<<<<<<<<<', name );
-
-    return cb();
-
-  }
-
-  log( 'info', '%s: initializing', name );
-
-  const cbWithLog = err => {
-
-    log( 'info', `${name}: ${err ? 'NOK' : 'ok'} ${new Date().getTime() - t.getTime()}ms` );
-
-    return cb( err );
-
-  };
-
-  w( service.init( config ) ).done( () => cbWithLog(), cbWithLog );
-
-}
-
-function _order( services, prioritized ) {
-
-  return prioritized.concat( services.filter( s => !prioritized.includes( s.split( '.' )[ 0 ] ) ) );
-
+    return Promise.resolve(service.init(config, services))
+      .then( svc => {
+        if (svc) services[name] = svc;
+        log('info', name);
+      })
+      .catch(err => {
+        throw new VError(err, `service '${name}' initialization did not go well`);
+      });
+  }, { services });
 }

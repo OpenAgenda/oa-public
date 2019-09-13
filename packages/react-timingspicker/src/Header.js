@@ -1,75 +1,85 @@
 import React, { Component } from 'react';
-import { injectIntl, defineMessages } from 'react-intl';
+import { injectIntl /* , defineMessages */ } from 'react-intl';
 import Select from 'react-select';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import dateFns from 'date-fns';
+import * as dateFns from 'date-fns';
 
+// const messages = defineMessages({
+//   weekIndicator: {
+//     id: 'rtp.header.weekIndicator',
+//     defaultMessage: 'Week {weekNumber, number}'
+//   }
+// });
 
-const messages = defineMessages( {
-  weekIndicator: {
-    id: 'rtp.header.weekIndicator',
-    defaultMessage: 'Week {weekNumber, number}'
-  }
-} );
-
-function getYearOptions( activeYear ) {
-  return Array( 5 )
-    .fill( activeYear - 2 )
-    .map( ( value, i ) => {
+function getYearOptions(activeYear) {
+  return Array(5)
+    .fill(activeYear - 2)
+    .map((value, i) => {
       const year = value + i;
 
       return {
         value: year,
         label: year
       };
-    } );
+    });
 }
 
 class Header extends Component {
-  state = {
-    activeWeek: null,
-    selectedMonth: null,
-    selectedYear: null,
-    monthOptions: [],
-    yearOptions: []
-  };
+  constructor(props) {
+    super(props);
 
-  static getDerivedStateFromProps( props, state ) {
+    this.state = {
+      activeWeek: null,
+      selectedMonth: null,
+      selectedYear: null,
+      monthOptions: [],
+      yearOptions: []
+    };
+  }
+
+  static getDerivedStateFromProps(props, state) {
     const { activeWeek, intl } = props;
 
-    if ( state.activeWeek && state.activeWeek.getTime() === activeWeek.getTime() ) {
+    if (
+      state.activeWeek
+      && state.activeWeek.getTime() === activeWeek.getTime()
+    ) {
       return null;
     }
 
-    const month = dateFns.getMonth( activeWeek );
-    const year = dateFns.getYear( activeWeek );
-    const formatMonth = val => intl.formatDate( new Date( year, val ), { month: 'long' } );
+    const month = dateFns.getMonth(activeWeek);
+    const year = dateFns.getYear(activeWeek);
+    const formatMonth = val => intl.formatDate(new Date(year, val), { month: 'long' });
 
-    const monthOptions = Array( 12 ).fill().map( ( e, i ) => ({ value: i, label: formatMonth( i ) }) );
-    const selectedMonth = { value: month, label: formatMonth( month ) }
+    const monthOptions = Array(12)
+      .fill()
+      .map((e, i) => ({ value: i, label: formatMonth(i) }));
+    const selectedMonth = { value: month, label: formatMonth(month) };
     const selectedYear = { value: year, label: year };
 
     return {
       activeWeek: props.activeWeek,
       monthOptions,
-      yearOptions: getYearOptions( year ),
+      yearOptions: getYearOptions(year),
       selectedMonth,
       selectedYear
     };
   }
 
-  onMonthChange = option => this.props.onMonthChange( option.value );
+  onMonthChange = option => {
+    const { onMonthChange } = this.props;
 
-  onYearChange = option => this.props.onYearChange( option.value );
+    return onMonthChange(option.value);
+  };
+
+  onYearChange = option => {
+    const { onYearChange } = this.props;
+
+    return onYearChange(option.value);
+  };
 
   render() {
-    const {
-      activeWeek,
-      onPrevWeek,
-      onNextWeek,
-      classNamePrefix,
-      intl
-    } = this.props;
+    const { classNamePrefix, onPrevWeek, onNextWeek } = this.props;
     const {
       monthOptions,
       yearOptions,
@@ -79,17 +89,29 @@ class Header extends Component {
 
     return (
       <div className={`${classNamePrefix}header`}>
-        <span role="button" className={`${classNamePrefix}prev-week`} onClick={onPrevWeek}>
+        <div
+          role="button"
+          tabIndex={0}
+          className={`${classNamePrefix}prev-week`}
+          onClick={onPrevWeek}
+          onKeyPress={onPrevWeek}
+        >
           <FaChevronLeft className={`${classNamePrefix}icon`} />
-        </span>
+        </div>
 
-        {/*<span className={`${classNamePrefix}week-indicator`}>
+        {/* <span className={`${classNamePrefix}week-indicator`}>
           {intl.formatMessage( messages.weekIndicator, { weekNumber: dateFns.getISOWeek( activeWeek ) } )}
-        </span>*/}
+        </span> */}
 
-        <span role="button" className={`${classNamePrefix}next-week`} onClick={onNextWeek}>
+        <div
+          role="button"
+          tabIndex={0}
+          className={`${classNamePrefix}next-week`}
+          onClick={onNextWeek}
+          onKeyPress={onNextWeek}
+        >
           <FaChevronRight className={`${classNamePrefix}icon`} />
-        </span>
+        </div>
 
         <div className={`${classNamePrefix}selectors`}>
           <span className={`${classNamePrefix}month-selector`}>
@@ -116,4 +138,4 @@ class Header extends Component {
   }
 }
 
-export default injectIntl( Header, { withRef: true } );
+export default injectIntl(Header, { withRef: true });

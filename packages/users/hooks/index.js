@@ -1,32 +1,63 @@
+'use strict';
+
+const callInterface = require('./callInterface');
+const camelCase = require('./camelCase');
+const camelCaseQuery = require('./camelCaseQuery');
+const changeEmailFromStore = require('./changeEmailFromStore');
+const checkUnicity = require('./checkUnicity');
+const coerce = require('./coerce');
+const compareFields = require('./compareFields');
+const dataExists = require('./dataExists');
+const detailedParamHook = require('./detailedParamHook');
+const formatStore = require('./formatStore');
+const generateApiKey = require('./generateApiKey');
+const generateHash = require('./generateHash');
+const generateToken = require('./generateToken');
+const generateUid = require('./generateUid');
+const generateUniqueToken = require('./generateUniqueToken');
+const hashPassword = require('./hashPassword');
+const includeImagePathParamHook = require('./includeImagePathParamHook');
+const isValidToken = require('./isValidToken');
+const parseStore = require('./parseStore');
+const removedParamHook = require('./removedParamHook');
+const searchByKey = require('./searchByKey');
+const searchKeyword = require('./searchKeyword');
+const setInStore = require('./setInStore');
+const snakeCase = require('./snakeCase');
+const snakeCaseQuery = require('./snakeCaseQuery');
+const softDelete = require('./softDelete');
+const stashBefore = require('./stashBefore');
+const validate = require('./validate');
+const verifyPassword = require('./verifyPassword');
+
 module.exports = {
-  actionFromClient: require( './actionFromClient' ),
-  callInterface: require( './callInterface' ),
-  camelCase: require( './camelCase' ),
-  camelCaseQuery: require( './camelCaseQuery' ),
-  changeEmailFromStore: require( './changeEmailFromStore' ),
-  checkUnicity: require( './checkUnicity' ),
-  coerce: require( './coerce' ),
-  compareFields: require( './compareFields' ),
-  dataExists: require( './dataExists' ),
-  detailedParamHook: require( './detailedParamHook' ),
-  formatStore: require( './formatStore' ),
-  generateApiKey: require( './generateApiKey' ),
-  generateHash: require( './generateHash' ),
-  generateToken: require( './generateToken' ),
-  generateUid: require( './generateUid' ),
-  hashPassword: require( './hashPassword' ),
-  includeImagePathParamHook: require( './includeImagePathParamHook' ),
-  isAction: require( './isAction' ),
-  isValidToken: require( './isValidToken' ),
-  parseStore: require( './parseStore' ),
-  removedParamHook: require( './removedParamHook' ),
-  searchByKey: require( './searchByKey' ),
-  searchKeyword: require( './searchKeyword' ),
-  setInStore: require( './setInStore' ),
-  snakeCase: require( './snakeCase' ),
-  snakeCaseQuery: require( './snakeCaseQuery' ),
-  softDelete: require( './softDelete' ),
-  stashBefore: require( './stashBefore' ),
-  validate: require( './validate' ),
-  verifyPassword: require( './verifyPassword' )
+  callInterface,
+  camelCase,
+  camelCaseQuery,
+  changeEmailFromStore,
+  checkUnicity,
+  coerce,
+  compareFields,
+  dataExists,
+  detailedParamHook,
+  formatStore,
+  generateApiKey,
+  generateHash,
+  generateToken,
+  generateUid,
+  generateUniqueToken,
+  hashPassword,
+  includeImagePathParamHook,
+  isValidToken,
+  parseStore,
+  removedParamHook,
+  searchByKey,
+  searchKeyword,
+  setInStore,
+  snakeCase,
+  snakeCaseQuery,
+  softDelete,
+  stashBefore,
+  validate,
+  verifyPassword
 };

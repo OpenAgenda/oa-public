@@ -16,13 +16,11 @@ const interfaces = {
 
 
 module.exports = {
-  init,
-  legacy
+  init
 }
 
 
 function init( config ) {
-
   events.init( {
     knex: config.knex,
     mysql: config.db,
@@ -57,4 +55,7 @@ function init( config ) {
     interfaces
   } );
 
+  Object.assign(module.exports, events, {init});
+
+  return events;
 }

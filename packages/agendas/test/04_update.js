@@ -59,9 +59,6 @@ describe( 'agendas - functional (server): set (update)', function() {
               body: null
             }
           },
-          mailing: {
-            eventAggregation: false
-          },
           tracking: {
             googleAnalytics: null
           },
@@ -260,9 +257,6 @@ describe( 'agendas - functional (server): set (update)', function() {
                 subject: null,
                 body: null
               }
-            },
-            mailing: {
-              eventAggregation: false
             },
             tracking: {
               googleAnalytics: null

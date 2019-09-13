@@ -6,26 +6,13 @@ const schema = require( '@openagenda/validators/schema' );
 const validators = require( '@openagenda/validators' );
 const method = require( '../../utils/method' );
 
-let config;
-let knex;
-let service;
-
 schema.register( {
   number: validators.number
 } );
 
-module.exports = Object.assign( get, { init } );
+module.exports = function get( config, identifiers, activityId, cb ) {
 
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
-
-function get( identifiers, activityId, cb ) {
-
+  const { service, knex } = config;
   const defaultHook = _.merge( {}, {
     data: {
       id: activityId

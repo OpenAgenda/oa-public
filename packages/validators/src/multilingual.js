@@ -28,7 +28,7 @@ module.exports = ( config = {} )=> {
     field: params.field
   } );
 
-  function validate( origin ) { 
+  function validate( origin ) {
 
 
     const clean = {}, tmp = {};
@@ -37,6 +37,8 @@ module.exports = ( config = {} )=> {
 
     const value = {};
 
+    // if is provided with string, validator distributes value
+    // to all languages
     if ( _.isString( origin ) && params.languages.length ) {
 
       _.assign( value, params.languages.reduce( ( c, l ) => {
@@ -67,7 +69,7 @@ module.exports = ( config = {} )=> {
 
       params.languages.forEach( l => {
 
-        value[ l ] = _.get( value, l, '' );        
+        value[ l ] = _.get( value, l, '' );
 
       } );
 
@@ -94,7 +96,7 @@ module.exports = ( config = {} )=> {
 
       let langValue = value[ l ];
 
-      if ( langValue === undefined || langValue === null ) {
+      if ( params.optional && ( langValue === undefined || langValue === null ) ) {
 
         return;
 
@@ -106,8 +108,8 @@ module.exports = ( config = {} )=> {
           ? _.get( params, 'default' )
           : _.get( params, [ 'default', l ] );
 
-        const validateText = text( _.set( 
-          _.omit( params, [ 'default' ] ), 
+        const validateText = text( _.set(
+          _.omit( params, [ 'default' ] ),
           'default',
           defaultValue || null
         ) );

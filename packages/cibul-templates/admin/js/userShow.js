@@ -8,7 +8,7 @@ export default class UserShow extends Component {
     super( props );
     this.handleChangePassword = ::this.handleChangePassword;
     this.handleSubmitChangePassword = ::this.handleSubmitChangePassword;
-    this.renderStakeholder = ::this.renderStakeholder;
+    this.renderMember = ::this.renderMember;
     this.toggleApiSecret = ::this.toggleApiSecret;
   }
 
@@ -35,11 +35,11 @@ export default class UserShow extends Component {
       } );
   }
 
-  renderStakeholder( props ) {
+  renderMember( props ) {
     return (
       <tr key={props.id}>
         <td>{props.id}</td>
-        <td>{credentialToString( props.credential )}</td>
+        <td>{roleToString( props.role )}</td>
         <td><a href={`/${props.agenda.slug}`}>{props.agenda.title}</a></td>
         <td>{props.nbrEvents || '0'}</td>
         <td>
@@ -152,8 +152,8 @@ export default class UserShow extends Component {
             </tr>
             </thead>
             <List
-              items={this.props.stakeholders}
-              renderItem={this.renderStakeholder}
+              items={this.props.members}
+              renderItem={this.renderMember}
               renderEmpty={() => <tr>
                 <td colSpan="4" className="text-center">N'est pas contributeur !</td>
               </tr>}
@@ -169,7 +169,7 @@ export default class UserShow extends Component {
 
 }
 
-function credentialToString( type ) {
+function roleToString( type ) {
   switch ( type ) {
     case 1:
       return 'Contributeur';

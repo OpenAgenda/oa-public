@@ -1,17 +1,28 @@
 {
   "name": "@openagenda/agenda-portal",
-  "version": "2.0.2",
+  "version": "2.2.0",
   "main": "index.js",
   "author": "Kaoré <support@openagenda.com>",
   "license": "MIT",
   "scripts": {
-    "test": "mocha",
-    "start": "NODE_ENV=development browser-refresh dev/server"
+    "test": "jest",
+    "start": "NODE_ENV=development browser-refresh dev/server",
+    "lint": "eslint -c .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "lint-staged": "lint-staged"
   },
   "bin": {
     "deploy": "bin/deploy.js"
   },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc",
+      "git add"
+    ]
+  },
   "dependencies": {
+    "@openagenda/logs": "^1.1.2",
     "axios": "^0.18.0",
     "bootstrap": "^4.1.3",
     "browser-refresh": "^1.7.3",
@@ -30,7 +41,10 @@
     "validator": "^11.0.0"
   },
   "devDependencies": {
-    "mocha": "^5.2.0",
-    "should": "^13.2.3"
+    "@openagenda/eslint-config": "^1.0.0",
+    "eslint": "^6.2.1",
+    "jest": "^24.9.0",
+    "lint-staged": "^9.2.3",
+    "prettier-eslint-cli": "^5.0.0"
   }
 }

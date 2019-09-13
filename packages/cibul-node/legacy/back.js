@@ -4,10 +4,11 @@ const config = require( '../config' );
 
 const _ = require( 'lodash' );
 const async = require( 'async' );
+const core = require('../core');
 const cmn = require( '../lib/commons-app' );
 const qs = require( 'qs' );
 
-const activitiesSvc = require( '@openagenda/activities' );
+const activitiesSvc = require( '../services/activities' );
 const agendaEventsSvc = require( '../services/agendaEvents' );
 const controlDataSvc = require( '../services/legacy' ).controlData;
 const sessions = require( '@openagenda/sessions' );
@@ -15,12 +16,16 @@ const referencesSvc = require( '@openagenda/agenda-event-references' );
 const sCache = require( '@openagenda/simple-cache' );
 const utils = require( '@openagenda/utils' );
 
-const agendaSvc = require( '@openagenda/agendas' );
-const legacyAgendaSvc = require( '../services/agenda' );
-const legacyEventSvc = require( '../services/event' );
+const agendaSvc = require('@openagenda/agendas');
+const legacyAgendaSvc = require('../services/agenda');
+const legacyEventSvc = require('../services/event');
+const legacyEventSearch = require('../services/elasticsearch');
 const formOrderMw = require( './formOrder.mw.js' );
 const formFieldsByUser = require( './formFieldsByUser.mw.js' );
-const legacyEvents = require( '../services/events' ).legacy;
+
+const eventsSvc = require('../services/events');
+const customSvc = require( '@openagenda/custom' );
+const agendaEvents = require('@openagenda/agenda-events');
 
 const agendaLocations = require( '@openagenda/agenda-locations' );
 
@@ -32,6 +37,10 @@ const apiLog = logger( 'legacyApi' );
 const log = logger( 'legacy' );
 
 const adminLayout = require( '../services/lib/layouts' ).agendaAdmin;
+
+const { promisify } = require('util');
+
+const eventLegacyTransfer = promisify(eventsSvc.legacy.transfer);
 
 const preMw = [
   cmn.loadLogger( 'legacy' ),
@@ -296,7 +305,7 @@ function _loadEventByUid( req, res, next ) {
 
     if ( err ) return next( err );
 
-    if ( !event ) return next( 'no event found' );
+    if ( !event ) return next( new Error( 'no event found' ) );
 
     req.event = event;
 
@@ -559,98 +568,108 @@ function session( req, res, next ) {
 
 
 function eventDelete( req, res, next ) {
-
   res.send( 'ok' );
 
   const userUid = req.query.userUid || null;
   const agendaUid = req.query.agendaUid || null;
 
-  log( 'received request to delete event %s from user %s on agenda %s', req.event.uid, userUid, agendaUid );
-
-  req.event.getAgendaReferences( ( err, agendas ) => {
-
-    async.eachSeries( agendas, ( a, ecb ) => {
-
-      legacyAgendaSvc.get( { uid: a.uid }, ( err, agenda ) => {
-
-        agenda.removeEvent( req.event, ecb );
-
-      } );
-
-    }, err => {
-
-      legacyEvents.onRemove( req.event, { userUid, agendaUid }, err => {
-
-        if ( err ) {
-
-          log( 'error', 'event %s could not be removed: %s', req.event.id, err );
-
-        }
-
-        req.event.remove( err => {
-
-          if ( err ) {
-
-            log( 'error', 'event %s could not be removed: %s', req.event.id, err );
-
-          } else {
-
-            log( 'info', 'event %s removed', req.event.id );
-
-          }
-
-          activitiesSvc.feed( { entityType: 'event', entityUid: req.event.uid } ).remove( () => {
-
-            req.log( 'event %s feed removed', req.event.id );
-
-          } );
-
-        } );
-
-      } );
-
-    } );
-
-  } );
+  core.agendas(agendaUid).events.remove(req.event.uid).then( () => {
+    log('deleted event', req.event.uid);
+  }, err => {
+    log('error', err);
+  });
 
 }
 
 
-function eventUpdate( req, res, next ) {
+async function eventUpdate(req, res, next) {
+  log('legacy event updated, updating event');
 
-  res.send( 'ok' );
+  if (!req.agenda) {
+    log('error', 'agenda not specified at legacy event update');
+    return next();
+  }
 
-  req.log( 'event %s ( %s ) was updated', req.event.uid, req.event.slug );
+  try {
+    await _transferFromLegacy({
+      legacyEvent: req.event,
+      agenda: req.agenda,
+      userUid: req.query.userUid
+    });
+  } catch(e) {
+    log('error', 'legacy update', e);
+    return next(e);
+  }
 
-  legacyEvents.onUpdate( req.event, {
-    userUid: req.query.userUid || null,
-    agendaUid: req.query.agendaUid || null,
-    agenda: req.agenda
-  } );
-
+  res.send('ok');
 }
 
 
-function eventCreate( req, res, next ) {
+async function eventCreate(req, res, next) {
+  log('legacy event created, creating event');
 
-  req.log( 'event was created' );
+  if (!req.agenda) {
+    log('error', 'agenda not specified at legacy event create');
+    return next();
+  }
 
-  res.send( 'ok' );
+  try {
+    await _transferFromLegacy({
+      legacyEvent: req.event,
+      agenda: req.agenda,
+      userUid: req.query.userUid
+    });
+  } catch(e) {
+    log('error', 'legacy create', e);
+    return next(e);
+  }
 
-  legacyEvents.onCreate( req.event, {
-    userUid: req.query.userUid || null,
-    agendaUid: req.query.agendaUid || null,
-    agenda: req.agenda
-  } );
+  res.send('ok');
+}
 
-  if ( !req.agenda ) return;
+async function _transferFromLegacy({ legacyEvent, agenda, userUid }) {
+  const {
+    transferred,
+    errors,
+    event
+  } = await eventLegacyTransfer(legacyEvent, {
+    context: {
+      userUid: userUid || null,
+      agendaUid: agenda.uid || null,
+      agenda
+    }
+  });
 
-  req.event.loadAgendaCustomContext( {
-    uid: req.agenda.uid,
-    customFields: _.get( req, 'agenda.legacyStore.customFields', [] )
-  } );
+  if (!transferred) {
+    log('error', errors);
+    throw new Error('could not transfer legacy event');
+  }
 
-  req.event.evaluateCustomImageDuplication( err => err ? req.log( 'error', err ) : null )
+  log('creating agendaEvent from legacy', { agendaId: agenda.id, eventId: legacyEvent.id })
+  await agendaEvents.legacyTransfer({
+    agendaId: agenda.id,
+    eventId: legacyEvent.id
+  }, {
+    context: {
+      userUid,
+      event,
+      agenda
+    }
+  });
+
+  if (agenda.formSchemaId) {
+    try {
+      await customSvc(agenda.formSchemaId).transferFromLegacy(event.uid, _.get(agenda, 'id'));
+    } catch (e) {
+      log( 'error', 'could not transfer custom data from legacy (%s.%s)', agenda.uid, event.uid, e );
+    }
+  }
+
+  try {
+    await legacyEventSearch.updateEvent(_.pick(event, ['uid']));
+  } catch ( e ) {
+    log('error', 'could not update legacy search for event %s', event.slug );
+  }
 
 }
 
@@ -769,7 +788,7 @@ function _checkLocalhost( req, res, next ) {
   // lets just block legacy queries at the nginx level
   if ( req.header( 'x-forwarded-for' ) ) {
 
-    return next( 'Not allowed.' );
+    return next( new Error( 'Not allowed.' ) );
 
   }
 

@@ -29,11 +29,13 @@ module.exports = ( current, state ) => {
 
   }
 
-  if ( 
+  const isAdministrator = _.get( member, 'role' ) === 'administrator';
+
+  if ( (
     memberConfig.dataIsRequired &&
-    current !== 'member' && 
-    isMemberValid( member ) 
-  ) {
+    current !== 'member' &&
+    isMemberValid( member )
+  ) || isAdministrator ) {
 
     steps.member.validated = true;
 
@@ -45,7 +47,7 @@ module.exports = ( current, state ) => {
 
   }
 
-  if ( current === 'member' && isMemberValid( member ) ) {
+  if ( current === 'member' && ( isMemberValid( member ) || isAdministrator ) ) {
 
     steps.event.activable = true;
 

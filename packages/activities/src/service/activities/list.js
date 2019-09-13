@@ -6,29 +6,16 @@ const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const schema = require( '@openagenda/validators/schema' );
 const validators = require( '@openagenda/validators' );
 
-let config;
-let knex;
-let service;
-
 schema.register( {
   text: validators.text,
   pass: validators.pass,
   number: validators.number
 } );
 
-module.exports = Object.assign( list, { init } );
+module.exports = function list( config, identifiers ) {
 
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
-
-function list( identifiers ) {
-
-  const args = parseListArguments.apply( null, Array.from( arguments ).slice( 1 ) );
+  const { service, knex } = config;
+  const args = parseListArguments.apply( null, Array.from( arguments ).slice( 2 ) );
 
   args.query = _.pick( args.query, [ 'actor', 'verb', 'object', 'target', 'createdAt' ] );
 

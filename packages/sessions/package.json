@@ -8,10 +8,12 @@
   "main": "lib/service/index.js",
   "scripts": {
     "build": "rimraf lib && babel src -d lib -s",
-    "test": "mocha --exit"
+    "test": "mocha --exit",
+    "clean": "rimraf dist",
+    "prepublish": "yarn clean && yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.4.3",
+    "@babel/runtime-corejs3": "^7.5.5",
     "@openagenda/logs": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/utils": "^1.0.1",
@@ -19,17 +21,17 @@
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-alpha.2",
     "cookies-js": "^1.2.3",
-    "core-js": "^3.0.1",
+    "core-js": "^3.2.1",
     "lodash": "^4.17.4",
     "redis": "^2.6.3",
     "verror": "^1.10.0",
     "when": "^3.7.7"
   },
   "devDependencies": {
+    "@babel/cli": "^7.5.5",
+    "@babel/core": "^7.5.5",
+    "@openagenda/babel-preset": "^1.1.1",
     "async": "^2.1.4",
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
-    "babel-preset-openagenda": "^1.1.1",
     "express": "^4.14.0",
     "immutability-helper": "^2.3.0",
     "jsdom": "^9.9.1",

@@ -1,4 +1,7 @@
+'use strict';
+
 module.exports = {
-  testEnvironment: 'node',
-  setupTestFrameworkScriptFile: '<rootDir>/test/setup.js'
+  displayName: '@openagenda/sdk-js',
+
+  testEnvironment: 'node'
 };

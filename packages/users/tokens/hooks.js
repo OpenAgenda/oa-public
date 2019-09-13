@@ -1,9 +1,11 @@
 'use strict';
 
-const debug = require( 'debug' );
-const VError = require( 'verror' );
-const errors = require( '@feathersjs/errors' );
-const { disallow } = require( 'feathers-hooks-common' );
+const { inspect } = require('util');
+const _ = require('lodash');
+const debug = require('debug');
+const VError = require('verror');
+const { disallow } = require('feathers-hooks-common');
+const log = require('@openagenda/logs')('users/tokens/hooks');
 const {
   callInterface,
   camelCase,
@@ -11,17 +13,16 @@ const {
   snakeCase,
   snakeCaseQuery,
   generateToken
-} = require( '../hooks/index' );
-
+} = require('../hooks/index');
 
 module.exports = {
   before: {
-    all: disallow( 'external' ),
+    all: disallow('external'),
     find: [
       context => {
         const query = context.params.query || {};
 
-        switch ( query.type ) {
+        switch (query.type) {
           case 'activateAccount':
             query.type = 'aa';
             break;
@@ -37,14 +38,11 @@ module.exports = {
       snakeCase(),
       snakeCaseQuery()
     ],
-    get: [
-      snakeCase(),
-      snakeCaseQuery()
-    ],
+    get: [snakeCase(), snakeCaseQuery()],
     create: [
-      generateToken( 'data.token' ),
+      generateToken('data.token'),
       context => {
-        switch ( context.data.type ) {
+        switch (context.data.type) {
           case 'activateAccount':
             context.data.type = 'aa';
             break;
@@ -64,41 +62,45 @@ module.exports = {
   },
 
   after: {
-    all: [
-      camelCase(),
-      camelCaseQuery(),
-    ],
+    all: [camelCase(), camelCaseQuery()],
     find: [],
     get: [
       async context => {
-        if ( !context.result && context.params.createIfNotExist ) {
-          context.result = await this.create( _.pick( params.query, 'email', 'type', 'userId' ) );
+        if (!context.result && context.params.createIfNotExist) {
+          context.result = await this.create(
+            _.pick(context.params.query, 'email', 'type', 'userId')
+          );
         }
       }
     ],
-    create: [
-      callInterface( 'sendToken' )
-    ],
+    create: [callInterface('sendToken')],
     update: [],
     patch: [],
     remove: []
   },
 
-  error( context ) {
+  error(context) {
     // Avoid soft delete error
-    if ( context.error instanceof errors.NotFound && context.error.message.includes( 'Item not found' ) ) {
+    if (
+      _.get(context, 'error.name') === 'NotFound'
+      && context.error.message.includes('No record found')
+    ) {
       context.error = null;
       context.result = null;
       return context;
     }
 
-    if ( !(context.error instanceof errors.NotFound) ) {
+    if (!(_.get(context, 'error.name') === 'NotFound')) {
+      const errorStack = context.error instanceof Error
+        ? `\n${VError.fullStack(context.error)}`
+        : '';
+
       log.error(
-        `Error in '${context.path}' service method '${context.method}'\n${VError.fullStack( context.error )}\n`,
-        inspect( _.omit( context.error, [ 'hook.app', 'hook.service' ] ), {
+        `Error in service method '${context.method}'${errorStack}\n`,
+        inspect(_.omit(context.error, ['hook.app', 'hook.service']), {
           colors: debug.useColors()
-        } )
+        })
       );
     }
-  },
+  }
 };

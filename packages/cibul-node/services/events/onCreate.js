@@ -1,9 +1,9 @@
 "use strict";
 
-const users = require( '@openagenda/users' );
-const activitiesSvc = require( '@openagenda/activities' );
-const eventSearch = require( '../eventSearch' );
 const log = require( '@openagenda/logs' )( 'events/interfaces/onCreate' );
+const activitiesSvc = require( '../activities' );
+const eventSearch = require( '../eventSearch' );
+const usersSvc = require( '../users' );
 
 module.exports = ( event, context ) => {
 
@@ -41,12 +41,12 @@ async function _registerActivity( event ) {
 
 function _unsetNewUser( event ) {
 
-  users.get( event.creatorUid )
+  usersSvc.get( event.creatorUid )
     .then( async user => {
 
       if ( user && user.isNew ) {
 
-        await users.setNewFlag( event.creatorUid, false );
+        await usersSvc.setNewFlag( event.creatorUid, { isNew: false } );
 
       }
 

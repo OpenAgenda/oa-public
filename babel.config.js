@@ -9,12 +9,7 @@ module.exports = {
     'packages/*'
   ],
   presets: [
-    [
-      'openagenda',
-      {
-        modules: 'commonjs'
-      }
-    ]
+    '@openagenda'
   ],
   sourceType: 'unambiguous'
 };

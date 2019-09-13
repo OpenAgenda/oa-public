@@ -1,8 +1,10 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' ),
+const _ = require('lodash');
 
-  validate = require( '../iso/validate' );
+const utils = require('./lib/utils');
+const validate = require('../iso/validate');
+const validateOptions = require('./lib/validateOptions');
 
 let config, knex;
 
@@ -11,12 +13,24 @@ module.exports = _.extend( get, {
   byLegacyId
 } );
 
-async function get( agendaUid, eventUid ) {
+async function get(agendaUid, eventUid, options = {}) {
+  if (!agendaUid) throw new Error('Agenda uid is missing');
+  if (!eventUid) throw new Error('Event uid is missing');
 
-  return await _get( {
+  const {
+    decorate
+  } = validateOptions(options);
+
+  const ae = await _get( {
     'agenda_uid' : agendaUid,
     'event_uid' : eventUid
   } );
+
+  if (decorate.includes('member') && config.interfaces.getMembers) {
+    ae.member = ae.userUid ? _.get( await config.interfaces.getMembers([ae]), '0') : null;
+  }
+
+  return ae;
 
 }
 
@@ -29,25 +43,23 @@ async function byLegacyId( agendaId, eventId ) {
 }
 
 async function _get( where ) {
-
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
-  const ref = await knex( config.schemas.agendaEvent )
-    .first( [
+  const entry = await knex(config.schemas.agendaEvent)
+    .first([
       'agenda_uid',
       'event_uid',
       'user_uid',
+      'source_agenda_uid',
       'state',
       'can_edit',
       'featured',
       'created_at',
       'updated_at',
       'legacy_id'
-    ] )
-    .where( where );
+    ]).where(where);
 
-  if ( !ref ) return null;
+  if (!entry) return null;
 
-  return validate( _.mapKeys( ref, ( v, k ) => _.camelCase( k ) ) );
-
+  return validate(utils.fromEntry(entry));
 }

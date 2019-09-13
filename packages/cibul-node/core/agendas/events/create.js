@@ -15,7 +15,7 @@ const processOEmbed = require( '../utils/processOEmbed' );
 const validate = require( './validate' );
 
 
-module.exports = async ( agendaUid, data, options = {} ) => {
+module.exports = async (agendaUid, data, options = {}) => {
 
   log( 'info', 'processing', { agendaUid, options } );
 
@@ -61,19 +61,32 @@ module.exports = async ( agendaUid, data, options = {} ) => {
 
   log( 'pre-validation done', { agendaUid } );
 
-  // create the event
-  const result = await events.create( _.assign(
-    toEventServiceFormat( clean.event, null, { raw: data } ),
-    _.pick( data, [ 'ownerUid', 'creatorUid', 'agendaUid' ] )
-  ), {
-    context: {
-      userUid: contextUserUid
-    },
-    detailed: true,
-    internal: true,
-    transferToLegacy: !draft,
-    draft
-  } );
+  let result;
+
+  const eventServiceDataFormat = Object.assign(
+    toEventServiceFormat( clean.event, null, {
+      raw: data
+    } ), _.pick( data, [ 'ownerUid', 'creatorUid', 'agendaUid' ] )
+  );
+
+  try {
+    // create the event
+    result = await events.create( eventServiceDataFormat, {
+      context: {
+        userUid: contextUserUid
+      },
+      detailed: true,
+      internal: true,
+      transferToLegacy: !draft,
+      draft
+    } );
+  } catch ( e ) {
+    log( 'error', 'failed to create event', {
+      agendaUid: agenda.uid,
+      eventServiceDataFormat
+    } );
+    throw e;
+  }
 
   if ( !result.valid ) {
 

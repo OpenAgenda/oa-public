@@ -1,9 +1,11 @@
 'use strict';
 
 const sessions = require( '@openagenda/sessions' );
-const usersSvc = require( '@openagenda/users' );
 const log = require( '@openagenda/logs' )( 'auth/reset.front' );
 const cmn = require( '../lib/commons-app' );
+const usersSvc = require( '../services/users' );
+
+const config = require( '../config' );
 
 const preMw = [
   cmn.loadBaseData(),
@@ -148,9 +150,9 @@ async function _createAndSend( values ) {
 
     log( 'loaded user %s', JSON.stringify( result ) );
 
-    if ( !result ) throw 'No account matching this email was found';
+    if ( !result ) throw new Error( 'No account matching this email was found' );
 
-    if ( !result.isActivated ) throw 'The account matching this email is not yet activated';
+    if ( !result.isActivated ) throw new Error( 'The account matching this email is not yet activated' );
 
     values.user = result;
 
@@ -165,7 +167,7 @@ async function _createAndSend( values ) {
   } );
 
   if ( token ) {
-    await usersSvc.config.interfaces.sendToken()( { result: token, params: { user: values.user } } );
+    await usersSvc.config.interfaces.sendToken( config )( { result: token, params: { user: values.user } } );
   } else {
     token = await usersSvc.tokens.create(
       {

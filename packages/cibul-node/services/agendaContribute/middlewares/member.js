@@ -3,39 +3,22 @@
 const _ = require( 'lodash' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaContribute/middlewares/member' );
-const members = require( '@openagenda/agenda-stakeholders' );
 
-const memberMap = require( '../lib/stakeholder.map' );
+const members = require( '../../members' );
 
 module.exports = function( req, res, next ) {
-
   log( 'getting member for user %s in agenda %s', _.get( req, 'user.uid' ), _.get( req, 'agenda.uid' ) );
 
-  const userId = _.get( req, 'user.id' );
-  const agendaId = _.get( req, 'agenda.id' );
+  const userUid = _.get( req, 'user.uid' );
+  const agendaUid = _.get( req, 'agenda.uid' );
 
-  if ( !userId ) return next( 403 );
+  if ( !userUid ) return next( 403 );
+  if ( !agendaUid ) return next( 404 );
 
-  if ( !agendaId ) return next( 404 );
-
-  members.agenda( agendaId ).get( { userId }, ( err, stakeholder ) => {
-
-    if ( err ) return next( err );
-
-    if ( !stakeholder ) return next();
-
-    req.member = memberMap.toMember( stakeholder.custom, stakeholder.credential );
-
-    members.agenda( agendaId ).instanciate( stakeholder ).isValid( ( err, is ) => {
-
-      req.isMemberValid = is;
-
-      log( 'loaded %s member: %j', is ? 'complete' : 'incomplete', req.member );
-
-      next();
-
-    } );
-
-  } );
-
+  members.get( { agendaUid, userUid } ).then( member => {
+    req.member = member ? { ..._.get( member, 'custom' ),
+      role: members.utils.getRoleSlug( member.role )
+    } : null;
+    next();
+  }, next );
 }

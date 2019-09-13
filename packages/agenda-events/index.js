@@ -38,6 +38,11 @@ module.exports.list = require( './service/list' );
 
 module.exports.validate = endpoints.validate.validateData;
 
+module.exports.utils = {
+  setSourceUid: require('./utils/setSourceUid').bind(null, endpoints),
+  unsetSourceUid: require('./utils/unsetSourceUid').bind(null, endpoints)
+}
+
 module.exports.init = c => {
 
   const config = _.extend( {

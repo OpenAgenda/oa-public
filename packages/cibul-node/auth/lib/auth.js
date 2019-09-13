@@ -2,17 +2,18 @@
 
 const _ = require( 'lodash' );
 const w = require( 'when' );
+const qs = require( 'qs' );
 
 const labels = require( '@openagenda/labels/auth/messages' );
 const emailValidator = require( '@openagenda/validators/email' )();
 const getLabel = require( '@openagenda/labels' )( labels );
-const usersSvc = require( '@openagenda/users' );
 const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'auth/lib/auth' );
 
 const cmn = require( '../../lib/commons-app' );
 const lib = require( '../../lib/lib' );
 const config = require( '../../config' );
+const usersSvc = require( '../../services/users' );
 const pLib = require( './passport' );
 const loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } );
 
@@ -533,6 +534,10 @@ function _render( template, defaults ) {
 
     data.enabledServices = [];
 
+    data.signin = `${req.agenda ? '/' + req.agenda.slug : '' }/signin${qs.stringify( {
+      ... loadOptionals( req )
+    }, { addQueryPrefix: true } )}`;
+
     if ( _.get( config, 'auth.facebook.id' ) ) data.enabledServices.push( 'facebook' );
     if ( _.get( config, 'auth.google.id' ) ) data.enabledServices.push( 'google' );
     if ( _.get( config, 'auth.twitter.key' ) ) data.enabledServices.push( 'twitter' );
@@ -652,19 +657,21 @@ function redirectToResend( values ) {
 
 function redirectToComplete( values ) {
 
-  let uri;
+  let res;
 
   if ( values.resend ) {
-
-    uri = 'activateResend';
-
+    res = '/activate/resend';
+  } else if ( values.req.agenda ) {
+    res = `/${values.req.agenda.slug}/signup/complete`;
   } else {
-
-    uri = values.req.agenda ? 'agendaSignupComplete' : 'signupComplete';
-
+    res = '/signup/complete';
   }
 
-  values.res.redirect( 302, values.req.genUrl( uri, [ loadOptionals( values.req ), { email: values.user.email }, values.req.agenda ? { slug: values.req.agenda.slug } : {} ] ) );
+  values.res.redirect( 302, `${res}?${qs.stringify( {
+    ... loadOptionals( values.req ),
+    email: values.user.email,
+    ... values.req.agenda ? { slug: values.req.agenda.slug } : {}
+  } )}` );
 
   values.resolved = true;
 

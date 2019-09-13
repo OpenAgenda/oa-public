@@ -23,7 +23,7 @@ export default function createApp( options ) {
     prefix,
     getReducers,
     getRoutes,
-    reduxMiddleware
+    reduxMiddleware = []
   } = options;
 
   const client = apiClient( apiRoot, req );

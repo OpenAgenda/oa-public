@@ -1,4 +1,4 @@
-export default function convertUTCDateToLocalDate( date ) {
+export default function convertUTCDateToLocalDate(date) {
   return new Date(
     date.getUTCFullYear(),
     date.getUTCMonth(),

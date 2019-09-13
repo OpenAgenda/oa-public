@@ -380,16 +380,21 @@ describe( 'logs', () => {
 
     it( 'logs errors stack', () => {
 
-      logs.init( { debug: { prefix: 'oa:' }, namespace: 'error-stack' } );
+      logs.init( {
+        debug: { prefix: 'oa:' },
+        token: 'aaaaaaaa-bbbb-cccc-dddd-eeeeeeeeeeee',
+        namespace: 'error-stack'
+      } );
 
       const log = logs( 'test-5' );
 
-      const transport = log.getTransports().debug;
+      const transport = log.getTransports().logentries;
       const spy = sinon.spy( transport, 'log' );
 
       log( 'error', new Error( 'Une erreur ici !' ) );
       log( 'error', 'On a eu une erreur:', new Error( 'Une erreur ici !' ) );
       log( 'error', 'On a eu une erreur: %s', new Error( 'Une erreur ici !' ), { test: 789 } );
+      log( 'error', 'Error with event %s, (%s)', 'un-event', 12345678, new Error('Une erreur bidon.') );
 
       sinon.assert.calledWith(
         spy.getCall( 0 ),
@@ -410,6 +415,17 @@ describe( 'logs', () => {
         'error',
         sinon.match( 'On a eu une erreur: Error: Une erreur ici !' ),
         { namespace: 'test-5', test: 789 }
+      );
+
+      sinon.assert.calledWith(
+        spy.getCall( 3 ),
+        'error',
+        sinon.match( 'Error with event un-event, (12345678)' ),
+        sinon.match( {
+          namespace: 'test-5',
+          message: 'Une erreur bidon.',
+          stack: sinon.match('Error: Une erreur bidon.\n    at')
+        } )
       );
 
     } );

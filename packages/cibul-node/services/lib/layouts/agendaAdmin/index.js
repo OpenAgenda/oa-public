@@ -5,6 +5,7 @@ const fs = require( 'fs' );
 const ih = require( 'immutability-helper' );
 
 const agendaParser = require( '../agenda' ).parser;
+const getRoleSlug = require( '@openagenda/members' ).utils.getRoleSlug;
 
 const flattenLabels = require( '@openagenda/labels/flatten' );
 
@@ -24,7 +25,7 @@ function parser( data ) {
   const { agenda, lang, selectedTab, role } = data;
 
   const tabs = tabReference
-    .filter( tab => _includeTab( agenda, tab, role ) )
+    .filter( tab => _includeTab( agenda, tab, typeof role === 'string' ? role : getRoleSlug( role ) ) )
     .map( tab => _formatTab( { agenda, tab, lang, selectedTab } ) );
 
   const adminData = ih( agendaParser( data ), {

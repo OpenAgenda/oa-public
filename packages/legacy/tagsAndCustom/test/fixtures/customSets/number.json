@@ -1,0 +1,10 @@
+ [ {
+  "name": "pi",
+  "fieldType": "number",
+  "type": "private",
+  "optional" : true,
+  "label": {
+    "fr": "Quelle est la valeur de PI",
+    "en": "What is the value of PI"
+  }
+} ]

@@ -4,9 +4,11 @@ const _ = require( 'lodash' );
 const async = require( 'async' );
 const abilitiesSvc = require( '@openagenda/abilities' );
 const agendasSvc = require( '@openagenda/agendas' );
-const usersSvc = require( '@openagenda/users' );
 const editableRules = require( './editableRules' );
 const cmn = require( '../../lib/commons-app' );
+
+const membersSvc = require( '../members' );
+const usersSvc = require( '../users' );
 
 const secureMw = ( req, res, next ) => {
   switch( req.query.entityName ) {
@@ -27,14 +29,7 @@ const secureMw = ( req, res, next ) => {
             }
           }
         } ),
-        ( req, res, next ) => cmn.loadMemberRole( 'agenda', req, res, next ),
-        ( req, res, next ) => {
-          if ( ![ 'moderator', 'administrator' ].includes( req.role ) ) {
-            res.status( 403 );
-            throw new Error( 'You cannot get this rules index' );
-          }
-          next();
-        }
+        membersSvc.mw.loadAndAuthorize('moderator')
       ], req, res, next );
     default:
       res.status( 403 );
@@ -47,7 +42,7 @@ module.exports = app => {
   app.get(
     '/abilities/form-index',
     secureMw,
-    abilitiesSvc.middleware.getFormIndex( {
+    abilitiesSvc.middleware.getFormIndex( abilitiesSvc, {
       namespaces: {
         entityName: 'query.entityName',
         identifier: 'query.identifier'
@@ -59,7 +54,7 @@ module.exports = app => {
   app.patch(
     '/abilities/form-index',
     secureMw,
-    abilitiesSvc.middleware.updateFormIndex( {
+    abilitiesSvc.middleware.updateFormIndex( abilitiesSvc, {
       namespaces: {
         entityName: 'query.entityName',
         identifier: 'query.identifier',
@@ -70,17 +65,6 @@ module.exports = app => {
 };
 
 module.exports.init = async config => {
-  const memberRequest = () => config.knex( config.schemas.stakeholder )
-    .select(
-      `${config.schemas.stakeholder}.*`,
-      `${config.schemas.agenda}.uid as agendaUid`,
-      `${config.schemas.agenda}.title as agendaTitle`,
-      `${config.schemas.user}.uid as userUid`
-    )
-    .join( config.schemas.user, `${config.schemas.user}.id`, '=', `${config.schemas.stakeholder}.user_id` )
-    .join( config.schemas.agenda, `${config.schemas.agenda}.id`, '=', `${config.schemas.stakeholder}.review_id` )
-    .orderBy( `${config.schemas.agenda}.updated_at`, 'desc' );
-
   abilitiesSvc.init( {
     knex: config.knex,
     mysql: config.db,
@@ -94,12 +78,17 @@ module.exports.init = async config => {
     interfaces: {
       getEntity: {
         agenda: uid => agendasSvc.get( { uid }, { private: null } ),
-        member: id => memberRequest().first().where( `${config.schemas.stakeholder}.id`, id ),
-        user: uid => usersSvc.get( uid )
+        member: id => membersSvc.get( id ),
+        user:  uid => usersSvc.get( uid )
       },
       listEntities: {
         agenda: uids => agendasSvc.list( { uid: uids, order: 'updatedAt.desc' }, { private: null } ),
-        member: ids => memberRequest().whereIn( `${config.schemas.stakeholder}.id`, ids ),
+        member: ids => membersSvc
+          .list( { id: ids }, { limit: 200 }, { detailed: true } )
+          .then( members => members.map( m => _.omit(
+            m.agenda ? Object.assign( m, { agendaTitle: m.agenda.title } ) : m,
+            [ 'agenda', 'user' ]
+          ) ) ),
         user: async uids => (await usersSvc.find( { query: { uid: { $in: uids } } } )).data
       },
       defaultFor: {
@@ -182,7 +171,7 @@ module.exports.init = async config => {
         user: async ( ability, options ) => {
           const members = options.entities
             ? options.entities.members
-            : await memberRequest().where( `${config.schemas.user}.uid`, ability.identifier );
+            : await membersSvc.list( { userUid: ability.identifier }, { limit: 200 } );
 
           return {
             user: ability.identifier,

@@ -1,5 +1,4 @@
 const agendasSvc = require( '@openagenda/agendas' );
-const stakeholdersSvc = require( '@openagenda/agenda-stakeholders' );
 const eventsSvc = require( '@openagenda/events' );
 
 module.exports = {
@@ -12,9 +11,7 @@ module.exports = {
 
   schemas: {
     agenda: 'review',
-    stakeholder: 'reviewer',
     event: 'event',
-    stakeholderSettings: 'stakeholder_settings'
   },
 
   files: {
@@ -33,8 +30,8 @@ module.exports = {
       list: agendasSvc.list
     },
 
-    stakeholders: {
-      list: ( userId, ...args ) => stakeholdersSvc.user( userId ).list( ...args )
+    members: {
+      list: () => ([])
     },
 
     events: {
@@ -64,45 +61,6 @@ module.exports.services = {
       value: 4,
       code: 'reader'
     } ]
-  },
-
-  agendaStakeholders: {
-    queue: {
-      names: {
-        bulk: 'stakeholderCreateTest',
-        message: 'stakeholderMessageTest'
-      },
-      threshold: 5,
-      redis: {
-        host: 'localhost',
-        port: 6379
-      }
-    },
-    interfaces: {
-      getEventCount: ( agendaId, userId, cb ) => {
-        cb( !agendaId || !userId ? 'missing identifier' : null, 35 );
-      },
-      getUser: ( identifiers, cb ) => {
-        cb( null, {
-          id: identifiers.id || 123,
-          uid: 128492293,
-          fullName: 'Zorg',
-          email: identifiers.email || 'zorg@galactic.uv'
-        } );
-      },
-      getExistingCredentials: ( agendaId, cb ) => {
-        cb( null, [ 1, 2, 3, 4 ] );
-      },
-      beforeTransferEvent: ( eventUid, ownerId, nextOwnerId, cb ) => {
-        console.log( 'beforeTransferEvent', ownerId, nextOwnerId );
-        cb();
-      },
-      onMessage: ( stakeholder, message, cb ) => {
-        console.log( 'Send message', message, 'to stakeholder', stakeholder.id );
-        cb()
-      }
-    }
-
   },
 
   events: {

@@ -1,10 +1,21 @@
-var cn = require( '../../js/lib/common/common.mod.js' ),
+require( 'core-js/stable' );
+require( 'regenerator-runtime/runtime' );
+require( 'dom4' );
+require( 'pepjs' );
+
+require( 'intl' );
+require( 'intl/locale-data/jsonp/fr' );
+require( 'intl/locale-data/jsonp/en' );
+require( 'intl/locale-data/jsonp/de' );
+require( 'intl/locale-data/jsonp/br' );
+
+var layout = require( '../../layout/js/layout' ),
+
+cn = require( '../../js/lib/common/common.mod.js' ),
 
 debug = require( 'debug' ),
 
 log = debug( 'main' ),
-
-layout = require( '../../layout/js/layout' ),
 
 ran = false,
 

@@ -5,19 +5,7 @@ const VError = require( 'verror' );
 const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const notificationStates = require( '../notificationStates' );
 
-let config;
-let knex;
-let service;
-
-module.exports = Object.assign( markAs, { init } );
-
-function init( { config: c, knex: k, service: s } ) {
-
-  config = c;
-  knex = k;
-  service = s;
-
-}
+module.exports =  markAs;
 
 function parseArguments( identifiers, query, newState, options, cb ) {
 
@@ -51,7 +39,9 @@ function parseArguments( identifiers, query, newState, options, cb ) {
 
 }
 
-function markAs() {
+function markAs( config ) {
+
+  const { service, knex } = config;
 
   let {
     identifiers,
@@ -59,7 +49,7 @@ function markAs() {
     newState,
     options,
     cb
-  } = parseArguments.apply( null, arguments );
+  } = parseArguments.apply( null, Array.from( arguments ).slice( 1 ) );
 
   if ( identifiers.entityType && identifiers.entityType !== 'user' ) {
 

@@ -1,6 +1,8 @@
 'use strict';
 
-const _ = require( 'lodash' );
+/* eslint-disable */
+
+const _ = require('lodash');
 
 /** Used as the maximum memoize cache size. */
 const MAX_MEMOIZE_SIZE = 500;
@@ -13,9 +15,10 @@ const reIsDeepProp = /\.|\[(?:[^[\]]*|(["'])(?:(?!\1)[^\\]|\\.)*?\1)\]/;
 const reIsPlainProp = /^\w*$/;
 const rePropName = /[^.[\]]+|\[(?:(-?\d+(?:\.\d+)?)|(["'])((?:(?!\2)[^\\]|\\.)*?)\2)\]|(?=(?:\.|\[\])(?:\.|\[\]|$))/g;
 
-const isArray = Array.isArray;
+const { isArray } = Array;
 
-const isNumberLike = value => !isNaN( parseFloat( value ) ) && isFinite( value );
+const isNumberLike = value =>
+  !Number.isNaN(Number(value)) && Number.isFinite(parseInt(value, 10));
 
 /**
  * Converts `string` to a property path array.
@@ -24,17 +27,18 @@ const isNumberLike = value => !isNaN( parseFloat( value ) ) && isFinite( value )
  * @param {string} string The string to convert.
  * @returns {Array} Returns the property path array.
  */
-const stringToPath = memoizeCapped( function ( string ) {
+const stringToPath = memoizeCapped(string => {
   const result = [];
-  if ( string.charCodeAt( 0 ) === 46 /* . */ ) {
-    result.push( '' );
+  if (string.charCodeAt(0) === 46 /* . */) {
+    result.push('');
   }
-  string.replace( rePropName, function ( match, number, quote, subString ) {
-    result.push( quote ? subString.replace( reEscapeChar, '$1' ) : ( number || match ) );
-  } );
+  string.replace(rePropName, (match, number, quote, subString) => {
+    result.push(
+      quote ? subString.replace(reEscapeChar, '$1') : number || match
+    );
+  });
   return result;
-} );
-
+});
 
 /**
  * Gets the value at `path` of `object`. If the resolved value is
@@ -61,8 +65,8 @@ const stringToPath = memoizeCapped( function ( string ) {
  * _.get(object, 'a.b.c', 'default');
  * // => 'default'
  */
-function get( object, path, defaultValue ) {
-  const result = object == null ? undefined : baseGet( object, path );
+function get(object, path, defaultValue) {
+  const result = object == null ? undefined : baseGet(object, path);
   return result === undefined ? defaultValue : result;
 }
 
@@ -74,49 +78,49 @@ function get( object, path, defaultValue ) {
  * @param {Array|string} path The path of the property to get.
  * @returns {*} Returns the resolved value.
  */
-function baseGet( object, path ) {
-  path = castPath( path, object );
+function baseGet(object, path) {
+  path = castPath(path, object);
 
-  const length = path.length;
+  const { length } = path;
   let index = 0;
 
-  while ( object != null && index < length ) {
-    const nextPath = path[ index++ ];
+  while (object != null && index < length) {
+    const nextPath = path[index++];
 
-    if ( nextPath === '' || _.includes( nextPath, '=' ) ) {
-      const leftPath = _.slice( path, index );
+    if (nextPath === '' || _.includes(nextPath, '=')) {
+      const leftPath = _.slice(path, index);
       let predicate;
 
-      if ( nextPath === '' ) {
+      if (nextPath === '') {
         predicate = _.stubTrue;
       } else {
-        predicate = _.split( nextPath, '=' );
-        predicate[ 1 ] = JSON.parse( `${predicate[ 1 ]}` );
+        predicate = _.split(nextPath, '=');
+        predicate[1] = JSON.parse(`${predicate[1]}`);
       }
 
       const result = _.reduce(
-        _.filter( object, predicate ),
-        ( result, nextObject ) => {
-
-          if ( isNumberLike( leftPath[ 0 ] ) ) {
-            return baseGet( nextObject, leftPath.slice( 1 ) );
+        _.filter(object, predicate),
+        (result, nextObject) => {
+          if (isNumberLike(leftPath[0])) {
+            return baseGet(nextObject, leftPath.slice(1));
           }
 
           return _.concat(
             result,
-            index && index == length ? nextObject : baseGet( nextObject, leftPath )
+            index && index == length
+              ? nextObject
+              : baseGet(nextObject, leftPath)
           );
         },
-        [],
+        []
       );
 
       return result;
-    } else {
-      object = object[ toKey( nextPath ) ];
     }
+    object = object[toKey(nextPath)];
   }
 
-  return ( index && index == length ) ? object : undefined;
+  return index && index == length ? object : undefined;
 }
 
 /**
@@ -127,11 +131,11 @@ function baseGet( object, path ) {
  * @param {Object} [object] The object to query keys on.
  * @returns {Array} Returns the cast property path array.
  */
-function castPath( value, object ) {
-  if ( isArray( value ) ) {
+function castPath(value, object) {
+  if (isArray(value)) {
     return value;
   }
-  return isKey( value, object ) ? [ value ] : stringToPath( _.toString( value ) );
+  return isKey(value, object) ? [value] : stringToPath(_.toString(value));
 }
 
 /**
@@ -142,17 +146,25 @@ function castPath( value, object ) {
  * @param {Object} [object] The object to query keys on.
  * @returns {boolean} Returns `true` if `value` is a property name, else `false`.
  */
-function isKey( value, object ) {
-  if ( _.isArray( value ) ) {
+function isKey(value, object) {
+  if (_.isArray(value)) {
     return false;
   }
   const type = typeof value;
-  if ( type == 'number' || type == 'symbol' || type == 'boolean' ||
-    value == null || _.isSymbol( value ) ) {
+  if (
+    type == 'number' ||
+    type == 'symbol' ||
+    type == 'boolean' ||
+    value == null ||
+    _.isSymbol(value)
+  ) {
     return true;
   }
-  return reIsPlainProp.test( value ) || !reIsDeepProp.test( value ) ||
-    ( object != null && value in Object( object ) );
+  return (
+    reIsPlainProp.test(value) ||
+    !reIsDeepProp.test(value) ||
+    (object != null && value in Object(object))
+  );
 }
 
 /**
@@ -162,12 +174,12 @@ function isKey( value, object ) {
  * @param {*} value The value to inspect.
  * @returns {string|symbol} Returns the key.
  */
-function toKey( value ) {
-  if ( typeof value == 'string' || _.isSymbol( value ) ) {
+function toKey(value) {
+  if (typeof value === 'string' || _.isSymbol(value)) {
     return value;
   }
-  const result = ( value + '' );
-  return ( result == '0' && ( 1 / value ) == -INFINITY ) ? '-0' : result;
+  const result = `${value}`;
+  return result == '0' && 1 / value == -INFINITY ? '-0' : result;
 }
 
 /**
@@ -178,15 +190,15 @@ function toKey( value ) {
  * @param {Function} func The function to have its output memoized.
  * @returns {Function} Returns the new memoized function.
  */
-function memoizeCapped( func ) {
-  const result = _.memoize( func, function ( key ) {
-    if ( cache.size === MAX_MEMOIZE_SIZE ) {
+function memoizeCapped(func) {
+  const result = _.memoize(func, key => {
+    if (cache.size === MAX_MEMOIZE_SIZE) {
       cache.clear();
     }
     return key;
-  } );
+  });
 
-  const cache = result.cache;
+  const { cache } = result;
   return result;
 }
 

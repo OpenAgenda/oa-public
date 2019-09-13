@@ -22,6 +22,10 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const config = require( '../config' );
 const core = require( '../core' );
 
+const schemaNames = require( './mock/schemaNames' );
+const getLogConfig = require( './mock/getLogConfig' );
+const assignClients = require( './utils/assignClients' );
+
 const testConfig = {
   queues: {},
   db: {
@@ -33,27 +37,7 @@ const testConfig = {
     host: 'localhost',
     port: 6379
   },
-  schemas: {
-    agenda: 'agenda',
-    eventService: 'event_2',
-    agendaEventService: 'agenda_event',
-    deleted: 'legacy_deleted',
-    event: 'legacy_event',
-    occurrence: 'legacy_occurrence',
-    eventTranslation: 'legacy_event_translation',
-    location: 'location',
-    eventLocation: 'legacy_event_location',
-    eventLocationTranslation: 'legacy_event_location_translation',
-    eventEditor: 'legacy_event_editor',
-    agendaEvent: 'legacy_agenda_event',
-    eventReferences: 'legacy_agenda_event_reference',
-    agendaCategory: 'legacy_agenda_category',
-    agendaTag: 'legacy_agenda_tag',
-    agendaEventTag: 'legacy_agenda_event_tag',
-    user: 'user',
-    stakeholder: 'member',
-    stakeholderSettings: 'member_settings'
-  },
+  schemas: schemaNames,
   tmpFolderPath: '/var/tmp/',
   imageSizeLimits: [ 2000, 10000000 ],
   aws: {
@@ -77,13 +61,13 @@ const testConfig = {
     host: process.env.ELASTICSEARCH_533_DEV_HOST,
     port: process.env.ELASTICSEARCH_533_DEV_PORT
   },
-  getLogConfig: () => null
+  getLogConfig
 };
 
 
 describe( '05 - core - functional ( server ): agenda event with custom data', function() {
 
-  this.timeout( 20000 );
+  this.timeout( 60000 );
 
   const eventData = {
     title: {
@@ -131,13 +115,7 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
     locationUid: 65208887
   };
 
-  before( () => {
-
-    testConfig.knex = knexLib( { client: 'mysql', connection: testConfig.db } );
-
-    testConfig.redisClient = redis.createClient();
-
-  } );
+  before( () => assignClients( testConfig ) );
 
   before( async () => {
 

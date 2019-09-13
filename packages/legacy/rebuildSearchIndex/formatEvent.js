@@ -109,6 +109,7 @@ module.exports = async ( { knex, imageBasePath }, id ) => {
         'description',
         'thumbnail'
       ] ),
+      references: event.references,
       tags: _.uniqBy( tags.filter( t => t.reviewArticleId === a.id ).map( t => _.pick( t, [
         'id',
         'slug',
@@ -173,6 +174,7 @@ async function _fetch( knex, identifier ) {
     'conditions',
     'timings',
     'timezone',
+    'references',
     'agenda_uid as agendaUid'
   ] ).where( 'uid', legacyEvent.uid )
     .then( e => {
@@ -182,6 +184,8 @@ async function _fetch( knex, identifier ) {
       [ 'title', 'description', 'freeText', 'tags', 'conditions', 'registration' ].forEach( f => {
         e[ f ] = _JSONParse( e[ f ], f );
       } );
+
+      e.references = e.references ? _JSONParse( e.references ) : [];
 
       return _.set( e, 'timings', _timings( e ) );
 

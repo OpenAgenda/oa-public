@@ -68,7 +68,7 @@ function loadEvent( paramName, fieldName, options ) {
 
     .then( p.ifl( { 'req.agenda' : true, accessRequired: true }, _loadUserAgendaCreds ) )
 
-    .done( function( v ) {
+    .done( async v => {
 
       req.event = v.event;
 
@@ -80,16 +80,11 @@ function loadEvent( paramName, fieldName, options ) {
       }
 
       // event is restricted and user is not logged
-      if ( !v.user.logged ) {
+      if ( !await v.user.logged ) {
 
-        return res.redirect( req.genUrl( req.agenda ? 'agendaSignup' : 'signup', utils.extend( {
-          msg: 'limitedAccessEvent',
-          redirect: ( new Buffer( req.genUrl( req.agenda ? 'agendaEventShow' : 'eventShow', utils.extend( {
-            eventSlug: req.event.slug
-          }, req.agenda ? { slug: req.agenda.slug } : {} ) ) ).toString( 'base64' ) )
-        }, req.agenda ? {
-          slug: req.agenda.slug
-        } : {} ) ) );
+        const redirect = new Buffer(req.originalUrl).toString( 'base64' );
+
+        return res.redirect( `${req.agenda?'/'+req.agenda.slug:''}/signin?msg=limitedAccessEvent&redirect=${redirect}` );
 
       }
 
@@ -277,7 +272,7 @@ function layoutData( req, res ) {
 
   data.metas.ogUrl = {
     property: 'og:url',
-    content: req.genUrl( uri, uriParams, { abs: true } )
+    content: `${config.root}${req.agenda ? `/agendas/${req.agenda.uid}` : ''}/events/${req.event.uid}?lang=${req.lang}`
   };
 
   data.scriptParams = {

@@ -1,22 +1,17 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const log = require( '@openagenda/logs' )( 'services/members/getUsersByUid' );
 
-const users = require( '@openagenda/users' );
+module.exports = async (services, userUids, userOptions) => {
+  log( 'processing', [].concat( userUids ).join( ',' ), userOptions );
 
-const exposed = [
-  'uid',
-  'fullName'
-];
-
-module.exports = async userUids => {
-
-  return ( await users.find( {
+  return ( await services.users.find( {
     query: {
       uid: {
-        $in: userUids
+        $in: [].concat( userUids )
       }
-    }
-  } ) ).data.map( d => _.pick( d, exposed ) );
-
+    },
+    ...userOptions
+  } ) ).data/*.map( d => _.pick( d, ['id', 'uid', 'fullName', 'culture'] ) )*/;
 }
