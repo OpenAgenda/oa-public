@@ -104,7 +104,8 @@ async function _memberIsExistingUser( { config, activityQueue }, { member, user,
   await send( config, {
     member,
     agenda,
-    context
+    context,
+    message: context.message
   } );
 
   try {
