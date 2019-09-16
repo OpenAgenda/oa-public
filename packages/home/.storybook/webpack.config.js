@@ -1,12 +1,12 @@
-const webpack = require( 'webpack' );
+const webpack = require('webpack');
 
-module.exports = function ( { config } ) {
+module.exports = ({ config }) => {
   config.plugins.push(
-    new webpack.DefinePlugin( {
+    new webpack.DefinePlugin({
       __CLIENT__: true,
       __SERVER__: false,
       __DEVELOPMENT__: true
-    } )
+    })
   );
 
   config.optimization.splitChunks.chunks = 'initial';

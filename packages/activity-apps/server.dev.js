@@ -10,7 +10,7 @@ import errorHandler from 'errorhandler';
 import bodyParser from 'body-parser';
 import sessions from '@openagenda/sessions';
 import sessionsMw from '@openagenda/sessions/middleware';
-import activitiesSvc from '@openagenda/activities/test/service';
+import Activities from '@openagenda/activities/test/service';
 import testconfig from './testconfig';
 
 const mw = require( './src/middleware' );
@@ -27,8 +27,8 @@ app.server = server;
 if ( process.env.NODE_ENV !== 'test' ) {
   (async () => {
     sessions.init( testconfig.services.sessions );
-    mw.init( { limit: testconfig.mw.limit, services: { activities: activitiesSvc } } );
-    await activitiesSvc.init( Object.assign( testconfig, { migrations: null } ) );
+    const activities = await Activities( Object.assign( testconfig, { migrations: null } ) );
+    mw.init( { limit: testconfig.mw.limit, services: { activities } } );
   })();
 }
 
@@ -89,7 +89,7 @@ if ( process.env.NODE_ENV !== 'test' ) {
   server.listen( process.env.PORT || 3000, () => {
     // eslint-disable-next-line no-console
     console.log(
-      `Dev server started on => http://localhost:${server.address().port}/`
+      `\nDev server started on => http://localhost:${server.address().port}/`
     );
   } );
 }

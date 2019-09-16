@@ -57,7 +57,7 @@ if ( process.env.NODE_ENV !== 'test' ) {
   server.listen( process.env.PORT || 3000, () => {
     // eslint-disable-next-line no-console
     console.log(
-      `Dev server started on => http://localhost:${server.address().port}/`
+      `\nDev server started on => http://localhost:${server.address().port}/`
     );
   } );
 }

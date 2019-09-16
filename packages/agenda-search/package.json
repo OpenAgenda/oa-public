@@ -5,7 +5,7 @@
   "main": "service/index.js",
   "scripts": {
     "test": "mocha",
-    "start": "concurrently -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
+    "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
     "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM --exec babel-node server.dev.js",
     "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
     "knex": "babel-node ./node_modules/.bin/knex",
@@ -47,7 +47,7 @@
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
-    "@storybook/react": "^4.1.11",
+    "@storybook/react": "^5.2.0",
     "babel-loader": "^8.0.4",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",

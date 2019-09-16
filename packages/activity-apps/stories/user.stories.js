@@ -1,7 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { storiesOf } from '@storybook/react';
-import wrapApp from '@openagenda/react-utils/src/wrapApp';
+import wrapApp from '@openagenda/react-utils/dist/wrapApp';
 import createApp from '../src/client/apps/user';
 import PageDecorator from './decorators/PageDecorator';
 
