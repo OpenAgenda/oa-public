@@ -3,12 +3,10 @@
 const config = require( '../config' );
 
 const _ = require( 'lodash' );
-const async = require( 'async' );
 const core = require('../core');
 const cmn = require( '../lib/commons-app' );
 const qs = require( 'qs' );
 
-const activitiesSvc = require( '../services/activities' );
 const agendaEventsSvc = require( '../services/agendaEvents' );
 const controlDataSvc = require( '../services/legacy' ).controlData;
 const sessions = require( '@openagenda/sessions' );
@@ -28,8 +26,6 @@ const customSvc = require( '@openagenda/custom' );
 const agendaEvents = require('@openagenda/agenda-events');
 
 const agendaLocations = require( '@openagenda/agenda-locations' );
-
-const setMemberUidAndSlugRefs = require( '../services/agendaStakeholders/lib/setMemberUidAndSlugRefs' );
 
 const logger = require( '@openagenda/logs' );
 
@@ -58,12 +54,6 @@ module.exports = app => {
     preMw,
     legacyAgendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
     head
-  );
-
-  app.post(
-    '/legacy/members/sync',
-    preMw,
-    syncMember
   );
 
   app.post(
@@ -270,14 +260,6 @@ function head( req, res, next ) {
     } );
 
   } );
-
-}
-
-function syncMember( req, res, next ) {
-
-  res.send( 'ok' );
-
-  setMemberUidAndSlugRefs( req.body );
 
 }
 

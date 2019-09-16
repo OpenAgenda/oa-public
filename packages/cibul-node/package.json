@@ -29,7 +29,6 @@
     "@openagenda/agenda-schema": "^1.0.0",
     "@openagenda/agenda-search": "^1.0.4",
     "@openagenda/agenda-settings": "^1.1.2",
-    "@openagenda/agenda-stakeholders": "^2.1.2",
     "@openagenda/agenda-tags": "^1.0.6",
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/aggregator-sources": "^1.1.3",

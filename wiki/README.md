@@ -95,7 +95,7 @@ The ```services/init.js``` script will list all files and folders found in the `
 
 Legacy in-app services do not have an .init function and are explicitly marked as .initless. These will progressively be deprecated.
 
-For other services, initialization and interfacing can be defined in a single file as long as interfacing is light. As interfacing becomes heavier, it is easy to break files within a folder with one main index.js file for passing configuration and one file per interface. See ```services/agendaStakeholders/index.js``` for an example of a complete initialization/interface configuration of an external service.
+For other services, initialization and interfacing can be defined in a single file as long as interfacing is light. As interfacing becomes heavier, it is easy to break files within a folder with one main index.js file for passing configuration and one file per interface. See ```services/members/index.js``` for an example of a complete initialization/interface configuration of an external service.
 
 
 
