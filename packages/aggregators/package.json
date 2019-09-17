@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.1",
+    "deep-diff": "^1.0.2",
     "immutability-helper": "^3.0.0",
     "lodash": "^4.17.10"
   },

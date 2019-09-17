@@ -1,0 +1,102 @@
+{
+  "id": 673128,
+  "uid": 65328430,
+  "slug": "un-evenement-a-albi",
+  "ownerUid": 75052324,
+  "creatorUid": 75052324,
+  "agendaUid": 92816581,
+  "locationUid": 58117565,
+  "title": {
+    "fr": "Un événement à Albi"
+  },
+  "description": {
+    "fr": "D courte"
+  },
+  "longDescription": {
+    "fr": "D longue"
+  },
+  "keywords": {},
+  "registration": [],
+  "references": [],
+  "conditions": {},
+  "image": {
+    "filename": null,
+    "credits": null,
+    "size": {
+      "height": null,
+      "width": null
+    },
+    "variants": [],
+    "base": "https://cibuldev.s3.amazonaws.com/"
+  },
+  "draft": 0,
+  "private": 0,
+  "accessibility": {
+    "mi": false,
+    "hi": false,
+    "pi": false,
+    "vi": false,
+    "sl": false
+  },
+  "timezone": "Europe/Paris",
+  "timings": [
+    {
+      "begin": "2019-09-20T06:00:00.000Z",
+      "end": "2019-09-20T09:00:00.000Z"
+    },
+    {
+      "begin": "2019-09-22T07:30:00.000Z",
+      "end": "2019-09-22T11:30:00.000Z"
+    }
+  ],
+  "age": {
+    "min": null,
+    "max": null
+  },
+  "links": [],
+  "updatedAt": "2019-09-15T11:12:18.000Z",
+  "createdAt": "2019-09-10T10:38:24.000Z",
+  "deletedAt": null,
+  "fileKey": null,
+  "location": {
+    "uid": 58117565,
+    "eveId": null,
+    "agendaId": 20076,
+    "slug": "albi163",
+    "name": "albi",
+    "address": "albi",
+    "city": "Albi",
+    "region": "Occitanie",
+    "department": "Tarn",
+    "postalCode": "81000",
+    "insee": "81004",
+    "countryCode": "FR",
+    "district": null,
+    "latitude": 43.927755,
+    "longitude": 2.147899,
+    "updatedAt": "2019-09-10T10:38:03.000Z",
+    "store": "{\"image\":null,\"description\":{},\"email\":null,\"phone\":null,\"links\":[],\"access\":{},\"state\":0,\"timezone\":\"Europe/Paris\",\"imageCredits\":null,\"extId\":null}",
+    "image": null,
+    "description": {},
+    "email": null,
+    "phone": null,
+    "links": [],
+    "access": {},
+    "state": 0,
+    "timezone": "Europe/Paris",
+    "imageCredits": null,
+    "extId": null
+  },
+  "state": 2,
+  "featured": false,
+  "types-devenement": 8,
+  "theme-2019": [],
+  "conditions-de-participation": [
+    13,
+    12
+  ],
+  "diffusion-sur-le-pass-culture": [],
+  "siret": null,
+  "prix-pass-culture": null,
+  "url-pass-culture": null
+}
