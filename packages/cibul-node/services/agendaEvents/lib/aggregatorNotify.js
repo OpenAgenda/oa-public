@@ -59,9 +59,6 @@ async function remove( { agenda, event, agendaEvent } ) {
 
   log( 'notify remove for event %s on agenda %s', event.slug, agenda.slug );
 
-  // currently for logging only. Not used yet for actual aggregation
-  aggregator.notify( 'remove', { agenda, event, agendaEvent } );
-
   const eventId = await _getLegacyEventId( event );
 
   await _sleep( 3 );

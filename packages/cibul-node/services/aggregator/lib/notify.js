@@ -6,6 +6,7 @@ const log = require( '@openagenda/logs' )( 'aggregator/notify' );
 const svc = require( '@openagenda/aggregators' );
 
 const p = require( '../../../lib/promises' );
+const config = require('../../../config');
 
 const aggUtils = require( './aggUtils' );
 
@@ -205,10 +206,19 @@ function _retrieveAgendaIdsFromSources( v ) {
 
         .filter( r => r.id !== v.agendaId );
 
-      log( 'got %s aggregator ids: %s', v.aggregatorAgendas.length, JSON.stringify( v.aggregatorAgendas.map( a => a.id ) ) );
+      // keep only those which are version "null"
+      config.knex('aggregator').select('review_id')
+        .whereIn('review_id', v.aggregatorAgendas.map(r => r.id ))
+        .whereNull('version')
+        .then(aggregators => {
+          const v1AggregatorAgendaIds = aggregators.map(a => a.review_id);
 
-      rs( v );
+          v.aggregatorAgendas = v.aggregatorAgendas.filter(r => v1AggregatorAgendaIds.includes(r.id));
 
+          log( 'got %s aggregator ids: %s', v.aggregatorAgendas.length, JSON.stringify( v.aggregatorAgendas.map( a => a.id ) ) );
+
+          rs( v );
+        }, rj);
     });
 
   });

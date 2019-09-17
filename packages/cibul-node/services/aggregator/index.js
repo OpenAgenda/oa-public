@@ -1,5 +1,7 @@
 "use strict";
 
+const _ = require('lodash');
+
 const aggregators = require( '@openagenda/aggregators' );
 const log = require( '@openagenda/logs' )( 'services/aggregator' );
 const queue = require( '@openagenda/queue' );
@@ -29,7 +31,9 @@ const pQ = queue( config.queues.aggregator + ':priority', {
 } );
 
 module.exports = {
-  instance: {},
+  instance: {
+    notify: () => log('warn', 'aggregator instance is not initialized')
+  },
   isAggregator,
   notifyPublish: notify.publish,
   notifyUnpublish: notify.unpublish,
@@ -49,10 +53,37 @@ module.exports = {
         knex: config.knex,
         queues: services.queues,
         interfaces: {
-          getAggregatorSchemas: async agendaUid => ({
-            agenda: await services.core.agendas(agendaUid).settings.schema.get(),
-            network: await services.core.agendas(agendaUid).settings.schema.getNetwork()
-          })
+          getAggregatorMergedSchema: agendaUid => services
+            .core.agendas(agendaUid)
+            .settings.schema.getMerged(),
+          getAggregatorEventReference: (aggregatorAgendaUid, eventUid) => services
+            .agendaEvents(aggregatorAgendaUid).get(eventUid)
+            .then(ae => ae ? _.pick(ae, ['sourceAgendaUid']) : null),
+          setSourceUidOnExistingReference: services.agendaEvents.utils.setSourceUid,
+          unsetSourceUidOnExistingReference: services.agendaEvents.utils.unsetSourceUid,
+          referenceEvent: async (sourceAgendaUid, aggregatorAgendaUid, eventUid, data) => {
+            try {
+              await services.core.agendas(aggregatorAgendaUid).events.add(eventUid, data);
+            } catch (e) {
+              log('error', 'could not add event %s from %s to aggregator %s',
+                eventUid,
+                sourceAgendaUid,
+                aggregatorAgendaUid,
+                e.name === 'validationError' ? e.jse_info.errors : e
+              );
+            }
+          },
+          unreferenceEvent: async (sourceAgendaUid, aggregatorAgendaUid, eventUid) => {
+            try {
+              await services.core.agendas(aggregatorAgendaUid).events.remove(eventUid);
+            } catch (e) {
+              log('error', 'could not remove event %s from aggregator %s',
+                eventUid,
+                aggregatorAgendaUid,
+                e.name === 'validationError' ? e.jse_info.errors : e
+              );
+            }
+          }
         }
       })
     );

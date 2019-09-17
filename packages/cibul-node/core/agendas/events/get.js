@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 
 const agendas = require( '@openagenda/agendas' );
+const agendaEvents = require('@openagenda/agenda-events');
 const custom = require( '@openagenda/custom' );
 const events = require( '@openagenda/events' );
 const formSchemas = require( '@openagenda/form-schemas' );
@@ -30,7 +31,11 @@ module.exports = async ( agendaUid, eventUid, options = {} ) => {
     includeSchema: false
   }, options );
 
-  const agenda = await getAgenda( agendaUid );
+  const agendaEvent = await agendaEvents(agendaUid).get(eventUid);
+
+  if (!agendaEvent) return null;
+
+  const agenda = await getAgenda(agendaUid);
 
   const {
     formSchemaId,
@@ -56,7 +61,6 @@ module.exports = async ( agendaUid, eventUid, options = {} ) => {
   const loadCustomFields = _eventIsLoaded( result.event ) || customOnly;
 
   if ( loadCustomFields && formSchemaId ) {
-
     const customData = await custom( formSchemaId ).get( eventUid );
 
     if ( customData ) {
@@ -64,11 +68,9 @@ module.exports = async ( agendaUid, eventUid, options = {} ) => {
       _.assign( result.event, customData );
 
     }
-
   }
 
   if ( loadCustomFields && networkUid ) {
-
     network = await getNetwork( networkUid );
 
     const customData = await custom( _.get( network, 'formSchemaId' ) ).get( eventUid );
@@ -78,7 +80,6 @@ module.exports = async ( agendaUid, eventUid, options = {} ) => {
       _.assign( result.event, customData );
 
     }
-
   }
 
   result.event = _.set(

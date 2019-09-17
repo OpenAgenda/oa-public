@@ -29,9 +29,9 @@ module.exports = async ( config, agendaOrUid, force = false ) => {
     id, store
   } = await config.knex( 'review' ).first( [ 'id', 'store' ] ).where( 'uid', agenda.uid );
 
-  const parsedStore = JSON.parse( store );
+  const parsedStore = JSON.parse(store);
 
-  if ( !force && _.get( parsedStore, 'customFields', [] ).length ) {
+  if (!force && _.get( parsedStore, 'customFields', [] ).length) {
 
     return {
       message: 'custom fields already exist for agenda. ?force to force operation'

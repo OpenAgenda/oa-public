@@ -16,9 +16,10 @@ const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
 const processOEmbed = require( '../utils/processOEmbed' );
 const setCustom = require( '../utils/setCustom' );
+const merge = require('../utils/merge');
 const validate = require( './validate' );
 
-module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
+module.exports = async (agendaUid, eventUid, data, options = {}) => {
 
   log( 'processing', { agendaUid, eventUid, options } );
 
@@ -38,7 +39,7 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     batched: false
   }, options || {} );
 
-  const agenda = await getAgendaWithNetworkAndSchemas( agendaUid );
+  const agenda = await getAgendaWithNetworkAndSchemas(agendaUid);
 
   const {
     network,
@@ -46,25 +47,24 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     id: agendaId
   } = agenda;
 
-  const updated = {};
+  const updated = {
+    before: {}
+  };
 
   // pre-validate data. if state is not specified, it should not be forced.
   const clean = await validate.loaded( {
     formSchema: agenda.formSchema,
     networkFormSchema: _.get( agenda, 'network.formSchema' ),
     defaultLang
-  }, data, { draft, formSchemaDataFormat, optionalStateAndFeatured: true, partial } );
+  }, data, { draft, formSchemaDataFormat, optionalSecondaryFields: true, partial } );
 
-  if ( clean.event.longDescription ) try {
-
-    clean.event.links = await processOEmbed( clean.event.longDescription, clean.event.links );
-
-    log( 'retrieved %s links', clean.event.links.length );
-
-  } catch ( e ) {
-
-    log( 'error', 'could not retrieve oembeds', e );
-
+  if ( clean.event.longDescription ) {
+    try {
+      clean.event.links = await processOEmbed( clean.event.longDescription, clean.event.links );
+      log( 'retrieved %s links', clean.event.links.length );
+    } catch ( e ) {
+      log( 'error', 'could not retrieve oembeds', e );
+    }
   }
 
   let result;
@@ -96,7 +96,6 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
   }
 
   if ( !result.valid ) {
-
     log( 'error', 'update was not successful', result );
 
     throw new VError( {
@@ -105,20 +104,58 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
         errors: result.errors
       }
     } );
-
   } else {
-
     updated.event = result.event;
-
+    updated.before.event = result.before;
   }
 
-  if ( !draft && clean.agendaEvent ) {
+  if (agenda.formSchemaId && clean.custom) {
+    const result = await setCustom(
+      agenda.formSchemaId,
+      updated.event.uid,
+      clean.custom, {
+        draft,
+        agendaId,
+        partial
+      }
+    );
 
-    result = await agendaEvents( agendaUid ).set( updated.event.uid, ih( clean.agendaEvent, {
+    if (result.success) {
+      updated.custom = result.custom;
+      updated.before.custom = result.before;
+    }
+  }
+
+  if (agenda.network && clean.networkCustom) {
+    const result = await setCustom(
+      agenda.network.formSchemaId,
+      updated.event.uid,
+      clean.networkCustom, {
+        agendaId, partial
+      }
+    );
+
+    if (result.success) {
+      updated.networkCustom = result.custom;
+      updated.before.networkCustom = result.before;
+    }
+  }
+
+  if (draft) {
+    return {
+      success: true,
+      updated
+    }
+  }
+
+  // event is not draft (anymore)
+
+  if (clean.agendaEvent) {
+    result = await agendaEvents(agendaUid).set(updated.event.uid, ih(clean.agendaEvent, {
       create: {
         $set: { canEdit: true }
       }
-    } ), {
+    }), {
       transferToLegacy: true,
       context: {
         aggregated: false,
@@ -129,30 +166,13 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
         batched
       },
       decorate: ['member']
-    } );
+    });
 
     updated.agendaEvent = result.set;
-    updated.agendaEventBefore = result.before;
-
+    updated.before.agendaEvent = result.before;
   }
 
-  if ( agenda.formSchemaId && clean.custom ) {
-
-    const result = await setCustom( agenda.formSchemaId, updated.event.uid, clean.custom, { draft, agendaId, partial } );
-
-    if ( result.success ) updated.custom = result.custom;
-
-  }
-
-  if ( agenda.network && clean.networkCustom ) {
-
-    const result = await setCustom( agenda.network.formSchemaId, updated.event.uid, clean.networkCustom, { agendaId, partial } );
-
-    if ( result.success ) updated.networkCustom = result.custom;
-
-  }
-
-  if ( !draft && !partial ) {
+  if (!partial) {
     try {
       await legacy.tagsAndCustom.set( agenda.id, updated.event.uid, [
         agenda.formSchema,
@@ -166,35 +186,29 @@ module.exports = async ( agendaUid, eventUid, data, options = {} ) => {
     }
   }
 
-  if (!draft) {
-    try {
-      await legacyEventSearch.updateEvent({ uid: eventUid });
-    } catch (e) {
-      log('error', 'could not update legacy search for event %s', eventUid, e);
-    }
+  try {
+    await legacyEventSearch.updateEvent({ uid: eventUid });
+  } catch (e) {
+    log('error', 'could not update legacy search for event %s', eventUid, e);
   }
 
-  if (false) {
-    if (_.get(updated, 'agendaEvent.state')===2 && (_.get(updated, 'agendaEventBefore.state')!==2)) {
-      aggregators.notifyPublish({
-        ..._.pick(updated, ['event', 'agendaEvent', 'custom', 'networkCustom']),
-        agenda,
-        formSchemas: {
-          agenda: _.get(agenda, 'formSchema'),
-          network: _.get(agenda, 'network.formSchema')
-        }
-      });
-    } else if (_.get(updated, 'agendaEvent.state')!==2 && (_.get(updated, 'agendaEventBefore.state')===2)) {
-      aggregators.notifyUnpublish({
-        ..._.pick(updated, ['event', 'agendaEvent', 'custom', 'networkCustom']),
-        agenda
-      });
-    }
-  }
+  await aggregators.notify('update', {
+    agenda,
+    event: merge.event(updated.event, updated.agendaEvent, updated.networkCustom, updated.custom),
+    before: updated.before.agendaEvent ? merge.event(
+      updated.before.event,
+      updated.before.agendaEvent,
+      updated.before.networkCustom,
+      updated.before.custom
+    ) : null,
+    formSchema: merge.schemas(
+      _.get(agenda, 'network.formSchema'),
+      _.get(agenda, 'formSchema')
+    )
+  });
 
   return {
     success: true,
     updated
   }
-
 }

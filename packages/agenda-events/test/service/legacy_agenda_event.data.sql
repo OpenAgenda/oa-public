@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `${schema}` (
   `id` bigint(20) NOT NULL,
   `review_id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NOT NULL,
+  `user_id` bigint(20) NULL,
   `event_id` bigint(20) NOT NULL,
   `content` mediumtext,
   `created_at` datetime NOT NULL,

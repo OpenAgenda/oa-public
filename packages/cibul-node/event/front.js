@@ -262,30 +262,24 @@ async function agendaEventShow( req, res, next ) {
     userUid: req.user.uid
   } ) : null;
 
-  req.event.getContributor( ( err, contributor ) => {
-
-    if ( err ) return next( err );
-
-    cmn.render( req, res, 'event/show', {
-      scriptParams: {
-        contributor,
-        agendaSlug: req.agenda.slug,
-        agendaImage: req.agenda.image
-          ? `${config.aws.imageBucketPath}${req.agenda.image}`
-          : config.aws.defaultImagePath
-      },
-      agendaId: req.agenda.id,
-      private: req.agenda.private,
-      adminNav: req.query.admin_nav,
-      redirect: cmn.makeRedirect( req ),
-      event: req.formatted,
-      components: req.components,
-      showRequestLocation: ![ 2, 3 ].includes( _.get( member, 'role', 0 ) ),
-      user: req.user,
-      footerUid: req.formatted.uid
-    } );
-  } )
-
+  cmn.render( req, res, 'event/show', {
+    scriptParams: {
+      contributor: member ? { uid: member.userUid } : null,
+      agendaSlug: req.agenda.slug,
+      agendaImage: req.agenda.image
+        ? `${config.aws.imageBucketPath}${req.agenda.image}`
+        : config.aws.defaultImagePath
+    },
+    agendaId: req.agenda.id,
+    private: req.agenda.private,
+    adminNav: req.query.admin_nav,
+    redirect: cmn.makeRedirect( req ),
+    event: req.formatted,
+    components: req.components,
+    showRequestLocation: ![ 2, 3 ].includes( _.get( member, 'role', 0 ) ),
+    user: req.user,
+    footerUid: req.formatted.uid
+  } );
 }
 
 function redirect( req, res, next ) {

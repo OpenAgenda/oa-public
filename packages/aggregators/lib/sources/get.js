@@ -19,10 +19,11 @@ async function aggregatorList( objectId ) {
 
   if ( object === null ) return [];
 
-  const result = await knex( 'aggregator_source as ags' )
-    .select( 'ag.review_id as aggregatorObjectId' )
-    .leftJoin( 'aggregator as ag', 'ags.aggregator_id', 'ag.id' )
-    .where( 'ags.review_id', object.id );
+  const result = await knex('aggregator_source as ags')
+    .select('ag.review_id as aggregatorObjectId')
+    .leftJoin('aggregator as ag', 'ags.aggregator_id', 'ag.id')
+    .where('ags.review_id', object.id)
+    .whereNull('version');
 
   const objectIds = result.map( row => row.aggregatorObjectId );
 

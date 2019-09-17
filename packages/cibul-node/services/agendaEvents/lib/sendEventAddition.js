@@ -59,12 +59,13 @@ module.exports = async ({ root }, { agendaEvent, user, context }) => {
   });
   const creatorLang = creatorUser.culture || 'fr';
 
-  const sharerMember = await membersSvc.get( {
-    agendaUid: agenda.uid,
-    userUid: context.userUid
-  } );
 
-  if ( !agenda.private ) {
+  if (!agenda.private && context.userUid) {
+    const sharerMember = await membersSvc.get( {
+      agendaUid: agenda.uid,
+      userUid: context.userUid
+    } );
+
     await mails( {
       template: 'myEventAddition',
       to: {
