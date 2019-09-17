@@ -19,9 +19,11 @@ module.exports = async (agendaUid, eventUid, options) => {
   log('removing event %s from agenda %s', eventUid, agendaUid);
   const contextUserUid = _.get(options, 'context.userUid');
 
+  const agenda = await getAgenda(agendaUid);
+
   const {
     formSchemaId
-  } = await getAgenda(agendaUid);
+  } = agenda;
 
   const removed = {
     event: false,
@@ -90,7 +92,8 @@ module.exports = async (agendaUid, eventUid, options) => {
 
   if (!event.draft) {
     await aggregators.notify('remove', {
-      event: merge.event(event, removed.agendaEvent, removed.custom)
+      event: merge.event(event, removed.agendaEvent, removed.custom),
+      agenda
     });
   }
 
