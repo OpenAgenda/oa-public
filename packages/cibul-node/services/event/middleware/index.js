@@ -4,11 +4,11 @@ const _ = require( 'lodash' );
 
 const sessions = require( '@openagenda/sessions' );
 const utils = require( '@openagenda/utils' );
-const agendaStakeholders = require( '@openagenda/agenda-stakeholders' );
-
+const membersSvc = require('../../members');
 const config = require( '../../../config' );
 const p = require( '../../../lib/promises' );
 const w = p.w;
+const { getRoleSlug } = membersSvc.utils;
 
 let svc;
 
@@ -324,7 +324,7 @@ function _selectLanguage( v ) {
 }
 
 
-function _loadUserAgendaCreds( v ) {
+async function _loadUserAgendaCreds( v ) {
 
   v.req.log( 'loading user agenda creds' );
 
@@ -338,21 +338,16 @@ function _loadUserAgendaCreds( v ) {
 
   const user = v.req.user;
 
-  return w.promise( function( rs, rj ) {
+  const member = await membersSvc.get({
+    agendaUid: v.req.agenda.uid,
+    userUid: user.uid
+  });
 
-    return agendaStakeholders( v.req.agenda.id ).get( { userId: user.id }, ( err, member ) => {
+  if (member) {
+    v.user.credential = getRoleSlug(member.role);
+  }
 
-      if ( err ) return rj( err );
-
-      if ( !member ) return rs( v );
-
-      v.user.credential = agendaStakeholders.types.codes.get( member.credential );
-
-      return rs( v );
-
-    } );
-
-  } );
+  return v;
 
 }
 

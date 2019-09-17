@@ -70,7 +70,6 @@ module.exports = {
     events: null,
     eventSearch: null,
     agendas: null,
-    agendaStakeholders: null,
     aggregators: null,
     unsubscribed: null,
     custom: null,

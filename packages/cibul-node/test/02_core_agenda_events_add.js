@@ -95,7 +95,6 @@ describe( 'core - functional ( server ): agenda event add', function() {
         'events',
         'agendas',
         'agendaEvents',
-        'agendaStakeholders',
         'agendaLocations',
         'formSchemas',
         'custom',

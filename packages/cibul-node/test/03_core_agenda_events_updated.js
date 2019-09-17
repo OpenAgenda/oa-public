@@ -89,7 +89,6 @@ describe( 'core - functional ( server ): agenda event update', function() {
         'events',
         'agendas',
         'agendaEvents',
-        'agendaStakeholders',
         'agendaLocations',
         'formSchemas',
         'custom',
@@ -441,9 +440,6 @@ describe( 'core - functional ( server ): agenda event update', function() {
             minutes: 50
           }
         } ],
-        location: {
-          uid: 123
-        },
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
       }, { formSchemaDataFormat: true } );

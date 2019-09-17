@@ -82,7 +82,6 @@ describe( 'core - functional ( server ): settings get', function() {
         'events',
         'agendas',
         'agendaEvents',
-        'agendaStakeholders',
         'agendaLocations',
         'formSchemas',
         'custom',

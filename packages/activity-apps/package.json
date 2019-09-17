@@ -29,6 +29,7 @@
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.6",
     "@openagenda/logs": "^1.1.1",
+    "@openagenda/members": "^1.15.0",
     "@openagenda/react-bootstrap-datetimerangepicker": "^2.0.5",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",

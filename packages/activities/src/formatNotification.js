@@ -10,12 +10,13 @@ const mapKeys = require( 'lodash/mapKeys' );
 const makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 const credentialLabels = require( '@openagenda/labels/contributors/credentials' );
 const stateLabels = require( '@openagenda/labels/event/states' );
-const credentialTypes = require( '@openagenda/agenda-stakeholders/dist/iso/credentialTypes' );
-
+const defaultGetRoleSlug = require('./utils/defaultGetRoleSlug');
 const groupBy = require( './service/notifications/lib/groupBy' );
 
 
 const defaultRenderHighlight = content => `<span class="notif-highlight">${content}</span>`;
+
+const defaultIsAdminMod = role => [2, 3, '2', '3', 'administrator', 'moderator'].includes(role);
 
 const defaultGetUrl = ( notification, { counters }, options = {} ) => {
   const { userUid } = options;
@@ -24,12 +25,7 @@ const defaultGetUrl = ( notification, { counters }, options = {} ) => {
     [ 'agenda.addMember', 'agenda.removeMember', 'agenda.setMemberRole' ].includes( notification.verb ) &&
     notification.store.objects.includes( `user:${userUid}` )
   ) {
-    if (
-      credentialTypes.isSuperiorTo(
-        notification.store.credential,
-        credentialTypes.get( 'contributor' )
-      )
-    ) {
+    if (options.isAdminMod(notification.store.credential)) {
       return '/agendas/:target/admin/members';
     }
 
@@ -97,6 +93,9 @@ module.exports = ( getUrl, labels, options = {} ) => {
     getUrl = defaultGetUrl;
   }
 
+  const getRoleSlug = options.getRoleSlug || defaultGetRoleSlug;
+  const isAdminMod = options.isAdminMod || defaultIsAdminMod;
+
   const { defaultLang = 'fr', userUid } = options;
   const renderHighlight = options.renderHighlight || defaultRenderHighlight;
 
@@ -148,7 +147,7 @@ module.exports = ( getUrl, labels, options = {} ) => {
 
     Object.assign( subjects, additionalSubjects );
 
-    let url = getUrl( notification, { subjects, counters, firstUids }, options );
+    let url = getUrl( notification, { subjects, counters, firstUids }, { ...options, isAdminMod } );
 
     if ( url ) {
       url = Object.keys( firstUids ).reduce(
@@ -159,7 +158,7 @@ module.exports = ( getUrl, labels, options = {} ) => {
 
     if ( subjects.credential ) {
       subjects.credential = getCredentialLabel(
-        credentialTypes.codes.get( subjects.credential )
+        getRoleSlug( subjects.credential )
       ).toLowerCase();
     }
 

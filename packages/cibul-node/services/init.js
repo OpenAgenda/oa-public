@@ -62,7 +62,6 @@ module.exports = async function (configObject, options = {}) {
   await init('agendaSchema', require('./agendaSchema'));
   await init('agendaSearch', require('./agendaSearch'));
   await init('agendaSettings', require('./agendaSettings'));
-  await init('agendaStakeholders', require('./agendaStakeholders'));
   await init('agendaStatistics', require('./agendaStatistics'));
   await init('agendaTags', require('./agendaTags'));
   await init('agendas', require('./agendas'));

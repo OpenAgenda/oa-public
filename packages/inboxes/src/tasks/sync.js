@@ -22,6 +22,7 @@ export default async function syncTask() {
     userInboxesCreated: 0,
     agendaInboxesCreated: 0,
     inboxUsersAdded: 0,
+    inboxUsersUpdated: 0,
     inboxUsersRemoved: 0
   };
 
@@ -187,12 +188,18 @@ export async function syncAgenda( agenda, stats ) {
 
     if (!member.deletedUser && member.userUid) {
       const inboxUser = await Inbox.users.get( inboxUserIdentifiers );
+      const isAdminMod = [2, 3].includes(parseInt(member.role, 10));
 
-      if ( [2, 3].includes( parseInt( member.role, 10 ) ) && !inboxUser.data ) {
+      if ( isAdminMod && !inboxUser.data ) {
         await Inbox.users.add( inboxUserIdentifiers );
         upStats( stats, 'inboxUsersAdded' );
         log( 'info', 'InboxUser %j is added to inbox %j', inboxUserIdentifiers, inboxIdentifiers );
-      } else if ( ![2, 3].includes( member.role ) && inboxUser.data ) {
+      } else if (isAdminMod && inboxUser.data && inboxUser.data.leftAt) {
+        await Inbox.users.remove( inboxUserIdentifiers );
+        await Inbox.users.add( inboxUserIdentifiers );
+        upStats( stats, 'inboxUsersUpdated' );
+        log( 'info', 'InboxUser %j is updated in inbox %j', inboxUserIdentifiers, inboxIdentifiers );
+      } else if ( !isAdminMod && inboxUser.data ) {
         await Inbox.users.remove( inboxUserIdentifiers );
         upStats( stats, 'inboxUsersRemoved' );
         log( 'info', 'InboxUser %j is removed to inbox %j', inboxUserIdentifiers, inboxIdentifiers );

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
+import qs from 'qs';
 import ReactTable from 'react-table';
 import UserList from './userList';
 import UserSearch from './userSearch';
@@ -55,13 +56,18 @@ class UserApp extends Component {
 
     this.search();
 
+    const query = window.location.search
+      ? qs.parse(window.location.search, { ignoreQueryPrefix: true })
+      : {};
+
+    if (query.userUid) {
+      this.get(query.userUid);
+    }
+
   }
 
   viewSessions() {
-
     this.setState( { displaySessionModal: !this.state.displaySessionModal } );
-
-
   }
 
   get( uid ) {
@@ -69,6 +75,13 @@ class UserApp extends Component {
     remote.getXmlHttp( config.res.users, { timeout: 10000, data: { uid: uid } }, ( responseType, data ) => {
 
       if ( responseType !== 'success' ) return alert( 'schplof.' );
+
+      const search = qs.stringify({
+        ...qs.parse(window.location.search, { ignoreQueryPrefix: true }),
+        userUid: uid
+      }, { addQueryPrefix: true });
+
+      window.history.replaceState( {} , document.title, `${window.location.pathname}${search}` );
 
       this.setState( {
         user: data.user,
