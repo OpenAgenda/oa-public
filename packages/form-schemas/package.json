@@ -43,7 +43,7 @@
     "slate-react": "^0.13.4",
     "slug": "^0.9.1",
     "superagent": "^3.8.3",
-    "turndown": "^4.0.2",
+    "turndown": "^5.0.3",
     "verror": "^1.10.0"
   },
   "devDependencies": {
