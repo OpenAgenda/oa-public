@@ -16,7 +16,7 @@ export function renderField( props ) {
   } = props;
 
   const { touched, error, dirty } = meta;
-  const displayError = props.displayError ? props.displayError( meta ) : (errorOnDirty ? dirty || touched : touched);
+  const displayError = props.displayError ? props.displayError( meta ) : (errorOnDirty ? dirty && touched : touched);
 
   if ( visible === false ) return <div></div>;
 
