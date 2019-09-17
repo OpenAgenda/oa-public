@@ -22,7 +22,10 @@ module.exports = {
   update,
   remove,
   legacy,
-  shutdown
+  shutdown,
+  utils: {
+    merge
+  }
 }
 
 
