@@ -1,4 +1,3 @@
-import { reducer as form } from 'redux-form';
 import { connectRouter } from 'connected-react-router';
 import inbox from './modules/inbox';
 import conversation from './modules/conversation';
@@ -7,7 +6,6 @@ import modals from './modules/modals';
 
 export default ( history, asyncReducers ) => ({
   router: connectRouter( history ),
-  form,
   inbox,
   conversation,
   conversationForm,

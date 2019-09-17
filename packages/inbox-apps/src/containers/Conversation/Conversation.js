@@ -4,7 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { provideHooks } from 'redial';
-import { reset as resetForm, SubmissionError } from 'redux-form';
+import { FORM_ERROR } from 'final-form';
 import Waypoint from 'react-waypoint';
 import { getContext } from 'recompose';
 import Spinner from '@openagenda/react-components/build/Spinner';
@@ -64,7 +64,7 @@ function asyncLoad( { store: { getState, dispatch }, history, params } ) {
     agenda: state.agenda,
     res: state.res
   }),
-  { ...conversationActions, ...modalActions, resetForm, inboxLoad: inboxActions.load }
+  { ...conversationActions, ...modalActions, inboxLoad: inboxActions.load }
 )
 @getContext( {
   getLabel: PropTypes.func,
@@ -89,14 +89,19 @@ export default class Conversation extends Component {
   sendMessage = data => {
     const { match, sendMessage, getLabel } = this.props;
     return sendMessage( match.params.conversationId, data )
-      .catch( () => {
-        throw new SubmissionError( { _error: getLabel( 'sendMessageError' ) } );
-      } );
+      // .then(v => {
+      //   if (v[FORM_ERROR]) {
+      //     throw v;
+      //   } else {
+      //     return v;
+      //   }
+      // })
+      /*.catch( () => ({ [FORM_ERROR]: getLabel('sendMessageError') }) )*/;
   }
 
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
 
-  FormWrapper = ( { children, handleSubmit, submitting, error } ) => {
+  FormWrapper = ( { children, handleSubmit, submitting, submitError } ) => {
     const { getLabel, author, messages, conversation } = this.props;
 
     const contextInbox = _.find( conversation.inboxes, [ 'id', conversation.inboxContextId ] );
@@ -117,7 +122,7 @@ export default class Conversation extends Component {
           <form onSubmit={handleSubmit} className="message-form margin-bottom-md">
             {children}
 
-            {error ? <p className="text-danger">{error}</p> : null}
+            {submitError ? <p className="text-danger">{submitError}</p> : null}
 
             {author.inbox && author.inbox.type !== 'user' && author.inboxUser
               ? <div className="margin-bottom-sm">
@@ -288,7 +293,6 @@ export default class Conversation extends Component {
 
           {!conversation.closedAt && (
             <MessageForm
-              form="message"
               Wrapper={this.FormWrapper}
               uploadEndpoint={
                 res.messages.prepareAttachment
@@ -297,7 +301,6 @@ export default class Conversation extends Component {
               }
               onSubmit={this.sendMessage}
               onMessageSent={() => {
-                // resetForm( 'message' );
                 showModal( 'messageSent' );
               }}
               onFileUploaded={attachFileToMessage}
