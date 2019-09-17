@@ -4,6 +4,7 @@ const _ = require( 'lodash' );
 
 const sessions = require( '@openagenda/sessions' );
 const utils = require( '@openagenda/utils' );
+const es = require('../../elasticsearch');
 const membersSvc = require('../../members');
 const config = require( '../../../config' );
 const p = require( '../../../lib/promises' );
