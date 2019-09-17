@@ -33,14 +33,14 @@ module.exports.loaded = async function loaded({ formSchema, networkFormSchema },
     evaluateEvent,
     formSchemaDataFormat,
     defaultLang,
-    optionalStateAndFeatured
+    optionalSecondaryFields
   } = _.assign( {
     defaultLang: null,
     evaluateEvent: true,
     draft: false,
     partial: false,
     formSchemaDataFormat: false,
-    optionalStateAndFeatured: false
+    optionalSecondaryFields: false
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
   // api provides event data in event service format ( deep image object that includes credits and variants )
@@ -103,7 +103,7 @@ module.exports.loaded = async function loaded({ formSchema, networkFormSchema },
       data.userUid = data.ownerUid;
     }
 
-    clean.agendaEvent = validateAgendaEvent(data, { optionalStateAndFeatured, partial });
+    clean.agendaEvent = validateAgendaEvent(data, { optionalSecondaryFields, partial });
   } catch ( agendaEventErrors ) {
     agendaEventErrors.forEach( err => errors.push( _.set( err, 'step', 'agenda event data validation' ) ) );
   }
