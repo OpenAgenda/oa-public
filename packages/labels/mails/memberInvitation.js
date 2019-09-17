@@ -37,11 +37,11 @@ module.exports = {
     "de": "Anmelden",
     "es": "Inscribirse"
   },
-  "showAgenda": {
-    "fr": "Voir l'agenda",
-    "en": "Show agenda",
-    "de": "Show Agenda",
-    "es": "Ver la agenda"
+  "memberAction": {
+    "fr": "{role, select, administrator {Administrer l'agenda} moderator {Modérer les événements} contributor {Contribuer à l'agenda} reader {Voir l'agenda}}",
+    "en": "{role, select, administrator {Manage the agenda} moderator {Moderate events} contributor {Contribute to the agenda} reader {See the agenda}}",
+    "de": "{role, select, administrator {Verwalten Sie die Agenda} moderator {Moderate Ereignisse} contributor {Tragen Sie zur Tagesordnung bei} reader {Siehe die Tagesordnung}}",
+    "es": "{role, select, administrator {Administra la agenda} moderator {Eventos moderados} contributor {Contribuir a la agenda} reader {Ver la agenda}}"
   },
   "administrator": {
     "fr": "administrateur",
