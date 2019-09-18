@@ -514,7 +514,7 @@ function _passwordMatchCheck( values ) {
 
     if ( !values.data.errors ) values.data.errors = {};
 
-    values.data.errors.repeat = 'The two passwords must be the same';
+    values.data.errors.repeat = 'passwordNotEqual';
 
   }
 

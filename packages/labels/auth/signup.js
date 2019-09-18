@@ -46,6 +46,15 @@ module.exports = {
     "es": "La contraseña es muy corta",
     "br": "Le mot de passe est trop court"
   },
+  "passwordNotEqual": {
+    "en": "The passwords are not identical",
+    "fr": "Les mots de passe ne sont pas identiques",
+    "it": "Le parole chiave non sono identiche",
+    "de": "Die Passwörter sind nicht identisch.",
+    "pl": "Hasła nie są identyczne",
+    "es": "Las contraseñas no son idénticas",
+    "br": "Les mots de passe ne sont pas identiques"
+  },
   "createAccount": {
     "fr": "Créez un compte",
     "en": "Create an account",
