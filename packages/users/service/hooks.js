@@ -393,14 +393,16 @@ module.exports = {
       callInterface('onCreate'),
       iff(
         context => context.result && context.result.isActivated,
-        callInterface('onActivation')
+        callInterface('onActivation'),
+        fastJoin(userResolvers)
       )
     ],
     patch: [
       ...afterAll,
       iff(
         context => !context.params.before.isActivated && context.result.isActivated,
-        callInterface('onActivation')
+        callInterface('onActivation'),
+        fastJoin(userResolvers)
       )
     ],
     remove: [],

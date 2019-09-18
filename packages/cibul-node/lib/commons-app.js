@@ -5,12 +5,10 @@
  */
 
 const _ = require( 'lodash' );
-const async = require( 'async' );
 const hsts = require( 'hsts' );
 const fs = require( 'fs' );
 const languages = require( 'languages' );
 const qs = require( 'qs' );
-const wn = require( 'when/node' );
 const VError = require( 'verror' );
 
 const agendasSvc = require( '@openagenda/agendas' );
@@ -24,7 +22,6 @@ const getUnauthLabels = require( '@openagenda/labels' )( require( '@openagenda/l
 const getErrorLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/errors' ) );
 
 const config = require( '../config' );
-const detailedSessionLoad = sessions.middleware.load( { detailed: true } );
 const genUrl = require( '../services/genUrl' );
 const errorLogger = require( '../services/errors' );
 const i18n = require( '../i18n/i18n.js' );
@@ -697,29 +694,19 @@ function redirectToSignin( req, res, next ) {
 }
 
 
-function https( req, res, next ) {
+function https(req, res, next) {
+  if (!req.secure) {
+    const redirectTo = 'https://' + req.hostname + req.originalUrl;
 
-  if ( req.headers[ 'x-forwarded-proto' ] == 'https' ) {
+    req.log('forcing https: redirecting to %s', redirectTo);
 
-    next();
-
-    return;
-
+    return res.redirect(301, redirectTo);
   }
 
-  const redirectTo = 'https://' + req.hostname + req.originalUrl;
-
-  req.log( 'forcing https: redirecting to %s', redirectTo );
-
-  hsts( {
+  hsts({
     maxAge: 15552000,
     includeSubDomains: false
-  } )( req, res, () => {
-
-    res.redirect( 301, redirectTo );
-
-  } );
-
+  })(req, res, next);
 }
 
 
@@ -1087,26 +1074,5 @@ function redirectLegacySearch( req, res, next ) {
   }
 
   next();
-
-}
-
-
-function _prepareSession( req, res, cb ) {
-
-  if ( !req.user || !req.user.id ) {
-
-    detailedSessionLoad( req, res, err => {
-
-      if ( err ) return cb( err );
-
-      cb();
-
-    } );
-
-  } else {
-
-    cb();
-
-  }
 
 }

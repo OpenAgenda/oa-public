@@ -16,10 +16,7 @@ if ( module.hot ) module.hot.accept();
 import getRoutes from './getRoutes';
 import reducers from './reducers';
 
-const init = JSON.parse(
-  document.getElementById( 'init' ).innerHTML,
-  ( k, v ) => _.isString( v ) ? v.replace( '<CLOSINGSCRIPTTAG>', '</script>' ) : v
-);
+const init = JSON.parse(document.getElementById( 'init' ).innerHTML);
 
 const loggerMiddleware = createLogger();
 

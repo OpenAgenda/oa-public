@@ -87,9 +87,6 @@ class Main extends Component {
 }
 
 
-const props = JSON.parse(
-  document.getElementById( 'props' ).innerHTML,
-  ( k, v ) => _.isString( v ) ? v.replace( '<CLOSINGSCRIPTTAG>', '</script>' ) : v
-);
+const props = JSON.parse(document.getElementById( 'props' ).innerHTML);
 
 render( <Main {...props} />, document.getElementById( 'app' ) );

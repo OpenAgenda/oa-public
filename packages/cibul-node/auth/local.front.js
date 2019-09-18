@@ -220,12 +220,22 @@ function signupSubmit( req, res ) {
           values.user = user;
         }
       } catch ( err ) {
-        if ( err && err.message === 'Already exist' ) {
-          values.data.errors = { email: 'usedEmail' };
+        values.data.errors = {};
+
+        if ( err && _.find( err.errors, { field: 'email', code: 'email.invalid' } ) ) {
+          values.data.errors = { email: 'invalidEmail' };
+        }
+
+        if ( err && _.find( err.errors, { field: 'password', code: 'string.tooshort' } ) ) {
+          values.data.errors = { password: 'passwordTooShort' };
         }
 
         if ( err && _.find( err.errors, { field: 'fullName', code: 'required' } ) ) {
           values.data.errors = { fullName: 'fieldCannotBeEmpty' };
+        }
+
+        if ( err && err.message === 'Already exist' ) {
+          values.data.errors = { email: 'usedEmail' };
         }
 
         if ( _.isObject( err.errors ) && Object.keys( err.errors ) > 0 ) {

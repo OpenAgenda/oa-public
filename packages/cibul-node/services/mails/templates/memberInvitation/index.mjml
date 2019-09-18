@@ -34,7 +34,7 @@
           color="white"
           align="center"
           href="<%= link %>">
-          <%= __( isMember ? 'showAgenda' : 'signup' ) %>
+          <%= __( isMember ? 'memberAction' : 'signup', { role } ) %>
         </mj-button>
       </mj-column>
     </mj-content>

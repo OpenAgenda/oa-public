@@ -33,23 +33,19 @@ import AgendasSearch from './AgendasSearch';
   }
 } )
 @connect(
-  ( state, props ) => {
-    const query = qs.parse( props.location.search, { ignoreQueryPrefix: true } );
-
-    return {
-      query,
-      res: state.res,
-      events: state.events.data,
-      page: state.events.page,
-      total: state.events.total,
-      loading: state.events.loading,
-      listLoading: state.events.listLoading,
-      nextLoading: state.events.nextLoading,
-      perPageLimit: state.settings.perPageLimit,
-      lang: state.settings.lang,
-      modals: state.modals
-    };
-  },
+  ( state, props ) => ({
+    query: qs.parse( props.location.search, { ignoreQueryPrefix: true } ),
+    res: state.res,
+    events: state.events.data,
+    page: state.events.page,
+    total: state.events.total,
+    loading: state.events.loading,
+    listLoading: state.events.listLoading,
+    nextLoading: state.events.nextLoading,
+    perPageLimit: state.settings.perPageLimit,
+    lang: state.settings.lang,
+    modals: state.modals
+  }),
   { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load }
 )
 export default class Events extends Component {
@@ -74,15 +70,28 @@ export default class Events extends Component {
     getLabel: PropTypes.func
   };
 
-  search = values => this.props.list( values )
-    .then( () => {
+  state = {
+    value: this.props.query && this.props.query.search
+      ? this.props.query.search
+      : undefined
+  };
+
+  search = () => this.props.list( { search: this.state.value } )
+    .finally( () => {
       this.props.history.push( {
         ...this.props.location,
-        search: qs.stringify( { ...this.props.query, search: values.search || undefined } )
+        search: qs.stringify( { ...this.props.query, search: this.state.value || undefined } )
       } );
     } );
 
   debouncedSearch = debounce( this.search, 400 );
+
+  onSearch = value => this.setState( {
+    previousValue: this.state.value,
+    value
+  }, () => {
+    this.debouncedSearch();
+  } );
 
   nextPage = () => {
     const { page, total, search, loading, listLoading, nextLoading, events, perPageLimit } = this.props;
@@ -152,6 +161,7 @@ export default class Events extends Component {
     return (
       (value && value !== '')
       || (previousValue && previousValue !== '')
+      || (!previousValue && !value)
       || total > perPageLimit
     );
   };
@@ -176,6 +186,7 @@ export default class Events extends Component {
         initialValues={{
           search: query.search || ''
         }}
+        keepDirtyOnReinitialize
         render={({ handleSubmit, values }) => (
           <div className="padding-v-sm">
             <div className="header padding-h-md">
@@ -198,9 +209,9 @@ export default class Events extends Component {
                 classNameGroup="search"
                 className="form-control"
                 placeholder={getLabel( 'searchEvent' )}
-                action={this.debouncedSearch}
+                action={value => this.onSearch( value === '' ? undefined : value )}
                 loading={listLoading}
-                visible={values.search || query.search || total > perPageLimit}
+                visible={this.fieldIsVisible()}
               />
             </form>
             <div className="clearfix"></div>

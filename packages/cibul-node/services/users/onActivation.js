@@ -12,6 +12,10 @@ module.exports = function onActivation() {
       return context;
     }
 
+    await context.service.generateApiKey(user.uid, {
+      publicKey: true
+    });
+
     const { invitation } = context.params.optionals || {};
 
     try {
