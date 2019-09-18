@@ -41,6 +41,19 @@ module.exports = {
           title: "Semaine de l'Industrie 2017"
         }
     ),
+    onActivation() {
+      return async context => {
+        const user = context.result;
+
+        if (!user) {
+          return context;
+        }
+
+        await context.service.generateApiKey(user.uid, {
+          publicKey: true
+        });
+      };
+    },
     keys: {
       get: identifiers => keysSvc(identifiers).get(),
       create: (identifiers, data) => keysSvc(identifiers).create(data),
