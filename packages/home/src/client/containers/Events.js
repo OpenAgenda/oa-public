@@ -70,15 +70,28 @@ export default class Events extends Component {
     getLabel: PropTypes.func
   };
 
-  search = values => this.props.list( values )
+  state = {
+    value: this.props.query && this.props.query.search
+      ? this.props.query.search
+      : undefined
+  };
+
+  search = () => this.props.list( { search: this.state.value } )
     .finally( () => {
       this.props.history.push( {
         ...this.props.location,
-        search: qs.stringify( { ...this.props.query, search: values.search || undefined } )
+        search: qs.stringify( { ...this.props.query, search: this.state.value || undefined } )
       } );
     } );
 
   debouncedSearch = debounce( this.search, 400 );
+
+  onSearch = value => this.setState( {
+    previousValue: this.state.value,
+    value
+  }, () => {
+    this.debouncedSearch();
+  } );
 
   nextPage = () => {
     const { page, total, search, loading, listLoading, nextLoading, events, perPageLimit } = this.props;
@@ -196,9 +209,9 @@ export default class Events extends Component {
                 classNameGroup="search"
                 className="form-control"
                 placeholder={getLabel( 'searchEvent' )}
-                action={value => this.debouncedSearch( { search: value === '' ? undefined : value } )}
+                action={value => this.onSearch( value === '' ? undefined : value )}
                 loading={listLoading}
-                visible={values.search || query.search || total > perPageLimit}
+                visible={this.fieldIsVisible()}
               />
             </form>
             <div className="clearfix"></div>
