@@ -1,5 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
+import serialize from 'serialize-javascript';
+
 
 function Html( { content, lang, initialState, extractor } ) {
   const head = Helmet.renderStatic();
@@ -23,7 +25,7 @@ function Html( { content, lang, initialState, extractor } ) {
     {initialState && (
       <script
         dangerouslySetInnerHTML={{
-          __html: `window.__PRELOADED__=true;window.__data=${JSON.stringify(initialState)};`
+          __html: `window.__PRELOADED__=true;window.__data=${serialize(initialState)};`
         }}
         charSet="UTF-8"
       />
