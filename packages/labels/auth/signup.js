@@ -37,6 +37,15 @@ module.exports = {
     "es": "Este correo electrónico no es válida",
     "br": "Direizh eo ar chomlec'h postel-mañ"
   },
+  "passwordTooShort": {
+    "en": "Password is too short",
+    "fr": "Le mot de passe est trop court",
+    "it": "La password è troppo corta",
+    "de": "Passwort ist zu kurz",
+    "pl": "Hasło jest za krótkie",
+    "es": "La contraseña es muy corta",
+    "br": "Le mot de passe est trop court"
+  },
   "createAccount": {
     "fr": "Créez un compte",
     "en": "Create an account",
