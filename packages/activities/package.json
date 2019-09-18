@@ -17,7 +17,6 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@openagenda/agenda-stakeholders": "^2.1.2",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/queue": "^1.0.0",

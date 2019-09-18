@@ -33,9 +33,9 @@ module.exports = _.extend( v => {
   validateData: ( v, options = {} ) => {
 
     const {
-      optionalStateAndFeatured,
+      optionalSecondaryFields,
       partial
-    } = _.assign( { optionalStateAndFeatured: false, partial: false }, options );
+    } = _.assign( { optionalSecondaryFields: false, partial: false }, options );
 
     const preCleaned = _preClean( v );
 
@@ -43,7 +43,7 @@ module.exports = _.extend( v => {
 
     const clean = validateFn( preCleaned );
 
-    return  _postClean( v, clean, { optionalStateAndFeatured } );
+    return  _postClean( v, clean, { optionalSecondaryFields } );
 
   }
 });
@@ -96,16 +96,16 @@ function init( { eventStates } ) {
 
   validate = schema( fields );
 
-  validateData = schema( _.pick( fields, [ 'state', 'featured', 'userUid' ] ) );
+  validateData = schema( _.pick( fields, [ 'state', 'featured', 'userUid', 'sourceAgendaUid' ] ) );
 
   module.exports.validateData.fields = validateData.fields;
 
 }
 
 
-function _postClean( v, c, { optionalStateAndFeatured } ) {
+function _postClean( v, c, { optionalSecondaryFields } ) {
 
-  if ( !optionalStateAndFeatured ) return c;
+  if ( !optionalSecondaryFields ) return c;
 
   const omitted = [];
 
@@ -115,6 +115,10 @@ function _postClean( v, c, { optionalStateAndFeatured } ) {
 
   if ( _.get( v, 'featured', null ) === null ) {
     omitted.push('featured');
+  }
+
+  if ( _.get( v, 'sourceAgendaUid', null ) === null ) {
+    omitted.push('sourceAgendaUid');
   }
 
   return _.omit(c, omitted);

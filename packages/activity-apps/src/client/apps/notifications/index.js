@@ -11,12 +11,12 @@ const ucfirst = s => s.substr( 0, 1 ).toUpperCase() + s.substring( 1 );
 
 export default function ( options ) {
 
-  const { lang, notifications, userUid } = Object.assign( {
+  const { lang, notifications, userUid, isAdminMod } = Object.assign( {
     notifications: [],
     userUid: null,
     lang: 'fr'
   }, options );
-  const formatNotification = notificationFormatMaker( null, labels, { userUid } );
+  const formatNotification = notificationFormatMaker( null, labels, { userUid, isAdminMod } );
 
   const getLabel = makeLabelGetter( labels, lang );
 

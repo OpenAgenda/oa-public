@@ -159,6 +159,10 @@ export default createReactClass( {
           <a href={'/admin/users/signin?uid=' + member.user.uid}>
             <i className="fa fa-sign-in" aria-hidden="true"></i>
           </a>
+          {' '}
+          <a href={'/admin/users?userUid=' + member.user.uid}>
+            <i className="fa fa-user" aria-hidden="true"></i>
+          </a>
         </td>
       </tr>
     );

@@ -13,3 +13,11 @@ module.exports.init = config => {
 }
 
 module.exports.imageFiles = imageFiles;
+
+module.exports.getLocations = (uids, options, cb) => {
+  cb(null, [{
+    name: 'Alice',
+    address: '8 rue Alice',
+    city: 'Courbevoie'
+  }]);
+}

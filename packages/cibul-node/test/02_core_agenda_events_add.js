@@ -63,8 +63,7 @@ const testConfig = {
   es53: {
     host: process.env.ELASTICSEARCH_533_DEV_HOST,
     port: process.env.ELASTICSEARCH_533_DEV_PORT
-  },
-  getLogConfig,
+  }
 };
 
 describe( 'core - functional ( server ): agenda event add', function() {
@@ -96,7 +95,6 @@ describe( 'core - functional ( server ): agenda event add', function() {
         'events',
         'agendas',
         'agendaEvents',
-        'agendaStakeholders',
         'agendaLocations',
         'formSchemas',
         'custom',

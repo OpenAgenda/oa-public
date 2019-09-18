@@ -216,11 +216,10 @@ export default class Inbox extends Component {
                 <h4 className="media-heading margin-bottom-sm">{getAuthorName( author )}</h4>
 
                 <ConversationForm
-                  form="inbox-conversation-create"
                   initialValues={initialValues}
                   Wrapper={this.FormWrapper}
-                  uploadEndpoint={res.messages.prepareAttachment.replace( ':agendaUid', agenda && agenda.uid ) + '/s3/params'}
                   onSubmit={createConversation}
+                  uploadEndpoint={res.messages.prepareAttachment.replace( ':agendaUid', agenda && agenda.uid ) + '/s3/params'}
                   onConversationCreate={conversation => {
                     if ( onConversationCreateRedirect ) {
                       if ( onConversationCreateFlash ) {

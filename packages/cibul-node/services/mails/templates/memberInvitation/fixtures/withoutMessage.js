@@ -11,7 +11,7 @@ module.exports = {
   },
   link: 'https://d.openagenda.com/test-zi',
   agenda: 'test zi',
-  message: false,
+  message: undefined,
   isMember: true,
   role: 'contributor',
   unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder/i/106830/t/message',
@@ -19,4 +19,5 @@ module.exports = {
   isRegisteredUser: true
 };
 
+module.exports.$makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 module.exports.$labels = require( '@openagenda/labels/mails/memberInvitation' );

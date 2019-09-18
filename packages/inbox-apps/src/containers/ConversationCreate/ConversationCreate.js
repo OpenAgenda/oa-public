@@ -149,7 +149,6 @@ export default class ConversationCreate extends Component {
               <h4 className="media-heading margin-bottom-sm">{getAuthorName( author )}</h4>
 
               <ConversationForm
-                form="conversation-create"
                 initialValues={initialValues}
                 Wrapper={this.FormWrapper}
                 onSubmit={createConversation}

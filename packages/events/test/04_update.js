@@ -13,27 +13,81 @@ const svc = require( './service' );
 
 const externalServices = require( './service/externalServices' );
 
-describe( 'events -04- functional (server): update', function() {
+const testService = {
+  init: cb => {
+    externalServices.init(config.tests);
+    svc.initAndLoad(ih( config, {
+      interfaces: {
+        imageFilesLoad: {
+          $set: externalServices.imageFiles.load
+        },
+        getLocations: {
+          $set: externalServices.getLocations
+        }
+      }
+    } ), cb);
+  },
+  shutdown: svc.shutdown
+}
+
+describe.only( 'events -04- functional (server): update', function() {
 
   this.timeout( 30000 );
 
   let id = 146173;
 
-  beforeEach( done => {
+  describe('a basic update', () => {
+    let result;
 
-    externalServices.init( config.tests );
+    before(testService.init);
+    after(testService.shutdown);
 
-    svc.initAndLoad( ih( config, {
-      interfaces: {
-        imageFilesLoad: {
-          $set: externalServices.imageFiles.load
-        }
-      }
-    } ), done );
+    before(async () => {
+      result = await svc.update(id, {
+        title: { fr: 'Titre toujours à jour' }
+      } );
+    });
 
-  } );
+    it('the title is updated', () => {
+      result.event.title.should.eql( {
+        fr: 'Titre toujours à jour'
+      } );
+    });
 
-  afterEach( svc.shutdown );
+    it('a before key is provided in result with event as was prior update', () => {
+      result.before.id.should.equal(id);
+    });
+
+    it('before key event has title value as it was before update', () => {
+      result.before.title.fr.should.not.equal(result.event.title.fr);
+    });
+  });
+
+  describe('an update with the detailed option set to true', () => {
+
+    let result;
+
+    before(testService.init);
+    after(testService.shutdown);
+
+    before(async () => {
+      result = await svc.update(id, {
+        title: { fr: 'Titre encore plus à jour' }
+      }, { detailed: true });
+    });
+
+    it('result provides detailed event with location', () => {
+      result.event.location.name.should.equal('Alice');
+    });
+
+    it('result provides before value with location', () => {
+      result.before.location.name.should.equal('Alice');
+    });
+  });
+
+  beforeEach(testService.init);
+
+  afterEach(testService.shutdown);
 
   it( 'update the event title', done => {
 
@@ -53,19 +107,6 @@ describe( 'events -04- functional (server): update', function() {
 
       done();
 
-    } );
-
-  } );
-
-
-  it( 'update the event title using async/await', async () => {
-
-    let result = await svc.update( id, {
-      title: { fr: 'Titre toujours à jour' }
-    } );
-
-    result.event.title.should.eql( {
-      fr: 'Titre toujours à jour'
     } );
 
   } );

@@ -42,6 +42,7 @@ export default class UserShow extends Component {
         <td>{roleToString( props.role )}</td>
         <td><a href={`/${props.agenda.slug}`}>{props.agenda.title}</a></td>
         <td>{props.nbrEvents || '0'}</td>
+        <td><a href={`/admin/agendas?agendaUid=${props.agenda.uid}`}>Page admin/agendas</a></td>
         <td>
           <pre>{JSON.stringify( props.custom, null, 4 )}</pre>
         </td>
@@ -148,6 +149,7 @@ export default class UserShow extends Component {
               <th>Rôle</th>
               <th>Agenda</th>
               <th>Nombre d'événements</th>
+              <th>admin/agendas</th>
               <th>Custom</th>
             </tr>
             </thead>
@@ -155,7 +157,7 @@ export default class UserShow extends Component {
               items={this.props.members}
               renderItem={this.renderMember}
               renderEmpty={() => <tr>
-                <td colSpan="4" className="text-center">N'est pas contributeur !</td>
+                <td colSpan="5" className="text-center">N'est pas contributeur !</td>
               </tr>}
               getPage={() => null}
               wrapTag="tbody"

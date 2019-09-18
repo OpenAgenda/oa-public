@@ -17,33 +17,30 @@ const { fromEventServiceFormat } = require( '@openagenda/agenda-contribute/serve
 const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
 const getLocation = require( '../utils/getLocation' );
 
-module.exports = async ( agendaUid, data ) => {
+module.exports = async (agendaUid, data) => {
+  const agenda = await getAgendaWithNetworkAndSchemas(agendaUid);
 
-  const agenda = await getAgendaWithNetworkAndSchemas( agendaUid );
-
-  return await loaded( {
+  return await loaded({
     formSchema: agenda.formSchema,
-    networkFormSchema: _.get( agenda, 'network.formSchema' )
-  }, data );
-
+    networkFormSchema: _.get(agenda, 'network.formSchema')
+  }, data);
 }
 
-module.exports.loaded = async function loaded( { formSchema, networkFormSchema }, data, options = {} ) {
-
+module.exports.loaded = async function loaded({ formSchema, networkFormSchema }, data, options = {}) {
   const {
     draft,
     partial,
     evaluateEvent,
     formSchemaDataFormat,
     defaultLang,
-    optionalStateAndFeatured
+    optionalSecondaryFields
   } = _.assign( {
     defaultLang: null,
     evaluateEvent: true,
     draft: false,
     partial: false,
     formSchemaDataFormat: false,
-    optionalStateAndFeatured: false
+    optionalSecondaryFields: false
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
   // api provides event data in event service format ( deep image object that includes credits and variants )
@@ -84,10 +81,9 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
   // clean consolidated schemas data
 
   try {
+    const validate = new FormSchema(consolidatedSchema).getValidate({ draft });
 
-    const validate = new FormSchema( consolidatedSchema ).getValidate( { draft } );
-
-    const consolidatedClean = ( partial ? validate.part : validate )( formSchemaData );
+    const consolidatedClean = (partial ? validate.part : validate)(formSchemaData);
 
     _.assign( clean, _distributeCleanData( consolidatedClean, schemaExtensions ) );
 
@@ -100,38 +96,28 @@ module.exports.loaded = async function loaded( { formSchema, networkFormSchema }
   }
 
   // clean agenda-event data
-
   try {
-
     log( 'evaluating agenda-event reference data' );
 
-    if ( !data.userUid && data.ownerUid ) {
-
+    if (!data.userUid && data.ownerUid) {
       data.userUid = data.ownerUid;
-
     }
 
-    clean.agendaEvent = validateAgendaEvent( data, { optionalStateAndFeatured, partial } );
-
+    clean.agendaEvent = validateAgendaEvent(data, { optionalSecondaryFields, partial });
   } catch ( agendaEventErrors ) {
-
     agendaEventErrors.forEach( err => errors.push( _.set( err, 'step', 'agenda event data validation' ) ) );
-
   }
 
-  if ( errors.length ) {
-
+  if (errors.length) {
     throw new VError( {
       name: 'validationError',
       info: {
         errors
       }
     } );
-
   }
 
   return clean;
-
 }
 
 

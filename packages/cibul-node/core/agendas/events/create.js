@@ -48,15 +48,10 @@ module.exports = async (agendaUid, data, options = {}) => {
   }, data, { draft, formSchemaDataFormat } );
 
   try {
-
-    clean.event.links = await processOEmbed( clean.event.longDescription, clean.event.links );
-
-    log( 'retrieved %s links', clean.event.links.length );
-
-  } catch ( e ) {
-
-    log( 'error', 'could not retrieve oembeds', e );
-
+    clean.event.links = await processOEmbed(clean.event.longDescription, clean.event.links);
+    log('retrieved %s links', clean.event.links.length);
+  } catch (e) {
+    log('error', 'could not retrieve oembeds', e);
   }
 
   log( 'pre-validation done', { agendaUid } );

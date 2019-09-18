@@ -97,7 +97,8 @@ module.exports = async ( formSchemaId, identifier, data, options = {} ) => {
 
     return {
       success: true,
-      custom: completeClean
+      custom: completeClean,
+      before
     }
 
   } catch ( e ) {

@@ -10,7 +10,7 @@ const validateOptions = require( './lib/validateOptions' );
 
 let config, knex, queue;
 
-module.exports = _.extend( remove, { 
+module.exports = _.extend( remove, {
   init: ( c, k ) => {
 
     config = c;
@@ -25,7 +25,7 @@ module.exports = _.extend( remove, {
 
 async function remove( agendaUid, eventUid, options = {} ) {
 
-  return await _remove( {
+  return _remove( {
     event_uid: eventUid,
     agenda_uid: agendaUid,
   }, await get( agendaUid, eventUid ), validateOptions( options ) );
@@ -78,7 +78,7 @@ async function byLegacyId( agendaId = null, eventId = null ) {
 
   }
 
-  return await _remove( {
+  return _remove( {
     legacy_id: [ agendaId, eventId ].join( '.' )
   }, await get.byLegacyId(  agendaId, eventId ), {} );
 

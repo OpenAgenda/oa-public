@@ -93,7 +93,6 @@ describe( 'core - functional ( server ): agenda event remove', function() {
         'events',
         'agendas',
         'agendaEvents',
-        'agendaStakeholders',
         'agendaLocations',
         'formSchemas',
         'custom',

@@ -162,7 +162,7 @@ describe( 'session - functional (server): open', () => {
 
     sessions.open( request, response, { uid: 1234 }, ( err, result ) => {
 
-      ( new Buffer( response.writable[ config.writableCookie.name ], 'base64' ) ).toString( 'utf-8' ).should.equal( '{}' );
+      Buffer.from( response.writable[ config.writableCookie.name ], 'base64' ).toString( 'utf-8' ).should.equal( '{}' );
 
       done();
 

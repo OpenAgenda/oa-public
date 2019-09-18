@@ -122,7 +122,6 @@ describe( 'core - functional ( server ): agenda event create', function() {
         'events',
         'agendas',
         'agendaEvents',
-        'agendaStakeholders',
         'agendaLocations',
         'formSchemas',
         'custom',
@@ -420,7 +419,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
     it( 'user that was not a member becomes a member on open contribution agenda with no details on member required', async () => {
 
       // completing member data with userUid and agendaUid is done after
-      // on an onCreate of the agendaStakeholder service.
+      // on an onCreate of the member service.
       await _sleep( 300 );
 
       const row = await testConfig.knex( 'member' ).first( '*' ).where( 'user_uid', 63170200 );

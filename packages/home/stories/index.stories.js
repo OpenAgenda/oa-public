@@ -33,6 +33,7 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
     events: {
       list: '/events.json',
       show: '/:slug/events/:eventSlug',
+      edit: '/:slug/events/:eventSlug/edit',
       showPrivate: '/:slug/events/:eventSlug.prv',
       showWithoutAgenda: '/events/:eventSlug'
     },

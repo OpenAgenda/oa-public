@@ -142,7 +142,6 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
         'files',
         'imageFiles',
         'agendaEvents',
-        'agendaStakeholders',
         'agendaLocations',
         'formSchemas',
         'custom',

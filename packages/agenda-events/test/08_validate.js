@@ -26,14 +26,20 @@ describe( 'agendaEvents - functional (server): validation', function() {
     } ).should.eql( {
       state: 2,
       featured: true,
-      userUid: null
+      userUid: null,
+      sourceAgendaUid: []
     } );
 
   } );
 
   it( 'base validate endpoint has a field key as any validators validator would', () => {
 
-    _.keys( svc.validate.fields ).should.eql( [ 'state', 'featured', 'userUid' ] );
+    _.keys( svc.validate.fields ).should.eql( [
+      'state',
+      'featured',
+      'userUid',
+      'sourceAgendaUid'
+    ] );
 
   } );
 
@@ -44,7 +50,8 @@ describe( 'agendaEvents - functional (server): validation', function() {
     } ).should.eql( {
       state: 2,
       featured: true,
-      userUid: null
+      userUid: null,
+      sourceAgendaUid: []
     } );
 
   } );
@@ -53,7 +60,7 @@ describe( 'agendaEvents - functional (server): validation', function() {
 
     svc.validate( {
       featured: true
-    }, { optionalStateAndFeatured: true } ).should.eql( {
+    }, { optionalSecondaryFields: true } ).should.eql( {
       featured: true,
       userUid: null
     } );

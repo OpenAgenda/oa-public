@@ -89,7 +89,6 @@ describe( 'core - functional ( server ): agenda event update', function() {
         'events',
         'agendas',
         'agendaEvents',
-        'agendaStakeholders',
         'agendaLocations',
         'formSchemas',
         'custom',
@@ -441,9 +440,6 @@ describe( 'core - functional ( server ): agenda event update', function() {
             minutes: 50
           }
         } ],
-        location: {
-          uid: 123
-        },
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
       }, { formSchemaDataFormat: true } );
@@ -496,9 +492,8 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
     } );
 
-    it( 'an update of a draft without the draft option undrafts the event', async () => {
-
-      const result = await core.agendas( agendaUid ).events.update( draftEventUid, {
+    it('an update of a draft without the draft option undrafts the event', async () => {
+      const result = await core.agendas(agendaUid).events.update(draftEventUid, {
         title: {
           fr: 'La mort.'
         },
@@ -516,13 +511,12 @@ describe( 'core - functional ( server ): agenda event update', function() {
           fr: [ 'un', 'deux', 'trois' ]
         },
         'categories-agenda-metropolitain': 42,
-        'thematiques-bordeaux-metropole' : [ 3, 4 ]
-      } );
+        'thematiques-bordeaux-metropole' : [3, 4]
+      });
 
       result.updated.event.draft.should.not.ok();
 
-    } );
-
-  } );
+    });
+  });
 
 } );

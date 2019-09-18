@@ -4,13 +4,11 @@ const { promisify } = require('util');
 const _ = require('lodash');
 const { Inbox, InboxUsers } = require('@openagenda/inboxes');
 const agendasSvc = require('@openagenda/agendas');
-const stakeholdersSvc = require('@openagenda/agenda-stakeholders');
 const mails = require('@openagenda/mails');
-const makeLabelGetter = require('@openagenda/labels');
-const getInboxLabel = makeLabelGetter(require('@openagenda/labels/inboxes/mail'));
 const log = require('@openagenda/logs')('services/inboxes/onMessageCreate');
 const genUrl = require('../genUrl');
 const usersSvc = require('../../services/users');
+const membersSvc = require('../../services/members');
 
 module.exports = async (conversation, message) => {
 
@@ -93,22 +91,6 @@ async function getSenderName({ inboxUser, conversation, message }) {
   }
 }
 
-function getSubjectLabel({ conversation, agenda, lang }) {
-  switch (conversation.type) {
-    case 'contact_form':
-      return getInboxLabel('emailSubjectContactForm', { agenda: agenda.title }, lang);
-    case 'event':
-      return getInboxLabel('emailSubjectEvent', {
-        agenda: agenda.title,
-        event: conversation.store.params.eventTitle
-      }, lang);
-    case 'request_contribute':
-      return getInboxLabel('emailSubjectRequestContribute', { agenda: agenda.title }, lang);
-  }
-
-  return getInboxLabel('newMessageSubject', lang);
-}
-
 async function sendMail({ inboxUser, conversation, message }) {
   const getAgenda = promisify(agendasSvc.get);
 
@@ -121,17 +103,18 @@ async function sendMail({ inboxUser, conversation, message }) {
       { private: null, includeImagePath: true, internal: true }
     ) : null;
 
-  const subject = getSubjectLabel({ conversation, agenda, lang });
-
   const logo = agenda && agenda.image
     ? { src: agenda.image.replace('.com/', '.com/rwtb'), width: '100px' }
     : { src: 'https://openagenda.com/images/openagenda.png', width: '300px' };
 
-  const stakeholder = agenda
-    ? await promisify(stakeholdersSvc.agenda(agenda.id).get)({ userId: user.id })
+  const member = agenda
+    ? await membersSvc.get({
+      agendaUid: agenda.uid,
+      userUid: user.uid
+    })
     : null;
 
-  const isAdminmod = agenda && stakeholder && [2, 3].includes(stakeholder.credential);
+  const isAdminmod = agenda && member && [2, 3, '2', '3', 'administrator', 'moderator'].includes(member.role);
 
   const link = isAdminmod
     ? genUrl.abs('agendaAdminInboxConversation', { slug: agenda.slug, conversationId: conversation.id })
@@ -145,9 +128,9 @@ async function sendMail({ inboxUser, conversation, message }) {
         rule: ['receive', 'agendaInboxMessage'],
         dataPath: 'unsubscribeLink'
       }
-    ].concat(stakeholder && stakeholder.id ? [
+    ].concat(member && member.id ? [
       {
-        memberId: stakeholder.id,
+        memberId: member.id,
         rule: ['receive', 'agendaInboxMessage'],
         dataPath: 'memberUnsubscribeLink'
       }
@@ -179,14 +162,13 @@ async function sendMail({ inboxUser, conversation, message }) {
       unsubscriptions
     },
     cc: {
-      name: (stakeholder && stakeholder.custom.contactName) || user.fullName,
+      name: (member && member.custom.contactName) || user.fullName,
       address: user.email,
       unsubscriptions
     },
     references: reference,
     inReplyTo: reference,
     data: {
-      subject,
       logo,
       link,
       senderName,

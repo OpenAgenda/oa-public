@@ -13,10 +13,11 @@ module.exports = {
   agenda: 'test zi',
   message: 'Hmm\n\n**OK** !',
   isMember: false,
-  role: 'contributor',
+  role: 'administrator',
   unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder/i/106830/t/message',
   emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed',
   isRegisteredUser: true
 };
 
+module.exports.$makeLabelGetter = require( '@openagenda/labels/makeLabelGetter' );
 module.exports.$labels = require( '@openagenda/labels/mails/memberInvitation' );

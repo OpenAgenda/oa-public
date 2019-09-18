@@ -10,6 +10,7 @@ module.exports = {
     width: '100px'
   },
   link: 'https://d.openagenda.com/test-zi/events/rando-a-gnagnaville',
+  contactLink: 'https://d.openagenda.com/test-zi/contact',
   agenda: 'test zi',
   event: 'Rando à Gnagnaville',
   sourceAgenda: 'Un agenda source',

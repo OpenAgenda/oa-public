@@ -1,6 +1,7 @@
 import React, { Component, createElement, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { reduxForm, Field, SubmissionError } from 'redux-form';
+import { Form, Field } from 'react-final-form';
+import { FORM_ERROR } from 'final-form';
 import { getContext } from 'recompose';
 import superagent from 'superagent';
 import Uppy from 'uppy/lib/core';
@@ -11,9 +12,6 @@ import validate from './validate';
 import { renderTextarea } from '../../utils/form';
 import * as uppyLocales from '../../locales/uppyLocales';
 
-@reduxForm({
-  validate
-})
 @getContext({
   getLabel: PropTypes.func,
   lang: PropTypes.string,
@@ -88,11 +86,11 @@ export default class MessageForm extends Component {
     })
   }
 
-  handleSubmit = this.props.handleSubmit(async data => {
-    const { reset, onSubmit, onMessageSent, onFileUploaded, getLabel, conversation } = this.props;
+  handleSubmit = async (data, form) => {
+    const { onSubmit, onMessageSent, onFileUploaded, getLabel, conversation } = this.props;
 
     const { message } = await onSubmit(data);
-    reset();
+    form.change('body');
 
     this.uppy.setMeta({ messageId: message.id });
 
@@ -104,7 +102,11 @@ export default class MessageForm extends Component {
         const uploadResult = await this.uppy.upload();
 
         if (uploadResult.failed.length) { // or uppyState.totalProgress !== 100
-          throw new SubmissionError({ _error: getLabel('uploadError') });
+          if (onMessageSent) {
+            onMessageSent(message, form);
+          }
+
+          return { [FORM_ERROR]: getLabel('uploadError') };
         } else {
           for (const file of Object.values(uploadResult.successful)) {
             await onFileUploaded(conversation.id, message.id, file);
@@ -113,85 +115,101 @@ export default class MessageForm extends Component {
           this.uppy.reset();
         }
       } catch (e) {
-        if (e instanceof SubmissionError) {
-          throw e;
+        if (onMessageSent) {
+          onMessageSent(message, form);
         }
-        console.log('Error on upload:', e);
-        throw new SubmissionError({ _error: getLabel('uploadError') });
+
+        return { [FORM_ERROR]: getLabel('uploadError') };
       }
     }
 
     if (onMessageSent) {
-      await onMessageSent();
+      onMessageSent(message, form);
     }
-  });
+  };
 
   render() {
-    const { autoFocus, submitting, getLabel, lang, Wrapper, error } = this.props;
+    const { initialValues, autoFocus, getLabel, lang, Wrapper } = this.props;
 
     const numberFiles = Object.keys(this.uppy.getState().files).length;
 
-    return createElement(
-      Wrapper,
-      { handleSubmit: this.handleSubmit, submitting, error },
-      <Fragment>
-        <Field
-          autoFocus={autoFocus}
-          component={renderTextarea}
-          name="body"
-          className="form-control"
-          classNameGroup="margin-v-xs"
-          rows="3"
-          getErrorLabel={getLabel}
-          onKeyDown={e => {
-            if (e.keyCode === 13 && e.ctrlKey) {
-              this.handleSubmit();
-            }
-          }}
-          placeholder={getLabel('yourMessage')}
-        />
+    return (
+      <Form
+        initialValues={initialValues}
+        onSubmit={this.handleSubmit}
+        validate={validate}
+      >
+        {({ form, handleSubmit, submitting, submitError }) => (
+          createElement(
+            Wrapper,
+            {
+              form,
+              submitting,
+              submitError,
+              handleSubmit
+            },
+            <Fragment>
+              <Field
+                autoFocus={autoFocus}
+                component={renderTextarea}
+                name="body"
+                className="form-control"
+                classNameGroup="margin-v-xs"
+                rows="3"
+                getErrorLabel={getLabel}
+                onKeyDown={e => {
+                  if (e.keyCode === 13 && e.ctrlKey) {
+                    form.submit();
+                  }
+                }}
+                placeholder={getLabel('yourMessage')}
+                displayError={meta => meta.modified && meta.submitFailed}
+              />
 
-        <p>
-          <a role="button" onClick={this.handleOpen}>
-            {numberFiles === 0 ? getLabel('attachFile') : null}
-            {numberFiles === 1 ? getLabel('oneAttachment') : null}
-            {numberFiles > 1 ? getLabel('nAttachments', { number: numberFiles }) : null}
-          </a>
-        </p>
+              <p>
+                <a role="button" onClick={this.handleOpen}>
+                  {numberFiles === 0 ? getLabel('attachFile') : null}
+                  {numberFiles === 1 ? getLabel('oneAttachment') : null}
+                  {numberFiles > 1 ? getLabel('nAttachments', { number: numberFiles }) : null}
+                </a>
+              </p>
 
-        {this.state.modalOpen && <Modal
-          title={getLabel('uppyModalTitle')}
-          visible={this.state.modalOpen}
-          onClose={this.handleClose}
-          classNames={{
-            overlay: 'popup-overlay attachments-upload'
-          }}
-          disableBodyScroll
-        >
-          <Dashboard
-            uppy={this.uppy}
-            closeModalOnClickOutside
-            hideUploadButton={true}
-            disableStatusBar={true}
-            maxHeight={300}
-            note={getLabel('uppyNote')}
-            locale={uppyLocales.Dashboard[lang] || uppyLocales.Dashboard['fr']}
-          />
+              {this.state.modalOpen && <Modal
+                title={getLabel('uppyModalTitle')}
+                visible={this.state.modalOpen}
+                onClose={this.handleClose}
+                classNames={{
+                  overlay: 'popup-overlay attachments-upload'
+                }}
+                disableBodyScroll
+              >
+                <Dashboard
+                  uppy={this.uppy}
+                  closeModalOnClickOutside
+                  hideUploadButton={true}
+                  disableStatusBar={true}
+                  maxHeight={300}
+                  note={getLabel('uppyNote')}
+                  locale={uppyLocales.Dashboard[lang] || uppyLocales.Dashboard['fr']}
+                />
 
-          <div className="text-center padding-top-md">
-            <button className="btn btn-info" onClick={this.handleClose}>
-              {getLabel('validate')}
-            </button>
-          </div>
-        </Modal>}
+                <div className="text-center padding-top-md">
+                  <button className="btn btn-info" onClick={this.handleClose}>
+                    {getLabel('validate')}
+                  </button>
+                </div>
+              </Modal>}
 
-        <StatusBar
-          uppy={this.uppy}
-          hideUploadButton={true}
-          showProgressDetails={true}
-          locale={uppyLocales.StatusBar[lang] || uppyLocales.StatusBar['fr']}
-        />
-      </Fragment>
+              <StatusBar
+                uppy={this.uppy}
+                hideUploadButton={true}
+                showProgressDetails={true}
+                locale={uppyLocales.StatusBar[lang] || uppyLocales.StatusBar['fr']}
+              />
+            </Fragment>
+          )
+        )}
+      </Form>
     );
   }
 }

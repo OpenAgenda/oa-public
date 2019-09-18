@@ -76,7 +76,8 @@ async function updatePromise( identifiers, data, options ) {
     log,
     get: service.get,
     target: 'current',
-    internal: true
+    internal: true,
+    detailed: cleanOptions.detailed
   } ) )
 
   .then( _merge )
@@ -151,8 +152,16 @@ function _cleanResult( v ) {
 
   }
 
+  const event = v.internal ? v.updated : dbParse.exclude( v.updated, 'internal' );
+
+  // jump through hoops to keep location without refactoring dBParse entirely
+  if (_.get(v, 'updated.location')) {
+    event.location = v.updated.location;
+  }
+
   return {
-    event: v.internal ? v.updated : dbParse.exclude( v.updated, 'internal' ),
+    event,
+    before: v.current,
     valid: !v.errors.length,
     success: v.success,
     errors: v.errors,

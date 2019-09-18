@@ -2,20 +2,20 @@
 
 module.exports = {
   "title": {
-    "fr": "%agenda% a agrégé votre événement: %event%",
-    "en": "%agenda% has aggregated your event: %event%",
+    "fr": "%agenda% a repris votre événement: %event%",
+    "en": "%agenda% took over your event: %event%",
     "de": "%event% : %agenda% hat Ihre Veranstaltung aggregiert",
-    "es": "%agenda% agregado de su evento:%event%"
+    "es": "%agenda% agregado de su evento: %event%"
   },
   "body": {
-    "fr": "**%event%** provenant de l'agenda **%sourceAgenda%** a été agrégé avec le statut **%state%**.",
-    "en": "**%event%** from the agenda **%sourceAgenda%** has been aggregated with the state **%state%**.",
+    "fr": "**%event%** provenant de l'agenda **%sourceAgenda%** a été repris avec le statut **%state%**.",
+    "en": "**%event%** from the agenda **%sourceAgenda%** was taken up with the state **%state%**.",
     "de": "**%event%** von der Kalender **%sourceAgenda%** hat sich mit dem Zustand **%state%** zusammengefasst.",
     "es": "**%event%** del agenda **%sourceAgenda%** fue asociado con el estado de **%state%**."
   },
   "bodyText": {
-    "fr": "%event% provenant de l'agenda %sourceAgenda% a été agrégé avec le statut %state%.",
-    "en": "%event% from the agenda %sourceAgenda% has been aggregated with the state %state%.",
+    "fr": "%event% provenant de l'agenda %sourceAgenda% a été repris avec le statut %state%.",
+    "en": "%event% from the agenda %sourceAgenda% was taken up with the state %state%.",
     "de": "%event% von der Kalender %sourceAgenda% hat sich mit dem Zustand %state% zusammengefasst.",
     "es": "%event% del agenda %sourceAgenda% fue asociado con el estado de %state%."
   },
@@ -66,5 +66,11 @@ module.exports = {
     "en": "Change my email sending settings",
     "de": "Ändern Sie per E-Mail zu senden Einstellungen",
     "es": "Cambiar mi configuración para enviar mensajes de correo electrónico"
+  },
+  contactAgenda: {
+    fr: 'Contacter l\'agenda',
+    en: 'Contact the agenda',
+    de: 'Kontaktieren Sie die Agenda',
+    es: 'Contacta la agenda'
   }
 }

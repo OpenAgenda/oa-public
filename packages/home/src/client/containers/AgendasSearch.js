@@ -70,7 +70,7 @@ export default class AgendasSearch extends Component {
 
   search = () => {
     this.props.list( this.props.id, { search: this.state.value } )
-      .then( () => {
+      .finally( () => {
         if ( this.props.onSearch ) {
           this.props.onSearch( this.state.value );
         }

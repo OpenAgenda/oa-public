@@ -1,6 +1,5 @@
 "use strict";
 
-const { promisify } = require('util');
 const _ = require('lodash');
 const VError = require('verror');
 
@@ -9,7 +8,6 @@ const log = require('@openagenda/logs' )( 'agendaEvents/onCreate');
 const custom = require('@openagenda/custom');
 
 const aggregatorNotify = require('./lib/aggregatorNotify');
-const eventAggregation = require('./lib/eventAggregation');
 const legacyEventSearch = require('../elasticsearch');
 const eventSearch = require('../eventSearch');
 const activitiesSvc = require('../activities');
@@ -72,22 +70,6 @@ module.exports = async ( config, ae, context ) => {
       await sendEventAggregation(config, { agendaEvent: ae, context });
     } catch ( error ) {
       log.error( new VError( error, 'Cannot send event aggregation emails' ) );
-    }
-  }
-
-  // if reference was created through aggregation, email administrators
-  if (context.aggregated) {
-    log('queuing mail send for admins of agenda %s for aggregation of event %s', agenda.uid, event.uid);
-
-    try {
-      await eventAggregation(config, {
-        eventUid: event.uid,
-        aggregatorAgendaUid: agenda.uid,
-        sourceAgendaUid: context.sourceAgenda.uid,
-        state: ae.state
-      });
-    } catch (e) {
-      log.error( new VError( error, 'Cannot send event aggregation emails to adminmods' ) );
     }
   }
 
