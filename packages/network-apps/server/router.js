@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
+const serialize = require( 'serialize-javascript' );
 
 const log = require( '@openagenda/logs' )( 'router' );
 
@@ -143,16 +144,10 @@ async function _renderPage( req, res, next ) {
 
   const layoutData = { lang: req.lang };
 
-  const stringified = JSON.stringify(
-    init,
-    ( k, v ) => _.isString( v ) ? v.replace( '</script>', '<CLOSINGSCRIPTTAG>' ) : v,
-    2
-  );
-
   res.end( router.layout(
     `<div>
       <div class="js_preload_spin" id="app"></div>
-      <script type="application/json" id="init">${stringified}</script>
+      <script type="application/json" id="init">${serialize(init, { isJSON: true })}</script>
       <script defer type="text/javascript" src="${_getClientAppPath( router.service.name, router.service.config )}"></script>
     </div>`, layoutData ) );
 
