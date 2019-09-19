@@ -20,6 +20,7 @@ const sendChangeEmail = require('./middleware/sendChangeEmail');
 const setFlashChangeEmail = require('./middleware/setFlashChangeEmail');
 const setFlashAccountRemoved = require('./middleware/setFlashAccountRemoved');
 const config = require('../../config');
+const cmn = require('../../lib/commons-app');
 
 const instance = new Users({
   Model: config.knex,
@@ -114,7 +115,7 @@ module.exports.expose = app => {
   );
 
   app.use('/users', express.errorHandler({
-    html: false,
+    html: (err, req, res) => cmn.catchError(req, res)(err),
     logger: null
   }));
 };

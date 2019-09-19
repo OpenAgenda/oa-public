@@ -86,20 +86,19 @@ export default class SettingsContainer extends Component {
                 image={user && user.image || ''}
               />
 
-              {!(user.facebookUid || user.twitterId || user.googleId) ? (
-                <EmailSettings
-                  activeTab={activeTab === 'email'}
-                  onSubmit={changeEmail}
-                  successMessageDisplayed={emailMessageDisplayed}
-                />
-              ) : null}
-
-              {!(user.facebookUid || user.twitterId || user.googleId) ? (
-                <PasswordSettings
-                  activeTab={activeTab === 'password'}
-                  onSubmit={changePassword}
-                  successMessageDisplayed={passwordMessageDisplayed}
-                />
+              {user.hasLocalAccount ? (
+                <>
+                  <EmailSettings
+                    activeTab={activeTab === 'email'}
+                    onSubmit={changeEmail}
+                    successMessageDisplayed={emailMessageDisplayed}
+                  />
+                  <PasswordSettings
+                    activeTab={activeTab === 'password'}
+                    onSubmit={changePassword}
+                    successMessageDisplayed={passwordMessageDisplayed}
+                  />
+                </>
               ) : null}
 
               <ApiKeySettings

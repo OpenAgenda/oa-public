@@ -125,6 +125,8 @@ describe('methods', () => {
       const user = await service.get(kaoreUid);
 
       expect(user.fullName).toBe('Kari Olafsson');
+      expect(user).toHaveProperty('hasSocialAccount');
+      expect(user).toHaveProperty('hasLocalAccount');
       expect(user).not.toHaveProperty('isRemoved');
       expect(user).not.toHaveProperty('isActivated');
     });

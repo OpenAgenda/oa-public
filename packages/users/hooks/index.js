@@ -16,6 +16,7 @@ const generateToken = require('./generateToken');
 const generateUid = require('./generateUid');
 const generateUniqueToken = require('./generateUniqueToken');
 const hashPassword = require('./hashPassword');
+const hasSocialAccount = require('./hasSocialAccount');
 const includeImagePathParamHook = require('./includeImagePathParamHook');
 const isValidToken = require('./isValidToken');
 const parseStore = require('./parseStore');
@@ -47,6 +48,7 @@ module.exports = {
   generateUid,
   generateUniqueToken,
   hashPassword,
+  hasSocialAccount,
   includeImagePathParamHook,
   isValidToken,
   parseStore,
