@@ -25,7 +25,7 @@ function Html( { content, lang, initialState, extractor } ) {
     {initialState && (
       <script
         dangerouslySetInnerHTML={{
-          __html: `window.__PRELOADED__=true;window.__data=${serialize(initialState)};`
+          __html: `window.__PRELOADED__=true;window.__data=${serialize(initialState, { isJSON: true })};`
         }}
         charSet="UTF-8"
       />
