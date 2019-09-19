@@ -1,11 +1,9 @@
 {
   "name": "@openagenda/call-to-action",
   "version": "2.2.2",
-  "main": "index.js",
+  "main": "dist/client/index.js",
   "scripts": {
-    "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
-    "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM --exec babel-node server.dev.js",
-    "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
+    "start": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
     "clean": "rimraf dist",
     "build": "babel src -d dist -s",
     "prepublish": "yarn clean && yarn build"
@@ -18,9 +16,6 @@
   "author": "",
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/call-to-action",
-  "directories": {
-    "test": "test"
-  },
   "description": "",
   "dependencies": {
     "@babel/runtime-corejs3": "^7.5.5",
@@ -29,7 +24,6 @@
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",
-    "@openagenda/sessions": "^3.0.13",
     "core-js": "^3.2.1",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
@@ -38,17 +32,11 @@
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
-    "@babel/node": "^7.5.5",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "@storybook/react": "^5.2.0",
+    "axios-mock-adapter": "^1.17.0",
     "babel-loader": "^8.0.4",
-    "concurrently": "^4.1.0",
-    "cors": "^2.8.5",
-    "errorhandler": "^1.5.0",
-    "express": "^4.16.4",
-    "morgan": "^1.8.2",
-    "nodemon": "^1.18.9",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "react-redux": "^7.1.1",

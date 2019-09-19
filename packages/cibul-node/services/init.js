@@ -68,7 +68,6 @@ module.exports = async function (configObject, options = {}) {
   await init('aggregator', require('./aggregator'));
   await init('aggregatorSources', require('./aggregatorSources'));
   await init('cache', require('./cache'));
-  await init('callToAction', require('./callToAction'));
   await init('custom', require('./custom'));
   await init('elasticsearch', require('./elasticsearch'));
   await init('emailStrategie', require('./emailStrategie'));

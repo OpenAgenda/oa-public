@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import { connect } from 'react-redux';
-import openFormRequest from '@openagenda/call-to-action/dist/client/openRequestForm';
+import openFormRequest from '@openagenda/call-to-action/dist/openRequestForm';
 import Modal from '@openagenda/react-components/build/Modal';
 import { KeysManager, InboxSettingsForm, TrackingSettingsForm } from '../../components';
 import * as  agendaActions from '../../redux/modules/agenda';

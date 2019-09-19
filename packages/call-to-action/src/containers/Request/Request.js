@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/call-to-action';
 import * as actions from '../../redux/modules/callToAction';
-import { RequestForm } from '../../components/index';
+import { RequestForm } from '../../components';
 
 const ucfirst = str => str.substr( 0, 1 ).toUpperCase() + str.substr( 1 );
 
