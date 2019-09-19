@@ -12,6 +12,7 @@ module.exports = (formSchema, data) => {
     .reduce((labels, field) => labels.concat(
       [].concat(data[field])
         .map(optionId => taggableFieldOptions.find(option => (option.id === optionId) && (option.field === field)))
+        .filter(fieldOption => !!fieldOption)
         .map(fieldOption => fieldOption.label)
         .reduce(_flattenLabels, [])
     ), []);
