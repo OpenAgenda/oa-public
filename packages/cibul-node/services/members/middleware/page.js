@@ -15,7 +15,7 @@ module.exports = async ( { port }, req, res, next ) => {
   const prefix = `/${req.agenda.slug}/admin/members`;
   const lang = req.lang || 'fr';
 
-  const { element, triggerHooks, store, context } = createApp( {
+  const { element, triggerHooks, store, staticContext, history } = createApp( {
     req,
     initialState: {
       settings: {
@@ -60,15 +60,15 @@ module.exports = async ( { port }, req, res, next ) => {
     // Remove apiRoot used only on server side
     state.settings.apiRoot = '';
 
-    if ( context.status === 404 ) {
+    if ( staticContext.status === 404 ) {
       return next();
     }
 
-    if ( context.url ) {
-      return res.redirect( 301, context.url );
+    if ( staticContext.url ) {
+      return res.redirect( 301, staticContext.url );
     }
 
-    const { pathname, search } = state.router.location;
+    const { pathname, search } = history.location;
     if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
       return res.redirect( 301, pathname );
     }
