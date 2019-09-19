@@ -32,6 +32,7 @@ const {
   generateUid,
   generateUniqueToken,
   hashPassword,
+  hasSocialAccount,
   includeImagePathParamHook,
   isValidToken,
   parseStore,
@@ -132,14 +133,7 @@ const userResolvers = {
 const afterAll = [
   camelCase(),
   camelCaseQuery(),
-  iff(
-    context => context.result !== null && context.params.internal !== true,
-    context => keep(
-      ...(context.params.detailed
-        ? [...fields.basic, ...fields.detailed]
-        : fields.basic)
-    )(context)
-  ),
+  hasSocialAccount(),
   context => {
     if (context.result === null || context.params.internal === true) {
       return context;
@@ -147,8 +141,13 @@ const afterAll = [
 
     return keep(
       ...(context.params.detailed
-        ? [...fields.basic, ...fields.detailed]
-        : fields.basic)
+        ? [
+          ...fields.basic,
+          ...fields.detailed,
+          'hasSocialAccount',
+          'hasLocalAccount'
+        ]
+        : [...fields.basic, 'hasSocialAccount', 'hasLocalAccount'])
     )(context);
   },
   includeImagePathParamHook(),

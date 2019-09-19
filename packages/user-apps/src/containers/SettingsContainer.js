@@ -86,7 +86,7 @@ export default class SettingsContainer extends Component {
                 image={user && user.image || ''}
               />
 
-              {!(user.facebookUid || user.twitterId || user.googleId) ? (
+              {user.hasLocalAccount ? (
                 <>
                   <EmailSettings
                     activeTab={activeTab === 'email'}
