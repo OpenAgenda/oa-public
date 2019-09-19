@@ -129,7 +129,8 @@ export function load() {
       const user = await client.get( res.getMe, {
         params: {
           $client: {
-            includeImagePath: true
+            includeImagePath: true,
+            detailed: true
           }
         }
       } );

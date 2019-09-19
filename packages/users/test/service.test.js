@@ -125,6 +125,8 @@ describe('methods', () => {
       const user = await service.get(kaoreUid);
 
       expect(user.fullName).toBe('Kari Olafsson');
+      expect(user).toHaveProperty('hasSocialAccount');
+      expect(user).toHaveProperty('hasLocalAccount');
       expect(user).not.toHaveProperty('isRemoved');
       expect(user).not.toHaveProperty('isActivated');
     });
@@ -288,7 +290,7 @@ describe('methods', () => {
   //     });
   //
   //     expect(result.uploadedPaths).toHaveLength(3);
-  //     expect(result.uploadedPaths[ 0 ]).toContain('user.profile.75052324');
+  //     expect(result.uploadedPaths[0]).toContain('user.profile.75052324');
   //   });
   // });
   //
@@ -325,6 +327,7 @@ describe('methods', () => {
       );
 
       expect(user.isActivated).toBe(true);
+      expect(user.apiKey).toBeTruthy();
     });
 
     it('create a user should hash password', async () => {
@@ -402,6 +405,18 @@ describe('methods', () => {
           }
         ]
       });
+    });
+
+    it('activating a user creates its token', async () => {
+      // just check if interfaces.onActivation is called
+      const user = await service.patch(
+        38157927,
+        { isActivated: true },
+        { internal: true }
+      );
+
+      await expect(user.isActivated).toBe(true);
+      await expect(user.apiKey).toBeTruthy();
     });
   });
 

@@ -10,7 +10,9 @@ const convertSchemaOptionIdsToTags = require('./lib/convertSchemaOptionIdsToTags
 const determineAggregationAction = require('./lib/determineAggregationAction');
 const pickSchemaValues = require('./lib/pickSchemaValues');
 
-const evaluateRules = require('./lib/rules');
+const evaluateRules = require('../lib/rules');
+
+const wr = require('../test/fixtures/write');
 
 module.exports = ({ knex, queues, interfaces }) => {
   const queue = queues('aggregator');
@@ -117,6 +119,7 @@ async function evaluate({
 }, data) {
   const { agenda, event, aggregatorAgendaUid } = data;
   log('evaluate %s of source %s (%s)', event.slug, agenda.slug, agenda.uid);
+  //wr('data', data);
 
   const eventWithTags = ih(event, {
     tags: {
@@ -132,6 +135,7 @@ async function evaluate({
 
   const evaluateResult = evaluateRules(rules, eventWithTags);
   const reference = await getAggregatorEventReference(aggregatorAgendaUid, event.uid);
+  //wr('getAggregatorEventReference',reference);
   const shouldAggregate = rules.length ? !!evaluateResult : true;
 
   if (reference && !shouldAggregate) {
@@ -155,10 +159,21 @@ async function evaluate({
   }
 
   const aggregatorSchema = await getAggregatorMergedSchema(aggregatorAgendaUid);
+  //wr('getAggregatorMergedSchema', aggregatorSchema);
   const schemaValuesFromTags = convertTagsToSchemaOptionIds(aggregatorSchema, evaluateResult.tags);
   const extendedValues = pickSchemaValues(aggregatorSchema, evaluateResult, schemaValuesFromTags);
 
-  return referenceEvent(agenda.uid, aggregatorAgendaUid, event.uid, Object.assign(extendedValues, {
+  referenceEvent(agenda.uid, aggregatorAgendaUid, event.uid, Object.assign(extendedValues, {
     sourceAgendaUid: [agenda.uid]
   }));
+
+  return {
+    success: true,
+    operation: 'aggregation'
+  }
+}
+
+module.exports.test = {
+  evaluate,
+  remove
 }

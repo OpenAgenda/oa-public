@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
+const serialize = require( 'serialize-javascript' );
 
 const log = require( '@openagenda/logs' )( 'router' );
 
@@ -62,16 +63,10 @@ router.get( '/', async ( req, res, next ) => {
 
   }
 
-  const stringifiedProps = JSON.stringify(
-    props,
-    ( k, v ) => _.isString( v ) ? v.replace( '</script>', '<CLOSINGSCRIPTTAG>' ) : v,
-    2
-  );
-
   res.end( router.layout(
     `<div>
       <div class="js_preload_spin" id="app"></div>
-      <script type="application/json" id="props">${stringifiedProps}</script>
+      <script type="application/json" id="props">${serialize(props, { isJSON: true })}</script>
       <script defer type="text/javascript" src="${_getClientAppPath( router.service.name, router.service.config )}"></script>
     </div>`, layoutData ) );
 

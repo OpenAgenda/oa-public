@@ -1,5 +1,7 @@
 'use strict';
 
+const log = require('@openagenda/logs')('getSourceAndAggregatorPairs');
+
 module.exports = (knex, { id }) => knex('aggregator as ag')
   .select([
     'r.uid as agendaUid',

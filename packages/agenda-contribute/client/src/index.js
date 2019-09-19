@@ -17,10 +17,7 @@ import getRoutes from './getRoutes';
 import reducers from './reducers';
 import scrollToTopMiddleware from './lib/scrollToTopMiddleware';
 
-const init = JSON.parse(
-  document.getElementById( 'init' ).innerHTML,
-  ( k, v ) => _.isString( v ) ? v.replace( '<CLOSINGSCRIPTTAG>', '</script>' ) : v
-);
+const init = JSON.parse(document.getElementById( 'init' ).innerHTML);
 
 const loggerMiddleware = createLogger();
 

@@ -16,7 +16,7 @@ const preMw = [
   agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true } ),
   eventSvc.mw.load( 'eventSlug', 'slug' ),
   sessions.mw.loadOrRedirect,
-  members.mw.loadAndAuthorize('administrator')
+  members.mw.loadAndAuthorize('moderator')
 ];
 
 

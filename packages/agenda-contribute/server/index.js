@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const bodyParser = require( 'body-parser' );
 const express = require( 'express' );
+const serialize = require( 'serialize-javascript' );
 
 const eventSchema = require( '@openagenda/event-form/src/schema' );
 const formSchemaMw = require( '@openagenda/form-schemas/server/middleware' );
@@ -52,17 +53,10 @@ function init( c ) {
       }
     };
 
-    // stringified json is placed inside of application/json script tag
-    const stringified = JSON.stringify(
-      frontAppInit,
-      ( k, v ) => _.isString( v ) ? v.replace( '</script>', '<CLOSINGSCRIPTTAG>' ) : v,
-      2
-    );
-
     res.send( config.layout(
       `<div class="agenda-body">
         <div class="js_preload_spin" id="app"></div>
-        <script type="application/json" id="init">${stringified}</script>
+        <script type="application/json" id="init">${serialize(frontAppInit, { isJSON: true })}</script>
         <script defer type="text/javascript" src="${_getClientAppPath()}"></script>
       </div>`, req ) );
 
