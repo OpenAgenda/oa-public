@@ -10,7 +10,7 @@ import { loadableReady } from '@loadable/component';
 import du from '@openagenda/dom-utils';
 import wrapApp from '@openagenda/react-utils/dist/wrapApp';
 import { HeaderManager, Header } from '@openagenda/react-layouts';
-import createAppHome from '@openagenda/home/src/client/app';
+import createAppHome from '@openagenda/home/src/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp';
 import createActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';

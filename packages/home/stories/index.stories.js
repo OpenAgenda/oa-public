@@ -1,14 +1,25 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import { storiesOf } from '@storybook/react';
 import wrapApp from '@openagenda/react-utils/dist/wrapApp';
-import createApp from '../src/client/app';
+import createApp from '../src/app';
+import agendasJson from './mocks/agendas';
+import eventsJson from './mocks/events';
 
 import '@openagenda/bs-templates/compiled/main.css';
 
+const mock = new MockAdapter(axios);
+
+const mockApi = () => {
+  mock.onGet('/agendas.json').reply(200, agendasJson);
+  mock.onGet('/events.json').reply(200, eventsJson);
+};
+
 const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
-const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
+const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
   settings: {
     lang,
     apiRoot,
@@ -27,8 +38,7 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
       show: '/:slug',
       showPrivate: '/:slug.prv',
       addEvent: '/:slug/addevent',
-      moderate: '/:slug/admin',
-      contribute: '/:slug/contribute'
+      moderate: '/:slug/admin'
     },
     events: {
       list: '/events.json',
@@ -47,13 +57,20 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
   }
 });
 
+storiesOf('App', module)
+  .add('all', () => {
+    mockApi();
 
-storiesOf( 'App', module )
-  .add( 'all', () => wrapApp( createApp( {
-    history: createMemoryHistory(),
-    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-  } ) ) )
-  .add( 'with search query', () => wrapApp( createApp( {
-    history: createMemoryHistory( { initialEntries: [ '/?search=Paris' ] } ),
-    initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-  } ) ) );
+    return wrapApp(createApp({
+      history: createMemoryHistory(),
+      initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
+    }))
+  })
+  .add('with search query', () => {
+    mockApi();
+
+    return wrapApp(createApp({
+      history: createMemoryHistory({ initialEntries: ['/?search=Paris'] }),
+      initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
+    }))
+  });

@@ -4,7 +4,6 @@ const path = require('path');
 const _ = require('lodash');
 const express = require('express');
 const matchMw = require('@openagenda/react-integration-app/middleware');
-const homeMw = require( '@openagenda/home/dist/middleware' );
 const activitiesSvc = require('@openagenda/activities');
 const { Inbox } = require('@openagenda/inboxes');
 const config = require('../config');
@@ -20,7 +19,7 @@ const initialState = req => ({
       rootPrefix: '/home(|/events)', // because of /home/activities
       apiRoot,
       lang: req.lang,
-      perPageLimit: homeMw.getConfig().mw.limit,
+      perPageLimit: 20,
       isNew: _.get( req, 'user.isNew' ),
       displayLegacyMessageTab: false,
       userId: _.get( req, 'user.id' ),
@@ -83,7 +82,7 @@ const initialState = req => ({
       prefix: '/home/activities',
       apiRoot,
       lang: req.lang,
-      perPageLimit: homeMw.getConfig().mw.limit
+      perPageLimit: 20
     },
     res: {
       list: '/home/activities/list'
