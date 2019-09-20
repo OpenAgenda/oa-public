@@ -54,7 +54,7 @@ function list( query, offset, limit, options, cb ) {
 
       if ( cleanOptions.total ) {
 
-        total = ( await knexQuery.clone().first( [ knex.raw( 'count( id ) as total' ) ] ) ).total;
+        total = ( await knexQuery.clone().limit(1).first( [ knex.raw( 'count( id ) as total' ) ] ) ).total;
 
         log( 'total for %j: %s', params.query, total );
 

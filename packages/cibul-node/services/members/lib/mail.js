@@ -59,7 +59,7 @@ async function sendInvitation(config, { invitation, member, context, agenda }) {
     invitation,
     member,
     agenda,
-    message: invitationContext.message,
+    message: (invitationContext && invitationContext.message) || undefined,
     lang
   });
 };
