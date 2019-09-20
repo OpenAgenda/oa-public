@@ -960,21 +960,6 @@ app.use(
       return res.redirect(302, agendaLink);
     }
 
-    log.info('Show inbox for suggest-change, defaultQuery:', {
-      type: 'suggest_location_change',
-      typeIdentifier: req.location.uid,
-      params: {
-        agendaTitle: req.agenda.title,
-        agendaUid: req.agenda.uid,
-        locationName: req.location.name,
-        locationUid: req.location.uid
-      },
-      destinationInbox: {
-        type: 'agenda',
-        identifier: req.agenda.uid
-      }
-    });
-
     const lang = req.lang || 'fr';
     const { element, triggerHooks, store, context } = createInboxApp( {
       req,
@@ -1054,21 +1039,6 @@ app.use(
       if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
         return res.redirect( 301, pathname );
       }
-
-      log.info('Show inbox for suggest-change, defaultQuery on render:', {
-        type: 'suggest_location_change',
-        typeIdentifier: req.location.uid,
-        params: {
-          agendaTitle: req.agenda.title,
-          agendaUid: req.agenda.uid,
-          locationName: req.location.name,
-          locationUid: req.location.uid
-        },
-        destinationInbox: {
-          type: 'agenda',
-          identifier: req.agenda.uid
-        }
-      });
 
       const baseData = {
         event: {
