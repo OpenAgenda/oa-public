@@ -10,7 +10,7 @@ const config = require('../config');
 const cmn = require('../lib/commons-app');
 
 const apiRoot = `http://localhost:${config.port}`;
-const phpPrefix = process.env.NODE_ENV ? '/frontend_dev.php' : '';
+const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php' : '';
 
 const initialState = req => ({
   home: {
