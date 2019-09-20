@@ -61,13 +61,18 @@ module.exports = {
             .then(ae => ae ? _.pick(ae, ['sourceAgendaUid']) : null),
           setSourceUidOnExistingReference: services.agendaEvents.utils.setSourceUid,
           unsetSourceUidOnExistingReference: services.agendaEvents.utils.unsetSourceUid,
-          referenceEvent: async (sourceAgendaUid, aggregatorAgendaUid, eventUid, data) => {
+          referenceEvent: async (sourceAgenda, aggregatorAgendaUid, eventUid, data) => {
             try {
-              await services.core.agendas(aggregatorAgendaUid).events.add(eventUid, data);
+              await services.core
+                .agendas(aggregatorAgendaUid)
+                .events.add(eventUid, data, {
+                  aggregated: true,
+                  sourceAgenda
+                });
             } catch (e) {
               log('error', 'could not add event %s from %s to aggregator %s',
                 eventUid,
-                sourceAgendaUid,
+                sourceAgenda.uid,
                 aggregatorAgendaUid,
                 e.name === 'validationError' ? e.jse_info.errors : e
               );
