@@ -20,7 +20,7 @@ const sendChangeEmail = require('./middleware/sendChangeEmail');
 const setFlashChangeEmail = require('./middleware/setFlashChangeEmail');
 const setFlashAccountRemoved = require('./middleware/setFlashAccountRemoved');
 const config = require('../../config');
-const cmn = require('../../lib/commons-app');
+let cmn;
 
 const instance = new Users({
   Model: config.knex,
@@ -120,4 +120,7 @@ module.exports.expose = app => {
   }));
 };
 
-module.exports.init = () => service;
+module.exports.init = () => {
+  cmn = require('../../lib/commons-app'); // avoid circular reference
+  return service;
+}
