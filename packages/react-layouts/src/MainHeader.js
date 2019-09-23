@@ -2,15 +2,16 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
+import * as headerActions from './reducers/header';
 
-const pushTo = ( history, to, state ) => event => {
+const pushTo = (history, to, state) => event => {
   event.preventDefault();
-  history.push( to, state );
+  history.push(to, state);
 };
 
-const Logo = React.memo( ( { user, history } ) => (
+const Logo = React.memo(({ user, history }) => (
   user ? (
-    <a href="/home" className="navbar-brand" onClick={pushTo( history, '/home' )}>
+    <a href="/home" className="navbar-brand" onClick={pushTo(history, '/home')}>
       <img src="/images/openagenda.png" width="125" alt="OpenAgenda" />
     </a>
   ) : (
@@ -18,9 +19,9 @@ const Logo = React.memo( ( { user, history } ) => (
       <img src="/images/openagenda.png" width="125" alt="OpenAgenda" />
     </a>
   )
-) );
+));
 
-const Search = React.memo( () => (
+const Search = React.memo(() => (
   <form
     className="navbar-left search-form"
     role="search"
@@ -32,9 +33,9 @@ const Search = React.memo( () => (
       <button className="search-submit" type="submit"><i className="fa fa-search"></i></button>
     </div>
   </form>
-) );
+));
 
-const HelpLink = React.memo( () => (
+const HelpLink = React.memo(() => (
   <div className="help-button-canvas">
     <a
       className="btn btn-primary btn-rounded btn-bordered"
@@ -47,14 +48,17 @@ const HelpLink = React.memo( () => (
       <span>Aide</span>
     </a>
   </div>
-) );
+));
 
-@connect( state => ({
-  user: state.header.user,
-  inbox: state.header.inbox,
-  notifications: state.header.notifications,
-  apiRoot: state.header.apiRoot
-}) )
+@connect(
+  state => ({
+    user: state.header.user,
+    apiRoot: state.header.apiRoot,
+    inboxLoaded: state.header.inboxLoaded,
+    hasInboxNews: state.header.hasInboxNews
+  }),
+  headerActions
+)
 export default class MainHeader extends Component {
   state = {
     preToggleUserPanel: false,
@@ -62,9 +66,13 @@ export default class MainHeader extends Component {
   };
 
   componentDidMount() {
-    const { apiRoot } = this.props;
+    const { apiRoot, inboxLoaded, hasInboxNews } = this.props;
 
-    notificationsHandler( {
+    if (!inboxLoaded) {
+      hasInboxNews().catch(() => null);
+    }
+
+    notificationsHandler({
       res: {
         getCounter: `${apiRoot}/notifications/count`,
         list: `${apiRoot}/notifications/list`,
@@ -74,37 +82,37 @@ export default class MainHeader extends Component {
         seeActivities: `${apiRoot}/home/activities`,
       },
       onSeeActivitiesClick: this.onSeeActivitiesClick
-    } );
+    });
   }
 
   onSeeActivitiesClick = e => {
     const { history } = this.props;
-    const panelElem = document.querySelector( '.js_notifications_panel' );
+    const panelElem = document.querySelector('.js_notifications_panel');
 
     e.preventDefault();
 
-    if ( !panelElem.classList.contains( 'hide' ) ) {
-      panelElem.classList.add( 'hide' );
+    if (!panelElem.classList.contains('hide')) {
+      panelElem.classList.add('hide');
     }
 
-    history.push( '/home/activities' );
+    history.push('/home/activities');
   };
 
-  allowDisplayUserPanel = () => this.setState( {
+  allowDisplayUserPanel = () => this.setState({
     preToggleUserPanel: true
-  } );
+  });
 
   toggleUserPanel = () => {
     const { preToggleUserPanel, userPanelOpened } = this.state;
 
-    this.setState( {
+    this.setState({
       userPanelOpened: !userPanelOpened,
       preToggleUserPanel: !preToggleUserPanel
-    } );
+    });
   };
 
   render() {
-    const { user, inbox, history } = this.props;
+    const { user, history, hasInboxNews } = this.props;
     const { preToggleUserPanel, userPanelOpened } = this.state;
 
     return (
@@ -134,7 +142,7 @@ export default class MainHeader extends Component {
                   <li className="inbox">
                     <a href="/home/inbox">
                       <i className="fa fa-envelope" aria-hidden="true"></i>
-                      {inbox.hasNew ? (
+                      {hasInboxNews ? (
                         <span className="label label-danger ">
                       <i className="fa fa-exclamation" />
                     </span>
@@ -162,7 +170,7 @@ export default class MainHeader extends Component {
                                   <h3>Général</h3>
                                 </li>
                                 <li>
-                                  <a href="/home/events" onClick={pushTo( history, '/home/events' )}>Mes événements</a>
+                                  <a href="/home/events" onClick={pushTo(history, '/home/events')}>Mes événements</a>
                                 </li>
                                 <li>
                                   <a
@@ -170,7 +178,7 @@ export default class MainHeader extends Component {
                                     onClick={event => {
                                       event.preventDefault();
                                       this.toggleUserPanel();
-                                      history.push( '/settings' );
+                                      history.push('/settings');
                                     }}
                                   >
                                     Paramètres
@@ -182,9 +190,9 @@ export default class MainHeader extends Component {
                               </ul>
                               <ul className="list-unstyled col-md-6">
                                 <li><h3>Agendas</h3></li>
-                                <li><a href="/home" onClick={pushTo( history, '/home' )}>Mes Agendas</a></li>
+                                <li><a href="/home" onClick={pushTo(history, '/home')}>Mes Agendas</a></li>
                                 <li><a href="/agendas">Chercher un agenda</a></li>
-                                <li><a href="/new" onClick={pushTo( history, '/new' )}>Créer un agenda</a></li>
+                                <li><a href="/new" onClick={pushTo(history, '/new')}>Créer un agenda</a></li>
                               </ul>
                             </div>
                           </li>

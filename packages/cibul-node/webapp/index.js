@@ -5,7 +5,6 @@ const _ = require('lodash');
 const express = require('express');
 const matchMw = require('@openagenda/react-integration-app/middleware');
 const activitiesSvc = require('@openagenda/activities');
-const { Inbox } = require('@openagenda/inboxes');
 const config = require('../config');
 const cmn = require('../lib/commons-app');
 
@@ -107,8 +106,7 @@ module.exports = app => {
     (req, res, next) => matchMw({
       initialState,
       apiRoot,
-      lang: req.lang,
-      hasInboxNews
+      lang: req.lang
     })(req, res, next)
   );
 };
@@ -118,19 +116,4 @@ function notificationsCounter(req) {
     entityType: 'user',
     entityUid: req.user.uid
   }).notifications.count({ state: 0 });
-}
-
-async function hasInboxNews(req) {
-  const { data } = await Inbox.user(req.user.uid).conversations.list(0, 1);
-  const timestamp = _.get(data, '[0].latestMessage.createdAt');
-
-  if (!timestamp) {
-    return false;
-  } else if (!req.user.lastInboxCheck) {
-    return true;
-  } else if (timestamp > req.user.lastInboxCheck) {
-    return true;
-  }
-
-  return false;
 }

@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const React = require('react');
 const sessions = require('@openagenda/sessions');
-const range = require( '@openagenda/date-range' );
+const range = require('@openagenda/date-range');
 const agendaSvc = require('@openagenda/agendas');
 const eventsSvc = require('@openagenda/events');
 const membersSvc = require('../services/members');

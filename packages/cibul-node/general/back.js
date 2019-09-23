@@ -60,6 +60,8 @@ function latestInboxMessageTimestamp(req, res, next) {
         res.send({ hasNew: true });
       }
 
+      res.send({ hasNew: false });
+
     })
     .catch(next);
 }
