@@ -19,6 +19,8 @@
     "@openagenda/user-apps": "^1.1.2",
     "core-js": "^3.2.1",
     "dom4": "^2.1.5",
+    "flatted": "^2.0.1",
+    "he": "^1.2.0",
     "history": "^4.10.1",
     "intl": "^1.2.5",
     "iscroll": "^5.2.0",

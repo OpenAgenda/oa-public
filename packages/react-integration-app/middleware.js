@@ -6,6 +6,8 @@ const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
 const ReactIs = require( 'react-is' );
 const { createMemoryHistory } = require( 'history' );
+const { stringify } = require( 'flatted/cjs' );
+const he = require( 'he' );
 const { ChunkExtractor } = require( '@loadable/server' );
 const wrapApp = require( '@openagenda/react-utils/dist/wrapApp' );
 const { matchRoutes } = require( '@openagenda/react-utils/dist/asyncMatchRoutes' );
@@ -144,10 +146,12 @@ module.exports = function match( { initialState, apiRoot, lang, hasInboxNews } )
         { store: headerStore, type: headerType }
       ) );
 
+      const serializedInitialState = he.encode(stringify(initialStateForClient));
+
       // Send Html
       const html = React.createElement( Html, {
         content: headerHtml + content,
-        initialState: initialStateForClient,
+        initialState: serializedInitialState,
         lang,
         extractor
       } );

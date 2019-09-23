@@ -24,10 +24,10 @@ function Html( { content, lang, initialState, extractor } ) {
 
     {initialState && (
       <script
-        dangerouslySetInnerHTML={{
-          __html: `window.__PRELOADED__=true;window.__data=${serialize(initialState, { isJSON: true })};`
-        }}
+        type="application/json"
+        id="initialState"
         charSet="UTF-8"
+        dangerouslySetInnerHTML={{ __html: initialState }}
       />
     )}
 

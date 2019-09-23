@@ -6,6 +6,8 @@ import * as ReactIs from 'react-is';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
 import IScroll from 'iscroll';
+import { parse } from 'flatted/esm';
+import he from 'he';
 import { loadableReady } from '@loadable/component';
 import du from '@openagenda/dom-utils';
 import wrapApp from '@openagenda/react-utils/dist/wrapApp';
@@ -20,7 +22,8 @@ import NotFoundDisplayer from './NotFoundDisplayer';
 window.IScroll = IScroll;
 
 const history = createBrowserHistory();
-const initialState = window.__data || {};
+
+const initialState = parse(he.decode(document.querySelector('#initialState').innerHTML || '{}'));
 
 NProgress.configure( { trickleSpeed: 200 } );
 
