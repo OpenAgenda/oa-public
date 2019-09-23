@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Context from './contexts/header';
-import { setType } from './headerReducer';
+import { setType } from './reducers/headerReducer';
 
 export default class HeaderSelector extends Component {
   static contextType = Context;

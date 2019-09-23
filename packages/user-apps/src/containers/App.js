@@ -6,7 +6,7 @@ import { provideHooks } from 'redial';
 import { reducer as formReducer } from 'redux-form';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/users/settings';
-import * as userSettingsActions from '../redux/modules/userSettings';
+import * as userSettingsActions from '../reducers/userSettings';
 
 const getLabel = makeGetterLabel( labels );
 

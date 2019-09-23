@@ -1,7 +1,7 @@
 import React  from 'react';
 import createStore from '@openagenda/react-utils/dist/createStore';
 import Context from './contexts/header';
-import headerReducer from './headerReducer';
+import headerReducer from './reducers/header';
 
 
 const HeaderManager = ( { children, store } ) => (

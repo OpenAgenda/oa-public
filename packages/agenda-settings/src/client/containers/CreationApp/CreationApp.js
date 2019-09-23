@@ -6,7 +6,7 @@ import { provideHooks } from 'redial';
 import { reducer as formReducer } from 'redux-form';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-settings/agendaCreation';
-import * as agendaActions from '../../redux/modules/agenda';
+import * as agendaActions from '../../reducers/agenda';
 
 @provideHooks( {
   inject: ( { store } ) => store.inject( {

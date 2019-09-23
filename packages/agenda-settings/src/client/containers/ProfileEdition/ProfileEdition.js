@@ -5,8 +5,8 @@ import { reduxForm, Field } from 'redux-form';
 import { updateSyncErrors } from 'redux-form/lib/actions';
 import ImageUpload from '@openagenda/image-upload';
 import Modal from '@openagenda/react-components/build/Modal';
-import * as agendaActions from '../../redux/modules/agenda';
-import * as modalsActions from '../../redux/modules/modals';
+import * as agendaActions from '../../reducers/agenda';
+import * as modalsActions from '../../reducers/modals';
 import { validate, asyncValidate, schema as agendaSchema } from './validate';
 import { renderInput, renderTextarea, renderInputGroup } from '../../utils/inputs';
 

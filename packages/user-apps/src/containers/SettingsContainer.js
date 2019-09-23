@@ -5,7 +5,7 @@ import { withRouter } from 'react-router';
 import { provideHooks } from 'redial';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
-import * as userSettingsActions from '../redux/modules/userSettings';
+import * as userSettingsActions from '../reducers/userSettings';
 import {
   ProfileSettings,
   ImageSettings,

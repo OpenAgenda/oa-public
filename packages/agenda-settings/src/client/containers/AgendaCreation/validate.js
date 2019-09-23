@@ -1,5 +1,5 @@
 import agendaSchema from '@openagenda/agendas/service/validate/public';
-import { checkSlug } from '../../redux/modules/agenda';
+import { checkSlug } from '../../reducers/agenda';
 
 export const schema = agendaSchema.struct;
 

@@ -5,8 +5,8 @@ import update from 'immutability-helper';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import EditKeyForm from './EditKeyForm';
-import * as keysActions from '../redux/modules/keys';
-import * as modalsActions from '../redux/modules/modals';
+import * as keysActions from '../reducers/keys';
+import * as modalsActions from '../reducers/modals';
 
 @connect(
   state => ({

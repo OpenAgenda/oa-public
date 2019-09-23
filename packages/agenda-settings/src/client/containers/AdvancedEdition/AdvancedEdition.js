@@ -5,9 +5,9 @@ import { connect } from 'react-redux';
 import openFormRequest from '@openagenda/call-to-action/dist/openRequestForm';
 import Modal from '@openagenda/react-components/build/Modal';
 import { KeysManager, InboxSettingsForm, TrackingSettingsForm } from '../../components';
-import * as  agendaActions from '../../redux/modules/agenda';
-import * as  modalsActions from '../../redux/modules/modals';
-import * as  keysActions from '../../redux/modules/keys';
+import * as  agendaActions from '../../reducers/agenda';
+import * as  modalsActions from '../../reducers/modals';
+import * as  keysActions from '../../reducers/keys';
 
 const zendeskRes = {
   official: 'https://openagenda.zendesk.com/hc/articles/115001581185',

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { CreationFirstStep, CreationSecondStep } from '../../components';
-import * as agendaActions from '../../redux/modules/agenda';
+import * as agendaActions from '../../reducers/agenda';
 
 @connect(
   state => ({

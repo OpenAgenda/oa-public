@@ -8,10 +8,10 @@ import qs from 'qs';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
 import { MenuItem } from '../components';
-import menuReducer from '../redux/modules/menu';
-import agendasReducer, * as agendasActions from '../redux/modules/agendas';
-import eventsReducer from '../redux/modules/events';
-import modalsReducer from '../redux/modules/modals';
+import menuReducer from '../reducers/menu';
+import agendasReducer, * as agendasActions from '../reducers/agendas';
+import eventsReducer from '../reducers/events';
+import modalsReducer from '../reducers/modals';
 
 @provideHooks( {
   inject: ( { store } ) => store.inject( {

@@ -7,7 +7,7 @@ import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import { setTab } from '../redux/modules/menu';
+import { setTab } from '../reducers/menu';
 import { Welcome } from '../components';
 import AgendasSearch from './AgendasSearch';
 

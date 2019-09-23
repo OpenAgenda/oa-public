@@ -11,10 +11,10 @@ import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
 import Image from '@openagenda/react-components/build/Image';
 import SearchInput from '@openagenda/react-components/build/SearchInput';
-import * as agendasActions from '../redux/modules/agendas';
-import * as eventsActions from '../redux/modules/events';
-import * as modalsActions from '../redux/modules/modals';
-import { setTab } from '../redux/modules/menu';
+import * as agendasActions from '../reducers/agendas';
+import * as eventsActions from '../reducers/events';
+import * as modalsActions from '../reducers/modals';
+import { setTab } from '../reducers/menu';
 import AgendasSearch from './AgendasSearch';
 
 @provideHooks( {

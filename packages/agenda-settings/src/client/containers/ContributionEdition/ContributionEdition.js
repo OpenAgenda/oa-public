@@ -6,7 +6,7 @@ import { reduxForm, Field, formValueSelector } from 'redux-form';
 import _ from 'lodash';
 import update from 'immutability-helper';
 import openFormRequest from '@openagenda/call-to-action/dist/openRequestForm';
-import * as agendaActions from '../../redux/modules/agenda';
+import * as agendaActions from '../../reducers/agenda';
 import { renderTextarea, renderMarkdownInput } from '../../utils/inputs';
 
 const FORM_NAME = 'contributionEdition';

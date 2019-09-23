@@ -7,9 +7,9 @@ import { reducer as formReducer } from 'redux-form';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/agenda-settings/agendaEdition';
-import * as agendaActions from '../../redux/modules/agenda';
-import * as keysActions from '../../redux/modules/keys';
-import * as modalsActions from '../../redux/modules/modals';
+import * as agendaActions from '../../reducers/agenda';
+import * as keysActions from '../../reducers/keys';
+import * as modalsActions from '../../reducers/modals';
 
 
 @provideHooks( {

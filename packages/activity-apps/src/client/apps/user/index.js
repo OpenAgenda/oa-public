@@ -33,7 +33,6 @@ export default function ( options ) {
     req,
     apiRoot,
     prefix,
-    getReducers: asyncReducers => asyncReducers,
     getRoutes
   } );
 };
