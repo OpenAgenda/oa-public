@@ -1,24 +1,24 @@
 import React from 'react';
-import Helmet from 'react-helmet';
 
-
-function Html( { content, lang, initialState, extractor } ) {
-  const head = Helmet.renderStatic();
+function Html( { helmet, content, lang, initialState, extractor } ) {
+  const htmlAttrs = helmet.htmlAttributes.toComponent();
+  const bodyAttrs = helmet.bodyAttributes.toComponent();
 
   return (
-    <html lang={lang}>
+    <html lang={lang} {...htmlAttrs}>
     <head>
-      {head.base.toComponent()}
-      {head.title.toComponent()}
-      {head.meta.toComponent()}
-      {head.link.toComponent()}
-      {head.script.toComponent()}
+      {helmet.base.toComponent()}
+      {helmet.title.toComponent()}
+      {helmet.meta.toComponent()}
+      {helmet.link.toComponent()}
+      {helmet.script.toComponent()}
+      {helmet.style.toComponent()}
 
       <link rel="stylesheet" href="/css/oasfmain.css?v=2"/>
 
       {extractor ? extractor.getLinkElements() : null}
     </head>
-    <body>
+    <body {...bodyAttrs}>
     <div id="root" dangerouslySetInnerHTML={{ __html: content }} />
 
     {initialState && (

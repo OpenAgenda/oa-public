@@ -3,6 +3,7 @@ import './polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as ReactIs from 'react-is';
+import { HelmetProvider } from 'react-helmet-async';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
 import IScroll from 'iscroll';
@@ -18,6 +19,7 @@ import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/c
 import createActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
 import NotFound from './NotFound';
 import NotFoundDisplayer from './NotFoundDisplayer';
+import RootHelmet from '../RootHelmet';
 
 window.IScroll = IScroll;
 
@@ -25,53 +27,53 @@ const history = createBrowserHistory();
 
 const initialState = parse(he.decode(document.querySelector('#initialState').innerHTML || '{}'));
 
-NProgress.configure( { trickleSpeed: 200 } );
+NProgress.configure({ trickleSpeed: 200 });
 
 const onLocationChangeStart = () => NProgress.start();
 const onLocationChangeFinish = () => NProgress.done();
 
 // create apps with the good initialState
 const apps = {
-  home: createAppHome( {
+  home: createAppHome({
     history,
     // Header: () => <HeaderSelector type="main" />,
     initialState: initialState.home
-  } ),
-  userSettings: createAppUserSettings( {
+  }),
+  userSettings: createAppUserSettings({
     history,
     initialState: initialState.userSettings
-  } ),
-  agendaSettingsNew: createAgendaSettingsNewApp( {
+  }),
+  agendaSettingsNew: createAgendaSettingsNewApp({
     history,
     initialState: initialState.agendaSettingsNew
-  } ),
-  userActivities: createActivitiesApp( {
+  }),
+  userActivities: createActivitiesApp({
     history,
     initialState: initialState.userActivities
-  } )
+  })
 };
 
-const headerStore = HeaderManager.createStore( initialState.header );
+const headerStore = HeaderManager.createStore(initialState.header);
 
 
-loadableReady( async () => {
+loadableReady(async () => {
   // Trigger 'inject' before render, needed for the first render (in @connect)
   await Promise.all(
-    Object.values( apps ).map( app => app.triggerHooks( { hooks: [ 'inject' ] } ) )
+    Object.values(apps).map(app => app.triggerHooks({ hooks: ['inject'] }))
   );
 
   const triggerHooks = () => Promise.all(
-    Object.values( apps ).map( app => app.triggerHooks( {
+    Object.values(apps).map(app => app.triggerHooks({
       onStart: onLocationChangeStart,
       onFinish: onLocationChangeFinish
-    } ) )
+    }))
   );
 
   const Content = () => (
     <>
-      {Object.values( apps )
-        .map( ( { Content }, i ) =>
-          ReactIs.isValidElementType( Content ) ? <Content key={i} /> : Content
+      {Object.values(apps)
+        .map(({ Content }, i) =>
+          ReactIs.isValidElementType(Content) ? <Content key={i} /> : Content
         )}
 
       <NotFoundDisplayer history={history} apps={apps}>
@@ -81,18 +83,22 @@ loadableReady( async () => {
   );
 
   const element = (
-    <HeaderManager store={headerStore}>
-      <Header history={history} />
+    <HelmetProvider>
+      <RootHelmet />
 
-      {wrapApp( { Content, history, triggerHooks } )}
-    </HeaderManager>
+      <HeaderManager store={headerStore}>
+        <Header history={history} />
+
+        {wrapApp({ Content, history, triggerHooks })}
+      </HeaderManager>
+    </HelmetProvider>
   );
 
-  const canvas = du.el( '#root' );
+  const canvas = du.el('#root');
 
-  if ( canvas.hasChildNodes() ) {
-    ReactDOM.hydrate( element, canvas );
+  if (canvas.hasChildNodes()) {
+    ReactDOM.hydrate(element, canvas);
   } else {
-    ReactDOM.render( element, canvas );
+    ReactDOM.render(element, canvas);
   }
-} );
+});
