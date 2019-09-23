@@ -25,10 +25,10 @@ class RouterTrigger extends Component {
     const { location } = state;
 
     const {
-      location: { pathname, search }
+      location: { pathname }
     } = props;
 
-    const navigated = !location || `${pathname}${search}` !== `${location.pathname}${location.search}`;
+    const navigated = !location || pathname !== location.pathname;
 
     if ( navigated ) {
       return {
