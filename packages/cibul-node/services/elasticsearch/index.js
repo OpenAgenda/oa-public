@@ -250,7 +250,8 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
     'accessibility',
     'lang',
     'age',
-    'uids'
+    'uids',
+    'updatedAtAfter'
   ].forEach( function( name ) {
 
     if ( query[ name ] ) esQuery[ name ] = query[ name ];
@@ -449,7 +450,7 @@ function _clean( query, params ) {
   [
     'neLat', 'neLng', 'swLat', 'swLng',
     'category', 'location', 'locationExtId', 'org',
-    'countryCode', 'lat', 'lng', 'radius', 'tagsOperator'
+    'countryCode', 'lat', 'lng', 'radius', 'tagsOperator', 'updatedAtAfter'
   ].forEach( function( name ) {
 
     if ( query[ name ] ) clean[ name ] = query[ name ];
