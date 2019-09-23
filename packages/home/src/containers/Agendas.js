@@ -10,16 +10,35 @@ import Spinner from '@openagenda/react-components/build/Spinner';
 import { setTab } from '../reducers/menu';
 import { Welcome } from '../components';
 import AgendasSearch from './AgendasSearch';
+import * as agendasActions from '../reducers/agendas';
 
 @provideHooks( {
-  fetch: ( { store: { dispatch } } ) => dispatch( setTab( 'agendas' ) )
+  fetch: ( { store: { dispatch, getState }, history } ) => {
+    const state = getState();
+
+    if ( !state.settings.userUid ) {
+      return history.replace( '/' );
+    }
+
+    dispatch(setTab('agendas'));
+  },
+  defer: async ( { store: { dispatch }, location } ) => {
+    const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
+    const promises = [];
+
+    // if ( !agendasActions.isLoaded( 'homeAgendas', state ) ) {
+    promises.push( dispatch( agendasActions.load( 'homeAgendas', query ) ) );
+    // }
+
+    return promises;
+  }
 } )
 @connect( ( state, props ) => ({
   query: qs.parse( props.location.search, { ignoreQueryPrefix: true } ),
   res: state.res,
   isNew: state.settings.isNew,
-  loading: state.agendas.homeAgendas ? state.agendas.homeAgendas.loading : true,
-  total: state.agendas.homeAgendas && state.agendas.homeAgendas.total
+  loading: _.get(state, 'agendas.homeAgendas.loading', true),
+  total: _.get(state, 'agendas.homeAgendas.total')
 }) )
 @withRouter
 export default class Agendas extends Component {

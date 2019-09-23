@@ -4,12 +4,11 @@ import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import classNames from 'classnames';
-import qs from 'qs';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
 import { MenuItem } from '../components';
 import menuReducer from '../reducers/menu';
-import agendasReducer, * as agendasActions from '../reducers/agendas';
+import agendasReducer from '../reducers/agendas';
 import eventsReducer from '../reducers/events';
 import modalsReducer from '../reducers/modals';
 
@@ -19,22 +18,7 @@ import modalsReducer from '../reducers/modals';
     events: eventsReducer,
     agendas: agendasReducer,
     modals: modalsReducer
-  } ),
-  fetch: async ( { store: { dispatch, getState }, history, location } ) => {
-    const state = getState();
-    const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
-    const promises = [];
-
-    if ( !state.settings.userUid ) {
-      return history.replace( '/' );
-    }
-
-    if ( !agendasActions.isLoaded( 'homeAgendas', state ) ) {
-      promises.push( dispatch( agendasActions.load( 'homeAgendas', query ) ) );
-    }
-
-    return Promise.all( __CLIENT__ ? [] : promises );
-  }
+  } )
 } )
 @connect(
   state => ({

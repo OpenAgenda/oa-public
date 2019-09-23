@@ -18,18 +18,24 @@ import { setTab } from '../reducers/menu';
 import AgendasSearch from './AgendasSearch';
 
 @provideHooks( {
-  fetch: async ( { store: { dispatch, getState }, location } ) => {
+  fetch: ( { store: { dispatch, getState }, history } ) => {
     const state = getState();
-    const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
-    const promises = [
-      dispatch( setTab( 'events' ) )
-    ];
 
-    if ( !eventsActions.isLoaded( state ) ) {
-      promises.push( dispatch( eventsActions.load( query ) ) );
+    if ( !state.settings.userUid ) {
+      return history.replace( '/' );
     }
 
-    return Promise.all( __CLIENT__ ? [] : promises );
+    dispatch(setTab('events'));
+  },
+  defer: async ( { store: { dispatch }, location } ) => {
+    const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
+    const promises = [];
+
+    // if ( !eventsActions.isLoaded( state ) ) {
+      promises.push( dispatch( eventsActions.load( query ) ) );
+    // }
+
+    return promises;
   }
 } )
 @connect(
@@ -39,7 +45,7 @@ import AgendasSearch from './AgendasSearch';
     events: state.events.data,
     page: state.events.page,
     total: state.events.total,
-    loading: state.events.loading,
+    loading: state.events.loading === undefined ? true : state.events.loading,
     listLoading: state.events.listLoading,
     nextLoading: state.events.nextLoading,
     perPageLimit: state.settings.perPageLimit,
