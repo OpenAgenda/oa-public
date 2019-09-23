@@ -111,6 +111,14 @@ export default class MainHeader extends Component {
     });
   };
 
+  panelLink = path => event => {
+    const { history } = this.props;
+
+    event.preventDefault();
+    this.toggleUserPanel();
+    history.push(path);
+  };
+
   render() {
     const { user, history, hasInboxNews } = this.props;
     const { preToggleUserPanel, userPanelOpened } = this.state;
@@ -170,17 +178,12 @@ export default class MainHeader extends Component {
                                   <h3>Général</h3>
                                 </li>
                                 <li>
-                                  <a href="/home/events" onClick={pushTo(history, '/home/events')}>Mes événements</a>
+                                  <a href="/home/events" onClick={this.panelLink('/home/events')}>
+                                    Mes événements
+                                  </a>
                                 </li>
                                 <li>
-                                  <a
-                                    href="/settings"
-                                    onClick={event => {
-                                      event.preventDefault();
-                                      this.toggleUserPanel();
-                                      history.push('/settings');
-                                    }}
-                                  >
+                                  <a href="/settings" onClick={this.panelLink('/settings')}>
                                     Paramètres
                                   </a>
                                 </li>
@@ -190,9 +193,9 @@ export default class MainHeader extends Component {
                               </ul>
                               <ul className="list-unstyled col-md-6">
                                 <li><h3>Agendas</h3></li>
-                                <li><a href="/home" onClick={pushTo(history, '/home')}>Mes Agendas</a></li>
+                                <li><a href="/home" onClick={this.panelLink('/home')}>Mes Agendas</a></li>
                                 <li><a href="/agendas">Chercher un agenda</a></li>
-                                <li><a href="/new" onClick={pushTo(history, '/new')}>Créer un agenda</a></li>
+                                <li><a href="/new" onClick={this.panelLink('/new')}>Créer un agenda</a></li>
                               </ul>
                             </div>
                           </li>
