@@ -4,7 +4,6 @@ const path = require('path');
 const _ = require('lodash');
 const express = require('express');
 const matchMw = require('@openagenda/react-integration-app/middleware');
-const activitiesSvc = require('@openagenda/activities');
 const config = require('../config');
 const cmn = require('../lib/commons-app');
 
@@ -110,10 +109,3 @@ module.exports = app => {
     })(req, res, next)
   );
 };
-
-function notificationsCounter(req) {
-  return activitiesSvc.feed({
-    entityType: 'user',
-    entityUid: req.user.uid
-  }).notifications.count({ state: 0 });
-}
