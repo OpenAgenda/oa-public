@@ -4,7 +4,7 @@ const should = require( 'should' );
 const sinon = require( 'sinon' );
 const moment = require( 'moment' );
 const { agenda, event } = require('./fixtures/07_event_ics');
-const toIcs = require('../event/lib/ics');
+const toIcs = require('../services/events/lib/ics');
 
 describe('event ics', () => {
   const now = new Date();

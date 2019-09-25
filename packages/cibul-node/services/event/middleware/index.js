@@ -19,12 +19,10 @@ module.exports = function( eventService ) {
 
   return {
     load: loadEvent,
-    loadUris,
     format: require( './format' ),
     components: require( './components' ),
     cleanEvents,
     search,
-    checkEventEditor,
     layoutData
   }
 
@@ -82,7 +80,7 @@ function loadEvent( paramName, fieldName, options ) {
       // event is restricted and user is not logged
       if ( !await v.user.logged ) {
 
-        const redirect = new Buffer(req.originalUrl).toString( 'base64' );
+        const redirect = Buffer.from(req.originalUrl).toString( 'base64' );
 
         return res.redirect( `${req.agenda?'/'+req.agenda.slug:''}/signin?msg=limitedAccessEvent&redirect=${redirect}` );
 
@@ -104,22 +102,6 @@ function loadEvent( paramName, fieldName, options ) {
     }, next );
 
   }
-
-}
-
-function loadUris( req, res, next ) {
-
-  req.eventUri = req.agenda ? 'agendaEventShow' : 'eventShow';
-
-  req.eventUriParams = { eventSlug: req.event.slug };
-
-  if ( req.agenda ) {
-
-    req.eventUriParams.slug = req.agenda.slug;
-
-  }
-
-  next();
 
 }
 
@@ -157,27 +139,6 @@ function cleanEvents( req, res, next ) {
     req.formatted = clean;
 
     next();
-
-  } );
-
-}
-
-
-function checkEventEditor( req, res, next ) {
-
-  sessions.get( req, { detailed: true }, ( err, user ) => {
-
-    if ( err ) return cb( err );
-
-    if ( !user ) return next( { code: 403 } );
-
-    req.event.isEditor( user.id, ( err, is ) => {
-
-      if ( err || !is ) return next( err || { code: 403 } );
-
-      next();
-
-    } );
 
   } );
 

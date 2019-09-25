@@ -18,11 +18,11 @@
   <div class="container share-page">
     <div class="row">
       <div class="col-sm-offset-3 col-sm-6 text-center">
-        <h1><a href="<%= genUrl( event.uri, event.params ) %>"><%= event.title %></a></h1>
+        <h1><a href="<%= event.url %>"><%= event.title %></a></h1>
 <% if ( back ) { %>
         <a href="<%= back %>"><%= __( 'go back to the agenda' ) %></a>
 <% } else { %>
-        <a href="<%= genUrl( event.uri, event.params ) %>"><%= __( 'go back to the event page' ) %></a>
+        <a href="<%= event.url %>"><%= __( 'go back to the event page' ) %></a>
 <% } %>
       </div>
     </div>

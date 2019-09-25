@@ -2,7 +2,6 @@
 
 const events = require( '@openagenda/events' );
 const imageFiles = require( '@openagenda/image-files' );
-const legacy = require( './legacy' );
 
 const interfaces = {
   onCreate: require( './onCreate' ),
