@@ -1,28 +1,22 @@
 "use strict";
 
-const config = require( '../../config' );
-
-const log = require( '@openagenda/logs' )( 'services/event' );
-
-const model = require( '../model' );
-
-const es = require( '../elasticsearch' );
-
 const coms = require( '../../lib/coms' );
-
-const exportLib = require( './exportLib' );
+const config = require( '../../config' );
+const model = require( '../model' );
+const es = require( '../elasticsearch' );
+const getSocialLinks = require( './lib/getSocialLinks' );
 
 module.exports = {
   initless: true,
   get,
   search: es.search,
   create,
-  share: require( './share' ),
+  getSocialLinks,
   list: model.events().list,
-  instanciate: require( './instance' ),
+  instanciate: require('./instance'),
   STATETYPES: model.events().STATETYPES,
-  getIcsHead: require( './instance/ics' ).head
-}
+  getIcsHead: require('./instance/ics').head
+};
 
 module.exports.mw = require( './middleware' )( module.exports );
 
@@ -48,7 +42,7 @@ function create( data, cb ) {
 
   model.events().create( data, function( err, created ) {
 
-    if ( err ) return cb( err )
+    if ( err ) return cb(err);
 
     coms.publish( config.mainChannel, {
       name: 'event.publish',

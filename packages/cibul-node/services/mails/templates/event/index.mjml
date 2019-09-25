@@ -56,10 +56,10 @@
         padding="0 40px 20px 40px"
       >
         <mj-column>
-          <% if ( event.freeText ) { %>
-            <mj-text>
-              <%- event.freeText %>
-            </mj-text>
+          <% if ( event.longDescription ) { %>
+            <mj-markdown>
+              <%- event.longDescription %>
+            </mj-markdown>
           <% } %>
 
           <mj-divider border-width="1px" border-style="dashed" border-color="#555555" />
@@ -68,10 +68,10 @@
             <%= _.upperFirst( event.dateRange ) %>
           </mj-text>
 
-          <% if ( event.pricingInfo || event.ticketLink ) { %>
+          <% if ( event.conditions || event.ticketLink ) { %>
             <mj-text>
-              <% if ( event.pricingInfo ) { %>
-                <%= event.pricingInfo %>
+              <% if ( event.conditions ) { %>
+                <%= event.conditions %>
 
                 <% if ( event.ticketLink ) { %>
                   &nbsp;-&nbsp;
@@ -109,8 +109,8 @@
         <mj-column>
           <mj-text padding-bottom="0">
             <a href="<%= link %>" target="_blank" class="no-text-deco">
-              <h2 class="black-link"><%= event.placeName %></h2>
-              <h3 class="grey-link"><%= event.address %></h3>
+              <h2 class="black-link"><%= event.location.name %></h2>
+              <h3 class="grey-link"><%= event.location.address %></h3>
             </a>
           </mj-text>
 
@@ -119,11 +119,11 @@
               <h3><%= __( 'timingsDetails' ) %></h3>
 
               <p>
-              <% for ( const date of event.dates ) { %>
-                <%= date.label %> -
-                <%= date.timings.map( t => __( 'timing', { from: t.startLabel, to: t.endLabel } ) )
-                .join( ',' ) %><br />
-              <% } %>
+                <% for ( const date of event.dates ) { %>
+                  <%= date.day %> -
+                  <%= date.timings.map( t => __( 'timing', { from: t.begin, to: t.end } ) )
+                  .join( ', ' ) %><br />
+                <% } %>
               </p>
             </mj-text>
           <% } %>
@@ -131,7 +131,12 @@
           <% if ( customData && Object.keys( customData ).length ) { %>
             <mj-text padding="0 25px">
               <% for ( const [ label, value ] of Object.entries( customData ) ) { %>
-              <b><%= label %></b>: <%= Array.isArray( value ) ? value.join( ', ' ) : value %><br />
+                <b><%= label %></b>: <% if (!value || !value.length) { %>
+                  -
+                <% } else { %>
+                  <%= Array.isArray( value ) ? value.join( ', ' ) : value %>
+                <% } %>
+                <br />
               <% } %>
             </mj-text>
           <% } %>

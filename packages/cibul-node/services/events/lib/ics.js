@@ -1,19 +1,9 @@
 'use strict';
 
-const _ = require('lodash');
 const moment = require('moment');
 const getLabel = require('@openagenda/labels')(require('@openagenda/labels/exports'));
-const config = require('../../config');
-
-const getLocaleValue = (labels, lang) => {
-  if (!labels || typeof labels !== 'object') {
-    return labels;
-  }
-
-  const keys = Object.keys(labels);
-
-  return keys.find(v => v === lang) ? labels[lang] : labels[keys[0]];
-};
+const config = require('../../../config');
+const getLocaleValue = require('./getLocaleValue');
 
 function espaceIcsValue(txt) {
   return txt

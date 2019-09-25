@@ -59,7 +59,7 @@ function _load({detailed, redirect, msg}, req, res, next) {
   sessions.get(req, {detailed}, (err, user) => {
     if (err) return next(err);
     if (!user && redirect) {
-      const redirect = new Buffer(req.originalUrl, 'utf-8').toString('base64');
+      const redirect = Buffer.from(req.originalUrl, 'utf-8').toString('base64');
       return res.redirect(302, `${req.agenda?'/'+req.agenda.slug:''}/signin?redirect=${redirect}&msg=${msg}`);
     }
     req.user = user;

@@ -531,7 +531,7 @@ function _respond( req, res, code, body, responseType ) {
 
   if ( typeof req.query.logged !== 'undefined' ) {
 
-    oaCookie += ( new Buffer( JSON.stringify( {
+    oaCookie += ( Buffer.from( JSON.stringify( {
       flash: null,
       user: {
         name: 'Gaetan Latouche',

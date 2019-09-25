@@ -416,7 +416,7 @@ function signin( values ) {
 
       try {
 
-        redirectUrl = new Buffer( req.query.redirect, 'base64' ).toString();
+        redirectUrl = Buffer.from( req.query.redirect, 'base64' ).toString();
 
       } catch ( e ) {
 

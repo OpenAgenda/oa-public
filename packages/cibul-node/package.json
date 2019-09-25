@@ -8,7 +8,7 @@
     "start": "TZ=Etc/UTC NODE_ICU_DATA=`yarn --silent node-full-icu-path` node server.js web admin task",
     "watch": "TZ=Etc/UTC NODE_ICU_DATA=`yarn --silent node-full-icu-path` nodemon server.js web admin task",
     "background": "nohup npm start >/dev/null 2>&1 &",
-    "mails-editor": "oa-mails-editor services/mails/templates -w services/mails/components -w ../labels"
+    "mails-editor": "NODE_ICU_DATA=`yarn --silent node-full-icu-path` oa-mails-editor services/mails/templates -w services/mails/components -w ../labels"
   },
   "dependencies": {
     "@feathersjs/errors": "^4.3.0",

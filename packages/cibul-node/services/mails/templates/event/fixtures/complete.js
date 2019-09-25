@@ -1,4 +1,4 @@
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
 module.exports = {
   _,
@@ -11,54 +11,55 @@ module.exports = {
   event: {
     title: 'Apéro Moovjee ça continue !',
     description: 'Les apéros Moovjee continuent tout l\'été et prend ses quartiers au Jardin des Tuileries. Le traiteur LeCointre nous accueille une fois encore au restaurant le Médicis.',
-    freeText: 'Ces apéros ont pour objectif de réunir la communauté des jeunes entrepreneurs, porteurs de projet, mentors et partenaires du Moovjee. Ces bulles estivales sont placées sous les signes de la convivialité et de l\'échange.\nDes tarifs spéciaux spécial Moovjee seront proposés.',
+    longDescription: 'Ces apéros ont pour objectif de réunir la communauté des jeunes entrepreneurs, porteurs de projet, mentors et partenaires du Moovjee. Ces bulles estivales sont placées sous les signes de la convivialité et de l\'échange.\nDes tarifs spéciaux spécial Moovjee seront proposés.',
     image: 'http://cibul.s3.amazonaws.com/evfevent_apero-moovjee-ca-continue_978399.jpg',
     credits: '© Jean-Momo',
-    dateRange: 'mardi 29 juillet à 21:30',
-    pricingInfo: 'Gratuit pour les enfants',
+    conditions: 'Gratuit pour les enfants',
     ticketLink: 'https://google.fr',
-    placeName: 'Restaurant Le Médicis',
-    address: 'Tuileries Garden, 113 Rue de Rivoli, 75001 Paris, France',
+    location: {
+      name: 'Restaurant Le Médicis',
+      address: 'Tuileries Garden, 113 Rue de Rivoli, 75001 Paris, France'
+    },
     timings: [
       {
-        start : "2018-07-29T19:30:00.000Z",
-        end : "2018-07-29T21:30:00.000Z"
+        begin: "2018-07-29T19:30:00.000Z",
+        end: "2018-07-29T21:30:00.000Z"
       },
       {
-        start : "2018-07-30T19:30:00.000Z",
-        end : "2018-07-30T21:30:00.000Z"
+        begin: "2018-07-30T19:30:00.000Z",
+        end: "2018-07-30T21:30:00.000Z"
       }
     ],
     dates: [
       {
-        label: 'dimanche 29 août',
+        day: 'dimanche 29 août',
         timings: [ {
-          startLabel: '21:30',
-          endLabel: '23:30'
+          begin: '21:30',
+          end: '23:30'
         } ]
       }, {
-        label: 'lundi 30 août',
+        day: 'lundi 30 août',
         timings: [ {
-          startLabel: '21:30',
-          endLabel: '23:30'
+          begin: '21:30',
+          end: '23:30'
         } ]
       }
     ]
   },
   customData: {
-    Public: [ 'Tout public' ],
+    Public: ['Tout public'],
     'Thématiques': [
       'Les métiers de l’agriculture',
       'A propos des services de l’agriculture',
       'Concours Général Agricole'
     ],
-    Pavillon: [ 'Pavillon 1' ]
+    Pavillon: ['Pavillon 1']
   },
-  map : {
-    lat : 48.863492,
-    lng : 2.327494,
-    zoom : 14,
-    accessToken : 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow'
+  map: {
+    lat: 48.863492,
+    lng: 2.327494,
+    zoom: 14,
+    accessToken: 'pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow'
   },
   link: 'https://d.openagenda.com/test-zi/events/atelier-de-fabrication-de-bombe-pour-enfant',
   isRegisteredUser: true,
@@ -66,4 +67,5 @@ module.exports = {
   emailSettingsLink: 'https://d.openagenda.com/settings/unsubscribed'
 };
 
-module.exports.$labels = require( '@openagenda/labels/mails/event' );
+module.exports.$labels = require('@openagenda/labels/mails/event');
+module.exports.$makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
