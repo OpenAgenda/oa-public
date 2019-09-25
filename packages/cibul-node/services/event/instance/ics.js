@@ -12,7 +12,6 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
 
   const l = ev.getLocationDetails();
 
-
   const url = genUrl( 'agendaEventShow', {
     slug: agenda.slug,
     eventSlug: ev.slug
