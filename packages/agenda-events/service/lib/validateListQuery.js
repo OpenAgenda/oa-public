@@ -5,7 +5,8 @@ const states = require( '../../iso/states' );
 const _ = require( 'lodash' );
 
 schema.register( {
-  choice: require( '@openagenda/validators/choice' )
+  choice: require( '@openagenda/validators/choice' ),
+  integer: require( '@openagenda/validators/integer' )
 } );
 
 const validate = schema( {
@@ -14,6 +15,13 @@ const validate = schema( {
     optional: true,
     unique: true,
     options: _.keys( states ).map( k => k.toLowerCase() ).concat( _.values( states ) )
+  },
+  eventUid: {
+    type: 'integer',
+    optional: true,
+    list: {
+      default: null
+    }
   }
 } );
 
