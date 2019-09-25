@@ -5,12 +5,15 @@ const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'services/elasticsearch/removeEvent' );
 
 module.exports = ( { remove, knex } ) => {
+  log('processing');
 
   return async identifier => {
 
     const toRemoveId = _.isObject( identifier ) ?
         await _getEventLegacyId( knex, identifier )
         : identifier;
+
+    log('will remove event of legacy id %s from legacy elasticsearch', toRemoveId);
 
     if ( !toRemoveId ) {
       throw new Error( 'could not retrieve legacy event id' );

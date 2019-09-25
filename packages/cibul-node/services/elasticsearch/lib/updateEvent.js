@@ -8,6 +8,7 @@ const log = require( '@openagenda/logs' )( 'services/elasticsearch/updateEvent' 
 module.exports = ( { update, remove, knex, imageBasePath } ) => {
 
   return async ( identifier, options = {} ) => {
+    log('processing', identifier);
 
     const { removeUnreferenced, removeInvalid } = Object.assign( {
       removeUnreferenced: false,
@@ -32,11 +33,12 @@ module.exports = ( { update, remove, knex, imageBasePath } ) => {
     }
 
     if ( toRemoveId ) {
-      log( 'removing event of legacy id %s from legacy index', toRemoveId );
+      log('removing event of legacy id %s from legacy index', toRemoveId);
       try {
       return remove( toRemoveId );
       }catch(e){console.log(e);throw e;}
     } else {
+      log('updating event');
       return update( formatted );
     }
 
