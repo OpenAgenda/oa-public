@@ -230,7 +230,7 @@ module.exports = options => {
 
         if ( err ) return cb( err );
 
-        let html = ( new Buffer( res.body.TranslatedHtml || '', 'base64' ) ).toString(),
+        let html = ( Buffer.from( res.body.TranslatedHtml || '', 'base64' ) ).toString(),
 
         cleanResponse = html
 
