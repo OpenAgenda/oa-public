@@ -16,7 +16,7 @@ module.exports = {
   "timing": {
     "fr": "%from% à %to%",
     "en": "%from% to %to%",
-    "de": "von %from% bis % bis%",
+    "de": "von %from% bis %bis%",
     "es": "%from% a %to%"
   },
   "book": {
