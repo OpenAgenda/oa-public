@@ -1823,10 +1823,10 @@
     "@openagenda/labels" "^2.0.7"
     lodash "^4.17.4"
 
-"@openagenda/es-node@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@openagenda/es-node/-/es-node-1.1.0.tgz#1e67c0f768cfe040e50d6a0046fc04b7ce6cd146"
-  integrity sha512-iskWErUkbfpxHxL4Up+nQd0sOqWymMh2yBpTLJNmD0E6M7QeFnZtd0HECSqaI8WJ2AWT7Ukxc/au2cFmDSYoIg==
+"@openagenda/es-node@^1.2.0":
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/@openagenda/es-node/-/es-node-1.2.0.tgz#d305a97dd2a67b09aac7b90ec27e57e3ac5d1237"
+  integrity sha512-8JRw1ypiytH4dmvOk2OttxuDXgHAWzEykwzHlx+hbogaIdnQLU13B6uA7zFbBMSu1Gh4cAN9z/vRi796/Ua0OA==
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "~0.9"
@@ -21699,6 +21699,19 @@ sinon@^7.4.1:
   version "7.4.2"
   resolved "https://registry.yarnpkg.com/sinon/-/sinon-7.4.2.tgz#ecd54158fef2fcfbdb231a3fa55140e8cb02ad6c"
   integrity sha512-pY5RY99DKelU3pjNxcWo6XqeB1S118GBcVIIdDi6V+h6hevn1izcg2xv1hTHW/sViRXU7sUOxt4wTUJ3gsW2CQ==
+  dependencies:
+    "@sinonjs/commons" "^1.4.0"
+    "@sinonjs/formatio" "^3.2.1"
+    "@sinonjs/samsam" "^3.3.3"
+    diff "^3.5.0"
+    lolex "^4.2.0"
+    nise "^1.5.2"
+    supports-color "^5.5.0"
+
+sinon@^7.5.0:
+  version "7.5.0"
+  resolved "https://registry.yarnpkg.com/sinon/-/sinon-7.5.0.tgz#e9488ea466070ea908fd44a3d6478fd4923c67ec"
+  integrity sha512-AoD0oJWerp0/rY9czP/D6hDTTUYGpObhZjMpd7Cl/A6+j0xBE+ayL/ldfggkBXUs0IkvIiM1ljM8+WkOc5k78Q==
   dependencies:
     "@sinonjs/commons" "^1.4.0"
     "@sinonjs/formatio" "^3.2.1"

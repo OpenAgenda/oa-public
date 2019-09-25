@@ -73,14 +73,7 @@ function addCalendarLinks( event, eventUrl, agenda ) {
     };
 
     if ( agenda ) {
-
-      timing.calendarLinks.ics = genUrl( 'agendaEventIcsShow', {
-        slug: agenda.slug,
-        eventSlug: event.slug,
-        timing: i,
-        dl: 1
-      } );
-
+      timing.calendarLinks.ics = `${config.root}/${agenda.slug}/events/${event.uid}/ics?timing=${i}&dl=1`;
     }
 
   });

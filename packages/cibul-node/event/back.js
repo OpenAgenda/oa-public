@@ -4,8 +4,6 @@ const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 const w = require( 'when' );
 
-const agendaEvents = require( '@openagenda/agenda-events' );
-const agendaSvc = require( '@openagenda/agendas' );
 const contributorLabels = require( '@openagenda/labels/event/contributors' );
 const eventReferences = require( '@openagenda/agenda-event-references' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
@@ -17,7 +15,6 @@ const legacyAgendaSvc = require( '../services/agenda' );
 const activitiesSvc = require( '../services/activities' );
 const sessions = require('../services/sessions');
 const members = require('../services/members');
-const STATETYPES = require('../services/model').events().STATETYPES;
 
 const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 

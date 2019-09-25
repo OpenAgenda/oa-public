@@ -1,81 +1,102 @@
 "use strict";
 
-const async = require( 'async' );
-const _ = require( 'lodash' );
+const async = require('async');
+const _ = require('lodash');
 
-const formSchemaDecorate = require( '@openagenda/form-schemas/iso/getDecorate' );
-const mails = require( '@openagenda/mails' );
+const formSchemaDecorate = require('@openagenda/form-schemas/iso/getDecorate');
+const mails = require('@openagenda/mails');
 
-const getActionLabel = require( '@openagenda/labels' )(
-  require( '@openagenda/labels/event/actions' )
+const getActionLabel = require('@openagenda/labels')(
+  require('@openagenda/labels/event/actions')
 );
-const log = require( '@openagenda/logs' )( 'event/actions' );
+const log = require('@openagenda/logs')('event/actions');
 
-const core = require( '../core' );
-const agendaSvc = require( '../services/agenda' );
-const cmn = require( '../lib/commons-app' );
-const config = require( '../config' );
-const eventSvc = require( '../services/event' );
-const members = require( '../services/members' );
-const model = require( '../services/model' );
-const sessions = require( '../services/sessions' );
-const gaTrack = require( '../lib/gaTrack.mw' );
+const core = require('../core');
+const agendaSvc = require('../services/agenda');
+const cmn = require('../lib/commons-app');
+const config = require('../config');
+const eventSvc = require('../services/event');
+const members = require('../services/members');
+const model = require('../services/model');
+const sessions = require('../services/sessions');
+const gaTrack = require('../lib/gaTrack.mw');
+const ics = require('./lib/ics');
 
 module.exports = app => {
 
   app.get(
     '/events/:eventSlug/action/dates',
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    eventSvc.mw.load('eventSlug', 'slug'),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,
-    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
+    _conditionalLayout(eventSvc.mw.layoutData, 'oa.css'),
     actionDatesShow
   );
 
   app.get(
     '/:slug/events/:eventSlug/action',
-    agendaSvc.mw.load( 'slug' ),
-    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    agendaSvc.mw.load('slug'),
+    cmn.ifIs('agenda.private', members.mw.loadOrFail),
+    eventSvc.mw.load('eventSlug', 'slug'),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,
-    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
+    _conditionalLayout(eventSvc.mw.layoutData, 'oa.css'),
     actionShow
   );
 
   app.get(
     '/:slug/events/:eventSlug/action/dates',
-    agendaSvc.mw.load( 'slug' ),
-    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    agendaSvc.mw.load('slug'),
+    cmn.ifIs('agenda.private', members.mw.loadOrFail),
+    eventSvc.mw.load('eventSlug', 'slug'),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,
-    _conditionalLayout( eventSvc.mw.layoutData, 'oa.css' ),
+    _conditionalLayout(eventSvc.mw.layoutData, 'oa.css'),
     actionDatesShow
   );
 
   app.post(
     '/:slug/events/:eventSlug/email',
-    agendaSvc.mw.load( 'slug' ),
-    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
+    agendaSvc.mw.load('slug'),
+    cmn.ifIs('agenda.private', members.mw.loadOrFail),
+    eventSvc.mw.load('eventSlug', 'slug'),
     eventSvc.mw.format,
     eventSvc.mw.loadUris,
     eventMailSend
   );
 
   app.get(
-    '/:slug/events/:eventSlug/ics',
-    agendaSvc.mw.load( 'slug' ),
-    cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
-    eventSvc.mw.load( 'eventSlug', 'slug' ),
-    eventSvc.mw.ics
+    '/:slug/events/:eventUid/ics',
+    agendaSvc.mw.load('slug'),
+    cmn.ifIs('agenda.private', members.mw.loadOrFail),
+    (req, res, next) => {
+      core.agendas(req.agenda.uid).events.get(req.params.eventUid, {
+        detailed: true
+        // customOnly: true,
+        // includeSchema: true,
+        // access: req.member ? members.utils.getRoleSlug( req.member.role ) : 'nobody',
+      }).then(result => {
+        req.event = result;
+        next();
+      }, next);
+    },
+    (req, res) => {
+      res.set('Content-Type', 'text/calendar; charset=utf-8');
+
+      if (req.query.dl) {
+        res.set('Content-disposition', 'attachment; filename=' + req.event.slug + '.ics');
+      }
+
+      res.write(ics(req.agenda, req.event, req.lang, req.query.timing));
+
+      res.end();
+    }
   );
 
 };
 
 
-function actionShow( req, res ) {
+function actionShow(req, res) {
 
   var loaders = {
       calendars: _calendarAction,
@@ -83,13 +104,14 @@ function actionShow( req, res ) {
       email: _emailAction
     },
 
-    actions = [ 'calendars', 'agendas', 'email' ];
+    actions = ['calendars', 'agendas', 'email'];
 
-  if ( req.query.action && actions.indexOf( req.query.action ) !== -1 ) {
+  if (req.query.action && actions.indexOf(req.query.action) !== -1) {
 
-    actions = [ req.query.action ];
+    actions = [req.query.action];
 
-  };
+  }
+  ;
 
   req.templateData = {
     actions: actions,
@@ -103,51 +125,51 @@ function actionShow( req, res ) {
     agenda: req.agenda ? req.agenda : false
   };
 
-  sessions.isLogged( req ).then( is => {
+  sessions.isLogged(req).then(is => {
 
     req.templateData.logged = is;
 
-    if ( req.query.back ) {
+    if (req.query.back) {
 
       req.templateData.back = req.query.back;
 
     }
 
-    async.eachSeries( actions, ( action, scb ) => {
+    async.eachSeries(actions, (action, scb) => {
 
-      loaders[ action ]( req, res, scb );
+      loaders[action](req, res, scb);
 
     }, err => {
 
-      if ( err ) return next( err );
+      if (err) return next(err);
 
-      return cmn.render( req, res, 'event/action', req.templateData );
+      return cmn.render(req, res, 'event/action', req.templateData);
 
-    } );
+    });
 
-  } );
+  });
 
 
 }
 
 
-function actionDatesShow( req, res ) {
+function actionDatesShow(req, res) {
 
-  var service = [ 'google', 'yahoo', 'live', 'ics' ].indexOf( req.query.service ) !== -1 ? req.query.service : 'google';
+  var service = ['google', 'yahoo', 'live', 'ics'].indexOf(req.query.service) !== -1 ? req.query.service : 'google';
 
-  eventSvc.share.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ), req.agenda );
+  eventSvc.share.addCalendarLinks(req.event, req.genUrl(req.eventUri, req.eventUriParams, { abs: true }), req.agenda);
 
-  return cmn.render( req, res, 'event/actionDates', {
+  return cmn.render(req, res, 'event/actionDates', {
     event: {
       uri: req.eventUri,
       timezone: req.event.getLocationDetails().timezone,
       params: req.eventUriParams,
-      timings: req.event.locations[0].timings.map( function( timing ) {
+      timings: req.event.locations[0].timings.map(function (timing) {
 
         return {
           date: timing.date,
           start: timing.start,
-          link: timing.calendarLinks[ service ]
+          link: timing.calendarLinks[service]
         }
 
       })
@@ -157,9 +179,9 @@ function actionDatesShow( req, res ) {
 }
 
 
-async function eventMailSend( req, res, next ) {
+async function eventMailSend(req, res, next) {
 
-  log( 'eventMailSend' );
+  log('eventMailSend');
 
   req.formatted.uri = req.eventUri;
   req.formatted.uriParams = req.eventUriParams;
@@ -168,34 +190,34 @@ async function eventMailSend( req, res, next ) {
 
   try {
 
-    const data = await core.agendas( req.agenda.uid ).events.get( req.event.uid, {
+    const data = await core.agendas(req.agenda.uid).events.get(req.event.uid, {
       customOnly: true,
       includeSchema: true,
       access: 'public',
-    } );
+    });
 
-    customData = formSchemaDecorate( _.get( data, 'schema.fields', [] ) )( data.event, {
+    customData = formSchemaDecorate(_.get(data, 'schema.fields', []))(data.event, {
       labelsAsKeys: true,
       labelsAsValues: true,
       ignoreNonArrayObjects: true,
       lang: req.lang,
-    } );
+    });
 
-  } catch ( e ) {
+  } catch (e) {
 
-    console.log( e );
+    console.log(e);
 
   }
 
   try {
 
-    const emails = ( typeof req.body.mailsend === 'string' ? req.body.mailsend : '' ).split( /[\s;,\n\r]+/ );
+    const emails = (typeof req.body.mailsend === 'string' ? req.body.mailsend : '').split(/[\s;,\n\r]+/);
 
-    req.log( 'will send event as email to %s', emails.join( ', ' ) );
+    req.log('will send event as email to %s', emails.join(', '));
 
     const logo = req.agenda.image
       ? {
-        src: config.aws.imageBucketPath + req.agenda.image.replace( '.com/', '.com/rwtb' ),
+        src: config.aws.imageBucketPath + req.agenda.image.replace('.com/', '.com/rwtb'),
         width: '100px'
       }
       : {
@@ -209,17 +231,19 @@ async function eventMailSend( req, res, next ) {
       { abs: true, protocol: 'https://' }
     );
 
-    log( 'info', 'queuing event mails for %s', emails.join( '|' ), emails.length );
+    log('info', 'queuing event mails for %s', emails.join('|'), emails.length);
 
-    await mails( {
+    await mails({
       template: 'event',
-      to: emails.map( email => ( {
+      to: emails.map(email => ({
         address: email,
-        unsubscriptions: [ {
-          rule: [ 'receive', 'event' ],
-          dataPath: 'unsubscribeLink'
-        } ]
-      } ) ),
+        unsubscriptions: [
+          {
+            rule: ['receive', 'event'],
+            dataPath: 'unsubscribeLink'
+          }
+        ]
+      })),
       data: {
         logo,
         link,
@@ -227,7 +251,7 @@ async function eventMailSend( req, res, next ) {
         event: {
           ...req.formatted,
           ..._.mapValues(
-            _.pick( req.formatted, 'placeName', 'address', 'region', 'city', 'postalCode' ),
+            _.pick(req.formatted, 'placeName', 'address', 'region', 'city', 'postalCode'),
             v => v.toString()
           )
         },
@@ -241,34 +265,34 @@ async function eventMailSend( req, res, next ) {
         }
       },
       lang: req.lang
-    } );
+    });
 
-    gaTrack.batch( new Array( emails.length ).fill( [ 'event', 'share', 'email' ] ) )( req );
+    gaTrack.batch(new Array(emails.length).fill(['event', 'share', 'email']))(req);
 
-    sessions.setFlash( req, res, getActionLabel( 'eventEmailSend', { count: emails.length }, req.lang ) );
-    res.redirect( 302, req.genUrl( req.eventUri, req.eventUriParams ) );
+    sessions.setFlash(req, res, getActionLabel('eventEmailSend', { count: emails.length }, req.lang));
+    res.redirect(302, req.genUrl(req.eventUri, req.eventUriParams));
 
-  } catch ( err ) {
-    return next( err );
+  } catch (err) {
+    return next(err);
   }
 
 }
 
 
-function _conditionalLayout( func, css ) {
+function _conditionalLayout(func, css) {
 
-  return function( req, res, next ) {
+  return function (req, res, next) {
 
-    if ( req.xhr ) return next();
+    if (req.xhr) return next();
 
-    cmn.loadBaseData( func, css )( req, res, next );
+    cmn.loadBaseData(func, css)(req, res, next);
 
   }
 
 }
 
 
-function _calendarAction( req, res, next ) {
+function _calendarAction(req, res, next) {
 
   var timings = req.event.getTimings(),
 
@@ -276,27 +300,37 @@ function _calendarAction( req, res, next ) {
 
     datesUri = req.agenda ? 'agendaEventActionDatesShow' : 'eventActionDatesShow';
 
-  if ( req.agenda ) {
+  if (req.agenda) {
 
     req.eventUriParams.slug = req.agenda.slug;
 
   }
 
-  eventSvc.share.addCalendarLinks( req.event, req.genUrl( req.eventUri, req.eventUriParams, { abs: true } ), req.agenda );
+  eventSvc.share.addCalendarLinks(req.event, req.genUrl(req.eventUri, req.eventUriParams, { abs: true }), req.agenda);
 
-  req.templateData.event.imports = timings.length ? [ {
-    label: 'Google Calendar',
-    uri: multipleTimings ? req.genUrl( datesUri, [ req.eventUriParams, { service: 'google' } ] ) : timings[ 0 ].calendarLinks.google,
-  }, {
-    label: 'Yahoo! Calendar',
-    uri: multipleTimings ? req.genUrl( datesUri, [ req.eventUriParams, { service: 'yahoo' } ] ) : timings[ 0 ].calendarLinks.yahoo,
-  }, {
-    label: 'Windows Live',
-    uri: multipleTimings ? req.genUrl( datesUri, [ req.eventUriParams, { service: 'live' } ] ) : timings[ 0 ].calendarLinks.live
-  }, {
-    label: 'ICS',
-    uri: multipleTimings ? req.genUrl( datesUri, [ req.eventUriParams, { service: 'ics' } ] ) : timings[ 0 ].calendarLinks.ics
-  } ] : [];
+  req.templateData.event.imports = timings.length ? [
+    {
+      label: 'Google Calendar',
+      uri: multipleTimings
+        ? req.genUrl(datesUri, [req.eventUriParams, { service: 'google' }])
+        : timings[0].calendarLinks.google,
+    }, {
+      label: 'Yahoo! Calendar',
+      uri: multipleTimings
+        ? req.genUrl(datesUri, [req.eventUriParams, { service: 'yahoo' }])
+        : timings[0].calendarLinks.yahoo,
+    }, {
+      label: 'Windows Live',
+      uri: multipleTimings
+        ? req.genUrl(datesUri, [req.eventUriParams, { service: 'live' }])
+        : timings[0].calendarLinks.live
+    }, {
+      label: 'ICS',
+      uri: multipleTimings
+        ? req.genUrl(datesUri, [req.eventUriParams, { service: 'ics' }])
+        : timings[0].calendarLinks.ics
+    }
+  ] : [];
 
   req.templateData.event.multipleTimings = multipleTimings;
 
@@ -304,60 +338,63 @@ function _calendarAction( req, res, next ) {
 
 }
 
-function _agendasAction( req, res, next ) {
+function _agendasAction(req, res, next) {
 
-  sessions.get( req, { detailed: true }, ( err, session ) => {
+  sessions.get(req, { detailed: true }, (err, session) => {
 
-    if ( err || !session ) {
+    if (err || !session) {
 
-      return next( err );
+      return next(err);
 
     }
 
-    const originUid = _.get( req.event, 'origin.uid' );
+    const originUid = _.get(req.event, 'origin.uid');
 
-    req.event.getAgendaReferences( { isPublished: null, internal: true }, ( err, agendasSharing ) => {
+    req.event.getAgendaReferences({ isPublished: null, internal: true }, (err, agendasSharing) => {
 
-      model.reviews().list( {
+      model.reviews().list({
         stakeholderId: session.id,
         limit: 200
-      }, ( err, agendas ) => {
+      }, (err, agendas) => {
 
-        if ( err ) return next( err );
+        if (err) return next(err);
 
-        req.templateData.agendas = agendas.filter( a => a.uid !== originUid ).map( a => ( {
+        req.templateData.agendas = agendas.filter(a => a.uid !== originUid).map(a => ({
           uid: a.uid,
           slug: a.slug,
           title: a.title,
-          sharing: agendasSharing.map( a => a.id ).indexOf( a.id ) !== -1,
-          redirect: new Buffer( req.genUrl( 'agendaEventActionShow', { slug: req.agenda.slug, eventSlug: req.event.slug } ) ).toString( 'base64' )
-        } ) );
+          sharing: agendasSharing.map(a => a.id).indexOf(a.id) !== -1,
+          redirect: new Buffer(req.genUrl(
+            'agendaEventActionShow',
+            { slug: req.agenda.slug, eventSlug: req.event.slug }
+          )).toString('base64')
+        }));
 
         next();
 
-      } );
+      });
 
-    } );
+    });
 
-  } );
+  });
 
 
 }
 
-function _emailAction( req, res, next ) {
+function _emailAction(req, res, next) {
 
-  if ( req.agenda ) {
+  if (req.agenda) {
 
-    req.templateData.mailSendUri = req.genUrl( 'agendaEventMailSend', {
+    req.templateData.mailSendUri = req.genUrl('agendaEventMailSend', {
       eventSlug: req.event.slug,
       slug: req.agenda.slug
-    } );
+    });
 
   } else {
 
-    req.templateData.mailSendUri = req.genUrl( 'eventMailSend', {
+    req.templateData.mailSendUri = req.genUrl('eventMailSend', {
       eventSlug: req.event.slug
-    } );
+    });
 
   }
 
