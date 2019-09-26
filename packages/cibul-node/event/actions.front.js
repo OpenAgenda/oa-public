@@ -409,9 +409,9 @@ function _emailAction(req, res, next) {
 
 function readStream(stream, encoding = 'utf8') {
   return new Promise((resolve, reject) => {
-    if (!stream.readableObjectMode) {
-      stream.setEncoding(encoding);
-    }
+    // if (!stream.readableObjectMode) {
+    //   stream.setEncoding(encoding);
+    // }
 
     let data = stream.readableObjectMode ? [] : '';
 
