@@ -32,10 +32,10 @@ const {
   generateUid,
   generateUniqueToken,
   hashPassword,
-  hasSocialAccount,
   includeImagePathParamHook,
   isValidToken,
   parseStore,
+  populateAccountTypes,
   removedParamHook,
   searchByKey,
   searchKeyword,
@@ -133,7 +133,7 @@ const userResolvers = {
 const afterAll = [
   camelCase(),
   camelCaseQuery(),
-  hasSocialAccount(),
+  populateAccountTypes(),
   context => {
     if (context.result === null || context.params.internal === true) {
       return context;
