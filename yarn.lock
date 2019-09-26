@@ -1714,6 +1714,11 @@
     pdfkit "^0.7.1"
     request "2.65.0"
 
+"@openagenda/pepjs@^0.5.4":
+  version "0.5.4"
+  resolved "https://registry.yarnpkg.com/@openagenda/pepjs/-/pepjs-0.5.4.tgz#6479d03bc8a034498a32a088c7ea94d94b094bb4"
+  integrity sha512-FXRAk81hGuuqpsxlyhIHuxR50tHnvOeMhqQop1VjERiW1oGfYtFMkmSGH4JRHtxtAFn1ITB7SqbHvM4rm2fv4A==
+
 "@openagenda/queue@^1.0.0":
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/@openagenda/queue/-/queue-1.0.0.tgz#b08f1e2abeac6353cfaee5363367d83a7154069a"
@@ -16900,11 +16905,6 @@ pend@~1.2.0:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/pend/-/pend-1.2.0.tgz#7a57eb550a6783f9115331fcf4663d5c8e007a50"
   integrity sha1-elfrVQpng/kRUzH89GY9XI4AelA=
-
-pepjs@^0.5.2:
-  version "0.5.2"
-  resolved "https://registry.yarnpkg.com/pepjs/-/pepjs-0.5.2.tgz#f0d10bb160bcbf4b72d2069d931170661491a05c"
-  integrity sha512-acPfplXnTKaG8p7VBgkNaBJSGsZu7LYrqEmLCQFoeHYl21B74mMBeVoQA/Gl9u5GmysgzrOCeHsEjw0mXo61nw==
 
 performance-now@^0.2.0:
   version "0.2.0"

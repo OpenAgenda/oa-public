@@ -3,7 +3,7 @@
 require( 'core-js/stable' );
 require( 'regenerator-runtime/runtime' );
 require( 'dom4' );
-require( 'pepjs' );
+require( '@openagenda/pepjs' );
 
 require( 'intl' );
 require( 'intl/locale-data/jsonp/fr' );
