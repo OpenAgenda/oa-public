@@ -1,7 +1,8 @@
 "use strict";
 
 const add = require( './add' );
-const get = require( './get' )
+const get = require( './get' );
+const list = require( './list' );
 const create = require( './create' );
 const remove = require( './remove' );
 const update = require( './update' );
@@ -11,6 +12,7 @@ module.exports = agendaUid => {
 
   return {
     get: get.bind( null, agendaUid ),
+    list: list.bind( null, agendaUid ),
     create: create.bind( null, agendaUid ),
     add: add.bind( null, agendaUid ),
     remove: remove.bind( null, agendaUid ),
