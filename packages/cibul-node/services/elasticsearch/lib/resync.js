@@ -10,9 +10,7 @@ const { promisify } = require( 'util' );
 const log = require( '@openagenda/logs' )( 'services/elasticsearch/resync' );
 const loopThroughTable = require( '@openagenda/legacy/rebuildSearchIndex/loopThroughTable' );
 
-const model = require( '../../model' );
-
-const eventsSvc = require( '@openagenda/events' );
+const agendaEvents = require( '@openagenda/agenda-events' );
 
 const { knex, aws: { imageBucketPath: imageBasePath } } = require( '../../../config' );
 
@@ -142,6 +140,8 @@ async function _removeEventZombies( ES, agendaId ) {
 
   log( 'info', agendaId ? 'removing zombie events of agenda id %s' : 'removing zombie events of entire index', agendaId );
 
+  const agendaUid = await knex('review').first('uid').where('id', agendaId).then(r => r ? r.uid : null);
+
   const limit = 20;
 
   let offset = 0;
@@ -152,9 +152,9 @@ async function _removeEventZombies( ES, agendaId ) {
 
     log( 'info', 'Checking %s events in index for zombies (offset %s)', indexedEvents.length, offset );
 
-    const serviceEventUids = await eventsSvc.list( {
-      uid: indexedEvents.map( e => e.uid )
-    }, 0, limit, { fetched: [ 'uid' ], private: null } ).then( ( { events } ) => events.map( e => e.uid ) );
+    const serviceEventUids = await agendaEvents.list(agendaUid, {
+      eventUid: indexedEvents.map( e => e.uid )
+    }, 0, limit).then(({ items }) => items.map(ae => ae.eventUid));
 
     let removed = 0;
 

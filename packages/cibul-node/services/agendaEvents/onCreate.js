@@ -60,8 +60,8 @@ module.exports = async ( config, ae, context ) => {
       // Adding
       try {
         await sendEventAddition(config, { agendaEvent: ae, context, user });
-      } catch ( error ) {
-        log.error( new VError( error, 'Cannot send event addition emails' ) );
+      } catch (error) {
+        log.error(new VError(error, 'Cannot send event addition emails'));
       }
     }
   } else if ( context.aggregated ) {
@@ -82,7 +82,7 @@ module.exports = async ( config, ae, context ) => {
     }
   }
 
-  if (context.legacy && context.aggregated) {
+  if (context.legacy || context.aggregated) {
     try {
       await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
     } catch ( e ) {
@@ -146,22 +146,14 @@ module.exports = async ( config, ae, context ) => {
     }
 
     // If it's a real creation, not an agregation
-    if ( !context.aggregated ) {
-
-      if ( ae.agendaUid === event.agendaUid ) {
-
-        await _addEventCreationActivity( eventFeed, { agenda, event, user }, context );
-
+    if (!context.aggregated) {
+      if (ae.agendaUid === event.agendaUid) {
+        await _addEventCreationActivity(eventFeed, { agenda, event, user }, context);
       } else {
-
-        await _addEventAdditionActivity( eventFeed, { agenda, event, user }, context );
-
+        await _addEventAdditionActivity(eventFeed, { agenda, event, user }, context);
       }
-
-    } else if ( context.aggregated ) {
-
-      await _addEventAggregationActivity( eventFeed, { agenda, event }, context );
-
+    } else if (context.aggregated) {
+      await _addEventAggregationActivity(eventFeed, { agenda, event }, context);
     }
 
   } catch ( e ) {

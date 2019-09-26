@@ -11,8 +11,17 @@ const doAdd = require( '../utils/doAdd' );
 const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
 const validate = require( './validate' );
 
-module.exports = async (agendaUid, eventUid, data) => {
+module.exports = async (agendaUid, eventUid, data, options = {}) => {
   log('adding event %s to agenda %s', eventUid, agendaUid);
+
+  const {
+    aggregated,
+    sourceAgenda
+  } = Object.assign({
+    aggregated: false,
+    sourceAgenda: null
+  }, options || {});
+
   const agenda = await getAgendaWithNetworkAndSchemas(agendaUid);
 
   // pre-validate data
@@ -32,7 +41,9 @@ module.exports = async (agendaUid, eventUid, data) => {
   return doAdd(agenda, eventUid, clean, {
     context: {
       event,
-      agenda
+      agenda,
+      aggregated,
+      sourceAgenda
     }
   });
 }

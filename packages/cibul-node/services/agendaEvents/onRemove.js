@@ -24,9 +24,7 @@ module.exports = async ( ae, context ) => {
 
   const event = await wn.call( oldEventSvc.get, { uid: ae.eventUid } );
 
-  /**
-   * Anything happening hear should not be triggered elsewhere by legacy parts of app
-   */
+  // in the case of a deletion, unique legacy ES ref is removed in event interface
   if ( !context.deletion ) {
     try {
       await legacyEventSearch.updateEvent( { uid: ae.eventUid }, { removeUnreferenced: true } );

@@ -11,7 +11,7 @@ module.exports = {
   },
   link: 'https://d.openagenda.com/test-zi',
   agenda: 'test zi',
-  message: undefined,
+  // message: undefined,
   isMember: true,
   role: 'contributor',
   unsubscribeLink: 'https://d.openagenda.com/unsubscribe/u/0/s/stakeholder/i/106830/t/message',

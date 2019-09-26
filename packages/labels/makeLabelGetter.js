@@ -59,7 +59,7 @@ module.exports = function( labels, defaultLang, fallbackLang ) {
     // ICU message
     if ( isICU ) {
 
-      return new IntlMessageFormat( parsedAST ).format( values );
+      return new IntlMessageFormat( parsedAST, lang ).format( values );
 
     }
 

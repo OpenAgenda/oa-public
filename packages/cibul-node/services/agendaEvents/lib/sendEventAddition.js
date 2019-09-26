@@ -59,38 +59,40 @@ module.exports = async ({ root }, { agendaEvent, user, context }) => {
   });
   const creatorLang = creatorUser.culture || 'fr';
 
+  const sharerMember = !agenda.private && context.userUid ? await membersSvc.get({
+    agendaUid: agenda.uid,
+    userUid: context.userUid
+  }) : null;
 
-  if (!agenda.private && context.userUid) {
-    const sharerMember = await membersSvc.get( {
-      agendaUid: agenda.uid,
-      userUid: context.userUid
-    } );
-
-    await mails( {
-      template: 'myEventAddition',
-      to: {
-        address: creatorUser.email,
-        unsubscriptions: [ {
-          rule: [ 'receive', 'myEventAddition' ],
-          dataPath: 'unsubscribeLink'
-        }, {
-          memberId: creator.id,
-          rule: [ 'receive', 'myEventAddition' ],
-          dataPath: 'memberUnsubscribeLink'
-        } ]
-      },
-      data: {
-        user: sharerMember.custom.contactName || user.fullName,
-        event: event.title[ creatorLang ] || _.find( event.title ),
-        agenda: agenda.title,
-        state: stateLabel,
-        logo,
-        link,
-        sourceAgenda: sourceAgenda.title
-      },
-      lang: creatorLang
-    } );
+  if (!sharerMember) {
+    log('no sharer member is defined, not sending email.');
+    return;
   }
+
+  await mails( {
+    template: 'myEventAddition',
+    to: {
+      address: creatorUser.email,
+      unsubscriptions: [ {
+        rule: ['receive', 'myEventAddition'],
+        dataPath: 'unsubscribeLink'
+      }, {
+        memberId: creator.id,
+        rule: ['receive', 'myEventAddition'],
+        dataPath: 'memberUnsubscribeLink'
+      } ]
+    },
+    data: {
+      user: sharerMember.custom.contactName || user.fullName,
+      event: event.title[ creatorLang ] || _.find(event.title),
+      agenda: agenda.title,
+      state: stateLabel,
+      logo,
+      link,
+      sourceAgenda: sourceAgenda.title
+    },
+    lang: creatorLang
+  } );
 
   await mails( {
     template: 'eventAddition',

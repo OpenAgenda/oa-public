@@ -20,13 +20,15 @@ module.exports = async (agendaUid, eventUid, options = {}) => {
     lang,
     customOnly,
     access,
-    includeSchema
+    includeSchema,
+    detailed
   } = Object.assign({
     internal: false, // load internal use fields ( id )
     lang: null,
     customOnly: false, // only fetch custom values
     access: null, // filter to values matching specific access rights
-    includeSchema: false
+    includeSchema: false,
+    detailed: false
   }, options);
 
   const agendaEvent = await agendaEvents(agendaUid).get(eventUid);
@@ -49,7 +51,7 @@ module.exports = async (agendaUid, eventUid, options = {}) => {
     Object.assign(
       result.event,
       await events
-        .get({ uid: eventUid }, { internal })
+        .get({ uid: eventUid }, { internal, detailed })
         .then(e => _.omit(e, ['id']))
       );
   }

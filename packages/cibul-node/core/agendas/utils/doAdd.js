@@ -24,7 +24,8 @@ module.exports = async (agenda, eventUid, clean, options = {}) => {
     draft: false,
     context: {
       userUid: null,
-      event: null
+      event: null,
+      aggregated: false
     }
   }, options);
 

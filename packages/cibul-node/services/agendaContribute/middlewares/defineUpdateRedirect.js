@@ -10,7 +10,7 @@ module.exports = ( req, res, next ) => {
 
     log( 'decoding redirect %s', req.query.redirect );
 
-    req.updateRedirect = new Buffer( req.query.redirect, 'base64' ).toString();
+    req.updateRedirect = Buffer.from( req.query.redirect, 'base64' ).toString();
 
   } catch ( e ) {}
 

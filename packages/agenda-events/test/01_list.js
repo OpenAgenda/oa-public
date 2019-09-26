@@ -84,6 +84,16 @@ describe( 'agendaEvents - functional (server): list', function() {
 
   } );
 
+  it( 'list for serveral event uids', async () => {
+
+    const result = await svc( 62792452 ).list({
+      eventUid: [ 54434612, 28028226 ]
+    });
+
+    result.items.length.should.equal( 2 );
+
+  } );
+
   it( 'listByLastId for faster list', async () => {
 
     const result = await svc( 62792452 ).listByLastId( 0, 10 );

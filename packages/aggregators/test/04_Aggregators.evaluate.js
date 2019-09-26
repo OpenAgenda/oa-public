@@ -32,7 +32,7 @@ describe('Aggregators evaluate', () => {
       });
 
       it('first argument provided to referenceEvent interface is the source agenda uid', () => {
-        referenceEventArguments[0].should.equal(data.agenda.uid);
+        referenceEventArguments[0].uid.should.equal(data.agenda.uid);
       });
 
       it('second argument provided to referenceEvent interface is the uid of the aggregating agenda', () => {

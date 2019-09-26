@@ -145,7 +145,11 @@ function _query( k, query ) {
     k.where( 'agenda_uid', query.agendaUid );
   } else if ( query.userUid !== undefined ) {
     k.where( 'user_uid', query.userUid );
-  } else {
+  }
+
+  if ( query.eventUid && _.isArray(query.eventUid) ) {
+    k.whereIn( 'event_uid', query.eventUid );
+  } else if ( query.eventUid ) {
     k.where( 'event_uid', query.eventUid );
   }
 

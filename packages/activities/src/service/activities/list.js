@@ -66,7 +66,6 @@ module.exports = function list( config, identifiers ) {
 
       const request = knex( config.schemas.activity ).column( columnToSelect )
         .where( query )
-        .orderBy( 'id', 'desc' )
         .limit( limit );
 
       if ( fromId ) {
@@ -86,13 +85,16 @@ module.exports = function list( config, identifiers ) {
       }
 
       if ( feed !== undefined ) {
-
-        request.join(
-          config.schemas.feed_activity,
-          config.schemas.feed_activity + '.activity_id',
-          config.schemas.activity + '.id'
-        ).where( config.schemas.feed_activity + '.feed_id', feed ? feed.id : 0 );
-
+        request
+          .join(
+            config.schemas.feed_activity,
+            config.schemas.feed_activity + '.activity_id',
+            config.schemas.activity + '.id'
+          )
+          .where( config.schemas.feed_activity + '.feed_id', feed ? feed.id : 0 )
+          .orderBy(config.schemas.feed_activity + '.activity_id', 'desc');
+      } else {
+        request.orderBy('id', 'desc');
       }
 
       return request

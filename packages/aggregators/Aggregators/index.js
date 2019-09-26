@@ -163,7 +163,7 @@ async function evaluate({
   const schemaValuesFromTags = convertTagsToSchemaOptionIds(aggregatorSchema, evaluateResult.tags);
   const extendedValues = pickSchemaValues(aggregatorSchema, evaluateResult, schemaValuesFromTags);
 
-  referenceEvent(agenda.uid, aggregatorAgendaUid, event.uid, Object.assign(extendedValues, {
+  referenceEvent(agenda, aggregatorAgendaUid, event.uid, Object.assign(extendedValues, {
     sourceAgendaUid: [agenda.uid]
   }));
 

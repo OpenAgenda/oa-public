@@ -6,10 +6,10 @@
     </header>
     <div class="js_popup_content popup-content share-menu">
       <ul class="list-group">
-<% event.timings.forEach( function( timing ) { %>
+<% event.timings.forEach( timing => { %>
         <li class="list-group-item">
           <a href="<%= timing.link %>" class="item active" target="_blank">
-            <%= _t( timing.start, 'dddd Do - HH:mm', event.timezone ) %>
+            <%= _t( timing.begin, 'dddd Do - HH:mm', event.timezone ) %>
           </a>
         </li>
 <% }) %>

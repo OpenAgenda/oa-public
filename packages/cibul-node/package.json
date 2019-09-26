@@ -8,7 +8,7 @@
     "start": "TZ=Etc/UTC NODE_ICU_DATA=`yarn --silent node-full-icu-path` node server.js web admin task",
     "watch": "TZ=Etc/UTC NODE_ICU_DATA=`yarn --silent node-full-icu-path` nodemon server.js web admin task",
     "background": "nohup npm start >/dev/null 2>&1 &",
-    "mails-editor": "oa-mails-editor services/mails/templates -w services/mails/components -w ../labels"
+    "mails-editor": "NODE_ICU_DATA=`yarn --silent node-full-icu-path` oa-mails-editor services/mails/templates -w services/mails/components -w ../labels"
   },
   "dependencies": {
     "@feathersjs/errors": "^4.3.0",
@@ -41,7 +41,7 @@
     "@openagenda/date-range": "^2.2.0",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/email-strategie": "^0.1.0",
-    "@openagenda/es-node": "^1.1.0",
+    "@openagenda/es-node": "^1.2.0",
     "@openagenda/event-search": "^1.2.2",
     "@openagenda/events": "^1.4.5",
     "@openagenda/facebook": "^0.1.1",
@@ -107,8 +107,8 @@
     "languages": "^0.1.3",
     "lodash": "^4.17.4",
     "marked": "^0.4.0",
-    "mjml-core": "^4.4.0",
-    "mjml-validator": "^4.4.0",
+    "mjml-core": "^4.5.0",
+    "mjml-validator": "^4.5.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.14",
     "morgan": "^1.9.1",
@@ -125,8 +125,8 @@
     "phpjs": "^1.3.2",
     "planer": "^1.1.1",
     "qs": "^6.6.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "redis": "^2.8.0",
     "redux": "^4.0.1",
     "rss": "^1.2.2",
@@ -142,6 +142,7 @@
   "devDependencies": {
     "mocha": "^4.0.1",
     "should": "^8.2.2",
+    "sinon": "^7.5.0",
     "source-map-support": "^0.5.9"
   }
 }

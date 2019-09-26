@@ -2,9 +2,9 @@
 
 module.exports = {
   "seeMore": {
-    "en": "see more",
-    "fr": "voir plus",
+    "en": "See more",
+    "fr": "Voir plus",
     "de": "Mehr sehen",
-    "es": "ver más"
+    "es": "Ver más"
   }
 }

@@ -86,7 +86,7 @@ module.exports = app => {
     sessions.middleware.ifUnlogged(
       ( req, res ) => {
         const query = qs.stringify( req.query, { addQueryPrefix: true } );
-        const redirect = new Buffer( `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8' )
+        const redirect = Buffer.from( `/${req.params.slug}.prv/events/${req.params.eventSlug}${query}`, 'utf8' )
           .toString( 'base64' );
 
         res.redirect( 302, `/${req.params.slug}/signin?msg=limitedAccessEvent&redirect=${redirect}` );
@@ -386,7 +386,7 @@ function _addContactLink( req ) {
 
   req.formatted.owner.contactLink = req.genUrl( 'conversationDiscussion', {
     uid: req.formatted.owner.uid,
-    redirect: new Buffer( req.genUrl( req.agenda ? 'agendaEventShow' : 'eventShow', req.agenda ? {
+    redirect: Buffer.from( req.genUrl( req.agenda ? 'agendaEventShow' : 'eventShow', req.agenda ? {
       slug: req.agenda.slug,
       eventSlug: req.event.slug
     } : { eventSlug: req.event.slug }, { abs: true } ) ).toString( 'base64' )
@@ -691,7 +691,7 @@ function _formatSocialLinks( req, res, next ) {
 
   }
 
-  _.merge( req.formatted, eventSvc.share.getSocialLinks( req.event, eventUrl, siteUrl ) );
+  _.merge( req.formatted, eventSvc.getSocialLinks( req.event, eventUrl, siteUrl ) );
 
   if ( req.embed ) {
 

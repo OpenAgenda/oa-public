@@ -74,9 +74,9 @@ module.exports = async (agendaUid, eventUid, options) => {
   const remaining = await agendaEvents.list.byEventUid(eventUid);
 
   log('there are %s remaining agenda references', remaining.total);
-  log('agenda %s event origin agenda', event.agendaUid === agendaUid ? 'is' : 'is not');
+  log('agenda %s event origin agenda', event.agendaUid === parseInt(agendaUid) ? 'is' : 'is not');
 
-  if (!remaining.total || (event.agendaUid === agendaUid)) {
+  if (!remaining.total || (event.agendaUid === parseInt(agendaUid))) {
     const result = await events.remove({
       uid: eventUid
     }, {

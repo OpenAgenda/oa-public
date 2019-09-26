@@ -149,7 +149,7 @@ export default class Conversation extends Component {
     );
   }
 
-  getClosedLabel = () => {
+  getResolvedLabel = () => {
     const { conversation, getLabel } = this.props;
 
     switch ( conversation.type ) {
@@ -267,8 +267,20 @@ export default class Conversation extends Component {
               </div>
             ) : null}
 
-            {conversation.actions && conversation.actions.length ? (
-              <div className="inbox-actions margin-top-lg">
+            <div className="inbox-actions well margin-top-lg">
+              {conversation.resolvedAt && (
+                <>
+                  {conversation.closedAt && (
+                    <>
+                      <i className="fa fa-lock text-muted" aria-hidden="true"></i>{' '}
+                    </>
+                  )}
+                  {this.getResolvedLabel()}
+                  <br />
+                </>
+              )}
+
+              {conversation.actions && conversation.actions.length ? (
                 <ActionsList
                   onAction={
                     code => triggerAction( conversation.id, code )
@@ -277,18 +289,12 @@ export default class Conversation extends Component {
                   actions={conversation.actions}
                   showModal={showModal}
                 />
-              </div>
-            ) : null}
-
-            {conversation.closedAt && (
-              <div className="conversation-resolved well text-center margin-top-lg">
-                <i className="fa fa-lock text-muted" aria-hidden="true"></i>{' '}
-                {this.getClosedLabel()}<br />
+              ) : (
                 <button className="btn btn-link btn-resume" onClick={() => resume( conversation.id )}>
                   {getLabel( 'resumeConversation' )}
                 </button>
-              </div>
-            )}
+              )}
+            </div>
           </div>
 
           {!conversation.closedAt && (

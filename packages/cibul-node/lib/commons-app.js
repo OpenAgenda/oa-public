@@ -650,7 +650,7 @@ function redirectTo( route, params = {}, options = {} ) {
 
         if ( k[ '$base64Route' ] ) {
 
-          v = new Buffer( v, 'utf-8' ).toString( 'base64' );
+          v = Buffer.from( v, 'utf-8' ).toString( 'base64' );
 
         }
 
@@ -690,7 +690,7 @@ function redirectTo( route, params = {}, options = {} ) {
 
 function redirectToSignin( req, res, next ) {
   const agenda = req.agenda || _.get( req, 'agendaInstance.data' );
-  res.redirect( 302, `${agenda ? '/' + agenda.slug : ''}/signin?redirect=${( new Buffer( req.originalUrl, 'utf-8' ) ).toString( 'base64' )}` );
+  res.redirect( 302, `${agenda ? '/' + agenda.slug : ''}/signin?redirect=${( Buffer.from( req.originalUrl, 'utf-8' ) ).toString( 'base64' )}` );
 }
 
 
@@ -704,7 +704,7 @@ function https(req, res, next) {
   }
 
   hsts({
-    maxAge: 15552000,
+    maxAge: 0,
     includeSubDomains: false
   })(req, res, next);
 }
@@ -793,7 +793,7 @@ function checkCredential( name, options ) {
 
 function makeRedirect( urlOrReq ) {
 
-  return new Buffer(
+  return Buffer.from(
     _.isObject( urlOrReq ) ? urlOrReq.originalUrl : urlOrReq,
     'utf8'
   ).toString( 'base64' );
@@ -805,7 +805,7 @@ function getRedirect( req, paramName = 'redirect' ) {
   if ( !req.query[ paramName ] ) return false;
 
   try {
-    return (new Buffer( req.query[ paramName ], 'base64' )).toString();
+    return (Buffer.from( req.query[ paramName ], 'base64' )).toString();
   } catch ( e ) {
     log( 'error', 'invalid redirect value in request: %s', req.query[ paramName ] );
   }
@@ -941,7 +941,7 @@ function writeToCookie( req, res, key, value ) {
 
 function _saveCookie( req, res, cookieValues ) {
 
-  const encodedCookieValues = (new Buffer( JSON.stringify( cookieValues ) )).toString( 'base64' );
+  const encodedCookieValues = (Buffer.from( JSON.stringify( cookieValues ) )).toString( 'base64' );
 
   // do this both in req and res.
   req.cookies[ config.cookie.name ] = encodedCookieValues;
@@ -965,7 +965,7 @@ function _decodeCookie( req ) {
     try {
 
       cookieValues = JSON.parse(
-        (new Buffer( encodedCookie, 'base64' )).toString()
+        (Buffer.from( encodedCookie, 'base64' )).toString()
       );
 
       return cookieValues;
