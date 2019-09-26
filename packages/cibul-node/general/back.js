@@ -53,11 +53,11 @@ function latestInboxMessageTimestamp(req, res, next) {
       const timestamp = _.get(latestConversation, 'latestMessage.createdAt', null);
 
       if (timestamp === null) {
-        res.send({ hasNew: false });
+        return res.send({ hasNew: false });
       } else if (!req.user.lastInboxCheck) {
-        res.send({ hasNew: true });
+        return res.send({ hasNew: true });
       } else if (timestamp > req.user.lastInboxCheck) {
-        res.send({ hasNew: true });
+        return res.send({ hasNew: true });
       }
 
       res.send({ hasNew: false });
