@@ -128,6 +128,14 @@ module.exports.init = async c => {
                 kind: 'danger',
                 confirmationModalTitle: inboxesLabels.requestContributeRefuseModalTitle,
                 confirmationModalLabel: inboxesLabels.requestContributeRefuseModal
+              }, {
+                code: 'involveTechnicalSupport',
+                label: {
+                  fr: 'Impliquer le support technique',
+                  en: 'Involve technical support'
+                },
+                kind: 'default',
+                resolve: false
               }
             ]
           },
