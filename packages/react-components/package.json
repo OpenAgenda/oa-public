@@ -30,14 +30,14 @@
     "@storybook/addon-actions": "^4.1.11",
     "@storybook/react": "^4.1.11",
     "babel-loader": "^8.0.4",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "react-markdown": "^4.0.4",
     "rimraf": "^2.6.2",
     "should": "^7.1.1"
   },
   "peerDependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   }
 }
