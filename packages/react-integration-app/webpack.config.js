@@ -45,7 +45,7 @@ module.exports = ( env = {}, argv = {} ) => {
           loader: 'source-map-loader'
         },
         getBabelRule(
-          path.join( __dirname, 'client' ),
+          path.join( __dirname ),
           { envName: babelEnvName }
         ),
         ...getBabelModuleRules(
