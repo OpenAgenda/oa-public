@@ -704,7 +704,7 @@ function https(req, res, next) {
   }
 
   hsts({
-    maxAge: 15552000,
+    maxAge: 0,
     includeSubDomains: false
   })(req, res, next);
 }
