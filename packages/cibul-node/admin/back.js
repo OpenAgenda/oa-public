@@ -11,6 +11,7 @@ const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'admin/back' );
 const agendasSvc = require( '@openagenda/agendas' );
 const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
+const wrapApp = require( '@openagenda/react-utils/dist/wrapApp' );
 const cmn = require( '../lib/commons-app' );
 const lib = require( '../lib/lib' );
 const membersSvc = require( '../services/members' );
@@ -47,7 +48,8 @@ module.exports = app => {
 
 async function support( req, res, next ) {
   const lang = req.lang || 'fr';
-  const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
+  const staticContext = {};
+  const reactApp = createInboxApp( {
     req,
     initialState: {
       settings: {
@@ -75,11 +77,12 @@ async function support( req, res, next ) {
       }
     }
   } );
+  const { triggerHooks, store, history } = reactApp;
 
   try {
     await triggerHooks();
 
-    const content = ReactDOM.renderToString( element );
+    const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
     const state = store.getState();
 

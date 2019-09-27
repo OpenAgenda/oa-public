@@ -109,7 +109,8 @@ app.use(
   cmn.loadBaseData( 'oasfmain.css' ),
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -149,11 +150,12 @@ app.use(
         }
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
@@ -186,8 +188,8 @@ app.use(
   cmn.loadAgenda,
   members.mw.loadAndAuthorize('moderator'),
   async ( req, res, next ) => {
-    const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -218,11 +220,12 @@ app.use(
         agenda: req.agenda
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
@@ -277,7 +280,8 @@ app.use(
     }
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -328,11 +332,12 @@ app.use(
         agenda: req.agenda
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
@@ -398,7 +403,8 @@ app.use(
     const resPrefix = targetIsAdminMod ? '/home' : `/agendas/${req.agenda.uid}`;
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -448,11 +454,12 @@ app.use(
         agenda: req.agenda
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
@@ -505,7 +512,8 @@ app.use(
     const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -561,11 +569,12 @@ app.use(
         event: req.event
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
@@ -623,7 +632,8 @@ app.use(
     const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -679,11 +689,12 @@ app.use(
         event: req.event
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
@@ -736,7 +747,8 @@ app.use(
     const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -792,11 +804,12 @@ app.use(
         event: req.event
       }
     });
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
@@ -852,7 +865,8 @@ app.use(
     }
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -905,11 +919,12 @@ app.use(
         agenda: req.agenda
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
@@ -966,7 +981,8 @@ app.use(
     }
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -1021,11 +1037,12 @@ app.use(
         agenda: req.agenda
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
