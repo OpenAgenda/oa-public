@@ -2,6 +2,7 @@
 
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
+const { parsePath } = require('history');
 const sessions = require( '@openagenda/sessions' );
 const mw = require( '@openagenda/activity-apps/dist/middleware' );
 const createApp = require( '@openagenda/activity-apps/dist/client/apps/admin' );
@@ -64,7 +65,7 @@ async function matchApp( req, res, next ) {
     }
 
     const { pathname } = history.location;
-    if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
       return res.redirect( 302, pathname );
     }
 

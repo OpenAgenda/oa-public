@@ -2,6 +2,7 @@
 
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
+const { parsePath } = require('history');
 
 const createApp = require( '@openagenda/member-apps/dist/app' );
 
@@ -69,7 +70,7 @@ module.exports = async ( { port }, req, res, next ) => {
     }
 
     const { pathname } = history.location;
-    if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
       return res.redirect( 301, pathname );
     }
 

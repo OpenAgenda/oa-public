@@ -1,6 +1,7 @@
 "use strict";
 
 const ReactDOM = require( 'react-dom/server' );
+const { parsePath } = require('history');
 const editApp = require( '@openagenda/agenda-settings/dist/client/editApp' );
 const mw = require( '@openagenda/agenda-settings' ).mw;
 const keysMw = require( '@openagenda/keys/middleware' );
@@ -234,7 +235,7 @@ async function agendaSettingsApp(req, res, next) {
     }
 
     const { pathname } = history.location;
-    if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
       return res.redirect( 302, pathname );
     }
 

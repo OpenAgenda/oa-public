@@ -3,6 +3,7 @@
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const ReactDOM = require( 'react-dom/server' );
+const { parsePath } = require('history');
 const moment = require( 'moment' );
 const wn = require( 'when/node' );
 const async = require( 'async' );
@@ -94,7 +95,7 @@ async function support( req, res, next ) {
     }
 
     const { pathname } = history.location;
-    if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
       return res.redirect( 302, pathname );
     }
 
