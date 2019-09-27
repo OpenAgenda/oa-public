@@ -4,9 +4,10 @@ const _ = require( 'lodash' );
 const express = require( 'express' );
 const { promisify } = require( 'util' );
 const ReactDOM = require( 'react-dom/server' );
-
+const { parsePath } = require('history');
 const eventsSvc = require( '@openagenda/events' );
 const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
+const wrapApp = require( '@openagenda/react-utils/dist/wrapApp' );
 const locationSvc = require( '@openagenda/agenda-locations' );
 const labels = require( '@openagenda/labels/inboxes' );
 const makeLabelGetter = require( '@openagenda/labels' );
@@ -38,7 +39,8 @@ app.use(
   },
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, staticContext, history } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -69,11 +71,12 @@ app.use(
         }
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
@@ -89,7 +92,7 @@ app.use(
       }
 
       const { pathname } = history.location;
-      if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
         return res.redirect( 302, pathname );
       }
 
@@ -166,7 +169,7 @@ app.use(
       }
 
       const { pathname } = history.location;
-      if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
         return res.redirect( 302, pathname );
       }
 
@@ -235,7 +238,7 @@ app.use(
       }
 
       const { pathname } = history.location;
-      if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
         return res.redirect( 302, pathname );
       }
 
@@ -345,7 +348,7 @@ app.use(
       }
 
       const { pathname } = history.location;
-      if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
         return res.redirect( 302, pathname );
       }
 
@@ -465,7 +468,7 @@ app.use(
       }
 
       const { pathname } = history.location;
-      if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
         return res.redirect( 302, pathname );
       }
 
@@ -578,7 +581,7 @@ app.use(
       }
 
       const { pathname } = history.location;
-      if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
         return res.redirect( 302, pathname );
       }
 
@@ -696,7 +699,7 @@ app.use(
       }
 
       const { pathname } = history.location;
-      if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
         return res.redirect( 302, pathname );
       }
 
@@ -809,7 +812,7 @@ app.use(
       }
 
       const { pathname } = history.location;
-      if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
         return res.redirect( 302, pathname );
       }
 
@@ -922,7 +925,7 @@ app.use(
       }
 
       const { pathname } = history.location;
-      if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
         return res.redirect( 302, pathname );
       }
 
@@ -1038,7 +1041,7 @@ app.use(
       }
 
       const { pathname } = history.location;
-      if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
         return res.redirect( 302, pathname );
       }
 
