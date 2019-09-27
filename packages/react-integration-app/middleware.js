@@ -171,10 +171,10 @@ module.exports = function match({ initialState, apiRoot, lang }) {
 };
 
 function redirectIfNeeded(req, res, history) {
-  const { pathname, search } = history.location;
+  const { pathname } = history.location;
 
-  if (decodeURIComponent(req.originalUrl) !== decodeURIComponent(pathname + search)) {
-    res.redirect(302, pathname + search);
+  if (decodeURIComponent(req.baseUrl + req.path) !== decodeURIComponent(pathname)) {
+    res.redirect(302, pathname);
     return true;
   }
 }

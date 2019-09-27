@@ -103,8 +103,8 @@ async function matchApp( req, res, next ) {
       return res.redirect( 302, staticContext.url );
     }
 
-    const { pathname, search } = history.location;
-    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
+    const { pathname } = history.location;
+    if ( decodeURIComponent( req.baseUrl + req.path ) !== decodeURIComponent( pathname ) ) {
       return res.redirect( 302, pathname );
     }
 
