@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { provideHooks } from 'redial';
 import { getContext } from 'recompose';
-import Waypoint from 'react-waypoint';
+import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import nl2br from '@openagenda/react-utils/dist/nl2br';

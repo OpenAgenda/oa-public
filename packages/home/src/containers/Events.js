@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import debounce from 'lodash/debounce';
 import throttle from 'lodash/throttle';
-import Waypoint from 'react-waypoint';
+import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';

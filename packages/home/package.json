@@ -40,7 +40,7 @@
     "prop-types": "^15.5.8",
     "qs": "^6.6.0",
     "react-final-form": "^6.3.0",
-    "react-waypoint": "^8.1.0",
+    "react-waypoint": "^9.0.2",
     "redial": "^0.5.0"
   },
   "devDependencies": {
