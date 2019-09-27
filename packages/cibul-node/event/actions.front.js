@@ -300,10 +300,12 @@ function getDates(event, lang) {
       accu.push({
         day,
         timezone,
-        timings: [{
-          begin: moment.tz(val.begin, event.timezone).locale(lang).format('LT'),
-          end: moment.tz(val.end, event.timezone).locale(lang).format('LT')
-        }]
+        timings: [
+          {
+            begin: moment.tz(val.begin, event.timezone).locale(lang).format('LT'),
+            end: moment.tz(val.end, event.timezone).locale(lang).format('LT')
+          }
+        ]
       });
     }
 
@@ -364,14 +366,16 @@ async function _agendasAction(req, res, next) {
     const originUid = req.event.agendaUid;
 
     const { items: agendasSharing } = await agendaEventsSvc.list.byEventUid(req.event.uid);
-    const members = await readStream(membersSvc.stream(
-      {
-        userUid: req.user.uid,
-        role: ['contributor', 'moderator', 'administrator']
-      },
-      {},
-      { detailed: true }
-    ));
+    const members = req.user
+      ? await readStream(membersSvc.stream(
+        {
+          userUid: req.user.uid,
+          role: ['contributor', 'moderator', 'administrator']
+        },
+        {},
+        { detailed: true }
+      ))
+      : [];
 
     req.templateData.agendas = members
       .filter(member => member.agendaUid !== originUid)
