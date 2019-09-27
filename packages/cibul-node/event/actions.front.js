@@ -89,6 +89,11 @@ module.exports = app => {
       .get(req.params.eventUid, { detailed: true })
       .then(result => {
         req.event = result;
+
+        if (!result.timings) {
+          throw new Error(`Event uid:${req.params.eventUid} does not have timings !`);
+        }
+
         next();
       })
       .catch(next),
