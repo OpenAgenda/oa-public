@@ -412,6 +412,10 @@ const config = {
           method: 'get',
           uri: '/:slug/admin/settings'
         },
+        customizedShow: {
+          method: 'get',
+          uri: '/:slug/admin/settings'
+        },
         eventShow: {
           method: 'get',
           uri: '/events/:eventSlug'
