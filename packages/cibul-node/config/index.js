@@ -414,7 +414,7 @@ const config = {
         },
         customizedShow: {
           method: 'get',
-          uri: '/:slug/admin/settings'
+          uri: '/:slug/admin/settings/customize'
         },
         eventShow: {
           method: 'get',
