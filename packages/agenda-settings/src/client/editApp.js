@@ -12,7 +12,6 @@ import makeTriggerHooks from '@openagenda/react-utils/dist/makeTriggerHooks';
 import RouterTrigger from '@openagenda/react-utils/dist/RouterTrigger';
 import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import NotFound from '@openagenda/react-utils/dist/NotFound';
-import getReducers from './redux/reducer';
 import getRoutes from './editRoutes';
 
 const defaults = {
@@ -54,7 +53,7 @@ export default function ( options ) {
   const client = apiClient( apiRoot, req );
   const history = options.history || getDefaultHistory( req );
   const store = createStore(
-    getReducers,
+    v => v,
     initialState,
     compose(
       applyMiddleware(

@@ -1,5 +1,4 @@
 import { lifecycle, hoistStatics } from 'recompose';
-import NotFound from '@openagenda/react-utils/dist/NotFound';
 import du from '@openagenda/dom-utils';
 import { EditionApp, ProfileEdition, ContributionEdition, AdvancedEdition } from './containers';
 
@@ -49,16 +48,16 @@ const withMenu = item => hoistStatics( lifecycle( {
   }
 } ) );
 
-export default function editRoutes( prefix = '', notFoundKey = 'agendaSettingsEdit' ) {
+export default function editRoutes( prefix = '' ) {
   return [
     {
+      path: prefix,
       component: EditionApp,
       routes: [
         { path: `${prefix}/`, exact: true, component: withMenu( 'settings_profile' )( ProfileEdition ) },
         { path: `${prefix}/profile`, component: withMenu( 'settings_profile' )( ProfileEdition ) },
         { path: `${prefix}/contribution`, component: withMenu( 'settings_contribution' )( ContributionEdition ) },
-        { path: `${prefix}/advanced`, component: withMenu( 'settings_advanced' )( AdvancedEdition ) },
-        { component: NotFound, notFoundKey }
+        { path: `${prefix}/advanced`, component: withMenu( 'settings_advanced' )( AdvancedEdition ) }
       ]
     }
   ];

@@ -15,6 +15,7 @@
   "agenda/action",
   "agendaAdmin/gettingStarted",
   "agendaSearch/index",
+  "agendaSettings/edit",
   "aggregatorSources/index",
   "auth/signin",
   "auth/signup",
