@@ -30,7 +30,7 @@ const testService = {
   shutdown: svc.shutdown
 }
 
-describe.only( 'events -04- functional (server): update', function() {
+describe( 'events -04- functional (server): update', function() {
 
   this.timeout( 30000 );
 

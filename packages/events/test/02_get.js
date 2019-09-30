@@ -197,13 +197,24 @@ describe( 'events - functional (server): get', function () {
 
   } );
 
+  it('location is not part of event if detailed is false', async () => {
+    const event = await svc.get({
+      uid: 1517683
+    }, {
+      detailed: false
+    } );
 
-  it( 'get with location', async () => {
+    should(event.location).equal(undefined);
+  });
 
-    const event = await svc.get( { uid: 1517683 }, { detailed: true } );
+  it('detailed option causes location to be included in result', async () => {
+    const event = await svc.get({
+      uid: 1517683
+    }, {
+      detailed: true
+    });
 
-    _.get( event, 'location.name' ).should.equal( 'La case de Janine' );
-
+    _.get(event, 'location.name').should.equal('La case de Janine');
   } );
 
 } );
