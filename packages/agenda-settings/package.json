@@ -19,8 +19,8 @@
     "prepublish": "yarn build"
   },
   "peerDependencies": {
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6"
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.5.5",
@@ -68,8 +68,8 @@
     "mocha": "^4.1.0",
     "morgan": "^1.7.0",
     "piping": "^1.0.0-rc.4",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
     "rimraf": "^2.6.2",
     "should": "^11.1.0"
   }

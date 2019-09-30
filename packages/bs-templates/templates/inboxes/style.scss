@@ -65,7 +65,7 @@
       text-align: center;
       padding: 20px;
 
-      button, span {
+      button:not(:last-child):not(.btn-link) {
         margin-right: 10px;
       }
     }

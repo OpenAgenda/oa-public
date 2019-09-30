@@ -48,12 +48,13 @@ class ActionsList extends Component {
             ) : null}
 
             {action.code === 'default' || index > 0 ? (
-              <a
+              <button
                 role="button"
+                className="btn btn-link"
                 onClick={() => this.triggerAction( action )}
               >
                 {this.getActionLabel( action )}
-              </a>
+              </button>
             ) : (
               <button
                 className={cn( 'btn', {
