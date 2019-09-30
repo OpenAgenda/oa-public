@@ -88,7 +88,7 @@ async function remove({
   unsetSourceUidOnExistingReference,
   unreferenceEvent
 }, data) {
-  const { aggregatorAgendaUid, agenda, event } = data;
+  const { aggregatorAgendaUid, agenda, event, batched } = data;
 
   log('remove %s of source %s (%s) from %s', event.slug, agenda.slug, agenda.uid, aggregatorAgendaUid);
 
@@ -105,7 +105,7 @@ async function remove({
     await unsetSourceUidOnExistingReference(aggregatorAgendaUid, event.uid, agenda.uid);
   } else {
     log('no source references are left, event must be unlisted from aggregator agenda');
-    await unreferenceEvent(agenda.uid, aggregatorAgendaUid, event.uid);
+    await unreferenceEvent(agenda.uid, aggregatorAgendaUid, event.uid, { batched });
   }
 }
 
@@ -117,7 +117,7 @@ async function evaluate({
   referenceEvent,
   unreferenceEvent
 }, data) {
-  const { agenda, event, aggregatorAgendaUid } = data;
+  const { agenda, event, aggregatorAgendaUid, batched } = data;
   log('evaluate %s of source %s (%s)', event.slug, agenda.slug, agenda.uid);
   //wr('data', data);
 
@@ -144,7 +144,7 @@ async function evaluate({
       unsetSourceUidOnExistingReference,
       getAggregatorEventReference,
       unreferenceEvent
-    }, { agenda, event, aggregatorAgendaUid, reference });
+    }, { agenda, event, aggregatorAgendaUid, reference, batched });
   }
 
   if (!shouldAggregate) {
@@ -165,7 +165,7 @@ async function evaluate({
 
   referenceEvent(agenda, aggregatorAgendaUid, event.uid, Object.assign(extendedValues, {
     sourceAgendaUid: [agenda.uid]
-  }));
+  }), { batched });
 
   return {
     success: true,
