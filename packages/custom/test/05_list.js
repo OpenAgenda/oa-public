@@ -72,12 +72,12 @@ describe( 'extended events - functional (server): list', function() {
 
   it( 'list custom data by form schema id', async () => {
 
-    ( await svc( 29 ).list( {}, 3, 5 ) ).items.should.eql( [ 
-      { identifier: 444, custom: { edition: 3, contender: 'bill' } },
-      { identifier: 555, custom: { edition: 4, contender: 'john' } },
-      { identifier: 666, custom: { edition: 5, contender: 'bobby' } },
-      { identifier: 777, custom: { edition: 6, contender: 'zoubi' } },
-      { identifier: 888, custom: { edition: 7, contender: 'cindy' } } 
+    ( await svc( 29 ).list( {}, 3, 5 ) ).items.should.eql( [
+      { identifier: 444, custom: { edition: 3, contender: 'bill' } },
+      { identifier: 555, custom: { edition: 4, contender: 'john' } },
+      { identifier: 666, custom: { edition: 5, contender: 'bobby' } },
+      { identifier: 777, custom: { edition: 6, contender: 'zoubi' } },
+      { identifier: 888, custom: { edition: 7, contender: 'cindy' } }
     ] );
 
   } );
