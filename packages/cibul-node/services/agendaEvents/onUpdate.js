@@ -18,8 +18,7 @@ const transferCustomFromLegacy = require( './lib/transferCustomFromLegacy' );
 const createActivities = require( './lib/createActivities' );
 
 module.exports = async (config, before, after, context) => {
-  log( 'updated agenda-event from %j to %j', before, after );
-  log( '%sfrom legacy', context.legacy ? '' : 'not ' );
+  log('updated agenda-event from %j to %j, %j', before, after, _.pick(context, ['legacy', 'aggregated', 'batched']));
 
   try {
     await eventSearch.agendas( after.agendaUid ).update( after );
@@ -31,47 +30,49 @@ module.exports = async (config, before, after, context) => {
 
 
   if ( after.state === 2 ) {
-
     try {
       await controlDataSvc.set( after, event );
     } catch ( e ) {
       log( 'error', 'control data set failed', e );
     }
-
   } else if ( ( before.state === 2 ) && ( after.state !== 2 ) ) {
-
     try {
       await controlDataSvc.remove( before );
     } catch ( e ) {
       log( 'error', 'control data remove failed', e );
     }
-
   }
 
-  aggregatorNotify.update( { agenda, event, before, after } );
+  aggregatorNotify.update({
+    agenda,
+    event,
+    before,
+    after,
+    batched: context.batched
+  });
 
-  if ( context.aggregated ) {
+  if (context.aggregated) {
     await transferCustomFromLegacy(agenda, event);
 
     try {
-      await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
-    } catch ( e ) {
-      log( 'error', 'could not update legacy search for event %s', event.slug );
+      await legacyEventSearch.updateEvent(_.pick(event, [ 'uid' ]));
+    } catch (e) {
+      log('error', 'could not update legacy search for event %s', event.slug);
     }
   }
 
-  if ( haveRealDiff( before, after ) ) {
+  if (haveRealDiff(before, after)) {
     return;
   }
 
   // Send emails
-  if ( before.state === after.state ) {
+  if (before.state === after.state) {
     // eventUpdate
     // myEventUpdate
     try {
       await sendEventUpdate(config, { agendaEvent: after, before, context, agenda, event });
     } catch (error) {
-      log.error( new VError(error, 'Cannot send event update emails' ));
+      log.error(new VError(error, 'Cannot send event update emails'));
     }
   } else {
     // eventChangeState
@@ -83,10 +84,10 @@ module.exports = async (config, before, after, context) => {
     }
   }
 
-  if ( user ) {
+  if (user) {
     try {
-      await createActivities( { agenda, event, user }, before, after );
-    } catch ( e ) {
+      await createActivities({ agenda, event, user }, before, after);
+    } catch (e) {
       log.error( new VError( error, 'Cannot create state change activities' ) );
     }
   }

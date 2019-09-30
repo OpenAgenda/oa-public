@@ -3,7 +3,7 @@
 const should = require( 'should' );
 const sinon = require( 'sinon' );
 const moment = require( 'moment' );
-const { agenda, event } = require('./fixtures/07_event_ics');
+const { agenda, event } = require('./fixtures/99_event_ics');
 const toIcs = require('../services/events/lib/ics');
 
 describe('event ics', () => {
@@ -36,10 +36,8 @@ DTEND:20191231T220000Z
 DTSTAMP:${moment(now).format('YYYYMMDDTHHmm00')}Z
 TZID:Europe-Paris
 SUMMARY:Réveillon de la Saint-Sylvestre
-DESCRIPTION:Mondonville - Mairie de Mondonville\\, il s'y passe des trucs bi
- en\\, moyens et nuls... bla bla bla\\, gna gna gna ! encore du textgrfdsgfr 
- fresfres freqf ezfzqfregr fregre See more: https://d.openagenda.com/mondon
- ville/events/reveillon-de-la-saint-sylvestre_405011
+DESCRIPTION:Mondonville - Mairie de Mondonville Voir plus: https://d.openag
+ enda.com/mondonville/events/reveillon-de-la-saint-sylvestre_405011
 STATUS:CONFIRMED
 LOCATION:Salle Orion - Chemin de Cantegril 31700 Mondonville
 GEO:43.67014;1.279703

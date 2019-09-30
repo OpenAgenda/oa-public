@@ -16,10 +16,12 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
 
   const {
     aggregated,
-    sourceAgenda
+    sourceAgenda,
+    batched
   } = Object.assign({
     aggregated: false,
-    sourceAgenda: null
+    sourceAgenda: null,
+    batched: false
   }, options || {});
 
   const agenda = await getAgendaWithNetworkAndSchemas(agendaUid);
@@ -27,7 +29,7 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
   // pre-validate data
   const clean = await validate.loaded({
     formSchema: agenda.formSchema,
-    networkFormSchema: _.get( agenda, 'network.formSchema' )
+    networkFormSchema: _.get(agenda, 'network.formSchema')
   }, data, false);
 
   // if event is already referenced on agenda, this fails
@@ -35,7 +37,12 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     throw new VError('event %s is already referenced by agenda %s', eventUid, agendaUid);
   }
 
-  const event = await events.get({ uid: eventUid }, { internal: true, detailed: true });
+  const event = await events.get({
+    uid: eventUid
+  }, {
+    internal: true,
+    detailed: true
+  });
 
   log(clean);
   return doAdd(agenda, eventUid, clean, {
@@ -43,7 +50,8 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
       event,
       agenda,
       aggregated,
-      sourceAgenda
+      sourceAgenda,
+      batched
     }
   });
 }

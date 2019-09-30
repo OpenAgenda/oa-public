@@ -61,13 +61,14 @@ module.exports = {
             .then(ae => ae ? _.pick(ae, ['sourceAgendaUid']) : null),
           setSourceUidOnExistingReference: services.agendaEvents.utils.setSourceUid,
           unsetSourceUidOnExistingReference: services.agendaEvents.utils.unsetSourceUid,
-          referenceEvent: async (sourceAgenda, aggregatorAgendaUid, eventUid, data) => {
+          referenceEvent: async (sourceAgenda, aggregatorAgendaUid, eventUid, data, { batched }) => {
             try {
               await services.core
                 .agendas(aggregatorAgendaUid)
                 .events.add(eventUid, data, {
                   aggregated: true,
-                  sourceAgenda
+                  sourceAgenda,
+                  batched
                 });
             } catch (e) {
               log('error', 'could not add event %s from %s to aggregator %s',
@@ -78,9 +79,9 @@ module.exports = {
               );
             }
           },
-          unreferenceEvent: async (sourceAgendaUid, aggregatorAgendaUid, eventUid) => {
+          unreferenceEvent: async (sourceAgendaUid, aggregatorAgendaUid, eventUid, { batched }) => {
             try {
-              await services.core.agendas(aggregatorAgendaUid).events.remove(eventUid);
+              await services.core.agendas(aggregatorAgendaUid).events.remove(eventUid, { batched });
             } catch (e) {
               log('error', 'could not remove event %s from aggregator %s',
                 eventUid,

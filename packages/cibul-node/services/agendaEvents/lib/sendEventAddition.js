@@ -94,48 +94,50 @@ module.exports = async ({ root }, { agendaEvent, user, context }) => {
     lang: creatorLang
   } );
 
-  await mails( {
-    template: 'eventAddition',
-    to: members
-      .filter( member => member.user && member.user.uid !== creatorUser.uid )
-      .filter( member => {
+  if (!context.batched) {
+    await mails( {
+      template: 'eventAddition',
+      to: members
+        .filter( member => member.user && member.user.uid !== creatorUser.uid )
+        .filter( member => {
 
-        if ( !member.user ) {
-          log( 'warn', 'no user was found matching member %s', member.id );
-        }
-
-        return !!member.user;
-
-      } )
-      .map( member => {
-        const lang = member.user.culture || 'fr';
-        const eventTitle = event.title[ lang ] || _.find( event.title );
-
-        return {
-          address: member.user.email,
-          lang: member.user.culture,
-          unsubscriptions: [ {
-            rule: [ 'receive', 'eventAddition' ],
-            dataPath: 'unsubscribeLink'
-          }, {
-            memberId: member.id,
-            rule: [ 'receive', 'eventAddition' ],
-            dataPath: 'memberUnsubscribeLink'
-          } ],
-          data: {
-            event: eventTitle
+          if ( !member.user ) {
+            log( 'warn', 'no user was found matching member %s', member.id );
           }
-        };
-      } ),
-    data: {
-      user: sharerMember.custom.contactName || user.fullName,
-      agenda: agenda.title,
-      state: stateLabel,
-      logo,
-      link,
-      sourceAgenda: sourceAgenda.title
-    }
-  } );
+
+          return !!member.user;
+
+        } )
+        .map( member => {
+          const lang = member.user.culture || 'fr';
+          const eventTitle = event.title[ lang ] || _.find( event.title );
+
+          return {
+            address: member.user.email,
+            lang: member.user.culture,
+            unsubscriptions: [ {
+              rule: [ 'receive', 'eventAddition' ],
+              dataPath: 'unsubscribeLink'
+            }, {
+              memberId: member.id,
+              rule: [ 'receive', 'eventAddition' ],
+              dataPath: 'memberUnsubscribeLink'
+            } ],
+            data: {
+              event: eventTitle
+            }
+          };
+        } ),
+      data: {
+        user: sharerMember.custom.contactName || user.fullName,
+        agenda: agenda.title,
+        state: stateLabel,
+        logo,
+        link,
+        sourceAgenda: sourceAgenda.title
+      }
+    } );
+  }
 
   log('all good');
 };

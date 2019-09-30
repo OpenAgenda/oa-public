@@ -67,6 +67,7 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     }
   }
 
+
   let result;
 
   const eventServiceDataFormat = toEventServiceFormat( clean.event, null, {
@@ -90,7 +91,8 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     log( 'error', 'failed to update event', {
       agendaUid: agenda.uid,
       eventUid,
-      eventServiceDataFormat
+      eventServiceDataFormat,
+      error: e
     } );
     throw e;
   }
@@ -148,25 +150,31 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     }
   }
 
+
   // event is not draft (anymore)
 
   if (clean.agendaEvent) {
-    result = await agendaEvents(agendaUid).set(updated.event.uid, ih(clean.agendaEvent, {
-      create: {
-        $set: { canEdit: true }
-      }
-    }), {
-      transferToLegacy: true,
-      context: {
-        aggregated: false,
-        legacy: false,
-        userUid: contextUserUid,
-        event: updated.event,
-        agenda,
-        batched
-      },
-      decorate: ['member']
-    });
+    try {
+      result = await agendaEvents(agendaUid).set(updated.event.uid, ih(clean.agendaEvent, {
+        create: {
+          $set: { canEdit: true }
+        }
+      }), {
+        transferToLegacy: true,
+        context: {
+          aggregated: false,
+          legacy: false,
+          userUid: contextUserUid,
+          event: updated.event,
+          agenda,
+          batched
+        },
+        decorate: ['member']
+      });
+    } catch(e) {
+      console.log('failed to update agendaEvent ref', e);
+      throw e;
+    }
 
     updated.agendaEvent = result.set;
     updated.before.agendaEvent = result.before;
@@ -204,7 +212,8 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     formSchema: merge.schemas(
       _.get(agenda, 'network.formSchema'),
       _.get(agenda, 'formSchema')
-    )
+    ),
+    batched
   });
 
   return {

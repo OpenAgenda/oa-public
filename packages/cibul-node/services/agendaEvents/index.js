@@ -3,7 +3,7 @@
 const legacy = require( './legacy' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const eventStates = require( '@openagenda/agendas/service/validate/eventStates' );
-const sessions = require( '@openagenda/sessions' );
+const sessions = require( '../sessions' );
 
 const members = require( '../members' );
 
@@ -77,9 +77,16 @@ function plugApp( parentApp ) {
     mw.load
   ] );
 
-  parentApp.get( '/:agendaSlug/events/:eventSlug/state/:state',
+  parentApp.get('/:agendaSlug/events/:eventSlug/state/:state',
     members.mw.loadAndAuthorize('moderator'),
     mw.changeState
+  );
+
+  parentApp.post('/:agendaSlug/admin/events/states',
+    sessions.mw.loadOrRedirect,
+    mw.loadAgenda,
+    members.mw.loadAndAuthorize('moderator'),
+    mw.changeState.batched
   );
 
 }

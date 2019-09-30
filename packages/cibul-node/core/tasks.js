@@ -2,22 +2,29 @@
 
 const log = require( '@openagenda/logs' )( 'core/tasks' );
 
-const queue = require( '../services/queues' )( 'core' );
+const queues = require( '../services/queues' );
 
-module.exports = Object.assign( () => queue.run(), {
+let queue, toRegister = {};
+
+module.exports = Object.assign( (ons = {}) => {
+  queue.on( 'execute', ons.execute || log.bind( null, 'info' ) );
+  queue.on( 'error', ons.error || log.bind( null, 'error' ) );
+  queue.on( 'success', ons.success || log.bind( null, 'success' ) );
+
+  queue.run();
+}, {
   register: fns => {
-
-    if ( !queue ) return log( 'warn', 'queue is not set' );
-
-    return queue.register( fns );
-
+    if (!queue) {
+      Object.assign(toRegister, fns);
+    } else {
+      queue.register(fns);
+    }
   },
-  enqueue: ( ...args ) => queue.apply( null, args )
+  enqueue: (...args) => queue.apply(null, args),
+  loadQueue
 } );
 
-// for the moment, initialization in core test env is different from dev or prod
-if ( queue ) {
-  queue.on( 'execute', log.bind( null, 'info' ) );
-  queue.on( 'error', log.bind( null, 'error' ) );
-  queue.on( 'success', log.bind( null, 'success' ) );
+function loadQueue() {
+  queue = queues('core');
+  queue.register(toRegister);
 }

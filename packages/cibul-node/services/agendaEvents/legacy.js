@@ -38,7 +38,7 @@ async function evaluate( err, action ) {
 
   if ( err ) return log( 'error', 'coms subscribe error', err );
 
-  if ( monitored.includes( action.name ) ) {
+  if (monitored.includes(action.name)) {
     log('info', 'evaluating action %j', action);
   } else {
     return log('info', 'ignoring action %s', action.name);
@@ -105,6 +105,7 @@ async function evaluate( err, action ) {
         force: _.get( action, 'values.force' ),
         context: {
           aggregated: !!sourceAgenda,
+          batched: _.get(action, 'values.batched', false),
           event,
           userUid: action.values.user_uid,
           agendaUid,

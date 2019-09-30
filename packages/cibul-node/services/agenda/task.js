@@ -12,13 +12,10 @@ const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const dispatcher = require( './dispatcher' );
 const eventSvc = require( '../event' );
-const groupActions = require( './tasks/groupActions' );
 const svc = require( './' );
 
 
 module.exports = function() {
-
-  groupActions();
 
   coms.subscribe( config.mainChannel, ( err, action ) => {
 

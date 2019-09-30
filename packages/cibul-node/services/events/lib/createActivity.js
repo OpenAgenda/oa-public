@@ -13,6 +13,10 @@ const log = require( '@openagenda/logs' )( 'events/createActivity' );
 module.exports = async ( before, after, context ) => {
   log( 'processing' );
 
+  if (!activitiesSvc.feed) {
+    return log('warn', 'activities service is not initialized');
+  }
+
   let user;
   let agenda;
 

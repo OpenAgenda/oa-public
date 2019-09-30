@@ -47,7 +47,6 @@ module.exports = app => {
   require( './agenda/shares.front' )( app );
   require( './agenda/front' )( app );
   require( './agenda/exports.back' )( app );
-  require( './agenda/groupActions.back' )( app );
   require( './agenda/facebook.back' )( app );
   require( './agenda/customized.back' )( app );
   require( './agenda/actions.front' )( app );

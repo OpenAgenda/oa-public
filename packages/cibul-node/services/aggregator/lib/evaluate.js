@@ -426,7 +426,8 @@ function _removeFromAggregator( v ) {
   return p.w.promise( function( rs, rj ) {
 
     v.aggregatingAgenda.removeEvent( v.event, {
-      refresh: !v.mute
+      refresh: !v.mute,
+      batched: v.mute
     }, ( err, result ) => {
 
       if ( err ) return rj( err );
@@ -582,6 +583,7 @@ function _announceUpdate( v ) {
 
   v.aggregatingAgenda.announceEventUpdate( v.event, {
     refresh: !v.mute,
+    batched: v.mute,
     sourceAgendaUid: v.sourceAgenda.uid,
     type: v.state === 2 ? 'event.publish' : null
   } );

@@ -20,24 +20,19 @@ const controlDataSvc = require('../legacy').controlData;
 const membersSvc = require('../members');
 const usersSvc = require('../users');
 
-module.exports = async ( config, ae, context ) => {
-
-  log('created agenda-event %j', ae, _.pick(context, ['legacy', 'aggregated']));
+module.exports = async (config, ae, context) => {
+  log('created agenda-event %j', ae, _.pick(context, ['legacy', 'aggregated', 'batched']));
 
   // use context.userUid. will be null when nothing was specified at create
-
-  const { agenda, event } = await fallbackContextGet( 'onCreate', ae, context );
+  const { agenda, event } = await fallbackContextGet('onCreate', ae, context);
   let user;
 
   context.agenda = context.agenda || agenda;
   context.event = context.event || event;
 
-  if ( !event ) {
-
-    log( 'error', 'could not retrieve event', ae );
-
+  if (!event) {
+    log('error', 'could not retrieve event', ae);
     return;
-
   }
 
   if ( context.userUid ) {
@@ -48,12 +43,12 @@ module.exports = async ( config, ae, context ) => {
     }
   }
 
-  if ( !context.aggregated ) {
-    if ( ae.agendaUid === event.agendaUid ) {
+  if (!context.aggregated) {
+    if (ae.agendaUid === event.agendaUid) {
       // Creation
       try {
         await sendEventCreation(config, { agendaEvent: ae, context });
-      } catch ( error ) {
+      } catch (error) {
         log.error( new VError( error, 'Cannot send event creation emails' ) );
       }
     } else {
@@ -64,33 +59,40 @@ module.exports = async ( config, ae, context ) => {
         log.error(new VError(error, 'Cannot send event addition emails'));
       }
     }
-  } else if ( context.aggregated ) {
+  } else {
     // Aggregation
-    try {
-      await sendEventAggregation(config, { agendaEvent: ae, context });
-    } catch ( error ) {
-      log.error( new VError( error, 'Cannot send event aggregation emails' ) );
+    if (!context.batched) {
+      try {
+        await sendEventAggregation(config, { agendaEvent: ae, context });
+      } catch (error) {
+        log.error(new VError(error, 'Cannot send event aggregation emails'));
+      }
     }
   }
 
   if (context.legacy && context.aggregated && agenda.formSchemaId) {
     // this happens after legacy reference was added
     try {
-      await custom( agenda.formSchemaId ).transferFromLegacy( event.uid, _.get( agenda, 'id' ) );
-    } catch ( e ) {
-      log( 'error', 'could not transfer custom data from legacy (%s.%s)', ae.agendaUid, ae.eventUid, e );
+      await custom(agenda.formSchemaId).transferFromLegacy(event.uid, _.get( agenda, 'id' ));
+    } catch (e) {
+      log('error', 'could not transfer custom data from legacy (%s.%s)', ae.agendaUid, ae.eventUid, e);
     }
   }
 
   if (context.legacy || context.aggregated) {
     try {
       await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
-    } catch ( e ) {
-      log( 'error', 'could not update legacy search for event %s', event.slug );
+    } catch (e) {
+      log('error', 'could not update legacy search for event %s', event.slug);
     }
   }
 
-  aggregatorNotify.create( { agenda, event, agendaEvent: ae } );
+  aggregatorNotify.create({
+    agenda,
+    event,
+    agendaEvent: ae,
+    batched: context.batched
+  });
 
 
   /**

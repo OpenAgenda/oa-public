@@ -15,6 +15,8 @@ supervisor(async loadTasks => {
 
     services.core = require('./core');
 
+    services.core.tasks.loadQueue();
+
     if (__DEVELOPMENT__) {
       require('source-map-support').install({ hookRequire: true });
     }

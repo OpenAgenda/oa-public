@@ -10,7 +10,7 @@ module.exports = {
       "fr": "Réveillon de la Saint-Sylvestre"
     },
     "description": {
-      "fr": "Mondonville - Mairie de Mondonville, il s'y passe des trucs bien, moyens et nuls... bla bla bla, gna gna gna ! encore du textgrfdsgfr fresfres freqf ezfzqfregr fregre"
+      "fr": "Mondonville - Mairie de Mondonville"
     },
     "longDescription": {
       "fr": "Plus d’informations à venir\n---------------------------"

@@ -78,11 +78,18 @@ module.exports = async ({ root }, { agendaEvent, context }) => {
     });
   }
 
+  const targettedMembers = members.filter(member => (
+    member.user
+    && !(
+      member.user.uid === creatorUser.uid && visibleForCreator
+    )
+  ));
+
+  log('sending aggregation email to %s members', targettedMembers.length);;
+
   await mails({
     template: 'eventAggregation',
-    to: members
-      .filter(member => member.user && !(member.user.uid === creatorUser.uid && visibleForCreator))
-      .map(member => {
+    to: targettedMembers.map(member => {
         const lang = member.user.culture || 'fr';
         const eventTitle = event.title[lang] || _.find(event.title);
 

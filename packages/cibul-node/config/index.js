@@ -69,7 +69,6 @@ const config = {
     jobsQueue: 'jobs',
     queues: {
       aggregator: 'aggregator',
-      groupActions: 'groupactions',
       oembed: 'oembed',
       controlData: 'agendaControlDataQueue',
       stakeholderCreate: 'stakeholderCreate',
@@ -803,7 +802,6 @@ const config = {
         //enable: 'oa:events/interfaces/legacy'
         //enable: 'oa:agendaEvents/interfaces/legacy',
         //enable: 'oa:agendaEvents/interfaces/legacy, oa:agendaEvents/interfaces/onUpdate',
-        //enable: 'oa:agendaEvents*, oa:events*, oa:services/eventSearch*, oa:groupactions*'
         //enable: 'oa:agendaEvents',
         //enable: 'oa:services/event/oembed',
         //enable: 'oa:services/model',
@@ -825,12 +823,12 @@ const config = {
     },
     //useCache: false,
     db: {
-      database: 'oadev',
-      // database: 'oa',
-      host: 'localhost',
-      // host: 'oatest.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
-      password: 'grut',
-      // password: prod.db.password,
+      //database: 'oadev',
+      database: 'oa',
+      //host: 'localhost',
+      host: 'oatest.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
+      //password: 'grut',
+      password: prod.db.password,
       user: 'root',
       cache: true,
       //debug: true,

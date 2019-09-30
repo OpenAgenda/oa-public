@@ -26,8 +26,6 @@ var model = require( '../../model' ),
 
   emailStrategie = require( './emailStrategie' ),
 
-  groupActions = require( './groupActions' ),
-
   coms = require( '../../../lib/coms' ),
 
   config = require( '../../../config' ),
@@ -85,10 +83,6 @@ function instanciate( data ) {
 
   emailStrategie( svcInstance, instance, [
     'emailStrategie'
-  ] );
-
-  groupActions( svcInstance, instance, [
-    'changeEventStates'
   ] );
 
   return cache( 'agenda', svcInstance, [], [ 'addEvent', 'removeEvent' ] );

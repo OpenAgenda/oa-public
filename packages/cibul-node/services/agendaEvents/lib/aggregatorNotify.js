@@ -13,7 +13,7 @@ module.exports = {
   remove: _catchable( remove )
 }
 
-async function create( { agenda, event, agendaEvent } ) {
+async function create( { agenda, event, agendaEvent, batched } ) {
 
   log( 'notify create for event %s on agenda %s with state %s', event.slug, agenda.slug, agendaEvent.state );
 
@@ -23,34 +23,32 @@ async function create( { agenda, event, agendaEvent } ) {
 
     const eventId = await _getLegacyEventId( event );
 
-    aggregator.notifyPublish( eventId, agenda.id );
+    aggregator.notifyPublish(eventId, agenda.id, batched);
 
   }
 
 }
 
 
-async function update( { agenda, event, before, after } ) {
+async function update({ agenda, event, before, after, batched }) {
 
   log( 'notify update for event %s on agenda %s with before state %s and after state %s', event.slug, agenda.slug, before.state, after.state );
 
-  if ( before.state === after.state ) return;
+  if (before.state === after.state) return;
 
-  await _sleep( 3 );
+  await _sleep(3);
 
-  const eventId = await _getLegacyEventId( event );
+  const eventId = await _getLegacyEventId(event);
 
-  if ( after.state === 2 ) {
-
-    aggregator.notifyPublish( eventId, agenda.id );
+  if (after.state === 2) {
+    aggregator.notifyPublish(eventId, agenda.id, batched);
 
     return;
-
   }
 
   if ( before.state !== 2 ) return;
 
-  aggregator.notifyUnpublish( eventId, agenda.id );
+  aggregator.notifyUnpublish(eventId, agenda.id);
 
 }
 
@@ -63,7 +61,7 @@ async function remove( { agenda, event, agendaEvent } ) {
 
   await _sleep( 3 );
 
-  aggregator.notifyUnpublish( eventId, agenda.id );
+  aggregator.notifyUnpublish(eventId, agenda.id);
 
 }
 

@@ -3,12 +3,11 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 
-const agendas = require('@openagenda/agendas');
 const agendaEvents = require('@openagenda/agenda-events');
 const custom = require('@openagenda/custom');
 const events = require('@openagenda/events');
 const formSchemas = require('@openagenda/form-schemas');
-const log = require('@openagenda/logs' )( 'core/agendas/events/get');
+const log = require('@openagenda/logs')('core/agendas/events/get');
 
 const getAgenda = require('../utils/getAgenda');
 const getMergedSchema = require('../settings/getMergedSchema');
@@ -51,8 +50,11 @@ module.exports = async (agendaUid, eventUid, options = {}) => {
     Object.assign(
       result.event,
       await events
-        .get({ uid: eventUid }, { internal, detailed })
-        .then(e => _.omit(e, ['id']))
+        .get({
+          uid: eventUid
+        }, {
+          internal, detailed
+        }).then(e => _.omit(e, ['id']))
       );
   }
 
@@ -62,15 +64,20 @@ module.exports = async (agendaUid, eventUid, options = {}) => {
     return null;
   };
 
+  if (agendaEvent) {
+    Object.assign(result.event, {
+      state: agendaEvent.state,
+      featured: agendaEvent.featured
+    });
+  }
+
   const loadCustomFields = eventIsLoaded || customOnly;
 
   if (loadCustomFields && formSchemaId) {
     const customData = await custom(formSchemaId).get(eventUid);
 
-    if ( customData ) {
-
-      _.assign( result.event, customData );
-
+    if (customData) {
+      Object.assign(result.event, customData);
     }
   }
 
@@ -91,9 +98,7 @@ module.exports = async (agendaUid, eventUid, options = {}) => {
   );
 
   if (includeSchema || access) {
-
     result.schema = await getMergedSchema(agenda, { preloadedNetwork: network });
-
   }
 
   _filterByAccess(result, access);
@@ -105,7 +110,7 @@ module.exports = async (agendaUid, eventUid, options = {}) => {
 function _filterByAccess(data, access = null) {
   const { event, schema } = data;
 
-  if ( !access ) return;
+  if (!access) return;
 
   const unsets = _.get(schema, 'fields', []).filter(
     f => f.read && ![].concat(f.read).includes(access)

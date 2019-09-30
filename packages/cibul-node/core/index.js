@@ -1,8 +1,14 @@
 "use strict";
 
+const tasks = require('./tasks');
+const initServices = require( '../services/init' );
+
 module.exports = {
-  init: require( '../services/init' ),
+  init: async (config, options = {}) => {
+    await initServices(config, options);
+    tasks.loadQueue();
+  },
   agendas: require( './agendas' ),
   networks: require( './networks' ),
-  tasks: require( './tasks' )
+  tasks
 }
