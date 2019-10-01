@@ -14,8 +14,8 @@ module.exports = location => {
   // location is updated as it goes along transforms
   transforms.forEach( transform => {
 
-    if( !Object.keys( transform.matchEvery )
-      .every( field => [].concat( transform.matchEvery[ field ] ).some(
+    if( !Object.keys( transform.matchAny )
+      .every( field => [].concat( transform.matchAny[ field ] ).some(
         fieldValue => _test( fieldValue, updated[ field ] )
       ) )
     ) return;

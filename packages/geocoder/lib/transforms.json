@@ -1,6 +1,6 @@
 [
   {
-    "matchEvery": {
+    "matchAny": {
       "city": [
         "Albigny-sur-Saône",
         "Bron",
@@ -68,7 +68,7 @@
     }
   },
   {
-    "matchEvery": {
+    "matchAny": {
       "city": "^Lyon(\\s.+|)$"
     },
     "update": {
@@ -76,7 +76,7 @@
     }
   },
   {
-    "matchEvery": {
+    "matchAny": {
       "department": "Circonscription départementale du Rhône"
     },
     "update": {
@@ -84,11 +84,22 @@
     }
   },
   {
-    "matchEvery" : {
+    "matchAny" : {
       "city" : "Saint-Aubin-de-Médoc"
     },
     "update" : {
       "city" : "Saint-Aubin de Médoc"
+    }
+  },
+  {
+    "matchAny" : {
+      "city" : [
+        "Villeneuve-d’Ascq",
+        "VILLENEUVE D ASCQ"
+      ]
+    },
+    "update" : {
+      "city" : "Villeneuve-d'Ascq"
     }
   }
 ]

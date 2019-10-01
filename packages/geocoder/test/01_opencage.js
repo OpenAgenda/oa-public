@@ -93,7 +93,7 @@ describe( 'opencage', function() {
           countryCode: 'FR',
           language: 'fr',
           first: true
-        } ) ).district.should.equal('Centre Ville');
+        } ) ).district.should.equal('Centre-Ville');
 
       } );
 
