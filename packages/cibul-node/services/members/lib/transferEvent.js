@@ -13,13 +13,13 @@ module.exports = async ( event, member ) => {
 
   const previousOwnerUid = event.ownerUid;
 
-  await agendaEvents( member.agendaUid ).update( event.uid, {
+  await agendaEvents(member.agendaUid).update(event.uid, {
     userUid: member.userUid
-  }, { protected: false } );
+  }, { protected: false, transferToLegacy: true });
 
   await events.update( { uid: event.uid }, {
     ownerUid: member.userUid
-  }, { protected: false } );
+  }, { protected: false, transferToLegacy: true } );
 
   try {
     await legacyEventSearch.updateEvent( _.pick( event, [ 'uid' ] ) );
