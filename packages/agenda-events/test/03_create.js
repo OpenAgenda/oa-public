@@ -30,28 +30,74 @@ describe( 'agendaEvents - functional (server): create', function() {
 
   } );
 
-  it( 'simple create', done => {
+  describe('simple create', () => {
+    let rows;
+    let result;
 
-    svc( 1111 ).create( 2222 ).then( result => {
+    before(done => {
+      svc(1111).create(2222).then(r => {
+        result = r;
+        const con = mysql.createConnection(config.mysql);
 
-      const con = mysql.createConnection( config.mysql );
+        con.query('select * from agenda_event where agenda_uid = ? and event_uid = ?', [1111, 2222], (err, r) => {
+          rows = r;
+          done();
+        });
+      });
+    });
 
-      con.query( 'select * from agenda_event where agenda_uid = ? and event_uid = ?', [ 1111, 2222 ], ( err, rows ) => {
+    it('one entry in db is created', () => {
+      rows.length.should.equal(1);
+    });
 
-        rows.length.should.equal( 1 );
+    it('entry has specified agenda and event references', () => {
+      _.pick(rows[0], ['agenda_uid', 'event_uid']).should.eql({
+        agenda_uid: 1111,
+        event_uid: 2222
+      });
+    });
 
-        _.pick( rows[ 0 ], [ 'agenda_uid', 'event_uid' ] ).should.eql( {
-          agenda_uid: 1111,
-          event_uid: 2222
-        } );
+    it('aggregated db field is false by default', () => {
+      rows[0].aggregated.should.equal(0);
+    });
 
-        done();
+    it('created result specifies aggregated to be false', () => {
+      result.created.aggregated.should.equal(false);
+    });
 
-      } );
+  });
 
-    } );
+  describe('create with some more values', () => {
+    const result = {};
 
-  } );
+    before(async () => {
+      result.byUser = await svc(1212).create(3434, {
+        userUid: 5656
+      });
+
+      result.aggregated = await svc(1212).create(9893, {
+        aggregated: true
+      });
+
+      result.aggregatedAndUser = await svc(1212).create(19390, {
+        aggregated: true,
+        userUid: 1929
+      });
+    });
+
+    it('userUid is provided in created ref', () => {
+      result.byUser.created.userUid.should.equal(5656);
+    });
+
+    it('aggregated is provided in created ref as true when specified', () => {
+      result.aggregated.created.aggregated.should.equal(true);
+    });
+
+    it('cannot create an entry both as aggregated and associated with user', () => {
+      result.aggregatedAndUser.success.should.equal(false);
+    });
+
+  });
 
   it( 'simple create forcing timestamp values', async () => {
 
@@ -71,18 +117,6 @@ describe( 'agendaEvents - functional (server): create', function() {
     result.created.updatedAt.toString().should.equal( updatedAt.toString() );
 
   } );
-
-
-  it( 'set userUid value in second create argument', async () => {
-
-    const result = await svc( 1212 ).create( 3434, {
-      userUid: 5656
-    } );
-
-    result.created.userUid.should.equal( 5656 );
-
-  } );
-
 
   it( 'context can be passed in options to be transfered to onCreate interface', done => {
 

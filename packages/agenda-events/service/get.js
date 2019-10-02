@@ -54,6 +54,7 @@ async function _get( where ) {
       'state',
       'can_edit',
       'featured',
+      'aggregated',
       'created_at',
       'updated_at',
       'legacy_id'

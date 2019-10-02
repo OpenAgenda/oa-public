@@ -62,8 +62,8 @@ async function update( agendaUid, eventUid, data, options = {} ) {
 
     log( 'info', 'validating for %s.%s', agendaUid, eventUid, values );
 
-    clean = validate(values);
-  } catch ( validationErrors ) {
+    clean = _.omit(validate(values), ['aggregated']);
+  } catch (validationErrors) {
     return {
       success: false,
       valid: false,

@@ -9,6 +9,7 @@ create table if not exists `${schema}` (
   can_edit tinyint(1) default 0,
   created_at datetime not null,
   updated_at datetime not null,
+  aggregated tinyint(1) default 0,
   legacy_id varchar(30),
   primary key ( id )
 ) engine=InnoDB  default character set utf8 collate utf8_general_ci;

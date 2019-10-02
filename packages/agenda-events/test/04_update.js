@@ -31,11 +31,14 @@ describe( 'agendaEvents - functional (server): update', function() {
   } );
 
   describe('simple update', () => {
-
     let result;
 
     before(async () => {
-      result = await svc( 62792452 ).update( 10974548, { featured: true, state: 2 } );
+      result = await svc( 62792452 ).update( 10974548, {
+        featured: true,
+        state: 2,
+        aggregated: true
+      } );
     });
 
     it('result provides success boolean', () => {
@@ -52,6 +55,9 @@ describe( 'agendaEvents - functional (server): update', function() {
       result.before.state.should.equal(1);
     });
 
+    it('aggregated bool is not updatable', () => {
+      result.updated.aggregated.should.equal(false);
+    });
   });
 
   describe( 'handling protected values', () => {

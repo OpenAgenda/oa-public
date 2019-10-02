@@ -37,23 +37,36 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
   let created = null;
 
   try {
-    const values = _.extend( { eventUid, agendaUid }, data || {}, {
+    const values = Object.assign({ eventUid, agendaUid }, data || {}, {
       createdAt: new Date(),
       updatedAt: new Date()
-    } );
+    });
 
-    if ( !params.protected ) {
-      [ 'updatedAt', 'createdAt' ].forEach( f => {
+    if (!params.protected) {
+      ['updatedAt', 'createdAt'].forEach(f => {
         if ( data[ f ] ) values[ f ] = data[ f ];
       } );
     }
 
-    clean = validate( values );
-  } catch ( validationErrors ) {
+    clean = validate(values);
+  } catch (validationErrors) {
     return {
       success: false,
       valid: false,
       errors: validationErrors
+    }
+  }
+
+  if (clean.userUid && clean.aggregated) {
+    return {
+      success: false,
+      valid: false,
+      errors: [{
+        field: 'aggregated',
+        code: 'invalid',
+        message: 'cannot be aggregated and associated to a user',
+        origin: _.pick(clean, ['userUid', 'aggregated'])
+      }]
     }
   }
 
@@ -70,11 +83,11 @@ async function create( agendaUid, eventUid, data = {}, options = {} ) {
 
   success = insertIds.length === 1;
 
-  if ( success ) {
+  if (success) {
     created = await get(clean.agendaUid, clean.eventUid, params);
   }
 
-  if ( success && options.transferToLegacy ) {
+  if (success && options.transferToLegacy) {
     log('info', 'transfering to legacy %j', created);
 
     try {

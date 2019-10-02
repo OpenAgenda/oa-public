@@ -63,6 +63,10 @@ function init( { eventStates } ) {
     userUid: {
       type: 'integer'
     },
+    aggregated: {
+      type: 'boolean',
+      default: false
+    },
     sourceAgendaUid: {
       type: 'integer',
       list: true
@@ -104,24 +108,14 @@ function init( { eventStates } ) {
 
 
 function _postClean( v, c, { optionalSecondaryFields } ) {
-
   if ( !optionalSecondaryFields ) return c;
 
-  const omitted = [];
-
-  if ( _.get( v, 'state', null ) === null ) {
-    omitted.push('state');
-  }
-
-  if ( _.get( v, 'featured', null ) === null ) {
-    omitted.push('featured');
-  }
-
-  if ( _.get( v, 'sourceAgendaUid', null ) === null ) {
-    omitted.push('sourceAgendaUid');
-  }
-
-  return _.omit(c, omitted);
+  return _.omit(c, [
+    'state',
+    'featured',
+    'sourceAgendaUid',
+    'aggregated'
+  ].filter(f => _.get(v, f, null) === null));
 }
 
 function _preClean( v ) {

@@ -22,6 +22,11 @@ const validate = schema( {
     list: {
       default: null
     }
+  },
+  aggregated: {
+    type: 'boolean',
+    optional: true,
+    default: null
   }
 } );
 

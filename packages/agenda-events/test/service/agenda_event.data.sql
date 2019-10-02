@@ -10,18 +10,20 @@ create table if not exists `${schema}` (
   created_at datetime not null,
   updated_at datetime not null,
   legacy_id varchar(30),
+  aggregated tinyint(1),
   index user_uid_idx (user_uid),
   index agenda_uid_idx (agenda_uid),
   index event_uid_idx (event_uid),
   index legacy_id_idx (legacy_id),
+  index aggregated_idx (aggregated),
   primary key ( id )
 ) engine=InnoDB  default character set utf8 collate utf8_general_ci;
 
 INSERT INTO `${schema}` (`id`, `legacy_id`, `agenda_uid`, `event_uid`, `user_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
 (435378, '42.24', 62792452, 10974548, 12312312, 1, 0, '2016-01-13 10:12:18', '2016-01-13 10:12:18');
 
-INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `user_uid`, `source_agenda_uid`, `state`, `featured`, `created_at`, `updated_at`) VALUES
-(437141, 62792452, 60059313, 1, '[11,22,33]', 0, '2016-01-25 16:19:30', '2016-01-25 16:19:30', '2019-09-07 10:12:18');
+INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `user_uid`, `source_agenda_uid`, `state`, `featured`, `created_at`, `updated_at`, `aggregated`) VALUES
+(437141, 62792452, 60059313, 1, '[11,22,33]', 0, '2016-01-25 16:19:30', '2016-01-25 16:19:30', '2019-09-07 10:12:18', 1);
 
 INSERT INTO `${schema}` (`id`, `agenda_uid`, `event_uid`, `state`, `featured`, `created_at`, `updated_at`, `user_uid`) VALUES
 (436064, 62792452, 53117383, 0, 0, '2016-01-19 13:52:59', '2016-01-19 13:52:59', null),

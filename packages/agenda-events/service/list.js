@@ -114,7 +114,14 @@ function _list(query, nav) {
     lastId
   } = nav;
 
-  const fields = [ 'agenda_uid', 'event_uid', 'user_uid', 'state', 'featured', 'legacy_id' ];
+  const fields = [
+    'agenda_uid',
+    'event_uid',
+    'user_uid',
+    'state',
+    'featured',
+    'legacy_id'
+  ];
 
   if ( lastId !== undefined ) {
 
@@ -140,20 +147,24 @@ function _list(query, nav) {
   return k.then( rows => rows.map( r => _.mapKeys( r, ( v, k ) => _.camelCase( k ) ) ) );
 }
 
-function _query( k, query ) {
-  if ( query.agendaUid !== undefined ) {
-    k.where( 'agenda_uid', query.agendaUid );
-  } else if ( query.userUid !== undefined ) {
-    k.where( 'user_uid', query.userUid );
+function _query(k, query) {
+  if (query.agendaUid !== undefined) {
+    k.where('agenda_uid', query.agendaUid);
+  } else if (query.userUid !== undefined) {
+    k.where('user_uid', query.userUid);
   }
 
-  if ( query.eventUid && _.isArray(query.eventUid) ) {
-    k.whereIn( 'event_uid', query.eventUid );
-  } else if ( query.eventUid ) {
-    k.where( 'event_uid', query.eventUid );
+  if (query.eventUid && _.isArray(query.eventUid)) {
+    k.whereIn('event_uid', query.eventUid);
+  } else if (query.eventUid) {
+    k.where('event_uid', query.eventUid);
   }
 
-  if ( query.state !== undefined ) {
-    k.andWhere( 'state', query.state );
+  if (query.state !== undefined) {
+    k.andWhere('state', query.state);
+  }
+
+  if (![null, undefined].includes(query.aggregated)) {
+    k.andWhere('aggregated', 1);
   }
 }

@@ -98,34 +98,28 @@ describe( 'agendaEvents - functional (server): remove', function() {
   } );
 
 
-  it( 'when several references are removed', done => {
-
+  it('when several references are removed', done => {
     let count = 0;
 
-    svc.init( im( config, {
+    svc.init(im(config, {
       interfaces: {
         onRemove: {
-          $set: ( removed, context ) => {
-
+          $set: (removed, context) => {
             count++;
 
-            removed.eventUid.should.equal( 15205357 );
+            removed.eventUid.should.equal(15205357);
 
             if ( count === 2 ) {
-
               done();
-
             }
-
           }
         }
       }
     } ) );
 
-    svc.remove( 15205357 );
+    svc.remove(15205357);
 
     svc.tasks.interfaces();
-
   } );
 
 

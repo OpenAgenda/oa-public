@@ -36,7 +36,7 @@ describe( 'agendaEvents - functional (server): list', function() {
 
   } );
 
-  it( 'list with member decorate provides members for each returned item', async () => {
+  it('list with member decorate provides members for each returned item', async () => {
     const { items } = await svc(62792452).list(100, 10, { decorate: ['member'] });
 
     items.filter(i => i.member).length.should.equal(4);
@@ -46,7 +46,7 @@ describe( 'agendaEvents - functional (server): list', function() {
       userUid: 123,
       role: 2
     });
-  } );
+  });
 
   it( 'list filtered by state using code in query', async () => {
 
@@ -76,12 +76,16 @@ describe( 'agendaEvents - functional (server): list', function() {
 
   } );
 
+  it('list filtered by aggregated boolean', async () => {
+    const result = await svc(62792452).list({ aggregated: true }, 0, 0);
+
+    result.total.should.equal(1);
+  });
+
   it( 'total gives an integer equal to the total number of items', async () => {
+    const result = await svc(62792452).list(100, 10);
 
-    const result = await svc( 62792452 ).list( 100, 10 );
-
-    result.total.should.equal( 2288 );
-
+    result.total.should.equal(2288);
   } );
 
   it( 'list for serveral event uids', async () => {
@@ -110,14 +114,15 @@ describe( 'agendaEvents - functional (server): list', function() {
 
   } );
 
-  it( 'an item contains agenda & event references, state, featured bool and custom data', async () => {
+  it('an item contains agenda & event references, state, featured bool and custom data', async () => {
 
-    const result = await svc( 62792452 ).list( 0, 1 );
+    const result = await svc(62792452).list(0, 1);
 
     Object.keys( result.items[ 0 ] ).should.eql([
       'eventUid',
       'agendaUid',
       'userUid',
+      'aggregated',
       'sourceAgendaUid',
       'featured',
       'canEdit',
