@@ -1,0 +1,709 @@
+{
+  "sourceAgenda": {
+    "slug": "fetedelascience2019_bretagne",
+    "id": 18261,
+    "uid": 43890851
+  },
+  "sourceRules": [],
+  "aggregatorAgendaUid": 93894224,
+  "aggregatorRules": [],
+  "formSchema": {
+    "custom": null,
+    "fields": [
+      {
+        "field": "organisateur",
+        "label": {
+          "fr": "Organisateur"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "custom",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "fieldType": "text",
+        "schemaId": 3294
+      },
+      {
+        "field": "email-de-lorganisateur",
+        "label": {
+          "fr": "Email de l'organisateur"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": {
+          "fr": "Champ visible uniquement des administrateurs et modérateurs. A compléter uniquement quand des événements sont saisis pour le compte d'un organisateur local."
+        },
+        "sub": null,
+        "placeholder": null,
+        "write": [
+          "administrator",
+          "moderator"
+        ],
+        "read": [
+          "administrator",
+          "moderator"
+        ],
+        "optional": true,
+        "display": true,
+        "origin": "custom",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "fieldType": "text",
+        "schemaId": 3294
+      },
+      {
+        "field": "partenaire",
+        "label": {
+          "fr": "Partenaire(s)"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "custom",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "fieldType": "text",
+        "schemaId": 3294
+      },
+      {
+        "field": "referentscientifique",
+        "label": {
+          "fr": "Comment garantissez-vous la qualité des informations scientifiques abordées ?"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "custom",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "fieldType": "textarea",
+        "schemaId": 3294
+      },
+      {
+        "field": "unitesrecherche",
+        "label": {
+          "fr": "Liste des unités de recherche impliquées à l'événement"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": {
+          "fr": "Indiquer le label numéro, l'intitulé et la ville de chaque unité"
+        },
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "custom",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "fieldType": "text",
+        "schemaId": 3294
+      },
+      {
+        "field": "thematiques",
+        "label": {
+          "fr": "Thématiques"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "default": null,
+        "info": {
+          "fr": "Si vous souhaitez être plus précis, vous pourrez ajouter des mots-clés dans la suite du formulaire."
+        },
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "origin": "tags",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "options": [
+          {
+            "id": 1,
+            "value": "sciences-de-la-vie-et-de-la-sante",
+            "label": {
+              "fr": "Sciences de la vie et de la santé"
+            }
+          },
+          {
+            "id": 2,
+            "value": "sciences-exactes-maths-physique-chimie",
+            "label": {
+              "fr": "Sciences exactes (maths, physique, chimie)"
+            }
+          },
+          {
+            "id": 3,
+            "value": "sciences-de-lenvironnement-agronomie-ecologie-developpement-durable",
+            "label": {
+              "fr": "Sciences de l'environnement (agronomie, écologie, développement durable)"
+            }
+          },
+          {
+            "id": 4,
+            "value": "sciences-de-la-terre-et-de-lunivers-de-lespace",
+            "label": {
+              "fr": "Sciences de la Terre et de l'univers, de l'espace"
+            }
+          },
+          {
+            "id": 5,
+            "value": "sciences-numeriques",
+            "label": {
+              "fr": "Sciences numériques"
+            }
+          },
+          {
+            "id": 6,
+            "value": "sciences-humaines-et-sociales",
+            "label": {
+              "fr": "Sciences humaines et sociales"
+            }
+          },
+          {
+            "id": 7,
+            "value": "sciences-de-lingenieur",
+            "label": {
+              "fr": "Sciences de l'ingénieur"
+            }
+          }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 3294
+      },
+      {
+        "field": "orientation-et-axes-transversaux",
+        "label": {
+          "fr": "Orientation et axes transversaux"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "default": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "tags",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "options": [
+          {
+            "id": 20,
+            "value": "orientation-nationale",
+            "label": {
+              "fr": "Orientation nationale"
+            }
+          },
+          {
+            "id": 21,
+            "value": "orientation-regionale",
+            "label": {
+              "fr": "Orientation régionale"
+            }
+          },
+          {
+            "id": 22,
+            "value": "egalite-femmes-hommes",
+            "label": {
+              "fr": "Egalité femmes / hommes"
+            }
+          },
+          {
+            "id": 23,
+            "value": "changement-climatique-et-developpement-durable",
+            "label": {
+              "fr": "Changement climatique et développement durable"
+            }
+          },
+          {
+            "id": 24,
+            "value": "europe-and-international",
+            "label": {
+              "fr": "Europe & international"
+            }
+          },
+          {
+            "id": 25,
+            "value": "histoire-des-sciences-et-des-techniques",
+            "label": {
+              "fr": "Histoire des sciences et des techniques"
+            }
+          },
+          {
+            "id": 26,
+            "value": "enjeux-de-societe-debat-and-controverses",
+            "label": {
+              "fr": "Enjeux de société, débat & controverses"
+            }
+          },
+          {
+            "id": 27,
+            "value": "culture-technique-industrielle-et-innovation",
+            "label": {
+              "fr": "Culture technique, industrielle et innovation"
+            }
+          },
+          {
+            "id": 28,
+            "value": "les-projets-de-mediation-innovante",
+            "label": {
+              "fr": "Projets de médiation innovante"
+            }
+          }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 3294
+      },
+      {
+        "field": "publics-concernes",
+        "label": {
+          "fr": "Publics concernés"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "default": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "tags",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "options": [
+          {
+            "id": 8,
+            "value": "maternelle-3-6-ans",
+            "label": {
+              "fr": "Maternelle (3 - 6 ans)"
+            }
+          },
+          {
+            "id": 9,
+            "value": "primaire-6-11-ans",
+            "label": {
+              "fr": "Primaire (6 - 11 ans)"
+            }
+          },
+          {
+            "id": 10,
+            "value": "college-11-15-ans",
+            "label": {
+              "fr": "Collège (11 - 15 ans)"
+            }
+          },
+          {
+            "id": 11,
+            "value": "lycee-15-18-ans",
+            "label": {
+              "fr": "Lycée (15 - 18 ans)"
+            }
+          },
+          {
+            "id": 12,
+            "value": "etudiants-18-25-ans",
+            "label": {
+              "fr": "Etudiants (18 - 25 ans)"
+            }
+          },
+          {
+            "id": 13,
+            "value": "familles",
+            "label": {
+              "fr": "Familles"
+            }
+          },
+          {
+            "id": 40,
+            "value": "actifs",
+            "label": {
+              "fr": "Actifs"
+            }
+          },
+          {
+            "id": 14,
+            "value": "seniors",
+            "label": {
+              "fr": "Seniors"
+            }
+          }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 3294
+      },
+      {
+        "field": "inscription-necessaire",
+        "label": {
+          "fr": "Inscription nécessaire ?"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "default": null,
+        "info": {
+          "fr": "Si votre événement nécessite une réservation de place, indiquez-le ici."
+        },
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": false,
+        "display": true,
+        "origin": "tags",
+        "enableWith": null,
+        "related": [],
+        "options": [
+          {
+            "id": 15,
+            "value": "oui",
+            "label": {
+              "fr": "Oui"
+            }
+          },
+          {
+            "id": 16,
+            "value": "non",
+            "label": {
+              "fr": "Non"
+            }
+          }
+        ],
+        "fieldType": "radio",
+        "schemaId": 3294
+      },
+      {
+        "field": "public-specifique",
+        "label": {
+          "fr": "Public spécifique"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "default": null,
+        "info": {
+          "fr": "Si un même événement comporte des horaires différents pour les scolaires et le grand public, dupliquez votre événement afin de créer un événement à destination des scolaires uniquement et un événement à destination du grand public uniquement."
+        },
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "tags",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "options": [
+          {
+            "id": 17,
+            "value": "scolaires",
+            "label": {
+              "fr": "Scolaires"
+            }
+          }
+        ],
+        "fieldType": "checkbox",
+        "schemaId": 3294
+      },
+      {
+        "field": "reconduction",
+        "label": {
+          "fr": "Reconduction"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "default": null,
+        "info": {
+          "fr": "S'agit-il d'une reconduction d'un projet proposé lors de l'édition précédente ?"
+        },
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "tags",
+        "enableWith": null,
+        "related": [],
+        "options": [
+          {
+            "id": 18,
+            "value": "evenement-nouveau",
+            "label": {
+              "fr": "Événement nouveau"
+            }
+          },
+          {
+            "id": 19,
+            "value": "evenement-reconduit",
+            "label": {
+              "fr": "Événement reconduit"
+            }
+          }
+        ],
+        "fieldType": "radio",
+        "schemaId": 3294
+      },
+      {
+        "field": "type-danimation",
+        "label": {
+          "fr": "Type d'animation"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "default": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "tags",
+        "enableWith": null,
+        "related": [],
+        "options": [
+          {
+            "id": 29,
+            "value": "evenement-ponctuel-atelier",
+            "label": {
+              "fr": "[Evènement ponctuel] Atelier"
+            }
+          },
+          {
+            "id": 30,
+            "value": "evenement-ponctuel-exposition",
+            "label": {
+              "fr": "[Evènement ponctuel] Exposition"
+            }
+          },
+          {
+            "id": 31,
+            "value": "evenement-ponctuel-jeu",
+            "label": {
+              "fr": "[Evènement ponctuel] Jeu"
+            }
+          },
+          {
+            "id": 32,
+            "value": "evenement-ponctuel-conference",
+            "label": {
+              "fr": "[Evènement ponctuel] Conférence"
+            }
+          },
+          {
+            "id": 33,
+            "value": "evenement-ponctuel-rencontre-debat",
+            "label": {
+              "fr": "[Evènement ponctuel] Rencontre / débat"
+            }
+          },
+          {
+            "id": 34,
+            "value": "evenement-ponctuel-spectacle",
+            "label": {
+              "fr": "[Evènement ponctuel] Spectacle"
+            }
+          },
+          {
+            "id": 35,
+            "value": "evenement-ponctuel-visite",
+            "label": {
+              "fr": "[Evènement ponctuel] Visite"
+            }
+          },
+          {
+            "id": 36,
+            "value": "evenement-denvergure-village-des-sciences",
+            "label": {
+              "fr": "[Evènement d'envergure] Village des sciences"
+            }
+          },
+          {
+            "id": 37,
+            "value": "evenement-denvergure-parcours-scientifique",
+            "label": {
+              "fr": "[Evènement d'envergure] Parcours scientifique"
+            }
+          },
+          {
+            "id": 38,
+            "value": "evenement-denvergure-salon",
+            "label": {
+              "fr": "[Evènement d'envergure] Salon"
+            }
+          },
+          {
+            "id": 39,
+            "value": "evenement-denvergure-festival",
+            "label": {
+              "fr": "[Evènement d'envergure] Festival"
+            }
+          }
+        ],
+        "fieldType": "radio",
+        "schemaId": 3294
+      },
+      {
+        "field": "references",
+        "info": {
+          "fr": "Si vous êtes responsable d'un parcours scientifique, indiquez ici les événements liés à celui-ci."
+        },
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "languages",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "title",
+        "info": {
+          "fr": "Il doit être court, attractif, vulgarisé, impactant et signifiant pour un public non-averti. Écrivez votre titre normalement, sans guillemet, ni utiliser les majuscules pour l’ensemble du texte."
+        },
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "description",
+        "info": {
+          "fr": "Elle permet de susciter la curiosité de l’internaute et l’inciter à lire la version longue. Il n’est pas nécessaire de remettre ici date, lieu et titre de l’événement ou autres information figurant déjà sur le formulaire."
+        },
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "longDescription",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "animateurs",
+        "label": {
+          "fr": "Intervenants"
+        },
+        "help": null,
+        "helpLink": null,
+        "helpContent": null,
+        "info": null,
+        "sub": null,
+        "placeholder": null,
+        "write": null,
+        "read": null,
+        "optional": true,
+        "display": true,
+        "origin": "custom",
+        "enableWith": null,
+        "related": [],
+        "min": null,
+        "max": null,
+        "fieldType": "text",
+        "schemaId": 3294
+      },
+      {
+        "field": "keywords",
+        "info": {
+          "fr": "Exemple : Une conférence avec pour titre « Vaccins : pourquoi font-ils peur ? » pourra proposer les mots clés suivants: adulte, étudiant, vaccin, éthique, risque, santé publique, immunologie, médecine, recherche, politique, controverse, polémique, débat..."
+        },
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "timings",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "location",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "image",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "imageCredits",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "conditions",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "age",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "registration",
+        "fieldType": "abstract",
+        "schemaId": null
+      },
+      {
+        "field": "accessibility",
+        "fieldType": "abstract",
+        "schemaId": null
+      }
+    ]
+  }
+}

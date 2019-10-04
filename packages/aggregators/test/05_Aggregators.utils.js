@@ -2,10 +2,10 @@
 
 const should = require('should');
 
-const convertTagsToSchemaOptionIds = require('../Aggregators/lib/convertTagsToSchemaOptionIds');
-const convertSchemaOptionIdsToTags = require('../Aggregators/lib/convertSchemaOptionIdsToTags');
-const determineAggregationAction = require('../Aggregators/lib/determineAggregationAction');
-const pickSchemaValues = require('../Aggregators/lib/pickSchemaValues');
+const convertTagsToSchemaOptionIds = require('../Aggregators/utils/convertTagsToSchemaOptionIds');
+const convertSchemaOptionIdsToTags = require('../Aggregators/utils/convertSchemaOptionIdsToTags');
+const determineAggregationAction = require('../Aggregators/utils/determineAggregationAction');
+const pickSchemaValues = require('../Aggregators/utils/pickSchemaValues');
 
 const fixtures = {
   jepOToJEP: require('./fixtures/evaluate.jep-2019-occitanie.to.albi.json'),

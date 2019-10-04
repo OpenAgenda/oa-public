@@ -1,0 +1,110 @@
+{
+  "uid": 69798177,
+  "slug": "les-soins-de-bien-etre-en-cancerologie_401043",
+  "agendaUid": 43890851,
+  "locationUid": 5144340,
+  "title": {
+    "fr": "Les soins de bien-être en cancérologie"
+  },
+  "description": {
+    "fr": "Venez échanger sur les soins dits de confort proposés pendant les traitements pour les malades du cancer avec des intervenants médicaux et des témoignages de patients."
+  },
+  "longDescription": {
+    "fr": "Le champ des soins de support/confort en cancérologie est vaste et diversifié. La conférence 2019 permet de présenter d'autres possibilités d'aides pour les patients atteints de cancer que celles proposées pour la conférence 2018 (homéopathie, ostéopathie,acupuncture). Ces aides (hypnose, sophrologie, réflexologie plantaire) en complément des traitements médicaux traditionnels comme la chirurgie, la chimiothérapie et la radiothérapie permettent une meilleure tolérance des effets indésirables inhérents à ces traitements."
+  },
+  "keywords": {
+    "fr": [
+      "Bien être",
+      "Complément",
+      "Effets indésirables",
+      "Cancérologie"
+    ]
+  },
+  "registration": [],
+  "references": [
+    49332896
+  ],
+  "conditions": {
+    "fr": "Gratuite"
+  },
+  "image": {
+    "filename": "12740f129a9447a98c46719f8791582e.base.image.jpg",
+    "size": {
+      "width": 700,
+      "height": 1051
+    },
+    "variants": [
+      {
+        "filename": "12740f129a9447a98c46719f8791582e.full.image.jpg",
+        "type": "full",
+        "size": {
+          "width": 2282,
+          "height": 3426
+        }
+      },
+      {
+        "filename": "12740f129a9447a98c46719f8791582e.thumb.image.jpg",
+        "type": "thumbnail",
+        "size": {
+          "width": 200,
+          "height": 200
+        }
+      }
+    ],
+    "credits": null,
+    "base": "https://cibuldev.s3.amazonaws.com/"
+  },
+  "draft": 0,
+  "private": 0,
+  "accessibility": {
+    "mi": true,
+    "hi": true,
+    "pi": false,
+    "vi": false,
+    "sl": false
+  },
+  "timezone": "Europe/Paris",
+  "timings": [
+    {
+      "begin": "2019-10-10T16:00:00.000Z",
+      "end": "2019-10-10T18:30:00.000Z"
+    }
+  ],
+  "age": {
+    "min": 20,
+    "max": 99
+  },
+  "links": [],
+  "updatedAt": "2019-06-27T07:36:34.000Z",
+  "createdAt": "2019-06-22T07:35:28.000Z",
+  "fileKey": null,
+  "state": 2,
+  "featured": false,
+  "animateurs": "Dominique Tonnerre (hypnothérapeute) ; Mireille Gouzien (sophrologue) ; Sandrins Grob (réflexologue plantaire)",
+  "organisateur": "Association En famille contre le Cancer/la Littorale 56",
+  "partenaire": "Groupe Hospitalier de Bretagne Sud, La Ligue contre le Cancer, Ysaë",
+  "referentscientifique": "Intervenants professionnels",
+  "unitesrecherche": null,
+  "thematiques": [
+    1
+  ],
+  "orientation-et-axes-transversaux": [],
+  "publics-concernes": [
+    13,
+    40,
+    14,
+    12
+  ],
+  "inscription-necessaire": 16,
+  "public-specifique": [],
+  "reconduction": 19,
+  "type-danimation": 32,
+  "agenda": {
+    "uid": 43890851,
+    "slug": "fetedelascience2019_bretagne",
+    "title": "Fête de la Science 2019 : Bretagne",
+    "description": "Un événement du MESRI",
+    "image": "https://cibuldev.s3.amazonaws.com/agenda43890851.jpg",
+    "url": "https://fetedelascience.fr"
+  }
+}

@@ -1,5 +1,6 @@
 'use strict';
 
+const extractRules = require('./extractRules');
 const log = require('@openagenda/logs')('getSourceAndAggregatorPairs');
 
 module.exports = (knex, { id }) => knex('aggregator as ag')
@@ -15,8 +16,8 @@ module.exports = (knex, { id }) => knex('aggregator as ag')
     .where('version', 2)
     .then(pairs => pairs.map(p => ({
       agendaUid: p.agendaUid,
-      aggregatorRules: _extractRules('aggregator', p.aggregatorId, p.aggStore),
-      sourceRules: _extractRules('source', p.sourceId, p.sourceStore),
+      aggregatorRules: extractRules('aggregator', p.aggregatorId, p.aggStore),
+      sourceRules: extractRules('source', p.sourceId, p.sourceStore),
       version: _version(p.aggStore)
     })));
 
@@ -30,13 +31,4 @@ function _version(store) {
   return 1;
 }
 
-function _extractRules(type, identifier, store) {
-  if (!store) return [];
 
-  try {
-    const { rules } = JSON.parse(store);
-    return rules;
-  } catch(e) {
-    log('error', 'failed to parse %s store (%s)', type, identifier, e);
-  }
-}

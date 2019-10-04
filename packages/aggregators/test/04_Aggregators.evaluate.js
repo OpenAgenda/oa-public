@@ -3,7 +3,7 @@
 const fs = require('fs');
 const should = require('should');
 
-const evaluate = require('../Aggregators').test.evaluate;
+const evaluate = require('../Aggregators/lib/evaluate');
 
 describe('Aggregators evaluate', () => {
 
@@ -19,8 +19,8 @@ describe('Aggregators evaluate', () => {
 
       before( async () => {
         result = await evaluate({
-          getAggregatorMergedSchema: _async('fixtures/evaluate/getAggregatorMergedSchema'),
-          getAggregatorEventReference: _async('fixtures/evaluate/getAggregatorEventReference'),
+          getMergedSchema: _async('fixtures/evaluate/getMergedSchema'),
+          getEventReference: _async('fixtures/evaluate/getEventReference'),
           referenceEvent: (...args) => {
             referenceEventArguments = args;
           }
@@ -51,8 +51,7 @@ describe('Aggregators evaluate', () => {
           public: [ 26 ],
           organisateur: [ 33 ],
           participation: null,
-          'evenement-ponctuel': null,
-          sourceAgendaUid: [ 50781256 ]
+          'evenement-ponctuel': null
         });
       });
 

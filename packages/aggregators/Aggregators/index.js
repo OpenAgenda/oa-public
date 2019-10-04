@@ -1,26 +1,47 @@
 'use strict';
 
+const _ = require('lodash');
 const log = require('@openagenda/logs')('Aggregators');
 
-const ih = require('immutability-helper');
-const isAgendaSource = require('./lib/isAgendaSource');
-const getSourceAndAggregatorPairs = require('./lib/getSourceAndAggregatorPairs');
-const convertTagsToSchemaOptionIds = require('./lib/convertTagsToSchemaOptionIds');
-const convertSchemaOptionIdsToTags = require('./lib/convertSchemaOptionIdsToTags');
-const determineAggregationAction = require('./lib/determineAggregationAction');
-const pickSchemaValues = require('./lib/pickSchemaValues');
+const isAgendaSource = require('./utils/isAgendaSource');
+const addSourceEntry = require('./utils/sourceEntry').add;
+const removeSourceEntry = require('./utils/sourceEntry').remove;
 
-const evaluateRules = require('../lib/rules');
-
-const wr = require('../test/fixtures/write');
+const dispatch = require('./lib/dispatch');
+const addSource = require('./lib/addSource');
+const removeSource = require('./lib/removeSource');
+const notify = require('./lib/notify');
+const remove = require('./lib/remove');
+const loadSourceEvaluates = require('./lib/loadSourceEvaluates');
+const loadSourceRemoves = require('./lib/loadSourceRemoves');
+const evaluate = require('./lib/evaluate');
 
 module.exports = ({ knex, queues, interfaces }) => {
   const queue = queues('aggregator');
 
   queue.register({
     dispatch: dispatch.bind(null, { knex, queue }),
-    evaluate: evaluate.bind(null, interfaces),
-    remove: remove.bind(null, interfaces)
+    evaluate: evaluate.bind(null, {
+      referenceEvent: interfaces.referenceEvent,
+      getMergedSchema: interfaces.getMergedSchema,
+      getEventReference: interfaces.getEventReference,
+      setSourceUidOnExistingReference: interfaces.setSourceUidOnExistingReference,
+      enqueueRemove: queue.bind(null, 'remove')
+    }),
+    remove: remove.bind(null, _.pick(interfaces, [
+      'getEventReference',
+      'unsetSourceUidOnExistingReference',
+      'unreferenceEvent'
+    ])),
+    loadSourceEvaluates: loadSourceEvaluates.bind(null, {
+      listEventReferences: interfaces.listEventReferences,
+      loadEvent: interfaces.loadEvent,
+      enqueueEvaluate: queue.bind(null, 'evaluate')
+    }),
+    loadSourceRemoves: loadSourceRemoves.bind(null, {
+      listEventReferences: interfaces.listEventReferences,
+      enqueueRemove: queue.bind(null, 'remove')
+    })
   });
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
@@ -32,148 +53,26 @@ module.exports = ({ knex, queues, interfaces }) => {
       isAgendaSource: isAgendaSource.bind(null, knex),
       queue
     }),
+    addSource: addSource.bind(null, {
+      knex,
+      interfaces,
+      enqueueLoadSourceEvaluates: queue.bind(null, 'loadSourceEvaluates'),
+      addSourceEntry: addSourceEntry.bind(null, knex),
+      isAgendaSource: isAgendaSource.bind(null, knex),
+      getMergedSchema: interfaces.getMergedSchema
+    }),
+    removeSource: removeSource.bind(null, {
+      knex,
+      interfaces,
+      enqueueLoadSourceRemoves: queue.bind(null, 'loadSourceRemoves'),
+      removeSourceEntry: removeSourceEntry.bind(null, knex),
+      isAgendaSource: isAgendaSource.bind(null, knex)
+    }),
     task: task.bind(null, { queue })
   };
 }
 
-async function notify({ isAgendaSource, queue }, type, data, options = {}) {
-  const { agenda } = data;
-  // add, remove, update
-  log('notify %s on %s (%s)', type, agenda.slug, agenda.uid);
-
-  const aggregationAction = determineAggregationAction(type, data.before, data.event);
-
-  if (!aggregationAction) {
-    log('no aggregation action is taken');
-    return;
-  }
-
-  if (!await isAgendaSource(agenda)) {
-    log('agenda %s is not a source', agenda.slug);
-    return;
-  }
-
-  queue('dispatch', aggregationAction, data);
-}
 
 function task({ queue }) {
   queue.run();
-}
-
-async function dispatch({ queue, knex }, action, data) {
-  log('dispatch');
-  const { agenda, event } = data;
-
-  const aggregators = await getSourceAndAggregatorPairs(knex, agenda);
-
-  for (const ag of aggregators) {
-    if (action === 'evaluate') {
-      await queue('evaluate', Object.assign({
-        aggregatorAgendaUid: ag.agendaUid,
-        sourceRules: ag.sourceRules,
-        aggregatorRules: ag.aggregatorRules
-      }, data));
-    } else {
-      await queue('remove', {
-        aggregatorAgendaUid: ag.agendaUid,
-        agenda,
-        event
-      });
-    }
-  }
-}
-
-async function remove({
-  getAggregatorEventReference,
-  unsetSourceUidOnExistingReference,
-  unreferenceEvent
-}, data) {
-  const { aggregatorAgendaUid, agenda, event, batched } = data;
-
-  log('remove %s of source %s (%s) from %s', event.slug, agenda.slug, agenda.uid, aggregatorAgendaUid);
-
-  const reference = data.reference || await getAggregatorEventReference(aggregatorAgendaUid, event.uid);
-
-  const { sourceAgendaUid } = reference;
-
-  log('references: %j', sourceAgendaUid);
-
-  const update = sourceAgendaUid.filter(uid => uid!==agenda.uid);
-
-  if (update.length) {
-    log('other source references are present, current source ref must be removed');
-    await unsetSourceUidOnExistingReference(aggregatorAgendaUid, event.uid, agenda.uid);
-  } else {
-    log('no source references are left, event must be unlisted from aggregator agenda');
-    await unreferenceEvent(agenda.uid, aggregatorAgendaUid, event.uid, { batched });
-  }
-}
-
-async function evaluate({
-  getAggregatorMergedSchema,
-  getAggregatorEventReference,
-  setSourceUidOnExistingReference,
-  unsetSourceUidOnExistingReference,
-  referenceEvent,
-  unreferenceEvent
-}, data) {
-  const { agenda, event, aggregatorAgendaUid, batched } = data;
-  log('evaluate %s of source %s (%s)', event.slug, agenda.slug, agenda.uid);
-  //wr('data', data);
-
-  const eventWithTags = ih(event, {
-    tags: {
-      $set: convertSchemaOptionIdsToTags(data.formSchema, event)
-    }
-  });
-
-  const rules = [].concat(
-    data.aggregatorRules || []
-  ).concat(
-    data.sourceRules || []
-  );
-
-  const evaluateResult = evaluateRules(rules, eventWithTags);
-  const reference = await getAggregatorEventReference(aggregatorAgendaUid, event.uid);
-  //wr('getAggregatorEventReference',reference);
-  const shouldAggregate = rules.length ? !!evaluateResult : true;
-
-  if (reference && !shouldAggregate) {
-    log('is already referenced, but should not be through current source');
-    return remove({
-      unsetSourceUidOnExistingReference,
-      getAggregatorEventReference,
-      unreferenceEvent
-    }, { agenda, event, aggregatorAgendaUid, reference, batched });
-  }
-
-  if (!shouldAggregate) {
-    log('does not pass set rules, will not aggregate');
-    return;
-  }
-
-  if (reference && !reference.sourceAgendaUid.includes(agenda.uid)) {
-    log('is already referenced, update of source uids is required');
-    await setSourceUidOnExistingReference(aggregatorAgendaUid, event.uid, agenda.uid);
-    return;
-  }
-
-  const aggregatorSchema = await getAggregatorMergedSchema(aggregatorAgendaUid);
-  //wr('getAggregatorMergedSchema', aggregatorSchema);
-  const schemaValuesFromTags = convertTagsToSchemaOptionIds(aggregatorSchema, evaluateResult.tags);
-  const extendedValues = pickSchemaValues(aggregatorSchema, evaluateResult, schemaValuesFromTags);
-
-  referenceEvent(agenda, aggregatorAgendaUid, event.uid, Object.assign(extendedValues, {
-    sourceAgendaUid: [agenda.uid]
-  }), { batched });
-
-  return {
-    success: true,
-    operation: 'aggregation'
-  }
-}
-
-module.exports.test = {
-  evaluate,
-  remove
 }
