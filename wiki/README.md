@@ -255,7 +255,7 @@ By default, the country code displayed in a location form is Metropolitan France
 Custom fields can be defined in the `customFields` key of the agenda store.
 
 Possible types are: integer, text, textarea, number, url, email, image, multichoice, select, radio, checkbox
- 
+
 The configuration is a list of field definitions, each with the following key:
 
  * **name**: the name of the field as it will appear in keyed data representation ( like the json export for example )
@@ -371,7 +371,7 @@ If the following event is evaluated for aggregation:
     {
       tags: [ 'Tag2' ]
       customFieldOne: false
-    }    
+    }
 
 It will not pass as the first rule of the aggregator is not matched
 
@@ -408,7 +408,7 @@ See the agenda https://openagenda.com/equipauto for an example.
 
 # Mailer
 
-In development environment, [mailcatcher](https://mailcatcher.me/) is used to visualize mails. Once installed, run it with the command `mailcatcher start`. It is not compulsory to have it running when running the main node app in development. 
+In development environment, [mailcatcher](https://mailcatcher.me/) is used to visualize mails. Once installed, run it with the command `mailcatcher start`. It is not compulsory to have it running when running the main node app in development.
 
 
 # Coding rules
@@ -435,7 +435,7 @@ With the following variations:
 
 The node-sass module includes a time-consuming build that slows down library installations significantly. To avoid having to wait too long everytime a repo with a node-sass dependency has to be upgraded, the module can be linked globally on the dev environment. Follow this: https://github.com/sass/node-sass#rebuilding-binaries
 
-    
+
 
 ## Naming conventions
 
@@ -651,6 +651,8 @@ Sometimes the geocoder service gives bad information. The following queries fix 
     update location set country='FR' where region in ( 'Bourgogne-Franche-Comté', 'Bretagne', 'Grand Est', 'Île-de-France', 'Normandie', 'Occitanie', 'Hauts-de-France', 'Centre-Val de Loire', 'Pays de la Loire', 'Nouvelle-Aquitaine' ) and ( country is null or country = '' );
     update location set city='Bruxelles' where city='Brussels' and country='BE';
     update location set city='Bruxelles' where city='Brussel' and country='BE';
+    update location set city='Villeneuve-d\'Ascq' where city='Villeneuve-d’Ascq';
+    update location set city='Villeneuve-d\'Ascq' where city='VILLENEUVE D ASCQ';
 
 
 # Files and Images
@@ -671,7 +673,7 @@ Naming is done based on the type of object, the image variant and the slug of th
 
     {variant}{type}_{slug}.jpg
 
-An example: 
+An example:
 
     https://cibul.s3.amazonaws.com/event_alison-sykes-gardens_747125.jpg
 
