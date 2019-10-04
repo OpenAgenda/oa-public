@@ -22,12 +22,10 @@ schema.register( {
 
 let validate, validateData;
 
-module.exports = _.extend( v => {
+module.exports = Object.assign(v => {
+  if (!validate) throw new Error( 'validate not initialized' );
 
-  if ( !validate ) throw new Error( 'validate not initialized' );
-
-  return validate( _preClean( v ) );
-
+  return validate( _preClean(v) );
 }, {
   init,
   validateData: ( v, options = {} ) => {
@@ -35,7 +33,10 @@ module.exports = _.extend( v => {
     const {
       optionalSecondaryFields,
       partial
-    } = _.assign( { optionalSecondaryFields: false, partial: false }, options );
+    } = Object.assign({
+      optionalSecondaryFields: false,
+      partial: false
+    }, options);
 
     const preCleaned = _preClean( v );
 
@@ -100,7 +101,13 @@ function init( { eventStates } ) {
 
   validate = schema( fields );
 
-  validateData = schema( _.pick( fields, [ 'state', 'featured', 'userUid', 'sourceAgendaUid' ] ) );
+  validateData = schema(_.pick(fields, [
+    'state',
+    'featured',
+    'userUid',
+    'sourceAgendaUid',
+    'aggregated'
+  ]));
 
   module.exports.validateData.fields = validateData.fields;
 

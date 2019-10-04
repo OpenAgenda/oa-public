@@ -12,15 +12,15 @@ const utils = require('./lib/utils');
 
 let config, knex;
 
-module.exports = _.extend( create, {
-  init: ( c, k ) => {
+module.exports = Object.assign(create, {
+  init: (c, k) => {
 
     config = c;
 
     knex = k;
 
   }
-} );
+});
 
 async function create( agendaUid, eventUid, data = {}, options = {} ) {
 

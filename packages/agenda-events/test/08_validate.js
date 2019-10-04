@@ -27,7 +27,8 @@ describe( 'agendaEvents - functional (server): validation', function() {
       state: 2,
       featured: true,
       userUid: null,
-      sourceAgendaUid: []
+      sourceAgendaUid: [],
+      aggregated: false
     } );
 
   } );
@@ -38,7 +39,8 @@ describe( 'agendaEvents - functional (server): validation', function() {
       'state',
       'featured',
       'userUid',
-      'sourceAgendaUid'
+      'sourceAgendaUid',
+      'aggregated'
     ] );
 
   } );
@@ -51,7 +53,8 @@ describe( 'agendaEvents - functional (server): validation', function() {
       state: 2,
       featured: true,
       userUid: null,
-      sourceAgendaUid: []
+      sourceAgendaUid: [],
+      aggregated: false
     } );
 
   } );
