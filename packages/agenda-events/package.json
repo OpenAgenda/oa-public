@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/agenda-events",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "description": "Store agenda-event references",
   "main": "index.js",
   "scripts": {
