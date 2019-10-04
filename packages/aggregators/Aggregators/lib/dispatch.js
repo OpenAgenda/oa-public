@@ -20,8 +20,8 @@ module.exports = async ({ queue, knex }, action, data) => {
     } else {
       await queue('remove', {
         aggregatorAgendaUid: ag.agendaUid,
-        agenda,
-        event
+        sourceAgendaUid: agenda.uid,
+        eventUid: event.uid
       });
     }
   }
