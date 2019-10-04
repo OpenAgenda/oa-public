@@ -109,14 +109,6 @@ describe( 'core - functional ( server ): agenda event add', function() {
   } );
 
   before( async () => {
-
-    try {
-    } catch(e) {
-      console.log('**');
-      console.log(JSON.stringify(e,null,2));
-      throw e;
-    }
-
     const result = await core.agendas( 17026855 ).events.create( {
       slug: 'un-event',
       title: {
@@ -137,7 +129,6 @@ describe( 'core - functional ( server ): agenda event add', function() {
     } );
 
     event = result.created.event;
-
   } );
 
   after( () => {
@@ -146,36 +137,61 @@ describe( 'core - functional ( server ): agenda event add', function() {
 
   } );
 
-  describe( 'successful add', () => {
+  describe('successful add', () => {
 
     let result;
 
     before( async () => {
 
-      result = await core.agendas( 55268170 ).events.add( event.uid, {
+      result = await core.agendas(55268170).events.add(event.uid, {
         state: 1,
         featured: false
-      } );
+      });
 
     } );
 
-    it( 'the event was added to the second agenda', async () => {
+    it('the event was added to the second agenda', async () => {
 
-      result.success.should.equal( true );
+      result.success.should.equal(true);
 
       result.added.agendaEvent.should.be.ok;
 
     } );
 
 
-    it( 'there are two agendas listing this event now', async () => {
+    it('there are two agendas listing this event now', async () => {
 
       const refs = await agendaEvents.list.byEventUid( event.uid );
 
       refs.total.should.equal( 2 );
 
-    } );
+    });
 
   } );
+
+  describe('aggregated add', () => {
+
+    let result;
+
+    before(async () => {
+      result = await core.agendas(58025176).events.add(event.uid, {
+        state: 2
+      }, {
+        sourceAgenda: {
+          uid: 55268170
+        },
+        aggregated: true
+      });
+    });
+
+    it('agenda event reference is flagged as aggregated', () => {
+      result.added.agendaEvent.aggregated.should.equal(true)
+    });
+
+    it('agenda event reference stores agenda source uid', () => {
+      result.added.agendaEvent.sourceAgendaUid.should.eql([55268170]);
+    });
+
+  });
 
 } );

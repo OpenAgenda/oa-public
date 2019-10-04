@@ -32,7 +32,9 @@ const pQ = queue( config.queues.aggregator + ':priority', {
 
 module.exports = {
   instance: {
-    notify: () => log('warn', 'aggregator instance is not initialized')
+    notify: () => log('warn', 'aggregator instance is not initialized'),
+    addSource: () => log('warn', 'aggregator instance is not initialized'),
+    removeSource: () => log('warn', 'aggregator instance is not initialized')
   },
   isAggregator,
   notifyPublish: notify.publish,
@@ -53,12 +55,9 @@ module.exports = {
         knex: config.knex,
         queues: services.queues,
         interfaces: {
-          getAggregatorMergedSchema: agendaUid => services
+          getMergedSchema: agendaUid => services
             .core.agendas(agendaUid)
             .settings.schema.getMerged(),
-          getAggregatorEventReference: (aggregatorAgendaUid, eventUid) => services
-            .agendaEvents(aggregatorAgendaUid).get(eventUid)
-            .then(ae => ae ? _.pick(ae, ['sourceAgendaUid']) : null),
           setSourceUidOnExistingReference: services.agendaEvents.utils.setSourceUid,
           unsetSourceUidOnExistingReference: services.agendaEvents.utils.unsetSourceUid,
           referenceEvent: async (sourceAgenda, aggregatorAgendaUid, eventUid, data, { batched }) => {
@@ -89,7 +88,13 @@ module.exports = {
                 e.name === 'validationError' ? e.jse_info.errors : e
               );
             }
-          }
+          },
+          getEventReference: (agendaUid, eventUid) => services
+            .agendaEvents(agendaUid).get(eventUid)
+            .then(ae => ae ? _.pick(ae, ['sourceAgendaUid', 'aggregated']) : null),
+          listEventReferences: (agendaUid, lastId, aggregated = null) => services.core.agendas(agendaUid)
+            .events.list({ state: 2, aggregated }, { lastId }, { load: { events: false, custom: false } }),
+          loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid).events.get(eventUid)
         }
       })
     );

@@ -33,14 +33,18 @@ module.exports.loaded = async function loaded({ formSchema, networkFormSchema },
     evaluateEvent,
     formSchemaDataFormat,
     defaultLang,
-    optionalSecondaryFields
+    optionalSecondaryFields,
+    sourceAgenda,
+    aggregated
   } = _.assign( {
     defaultLang: null,
     evaluateEvent: true,
     draft: false,
     partial: false,
     formSchemaDataFormat: false,
-    optionalSecondaryFields: false
+    optionalSecondaryFields: false,
+    sourceAgenda: null,
+    aggregated: false
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
   // api provides event data in event service format ( deep image object that includes credits and variants )
@@ -99,16 +103,19 @@ module.exports.loaded = async function loaded({ formSchema, networkFormSchema },
   try {
     log( 'evaluating agenda-event reference data' );
 
-    if (!data.userUid && data.ownerUid) {
-      data.userUid = data.ownerUid;
-    }
+    clean.agendaEvent = validateAgendaEvent({
+      ...data,
+      aggregated,
+      sourceAgendaUid: sourceAgenda ? [sourceAgenda.uid] : [],
+      userUid: data.userUid || data.ownerUid
+    }, { optionalSecondaryFields, partial });
 
-    clean.agendaEvent = validateAgendaEvent(data, { optionalSecondaryFields, partial });
   } catch ( agendaEventErrors ) {
     agendaEventErrors.forEach( err => errors.push( _.set( err, 'step', 'agenda event data validation' ) ) );
   }
 
   if (errors.length) {
+
     throw new VError( {
       name: 'validationError',
       info: {

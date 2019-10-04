@@ -24,7 +24,6 @@ const color = (nbr, str) => `\x1b[3${nbr}m${str}\x1b[0m`;
 
 let log;
 
-
 module.exports = async function (configObject, options = {}) {
 
   const t = new Date();

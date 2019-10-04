@@ -98,6 +98,29 @@ INSERT INTO agenda (
   '{}',
   3,
   '{}'
+),
+
+(
+  220,
+  'La Gargule',
+  50304,
+  'la-gargule',
+  'Une petite description',
+  NULL,
+  '',
+  0,
+  '2016-01-11 13:07:08',
+  '2016-01-18 16:14:06',
+  58025176,
+  0,
+  '{"moderated":false,"send_invitation_email":true,"contributorconfigstep":1}',
+  2,
+  NULL,
+  0,
+  0,
+  '{}',
+  3,
+  '{"contribution":{"type":1}}'
 );
 
 
@@ -216,7 +239,8 @@ CREATE TABLE IF NOT EXISTS `agenda_event` (
   `updated_at` datetime NOT NULL,
   `legacy_id` varchar(30) DEFAULT NULL,
   `user_uid` bigint(20) DEFAULT NULL,
-  `source_agenda_uid` bigint(20) DEFAULT NULL
+  `source_agenda_uid` varchar(300),
+  `aggregated` tinyint(1) default 0
 ) ENGINE=InnoDB AUTO_INCREMENT=954070 DEFAULT CHARSET=utf8;
 
 

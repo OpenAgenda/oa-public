@@ -30,7 +30,11 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
   const clean = await validate.loaded({
     formSchema: agenda.formSchema,
     networkFormSchema: _.get(agenda, 'network.formSchema')
-  }, data, false);
+  }, data, {
+    evaluateEvent: false,
+    sourceAgenda,
+    aggregated
+  });
 
   // if event is already referenced on agenda, this fails
   if (await agendaEvents(agendaUid).get(eventUid)) {
@@ -44,7 +48,6 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     detailed: true
   });
 
-  log(clean);
   return doAdd(agenda, eventUid, clean, {
     context: {
       event,

@@ -8,7 +8,7 @@ module.exports = {
     await initServices(config, options);
     tasks.loadQueue();
   },
-  agendas: require( './agendas' ),
-  networks: require( './networks' ),
+  agendas: require('./agendas'),
+  networks: require('./networks'),
   tasks
 }
