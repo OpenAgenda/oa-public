@@ -15,6 +15,7 @@ const remove = require('./lib/remove');
 const loadSourceEvaluates = require('./lib/loadSourceEvaluates');
 const loadSourceRemoves = require('./lib/loadSourceRemoves');
 const evaluate = require('./lib/evaluate');
+const set = require('./lib/set');
 
 module.exports = ({ knex, queues, interfaces }) => {
   const queue = queues('aggregator');
@@ -53,6 +54,7 @@ module.exports = ({ knex, queues, interfaces }) => {
       isAgendaSource: isAgendaSource.bind(null, knex),
       queue
     }),
+    set: set.bind(null, knex),
     addSource: addSource.bind(null, {
       knex,
       interfaces,
