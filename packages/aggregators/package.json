@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/aggregators",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "main": "index.js",
   "license": "MIT",
   "scripts": {
@@ -8,10 +8,10 @@
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.1",
+    "@openagenda/validators": "^2.1.6",
     "deep-diff": "^1.0.2",
     "immutability-helper": "^3.0.0",
-    "lodash": "^4.17.10",
-    "@openagenda/validators": "^2.1.6"
+    "lodash": "^4.17.10"
   },
   "devDependencies": {
     "knex": "^0.16.3",
