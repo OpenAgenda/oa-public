@@ -54,7 +54,7 @@ describe( 'refresh expired token', () => {
   } );
 } );
 
-describe( 'locations', () => {
+describe.skip( 'locations', () => {
   it( 'create a location', async () => {
     const oa = new OaSdk( { secretKey: testconfig.secretKey } );
     await oa.connect();
@@ -89,7 +89,7 @@ describe( 'locations', () => {
   } );
 } );
 
-describe( 'events', () => {
+describe.skip( 'events', () => {
   it( 'create & delete an event', async () => {
     const oa = new OaSdk( { secretKey: testconfig.secretKey } );
     await oa.connect();
