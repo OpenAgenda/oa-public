@@ -166,7 +166,7 @@ export function remove() {
   return {
     types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
     promise: ( { client }, { getState } ) => {
-      const { res } = getState();
+      const { res, agenda } = getState();
 
       return client.post( res.remove.replace( ':slug', agenda.data.slug ) );
     }
