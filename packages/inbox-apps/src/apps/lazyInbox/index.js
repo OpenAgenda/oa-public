@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
+import ReactDOM from 'react-dom';
 import { createMemoryHistory } from 'history';
 import { applyMiddleware, compose } from 'redux';
 import { Provider, ReactReduxContext } from 'react-redux';
@@ -106,6 +107,7 @@ export default function app( options = {} ) {
 
 export function expose( name ) {
 
+  window.ReactDOM = ReactDOM;
   window[ name ] = app;
 
 }
