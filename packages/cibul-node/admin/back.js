@@ -41,7 +41,14 @@ module.exports = app => {
   app.get( '/admin/users/changePassword', preMw, userChangePassword );
   app.get( '/admin/eventsbyweek', preMw, eventsByWeek );
   app.get( '/admin/eventsdiff', preMw, eventsDiff );
-  app.get( '/admin/support/?*?', preMw, support );
+  app.get(
+    [
+      '/admin/support',
+      '/admin/support/conversation/:conversationId'
+    ],
+    preMw,
+    support
+  );
 
 };
 
