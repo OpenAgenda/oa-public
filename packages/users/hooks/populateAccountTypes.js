@@ -10,7 +10,6 @@ module.exports = function populateAccountTypes() {
 
     return alterItems(async record => {
       const entity = await context.service._get(record.uid, {
-        internal: true,
         query: { $select: ['password'] }
       });
 

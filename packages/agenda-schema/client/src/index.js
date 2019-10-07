@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { render } from 'react-dom';
 
 import FormSchemaBuilder from '@openagenda/form-schemas/client/build/FormSchemaBuilder';
-import openRequestForm from '@openagenda/call-to-action/dist/client/openRequestForm';
+import openRequestForm from '@openagenda/call-to-action/dist/openRequestForm';
 import labels from '@openagenda/labels/agenda-admin/agendaSchema';
 
 import getSchemaFieldCount from './lib/getSchemaFieldCount';

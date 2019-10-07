@@ -22,8 +22,8 @@
   "devDependencies": {
     "@babel/cli": "^7.5.5",
     "@babel/core": "^7.5.5",
-    "@openagenda/babel-preset": "^1.1.1",
     "babel-jest": "^24.9.0",
+    "babel-preset-openagenda": "^1.1.1",
     "jest": "^24.9.0",
     "rimraf": "^2.6.2"
   }

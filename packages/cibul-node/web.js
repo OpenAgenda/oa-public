@@ -20,7 +20,6 @@ module.exports = app => {
   require( './services/agendaDocx' )( app );
   require( './services/agendaCalendar' )( app );
   require( './home/back' )( app );
-  require( './user/settings.front' )( app );
   require( './general/front' )( app );
   require( './general/session.back' )( app );
   require( './general/back' )( app );
@@ -38,6 +37,8 @@ module.exports = app => {
   require( './agenda/emailstrategie.back' )( app );
   require( './agenda/embeds.back' )( app );
   require( './location/front' )( app );
+  require( './agenda/customized.back' )( app );
+  require( './webapp' )( app );
   require( './location/back' )( app );
   require( './agenda/settings.back' )( app );
   require( './agenda/sources.back' )( app );
@@ -48,7 +49,6 @@ module.exports = app => {
   require( './agenda/front' )( app );
   require( './agenda/exports.back' )( app );
   require( './agenda/facebook.back' )( app );
-  require( './agenda/customized.back' )( app );
   require( './agenda/actions.front' )( app );
   require( './agenda/exports.front' )( app );
 

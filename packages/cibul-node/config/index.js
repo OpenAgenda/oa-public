@@ -407,6 +407,14 @@ const config = {
           method: 'get',
           uri: '/:slug/admin/inbox/conversation/:conversationId'
         },
+        agendaSettingsEditApp: {
+          method: 'get',
+          uri: '/:slug/admin/settings'
+        },
+        customizedShow: {
+          method: 'get',
+          uri: '/:slug/admin/settings/customize'
+        },
         eventShow: {
           method: 'get',
           uri: '/events/:eventSlug'
@@ -634,10 +642,6 @@ const config = {
         agendaSettingsCreateApp: {
           method: 'get',
           uri: '/new'
-        },
-        agendaSettingsEditApp: {
-          method: 'get',
-          uri: '/:slug/admin/settings'
         },
         agendaSettingsEditSub: {
           method: 'get',

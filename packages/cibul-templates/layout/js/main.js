@@ -3,7 +3,7 @@
 require( 'core-js/stable' );
 require( 'regenerator-runtime/runtime' );
 require( 'dom4' );
-require( 'pepjs' );
+require( '@openagenda/pepjs' );
 
 require( 'intl' );
 require( 'intl/locale-data/jsonp/fr' );
@@ -50,7 +50,7 @@ var utils = require( '@openagenda/utils' ),
 
   Raven = require( 'raven-js' ),
 
-  callToAction = require( '@openagenda/call-to-action/dist/client' ),
+  callToAction = require( '@openagenda/call-to-action' ),
 
   eh = require( '../../js/lib/EventHandler/EventHandler.js' ).sEventHandler.getInstance(),
 
@@ -60,7 +60,7 @@ var utils = require( '@openagenda/utils' ),
 
   params = {};
 
-window.IScroll = require( 'iscroll/build/iscroll' );
+window.IScroll = require( 'iscroll' );
 
 du.asapReady( function () {
 

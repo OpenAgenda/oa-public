@@ -1,0 +1,1533 @@
+{
+  "total": 64,
+  "agendas": [
+    {
+      "id": 20707,
+      "slug": "agglolisieuxnormandie",
+      "uid": 881924,
+      "official": 1,
+      "title": "Communauté d'agglomération Lisieux Normandie",
+      "description": "Agenda du territoire",
+      "url": "http://lisieux-normandie.fr/",
+      "image": "https://cibul.s3.amazonaws.com/agenda881924.jpg",
+      "updatedAt": "2019-09-19T10:08:49.000Z",
+      "createdAt": "2019-05-31T08:34:11.000Z",
+      "officializedAt": "2019-06-19T08:02:29.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 174321,
+        "order": 174321,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-05-31T08:34:38.000Z",
+        "updatedAt": "2019-09-10T09:47:30.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 5,
+        "agendaUid": 881924,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21550,
+      "slug": "lisores",
+      "uid": 54348780,
+      "official": 0,
+      "title": "Lisores",
+      "description": "Commune de Lisores",
+      "url": null,
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-09-18T13:39:50.000Z",
+      "createdAt": "2019-07-11T07:57:39.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "mailing": {
+          "eventAggregation": false
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": "Image : préférez une photo à un visuel, taille de l’image conseillée : 5Mo maximum\n\nMots clés : Il est impératif d'en renseigner au moins 2 ou 3, notamment un concernant le thème (spectacle, expo, atelier, etc) car c’est cela qui permettra de faire apparaitre vos évènements lorsque l’usager fera une recherche par mots clés et non par catégorie.",
+            "complete": null,
+            "publication": null
+          },
+          "useFields": true,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 180202,
+        "order": 180202,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-07-11T07:57:39.000Z",
+        "updatedAt": "2019-07-11T07:57:39.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 54348780,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21549,
+      "slug": "lisieux",
+      "uid": 20281808,
+      "official": 1,
+      "title": "Lisieux",
+      "description": "Commune de Lisieux",
+      "url": "https://www.ville-lisieux.fr/",
+      "image": "https://cibul.s3.amazonaws.com/agenda20281808.jpg",
+      "updatedAt": "2019-09-17T11:13:00.000Z",
+      "createdAt": "2019-07-11T07:55:21.000Z",
+      "officializedAt": "2019-07-31T11:34:11.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 0,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 180200,
+        "order": 180200,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-07-11T07:55:21.000Z",
+        "updatedAt": "2019-07-11T07:55:21.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 20281808,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21181,
+      "slug": "pole-museal-et-des-arts-plastiques-caln",
+      "uid": 45706490,
+      "official": 1,
+      "title": "Pôle Muséal et des arts plastiques - Communauté d'agglomération Lisieux Normandie",
+      "description": "Agenda du Pôle Muséal et des arts plastiques",
+      "url": null,
+      "image": "https://cibul.s3.amazonaws.com/agenda45706490.jpg",
+      "updatedAt": "2019-09-16T14:30:07.000Z",
+      "createdAt": "2019-06-25T08:14:06.000Z",
+      "officializedAt": "2019-07-01T08:56:04.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "mailing": {
+          "eventAggregation": false
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": "Image : préférez une photo à un visuel, taille de l’image conseillée : 5Mo maximum\n\nMots clés : Il est impératif d'en renseigner au moins 2 ou 3, notamment un concernant le thème (spectacle, expo, atelier, etc) car c’est cela qui permettra de faire apparaitre vos évènements lorsque l’usager fera une recherche par mots clés et non par catégorie.",
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 177868,
+        "order": 177868,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-06-25T08:40:08.000Z",
+        "updatedAt": "2019-06-25T08:40:08.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 8,
+        "agendaUid": 45706490,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 22330,
+      "slug": "le-nautile",
+      "uid": 11697047,
+      "official": 0,
+      "title": "Le Nautile",
+      "description": "Agenda du Nautile - Centre aquatique de Lisieux - Communauté d'Agglomération Lisieux Normandie",
+      "url": "http://www.lenautile.com/",
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-09-13T14:01:47.000Z",
+      "createdAt": "2019-09-11T14:10:40.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 184680,
+        "order": 184680,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-09-11T14:10:40.000Z",
+        "updatedAt": "2019-09-11T14:10:40.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        },
+        "actionsCounter": 0,
+        "agendaUid": 11697047,
+        "userUid": 36503123,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21521,
+      "slug": "belle-vie-en-auge",
+      "uid": 72046370,
+      "official": 1,
+      "title": "Belle-vie-en-Auge",
+      "description": "Commune de Belle-vie-en-Auge",
+      "url": null,
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-09-13T07:50:18.000Z",
+      "createdAt": "2019-07-10T10:13:57.000Z",
+      "officializedAt": "2019-08-23T10:23:28.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": "Image : préférez une photo à un visuel, taille de l’image conseillée : 5Mo maximum\n\nMots clés : Il est impératif d'en renseigner au moins 2 ou 3, notamment un concernant le thème (spectacle, expo, atelier, etc) car c’est cela qui permettra de faire apparaitre vos évènements lorsque l’usager fera une recherche par mots clés et non par catégorie.",
+            "complete": null,
+            "publication": null
+          },
+          "useFields": true,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 180042,
+        "order": 180042,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-07-10T10:13:57.000Z",
+        "updatedAt": "2019-07-10T10:13:57.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 72046370,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21650,
+      "slug": "mairie-de-mezidon-vallee-dauge",
+      "uid": 92899201,
+      "official": 1,
+      "title": "Mairie de Mézidon Vallée d'Auge",
+      "description": "Bienvenue sur l'agenda de la commune de Mézidon Vallée d'Auge. Retrouvez rapidement toutes les événements organisés sur votre commune",
+      "url": "https://mva14.fr",
+      "image": "https://cibul.s3.amazonaws.com/agenda92899201.jpg",
+      "updatedAt": "2019-09-11T10:00:11.000Z",
+      "createdAt": "2019-07-18T07:57:24.000Z",
+      "officializedAt": "2019-07-24T13:35:58.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 181454,
+        "order": 181454,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-07-24T13:39:48.000Z",
+        "updatedAt": "2019-07-24T13:39:48.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 92899201,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 22319,
+      "slug": "tanit-theatre",
+      "uid": 23451554,
+      "official": 1,
+      "title": "Tanit Théâtre",
+      "description": "Agenda du Tanit Théâtre",
+      "url": "https://www.tanit-theatre.com/",
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-09-11T08:55:18.000Z",
+      "createdAt": "2019-09-11T08:53:45.000Z",
+      "officializedAt": "2019-09-11T08:54:43.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 184625,
+        "order": 184625,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-09-11T08:53:46.000Z",
+        "updatedAt": "2019-09-11T08:53:46.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        },
+        "actionsCounter": 0,
+        "agendaUid": 23451554,
+        "userUid": 36503123,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 22295,
+      "slug": "parc-des-expositions",
+      "uid": 68571030,
+      "official": 1,
+      "title": "Parc des Expositions",
+      "description": "Agenda du Parc des Expositions de la Communauté d'Agglomération Lisieux Normandie",
+      "url": null,
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-09-11T08:45:57.000Z",
+      "createdAt": "2019-09-10T12:38:04.000Z",
+      "officializedAt": "2019-09-11T08:45:29.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 184514,
+        "order": 184514,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-09-10T12:38:05.000Z",
+        "updatedAt": "2019-09-10T12:38:05.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        },
+        "actionsCounter": 0,
+        "agendaUid": 68571030,
+        "userUid": 36503123,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 22294,
+      "slug": "service-environnement",
+      "uid": 79611705,
+      "official": 1,
+      "title": "Service Environnement",
+      "description": "Service environnement de la Communauté d'Agglomération Lisieux Normandie",
+      "url": null,
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-09-11T08:45:35.000Z",
+      "createdAt": "2019-09-10T12:31:46.000Z",
+      "officializedAt": "2019-09-11T08:45:06.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 184512,
+        "order": 184512,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-09-10T12:31:47.000Z",
+        "updatedAt": "2019-09-10T12:31:47.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        },
+        "actionsCounter": 0,
+        "agendaUid": 79611705,
+        "userUid": 36503123,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 22296,
+      "slug": "service-amenagement",
+      "uid": 29880376,
+      "official": 1,
+      "title": "Service aménagement",
+      "description": "Agenda du service aménagement de la Communauté d'Agglomération Lisieux Normandie",
+      "url": null,
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-09-11T08:45:17.000Z",
+      "createdAt": "2019-09-10T12:43:16.000Z",
+      "officializedAt": "2019-09-11T08:44:33.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 184516,
+        "order": 184516,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-09-10T12:43:17.000Z",
+        "updatedAt": "2019-09-10T12:43:17.000Z",
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        },
+        "actionsCounter": 0,
+        "agendaUid": 29880376,
+        "userUid": 36503123,
+        "slug": null
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 15017,
+      "slug": "saint-pierre-en-auge",
+      "uid": 41595456,
+      "official": 1,
+      "title": "Saint-Pierre-en-Auge",
+      "description": "Agenda de la commune",
+      "url": "http://www.saint-pierre-en-auge.fr/",
+      "image": "https://cibul.s3.amazonaws.com/agenda41595456.jpg",
+      "updatedAt": "2019-09-06T13:50:24.000Z",
+      "createdAt": "2018-05-04T09:32:09.000Z",
+      "officializedAt": "2019-07-05T16:14:47.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "mailing": {
+          "eventAggregation": false
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 179571,
+        "order": 179571,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-07-05T16:16:05.000Z",
+        "updatedAt": "2019-07-05T16:16:05.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 41595456,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21182,
+      "slug": "pole-spectacle-vivant-communaute-caln",
+      "uid": 32467945,
+      "official": 1,
+      "title": "Pôle spectacle vivant - Communauté d'agglomération Lisieux Normandie",
+      "description": "Pôle spectacle vivant",
+      "url": "http://lisieux-normandie.fr",
+      "image": "https://cibul.s3.amazonaws.com/agenda32467945.jpg",
+      "updatedAt": "2019-09-05T12:39:07.000Z",
+      "createdAt": "2019-06-25T08:15:29.000Z",
+      "officializedAt": "2019-07-01T16:30:52.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "mailing": {
+          "eventAggregation": false
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": "Image : préférez une photo à un visuel, taille de l’image conseillée : 5Mo maximum\n\nMots clés : Il est impératif d'en renseigner au moins 2 ou 3, notamment un concernant le thème (spectacle, expo, atelier, etc) car c’est cela qui permettra de faire apparaitre vos évènements lorsque l’usager fera une recherche par mots clés et non par catégorie.",
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 177867,
+        "order": 177867,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-06-25T08:40:02.000Z",
+        "updatedAt": "2019-06-25T08:40:02.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 32467945,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21427,
+      "slug": "livarot-pays-dauge",
+      "uid": 91952586,
+      "official": 1,
+      "title": "Livarot-Pays d'Auge",
+      "description": "Commune de Livarot-Pays d'Auge",
+      "url": "https://livarot-paysdauge.fr/",
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-09-04T15:27:28.000Z",
+      "createdAt": "2019-07-05T14:59:34.000Z",
+      "officializedAt": "2019-09-04T15:27:28.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "contribution": {
+          "type": 1,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": null,
+            "complete": null,
+            "publication": null
+          },
+          "useFields": false,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 179540,
+        "order": 179540,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-07-05T14:59:34.000Z",
+        "updatedAt": "2019-07-05T14:59:34.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 91952586,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21063,
+      "slug": "pole-lecture-publique-caln",
+      "uid": 38168447,
+      "official": 1,
+      "title": "Pôle Lecture Publique - Communauté d'agglomération Lisieux Normandie",
+      "description": "Agenda du Pôle lecture publique de la Communauté d'agglomération Lisieux Normandie",
+      "url": null,
+      "image": "https://cibul.s3.amazonaws.com/agenda38168447.jpg",
+      "updatedAt": "2019-09-02T07:46:15.000Z",
+      "createdAt": "2019-06-19T07:30:13.000Z",
+      "officializedAt": "2019-07-01T16:31:36.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "mailing": {
+          "eventAggregation": false
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": "*   Image : préférez une photo à un visuel, taille de l’image conseillée : 5Mo maximum\n\n    Mots clés : Il est impératif d'en renseigner au moins 2 ou 3, notamment un concernant le thème (spectacle, expo, atelier, etc) car c’est cela qui permettra de faire apparaitre vos évènements lorsque l’usager fera une recherche par mots clés et non par catégorie.",
+            "complete": null,
+            "publication": null
+          },
+          "useFields": true,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 177869,
+        "order": 177869,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-06-25T08:40:15.000Z",
+        "updatedAt": "2019-07-01T14:10:18.000Z",
+        "custom": {
+          "contactName": "Roxane Bergé",
+          "contactPosition": "Communication",
+          "organization": "Agglo Lisieux",
+          "contactNumber": "0123456789",
+          "email": "rberge@agglo-lisieux.fr"
+        },
+        "actionsCounter": 1,
+        "agendaUid": 38168447,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21412,
+      "slug": "courtonne-la-meurdrac",
+      "uid": 50319244,
+      "official": 1,
+      "title": "Courtonne-la-Meurdrac",
+      "description": "Commune de Courtonne-la-Meurdrac",
+      "url": "https://courtonnelameurdrac.fr/",
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-07-31T18:02:50.000Z",
+      "createdAt": "2019-07-05T13:11:37.000Z",
+      "officializedAt": "2019-07-31T18:02:50.000Z",
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "mailing": {
+          "eventAggregation": false
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": "Image : préférez une photo à un visuel, taille de l’image conseillée : 5Mo maximum\n\nMots clés : Il est impératif d'en renseigner au moins 2 ou 3, notamment un concernant le thème (spectacle, expo, atelier, etc) car c’est cela qui permettra de faire apparaitre vos évènements lorsque l’usager fera une recherche par mots clés et non par catégorie.",
+            "complete": null,
+            "publication": null
+          },
+          "useFields": true,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 179500,
+        "order": 179500,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-07-05T13:11:37.000Z",
+        "updatedAt": "2019-07-05T13:11:37.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 50319244,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21709,
+      "slug": "pretreville",
+      "uid": 93008570,
+      "official": 0,
+      "title": "Prêtreville",
+      "description": "Commune de Prêtreville",
+      "url": null,
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-07-26T09:10:32.000Z",
+      "createdAt": "2019-07-22T10:04:18.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "mailing": {
+          "eventAggregation": false
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": "Image : préférez une photo à un visuel, taille de l’image conseillée : 5Mo maximum\n\nMots clés : Il est impératif d'en renseigner au moins 2 ou 3, notamment un concernant le thème (spectacle, expo, atelier, etc) car c’est cela qui permettra de faire apparaitre vos évènements lorsque l’usager fera une recherche par mots clés et non par catégorie.",
+            "complete": null,
+            "publication": null
+          },
+          "useFields": true,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 181226,
+        "order": 181226,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-07-22T10:04:19.000Z",
+        "updatedAt": "2019-07-22T10:04:19.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 93008570,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21762,
+      "slug": "cernay14",
+      "uid": 35811391,
+      "official": 0,
+      "title": "Cernay",
+      "description": "Commune de Cernay - Calvados",
+      "url": null,
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-07-26T08:44:04.000Z",
+      "createdAt": "2019-07-25T13:10:17.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "mailing": {
+          "eventAggregation": false
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": "Image : préférez une photo à un visuel, taille de l’image conseillée : 5Mo maximum\n\nMots clés : Il est impératif d'en renseigner au moins 2 ou 3, notamment un concernant le thème (spectacle, expo, atelier, etc) car c’est cela qui permettra de faire apparaitre vos évènements lorsque l’usager fera une recherche par mots clés et non par catégorie.",
+            "complete": null,
+            "publication": null
+          },
+          "useFields": true,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 181533,
+        "order": 181533,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-07-25T13:10:17.000Z",
+        "updatedAt": "2019-07-25T13:10:17.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 35811391,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21241,
+      "slug": "cambremer",
+      "uid": 25023351,
+      "official": 0,
+      "title": "Cambremer",
+      "description": "Commune de Cambremer",
+      "url": "http://www.cambremer.fr/fr/",
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-07-25T17:39:12.000Z",
+      "createdAt": "2019-06-26T06:32:04.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "mailing": {
+          "eventAggregation": false
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": "Image : préférez une photo à un visuel, taille de l’image conseillée : 5Mo maximum\n\nMots clés : Il est impératif d'en renseigner au moins 2 ou 3, notamment un concernant le thème (spectacle, expo, atelier, etc) car c’est cela qui permettra de faire apparaitre vos évènements lorsque l’usager fera une recherche par mots clés et non par catégorie.",
+            "complete": null,
+            "publication": null
+          },
+          "useFields": true,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 178089,
+        "order": 178089,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-06-26T06:32:05.000Z",
+        "updatedAt": "2019-06-26T06:32:05.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 25023351,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    },
+    {
+      "id": 21240,
+      "slug": "saint-martin-de-la-lieue",
+      "uid": 91654236,
+      "official": 0,
+      "title": "Saint-Martin-de-la-Lieue",
+      "description": "Commune de Saint-Martin-de-la-Lieue",
+      "url": "https://www.stmartin-lieue.fr/mairie.html",
+      "image": "//s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png",
+      "updatedAt": "2019-07-25T17:37:49.000Z",
+      "createdAt": "2019-06-26T06:29:45.000Z",
+      "officializedAt": null,
+      "settings": {
+        "tracking": {
+          "googleAnalytics": null
+        },
+        "inbox": {
+          "mailto": {
+            "enabled": false,
+            "email": null,
+            "subject": null,
+            "body": null
+          }
+        },
+        "mailing": {
+          "eventAggregation": false
+        },
+        "contribution": {
+          "type": 2,
+          "defaultState": 2,
+          "canPublish": [
+            "administrators",
+            "moderators"
+          ],
+          "moderateOnChangeBy": [],
+          "defaultLang": null,
+          "allowLocationCreate": true,
+          "message": null,
+          "messages": {
+            "instructions": "Image : préférez une photo à un visuel, taille de l’image conseillée : 5Mo maximum\n\nMots clés : Il est impératif d'en renseigner au moins 2 ou 3, notamment un concernant le thème (spectacle, expo, atelier, etc) car c’est cela qui permettra de faire apparaitre vos évènements lorsque l’usager fera une recherche par mots clés et non par catégorie.",
+            "complete": null,
+            "publication": null
+          },
+          "useFields": true,
+          "authorizedIPAddresses": [],
+          "survey": false
+        },
+        "translation": {
+          "enabled": false,
+          "source": "fr",
+          "sets": [],
+          "service": "reverso",
+          "options": null
+        }
+      },
+      "private": 0,
+      "indexed": 1,
+      "member": {
+        "id": 178088,
+        "order": 178088,
+        "deletedUser": false,
+        "invited": false,
+        "role": 2,
+        "createdAt": "2019-06-26T06:29:46.000Z",
+        "updatedAt": "2019-06-26T06:29:46.000Z",
+        "custom": {
+          "email": "rberge@agglo-lisieux.fr",
+          "contactName": "Roxane Bergé"
+        },
+        "actionsCounter": 0,
+        "agendaUid": 91654236,
+        "userUid": 36503123,
+        "slug": "roxane-berge"
+      },
+      "useContributeApp": true,
+      "mailto": null
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "name": "@openagenda/react-integration-app",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --config webpack.config.js",
+    "prepublish": "yarn build"
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.6.0",
+    "@loadable/component": "^5.10.2",
+    "@loadable/server": "^5.10.2",
+    "@openagenda/activity-apps": "^1.1.2",
+    "@openagenda/agenda-settings": "^1.1.2",
+    "@openagenda/home": "^2.1.2",
+    "@openagenda/pepjs": "^0.5.4",
+    "@openagenda/react-layouts": "^1.0.0",
+    "@openagenda/react-utils": "^4.0.0",
+    "@openagenda/user-apps": "^1.1.2",
+    "core-js": "^3.2.1",
+    "dom4": "^2.1.5",
+    "flatted": "^2.0.1",
+    "he": "^1.2.0",
+    "history": "^4.10.1",
+    "intl": "^1.2.5",
+    "iscroll": "^5.2.0",
+    "lodash": "^4.17.11",
+    "nprogress": "^0.2.0",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-helmet-async": "^1.0.3",
+    "react-is": "^16.8.6",
+    "react-redux": "^7.1.1",
+    "react-router": "^5.0.0",
+    "react-router-config": "^5.0.0",
+    "react-router-dom": "^5.0.0",
+    "redux": "^4.0.1",
+    "regenerator-runtime": "^0.13.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.6.0",
+    "@loadable/webpack-plugin": "^5.7.1",
+    "babel-loader": "^8.0.5",
+    "babel-preset-openagenda": "^1.1.1",
+    "clean-webpack-plugin": "^2.0.1",
+    "terser-webpack-plugin": "^1.2.3",
+    "webpack": "^4.40.1",
+    "webpack-s3-plugin": "^1.0.3",
+    "webpackbar": "^3.1.5"
+  }
+}

@@ -18,7 +18,6 @@
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/utils": "^1.0.1",
     "@openagenda/validators": "^2.0.0",
-    "babel-runtime": "^6.26.0",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-alpha.2",
     "cookies-js": "^1.2.3",

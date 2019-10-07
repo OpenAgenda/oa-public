@@ -45,7 +45,7 @@ export default function ( options = {} ) {
   const client = apiClient( apiRoot, req );
   const history = options.history || createMemoryHistory();
   const store = createStore(
-    getReducers.bind( null, history ),
+    getReducers,
     initialState,
     compose(
       applyMiddleware(
@@ -95,6 +95,7 @@ export default function ( options = {} ) {
 
   return {
     store,
+    history,
     element
   };
 };

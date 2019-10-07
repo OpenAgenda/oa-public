@@ -2,6 +2,7 @@
 
 const React = require( 'react' );
 const ReactDOM = require( 'react-dom/server' );
+const { parsePath } = require('history');
 const sessions = require( '@openagenda/sessions' );
 const mw = require( '@openagenda/activity-apps/dist/middleware' );
 const createApp = require( '@openagenda/activity-apps/dist/client/apps/agenda' );
@@ -70,7 +71,7 @@ module.exports = app => {
 async function matchApp( req, res, next ) {
   const prefix = `/${req.agenda.slug}/admin/activities`;
   const lang = req.lang || 'fr';
-  const { element, triggerHooks, store, context } = createApp( {
+  const { element, triggerHooks, store, staticContext, history } = createApp( {
     req,
     initialState: {
       settings: {
@@ -95,17 +96,17 @@ async function matchApp( req, res, next ) {
     // Remove apiRoot used only on server side
     state.settings.apiRoot = '';
 
-    if ( context.status === 404 ) {
+    if ( staticContext.status === 404 ) {
       return next();
     }
 
-    if ( context.url ) {
-      return res.redirect( 301, context.url );
+    if ( staticContext.url ) {
+      return res.redirect( 302, staticContext.url );
     }
 
-    const { pathname, search } = state.router.location;
-    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-      return res.redirect( 301, pathname );
+    const { pathname } = history.location;
+    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+      return res.redirect( 302, pathname );
     }
 
     res.send( layout( `<div class="js_canvas">${content}</div>`, {

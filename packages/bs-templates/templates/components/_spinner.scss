@@ -24,7 +24,7 @@
       border-radius: 5px;
 
     }
-  
+
   }
 
   &.spin-page {
@@ -32,7 +32,7 @@
     position: fixed;
 
   }
-  
+
   &.spin-inline {
 
     > span {
@@ -46,7 +46,7 @@
     width: auto;
     display: inline-block;
     background: transparent;
-    
+
     /*
       commenting this part as it breaks inline spinner on agenda-event-reference suggestions load
       vertical-align: middle;
@@ -58,9 +58,36 @@
       width: auto!important;
       top: 62%!important;
 
+      @keyframes spinner-line-fade-more {
+        0%, 100% {
+          opacity: 0; /* minimum opacity */
+        }
+        1% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes spinner-line-fade-quick {
+        0%, 39%, 100% {
+          opacity: 0.25; /* minimum opacity */
+        }
+        40% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes spinner-line-fade-default {
+        0%, 100% {
+          opacity: 0.22; /* minimum opacity */
+        }
+        1% {
+          opacity: 1;
+        }
+      }
+
     }
 
-    .spin-message { 
+    .spin-message {
 
       margin-left: 1.3em;
       color: $oa-gray-light;
@@ -69,10 +96,10 @@
 
     & + span {
 
-      vertical-align: middle; 
+      vertical-align: middle;
 
     }
 
   }
-  
+
 }

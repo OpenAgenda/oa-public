@@ -1,0 +1,6 @@
+diff a/packages/agenda-portal/lib/events/links.js b/packages/agenda-portal/lib/events/links.js	(rejected hunks)
+@@ -12,3 +12 @@ module.exports = (locals, event) => {
+-    email: `https://openagenda.com/${locals.agenda.slug}/events/${
+-      event.slug
+-    }/action?lang=${locals.lang}&action=email`,
++    email: `https://openagenda.com/${locals.agenda.slug}/events/${event.slug}/action?lang=${locals.lang}&action=email`,

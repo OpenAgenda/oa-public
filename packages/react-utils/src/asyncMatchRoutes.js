@@ -1,32 +1,43 @@
 import { matchRoutes } from 'react-router-config';
 
-function getComponents( match, propName = 'preload' ) {
-  return match.map( v => v.route.component ).reduce( async ( result, component ) => {
-    if ( typeof component[ propName ] === 'function' ) {
-      const res = await component[ propName ]();
-
-      return [ ...(await result), component, ...(res || []) ];
-    }
-
-    return [ ...(await result), component ];
-  }, [] );
+function esModuleInterop( mod ) {
+  return mod && mod.__esModule ? mod.default : mod;
 }
 
 function getParams( match ) {
-  return match.reduce( ( result, component ) => {
-    if ( component.match && component.match.params ) {
-      return { ...result, ...component.match.params };
+  return match.reduce( ( result, route ) => {
+    if ( route.match && route.match.params ) {
+      return { ...result, ...route.match.params };
     }
     return result;
   }, {} );
 }
 
-const asyncMatchRoutes = async ( routes, pathname, propName ) => {
+const asyncMatchRoutes = ( routes, pathname, { preloadPropName = 'preload', skipPreload } = {} ) => {
   const match = matchRoutes( routes, pathname.split( '?' )[ 0 ] );
   const params = getParams( match );
-  const components = await getComponents( match, propName );
+  let components = match.map( v => v.route.component );
 
-  return { components, match, params };
+  const skip = typeof skipPreload === 'function' && skipPreload( components );
+
+  if ( skip ) {
+    return { components, match, params };
+  }
+
+  if ( !skip ) {
+    return Promise.all(
+      components.reduce( ( accu, component ) => {
+        if ( typeof component[ preloadPropName ] === 'function' ) {
+          return accu.concat( Promise.resolve( component[ preloadPropName ]() ).then( esModuleInterop ) );
+        }
+
+        return accu.concat( component );
+      }, [] )
+    )
+      .then( comps => ({ components: comps, match, params }) );
+  }
 };
+
+asyncMatchRoutes.matchRoutes = matchRoutes;
 
 export default asyncMatchRoutes;

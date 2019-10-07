@@ -4,9 +4,10 @@ const _ = require( 'lodash' );
 const express = require( 'express' );
 const { promisify } = require( 'util' );
 const ReactDOM = require( 'react-dom/server' );
-
+const { parsePath } = require('history');
 const eventsSvc = require( '@openagenda/events' );
 const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
+const wrapApp = require( '@openagenda/react-utils/dist/wrapApp' );
 const locationSvc = require( '@openagenda/agenda-locations' );
 const labels = require( '@openagenda/labels/inboxes' );
 const makeLabelGetter = require( '@openagenda/labels' );
@@ -38,7 +39,8 @@ app.use(
   },
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -69,28 +71,29 @@ app.use(
         }
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 301, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
-      if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+      const { pathname } = history.location;
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+        return res.redirect( 302, pathname );
       }
 
       cmn.render( req, res, 'inboxes/user', { scriptParams: { initialState: state }, lang, content, preloaded: true } );
@@ -106,7 +109,8 @@ app.use(
   cmn.loadBaseData( 'oasfmain.css' ),
   async ( req, res, next ) => {
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -146,28 +150,29 @@ app.use(
         }
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 301, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
-      if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+      const { pathname } = history.location;
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+        return res.redirect( 302, pathname );
       }
 
       cmn.render( req, res, 'inboxes/user', { scriptParams: { initialState: state }, lang, content, preloaded: true } );
@@ -183,8 +188,8 @@ app.use(
   cmn.loadAgenda,
   members.mw.loadAndAuthorize('moderator'),
   async ( req, res, next ) => {
-    const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -215,28 +220,29 @@ app.use(
         agenda: req.agenda
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 301, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
-      if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+      const { pathname } = history.location;
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+        return res.redirect( 302, pathname );
       }
 
       return res.send( layout(
@@ -273,7 +279,9 @@ app.use(
       return res.redirect( 302, req.genUrl( 'agendaShow', { slug: req.agenda.slug } ) );
     }
 
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const lang = req.lang || 'fr';
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -324,28 +332,29 @@ app.use(
         agenda: req.agenda
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 301, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
-      if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+      const { pathname } = history.location;
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -359,7 +368,7 @@ app.use(
       cmn.render( req, res, 'agenda/inbox', {
         ...baseData,
         scriptParams: { initialState: state },
-        lang: req.lang,
+        lang,
         content,
         preloaded: true
       } );
@@ -393,7 +402,9 @@ app.use(
 
     const resPrefix = targetIsAdminMod ? '/home' : `/agendas/${req.agenda.uid}`;
 
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const lang = req.lang || 'fr';
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -443,28 +454,29 @@ app.use(
         agenda: req.agenda
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 301, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
-      if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+      const { pathname } = history.location;
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -478,7 +490,7 @@ app.use(
       cmn.render( req, res, 'agenda/inbox', {
         ...baseData,
         scriptParams: { initialState: state },
-        lang: req.lang,
+        lang,
         content,
         preloaded: true
       } );
@@ -500,7 +512,8 @@ app.use(
     const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -556,28 +569,29 @@ app.use(
         event: req.event
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 301, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
-      if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+      const { pathname } = history.location;
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -618,7 +632,8 @@ app.use(
     const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -674,28 +689,29 @@ app.use(
         event: req.event
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 301, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
-      if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+      const { pathname } = history.location;
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -731,7 +747,8 @@ app.use(
     const eventShowLink = `/${req.agenda.slug}/events/${req.event.slug}`;
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp({
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -787,28 +804,29 @@ app.use(
         event: req.event
       }
     });
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 301, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
-      if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+      const { pathname } = history.location;
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -847,7 +865,8 @@ app.use(
     }
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -900,28 +919,29 @@ app.use(
         agenda: req.agenda
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 301, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
-      if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+      const { pathname } = history.location;
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {
@@ -961,7 +981,8 @@ app.use(
     }
 
     const lang = req.lang || 'fr';
-    const { element, triggerHooks, store, context } = createInboxApp( {
+    const staticContext = {};
+    const reactApp = createInboxApp( {
       req,
       initialState: {
         user: req.user,
@@ -1016,28 +1037,29 @@ app.use(
         agenda: req.agenda
       }
     } );
+    const { triggerHooks, store, history } = reactApp;
 
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( element );
+      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
       const state = store.getState();
 
       // Remove apiRoot used only on server side
       state.settings.apiRoot = '';
 
-      if ( context.status === 404 ) {
+      if ( staticContext.status === 404 ) {
         return next();
       }
 
-      if ( context.url ) {
-        return res.redirect( 301, context.url );
+      if ( staticContext.url ) {
+        return res.redirect( 302, staticContext.url );
       }
 
-      const { pathname, search } = state.router.location;
-      if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-        return res.redirect( 301, pathname );
+      const { pathname } = history.location;
+      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+        return res.redirect( 302, pathname );
       }
 
       const baseData = {

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
-import Waypoint from 'react-waypoint';
+import { Waypoint } from 'react-waypoint';
 import { reduxForm, Field, initialize, getFormValues } from 'redux-form';
 import update from 'immutability-helper';
 import Select from 'react-select';

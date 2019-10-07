@@ -9,7 +9,12 @@
 <script type="text/javascript"><%- script %></script>
 <% }); %>
 <% } %>
+<% if ( bottom.scriptTags ) { %>
+<% bottom.scriptTags.forEach( function( script ) { %>
+<%- script %>
+<% }); %>
+<% } %>
 <% } %>
 <% include ../layout/js.part.ejs %>
-  </body>
+</body>
 </html>

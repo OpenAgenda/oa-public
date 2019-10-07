@@ -117,7 +117,7 @@ module.exports = options => {
 
       refreshScroll();
 
-      setListeners();
+      setListeners( { onSeeActivitiesClick: params.onSeeActivitiesClick } );
 
     } );
 
@@ -244,13 +244,16 @@ function onReadAllClick() {
 
 }
 
-function onSeeActivitiesClick() {
+function _onSeeActivitiesClick( { onSeeActivitiesClick } = {} ) {
 
   return e => {
 
-    du.preventDefault( e );
-
-    window.location.href = params.res.seeActivities;
+    if ( typeof onSeeActivitiesClick === 'function' ) {
+      onSeeActivitiesClick( e );
+    } else {
+      du.preventDefault( e );
+      window.location.href = params.res.seeActivities;
+    }
 
   };
 
@@ -389,13 +392,13 @@ function setLoading( loading = true ) {
 
 }
 
-function setListeners() {
+function setListeners( options ) {
 
   du.addEvent( document.querySelector( params.selectors.next ), 'click', onNextClick() );
 
   du.addEvent( document.querySelector( params.selectors.readAll ), 'click', onReadAllClick() );
 
-  du.addEvent( document.querySelector( params.selectors.seeActivities ), 'click', onSeeActivitiesClick() );
+  du.addEvent( document.querySelector( params.selectors.seeActivities ), 'click', _onSeeActivitiesClick( options ) );
 
   Array.from( panelElem.querySelectorAll( '.list-group-item' ) )
     .map( el => {

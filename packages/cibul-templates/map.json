@@ -15,7 +15,6 @@
   "agenda/action",
   "agendaAdmin/gettingStarted",
   "agendaSearch/index",
-  "agendaSettings/new",
   "agendaSettings/edit",
   "aggregatorSources/index",
   "auth/signin",
@@ -31,11 +30,9 @@
   "eventForm/index",
   "eventFormTags/index",
   "dialog/index",
-  "home/index",
   "members/index",
   "search/agendas",
   "search/events",
-  "user/settings",
   {
     "uri" : "user/menu",
     "public" : true

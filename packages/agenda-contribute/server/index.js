@@ -12,11 +12,9 @@ const logger = require( '@openagenda/logs' );
 const app = express();
 const log = logger( 'index' );
 
-const manifest = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/../client/dist/manifest.json', 'utf-8' ) );
+const manifest = require( '../client/dist/manifest.json' );
 
-const serviceName = JSON.parse(
-  require( 'fs' ).readFileSync( __dirname + '/../package.json', 'utf-8' )
-).name.split( '/' ).pop();
+const serviceName = require( '../package.json' ).name.split( '/' ).pop();
 
 const parse = require( './parse' );
 

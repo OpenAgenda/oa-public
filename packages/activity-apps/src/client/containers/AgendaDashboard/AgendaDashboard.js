@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
-import Waypoint from 'react-waypoint';
+import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
 import * as activitiesActions from '../../redux/modules/activities';

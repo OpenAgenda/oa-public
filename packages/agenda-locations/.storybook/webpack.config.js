@@ -9,5 +9,7 @@ module.exports = ({ config }) => {
     })
   );
 
+  config.optimization.splitChunks.chunks = 'initial';
+
   return config;
 };

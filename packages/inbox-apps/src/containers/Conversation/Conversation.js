@@ -4,8 +4,7 @@ import _ from 'lodash';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { provideHooks } from 'redial';
-import { FORM_ERROR } from 'final-form';
-import Waypoint from 'react-waypoint';
+import { Waypoint } from 'react-waypoint';
 import { getContext } from 'recompose';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import {
