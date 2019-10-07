@@ -163,9 +163,9 @@ module.exports = app => {
 
   app.get(
     '/:slug/admin/settings',
+    cmn.loadAgenda,
     sessions.mw.loadOrRedirect,
     cmn.verifyIPMiddleware,
-    cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( 'oasfmain.css' ),
@@ -174,9 +174,9 @@ module.exports = app => {
 
   app.get(
     '/:slug/admin/settings/?*?',
+    cmn.loadAgenda,
     sessions.mw.loadOrRedirect,
     cmn.verifyIPMiddleware,
-    cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
     agendaSvc.mw.loadAdminLayout,
     cmn.loadBaseData( 'oasfmain.css' ),
