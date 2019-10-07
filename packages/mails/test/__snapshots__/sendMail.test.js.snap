@@ -12,7 +12,7 @@ Array [
         "kevin.bertho@gmail.com",
       ],
     },
-    "messageSize": 6164,
+    "messageSize": 6170,
     "rejected": Array [],
   },
 ]
@@ -30,7 +30,7 @@ Array [
         "kevin.bertho@gmail.com",
       ],
     },
-    "messageSize": 6204,
+    "messageSize": 6210,
     "rejected": Array [],
   },
   Object {
@@ -43,7 +43,7 @@ Array [
         "kevin.berthommier@openagenda.com",
       ],
     },
-    "messageSize": 6177,
+    "messageSize": 6183,
     "rejected": Array [],
   },
   Object {
@@ -56,7 +56,7 @@ Array [
         "kaore@openagenda.com",
       ],
     },
-    "messageSize": 6162,
+    "messageSize": 6168,
     "rejected": Array [],
   },
 ]
@@ -111,7 +111,7 @@ Array [
         <![endif]-->
         <!--[if lte mso 11]>
         <style type=\\"text/css\\">
-          .outlook-group-fix { width:100% !important; }
+          .mj-outlook-group-fix { width:100% !important; }
         </style>
         <![endif]-->
         
@@ -176,7 +176,7 @@ Array [
           <![endif]-->
             
       <div
-         class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
       >
         
       <table
@@ -299,7 +299,7 @@ Go to https://openagenda.com
         <![endif]-->
         <!--[if lte mso 11]>
         <style type=\\"text/css\\">
-          .outlook-group-fix { width:100% !important; }
+          .mj-outlook-group-fix { width:100% !important; }
         </style>
         <![endif]-->
         
@@ -364,7 +364,7 @@ Go to https://openagenda.com
           <![endif]-->
             
       <div
-         class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
       >
         
       <table
@@ -487,7 +487,7 @@ Go to https://openagenda.com
         <![endif]-->
         <!--[if lte mso 11]>
         <style type=\\"text/css\\">
-          .outlook-group-fix { width:100% !important; }
+          .mj-outlook-group-fix { width:100% !important; }
         </style>
         <![endif]-->
         
@@ -552,7 +552,7 @@ Go to https://openagenda.com
           <![endif]-->
             
       <div
-         class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
       >
         
       <table
@@ -691,7 +691,7 @@ Array [
         <![endif]-->
         <!--[if lte mso 11]>
         <style type=\\"text/css\\">
-          .outlook-group-fix { width:100% !important; }
+          .mj-outlook-group-fix { width:100% !important; }
         </style>
         <![endif]-->
         
@@ -756,7 +756,7 @@ Array [
           <![endif]-->
             
       <div
-         class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
       >
         
       <table
@@ -898,7 +898,7 @@ Array [
         <![endif]-->
         <!--[if lte mso 11]>
         <style type=\\"text/css\\">
-          .outlook-group-fix { width:100% !important; }
+          .mj-outlook-group-fix { width:100% !important; }
         </style>
         <![endif]-->
         
@@ -963,7 +963,7 @@ Array [
           <![endif]-->
             
       <div
-         class=\\"mj-column-per-100 outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
+         class=\\"mj-column-per-100 mj-outlook-group-fix\\" style=\\"font-size:0px;text-align:left;direction:ltr;display:inline-block;vertical-align:top;width:100%;\\"
       >
         
       <table
