@@ -78,7 +78,6 @@
     "should": "^7.1.1"
   },
   "peerDependencies": {
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2"
+    "react": "^16.10.2"
   }
 }

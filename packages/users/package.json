@@ -52,7 +52,6 @@
     "tmp": "^0.1.0"
   },
   "peerDependencies": {
-    "@openagenda/image-files": "^1.1.2",
-    "@openagenda/keys": "^2.1.1"
+    "@openagenda/image-files": "^1.1.2"
   }
 }
