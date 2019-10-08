@@ -193,4 +193,4 @@ class EditForm extends Component {
   }
 }
 
-export default injectIntl(EditForm, { withRef: true });
+export default injectIntl(EditForm, { forwardRef: true });

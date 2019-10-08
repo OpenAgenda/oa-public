@@ -6,7 +6,6 @@
   "rtp.editForm.adjust": "Adjust",
   "rtp.editForm.endNotAfterBegin": "End should be after begin",
   "rtp.editForm.openRecurrencerModal": "Define a recurring timing",
-  "rtp.header.weekIndicator": "Week {weekNumber, number}",
   "rtp.multiRecurrencerForm.title": "Define a recurrence",
   "rtp.multiRecurrencerForm.day": "day",
   "rtp.multiRecurrencerForm.week": "week",

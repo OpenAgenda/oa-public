@@ -13,21 +13,21 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.5.5",
+    "@babel/runtime-corejs3": "^7.6.2",
     "core-js": "^3.2.1",
     "lodash": "^4.17.5",
     "superagent": "^3.8.2",
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
     "@openagenda/babel-preset": "^1.1.1",
     "babel-jest": "^24.9.0",
     "jest": "^24.9.0",
     "moment": "^2.20.1",
-    "reload": "^2.2.2",
-    "rimraf": "^2.6.2",
+    "reload": "^3.0.2",
+    "rimraf": "^3.0.0",
     "sinon": "^4.4.5"
   }
 }

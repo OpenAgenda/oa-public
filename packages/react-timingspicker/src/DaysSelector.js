@@ -1254,4 +1254,4 @@ DaysSelector.defaultProps = {
   onChange: null
 };
 
-export default injectIntl(DaysSelector, { withRef: true });
+export default injectIntl(DaysSelector, { forwardRef: true });

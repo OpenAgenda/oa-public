@@ -346,7 +346,7 @@ class Scheduler extends Component {
 
   handleEditSubmit = value => {
     const { valueToEdit } = this.state;
-    const selectorEl = this.selectorRef.current._wrappedInstance;
+    const selectorEl = this.selectorRef.current;
 
     selectorEl.updateValue(valueToEdit, value);
 
@@ -395,7 +395,7 @@ class Scheduler extends Component {
 
   handleRecurrencerSubmit = values => {
     const timings = this.recurrencerValuesToTimings(values);
-    const selectorEl = this.selectorRef.current._wrappedInstance;
+    const selectorEl = this.selectorRef.current;
 
     try {
       selectorEl.addValues(timings, values.forceTimingsCreation);
@@ -411,7 +411,7 @@ class Scheduler extends Component {
 
   handleMultiRecurrencerSubmit = values => {
     const timings = this.multiRecurrencerValuesToTimings(values).flat();
-    const selectorEl = this.selectorRef.current._wrappedInstance;
+    const selectorEl = this.selectorRef.current;
 
     try {
       selectorEl.addValues(timings, values.forceTimingsCreation);
@@ -610,4 +610,4 @@ Scheduler.defaultProps = {
   timingLimit: ONE_DAY
 };
 
-export default injectIntl(Scheduler, { withRef: true });
+export default injectIntl(Scheduler, { forwardRef: true });

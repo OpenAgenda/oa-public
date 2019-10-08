@@ -23,7 +23,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/admin-agendas",
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.5.5",
+    "@babel/runtime-corejs3": "^7.6.2",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
@@ -36,7 +36,7 @@
     "core-js": "^3.2.1",
     "create-react-class": "^15.5.2",
     "immutability-helper": "^3.0.0",
-    "knex": "^0.19.4",
+    "knex": "^0.19.5",
     "lodash": "^4.17.5",
     "mysql": "^2.10.2",
     "prop-types": "^15.5.8",
@@ -44,29 +44,29 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/node": "^7.5.5",
+    "@babel/cli": "^7.6.2",
+    "@babel/core": "^7.6.2",
+    "@babel/node": "^7.6.2",
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
     "@openagenda/members": "^1.15.0",
-    "@storybook/react": "^5.2.0",
+    "@storybook/react": "^5.2.3",
     "babel-loader": "^8.0.4",
-    "concurrently": "^4.1.0",
+    "concurrently": "^5.0.0",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.0",
     "express": "^4.16.4",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.9",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "rimraf": "^2.6.2",
+    "nodemon": "^1.19.3",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "rimraf": "^3.0.0",
     "should": "^8.2.0"
   },
   "peerDependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2"
   }
 }

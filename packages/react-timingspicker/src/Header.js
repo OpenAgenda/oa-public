@@ -138,4 +138,4 @@ class Header extends Component {
   }
 }
 
-export default injectIntl(Header, { withRef: true });
+export default injectIntl(Header, { forwardRef: true });

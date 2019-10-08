@@ -1,6 +1,6 @@
 "use strict";
 
-const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
+const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const CompressionPlugin = require( 'compression-webpack-plugin' );
 const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 const S3Plugin = require( 'webpack-s3-plugin' );
@@ -32,7 +32,7 @@ module.exports = {
   },
   plugins: [
     new LodashModuleReplacementPlugin( { paths: true } ),
-    new CleanWebpackPlugin( localDistPath ),
+    new CleanWebpackPlugin(),
     new WebpackAssetsManifest( {
       output: __dirname + '/client/dist/manifest.json'
     } )

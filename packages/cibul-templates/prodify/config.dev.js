@@ -4,10 +4,10 @@ const path = require( 'path' );
 const webpack = require( 'webpack' );
 const ManifestPlugin = require( 'webpack-manifest-plugin' );
 const ProgressBar = require( 'webpackbar' );
-const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
+const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const LoadablePlugin = require( '@loadable/webpack-plugin' );
-const getBabelRule = require( './getBabelRule' );
-const getBabelModuleRules = require( './getBabelModuleRules' );
+const getCacheDir = require( './getCacheDir' );
+const BABEL_EXCLUDE_REGEX = require( './babelExcludeRegex' );
 
 
 module.exports = ( { entry, output } ) => ({
@@ -30,12 +30,15 @@ module.exports = ( { entry, output } ) => ({
         enforce: 'pre',
         loader: 'source-map-loader'
       },
-      getBabelRule(path.join(__dirname, '..')),
-      ...getBabelModuleRules([
-        '@openagenda/agenda-settings',
-        '@openagenda/home',
-        '@openagenda/user-apps'
-      ]),
+      {
+        test: /\.jsx?$/,
+        loader: 'babel-loader',
+        exclude: BABEL_EXCLUDE_REGEX,
+        options: {
+          cacheDirectory: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'babel-loader-dev' ),
+          cwd: path.join(__dirname, '../../..')
+        }
+      },
       {
         test: /\.ejs$/,
         loader: 'ejs-compiled-loader-webpack4'

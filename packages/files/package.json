@@ -12,7 +12,7 @@
   "dependencies": {
     "@openagenda/logs": "^1.0.1",
     "async": "^1.5.0",
-    "aws-sdk": "^2.145.0",
+    "aws-sdk": "^2.544.0",
     "knox-s3": "^0.9.3",
     "lodash": "^4.17.4",
     "mime": "^1.4.1",

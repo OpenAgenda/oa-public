@@ -24,13 +24,13 @@
   "devDependencies": {
     "async": "^1.5.0",
     "bootstrap": "3.3.5",
-    "colors": "^1.1.2",
+    "colors": "^1.4.0",
     "ejs": "^2.4.1",
     "express": "^4.13.3",
     "node-sass": "^4.5.2",
     "node-sass-import-once": "^1.2.0",
     "node-watch": "^0.3.5",
-    "reload": "^1.1.0",
+    "reload": "^3.0.2",
     "uppy": "^0.23.2",
     "walk": "^2.3.9"
   }

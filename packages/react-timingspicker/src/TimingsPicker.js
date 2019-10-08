@@ -1,12 +1,10 @@
+import './intlPolyfill';
+
 import React, { Component } from 'react';
 import * as dateFns from 'date-fns';
 import ReactResizeDetector from 'react-resize-detector';
 import classNames from 'classnames';
-import { IntlProvider, addLocaleData } from 'react-intl';
-import en from 'react-intl/locale-data/en';
-import fr from 'react-intl/locale-data/fr';
-import de from 'react-intl/locale-data/de';
-import br from 'react-intl/locale-data/br';
+import { IntlProvider } from 'react-intl';
 import localeEn from './locales/en';
 import localeFr from './locales/fr';
 import Stats from './Stats';
@@ -24,8 +22,6 @@ const weekStartsDay = {
   en: 0,
   fr: 1
 };
-
-addLocaleData([...en, ...fr, ...de, ...br]);
 
 function widthToBreakpoint(breakpoints, width) {
   for (const key of Object.keys(breakpoints)) {
@@ -186,7 +182,7 @@ class TimingsPicker extends Component {
       return;
     }
 
-    const schedulerEl = this.schedulerRef.current._wrappedInstance;
+    const schedulerEl = this.schedulerRef.current;
 
     if (schedulerEl.state.showRecurrencerModal) {
       schedulerEl.handleCloseRecurrencerModal();
