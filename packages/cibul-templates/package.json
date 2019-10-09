@@ -56,7 +56,7 @@
     "@openagenda/registration": "^1.1.1",
     "@openagenda/sessions": "^3.0.13",
     "@openagenda/sync-button": "^0.0.7",
-    "@openagenda/translators": "^1.1.1",
+    "@openagenda/translators": "^2.0.0",
     "@openagenda/tumblr-parser": "^0.1.2",
     "@openagenda/user-apps": "^1.1.2",
     "@openagenda/utils": "^1.0.2",

@@ -3,7 +3,7 @@
 import React, { Component } from 'react';
 import { provideHooks } from 'redial';
 import hoistNonReactStatics from 'hoist-non-react-statics';
-import { withRouter } from 'react-router';
+import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import classNames from 'classnames';
