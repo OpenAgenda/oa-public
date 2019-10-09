@@ -259,7 +259,10 @@ async function eventMailSend(req, res, next) {
           description: getLocaleValue(req.event.description, req.lang),
           longDescription: getLocaleValue(req.event.longDescription, req.lang),
           conditions: getLocaleValue(req.event.conditions, req.lang),
-          ticketLink: _.head(req.event.registration),
+          formattedRegistration: eventsSvc.utils.formatRegistration(req.event.registration, {
+            order: ['link', 'email', 'phone'],
+            includeLinkPrefix: true
+          }),
           image: req.event.image ? config.aws.imageBucketPath + req.event.image.filename : null,
           location: _.mapValues(
             _.pick(req.event.location, 'name', 'address', 'region', 'city', 'postalCode'),
