@@ -223,7 +223,7 @@ module.exports = {
       }
     ];
 
-    if ( [ 2, 3 ].includes( member.credential ) ) {
+    if ( [ 2, 3 ].includes( member.role ) ) {
       return contributorRules.concat( [
         {
           actions: 'receive',

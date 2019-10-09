@@ -3,6 +3,7 @@
 const { promisify } = require( 'util' );
 const _ = require( 'lodash' );
 const ReactDOM = require( 'react-dom/server' );
+const { parsePath } = require('history');
 const moment = require( 'moment' );
 const wn = require( 'when/node' );
 const async = require( 'async' );
@@ -10,6 +11,7 @@ const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'admin/back' );
 const agendasSvc = require( '@openagenda/agendas' );
 const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
+const wrapApp = require( '@openagenda/react-utils/dist/wrapApp' );
 const cmn = require( '../lib/commons-app' );
 const lib = require( '../lib/lib' );
 const membersSvc = require( '../services/members' );
@@ -39,14 +41,22 @@ module.exports = app => {
   app.get( '/admin/users/changePassword', preMw, userChangePassword );
   app.get( '/admin/eventsbyweek', preMw, eventsByWeek );
   app.get( '/admin/eventsdiff', preMw, eventsDiff );
-  app.get( '/admin/support/?*?', preMw, support );
+  app.get(
+    [
+      '/admin/support',
+      '/admin/support/conversation/:conversationId'
+    ],
+    preMw,
+    support
+  );
 
 };
 
 
 async function support( req, res, next ) {
   const lang = req.lang || 'fr';
-  const { element, triggerHooks, store, context } = createInboxApp( {
+  const staticContext = {};
+  const reactApp = createInboxApp( {
     req,
     initialState: {
       settings: {
@@ -74,28 +84,29 @@ async function support( req, res, next ) {
       }
     }
   } );
+  const { triggerHooks, store, history } = reactApp;
 
   try {
     await triggerHooks();
 
-    const content = ReactDOM.renderToString( element );
+    const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
     const state = store.getState();
 
     // Remove apiRoot used only on server side
     state.settings.apiRoot = '';
 
-    if ( context.status === 404 ) {
+    if ( staticContext.status === 404 ) {
       return next();
     }
 
-    if ( context.url ) {
-      return res.redirect( 301, context.url );
+    if ( staticContext.url ) {
+      return res.redirect( 302, staticContext.url );
     }
 
-    const { pathname, search } = state.router.location;
-    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-      return res.redirect( 301, pathname );
+    const { pathname } = history.location;
+    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
+      return res.redirect( 302, pathname );
     }
 
     res.send( supportTemplate( {

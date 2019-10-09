@@ -21,9 +21,11 @@ export default RadioTypeField( {
 
   renderField: function() {
 
+    const options = this.getOptions();
+
     return <Select
-      value={this.props.value}
-      options={this.getOptions()}
+      value={options.find(option => option.value === this.props.value)}
+      options={options}
       onChange={obj => this.onChange( obj.value )}
       clearable={false} />
 

@@ -43,9 +43,7 @@ describe('unit - files', () => {
     const { path } = await set(`${localTmpPath}/test.txt`, 'mytestfile.txt');
 
     expect(path).toEqual(
-      `https://${
-        config.s3.bucket
-      }.s3.eu-west-3.amazonaws.com/test02/mytestfile.txt`
+      `https://${config.s3.bucket}.s3.eu-west-3.amazonaws.com/test02/mytestfile.txt`
     );
   });
 

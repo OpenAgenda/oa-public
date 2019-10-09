@@ -1,14 +1,12 @@
+import './intlPolyfill';
+
 import React, { Component } from 'react';
 import _ from 'lodash';
 import axios from 'axios';
 import { shouldUpdate, shallowEqual } from 'recompose';
 import { Form } from 'react-final-form';
 import setFieldDataMutator from 'final-form-set-field-data';
-import { IntlProvider, FormattedMessage, addLocaleData } from 'react-intl';
-import en from 'react-intl/locale-data/en';
-import fr from 'react-intl/locale-data/fr';
-import de from 'react-intl/locale-data/de';
-import br from 'react-intl/locale-data/br';
+import { IntlProvider, FormattedMessage } from 'react-intl';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import localeEn from '../locales/en';
 import localeFr from '../locales/fr';
@@ -20,8 +18,6 @@ const localeData = {
   en: localeEn,
   fr: localeFr
 };
-
-addLocaleData([...en, ...fr, ...de, ...br]);
 
 function getInitialValues(rules) {
   return rules.reduce((result, rule) => {

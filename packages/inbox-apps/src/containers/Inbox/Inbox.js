@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router';
 import { provideHooks } from 'redial';
 import { getContext } from 'recompose';
-import Waypoint from 'react-waypoint';
+import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import nl2br from '@openagenda/react-utils/dist/nl2br';
@@ -50,8 +50,8 @@ function asyncLoad( { store: { getState, dispatch }, location, history } ) {
 }
 
 @provideHooks( {
-  fetch: async ( { store, history, location } ) => {
-    const promise = asyncLoad( { store, history, location } );
+  fetch: async ( { store, location, history } ) => {
+    const promise = asyncLoad( { store, location, history } );
 
     return Promise.resolve( __CLIENT__ ? null : promise );
   }

@@ -1,185 +1,99 @@
 "use strict";
 
-const React = require( 'react' );
-const ReactDOM = require( 'react-dom/server' );
-const sessions = require( '@openagenda/sessions' );
-const homeMw = require( '@openagenda/home/dist/middleware' );
-const createApp = require( '@openagenda/home/dist/client/app' );
-const createActivitiesApp = require( '@openagenda/activity-apps/dist/client/apps/user' );
-const activitiesMw = require( '@openagenda/activity-apps/dist/middleware' );
-const config = require( '../config' );
-const cmn = require( '../lib/commons-app' );
+const _ = require('lodash');
+const React = require('react');
+const sessions = require('@openagenda/sessions');
+const range = require('@openagenda/date-range');
+const agendaSvc = require('@openagenda/agendas');
+const eventsSvc = require('@openagenda/events');
+const membersSvc = require('../services/members');
+const activitiesMw = require('@openagenda/activity-apps/dist/middleware');
+const cmn = require('../lib/commons-app');
 
-const phpPrefix = __DEVELOPMENT__ ? '/frontend_dev.php' : '';
+const LIST_LIMIT = 20;
 
 const preMw = [
-  cmn.loadLogger( 'home' ),
-  sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) )
+  cmn.loadLogger('home'),
+  sessions.middleware.ifUnlogged((req, res) => res.redirect(302, '/'))
 ];
 
+async function agendasList(req, res, next) {
+  const page = req.query.page || 1;
+  const offset = (page - 1) * LIST_LIMIT;
+
+  try {
+    const members = await membersSvc.list({ userUid: req.user.uid }, { offset: 0, limit: 500 });
+
+    const { total, agendas } = await agendaSvc.list({
+      uid: members.map(s => s.agendaUid),
+      search: req.query.search
+    }, offset, LIST_LIMIT, {
+      includeImagePath: true,
+      private: null,
+      total: true,
+      useDefaultImage: true,
+      includeFields: ['settings', 'credentials']
+    });
+
+    res.send({
+      total,
+      agendas: agendas.map(agenda => _.assign(_.omit(agenda, ['credentials']), {
+        member: members.find(s => s.agendaUid === agenda.uid),
+        useContributeApp: _.get(agenda, 'credentials.useContributeApp', false),
+        mailto: cmn.agendaMailTo(agenda)
+      }))
+    });
+  } catch (e) {
+    next(e);
+  }
+}
+
+function eventsList(req, res, next) {
+  const offset = ((req.query.page || 1) - 1) * LIST_LIMIT;
+
+  req.log('fetching events owned by user %s', req.user.uid);
+
+  eventsSvc.list(
+    { draft: null, ownerUid: req.user.uid, order: 'updatedAt.desc', search: req.query.search },
+    offset,
+    LIST_LIMIT,
+    { private: null, total: true, detailed: true, useDefaultImage: true },
+    (err, events, total) => {
+      if (err) {
+        return next(err);
+      }
+
+      req.log('fetched %s of %s events owned by user %s', events.length, total, req.user.uid);
+
+      res.send({
+        total,
+        events: events.map(event => {
+          const timings = (event.timings || []).map(t => ({ start: new Date(t.begin), end: new Date(t.end) }));
+          const timerange = range(timings, req.lang || 'fr', event.timezone || 'Europe/Paris');
+
+          return Object.assign({}, event, { timerange });
+        })
+      });
+    }
+  );
+}
+
 module.exports = app => {
-
-  app.get(
-    '/home',
-    preMw,
-    cmn.loadBaseData( 'oasfmain.css' ),
-    matchApp
-  );
-
-  app.get(
-    '/home/events',
-    preMw,
-    cmn.loadBaseData( 'oasfmain.css' ),
-    matchApp
-  );
-
-  app.get(
-    '/home/activities',
-    preMw,
-    cmn.loadBaseData( 'oasfmain.css' ),
-    matchUserActivitiesApp
-  );
-
   app.get(
     '/home/agendas',
     preMw,
-    homeMw.agendas.list
+    agendasList
   );
 
   app.get(
     '/home/events.json',
     preMw,
-    homeMw.events.list
+    eventsList
   );
 
   app.get(
     '/home/activities/list',
     preMw,
-    ( req, res ) => activitiesMw.list( { entityType: 'user', entityUid: req.user.uid } )( req, res )
+    (req, res) => activitiesMw.list({ entityType: 'user', entityUid: req.user.uid })(req, res)
   );
-
-}
-
-
-async function matchApp( req, res, next ) {
-  const lang = req.lang || 'fr';
-  const { element, triggerHooks, store, context } = createApp( {
-    req,
-    initialState: {
-      settings: {
-        prefix: '/home',
-        lang,
-        apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: homeMw.getConfig().mw.limit,
-        isNew: req.user.isNew,
-        displayLegacyMessageTab: false,
-        userId: req.user.id,
-        userUid: req.user.uid
-      },
-      res: {
-        agendas: {
-          contribute: '/:slug/contribute',
-          create: '/new',
-          list: '/home/agendas',
-          show: '/:slug',
-          showPrivate: '/:slug.prv',
-          addEvent: `${phpPrefix}/:slug/addevent`,
-          moderate: `${phpPrefix}/:slug/admin`,
-          contact: '/:slug/contact'
-        },
-        events: {
-          list: '/home/events.json',
-          show: '/:slug/events/:eventSlug',
-          showPrivate: '/:slug.prv/events/:eventSlug',
-          showWithoutAgenda: '/events/:eventSlug',
-          edit: `${phpPrefix}/:slug/event/:eventSlug/edit`
-        },
-        messages: '/home/messages',
-        notifs: '/home/notifications',
-        search: '/agendas'
-      }
-    }
-  } );
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString( element );
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if ( context.status === 404 ) {
-      return next();
-    }
-
-    if ( context.url ) {
-      return res.redirect( 301, context.url );
-    }
-
-    const { pathname, search } = state.router.location;
-    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-      return res.redirect( 301, pathname );
-    }
-
-    cmn.render( req, res, 'home/index', { scriptParams: { initialState: state }, lang, content, preloaded: true } );
-  } catch ( e ) {
-    next( e );
-  }
-}
-
-
-async function matchUserActivitiesApp( req, res, next ) {
-  const prefix = '/home/activities';
-  const lang = req.lang || 'fr';
-
-  const { element, triggerHooks, store, context } = createActivitiesApp( {
-    req,
-    initialState: {
-      settings: {
-        prefix,
-        lang,
-        apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: homeMw.getConfig().mw.limit
-      },
-      res: {
-        list: '/home/activities/list'
-      }
-    }
-  } );
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString( element );
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if ( context.status === 404 ) {
-      return next();
-    }
-
-    if ( context.url ) {
-      return res.redirect( 301, context.url );
-    }
-
-    const { pathname, search } = state.router.location;
-    if ( decodeURIComponent( req.originalUrl ) !== decodeURIComponent( pathname + search ) ) {
-      return res.redirect( 301, pathname );
-    }
-
-    cmn.render(
-      req,
-      res,
-      'activities/user',
-      { scriptParams: { initialState: state }, lang, content, preloaded: true }
-    );
-  } catch ( e ) {
-    next( e );
-  }
-}
+};

@@ -3,13 +3,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
-import Waypoint from 'react-waypoint';
+import { reducer as formReducer } from 'redux-form';
+import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
-import * as activitiesActions from '../../redux/modules/activities';
+import activitiesReducer, * as activitiesActions from '../../redux/modules/activities';
+import modalsReducer from '../../redux/modules/modals';
 import { ActivityItem } from '../../components';
 
 @provideHooks( {
+  inject: ( { store } ) => store.inject( {
+    form: formReducer,
+    modals: modalsReducer,
+    activities: activitiesReducer
+  } ),
   fetch: async ( { store: { dispatch, getState }, location } ) => {
     const state = getState();
     const query = qs.parse( location.search, { ignoreQueryPrefix: true } );

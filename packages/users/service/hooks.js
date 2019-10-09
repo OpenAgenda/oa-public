@@ -133,7 +133,6 @@ const userResolvers = {
 const afterAll = [
   camelCase(),
   camelCaseQuery(),
-  populateAccountTypes(),
   context => {
     if (context.result === null || context.params.internal === true) {
       return context;
@@ -368,10 +367,11 @@ module.exports = {
 
   after: {
     all: [],
-    find: afterAll,
-    get: afterAll,
+    find: [...afterAll, populateAccountTypes()],
+    get: [...afterAll, populateAccountTypes()],
     create: [
       ...afterAll,
+      populateAccountTypes(),
       async context => {
         if (context.result && !context.result.isActivated) {
           const tokensSvc = context.service.tokens;
@@ -398,6 +398,7 @@ module.exports = {
     ],
     patch: [
       ...afterAll,
+      populateAccountTypes(),
       iff(
         context => !context.params.before.isActivated && context.result.isActivated,
         callInterface('onActivation'),
@@ -407,12 +408,16 @@ module.exports = {
     remove: [],
     setImageProfile: [],
     clearImageProfile: [],
-    requestChangeEmail: afterAll,
+    requestChangeEmail: [...afterAll, populateAccountTypes()],
     confirmChangeEmail: afterAll,
-    changePassword: afterAll,
-    generateApiKey: [...afterAll, callInterface('onGenerateApiKey')],
-    setNewFlag: afterAll,
-    refresh: afterAll
+    changePassword: [...afterAll, populateAccountTypes()],
+    generateApiKey: [
+      ...afterAll,
+      populateAccountTypes(),
+      callInterface('onGenerateApiKey')
+    ],
+    setNewFlag: [...afterAll, populateAccountTypes()],
+    refresh: [...afterAll, populateAccountTypes()]
   },
 
   error(context) {

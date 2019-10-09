@@ -5,7 +5,7 @@
   "main": "service/index.js",
   "scripts": {
     "test": "mocha",
-    "start": "concurrently -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
+    "start": "concurrently -r -k -i -n server,storybook \"yarn dev-server\" \"yarn storybook --ci\"",
     "dev-server": "NODE_ENV=development PORT=3000 nodemon -w server.dev.js -w src/service --signal SIGTERM --exec babel-node server.dev.js",
     "storybook": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
     "knex": "babel-node ./node_modules/.bin/knex",
@@ -17,7 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.5.5",
+    "@babel/runtime-corejs3": "^7.6.3",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
@@ -30,7 +30,7 @@
     "create-react-class": "^15.5.2",
     "elasticsearch": "^13.3.1",
     "immutability-helper": "^3.0.0",
-    "knex": "^0.16.3",
+    "knex": "^0.19.5",
     "lodash": "^4.17.11",
     "mysql": "^2.16.0",
     "prop-types": "^15.5.8",
@@ -41,27 +41,27 @@
     "xhr": "^2.2.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
-    "@babel/node": "^7.5.5",
+    "@babel/cli": "^7.6.3",
+    "@babel/core": "^7.6.3",
+    "@babel/node": "^7.6.3",
     "@openagenda/agendas": "^1.1.4",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
-    "@storybook/react": "^4.1.11",
+    "@storybook/react": "^5.2.3",
     "babel-loader": "^8.0.4",
-    "concurrently": "^4.1.0",
+    "concurrently": "^5.0.0",
     "cors": "^2.8.5",
     "errorhandler": "^1.5.0",
     "express": "^4.16.4",
+    "mocha": "^6.2.1",
     "morgan": "^1.9.1",
-    "nodemon": "^1.18.9",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "rimraf": "^2.6.2",
-    "should": "^8.2.0"
+    "nodemon": "^1.19.3",
+    "react": "^16.10.2",
+    "react-dom": "^16.10.2",
+    "rimraf": "^3.0.0",
+    "should": "^13.2.3"
   },
   "peerDependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": "^16.10.2"
   }
 }

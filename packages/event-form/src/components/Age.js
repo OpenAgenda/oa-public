@@ -34,7 +34,7 @@ module.exports = class AgeComponent extends Component {
     for ( let i=0; i<limits.max; i++ ) {
 
       if ( min <= i ) {
-      
+
         options.push( {
           value: i + '',
           label: i + ' ' + ( i < 2 ? labels.year : labels.years )
@@ -112,29 +112,51 @@ module.exports = class AgeComponent extends Component {
     const min = _.get( this.props.value, 'min', '' ) + '';
     const max = _.get( this.props.value, 'max', '' ) + '';
 
+    const isEnabled = this.isEnabled();
+
+    const minAgeOptions = this.getSelectOptions();
+    const minAgeValue = isEnabled ? minAgeOptions.find(option => option.value === min) : null;
+
+    const maxAgeOptions = this.getSelectOptions(this.props.value ? max : false);
+    const maxAgeValue = isEnabled ? maxAgeOptions.find(option => option.value === max) : null;
+
+    const selectStyles = {
+      container: provided => ({
+        ...provided,
+        width: '150px',
+        display: 'inline-block'
+      }),
+      menu: provided => ({
+        ...provided,
+        zIndex: 3
+      })
+    };
+
     return (
       <div className="age">
-        <input 
+        <input
           type="checkbox"
-          name="age" 
-          checked={this.isEnabled()} 
-          onChange={this.toggleEnabled.bind( this, null )} /> 
+          name="age"
+          checked={isEnabled}
+          onChange={this.toggleEnabled.bind( this, null )} />
         <div className="age-inputs">
           <label className="margin-right-sm">{labels.min}</label>
           <Select
+            styles={selectStyles}
             name="minage"
-            value={min}
-            options={this.getSelectOptions()}
+            value={minAgeValue}
+            options={minAgeOptions}
             clearable={false}
             onChange={this.onChange.bind( this, 'min' )}
             onFocus={this.toggleEnabled.bind( this, true )}
             placeholder={labels.select}
           />
-          <label className="margin-h-sm" htmlFor="maxage">{labels.max}</label> 
+          <label className="margin-h-sm" htmlFor="maxage">{labels.max}</label>
           <Select
+            styles={selectStyles}
             name="maxage"
-            value={max}
-            options={this.getSelectOptions( this.props.value ? min : false )}
+            value={maxAgeValue}
+            options={maxAgeOptions}
             clearable={false}
             onChange={this.onChange.bind( this, 'max' )}
             onFocus={this.toggleEnabled.bind( this, true )}

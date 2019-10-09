@@ -42,9 +42,9 @@
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.0.0",
-    "eslint": "^6.2.1",
+    "eslint": "^6.5.1",
     "jest": "^24.9.0",
-    "lint-staged": "^9.2.3",
+    "lint-staged": "^9.4.2",
     "prettier-eslint-cli": "^5.0.0"
   }
 }

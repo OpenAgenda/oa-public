@@ -113,10 +113,15 @@ module.exports = createReactClass( {
           {this.props.languages.map( languageItem )}
         </ul>
         <span className="language-add cform">
-          { this.state.displaySelect ? <Select
-          options={this.getRemainingLanguages()}
-          onChange={this.languageAdd}
-          clearable={false} /> : <a className="url" onClick={this.showSelect}>{this.props.labels.addLanguage}</a> }
+          {this.state.displaySelect ? (
+            <Select
+              options={this.getRemainingLanguages()}
+              onChange={this.languageAdd}
+              clearable={false}
+            />
+          ) : (
+              <a className="url" onClick={this.showSelect}>{this.props.labels.addLanguage}</a>
+          )}
         </span>
 
       </div>

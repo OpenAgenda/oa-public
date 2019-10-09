@@ -627,7 +627,7 @@ function buildCsv( includePrivateData ) {
         showAll: includePrivateData
       } );
 
-      const csvStream = csv.createWriteStream( {
+      const csvStream = csv.format( {
         headers: true,
         delimiter: ';',
         quote: '"',

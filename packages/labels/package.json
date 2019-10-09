@@ -16,15 +16,15 @@
     "import-labels": "node CSVToLabels",
     "export-labels": "node labelsToCSV"
   },
-  "devDependencies": {
-    "mocha": "^5.0.0",
-    "should": "^13.2.1"
-  },
   "dependencies": {
-    "immutability-helper": "^3.0.0",
-    "intl-messageformat": "^5.4.3",
-    "intl-messageformat-parser": "^2.1.3",
+    "immutability-helper": "^3.0.1",
+    "intl-messageformat": "^7.3.2",
+    "intl-messageformat-parser": "^3.2.1",
     "prompt-confirm": "^2.0.4",
     "prompt-input": "^3.0.0"
+  },
+  "devDependencies": {
+    "mocha": "^6.2.1",
+    "should": "^13.2.3"
   }
 }

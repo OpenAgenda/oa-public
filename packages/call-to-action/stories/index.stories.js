@@ -1,9 +1,17 @@
 import React, { Component } from 'react';
+import axios from 'axios';
+import MockAdapter from 'axios-mock-adapter';
 import { storiesOf } from '@storybook/react';
-import createApp from '../src/client';
-import openRequestForm from '../src/client/openRequestForm';
+import createApp from '../src';
+import openRequestForm from '../src/openRequestForm';
 
 import '@openagenda/bs-templates/compiled/main.css';
+
+const mock = new MockAdapter(axios);
+
+const mockApi = () => {
+  mock.onPost('/request').reply(200, { queued: true });
+};
 
 
 class Wrapper extends Component {
@@ -30,28 +38,36 @@ class Wrapper extends Component {
 
 
 storiesOf( 'Call to action', module )
-  .add( 'data-* attributes', () => (
-    <Wrapper>
-      <div className="js_call_to_action btn btn-link" data-subject="aggregator" data-agenda="federation-aqua-poney">
-        Cliquez ici !
-      </div>
-    </Wrapper>
-  ) )
-  .add( 'event listener', () => (
-    <Wrapper
-      onDidMount={() => {
-        document
-          .querySelector( '#raw-call-to-action' )
-          .addEventListener( 'click', openRequestForm );
-      }}
-    >
-      <div
-        id="raw-call-to-action"
-        className="btn btn-link"
-        data-subject="raw-request"
-        data-agenda="fete-des-petits-poneys"
+  .add( 'data-* attributes', () => {
+    mockApi();
+
+    return (
+      <Wrapper>
+        <div className="js_call_to_action btn btn-link" data-subject="aggregator" data-agenda="federation-aqua-poney">
+          Cliquez ici !
+        </div>
+      </Wrapper>
+    );
+  } )
+  .add( 'event listener', () => {
+    mockApi();
+
+    return (
+      <Wrapper
+        onDidMount={() => {
+          document
+            .querySelector('#raw-call-to-action')
+            .addEventListener('click', openRequestForm);
+        }}
       >
-        Brut !
-      </div>
-    </Wrapper>
-  ) );
+        <div
+          id="raw-call-to-action"
+          className="btn btn-link"
+          data-subject="raw-request"
+          data-agenda="fete-des-petits-poneys"
+        >
+          Brut !
+        </div>
+      </Wrapper>
+    );
+  } );

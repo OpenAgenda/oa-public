@@ -1,0 +1,1603 @@
+{
+  "total": 13,
+  "events": [
+    {
+      "slug": "chantier-benevole-de-restauration-dune-mare",
+      "uid": 81987173,
+      "title": {
+        "fr": "Chantier bénévole de restauration d'une mare"
+      },
+      "description": {
+        "fr": "Venez apprendre à restaurer une mare !"
+      },
+      "longDescription": {
+        "fr": "Rejoignez-nous pour redonner une nouvelle jeunesse à une mare, un moment convivial auquel toute la famille est conviée !\n\nN'oubliez pas votre panier repas à partager !\n\nAmenez vos bottes, sécateurs et gants."
+      },
+      "keywords": {
+        "fr": [
+          "mare",
+          "environnement"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit -  sur inscription auprès de Myriam Tamine"
+      },
+      "image": {
+        "filename": "3b2ddec83a7545a7a1447bb4a1f157fb.base.image.jpg",
+        "credits": "Adrien Delarue",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3b2ddec83a7545a7a1447bb4a1f157fb.full.image.jpg",
+            "size": {
+              "height": 1500,
+              "width": 2000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3b2ddec83a7545a7a1447bb4a1f157fb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-09-28T07:30:00.000Z",
+          "end": "2019-09-28T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-09-10T14:17:20.000Z",
+      "createdAt": "2019-09-10T09:47:29.000Z",
+      "agendaUid": 881924,
+      "locationUid": 44575746,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [
+        "mtamine@agglo-lisieux.fr",
+        "0779429440"
+      ],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "agglolisieuxnormandie",
+        "uid": 881924,
+        "official": 1,
+        "title": "Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du territoire",
+        "url": "http://lisieux-normandie.fr/",
+        "image": "agenda881924.jpg",
+        "updatedAt": "2019-09-19T10:08:49.000Z",
+        "createdAt": "2019-05-31T08:34:11.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 44575746,
+        "slug": "eglise639",
+        "name": "Eglise",
+        "address": "Courtonne La Meurdrac",
+        "city": "Courtonne-la-Meurdrac",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14100",
+        "insee": "14403",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.126111,
+        "longitude": 0.320833,
+        "updatedAt": "2019-09-10T09:47:45.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "timerange": "Samedi 28 septembre, 09h30"
+    },
+    {
+      "slug": "heure-du-conte_274561",
+      "uid": 863216,
+      "title": {
+        "fr": "Heure du conte"
+      },
+      "description": {
+        "fr": "Lecture jeunesse"
+      },
+      "longDescription": {
+        "fr": "Avec l’association Contes Vallée d’Auge"
+      },
+      "keywords": {
+        "fr": [
+          "conte",
+          "lecture jeunesse",
+          "lecture",
+          "jeunesse"
+        ]
+      },
+      "conditions": {
+        "fr": "gratuit - entrée libre"
+      },
+      "image": {
+        "filename": "c0bd5f47bb44498fb9db259104ca60a9.base.image.jpg",
+        "credits": "AdobeStock_JenkoAtaman",
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c0bd5f47bb44498fb9db259104ca60a9.full.image.jpg",
+            "size": {
+              "height": 3938,
+              "width": 7000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c0bd5f47bb44498fb9db259104ca60a9.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-09-04T08:30:00.000Z",
+          "end": "2019-09-04T09:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-09-03T12:06:53.000Z",
+      "createdAt": "2019-07-02T13:30:30.000Z",
+      "agendaUid": 881924,
+      "locationUid": 10437537,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "agglolisieuxnormandie",
+        "uid": 881924,
+        "official": 1,
+        "title": "Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du territoire",
+        "url": "http://lisieux-normandie.fr/",
+        "image": "agenda881924.jpg",
+        "updatedAt": "2019-09-19T10:08:49.000Z",
+        "createdAt": "2019-05-31T08:34:11.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 10437537,
+        "slug": "mediatheque-la-fabrique496",
+        "name": "Médiathèque La Fabrique",
+        "address": "20 rue Georges Leroy, Livarot 14140 Livarot-Pays d’Auge",
+        "city": "Livarot-Pays-d'Auge",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14140",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Livarot",
+        "latitude": 49.008104,
+        "longitude": 0.151172,
+        "updatedAt": "2019-09-02T07:38:36.000Z",
+        "image": null,
+        "description": {},
+        "website": "https://www.mediatheque-livarot.fr/",
+        "email": "mediatheque-livarot@agglo-lisieux.fr",
+        "phone": "06 67 60 68 24",
+        "links": [
+          "https://www.facebook.com/mediathequelivarot/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "timerange": "Mercredi 4 septembre, 10h30"
+    },
+    {
+      "slug": "suivez-le-guide-en-famille_303668",
+      "uid": 41916440,
+      "title": {
+        "fr": "Suivez le guide en famille"
+      },
+      "description": {
+        "fr": "Venez découvrir avec vos enfants et petits enfants le nouveau parcours du musée"
+      },
+      "longDescription": {
+        "fr": "Avec l'aide d'un guide du Pôle Muséal, vos enfants et/ou petits enfants pourront comprendre et s'emerveiller devant les collections du Musée du Vieux Manoir d'Orbec, mises en lumière dans un nouveau parcours permanent.\n\nL’introduction du parcours présente l’histoire du Musée crée en 1873 avec des collections initialement constituées de dépôts envoyés par l’État puis enrichies de biens illustrant l’histoire et les traditions d’Orbec et de sa région.\n\nDans le reste du parcours, se déploient thématiquement les collections du Musée. La partie intitulée Portrait(s) d’Orbec met en perspective les vues de la ville avec des portraits d’illustres Orbecquois. Le premier étage fait la part belle à la Céramique du Pré d’Auge dans ses multiples usages. Un autre\n\npan est dédié aux objets liturgiques afférant à la vie religieuse d’Orbec.\n\nLe dernier étage met également à l’honneur les arts et traditions et présente coiffes, vêtements et objets du quotidien dévoilant un pan de l’art de vivre dans le Pays d’Auge. L’ensemble des objets est mis en perspective avec des estampes et des peintures évoquant les us et coutumes du territoire."
+      },
+      "keywords": {
+        "fr": [
+          "Musée",
+          "tradition populaire",
+          "exposition",
+          "pan de bois",
+          "pré d'auge",
+          "famille",
+          "visite",
+          "enfants"
+        ]
+      },
+      "conditions": {
+        "fr": "Visite guidée gratuite"
+      },
+      "image": {
+        "filename": "881558b11f71454e865503aeca95c502.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "881558b11f71454e865503aeca95c502.full.image.jpg",
+            "size": {
+              "height": 630,
+              "width": 945
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "881558b11f71454e865503aeca95c502.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-09-08T14:30:00.000Z",
+          "end": "2019-09-08T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-08-14T16:17:52.000Z",
+      "createdAt": "2019-07-29T08:39:43.000Z",
+      "agendaUid": 45706490,
+      "locationUid": 10009388,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "pole-museal-et-des-arts-plastiques-caln",
+        "uid": 45706490,
+        "official": 1,
+        "title": "Pôle Muséal et des arts plastiques - Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du Pôle Muséal et des arts plastiques",
+        "url": null,
+        "image": "agenda45706490.jpg",
+        "updatedAt": "2019-09-16T14:30:07.000Z",
+        "createdAt": "2019-06-25T08:14:06.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 10009388,
+        "slug": "musee-du-vieux-manoir-dorbec",
+        "name": "Musée du Vieux Manoir",
+        "address": "107 rue Grande 14290 Orbec",
+        "city": "Orbec",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.022218,
+        "longitude": 0.406543,
+        "updatedAt": "2019-08-26T17:10:52.000Z",
+        "image": "location10009388.jpg",
+        "description": {},
+        "email": "polemuseal@agglo-lisieux.fr",
+        "phone": "02 31 32 58 89",
+        "links": [],
+        "access": {
+          "fr": "Tous les jours sauf le lundi, de 14h à 18h"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "timerange": "Dimanche 8 septembre, 16h30"
+    },
+    {
+      "slug": "suivez-le-guide-en-famille_298791",
+      "uid": 15043407,
+      "title": {
+        "fr": "Suivez le guide en famille"
+      },
+      "description": {
+        "fr": "Avec vos enfants et petits-enfants, venez découvrir le travail d'illustrateur de Norman Rockwell"
+      },
+      "longDescription": {
+        "fr": "Accompagnés d'un guide du Pôle Muséal, découvrez le travail réaliste de Norman Rockwell.\n\nEn partenariat avec Serge Henriot, collectionneur passionné, l’exposition est conçue comme une histoire en six chapitres, qui présente le caractère prolifique et pluriel de l’œuvre illustrée de Norman Rockwell. Elle aborde en filigrane l’histoire de l’illustration et le concept de collection.\n\nEn 2008, Serge Henriot achète un agenda sur lequel est reproduit un tableau de Norman Rockwell. C’est une révélation. Il se passionne alors pour cet artiste, achète des ouvrages sur son œuvre et se documente sur sa carrière. Très vite, il va acquérir sur internet ses premières images imprimées et constituer une collection. Il ne recherche que des illustrations éditées du vivant de l’artiste : publicités, livres, lithographies, affiches, calendriers, objets dérivés, catalogues, cartes postales, magazines …. Il possède aujourd’hui plus de 1200 items dont les\n\n323 couvertures réalisées pour The Saturday Evening Post qui ont fait la renommée de Rockwell.\n\nPour la première fois exposée dans un musée, la collection de Serge Henriot constituées d’images imprimées de Norman Rockwell (illustrateur de renom du XXe siècle) est un écho contemporain à la collection d’estampes de Gustave Doré (le plus illustre des illustrateurs du XIXe siècle) que conserve le Pôle muséal de la Communauté d’Agglomération Lisieux Normandie. Elle permet d’entrer par la grande porte dans l’art de l’illustration, art considéré pendant longtemps comme un art mineur, commercial, industriel et populaire."
+      },
+      "keywords": {
+        "fr": [
+          "Musée",
+          "visite",
+          "guide",
+          "Exposition",
+          "Norman Rockwell",
+          "famille",
+          "enfants"
+        ]
+      },
+      "conditions": {
+        "fr": "Visite guidée gratuite"
+      },
+      "image": {
+        "filename": "2b2ab53297aa46b0aaa0d41e86ec3809.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 909,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2b2ab53297aa46b0aaa0d41e86ec3809.full.image.jpg",
+            "size": {
+              "height": 435,
+              "width": 335
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2b2ab53297aa46b0aaa0d41e86ec3809.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-09-01T14:30:00.000Z",
+          "end": "2019-09-01T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-08-14T16:17:24.000Z",
+      "createdAt": "2019-08-14T16:08:19.000Z",
+      "agendaUid": 45706490,
+      "locationUid": 30245616,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "pole-museal-et-des-arts-plastiques-caln",
+        "uid": 45706490,
+        "official": 1,
+        "title": "Pôle Muséal et des arts plastiques - Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du Pôle Muséal et des arts plastiques",
+        "url": null,
+        "image": "agenda45706490.jpg",
+        "updatedAt": "2019-09-16T14:30:07.000Z",
+        "createdAt": "2019-06-25T08:14:06.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 30245616,
+        "slug": "musee-dart-et-dhistoire326",
+        "name": "Musée d'art et d'histoire",
+        "address": "38 Boulevard Pasteur 14100 Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.147194,
+        "longitude": 0.221963,
+        "updatedAt": "2019-08-26T17:09:54.000Z",
+        "image": "location30245616.jpg",
+        "description": {
+          "fr": "Dans une maison à pan de bois fin XVème - début XVIème , venez découvrir des riches collections se rapportant à l'Histoire de la ville de Lisieux."
+        },
+        "email": "polemuseal@agglo-lisieux.fr",
+        "phone": "02 31 62 07 70",
+        "links": [
+          "https://fr-fr.facebook.com/pages/category/History-Museum/P%C3%B4le-Mus%C3%A9al-agglom%C3%A9ration-Lisieux-Normandie-1499486123665316/"
+        ],
+        "access": {
+          "fr": "Ouvert tous les jours de 14h à 18h"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "timerange": "Dimanche 1 septembre, 16h30"
+    },
+    {
+      "slug": "suivez-le-guide-en-famille_865776",
+      "uid": 17093810,
+      "title": {
+        "fr": "Suivez le guide en famille"
+      },
+      "description": {
+        "fr": "Venez découvrir avec vos enfants et petits enfants le nouveau parcours du musée"
+      },
+      "longDescription": {
+        "fr": "Avec l'aide d'un guide du Pôle Muséal, vos enfants et/ou petits enfants pourront comprendre et s'emerveiller devant les collections du Musée du Vieux Manoir d'Orbec, mises en lumière dans un nouveau parcours permanent.\n\nL’introduction du parcours présente l’histoire du Musée crée en 1873 avec des collections initialement constituées de dépôts envoyés par l’État puis enrichies de biens illustrant l’histoire et les traditions d’Orbec et de sa région.\n\nDans le reste du parcours, se déploient thématiquement les collections du Musée.\n\nLa partie intitulée Portrait(s) d’Orbec met en perspective les vues de la ville avec des portraits d’illustres Orbecquois. Le premier étage fait la part belle à la Céramique du Pré d’Auge dans ses multiples usages. Un autre pan est dédié aux objets liturgiques afférant à la vie religieuse d’Orbec.\n\nLe dernier étage met également à l’honneur les arts et traditions et présente coiffes, vêtements et objets du quotidien dévoilant un pan de l’art de vivre dans le Pays d’Auge. L’ensemble des objets est mis en perspective avec des estampes et des peintures évoquant les us et coutumes du territoire."
+      },
+      "keywords": {
+        "fr": [
+          "Musée",
+          "tradition populaire",
+          "exposition",
+          "pan de bois",
+          "pré d'auge",
+          "famille",
+          "visite",
+          "enfants"
+        ]
+      },
+      "conditions": {
+        "fr": "Visite guidée gratuite"
+      },
+      "image": {
+        "filename": "881558b11f71454e865503aeca95c502.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "881558b11f71454e865503aeca95c502.full.image.jpg",
+            "size": {
+              "height": 630,
+              "width": 945
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "881558b11f71454e865503aeca95c502.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-10-13T14:30:00.000Z",
+          "end": "2019-10-13T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-08-14T16:16:59.000Z",
+      "createdAt": "2019-07-29T08:40:25.000Z",
+      "agendaUid": 45706490,
+      "locationUid": 10009388,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "pole-museal-et-des-arts-plastiques-caln",
+        "uid": 45706490,
+        "official": 1,
+        "title": "Pôle Muséal et des arts plastiques - Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du Pôle Muséal et des arts plastiques",
+        "url": null,
+        "image": "agenda45706490.jpg",
+        "updatedAt": "2019-09-16T14:30:07.000Z",
+        "createdAt": "2019-06-25T08:14:06.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 10009388,
+        "slug": "musee-du-vieux-manoir-dorbec",
+        "name": "Musée du Vieux Manoir",
+        "address": "107 rue Grande 14290 Orbec",
+        "city": "Orbec",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.022218,
+        "longitude": 0.406543,
+        "updatedAt": "2019-08-26T17:10:52.000Z",
+        "image": "location10009388.jpg",
+        "description": {},
+        "email": "polemuseal@agglo-lisieux.fr",
+        "phone": "02 31 32 58 89",
+        "links": [],
+        "access": {
+          "fr": "Tous les jours sauf le lundi, de 14h à 18h"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "timerange": "Dimanche 13 octobre, 16h30"
+    },
+    {
+      "slug": "suivez-le-guide-en-famille_311362",
+      "uid": 68601615,
+      "title": {
+        "fr": "Suivez le guide en famille"
+      },
+      "description": {
+        "fr": "Avec vos enfants et petits-enfants, venez découvrir le travail d'illustrateur de Norman Rockwell"
+      },
+      "longDescription": {
+        "fr": "Accompagnés d'un guide du Pôle Muséal, découvrez le travail réaliste de Norman Rockwell.\n\nEn partenariat avec Serge Henriot, collectionneur passionné, l’exposition est conçue comme une histoire en six chapitres, qui présente le caractère prolifique et pluriel de l’œuvre illustrée de Norman Rockwell. Elle aborde en filigrane l’histoire de l’illustration et le concept de collection.\n\nEn 2008, Serge Henriot achète un agenda sur lequel est reproduit un tableau de Norman Rockwell. C’est une révélation. Il se passionne alors pour cet artiste, achète des ouvrages sur son œuvre et se documente sur sa carrière. Très vite, il va acquérir sur internet ses premières images imprimées et constituer une collection. Il ne recherche que des illustrations éditées du vivant de l’artiste : publicités, livres, lithographies, affiches, calendriers, objets dérivés, catalogues, cartes postales, magazines …. Il possède aujourd’hui plus de 1200 items dont les\n\n323 couvertures réalisées pour The Saturday Evening Post qui ont fait la renommée de Rockwell.\n\nPour la première fois exposée dans un musée, la collection de Serge Henriot constituées d’images imprimées de Norman Rockwell (illustrateur de renom du XXe siècle) est un écho contemporain à la collection d’estampes de Gustave Doré (le plus illustre des illustrateurs du XIXe siècle) que conserve le Pôle muséal de la Communauté d’Agglomération Lisieux Normandie. Elle permet d’entrer par la grande porte dans l’art de l’illustration, art considéré pendant longtemps comme un art mineur, commercial, industriel et populaire."
+      },
+      "keywords": {
+        "fr": [
+          "Musée",
+          "visite",
+          "guide",
+          "Exposition",
+          "Norman Rockwell",
+          "famille",
+          "enfants"
+        ]
+      },
+      "conditions": {
+        "fr": "Visite guidée gratuite"
+      },
+      "image": {
+        "filename": "2b2ab53297aa46b0aaa0d41e86ec3809.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 909,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2b2ab53297aa46b0aaa0d41e86ec3809.full.image.jpg",
+            "size": {
+              "height": 435,
+              "width": 335
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2b2ab53297aa46b0aaa0d41e86ec3809.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-03T15:30:00.000Z",
+          "end": "2019-11-03T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-08-14T16:11:47.000Z",
+      "createdAt": "2019-08-14T16:09:07.000Z",
+      "agendaUid": 45706490,
+      "locationUid": 30245616,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "pole-museal-et-des-arts-plastiques-caln",
+        "uid": 45706490,
+        "official": 1,
+        "title": "Pôle Muséal et des arts plastiques - Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du Pôle Muséal et des arts plastiques",
+        "url": null,
+        "image": "agenda45706490.jpg",
+        "updatedAt": "2019-09-16T14:30:07.000Z",
+        "createdAt": "2019-06-25T08:14:06.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 30245616,
+        "slug": "musee-dart-et-dhistoire326",
+        "name": "Musée d'art et d'histoire",
+        "address": "38 Boulevard Pasteur 14100 Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.147194,
+        "longitude": 0.221963,
+        "updatedAt": "2019-08-26T17:09:54.000Z",
+        "image": "location30245616.jpg",
+        "description": {
+          "fr": "Dans une maison à pan de bois fin XVème - début XVIème , venez découvrir des riches collections se rapportant à l'Histoire de la ville de Lisieux."
+        },
+        "email": "polemuseal@agglo-lisieux.fr",
+        "phone": "02 31 62 07 70",
+        "links": [
+          "https://fr-fr.facebook.com/pages/category/History-Museum/P%C3%B4le-Mus%C3%A9al-agglom%C3%A9ration-Lisieux-Normandie-1499486123665316/"
+        ],
+        "access": {
+          "fr": "Ouvert tous les jours de 14h à 18h"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "timerange": "Dimanche 3 novembre, 16h30"
+    },
+    {
+      "slug": "suivez-le-guide_472149",
+      "uid": 85030239,
+      "title": {
+        "fr": "Suivez le guide !"
+      },
+      "description": {
+        "fr": "Découvrez l'exposition Norman Rockwell accompagné d'un guide"
+      },
+      "longDescription": {
+        "fr": "Avec un guide du Pôle Muséal venez découvrir le travail de Norman Rockwell, né à New York le 3 février 1894 et mort\n\nle 8 novembre 1978 à Stockbridge (Massachusetts). Il est un\n\nillustrateur américain, peintre figuratif de la vie américaine, il\n\nest célèbre pour avoir illustré de 1916 à 1963 les couvertures\n\ndu magazine Saturday Evening Post. Aux États-Unis, il est l’un\n\ndes artistes les plus populaires du 20e siècle."
+      },
+      "keywords": {
+        "fr": [
+          "Exposition",
+          "Norman Rockwell",
+          "Illustrateur",
+          "guide"
+        ]
+      },
+      "conditions": {
+        "fr": "Visite guidée gratuite"
+      },
+      "image": {
+        "filename": "d7300ec2aca84bbcbe0a39de8b13bc8d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 909,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d7300ec2aca84bbcbe0a39de8b13bc8d.full.image.jpg",
+            "size": {
+              "height": 435,
+              "width": 335
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d7300ec2aca84bbcbe0a39de8b13bc8d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-03T14:00:00.000Z",
+          "end": "2019-11-03T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-08-14T15:58:14.000Z",
+      "createdAt": "2019-08-14T15:58:14.000Z",
+      "agendaUid": 45706490,
+      "locationUid": 30245616,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "pole-museal-et-des-arts-plastiques-caln",
+        "uid": 45706490,
+        "official": 1,
+        "title": "Pôle Muséal et des arts plastiques - Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du Pôle Muséal et des arts plastiques",
+        "url": null,
+        "image": "agenda45706490.jpg",
+        "updatedAt": "2019-09-16T14:30:07.000Z",
+        "createdAt": "2019-06-25T08:14:06.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 30245616,
+        "slug": "musee-dart-et-dhistoire326",
+        "name": "Musée d'art et d'histoire",
+        "address": "38 Boulevard Pasteur 14100 Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.147194,
+        "longitude": 0.221963,
+        "updatedAt": "2019-08-26T17:09:54.000Z",
+        "image": "location30245616.jpg",
+        "description": {
+          "fr": "Dans une maison à pan de bois fin XVème - début XVIème , venez découvrir des riches collections se rapportant à l'Histoire de la ville de Lisieux."
+        },
+        "email": "polemuseal@agglo-lisieux.fr",
+        "phone": "02 31 62 07 70",
+        "links": [
+          "https://fr-fr.facebook.com/pages/category/History-Museum/P%C3%B4le-Mus%C3%A9al-agglom%C3%A9ration-Lisieux-Normandie-1499486123665316/"
+        ],
+        "access": {
+          "fr": "Ouvert tous les jours de 14h à 18h"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "timerange": "Dimanche 3 novembre, 15h00"
+    },
+    {
+      "slug": "suivez-le-guide_651725",
+      "uid": 76424877,
+      "title": {
+        "fr": "Suivez le guide !"
+      },
+      "description": {
+        "fr": "Découvrez l'exposition Norman Rockwell accompagné d'un guide"
+      },
+      "longDescription": {
+        "fr": "Avec un guide du Pôle Muséal venez découvrir le travail de Norman Rockwell, né à New York le 3 février 1894 et mort\n\nle 8 novembre 1978 à Stockbridge (Massachusetts). Il est un\n\nillustrateur américain, peintre figuratif de la vie américaine, il\n\nest célèbre pour avoir illustré de 1916 à 1963 les couvertures\n\ndu magazine Saturday Evening Post. Aux États-Unis, il est l’un\n\ndes artistes les plus populaires du 20e siècle.\n\nTous les premiers dimanches du mois jusqu'en novembre !"
+      },
+      "keywords": {
+        "fr": [
+          "Exposition",
+          "Norman Rockwell",
+          "Illustrateur",
+          "guide"
+        ]
+      },
+      "conditions": {
+        "fr": "Visite guidée gratuite"
+      },
+      "image": {
+        "filename": "d7300ec2aca84bbcbe0a39de8b13bc8d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 909,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d7300ec2aca84bbcbe0a39de8b13bc8d.full.image.jpg",
+            "size": {
+              "height": 435,
+              "width": 335
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d7300ec2aca84bbcbe0a39de8b13bc8d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-10-06T13:00:00.000Z",
+          "end": "2019-10-06T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-08-14T15:57:49.000Z",
+      "createdAt": "2019-08-14T15:57:49.000Z",
+      "agendaUid": 45706490,
+      "locationUid": 30245616,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "pole-museal-et-des-arts-plastiques-caln",
+        "uid": 45706490,
+        "official": 1,
+        "title": "Pôle Muséal et des arts plastiques - Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du Pôle Muséal et des arts plastiques",
+        "url": null,
+        "image": "agenda45706490.jpg",
+        "updatedAt": "2019-09-16T14:30:07.000Z",
+        "createdAt": "2019-06-25T08:14:06.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 30245616,
+        "slug": "musee-dart-et-dhistoire326",
+        "name": "Musée d'art et d'histoire",
+        "address": "38 Boulevard Pasteur 14100 Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.147194,
+        "longitude": 0.221963,
+        "updatedAt": "2019-08-26T17:09:54.000Z",
+        "image": "location30245616.jpg",
+        "description": {
+          "fr": "Dans une maison à pan de bois fin XVème - début XVIème , venez découvrir des riches collections se rapportant à l'Histoire de la ville de Lisieux."
+        },
+        "email": "polemuseal@agglo-lisieux.fr",
+        "phone": "02 31 62 07 70",
+        "links": [
+          "https://fr-fr.facebook.com/pages/category/History-Museum/P%C3%B4le-Mus%C3%A9al-agglom%C3%A9ration-Lisieux-Normandie-1499486123665316/"
+        ],
+        "access": {
+          "fr": "Ouvert tous les jours de 14h à 18h"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "timerange": "Dimanche 6 octobre, 15h00"
+    },
+    {
+      "slug": "dimanche-gratuit_998167",
+      "uid": 25095093,
+      "title": {
+        "fr": "Dernier jour !"
+      },
+      "description": {
+        "fr": "Venez découvrir les collections du Château et son parc arboré lors d'une visite gratuite"
+      },
+      "longDescription": {
+        "fr": "A l’occasion du premier dimanche du mois, le Château-Musée de Saint-Germain de Livet, son architecture, ses collections et son parc se laissent découvrir gratuitement. (uniquement sur visite guidée - départ toutes les heures.)"
+      },
+      "keywords": {
+        "fr": [
+          "Visite guidée",
+          "promenade",
+          "Château",
+          "Parc",
+          "musée",
+          "visite"
+        ]
+      },
+      "conditions": {
+        "fr": "Visites guidées Gratuites"
+      },
+      "image": {
+        "filename": "e57415649a2f4c7183ea4f779a8a4cca.base.image.jpg",
+        "credits": "©Julien Boisard",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e57415649a2f4c7183ea4f779a8a4cca.full.image.jpg",
+            "size": {
+              "height": 683,
+              "width": 1024
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e57415649a2f4c7183ea4f779a8a4cca.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-03T10:00:00.000Z",
+          "end": "2019-11-03T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-08-14T15:31:42.000Z",
+      "createdAt": "2019-08-14T12:34:22.000Z",
+      "agendaUid": 45706490,
+      "locationUid": 35207994,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "pole-museal-et-des-arts-plastiques-caln",
+        "uid": 45706490,
+        "official": 1,
+        "title": "Pôle Muséal et des arts plastiques - Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du Pôle Muséal et des arts plastiques",
+        "url": null,
+        "image": "agenda45706490.jpg",
+        "updatedAt": "2019-09-16T14:30:07.000Z",
+        "createdAt": "2019-06-25T08:14:06.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 35207994,
+        "slug": "chateau-musee-de-saint-germain-de-livet708",
+        "name": "Château-Musée",
+        "address": "D268 14100 Saint-Germain-de-Livet",
+        "city": "Saint-Germain-de-Livet",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "FR",
+        "district": "La Pifardière",
+        "latitude": 49.076115,
+        "longitude": 0.180244,
+        "updatedAt": "2019-08-26T17:11:54.000Z",
+        "image": "location35207994.jpg",
+        "description": {},
+        "email": "polemuseal@agglo-lisieux.fr",
+        "phone": "02 31 31 00 03",
+        "links": [
+          "https://www.facebook.com/P%C3%B4le-Mus%C3%A9al-agglom%C3%A9ration-Lisieux-Normandie-1499486123665316/?ref=aymt_homepage_panel&eid=ARAHgfPxN87u0sMzx2vL0rsDCMiykr7pjkiN_Uq2bggJLkq9JiPb3QBa0le1zO-BjegNa3hVtYJtwZ0y"
+        ],
+        "access": {
+          "fr": "De Juillet à Août : Ouvert tous les jours de 11h à 18h ; De septembre à Novembre 11h à 13h puis de 14h à 18h"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "©Julien Boisard",
+        "extId": null
+      },
+      "timerange": "Dimanche 3 novembre, 11h00"
+    },
+    {
+      "slug": "dimanche-gratuit_222686",
+      "uid": 84392247,
+      "title": {
+        "fr": "Dimanche Gratuit !"
+      },
+      "description": {
+        "fr": "Venez découvrir les collections du Château et son parc arboré lors d'une visite gratuite"
+      },
+      "longDescription": {
+        "fr": "A l’occasion du premier dimanche du mois, le Château-Musée de Saint-Germain de Livet, son architecture, ses collections et son parc se laissent découvrir gratuitement. (uniquement sur visite guidée - départ toutes les heures.)\n\nTous les premiers dimanches du mois jusqu'en novembre."
+      },
+      "keywords": {
+        "fr": [
+          "Visite guidée",
+          "promenade",
+          "Château",
+          "Parc",
+          "musée",
+          "visite"
+        ]
+      },
+      "conditions": {
+        "fr": "Visites guidées Gratuites"
+      },
+      "image": {
+        "filename": "e57415649a2f4c7183ea4f779a8a4cca.base.image.jpg",
+        "credits": "©Julien Boisard",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e57415649a2f4c7183ea4f779a8a4cca.full.image.jpg",
+            "size": {
+              "height": 683,
+              "width": 1024
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e57415649a2f4c7183ea4f779a8a4cca.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-10-06T09:00:00.000Z",
+          "end": "2019-10-06T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-08-14T12:41:57.000Z",
+      "createdAt": "2019-08-14T12:33:07.000Z",
+      "agendaUid": 45706490,
+      "locationUid": 35207994,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "pole-museal-et-des-arts-plastiques-caln",
+        "uid": 45706490,
+        "official": 1,
+        "title": "Pôle Muséal et des arts plastiques - Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du Pôle Muséal et des arts plastiques",
+        "url": null,
+        "image": "agenda45706490.jpg",
+        "updatedAt": "2019-09-16T14:30:07.000Z",
+        "createdAt": "2019-06-25T08:14:06.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 35207994,
+        "slug": "chateau-musee-de-saint-germain-de-livet708",
+        "name": "Château-Musée",
+        "address": "D268 14100 Saint-Germain-de-Livet",
+        "city": "Saint-Germain-de-Livet",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "FR",
+        "district": "La Pifardière",
+        "latitude": 49.076115,
+        "longitude": 0.180244,
+        "updatedAt": "2019-08-26T17:11:54.000Z",
+        "image": "location35207994.jpg",
+        "description": {},
+        "email": "polemuseal@agglo-lisieux.fr",
+        "phone": "02 31 31 00 03",
+        "links": [
+          "https://www.facebook.com/P%C3%B4le-Mus%C3%A9al-agglom%C3%A9ration-Lisieux-Normandie-1499486123665316/?ref=aymt_homepage_panel&eid=ARAHgfPxN87u0sMzx2vL0rsDCMiykr7pjkiN_Uq2bggJLkq9JiPb3QBa0le1zO-BjegNa3hVtYJtwZ0y"
+        ],
+        "access": {
+          "fr": "De Juillet à Août : Ouvert tous les jours de 11h à 18h ; De septembre à Novembre 11h à 13h puis de 14h à 18h"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "©Julien Boisard",
+        "extId": null
+      },
+      "timerange": "Dimanche 6 octobre, 11h00"
+    },
+    {
+      "slug": "papa-ou-maman-2_18407",
+      "uid": 88592956,
+      "title": {
+        "fr": "Papa ou Maman 2"
+      },
+      "description": {
+        "fr": "Ciné d'été à la médiathèque"
+      },
+      "longDescription": {
+        "fr": "_**Papa ou maman 2**_, de Martin Bourboulon (2017, 86 min, à partir de 10 ans) : Deux ans ont passé. Après avoir raté leur séparation, les Leroy semblent parfaitement réussir leur divorce. Mais l’apparition de deux nouveaux amoureux dans la vie de Vincent et de Florence va mettre le feu aux\n\npoudres. Le match entre les ex-époux reprend. Victimes de cette nouvelle guerre entre deux papas et deux mamans, les enfants Leroy vont être obligés d’intervenir pour mettre fin à ce cercle infernal.\n\n« Un rythme soutenu, une mécanique bien huilée, des dialogues percutants et des situations rocambolesques : rien ne manque. » (Femme Actuelle)\n\n« Voilà une comédie avec ce qu’il faut de rires et de piques vachardes » (L’Express)"
+      },
+      "keywords": {
+        "fr": [
+          "cinéma",
+          "famille"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - entrée libre"
+      },
+      "image": {
+        "filename": "ef0be5d3b3c94ff882a13b6e31eb7800.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 950,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ef0be5d3b3c94ff882a13b6e31eb7800.full.image.jpg",
+            "size": {
+              "height": 445,
+              "width": 328
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ef0be5d3b3c94ff882a13b6e31eb7800.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-08-10T13:00:00.000Z",
+          "end": "2019-08-10T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-07-23T08:51:55.000Z",
+      "createdAt": "2019-07-11T07:07:58.000Z",
+      "agendaUid": 38168447,
+      "locationUid": 30682052,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "pole-lecture-publique-caln",
+        "uid": 38168447,
+        "official": 1,
+        "title": "Pôle Lecture Publique - Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du Pôle lecture publique de la Communauté d'agglomération Lisieux Normandie",
+        "url": null,
+        "image": "agenda38168447.jpg",
+        "updatedAt": "2019-09-02T07:46:15.000Z",
+        "createdAt": "2019-06-19T07:30:13.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 30682052,
+        "slug": "mediatheque-andre-malraux744",
+        "name": "Médiathèque André-Malraux",
+        "address": "Place de la république, 14100 Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.144201,
+        "longitude": 0.226293,
+        "updatedAt": "2019-08-26T17:08:48.000Z",
+        "image": null,
+        "description": {},
+        "website": "https://www.mediatheque-lisieux.fr/",
+        "email": "mediatheque-lisieux@agglo-lisieux.fr",
+        "phone": "02 31 48 41 00",
+        "links": [
+          "https://www.facebook.com/M%C3%A9diath%C3%A8que-Lisieux-Agglom%C3%A9ration-Lisieux-Normandie-251037961746246/"
+        ],
+        "access": {
+          "fr": "Gratuit"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "timerange": "Samedi 10 août, 15h00"
+    },
+    {
+      "slug": "atelier-decriture-adosadultes",
+      "uid": 59249134,
+      "title": {
+        "fr": "Atelier d'écriture - Ados/Adultes"
+      },
+      "description": {
+        "fr": "Retours d'expérience et lecture des participants à l’atelier d’écriture. Et si c’était vous, l’année prochaine ?"
+      },
+      "longDescription": {
+        "fr": "Les participants à l’atelier d’écriture vous proposent\n\nd’écouter leur travail à l’occasion d’une lecture\n\npublique, et d’échanger avec eux autour de la pratique\n\nde l’écriture. Et si c’était vous, l’année prochaine ? Avec\n\nBérénice Marie."
+      },
+      "keywords": {
+        "fr": [
+          "atelier d'écriture",
+          "lecture"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit"
+      },
+      "image": {
+        "filename": "graylogo140.png",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "//s3.eu-central-1.amazonaws.com/oastatic"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-06-29T08:00:00.000Z",
+          "end": "2019-06-29T10:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-07-02T13:54:11.000Z",
+      "createdAt": "2019-06-20T14:49:14.000Z",
+      "agendaUid": 881924,
+      "locationUid": 30682052,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 13,
+        "max": 99
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "agglolisieuxnormandie",
+        "uid": 881924,
+        "official": 1,
+        "title": "Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du territoire",
+        "url": "http://lisieux-normandie.fr/",
+        "image": "agenda881924.jpg",
+        "updatedAt": "2019-09-19T10:08:49.000Z",
+        "createdAt": "2019-05-31T08:34:11.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 30682052,
+        "slug": "mediatheque-andre-malraux744",
+        "name": "Médiathèque André-Malraux",
+        "address": "Place de la république, 14100 Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.144201,
+        "longitude": 0.226293,
+        "updatedAt": "2019-08-26T17:08:48.000Z",
+        "image": null,
+        "description": {},
+        "website": "https://www.mediatheque-lisieux.fr/",
+        "email": "mediatheque-lisieux@agglo-lisieux.fr",
+        "phone": "02 31 48 41 00",
+        "links": [
+          "https://www.facebook.com/M%C3%A9diath%C3%A8que-Lisieux-Agglom%C3%A9ration-Lisieux-Normandie-251037961746246/"
+        ],
+        "access": {
+          "fr": "Gratuit"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "timerange": "Samedi 29 juin, 10h00"
+    },
+    {
+      "slug": "moonrise-kingdom",
+      "uid": 76493327,
+      "title": {
+        "fr": "Moonrise Kingdom"
+      },
+      "description": {
+        "fr": "Film de Wes Anderson, visible en famille. 90 minutes"
+      },
+      "longDescription": {
+        "fr": "Sur une île au large de la Nouvelle-Angleterre, au\n\ncoeur de l’été 1965, Suzy et Sam, douze ans, tombent\n\namoureux, concluent un pacte secret et s’enfuient\n\nensemble. Alors que chacun se mobilise pour les\n\nretrouver, une violente tempête s’approche des côtes\n\net va bouleverser davantage encore la vie de la\n\ncommunauté...\n\n« Un bien joli film, visible en famille » (La Croix)\n\n« Un moment de cinéma rare et gracile »\n\n(CinemaTeaser)"
+      },
+      "keywords": {
+        "fr": [
+          "cinéma",
+          "famille",
+          "jeune public"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit"
+      },
+      "image": {
+        "filename": "4e9fa7ac7aa3402a9261b5b629de7737.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 951,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4e9fa7ac7aa3402a9261b5b629de7737.full.image.jpg",
+            "size": {
+              "height": 262,
+              "width": 193
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4e9fa7ac7aa3402a9261b5b629de7737.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibul.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-07-06T13:00:00.000Z",
+          "end": "2019-07-06T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-06-25T14:46:00.000Z",
+      "createdAt": "2019-06-19T16:15:24.000Z",
+      "agendaUid": 881924,
+      "locationUid": 28288500,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [],
+      "references": [],
+      "links": [],
+      "fileKey": null,
+      "agenda": {
+        "slug": "agglolisieuxnormandie",
+        "uid": 881924,
+        "official": 1,
+        "title": "Communauté d'agglomération Lisieux Normandie",
+        "description": "Agenda du territoire",
+        "url": "http://lisieux-normandie.fr/",
+        "image": "agenda881924.jpg",
+        "updatedAt": "2019-09-19T10:08:49.000Z",
+        "createdAt": "2019-05-31T08:34:11.000Z",
+        "private": 0,
+        "indexed": 1
+      },
+      "location": {
+        "uid": 28288500,
+        "slug": "mediatheque-andre-malraux583",
+        "name": "Médiathèque André-Malraux",
+        "address": "Place de la république, Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": null,
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.143791,
+        "longitude": 0.224531,
+        "updatedAt": "2019-09-02T07:38:50.000Z",
+        "image": null,
+        "description": {
+          "fr": "Inaugurée le 21 juin 2002, la Médiathèque André-Malraux, dernier né des espaces culturels de la Ville de Lisieux, est une bibliothèque publique offrant à la consultation ou à l'emprunt environ 100 000 documents (livres, périodiques, phonogrammes, vidéogrammes, CD-roms, ressources électroniques)."
+        },
+        "website": "https://www.mediatheque-lisieux.fr/",
+        "email": "mediatheque-lisieux@agglo-lisieux.fr",
+        "phone": "02 31 48 41 00",
+        "links": [],
+        "access": {
+          "fr": "Gratuit"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "timerange": "Samedi 6 juillet, 15h00"
+    }
+  ]
+}

@@ -78,7 +78,7 @@ const eventStateCodeToLabel = code =>
   [ 'refused', 'tocontrol', 'controlled', 'published' ][ code + 1 ];
 
 const getLocaleValue = ( labels, lang ) => {
-  if ( typeof labels !== 'object' ) {
+  if ( !labels || typeof labels !== 'object' ) {
     return labels;
   }
 

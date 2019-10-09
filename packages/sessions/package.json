@@ -13,12 +13,11 @@
     "prepublish": "yarn clean && yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.5.5",
+    "@babel/runtime-corejs3": "^7.6.3",
     "@openagenda/logs": "^1.0.0",
     "@openagenda/service-utils": "^2.0.0",
     "@openagenda/utils": "^1.0.1",
     "@openagenda/validators": "^2.0.0",
-    "babel-runtime": "^6.26.0",
     "cookie-parser": "^1.4.3",
     "cookie-session": "^2.0.0-alpha.2",
     "cookies-js": "^1.2.3",
@@ -29,16 +28,16 @@
     "when": "^3.7.7"
   },
   "devDependencies": {
-    "@babel/cli": "^7.5.5",
-    "@babel/core": "^7.5.5",
+    "@babel/cli": "^7.6.3",
+    "@babel/core": "^7.6.3",
     "@openagenda/babel-preset": "^1.1.1",
     "async": "^2.1.4",
     "express": "^4.14.0",
     "immutability-helper": "^2.3.0",
-    "jsdom": "^9.9.1",
-    "mocha": "^5.2.0",
-    "rimraf": "^2.6.2",
-    "should": "^11.1.2",
+    "jsdom": "^15.1.1",
+    "mocha": "^6.2.1",
+    "rimraf": "^3.0.0",
+    "should": "^13.2.3",
     "superagent": "^3.3.1"
   }
 }

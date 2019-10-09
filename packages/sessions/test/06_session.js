@@ -4,91 +4,66 @@ const should = require( 'should' );
 const jsdom = require( 'jsdom' );
 const cookiesLib = require( 'cookies-js' );
 const base64 = require( '@openagenda/utils/base64' );
-const config = require( '../testconfig' );
-const sessions = require( '../src/service' );
 const isoConfig = require( '../src/iso/config' );
 const clientSession = require( '../src/client' );
 
 describe( 'session - functional (client): session', () => {
 
+  let cookie;
+
+  beforeEach(() => {
+    const { window } = new jsdom.JSDOM();
+
+    cookie = cookiesLib(window);
+  });
+
   describe( '.getUser', () => {
 
-    it( 'returns user data if logged', done => {
+    it( 'returns user data if logged', () => {
 
-      jsdom.env( '<a>hidung</a>', ( err, w ) => {
+      clientSession.test.loadCookiesLib( cookie );
 
-        let c = cookiesLib( w );
+      cookie.set( isoConfig.cookies.session, base64.encode( JSON.stringify( { user: { uid: 123, name: 'tony', culture: 'en' } } ) ) );
 
-        clientSession.test.loadCookiesLib( c );
-
-        c.set( isoConfig.cookies.session, base64.encode( JSON.stringify( { user: { uid: 123, name: 'tony', culture: 'en' } } ) ) );
-
-        clientSession.getUser().should.eql( {
-          uid: 123,
-          name: 'tony',
-          culture: 'en',
-          thumbnail: undefined
-        } );
-
-        done();
-
+      clientSession.getUser().should.eql( {
+        uid: 123,
+        name: 'tony',
+        culture: 'en',
+        thumbnail: undefined
       } );
 
     } );
 
-    it( 'returns null when not logged', done => {
+    it( 'returns null when not logged', () => {
 
-      jsdom.env( '<a>hidung</a>', ( err, w ) => {
+      clientSession.test.loadCookiesLib( cookie );
 
-        let c = cookiesLib( w );
-
-        clientSession.test.loadCookiesLib( c );
-
-        should( clientSession.getUser() ).equal( null );
-
-        done();
-
-      } );
+      should( clientSession.getUser() ).eql( null );
 
     } );
 
-  } )
+  } );
 
   describe( '.isLogged', function() {
 
     this.timeout( 30000 );
 
-    it( 'returns true if user is logged', done => {
+    it( 'returns true if user is logged', () => {
 
-      jsdom.env( '<a>goudale</a>', ( err, w ) => {
 
-        let c = cookiesLib( w );
+      clientSession.test.loadCookiesLib( cookie );
 
-        clientSession.test.loadCookiesLib( cookiesLib( w ) );
+      cookie.set( isoConfig.cookies.session, base64.encode( JSON.stringify( { user: { uid: 123, name: 'tony', culture: 'en' } } ) ) );
 
-        c.set( isoConfig.cookies.session, base64.encode( JSON.stringify( { user: { uid: 123, name: 'tony', culture: 'en' } } ) ) );
-
-        clientSession.isLogged().should.equal( true );
-
-        done();
-
-      } );
+      clientSession.isLogged().should.eql( true );
 
     } );
 
-    it( '... and false if not', done => {
+    it( '... and false if not', () => {
 
-      jsdom.env( '<a>hidung</a>', ( err, w ) => {
+      clientSession.test.loadCookiesLib( cookie );
 
-        let c = cookiesLib( w );
-
-        clientSession.test.loadCookiesLib( cookiesLib( w ) );
-
-        clientSession.isLogged().should.equal( false );
-
-        done();
-
-      } );
+      clientSession.isLogged().should.eql( false );
 
     } );
 
@@ -97,43 +72,31 @@ describe( 'session - functional (client): session', () => {
 
   describe( '.inbox', () => {
 
-    it( 'getSummary - returns times at zero by default', done => {
+    it( 'getSummary - returns times at zero by default', () => {
 
-      jsdom.env( '<a>t\'avais pas fini de réfléchir en fait</a>', ( err, w ) => {
+      // this is for test env only
+      clientSession.test.loadCookiesLib( cookie );
 
-        // this is for test env only
-        clientSession.test.loadCookiesLib( cookiesLib( w ) );
-
-        clientSession.inbox.getSummary().should.eql( {
-          lastRequestTime: 0,
-          lastKnownState: false
-        } );
-
-        done();
-
+      clientSession.inbox.getSummary().should.eql( {
+        lastRequestTime: 0,
+        lastKnownState: false
       } );
 
     } );
 
-    it( 'getSummary - returns set times if any', done => {
+    it( 'getSummary - returns set times if any', () => {
 
-      jsdom.env( '<a>t\'avais pas fini de réfléchir en fait</a>', ( err, w ) => {
+      // this is for test env only
+      clientSession.test.loadCookiesLib( cookie );
 
-        // this is for test env only
-        clientSession.test.loadCookiesLib( cookiesLib( w ) );
+      clientSession.inbox.setSummary( {
+        lastRequestTime: 1000,
+        lastKnownState: true
+      } );
 
-        clientSession.inbox.setSummary( {
-          lastRequestTime: 1000,
-          lastKnownState: true
-        } );
-
-        clientSession.inbox.getSummary().should.eql( {
-          lastRequestTime: 1000,
-          lastKnownState: true
-        } );
-
-        done();
-
+      clientSession.inbox.getSummary().should.eql( {
+        lastRequestTime: 1000,
+        lastKnownState: true
       } );
 
     } );
@@ -143,58 +106,40 @@ describe( 'session - functional (client): session', () => {
 
   describe( '.notifications', () => {
 
-    it( 'returns null if nothing is set', done => {
+    it( 'returns null if nothing is set', () => {
 
-      jsdom.env( '<a>kaore ouaich</a>', ( err, w ) => {
+      // this is for test env only
+      clientSession.test.loadCookiesLib( cookie );
 
-        // this is for test env only
-        clientSession.test.loadCookiesLib( cookiesLib( w ) );
-
-        should( clientSession.notifications.getCount() ).equal( null );
-
-        done();
-
-      } );
+      should( clientSession.notifications.getCount() ).eql( null );
 
     } );
 
-    it( 'returns the set count if fresh and exists', done => {
+    it( 'returns the set count if fresh and exists', () => {
 
-      jsdom.env( '<a>kaore ouaich</a>', ( err, w ) => {
+      // this is for test env only
+      clientSession.test.loadCookiesLib( cookie );
 
-        // this is for test env only
-        clientSession.test.loadCookiesLib( cookiesLib( w ) );
+      clientSession.notifications.setCount( 36 );
 
-        clientSession.notifications.setCount( 36 );
-
-        clientSession.notifications.getCount().should.equal( 36 );
-
-        done();
-
-      } );
+      clientSession.notifications.getCount().should.eql( 36 );
 
     } );
 
-    it( '10 minutes in the future, count returns null', done => {
+    it( '10 minutes in the future, count returns null', () => {
 
-      jsdom.env( '<a>kaore ouaich</a>', ( err, w ) => {
+      // this is for test env only
+      clientSession.test.loadCookiesLib( cookie );
 
-        // this is for test env only
-        clientSession.test.loadCookiesLib( cookiesLib( w ) );
+      clientSession.notifications.setCount( 36 );
 
-        clientSession.notifications.setCount( 36 );
+      // time is given to getter only to force different 'now'
+      // for testing count invalidation
+      const in10mn = new Date();
 
-        // time is given to getter only to force different 'now'
-        // for testing count invalidation
-        let in10mn = new Date();
+      in10mn.setTime( in10mn.getTime() + 1000 * 60 * 10 );
 
-        in10mn.setTime( in10mn.getTime() + 1000 * 60 * 10 );
-
-        should( clientSession.notifications.getCount( in10mn ) ).equal( null );
-
-        done();
-
-      } );
+      should( clientSession.notifications.getCount( in10mn ) ).eql( null );
 
     } );
 
@@ -202,57 +147,35 @@ describe( 'session - functional (client): session', () => {
 
   describe( '.flash', () => {
 
-    it( 'returns null if no flash message is defined', done => {
+    it( 'returns null if no flash message is defined', () => {
 
-      jsdom.env( '<a>kaore</a>', ( err, w ) => {
+      // necessary for initializing cookies lib in test
+      // environment - see cookies-js documentation
+      clientSession.test.loadCookiesLib( cookie );
 
-        // necessary for initializing cookies lib in test
-        // environment - see cookies-js documentation
-        clientSession.test.loadCookiesLib( cookiesLib( w ) );
-
-        should( clientSession.flash() ).equal( null );
-
-        done();
-
-      } );
+      should( clientSession.flash() ).equal( null );
 
     } );
 
-    it( 'if a flash is set, returns the flash value', done => {
+    it( 'if a flash is set, returns the flash value', () => {
 
-      jsdom.env( '<a>botol</a>', ( err, w ) => {
+      clientSession.test.loadCookiesLib( cookie );
 
-        let c = cookiesLib( w );
+      cookie.set( isoConfig.cookies.writable, base64.encode( JSON.stringify( { flash: 'grut' } ) ) );
 
-        clientSession.test.loadCookiesLib( c );
-
-        c.set( isoConfig.cookies.writable, base64.encode( JSON.stringify( { flash: 'grut' } ) ) );
-
-        clientSession.flash().should.equal( 'grut' );
-
-        done();
-
-      } )
+      clientSession.flash().should.eql( 'grut' );
 
     } );
 
-    it( 'if a flash is set, clears the value after call', done => {
+    it( 'if a flash is set, clears the value after call', () => {
 
-      jsdom.env( '<a>sendok</a>', ( err, w ) => {
+      clientSession.test.loadCookiesLib( cookie );
 
-        let c = cookiesLib( w );
+      cookie.set( isoConfig.cookies.writable, base64.encode( JSON.stringify( { flash: 'grut' } ) ) );
 
-        clientSession.test.loadCookiesLib( c );
+      clientSession.flash();
 
-        c.set( isoConfig.cookies.writable, base64.encode( JSON.stringify( { flash: 'grut' } ) ) );
-
-        clientSession.flash();
-
-        should( clientSession.flash() ).equal( null );
-
-        done();
-
-      } );
+      should( clientSession.flash() ).eql( null );
 
     } );
 

@@ -64,7 +64,7 @@ function getKnexConfig( c ) {
   if ( c.knex ) {
     knexConfig = {
       ...c.knex.client.config,
-      pool: c.knex.client.pool,
+      pool: _.pick( c.knex.client.pool, 'min', 'max' ),
       schemas: {
         ...c.knex.client.config.schemas,
         ...c.schemas

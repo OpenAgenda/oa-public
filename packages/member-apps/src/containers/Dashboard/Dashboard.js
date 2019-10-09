@@ -19,7 +19,7 @@ import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Modal from '@openagenda/react-components/build/Modal';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
-import openRequestForm from '@openagenda/call-to-action/dist/client/openRequestForm';
+import openRequestForm from '@openagenda/call-to-action/dist/openRequestForm';
 
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
 import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
@@ -331,9 +331,7 @@ class Dashboard extends Component {
             {user && id !== userShId ? (
               <a
                 className="text-muted"
-                href={`/${
-                  agenda.slug
-                }/admin/members/${id}/contact?creationRedirect=${base64url}`}
+                href={`/${agenda.slug}/admin/members/${id}/contact?creationRedirect=${base64url}`}
               >
                 {getLabel('sendAMessage')}
               </a>

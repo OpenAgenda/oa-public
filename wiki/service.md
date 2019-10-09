@@ -365,7 +365,7 @@ And should contain the following for transpiling, compiling, compressing and pus
         path: __dirname + '/client/dist'
       },
       plugins: [ new LodashModuleReplacementPlugin ].concat(
-        ( process.env.NODE_ENV === 'production' && parseInt( process.env.CI ) ) ? [
+        ( process.env.NODE_ENV === 'production' && parseInt( process.env.CDN ) ) ? [
           new CompressionPlugin( {
             test: /\.js/,
             filename ( asset ) {

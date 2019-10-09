@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const phpJs = require( 'phpjs' );
+const unserialize = require( 'locutus/php/var/unserialize' );
 const VError = require( 'verror' );
 
 module.exports = async ( { knex, imagePath }, embedUid ) => {
@@ -10,7 +10,7 @@ module.exports = async ( { knex, imagePath }, embedUid ) => {
     .first( 'store' )
     .from( 'review_embed' )
     .where( 'uid', embedUid )
-    .then( r => r ? phpJs.unserialize( r.store ) : null );
+    .then( r => r ? unserialize( r.store ) : null );
 
   if ( !store ) throw new VError( `no store was found for embed ${embedUid}` );
 

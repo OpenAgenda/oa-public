@@ -38,9 +38,7 @@ exports.up = async knex => {
 
     await knex.raw(`
       ALTER TABLE \`${schemas.userToken}\`
-      ADD CONSTRAINT \`user_token_user_id_user_id\` FOREIGN KEY (\`user_id\`) REFERENCES \`${
-  schemas.user
-}\` (\`id\`);
+      ADD CONSTRAINT \`user_token_user_id_user_id\` FOREIGN KEY (\`user_id\`) REFERENCES \`${schemas.user}\` (\`id\`);
     `);
   }
 };

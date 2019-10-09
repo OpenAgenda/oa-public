@@ -1,16 +1,14 @@
 "use strict";
 
-const CleanWebpackPlugin = require( 'clean-webpack-plugin' );
+const { CleanWebpackPlugin } = require( 'clean-webpack-plugin' );
 const CompressionPlugin = require( 'compression-webpack-plugin' );
 const LodashModuleReplacementPlugin = require( 'lodash-webpack-plugin' );
 const S3Plugin = require( 'webpack-s3-plugin' );
 const WebpackAssetsManifest = require( 'webpack-assets-manifest' );
 
-const serviceName = JSON.parse(
-  require( 'fs' ).readFileSync( __dirname + '/package.json', 'utf-8' )
-).name.split( '/' ).pop();
+const serviceName = require( './package.json' ).name.split( '/' ).pop();
 
-const pushToCDN = process.env.NODE_ENV === 'production' && parseInt( process.env.CI );
+const pushToCDN = process.env.NODE_ENV === 'production' && parseInt( process.env.CDN );
 
 const localDistPath = __dirname + '/client/dist';
 
@@ -32,7 +30,7 @@ module.exports = {
   },
   plugins: [
     new LodashModuleReplacementPlugin( { paths: true } ),
-    new CleanWebpackPlugin( localDistPath ),
+    new CleanWebpackPlugin(),
     new WebpackAssetsManifest( {
       output: __dirname + '/client/dist/manifest.json'
     } )

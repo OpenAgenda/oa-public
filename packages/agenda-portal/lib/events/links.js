@@ -9,9 +9,7 @@ module.exports = (locals, event) => {
   event.share = {
     facebook: `https://www.facebook.com/sharer.php?u=${encodedLink}`,
     twitter: `https://twitter.com/share?url=${encodedLink}&text=${event.title}`,
-    email: `https://openagenda.com/${locals.agenda.slug}/events/${
-      event.slug
-    }/action?lang=${locals.lang}&action=email`,
+    email: `https://openagenda.com/${locals.agenda.slug}/events/${event.slug}/action?lang=${locals.lang}&action=email`,
     permalink: event.permalink
   };
 

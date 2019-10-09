@@ -1,6 +1,6 @@
 var cn = require('../../js/lib/common/common.mod.js'),
 
-action = require('../../home/js/action.js'),
+action = require('./action.js'),
 
 debug = require('debug'),
 
@@ -17,13 +17,13 @@ params = {
 module.exports = function(eh, options) {
 
   // assuming the document is loaded
-  
+
   if (typeof options !== 'undefined') cn.extend(params, options);
 
   cn.forEach( params.events, function( eventName ) {
 
     eh.on( eventName, scan );
-    
+
   });
 
   scan();
@@ -42,7 +42,7 @@ var scan = function() {
 
       action.get(linkElem.getAttribute('href'), {loadLightbox: true, errorLightbox: true});
 
-      linkElem.setAttribute(params.attribute, true);  
+      linkElem.setAttribute(params.attribute, true);
 
     });
 

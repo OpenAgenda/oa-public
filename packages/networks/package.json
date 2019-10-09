@@ -9,13 +9,13 @@
   "dependencies": {
     "@openagenda/logs": "^1.1.1",
     "@openagenda/validators": "^2.1.6",
-    "knex": "^0.16.3",
+    "knex": "^0.19.5",
     "lodash": "^4.17.11",
     "mysql": "^2.13.0",
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "mocha": "^6.1.4",
+    "mocha": "^6.2.1",
     "should": "^13.2.3"
   }
 }

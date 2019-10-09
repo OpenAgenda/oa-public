@@ -478,11 +478,13 @@ describe('methods', () => {
 
   describe('confirmChangeEmail', () => {
     it('basic confirmChangeEmail', async () => {
-      const user = await service.confirmChangeEmail(kaoreUid, {
-        query: {
-          token: 'e4a0f1c97b2f4ca7966f069e7b090c0d'
-        }
-      });
+      const user = await service
+        .confirmChangeEmail(kaoreUid, {
+          query: {
+            token: 'e4a0f1c97b2f4ca7966f069e7b090c0d'
+          }
+        })
+        .catch(err => console.log(err));
 
       const internalUser = await service.get(kaoreUid, { internal: true });
 

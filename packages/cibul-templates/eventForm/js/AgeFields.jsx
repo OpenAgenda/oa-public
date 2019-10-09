@@ -160,6 +160,24 @@ export default createReactClass({
 
     }
 
+    const minAgeOptions = this.getSelectOptions();
+    const minAgeValue = this.state.enabled ? minAgeOptions.find(option => option.value === min) : null;
+
+    const maxAgeOptions = this.getSelectOptions(this.props.value ? max : false);
+    const maxAgeValue = this.state.enabled ? maxAgeOptions.find(option => option.value === max) : null;
+
+    const selectStyles = {
+      container: provided => ({
+        ...provided,
+        width: '150px',
+        display: 'inline-block'
+      }),
+      menu: provided => ({
+        ...provided,
+        zIndex: 3
+      })
+    };
+
     return (
       <div className="target-age margin-v-md">
         <label className="checkbox-inline">
@@ -171,23 +189,23 @@ export default createReactClass({
           <span> - </span>
           <label className="margin-right-sm" onClick={this.onEnabled()} htmlFor="minage">{labels.min[this.props.labelsLang]}</label>
           <Select
+            styles={selectStyles}
             name="minage"
-            value={min}
-            options={this.getSelectOptions()}
+            options={minAgeOptions}
+            value={minAgeValue}
             clearable={false}
             onChange={this.onChange( 'min' )}
             onFocus={this.onEnabled(true )}
-            onBlur={this.onChange( 'min' )}
             placeholder={labels.select[this.props.labelsLang]}
           />
           <label className="margin-h-sm" htmlFor="maxage">{labels.max[this.props.labelsLang]}</label>
           <Select
+            styles={selectStyles}
             name="maxage"
-            value={max}
-            options={this.getSelectOptions( this.props.value ? min : false )}
+            options={maxAgeOptions}
+            value={maxAgeValue}
             clearable={false}
             onChange={this.onChange( 'max' )}
-            onBlur={this.onChange( 'max' )}
             onFocus={this.onEnabled(true)}
             placeholder={labels.select[this.props.labelsLang]}
           />

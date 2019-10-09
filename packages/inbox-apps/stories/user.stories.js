@@ -1,6 +1,7 @@
 import React from 'react';
 import { createMemoryHistory } from 'history';
 import { storiesOf } from '@storybook/react';
+import wrapApp from '@openagenda/react-utils/dist/wrapApp';
 import createApp from '../src/apps/inbox';
 
 import '@openagenda/bs-templates/compiled/main.css';
@@ -33,12 +34,10 @@ const getDefaultState = ( { lang = 'fr', apiRoot } = {} ) => ({
 
 storiesOf( 'App', module )
   .add( 'all', () => {
-    const { element, triggerHooks } = createApp( {
+    const element = wrapApp(createApp( {
       history: createMemoryHistory(),
       initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-    } );
-
-    triggerHooks();
+    } ));
 
     return (
       <div className="container top-margined">
@@ -53,12 +52,10 @@ storiesOf( 'App', module )
     );
   } )
   .add( 'unavailable conversation', () => {
-    const { element, triggerHooks } = createApp( {
+    const element = wrapApp(createApp( {
       history: createMemoryHistory( { initialEntries: [ '/conversation/123' ] } ),
       initialState: getDefaultState( { apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` } )
-    } );
-
-    triggerHooks();
+    } ) );
 
     return (
       <div className="container top-margined">
