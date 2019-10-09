@@ -89,7 +89,7 @@ async function support( req, res, next ) {
   try {
     await triggerHooks();
 
-    const content = ReactDOM.renderToString( wrapApp( reactApp ) );
+    const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
     const state = store.getState();
 

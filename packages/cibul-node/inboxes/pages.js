@@ -76,7 +76,7 @@ app.use(
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
+      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
       const state = store.getState();
 
@@ -155,7 +155,7 @@ app.use(
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
+      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
       const state = store.getState();
 
@@ -225,7 +225,7 @@ app.use(
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
+      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
       const state = store.getState();
 
@@ -337,7 +337,7 @@ app.use(
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
+      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
       const state = store.getState();
 
@@ -459,7 +459,7 @@ app.use(
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
+      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
       const state = store.getState();
 
@@ -574,7 +574,7 @@ app.use(
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
+      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
       const state = store.getState();
 
@@ -694,7 +694,7 @@ app.use(
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
+      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
       const state = store.getState();
 
@@ -809,7 +809,7 @@ app.use(
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
+      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
       const state = store.getState();
 
@@ -924,7 +924,7 @@ app.use(
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
+      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
       const state = store.getState();
 
@@ -1042,7 +1042,7 @@ app.use(
     try {
       await triggerHooks();
 
-      const content = ReactDOM.renderToString( wrapApp( reactApp ) );
+      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
       const state = store.getState();
 
