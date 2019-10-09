@@ -18,7 +18,7 @@
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/call-to-action",
   "description": "",
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.6.2",
+    "@babel/runtime-corejs3": "^7.6.3",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/react-components": "^2.2.1",
@@ -30,8 +30,8 @@
     "redux-form": "^8.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.2",
-    "@babel/core": "^7.6.2",
+    "@babel/cli": "^7.6.3",
+    "@babel/core": "^7.6.3",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "@storybook/react": "^5.2.3",

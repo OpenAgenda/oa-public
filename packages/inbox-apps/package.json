@@ -21,7 +21,7 @@
     "prepublish": "yarn clean && yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.6.2",
+    "@babel/runtime-corejs3": "^7.6.3",
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
@@ -51,9 +51,9 @@
     "uppy": "^0.23.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.2",
-    "@babel/core": "^7.6.2",
-    "@babel/node": "^7.6.2",
+    "@babel/cli": "^7.6.3",
+    "@babel/core": "^7.6.3",
+    "@babel/node": "^7.6.3",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",

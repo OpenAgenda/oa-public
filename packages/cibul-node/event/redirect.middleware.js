@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const phpJs = require( 'phpjs' );
+const unserialize = require( 'locutus/php/var/unserialize' );
 
 const core = require( '../core' );
 const redirectTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/redirect.tpl', 'utf-8' ) );
@@ -88,7 +88,7 @@ function loadSiteURL( config, req, res, next ) {
 
     try {
 
-      req.siteURL = _.get( phpJs.unserialize( embed.store ), 'siteurl' );
+      req.siteURL = _.get( unserialize( embed.store ), 'siteurl' );
 
     } catch( e ) {
 

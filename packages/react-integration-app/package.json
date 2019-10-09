@@ -8,7 +8,7 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.6.2",
+    "@babel/runtime-corejs3": "^7.6.3",
     "@loadable/component": "^5.10.3",
     "@loadable/server": "^5.10.3",
     "@openagenda/activity-apps": "^1.1.2",
@@ -36,7 +36,7 @@
     "regenerator-runtime": "^0.13.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.6.2",
+    "@babel/core": "^7.6.3",
     "@loadable/webpack-plugin": "^5.7.1",
     "babel-loader": "^8.0.5",
     "babel-preset-openagenda": "^1.1.1",

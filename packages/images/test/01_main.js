@@ -26,7 +26,7 @@ describe( 'images - functional (server): main function', function() {
     while( files.length ) {
 
       fs.unlinkSync( files.pop() );
-      
+
     }
 
   });
@@ -73,9 +73,7 @@ describe( 'images - functional (server): main function', function() {
     }, err => {
 
       err.should.eql( {
-        format: 'txt',
-        message: 'unhandled image format', 
-        code: 'invalid.format'
+        message: 'invalid image'
       } );
 
       done();
@@ -120,9 +118,9 @@ describe( 'images - functional (server): main function', function() {
 
       infos.map( i => i.size ).forEach( ( size, i ) => {
 
-        size.should.eql( [ { 
+        size.should.eql( [ {
           width: 300, height: 206
-        }, { 
+        }, {
           width: 200, height: 200
         } ][ i ] );
 
@@ -176,7 +174,7 @@ describe( 'images - functional (server): main function', function() {
     }, ( err, resultPath ) => {
 
       should( err ).equal( null );
-      
+
       resultPath.split( '/' ).pop().should.equal( 'testprocessedimage.jpg' );
 
       done();

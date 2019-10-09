@@ -39,7 +39,7 @@
     "@openagenda/image-files": "^1.1.1",
     "@openagenda/images": "^1.1.1",
     "immutability-helper": "^2.3.0",
-    "mocha": "^4.0.1",
-    "should": "^11.1.1"
+    "mocha": "^6.2.1",
+    "should": "^13.2.3"
   }
 }

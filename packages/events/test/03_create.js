@@ -82,7 +82,6 @@ describe( 'events -03- functional (server): create', function() {
             },
             draft: 1,
             private: 0,
-            references: [],
             timezone: 'Europe/Paris',
             timings: [],
             updatedAt: result.event.updatedAt,
@@ -542,9 +541,9 @@ describe( 'events -03- functional (server): create', function() {
         }
       } );
 
-      result.valid.should.equal( false );
+      should(result.valid).equal( false );
 
-      _.get( result, 'errors.0.code' ).should.equal( 'invalid.format' );
+      should(_.get( result, 'errors.0.step' )).equal( 'image' );
 
     } );
 

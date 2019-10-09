@@ -12,7 +12,7 @@
     "point-in-polygon": "^1.0.1"
   },
   "devDependencies": {
-    "mocha": "^4.0.1",
-    "should": "^8.2.2"
+    "mocha": "^6.2.1",
+    "should": "^13.2.3"
   }
 }

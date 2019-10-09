@@ -27,7 +27,7 @@
     "**/react-dom": "16.10.2"
   },
   "devDependencies": {
-    "@babel/runtime-corejs3": "^7.6.2",
+    "@babel/runtime-corejs3": "^7.6.3",
     "codecov": "^3.6.1",
     "core-js": "^3.2.1",
     "husky": "^3.0.8",

@@ -19,7 +19,7 @@
     "uuid": "^3.1.0"
   },
   "devDependencies": {
-    "mocha": "^2.3.4",
-    "should": "^8.0.1"
+    "mocha": "^6.2.1",
+    "should": "^13.2.3"
   }
 }

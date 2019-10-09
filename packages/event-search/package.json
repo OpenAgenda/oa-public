@@ -29,8 +29,8 @@
   },
   "devDependencies": {
     "@openagenda/events": "^1.4.5",
-    "mocha": "^4.0.1",
+    "mocha": "^6.2.1",
     "moment": "^2.20.1",
-    "should": "^11.2.1"
+    "should": "^13.2.3"
   }
 }

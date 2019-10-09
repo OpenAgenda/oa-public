@@ -11,10 +11,10 @@
     "async": "1.2.1",
     "mysql": "^2.17.1",
     "redis": "^2.8.0",
-    "should": "~4.0",
     "xml2js": "0.4.9"
   },
   "devDependencies": {
-    "mocha": "^6.2.0"
+    "mocha": "^6.2.1",
+    "should": "^13.2.3"
   }
 }

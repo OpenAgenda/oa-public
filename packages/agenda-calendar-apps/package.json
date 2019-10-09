@@ -10,7 +10,7 @@
     "dist": "webpack --config webpack.dist.js"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.6.2",
+    "@babel/runtime-corejs3": "^7.6.3",
     "@openagenda/labels": "^2.1.0",
     "core-js": "^3.2.1",
     "css-loader": "^0.28.7",
@@ -28,8 +28,8 @@
     "superagent": "^3.8.2"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.2",
-    "@babel/core": "^7.6.2",
+    "@babel/cli": "^7.6.3",
+    "@babel/core": "^7.6.3",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "babel-loader": "^8.0.4",

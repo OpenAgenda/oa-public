@@ -16,7 +16,7 @@
     "prepublish": "yarn clean && yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.6.2",
+    "@babel/runtime-corejs3": "^7.6.3",
     "axios": "^0.18.0",
     "core-js": "^3.2.1",
     "lodash": "^4.17.4",
@@ -26,8 +26,8 @@
     "redial": "^0.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.2",
-    "@babel/core": "^7.6.2",
+    "@babel/cli": "^7.6.3",
+    "@babel/core": "^7.6.3",
     "@openagenda/babel-preset": "^1.1.1",
     "history": "^4.10.1",
     "react": "^16.10.2",

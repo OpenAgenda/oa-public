@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "knex": "^0.19.5",
-    "mocha": "^5.2.0",
+    "mocha": "^6.2.1",
     "mysql": "^2.15.0",
     "should": "^13.2.3"
   }

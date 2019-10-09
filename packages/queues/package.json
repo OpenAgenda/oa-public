@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test": "mocha"
+    "test": "mocha --exit"
   },
   "dependencies": {
     "lodash": "^4.17.10",
@@ -12,7 +12,7 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "mocha": "^4.0.1",
-    "should": "^8.2.2"
+    "mocha": "^6.2.1",
+    "should": "^13.2.3"
   }
 }

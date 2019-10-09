@@ -6,6 +6,9 @@
   "scripts": {
     "test": "mocha --exit"
   },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
   "dependencies": {
     "@openagenda/logs": "^1.1.1",
     "@openagenda/service-utils": "^2.0.0",
@@ -15,12 +18,10 @@
     "mysql": "^2.10.2",
     "when": "^3.7.7"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "devDependencies": {
     "@openagenda/fixtures": "^2.0.1",
-    "should": "^11.2.0",
+    "mocha": "^6.2.1",
+    "should": "^13.2.3",
     "superagent": "^3.5.0"
   }
 }

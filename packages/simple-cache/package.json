@@ -15,6 +15,7 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "should": "^11.2.1"
+    "mocha": "^6.2.1",
+    "should": "^13.2.3"
   }
 }
