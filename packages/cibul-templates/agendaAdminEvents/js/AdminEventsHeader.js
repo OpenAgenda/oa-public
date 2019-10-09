@@ -216,6 +216,9 @@ const AdminEventsHeader = createReactClass( {
 
     var self = this;
 
+    const stateOptions = self.getStateOptions();
+    const value = stateOptions.find(option => option.value === this.getQueryPart('state'));
+
     return (
 
       <div className="row admin-events-header">
@@ -226,8 +229,10 @@ const AdminEventsHeader = createReactClass( {
           <div className="form-group">
             <div className="state-control">
               <Select
-                value={this.getQueryPart( 'state' )}
-                options={self.getStateOptions()}
+                // className="Select"
+                // classNamePrefix="Select"
+                value={value}
+                options={stateOptions}
                 clearable={false}
                 placeholder={getStateLabel( 'state', this.props.lang )}
                 onChange={function ( state ) {

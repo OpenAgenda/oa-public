@@ -44,7 +44,7 @@
     "rimraf": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^16.8.6",
+    "react": "^16.10.2",
     "react-redux": "^7.1.1",
     "redux": "^4.0.1"
   }

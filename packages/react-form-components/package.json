@@ -22,7 +22,7 @@
     "load-script": "^1.0.0",
     "marked": "^0.7.0",
     "prop-types": "^15.5.8",
-    "react-select": "1.0.0-rc.4",
+    "react-select": "^3.0.8",
     "react-tagsinput": "^3.16.1",
     "spin.js": "2.3.2",
     "to-markdown": "^3.0.1"

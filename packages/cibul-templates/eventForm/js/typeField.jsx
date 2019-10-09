@@ -97,6 +97,9 @@ var TypeField = createReactClass({
 
   render: function() {
 
+    const options = this.getSelectOptions();
+    const value = options.find(option => option.value === this.state.type);
+
     return (
       <ul className="cform">
         <li>
@@ -104,8 +107,8 @@ var TypeField = createReactClass({
           <div>
             <Select
               name="type"
-              value={this.state.type}
-              options={this.getSelectOptions()}
+              options={options}
+              value={value}
               clearable={false}
               onChange={this.onChange}
             />

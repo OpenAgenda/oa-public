@@ -38,7 +38,7 @@
     "react-intl": "^3.3.2",
     "react-modal": "^3.10.1",
     "react-resize-detector": "^4.2.1",
-    "react-select": "^2.1.1",
+    "react-select": "^3.0.8",
     "react-text-mask": "^5.4.3",
     "rrule": "^2.6.2",
     "text-mask-addons": "^3.8.0"

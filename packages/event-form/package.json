@@ -24,7 +24,7 @@
     "react": "^16.10.2",
     "react-click-outside": "tj/react-click-outside",
     "react-dom": "^16.10.2",
-    "react-select": "^1.2.1",
+    "react-select": "^3.0.8",
     "react-tagsinput": "^3.19.0",
     "react-timings-picker": "^0.3.6",
     "superagent": "^3.8.3"

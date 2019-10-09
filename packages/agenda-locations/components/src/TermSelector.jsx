@@ -169,14 +169,31 @@ export default createReactClass( {
 
     const self = this;
 
+    const selectStyles = {
+      container: provided => ({
+        ...provided,
+        display: 'inline-block',
+        width: '180px'
+      }),
+      control: provided => ({
+        ...provided,
+        borderRadius: '0 4px 4px 0',
+        borderLeft: 'none'
+      })
+    };
+    const options = this.state.terms.map( (t, i) => self.termOption( t, i ) );
+    const value = options.find(option => option.value === (this.getTermIndex( this.props.value ) || this.props.value))
+
     return (
       <div className="terms-selector">
         <Select
-          value={this.getTermIndex( this.props.value ) || this.props.value }
-          placeholder={this.props.placeholder || null }
-          options={this.state.terms.map( (t, i) => self.termOption( t, i ) )}
+          styles={selectStyles}
+          placeholder={this.props.placeholder || null}
+          value={value}
+          options={options}
           onChange={value => this.onChange( value ? value.value : value )}
-          clearable={true} />
+          clearable={true}
+        />
       </div>
     );
 

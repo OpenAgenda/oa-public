@@ -6,7 +6,6 @@ import { connect } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
 import { reduxForm, Field, initialize, getFormValues } from 'redux-form';
 import update from 'immutability-helper';
-import Select from 'react-select';
 import moment from 'moment';
 import qs from 'qs';
 import Spinner from '@openagenda/react-form-components/build/Spinner';
@@ -86,7 +85,6 @@ export default class AdminDashboard extends Component {
     this.renderField = this::renderField;
     this.renderSelect = this::renderSelect;
     this.renderInput = this::renderInput;
-    this.renderReactSelect = ::this.renderReactSelect;
     this.renderDateTimeRangePicker = ::this.renderDateTimeRangePicker;
     this.getFilters = ::this.getFilters;
     this.removeFilter = ::this.removeFilter;
@@ -124,16 +122,6 @@ export default class AdminDashboard extends Component {
     if ( !activities || !activities.length || loading || nextLoading || lastPage ) return;
     nextPage( query, activities[ activities.length - 1 ].id );
   };
-
-  renderReactSelect( { className, placeholder, options, instanceId, ...props } ) {
-
-    const inputAttrs = { className, options, placeholder, instanceId };
-
-    const content = <Select {...props.input} {...inputAttrs} />;
-
-    return this.renderField( { content, ...props } );
-
-  }
 
   renderDateTimeRangePicker( field ) {
 

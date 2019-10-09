@@ -109,22 +109,45 @@ module.exports = createReactClass( {
 
   render: function() {
 
-    return <div className="picked-terms-selector">
-      <Select
-        value={ this.getField() }
-        options={ this.getFieldOptions() }
-        onChange={ value => this.onChangeField( value ? value.value : value ) }
-        autoBlur={ true }
-        clearable={ false }
-        searchable={ false } />
-      <TermSelector
-        res={ this.props.res }
-        lang={ this.props.lang }
-        field={ this.getFieldValue() }
-        value={ this.props.value[ this.getField() ] }
-        onChange={ this.onChange }
-      />
-    </div>
+    const selectStyles = {
+      container: provided => ({
+        ...provided,
+        display: 'inline-block',
+        width: '100px'
+      }),
+      control: provided => ({
+        ...provided,
+        borderRadius: '4px 0 0 4px',
+        borderRight: 'none',
+        background: '#eee'
+      }),
+      indicatorsContainer: () => ({
+        display: 'none'
+      })
+    };
+    const options = this.getFieldOptions();
+    const value = options.find(option => option.value === this.getField())
+
+    return (
+      <div className="picked-terms-selector">
+        <Select
+          styles={selectStyles}
+          value={value}
+          options={options}
+          onChange={value => this.onChangeField(value ? value.value : value)}
+          autoBlur={true}
+          clearable={false}
+          searchable={false}
+        />
+        <TermSelector
+          res={this.props.res}
+          lang={this.props.lang}
+          field={this.getFieldValue()}
+          value={this.props.value[this.getField()]}
+          onChange={this.onChange}
+        />
+      </div>
+    );
 
   }
 
