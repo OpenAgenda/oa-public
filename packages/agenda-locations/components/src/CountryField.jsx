@@ -35,15 +35,29 @@ module.exports = createReactClass( {
 
   render() {
 
-    return <div className={ this.props.enabled ? 'form-group country' : 'form-group country disabled' }>
-      <label>{this.props.getLabel( 'country' )}</label>
-      <Select
-        disabled={!this.props.enabled}
-        value={this.props.value}
-        options={this.extractCountryNames()}
-        onChange={ value => this.onChange( value ? value.value : value ) }
-        clearable={false} />
-    </div>
+    const options = this.extractCountryNames();
+    const value = options.find(option => option.value === this.props.value);
+
+    const selectStyles = {
+      menu: provided => ({
+        ...provided,
+        zIndex: 1042
+      })
+    };
+
+    return (
+      <div className={this.props.enabled ? 'form-group country' : 'form-group country disabled'}>
+        <label>{this.props.getLabel('country')}</label>
+        <Select
+          styles={selectStyles}
+          disabled={!this.props.enabled}
+          options={options}
+          value={value}
+          onChange={value => this.onChange(value ? value.value : value)}
+          clearable={false}
+        />
+      </div>
+    );
 
   }
 
