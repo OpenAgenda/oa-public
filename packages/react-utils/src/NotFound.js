@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter, Redirect } from 'react-router';
+import { withRouter, Redirect } from 'react-router-dom';
 
 const NotFound = ( { staticContext, route, location } ) => {
   const locationState = location.state || {};
