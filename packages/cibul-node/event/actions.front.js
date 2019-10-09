@@ -31,7 +31,7 @@ module.exports = app => {
     '/:slug/events/:eventSlug/action',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.slugToUid(req.params.eventSlug)
+    (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
       .then(uid => core.agendas(req.agenda.uid)
         .events
         .get(uid, { detailed: true })
@@ -49,7 +49,7 @@ module.exports = app => {
     '/:slug/events/:eventSlug/action/dates',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.slugToUid(req.params.eventSlug)
+    (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
       .then(uid => core.agendas(req.agenda.uid)
         .events
         .get(uid, { detailed: true })
@@ -67,7 +67,7 @@ module.exports = app => {
     '/:slug/events/:eventSlug/email',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => eventsSvc.slugToUid(req.params.eventSlug)
+    (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
       .then(uid => core.agendas(req.agenda.uid)
         .events
         .get(uid, { detailed: true })
