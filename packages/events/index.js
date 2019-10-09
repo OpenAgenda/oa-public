@@ -16,6 +16,6 @@ module.exports = init({
   getConfig: require('./service/getConfig'),
   tasks: require('./tasks'),
   utils: {
-    registrationByType: require('./utils/registrationByType')
+    formatRegistration: require('./utils/formatRegistration')
   }
 });
