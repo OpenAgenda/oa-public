@@ -15,7 +15,9 @@ module.exports = {
     image: 'http://cibul.s3.amazonaws.com/evfevent_apero-moovjee-ca-continue_978399.jpg',
     credits: '© Jean-Momo',
     conditions: 'Gratuit pour les enfants',
-    ticketLink: 'https://google.fr',
+    ticketLink: ,
+    formattedRegistration: ['https://google.fr', 'mailto:email@email.com', 'tel:010203'],
+    registration: ['https://google.fr', 'email@email.com', '010203'],
     location: {
       name: 'Restaurant Le Médicis',
       address: 'Tuileries Garden, 113 Rue de Rivoli, 75001 Paris, France'

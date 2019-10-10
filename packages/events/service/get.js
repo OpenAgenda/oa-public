@@ -75,6 +75,11 @@ function get( i, o, c ) {
 
 }
 
+get.slugToUid = slug => slug ? knex(schemas.event)
+  .select('uid')
+  .where({ slug })
+  .first()
+  .then(r => r ? r.uid : null) : null;
 
 function _cleanResult( v ) {
 

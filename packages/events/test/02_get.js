@@ -217,4 +217,32 @@ describe( 'events - functional (server): get', function () {
     _.get(event, 'location.name').should.equal('La case de Janine');
   } );
 
+
+  describe('slugToUid', function () {
+    let knex;
+
+    before(done => {
+      svc.initAndLoad(config, [
+        config.schemas.event + '_few'
+      ], { reset: true }, () => {
+        knex = svc.getConfig().knex;
+        done();
+      });
+    });
+
+    after(done => svc.shutdown(done));
+
+    it('success', async () => {
+      const uid = await svc.get.slugToUid('decouvrez-le-livre-le-plus-froid-du-monde');
+
+      should(uid).equal(88161554);
+    });
+
+    it('inexistant event', async () => {
+      const uid = await svc.get.slugToUid('un-truc-improbable');
+
+      should(uid).equal(null);
+    });
+  });
+
 } );

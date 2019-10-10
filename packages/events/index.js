@@ -15,5 +15,7 @@ module.exports = init({
   stats: require('./service/stats'),
   getConfig: require('./service/getConfig'),
   tasks: require('./tasks'),
-  slugToUid: require('./service/utils/slugToUid')
+  utils: {
+    formatRegistration: require('./utils/formatRegistration')
+  }
 });

@@ -68,18 +68,16 @@
             <%= _.upperFirst( event.dateRange ) %>
           </mj-text>
 
-          <% if ( event.conditions || event.ticketLink ) { %>
+          <% if ( event.conditions || event.formattedRegistration.length ) { %>
             <mj-text>
               <% if ( event.conditions ) { %>
                 <%= event.conditions %>
-
-                <% if ( event.ticketLink ) { %>
-                  &nbsp;-&nbsp;
-                <% } %>
               <% } %>
-
-              <% if ( event.ticketLink ) { %>
-                <a href="<%= event.ticketLink %>" target="_blank"><%= __( 'book' ) %></a>
+              <% if ( event.formattedRegistration.length && event.conditions ) { %>
+                  &nbsp;-&nbsp;
+              <% } %>
+              <% if (event.formattedRegistration.length) { %>
+                <a href="<%= event.formattedRegistration[0] %>" target="_blank"><%= __( 'book' ) %></a>
               <% } %>
             </mj-text>
           <% } %>
