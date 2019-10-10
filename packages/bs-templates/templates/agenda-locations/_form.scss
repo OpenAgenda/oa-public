@@ -40,7 +40,7 @@
     top: 1.8em;
 
     a {
-      
+
       padding: 0 0.2em;
 
       &.disabled {
@@ -73,14 +73,14 @@
     }
 
   }
-  
+
   .map {
 
     min-height: 300px;
 
   }
 
-  .errors {
+  .error {
 
     color: $oa-red;
 
@@ -137,7 +137,7 @@
       padding: 0;
 
     }
-    
+
 
     li {
 
