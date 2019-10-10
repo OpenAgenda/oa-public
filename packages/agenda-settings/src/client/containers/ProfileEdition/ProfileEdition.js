@@ -166,7 +166,7 @@ export default class ProfileEdition extends Component {
           </button>
           <button
             className="btn btn-danger pull-right"
-            onClick={() => remove().then( ( { result } ) => window.location.href = result.redirectTo || '/' )}
+            onClick={() => remove().then( result => window.location.href = result.redirectTo || '/' )}
           >
             {getLabel( 'remove' )}
           </button>

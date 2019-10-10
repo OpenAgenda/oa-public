@@ -66,7 +66,7 @@ app.post( '/:slug/setImage', mw.setImage );
 app.post( '/:slug/clearImage', mw.clearImage );
 app.post( '/slugs/available', mw.slugs.available );
 app.post( '/:slug/remove', [
-  mw.removeAgenda,
+  // mw.removeAgenda,
   ( req, res ) => {
     res.json( { redirectTo: '/' } );
   }

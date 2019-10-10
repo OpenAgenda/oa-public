@@ -14,6 +14,17 @@ function Html( { helmet, content, lang, initialState, extractor } ) {
       {helmet.script.toComponent()}
       {helmet.style.toComponent()}
 
+      <script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossOrigin="anonymous"
+      ></script>
+      <script
+        src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+        crossOrigin="anonymous"
+      ></script>
+
       <link rel="stylesheet" href="/css/oasfmain.css?v=2"/>
 
       {extractor ? extractor.getLinkElements() : null}

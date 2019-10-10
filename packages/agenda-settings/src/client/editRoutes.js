@@ -62,13 +62,4 @@ export default function editRoutes( prefix = '' ) {
     }
   ];
 
-  // return (
-  //   <Route path={state.settings.prefix} component={EditionApp}>
-  //     <IndexRoute component={ProfileEdition} onEnter={selectItem( 'settings_profile' )} />
-  //     <Route path="profile" component={ProfileEdition} onEnter={selectItem( 'settings_profile' )} />
-  //     <Route path="contribution" component={ContributionEdition} onEnter={selectItem( 'settings_contribution' )} />
-  //     <Route path="advanced" component={AdvancedEdition} onEnter={selectItem( 'settings_advanced' )} />
-  //   </Route>
-  // );
-
 }

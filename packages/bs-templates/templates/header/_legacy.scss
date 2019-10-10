@@ -5,7 +5,7 @@
     padding-left: 10px;
 
   }
-  
+
   .dropdown-menu {
 
     .row li {
@@ -38,21 +38,32 @@
 
 }
 
-.oa-page-header .profile h3 {
-
-  padding-left: 10px;
-  
-}
-
-.oa-page-header .profile .dropdown-menu .row li a {
-
-  padding-left: 10px;
-
-
-}
-
 .oa-page-header .profile .dropdown-menu .row li a:hover {
 
   color: white;
 
+}
+
+@media (max-width: $screen-sm-max) {
+  .oa-page-header .profile {
+    & > a {
+      &:hover {
+        color: initial;
+      }
+
+      cursor: initial;
+      text-decoration: none;
+    }
+
+    h3 {
+      margin-top: 12px;
+      padding-left: 15px;
+    }
+
+    .dropdown-menu {
+      .row li a {
+        padding-left: 15px;
+      }
+    }
+  }
 }

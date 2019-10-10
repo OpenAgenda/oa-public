@@ -6,6 +6,7 @@ const { parsePath } = require('history');
 const agendasSvc = require( '@openagenda/agendas' );
 const aggregatorSourcesSvc = require( '@openagenda/aggregator-sources' );
 const createApp  = require( '@openagenda/aggregator-sources/dist/client/app' );
+const wrapApp = require( '@openagenda/react-utils/dist/wrapApp' );
 const aggregatorSvc = require( '../services/aggregator' );
 const activitiesSvc = require( '../services/activities' );
 const cmn = require( '../lib/commons-app' );
@@ -143,8 +144,8 @@ async function matchApp( req, res, next ) {
 
   const prefix = `/${req.params.slug}/admin/sources`;
   const lang = req.lang || 'fr';
-
-  const { element, triggerHooks, store, staticContext, history } = createApp( {
+  const staticContext = {};
+  const reactApp = createApp( {
     req,
     initialState: {
       settings: {
@@ -169,10 +170,12 @@ async function matchApp( req, res, next ) {
     }
   } );
 
+  const { triggerHooks, store, history } = reactApp;
+
   try {
     await triggerHooks();
 
-    const content = ReactDOM.renderToString( element );
+    const content = ReactDOM.renderToString( wrapApp( reactApp ) );
 
     const state = store.getState();
 
