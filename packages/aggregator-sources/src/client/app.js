@@ -2,6 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import createApp from '@openagenda/react-utils/dist/createApp';
 import getRoutes from './getRoutes';
+import getReducers from './redux/reducer';
 
 const defaults = {
   initialState: {
@@ -40,6 +41,7 @@ export default function ( options ) {
     req,
     apiRoot,
     prefix,
-    getRoutes
+    getRoutes,
+    getReducers
   } );
 };
