@@ -13,6 +13,7 @@ const sessions = require( '../services/sessions' );
 const members = require( '../services/members' );
 const agendaSvc = require( '../services/agenda' );
 const config = require( '../config' );
+const layout = require('../services/lib/layouts').load( 'agendaAdmin' );
 
 
 module.exports = app => {
@@ -239,14 +240,23 @@ async function agendaSettingsApp(req, res, next) {
       return res.redirect( 302, pathname );
     }
 
-    const tab = 'settings_' + (history.location.pathname.substr( prefix.length + 1 ) || 'profile');
-    cmn.render( req, res, 'agendaSettings/edit', {
-      scriptParams: { initialState: state },
-      lang,
-      content,
-      preloaded: true,
-      tab
-    } );
+    const selectedTab = 'settings_' + (history.location.pathname.substr( prefix.length + 1 ) || 'profile');
+
+    res.send( layout( `<div class="js_canvas">${content}</div>`, {
+      selectedTab,
+      role: req.member.role,
+      lang: req.lang,
+      agenda: req.agenda,
+      bodyAttributes: [
+        {
+          name: 'data-options',
+          value: JSON.stringify( { initialState: state } )
+        }
+      ],
+      scripts: {
+        bottom: [ { src: '/js/agendaSettingsEdit.js' } ]
+      }
+    } ) );
   } catch ( e ) {
     next( e );
   }
