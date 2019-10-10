@@ -3,6 +3,7 @@
 const ReactDOM = require( 'react-dom/server' );
 const { parsePath } = require('history');
 const editApp = require( '@openagenda/agenda-settings/dist/client/editApp' );
+const wrapApp = require( '@openagenda/react-utils/dist/wrapApp' );
 const mw = require( '@openagenda/agenda-settings' ).mw;
 const keysMw = require( '@openagenda/keys/middleware' );
 const labels = require( '@openagenda/labels/agenda-settings/agendaEdition' );
@@ -188,7 +189,8 @@ module.exports = app => {
 async function agendaSettingsApp(req, res, next) {
   const prefix = req.genUrl( 'agendaSettingsEditApp', { slug: req.params.slug } ).split( '?' )[ 0 ];
   const lang = req.lang || 'fr';
-  const { element, triggerHooks, store, staticContext, history } = editApp( {
+  const staticContext = {};
+  const reactApp = editApp( {
     req,
     initialState: {
       settings: {
@@ -217,10 +219,12 @@ async function agendaSettingsApp(req, res, next) {
     }
   } );
 
+  const { triggerHooks, store, history } = reactApp;
+
   try {
     await triggerHooks();
 
-    const content = ReactDOM.renderToString( element );
+    const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
 
     const state = store.getState();
 
