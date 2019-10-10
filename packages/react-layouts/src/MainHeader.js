@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
+import classNames from 'classnames';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
 import * as headerActions from './reducers/header';
 
@@ -102,14 +103,10 @@ export default class MainHeader extends Component {
     preToggleUserPanel: true
   });
 
-  toggleUserPanel = () => {
-    const { preToggleUserPanel, userPanelOpened } = this.state;
-
-    this.setState({
-      userPanelOpened: !userPanelOpened,
-      preToggleUserPanel: !preToggleUserPanel
-    });
-  };
+  toggleUserPanel = () => this.setState(state => ({
+    userPanelOpened: !state.userPanelOpened,
+    preToggleUserPanel: !state.preToggleUserPanel
+  }));
 
   panelLink = path => event => {
     const { history } = this.props;
@@ -129,14 +126,23 @@ export default class MainHeader extends Component {
         <nav className="oa-page-header navbar navbar-default navbar-static-top" id="nav">
           <div className="container">
             <div className="navbar-header">
-              <button type="button" className="navbar-toggle collapsed">
+              <button
+                type="button"
+                className="navbar-toggle collapsed"
+                data-toggle="collapse"
+                data-target="#oa-navbar-collapse"
+                aria-expanded="false"
+              >
                 <i className="fa fa-bars"></i>
               </button>
 
               <Logo user={user} history={history} />
             </div>
 
-            <div className="navbar-collapse collapse">
+            <div
+              className="navbar-collapse collapse"
+              id="oa-navbar-collapse"
+            >
               <Search />
 
               <ul className="nav navbar-nav navbar-right">
@@ -168,40 +174,47 @@ export default class MainHeader extends Component {
                     >
                       <span>{user.name}</span>
                     </a>
-                    {userPanelOpened ? (
-                      <OutsideClickHandler onOutsideClick={this.toggleUserPanel}>
-                        <ul className="dropdown-menu js_dropdown_menu collapse in" role="menu">
-                          <li>
-                            <div className="row">
-                              <ul className="list-unstyled col-md-6">
-                                <li>
-                                  <h3>Général</h3>
-                                </li>
-                                <li>
-                                  <a href="/home/events" onClick={this.panelLink('/home/events')}>
-                                    Mes événements
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="/settings" onClick={this.panelLink('/settings')}>
-                                    Paramètres
-                                  </a>
-                                </li>
-                                <li>
-                                  <a href="/signout">Déconnexion</a>
-                                </li>
-                              </ul>
-                              <ul className="list-unstyled col-md-6">
-                                <li><h3>Agendas</h3></li>
-                                <li><a href="/home" onClick={this.panelLink('/home')}>Mes Agendas</a></li>
-                                <li><a href="/agendas">Chercher un agenda</a></li>
-                                <li><a href="/new" onClick={this.panelLink('/new')}>Créer un agenda</a></li>
-                              </ul>
-                            </div>
-                          </li>
-                        </ul>
-                      </OutsideClickHandler>
-                    ) : null}
+                    <OutsideClickHandler onOutsideClick={this.toggleUserPanel}>
+                      <ul
+                        className={classNames(
+                          'dropdown-menu js_dropdown_menu',
+                          {
+                            'collapse in': userPanelOpened,
+                            'collapsed': !userPanelOpened,
+                          }
+                        )}
+                        role="menu"
+                      >
+                        <li>
+                          <div className="row">
+                            <ul className="list-unstyled col-md-6">
+                              <li>
+                                <h3>Général</h3>
+                              </li>
+                              <li>
+                                <a href="/home/events" onClick={this.panelLink('/home/events')}>
+                                  Mes événements
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/settings" onClick={this.panelLink('/settings')}>
+                                  Paramètres
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/signout">Déconnexion</a>
+                              </li>
+                            </ul>
+                            <ul className="list-unstyled col-md-6">
+                              <li><h3>Agendas</h3></li>
+                              <li><a href="/home" onClick={this.panelLink('/home')}>Mes Agendas</a></li>
+                              <li><a href="/agendas">Chercher un agenda</a></li>
+                              <li><a href="/new" onClick={this.panelLink('/new')}>Créer un agenda</a></li>
+                            </ul>
+                          </div>
+                        </li>
+                      </ul>
+                    </OutsideClickHandler>
                   </li>
                 ) : (
                   <li className="signin">
