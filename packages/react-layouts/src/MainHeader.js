@@ -62,7 +62,6 @@ const HelpLink = React.memo(() => (
 )
 export default class MainHeader extends Component {
   state = {
-    preToggleUserPanel: false,
     userPanelOpened: false
   };
 
@@ -99,14 +98,19 @@ export default class MainHeader extends Component {
     history.push('/home/activities');
   };
 
-  allowDisplayUserPanel = () => this.setState({
-    preToggleUserPanel: true
-  });
+  toggleUserPanel = () => {
+    this.setState(state => ({
+      userPanelOpened: !state.userPanelOpened
+    }))
+  };
 
-  toggleUserPanel = () => this.setState(state => ({
-    userPanelOpened: !state.userPanelOpened,
-    preToggleUserPanel: !state.preToggleUserPanel
-  }));
+  closeUserPanel = () => {
+    if (this.state.userPanelOpened) {
+      setTimeout(() => this.setState({
+        userPanelOpened: false
+      }));
+    }
+  };
 
   panelLink = path => event => {
     const { history } = this.props;
@@ -118,7 +122,7 @@ export default class MainHeader extends Component {
 
   render() {
     const { user, history, hasInboxNews } = this.props;
-    const { preToggleUserPanel, userPanelOpened } = this.state;
+    const { userPanelOpened } = this.state;
 
     return (
       <>
@@ -169,12 +173,11 @@ export default class MainHeader extends Component {
                   <li className="profile" style={{ position: 'relative' }}>
                     <a
                       aria-expanded="false"
-                      onMouseDownCapture={this.allowDisplayUserPanel}
-                      onMouseUpCapture={preToggleUserPanel ? this.toggleUserPanel : null}
+                      onClick={this.toggleUserPanel}
                     >
                       <span>{user.name}</span>
                     </a>
-                    <OutsideClickHandler onOutsideClick={this.toggleUserPanel}>
+                    <OutsideClickHandler onOutsideClick={this.closeUserPanel}>
                       <ul
                         className={classNames(
                           'dropdown-menu js_dropdown_menu',
