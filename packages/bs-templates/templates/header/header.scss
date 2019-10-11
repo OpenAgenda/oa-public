@@ -176,40 +176,36 @@
    * mobile menu adjustments - hack over bootstrap, isolated from the rest.
    */
 
-  @media (max-width: $screen-sm-max) {
-
+  @media (max-width: $screen-sm) {
     .navbar-nav {
       width: 100%;
       margin: 7.5px 0;
     }
 
     .navbar-collapse {
-
       padding: 0;
-
     }
 
-    .profile .dropdown-menu {
-
-      display: block;
-      position: relative;
-      visibility: visible;
-      width: 100%;
-      border: none;
-      box-shadow: none;
-
-      li {
-
-        a {
-          padding: 6px 20px;
-        }
-
+    .profile {
+      & > a {
+        display: none;
       }
 
+      .dropdown-menu {
+        display: block;
+        position: relative;
+        visibility: visible;
+        width: 100%;
+        border: none;
+        box-shadow: none;
+
+        .row {
+          margin-right: 0;
+        }
+      }
     }
 
     .language-menu {
-
       display: block;
       float: none !important;
 
@@ -220,11 +216,9 @@
       .dropdown-menu li {
         display: inline-block;
       }
-
     }
 
     .search-form {
-
       float: none;
       margin: 0;
 
@@ -237,27 +231,6 @@
       .search-button {
         border: 0;
       }
-
-    }
-
-    .profile {
-
-      & > a {
-        display: none;
-      }
-
-      .dropdown-menu {
-
-        display: block;
-        position: relative;
-        visibility: visible;
-
-        .row {
-          margin-right: 0;
-        }
-
-      }
-
     }
 
     .signin {
@@ -265,7 +238,5 @@
       right: 0;
       padding-left: 5px;
     }
-
   }
-
 }
