@@ -41,18 +41,19 @@ const getFormValues = formValueSelector( FORM_NAME );
     };
   },
   {
-    onSubmit: ( values, dispatch, { registeredValues } ) => {
+    onSubmit: ( values, dispatch, { registeredFields } ) => {
       const messageKey = 'settings.contribution.messages';
-      const messagesValues = _.mapValues(
-        _.pick( values, [
-          `${messageKey}.instructions`,
-          `${messageKey}.complete`,
-          `${messageKey}.publication`
-        ] ).settings.contribution.messages,
-        ( v, k ) => _.get( registeredValues, `${messageKey}.${k}`, null )
-      );
+      const messageKeys = [
+        `${messageKey}.instructions`,
+        `${messageKey}.complete`,
+        `${messageKey}.publication`
+      ];
 
-      _.set( values, messageKey, messagesValues );
+      messageKeys.forEach(key => {
+        if (!(key in registeredFields)) {
+          _.set( values, key, null );
+        }
+      });
 
       return agendaActions.edit( values );
     },
