@@ -23,7 +23,7 @@ module.exports = {
       new CompressionPlugin( {
         test: /\.js/,
         filename ( asset ) {
-          return asset.replace( '.gz', '' );
+          return asset.file.replace( '.gz', '' );
         }
       } ), new S3Plugin( {
         s3Options: {
