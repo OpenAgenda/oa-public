@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createSelector } from 'reselect';
-import { reduxForm, Field, formValueSelector } from 'redux-form';
+import { reduxForm, Field } from 'redux-form';
 import _ from 'lodash';
 import update from 'immutability-helper';
 import openFormRequest from '@openagenda/call-to-action/dist/openRequestForm';
@@ -21,25 +21,14 @@ const registeredFieldsSelector = formName => createSelector(
   [ getNamedFormState( formName ) ],
   ( namedFormState = {} ) => namedFormState.registeredFields,
 );
-
 const getRegisteredFields = registeredFieldsSelector( FORM_NAME );
-const getFormValues = formValueSelector( FORM_NAME );
 
 @connect(
-  state => {
-    const registeredFields = getRegisteredFields( state );
-    const registeredFieldNames = Object.values( registeredFields || {} )
-      .map( rf => rf.name );
-    const registeredValues = registeredFieldNames.length
-      ? getFormValues( state, ...registeredFieldNames )
-      : {};
-
-    return {
-      initialValues: { settings: { contribution: state.agenda.data.settings.contribution } },
-      agenda: state.agenda.data,
-      registeredValues
-    };
-  },
+  state => ({
+    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } },
+    agenda: state.agenda.data,
+    registeredFields: getRegisteredFields( state )
+  }),
   {
     onSubmit: ( values, dispatch, { registeredFields } ) => {
       const messageKey = 'settings.contribution.messages';
