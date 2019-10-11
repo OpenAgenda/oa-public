@@ -19,6 +19,7 @@
     "@babel/runtime-corejs3": "^7.6.3",
     "axios": "^0.18.0",
     "core-js": "^3.2.1",
+    "hoist-non-react-statics": "^3.3.0",
     "lodash": "^4.17.4",
     "qs": "^6.6.0",
     "react-redux": "^7.1.1",
