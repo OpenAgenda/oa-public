@@ -74,6 +74,13 @@ module.exports = {
       }
     ],
 
+    'react/destructuring-assignment': [
+      'error',
+      'always',
+      {
+        ignoreClassFields: true
+      }
+    ],
     'react/jsx-filename-extension': [
       'error',
       {
