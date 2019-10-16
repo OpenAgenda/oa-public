@@ -200,7 +200,7 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     log('error', 'could not update legacy search for event %s', eventUid, e);
   }
 
-  await aggregators.notify('update', {
+  await aggregators.notify('updateEvent', {
     agenda,
     event: merge.event(updated.event, updated.agendaEvent, updated.networkCustom, updated.custom),
     before: updated.before.agendaEvent ? merge.event(
