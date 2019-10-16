@@ -26,7 +26,7 @@ export default function reducer( state = initialState, action ) {
         [ action.key ]: {
           ...state[ action.key ],
           loaded: true,
-          data: action.result.reviews,
+          data: action.result.agendas,
           total: action.result.total,
           page: 1,
           error: null,
@@ -58,7 +58,7 @@ export default function reducer( state = initialState, action ) {
         ...state,
         [ action.key ]: {
           ...state[ action.key ],
-          data: action.result.reviews,
+          data: action.result.agendas,
           total: action.result.total,
           page: 1,
           error: null,
@@ -90,7 +90,7 @@ export default function reducer( state = initialState, action ) {
         ...state,
         [ action.key ]: {
           ...state[ action.key ],
-          data: [ ...state[ action.key ].data, ...action.result.reviews ],
+          data: [ ...state[ action.key ].data, ...action.result.agendas ],
           total: action.result.total,
           page: action.page,
           error: null,
