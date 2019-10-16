@@ -92,7 +92,7 @@ module.exports = class AgeComponent extends Component {
     const minAgeOptions = this.getSelectOptions();
     const minAgeValue = isEnabled ? minAgeOptions.find(option => option.value === min) : null;
 
-    const maxAgeOptions = this.getSelectOptions(this.props.value ? max : false);
+    const maxAgeOptions = this.getSelectOptions(this.props.value ? min : false);
     const maxAgeValue = isEnabled ? maxAgeOptions.find(option => option.value === max) : null;
 
     const selectStyles = {
