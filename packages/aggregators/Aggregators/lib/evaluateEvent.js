@@ -2,7 +2,7 @@
 
 const ih = require('immutability-helper');
 
-const log = require('@openagenda/logs')('Aggregators/evaluate');
+const log = require('@openagenda/logs')('Aggregators/evaluateEvent');
 
 const convertTagsToSchemaOptionIds = require('../utils/convertTagsToSchemaOptionIds');
 const convertSchemaOptionIdsToTags = require('../utils/convertSchemaOptionIdsToTags');

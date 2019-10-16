@@ -2,18 +2,15 @@
 
 const validate = require('./validate');
 const db = require('../utils/db');
+const getAgendaId = require('../utils/getAgendaId');
+const aggregatorExists = require('../utils/aggregatorExists');
 
 module.exports = async (knex, agendaUid, data) => {
   const clean = validate(data);
   clean.updatedAt = clean.createdAt = new Date();
 
-  const agendaId = await knex('review').first('id')
-    .where('uid', agendaUid)
-    .then(r => r ? r.id : null);
-
-  const exists = await knex('aggregator').first('id')
-    .where('review_id', agendaId)
-    .then( r => !!r);
+  const agendaId = await getAgendaId(knex, agendaUid);
+  const exists = await aggregatorExists(knex, agendaId);
 
   const entry = db.toEntry({
     ...clean,

@@ -11,17 +11,19 @@ module.exports = async ({ queue, knex }, action, data) => {
   const aggregators = await getSourceAndAggregatorPairs(knex, agenda);
 
   for (const ag of aggregators) {
-    if (action === 'evaluate') {
-      await queue('evaluate', Object.assign({
+    if (action === 'evaluateEvent') {
+      await queue('evaluateEvent', {
         aggregatorAgendaUid: ag.agendaUid,
         sourceRules: ag.sourceRules,
-        aggregatorRules: ag.aggregatorRules
-      }, data));
+        aggregatorRules: ag.aggregatorRules,
+        ...data
+      });
     } else {
-      await queue('remove', {
+      await queue('removeEvent', {
         aggregatorAgendaUid: ag.agendaUid,
         sourceAgendaUid: agenda.uid,
-        eventUid: event.uid
+        eventUid: event.uid,
+        ...data
       });
     }
   }

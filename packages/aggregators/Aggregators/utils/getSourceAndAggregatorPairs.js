@@ -17,18 +17,5 @@ module.exports = (knex, { id }) => knex('aggregator as ag')
     .then(pairs => pairs.map(p => ({
       agendaUid: p.agendaUid,
       aggregatorRules: extractRules('aggregator', p.aggregatorId, p.aggStore),
-      sourceRules: extractRules('source', p.sourceId, p.sourceStore),
-      version: _version(p.aggStore)
+      sourceRules: extractRules('source', p.sourceId, p.sourceStore)
     })));
-
-function _version(store) {
-  try {
-    const { version } = JSON.parse(store);
-    return version || 1;
-  } catch(e) {
-    log('error', 'failed to parse store');
-  }
-  return 1;
-}
-
-

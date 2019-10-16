@@ -1,32 +1,21 @@
 'use strict';
 
-const log = require('@openagenda/logs')('Aggregators/remove');
+const getAgendaId = require('../utils/getAgendaId');
+const aggregatorExists = require('../utils/aggregatorExists');
 
-module.exports = async ({
-  getEventReference,
-  unsetSourceUidOnExistingReference,
-  unreferenceEvent
-}, data) => {
-  const {
-    aggregatorAgendaUid,
-    sourceAgendaUid,
-    eventUid,
-    batched
-  } = data;
+module.exports = async (knex, agendaUid) => {
+  const agendaId = await getAgendaId(knex, agendaUid);
+  const exists = await aggregatorExists(knex, agendaId);
 
-  log('remove %s of source %s from %s', eventUid, sourceAgendaUid, aggregatorAgendaUid);
+  if (!exists) {
+    throw new Error('Aggregator not found');
+  }
 
-  const reference = data.reference || await getEventReference(aggregatorAgendaUid, eventUid);
+  const result = await knex('aggregator').delete().where({
+    review_id: agendaId
+  });
 
-  log('reference sources: %j', reference.sourceAgendaUid);
-
-  const update = reference.sourceAgendaUid.filter(uid => uid!==sourceAgendaUid);
-
-  if (reference.aggregated && !update.length) {
-    log('no source references are left, event must be unlisted from aggregator agenda');
-    await unreferenceEvent(sourceAgendaUid, aggregatorAgendaUid, eventUid, { batched });
-  } else {
-    log('other source references are present, current source ref must be removed');
-    await unsetSourceUidOnExistingReference(aggregatorAgendaUid, eventUid, sourceAgendaUid);
+  return {
+    success: result === 1
   }
 }

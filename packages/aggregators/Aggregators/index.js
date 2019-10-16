@@ -3,18 +3,23 @@
 const _ = require('lodash');
 const log = require('@openagenda/logs')('Aggregators');
 
-const isAgendaSource = require('./utils/isAgendaSource');
-const addSourceEntry = require('./utils/sourceEntry').add;
-const removeSourceEntry = require('./utils/sourceEntry').remove;
+const getAgendaSourceId = require('./utils/getAgendaSourceId');
+
+const addSourceEntry = require('./utils/sources/add');
+const removeSourceEntry = require('./utils/sources/remove');
+const listSources = require('./utils/sources/list');
+const updateSourceEntry = require('./utils/sources/update');
 
 const dispatch = require('./lib/dispatch');
 const addSource = require('./lib/addSource');
+const updateSource = require('./lib/updateSource');
 const removeSource = require('./lib/removeSource');
 const notify = require('./lib/notify');
-const remove = require('./lib/remove');
+const removeEvent = require('./lib/removeEvent');
 const loadSourceEvaluates = require('./lib/loadSourceEvaluates');
 const loadSourceRemoves = require('./lib/loadSourceRemoves');
-const evaluate = require('./lib/evaluate');
+const evaluateEvent = require('./lib/evaluateEvent');
+const remove = require('./lib/remove');
 const set = require('./lib/set');
 
 module.exports = ({ knex, queues, interfaces }) => {
@@ -22,14 +27,14 @@ module.exports = ({ knex, queues, interfaces }) => {
 
   queue.register({
     dispatch: dispatch.bind(null, { knex, queue }),
-    evaluate: evaluate.bind(null, {
+    evaluateEvent: evaluateEvent.bind(null, {
       referenceEvent: interfaces.referenceEvent,
       getMergedSchema: interfaces.getMergedSchema,
       getEventReference: interfaces.getEventReference,
       setSourceUidOnExistingReference: interfaces.setSourceUidOnExistingReference,
       enqueueRemove: queue.bind(null, 'remove')
     }),
-    remove: remove.bind(null, _.pick(interfaces, [
+    removeEvent: removeEvent.bind(null, _.pick(interfaces, [
       'getEventReference',
       'unsetSourceUidOnExistingReference',
       'unreferenceEvent'
@@ -46,29 +51,44 @@ module.exports = ({ knex, queues, interfaces }) => {
   });
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
-  queue.on('execute', (fn, args) => log(fn, 'execute'));
-  queue.on('success', (fn, args, result) => log(fn, 'success', result));
+  queue.on('execute', (fn, args) => log('processing "%s" from queue', fn));
+  queue.on('success', (fn, args, result) => log('done processing "%s" from queue', fn, result));
 
   return {
-    notify: notify.bind(null, {
-      isAgendaSource: isAgendaSource.bind(null, knex),
-      queue
-    }),
     set: set.bind(null, knex),
-    addSource: addSource.bind(null, {
-      knex,
-      interfaces,
-      enqueueLoadSourceEvaluates: queue.bind(null, 'loadSourceEvaluates'),
-      addSourceEntry: addSourceEntry.bind(null, knex),
-      isAgendaSource: isAgendaSource.bind(null, knex),
-      getMergedSchema: interfaces.getMergedSchema
-    }),
-    removeSource: removeSource.bind(null, {
-      knex,
-      interfaces,
-      enqueueLoadSourceRemoves: queue.bind(null, 'loadSourceRemoves'),
-      removeSourceEntry: removeSourceEntry.bind(null, knex),
-      isAgendaSource: isAgendaSource.bind(null, knex)
+    remove: remove.bind(null, knex),
+    sources: {
+      list: listSources.bind(null, {
+        knex,
+        getAgendasByUidsAndSearch: interfaces.getAgendasByUidsAndSearch
+      }),
+      add: addSource.bind(null, {
+        knex,
+        interfaces,
+        enqueueLoadSourceEvaluates: queue.bind(null, 'loadSourceEvaluates'),
+        addSourceEntry: addSourceEntry.bind(null, knex),
+        getAgendaSourceId: getAgendaSourceId.bind(null, knex),
+        getMergedSchema: interfaces.getMergedSchema
+      }),
+      update: updateSource.bind(null, {
+        knex,
+        interfaces,
+        enqueueLoadSourceEvaluates: queue.bind(null, 'loadSourceEvaluates'),
+        updateSourceEntry: updateSourceEntry.bind(null, knex),
+        getAgendaSourceId: getAgendaSourceId.bind(null, knex),
+        getMergedSchema: interfaces.getMergedSchema
+      }),
+      remove: removeSource.bind(null, {
+        knex,
+        interfaces,
+        enqueueLoadSourceRemoves: queue.bind(null, 'loadSourceRemoves'),
+        removeSourceEntry: removeSourceEntry.bind(null, knex),
+        getAgendaSourceId: getAgendaSourceId.bind(null, knex)
+      })
+    },
+    notify: notify.bind(null, {
+      getAgendaSourceId: getAgendaSourceId.bind(null, knex),
+      queue
     }),
     task: task.bind(null, { queue })
   };

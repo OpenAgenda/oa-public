@@ -3,7 +3,7 @@
 const fs = require('fs');
 const should = require('should');
 
-const evaluate = require('../Aggregators/lib/evaluate');
+const evaluate = require('../Aggregators/lib/evaluateEvent');
 
 describe('Aggregators evaluate', () => {
 

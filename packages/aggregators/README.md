@@ -1,15 +1,80 @@
 # Overview
 
-Aggregation functionality. Upcoming.
+## Instance
 
-## Resync script
+Aggregator methods are provided by an instance created by a createInstance provided by the service.
 
-The script is given an aggregator identifier and triggers the re-evaluation of published events in the aggregation tree.
+    const { createInstance } = require('@openagenda/aggregators');
 
- * build a list of all nodes of the tree identifying head, node, leaves and relations
- * for each agenda in the list at the exception of the head, list agenda-event references for published events and enqueue in intermediate queue ( prepare stats )
- * process intermediate queue to call interface function for each item
+    const agg = createInstance({
+      queues,
+      knex,
+      interfaces: {
+        referenceEvent,
+        unreferenceEvent,
+        getMergedSchema,
+        loadEvent,
+        getEventReference,
+        listEventReferences,
+        setSourceUidOnExistingReference,
+        unsetSourceUidOnExistingReference
+      }
+    });
 
+## Instance methods
+
+### notify
+
+Notify the instance that an event state changed, was added to or removed from an agenda. The instance then proceeds to queue an aggregation evaluation
+
+    await agg.notify(type, data);
+
+### set
+
+Set (update or create) an aggregator reference with a set of rules. See Rules section for more details on rules.
+
+    await agg.set(agendaUid, { rules: [] });
+
+### remove
+
+Remove an aggregator reference. The associated agenda will not aggregate events anymore, aggregator sources are removed at the same time
+
+    await agg.remove(agendaUid);
+
+### sources.list
+
+List the sources of an aggregator.
+
+    await agg.sources.list(agenda, [agendaTitleSearch], { detailed });
+
+Returns a list of sources `[{id, agendaUid, rules }]`.
+
+Second argument is the query for matching agendas by their title
+Third contains detailed boolean as option.
+
+If a search is provided or detailed is true, agenda is placed in an agenda key in the result source items
+
+### sources.add
+
+Adds a source to an aggregator
+
+    await agg.sources.add(aggregatorAgenda, sourceAgenda, rules);
+
+### sources.remove
+
+Removes a source from an aggregator
+
+    await agg.sources.remove(aggregatorAgenda, sourceAgenda)
+
+### sources.update
+
+Update an aggregator source
+
+    await agg.sources.update(sourceId, rules);
+
+### task
+
+Runs aggregation tasks. As most aggregation processing is queued, the task function must be run somewhore
 
 ## Rules
 

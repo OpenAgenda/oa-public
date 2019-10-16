@@ -1,11 +1,11 @@
 'use strict';
 
 module.exports = async ({
-  isAgendaSource,
+  getAgendaSourceId,
   removeSourceEntry,
   enqueueLoadSourceRemoves
 }, aggregatorAgenda, sourceAgenda) => {
-  if (!await isAgendaSource(sourceAgenda, aggregatorAgenda)) {
+  if (!await getAgendaSourceId(sourceAgenda, aggregatorAgenda)) {
     throw new Error('Agenda is not source');
   }
 
