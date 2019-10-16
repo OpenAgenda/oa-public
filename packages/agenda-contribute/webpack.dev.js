@@ -2,6 +2,14 @@
 
 const webpack = require( 'webpack' );
 
+const modulesToInclude = [
+  '@feathersjs',
+  'react-intl',
+  'intl-messageformat',
+  'intl-messageformat-parser'
+];
+const BABEL_EXCLUDE_REGEX = new RegExp(`node_modules\\/(?!(${modulesToInclude.join('|')}))`);
+
 module.exports = {
   mode: 'development',
   context: __dirname,
@@ -20,9 +28,10 @@ module.exports = {
   module: {
     rules: [ {
       test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
+      exclude: BABEL_EXCLUDE_REGEX,
+      loader: 'babel-loader',
+      options: {
+        rootMode: 'upward'
       }
     } ]
   },

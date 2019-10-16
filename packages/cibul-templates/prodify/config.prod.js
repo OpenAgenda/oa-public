@@ -33,7 +33,7 @@ module.exports = ( { entry, output } ) => ({
         exclude: BABEL_EXCLUDE_REGEX,
         options: {
           cacheDirectory: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'babel-loader-dev' ),
-          cwd: path.join(__dirname, '../../..')
+          rootMode: 'upward'
         }
       },
       {
