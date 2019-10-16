@@ -39,7 +39,7 @@ const getRegisteredFields = registeredFieldsSelector( FORM_NAME );
       ];
 
       messageKeys.forEach(key => {
-        if (!(key in registeredFields)) {
+        if (!(registeredFields && key in registeredFields)) {
           _.set( values, key, null );
         }
       });

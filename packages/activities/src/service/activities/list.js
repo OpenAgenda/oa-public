@@ -92,9 +92,9 @@ module.exports = function list( config, identifiers ) {
             config.schemas.activity + '.id'
           )
           .where( config.schemas.feed_activity + '.feed_id', feed ? feed.id : 0 )
-          .orderBy(config.schemas.feed_activity + '.activity_id', 'desc');
+          .orderBy(config.schemas.activity + '.id', 'desc');
       } else {
-        request.orderBy('id', 'desc');
+        request.orderBy(config.schemas.activity + '.id', 'desc');
       }
 
       return request
