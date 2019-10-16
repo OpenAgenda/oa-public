@@ -12,6 +12,14 @@ const pushToCDN = process.env.NODE_ENV === 'production' && parseInt( process.env
 
 const localDistPath = __dirname + '/client/dist';
 
+const modulesToInclude = [
+  '@feathersjs',
+  'react-intl',
+  'intl-messageformat',
+  'intl-messageformat-parser'
+];
+const BABEL_EXCLUDE_REGEX = new RegExp(`node_modules\\/(?!(${modulesToInclude.join('|')}))`);
+
 module.exports = {
   // better to have a dist file in dev mode for local troubleshooting
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
@@ -57,9 +65,10 @@ module.exports = {
   module: {
     rules: [ {
       test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
+      exclude: BABEL_EXCLUDE_REGEX,
+      loader: 'babel-loader',
+      options: {
+        rootMode: 'upward'
       }
     }, {
       test: /\.css$/,
