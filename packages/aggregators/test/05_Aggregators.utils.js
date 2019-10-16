@@ -78,23 +78,23 @@ describe('Aggregators utils', () => {
   describe('determineAggregationAction', () => {
 
     it('if type is remove, aggregationAction is remove', () => {
-      determineAggregationAction('remove').should.equal('remove');
+      determineAggregationAction('removeEvent').should.equal('removeEvent');
     });
 
     it('if type is update but no change is observed, action is null', () => {
-      should(determineAggregationAction('update', fixtures.eventNowPublish, fixtures.eventNowPublish)).equal(null);
+      should(determineAggregationAction('updateEvent', fixtures.eventNowPublish, fixtures.eventNowPublish)).equal(null);
     });
 
     it('if type is update, state was not published and now is published, action is evaluate', () => {
-      determineAggregationAction('update', fixtures.eventBeforePublish, fixtures.eventNowPublish).should.equal('evaluate');
+      determineAggregationAction('updateEvent', fixtures.eventBeforePublish, fixtures.eventNowPublish).should.equal('evaluateEvent');
     });
 
     it('if type is update, state was published and now is not published, action is remove', () => {
-      determineAggregationAction('update', fixtures.eventBeforeUnpublish, fixtures.eventNowUnpublish).should.equal('remove');
+      determineAggregationAction('updateEvent', fixtures.eventBeforeUnpublish, fixtures.eventNowUnpublish).should.equal('removeEvent');
     });
 
     it('if there are changes in event data on a unchanged state published event, action is evaluate', () => {
-      determineAggregationAction('update', fixtures.eventBeforeChange, fixtures.eventNowChange).should.equal('evaluate');
+      determineAggregationAction('updateEvent', fixtures.eventBeforeChange, fixtures.eventNowChange).should.equal('evaluateEvent');
     });
 
   });

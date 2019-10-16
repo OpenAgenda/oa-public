@@ -1,0 +1,22 @@
+[{
+  "id": 1,
+  "aggregator_id": 1,
+  "review_id": 2,
+  "created_at": "2019-10-15T10:00:00.000Z",
+  "updated_at": "2019-10-15T10:00:00.000Z",
+  "store": null
+}, {
+  "id": 2,
+  "aggregator_id": 1,
+  "review_id": 3,
+  "created_at": "2019-10-15T10:04:00.000Z",
+  "updated_at": "2019-10-15T10:04:00.000Z",
+  "store": null
+}, {
+  "id" : 3,
+  "aggregator_id": 2,
+  "review_id": 4,
+  "created_at": "2019-10-15T10:09:00.000Z",
+  "updated_at": "2019-10-15T10:09:00.000Z",
+  "store": null
+}]

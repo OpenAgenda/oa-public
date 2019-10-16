@@ -5,9 +5,8 @@ const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'services/elasticsearch/removeEvent' );
 
 module.exports = ( { remove, knex } ) => {
-  log('processing');
-
   return async identifier => {
+    log('processing');
 
     const toRemoveId = _.isObject( identifier ) ?
         await _getEventLegacyId( knex, identifier )
@@ -20,9 +19,7 @@ module.exports = ( { remove, knex } ) => {
     }
 
     return remove( toRemoveId );
-
   }
-
 }
 
 function _getEventLegacyId( knex, identifier ) {

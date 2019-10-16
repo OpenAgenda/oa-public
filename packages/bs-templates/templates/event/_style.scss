@@ -1,15 +1,16 @@
 #event {
 
   h1 {
-
-    padding: 20px;
-
+    padding: 20px 20px 0;
+    margin-bottom: 20px;
   }
 
-  .short-description {
+  @media (min-width: 768px) {
 
-    margin: 0;
-    padding: 20px;
+    .short-description {
+      margin: 20px 0 0;
+      padding: 0 20px 20px;
+    }
 
   }
 

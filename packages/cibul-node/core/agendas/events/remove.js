@@ -16,8 +16,15 @@ const merge = require('../utils/merge');
 const log = require('@openagenda/logs')('core/agendas/events/remove');
 
 module.exports = async (agendaUid, eventUid, options) => {
-  log('removing event %s from agenda %s', eventUid, agendaUid);
+  log('removing event %s from agenda %s', eventUid, agendaUid, options);
   const contextUserUid = _.get(options, 'context.userUid');
+
+  const {
+    batched
+  } = {
+    batched: false,
+    ...(options || {})
+  };
 
   const agenda = await getAgenda(agendaUid);
 
@@ -40,6 +47,8 @@ module.exports = async (agendaUid, eventUid, options) => {
     throw new VError('event of uid %s not found', eventUid);
   }
 
+  const deletion = event.agendaUid === parseInt(agendaUid);
+
   if (!event.draft) {
     const result = await agendaEvents(agendaUid).remove(eventUid, {
       transferToLegacy: true,
@@ -47,7 +56,8 @@ module.exports = async (agendaUid, eventUid, options) => {
         agendaUid,
         userUid: contextUserUid,
         legacy: false,
-        deletion: true
+        deletion,
+        batched
       }
     });
 
@@ -76,7 +86,7 @@ module.exports = async (agendaUid, eventUid, options) => {
   log('there are %s remaining agenda references', remaining.total);
   log('agenda %s event origin agenda', event.agendaUid === parseInt(agendaUid) ? 'is' : 'is not');
 
-  if (!remaining.total || (event.agendaUid === parseInt(agendaUid))) {
+  if (!remaining.total || deletion) {
     const result = await events.remove({
       uid: eventUid
     }, {
@@ -91,9 +101,10 @@ module.exports = async (agendaUid, eventUid, options) => {
   }
 
   if (!event.draft) {
-    await aggregators.notify('remove', {
+    await aggregators.notify('removeEvent', {
       event: merge.event(event, removed.agendaEvent, removed.custom),
-      agenda
+      agenda,
+      batched
     });
   }
 

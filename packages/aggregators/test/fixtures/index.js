@@ -7,21 +7,22 @@ const knex = require('knex');
 const mysql = require('mysql');
 
 const aggregators = require('./aggregators.json');
+const aggregatorSources = require('./aggregatorSources.json');
+const agendas = require('./agendas.json');
 
 function _sql() {
   const k = knex({
     client: 'mysql'
   });
 
-  const raw = [
+  return [
     fs.readFileSync(`${__dirname}/reset.sql`, 'utf-8') + ';',
     fs.readFileSync(`${__dirname}/../../model.sql`, 'utf-8'),
-    fs.readFileSync(`${__dirname}/review.create.sql`, 'utf-8')
-  ];
-
-  raw.push(k('aggregator').insert(aggregators));
-
-  return raw.join('\n');
+    fs.readFileSync(`${__dirname}/review.create.sql`, 'utf-8'),
+    k('review').insert(agendas) + ';',
+    k('aggregator').insert(aggregators) + ';',
+    k('aggregator_source').insert(aggregatorSources)
+  ].join('\n');
 }
 
 async function _load(dbConfig) {

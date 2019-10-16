@@ -7,14 +7,14 @@ const log = require('@openagenda/logs')('determineAggregationAction');
 module.exports = (type, eventBefore, eventNow) => {
   log('processing %s for %s: %s->%s', type, _.get(eventNow, 'slug', null), _.get(eventBefore, 'state', null), _.get(eventNow, 'state', null));
 
-  if (type === 'remove') return 'remove';
+  if (type === 'removeEvent') return 'removeEvent';
 
   if (_isPublish(eventBefore, eventNow)) {
     log('event was published');
-    return 'evaluate';
+    return 'evaluateEvent';
   } else if (_isUnpublish(eventBefore, eventNow)) {
     log('event was unpublished');
-    return 'remove';
+    return 'removeEvent';
   }
 
   const diff = deepDiff(_.omit(
@@ -23,7 +23,7 @@ module.exports = (type, eventBefore, eventNow) => {
     eventNow, ['updatedAt', 'state']
   ));
 
-  if (diff && eventNow.state ===2) return 'evaluate';
+  if (diff && eventNow.state ===2) return 'evaluateEvent';
 
   return null;
 }

@@ -2,7 +2,7 @@
 
 module.exports = async ({
   getAgendaSourceId,
-  addSourceEntry,
+  updateSourceEntry,
   getMergedSchema,
   enqueueLoadSourceEvaluates
 }, aggregatorAgenda, sourceAgenda, rules = [], options = {}) => {
@@ -14,14 +14,16 @@ module.exports = async ({
     ...options
   }
 
-  if (await getAgendaSourceId(sourceAgenda, aggregatorAgenda)) {
+  const sourceId = await getAgendaSourceId(sourceAgenda, aggregatorAgenda);
+
+  if (!sourceId) {
     throw new Error('Agenda is already source');
   }
 
   const {
     aggregator,
     source
-  } = await addSourceEntry(aggregatorAgenda, sourceAgenda, rules);
+  } = await updateSourceEntry(sourceId, rules);
 
   if (evaluate) {
     return await enqueueLoadSourceEvaluates({
@@ -32,5 +34,4 @@ module.exports = async ({
       formSchema: await getMergedSchema(sourceAgenda.uid)
     });
   }
-
 }

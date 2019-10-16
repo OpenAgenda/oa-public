@@ -15,14 +15,14 @@ describe('Aggregators addSource', () => {
 
     before(async () => {
       await addSource({
-        isAgendaSource: async (sourceAgenda, aggregatorAgenda) => false,
+        getAgendaSourceId: async (sourceAgenda, aggregatorAgenda) => false,
         addSourceEntry: (aggregatorAgenda, sourceAgenda) => {
           addSourceEntryWasCalled = true;
           return _async('fixtures/addSource/addSourceEntry')();
         },
         getMergedSchema: _async('fixtures/addSource/formSchema'),
         enqueueLoadSourceEvaluates: async data => { enqueuedData = data; }
-      }, { uid: 123 }, { uid: 456 });
+      }, { uid: 123 }, { uid: 456 }, [], { evaluate: true });
     });
 
     it('calls for a source entry creation', () => {

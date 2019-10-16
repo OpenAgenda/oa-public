@@ -2,9 +2,10 @@
 
 const _ = require('lodash');
 
-const aggregators = require( '@openagenda/aggregators' );
-const log = require( '@openagenda/logs' )( 'services/aggregator' );
-const queue = require( '@openagenda/queue' );
+const agendas = require('@openagenda/agendas');
+const aggregators = require('@openagenda/aggregators');
+const log = require('@openagenda/logs')( 'services/aggregator' );
+const queue = require('@openagenda/queue');
 
 const interfaces = require( './interfaces' );
 
@@ -94,7 +95,11 @@ module.exports = {
             .then(ae => ae ? _.pick(ae, ['sourceAgendaUid', 'aggregated']) : null),
           listEventReferences: (agendaUid, lastId, aggregated = null) => services.core.agendas(agendaUid)
             .events.list({ state: 2, aggregated }, { lastId }, { load: { events: false, custom: false } }),
-          loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid).events.get(eventUid)
+          loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid).events.get(eventUid),
+          getAgendasByUidsAndSearch: (agendaUids, search = null) => agendas.list({
+            uid: agendaUids,
+            ...(search ? { search } : {})
+          }, 0, 200).then(({ agendas }) => agendas.map(a => _.pick(a, ['uid','title', 'image'])))
         }
       })
     );

@@ -111,7 +111,7 @@ module.exports = async (agenda, eventUid, clean, options = {}) => {
     log('error', 'could not update legacy search for event %s', eventUid);
   }
 
-  await aggregators.notify('add', {
+  await aggregators.notify('addEvent', {
     event: merge.event(context.event, added.agendaEvent, added.networkCustom, added.custom),
     agenda,
     formSchema: merge.schemas(

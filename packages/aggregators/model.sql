@@ -15,6 +15,7 @@ CREATE TABLE aggregator_source (
   review_id BIGINT NOT NULL,
   created_at DATETIME NOT NULL,
   updated_at DATETIME NOT NULL,
+  store TEXT,
   INDEX aggregator_id_idx (aggregator_id),
   INDEX review_id_idx (review_id),
   PRIMARY KEY(id)

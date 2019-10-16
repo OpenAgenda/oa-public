@@ -241,7 +241,7 @@ function addSource(req, res, next) {
 
   _aggregatorVersion(req.aggregatorAgenda).then(version => {
     if (version === 2) {
-      aggregators.addSource(req.aggregatorAgenda, req.agenda).then(() => {
+      aggregators.sources.add(req.aggregatorAgenda, req.agenda).then(() => {
         sessions.setFlash(req, res, getAggLabel('sourceAdded', {
           source: '<strong>' + req.agenda.title + '</strong>',
           agg: '<strong>' + req.aggregatorAgenda.title + '</strong>'
@@ -294,7 +294,7 @@ function removeSource(req, res, next) {
 
   _aggregatorVersion(req.aggregatorAgenda).then(version => {
     if (version === 2) {
-      aggregators.removeSource(req.aggregatorAgenda, req.agenda).then(() => {
+      aggregators.sources.remove(req.aggregatorAgenda, req.agenda).then(() => {
         _flashAndRedirect();
       });
     } else {

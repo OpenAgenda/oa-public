@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/event-form",
-  "version": "1.3.16",
+  "version": "1.3.17",
   "main": "client/build/index.js",
   "scripts": {
     "start": "nodemon dev/server",
