@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
 const _ = {
-  get: require( 'lodash/get' ),
-  set: require( 'lodash/set' )
-}
+  get: require('lodash/get'),
+  set: require('lodash/set')
+};
 
 import ih from 'immutability-helper';
 import React, { Component } from 'react';
@@ -24,93 +24,68 @@ const defaults = {
 
 module.exports = class AgeComponent extends Component {
 
-  getSelectOptions( minValue ) {
-
-    const labels = flattenLabels( ageLabels, this.props.lang );
+  getSelectOptions(minValue) {
+    const labels = flattenLabels(ageLabels, this.props.lang);
     const options = [];
 
     let min = minValue || limits.min;
 
-    for ( let i=0; i<limits.max; i++ ) {
-
-      if ( min <= i ) {
-
-        options.push( {
+    for (let i=0; i<limits.max; i++) {
+      if (min <= i) {
+        options.push({
           value: i + '',
-          label: i + ' ' + ( i < 2 ? labels.year : labels.years )
-        } );
-
+          label: i + ' ' + (i < 2 ? labels.year : labels.years)
+        });
       }
-
     }
 
     return options;
-
   }
 
   isEnabled() {
+    const min = parseInt(_.get(this.props.value, 'min', 'NaN'));
+    const max = parseInt(_.get(this.props.value, 'max', 'NaN'));
 
-    const min = parseInt( _.get( this.props.value, 'min', 'NaN' ) );
-    const max = parseInt( _.get( this.props.value, 'max', 'NaN' ) );
-
-    return !isNaN( min ) || !isNaN( max );
-
+    return !isNaN(min) || !isNaN(max);
   }
 
-  onChange( field, choice ) {
+  onChange(field, choice) {
+    const clean = parseInt(choice.value);
 
-    const clean = parseInt( choice.value );
-
-    this.props.onChange( ih( this.props.value, _.set( {}, field, {
-      $set: isNaN( clean ) ? null : clean
-    } ) ) );
-
+    this.props.onChange(ih(this.props.value, _.set({}, field, {
+      $set: isNaN(clean) ? null : clean
+    })));
   }
 
-  toggleEnabled( enable = null ) {
-
+  toggleEnabled(enable = null) {
     const isEnabled = this.isEnabled();
 
-    if ( enable === true ) {
-
-      if ( !isEnabled ) this.initialize();
-
-    } else if ( enable === false ) {
-
-      if ( isEnabled ) this.disable();
-
-    } else if ( isEnabled ) {
-
+    if (enable === true) {
+      if (!isEnabled) this.initialize();
+    } else if (enable === false) {
+      if (isEnabled) this.disable();
+    } else if (isEnabled) {
       this.disable();
-
     } else {
-
       this.initialize();
-
     }
-
   }
 
   disable() {
-
-    this.props.onChange( { min: null, max: null } );
-
+    this.props.onChange({ min: null, max: null });
   }
 
   initialize() {
-
-    this.props.onChange( defaults );
-
+    this.props.onChange(defaults);
   }
 
   render() {
-
     const field = this.props.field;
 
-    const labels = flattenLabels( ageLabels, this.props.lang );
+    const labels = flattenLabels(ageLabels, this.props.lang);
 
-    const min = _.get( this.props.value, 'min', '' ) + '';
-    const max = _.get( this.props.value, 'max', '' ) + '';
+    const min = _.get(this.props.value, 'min', '') + '';
+    const max = _.get(this.props.value, 'max', '') + '';
 
     const isEnabled = this.isEnabled();
 
