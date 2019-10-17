@@ -8,10 +8,10 @@ module.exports = {
     "es": "Administración"
   },
   "back": {
-    "fr": "Accueil de l'agenda",
-    "en": "Agenda Home",
+    "fr": "Aller à l'accueil de l'agenda",
+    "en": "Go to the Agenda Homepage",
     "de": "Kalender Startseite",
-    "es": "Inicio del Agenda"
+    "es": "Ir al inicio del Agenda"
   },
   "manage": {
     "fr": "Gérer",
