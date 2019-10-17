@@ -16,45 +16,58 @@ const merge = require('./merge');
 
 const log = require('@openagenda/logs')('core/agendas/utils/doAdd');
 
-module.exports = async (agenda, eventUid, clean, options = {}) => {
+module.exports = async (agenda, event, clean, options = {}) => {
+  log('info', 'processing agenda %s, event %s', agenda.uid, event.uid);
 
-  log('info', 'processing agenda %s, event %s', agenda.uid, eventUid);
-
-  const { draft, context, event } = Object.assign({
+  const {
+    batched,
+    aggregated,
+    sourceAgenda,
+    draft,
+    userUid
+  } = {
+    batched: false,
+    aggregated: false,
+    sourceAgenda: null,
     draft: false,
-    context: {
-      userUid: null,
-      event: null,
-      aggregated: false
-    }
-  }, options);
+    userUid: null,
+    ...options
+  };
 
   const added = {
     agendaEvent: null,
     custom: null
   };
 
-  if (!context.userUid) {
+  if (!userUid) {
     log('warn', 'user is not identified');
   }
 
   if (!draft) {
     try {
-      const { created } = await agendaEvents(agenda.uid).create(eventUid, clean.agendaEvent, {
+      const { created } = await agendaEvents(agenda.uid).create(event.uid, clean.agendaEvent, {
         transferToLegacy: true, // directive to replicate to legacy data structure
-        context: ih(context, { legacy: { $set: false } }),
+        context: {
+          event,
+          agenda,
+          legacy: false,
+          batched,
+          aggregated,
+          sourceAgenda,
+          userUid
+        },
         decorate: ['member']
       });
 
       added.agendaEvent = created;
     } catch (e) {
-      throw new VError(e, 'Could not create agenda-event reference for agenda uid %s and event uid %s', agenda.uid, eventUid);
+      throw new VError(e, 'Could not create agenda-event reference for agenda uid %s and event uid %s', agenda.uid, event.uid);
     }
   }
 
   // create custom data
   if (agenda.formSchemaId && clean.custom) {
-    const result = await setCustom(agenda.formSchemaId, eventUid, clean.custom, {
+    const result = await setCustom(agenda.formSchemaId, event.uid, clean.custom, {
       draft,
       agendaId: clean.agendaId
     });
@@ -67,7 +80,7 @@ module.exports = async (agenda, eventUid, clean, options = {}) => {
   }
 
   if (_.get(agenda, 'network.formSchemaId') && clean.networkCustom) {
-    const result = await setCustom(agenda.network.formSchemaId, eventUid, clean.networkCustom, {
+    const result = await setCustom(agenda.network.formSchemaId, event.uid, clean.networkCustom, {
       draft,
       agendaId: clean.agendaId
     });
@@ -89,7 +102,7 @@ module.exports = async (agenda, eventUid, clean, options = {}) => {
 
   log('info', 'syncing legacy custom and tag data');
   try {
-    await legacy.tagsAndCustom.set(agenda.id, eventUid, [
+    await legacy.tagsAndCustom.set(agenda.id, event.uid, [
       agenda.formSchema,
       _.get( agenda, 'network.formSchema' )
     ], [
@@ -97,27 +110,28 @@ module.exports = async (agenda, eventUid, clean, options = {}) => {
       clean.networkCustom
     ]);
   } catch (e) {
-    log('error', 'failed to set legacy tags and custom data for agenda id %s and event uid %s', agenda.id, eventUid, e);
+    log('error', 'failed to set legacy tags and custom data for agenda id %s and event uid %s', agenda.id, event.uid, e);
   }
 
-  if (context.userUid && agendaIsOpen(agenda) && await userIsNotMember(agenda, context.userUid)) {
-    log( 'user %s is not a member on open contribution agenda that does not require member info.', context.userUid );
-    await addContributor( agenda, context.userUid );
+  if (userUid && agendaIsOpen(agenda) && await userIsNotMember(agenda, userUid)) {
+    log('user %s is not a member on open contribution agenda that does not require member info.', userUid);
+    await addContributor(agenda, userUid);
   }
 
   try {
-    await legacyEventSearch.updateEvent({ uid: eventUid });
+    await legacyEventSearch.updateEvent({ uid: event.uid });
   } catch (e) {
-    log('error', 'could not update legacy search for event %s', eventUid);
+    log('error', 'could not update legacy search for event %s', event.uid);
   }
 
   await aggregators.notify('addEvent', {
-    event: merge.event(context.event, added.agendaEvent, added.networkCustom, added.custom),
+    event: merge.event(event, added.agendaEvent, added.networkCustom, added.custom),
     agenda,
     formSchema: merge.schemas(
       _.get(agenda, 'network.formSchema'),
       _.get(agenda, 'formSchema')
-    )
+    ),
+    batched
   });
 
   return {

@@ -98,25 +98,20 @@ module.exports = async (agendaUid, data, options = {}) => {
 
   }
 
-  const addResult = await doAdd( agenda, created.event.uid, ih( clean, {
+  const addResult = await doAdd(agenda, created.event, ih(clean, {
     agendaEvent: {
       canEdit: { $set: true }
     },
     // required for custom legacy sync only.
     agendaId: { $set: agendaId }
-  } ), {
+  }), {
     draft,
-    context: {
-      aggregated: false,
-      userUid: contextUserUid,
-      event: created.event,
-      agenda
-    }
-  } );
+    userUid: contextUserUid,
+  });
 
   return {
     success: true,
-    created: _.extend( created, addResult.added )
+    created: Object.assign( created, addResult.added )
   }
 
 }

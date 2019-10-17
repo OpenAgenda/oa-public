@@ -48,13 +48,9 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     detailed: true
   });
 
-  return doAdd(agenda, eventUid, clean, {
-    context: {
-      event,
-      agenda,
-      aggregated,
-      sourceAgenda,
-      batched
-    }
+  return doAdd(agenda, event, clean, {
+    batched,
+    aggregated,
+    sourceAgenda
   });
 }
