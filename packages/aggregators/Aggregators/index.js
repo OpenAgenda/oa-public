@@ -32,7 +32,7 @@ module.exports = ({ knex, queues, interfaces }) => {
       getMergedSchema: interfaces.getMergedSchema,
       getEventReference: interfaces.getEventReference,
       setSourceUidOnExistingReference: interfaces.setSourceUidOnExistingReference,
-      enqueueRemove: queue.bind(null, 'remove')
+      enqueueRemove: queue.bind(null, 'removeEvent')
     }),
     removeEvent: removeEvent.bind(null, _.pick(interfaces, [
       'getEventReference',
@@ -42,11 +42,11 @@ module.exports = ({ knex, queues, interfaces }) => {
     loadSourceEvaluates: loadSourceEvaluates.bind(null, {
       listEventReferences: interfaces.listEventReferences,
       loadEvent: interfaces.loadEvent,
-      enqueueEvaluate: queue.bind(null, 'evaluate')
+      enqueueEvaluate: queue.bind(null, 'evaluateEvent')
     }),
     loadSourceRemoves: loadSourceRemoves.bind(null, {
       listEventReferences: interfaces.listEventReferences,
-      enqueueRemove: queue.bind(null, 'remove')
+      enqueueRemove: queue.bind(null, 'removeEvent')
     })
   });
 
