@@ -23,7 +23,7 @@
     <img src="<%= _i( custom[ i ].value ) %>" alt="<%= labels[ custom[ i ].name ] %>" />
   </dd>
 <% } else if ( custom[ i ].fieldType == 'checkbox' ) { %>
-  <% if ( custom[ i ].value ) { %><dt><%= labels[ custom[ i ].name ] %></dt><% } %>
+  <% if ( !!(custom[ i ].value instanceof Array ? custom[ i ].value.length : custom[ i ].value ) ) { %><dt><%= labels[ custom[ i ].name ] %></dt><% } %>
 <% } else if ( custom[ i ].fieldType == 'email' ) { %>
   <dt class="<%= typeof private !== 'undefined' && private ? 'privateable' : '' %>">
     <span><%= labels[ custom[ i ].name ] %></span>
