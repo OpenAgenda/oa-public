@@ -465,3 +465,16 @@ An aggregator that filters on a city and adapts tags
   } ]
 }
 ```
+
+Aggregator rule with a truthy clause:
+
+```
+{
+  "rules":[{
+    "truthy":["intermunicipal_interest"],
+    "value":{"state":2}
+  }]
+}}]}
+```
+
+..should no longer be supported.

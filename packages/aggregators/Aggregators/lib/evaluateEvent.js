@@ -18,7 +18,6 @@ module.exports = async ({
 }, data) => {
   const { agenda, event, aggregatorAgendaUid, batched } = data;
   log('evaluate %s of source %s (%s)', event.slug, agenda.slug, agenda.uid);
-  //wr('data', data);
 
   const eventWithTags = ih(event, {
     tags: {
@@ -59,11 +58,14 @@ module.exports = async ({
   }
 
   const aggregatorSchema = await getMergedSchema(aggregatorAgendaUid);
-  //wr('getAggregatorMergedSchema', aggregatorSchema);
   const schemaValuesFromTags = convertTagsToSchemaOptionIds(aggregatorSchema, evaluateResult.tags);
   const extendedValues = pickSchemaValues(aggregatorSchema, evaluateResult, schemaValuesFromTags);
 
-  referenceEvent(agenda, aggregatorAgendaUid, event.uid, extendedValues, { batched });
+  if (evaluateResult.state !== undefined) {
+    extendedValues.state = evaluateResult.state;
+  }
+
+  await referenceEvent(agenda, aggregatorAgendaUid, event.uid, extendedValues, { batched });
 
   return {
     success: true,
