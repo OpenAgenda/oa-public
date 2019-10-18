@@ -41,7 +41,11 @@ Remove an aggregator reference. The associated agenda will not aggregate events 
 
     await agg.remove(agendaUid);
 
-### sources.list
+### sources
+
+A rest base route
+
+#### sources.list
 
 List the sources of an aggregator.
 
@@ -54,23 +58,43 @@ Third contains detailed boolean as option.
 
 If a search is provided or detailed is true, agenda is placed in an agenda key in the result source items
 
-### sources.add
+#### sources.add
 
 Adds a source to an aggregator
 
     await agg.sources.add(aggregatorAgenda, sourceAgenda, rules);
 
-### sources.remove
+#### sources.remove
 
 Removes a source from an aggregator
 
     await agg.sources.remove(aggregatorAgenda, sourceAgenda)
 
-### sources.update
+#### sources.update
 
 Update an aggregator source
 
     await agg.sources.update(sourceId, rules);
+
+#### REST routes for handling sources
+
+This section maps out what a collection of routes could look like to handle the sources of an agenda, given the following base route (these are defined at the integration of the service):
+
+    /agendas/:agendaUid/admin/sources
+
+ * List: `${base}` (get): takes an optional ?search= query part to filter listed sources by their agenda names, returns a list `[{id, agendaUid, agenda: { uid, title, slug }, rules: [] }]`
+
+ * Create a source: `${base}` (post): Provide a body containing `{ agendaUid, rules: [], evaluate: bool }`
+
+ * Update a source: `${base}/${sourceId}` (post or put): Provide a body containing `{ rules: [], evaluate: bool }`
+
+ * Remove a source: `${base}/${sourceId}` (delete): There is no body in a delete request. Provide evaluate in the query: `?evaluate=1/0`.
+
+ * Get details of a source: `${base}/${sourceId}` (get): Probably not needed as list provides all needed detail.
+
+The route for updating general rules for an aggregator could be
+
+    /agendas/:agendaUid/admin/sources/all
 
 ### task
 
