@@ -39,7 +39,7 @@ function parse( fields, legacyTags ) {
 
     }
 
-    const matchingOptions = options.filter( o => legacyTags.includes( _.isObject( o.label ) ? _.get( o.label, 'fr' ) : o.label ) );
+    const matchingOptions = options.filter( o => legacyTags.includes( _.isObject( o.label ) ? _.get( o.label, 'fr', _.first(_.keys(o.label)) ) : o.label ) );
 
     if ( !matchingOptions.length ) return;
 
