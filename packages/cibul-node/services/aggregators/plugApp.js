@@ -3,6 +3,7 @@
 const matchApp = require('./middleware/matchApp');
 const legacyRemoveSource = require('./middleware/legacyRemoveSource');
 const aggregatorSourcesMw = require('@openagenda/aggregator-sources').mw;
+const bodyParser = require('body-parser');
 
 module.exports = (config, parentApp) => {
   const {
@@ -25,6 +26,42 @@ module.exports = (config, parentApp) => {
     members.mw.loadAndAuthorize('administrator')
   ]);
 
+  parentApp.get('/:agendaSlug/admin/sources/refactor', ( req, res, next) => {
+    if (!req.xhr) return next();
+    aggregators.sources
+      .list(req.agenda, { detailed: true })
+      .then(sources => res.json(sources));
+  });
+
+  parentApp.post('/:agendaSlug/admin/sources/refactor',
+    bodyParser.json(),
+    agendas.mw.loadBy({
+      path: 'body.agendaUid',
+      field: 'uid',
+      target: 'sourceAgenda'
+    }),
+    (req, res, next) => aggregators.sources.add(
+      req.agenda,
+      req.sourceAgenda,
+      req.body.rules
+    ).then(res.json, next)
+  );
+
+  parentApp.put('/:agendaSlug/admin/sources/refactor/:sourceId',
+    bodyParser.json(),
+    (req, res, next) => aggregators.sources.update(
+      req.agenda,
+      req.params.sourceId,
+      req.body.rules
+    ).then(res.json, next)
+  );
+
+  parentApp.delete('/:agendaSlug/admin/sources/refactor/:sourceId',
+    (req, res, next) => aggregators.sources.remove(
+      req.agenda,
+      req.params.sourceId
+    ).then(res.json, next)
+  );
 
   // this will be removed when new aggregator source app is ready
   parentApp.get(
@@ -37,7 +74,7 @@ module.exports = (config, parentApp) => {
 
   parentApp.get(
     '/agendas/:uid/sources.json',
-    agendas.mw.loadBy('uid'),
+    agendas.mw.loadBy({path: 'params.uid', field: 'uid' }),
     aggregatorSourcesMw.list.bind( null, { send: false } ),
     ( req, res, next ) => res.json( {
       total: req.result.total,
