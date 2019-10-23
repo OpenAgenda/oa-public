@@ -9,7 +9,7 @@ const {
   getJSON
 } = require('./utils');
 
-describe('Aggregators remove', () => {
+describe('Aggregators removeEvent', () => {
 
   it('if reference shows add by aggregation and source is last source refered, unreferenceEvent is called', async () => {
     const tracker = Tracker();

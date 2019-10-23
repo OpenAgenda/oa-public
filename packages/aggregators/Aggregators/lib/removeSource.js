@@ -1,18 +1,29 @@
 'use strict';
 
 module.exports = async ({
-  getAgendaSourceId,
   removeSourceEntry,
+  getSourceEntry,
   enqueueLoadSourceRemoves
-}, aggregatorAgenda, sourceAgenda) => {
-  if (!await getAgendaSourceId(sourceAgenda, aggregatorAgenda)) {
-    throw new Error('Agenda is not source');
+}, aggregatorAgenda, sourceId, options = {}) => {
+  const {
+    evaluate
+  } = {
+    evaluate: false,
+    ...options
   }
 
-  await removeSourceEntry(aggregatorAgenda, sourceAgenda);
+  const source = await getSourceEntry(sourceId, { detailed: true });
 
-  return enqueueLoadSourceRemoves({
-    aggregatorAgendaUid: aggregatorAgenda.uid,
-    sourceAgendaUid: sourceAgenda.uid
-  });
+  if (!source) {
+    throw new Error('No source was found');
+  }
+
+  await removeSourceEntry(aggregatorAgenda, source.agenda);
+
+  if (evaluate) {
+    return enqueueLoadSourceRemoves({
+      aggregatorAgendaUid: aggregatorAgenda.uid,
+      sourceAgendaUid: source.agenda.uid
+    });
+  }
 }

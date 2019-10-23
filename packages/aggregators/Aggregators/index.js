@@ -9,6 +9,7 @@ const addSourceEntry = require('./utils/sources/add');
 const removeSourceEntry = require('./utils/sources/remove');
 const listSources = require('./utils/sources/list');
 const updateSourceEntry = require('./utils/sources/update');
+const getSourceEntry = require('./utils/sources/get');
 
 const dispatch = require('./lib/dispatch');
 const addSource = require('./lib/addSource');
@@ -73,17 +74,17 @@ module.exports = ({ knex, queues, interfaces }) => {
         getMergedSchema: interfaces.getMergedSchema
       }),
       update: updateSource.bind(null, {
-        knex,
         interfaces,
         enqueueLoadSourceEvaluates: queue.bind(null, 'loadSourceEvaluates'),
         updateSourceEntry: updateSourceEntry.bind(null, knex),
         getAgendaSourceId: getAgendaSourceId.bind(null, knex),
-        getMergedSchema: interfaces.getMergedSchema
+        getMergedSchema: interfaces.getMergedSchema,
+        getSourceEntry: getSourceEntry.bind(null, knex)
       }),
       remove: removeSource.bind(null, {
-        knex,
         interfaces,
         enqueueLoadSourceRemoves: queue.bind(null, 'loadSourceRemoves'),
+        getSourceEntry: getSourceEntry.bind(null, knex),
         removeSourceEntry: removeSourceEntry.bind(null, knex),
         getAgendaSourceId: getAgendaSourceId.bind(null, knex)
       })
