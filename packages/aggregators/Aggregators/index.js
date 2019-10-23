@@ -21,6 +21,7 @@ const loadSourceRemoves = require('./lib/loadSourceRemoves');
 const evaluateEvent = require('./lib/evaluateEvent');
 const remove = require('./lib/remove');
 const set = require('./lib/set');
+const get = require('./lib/get');
 
 module.exports = ({ knex, queues, interfaces }) => {
   const queue = queues('aggregator');
@@ -55,6 +56,7 @@ module.exports = ({ knex, queues, interfaces }) => {
   queue.on('success', (fn, args, result) => log('done processing "%s" from queue', fn, result));
 
   return {
+    get: get.bind(null, knex),
     set: set.bind(null, knex),
     remove: remove.bind(null, knex),
     sources: {
