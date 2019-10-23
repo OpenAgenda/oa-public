@@ -23,7 +23,7 @@ const service = {
   findOne: get.findOne,
   Agenda,
   instanciate: data => new Agenda( data ),
-  middleware,
+  middleware, // deprecated
   set,
   remove,
   count,
