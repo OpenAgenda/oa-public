@@ -11,7 +11,7 @@ const log = require( '@openagenda/logs' )( 'core/agendas/events/update' );
 const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
 const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
-const aggregators = require('../../../services/aggregator').instance;
+const aggregators = require('../../../services/aggregators').instance;
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
 const processOEmbed = require( '../utils/processOEmbed' );

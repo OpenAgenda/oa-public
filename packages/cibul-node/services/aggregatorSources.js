@@ -4,7 +4,6 @@ const aggregatorSources = require( '@openagenda/aggregator-sources' );
 const agendas = require( '@openagenda/agendas' );
 
 module.exports.init = config => {
-
   aggregatorSources.init( {
     mysql: config.db,
     schemas: config.schemas,
@@ -24,4 +23,5 @@ module.exports.init = config => {
     }
   } );
 
+  return aggregatorSources;
 }

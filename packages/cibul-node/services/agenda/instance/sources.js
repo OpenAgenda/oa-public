@@ -4,7 +4,7 @@ var log = require( '@openagenda/logs' )( 'agenda sources' ),
 
 util = require( 'util' ),
 
-aggregator = require( '../../aggregator' );
+aggregator = require( '../../aggregators' );
 
 module.exports = require( '../../lib/instanceLoader' )( function( loaded, instance ) {
 

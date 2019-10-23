@@ -64,7 +64,7 @@ module.exports = async function (configObject, options = {}) {
   await init('agendaStatistics', require('./agendaStatistics'));
   await init('agendaTags', require('./agendaTags'));
   await init('agendas', require('./agendas'));
-  await init('aggregator', require('./aggregator'));
+  await init('aggregators', require('./aggregators'));
   await init('aggregatorSources', require('./aggregatorSources'));
   await init('cache', require('./cache'));
   await init('custom', require('./custom'));

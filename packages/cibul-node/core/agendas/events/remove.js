@@ -9,7 +9,7 @@ const events = require( '@openagenda/events' );
 const formSchemas = require( '@openagenda/form-schemas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 
-const aggregators = require('../../../services/aggregator').instance;
+const aggregators = require('../../../services/aggregators').instance;
 const getAgenda = require( '../utils/getAgenda' );
 const merge = require('../utils/merge');
 

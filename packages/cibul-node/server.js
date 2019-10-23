@@ -34,6 +34,8 @@ supervisor(async loadTasks => {
     const admin = require('./admin');
     const web = require('./web');
 
+    app.services = services;
+
     app.use(sessions.middleware);
     app.use(sessions.middleware.load({ detailed: true }));
 

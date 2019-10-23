@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 
-const aggregator = require( '../../aggregator' );
+const aggregators = require( '../../aggregators' );
 const config = require( '../../../config' );
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/aggregatorNotify' );
@@ -23,7 +23,7 @@ async function create( { agenda, event, agendaEvent, batched } ) {
 
     const eventId = await _getLegacyEventId( event );
 
-    aggregator.notifyPublish(eventId, agenda.id, batched);
+    aggregators.notifyPublish(eventId, agenda.id, batched);
 
   }
 
@@ -41,14 +41,14 @@ async function update({ agenda, event, before, after, batched }) {
   const eventId = await _getLegacyEventId(event);
 
   if (after.state === 2) {
-    aggregator.notifyPublish(eventId, agenda.id, batched);
+    aggregators.notifyPublish(eventId, agenda.id, batched);
 
     return;
   }
 
   if ( before.state !== 2 ) return;
 
-  aggregator.notifyUnpublish(eventId, agenda.id);
+  aggregators.notifyUnpublish(eventId, agenda.id);
 
 }
 
@@ -61,7 +61,7 @@ async function remove( { agenda, event, agendaEvent } ) {
 
   await _sleep( 3 );
 
-  aggregator.notifyUnpublish(eventId, agenda.id);
+  aggregators.notifyUnpublish(eventId, agenda.id);
 
 }
 
