@@ -36,7 +36,7 @@ module.exports.init = (config, services) => {
     logger: config.getLogConfig( 'oa', 'sessions', false )
   } );
 
-  Object.assign( service, sessions );
+  return Object.assign( service, sessions );
 }
 
 function load(req, res, next) {

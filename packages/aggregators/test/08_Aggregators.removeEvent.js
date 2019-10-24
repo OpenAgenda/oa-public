@@ -1,6 +1,6 @@
 'use strict';
 
-const remove = require('../Aggregators/lib/removeEvent');
+const removeEvent = require('../Aggregators/lib/removeEvent');
 const should = require('should');
 
 const {
@@ -9,11 +9,11 @@ const {
   getJSON
 } = require('./utils');
 
-describe('Aggregators remove', () => {
+describe('Aggregators removeEvent', () => {
 
   it('if reference shows add by aggregation and source is last source refered, unreferenceEvent is called', async () => {
     const tracker = Tracker();
-    await remove({
+    await removeEvent({
       getEventReference: tracker('getEventReference', {
         sourceAgendaUid: [ 71413881 ],
         aggregated: true
@@ -22,7 +22,8 @@ describe('Aggregators remove', () => {
       unreferenceEvent: tracker('unreferenceEvent')
     }, {
       aggregatorAgendaUid: 123,
-      sourceAgendaUid: 71413881
+      sourceAgendaUid: 71413881,
+      eventUid: 1
     });
 
     tracker.calls.pop().name.should.equal('unreferenceEvent');
@@ -30,7 +31,7 @@ describe('Aggregators remove', () => {
 
   it('if reference shows that other sources reference event, then unsetSourceUidOnExistingReference is called', async () => {
     const tracker = Tracker();
-    await remove({
+    await removeEvent({
       getEventReference: tracker('getEventReference', {
         sourceAgendaUid: [ 71413881, 54674789 ],
         aggregated: true
@@ -39,7 +40,8 @@ describe('Aggregators remove', () => {
       unreferenceEvent: tracker('unreferenceEvent')
     }, {
       aggregatorAgendaUid: 123,
-      sourceAgendaUid: 71413881
+      sourceAgendaUid: 71413881,
+      eventUid: 1
     });
 
     tracker.calls.pop().name.should.equal('unsetSourceUidOnExistingReference');
@@ -47,7 +49,7 @@ describe('Aggregators remove', () => {
 
   it('if reference shows that event was not added to aggregator agenda through aggregation, then unsetSourceUidOnExistingReference event if source is last', async () => {
     const tracker = Tracker();
-    await remove({
+    await removeEvent({
       getEventReference: tracker('getEventReference', {
         sourceAgendaUid: [ 71413881 ],
         aggregated: false
@@ -56,7 +58,8 @@ describe('Aggregators remove', () => {
       unreferenceEvent: tracker('unreferenceEvent')
     }, {
       aggregatorAgendaUid: 123,
-      sourceAgendaUid: 71413881
+      sourceAgendaUid: 71413881,
+      eventUid: 1
     });
 
     tracker.calls.pop().name.should.equal('unsetSourceUidOnExistingReference');

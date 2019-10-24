@@ -25,14 +25,18 @@ describe('Aggregators removeSource', () => {
 
     before(async () => {
       await removeSource({
-        getAgendaSourceId: tracker('getAgendaSourceId', true),
         removeSourceEntry: tracker('removeSourceEntry'),
+        getSourceEntry: tracker('getSourceEntry', {
+          id: 1,
+          aggregatorId: 2,
+          agenda: sourceAgenda
+        }),
         enqueueLoadSourceRemoves: tracker('enqueueLoadSourceRemoves')
-      }, aggregatorAgenda, sourceAgenda);
+      }, aggregatorAgenda, 1, { evaluate: true });
     });
 
-    it('verifies if agenda is source first', () => {
-      tracker.calls[0].name.should.equal('getAgendaSourceId');
+    it('loads source details first', () => {
+      tracker.calls[0].name.should.equal('getSourceEntry');
     });
 
     it('if agenda is source, calls fn to remove source, providing aggregator and source agendas', () => {

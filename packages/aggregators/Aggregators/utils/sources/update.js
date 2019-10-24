@@ -2,7 +2,7 @@
 
 const getAggregator = require('../getAggregator');
 
-module.exports = async (knex, sourceId, sourceRules = []) => {
+module.exports = async (knex, aggregatorAgenda, sourceAgenda, sourceRules = []) => {
   const aggregator = await getAggregator(knex, aggregatorAgenda);
 
   if (!aggregator) {
@@ -12,7 +12,10 @@ module.exports = async (knex, sourceId, sourceRules = []) => {
   await knex('aggregator_source').update({
     store: JSON.stringify(sourceRules),
     updated_at: new Date()
-  }).where('id', sourceId);
+  }).where({
+    review_id: sourceAgenda.id,
+    aggregator_id: aggregator.id
+  });
 
   return {
     aggregator,

@@ -21,7 +21,7 @@ module.exports.toEntry = agg => {
 module.exports.fromEntry = entry => {
   const agg = {};
 
-  ['created_at', 'updated_at', 'version' ].forEach(ef => {
+  ['created_at', 'updated_at', 'version'].forEach(ef => {
     if (entry[ef]) agg[_.camelCase(ef)] = entry[ef]
   });
 

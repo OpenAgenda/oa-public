@@ -19,7 +19,7 @@ const cacheMw = require( '../lib/cache.mw' );
 const gaTrack = require( '../lib/gaTrack.mw' );
 const config = require( '../config' );
 
-const aggregators = require('../services/aggregator').instance;
+const aggregators = require('../services/aggregators').instance;
 
 const perPage = 20;
 

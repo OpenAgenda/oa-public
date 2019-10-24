@@ -5,6 +5,7 @@ const agendas = require( '@openagenda/agendas' );
 const imageFiles = require( '@openagenda/image-files' );
 const { Inbox } = require( '@openagenda/inboxes' );
 const activities = require( '../activities' );
+const middleware = require('./middleware');
 const controlDataSvc = require( '../legacy' ).controlData;
 
 const onCreate = require( './onCreate' );
@@ -13,7 +14,6 @@ const onUpdate = require( './onUpdate' );
 const log = require( '@openagenda/logs' )( 'services/agendas' );
 
 module.exports.init = config=> {
-
   agendas.init( {
     knex: config.knex,
     mysql: config.db, // used by legacy unique value lib
@@ -38,6 +38,10 @@ module.exports.init = config=> {
     }
   } );
 
+  return {
+    ...agendas,
+    mw: middleware(agendas)
+  }
 }
 
 

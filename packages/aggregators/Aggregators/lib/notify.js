@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const log = require('@openagenda/logs')('Aggregators/notify');
+const Log = require('../utils/Log')('Aggregators/notify');
 
 const determineAggregationAction = require('../utils/determineAggregationAction');
 
@@ -10,8 +10,7 @@ module.exports = async ({
   queue
 }, type, data) => {
   const { agenda } = data;
-  // add, remove, update
-  log('notify %s on %s (%s)', type, agenda.slug, agenda.uid);
+  const log = Log(`${type} on ${agenda.slug} (${agenda.uid})`);
 
   const aggregationAction = determineAggregationAction(type, data.before, data.event);
 
@@ -21,11 +20,11 @@ module.exports = async ({
   }
 
   if (!await getAgendaSourceId(agenda)) {
-    log('agenda %s is not a source', agenda.slug);
+    log('not a source');
     return;
   }
 
-  log('dispatching', aggregationAction, _.pick(data, ['batched', 'agenda.uid', 'agenda.slug', 'event.uid', 'event.slug']));
+  log(`dispatching ${aggregationAction}`, _.pick(data, ['batched', 'agenda.uid', 'agenda.slug', 'event.uid', 'event.slug']));
 
   queue('dispatch', aggregationAction, data);
 }
