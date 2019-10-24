@@ -19,8 +19,12 @@
   <h3>La saisie est faite sur le nouveau formulaire</h3>
   <h4 class="margin-v-lg">Transfer de configuration</h4>
   <div class="margin-v-lg">
-    <p>Un groupe de tags ou un tag n'apparait pas sur les exports ou les widget malgré les resyncro. Le groupe ou tag n'apparait pas non plus sur l'ancien onglet de config des groupes de tags</p>
+    <p>Un groupe de tags ou un tag n'apparait pas sur les exports ou les widget malgré les resyncro. Le groupe ou tag n'apparait pas non plus sur l'ancien onglet de personnalisation du backoffice de l'agenda</p>
     <a class="btn btn-danger" href="<%= actions.formSchemaToTagSet %>">Mettre à jour le jeu de tags</a>
+  </div>
+  <div class="margin-v-lg">
+    <p>Une ou plusieurs catégories n'apparaissent pas sur les exports ou les widget malgré les resyncro. Les categories n'apparaissent pas non plus sur l'ancien onglet de personnalisation du backoffice de l'agenda</p>
+    <a class="btn btn-danger" href="<%= actions.formSchemaToCategorySet %>">Mettre à jour le jeu de catégories</a>
   </div>
   <div class="margin-v-lg">
     <p>Idem mais pour les champs custom</p>

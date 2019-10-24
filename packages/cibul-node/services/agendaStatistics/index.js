@@ -53,6 +53,7 @@ module.exports = async agendaUid => {
       resyncControlData: `${config.root}/${agenda.slug}/admin/stats/resync/controlData`,
       legacyToFormSchema: `${config.root}/${agenda.slug}/admin/stats/transfer-form-schema`,
       formSchemaToTagSet: `${config.root}/${agenda.slug}/admin/stats/transfer-to-tagset`,
+      formSchemaToCategorySet: `${config.root}/${agenda.slug}/admin/stats/transfer-to-categoryset`,
       formSchemaToCustom: `${config.root}/${agenda.slug}/admin/stats/transfer-to-custom`,
     }
   }
@@ -75,7 +76,13 @@ module.exports.transferFormSchema = agenda => {
 
 }
 
-module.exports.formSchemaToTagSet = ( agenda, force ) => core.agendas( agenda.uid ).settings.legacy.updateTagSet( force );
+module.exports.formSchemaToTagSet = (agenda, force) => core
+  .agendas(agenda.uid).settings.legacy
+  .updateTagSet(force);
+
+module.exports.formSchemaToCategorySet = (agenda, force) => core
+  .agendas(agenda.uid).settings.legacy
+  .updateCategorySet(force);
 
 module.exports.formSchemaToCustom = ( agenda, force ) => core.agendas( agenda.uid ).settings.legacy.updateCustom( force );
 

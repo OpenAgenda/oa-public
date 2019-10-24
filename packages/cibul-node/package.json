@@ -20,7 +20,7 @@
     "@openagenda/activity-apps": "^1.1.2",
     "@openagenda/admin-agendas": "^1.1.2",
     "@openagenda/agenda-calendar-apps": "^1.2.1",
-    "@openagenda/agenda-categories": "^1.0.1",
+    "@openagenda/agenda-categories": "^1.0.4",
     "@openagenda/agenda-contribute": "^1.1.6",
     "@openagenda/agenda-docx": "^1.1.2",
     "@openagenda/agenda-event-references": "^1.1.2",
