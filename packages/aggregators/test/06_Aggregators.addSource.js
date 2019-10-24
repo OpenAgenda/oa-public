@@ -22,7 +22,7 @@ describe('Aggregators addSource', () => {
         },
         getMergedSchema: _async('fixtures/addSource/formSchema'),
         enqueueLoadSourceEvaluates: async data => { enqueuedData = data; }
-      }, { uid: 123 }, { uid: 456 }, [], { evaluate: true });
+      }, { uid: 123, slug: 'ndm2020' }, { uid: 456, slug: 'ndm2020-idf' }, [], { evaluate: true });
     });
 
     it('calls for a source entry creation', () => {

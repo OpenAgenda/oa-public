@@ -1,5 +1,7 @@
 'use strict';
 
+const Log = require('../utils/Log')('Aggregators/updateSource');
+
 module.exports = async ({
   getAggregator,
   updateSourceEntry,
@@ -7,6 +9,7 @@ module.exports = async ({
   getMergedSchema,
   enqueueLoadSourceEvaluates
 }, aggregatorAgenda, sourceId, rules = [], options = {}) => {
+  const log = Log(`updating source ${sourceId} of ${aggregatorAgenda.slug}`);
 
   const {
     evaluate
@@ -18,6 +21,7 @@ module.exports = async ({
   const source = await getSourceEntry(sourceId);
 
   if (!source) {
+    log('not a source, throwing error');
     throw new Error('No source was found');
   }
 
@@ -27,6 +31,7 @@ module.exports = async ({
   } = await updateSourceEntry(aggregatorAgenda, source.agenda, rules);
 
   if (evaluate) {
+    log('evaluating and done');
     return enqueueLoadSourceEvaluates({
       aggregatorAgendaUid: aggregatorAgenda.uid,
       aggregator,
@@ -35,4 +40,6 @@ module.exports = async ({
       formSchema: await getMergedSchema(source.agenda.uid)
     });
   }
+
+  log('done');
 }

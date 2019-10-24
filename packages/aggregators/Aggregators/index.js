@@ -1,7 +1,8 @@
 'use strict';
 
 const _ = require('lodash');
-const log = require('@openagenda/logs')('Aggregators');
+const logs = require('@openagenda/logs');
+const log = logs('Aggregators');
 
 const getAgendaSourceId = require('./utils/getAgendaSourceId');
 
@@ -24,8 +25,12 @@ const remove = require('./lib/remove');
 const set = require('./lib/set');
 const get = require('./lib/get');
 
-module.exports = ({ knex, queues, interfaces }) => {
+module.exports = ({ knex, queues, interfaces, logger }) => {
   const queue = queues('aggregator');
+
+  if (logger) {
+    logs.setModuleConfig(logger);
+  }
 
   queue.register({
     dispatch: dispatch.bind(null, { knex, queue }),

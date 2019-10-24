@@ -1,8 +1,7 @@
 'use strict';
 
 const ih = require('immutability-helper');
-
-const log = require('@openagenda/logs')('Aggregators/evaluateEvent');
+const Log = require('../utils/Log')('Aggregators/evaluateEvent');
 
 const convertTagsToSchemaOptionIds = require('../utils/convertTagsToSchemaOptionIds');
 const convertSchemaOptionIdsToTags = require('../utils/convertSchemaOptionIdsToTags');
@@ -17,7 +16,7 @@ module.exports = async ({
   enqueueRemove
 }, data) => {
   const { agenda, event, aggregatorAgendaUid, batched } = data;
-  log('evaluate %s of source %s (%s)', event.slug, agenda.slug, agenda.uid);
+  const log = Log(`${event.slug} of source ${agenda.slug} (${agenda.uid})`);
 
   const eventWithTags = ih(event, {
     tags: {
@@ -67,6 +66,7 @@ module.exports = async ({
 
   await referenceEvent(agenda, aggregatorAgendaUid, event.uid, extendedValues, { batched });
 
+  log('done');
   return {
     success: true,
     operation: 'aggregation'

@@ -1,11 +1,14 @@
 'use strict';
 
+const Log = require('../utils/Log')('Aggregators/addSource');
+
 module.exports = async ({
   getAgendaSourceId,
   addSourceEntry,
   getMergedSchema,
   enqueueLoadSourceEvaluates
 }, aggregatorAgenda, sourceAgenda, rules = [], options = {}) => {
+  const log = Log(`adding ${sourceAgenda.slug} to ${aggregatorAgenda.slug}`);
 
   const {
     evaluate
@@ -15,6 +18,7 @@ module.exports = async ({
   }
 
   if (await getAgendaSourceId(sourceAgenda, aggregatorAgenda)) {
+    log('already source, throwing error');
     throw new Error('Agenda is already source');
   }
 
@@ -24,7 +28,8 @@ module.exports = async ({
   } = await addSourceEntry(aggregatorAgenda, sourceAgenda, rules);
 
   if (evaluate) {
-    return await enqueueLoadSourceEvaluates({
+    log('evaluating and done');
+    return enqueueLoadSourceEvaluates({
       aggregatorAgendaUid: aggregatorAgenda.uid,
       aggregator,
       sourceAgenda,
@@ -33,4 +38,5 @@ module.exports = async ({
     });
   }
 
+  log('not evaluating, done.');
 }

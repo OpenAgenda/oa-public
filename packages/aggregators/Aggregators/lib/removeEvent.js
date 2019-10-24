@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('@openagenda/logs')('Aggregators/removeEvent');
+const Log = require('../utils/Log')('Aggregators/removeEvent');
 
 module.exports = async ({
   getEventReference,
@@ -14,16 +14,14 @@ module.exports = async ({
     batched
   } = data;
 
-  log('remove %s of source %s from %s', eventUid, sourceAgendaUid, aggregatorAgendaUid);
+  const log = Log(`event uid ${eventUid} of source agenda uid ${sourceAgendaUid} from aggregator agenda ${aggregatorAgendaUid}`);
 
   const reference = data.reference || await getEventReference(aggregatorAgendaUid, eventUid);
 
   if (!reference) {
-    log('did not find any reference of event %s to remove from aggregator %s', eventUid, aggregatorAgendaUid);
+    log('did not find reference in aggregator');
     return;
   }
-
-  log('reference sources: %j', reference.sourceAgendaUid);
 
   const update = reference.sourceAgendaUid.filter(uid => uid!==sourceAgendaUid);
 
@@ -34,4 +32,5 @@ module.exports = async ({
     log('other source references are present, current source ref must be removed');
     await unsetSourceUidOnExistingReference(aggregatorAgendaUid, eventUid, sourceAgendaUid);
   }
+  log('done');
 }
