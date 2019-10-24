@@ -19,18 +19,20 @@ module.exports = (schema, currentCategorySet = null) => {
 
   if (!field) {
     return {
-      categorySet: null,
-      messages: ['no category set field was found']
+      set: null,
+      messages: ['no category set field was found'],
+      fields: []
     }
   }
 
   return {
-    categorySet: {
+    set: {
       name: extractLabelString(field.label),
       required: !field.optional,
       categories: _defineCategories(field.schemaId, _.get(currentCategorySet, 'categories', []), field.options)
     },
-    messages
+    messages,
+    fields: [field]
   }
 }
 

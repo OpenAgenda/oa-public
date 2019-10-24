@@ -21,7 +21,7 @@ describe( '02 - utils - generateTagSet', () => {
           lable: 'Un'
         } ]
       } ]
-    } ).tagSet.groups.length.should.equal( 1 );
+    } ).set.groups.length.should.equal( 1 );
 
   } );
 
@@ -39,13 +39,13 @@ describe( '02 - utils - generateTagSet', () => {
           lable: 'Un'
         } ]
       } ]
-    } ).tagSet.groups.length.should.equal( 1 );
+    } ).set.groups.length.should.equal( 1 );
 
   } );
 
   it( 'does not consider field if origin is set to another value than "tags"', () => {
 
-    generateTagSet( {
+    should(generateTagSet( {
       fields: [ {
         field: 'nantes',
         label: 'Nantes',
@@ -58,7 +58,7 @@ describe( '02 - utils - generateTagSet', () => {
           lable: 'Un'
         } ]
       } ]
-    } ).tagSet.groups.length.should.equal( 0 );
+    } ).set).equal(null);
   } );
 
   it( 'matches a field with an existing tag group based on a monolingual label', () => {
@@ -87,9 +87,9 @@ describe( '02 - utils - generateTagSet', () => {
       } ]
     };
 
-    generateTagSet( schema, tagSet ).tagSet.groups.length.should.equal( 1 );
+    generateTagSet( schema, tagSet ).set.groups.length.should.equal( 1 );
 
-    generateTagSet( schema, tagSet ).tagSet.groups[ 0 ].name.should.equal( 'Nantes' );
+    generateTagSet( schema, tagSet ).set.groups[ 0 ].name.should.equal( 'Nantes' );
 
   } );
 
@@ -117,9 +117,9 @@ describe( '02 - utils - generateTagSet', () => {
       } ]
     };
 
-    generateTagSet( schema, tagSet ).tagSet.groups.length.should.equal( 1 );
+    generateTagSet( schema, tagSet ).set.groups.length.should.equal( 1 );
 
-    generateTagSet( schema, tagSet ).tagSet.groups[ 0 ].name.should.equal( 'Nantes' );
+    generateTagSet( schema, tagSet ).set.groups[ 0 ].name.should.equal( 'Nantes' );
 
   } );
 
@@ -146,9 +146,9 @@ describe( '02 - utils - generateTagSet', () => {
       } ]
     };
 
-    generateTagSet( schema, tagSet ).tagSet.groups.length.should.equal( 1 );
+    generateTagSet( schema, tagSet ).set.groups.length.should.equal( 1 );
 
-    generateTagSet( schema, tagSet ).tagSet.groups[ 0 ].name.should.equal( 'Londres' );
+    generateTagSet( schema, tagSet ).set.groups[ 0 ].name.should.equal( 'Londres' );
 
   } );
 
@@ -179,7 +179,7 @@ describe( '02 - utils - generateTagSet', () => {
       } ]
     };
 
-    generateTagSet( schema, tagSet ).tagSet.groups[ 0 ].tags[ 0 ].schemaOptionId.should.equal( '1.1' );
+    generateTagSet( schema, tagSet ).set.groups[ 0 ].tags[ 0 ].schemaOptionId.should.equal( '1.1' );
 
   } );
 
@@ -211,7 +211,7 @@ describe( '02 - utils - generateTagSet', () => {
       } ]
     };
 
-    generateTagSet( schema, tagSet ).tagSet.groups[ 0 ].tags[ 0 ].id.should.equal( 123 );
+    generateTagSet( schema, tagSet ).set.groups[ 0 ].tags[ 0 ].id.should.equal( 123 );
 
   } );
 
@@ -276,7 +276,7 @@ describe( '02 - utils - generateTagSet', () => {
       } ]
     };
 
-    generateTagSet( schema, tagSet ).tagSet.should.eql( {
+    generateTagSet( schema, tagSet ).set.should.eql( {
       groups: [ {
         "name": "Nantes",
         "required": true,
@@ -415,7 +415,7 @@ describe( '02 - utils - generateTagSet', () => {
       custom: null
     };
 
-    generateTagSet( schema ).tagSet.should.eql( {
+    generateTagSet( schema ).set.should.eql( {
       "groups": [ {
         "name": "Niveau scolaire",
         "tags": [

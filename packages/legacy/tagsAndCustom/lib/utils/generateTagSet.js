@@ -32,9 +32,9 @@ module.exports = ( schema, currentTagSet = null ) => {
   } );
 
   return {
-    tagSet: {
+    set: updatedGroups.length ? {
       groups: updatedGroups
-    },
+    } : null,
     messages,
     fields: tagSettableFields
   }

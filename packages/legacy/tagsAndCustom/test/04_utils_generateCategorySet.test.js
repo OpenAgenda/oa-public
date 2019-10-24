@@ -20,7 +20,7 @@ describe('04 - utils - generateCategorySet', () => {
           label: 'Un'
         }]
       }]
-    }).categorySet.categories.length.should.equal(1);
+    }).set.categories.length.should.equal(1);
   });
 
   it('does not consider field if origin is set to another value than "categories"', () => {
@@ -37,7 +37,7 @@ describe('04 - utils - generateCategorySet', () => {
           lable: 'Un'
         }]
       }]
-    }).categorySet).equal(null);
+    }).set).equal(null);
   });
 
   it('a pre-existing category is completed with a schemaOptionId key', () => {
@@ -65,7 +65,7 @@ describe('04 - utils - generateCategorySet', () => {
       } ]
     };
 
-    generateCategorySet(schema, categorySet).categorySet
+    generateCategorySet(schema, categorySet).set
       .categories[0].schemaOptionId.should.equal('1.1');
   });
 
@@ -95,7 +95,7 @@ describe('04 - utils - generateCategorySet', () => {
       }]
     };
 
-    generateCategorySet(schema, categorySet).categorySet
+    generateCategorySet(schema, categorySet).set
       .categories[0].id.should.equal(123);
   });
 
@@ -148,7 +148,7 @@ describe('04 - utils - generateCategorySet', () => {
       } ]
     };
 
-    generateCategorySet(schema, categorySet).categorySet.should.eql({
+    generateCategorySet(schema, categorySet).set.should.eql({
       "name": "Paris",
       "required": true,
       "categories": [{
@@ -214,7 +214,7 @@ describe('04 - utils - generateCategorySet', () => {
       custom: null
     };
 
-    generateCategorySet(schema).categorySet.should.eql({
+    generateCategorySet(schema).set.should.eql({
       "name": "Style musical",
       "categories": [{
         "label": "Style musical : A cappella",
