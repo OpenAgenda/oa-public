@@ -15,13 +15,14 @@ export default function wrapApp( app, options = {} ) {
   const {
     req,
     staticContext,
-    extractor
+    extractor,
+    extraProps
   } = options;
 
   const baseElement = (
     <ScrollToTop>
       <RouterTrigger trigger={triggerHooks}>
-        <Content />
+        <Content extraProps={extraProps} />
       </RouterTrigger>
     </ScrollToTop>
   );

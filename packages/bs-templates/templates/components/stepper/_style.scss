@@ -39,7 +39,8 @@
         border: 2px solid #7d7d7d;
         display: inline-block;
         text-align: center;
-        margin: 0 10px 10px auto;
+        //margin: 0 10px 10px auto;
+        margin: 0 10px 0 0;
         border-radius: 50%;
         background-color: white;
       }
@@ -58,7 +59,7 @@
           &:before {
 
             border-color: $oa-blue;
-          
+
           }
         }
 
@@ -95,7 +96,7 @@
 
 
 .stepper-gray-background {
- 
+
   .stepper-container {
 
     .stepper .step {

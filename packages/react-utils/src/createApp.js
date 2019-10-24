@@ -7,6 +7,7 @@ import apiClient from './apiClient';
 import createStore from './createStore';
 import clientMiddleware from './clientMiddleware';
 import makeTriggerHooks from './makeTriggerHooks';
+import ApiClientContext from './ApiClientContext';
 
 function getDefaultHistory( req ) {
   return req
@@ -17,7 +18,7 @@ function getDefaultHistory( req ) {
 export default function createApp( options ) {
   const {
     initialState,
-    Header,
+    layout,
     req,
     apiRoot,
     prefix,
@@ -28,12 +29,13 @@ export default function createApp( options ) {
 
   const client = apiClient( apiRoot, req );
   const history = options.history || getDefaultHistory( req );
+  const helpers = {};
   const store = createStore(
     getReducers,
     initialState,
     compose(
       applyMiddleware(
-        clientMiddleware( { client } ),
+        clientMiddleware( helpers ),
         // ... other middlewares ... (like redux-logger)
         ...reduxMiddleware
       ),
@@ -45,20 +47,22 @@ export default function createApp( options ) {
 
   const routes = getRoutes( prefix );
 
-  const helpers = {
+  Object.assign(helpers, {
     client,
     store,
     history,
     location: history.location
-  };
+  });
+
   const triggerHooks = makeTriggerHooks( { routes, history, helpers, req } );
 
-  const Content = () => (
+  const Content = React.memo(({ extraProps, switchProps }) => (
     <Provider store={store}>
-      {Header ? <Header history={history} /> : null}
-      {renderRoutes( routes )}
+      <ApiClientContext.Provider value={client}>
+        {renderRoutes( routes, extraProps, switchProps )}
+      </ApiClientContext.Provider>
     </Provider>
-  );
+  ));
 
   return {
     Content,
@@ -66,6 +70,7 @@ export default function createApp( options ) {
     store,
     history,
     routes,
-    triggerHooks
+    triggerHooks,
+    layout
   };
 }

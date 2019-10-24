@@ -10,16 +10,10 @@ import I18nContext from '../../contexts/I18nContext';
   lang: state.settings.lang
 }))
 export default class App extends Component {
-  constructor(props) {
-    super(props);
-
-    const { lang } = props;
-
-    this.i18nContextValue = {
-      lang,
-      getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, lang)
-    };
-  }
+  i18nContextValue = {
+    lang: this.props.lang,
+    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, this.props.lang)
+  };
 
   render() {
     const { route } = this.props;

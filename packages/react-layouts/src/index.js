@@ -1,5 +1,7 @@
 export Html from './Html';
-export Header from './Header';
-export HeaderManager from './HeaderManager';
-export HeaderSelector from './HeaderSelector';
-export MainHeader from './MainHeader';
+export Layout from './Layout';
+export LayoutManager from './LayoutManager';
+
+// layouts (not used from external)
+export MainLayout from './layouts/MainLayout';
+export AgendaAdminLayout from './layouts/AgendaAdminLayout';

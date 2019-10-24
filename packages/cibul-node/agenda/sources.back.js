@@ -1,116 +1,123 @@
 "use strict";
 
-const React = require( 'react' );
-const ReactDOM = require( 'react-dom/server' );
-const { parsePath } = require('history');
-const agendasSvc = require( '@openagenda/agendas' );
-const aggregatorSourcesSvc = require( '@openagenda/aggregator-sources' );
-const createApp  = require( '@openagenda/aggregator-sources/dist/client/app' );
-const wrapApp = require( '@openagenda/react-utils/dist/wrapApp' );
-const aggregatorSvc = require( '../services/aggregator' );
-const activitiesSvc = require( '../services/activities' );
-const cmn = require( '../lib/commons-app' );
-const config = require( '../config' );
-const layout = require( '../services/lib/layouts' ).load(
-  'agendaAdmin', { selectedTab: 'sources' }
-);
+const React = require('react');
+const agendasSvc = require('@openagenda/agendas');
+const aggregatorsSvc = require('../services/aggregator').instance;
+const activitiesSvc = require('../services/activities');
+const cmn = require('../lib/commons-app');
+const { parser: agendaAdminParser } = require('../services/lib/layouts/agendaAdmin');
 
 const sessions = require('../services/sessions');
 const members = require('../services/members');
 
-const mw = aggregatorSourcesSvc.mw;
+
+const throwUnauthorized = (req, res, next) => {
+  const error = new Error('Unauthorized');
+
+  error.statusCode = 401;
+  res.statusCode = 401;
+
+  next(error);
+};
+
+const checkUser = (req, res, next) => {
+  if (!req.user) {
+    const error = new Error('Unauthorized');
+
+    error.statusCode = 401;
+    res.statusCode = 401;
+
+    return next(error);
+  }
+
+  return next();
+};
 
 module.exports = app => {
   app.get(
-    '/:slug/admin/sources/agenda-sources.json',
-    sessions.mw.loadOrRedirect,
+    '/:slug/admin/sources/agenda.json',
+    sessions.mw.load,
+    checkUser,
     cmn.loadAgenda,
-    members.mw.loadAndAuthorize('administrator'),
-    mw.list.bind( null, { send: true } )
-  );
-
-  app.get(
-    '/agendas/:agendaUid/sources.json',
-    cmn.loadAgendaBy( { uid: 'agendaUid' } ),
-    mw.list.bind( null, { send: false } ),
-    ( req, res, next ) => res.json( {
-      total: req.result.total,
-      agendas: req.result.reviews
-    } )
+    members.mw.loadAndAuthorize('administrator', { or: throwUnauthorized }),
+    (req, res) => res.send(agendaAdminParser({
+      agenda: req.agenda,
+      role: req.member.role,
+      lang: req.lang
+    }))
   );
 
   app.get(
     '/:slug/admin/sources/remove',
-    sessions.mw.loadOrRedirect,
+    sessions.mw.load,
+    checkUser,
     cmn.loadAgenda,
-    members.mw.loadAndAuthorize('administrator'),
+    members.mw.loadAndAuthorize('administrator', { or: throwUnauthorized }),
     removeSource
   );
 
   app.get(
-    '/:slug/admin/sources',
-    sessions.mw.loadOrRedirect,
+    '/:slug/admin/sources/agenda-sources.json',
+    sessions.mw.load,
+    checkUser,
     cmn.loadAgenda,
-    members.mw.loadAndAuthorize('administrator'),
-    populateIsAggregator,
-    matchApp
+    members.mw.loadAndAuthorize('administrator', { or: throwUnauthorized }),
+    listSources
   );
 
+  // TODO security
   app.get(
-    '/:slug/admin/sources/?*?',
-    sessions.mw.loadOrRedirect,
-    cmn.loadAgenda,
-    members.mw.loadAndAuthorize('administrator'),
-    populateIsAggregator,
-    matchApp
+    '/agendas/:agendaUid/sources.json',
+    cmn.loadAgendaBy({ uid: 'agendaUid' }),
+    listSources
   );
 };
 
+async function listSources(req, res, next) {
+  try {
+    const sources = await aggregatorsSvc.sources.list(req.agenda, req.query.search, { detailed: true });
 
-function populateIsAggregator( req, res, next ) {
-
-  aggregatorSvc.isAggregator( req.agenda.id, ( err, isAggregator ) => {
-
-    if ( err ) return next( err );
-
-    req.isAggregator = isAggregator;
-    next();
-
-  } );
-
+    res.json({ sources });
+  } catch (e) {
+    next(e);
+  }
 }
 
-function removeSource( req, res, next ) {
-  aggregatorSourcesSvc( req.agenda.id ).remove( { uid: req.query.uid } )
-    .then( async result => {
-      res.send( result );
+async function removeSource(req, res, next) {
+  try {
+    const { user, member, agenda, source } = await loadNeeds(req);
+    const result = await aggregatorsSvc.sources.remove(agenda, source);
 
-      let entities = {};
+    res.json(result);
 
-      try {
-        const { user, member, agenda, source } = entities = await loadNeedsForActivity( req );
-
-        await addRemoveSourceActivity( { user, member, agenda, source } );
-      } catch ( e ) {
-        req.log( 'error', 'failed adding activity of type agenda.removeSource', { member: entities.member, exception: e } );
-      }
-    }, next );
+    try {
+      await addRemoveSourceActivity({ user, member, agenda, source });
+    } catch (e) {
+      req.log(
+        'error',
+        'failed adding activity of type agenda.removeSource',
+        { member, exception: e }
+      );
+    }
+  } catch (e) {
+    next(e);
+  }
 }
 
-async function loadNeedsForActivity( req ) {
-  const member = await members.get( {
+async function loadNeeds(req) {
+  const member = await members.get({
     agendaUid: req.agenda.uid,
     userUid: req.user.uid
-  } );
+  });
 
-  if ( !member ) {
-    throw new Error( 'Cannot found member' );
+  if (!member) {
+    throw new Error('Cannot found member');
   }
 
-  const source = await agendasSvc.get( { uid: req.query.uid }, { private: null } );
+  const source = await agendasSvc.get({ uid: req.query.uid }, { private: null, internal: true });
 
-  if ( !source ) {
-    throw new Error( 'Cannot found source agenda' );
+  if (!source) {
+    throw new Error('Cannot found source agenda');
   }
 
   return {
@@ -121,11 +128,11 @@ async function loadNeedsForActivity( req ) {
   };
 }
 
-function addRemoveSourceActivity( { user, member, agenda, source } ) {
-  activitiesSvc.feed( {
+function addRemoveSourceActivity({ user, member, agenda, source }) {
+  activitiesSvc.feed({
     entityType: 'agenda',
     entityUid: agenda.uid
-  } ).activities.add( {
+  }).activities.add({
     actor: 'user:' + user.uid,
     verb: 'agenda.removeSource',
     object: 'agenda:' + source.uid,
@@ -137,79 +144,5 @@ function addRemoveSourceActivity( { user, member, agenda, source } ) {
         target: agenda.title
       }
     }
-  } );
-}
-
-async function matchApp( req, res, next ) {
-
-  const prefix = `/${req.params.slug}/admin/sources`;
-  const lang = req.lang || 'fr';
-  const staticContext = {};
-  const reactApp = createApp( {
-    req,
-    initialState: {
-      settings: {
-        prefix,
-        lang,
-        apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: 20
-      },
-      res: {
-        list: `/${req.params.slug}/admin/sources/agenda-sources.json`,
-        show: req.genUrl( 'agendaShow', { slug: ':slug' } ).split( '?' )[ 0 ],
-        remove: `/${req.params.slug}/admin/sources/remove`,
-        search: req.genUrl( 'agendaSearch' ).split( '?' )[ 0 ],
-        createAggregator: req.genUrl( 'aggregatorCreate', { uid: ':uid' } ).split( '?' )[ 0 ]
-      },
-      agenda: {
-        uid: req.agenda.uid,
-        slug: req.agenda.slug,
-        title: req.agenda.title,
-        isAggregator: req.isAggregator
-      }
-    }
-  } );
-
-  const { triggerHooks, store, history } = reactApp;
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString( wrapApp( reactApp ) );
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if ( staticContext.status === 404 ) {
-      return next();
-    }
-
-    if ( staticContext.url ) {
-      return res.redirect( 302, staticContext.url );
-    }
-
-    const { pathname } = history.location;
-    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-      return res.redirect( 302, pathname );
-    }
-
-    return res.send( layout( `<div class="js_canvas">${content}</div>`, {
-      lang: req.lang,
-      agenda: req.agenda,
-      role: req.member.role,
-      bodyAttributes: [ {
-        name: 'data-options',
-        value: JSON.stringify( { initialState: state } )
-      } ],
-      scripts: {
-        bottom: [ { src: '/js/aggregatorSourcesIndex.js' } ]
-      }
-    } ) );
-
-  } catch ( e ) {
-    next( e );
-  }
-
+  });
 }

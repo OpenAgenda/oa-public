@@ -85,6 +85,22 @@ const initialState = req => ({
     res: {
       list: '/home/activities/list'
     }
+  },
+  aggregatorSources: {
+    settings: {
+      prefix: `/:slug/admin/sources`,
+      lang: req.lang,
+      apiRoot: `http://localhost:${config.port}`,
+      perPageLimit: 20
+    },
+    res: {
+      loadAgenda: '/:slug/admin/sources/agenda.json',
+      list: '/:slug/admin/sources/agenda-sources.json',
+      show: '/:slug',
+      remove: '/:slug/admin/sources/remove',
+      createAggregator:`${phpPrefix}/agenda/:uid/aggregator/create`,
+      agendaSearch: '/agendas'
+    }
   }
 });
 
@@ -95,11 +111,23 @@ module.exports = app => {
       path.dirname(require.resolve('@openagenda/react-integration-app/package.json')),
       'dist'
     )),
-    (req, res, next) => res.status(404).send(404) // if not, unhandled files will be handled by following routes
+    (req, res) => res.sendStatus(404) // if not, unhandled files will be handled by following routes
   );
 
   app.get(
-    ['/home', '/home/events', '/home/activities', '/settings/?*?', '/new'],
+    [
+      //home
+      '/home',
+      '/home/events',
+      '/home/activities',
+      // user-apps
+      '/settings/?*?',
+      // agenda-settings
+      '/new',
+      // aggregator-sources
+      '/:slug/admin/sources',
+      '/:slug/admin/sources/?*?'
+    ],
     cmn.loadLogger('webapp'),
     cmn.loadBaseData('oasfmain.css'),
     (req, res, next) => matchMw({

@@ -39,5 +39,6 @@ const asyncMatchRoutes = ( routes, pathname, { preloadPropName = 'preload', skip
 };
 
 asyncMatchRoutes.matchRoutes = matchRoutes;
+asyncMatchRoutes.getParams = getParams;
 
 export default asyncMatchRoutes;

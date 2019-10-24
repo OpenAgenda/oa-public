@@ -18,7 +18,7 @@ const defaults = {
 export default function ( options ) {
   const {
     initialState,
-    Header,
+    layout,
     req
   } = _.merge( {}, defaults, options );
 
@@ -27,7 +27,7 @@ export default function ( options ) {
   return createApp( {
     history: options.history,
     initialState,
-    Header,
+    layout,
     req,
     apiRoot,
     prefix,

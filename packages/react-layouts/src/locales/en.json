@@ -1,0 +1,12 @@
+{
+  "react-layouts.MainLayout.search": "Search",
+  "react-layouts.MainLayout.help": "Help",
+  "react-layouts.MainLayout.general": "General",
+  "react-layouts.MainLayout.myEvents": "My events",
+  "react-layouts.MainLayout.settings": "Settings",
+  "react-layouts.MainLayout.signout": "Signout",
+  "react-layouts.MainLayout.myAgendas": "My agendas",
+  "react-layouts.MainLayout.searchAgenda": "Search an agenda",
+  "react-layouts.MainLayout.createAgenda": "Create an agenda",
+  "react-layouts.MainLayout.signin": "Signin"
+}

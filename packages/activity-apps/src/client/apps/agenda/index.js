@@ -43,7 +43,7 @@ function getDefaultHistory( req ) {
 export default function ( options ) {
   const {
     initialState,
-    Header,
+    layout,
     req,
     notFoundKey = _.uniqueId( 'activityAppsAgenda' )
   } = _.merge( {}, defaults, options );
@@ -79,7 +79,6 @@ export default function ( options ) {
     <NotFound.Capture notFoundKey={notFoundKey}>
       <RouterTrigger trigger={triggerHooks}>
         <Provider store={store} context={ReactReduxContext}>
-          {Header ? <Header history={history} /> : null}
           {renderRoutes( routes )}
         </Provider>
       </RouterTrigger>
@@ -102,6 +101,7 @@ export default function ( options ) {
     element,
     notFoundKey,
     staticContext,
-    triggerHooks
+    triggerHooks,
+    layout
   };
 };

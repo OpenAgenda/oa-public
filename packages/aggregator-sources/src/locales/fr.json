@@ -1,0 +1,22 @@
+{
+  "aggregator-sources.AddSourceModal.addSource": "Ajouter une source",
+  "aggregator-sources.AddSourceModal.removeConfirmMessage": "Êtes-vous sûr de vouloir supprimer cet agenda des sources?",
+  "aggregator-sources.Dashboard.aggregatorExplanation": "Cette fonction permet de récupérer automatiquement les événements des agendas que vous aurez choisi.",
+  "aggregator-sources.Dashboard.createAggregator": "Activer l'agrégation d'agendas",
+  "aggregator-sources.Dashboard.sourcesHelp": "Cliquez ici pour en savoir plus",
+  "aggregator-sources.Dashboard.sourceAgendas": "Agendas sources",
+  "aggregator-sources.Dashboard.sourcesExplanation": "Les événements publiés par les agendas listés ici sont automatiquement ajoutés à l'agenda [{title}]({link}).",
+  "aggregator-sources.Dashboard.addSources": "Pour agréger de nouveaux agendas, [allez sur un agenda que vous souhaitez agréger]({searchLink}), puis cliquez sur Exporter > Agréger dans > **{agenda}**.",
+  "aggregator-sources.Dashboard.searchAgenda": "Rechercher un agenda",
+  "aggregator-sources.Dashboard.numberOfResults": "Nombre de résultats",
+  "aggregator-sources.Dashboard.noResult": "Aucun résultat trouvé",
+  "aggregator-sources.Dashboard.addASource": "Ajouter une source",
+  "aggregator-sources.RemoveModal.removeSource": "Retirer une source",
+  "aggregator-sources.RemoveModal.removeConfirmMessage": "Êtes-vous sûr de vouloir supprimer cet agenda des sources?",
+  "aggregator-sources.RemoveSourceModal.removeSource": "Retirer la source",
+  "aggregator-sources.RemoveSourceModal.removeConfirmMessage": "Les événements qui seront publiés dans l'agenda {agenda} ne seront plus agrégés.{br} Voulez-vous vraiment supprimer cet agenda des sources?",
+  "aggregator-sources.RemoveSourceModal.evaluateKeepEvents": "Oui, mais je veux garder les événements déjà agrégés",
+  "aggregator-sources.RemoveSourceModal.evaluateRemoveEvents": "Oui, et je veux aussi supprimer les événements déjà agrégés",
+  "aggregator-sources.SourcesList.officialAgenda": "Agenda officiel",
+  "aggregator-sources.UpdateSourceModal.updateSource": "Mettre à jour une source"
+}

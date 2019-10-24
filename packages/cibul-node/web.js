@@ -38,10 +38,10 @@ module.exports = app => {
   require( './agenda/embeds.back' )( app );
   require( './location/front' )( app );
   require( './agenda/customized.back' )( app );
+  require( './agenda/sources.back' )( app );
   require( './webapp' )( app );
   require( './location/back' )( app );
   require( './agenda/settings.back' )( app );
-  require( './agenda/sources.back' )( app );
   require( './services/members' )( app );
   require( './agenda/activities.back' )( app );
   require( './services/activities' )( app );

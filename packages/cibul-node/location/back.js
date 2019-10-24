@@ -144,7 +144,8 @@ module.exports = app => {
   app.get(
     '/:slug/admin/locations/verifycount',
     cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
+    sessions.mw.load,
+    checkUser,
     members.mw.loadAndAuthorize('moderator'),
     mw.getUnverifiedCount
   );
@@ -191,6 +192,19 @@ module.exports = app => {
   );
 
 }
+
+const checkUser = (req, res, next) => {
+  if (!req.user) {
+    const error = new Error('Unauthorized');
+
+    error.statusCode = 401;
+    res.statusCode = 401;
+
+    return next(error);
+  }
+
+  return next();
+};
 
 
 function show( req, res ) {

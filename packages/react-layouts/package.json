@@ -8,28 +8,37 @@
   ],
   "scripts": {
     "prepublish": "yarn clean && yarn build",
-    "build": "babel src -d dist -s",
+    "build": "babel --copy-files src -d dist -s",
+    "extract-messages": "node scripts/extract-messages.js",
     "clean": "rimraf build"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.6.3",
     "@openagenda/activity-apps": "^1.1.2",
+    "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-utils": "^4.0.0",
     "classnames": "^2.2.6",
     "core-js": "^3.2.1",
+    "react-intl": "^3.3.2",
+    "react-is": "^16.10.2",
     "react-outside-click-handler": "^1.3.0",
     "react-redux": "^7.1.1",
-    "redux": "^4.0.1"
+    "react-router-config": "^5.1.1",
+    "redux": "^4.0.1",
+    "shallowequal": "^1.1.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.3",
     "@babel/core": "^7.6.3",
+    "babel-plugin-react-intl": "^4.1.20",
     "babel-preset-openagenda": "^1.1.1",
+    "glob": "^7.1.3",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
     "rimraf": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^16.10.2"
+    "react": "^16.10.2",
+    "react-router-dom": "^5.0.0"
   }
 }

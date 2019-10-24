@@ -39,7 +39,7 @@ export default function apiClient( baseURL, req ) {
 
   instance.interceptors.response.use(
     response => response.data,
-    error => Promise.reject( error.response ? error.response.data : error )
+    error => Promise.reject( error.response && error.response.data ? error.response.data : error )
   );
 
   return instance;

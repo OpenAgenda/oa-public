@@ -5,12 +5,14 @@
 
 .aggregator-sources {
 
+  //position: relative;
+
   .search {
     width: 50%;
   }
 
   .agenda-item {
-    padding: 1em 20px;
+    padding: 1em 0;
 
     a {
       display: inline-block;
@@ -39,6 +41,16 @@
 
     .official i {
       vertical-align: middle;
+    }
+  }
+
+  .popup-overlay {
+    .stepper .step {
+      background-color: #eeeeee;
+    }
+
+    .search {
+      width: 100%;
     }
   }
 

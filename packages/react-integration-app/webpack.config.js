@@ -11,15 +11,13 @@ const TerserPlugin = require('terser-webpack-plugin');
 const S3Plugin = require('webpack-s3-plugin');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 
-const oaModulesToBuild = [
-  'activity-apps',
-  'agenda-settings',
-  'home',
-  'user-apps'
-];
 const modulesToInclude = [
   '@feathersjs',
-  `@openagenda\\/(?:${oaModulesToBuild.join('|')})`,
+  '@openagenda\\/activity-apps',
+  '@openagenda\\/agenda-settings',
+  '@openagenda\\/aggregator-sources',
+  '@openagenda\\/home',
+  '@openagenda\\/user-apps',
   'react-intl',
   'intl-messageformat',
   'intl-messageformat-parser'
@@ -49,8 +47,7 @@ module.exports = (env = {}, argv = {}) => {
       publicPath: pushToCDN
         ? '//d1771xfuxsyp4n.cloudfront.net/'// `https://s3.${region}.amazonaws.com/${bucket}/${serviceName}/`
         : `/dist/${serviceName}/`,
-      filename: envName === 'production' ? '[name].[contenthash:8].js' : '[name].js',
-      chunkFilename: envName === 'production' ? '[id].[contenthash:8].chunk.js' : '[name].chunk.js'
+      filename: '[id].[chunkhash].js'
     },
     module: {
       rules: [
@@ -66,7 +63,7 @@ module.exports = (env = {}, argv = {}) => {
           options: {
             cacheDirectory: process.env.DISABLE_WEBPACK_CACHE ? false : getCacheDir( 'babel-loader-dev' ),
             envName: babelEnvName,
-            cwd: path.join(__dirname, '../..')
+            rootMode: 'upward'
           }
         },
         {
@@ -92,6 +89,12 @@ module.exports = (env = {}, argv = {}) => {
       maxAssetSize: envName === 'production' ? 2000000 : Infinity
     },
     optimization: {
+      nodeEnv: envName,
+      runtimeChunk: true,
+      splitChunks: {
+        chunks: 'all',
+      },
+      moduleIds: 'hashed',
       minimize: envName === 'production',
       minimizer: [
         new TerserPlugin({
@@ -103,6 +106,7 @@ module.exports = (env = {}, argv = {}) => {
     },
     plugins: [
       // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
+      new (require('webpack-dashboard/plugin'))(),
       new ProgressBar({ minimal: false }),
       new CleanWebpackPlugin(),
       new webpack.DefinePlugin({

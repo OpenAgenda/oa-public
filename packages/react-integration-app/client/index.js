@@ -1,8 +1,8 @@
 import './polyfill';
 
+// import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as ReactIs from 'react-is';
 import { HelmetProvider } from 'react-helmet-async';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
@@ -12,14 +12,16 @@ import he from 'he';
 import { loadableReady } from '@loadable/component';
 import du from '@openagenda/dom-utils';
 import wrapApp from '@openagenda/react-utils/dist/wrapApp';
-import { HeaderManager, Header } from '@openagenda/react-layouts';
+import { LayoutManager } from '@openagenda/react-layouts/src';
 import createAppHome from '@openagenda/home/src/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp';
 import createActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
+import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
 import NotFound from './NotFound';
 import NotFoundDisplayer from './NotFoundDisplayer';
 import RootHelmet from '../RootHelmet';
+// import reflectStoresInLayout from '../reflectStoresInLayout';
 
 window.IScroll = IScroll;
 
@@ -36,31 +38,42 @@ const onLocationChangeFinish = () => NProgress.done();
 const apps = {
   home: createAppHome({
     history,
-    // Header: () => <HeaderSelector type="main" />,
-    initialState: initialState.home
+    initialState: initialState.home,
+    layout: 'main'
   }),
   userSettings: createAppUserSettings({
     history,
-    initialState: initialState.userSettings
+    initialState: initialState.userSettings,
+    layout: 'main'
   }),
   agendaSettingsNew: createAgendaSettingsNewApp({
     history,
-    initialState: initialState.agendaSettingsNew
+    initialState: initialState.agendaSettingsNew,
+    layout: 'main'
   }),
   userActivities: createActivitiesApp({
     history,
-    initialState: initialState.userActivities
+    initialState: initialState.userActivities,
+    layout: 'main'
+  }),
+  aggregatorSources: createAggregatorSourcesApp({
+    history,
+    initialState: initialState.aggregatorSources,
+    layout: 'agendaAdmin'
   })
 };
 
-const headerStore = HeaderManager.createStore(initialState.header);
-
+const layoutStore = LayoutManager.createStore(initialState.layout, history);
 
 loadableReady(async () => {
   // Trigger 'inject' before render, needed for the first render (in @connect)
   await Promise.all(
     Object.values(apps).map(app => app.triggerHooks({ hooks: ['inject'] }))
   );
+
+  // const unsubscribe = reflectStoresInLayout(_.mapValues(apps, 'store'), layoutStore);
+  //
+  // window.addEventListener('unload', () => unsubscribe);
 
   const triggerHooks = () => Promise.all(
     Object.values(apps).map(app => app.triggerHooks({
@@ -69,28 +82,19 @@ loadableReady(async () => {
     }))
   );
 
-  const Content = () => (
-    <>
-      {Object.values(apps)
-        .map(({ Content }, i) =>
-          ReactIs.isValidElementType(Content) ? <Content key={i} /> : Content
-        )}
-
+  const Content = React.memo(() => (
+    <LayoutManager store={layoutStore} apps={apps}>
       <NotFoundDisplayer history={history} apps={apps}>
         <NotFound />
       </NotFoundDisplayer>
-    </>
-  );
+    </LayoutManager>
+  ));
 
   const element = (
     <HelmetProvider>
       <RootHelmet />
 
-      <HeaderManager store={headerStore}>
-        <Header history={history} />
-
-        {wrapApp({ Content, history, triggerHooks })}
-      </HeaderManager>
+      {wrapApp({ Content, history, triggerHooks })}
     </HelmetProvider>
   );
 

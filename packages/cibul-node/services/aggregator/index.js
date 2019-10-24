@@ -99,7 +99,8 @@ module.exports = {
           getAgendasByUidsAndSearch: (agendaUids, search = null) => agendas.list({
             uid: agendaUids,
             ...(search ? { search } : {})
-          }, 0, 200).then(({ agendas }) => agendas.map(a => _.pick(a, ['uid','title', 'image'])))
+          }, 0, 200, { includeImagePath: true })
+            .then(({ agendas }) => agendas.map(a => _.pick(a, ['id', 'uid', 'slug', 'title', 'image'])))
         }
       })
     );

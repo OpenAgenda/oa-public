@@ -1,0 +1,10 @@
+{
+  "agendas": [
+    {
+      "uid": 12345678,
+      "title": "Un titre",
+      "slug": "un-titre",
+      "image": "https://cibul.s3.amazonaws.com/agenda94371477.jpg"
+    }
+  ]
+}

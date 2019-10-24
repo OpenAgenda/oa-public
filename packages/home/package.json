@@ -11,7 +11,7 @@
   "license": "ISC",
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/home",
   "scripts": {
-    "start": "NODE_ENV=development STORYBOOK_API_PORT=3000 start-storybook -p 9001",
+    "start": "NODE_ENV=development start-storybook -p 9001",
     "build": "babel src -d dist -s",
     "clean": "rimraf dist",
     "prepublish": "yarn clean && yarn build"

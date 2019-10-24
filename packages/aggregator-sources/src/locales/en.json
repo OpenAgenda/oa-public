@@ -1,0 +1,22 @@
+{
+  "aggregator-sources.AddSourceModal.addSource": "Add a source",
+  "aggregator-sources.AddSourceModal.removeConfirmMessage": "Are you sure you want to delete this agenda from sources ?",
+  "aggregator-sources.Dashboard.aggregatorExplanation": "This feature allows you to automatically fetch the events added to the agendas of your choice.",
+  "aggregator-sources.Dashboard.createAggregator": "Activate agenda aggregation",
+  "aggregator-sources.Dashboard.sourcesHelp": "Click here to find out more about aggregations",
+  "aggregator-sources.Dashboard.sourceAgendas": "Source agendas",
+  "aggregator-sources.Dashboard.sourcesExplanation": "The events published by the agendas listed here are automatically added to the [{title}]({link}) agenda.",
+  "aggregator-sources.Dashboard.addSources": "To aggregate new agendas, [go to the page of the agenda](%searchLink%) you wish to add and click on Export > Aggregate in > **{agenda}**",
+  "aggregator-sources.Dashboard.searchAgenda": "Search an agenda",
+  "aggregator-sources.Dashboard.numberOfResults": "Number of results",
+  "aggregator-sources.Dashboard.noResult": "No result found",
+  "aggregator-sources.Dashboard.addASource": "Add a source",
+  "aggregator-sources.RemoveModal.removeSource": "Remove source",
+  "aggregator-sources.RemoveModal.removeConfirmMessage": "Are you sure you want to delete this agenda from sources ?",
+  "aggregator-sources.RemoveSourceModal.removeSource": "Remove source",
+  "aggregator-sources.RemoveSourceModal.removeConfirmMessage": "Events that will be published on the agenda {agenda} will no longer be aggregated.{br} Are you sure you want to delete this agenda from sources ?",
+  "aggregator-sources.RemoveSourceModal.evaluateKeepEvents": "Yes, but I want to keep events already aggregated",
+  "aggregator-sources.RemoveSourceModal.evaluateRemoveEvents": "Yes, and I also want to remove already aggregated events",
+  "aggregator-sources.SourcesList.officialAgenda": "Official agenda",
+  "aggregator-sources.UpdateSourceModal.updateSource": "Update a source"
+}

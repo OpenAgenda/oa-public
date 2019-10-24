@@ -7,5 +7,13 @@
       }
     ]
   ],
+  "plugins": [
+    [
+      "react-intl",
+      {
+        "messagesDir": "./dist/messages/"
+      }
+    ]
+  ],
   "sourceType": "unambiguous"
 }

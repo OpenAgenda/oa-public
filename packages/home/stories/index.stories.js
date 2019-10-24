@@ -63,7 +63,7 @@ storiesOf('App', module)
 
     return wrapApp(createApp({
       history: createMemoryHistory(),
-      initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
+      initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}` })
     }))
   })
   .add('with search query', () => {
@@ -71,6 +71,6 @@ storiesOf('App', module)
 
     return wrapApp(createApp({
       history: createMemoryHistory({ initialEntries: ['/?search=Paris'] }),
-      initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_API_PORT}` })
+      initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}` })
     }))
   });

@@ -275,6 +275,12 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
 
 }
 
+.btn-link-inline {
+  @extend .btn-link;
+
+  padding: 0;
+}
+
 .oa-col-canvas {
 
   max-width: 680px;
@@ -298,4 +304,16 @@ a.discreet {
 
   }
 
+}
+
+.btn-link {
+  @each $name, $color in (success: $brand-success, info: $brand-info, warning: $brand-warning, danger: $brand-danger) {
+    &.text-#{$name} {
+      color: darken($color, 10%) !important;
+
+      &:hover, &:focus {
+        text-decoration: underline darken($color, 10%) !important;
+      }
+    }
+  }
 }

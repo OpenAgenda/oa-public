@@ -48,14 +48,10 @@ export default function makeTriggerHooks( { routes, history, helpers, req } ) {
       start();
     }
 
-    const triggerLocals = {
-      ...helpers,
-      match,
-      params
-    };
+    Object.assign(helpers, { match, params });
 
     if ( hooks.includes( 'inject' ) ) {
-      await trigger( 'inject', components, triggerLocals );
+      await trigger( 'inject', components, helpers );
     }
 
     // Don't fetch data for initial route, server has already done the work:
@@ -64,11 +60,11 @@ export default function makeTriggerHooks( { routes, history, helpers, req } ) {
       delete window.__PRELOADED__;
     } else if ( hooks.includes( 'fetch' ) ) {
       // Fetch mandatory data dependencies for 2nd route change onwards:
-      await trigger( 'fetch', components, triggerLocals );
+      await trigger( 'fetch', components, helpers );
     }
 
     if ( typeof window !== 'undefined' && hooks.includes( 'defer' ) ) {
-      await trigger( 'defer', components, triggerLocals );
+      await trigger( 'defer', components, helpers );
     }
 
     isFinished = true;

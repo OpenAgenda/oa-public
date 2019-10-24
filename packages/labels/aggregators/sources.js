@@ -85,6 +85,12 @@ module.exports = {
     "de": "% Source% wurde von den Quellen %agg% entfernt.",
     "es": "%source% fue retirado fuentes agg."
   },
+  "numberOfResults": {
+    "fr": "Nombre de résultats",
+    "en": "Number of results",
+    "de": "Anzahl der Ergebnisse",
+    "es": "Numero de resultados"
+  },
   "totalSources": {
     "fr": "Total des sources",
     "en": "Total sources",

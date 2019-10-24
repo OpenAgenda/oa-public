@@ -2,7 +2,6 @@
 
 import React, { Component } from 'react';
 import { provideHooks } from 'redial';
-import hoistNonReactStatics from 'hoist-non-react-statics';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
@@ -14,6 +13,7 @@ import { Button, DropdownButton, MenuItem } from 'react-bootstrap';
 import { Base64 } from 'js-base64';
 import qs from 'qs';
 
+import withContext from '@openagenda/react-utils/dist/withContext';
 import getRoleSlug from '@openagenda/members/build/getRoleSlug';
 import monitorBottomHit from '@openagenda/dom-utils/monitorBottomHit';
 import Modal from '@openagenda/react-components/build/Modal';
@@ -747,11 +747,4 @@ class Dashboard extends Component {
   }
 }
 
-export default hoistNonReactStatics(
-  props => (
-    <I18nContext.Consumer>
-      {i18n => <Dashboard {...props} i18n={i18n} />}
-    </I18nContext.Consumer>
-  ),
-  Dashboard
-);
+export default withContext(I18nContext, 'i18n')(Dashboard);

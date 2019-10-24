@@ -44,6 +44,7 @@ export default function ( options = {} ) {
 
   const client = apiClient( apiRoot, req );
   const history = options.history || createMemoryHistory();
+  const helpers = {};
   const store = createStore(
     getReducers,
     initialState,
