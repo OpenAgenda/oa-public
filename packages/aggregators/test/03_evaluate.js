@@ -134,18 +134,17 @@ describe( 'evaluateRules', () => {
 
   } );
 
-  describe( 'location evaluate', async () => {
+  describe('location evaluate', async () => {
 
-    it( 'if one location evaluated field does not match, the rule does not match', () => {
-
-      const rules = [ {
+    it('if one location evaluated field does not match, the rule does not match', () => {
+      const rules = [{
         query: {
           location: {
             region: 'Ile-de-France',
             city: 'Courbevoie'
           }
         }
-      } ];
+      }];
 
       const data = {
         location: {
@@ -155,20 +154,18 @@ describe( 'evaluateRules', () => {
         }
       };
 
-      should( evaluate( rules, data ) ).equal( null );
+      should(evaluate(rules, data)).equal(null);
+    });
 
-    } );
-
-    it( 'evaluation passes if all specified location fields pass', () => {
-
-      const rules = [ {
+    it('evaluation passes if all specified location fields pass', () => {
+      const rules = [{
         query: {
           location: {
             region: 'Ile-de-France',
             city: 'Paris'
           }
         }
-      } ];
+      }];
 
       const data = {
         location: {
@@ -178,21 +175,19 @@ describe( 'evaluateRules', () => {
         }
       };
 
-      should( evaluate( rules, data ) ).eql( data );
-
+      should(evaluate(rules, data)).eql(data);
     } );
 
-    it( 'when multiple locations are specified in the same rule, operand is OR', () => {
-
-      const rules = [ {
+    it('when multiple locations are specified in the same rule, operand is OR', () => {
+      const rules = [{
         query: {
-          location: [ {
+          location: [{
             city: 'Bordeaux'
           }, {
             city: 'Toulouse'
-          } ]
+          }]
         }
-      } ];
+      }];
 
       const data = {
         location: {
@@ -200,9 +195,26 @@ describe( 'evaluateRules', () => {
         }
       };
 
-      evaluate( rules, data ).should.eql( data );
+      evaluate(rules, data).should.eql(data);
+    });
 
-    } );
+    it('multiple values can be specified in the same filter field for an OR evaluation', () => {
+      const rules = [{
+        query: {
+          location: {
+            city: ['Bordeaux', 'Toulouse']
+          }
+        }
+      }];
+
+      const data = {
+        location: {
+          city: 'Toulouse'
+        }
+      };
+
+      evaluate(rules, data).should.eql(data);
+    });
 
   } );
 
