@@ -7,8 +7,7 @@ import { Waypoint } from 'react-waypoint';
 import Modal from '@openagenda/react-components/build/Modal';
 import Image from '@openagenda/react-components/build/Image';
 import Spinner from '@openagenda/react-components/build/Spinner';
-// import * as sourcesActions from '../reducers/sources';
-import Stepper from '../components/Stepper';
+import Stepper from './Stepper';
 import AgendasSearch from './AgendasSearch';
 import SlugSearch from './SlugSearch';
 import DefineRules from './DefineRules';
@@ -21,6 +20,38 @@ const messages = defineMessages({
   removeConfirmMessage: {
     id: 'aggregator-sources.AddSourceModal.removeConfirmMessage',
     defaultMessage: 'Are you sure you want to delete this agenda from sources ?'
+  },
+  official: {
+    id: 'aggregator-sources.AddSourceModal.official',
+    defaultMessage: 'Official'
+  },
+  private: {
+    id: 'aggregator-sources.AddSourceModal.private',
+    defaultMessage: 'Private'
+  },
+  alreadyInSources: {
+    id: 'aggregator-sources.AddSourceModal.alreadyInSources',
+    defaultMessage: 'Already in sources'
+  },
+  selectAgenda: {
+    id: 'aggregator-sources.AddSourceModal.selectThisAgenda',
+    defaultMessage: 'Select this agenda'
+  },
+  defineRules: {
+    id: 'aggregator-sources.AddSourceModal.defineRules',
+    defaultMessage: 'Define rules'
+  },
+  or: {
+    id: 'aggregator-sources.AddSourceModal.or',
+    defaultMessage: 'or'
+  },
+  enterALink: {
+    id: 'aggregator-sources.AddSourceModal.enterALink',
+    defaultMessage: 'Enter an agenda link'
+  },
+  makeASearch: {
+    id: 'aggregator-sources.AddSourceModal.makeASearch',
+    defaultMessage: 'Make a search'
   }
 });
 
@@ -60,6 +91,7 @@ function stepsReducer(state, action) {
 }
 
 function AgendaItem({ agenda, sources, onSelect }) {
+  const intl = useIntl();
   const onAgendaClick = useCallback(() => onSelect(agenda), [onSelect, agenda]);
 
   return (
@@ -84,7 +116,9 @@ function AgendaItem({ agenda, sources, onSelect }) {
                 <i />
                 <div className="tooltip right" role="tooltip">
                   <div className="tooltip-arrow" />
-                  <div className="tooltip-inner">Officiel</div>
+                  <div className="tooltip-inner">
+                    {intl.formatMessage(messages.official)}
+                  </div>
                 </div>
               </span>
             )}
@@ -95,21 +129,23 @@ function AgendaItem({ agenda, sources, onSelect }) {
               <i className="fa fa-unlock-alt" />
               <div className="tooltip right" role="tooltip">
                 <div className="tooltip-arrow" />
-                <div className="tooltip-inner">Privé</div>
+                <div className="tooltip-inner">
+                  {intl.formatMessage(messages.private)}
+                </div>
               </div>
             </div>
           )}
         </div>
 
         {sources.some(source => source.agenda.uid === agenda.uid) ? (
-          <em>Déjà dans les sources</em>
+          <em>{intl.formatMessage(messages.alreadyInSources)}</em>
         ) : (
           <button
             type="button"
             className="btn btn-link-inline"
             onClick={onAgendaClick}
           >
-            Sélectionner cet agenda
+            {intl.formatMessage(messages.selectAgenda)}
           </button>
         )}
       </div>
@@ -117,11 +153,13 @@ function AgendaItem({ agenda, sources, onSelect }) {
   );
 }
 
-function SubmitButton({ handleSubmit, ruleAdditionMode }) {
-  return ruleAdditionMode ? null : (
+function SubmitButton({ handleSubmit }) {
+  const intl = useIntl();
+
+  return (
     <div className="text-center">
       <button onClick={handleSubmit} type="button" className="btn btn-primary">
-        Ajouter la source
+        {intl.formatMessage(messages.addSource)}
       </button>
     </div>
   );
@@ -152,19 +190,19 @@ export default function AddSourceModal({ onSubmit, onClose }) {
       steps: [
         {
           key: 'selectAgenda',
-          label: 'Sélectionner un agenda',
+          label: intl.formatMessage(messages.selectAgenda),
           display: true,
           active: true
         },
         {
           key: 'defineRules',
-          label: 'Définir des règles',
+          label: intl.formatMessage(messages.defineRules),
           display: true
         }
       ],
       selected: 'selectAgenda'
     }),
-    []
+    [intl]
   );
   const [stepsState, stepsDispatch] = useReducer(
     stepsReducer,
@@ -205,7 +243,7 @@ export default function AddSourceModal({ onSubmit, onClose }) {
           {form}
 
           <p>
-              ou{' '}
+            {intl.formatMessage(messages.or)}{' '}
             <button
               type="button"
               className="btn-link-inline"
@@ -213,7 +251,7 @@ export default function AddSourceModal({ onSubmit, onClose }) {
               onClick={toggleSelectType}
               onKeyPress={toggleSelectType}
             >
-                saisir un lien
+              {intl.formatMessage(messages.enterALink)}
             </button>
           </p>
 
@@ -248,7 +286,7 @@ export default function AddSourceModal({ onSubmit, onClose }) {
           {form}
 
           <p>
-              ou{' '}
+            {intl.formatMessage(messages.or)}{' '}
             <button
               type="button"
               className="btn-link-inline"
@@ -256,7 +294,7 @@ export default function AddSourceModal({ onSubmit, onClose }) {
               onClick={toggleSelectType}
               onKeyPress={toggleSelectType}
             >
-                effectuer une recherche
+              {intl.formatMessage(messages.makeASearch)}
             </button>
           </p>
 

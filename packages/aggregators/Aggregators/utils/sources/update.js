@@ -10,7 +10,7 @@ module.exports = async (knex, aggregatorAgenda, source, sourceRules = []) => {
   }
 
   await knex('aggregator_source').update({
-    store: JSON.stringify(sourceRules),
+    store: JSON.stringify({ rules: sourceRules }),
     updated_at: new Date()
   }).where({
     review_id: source.agenda.id,

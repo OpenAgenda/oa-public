@@ -8,6 +8,10 @@ const messages = defineMessages({
   removeSource: {
     id: 'aggregator-sources.RemoveSourceModal.removeSource',
     defaultMessage: 'Remove source'
+  },
+  cancel: {
+    id: 'aggregator-sources.RemoveSourceModal.cancel',
+    defaultMessage: 'Cancel'
   }
 });
 
@@ -78,7 +82,7 @@ export default function RemoveSourceModal({ onRemove, onClose }) {
 
             <div className="pull-left">
               <button type="button" className="btn btn-link" onClick={onClose}>
-                Annuler
+                {intl.formatMessage(messages.cancel)}
               </button>
             </div>
             <div className="text-right">

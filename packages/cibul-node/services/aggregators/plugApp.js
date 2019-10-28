@@ -1,6 +1,5 @@
 'use strict';
 
-const legacyRemoveSource = require('./middleware/legacyRemoveSource');
 const bodyParser = require('body-parser');
 
 module.exports = (config, parentApp) => {
@@ -73,9 +72,4 @@ module.exports = (config, parentApp) => {
         agendas: sources.map(source => source.agenda)
       }), next)
   );
-
-  parentApp.get('/:slug/admin/sources/remove',
-    legacyRemoveSource.bind(null, parentApp.services)
-  );
-
 }

@@ -52,7 +52,7 @@ module.exports = {
   task,
   init,
   plugApp: plugApp.bind(null, config)
-}
+};
 
 function init(config, services) {
   Object.assign(
@@ -166,11 +166,9 @@ async function enqueueEvaluate( method, eventUid, sourceAgendaUid, aggregatorAge
 
   const event = await config.knex('event')
     .first([ 'id' ])
-    .where({ uid: eventUid })
+    .where({ uid: eventUid });
 
   const sourceAgenda = await interfaces.getAgenda( sourceAgendaUid );
-
-  const aggregatorAgenda = await interfaces.getAgenda( aggregatorAgendaUid );
 
   if ( !event ) log( 'error', 'enqueue: event %s was not found', eventUid );
 

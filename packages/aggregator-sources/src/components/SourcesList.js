@@ -10,6 +10,14 @@ const messages = defineMessages({
   officialAgenda: {
     id: 'aggregator-sources.SourcesList.officialAgenda',
     defaultMessage: 'Official agenda'
+  },
+  update: {
+    id: 'aggregator-sources.SourcesList.update',
+    defaultMessage: 'Update'
+  },
+  remove: {
+    id: 'aggregator-sources.SourcesList.remove',
+    defaultMessage: 'Remove'
   }
 });
 
@@ -64,17 +72,17 @@ function SourceItem({ source }) {
         <div className="actions">
           <button
             type="button"
-            onClick={showModalRemove}
-            className="btn btn-link-inline text-danger"
-          >
-            Retirer
-          </button>{' '}
-          <button
-            type="button"
             onClick={showModalUpdate}
             className="btn btn-link-inline"
           >
-            Modifier
+            {intl.formatMessage(messages.update)}
+          </button>{' '}
+          <button
+            type="button"
+            onClick={showModalRemove}
+            className="btn btn-link-inline text-danger"
+          >
+            {intl.formatMessage(messages.remove)}
           </button>
         </div>
       </div>

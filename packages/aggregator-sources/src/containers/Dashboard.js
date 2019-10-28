@@ -12,10 +12,10 @@ import * as agendaActions from '../reducers/agenda';
 import * as modalsActions from '../reducers/modals';
 import * as sourcesActions from '../reducers/sources';
 import SearchInput from '../components/SearchInput';
-import SourcesList from './SourcesList';
-import AddSourceModal from './AddSourceModal';
-import UpdateSourceModal from './UpdateSourceModal';
-import RemoveSourceModal from './RemoveSourceModal';
+import SourcesList from '../components/SourcesList';
+import AddSourceModal from '../components/AddSourceModal';
+import UpdateSourceModal from '../components/UpdateSourceModal';
+import RemoveSourceModal from '../components/RemoveSourceModal';
 
 const messages = defineMessages({
   aggregatorExplanation: {
@@ -127,25 +127,31 @@ function Dashboard({ agenda, history }) {
     [value, debouncedSearch]
   );
 
+  const refresh = useCallback(() => search(value), [search, value]);
+
   const addSource = useCallback(
-    (sourceAgenda, rules) => dispatch(sourcesActions.add(sourceAgenda, rules)).then(() => {
+    (sourceAgenda, rules) => dispatch(sourcesActions.add(sourceAgenda.uid, { rules })).then(() => {
       closeModalAddSource();
 
-      return search(value);
+      return refresh();
     }),
-    [closeModalAddSource, dispatch, search, value]
+    [dispatch, closeModalAddSource, refresh]
   );
   const updateSource = useCallback(
-    (source, rules) => dispatch(sourcesActions.update(source.id, { rules })),
-    [dispatch]
+    (source, rules) => dispatch(sourcesActions.update(source.id, { rules })).then(() => {
+      closeModalUpdateSource();
+
+      return refresh();
+    }),
+    [dispatch, closeModalUpdateSource, refresh]
   );
   const removeSource = useCallback(
     (source, evaluate) => dispatch(sourcesActions.remove(source.id, { evaluate })).then(() => {
       closeModalRemoveSource();
 
-      return search(value);
+      return refresh();
     }),
-    [closeModalRemoveSource, dispatch, search, value]
+    [dispatch, closeModalRemoveSource, refresh]
   );
 
   if (loading) {

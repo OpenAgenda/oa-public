@@ -4,7 +4,7 @@ import { Form, Field } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
 import useApiClient from '@openagenda/react-utils/dist/useApiClient';
 import useAgendasSearch from '../hooks/useAgendasSearch';
-import SearchInput from '../components/SearchInput';
+import SearchInput from './SearchInput';
 
 const messages = defineMessages({
   searchAgenda: {

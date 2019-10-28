@@ -4,11 +4,11 @@ import { Form, Field } from 'react-final-form';
 import { defineMessages, useIntl } from 'react-intl';
 import useApiClient from '@openagenda/react-utils/dist/useApiClient';
 import useSlugSearch from '../hooks/useSlugSearch';
-import SearchInput from '../components/SearchInput';
+import SearchInput from './SearchInput';
 
 const messages = defineMessages({
   enterLink: {
-    id: 'aggregator-sources.SlugSearch.searchAgenda',
+    id: 'aggregator-sources.SlugSearch.enterLink',
     defaultMessage: 'Enter an agenda page link'
   }
 });

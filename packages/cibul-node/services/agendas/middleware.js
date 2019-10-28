@@ -19,6 +19,6 @@ function loadBy(agendasSvc, { path, field, target }) {
       if (!agenda) return next({ code: 404 });
       req[target || 'agenda'] = agenda;
       next();
-    });
+    }, next);
   }
 }

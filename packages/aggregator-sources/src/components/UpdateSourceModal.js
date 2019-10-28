@@ -11,11 +11,13 @@ const messages = defineMessages({
   }
 });
 
-function SubmitButton({ handleSubmit, ruleAdditionMode }) {
-  return ruleAdditionMode ? null : (
+function SubmitButton({ handleSubmit }) {
+  const intl = useIntl();
+
+  return (
     <div className="text-center">
       <button onClick={handleSubmit} type="button" className="btn btn-primary">
-        Modifier la source
+        {intl.formatMessage(messages.updateSource)}
       </button>
     </div>
   );
@@ -37,9 +39,9 @@ export default function UpdateSourceModal({ onSubmit, onClose }) {
     <Modal title={intl.formatMessage(messages.updateSource)} onClose={onClose}>
       <div className="margin-v-sm">
         <DefineRules
-          SubmitButton={SubmitButton}
           initialRules={data.source.rules}
           onSubmit={handleSubmit}
+          SubmitButton={SubmitButton}
         />
       </div>
     </Modal>

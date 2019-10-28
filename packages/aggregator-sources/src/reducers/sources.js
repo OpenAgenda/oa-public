@@ -107,14 +107,14 @@ export function list(query) {
   };
 }
 
-export function add(sourceAgenda, rules) {
+export function add(agendaUid, { rules }) {
   return {
     types: [ADD, ADD_SUCCESS, ADD_FAIL],
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
       return client.post(res.add.replace(':slug', params.slug), {
-        agendaUid: sourceAgenda.uid,
+        agendaUid,
         rules
       });
     }
