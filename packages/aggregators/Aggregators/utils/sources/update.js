@@ -2,7 +2,7 @@
 
 const getAggregator = require('../getAggregator');
 
-module.exports = async (knex, aggregatorAgenda, sourceAgenda, sourceRules = []) => {
+module.exports = async (knex, aggregatorAgenda, source, sourceRules = []) => {
   const aggregator = await getAggregator(knex, aggregatorAgenda);
 
   if (!aggregator) {
@@ -13,14 +13,14 @@ module.exports = async (knex, aggregatorAgenda, sourceAgenda, sourceRules = []) 
     store: JSON.stringify(sourceRules),
     updated_at: new Date()
   }).where({
-    review_id: sourceAgenda.id,
+    review_id: source.agenda.id,
     aggregator_id: aggregator.id
   });
 
   return {
     aggregator,
     source: {
-      id: sourceId,
+      id: source.id,
       rules: sourceRules
     }
   }

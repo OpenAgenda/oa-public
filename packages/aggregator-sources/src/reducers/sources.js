@@ -4,6 +4,12 @@ const LOAD_FAIL = 'aggregator-sources/sources/LOAD_FAIL';
 const LIST = 'aggregator-sources/sources/LIST';
 const LIST_SUCCESS = 'aggregator-sources/sources/LIST_SUCCESS';
 const LIST_FAIL = 'aggregator-sources/sources/LIST_FAIL';
+const ADD = 'aggregator-sources/sources/ADD';
+const ADD_SUCCESS = 'aggregator-sources/sources/ADD_SUCCESS';
+const ADD_FAIL = 'aggregator-sources/sources/ADD_FAIL';
+const UPDATE = 'aggregator-sources/sources/UPDATE';
+const UPDATE_SUCCESS = 'aggregator-sources/sources/UPDATE_SUCCESS';
+const UPDATE_FAIL = 'aggregator-sources/sources/UPDATE_FAIL';
 const REMOVE = 'aggregator-sources/sources/REMOVE';
 const REMOVE_SUCCESS = 'aggregator-sources/sources/REMOVE_SUCCESS';
 const REMOVE_FAIL = 'aggregator-sources/sources/REMOVE_FAIL';
@@ -59,7 +65,6 @@ export default function reducer(state = initialState, action) {
     case REMOVE_SUCCESS:
       return {
         ...state,
-        data: state.data.filter(v => v.uid !== action.uid),
         removeError: null,
         removeLoading: false
       };
@@ -102,16 +107,48 @@ export function list(query) {
   };
 }
 
-export function remove(uid, { evaluate }) {
+export function add(sourceAgenda, rules) {
   return {
-    types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
-    uid,
+    types: [ADD, ADD_SUCCESS, ADD_FAIL],
     promise: ({ client, params }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.remove.replace(':slug', params.slug), {
+      return client.post(res.add.replace(':slug', params.slug), {
+        agendaUid: sourceAgenda.uid,
+        rules
+      });
+    }
+  };
+}
+
+export function update(id, { rules }) {
+  return {
+    types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
+    promise: ({ client, params }, { getState }) => {
+      const { res } = getState();
+
+      const url = res.update
+        .replace(':slug', params.slug)
+        .replace(':sourceId', id);
+
+      return client.put(url, { rules });
+    }
+  };
+}
+
+export function remove(id, { evaluate }) {
+  return {
+    types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
+    id,
+    promise: ({ client, params }, { getState }) => {
+      const { res } = getState();
+
+      const url = res.remove
+        .replace(':slug', params.slug)
+        .replace(':sourceId', id);
+
+      return client.delete(url, {
         params: {
-          uid,
           evaluate
         }
       });

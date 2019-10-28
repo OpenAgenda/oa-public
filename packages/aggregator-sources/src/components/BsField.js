@@ -1,6 +1,7 @@
 import React from 'react';
+import classNames from 'classnames';
 
-export default function Input({
+export default function BsField({
   children,
   input: { name, value },
   label,
@@ -20,9 +21,10 @@ export default function Input({
 
   return (
     <div
-      className={`form-group ${classNameGroup} ${
-        displayError && error ? 'has-error has-feedback' : ''
-      }`}
+      className={classNames(
+        { 'has-error has-feedback': displayError && error },
+        classNameGroup
+      )}
     >
       {label && <label htmlFor={name}>{label}</label>}
       {subLabel}
@@ -33,7 +35,7 @@ export default function Input({
         </span>
       )}
       {displayError && error && (
-        <div className={`text-danger ${max ? 'pull-left' : ''}`}>
+        <div className={classNames('text-danger', { 'pull-left': max })}>
           {error.id && intl && typeof intl.formatMessage === 'function'
             ? intl.formatMessage(error)
             : error}
@@ -41,9 +43,9 @@ export default function Input({
       )}
       {max && (
         <div
-          className={`text-right ${
-            max - value.length < 0 ? 'text-danger' : ''
-          }`}
+          className={classNames('text-right', {
+            'text-danger': max - value.length < 0
+          })}
         >
           {max - value.length}
         </div>

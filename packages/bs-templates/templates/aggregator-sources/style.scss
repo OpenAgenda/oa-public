@@ -1,22 +1,81 @@
-@import "../layout/base";
+@import '../layout/base';
 @import '../agenda-admin/style';
 @import '../components/agenda-item';
 @import '../form-components/input-with-icon';
 
+
 .aggregator-sources {
-
-  //position: relative;
-
   .search {
     width: 50%;
   }
 
+  .form-group-type .row,
+  .form-group-values .row {
+    display: flex;
+
+    label.control-label {
+      align-items: center;
+      display: flex;
+      margin-bottom: 2px;
+    }
+  }
+
+  .react-tagsinput {
+    display: inline-table;
+    background-color: $oa-white;
+    border: 1px solid $oa-gray-light;
+    overflow: hidden;
+    padding: 2px 5px;
+    cursor: text;
+
+    &--focused {
+      border-color: $oa-blue;
+    }
+
+    &-tag {
+      background-color: lighten($oa-blue, 20);
+      border-radius: 2px;
+      border: 1px solid lighten($oa-blue, 10);
+      color: darken($oa-blue, 25);
+      display: inline-block;
+      font-family: sans-serif;
+      font-size: 13px;
+      line-height: 13px;
+      font-weight: 400;
+      margin-right: 5px;
+      margin-bottom: 2px;
+      padding: 5px;
+    }
+
+    &-remove {
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    &-tag a::before {
+      content: " ×";
+    }
+
+    &-input {
+      background: transparent;
+      border: 0;
+      color: $oa-black;
+      font-family: sans-serif;
+      font-size: 13px;
+      font-weight: 400;
+      outline: none;
+      padding: 5px;
+      width: 120px;
+    }
+  }
+
+  .cancel-button-left {
+    padding-left: 0;
+  }
+
   .agenda-item {
     padding: 1em 0;
-
-    a {
-      display: inline-block;
-    }
 
     .actions a + a {
       margin-left: 12px;
@@ -38,10 +97,6 @@
         }
       }
     }
-
-    .official i {
-      vertical-align: middle;
-    }
   }
 
   .popup-overlay {
@@ -55,7 +110,6 @@
   }
 
   @media (max-width: $screen-sm) {
-
     h2 {
       margin: 0;
     }
@@ -67,7 +121,5 @@
     .header {
       padding: 20px 30px;
     }
-
   }
-
 }

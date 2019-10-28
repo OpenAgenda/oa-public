@@ -104,7 +104,14 @@ function init(config, services) {
         getAgendasByUidsAndSearch: (agendaUids, search = null) => agendas.list({
           uid: agendaUids,
           ...(search ? { search } : {})
-        }, 0, 200).then(({ agendas }) => agendas.map(a => _.pick(a, ['uid','title', 'image'])))
+        }, 0, 200, {
+          internal: true,
+          includeImagePath: true,
+          useDefaultImage: true
+        })
+          .then(({ agendas }) => agendas.map(a =>
+            _.pick(a, ['id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt'])
+          ))
       }
     })
   );

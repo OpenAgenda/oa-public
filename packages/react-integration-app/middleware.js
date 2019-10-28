@@ -90,7 +90,7 @@ module.exports = function match({ initialState, apiRoot, lang }) {
             hasInboxNews: '/latest-inbox-timestamp'
           },
           agendaAdmin: {
-            loadAgenda: '/:slug/admin/sources/agenda.json',
+            loadAgenda: '/:slug/admin/layout',
             verifyLocationCount: '/:slug/admin/locations/verifycount'
           }
         }

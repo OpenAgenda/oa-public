@@ -107,11 +107,11 @@ function Dashboard({ agenda, history }) {
     [dispatch]
   );
   const closeModalUpdateSource = useCallback(
-    () => dispatch(modalsActions.closeModal('addSource')),
+    () => dispatch(modalsActions.closeModal('updateSource')),
     [dispatch]
   );
   const closeModalRemoveSource = useCallback(
-    () => dispatch(modalsActions.closeModal('addSource')),
+    () => dispatch(modalsActions.closeModal('removeSource')),
     [dispatch]
   );
 
@@ -125,6 +125,27 @@ function Dashboard({ agenda, history }) {
       return debouncedSearch(values.search);
     },
     [value, debouncedSearch]
+  );
+
+  const addSource = useCallback(
+    (sourceAgenda, rules) => dispatch(sourcesActions.add(sourceAgenda, rules)).then(() => {
+      closeModalAddSource();
+
+      return search(value);
+    }),
+    [closeModalAddSource, dispatch, search, value]
+  );
+  const updateSource = useCallback(
+    (source, rules) => dispatch(sourcesActions.update(source.id, { rules })),
+    [dispatch]
+  );
+  const removeSource = useCallback(
+    (source, evaluate) => dispatch(sourcesActions.remove(source.id, { evaluate })).then(() => {
+      closeModalRemoveSource();
+
+      return search(value);
+    }),
+    [closeModalRemoveSource, dispatch, search, value]
   );
 
   if (loading) {
@@ -169,7 +190,7 @@ function Dashboard({ agenda, history }) {
             className="text-muted"
             source={`${intl.formatMessage(messages.sourcesExplanation, {
               title: agenda.title,
-              link: res.show.replace(':slug', agenda.slug)
+              link: res.showAgenda.replace(':slug', agenda.slug)
             })} ${intl.formatMessage(messages.addSources, {
               searchLink: res.search,
               agenda: agenda.title
@@ -186,7 +207,7 @@ function Dashboard({ agenda, history }) {
                 component={SearchInput}
                 name="search"
                 type="text"
-                classNameGroup="search margin-v-md"
+                classNameGroup="form-group search margin-v-md"
                 className="form-control"
                 placeholder={intl.formatMessage(messages.searchAgenda)}
                 action={v => debouncedSearch(v === '' ? undefined : v)}
@@ -232,13 +253,19 @@ function Dashboard({ agenda, history }) {
       </div>
 
       {modals.addSource && modals.addSource.visible ? (
-        <AddSourceModal onClose={closeModalAddSource} />
+        <AddSourceModal onClose={closeModalAddSource} onSubmit={addSource} />
       ) : null}
       {modals.updateSource && modals.updateSource.visible ? (
-        <UpdateSourceModal onClose={closeModalUpdateSource} />
+        <UpdateSourceModal
+          onClose={closeModalUpdateSource}
+          onSubmit={updateSource}
+        />
       ) : null}
       {modals.removeSource && modals.removeSource.visible ? (
-        <RemoveSourceModal onClose={closeModalRemoveSource} />
+        <RemoveSourceModal
+          onClose={closeModalRemoveSource}
+          onRemove={removeSource}
+        />
       ) : null}
     </div>
   );
@@ -248,8 +275,6 @@ export default provideHooks({
   defer: async ({ store: { dispatch }, location, params }) => {
     const query = qs.parse(location.search, { ignoreQueryPrefix: true });
     const promises = [];
-
-    // promises.push(dispatch(agendaActions.load(params.slug)));
 
     // if (!sourcesActions.isLoaded(state)) {
     promises.push(dispatch(sourcesActions.load(params.slug, query)));

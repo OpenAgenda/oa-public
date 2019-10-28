@@ -3,24 +3,6 @@
 const legacyRemoveSource = require('./middleware/legacyRemoveSource');
 const bodyParser = require('body-parser');
 
-const throwUnauthorized = (req, res, next) => {
-  const error = new Error('Unauthorized');
-
-  error.statusCode = 401;
-  res.statusCode = 401;
-
-  next(error);
-};
-
-const checkUser = (req, res, next) => {
-  if (!req.user) {
-    return throwUnauthorized(req, res, next);
-  }
-
-  return next();
-};
-
-
 module.exports = (config, parentApp) => {
   const {
     sessions,
@@ -40,14 +22,17 @@ module.exports = (config, parentApp) => {
     members.mw.loadAndAuthorize('administrator')
   ]);
 
-  parentApp.get('/:agendaSlug/admin/sources/refactor', ( req, res, next) => {
-    if (!req.xhr) return next();
+  parentApp.get('/:agendaSlug/admin/sources', ( req, res, next) => {
+    if (req.accepts(['json', 'html']) !== 'json') {
+      return next();
+    }
+
     aggregators.sources
-      .list(req.agenda, { detailed: true })
-      .then(sources => res.json(sources));
+      .list(req.agenda, {}, { detailed: true })
+      .then(sources => res.json({ sources }), next);
   });
 
-  parentApp.post('/:agendaSlug/admin/sources/refactor',
+  parentApp.post('/:agendaSlug/admin/sources',
     bodyParser.json(),
     agendas.mw.loadBy({
       path: 'body.agendaUid',
@@ -58,61 +43,39 @@ module.exports = (config, parentApp) => {
       req.agenda,
       req.sourceAgenda,
       req.body.rules
-    ).then(res.json, next)
+    ).then(res.json.bind(res), next)
   );
 
-  parentApp.put('/:agendaSlug/admin/sources/refactor/:sourceId',
+  parentApp.put('/:agendaSlug/admin/sources/:sourceId',
     bodyParser.json(),
     (req, res, next) => aggregators.sources.update(
       req.agenda,
       req.params.sourceId,
       req.body.rules
-    ).then(res.json, next)
+    ).then(res.json.bind(res), next)
   );
 
-  parentApp.delete('/:agendaSlug/admin/sources/refactor/:sourceId',
+  parentApp.delete('/:agendaSlug/admin/sources/:sourceId',
     (req, res, next) => aggregators.sources.remove(
       req.agenda,
-      req.params.sourceId
-    ).then(res.json, next)
-  );
-
-  // this will be removed when new aggregator source app is ready
-  parentApp.get(
-    '/:agendaSlug/admin/sources/agenda-sources.json',
-    sessions.mw.load,
-    checkUser,
-    agendas.mw.load,
-    members.mw.loadAndAuthorize('administrator', { or: throwUnauthorized }),
-    listSources({ aggregators })
-    // aggregatorSourcesMw.list.bind(null, { send: true })
+      req.params.sourceId,
+      { evaluate: [true, 1, 'true', '1'].includes(req.query.evaluate) }
+    ).then(res.json.bind(res), next)
   );
 
   parentApp.get(
     '/agendas/:uid/sources.json',
     agendas.mw.loadBy({path: 'params.uid', field: 'uid' }),
-    listSources({ aggregators })
-    // aggregatorSourcesMw.list.bind( null, { send: false } ),
-    // ( req, res, next ) => res.json( {
-    //   total: req.result.total,
-    //   agendas: req.result.reviews
-    // } )
+    (req, res, next) => aggregators.sources
+      .list(req.agenda, {}, { detailed: true })
+      .then(sources => res.json({
+        total: sources.length,
+        agendas: sources.map(source => source.agenda)
+      }), next)
   );
 
   parentApp.get('/:slug/admin/sources/remove',
     legacyRemoveSource.bind(null, parentApp.services)
   );
 
-}
-
-function listSources({ aggregators }) {
-  return async (req, res, next) => {
-    try {
-      const sources = await aggregators.sources.list(req.agenda, req.query.search, { detailed: true });
-
-      res.json({ sources });
-    } catch (e) {
-      next(e);
-    }
-  }
 }

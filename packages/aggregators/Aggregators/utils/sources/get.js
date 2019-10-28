@@ -24,12 +24,12 @@ module.exports = async ({
       'ags.aggregator_id as aggregatorId'
     ]).leftJoin('review as r', 'ags.review_id', 'r.id')
     .where('ags.id', sourceId)
-    .then(rows => rows.map(r => ({
-      id: r.sourceId,
-      agendaUid: r.agendaUid,
-      rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
-      aggregatorId: r.aggregatorId
-    })));
+    .then(row => ({
+      id: row.sourceId,
+      agendaUid: row.agendaUid,
+      rules: extractRules('sourceStore', row.sourceId, row.sourceStore),
+      aggregatorId: row.aggregatorId
+    }));
 
   if (detailed && source) {
     source.agenda = _.first(await getAgendasByUidsAndSearch(source.agendaUid));

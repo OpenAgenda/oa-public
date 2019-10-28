@@ -3,13 +3,14 @@ import React, { useCallback, useEffect, useMemo } from 'react';
 import * as ReactIs from 'react-is';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, matchPath } from 'react-router-dom';
+import ErrorBoundary from 'react-error-boundary';
 import shallowEqual from 'shallowequal';
 import Image from '@openagenda/react-components/build/Image';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
 import MainLayout from './MainLayout';
 
-function AgendaAdminLayout({ component: Comp, params }) {
+function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params }) {
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -135,9 +136,11 @@ function AgendaAdminLayout({ component: Comp, params }) {
           </div>
 
           <div className="col col-sm-9 body" style={{ paddingTop: 0 }}>
-            {ReactIs.isValidElementType(Comp)
-              ? React.createElement(Comp, { extraProps })
-              : Comp}
+            <ErrorBoundary onError={onError} FallbackComponent={FallbackComponent}>
+              {ReactIs.isValidElementType(Comp)
+                ? React.createElement(Comp, { onError, extraProps })
+                : Comp}
+            </ErrorBoundary>
           </div>
         </div>
       </div>

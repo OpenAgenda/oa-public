@@ -12,7 +12,7 @@ module.exports = async (knex, aggregatorAgenda, sourceAgenda, sourceRules = []) 
   const insertIds = await knex('aggregator_source').insert({
     review_id: sourceAgenda.id,
     aggregator_id: aggregator.id,
-    store: JSON.stringify(sourceRules),
+    store: JSON.stringify({ rules: sourceRules }),
     created_at: new Date(),
     updated_at: new Date()
   });

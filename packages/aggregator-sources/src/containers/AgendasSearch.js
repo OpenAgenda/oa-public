@@ -18,17 +18,25 @@ function AgendasSearch({ res, render }) {
   const apiClient = useApiClient();
 
   const agendasSearchRequest = useCallback(
-    v => apiClient.get(res, {
+    ({ search, page }) => apiClient.get(res, {
       params: {
-        search: v === '' ? undefined : v
+        search: search === '' ? undefined : search,
+        page
       }
     }),
     [apiClient, res]
   );
 
-  const { state, list } = useAgendasSearch({ request: agendasSearchRequest });
+  const { state, list, nextPage } = useAgendasSearch({
+    request: agendasSearchRequest,
+    perPageLimit: 20
+  });
 
   const debouncedList = useMemo(() => _.debounce(list, 400), [list]);
+  const throttledNextPage = useMemo(
+    () => _.throttle(nextPage, 400, { trailing: false }),
+    [nextPage]
+  );
 
   const onSearch = useCallback(values => list(values.search), [list]);
 
@@ -46,7 +54,7 @@ function AgendasSearch({ res, render }) {
           component={SearchInput}
           name="search"
           type="text"
-          classNameGroup="search margin-top-md margin-bottom-sm"
+          classNameGroup="form-group search margin-top-md margin-bottom-sm"
           className="form-control"
           placeholder={intl.formatMessage(messages.searchAgenda)}
           action={debouncedList}
@@ -64,7 +72,7 @@ function AgendasSearch({ res, render }) {
     renderForm
   ]);
 
-  return render({ state, form });
+  return render({ state, form, nextPage: throttledNextPage });
 }
 
 export default React.memo(AgendasSearch);

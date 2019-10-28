@@ -4,16 +4,35 @@ const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
 const imageFiles = require( '@openagenda/image-files' );
 const { Inbox } = require( '@openagenda/inboxes' );
-const activities = require( '../activities' );
-const middleware = require('./middleware');
+const cmn = require('../../lib/commons-app');
 const controlDataSvc = require( '../legacy' ).controlData;
+const activities = require( '../activities' );
+const { parser: agendaAdminParser } = require('../lib/layouts/agendaAdmin');
+const middleware = require('./middleware');
 
 const onCreate = require( './onCreate' );
 const onUpdate = require( './onUpdate' );
 
 const log = require( '@openagenda/logs' )( 'services/agendas' );
 
-module.exports.init = config=> {
+const throwUnauthorized = (req, res, next) => {
+  const error = new Error('Unauthorized');
+
+  error.statusCode = 401;
+  res.statusCode = 401;
+
+  next(error);
+};
+
+const checkUser = (req, res, next) => {
+  if (!req.user) {
+    return throwUnauthorized(req, res, next);
+  }
+
+  return next();
+};
+
+module.exports.init = config => {
   agendas.init( {
     knex: config.knex,
     mysql: config.db, // used by legacy unique value lib
@@ -43,6 +62,26 @@ module.exports.init = config=> {
     mw: middleware(agendas)
   }
 }
+
+module.exports.plugApp = app => {
+  const {
+    sessions,
+    members
+  } = app.services;
+
+  app.get(
+    '/:slug/admin/layout',
+    sessions.mw.load,
+    checkUser,
+    cmn.loadAgenda,
+    members.mw.loadAndAuthorize('administrator', { or: throwUnauthorized }),
+    (req, res) => res.send(agendaAdminParser({
+      agenda: req.agenda,
+      role: req.member.role,
+      lang: req.lang
+    }))
+  );
+};
 
 
 function beforeRemove( agenda, cb ) {

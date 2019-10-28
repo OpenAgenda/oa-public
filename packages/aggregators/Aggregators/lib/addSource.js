@@ -39,4 +39,9 @@ module.exports = async ({
   }
 
   log('not evaluating, done.');
+
+  return {
+    aggregator,
+    source
+  };
 }

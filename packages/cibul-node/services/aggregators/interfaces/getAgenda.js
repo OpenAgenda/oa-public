@@ -10,7 +10,9 @@ module.exports = identifier => {
 
     agendas.get( _.isObject( identifier ) ? identifier : { uid: identifier }, {
       internal: true,
-      private: null
+      private: null,
+      includeImagePath: true,
+      useDefaultImage: true
     }, ( err, agenda ) => {
 
       if ( err ) return rj( err );

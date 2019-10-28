@@ -68,7 +68,7 @@ const service = subApp
 
 module.exports = service;
 
-module.exports.expose = app => {
+module.exports.plugApp = app => {
   express(feathers(), app); // extend app with .configure, .service and .use
   app.configure(express.rest(null)); // add handler for requests
 

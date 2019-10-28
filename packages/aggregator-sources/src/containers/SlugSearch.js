@@ -43,7 +43,7 @@ export default function SlugSearch({ res, render }) {
           component={SearchInput}
           name="search"
           type="text"
-          classNameGroup="search margin-top-md margin-bottom-sm"
+          classNameGroup="form-group search margin-top-md margin-bottom-sm"
           className="form-control"
           placeholder={intl.formatMessage(messages.enterLink)}
           action={debouncedGet}

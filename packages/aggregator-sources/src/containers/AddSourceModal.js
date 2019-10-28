@@ -1,14 +1,17 @@
 import React, {
-  useCallback, useState, useMemo, useReducer
+  useCallback, useMemo, useReducer, useState
 } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
+import { Waypoint } from 'react-waypoint';
 import Modal from '@openagenda/react-components/build/Modal';
 import Image from '@openagenda/react-components/build/Image';
+import Spinner from '@openagenda/react-components/build/Spinner';
 // import * as sourcesActions from '../reducers/sources';
 import Stepper from '../components/Stepper';
 import AgendasSearch from './AgendasSearch';
 import SlugSearch from './SlugSearch';
+import DefineRules from './DefineRules';
 
 const messages = defineMessages({
   addSource: {
@@ -56,10 +59,8 @@ function stepsReducer(state, action) {
   }
 }
 
-function AgendaItem({ agenda, onSelect }) {
+function AgendaItem({ agenda, sources, onSelect }) {
   const onAgendaClick = useCallback(() => onSelect(agenda), [onSelect, agenda]);
-
-  console.log(agenda);
 
   return (
     <div className="agenda-item media" key={agenda.uid}>
@@ -77,17 +78,17 @@ function AgendaItem({ agenda, onSelect }) {
         <div className="title media-heading">
           <a href={`/${agenda.slug}`}>
             <strong>{agenda.title}</strong>
-          </a>
 
-          {!!agenda.official && (
-            <div className="official">
-              <i />
-              <div className="tooltip right" role="tooltip">
-                <div className="tooltip-arrow" />
-                <div className="tooltip-inner">Officiel</div>
-              </div>
-            </div>
-          )}
+            {!!agenda.official && (
+              <span className="official">
+                <i />
+                <div className="tooltip right" role="tooltip">
+                  <div className="tooltip-arrow" />
+                  <div className="tooltip-inner">Officiel</div>
+                </div>
+              </span>
+            )}
+          </a>
 
           {!!agenda.private && (
             <div className="tooltip-icon">
@@ -100,23 +101,33 @@ function AgendaItem({ agenda, onSelect }) {
           )}
         </div>
 
-        <button
-          type="button"
-          className="btn btn-link-inline"
-          onClick={onAgendaClick}
-        >
-          Sélectionner cet agenda
-        </button>
+        {sources.some(source => source.agenda.uid === agenda.uid) ? (
+          <em>Déjà dans les sources</em>
+        ) : (
+          <button
+            type="button"
+            className="btn btn-link-inline"
+            onClick={onAgendaClick}
+          >
+            Sélectionner cet agenda
+          </button>
+        )}
       </div>
     </div>
   );
 }
 
-function DefineFilters({ agenda }) {
-  return <pre>{JSON.stringify(agenda, null, 2)}</pre>;
+function SubmitButton({ handleSubmit, ruleAdditionMode }) {
+  return ruleAdditionMode ? null : (
+    <div className="text-center">
+      <button onClick={handleSubmit} type="button" className="btn btn-primary">
+        Ajouter la source
+      </button>
+    </div>
+  );
 }
 
-export default function AddSourceModal({ onClose }) {
+export default function AddSourceModal({ onSubmit, onClose }) {
   const intl = useIntl();
 
   const [selectType, setSelectType] = useState('search'); // search || slug
@@ -132,6 +143,7 @@ export default function AddSourceModal({ onClose }) {
     [selectType, setSelectType]
   );
 
+  const sources = useSelector(state => state.sources.data);
   const agendaRes = useSelector(state => state.res.agendaSearch);
   const slugRes = useSelector(state => state.res.slugSearch);
 
@@ -145,8 +157,8 @@ export default function AddSourceModal({ onClose }) {
           active: true
         },
         {
-          key: 'defineFilters',
-          label: 'Définir des filtres',
+          key: 'defineRules',
+          label: 'Définir des règles',
           display: true
         }
       ],
@@ -180,10 +192,15 @@ export default function AddSourceModal({ onClose }) {
     [setSelectedAgenda, setSelectType, stepsDispatch]
   );
 
+  const handleSubmit = useCallback(rules => onSubmit(selectedAgenda, rules), [
+    onSubmit,
+    selectedAgenda
+  ]);
+
   const firstStep = selectType === 'search' ? (
     <AgendasSearch
       res={agendaRes}
-      render={({ state, form }) => (
+      render={({ state, form, nextPage }) => (
         <>
           {form}
 
@@ -205,12 +222,21 @@ export default function AddSourceModal({ onClose }) {
               ? state.agendas.map(agenda => (
                 <AgendaItem
                   key={agenda.uid}
+                  sources={sources}
                   agenda={agenda}
                   onSelect={onSelectAgenda}
                 />
               ))
               : null}
           </div>
+
+          {state.nextLoading && (
+          <div className="padding-v-md" style={{ position: 'relative' }}>
+            <Spinner />
+          </div>
+          )}
+
+          <Waypoint onEnter={nextPage} />
         </>
       )}
     />
@@ -248,7 +274,9 @@ export default function AddSourceModal({ onClose }) {
     />
   );
 
-  const secondStep = <DefineFilters agenda={selectedAgenda} />;
+  const secondStep = (
+    <DefineRules SubmitButton={SubmitButton} onSubmit={handleSubmit} />
+  );
 
   return (
     <Modal title={intl.formatMessage(messages.addSource)} onClose={onClose}>
@@ -256,7 +284,7 @@ export default function AddSourceModal({ onClose }) {
         <Stepper steps={stepsState.steps} onSelect={selectStep} />
 
         {stepsState.selected === 'selectAgenda' ? firstStep : null}
-        {stepsState.selected === 'defineFilters' ? secondStep : null}
+        {stepsState.selected === 'defineRules' ? secondStep : null}
       </div>
     </Modal>
   );

@@ -13,7 +13,7 @@ const messages = defineMessages({
   }
 });
 
-const SourceItem = function ({ source }) {
+function SourceItem({ source }) {
   const intl = useIntl();
   const dispatch = useDispatch();
 
@@ -31,23 +31,25 @@ const SourceItem = function ({ source }) {
   return (
     <div className="agenda-item media">
       <div className="media-left">
-        <a href={res.show.replace(':slug', source.slug)}>
+        <a href={res.showAgenda.replace(':slug', source.agenda.slug)}>
           <Image
             className="media-object ill avatar"
-            src={source.image}
+            src={source.agenda.image}
             fallbackSrc={
-              __DEVELOPMENT__ ? source.image.replace('cibuldev', 'cibul') : null
+              __DEVELOPMENT__
+                ? source.agenda.image.replace('cibuldev', 'cibul')
+                : null
             }
-            alt={source.title}
+            alt={source.agenda.title}
           />
         </a>
       </div>
       <div className="media-body">
         <div className="title media-heading">
-          <a href={res.show.replace(':slug', source.slug)}>
-            <strong>{source.title}</strong>
+          <a href={res.showAgenda.replace(':slug', source.agenda.slug)}>
+            <strong>{source.agenda.title}</strong>
           </a>
-          {!!source.official && (
+          {!!source.agenda.official && (
             <div className="official">
               <i />
               <div className="tooltip right" role="tooltip">
@@ -78,11 +80,11 @@ const SourceItem = function ({ source }) {
       </div>
     </div>
   );
-};
+}
 
 export default function SourcesList({ sources }) {
   const renderSource = useCallback(
-    ({ agenda }) => <SourceItem key={agenda.uid} source={agenda} />,
+    source => <SourceItem key={source.id} source={source} />,
     []
   );
 

@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import Input from './Input';
+import BsField from './BsField';
 
 const searchSpinner = {
   width: 1,
@@ -20,7 +20,6 @@ export default function SearchInput({
   ...props
 }) {
   const inputAttrs = {
-    type,
     placeholder,
     className,
     spellCheck,
@@ -35,7 +34,7 @@ export default function SearchInput({
   );
 
   return (
-    <Input input={input} {...props}>
+    <BsField input={input} {...props}>
       <div className="input-icon-right">
         <input {...input} {...inputAttrs} onChange={onChange} />
         <button type="submit" className="btn">
@@ -46,6 +45,6 @@ export default function SearchInput({
           )}
         </button>
       </div>
-    </Input>
+    </BsField>
   );
 }

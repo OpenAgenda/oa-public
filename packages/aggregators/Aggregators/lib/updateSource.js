@@ -18,7 +18,7 @@ module.exports = async ({
     ...options
   }
 
-  const source = await getSourceEntry(sourceId);
+  const source = await getSourceEntry(sourceId, { detailed: true });
 
   if (!source) {
     log('not a source, throwing error');
@@ -28,7 +28,7 @@ module.exports = async ({
   const {
     aggregator,
     source: updatedSource
-  } = await updateSourceEntry(aggregatorAgenda, source.agenda, rules);
+  } = await updateSourceEntry(aggregatorAgenda, source, rules);
 
   if (evaluate) {
     log('evaluating and done');

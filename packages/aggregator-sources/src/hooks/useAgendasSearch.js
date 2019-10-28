@@ -1,6 +1,7 @@
 import { useCallback, useReducer } from 'react';
 
 const initialState = {
+  searchValue: undefined,
   agendas: [],
   listLoading: false,
   nextPageLoading: false,
@@ -13,7 +14,8 @@ function reducer(state, action) {
     case 'list':
       return {
         ...state,
-        listLoading: true
+        listLoading: true,
+        searchValue: action.payload.search
       };
     case 'listSuccess':
       return {
@@ -41,11 +43,11 @@ function reducer(state, action) {
     case 'nextPageSuccess':
       return {
         ...state,
-        agendas: action.payload.data.agendas,
+        agendas: [...state.agendas, ...action.payload.data.agendas],
         nextPageLoading: false,
         nextPageError: null,
         total: action.payload.data.total,
-        page: action.page
+        page: action.payload.page
       };
     case 'nextPageFail':
       return {
@@ -59,27 +61,28 @@ function reducer(state, action) {
   }
 }
 
-export default function useAgendasSearch({ request, field = 'search' }) {
+export default function useAgendasSearch({ request, perPageLimit }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const list = useCallback(
-    v => {
+    search => {
       dispatch({
         type: 'list',
         payload: {
-          [field]: v === '' ? undefined : v
+          search
         }
       });
-      return request(v).then(
-        data => setTimeout(
-          () => dispatch({
-            type: 'listSuccess',
-            payload: {
-              data
-            }
-          }),
-          400
-        ),
+
+      return request({
+        search,
+        page: state.page
+      }).then(
+        data => dispatch({
+          type: 'listSuccess',
+          payload: {
+            data
+          }
+        }),
         error => dispatch({
           type: 'listFail',
           payload: {
@@ -88,11 +91,61 @@ export default function useAgendasSearch({ request, field = 'search' }) {
         })
       );
     },
-    [request, field]
+    [request, state.page]
   );
+
+  const nextPage = useCallback(() => {
+    if (
+      !state.agendas
+      || !state.agendas.length
+      || state.listLoading
+      || state.nextLoading
+      || state.page * perPageLimit >= state.total
+    ) {
+      return;
+    }
+
+    const newPage = state.page + 1;
+
+    dispatch({
+      type: 'nextPage',
+      payload: {
+        page: newPage
+      }
+    });
+
+    return request({
+      search: state.searchValue,
+      page: newPage
+    }).then(
+      data => dispatch({
+        type: 'nextPageSuccess',
+        payload: {
+          data,
+          page: newPage
+        }
+      }),
+      error => dispatch({
+        type: 'nextPageFail',
+        payload: {
+          error
+        }
+      })
+    );
+  }, [
+    state.agendas,
+    state.listLoading,
+    state.nextLoading,
+    state.page,
+    state.total,
+    state.searchValue,
+    perPageLimit,
+    request
+  ]);
 
   return {
     state,
-    list
+    list,
+    nextPage
   };
 }

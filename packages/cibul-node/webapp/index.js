@@ -94,12 +94,13 @@ const initialState = req => ({
       perPageLimit: 20
     },
     res: {
-      loadAgenda: '/:slug/admin/sources/agenda.json',
-      list: '/:slug/admin/sources/agenda-sources.json',
-      show: '/:slug',
-      remove: '/:slug/admin/sources/remove',
+      list: '/:slug/admin/sources',
+      add: '/:slug/admin/sources',
+      update: '/:slug/admin/sources/:sourceId',
+      remove: '/:slug/admin/sources/:sourceId',
+      showAgenda: '/:slug',
       createAggregator:`${phpPrefix}/agenda/:uid/aggregator/create`,
-      agendaSearch: '/agendas'
+      agendaSearch: '/agendas.json'
     }
   }
 });

@@ -12,7 +12,7 @@ const defaults = {
     },
     res: {
       list: '/sources.json',
-      show: '#',
+      showAgenda: '#',
       remove: '#',
       search: '#'
     },

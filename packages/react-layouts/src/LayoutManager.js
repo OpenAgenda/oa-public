@@ -9,10 +9,10 @@ import agendaAdminReducer from './reducers/agendaAdmin';
 import Layout from './Layout';
 
 
-function LayoutManager({ apps, store, children }) {
+function LayoutManager({ store, apps, onError, children }) {
   return (
     <Provider store={store}>
-      <Layout apps={apps}>
+      <Layout apps={apps} onError={onError}>
         {children}
       </Layout>
     </Provider>

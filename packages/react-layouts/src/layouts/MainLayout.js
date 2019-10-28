@@ -4,6 +4,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
+import ErrorBoundary from 'react-error-boundary';
 import classNames from 'classnames';
 import shallowEqual from 'shallowequal';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
@@ -106,7 +107,7 @@ const HelpLink = React.memo(() => {
   );
 });
 
-function MainLayout({ component: Comp, extraProps }) {
+function MainLayout({ component: Comp, onError, FallbackComponent, extraProps }) {
   const [userPanelOpened, setUserPanelOpened] = useState(false);
 
   const history = useHistory();
@@ -304,9 +305,11 @@ function MainLayout({ component: Comp, extraProps }) {
         </div>
       </nav>
 
-      {ReactIs.isValidElementType(Comp)
-        ? React.createElement(Comp, { extraProps })
-        : Comp}
+      <ErrorBoundary onError={onError} FallbackComponent={FallbackComponent}>
+        {ReactIs.isValidElementType(Comp)
+          ? React.createElement(Comp, { extraProps })
+          : Comp}
+      </ErrorBoundary>
     </>
   );
 }

@@ -29,6 +29,7 @@ const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
   },
   res: {
     list: '/sources.json',
+    add: '/add',
     show: '#',
     remove: '/remove',
     search: '#',

@@ -1,10 +1,8 @@
 import React, { useCallback } from 'react';
 import { FormattedMessage, defineMessages, useIntl } from 'react-intl';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import Modal from '@openagenda/react-components/build/Modal';
-import * as modalsActions from '../reducers/modals';
-import * as sourcesActions from '../reducers/sources';
 
 const messages = defineMessages({
   removeSource: {
@@ -20,24 +18,16 @@ const Radio = ({ id, input, children }) => (
   </label>
 );
 
-export default function RemoveSourceModal() {
+export default function RemoveSourceModal({ onRemove, onClose }) {
   const intl = useIntl();
-  const dispatch = useDispatch();
 
   const data = useSelector(state => state.modals.removeSource) || {
     source: {}
   };
 
-  const closeModal = useCallback(
-    () => dispatch(modalsActions.closeModal('removeSource')),
-    [dispatch]
-  );
-
   const confirmRemove = useCallback(
-    values => dispatch(
-      sourcesActions.remove(data.source.uid, { evaluate: values.evaluate })
-    ).then(() => closeModal('removeSource')),
-    [dispatch, data.source.uid, closeModal]
+    values => onRemove(data.source, values.evaluate),
+    [onRemove, data.source]
   );
 
   if (!data.visible) {
@@ -45,10 +35,7 @@ export default function RemoveSourceModal() {
   }
 
   return (
-    <Modal
-      title={intl.formatMessage(messages.removeSource)}
-      onClose={closeModal}
-    >
+    <Modal title={intl.formatMessage(messages.removeSource)} onClose={onClose}>
       <Form onSubmit={confirmRemove}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>
@@ -90,11 +77,7 @@ export default function RemoveSourceModal() {
             </div>
 
             <div className="pull-left">
-              <button
-                type="button"
-                className="btn btn-link"
-                onClick={closeModal}
-              >
+              <button type="button" className="btn btn-link" onClick={onClose}>
                 Annuler
               </button>
             </div>
