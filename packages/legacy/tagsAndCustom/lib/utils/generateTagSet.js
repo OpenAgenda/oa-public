@@ -3,6 +3,9 @@
 const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 
+const extractLabelString = require('./extractLabelString');
+const getMatchingIndex = require('./getMatchingIndex');
+
 const includeTypes = [ 'radio', 'select', 'checkbox' ];
 const uniques = [ 'radio', 'select' ];
 
@@ -18,10 +21,10 @@ module.exports = ( schema, currentTagSet = null ) => {
     .map( f => `${f.field}: field origin is not set` );
 
   const updatedGroups = tagSettableFields.map( f => {
-    const index = currentTagGroups.map( g => g.name ).indexOf( _monoLabel( f.label ) );
+    const index = getMatchingIndex(currentTagGroups.map(g => g.name), f.label);
 
     return {
-      name: _monoLabel( f.label ),
+      name: extractLabelString(f.label),
       required: !f.optional,
       unique: uniques.includes( f.fieldType ),
       tags: _defineTags( f.schemaId, index === -1 ? [] : currentTagGroups[ index ].tags, f.options )
@@ -29,9 +32,9 @@ module.exports = ( schema, currentTagSet = null ) => {
   } );
 
   return {
-    tagSet: {
+    set: updatedGroups.length ? {
       groups: updatedGroups
-    },
+    } : null,
     messages,
     fields: tagSettableFields
   }
@@ -41,7 +44,7 @@ function _defineTags( schemaId, currentTags = [], options = [] ) {
   return options.map( o => {
     let matchingTagIndex = -1;
 
-    const label = _monoLabel( o.label );
+    const label = extractLabelString(o.label);
     const slug = o.value;
     const schemaOptionId = `${schemaId}.${o.id}`;
 
@@ -50,7 +53,7 @@ function _defineTags( schemaId, currentTags = [], options = [] ) {
 
     // attempt match on label
     if ( matchingTagIndex === -1 ) {
-      matchingTagIndex = _.findIndex( currentTags, { label: _monoLabel( o.label ) } );
+      matchingTagIndex = getMatchingIndex(currentTags.map(t => t.label), o.label);
     }
 
     if ( matchingTagIndex !== -1 ) {
@@ -71,10 +74,4 @@ function _defineTags( schemaId, currentTags = [], options = [] ) {
 
 function _hasSchemaOptionId( tags ) {
   return !!tags.filter( t => t.schemaOptionId ).length;
-}
-
-function _monoLabel( label ) {
-  if ( _.isString( label ) ) return label;
-
-  return _.get( label, _.first( _.keys( label ) ) );
 }

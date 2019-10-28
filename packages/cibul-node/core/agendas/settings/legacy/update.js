@@ -6,7 +6,7 @@ const custom = require( '@openagenda/custom' );
 const log = require( '@openagenda/logs' )( 'core/agendas/settings/legacy/update' );
 
 const getAgenda = require( '../../utils/getAgenda' );
-const updateTagSetFromSchema = require( './updateTagSetFromSchema' );
+const updateLegacyFromSchema = require('./updateLegacySetFromSchema');
 const updateCustomFromSchema = require( './updateCustomFromSchema' );
 const resyncLegacyIndex = require( './resyncLegacyIndex' );
 const controlData = require( '../../../../services/legacy' ).controlData;
@@ -18,16 +18,14 @@ module.exports = async ( config, agendaOrUid, force = false ) => {
 
   log( 'syncing legacy config and data of agenda %s (%s)%s', agenda.uid, agenda.slug, force ? ' forced' : '' );
 
-  await updateTagSetFromSchema( config, agenda, force );
-
+  await updateLegacyFromSchema(config, agenda, 'tags', force);
+  await updateLegacyFromSchema(config, agenda, 'categories', force);
   await updateCustomFromSchema( config, agenda, force );
-
   await custom.pushCustomDatasetToLegacy( agenda.id );
 
   await resyncLegacyIndex( agenda.id );
 
   await controlData.rebuild( agenda.uid );
-
 }
 
 function _loadAgenda( agendaOrUid ) {

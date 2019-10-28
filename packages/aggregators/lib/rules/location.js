@@ -2,16 +2,16 @@
 
 const _ = require( 'lodash' );
 
-module.exports = ( evaluatedLocation, filter ) => {
+module.exports = (evaluatedLocation, filter) => {
+  return [].concat(filter).map(locationFilter => {
+    const evaluatedLocationFields = Object.keys(locationFilter);
 
-  return [].concat( filter ).map( locationFilter => {
-
-    const evaluatedLocationFields = _.keys( locationFilter );
-
-    const matchingFields = evaluatedLocationFields.filter( locationField => evaluatedLocation[ locationField ] === locationFilter[ locationField ] );
+    const matchingFields = evaluatedLocationFields.filter(_matches.bind(null, locationFilter, evaluatedLocation));
 
     return matchingFields.length === evaluatedLocationFields.length;
+  }).filter(matching => !!matching).length;
+}
 
-  } ).filter( matching => !!matching ).length;
-
+function _matches(filter, values, field, index) {
+  return [].concat(filter[field]).includes(values[field]);
 }

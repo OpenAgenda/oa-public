@@ -4,8 +4,8 @@ const config = require( '../../../config' );
 
 const getMergedSchema = require( './getMergedSchema' );
 const getSchema = require( './getSchema' );
-const updateTagSetFromSchema = require( './legacy/updateTagSetFromSchema' );
-const updateCustomFromSchema = require( './legacy/updateCustomFromSchema' );
+const updateLegacySetFromSchema = require('./legacy/updateLegacySetFromSchema');
+const updateCustomFromSchema = require('./legacy/updateCustomFromSchema');
 const updateLegacy = require( './legacy/update' );
 
 const updateSchemaFields = require( './updateSchemaFields' );
@@ -21,7 +21,8 @@ module.exports = agendaUid => {
       updateFields: updateSchemaFields.bind( null, config, agendaUid )
     },
     legacy: {
-      updateTagSet: updateTagSetFromSchema.bind( null, config, agendaUid ),
+      updateTagSet: updateLegacySetFromSchema.bind(null, config, agendaUid, 'tags'),
+      updateCategorySet: updateLegacySetFromSchema.bind(null, config, agendaUid, 'categories'),
       updateCustom: updateCustomFromSchema.bind( null, config, agendaUid ),
       update: updateLegacy.bind( null, config, agendaUid )
     }
