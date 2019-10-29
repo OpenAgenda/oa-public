@@ -18,6 +18,7 @@ import createAppUserSettings from '@openagenda/user-apps/src/app';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp';
 import createActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
+import ErrorComponent from './ErrorComponent';
 import NotFound from './NotFound';
 import NotFoundDisplayer from './NotFoundDisplayer';
 import RootHelmet from '../RootHelmet';
@@ -83,7 +84,7 @@ loadableReady(async () => {
   );
 
   const Content = React.memo(() => (
-    <LayoutManager store={layoutStore} apps={apps}>
+    <LayoutManager store={layoutStore} apps={apps} FallbackComponent={ErrorComponent}>
       <NotFoundDisplayer history={history} apps={apps}>
         <NotFound />
       </NotFoundDisplayer>

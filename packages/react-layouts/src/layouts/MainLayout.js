@@ -113,6 +113,7 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
   const history = useHistory();
   const intl = useIntl();
 
+  const lang = useSelector(state => state.main.lang);
   const user = useSelector(state => state.main.user);
   const apiRoot = useSelector(state => state.main.apiRoot);
   const inboxLoaded = useSelector(state => state.main.inboxLoaded);
@@ -182,6 +183,11 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
       });
     },
     [inboxLoaded, checkInboxNews, apiRoot, onSeeActivitiesClick]
+  );
+
+  const ErrorComponent = useCallback(
+    props => React.createElement(FallbackComponent, { ...props, lang }),
+    [FallbackComponent, lang]
   );
 
   return (
@@ -305,7 +311,7 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
         </div>
       </nav>
 
-      <ErrorBoundary onError={onError} FallbackComponent={FallbackComponent}>
+      <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
         {ReactIs.isValidElementType(Comp)
           ? React.createElement(Comp, { extraProps })
           : Comp}

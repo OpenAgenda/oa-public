@@ -38,7 +38,7 @@ module.exports = (env = {}, argv = {}) => {
 
   return {
     mode: envName === 'production' ? 'production' : 'development',
-    devtool: envName === 'production' ? 'source-map' : 'eval-source-map',
+    devtool: envName === 'production' ? 'source-map' : 'cheap-module-source-map',
     entry: {
       webapp: path.join(__dirname, 'client/index.js')
     },

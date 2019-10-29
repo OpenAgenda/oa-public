@@ -37,6 +37,7 @@ function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params
     [verifyLocationCount]
   );
 
+  const lang = useSelector(state => state.main.lang);
   const user = useSelector(state => _.get(state, 'main.settings', null));
   const isLoading = useSelector(state => _.get(state, 'agendaAdmin.loading', true));
   const agenda = useSelector(state => _.get(state, 'agendaAdmin.data')) || {};
@@ -70,6 +71,11 @@ function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params
       </div>
     ),
     []
+  );
+
+  const ErrorComponent = useCallback(
+    props => React.createElement(FallbackComponent, { ...props, lang }),
+    [FallbackComponent, lang]
   );
 
   const Sections = useCallback(
@@ -136,7 +142,7 @@ function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params
           </div>
 
           <div className="col col-sm-9 body" style={{ paddingTop: 0 }}>
-            <ErrorBoundary onError={onError} FallbackComponent={FallbackComponent}>
+            <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
               {ReactIs.isValidElementType(Comp)
                 ? React.createElement(Comp, { onError, extraProps })
                 : Comp}
