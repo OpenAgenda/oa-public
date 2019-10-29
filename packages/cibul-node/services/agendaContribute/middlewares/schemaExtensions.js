@@ -14,7 +14,10 @@ module.exports = async ( req, res, next ) => {
 
     const network = await networks.get( _.get( req, 'agenda.networkUid' ) );
 
-    req.schemaExtensions.push( await formSchemas.get( network.formSchemaId ) );
+    if (network.formSchemaId) {
+      req.schemaExtensions.push(await formSchemas.get(network.formSchemaId));
+    }
+
 
   }
 
