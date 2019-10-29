@@ -12,13 +12,13 @@ const {
   getNav,
   getMoreLikeThis,
   wrapInMoreLikeThis
-} = require( '../helpers/dsl' );
+} = require('../helpers/dsl');
 
-module.exports = _.extend( queryToDsl, {
+module.exports = Object.assign(queryToDsl, {
   inflate,
   moreLikeThis,
   derelativize
-} );
+});
 
 
 /**
@@ -30,78 +30,45 @@ module.exports = _.extend( queryToDsl, {
  * @param  {array}  includes    fields to be included in search result
  * @return {[type]}
  */
-function queryToDsl( query = {}, nav = {}, extensions = null, includes = null ) {
+function queryToDsl(query = {}, nav = {}, extensions = null, includes = null) {
+  const inflated = inflate(query);
 
-  const inflated = inflate( query );
+  const derelativized = derelativize(inflated);
 
-  const derelativized = derelativize( inflated );
+  const clean = validate(derelativized);
 
-  const clean = validate( derelativized );
-
-  const extensionParts = _extractExtensionParts( inflated, extensions );
+  const extensionParts = _extractExtensionParts(inflated, extensions);
 
   const dsl = {
-    query: getQuery( clean, extensionParts ),
-    sort: getSort( clean.sort ),
-    _source: getSource( includes )
+    query: getQuery(clean, extensionParts),
+    sort: getSort(clean.sort),
+    _source: getSource(includes)
   };
 
-  if ( nav ) {
-
-    _.extend( dsl, getNav( nav ) );
-
-  }
-
-  return dsl;
-
+  return nav ? Object.assign(dsl, getNav(nav)) : dsl;
 }
 
-function moreLikeThis( mltQuery, mltOptions, query = {} ) {
+function moreLikeThis(mltQuery, mltOptions, query = {}) {
+  const cleanQuery = validate(inflate(query));
 
-  const cleanQuery = validate( inflate( query ) );
-
-  return wrapInMoreLikeThis( mltQuery, mltOptions, cleanQuery );
-
+  return wrapInMoreLikeThis(mltQuery, mltOptions, cleanQuery);
 }
 
 
 function _extractExtensionParts( query, extensions = null ) {
-
   if ( extensions === null || !extensions.length ) return {};
 
-  const extensionParts = {};
-
-  extensions.forEach( ext => {
-
-    if ( !query[ ext ] ) return;
-
-    extensionParts[ ext ] = validateExtension( query[ ext ] );
-
-  } );
-
-  return extensionParts;
-
+  return extensions.reduce((extensionParts, ext) => {
+    return query[ext] ? {
+      ...extensionParts,
+      [ext] : validateExtension(query[ext])
+    } : extensionParts;
+  }, {});
 }
 
 
-function inflate( query ) {
-
-  let inflated = {};
-
-  Object.keys( query ).forEach( key => {
-
-    if ( key.indexOf( '.' ) !== -1 ) {
-
-      _.set( inflated, key, query[ key ] );
-
-    } else {
-
-      inflated[ key ] = query[ key ];
-
-    }
-
-  } );
-
-  return inflated;
-
+function inflate(query) {
+  return Object.keys(query).reduce((inflated, key) => {
+    return _.set(inflated, key.split('.'), query[key]);
+  }, {});
 }

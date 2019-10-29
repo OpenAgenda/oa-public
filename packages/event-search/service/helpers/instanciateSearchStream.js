@@ -1,18 +1,14 @@
 "use strict";
 
 const { Readable } = require( 'stream' );
-const search = require( './search' );
-const scroll = require( './scroll' );
 
-module.exports = ( alias, query, options ) => {
-
-  return new SearchStream( alias, query, options );
-
+module.exports = ({ search, scroll }, alias, query, options) => {
+  return new SearchStream(search, scroll, alias, query, options);
 }
 
 class SearchStream extends Readable {
 
-  constructor( alias, query = {}, options = {} ) {
+  constructor(search, scroll, alias, query = {}, options = {} ) {
 
     // options can contain nav size and
 
@@ -22,6 +18,8 @@ class SearchStream extends Readable {
 
     this._scrollId = null;
     this._alias = alias;
+    this._search = search;
+    this._scroll = scroll;
     this._query = query;
     this._options = options;
     this._bufferedEvents = [];
@@ -51,7 +49,7 @@ class SearchStream extends Readable {
 
     try {
 
-      const { total, events, scrollId } = await search( this._alias, this._query, this._nav, this._options );
+      const { total, events, scrollId } = await this._search( this._alias, this._query, this._nav, this._options );
 
       this._total = total;
       this._bufferedEvents = events;
@@ -94,7 +92,7 @@ class SearchStream extends Readable {
       total: this._total
     } );
 
-    const { total, events } = await scroll( this._scrollId, '10m' );
+    const { total, events } = await this._scroll( this._scrollId, '10m' );
 
     this._total = total;
     this._bufferedEvents = events;

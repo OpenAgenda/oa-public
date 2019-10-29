@@ -56,15 +56,13 @@ describe( 'event search - functional: search', function() {
 
     } );
 
-    it( 'an event can be retrieved by uid', async () => {
+    it('an event can be retrieved by uid', async () => {
+      const { events, total } = await service('simple_search').search({ uid: 6 });
 
-      const { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
+      total.should.equal(1);
 
-      total.should.equal( 1 );
-
-      events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
-
-    } );
+      events[0].slug.should.equal('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
+    });
 
     it( 'by default, only fields defined in service/config base fields are returned', async () => {
 
@@ -121,7 +119,7 @@ describe( 'event search - functional: search', function() {
 
       let { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, { detailed: true } );
 
-      Object.keys( events[ 0 ] ).should.eql( [ 
+      Object.keys( events[ 0 ] ).should.eql( [
         'longDescription',
         'country',
         'image',
@@ -271,7 +269,7 @@ describe( 'event search - functional: search', function() {
       events.map( e => e.slug ).should.eql( [ 'rhone_region_event' ] );
 
     } );
-    
+
 
     it( 'regions search', async () => {
 
@@ -413,7 +411,7 @@ describe( 'event search - functional: search', function() {
 
         total.should.equal( 1 );
 
-        events[ 0 ].slug.should.equal( 'date_1' ); 
+        events[ 0 ].slug.should.equal( 'date_1' );
 
       } );
 
@@ -438,8 +436,8 @@ describe( 'event search - functional: search', function() {
 
       it( 'keyword search, with aggregation', async () => {
 
-        let { aggregations } = await service( 'simple_search' ).search( { 
-          keyword: 'word' 
+        let { aggregations } = await service( 'simple_search' ).search( {
+          keyword: 'word'
         }, { size: 0 }, {
           aggregations: [ {
             type: 'terms',
@@ -449,16 +447,16 @@ describe( 'event search - functional: search', function() {
           } ]
         } );
 
-        aggregations.should.eql( { 
-          search_internals_keywords: [ 
+        aggregations.should.eql( {
+          search_internals_keywords: [
             { key: 'clé', count: 1 },
             { key: 'key', count: 1 },
             { key: 'mot', count: 1 },
             { key: 'word', count: 1 }
           ],
-          timings: [ { 
-            key: '2010-04-01', count: 2 
-          } ] 
+          timings: [ {
+            key: '2010-04-01', count: 2
+          } ]
         } );
 
       } );
@@ -503,10 +501,10 @@ describe( 'event search - functional: search', function() {
 
         aggregations.timingsReverseHits[ 0 ].count.should.equal( 1 );
 
-        aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ].uid.should.equal( 14 ); 
+        aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ].uid.should.equal( 14 );
 
       } );
-      
+
 
       it( 'reverse timing aggregation parses sample events', async () => {
 
@@ -633,7 +631,7 @@ describe( 'event search - functional: search', function() {
 
     it( 'geolocation filtering', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( { 
+      let { events, total } = await service( 'simple_search' ).search( {
         geo: {
           northEast: {
             lat: 50,
@@ -766,7 +764,7 @@ describe( 'event search - functional: search', function() {
 
       events.initAndLoad( config.eventService, [ {
         table: 'event',
-        src: __dirname + '/service/event.data.sql' 
+        src: __dirname + '/service/event.data.sql'
       } ], { reset: true }, done );
 
     } );
@@ -831,7 +829,7 @@ describe( 'event search - functional: search', function() {
       total.should.equal( 1 );
 
     } );
-    
+
 
     it( 'flat form works as well', async () => {
 
@@ -845,7 +843,7 @@ describe( 'event search - functional: search', function() {
 
 
     it( 'extension data is not part of detailed result by default', async () => {
- 
+
       let { events, total } = await service( 'simple_search' ).search( {
         'uid' : 15
       }, {}, { detailed: true } );
@@ -881,9 +879,9 @@ describe( 'event search - functional: search', function() {
 
       let { events, total } = await service( 'simple_search' ).search( {
         'custom.organizeremail' : 'cannes@reedexpo.fr'
-      }, {}, { 
-        detailed: true, 
-        extensions: [ 'custom', 'contributor' ], 
+      }, {}, {
+        detailed: true,
+        extensions: [ 'custom', 'contributor' ],
         merge: {
           mergedExtended: [ 'custom', 'contributor' ]
         }
