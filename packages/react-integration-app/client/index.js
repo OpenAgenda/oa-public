@@ -1,6 +1,7 @@
 import './polyfill';
 
 // import _ from 'lodash';
+import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { HelmetProvider } from 'react-helmet-async';
@@ -83,7 +84,7 @@ loadableReady(async () => {
     }))
   );
 
-  const Content = React.memo(() => (
+  const Content = hot(() => (
     <LayoutManager store={layoutStore} apps={apps} FallbackComponent={ErrorComponent}>
       <NotFoundDisplayer history={history} apps={apps}>
         <NotFound />

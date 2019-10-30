@@ -24,6 +24,7 @@ const modulesToInclude = [
 ];
 const BABEL_EXCLUDE_REGEX = new RegExp(`node_modules\\/(?!(${modulesToInclude.join('|')}))`);
 
+const port = process.env.PORT || 8905;
 const region = 'eu-west-1';
 const bucket = 'oasvc';
 const serviceName = require('./package.json').name.split('/').pop();
@@ -38,7 +39,6 @@ module.exports = (env = {}, argv = {}) => {
 
   return {
     mode: envName === 'production' ? 'production' : 'development',
-    devtool: envName === 'production' ? 'source-map' : 'cheap-module-source-map',
     entry: {
       webapp: path.join(__dirname, 'client/index.js')
     },
@@ -47,7 +47,23 @@ module.exports = (env = {}, argv = {}) => {
       publicPath: pushToCDN
         ? '//d1771xfuxsyp4n.cloudfront.net/'// `https://s3.${region}.amazonaws.com/${bucket}/${serviceName}/`
         : `/dist/${serviceName}/`,
-      filename: '[id].[chunkhash].js'
+      filename: envName === 'production' ? '[id].[chunkhash].js' : '[id].[hash].js',
+      crossOriginLoading: 'use-credentials'
+    },
+    devtool: envName === 'production' ? 'source-map' : 'cheap-module-source-map',
+    devServer: {
+      port,
+      https: true,
+      contentBase: './dist',
+      disableHostCheck: true,
+      headers: { 'Access-Control-Allow-Origin': '*' },
+      transportMode: 'ws',
+      compress: true,
+      quiet: true,
+      noInfo: true,
+      hot: true,
+      inline: true,
+      lazy: false
     },
     module: {
       rules: [
@@ -81,7 +97,7 @@ module.exports = (env = {}, argv = {}) => {
       extensions: ['.js', '.jsx', '.json'],
       alias: {
         'react': require.resolve('react'),
-        'react-dom': require.resolve('react-dom')
+        'react-dom': require.resolve('@hot-loader/react-dom')
       }
     },
     performance: {
@@ -116,7 +132,7 @@ module.exports = (env = {}, argv = {}) => {
         __DEVELOPMENT__: envName === 'development',
         __DEVTOOLS__: envName === 'development'
       }),
-      new LoadablePlugin(),
+      new LoadablePlugin({ writeToDisk: true }),
       envName === 'production' ? new webpack.HashedModuleIdsPlugin() : new webpack.NamedModulesPlugin()
     ].concat(
       pushToCDN ? [
