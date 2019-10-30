@@ -195,6 +195,7 @@ module.exports = app => {
       private: null,
       namespaces: { identifiers: { uid: 'params.uid' } }
     } ),
+    _showJSONIfRequested,
     redirect
   );
 
@@ -216,6 +217,7 @@ module.exports = app => {
       if ( !req.member ) return cmn.renderUnauthorized( req, res, next );
       next();
     },
+    _showJSONIfRequested,
     middlewares.show
   );
 
@@ -231,6 +233,7 @@ module.exports = app => {
       }
       next();
     },
+    _showJSONIfRequested,
     agendaSvc.mw.browserCache,
     middlewares.show
   );
@@ -316,6 +319,18 @@ function showXhr( template ) {
 
   }
 
+}
+
+function _showJSONIfRequested(req, res, next) {
+  if (req.accepts(['html', 'json'])==='json') {
+    return res.json({
+      ..._.pick(req.agenda, [
+        'uid', 'title', 'description', 'slug', 'url', 'official'
+      ]),
+      image: req.agenda.image ? config.aws.imageBucketPath + req.agenda.image : null
+    });
+  }
+  next();
 }
 
 
