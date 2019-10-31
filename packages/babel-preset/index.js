@@ -60,9 +60,7 @@ module.exports = declare((api, options) => {
       }
     ],
     require('@babel/plugin-syntax-dynamic-import'),
-    isWebpack
-      ? null
-      : require('babel-plugin-dynamic-import-node'),
+    isWebpack ? null : require('babel-plugin-dynamic-import-node'),
 
     require('@babel/plugin-proposal-object-rest-spread'),
 
@@ -89,9 +87,11 @@ module.exports = declare((api, options) => {
       {
         loose: true
       }
-    ]
+    ],
+
+    isWebpack && development ? require('react-hot-loader/babel') : null
   ]
-    .filter(v => v !== null);
+    .filter(Boolean);
 
   return {
     presets,

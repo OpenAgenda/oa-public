@@ -7,8 +7,5 @@
       }
     ]
   ],
-  "plugins": [
-    "react-hot-loader/babel"
-  ],
   "sourceType": "unambiguous"
 }

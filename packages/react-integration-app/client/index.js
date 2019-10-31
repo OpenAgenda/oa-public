@@ -1,10 +1,11 @@
 import './polyfill';
+import { setConfig } from 'react-hot-loader';
+
+setConfig({ trackTailUpdates: false });
 
 // import _ from 'lodash';
-import { hot } from 'react-hot-loader/root';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HelmetProvider } from 'react-helmet-async';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
 import IScroll from 'iscroll';
@@ -12,17 +13,15 @@ import { parse } from 'flatted/esm';
 import he from 'he';
 import { loadableReady } from '@loadable/component';
 import du from '@openagenda/dom-utils';
-import wrapApp from '@openagenda/react-utils/dist/wrapApp';
 import { LayoutManager } from '@openagenda/react-layouts/src';
+import MainLayout from '@openagenda/react-layouts/src/layouts/MainLayout';
+import AgendaAdminLayout from '@openagenda/react-layouts/src/layouts/AgendaAdminLayout';
 import createAppHome from '@openagenda/home/src/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp';
 import createActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
-import ErrorComponent from './ErrorComponent';
-import NotFound from './NotFound';
-import NotFoundDisplayer from './NotFoundDisplayer';
-import RootHelmet from '../RootHelmet';
+import Root from './Root';
 // import reflectStoresInLayout from '../reflectStoresInLayout';
 
 window.IScroll = IScroll;
@@ -41,27 +40,27 @@ const apps = {
   home: createAppHome({
     history,
     initialState: initialState.home,
-    layout: 'main'
+    layout: MainLayout
   }),
   userSettings: createAppUserSettings({
     history,
     initialState: initialState.userSettings,
-    layout: 'main'
+    layout: MainLayout
   }),
   agendaSettingsNew: createAgendaSettingsNewApp({
     history,
     initialState: initialState.agendaSettingsNew,
-    layout: 'main'
+    layout: MainLayout
   }),
   userActivities: createActivitiesApp({
     history,
     initialState: initialState.userActivities,
-    layout: 'main'
+    layout: MainLayout
   }),
   aggregatorSources: createAggregatorSourcesApp({
     history,
     initialState: initialState.aggregatorSources,
-    layout: 'agendaAdmin'
+    layout: AgendaAdminLayout
   })
 };
 
@@ -84,27 +83,27 @@ loadableReady(async () => {
     }))
   );
 
-  const Content = hot(() => (
-    <LayoutManager store={layoutStore} apps={apps} FallbackComponent={ErrorComponent}>
-      <NotFoundDisplayer history={history} apps={apps}>
-        <NotFound />
-      </NotFoundDisplayer>
-    </LayoutManager>
-  ));
+  const render = (forceRender = false) => {
+    const element = (
+      <Root
+        apps={apps}
+        layoutStore={layoutStore}
+        history={history}
+        triggerHooks={triggerHooks}
+      />
+    );
+    const canvas = du.el('#root');
 
-  const element = (
-    <HelmetProvider>
-      <RootHelmet />
+    if (!forceRender && canvas.hasChildNodes()) {
+      ReactDOM.hydrate(element, canvas);
+    } else {
+      ReactDOM.render(element, canvas);
+    }
+  };
 
-      {wrapApp({ Content, history, triggerHooks })}
-    </HelmetProvider>
-  );
+  render();
 
-  const canvas = du.el('#root');
-
-  if (canvas.hasChildNodes()) {
-    ReactDOM.hydrate(element, canvas);
-  } else {
-    ReactDOM.render(element, canvas);
+  if (module.hot) {
+    module.hot.accept(() => render(true));
   }
 });

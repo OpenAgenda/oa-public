@@ -1,10 +1,9 @@
 import React, { useMemo } from 'react';
+import * as ReactIs from 'react-is';
 import { useLocation } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { matchRoutes, getParams } from '@openagenda/react-utils/dist/asyncMatchRoutes';
-import MainLayout from './layouts/MainLayout';
-import AgendaAdminLayout from './layouts/AgendaAdminLayout';
 import localeFr from './locales/fr';
 import localeEn from './locales/en';
 
@@ -32,14 +31,10 @@ function getVisibleApps(apps, pathname) {
     }, []);
 }
 
-function getLayout(layoutName) {
-  switch (layoutName) {
-    case 'agendaAdmin':
-      return AgendaAdminLayout;
-    case 'main': // fallthrough
-    default:
-      return MainLayout;
-  }
+function NoopLayout({ component: Comp, extraProps }) {
+  return ReactIs.isValidElementType(Comp)
+    ? React.createElement(Comp, { extraProps })
+    : Comp;
 }
 
 export default React.memo(function Layout({ apps, ...props }) {
@@ -54,7 +49,7 @@ export default React.memo(function Layout({ apps, ...props }) {
     <IntlProvider messages={messages[lang]} locale={lang} key={lang}>
       {visibleApps
         .map(({ name, app, params, match }) => {
-          const InnerLayout = getLayout(app.layout);
+          const InnerLayout = app.layout || NoopLayout;
 
           return (
             <InnerLayout

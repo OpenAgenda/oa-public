@@ -12,6 +12,8 @@ const { ChunkExtractor } = require('@loadable/server');
 const wrapApp = require('@openagenda/react-utils/dist/wrapApp');
 const { matchRoutes } = require('@openagenda/react-utils/dist/asyncMatchRoutes');
 const { Html, LayoutManager } = require('@openagenda/react-layouts');
+const MainLayout = require('@openagenda/react-layouts/dist/layouts/MainLayout');
+const AgendaAdminLayout = require('@openagenda/react-layouts/dist/layouts/AgendaAdminLayout');
 const createHomeApp = require('@openagenda/home/dist/app');
 const createUserSettingsApp = require('@openagenda/user-apps/dist/app');
 const createAgendaSettingsNewApp = require('@openagenda/agenda-settings/dist/client/createApp');
@@ -40,31 +42,31 @@ module.exports = function match({ initialState, apiRoot, lang, publicPath }) {
           req,
           history,
           initialState: state.home,
-          layout: 'main'
+          layout: MainLayout
         }),
         userSettings: createUserSettingsApp({
           req,
           history,
           initialState: state.userSettings,
-          layout: 'main'
+          layout: MainLayout
         }),
         agendaSettingsNew: createAgendaSettingsNewApp({
           req,
           history,
           initialState: state.agendaSettingsNew,
-          layout: 'main'
+          layout: MainLayout
         }),
         userActivities: createActivitiesApp({
           req,
           history,
           initialState: state.userActivities,
-          layout: 'main'
+          layout: MainLayout
         }),
         aggregatorSources: createAggregatorSourcesApp({
           req,
           history,
           initialState: state.aggregatorSources,
-          layout: 'agendaAdmin'
+          layout: AgendaAdminLayout
         })
       };
 

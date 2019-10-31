@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader/root';
 import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
@@ -31,7 +32,7 @@ import modalsReducer from '../reducers/modals';
     total: state.agendas.homeAgendas && state.agendas.homeAgendas.total
   })
 )
-export default class App extends Component {
+class App extends Component {
 
   static childContextTypes = {
     lang: PropTypes.string,
@@ -93,3 +94,5 @@ export default class App extends Component {
   }
 
 }
+
+export default module.hot ? hot(App) : App;

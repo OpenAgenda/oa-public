@@ -28,6 +28,7 @@
     "prop-types": "^15.5.8",
     "qs": "^6.6.0",
     "react-final-form": "^6.3.0",
+    "react-hot-loader": "^4.12.15",
     "react-redux": "^7.1.1",
     "react-router-config": "^5.1.1",
     "react-waypoint": "^9.0.2",

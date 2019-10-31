@@ -34,7 +34,7 @@ export default function wrapApp( app, options = {} ) {
       </StaticRouter>
     </LoadableContext.Provider>
   ) : (
-    <Router history={history}>
+    <Router history={history} key={Math.random()}>
       {baseElement}
     </Router>
   );

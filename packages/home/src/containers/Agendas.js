@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader/root';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { provideHooks } from 'redial';
@@ -40,19 +41,12 @@ import * as agendasActions from '../reducers/agendas';
   total: _.get(state, 'agendas.homeAgendas.total')
 }) )
 @withRouter
-export default class Agendas extends Component {
-
-  constructor( props ) {
-    super( props );
-    this.renderHeader = ::this.renderHeader;
-    this.renderAgendaActions = ::this.renderAgendaActions;
-  }
-
+class Agendas extends Component {
   static contextTypes = {
     getLabel: PropTypes.func
   };
 
-  renderHeader() {
+  renderHeader = () => {
     const { res } = this.props;
     const { getLabel } = this.context;
 
@@ -67,7 +61,7 @@ export default class Agendas extends Component {
     );
   }
 
-  renderAgendaActions( { agenda } ) {
+  renderAgendaActions = ( { agenda } ) => {
     const { res } = this.props;
     const { getLabel } = this.context;
 
@@ -138,4 +132,6 @@ export default class Agendas extends Component {
     );
   }
 
-};
+}
+
+export default module.hot ? hot(Agendas) : Agendas;

@@ -7,6 +7,7 @@
     "test": "mocha --exit",
     "start": "TZ=Etc/UTC NODE_ICU_DATA=`yarn --silent node-full-icu-path` node server.js web admin task",
     "watch": "TZ=Etc/UTC NODE_ICU_DATA=`yarn --silent node-full-icu-path` nodemon server.js web admin task",
+    "dev": "DEV_SERVER_PORT=8905 yarn start",
     "background": "nohup npm start >/dev/null 2>&1 &",
     "mails-editor": "NODE_ICU_DATA=`yarn --silent node-full-icu-path` oa-mails-editor services/mails/templates -w services/mails/components -w ../labels"
   },
@@ -99,6 +100,7 @@
     "gm": "^1.23.1",
     "history": "^4.10.1",
     "hsts": "^2.1.0",
+    "http-proxy": "^1.18.0",
     "immutability-helper": "^3.0.0",
     "isemail": "^3.1.2",
     "jsdom": "^15.1.1",

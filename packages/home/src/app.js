@@ -28,15 +28,11 @@ const defaults = {
 };
 
 export default function ( options ) {
-  const {
-    initialState,
-    layout,
-    req
-  } = _.merge( {}, defaults, options );
+  const { initialState, layout, req } = _.merge( {}, defaults, options );
 
   const { apiRoot, prefix, rootPrefix } = initialState.settings;
 
-  return createApp( {
+  const getApp = () => createApp({
     history: options.history,
     initialState,
     layout,
@@ -44,5 +40,18 @@ export default function ( options ) {
     apiRoot,
     prefix,
     getRoutes: () => getRoutes( prefix, rootPrefix )
-  } );
+  });
+
+  const result = getApp();
+
+  if (module.hot) {
+    module.hot.accept('./getRoutes', () => {
+      const newApp = getApp();
+
+      result.Content = newApp.Content;
+      result.triggerHooks = newApp.triggerHooks;
+    });
+  }
+
+  return result;
 }
