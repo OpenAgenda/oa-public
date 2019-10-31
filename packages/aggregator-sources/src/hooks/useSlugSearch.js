@@ -17,7 +17,7 @@ function reducer(state, action) {
     case 'getSuccess':
       return {
         ...state,
-        agenda: action.payload.data.agenda,
+        agenda: action.payload.agenda,
         loading: false
       };
     case 'getFail':
@@ -43,7 +43,7 @@ export default function useSlugSearch({ request }) {
         data => dispatch({
           type: 'getSuccess',
           payload: {
-            data
+            agenda: data
           }
         }),
         error => dispatch({

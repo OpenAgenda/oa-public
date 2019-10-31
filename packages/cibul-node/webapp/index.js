@@ -118,7 +118,7 @@ const initialState = req => ({
       showAgenda: '/:slug',
       createAggregator: `${phpPrefix}/agenda/:uid/aggregator/create`,
       agendaSearch: '/agendas.json',
-      getAgenda: '/agendas.json'
+      getAgenda: '/:slug'
     }
   }
 });

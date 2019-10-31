@@ -200,7 +200,7 @@ export default function AddSourceModal({ onSubmit, onClose }) {
 
   const sources = useSelector(state => state.sources.data);
   const agendaRes = useSelector(state => state.res.agendaSearch);
-  const slugRes = useSelector(state => state.res.slugSearch);
+  const slugRes = useSelector(state => state.res.getAgenda);
 
   const initialStepsState = useMemo(
     () => ({
@@ -319,6 +319,7 @@ export default function AddSourceModal({ onSubmit, onClose }) {
             {state.agenda ? (
               <AgendaItem
                 key={state.agenda.uid}
+                sources={sources}
                 agenda={state.agenda}
                 onSelect={onSelectAgenda}
               />
