@@ -20,17 +20,19 @@ export default function Root({ apps, layoutStore, history, triggerHooks, req, st
   );
 
   return (
-    <HelmetProvider context={helmetContext}>
-      <RootHelmet />
+    <React.StrictMode>
+      <HelmetProvider context={helmetContext}>
+        <RootHelmet />
 
-      {wrapApp({
-        Content,
-        history,
-        triggerHooks,
-        req,
-        staticContext,
-        extractor
-      })}
-    </HelmetProvider>
+        {wrapApp({
+          Content,
+          history,
+          triggerHooks,
+          req,
+          staticContext,
+          extractor
+        })}
+      </HelmetProvider>
+    </React.StrictMode>
   );
 }
