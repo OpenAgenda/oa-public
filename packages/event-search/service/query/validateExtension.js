@@ -1,27 +1,23 @@
-"use strict";
+'use strict';
 
 const validateText = require( '@openagenda/validators/text' )();
 const validateInteger = require( '@openagenda/validators/integer' )();
-
-let log = console.log;
 
 module.exports = extensionQuery => {
 
   let cleanObj = {};
 
-  if ( !extensionQuery || typeof extensionQuery !== 'object' ) {
-
+  if (!extensionQuery || typeof extensionQuery !== 'object') {
     return null;
-
   }
 
   Object.keys( extensionQuery ).forEach( fieldName => {
 
-    const dirty = extensionQuery[ fieldName ];
+    const dirty = extensionQuery[ fieldName ];
 
     for( let validate of [ validateInteger, validateText ] ) {
 
-      try {
+      try {
 
         cleanObj[ fieldName ] = validate( dirty );
 

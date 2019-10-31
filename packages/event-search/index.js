@@ -1,7 +1,5 @@
 "use strict";
 
-const _ = require( 'lodash' );
-
 const add = require( './service/add' );
 const configStore = require( './service/config' );
 const deleteIndex = require( './service/deleteIndex' );
@@ -18,7 +16,7 @@ module.exports = alias => {
     exists: _exists.bind( null, alias ),
     rebuild: rebuild.bind( null, alias ),
     deleteIndex: deleteIndex.bind( null, alias ),
-    search: _.extend( search.bind( null, alias ), {
+    search: Object.assign( search.bind( null, alias ), {
       stream: search.stream.bind( null, alias )
     } ),
     moreLikeThis: moreLikeThis.bind( null, alias ),
