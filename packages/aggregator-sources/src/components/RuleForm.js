@@ -62,23 +62,22 @@ const messages = defineMessages({
 //   );
 // }
 
-function TagsInput({
-  input, placeholder, className, spellCheck, autoFocus
-}) {
-  const inputAttrs = {
-    className,
-    spellCheck,
-    autoFocus
-  };
+function TagsInput({ input, placeholder, ...props }) {
+  const inputProps = useMemo(() => {
+    const hasValue = input.value && input.value.length;
 
-  const inputProps = useMemo(
-    () => ({
-      placeholder
-    }),
-    [placeholder]
-  );
+    return {
+      placeholder,
+      title: hasValue ? placeholder : undefined,
+      style: hasValue
+        ? {}
+        : {
+          width: '100%'
+        }
+    };
+  }, [placeholder, input.value]);
 
-  return <ReactTagsInput {...input} {...inputAttrs} inputProps={inputProps} />;
+  return <ReactTagsInput {...input} {...props} inputProps={inputProps} />;
 }
 
 function Select({
@@ -174,7 +173,7 @@ export default function RuleForm({
       <div className="form-group form-group-values">
         <div className="row">
           <label className="control-label col-sm-2" htmlFor="type">
-            {intl.formatMessage(messages.values)}
+            {intl.formatMessage(messages.values)}test
           </label>
 
           <div className="col-sm-10">

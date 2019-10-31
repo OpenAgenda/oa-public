@@ -22,8 +22,9 @@ export default function SlugSearch({ res, render }) {
       try {
         const slug = new URL(v).pathname.split('/')[1];
 
-        return apiClient.get(res.replace(':slug', slug));
+        return apiClient.get(res.getAgenda.replace(':slug', slug));
       } catch (e) {
+        console.log(e);
         return Promise.reject(new Error('badAgendaUrl'));
       }
     },

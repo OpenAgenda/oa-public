@@ -13,9 +13,13 @@ import SlugSearch from './SlugSearch';
 import DefineRules from './DefineRules';
 
 const messages = defineMessages({
-  addSource: {
-    id: 'aggregator-sources.AddSourceModal.addSource',
+  modalTitle: {
+    id: 'aggregator-sources.AddSourceModal.modalTitle',
     defaultMessage: 'Add a source'
+  },
+  submitButton: {
+    id: 'aggregator-sources.AddSourceModal.submitButton',
+    defaultMessage: 'Add source'
   },
   removeConfirmMessage: {
     id: 'aggregator-sources.AddSourceModal.removeConfirmMessage',
@@ -34,6 +38,10 @@ const messages = defineMessages({
     defaultMessage: 'Already in sources'
   },
   selectAgenda: {
+    id: 'aggregator-sources.AddSourceModal.selectAgenda',
+    defaultMessage: 'Select an agenda'
+  },
+  selectThisAgenda: {
     id: 'aggregator-sources.AddSourceModal.selectThisAgenda',
     defaultMessage: 'Select this agenda'
   },
@@ -52,6 +60,10 @@ const messages = defineMessages({
   makeASearch: {
     id: 'aggregator-sources.AddSourceModal.makeASearch',
     defaultMessage: 'Make a search'
+  },
+  showAgendaAction: {
+    id: 'aggregator-sources.AddSourceModal.showAgendaAction',
+    defaultMessage: 'Show agenda'
   }
 });
 
@@ -97,18 +109,26 @@ function AgendaItem({ agenda, sources, onSelect }) {
   return (
     <div className="agenda-item media" key={agenda.uid}>
       <div className="media-left">
-        <a href={`/${agenda.slug}`}>
+        <button
+          type="button"
+          className="btn btn-link-inline"
+          onClick={onAgendaClick}
+        >
           <Image
             src={agenda.image}
             fallbackSrc={agenda.image.replace('cibuldev', 'cibul')}
             className="media-object ill avatar"
             alt={agenda.title}
           />
-        </a>
+        </button>
       </div>
       <div className="media-body">
         <div className="title media-heading">
-          <a href={`/${agenda.slug}`}>
+          <button
+            type="button"
+            className="btn btn-link-inline"
+            onClick={onAgendaClick}
+          >
             <strong>{agenda.title}</strong>
 
             {!!agenda.official && (
@@ -122,7 +142,7 @@ function AgendaItem({ agenda, sources, onSelect }) {
                 </div>
               </span>
             )}
-          </a>
+          </button>
 
           {!!agenda.private && (
             <div className="tooltip-icon">
@@ -140,13 +160,10 @@ function AgendaItem({ agenda, sources, onSelect }) {
         {sources.some(source => source.agenda.uid === agenda.uid) ? (
           <em>{intl.formatMessage(messages.alreadyInSources)}</em>
         ) : (
-          <button
-            type="button"
-            className="btn btn-link-inline"
-            onClick={onAgendaClick}
-          >
-            {intl.formatMessage(messages.selectAgenda)}
-          </button>
+          <a href={`/${agenda.slug}`} target="_blank" rel="noopener noreferrer">
+            {intl.formatMessage(messages.showAgendaAction)}{' '}
+            <i className="fa fa-sm fa-external-link" aria-hidden="true" />
+          </a>
         )}
       </div>
     </div>
@@ -159,7 +176,7 @@ function SubmitButton({ handleSubmit }) {
   return (
     <div className="text-center">
       <button onClick={handleSubmit} type="button" className="btn btn-primary">
-        {intl.formatMessage(messages.addSource)}
+        {intl.formatMessage(messages.submitButton)}
       </button>
     </div>
   );
@@ -317,7 +334,7 @@ export default function AddSourceModal({ onSubmit, onClose }) {
   );
 
   return (
-    <Modal title={intl.formatMessage(messages.addSource)} onClose={onClose}>
+    <Modal title={intl.formatMessage(messages.modalTitle)} onClose={onClose}>
       <div className="margin-v-sm">
         <Stepper steps={stepsState.steps} onSelect={selectStep} />
 

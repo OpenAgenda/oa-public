@@ -60,6 +60,7 @@ function AgendasSearch({ res, render }) {
           action={debouncedList}
           loading={state.listLoading}
           intl={intl}
+          autoComplete="off"
           autoFocus
         />
       </form>

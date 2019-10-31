@@ -15,6 +15,7 @@ export default function SearchInput({
   className,
   spellCheck,
   autoFocus,
+  autoComplete,
   action,
   loading,
   ...props
@@ -23,7 +24,8 @@ export default function SearchInput({
     placeholder,
     className,
     spellCheck,
-    autoFocus
+    autoFocus,
+    autoComplete
   };
   const onChange = useCallback(
     e => {

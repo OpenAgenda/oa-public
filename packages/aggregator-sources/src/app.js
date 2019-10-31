@@ -27,7 +27,7 @@ export default function (options) {
 
   const { apiRoot, prefix } = initialState.settings;
 
-  return createApp({
+  const getApp = () => createApp({
     history: options.history,
     initialState,
     layout,
@@ -36,4 +36,17 @@ export default function (options) {
     prefix,
     getRoutes
   });
+
+  const result = getApp();
+
+  if (module.hot) {
+    module.hot.accept('./getRoutes', () => {
+      const newApp = getApp();
+
+      result.Content = newApp.Content;
+      result.triggerHooks = newApp.triggerHooks;
+    });
+  }
+
+  return result;
 }

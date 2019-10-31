@@ -5,9 +5,13 @@ import Modal from '@openagenda/react-components/build/Modal';
 import DefineRules from './DefineRules';
 
 const messages = defineMessages({
+  updateASource: {
+    id: 'aggregator-sources.UpdateSourceModal.updateASource',
+    defaultMessage: 'Update a source'
+  },
   updateSource: {
     id: 'aggregator-sources.UpdateSourceModal.updateSource',
-    defaultMessage: 'Update a source'
+    defaultMessage: 'Update source'
   }
 });
 
@@ -36,7 +40,7 @@ export default function UpdateSourceModal({ onSubmit, onClose }) {
   ]);
 
   return (
-    <Modal title={intl.formatMessage(messages.updateSource)} onClose={onClose}>
+    <Modal title={intl.formatMessage(messages.updateASource)} onClose={onClose}>
       <div className="margin-v-sm">
         <DefineRules
           initialRules={data.source.rules}

@@ -1,9 +1,9 @@
 import React, { useMemo } from 'react';
+import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import agendaReducer from '../reducers/agenda';
 import modalsReducer from '../reducers/modals';
 import sourcesReducer from '../reducers/sources';
 import localeFr from '../locales/fr';
@@ -31,8 +31,7 @@ function App({ route, agenda }) {
 
 export default provideHooks({
   inject: ({ store }) => store.inject({
-    agenda: agendaReducer,
     modals: modalsReducer,
     sources: sourcesReducer
   })
-})(App);
+})(module.hot ? hot(App) : App);

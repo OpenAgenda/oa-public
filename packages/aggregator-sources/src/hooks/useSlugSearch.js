@@ -7,6 +7,7 @@ const initialState = {
 };
 
 function reducer(state, action) {
+  console.log(action);
   switch (action.type) {
     case 'get':
       return {
@@ -39,15 +40,12 @@ export default function useSlugSearch({ request }) {
       dispatch({ type: 'get' });
 
       return request(v).then(
-        data => setTimeout(
-          () => dispatch({
-            type: 'getSuccess',
-            payload: {
-              data
-            }
-          }),
-          400
-        ),
+        data => dispatch({
+          type: 'getSuccess',
+          payload: {
+            data
+          }
+        }),
         error => dispatch({
           type: 'getFail',
           payload: {

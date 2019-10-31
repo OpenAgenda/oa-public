@@ -5,6 +5,10 @@ import { Form, Field } from 'react-final-form';
 import Modal from '@openagenda/react-components/build/Modal';
 
 const messages = defineMessages({
+  removeASource: {
+    id: 'aggregator-sources.RemoveSourceModal.removeASource',
+    defaultMessage: 'Remove a source'
+  },
   removeSource: {
     id: 'aggregator-sources.RemoveSourceModal.removeSource',
     defaultMessage: 'Remove source'
@@ -39,7 +43,7 @@ export default function RemoveSourceModal({ onRemove, onClose }) {
   }
 
   return (
-    <Modal title={intl.formatMessage(messages.removeSource)} onClose={onClose}>
+    <Modal title={intl.formatMessage(messages.removeASource)} onClose={onClose}>
       <Form onSubmit={confirmRemove}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>

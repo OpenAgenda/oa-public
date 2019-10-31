@@ -90,6 +90,20 @@ function ruleToValues(rule) {
   return {};
 }
 
+function valuesToRule(values) {
+  const query = values.type === 'location'
+    ? {
+      location: {
+        [values.subdivision]: values.values
+      }
+    }
+    : {
+      tags: values.values
+    };
+
+  return { query };
+}
+
 function validate(intl, values) {
   if (!values.type) {
     return { [FORM_ERROR]: intl.formatMessage(messages.requiredType) };
@@ -238,13 +252,13 @@ function RuleItem({ rule, onUpdate, onRemove }) {
   return (
     <div className="row margin-v-sm">
       <div className="col-md-6">
-        {rule.query.location
-          ? Object.values(rule.query.location)[0].join(', ')
-          : null}
+        <div className="filter-value">
+          {rule.query.location
+            ? Object.values(rule.query.location)[0].join(', ')
+            : null}
 
-        {rule.query.tags ? rule.query.tags.join(', ') : null}
-
-        <br />
+          {rule.query.tags ? rule.query.tags.join(', ') : null}
+        </div>
 
         <span className="text-muted">
           {rule.query.location
@@ -305,20 +319,12 @@ export default function DefineRules({ initialRules, SubmitButton, onSubmit }) {
         return errors;
       }
 
-      const query = values.type === 'location'
-        ? {
-          location: {
-            [values.subdivision]: values.values
-          }
-        }
-        : {
-          tags: values.values
-        };
+      const rule = valuesToRule(values);
 
       dispatch({
         type: 'addRule',
         payload: {
-          rule: { query }
+          rule
         }
       });
 
@@ -327,12 +333,14 @@ export default function DefineRules({ initialRules, SubmitButton, onSubmit }) {
     [dispatch, setMode, intl]
   );
   const updateRule = useCallback(
-    rule => {
-      const errors = validate(intl, rule);
+    values => {
+      const errors = validate(intl, values);
 
       if (errors) {
         return errors;
       }
+
+      const rule = valuesToRule(values);
 
       dispatch({
         type: 'updateRule',

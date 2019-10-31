@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { useMemo, useState, useCallback } from 'react';
+import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
@@ -8,7 +9,6 @@ import ReactMarkdown from 'react-markdown';
 import qs from 'qs';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import * as agendaActions from '../reducers/agenda';
 import * as modalsActions from '../reducers/modals';
 import * as sourcesActions from '../reducers/sources';
 import SearchInput from '../components/SearchInput';
@@ -39,11 +39,6 @@ const messages = defineMessages({
     id: 'aggregator-sources.Dashboard.sourcesExplanation',
     defaultMessage:
       'The events published by the agendas listed here are automatically added to the [{title}]({link}) agenda.'
-  },
-  addSources: {
-    id: 'aggregator-sources.Dashboard.addSources',
-    defaultMessage:
-      'To aggregate new agendas, [go to the page of the agenda](%searchLink%) you wish to add and click on Export > Aggregate in > **{agenda}**'
   },
   searchAgenda: {
     id: 'aggregator-sources.Dashboard.searchAgenda',
@@ -83,11 +78,6 @@ function Dashboard({ agenda, history }) {
   const nextLoading = useSelector(state => state.sources.nextLoading);
   const modals = useSelector(state => state.modals);
 
-  const createAggregator = useCallback(
-    () => dispatch(agendaActions.createAggregator(agenda.uid)),
-    [dispatch, agenda.uid]
-  );
-
   const search = useCallback(
     v => dispatch(sourcesActions.list({ search: v })).finally(() => {
       history.push({
@@ -124,7 +114,7 @@ function Dashboard({ agenda, history }) {
 
       return debouncedSearch(values.search);
     },
-    [value, debouncedSearch]
+    [value, setValue, setPreviousValue, debouncedSearch]
   );
 
   const refresh = useCallback(() => search(value), [search, value]);
@@ -162,23 +152,6 @@ function Dashboard({ agenda, history }) {
     );
   }
 
-  if (!agenda.credentials.aggregator) {
-    return (
-      <div className="margin-top-sm text-center">
-        <p>{intl.formatMessage(messages.aggregatorExplanation)}</p>
-        <div className="margin-v-lg">
-          <button
-            className="btn btn-primary"
-            type="button"
-            onClick={createAggregator}
-          >
-            {intl.formatMessage(messages.createAggregator)}
-          </button>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div>
       <div>
@@ -194,13 +167,10 @@ function Dashboard({ agenda, history }) {
         <div className="margin-v-md">
           <ReactMarkdown
             className="text-muted"
-            source={`${intl.formatMessage(messages.sourcesExplanation, {
+            source={intl.formatMessage(messages.sourcesExplanation, {
               title: agenda.title,
               link: res.showAgenda.replace(':slug', agenda.slug)
-            })} ${intl.formatMessage(messages.addSources, {
-              searchLink: res.search,
-              agenda: agenda.title
-            })}`}
+            })}
           />
         </div>
         <Form
@@ -288,4 +258,4 @@ export default provideHooks({
 
     return Promise.all(promises);
   }
-})(Dashboard);
+})(module.hot ? hot(Dashboard) : Dashboard);
