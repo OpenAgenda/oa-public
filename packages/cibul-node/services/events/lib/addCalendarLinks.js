@@ -9,10 +9,6 @@ function _linkifyTime( time ) {
 }
 
 module.exports = function addCalendarLinks(event, eventUrl, agenda, lang) {
-  if ( !event.location ) {
-    return;
-  }
-
   event.timings.forEach( ( timing, i ) => {
     const eventTitle = getLocaleValue(event.title, lang)
     const eventDescription = getLocaleValue(event.description, lang)
