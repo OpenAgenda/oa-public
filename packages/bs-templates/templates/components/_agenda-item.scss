@@ -1,6 +1,7 @@
 .agenda-item {
 
-  & > a {
+  & > a,
+  & > button.btn.btn-link-inline {
 
     color: inherit;
 
@@ -16,7 +17,12 @@
 
   .title {
 
-    a { color: inherit; }
+    a,
+    button.btn.btn-link-inline {
+
+      color: inherit;
+
+    }
 
   }
 

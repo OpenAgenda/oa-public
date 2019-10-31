@@ -33,14 +33,14 @@
     }
 
     &-tag {
-      background-color: lighten($oa-blue, 20);
+      background-color: $oa-blue;
       border-radius: 2px;
-      border: 1px solid lighten($oa-blue, 10);
-      color: darken($oa-blue, 25);
+      border: 1px solid $oa-blue;
+      color: $oa-white;
       display: inline-block;
       font-family: sans-serif;
-      font-size: 13px;
-      line-height: 13px;
+      font-size: 14px;
+      line-height: 14px;
       font-weight: 400;
       margin-right: 5px;
       margin-bottom: 2px;
@@ -48,6 +48,7 @@
     }
 
     &-remove {
+      color: $oa-white;
       cursor: pointer;
       font-weight: bold;
       text-decoration: none;
@@ -62,11 +63,10 @@
       border: 0;
       color: $oa-black;
       font-family: sans-serif;
-      font-size: 13px;
       font-weight: 400;
       outline: none;
       padding: 5px;
-      width: 120px;
+      width: 80px;
     }
   }
 
@@ -88,7 +88,6 @@
 
     .media-body {
       .actions a {
-        font-size: 13px;
         text-decoration: none;
         color: #777777;
 
@@ -99,13 +98,19 @@
     }
   }
 
-  .popup-overlay {
+  .popup-content {
     .stepper .step {
       background-color: #eeeeee;
     }
 
     .search {
       width: 100%;
+    }
+
+    .filter-value {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
