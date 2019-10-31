@@ -18,11 +18,15 @@ module.exports = async ({
   const { agenda, event, aggregatorAgendaUid, batched } = data;
   const log = Log(`${event.slug} of source ${agenda.slug} (${agenda.uid})`);
 
+  const tags = convertSchemaOptionIdsToTags(data.formSchema, event);
+
   const eventWithTags = ih(event, {
     tags: {
-      $set: convertSchemaOptionIdsToTags(data.formSchema, event)
+      $set: tags
     }
   });
+
+  log('extracted tags: %s', tags);
 
   const rules = [].concat(
     data.aggregatorRules || []
@@ -35,7 +39,7 @@ module.exports = async ({
   const shouldAggregate = rules.length ? !!evaluateResult : true;
 
   if (reference && !shouldAggregate) {
-    log('is already referenced, but should not be through current source');
+    log('is already referenced, but should not be through current source', { step: 'alreadyReferenced' });
     return enqueueRemove({
       agenda,
       event,
@@ -46,12 +50,12 @@ module.exports = async ({
   }
 
   if (!shouldAggregate) {
-    log('does not pass set rules, will not aggregate');
+    log('does not pass set rules, will not aggregate', { step: 'stoppedByRules' });
     return;
   }
 
   if (reference && !reference.sourceAgendaUid.includes(agenda.uid)) {
-    log('is already referenced, update of source uids is required');
+    log('is already referenced, update of source uids is required', { step: 'alreadyReferenced' });
     await setSourceUidOnExistingReference(aggregatorAgendaUid, event.uid, agenda.uid);
     return;
   }
@@ -66,7 +70,7 @@ module.exports = async ({
 
   await referenceEvent(agenda, aggregatorAgendaUid, event.uid, extendedValues, { batched });
 
-  log('done');
+  log('done', { step: 'referenced' });
   return {
     success: true,
     operation: 'aggregation'
