@@ -8,7 +8,7 @@ const searchSpinner = {
   radius: 4
 };
 
-const SearchInput = ( { type, placeholder, className, spellCheck, action, loading, ...props } ) => {
+const SearchInput = ( { getLabel, type, placeholder, className, spellCheck, action, loading, ...props } ) => {
   const inputAttrs = { type, placeholder, className, spellCheck };
   const onChange = e => {
     props.input.onChange( e.target.value );
@@ -24,7 +24,7 @@ const SearchInput = ( { type, placeholder, className, spellCheck, action, loadin
     </button>
   </div>;
 
-  return <FieldInput content={content} {...props} />;
+  return <FieldInput getLabel={getLabel} content={content} {...props} />;
 };
 
 export default SearchInput;

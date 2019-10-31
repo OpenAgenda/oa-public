@@ -2,7 +2,8 @@ import React from 'react';
 
 const FieldInput = ( {
   content, input: { name, value }, label, subLabel, max, classNameGroup, visible = true,
-  errorOnDirty, meta: { touched, error, dirty }
+  errorOnDirty, meta: { touched, error, dirty },
+  getLabel
 } ) => {
   const displayError = errorOnDirty ? dirty || touched : touched;
 
@@ -17,7 +18,7 @@ const FieldInput = ( {
           <i className="fa fa-times" aria-hidden="true"></i>
         </span>}
       {displayError && error && <div className={`text-danger ${max && 'pull-left' || ''}`}>
-        {this.context.getLabel( error )}
+        {getLabel( error )}
       </div>}
       {max && <div className={`text-right ${max - value.length < 0 && 'text-danger' || ''}`}>
         {max - value.length}

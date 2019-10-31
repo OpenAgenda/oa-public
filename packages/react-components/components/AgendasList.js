@@ -14,10 +14,7 @@ export default class AgendasList extends Component {
     WrapperComponent: componentPropTypes,
     ActionsComponent: componentPropTypes,
     agendas: PropTypes.array,
-    getTitleLink: PropTypes.func
-  };
-
-  static contextTypes = {
+    getTitleLink: PropTypes.func,
     getLabel: PropTypes.func
   };
 
@@ -27,8 +24,7 @@ export default class AgendasList extends Component {
   };
 
   render() {
-    const { WrapperComponent, ActionsComponent, agendas, getTitleLink } = this.props;
-    const { getLabel } = this.context;
+    const { WrapperComponent, ActionsComponent, agendas, getTitleLink, getLabel } = this.props;
 
     return React.createElement(
       WrapperComponent,

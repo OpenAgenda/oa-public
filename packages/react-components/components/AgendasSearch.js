@@ -56,6 +56,7 @@ export default class AgendasSearch extends Component {
           action={value => search( value === '' ? undefined : value )}
           parse={value => value === '' ? undefined : value}
           format={value => value == null ? '' : value}
+          getLabel={getLabel}
         />
       </form>
     );
@@ -77,6 +78,7 @@ export default class AgendasSearch extends Component {
           render={this.renderForm}
         />
         <AgendasList
+          getLabel={getLabel}
           getTitleLink={getTitleLink}
           agendas={agendas}
           ActionsComponent={AgendaActionsComponent}
