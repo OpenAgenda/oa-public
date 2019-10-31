@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
-import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import classNames from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
+import I18nContext from '../contexts/I18nContext';
 import { MenuItem } from '../components';
 import menuReducer from '../reducers/menu';
 import agendasReducer from '../reducers/agendas';
@@ -33,66 +33,58 @@ import modalsReducer from '../reducers/modals';
   })
 )
 class App extends Component {
+  getLabel = (label, values = {}) => makeGetterLabel(labels)(label, values, this.props.lang);
 
-  static childContextTypes = {
-    lang: PropTypes.string,
-    getLabel: PropTypes.func
+  i18nContextValue = {
+    lang: this.props.lang,
+    getLabel: this.getLabel
   };
 
-  getChildContext() {
-    const { lang } = this.props;
-
-    return {
-      lang,
-      getLabel: label => makeGetterLabel( labels )( label, lang )
-    };
-  }
-
   render() {
-
     const { route, tab, isNew, prefix, total } = this.props;
-    const { getLabel } = this.getChildContext();
 
-    if ( isNew && !total ) {
-      return (
-        <div className="container top-margined home">
-          <div className="col-sm-8 col-sm-offset-2">
-            <div className="row wsq">
-              <div className="content">
-                {renderRoutes( route.routes )}
-              </div>
+    const content = isNew && !total ? (
+      <div className="container top-margined home">
+        <div className="col-sm-8 col-sm-offset-2">
+          <div className="row wsq">
+            <div className="content">
+              {renderRoutes(route.routes)}
             </div>
           </div>
         </div>
-      );
-    }
-
-    return (
-      <div className={classNames( 'container top-margined home', { [ `home-${tab}` ]: tab } )}>
+      </div>
+    ) : (
+      <div className={classNames('container top-margined home', { [`home-${tab}`]: tab })}>
         <div className="row">
           <div className="col-sm-8 col-sm-offset-2">
             <ul className="home-nav list-inline">
               <MenuItem
                 linkTo={prefix || '/'}
-                active={tab === 'agendas'}>
-                {getLabel( 'myAgendas' )}
+                active={tab === 'agendas'}
+              >
+                {this.getLabel('myAgendas')}
               </MenuItem>
               <MenuItem
                 linkTo={prefix + '/events'}
-                active={tab === 'events'}>
-                {getLabel( 'myEvents' )}
+                active={tab === 'events'}
+              >
+                {this.getLabel('myEvents')}
               </MenuItem>
             </ul>
             <div className="wsq">
-              {renderRoutes( route.routes )}
+              {renderRoutes(route.routes)}
             </div>
           </div>
         </div>
       </div>
     );
 
+    return (
+      <I18nContext.Provider value={this.i18nContextValue}>
+        {content}
+      </I18nContext.Provider>
+    );
   }
-
 }
 
 export default module.hot ? hot(App) : App;

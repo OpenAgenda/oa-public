@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { debounce, throttle } from 'lodash';
 import AgendasSearchComponent from '@openagenda/react-components/build/AgendasSearch';
+import I18nContext from '../contexts/I18nContext';
 import * as agendasActions from '../reducers/agendas';
 
 const componentPropTypes = PropTypes.oneOfType( [
@@ -44,9 +45,7 @@ export default class AgendasSearch extends Component {
     createButtonIfEmpty: PropTypes.bool
   };
 
-  static contextTypes = {
-    getLabel: PropTypes.func
-  };
+  static contextType = I18nContext;
 
   static defaultProps = {
     Header: () => null,

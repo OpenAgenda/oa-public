@@ -11,6 +11,7 @@ import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
 import Image from '@openagenda/react-components/build/Image';
 import SearchInput from '@openagenda/react-components/build/SearchInput';
+import I18nContext from '../contexts/I18nContext';
 import * as agendasActions from '../reducers/agendas';
 import * as eventsActions from '../reducers/events';
 import * as modalsActions from '../reducers/modals';
@@ -72,9 +73,7 @@ export default class Events extends Component {
     modals: PropTypes.object
   };
 
-  static contextTypes = {
-    getLabel: PropTypes.func
-  };
+  static contextType = I18nContext;
 
   state = {
     value: this.props.query && this.props.query.search

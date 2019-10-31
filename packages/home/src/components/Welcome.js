@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import I18nContext from '../contexts/I18nContext';
 
 @connect( state => ({
   res: state.res
 }) )
 export default class Welcome extends Component {
 
-  static contextTypes = {
-    getLabel: PropTypes.func
-  };
+  static contextType = I18nContext;
 
   render() {
     const { res } = this.props;

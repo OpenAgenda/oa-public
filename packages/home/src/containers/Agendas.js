@@ -1,12 +1,12 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import { hot } from 'react-hot-loader/root';
-import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
+import I18nContext from '../contexts/I18nContext';
 import { setTab } from '../reducers/menu';
 import { Welcome } from '../components';
 import AgendasSearch from './AgendasSearch';
@@ -42,9 +42,7 @@ import * as agendasActions from '../reducers/agendas';
 }) )
 @withRouter
 class Agendas extends Component {
-  static contextTypes = {
-    getLabel: PropTypes.func
-  };
+  static contextType = I18nContext;
 
   renderHeader = () => {
     const { res } = this.props;
