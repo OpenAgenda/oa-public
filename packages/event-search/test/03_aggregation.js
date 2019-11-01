@@ -61,25 +61,25 @@ describe( 'event search - functional: search', function() {
 
     it( 'keyword search, with aggregation', async () => {
 
-      let { aggregations } = await service( 'simple_search' ).search( { 
+      let { aggregations } = await service( 'simple_search' ).search( {
         keyword: 'word'
       }, { size: 0 }, {
-        aggregations: [ 
-          'search_internals_keywords', 
+        aggregations: [
+          'search_internals_keywords',
           { type: 'timings' }
         ]
       } );
 
-      aggregations.should.eql( { 
-        search_internals_keywords: [ 
+      aggregations.should.eql( {
+        search_internals_keywords: [
           { key: 'clé', count: 1 },
           { key: 'key', count: 1 },
           { key: 'mot', count: 1 },
           { key: 'word', count: 1 }
         ],
         timings: [ {
-          key: '2010-04-01', count: 2 
-        } ] 
+          key: '2010-04-01', count: 2
+        } ]
       } );
 
     } );
@@ -90,7 +90,7 @@ describe( 'event search - functional: search', function() {
       let { aggregations, events } = await service( 'simple_search' ).search( {
         keyword: 'word'
       }, { size: 2 }, {
-        detailed: true, // timings is not part of standard, if timespan is 
+        detailed: true, // timings is not part of standard, if timespan is
         aggregations: [ { type: 'timespan' } ]
       } );
 
@@ -100,10 +100,10 @@ describe( 'event search - functional: search', function() {
 
     it( 'keyword search using predefined aggregation', async () => {
 
-      service.init( ih( config, { 
+      service.init( ih( config, {
         predefinedAggregations: {
           $set: {
-            keywords: { 
+            keywords: {
               type: 'terms',
               field: 'search_internals_keywords',
               destination: 'keywords'
@@ -112,19 +112,19 @@ describe( 'event search - functional: search', function() {
         }
       } ) );
 
-      let { aggregations } = await service( 'simple_search' ).search( { 
+      let { aggregations } = await service( 'simple_search' ).search( {
         keyword: 'word'
       }, { size: 0 }, {
         aggregations: 'keywords'
       } );
 
-      aggregations.should.eql( { 
-        keywords: [ 
+      aggregations.should.eql( {
+        keywords: [
           { key: 'clé', count: 1 },
           { key: 'key', count: 1 },
           { key: 'mot', count: 1 },
-          { key: 'word', count: 1 } 
-        ] 
+          { key: 'word', count: 1 }
+        ]
       } );
 
     } );
@@ -132,10 +132,10 @@ describe( 'event search - functional: search', function() {
 
     it( 'search using predefined aggregation on agenda sub-object', async () => {
 
-      service.init( ih( config, { 
+      service.init( ih( config, {
         predefinedAggregations: {
           $set: {
-            agendas: { 
+            agendas: {
               type: 'objectsAsTerms',
               field: 'search_internals_agenda',
               destination: 'agendas'
@@ -154,9 +154,9 @@ describe( 'event search - functional: search', function() {
         key: '21475128',
         count: 2,
         agenda: {
-          uid: '21475128', 
+          uid: '21475128',
           title: 'France Handball 2017'
-        } 
+        }
       } ] );
 
     } );
