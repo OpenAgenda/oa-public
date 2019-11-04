@@ -1,6 +1,5 @@
-"use strict";
+'use strict';
 
-const config = require( './config' );
 const preParse = require( './index/preParse' );
 const clean = require( './helpers/clean' );
 const lastTimingEndsIn = require( './helpers/lastTimingEndsIn' );
@@ -8,7 +7,7 @@ const handleError = require( './helpers/handleError' );
 const _ = require( 'lodash' );
 const log = require( '@openagenda/logs' )( 'add' );
 
-module.exports = async function( alias, event, options = {} ) {
+module.exports = async function(config, alias, event, options = {}) {
 
   const params = _.extend( {
     refresh: false,
@@ -52,17 +51,15 @@ module.exports = async function( alias, event, options = {} ) {
       ttl
     } );
 
-  } catch ( err ) {
-
-    return handleError( err, 'failed to add event to index' );
-
+  } catch (err) {
+    return handleError(config, err, 'failed to add event to index');
   }
 
   if ( result.created ) {
-  
+
     log( 'info', 'event %j was added to alias %s', { uid: event.uid }, alias, {
       operation: 'add',
-      alias, 
+      alias,
       identifiers: { uid: event.uid }
     } );
 

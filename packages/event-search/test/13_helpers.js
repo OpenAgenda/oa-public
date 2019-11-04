@@ -2,7 +2,7 @@
 
 const should = require( 'should' );
 const helpers = require( '../service/helpers' );
-const service = require( '../' );
+const Service = require( '../' );
 const elasticsearch = require( 'elasticsearch' );
 const config = require( '../testconfig' );
 const w = require( 'when' );
@@ -14,11 +14,11 @@ describe( 'event-search - unit: helpers', function() {
 
   this.timeout( 10000 );
 
-  let client;
+  let client, service;
 
   before( () => {
 
-    service.init( config );
+    service = Service(config);
 
     client = service.getConfig().client;
 

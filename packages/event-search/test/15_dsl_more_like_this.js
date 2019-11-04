@@ -4,14 +4,13 @@ const _ = require( 'lodash' );
 const config = require( '../testconfig' );
 const elasticsearch = require( 'elasticsearch' );
 const ih = require( 'immutability-helper' );
-const serviceConfig = require( '../service/config' );
 const should = require( 'should' );
 
-const service = require( '../' );
+const Service = require( '../' );
 const getMoreLikeThis = require( '../service/helpers/dsl/getMoreLikeThis' );
 const wrapInMoreLikeThis = require( '../service/helpers/dsl/wrapInMoreLikeThis' );
 
-const dslSearch = require( '../service/search' ).dsl;
+const runDSLQuery = require('../service/helpers/runDSLQuery');
 const moreLikeThisData = require( './service/simpleMoreLikeThis.data' );
 const moreLikeThisEvents = require( './service/moreLikeThisEvents.data' );
 
@@ -54,7 +53,9 @@ describe( 'event-search - unit: more like this search', function() {
 
   describe( 'on simple index', () => {
 
-    let client = new elasticsearch.Client( JSON.parse( JSON.stringify( config.elasticsearch ) ) );
+    const client = new elasticsearch.Client({
+      host: config.elasticsearch.host
+    });
 
     before( async () => {
 
@@ -429,15 +430,17 @@ describe( 'event-search - unit: more like this search', function() {
 
   describe( 'on event-like mapping', () => {
 
+    let service, dslSearch;
+
     this.timeout( 10000 );
 
     let indiceName;
 
-    before( () => {
+    before(() => {
+      service = Service(config);
 
-      service.init( config );
-
-    } );
+      dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
+    });
 
     before( async () => {
 
@@ -466,7 +469,7 @@ describe( 'event-search - unit: more like this search', function() {
         }
       } );
 
-      indiceName = Object.keys( await serviceConfig.client.indices.getAlias( { name: 'more_like_this' } ) )[ 0 ];
+      indiceName = Object.keys( await service.getConfig().client.indices.getAlias( { name: 'more_like_this' } ) )[ 0 ];
 
     } );
 

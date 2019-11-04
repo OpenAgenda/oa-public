@@ -1,12 +1,14 @@
-"use strict";
+'use strict';
 
-const should = require( 'should' );
-const config = require( '../testconfig' );
-const events = require( '@openagenda/events/test/service' );
-const service = require( '../' );
+const should = require('should');
+const config = require('../testconfig');
+const events = require('@openagenda/events/test/service');
+const Service = require('../');
 
 
-describe( 'event search - functional: create', function() {
+describe('event search - functional: create', function() {
+
+  let service;
 
   this.timeout( 10000 );
 
@@ -33,25 +35,25 @@ describe( 'event search - functional: create', function() {
       countryCode : 'FR',
       timezone : 'Europe/Paris'
     },
-    timings: [ {
+    timings: [{
       begin: new Date( '2027-04-20T12:00:00+0100' ),
       end: new Date( '2027-04-20T13:00:00+0100' )
-    } ],
+    }],
     timezone: 'Europe/Paris'
   }
 
-  before( done => {
+  before(done => {
 
     events.initAndLoad( config.eventService, [ {
       table: 'event',
-      src: __dirname + '/service/event.data.sql' 
+      src: __dirname + '/service/event.data.sql'
     } ], { reset: true }, done );
 
-  } );
+  });
 
   before( async () => {
 
-    service.init( config );
+    service = Service(config);
 
     await service( 'test_index' ).rebuild( {
       eventsList: function( offset, limit ) {
@@ -74,7 +76,7 @@ describe( 'event search - functional: create', function() {
     result.success.should.equal( true );
 
     await _timeout( 1000 );
-    
+
     let { events, total } = await service( 'test_index' ).search( { uid: 74367684 } );
 
     total.should.equal( 1 );
@@ -123,7 +125,7 @@ describe( 'event search - functional: create', function() {
       end: timestamp + 1
     } ];
 
-    let result = await service( 'test_index' ).add( eventData, { 
+    let result = await service( 'test_index' ).add( eventData, {
       refresh: true,
       expire: true
     } );
@@ -142,7 +144,7 @@ describe( 'event search - functional: create', function() {
       end: _getYesterdayDate( 2 )
     } ];
 
-    let result = await service( 'test_index' ).add( eventData, { 
+    let result = await service( 'test_index' ).add( eventData, {
       refresh: true,
       expire: true
     } );

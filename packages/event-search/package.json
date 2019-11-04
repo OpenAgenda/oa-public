@@ -9,7 +9,7 @@
   },
   "homepage": "https://bitbucket.org/openagenda/oa/src/master/packages/event-search",
   "scripts": {
-    "test": "mocha --exit"
+    "test": "NODE_ENV=test mocha --exit"
   },
   "keywords": [],
   "author": "",

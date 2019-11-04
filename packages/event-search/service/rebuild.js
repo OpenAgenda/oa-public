@@ -1,27 +1,30 @@
 "use strict";
 
-const config = require( './config' );
-const h = require( './helpers' );
-const _ = require( 'lodash' );
-const preParse = require( './index/preParse' );
-const parseExtension = require( './extensions/parse' );
-const log = require( '@openagenda/logs' )( 'rebuild' );
+const h = require('./helpers');
+const _ = require('lodash');
+const preParse = require('./index/preParse');
+const parseExtension = require('./extensions/parse');
+const log = require('@openagenda/logs' )( 'rebuild');
 
 const limit = 10;
 
 const defaultExtensions = {
-  contributor: require( './extensions/contributor.fields.js' ),
+  contributor: require('./extensions/contributor.fields.js'),
 }
 
-const indexSettings = JSON.parse( require( 'fs' ).readFileSync( __dirname + '/index/settings.json', 'utf-8' ) );
+const indexSettings = JSON.parse(require('fs' ).readFileSync(__dirname + '/index/settings.json', 'utf-8'));
 
-module.exports = async ( alias, options ) => {
+module.exports = async (config, alias, options) => {
+  const {
+    client,
+    type
+  } = config;
 
-  const params = _.extend( {
+  const params = Object.assign({
     eventsList: null,
     extensions: {},
     expire: false
-  }, options );
+  }, options);
 
   _.extend( params.extensions, defaultExtensions );
 
@@ -37,11 +40,11 @@ module.exports = async ( alias, options ) => {
 
   await h.checkList( params.eventsList );
 
-  const index = await h.createUniqueIndex( config.client, alias, extendedSettings );
+  const index = await h.createUniqueIndex( client, alias, extendedSettings );
 
   // Populate: use list func to populate new index
 
-  log( 'start populating new index' );
+  log( 'start populating new index');
 
   try {
 
@@ -55,7 +58,7 @@ module.exports = async ( alias, options ) => {
         items: []
       };
 
-      let bulkJob = h.indexBulk( config.client, index, config.type, events.map( preParse ), { expire: params.expire } );
+      let bulkJob = h.indexBulk( client, index, type, events.map( preParse ), { expire: params.expire } );
 
       if ( bulkJob ) {
 
@@ -63,11 +66,11 @@ module.exports = async ( alias, options ) => {
 
       } else {
 
-        log( 'nothing to index in bulk job: all items were filtered out' );
+        log( 'nothing to index in bulk job: all items were filtered out');
 
       }
 
-      log( 'info', 'bulk indexed offset %s on index %s, took %s', offset, index, ( bulkResult.took / 1000 ) + 's' );
+      log( 'info', 'bulk indexed offset %s on index %s, took %s', offset, index, ( bulkResult.took / 1000 ) + 's');
 
       if ( bulkResult.errors ) {
 
@@ -87,7 +90,7 @@ module.exports = async ( alias, options ) => {
 
     log( 'error', 'index rebuild failed - deleting, not reassigning', e );
 
-    await config.client.indices.delete( { index } );
+    await client.indices.delete( { index } );
 
     throw e;
 
@@ -99,26 +102,26 @@ module.exports = async ( alias, options ) => {
 
   let previousIndices = [];
 
-  if ( await config.client.indices.existsAlias( { name: alias } ) ) {
+  if ( await client.indices.existsAlias( { name: alias } ) ) {
 
-    previousIndices = Object.keys( await config.client.indices.getAlias( { name: alias } ) );
+    previousIndices = Object.keys( await client.indices.getAlias( { name: alias } ) );
 
   }
 
-  await config.client.indices.putAlias( {
+  await client.indices.putAlias( {
     index,
     name: alias
   } );
 
   while ( previousIndices.length ) {
 
-    await config.client.indices.delete( { index: previousIndices.pop() } );
+    await client.indices.delete( { index: previousIndices.pop() } );
 
   }
 
   log( 'info', 'updated alias %s, removed %s previously associated indices', alias, previousIndices.length );
 
-  await config.client.indices.refresh( { index } );
+  await client.indices.refresh( { index } );
 
   return {
     success: true,

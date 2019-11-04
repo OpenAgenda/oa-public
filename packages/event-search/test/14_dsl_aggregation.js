@@ -4,9 +4,9 @@ const should = require( 'should' );
 const config = require( '../testconfig' );
 const _ = require( 'lodash' );
 
-const service = require( '../' );
+const Service = require( '../' );
+const runDSLQuery = require('../service/helpers/runDSLQuery');
 
-const dslSearch = require( '../service/search' ).dsl;
 
 const buildAggregationDsl = require( '../service/aggregation' );
 
@@ -20,30 +20,30 @@ describe( 'event-search - unit: dsl aggregation', function() {
   describe( 'aggregation options to dsl', function() {
 
     // when a search is made on the service which requires
-    // aggregated results, basic info on the requested aggregation is 
+    // aggregated results, basic info on the requested aggregation is
     // passed to the search function. The following ( in this describe ), parses thoe options
     // builds the aggregation dsl
 
     it( 'define a term aggregation', () => {
 
-      buildAggregationDsl( [ {
+      buildAggregationDsl({}, [ {
         type: 'terms',
         field: 'location.region'
       } ] )
 
-        .should.eql( { 
-          'location.region': { terms: { field: 'location.region' } } 
+        .should.eql( {
+          'location.region': { terms: { field: 'location.region' } }
         } );
 
-    } );
+    } );
 
 
     it( 'in fact, default aggregation is terms aggregation', () => {
 
-      buildAggregationDsl( [ 'location.region' ] )
+      buildAggregationDsl({}, [ 'location.region' ])
 
-         .should.eql( { 
-          'location.region': { terms: { field: 'location.region' } } 
+         .should.eql( {
+          'location.region': { terms: { field: 'location.region' } }
         } );
 
     } );
@@ -51,8 +51,8 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
     it( 'aggregation configurations can be predefined', () => {
 
-      buildAggregationDsl( [ 'keywords' ], {
-        keywords: { 
+      buildAggregationDsl( {}, [ 'keywords' ], {
+        keywords: {
           type: 'terms',
           field: 'search_internals_keywords',
           destination: 'keywords'
@@ -64,14 +64,14 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
     it( 'destination aggregation keys can be different from aggregated field name', () => {
 
-      buildAggregationDsl( [ {
+      buildAggregationDsl({}, [ {
         type: 'terms',
         field: 'location.region',
         destination: 'locationRegion'
       } ] )
 
         .should.eql( {
-          'locationRegion': { terms: { field: 'location.region' } } 
+          'locationRegion': { terms: { field: 'location.region' } }
         } );
 
     } );
@@ -79,7 +79,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
     it( 'define a timings aggregation', () => {
 
-      buildAggregationDsl( [ {
+      buildAggregationDsl( {}, [ {
         type: 'timings'
       } ] )
 
@@ -105,7 +105,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
     it( 'define a timespan aggregation', () => {
 
-      buildAggregationDsl( { type: 'timespan' } )
+      buildAggregationDsl( {}, { type: 'timespan' } )
 
         .should.eql( {
           "timespan": {
@@ -135,7 +135,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
     it( 'parse result of term aggregation', () => {
 
-      parseAggregationResult( [ {
+      parseAggregationResult( {}, [ {
         type: 'terms',
         field: 'search_internal_keywords'
       } ], {
@@ -159,7 +159,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
     it( 'parse result of timings aggregation', () => {
 
-      parseAggregationResult( [ {
+      parseAggregationResult( {}, [ {
         type: 'timings'
       } ], {
         timings: {
@@ -187,11 +187,14 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
   describe( 'aggregations by geohash, date histogram and region', function() {
 
+    let service, dslSearch;
+
     this.timeout( 10000 );
-    
+
     before( async () => {
 
-      service.init( config );
+      service = Service(config);
+      dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
 
       // list must be prepared to give all needed data
       // for index
@@ -226,8 +229,8 @@ describe( 'event-search - unit: dsl aggregation', function() {
       _.pick( aggregations.minMaxDays, [
         'min_as_string',
         'max_as_string'
-      ] ).should.eql( {                                           
-        min_as_string: '2017-08-03T19:00:00.000Z',                                           
+      ] ).should.eql( {
+        min_as_string: '2017-08-03T19:00:00.000Z',
         max_as_string: '2017-08-08T19:00:00.000Z'
       } );
 
@@ -270,7 +273,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
     it( 'group events by date range, with sample', async () => {
 
       /**
-       * here timings are nested. I need an aggregation giving me the documents 
+       * here timings are nested. I need an aggregation giving me the documents
        * matching the nested timings in a histogram ( not necessarily though )
        */
 
@@ -349,7 +352,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
       let { events, aggregations } = await dslSearch( 'simple_search', dsl );
 
 
-      aggregations.wigglytime.datethingie.buckets.should.eql( [ 
+      aggregations.wigglytime.datethingie.buckets.should.eql( [
         { key_as_string: '2017-08-02', key: 1501632000000, doc_count: 1 },
         { key_as_string: '2017-08-03', key: 1501718400000, doc_count: 1 },
         { key_as_string: '2017-08-04', key: 1501804800000, doc_count: 0 },
@@ -368,14 +371,14 @@ describe( 'event-search - unit: dsl aggregation', function() {
         query: {},
         aggregations: {
           departmentthingie: {
-            terms: { field: 'location.department' }
+            terms: { field: 'location.department' }
           }
         }
       };
 
       let { events, aggregations } = await dslSearch( 'simple_search', dsl );
 
-      aggregations.departmentthingie.buckets.should.eql( [ 
+      aggregations.departmentthingie.buckets.should.eql( [
         {
           key: 'Meuse',
           doc_count: 2
@@ -383,7 +386,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
         {
           key: 'Paris',
           doc_count: 2
-        } 
+        }
       ] );
 
     } );
@@ -408,12 +411,12 @@ describe( 'event-search - unit: dsl aggregation', function() {
         aggregations
       } = await dslSearch( 'simple_search', dsl );
 
-      aggregations.ceteunpeupenible.should.eql( { 
-        buckets: [ 
+      aggregations.ceteunpeupenible.should.eql( {
+        buckets: [
           { key: 'u0ez', doc_count: 2 },
           { key: 'u09w', doc_count: 1 },
-          { key: 'u09t', doc_count: 1 } 
-        ] 
+          { key: 'u09t', doc_count: 1 }
+        ]
       } );
 
     } );

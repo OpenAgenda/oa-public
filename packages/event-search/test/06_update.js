@@ -3,9 +3,11 @@
 const should = require( 'should' );
 const config = require( '../testconfig' );
 const events = require( '@openagenda/events/test/service' );
-const service = require( '../' );
+const Service = require( '../' );
 
 describe( 'event search - functional: update', function() {
+
+  let service;
 
   this.timeout( 10000 );
 
@@ -13,14 +15,14 @@ describe( 'event search - functional: update', function() {
 
     events.initAndLoad( config.eventService, [ {
       table: 'event',
-      src: __dirname + '/service/event.data.sql' 
+      src: __dirname + '/service/event.data.sql'
     } ], { reset: true }, done );
 
   } );
 
   before( async () => {
 
-    service.init( config );
+    service = Service(config);
 
     // list must be prepared to give all needed data
     // for index
@@ -73,15 +75,15 @@ describe( 'event search - functional: update', function() {
     total.should.equal( 1 );
 
     events[ 0 ].title.should.eql( {
-      en: 'Witness me!', 
-      fr: 'Trié: Presque le plus dans le futur' 
+      en: 'Witness me!',
+      fr: 'Trié: Presque le plus dans le futur'
     } );
 
   } );
 
 
   describe( 'expiring event', () => {
-    
+
     it( 'when expiry is set returns includes ttl value', async () => {
 
       const eventData = {

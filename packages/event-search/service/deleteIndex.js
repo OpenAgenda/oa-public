@@ -1,24 +1,19 @@
 "use strict";
 
-const config = require( './config' );
 const VError = require( 'verror' );
+const log = require('@openagenda/logs')('deleteIndex');
 
-let log = console.log;
-
-module.exports = async alias => {
-
+module.exports = async (config, alias) => {
   let { client } = config;
 
   let removedIndices = 0, toBeRemoved;
 
-  if ( !await config.client.indices.existsAlias( { name: alias } ) ) {
-
-    throw new VError( 'no index was found to be removed for alias %s', alias );
-
+  if (!await client.indices.existsAlias({ name: alias })) {
+    throw new VError('no index was found to be removed for alias %s', alias);
   }
 
-  let indices = Object.keys( await config.client.indices.getAlias( { name: alias } ) );
-  
+  const indices = Object.keys( await client.indices.getAlias( { name: alias } ) );
+
   toBeRemoved = indices.length;
 
   while ( indices.length ) {
@@ -43,5 +38,4 @@ module.exports = async alias => {
     success: true,
     removedIndices: indices.length
   }
-
 }

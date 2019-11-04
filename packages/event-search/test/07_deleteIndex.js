@@ -1,17 +1,18 @@
 "use strict";
 
-const should = require( 'should' ),
+const should = require( 'should' );
 
-  config = require( '../testconfig' ),
+const events = require('@openagenda/events/test/service');
 
-  events = require( '@openagenda/events/test/service' ),
+const Service = require('../');
 
-  service = require( '../' );
-
+const config = require('../testconfig');
 
 describe( 'event search - functional: deleteIndex', function() {
 
   describe( 'simple', function() {
+
+    let service;
 
     this.timeout( 10000 );
 
@@ -19,20 +20,20 @@ describe( 'event search - functional: deleteIndex', function() {
 
       events.initAndLoad( config.eventService, [ {
         table: 'event',
-        src: __dirname + '/service/event.data.sql' 
+        src: __dirname + '/service/event.data.sql'
       } ], { reset: true }, done );
 
     } );
 
-    before( async () => {
+    before(async () => {
 
-      service.init( config );
+      service = Service(config);
 
-    } );
+    });
 
     it( 'indices and alias are effectively removed', async () => {
 
-      await service( 'simple_search' ).rebuild( { 
+      await service( 'simple_search' ).rebuild( {
         eventsList: function( offset, limit ) {
 
           return events.list( offset, limit, {
@@ -46,7 +47,7 @@ describe( 'event search - functional: deleteIndex', function() {
       let client = service.getConfig().client,
 
         indices = Object.keys( await client.indices.getAlias( {
-          name: 'simple_search' 
+          name: 'simple_search'
         } ) );
 
       ( await client.indices.existsAlias({ name: 'simple_search' } ) ).should.equal( true );
