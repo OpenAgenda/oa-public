@@ -27,7 +27,7 @@ module.exports = (config, parentApp) => {
     }
 
     aggregators.sources
-      .list(req.agenda, {}, { detailed: true })
+      .list(req.agenda, { search: req.query.search }, { detailed: true })
       .then(sources => res.json({ sources }), next);
   });
 
