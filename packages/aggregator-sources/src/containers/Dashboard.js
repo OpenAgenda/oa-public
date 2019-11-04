@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import React, { useMemo, useState, useCallback } from 'react';
 import { hot } from 'react-hot-loader/root';
+import { useHistory } from 'react-router-dom';
 import { provideHooks } from 'redial';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
@@ -58,11 +59,15 @@ const messages = defineMessages({
   }
 });
 
-function Dashboard({ agenda, history }) {
+function Dashboard({ agenda }) {
+  const history = useHistory();
   const query = useMemo(
     () => qs.parse(history.location.search, { ignoreQueryPrefix: true }),
     [history.location.search]
   );
+  const initialValues = useMemo(() => ({ search: query.search || '' }), [
+    query
+  ]);
   const [value, setValue] = useState(
     query.search !== '' ? query.search : undefined
   );
@@ -173,10 +178,7 @@ function Dashboard({ agenda, history }) {
             })}
           />
         </div>
-        <Form
-          initialValues={{ search: query.search || '' }}
-          onSubmit={onSearch}
-        >
+        <Form initialValues={initialValues} onSubmit={onSearch}>
           {({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
               <Field

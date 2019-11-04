@@ -285,11 +285,11 @@ export default function AddSourceModal({ onSubmit, onClose }) {
               : null}
           </div>
 
-          {state.nextLoading && (
-          <div className="padding-v-md" style={{ position: 'relative' }}>
-            <Spinner />
-          </div>
-          )}
+          {state.nextLoading ? (
+            <div className="padding-v-md" style={{ position: 'relative' }}>
+              <Spinner />
+            </div>
+          ) : null}
 
           <Waypoint onEnter={nextPage} />
         </>

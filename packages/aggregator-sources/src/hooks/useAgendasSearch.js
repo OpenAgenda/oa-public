@@ -1,8 +1,9 @@
-import { useCallback, useReducer } from 'react';
+import { useMemo, useCallback, useReducer } from 'react';
 
-const initialState = {
+const defaultInitialState = {
   searchValue: undefined,
   agendas: [],
+  firstLoading: null,
   listLoading: false,
   nextPageLoading: false,
   listError: null,
@@ -15,6 +16,7 @@ function reducer(state, action) {
       return {
         ...state,
         listLoading: true,
+        firstLoading: [null, true].includes(state.firstLoading),
         searchValue: action.payload.search
       };
     case 'listSuccess':
@@ -22,6 +24,7 @@ function reducer(state, action) {
         ...state,
         agendas: action.payload.data.agendas,
         listLoading: false,
+        firstLoading: false,
         listError: null,
         total: action.payload.data.total,
         page: 1
@@ -31,6 +34,7 @@ function reducer(state, action) {
         ...state,
         agendas: [],
         listLoading: false,
+        firstLoading: false,
         listError: action.payload.error,
         total: null,
         page: 1
@@ -61,8 +65,19 @@ function reducer(state, action) {
   }
 }
 
-export default function useAgendasSearch({ request, perPageLimit }) {
-  const [state, dispatch] = useReducer(reducer, initialState);
+export default function useAgendasSearch({
+  request,
+  perPageLimit,
+  initialState
+}) {
+  const _initialState = useMemo(
+    () => ({
+      ...defaultInitialState,
+      ...initialState
+    }),
+    [initialState]
+  );
+  const [state, dispatch] = useReducer(reducer, _initialState);
 
   const list = useCallback(
     search => {
@@ -74,8 +89,7 @@ export default function useAgendasSearch({ request, perPageLimit }) {
       });
 
       return request({
-        search,
-        page: state.page
+        search
       }).then(
         data => dispatch({
           type: 'listSuccess',
@@ -91,7 +105,7 @@ export default function useAgendasSearch({ request, perPageLimit }) {
         })
       );
     },
-    [request, state.page]
+    [request]
   );
 
   const nextPage = useCallback(() => {
