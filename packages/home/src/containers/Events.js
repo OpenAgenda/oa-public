@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { hot } from 'react-hot-loader/root';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
@@ -16,7 +18,60 @@ import * as agendasActions from '../reducers/agendas';
 import * as eventsActions from '../reducers/events';
 import * as modalsActions from '../reducers/modals';
 import { setTab } from '../reducers/menu';
-import AgendasSearch from './AgendasSearch';
+import AgendasSearch from '../components/AgendasSearch';
+
+function AgendaItem({ agenda, res, getLabel }) {
+  const itemLink = (agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent).replace(
+    ':slug',
+    agenda.slug
+  );
+
+  return (
+    <div className="agenda-item media" key={agenda.uid}>
+      <div className="media-left">
+        <a href={itemLink}>
+          <Image
+            src={agenda.image}
+            fallbackSrc={agenda.image.replace('cibuldev', 'cibul')}
+            className="media-object ill avatar"
+            alt={agenda.title}
+          />
+        </a>
+      </div>
+      <div className="media-body">
+        <div className="title media-heading">
+          <a href={itemLink}>
+            <strong>{agenda.title}</strong>
+
+            {!!agenda.official && (
+              <span className="official">
+                <i />
+                <div className="tooltip right" role="tooltip">
+                  <div className="tooltip-arrow" />
+                  <div className="tooltip-inner">
+                    {getLabel('officialAgenda')}
+                  </div>
+                </div>
+              </span>
+            )}
+          </a>
+
+          {!!agenda.private && (
+            <div className="tooltip-icon">
+              <i className="fa fa-unlock-alt" />
+              <div className="tooltip right" role="tooltip">
+                <div className="tooltip-arrow" />
+                <div className="tooltip-inner">
+                  {getLabel('privateAgenda')}
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 @provideHooks( {
   fetch: ( { store: { dispatch, getState }, history } ) => {
@@ -55,8 +110,7 @@ import AgendasSearch from './AgendasSearch';
   }),
   { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load }
 )
-export default class Events extends Component {
-
+class Events extends Component {
   static propTypes = {
     list: PropTypes.func,
     nextPage: PropTypes.func,
@@ -159,21 +213,6 @@ export default class Events extends Component {
     return base + '/' + filename;
   }
 
-  renderModalHeader = () => {
-    const { res } = this.props;
-    const { getLabel } = this.context;
-
-    return (
-      <div className="header hidden-xs">
-        <div className="pull-right margin-bottom-md">
-          <Link to={res.agendas.create} className="btn btn-primary create-agenda">
-            {getLabel( 'createAgenda' )}
-          </Link>
-        </div>
-      </div>
-    );
-  };
-
   fieldIsVisible = () => {
     const { total, perPageLimit } = this.props;
     const { value, previousValue } = this.state;
@@ -189,8 +228,7 @@ export default class Events extends Component {
   render() {
     const {
       res, events, loading, listLoading, nextLoading,
-      perPageLimit, total, query,
-      showModal, closeModal, modals, agendasLoad
+      query, showModal, closeModal, modals, agendasLoad
     } = this.props;
     const { getLabel } = this.context;
 
@@ -301,10 +339,46 @@ export default class Events extends Component {
               }}
               disableBodyScroll
             >
+              {/*<AgendasSearch*/}
+              {/*  id="selectAgendasForCreateEvent"*/}
+              {/*  getTitleLink={ agenda => ( agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent ).replace( ':slug', agenda.slug ) }*/}
+              {/*  createButtonIfEmpty*/}
+              {/*/>*/}
               <AgendasSearch
-                id="selectAgendasForCreateEvent"
-                getTitleLink={ agenda => ( agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent ).replace( ':slug', agenda.slug ) }
-                createButtonIfEmpty
+                res={res.agendas.list}
+                render={({ state, form, nextPage }) => (
+                  <div>
+                    {form}
+
+                    <div>
+                      {state.agendas.length
+                        ? state.agendas.map(agenda => (
+                          <AgendaItem
+                            key={agenda.uid}
+                            agenda={agenda}
+                            res={res}
+                            getLabel={getLabel}
+                          />
+                        )) : null}
+                    </div>
+
+                    {!state.agendas.length ? (
+                      <div className="text-center text-muted margin-top-md">
+                        <Link to={res.agendas.create} className="btn btn-primary" type="button">
+                          {getLabel('createAgenda')}
+                        </Link>
+                      </div>
+                    ) : null}
+
+                    {state.nextLoading ? (
+                      <div className="padding-v-md" style={{ position: 'relative' }}>
+                        <Spinner />
+                      </div>
+                    ) : null}
+
+                    <Waypoint onEnter={nextPage} />
+                  </div>
+                )}
               />
             </Modal>}
           </div>
@@ -312,5 +386,6 @@ export default class Events extends Component {
       />
     );
   }
-
 };
+
+export default module.hot ? hot(Events) : Events;
