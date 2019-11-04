@@ -10,11 +10,12 @@ const events = require( '@openagenda/events/test/service' );
 const contributors = require( './service/contributors' );
 
 const custom = JSON.parse( fs.readFileSync( __dirname + '/service/custom.json', 'utf-8' ) );
-const service = require( '../' );
-
-const dslSearch = require( '../service/search' ).dsl;
+const Service = require( '../' );
+const runDSLQuery = require('../service/helpers/runDSLQuery');
 
 describe( 'event search - functional: more like this', function() {
+
+  let service, dslSearch;
 
   this.timeout( 20000 );
 
@@ -29,9 +30,11 @@ describe( 'event search - functional: more like this', function() {
 
   before( async () => {
 
-    let i = 0;
+    service = Service(config);
 
-    service.init( config );
+    dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
+
+    let i = 0;
 
     // list must be prepared to give all needed data
     // for index

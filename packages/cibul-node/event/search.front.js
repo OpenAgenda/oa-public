@@ -3,13 +3,13 @@
 const ih = require( 'immutability-helper' );
 const sessions = require( '@openagenda/sessions' );
 const cmn = require( '../lib/commons-app' );
-const search = require( '../services/eventSearch' ).events;
 
 module.exports = app => {
 
   app.get( '/events/search/?*?', sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ) );
 
   app.get( '/events/search', ( req, res, next ) => {
+    const search = app.services.eventSearch.events;
 
     const options = _defineOptions( req.query ); // this is cleaned in search.
 
@@ -36,6 +36,7 @@ module.exports = app => {
   app.get( '/events/search/rebuild',
     cmn.requireSuperAdmin,
     ( req, res ) => {
+      const search = app.services.eventSearch.events;
 
       search.rebuild().then( () => { console.log( 'done' ); } );
 

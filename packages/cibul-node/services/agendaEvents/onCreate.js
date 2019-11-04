@@ -9,7 +9,6 @@ const custom = require('@openagenda/custom');
 
 const aggregatorNotify = require('./lib/aggregatorNotify');
 const legacyEventSearch = require('../elasticsearch');
-const eventSearch = require('../eventSearch');
 const activitiesSvc = require('../activities');
 const fallbackContextGet = require('./lib/fallbackContextGet');
 const sendEventCreation = require('./lib/sendEventCreation');
@@ -20,7 +19,7 @@ const controlDataSvc = require('../legacy').controlData;
 const membersSvc = require('../members');
 const usersSvc = require('../users');
 
-module.exports = async (config, ae, context) => {
+module.exports = async ({ config, services }, ae, context) => {
   log('created agenda-event %j', ae, _.pick(context, ['legacy', 'aggregated', 'batched']));
 
   // use context.userUid. will be null when nothing was specified at create
@@ -109,7 +108,7 @@ module.exports = async (config, ae, context) => {
 
   }
 
-  _addToSearchIndex( ae );
+  _addToSearchIndex(services.eventSearch, ae);
 
   try {
 
@@ -166,7 +165,7 @@ module.exports = async (config, ae, context) => {
 
 }
 
-async function _addToSearchIndex( ae ) {
+async function _addToSearchIndex(eventSearch, ae) {
 
   const result = await eventSearch.agendas( ae.agendaUid ).add( ae );
 

@@ -30,7 +30,7 @@ module.exports = Object.assign( plugApp, {
   }
 } );
 
-function init(config) {
+function init(config, services) {
 
   agendaEvents.init( {
     mysql: config.db,
@@ -52,9 +52,9 @@ function init(config) {
     },
     eventStates,
     interfaces: {
-      onCreate: onCreate.bind(null, config),
-      onUpdate: onUpdate.bind(null, config),
-      onRemove,
+      onCreate: onCreate.bind(null, { config, services }),
+      onUpdate: onUpdate.bind(null, { config, services }),
+      onRemove: onRemove.bind(null, { services }),
       beforeRemove,
       getMembers
     }

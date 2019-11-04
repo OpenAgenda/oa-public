@@ -1,136 +1,110 @@
-"use strict";
+'use strict';
 
-const should = require( 'should' );
+const should = require('should');
 
-const events = require( '@openagenda/events/test/service' );
+const events = require('@openagenda/events/test/service');
 
-const config = require( '../testconfig' );
-const service = require( '../' );
+const config = require('../testconfig');
+const Service = require('../');
 
-describe( 'event-search - functional: rebuild', function() {
+describe('event-search - functional: rebuild', function() {
 
-  describe( 'basic usage', function() {
+  describe('basic usage', function() {
 
     let totalEvents;
+    let service;
 
-    this.timeout( 10000 );
+    this.timeout(20000);
 
-    async function eventsList( offset, limit ) {
-
-      return events.list( offset, limit, {
+    async function eventsList(offset, limit) {
+      return events.list(offset, limit, {
         internal: true,
         detailed: true,
         private: null
-      } ).then( r =>  r.events );
-
+      }).then(r =>  r.events);
     }
 
-    before( done => {
-
-      events.initAndLoad( config.eventService, [ {
+    before(done => {
+      events.initAndLoad(config.eventService, [{
         table: 'event',
-        src: __dirname + '/service/event.data.sql' 
-      } ], { reset: true }, async () => {
-
-        const result = await events.list( {}, 0, 1, { total: true } );
+        src: __dirname + '/service/event.data.sql'
+      }], { reset: true }, async () => {
+        const result = await events.list({}, 0, 1, { total: true });
 
         totalEvents = result.total;
 
         done();
+      });
+    });
 
-      } );
+    beforeEach(() => {
+      service = Service(config);
+    });
 
-    } );
+    describe('list evaluation', () => {
 
-    beforeEach( () => {
-
-      service.init( config );
-
-    } );
-
-    describe( 'list evaluation', () => {
-
-
-      it( 'if a input list is not provided, errors', async () => {
-
+      it('if a input list is not provided, errors', async () => {
         try {
-
-          await service( 'test_alias' ).rebuild( 'not a function' );
-
+          await service('test_alias').rebuild('not a function');
         } catch( err ) {
-
-          err.message.should.equal( 'list is not a function' );
-
+          err.message.should.equal('list is not a function');
         }
-
       } );
 
-
-      it( 'if list returns an error, it is encapsulated', async () => {
-
+      it('if list returns an error, it is encapsulated', async () => {
         let err;
 
         try {
-
-          await service( 'test_alias' ).rebuild( {
+          await service('test_alias').rebuild( {
             eventsList: ( offset, limit) => new Promise( ( rs, rj ) => rj( new Error( 'crash!' ) ) )
           } );
-
-        } catch( e ) {
-
+        } catch(e) {
           err = e;
-
         }
 
-        err.message.should.equal( 'provided list failed: crash!' );
+        err.message.should.equal('provided list failed: crash!');
+      });
 
-      } );
+    });
 
-    } );
+    describe('index generation', () => {
 
-
-    describe( 'index generation', () => {
-
-      it( 'generated index name is given in result details', async () => {
-
-        let result = await service( 'test_alias' ).rebuild( { eventsList } );
+      it('generated index name is given in result details', async () => {
+        const result = await service( 'test_alias' ).rebuild({
+          eventsList
+        });
 
         // index will look like this: test_alias_20170327T1013
-        result.detail.index.substr( 0, 10 ).should.equal( 'test_alias' );
+        result.detail.index.substr(0, 10).should.equal('test_alias');
+      });
 
-      } );
-
-      it( 'result gives number of indexed events', async () => {
-
-        let result = await service( 'test_alias' ).rebuild( { eventsList } );
-
-        result.counts.indexed.should.equal( totalEvents );
-
-      } );
-
-      it( 'index is effectively created', async () => {
-
-        let result = await service( 'test_alias' ).rebuild( {
+      it('result gives number of indexed events', async () => {
+        const result = await service('test_alias').rebuild({
           eventsList
-        } );
+        });
 
-        ( await service.getConfig().client.indices.exists( { index: result.detail.index } ) )
+        result.counts.indexed.should.equal(totalEvents);
+      });
 
-          .should.equal( true );
+      it('index is effectively created', async () => {
+        const result = await service( 'test_alias' ).rebuild({
+          eventsList
+        });
 
-      } );
+        (await service.getConfig().client.indices.exists({
+          index: result.detail.index
+        })).should.equal(true);
+      });
 
-      it( '.exists endpoint indicates when an index does not exist', async () => {
+      it('.exists endpoint indicates when an index does not exist', async () => {
+        const exists = await service('this_alias_does_not_exist').exists();
 
-        let exists = await service( 'this_alias_does_not_exist' ).exists();
+        exists.should.equal(false);
+      });
 
-        exists.should.equal( false );
+      it('.exists endpoint indicates when an alias/index exists', async () => {
 
-      } );
-
-      it( '.exists endpoint indicates when an alias/index exists', async () => {
-
-        let exists = await service( 'test_alias' ).exists();
+        const exists = await service( 'test_alias' ).exists();
 
         exists.should.equal( true );
 
@@ -142,10 +116,12 @@ describe( 'event-search - functional: rebuild', function() {
 
   describe( 'extending the mapping', function() {
 
+    let service;
+
     this.timeout( 10000 );
 
     function eventsList( offset, limit ) {
-        
+
       return events.list( offset, limit, {
         internal: true,
         detailed: true,
@@ -154,20 +130,16 @@ describe( 'event-search - functional: rebuild', function() {
 
     }
 
-    before( done => {
-
-      events.initAndLoad( config.eventService, [ {
+    before(done => {
+      events.initAndLoad( config.eventService, [{
         table: 'event',
-        src: __dirname + '/service/event.data.sql' 
-      } ], { reset: true }, done );
+        src: __dirname + '/service/event.data.sql'
+      }], { reset: true }, done);
+    });
 
-    } );
-
-    beforeEach( () => {
-
-      service.init( config );
-
-    } );
+    beforeEach(() => {
+      service = Service(config);
+    });
 
     it( 'takes schema fields and uses it to extend mapping', async () => {
 
@@ -195,7 +167,7 @@ describe( 'event-search - functional: rebuild', function() {
 
       result[ Object.keys( result )[ 0 ] ].mappings.event.properties.custom
 
-      .should.eql( { properties: { 
+      .should.eql( { properties: {
         expectedParticipants: {
           type: 'integer'
         },

@@ -4,7 +4,6 @@ const _ = require('lodash');
 const VError = require('verror');
 
 const buildAggregationDsl = require('./aggregation');
-const config = require('./config');
 const runDSLQuery = require('./helpers/runDSLQuery');
 const instanciateSearchStream = require('./helpers/instanciateSearchStream');
 const h = require('./helpers');
@@ -15,7 +14,7 @@ const validateOptions = require('./query/validateOptions');
 
 const log = require('@openagenda/logs')('search');
 
-async function search(alias, query, nav = {}, options = {}) {
+async function search(config, alias, query, nav = {}, options = {}) {
   log('searching on alias %s with query %j', alias, query);
 
   let cleanNav = {}, cleanOptions = {}, cleanDsl;
@@ -27,7 +26,7 @@ async function search(alias, query, nav = {}, options = {}) {
   }
 
   try {
-    cleanOptions = validateOptions( options );
+    cleanOptions = validateOptions(options);
   } catch (e) {
     throw new VError(e, 'options are not valid');
   }
@@ -43,7 +42,7 @@ async function search(alias, query, nav = {}, options = {}) {
   // sorting and _source added after
 
   if (cleanOptions.aggregations) {
-    cleanDsl.aggregations = buildAggregationDsl(cleanOptions.aggregations, config.predefinedAggregations, query);
+    cleanDsl.aggregations = buildAggregationDsl(config, cleanOptions.aggregations, config.predefinedAggregations, query);
   }
 
   let {
@@ -55,12 +54,10 @@ async function search(alias, query, nav = {}, options = {}) {
 
   const eventParsers = _buildEventParsers(cleanOptions, aggregations);
 
-  const parsedEvents = _parseEvents( eventParsers, events );
+  const parsedEvents = _parseEvents(eventParsers, events);
 
-  if ( options.aggregations ) {
-
-    aggregations = parseAggregationResult( options.aggregations, aggregations, config.predefinedAggregations, _parseEvents.bind( null, eventParsers ) );
-
+  if (options.aggregations) {
+    aggregations = parseAggregationResult(config, options.aggregations, aggregations, config.predefinedAggregations, _parseEvents.bind( null, eventParsers ) );
   }
 
   return Object.assign( {
@@ -71,7 +68,7 @@ async function search(alias, query, nav = {}, options = {}) {
 
 }
 
-function scroll(scrollId, scroll) {
+function scroll(config, alias, scrollId, scroll) {
   return config.client
     .scroll({ scrollId, scroll })
     .then(res => ({
@@ -80,11 +77,18 @@ function scroll(scrollId, scroll) {
     }));
 }
 
-module.exports = Object.assign(search, {
-  dsl: (alias, DSL, options) => runDSLQuery(_.pick(config, ['client', 'type']), alias, DSL, options),
-  scroll,
-  stream: instanciateSearchStream.bind(null, { search, scroll })
-});
+module.exports = (config, alias) => {
+  const methods = {
+    search: search.bind(null, config, alias),
+    scroll: scroll.bind(null, config, alias)
+  };
+
+  return Object.assign(methods.search, {
+    scroll: methods.scroll,
+    dsl: (DSL, options) => runDSLQuery(_.pick(config, ['client', 'type']), alias, DSL, options),
+    stream: instanciateSearchStream.bind(null, methods, alias)
+  });
+}
 
 
 function _parseEvents( parsers, events ) {

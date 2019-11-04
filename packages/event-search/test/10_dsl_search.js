@@ -1,33 +1,37 @@
 "use strict";
 
+const _ = require('lodash');
 const should = require( 'should' );
 
 const config = require( '../testconfig' );
-const dslSearch = require( '../service/search' ).dsl;
+const runDSLQuery = require('../service/helpers/runDSLQuery');
 const events = require( '@openagenda/events/test/service' );
 const moment = require( 'moment-timezone' );
-const scroll = require( '../service/search' ).scroll;
-const service = require( '../' );
+const Service = require( '../' );
 
 
 describe( 'event-search - unit: dsl search', function() {
 
   describe( 'simple search', function() {
 
-    this.timeout( 10000 );
+    let service, dslSearch;
+
+    this.timeout(30000);
 
     before( done => {
 
       events.initAndLoad( config.eventService, [ {
         table: 'event',
-        src: __dirname + '/service/event.data.sql' 
+        src: __dirname + '/service/event.data.sql'
       } ], { reset: true }, done );
 
     } );
 
     before( async () => {
 
-      service.init( config );
+      service = Service(config);
+
+      dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
 
       // list must be prepared to give all needed data
       // for index
@@ -79,7 +83,7 @@ describe( 'event-search - unit: dsl search', function() {
       total.should.equal( 2 );
 
       events.map( e => e.slug ).should.eql( [
-        'decouverte-du-handball-et-valorisation-du-mondial-de-handball', 
+        'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
         'serres-la-claranda-cafe-citoyen'
       ] );
 
@@ -269,13 +273,13 @@ describe( 'event-search - unit: dsl search', function() {
           }
         }
       };
-      
+
       let { events, total } = await dslSearch( 'simple_search', dsl );
 
-      events[ 0 ].dateRange.should.eql( { 
-        fr: 'Lundi 24 octobre 2016, 08h00', 
+      events[ 0 ].dateRange.should.eql( {
+        fr: 'Lundi 24 octobre 2016, 08h00',
         ar: 'الإثنين ٢٤ أكتوبر ٢٠١٦, 08:00',
-        en: 'Monday 24 October 2016, 08:00' 
+        en: 'Monday 24 October 2016, 08:00'
       } );
 
     } );
@@ -343,7 +347,7 @@ describe( 'event-search - unit: dsl search', function() {
       events.map( e => e.slug ).should.eql( [ 'rhone_region_event' ] );
 
     } );
-    
+
 
     it( 'filtering by geolocation', async () => {
 
@@ -484,16 +488,16 @@ describe( 'event-search - unit: dsl search', function() {
 
       fetchedCount += events.length;
 
-      events = ( await scroll( scrollId, cacheFor ) ).events;
+      events = ( await service('simple_search').search.scroll( scrollId, cacheFor ) ).events;
 
       fetchedCount += events.length;
 
-      let result = await scroll( scrollId, cacheFor );
+      let result = await service('simple_search').search.scroll( scrollId, cacheFor );
 
       fetchedCount += result.events.length;
 
       fetchedCount.should.equal( result.total );
-        
+
     } );
 
 

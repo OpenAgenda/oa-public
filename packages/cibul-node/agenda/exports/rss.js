@@ -2,7 +2,6 @@
 
 const _ = require( 'lodash' );
 const rss = require( '@openagenda/flat-exports/rss' );
-const search = require( '../../services/eventSearch' );
 const config = require( '../../config' );
 
 module.exports = ( app, route ) => {
@@ -13,12 +12,12 @@ module.exports = ( app, route ) => {
 
     try {
 
-      const query = _.extend( { 
+      const query = _.extend( {
         sort: 'updatedAt.desc',
         embed_url: null
       }, req.query );
 
-      const { events, total } = await search.agendas( req.params.agendaUid ).search( req.query, req.query, { detailed: true } );
+      const { events, total } = await app.services.eventSearch.agendas( req.params.agendaUid ).search( req.query, req.query, { detailed: true } );
 
       const rssOptions = {
         title: req.agenda.title,
@@ -35,7 +34,7 @@ module.exports = ( app, route ) => {
         rssOptions.genUrl = e => query.embed_url + '?oaq[uid]=' + e.uid;
 
       }
-      
+
       feed = rss( rssOptions );
 
       events.forEach( e => feed.addEvent( e ) );

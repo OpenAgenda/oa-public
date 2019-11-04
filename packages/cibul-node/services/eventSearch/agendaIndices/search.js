@@ -45,7 +45,7 @@ const validateOptions = schema( {
 } );
 
 
-module.exports = async ( searchIndex, agendaUid, query, nav, options = {} ) => {
+module.exports = async (searchIndex, agendaUid, query, nav, options = {}) => {
 
   const { searchOptions, parseEvent } = await _prepare( agendaUid, options );
 

@@ -10,18 +10,17 @@ const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const controlDataSvc = require( '../legacy' ).controlData;
 const legacyEventSearch = require( '../elasticsearch' );
-const eventSearch = require( '../eventSearch' );
 const fallbackContextGet = require( './lib/fallbackContextGet' );
 const sendEventUpdate = require( './lib/sendEventUpdate' );
 const sendEventChangeState = require( './lib/sendEventChangeState' );
 const transferCustomFromLegacy = require( './lib/transferCustomFromLegacy' );
 const createActivities = require( './lib/createActivities' );
 
-module.exports = async (config, before, after, context) => {
+module.exports = async ({ config, services }, before, after, context) => {
   log('updated agenda-event from %j to %j, %j', before, after, _.pick(context, ['legacy', 'aggregated', 'batched']));
 
   try {
-    await eventSearch.agendas( after.agendaUid ).update( after );
+    await services.eventSearch.agendas( after.agendaUid ).update( after );
   } catch ( e ) {
     log( 'error', 'could not update event search', e );
   }

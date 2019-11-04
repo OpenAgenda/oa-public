@@ -55,7 +55,7 @@ function widget( elem, options ) {
 
     var wTpl = _extractTemplate( tpl, elem ),
 
-    events = _clean( data.events, { 
+    events = _clean( data.events, {
       lang: params.lang,
       link: params.link,
       eventPart: params.eventPart,
@@ -128,8 +128,8 @@ function _extractTemplate( defaultTemplate, elem ) {
 
   }
 
-  return elem.innerHTML.substr( 
-    startIndex + '<!--'.length, 
+  return elem.innerHTML.substr(
+    startIndex + '<!--'.length,
     endIndex - startIndex - '<!--'.length
   )
     .replace( 'src="/{', 'src="{' )
@@ -151,7 +151,7 @@ function _defineEventLink( event, e, options ) {
 function _flattenMultilinguals( event, e, lang ) {
 
   cn.forEach( [ 'title', 'description', 'longDescription', 'range' ], function( field ) {
-      
+
     var l = false;
 
     for( l in event[ field ] ) break;
@@ -196,7 +196,7 @@ function _init() {
 
   var res = config.res[ env ] ? config.res[ env ] : config.res.all,
 
-  found = false, 
+  found = false,
 
   _process = function( elem ) {
 
