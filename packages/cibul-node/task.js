@@ -33,7 +33,7 @@ module.exports = () => {
     time: '05:00'
   } );
 
-  tfy( require( './services/activities' ).tasks.notifications.sendSummary, {
+  tfy( require( './services/activities' ).tasks.notifications.sendSummary.task, {
     // bootOffset: 5000,
     period: 'daily',
     time: '08:00'

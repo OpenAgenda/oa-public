@@ -8,7 +8,7 @@ require( 'moment/locale/fr' );
 module.exports = config => {
   const q = queue( config.queue.names.sendSummary, { redis: config.queue.redis } );
 
-  return Object.assign( q, { task } );
+  return Object.assign( q, { task: task.bind(null, config, q) } );
 };
 
 async function task( config, q ) {
