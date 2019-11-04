@@ -3,6 +3,7 @@
 const async = require('async');
 const _ = require('lodash');
 const moment = require('moment-timezone');
+const VError = require('verror');
 
 const formSchemaDecorate = require('@openagenda/form-schemas/iso/getDecorate');
 const mails = require('@openagenda/mails');
@@ -104,9 +105,20 @@ module.exports = app => {
         res.set('Content-disposition', 'attachment; filename=' + req.event.slug + '.ics');
       }
 
-      res.write(ics(req.agenda, req.event, req.lang, req.query.timing));
+      try {
+        res.write(ics(req.agenda, req.event, req.lang, req.query.timing));
 
-      res.end();
+        res.end();
+      } catch (e) {
+        next(new VError({
+          cause: e,
+          info: {
+            url: req.originalUrl,
+            agenda: req.agenda,
+            event: req.event
+          }
+        }));
+      }
     }
   );
 };

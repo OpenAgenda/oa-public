@@ -7,7 +7,7 @@
         "packages/logs/package.json",
         "packages/mails/package.json",
         "packages/queues/package.json",
-        "packages/react-timings-picker/package.json",
+        "packages/react-timingspicker/package.json",
         "packages/sdk-js/package.json"
       ]
     }
