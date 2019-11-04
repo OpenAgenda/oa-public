@@ -3,23 +3,20 @@
 const events = require( '@openagenda/events' );
 const imageFiles = require( '@openagenda/image-files' );
 
-const interfaces = {
-  onCreate: require( './onCreate' ),
-  onUpdate: require( './onUpdate' ),
-  beforeRemove: require( './beforeRemove' ),
-  onRemove: require( './onRemove' ),
-  getOriginAgendas: require( './getOriginAgendas' ),
-  getLocations: require( './getLocations' ),
-  imageFilesLoad: imageFiles.load
-};
 
+const onCreate = require( './onCreate' );
+const onUpdate = require( './onUpdate' );
+const beforeRemove = require( './beforeRemove' );
+const onRemove = require( './onRemove' );
+const getOriginAgendas = require( './getOriginAgendas' );
+const getLocations = require( './getLocations' );
 
 module.exports = {
   init
 }
 
 
-function init( config ) {
+function init(config, services) {
   events.init( {
     knex: config.knex,
     mysql: config.db,
@@ -51,7 +48,15 @@ function init( config ) {
       mysql: config.db,
       schemas: config.schemas
     },
-    interfaces
+    interfaces: {
+      imageFilesLoad: imageFiles.load,
+      onCreate: onCreate.bind(null, services),
+      onUpdate: onUpdate.bind(null, services),
+      beforeRemove,
+      onRemove: onRemove.bind(null, services),
+      getOriginAgendas,
+      getLocations
+    }
   } );
 
   Object.assign(module.exports, events, {init});

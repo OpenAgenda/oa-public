@@ -19,7 +19,6 @@ const controlDataSvc = require( '../legacy' ).controlData;
 const db = require( './lib/db' );
 const legacySearch = require( './lib/legacySearch' );
 const custom = require( './lib/custom' );
-const search = require( '../eventSearch' );
 const searchStats = require( './lib/search' );
 const legacyTagsAndCustom = require( '../legacy' ).tagsAndCustom;
 
@@ -31,7 +30,7 @@ const log = require( '@openagenda/logs' )( 'services/agendaStatistics' );
 
 let q;
 
-module.exports = async agendaUid => {
+module.exports = async (services, agendaUid) => {
 
   const agenda = await config.knex( 'review' ).first( [ 'id', 'slug', 'form_schema_id' ] ).where( 'uid', agendaUid );
 
@@ -39,7 +38,7 @@ module.exports = async agendaUid => {
     db: await db( agenda.id ),
     legacySearch: await legacySearch( agenda.id ),
     agendaEvents: await agendaEventStats( agendaUid ),
-    search: await searchStats( agendaUid ),
+    search: await searchStats(services.eventSearch, agendaUid),
     hasFormSchema: !!agenda.form_schema_id,
     actions: {
       resyncLegacySearch: `${config.root}/${agenda.slug}/admin/stats/resync/legacySearch`,
@@ -86,7 +85,7 @@ module.exports.formSchemaToCategorySet = (agenda, force) => core
 
 module.exports.formSchemaToCustom = ( agenda, force ) => core.agendas( agenda.uid ).settings.legacy.updateCustom( force );
 
-module.exports.task = () => {
+module.exports.task = services => {
 
   q.setConsumer( ( data, cb ) => {
 
@@ -116,7 +115,7 @@ module.exports.task = () => {
 
       case 'search':
 
-        _resyncSearch( data.agendaUid );
+        _resyncSearch(services.eventSearch, data.agendaUid);
         break;
 
       case 'agendaEvents':
@@ -218,13 +217,13 @@ async function _resyncLegacySearch( agendaUid ) {
 
 }
 
-async function _resyncSearch( agendaUid ) {
+async function _resyncSearch( eventSearch, agendaUid ) {
 
   log( 'info', 'resyncing agenda %d - new search index rebuild', agendaUid );
 
   try {
 
-    const result = await search.agendas( agendaUid ).rebuild();
+    const result = await eventSearch.agendas( agendaUid ).rebuild();
 
     log( 'info', 'agenda %d, resynced search index', agendaUid, result );
 

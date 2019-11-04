@@ -42,7 +42,7 @@
     "@openagenda/dom-utils": "^2.2.0",
     "@openagenda/email-strategie": "^0.1.0",
     "@openagenda/es-node": "^1.2.0",
-    "@openagenda/event-search": "^1.2.2",
+    "@openagenda/event-search": "^2.0.0",
     "@openagenda/events": "^1.4.5",
     "@openagenda/facebook": "^0.1.1",
     "@openagenda/files": "^2.0.6",
