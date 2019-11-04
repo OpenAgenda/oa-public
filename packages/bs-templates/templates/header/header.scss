@@ -81,6 +81,7 @@
   .navbar-nav {
     .inbox, .profile, .notifications {
       a, button.btn.btn-link-inline {
+        position: relative;
         padding: 15px;
         display: inline-block;
         color: #777;
