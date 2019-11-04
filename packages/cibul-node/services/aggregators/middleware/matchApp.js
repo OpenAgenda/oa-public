@@ -25,7 +25,7 @@ module.exports = async (config, req, res, next) => {
     },
     res: {
       list: `/${req.params.agendaSlug}/admin/sources/agenda-sources.json`,
-      show: req.genUrl( 'agendaShow', { slug: ':agendaSlug' } ).split( '?' )[ 0 ],
+      show: req.genUrl( 'agendaShow', { slug: ':slug' } ).split( '?' )[ 0 ],
       remove: `/${req.params.agendaSlug}/admin/sources/remove`,
       search: req.genUrl( 'agendaSearch' ).split( '?' )[ 0 ],
       createAggregator: req.genUrl( 'aggregatorCreate', { uid: ':uid' } ).split( '?' )[ 0 ]
