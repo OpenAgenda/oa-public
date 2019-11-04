@@ -14,7 +14,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.6.3",
     "@openagenda/dom-utils": "^2.2.0",
-    "core-js": "^3.2.1",
+    "core-js": "^3.3.6",
     "create-react-class": "^15.5.3",
     "prop-types": "^15.7.2",
     "react-bootstrap": "^0.31.0",
@@ -29,12 +29,12 @@
     "@storybook/addon-actions": "^5.2.3",
     "@storybook/react": "^5.2.3",
     "babel-loader": "^8.0.4",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "react-markdown": "^4.0.4",
     "rimraf": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^16.10.2"
+    "react": "^16.11.0"
   }
 }

@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import ReactDom from 'react-dom';
 import qs from 'qs';
-import ReactTable from 'react-table';
 import UserList from './userList';
 import UserSearch from './userSearch';
 import UserPagination from './userPagination';
@@ -42,14 +41,12 @@ class UserApp extends Component {
     this.handleUserActivation = ::this.handleUserActivation;
     this.handleUserUpdate = ::this.handleUserUpdate;
     this.handleUserSignin = ::this.handleUserSignin;
-    this.viewSessions = ::this.viewSessions;
   }
 
   state = {
     users: [],
     perPage: 40,
-    total: 0,
-    displaySessionModal: false
+    total: 0
   };
 
   componentDidMount() {
@@ -64,10 +61,6 @@ class UserApp extends Component {
       this.get(query.userUid);
     }
 
-  }
-
-  viewSessions() {
-    this.setState( { displaySessionModal: !this.state.displaySessionModal } );
   }
 
   get( uid ) {
@@ -208,16 +201,13 @@ class UserApp extends Component {
 
   render() {
 
-    const { page, perPage, total, users, displaySessionModal, user, members } = this.state;
+    const { page, perPage, total, users, user, members } = this.state;
 
     return (
       <div className="container-fluid">
         <div className="row">
           <div className="col-md-12">
             <h2>Users</h2>
-            <p>
-              <a role="button" onClick={this.viewSessions}>Voir les sessions ouvertes</a>
-            </p>
           </div>
         </div>
         <div className="row">
@@ -247,43 +237,6 @@ class UserApp extends Component {
             />
           </div>
         </div>
-
-        {displaySessionModal && <div className="modal" role="dialog" style={{ display: 'block' }}>
-          <div className="modal-dialog modal-lg" role="document">
-            <div className="modal-content">
-              <div className="modal-header">
-                Sessions ouvertes
-              </div>
-              <div className="modal-body">
-                <ReactTable
-                  columns={[{
-                    header: 'First Name',
-                    accessor: 'firstName'
-                  }, {
-                    header: 'Last Name',
-                    id: 'lastName',
-                    accessor: d => d.lastName
-                  }, {
-                    header: 'Age',
-                    accessor: 'age'
-                  }]}
-                  manual // Forces table not to paginate or sort automatically, so we can handle it server-side
-                  defaultPageSize={10}
-                  data={this.state.data} // Set the rows to be displayed
-                  pages={this.state.pages} // Display the total number of pages
-                  loading={this.state.loading} // Display the loading overlay when we need it
-                  onChange={this.fetchData} // Request new data when things change
-                />
-              </div>
-              <div className="modal-footer">
-                <button type="button" className="btn btn-default" data-dismiss="modal" onClick={this.viewSessions}>
-                  Close
-                </button>
-                <button type="button" className="btn btn-primary">Save changes</button>
-              </div>
-            </div>
-          </div>
-        </div>}
       </div>
     );
   }

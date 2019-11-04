@@ -23,7 +23,7 @@
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",
     "classnames": "^2.2.5",
-    "core-js": "^3.2.1",
+    "core-js": "^3.3.6",
     "lodash": "^4.17.11",
     "prop-types": "^15.5.8",
     "qs": "^6.6.0",
@@ -46,8 +46,8 @@
     "babel-loader": "^8.0.4",
     "final-form": "^4.18.5",
     "history": "^4.10.1",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.1",
     "rimraf": "^3.0.0"
@@ -55,7 +55,7 @@
   "peerDependencies": {
     "@loadable/component": "^5.10.3",
     "final-form": "^4.18.5",
-    "react": "^16.10.2",
+    "react": "^16.11.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1"
   }

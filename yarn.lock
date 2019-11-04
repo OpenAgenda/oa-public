@@ -296,7 +296,7 @@
     "@babel/helper-remap-async-to-generator" "^7.1.0"
     "@babel/plugin-syntax-async-generators" "^7.2.0"
 
-"@babel/plugin-proposal-class-properties@7.5.5", "@babel/plugin-proposal-class-properties@^7.1.0", "@babel/plugin-proposal-class-properties@^7.3.3", "@babel/plugin-proposal-class-properties@^7.5.5":
+"@babel/plugin-proposal-class-properties@7.5.5", "@babel/plugin-proposal-class-properties@^7.3.3", "@babel/plugin-proposal-class-properties@^7.5.5":
   version "7.5.5"
   resolved "https://registry.npmjs.org/@babel/plugin-proposal-class-properties/-/plugin-proposal-class-properties-7.5.5.tgz#a974cfae1e37c3110e71f3c6a2e48b8e71958cd4"
   integrity sha512-AF79FsnWFxjlaosgdi421vmYG6/jg79bVD0dpD44QdgobzHKuLZ6S3vl8la9qIeSwGi8i1fS0O1mfuDAAdo1/A==
@@ -304,7 +304,7 @@
     "@babel/helper-create-class-features-plugin" "^7.5.5"
     "@babel/helper-plugin-utils" "^7.0.0"
 
-"@babel/plugin-proposal-decorators@7.6.0", "@babel/plugin-proposal-decorators@^7.1.2", "@babel/plugin-proposal-decorators@^7.6.0":
+"@babel/plugin-proposal-decorators@7.6.0", "@babel/plugin-proposal-decorators@^7.6.0":
   version "7.6.0"
   resolved "https://registry.npmjs.org/@babel/plugin-proposal-decorators/-/plugin-proposal-decorators-7.6.0.tgz#6659d2572a17d70abd68123e89a12a43d90aa30c"
   integrity sha512-ZSyYw9trQI50sES6YxREXKu+4b7MAg6Qx2cvyDDYjP2Hpzd3FleOUwC9cqn1+za8d0A2ZU8SHujxFao956efUg==
@@ -313,7 +313,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-syntax-decorators" "^7.2.0"
 
-"@babel/plugin-proposal-do-expressions@^7.0.0", "@babel/plugin-proposal-do-expressions@^7.6.0":
+"@babel/plugin-proposal-do-expressions@^7.6.0":
   version "7.6.0"
   resolved "https://registry.npmjs.org/@babel/plugin-proposal-do-expressions/-/plugin-proposal-do-expressions-7.6.0.tgz#192953fed8620d13d12a61f68defd26f41059193"
   integrity sha512-qJDaoBDbLySwU1tG0jbAomOwz8W1PEiiiK0iLQAnHLr4PYIMVX4ltDGkj3uAKx4HDs1WJ0tozGW1zAQjuTIiWg==
@@ -329,7 +329,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-syntax-dynamic-import" "^7.2.0"
 
-"@babel/plugin-proposal-export-default-from@^7.0.0", "@babel/plugin-proposal-export-default-from@^7.5.2":
+"@babel/plugin-proposal-export-default-from@^7.5.2":
   version "7.5.2"
   resolved "https://registry.npmjs.org/@babel/plugin-proposal-export-default-from/-/plugin-proposal-export-default-from-7.5.2.tgz#2c0ac2dcc36e3b2443fead2c3c5fc796fb1b5145"
   integrity sha512-wr9Itk05L1/wyyZKVEmXWCdcsp/e185WUNl6AfYZeEKYaUPPvHXRDqO5K1VH7/UamYqGJowFRuCv30aDYZawsg==
@@ -337,7 +337,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-syntax-export-default-from" "^7.2.0"
 
-"@babel/plugin-proposal-export-namespace-from@^7.0.0", "@babel/plugin-proposal-export-namespace-from@^7.5.2":
+"@babel/plugin-proposal-export-namespace-from@^7.5.2":
   version "7.5.2"
   resolved "https://registry.npmjs.org/@babel/plugin-proposal-export-namespace-from/-/plugin-proposal-export-namespace-from-7.5.2.tgz#ccd5ed05b06d700688ff1db01a9dd27155e0d2a0"
   integrity sha512-TKUdOL07anjZEbR1iSxb5WFh810KyObdd29XLFLGo1IDsSuGrjH3ouWSbAxHNmrVKzr9X71UYl2dQ7oGGcRp0g==
@@ -345,7 +345,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-syntax-export-namespace-from" "^7.2.0"
 
-"@babel/plugin-proposal-function-bind@^7.0.0", "@babel/plugin-proposal-function-bind@^7.2.0":
+"@babel/plugin-proposal-function-bind@^7.2.0":
   version "7.2.0"
   resolved "https://registry.npmjs.org/@babel/plugin-proposal-function-bind/-/plugin-proposal-function-bind-7.2.0.tgz#94dc2cdc505cafc4e225c0014335a01648056bf7"
   integrity sha512-qOFJ/eX1Is78sywwTxDcsntLOdb5ZlHVVqUz5xznq8ldAfOVIyZzp1JE2rzHnaksZIhrqMrwIpQL/qcEprnVbw==
@@ -369,7 +369,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-syntax-object-rest-spread" "^7.2.0"
 
-"@babel/plugin-proposal-object-rest-spread@^7.0.0", "@babel/plugin-proposal-object-rest-spread@^7.3.2", "@babel/plugin-proposal-object-rest-spread@^7.5.5", "@babel/plugin-proposal-object-rest-spread@^7.6.2":
+"@babel/plugin-proposal-object-rest-spread@^7.3.2", "@babel/plugin-proposal-object-rest-spread@^7.5.5", "@babel/plugin-proposal-object-rest-spread@^7.6.2":
   version "7.6.2"
   resolved "https://registry.npmjs.org/@babel/plugin-proposal-object-rest-spread/-/plugin-proposal-object-rest-spread-7.6.2.tgz#8ffccc8f3a6545e9f78988b6bf4fe881b88e8096"
   integrity sha512-LDBXlmADCsMZV1Y9OQwMc0MyGZ8Ta/zlD9N67BfQT8uYwkRswiu2hU6nJKrjrt/58aH/vqfQlR/9yId/7A2gWw==
@@ -385,7 +385,7 @@
     "@babel/helper-plugin-utils" "^7.0.0"
     "@babel/plugin-syntax-optional-catch-binding" "^7.2.0"
 
-"@babel/plugin-proposal-throw-expressions@^7.0.0", "@babel/plugin-proposal-throw-expressions@^7.2.0":
+"@babel/plugin-proposal-throw-expressions@^7.2.0":
   version "7.2.0"
   resolved "https://registry.npmjs.org/@babel/plugin-proposal-throw-expressions/-/plugin-proposal-throw-expressions-7.2.0.tgz#2d9e452d370f139000e51db65d0a85dc60c64739"
   integrity sha512-adsydM8DQF4i5DLNO4ySAU5VtHTPewOtNBV3u7F4lNMPADFF9bWQ+iDtUUe8+033cYCUz+bFlQdXQJmJOwoLpw==
@@ -766,7 +766,7 @@
     resolve "^1.8.1"
     semver "^5.5.1"
 
-"@babel/plugin-transform-runtime@^7.1.0", "@babel/plugin-transform-runtime@^7.6.2":
+"@babel/plugin-transform-runtime@^7.6.2":
   version "7.6.2"
   resolved "https://registry.npmjs.org/@babel/plugin-transform-runtime/-/plugin-transform-runtime-7.6.2.tgz#2669f67c1fae0ae8d8bf696e4263ad52cb98b6f8"
   integrity sha512-cqULw/QB4yl73cS5Y0TZlQSjDvNkzDbu0FurTZyHlJpWE5T3PCMdnyV+xXoH1opr1ldyHODe3QAX3OMAii5NxA==
@@ -887,7 +887,7 @@
     js-levenshtein "^1.1.3"
     semver "^5.5.0"
 
-"@babel/preset-env@^7.1.0", "@babel/preset-env@^7.4.5", "@babel/preset-env@^7.6.3":
+"@babel/preset-env@^7.4.5", "@babel/preset-env@^7.6.3":
   version "7.6.3"
   resolved "https://registry.npmjs.org/@babel/preset-env/-/preset-env-7.6.3.tgz#9e1bf05a2e2d687036d24c40e4639dc46cef2271"
   integrity sha512-CWQkn7EVnwzlOdR5NOm2+pfgSNEZmvGjOhlCHBDq0J8/EStr+G+FvPEiz9B56dR6MoiUFjXhfE4hjLoAKKJtIQ==
@@ -4021,7 +4021,7 @@ babel-loader@^8.0.4, babel-loader@^8.0.5, babel-loader@^8.0.6:
     mkdirp "^0.5.1"
     pify "^4.0.1"
 
-babel-plugin-add-module-exports@^1.0.0, babel-plugin-add-module-exports@^1.0.2:
+babel-plugin-add-module-exports@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/babel-plugin-add-module-exports/-/babel-plugin-add-module-exports-1.0.2.tgz#96cd610d089af664f016467fc4567c099cce2d9c"
   integrity sha512-4paN7RivvU3Rzju1vGSHWPjO8Y0rI6droWvSFKI6dvEQ4mvoV0zGojnlzVRfI6N8zISo6VERXt3coIuVmzuvNg==
@@ -4299,26 +4299,6 @@ babel-preset-jest@^24.9.0:
     babel-plugin-transform-simplify-comparison-operators "^6.9.4"
     babel-plugin-transform-undefined-to-void "^6.9.4"
     lodash "^4.17.11"
-
-babel-preset-openagenda@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.npmjs.org/babel-preset-openagenda/-/babel-preset-openagenda-1.1.1.tgz#647e321465292b032c169d5d04a0dcaf5c3312ae"
-  integrity sha512-nvlWzp547BUHpXwhvjPWSaqixnfq9hXmQ8vw0qQwdSYbemFzyECk+6iglD+YPUoxoTipLicJSoY5AvUujmJ9Nw==
-  dependencies:
-    "@babel/helper-plugin-utils" "^7.0.0"
-    "@babel/plugin-proposal-class-properties" "^7.1.0"
-    "@babel/plugin-proposal-decorators" "^7.1.2"
-    "@babel/plugin-proposal-do-expressions" "^7.0.0"
-    "@babel/plugin-proposal-export-default-from" "^7.0.0"
-    "@babel/plugin-proposal-export-namespace-from" "^7.0.0"
-    "@babel/plugin-proposal-function-bind" "^7.0.0"
-    "@babel/plugin-proposal-object-rest-spread" "^7.0.0"
-    "@babel/plugin-proposal-throw-expressions" "^7.0.0"
-    "@babel/plugin-transform-runtime" "^7.1.0"
-    "@babel/preset-env" "^7.1.0"
-    "@babel/preset-react" "^7.0.0"
-    babel-plugin-add-module-exports "^1.0.0"
-    babel-plugin-lodash "^3.3.4"
 
 babel-preset-react-app@^9.0.0:
   version "9.0.2"
@@ -5445,11 +5425,6 @@ chai@^4.1.2:
     get-func-name "^2.0.0"
     pathval "^1.1.0"
     type-detect "^4.0.5"
-
-chain-function@^1.0.0:
-  version "1.0.1"
-  resolved "https://registry.npmjs.org/chain-function/-/chain-function-1.0.1.tgz#c63045e5b4b663fb86f1c6e186adaf1de402a1cc"
-  integrity sha512-SxltgMwL9uCko5/ZCLiyG2B7R9fY4pDZUw7hJ4MhirdjBLosoDqkWABi3XMucddHdLiFJMb7PD2MZifZriuMTg==
 
 chalk@2.4.2, chalk@^2.0, chalk@^2.0.0, chalk@^2.0.1, chalk@^2.1.0, chalk@^2.4.0, chalk@^2.4.1, chalk@^2.4.2:
   version "2.4.2"
@@ -6647,6 +6622,11 @@ core-js@^3.0.1, core-js@^3.0.4, core-js@^3.1.4, core-js@^3.2.1:
   version "3.3.3"
   resolved "https://registry.npmjs.org/core-js/-/core-js-3.3.3.tgz#b7048d3c6c1a52b5fe55a729c1d4ccdffe0891bb"
   integrity sha512-0xmD4vUJRY8nfLyV9zcpC17FtSie5STXzw+HyYw2t8IIvmDnbq7RJUULECCo+NstpJtwK9kx8S+898iyqgeUow==
+
+core-js@^3.3.6:
+  version "3.3.6"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.3.6.tgz#6ad1650323c441f45379e176ed175c0d021eac92"
+  integrity sha512-u4oM8SHwmDuh5mWZdDg9UwNVq5s1uqq6ZDLLIs07VY+VJU91i3h4f3K/pgFvtUQPGdeStrZ+odKyfyt4EnKHfA==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -15021,7 +15001,7 @@ moment-timezone@^0.5.11, moment-timezone@^0.5.13, moment-timezone@^0.5.14, momen
   dependencies:
     moment ">= 2.9.0"
 
-moment@2.24.0, "moment@>= 2.9.0", moment@^2.13.0, moment@^2.18.0, moment@^2.20.1, moment@^2.24.0, moment@^2.6.0, moment@^2.9.0:
+moment@2.24.0, "moment@>= 2.9.0", moment@^2.18.0, moment@^2.20.1, moment@^2.24.0, moment@^2.6.0, moment@^2.9.0:
   version "2.24.0"
   resolved "https://registry.npmjs.org/moment/-/moment-2.24.0.tgz#0d055d53f5052aa653c9f6eb68bb5d12bf5c2b5b"
   integrity sha512-bV7f+6l2QigeBBZSM/6yTNq4P2fNpSWj/0e7jQcy87A8e7o2nAfP/34/2ky5Vw4B9S446EtIhodAzkFCcR4dQg==
@@ -17968,13 +17948,6 @@ rc@^1.0.1, rc@^1.1.6, rc@^1.2.7:
     minimist "^1.2.0"
     strip-json-comments "~2.0.1"
 
-react-addons-css-transition-group@^15.6.2:
-  version "15.6.2"
-  resolved "https://registry.npmjs.org/react-addons-css-transition-group/-/react-addons-css-transition-group-15.6.2.tgz#9e4376bcf40b5217d14ec68553081cee4b08a6d6"
-  integrity sha1-nkN2vPQLUhfRTsaFUwgc7ksIptY=
-  dependencies:
-    react-transition-group "^1.2.0"
-
 react-beautiful-dnd@^10.0.4:
   version "10.1.1"
   resolved "https://registry.npmjs.org/react-beautiful-dnd/-/react-beautiful-dnd-10.1.1.tgz#d753088d77d7632e77cf8a8935fafcffa38f574b"
@@ -18062,15 +18035,6 @@ react-color@^2.17.0:
     reactcss "^1.2.0"
     tinycolor2 "^1.4.1"
 
-react-copy-to-clipboard@^4.2.3:
-  version "4.3.1"
-  resolved "https://registry.npmjs.org/react-copy-to-clipboard/-/react-copy-to-clipboard-4.3.1.tgz#aa429ce6029077c987e2bc4af7eec9a09ba5075b"
-  integrity sha1-qkKc5gKQd8mH4rxK9+7JoJulB1s=
-  dependencies:
-    copy-to-clipboard "^3"
-    create-react-class "^15.5.2"
-    prop-types "^15.5.8"
-
 react-copy-to-clipboard@^5.0.0, react-copy-to-clipboard@^5.0.1:
   version "5.0.1"
   resolved "https://registry.npmjs.org/react-copy-to-clipboard/-/react-copy-to-clipboard-5.0.1.tgz#8eae107bb400be73132ed3b6a7b4fb156090208e"
@@ -18078,16 +18042,6 @@ react-copy-to-clipboard@^5.0.0, react-copy-to-clipboard@^5.0.1:
   dependencies:
     copy-to-clipboard "^3"
     prop-types "^15.5.8"
-
-react-datepicker@^0.29.0:
-  version "0.29.0"
-  resolved "https://registry.npmjs.org/react-datepicker/-/react-datepicker-0.29.0.tgz#cb6d7f65943dab5e6309bc9847e186a28a973463"
-  integrity sha1-y21/ZZQ9q15jCbyYR+GGooqXNGM=
-  dependencies:
-    classnames "^2.2.1"
-    moment "^2.13.0"
-    react-onclickoutside "^4.8.0"
-    tether "^1.3.2"
 
 react-datepicker@^1.6.0:
   version "1.8.0"
@@ -18150,15 +18104,15 @@ react-docgen@^4.1.1:
     node-dir "^0.1.10"
     recast "^0.17.3"
 
-react-dom@16.10.2, react-dom@^16.10.2, react-dom@^16.8.3:
-  version "16.10.2"
-  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.10.2.tgz#4840bce5409176bc3a1f2bd8cb10b92db452fda6"
-  integrity sha512-kWGDcH3ItJK4+6Pl9DZB16BXYAZyrYQItU4OMy0jAkv5aNqc+mAKb4TpFtAteI6TJZu+9ZlNhaeNQSVQDHJzkw==
+react-dom@16.11.0, react-dom@^16.11.0, react-dom@^16.8.3:
+  version "16.11.0"
+  resolved "https://registry.yarnpkg.com/react-dom/-/react-dom-16.11.0.tgz#7e7c4a5a85a569d565c2462f5d345da2dd849af5"
+  integrity sha512-nrRyIUE1e7j8PaXSPtyRKtz+2y9ubW/ghNgqKFHHAHaeP0fpF5uXR+sq8IMRHC+ZUxw7W9NyCDTBtwWxvkb0iA==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
     prop-types "^15.6.2"
-    scheduler "^0.16.2"
+    scheduler "^0.17.0"
 
 react-draggable@^4.0.3:
   version "4.0.3"
@@ -18354,7 +18308,7 @@ react-modal@^3.10.1:
     react-lifecycles-compat "^3.0.0"
     warning "^4.0.3"
 
-react-onclickoutside@^4.5.0, react-onclickoutside@^4.8.0:
+react-onclickoutside@^4.5.0:
   version "4.9.0"
   resolved "https://registry.npmjs.org/react-onclickoutside/-/react-onclickoutside-4.9.0.tgz#2908c3136e244102bea5e5437a838a528d5d2995"
   integrity sha1-KQjDE24kQQK+peVDeoOKUo1dKZU=
@@ -18560,13 +18514,6 @@ react-syntax-highlighter@^8.0.1:
     prismjs "^1.8.4"
     refractor "^2.4.1"
 
-react-table@^5.0.2:
-  version "5.6.0"
-  resolved "https://registry.npmjs.org/react-table/-/react-table-5.6.0.tgz#0e61845361948999d1ae9f24d92e574ec333cd41"
-  integrity sha1-DmGEU2GUiZnRrp8k2S5XTsMzzUE=
-  dependencies:
-    classnames "^2.2.5"
-
 react-tagsinput@^3.16.1, react-tagsinput@^3.19.0, react-tagsinput@^3.7.0:
   version "3.19.0"
   resolved "https://registry.npmjs.org/react-tagsinput/-/react-tagsinput-3.19.0.tgz#6e3b45595f2d295d4657bf194491988f948caabf"
@@ -18624,17 +18571,6 @@ react-transform-catch-errors@^1.0.2:
   resolved "https://registry.npmjs.org/react-transform-catch-errors/-/react-transform-catch-errors-1.0.2.tgz#1b4d4a76e97271896fc16fe3086c793ec88a9eeb"
   integrity sha1-G01KdulycYlvwW/jCGx5PsiKnus=
 
-react-transition-group@^1.2.0:
-  version "1.2.1"
-  resolved "https://registry.npmjs.org/react-transition-group/-/react-transition-group-1.2.1.tgz#e11f72b257f921b213229a774df46612346c7ca6"
-  integrity sha512-CWaL3laCmgAFdxdKbhhps+c0HRGF4c+hdM4H23+FI1QBNUyx/AMeIJGWorehPNSaKnQNOAxL7PQmqMu78CDj3Q==
-  dependencies:
-    chain-function "^1.0.0"
-    dom-helpers "^3.2.0"
-    loose-envify "^1.3.1"
-    prop-types "^15.5.6"
-    warning "^3.0.0"
-
 react-transition-group@^2.0.0, react-transition-group@^2.2.0, react-transition-group@^2.2.1:
   version "2.9.0"
   resolved "https://registry.npmjs.org/react-transition-group/-/react-transition-group-2.9.0.tgz#df9cdb025796211151a436c69a8f3b97b5b07c8d"
@@ -18654,10 +18590,10 @@ react-waypoint@^9.0.2:
     prop-types "^15.0.0"
     react-is "^16.6.3"
 
-react@16.10.2, react@^16.10.2, react@^16.8.3:
-  version "16.10.2"
-  resolved "https://registry.yarnpkg.com/react/-/react-16.10.2.tgz#a5ede5cdd5c536f745173c8da47bda64797a4cf0"
-  integrity sha512-MFVIq0DpIhrHFyqLU0S3+4dIcBhhOvBE8bJ/5kHPVOVaGdo0KuiQzpcjCPsf585WvhypqtrMILyoE2th6dT+Lw==
+react@16.11.0, react@^16.11.0, react@^16.8.3:
+  version "16.11.0"
+  resolved "https://registry.yarnpkg.com/react/-/react-16.11.0.tgz#d294545fe62299ccee83363599bf904e4a07fdbb"
+  integrity sha512-M5Y8yITaLmU0ynd0r1Yvfq98Rmll6q8AxaEe88c8e7LxO8fZ2cNgmFt0aGAS9wzf1Ao32NKXtCl+/tVVtkxq6g==
   dependencies:
     loose-envify "^1.1.0"
     object-assign "^4.1.1"
@@ -21568,7 +21504,7 @@ test-exclude@^5.2.3:
     read-pkg-up "^4.0.0"
     require-main-filename "^2.0.0"
 
-tether@^1.1.1, tether@^1.3.2:
+tether@^1.1.1:
   version "1.4.7"
   resolved "https://registry.npmjs.org/tether/-/tether-1.4.7.tgz#d56a818590d8fe72e387f77a67f93ab96d8e1fb2"
   integrity sha512-Z0J1aExjoFU8pybVkQAo/vD2wfSO63r+XOPfWQMC5qtf1bI7IWqNk4MiyBcgvvnY8kqnY06dVdvwTK2S3PU/Fw==

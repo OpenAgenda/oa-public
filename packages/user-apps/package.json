@@ -22,7 +22,7 @@
     "@openagenda/react-utils": "^4.0.0",
     "@openagenda/users": "^3.0.0",
     "@openagenda/utils": "^1.0.3",
-    "core-js": "^3.2.1",
+    "core-js": "^3.3.6",
     "knex": "^0.19.5",
     "lodash": "^4.17.10",
     "mysql": "^2.16.0",
@@ -53,15 +53,15 @@
     "history": "^4.10.1",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.3",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.1",
     "rimraf": "^3.0.0"
   },
   "peerDependencies": {
     "@loadable/component": "^5.10.3",
-    "react": "^16.10.2",
+    "react": "^16.11.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1"
   }

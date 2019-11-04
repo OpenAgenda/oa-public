@@ -24,7 +24,7 @@
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/react-utils": "^4.0.0",
-    "core-js": "^3.2.1",
+    "core-js": "^3.3.6",
     "lodash": "^4.17.4",
     "prop-types": "^15.6.0",
     "redux-form": "^8.1.0"
@@ -37,14 +37,14 @@
     "@storybook/react": "^5.2.3",
     "axios-mock-adapter": "^1.17.0",
     "babel-loader": "^8.0.4",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "react-redux": "^7.1.1",
     "redux": "^4.0.1",
     "rimraf": "^3.0.0"
   },
   "peerDependencies": {
-    "react": "^16.10.2",
+    "react": "^16.11.0",
     "react-redux": "^7.1.1",
     "redux": "^4.0.1"
   }

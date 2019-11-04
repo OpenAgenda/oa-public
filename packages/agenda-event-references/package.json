@@ -24,7 +24,7 @@
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/utils": "^1.0.2",
-    "core-js": "^3.2.1",
+    "core-js": "^3.3.6",
     "create-react-class": "^15.5.2",
     "es6-promise": "^3.2.1",
     "immutability-helper": "^3.0.0",
@@ -52,12 +52,12 @@
     "mocha": "^6.2.1",
     "morgan": "^1.9.1",
     "nodemon": "^1.19.3",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
     "rimraf": "^3.0.0",
     "should": "^13.2.3"
   },
   "peerDependencies": {
-    "react": "^16.10.2"
+    "react": "^16.11.0"
   }
 }
