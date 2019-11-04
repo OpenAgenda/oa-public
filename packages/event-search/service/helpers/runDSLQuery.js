@@ -1,7 +1,6 @@
 'use stric';
 
 const _ = require( 'lodash' );
-const config = require( '../config' );
 
 module.exports = async ({ client, type }, alias, DSL, options = {}) => {
   const search = {

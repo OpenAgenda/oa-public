@@ -2,23 +2,18 @@
 
 const log = require( '@openagenda/logs' )( 'events/interfaces/onCreate' );
 const activitiesSvc = require( '../activities' );
-const eventSearch = require( '../eventSearch' );
 const usersSvc = require( '../users' );
 
-module.exports = ( event, context ) => {
-
-  log( 'info', 'created event %s with context %j', event.uid, context );
+module.exports = (services, event, context) => {
+  log('info', 'created event %s with context %j', event.uid, context);
 
   if ( event.creatorUid ) _unsetNewUser( event );
 
   _registerActivity( event );
 
-  if ( !event.draft ) {
-
-    eventSearch.events.add( event.uid, { queue: true } );
-
+  if (!event.draft) {
+    services.eventSearch.events.add(event.uid, { queue: true });
   }
-
 }
 
 

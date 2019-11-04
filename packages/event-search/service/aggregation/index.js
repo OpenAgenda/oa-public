@@ -1,8 +1,9 @@
 "use strict";
 
 const _ = require( 'lodash' );
-
 const fs = require( 'fs' );
+
+const log = require('@openagenda/logs')('aggregation');
 
 const termsTemplate = _.template( fs.readFileSync( __dirname + '/terms.tpl', 'utf-8' ) );
 
@@ -19,7 +20,7 @@ const types = {
   timingsReverseHits: {
     parse: require( './timingsReverseHits.parse' ),
     validate: require( './timingsReverseHits.validator' ),
-    template: _.template( fs.readFileSync( __dirname + '/timingsReverseHits.tpl', 'utf-8' ) )
+    template: _.template(fs.readFileSync( __dirname + '/timingsReverseHits.tpl', 'utf-8' ))
   },
   timespan: {
     parse: require( './timespan.parse' ),
@@ -32,37 +33,35 @@ const types = {
   }
 }
 
-module.exports = _.extend( buildDsl, {
-  parseResult
-} );
+module.exports = Object.assign(buildDsl, { parseResult });
 
+function buildDsl(config, aggregators = [], predefined = {}, query = {}) {
+  log('bulding aggregation DSL');
 
-function buildDsl( aggregators = [], predefined = {}, query = {} ) {
+  const dsl = {};
 
-  let dsl = {};
+  [].concat(aggregators).map(_cleanAggregatorConfiguration.bind( null, config, predefined, query ))
 
-  [].concat( aggregators ).map( _cleanAggregatorConfiguration.bind( null, predefined, query ) )
-
-    .forEach( ( { type, field, destination, data } ) => {
+    .forEach(({ type, field, destination, data }) => {
 
       // simple template
-      dsl[ destination ] = JSON.parse( types[ type ].template( data ) );
+      dsl[destination] = JSON.parse(types[type].template(data));
 
-    } );
+    });
 
   return dsl;
-
 }
 
-function parseResult( aggregators, result, predefined = {}, parseEvents = null ) {
+function parseResult(config, aggregators, result, predefined = {}, parseEvents = null) {
+  log('parsing aggregation result for %s defined aggregators', [].concat(aggregators).length);
 
-  let parsed = {};
+  const parsed = {};
 
-  [].concat( aggregators ).map( _cleanAggregatorConfiguration.bind( null, predefined, {} ) ).forEach( ( { type, field, destination, data } ) => {
+  [].concat(aggregators).map(_cleanAggregatorConfiguration.bind(null, config, predefined, {})).forEach(({ type, field, destination, data }) => {
 
-    const parse = types[ type ].parse || _defaultParse.bind( null, destination );
+    const parse = types[type].parse || _defaultParse.bind(null, destination);
 
-    parsed[ destination ] =  parse( result[ destination ] );
+    parsed[ destination ] =  parse( result[ destination ], { config } );
 
     if ( !parsed[ destination ].length || !parsed[ destination ][ 0 ].sampleEvents || !parseEvents ) return;
 
@@ -85,11 +84,11 @@ function _defaultParse( fieldName, result ) {
 }
 
 
-function _cleanAggregatorConfiguration( predefined = {}, query = {}, a ) {
+function _cleanAggregatorConfiguration(config, predefined = {}, query = {}, a) {
 
   let aObj, type, field, destination, data;
 
-  if ( typeof a !== 'string' ) {
+  if (typeof a !== 'string') {
 
     aObj = a;
 
@@ -103,8 +102,8 @@ function _cleanAggregatorConfiguration( predefined = {}, query = {}, a ) {
       type: 'terms',
       field: a,
       destination: a,
-      data: { 
-        type: a, 
+      data: {
+        type: a,
         field: a
       }
     }
@@ -119,11 +118,11 @@ function _cleanAggregatorConfiguration( predefined = {}, query = {}, a ) {
 
   data = _.extend( {}, aObj, { type, field, query } );
 
-  return { 
+  return {
     type,
     field,
     destination,
-    data: types[ type ].validate ? types[ type ].validate( data ) : data,
+    data: types[ type ].validate ? types[ type ].validate( data, { config } ) : data,
     query
   };
 

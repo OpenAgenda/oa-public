@@ -17,42 +17,42 @@ module.exports = async function sendSummary( { user, notifications } ) {
 
   if ( !notifications.length ) return;
 
-  if ( Math.abs( moment().diff( moment( notifications[ notifications.length - 1 ].createdAt ), 'days', true ) ) > 2 ) {
+  try {
+
+    if ( Math.abs( moment().diff( moment( notifications[ notifications.length - 1 ].createdAt ), 'days', true ) ) > 2 ) {
+
+      await knex( config.schemas.feed_notification )
+        .where( 'feed_id', notifications[ 0 ].feedId )
+        .whereIn( 'id', notifications.map( v => v.id ) )
+        .update( { sent: 1 } );
+
+      return log( 'warn', 'Attempt to send too old summary at %s', user.email, { notifications } );
+
+    }
 
     await knex( config.schemas.feed_notification )
       .where( 'feed_id', notifications[ 0 ].feedId )
       .whereIn( 'id', notifications.map( v => v.id ) )
       .update( { sent: 1 } );
 
-    return log( 'warn', 'Attempt to send too old summary at %s', user.email, { notifications } );
+    const lang = user.culture || 'fr';
 
-  }
+    const formatNotification = notificationFormatMaker( ( ...args ) => {
+      const url = notificationFormatMaker.defaultGetUrl( ...args );
+      return url ? config.root + url : null
+    }, notifLabels, { userUid: user.uid, renderHighlight: v => `<span style="color: #413a42">${v}</span>` } );
 
-  await knex( config.schemas.feed_notification )
-    .where( 'feed_id', notifications[ 0 ].feedId )
-    .whereIn( 'id', notifications.map( v => v.id ) )
-    .update( { sent: 1 } );
+    const message = notifications.map(
+      v => {
+        const formatted = formatNotification( v, lang );
 
-  const lang = user.culture || 'fr';
-
-  const formatNotification = notificationFormatMaker( ( ...args ) => {
-    const url = notificationFormatMaker.defaultGetUrl( ...args );
-    return url ? config.root + url : null
-  }, notifLabels, { userUid: user.uid, renderHighlight: v => `<span style="color: #413a42">${v}</span>` } );
-
-  const message = notifications.map(
-    v => {
-      const formatted = formatNotification( v, lang );
-
-      return '<span style="font-size: 12px">' +
-        _.upperFirst( moment( v.createdAt ).locale( lang ).format( 'LLLL' ) ) + '</span><br />' +
-        '<a href="' + formatted.url + '" style="color: gray; text-decoration: none">' +
-        formatted.content +
-        '</a>';
-    }
-  ).join( '\n***\n' );
-
-  try {
+        return '<span style="font-size: 12px">' +
+          _.upperFirst( moment( v.createdAt ).locale( lang ).format( 'LLLL' ) ) + '</span><br />' +
+          '<a href="' + formatted.url + '" style="color: gray; text-decoration: none">' +
+          formatted.content +
+          '</a>';
+      }
+    ).join( '\n***\n' );
 
     await mails( {
       template: 'notificationsSummary',

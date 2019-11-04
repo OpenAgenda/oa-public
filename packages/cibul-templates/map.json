@@ -5,7 +5,6 @@
   "inboxes/user",
   "agendaAdmin/inbox",
   "activities/agenda",
-  "activities/user",
   "admin/activities",
   "admin/agendas",
   "admin/index",

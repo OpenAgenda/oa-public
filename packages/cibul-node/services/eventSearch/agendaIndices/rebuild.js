@@ -2,18 +2,17 @@
 
 const _ = require( 'lodash' );
 const agendas = require( '@openagenda/agendas' );
-const assemble = require( './assemble' );
 const formSchemas = require( '@openagenda/form-schemas' );
 const schema = require( '@openagenda/validators/schema' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 
 const log = require( '@openagenda/logs' )( 'services/eventSearch/agendaIndices/rebuild' );
 
-schema.register( {
-  integer: require( '@openagenda/validators/integer' )
-} );
+schema.register({
+  integer: require('@openagenda/validators/integer')
+});
 
-module.exports = async ( searchIndex, uid ) => {
+module.exports = async ({ assemble }, searchIndex, uid) => {
 
   const agenda = await _getAgenda( uid );
 

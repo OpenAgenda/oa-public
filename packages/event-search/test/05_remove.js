@@ -3,9 +3,11 @@
 const should = require( 'should' );
 const config = require( '../testconfig' );
 const events = require( '@openagenda/events/test/service' );
-const service = require( '../' );
+const Service = require( '../' );
 
 describe( 'event search - functional: remove', function() {
+
+  let service;
 
   this.timeout( 10000 );
 
@@ -13,14 +15,13 @@ describe( 'event search - functional: remove', function() {
 
     events.initAndLoad( config.eventService, [ {
       table: 'event',
-      src: __dirname + '/service/event.data.sql' 
+      src: __dirname + '/service/event.data.sql'
     } ], { reset: true }, done );
 
   } );
 
   before( async () => {
-
-    service.init( config );
+    service = Service(config);
 
     function eventsList( offset, limit ) {
 
@@ -31,16 +32,15 @@ describe( 'event search - functional: remove', function() {
 
     }
 
-    await service( 'test_index' ).rebuild( { eventsList } );
-
+    await service( 'test_index' ).rebuild({ eventsList });
   } );
 
-  it( 'remove an event from index by uid', async () => {
+  it('remove an event from index by uid', async () => {
 
-    let result = await service( 'test_index' ).remove( { uid: 1 }, { refresh: true } );
+    let result = await service('test_index').remove({ uid: 1 }, { refresh: true });
 
     result.success.should.equal( true );
 
-  } );
+  });
 
 } );

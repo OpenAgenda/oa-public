@@ -2,82 +2,43 @@
 
 const _ = require( 'lodash' );
 
-const eventSearch = require( '@openagenda/event-search' );
-const agendaIndices = require( './agendaIndices' );
-const agendas = require( '@openagenda/agendas' );
-const eventTransverseOperations = require( './eventTransverseOperations' );
-const onError = require( '../errors' ).bind( null, 'eventSearch' );
+const EventSearch = require('@openagenda/event-search');
+
+const AgendaIndices = require('./agendaIndices');
+const buildSearchConfig = require('./lib/buildSearchConfig');
+const eventTransverseOperations = require('./eventTransverseOperations');
+
+const log = require('@openagenda/logs')('services/eventSearch');
 
 module.exports = {
   init,
-  agendas: agendaIndices,
-  events: eventTransverseOperations,
-  task: require( './task' ),
-  parsers: eventSearch.parsers
+  utils: EventSearch.utils
 }
 
+function init(config, services) {
+  const {
+    queues
+  } = services;
 
-function init( config ) {
+  const eventSearch = EventSearch(buildSearchConfig(config));
 
-  eventSearch.init( {
+  const queue = queues('eventSearch');
 
-    elasticsearch: {
-      host: `${_.get( config, 'es53.host', 'localhost' )}:${_.get( config, 'es53.port', 9200 )}/`,
-      apiVersion: '5.3'
-    },
+  const agendaIndices = AgendaIndices(eventSearch, config);
 
-    predefinedAggregations: {
+  return Object.assign(eventSearch, {
+    agendas: agendaIndices,
+    events: eventTransverseOperations({ eventSearch, agendaIndices, queue }),
+    task: task.bind(null, { queue })
+  });
+}
 
-      keywords: {
-        type: 'terms',
-        field: 'search_internals_keywords',
-        destination: 'keywords'
-      },
+function task({ queue }) {
+  log('task');
 
-      timingsByMonth: {
-        type: 'timings',
-        format: 'YYYY-MM',
-        interval: 'month',
-        destination: 'timingsByMonth'
-      },
+  queue.on('error', (fn, args, error) => log('error', fn, args, error));
+  queue.on('execute', (fn, args) => log(fn, 'execute'));
+  queue.on('success', (fn, args, result) => log(fn, 'success'));
 
-      languages: {
-        type: 'terms',
-        field: 'search_internals_languages',
-        destination: 'languages'
-      },
-
-      eventsByMonthlyDay: {
-        type: 'timingsReverseHits',
-        format: 'YYYY-MM-dd',
-        interval: 'day',
-        destination: 'days'
-      },
-
-      eventsByWeeklyDay: {
-        type: 'timingsReverseHits',
-        format: 'YYYY-MM-dd',
-        interval: 'day',
-        destination: 'days',
-        size: 10
-      },
-
-      agendas: {
-        type: 'objectsAsTerms',
-        field: 'search_internals_agenda',
-        destination: 'agendas'
-      }
-
-    },
-
-    logger: config.getLogConfig( 'svc', 'eventSearch' ),
-
-    interfaces: {
-      onError
-    },
-
-  } );
-
-  agendaIndices.init( config );
-
+  queue.run();
 }

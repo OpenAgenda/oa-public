@@ -60,7 +60,7 @@ app.get( '/agendas/:agendaUid/admin/*?(/*)?', agendaAdminRedirect );
 
 app.get( '/:agendaSlug/admin/stats',
   async (req, res, next) => res.send( layout(
-    statsTemplate( await agendaStatistics( req.agenda.uid ) ),
+    statsTemplate(await agendaStatistics(req.app.services, req.agenda.uid)),
     {...req, role: req.member.role}
   ) )
 )

@@ -4,7 +4,7 @@ const agendaSearch = require( '@openagenda/agenda-search' );
 
 const tfy = require( './lib/taskify' );
 
-module.exports = () => {
+module.exports = services => {
 
   tfy( require( './general/jobs.task' ), { bootOffset: 1000 } );
 
@@ -33,7 +33,7 @@ module.exports = () => {
     time: '05:00'
   } );
 
-  tfy( require( './services/activities' ).tasks.notifications.sendSummary, {
+  tfy( require( './services/activities' ).tasks.notifications.sendSummary.task, {
     // bootOffset: 5000,
     period: 'daily',
     time: '08:00'
@@ -69,7 +69,7 @@ module.exports = () => {
 
   require( './services/event/oembed' ).task();
 
-  require( './services/agendaStatistics' ).task();
+  require( './services/agendaStatistics' ).task(services);
 
   require( '@openagenda/custom' ).task();
 
@@ -130,6 +130,5 @@ module.exports = () => {
 
   //require( '@openagenda/agenda-events' ).tasks.transferLegacyData( { interval: 500 } );
 
-  require( './services/eventSearch' ).task();
-
+  services.eventSearch.task();
 };

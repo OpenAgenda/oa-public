@@ -1,10 +1,8 @@
-"use strict";
+'use strict';
 
-const config = require( '../config' );
+const _ = require('lodash');
 
-const schema = require( '@openagenda/validators/schema' );
-
-const _ = require( 'lodash' );
+const schema = require('@openagenda/validators/schema');
 
 schema.register( {
   choice: require( '@openagenda/validators/choice' ),
@@ -47,7 +45,9 @@ const validate = schema( {
 
 const validateDate = require( '@openagenda/validators/date' )( { default: 'now' } );
 
-module.exports = values => {
+module.exports = (values, options = {}) => {
+
+  const { config } = options;
 
   const clean = validate( values );
 
@@ -55,7 +55,7 @@ module.exports = values => {
   clean.includes = config.baseSearchIncludes;
 
   // range needs to be specified here
-  clean.ranges = _ranges( 
+  clean.ranges = _ranges(
     _.get( values, 'query.date.gte', null ),
     _.get( values, 'query.date.lte', null )
   );
@@ -75,7 +75,7 @@ function _ranges( fromDate = null, toDate = null ) {
 
   if ( !fromDate ) {
 
-    cursor.setDate( 1 );    
+    cursor.setDate( 1 );
 
   }
 

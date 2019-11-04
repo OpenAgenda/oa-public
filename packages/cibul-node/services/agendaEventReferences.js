@@ -6,9 +6,8 @@ const log = require('@openagenda/logs')('services/agendaEventReferences');
 const agendaEventReferences = require( '@openagenda/agenda-event-references' );
 const internalEventSvc = require( './event' );
 const internalAgendaSvc = require( './agenda' );
-const search = require( './eventSearch' );
 
-module.exports.init = async config => {
+module.exports.init = async (config, services) => {
 
   await promisify( agendaEventReferences.init )( {
     schema: config.schemas.eventReferences,
@@ -16,18 +15,18 @@ module.exports.init = async config => {
     logger: config.getLogConfig( 'svc', 'agenda-event-references', false ),
     interfaces: {
       events,
-      suggestions
+      suggestions: suggestions.bind(null, services)
     }
   } );
 
 }
 
 
-function suggestions( agendaUid, sample, options = {}, cb ) {
+function suggestions(services, agendaUid, sample, options = {}, cb) {
 
   log('retrieving suggestions for agenda', agendaUid, { sample } );
 
-  search.agendas( agendaUid ).moreLikeThis( sample, options )
+  services.eventSearch.agendas( agendaUid ).moreLikeThis( sample, options )
     .then(result => _.get(result, 'events', [] ).filter( e => !_.get( options, 'exclude', [] ).includes( '' + e.uid ) ) )
     .then(events => {
       log('retrieved %s suggestions', events.length);

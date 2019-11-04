@@ -84,5 +84,11 @@ module.exports = {
     "en": "Request an official agenda",
     "de": "Eine offizielle Verwaltungskalender fragen",
     "es": "Solicitar agenda oficial"
-  }
+  },
+  "learnMore": {
+    "fr": "En savoir plus",
+    "en": "Learn more",
+    "de": "Mehr erfahren",
+    "es": "Más información"
+  },
 }

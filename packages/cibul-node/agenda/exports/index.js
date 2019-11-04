@@ -7,7 +7,6 @@ const ICSStream = require( '@openagenda/flat-exports' ).ICSStream;
 const labels = require( '@openagenda/labels/event/exportFieldNames' );
 const MarkdownStream = require( '@openagenda/flat-exports' ).MarkdownStream;
 const xlsx = require( '@openagenda/flat-exports' ).xlsx();
-const search = require( '../../services/eventSearch' );
 const rss = require( './rss' );
 
 
@@ -24,12 +23,12 @@ module.exports = app => {
 
   app.get( '/agendas/:agendaUid/events.v2.(csv|xlsx|ics|txt|md)', async ( req, res, next ) => {
 
-    const result = await search.agendas( req.params.agendaUid ).search( req.query, { size: 0 }, {
+    const result = await app.services.eventSearch.agendas( req.params.agendaUid ).search( req.query, { size: 0 }, {
       aggregations: [ 'languages' ]
     } );
 
     // here options must be separated from
-    req.stream = await search.agendas( req.params.agendaUid ).stream( req.query, { detailed: true } );
+    req.stream = await app.services.eventSearch.agendas( req.params.agendaUid ).stream( req.query, { detailed: true } );
 
     // this should be loaded from some agenda cache
     req.languages = result.aggregations.languages.map( b => b.key );

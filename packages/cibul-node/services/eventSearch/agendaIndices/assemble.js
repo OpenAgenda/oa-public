@@ -25,79 +25,72 @@ const networks = require( '../../networks' );
 
 let knex, maxIndexableTimingCount;
 
-module.exports = {
-  list,
-  item,
-  getCustomValidators,
-  init: c => {
+module.exports = ({ esEvents, knex }) => {
+  const maxIndexableTimingCount = _.get(esEvents, 'maxIndexableTimingCount', 1000 );
 
-    knex = c.knex;
-
-    maxIndexableTimingCount = _.get( c, 'esEvents.maxIndexableTimingCount', 1000 );
-
+  return {
+    list: list.bind(null, { maxIndexableTimingCount }),
+    item,
+    getCustomValidators
   }
 }
 
-async function list( agendaEvents, formSchemaId = null, customValidators = null ) {
+async function list({ maxIndexableTimingCount }, agendaEvents, formSchemaId = null, customValidators = null) {
 
-  const validators = customValidators === null ? await getCustomValidators( formSchemaId ) : customValidators;
+  const validators = customValidators === null ? await getCustomValidators(formSchemaId) : customValidators;
 
-  const eventUids = agendaEvents.map( ae => ae.eventUid );
+  const eventUids = agendaEvents.map(ae => ae.eventUid);
 
-  const customMap = await custom( formSchemaId ).list( { identifier: eventUids } ).then( r => r.items );
+  const customMap = await custom(formSchemaId)
+    .list({ identifier: eventUids })
+    .then(r => r.items);
 
-  const events = await eventSvc.list( { uid: eventUids }, 0, eventUids.length, { detailed: true, html: true, private: null } ).then( r => r.events );
+  const events = await eventSvc.list({
+    uid: eventUids
+  }, 0, eventUids.length, {
+    detailed: true,
+    html: true,
+    private: null
+  }).then(r => r.events);
 
   const missing = [];
 
-  const assembled = agendaEvents.map( ae => {
+  const assembled = agendaEvents.map(ae => {
+    const event = _.find(events, e => e.uid === ae.eventUid);
 
-    const event = _.find( events, e => e.uid === ae.eventUid );
+    if (!event) {
+      log('warn', 'agendaEvent ref %s.%s does not have a matching non-draft event', ae.agendaUid, ae.eventUid);
 
-    if ( !event ) {
-
-      log( 'warn', 'agendaEvent ref %s.%s does not have a matching non-draft event', ae.agendaUid, ae.eventUid );
-
-      missing.push( ae.eventUid );
+      missing.push(ae.eventUid);
 
       return null;
+    } else if (event.timings.length > maxIndexableTimingCount) {
 
-    } else if ( event.timings.length > maxIndexableTimingCount ) {
+      log('warn', 'max indexable timings is reached, filtering from %s to %s', event.timings.length, maxIndexableTimingCount);
 
-      log( 'warn', 'max indexable timings is reached, filtering from %s to %s', event.timings.length, maxIndexableTimingCount );
-
-      event.timings = event.timings.slice( 0, maxIndexableTimingCount );
-
+      event.timings = event.timings.slice(0, maxIndexableTimingCount);
     }
 
-    return _.extend( {}, ae, { event } );
+    return Object.assign({}, ae, { event });
+  } ).filter(ae => !!ae).map(ae => {
+      const custom = _.find(customMap, c => c.identifier === ae.eventUid);
 
-  } )
-
-    .filter( ae => !!ae )
-
-    .map( ae => {
-
-      const custom = _.find( customMap, c => c.identifier === ae.eventUid );
-
-      const assembledItem = _item( {
+      const assembledItem = _item({
         event: ae.event,
         validators,
         member: _parseMember(ae),
         custom: custom ? custom.custom : null,
         state: ae.state,
         featured: ae.featured
-      } );
+      });
 
       return assembledItem;
-
-    } );
+    });
 
   return {
     assembled,
     missing
   }
-
 }
 
 async function item( agendaEvent ) {
@@ -202,20 +195,18 @@ function _getAgenda( agendaUid, field = null ) {
  * validators separating custom data by access credentials
  */
 
-async function getCustomValidators( formSchemaIds, level = null ) {
+async function getCustomValidators(formSchemaIds, level = null) {
+  if (!formSchemaIds) return {};
 
-  if ( !formSchemaIds ) return {};
+  let fs = await formSchemas.getMerged(formSchemaIds, { instanciate: true });
 
-  let fs = await formSchemas.getMerged( formSchemaIds, { instanciate: true } );
-
-  if ( fs === null ) return {};
+  if (fs === null) return {};
 
   return {
-    custom: fs.getValidate( 'read' ),
-    customAdministrator: fs.getValidate( 'read', 'administrator', { includeUnspecified: false } ),
-    customModerator: fs.getValidate( 'read', 'moderator', { includeUnspecified: false } )
+    custom: fs.getValidate('read'),
+    customAdministrator: fs.getValidate('read', 'administrator', { includeUnspecified: false }),
+    customModerator: fs.getValidate('read', 'moderator', { includeUnspecified: false })
   }
-
 }
 
 
