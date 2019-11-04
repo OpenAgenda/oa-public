@@ -37,13 +37,15 @@ export default (state = initialState, action) => {
         loading: false
       };
     case 'layout/REFLECT_UPDATE': {
-      return action.changes
-        .reduce((accu, [path, data]) => _.set(accu, path, data), { ...state });
+      return action.changes.reduce(
+        (accu, [path, data]) => _.set(accu, path, data),
+        { ...state }
+      );
     }
     default:
       return state;
   }
-}
+};
 
 // Actions
 export function setType(type) {

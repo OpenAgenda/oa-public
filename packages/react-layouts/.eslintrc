@@ -1,0 +1,39 @@
+{
+  "extends": [
+    "@openagenda"
+  ],
+
+  "parserOptions": {
+    "sourceType": "script"
+  },
+
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": [
+          "scripts/**/*.js"
+        ]
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": [
+        "src/**/*.js"
+      ],
+
+      "parserOptions": {
+        "sourceType": "module"
+      }
+    },
+    {
+      "files": [
+        "scripts/**/*.js"
+      ],
+      "rules": {
+        "import/default": "off"
+      }
+    }
+  ]
+}

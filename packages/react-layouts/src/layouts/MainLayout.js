@@ -50,7 +50,7 @@ const messages = defineMessages({
   signin: {
     id: 'react-layouts.MainLayout.signin',
     defaultMessage: 'Signin'
-  },
+  }
 });
 
 const pushTo = (history, to, state) => event => {
@@ -58,31 +58,32 @@ const pushTo = (history, to, state) => event => {
   history.push(to, state);
 };
 
-const Logo = React.memo(({ user, history }) => (
-  user ? (
-    <a href="/home" className="navbar-brand" onClick={pushTo(history, '/home')}>
-      <img src="/images/openagenda.png" width="125" alt="OpenAgenda" />
-    </a>
-  ) : (
-    <a className="navbar-brand" href="/">
-      <img src="/images/openagenda.png" width="125" alt="OpenAgenda" />
-    </a>
-  )
-));
+const Logo = React.memo(({ user, history }) => (user ? (
+  <a href="/home" className="navbar-brand" onClick={pushTo(history, '/home')}>
+    <img src="/images/openagenda.png" width="125" alt="OpenAgenda" />
+  </a>
+) : (
+  <a className="navbar-brand" href="/">
+    <img src="/images/openagenda.png" width="125" alt="OpenAgenda" />
+  </a>
+)));
 
 const Search = React.memo(() => {
   const intl = useIntl();
 
   return (
-    <form
-      className="navbar-left search-form"
-      role="search"
-      action="/agendas"
-    >
-      <input className="search-input" placeholder={intl.formatMessage(messages.search)} type="text" name="search" />
-      {/*<input type="hidden" name="lang" value="<%= lang %>" />*/}
+    <form className="navbar-left search-form" role="search" action="/agendas">
+      <input
+        className="search-input"
+        placeholder={intl.formatMessage(messages.search)}
+        type="text"
+        name="search"
+      />
+      {/* <input type="hidden" name="lang" value="<%= lang %>" /> */}
       <div className="search-button">
-        <button className="search-submit" type="submit"><i className="fa fa-search"></i></button>
+        <button className="search-submit" type="submit">
+          <i className="fa fa-search" />
+        </button>
       </div>
     </form>
   );
@@ -99,15 +100,19 @@ const HelpLink = React.memo(() => {
         target="_blank"
         href="/support"
       >
-        <i className="fa fa-question-circle"></i>
-        {' '}
+        <i className="fa fa-question-circle" />{' '}
         <span>{intl.formatMessage(messages.help)}</span>
       </a>
     </div>
   );
 });
 
-function MainLayout({ component: Comp, onError, FallbackComponent, extraProps }) {
+function MainLayout({
+  component: Comp,
+  onError,
+  FallbackComponent,
+  extraProps
+}) {
   const [userPanelOpened, setUserPanelOpened] = useState(false);
 
   const history = useHistory();
@@ -131,14 +136,11 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
     [setUserPanelOpened]
   );
 
-  const closeUserPanel = useCallback(
-    () => {
-      if (userPanelOpened) {
-        setTimeout(() => setUserPanelOpened(false));
-      }
-    },
-    [userPanelOpened, setUserPanelOpened]
-  );
+  const closeUserPanel = useCallback(() => {
+    if (userPanelOpened) {
+      setTimeout(() => setUserPanelOpened(false));
+    }
+  }, [userPanelOpened, setUserPanelOpened]);
 
   const onSeeActivitiesClick = useCallback(
     e => {
@@ -152,7 +154,7 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
 
       history.push('/home/activities');
     },
-    [history.push]
+    [history]
   );
 
   const panelLink = useCallback(
@@ -161,29 +163,26 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
       toggleUserPanel();
       history.push(path);
     },
-    [history.push]
+    [history, toggleUserPanel]
   );
 
-  useEffect(
-    () => {
-      if (!inboxLoaded) {
-        checkInboxNews().catch(() => null);
-      }
+  useEffect(() => {
+    if (!inboxLoaded) {
+      checkInboxNews().catch(() => null);
+    }
 
-      notificationsHandler({
-        res: {
-          getCounter: `${apiRoot}/notifications/count`,
-          list: `${apiRoot}/notifications/list`,
-          remove: `${apiRoot}/notifications/remove/:notifId`,
-          markRead: `${apiRoot}/notifications/mark-read/:notifId`,
-          markAllRead: `${apiRoot}/notifications/mark-all-read`,
-          seeActivities: `${apiRoot}/home/activities`,
-        },
-        onSeeActivitiesClick: onSeeActivitiesClick
-      });
-    },
-    [inboxLoaded, checkInboxNews, apiRoot, onSeeActivitiesClick]
-  );
+    notificationsHandler({
+      res: {
+        getCounter: `${apiRoot}/notifications/count`,
+        list: `${apiRoot}/notifications/list`,
+        remove: `${apiRoot}/notifications/remove/:notifId`,
+        markRead: `${apiRoot}/notifications/mark-read/:notifId`,
+        markAllRead: `${apiRoot}/notifications/mark-all-read`,
+        seeActivities: `${apiRoot}/home/activities`
+      },
+      onSeeActivitiesClick
+    });
+  }, [inboxLoaded, checkInboxNews, apiRoot, onSeeActivitiesClick]);
 
   const ErrorComponent = useCallback(
     props => React.createElement(FallbackComponent, { ...props, lang }),
@@ -192,8 +191,11 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
 
   return (
     <>
-      <div id="outdated"></div>
-      <nav className="oa-page-header navbar navbar-default navbar-static-top" id="nav">
+      <div id="outdated" />
+      <nav
+        className="oa-page-header navbar navbar-default navbar-static-top"
+        id="nav"
+      >
         <div className="container">
           <div className="navbar-header">
             <button
@@ -203,16 +205,13 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
               data-target="#oa-navbar-collapse"
               aria-expanded="false"
             >
-              <i className="fa fa-bars"></i>
+              <i className="fa fa-bars" />
             </button>
 
             <Logo user={user} history={history} />
           </div>
 
-          <div
-            className="navbar-collapse collapse"
-            id="oa-navbar-collapse"
-          >
+          <div className="navbar-collapse collapse" id="oa-navbar-collapse">
             <Search />
 
             <ul className="nav navbar-nav navbar-right">
@@ -225,11 +224,11 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
               {user ? (
                 <li className="inbox">
                   <a href="/home/inbox">
-                    <i className="fa fa-envelope" aria-hidden="true"></i>
+                    <i className="fa fa-envelope" aria-hidden="true" />
                     {hasInboxNews ? (
                       <span className="label label-danger ">
-                      <i className="fa fa-exclamation" />
-                    </span>
+                        <i className="fa fa-exclamation" />
+                      </span>
                     ) : null}
                   </a>
                 </li>
@@ -237,21 +236,20 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
 
               {user ? (
                 <li className="profile" style={{ position: 'relative' }}>
-                  <a
-                    aria-expanded="false"
+                  <button
+                    type="button"
                     onClick={toggleUserPanel}
+                    aria-expanded={userPanelOpened}
+                    className="btn btn-link-inline"
                   >
                     <span>{user.name}</span>
-                  </a>
+                  </button>
                   <OutsideClickHandler onOutsideClick={closeUserPanel}>
                     <ul
-                      className={classNames(
-                        'dropdown-menu js_dropdown_menu',
-                        {
-                          'collapse in': userPanelOpened,
-                          'collapsed': !userPanelOpened,
-                        }
-                      )}
+                      className={classNames('dropdown-menu js_dropdown_menu', {
+                        'collapse in': userPanelOpened,
+                        collapsed: !userPanelOpened
+                      })}
                       role="menu"
                     >
                       <li>
@@ -261,30 +259,46 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
                               <h3>{intl.formatMessage(messages.general)}</h3>
                             </li>
                             <li>
-                              <a href="/home/events" onClick={panelLink('/home/events')}>
+                              <a
+                                href="/home/events"
+                                onClick={panelLink('/home/events')}
+                              >
                                 {intl.formatMessage(messages.myEvents)}
                               </a>
                             </li>
                             <li>
-                              <a href="/settings" onClick={panelLink('/settings')}>
+                              <a
+                                href="/settings"
+                                onClick={panelLink('/settings')}
+                              >
                                 {intl.formatMessage(messages.settings)}
                               </a>
                             </li>
                             <li>
-                              <a href="/signout">{intl.formatMessage(messages.signout)}</a>
+                              <a href="/signout">
+                                {intl.formatMessage(messages.signout)}
+                              </a>
                             </li>
                           </ul>
                           <ul className="list-unstyled col-md-6">
-                            <li><h3>Agendas</h3></li>
-                            <li><a href="/home" onClick={panelLink('/home')}>
-                              {intl.formatMessage(messages.myAgendas)}
-                            </a></li>
-                            <li><a href="/agendas">
-                              {intl.formatMessage(messages.searchAgenda)}
-                            </a></li>
-                            <li><a href="/new" onClick={panelLink('/new')}>
-                              {intl.formatMessage(messages.createAgenda)}
-                            </a></li>
+                            <li>
+                              <h3>Agendas</h3>
+                            </li>
+                            <li>
+                              <a href="/home" onClick={panelLink('/home')}>
+                                {intl.formatMessage(messages.myAgendas)}
+                              </a>
+                            </li>
+                            <li>
+                              <a href="/agendas">
+                                {intl.formatMessage(messages.searchAgenda)}
+                              </a>
+                            </li>
+                            <li>
+                              <a href="/new" onClick={panelLink('/new')}>
+                                {intl.formatMessage(messages.createAgenda)}
+                              </a>
+                            </li>
                           </ul>
                         </div>
                       </li>
@@ -299,11 +313,14 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
 
               {user ? (
                 <li className="notifications js_notifications">
-                  <a className="js_notifications_opener">
-                    <i className="fa fa-bell" aria-hidden="true"></i>
-                    <span className="label label-danger"></span>
-                  </a>
-                  <div className="js_notifications_panel hide"></div>
+                  <button
+                    type="button"
+                    className="js_notifications_opener btn btn-link-inline"
+                  >
+                    <i className="fa fa-bell" aria-hidden="true" />
+                    <span className="label label-danger" />
+                  </button>
+                  <div className="js_notifications_panel hide" />
                 </li>
               ) : null}
             </ul>
@@ -320,8 +337,9 @@ function MainLayout({ component: Comp, onError, FallbackComponent, extraProps })
   );
 }
 
-export default React.memo(MainLayout, (prevProps, nextProps) => (
-  prevProps.component === nextProps.component
-  && shallowEqual(prevProps.params, nextProps.params)
-  && shallowEqual(prevProps.match, nextProps.match)
-));
+export default React.memo(
+  MainLayout,
+  (prevProps, nextProps) => prevProps.component === nextProps.component
+    && shallowEqual(prevProps.params, nextProps.params)
+    && shallowEqual(prevProps.match, nextProps.match)
+);

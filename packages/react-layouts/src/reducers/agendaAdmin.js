@@ -8,7 +8,7 @@ const VERIFY_LOCATION_COUNT_FAIL = 'react-layouts/agendaAdmin/VERIFY_LOCATION_CO
 const initialState = {};
 
 export default (state = initialState, action) => {
-  switch ( action.type ) {
+  switch (action.type) {
     case LOAD:
       return {
         ...state,
@@ -51,30 +51,36 @@ export default (state = initialState, action) => {
     default:
       return state;
   }
-}
+};
 
-export function isLoaded( globalState ) {
+export function isLoaded(globalState) {
   return globalState.agendaAdmin && globalState.agendaAdmin.loaded;
 }
 
 export function load(slug) {
   return {
-    types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.agendaAdmin.loadAgenda.replace( ':slug', slug ) );
+      return client.get(res.agendaAdmin.loadAgenda.replace(':slug', slug));
     }
   };
 }
 
 export function verifyLocationCount(slug) {
   return {
-    types: [ VERIFY_LOCATION_COUNT, VERIFY_LOCATION_COUNT_SUCCESS, VERIFY_LOCATION_COUNT_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [
+      VERIFY_LOCATION_COUNT,
+      VERIFY_LOCATION_COUNT_SUCCESS,
+      VERIFY_LOCATION_COUNT_FAIL
+    ],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.agendaAdmin.verifyLocationCount.replace( ':slug', slug ) );
+      return client.get(
+        res.agendaAdmin.verifyLocationCount.replace(':slug', slug)
+      );
     }
   };
 }

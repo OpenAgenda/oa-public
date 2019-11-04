@@ -10,7 +10,12 @@ import Spinner from '@openagenda/react-components/build/Spinner';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
 import MainLayout from './MainLayout';
 
-function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params }) {
+function AgendaAdminLayout({
+  component: Comp,
+  onError,
+  FallbackComponent,
+  params
+}) {
   const history = useHistory();
 
   const dispatch = useDispatch();
@@ -23,19 +28,13 @@ function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params
     [dispatch, params.slug]
   );
 
-  useEffect(
-    () => {
-      loadAgenda();
-    },
-    [loadAgenda]
-  );
+  useEffect(() => {
+    loadAgenda();
+  }, [loadAgenda]);
 
-  useEffect(
-    () => {
-      verifyLocationCount();
-    },
-    [verifyLocationCount]
-  );
+  useEffect(() => {
+    verifyLocationCount();
+  }, [verifyLocationCount]);
 
   const lang = useSelector(state => state.main.lang);
   const user = useSelector(state => _.get(state, 'main.settings', null));
@@ -45,10 +44,11 @@ function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params
   const sections = useSelector(state => _.get(state, 'agendaAdmin.sections')) || [];
   const locationCount = useSelector(state => _.get(state, 'agendaAdmin.locationCount', null));
 
-  const extraProps = useMemo(
-    () => ({ agenda, role, sections }),
-    [agenda, role, sections]
-  );
+  const extraProps = useMemo(() => ({ agenda, role, sections }), [
+    agenda,
+    role,
+    sections
+  ]);
 
   const Loading = useCallback(
     () => (
@@ -79,35 +79,38 @@ function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params
   );
 
   const Sections = useCallback(
-    ({ location }) => sections.map(section => (
-      section && section.tabs.length ? (
-        <React.Fragment key={section.label}>
-          <li>
-            <h2>{section.label}</h2>
-          </li>
+    ({ location }) => sections.map(section => (section && section.tabs.length ? (
+      <React.Fragment key={section.label}>
+        <li>
+          <h2>{section.label}</h2>
+        </li>
 
-          {section.tabs.map(({ name, label, link, scriptAnchor }) => {
-            const selected = matchPath(link, location.pathname);
+        {section.tabs.map(({ name, label, link }) => {
+          const selected = matchPath(link, location.pathname);
 
-            return (
-              <li
-                key={name}
-                className={`menu-item js_menu_item js_menu_item_${name}${selected ? ` selected` : ''}`}
-              >
-                <a className={selected ? 'active' : ''} href={link}>
-                  {label}
-                </a>
-                {name === 'locations' && locationCount ? (
-                  <>
-                    {' '}<span className="badge badge-warning">{locationCount}</span>
-                  </>
-                ) : null}
-              </li>
-            );
-          })}
-        </React.Fragment>
-      ) : null
-    )),
+          return (
+            <li
+              key={name}
+              className={`menu-item js_menu_item js_menu_item_${name}${
+                selected ? ' selected' : ''
+              }`}
+            >
+              <a className={selected ? 'active' : ''} href={link}>
+                {label}
+              </a>
+              {name === 'locations' && locationCount ? (
+                <>
+                  {' '}
+                  <span className="badge badge-warning">
+                    {locationCount}
+                  </span>
+                </>
+              ) : null}
+            </li>
+          );
+        })}
+      </React.Fragment>
+    ) : null)),
     [sections, locationCount]
   );
 
@@ -120,7 +123,11 @@ function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params
               <a className="agenda-logo" href={`/${agenda.slug}`}>
                 <Image
                   src={agenda.image}
-                  fallbackSrc={__DEVELOPMENT__ ? agenda.image.replace('cibuldev', 'cibul') : null}
+                  fallbackSrc={
+                    process.env.NODE_ENV === 'development'
+                      ? agenda.image.replace('cibuldev', 'cibul')
+                      : null
+                  }
                   alt={agenda.title}
                 />
               </a>
@@ -130,7 +137,9 @@ function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params
           <div className={`col col-sm-${agenda.image ? '10' : '12'}`}>
             <h1>{agenda.title}</h1>
             <p>Administration</p>
-            <a className="url" href={`/${agenda.slug}`}>Retour</a>
+            <a className="url" href={`/${agenda.slug}`}>
+              Retour
+            </a>
           </div>
         </div>
 
@@ -151,7 +160,16 @@ function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params
         </div>
       </div>
     ),
-    [Comp, Sections, agenda.slug, agenda.title, agenda.image]
+    [
+      agenda.image,
+      agenda.slug,
+      agenda.title,
+      history.location,
+      onError,
+      ErrorComponent,
+      Comp,
+      extraProps
+    ]
   );
 
   if (!isLoading && !agenda.uid) {
@@ -165,11 +183,14 @@ function AgendaAdminLayout({ component: Comp, onError, FallbackComponent, params
     return <MainLayout component={Loading} params={params} />;
   }
 
-  return <MainLayout component={isLoading ? Loading : component} params={params} />;
+  return (
+    <MainLayout component={isLoading ? Loading : component} params={params} />
+  );
 }
 
-export default React.memo(AgendaAdminLayout, (prevProps, nextProps) => (
-  prevProps.component === nextProps.component
-  && shallowEqual(prevProps.params, nextProps.params)
-  && shallowEqual(prevProps.match, nextProps.match)
-));
+export default React.memo(
+  AgendaAdminLayout,
+  (prevProps, nextProps) => prevProps.component === nextProps.component
+    && shallowEqual(prevProps.params, nextProps.params)
+    && shallowEqual(prevProps.match, nextProps.match)
+);

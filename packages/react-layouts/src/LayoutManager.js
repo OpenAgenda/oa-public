@@ -8,11 +8,19 @@ import layoutReducer from './reducers/main';
 import agendaAdminReducer from './reducers/agendaAdmin';
 import Layout from './Layout';
 
+const CLIENT = typeof window !== 'undefined';
+const DEVELOPMENT = process.env.NODE_ENV === 'development';
 
-function LayoutManager({ store, apps, onError, FallbackComponent, children }) {
+function LayoutManager({
+  store, apps, onError, FallbackComponent, children
+}) {
   return (
     <Provider store={store}>
-      <Layout apps={apps} onError={onError} FallbackComponent={FallbackComponent}>
+      <Layout
+        apps={apps}
+        onError={onError}
+        FallbackComponent={FallbackComponent}
+      >
         {children}
       </Layout>
     </Provider>
@@ -31,10 +39,8 @@ LayoutManager.createStore = (initialState, history) => {
     }),
     initialState,
     compose(
-      applyMiddleware(
-        clientMiddleware({ client })
-      ),
-      __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
+      applyMiddleware(clientMiddleware({ client })),
+      CLIENT && DEVELOPMENT && window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()
         : v => v
     )
