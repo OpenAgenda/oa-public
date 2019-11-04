@@ -71,7 +71,7 @@ async function main( { prefix, knex, redis }, req, res, next ) {
 
     }
 
-    ( req.query.callback ? res.jsonp : res.json )( {
+    ( req.query.callback ? res.jsonp : res.json ).call( res, {
       rebuilding: true
     } );
 
