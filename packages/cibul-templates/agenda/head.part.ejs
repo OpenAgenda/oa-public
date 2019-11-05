@@ -38,7 +38,7 @@
             </div>
 <% } %>
           </div>
-          <p><%- _esc( _txt.setLinks( agenda.description ) ).replace( /\r\n|\r|\n/g, '<br />' ) %></p>
+          <p><%- _txt.setLinks( _esc( agenda.description ) ).replace( /\r\n|\r|\n/g, '<br />' ) %></p>
         </a>
 <% if ( agenda.url ) { %>
         <p><a target="_blank" href="<%= agenda.url %>"><%= agenda.url %></a></p>

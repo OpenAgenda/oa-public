@@ -138,6 +138,13 @@ class GettingStarted extends Component {
             } )}>
               {getLabel( 'requestPrivate' )}
             </button>
+
+            <a
+              className="margin-left-sm"
+              href="https://openagenda.zendesk.com/hc/fr/articles/115001584389-Visibilit%C3%A9-des-OpenAgendas-public-d%C3%A9sindex%C3%A9-priv%C3%A9"
+            >
+              {getLabel( 'learnMore' )}
+            </a>
           </div>
         </div>
 
