@@ -135,6 +135,14 @@ class Events extends Component {
       : undefined
   };
 
+  searchInputProps = {
+    placeholder: this.context.getLabel('searchAgenda'),
+    classNameGroup: 'form-group search',
+    className: 'form-control',
+    autoComplete: 'off',
+    autoFocus: true
+  }
+
   search = () => this.props.list( { search: this.state.value } )
     .finally( () => {
       this.props.history.push( {
@@ -339,13 +347,9 @@ class Events extends Component {
               }}
               disableBodyScroll
             >
-              {/*<AgendasSearch*/}
-              {/*  id="selectAgendasForCreateEvent"*/}
-              {/*  getTitleLink={ agenda => ( agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent ).replace( ':slug', agenda.slug ) }*/}
-              {/*  createButtonIfEmpty*/}
-              {/*/>*/}
               <AgendasSearch
                 res={res.agendas.list}
+                fieldProps={this.searchInputProps}
                 render={({ state, form, nextPage }) => (
                   <div>
                     {form}

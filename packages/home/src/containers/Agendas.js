@@ -125,12 +125,23 @@ function Agendas() {
     [history, query]
   );
 
+  const fieldProps = useMemo(
+    () => ({
+      placeholder: getLabel('searchAgenda'),
+      classNameGroup: 'form-group search',
+      className: 'form-control',
+      autoComplete: 'off'
+    }),
+    []
+  );
+
   return (
     <div className="content">
       <AgendasSearch
         res={res.agendas.list}
         initialState={initialState}
         onSearch={onAgendaSearch}
+        fieldProps={fieldProps}
         render={({ state, form, nextPage }) => {
           if ( isNew && !state.total ) {
             return <Welcome />
