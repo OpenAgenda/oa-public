@@ -66,6 +66,17 @@ module.exports = app => {
         .events
         .get(uid, { detailed: true })
         .then(result => {
+          if (!result) {
+            return next(new VError({
+              info: {
+                url: req.originalUrl,
+                agenda: req.agenda,
+                eventSlug: req.params.eventSlug,
+                eventUid: uid
+              }
+            }, 'Event not found'));
+          }
+
           req.event = result;
           next();
         })
@@ -84,6 +95,17 @@ module.exports = app => {
         .events
         .get(uid, { detailed: true })
         .then(result => {
+          if (!result) {
+            return next(new VError({
+              info: {
+                url: req.originalUrl,
+                agenda: req.agenda,
+                eventSlug: req.params.eventSlug,
+                eventUid: uid
+              }
+            }, 'Event not found'));
+          }
+
           req.event = result;
           next();
         })
@@ -100,6 +122,16 @@ module.exports = app => {
       .events
       .get(req.params.eventUid, { detailed: true })
       .then(result => {
+        if (!result) {
+          return next(new VError({
+            info: {
+              url: req.originalUrl,
+              agenda: req.agenda,
+              eventUid: req.params.eventUid,
+            }
+          }, 'Event not found'));
+        }
+
         req.event = result;
 
         if (!result.timings) {
@@ -185,15 +217,26 @@ function actionShow(req, res, next) {
 }
 
 
-function actionDatesShow(req, res) {
+function actionDatesShow(req, res, next) {
   const service = ['google', 'yahoo', 'live', 'ics'].find(v => v === req.query.service) || 'google';
 
-  addCalendarLinks(
-    req.event,
-    `${config.root}/${req.agenda.slug}/events/${req.event.slug}`,
-    req.agenda,
-    req.lang
-  );
+  try {
+    addCalendarLinks(
+      req.event,
+      `${config.root}/${req.agenda.slug}/events/${req.event.slug}`,
+      req.agenda,
+      req.lang
+    );
+  } catch (e) {
+    return next(new VError({
+      cause: e,
+      info: {
+        url: req.originalUrl,
+        agenda: req.agenda,
+        event: req.event
+      }
+    }));
+  }
 
   return cmn.render(req, res, 'event/actionDates', {
     event: {
