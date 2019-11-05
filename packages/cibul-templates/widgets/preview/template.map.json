@@ -23,6 +23,10 @@
           "mapTo": "link"
         },
         {
+          "name" : "Uid",
+          "mapTo": "uid"
+        },
+        {
           "name": "ImageUrl",
           "mapTo": "image"
         },
