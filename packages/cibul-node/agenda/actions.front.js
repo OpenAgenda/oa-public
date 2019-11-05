@@ -7,6 +7,7 @@ const w = require( 'when' );
 const agendas = require( '@openagenda/agendas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const agendaEventsMw = require( '../services/agendaEvents' ).mw;
+const legacyEventSearch = require('../services/elasticsearch');
 const members = require( '../services/members' );
 const cbify = require( '@openagenda/utils/cbify' );
 const sessions = require( '@openagenda/sessions' );
@@ -309,7 +310,7 @@ function eventAdd( req, res ) {
           agendaUid: req.agenda.uid,
           sourceAgenda: req.sourceAgenda
         }
-      } ).then( () => {
+      } ).then( async () => {
 
         req.log( 'info', {
           message: 'eventAdd added to agenda',
@@ -318,6 +319,12 @@ function eventAdd( req, res ) {
           agendaUid: req.agenda.uid,
           sourceAgenda: req.sourceAgenda
         } );
+
+        try {
+          await legacyEventSearch.updateEvent(_.pick(req.event, ['uid']));
+        } catch ( e ) {
+          log('error', 'could not update legacy search for event %s', req.event.slug );
+        }
 
       } );
 
