@@ -1,6 +1,7 @@
 "use strict"
 
 const _ = require('lodash');
+const fs = require('fs');
 
 const log = require('@openagenda/logs')('services/eventSearch/agendaIndices');
 const schema = require('@openagenda/validators/schema');

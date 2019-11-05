@@ -10,14 +10,16 @@ const remove = require('./remove');
 
 const batchable = ['update', 'remove'];
 
-tasks.register( {
-  agendaBatchList,
-  batchedUpdate,
-  batchedRemove
-} );
+module.exports = services => {
+  tasks.register( {
+    agendaBatchList,
+    batchedUpdate: batchedUpdate.bind(null, services),
+    batchedRemove
+  } );
 
-module.exports = async (agendaUid, operation, query, ...args) => {
-  tasks.enqueue('agendaBatchList', agendaUid, operation, query, args);
+  return (agendaUid, operation, query, ...args) => {
+    return tasks.enqueue('agendaBatchList', agendaUid, operation, query, args);
+  }
 }
 
 async function agendaBatchList(agendaUid, operation, query, ...args) {
@@ -37,8 +39,8 @@ async function agendaBatchList(agendaUid, operation, query, ...args) {
   }
 }
 
-function batchedUpdate(agendaUid, eventUid, data, options = {}) {
-  return update(agendaUid, eventUid, data, Object.assign(options, { batched: true }));
+function batchedUpdate(services, agendaUid, eventUid, data, options = {}) {
+  return update(services, agendaUid, eventUid, data, Object.assign(options, { batched: true }));
 }
 
 function batchedRemove(agendaUid, eventUid, options = {}) {

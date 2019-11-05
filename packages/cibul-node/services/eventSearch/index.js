@@ -7,6 +7,7 @@ const EventSearch = require('@openagenda/event-search');
 const AgendaIndices = require('./agendaIndices');
 const buildSearchConfig = require('./lib/buildSearchConfig');
 const eventTransverseOperations = require('./eventTransverseOperations');
+const update = require('./update');
 
 const log = require('@openagenda/logs')('services/eventSearch');
 
@@ -17,7 +18,9 @@ module.exports = {
 
 function init(config, services) {
   const {
-    queues
+    queues,
+    agendaEvents,
+    core
   } = services;
 
   const eventSearch = EventSearch(buildSearchConfig(config));
@@ -29,7 +32,8 @@ function init(config, services) {
   return Object.assign(eventSearch, {
     agendas: agendaIndices,
     events: eventTransverseOperations({ eventSearch, agendaIndices, queue }),
-    task: task.bind(null, { queue })
+    task: task.bind(null, { queue }),
+    update: update({ eventSearch, queue, agendaEvents, core })
   });
 }
 

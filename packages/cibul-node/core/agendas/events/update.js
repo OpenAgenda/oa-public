@@ -4,9 +4,6 @@ const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 const VError = require( 'verror' );
 
-const agendaEvents = require( '@openagenda/agenda-events' );
-const agendas = require( '@openagenda/agendas' );
-const events = require( '@openagenda/events' );
 const log = require( '@openagenda/logs' )( 'core/agendas/events/update' );
 const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
@@ -19,9 +16,15 @@ const setCustom = require( '../utils/setCustom' );
 const merge = require('../utils/merge');
 const validate = require( './validate' );
 
-module.exports = async (agendaUid, eventUid, data, options = {}) => {
+module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
+  const {
+    events,
+    agendas,
+    agendaEvents,
+    eventSearch
+  } = services;
 
-  log( 'processing', { agendaUid, eventUid, options } );
+  log('processing', { agendaUid, eventUid, options });
 
   const contextUserUid = _.get( options, 'context.userUid' ) || _.get( data, 'creatorUid' );
 
@@ -31,13 +34,13 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     formSchemaDataFormat,
     defaultLang,
     batched
-  } = _.assign( {
+  } = Object.assign({
     draft: false,
     partial: false,
     formSchemaDataFormat: false,
     defaultLang: 'en',
     batched: false
-  }, options || {} );
+  }, options || {});
 
   const agenda = await getAgendaWithNetworkAndSchemas(agendaUid);
 
@@ -198,6 +201,12 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     await legacyEventSearch.updateEvent({ uid: eventUid });
   } catch (e) {
     log('error', 'could not update legacy search for event %s', eventUid, e);
+  }
+
+  try {
+    await eventSearch.update(updated);
+  } catch (e) {
+    log('error', 'could not update search indices for event %s.%s', agenda.uid, eventUid, e);
   }
 
   await aggregators.notify('updateEvent', {
