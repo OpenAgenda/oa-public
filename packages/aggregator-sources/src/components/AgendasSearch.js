@@ -1,20 +1,11 @@
 import _ from 'lodash';
 import React, { useCallback, useMemo } from 'react';
 import { Form, Field } from 'react-final-form';
-import { defineMessages, useIntl } from 'react-intl';
 import useApiClient from '@openagenda/react-utils/dist/useApiClient';
 import useAgendasSearch from '../hooks/useAgendasSearch';
 import SearchInput from './SearchInput';
 
-const messages = defineMessages({
-  searchAgenda: {
-    id: 'aggregator-sources.AgendasSearch.searchAgenda',
-    defaultMessage: 'Search an agenda'
-  }
-});
-
-function AgendasSearch({ res, render }) {
-  const intl = useIntl();
+function AgendasSearch({ res, render, fieldProps }) {
   const apiClient = useApiClient();
 
   const agendasSearchRequest = useCallback(
@@ -54,18 +45,13 @@ function AgendasSearch({ res, render }) {
           component={SearchInput}
           name="search"
           type="text"
-          classNameGroup="form-group search margin-top-md margin-bottom-sm"
-          className="form-control"
-          placeholder={intl.formatMessage(messages.searchAgenda)}
           action={debouncedList}
           loading={state.listLoading}
-          intl={intl}
-          autoComplete="off"
-          autoFocus
+          {...fieldProps}
         />
       </form>
     ),
-    [intl, debouncedList, state.listLoading]
+    [debouncedList, state.listLoading, fieldProps]
   );
 
   const form = useMemo(() => <Form onSubmit={onSearch} render={renderForm} />, [

@@ -64,6 +64,10 @@ const messages = defineMessages({
   showAgendaAction: {
     id: 'aggregator-sources.AddSourceModal.showAgendaAction',
     defaultMessage: 'Show agenda'
+  },
+  searchAgenda: {
+    id: 'aggregator-sources.AddSourceModal.searchAgenda',
+    defaultMessage: 'Search an agenda'
   }
 });
 
@@ -252,9 +256,22 @@ export default function AddSourceModal({ onSubmit, onClose }) {
     selectedAgenda
   ]);
 
+  const fieldProps = useMemo(
+    () => ({
+      placeholder: intl.formatMessage(messages.searchAgenda),
+      classNameGroup: 'form-group search margin-top-md margin-bottom-sm',
+      className: 'form-control',
+      autoComplete: 'off',
+      autoFocus: true,
+      intl
+    }),
+    [intl]
+  );
+
   const firstStep = selectType === 'search' ? (
     <AgendasSearch
       res={agendaRes}
+      fieldProps={fieldProps}
       render={({ state, form, nextPage }) => (
         <>
           {form}

@@ -12,7 +12,7 @@
   "aggregator-sources.AddSourceModal.enterALink": "Entrer un lien agenda",
   "aggregator-sources.AddSourceModal.makeASearch": "Faire une recherche",
   "aggregator-sources.AddSourceModal.showAgendaAction": "Voir l'agenda",
-  "aggregator-sources.AgendasSearch.searchAgenda": "Rechercher un agenda",
+  "aggregator-sources.AddSourceModal.searchAgenda": "Rechercher un agenda",
   "aggregator-sources.DefineRules.requiredType": "Type requis",
   "aggregator-sources.DefineRules.badType": "Type invalide",
   "aggregator-sources.DefineRules.requiredSubdivision": "Sous-division requise",
