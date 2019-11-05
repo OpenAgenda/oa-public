@@ -2,10 +2,13 @@
 
 const moment = require( 'moment' );
 const utils = require( '@openagenda/utils' );
+const makeGetterLabel = require('@openagenda/labels');
+const labels = require('@openagenda/labels/exports');
 
 const genUrl = require( '../../genUrl' );
-const i18n = require( '../../../i18n/i18n' );
 const esc = utils.escape;
+
+const getLabel = makeGetterLabel(labels);
 
 
 module.exports = function( agenda, eData /* event data */, ev /* event instance */, lang, timingIndex ) {
@@ -48,7 +51,7 @@ module.exports = function( agenda, eData /* event data */, ev /* event instance 
     'DTSTAMP:' + _date(),
     'TZID:' + l.timezone.replace( '/', '-' ) ,
     'SUMMARY:' + _esc( ev.getTitle() ),
-    'DESCRIPTION:' + _esc( ev.getDescription() ) + ( truncatedDescription.length ? ' - ' + truncatedDescription : '' ) + ' ' + i18n( 'see more', lang ) + ': ' + url,
+    'DESCRIPTION:' + _esc( ev.getDescription() ) + ( truncatedDescription.length ? ' - ' + truncatedDescription : '' ) + ' ' + getLabel( 'seeMore', lang ) + ': ' + url,
     'STATUS:CONFIRMED',
     'LOCATION:' + l.name + ' - ' + l.address,
     'GEO:' + l.latitude + ';' + l.longitude,
