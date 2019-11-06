@@ -17,7 +17,7 @@
     "core-js": "^3.3.6",
     "create-react-class": "^15.5.3",
     "prop-types": "^15.7.2",
-    "react-bootstrap": "^0.31.0",
+    "react-bootstrap": "^0.33.0",
     "react-final-form": "^6.3.0",
     "react-waypoint": "^9.0.2"
   },
