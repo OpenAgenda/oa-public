@@ -102,15 +102,13 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
   } );
 
-  after( () => {
-
+  after(() => {
     return testConfig.knex.destroy();
-
-  } );
+  });
 
   describe( 'successful update', () => {
 
-    let event, agenda;
+    let event, agenda, updateResult;
 
     before( done => {
 
@@ -124,9 +122,8 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
     } );
 
-    before( async () => {
-
-      const result = await core.agendas( 17026855 ).events.create( {
+    before(async () => {
+      const result = await core.agendas(17026855).events.create({
         slug: 'un-event',
         title: {
           fr: 'Un événement'
@@ -143,15 +140,13 @@ describe( 'core - functional ( server ): agenda event update', function() {
         } ],
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
-      } );
+      });
 
       event = result.created.event;
+    });
 
-    } );
-
-    before( async () => {
-
-      await core.agendas( 17026855 ).events.update( event.uid, {
+    before(async () => {
+      updateResult = await core.agendas(17026855).events.update(event.uid, {
         state: 0,
         featured: true,
         title: {
@@ -174,10 +169,9 @@ describe( 'core - functional ( server ): agenda event update', function() {
         } ],
         'custom_description' : 'Meh',
         'categories-agenda-metropolitain': 43,
-        'thematiques-bordeaux-metropole' : [ 3, 4 ]
-      } );
-
-    } );
+        'thematiques-bordeaux-metropole' : [3, 4]
+      });
+    });
 
     it( 'the core event was updated', async () => {
 
@@ -216,7 +210,9 @@ describe( 'core - functional ( server ): agenda event update', function() {
 
     } );
 
-
+    it('fix: location store should not be present in result', () => {
+      should(updateResult.updated.event.location.store).equal(undefined);
+    });
 
     it( 'if update does not specify state, state should be unchanged', async () => {
 
@@ -323,7 +319,6 @@ describe( 'core - functional ( server ): agenda event update', function() {
       } );
 
     } );
-
 
   } );
 

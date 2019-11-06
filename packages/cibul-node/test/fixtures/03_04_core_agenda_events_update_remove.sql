@@ -254,7 +254,7 @@ create table if not exists `location` (
   country VARCHAR(2),
   latitude DECIMAL(10, 6) NOT NULL,
   longitude DECIMAL(10, 6) NOT NULL,
-  owner_id BIGINT NOT NULL,
+  owner_id BIGINT,
   main TINYINT(1) DEFAULT '0' NOT NULL,
   store LONGTEXT,
   processed_at datetime,
@@ -271,6 +271,9 @@ create table if not exists `location` (
   INDEX owner_id_idx (owner_id),
   primary key(id)
 ) default CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE = INNODB;
+
+insert into `location` (uid, agenda_id, slug, placename, address, city, country, latitude, longitude, store) values
+  (123, 218, 'la-boutique', 'La boutique', '29 passage du Ponceau, Paris', 'Paris', 'FR', 48.867688, 2.351739, '{"extId": "fdsqfdsq"}');
 
 
 CREATE TABLE IF NOT EXISTS `legacy_event` (

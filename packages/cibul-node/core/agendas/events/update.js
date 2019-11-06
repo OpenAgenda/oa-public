@@ -55,13 +55,13 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   };
 
   // pre-validate data. if state is not specified, it should not be forced.
-  const clean = await validate.loaded( {
+  const clean = await validate.loaded({
     formSchema: agenda.formSchema,
     networkFormSchema: _.get( agenda, 'network.formSchema' ),
     defaultLang
-  }, data, { draft, formSchemaDataFormat, optionalSecondaryFields: true, partial } );
+  }, data, { draft, formSchemaDataFormat, optionalSecondaryFields: true, partial });
 
-  if ( clean.event.longDescription ) {
+  if (clean.event.longDescription) {
     try {
       clean.event.links = await processOEmbed( clean.event.longDescription, clean.event.links );
       log( 'retrieved %s links', clean.event.links.length );
@@ -79,7 +79,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   } );
 
   try {
-    result = await events.update( { uid: eventUid }, eventServiceDataFormat, {
+    result = await events.update({ uid: eventUid }, eventServiceDataFormat, {
     context: {
         agendaUid,
         userUid: contextUserUid,
