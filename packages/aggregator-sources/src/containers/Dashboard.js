@@ -1,8 +1,13 @@
 import _ from 'lodash';
-import React, { useMemo, useState, useCallback } from 'react';
+import React, {
+  useMemo,
+  useState,
+  useCallback,
+  useEffect,
+  useRef
+} from 'react';
 import { hot } from 'react-hot-loader/root';
-import { useHistory } from 'react-router-dom';
-import { provideHooks } from 'redial';
+import { useHistory, useParams } from 'react-router-dom';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
 import { Form, Field } from 'react-final-form';
@@ -61,6 +66,7 @@ const messages = defineMessages({
 
 function Dashboard({ agenda }) {
   const history = useHistory();
+  const params = useParams();
   const query = useMemo(
     () => qs.parse(history.location.search, { ignoreQueryPrefix: true }),
     [history.location.search]
@@ -117,9 +123,9 @@ function Dashboard({ agenda }) {
       setPreviousValue(value);
       setValue(values.search);
 
-      return debouncedSearch(values.search);
+      return search(values.search);
     },
-    [value, setValue, setPreviousValue, debouncedSearch]
+    [value, setValue, setPreviousValue, search]
   );
 
   const refresh = useCallback(() => search(value), [search, value]);
@@ -148,6 +154,12 @@ function Dashboard({ agenda }) {
     }),
     [dispatch, closeModalRemoveSource, refresh]
   );
+
+  const initialQuery = useRef(query);
+
+  useEffect(() => {
+    dispatch(sourcesActions.load(params.slug, initialQuery.current));
+  }, [dispatch, params.slug]);
 
   if (loading) {
     return (
@@ -249,15 +261,4 @@ function Dashboard({ agenda }) {
   );
 }
 
-export default provideHooks({
-  defer: async ({ store: { dispatch }, location, params }) => {
-    const query = qs.parse(location.search, { ignoreQueryPrefix: true });
-    const promises = [];
-
-    // if (!sourcesActions.isLoaded(state)) {
-    promises.push(dispatch(sourcesActions.load(params.slug, query)));
-    // }
-
-    return Promise.all(promises);
-  }
-})(module.hot ? hot(Dashboard) : Dashboard);
+export default module.hot ? hot(Dashboard) : Dashboard;
