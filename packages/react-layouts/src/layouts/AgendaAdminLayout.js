@@ -79,14 +79,14 @@ function AgendaAdminLayout({
   );
 
   const Sections = useCallback(
-    ({ location }) => sections.map(section => (section && section.tabs.length ? (
+    ({ pathname }) => sections.map(section => (section && section.tabs.length ? (
       <React.Fragment key={section.label}>
         <li>
           <h2>{section.label}</h2>
         </li>
 
         {section.tabs.map(({ name, label, link }) => {
-          const selected = matchPath(link, location.pathname);
+          const selected = matchPath(link, pathname);
 
           return (
             <li
@@ -146,7 +146,7 @@ function AgendaAdminLayout({
         <div className="row wsq">
           <div className="col col-sm-3 nav">
             <ul className="list-unstyled">
-              <Sections location={history.location} />
+              <Sections pathname={history.location.pathname} />
             </ul>
           </div>
 
@@ -164,7 +164,7 @@ function AgendaAdminLayout({
       agenda.image,
       agenda.slug,
       agenda.title,
-      history.location,
+      history.location.pathname,
       onError,
       ErrorComponent,
       Comp,
