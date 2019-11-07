@@ -20,7 +20,7 @@ const {
 const validateField = require( './validateField' );
 const validateFieldAndAssignOptionIds = require( './validateFieldAndAssignOptionIds' );
 
-const getSchema = require( './getSchema' );
+const getSchema = require('./getSchema');
 
 module.exports = class {
 
@@ -191,7 +191,16 @@ module.exports = class {
 
     }
 
-    return getSchema( this.data.fields, accessType, accessLevel, ih( options, { custom: { $set: this.data.custom } } ) );
+    return getSchema(
+      this.data.fields,
+      accessType,
+      accessLevel,
+      ih(options, {
+        custom: {
+          $set: this.data.custom
+        }
+      })
+    );
 
   }
 

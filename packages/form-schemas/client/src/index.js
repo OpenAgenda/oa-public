@@ -182,11 +182,25 @@ export default class FormSchemaComponent extends Component {
 
   }
 
-  getFieldErrors( field, value, impactedFields = [] ) {
+  getFieldObject(name) {
+    return _.first(this._getFormSchema().getFields().filter(f => f.field === name))
+  }
+
+  getCurrentValues() {
+    return this.get( 'values', {} ) || {};
+  }
+
+  getFieldErrors(field, value, impactedFields = []) {
+
+    const fieldObject = this.getFieldObject(field);
 
     const values = {};
 
     values[ field ] = value;
+
+    if (fieldObject.enableWith) {
+      values[fieldObject.enableWith] = this.getCurrentValues()[fieldObject.enableWith];
+    }
 
     const { clean, errors } = this.sanitize( values );
 
@@ -229,7 +243,7 @@ export default class FormSchemaComponent extends Component {
       // options may contain draft bool at true.
       const validate = this._getFormSchema().getValidate( options );
 
-      const clean = validate( values );
+      const clean = validate(values);
 
       return { clean, errors: [] };
 
@@ -300,7 +314,7 @@ export default class FormSchemaComponent extends Component {
 
     this.set( {
       files: ih( currentFiles, filesUpdate ),
-      values: ih( this.get( 'values', {} ) || {}, updateValues ),
+      values: ih( this.getCurrentValues(), updateValues ),
       errors: updatedErrors
     } );
 
