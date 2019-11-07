@@ -10,8 +10,11 @@ module.exports = ({ core, agendaEvents, eventSearch, queue }) => {
   });
 
   return async data => {
+    // update the agenda index
     await update({ eventSearch }, data);
+    // queue to update the event transverse index
     await queue('eventIndexUpdate', data.event);
+    // queue to update the remaining impacted agenda indices
     await queue('loadOtherUpdates', data.agendaEvent.agendaUid, data.event.uid);
   };
 }
