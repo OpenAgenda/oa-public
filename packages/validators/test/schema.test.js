@@ -1206,6 +1206,25 @@ describe( 'schema validator', () => {
         expect(errors.length).toBe(1);
       });
 
+      it('enableWith fields are filtered out if related field is not specified', () => {
+        const validate = schema({
+          acheckbox: {
+            type: 'boolean'
+          },
+          someNumber: {
+            optional: false,
+            enableWith: 'acheckbox',
+            type: 'number'
+          }
+        });
+
+        const clean = validate({
+          someNumber: 'twelve'
+        });
+
+        expect(clean.someNumber).toBe(null);
+      });
+
     });
 
 
