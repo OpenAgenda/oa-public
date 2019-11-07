@@ -30,7 +30,7 @@ module.exports = async ( req, res, next ) => {
 
     res.json( {
       success: true,
-      event: _.get( result, 'updated.event' )
+      event: _.get( result, 'updated' )
     } );
 
   } catch( e ) {

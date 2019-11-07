@@ -100,7 +100,7 @@ describe('core - functional ( server ): agenda event update', function() {
     return testConfig.knex.destroy();
   });
 
-  describe.only('successful update', () => {
+  describe('successful update', () => {
 
     let event, agenda, updateResult;
 
@@ -199,17 +199,27 @@ describe('core - functional ( server ): agenda event update', function() {
     });
 
     describe('result', () => {
-
-      it('result provides a success key, true when operation was successful', () => {
+      it('provides a success key, true when operation was successful', () => {
         updateResult.success.should.equal(true);
       });
 
+      it('provides the custom values in the updated event', () => {
+        updateResult.updated['categories-agenda-metropolitain'].should.equal(43);
+      });
+
+      it('provides the main event values', () => {
+        updateResult.updated.title.fr.should.equal('Un événement mis à jour');
+      });
+
+      it('provides details on the location in a location key', () => {
+        updateResult.updated.location.name.should.equal('La boutique');
+      });
     });
 
     describe('fixes', () => {
 
       it('location store should not be present in result', () => {
-        should(updateResult.updated.event.location.store).equal(undefined);
+        should(updateResult.updated.location.store).equal(undefined);
       });
 
     });
@@ -244,17 +254,11 @@ describe('core - functional ( server ): agenda event update', function() {
 
   } );
 
-  describe( 'successful partial update', () => {
+  describe('successful partial update', () => {
 
-    let createResult, agenda, updateResult;
+    let createResult, updateResult;
 
-    before( async () => {
-
-      agenda = agendas.get( { uid: 17026855 }, { internal: true } );
-
-    } );
-
-    before( async () => {
+    before(async () => {
 
       createResult = await core.agendas( 17026855 ).events.create( {
         title: {
@@ -274,10 +278,9 @@ describe('core - functional ( server ): agenda event update', function() {
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
       } );
 
-    } );
+    });
 
-    before( async () => {
-
+    before(async () => {
       updateResult = await core.agendas( 17026855 ).events.update( createResult.created.event.uid, {
         title: {
           fr: 'Un événement mis à jour',
@@ -285,59 +288,40 @@ describe('core - functional ( server ): agenda event update', function() {
         },
         'categories-agenda-metropolitain': 43
       }, { partial: true } );
+    });
 
-    } );
-
-    it( 'event field specified in partial update data is updated', () => {
-
-      updateResult.updated.event.title.should.eql( {
+    it('event field specified in partial update data is updated', () => {
+      updateResult.updated.title.should.eql({
         fr: 'Un événement mis à jour',
         en: 'An updated event'
-      } );
+      });
+    });
 
-    } );
+    it('custom field specified in partial update data is updated', () => {
+      updateResult.updated['categories-agenda-metropolitain'].should.equal(43);
+    });
 
-    it( 'custom field specified in partial update data is updated', () => {
+    it('event fields not specified in partial update are not modified', () => {
+      _.keys(createResult.created.event).filter(f => !['title', 'updatedAt'].includes(f)).forEach(field => {
+        should(createResult.created.event[ field ]).eql(updateResult.updated[field]);
+      });
+    });
 
-      updateResult.updated.custom[ 'categories-agenda-metropolitain' ].should.equal( 43 );
+    it('custom fields not specified in partial update are not modified', () => {
+      _.keys(createResult.created.custom).filter(f => !['categories-agenda-metropolitain'].includes(f)).forEach(field => {
+        should(createResult.created.custom[field]).eql(updateResult.updated[field]);
+      });
+    });
 
-    } );
-
-    it( 'event fields not specified in partial update are not modified', () => {
-
-      _.keys( createResult.created.event ).filter( f => ![ 'title', 'updatedAt' ].includes( f ) ).forEach( field => {
-
-        should( createResult.created.event[ field ] ).eql( updateResult.updated.event[ field ] );
-
-      } );
-
-    } );
-
-    it( 'custom fields not specified in partial update are not modified', () => {
-
-      _.keys( createResult.created.custom ).filter( f => ![ 'categories-agenda-metropolitain' ].includes( f ) ).forEach( field => {
-
-        should( createResult.created.custom[ field ] ).eql( updateResult.updated.custom[ field ] );
-
-      } );
-
-    } );
-
-  } );
+  });
 
   describe( 'state change through partial update', () => {
 
-    let createResult, agenda, updateResult;
+    let createResult, updateResult;
 
-    before( async () => {
+    before(async () => {
 
-      agenda = agendas.get( { uid: 17026855 }, { internal: true } );
-
-    } );
-
-    before( async () => {
-
-      createResult = await core.agendas( 17026855 ).events.create( {
+      createResult = await core.agendas(17026855).events.create({
         state: 0,
         title: {
           fr: 'Un événement à modérer'
@@ -348,35 +332,29 @@ describe('core - functional ( server ): agenda event update', function() {
         location: {
           uid: 123
         },
-        timings: [ {
+        timings: [{
           begin: new Date( '2019-08-12T10:00:00' ),
           end: new Date( '2019-08-12T11:00:00' )
-        } ],
+        }],
         'categories-agenda-metropolitain': 42,
-        'thematiques-bordeaux-metropole' : [ 3, 4 ]
-      } );
+        'thematiques-bordeaux-metropole' : [3, 4]
+      });
 
-    } );
+    });
 
-    before( async () => {
-
+    before(async () => {
       updateResult = await core.agendas( 17026855 ).events.update( createResult.created.event.uid, {
         state: 2
-      }, { partial: true } );
+      }, { partial: true });
+    });
 
-    } );
+    it('event state was not published at creation', () => {
+      createResult.created.agendaEvent.state.should.equal(0);
+    });
 
-    it( 'event state was not published at creation', () => {
-
-      createResult.created.agendaEvent.state.should.equal( 0 );
-
-    } );
-
-    it( 'event state is published after update', () => {
-
-      updateResult.updated.agendaEvent.state.should.equal( 2 );
-
-    } );
+    it('event state is published after update', () => {
+      updateResult.updated.state.should.equal(2);
+    });
 
   } );
 
@@ -444,11 +422,9 @@ describe('core - functional ( server ): agenda event update', function() {
 
     } );
 
-    it( 'event can be updated using form schema data format', () => {
-
-      result.updated.event.locationUid.should.equal( 123 );
-
-    } );
+    it('event can be updated using form schema data format', () => {
+      result.updated.locationUid.should.equal( 123 );
+    });
 
   } );
 
@@ -462,33 +438,33 @@ describe('core - functional ( server ): agenda event update', function() {
 
     let result;
 
-    before( async () => {
+    before(async () => {
 
-      const result = await core.agendas( agendaUid ).events.create( {
+      const result = await core.agendas(agendaUid).events.create({
         title: {
           fr: 'Un événement'
         },
-      }, { draft: true } );
+      }, { draft: true });
 
       draftEventUid = result.created.event.uid;
 
-    } );
+    });
 
-    it( 'an update of a draft is possible with a draft option set', async () => {
+    it('an update of a draft is possible with a draft option set', async () => {
 
-      const result = await core.agendas( agendaUid ).events.update( draftEventUid, {
+      const result = await core.agendas(agendaUid).events.update(draftEventUid, {
         title: {
           fr: 'Un événement mis à jour'
         }
-      }, { draft: true } );
+      }, { draft: true });
 
-      result.updated.event.draft.should.ok();
+      result.updated.draft.should.ok();
 
-      result.updated.event.title.should.eql( {
+      result.updated.title.should.eql({
         fr: 'Un événement mis à jour'
-      } );
+      });
 
-    } );
+    });
 
     it('an update of a draft without the draft option undrafts the event', async () => {
       const result = await core.agendas(agendaUid).events.update(draftEventUid, {
@@ -512,7 +488,7 @@ describe('core - functional ( server ): agenda event update', function() {
         'thematiques-bordeaux-metropole' : [3, 4]
       });
 
-      result.updated.event.draft.should.not.ok();
+      result.updated.draft.should.not.ok();
 
     });
   });
