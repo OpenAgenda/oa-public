@@ -9,6 +9,7 @@ import flattenLabels from '@openagenda/labels/flatten';
 import Spinner from '@openagenda/react-components/build/Spinner';
 
 import FormSchema from './iso/FormSchema';
+import getErrorLabel from './iso/getErrorLabel';
 
 import flatten from './lib/flatten';
 import submit from './lib/submit';
@@ -182,7 +183,7 @@ export default class FormSchemaComponent extends Component {
 
   }
 
-  getFieldObject(name) {
+  _getFieldObject(name) {
     return _.first(this._getFormSchema().getFields().filter(f => f.field === name))
   }
 
@@ -192,7 +193,7 @@ export default class FormSchemaComponent extends Component {
 
   getFieldErrors(field, value, impactedFields = []) {
 
-    const fieldObject = this.getFieldObject(field);
+    const fieldObject = this._getFieldObject(field);
 
     const values = {};
 
@@ -254,22 +255,21 @@ export default class FormSchemaComponent extends Component {
       // simpler to always keep errors as arrays.
       return {
         clean: null,
-        errors: errors.map( e => {
-
-          const field = _.first( this._getFormSchema().getFields().filter( f => f.field == e.field ) );
-
-          if ( !field ) {
-
+        errors: errors.map(e => {
+          const field = this._getFieldObject(e.field);
+          if (!field) {
             throw new Error( 'did not find field matching validation error', e );
-
           }
 
-          return ih( e, {
-            label: { $set: _.get( this.state.labels.errors, e.code, e.message ) },
-            fieldLabel: { $set: _.get( field.label, this.props.lang ) }
-          } );
-
-        } )
+          return ih(e, {
+            label: {
+              $set: getErrorLabel(this.state.labels.errors, field, e)
+            },
+            fieldLabel: {
+              $set: _.get(field.label, this.props.lang)
+            }
+          });
+        })
       }
 
     }
