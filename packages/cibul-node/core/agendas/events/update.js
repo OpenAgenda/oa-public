@@ -210,7 +210,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   }
 
   await aggregators.notify('updateEvent', {
-    ...response,
+    event: response.updated,
+    before: response.before,
     agenda,
     formSchema: merge.schemas(
       _.get(agenda, 'network.formSchema'),
