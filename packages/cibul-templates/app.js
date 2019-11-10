@@ -605,11 +605,18 @@ function _webpackify( paths, cb ) {
 
   log( 'browserificationization' );
 
-  // run webpack
+  const entryName = paths.dest.name.split('.').slice(0, -1).join('.')
+  const webpackOpts = {
+    entry: {
+      [entryName]: path.resolve(paths.src.path, paths.src.name)
+    },
+    output: {
+      filename: '[name].js',
+      path: paths.dest.path
+    }
+  };
 
-  paths.src.path = path.join( '..', paths.src.path );
-
-  var compiler = webpack( webpackConfigDev( paths ) );
+  const compiler = webpack(webpackConfigDev(webpackOpts));
 
   compiler.run( function ( err, stats ) {
     if ( err ) cb( err );

@@ -13,7 +13,8 @@ cLib = require( '../../js/vendors/CibulCalendar/src/CibulCalendar' ),
 debug = require( 'debug' ),
 
 config = {
-  langAttribute : 'data-lang'
+  langAttribute : 'data-lang',
+  defaultMonth : 'data-default-month'
 },
 
 templates = {
@@ -89,6 +90,12 @@ var widget = function( elem, options ) {
       _createCalendar();
 
       controller.onWidgetReady( 'calendar', { uid } );
+
+      if ( elem.getAttribute( config.defaultMonth ) === 'current' ) {
+        firstEnable = false;
+
+        _setCalendarPosition();
+      }
 
       if ( onReady ) {
 
@@ -243,7 +250,13 @@ var widget = function( elem, options ) {
   }
 
 
-  function _setCalendarPosition() {
+  function _setCalendarPosition(position) {
+
+    if ( position === 'current' ) {
+
+      return calendar.setDisplayedMonth( new Date() );
+
+    }
 
     var now = new Date(),
 
@@ -275,7 +288,7 @@ var widget = function( elem, options ) {
 
     } );
 
-    refDate = closestDates[ 1 ] ? closestDates[ 1 ] : closestDates[ 0 ];
+    refDate = closestDates[ 1 ] ? closestDates[ 1 ] : closestDates[ 0 ];
 
     if ( !refDate ) return;
 
