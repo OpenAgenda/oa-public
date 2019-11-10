@@ -1,5 +1,6 @@
 "use strict";
 
 module.exports = {
-  geoJSON: require( './geoJSON' )
+  geoJSON: require('./geoJSON'),
+  OAEvent: require('./OAEvent')
 }
