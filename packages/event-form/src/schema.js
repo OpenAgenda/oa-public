@@ -29,7 +29,8 @@ module.exports = ( {
   languages,
   fileStore,
   schemaExtensions,
-  excludeEventFields
+  excludeEventFields,
+  excludeNonDataFields
 } ) => {
 
   const eventSchema = {
@@ -155,14 +156,17 @@ module.exports = ( {
 
   }
 
+  if (excludeNonDataFields) {
+    finalSchema.fields = finalSchema.fields.filter(f => f.field !== 'languages');
+  }
+
   return schemaLanguages.set( finalSchema, interfaceLanguage, languages );
 
 }
 
 
 function _hasReferencesField( schemaExtensions ) {
-
-  return !!_.flatten( schemaExtensions.map( s => s.fields ) )
-    .filter( f => f.field === 'references' ).length;
-
+  return !!_.flatten(
+    schemaExtensions.filter(s => !!s).map(s => s.fields)
+  ).filter(f => f.field === 'references').length;
 }
