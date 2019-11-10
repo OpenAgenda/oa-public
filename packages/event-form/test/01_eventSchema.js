@@ -1,48 +1,42 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const eventSchema = require( '../src/schema' );
+const eventSchema = require('../src/schema');
 
-describe( 'event-form eventSchema', () => {
+describe('event-form eventSchema', () => {
 
-  test( 'languages set to true equates no languages', () => {
-
-    const es = eventSchema( {
+  test('languages set to true equates no languages', () => {
+    const es = eventSchema({
       languages: true
-    } );
+    });
 
     expect(
-      es.fields.filter( f => f.field === 'description' )[ 0 ].languages
-    ).toEqual( [] );
-
-
+      es.fields.filter(f => f.field === 'description')[0].languages
+    ).toEqual([]);
   } );
 
-  test( 'null languages are filtered out', () => {
-
-    const es = eventSchema( {
-      languages: [ null ], // last time I checked, null is not a language.
-      schemaExtensions: [ {
-        fields: [ {
+  test('null languages are filtered out', () => {
+    const es = eventSchema({
+      languages: [null],
+      schemaExtensions: [{
+        fields: [{
           field: 'description',
           fieldType: 'abstract',
           default: {
             fr: 'Une desc',
             en: 'A desc'
           }
-        } ]
-      } ]
-    } );
+        }]
+      }]
+    });
 
     expect(
-      es.fields.filter( f => f.field === 'description' )[ 0 ].languages
-    ).toEqual( [] );
+      es.fields.filter(f => f.field === 'description')[0].languages
+    ).toEqual([]);
+  });
 
-  } );
-
-  test( 'event schema fields can be excluded altogether', () => {
-
+  test('event schema fields can be excluded altogether', () => {
     const es = eventSchema( {
       excludeEventFields: true,
       schemaExtensions: [ {
@@ -58,39 +52,62 @@ describe( 'event-form eventSchema', () => {
       } ]
     } );
 
-    expect( es.fields.map( f => f.field ) ).toEqual( [
+    expect(es.fields.map( f => f.field ) ).toEqual([
       'exhibitors'
-    ] );
+    ]);
+  });
 
-  } );
-
-  test( 'event schema generator requires languages to be specified for multilingual fields', () => {
-
-    const es = eventSchema( {
-      languages: [ 'fr', 'en' ]
-    } );
+  test('event schema generator requires languages to be specified for multilingual fields', () => {
+    const es = eventSchema({
+      languages: ['fr', 'en']
+    });
 
     const multilingualFields = es.fields
-      .filter( f => f.languages )
-      .map( f => _.pick( f, [ 'languages', 'field' ] ) );
+      .filter(f => f.languages)
+      .map(f => _.pick(f, ['languages', 'field']));
 
-    expect( multilingualFields ).toEqual( [ {
-      languages: [ 'fr', 'en' ],
+    expect(multilingualFields).toEqual([{
+      languages: ['fr', 'en'],
       field: 'title'
     }, {
-      languages: [ 'fr', 'en' ],
+      languages: ['fr', 'en'],
       field: 'description'
     }, {
-      languages: [ 'fr', 'en' ],
+      languages: ['fr', 'en'],
       field: 'keywords'
     }, {
-      languages: [ 'fr', 'en' ],
+      languages: ['fr', 'en'],
       field: 'longDescription'
     }, {
-      languages: [ 'fr', 'en' ],
+      languages: ['fr', 'en'],
       field: 'conditions'
-    } ] );
+    }]);
+  });
 
-  } );
+  test('languages form field is part of schema if "excludeNonDataFields" option is false (default)', () => {
+    const es = eventSchema({
+      excludeNonDataFields: false
+    });
 
-} );
+    expect(es.fields.filter(f => f.field === 'languages').length).toEqual(1);
+  });
+
+  test('languages form field is excluded if "excludeNonDataFields" option is true', () => {
+    const es = eventSchema({
+      excludeNonDataFields: true
+    });
+
+    expect(es.fields.filter(f => f.field === 'languages').length).toEqual(0);
+  });
+
+  test('internal event fields are part of schema if "includeInternalFields" option is true', () => {
+    const privateFields = ['id', 'uid', 'slug', 'draft', 'private', 'createdAt', 'updatedAt', 'timezone', 'agendaUid', 'locationUid'];
+
+    const es = eventSchema({
+      includeInternalFields: true
+    });
+
+    expect(es.fields.filter(f => privateFields.includes(f.field)).length).toEqual(privateFields.length);
+  });
+
+});

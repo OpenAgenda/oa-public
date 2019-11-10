@@ -1,27 +1,27 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
 const eventValidators = {
-  registration: require( './validators/registration' ),
-  age: require( './validators/age' ),
-  accessibility: require( './validators/accessibility' ),
-  keywords: require( './validators/keywords' ),
-  timings: require( './validators/timings' ),
-  location: require( './validators/location' ),
-  languages: require( './validators/languages' ),
-  references: require( './validators/references' )
-}
+  registration: require('./validators/registration'),
+  age: require('./validators/age'),
+  accessibility: require('./validators/accessibility'),
+  keywords: require('./validators/keywords'),
+  timings: require('./validators/timings'),
+  location: require('./validators/location'),
+  languages: require('./validators/languages'),
+  references: require('./validators/references')
+};
 
-const labels = require( '@openagenda/labels/event/form' );
+const labels = require('@openagenda/labels/event/form');
 
-const merge = require( '@openagenda/form-schemas/client/build/iso/merge' );
+const merge = require('@openagenda/form-schemas/client/build/iso/merge');
 
-const eventReferencesField = require( './fields/references' );
+const eventReferencesField = require('./fields/references');
 
-const schemaLanguages = require( './utils/schemaLanguages' );
+const schemaLanguages = require('./utils/schemaLanguages');
 
-module.exports = ( {
+module.exports = ({
   interfaceLanguage,
   locationRes,
   referencesRes,
@@ -30,8 +30,9 @@ module.exports = ( {
   fileStore,
   schemaExtensions,
   excludeEventFields,
-  excludeNonDataFields
-} ) => {
+  excludeNonDataFields,
+  includeInternalFields
+}) => {
 
   const eventSchema = {
     custom: eventValidators,
@@ -130,38 +131,69 @@ module.exports = ( {
       label: labels.timings,
       info: labels.timingsInfo,
       helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/202667461-Saisir-les-horaires-de-votre-%C3%A9v%C3%A9nement'
-    } ]
+    } ].concat(includeInternalFields ? [{
+      field: 'id',
+      fieldType: 'integer',
+      optional: false
+    }, {
+      field: 'uid',
+      fieldType: 'integer',
+      optional: false
+    }, {
+      field: 'slug',
+      fieldType: 'text',
+      optional: false
+    }, {
+      field: 'draft',
+      fieldType: 'boolean',
+      default: false
+    }, {
+      field: 'private',
+      fieldType: 'boolean',
+      default: false
+    }, {
+      field: 'timezone',
+      fieldType: 'text'
+    }, {
+      field: 'createdAt',
+      fieldType: 'date'
+    }, {
+      field: 'updatedAt',
+      fieldType: 'date'
+    }, {
+      field: 'agendaUid',
+      fieldType: 'integer',
+      optional: false
+    }, {
+      field: 'locationUid',
+      fieldType: 'integer',
+      optional: false
+    }] : [])
   }
 
-  const hasExtensions = _.isArray( schemaExtensions );
+  const hasExtensions = _.isArray(schemaExtensions);
 
-  if ( hasExtensions && _hasReferencesField( schemaExtensions ) ) {
-
-    eventSchema.fields.push( eventReferencesField( {
+  if (hasExtensions && _hasReferencesField(schemaExtensions)) {
+    eventSchema.fields.push(eventReferencesField({
       res: {
         references: referencesRes,
         suggestions: suggestionsRes
       }
-    } ) );
-
+    }));
   }
 
-  const finalSchema = hasExtensions ? merge.apply( null, [ eventSchema ].concat( schemaExtensions ) ) : eventSchema;
+  const finalSchema = hasExtensions ? merge.apply(null, [eventSchema].concat(schemaExtensions)) : eventSchema;
 
-  if ( hasExtensions && excludeEventFields ) {
-
-    const eventSchemaFields = eventSchema.fields.map( f => f.field );
-
-    finalSchema.fields = finalSchema.fields.filter( f => !eventSchemaFields.includes( f.field ) );
-
+  if (hasExtensions && excludeEventFields) {
+    const eventSchemaFields = eventSchema.fields.map(f => f.field);
+    finalSchema.fields = finalSchema.fields.filter(f => !eventSchemaFields.includes(f.field));
   }
 
   if (excludeNonDataFields) {
     finalSchema.fields = finalSchema.fields.filter(f => f.field !== 'languages');
   }
 
-  return schemaLanguages.set( finalSchema, interfaceLanguage, languages );
-
+  return schemaLanguages.set(finalSchema, interfaceLanguage, languages);
 }
 
 
