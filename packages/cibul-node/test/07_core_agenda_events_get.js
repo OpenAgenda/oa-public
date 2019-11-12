@@ -117,4 +117,18 @@ describe('core - fuctional (server): event get', function() {
     });
   });
 
+  describe('detailed get', () => {
+    let event;
+
+    before(async () => {
+      event = await core.agendas(1).events.get(1, {
+        detailed: true
+      });
+    });
+
+    it('location details are provided', () => {
+      event.location.name.should.equal('La boutique');
+    });
+  });
+
 });

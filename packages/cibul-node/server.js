@@ -39,6 +39,7 @@ supervisor(async loadTasks => {
     const web = require('./web');
 
     app.services = services;
+    services.core.loadServices(services);
 
     app.use(sessions.middleware);
     app.use(sessions.middleware.load({ detailed: true }));

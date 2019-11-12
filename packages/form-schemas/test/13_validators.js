@@ -85,7 +85,6 @@ describe( 'deriving validators', () => {
 
   } );
 
-
   it( 'getSchema ignores abstract fields', () => {
 
     const s = getSchema( [ {

@@ -4,9 +4,9 @@ import classNames from 'classnames';
 
 export function renderField( {
                                content, input: { name, value, type }, label, subLabel, max,
-                               displayError, formGroupClass = true, meta, meta: { error, touched }
+                               displayError, formGroupClass = true, meta, meta: { error, touched, dirty }
                              } ) {
-  const errorDisplayed = displayError ? displayError( meta ) : touched;
+  const errorDisplayed = displayError ? displayError( meta ) : dirty && touched;
   return (
     <div
       className={classNames( {

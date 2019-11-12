@@ -21,6 +21,9 @@
             <a class="btn btn-default js_fav_export" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid }) %>">PDF</a>
             <a class="btn btn-default js_fav_export" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, key } ) %>">JSON *</a>
           </div>
+          <p>* <%- __('Detailed documentation on the JSON export is %here%', {
+            '%here%' : '<a class="url" target="_blank" href="https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda">' + __( 'available here' ) + '</a>'
+          }) %></p>
         </div>
         <div class="js_favorite_menu_empty">
           <span><%- __( 'Your selection is currently empty for this agenda. To create one, browse the list of events and check %icon%', { '%icon%' : '<i class="fav fa fa-star"></i>' } ) %></span>
@@ -38,6 +41,9 @@
           <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, oaq: search }) %>">PDF</a>
           <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, oaq: search, key } ) %>">JSON *</a>
         </div>
+        <p>* <%- __('Detailed documentation on the JSON export is %here%', {
+          '%here%' : '<a class="url" target="_blank" href="https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda">' + __( 'available here' ) + '</a>'
+        }) %></p>
 
         <p class="legend"><%= __( 'Export / Download everything' ) %></p>
         <div class="btn-adds">
@@ -53,6 +59,9 @@
           <a class="btn btn-default" href="<%= genUrl( 'agendaPdfEvents', { uid: agenda.uid, oaq: { passed: 1 } }) %>">PDF</a>
           <a class="btn btn-default" target="_blank" href="<%= genUrl( 'agendaJsonEvents', { uid: agenda.uid, page: 1, oaq: { passed: 1 }, key } ) %>">JSON *</a>
         </div>
+        <p>* <%- __('Detailed documentation on the JSON export is %here%', {
+          '%here%' : '<a class="url" target="_blank" href="https://openagenda.zendesk.com/hc/fr/articles/203034982-L-export-JSON-d-un-agenda">' + __( 'available here' ) + '</a>'
+        }) %></p>
 
 
 <% if ( hasAggregator && !agenda.private ) { %>
@@ -74,10 +83,6 @@
 <% } %>
         </div>
 <% } %>
-
-        <div>
-          <p>* <%= __( 'The data structure of this export may change.') %></p>
-        </div>
       </div>
     </div>
   </div>

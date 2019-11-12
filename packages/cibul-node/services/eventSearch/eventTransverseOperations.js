@@ -132,10 +132,10 @@ async function batch({ agendaIndices, queue }, method, event, context = {}) {
   await queue(method, event.uid);
 
   const remainingAgendaUids = await agendaEvents.list.byEventUid(event.uid, 0, 1000)
-    .then(aes => aes
-      .filter(ae => ae.agendaUid !== agendaUid)
+    .then(result => result
+      .items.filter(ae => ae.agendaUid !== agendaUid)
       .map(ae => ae.agendaUid)
-    );
+  );
 
   for (const remainingAgendaUid of remainingAgendaUids) {
     await queue(

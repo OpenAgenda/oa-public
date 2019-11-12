@@ -74,7 +74,6 @@ export default class CreationFirstStep extends Component {
             placeholder="URL"
             label={getLabel( 'personalizedSlug' )}
             before={<div className="input-group-addon">openagenda.com/</div>}
-            displayError={({ dirty, touched }) => dirty || touched}
             spellCheck={false}
           />
           <div className="pull-right">

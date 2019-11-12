@@ -1,6 +1,7 @@
 "use strict";
 
 const _ = require( 'lodash' );
+const log = require('@openagenda/logs')('tagsForm');
 const async = require( 'async' );
 const agendaTags = require( '@openagenda/agenda-tags' );
 const agendaCategories = require( '@openagenda/agenda-categories' );
@@ -8,6 +9,7 @@ const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/e
 const cmn = require( '../lib/commons-app' );
 
 const agendaSvc = require( '../services/agenda' );
+const legacyEventSearch = require('../services/elasticsearch');
 const eventSvc = require( '../services/event' );
 const members = require('../services/members');
 const sessions = require('../services/sessions');
@@ -257,9 +259,15 @@ function _updateCustom( req, res, next ) {
 
 function update( req, res, next ) {
 
-  req.agenda.setEventTagsAndCategory( req.event, req.tags, req.category, err => {
+  req.agenda.setEventTagsAndCategory( req.event, req.tags, req.category, async err => {
 
     if ( err ) return next( err );
+
+    try {
+      await legacyEventSearch.updateEvent(_.pick(req.event, ['uid']));
+    } catch ( e ) {
+      log('error', 'could not update legacy search for event %s', req.event.slug );
+    }
 
     res.json( {
       success: true

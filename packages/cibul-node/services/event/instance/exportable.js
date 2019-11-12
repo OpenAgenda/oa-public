@@ -6,15 +6,11 @@ const range = require( '@openagenda/date-range' ),
 
   filterTimings = require( './filterTimings' ),
 
-  i18n = require( '../../../i18n/i18n' ),
-
   utils = require( '@openagenda/utils' ),
 
   genUrl = require( '../../genUrl' ),
 
   config = require( '../../../config' ),
-
-  timeHelper = require( '@openagenda/cibul-templates' ).helpers.time,
 
   w = require( 'when' ),
 

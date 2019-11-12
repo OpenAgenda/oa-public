@@ -13,8 +13,10 @@
   : "Vous n'avez pas encore d'agenda OpenAgenda",
   "Create an agenda"
   : "Créez-un agenda",
-  "The data structure of this export may change."
-  : "La structure de données de cet export peut évoluer.",
+  "Detailed documentation on the JSON export is %here%"
+  : "Une documentation détaillée de l'export JSON est %here%",
+  "available here"
+  : "disponible ici",
   "Export your favorites"
   : "Exportez vos favoris",
   "You favorited {count} events. Select the format in which you want to retrieve them."

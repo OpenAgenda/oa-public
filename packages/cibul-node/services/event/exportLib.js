@@ -10,20 +10,11 @@ const _ = require( 'lodash' ),
 
   moment = require( 'moment-timezone' ),
 
-  i18n = require( '../../i18n/i18n' ),
-
   genUrl = require( '../genUrl' ),
 
   registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues,
 
-  timeHelper = require( '@openagenda/cibul-templates' ).helpers.time,
-
   config = require( '../../config' ),
-
-  _t = {
-    fr: timeHelper( { lang: 'fr' } ),
-    en: timeHelper( { lang: 'en' } ),
-  },
 
   legacyLocationFieldsMap = {
     conditions: 'pricingInfo',
