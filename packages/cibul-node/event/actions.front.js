@@ -56,6 +56,17 @@ module.exports = app => {
         .events
         .get(uid, { detailed: true })
         .then(result => {
+          if (!result) {
+            return next(new VError({
+              info: {
+                url: req.originalUrl,
+                agenda: req.agenda,
+                eventSlug: req.params.eventSlug,
+                eventUid: uid
+              }
+            }, 'Event not found'));
+          }
+
           req.event = result;
           next();
         })
@@ -74,6 +85,17 @@ module.exports = app => {
         .events
         .get(uid, { detailed: true })
         .then(result => {
+          if (!result) {
+            return next(new VError({
+              info: {
+                url: req.originalUrl,
+                agenda: req.agenda,
+                eventSlug: req.params.eventSlug,
+                eventUid: uid
+              }
+            }, 'Event not found'));
+          }
+
           req.event = result;
           next();
         })
@@ -83,23 +105,35 @@ module.exports = app => {
   );
 
   app.get(
-    '/:slug/events/:eventUid/ics',
+    '/:slug/events/:eventSlug/ics',
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
-    (req, res, next) => core.agendas(req.agenda.uid)
-      .events
-      .get(req.params.eventUid, { detailed: true })
-      .then(result => {
-        req.event = result;
+    (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
+      .then(uid => core.agendas(req.agenda.uid)
+        .events
+        .get(uid, { detailed: true }))
+        .then(result => {
+          if (!result) {
+            return next(new VError({
+              info: {
+                url: req.originalUrl,
+                agenda: req.agenda,
+                eventSlug: req.params.eventSlug,
+                eventUid: uid
+              }
+            }, 'Event not found'));
+          }
 
-        if (!result.timings) {
-          throw new Error(`Event uid:${req.params.eventUid} does not have timings !`);
-        }
+          req.event = result;
 
-        next();
-      })
-      .catch(next),
-    (req, res) => {
+          if (!result.timings) {
+            throw new Error(`Event slug:${req.params.eventSlug} does not have timings !`);
+          }
+
+          next();
+        })
+        .catch(next),
+    (req, res, next) => {
       res.set('Content-Type', 'text/calendar; charset=utf-8');
 
       if (req.query.dl) {
@@ -175,15 +209,26 @@ function actionShow(req, res, next) {
 }
 
 
-function actionDatesShow(req, res) {
+function actionDatesShow(req, res, next) {
   const service = ['google', 'yahoo', 'live', 'ics'].find(v => v === req.query.service) || 'google';
 
-  addCalendarLinks(
-    req.event,
-    `${config.root}/${req.agenda.slug}/events/${req.event.slug}`,
-    req.agenda,
-    req.lang
-  );
+  try {
+    addCalendarLinks(
+      req.event,
+      `${config.root}/${req.agenda.slug}/events/${req.event.slug}`,
+      req.agenda,
+      req.lang
+    );
+  } catch (e) {
+    return next(new VError({
+      cause: e,
+      info: {
+        url: req.originalUrl,
+        agenda: req.agenda,
+        event: req.event
+      }
+    }));
+  }
 
   return cmn.render(req, res, 'event/actionDates', {
     event: {

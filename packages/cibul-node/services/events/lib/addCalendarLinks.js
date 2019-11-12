@@ -42,7 +42,7 @@ module.exports = function addCalendarLinks(event, eventUrl, agenda, lang) {
     };
 
     if ( agenda ) {
-      timing.calendarLinks.ics = `${config.root}/${agenda.slug}/events/${event.uid}/ics?timing=${i}&dl=1`;
+      timing.calendarLinks.ics = `${config.root}/${agenda.slug}/events/${event.slug}/ics?timing=${i}&dl=1`;
     }
   });
 }

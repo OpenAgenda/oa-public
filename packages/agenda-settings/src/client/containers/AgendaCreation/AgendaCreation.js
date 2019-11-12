@@ -40,7 +40,7 @@ export default class AgendaCreation extends Component {
 
   handleSubmit( values ) {
     const { create, res: { onCreated } } = this.props;
-    create( values )
+    return create( values )
       .then( result => {
         window.location.assign( window.location.origin + onCreated.replace( ':slug', result.agenda.slug ) );
       } );
