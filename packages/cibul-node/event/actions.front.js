@@ -57,14 +57,7 @@ module.exports = app => {
         .get(uid, { detailed: true })
         .then(result => {
           if (!result) {
-            return next(new VError({
-              info: {
-                url: req.originalUrl,
-                agenda: req.agenda,
-                eventSlug: req.params.eventSlug,
-                eventUid: uid
-              }
-            }, 'Event not found'));
+            return next({ code: 404 });
           }
 
           req.event = result;
