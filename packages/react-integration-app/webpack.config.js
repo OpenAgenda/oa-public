@@ -9,6 +9,7 @@ const ProgressBar = require('webpackbar');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const S3Plugin = require('webpack-s3-plugin');
+const WebpackDashboardPlugin = require('webpack-dashboard/plugin');
 const LoadablePlugin = require('@loadable/webpack-plugin');
 
 const modulesToInclude = [
@@ -121,7 +122,7 @@ module.exports = (env = {}, argv = {}) => {
     },
     plugins: [
       // new (require('webpack-bundle-analyzer').BundleAnalyzerPlugin)(),
-      new (require('webpack-dashboard/plugin'))(),
+      new WebpackDashboardPlugin(),
       new ProgressBar({ minimal: false }),
       new CleanWebpackPlugin(),
       new webpack.DefinePlugin({
