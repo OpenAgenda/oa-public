@@ -74,7 +74,7 @@ module.exports = app => {
         _.pick( req.agenda, [ 'title', 'description', 'slug', 'url' ] ),
         {
           tagSet: req.tagSet,
-          categorSet: req.categorySet,
+          categorySet: req.categorySet,
           locationSet: req.locationSettings,
           customSet: req.agenda.getCustomFieldsConfig(),
           embeds: req.embeds
