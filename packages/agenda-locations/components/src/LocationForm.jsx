@@ -304,7 +304,15 @@ module.exports = createReactClass( {
 
       updated.location = this.decorateLocation( result, true );
 
-      this.setState( update( this.state, updated ) );
+      const updatedState = update( this.state, updated );
+
+      this.setState(updatedState);
+
+      if (_.upperCase(updatedState.location.countryCode) === 'FR') {
+
+        this.fetchINSEE(updatedState.location);
+
+      }
 
     } );
 
@@ -1013,7 +1021,7 @@ module.exports = createReactClass( {
 
     const geo = {};// _.pick( this.state.location,  );
 
-    [ 'region', 'department', 'city', 'postalCode' ].forEach( field => {
+    [ 'region', 'department', 'city', 'postalCode', 'insee' ].forEach( field => {
 
       if ( this.state.enableGeocode && !_.get( this.state, [ 'location', field ] ) ) return;
 
