@@ -12,18 +12,37 @@ const messages = defineMessages({
   updateSource: {
     id: 'aggregator-sources.UpdateSourceModal.updateSource',
     defaultMessage: 'Update source'
+  },
+  cancel: {
+    id: 'aggregator-sources.UpdateSourceModal.cancel',
+    defaultMessage: 'Cancel'
   }
 });
 
-function SubmitButton({ handleSubmit }) {
+function SubmitButton({ onCancel, handleSubmit }) {
   const intl = useIntl();
 
   return (
-    <div className="text-center">
-      <button onClick={handleSubmit} type="button" className="btn btn-primary">
-        {intl.formatMessage(messages.updateSource)}
-      </button>
-    </div>
+    <>
+      <div className="pull-left">
+        <button
+          onClick={onCancel}
+          type="button"
+          className="btn btn-link cancel-button-left text-danger"
+        >
+          {intl.formatMessage(messages.cancel)}
+        </button>
+      </div>
+      <div className="text-right">
+        <button
+          onClick={handleSubmit}
+          type="button"
+          className="btn btn-primary"
+        >
+          {intl.formatMessage(messages.updateSource)}
+        </button>
+      </div>
+    </>
   );
 }
 
@@ -41,11 +60,13 @@ export default function UpdateSourceModal({ onSubmit, onClose }) {
 
   return (
     <Modal title={intl.formatMessage(messages.updateASource)} onClose={onClose}>
-      <div className="margin-v-sm">
+      <h4 className="text-center">{data.source.agenda.title}</h4>
+      <div className="margin-top-sm">
         <DefineRules
           initialRules={data.source.rules}
           onSubmit={handleSubmit}
           SubmitButton={SubmitButton}
+          onCancel={onClose}
         />
       </div>
     </Modal>

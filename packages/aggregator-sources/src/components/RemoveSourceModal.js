@@ -51,7 +51,7 @@ export default function RemoveSourceModal({ onRemove, onClose }) {
               <p>
                 <FormattedMessage
                   id="aggregator-sources.RemoveSourceModal.removeConfirmMessage"
-                  defaultMessage="Events that will be published on the agenda <b>{agenda}</b> will no longer be aggregated.{br} Are you sure you want to delete this agenda from sources ?"
+                  defaultMessage="Events that will be published on the agenda {agenda} will no longer be aggregated.{br} Are you sure you want to delete this agenda from sources ?"
                   values={{
                     agenda: <b>{data.source.title}</b>,
                     br: <br />
@@ -85,7 +85,11 @@ export default function RemoveSourceModal({ onRemove, onClose }) {
             </div>
 
             <div className="pull-left">
-              <button type="button" className="btn btn-link" onClick={onClose}>
+              <button
+                type="button"
+                className="btn btn-link text-danger cancel-button-left"
+                onClick={onClose}
+              >
                 {intl.formatMessage(messages.cancel)}
               </button>
             </div>

@@ -13,6 +13,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import ReactMarkdown from 'react-markdown';
 import qs from 'qs';
+import Fuse from 'fuse.js';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import * as modalsActions from '../reducers/modals';
@@ -22,6 +23,16 @@ import SourcesList from '../components/SourcesList';
 import AddSourceModal from '../components/AddSourceModal';
 import UpdateSourceModal from '../components/UpdateSourceModal';
 import RemoveSourceModal from '../components/RemoveSourceModal';
+
+const fuseOptions = {
+  shouldSort: true,
+  threshold: 0.3,
+  location: 0,
+  distance: 100,
+  maxPatternLength: 32,
+  minMatchCharLength: 1,
+  keys: ['agenda.title']
+};
 
 const messages = defineMessages({
   aggregatorExplanation: {
@@ -89,14 +100,31 @@ function Dashboard({ agenda }) {
   const nextLoading = useSelector(state => state.sources.nextLoading);
   const modals = useSelector(state => state.modals);
 
+  const fuse = useMemo(() => new Fuse(agendaSources, fuseOptions), [
+    agendaSources
+  ]);
+
+  const filteredSources = useMemo(() => {
+    if (value && value !== '') {
+      return fuse.search(value);
+    }
+
+    return agendaSources;
+  }, [fuse, value, agendaSources]);
+
   const search = useCallback(
-    v => dispatch(sourcesActions.list({ search: v })).finally(() => {
+    v => {
+      setPreviousValue(value);
+      setValue(v);
+
+      // dispatch(sourcesActions.list({ search: v })).finally(() => {
       history.push({
         ...history.location,
         search: qs.stringify({ ...query, search: v || undefined })
       });
-    }),
-    [dispatch, history, query]
+      // });
+    },
+    [history, query, setPreviousValue, setValue, value]
   );
 
   const showModalAddSource = useCallback(
@@ -118,24 +146,18 @@ function Dashboard({ agenda }) {
 
   const debouncedSearch = useMemo(() => _.debounce(search, 400), [search]);
 
-  const onSearch = useCallback(
-    values => {
-      setPreviousValue(value);
-      setValue(values.search);
-
-      return search(values.search);
-    },
-    [value, setValue, setPreviousValue, search]
-  );
+  const onSearch = useCallback(values => search(values.search), [search]);
 
   const refresh = useCallback(() => search(value), [search, value]);
 
   const addSource = useCallback(
-    (sourceAgenda, rules) => dispatch(sourcesActions.add(sourceAgenda.uid, { rules })).then(() => {
-      closeModalAddSource();
+    (sourceAgenda, rules, evaluate) => dispatch(sourcesActions.add(sourceAgenda.uid, { rules, evaluate })).then(
+      () => {
+        closeModalAddSource();
 
-      return refresh();
-    }),
+        return refresh();
+      }
+    ),
     [dispatch, closeModalAddSource, refresh]
   );
   const updateSource = useCallback(
@@ -216,8 +238,8 @@ function Dashboard({ agenda }) {
 
       <div>
         <p>
-          {intl.formatMessage(messages.numberOfResults)}: {agendaSources.length}{' '}
-          -{' '}
+          {intl.formatMessage(messages.numberOfResults)}:{' '}
+          {filteredSources.length} -{' '}
           <button
             type="button"
             className="btn btn-link-inline"
@@ -227,9 +249,9 @@ function Dashboard({ agenda }) {
           </button>
         </p>
 
-        <SourcesList sources={agendaSources} />
+        <SourcesList sources={filteredSources} />
 
-        {!agendaSources || !agendaSources.length ? (
+        {!filteredSources || !filteredSources.length ? (
           <div className="text-center text-muted margin-v-md">
             {intl.formatMessage(messages.noResult)}
           </div>
@@ -243,7 +265,11 @@ function Dashboard({ agenda }) {
       </div>
 
       {modals.addSource && modals.addSource.visible ? (
-        <AddSourceModal onClose={closeModalAddSource} onSubmit={addSource} />
+        <AddSourceModal
+          aggregator={agenda}
+          onClose={closeModalAddSource}
+          onSubmit={addSource}
+        />
       ) : null}
       {modals.updateSource && modals.updateSource.visible ? (
         <UpdateSourceModal

@@ -24,7 +24,7 @@ export default function SlugSearch({ res, render }) {
 
         return apiClient.get(res.replace(':slug', slug));
       } catch (e) {
-        console.log(e);
+        // console.log(e);
         return Promise.reject(new Error('badAgendaUrl'));
       }
     },

@@ -4,6 +4,7 @@ import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
 import { Form } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
+import { ruleToValues, valuesToRule } from '../utils/rules';
 import RuleForm from './RuleForm';
 
 const messages = defineMessages({
@@ -64,45 +65,6 @@ const messages = defineMessages({
     defaultMessage: 'No defined rule'
   }
 });
-
-function ruleToValues(rule) {
-  if (!rule) {
-    return {};
-  }
-
-  if (rule.query.location) {
-    const key = Object.keys(rule.query.location)[0];
-
-    return {
-      type: 'location',
-      subdivision: key,
-      values: rule.query.location[key]
-    };
-  }
-
-  if (rule.query.tags) {
-    return {
-      type: 'tags',
-      values: rule.query.tags
-    };
-  }
-
-  return {};
-}
-
-function valuesToRule(values) {
-  const query = values.type === 'location'
-    ? {
-      location: {
-        [values.subdivision]: values.values
-      }
-    }
-    : {
-      tags: values.values
-    };
-
-  return { query };
-}
 
 function validate(intl, values) {
   if (!values.type) {
@@ -288,7 +250,12 @@ function RuleItem({ rule, onUpdate, onRemove }) {
   );
 }
 
-export default function DefineRules({ initialRules, SubmitButton, onSubmit }) {
+export default function DefineRules({
+  initialRules,
+  SubmitButton,
+  onSubmit,
+  onCancel
+}) {
   const intl = useIntl();
 
   const initialState = useMemo(() => getInitialState(initialRules), [
@@ -373,13 +340,18 @@ export default function DefineRules({ initialRules, SubmitButton, onSubmit }) {
   }, [state.rules, state.modeOptions.id]);
 
   const submitElement = useMemo(
-    () => (state.mode === 'list' && ReactIs.isValidElementType(SubmitButton) ? (
-      <SubmitButton
-        handleSubmit={() => onSubmit(state.rules.map(rule => _.omit(rule, 'id')))}
-        rules={state.rules}
-      />
+    () => (state.mode === 'list' ? (
+      <>
+        {ReactIs.isValidElementType(SubmitButton) ? (
+          <SubmitButton
+            handleSubmit={() => onSubmit(state.rules.map(rule => _.omit(rule, 'id')))}
+            rules={state.rules}
+            onCancel={onCancel}
+          />
+        ) : null}
+      </>
     ) : null),
-    [SubmitButton, onSubmit, state.rules, state.mode]
+    [SubmitButton, onSubmit, onCancel, state.rules, state.mode]
   );
 
   let content = null;
@@ -389,7 +361,13 @@ export default function DefineRules({ initialRules, SubmitButton, onSubmit }) {
       <div className="margin-v-md">
         {!state.rules || !state.rules.length ? (
           <div className="text-center">
-            {intl.formatMessage(messages.noDefinedRule)}
+            <button
+              type="button"
+              className="btn-link-inline"
+              onClick={setModeAdd}
+            >
+              {intl.formatMessage(messages.addARule)}
+            </button>
           </div>
         ) : null}
 
@@ -402,9 +380,15 @@ export default function DefineRules({ initialRules, SubmitButton, onSubmit }) {
           />
         ))}
 
-        <button type="button" className="btn-link-inline" onClick={setModeAdd}>
-          {intl.formatMessage(messages.addARule)}
-        </button>
+        {state.rules && state.rules.length ? (
+          <button
+            type="button"
+            className="btn-link-inline"
+            onClick={setModeAdd}
+          >
+            {intl.formatMessage(messages.addARule)}
+          </button>
+        ) : null}
       </div>
     );
   } else if (state.mode === 'add') {

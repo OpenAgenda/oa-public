@@ -173,7 +173,7 @@ export default function RuleForm({
       <div className="form-group form-group-values">
         <div className="row">
           <label className="control-label col-sm-2" htmlFor="type">
-            {intl.formatMessage(messages.values)}test
+            {intl.formatMessage(messages.values)}
           </label>
 
           <div className="col-sm-10">

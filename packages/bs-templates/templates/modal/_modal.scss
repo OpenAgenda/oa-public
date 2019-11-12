@@ -65,13 +65,6 @@
         color: inherit;
       }
     }
-
-    // IE9 - scroll glitch fix
-    @media screen and (min-width: 0) and (min-resolution: .001dpcm) {
-      > section {
-        -ms-transform: translate(-0, -50%);
-      }
-    }
   }
 
   @media (min-width: 768px) {

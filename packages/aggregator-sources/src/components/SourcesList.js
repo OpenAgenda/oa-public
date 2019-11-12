@@ -1,10 +1,13 @@
 /* global __DEVELOPMENT__ */
 
-import React, { useCallback } from 'react';
+import React, { useMemo, useCallback } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Image from '@openagenda/react-components/build/Image';
+import MoreInfo from '@openagenda/react-components/components/MoreInfo';
 import * as modalsActions from '../reducers/modals';
+import { ruleToValues } from '../utils/rules';
 
 const messages = defineMessages({
   officialAgenda: {
@@ -18,8 +21,73 @@ const messages = defineMessages({
   remove: {
     id: 'aggregator-sources.SourcesList.remove',
     defaultMessage: 'Remove'
+  },
+  filtersSummary: {
+    id: 'aggregator-sources.SourcesList.filtersSummary',
+    defaultMessage:
+      '{geoCount, plural, =0 {No geographical filter} =1 {1 geographical filter} other {# geographical filters}} and {labelCount, plural, =0 {no label filter} =1 {1 label filter} other {# label filters}}'
+  },
+  noFilter: {
+    id: 'aggregator-sources.SourcesList.noFilter',
+    defaultMessage: 'No filters'
+  },
+  seeAgenda: {
+    id: 'aggregator-sources.SourcesList.seeAgenda',
+    defaultMessage: 'See agenda'
+  },
+  copy: {
+    id: 'aggregator-sources.SourcesList.copy',
+    defaultMessage: 'Copy'
   }
 });
+
+const copyToClipboardOptions = { format: 'application/json' };
+
+function RulesSummary({ rules }) {
+  const intl = useIntl();
+
+  const counters = useMemo(
+    () => rules.map(ruleToValues).reduce(
+      (accu, next) => {
+        if (next.type === 'location') {
+          accu.geoCount += 1;
+        }
+        if (next.type === 'tags') {
+          accu.labelCount += 1;
+        }
+
+        return accu;
+      },
+      { geoCount: 0, labelCount: 0 }
+    ),
+    [rules]
+  );
+
+  const hasFilter = counters.geoCount + counters.labelCount !== 0;
+
+  const rulesJSON = useMemo(() => JSON.stringify(rules, null, 2), [rules]);
+
+  return (
+    <p className="filters-summary">
+      {hasFilter
+        ? intl.formatMessage(messages.filtersSummary, counters)
+        : intl.formatMessage(messages.noFilter)}
+
+      {hasFilter ? (
+        <MoreInfo
+          id="fourth-popover"
+          content={intl.formatMessage(messages.copy)}
+        >
+          <CopyToClipboard text={rulesJSON} options={copyToClipboardOptions}>
+            <button type="button" className="btn btn-link-inline filters-copy">
+              <i className="fa fa-sm fa-clipboard" aria-hidden="true" />
+            </button>
+          </CopyToClipboard>
+        </MoreInfo>
+      ) : null}
+    </p>
+  );
+}
 
 function SourceItem({ source }) {
   const intl = useIntl();
@@ -39,7 +107,11 @@ function SourceItem({ source }) {
   return (
     <div className="agenda-item media">
       <div className="media-left">
-        <a href={res.showAgenda.replace(':slug', source.agenda.slug)}>
+        <button
+          type="button"
+          className="btn btn-link-inline"
+          onClick={showModalUpdate}
+        >
           <Image
             className="media-object ill avatar"
             src={source.agenda.image}
@@ -50,13 +122,17 @@ function SourceItem({ source }) {
             }
             alt={source.agenda.title}
           />
-        </a>
+        </button>
       </div>
       <div className="media-body">
         <div className="title media-heading">
-          <a href={res.showAgenda.replace(':slug', source.agenda.slug)}>
+          <button
+            type="button"
+            className="btn btn-link-inline"
+            onClick={showModalUpdate}
+          >
             <strong>{source.agenda.title}</strong>
-          </a>
+          </button>
           {!!source.agenda.official && (
             <div className="official">
               <i />
@@ -69,6 +145,9 @@ function SourceItem({ source }) {
             </div>
           )}
         </div>
+
+        <RulesSummary rules={source.rules} />
+
         <div className="actions">
           <button
             type="button"
@@ -77,6 +156,9 @@ function SourceItem({ source }) {
           >
             {intl.formatMessage(messages.update)}
           </button>{' '}
+          <a href={res.showAgenda.replace(':slug', source.agenda.slug)}>
+            {intl.formatMessage(messages.seeAgenda)}
+          </a>{' '}
           <button
             type="button"
             onClick={showModalRemove}

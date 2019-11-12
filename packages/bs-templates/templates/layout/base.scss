@@ -280,6 +280,9 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
   @extend .btn-link;
 
   padding: 0;
+  line-height: 1em;
+  border: none;
+  vertical-align: baseline;
 }
 
 .oa-col-canvas {

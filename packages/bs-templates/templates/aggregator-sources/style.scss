@@ -87,12 +87,29 @@
     }
 
     .media-body {
-      .actions a {
-        text-decoration: none;
-        color: #777777;
+      p {
+        margin-top: .5em;
+        margin-bottom: .5em;
+      }
 
-        &:hover {
-          color: #41acdd;
+      .filters-copy {
+        display: none;
+        margin-left: 5px;
+      }
+
+      .filters-summary:hover .filters-copy {
+        display: inline-block;
+      }
+
+      .actions {
+        & > *:not(:last-child) {
+          margin-right: 5px;
+        }
+
+        a {
+          &:hover, &:focus {
+            text-decoration: underline;
+          }
         }
       }
     }
