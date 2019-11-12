@@ -109,9 +109,22 @@ module.exports = app => {
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
     (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
-      .then(uid => core.agendas(req.agenda.uid)
-        .events
-        .get(uid, { detailed: true }))
+      .then(uid => {
+        if (!uid) {
+          return next(new VError({
+            info: {
+              url: req.originalUrl,
+              agenda: req.agenda,
+              eventSlug: req.params.eventSlug,
+              eventUid: uid
+            }
+          }, 'Event not found'));
+        }
+
+        return core.agendas(req.agenda.uid)
+          .events
+          .get(uid, { detailed: true })
+      })
         .then(result => {
           if (!result) {
             return next(new VError({
