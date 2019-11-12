@@ -41,7 +41,8 @@ module.exports = (config, parentApp) => {
     (req, res, next) => aggregators.sources.add(
       req.agenda,
       req.sourceAgenda,
-      req.body.rules
+      req.body.rules,
+      { evaluate: [true, 1, 'true', '1'].includes(req.query.evaluate) }
     ).then(res.json.bind(res), next)
   );
 
