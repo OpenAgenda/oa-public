@@ -14,7 +14,8 @@ debug = require( 'debug' ),
 
 config = {
   langAttribute : 'data-lang',
-  defaultMonth : 'data-default-month'
+  defaultMonth : 'data-default-month',
+  isExclusiveAttribute: 'data-exclusive'
 },
 
 templates = {
@@ -37,6 +38,8 @@ var widget = function( elem, options ) {
   controller,
 
   enabled = false,
+
+  isExclusive = false,
 
   lang = 'en',
 
@@ -73,6 +76,8 @@ var widget = function( elem, options ) {
       log( 'overwriting lang to %s', lang );
 
     }
+
+    isExclusive = elem.getAttribute( config.isExclusiveAttribute ) === '1';
 
     controller = options.register( wLib.interface( 'calendar', uid, {
       enable : enable,
@@ -225,9 +230,9 @@ var widget = function( elem, options ) {
 
   function _update( range ) {
 
-    log( 'updating request parameters' );
+    log('updating request parameters' );
 
-    controller.update( 'calendar', range );
+    controller.update( 'calendar', range, isExclusive );
 
   }
 

@@ -321,7 +321,7 @@ module.exports = function( uid ) {
    * called by widget when some agenda request parameters were updated
    */
 
-  function update( originWidget, updatedParams ) {
+  function update( originWidget, updatedParams, isExclusive ) {
 
     if ( arguments.length == 1 ) {
 
@@ -333,7 +333,7 @@ module.exports = function( uid ) {
 
     log( 'updating with %s', JSON.stringify( updatedParams ) );
 
-    var newParams = _clean( cn.extend( {}, currentRequestParams, {
+    var newParams = _clean( cn.extend( {}, isExclusive ? {} : currentRequestParams, {
       uid: null,
       event: null
     }, updatedParams ) );
