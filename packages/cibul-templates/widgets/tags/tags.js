@@ -30,6 +30,8 @@ function widget( elem, options ) {
 
   tags = [], tagSlugs = [],
 
+  isExclusive = false,
+
   requestTags = [], // tags which are in current request state
 
   activeTags = {},  // tags which are within current event selection
@@ -75,6 +77,8 @@ function widget( elem, options ) {
 
       _setTags( data, options.anchorConfig, elem.getAttribute( 'data-group' ) ? parseInt( elem.getAttribute( 'data-group' ) ) : null );
 
+      isExclusive = elem.getAttribute( 'data-exclusive' ) === '1';
+
       if ( !data.ebd || data.ebd.dcss.tags ) view.setDefaultStyle();
 
       log( 'init complete, enable to render' );
@@ -98,7 +102,7 @@ function widget( elem, options ) {
 
     selectedTag = false;
     requestTags = [];
-    
+
     if ( reqParams.tags ) {
 
       requestTags = ( typeof reqParams.tags == 'string' ) ? reqParams.tags.split(',') : reqParams.tags;
@@ -121,7 +125,7 @@ function widget( elem, options ) {
   }
 
   function clear() {
-    
+
     log( 'clearing, awaiting enable or disable to render' );
 
     activeTags = {};
@@ -135,7 +139,7 @@ function widget( elem, options ) {
   /**
    * include event tags in active tag set
    */
-  
+
   function include( eventItem ) {
 
     if ( eventItem.t && eventItem.t.length ) {
@@ -222,10 +226,10 @@ function widget( elem, options ) {
     for ( var i = 0; i<arr.length; i++ ) {
 
       if ( arr[ i ] === val ) {
-        
+
         index = i;
         break;
-        
+
       }
 
     }
@@ -260,13 +264,13 @@ function widget( elem, options ) {
 
     });
 
-    if ( passed ) {
+    if ( passed && !isExclusive ) {
 
       updatedRequestParams.passed = '1';
 
     }
 
-    controller.update( 'tags', updatedRequestParams );
+    controller.update( 'tags', updatedRequestParams, isExclusive );
 
   }
 
@@ -304,7 +308,7 @@ function widget( elem, options ) {
       cn.forEach( data.t, function( tag ) {
 
         if ( group === tag.g || group === null ) {
-        
+
           tags.push( tag );
 
           tagSlugs.push( tag.s );

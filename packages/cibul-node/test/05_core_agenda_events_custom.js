@@ -378,33 +378,28 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
   } );
 
 
-  describe( 'update with network', function() {
+  describe('update with network', function() {
 
-    const networkEventData = ih( eventData, {
+    const networkEventData = ih(eventData, {
       edition: { $set: 'Dernier trimestre 2018' }
-    } );
+    });
 
-    const networkUpdatedData = ih( eventData, {
+    const networkUpdatedData = ih(eventData, {
       edition: { $set: 'Premier trimestre 2019' }
-    } );
+    });
 
     const result = {};
 
-    before( async () => {
+    before(async () => {
+      const { created } = await core.agendas(60935574).events.create(networkEventData);
 
-      const { created } = await core.agendas( 60935574 ).events.create( networkEventData );
+      Object.assign(result, await core.agendas(60935574).events.update(created.event.uid, networkUpdatedData));
+    });
 
-      _.assign( result, await core.agendas( 60935574 ).events.update( created.event.uid, networkUpdatedData ) );
+    it('update includes network custom data in response', async () => {
+      result.updated.edition.should.equal('Premier trimestre 2019');
+    });
 
-    } );
+  });
 
-    it( 'update returns network custom data in networkCustom key', async () => {
-
-      result.updated.networkCustom.should.eql( { edition: 'Premier trimestre 2019' } );
-
-    } );
-
-  } );
-
-
-} );
+});

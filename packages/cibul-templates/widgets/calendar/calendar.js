@@ -13,7 +13,9 @@ cLib = require( '../../js/vendors/CibulCalendar/src/CibulCalendar' ),
 debug = require( 'debug' ),
 
 config = {
-  langAttribute : 'data-lang'
+  langAttribute : 'data-lang',
+  defaultMonth : 'data-default-month',
+  isExclusiveAttribute: 'data-exclusive'
 },
 
 templates = {
@@ -36,6 +38,8 @@ var widget = function( elem, options ) {
   controller,
 
   enabled = false,
+
+  isExclusive = false,
 
   lang = 'en',
 
@@ -73,6 +77,8 @@ var widget = function( elem, options ) {
 
     }
 
+    isExclusive = elem.getAttribute( config.isExclusiveAttribute ) === '1';
+
     controller = options.register( wLib.interface( 'calendar', uid, {
       enable : enable,
       disable : disable,
@@ -89,6 +95,12 @@ var widget = function( elem, options ) {
       _createCalendar();
 
       controller.onWidgetReady( 'calendar', { uid } );
+
+      if ( elem.getAttribute( config.defaultMonth ) === 'current' ) {
+        firstEnable = false;
+
+        _setCalendarPosition();
+      }
 
       if ( onReady ) {
 
@@ -218,9 +230,9 @@ var widget = function( elem, options ) {
 
   function _update( range ) {
 
-    log( 'updating request parameters' );
+    log('updating request parameters' );
 
-    controller.update( 'calendar', range );
+    controller.update( 'calendar', range, isExclusive );
 
   }
 
@@ -243,7 +255,13 @@ var widget = function( elem, options ) {
   }
 
 
-  function _setCalendarPosition() {
+  function _setCalendarPosition(position) {
+
+    if ( position === 'current' ) {
+
+      return calendar.setDisplayedMonth( new Date() );
+
+    }
 
     var now = new Date(),
 
@@ -275,7 +293,7 @@ var widget = function( elem, options ) {
 
     } );
 
-    refDate = closestDates[ 1 ] ? closestDates[ 1 ] : closestDates[ 0 ];
+    refDate = closestDates[ 1 ] ? closestDates[ 1 ] : closestDates[ 0 ];
 
     if ( !refDate ) return;
 

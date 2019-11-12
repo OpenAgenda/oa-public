@@ -36,19 +36,9 @@ module.exports = app => {
       .then(uid => core.agendas(req.agenda.uid)
         .events
         .get(uid, { detailed: true })
-        .then(result => {
-          if (!result) {
-            return next(new VError({
-              info: {
-                url: req.originalUrl,
-                agenda: req.agenda,
-                eventSlug: req.params.eventSlug,
-                eventUid: uid
-              }
-            }, 'Event not found'));
-          }
-
-          req.event = result;
+        .then(event => {
+          if (!event) return next({ code: 404 });
+          req.event = event;
           next();
         })
         .catch(next)

@@ -16,10 +16,10 @@ class Main extends Component {
       lang: 'fr',
       withErrors: true,
       schema: {
-        fields : [ {
+        fields : [{
           field : "anything",
           fieldType : "text",
-          label : "A word"
+          label : 'A word'
         }, {
           field: 'conditioned',
           fieldType : 'text',
@@ -37,7 +37,13 @@ class Main extends Component {
           optional: false,
           label: 'This is only enabled if previous checkbox is checked',
           enableWith: 'checkboxes'
-        } ]
+        }, {
+          field: 'numberfield',
+          fieldType: 'number',
+          optional: false,
+          label: 'This should be a number when enabled',
+          enableWith: 'checkboxes'
+        }]
       }
     }
 

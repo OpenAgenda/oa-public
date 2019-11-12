@@ -2,9 +2,9 @@ import should from 'should';
 import flattenLabels from '../client/src/lib/flatten';
 import unflattenLabels from '../client/src/FormSchemaBuilder/lib/unflattenLabels';
 
-describe( '17 - unit - flatten labels', () => {
+describe('17 - unit - flatten labels', () => {
 
-  it( 'flattens field labels', () => {
+  it('flattens field labels', () => {
 
     const flattened = flattenLabels( {
       label: {
@@ -73,4 +73,4 @@ describe( '17 - unit - flatten labels', () => {
 
   } );
 
-} );
+});

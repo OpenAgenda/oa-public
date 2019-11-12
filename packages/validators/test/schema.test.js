@@ -1048,6 +1048,7 @@ describe( 'schema validator', () => {
         date: validators.date,
         choice: validators.choice,
         integer: validators.integer,
+        boolean: validators.boolean
       } );
 
     } );
@@ -1115,68 +1116,118 @@ describe( 'schema validator', () => {
 
     } );
 
+    describe('enableWith', () => {
 
-    it( 'when enableWith is used on a required field, it can only be required if related field has a value', () => {
+      it( 'when enableWith is used on a required field, it can only be required if related field has a value', () => {
 
-      const validate = schema( {
-        image: {
-          type: 'text'
-        },
-        imageCredits: {
-          optional: false,
-          enableWith: 'image',
-          type: 'text'
-        }
-      } );
-
-      let errored = false;
-
-      try {
-
-        validate( {} );
-
-      } catch ( e ) {
-
-        errored = true;
-
-      }
-
-      expect(errored).toBe(false);
-
-    } );
-
-    it( 'enableWith with a list value enables field only when the list is not empty', () => {
-
-      const validate = schema( {
-        selection: {
-          type: 'choice'
-        },
-        someField: {
-          optional: false,
-          enableWith: 'selection',
-          type: 'text'
-        }
-      } );
-
-      let errored = false;
-
-      try {
-
-        validate();
-
-        validate( {
-          selection: []
+        const validate = schema( {
+          image: {
+            type: 'text'
+          },
+          imageCredits: {
+            optional: false,
+            enableWith: 'image',
+            type: 'text'
+          }
         } );
 
-      } catch ( e ) {
+        let errored = false;
 
-        errored = true;
+        try {
 
-      }
+          validate( {} );
 
-      expect(errored).toBe(false);
+        } catch ( e ) {
 
-    } );
+          errored = true;
+
+        }
+
+        expect(errored).toBe(false);
+
+      } );
+
+      it( 'enableWith with a list value enables field only when the list is not empty', () => {
+
+        const validate = schema( {
+          selection: {
+            type: 'choice'
+          },
+          someField: {
+            optional: false,
+            enableWith: 'selection',
+            type: 'text'
+          }
+        } );
+
+        let errored = false;
+
+        try {
+
+          validate();
+
+          validate( {
+            selection: []
+          } );
+
+        } catch ( e ) {
+
+          errored = true;
+
+        }
+
+        expect(errored).toBe(false);
+
+      } );
+
+      it('enableWith fields still throw errors with wrong input', () => {
+        const validate = schema({
+          acheckbox: {
+            type: 'boolean'
+          },
+          someNumber: {
+            optional: false,
+            enableWith: 'acheckbox',
+            type: 'number'
+          }
+        });
+
+        let errors = [];
+
+        try {
+          validate({
+            acheckbox: true,
+            someNumber: 'twelve'
+          });
+        } catch (e) {
+          errors = e;
+        }
+
+        expect(errors.length).toBe(1);
+      });
+
+      it('enableWith fields are filtered out if related field is not specified', () => {
+        const validate = schema({
+          acheckbox: {
+            type: 'boolean'
+          },
+          someNumber: {
+            optional: false,
+            enableWith: 'acheckbox',
+            type: 'number'
+          }
+        });
+
+        const clean = validate({
+          someNumber: 'twelve'
+        });
+
+        expect(clean.someNumber).toBe(null);
+      });
+
+    });
+
+
 
 
     it( 'if object is specified in schema and submitted value is not an object', () => {
