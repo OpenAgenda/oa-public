@@ -1,19 +1,22 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
 
-const agendaEvents = require('@openagenda/agenda-events');
-const custom = require('@openagenda/custom');
-const events = require('@openagenda/events');
-const formSchemas = require('@openagenda/form-schemas');
 const log = require('@openagenda/logs')('core/agendas/events/get');
 
 const getAgenda = require('../utils/getAgenda');
 const getMergedSchema = require('../settings/getMergedSchema');
 const getNetwork = require('../utils/getNetwork');
 
-module.exports = async (agendaUid, eventUid, options = {}) => {
+module.exports = async (services, agendaUid, eventUid, options = {}) => {
+  const {
+    events,
+    custom,
+    agendaEvents,
+    formSchemas
+  } = services;
+
   const {
     internal,
     lang,

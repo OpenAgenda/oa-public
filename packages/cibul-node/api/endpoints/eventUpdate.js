@@ -28,10 +28,10 @@ module.exports = async ( req, res, next ) => {
       }
     } );
 
-    res.json( {
+    res.json({
       success: true,
-      event: _.get( result, 'updated' )
-    } );
+      event: result.updated
+    });
 
   } catch( e ) {
 

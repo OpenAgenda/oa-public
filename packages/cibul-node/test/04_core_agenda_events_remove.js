@@ -137,7 +137,7 @@ describe( 'core - functional ( server ): agenda event remove', function() {
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
       } );
 
-      event = result.created.event;
+      event = result.created;
 
     } );
 
@@ -180,7 +180,7 @@ describe( 'core - functional ( server ): agenda event remove', function() {
         'thematiques-bordeaux-metropole' : [ 3, 4 ]
       }, { draft: true } );
 
-      event = result.created.event;
+      event = result.created;
 
     } );
 

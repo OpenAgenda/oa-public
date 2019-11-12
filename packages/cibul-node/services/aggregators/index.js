@@ -109,7 +109,7 @@ function init(config, services) {
     })
   );
 
-  aggregators.init( {
+  aggregators.init({
     knex: config.knex,
     logger: config.getLogConfig( 'svc', 'aggregators' ),
     interfaces: {
@@ -135,7 +135,7 @@ function init(config, services) {
 
       }
     }
-  } );
+  });
 
   return module.exports.instance;
 }

@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const add = require('./add');
 const batch = require('./batch');
@@ -9,15 +9,13 @@ const remove = require('./remove');
 const update = require('./update');
 const validate = require('./validate');
 
-module.exports = (services, agendaUid) => {
-  return {
-    get: get.bind( null, agendaUid ),
-    list: list.bind( null, agendaUid ),
-    create: create.bind( null, agendaUid ),
-    add: add.bind( null, agendaUid ),
-    remove: remove.bind( null, agendaUid ),
-    update: update.bind(null, services, agendaUid),
-    validate: validate.bind( null, agendaUid ),
-    batch: batch(services).bind(null, agendaUid)
-  }
-}
+module.exports = (services, agendaUid) => ({
+  get: get.bind(null, services, agendaUid),
+  list: list.bind( null, agendaUid ),
+  create: create.bind(null, services, agendaUid),
+  add: add.bind(null, services, agendaUid),
+  remove: remove.bind( null, agendaUid ),
+  update: update.bind(null, services, agendaUid),
+  validate: validate.bind(null, services, agendaUid),
+  batch: batch(services).bind(null, agendaUid)
+});

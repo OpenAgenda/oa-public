@@ -1,17 +1,20 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const VError = require('verror');
 
-const agendaEvents = require( '@openagenda/agenda-events' );
-const events = require( '@openagenda/events' );
-const log = require( '@openagenda/logs' )( 'core/agendas/events/add' );
+const log = require('@openagenda/logs')('core/agendas/events/add');
 
-const doAdd = require( '../utils/doAdd' );
-const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
-const validate = require( './validate' );
+const doAdd = require('../utils/doAdd');
+const createPayload = require('../utils/createPayload');
+const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
 
-module.exports = async (agendaUid, eventUid, data, options = {}) => {
+module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
+  const {
+    agendaEvents,
+    events
+  } = services;
+
   log('adding event %s to agenda %s', eventUid, agendaUid);
 
   const {
@@ -24,17 +27,16 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     batched: false
   }, options || {});
 
-  const agenda = await getAgendaWithNetworkAndSchemas(agendaUid);
-
-  // pre-validate data
-  const clean = await validate.loaded({
-    formSchema: agenda.formSchema,
-    networkFormSchema: _.get(agenda, 'network.formSchema')
-  }, data, {
+  const {
+    clean,
+    agenda
+  } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
     evaluateEvent: false,
     sourceAgenda,
     aggregated
   });
+
+  const payload = createPayload(services, agenda, 'added');
 
   // if event is already referenced on agenda, this fails
   if (await agendaEvents(agendaUid).get(eventUid)) {
@@ -48,9 +50,13 @@ module.exports = async (agendaUid, eventUid, data, options = {}) => {
     detailed: true
   });
 
-  return doAdd(agenda, event, clean, {
+  payload.setItem('event', null, event);
+
+  await doAdd(services, payload, clean, {
     batched,
     aggregated,
     sourceAgenda
   });
+
+  return payload.getResponse();
 }

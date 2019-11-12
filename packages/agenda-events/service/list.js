@@ -88,12 +88,17 @@ async function listByUserUid( userUid, offset, limit ) {
   }
 }
 
-async function listByEventUid( eventUid, offset = 0, limit = 20 ) {
+async function listByEventUid(eventUid, ...args) {
+
+  const offset = args.length === 2 ? args[0] : args[1];
+  const limit = args.length === 2 ? args[1] : (args[2] || 20);
+  const query = args.length === 3 ? { ...args[0], eventUid } : { eventUid };
+
   if ( !knex ) throw new VError( 'agenda-events service is not configured' );
 
   return {
-    items: ( await _list( { eventUid }, { offset, limit } ) ).map( validate ),
-    total: await _total({ eventUid })
+    items: ( await _list(query, { offset, limit } ) ).map( validate ),
+    total: await _total(query)
   }
 }
 
@@ -162,6 +167,10 @@ function _query(k, query) {
 
   if (query.state !== undefined) {
     k.andWhere('state', query.state);
+  }
+
+  if (query.excludeAgendaUid) {
+    k.whereNotIn('agenda_uid', [].concat(query.excludeAgendaUid))
   }
 
   if (![null, undefined].includes(query.aggregated)) {

@@ -2,26 +2,26 @@
 
 process.env.NODE_ENV = 'test';
 
-const _ = require( 'lodash' );
-const knexLib = require( 'knex' );
-const mysql = require( 'mysql' );
-const { promisify } = require( 'util' );
-const fixtures = require( 'fs' ).readFileSync( __dirname + '/fixtures/01_02_core_agenda_events_create_add.sql', 'utf-8' );
-const ih = require( 'immutability-helper' );
-const should = require( 'should' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const knexLib = require('knex');
+const mysql = require('mysql');
+const { promisify } = require('util');
+const fixtures = require('fs').readFileSync(__dirname + '/fixtures/01_02_core_agenda_events_create_add.sql', 'utf-8');
+const ih = require('immutability-helper');
+const should = require('should');
+const VError = require('verror');
 
-const custom = require( '@openagenda/custom' );
-const events = require( '@openagenda/events' );
-const agendas = require( '@openagenda/agendas' );
-const agendaEvents = require( '@openagenda/agenda-events' );
+const custom = require('@openagenda/custom');
+const events = require('@openagenda/events');
+const agendas = require('@openagenda/agendas');
+const agendaEvents = require('@openagenda/agenda-events');
 
-const schemaNames = require( './mock/schemaNames' );
-const getLogConfig = require( './mock/getLogConfig' );
-const assignClients = require( './utils/assignClients' );
+const schemaNames = require('./mock/schemaNames');
+const getLogConfig = require('./mock/getLogConfig');
+const assignClients = require('./utils/assignClients');
 
-const config = require( '../config' );
-const core = require( '../core' );
+const config = require('../config');
+const core = require('../core');
 
 const testConfig = {
   queues: {},
@@ -66,30 +66,28 @@ const testConfig = {
   }
 };
 
-describe( 'core - functional ( server ): agenda event add', function() {
+describe('core - functional ( server ): agenda event add', function() {
 
-  this.timeout( 20000 );
+  this.timeout(20000);
 
   let event;
 
-  before( () => assignClients( testConfig ) );
+  before(() => assignClients(testConfig));
 
-  before( async () => {
-    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), {
+  before(async () => {
+    const con = mysql.createConnection(Object.assign(_.pick(config.db, [ 'user', 'password' ]), {
       multipleStatements: true
-    } ) );
+    }));
 
-    const query = promisify( con.query.bind( con ) );
+    const query = promisify(con.query.bind(con));
 
-    const result = await query( fixtures );
+    const result = await query(fixtures);
 
     con.end();
+  });
 
-  } );
-
-  before( async () => {
-
-    await core.init( testConfig, {
+  before(async () => {
+    await core.init(testConfig, {
       enabled: [
         'queues',
         'events',
@@ -104,12 +102,11 @@ describe( 'core - functional ( server ): agenda event add', function() {
         'users',
         'keys'
       ]
-    } );
+    });
+  });
 
-  } );
-
-  before( async () => {
-    const result = await core.agendas( 17026855 ).events.create( {
+  before(async () => {
+    const result = await core.agendas(17026855).events.create({
       slug: 'un-event',
       title: {
         fr: 'Un événement'
@@ -120,18 +117,18 @@ describe( 'core - functional ( server ): agenda event add', function() {
       location: {
         uid: 123
       },
-      timings: [ {
-        begin: new Date( '2019-05-06T10:00:00' ),
-        end: new Date( '2019-05-06T11:00:00' )
-      } ],
+      timings: [{
+        begin: new Date('2019-05-06T10:00:00'),
+        end: new Date('2019-05-06T11:00:00')
+      }],
       'categories-agenda-metropolitain': 42,
-      'thematiques-bordeaux-metropole' : [ 3, 4 ]
-    } );
+      'thematiques-bordeaux-metropole' : [3, 4]
+    });
 
-    event = result.created.event;
-  } );
+    event = result.created;
+  });
 
-  after( () => {
+  after(() => {
 
     return testConfig.knex.destroy();
 
@@ -141,33 +138,27 @@ describe( 'core - functional ( server ): agenda event add', function() {
 
     let result;
 
-    before( async () => {
-
+    before(async () => {
       result = await core.agendas(55268170).events.add(event.uid, {
         state: 1,
         featured: false
       });
-
-    } );
+    });
 
     it('the event was added to the second agenda', async () => {
-
       result.success.should.equal(true);
 
-      result.added.agendaEvent.should.be.ok;
-
-    } );
+      result.added.should.be.ok;
+    });
 
 
     it('there are two agendas listing this event now', async () => {
-
       const refs = await agendaEvents.list.byEventUid( event.uid );
 
       refs.total.should.equal( 2 );
-
     });
 
-  } );
+  });
 
   describe('aggregated add', () => {
 
@@ -185,11 +176,11 @@ describe( 'core - functional ( server ): agenda event add', function() {
     });
 
     it('agenda event reference is flagged as aggregated', () => {
-      result.added.agendaEvent.aggregated.should.equal(true)
+      result.added.aggregated.should.equal(true)
     });
 
     it('agenda event reference stores agenda source uid', () => {
-      result.added.agendaEvent.sourceAgendaUid.should.eql([55268170]);
+      result.added.sourceAgendaUid.should.eql([55268170]);
     });
 
   });

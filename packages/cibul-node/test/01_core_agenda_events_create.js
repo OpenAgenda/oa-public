@@ -2,23 +2,23 @@
 
 process.env.NODE_ENV = 'test';
 
-const _ = require( 'lodash' );
-const fs = require( 'fs' );
-const ih = require( 'immutability-helper' );
-const mysql = require( 'mysql' );
-const { promisify } = require( 'util' );
-const should = require( 'should' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const fs = require('fs');
+const ih = require('immutability-helper');
+const mysql = require('mysql');
+const { promisify } = require('util');
+const should = require('should');
+const VError = require('verror');
 
-const fixtures = fs.readFileSync( __dirname + '/fixtures/01_02_core_agenda_events_create_add.sql', 'utf-8' );
+const fixtures = fs.readFileSync(__dirname + '/fixtures/01_02_core_agenda_events_create_add.sql', 'utf-8');
 
-const events = require( '@openagenda/events' );
-const agendas = require( '@openagenda/agendas' );
-const agendaEvents = require( '@openagenda/agenda-events' );
-const custom = require( '@openagenda/custom' );
+const events = require('@openagenda/events');
+const agendas = require('@openagenda/agendas');
+const agendaEvents = require('@openagenda/agenda-events');
+const custom = require('@openagenda/custom');
 
-const config = require( '../config' );
-const core = require( '../core' );
+const config = require('../config');
+const core = require('../core');
 
 const _sleep = promisify( setTimeout.bind( null, rs => rs() ) );
 
@@ -71,9 +71,9 @@ const testConfig = {
 };
 
 
-describe( 'core - functional ( server ): agenda event create', function() {
+describe('core - functional ( server ): agenda event create', function() {
 
-  this.timeout( 20000 );
+  this.timeout(20000);
 
   const eventData = {
     slug: 'un-evenement',
@@ -94,28 +94,25 @@ describe( 'core - functional ( server ): agenda event create', function() {
       uid: 123
     },
     'categories-agenda-metropolitain': 42,
-    'thematiques-bordeaux-metropole' : [ 3, 4 ],
+    'thematiques-bordeaux-metropole' : [3, 4],
     accessibility: { sl: true }
   };
 
-  before( () => assignClients( testConfig ) );
+  before(() => assignClients(testConfig));
 
-  before( async () => {
-
-    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), {
+  before(async () => {
+    const con = mysql.createConnection(Object.assign( _.pick( config.db, ['user', 'password']), {
       multipleStatements: true
-    } ) );
+    }));
 
-    const query = promisify( con.query.bind( con ) );
+    const query = promisify(con.query.bind(con));
 
-    const result = await query( fixtures );
+    const result = await query(fixtures);
 
     con.end();
+  });
 
-  } );
-
-  before( async () => {
-
+  before(async () => {
     await core.init( testConfig, {
       enabled: [
         'queues',
@@ -131,126 +128,117 @@ describe( 'core - functional ( server ): agenda event create', function() {
         'users',
         'keys'
       ]
-    } );
+    });
+  });
 
-  } );
-
-  after( () => {
-
+  after(() => {
     return testConfig.knex.destroy();
+  });
 
-  } );
-
-  describe( 'anonymous create', () => {
-
+  describe('anonymous create', () => {
     let event;
-
     let eventServiceConfig;
-
     const onCreateCalls = [];
 
-    before( () => {
-
+    before(() => {
       eventServiceConfig = events.getConfig();
 
-      events.init( ih( eventServiceConfig, {
+      events.init(ih(eventServiceConfig, {
         interfaces: {
           onCreate: {
-            $set: ( event, context ) => {
-
-              onCreateCalls.push( [ event, context ] );
-
+            $set: (event, context) => {
+              onCreateCalls.push([event, context]);
             }
           }
         }
-      } ) );
+      }));
+    });
 
-    } );
+    before(async () => {
+      const result = await core.agendas(17026855).events.create(eventData);
 
+      event = result.created;
+    });
 
-    before( async () => {
-
-      const result = await core.agendas( 17026855 ).events.create( eventData );
-
-      event = result.created.event;
-
-    } );
-
-    after( () => {
-
-      events.init( ih( events.getConfig(), {
+    after(() => {
+      events.init(ih(events.getConfig(), {
         interfaces: {
           onCreate: {
             $set: ( event, context ) => {}
           }
         }
-      } ) );
+      }));
+    });
 
-    } );
+     describe('service interfaces', () => {
 
+      it('calls onCreate interface once', () => {
+        onCreateCalls.length.should.equal(1);
+      });
 
-    it( 'adds event to event service', async () => {
+      it('onCreate interface gets context', () => {
+        onCreateCalls[ 0 ][ 1 ].transferToLegacy.should.equal(true);
+      });
 
-      const fetched = await events.get( {
-        uid: event.uid
-      } );
+    });
 
-      fetched.should.ok;
+    describe('persistence', () => {
 
-    } );
+      it('adds event to event service', async () => {
+        const fetched = await events.get({
+          uid: event.uid
+        });
 
-    it( 'adds event to legacy event structure', done => {
+        fetched.should.ok;
+      });
 
-      events.legacy.get( { uid: event.uid }, ( err, legacyEvent ) => {
+      it('adds event to legacy event structure', done => {
+        events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
+          legacyEvent.slug.should.equal( event.slug );
+          legacyEvent.uid.should.equal( event.uid );
+          legacyEvent.title.should.eql( event.title );
 
-        legacyEvent.slug.should.equal( event.slug );
+          done();
+        });
+      });
 
-        legacyEvent.uid.should.equal( event.uid );
+      it('accessibility is saved in service and legacy', done => {
 
-        legacyEvent.title.should.eql( event.title );
+        events.get( {
+          uid: event.uid
+        } ).then( fetched => new Promise( rs => {
 
-        done();
+          fetched.accessibility.should.eql( {
+            sl: true,
+            vi: false,
+            pi: false,
+            hi: false,
+            mi: false
+          } );
 
-      } );
+          events.legacy.get( { uid: event.uid }, ( err, event ) => rs( event ) );
 
-    } );
+        } ) )
 
-    it( 'accessibility is saved in service and legacy', done => {
+        .then( legacyEvent => {
 
-      events.get( {
-        uid: event.uid
-      } ).then( fetched => new Promise( rs => {
+          legacyEvent.accessibility.should.eql( {
+            sl: true,
+            vi: false,
+            pi: false,
+            hi: false,
+            mi: false
+          } );
 
-        fetched.accessibility.should.eql( {
-          sl: true,
-          vi: false,
-          pi: false,
-          hi: false,
-          mi: false
+          done();
+
         } );
 
-        events.legacy.get( { uid: event.uid }, ( err, event ) => rs( event ) );
-
-      } ) )
-
-      .then( legacyEvent => {
-
-        legacyEvent.accessibility.should.eql( {
-          sl: true,
-          vi: false,
-          pi: false,
-          hi: false,
-          mi: false
-        } );
-
-        done();
-
-      } );
-
-    } );
+      });
+    });
 
 
-    describe( 'draft', () => {
+    describe('draft', () => {
 
       // this agenda has no required custom fields
       const agendaUid = 17026855;
@@ -277,49 +265,41 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
       } );
 
-      it( 'no errors are registered for draft creation', () => {
-
+      it('no errors are registered for draft creation', () => {
         errors.should.eql( [] );
+      });
 
-      } );
+      it('event is recorded in event service as draft', () => {
+        result.created.draft.should.equal( 1 );
+      });
 
-      it( 'event is recorded in event service as draft', () => {
+      it('draft event is not referenced in agenda', async () => {
+        const eventUid = _.get(result, 'created.uid');
 
-        result.created.event.draft.should.equal( 1 );
+        const ref = await agendaEvents(agendaUid).get(eventUid);
 
-      } );
+        should(ref).equal(null);
+      });
 
-      it( 'draft event is not referenced in agenda', async () => {
+      it('draft custom data is stored', async () => {
+        const eventUid = _.get(result, 'created.uid');
 
-        const eventUid = _.get( result, 'created.event.uid' );
+        const data = await custom(2).get(eventUid);
 
-        const ref = await agendaEvents( agendaUid ).get( eventUid );
-
-        should( ref ).equal( null );
-
-      } );
-
-      it( 'draft custom data is stored', async () => {
-
-        const eventUid = _.get( result, 'created.event.uid' );
-
-        const data = await custom( 2 ).get( eventUid );
-
-        data.should.eql( {
+        data.should.eql({
           custom_description: null,
           intermunicipal_interest: [],
           recurring: [],
           'thematiques-bordeaux-metropole': [],
           'bordeaux-metropole': [],
           'categories-agenda-metropolitain': null
-        } );
+        });
+      });
 
-      } );
-
-    } );
+    });
 
 
-    describe( 'legacy custom data', () => {
+    describe('legacy custom data', () => {
 
       let legacyAgendaEvent, agenda, legacyEvent;
 
@@ -378,21 +358,9 @@ describe( 'core - functional ( server ): agenda event create', function() {
 
       } );
 
-    } );
+    });
 
-    it( 'calls onCreate interface once', () => {
-
-      onCreateCalls.length.should.equal( 1 );
-
-    } );
-
-    it( 'onCreate interface gets context', () => {
-
-      onCreateCalls[ 0 ][ 1 ].transferToLegacy.should.equal( true );
-
-    } );
-
-  } );
+  });
 
 
   describe( 'create by identified user', () => {
@@ -412,7 +380,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
         }
       } );
 
-      event = result.created.event;
+      event = result.created;
 
     } );
 
@@ -431,7 +399,7 @@ describe( 'core - functional ( server ): agenda event create', function() {
   } );
 
 
-  describe( 'other', () => {
+  describe('other', () => {
 
     let event;
 
@@ -475,22 +443,16 @@ describe( 'core - functional ( server ): agenda event create', function() {
     } );
 
 
-    it( 'slug was derived from title', () => {
-
+    it('slug was derived from title', () => {
       const slug = 'un-evenement';
 
-      result.created.event.slug.substr( 0, slug.length ).should.equal( slug );
-
-    } );
-
-
-    it( 'event was created from a form-schema data format', () => {
-
-      result.created.event.locationUid = 123;
-
-    } );
+      result.created.slug.substr(0, slug.length).should.equal(slug);
+    });
 
 
+    it('event was created from a form-schema data format', () => {
+      result.created.locationUid.should.equal(123);
+    });
   } );
 
 } );

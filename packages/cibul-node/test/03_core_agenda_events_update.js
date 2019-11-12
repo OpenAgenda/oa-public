@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 process.env.NODE_ENV = 'test';
 
@@ -113,7 +113,8 @@ describe('core - functional ( server ): agenda event update', function() {
     });
 
     before(async () => {
-      const result = await core.agendas(17026855).events.create({
+
+      const createResult = await core.agendas(17026800).events.create({
         slug: 'un-event',
         title: {
           fr: 'Un événement'
@@ -127,12 +128,16 @@ describe('core - functional ( server ): agenda event update', function() {
         timings: [ {
           begin: new Date( '2019-05-06T10:00:00' ),
           end: new Date( '2019-05-06T11:00:00' )
-        } ],
+        } ]
+      });
+
+      const result = await core.agendas(17026855).events.add(createResult.created.uid, {
+        state: 2,
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [3, 4]
       });
 
-      event = result.created.event;
+      event = createResult.created;
     });
 
     before(async () => {
@@ -166,7 +171,7 @@ describe('core - functional ( server ): agenda event update', function() {
     describe('service persistence', () => {
 
       it('the core event was updated', async () => {
-        _.pick(await events.get( { uid: event.uid } ), [ 'title' ] )
+        _.pick(await events.get({ uid: event.uid }), ['title'])
           .should.match({
             title: {
               fr: 'Un événement mis à jour',
@@ -214,6 +219,47 @@ describe('core - functional ( server ): agenda event update', function() {
       it('provides details on the location in a location key', () => {
         updateResult.updated.location.name.should.equal('La boutique');
       });
+
+      it('provides details on the agenda in an agenda key', () => {
+        updateResult.agenda.title.should.equal('La Gargouille');
+      });
+
+      it('provides details on the origin agenda in an originAgenda key', () => {
+        updateResult.originAgenda.title.should.equal('Le Fennec');
+      });
+
+      it('provides the full merged schema with internal fields in a formSchema key', () => {
+        updateResult.formSchema.fields.map(f=>f.field).should.eql([
+          'custom_description',
+          'title',
+          'location',
+          'intermunicipal_interest',
+          'recurring',
+          'thematiques-bordeaux-metropole',
+          'bordeaux-metropole',
+          'categories-agenda-metropolitain',
+          'image',
+          'imageCredits',
+          'description',
+          'keywords',
+          'longDescription',
+          'conditions',
+          'age',
+          'registration',
+          'accessibility',
+          'timings',
+          'id',
+          'uid',
+          'slug',
+          'draft',
+          'private',
+          'timezone',
+          'createdAt',
+          'updatedAt',
+          'agendaUid',
+          'locationUid'
+        ]);
+      });
     });
 
     describe('fixes', () => {
@@ -260,7 +306,7 @@ describe('core - functional ( server ): agenda event update', function() {
 
     before(async () => {
 
-      createResult = await core.agendas( 17026855 ).events.create( {
+      createResult = await core.agendas(17026855).events.create( {
         title: {
           fr: 'Un événement'
         },
@@ -281,13 +327,13 @@ describe('core - functional ( server ): agenda event update', function() {
     });
 
     before(async () => {
-      updateResult = await core.agendas( 17026855 ).events.update( createResult.created.event.uid, {
+      updateResult = await core.agendas(17026855).events.update(createResult.created.uid, {
         title: {
           fr: 'Un événement mis à jour',
           en: 'An updated event'
         },
         'categories-agenda-metropolitain': 43
-      }, { partial: true } );
+      }, { partial: true });
     });
 
     it('event field specified in partial update data is updated', () => {
@@ -302,14 +348,14 @@ describe('core - functional ( server ): agenda event update', function() {
     });
 
     it('event fields not specified in partial update are not modified', () => {
-      _.keys(createResult.created.event).filter(f => !['title', 'updatedAt'].includes(f)).forEach(field => {
-        should(createResult.created.event[ field ]).eql(updateResult.updated[field]);
+      ['id', 'uid', 'slug', 'description', 'longDescription'].forEach(field => {
+        should(createResult.created[field]).eql(updateResult.updated[field]);
       });
     });
 
     it('custom fields not specified in partial update are not modified', () => {
-      _.keys(createResult.created.custom).filter(f => !['categories-agenda-metropolitain'].includes(f)).forEach(field => {
-        should(createResult.created.custom[field]).eql(updateResult.updated[field]);
+      ['thematiques-bordeaux-metropole'].forEach(field => {
+        should(createResult.created[field]).eql(updateResult.updated[field]);
       });
     });
 
@@ -343,13 +389,13 @@ describe('core - functional ( server ): agenda event update', function() {
     });
 
     before(async () => {
-      updateResult = await core.agendas( 17026855 ).events.update( createResult.created.event.uid, {
+      updateResult = await core.agendas( 17026855 ).events.update( createResult.created.uid, {
         state: 2
       }, { partial: true });
     });
 
     it('event state was not published at creation', () => {
-      createResult.created.agendaEvent.state.should.equal(0);
+      createResult.created.state.should.equal(0);
     });
 
     it('event state is published after update', () => {
@@ -370,7 +416,7 @@ describe('core - functional ( server ): agenda event update', function() {
 
     before( async () => {
 
-      const result = await core.agendas( agendaUid ).events.create( {
+      const result = await core.agendas(agendaUid).events.create({
         title: {
           fr: 'Un événement'
         },
@@ -380,15 +426,15 @@ describe('core - functional ( server ): agenda event update', function() {
         location: {
           uid: 123
         },
-        timings: [ {
-          begin: new Date( '2019-05-06T10:00:00' ),
-          end: new Date( '2019-05-06T11:00:00' )
-        } ],
+        timings: [{
+          begin: new Date('2019-05-06T10:00:00'),
+          end: new Date('2019-05-06T11:00:00')
+        }],
         'categories-agenda-metropolitain': 42,
-        'thematiques-bordeaux-metropole' : [ 3, 4 ]
-      } );
+        'thematiques-bordeaux-metropole' : [3, 4]
+      });
 
-      eventUid = result.created.event.uid;
+      eventUid = result.created.uid;
 
     } );
 
@@ -446,7 +492,7 @@ describe('core - functional ( server ): agenda event update', function() {
         },
       }, { draft: true });
 
-      draftEventUid = result.created.event.uid;
+      draftEventUid = result.created.uid;
 
     });
 

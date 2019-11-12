@@ -81,6 +81,7 @@ module.exports.init = async (config, services) => {
 
   module.exports.resync = startId => queue( 'resyncAllAgendaLocations', startId );
 
+  return agendaLocations;
 }
 
 

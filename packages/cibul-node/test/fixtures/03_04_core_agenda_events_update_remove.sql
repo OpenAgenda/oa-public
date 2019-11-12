@@ -43,7 +43,6 @@ INSERT INTO agenda (
   `created_at`,
   `updated_at`,
   `uid`,
-  `main`,
   `store`,
   `contribution_type`,
   `contribution_info`,
@@ -65,7 +64,6 @@ INSERT INTO agenda (
   '2016-01-11 13:07:08',
   '2016-01-18 16:14:06',
   17026855,
-  0,
   '{"moderated":false,"send_invitation_email":true,"contributorconfigstep":1}',
   2,
   NULL,
@@ -73,6 +71,26 @@ INSERT INTO agenda (
   0,
   '{}',
   2
+),
+(
+  219,
+  'Le Fennec',
+  50304,
+  'le-fennec',
+  'Une petite description',
+  NULL,
+  '',
+  0,
+  '2016-01-11 13:07:08',
+  '2016-01-18 16:14:06',
+  17026800,
+  '{"moderated":false,"send_invitation_email":true,"contributorconfigstep":1}',
+  2,
+  NULL,
+  0,
+  0,
+  '{}',
+  NULL
 );
 
 

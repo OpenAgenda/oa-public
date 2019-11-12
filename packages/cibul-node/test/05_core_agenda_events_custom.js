@@ -165,7 +165,7 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
 
       const result = await core.agendas( agendaUid ).events.create( eventData );
 
-      createdEventUid = result.created.event.uid;
+      createdEventUid = result.created.uid;
 
     } );
 
@@ -211,33 +211,33 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
 
     } );
 
-    it( 'legacy entries were added with update', async () => {
+    it('legacy entries were added with update', async () => {
 
-      const eventDataWithMissingCustom = _.omit( eventData, [ 'thematiques-metropolitaines', 'types-devenements', 'tag-group-4', 'organisateur', 'public' ] );
+      const eventDataWithMissingCustom = _.omit(eventData, ['thematiques-metropolitaines', 'types-devenements', 'tag-group-4', 'organisateur', 'public']);
 
-      const result = await core.agendas( agendaUid ).events.create( eventDataWithMissingCustom );
+      const result = await core.agendas(agendaUid).events.create(eventDataWithMissingCustom);
 
-      const createdEventUid = result.created.event.uid;
+      const createdEventUid = result.created.uid;
 
-      const { id: eventId } = await testConfig.knex( 'event' ).first( 'id' ).where( {
+      const { id: eventId } = await testConfig.knex('event').first('id').where({
         uid: createdEventUid
-      } );
+      });
 
       const legacyAgendaEvent = await testConfig.knex( 'legacy_agenda_event' ).first().where( 'event_id', eventId );
 
       ( await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id ) ).length.should.equal( 0 );
 
-      await core.agendas( agendaUid ).events.update( createdEventUid, _.extend( {
+      const result2 = await core.agendas(agendaUid).events.update(createdEventUid, Object.assign({
         "tag-group-4": [36]
-      }, eventDataWithMissingCustom ) );
+      }, eventDataWithMissingCustom));
 
-      ( await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id ) ).length.should.equal( 1 );
+      (await testConfig.knex( 'legacy_agenda_event_tag' ).where( 'review_article_id', legacyAgendaEvent.id ) ).length.should.equal( 1 );
 
     } );
 
     it( 'get gets the event with agenda custom data', async () => {
 
-      const event = await core.agendas( agendaUid ).events.get( createdEventUid );
+      const event = await core.agendas( agendaUid ).events.get(createdEventUid);
 
       event.uid.should.equal( createdEventUid );
 
@@ -346,17 +346,15 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
 
     } );
 
-    it( 'creation returns network custom data in networkCustom key', async () => {
-
-      result.created.networkCustom.should.eql( { edition: 'Dernier trimestre 2018' } );
-
-    } );
+    it('creation returns network custom data in networkCustom key', async () => {
+      result.created.edition.should.eql('Dernier trimestre 2018');
+    });
 
     it( 'network custom entry is saved separately from agenda custom entry', async () => {
 
-      const agendaCustomData = await custom( 26 ).get( result.created.event.uid );
+      const agendaCustomData = await custom( 26 ).get( result.created.uid );
 
-      const networkCustomData = await custom( 27 ).get( result.created.event.uid );
+      const networkCustomData = await custom( 27 ).get( result.created.uid );
 
       agendaCustomData.should.eql( {
         entreelibre: [],
@@ -393,7 +391,7 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
     before(async () => {
       const { created } = await core.agendas(60935574).events.create(networkEventData);
 
-      Object.assign(result, await core.agendas(60935574).events.update(created.event.uid, networkUpdatedData));
+      Object.assign(result, await core.agendas(60935574).events.update(created.uid, networkUpdatedData));
     });
 
     it('update includes network custom data in response', async () => {

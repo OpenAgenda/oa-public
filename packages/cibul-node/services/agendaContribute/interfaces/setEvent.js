@@ -75,7 +75,7 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
         }
       } );
 
-      return { event: result.created.event };
+      return { event: result.created };
 
     } else {
 
@@ -90,7 +90,7 @@ module.exports = async ( agenda, user, current, data, options = {} ) => {
       } );
 
       return {
-        event: _.get( result, 'updated.event' ),
+        event: _.get(result, 'updated'),
         success: result.success
       };
 

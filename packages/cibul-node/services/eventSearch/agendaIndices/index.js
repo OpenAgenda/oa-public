@@ -1,5 +1,7 @@
 "use strict"
 
+const logJSON = require('../../../logJSON');
+
 const _ = require('lodash');
 const fs = require('fs');
 
@@ -71,6 +73,8 @@ async function _add({ assemble }, searchIndex, agendaUid, agendaEvent, options =
 
 async function _update({ assemble }, searchIndex, agendaUid, agendaEvent, options = {}) {
 
+  return log('warn', 'stopped');
+
   if (!await searchIndex.exists()) {
     log('info', 'updating event %s to agenda index %s: index does not exist', agendaEvent.eventUid, searchIndex.name);
     return;
@@ -79,6 +83,8 @@ async function _update({ assemble }, searchIndex, agendaUid, agendaEvent, option
   log('info', 'updating event %s on agenda index %s', agendaEvent.eventUid, searchIndex.name);
 
   const decorated = await assemble.item(agendaEvent);
+
+  logJSON('agendaIndicesAssemble', decorated);
 
   return searchIndex.update({ uid: agendaEvent.eventUid }, decorated, validateOptions(options));
 }

@@ -1,23 +1,29 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const ih = require( 'immutability-helper' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const ih = require('immutability-helper');
+const VError = require('verror');
 
-const events = require( '@openagenda/events' );
-const formSchemas = require( '@openagenda/form-schemas' );
-const log = require( '@openagenda/logs' )( 'core/agendas/events/create' );
-const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
+const log = require('@openagenda/logs')('core/agendas/events/create');
+const {
+  toEventServiceFormat
+} = require('@openagenda/agenda-contribute/server/parse');
 
-const doAdd = require( '../utils/doAdd' );
-const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
-const processOEmbed = require( '../utils/processOEmbed' );
-const validate = require( './validate' );
+const createPayload = require('../utils/createPayload');
+const doAdd = require('../utils/doAdd');
+const processOEmbed = require('../utils/processOEmbed');
+const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
 
 
-module.exports = async (agendaUid, data, options = {}) => {
+module.exports = async (services, agendaUid, data, options = {}) => {
+  log('info', 'processing', { agendaUid, options });
 
-  log( 'info', 'processing', { agendaUid, options } );
+  const {
+    events,
+    agendas,
+    formSchemas,
+    eventSearch
+  } = services;
 
   const contextUserUid = _.get( options, 'context.userUid', _.get( data, 'creatorUid' ) );
 
@@ -25,27 +31,21 @@ module.exports = async (agendaUid, data, options = {}) => {
     draft,
     formSchemaDataFormat,
     defaultLang
-  } = _.assign( {
+  } = Object.assign({
     draft: false,
     formSchemaDataFormat: false,
     defaultLang: 'en'
-  }, options || {} );
-
-  const agenda = await getAgendaWithNetworkAndSchemas( agendaUid );
+  }, options || {});
 
   const {
-    network,
-    formSchemaId,
-    id: agendaId
-  } = agenda;
+    clean,
+    agenda
+  } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
+    draft,
+    formSchemaDataFormat
+  });
 
-  const created = {};
-
-  // pre-validate data
-  const clean = await validate.loaded( {
-    formSchema: agenda.formSchema,
-    networkFormSchema: _.get( agenda, 'network.formSchema' ),
-  }, data, { draft, formSchemaDataFormat } );
+  const payload = createPayload(services, agenda, 'created');
 
   try {
     clean.event.links = await processOEmbed(clean.event.longDescription, clean.event.links);
@@ -54,19 +54,19 @@ module.exports = async (agendaUid, data, options = {}) => {
     log('error', 'could not retrieve oembeds', e);
   }
 
-  log( 'pre-validation done', { agendaUid } );
+  log('pre-validation done', { agendaUid });
 
   let result;
 
-  const eventServiceDataFormat = Object.assign(
-    toEventServiceFormat( clean.event, null, {
-      raw: data
-    } ), _.pick( data, [ 'ownerUid', 'creatorUid', 'agendaUid' ] )
-  );
+  const eventServiceDataFormat = {
+    ...toEventServiceFormat(clean.event, null, { raw: data }),
+    ..._.pick(data, ['ownerUid', 'creatorUid']),
+    agendaUid // at create, current agenda is origin agenda
+  };
 
   try {
     // create the event
-    result = await events.create( eventServiceDataFormat, {
+    result = await events.create(eventServiceDataFormat, {
       context: {
         userUid: contextUserUid
       },
@@ -74,44 +74,37 @@ module.exports = async (agendaUid, data, options = {}) => {
       internal: true,
       transferToLegacy: !draft,
       draft
-    } );
-  } catch ( e ) {
-    log( 'error', 'failed to create event', {
+    });
+  } catch (e) {
+    log('error', 'failed to create event', {
       agendaUid: agenda.uid,
       eventServiceDataFormat
-    } );
+    });
     throw e;
   }
 
-  if ( !result.valid ) {
-
-    throw new VError( {
+  if (!result.valid) {
+    throw new VError({
       name: 'validationError',
       info: {
         errors: result.errors
       }
-    } );
-
+    });
   } else {
-
-    created.event = result.event;
-
+    payload.setItem('event', null, result.event);
   }
 
-  const addResult = await doAdd(agenda, created.event, ih(clean, {
+  await doAdd(services, payload, ih(clean, {
     agendaEvent: {
       canEdit: { $set: true }
     },
     // required for custom legacy sync only.
-    agendaId: { $set: agendaId }
+    agendaId: { $set: agenda.id }
   }), {
     draft,
-    userUid: contextUserUid,
+    userUid: contextUserUid
   });
 
-  return {
-    success: true,
-    created: Object.assign( created, addResult.added )
-  }
-
+  // same for draft or not
+  return payload.getResponse();
 }

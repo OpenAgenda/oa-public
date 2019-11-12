@@ -19,16 +19,16 @@ module.exports = async ( req, res, next ) => {
 
   try {
 
-    const result = await core.agendas( req.agenda.uid ).events.create( ih( req.parsedData, {
+    const result = await core.agendas(req.agenda.uid).events.create( ih( req.parsedData, {
       ownerUid: { $set: req.user.uid },
       creatorUid: { $set: req.user.uid },
       agendaUid: { $set: req.agenda.uid }
     } ) );
 
-    res.json( {
+    res.json({
       success: true,
-      event: result.created.event
-    } );
+      event: result.created
+    });
 
   } catch( e ) {
 
