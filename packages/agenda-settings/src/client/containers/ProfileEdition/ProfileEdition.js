@@ -11,13 +11,12 @@ import { validate, asyncValidate, schema as agendaSchema } from './validate';
 import { renderInput, renderTextarea, renderInputGroup } from '../../utils/inputs';
 
 @connect(
-  state => {
-    const { uid, title, description, url, slug } = state.agenda.data;
+  (state, props) => {
+    const { uid, title, description, url, slug } = props.agenda;
 
     return {
       initialValues: { uid, title, description, url, slug },
       res: state.res,
-      agenda: state.agenda.data,
       modals: state.modals,
       imageChanged: state.agenda.imageChanged
     };

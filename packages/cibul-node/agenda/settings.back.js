@@ -1,9 +1,5 @@
 "use strict";
 
-const ReactDOM = require( 'react-dom/server' );
-const { parsePath } = require('history');
-const editApp = require( '@openagenda/agenda-settings/dist/client/editApp' );
-const wrapApp = require( '@openagenda/react-utils/dist/wrapApp' );
 const mw = require( '@openagenda/agenda-settings' ).mw;
 const keysMw = require( '@openagenda/keys/middleware' );
 const labels = require( '@openagenda/labels/agenda-settings/agendaEdition' );
@@ -12,9 +8,6 @@ const core = require( '../core' );
 const cmn = require( '../lib/commons-app' );
 const sessions = require( '../services/sessions' );
 const members = require( '../services/members' );
-const agendaSvc = require( '../services/agenda' );
-const config = require( '../config' );
-const layout = require('../services/lib/layouts').load( 'agendaAdmin' );
 
 
 module.exports = app => {
@@ -163,105 +156,14 @@ module.exports = app => {
     ( req, res, next ) => res.send( { rowAffected: req.result } )
   );
 
-  app.get(
-    '/:slug/admin/settings',
-    cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
-    cmn.verifyIPMiddleware,
-    members.mw.loadAndAuthorize('administrator'),
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData( 'oasfmain.css' ),
-    agendaSettingsApp
-  );
-
-  app.get(
-    '/:slug/admin/settings/?*?',
-    cmn.loadAgenda,
-    sessions.mw.loadOrRedirect,
-    cmn.verifyIPMiddleware,
-    members.mw.loadAndAuthorize('administrator'),
-    agendaSvc.mw.loadAdminLayout,
-    cmn.loadBaseData( 'oasfmain.css' ),
-    agendaSettingsApp
-  );
+  // app.get(
+  //   '/:slug/admin/settings/?*?',
+  //   cmn.loadAgenda,
+  //   sessions.mw.loadOrRedirect,
+  //   cmn.verifyIPMiddleware, TODO on webapp
+  //   members.mw.loadAndAuthorize('administrator'),
+  //   agendaSvc.mw.loadAdminLayout,
+  //   cmn.loadBaseData( 'oasfmain.css' ),
+  //   agendaSettingsApp
+  // );
 };
-
-async function agendaSettingsApp(req, res, next) {
-  const prefix = req.genUrl( 'agendaSettingsEditApp', { slug: req.params.slug } ).split( '?' )[ 0 ];
-  const lang = req.lang || 'fr';
-  const staticContext = {};
-  const reactApp = editApp( {
-    req,
-    initialState: {
-      settings: {
-        prefix,
-        lang,
-        apiRoot: `http://localhost:${config.port}`
-      },
-      res: {
-        get: '/agendas/:uid/admin/settings.json',
-        slugAvailable: '/agendas/slugs/available',
-        set: '/:slug/admin/settings/edit',
-        uploadImage: '/:slug/admin/settings/setImage',
-        clearImage: '/:slug/admin/settings/clearImage',
-        remove: '/:slug/admin/settings/remove',
-        keys: {
-          create: '/:slug/admin/settings/keys/create',
-          list: '/:slug/admin/settings/keys/list',
-          update: '/:slug/admin/settings/keys/update',
-          remove: '/:slug/admin/settings/keys/remove'
-        }
-      },
-      agenda: {
-        uid: req.agenda.uid,
-        slug: req.agenda.slug
-      }
-    }
-  } );
-
-  const { triggerHooks, store, history } = reactApp;
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if ( staticContext.status === 404 ) {
-      return next();
-    }
-
-    if ( staticContext.url ) {
-      return res.redirect( 302, staticContext.url );
-    }
-
-    const { pathname } = history.location;
-    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-      return res.redirect( 302, pathname );
-    }
-
-    const selectedTab = 'settings_' + (history.location.pathname.substr( prefix.length + 1 ) || 'profile');
-
-    res.send( layout( `<div class="js_canvas">${content}</div>`, {
-      selectedTab,
-      role: req.member.role,
-      lang: req.lang,
-      agenda: req.agenda,
-      bodyAttributes: [
-        {
-          name: 'data-options',
-          value: JSON.stringify( { initialState: state } )
-        }
-      ],
-      scripts: {
-        bottom: [ { src: '/js/agendaSettingsEdit.js' } ]
-      }
-    } ) );
-  } catch ( e ) {
-    next( e );
-  }
-}

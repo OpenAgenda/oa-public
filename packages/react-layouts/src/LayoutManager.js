@@ -12,11 +12,17 @@ const CLIENT = typeof window !== 'undefined';
 const DEVELOPMENT = process.env.NODE_ENV === 'development';
 
 function LayoutManager({
-  store, apps, onError, FallbackComponent, children
+  store,
+  history,
+  apps,
+  onError,
+  FallbackComponent,
+  children
 }) {
   return (
     <Provider store={store}>
       <Layout
+        history={history}
         apps={apps}
         onError={onError}
         FallbackComponent={FallbackComponent}

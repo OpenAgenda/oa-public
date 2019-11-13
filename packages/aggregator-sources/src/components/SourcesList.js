@@ -5,7 +5,7 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useDispatch, useSelector } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Image from '@openagenda/react-components/build/Image';
-import MoreInfo from '@openagenda/react-components/components/MoreInfo';
+import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import * as modalsActions from '../reducers/modals';
 import { ruleToValues } from '../utils/rules';
 
@@ -47,12 +47,14 @@ function RulesSummary({ rules }) {
   const intl = useIntl();
 
   const counters = useMemo(
-    () => rules.map(ruleToValues).reduce(
+    () => (rules || []).reduce(
       (accu, next) => {
-        if (next.type === 'location') {
+        const values = ruleToValues(next);
+
+        if (values.type === 'location') {
           accu.geoCount += 1;
         }
-        if (next.type === 'tags') {
+        if (values.type === 'tags') {
           accu.labelCount += 1;
         }
 

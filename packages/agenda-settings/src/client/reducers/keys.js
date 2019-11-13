@@ -15,10 +15,10 @@ const initialState = {
   loaded: false
 };
 
-export default function reducer( state = initialState, action ) {
+export default function reducer(state = initialState, action) {
   let index;
 
-  switch ( action.type ) {
+  switch (action.type) {
     case LOAD:
       return {
         ...state,
@@ -54,7 +54,7 @@ export default function reducer( state = initialState, action ) {
         data: {
           ...state.data,
           total: state.data.total + 1,
-          items: [ ...state.data.items, action.result ]
+          items: [...state.data.items, action.result]
         }
       };
     case CREATE_FAIL:
@@ -70,7 +70,7 @@ export default function reducer( state = initialState, action ) {
         updateError: null
       };
     case UPDATE_SUCCESS:
-      index = state.data.items.findIndex( v => v.key === action.key );
+      index = state.data.items.findIndex(v => v.key === action.key);
       return {
         ...state,
         updateLoading: false,
@@ -78,9 +78,9 @@ export default function reducer( state = initialState, action ) {
         data: {
           ...state.data,
           items: [
-            ...state.data.items.slice( 0, index ),
+            ...state.data.items.slice(0, index),
             action.result,
-            ...state.data.items.slice( index + 1 )
+            ...state.data.items.slice(index + 1)
           ]
         }
       };
@@ -97,7 +97,7 @@ export default function reducer( state = initialState, action ) {
         removeError: null
       };
     case REMOVE_SUCCESS:
-      index = state.data.items.findIndex( v => v.key === action.key );
+      index = state.data.items.findIndex(v => v.key === action.key);
       return {
         ...state,
         removeLoading: false,
@@ -105,8 +105,8 @@ export default function reducer( state = initialState, action ) {
         data: {
           ...state.data,
           items: [
-            ...state.data.items.slice( 0, index ),
-            ...state.data.items.slice( index + 1 )
+            ...state.data.items.slice(0, index),
+            ...state.data.items.slice(index + 1)
           ]
         }
       };
@@ -122,52 +122,56 @@ export default function reducer( state = initialState, action ) {
   }
 }
 
-export function isLoaded( globalState ) {
+export function isLoaded(globalState) {
   return globalState.keys && globalState.keys.loaded;
 }
 
 export function load() {
   return {
-    types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
-    promise: ( { client }, { getState } ) => {
-      const { res, agenda } = getState();
+    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+    promise: ({ client, params }, { getState }) => {
+      const { res } = getState();
 
-      return client.get( res.keys.list.replace( ':slug', agenda.slug ) );
+      return client.get(res.keys.list.replace(':slug', params.slug));
     }
   };
 }
 
-export function create( values ) {
+export function create(values) {
   return {
-    types: [ CREATE, CREATE_SUCCESS, CREATE_FAIL ],
-    promise: ( { client }, { getState } ) => {
-      const { res, agenda } = getState();
+    types: [CREATE, CREATE_SUCCESS, CREATE_FAIL],
+    promise: ({ client, params }, { getState }) => {
+      const { res } = getState();
 
-      return client.post( res.keys.create.replace( ':slug', agenda.slug ), values );
+      return client.post(res.keys.create.replace(':slug', params.slug), values);
     }
   }
 }
 
-export function update( key, values ) {
+export function update(key, values) {
   return {
-    types: [ UPDATE, UPDATE_SUCCESS, UPDATE_FAIL ],
+    types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
     key,
-    promise: ( { client }, { getState } ) => {
-      const { res, agenda } = getState();
+    promise: ({ client, params }, { getState }) => {
+      const { res } = getState();
 
-      return client.patch( res.keys.update.replace( ':slug', agenda.slug ), values, {
+      return client.patch(res.keys.update.replace(':slug', params.slug), values, {
         params: { key }
-      } );
+      });
     }
   }
 }
 
-export function remove( key ) {
+export function remove(key) {
   return {
-    types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
+    types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
     key,
-    promise: ( client, { res, agenda } ) => client.delete( res.keys.remove.replace( ':slug', agenda.slug ), {
-      params: { key }
-    } )
+    promise: ({ client, params }, { getState }) => {
+      const { res } = getState();
+
+      return client.delete(res.keys.remove.replace(':slug', params.slug), {
+        params: { key }
+      });
+    }
   };
 }

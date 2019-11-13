@@ -12,29 +12,29 @@ import * as keysActions from '../../reducers/keys';
 import * as modalsActions from '../../reducers/modals';
 
 
-@provideHooks( {
-  inject: ( { store } ) => store.inject( {
-    form: formReducer.plugin( {
+@provideHooks({
+  inject: ({ store }) => store.inject({
+    form: formReducer.plugin({
       agendaCreation: agendaActions.formPlugin
-    } ),
+    }),
     agenda: agendaActions.default,
     keys: keysActions.default,
     modals: modalsActions.default
-  } ),
-  fetch: async ( { store: { dispatch, getState } } ) => {
+  }),
+  fetch: async ({ store: { dispatch, getState } }) => {
     const promises = [];
 
-    if ( !agendaActions.isLoaded( getState() ) ) {
-      promises.push( dispatch( agendaActions.load() ) );
+    // if ( !agendaActions.isLoaded( getState() ) ) {
+    //   promises.push( dispatch( agendaActions.load() ) );
+    // }
+
+    if (!keysActions.isLoaded(getState())) {
+      promises.push(dispatch(keysActions.load()));
     }
 
-    if ( !keysActions.isLoaded( getState() ) ) {
-      promises.push( dispatch( keysActions.load() ) );
-    }
-
-    return Promise.all( __CLIENT__ ? [] : promises );
+    return Promise.all(__CLIENT__ ? [] : promises);
   }
-} )
+})
 @connect(
   state => ({
     lang: state.settings.lang,
@@ -53,12 +53,12 @@ export default class App extends Component {
 
     return {
       lang,
-      getLabel: ( label, values ) => makeGetterLabel( labels, lang )( label, values )
+      getLabel: (label, values) => makeGetterLabel(labels, lang)(label, values)
     };
   }
 
   render() {
-    const { route, loading } = this.props;
+    const { route, loading, agenda } = this.props;
 
     return (
       <div className="agenda-settings-edit">
@@ -67,7 +67,7 @@ export default class App extends Component {
             <div style={{ margin: '150px 0' }}>
               <Spinner />
             </div>
-          ) : renderRoutes( route.routes )}
+          ) : renderRoutes(route.routes, { agenda })}
       </div>
     );
   }

@@ -1,12 +1,9 @@
 import React, { useMemo } from 'react';
 import * as ReactIs from 'react-is';
-import { useLocation } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
-import {
-  matchRoutes,
-  getParams
-} from '@openagenda/react-utils/dist/asyncMatchRoutes';
+import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 import localeFr from './locales/fr';
 import localeEn from './locales/en';
 
@@ -23,9 +20,7 @@ function getVisibleApps(apps, pathname) {
     if (match.length) {
       accu.push({
         name: appName,
-        app: apps[appName],
-        params: getParams(match),
-        match
+        app: apps[appName]
       });
     }
 
@@ -39,31 +34,35 @@ function NoopLayout({ component: Comp, extraProps }) {
     : Comp;
 }
 
-export default React.memo(({ apps, ...props }) => {
-  const location = useLocation();
-  const visibleApps = useMemo(() => getVisibleApps(apps, location.pathname), [
-    apps,
-    location.pathname
-  ]);
+function Layout({ apps, ...props }) {
+  const history = useHistory();
+  const visibleApps = useMemo(
+    () => getVisibleApps(apps, history.location.pathname).map(({ app }, i) => {
+      const InnerLayout = app.layout || NoopLayout;
+
+      return (
+        <InnerLayout
+          key={
+              InnerLayout.layoutName
+              || InnerLayout.displayName
+              || InnerLayout.name
+              || `InnerLayout${i}`
+            }
+          {...props}
+          history={history}
+          component={app.Content}
+        />
+      );
+    }),
+    [apps, history, props]
+  );
   const lang = useSelector(state => state.main.lang);
 
   return (
     <IntlProvider messages={messages[lang]} locale={lang} key={lang}>
-      {visibleApps.map(({
-        name, app, params, match
-      }) => {
-        const InnerLayout = app.layout || NoopLayout;
-
-        return (
-          <InnerLayout
-            key={name}
-            {...props}
-            params={params}
-            match={match}
-            component={app.Content}
-          />
-        );
-      })}
+      {visibleApps}
     </IntlProvider>
   );
-});
+}
+
+export default Layout;

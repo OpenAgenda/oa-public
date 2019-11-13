@@ -1,25 +1,80 @@
 import _ from 'lodash';
 import React, { useCallback, useEffect, useMemo } from 'react';
 import * as ReactIs from 'react-is';
-import { useSelector, useDispatch } from 'react-redux';
-import { useHistory, matchPath } from 'react-router-dom';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { useLocation, matchPath, Link } from 'react-router-dom';
 import ErrorBoundary from 'react-error-boundary';
-import shallowEqual from 'shallowequal';
 import Image from '@openagenda/react-components/build/Image';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
 import MainLayout from './MainLayout';
 
+const TABS_IN_APP = [
+  'sources',
+  'settings_profile',
+  'settings_contribution',
+  'settings_advanced'
+];
+
+function Sections() {
+  const location = useLocation();
+
+  const sections = useSelector(
+    state => _.get(state, 'agendaAdmin.sections', null),
+    shallowEqual
+  );
+  const locationCount = useSelector(state => _.get(state, 'agendaAdmin.locationCount', null));
+
+  return (sections || []).map(section => (section && section.tabs.length ? (
+    <React.Fragment key={section.label}>
+      <li>
+        <h2>{section.label}</h2>
+      </li>
+
+      {section.tabs.map(({ name, label, link }) => {
+        const selected = matchPath(link, location.pathname);
+        const tabInApp = TABS_IN_APP.includes(name);
+
+        return (
+          <li
+            key={name}
+            className={`menu-item js_menu_item js_menu_item_${name}${
+              selected ? ' selected' : ''
+            }`}
+          >
+            {tabInApp ? (
+              <Link to={link}>{label}</Link>
+            ) : (
+              <a className={selected ? 'active' : ''} href={link}>
+                {label}
+              </a>
+            )}
+            {name === 'locations' && locationCount ? (
+              <>
+                {' '}
+                <span className="badge badge-warning">{locationCount}</span>
+              </>
+            ) : null}
+          </li>
+        );
+      })}
+    </React.Fragment>
+  ) : null));
+}
+
 function AgendaAdminLayout({
+  history,
   component: Comp,
   onError,
-  FallbackComponent,
-  params
+  FallbackComponent
 }) {
-  const history = useHistory();
+  const { params } = useMemo(
+    () => matchPath(history.location.pathname, '/:slug'),
+    [history.location.pathname]
+  );
 
   const dispatch = useDispatch();
-  const loadAgenda = useCallback(
+  const loadLayoutData = useCallback(
     () => dispatch(agendaAdminActions.load(params.slug)),
     [dispatch, params.slug]
   );
@@ -29,8 +84,8 @@ function AgendaAdminLayout({
   );
 
   useEffect(() => {
-    loadAgenda();
-  }, [loadAgenda]);
+    loadLayoutData();
+  }, [loadLayoutData]);
 
   useEffect(() => {
     verifyLocationCount();
@@ -39,10 +94,19 @@ function AgendaAdminLayout({
   const lang = useSelector(state => state.main.lang);
   const user = useSelector(state => _.get(state, 'main.settings', null));
   const isLoading = useSelector(state => _.get(state, 'agendaAdmin.loading', true));
-  const agenda = useSelector(state => _.get(state, 'agendaAdmin.data')) || {};
-  const role = useSelector(state => _.get(state, 'agendaAdmin.role', null));
-  const sections = useSelector(state => _.get(state, 'agendaAdmin.sections')) || [];
-  const locationCount = useSelector(state => _.get(state, 'agendaAdmin.locationCount', null));
+  const loadError = useSelector(state => _.get(state, 'agendaAdmin.error', null));
+  const agenda = useSelector(
+    state => _.get(state, 'agendaAdmin.data', null),
+    shallowEqual
+  );
+  const role = useSelector(
+    state => _.get(state, 'agendaAdmin.role', null),
+    shallowEqual
+  );
+  const sections = useSelector(
+    state => _.get(state, 'agendaAdmin.sections', null),
+    shallowEqual
+  );
 
   const extraProps = useMemo(() => ({ agenda, role, sections }), [
     agenda,
@@ -78,44 +142,10 @@ function AgendaAdminLayout({
     [FallbackComponent, lang]
   );
 
-  const Sections = useCallback(
-    ({ pathname }) => sections.map(section => (section && section.tabs.length ? (
-      <React.Fragment key={section.label}>
-        <li>
-          <h2>{section.label}</h2>
-        </li>
-
-        {section.tabs.map(({ name, label, link }) => {
-          const selected = matchPath(link, pathname);
-
-          return (
-            <li
-              key={name}
-              className={`menu-item js_menu_item js_menu_item_${name}${
-                selected ? ' selected' : ''
-              }`}
-            >
-              <a className={selected ? 'active' : ''} href={link}>
-                {label}
-              </a>
-              {name === 'locations' && locationCount ? (
-                <>
-                  {' '}
-                  <span className="badge badge-warning">
-                    {locationCount}
-                  </span>
-                </>
-              ) : null}
-            </li>
-          );
-        })}
-      </React.Fragment>
-    ) : null)),
-    [sections, locationCount]
-  );
-
-  const component = useCallback(
-    () => (
+  const layout = useCallback(
+    ({ children }) => (isLoading ? (
+      <Loading />
+    ) : (
       <div className="container agenda-admin">
         <div className="row wsq header">
           {agenda.image ? (
@@ -124,10 +154,10 @@ function AgendaAdminLayout({
                 <Image
                   src={agenda.image}
                   fallbackSrc={
-                    process.env.NODE_ENV === 'development'
-                      ? agenda.image.replace('cibuldev', 'cibul')
-                      : null
-                  }
+                      process.env.NODE_ENV === 'development'
+                        ? agenda.image.replace('cibuldev', 'cibul')
+                        : null
+                    }
                   alt={agenda.title}
                 />
               </a>
@@ -138,7 +168,7 @@ function AgendaAdminLayout({
             <h1>{agenda.title}</h1>
             <p>Administration</p>
             <a className="url" href={`/${agenda.slug}`}>
-              Retour
+                Retour
             </a>
           </div>
         </div>
@@ -146,33 +176,32 @@ function AgendaAdminLayout({
         <div className="row wsq">
           <div className="col col-sm-3 nav">
             <ul className="list-unstyled">
-              <Sections pathname={history.location.pathname} />
+              <Sections />
             </ul>
           </div>
 
           <div className="col col-sm-9 body" style={{ paddingTop: 0 }}>
-            <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
-              {ReactIs.isValidElementType(Comp)
-                ? React.createElement(Comp, { onError, extraProps })
-                : Comp}
+            <ErrorBoundary
+              onError={onError}
+              FallbackComponent={ErrorComponent}
+            >
+              {children}
             </ErrorBoundary>
           </div>
         </div>
       </div>
-    ),
-    [
-      agenda.image,
-      agenda.slug,
-      agenda.title,
-      history.location.pathname,
-      onError,
-      ErrorComponent,
-      Comp,
-      extraProps
-    ]
+    )),
+    [isLoading, agenda, onError, ErrorComponent]
   );
 
-  if (!isLoading && !agenda.uid) {
+  const content = useMemo(
+    () => (ReactIs.isValidElementType(Comp)
+      ? React.createElement(Comp, { onError, extraProps })
+      : Comp),
+    [Comp, onError, extraProps]
+  );
+
+  if (loadError) {
     if (user) {
       history.replace('/home');
     } else {
@@ -180,17 +209,19 @@ function AgendaAdminLayout({
     }
 
     // Display Loading waiting redirection
-    return <MainLayout component={Loading} params={params} />;
+    return <MainLayout history={history} component={Loading} />;
   }
 
   return (
-    <MainLayout component={isLoading ? Loading : component} params={params} />
+    <MainLayout
+      history={history}
+      layout={layout}
+      component={content}
+      extraProps={extraProps}
+    />
   );
 }
 
-export default React.memo(
-  AgendaAdminLayout,
-  (prevProps, nextProps) => prevProps.component === nextProps.component
-    && shallowEqual(prevProps.params, nextProps.params)
-    && shallowEqual(prevProps.match, nextProps.match)
-);
+AgendaAdminLayout.layoutName = 'AgendaAdminLayout';
+
+export default AgendaAdminLayout;

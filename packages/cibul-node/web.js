@@ -37,9 +37,9 @@ module.exports = app => {
   require('./location/front')(app);
   require('./agenda/customized.back')(app);
   require('./services/aggregators').plugApp(app);
+  require('./agenda/settings.back')(app);
   require('./webapp')(app);
   require('./location/back')(app);
-  require('./agenda/settings.back')(app);
   require('./services/agendas').plugApp(app);
   require('./services/members')(app);
   require('./agenda/activities.back')(app);

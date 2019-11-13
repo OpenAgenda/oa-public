@@ -19,10 +19,16 @@ import AgendaAdminLayout from '@openagenda/react-layouts/src/layouts/AgendaAdmin
 import createAppHome from '@openagenda/home/src/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp';
+import createAgendaSettingsEditApp from '@openagenda/agenda-settings/src/client/editApp';
 import createActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
 import Root from './Root';
 // import reflectStoresInLayout from '../reflectStoresInLayout';
+
+// if (process.env.NODE_ENV === 'development') {
+//   const whyDidYouRender = require('@welldone-software/why-did-you-render');
+//   whyDidYouRender(React);
+// }
 
 window.IScroll = IScroll;
 
@@ -60,6 +66,11 @@ const apps = {
   aggregatorSources: createAggregatorSourcesApp({
     history,
     initialState: initialState.aggregatorSources,
+    layout: AgendaAdminLayout
+  }),
+  agendaSettingsEdit: createAgendaSettingsEditApp({
+    history,
+    initialState: initialState.agendaSettingsEdit,
     layout: AgendaAdminLayout
   })
 };

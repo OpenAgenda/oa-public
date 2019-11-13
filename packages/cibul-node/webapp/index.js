@@ -105,7 +105,7 @@ const initialState = req => ({
   },
   aggregatorSources: {
     settings: {
-      prefix: `/:slug/admin/sources`,
+      prefix: '/:slug/admin/sources',
       lang: req.lang,
       apiRoot: `http://localhost:${config.port}`,
       perPageLimit: 20
@@ -119,6 +119,26 @@ const initialState = req => ({
       createAggregator: `${phpPrefix}/agenda/:uid/aggregator/create`,
       agendaSearch: '/agendas.json',
       getAgenda: '/:slug'
+    }
+  },
+  agendaSettingsEdit: {
+    settings: {
+      prefix: '/:slug/admin/settings',
+      lang: req.lang,
+      apiRoot: `http://localhost:${config.port}`
+    },
+    res: {
+      slugAvailable: '/agendas/slugs/available',
+      set: '/:slug/admin/settings/edit',
+      uploadImage: '/:slug/admin/settings/setImage',
+      clearImage: '/:slug/admin/settings/clearImage',
+      remove: '/:slug/admin/settings/remove',
+      keys: {
+        create: '/:slug/admin/settings/keys/create',
+        list: '/:slug/admin/settings/keys/list',
+        update: '/:slug/admin/settings/keys/update',
+        remove: '/:slug/admin/settings/keys/remove'
+      }
     }
   }
 });
@@ -148,11 +168,14 @@ module.exports = app => {
       '/home/activities',
       // user-apps
       '/settings/?*?',
-      // agenda-settings
+      // agenda-settings/new
       '/new',
       // aggregator-sources
       '/:slug/admin/sources',
-      '/:slug/admin/sources/?*?'
+      '/:slug/admin/sources/?*?',
+      // agenda-settings/edit
+      '/:slug/admin/settings',
+      '/:slug/admin/settings/?*?'
     ],
     cmn.loadLogger('webapp'),
     cmn.loadBaseData('oasfmain.css'),

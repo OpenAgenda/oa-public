@@ -17,6 +17,7 @@ const AgendaAdminLayout = require('@openagenda/react-layouts/dist/layouts/Agenda
 const createHomeApp = require('@openagenda/home/dist/app');
 const createUserSettingsApp = require('@openagenda/user-apps/dist/app');
 const createAgendaSettingsNewApp = require('@openagenda/agenda-settings/dist/client/createApp');
+const createAgendaSettingsEditApp = require('@openagenda/agenda-settings/dist/client/editApp');
 const createActivitiesApp = require('@openagenda/activity-apps/dist/client/apps/user');
 const createAggregatorSourcesApp = require('@openagenda/aggregator-sources/dist/app');
 const RootHelmet = require('./RootHelmet');
@@ -66,6 +67,12 @@ module.exports = function match({ initialState, apiRoot, lang, publicPath }) {
           req,
           history,
           initialState: state.aggregatorSources,
+          layout: AgendaAdminLayout
+        }),
+        agendaSettingsEdit: createAgendaSettingsEditApp({
+          req,
+          history,
+          initialState: state.agendaSettingsEdit,
           layout: AgendaAdminLayout
         })
       };
@@ -126,7 +133,7 @@ module.exports = function match({ initialState, apiRoot, lang, publicPath }) {
         {
           Content: () => React.createElement(
             LayoutManager,
-            { store: layoutStore, apps },
+            { store: layoutStore, history, apps },
             React.createElement(RootHelmet),
             element
           ),

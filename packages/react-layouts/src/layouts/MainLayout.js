@@ -2,11 +2,9 @@ import React, { useState, useCallback, useEffect } from 'react';
 import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 import ErrorBoundary from 'react-error-boundary';
 import classNames from 'classnames';
-import shallowEqual from 'shallowequal';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
 import * as mainActions from '../reducers/main';
 
@@ -108,15 +106,16 @@ const HelpLink = React.memo(() => {
 });
 
 function MainLayout({
+  history,
+  layout: Layout,
   component: Comp,
   onError,
   FallbackComponent,
   extraProps
 }) {
-  const [userPanelOpened, setUserPanelOpened] = useState(false);
-
-  const history = useHistory();
   const intl = useIntl();
+
+  const [userPanelOpened, setUserPanelOpened] = useState(false);
 
   const lang = useSelector(state => state.main.lang);
   const user = useSelector(state => state.main.user);
@@ -188,6 +187,10 @@ function MainLayout({
     props => React.createElement(FallbackComponent, { ...props, lang }),
     [FallbackComponent, lang]
   );
+
+  const content = ReactIs.isValidElementType(Comp)
+    ? React.createElement(Comp, { onError, extraProps })
+    : Comp;
 
   return (
     <>
@@ -329,17 +332,16 @@ function MainLayout({
       </nav>
 
       <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
-        {ReactIs.isValidElementType(Comp)
-          ? React.createElement(Comp, { extraProps })
-          : Comp}
+        {ReactIs.isValidElementType(Layout) ? (
+          <Layout extraProps={extraProps}>{content}</Layout>
+        ) : (
+          content
+        )}
       </ErrorBoundary>
     </>
   );
 }
 
-export default React.memo(
-  MainLayout,
-  (prevProps, nextProps) => prevProps.component === nextProps.component
-    && shallowEqual(prevProps.params, nextProps.params)
-    && shallowEqual(prevProps.match, nextProps.match)
-);
+MainLayout.layoutName = 'MainLayout';
+
+export default React.memo(MainLayout);
