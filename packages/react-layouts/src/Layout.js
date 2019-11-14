@@ -1,8 +1,9 @@
-import React, { useMemo } from 'react';
+import React from 'react';
+import { useMemoOne, useCallbackOne } from 'use-memo-one';
 import * as ReactIs from 'react-is';
 import { useHistory } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
-import { useSelector } from 'react-redux';
+import { useSelector, shallowEqual } from 'react-redux';
 import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 import localeFr from './locales/fr';
 import localeEn from './locales/en';
@@ -12,16 +13,23 @@ const messages = {
   en: localeEn
 };
 
-function getVisibleApps(apps, pathname) {
+function getVisibleAppsByLayout(apps, pathname) {
   return Object.keys(apps).reduce((accu, appName) => {
     const { routes } = apps[appName];
     const match = matchRoutes(routes, pathname);
+    const app = apps[appName];
 
     if (match.length) {
-      accu.push({
-        name: appName,
-        app: apps[appName]
-      });
+      const found = accu.find(v => v.layout === app.layout);
+
+      if (found) {
+        found.visibleApps[appName] = app;
+      } else {
+        accu.push({
+          layout: app.layout,
+          visibleApps: { [appName]: app }
+        });
+      }
     }
 
     return accu;
@@ -34,33 +42,67 @@ function NoopLayout({ component: Comp, extraProps }) {
     : Comp;
 }
 
+const AppsDisplayer = React.memo(
+  ({
+    layout: GroupLayout, history, apps, ...props
+  }) => {
+    const component = useCallbackOne(
+      componentProps => Object.keys(apps).map(name => {
+        const { Content } = apps[name];
+
+        return <Content key={name} {...componentProps} />;
+      }),
+      [apps]
+    );
+
+    return <GroupLayout history={history} {...props} component={component} />;
+  },
+  (prevProps, nextProps) => {
+    const { apps: prevApps, ...prevOthers } = prevProps;
+    const { apps: nextApps, ...nextOthers } = nextProps;
+
+    return (
+      shallowEqual(prevApps, nextApps) && shallowEqual(prevOthers, nextOthers)
+    );
+  }
+);
+
+AppsDisplayer.displayName = 'AppsDisplayer';
+
 function Layout({ apps, ...props }) {
   const history = useHistory();
-  const visibleApps = useMemo(
-    () => getVisibleApps(apps, history.location.pathname).map(({ app }, i) => {
-      const InnerLayout = app.layout || NoopLayout;
+
+  const visibleAppsByLayout = useMemoOne(
+    () => getVisibleAppsByLayout(apps, history.location.pathname),
+    [apps, history.location.pathname]
+  );
+
+  const layouts = useMemoOne(
+    () => visibleAppsByLayout.map(({ layout, visibleApps }, i) => {
+      const InnerLayout = layout || NoopLayout;
+      const layoutName = InnerLayout.layoutName
+          || InnerLayout.displayName
+          || InnerLayout.name
+          || `InnerLayout${i}`;
 
       return (
-        <InnerLayout
-          key={
-              InnerLayout.layoutName
-              || InnerLayout.displayName
-              || InnerLayout.name
-              || `InnerLayout${i}`
-            }
+        <AppsDisplayer
+          key={layoutName}
           {...props}
           history={history}
-          component={app.Content}
+          layout={InnerLayout}
+          apps={visibleApps}
         />
       );
     }),
-    [apps, history, props]
+    [visibleAppsByLayout, history, props]
   );
+
   const lang = useSelector(state => state.main.lang);
 
   return (
     <IntlProvider messages={messages[lang]} locale={lang} key={lang}>
-      {visibleApps}
+      {layouts}
     </IntlProvider>
   );
 }

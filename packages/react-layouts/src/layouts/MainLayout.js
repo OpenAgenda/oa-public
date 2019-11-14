@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import OutsideClickHandler from 'react-outside-click-handler';
 import ErrorBoundary from 'react-error-boundary';
 import classNames from 'classnames';
@@ -118,7 +118,7 @@ function MainLayout({
   const [userPanelOpened, setUserPanelOpened] = useState(false);
 
   const lang = useSelector(state => state.main.lang);
-  const user = useSelector(state => state.main.user);
+  const user = useSelector(state => state.main.user, shallowEqual);
   const apiRoot = useSelector(state => state.main.apiRoot);
   const inboxLoaded = useSelector(state => state.main.inboxLoaded);
   const hasInboxNews = useSelector(state => state.main.hasInboxNews);
