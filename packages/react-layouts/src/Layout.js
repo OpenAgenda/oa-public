@@ -1,10 +1,10 @@
 import React from 'react';
-import { useMemo, useCallback } from 'use-memo-one';
 import * as ReactIs from 'react-is';
 import { useHistory } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
 import { useSelector, shallowEqual } from 'react-redux';
 import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
+import { useMemoOne, useCallbackOne } from './hooks/useMemoOne';
 import localeFr from './locales/fr';
 import localeEn from './locales/en';
 
@@ -46,7 +46,7 @@ const AppsDisplayer = React.memo(
   ({
     layout: GroupLayout, history, apps, ...props
   }) => {
-    const component = useCallback(
+    const component = useCallbackOne(
       componentProps => Object.keys(apps).map(name => {
         const { Content } = apps[name];
 
@@ -72,12 +72,12 @@ AppsDisplayer.displayName = 'AppsDisplayer';
 function Layout({ apps, ...props }) {
   const history = useHistory();
 
-  const visibleAppsByLayout = useMemo(
+  const visibleAppsByLayout = useMemoOne(
     () => getVisibleAppsByLayout(apps, history.location.pathname),
     [apps, history.location.pathname]
   );
 
-  const layouts = useMemo(
+  const layouts = useMemoOne(
     () => visibleAppsByLayout.map(({ layout, visibleApps }, i) => {
       const InnerLayout = layout || NoopLayout;
       const layoutName = InnerLayout.layoutName
