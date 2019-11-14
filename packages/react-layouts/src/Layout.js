@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMemoOne, useCallbackOne } from 'use-memo-one';
+import { useMemo, useCallback } from 'use-memo-one';
 import * as ReactIs from 'react-is';
 import { useHistory } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
@@ -46,7 +46,7 @@ const AppsDisplayer = React.memo(
   ({
     layout: GroupLayout, history, apps, ...props
   }) => {
-    const component = useCallbackOne(
+    const component = useCallback(
       componentProps => Object.keys(apps).map(name => {
         const { Content } = apps[name];
 
@@ -72,12 +72,12 @@ AppsDisplayer.displayName = 'AppsDisplayer';
 function Layout({ apps, ...props }) {
   const history = useHistory();
 
-  const visibleAppsByLayout = useMemoOne(
+  const visibleAppsByLayout = useMemo(
     () => getVisibleAppsByLayout(apps, history.location.pathname),
     [apps, history.location.pathname]
   );
 
-  const layouts = useMemoOne(
+  const layouts = useMemo(
     () => visibleAppsByLayout.map(({ layout, visibleApps }, i) => {
       const InnerLayout = layout || NoopLayout;
       const layoutName = InnerLayout.layoutName
