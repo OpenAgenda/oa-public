@@ -117,27 +117,27 @@ module.exports = app => {
         return core.agendas(req.agenda.uid)
           .events
           .get(uid, { detailed: true })
+          .then(result => {
+            if (!result) {
+              return next(new VError({
+                info: {
+                  url: req.originalUrl,
+                  agenda: req.agenda,
+                  eventSlug: req.params.eventSlug,
+                  eventUid: uid
+                }
+              }, 'Event not found'));
+            }
+
+            req.event = result;
+
+            if (!result.timings) {
+              throw new Error(`Event slug:${req.params.eventSlug} does not have timings !`);
+            }
+
+            next();
+          })
       })
-        .then(result => {
-          if (!result) {
-            return next(new VError({
-              info: {
-                url: req.originalUrl,
-                agenda: req.agenda,
-                eventSlug: req.params.eventSlug,
-                eventUid: uid
-              }
-            }, 'Event not found'));
-          }
-
-          req.event = result;
-
-          if (!result.timings) {
-            throw new Error(`Event slug:${req.params.eventSlug} does not have timings !`);
-          }
-
-          next();
-        })
         .catch(next),
     (req, res, next) => {
       res.set('Content-Type', 'text/calendar; charset=utf-8');
