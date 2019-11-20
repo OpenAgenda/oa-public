@@ -57,14 +57,7 @@ module.exports = app => {
         .get(uid, { detailed: true })
         .then(result => {
           if (!result) {
-            return next(new VError({
-              info: {
-                url: req.originalUrl,
-                agenda: req.agenda,
-                eventSlug: req.params.eventSlug,
-                eventUid: uid
-              }
-            }, 'Event not found'));
+            return next({ code: 404 });
           }
 
           req.event = result;
@@ -109,29 +102,42 @@ module.exports = app => {
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
     (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
-      .then(uid => core.agendas(req.agenda.uid)
-        .events
-        .get(uid, { detailed: true }))
-        .then(result => {
-          if (!result) {
-            return next(new VError({
-              info: {
-                url: req.originalUrl,
-                agenda: req.agenda,
-                eventSlug: req.params.eventSlug,
-                eventUid: uid
-              }
-            }, 'Event not found'));
-          }
+      .then(uid => {
+        if (!uid) {
+          return next(new VError({
+            info: {
+              url: req.originalUrl,
+              agenda: req.agenda,
+              eventSlug: req.params.eventSlug,
+              eventUid: uid
+            }
+          }, 'Event not found'));
+        }
 
-          req.event = result;
+        return core.agendas(req.agenda.uid)
+          .events
+          .get(uid, { detailed: true })
+          .then(result => {
+            if (!result) {
+              return next(new VError({
+                info: {
+                  url: req.originalUrl,
+                  agenda: req.agenda,
+                  eventSlug: req.params.eventSlug,
+                  eventUid: uid
+                }
+              }, 'Event not found'));
+            }
 
-          if (!result.timings) {
-            throw new Error(`Event slug:${req.params.eventSlug} does not have timings !`);
-          }
+            req.event = result;
 
-          next();
-        })
+            if (!result.timings) {
+              throw new Error(`Event slug:${req.params.eventSlug} does not have timings !`);
+            }
+
+            next();
+          })
+      })
         .catch(next),
     (req, res, next) => {
       res.set('Content-Type', 'text/calendar; charset=utf-8');
