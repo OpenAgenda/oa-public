@@ -1,7 +1,8 @@
-import React, { useMemo, useEffect, useLayoutEffect } from 'react';
+import React, { useMemo } from 'react';
 import { hot } from 'react-hot-loader/root';
+import { provideHooks } from 'redial';
 import { IntlProvider } from 'react-intl';
-import { useStore, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import modalsReducer from '../reducers/modals';
 import sourcesReducer from '../reducers/sources';
@@ -13,19 +14,7 @@ const messages = {
   en: localeEn
 };
 
-const useIsomorphicEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect;
-
 function App({ route, agenda }) {
-  const store = useStore();
-
-  useIsomorphicEffect(
-    () => store.inject({
-      modals: modalsReducer,
-      sources: sourcesReducer
-    }),
-    []
-  );
-
   const lang = useSelector(state => state.settings.lang);
 
   const children = useMemo(() => renderRoutes(route.routes, { agenda }), [
@@ -40,4 +29,9 @@ function App({ route, agenda }) {
   );
 }
 
-export default module.hot ? hot(App) : App;
+export default provideHooks({
+  inject: ({ store }) => store.inject({
+    modals: modalsReducer,
+    sources: sourcesReducer
+  })
+})(module.hot ? hot(App) : App);
