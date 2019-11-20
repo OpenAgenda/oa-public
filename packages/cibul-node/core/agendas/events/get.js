@@ -8,6 +8,8 @@ const log = require('@openagenda/logs')('core/agendas/events/get');
 const getAgenda = require('../utils/getAgenda');
 const getMergedSchema = require('../settings/getMergedSchema');
 const getNetwork = require('../utils/getNetwork');
+const createPayload = require('../utils/createPayload');
+const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
 
 module.exports = async (services, agendaUid, eventUid, options = {}) => {
   const {
@@ -24,81 +26,60 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     access,
     includeSchema,
     detailed
-  } = Object.assign({
+  } = {
     internal: false, // load internal use fields ( id )
     lang: null,
     customOnly: false, // only fetch custom values
     access: null, // filter to values matching specific access rights
     includeSchema: false,
-    detailed: false
-  }, options);
+    detailed: false,
+    ...options
+  };
 
-  const agendaEvent = await agendaEvents(agendaUid).get(eventUid);
+  const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
 
-  const agenda = await getAgenda(agendaUid);
+  const payload = createPayload(services, agenda, 'get');
+
+  payload.setItem('agendaEvent', await agendaEvents(agendaUid).get(eventUid));
 
   const {
-    formSchemaId,
-    networkUid,
     id: agendaId
   } = agenda;
 
-  const result = {
-    event: {}
-  };
-
-  let network;
-
   if (!customOnly) {
-    Object.assign(
-      result.event,
-      await events
-        .get({
-          uid: eventUid
-        }, {
-          internal, detailed
-        }).then(e => _.omit(e, ['id']))
-      );
+    const { event } = await events.get({
+      uid: eventUid
+    }, {
+      internal, detailed
+    }).then(e => _.omit(e, ['id']));
+
+    payload.setItem(
+      'event',
+      lang ? _flatten(event) : event
+    );
   }
 
-  const eventIsLoaded = _eventIsLoaded(result.event);
+  if (
+    payload.hasItem('event') &&
+    !payload.hasItem('agendaEvent') &&
+    !payload.getItem('event').draft
+  ) return null;
 
-  if (eventIsLoaded && !result.event.draft && !agendaEvent) {
-    return null;
-  };
+  const loadCustomFields = payload.hasItem('event') || customOnly;
 
-  if (agendaEvent) {
-    Object.assign(result.event, {
-      state: agendaEvent.state,
-      featured: agendaEvent.featured
-    });
+  if (loadCustomFields && agenda.formSchemaId) {
+    payload.setItem(
+      'custom.agenda',
+      await custom(formSchemaId).get(eventUid)
+    );
   }
 
-  const loadCustomFields = eventIsLoaded || customOnly;
-
-  if (loadCustomFields && formSchemaId) {
-    const customData = await custom(formSchemaId).get(eventUid);
-
-    if (customData) {
-      Object.assign(result.event, customData);
-    }
+  if (loadCustomFields && agenda.network) {
+    payload.setItem(
+      'custom.network',
+      await custom(_.get(agenda, 'network.formSchemaId')).get(eventUid)
+    );
   }
-
-  if (loadCustomFields && networkUid) {
-    network = await getNetwork(networkUid);
-
-    const customData = await custom(_.get(network, 'formSchemaId')).get(eventUid);
-
-    if (customData) {
-      Object.assign(result.event, customData);
-    }
-  }
-
-  result.event = _.set(
-    lang ? _flatten(result.event, lang) : result.event,
-    'agenda',
-    _.pick(agenda, ['uid', 'slug', 'title', 'description', 'image', 'url'].concat( internal ? ['id'] : [] ) )
-  );
 
   if (includeSchema || access) {
     result.schema = await getMergedSchema(agenda, { preloadedNetwork: network });
@@ -128,8 +109,8 @@ function _filterByAccess(data, access = null) {
 }
 
 
-function _eventIsLoaded(data) {
-  return !!_.get(data, 'uid');
+function _eventIsLoaded(payload) {
+  return !!payload.getItem('event');
 }
 
 

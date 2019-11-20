@@ -106,5 +106,5 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   });
 
   // same for draft or not
-  return payload.getResponse();
+  return payload.getResponse(true);
 }

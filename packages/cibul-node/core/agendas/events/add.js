@@ -58,5 +58,5 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     sourceAgenda
   });
 
-  return payload.getResponse();
+  return payload.getResponse(true);
 }

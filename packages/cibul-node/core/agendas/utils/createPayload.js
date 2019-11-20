@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const merge = require('./merge');
 
-module.exports = (services, agenda, operation) => {
+module.exports = (services, agenda, primaryKey, options) => {
   const data = {
     agendas: {
       current: agenda,
@@ -15,19 +15,25 @@ module.exports = (services, agenda, operation) => {
     }
   };
 
+  const getItem = key => _.get(data.services.after, key);
+
   return {
     setItem: setItem.bind(null, data),
-    getResponse: makeGetResponse(services, data, operation),
+    getResponse: makeGetResponse(services, data, primaryKey),
     getAgenda: () => data.agendas.current,
     getEvent: () => data.services.before.event || data.services.after.event,
-    getItem: key => _.get(data.services.after, key),
-    getOperation: () => operation
+    getItem,
+    hasItem: key => getItem(key)
+    getPrimaryKey: () => primaryKey
   }
 }
 
-function makeGetResponse(services, data, operation) {
+function makeGetResponse(services, data, primaryKey) {
   let response = null;
-  return async clear => {
+  return async (fullPayload = false, clear = false) => {
+    if (!fullPayload) {
+      return merge.eventFromObject(data.services.after);
+    }
     if (clear || !response) {
       await loadOriginAgenda(services, data);
 
@@ -40,7 +46,7 @@ function makeGetResponse(services, data, operation) {
           _.get(data, 'agendas.current.network.formSchema'),
           _.get(data, 'agendas.current.formSchema') // there, the event schema is not set.
         ),
-        [operation]: merge.eventFromObject(data.services.after),
+        [primaryKey]: merge.eventFromObject(data.services.after),
         before: data.services.before.agendaEvent ? merge.eventFromObject(data.services.before) : null
       }
     }
@@ -64,7 +70,7 @@ async function loadOriginAgenda(services, data) {
   return data.agendas.origin;
 }
 
-function setItem({ services }, name, before, after) {
-  _.set(services, `before.${name}`, before);
-  _.set(services, `after.${name}`, after);
+function setItem({ services }, name, ...args) {
+  _.set(services, `before.${name}`, args.length === 2 ? args[0] : null);
+  _.set(services, `after.${name}`, args.length === 2 ? args[1] : args[0]);
 }

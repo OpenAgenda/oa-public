@@ -51,7 +51,7 @@ async function loadOtherUpdates({ agendaEvents, eventSearch, queue }, agendaUid,
 
 function otherUpdate({ eventSearch, core }, agendaUid, eventUid) {
   log('otherUpdate', agendaUid, eventUid);
-  // core get needs some work IAMHERE
+  // core get needs some work xx
   // core get to get info to
   /**
    const data = formatEventForIndex(agenda, formSchema, event, member);

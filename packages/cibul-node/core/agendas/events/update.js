@@ -84,14 +84,14 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
       internal: true,
       transferToLegacy: !draft,
       draft
-    } );
+    });
   } catch (e) {
-    log( 'error', 'failed to update event', {
+    log('error', 'failed to update event', {
       agendaUid: agenda.uid,
       eventUid,
       eventServiceDataFormat,
       error: e
-    } );
+    });
     throw e;
   }
 
@@ -138,7 +138,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   }
 
   if (draft) {
-    return payload.getResponse();
+    return payload.getResponse(true);
   }
 
   // event is not draft (anymore)

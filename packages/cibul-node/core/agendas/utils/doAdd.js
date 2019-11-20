@@ -122,14 +122,14 @@ module.exports = async (services, payload, clean, options = {}) => {
     log('error', 'could not update legacy search for event %s', event.uid);
   }
 
-  const response = payload.getResponse();
+  const response = payload.getResponse(true);
 
   try {
     await eventSearch.add({
       agenda,
       formSchema: response.formSchema,
       member: response.member,
-      event: response[payload.getOperation()]
+      event: payload.getResponse()
     });
   } catch (e) {
     log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid);
