@@ -1,10 +1,11 @@
 import React from 'react';
 import * as ReactIs from 'react-is';
-import { useHistory } from 'react-router-dom';
 import { IntlProvider } from 'react-intl';
-import { useSelector, shallowEqual } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useHistory, useLocation } from 'react-router-dom';
+import shallowEqual from 'shallowequal';
 import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
-import { useMemoOne, useCallbackOne } from './hooks/useMemoOne';
+import { useMemoOne } from './hooks/useMemoOne';
 import localeFr from './locales/fr';
 import localeEn from './locales/en';
 
@@ -20,7 +21,7 @@ function getVisibleAppsByLayout(apps, pathname) {
     const app = apps[appName];
 
     if (match.length) {
-      const found = accu.find(v => v.layout === app.layout);
+      const found = accu.find(v => shallowEqual(v.layout, app.layout));
 
       if (found) {
         found.visibleApps[appName] = app;
@@ -36,33 +37,37 @@ function getVisibleAppsByLayout(apps, pathname) {
   }, []);
 }
 
-function NoopLayout({ component: Comp, extraProps }) {
-  return ReactIs.isValidElementType(Comp)
-    ? React.createElement(Comp, { extraProps })
-    : Comp;
+function NoopLayout({ children, ...props }) {
+  return ReactIs.isValidElementType(children)
+    ? React.createElement(children, props)
+    : children;
 }
 
 const AppsDisplayer = React.memo(
-  ({
-    layout: GroupLayout, history, apps, ...props
-  }) => {
-    const component = useCallbackOne(
-      componentProps => Object.keys(apps).map(name => {
-        const { Content } = apps[name];
+  ({ layout: FirstLayout, apps, ...props }) => {
+    const Comp = componentProps => Object.keys(apps).map(name => React.createElement(apps[name].Content, {
+      key: name,
+      ...componentProps
+    }));
 
-        return <Content key={name} {...componentProps} />;
-      }),
-      [apps]
-    );
-
-    return <GroupLayout history={history} {...props} component={component} />;
+    return <FirstLayout {...props}>{Comp}</FirstLayout>;
   },
   (prevProps, nextProps) => {
-    const { apps: prevApps, ...prevOthers } = prevProps;
-    const { apps: nextApps, ...nextOthers } = nextProps;
+    const {
+      apps: prevApps,
+      childLayouts: prevLayouts,
+      ...prevOthers
+    } = prevProps;
+    const {
+      apps: nextApps,
+      childLayouts: nextLayouts,
+      ...nextOthers
+    } = nextProps;
 
     return (
-      shallowEqual(prevApps, nextApps) && shallowEqual(prevOthers, nextOthers)
+      shallowEqual(prevApps, nextApps)
+      && shallowEqual(prevLayouts, nextLayouts)
+      && shallowEqual(prevOthers, nextOthers)
     );
   }
 );
@@ -71,18 +76,21 @@ AppsDisplayer.displayName = 'AppsDisplayer';
 
 function Layout({ apps, ...props }) {
   const history = useHistory();
+  const location = useLocation();
 
   const visibleAppsByLayout = useMemoOne(
-    () => getVisibleAppsByLayout(apps, history.location.pathname),
-    [apps, history.location.pathname]
+    () => getVisibleAppsByLayout(apps, location.pathname),
+    [apps, location.pathname]
   );
 
   const layouts = useMemoOne(
     () => visibleAppsByLayout.map(({ layout, visibleApps }, i) => {
-      const InnerLayout = layout || NoopLayout;
-      const layoutName = InnerLayout.layoutName
-          || InnerLayout.displayName
-          || InnerLayout.name
+      const [FirstLayout, ...childLayouts] = (Array.isArray(layout)
+        ? layout
+        : [layout]) || [NoopLayout];
+      const layoutName = FirstLayout.layoutName
+          || FirstLayout.displayName
+          || FirstLayout.name
           || `InnerLayout${i}`;
 
       return (
@@ -90,12 +98,13 @@ function Layout({ apps, ...props }) {
           key={layoutName}
           {...props}
           history={history}
-          layout={InnerLayout}
+          layout={FirstLayout}
+          childLayouts={childLayouts}
           apps={visibleApps}
         />
       );
     }),
-    [visibleAppsByLayout, history, props]
+    [visibleAppsByLayout, props]
   );
 
   const lang = useSelector(state => state.main.lang);

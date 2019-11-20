@@ -1,11 +1,12 @@
 import React, { useState, useCallback, useEffect } from 'react';
-import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
+import { Link } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 import ErrorBoundary from 'react-error-boundary';
 import classNames from 'classnames';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
+import useChildLayouts from '../hooks/useChildLayouts';
 import * as mainActions from '../reducers/main';
 
 const messages = defineMessages({
@@ -51,15 +52,10 @@ const messages = defineMessages({
   }
 });
 
-const pushTo = (history, to, state) => event => {
-  event.preventDefault();
-  history.push(to, state);
-};
-
-const Logo = React.memo(({ user, history }) => (user ? (
-  <a href="/home" className="navbar-brand" onClick={pushTo(history, '/home')}>
+const Logo = React.memo(({ user }) => (user ? (
+  <Link to="/home" className="navbar-brand">
     <img src="/images/openagenda.png" width="125" alt="OpenAgenda" />
-  </a>
+  </Link>
 ) : (
   <a className="navbar-brand" href="/">
     <img src="/images/openagenda.png" width="125" alt="OpenAgenda" />
@@ -106,12 +102,11 @@ const HelpLink = React.memo(() => {
 });
 
 function MainLayout({
+  childLayouts,
+  children,
   history,
-  layout: Layout,
-  component: Comp,
   onError,
-  FallbackComponent,
-  extraProps
+  FallbackComponent
 }) {
   const intl = useIntl();
 
@@ -156,6 +151,14 @@ function MainLayout({
     [history]
   );
 
+  const goToInbox = useCallback(
+    e => {
+      e.preventDefault();
+      history.push('/home/inbox');
+    },
+    [history]
+  );
+
   const panelLink = useCallback(
     path => event => {
       event.preventDefault();
@@ -169,7 +172,9 @@ function MainLayout({
     if (!inboxLoaded) {
       checkInboxNews().catch(() => null);
     }
+  }, [inboxLoaded, checkInboxNews]);
 
+  useEffect(() => {
     notificationsHandler({
       res: {
         getCounter: `${apiRoot}/notifications/count`,
@@ -181,23 +186,25 @@ function MainLayout({
       },
       onSeeActivitiesClick
     });
-  }, [inboxLoaded, checkInboxNews, apiRoot, onSeeActivitiesClick]);
+  }, [apiRoot, onSeeActivitiesClick]);
 
   const ErrorComponent = useCallback(
     props => React.createElement(FallbackComponent, { ...props, lang }),
     [FallbackComponent, lang]
   );
 
-  const content = ReactIs.isValidElementType(Comp)
-    ? React.createElement(Comp, { onError, extraProps })
-    : Comp;
+  const content = useChildLayouts(
+    children,
+    { onError, FallbackComponent },
+    childLayouts
+  );
 
   return (
     <>
       <div id="outdated" />
       <nav
-        className="oa-page-header navbar navbar-default navbar-static-top"
         id="nav"
+        className="oa-page-header navbar navbar-default navbar-static-top"
       >
         <div className="container">
           <div className="navbar-header">
@@ -226,14 +233,18 @@ function MainLayout({
 
               {user ? (
                 <li className="inbox">
-                  <a href="/home/inbox">
+                  <button
+                    type="button"
+                    className="btn btn-link-inline"
+                    onClick={goToInbox}
+                  >
                     <i className="fa fa-envelope" aria-hidden="true" />
                     {hasInboxNews ? (
                       <span className="label label-danger ">
                         <i className="fa fa-exclamation" />
                       </span>
                     ) : null}
-                  </a>
+                  </button>
                 </li>
               ) : null}
 
@@ -332,11 +343,7 @@ function MainLayout({
       </nav>
 
       <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
-        {ReactIs.isValidElementType(Layout) ? (
-          <Layout extraProps={extraProps}>{content}</Layout>
-        ) : (
-          content
-        )}
+        {content}
       </ErrorBoundary>
     </>
   );
@@ -344,4 +351,4 @@ function MainLayout({
 
 MainLayout.layoutName = 'MainLayout';
 
-export default React.memo(MainLayout);
+export default MainLayout;

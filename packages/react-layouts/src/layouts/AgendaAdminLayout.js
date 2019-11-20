@@ -1,13 +1,15 @@
 import _ from 'lodash';
 import React, { useCallback, useEffect, useMemo } from 'react';
-import * as ReactIs from 'react-is';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
-import { useLocation, matchPath, Link } from 'react-router-dom';
+import {
+  useHistory, useLocation, matchPath, Link
+} from 'react-router-dom';
 import ErrorBoundary from 'react-error-boundary';
 import Image from '@openagenda/react-components/build/Image';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
-import MainLayout from './MainLayout';
+import useMemoOne from '../hooks/useMemoOne';
+import useChildLayouts from '../hooks/useChildLayouts';
 
 const TABS_IN_APP = [
   'sources',
@@ -63,15 +65,17 @@ function Sections() {
 }
 
 function AgendaAdminLayout({
-  history,
-  component: Comp,
+  childLayouts,
+  children,
   onError,
   FallbackComponent
 }) {
-  const { params } = useMemo(
-    () => matchPath(history.location.pathname, '/:slug'),
-    [history.location.pathname]
-  );
+  const history = useHistory();
+  const location = useLocation();
+
+  const { params } = useMemo(() => matchPath(location.pathname, '/:slug'), [
+    location.pathname
+  ]);
 
   const dispatch = useDispatch();
   const loadLayoutData = useCallback(
@@ -108,7 +112,7 @@ function AgendaAdminLayout({
     shallowEqual
   );
 
-  const extraProps = useMemo(() => ({ agenda, role, sections }), [
+  const extraProps = useMemoOne(() => ({ agenda, role, sections }), [
     agenda,
     role,
     sections
@@ -142,63 +146,10 @@ function AgendaAdminLayout({
     [FallbackComponent, lang]
   );
 
-  const layout = useCallback(
-    ({ children }) => (isLoading ? (
-      <Loading />
-    ) : (
-      <div className="container agenda-admin">
-        <div className="row wsq header">
-          {agenda.image ? (
-            <div className="col col-sm-2">
-              <a className="agenda-logo" href={`/${agenda.slug}`}>
-                <Image
-                  src={agenda.image}
-                  fallbackSrc={
-                      process.env.NODE_ENV === 'development'
-                        ? agenda.image.replace('cibuldev', 'cibul')
-                        : null
-                    }
-                  alt={agenda.title}
-                />
-              </a>
-            </div>
-          ) : null}
-
-          <div className={`col col-sm-${agenda.image ? '10' : '12'}`}>
-            <h1>{agenda.title}</h1>
-            <p>Administration</p>
-            <a className="url" href={`/${agenda.slug}`}>
-                Retour
-            </a>
-          </div>
-        </div>
-
-        <div className="row wsq">
-          <div className="col col-sm-3 nav">
-            <ul className="list-unstyled">
-              <Sections />
-            </ul>
-          </div>
-
-          <div className="col col-sm-9 body" style={{ paddingTop: 0 }}>
-            <ErrorBoundary
-              onError={onError}
-              FallbackComponent={ErrorComponent}
-            >
-              {children}
-            </ErrorBoundary>
-          </div>
-        </div>
-      </div>
-    )),
-    [isLoading, agenda, onError, ErrorComponent]
-  );
-
-  const content = useMemo(
-    () => (ReactIs.isValidElementType(Comp)
-      ? React.createElement(Comp, { onError, extraProps })
-      : Comp),
-    [Comp, onError, extraProps]
+  const content = useChildLayouts(
+    children,
+    { extraProps, onError, FallbackComponent },
+    childLayouts
   );
 
   if (loadError) {
@@ -209,16 +160,53 @@ function AgendaAdminLayout({
     }
 
     // Display Loading waiting redirection
-    return <MainLayout history={history} component={Loading} />;
+    return <Loading />;
   }
 
-  return (
-    <MainLayout
-      history={history}
-      layout={layout}
-      component={content}
-      extraProps={extraProps}
-    />
+  return isLoading ? (
+    <Loading />
+  ) : (
+    <div className="container agenda-admin">
+      <div className="row wsq header">
+        {agenda.image ? (
+          <div className="col col-sm-2">
+            <a className="agenda-logo" href={`/${agenda.slug}`}>
+              <Image
+                src={agenda.image}
+                fallbackSrc={
+                  process.env.NODE_ENV === 'development'
+                    ? agenda.image.replace('cibuldev', 'cibul')
+                    : null
+                }
+                alt={agenda.title}
+              />
+            </a>
+          </div>
+        ) : null}
+
+        <div className={`col col-sm-${agenda.image ? '10' : '12'}`}>
+          <h1>{agenda.title}</h1>
+          <p>Administration</p>
+          <a className="url" href={`/${agenda.slug}`}>
+            Retour
+          </a>
+        </div>
+      </div>
+
+      <div className="row wsq">
+        <div className="col col-sm-3 nav">
+          <ul className="list-unstyled">
+            <Sections />
+          </ul>
+        </div>
+
+        <div className="col col-sm-9 body" style={{ paddingTop: 0 }}>
+          <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
+            {content}
+          </ErrorBoundary>
+        </div>
+      </div>
+    </div>
   );
 }
 
