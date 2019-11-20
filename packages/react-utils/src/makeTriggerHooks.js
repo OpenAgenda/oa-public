@@ -29,9 +29,9 @@ export default function makeTriggerHooks( { routes, history, helpers, req } ) {
           if (
             typeof onStart === 'function'
             && !notFound // is found
-            && comps.some( v => v.preload ) // at least one have preload fn
+            && comps.some( v => v.load ) // at least one have load fn
             && !comps // not already loaded
-              .filter( v => v.preload )
+              .filter( v => v.load )
               .every( v => (typeof v.isReady === 'function' && v.isReady()) )
           ) {
             start();
