@@ -9,13 +9,15 @@ import ErrorComponent from './ErrorComponent';
 
 export default function Root({ apps, layoutStore, history, triggerHooks, req, staticContext, extractor, helmetContext }) {
   const Content = useCallback(
-    () => (
-      <LayoutManager store={layoutStore} history={history} apps={apps} FallbackComponent={ErrorComponent}>
-        <NotFoundDisplayer history={history} apps={apps}>
-          <NotFound />
-        </NotFoundDisplayer>
-      </LayoutManager>
-    ),
+    () => {
+      return (
+        <LayoutManager store={layoutStore} apps={apps} FallbackComponent={ErrorComponent}>
+          <NotFoundDisplayer history={history} apps={apps}>
+            <NotFound />
+          </NotFoundDisplayer>
+        </LayoutManager>
+      )
+    },
     [apps, layoutStore, history]
   );
 

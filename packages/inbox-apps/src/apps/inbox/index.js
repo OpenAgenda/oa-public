@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import createApp from '@openagenda/react-utils/dist/createApp';
-import getRoutes from '../../getRoutes';
-import getReducers from '../../redux/reducer';
+import getRoutes from '../../getRoutes.lazy';
 
 const defaults = {
   initialState: {
@@ -16,22 +15,30 @@ const defaults = {
 };
 
 export default function ( options ) {
-  const {
-    initialState,
-    layout,
-    req
-  } = _.merge( {}, defaults, options );
+  const { initialState, layout, req } = _.merge( {}, defaults, options );
 
   const { apiRoot, prefix } = initialState.settings;
 
-  return createApp( {
+  const getApp = () => createApp( {
     history: options.history,
     initialState,
     layout,
     req,
     apiRoot,
     prefix,
-    getRoutes,
-    getReducers
+    getRoutes
   } );
+
+  const result = getApp();
+
+  if (module.hot) {
+    module.hot.accept('../../getRoutes.lazy', () => {
+      const newApp = getApp();
+
+      result.Content = newApp.Content;
+      result.triggerHooks = newApp.triggerHooks;
+    });
+  }
+
+  return result;
 }

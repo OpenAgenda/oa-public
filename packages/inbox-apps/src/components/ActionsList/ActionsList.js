@@ -1,12 +1,9 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { getContext } from 'recompose';
 import cn from 'classnames';
+import I18nContext from '../../contexts/I18nContext';
 
 class ActionsList extends Component {
-  static contextTypes = {
-    lang: PropTypes.string
-  };
+  static contextType = I18nContext;
 
   getActionLabel = action => {
     const { lang } = this.context;
@@ -33,7 +30,8 @@ class ActionsList extends Component {
   }
 
   render() {
-    const { actions, getLabel } = this.props;
+    const { actions } = this.props;
+    const { getLabel } = this.context;
 
     if ( !actions || !actions.length ) {
       return null;
@@ -72,6 +70,4 @@ class ActionsList extends Component {
   }
 };
 
-export default getContext( {
-  getLabel: PropTypes.func
-} )( ActionsList );
+export default ActionsList;

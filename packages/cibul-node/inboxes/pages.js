@@ -22,248 +22,30 @@ const usersSvc = require( '../services/users' );
 const app = express();
 const getLabel = makeLabelGetter( labels );
 
-const layout = require( '../services/lib/layouts' ).load(
-  'agendaAdmin', { selectedTab: 'inbox' }
-);
+const checkUser = (req, res, next) => {
+  if (!req.user) {
+    const error = new Error('Unauthorized');
+
+    error.statusCode = 401;
+    res.statusCode = 401;
+
+    return next(error);
+  }
+
+  return next();
+};
+
 
 module.exports = ( parentApp, path = '/' ) => parentApp.use( path, app );
 
-app.use(
-  '/home/inbox',
-  sessions.mw.loadOrRedirect,
-  cmn.loadBaseData('oasfmain.css'),
+app.get(
+  '/home/inbox/refresh-check',
+  sessions.mw.load,
+  checkUser,
   ( req, res, next ) => {
     usersSvc.refresh( req.user.uid, {
       lastInboxCheck: true
-    } ).then( () => next() ).catch( next );
-  },
-  async ( req, res, next ) => {
-    const lang = req.lang || 'fr';
-    const staticContext = {};
-    const reactApp = createInboxApp( {
-      req,
-      initialState: {
-        user: req.user,
-        settings: {
-          context: 'user',
-          prefix: req.baseUrl,
-          lang: req.lang,
-          apiRoot: `http://localhost:${config.port}`,
-          perPageLimit: 20,
-          emptyInboxLabel: getLabel( 'homeInboxDesc', req.lang ),
-          displayHelp: true,
-          autoFocus: true
-        },
-        res: {
-          author: '/home/inbox/author.json',
-          conversations: {
-            create: '/home/inbox/conversations.json',
-            list: '/home/inbox/conversations.json',
-            action: '/home/inbox/conversations/:conversationId/action/:code.json',
-            resume: '/home/inbox/conversations/:conversationId/resume.json'
-          },
-          messages: {
-            list: '/home/inbox/conversations/:conversationId/messages.json',
-            create: '/home/inbox/conversations/:conversationId/messages.json',
-            prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
-            addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
-          }
-        }
-      }
-    } );
-    const { triggerHooks, store, history } = reactApp;
-
-    try {
-      await triggerHooks();
-
-      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
-
-      const state = store.getState();
-
-      // Remove apiRoot used only on server side
-      state.settings.apiRoot = '';
-
-      if ( staticContext.status === 404 ) {
-        return next();
-      }
-
-      if ( staticContext.url ) {
-        return res.redirect( 302, staticContext.url );
-      }
-
-      const { pathname } = history.location;
-      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-        return res.redirect( 302, pathname );
-      }
-
-      cmn.render( req, res, 'inboxes/user', { scriptParams: { initialState: state }, lang, content, preloaded: true } );
-    } catch ( e ) {
-      next( e );
-    }
-  }
-);
-
-app.use(
-  '/support',
-  sessions.mw.loadOrRedirect,
-  cmn.loadBaseData( 'oasfmain.css' ),
-  async ( req, res, next ) => {
-    const lang = req.lang || 'fr';
-    const staticContext = {};
-    const reactApp = createInboxApp( {
-      req,
-      initialState: {
-        user: req.user,
-        settings: {
-          context: 'user',
-          prefix: req.baseUrl,
-          lang: req.lang,
-          apiRoot: `http://localhost:${config.port}`,
-          perPageLimit: 20,
-          creationDesc: getLabel( 'supportInboxDesc', req.lang ),
-          // displayHelp: true,
-          hideEmptyList: true, // redirect on creation if the list is empty
-          allowCreateConversation: true, // show creation button
-          topListForm: true,
-          defaultQuery: {
-            type: 'support',
-            destinationInbox: {
-              type: 'support',
-              identifier: 1
-            }
-          }
-        },
-        res: {
-          author: '/home/inbox/author.json',
-          conversations: {
-            create: '/home/inbox/conversations.json',
-            list: '/home/inbox/conversations.json',
-            action: '/home/inbox/conversations/:conversationId/action/:code.json',
-            resume: '/home/inbox/conversations/:conversationId/resume.json'
-          },
-          messages: {
-            list: '/home/inbox/conversations/:conversationId/messages.json',
-            create: '/home/inbox/conversations/:conversationId/messages.json',
-            prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
-            addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
-          }
-        }
-      }
-    } );
-    const { triggerHooks, store, history } = reactApp;
-
-    try {
-      await triggerHooks();
-
-      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
-
-      const state = store.getState();
-
-      // Remove apiRoot used only on server side
-      state.settings.apiRoot = '';
-
-      if ( staticContext.status === 404 ) {
-        return next();
-      }
-
-      if ( staticContext.url ) {
-        return res.redirect( 302, staticContext.url );
-      }
-
-      const { pathname } = history.location;
-      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-        return res.redirect( 302, pathname );
-      }
-
-      cmn.render( req, res, 'inboxes/user', { scriptParams: { initialState: state }, lang, content, preloaded: true } );
-    } catch ( e ) {
-      next( e );
-    }
-  }
-);
-
-app.use(
-  '/:slug/admin/inbox',
-  sessions.mw.loadOrRedirect,
-  cmn.loadAgenda,
-  members.mw.loadAndAuthorize('moderator'),
-  async ( req, res, next ) => {
-    const staticContext = {};
-    const reactApp = createInboxApp( {
-      req,
-      initialState: {
-        user: req.user,
-        settings: {
-          context: 'agenda',
-          prefix: req.baseUrl,
-          lang: req.lang,
-          apiRoot: `http://localhost:${config.port}`,
-          perPageLimit: 20,
-          emptyInboxLabel: getLabel( 'agendaInboxDesc', req.lang ),
-          displayHelp: true
-        },
-        res: {
-          author: '/agendas/:agendaUid/inbox/author.json',
-          conversations: {
-            create: '/agendas/:agendaUid/inbox/conversations.json',
-            list: '/agendas/:agendaUid/inbox/conversations.json',
-            action: '/agendas/:agendaUid/inbox/conversations/:conversationId/action/:code.json',
-            resume: '/agendas/:agendaUid/inbox/conversations/:conversationId/resume.json'
-          },
-          messages: {
-            list: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
-            create: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
-            prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
-            addAttachment: '/agendas/:agendaUid/inbox/conversations/:conversationId/add-attachment'
-          }
-        },
-        agenda: req.agenda
-      }
-    } );
-    const { triggerHooks, store, history } = reactApp;
-
-    try {
-      await triggerHooks();
-
-      const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
-
-      const state = store.getState();
-
-      // Remove apiRoot used only on server side
-      state.settings.apiRoot = '';
-
-      if ( staticContext.status === 404 ) {
-        return next();
-      }
-
-      if ( staticContext.url ) {
-        return res.redirect( 302, staticContext.url );
-      }
-
-      const { pathname } = history.location;
-      if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-        return res.redirect( 302, pathname );
-      }
-
-      return res.send( layout(
-        `<div class="inbox inbox-agenda-admin">
-          <div class="js_canvas">${content}</div>
-        </div>`, {
-        lang: req.lang,
-        role: req.member.role,
-        agenda: req.agenda,
-        bodyAttributes: [ {
-          name: 'data-options',
-          value: JSON.stringify( { initialState: state } )
-        } ],
-        scripts: {
-          bottom: [ { src: '/js/agendaAdminInbox.js' } ]
-        }
-      } ) );
-
-    } catch ( e ) {
-      next( e );
-    }
+    } ).then( () => res.sendStatus(200) ).catch( next );
   }
 );
 

@@ -4,12 +4,13 @@ import useChildLayouts from '../hooks/useChildLayouts';
 function InboxUserLayout({
   childLayouts,
   children,
+  extraProps,
   onError,
   FallbackComponent
 }) {
   const content = useChildLayouts(
     children,
-    { onError, FallbackComponent },
+    { extraProps, onError, FallbackComponent },
     childLayouts
   );
 

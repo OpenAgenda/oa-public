@@ -8,6 +8,7 @@ import classNames from 'classnames';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
 import useChildLayouts from '../hooks/useChildLayouts';
 import * as mainActions from '../reducers/main';
+import useMemoOne from '../hooks/useMemoOne';
 
 const messages = defineMessages({
   search: {
@@ -193,9 +194,11 @@ function MainLayout({
     [FallbackComponent, lang]
   );
 
+  const extraProps = useMemoOne(() => ({ user }), [user]);
+
   const content = useChildLayouts(
     children,
-    { onError, FallbackComponent },
+    { extraProps, onError, FallbackComponent },
     childLayouts
   );
 

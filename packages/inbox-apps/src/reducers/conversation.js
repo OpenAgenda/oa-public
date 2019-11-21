@@ -24,11 +24,13 @@ const ATTACH_FILE_TO_MESSAGE_FAIL = 'inbox-apps/conversation/ATTACH_FILE_TO_MESS
 
 const initialState = {
   loaded: false,
-  author: false
+  author: false,
+  actionError: null,
+  actionLoading: false
 };
 
-export default function reducer( state = initialState, action ) {
-  switch ( action.type ) {
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
     case LOAD:
       return {
         ...state,
@@ -63,7 +65,7 @@ export default function reducer( state = initialState, action ) {
     case NEXT_PAGE_SUCCESS:
       return {
         ...state,
-        messages: [ ...state.messages, ...action.result.messages ],
+        messages: [...state.messages, ...action.result.messages],
         lastPage: action.result.messages.length < action.perPageLimit,
         page: state.page + (action.result.messages.length ? 1 : 0),
         error: null,
@@ -80,7 +82,7 @@ export default function reducer( state = initialState, action ) {
     case SEND_MESSAGE_SUCCESS:
       return {
         ...state,
-        messages: [ action.result.message, ...state.messages ]
+        messages: [action.result.message, ...state.messages]
       };
     case SEND_MESSAGE_FAIL:
       return state;
@@ -140,78 +142,78 @@ export default function reducer( state = initialState, action ) {
         authorFetchingError: action.error
       };
     case ATTACH_FILE_TO_MESSAGE_SUCCESS:
-      const messageIndex = (state.messages || []).findIndex( v => v.id === action.messageId );
+      const messageIndex = (state.messages || []).findIndex(v => v.id === action.messageId);
 
       return messageIndex === -1 // creation of conversation or not
         ? {
           ...state,
-          messages: [ action.result.message ]
+          messages: [action.result.message]
         }
-        : update( state, { messages: { $splice: [ [ messageIndex, 1, action.result.message ] ] } } );
+        : update(state, { messages: { $splice: [[messageIndex, 1, action.result.message]] } });
     default:
       return state;
   }
 }
 
-export function isLoaded( globalState ) {
+export function isLoaded(globalState) {
   return globalState.conversation && globalState.conversation.loaded;
 }
 
-export function load( conversationId, query ) {
-  return ( { getState, dispatch } ) => {
-    const { res, agenda, event, settings: { perPageLimit } } = getState();
+export function load(conversationId, query, agenda) {
+  return ({ getState, dispatch }) => {
+    const { res, event, settings: { perPageLimit } } = getState();
 
-    return dispatch( {
-      types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
+    return dispatch({
+      types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
       query,
       perPageLimit,
-      promise: ( { client } ) =>
+      promise: ({ client }) =>
         client.get(
           res.messages.list
-            .replace( ':slug', agenda && agenda.slug )
-            .replace( ':agendaUid', agenda && agenda.uid )
-            .replace( ':eventUid', event && event.uid )
-            .replace( ':conversationId', conversationId ),
+            .replace(':slug', agenda && agenda.slug)
+            .replace(':agendaUid', agenda && agenda.uid)
+            .replace(':eventUid', event && event.uid)
+            .replace(':conversationId', conversationId),
           { params: query }
         )
-    } );
+    });
   };
 }
 
-export function isAuthorLoaded( globalState ) {
+export function isAuthorLoaded(globalState) {
   return globalState.conversation && globalState.conversation.author;
 }
 
-export function loadAuthor() {
+export function loadAuthor(agenda) {
   return {
-    types: [ LOAD_AUTHOR, LOAD_AUTHOR_SUCCESS, LOAD_AUTHOR_FAIL ],
-    promise: ( { client }, { getState } ) => {
-      const { res, agenda, event } = getState();
+    types: [LOAD_AUTHOR, LOAD_AUTHOR_SUCCESS, LOAD_AUTHOR_FAIL],
+    promise: ({ client }, { getState }) => {
+      const { res, event } = getState();
 
       return client.get(
         res.author
-          .replace( ':slug', agenda && agenda.slug )
-          .replace( ':agendaUid', agenda && agenda.uid )
-          .replace( ':eventUid', event && event.uid )
-      )
+          .replace(':slug', agenda && agenda.slug)
+          .replace(':agendaUid', agenda && agenda.uid)
+          .replace(':eventUid', event && event.uid)
+      );
     }
   };
 }
 
-export function nextPage( conversationId ) {
-  return ( { getState, dispatch } ) => {
-    const { res, agenda, event, conversation, settings: { perPageLimit } } = getState();
+export function nextPage(conversationId, agenda) {
+  return ({ getState, dispatch }) => {
+    const { res, event, conversation, settings: { perPageLimit } } = getState();
 
-    return dispatch( {
-      types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
+    return dispatch({
+      types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
       perPageLimit,
-      promise: ( { client } ) =>
+      promise: ({ client }) =>
         client.get(
           res.messages.list
-            .replace( ':slug', agenda && agenda.slug )
-            .replace( ':agendaUid', agenda && agenda.uid )
-            .replace( ':eventUid', event && event.uid )
-            .replace( ':conversationId', conversationId ),
+            .replace(':slug', agenda && agenda.slug)
+            .replace(':agendaUid', agenda && agenda.uid)
+            .replace(':eventUid', event && event.uid)
+            .replace(':conversationId', conversationId),
           {
             params: {
               ...conversation.query,
@@ -219,84 +221,84 @@ export function nextPage( conversationId ) {
             }
           }
         )
-    } );
+    });
   };
 }
 
-export function sendMessage( conversationId, data ) {
+export function sendMessage(conversationId, data, agenda) {
   return {
-    types: [ SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAIL ],
-    promise: ( { client }, { getState } ) => {
-      const { res, agenda, event } = getState();
+    types: [SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAIL],
+    promise: ({ client }, { getState }) => {
+      const { res, event } = getState();
 
       return client.post(
         res.messages.create
-          .replace( ':slug', agenda && agenda.slug )
-          .replace( ':agendaUid', agenda && agenda.uid )
-          .replace( ':eventUid', event && event.uid )
-          .replace( ':conversationId', conversationId ),
+          .replace(':slug', agenda && agenda.slug)
+          .replace(':agendaUid', agenda && agenda.uid)
+          .replace(':eventUid', event && event.uid)
+          .replace(':conversationId', conversationId),
         data
-      )
-    }
-  };
-}
-
-export function triggerAction( conversationId, code ) {
-  return ( { getState, dispatch } ) => {
-    const { settings, conversation, res, agenda, event } = getState();
-
-    return dispatch( {
-      types: [ TRIGGER_ACTION, TRIGGER_ACTION_SUCCESS, TRIGGER_ACTION_FAIL ],
-      promise: ( { client, history } ) => client.get(
-        res.conversations.action
-          .replace( ':slug', agenda && agenda.slug )
-          .replace( ':agendaUid', agenda && agenda.uid )
-          .replace( ':eventUid', event && event.uid )
-          .replace( ':conversationId', conversationId )
-          .replace( ':code', code )
-      )
-        .then( result => {
-          if ( code === 'removeTechnicalSupport' ) {
-            history.push( settings.prefix );
-            return { conversation: conversation.data };
-          }
-
-          return result;
-        } )
-    } );
-  };
-}
-
-export function resume( conversationId ) {
-  return {
-    types: [ RESUME, RESUME_SUCCESS, RESUME_FAIL ],
-    promise: ( { client }, { getState } ) => {
-      const { res, agenda, event } = getState();
-
-      return client.get(
-        res.conversations.resume
-          .replace( ':slug', agenda && agenda.slug )
-          .replace( ':agendaUid', agenda && agenda.uid )
-          .replace( ':eventUid', event && event.uid )
-          .replace( ':conversationId', conversationId )
       );
     }
   };
 }
 
-export function attachFileToMessage( conversationId, messageId, file ) {
+export function triggerAction(conversationId, code, agenda) {
+  return ({ getState, dispatch }) => {
+    const { settings, conversation, res, event } = getState();
+
+    return dispatch({
+      types: [TRIGGER_ACTION, TRIGGER_ACTION_SUCCESS, TRIGGER_ACTION_FAIL],
+      promise: ({ client, history }) => client.get(
+        res.conversations.action
+          .replace(':slug', agenda && agenda.slug)
+          .replace(':agendaUid', agenda && agenda.uid)
+          .replace(':eventUid', event && event.uid)
+          .replace(':conversationId', conversationId)
+          .replace(':code', code)
+      )
+        .then(result => {
+          if (code === 'removeTechnicalSupport') {
+            history.push(settings.prefix.replace(':slug', agenda && agenda.slug));
+            return { conversation: conversation.data };
+          }
+
+          return result;
+        })
+    });
+  };
+}
+
+export function resume(conversationId, agenda) {
   return {
-    types: [ ATTACH_FILE_TO_MESSAGE, ATTACH_FILE_TO_MESSAGE_SUCCESS, ATTACH_FILE_TO_MESSAGE_FAIL ],
+    types: [RESUME, RESUME_SUCCESS, RESUME_FAIL],
+    promise: ({ client }, { getState }) => {
+      const { res, event } = getState();
+
+      return client.get(
+        res.conversations.resume
+          .replace(':slug', agenda && agenda.slug)
+          .replace(':agendaUid', agenda && agenda.uid)
+          .replace(':eventUid', event && event.uid)
+          .replace(':conversationId', conversationId)
+      );
+    }
+  };
+}
+
+export function attachFileToMessage(conversationId, messageId, file, agenda) {
+  return {
+    types: [ATTACH_FILE_TO_MESSAGE, ATTACH_FILE_TO_MESSAGE_SUCCESS, ATTACH_FILE_TO_MESSAGE_FAIL],
     messageId,
-    promise: ( { client }, { getState } ) => {
-      const { res, agenda, event } = getState();
+    promise: ({ client }, { getState }) => {
+      const { res, event } = getState();
 
       return client.get(
         res.messages.addAttachment
-          .replace( ':slug', agenda && agenda.slug )
-          .replace( ':agendaUid', agenda && agenda.uid )
-          .replace( ':eventUid', event && event.uid )
-          .replace( ':conversationId', conversationId ),
+          .replace(':slug', agenda && agenda.slug)
+          .replace(':agendaUid', agenda && agenda.uid)
+          .replace(':eventUid', event && event.uid)
+          .replace(':conversationId', conversationId),
         {
           params: {
             messageId,

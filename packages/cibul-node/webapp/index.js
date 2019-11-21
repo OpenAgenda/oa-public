@@ -5,8 +5,12 @@ const _ = require('lodash');
 const express = require('express');
 const httpProxy = require('http-proxy');
 const matchMw = require('@openagenda/react-integration-app/middleware');
+const inboxLabels = require( '@openagenda/labels/inboxes' );
+const makeLabelGetter = require( '@openagenda/labels' );
 const config = require('../config');
 const cmn = require('../lib/commons-app');
+
+const getInboxLabel = makeLabelGetter(inboxLabels);
 
 const apiRoot = `http://localhost:${config.port}`;
 const phpPrefix = process.env.NODE_ENV === 'development' ? '/frontend_dev.php' : '';
@@ -140,6 +144,96 @@ const initialState = req => ({
         remove: '/:slug/admin/settings/keys/remove'
       }
     }
+  },
+  inboxUser: {
+    settings: {
+      context: 'user',
+      prefix: '/home/inbox',
+      lang: req.lang,
+      apiRoot: `http://localhost:${config.port}`,
+      perPageLimit: 20,
+      emptyInboxLabel: 'homeInboxDesc',
+      displayHelp: true,
+      autoFocus: true
+    },
+    res: {
+      refreshCheck: '/home/inbox/refresh-check',
+      author: '/home/inbox/author.json',
+      conversations: {
+        create: '/home/inbox/conversations.json',
+        list: '/home/inbox/conversations.json',
+        action: '/home/inbox/conversations/:conversationId/action/:code.json',
+        resume: '/home/inbox/conversations/:conversationId/resume.json'
+      },
+      messages: {
+        list: '/home/inbox/conversations/:conversationId/messages.json',
+        create: '/home/inbox/conversations/:conversationId/messages.json',
+        prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
+        addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
+      }
+    }
+  },
+  support: {
+    settings: {
+      context: 'user',
+      prefix: '/support',
+      lang: req.lang,
+      apiRoot: `http://localhost:${config.port}`,
+      perPageLimit: 20,
+      creationDesc: getInboxLabel( 'supportInboxDesc', req.lang ),
+      // displayHelp: true,
+      hideEmptyList: true, // redirect on creation if the list is empty
+      allowCreateConversation: true, // show creation button
+      topListForm: true,
+      defaultQuery: {
+        type: 'support',
+        destinationInbox: {
+          type: 'support',
+          identifier: 1
+        }
+      }
+    },
+    res: {
+      author: '/home/inbox/author.json',
+      conversations: {
+        create: '/home/inbox/conversations.json',
+        list: '/home/inbox/conversations.json',
+        action: '/home/inbox/conversations/:conversationId/action/:code.json',
+        resume: '/home/inbox/conversations/:conversationId/resume.json'
+      },
+      messages: {
+        list: '/home/inbox/conversations/:conversationId/messages.json',
+        create: '/home/inbox/conversations/:conversationId/messages.json',
+        prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
+        addAttachment: '/home/inbox/conversations/:conversationId/add-attachment'
+      }
+    }
+  },
+  agendaAdminInbox: {
+    settings: {
+      context: 'agenda',
+      prefix: '/:slug/admin/inbox',
+      lang: req.lang,
+      apiRoot: `http://localhost:${config.port}`,
+      perPageLimit: 20,
+      emptyInboxLabel: 'agendaInboxDesc',
+      displayHelp: true
+    },
+    res: {
+      author: '/agendas/:agendaUid/inbox/author.json',
+      conversations: {
+        create: '/agendas/:agendaUid/inbox/conversations.json',
+        list: '/agendas/:agendaUid/inbox/conversations.json',
+        action: '/agendas/:agendaUid/inbox/conversations/:conversationId/action/:code.json',
+        resume: '/agendas/:agendaUid/inbox/conversations/:conversationId/resume.json'
+      },
+      messages: {
+        list: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
+        create: '/agendas/:agendaUid/inbox/conversations/:conversationId/messages.json',
+        prepareAttachment: '/home/inbox/conversations/:conversationId/prepare-attachment',
+        addAttachment: '/agendas/:agendaUid/inbox/conversations/:conversationId/add-attachment'
+      }
+    }
   }
 });
 
@@ -170,11 +264,14 @@ module.exports = app => {
       '/settings/?*?',
       // agenda-settings/new
       '/new',
+      // inboxes
+      '/home/inbox/?*?',
+      '/support/?*?',
+      '/:slug/admin/inbox',
+      '/:slug/admin/inbox/?*?',
       // aggregator-sources
-      '/:slug/admin/sources',
       '/:slug/admin/sources/?*?',
       // agenda-settings/edit
-      '/:slug/admin/settings',
       '/:slug/admin/settings/?*?'
     ],
     cmn.loadLogger('webapp'),

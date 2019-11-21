@@ -14,14 +14,19 @@ import he from 'he';
 import { loadableReady } from '@loadable/component';
 import du from '@openagenda/dom-utils';
 import { LayoutManager } from '@openagenda/react-layouts/src';
-import MainLayout from '@openagenda/react-layouts/src/layouts/MainLayout';
-import AgendaAdminLayout from '@openagenda/react-layouts/src/layouts/AgendaAdminLayout';
+import {
+  AgendaAdminLayout,
+  InboxUserLayout,
+  InboxAgendaAdminLayout,
+  MainLayout,
+} from '@openagenda/react-layouts/src/layouts';
 import createAppHome from '@openagenda/home/src/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp';
 import createAgendaSettingsEditApp from '@openagenda/agenda-settings/src/client/editApp';
 import createActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
+import createInboxApp from '@openagenda/inbox-apps/src/apps/inbox';
 import Root from './Root';
 // import reflectStoresInLayout from '../reflectStoresInLayout';
 
@@ -66,12 +71,27 @@ const apps = {
   aggregatorSources: createAggregatorSourcesApp({
     history,
     initialState: initialState.aggregatorSources,
-    layout: AgendaAdminLayout
+    layout: [MainLayout, AgendaAdminLayout]
   }),
   agendaSettingsEdit: createAgendaSettingsEditApp({
     history,
     initialState: initialState.agendaSettingsEdit,
-    layout: AgendaAdminLayout
+    layout: [MainLayout, AgendaAdminLayout]
+  }),
+  inboxUser: createInboxApp({
+    history,
+    initialState: initialState.inboxUser,
+    layout: [MainLayout, InboxUserLayout]
+  }),
+  support: createInboxApp({
+    history,
+    initialState: initialState.support,
+    layout: [MainLayout, InboxUserLayout]
+  }),
+  agendaAdminInbox: createInboxApp({
+    history,
+    initialState: initialState.agendaAdminInbox,
+    layout: [MainLayout, AgendaAdminLayout, InboxAgendaAdminLayout]
   })
 };
 

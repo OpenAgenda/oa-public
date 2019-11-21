@@ -54,6 +54,7 @@
     "@babel/cli": "^7.6.3",
     "@babel/core": "^7.6.3",
     "@babel/node": "^7.6.3",
+    "@loadable/babel-plugin": "^5.10.3",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
@@ -88,6 +89,7 @@
     "rimraf": "^3.0.0"
   },
   "peerDependencies": {
+    "@loadable/component": "^5.10.3",
     "final-form": "^4.18.5",
     "react": "^16.11.0",
     "react-router-dom": "^5.0.0",

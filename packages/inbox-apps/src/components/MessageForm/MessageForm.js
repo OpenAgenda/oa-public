@@ -1,8 +1,7 @@
-import React, { Component, createElement, Fragment } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
-import { getContext } from 'recompose';
 import superagent from 'superagent';
 import Uppy from 'uppy/lib/core';
 import { Dashboard, StatusBar } from 'uppy/lib/react';
@@ -11,12 +10,8 @@ import Modal from '@openagenda/react-components/build/Modal';
 import validate from './validate';
 import { renderTextarea } from '../../utils/form';
 import * as uppyLocales from '../../locales/uppyLocales';
+import I18nContext from '../../contexts/I18nContext';
 
-@getContext({
-  getLabel: PropTypes.func,
-  lang: PropTypes.string,
-  store: PropTypes.object
-})
 export default class MessageForm extends Component {
   static propTypes = {
     Wrapper: PropTypes.oneOfType([
@@ -33,6 +28,8 @@ export default class MessageForm extends Component {
   state = {
     modalOpen: false
   };
+
+  static contextType = I18nContext;
 
   constructor(props) {
     super(props);
@@ -87,7 +84,8 @@ export default class MessageForm extends Component {
   }
 
   handleSubmit = async (data, form) => {
-    const { onSubmit, onMessageSent, onFileUploaded, getLabel, conversation } = this.props;
+    const { onSubmit, onMessageSent, onFileUploaded, conversation } = this.props;
+    const { getLabel } = this.context;
 
     const { message } = await onSubmit(data);
     form.change('body');
@@ -129,7 +127,8 @@ export default class MessageForm extends Component {
   };
 
   render() {
-    const { initialValues, autoFocus, getLabel, lang, Wrapper } = this.props;
+    const { initialValues, autoFocus, lang, Wrapper } = this.props;
+    const { getLabel } = this.context;
 
     const numberFiles = Object.keys(this.uppy.getState().files).length;
 
@@ -140,7 +139,7 @@ export default class MessageForm extends Component {
         validate={validate}
       >
         {({ form, handleSubmit, submitting, submitError }) => (
-          createElement(
+          React.createElement(
             Wrapper,
             {
               form,
@@ -148,7 +147,7 @@ export default class MessageForm extends Component {
               submitError,
               handleSubmit
             },
-            <Fragment>
+            <>
               <Field
                 autoFocus={autoFocus}
                 component={renderTextarea}
@@ -206,7 +205,7 @@ export default class MessageForm extends Component {
                 showProgressDetails={true}
                 locale={uppyLocales.StatusBar[lang] || uppyLocales.StatusBar['fr']}
               />
-            </Fragment>
+            </>
           )
         )}
       </Form>

@@ -70,10 +70,10 @@ export function isLoaded( globalState ) {
   return globalState.inbox && globalState.inbox.loaded;
 }
 
-export function load( query ) {
+export function load( query, agenda ) {
   return ( { getState, dispatch } ) => {
     const state = getState();
-    const { res, agenda, event, settings: { perPageLimit, defaultQuery } } = state;
+    const { res, event, settings: { perPageLimit, defaultQuery } } = state;
 
     return dispatch( {
       types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
@@ -95,9 +95,9 @@ export function load( query ) {
   };
 }
 
-export function nextPage() {
+export function nextPage(agenda) {
   return ( { getState, dispatch } ) => {
-    const { res, inbox, agenda, event, settings: { perPageLimit } } = getState();
+    const { res, inbox, event, settings: { perPageLimit } } = getState();
 
     return dispatch( {
       types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],

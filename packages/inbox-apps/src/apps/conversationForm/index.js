@@ -8,10 +8,9 @@ import apiClient from '@openagenda/react-utils/dist/apiClient';
 import createStore from '@openagenda/react-utils/dist/createStore';
 import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
 import du from '@openagenda/dom-utils';
-import getReducers from '../../redux/reducer';
 import { ConversationFormApp } from '../../containers';
 import { onReady } from './openConversationForm';
-import * as actions from '../../redux/modules/conversationForm';
+import * as actions from '../../reducers/conversationForm';
 
 function parseJsonField( value ) {
   try {
@@ -44,9 +43,8 @@ export default function ( options = {} ) {
 
   const client = apiClient( apiRoot, req );
   const history = options.history || createMemoryHistory();
-  const helpers = {};
   const store = createStore(
-    getReducers,
+    null,
     initialState,
     compose(
       applyMiddleware(

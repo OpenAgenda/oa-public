@@ -2,8 +2,6 @@
   "event/inbox",
   "agenda/inbox",
   "agenda/requestContribute",
-  "inboxes/user",
-  "agendaAdmin/inbox",
   "activities/agenda",
   "admin/activities",
   "admin/agendas",

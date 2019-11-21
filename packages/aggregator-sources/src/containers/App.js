@@ -14,13 +14,10 @@ const messages = {
   en: localeEn
 };
 
-function App({ route, agenda }) {
+function App({ route, agenda, role }) {
   const lang = useSelector(state => state.settings.lang);
 
-  const children = useMemo(() => renderRoutes(route.routes, { agenda }), [
-    route.routes,
-    agenda
-  ]);
+  const children = useMemo(() => renderRoutes(route.routes, { agenda, role }), [route.routes, agenda, role]);
 
   return (
     <IntlProvider messages={messages[lang]} locale={lang} key={lang}>

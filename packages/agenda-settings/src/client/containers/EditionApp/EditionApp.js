@@ -58,7 +58,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { route, loading, agenda } = this.props;
+    const { route, loading, agenda, role } = this.props;
 
     return (
       <div className="agenda-settings-edit">
@@ -67,7 +67,7 @@ export default class App extends Component {
             <div style={{ margin: '150px 0' }}>
               <Spinner />
             </div>
-          ) : renderRoutes(route.routes, { agenda })}
+          ) : renderRoutes(route.routes, { agenda, role })}
       </div>
     );
   }

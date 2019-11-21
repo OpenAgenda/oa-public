@@ -13,6 +13,7 @@ import useChildLayouts from '../hooks/useChildLayouts';
 
 const TABS_IN_APP = [
   'sources',
+  'inbox',
   'settings_profile',
   'settings_contribution',
   'settings_advanced'
@@ -68,7 +69,8 @@ function AgendaAdminLayout({
   childLayouts,
   children,
   onError,
-  FallbackComponent
+  FallbackComponent,
+  extraProps: parentExtraProps
 }) {
   const history = useHistory();
   const location = useLocation();
@@ -112,11 +114,15 @@ function AgendaAdminLayout({
     shallowEqual
   );
 
-  const extraProps = useMemoOne(() => ({ agenda, role, sections }), [
-    agenda,
-    role,
-    sections
-  ]);
+  const extraProps = useMemoOne(
+    () => ({
+      ...parentExtraProps,
+      agenda,
+      role,
+      sections
+    }),
+    [parentExtraProps, agenda, role, sections]
+  );
 
   const Loading = useCallback(
     () => (

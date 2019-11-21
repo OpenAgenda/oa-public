@@ -1,16 +1,16 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { hot } from 'react-hot-loader/root';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { provideHooks } from 'redial';
-import { getContext } from 'recompose';
 import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
+import I18nContext from '../../contexts/I18nContext';
 import { ConversationForm, AuthorAvatar, Breadcrumb } from '../../components';
-import * as conversationFormActions from '../../redux/modules/conversationForm';
-import * as inboxActions from '../../redux/modules/inbox';
-import * as conversationActions from '../../redux/modules/conversation';
-import * as modalActions from '../../redux/modules/modals';
+import * as conversationFormActions from '../../reducers/conversationForm';
+import * as inboxActions from '../../reducers/inbox';
+import * as conversationActions from '../../reducers/conversation';
+import * as modalActions from '../../reducers/modals';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
 import showBackLink from '../../utils/showBackLink';
 import setFlashMessage from '../../utils/setFlashMessage';
@@ -50,7 +50,6 @@ async function asyncLoad( { store: { dispatch, getState } } ) {
       author: state.conversation.author,
       loading: state.inbox.loading || state.conversation.authorFetching,
       loaded: state.inbox.loaded && state.conversation.author,
-      agenda: state.agenda,
       res: state.res
     };
   },
@@ -60,14 +59,13 @@ async function asyncLoad( { store: { dispatch, getState } } ) {
     attachFileToMessage: conversationActions.attachFileToMessage
   }
 )
-@getContext( {
-  getLabel: PropTypes.func,
-  store: PropTypes.object
-} )
 @withRouter
-export default class ConversationCreate extends Component {
+class ConversationCreate extends Component {
+  static contextType = I18nContext;
+
   FormWrapper = ( { handleSubmit, children, submitting, error } ) => {
-    const { getLabel, settings, author } = this.props;
+    const { settings, author } = this.props;
+    const { getLabel } = this.context;
     const { belowMessageDesc } = settings;
 
     return (
@@ -99,10 +97,11 @@ export default class ConversationCreate extends Component {
 
   render() {
     const {
-      loading, loaded, createConversation, initialValues, getLabel, res,
+      loading, loaded, createConversation, initialValues, res,
       settings, conversations, author, history, showModal,
       attachFileToMessage, agenda
     } = this.props;
+    const { getLabel } = this.context;
 
     const {
       prefix, ContentWrapper, creationDescriptionLabel,
@@ -124,11 +123,12 @@ export default class ConversationCreate extends Component {
           {maskCreationSubtitle
             ? (
               <div className="inbox-head">
-                <Breadcrumb/>
+                <Breadcrumb agenda={agenda} />
               </div>
             ) : (
               <div className="inbox-head">
                 <Breadcrumb
+                  agenda={agenda}
                   breadParts={[ {
                     component: creationSubtitle ? creationSubtitle : getLabel( 'newConversation' )
                   } ]}
@@ -161,7 +161,8 @@ export default class ConversationCreate extends Component {
 
                     window.location.href = onConversationCreateRedirect;
                   } else {
-                    const url = removeTrailingSlash( prefix ) + `/conversation/${conversation.id}`;
+                    const url = removeTrailingSlash(prefix.replace(':slug', agenda && agenda.slug) )
+                      + `/conversation/${conversation.id}`;
                     history.push( url );
 
                     if ( onConversationCreateFlash ) {
@@ -192,3 +193,5 @@ function getAuthorName( obj ) {
 
   return obj.inbox.name;
 }
+
+export default module.hot ? hot(ConversationCreate) : ConversationCreate;

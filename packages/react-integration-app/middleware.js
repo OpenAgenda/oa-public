@@ -12,14 +12,19 @@ const { ChunkExtractor } = require('@loadable/server');
 const wrapApp = require('@openagenda/react-utils/dist/wrapApp');
 const { matchRoutes } = require('@openagenda/react-utils/dist/asyncMatchRoutes');
 const { Html, LayoutManager } = require('@openagenda/react-layouts');
-const MainLayout = require('@openagenda/react-layouts/dist/layouts/MainLayout');
-const AgendaAdminLayout = require('@openagenda/react-layouts/dist/layouts/AgendaAdminLayout');
+const {
+  AgendaAdminLayout,
+  InboxUserLayout,
+  InboxAgendaAdminLayout,
+  MainLayout,
+} = require('@openagenda/react-layouts/dist/layouts');
 const createHomeApp = require('@openagenda/home/dist/app');
 const createUserSettingsApp = require('@openagenda/user-apps/dist/app');
 const createAgendaSettingsNewApp = require('@openagenda/agenda-settings/dist/client/createApp');
 const createAgendaSettingsEditApp = require('@openagenda/agenda-settings/dist/client/editApp');
 const createActivitiesApp = require('@openagenda/activity-apps/dist/client/apps/user');
 const createAggregatorSourcesApp = require('@openagenda/aggregator-sources/dist/app');
+const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const RootHelmet = require('./RootHelmet');
 // const reflectStoresInLayout = require('./reflectStoresInLayout');
 
@@ -67,13 +72,31 @@ module.exports = function match({ initialState, apiRoot, lang, publicPath }) {
           req,
           history,
           initialState: state.aggregatorSources,
-          layout: AgendaAdminLayout
+          layout: [MainLayout, AgendaAdminLayout]
         }),
         agendaSettingsEdit: createAgendaSettingsEditApp({
           req,
           history,
           initialState: state.agendaSettingsEdit,
-          layout: AgendaAdminLayout
+          layout: [MainLayout, AgendaAdminLayout]
+        }),
+        inboxUser: createInboxApp({
+          req,
+          history,
+          initialState: state.inboxUser,
+          layout: [MainLayout, InboxUserLayout] // InboxUserLayout, InboxAgendaLayout, ...
+        }),
+        support: createInboxApp({
+          req,
+          history,
+          initialState: state.support,
+          layout: [MainLayout, InboxUserLayout] // InboxUserLayout, InboxAgendaLayout, ...
+        }),
+        agendaAdminInbox: createInboxApp({
+          req,
+          history,
+          initialState: state.agendaAdminInbox,
+          layout: [MainLayout, AgendaAdminLayout, InboxAgendaAdminLayout]
         })
       };
 
@@ -129,13 +152,13 @@ module.exports = function match({ initialState, apiRoot, lang, publicPath }) {
       const staticContext = {};
       const helmetContext = {};
 
+
       const element = wrapApp(
         {
           Content: () => React.createElement(
             LayoutManager,
             { store: layoutStore, history, apps },
-            React.createElement(RootHelmet),
-            element
+            React.createElement(RootHelmet)
           ),
           history,
           triggerHooks

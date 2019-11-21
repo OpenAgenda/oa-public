@@ -9,14 +9,18 @@ const defaultMessages = {
     contactSupport: 'Contact support'
   },
   fr: {
-    oops: 'Oops !',
+    oops: 'Oups !',
     sorry: 'Désolé, une erreur s\'est produite.',
     goToHome: 'Aller à l\'accueil',
     contactSupport: 'Contacter le support'
   }
 };
 
-export default function ErrorComponent({ error, lang = 'en', messages = defaultMessages }) {
+const preStyle = {
+  display: 'inline-block'
+};
+
+export default function ErrorComponent({ error, componentStack, lang = 'en', messages = defaultMessages }) {
   return (
     <IntlProvider messages={messages[lang]} locale={lang} key={lang}>
       <div className="text-center">
@@ -33,7 +37,11 @@ export default function ErrorComponent({ error, lang = 'en', messages = defaultM
           />
         </h2>
         <div className="margin-v-md">
-          <em>{error.message}</em>
+            {typeof window === 'undefined' ? (
+              <em>{error.message}</em>
+            ) : (
+              <pre className="text-left text-danger" style={preStyle}>{`${error.message}${componentStack}`}</pre>
+            )}
         </div>
         <div className="margin-v-md">
           <a

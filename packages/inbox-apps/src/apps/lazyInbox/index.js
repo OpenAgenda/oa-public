@@ -13,7 +13,6 @@ import makeTriggerHooks from '@openagenda/react-utils/dist/makeTriggerHooks';
 import RouterTrigger from '@openagenda/react-utils/dist/RouterTrigger';
 // import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import NotFound from '@openagenda/react-utils/dist/NotFound';
-import getReducers from '../../redux/reducer';
 import getRoutes from '../../getRoutes';
 
 const defaults = {
@@ -54,7 +53,7 @@ export default function app( options = {} ) {
   const history = options.history || createMemoryHistory();
   const helpers = {};
   const store = createStore(
-    getReducers,
+    null,
     initialState,
     compose(
       applyMiddleware(
