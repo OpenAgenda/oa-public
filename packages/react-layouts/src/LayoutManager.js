@@ -29,7 +29,7 @@ function LayoutManager({
 
 LayoutManager.createStore = (initialState, history) => {
   const helpers = {};
-  const client = apiClient(initialState.main.apiRoot);
+  const client = apiClient(initialState.main.apiRoot, { legacy: true });
 
   const store = createStore(
     asyncReducers => ({

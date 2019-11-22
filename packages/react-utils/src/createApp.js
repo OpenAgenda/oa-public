@@ -24,10 +24,11 @@ export default function createApp( options ) {
     prefix,
     getReducers,
     getRoutes,
+    legacyApiClient,
     reduxMiddleware = []
   } = options;
 
-  const client = apiClient( apiRoot, req );
+  const client = apiClient( apiRoot, req, { legacy: legacyApiClient } );
   const history = options.history || getDefaultHistory( req );
   const helpers = {};
   const store = createStore(

@@ -41,7 +41,7 @@ export default function ( options = {} ) {
   const { initialState, req, selector, appDestClassName } = _.merge( {}, defaults, options );
   const { apiRoot } = initialState.settings;
 
-  const client = apiClient( apiRoot, req );
+  const client = apiClient( apiRoot, req, { legacy: true } );
   const history = options.history || createMemoryHistory();
   const store = createStore(
     null,

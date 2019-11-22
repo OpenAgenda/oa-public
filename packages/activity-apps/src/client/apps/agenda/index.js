@@ -49,7 +49,7 @@ export default function ( options ) {
   } = _.merge( {}, defaults, options );
   const { apiRoot, prefix } = initialState.settings;
 
-  const client = apiClient( apiRoot, req );
+  const client = apiClient( apiRoot, req, { legacy: true } );
   const history = options.history || getDefaultHistory( req );
   const helpers = {};
   const store = createStore(
