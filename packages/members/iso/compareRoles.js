@@ -1,7 +1,7 @@
 'use strict';
 
-const toRoleCode = require('../iso/toRoleCode');
-const getRoleSlug = require('../iso/getRoleSlug');
+const toRoleCode = require('./toRoleCode');
+const getRoleSlug = require('./getRoleSlug');
 
 const roleWeights = {
   ADMINISTRATOR: 100,
