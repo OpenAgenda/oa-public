@@ -14,6 +14,10 @@ import RouterTrigger from '@openagenda/react-utils/dist/RouterTrigger';
 // import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
 import NotFound from '@openagenda/react-utils/dist/NotFound';
 import getRoutes from '../../getRoutes';
+import inboxReducer from '../../reducers/inbox';
+import conversationReducer from '../../reducers/conversation';
+import conversationFormReducer from '../../reducers/conversationForm';
+import modalsReducer from '../../reducers/modals';
 
 const defaults = {
   selector: '.js_inbox_event',
@@ -38,18 +42,20 @@ const defaults = {
     event: {
       //
     }
-  }
+  },
+  extraProps: null
 };
 
-export default function app( options = {} ) {
+export default function app(options = {}) {
   const {
     initialState,
     req,
-    notFoundKey = _.uniqueId( 'lazyInbox' )
-  } = _.merge( {}, defaults, options );
+    notFoundKey = _.uniqueId('lazyInbox'),
+    extraProps
+  } = _.merge({}, defaults, options);
   const { apiRoot, prefix } = initialState.settings;
 
-  const client = apiClient( apiRoot, req, { legacy: true } );
+  const client = apiClient(apiRoot, req, { legacy: true });
   const history = options.history || createMemoryHistory();
   const helpers = {};
   const store = createStore(
@@ -57,7 +63,7 @@ export default function app( options = {} ) {
     initialState,
     compose(
       applyMiddleware(
-        clientMiddleware( helpers )
+        clientMiddleware(helpers)
         // ... other middlewares ... (like redux-logger)
       ),
       __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
@@ -65,21 +71,29 @@ export default function app( options = {} ) {
         : v => v
     )
   );
-  Object.assign( helpers, {
+
+  store.inject({
+    inbox: inboxReducer,
+    conversation: conversationReducer,
+    conversationForm: conversationFormReducer,
+    modals: modalsReducer
+  });
+
+  Object.assign(helpers, {
     client,
     store,
     history,
     location: history.location
-  } );
+  });
   const staticContext = {};
 
-  const routes = getRoutes( prefix, notFoundKey );
-  const triggerHooks = makeTriggerHooks( { routes, history, helpers, req } );
+  const routes = getRoutes(prefix, notFoundKey);
+  const triggerHooks = makeTriggerHooks({ routes, history, helpers, req });
   const content = (
     <NotFound.Capture notFoundKey={notFoundKey}>
       <RouterTrigger trigger={triggerHooks}>
         <Provider store={store} context={ReactReduxContext}>
-          {renderRoutes( routes )}
+          {renderRoutes(routes, extraProps)}
         </Provider>
       </RouterTrigger>
     </NotFound.Capture>
@@ -104,9 +118,9 @@ export default function app( options = {} ) {
   };
 };
 
-export function expose( name ) {
+export function expose(name) {
 
   window.ReactDOM = ReactDOM;
-  window[ name ] = app;
+  window[name] = app;
 
 }

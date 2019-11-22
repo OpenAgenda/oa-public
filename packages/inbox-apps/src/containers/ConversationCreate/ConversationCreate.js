@@ -1,8 +1,8 @@
 import React, { Component, Fragment } from 'react';
 import { hot } from 'react-hot-loader/root';
-import { connect } from 'react-redux';
+import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { provideHooks } from 'redial';
+import withContext from '@openagenda/react-utils/dist/withContext';
 import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import I18nContext from '../../contexts/I18nContext';
@@ -15,28 +15,21 @@ import removeTrailingSlash from '../../utils/removeTrailingSlash';
 import showBackLink from '../../utils/showBackLink';
 import setFlashMessage from '../../utils/setFlashMessage';
 
-async function asyncLoad( { store: { dispatch, getState } } ) {
+async function asyncLoad( { store: { dispatch, getState }, agenda } ) {
   const state = getState();
 
   const { focusFistConversation } = state.settings;
   const query = focusFistConversation ? { limit: 1 } : {};
 
   if ( !inboxActions.isLoaded( state ) ) {
-    await dispatch( inboxActions.load( query ) );
+    await dispatch( inboxActions.load( query, agenda ) );
   }
 
   if ( !conversationActions.isAuthorLoaded( state ) ) {
-    return dispatch( conversationActions.loadAuthor() );
+    return dispatch( conversationActions.loadAuthor(agenda) );
   }
 }
 
-@provideHooks( {
-  fetch: async ( { store } ) => {
-    const promise = asyncLoad( { store } );
-
-    return Promise.resolve( __CLIENT__ ? null : promise );
-  }
-} )
 @connect(
   ( state, props ) => {
     const query = qs.parse( props.location.search, { ignoreQueryPrefix: true } );
@@ -59,9 +52,17 @@ async function asyncLoad( { store: { dispatch, getState } } ) {
     attachFileToMessage: conversationActions.attachFileToMessage
   }
 )
+@withContext(ReactReduxContext, 'reactReduxContext')
 @withRouter
 class ConversationCreate extends Component {
   static contextType = I18nContext;
+
+  componentDidMount() {
+    const { reactReduxContext, agenda } = this.props;
+    const { store } = reactReduxContext;
+
+    asyncLoad({ store, agenda }).catch(() => null);
+  }
 
   FormWrapper = ( { handleSubmit, children, submitting, error } ) => {
     const { settings, author } = this.props;

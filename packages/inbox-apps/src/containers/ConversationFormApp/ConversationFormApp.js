@@ -16,7 +16,7 @@ import { ConversationForm } from '../../components';
   }),
   actions
 )
-export default class ConversationModal extends Component {
+export default class ConversationFormApp extends Component {
   static contextType = I18nContext;
 
   state = {

@@ -209,17 +209,11 @@ class Inbox extends Component {
     const [unclosedConvs, closedConvs] = _.partition(conversations, o => !o.closedAt);
 
     const content = loading || !loaded
-      ? <div className="text-center padding-v-md">
-        <Spinner
-          loading={loading} mode="inline" options={{
-          width: 1,
-          length: 6,
-          radius: 10,
-          color: '#666'
-        }}
-        />
-      </div>
-      : (
+      ? (
+        <div className="padding-v-md" style={{ position: 'relative' }}>
+          <Spinner />
+        </div>
+      ) : (
         <Fragment>
           <div className="inbox-head">
             {this.renderCreationButton({ unclosedConvs })}
@@ -321,9 +315,11 @@ class Inbox extends Component {
             </div> :
             null}
 
-          {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
-            <Spinner />
-          </div>}
+          {nextLoading && (
+            <div className="padding-v-md" style={{ position: 'relative' }}>
+              <Spinner />
+            </div>
+          )}
 
           <Waypoint onEnter={this.throttledNextPage} />
         </Fragment>

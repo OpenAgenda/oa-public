@@ -11,6 +11,10 @@ import du from '@openagenda/dom-utils';
 import { ConversationFormApp } from '../../containers';
 import { onReady } from './openConversationForm';
 import * as actions from '../../reducers/conversationForm';
+import inboxReducer from '../../reducers/inbox';
+import conversationReducer from '../../reducers/conversation';
+import conversationFormReducer from '../../reducers/conversationForm';
+import modalsReducer from '../../reducers/modals';
 
 function parseJsonField( value ) {
   try {
@@ -57,6 +61,12 @@ export default function ( options = {} ) {
     )
   );
 
+  store.inject({
+    inbox: inboxReducer,
+    conversation: conversationReducer,
+    conversationForm: conversationFormReducer,
+    modals: modalsReducer
+  });
 
   const openConversationForm = bindActionCreators( data => {
     if ( data instanceof Event ) {
