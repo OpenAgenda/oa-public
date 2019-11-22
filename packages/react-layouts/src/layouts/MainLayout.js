@@ -5,7 +5,9 @@ import { Link } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 import ErrorBoundary from 'react-error-boundary';
 import classNames from 'classnames';
+import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
+import Modal from '@openagenda/react-components/build/Modal';
 import useChildLayouts from '../hooks/useChildLayouts';
 import * as mainActions from '../reducers/main';
 import useMemoOne from '../hooks/useMemoOne';
@@ -169,6 +171,21 @@ function MainLayout({
     [history, toggleUserPanel]
   );
 
+  const ErrorComponent = useCallback(
+    props => React.createElement(FallbackComponent, { ...props, lang }),
+    [FallbackComponent, lang]
+  );
+
+  const extraProps = useMemoOne(() => ({ user }), [user]);
+
+  const [flashMessage, setFlashMessage] = useState(null);
+
+  const removeMessage = useCallback(() => setFlashMessage(null), [
+    setFlashMessage
+  ]);
+
+  useEffect(() => setFlashMessage(session.flash()), [setFlashMessage]);
+
   useEffect(() => {
     if (!inboxLoaded) {
       checkInboxNews().catch(() => null);
@@ -188,13 +205,6 @@ function MainLayout({
       onSeeActivitiesClick
     });
   }, [apiRoot, onSeeActivitiesClick]);
-
-  const ErrorComponent = useCallback(
-    props => React.createElement(FallbackComponent, { ...props, lang }),
-    [FallbackComponent, lang]
-  );
-
-  const extraProps = useMemoOne(() => ({ user }), [user]);
 
   const content = useChildLayouts(
     children,
@@ -347,6 +357,22 @@ function MainLayout({
 
       <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
         {content}
+
+        {flashMessage && flashMessage !== '' ? (
+          <Modal>
+            <div className="text-center">
+              <p className="margin-top-sm">{flashMessage}</p>
+
+              <button
+                type="button"
+                onClick={removeMessage}
+                className="btn btn-primary"
+              >
+                Ok
+              </button>
+            </div>
+          </Modal>
+        ) : null}
       </ErrorBoundary>
     </>
   );
