@@ -197,7 +197,11 @@ function widget( elem, options ) {
 
     _clearWidgetRequestTags();
 
-    requestTags.push( tag.slug );
+    if ( isExclusive ) {
+      requestTags = [ tag.slug ];
+    } else {
+      requestTags.push( tag.slug );
+    }
 
     _update();
 
