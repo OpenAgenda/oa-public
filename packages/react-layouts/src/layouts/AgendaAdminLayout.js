@@ -5,6 +5,7 @@ import {
   useHistory, useLocation, matchPath, Link
 } from 'react-router-dom';
 import ErrorBoundary from 'react-error-boundary';
+import compareRoles from '@openagenda/members/build/compareRoles';
 import Image from '@openagenda/react-components/build/Image';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
@@ -19,7 +20,7 @@ const TABS_IN_APP = [
   'settings_advanced'
 ];
 
-function Sections() {
+function Sections({ agenda, role }) {
   const location = useLocation();
 
   const sections = useSelector(
@@ -34,9 +35,23 @@ function Sections() {
         <h2>{section.label}</h2>
       </li>
 
-      {section.tabs.map(({ name, label, link }) => {
+      {section.tabs.map(tab => {
+        const { name, label, link } = tab;
         const selected = matchPath(link, location.pathname);
         const tabInApp = TABS_IN_APP.includes(name);
+
+        const authorizedTab = compareRoles.isSuperiorToOrEqual(
+          role,
+          tab.roles
+        );
+
+        if (!authorizedTab) {
+          if (selected) {
+            window.location.href = `/${agenda.slug}/admin`;
+          }
+
+          return null;
+        }
 
         return (
           <li
@@ -202,7 +217,7 @@ function AgendaAdminLayout({
       <div className="row wsq">
         <div className="col col-sm-3 nav">
           <ul className="list-unstyled">
-            <Sections />
+            <Sections agenda={agenda} role={role} />
           </ul>
         </div>
 

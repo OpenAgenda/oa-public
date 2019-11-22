@@ -18,9 +18,9 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loaded: true,
-        data: action.result.agenda,
-        role: action.result.role,
-        sections: action.result.sections,
+        data: action.result.data.agenda,
+        role: action.result.data.role,
+        sections: action.result.data.sections,
         error: null,
         loading: false
       };
@@ -41,7 +41,7 @@ export default (state = initialState, action) => {
     case VERIFY_LOCATION_COUNT_SUCCESS:
       return {
         ...state,
-        locationCount: action.result.count
+        locationCount: action.result.data.count
       };
     case VERIFY_LOCATION_COUNT_FAIL:
       return {

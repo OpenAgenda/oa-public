@@ -26,7 +26,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         inboxLoaded: true,
-        hasInboxNews: action.result.hasNew,
+        hasInboxNews: action.result.data.hasNew,
         error: null,
         loading: false
       };
