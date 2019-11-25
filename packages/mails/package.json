@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.2",
-    "ejs": "^2.7.1",
+    "ejs": "^2.7.4",
     "express": "^4.17.1",
     "isemail": "^3.2.0",
     "lodash": "^4.17.15",
@@ -32,10 +32,10 @@
   "devDependencies": {
     "@openagenda/eslint-config": "^1.0.0",
     "@openagenda/queues": "^1.2.2",
-    "eslint": "^6.5.1",
+    "eslint": "^6.7.1",
     "html-to-text": "^5.1.1",
     "jest": "^24.9.0",
-    "lint-staged": "^9.4.2",
+    "lint-staged": "^9.4.3",
     "prettier-eslint-cli": "^5.0.0"
   },
   "nodemonConfig": {

@@ -12,9 +12,9 @@
     "mails-editor": "NODE_ICU_DATA=`yarn --silent node-full-icu-path` oa-mails-editor services/mails/templates -w services/mails/components -w ../labels"
   },
   "dependencies": {
-    "@feathersjs/errors": "^4.3.4",
-    "@feathersjs/express": "^4.3.5",
-    "@feathersjs/feathers": "^4.3.4",
+    "@feathersjs/errors": "^4.3.11",
+    "@feathersjs/express": "^4.3.11",
+    "@feathersjs/feathers": "^4.3.11",
     "@loadable/component": "^5.10.3",
     "@openagenda/abilities": "^1.1.3",
     "@openagenda/activities": "^2.1.2",
@@ -103,7 +103,7 @@
     "http-proxy": "^1.18.0",
     "immutability-helper": "^3.0.0",
     "isemail": "^3.1.2",
-    "jsdom": "^15.1.1",
+    "jsdom": "^15.2.1",
     "knex": "^0.19.5",
     "languages": "^0.1.3",
     "locutus": "^2.0.11",
@@ -125,9 +125,9 @@
     "passport-local": "^1.0.0",
     "passport-twitter": "^1.0.4",
     "planer": "^1.1.1",
-    "qs": "^6.9.0",
-    "react": "^16.11.0",
-    "react-dom": "^16.11.0",
+    "qs": "^6.9.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
     "redis": "^2.8.0",
     "redux": "^4.0.1",
     "rss": "^1.2.2",
@@ -144,6 +144,6 @@
     "mocha": "^6.2.1",
     "should": "^13.2.3",
     "sinon": "^7.5.0",
-    "source-map-support": "^0.5.9"
+    "source-map-support": "^0.5.16"
   }
 }
