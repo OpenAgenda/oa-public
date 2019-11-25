@@ -11,22 +11,17 @@ const addAgenda = require( './addAgenda' );
 const createAgenda = require( './createAgenda' );
 const networks = require( '../../services/networks' );
 
-module.exports = ( services, networkUid ) => {
-
-  return {
-    get: get.bind( null, networkUid ),
-    schema: {
-      get: getSchema.bind( null, networkUid ),
-      updateFields: updateSchemaFields.bind( null, networkUid ),
-    },
-    agendas: _.assign( getAgendas.bind( null, networkUid ), {
-      add: addAgenda.bind( null, services, networkUid ),
-      create: createAgenda.bind( null, networkUid )
-    } )
-  }
-
-}
-
-module.exports.list = list;
-
-module.exports.create = data => networks.create( data );
+module.exports = services => Object.assign(networkUid => ({
+  get: get.bind( null, networkUid ),
+  schema: {
+    get: getSchema.bind( null, networkUid ),
+    updateFields: updateSchemaFields.bind( null, networkUid ),
+  },
+  agendas: _.assign( getAgendas.bind( null, networkUid ), {
+    add: addAgenda.bind( null, services, networkUid ),
+    create: createAgenda.bind( null, networkUid )
+  } )
+}), {
+  list,
+  create: data => networks.create( data )
+});

@@ -42,7 +42,7 @@ module.exports.init = config => {
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/networkApps' : null,
     interfaces: {
       getEventSchema: () => eventFormSchema( { languages: true } ),
-      listNetworks: core.networks.list,
+      listNetworks: () => core.networks.list(),
       getNetwork: uid => core.networks( uid ).get(),
       getNetworkSchema: uid => core.networks( uid ).schema.get(),
       setNetworkSchemaFields: ( uid, fields ) => core.networks( uid ).schema.updateFields( fields ),
@@ -53,7 +53,6 @@ module.exports.init = config => {
       createNetwork: core.networks.create
     }
   } ) );
-
 
 }
 
