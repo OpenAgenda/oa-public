@@ -67,18 +67,20 @@ async function createAgenda( networkUid, data, user ) {
 
 }
 
-async function addAgendaToNetwork( uid, dirtySlug ) {
-
+async function addAgendaToNetwork(uid, dirtySlug) {
   const slug = (
     dirtySlug.split( '?' ).shift()
   ).split( '/' ).pop();
 
-  log( 'extracted slug %s', slug );
+  log('extracted slug %s', slug);
 
-  const agenda = await agendas.get( { slug }, { private: null } );
+  const agenda = await agendas.get({ slug }, { private: null });
 
-  await core.networks( uid ).agendas.add( agenda.uid );
+  if (!agenda) {
+    throw new Error('Not found');
+  }
+
+  await core.networks( uid ).agendas.add(agenda.uid);
 
   return agenda;
-
 }
