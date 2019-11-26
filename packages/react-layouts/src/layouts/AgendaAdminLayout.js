@@ -38,7 +38,7 @@ function Sections({ agenda, role }) {
 
       {section.tabs.map(tab => {
         const { name, label, link } = tab;
-        const selected = matchPath(link, location.pathname);
+        const selected = matchPath(location.pathname, link);
         const tabInApp = TABS_IN_APP.includes(name);
 
         const authorizedTab = compareRoles.isSuperiorToOrEqual(
