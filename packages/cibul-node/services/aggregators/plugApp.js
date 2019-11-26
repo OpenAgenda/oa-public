@@ -21,17 +21,22 @@ module.exports = (config, parentApp) => {
     members.mw.loadAndAuthorize('administrator')
   ]);
 
-  parentApp.get('/:agendaSlug/admin/sources', ( req, res, next) => {
+  parentApp.get('/:agendaSlug/admin/sources', (req, res, next) => {
+    res.vary('Accept');
+
     if (req.accepts(['json', 'html']) !== 'json') {
       return next();
     }
 
     aggregators.sources
       .list(req.agenda, { search: req.query.search }, { detailed: true })
-      .then(sources => res.json({ sources }), next);
+      .then(sources => {
+        res.json({ sources });
+      }, next);
   });
 
-  parentApp.post('/:agendaSlug/admin/sources',
+  parentApp.post(
+    '/:agendaSlug/admin/sources',
     bodyParser.json(),
     agendas.mw.loadBy({
       path: 'body.agendaUid',
@@ -46,7 +51,8 @@ module.exports = (config, parentApp) => {
     ).then(res.json.bind(res), next)
   );
 
-  parentApp.put('/:agendaSlug/admin/sources/:sourceId',
+  parentApp.put(
+    '/:agendaSlug/admin/sources/:sourceId',
     bodyParser.json(),
     (req, res, next) => aggregators.sources.update(
       req.agenda,
@@ -55,7 +61,8 @@ module.exports = (config, parentApp) => {
     ).then(res.json.bind(res), next)
   );
 
-  parentApp.delete('/:agendaSlug/admin/sources/:sourceId',
+  parentApp.delete(
+    '/:agendaSlug/admin/sources/:sourceId',
     (req, res, next) => aggregators.sources.remove(
       req.agenda,
       req.params.sourceId,
@@ -65,7 +72,7 @@ module.exports = (config, parentApp) => {
 
   parentApp.get(
     '/agendas/:uid/sources.json',
-    agendas.mw.loadBy({path: 'params.uid', field: 'uid' }),
+    agendas.mw.loadBy({ path: 'params.uid', field: 'uid' }),
     (req, res, next) => aggregators.sources
       .list(req.agenda, {}, { detailed: true })
       .then(sources => res.json({
@@ -73,4 +80,4 @@ module.exports = (config, parentApp) => {
         agendas: sources.map(source => source.agenda)
       }), next)
   );
-}
+};
