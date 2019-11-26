@@ -25,6 +25,7 @@ const createAgendaSettingsEditApp = require('@openagenda/agenda-settings/dist/cl
 const createActivitiesApp = require('@openagenda/activity-apps/dist/client/apps/user');
 const createAggregatorSourcesApp = require('@openagenda/aggregator-sources/dist/app');
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
+const createMembersApp = require('@openagenda/member-apps/dist/app');
 const RootHelmet = require('./RootHelmet');
 // const reflectStoresInLayout = require('./reflectStoresInLayout');
 
@@ -84,19 +85,25 @@ module.exports = function match({ initialState, apiRoot, lang, publicPath }) {
           req,
           history,
           initialState: state.inboxUser,
-          layout: [MainLayout, InboxUserLayout] // InboxUserLayout, InboxAgendaLayout, ...
+          layout: [MainLayout, InboxUserLayout]
         }),
         support: createInboxApp({
           req,
           history,
           initialState: state.support,
-          layout: [MainLayout, InboxUserLayout] // InboxUserLayout, InboxAgendaLayout, ...
+          layout: [MainLayout, InboxUserLayout]
         }),
         agendaAdminInbox: createInboxApp({
           req,
           history,
           initialState: state.agendaAdminInbox,
           layout: [MainLayout, AgendaAdminLayout, InboxAgendaAdminLayout]
+        }),
+        members: createMembersApp({
+          req,
+          history,
+          initialState: state.members,
+          layout: [MainLayout, AgendaAdminLayout]
         })
       };
 

@@ -43,7 +43,7 @@ export default function reducer(state = initialState, action) {
     case LOAD:
       return {
         ...state,
-        loading: true
+        loadLoading: true
       };
     case LOAD_SUCCESS:
       return {
@@ -54,7 +54,7 @@ export default function reducer(state = initialState, action) {
         credFilters: [].concat(action.query.credentials || []),
         page: 1,
         error: null,
-        loading: false
+        loadLoading: false
       };
     case LOAD_FAIL:
       return {
@@ -63,7 +63,7 @@ export default function reducer(state = initialState, action) {
         total: null,
         page: 1,
         error: action.error,
-        loading: false
+        loadLoading: false
       };
     case GET_STATS_SUCCESS:
       return {
@@ -73,7 +73,7 @@ export default function reducer(state = initialState, action) {
     case LIST:
       return {
         ...state,
-        loading: true
+        listLoading: true
       };
     case LIST_SUCCESS:
       return {
@@ -82,7 +82,7 @@ export default function reducer(state = initialState, action) {
         total: action.result.total,
         page: 1,
         error: null,
-        loading: false
+        listLoading: false
       };
     case LIST_FAIL:
       return {
@@ -91,7 +91,7 @@ export default function reducer(state = initialState, action) {
         total: null,
         page: 1,
         error: action.error,
-        loading: false
+        listLoading: false
       };
     case NEXT_PAGE:
       return {
@@ -206,48 +206,52 @@ export function isLoaded(globalState) {
   return globalState.members && globalState.members.loaded;
 }
 
-export function load(query = {}) {
+export function load(agenda, query = {}) {
   return {
     types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
     query,
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.list, { params: query });
+      return client.get(res.list.replace(':slug', agenda.slug), {
+        params: query
+      });
     }
   };
 }
 
-export function getStats() {
+export function getStats(agenda) {
   return {
     types: [GET_STATS, GET_STATS_SUCCESS, GET_STATS_FAIL],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.stats);
+      return client.get(res.stats.replace(':slug', agenda.slug));
     }
   };
 }
 
-export function list(query = {}) {
+export function list(agenda, query = {}) {
   return {
     types: [LIST, LIST_SUCCESS, LIST_FAIL],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.list, { params: query });
+      return client.get(res.list.replace(':slug', agenda.slug), {
+        params: query
+      });
     }
   };
 }
 
-export function nextPage(query, page) {
+export function nextPage(agenda, query, page) {
   return {
     types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
     page,
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get(res.list, {
+      return client.get(res.list.replace(':slug', agenda.slug), {
         params: {
           ...query,
           page
@@ -257,22 +261,25 @@ export function nextPage(query, page) {
   };
 }
 
-export function update(id, values) {
+export function update(agenda, id, values) {
   return {
     types: [UPDATE, UPDATE_SUCCESS, UPDATE_FAIL],
     id,
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.patch(res.update.replace(':id', id), {
-        custom: _.omit(values, 'role'),
-        role: values.role
-      });
+      return client.patch(
+        res.update.replace(':slug', agenda.slug).replace(':id', id),
+        {
+          custom: _.omit(values, 'role'),
+          role: values.role
+        }
+      );
     }
   };
 }
 
-export function invite(data) {
+export function invite(agenda, data) {
   return {
     types: [INVITE, INVITE_SUCCESS, INVITE_FAIL],
     promise: ({ client }, { getState }) => {
@@ -282,7 +289,7 @@ export function invite(data) {
         .map(email => email.trim())
         .filter(email => !!email);
 
-      return client.post(res.invite, {
+      return client.post(res.invite.replace(':slug', agenda.slug), {
         emails,
         role: data.role,
         context: {
@@ -293,7 +300,7 @@ export function invite(data) {
   };
 }
 
-export function resendInvitation(id) {
+export function resendInvitation(agenda, id) {
   return {
     types: [
       RESEND_INVITATION,
@@ -303,7 +310,10 @@ export function resendInvitation(id) {
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.put(res.resend.replace(':id', id), {});
+      return client.put(
+        res.resend.replace(':slug', agenda.slug).replace(':id', id),
+        {}
+      );
     }
   };
 }
@@ -314,25 +324,29 @@ export function cleanInviteResult() {
   };
 }
 
-export function remove(id) {
+export function remove(agenda, id) {
   return {
     types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
     id,
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.delete(res.remove.replace(':id', id));
+      return client.delete(
+        res.remove.replace(':slug', agenda.slug).replace(':id', id)
+      );
     }
   };
 }
 
-export function sendMessage(data, query) {
+export function sendMessage(agenda, data, query) {
   return {
     types: [SEND_MESSAGE, SEND_MESSAGE_SUCCESS, SEND_MESSAGE_FAIL],
     promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.post(res.sendMessage, data, { params: query });
+      return client.post(res.sendMessage.replace(':slug', agenda.slug), data, {
+        params: query
+      });
     }
   };
 }

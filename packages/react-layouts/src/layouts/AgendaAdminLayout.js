@@ -13,6 +13,7 @@ import useMemoOne from '../hooks/useMemoOne';
 import useChildLayouts from '../hooks/useChildLayouts';
 
 const TABS_IN_APP = [
+  'members',
   'sources',
   'inbox',
   'settings_profile',
@@ -117,7 +118,11 @@ function AgendaAdminLayout({
   const isLoading = useSelector(state => _.get(state, 'agendaAdmin.loading', true));
   const loadError = useSelector(state => _.get(state, 'agendaAdmin.error', null));
   const agenda = useSelector(
-    state => _.get(state, 'agendaAdmin.data', null),
+    state => _.get(state, 'agendaAdmin.agenda', null),
+    shallowEqual
+  );
+  const member = useSelector(
+    state => _.get(state, 'agendaAdmin.member', null),
     shallowEqual
   );
   const role = useSelector(
@@ -134,9 +139,10 @@ function AgendaAdminLayout({
       ...parentExtraProps,
       agenda,
       role,
-      sections
+      sections,
+      member
     }),
-    [parentExtraProps, agenda, role, sections]
+    [parentExtraProps, agenda, member, role, sections]
   );
 
   const Loading = useCallback(

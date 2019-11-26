@@ -13,9 +13,6 @@ import I18nContext from '../../contexts/I18nContext';
 import validate from './validate';
 
 @connect(state => ({
-  roles: state.agenda.roles,
-  invitationMessage: state.agenda.credentials.invitationMessage,
-  userCredential: state.member.role,
   inviteLoading: state.members.inviteLoading
 }))
 class InviteMembersForm extends Component {
@@ -29,13 +26,11 @@ class InviteMembersForm extends Component {
 
   render() {
     const {
-      onSubmit,
-      userCredential,
-      invitationMessage,
-      inviteLoading,
-      roles
+      onSubmit, userCredential, agenda, inviteLoading
     } = this.props;
-    const haveRole = value => roles.some(role => role.code === value);
+    const {
+      credentials: { invitationMessage }
+    } = agenda;
 
     return (
       <Form
@@ -51,7 +46,7 @@ class InviteMembersForm extends Component {
                     <p className="text-muted">
                       {getLabel('inviteMembersPlaceholder')}
                     </p>
-)}
+                  )}
                   component={this.renderTextarea}
                   name="emails"
                   type="textarea"
@@ -73,18 +68,16 @@ class InviteMembersForm extends Component {
                   displayFeedback={false}
                   parse={v => parseInt(v, 10)}
                 >
-                  {haveRole(4) && (
+                  {agenda.private ? (
                     <option value="4">{getLabel('reader')}</option>
-                  )}
-                  {haveRole(1) && (
-                    <option value="1">{getLabel('contributor')}</option>
-                  )}
-                  {userCredential !== 3 && haveRole(3) && (
+                  ) : null}
+                  <option value="1">{getLabel('contributor')}</option>
+                  {userCredential === 2 && agenda.credentials.moderators ? (
                     <option value="3">{getLabel('moderator')}</option>
-                  )}
-                  {userCredential !== 3 && haveRole(2) && (
+                  ) : null}
+                  {userCredential === 2 ? (
                     <option value="2">{getLabel('administrator')}</option>
-                  )}
+                  ) : null}
                 </Field>
                 {invitationMessage && (
                   <Field

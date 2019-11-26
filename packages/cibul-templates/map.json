@@ -26,7 +26,6 @@
   "eventForm/index",
   "eventFormTags/index",
   "dialog/index",
-  "members/index",
   "search/agendas",
   "search/events",
   {

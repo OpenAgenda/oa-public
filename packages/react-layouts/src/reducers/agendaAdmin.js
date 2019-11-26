@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loaded: true,
-        data: action.result.data.agenda,
+        agenda: action.result.data.agenda,
         role: action.result.data.role,
         sections: action.result.data.sections,
         error: null,
@@ -27,7 +27,7 @@ export default (state = initialState, action) => {
     case LOAD_FAIL:
       return {
         ...state,
-        data: null,
+        agenda: null,
         role: null,
         sections: null,
         error: action.error,

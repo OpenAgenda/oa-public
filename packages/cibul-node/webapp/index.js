@@ -234,6 +234,28 @@ const initialState = req => ({
         addAttachment: '/agendas/:agendaUid/inbox/conversations/:conversationId/add-attachment'
       }
     }
+  },
+  members: {
+    settings: {
+      prefix: '/:slug/admin/members',
+      lang: req.lang,
+      apiRoot: `http://localhost:${config.port}`,
+      perPageLimit: 20
+    },
+    res: {
+      app: '/:slug/admin/members',
+      list: '/:slug/admin/members.json',
+      update: '/:slug/admin/members/:id',
+      remove: '/:slug/admin/members/:id',
+      invite: '/:slug/admin/members/invite',
+      resend: '/:slug/admin/members/:id/invite/resend',
+      stats: '/:slug/admin/members/stats',
+      showContributor: '/:slug/admin?contributorId=:contributorId',
+      writeToMember: '/messages/new?uuid=:uid&redirect=:redirect',
+      exportToCsv: '/:slug/admin/members.csv',
+      exportToXlsx: '/:slug/admin/members.xlsx',
+      sendMessage: '/:slug/admin/members/send-message'
+    }
   }
 });
 
@@ -271,6 +293,8 @@ module.exports = app => {
       '/:slug/admin/inbox/?*?',
       // aggregator-sources
       '/:slug/admin/sources/?*?',
+      // member-apps
+      '/:slug/admin/members/?*?',
       // agenda-settings/edit
       '/:slug/admin/settings/?*?'
     ],

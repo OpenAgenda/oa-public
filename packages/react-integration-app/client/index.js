@@ -27,6 +27,7 @@ import createAgendaSettingsEditApp from '@openagenda/agenda-settings/src/client/
 import createActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
 import createInboxApp from '@openagenda/inbox-apps/src/apps/inbox';
+import createMembersApp from '@openagenda/member-apps/src/app';
 import Root from './Root';
 // import reflectStoresInLayout from '../reflectStoresInLayout';
 
@@ -92,6 +93,11 @@ const apps = {
     history,
     initialState: initialState.agendaAdminInbox,
     layout: [MainLayout, AgendaAdminLayout, InboxAgendaAdminLayout]
+  }),
+  member: createMembersApp({
+    history,
+    initialState: initialState.members,
+    layout: [MainLayout, AgendaAdminLayout]
   })
 };
 

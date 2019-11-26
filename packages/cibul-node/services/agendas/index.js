@@ -75,11 +75,14 @@ module.exports.plugApp = app => {
     checkUser,
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('moderator', { or: throwUnauthorized }),
-    (req, res) => res.send(agendaAdminParser({
-      agenda: req.agenda,
-      role: req.member.role,
-      lang: req.lang
-    }))
+    (req, res) => res.send({
+      member: req.member,
+      ...agendaAdminParser({
+        agenda: req.agenda,
+        role: req.member.role,
+        lang: req.lang
+      })
+    })
   );
 };
 

@@ -1,9 +1,6 @@
-/* global __CLIENT__ */
-
 import React, { Component } from 'react';
-import { provideHooks } from 'redial';
 import { withRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { connect, ReactReduxContext } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import classNames from 'classnames';
 import debounce from 'lodash/debounce';
@@ -24,10 +21,16 @@ import openRequestForm from '@openagenda/call-to-action/dist/openRequestForm';
 import InviteMembersForm from '../../components/InviteMembersForm/InviteMembersForm';
 import EditMemberForm from '../../components/EditMemberForm/EditMemberForm';
 import SendMessageForm from '../../components/SendMessageForm/SendMessageForm';
-import * as membersActions from '../../redux/modules/members';
-import * as modalsActions from '../../redux/modules/modals';
+import * as membersActions from '../../reducers/members';
+import * as modalsActions from '../../reducers/modals';
 import { renderField, renderSearchInput } from '../../utils/form';
 import I18nContext from '../../contexts/I18nContext';
+
+const Loading = () => (
+  <div className="padding-v-md" style={{ position: 'relative' }}>
+    <Spinner />
+  </div>
+);
 
 function SimpleSelect({
   action, children, input, meta, ...otherProps
@@ -75,20 +78,6 @@ function OrderField({ action, input, title }) {
   );
 }
 
-@provideHooks({
-  fetch: async ({ store: { dispatch, getState }, location }) => {
-    const state = getState();
-    const query = qs.parse(location.search, { ignoreQueryPrefix: true });
-    const promises = [];
-
-    if (!membersActions.isLoaded(state)) {
-      promises.push(dispatch(membersActions.getStats()));
-      promises.push(dispatch(membersActions.load(query)));
-    }
-
-    return Promise.all(__CLIENT__ ? [] : promises);
-  }
-})
 @connect(
   (state, props) => {
     const query = qs.parse(props.location.search, { ignoreQueryPrefix: true });
@@ -96,26 +85,23 @@ function OrderField({ action, input, title }) {
     return {
       query,
       res: state.res,
-      credentials: state.agenda.credentials,
-      userShId: state.member.id,
-      userCredential: state.member.role,
       members: state.members.data,
       page: state.members.page,
       total: state.members.total,
-      loading: state.members.loading,
+      loadLoading: state.members.loadLoading,
+      listLoading: state.members.listLoading,
       nextLoading: state.members.nextLoading,
       credFilters: state.members.credFilters,
       showInviteResult: state.members.showInviteResult,
       inviteError: state.members.inviteError,
       stats: state.members.stats || {},
-      agenda: state.agenda,
       perPageLimit: state.settings.perPageLimit,
-      modals: state.modals,
-      roles: state.agenda.roles
+      modals: state.modals
     };
   },
   { ...membersActions, ...modalsActions }
 )
+@withContext(ReactReduxContext, 'reactReduxContext')
 @withRouter
 class Dashboard extends Component {
   constructor(props) {
@@ -127,6 +113,16 @@ class Dashboard extends Component {
   }
 
   componentDidMount() {
+    const { reactReduxContext, agenda, query } = this.props;
+    const { store } = reactReduxContext;
+
+    // const state = store.getState();
+
+    // if (!membersActions.isLoaded(state)) {
+    store.dispatch(membersActions.getStats(agenda)).catch(() => null);
+    store.dispatch(membersActions.load(agenda, query)).catch(() => null);
+    // }
+
     monitorBottomHit(throttle(this.nextPage, 400, { trailing: false }));
   }
 
@@ -168,11 +164,13 @@ class Dashboard extends Component {
 
   nextPage = () => {
     const {
+      agenda,
       page,
       total,
       search,
       credFilters,
-      loading,
+      loadLoading,
+      listLoading,
       nextLoading,
       members,
       perPageLimit,
@@ -181,13 +179,15 @@ class Dashboard extends Component {
     if (
       !members
       || !members.length
-      || loading
+      || loadLoading
+      || listLoading
       || nextLoading
       || page * perPageLimit >= total
     ) {
       return;
     }
     nextPage(
+      agenda,
       { search: search || undefined, role: credFilters },
       (page || 1) + 1
     );
@@ -195,13 +195,13 @@ class Dashboard extends Component {
 
   search = ({ search, sortBy, sortOrder }) => {
     const {
-      list, location, credFilters, history
+      list, agenda, location, credFilters, history
     } = this.props;
 
     const order = sortBy && sortOrder ? `${sortBy}.${sortOrder}` : undefined;
     const query = { search: search || undefined, role: credFilters, order };
 
-    return list(query).then(() => history.push({
+    return list(agenda, query).then(() => history.push({
       ...location,
       search: qs.stringify(query, { arrayFormat: 'brackets' })
     }));
@@ -221,11 +221,10 @@ class Dashboard extends Component {
     const {
       res,
       showModal,
-      userShId,
-      userRole,
       resendInvitation,
       location,
       agenda,
+      role: userCredential,
       i18n
     } = this.props;
     const { getLabel } = i18n;
@@ -238,7 +237,7 @@ class Dashboard extends Component {
 
     const base64url = Base64.encode(location.pathname + location.search);
 
-    const resendInvitationHandler = () => resendInvitation(id)
+    const resendInvitationHandler = () => resendInvitation(agenda, id)
       .then(() => showModal('memberReinvited', { member, success: true }))
       .catch(() => showModal('memberReinvited', { member, success: false }));
 
@@ -302,7 +301,9 @@ class Dashboard extends Component {
             )}
 
             <a
-              href={res.showContributor.replace(':contributorId', id)}
+              href={res.showContributor
+                .replace(':slug', agenda.slug)
+                .replace(':contributorId', id)}
               className="text-muted"
             >
               {/* <span className="badge badge-info"> */}
@@ -310,7 +311,7 @@ class Dashboard extends Component {
               {getLabel(eventCount && eventCount > 1 ? 'events' : 'event')}
               {/* </span> */}
             </a>
-            {(userRole !== 3 || ![2, 3].includes(role)) && (
+            {(userCredential !== 3 || ![2, 3].includes(role)) && (
               <button
                 type="button"
                 className="btn btn-link text-muted"
@@ -319,7 +320,7 @@ class Dashboard extends Component {
                 {getLabel('editProfile')}
               </button>
             )}
-            {!owner && (userRole !== 3 || ![2, 3].includes(role)) && (
+            {!owner && (userCredential !== 3 || ![2, 3].includes(role)) && (
               <button
                 type="button"
                 className="btn btn-link text-muted"
@@ -328,7 +329,7 @@ class Dashboard extends Component {
                 {getLabel('removeMember')}
               </button>
             )}
-            {user && id !== userShId ? (
+            {user && id !== member.id ? (
               <a
                 className="text-muted"
                 href={`/${agenda.slug}/admin/members/${id}/contact?creationRedirect=${base64url}`}
@@ -396,7 +397,8 @@ class Dashboard extends Component {
       res,
       members,
       total,
-      loading,
+      loadLoading,
+      listLoading,
       nextLoading,
       stats,
       search,
@@ -413,8 +415,8 @@ class Dashboard extends Component {
       showInviteResult,
       cleanInviteResult,
       inviteError,
-      credentials,
       agenda,
+      member,
       query,
       i18n
     } = this.props;
@@ -433,6 +435,10 @@ class Dashboard extends Component {
     const memberReinvitedModal = modals.memberReinvited || {};
     const writeToMembersModal = modals.writeToMembers || {};
 
+    if (loadLoading) {
+      return <Loading />;
+    }
+
     return (
       <div>
         <h2>
@@ -444,15 +450,19 @@ class Dashboard extends Component {
                 title={getLabel('export')}
                 id="nested-export-dropdown"
               >
-                <MenuItem href={res.exportToXlsx}>XLSX</MenuItem>
-                <MenuItem href={res.exportToCsv}>CSV</MenuItem>
+                <MenuItem href={res.exportToXlsx.replace(':slug', agenda.slug)}>
+                  XLSX
+                </MenuItem>
+                <MenuItem href={res.exportToCsv.replace(':slug', agenda.slug)}>
+                  CSV
+                </MenuItem>
               </DropdownButton>
 
               <Button onClick={() => showModal('inviteMembers')}>
                 {getLabel('invite')}
               </Button>
 
-              {!credentials.invitationMessage && (
+              {!agenda.credentials.invitationMessage && (
                 <DropdownButton
                   id="nested-more-dropdown"
                   title={<i className="fa fa-ellipsis-v" aria-hidden="true" />}
@@ -505,7 +515,7 @@ class Dashboard extends Component {
                 className="form-control"
                 placeholder={getLabel('searchMember')}
                 action={() => this.debouncedSearch(form.getState().values)}
-                loading={loading}
+                loading={listLoading}
               />
 
               <div className="text-right form-group form-inline">
@@ -548,7 +558,7 @@ class Dashboard extends Component {
           (total > 0 && total < (stats.total || 0)) // if total differ of 0 or stats.total
           || (((credFilters && credFilters.length)
             || (!!search && search === query.search))
-            && !loading) ? (
+            && !listLoading) ? (
               <span className="margin-left-sm">
                 {getLabel('result')}: <strong>{total}</strong>{' '}
                 {getLabel(total <= 1 ? 'member' : 'members').toLowerCase()}
@@ -560,7 +570,7 @@ class Dashboard extends Component {
               type="button"
               className="btn btn-default btn-medium margin-left-sm"
               onClick={() => {
-                if (credentials.invitationMessage) {
+                if (agenda.credentials.invitationMessage) {
                   return showModal('writeToMembers', {
                     query: { search: search || undefined, role: credFilters }
                   });
@@ -572,7 +582,7 @@ class Dashboard extends Component {
                 });
               }}
             >
-              {credentials.invitationMessage ? null : (
+              {agenda.credentials.invitationMessage ? null : (
                 <>
                   <i className="golden-icon" />{' '}
                 </>
@@ -604,14 +614,18 @@ class Dashboard extends Component {
             onClose={() => closeModal('editMember')}
           >
             <EditMemberForm
+              agenda={agenda}
+              userCredential={member.role}
               member={editModal.member}
-              onSubmit={(...params) => update(editModal.member.id, ...params).then(async result => {
-                closeModal('editMember');
+              onSubmit={(...params) => update(agenda, editModal.member.id, ...params).then(
+                async result => {
+                  closeModal('editMember');
 
-                await getStats();
+                  await getStats(agenda);
 
-                return result;
-              })}
+                  return result;
+                }
+              )}
             />
           </Modal>
         )}
@@ -689,9 +703,11 @@ class Dashboard extends Component {
               </div>
             ) : (
               <InviteMembersForm
-                onSubmit={data => invite(data).then(async result => {
+                agenda={agenda}
+                userCredential={member.role}
+                onSubmit={data => invite(agenda, data).then(async result => {
                   await this.search({ search });
-                  await getStats();
+                  await getStats(agenda);
                   return result;
                 })}
               />
@@ -725,7 +741,9 @@ class Dashboard extends Component {
           >
             {!writeToMembersModal.confirmation ? (
               <SendMessageForm
-                onSubmit={data => sendMessage(data, writeToMembersModal.query).then(() => setModal('writeToMembers', { confirmation: true }))}
+                onSubmit={data => sendMessage(agenda, data, writeToMembersModal.query).then(
+                  () => setModal('writeToMembers', { confirmation: true })
+                )}
               />
             ) : (
               <div className="text-center">
