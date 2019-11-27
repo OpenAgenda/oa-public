@@ -69,8 +69,8 @@
 
   .language-select__control--is-focused {
 
-    border-color: lighten($oa-blue, 10);
-    box-shadow: inherit;
+    border-color: lighten($oa-blue, 10)!important;
+    box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset,rgba($oa-blue, 0.6) 0px 0px 8px;
 
   }
 
