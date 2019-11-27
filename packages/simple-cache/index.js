@@ -1,6 +1,5 @@
 "use strict";
 
-const _ = require('lodash');
 const redis = require('redis');
 
 module.exports = c => {
@@ -18,18 +17,7 @@ module.exports = c => {
 
     return {
       get: (key, cb) => client.get(getRedisKey(key), cb),
-      set: set.bind(null, { client, getRedisKey })
+      set: (key, value, ttl, cb) => client.set(getRedisKey(key), value, 'ex', ttl, cb)
     }
   }
-}
-
-function set({ client, getRedisKey }, key, value, ttl, cb) {
-  client.set(getRedisKey(key), value, (err, result) => {
-    if (err) return cb(err);
-
-    client.expire(getRedisKey(key), ttl, err => {
-      if (err) return cb(err);
-      cb();
-    });
-  });
 }
