@@ -1,69 +1,35 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const redis = require('redis');
 
-const config = require( './lib/config' );
+module.exports = c => {
+  if (!c.redis && !c.client) {
+    throw new Error('redis configuration is missing');
+  };
 
-module.exports = Object.assign( cache, {
-  init: c => config.set( c )
-} );
+  const prefix = c.prefix || 'simplecache:';
+  const client = c.client || redis.createClient(c.redis.port, c.redis.host);
 
-function cache( namespace, identifier = null ) {
+  return (namespace, identifier = null) => {
+    const getRedisKey = key => [prefix + namespace].concat(
+      identifier === null ? [] : [ identifier ]
+    ).concat([key]).join(':');
 
-  if ( !config.client ) throw new VError( 'simple cache needs to be initialized' );
-
-  const cli = config.client;
-
-  return {
-    get,
-    set,
-    clear
-  }
-
-  function set( key, value, ttl, cb ) {
-
-    cli.set( _key( key ), value, ( err, result ) => {
-
-      if ( err ) return cb( err );
-
-      cli.expire( _key( key ), ttl, err => {
-
-        if ( err ) return cb( err );
-
-        cb();
-
-      } );
-
-    } );
-
-  }
-
-  function get( key, cb ) {
-
-    cli.get( _key( key ), cb );
-
-  }
-
-
-  function clear( key, cb ) {
-
-
-
-  }
-
-  function _key( key ) {
-
-    const parts = [ config.prefix + namespace, key ];
-
-    if ( identifier !== null ) {
-
-      parts.splice( 1, 0, identifier );
-
+    return {
+      get: (key, cb) => client.get(getRedisKey(key), cb),
+      set: set.bind(null, { client, getRedisKey })
     }
-
-    return parts.join( ':' );
-
   }
+}
 
+function set({ client, getRedisKey }, key, value, ttl, cb) {
+  client.set(getRedisKey(key), value, (err, result) => {
+    if (err) return cb(err);
+
+    client.expire(getRedisKey(key), ttl, err => {
+      if (err) return cb(err);
+      cb();
+    });
+  });
 }
