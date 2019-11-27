@@ -96,12 +96,15 @@ module.exports = class Languages extends Component {
       </span> : null }
       { this.state.adding && <span className="language-add">
         <Select
+          placeholder={labels.selectLanguage}
           options={this.getRemainingLanguages()}
           onChange={this.onAdd.bind( this )}
+          classNamePrefix="language-select"
           clearable={false}
         />
       </span> }
       { this.state.changing && <Select
+        placeholder={labels.selectLanguage}
         value={_.first(
           languageCodesAndLabels
             .filter( c => _.first( pickedLanguages ) === c.value )

@@ -295,6 +295,10 @@ module.exports = {
     "es": "Agregar idioma",
     "br": "Ouzhpennañ ur yezh"
   },
+  "selectLanguage": {
+    "en": "Select",
+    "fr": "Sélectionner"
+  },
   "cancelLanguageChange": {
     "fr": "Annuler",
     "en": "Cancel",
