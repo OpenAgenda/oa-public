@@ -5,8 +5,7 @@ import ImageUpload from '@openagenda/image-upload/components/build/ImageUploader
 
 
 @connect( state => ({
-  prefix: state.settings.prefix,
-  apiRoot: state.settings.apiRoot
+  prefix: state.settings.prefix
 }) )
 export default class ImageSettings extends Component {
   static propTypes = {
@@ -20,7 +19,7 @@ export default class ImageSettings extends Component {
 
   render() {
     const { lang, getLabel } = this.context;
-    const { activeTab, history, uploadImageRes, removeImageRes, onUpdate, image, prefix, apiRoot } = this.props;
+    const { activeTab, history, uploadImageRes, removeImageRes, onUpdate, image, prefix } = this.props;
 
     return (
       <tr
@@ -39,8 +38,8 @@ export default class ImageSettings extends Component {
               lang={lang}
               value={image}
               handleUpdate={onUpdate}
-              upload={apiRoot + uploadImageRes}
-              remove={apiRoot + removeImageRes}
+              upload={uploadImageRes}
+              remove={removeImageRes}
             />
           </div>
         </td> : <td style={{ cursor: 'pointer' }}>{getLabel( 'modify' )}</td>}

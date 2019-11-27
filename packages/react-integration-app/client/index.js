@@ -3,7 +3,7 @@ import { setConfig } from 'react-hot-loader';
 
 setConfig({ trackTailUpdates: false });
 
-// import _ from 'lodash';
+import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
@@ -29,7 +29,7 @@ import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
 import createInboxApp from '@openagenda/inbox-apps/src/apps/inbox';
 import createMembersApp from '@openagenda/member-apps/src/app';
 import Root from './Root';
-// import reflectStoresInLayout from '../reflectStoresInLayout';
+import createReduxMiddleware from '../reduxMiddleware';
 
 // if (process.env.NODE_ENV === 'development') {
 //   const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -47,71 +47,79 @@ NProgress.configure({ trickleSpeed: 200 });
 const onLocationChangeStart = () => NProgress.start();
 const onLocationChangeFinish = () => NProgress.done();
 
+const layoutStore = LayoutManager.createStore(initialState.layout, history);
+
+const reduxMiddleware = createReduxMiddleware(layoutStore);
+
 // create apps with the good initialState
 const apps = {
   home: createAppHome({
     history,
     initialState: initialState.home,
-    layout: MainLayout
+    layout: MainLayout,
+    reduxMiddleware
   }),
   userSettings: createAppUserSettings({
     history,
     initialState: initialState.userSettings,
-    layout: MainLayout
+    layout: MainLayout,
+    reduxMiddleware
   }),
   agendaSettingsNew: createAgendaSettingsNewApp({
     history,
     initialState: initialState.agendaSettingsNew,
-    layout: MainLayout
+    layout: MainLayout,
+    reduxMiddleware
   }),
   userActivities: createActivitiesApp({
     history,
     initialState: initialState.userActivities,
-    layout: MainLayout
+    layout: MainLayout,
+    reduxMiddleware
   }),
   aggregatorSources: createAggregatorSourcesApp({
     history,
     initialState: initialState.aggregatorSources,
-    layout: [MainLayout, AgendaAdminLayout]
+    layout: [MainLayout, AgendaAdminLayout],
+    reduxMiddleware
   }),
   agendaSettingsEdit: createAgendaSettingsEditApp({
     history,
     initialState: initialState.agendaSettingsEdit,
-    layout: [MainLayout, AgendaAdminLayout]
+    layout: [MainLayout, AgendaAdminLayout],
+    reduxMiddleware
   }),
   inboxUser: createInboxApp({
     history,
     initialState: initialState.inboxUser,
-    layout: [MainLayout, InboxUserLayout]
+    layout: [MainLayout, InboxUserLayout],
+    reduxMiddleware
   }),
   support: createInboxApp({
     history,
     initialState: initialState.support,
-    layout: [MainLayout, InboxUserLayout]
+    layout: [MainLayout, InboxUserLayout],
+    reduxMiddleware
   }),
   agendaAdminInbox: createInboxApp({
     history,
     initialState: initialState.agendaAdminInbox,
-    layout: [MainLayout, AgendaAdminLayout, InboxAgendaAdminLayout]
+    layout: [MainLayout, AgendaAdminLayout, InboxAgendaAdminLayout],
+    reduxMiddleware
   }),
   member: createMembersApp({
     history,
     initialState: initialState.members,
-    layout: [MainLayout, AgendaAdminLayout]
+    layout: [MainLayout, AgendaAdminLayout],
+    reduxMiddleware
   })
 };
-
-const layoutStore = LayoutManager.createStore(initialState.layout, history);
 
 loadableReady(async () => {
   // Trigger 'inject' before render, needed for the first render (in @connect)
   await Promise.all(
     Object.values(apps).map(app => app.triggerHooks({ hooks: ['inject'] }))
   );
-
-  // const unsubscribe = reflectStoresInLayout(_.mapValues(apps, 'store'), layoutStore);
-  //
-  // window.addEventListener('unload', () => unsubscribe);
 
   const triggerHooks = () => Promise.all(
     Object.values(apps).map(app => app.triggerHooks({

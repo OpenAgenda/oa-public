@@ -4,6 +4,7 @@ const LOAD_FAIL = 'react-layouts/agendaAdmin/LOAD_FAIL';
 const VERIFY_LOCATION_COUNT = 'react-layouts/agendaAdmin/VERIFY_LOCATION_COUNT';
 const VERIFY_LOCATION_COUNT_SUCCESS = 'react-layouts/agendaAdmin/VERIFY_LOCATION_COUNT_SUCCESS';
 const VERIFY_LOCATION_COUNT_FAIL = 'react-layouts/agendaAdmin/VERIFY_LOCATION_COUNT_FAIL';
+const UPDATE_AGENDA = 'react-layouts/agendaAdmin/UPDATE_AGENDA';
 
 const initialState = {};
 
@@ -47,6 +48,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         locationCount: null
+      };
+    case UPDATE_AGENDA:
+      return {
+        ...state,
+        agenda: action.payload.agenda
       };
     default:
       return state;

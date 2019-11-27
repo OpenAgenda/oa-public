@@ -38,7 +38,7 @@ export default function createApp( options ) {
       applyMiddleware(
         clientMiddleware( helpers ),
         // ... other middlewares ... (like redux-logger)
-        ...reduxMiddleware
+        ...(Array.isArray(reduxMiddleware) ? reduxMiddleware : [reduxMiddleware])
       ),
       __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
         ? window.__REDUX_DEVTOOLS_EXTENSION__()

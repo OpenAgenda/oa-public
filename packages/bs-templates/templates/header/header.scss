@@ -131,9 +131,9 @@
 
     position: static;
 
-    & > a img {
-      margin-top: -5px;
-      margin-bottom: -5px;
+    & > a img, & > button img {
+      margin-top: -10px;
+      margin-bottom: -10px;
       width: 30px;
       max-height: 30px;
     }

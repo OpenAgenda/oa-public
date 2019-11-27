@@ -154,14 +154,6 @@ function MainLayout({
     [history]
   );
 
-  const goToInbox = useCallback(
-    e => {
-      e.preventDefault();
-      history.push('/home/inbox');
-    },
-    [history]
-  );
-
   const panelLink = useCallback(
     path => event => {
       event.preventDefault();
@@ -246,18 +238,14 @@ function MainLayout({
 
               {user ? (
                 <li className="inbox">
-                  <button
-                    type="button"
-                    className="btn btn-link-inline"
-                    onClick={goToInbox}
-                  >
+                  <Link to="/home/inbox">
                     <i className="fa fa-envelope" aria-hidden="true" />
                     {hasInboxNews ? (
                       <span className="label label-danger ">
                         <i className="fa fa-exclamation" />
                       </span>
                     ) : null}
-                  </button>
+                  </Link>
                 </li>
               ) : null}
 
@@ -269,7 +257,11 @@ function MainLayout({
                     aria-expanded={userPanelOpened}
                     className="btn btn-link-inline"
                   >
-                    <span>{user.name}</span>
+                    {user.thumbnail ? (
+                      <img alt="user thumbnail" src={user.thumbnail} />
+                    ) : (
+                      <span>{user.fullName}</span>
+                    )}
                   </button>
                   <OutsideClickHandler onOutsideClick={closeUserPanel}>
                     <ul
