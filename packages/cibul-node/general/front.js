@@ -32,7 +32,6 @@ const legacyPages = {
 const cmn = require( '../lib/commons-app' );
 const newsletter = require( '@openagenda/newsletter' );
 const mails = require( '@openagenda/mails' );
-const cache = require( '@openagenda/simple-cache' )( 'landing' );
 const model = require( '../services/model' );
 const mwHelpers = require( '../services/lib/middlewareHelpers.js' );
 
@@ -42,15 +41,26 @@ const preMw = [
 ];
 
 module.exports = app => {
+  const cache = app.services.simpleCache('landing');
+  const cacheMw = (req, res, next) => {
+    cache.get(req.url, (err, cached) => {
+      if (err) return next(err);
+
+      if (!cached) return next();
+
+      res.set('Content-Type', 'text/html');
+      res.send(cached);
+    });
+  };
 
   app.get(
     [ '/', '/en', '/de', '/es', '/br' ],
     preMw,
     cmn.https,
     sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
-    _cache,
+    cacheMw,
     _setLang,
-    corpo
+    corpo.bind(null, cache)
   );
 
   app.get(
@@ -96,10 +106,10 @@ module.exports = app => {
     preMw,
     cmn.https,
     _corpoBrowserCache,
-    _cache,
+    cacheMw,
     _redirectLang,
     _redirectLegacyLinks,
-    corpo
+    corpo.bind(null, cache)
   );
 
   app.get(
@@ -107,23 +117,6 @@ module.exports = app => {
     preMw,
     newFileKey
   );
-
-}
-
-
-function _cache( req, res, next ) {
-
-  cache.get( req.url, ( err, cached ) => {
-
-    if ( err ) return next( err );
-
-    if ( !cached ) return next();
-
-    res.set( 'Content-Type', 'text/html' );
-
-    res.send( cached );
-
-  } );
 
 }
 
@@ -167,7 +160,7 @@ function _setLang( req, res, next ) {
 }
 
 
-async function corpo( req, res, next ) {
+async function corpo(cache, req, res, next) {
 
   const pageName = req.params.page || req.url.substr( 1 );
 
