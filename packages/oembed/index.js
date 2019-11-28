@@ -11,7 +11,7 @@ const cleanOptions = require('./validators/options');
 const cleanFromMarkdownOptions = require('./validators/fromMarkdownOptions');
 const injectEmbeds = require('./utils/injectEmbeds');
 
-class OEmbed {
+module.exports = class OEmbed {
   constructor(options) {
     try {
       if (options.logger) {
@@ -71,5 +71,3 @@ class OEmbed {
     return injectEmbeds(html, links);
   }
 }
-
-module.exports = OEmbed;
