@@ -1,7 +1,7 @@
 'use strict';
 
 const options = require('../testconfig');
-const OEmbed = require('../src');
+const OEmbed = require('../');
 
 const urls = {
   calameo: [

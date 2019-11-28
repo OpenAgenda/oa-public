@@ -4,7 +4,7 @@ const _ = require('lodash');
 const fs = require('fs');
 
 const options = require('../testconfig');
-const OEmbed = require('../src');
+const OEmbed = require('../');
 
 const IFRAMELY_OBJECT_KEYS = [
   'url',

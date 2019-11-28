@@ -5,9 +5,7 @@
   "license": "MIT",
   "author": "Kaoré",
   "scripts": {
-    "prepublish": "yarn build",
-    "test": "jest",
-    "build": "rimraf build && babel src -d build -s"
+    "test": "jest"
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.6.3",
