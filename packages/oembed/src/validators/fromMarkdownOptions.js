@@ -1,14 +1,14 @@
 "use strict";
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
 
-schema.register( {
-  text: require( '@openagenda/validators/text' ),
-  link: require( '@openagenda/validators/link' ),
-  pass: require( '@openagenda/validators/pass' )
-} );
+schema.register({
+  text: require('@openagenda/validators/text'),
+  link: require('@openagenda/validators/link'),
+  pass: require('@openagenda/validators/pass')
+});
 
-module.exports = schema( {
+module.exports = schema({
   current: {
     list: true,
     fields: {
@@ -22,4 +22,4 @@ module.exports = schema( {
       }
     }
   }
-} );
+});

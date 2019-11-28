@@ -17,7 +17,7 @@
     "core-js": "^3.2.1",
     "lodash": "^4.17.11",
     "markdown-link-extractor": "^1.2.0",
-    "verror": "^1.10.0"
+    "sanitize-html" : "^1.20.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.6.3",

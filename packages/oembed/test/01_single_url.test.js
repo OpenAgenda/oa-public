@@ -1,26 +1,21 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-
-const options = require( '../testconfig' );
-
-const OEmbed = require( '../src' );
+const options = require('../testconfig');
+const OEmbed = require('../src');
 
 const urls = {
   calameo: [
     'http://fr.calameo.com/read/00096250654676c5c42f2'
   ]
-}
+};
 
-describe( 'parsing urls', () => {
+describe('parsing urls', () => {
+  const oe = new OEmbed(options);
 
-  const oe = new OEmbed( options );
+  test('gets calameo', async () => {
+    const result = await oe.get(urls.calameo[0]);
 
-  test( 'gets calameo', async () => {
-
-    const result = await oe.get( urls.calameo[ 0 ] );
-
-    expect( _.keys( result ) ).toEqual( [
+    expect(Object.keys(result)).toEqual( [
       'url',
       'type',
       'version',
@@ -34,8 +29,7 @@ describe( 'parsing urls', () => {
       'thumbnail_height',
       'html',
       'cache_age'
-    ] );
+    ]);
+  });
 
-  } );
-
-} );
+});
