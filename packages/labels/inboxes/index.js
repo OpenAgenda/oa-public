@@ -85,11 +85,17 @@ module.exports = {
     "de": "Resoved Gespräch",
     "es": "conversación resuelto"
   },
-  "conversationAreResolved": {
+  "conversationAreClosed": {
     "fr": "La conversation est fermée.",
     "en": "The conversation is closed.",
     "de": "Das Gespräch wird geschlossen.",
     "es": "La conversación se cierra."
+  },
+  "conversationAreResolved": {
+    "fr": "La conversation est résolue.",
+    "en": "The conversation is resolved.",
+    "de": "Das Gespräch ist gelöst.",
+    "es": "La conversación está resuelta."
   },
   "resumeConversation": {
     "fr": "Reprendre la conversation",
