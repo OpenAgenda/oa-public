@@ -20,6 +20,7 @@ export default (state = initialState, action) => {
         ...state,
         loaded: true,
         agenda: action.result.data.agenda,
+        member: action.result.data.member,
         role: action.result.data.role,
         sections: action.result.data.sections,
         error: null,
@@ -29,6 +30,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         agenda: null,
+        member: null,
         role: null,
         sections: null,
         error: action.error,
