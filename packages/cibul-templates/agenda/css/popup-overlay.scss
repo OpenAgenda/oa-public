@@ -22,6 +22,8 @@
     max-width: 500px;
     position: relative;
     width: 100%;
+    overflow-y: auto;
+    max-height: 100%;
   }
 
   textarea {
