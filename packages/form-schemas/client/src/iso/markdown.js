@@ -13,7 +13,8 @@ module.exports = {
   from: md => sanitizeHtml(marked(md || ''), {
     allowedTags: false,
     allowedAttributes: {
-      h1: []
+      h1: [],
+      a: ['href']
     }
   })
 }
