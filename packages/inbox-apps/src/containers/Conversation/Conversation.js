@@ -167,7 +167,7 @@ class Conversation extends Component {
         }
     }
 
-    return getLabel('conversationAreResolved');
+    return getLabel(conversation.closedAt ? 'conversationAreClosed' : 'conversationAreResolved');
   };
 
   TitleEntityComponent = ({ children, type, agendaUid, eventUid, locationUid }) => {
@@ -288,19 +288,21 @@ class Conversation extends Component {
                 </>
               )}
 
-              {conversation.actions && conversation.actions.length ? (
+              {conversation.closedAt ? (
+                <button className="btn btn-link btn-resume" onClick={() => resume(conversation.id, agenda)}>
+                  {getLabel('resumeConversation')}
+                </button>
+              ) : (
                 <ActionsList
                   onAction={
                     code => triggerAction(conversation.id, code, agenda)
-                      .then(() => inboxLoad(focusFistConversation ? { limit: 1 } : {}, agenda))
+                      .then(() => {
+                        inboxLoad(focusFistConversation ? { limit: 1 } : {}, agenda).catch(() => null);
+                      })
                   }
                   actions={conversation.actions}
                   showModal={showModal}
                 />
-              ) : (
-                <button className="btn btn-link btn-resume" onClick={() => resume(conversation.id, agenda)}>
-                  {getLabel('resumeConversation')}
-                </button>
               )}
             </div>
           </div>
