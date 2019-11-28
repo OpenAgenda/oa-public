@@ -109,6 +109,7 @@
 
   .conversation-item {
     margin: 30px 0;
+    overflow: visible;
 
     .conversation-item-message {
       img {
@@ -148,8 +149,8 @@
 
     .media-body {
       width: 90%;
-      overflow: auto;
       word-break: break-word;
+      overflow: visible;
 
       .conversation-item-message {
         border-left: 3px solid $oa-blue;
