@@ -1,19 +1,13 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const oembed = require( '@openagenda/oembed' );
+const OEmbed = require('@openagenda/oembed');
 
-module.exports.init = config => {
-
-  oembed.init( {
-    options: {
-      iframely: {
-        key: _.get( config, 'oembed.key' )
-      },
-      filters: _.get( config, 'oembed.platforms' )
-    },
-    logger: config.getLogConfig( 'svc', 'oembed' )
-  } );
-
-}
+module.exports.init = config => new OEmbed({
+  iframely: {
+    key: _.get(config, 'oembed.key')
+  },
+  filters: _.get(config, 'oembed.platforms'),
+  logger: config.getLogConfig('svc', 'oembed')
+});

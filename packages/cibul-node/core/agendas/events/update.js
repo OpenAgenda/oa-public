@@ -21,7 +21,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     events,
     agendas,
     agendaEvents,
-    eventSearch
+    eventSearch,
+    oembed
   } = services;
 
   log('processing', { agendaUid, eventUid, options });
