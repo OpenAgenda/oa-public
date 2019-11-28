@@ -18,9 +18,15 @@ module.exports = (html = '', linkEmbedPairs = []) => {
           return { tagName, attribs };
         }
 
+        const embedCode = match.data ? match.data.html : match.code;
+
+        if (!embedCode) {
+          return { tagName, attribs };
+        }
+
         return {
           tagName: 'div',
-          text: match.data.html
+          text: embedCode
         }
       }
     }
