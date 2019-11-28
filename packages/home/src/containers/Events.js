@@ -135,7 +135,7 @@ export default class Events extends Component {
     const { res } = this.props;
 
     return res.events.edit
-      .replace( ':slug', event.agenda.slug )
+      .replace( ':slug', event.agenda && event.agenda.slug )
       .replace( ':eventSlug', event.slug );
 
   }
@@ -255,15 +255,19 @@ export default class Events extends Component {
                     <div className="media-body">
                       <a href={this.getEventShowLink( event )}>
                         <div className="title media-heading">
-                          {event.agenda && <div className="agenda">{event.agenda.title}</div>}
+                          {event.agenda ? (
+                            <div className="agenda">{event.agenda.title}</div>
+                          ) : null}
                           <strong>{this.getMultilangLabel( event.title , getLabel( 'noTitle' ) )}</strong>
-                          {!!event.private && <div className="tooltip-icon">
-                            <i className="fa fa-unlock-alt"></i>
-                            <div className="tooltip right" role="tooltip">
-                              <div className="tooltip-arrow"></div>
-                              <div className="tooltip-inner">{getLabel( 'privateEvent' )}</div>
+                          {!!event.private ? (
+                            <div className="tooltip-icon">
+                              <i className="fa fa-unlock-alt"></i>
+                              <div className="tooltip right" role="tooltip">
+                                <div className="tooltip-arrow"></div>
+                                <div className="tooltip-inner">{getLabel( 'privateEvent' )}</div>
+                              </div>
                             </div>
-                          </div>}
+                          ) : null}
                           {/* !!event.draft && <div className="badge badge-sm badge-default">{getLabel( 'draft' )}</div> */}
                         </div>
                         <div className="event-detail-part">
