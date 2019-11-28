@@ -35,6 +35,7 @@
   "aggregator-sources.DefineRules.newRule": "New rule",
   "aggregator-sources.DefineRules.updateARule": "Update a rule",
   "aggregator-sources.DefineRules.noDefinedRules": "No defined rule",
+  "aggregator-sources.DefineRules.pasteRules": "Apply filters from another source",
   "aggregator-sources.RemoveSourceModal.removeASource": "Remove a source",
   "aggregator-sources.RemoveSourceModal.removeSource": "Remove source",
   "aggregator-sources.RemoveSourceModal.cancel": "Cancel",

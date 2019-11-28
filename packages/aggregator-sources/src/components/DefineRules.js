@@ -4,7 +4,9 @@ import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
 import { Form } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
+import classNames from 'classnames';
 import { ruleToValues, valuesToRule } from '../utils/rules';
+import readClipboard from '../utils/readClipboard';
 import RuleForm from './RuleForm';
 
 const messages = defineMessages({
@@ -63,6 +65,10 @@ const messages = defineMessages({
   noDefinedRule: {
     id: 'aggregator-sources.DefineRules.noDefinedRules',
     defaultMessage: 'No defined rule'
+  },
+  pasteRules: {
+    id: 'aggregator-sources.DefineRules.pasteRules',
+    defaultMessage: 'Apply filters from another source'
   }
 });
 
@@ -331,6 +337,32 @@ export default function DefineRules({
     [dispatch]
   );
 
+  const pasteRules = useCallback(async () => {
+    const text = await readClipboard();
+    let json = null;
+
+    try {
+      json = JSON.parse(text);
+
+      if (!Array.isArray(json)) {
+        throw new Error('Invalid data: not an array');
+      }
+    } catch (e) {
+      // Unable to parse
+      json = [];
+    }
+
+    for (const item of json) {
+      try {
+        const rule = ruleToValues(item);
+
+        addRule(rule);
+      } catch (itemException) {
+        // Impossible to add rule
+      }
+    }
+  }, [addRule]);
+
   const initialValues = useMemo(() => {
     const ruleToUpdate = state.rules.find(
       rule => rule.id === state.modeOptions.id
@@ -359,18 +391,6 @@ export default function DefineRules({
   if (state.mode === 'list') {
     content = (
       <div className="margin-v-md">
-        {!state.rules || !state.rules.length ? (
-          <div className="text-center">
-            <button
-              type="button"
-              className="btn-link-inline"
-              onClick={setModeAdd}
-            >
-              {intl.formatMessage(messages.addARule)}
-            </button>
-          </div>
-        ) : null}
-
         {state.rules.map(rule => (
           <RuleItem
             key={rule.id}
@@ -380,15 +400,33 @@ export default function DefineRules({
           />
         ))}
 
-        {state.rules && state.rules.length ? (
-          <button
-            type="button"
-            className="btn-link-inline"
-            onClick={setModeAdd}
-          >
-            {intl.formatMessage(messages.addARule)}
-          </button>
-        ) : null}
+        <div
+          className={classNames({
+            'text-center': !state.rules || !state.rules.length
+          })}
+        >
+          <p>
+            <button
+              type="button"
+              className="btn-link-inline"
+              onClick={setModeAdd}
+            >
+              <i className="fa fa-sm fa-plus" aria-hidden="true" />{' '}
+              {intl.formatMessage(messages.addARule)}
+            </button>
+          </p>
+
+          <p>
+            <button
+              type="button"
+              className="btn-link-inline"
+              onClick={pasteRules}
+            >
+              <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
+              {intl.formatMessage(messages.pasteRules)}
+            </button>
+          </p>
+        </div>
       </div>
     );
   } else if (state.mode === 'add') {

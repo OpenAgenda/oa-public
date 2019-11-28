@@ -148,7 +148,10 @@ function Dashboard({ agenda }) {
 
   const onSearch = useCallback(values => search(values.search), [search]);
 
-  const refresh = useCallback(() => search(value), [search, value]);
+  const refresh = useCallback(
+    () => dispatch(sourcesActions.list({ query: value })),
+    [dispatch, value]
+  );
 
   const addSource = useCallback(
     (sourceAgenda, rules, evaluate) => dispatch(sourcesActions.add(sourceAgenda.uid, { rules, evaluate })).then(

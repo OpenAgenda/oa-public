@@ -41,8 +41,6 @@ const messages = defineMessages({
   }
 });
 
-const copyToClipboardOptions = { format: 'application/json' };
-
 function RulesSummary({ rules }) {
   const intl = useIntl();
 
@@ -80,7 +78,7 @@ function RulesSummary({ rules }) {
           id="fourth-popover"
           content={intl.formatMessage(messages.copy)}
         >
-          <CopyToClipboard text={rulesJSON} options={copyToClipboardOptions}>
+          <CopyToClipboard text={rulesJSON}>
             <button type="button" className="btn btn-link-inline filters-copy">
               <i className="fa fa-sm fa-clipboard" aria-hidden="true" />
             </button>
