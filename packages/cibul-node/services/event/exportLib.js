@@ -3,6 +3,7 @@
 const pickEventImage = require( './lib/pickImage' );
 
 const log = require( '@openagenda/logs' )( 'services/event/exportLib' );
+const getLongDescriptionHTML = require('./lib/getLongDescriptionHTML');
 
 const _ = require( 'lodash' ),
 
@@ -74,7 +75,7 @@ module.exports = service => {
 }
 
 
-function cleanEvent( eInst, options, cb ) {
+function cleanEvent(services, eInst, options, cb ) {
 
   if ( arguments.length === 2 ) {
 
@@ -100,7 +101,7 @@ function cleanEvent( eInst, options, cb ) {
     description: eInst.description,
     longDescription: eInst.freeText,
     keywords: _extractKeywords( eInst ),
-    html: eInst.getEnrichedFreeText( { allLanguages: true, includeLinks: options.includeEmbedded } ),
+    html: getLongDescriptionHTML({ services }, eInst.freeText, options.includeEmbedded ? eInst.getLinks() : null),
     image: eInst.getImage(),
     thumbnail: pickEventImage( config, eInst, 'thumbnail' ),
     originalImage: pickEventImage( config, eInst, 'full' ),
@@ -212,7 +213,7 @@ function _inject( c, l, map ) {
 }
 
 
-function cleanEvents( events, options, cb ) {
+function cleanEvents( services, events, options, cb ) {
 
   if ( arguments.length === 2 ) {
 
@@ -223,7 +224,7 @@ function cleanEvents( events, options, cb ) {
 
   async.map( events, function( e, mcb ) {
 
-    cleanEvent( svc.instanciate( e ), options, mcb );
+    cleanEvent( services, svc.instanciate( e ), options, mcb );
 
   }, cb );
 
@@ -234,7 +235,7 @@ function _stringifyDate( d ) {
 
   if ( typeof d == 'string' ) d = new Date( d );
 
-  return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
+  return [ d.getFullYear(), _fZ( d.getMonth() + 1 ), _fZ( d.getDate() ) ].join( '-' );
 
 }
 

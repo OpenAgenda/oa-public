@@ -40,7 +40,7 @@ module.exports = function( req, res ) {
 
   async.eachSeries( req.events.map( eventSvc.instanciate ), ( eInst, ecb ) => {
 
-    eInst.exportable( ( err, exp ) => {
+    eInst.exportable({ services: req.app.services }, ( err, exp ) => {
 
       if ( err ) {
 

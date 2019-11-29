@@ -23,13 +23,17 @@ module.exports = ({
   return render(multilingualText[Object.keys(multilingualText)[0]]);
 }
 
-function _render(services, links, md = '') {
+function _render(services, links = null, md = '') {
   const {
     oembed,
     formSchemas
   } = services;
 
   const html = formSchemas.utils.markdown.from(md);
+
+  if (!links) {
+    return html;
+  }
 
   return oembed.injectEmbeds(html, links);
 }
