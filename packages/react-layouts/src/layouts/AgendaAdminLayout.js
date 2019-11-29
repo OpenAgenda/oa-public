@@ -16,6 +16,7 @@ const TABS_IN_APP = [
   'members',
   'sources',
   'inbox',
+  'activities',
   'settings_profile',
   'settings_contribution',
   'settings_advanced'

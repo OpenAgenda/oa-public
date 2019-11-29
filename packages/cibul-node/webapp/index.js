@@ -256,6 +256,17 @@ const initialState = req => ({
       exportToXlsx: '/:slug/admin/members.xlsx',
       sendMessage: '/:slug/admin/members/send-message'
     }
+  },
+  agendaActivities: {
+    settings: {
+      prefix: '/:slug/admin/activities',
+      lang: req.lang,
+      apiRoot: `http://localhost:${config.port}`,
+      perPageLimit: 20
+    },
+    res: {
+      list: '/:slug/admin/activities/list',
+    }
   }
 });
 
@@ -278,24 +289,17 @@ module.exports = app => {
 
   app.get(
     [
-      //home
       '/home',
       '/home/events',
       '/home/activities',
-      // user-apps
       '/settings/?*?',
-      // agenda-settings/new
       '/new',
-      // inboxes
       '/home/inbox/?*?',
       '/support/?*?',
-      '/:slug/admin/inbox',
       '/:slug/admin/inbox/?*?',
-      // aggregator-sources
       '/:slug/admin/sources/?*?',
-      // member-apps
       '/:slug/admin/members/?*?',
-      // agenda-settings/edit
+      '/:slug/admin/activities/?*?',
       '/:slug/admin/settings/?*?'
     ],
     cmn.loadLogger('webapp'),

@@ -39,10 +39,10 @@ module.exports = app => {
   require('./services/aggregators').plugApp(app);
   require('./agenda/settings.back')(app);
   require('./services/members')(app);
+  require('./agenda/activities.back')(app);
   require('./webapp')(app);
   require('./location/back')(app);
   require('./services/agendas').plugApp(app);
-  require('./agenda/activities.back')(app);
   require('./services/activities')(app);
   require('./agenda/shares.front')(app);
   require('./agenda/front')(app);

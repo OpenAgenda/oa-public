@@ -2,7 +2,6 @@
   "event/inbox",
   "agenda/inbox",
   "agenda/requestContribute",
-  "activities/agenda",
   "admin/activities",
   "admin/agendas",
   "admin/index",

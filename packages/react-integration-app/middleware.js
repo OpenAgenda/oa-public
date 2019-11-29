@@ -22,7 +22,8 @@ const createHomeApp = require('@openagenda/home/dist/app');
 const createUserSettingsApp = require('@openagenda/user-apps/dist/app');
 const createAgendaSettingsNewApp = require('@openagenda/agenda-settings/dist/client/createApp');
 const createAgendaSettingsEditApp = require('@openagenda/agenda-settings/dist/client/editApp');
-const createActivitiesApp = require('@openagenda/activity-apps/dist/client/apps/user');
+const createUserActivitiesApp = require('@openagenda/activity-apps/dist/client/apps/user');
+const createAgendaActivitiesApp = require('@openagenda/activity-apps/dist/client/apps/agenda');
 const createAggregatorSourcesApp = require('@openagenda/aggregator-sources/dist/app');
 const createInboxApp = require('@openagenda/inbox-apps/dist/apps/inbox');
 const createMembersApp = require('@openagenda/member-apps/dist/app');
@@ -87,7 +88,7 @@ module.exports = function match({ initialState, apiRoot, lang, publicPath }) {
           layout: MainLayout,
           reduxMiddleware
         }),
-        userActivities: createActivitiesApp({
+        userActivities: createUserActivitiesApp({
           req,
           history,
           initialState: state.userActivities,
@@ -133,6 +134,13 @@ module.exports = function match({ initialState, apiRoot, lang, publicPath }) {
           req,
           history,
           initialState: state.members,
+          layout: [MainLayout, AgendaAdminLayout],
+          reduxMiddleware
+        }),
+        agendaActivities: createAgendaActivitiesApp({
+          req,
+          history,
+          initialState: state.agendaActivities,
           layout: [MainLayout, AgendaAdminLayout],
           reduxMiddleware
         })

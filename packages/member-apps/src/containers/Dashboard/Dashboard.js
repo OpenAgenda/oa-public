@@ -659,7 +659,7 @@ class Dashboard extends Component {
                   <button
                     type="button"
                     className="btn btn-danger"
-                    onClick={() => remove(removeModal.member.id)
+                    onClick={() => remove(agenda, removeModal.member.id)
                       .then(() => closeModal('removeMember'))
                       .catch(() => setModal('removeMember', { error: true }))}
                   >

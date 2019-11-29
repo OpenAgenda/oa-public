@@ -1,18 +1,6 @@
 import _ from 'lodash';
 import React from 'react';
-import { createBrowserHistory, createMemoryHistory } from 'history';
-import { applyMiddleware, compose } from 'redux';
-import { Provider, ReactReduxContext } from 'react-redux';
-import { renderRoutes } from 'react-router-config';
-import { Router, StaticRouter } from 'react-router-dom';
-import apiClient from '@openagenda/react-utils/dist/apiClient';
-import createStore from '@openagenda/react-utils/dist/createStore';
-import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
-import makeTriggerHooks from '@openagenda/react-utils/dist/makeTriggerHooks';
-import RouterTrigger from '@openagenda/react-utils/dist/RouterTrigger';
-import ScrollToTop from '@openagenda/react-utils/dist/ScrollToTop';
-import NotFound from '@openagenda/react-utils/dist/NotFound';
-import getReducers from '../../redux/reducer';
+import createApp from '@openagenda/react-utils/dist/createApp';
 import getRoutes from './getRoutes';
 
 const defaults = {
@@ -25,83 +13,34 @@ const defaults = {
     },
     res: {
       list: '/:uid/list'
-    },
-    agenda: {
-      title: 'La gargouille',
-      slug: 'la-gargouille',
-      uid: 88888888
     }
   }
 };
 
-function getDefaultHistory( req ) {
-  return req
-    ? createMemoryHistory( { initialEntries: [ req.originalUrl ] } )
-    : createBrowserHistory();
-}
-
 export default function ( options ) {
-  const {
-    initialState,
-    layout,
-    req,
-    notFoundKey = _.uniqueId( 'activityAppsAgenda' )
-  } = _.merge( {}, defaults, options );
+  const { initialState } = _.merge( {}, defaults, options );
+
   const { apiRoot, prefix } = initialState.settings;
 
-  const client = apiClient( apiRoot, req, { legacy: true } );
-  const history = options.history || getDefaultHistory( req );
-  const helpers = {};
-  const store = createStore(
-    getReducers,
+  const getApp = () => createApp({
+    ...options,
     initialState,
-    compose(
-      applyMiddleware(
-        clientMiddleware( helpers )
-        // ... other middlewares ... (like redux-logger)
-      ),
-      __CLIENT__ && __DEVELOPMENT__ && window.__REDUX_DEVTOOLS_EXTENSION__
-        ? window.__REDUX_DEVTOOLS_EXTENSION__()
-        : v => v
-    )
-  );
-  Object.assign( helpers, {
-    client,
-    store,
-    history,
-    location: history.location
-  } );
-  const staticContext = {};
+    apiRoot,
+    prefix,
+    getRoutes,
+    legacyApiClient: true
+  });
 
-  const routes = getRoutes( prefix, notFoundKey );
-  const triggerHooks = makeTriggerHooks( { routes, history, helpers, req } );
-  const content = (
-    <NotFound.Capture notFoundKey={notFoundKey}>
-      <RouterTrigger trigger={triggerHooks}>
-        <Provider store={store} context={ReactReduxContext}>
-          {renderRoutes( routes )}
-        </Provider>
-      </RouterTrigger>
-    </NotFound.Capture>
-  );
-  const element = (
-    <Router history={history}>
-      <ScrollToTop>
-        {req
-          ? <StaticRouter location={req.originalUrl} context={staticContext}>{content}</StaticRouter>
-          : content}
-      </ScrollToTop>
-    </Router>
-  );
+  const result = getApp();
 
-  return {
-    store,
-    history,
-    routes,
-    element,
-    notFoundKey,
-    staticContext,
-    triggerHooks,
-    layout
-  };
+  if (module.hot) {
+    module.hot.accept('./getRoutes', () => {
+      const newApp = getApp();
+
+      result.Content = newApp.Content;
+      result.triggerHooks = newApp.triggerHooks;
+    });
+  }
+
+  return result;
 };

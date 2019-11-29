@@ -3,7 +3,6 @@ import { setConfig } from 'react-hot-loader';
 
 setConfig({ trackTailUpdates: false });
 
-import _ from 'lodash';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
@@ -24,7 +23,8 @@ import createAppHome from '@openagenda/home/src/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp';
 import createAgendaSettingsEditApp from '@openagenda/agenda-settings/src/client/editApp';
-import createActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
+import createUserActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
+import createAgendaActivitiesApp from '@openagenda/activity-apps/src/client/apps/agenda';
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
 import createInboxApp from '@openagenda/inbox-apps/src/apps/inbox';
 import createMembersApp from '@openagenda/member-apps/src/app';
@@ -71,7 +71,7 @@ const apps = {
     layout: MainLayout,
     reduxMiddleware
   }),
-  userActivities: createActivitiesApp({
+  userActivities: createUserActivitiesApp({
     history,
     initialState: initialState.userActivities,
     layout: MainLayout,
@@ -110,6 +110,12 @@ const apps = {
   member: createMembersApp({
     history,
     initialState: initialState.members,
+    layout: [MainLayout, AgendaAdminLayout],
+    reduxMiddleware
+  }),
+  agendaActivities: createAgendaActivitiesApp({
+    history,
+    initialState: initialState.agendaActivities,
     layout: [MainLayout, AgendaAdminLayout],
     reduxMiddleware
   })

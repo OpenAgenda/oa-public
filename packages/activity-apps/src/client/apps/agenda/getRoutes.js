@@ -1,14 +1,20 @@
-import NotFound from '@openagenda/react-utils/dist/NotFound';
-import { AgendaApp, AgendaDashboard } from '../../containers';
+import loadable from '@openagenda/react-utils/dist/loadable';
 
-export default function ( prefix = '', notFoundKey ) {
+const AgendaApp = loadable(() =>
+  import( /* webpackChunkName: "activities-AgendaActivitiesApp" */ '../../containers/AgendaApp/AgendaApp' )
+);
+const AgendaDashboard = loadable(() =>
+  import( /* webpackChunkName: "activities-AgendaActivitiesDashboard" */ '../../containers/AgendaDashboard/AgendaDashboard' )
+);
+
+
+export default function (prefix = '') {
   return [
     {
+      path: prefix,
       component: AgendaApp,
       routes: [
-        { path: `${prefix}/`, exact: true, component: AgendaDashboard },
-        { path: `${prefix}/activities`, component: AgendaDashboard },
-        { component: NotFound, notFoundKey }
+        { path: `${prefix}/`, exact: true, component: AgendaDashboard }
       ]
     }
   ];
