@@ -419,7 +419,7 @@ export default class Conversation {
       ? this.inbox
       : await new Inbox( conversation.inboxContextId ).get();
 
-    const actions = conversation.closedAt || _.get( conversation, 'store.resolvedWith' )
+    const actions = conversation.closedAt || conversation.resolvedAt
       ? []
       : await _.get( types, [ conversation.type, 'actions' ], [] )
         .reduce( async ( result, action ) => {
