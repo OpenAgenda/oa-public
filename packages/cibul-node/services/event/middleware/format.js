@@ -368,7 +368,7 @@ function _main( v ) {
   v.formatted.freeText = getLongDescriptionHTML({
     lang: v.req.lang,
     services: v.req.app.services
-  }, v.req.event.freeText, v.req.event.getLinks());
+  }, v.req.event.freeText || {}, v.req.event.getLinks());
 
   Object.keys(map).forEach( k => {
     v.formatted[ k ] = v.req.event[ map[ k ] ]();

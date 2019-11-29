@@ -3,7 +3,7 @@
 module.exports = ({
   lang,
   services
-}, multilingualText, links) => {
+}, multilingualText = {}, links = []) => {
 
   const render = _render.bind(null, services, links);
 
