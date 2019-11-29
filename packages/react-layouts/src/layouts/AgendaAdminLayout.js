@@ -9,7 +9,7 @@ import compareRoles from '@openagenda/members/build/compareRoles';
 import Image from '@openagenda/react-components/build/Image';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
-import useMemoOne from '../hooks/useMemoOne';
+import { useMemoOne } from '../hooks/useMemoOne';
 import useChildLayouts from '../hooks/useChildLayouts';
 
 const TABS_IN_APP = [

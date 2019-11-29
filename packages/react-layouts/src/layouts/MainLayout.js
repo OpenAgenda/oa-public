@@ -10,7 +10,7 @@ import notificationsHandler from '@openagenda/activity-apps/dist/client/notifica
 import Modal from '@openagenda/react-components/build/Modal';
 import useChildLayouts from '../hooks/useChildLayouts';
 import * as mainActions from '../reducers/main';
-import useMemoOne from '../hooks/useMemoOne';
+import { useMemoOne } from '../hooks/useMemoOne';
 
 const messages = defineMessages({
   search: {
