@@ -10,8 +10,8 @@ const defaultMessages = {
   },
   fr: {
     oops: 'Oups !',
-    sorry: 'Désolé, une erreur s\'est produite.',
-    goToHome: 'Aller à l\'accueil',
+    sorry: "Désolé, une erreur s'est produite.",
+    goToHome: "Aller à l'accueil",
     contactSupport: 'Contacter le support'
   }
 };
@@ -20,15 +20,17 @@ const preStyle = {
   display: 'inline-block'
 };
 
-export default function ErrorComponent({ error, componentStack, lang = 'en', messages = defaultMessages }) {
+export default function ErrorComponent({
+  error,
+  componentStack,
+  lang = 'en',
+  messages = defaultMessages
+}) {
   return (
     <IntlProvider messages={messages[lang]} locale={lang} key={lang}>
       <div className="text-center">
         <h1>
-          <FormattedMessage
-            id="oops"
-            defaultMessage="Oops !"
-          />
+          <FormattedMessage id="oops" defaultMessage="Oops !" />
         </h1>
         <h2>
           <FormattedMessage
@@ -37,27 +39,21 @@ export default function ErrorComponent({ error, componentStack, lang = 'en', mes
           />
         </h2>
         <div className="margin-v-md">
-            {typeof window === 'undefined' ? (
-              <em>{error.message}</em>
-            ) : (
-              <pre className="text-left text-danger" style={preStyle}>{`${error.message}${componentStack}`}</pre>
-            )}
+          {typeof window === 'undefined' ? (
+            <em>{error.message}</em>
+          ) : (
+            <pre
+              className="text-left text-danger"
+              style={preStyle}
+            >{`${error.message}${componentStack}`}
+            </pre>
+          )}
         </div>
         <div className="margin-v-md">
-          <a
-            href="/"
-            className="btn btn-primary"
-          >
-            <FormattedMessage
-              id="goToHome"
-              defaultMessage="Go to home"
-            />
-          </a>
-          {' '}
-          <a
-            href="/support"
-            className="btn btn-default"
-          >
+          <a href="/" className="btn btn-primary">
+            <FormattedMessage id="goToHome" defaultMessage="Go to home" />
+          </a>{' '}
+          <a href="/support" className="btn btn-default">
             <FormattedMessage
               id="contactSupport"
               defaultMessage="Contact support"

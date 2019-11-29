@@ -1,8 +1,6 @@
 import './polyfill';
 import { setConfig } from 'react-hot-loader';
 
-setConfig({ trackTailUpdates: false });
-
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
@@ -11,13 +9,12 @@ import IScroll from 'iscroll';
 import { parse } from 'flatted/esm';
 import he from 'he';
 import { loadableReady } from '@loadable/component';
-import du from '@openagenda/dom-utils';
 import { LayoutManager } from '@openagenda/react-layouts/src';
 import {
   AgendaAdminLayout,
   InboxUserLayout,
   InboxAgendaAdminLayout,
-  MainLayout,
+  MainLayout
 } from '@openagenda/react-layouts/src/layouts';
 import createAppHome from '@openagenda/home/src/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
@@ -28,8 +25,10 @@ import createAgendaActivitiesApp from '@openagenda/activity-apps/src/client/apps
 import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
 import createInboxApp from '@openagenda/inbox-apps/src/apps/inbox';
 import createMembersApp from '@openagenda/member-apps/src/app';
-import Root from './Root';
 import createReduxMiddleware from '../reduxMiddleware';
+import Root from './Root';
+
+setConfig({ trackTailUpdates: false });
 
 // if (process.env.NODE_ENV === 'development') {
 //   const whyDidYouRender = require('@welldone-software/why-did-you-render');
@@ -40,7 +39,9 @@ window.IScroll = IScroll;
 
 const history = createBrowserHistory();
 
-const initialState = parse(he.decode(document.querySelector('#initialState').innerHTML || '{}'));
+const initialState = parse(
+  he.decode(document.querySelector('#initialState').innerHTML || '{}')
+);
 
 NProgress.configure({ trickleSpeed: 200 });
 
@@ -143,7 +144,7 @@ loadableReady(async () => {
         triggerHooks={triggerHooks}
       />
     );
-    const canvas = du.el('#root');
+    const canvas = document.querySelector('#root');
 
     if (!forceRender && canvas.hasChildNodes()) {
       ReactDOM.hydrate(element, canvas);

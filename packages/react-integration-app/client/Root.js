@@ -7,17 +7,28 @@ import NotFoundDisplayer from './NotFoundDisplayer';
 import NotFound from './NotFound';
 import ErrorComponent from './ErrorComponent';
 
-export default function Root({ apps, layoutStore, history, triggerHooks, req, staticContext, extractor, helmetContext }) {
+export default function Root({
+  apps,
+  layoutStore,
+  history,
+  triggerHooks,
+  req,
+  staticContext,
+  extractor,
+  helmetContext
+}) {
   const Content = useCallback(
-    () => {
-      return (
-        <LayoutManager store={layoutStore} apps={apps} FallbackComponent={ErrorComponent}>
-          <NotFoundDisplayer history={history} apps={apps}>
-            <NotFound />
-          </NotFoundDisplayer>
-        </LayoutManager>
-      )
-    },
+    () => (
+      <LayoutManager
+        store={layoutStore}
+        apps={apps}
+        FallbackComponent={ErrorComponent}
+      >
+        <NotFoundDisplayer history={history} apps={apps}>
+          <NotFound />
+        </NotFoundDisplayer>
+      </LayoutManager>
+    ),
     [apps, layoutStore, history]
   );
 

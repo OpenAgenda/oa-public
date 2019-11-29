@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = function reduxMiddleware(layoutStore) {
-  return store => next => action => {
+  return (/* store */) => next => action => {
     switch (action.type) {
       case 'user-apps/userSettings/UPDATE_USER_SUCCESS': {
         layoutStore.dispatch({
