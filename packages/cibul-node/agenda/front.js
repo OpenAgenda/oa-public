@@ -581,7 +581,7 @@ function _formatEventItem( event, req, cb ) {
     freeText: getLongDescriptionHTML({
       lang: req.lang,
       services: req.app.services
-    }, inst.freeText, inst.getLinks()),
+    }, inst.getFreeText(), inst.getLinks()),
     placeName: inst.getLocationName(),
     address: inst.getAddress().label,
     placeNameLabel: inst.getLocationName().label,
