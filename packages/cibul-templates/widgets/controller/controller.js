@@ -314,7 +314,6 @@ module.exports = function( uid ) {
 
   }
 
-
   /**
    * controller
    *
@@ -331,9 +330,9 @@ module.exports = function( uid ) {
 
     }
 
-    log( 'updating with %s', JSON.stringify( updatedParams ) );
+    log( 'updating with %s (%sexclusive) from %s', JSON.stringify( updatedParams ), isExclusive ? 'is ' : 'not ', originWidget );
 
-    var newParams = _clean( cn.extend( {}, isExclusive ? {} : currentRequestParams, {
+    var newParams = isExclusive ? updatedParams : _clean( cn.extend( {}, currentRequestParams, {
       uid: null,
       event: null
     }, updatedParams ) );
@@ -350,7 +349,7 @@ module.exports = function( uid ) {
 
     }
 
-    if ( proxy && proxy.update ) proxy.update( updatedParams );
+    if ( proxy && proxy.update ) proxy.update( updatedParams, originWidget, isExclusive );
 
     if ( window.oa && window.oa.onWidgetUpdate ) {
 

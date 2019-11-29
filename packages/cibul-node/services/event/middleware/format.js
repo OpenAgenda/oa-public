@@ -6,6 +6,9 @@ const du = require( '@openagenda/dom-utils' );
 const timeHelper = require( '@openagenda/cibul-templates' ).helpers.time;
 const registration = require( '@openagenda/registration/src/validate' ).getTypesAndValues;
 
+const getLongDescriptionHTML = require('../lib/getLongDescriptionHTML');
+
+
 /**
  * prepare event data for display or upload
  * ( links & full pathed images )
@@ -346,7 +349,6 @@ function _main( v ) {
     slug: 'getSlug',
     title: 'getTitle',
     description: 'getDescription',
-    freeText: 'getEnrichedFreeText',
     keywords: 'getTags',
     dateRange: 'getRange',
     isUpcoming: 'isUpcoming',
@@ -363,11 +365,14 @@ function _main( v ) {
     age: 'getAge'
   };
 
-  Object.keys( map ).forEach( k => {
+  v.formatted.freeText = getLongDescriptionHTML({
+    lang: v.req.lang,
+    services: v.req.app.services
+  }, v.req.event.freeText || {}, v.req.event.getLinks());
 
+  Object.keys(map).forEach( k => {
     v.formatted[ k ] = v.req.event[ map[ k ] ]();
-
-  } );
+  });
 
   return v;
 

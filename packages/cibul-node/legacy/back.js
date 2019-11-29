@@ -11,7 +11,6 @@ const agendaEventsSvc = require( '../services/agendaEvents' );
 const controlDataSvc = require( '../services/legacy' ).controlData;
 const sessions = require( '@openagenda/sessions' );
 const referencesSvc = require( '@openagenda/agenda-event-references' );
-const sCache = require( '@openagenda/simple-cache' );
 const utils = require( '@openagenda/utils' );
 
 const agendaSvc = require('@openagenda/agendas');
@@ -387,7 +386,7 @@ function apiGetCached( req, res, next ) {
 
   if ( _isAgendaEventsApiUri( req.query.uri ) ) {
 
-    sCache( 'agendas', _getAgendaUidFromAgendaEventsApiUri( cleanUri ) ).get( cleanUri, ( err, content ) => {
+    req.app.services.simpleCache( 'agendas', _getAgendaUidFromAgendaEventsApiUri( cleanUri ) ).get( cleanUri, ( err, content ) => {
 
       if ( content ) {
 
@@ -405,7 +404,7 @@ function apiGetCached( req, res, next ) {
 
   } else {
 
-    sCache( 'legacyApi', '*' ).get( cleanUri, ( err, content ) => {
+    req.app.services.simpleCache( 'legacyApi', '*' ).get( cleanUri, ( err, content ) => {
 
       if ( content ) {
 
@@ -482,7 +481,7 @@ function apiPostCached( req, res, next ) {
 
   if ( _isAgendaEventsApiUri( req.query.uri ) ) {
 
-    sCache( 'agendas', _getAgendaUidFromAgendaEventsApiUri( cleanUri ) ).set( cleanUri, req.body.toCache, ttl, err => {
+    req.app.services.simpleCache( 'agendas', _getAgendaUidFromAgendaEventsApiUri( cleanUri ) ).set( cleanUri, req.body.toCache, ttl, err => {
 
       req.log( 'storing cached response for uri %s as %s', req.query.uri, cleanUri );
 
@@ -492,7 +491,7 @@ function apiPostCached( req, res, next ) {
 
   } else {
 
-    sCache( 'legacyApi', '*' ).set( cleanUri, JSON.stringify( req.body.toCache ), ttl, err => {
+    req.app.services.simpleCache( 'legacyApi', '*' ).set( cleanUri, JSON.stringify( req.body.toCache ), ttl, err => {
 
       req.log( 'storing cached response for uri %s as %s', req.query.uri, cleanUri );
 

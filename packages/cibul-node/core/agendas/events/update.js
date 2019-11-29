@@ -21,7 +21,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     events,
     agendas,
     agendaEvents,
-    eventSearch
+    eventSearch,
+    oembed
   } = services;
 
   log('processing', { agendaUid, eventUid, options });
@@ -64,7 +65,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
 
   if (clean.event.longDescription) {
     try {
-      clean.event.links = await processOEmbed( clean.event.longDescription, clean.event.links );
+      clean.event.links = await processOEmbed(oembed, clean.event.longDescription, clean.event.links);
       log( 'retrieved %s links', clean.event.links.length );
     } catch ( e ) {
       log( 'error', 'could not retrieve oembeds', e );

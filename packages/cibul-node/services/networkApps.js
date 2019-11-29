@@ -42,7 +42,7 @@ module.exports.init = config => {
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/networkApps' : null,
     interfaces: {
       getEventSchema: () => eventFormSchema( { languages: true } ),
-      listNetworks: core.networks.list,
+      listNetworks: () => core.networks.list(),
       getNetwork: uid => core.networks( uid ).get(),
       getNetworkSchema: uid => core.networks( uid ).schema.get(),
       setNetworkSchemaFields: ( uid, fields ) => core.networks( uid ).schema.updateFields( fields ),
@@ -53,7 +53,6 @@ module.exports.init = config => {
       createNetwork: core.networks.create
     }
   } ) );
-
 
 }
 
@@ -67,18 +66,20 @@ async function createAgenda( networkUid, data, user ) {
 
 }
 
-async function addAgendaToNetwork( uid, dirtySlug ) {
-
+async function addAgendaToNetwork(uid, dirtySlug) {
   const slug = (
     dirtySlug.split( '?' ).shift()
   ).split( '/' ).pop();
 
-  log( 'extracted slug %s', slug );
+  log('extracted slug %s', slug);
 
-  const agenda = await agendas.get( { slug }, { private: null } );
+  const agenda = await agendas.get({ slug }, { private: null });
 
-  await core.networks( uid ).agendas.add( agenda.uid );
+  if (!agenda) {
+    throw new Error('Not found');
+  }
+
+  await core.networks( uid ).agendas.add(agenda.uid);
 
   return agenda;
-
 }

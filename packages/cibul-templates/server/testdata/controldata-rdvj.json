@@ -41,8 +41,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "le jardin de l'Atelier du Mille Pattes",
@@ -60,8 +59,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "tarif-preferentiel",
-          "le-partage-au-jardin"
+          "tarif-preferentiel"
         ],
         "org": {
           "l": "caves du palais Saint Firmin ",
@@ -96,8 +94,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville de Nice / service du Patrimoine historique",
@@ -132,8 +129,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ligue pour la Protection des Oiseaux PACA",
@@ -150,8 +146,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "tarif-habituel",
-          "le-partage-au-jardin"
+          "tarif-habituel"
         ],
         "d": [
           "2017-06-03",
@@ -165,7 +160,7 @@
         "t": [
           "animation-jeune-public",
           "gratuit",
-          "le-partage-au-jardin",
+
           "atelier-demonstration-savoir-faire"
         ],
         "org": {
@@ -200,8 +195,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "tarif-preferentiel",
-          "le-partage-au-jardin"
+          "tarif-preferentiel"
         ],
         "d": [
           "2017-06-03",
@@ -227,8 +221,7 @@
         "tz": "Europe/Paris",
         "t": [
           "gratuit",
-          "visite-commentee",
-          "le-partage-au-jardin"
+          "visite-commentee"
         ],
         "d": [
           "2017-06-03",
@@ -272,8 +265,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "d": [
           "2017-06-04"
@@ -286,7 +278,7 @@
         "t": [
           "visite-commentee",
           "gratuit",
-          "le-partage-au-jardin",
+
           "visite-libre"
         ],
         "org": {
@@ -303,8 +295,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "SERVICE VILLE D'ART ET D'HISTOIRE DE MARTIGUES",
@@ -336,7 +327,7 @@
         "tz": "Europe/Paris",
         "t": [
           "gratuit",
-          "le-partage-au-jardin",
+
           "visite-commentee"
         ],
         "org": {
@@ -443,8 +434,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Académie de Beaumes de Venise",
@@ -462,8 +452,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Mairie de Bormes Les mimosas",
@@ -492,8 +481,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "tarif-habituel",
-          "le-partage-au-jardin"
+          "tarif-habituel"
         ],
         "org": {
           "l": "La Mouissone SARL",
@@ -510,8 +498,7 @@
         "l": 55742435,
         "tz": "Europe/Paris",
         "t": [
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Association des amis de l'abbaye de Boscodon",
@@ -527,8 +514,7 @@
         "tz": "Europe/Paris",
         "t": [
           "exposition",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville de Nice / service du Patrimoine historique",
@@ -544,8 +530,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville de la Seyne sur mer",
@@ -564,7 +549,7 @@
         "t": [
           "visite-commentee",
           "sur-inscription",
-          "le-partage-au-jardin",
+
           "tarif-preferentiel"
         ],
         "org": {
@@ -584,7 +569,7 @@
         "t": [
           "animation-pour-scolaires-le-vendredi",
           "gratuit",
-          "le-partage-au-jardin",
+
           "sur-inscription"
         ],
         "org": {
@@ -619,8 +604,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Chateau val Joanis",
@@ -636,7 +620,7 @@
         "tz": "Europe/Paris",
         "t": [
           "gratuit",
-          "le-partage-au-jardin",
+
           "animation-pour-scolaires-le-vendredi",
           "visite-libre"
         ],
@@ -656,7 +640,7 @@
         "tz": "Europe/Paris",
         "t": [
           "gratuit",
-          "le-partage-au-jardin",
+
           "circuit",
           "sur-inscription"
         ],
@@ -675,8 +659,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "d": [
           "2017-06-02",
@@ -690,8 +673,7 @@
         "tz": "Europe/Paris",
         "t": [
           "gratuit",
-          "atelier-demonstration-savoir-faire",
-          "le-partage-au-jardin"
+          "atelier-demonstration-savoir-faire"
         ],
         "org": {
           "l": "Maison Nature & Patrimoines",
@@ -707,8 +689,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "La Grange du clos Ambroise",
@@ -725,8 +706,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Graines de Soleil",
@@ -742,7 +722,7 @@
         "tz": "Europe/Paris",
         "t": [
           "gratuit",
-          "le-partage-au-jardin",
+
           "visite-commentee"
         ],
         "org": {
@@ -779,8 +759,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Musée départemental Arles antique",
@@ -798,8 +777,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "tarif-preferentiel",
-          "le-partage-au-jardin"
+          "tarif-preferentiel"
         ],
         "org": {
           "l": "L'Argelière",
@@ -817,8 +795,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-pour-scolaires-le-vendredi",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "ARBORETUM MARCEL KROENLEIN",
@@ -835,8 +812,7 @@
         "t": [
           "visite-commentee",
           "tarif-habituel",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "JARDIN DES FLEURS DE POTERIE",
@@ -855,7 +831,7 @@
         "t": [
           "visite-libre",
           "tarif-preferentiel",
-          "le-partage-au-jardin",
+
           "atelier-demonstration-savoir-faire"
         ],
         "org": {
@@ -875,8 +851,7 @@
         "t": [
           "visite-commentee",
           "sur-inscription",
-          "tarif-habituel",
-          "le-partage-au-jardin"
+          "tarif-habituel"
         ],
         "org": {
           "l": "proprietemarro",
@@ -894,8 +869,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-pour-scolaires-le-vendredi",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Bastide aux Violettes",
@@ -929,8 +903,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Château du Seuil",
@@ -949,8 +922,7 @@
         "t": [
           "visite-commentee",
           "tarif-habituel",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "DEDALE PARC",
@@ -986,8 +958,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Musée de Grasse",
@@ -1006,8 +977,7 @@
         "t": [
           "visite-commentee",
           "tarif-preferentiel",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "Rose des Arts",
@@ -1025,7 +995,7 @@
         "tz": "Europe/Paris",
         "t": [
           "gratuit",
-          "le-partage-au-jardin",
+
           "visite-libre"
         ],
         "org": {
@@ -1044,8 +1014,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "tarif-habituel",
-          "le-partage-au-jardin"
+          "tarif-habituel"
         ],
         "org": {
           "l": "Le Jardin d'Éguilles",
@@ -1064,7 +1033,7 @@
         "t": [
           "tarif-habituel",
           "sur-inscription",
-          "le-partage-au-jardin",
+
           "visite-commentee"
         ],
         "org": {
@@ -1083,8 +1052,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service Archéologie et Patrimoine Ville de Fréjus",
@@ -1100,8 +1068,7 @@
         "tz": "Europe/Paris",
         "t": [
           "exposition",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Association 7ART",
@@ -1119,8 +1086,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "d": [
           "2017-06-02"
@@ -1132,8 +1098,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service Archéologie et Patrimoine Ville de Fréjus",
@@ -1149,8 +1114,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service Archéologie et Patrimoine Ville de Fréjus",
@@ -1167,8 +1131,7 @@
         "t": [
           "visite-commentee",
           "gratuit",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "Conservatoire du Patrimoine du Freinet",
@@ -1184,8 +1147,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Promenade du Paillon ",
@@ -1201,8 +1163,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-pour-scolaires-le-vendredi",
-          "tarif-habituel",
-          "le-partage-au-jardin"
+          "tarif-habituel"
         ],
         "org": {
           "l": "Association La Ciotat, il etait une fois",
@@ -1218,8 +1179,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "tarif-habituel",
-          "le-partage-au-jardin"
+          "tarif-habituel"
         ],
         "org": {
           "l": "Le jardin de la Louve",
@@ -1251,8 +1211,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ecomusée du Pays de Fayence",
@@ -1271,8 +1230,7 @@
         "t": [
           "atelier-demonstration-savoir-faire",
           "sur-inscription",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ecomusée du Pays de Fayence",
@@ -1291,8 +1249,7 @@
         "t": [
           "visite-commentee",
           "gratuit",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "Les Sentiers de l'Abondance",
@@ -1309,7 +1266,7 @@
         "tz": "Europe/Paris",
         "t": [
           "gratuit",
-          "le-partage-au-jardin",
+
           "visite-commentee"
         ],
         "org": {
@@ -1327,8 +1284,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Muséum de Marseille",
@@ -1364,8 +1320,7 @@
         "tz": "Europe/Paris",
         "t": [
           "exposition",
-          "tarif-preferentiel",
-          "le-partage-au-jardin"
+          "tarif-preferentiel"
         ],
         "org": {
           "l": "Association Fondation Poppy & Pierre Salinger",
@@ -1383,7 +1338,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "le-partage-au-jardin",
+
           "tarif-habituel"
         ],
         "org": {
@@ -1403,8 +1358,7 @@
         "t": [
           "visite-commentee",
           "gratuit",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "VILLE DE MARSEILLE",
@@ -1421,8 +1375,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "tarif-habituel",
-          "le-partage-au-jardin"
+          "tarif-habituel"
         ],
         "org": {
           "l": "Romegas",
@@ -1441,8 +1394,7 @@
         "t": [
           "atelier-demonstration-savoir-faire",
           "tarif-preferentiel",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "Les Sentiers de l'Abondance",
@@ -1459,8 +1411,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Rose des Arts",
@@ -1479,8 +1430,7 @@
         "t": [
           "atelier-demonstration-savoir-faire",
           "gratuit",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "Jardin des Cordeliers de Digne les Bains",
@@ -1496,7 +1446,7 @@
         "l": 42666448,
         "tz": "Europe/Paris",
         "t": [
-          "le-partage-au-jardin",
+
           "atelier-demonstration-savoir-faire",
           "sur-inscription",
           "tarif-habituel"
@@ -1534,8 +1484,7 @@
         "t": [
           "spectacle-lecture",
           "tarif-habituel",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "Association 7ART",
@@ -1585,8 +1534,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "tarif-preferentiel",
-          "le-partage-au-jardin"
+          "tarif-preferentiel"
         ],
         "d": [
           "2017-06-03",
@@ -1633,8 +1581,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Association jardin du real",
@@ -1668,8 +1615,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "PAVILLON DE VENDOME",
@@ -1686,8 +1632,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville du Lavandou",
@@ -1704,8 +1649,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville de Saint-Raphaël - Service environnement",
@@ -1721,8 +1665,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "d": [
           "2017-06-03",
@@ -1735,8 +1678,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "VILLE DE MARSEILLE",
@@ -1752,8 +1694,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "VILLE DE MARSEILLE",
@@ -1769,8 +1710,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "VILLE DE MARSEILLE",
@@ -1786,8 +1726,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Parc naturel régional des Alpilles ",
@@ -1854,8 +1793,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Musée Frédéric Mistral",
@@ -1872,8 +1810,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "VILLE DE MARSEILLE",
@@ -1923,8 +1860,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville d'Hyères",
@@ -1976,8 +1912,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "tarif-preferentiel",
-          "le-partage-au-jardin"
+          "tarif-preferentiel"
         ],
         "org": {
           "l": "Salagon, musée et jardins",
@@ -1994,8 +1929,7 @@
         "tz": "Europe/Paris",
         "t": [
           "exposition",
-          "tarif-habituel",
-          "le-partage-au-jardin"
+          "tarif-habituel"
         ],
         "org": {
           "l": "CULTURESPACES SA",
@@ -2013,7 +1947,7 @@
         "t": [
           "visite-libre",
           "gratuit",
-          "le-partage-au-jardin",
+
           "atelier-demonstration-savoir-faire"
         ],
         "org": {
@@ -2048,8 +1982,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "tarif-habituel",
-          "le-partage-au-jardin"
+          "tarif-habituel"
         ],
         "org": {
           "l": "ARBORETUM MARCEL KROENLEIN",
@@ -2065,7 +1998,7 @@
         "l": 71394476,
         "tz": "Europe/Paris",
         "t": [
-          "le-partage-au-jardin",
+
           "tarif-habituel",
           "sur-inscription",
           "animation-pour-scolaires-le-vendredi"
@@ -2085,8 +2018,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service du Patrimoine de la ville de Menton",
@@ -2103,7 +2035,7 @@
         "t": [
           "visite-commentee",
           "tarif-preferentiel",
-          "le-partage-au-jardin",
+
           "sur-inscription"
         ],
         "org": {
@@ -2138,8 +2070,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service du Patrimoine de la ville de Menton",
@@ -2156,7 +2087,7 @@
         "t": [
           "animation-jeune-public",
           "gratuit",
-          "le-partage-au-jardin",
+
           "atelier-demonstration-savoir-faire"
         ],
         "org": {
@@ -2173,8 +2104,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Bastide aux Violettes",
@@ -2190,8 +2120,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "tarif-preferentiel",
-          "le-partage-au-jardin"
+          "tarif-preferentiel"
         ],
         "org": {
           "l": "Association La Ciotat, il etait une fois",
@@ -2207,8 +2136,7 @@
         "tz": "Europe/Paris",
         "t": [
           "circuit",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "Musée Bonnard",
@@ -2257,8 +2185,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "d": [
           "2017-06-03",
@@ -2271,8 +2198,7 @@
         "tz": "Europe/Paris",
         "t": [
           "gratuit",
-          "visite-commentee",
-          "le-partage-au-jardin"
+          "visite-commentee"
         ],
         "org": {
           "l": "Département du Var, muséum d'histoire naturelle ",
@@ -2289,8 +2215,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Château Mentone",
@@ -2307,8 +2232,7 @@
         "tz": "Europe/Paris",
         "t": [
           "exposition",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville de Saint-Raphaël - Service environnement",
@@ -2325,8 +2249,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville d'Hyères",
@@ -2361,7 +2284,7 @@
         "t": [
           "visite-libre",
           "gratuit",
-          "le-partage-au-jardin",
+
           "spectacle-lecture"
         ],
         "org": {
@@ -2378,8 +2301,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "Mairie de Bormes Les mimosas",
@@ -2396,8 +2318,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "VILLE DE MARSEILLE",
@@ -2441,8 +2362,7 @@
         "t": [
           "gratuit",
           "visite-commentee",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "d": [
           "2017-06-03",
@@ -2468,8 +2388,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service Archéologie et Patrimoine Ville de Fréjus",
@@ -2498,7 +2417,7 @@
         "tz": "Europe/Paris",
         "t": [
           "tarif-preferentiel",
-          "le-partage-au-jardin",
+
           "visite-commentee"
         ],
         "org": {
@@ -2516,8 +2435,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service Culture et Patrimoine de la CoVe",
@@ -2551,7 +2469,7 @@
         "t": [
           "visite-commentee",
           "gratuit",
-          "le-partage-au-jardin",
+
           "sur-inscription"
         ],
         "org": {
@@ -2568,8 +2486,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "tarif-habituel",
-          "le-partage-au-jardin"
+          "tarif-habituel"
         ],
         "d": [
           "2017-06-03",
@@ -2582,8 +2499,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Maison de Nostradamus",
@@ -2642,8 +2558,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Mairie de Saint-Tropez",
@@ -2676,8 +2591,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville d'Hyères",
@@ -2694,7 +2608,7 @@
         "tz": "Europe/Paris",
         "t": [
           "spectacle-lecture",
-          "le-partage-au-jardin",
+
           "tarif-preferentiel"
         ],
         "d": [
@@ -2724,8 +2638,7 @@
         "tz": "Europe/Paris",
         "t": [
           "spectacle-lecture",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service du Patrimoine de la ville de Menton",
@@ -2741,8 +2654,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "tarif-preferentiel",
-          "le-partage-au-jardin"
+          "tarif-preferentiel"
         ],
         "org": {
           "l": "Epicurium",
@@ -2774,8 +2686,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Centre Mas-Felipe Delavouët",
@@ -2808,8 +2719,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-libre",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "VILLE DE MARSEILLE",
@@ -2825,8 +2735,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Sigalloux",
@@ -2861,7 +2770,7 @@
         "t": [
           "atelier-demonstration-savoir-faire",
           "sur-inscription",
-          "le-partage-au-jardin",
+
           "tarif-habituel"
         ],
         "org": {
@@ -2895,8 +2804,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "tarif-preferentiel",
-          "le-partage-au-jardin"
+          "tarif-preferentiel"
         ],
         "org": {
           "l": "Epicurium",
@@ -2929,8 +2837,7 @@
         "tz": "Europe/Paris",
         "t": [
           "conference-projection",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service Culture et Patrimoine de la CoVe",
@@ -2946,8 +2853,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Département du Var, muséum d'histoire naturelle ",
@@ -2977,8 +2883,7 @@
         "tz": "Europe/Paris",
         "t": [
           "conference-projection",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "médiathèque municipale",
@@ -2994,8 +2899,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "VILLE DE MARSEILLE",
@@ -3011,7 +2915,7 @@
         "tz": "Europe/Paris",
         "t": [
           "gratuit",
-          "le-partage-au-jardin",
+
           "exposition"
         ],
         "org": {
@@ -3045,8 +2949,7 @@
         "t": [
           "conference-projection",
           "gratuit",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "Fondation Villa Datris",
@@ -3062,8 +2965,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "tarif-preferentiel",
-          "le-partage-au-jardin"
+          "tarif-preferentiel"
         ],
         "org": {
           "l": "Couleur Garance",
@@ -3080,8 +2982,7 @@
         "tz": "Europe/Paris",
         "t": [
           "concert",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Maison de Nostradamus",
@@ -3097,8 +2998,7 @@
         "tz": "Europe/Paris",
         "t": [
           "spectacle-lecture",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service Culture et Patrimoine de la CoVe",
@@ -3114,8 +3014,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service Archéologie et Patrimoine Ville de Fréjus",
@@ -3131,8 +3030,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "d": [
           "2017-06-03"
@@ -3144,8 +3042,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "PARTICULIER",
@@ -3161,8 +3058,7 @@
         "tz": "Europe/Paris",
         "t": [
           "exposition",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Régie Secrets de Fabriques",
@@ -3178,8 +3074,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Yes We Camp",
@@ -3195,8 +3090,7 @@
         "tz": "Europe/Paris",
         "t": [
           "exposition",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "INRA",
@@ -3212,8 +3106,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "INRA",
@@ -3261,8 +3154,7 @@
         "tz": "Europe/Paris",
         "t": [
           "spectacle-lecture",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Les Amis des Marais du Vigueirat",
@@ -3278,8 +3170,7 @@
         "tz": "Europe/Paris",
         "t": [
           "spectacle-lecture",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Les Amis des Marais du Vigueirat",
@@ -3295,8 +3186,7 @@
         "tz": "Europe/Paris",
         "t": [
           "atelier-demonstration-savoir-faire",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Les Amis des Marais du Vigueirat",
@@ -3312,8 +3202,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville d'Hyères",
@@ -3329,8 +3218,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville d'Hyères",
@@ -3346,8 +3234,7 @@
         "tz": "Europe/Paris",
         "t": [
           "spectacle-lecture",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "médiathèque municipale",
@@ -3379,8 +3266,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service Culture et Patrimoine de la CoVe",
@@ -3396,8 +3282,7 @@
         "tz": "Europe/Paris",
         "t": [
           "spectacle-lecture",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Musée départemental Arles antique",
@@ -3413,8 +3298,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Mairie de Saint-Tropez",
@@ -3447,8 +3331,7 @@
         "t": [
           "atelier-demonstration-savoir-faire",
           "sur-inscription",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Musée départemental Arles antique",
@@ -3464,8 +3347,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service Archéologie et Patrimoine Ville de Fréjus",
@@ -3514,8 +3396,7 @@
         "t": [
           "atelier-demonstration-savoir-faire",
           "sur-inscription",
-          "tarif-preferentiel",
-          "le-partage-au-jardin"
+          "tarif-preferentiel"
         ],
         "org": {
           "l": "Rose des Arts",
@@ -3531,8 +3412,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Ville d'Hyères",
@@ -3548,8 +3428,7 @@
         "tz": "Europe/Paris",
         "t": [
           "spectacle-lecture",
-          "tarif-habituel",
-          "le-partage-au-jardin"
+          "tarif-habituel"
         ],
         "org": {
           "l": "Mairie de Tarascon - Direction patrimoine",
@@ -3577,8 +3456,7 @@
         "tz": "Europe/Paris",
         "t": [
           "exposition",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Musée muséum départemental des Hautes Alpes",
@@ -3595,7 +3473,7 @@
         "t": [
           "atelier-demonstration-savoir-faire",
           "gratuit",
-          "le-partage-au-jardin",
+
           "sur-inscription"
         ],
         "org": {
@@ -3612,8 +3490,7 @@
         "tz": "Europe/Paris",
         "t": [
           "conference-projection",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Musée de Grasse",
@@ -3645,8 +3522,7 @@
         "tz": "Europe/Paris",
         "t": [
           "exposition",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Département du Var, muséum d'histoire naturelle ",
@@ -3662,8 +3538,7 @@
         "tz": "Europe/Paris",
         "t": [
           "animation-jeune-public",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "SERVICE VILLE D'ART ET D'HISTOIRE DE MARTIGUES",
@@ -3680,7 +3555,7 @@
         "t": [
           "gratuit",
           "sur-inscription",
-          "le-partage-au-jardin",
+
           "visite-commentee"
         ],
         "org": {
@@ -3697,7 +3572,7 @@
         "tz": "Europe/Paris",
         "t": [
           "gratuit",
-          "le-partage-au-jardin",
+
           "spectacle-lecture"
         ],
         "d": [
@@ -3711,8 +3586,7 @@
         "t": [
           "conference-projection",
           "gratuit",
-          "sur-inscription",
-          "le-partage-au-jardin"
+          "sur-inscription"
         ],
         "org": {
           "l": "Fondation Villa Datris",
@@ -3728,8 +3602,7 @@
         "tz": "Europe/Paris",
         "t": [
           "visite-commentee",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Musée départemental Arles antique",
@@ -3761,8 +3634,7 @@
         "tz": "Europe/Paris",
         "t": [
           "spectacle-lecture",
-          "gratuit",
-          "le-partage-au-jardin"
+          "gratuit"
         ],
         "org": {
           "l": "Service Culture et Patrimoine de la CoVe",
@@ -4743,7 +4615,7 @@
         "g": 1
       },
       {
-        "s": "le-partage-au-jardin",
+        "s":"le-partage-au-jardin",
         "t": "Le partage au jardin",
         "g": 2
       }
