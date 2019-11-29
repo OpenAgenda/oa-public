@@ -7,8 +7,8 @@
   "scripts": {
     "test": "jest",
     "start": "NODE_ENV=development browser-refresh dev/server",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
   },
   "bin": {

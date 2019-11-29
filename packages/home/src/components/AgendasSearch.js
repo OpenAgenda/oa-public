@@ -5,7 +5,13 @@ import useApiClient from '@openagenda/react-utils/dist/useApiClient';
 import useAgendasSearch from '../hooks/useAgendasSearch';
 import SearchInput from './SearchInput';
 
-function AgendasSearch({ res, render, initialState = {}, onSearch, fieldProps }) {
+function AgendasSearch({
+  res,
+  render,
+  initialState = {},
+  onSearch,
+  fieldProps
+}) {
   const apiClient = useApiClient();
 
   const initialValues = useMemo(
@@ -37,26 +43,17 @@ function AgendasSearch({ res, render, initialState = {}, onSearch, fieldProps })
     [nextPage]
   );
 
-  const handleSearch = useCallback(
-    values => list(values.search),
-    [list]
-  );
+  const handleSearch = useCallback(values => list(values.search), [list]);
 
-  useEffect(
-    () => {
-      list(state.searchValue).catch(_.noop);
-    },
-    [list]
-  );
+  useEffect(() => {
+    list(state.searchValue).catch(_.noop);
+  }, [list, state.searchValue]);
 
-  useEffect(
-    () => {
-      if (typeof onSearch === 'function') {
-        onSearch(state.searchValue);
-      }
-    },
-    [onSearch, state.searchValue]
-  );
+  useEffect(() => {
+    if (typeof onSearch === 'function') {
+      onSearch(state.searchValue);
+    }
+  }, [onSearch, state.searchValue]);
 
   const renderForm = useCallback(
     ({ handleSubmit }) => (
@@ -75,8 +72,14 @@ function AgendasSearch({ res, render, initialState = {}, onSearch, fieldProps })
   );
 
   const form = useMemo(
-    () => <Form initialValues={initialValues} onSubmit={handleSearch} render={renderForm} />,
-    [handleSearch, renderForm]
+    () => (
+      <Form
+        initialValues={initialValues}
+        onSubmit={handleSearch}
+        render={renderForm}
+      />
+    ),
+    [handleSearch, initialValues, renderForm]
   );
 
   return render({ state, form, nextPage: throttledNextPage });

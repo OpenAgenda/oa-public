@@ -1,4 +1,3 @@
-import React from 'react';
 import { createMemoryHistory } from 'history';
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
@@ -61,16 +60,24 @@ storiesOf('App', module)
   .add('all', () => {
     mockApi();
 
-    return wrapApp(createApp({
-      history: createMemoryHistory(),
-      initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}` })
-    }))
+    return wrapApp(
+      createApp({
+        history: createMemoryHistory(),
+        initialState: getDefaultState({
+          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
+        })
+      })
+    );
   })
   .add('with search query', () => {
     mockApi();
 
-    return wrapApp(createApp({
-      history: createMemoryHistory({ initialEntries: ['/?search=Paris'] }),
-      initialState: getDefaultState({ apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}` })
-    }))
+    return wrapApp(
+      createApp({
+        history: createMemoryHistory({ initialEntries: ['/?search=Paris'] }),
+        initialState: getDefaultState({
+          apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
+        })
+      })
+    );
   });

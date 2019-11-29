@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import React from 'react';
 import createApp from '@openagenda/react-utils/dist/createApp';
 import getRoutes from './getRoutes';
 
@@ -27,8 +26,8 @@ const defaults = {
   }
 };
 
-export default function ( options ) {
-  const { initialState } = _.merge( {}, defaults, options );
+export default function (options) {
+  const { initialState } = _.merge({}, defaults, options);
 
   const { apiRoot, prefix, rootPrefix } = initialState.settings;
 
@@ -37,7 +36,7 @@ export default function ( options ) {
     initialState,
     apiRoot,
     prefix,
-    getRoutes: () => getRoutes( prefix, rootPrefix ),
+    getRoutes: () => getRoutes(prefix, rootPrefix),
     legacyApiClient: true
   });
 

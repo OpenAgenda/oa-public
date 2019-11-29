@@ -12,8 +12,8 @@ const initialState = {
   loaded: false
 };
 
-export default function reducer( state = initialState, action ) {
-  switch ( action.type ) {
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
     case LOAD:
       return {
         ...state,
@@ -69,7 +69,7 @@ export default function reducer( state = initialState, action ) {
     case NEXT_PAGE_SUCCESS:
       return {
         ...state,
-        data: [ ...state.data, ...action.result.events ],
+        data: [...state.data, ...action.result.events],
         total: action.result.total,
         page: action.page,
         error: null,
@@ -86,40 +86,40 @@ export default function reducer( state = initialState, action ) {
   }
 }
 
-export function isLoaded( globalState ) {
+export function isLoaded(globalState) {
   return globalState.events && globalState.events.loaded;
 }
 
-export function load( query ) {
+export function load(query) {
   return {
-    types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.events.list, { params: query } );
+      return client.get(res.events.list, { params: query });
     }
   };
 }
 
-export function list( query ) {
+export function list(query) {
   return {
-    types: [ LIST, LIST_SUCCESS, LIST_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [LIST, LIST_SUCCESS, LIST_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.events.list, { params: query } );
+      return client.get(res.events.list, { params: query });
     }
-  }
+  };
 }
 
-export function nextPage( query, page ) {
+export function nextPage(query, page) {
   return {
-    types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
+    types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
     page,
-    promise: ( { client }, { getState } ) => {
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.events.list, { params: { ...query, page } } );
+      return client.get(res.events.list, { params: { ...query, page } });
     }
-  }
+  };
 }

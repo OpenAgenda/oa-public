@@ -49,43 +49,47 @@ function AgendaItem({ agenda, res, getLabel }) {
               <i className="fa fa-unlock-alt" />
               <div className="tooltip right" role="tooltip">
                 <div className="tooltip-arrow" />
-                <div className="tooltip-inner">
-                  {getLabel('privateAgenda')}
-                </div>
+                <div className="tooltip-inner">{getLabel('privateAgenda')}</div>
               </div>
             </div>
           )}
         </div>
 
         <div className="actions">
-          {[4].includes(agenda.member.role) && <a
-            href={res.agendas[agenda.private ? 'showPrivate' : 'show'].replace(':slug', agenda.slug)}
-          >
-            {getLabel('see')}
-          </a>}
-          {[2, 3].includes(agenda.member.role) && <a
-            href={res.agendas.moderate.replace(':slug', agenda.slug)}
-          >
-            {agenda.member.role === 2 ? getLabel('manage') : getLabel('moderate')}
-          </a>}
-          {[1, 2, 3].includes(agenda.member.role) && <a
-            href={(agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent).replace(
-              ':slug',
-              agenda.slug
-            )}
-          >
-            {getLabel('addAnEvent')}
-          </a>}
-          {![2, 3].includes(agenda.member.role) && _.get(agenda, 'mailto') && <a
-            href={_.get(agenda, 'mailto')}
-          >
-            {getLabel('contact')}
-          </a>}
-          {![2, 3].includes(agenda.member.role) && !_.get(agenda, 'mailto') && <a
-            href={res.agendas.contact.replace(':slug', agenda.slug)}
-          >
-            {getLabel('contact')}
-          </a>}
+          {[4].includes(agenda.member.role) && (
+            <a
+              href={res.agendas[
+                agenda.private ? 'showPrivate' : 'show'
+              ].replace(':slug', agenda.slug)}
+            >
+              {getLabel('see')}
+            </a>
+          )}
+          {[2, 3].includes(agenda.member.role) && (
+            <a href={res.agendas.moderate.replace(':slug', agenda.slug)}>
+              {agenda.member.role === 2
+                ? getLabel('manage')
+                : getLabel('moderate')}
+            </a>
+          )}
+          {[1, 2, 3].includes(agenda.member.role) && (
+            <a
+              href={(agenda.useContributeApp
+                ? res.agendas.contribute
+                : res.agendas.addEvent
+              ).replace(':slug', agenda.slug)}
+            >
+              {getLabel('addAnEvent')}
+            </a>
+          )}
+          {![2, 3].includes(agenda.member.role) && _.get(agenda, 'mailto') && (
+            <a href={_.get(agenda, 'mailto')}>{getLabel('contact')}</a>
+          )}
+          {![2, 3].includes(agenda.member.role) && !_.get(agenda, 'mailto') && (
+            <a href={res.agendas.contact.replace(':slug', agenda.slug)}>
+              {getLabel('contact')}
+            </a>
+          )}
         </div>
       </div>
     </div>
@@ -105,13 +109,11 @@ function Agendas() {
   const isNew = useSelector(state => state.settings.isNew);
 
   const initialState = useMemo(
-    () => {
-      return ({
-        searchValue: query.search || '',
-        firstLoading: true,
-        listLoading: true
-      })
-    },
+    () => ({
+      searchValue: query.search || '',
+      firstLoading: true,
+      listLoading: true
+    }),
     [query.search]
   );
 
@@ -119,8 +121,11 @@ function Agendas() {
     value => {
       history.push({
         ...history.location,
-        search: qs.stringify({ ...query, search: value !== '' ? value : undefined })
-      })
+        search: qs.stringify({
+          ...query,
+          search: value !== '' ? value : undefined
+        })
+      });
     },
     [history, query]
   );
@@ -132,7 +137,7 @@ function Agendas() {
       className: 'form-control',
       autoComplete: 'off'
     }),
-    []
+    [getLabel]
   );
 
   return (
@@ -143,11 +148,11 @@ function Agendas() {
         onSearch={onAgendaSearch}
         fieldProps={fieldProps}
         render={({ state, form, nextPage }) => {
-          if ( isNew && !state.total ) {
-            return <Welcome />
+          if (isNew && !state.total) {
+            return <Welcome />;
           }
 
-          if ( state.firstLoading ) {
+          if (state.firstLoading) {
             return <Spinner />;
           }
 
@@ -155,7 +160,11 @@ function Agendas() {
             <div>
               <div className="header">
                 <div className="hidden-xs pull-right">
-                  <Link to={res.agendas.create} className="btn btn-primary" type="button">
+                  <Link
+                    to={res.agendas.create}
+                    className="btn btn-primary"
+                    type="button"
+                  >
                     {getLabel('createAgenda')}
                   </Link>
                 </div>
@@ -172,12 +181,17 @@ function Agendas() {
                       res={res}
                       getLabel={getLabel}
                     />
-                  )) : null}
+                  ))
+                  : null}
               </div>
 
               {!state.firstLoading && !state.agendas.length ? (
                 <div className="text-center text-muted margin-top-md">
-                  <Link to={res.agendas.create} className="btn btn-primary" type="button">
+                  <Link
+                    to={res.agendas.create}
+                    className="btn btn-primary"
+                    type="button"
+                  >
                     {getLabel('createAgenda')}
                   </Link>
                 </div>

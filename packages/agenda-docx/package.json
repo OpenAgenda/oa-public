@@ -10,8 +10,8 @@
     "test": "jest --runInBand --forceExit",
     "cli": "node cli",
     "prepublish": "yarn dist",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {

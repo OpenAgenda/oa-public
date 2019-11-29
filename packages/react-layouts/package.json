@@ -11,8 +11,8 @@
     "build": "babel --copy-files src -d dist -s",
     "extract-messages": "node scripts/extract-messages.js",
     "clean": "rimraf build",
-    "lint": "eslint -c .eslintrc '**/*.js'",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {

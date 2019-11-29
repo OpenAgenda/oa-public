@@ -4,9 +4,9 @@
   "scripts": {
     "prepublish": "yarn build",
     "test": "jest --runInBand --testEnvironment=node",
-    "lint": "eslint -c .eslintrc '**/*.js'",
+    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
     "build": "rimraf build && babel iso -d build -s",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {

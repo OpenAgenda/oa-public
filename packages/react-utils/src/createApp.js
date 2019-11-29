@@ -9,13 +9,13 @@ import clientMiddleware from './clientMiddleware';
 import makeTriggerHooks from './makeTriggerHooks';
 import ApiClientContext from './ApiClientContext';
 
-function getDefaultHistory( req ) {
+function getDefaultHistory(req) {
   return req
-    ? createMemoryHistory( { initialEntries: [ req.originalUrl ] } )
+    ? createMemoryHistory({ initialEntries: [req.originalUrl] })
     : createBrowserHistory();
 }
 
-export default function createApp( options ) {
+export default function createApp(options) {
   const {
     initialState,
     layout,
@@ -28,15 +28,15 @@ export default function createApp( options ) {
     reduxMiddleware = []
   } = options;
 
-  const client = apiClient( apiRoot, req, { legacy: legacyApiClient } );
-  const history = options.history || getDefaultHistory( req );
+  const client = apiClient(apiRoot, req, { legacy: legacyApiClient });
+  const history = options.history || getDefaultHistory(req);
   const helpers = {};
   const store = createStore(
     getReducers,
     initialState,
     compose(
       applyMiddleware(
-        clientMiddleware( helpers ),
+        clientMiddleware(helpers),
         // ... other middlewares ... (like redux-logger)
         ...(Array.isArray(reduxMiddleware) ? reduxMiddleware : [reduxMiddleware])
       ),
@@ -46,7 +46,7 @@ export default function createApp( options ) {
     )
   );
 
-  const routes = getRoutes( prefix );
+  const routes = getRoutes(prefix);
 
   Object.assign(helpers, {
     client,
@@ -55,12 +55,12 @@ export default function createApp( options ) {
     location: history.location
   });
 
-  const triggerHooks = makeTriggerHooks( { routes, history, helpers, req } );
+  const triggerHooks = makeTriggerHooks({ routes, history, helpers, req });
 
   const Content = React.memo(({ extraProps, switchProps }) => (
     <Provider store={store}>
       <ApiClientContext.Provider value={client}>
-        {renderRoutes( routes, extraProps, switchProps )}
+        {renderRoutes(routes, extraProps, switchProps)}
       </ApiClientContext.Provider>
     </Provider>
   ));

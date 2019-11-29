@@ -18,7 +18,9 @@ function App({ route }) {
   const isNew = useSelector(state => state.settings.isNew);
   const prefix = useSelector(state => state.settings.prefix);
   const tab = useSelector(state => state.menu.tab);
-  const total = useSelector(state => state.agendas.homeAgendas && state.agendas.homeAgendas.total);
+  const total = useSelector(
+    state => state.agendas.homeAgendas && state.agendas.homeAgendas.total
+  );
 
   const getLabel = useCallback(
     (label, values = {}) => makeGetterLabel(labels)(label, values, lang),
@@ -27,8 +29,8 @@ function App({ route }) {
 
   const i18nContextValue = useMemo(
     () => ({
-      lang: lang,
-      getLabel: getLabel
+      lang,
+      getLabel
     }),
     [lang, getLabel]
   );
@@ -39,33 +41,27 @@ function App({ route }) {
         <div className="container top-margined home">
           <div className="col-sm-8 col-sm-offset-2">
             <div className="row wsq">
-              <div className="content">
-                {renderRoutes(route.routes)}
-              </div>
+              <div className="content">{renderRoutes(route.routes)}</div>
             </div>
           </div>
         </div>
       ) : (
-        <div className={classNames('container top-margined home', { [`home-${tab}`]: tab })}>
+        <div
+          className={classNames('container top-margined home', {
+            [`home-${tab}`]: tab
+          })}
+        >
           <div className="row">
             <div className="col-sm-8 col-sm-offset-2">
               <ul className="home-nav list-inline">
-                <MenuItem
-                  linkTo={prefix || '/'}
-                  active={tab === 'agendas'}
-                >
+                <MenuItem linkTo={prefix || '/'} active={tab === 'agendas'}>
                   {getLabel('myAgendas')}
                 </MenuItem>
-                <MenuItem
-                  linkTo={prefix + '/events'}
-                  active={tab === 'events'}
-                >
+                <MenuItem linkTo={`${prefix}/events`} active={tab === 'events'}>
                   {getLabel('myEvents')}
                 </MenuItem>
               </ul>
-              <div className="wsq">
-                {renderRoutes(route.routes)}
-              </div>
+              <div className="wsq">{renderRoutes(route.routes)}</div>
             </div>
           </div>
         </div>
@@ -74,11 +70,11 @@ function App({ route }) {
   );
 }
 
-export default provideHooks( {
-  inject: ( { store } ) => store.inject( {
+export default provideHooks({
+  inject: ({ store }) => store.inject({
     menu: menuReducer,
     events: eventsReducer,
     agendas: agendasReducer,
     modals: modalsReducer
-  } )
-} )(module.hot ? hot(App) : App);
+  })
+})(module.hot ? hot(App) : App);

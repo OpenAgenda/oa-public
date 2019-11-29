@@ -11,7 +11,9 @@ export default function Welcome() {
       <div className="row">
         <div className="text-center new-user padding-v-md">
           <h2 className="margin-v-md">{getLabel('welcome')}</h2>
-          <a href={res.agendas.create} className="btn btn-primary margin-v-sm">{getLabel('createAgenda')}</a>
+          <a href={res.agendas.create} className="btn btn-primary margin-v-sm">
+            {getLabel('createAgenda')}
+          </a>
           <p className="margin-v-sm">{getLabel('orContributeToExisting')}</p>
           <form action={res.search} method="GET" className="margin-top-sm">
             <div className="form-group input-icon-right search center-block">

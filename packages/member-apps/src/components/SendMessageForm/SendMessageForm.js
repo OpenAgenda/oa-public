@@ -54,7 +54,7 @@ class SendMessageForm extends Component {
                 <div style={{ height: '200px', position: 'relative' }}>
                   <Spinner />
                 </div>
-)}
+              )}
             />
 
             <Field

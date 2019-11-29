@@ -65,7 +65,11 @@ function reducer(state, action) {
   }
 }
 
-export default function useAgendasSearch({ request, perPageLimit, initialState }) {
+export default function useAgendasSearch({
+  request,
+  perPageLimit,
+  initialState
+}) {
   const _initialState = useMemo(
     () => ({
       ...defaultInitialState,
