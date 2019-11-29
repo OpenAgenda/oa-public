@@ -23,6 +23,7 @@ describe('Aggregators evaluate', () => {
           getEventReference: _async('fixtures/evaluate/getEventReference'),
           referenceEvent: (...args) => {
             referenceEventArguments = args;
+            return { success: true };
           }
         }, data);
       });

@@ -68,11 +68,16 @@ module.exports = async ({
     extendedValues.state = evaluateResult.state;
   }
 
-  await referenceEvent(agenda, aggregatorAgendaUid, event.uid, extendedValues, { batched });
+  const { errors, success } = await referenceEvent(agenda, aggregatorAgendaUid, event.uid, extendedValues, { batched });
 
-  log('done', { step: 'referenced' });
+  if (success) {
+    log('done', { step: 'referenced' });
+  } else {
+    log('done', { step: 'not referenced', errors});
+  }
+
   return {
-    success: true,
+    success,
     operation: 'aggregation'
   }
 }
