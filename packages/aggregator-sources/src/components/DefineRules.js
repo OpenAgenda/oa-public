@@ -1,5 +1,7 @@
 import _ from 'lodash';
-import React, { useCallback, useMemo, useReducer } from 'react';
+import React, {
+  useCallback, useMemo, useReducer, useEffect
+} from 'react';
 import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
 import { Form } from 'react-final-form';
@@ -69,6 +71,10 @@ const messages = defineMessages({
   pasteRules: {
     id: 'aggregator-sources.DefineRules.pasteRules',
     defaultMessage: 'Apply filters from another source'
+  },
+  manualPasteRules: {
+    id: 'aggregator-sources.DefineRules.manualPasteRules',
+    defaultMessage: 'Paste filters from another source (CTRL + V)'
   }
 });
 
@@ -337,31 +343,51 @@ export default function DefineRules({
     [dispatch]
   );
 
-  const pasteRules = useCallback(async () => {
-    const text = await readClipboard();
-    let json = null;
-
-    try {
-      json = JSON.parse(text);
-
-      if (!Array.isArray(json)) {
-        throw new Error('Invalid data: not an array');
+  const addRules = useCallback(
+    async data => {
+      if (!data) {
+        return;
       }
-    } catch (e) {
-      // Unable to parse
-      json = [];
-    }
 
-    for (const item of json) {
+      let json = null;
+
       try {
-        const rule = ruleToValues(item);
+        json = JSON.parse(data);
 
-        addRule(rule);
-      } catch (itemException) {
-        // Impossible to add rule
+        if (!Array.isArray(json)) {
+          throw new Error('Invalid data: not an array');
+        }
+      } catch (e) {
+        // Unable to parse
+        json = [];
       }
-    }
-  }, [addRule]);
+
+      for (const item of json) {
+        try {
+          const rule = ruleToValues(item);
+
+          addRule(rule);
+        } catch (itemException) {
+          // Impossible to add rule
+        }
+      }
+    },
+    [addRule]
+  );
+
+  useEffect(() => {
+    const pasteHandler = event => {
+      addRules((event.clipboardData || window.clipboardData).getData('text'));
+    };
+
+    document.addEventListener('paste', pasteHandler);
+
+    return () => document.removeEventListener('paste', pasteHandler);
+  }, [addRules]);
+
+  const pasteRules = useCallback(async () => {
+    addRules(await readClipboard().catch(() => null));
+  }, [addRules]);
 
   const initialValues = useMemo(() => {
     const ruleToUpdate = state.rules.find(
@@ -417,14 +443,21 @@ export default function DefineRules({
           </p>
 
           <p>
-            <button
-              type="button"
-              className="btn-link-inline"
-              onClick={pasteRules}
-            >
-              <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
-              {intl.formatMessage(messages.pasteRules)}
-            </button>
+            {navigator?.clipboard?.readText ? (
+              <button
+                type="button"
+                className="btn-link-inline"
+                onClick={pasteRules}
+              >
+                <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
+                {intl.formatMessage(messages.pasteRules)}
+              </button>
+            ) : (
+              <em className="text-muted">
+                <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
+                {intl.formatMessage(messages.manualPasteRules)}
+              </em>
+            )}
           </p>
         </div>
       </div>
