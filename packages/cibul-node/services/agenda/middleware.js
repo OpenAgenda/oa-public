@@ -554,7 +554,7 @@ function buildXlsx( includePrivateData ) {
         const eInst = eventSvc.instanciate( eventData );
 
         // clean event
-        eInst.exportable( ( err, clean ) => {
+        eInst.exportable({ services: req.app.services }, ( err, clean ) => {
 
           if (_handleExportableError('xlsx', eventData, err)) {
             processing--;
@@ -667,7 +667,7 @@ function buildCsv( includePrivateData ) {
         // instanciate
         const eInst = eventSvc.instanciate( eventData );
 
-        eInst.exportable( { protocol: 'https:' }, ( err, clean ) => {
+        eInst.exportable( { protocol: 'https:', services: req.app.services }, ( err, clean ) => {
 
           if (_handleExportableError('csv', eventData, err)) {
             processing--;
