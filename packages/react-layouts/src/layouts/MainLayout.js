@@ -185,9 +185,15 @@ function MainLayout({
 
   useEffect(() => setFlashMessage(session.flash()), [setFlashMessage]);
 
-  const [sessionUser, setSessionUser] = useState(getDefaultSessionUser);
+  const [sessionUser, setSessionUser] = useState(
+    typeof document !== 'undefined' ? getDefaultSessionUser : null
+  );
 
   useInterval(() => {
+    if (typeof document === 'undefined') {
+      return;
+    }
+
     const freshSessionUser = session.getUser();
 
     if (shallowEqual(sessionUser, freshSessionUser)) {
