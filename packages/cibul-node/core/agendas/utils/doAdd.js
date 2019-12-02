@@ -122,23 +122,23 @@ module.exports = async (services, payload, clean, options = {}) => {
     log('error', 'could not update legacy search for event %s', event.uid);
   }
 
-  const response = payload.getResponse(true);
+  const compiledEvent = payload.getCompiledEvent();
 
   try {
     await eventSearch.add({
       agenda,
-      formSchema: response.formSchema,
-      member: response.member,
-      event: payload.getResponse()
+      formSchema: payload.getFormSchema(),
+      member: payload.getMember(),
+      event: compiledEvent
     });
   } catch (e) {
     log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid);
   }
 
   await aggregators.notify('addEvent', {
-    event: response.created,
+    event: compiledEvent,
     agenda,
-    formSchema: response.formSchema,
+    formSchema: payload.getFormSchema(),
     batched
   });
 }

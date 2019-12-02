@@ -39,9 +39,12 @@ module.exports = app => {
     ( req, res, next ) => {
       core.agendas( req.agenda.uid ).events.get( req.params.eventUid, {
         customOnly: true,
-        includeSchema: true,
+        returnPayload: true,
         access: req.member ? members.utils.getRoleSlug( req.member.role ) : 'nobody',
-      } ).then( result => res.json( result ) );
+      } ).then( result => res.json({
+        event: result.event,
+        schema: result.formSchema
+      });
     }
   );
 

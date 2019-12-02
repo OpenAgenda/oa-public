@@ -199,6 +199,6 @@ module.exports = ({
 
 function _hasReferencesField( schemaExtensions ) {
   return !!_.flatten(
-    schemaExtensions.filter(s => !!s).map(s => s.fields)
+    schemaExtensions.filter(s => !!s && s.fields).map(s => s.fields)
   ).filter(f => f.field === 'references').length;
 }

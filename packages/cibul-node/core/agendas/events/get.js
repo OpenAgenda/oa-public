@@ -24,21 +24,21 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     lang,
     customOnly,
     access,
-    includeSchema,
+    returnPayload,
     detailed
   } = {
     internal: false, // load internal use fields ( id )
     lang: null,
     customOnly: false, // only fetch custom values
-    access: null, // filter to values matching specific access rights
-    includeSchema: false,
+    access: 'public',
+    returnPayload: false,
     detailed: false,
     ...options
   };
 
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
 
-  const payload = createPayload(services, agenda, 'get');
+  const payload = createPayload(services, agenda);
 
   payload.setItem('agendaEvent', await agendaEvents(agendaUid).get(eventUid));
 
@@ -47,7 +47,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   } = agenda;
 
   if (!customOnly) {
-    const { event } = await events.get({
+    const event = await events.get({
       uid: eventUid
     }, {
       internal, detailed
@@ -70,7 +70,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   if (loadCustomFields && agenda.formSchemaId) {
     payload.setItem(
       'custom.agenda',
-      await custom(formSchemaId).get(eventUid)
+      await custom(agenda.formSchemaId).get(eventUid)
     );
   }
 
@@ -81,31 +81,9 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     );
   }
 
-  if (includeSchema || access) {
-    result.schema = await getMergedSchema(agenda, { preloadedNetwork: network });
-  }
+  const result = await payload.getResponse('event', access);
 
-  _filterByAccess(result, access);
-
-  return includeSchema ? result : result.event;
-}
-
-
-function _filterByAccess(data, access = null) {
-  const { event, schema } = data;
-
-  if (!access) return;
-
-  const unsets = _.get(schema, 'fields', []).filter(
-    f => f.read && ![].concat(f.read).includes(access)
-  ).map(f => f.field);
-
-  if (!unsets.length) return;
-
-  data.event = ih(event, { $unset: unsets });
-
-  // filter out fields from schema
-  data.schema.fields = data.schema.fields.filter(f => !unsets.includes(f.field));
+  return returnPayload ? result : result.event;
 }
 
 

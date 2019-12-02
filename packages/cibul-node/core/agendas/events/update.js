@@ -55,7 +55,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     partial
   });
 
-  const payload = createPayload(services, agenda, 'updated');
+  const payload = createPayload(services, agenda);
 
   if (clean.event.longDescription) {
     try {
@@ -138,7 +138,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   }
 
   if (draft) {
-    return payload.getResponse(true);
+    return payload.getResponse('updated');
   }
 
   // event is not draft (anymore)
@@ -189,28 +189,26 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     log('error', 'could not update legacy search for event %s', eventUid, e);
   }
 
-  const response = payload.getResponse();
-
   try {
     await eventSearch.update({
       agenda,
-      formSchema: response.formSchema,
-      member: response.member,
-      event: response.updated
+      formSchema: payload.getFormSchema(),
+      member: payload.getMember(),
+      event: payload.getEvent('after')
     });
   } catch (e) {
     log('error', 'could not update search indices for event %s.%s', agenda.uid, eventUid, e);
   }
 
   await aggregators.notify('updateEvent', {
-    event: response.updated,
-    before: response.before,
+    event: payload.getCompiledEvent(),
+    before: payload.getEvent('before'),
     agenda,
-    formSchema: response.formSchema,
+    formSchema: payload.getFormSchema(),
     batched
   });
 
-  return response;
+  return payload.getResponse('updated');
 }
 
 

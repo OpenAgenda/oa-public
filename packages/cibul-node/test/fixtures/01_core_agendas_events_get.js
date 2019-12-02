@@ -16,20 +16,29 @@ const raw = [
   'custom.create.sql',
   'agendaEvent.create.sql',
   'location.create.sql'
-].map(fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace(/;(\n|)$/, ''));
+].map(fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace( /;(\n|)$/, ''));
 
 raw.push(knex('review').insert([{
   id: 1,
-  title: 'Ville d\'Arles',
-  slug: 'arles',
+  title: 'Une commune de Fraaance',
+  slug: 'une-commune-de-fraaance',
   owner_id: 1,
-  uid: 1
+  uid: 1,
+  network_uid: 1
+}, {
+  id: 2,
+  title: 'Un agenda thématique',
+  slug: 'un-agenda-thematique',
+  owner_id: 1,
+  uid: 2,
+  network_uid: 1
 }]));
 
 raw.push(knex('network').insert([{
   id: 1,
   uid: 1,
-  title: 'Un réseau'
+  title: 'Un réseau',
+  form_schema_id: 1
 }]));
 
 raw.push(knex('user').insert([{
@@ -105,11 +114,46 @@ raw.push(knex('agenda_event').insert([{
 }, {
   id: 1,
   user_uid: 1,
-  agenda_uid: 1,
-  event_uid: 2,
+  agenda_uid: 2,
+  event_uid: 1,
   state: 0,
   created_at: new Date(),
   updated_at: new Date()
 }]));
+
+raw.push(knex('form_schema').insert([{
+  id: 1,
+  store: JSON.stringify({
+    fields: [{
+      field: 'thematique',
+      fieldType: 'radio',
+      origin: 'tags',
+      options: [{
+        id: 1,
+        value: 'concert',
+        label: 'Concert'
+      }, {
+        id: 2,
+        value: 'exposition',
+        label: 'Exposition'
+      }]
+    }, {
+      field: 'note',
+      fieldType: 'text',
+      origin: 'custom',
+      read: ['administrator']
+    }]
+  })
+}]));
+
+raw.push(knex('custom').insert({
+  id: 1,
+  form_schema_id: 1,
+  identifier: 1,
+  store: JSON.stringify({
+    thematique: 2,
+    note: 'Une note interne pour les administrateurs'
+  })
+}));
 
 module.exports = raw.join(';\n') + ';';

@@ -45,7 +45,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     formSchemaDataFormat
   });
 
-  const payload = createPayload(services, agenda, 'created');
+  const payload = createPayload(services, agenda);
 
   try {
     clean.event.links = await processOEmbed(clean.event.longDescription, clean.event.links);
@@ -90,8 +90,8 @@ module.exports = async (services, agendaUid, data, options = {}) => {
         errors: result.errors
       }
     });
-  } else {
-    payload.setItem('event', null, result.event);
+  } else {;
+    payload.setItem('event', result.event);
   }
 
   await doAdd(services, payload, ih(clean, {
@@ -106,5 +106,5 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   });
 
   // same for draft or not
-  return payload.getResponse(true);
+  return payload.getResponse('created');
 }

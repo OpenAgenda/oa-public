@@ -206,13 +206,13 @@ async function eventMailSend(req, res, next) {
   let customData = null;
 
   try {
-    const data = await core.agendas(req.agenda.uid).events.get(req.event.uid, {
+    const { event, formSchema } = await core.agendas(req.agenda.uid).events.get(req.event.uid, {
       customOnly: true,
-      includeSchema: true,
+      returnPayload: true,
       access: 'public',
     });
 
-    customData = formSchemaDecorate(_.get(data, 'schema.fields', []))(data.event, {
+    customData = formSchemaDecorate(_.get(formSchema, 'fields', []))(event, {
       labelsAsKeys: true,
       labelsAsValues: true,
       ignoreNonArrayObjects: true,

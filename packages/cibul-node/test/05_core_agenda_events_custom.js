@@ -239,7 +239,7 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
 
       const event = await core.agendas( agendaUid ).events.get(createdEventUid);
 
-      event.uid.should.equal( createdEventUid );
+      event.uid.should.equal(createdEventUid);
 
       [ 'public', 'entreelibre', 'thematiques-metropolitaines' ].forEach( field => {
 
@@ -274,28 +274,25 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
 
     } );
 
-    it( 'get with includeSchema gets data with event on one side and schema on the other', async () => {
+    it('get with returnPayload gets full payload', async () => {
+      const result = await core.agendas(agendaUid).events.get(createdEventUid, {
+        returnPayload: true
+      });
 
-      const { event, schema } = await core.agendas( agendaUid ).events.get( createdEventUid, {
-        includeSchema: true
-      } );
+      Object.keys(result).should.eql([
+        'success',
+        'agenda',
+        'originAgenda',
+        'member',
+        'formSchema',
+        'event',
+        'before'
+      ]);
 
-      event.uid.should.equal( createdEventUid );
+      result.event.uid.should.equal(createdEventUid);
+    });
 
-      schema.fields.map( f => f.field ).should.eql( [
-        'entreelibre',
-        'thematiques-metropolitaines',
-        'types-devenements',
-        'public',
-        'organisateur',
-        'tag-group-4',
-        'cle_session',
-        'category-group'
-       ] );
-
-    } );
-
-    it( 'get with specified access limits fetched custom fields to matching access', async () => {
+    it('get with specified access limits fetched custom fields to matching access', async () => {
 
       const contributorAccessEvent = await core.agendas( agendaUid ).events.get( createdEventUid, {
         access: 'contributor'
@@ -309,25 +306,25 @@ describe( '05 - core - functional ( server ): agenda event with custom data', fu
 
       _.keys( administratorAccessEvent ).includes( 'organisateur' ).should.equal( true );
 
-    } );
+    });
 
-    it( 'get with specified access limits returned schema fields', async () => {
+    it('get with specified access limits returns schema fields', async () => {
 
-      const { schema: contributorAccessSchema } = await core.agendas( agendaUid ).events.get( createdEventUid, {
+      const { formSchema: contributorAccessSchema } = await core.agendas( agendaUid ).events.get( createdEventUid, {
         access: 'contributor',
-        includeSchema: true
+        returnPayload: true
       } );
 
-      const { schema: administratorAccessSchema } = await core.agendas( agendaUid ).events.get( createdEventUid, {
+      const { formSchema: administratorAccessSchema } = await core.agendas( agendaUid ).events.get( createdEventUid, {
         access: 'administrator',
-        includeSchema: true
+        returnPayload: true
       } );
 
       contributorAccessSchema.fields.map( f => f.field ).includes( 'organisateur' ).should.equal( false );
 
       administratorAccessSchema.fields.map( f => f.field ).includes( 'organisateur' ).should.equal( true );
 
-    } );
+    });
 
   } );
 
