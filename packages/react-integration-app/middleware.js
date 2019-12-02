@@ -73,6 +73,7 @@ module.exports = function match({
           },
           res: {
             main: {
+              getUser: '/users/me',
               hasInboxNews: '/latest-inbox-timestamp'
             },
             agendaAdmin: {

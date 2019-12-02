@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
 import ErrorBoundary from 'react-error-boundary';
 import classNames from 'classnames';
+import { useInterval } from 'react-use';
 import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
 import Modal from '@openagenda/react-components/build/Modal';
@@ -54,6 +55,8 @@ const messages = defineMessages({
     defaultMessage: 'Signin'
   }
 });
+
+const getDefaultSessionUser = () => session.getUser();
 
 const Logo = React.memo(({ user }) => (user ? (
   <Link to="/home" className="navbar-brand">
@@ -123,6 +126,10 @@ function MainLayout({
 
   const dispatch = useDispatch();
 
+  const loadLayoutData = useCallback(() => dispatch(mainActions.getUser()), [
+    dispatch
+  ]);
+
   const checkInboxNews = useCallback(
     () => dispatch(mainActions.checkInboxNews()),
     [dispatch]
@@ -177,6 +184,27 @@ function MainLayout({
   ]);
 
   useEffect(() => setFlashMessage(session.flash()), [setFlashMessage]);
+
+  const [sessionUser, setSessionUser] = useState(getDefaultSessionUser);
+
+  useInterval(() => {
+    const freshSessionUser = session.getUser();
+
+    if (shallowEqual(sessionUser, freshSessionUser)) {
+      return;
+    }
+
+    setSessionUser(freshSessionUser);
+
+    if (!freshSessionUser) {
+      // reload page if user is disconnected
+      window.location.reload();
+    }
+  }, 5000);
+
+  useEffect(() => {
+    // loadLayoutData();
+  }, [loadLayoutData]);
 
   useEffect(() => {
     if (!inboxLoaded) {
@@ -237,111 +265,112 @@ function MainLayout({
               {/* TODO Language selector for unlogged */}
 
               {user ? (
-                <li className="inbox">
-                  <Link to="/home/inbox">
-                    <i className="fa fa-envelope" aria-hidden="true" />
-                    {hasInboxNews ? (
-                      <span className="label label-danger ">
-                        <i className="fa fa-exclamation" />
-                      </span>
-                    ) : null}
-                  </Link>
-                </li>
-              ) : null}
+                <>
+                  <li className="inbox">
+                    <Link to="/home/inbox">
+                      <i className="fa fa-envelope" aria-hidden="true" />
+                      {hasInboxNews ? (
+                        <span className="label label-danger ">
+                          <i className="fa fa-exclamation" />
+                        </span>
+                      ) : null}
+                    </Link>
+                  </li>
 
-              {user ? (
-                <li className="profile" style={{ position: 'relative' }}>
-                  <button
-                    type="button"
-                    onClick={toggleUserPanel}
-                    aria-expanded={userPanelOpened}
-                    className="btn btn-link-inline"
-                  >
-                    {user.thumbnail ? (
-                      <img alt="user thumbnail" src={user.thumbnail} />
-                    ) : (
-                      <span>{user.fullName}</span>
-                    )}
-                  </button>
-                  <OutsideClickHandler onOutsideClick={closeUserPanel}>
-                    <ul
-                      className={classNames('dropdown-menu js_dropdown_menu', {
-                        'collapse in': userPanelOpened,
-                        collapsed: !userPanelOpened
-                      })}
-                      role="menu"
+                  <li className="profile" style={{ position: 'relative' }}>
+                    <button
+                      type="button"
+                      onClick={toggleUserPanel}
+                      aria-expanded={userPanelOpened}
+                      className="btn btn-link-inline"
                     >
-                      <li>
-                        <div className="row">
-                          <ul className="list-unstyled col-md-6">
-                            <li>
-                              <h3>{intl.formatMessage(messages.general)}</h3>
-                            </li>
-                            <li>
-                              <a
-                                href="/home/events"
-                                onClick={panelLink('/home/events')}
-                              >
-                                {intl.formatMessage(messages.myEvents)}
-                              </a>
-                            </li>
-                            <li>
-                              <a
-                                href="/settings"
-                                onClick={panelLink('/settings')}
-                              >
-                                {intl.formatMessage(messages.settings)}
-                              </a>
-                            </li>
-                            <li>
-                              <a href="/signout">
-                                {intl.formatMessage(messages.signout)}
-                              </a>
-                            </li>
-                          </ul>
-                          <ul className="list-unstyled col-md-6">
-                            <li>
-                              <h3>Agendas</h3>
-                            </li>
-                            <li>
-                              <a href="/home" onClick={panelLink('/home')}>
-                                {intl.formatMessage(messages.myAgendas)}
-                              </a>
-                            </li>
-                            <li>
-                              <a href="/agendas">
-                                {intl.formatMessage(messages.searchAgenda)}
-                              </a>
-                            </li>
-                            <li>
-                              <a href="/new" onClick={panelLink('/new')}>
-                                {intl.formatMessage(messages.createAgenda)}
-                              </a>
-                            </li>
-                          </ul>
-                        </div>
-                      </li>
-                    </ul>
-                  </OutsideClickHandler>
-                </li>
+                      {user.thumbnail ? (
+                        <img alt="user thumbnail" src={user.thumbnail} />
+                      ) : (
+                        <span>{user.fullName}</span>
+                      )}
+                    </button>
+                    <OutsideClickHandler onOutsideClick={closeUserPanel}>
+                      <ul
+                        className={classNames(
+                          'dropdown-menu js_dropdown_menu',
+                          {
+                            'collapse in': userPanelOpened,
+                            collapsed: !userPanelOpened
+                          }
+                        )}
+                        role="menu"
+                      >
+                        <li>
+                          <div className="row">
+                            <ul className="list-unstyled col-md-6">
+                              <li>
+                                <h3>{intl.formatMessage(messages.general)}</h3>
+                              </li>
+                              <li>
+                                <a
+                                  href="/home/events"
+                                  onClick={panelLink('/home/events')}
+                                >
+                                  {intl.formatMessage(messages.myEvents)}
+                                </a>
+                              </li>
+                              <li>
+                                <a
+                                  href="/settings"
+                                  onClick={panelLink('/settings')}
+                                >
+                                  {intl.formatMessage(messages.settings)}
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/signout">
+                                  {intl.formatMessage(messages.signout)}
+                                </a>
+                              </li>
+                            </ul>
+                            <ul className="list-unstyled col-md-6">
+                              <li>
+                                <h3>Agendas</h3>
+                              </li>
+                              <li>
+                                <a href="/home" onClick={panelLink('/home')}>
+                                  {intl.formatMessage(messages.myAgendas)}
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/agendas">
+                                  {intl.formatMessage(messages.searchAgenda)}
+                                </a>
+                              </li>
+                              <li>
+                                <a href="/new" onClick={panelLink('/new')}>
+                                  {intl.formatMessage(messages.createAgenda)}
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </li>
+                      </ul>
+                    </OutsideClickHandler>
+                  </li>
+
+                  <li className="notifications js_notifications">
+                    <button
+                      type="button"
+                      className="js_notifications_opener btn btn-link-inline"
+                    >
+                      <i className="fa fa-bell" aria-hidden="true" />
+                      <span className="label label-danger" />
+                    </button>
+                    <div className="js_notifications_panel hide" />
+                  </li>
+                </>
               ) : (
                 <li className="signin">
                   <a href="/signin">{intl.formatMessage(messages.signin)}</a>
                 </li>
               )}
-
-              {user ? (
-                <li className="notifications js_notifications">
-                  <button
-                    type="button"
-                    className="js_notifications_opener btn btn-link-inline"
-                  >
-                    <i className="fa fa-bell" aria-hidden="true" />
-                    <span className="label label-danger" />
-                  </button>
-                  <div className="js_notifications_panel hide" />
-                </li>
-              ) : null}
             </ul>
           </div>
         </div>

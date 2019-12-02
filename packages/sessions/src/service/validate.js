@@ -25,6 +25,9 @@ module.exports = schema( extend( {
   latestActivity: {
     type: 'date'
   },
+  expires: {
+    type: 'date'
+  },
   isNew: {
     type: 'boolean'
   }
