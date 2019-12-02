@@ -173,7 +173,18 @@ function actionShow(req, res, next) {
     }
 
     async.eachSeries(actions, (action, scb) => {
-      loaders[action](req, res, scb);
+      try {
+        loaders[action](req, res, scb);
+      } catch (e) {
+        return scb(new VError({
+          cause: e,
+          info: {
+            url: req.originalUrl,
+            agenda: req.agenda,
+            event: req.event
+          }
+        }));
+      }
     }, err => {
       if (err) {
         return next(err);
