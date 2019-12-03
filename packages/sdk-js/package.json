@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.7.4",
-    "core-js": "^3.4.2",
+    "core-js": "^3.4.7",
     "lodash": "^4.17.5",
     "superagent": "^3.8.2",
     "verror": "^1.10.0"

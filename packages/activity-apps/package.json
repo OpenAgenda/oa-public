@@ -34,7 +34,7 @@
     "async": "^2.1.4",
     "bootstrap-daterangepicker": "^2.1.25",
     "classnames": "^2.2.5",
-    "core-js": "^3.4.2",
+    "core-js": "^3.4.7",
     "immutability-helper": "^3.0.0",
     "jquery": "^3.2.1",
     "lodash": "^4.17.4",
@@ -53,12 +53,12 @@
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.4",
     "@babel/node": "^7.7.4",
-    "@loadable/babel-plugin": "^5.10.3",
-    "@loadable/component": "^5.10.3",
+    "@loadable/babel-plugin": "^5.11.0",
+    "@loadable/component": "^5.11.0",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
-    "@storybook/react": "^5.2.6",
+    "@storybook/react": "^5.2.8",
     "body-parser": "^1.16.0",
     "concurrently": "^5.0.0",
     "cors": "^2.8.5",
@@ -78,7 +78,7 @@
   },
   "peerDependencies": {
     "@loadable/component": "^5.10.3",
-    "react": "^16.11.0",
+    "react": "^16.12.0",
     "react-router-dom": "^5.0.0",
     "redux": "^4.0.1"
   }

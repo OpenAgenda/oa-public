@@ -30,9 +30,11 @@ function App({ route, agenda, role }) {
   );
 }
 
-export default provideHooks({
-  inject: ({ store }) => store.inject({
-    modals: modalsReducer,
-    sources: sourcesReducer
-  })
-})(module.hot ? hot(App) : App);
+export default hot(
+  provideHooks({
+    inject: ({ store }) => store.inject({
+      modals: modalsReducer,
+      sources: sourcesReducer
+    })
+  })(App)
+);

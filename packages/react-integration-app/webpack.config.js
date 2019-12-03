@@ -66,7 +66,7 @@ module.exports = (env = {}, argv = {}) => {
       publicPath: pushToCDN
         ? '//d1771xfuxsyp4n.cloudfront.net/' // `https://s3.${region}.amazonaws.com/${bucket}/${serviceName}/`
         : `/dist/${serviceName}/`,
-      filename: envName === 'production' ? '[id].[chunkhash].js' : '[name].js'
+      filename: envName === 'production' ? '[id].[hash].js' : '[name].js'
     },
     devtool:
       envName === 'production' ? 'source-map' : 'cheap-module-source-map',

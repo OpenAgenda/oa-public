@@ -290,4 +290,4 @@ function Dashboard({ agenda }) {
   );
 }
 
-export default module.hot ? hot(Dashboard) : Dashboard;
+export default hot(Dashboard);

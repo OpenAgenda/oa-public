@@ -14,7 +14,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.7.4",
     "@openagenda/utils": "^1.0.2",
-    "core-js": "^3.4.2",
+    "core-js": "^3.4.7",
     "lodash": "^4.17.2",
     "validator": "^7.0.0"
   },

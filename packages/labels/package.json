@@ -18,8 +18,8 @@
   },
   "dependencies": {
     "immutability-helper": "^3.0.1",
-    "intl-messageformat": "^7.5.6",
-    "intl-messageformat-parser": "^3.2.6",
+    "intl-messageformat": "^7.7.1",
+    "intl-messageformat-parser": "^3.5.0",
     "prompt-confirm": "^2.0.4",
     "prompt-input": "^3.0.0"
   },

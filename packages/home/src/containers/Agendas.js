@@ -212,14 +212,16 @@ function Agendas() {
   );
 }
 
-export default provideHooks({
-  fetch: ({ store: { dispatch, getState }, history }) => {
-    const state = getState();
+export default hot(
+  provideHooks({
+    fetch: ({ store: { dispatch, getState }, history }) => {
+      const state = getState();
 
-    if (!state.settings.userUid) {
-      return history.replace('/');
+      if (!state.settings.userUid) {
+        return history.replace('/');
+      }
+
+      dispatch(setTab('agendas'));
     }
-
-    dispatch(setTab('agendas'));
-  }
-})(module.hot ? hot(Agendas) : Agendas);
+  })(Agendas)
+);

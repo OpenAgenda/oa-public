@@ -70,11 +70,13 @@ function App({ route }) {
   );
 }
 
-export default provideHooks({
-  inject: ({ store }) => store.inject({
-    menu: menuReducer,
-    events: eventsReducer,
-    agendas: agendasReducer,
-    modals: modalsReducer
-  })
-})(module.hot ? hot(App) : App);
+export default hot(
+  provideHooks({
+    inject: ({ store }) => store.inject({
+      menu: menuReducer,
+      events: eventsReducer,
+      agendas: agendasReducer,
+      modals: modalsReducer
+    })
+  })(App)
+);

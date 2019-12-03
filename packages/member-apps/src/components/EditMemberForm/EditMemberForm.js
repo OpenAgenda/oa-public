@@ -4,7 +4,9 @@ import { renderField, renderInput, renderSelect } from '../../utils/form';
 import I18nContext from '../../contexts/I18nContext';
 import validate from './validate';
 
-class EditMemberForm extends Component {
+export default class EditMemberForm extends Component {
+  static contextType = I18nContext;
+
   constructor(props) {
     super(props);
     this.renderField = this::renderField;
@@ -112,7 +114,3 @@ class EditMemberForm extends Component {
     );
   }
 }
-
-EditMemberForm.contextType = I18nContext;
-
-export default EditMemberForm;

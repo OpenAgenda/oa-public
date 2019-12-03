@@ -20,7 +20,7 @@
     "@openagenda/labels": "^2.1.0",
     "body-parser": "^1.18.2",
     "classnames": "^2.2.5",
-    "core-js": "^3.4.2",
+    "core-js": "^3.4.7",
     "express": "^4.16.2",
     "immutability-helper": "^3.0.0",
     "knex": "^0.19.5",

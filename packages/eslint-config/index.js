@@ -88,12 +88,6 @@ module.exports = {
       }
     ],
     'react/jsx-one-expression-per-line': 'off',
-    'react/prop-types': [
-      'error',
-      {
-        skipUndeclared: true
-      }
-    ],
     'react/jsx-props-no-spreading': [
       'error',
       {
@@ -105,6 +99,68 @@ module.exports = {
           'select'
         ]
       }
+    ],
+    'react/prop-types': [
+      'error',
+      {
+        skipUndeclared: true
+      }
+    ],
+    'react/sort-comp': [ // TODO remove this with next airbnb version
+      'error',
+      {
+        order: [
+          'static-variables',
+          'static-methods',
+          'instance-variables',
+          'lifecycle',
+          '/^on.+$/',
+          'getters',
+          'setters',
+          '/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/',
+          'instance-methods',
+          'everything-else',
+          'rendering'
+        ],
+        groups: {
+          lifecycle: [
+            'displayName',
+            'propTypes',
+            'contextTypes',
+            'childContextTypes',
+            'mixins',
+            'statics',
+            'defaultProps',
+            'constructor',
+            'getDefaultProps',
+            'getInitialState',
+            'state',
+            'getChildContext',
+            'getDerivedStateFromProps',
+            'componentWillMount',
+            'UNSAFE_componentWillMount',
+            'componentDidMount',
+            'componentWillReceiveProps',
+            'UNSAFE_componentWillReceiveProps',
+            'shouldComponentUpdate',
+            'componentWillUpdate',
+            'UNSAFE_componentWillUpdate',
+            'getSnapshotBeforeUpdate',
+            'componentDidUpdate',
+            'componentDidCatch',
+            'componentWillUnmount',
+            'componentDidCatch'
+          ],
+          rendering: [
+            '/^render.+$/',
+            'render'
+          ]
+        }
+      }
+    ],
+    'react/static-property-placement': [
+      'error',
+      'static public field'
     ],
 
     'jsx-a11y/label-has-for': [

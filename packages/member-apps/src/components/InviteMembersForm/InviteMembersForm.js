@@ -15,7 +15,9 @@ import validate from './validate';
 @connect(state => ({
   inviteLoading: state.members.inviteLoading
 }))
-class InviteMembersForm extends Component {
+export default class InviteMembersForm extends Component {
+  static contextType = I18nContext;
+
   constructor(props) {
     super(props);
     this.renderField = this::renderField;
@@ -108,7 +110,3 @@ class InviteMembersForm extends Component {
     );
   }
 }
-
-InviteMembersForm.contextType = I18nContext;
-
-export default InviteMembersForm;

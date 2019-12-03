@@ -32,10 +32,10 @@
   "devDependencies": {
     "@openagenda/eslint-config": "^1.0.0",
     "@openagenda/queues": "^1.2.2",
-    "eslint": "^6.7.1",
+    "eslint": "^6.7.2",
     "html-to-text": "^5.1.1",
     "jest": "^24.9.0",
-    "lint-staged": "^9.4.3",
+    "lint-staged": "^9.5.0",
     "prettier-eslint-cli": "^5.0.0"
   },
   "nodemonConfig": {

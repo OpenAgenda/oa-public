@@ -1,6 +1,5 @@
 import './polyfill';
-import { setConfig } from 'react-hot-loader';
-
+import * as RHL from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { createBrowserHistory } from 'history';
@@ -28,7 +27,12 @@ import createMembersApp from '@openagenda/member-apps/src/app';
 import createReduxMiddleware from '../reduxMiddleware';
 import Root from './Root';
 
-setConfig({ trackTailUpdates: false });
+if (!module.hot) {
+  RHL.AppContainer.warnAboutHMRDisabled = false;
+  RHL.hot.shouldWrapWithAppContainer = false;
+}
+
+RHL.setConfig({ trackTailUpdates: false });
 
 // if (process.env.NODE_ENV === 'development') {
 //   const whyDidYouRender = require('@welldone-software/why-did-you-render');

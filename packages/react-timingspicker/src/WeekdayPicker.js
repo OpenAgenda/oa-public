@@ -23,7 +23,15 @@ const defaultLocaleUtils = {
   formatWeekdayShort: weekday => WEEKDAYS_SHORT[weekday]
 };
 
-class WeekdayPicker extends Component {
+export default class WeekdayPicker extends Component {
+  static defaultProps = {
+    classNamePrefix: '',
+    ariaModifier: 'selected',
+    locale: 'en',
+    localeUtils: defaultLocaleUtils,
+    tabIndex: 0
+  };
+
   // static propTypes = {
   //   className: PropTypes.string,
   //   style: PropTypes.object,
@@ -266,13 +274,3 @@ class WeekdayPicker extends Component {
     );
   }
 }
-
-WeekdayPicker.defaultProps = {
-  classNamePrefix: '',
-  ariaModifier: 'selected',
-  locale: 'en',
-  localeUtils: defaultLocaleUtils,
-  tabIndex: 0
-};
-
-export default WeekdayPicker;

@@ -162,11 +162,11 @@ function App({ route, user, agenda, role }) {
   return content;
 }
 
-export default provideHooks({
+export default hot(provideHooks({
   inject: ({ store }) => store.inject({
     inbox: inboxReducer,
     conversation: conversationReducer,
     conversationForm: conversationFormReducer,
     modals: modalsReducer
   })
-})(module.hot ? hot(App) : App);
+})(App));

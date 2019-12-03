@@ -11,7 +11,9 @@ import {
 import I18nContext from '../../contexts/I18nContext';
 import validate from './validate';
 
-class SendMessageForm extends Component {
+export default class SendMessageForm extends Component {
+  static contextType = I18nContext;
+
   constructor(props) {
     super(props);
     this.renderField = this::renderField;
@@ -76,7 +78,3 @@ class SendMessageForm extends Component {
     );
   }
 }
-
-SendMessageForm.contextType = I18nContext;
-
-export default SendMessageForm;

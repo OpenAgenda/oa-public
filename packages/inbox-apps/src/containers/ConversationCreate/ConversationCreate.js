@@ -195,4 +195,4 @@ function getAuthorName( obj ) {
   return obj.inbox.name;
 }
 
-export default module.hot ? hot(ConversationCreate) : ConversationCreate;
+export default hot(ConversationCreate);

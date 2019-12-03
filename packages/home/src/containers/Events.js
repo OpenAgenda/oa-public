@@ -70,6 +70,7 @@ function AgendaItem({ agenda, res, getLabel }) {
   );
 }
 
+@hot
 @provideHooks({
   fetch: ({ store: { dispatch, getState }, history }) => {
     const state = getState();
@@ -107,26 +108,28 @@ function AgendaItem({ agenda, res, getLabel }) {
   }),
   { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load }
 )
-class Events extends Component {
-  searchInputProps = {
-    placeholder: this.context.getLabel('searchAgenda'),
-    classNameGroup: 'form-group search',
-    className: 'form-control',
-    autoComplete: 'off',
-    autoFocus: true
-  };
+export default class Events extends Component {
+  static contextType = I18nContext;
 
-  debouncedSearch = debounce(this.search, 400);
-
-  throttledNextPage = throttle(this.nextPage, 400, { trailing: false });
-
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     const { query } = props;
 
     this.state = {
       value: query && query.search ? query.search : undefined
+    };
+
+    this.debouncedSearch = debounce(this.search, 400);
+
+    this.throttledNextPage = throttle(this.nextPage, 400, { trailing: false });
+
+    this.searchInputProps = {
+      placeholder: context.getLabel('searchAgenda'),
+      classNameGroup: 'form-group search',
+      className: 'form-control',
+      autoComplete: 'off',
+      autoFocus: true
     };
   }
 
@@ -450,7 +453,3 @@ class Events extends Component {
     );
   }
 }
-
-Events.contextType = I18nContext;
-
-export default module.hot ? hot(Events) : Events;
