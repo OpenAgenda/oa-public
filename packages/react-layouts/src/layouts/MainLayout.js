@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, { useState, useCallback, useEffect } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
@@ -9,6 +10,7 @@ import { useInterval } from 'react-use';
 import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
 import Modal from '@openagenda/react-components/build/Modal';
+import Spinner from '@openagenda/react-components/build/Spinner';
 import useChildLayouts from '../hooks/useChildLayouts';
 import * as mainActions from '../reducers/main';
 import { useMemoOne } from '../hooks/useMemoOne';
@@ -107,6 +109,26 @@ const HelpLink = React.memo(() => {
   );
 });
 
+const Loading = () => (
+  <div
+    className="text-center margin-top-lg"
+    style={{
+      minHeight: 300,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}
+  >
+    <Spinner
+      mode="inline"
+      options={{
+        scale: 1,
+        width: 1
+      }}
+    />
+  </div>
+);
+
 function MainLayout({
   childLayouts,
   children,
@@ -120,6 +142,7 @@ function MainLayout({
 
   const lang = useSelector(state => state.main.lang);
   const user = useSelector(state => state.main.user, shallowEqual);
+  const userLoading = useSelector(state => _.get(state, 'main.userLoading', true));
   const apiRoot = useSelector(state => state.main.apiRoot);
   const inboxLoaded = useSelector(state => state.main.inboxLoaded);
   const hasInboxNews = useSelector(state => state.main.hasInboxNews);
@@ -209,7 +232,7 @@ function MainLayout({
   }, 5000);
 
   useEffect(() => {
-    // loadLayoutData();
+    loadLayoutData();
   }, [loadLayoutData]);
 
   useEffect(() => {
@@ -372,18 +395,20 @@ function MainLayout({
                     <div className="js_notifications_panel hide" />
                   </li>
                 </>
-              ) : (
+              ) : null}
+
+              {!user && !userLoading ? (
                 <li className="signin">
                   <a href="/signin">{intl.formatMessage(messages.signin)}</a>
                 </li>
-              )}
+              ) : null}
             </ul>
           </div>
         </div>
       </nav>
 
       <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
-        {content}
+        {userLoading ? <Loading /> : content}
 
         {flashMessage && flashMessage !== '' ? (
           <Modal>

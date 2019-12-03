@@ -65,11 +65,7 @@ module.exports = function match({
         {
           main: {
             apiRoot,
-            lang,
-            user: req.user && {
-              ...req.user,
-              fullName: req.user.name
-            }
+            lang
           },
           res: {
             main: {

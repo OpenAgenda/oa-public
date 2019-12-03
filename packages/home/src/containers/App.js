@@ -2,7 +2,9 @@ import React, { useCallback, useMemo } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
 import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
+import { useIsomorphicLayoutEffect } from 'react-use';
 import classNames from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
@@ -13,9 +15,8 @@ import agendasReducer from '../reducers/agendas';
 import eventsReducer from '../reducers/events';
 import modalsReducer from '../reducers/modals';
 
-function App({ route }) {
+function App({ route, user }) {
   const lang = useSelector(state => state.settings.lang);
-  const isNew = useSelector(state => state.settings.isNew);
   const prefix = useSelector(state => state.settings.prefix);
   const tab = useSelector(state => state.menu.tab);
   const total = useSelector(
@@ -35,13 +36,29 @@ function App({ route }) {
     [lang, getLabel]
   );
 
+  const history = useHistory();
+
+  useIsomorphicLayoutEffect(() => {
+    if (!user || !user.uid) {
+      const historyObj = typeof window === 'undefined' ? history : window.location;
+
+      historyObj.replace('/');
+    }
+  }, [user, history]);
+
+  if (!user || !user.uid) {
+    return null;
+  }
+
   return (
     <I18nContext.Provider value={i18nContextValue}>
-      {isNew && !total ? (
+      {user.isNew && !total ? (
         <div className="container top-margined home">
           <div className="col-sm-8 col-sm-offset-2">
             <div className="row wsq">
-              <div className="content">{renderRoutes(route.routes)}</div>
+              <div className="content">
+                {renderRoutes(route.routes, { user })}
+              </div>
             </div>
           </div>
         </div>
@@ -61,7 +78,7 @@ function App({ route }) {
                   {getLabel('myEvents')}
                 </MenuItem>
               </ul>
-              <div className="wsq">{renderRoutes(route.routes)}</div>
+              <div className="wsq">{renderRoutes(route.routes, { user })}</div>
             </div>
           </div>
         </div>

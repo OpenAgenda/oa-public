@@ -72,15 +72,7 @@ function AgendaItem({ agenda, res, getLabel }) {
 
 @hot
 @provideHooks({
-  fetch: ({ store: { dispatch, getState }, history }) => {
-    const state = getState();
-
-    if (!state.settings.userUid) {
-      return history.replace('/');
-    }
-
-    dispatch(setTab('events'));
-  },
+  fetch: ({ store: { dispatch } }) => dispatch(setTab('events')),
   defer: async ({ store: { dispatch }, location }) => {
     const query = qs.parse(location.search, { ignoreQueryPrefix: true });
     const promises = [];

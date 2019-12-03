@@ -2,9 +2,9 @@ import _ from 'lodash';
 import React, { useContext, useMemo, useCallback } from 'react';
 import { hot } from 'react-hot-loader/root';
 import { useHistory, Link } from 'react-router-dom';
-import { provideHooks } from 'redial';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
+import { useIsomorphicLayoutEffect } from 'react-use';
 import qs from 'qs';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import Image from '@openagenda/react-components/build/Image';
@@ -96,7 +96,7 @@ function AgendaItem({ agenda, res, getLabel }) {
   );
 }
 
-function Agendas() {
+function Agendas({ user }) {
   const { getLabel } = useContext(I18nContext);
 
   const history = useHistory();
@@ -105,8 +105,13 @@ function Agendas() {
     [history.location.search]
   );
 
+  const dispatch = useDispatch();
+
+  useIsomorphicLayoutEffect(() => {
+    dispatch(setTab('agendas'));
+  }, [dispatch]);
+
   const res = useSelector(state => state.res);
-  const isNew = useSelector(state => state.settings.isNew);
 
   const initialState = useMemo(
     () => ({
@@ -148,7 +153,7 @@ function Agendas() {
         onSearch={onAgendaSearch}
         fieldProps={fieldProps}
         render={({ state, form, nextPage }) => {
-          if (isNew && !state.total) {
+          if (user.isNew && !state.total) {
             return <Welcome />;
           }
 
@@ -212,16 +217,4 @@ function Agendas() {
   );
 }
 
-export default hot(
-  provideHooks({
-    fetch: ({ store: { dispatch, getState }, history }) => {
-      const state = getState();
-
-      if (!state.settings.userUid) {
-        return history.replace('/');
-      }
-
-      dispatch(setTab('agendas'));
-    }
-  })(Agendas)
-);
+export default hot(Agendas);

@@ -82,6 +82,26 @@ function Sections({ agenda, role }) {
   ) : null));
 }
 
+const Loading = () => (
+  <div
+    className="text-center margin-top-lg"
+    style={{
+      minHeight: 300,
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center'
+    }}
+  >
+    <Spinner
+      mode="inline"
+      options={{
+        scale: 1,
+        width: 1
+      }}
+    />
+  </div>
+);
+
 function AgendaAdminLayout({
   childLayouts,
   children,
@@ -144,29 +164,6 @@ function AgendaAdminLayout({
       member
     }),
     [parentExtraProps, agenda, member, role, sections]
-  );
-
-  const Loading = useCallback(
-    () => (
-      <div
-        className="text-center margin-top-lg"
-        style={{
-          minHeight: 300,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
-        }}
-      >
-        <Spinner
-          mode="inline"
-          options={{
-            scale: 1,
-            width: 1
-          }}
-        />
-      </div>
-    ),
-    []
   );
 
   const ErrorComponent = useCallback(

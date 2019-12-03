@@ -39,10 +39,7 @@ const initialState = req => ({
       apiRoot,
       lang: req.lang,
       perPageLimit: 20,
-      isNew: _.get(req, 'user.isNew'),
-      displayLegacyMessageTab: false,
-      userId: _.get(req, 'user.id'),
-      userUid: _.get(req, 'user.uid')
+      displayLegacyMessageTab: false
     },
     res: {
       agendas: {
