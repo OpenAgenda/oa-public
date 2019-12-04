@@ -229,7 +229,11 @@ function cachedJson( cached, req, res ) {
 
   res.set( 'Content-Type', 'application/json' );
 
-  res.send( parsedCache.response );
+  if (req.query.callback) {
+    res.send(req.query.callback + '(' + JSON.stringify(parsedCache.response) + ')');
+  } else {
+    res.send(parsedCache.response);
+  }
 }
 
 
