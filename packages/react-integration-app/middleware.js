@@ -192,21 +192,24 @@ module.exports = function match({
       const staticContext = {};
       const helmetContext = {};
 
-      const element = wrapApp(
-        {
-          Content: () => React.createElement(
-            LayoutManager,
-            { store: layoutStore, history, apps },
-            React.createElement(RootHelmet)
-          ),
-          history,
-          triggerHooks
-        },
-        { req, staticContext, extractor }
-      );
-
       const content = ReactDOM.renderToString(
-        React.createElement(HelmetProvider, { context: helmetContext }, element)
+        React.createElement(
+          HelmetProvider,
+          { context: helmetContext },
+          React.createElement(RootHelmet),
+          wrapApp(
+            {
+              Content: () => React.createElement(LayoutManager, {
+                store: layoutStore,
+                history,
+                apps
+              }),
+              history,
+              triggerHooks
+            },
+            { req, staticContext, extractor }
+          )
+        )
       );
 
       if (staticContext.url) {

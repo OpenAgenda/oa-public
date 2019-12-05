@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import React, { useState, useCallback, useEffect } from 'react';
+import { Helmet } from 'react-helmet';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -134,13 +135,13 @@ function MainLayout({
   children,
   history,
   onError,
-  FallbackComponent
+  FallbackComponent,
+  lang
 }) {
   const intl = useIntl();
 
   const [userPanelOpened, setUserPanelOpened] = useState(false);
 
-  const lang = useSelector(state => state.main.lang);
   const user = useSelector(state => state.main.user, shallowEqual);
   const userLoading = useSelector(state => _.get(state, 'main.userLoading', true));
   const apiRoot = useSelector(state => state.main.apiRoot);
@@ -198,7 +199,13 @@ function MainLayout({
     [FallbackComponent, lang]
   );
 
-  const extraProps = useMemoOne(() => ({ user }), [user]);
+  const extraProps = useMemoOne(
+    () => ({
+      user,
+      lang
+    }),
+    [user, lang]
+  );
 
   const [flashMessage, setFlashMessage] = useState(null);
 
@@ -263,7 +270,14 @@ function MainLayout({
 
   return (
     <>
+      {lang ? (
+        <Helmet>
+          <html lang={lang} />
+        </Helmet>
+      ) : null}
+
       <div id="outdated" />
+
       <nav
         id="nav"
         className="oa-page-header navbar navbar-default navbar-static-top"
@@ -293,7 +307,7 @@ function MainLayout({
 
               {/* TODO Language selector for unlogged */}
 
-              {user ? (
+              {!userLoading && user ? (
                 <>
                   <li className="inbox">
                     <Link to="/home/inbox">
@@ -397,7 +411,7 @@ function MainLayout({
                 </>
               ) : null}
 
-              {!user && !userLoading ? (
+              {!userLoading && !user ? (
                 <li className="signin">
                   <a href="/signin">{intl.formatMessage(messages.signin)}</a>
                 </li>

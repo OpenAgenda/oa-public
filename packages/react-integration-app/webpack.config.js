@@ -19,6 +19,7 @@ const modulesToInclude = [
   '@openagenda\\/aggregator-sources',
   '@openagenda\\/home',
   '@openagenda\\/user-apps',
+  '@openagenda\\/react-layouts',
   'react-intl',
   'intl-messageformat',
   'intl-messageformat-parser'
@@ -129,7 +130,22 @@ module.exports = (env = {}, argv = {}) => {
       nodeEnv: envName,
       runtimeChunk: true,
       splitChunks: {
-        chunks: 'all'
+        chunks: 'all',
+        maxAsyncRequests: 20
+        // cacheGroups: {
+        //   locale: {
+        //     test: module => (module.type === 'json' && module.resource && module.resource.includes('/locales/')),
+        //     name(module, chunks, cacheGroupKey) {
+        //       const moduleFileName = module.identifier().split('/').reduceRight(item => item);
+        //       const lang = moduleFileName.split('.').slice(0, -1).join('.');
+        //
+        //       return `${cacheGroupKey}-${lang}`;
+        //     },
+        //     chunks: chunk => chunk.name.startsWith('locale-'), // chunk => chunk.name.startsWith('locale-'),
+        //     enforce: true,
+        //     reuseExistingChunk: false
+        //   }
+        // }
       },
       moduleIds: 'hashed',
       minimize: envName === 'production',

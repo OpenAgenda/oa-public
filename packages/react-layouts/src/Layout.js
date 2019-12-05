@@ -4,6 +4,7 @@ import { IntlProvider } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { useHistory, useLocation } from 'react-router-dom';
 import shallowEqual from 'shallowequal';
+import qs from 'qs';
 import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 import { useMemoOne } from './hooks/useMemoOne';
 import localeFr from './locales/fr';
@@ -13,6 +14,7 @@ const messages = {
   fr: localeFr,
   en: localeEn
 };
+const defaultLocale = 'fr';
 
 function getVisibleAppsByLayout(apps, pathname) {
   return Object.keys(apps).reduce((accu, appName) => {
@@ -78,6 +80,29 @@ function Layout({ apps, ...props }) {
   const history = useHistory();
   const location = useLocation();
 
+  const userCulture = useSelector(state => state.main.user?.culture);
+  const ssrLang = useSelector(state => state.main.lang);
+
+  const userLang = useMemoOne(
+    () => (
+      qs.parse(location.search, { ignoreQueryPrefix: true }).lang
+        || userCulture
+        || ssrLang
+        || (typeof navigator === 'object' && navigator.language)
+        || defaultLocale
+    ).split('-')[0],
+    [location.search, userCulture]
+  );
+
+  const i18n = useMemoOne(() => {
+    const usedLocale = messages[userLang] ? userLang : defaultLocale;
+
+    return {
+      locale: usedLocale,
+      messages: messages[usedLocale]
+    };
+  }, [userLang]);
+
   const visibleAppsByLayout = useMemoOne(
     () => getVisibleAppsByLayout(apps, location.pathname),
     [apps, location.pathname]
@@ -101,16 +126,20 @@ function Layout({ apps, ...props }) {
           layout={FirstLayout}
           childLayouts={childLayouts}
           apps={visibleApps}
+          lang={i18n.locale}
         />
       );
     }),
     [visibleAppsByLayout, props]
   );
 
-  const lang = useSelector(state => state.main.lang);
-
   return (
-    <IntlProvider messages={messages[lang]} locale={lang} key={lang}>
+    <IntlProvider
+      messages={i18n.messages}
+      locale={i18n.locale}
+      defaultLocale={defaultLocale}
+      otherKey={i18n.locale}
+    >
       {layouts}
     </IntlProvider>
   );

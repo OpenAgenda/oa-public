@@ -1,7 +1,6 @@
 'use strict';
 
 const path = require('path');
-const _ = require('lodash');
 const express = require('express');
 const httpProxy = require('http-proxy');
 const matchMw = require('@openagenda/react-integration-app/middleware');
@@ -37,7 +36,6 @@ const initialState = req => ({
       prefix: '/home', // for links
       rootPrefix: '/home(|/events)', // because of /home/activities
       apiRoot,
-      lang: req.lang,
       perPageLimit: 20,
       displayLegacyMessageTab: false
     },
@@ -67,8 +65,7 @@ const initialState = req => ({
   userSettings: {
     settings: {
       prefix: '/settings',
-      apiRoot,
-      lang: req.lang
+      apiRoot
     },
     res: {
       getMe: '/users/me',

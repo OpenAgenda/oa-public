@@ -95,7 +95,6 @@ function AgendaItem({ agenda, res, getLabel }) {
     listLoading: state.events.listLoading,
     nextLoading: state.events.nextLoading,
     perPageLimit: state.settings.perPageLimit,
-    lang: state.settings.lang,
     modals: state.modals
   }),
   { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load }

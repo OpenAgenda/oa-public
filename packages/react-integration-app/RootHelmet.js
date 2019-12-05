@@ -23,6 +23,5 @@ module.exports = () => el(
   el('meta', {
     name: 'viewport',
     content: 'width=device-width, initial-scale=1'
-  }),
-  el('meta', { name: 'language', content: 'fr' })
+  })
 );

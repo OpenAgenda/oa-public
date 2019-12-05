@@ -18,16 +18,12 @@ const mockApi = () => {
 
 const getHostname = () => (typeof window !== 'undefined' ? window.location.hostname : 'localhost');
 
-const getDefaultState = ({ lang = 'fr', apiRoot } = {}) => ({
+const getDefaultState = ({ apiRoot } = {}) => ({
   settings: {
-    lang,
     apiRoot,
     prefix: '',
     perPageLimit: 20,
-    isNew: false,
-    displayLegacyMessageTab: false,
-    userId: 2,
-    userUid: 99999999
+    displayLegacyMessageTab: false
   },
   res: {
     agendas: {
@@ -66,7 +62,17 @@ storiesOf('App', module)
         initialState: getDefaultState({
           apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
         })
-      })
+      }),
+      {
+        extraProps: {
+          user: {
+            id: 2,
+            uid: 99999999,
+            isNew: false
+          },
+          lang: 'fr'
+        }
+      }
     );
   })
   .add('with search query', () => {
@@ -78,6 +84,16 @@ storiesOf('App', module)
         initialState: getDefaultState({
           apiRoot: `http://${getHostname()}:${process.env.STORYBOOK_PORT}`
         })
-      })
+      }),
+      {
+        extraProps: {
+          user: {
+            id: 2,
+            uid: 99999999,
+            isNew: false
+          },
+          lang: 'fr'
+        }
+      }
     );
   });

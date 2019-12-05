@@ -15,8 +15,7 @@ import agendasReducer from '../reducers/agendas';
 import eventsReducer from '../reducers/events';
 import modalsReducer from '../reducers/modals';
 
-function App({ route, user }) {
-  const lang = useSelector(state => state.settings.lang);
+function App({ route, user, lang }) {
   const prefix = useSelector(state => state.settings.prefix);
   const tab = useSelector(state => state.menu.tab);
   const total = useSelector(
@@ -57,7 +56,7 @@ function App({ route, user }) {
           <div className="col-sm-8 col-sm-offset-2">
             <div className="row wsq">
               <div className="content">
-                {renderRoutes(route.routes, { user })}
+                {renderRoutes(route.routes, { user, lang })}
               </div>
             </div>
           </div>
@@ -78,7 +77,9 @@ function App({ route, user }) {
                   {getLabel('myEvents')}
                 </MenuItem>
               </ul>
-              <div className="wsq">{renderRoutes(route.routes, { user })}</div>
+              <div className="wsq">
+                {renderRoutes(route.routes, { user, lang })}
+              </div>
             </div>
           </div>
         </div>
