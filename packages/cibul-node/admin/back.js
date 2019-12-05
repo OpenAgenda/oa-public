@@ -236,7 +236,7 @@ function getUsers( req, res, next ) {
 
           agendasSvc.list( {
             uid: members.map( m => m.agendaUid )
-          }, 0, 500, { private: null }, ( err, agendas ) => {
+          }, 0, 1000, { private: null }, ( err, agendas ) => {
 
             model.lib.query( 'SELECT count(*) as nbrEvents, agenda_uid as agendaUid ' +
               'FROM agenda_event WHERE user_uid = ? GROUP BY agenda_uid',
