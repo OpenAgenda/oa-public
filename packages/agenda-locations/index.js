@@ -92,7 +92,7 @@ function init( c, cb ) {
 
   }
 
-  db.init( config.mysql, config.interfaces, () => {
+  db.init( Object.assign({ query: config.query }, config.mysql), config.interfaces, () => {
 
     search.setPrimaryDb( db );
 
