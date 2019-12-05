@@ -1,9 +1,9 @@
 'use strict';
 
-const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'auth/reset.front' );
 const cmn = require( '../lib/commons-app' );
 const usersSvc = require( '../services/users' );
+const sessions = require('../../sessions');
 
 const config = require( '../config' );
 
@@ -41,7 +41,11 @@ function lostPasswordSubmit( req, res ) {
 
     .then( _ifValueIsNot( 'sent', true, _render( req, res, 'auth/lostPassword' ) ) )
 
-    .then( () => log( 'done' ), cmn.catchError( req, res ) );
+    .then( () => log( 'done' ), err => {
+      sessions.setFlash(req, res, err.message);
+
+      res.redirect('/');
+    } );
 
 }
 
