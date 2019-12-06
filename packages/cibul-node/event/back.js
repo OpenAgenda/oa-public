@@ -44,7 +44,7 @@ module.exports = app => {
       } ).then( result => res.json({
         event: result.event,
         schema: result.formSchema
-      });
+      }));
     }
   );
 

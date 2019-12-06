@@ -19,13 +19,30 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   log('info', 'processing', { agendaUid, options });
 
   const {
+    members,
     events,
     agendas,
     formSchemas,
     eventSearch
   } = services;
 
-  const contextUserUid = _.get( options, 'context.userUid', _.get( data, 'creatorUid' ) );
+  const {
+    context,
+    returnPayload,
+    access,
+  } = {
+    context: {},
+    returnPayload: false,
+    access: 'public',
+    ...options
+  }
+
+  const contextUserUid = context.userUid || data.creatorUid;
+
+  const member = await members.get({
+    agendaUid,
+    userUid: contextUserUid
+  });
 
   const {
     draft,
@@ -42,7 +59,8 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     agenda
   } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
     draft,
-    formSchemaDataFormat
+    formSchemaDataFormat,
+    member
   });
 
   const payload = createPayload(services, agenda);
@@ -60,7 +78,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
 
   const eventServiceDataFormat = {
     ...toEventServiceFormat(clean.event, null, { raw: data }),
-    ..._.pick(data, ['ownerUid', 'creatorUid']),
+    ..._extractOwnerAndCreator(data, contextUserUid),
     agendaUid // at create, current agenda is origin agenda
   };
 
@@ -105,6 +123,28 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     userUid: contextUserUid
   });
 
-  // same for draft or not
-  return payload.getResponse('created');
+  const response = await payload.getResponse('created', access);
+
+  return returnPayload ? response : response.created;
+}
+
+function _extractOwnerAndCreator(data, contextUserUid) {
+  const extracted = {
+    ownerUid: null,
+    creatorUid: null
+  };
+
+  if (data.ownerUid) {
+    extracted.ownerUid = data.ownerUid;
+  } else if (contextUserUid) {
+    extracted.ownerUid = contextUserUid;
+  }
+
+  if (data.creatorUid) {
+    extracted.creatorUid = data.creatorUid;
+  } else {
+    extracted.creatorUid = extracted.ownerUid;
+  }
+
+  return extracted;
 }

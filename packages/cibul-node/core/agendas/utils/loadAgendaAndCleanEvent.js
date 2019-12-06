@@ -40,7 +40,8 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
     defaultLang,
     optionalSecondaryFields,
     sourceAgenda,
-    aggregated
+    aggregated,
+    member
   } = _.assign( {
     defaultLang: null,
     evaluateEvent: true,
@@ -49,7 +50,8 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
     formSchemaDataFormat: false,
     optionalSecondaryFields: false,
     sourceAgenda: null,
-    aggregated: false
+    aggregated: false,
+    member: null
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
   // api provides event data in event service format ( deep image object that includes credits and variants )
@@ -94,29 +96,31 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
 
     const consolidatedClean = (partial ? validate.part : validate)(formSchemaData);
 
-    _.assign( clean, _distributeCleanData( consolidatedClean, schemaExtensions ) );
+    Object.assign(
+      clean,
+      _distributeCleanData(consolidatedClean, schemaExtensions)
+    );
+  } catch (consolidatedErrors) {
+    if (!_.isArray(consolidatedErrors)) {
+      throw consolidatedErrors;
+    }
 
-  } catch ( consolidatedErrors ) {
-
-    if ( !_.isArray( consolidatedErrors ) ) throw consolidatedErrors;
-
-    consolidatedErrors.forEach( err => errors.push( _.set( err, 'step', 'validation' ) ) );
-
+    consolidatedErrors.forEach(err => errors.push(_.set(err, 'step', 'validation')));
   }
 
   // clean agenda-event data
   try {
-    log( 'evaluating agenda-event reference data' );
+    log('evaluating agenda-event reference data');
 
     clean.agendaEvent = validateAgendaEvent({
       ...data,
       aggregated,
       sourceAgendaUid: sourceAgenda ? [sourceAgenda.uid] : [],
-      userUid: data.userUid || data.ownerUid
+      userUid: member ? member.userUid : (data.userUid || data.ownerUid)
     }, { optionalSecondaryFields, partial });
 
   } catch (agendaEventErrors) {
-    agendaEventErrors.forEach( err => errors.push( _.set( err, 'step', 'agenda event data validation' ) ) );
+    agendaEventErrors.forEach(err => errors.push(_.set(err, 'step', 'agenda event data validation')));
   }
 
   if (errors.length) {

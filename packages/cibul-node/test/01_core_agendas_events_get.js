@@ -1,63 +1,25 @@
 'use strict';
 
+process.env.NODE_ENV = 'test';
+
 const _ = require('lodash');
 const knex = require('knex');
-const mysql = require( 'mysql' );
-const { promisify } = require( 'util' );
-const should = require( 'should' );
+const mysql = require('mysql');
+const { promisify } = require('util');
+const should = require('should');
 
-const fixtures = require('./fixtures/01_core_agendas_events_get');
+const assignClients = require('./utils/assignClients');
+const fixtures = require('./fixtures/01_core_agendas_events_get.sql');
 
-const config = require('../config');
 const core = require('../core');
 
-const schemaNames = require('./mock/schemaNames');
-const getLogConfig = require('./mock/getLogConfig');
-const assignClients = require('./utils/assignClients');
+const testConfig = require('./testConfig');
 
-const testConfig = {
-  queues: {},
-  db: {
-    user: 'root',
-    password: 'grut',
-    database: 'oatest'
-  },
-  redis: {
-    host: 'localhost',
-    port: 6379
-  },
-  schemas: schemaNames,
-  imageSizeLimits: [ 1000, 10000000 ],
-  tmpFolderPath: '/var/tmp/',
-  aws: {
-    bucket: 'openagendatst',
-    accessKeyId: config.aws.accessKeyId,
-    secretAccessKey: config.aws.secretAccessKey,
-    defaultImagePath: config.aws.defaultImagePath,
-    imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
-  },
-  esLocation: {
-    //log: [  ],
-    index: 'locations',
-    apiVersion: '1.3',
-    timeout: 30000
-  },
-  es: {
-    host: process.env.ELASTICSEARCH_134_DEV_HOST,
-    port: process.env.ELASTICSEARCH_134_DEV_PORT
-  },
-  es53: {
-    host: process.env.ELASTICSEARCH_533_DEV_HOST,
-    port: process.env.ELASTICSEARCH_533_DEV_PORT
-  },
-  getLogConfig
-};
-
-describe('core - fuctional (server): core agenda events get', function() {
+describe.only('core - fuctional (server): core agenda events get', function() {
   this.timeout(20000);
 
-  before( async () => {
-    const con = mysql.createConnection(Object.assign( _.pick(config.db, ['user', 'password']), {
+  before(async () => {
+    const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, ['user', 'password']), {
       multipleStatements: true
     }));
 
@@ -89,6 +51,8 @@ describe('core - fuctional (server): core agenda events get', function() {
       ]
     });
   });
+
+  after(() => testConfig.knex.destroy());
 
   describe('simple get', () => {
     let event;
@@ -143,11 +107,9 @@ describe('core - fuctional (server): core agenda events get', function() {
         'latitude', 'longitude', 'updatedAt'
       ]);
     });
-
   });
 
   describe('get with access option', () => {
-
     it('if null is set on access, all extended fields are provided', async () => {
       const event = await core.agendas(2).events.get(1, { access: null });
 
@@ -167,7 +129,6 @@ describe('core - fuctional (server): core agenda events get', function() {
       event.thematique.should.equal(2);
       event.note.should.equal('Une note interne pour les administrateurs');
     });
-
   });
 
   describe('get with option returnPayload: true', () => {
@@ -189,8 +150,52 @@ describe('core - fuctional (server): core agenda events get', function() {
       result.originAgenda.uid.should.equal(1);
     });
 
-    it('schema is available under formSchema key, with public fields', () => {
-      console.log(result.formSchema.fields.map(f => f.field)); // id should not be there
+    it('schema is available under formSchema key, with public fields, excluding id', () => {
+      result.formSchema.fields.filter(f => f.field === 'id').length.should.equal(0);
+    });
+
+    it('event is provided in payload', () => {
+      result.event.slug.should.equal('event-1');
+    });
+  });
+
+  describe('get with option returnPayload: true and access set', () => {
+
+    let adminResult, internalResult;
+
+    before(async () => {
+      adminResult = await core.agendas(2).events.get(1, {
+        returnPayload: true,
+        access: 'administrator'
+      });
+      internalResult = await core.agendas(2).events.get(1, {
+        returnPayload: true,
+        access: 'internal'
+      });
+    });
+
+    it('admin field is provided in event', () => {
+      adminResult.event.note.should.equal('Une note interne pour les administrateurs');
+    });
+
+    it('admin fields are given in schema', () => {
+      adminResult.formSchema.fields.filter(f => ['thematique', 'note'].includes(f.field)).length.should.equal(2);
+    });
+
+    it('event id is not provided if access is administrator', () => {
+      should(adminResult.event.id).equal(undefined);
+    });
+
+    it('event id field is not provided if access is administrator', () => {
+      adminResult.formSchema.fields.filter(f => f.field === 'id').length.should.equal(0);
+    });
+
+    it('event id field is provided if access is internal', () => {
+      internalResult.event.id.should.equal(1);
+    });
+
+    it('id field is present if formSchema if access is internal', () => {
+      internalResult.formSchema.fields.filter(f => f.field === 'id').length.should.equal(1);
     });
 
   });

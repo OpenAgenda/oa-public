@@ -23,5 +23,14 @@ CREATE TABLE `user` (
   `uid` bigint(20) DEFAULT NULL,
   `last_signin` datetime DEFAULT NULL,
   `comexposium_id` varchar(255) DEFAULT NULL,
-  `is_new` tinyint(4) DEFAULT '1'
+  `is_new` tinyint(4) DEFAULT '1',
+  `last_inbox_check` datetime DEFAULT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=50305 DEFAULT CHARSET=utf8;
+
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `id_idx` (`id`),
+  ADD UNIQUE KEY `username` (`username`),
+  ADD UNIQUE KEY `email` (`email`),
+  ADD UNIQUE KEY `email_idx` (`email`),
+  ADD UNIQUE KEY `uid` (`uid`);

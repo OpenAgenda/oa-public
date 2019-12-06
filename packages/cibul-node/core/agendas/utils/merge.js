@@ -13,15 +13,27 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
     originAgenda: null,
     ...options
   };
-  const compiled = ih(event || {}, [networkCustom, agendaCustom].reduce((update, data) => {
-    if (!data) return update;
-    Object.keys(data).forEach(field => {
-      if (!includeFields || includeFields.includes(field)) {
-        update[field] = { $set: data[field] };
+
+
+  const compiled = {};
+
+  if (event) {
+    Object.keys(event).forEach(eventField => {
+      if (includeFields && !includeFields.includes(eventField)) {
+        return;
       }
+      compiled[eventField] = event[eventField];
     });
-    return update;
-  }, {}));
+  }
+
+  [networkCustom, agendaCustom].filter(d => !!d).forEach(data => {
+    Object.keys(data).forEach(field => {
+      if (includeFields && !includeFields.includes(field)) {
+        return;
+      }
+      compiled[field] = data[field];
+    });
+  });
 
   if (agendaEvent) {
     ['state', 'featured', 'sourceAgendaUid', 'aggregated'].forEach(aeField => {
@@ -43,8 +55,7 @@ module.exports.schemas = merge;
 module.exports.schemasWithEvent = (...args) => eventFormSchema({
   languages: true,
   schemaExtensions: args,
-  excludeNonDataFields: true,
-  includeInternalFields: true
+  excludeNonDataFields: true
 });
 
 module.exports.eventFromObject = ({

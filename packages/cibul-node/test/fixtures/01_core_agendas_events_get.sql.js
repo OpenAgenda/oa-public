@@ -1,22 +1,11 @@
 'use strict';
 
-const fs = require('fs');
-const knex = require('knex')({
-  client: 'mysql'
-});
+const {
+  knex,
+  resetAndCreateTables
+} = require('./sql');
 
-const raw = [
-  'reset.sql',
-  'agenda.create.sql',
-  'network.create.sql',
-  'user.create.sql',
-  'formSchema.create.sql',
-  'member.create.sql',
-  'event.create.sql',
-  'custom.create.sql',
-  'agendaEvent.create.sql',
-  'location.create.sql'
-].map(fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace( /;(\n|)$/, ''));
+const raw = resetAndCreateTables();
 
 raw.push(knex('review').insert([{
   id: 1,

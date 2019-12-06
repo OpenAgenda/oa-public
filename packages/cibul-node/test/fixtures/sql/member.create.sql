@@ -15,3 +15,5 @@ CREATE TABLE IF NOT EXISTS `member` (
 ) ENGINE=InnoDB AUTO_INCREMENT=71390 DEFAULT CHARSET=latin1;
 
 CREATE VIEW reviewer AS SELECT * FROM member;
+
+ALTER TABLE `member` ADD PRIMARY KEY (`id`), ADD KEY `user_id_idx` (`user_id`), ADD KEY `review_id_idx` (`review_id`);

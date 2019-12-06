@@ -34,13 +34,14 @@ module.exports = (services, agenda, primaryKey, options) => {
 function makeGetResponse(services, data) {
   return async (primaryKey = 'event', access = null) => {
     data.agendas.origin =  await loadOriginAgenda(services, data);
+    const formSchema = getFormSchema(data.agendas.current, access);
     return {
       success: true,
       agenda: data.agendas.current,
       originAgenda: data.agendas.origin,
       member: getMember(data),
-      formSchema: getFormSchema(data.agendas.current, access),
-      [primaryKey]: getCompiledEvent(data, 'after', access),
+      formSchema,
+      [primaryKey]: getCompiledEvent(data, 'after', access, formSchema),
       before: data.services.before.agendaEvent ? merge.eventFromObject(data.services.before) : null
     }
   }
@@ -56,10 +57,16 @@ function getFormSchema(agenda, access = null) {
   );
 }
 
-function getCompiledEvent(data, key = 'after', access = null) {
+function getCompiledEvent(data, key = 'after', access = null, formSchema = null) {
+  const originAgenda = _.pick(data.agendas.origin, [
+    'uid', 'slug', 'title', 'description', 'image', 'url'
+  ]);
+  const includeFields = access === null ? null : (
+      formSchema || getFormSchema(data.agendas.current, access)
+    ).fields.map(f => f.field);
   return merge.eventFromObject(data.services[key], {
-    includeFields: access !== null ? getFormSchema(data.agendas.current, access).fields.map(f => f.field) : null,
-    originAgenda: _.pick(data.agendas.origin, ['uid', 'slug', 'title', 'description', 'image', 'url'])
+    includeFields,
+    originAgenda
   });
 }
 

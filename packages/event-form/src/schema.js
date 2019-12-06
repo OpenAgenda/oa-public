@@ -30,13 +30,59 @@ module.exports = ({
   fileStore,
   schemaExtensions,
   excludeEventFields,
-  excludeNonDataFields,
-  includeInternalFields
+  excludeNonDataFields
 }) => {
 
   const eventSchema = {
     custom: eventValidators,
-    fields: [ {
+    fields: [{
+      field: 'id',
+      fieldType: 'integer',
+      optional: false,
+      read: ['internal'],
+      write: ['internal']
+    }, {
+      field: 'uid',
+      fieldType: 'integer',
+      optional: false,
+      write: ['internal']
+    }, {
+      field: 'slug',
+      fieldType: 'text',
+      optional: false
+    }, {
+      field: 'private',
+      fieldType: 'boolean',
+      default: false,
+      write: ['internal']
+    }, {
+      field: 'timezone',
+      fieldType: 'text',
+      write: ['internal']
+    }, {
+      field: 'draft',
+      fieldType: 'boolean',
+      default: false,
+      write: ['internal']
+    }, {
+      field: 'createdAt',
+      fieldType: 'date',
+      write: ['internal']
+    }, {
+      field: 'updatedAt',
+      fieldType: 'date',
+      write: ['internal']
+    }, {
+      field: 'agendaUid',
+      fieldType: 'integer',
+      optional: false,
+      write: ['internal']
+    }, {
+      field: 'locationUid',
+      fieldType: 'integer',
+      optional: false,
+      write: ['internal']
+    }, {
       "field" : "image",
       "fieldType" : "image",
       "optional" : true,
@@ -131,44 +177,7 @@ module.exports = ({
       label: labels.timings,
       info: labels.timingsInfo,
       helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/202667461-Saisir-les-horaires-de-votre-%C3%A9v%C3%A9nement'
-    } ].concat(includeInternalFields ? [{
-      field: 'id',
-      fieldType: 'integer',
-      optional: false
-    }, {
-      field: 'uid',
-      fieldType: 'integer',
-      optional: false
-    }, {
-      field: 'slug',
-      fieldType: 'text',
-      optional: false
-    }, {
-      field: 'draft',
-      fieldType: 'boolean',
-      default: false
-    }, {
-      field: 'private',
-      fieldType: 'boolean',
-      default: false
-    }, {
-      field: 'timezone',
-      fieldType: 'text'
-    }, {
-      field: 'createdAt',
-      fieldType: 'date'
-    }, {
-      field: 'updatedAt',
-      fieldType: 'date'
-    }, {
-      field: 'agendaUid',
-      fieldType: 'integer',
-      optional: false
-    }, {
-      field: 'locationUid',
-      fieldType: 'integer',
-      optional: false
-    }] : [])
+    }]
   }
 
   const hasExtensions = _.isArray(schemaExtensions);

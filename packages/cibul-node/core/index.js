@@ -10,7 +10,7 @@ module.exports = {
     Object.assign(services, await initServices(config, options));
     tasks.loadQueue();
   },
-  loadServices: s => Object.assign(services, s),
+  loadServices: s => s ? Object.assign(services, s) : services,
   agendas: require('./agendas').bind(null, services),
   networks: require('./networks'),
   tasks

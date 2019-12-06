@@ -12,6 +12,8 @@ const createPayload = require('../utils/createPayload');
 const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
 
 module.exports = async (services, agendaUid, eventUid, options = {}) => {
+  log('info', 'getting', { agendaUid, eventUid });
+
   const {
     events,
     custom,
@@ -50,8 +52,9 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     const event = await events.get({
       uid: eventUid
     }, {
-      internal, detailed
-    }).then(e => _.omit(e, ['id']));
+      internal: internal || access === 'internal',
+      detailed
+    });
 
     payload.setItem(
       'event',

@@ -135,8 +135,6 @@ describe.only('unit - assigning schema properties to another schema', () => {
         .map(f => f.field)
         .should.eql(['someagendafield', 'somenetworkfield']);
     });
-
-
   });
 
   describe('other', () => {
