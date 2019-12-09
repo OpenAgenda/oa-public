@@ -6,7 +6,7 @@ const config = require('../../../config');
 const getLocaleValue = require('./getLocaleValue');
 
 function espaceIcsValue(txt) {
-  return txt
+  return (txt || '')
     .replace(/\\/gm, '\\\\')
     .replace(/\r?\n/gm, '\\n')
     .replace(/;/gm, '\\;')
