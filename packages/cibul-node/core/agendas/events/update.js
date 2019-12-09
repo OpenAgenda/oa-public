@@ -182,14 +182,14 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     servicesResults.before.agendaEvent = result.before;
   }
 
-  if (!partial) {
+  if (!draft) {
     try {
       await legacy.tagsAndCustom.set( agenda.id, servicesResults.updated.event.uid, [
         agenda.formSchema,
         _.get( agenda, 'network.formSchema' )
       ], [
-        clean.custom,
-        clean.networkCustom
+        partial ? {...(servicesResults.before.custom || {}), ...(clean.custom || {})} : clean.custom,
+        partial ? {...(servicesResults.before.networkCustom || {}), ...(clean.networkCustom || {})} : clean.networkCustom
       ] );
     } catch ( e ) {
       log( 'error', 'failed to set legacy tags and custom data', e );
