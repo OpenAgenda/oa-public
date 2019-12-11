@@ -22,7 +22,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     agendas,
     agendaEvents,
     eventSearch,
-    oembed
+    oembed,
+    custom
   } = services;
 
   log('processing', { agendaUid, eventUid, options });
@@ -188,8 +189,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
         agenda.formSchema,
         _.get( agenda, 'network.formSchema' )
       ], [
-        partial ? {...(servicesResults.before.custom || {}), ...(clean.custom || {})} : clean.custom,
-        partial ? {...(servicesResults.before.networkCustom || {}), ...(clean.networkCustom || {})} : clean.networkCustom
+        partial && agenda.formSchemaId ? await custom(agenda.formSchemaId).get(eventUid) : clean.custom,
+        partial && agenda.network && agenda.network.formSchemaId ? await custom(agenda.network.formSchemaId).get(eventUid) : clean.networkCustom
       ] );
     } catch ( e ) {
       log( 'error', 'failed to set legacy tags and custom data', e );
