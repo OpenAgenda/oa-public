@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import Image from '@openagenda/react-components/build/Image';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
+import useApiClient from '@openagenda/react-utils/dist/useApiClient';
 import * as modalsActions from '../reducers/modals';
 import { ruleToValues } from '../utils/rules';
 
@@ -29,7 +30,7 @@ const messages = defineMessages({
   },
   noFilter: {
     id: 'aggregator-sources.SourcesList.noFilter',
-    defaultMessage: 'No filters'
+    defaultMessage: 'No filter'
   },
   seeAgenda: {
     id: 'aggregator-sources.SourcesList.seeAgenda',
@@ -68,7 +69,7 @@ function RulesSummary({ rules }) {
   const rulesJSON = useMemo(() => JSON.stringify(rules, null, 2), [rules]);
 
   return (
-    <p className="filters-summary">
+    <p className="rules-summary">
       {hasFilter
         ? intl.formatMessage(messages.filtersSummary, counters)
         : intl.formatMessage(messages.noFilter)}
@@ -79,7 +80,7 @@ function RulesSummary({ rules }) {
           content={intl.formatMessage(messages.copy)}
         >
           <CopyToClipboard text={rulesJSON}>
-            <button type="button" className="btn btn-link-inline filters-copy">
+            <button type="button" className="btn btn-link-inline rules-copy">
               <i className="fa fa-sm fa-clipboard" aria-hidden="true" />
             </button>
           </CopyToClipboard>
@@ -92,6 +93,7 @@ function RulesSummary({ rules }) {
 function SourceItem({ source }) {
   const intl = useIntl();
   const dispatch = useDispatch();
+  const apiClient = useApiClient();
 
   const res = useSelector(state => state.res);
 
@@ -99,10 +101,13 @@ function SourceItem({ source }) {
     () => dispatch(modalsActions.showModal('removeSource', { source })),
     [dispatch, source]
   );
-  const showModalUpdate = useCallback(
-    () => dispatch(modalsActions.showModal('updateSource', { source })),
-    [dispatch, source]
-  );
+  const showModalUpdate = useCallback(async () => {
+    const schema = await apiClient.get(
+      `/${source.agenda.slug}/settings/schema`
+    );
+
+    dispatch(modalsActions.showModal('updateSource', { source, schema }));
+  }, [apiClient, dispatch, source]);
 
   return (
     <div className="agenda-item media">

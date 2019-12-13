@@ -75,7 +75,7 @@ const messages = defineMessages({
   }
 });
 
-function Dashboard({ agenda }) {
+function Dashboard({ agenda, agendaSchema }) {
   const history = useHistory();
   const params = useParams();
   const query = useMemo(
@@ -270,12 +270,14 @@ function Dashboard({ agenda }) {
       {modals.addSource && modals.addSource.visible ? (
         <AddSourceModal
           aggregator={agenda}
+          aggregatorSchema={agendaSchema}
           onClose={closeModalAddSource}
           onSubmit={addSource}
         />
       ) : null}
       {modals.updateSource && modals.updateSource.visible ? (
         <UpdateSourceModal
+          aggregatorSchema={agendaSchema}
           onClose={closeModalUpdateSource}
           onSubmit={updateSource}
         />

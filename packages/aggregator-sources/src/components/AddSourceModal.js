@@ -8,6 +8,7 @@ import { Form, Field } from 'react-final-form';
 import Modal from '@openagenda/react-components/build/Modal';
 import Image from '@openagenda/react-components/build/Image';
 import Spinner from '@openagenda/react-components/build/Spinner';
+import useApiClient from '@openagenda/react-utils/dist/useApiClient';
 import Stepper from './Stepper';
 import AgendasSearch from './AgendasSearch';
 import SlugSearch from './SlugSearch';
@@ -81,7 +82,7 @@ const messages = defineMessages({
   },
   defineRulesStep: {
     id: 'aggregator-sources.AddSourceModal.defineRulesStep',
-    defaultMessage: 'Filters'
+    defaultMessage: 'Rules'
   },
   confirmationStep: {
     id: 'aggregator-sources.AddSourceModal.confirmationStep',
@@ -90,7 +91,7 @@ const messages = defineMessages({
   evaluateMessage: {
     id: 'aggregator-sources.AddSourceModal.evaluateMessage',
     defaultMessage:
-      'The agenda {source} is about to be added to the sources of {aggregator} {filterCount, plural, =0 {without filters} one {with 1 filter} other {with {filterCount} filters}}.'
+      'The agenda {source} is about to be added to the sources of {aggregator} {ruleCount, plural, =0 {without rules} one {with 1 rule} other {with {ruleCount} rules}}.'
   },
   evaluateOption0: {
     id: 'aggregator-sources.AddSourceModal.evaluateOption0',
@@ -105,6 +106,10 @@ const messages = defineMessages({
     defaultMessage: 'Cancel'
   }
 });
+
+const modalClassnames = {
+  overlay: 'popup-overlay big'
+};
 
 function stepsReducer(state, action) {
   switch (action.type) {
@@ -266,7 +271,7 @@ function RulesSubmitButton({ handleSubmit, onCancel }) {
   const intl = useIntl();
 
   return (
-    <>
+    <div className="margin-top-md">
       <div className="pull-left">
         <button
           type="button"
@@ -285,11 +290,16 @@ function RulesSubmitButton({ handleSubmit, onCancel }) {
           {intl.formatMessage(messages.nextButton)}
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
-export default function AddSourceModal({ aggregator, onSubmit, onClose }) {
+export default function AddSourceModal({
+  aggregator,
+  aggregatorSchema,
+  onSubmit,
+  onClose
+}) {
   const intl = useIntl();
 
   const [selectType, setSelectType] = useState('search'); // search || slug
@@ -338,20 +348,25 @@ export default function AddSourceModal({ aggregator, onSubmit, onClose }) {
     initialStepsState
   );
 
+  const apiClient = useApiClient();
+
   const [selectedAgenda, setSelectedAgenda] = useState();
   const [rules, setRules] = useState();
   const onSelectAgenda = useCallback(
-    agenda => {
+    async agenda => {
+      agenda.schema = await apiClient.get(`/${agenda.slug}/settings/schema`);
+
       setSelectedAgenda(agenda);
       stepsDispatch({ type: 'nextStep' });
     },
-    [setSelectedAgenda, stepsDispatch]
+    [apiClient]
   );
 
   const selectStep = useCallback(
     key => {
       if (key === 'selectAgenda') {
         setSelectedAgenda(null);
+        setRules(null);
         setSelectType('search');
       }
 
@@ -385,157 +400,167 @@ export default function AddSourceModal({ aggregator, onSubmit, onClose }) {
     [intl]
   );
 
-  const firstStep = selectType === 'search' ? (
-    <AgendasSearch
-      res={agendaRes}
-      fieldProps={fieldProps}
-      render={({ state, form, nextPage }) => (
-        <>
-          {form}
-
-          <p>
-            {intl.formatMessage(messages.or)}{' '}
-            <button
-              type="button"
-              className="btn-link-inline"
-              tabIndex={0}
-              onClick={toggleSelectType}
-              onKeyPress={toggleSelectType}
-            >
-              {intl.formatMessage(messages.enterALink)}
-            </button>
-          </p>
-
-          <div>
-            {state.agendas.length
-              ? state.agendas.map(agenda => (
-                <AgendaItem
-                  key={agenda.uid}
-                  sources={sources}
-                  agenda={agenda}
-                  onSelect={onSelectAgenda}
-                />
-              ))
-              : null}
-          </div>
-
-          {state.nextLoading ? (
-            <div className="padding-v-md" style={{ position: 'relative' }}>
-              <Spinner />
-            </div>
-          ) : null}
-
-          <Waypoint onEnter={nextPage} />
-        </>
-      )}
-    />
-  ) : (
-    <SlugSearch
-      res={slugRes}
-      render={({ state, form }) => (
-        <>
-          {form}
-
-          <p>
-            {intl.formatMessage(messages.or)}{' '}
-            <button
-              type="button"
-              className="btn-link-inline"
-              tabIndex={0}
-              onClick={toggleSelectType}
-              onKeyPress={toggleSelectType}
-            >
-              {intl.formatMessage(messages.makeASearch)}
-            </button>
-          </p>
-
-          <div>
-            {state.agenda ? (
-              <AgendaItem
-                key={state.agenda.uid}
-                sources={sources}
-                agenda={state.agenda}
-                onSelect={onSelectAgenda}
-              />
-            ) : null}
-          </div>
-        </>
-      )}
-    />
-  );
-
-  const secondStep = (
-    <DefineRules
-      SubmitButton={RulesSubmitButton}
-      onSubmit={handleRulesSubmit}
-      onCancel={onClose}
-    />
-  );
-
-  const thirdStep = (
-    <Form onSubmit={handleFinalSubmit}>
-      {({ handleSubmit }) => (
-        <form onSubmit={handleSubmit}>
-          <div className="margin-v-sm">
-            <p>
-              {intl.formatMessage(messages.evaluateMessage, {
-                aggregator: <b>{aggregator.title}</b>,
-                source: <b>{selectedAgenda.title}</b>,
-                filterCount: rules.length
-              })}
-            </p>
-
-            <Field
-              name="evaluate"
-              type="radio"
-              value="0"
-              component={Radio}
-              initialValue="0"
-            >
-              {' '}
-              {intl.formatMessage(messages.evaluateOption0)}
-            </Field>
-
-            <br />
-
-            <Field name="evaluate" type="radio" value="1" component={Radio}>
-              {' '}
-              {intl.formatMessage(messages.evaluateOption1)}
-            </Field>
-          </div>
-
-          <div className="pull-left">
-            <button
-              type="button"
-              className="btn btn-link text-danger cancel-button-left"
-              onClick={onClose}
-            >
-              {intl.formatMessage(messages.cancel)}
-            </button>
-          </div>
-          <div className="text-right">
-            <button type="submit" className="btn btn-primary">
-              {intl.formatMessage(messages.submitButton)}
-            </button>
-          </div>
-        </form>
-      )}
-    </Form>
-  );
-
   return (
     <Modal
       title={intl.formatMessage(messages.modalTitle, {
         agenda: selectedAgenda?.title
       })}
       onClose={onClose}
+      classNames={modalClassnames}
     >
       <div className="margin-top-sm">
         <Stepper steps={stepsState.steps} onSelect={selectStep} />
 
-        {stepsState.selected === 'selectAgenda' ? firstStep : null}
-        {stepsState.selected === 'defineRules' ? secondStep : null}
-        {stepsState.selected === 'confirmation' ? thirdStep : null}
+        {stepsState.selected === 'selectAgenda' && selectType === 'search' ? (
+          <AgendasSearch
+            res={agendaRes}
+            fieldProps={fieldProps}
+            render={({ state, form, nextPage }) => (
+              <>
+                {form}
+
+                <p>
+                  {intl.formatMessage(messages.or)}{' '}
+                  <button
+                    type="button"
+                    className="btn-link-inline"
+                    tabIndex={0}
+                    onClick={toggleSelectType}
+                    onKeyPress={toggleSelectType}
+                  >
+                    {intl.formatMessage(messages.enterALink)}
+                  </button>
+                </p>
+
+                <div>
+                  {state.agendas.length
+                    ? state.agendas.map(agenda => (
+                      <AgendaItem
+                        key={agenda.uid}
+                        sources={sources}
+                        agenda={agenda}
+                        onSelect={onSelectAgenda}
+                      />
+                    ))
+                    : null}
+                </div>
+
+                {state.nextLoading ? (
+                  <div
+                    className="padding-v-md"
+                    style={{ position: 'relative' }}
+                  >
+                    <Spinner />
+                  </div>
+                ) : null}
+
+                <Waypoint onEnter={nextPage} />
+              </>
+            )}
+          />
+        ) : null}
+
+        {stepsState.selected === 'selectAgenda' && selectType !== 'search' ? (
+          <SlugSearch
+            res={slugRes}
+            render={({ state, form }) => (
+              <>
+                {form}
+
+                <p>
+                  {intl.formatMessage(messages.or)}{' '}
+                  <button
+                    type="button"
+                    className="btn-link-inline"
+                    tabIndex={0}
+                    onClick={toggleSelectType}
+                    onKeyPress={toggleSelectType}
+                  >
+                    {intl.formatMessage(messages.makeASearch)}
+                  </button>
+                </p>
+
+                <div>
+                  {state.agenda ? (
+                    <AgendaItem
+                      key={state.agenda.uid}
+                      sources={sources}
+                      agenda={state.agenda}
+                      onSelect={onSelectAgenda}
+                    />
+                  ) : null}
+                </div>
+              </>
+            )}
+          />
+        ) : null}
+
+        {stepsState.selected === 'defineRules' ? (
+          <DefineRules
+            aggregatorSchema={aggregatorSchema}
+            sourceSchema={selectedAgenda?.schema}
+            SubmitButton={RulesSubmitButton}
+            initialRules={rules}
+            onSubmit={handleRulesSubmit}
+            onCancel={onClose}
+          />
+        ) : null}
+
+        {stepsState.selected === 'confirmation' ? (
+          <Form onSubmit={handleFinalSubmit}>
+            {({ handleSubmit }) => (
+              <form onSubmit={handleSubmit}>
+                <div className="margin-v-sm">
+                  <p>
+                    {intl.formatMessage(messages.evaluateMessage, {
+                      aggregator: <b>{aggregator.title}</b>,
+                      source: <b>{selectedAgenda.title}</b>,
+                      ruleCount: rules.length
+                    })}
+                  </p>
+
+                  <Field
+                    name="evaluate"
+                    type="radio"
+                    value="0"
+                    component={Radio}
+                    initialValue="0"
+                  >
+                    {' '}
+                    {intl.formatMessage(messages.evaluateOption0)}
+                  </Field>
+
+                  <br />
+
+                  <Field
+                    name="evaluate"
+                    type="radio"
+                    value="1"
+                    component={Radio}
+                  >
+                    {' '}
+                    {intl.formatMessage(messages.evaluateOption1)}
+                  </Field>
+                </div>
+
+                <div className="pull-left">
+                  <button
+                    type="button"
+                    className="btn btn-link text-danger cancel-button-left"
+                    onClick={onClose}
+                  >
+                    {intl.formatMessage(messages.cancel)}
+                  </button>
+                </div>
+                <div className="text-right">
+                  <button type="submit" className="btn btn-primary">
+                    {intl.formatMessage(messages.submitButton)}
+                  </button>
+                </div>
+              </form>
+            )}
+          </Form>
+        ) : null}
       </div>
     </Modal>
   );

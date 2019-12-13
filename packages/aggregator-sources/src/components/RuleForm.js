@@ -1,8 +1,15 @@
-import React, { useMemo } from 'react';
+import _ from 'lodash';
+import React, { useMemo, useEffect } from 'react';
 import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
-import { useFormState, Field } from 'react-final-form';
+import { useForm, useFormState, Field } from 'react-final-form';
+import { FieldArray } from 'react-final-form-arrays';
 import ReactTagsInput from 'react-tagsinput';
+import ReactSelect from 'react-select';
+import { usePrevious } from 'react-use';
+import classNames from 'classnames';
+import { useMemoOne } from '../hooks/useMemoOne';
+import getMultiLanguageLabel from '../utils/getMultiLanguageLabel';
 import BsField from './BsField';
 
 const messages = defineMessages({
@@ -10,9 +17,17 @@ const messages = defineMessages({
     id: 'aggregator-sources.RuleForm.addAValue',
     defaultMessage: 'Add a value'
   },
+  noFilter: {
+    id: 'aggregator-sources.RuleForm.noFilter',
+    defaultMessage: 'No filter'
+  },
   locationFilter: {
     id: 'aggregator-sources.RuleForm.locationFilter',
     defaultMessage: 'Location filter'
+  },
+  extendedFilter: {
+    id: 'aggregator-sources.RuleForm.extendedFilter',
+    defaultMessage: 'Additionnal field filter'
   },
   tagFilter: {
     id: 'aggregator-sources.RuleForm.tagFilter',
@@ -30,15 +45,122 @@ const messages = defineMessages({
     id: 'aggregator-sources.RuleForm.region',
     defaultMessage: 'Region'
   },
+  type: {
+    id: 'aggregator-sources.RuleForm.type',
+    defaultMessage: 'Type:'
+  },
   values: {
     id: 'aggregator-sources.RuleForm.values',
     defaultMessage: 'Values:'
   },
+  required: {
+    id: 'aggregator-sources.RuleForm.required',
+    defaultMessage: 'Required:'
+  },
+  actions: {
+    id: 'aggregator-sources.RuleForm.actions',
+    defaultMessage: 'Actions:'
+  },
   subdivision: {
     id: 'aggregator-sources.RuleForm.subdivision',
     defaultMessage: 'Geographical subdivision:'
+  },
+  selectField: {
+    id: 'aggregator-sources.RuleForm.selectField',
+    defaultMessage: 'Select a field'
+  },
+  noOption: {
+    id: 'aggregator-sources.RuleForm.noOption',
+    defaultMessage: 'No option'
+  },
+  selectValue: {
+    id: 'aggregator-sources.RuleForm.selectValue',
+    defaultMessage: 'Select a value'
+  },
+  requiredFilter: {
+    id: 'aggregator-sources.RuleForm.requiredFilter',
+    defaultMessage:
+      'Aggregation only occurs if the event matches the criteria for this rule.'
+  },
+  addAnAction: {
+    id: 'aggregator-sources.RuleForm.addAnAction',
+    defaultMessage: 'Add an action'
+  },
+  removeAction: {
+    id: 'aggregator-sources.RuleForm.removeAction',
+    defaultMessage: 'Remove action'
+  },
+  actionsDescription: {
+    id: 'aggregator-sources.RuleForm.actionsDescription',
+    defaultMessage:
+      'Select the fields to edit if the event matches the rule, and then assign them a value.'
   }
 });
+
+const selectStyles = {
+  control: (provided, { isFocused }) => ({
+    ...provided,
+    minHeight: '35px',
+    borderColor: '#cccccc',
+    ...(isFocused
+      ? {
+        borderColor: '#66afe9',
+        outline: '0',
+        WebkitBoxShadow:
+            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)',
+        boxShadow:
+            'inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(102, 175, 233, 0.6)'
+      }
+      : {}),
+
+    '&:hover': {
+      borderColor: isFocused ? '#66afe9' : '#cccccc'
+    }
+  }),
+  valueContainer: provided => ({
+    ...provided,
+    padding: '2px 4px'
+  }),
+  dropdownIndicator: provided => ({
+    ...provided,
+    padding: '5px',
+    cursor: 'pointer'
+  }),
+  clearIndicator: provided => ({
+    ...provided,
+    padding: '5px',
+    cursor: 'pointer'
+  }),
+  multiValue: provided => ({
+    ...provided,
+    margin: '1px',
+    padding: '0px',
+    borderRadius: '2px',
+    overflow: 'hidden'
+  }),
+  multiValueLabel: provided => ({
+    ...provided,
+    fontSize: '100%',
+    padding: '3px',
+    paddingLeft: '5px',
+    paddingRight: '0',
+    backgroundColor: '#41acdd',
+    color: '#ffffff',
+    borderRadius: '0'
+  }),
+  multiValueRemove: provided => ({
+    ...provided,
+    cursor: 'pointer',
+    backgroundColor: '#41acdd',
+    color: '#ffffff',
+    borderRadius: '0',
+
+    '&:hover': {
+      backgroundColor: '#41acdd',
+      color: '#ffffff'
+    }
+  })
+};
 
 // function Input({
 //   input,
@@ -62,7 +184,17 @@ const messages = defineMessages({
 //   );
 // }
 
-function TagsInput({ input, placeholder, ...props }) {
+function formatTags(value) {
+  return value === undefined ? [] : value;
+}
+
+function parseTags(tags) {
+  return tags.length ? tags : undefined;
+}
+
+function TagsInput({
+  input, meta, placeholder, ...props
+}) {
   const inputProps = useMemo(() => {
     const hasValue = input.value && input.value.length;
 
@@ -77,11 +209,36 @@ function TagsInput({ input, placeholder, ...props }) {
     };
   }, [placeholder, input.value]);
 
-  return <ReactTagsInput {...input} {...props} inputProps={inputProps} />;
+  return (
+    <>
+      <ReactTagsInput {...input} {...props} inputProps={inputProps} />
+
+      {!meta.dirtySinceLastSubmit && meta.submitError ? (
+        <div className="margin-top-xs margin-bottom-sm text-danger">
+          {meta.submitError}
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+function ReactSelectInput({ input, meta, ...rest }) {
+  return (
+    <>
+      <ReactSelect {...input} {...rest} />
+
+      {!meta.dirtySinceLastSubmit && meta.submitError ? (
+        <div className="margin-top-xs margin-bottom-sm text-danger">
+          {meta.submitError}
+        </div>
+      ) : null}
+    </>
+  );
 }
 
 function Select({
   input,
+  meta,
   placeholder,
   className,
   spellCheck,
@@ -100,10 +257,16 @@ function Select({
   );
 
   return (
-    <BsField input={input} {...props}>
+    <BsField input={input} meta={meta} {...props}>
       <select {...input} {...inputAttrs}>
         {children}
       </select>
+
+      {!meta.dirtySinceLastSubmit && meta.submitError ? (
+        <div className="margin-top-xs margin-bottom-sm text-danger">
+          {meta.submitError}
+        </div>
+      ) : null}
     </BsField>
   );
 }
@@ -111,11 +274,13 @@ function Select({
 function Radio({
   id,
   input,
+  meta,
   label,
   placeholder,
   className,
   spellCheck,
   autoFocus,
+  disabled,
   ...props
 }) {
   const inputAttrs = useMemo(
@@ -124,13 +289,14 @@ function Radio({
       placeholder,
       className,
       spellCheck,
-      autoFocus
+      autoFocus,
+      disabled
     }),
-    [id, placeholder, className, spellCheck, autoFocus]
+    [id, placeholder, className, spellCheck, autoFocus, disabled]
   );
 
   return (
-    <BsField input={input} {...props}>
+    <BsField input={input} meta={meta} {...props}>
       <label htmlFor={id}>
         <input {...input} {...inputAttrs} /> {label}
       </label>
@@ -138,21 +304,10 @@ function Radio({
   );
 }
 
-export default function RuleForm({
-  SubmitButton,
-  handleSubmit,
-  onCancel,
-  values,
-  options
-}) {
+function LocationFormPart() {
   const intl = useIntl();
-  const formState = useFormState();
 
-  const error = formState.submitError && !formState.dirtySinceLastSubmit
-    ? formState.submitError
-    : null;
-
-  const locationFormPart = (
+  return (
     <>
       <Field
         component={Select}
@@ -172,7 +327,7 @@ export default function RuleForm({
 
       <div className="form-group form-group-values">
         <div className="row">
-          <label className="control-label col-sm-2" htmlFor="type">
+          <label className="control-label col-sm-2" htmlFor="values">
             {intl.formatMessage(messages.values)}
           </label>
 
@@ -183,19 +338,66 @@ export default function RuleForm({
               className="form-control react-tagsinput"
               classNameGroup="form-inline"
               placeholder={intl.formatMessage(messages.addAValue)}
-              format={v => (v === undefined ? [] : v)}
-              parse={v => (v.length ? v : undefined)}
+              format={formatTags}
+              parse={parseTags}
+              addOnBlur
             />
           </div>
         </div>
       </div>
     </>
   );
+}
 
-  const tagsFormPart = (
+/* function ExtendedFormPart({ aggregatorSchema, sourceSchema }) {
+  const intl = useIntl();
+
+  const options = useMemoOne(
+    () => sourceSchema.fields.map(({ field, label }) => ({
+      value: field,
+      label: getMultiLanguageLabel(label, intl.locale)
+    })),
+    [sourceSchema]
+  );
+
+  const { values } = useFormState({
+    subscription: {
+      values: true
+    }
+  });
+
+  const field = useMemoOne(
+    () => sourceSchema.fields.find(v => values?.field?.value && v.field === values.field?.value),
+    [values.field]
+  );
+
+  return (
+    <>
+      <Field
+        component={ReactSelectInput}
+        name="field"
+        className="form-group"
+        placeholder={intl.formatMessage(messages.selectField)}
+        noOptionsMessage={() => intl.formatMessage(messages.noOption)}
+        options={options}
+        menuPosition="fixed"
+        isSearchable
+      />
+
+      {values.field ? (
+        <p>Un truc</p>
+      ) : null}
+    </>
+  );
+} */
+
+function TagsFormPart() {
+  const intl = useIntl();
+
+  return (
     <div className="form-group form-group-values">
       <div className="row">
-        <label className="control-label col-sm-2" htmlFor="type">
+        <label className="control-label col-sm-2" htmlFor="values">
           {intl.formatMessage(messages.values)}
         </label>
 
@@ -206,13 +408,170 @@ export default function RuleForm({
             className="form-control react-tagsinput"
             classNameGroup="form-inline"
             placeholder={intl.formatMessage(messages.addAValue)}
-            format={v => (v === undefined ? [] : v)}
-            parse={v => (v.length ? v : undefined)}
+            format={formatTags}
+            parse={parseTags}
+            addOnBlur
           />
         </div>
       </div>
     </div>
   );
+}
+
+function ActionFormPart({ name, aggregatorSchema }) {
+  const form = useForm();
+  const formState = useFormState();
+  const intl = useIntl();
+
+  const { values } = formState;
+
+  const fieldName = useMemoOne(() => _.get(values, name)?.field?.value, [
+    values,
+    name
+  ]);
+
+  const options = useMemoOne(
+    () => aggregatorSchema.fields
+      .filter(
+        v => ['radio', 'checkbox'].includes(v.fieldType) && v.options?.length
+      )
+      .filter(
+        v => v.field === fieldName
+            || !values.actions.find(w => w && v.field === w.field.value)
+      )
+      .map(v => ({
+        value: v.field,
+        label: getMultiLanguageLabel(v.label, intl.locale)
+      })),
+    [aggregatorSchema.fields]
+  );
+
+  const prevFieldName = usePrevious(fieldName);
+
+  const fieldSchema = useMemoOne(
+    () => fieldName && aggregatorSchema.fields.find(v => v.field === fieldName),
+    [aggregatorSchema.fields, fieldName]
+  );
+  const valuesOptions = useMemoOne(() => (fieldSchema?.options
+    ? fieldSchema.options.map(v => ({
+      value: v.id,
+      label: getMultiLanguageLabel(v.label, intl.locale)
+    }))
+    : null));
+
+  useEffect(() => {
+    if (prevFieldName && fieldName && prevFieldName !== fieldName) {
+      form.change(`${name}.values`, '');
+    }
+  }, [prevFieldName, fieldName, name, form]);
+
+  return (
+    <>
+      <Field
+        component={ReactSelectInput}
+        name={`${name}.field`}
+        placeholder={intl.formatMessage(messages.selectField)}
+        noOptionsMessage={() => intl.formatMessage(messages.noOption)}
+        options={options}
+        menuPosition="fixed"
+        className="margin-bottom-xs"
+        styles={selectStyles}
+        isSearchable
+      />
+
+      {fieldSchema && valuesOptions ? (
+        <Field
+          component={ReactSelectInput}
+          name={`${name}.values`}
+          placeholder={intl.formatMessage(messages.selectValue)}
+          noOptionsMessage={() => intl.formatMessage(messages.noOption)}
+          options={valuesOptions}
+          menuPosition="fixed"
+          styles={selectStyles}
+          isMulti={fieldSchema.fieldType === 'checkbox'}
+          isClearable={fieldSchema.optional !== false}
+          isSearchable
+        />
+      ) : null}
+    </>
+  );
+}
+
+function ActionsFormPart({ aggregatorSchema }) {
+  const intl = useIntl();
+  const form = useForm();
+  const { values } = useFormState();
+
+  if (!values.type) {
+    return null;
+  }
+
+  return (
+    <div className="form-group">
+      <div className="row">
+        <span className="control-label col-sm-2">
+          <b>{intl.formatMessage(messages.actions)}</b>
+        </span>
+
+        <div className="col-sm-10">
+          <p>{intl.formatMessage(messages.actionsDescription)}</p>
+
+          <FieldArray name="actions">
+            {({ fields }) => fields.map((name, index) => (
+              <div key={name} className="margin-top-sm actions-container">
+                <div className="form-group">
+                  <ActionFormPart
+                    name={name}
+                    aggregatorSchema={aggregatorSchema}
+                  />
+                </div>
+
+                <div className="remove-action">
+                  <button
+                    type="button"
+                    className="btn btn-link-inline"
+                    onClick={() => fields.remove(index)}
+                    title={intl.formatMessage(messages.removeAction)}
+                  >
+                    <i
+                      className="fa fa-times text-danger"
+                      aria-hidden="true"
+                    />
+                  </button>
+                </div>
+              </div>
+            ))}
+          </FieldArray>
+
+          <button
+            type="button"
+            className="btn btn-link-inline"
+            onClick={() => form.mutators.push('actions')}
+          >
+            {intl.formatMessage(messages.addAnAction)}
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default function RuleForm({
+  SubmitButton,
+  handleSubmit,
+  onCancel,
+  values,
+  options,
+  disabledExtended,
+  aggregatorSchema,
+  sourceSchema
+}) {
+  const intl = useIntl();
+  const formState = useFormState();
+
+  const error = !formState.dirtySinceLastSubmit && formState.submitError
+    ? formState.submitError
+    : null;
 
   const submitElement = useMemo(
     () => (ReactIs.isValidElementType(SubmitButton) ? (
@@ -230,7 +589,7 @@ export default function RuleForm({
       <div className="form-group form-group-type">
         <div className="row">
           <label className="control-label col-sm-2" htmlFor="type">
-            Type:
+            {intl.formatMessage(messages.type)}
           </label>
 
           <div className="col-sm-10">
@@ -246,16 +605,71 @@ export default function RuleForm({
               component={Radio}
               name="type"
               type="radio"
+              label={intl.formatMessage(messages.extendedFilter)}
+              value="extended"
+              classNameGroup={classNames('radio', {
+                disabled: disabledExtended
+              })}
+              disabled={disabledExtended}
+            />
+            <Field
+              component={Radio}
+              name="type"
+              type="radio"
               label={intl.formatMessage(messages.tagFilter)}
               value="tags"
               classNameGroup="radio"
             />
+            <Field
+              component={Radio}
+              name="type"
+              type="radio"
+              label={intl.formatMessage(messages.noFilter)}
+              value="all"
+              classNameGroup="radio"
+            />
+
+            {!formState.dirtySinceLastSubmit && formState.submitErrors?.type ? (
+              <div className="margin-top-xs margin-bottom-md text-danger">
+                {formState.submitErrors?.type}
+              </div>
+            ) : null}
           </div>
         </div>
       </div>
 
-      {values.type === 'location' ? locationFormPart : null}
-      {values.type === 'tags' ? tagsFormPart : null}
+      {values.type === 'location' ? <LocationFormPart /> : null}
+      {/* values.type === 'extended' ? (
+        <ExtendedFormPart
+          aggregatorSchema={aggregatorSchema}
+          sourceSchema={sourceSchema}
+        />
+      ) : null */}
+      {values.type === 'tags' ? <TagsFormPart /> : null}
+
+      {values.type ? (
+        <div className="row checkbox">
+          <div className="col-sm-2">
+            <b>{intl.formatMessage(messages.required)}</b>
+          </div>
+          <div className="col-sm-10">
+            <div className="form-group">
+              <Field
+                component={Radio}
+                name="required"
+                type="checkbox"
+                label={intl.formatMessage(messages.requiredFilter)}
+                defaultValue // true
+              />
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      <ActionsFormPart
+        aggregatorSchema={aggregatorSchema}
+        sourceSchema={sourceSchema}
+      />
 
       {error ? <p className="text-danger">{error}</p> : null}
 

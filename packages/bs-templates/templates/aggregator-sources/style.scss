@@ -92,12 +92,12 @@
         margin-bottom: .5em;
       }
 
-      .filters-copy {
+      .rules-copy {
         display: none;
         margin-left: 5px;
       }
 
-      .filters-summary:hover .filters-copy {
+      .rules-summary:hover .rules-copy {
         display: inline-block;
       }
 
@@ -115,16 +115,23 @@
     }
   }
 
-  .popup-content {
-    .stepper .step {
-      background-color: #eeeeee;
-    }
+  .actions-container {
+    position: relative;
+    margin-right: 28px;
 
+    .remove-action {
+      position: absolute;
+      top: 8px;
+      right: -20px;
+    }
+  }
+
+  .popup-content {
     .search {
       width: 100%;
     }
 
-    .filter-value {
+    .rule-value {
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;

@@ -5,10 +5,12 @@ import React, {
 import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
 import { Form } from 'react-final-form';
-import { FORM_ERROR } from 'final-form';
+import arrayMutators from 'final-form-arrays';
 import classNames from 'classnames';
+import { useMemoOne } from '../hooks/useMemoOne';
 import { ruleToValues, valuesToRule } from '../utils/rules';
 import readClipboard from '../utils/readClipboard';
+import getMultiLanguageLabel from '../utils/getMultiLanguageLabel';
 import RuleForm from './RuleForm';
 
 const messages = defineMessages({
@@ -16,9 +18,9 @@ const messages = defineMessages({
     id: 'aggregator-sources.DefineRules.requiredType',
     defaultMessage: 'Required type'
   },
-  badType: {
-    id: 'aggregator-sources.DefineRules.badType',
-    defaultMessage: 'Bad type'
+  noFilter: {
+    id: 'aggregator-sources.DefineRules.noFilter',
+    defaultMessage: 'No filter'
   },
   requiredSubdivision: {
     id: 'aggregator-sources.DefineRules.requiredSubdivision',
@@ -70,30 +72,102 @@ const messages = defineMessages({
   },
   pasteRules: {
     id: 'aggregator-sources.DefineRules.pasteRules',
-    defaultMessage: 'Apply filters from another source'
+    defaultMessage: 'Apply rules from another source'
   },
   manualPasteRules: {
     id: 'aggregator-sources.DefineRules.manualPasteRules',
-    defaultMessage: 'Paste filters from another source (CTRL + V)'
+    defaultMessage: 'Paste rules from another source (CTRL + V)'
+  },
+  description: {
+    id: 'aggregator-sources.DefineRules.description',
+    defaultMessage:
+      'Règles are applied to the events in their aggregation.{br} They are used to condition the aggregation, or to assign values to extended fields in your agenda.'
+  },
+  requiredFieldsWarning: {
+    id: 'aggregator-sources.DefineRules.requiredFieldsWarning',
+    defaultMessage:
+      '{fieldsCount, plural, =1 {The field {fields} is required} other {The fields {fields} are required}}.'
+  },
+  missingRequiredFields: {
+    id: 'aggregator-sources.DefineRules.missingRequiredFields',
+    defaultMessage:
+      '{fieldsCount, plural, =1 {The field {fields} is required} other {The fields {fields} are required}}.'
   }
 });
 
-function validate(intl, values) {
+function validate(intl, values, aggregatorSchema /* , sourceSchema */) {
+  const errors = {};
+
   if (!values.type) {
-    return { [FORM_ERROR]: intl.formatMessage(messages.requiredType) };
-  }
-  if (!['location', 'tags'].includes(values.type)) {
-    return { [FORM_ERROR]: intl.formatMessage(messages.badType) };
+    errors.type = intl.formatMessage(messages.requiredType);
   }
 
-  if (values.type === 'location') {
-    if (!values.subdivision) {
-      return { [FORM_ERROR]: intl.formatMessage(messages.requiredSubdivision) };
-    }
+  if (values.type === 'location' && !values.subdivision) {
+    errors.subdivision = intl.formatMessage(messages.requiredSubdivision);
   }
 
-  if (!values.values || !values.values.length) {
-    return { [FORM_ERROR]: intl.formatMessage(messages.requiredValues) };
+  if (values.type !== 'all' && !values.values?.length) {
+    errors.values = intl.formatMessage(messages.requiredValues);
+  }
+
+  aggregatorSchema.fields
+    .filter(v => v.fieldType !== 'abstract')
+    .forEach(fieldSchema => {
+      const aggActionIndex = values.actions?.findIndex(
+        v => v?.field?.value && v.field.value === fieldSchema.field
+      );
+      const aggAction = values.actions?.[aggActionIndex];
+
+      const hasValue = Array.isArray(aggAction?.values)
+        ? aggAction.values.length
+        : ![undefined, null, ''].includes(aggAction?.values?.value);
+
+      if (fieldSchema.optional === false && aggAction && !hasValue) {
+        _.set(
+          errors,
+          ['actions', aggActionIndex, 'values'],
+          intl.formatMessage(messages.requiredValues)
+        );
+      }
+    });
+
+  if (Object.keys(errors).length) {
+    return errors;
+  }
+}
+
+function validateActions(intl, rules, aggregatorSchema, sourceSchema) {
+  const missingFields = [];
+
+  const actions = rules.flatMap(v => v.actions?.filter(Boolean));
+
+  aggregatorSchema.fields
+    .filter(v => v.fieldType !== 'abstract')
+    .forEach(fieldSchema => {
+      const aggAction = actions.find(v => v?.[fieldSchema.field]);
+      const hasValue = Array.isArray(aggAction?.[fieldSchema.field]?.$set)
+        ? aggAction[fieldSchema.field].$set.length
+        : aggAction?.[fieldSchema.field]?.$set;
+      const inSourceSchema = sourceSchema.fields.find(
+        v => v.schemaId
+          && v.field === fieldSchema.field
+          && v.schemaId === fieldSchema.schemaId
+      );
+
+      if (!inSourceSchema && fieldSchema.optional === false && !hasValue) {
+        missingFields.push(fieldSchema);
+      }
+    });
+
+  if (missingFields.length) {
+    return intl.formatMessage(messages.missingRequiredFields, {
+      fields: intl.formatList(
+        missingFields.map(v => (
+          <em key={v.field}>{getMultiLanguageLabel(v.label, intl.locale)}</em>
+        ))
+      ),
+      fieldsCount: missingFields.length
+    });
   }
 }
 
@@ -108,7 +182,8 @@ function getInitialState(initialRules) {
   return {
     rules,
     mode: 'list',
-    modeOptions: {}
+    modeOptions: {},
+    error: null
   };
 }
 
@@ -121,9 +196,16 @@ function reducer(state, action) {
         modeOptions: action.payload.options
       };
     }
+    case 'setError': {
+      return {
+        ...state,
+        error: action.payload.error
+      };
+    }
     case 'addRule': {
       return {
         ...state,
+        error: null,
         rules: [
           ...state.rules,
           {
@@ -136,6 +218,7 @@ function reducer(state, action) {
     case 'updateRule': {
       return {
         ...state,
+        error: null,
         rules: state.rules.map(rule => (rule.id === action.payload.id
           ? {
             id: action.payload.id,
@@ -147,6 +230,7 @@ function reducer(state, action) {
     case 'removeRule': {
       return {
         ...state,
+        error: null,
         rules: state.rules.filter(rule => rule.id !== action.payload.id)
       };
     }
@@ -223,23 +307,35 @@ function RuleItem({ rule, onUpdate, onRemove }) {
     rule.id
   ]);
 
+  const queryType = useMemo(() => {
+    const keys = Object.keys(rule.query);
+
+    return keys.length ? keys[0] : 'all';
+  }, [rule.query]);
+
   return (
     <div className="row margin-v-sm">
       <div className="col-md-6">
-        <div className="filter-value">
-          {rule.query.location
+        <div className="rule-value">
+          {queryType === 'all' ? (
+            <div className="margin-top-xs">
+              {intl.formatMessage(messages.allEvents)}
+            </div>
+          ) : null}
+
+          {queryType === 'location'
             ? Object.values(rule.query.location)[0].join(', ')
             : null}
 
-          {rule.query.tags ? rule.query.tags.join(', ') : null}
+          {queryType === 'tags' ? rule.query.tags.join(', ') : null}
         </div>
 
         <span className="text-muted">
-          {rule.query.location
+          {queryType === 'location'
             ? intl.formatMessage(messages.locationFilter)
             : null}
 
-          {rule.query.tags ? intl.formatMessage(messages.tagFilter) : null}
+          {queryType === 'tags' ? intl.formatMessage(messages.tagFilter) : null}
         </span>
       </div>
 
@@ -263,6 +359,8 @@ function RuleItem({ rule, onUpdate, onRemove }) {
 }
 
 export default function DefineRules({
+  aggregatorSchema,
+  sourceSchema,
   initialRules,
   SubmitButton,
   onSubmit,
@@ -290,15 +388,45 @@ export default function DefineRules({
   const setModeList = useCallback(() => setMode('list'), [setMode]);
   const setModeUpdate = useCallback(id => setMode('update', { id }), [setMode]);
 
+  const requiredFields = useMemoOne(
+    () => aggregatorSchema.fields.filter(field => {
+      const sourceField = sourceSchema.fields.find(
+        v => v.schemaId
+            && v.field === field.field
+            && v.schemaId === field.schemaId
+      );
+
+      if (sourceField) {
+        return false;
+      }
+
+      if (field.fieldType !== 'abstract' && field.optional === false) {
+        return true;
+      }
+
+      return false;
+    }),
+    [aggregatorSchema.fields]
+  );
+
+  const requiredFieldList = useMemo(
+    () => requiredFields.map(field => (
+      <em key={field.field}>
+        {getMultiLanguageLabel(field.label, intl.locale)}
+      </em>
+    )),
+    [intl.locale, requiredFields]
+  );
+
   const addRule = useCallback(
     values => {
-      const errors = validate(intl, values);
+      const errors = validate(intl, values, aggregatorSchema, sourceSchema);
 
       if (errors) {
         return errors;
       }
 
-      const rule = valuesToRule(values);
+      const rule = valuesToRule(values, aggregatorSchema);
 
       dispatch({
         type: 'addRule',
@@ -309,17 +437,17 @@ export default function DefineRules({
 
       setMode('list');
     },
-    [dispatch, setMode, intl]
+    [intl, aggregatorSchema, sourceSchema, setMode]
   );
   const updateRule = useCallback(
     values => {
-      const errors = validate(intl, values);
+      const errors = validate(intl, values, aggregatorSchema, sourceSchema);
 
       if (errors) {
         return errors;
       }
 
-      const rule = valuesToRule(values);
+      const rule = valuesToRule(values, aggregatorSchema);
 
       dispatch({
         type: 'updateRule',
@@ -331,7 +459,7 @@ export default function DefineRules({
 
       setMode('list');
     },
-    [dispatch, state.modeOptions.id, setMode, intl]
+    [intl, aggregatorSchema, sourceSchema, state.modeOptions.id, setMode]
   );
   const removeRule = useCallback(
     id => dispatch({
@@ -364,7 +492,7 @@ export default function DefineRules({
 
       for (const item of json) {
         try {
-          const rule = ruleToValues(item);
+          const rule = ruleToValues(item, aggregatorSchema, intl.locale);
 
           addRule(rule);
         } catch (itemException) {
@@ -372,7 +500,7 @@ export default function DefineRules({
         }
       }
     },
-    [addRule]
+    [addRule, aggregatorSchema, intl.locale]
   );
 
   useEffect(() => {
@@ -394,29 +522,70 @@ export default function DefineRules({
       rule => rule.id === state.modeOptions.id
     );
 
-    return ruleToValues(ruleToUpdate);
-  }, [state.rules, state.modeOptions.id]);
+    return ruleToValues(ruleToUpdate, aggregatorSchema, intl.locale);
+  }, [state.rules, state.modeOptions.id, aggregatorSchema, intl.locale]);
 
   const submitElement = useMemo(
     () => (state.mode === 'list' ? (
       <>
         {ReactIs.isValidElementType(SubmitButton) ? (
           <SubmitButton
-            handleSubmit={() => onSubmit(state.rules.map(rule => _.omit(rule, 'id')))}
+            handleSubmit={() => {
+              const rules = state.rules.map(rule => _.omit(rule, 'id'));
+              const error = validateActions(
+                intl,
+                rules,
+                aggregatorSchema,
+                sourceSchema
+              );
+
+              if (error) {
+                return dispatch({
+                  type: 'setError',
+                  payload: {
+                    error
+                  }
+                });
+              }
+
+              return onSubmit(rules);
+            }}
             rules={state.rules}
             onCancel={onCancel}
           />
         ) : null}
       </>
     ) : null),
-    [SubmitButton, onSubmit, onCancel, state.rules, state.mode]
+    [
+      state.mode,
+      state.rules,
+      SubmitButton,
+      onCancel,
+      intl,
+      aggregatorSchema,
+      sourceSchema,
+      onSubmit
+    ]
   );
 
   let content = null;
 
   if (state.mode === 'list') {
     content = (
-      <div className="margin-v-md">
+      <div className="margin-top-md">
+        <p className="margin-top-sm">
+          {intl.formatMessage(messages.description, { br: <br key="br" /> })}
+        </p>
+
+        {requiredFieldList.length ? (
+          <p>
+            {intl.formatMessage(messages.requiredFieldsWarning, {
+              fields: intl.formatList(requiredFieldList),
+              fieldsCount: requiredFields.length
+            })}
+          </p>
+        ) : null}
+
         {state.rules.map(rule => (
           <RuleItem
             key={rule.id}
@@ -464,32 +633,46 @@ export default function DefineRules({
     );
   } else if (state.mode === 'add') {
     content = (
-      <div className="margin-v-md">
+      <div className="margin-top-md">
         <h4 className="text-center margin-bottom-sm">
           {intl.formatMessage(messages.newRule)}
         </h4>
 
         <Form
           onSubmit={addRule}
+          mutators={{
+            // potentially other mutators could be merged here
+            ...arrayMutators
+          }}
           onCancel={setModeList}
           component={RuleForm}
           SubmitButton={AddRuleSubmitButton}
+          disabledExtended /* ={!sourceSchema.fields.length} */
+          sourceSchema={sourceSchema}
+          aggregatorSchema={aggregatorSchema}
         />
       </div>
     );
   } else if (state.mode === 'update') {
     content = (
-      <div className="margin-v-md">
+      <div className="margin-top-md">
         <h4 className="text-center margin-bottom-sm">
           {intl.formatMessage(messages.updateARule)}
         </h4>
 
         <Form
           onSubmit={updateRule}
+          mutators={{
+            // potentially other mutators could be merged here
+            ...arrayMutators
+          }}
           onCancel={setModeList}
           component={RuleForm}
           initialValues={initialValues}
           SubmitButton={UpdateRuleSubmitButton}
+          disabledExtended /* ={!sourceSchema.fields.length} */
+          sourceSchema={sourceSchema}
+          aggregatorSchema={aggregatorSchema}
         />
       </div>
     );
@@ -498,6 +681,10 @@ export default function DefineRules({
   return (
     <>
       {content}
+
+      {state.mode === 'list' && state.error ? (
+        <div className="text-danger">{state.error}</div>
+      ) : null}
 
       {submitElement}
     </>

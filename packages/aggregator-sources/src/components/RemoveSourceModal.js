@@ -19,6 +19,10 @@ const messages = defineMessages({
   }
 });
 
+const modalClassnames = {
+  overlay: 'popup-overlay big'
+};
+
 const Radio = ({ id, input, children }) => (
   <label htmlFor={id}>
     <input type="radio" id={id} {...input} />
@@ -43,7 +47,11 @@ export default function RemoveSourceModal({ onRemove, onClose }) {
   }
 
   return (
-    <Modal title={intl.formatMessage(messages.removeASource)} onClose={onClose}>
+    <Modal
+      title={intl.formatMessage(messages.removeASource)}
+      onClose={onClose}
+      classNames={modalClassnames}
+    >
       <Form onSubmit={confirmRemove}>
         {({ handleSubmit }) => (
           <form onSubmit={handleSubmit}>

@@ -19,11 +19,15 @@ const messages = defineMessages({
   }
 });
 
+const modalClassnames = {
+  overlay: 'popup-overlay big'
+};
+
 function SubmitButton({ onCancel, handleSubmit }) {
   const intl = useIntl();
 
   return (
-    <>
+    <div className="margin-top-md">
       <div className="pull-left">
         <button
           onClick={onCancel}
@@ -42,11 +46,15 @@ function SubmitButton({ onCancel, handleSubmit }) {
           {intl.formatMessage(messages.updateSource)}
         </button>
       </div>
-    </>
+    </div>
   );
 }
 
-export default function UpdateSourceModal({ onSubmit, onClose }) {
+export default function UpdateSourceModal({
+  onSubmit,
+  onClose,
+  aggregatorSchema
+}) {
   const intl = useIntl();
 
   const data = useSelector(state => state.modals.updateSource) || {
@@ -59,10 +67,16 @@ export default function UpdateSourceModal({ onSubmit, onClose }) {
   ]);
 
   return (
-    <Modal title={intl.formatMessage(messages.updateASource)} onClose={onClose}>
+    <Modal
+      title={intl.formatMessage(messages.updateASource)}
+      onClose={onClose}
+      classNames={modalClassnames}
+    >
       <h4 className="text-center">{data.source.agenda.title}</h4>
       <div className="margin-top-sm">
         <DefineRules
+          aggregatorSchema={aggregatorSchema}
+          sourceSchema={data.schema}
           initialRules={data.source.rules}
           onSubmit={handleSubmit}
           SubmitButton={SubmitButton}

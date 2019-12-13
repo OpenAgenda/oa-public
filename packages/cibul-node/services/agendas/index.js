@@ -1,19 +1,20 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const agendas = require( '@openagenda/agendas' );
-const imageFiles = require( '@openagenda/image-files' );
-const { Inbox } = require( '@openagenda/inboxes' );
+const _ = require('lodash');
+const agendas = require('@openagenda/agendas');
+const imageFiles = require('@openagenda/image-files');
+const { Inbox } = require('@openagenda/inboxes');
 const cmn = require('../../lib/commons-app');
-const controlDataSvc = require( '../legacy' ).controlData;
-const activities = require( '../activities' );
+const core = require('../../core');
+const controlDataSvc = require('../legacy').controlData;
+const activities = require('../activities');
 const { parser: agendaAdminParser } = require('../lib/layouts/agendaAdmin');
 const middleware = require('./middleware');
 
-const onCreate = require( './onCreate' );
-const onUpdate = require( './onUpdate' );
+const onCreate = require('./onCreate');
+const onUpdate = require('./onUpdate');
 
-const log = require( '@openagenda/logs' )( 'services/agendas' );
+const log = require('@openagenda/logs')('services/agendas');
 
 const throwUnauthorized = (req, res, next) => {
   const error = new Error('Unauthorized');
@@ -33,7 +34,7 @@ const checkUser = (req, res, next) => {
 };
 
 module.exports.init = config => {
-  agendas.init( {
+  agendas.init({
     knex: config.knex,
     mysql: config.db, // used by legacy unique value lib
     schemas: config.schemas,
@@ -45,7 +46,7 @@ module.exports.init = config => {
     },
     imagePath: config.aws.imageBucketPath,
     defaultImagePath: config.aws.defaultImagePath,
-    logger: config.getLogConfig( 'svc', 'agendas' ),
+    logger: config.getLogConfig('svc', 'agendas'),
     interfaces: {
       onCreate,
       onUpdate,
@@ -55,13 +56,13 @@ module.exports.init = config => {
       imageFilesClear: imageFiles.clear,
       imageFilesGetBasePath: imageFiles.getBucketPath
     }
-  } );
+  });
 
   return {
     ...agendas,
     mw: middleware(agendas)
-  }
-}
+  };
+};
 
 module.exports.plugApp = app => {
   const {
@@ -75,35 +76,60 @@ module.exports.plugApp = app => {
     checkUser,
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('moderator', { or: throwUnauthorized }),
-    (req, res) => res.send({
-      member: req.member,
-      ...agendaAdminParser({
-        agenda: req.agenda,
-        role: req.member.role,
-        lang: req.lang
-      })
-    })
+    async (req, res, next) => {
+      try {
+        res.send({
+          member: req.member,
+          schema: await core.agendas(req.agenda.uid).settings.schema.getMerged(),
+          ...agendaAdminParser({
+            agenda: req.agenda,
+            role: req.member.role,
+            lang: req.lang
+          })
+        })
+      } catch (e) {
+        next(e);
+      }
+    }
+  );
+
+  app.get(
+    '/:slug/settings/schema',
+    sessions.mw.load,
+    cmn.loadAgenda,
+    async (req, res, next) => {
+      try {
+        const schema = await core.agendas(req.agenda.uid).settings.schema.getMerged();
+
+        res.send({
+          ...schema,
+          fields: schema.fields.filter(field => field.read === null) // Filter public fields
+        });
+      } catch (e) {
+        next(e);
+      }
+    }
   );
 };
 
 
-function beforeRemove( agenda, cb ) {
+function beforeRemove(agenda, cb) {
 
-  controlDataSvc.clear( agenda.uid ).then( cb.bind( null, null ), err => {
-    log( 'warn', 'could not clear agenda control data', agenda.uid, err );
+  controlDataSvc.clear(agenda.uid).then(cb.bind(null, null), err => {
+    log('warn', 'could not clear agenda control data', agenda.uid, err);
     cb();
-  } );
+  });
 
 }
 
 
-function onRemove( agenda ) {
+function onRemove(agenda) {
 
   // inbox
-  log( 'remove inbox (agenda uid %d)', agenda.uid );
-  new Inbox().create( { type: 'agenda', identifier: agenda.uid } ).then( _.noop );
+  log('remove inbox (agenda uid %d)', agenda.uid);
+  new Inbox().create({ type: 'agenda', identifier: agenda.uid }).then(_.noop);
 
   // feed / activity
-  activities.feed( { entityType: 'agenda', entityUid: agenda.uid } ).remove();
+  activities.feed({ entityType: 'agenda', entityUid: agenda.uid }).remove();
 
 }

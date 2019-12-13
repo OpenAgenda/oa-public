@@ -142,6 +142,10 @@ function AgendaAdminLayout({
     state => _.get(state, 'agendaAdmin.agenda', null),
     shallowEqual
   );
+  const agendaSchema = useSelector(
+    state => _.get(state, 'agendaAdmin.agendaSchema', null),
+    shallowEqual
+  );
   const member = useSelector(
     state => _.get(state, 'agendaAdmin.member', null),
     shallowEqual
@@ -159,6 +163,7 @@ function AgendaAdminLayout({
     () => ({
       ...parentExtraProps,
       agenda,
+      agendaSchema,
       role,
       sections,
       member
