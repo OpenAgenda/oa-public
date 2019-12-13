@@ -153,7 +153,7 @@ function page( req, res ) {
     agenda: req.agenda,
     scriptParams: {
       lang: req.lang,
-      redirect: req.query.redirect
+      redirect: req.query.redirect || `/agendas/${req.agenda.uid}/events/${req.event.uid}`
     }
   } );
 
