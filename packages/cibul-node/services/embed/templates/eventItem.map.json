@@ -1,6 +1,10 @@
 {
   "attributes": [
     {
+      "name" : "Uid",
+      "mapTo": "uid"
+    },
+    {
       "mapTo" : "oaLink",
       "name" : "OALink"
     },

@@ -110,7 +110,7 @@ module.exports = app => {
           }
 
           next();
-        })
+      })
         .catch(next),
     (req, res, next) => {
       res.set('Content-Type', 'text/calendar; charset=utf-8');

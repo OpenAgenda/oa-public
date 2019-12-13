@@ -15,7 +15,7 @@ const processOEmbed = require( '../utils/processOEmbed' );
 const validate = require( './validate' );
 
 
-module.exports = async (agendaUid, data, options = {}) => {
+module.exports = async (services, agendaUid, data, options = {}) => {
 
   log( 'info', 'processing', { agendaUid, options } );
 
@@ -48,7 +48,7 @@ module.exports = async (agendaUid, data, options = {}) => {
   }, data, { draft, formSchemaDataFormat } );
 
   try {
-    clean.event.links = await processOEmbed(clean.event.longDescription, clean.event.links);
+    clean.event.links = await processOEmbed(services.oembed, clean.event.longDescription, clean.event.links);
     log('retrieved %s links', clean.event.links.length);
   } catch (e) {
     log('error', 'could not retrieve oembeds', e);

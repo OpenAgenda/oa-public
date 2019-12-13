@@ -25,4 +25,6 @@ module.exports.init = config => {
     logger: config.getLogConfig( 'svc', 'form-schemas' )
   } );
 
+  return formSchemas;
+
 }

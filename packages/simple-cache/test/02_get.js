@@ -1,71 +1,58 @@
-"use strict";
+'use strict';
 
-const should = require( 'should' ),
+const redis = require('redis');
+const should = require('should');
 
-  sCache = require( '../' ),
+const config = require('../testconfig');
+const sCache = require('../');
 
-  config = require( '../testconfig' ),
+describe('simple-cache - functional (service): get', function() {
+  this.timeout(4000);
 
-  redis = require( 'redis' );
+  let cli, cache;
 
-describe( 'simple-cache - functional (service): get', function() {
+  before(() => {
+    cli = redis.createClient(config.redis.port, config.redis.host);
+  });
 
-  this.timeout( 4000 );
+  before(() => {
+    cache = sCache(config);
+  });
 
-  let cli = redis.createClient( config.redis.port, config.redis.host );
-
-  before( () => {
-
-    cli = redis.createClient( config.redis.port, config.redis.host );    
-
-  } );
-
-  before( () => {
-
-    sCache.init( config );
-
-  } );
-
-  beforeEach( done => {
-
-    cli.keys( config.prefix + '*', ( err, keys ) => {
-
-      cli.del( keys.join( ' ' ), done );
-
-    } );
-
-  } );
+  beforeEach(done => {
+    cli.keys(config.prefix + '*', (err, keys) => {
+      cli.del(keys.join( ' ' ), done);
+    });
+  });
 
 
-  it( 'get fetches value stored specific namespace, id, key redis key', done => {
+  it('get fetches value stored specific namespace, id, key redis key', done => {
 
     cli.set( config.prefix + 'agenda:123:http://lepassageduponceau.fr', '<html>Les lundi</html>', err => {
+      cache('agenda', 123).get( 'http://lepassageduponceau.fr', (err, value) => {
 
-      sCache( 'agenda', 123 ).get( 'http://lepassageduponceau.fr', ( err, value ) => {
-
-        value.should.equal( '<html>Les lundi</html>' );
+        value.should.equal('<html>Les lundi</html>');
 
         done();
 
-      } );
+      });
+    });
 
-    } );
-
-  } );
+  });
 
 
   it( 'get returns null if no value was found', done => {
 
-    sCache( 'agenda', 456 ).get( 'bloublou', ( err, value ) => {
+    cache('agenda', 456).get('bloublou', (err, value) => {
 
-      should( err ).equal( null );
+      should(err).equal(null);
 
-      should( value ).equal( null );
+      should(value).equal(null);
 
       done();
 
-    } );
+    });
 
-  } );
+  });
 
 } );

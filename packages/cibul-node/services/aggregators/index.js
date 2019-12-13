@@ -75,6 +75,9 @@ function init(config, services) {
                 sourceAgenda,
                 batched
               });
+            return {
+              success: true
+            }
           } catch (e) {
             log('error', 'could not add event %s from %s to aggregator %s',
               eventUid,
@@ -82,17 +85,28 @@ function init(config, services) {
               aggregatorAgendaUid,
               e.name === 'validationError' ? e.jse_info.errors : e
             );
+            return {
+              success: false,
+              errors: e.name === 'validationError' ? e.jse_info.errors : e
+            };
           }
         },
         unreferenceEvent: async (sourceAgendaUid, aggregatorAgendaUid, eventUid, { batched }) => {
           try {
             await services.core.agendas(aggregatorAgendaUid).events.remove(eventUid, { batched });
+            return {
+              success: true
+            }
           } catch (e) {
             log('error', 'could not remove event %s from aggregator %s',
               eventUid,
               aggregatorAgendaUid,
               e.name === 'validationError' ? e.jse_info.errors : e
             );
+            return {
+              success: false,
+              errors: e.name === 'validationError' ? e.jse_info.errors : e
+            };
           }
         },
         getEventReference: (agendaUid, eventUid) => services

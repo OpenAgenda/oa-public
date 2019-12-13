@@ -1,5 +1,8 @@
 {
   "attributes" : [ {
+    "name" : "Uid",
+    "mapTo": "uid"
+  }, {
     "name" : "InterfaceLanguage",
     "mapTo" : "interfaceLang"
   }, {

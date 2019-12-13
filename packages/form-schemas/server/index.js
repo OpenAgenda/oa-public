@@ -1,13 +1,14 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const knex = require( 'knex' );
+const _ = require('lodash');
+const knex = require('knex');
 
 const logger = require( '@openagenda/logs' );
 const storeLib = require( '@openagenda/mysql-table-store' );
 
 const FormSchema = require( '../iso/FormSchema' );
-const merge = require( '../iso/merge' );
+const merge = require('../iso/merge');
+const markdown = require('../iso/markdown');
 const legacy = require( './legacy' );
 const filesMw = require( './middleware/files' );
 
@@ -24,7 +25,8 @@ module.exports = {
   legacy,
   shutdown,
   utils: {
-    merge
+    merge,
+    markdown
   }
 }
 

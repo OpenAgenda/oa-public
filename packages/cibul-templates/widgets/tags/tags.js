@@ -28,7 +28,7 @@ function widget( elem, options ) {
 
   selectedTag = false,
 
-  tags = [], tagSlugs = [],
+  tags = [], tagSlugs = [], unusedTags = [],
 
   isExclusive = false,
 
@@ -197,7 +197,11 @@ function widget( elem, options ) {
 
     _clearWidgetRequestTags();
 
-    requestTags.push( tag.slug );
+    if ( isExclusive ) {
+      requestTags = [ tag.slug ];
+    } else {
+      requestTags.push( tag.slug );
+    }
 
     _update();
 
@@ -319,6 +323,13 @@ function widget( elem, options ) {
 
     }
 
+    const usedTags = data.ev.reduce((usedTags, e) => {
+      if (!e.t) return usedTags;
+      return usedTags.concat(e.t.filter(slug => tagSlugs.includes(slug) && !usedTags.includes(slug)));
+    }, []);
+
+    unusedTags = tagSlugs.filter(s => !usedTags.includes(s));
+
     log( 'widget initialized with %s tags', tags.length );
 
   }
@@ -363,6 +374,12 @@ function widget( elem, options ) {
 
       }
 
+      if ( unusedTags.includes(tag.s) ) {
+
+        classes.push( 'unused' );
+
+      }
+
       if ( !count ) classes.push( 'no-current-match' );
 
       if ( typeof tag.g !== 'undefined' ) {
@@ -377,13 +394,13 @@ function widget( elem, options ) {
 
       }
 
-      data.tags.push( {
+      data.tags.push({
         label : tag.t,
         slug : tag.s,
         classes : ' ' + classes.join( ' ' ),
-        selected : selected,
-        count: count
-      } );
+        selected,
+        count
+      });
 
     });
 

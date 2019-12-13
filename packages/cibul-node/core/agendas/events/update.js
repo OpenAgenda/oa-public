@@ -21,7 +21,9 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     events,
     agendas,
     agendaEvents,
-    eventSearch
+    eventSearch,
+    oembed,
+    custom
   } = services;
 
   log('processing', { agendaUid, eventUid, options });
@@ -64,7 +66,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
 
   if (clean.event.longDescription) {
     try {
-      clean.event.links = await processOEmbed( clean.event.longDescription, clean.event.links );
+      clean.event.links = await processOEmbed(oembed, clean.event.longDescription, clean.event.links);
       log( 'retrieved %s links', clean.event.links.length );
     } catch ( e ) {
       log( 'error', 'could not retrieve oembeds', e );
@@ -181,14 +183,14 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     servicesResults.before.agendaEvent = result.before;
   }
 
-  if (!partial) {
+  if (!draft) {
     try {
       await legacy.tagsAndCustom.set( agenda.id, servicesResults.updated.event.uid, [
         agenda.formSchema,
         _.get( agenda, 'network.formSchema' )
       ], [
-        clean.custom,
-        clean.networkCustom
+        partial && agenda.formSchemaId ? await custom(agenda.formSchemaId).get(eventUid) : clean.custom,
+        partial && agenda.network && agenda.network.formSchemaId ? await custom(agenda.network.formSchemaId).get(eventUid) : clean.networkCustom
       ] );
     } catch ( e ) {
       log( 'error', 'failed to set legacy tags and custom data', e );

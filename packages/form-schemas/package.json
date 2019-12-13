@@ -1,6 +1,6 @@
 {
   "name": "@openagenda/form-schemas",
-  "version": "1.6.3",
+  "version": "1.7.1",
   "description": "Handle event data structure configuration storage",
   "main": "server/index.js",
   "repository": {
@@ -37,6 +37,7 @@
     "react-dom": "^16.12.0",
     "react-dropzone": "^5.0.1",
     "react-markdown": "^4.0.4",
+    "sanitize-html": "^1.20.1",
     "slate": "^0.34.7",
     "slate-html-serializer": "^0.6.13",
     "slate-react": "^0.13.4",

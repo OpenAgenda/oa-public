@@ -52,25 +52,33 @@
         },
         {
           "name": "TicketUrl",
-          "mapTo": "ticketLink"
+          "mapTo": "registrationUrl"
         }
       ],
-      "children": [
-        {
-          "mapTo": "tags",
-          "name": "Tags",
-          "attributes": [
-            {
-              "mapTo": "id",
-              "name": "TagId"
-            },
-            {
-              "mapTo": "label",
-              "name": "Tag"
-            }
-          ]
-        }
-      ]
+      "children": [{
+        "mapTo": "tags",
+        "name": "Tags",
+        "attributes": [{
+          "mapTo": "id",
+          "name": "TagId"
+        },{
+          "mapTo": "label",
+          "name": "Tag"
+        }]
+      }, {
+        "mapTo" : "registration",
+        "name" : "Registration",
+        "attributes" : [{
+          "name" : "Prefix",
+          "mapTo" : "prefix"
+        }, {
+          "name" : "Type",
+          "mapTo" : "type"
+        }, {
+          "name" : "Value",
+          "mapTo" : "value"
+        }]
+      }]
     }
   ]
 }

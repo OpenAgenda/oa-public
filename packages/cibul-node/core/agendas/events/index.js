@@ -13,7 +13,7 @@ module.exports = (services, agendaUid) => {
   return {
     get: get.bind( null, agendaUid ),
     list: list.bind( null, agendaUid ),
-    create: create.bind( null, agendaUid ),
+    create: create.bind(null, services, agendaUid),
     add: add.bind( null, agendaUid ),
     remove: remove.bind( null, agendaUid ),
     update: update.bind(null, services, agendaUid),

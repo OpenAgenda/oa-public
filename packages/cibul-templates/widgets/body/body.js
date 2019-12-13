@@ -146,7 +146,7 @@ function widget( elem, options ) {
 
           log( 'received update from frame: %s', JSON.stringify( frameMessage.update ) );
 
-          controller.update( 'body', frameMessage.update );
+          controller.update( 'body', frameMessage.update, frameMessage.isExclusive );
 
           change( controller.getCurrentQuery() );
 

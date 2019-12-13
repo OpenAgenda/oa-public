@@ -43,15 +43,12 @@ app.get( '/', ( req, res, next ) => {
 
 } );
 
-reload( server, app );
-
-
 /**
  * render ejs template
  */
 app.get( /ejs$/, ( req, res, next ) => {
 
-  res.send( 
+  res.send(
     renderEjs( templatesBase + req.path )
     .replace( '</head>', '<script src="/reload/reload.js"></script></head>' )
   );
@@ -83,11 +80,10 @@ app.get( /css$/, ( req, res, next ) => {
  * images
  */
 
-app.get( /(png|jpg|jpeg|svg|eot|ttf|woff)$/, ( req, res, next ) => {
+app.get(/(png|jpg|jpeg|svg|eot|ttf|woff)$/, (req, res, next) => {
+  const stream = fs.createReadStream(templatesBase + req.path);
 
-  let stream = fs.createReadStream( templatesBase + req.path );
-
-  res.set( 'Content-Type', ( {
+  res.set( 'Content-Type', ({
     png: 'image/png',
     jpg: 'image/jpg',
     jpeg: 'image/jpeg',
@@ -95,26 +91,21 @@ app.get( /(png|jpg|jpeg|svg|eot|ttf|woff)$/, ( req, res, next ) => {
     eot: 'application/vnd.ms-fontobject',
     ttf: 'application/font-sfnt',
     woff: 'application/font-woff'
-  } )[ req.path.split( '.' ).pop() ] );
+  })[req.path.split( '.' ).pop()]);
 
-  stream.on( 'open', () => {
+  stream.on('open', () => {
+    stream.pipe(res);
+  });
 
-    stream.pipe( res );
+  stream.on('error', err => {
+    console.error(err);
+  });
 
-  } );
-
-  stream.on( 'error', err => {
-
-    console.error( err );
-
-  } );
-
-  stream.on( 'end', () => {
-
+  stream.on('end', () => {
     res.end();
+  });
+});
 
-  } );
-
-} );
-
-server.listen( process.env.PORT || 3000 );
+reload(app).then(reloadReturned => {
+  server.listen(process.env.PORT || 3000);
+});

@@ -207,8 +207,6 @@ function _prepare( query, options, cb ) {
     params.showAll
   );
 
-
-
   cb( params, esQuery );
 
 }
@@ -251,6 +249,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
     'lang',
     'age',
     'uids',
+    'excludedUids',
     'updatedAtAfter'
   ].forEach( function( name ) {
 
@@ -390,34 +389,25 @@ function _clean( query, params ) {
 
   }
 
-
-  if ( query.uids ) {
+  ['uids', 'excludedUids'].forEach(uidField => {
+    if (!query[uidField]) return;
+    const values = query[uidField];
 
     let uids = [];
 
     // large arrays seem to be considered as objects. They must be reconverted to arrays
-    if ( _.isArray( query.uids ) ) {
-
-      uids = query.uids;
-
-    } else if ( _.isObject( query.uids ) ) {
-
-      Object.keys( query.uids ).forEach( k => {
-
-        uids.push( query.uids[ k ] );
-
-      } );
-
+    if (_.isArray(values)) {
+      uids = values;
+    } else if (_.isObject(values)) {
+      Object.keys(values).forEach(k => {
+        uids.push(values[k]);
+      });
     } else {
-
-      uids = [ query.uids ];
-
+      uids = [values];
     }
 
-    clean.uids = uids.map( uid => parseInt( uid ) ).filter( uid => !!uid );
-
-  }
-
+    clean[uidField] = uids.map(uid => parseInt(uid)).filter(uid => !!uid);
+  });
 
   if ( query.featured !== undefined ) {
 
