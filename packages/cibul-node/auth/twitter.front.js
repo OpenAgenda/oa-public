@@ -4,6 +4,8 @@ const _ = require( 'lodash' );
 const w = require( 'when' );
 const log = require( '@openagenda/logs' )( 'auth/twitter.front' );
 const sessions = require( '@openagenda/sessions' );
+const labels = require('@openagenda/labels/auth/errors');
+const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
 const cmn = require( '../lib/commons-app' );
 const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'twitter' );
@@ -11,6 +13,8 @@ const genUrl = require( '../services/genUrl' );
 const agendaSvc = require( '../services/agenda' );
 const usersSvc = require( '../services/users' );
 const config = require( '../config' );
+
+const getLabel = makeLabelGetter(labels);
 
 
 const key = _.get( config, 'auth.twitter.key' );
@@ -305,9 +309,9 @@ async function _createAndSend( values ) {
 
     log( 'loaded user %s', JSON.stringify( result ) );
 
-    if ( !result ) throw 'no account was found';
+    if ( !result ) throw getLabel('noAccountFound', values.req.lang);
 
-    if ( result.isActivated ) throw 'the account is already activated';
+    if ( result.isActivated ) throw getLabel('accountAlreadyActivated', values.req.lang);
 
     values.user = result;
 
