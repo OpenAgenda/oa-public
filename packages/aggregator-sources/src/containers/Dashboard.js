@@ -252,7 +252,10 @@ function Dashboard({ agenda, agendaSchema }) {
           </button>
         </p>
 
-        <SourcesList sources={filteredSources} />
+        <SourcesList
+          sources={filteredSources}
+          aggregatorSchema={agendaSchema}
+        />
 
         {!filteredSources || !filteredSources.length ? (
           <div className="text-center text-muted margin-v-md">

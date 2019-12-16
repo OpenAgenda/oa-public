@@ -32,6 +32,15 @@ const messages = defineMessages({
     id: 'aggregator-sources.SourcesList.noFilter',
     defaultMessage: 'No filter'
   },
+  actionsSummary: {
+    id: 'aggregator-sources.SourcesList.actionsSummary',
+    defaultMessage:
+      '{actionCount, plural, =1 {1 action} other {# actions}} on {actionFields}'
+  },
+  noAction: {
+    id: 'aggregator-sources.SourcesList.noAction',
+    defaultMessage: 'No action'
+  },
   seeAgenda: {
     id: 'aggregator-sources.SourcesList.seeAgenda',
     defaultMessage: 'See agenda'
@@ -42,27 +51,42 @@ const messages = defineMessages({
   }
 });
 
-function RulesSummary({ rules }) {
+function RulesSummary({ rules, schema }) {
   const intl = useIntl();
 
-  const counters = useMemo(
-    () => (rules || []).reduce(
-      (accu, next) => {
-        const values = ruleToValues(next);
+  const counters = useMemo(() => {
+    const result = (rules || []).reduce(
+      (accu, rule) => {
+        const values = ruleToValues(rule, schema);
 
         if (values.type === 'location') {
           accu.geoCount += 1;
         }
+
         if (values.type === 'tags') {
           accu.labelCount += 1;
         }
 
+        if (values.actions.length) {
+          accu.actionCount += values.actions.length;
+
+          Array.prototype.push.apply(
+            accu.actionFields,
+            values.actions.flatMap(v => (
+              <em key={v.field.value}>{v.field.label}</em>
+            ))
+          );
+        }
+
         return accu;
       },
-      { geoCount: 0, labelCount: 0 }
-    ),
-    [rules]
-  );
+      {
+        geoCount: 0, labelCount: 0, actionCount: 0, actionFields: []
+      }
+    );
+
+    return result;
+  }, [rules, schema]);
 
   const hasFilter = counters.geoCount + counters.labelCount !== 0;
 
@@ -73,6 +97,15 @@ function RulesSummary({ rules }) {
       {hasFilter
         ? intl.formatMessage(messages.filtersSummary, counters)
         : intl.formatMessage(messages.noFilter)}
+
+      <br />
+
+      {counters.actionCount > 0
+        ? intl.formatMessage(messages.actionsSummary, {
+          ...counters,
+          actionFields: intl.formatList(counters.actionFields)
+        })
+        : intl.formatMessage(messages.noAction)}
 
       {hasFilter ? (
         <MoreInfo
@@ -90,7 +123,7 @@ function RulesSummary({ rules }) {
   );
 }
 
-function SourceItem({ source }) {
+function SourceItem({ source, aggregatorSchema }) {
   const intl = useIntl();
   const dispatch = useDispatch();
   const apiClient = useApiClient();
@@ -151,7 +184,7 @@ function SourceItem({ source }) {
           )}
         </div>
 
-        <RulesSummary rules={source.rules} />
+        <RulesSummary rules={source.rules} schema={aggregatorSchema} />
 
         <div className="actions">
           <button
@@ -177,10 +210,16 @@ function SourceItem({ source }) {
   );
 }
 
-export default function SourcesList({ sources }) {
+export default function SourcesList({ sources, aggregatorSchema }) {
   const renderSource = useCallback(
-    source => <SourceItem key={source.id} source={source} />,
-    []
+    source => (
+      <SourceItem
+        key={source.id}
+        source={source}
+        aggregatorSchema={aggregatorSchema}
+      />
+    ),
+    [aggregatorSchema]
   );
 
   if (!sources || !sources.length) {
