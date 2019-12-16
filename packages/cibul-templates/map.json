@@ -72,6 +72,11 @@
   },
 
   {
+    "js" : "layout/js/landing.js",
+    "prod" : "landing.js"
+  },
+
+  {
     "js" : "widgets/spinner/spinner.js",
     "prod" : "embed/oaSpinnerWidget.js"
   },
