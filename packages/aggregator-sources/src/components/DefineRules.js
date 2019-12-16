@@ -18,6 +18,10 @@ const messages = defineMessages({
     id: 'aggregator-sources.DefineRules.requiredType',
     defaultMessage: 'Required type'
   },
+  allEvents: {
+    id: 'aggregator-sources.DefineRules.allEvents',
+    defaultMessage: 'All events'
+  },
   noFilter: {
     id: 'aggregator-sources.DefineRules.noFilter',
     defaultMessage: 'No filter'
@@ -92,6 +96,11 @@ const messages = defineMessages({
     id: 'aggregator-sources.DefineRules.missingRequiredFields',
     defaultMessage:
       '{fieldsCount, plural, =1 {The field {fields} is required} other {The fields {fields} are required}}.'
+  },
+  withActions: {
+    id: 'aggregator-sources.DefineRules.withActions',
+    defaultMessage:
+      '{actionCount, plural, =1 {avec 1 action} other {avec # actions}}'
   }
 });
 
@@ -319,7 +328,7 @@ function RuleItem({ rule, onUpdate, onRemove }) {
         <div className="rule-value">
           {queryType === 'all' ? (
             <div className="margin-top-xs">
-              {intl.formatMessage(messages.allEvents)}
+              {intl.formatMessage(messages.noFilter)}
             </div>
           ) : null}
 
@@ -331,11 +340,22 @@ function RuleItem({ rule, onUpdate, onRemove }) {
         </div>
 
         <span className="text-muted">
+          {queryType === 'all' ? intl.formatMessage(messages.allEvents) : null}
+
           {queryType === 'location'
             ? intl.formatMessage(messages.locationFilter)
             : null}
 
           {queryType === 'tags' ? intl.formatMessage(messages.tagFilter) : null}
+
+          {rule?.actions?.length ? (
+            <>
+              {' '}
+              {intl.formatMessage(messages.withActions, {
+                actionCount: rule.actions.length
+              })}
+            </>
+          ) : null}
         </span>
       </div>
 
