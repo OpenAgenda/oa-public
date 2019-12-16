@@ -12,7 +12,8 @@ const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
 module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   const {
     agendaEvents,
-    events
+    events,
+    members
   } = services;
 
   log('adding event %s to agenda %s', eventUid, agendaUid);
@@ -20,12 +21,23 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   const {
     aggregated,
     sourceAgenda,
-    batched
+    batched,
+    context,
+    access,
+    returnPayload
   } = Object.assign({
     aggregated: false,
     sourceAgenda: null,
-    batched: false
+    batched: false,
+    context: {},
+    access: 'public',
+    returnPayload: false
   }, options || {});
+
+  const member = context.userUid ? await members.get({
+    agendaUid,
+    userUid: context.userUid
+  }) : null;
 
   const {
     clean,
@@ -33,10 +45,11 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
     evaluateEvent: false,
     sourceAgenda,
-    aggregated
+    aggregated,
+    member
   });
 
-  const payload = createPayload(services, agenda, 'added');
+  const payload = createPayload(services, agenda);
 
   // if event is already referenced on agenda, this fails
   if (await agendaEvents(agendaUid).get(eventUid)) {
@@ -55,8 +68,11 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   await doAdd(services, payload, clean, {
     batched,
     aggregated,
-    sourceAgenda
+    sourceAgenda,
+    userUid: member ? member.userUid : null
   });
 
-  return payload.getResponse('added');
+  const response = await payload.getResponse('added', access);
+
+  return returnPayload ? response : response.added;
 }

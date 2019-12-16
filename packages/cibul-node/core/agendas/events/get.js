@@ -68,6 +68,10 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     !payload.getItem('event').draft
   ) return null;
 
+  if (!payload.hasItem('event')) {
+    return returnPayload ? payload.getResponse('event', access) : null;
+  }
+
   const loadCustomFields = payload.hasItem('event') || customOnly;
 
   if (loadCustomFields && agenda.formSchemaId) {
@@ -85,7 +89,6 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   }
 
   const result = await payload.getResponse('event', access);
-
   return returnPayload ? result : result.event;
 }
 

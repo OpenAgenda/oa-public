@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS `legacy_deleted` (
+CREATE TABLE IF NOT EXISTS `deleted` (
   id BIGINT AUTO_INCREMENT,
   deleted_id BIGINT,
   uid BIGINT,

@@ -12,6 +12,7 @@ const validate = require( '@openagenda/events/service/validate' );
 const validateAgendaEvent = require( '@openagenda/agenda-events' ).validate;
 
 const eventSchema = require( '@openagenda/event-form/build/schema' );
+const members = require('@openagenda/members');
 const extractLanguages = require( '@openagenda/event-form/build/utils/extractLanguages' );
 const { fromEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
@@ -51,7 +52,8 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
     optionalSecondaryFields: false,
     sourceAgenda: null,
     aggregated: false,
-    member: null
+    member: null,
+    access: 'public'
   }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
 
   // api provides event data in event service format ( deep image object that includes credits and variants )
@@ -150,6 +152,7 @@ function _distributeCleanData(consolidatedClean, schemaExtensions) {
   }
 }
 
+
 function _getLocation(agendaLocations, data) {
   return promisify(agendaLocations.get)({
     uid: _.get(data, 'location.uid', _.get(data, 'locationUid')),
@@ -158,7 +161,6 @@ function _getLocation(agendaLocations, data) {
     fromDb: true
   });
 }
-
 
 function _consolidatedValidate(schema, data, { draft }) {
   const fs = new FormSchema( schema );

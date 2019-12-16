@@ -28,7 +28,7 @@ const raw = [
   'legacyAgendaTag.create.sql',
   'legacyTagSet.create.sql',
   'legacyCategorySet.create.sql'
-].map( fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace( /;(\n|)$/, '' ) );
+].map( fx => fs.readFileSync( __dirname + '/sql/' + fx, 'utf-8' ).replace( /;(\n|)$/, '' ) );
 
 
 raw.push( knex( 'agenda' ).insert( [ {
@@ -93,7 +93,7 @@ raw.push( knex( 'user' ).insert( {
   uid: 92
 } ) );
 
-raw.push( knex( 'member' ).insert( {
+raw.push( knex( 'reviewer' ).insert( {
   id: 1,
   user_id: 1,
   review_id: 1,

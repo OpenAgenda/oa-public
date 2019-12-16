@@ -8,7 +8,7 @@ const mysql = require( 'mysql' );
 const redis = require( 'redis' );
 const { promisify } = require( 'util' );
 
-const fixtures = require( './fixtures/05_core_agenda_events_custom' );
+const fixtures = require( './fixtures/06_core_agenda_events_custom' );
 
 const ih = require( 'immutability-helper' );
 const should = require( 'should' );

@@ -11,11 +11,12 @@ const validate = require('./validate');
 
 module.exports = (services, agendaUid) => ({
   get: get.bind(null, services, agendaUid),
-  list: list.bind( null, agendaUid ),
+  list: list.bind(null, agendaUid),
   create: create.bind(null, services, agendaUid),
   add: add.bind(null, services, agendaUid),
-  remove: remove.bind( null, agendaUid ),
+  remove: remove.bind(null, services, agendaUid),
   update: update.bind(null, services, agendaUid),
+  patch: update.patch.bind(null, services, agendaUid),
   validate: validate.bind(null, services, agendaUid),
   batch: batch(services).bind(null, agendaUid)
 });

@@ -28,7 +28,7 @@ raw.push(knex('review').insert([{
 }, {
   id: 219,
   uid: 17026800,
-  title: 'Le Fennec',,
+  title: 'Le Fennec',
   slug: 'le-fennec',
   description: 'Une petite description',
   owner_id: 50304,
@@ -38,7 +38,7 @@ raw.push(knex('review').insert([{
   credentials: '{}',
   form_schema_id: 3,
   settings: JSON.stringify({})
-}]);
+}]));
 
 raw.push(knex('user').insert([{
   id: 50304,
@@ -635,7 +635,7 @@ raw.push(knex('form_schema').insert([{
   })
 }]));
 
-raw.push(knex('member').insert([{
+raw.push(knex('reviewer').insert([{
   id: 71385,
   user_id: 50304,
   review_id: 218,
@@ -652,7 +652,189 @@ raw.push(knex('member').insert([{
       contact_position: 'directeur artistique',
       email: 'hello@lechatfume.fr'
     }
+  }),
+  organization: 'le-chat-fume',
+  deleted_user: 0,
+  actions_counter: 1
+}]));
+
+raw.push(knex('location').insert([{
+  id: 1,
+  uid: 123,
+  agenda_id: 218,
+  slug: 'la-boutique',
+  placename: 'La boutique',
+  address: '29 passage du Ponceau, Paris',
+  city: 'Paris',
+  country: 'FR',
+  latitude: 48.867688,
+  longitude: 2.351739,
+  store: JSON.stringify({
+    extId: 'fdsqfdsq'
   })
+}]));
+
+raw.push(knex('review_category').insert([{
+  id: 3454,
+  slug: 'animation-loto',
+  category: 'Animation - Loto',
+  review_id: 218
+}, {
+  id: 3455,
+  slug: 'atelier',
+  category: 'Atelier',
+  review_id: 218
+}, {
+  id: 3456,
+  slug: 'ceremonie',
+  category: 'Cérémonie',
+  review_id: 218
+}, {
+  id: 3457,
+  slug: 'cinema-projection',
+  category: 'Cinéma - Projection',
+  review_id: 218
+}]));
+
+raw.push(knex('category_set').insert([{
+  id: 218,
+  store: JSON.stringify({
+    categories: [
+      {
+        "id": 3454,
+        "label": "Animation - Loto",
+        "slug": "animation-loto"
+      },
+      {
+        "id": 3455,
+        "label": "Atelier",
+        "slug": "atelier"
+      },
+      {
+        "id": 3456,
+        "label": "Cérémonie",
+        "slug": "ceremonie"
+      },
+      {
+        "id": 3457,
+        "label": "Cinéma - Projection",
+        "slug": "cinema-projection"
+      }
+    ]
+  })
+}]));
+
+raw.push(knex('tag_set').insert([{
+  id: 218,
+  store: JSON.stringify({
+    groups: [
+      {
+        tags: [
+          {
+            id: 9661,
+            label: "Administration",
+            schemaOptionId: '2.3',
+            slug: "administration"
+          },
+          {
+            id: 9662,
+            label: "Aéronautique",
+            schemaOptionId: '2.4',
+            slug: "aeronautique"
+          }
+        ]
+      }
+    ]
+  })
+}]));
+
+raw.push(knex('review_tag').insert([{
+  id: 9661,
+  slug: 'administration',
+  review_id: 218,
+  tag: 'Administration'
+}, {
+  id: 9662,
+  slug: 'aeronautique',
+  review_id: 218,
+  tag: 'Aéronotique'
+}]));
+
+raw.push(knex('event').insert([{
+  id: 1,
+  uid: 19201989,
+  slug: 'un-event',
+  owner_id: 50304,
+  created_at: '2019-12-14T10:00:00.000Z',
+  updated_at: '2019-12-14T10:00:00.000Z'
+}]));
+
+raw.push(knex('event_location').insert([{
+  id: 1,
+  location_id: 1,
+  event_id: 1,
+  created_at: '2019-12-14T10:00:00.000Z',
+  updated_at: '2019-12-14T10:00:00.000Z'
+}]));
+
+raw.push(knex('occurrence').insert([{
+  id: 1,
+  location_id: 1,
+  event_id: 1,
+  date: '2019-05-06',
+  time_start: '10:00:00',
+  time_end: '11:00:00'
+}]));
+
+raw.push(knex('event_2').insert([{
+  id: 12,
+  uid: 19201989,
+  slug: 'un-event',
+  title: JSON.stringify({
+    fr: 'Un événement'
+  }),
+  owner_uid: 63170203,
+  creator_uid: 63170203,
+  timings: JSON.stringify([{
+    begin: new Date('2019-05-06T10:00:00'),
+    end: new Date('2019-05-06T11:00:00')
+  }]),
+  location_uid: 123,
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00'),
+}, {
+  id: 13,
+  uid: 83902931,
+  draft: 1,
+  slug: 'un-evenement-brouillon',
+  owner_uid: 63170203,
+  creator_uid: 63170203,
+  title: JSON.stringify({
+    fr: 'Un brouillon'
+  }),
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
+}]));
+
+raw.push(knex('agenda_event').insert([{
+  event_uid: 19201989,
+  agenda_uid: 17026855,
+  user_uid: 63170203,
+  state: 2,
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00'),
+  can_edit: 1
+}]));
+
+raw.push(knex('review_article').insert([{
+  id: 123,
+  event_id: 1,
+  review_id: 218,
+  state: 2,
+  is_published: 1,
+  user_id: 50304,
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
 }]));
 
 module.exports = raw.join(';\n') + ';';

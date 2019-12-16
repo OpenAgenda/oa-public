@@ -74,7 +74,7 @@ module.exports = async (services, payload, clean, options = {}) => {
     });
 
     if (result.errors.length) {
-      log( 'error', 'could not set custom data', result.errors );
+      log('error', 'could not set custom data', result.errors);
     }
 
     payload.setItem('custom.agenda', result.before, result.custom);

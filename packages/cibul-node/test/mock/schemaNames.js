@@ -5,7 +5,7 @@ module.exports = {
   agenda: 'agenda',
   eventService: 'event_2',
   agendaEventService: 'agenda_event',
-  deleted: 'legacy_deleted',
+  deleted: 'deleted',
   event: 'legacy_event',
   occurrence: 'legacy_occurrence',
   eventTranslation: 'legacy_event_translation',

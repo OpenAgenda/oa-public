@@ -18,7 +18,7 @@ const setCustom = require('../utils/setCustom');
 const merge = require('../utils/merge');
 const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
 
-module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
+async function update(services, agendaUid, eventUid, data, options = {}) {
   log('processing', { agendaUid, eventUid, options });
 
   const {
@@ -35,13 +35,17 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     partial,
     formSchemaDataFormat,
     defaultLang,
-    batched
+    batched,
+    access,
+    returnPayload
   } = {
     draft: false,
     partial: false,
     formSchemaDataFormat: false,
     defaultLang: 'en',
     batched: false,
+    access: 'public',
+    returnPayload: false,
     ...options
   };
 
@@ -52,7 +56,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     draft,
     formSchemaDataFormat,
     optionalSecondaryFields: true,
-    partial
+    partial,
+    access
   });
 
   const payload = createPayload(services, agenda);
@@ -75,7 +80,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
 
   try {
     result = await events.update({ uid: eventUid }, eventServiceDataFormat, {
-    context: {
+      context: {
         agendaUid,
         userUid: contextUserUid,
         updateSearchIndex: false
@@ -138,7 +143,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   }
 
   if (draft) {
-    return payload.getResponse('updated');
+    const response = await payload.getResponse('updated', access);
+    return returnPayload ? response : response.updated;
   }
 
   // event is not draft (anymore)
@@ -208,9 +214,18 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     batched
   });
 
-  return payload.getResponse('updated');
+  const response = await payload.getResponse('updated', access);
+
+  return returnPayload ? response : response.updated;
 }
 
+function patch(services, agendaUid, eventUid, data, options = {}) {
+  return update(services, agendaUid, eventUid, data, {
+    ...options,
+    partial: true
+  });
+}
 
+module.exports = Object.assign(update, { patch });
 
 

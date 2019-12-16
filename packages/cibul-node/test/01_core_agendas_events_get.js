@@ -15,7 +15,7 @@ const core = require('../core');
 
 const testConfig = require('./testConfig');
 
-describe.only('core - fuctional (server): core agenda events get', function() {
+describe.only('core - functional (server): core agenda events get', function() {
   this.timeout(20000);
 
   before(async () => {
@@ -196,6 +196,14 @@ describe.only('core - fuctional (server): core agenda events get', function() {
 
     it('id field is present if formSchema if access is internal', () => {
       internalResult.formSchema.fields.filter(f => f.field === 'id').length.should.equal(1);
+    });
+
+  });
+
+  describe('other', () => {
+
+    it('get non-existing event returns null', async () => {
+      should(await core.agendas(2).events.get(18978979)).equal(null);
     });
 
   });

@@ -10,23 +10,31 @@ const formSchemas = require( '@openagenda/form-schemas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 
 const aggregators = require('../../../services/aggregators').instance;
-const getAgenda = require( '../utils/getAgenda' );
+const createPayload = require('../utils/createPayload');
+const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
 const merge = require('../utils/merge');
 
 const log = require('@openagenda/logs')('core/agendas/events/remove');
 
-module.exports = async (agendaUid, eventUid, options) => {
+module.exports = async (services, agendaUid, eventUid, options) => {
   log('removing event %s from agenda %s', eventUid, agendaUid, options);
+
+  const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
+
   const contextUserUid = _.get(options, 'context.userUid');
 
   const {
-    batched
+    access,
+    batched,
+    returnPayload
   } = {
     batched: false,
+    access: 'public',
+    returnPayload: false,
     ...(options || {})
   };
 
-  const agenda = await getAgenda(agendaUid);
+  const payload = createPayload(services, agenda);
 
   const {
     formSchemaId
@@ -47,6 +55,8 @@ module.exports = async (agendaUid, eventUid, options) => {
     throw new VError('event of uid %s not found', eventUid);
   }
 
+  payload.setItem('event', event);
+
   const deletion = event.agendaUid === parseInt(agendaUid);
 
   if (!event.draft) {
@@ -62,11 +72,11 @@ module.exports = async (agendaUid, eventUid, options) => {
     });
 
     if (result.success) {
-      removed.agendaEvent = result.removed;
+      payload.setItem('agendaEvent', result.removed);
     }
   }
 
-  if (formSchemaId) {
+  if (formSchemaId && await custom(formSchemaId).get(eventUid)) {
     const result = await custom(formSchemaId).remove(eventUid, {
       transferToLegacy: !event.draft,
       context: {
@@ -77,7 +87,7 @@ module.exports = async (agendaUid, eventUid, options) => {
     } );
 
     if (result.success) {
-      removed.custom = result.removed;
+      payload.setItem('custom.agenda', result.removed);
     }
   }
 
@@ -94,10 +104,6 @@ module.exports = async (agendaUid, eventUid, options) => {
       userUid: contextUserUid,
       transferToLegacy: !event.draft
     });
-
-    if (result.success) {
-      removed.event = result.event;
-    }
   }
 
   if (!event.draft) {
@@ -108,8 +114,7 @@ module.exports = async (agendaUid, eventUid, options) => {
     });
   }
 
-  return {
-    success: true,
-    removed
-  };
+  const result = await payload.getResponse('removed', access);
+
+  return returnPayload ? result : result.removed;
 }

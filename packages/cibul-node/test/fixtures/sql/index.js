@@ -24,6 +24,7 @@ module.exports = {
     'legacyEventTranslation.create.sql',
     'legacyEventLocationTranslation.create.sql',
     'legacyOccurrence.create.sql',
+    'legacyDeleted.create.sql',
     'legacyAgendaEvent.create.sql',
     'legacyAgendaEventTag.create.sql',
     'legacyAgendaCategory.create.sql',

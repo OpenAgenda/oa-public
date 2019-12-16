@@ -81,12 +81,6 @@ raw.push(knex('user').insert([{
   updated_at: '2017-11-15 15:50:30'
 }]));
 
-raw.push(knex('reviewer').insert([{
-  credential: 2,
-  user_uid: 63170200,
-  agenda_uid: 17026855
-}]));
-
 raw.push(knex('form_schema').insert([{
   id: 2,
   store: JSON.stringify({
@@ -684,10 +678,12 @@ raw.push(knex('form_schema').insert([{
   })
 }]));
 
-raw.push(knex('member').insert([{
+raw.push(knex('reviewer').insert([{
   id: 71385,
   user_id: 50304,
   review_id: 218,
+  user_uid: 63170200,
+  agenda_uid: 17026855,
   credential: 1,
   created_at: '2017-10-30 14:21:07',
   updated_at: '2017-10-30 14:21:07',
