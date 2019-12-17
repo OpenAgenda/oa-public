@@ -49,7 +49,8 @@ module.exports = ({
     }, {
       field: 'slug',
       fieldType: 'text',
-      optional: false
+      optional: false,
+      write: ['internal']
     }, {
       field: 'private',
       fieldType: 'boolean',
