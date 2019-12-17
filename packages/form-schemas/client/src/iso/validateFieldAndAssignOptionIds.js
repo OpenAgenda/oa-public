@@ -1,6 +1,6 @@
 "use strict";
 
-const validateField = require( './validateField' );
+const validateField = require('./validateField');
 
 const {
   extractNextOptionId,
@@ -9,14 +9,15 @@ const {
   fieldHasSuperiorOptions
 } = require( './fieldOptions' );
 
-module.exports = ( dirtyField, { custom, defaultLabelLanguage, nextOptionId } ) => {
+module.exports = ( dirtyField, { custom, defaultLabelLanguage, nextOptionId, requireLabels } ) => {
 
   let updatedNextOptionId = nextOptionId;
 
-  const cleanField = validateField( dirtyField, {
+  const cleanField = validateField(dirtyField, {
     custom,
-    defaultLabelLanguage
-  } );
+    defaultLabelLanguage,
+    requireLabels
+  });
 
   if ( fieldHasUnnassignedOptions( cleanField ) ) {
 

@@ -18,16 +18,19 @@ const {
 } = require( './fieldOptions' );
 
 const validateField = require( './validateField' );
-const validateFieldAndAssignOptionIds = require( './validateFieldAndAssignOptionIds' );
+const validateFieldAndAssignOptionIds = require('./validateFieldAndAssignOptionIds');
 
 const getSchema = require('./getSchema');
 
 module.exports = class {
 
-  constructor( data ) {
+  constructor(data, options = {}) {
 
     // { fields, nextOptionId, res, id, custom }
-    this.data = validate( data, true );
+    this.data = validate(data, {
+      client: true,
+      ...(typeof options === 'boolean' ? { client: options } : options)
+    });
 
   }
 
@@ -244,7 +247,18 @@ module.exports = class {
 
 module.exports.validate = validate;
 
-function validate( data, client = false ) {
+function validate( data, options = {} ) {
+
+  const {
+    client,
+    requireLabels
+  } = {
+    client: false,
+    requireLabels: true,
+    ...(typeof options === 'boolean' ? {
+      client: options
+    } : options)
+  };
 
   let errors = [],
 
@@ -277,9 +291,12 @@ function validate( data, client = false ) {
       const {
         field: cleanField,
         nextOptionId: updatedNextOptionId
-      } = validateFieldAndAssignOptionIds( f, _.pick( clean, [
-        'custom', 'defaultLabelLanguage', 'nextOptionId'
-      ] ) );
+      } = validateFieldAndAssignOptionIds(f, {
+        requireLabels,
+        custom: clean.custom,
+        defaultLabelLanguage: clean.defaultLabelLanguage,
+        nextOptionId: clean.nextOptionId
+      });
 
       clean.nextOptionId = updatedNextOptionId;
 
