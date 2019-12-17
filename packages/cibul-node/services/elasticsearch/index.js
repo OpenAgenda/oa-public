@@ -77,30 +77,26 @@ function agendas( { legacyLib, channel }, agenda ) {
     resync: _resync
   }
 
-  function _search( query, options, cb ) {
-
-    if ( !cb ) {
+  function _search(query, options, cb) {
+    if (!cb) {
       cb = options;
       options = {};
     }
 
-    search( legacyLib, query, _.extend( {
+    search(legacyLib, query, Object.assign({
       agendaId: agenda.id
-    }, options ), cb );
-
+    }, options), cb);
   }
 
-  function _aggregate( query, options, cb ) {
-
-    if ( !cb ) {
+  function _aggregate(query, options, cb) {
+    if (!cb) {
       cb = options;
       options = {};
     }
 
-    aggregate( legacyLib, query, _.extend( {
+    aggregate(legacyLib, query, Object.assign({
       agendaId: agenda.id
-    }, options ), cb );
-
+    }, options), cb);
   }
 
   function _resync( cb ) {
@@ -240,6 +236,7 @@ function _buildESQuery( query, limit, agendaId, showAll ) {
     'tagsOperator',
     'category',
     'org',
+    'operator',
     'what',
     'slug',
     'scope',
@@ -360,7 +357,7 @@ function _clean( query, params ) {
 
   if ( !query ) return clean;
 
-  [ 'what', 'type', 'age', 'scope', 'slug' ].forEach( k => {
+  [ 'what', 'type', 'age', 'scope', 'slug', 'operator' ].forEach( k => {
 
     if ( !query[ k ] ) return;
 
