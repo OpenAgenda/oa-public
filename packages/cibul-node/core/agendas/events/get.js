@@ -68,7 +68,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     !payload.getItem('event').draft
   ) return null;
 
-  if (!payload.hasItem('event')) {
+  if (!payload.hasItem('event') && !customOnly) {
     return returnPayload ? payload.getResponse('event', access) : null;
   }
 
@@ -88,7 +88,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     );
   }
 
-  const result = await payload.getResponse('event', access);
+  const result = await payload.getResponse('event', { access, customOnly });
   return returnPayload ? result : result.event;
 }
 

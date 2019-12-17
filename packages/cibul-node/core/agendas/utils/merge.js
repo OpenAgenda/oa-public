@@ -7,17 +7,19 @@ const eventFormSchema = require( '@openagenda/event-form/src/schema' );
 function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {}) {
   const {
     originAgenda,
-    includeFields
+    includeFields,
+    customOnly
   } = {
     includeFields: null,
     originAgenda: null,
+    customOnly: false,
     ...options
   };
 
 
   const compiled = {};
 
-  if (event) {
+  if (event && !customOnly) {
     Object.keys(event).forEach(eventField => {
       if (includeFields && !includeFields.includes(eventField)) {
         return;
@@ -35,13 +37,13 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
     });
   });
 
-  if (agendaEvent) {
+  if (agendaEvent && !customOnly) {
     ['state', 'featured', 'sourceAgendaUid', 'aggregated'].forEach(aeField => {
       compiled[aeField] = agendaEvent[aeField];
     });
   }
 
-  if (originAgenda) {
+  if (originAgenda && !customOnly) {
     compiled.agenda = originAgenda;
   }
 

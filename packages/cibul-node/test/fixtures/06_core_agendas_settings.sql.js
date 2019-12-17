@@ -1,9 +1,13 @@
-"use strict";
+'use strict';
 
-const fs = require( 'fs' );
-const knex = require( 'knex' )( { client: 'mysql' } );
+const {
+  knex,
+  resetAndCreateTables
+} = require('./sql');
 
-const raw = [
+const raw = resetAndCreateTables();
+
+/*const raw = [
   'reset.sql',
   'agenda.create.sql',
   'network.create.sql',
@@ -27,7 +31,7 @@ const raw = [
   'legacyAgendaCategory.create.sql',
   'legacyAgendaTag.create.sql',
   'legacyTagSet.create.sql'
-].map( fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace( /;(\n|)$/, '' ) );
+].map( fx => fs.readFileSync( __dirname + '/' + fx, 'utf-8' ).replace( /;(\n|)$/, '' ) );*/
 
 
 raw.push( knex( 'agenda' ).insert( [ {
@@ -92,12 +96,12 @@ raw.push( knex( 'user' ).insert( {
   uid: 92
 } ) );
 
-raw.push( knex( 'member' ).insert( {
+raw.push(knex('reviewer').insert({
   id: 1,
   user_id: 1,
   review_id: 1,
   credential: 2
-} ) );
+}));
 
 raw.push( knex( 'location' ).insert( {
   id: 1,

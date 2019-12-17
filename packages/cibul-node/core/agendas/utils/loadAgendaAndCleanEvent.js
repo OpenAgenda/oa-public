@@ -42,7 +42,8 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
     optionalSecondaryFields,
     sourceAgenda,
     aggregated,
-    member
+    member,
+    access
   } = _.assign( {
     defaultLang: null,
     evaluateEvent: true,
@@ -78,8 +79,12 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
 
   const consolidatedSchema = eventSchema( {
     languages,
-    schemaExtensions: _asArray( schemaExtensions ),
-    excludeEventFields: !evaluateEvent
+    schemaExtensions: _asArray( schemaExtensions ).concat({
+      access: {
+        write: access
+      }
+    }),
+    excludeEventFields: !evaluateEvent,
   } );
 
   const clean = {
@@ -94,7 +99,9 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
   // clean consolidated schemas data
 
   try {
-    const validate = new FormSchema(consolidatedSchema).getValidate({ draft });
+    const validate = new FormSchema(consolidatedSchema, {
+      requireLabels: false
+    }).getValidate({ draft });
 
     const consolidatedClean = (partial ? validate.part : validate)(formSchemaData);
 

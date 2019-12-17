@@ -108,7 +108,8 @@ describe('core - functional (server): core agenda events create', function() {
       }, {
         context: {
           userUid: memberUserUid
-        }
+        },
+        access: 'contributor'
       });
     });
 
@@ -178,6 +179,29 @@ describe('core - functional (server): core agenda events create', function() {
         });
       });
 
+      it('legacy entries were created for custom fields', async () => {
+        const legacyEvent = await testConfig
+          .knex('event')
+          .first('*')
+          .where('uid', event.uid);
+
+        const reviewArticle = await testConfig
+          .knex('review_article')
+          .first('id')
+          .where('event_id', legacyEvent.id)
+          .where('review_id', 218);
+
+        const reviewTagArticles = await testConfig
+          .knex('review_tag_article')
+          .select('*')
+          .where('review_article_id', reviewArticle.id);
+
+        reviewTagArticles.map(rta => rta.review_tag_id).should.eql([
+          9661, // Administration (2.3)
+          9662  // Aéronautique (2.4)
+        ]);
+      });
+
     });
 
   });
@@ -207,7 +231,8 @@ describe('core - functional (server): core agenda events create', function() {
         context: {
           userUid: 63170200
         },
-        returnPayload: true
+        returnPayload: true,
+        access: 'contributor'
       });
     });
 
@@ -215,7 +240,7 @@ describe('core - functional (server): core agenda events create', function() {
       Object.keys(result.formSchema).should.eql(['custom', 'fields']);
     });
 
-    it('fields with contributor as "read" access are not provided in schema', () => {
+    it('fields with moderator as access are not provided in schema', () => {
       result.formSchema
         .fields
         .filter(f=> f.field === 'custom_description').length.should.equal(0);
@@ -231,6 +256,10 @@ describe('core - functional (server): core agenda events create', function() {
 
     it('event id is not in result', () => {
       should(result.created.id).equal(undefined);
+    });
+
+    it('agenda is in result', () => {
+      result.agenda.uid.should.equal(17026855);
     });
 
   });
@@ -260,11 +289,11 @@ describe('core - functional (server): core agenda events create', function() {
           userUid: 63170200
         },
         returnPayload: true,
-        access: 'contributor'
+        access: 'moderator'
       });
     });
 
-    it('field with "contributor" in read parameter are provided in result', () => {
+    it('field with "moderator" in read parameter are provided in result', () => {
       result.formSchema
         .fields
         .filter(f=> f.field === 'custom_description').length.should.equal(1);
@@ -289,7 +318,8 @@ describe('core - functional (server): core agenda events create', function() {
         context: {
           userUid: memberUserUid
         },
-        draft: true
+        draft: true,
+        access: 'contributor'
       });
     });
 
@@ -314,7 +344,6 @@ describe('core - functional (server): core agenda events create', function() {
       const data = await services.custom(2).get(event.uid);
 
       data.should.eql({
-        custom_description: ":')",
         intermunicipal_interest: [],
         recurring: [],
         'thematiques-bordeaux-metropole': [],
@@ -357,7 +386,8 @@ describe('core - functional (server): core agenda events create', function() {
         context: {
           userUid: 63170200
         },
-        formSchemaDataFormat: true
+        formSchemaDataFormat: true,
+        access: 'contributor'
       });
     });
 

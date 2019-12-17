@@ -1,15 +1,17 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const knexLib = require( 'knex' );
-const mysql = require( 'mysql' );
-const { promisify } = require( 'util' );
-const should = require( 'should' );
+process.env.NODE_ENV = 'test';
 
-const fixtures = require( './fixtures/06_core_agenda_settings' );
+const _ = require('lodash');
+const knexLib = require('knex');
+const mysql = require('mysql');
+const { promisify } = require('util');
+const should = require('should');
 
-const config = require( '../config' );
-const core = require( '../core' );
+const fixtures = require('./fixtures/06_core_agendas_settings.sql');
+
+const config = require('../config');
+const core = require('../core');
 
 const schemaNames = require( './mock/schemaNames' );
 const getLogConfig = require( './mock/getLogConfig' );

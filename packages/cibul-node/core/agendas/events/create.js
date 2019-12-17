@@ -33,7 +33,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   } = {
     context: {},
     returnPayload: false,
-    access: 'public',
+    access: 'public', // read or write?
     ...options
   }
 
@@ -60,7 +60,8 @@ module.exports = async (services, agendaUid, data, options = {}) => {
   } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
     draft,
     formSchemaDataFormat,
-    member
+    member,
+    access
   });
 
   const payload = createPayload(services, agenda);

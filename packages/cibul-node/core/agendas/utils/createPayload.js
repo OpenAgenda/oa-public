@@ -32,7 +32,16 @@ module.exports = (services, agenda, primaryKey, options) => {
 }
 
 function makeGetResponse(services, data) {
-  return async (primaryKey = 'event', access = null) => {
+  return async (primaryKey = 'event', options = {}) => {
+    const {
+      access,
+      customOnly
+    } = {
+      access: null,
+      customOnly: false,
+      ...(typeof options === 'object' ? options : { access: options })
+    };
+
     data.agendas.origin =  await loadOriginAgenda(services, data);
     const formSchema = getFormSchema(data.agendas.current, access);
     return {
@@ -41,7 +50,7 @@ function makeGetResponse(services, data) {
       originAgenda: data.agendas.origin,
       member: getMember(data),
       formSchema,
-      [primaryKey]: getCompiledEvent(data, 'after', access, formSchema),
+      [primaryKey]: getCompiledEvent(data, 'after', access, formSchema, customOnly),
       before: data.services.before.agendaEvent ? merge.eventFromObject(data.services.before) : null
     }
   }
@@ -57,7 +66,7 @@ function getFormSchema(agenda, access = null) {
   );
 }
 
-function getCompiledEvent(data, key = 'after', access = null, formSchema = null) {
+function getCompiledEvent(data, key = 'after', access = null, formSchema = null, customOnly = false) {
   const originAgenda = _.pick(data.agendas.origin, [
     'uid', 'slug', 'title', 'description', 'image', 'url'
   ]);
@@ -66,7 +75,8 @@ function getCompiledEvent(data, key = 'after', access = null, formSchema = null)
     ).fields.map(f => f.field);
   return merge.eventFromObject(data.services[key], {
     includeFields,
-    originAgenda
+    originAgenda,
+    customOnly
   });
 }
 

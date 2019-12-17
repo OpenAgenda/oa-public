@@ -83,6 +83,8 @@ describe('core - functional (server): core agendas() events.update()', function(
         'custom_description' : 'Meh',
         'categories-agenda-metropolitain': 43,
         'thematiques-bordeaux-metropole' : [3]
+      }, {
+        access: 'contributor'
       });
     });
 
@@ -147,7 +149,8 @@ describe('core - functional (server): core agendas() events.update()', function(
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [4]
       }, {
-        draft: true
+        draft: true,
+        access: 'contributor'
       });
     });
 

@@ -15,7 +15,7 @@ const core = require('../core');
 
 const testConfig = require('./testConfig');
 
-describe.only('core - functional (server): core agenda events get', function() {
+describe('core - functional (server): core agenda events get', function() {
   this.timeout(20000);
 
   before(async () => {
@@ -204,6 +204,28 @@ describe.only('core - functional (server): core agenda events get', function() {
 
     it('get non-existing event returns null', async () => {
       should(await core.agendas(2).events.get(18978979)).equal(null);
+    });
+
+    it('get with customOnly option only gets custom data', async () => {
+      const data = await core.agendas(2).events.get(1, {
+        customOnly: true
+      });
+
+      data.should.eql({
+        thematique: 2
+      });
+    });
+
+    it('get with customOnly and access "administrator" options gets all custom data', async () => {
+      const data = await core.agendas(2).events.get(1, {
+        customOnly: true,
+        access: 'administrator'
+      });
+
+      data.should.eql({
+        thematique: 2,
+        note: 'Une note interne pour les administrateurs'
+      });
     });
 
   });

@@ -97,8 +97,8 @@ raw.push(knex('form_schema').insert([{
         "min": null,
         "optional": true,
         "origin": "custom",
-        "read": ['contributor'],
-        "write": ['contributor']
+        "read": ['moderator'],
+        "write": ['moderator']
       },
       {
         "field": "title",

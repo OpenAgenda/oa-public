@@ -1,12 +1,14 @@
 'use strict';
 
+process.env.NODE_ENV = 'test';
+
 const _ = require('lodash');
 const knex = require('knex');
 const mysql = require('mysql');
 const { promisify } = require('util');
 const should = require('should');
 
-const fixtures = require('./fixtures/09_core_agenda_events_batch');
+const fixtures = require('./fixtures/09_core_agendas_events_batch.sql');
 
 const config = require('../config');
 const core = require('../core');
