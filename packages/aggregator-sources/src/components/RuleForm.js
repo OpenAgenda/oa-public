@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useMemo, useEffect } from 'react';
+import React, { useMemo, useCallback, useEffect } from 'react';
 import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
 import { useForm, useFormState, Field } from 'react-final-form';
@@ -10,6 +10,7 @@ import { usePrevious } from 'react-use';
 import classNames from 'classnames';
 import { useMemoOne } from '../hooks/useMemoOne';
 import getMultiLanguageLabel from '../utils/getMultiLanguageLabel';
+import stateMessages from '../utils/stateMessages';
 import BsField from './BsField';
 
 const messages = defineMessages({
@@ -430,11 +431,15 @@ function ActionFormPart({ name, aggregatorSchema }) {
     name
   ]);
 
-  const options = useMemoOne(
+  const fieldOptions = useMemoOne(
     () => aggregatorSchema.fields
       .filter(
         v => ['radio', 'checkbox'].includes(v.fieldType) && v.options?.length
       )
+      .concat({
+        field: 'state',
+        label: intl.formatMessage(stateMessages.state)
+      })
       .filter(
         v => v.field === fieldName
             || !values.actions.find(w => w && v.field === w.field.value)
@@ -452,12 +457,31 @@ function ActionFormPart({ name, aggregatorSchema }) {
     () => fieldName && aggregatorSchema.fields.find(v => v.field === fieldName),
     [aggregatorSchema.fields, fieldName]
   );
-  const valuesOptions = useMemoOne(() => (fieldSchema?.options
-    ? fieldSchema.options.map(v => ({
-      value: v.id,
-      label: getMultiLanguageLabel(v.label, intl.locale)
-    }))
-    : null));
+  const valuesOptions = useMemoOne(() => {
+    if (fieldName === 'state') {
+      return [
+        {
+          value: 0,
+          label: intl.formatMessage(stateMessages.stateToControl)
+        },
+        {
+          value: 1,
+          label: intl.formatMessage(stateMessages.stateControlled)
+        },
+        {
+          value: 2,
+          label: intl.formatMessage(stateMessages.statePublished)
+        }
+      ];
+    }
+
+    if (fieldSchema?.options) {
+      return fieldSchema.options.map(v => ({
+        value: v.id,
+        label: getMultiLanguageLabel(v.label, intl.locale)
+      }));
+    }
+  });
 
   useEffect(() => {
     if (prevFieldName && fieldName && prevFieldName !== fieldName) {
@@ -472,14 +496,14 @@ function ActionFormPart({ name, aggregatorSchema }) {
         name={`${name}.field`}
         placeholder={intl.formatMessage(messages.selectField)}
         noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-        options={options}
+        options={fieldOptions}
         menuPosition="fixed"
         className="margin-bottom-xs"
         styles={selectStyles}
         isSearchable
       />
 
-      {fieldSchema && valuesOptions ? (
+      {valuesOptions ? (
         <Field
           component={ReactSelectInput}
           name={`${name}.values`}
@@ -488,8 +512,7 @@ function ActionFormPart({ name, aggregatorSchema }) {
           options={valuesOptions}
           menuPosition="fixed"
           styles={selectStyles}
-          isMulti={fieldSchema.fieldType === 'checkbox'}
-          isClearable={fieldSchema.optional !== false}
+          isMulti={fieldSchema?.fieldType === 'checkbox'}
           isSearchable
         />
       ) : null}
@@ -501,6 +524,28 @@ function ActionsFormPart({ aggregatorSchema }) {
   const intl = useIntl();
   const form = useForm();
   const { values } = useFormState();
+
+  const leftFieldsToDefine = useMemo(
+    () => aggregatorSchema.fields
+      .filter(
+        v => ['radio', 'checkbox'].includes(v.fieldType) && v.options?.length
+      )
+      .concat({ field: 'state' })
+      .filter(v => !values.actions?.find(w => w && v.field === w.field.value))
+      .length,
+    [aggregatorSchema.fields, values.actions]
+  );
+
+  const lastAction = useMemo(
+    () => (values.actions ? values.actions[values.actions.length - 1] : null),
+    [values.actions]
+  );
+
+  const pushAction = useCallback(() => {
+    if (leftFieldsToDefine && (lastAction === null || lastAction?.field)) {
+      form.mutators.push('actions');
+    }
+  }, [form.mutators, lastAction, leftFieldsToDefine]);
 
   if (!values.type) {
     return null;
@@ -546,7 +591,7 @@ function ActionsFormPart({ aggregatorSchema }) {
           <button
             type="button"
             className="btn btn-link-inline"
-            onClick={() => form.mutators.push('actions')}
+            onClick={pushAction}
           >
             {intl.formatMessage(messages.addAnAction)}
           </button>

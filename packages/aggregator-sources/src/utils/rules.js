@@ -1,54 +1,81 @@
 import getMultiLanguageLabel from './getMultiLanguageLabel';
+import stateMessages from './stateMessages';
 
-export function ruleToValues(rule, schema, lang) {
+const stateTolabelId = state => ({
+  0: 'stateToControl',
+  1: 'stateControlled',
+  2: 'statePublished'
+}[state]);
+
+export function ruleToValues(rule, schema, intl) {
   if (!rule) {
     return {};
   }
 
   const { query, required, actions = [] } = rule;
+
   const result = {
     type: 'all',
     required: Boolean(required),
     actions: []
   };
 
+  if (!query) {
+    // legacy rule
+    return result;
+  }
+
   if (schema) {
     actions.forEach(action => {
+      if (!action) {
+        return;
+      }
+
       const actionKeys = Object.keys(action);
       const ids = action[actionKeys[0]]?.$set;
+
+      if (actionKeys[0] === 'state') {
+        result.actions.push({
+          field: {
+            value: 'state',
+            label: intl.formatMessage(stateMessages.state)
+          },
+          values: {
+            value: ids,
+            label: intl.formatMessage(stateMessages[stateTolabelId(ids)])
+          }
+        });
+      }
+
       const fieldSchema = schema.fields.find(v => v.field === actionKeys[0]);
 
       if (!fieldSchema) {
         return;
       }
 
-      let actionValues = ids;
+      const findOption = optId => {
+        if (!optId || !fieldSchema?.options) {
+          return optId;
+        }
 
-      if (fieldSchema.options) {
-        const findOption = optId => {
-          if (!optId) {
-            return optId;
-          }
+        const foundOpt = fieldSchema.options.find(
+          option => option.id === optId
+        );
 
-          const foundOpt = fieldSchema.options.find(
-            option => option.id === optId
-          );
-
-          return {
-            value: foundOpt.id,
-            label: getMultiLanguageLabel(foundOpt.label, lang)
-          };
+        return {
+          value: foundOpt.id,
+          label: getMultiLanguageLabel(foundOpt.label, intl.locale)
         };
+      };
 
-        actionValues = Array.isArray(ids)
-          ? ids.map(findOption).filter(v => v !== undefined)
-          : findOption(ids);
-      }
+      const actionValues = Array.isArray(ids)
+        ? ids.map(findOption).filter(v => v !== undefined)
+        : findOption(ids);
 
       result.actions.push({
         field: {
           value: fieldSchema.field,
-          label: getMultiLanguageLabel(fieldSchema.label, lang)
+          label: getMultiLanguageLabel(fieldSchema.label, intl.locale)
         },
         values: actionValues
       });
@@ -101,7 +128,15 @@ export function ruleToValues(rule, schema, lang) {
 export function valuesToRule(values, schema) {
   const { required } = values;
 
-  const actions = values.actions?.filter(Boolean).map(action => {
+  const actions = values.actions?.map(action => {
+    if (action.field.value === 'state') {
+      return {
+        state: {
+          $set: action.values.value
+        }
+      };
+    }
+
     const fieldSchema = schema.fields.find(v => v.field === action.field.value);
 
     if (!fieldSchema) {

@@ -1,6 +1,4 @@
-import React, {
-  useCallback, useMemo, useReducer, useState
-} from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector } from 'react-redux';
 import { Waypoint } from 'react-waypoint';
@@ -9,6 +7,7 @@ import Modal from '@openagenda/react-components/build/Modal';
 import Image from '@openagenda/react-components/build/Image';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import useApiClient from '@openagenda/react-utils/dist/useApiClient';
+import { useMemoOne } from '../hooks/useMemoOne';
 import Stepper from './Stepper';
 import AgendasSearch from './AgendasSearch';
 import SlugSearch from './SlugSearch';
@@ -110,41 +109,6 @@ const messages = defineMessages({
 const modalClassnames = {
   overlay: 'popup-overlay big'
 };
-
-function stepsReducer(state, action) {
-  switch (action.type) {
-    case 'selectStep': {
-      const selectedStep = state.steps.findIndex(
-        step => step.key === action.key
-      );
-
-      return {
-        steps: state.steps.map((step, i) => ({
-          ...step,
-          active: i === selectedStep,
-          activable: i < selectedStep,
-          passed: i < selectedStep
-        })),
-        selected: action.key
-      };
-    }
-    case 'nextStep': {
-      const actualStep = state.steps.findIndex(step => step.active);
-
-      return {
-        steps: state.steps.map((step, i) => ({
-          ...step,
-          active: i === actualStep + 1,
-          activable: i <= actualStep,
-          passed: i <= actualStep
-        })),
-        selected: state.steps[actualStep + 1].key
-      };
-    }
-    default:
-      return state;
-  }
-}
 
 const Radio = ({ id, input, children }) => (
   <label htmlFor={id}>
@@ -257,7 +221,14 @@ function AgendaItem({ agenda, sources, onSelect }) {
             </div>
           )}
         </div>
-
+        <button
+          type="button"
+          className="btn btn-link-inline"
+          onClick={onAgendaClick}
+        >
+          {intl.formatMessage(messages.selectThisAgenda)}
+        </button>
+        &ensp;
         <a href={`/${agenda.slug}`} target="_blank" rel="noopener noreferrer">
           {intl.formatMessage(messages.showAgendaAction)}{' '}
           <i className="fa fa-sm fa-external-link" aria-hidden="true" />
@@ -301,8 +272,13 @@ export default function AddSourceModal({
   onClose
 }) {
   const intl = useIntl();
+  const apiClient = useApiClient();
 
   const [selectType, setSelectType] = useState('search'); // search || slug
+  const [selectedStep, setSelectedStep] = useState('selectAgenda');
+  const [selectedAgenda, setSelectedAgenda] = useState();
+  const [rules, setRules] = useState();
+
   const toggleSelectType = useCallback(
     e => {
       if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
@@ -319,60 +295,77 @@ export default function AddSourceModal({
   const agendaRes = useSelector(state => state.res.agendaSearch);
   const slugRes = useSelector(state => state.res.getAgenda);
 
-  const initialStepsState = useMemo(
-    () => ({
-      steps: [
-        {
-          key: 'selectAgenda',
-          label: intl.formatMessage(messages.selectStep),
-          display: true,
-          active: true
-        },
-        {
-          key: 'defineRules',
-          label: intl.formatMessage(messages.defineRulesStep),
-          display: true
-        },
-        {
-          key: 'confirmation',
-          label: intl.formatMessage(messages.confirmationStep),
-          display: true
-        }
-      ],
-      selected: 'selectAgenda'
-    }),
+  const isActive = useCallback((step, index, steps, selectedKey) => {
+    const selectedStepIndex = steps.findIndex(s => s.key === selectedKey);
+
+    return index === selectedStepIndex;
+  }, []);
+  const isActivable = useCallback((step, index, steps, selectedKey) => {
+    const selectedStepIndex = steps.findIndex(s => s.key === selectedKey);
+
+    if (step.key === 'defineRules' && selectedAgenda) {
+      return true;
+    }
+
+    return index < selectedStepIndex;
+  }, [selectedAgenda]);
+  const isPassed = useCallback((step, index, steps, selectedKey) => {
+    const selectedStepIndex = steps.findIndex(s => s.key === selectedKey);
+
+    return index < selectedStepIndex;
+  }, []);
+
+  const steps = useMemoOne(
+    () => [
+      {
+        key: 'selectAgenda',
+        label: intl.formatMessage(messages.selectStep),
+        display: true,
+        active: isActive,
+        activable: isActivable,
+        passed: isPassed
+      },
+      {
+        key: 'defineRules',
+        label: intl.formatMessage(messages.defineRulesStep),
+        display: true,
+        active: isActive,
+        activable: isActivable,
+        passed: isPassed
+      },
+      {
+        key: 'confirmation',
+        label: intl.formatMessage(messages.confirmationStep),
+        display: true,
+        active: isActive,
+        activable: isActivable,
+        passed: isPassed
+      }
+    ],
     [intl]
   );
-  const [stepsState, stepsDispatch] = useReducer(
-    stepsReducer,
-    initialStepsState
-  );
 
-  const apiClient = useApiClient();
-
-  const [selectedAgenda, setSelectedAgenda] = useState();
-  const [rules, setRules] = useState();
   const onSelectAgenda = useCallback(
     async agenda => {
       agenda.schema = await apiClient.get(`/${agenda.slug}/settings/schema`);
 
       setSelectedAgenda(agenda);
-      stepsDispatch({ type: 'nextStep' });
+      setSelectedStep('defineRules');
     },
-    [apiClient]
+    [apiClient, setSelectedStep, setSelectedAgenda]
   );
 
   const selectStep = useCallback(
     key => {
       if (key === 'selectAgenda') {
-        setSelectedAgenda(null);
-        setRules(null);
+        // setSelectedAgenda(null);
+        // setRules(null);
         setSelectType('search');
       }
 
-      stepsDispatch({ type: 'selectStep', key });
+      setSelectedStep(key);
     },
-    [setSelectedAgenda, setSelectType, stepsDispatch]
+    [setSelectType, setSelectedStep]
   );
 
   const handleRulesSubmit = useCallback(
@@ -409,9 +402,13 @@ export default function AddSourceModal({
       classNames={modalClassnames}
     >
       <div className="margin-top-sm">
-        <Stepper steps={stepsState.steps} onSelect={selectStep} />
+        <Stepper
+          steps={steps}
+          onSelect={selectStep}
+          additionals={[selectedStep]}
+        />
 
-        {stepsState.selected === 'selectAgenda' && selectType === 'search' ? (
+        {selectedStep === 'selectAgenda' && selectType === 'search' ? (
           <AgendasSearch
             res={agendaRes}
             fieldProps={fieldProps}
@@ -460,7 +457,7 @@ export default function AddSourceModal({
           />
         ) : null}
 
-        {stepsState.selected === 'selectAgenda' && selectType !== 'search' ? (
+        {selectedStep === 'selectAgenda' && selectType !== 'search' ? (
           <SlugSearch
             res={slugRes}
             render={({ state, form }) => (
@@ -495,7 +492,7 @@ export default function AddSourceModal({
           />
         ) : null}
 
-        {stepsState.selected === 'defineRules' ? (
+        {selectedStep === 'defineRules' ? (
           <DefineRules
             aggregatorSchema={aggregatorSchema}
             sourceSchema={selectedAgenda?.schema}
@@ -506,7 +503,7 @@ export default function AddSourceModal({
           />
         ) : null}
 
-        {stepsState.selected === 'confirmation' ? (
+        {selectedStep === 'confirmation' ? (
           <Form onSubmit={handleFinalSubmit}>
             {({ handleSubmit }) => (
               <form onSubmit={handleSubmit}>

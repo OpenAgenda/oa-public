@@ -6,12 +6,46 @@ import React, {
   useLayoutEffect
 } from 'react';
 import classNames from 'classnames';
+import { useMemoOne } from '../hooks/useMemoOne';
 
 const defaultBgColor = 'rgba(0, 0, 0, 0)';
 
+function getStepPropertyValue(step, propName, ...args) {
+  const property = step[propName];
+
+  if (typeof property === 'function') {
+    return property(step, ...args);
+  }
+
+  return property;
+}
+
 function Step({
-  step, onSelect, className: _className, style
+  step,
+  onSelect,
+  className: _className,
+  style,
+  index,
+  steps,
+  additionals
 }) {
+  const activable = useMemoOne(
+    () => getStepPropertyValue(step, 'activable', index, steps, ...additionals),
+    [step, index, additionals]
+  );
+  const active = useMemoOne(
+    () => getStepPropertyValue(step, 'active', index, steps, ...additionals),
+    [step, index, additionals]
+  );
+  const passed = useMemoOne(
+    () => getStepPropertyValue(step, 'passed', index, steps, ...additionals),
+    [step, index, additionals]
+  );
+  const label = useMemoOne(
+    () => getStepPropertyValue(step, 'label', index, steps, ...additionals),
+    [step, index, additionals]
+  );
+
   const onSelectStep = useCallback(
     e => {
       if (e.type === 'keypress' && ![' ', 'Enter'].includes(e.key)) {
@@ -19,26 +53,26 @@ function Step({
         return;
       }
 
-      if (step.activable) {
+      if (activable) {
         onSelect(step.key);
       }
     },
-    [onSelect, step.activable, step.key]
+    [onSelect, activable, step.key]
   );
 
   const className = useMemo(
     () => classNames('step', _className, {
-      active: step.active,
-      activable: step.activable,
-      passed: step.passed
+      active,
+      activable,
+      passed
     }),
-    [_className, step.activable, step.active, step.passed]
+    [_className, activable, active, passed]
   );
 
-  if (step.active || !step.activable) {
+  if (active || !activable) {
     return (
       <div className={className} style={style}>
-        {step.label}
+        {label}
       </div>
     );
   }
@@ -52,7 +86,7 @@ function Step({
       className={className}
       style={style}
     >
-      {step.label}
+      {label}
     </div>
   );
 }
@@ -71,7 +105,7 @@ function getClosestBgColor(elem) {
   return getClosestBgColor(elem.parentElement);
 }
 
-export default function Stepper({ steps = [], onSelect }) {
+export default function Stepper({ steps = [], onSelect, additionals }) {
   const containerRef = useRef(null);
   const [bgColor, setBbColor] = useState(defaultBgColor);
   const stepStyle = useMemo(() => ({ backgroundColor: bgColor }), [bgColor]);
@@ -89,11 +123,17 @@ export default function Stepper({ steps = [], onSelect }) {
   return (
     <div className="stepper-container" ref={containerRef}>
       <div id="stepper" className="stepper">
-        {steps
-          .filter(s => s.display)
-          .map(s => (
-            <Step key={s.key} step={s} onSelect={onSelect} style={stepStyle} />
-          ))}
+        {steps.map((s, index) => (s.display ? (
+          <Step
+            key={s.key}
+            step={s}
+            onSelect={onSelect}
+            style={stepStyle}
+            index={index}
+            steps={steps}
+            additionals={additionals}
+          />
+        ) : null))}
       </div>
     </div>
   );

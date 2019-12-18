@@ -5,6 +5,7 @@ import React, {
 import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
 import { Form } from 'react-final-form';
+import { FORM_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
 import classNames from 'classnames';
 import { useMemoOne } from '../hooks/useMemoOne';
@@ -33,6 +34,10 @@ const messages = defineMessages({
   requiredValues: {
     id: 'aggregator-sources.DefineRules.requiredValues',
     defaultMessage: 'Required values'
+  },
+  uselessRule: {
+    id: 'aggregator-sources.DefineRules.uselessRule',
+    defaultMessage: 'Please define at least a required filter or one action'
   },
   cancel: {
     id: 'aggregator-sources.DefineRules.cancel',
@@ -119,8 +124,16 @@ function validate(intl, values, aggregatorSchema /* , sourceSchema */) {
     errors.values = intl.formatMessage(messages.requiredValues);
   }
 
+  if ((values.type === 'all' || !values.required) && !values.actions?.length) {
+    errors[FORM_ERROR] = intl.formatMessage(messages.uselessRule);
+  }
+
   aggregatorSchema.fields
     .filter(v => v.fieldType !== 'abstract')
+    .concat({
+      field: 'state',
+      optional: false
+    })
     .forEach(fieldSchema => {
       const aggActionIndex = values.actions?.findIndex(
         v => v?.field?.value && v.field.value === fieldSchema.field
@@ -512,7 +525,7 @@ export default function DefineRules({
 
       for (const item of json) {
         try {
-          const rule = ruleToValues(item, aggregatorSchema, intl.locale);
+          const rule = ruleToValues(item, aggregatorSchema, intl);
 
           addRule(rule);
         } catch (itemException) {
@@ -520,7 +533,7 @@ export default function DefineRules({
         }
       }
     },
-    [addRule, aggregatorSchema, intl.locale]
+    [addRule, aggregatorSchema, intl]
   );
 
   useEffect(() => {
@@ -542,8 +555,8 @@ export default function DefineRules({
       rule => rule.id === state.modeOptions.id
     );
 
-    return ruleToValues(ruleToUpdate, aggregatorSchema, intl.locale);
-  }, [state.rules, state.modeOptions.id, aggregatorSchema, intl.locale]);
+    return ruleToValues(ruleToUpdate, aggregatorSchema, intl);
+  }, [state.rules, state.modeOptions.id, aggregatorSchema, intl]);
 
   const submitElement = useMemo(
     () => (state.mode === 'list' ? (

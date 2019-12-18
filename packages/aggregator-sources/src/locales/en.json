@@ -26,6 +26,7 @@
   "aggregator-sources.DefineRules.noFilter": "No filter",
   "aggregator-sources.DefineRules.requiredSubdivision": "Required subdivision",
   "aggregator-sources.DefineRules.requiredValues": "Required values",
+  "aggregator-sources.DefineRules.uselessRule": "Please define at least a required filter or one action",
   "aggregator-sources.DefineRules.cancel": "Cancel",
   "aggregator-sources.DefineRules.add": "Add",
   "aggregator-sources.DefineRules.update": "Update",
@@ -89,5 +90,9 @@
   "aggregator-sources.Dashboard.searchAgenda": "Search an agenda",
   "aggregator-sources.Dashboard.numberOfResults": "Number of results",
   "aggregator-sources.Dashboard.noResult": "No result found",
-  "aggregator-sources.Dashboard.addASource": "Add a source"
+  "aggregator-sources.Dashboard.addASource": "Add a source",
+  "aggregator-sources.utils.stateMessages.state": "State",
+  "aggregator-sources.utils.stateMessages.stateToControl": "To control",
+  "aggregator-sources.utils.stateMessages.stateControlled": "Controlled",
+  "aggregator-sources.utils.stateMessages.statePublished": "Published"
 }

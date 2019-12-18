@@ -54,10 +54,10 @@ const messages = defineMessages({
 function RulesSummary({ rules, schema }) {
   const intl = useIntl();
 
-  const counters = useMemo(() => {
+  const info = useMemo(() => {
     const result = (rules || []).reduce(
       (accu, rule) => {
-        const values = ruleToValues(rule, schema);
+        const values = ruleToValues(rule, schema, intl);
 
         if (values.type === 'location') {
           accu.geoCount += 1;
@@ -70,40 +70,47 @@ function RulesSummary({ rules, schema }) {
         if (values.actions.length) {
           accu.actionCount += values.actions.length;
 
-          Array.prototype.push.apply(
-            accu.actionFields,
-            values.actions.flatMap(v => (
-              <em key={v.field.value}>{v.field.label}</em>
-            ))
-          );
+          Array.prototype.push.apply(accu.actionFields, values.actions);
         }
 
         return accu;
       },
       {
-        geoCount: 0, labelCount: 0, actionCount: 0, actionFields: []
+        geoCount: 0,
+        labelCount: 0,
+        actionCount: 0,
+        actionFields: []
       }
     );
 
-    return result;
-  }, [rules, schema]);
+    result.actionList = [
+      ...new Map(
+        result.actionFields.map(item => [
+          item.field.value,
+          <em key={item.field.value}>{item.field.label}</em>
+        ])
+      ).values()
+    ];
 
-  const hasFilter = counters.geoCount + counters.labelCount !== 0;
+    return result;
+  }, [intl, rules, schema]);
+
+  const hasFilter = info.geoCount + info.labelCount !== 0;
 
   const rulesJSON = useMemo(() => JSON.stringify(rules, null, 2), [rules]);
 
   return (
     <p className="rules-summary">
       {hasFilter
-        ? intl.formatMessage(messages.filtersSummary, counters)
+        ? intl.formatMessage(messages.filtersSummary, info)
         : intl.formatMessage(messages.noFilter)}
 
       <br />
 
-      {counters.actionCount > 0
+      {info.actionCount > 0
         ? intl.formatMessage(messages.actionsSummary, {
-          ...counters,
-          actionFields: intl.formatList(counters.actionFields)
+          ...info,
+          actionFields: intl.formatList(info.actionList)
         })
         : intl.formatMessage(messages.noAction)}
 
