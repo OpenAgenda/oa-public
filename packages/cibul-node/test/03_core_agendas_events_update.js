@@ -16,7 +16,7 @@ const core = require('../core');
 
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core agendas() events.update()', function() {
+describe('core - functional (server): core.agendas().events.update()', function() {
   this.timeout(20000);
 
   before(async () => {
@@ -128,6 +128,60 @@ describe('core - functional (server): core agendas() events.update()', function(
         should(event.location.store).equal(undefined);
       });
 
+    });
+
+  });
+
+  describe('updates with different accesses', () => {
+
+    before(() => core.agendas(92983929).events.update(19390293, {
+      title: {
+        fr: 'Un autre événement mis à jour',
+      },
+      description: {
+        fr: 'Une description'
+      },
+      locationUid: 123,
+      timings: [{
+        begin: new Date('2019-12-18T14:30:00'),
+        end: new Date('2019-12-18T15:30:00')
+      }],
+      'organisation-interne': 'Il faut que René y aille',
+      categories: 2
+    }, {
+      access: 'contributor'
+    }));
+
+    before(() => core.agendas(92983929).events.update(19390294, {
+      title: {
+        fr: 'Et un autre événement mis à jour',
+      },
+      description: {
+        fr: 'Une description'
+      },
+      locationUid: 123,
+      timings: [{
+        begin: new Date('2019-12-18T14:30:00'),
+        end: new Date('2019-12-18T15:30:00')
+      }],
+      'organisation-interne': 'Il faut que René y aille',
+      categories: 1
+    }, {
+      access: 'administrator'
+    }));
+
+    it('a contributor access cannot update an administrator field', async () => {
+      const data = await core.loadServices().custom(5).get(19390293);
+      data.should.eql({
+        'organisation-interne': 'Il faut que Thérèse y soit'
+      });
+    });
+
+    it('an administrator access can update an administrator field', async () => {
+      const data = await core.loadServices().custom(5).get(19390294);
+      data.should.eql({
+        'organisation-interne': 'Il faut que René y aille'
+      });
     });
 
   });

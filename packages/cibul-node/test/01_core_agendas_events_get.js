@@ -15,7 +15,7 @@ const core = require('../core');
 
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core agenda events get', function() {
+describe('core - functional (server): core.agendas().events.get()', function() {
   this.timeout(20000);
 
   before(async () => {

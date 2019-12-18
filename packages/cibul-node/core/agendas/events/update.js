@@ -25,7 +25,8 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     events,
     agendas,
     agendaEvents,
-    eventSearch
+    eventSearch,
+    custom
   } = services;
 
   const contextUserUid = _.get(options, 'context.userUid') || _.get(data, 'creatorUid');
@@ -114,12 +115,13 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
 
   if (agenda.formSchemaId && clean.custom) {
     const result = await setCustom(
+      custom,
       agenda.formSchemaId,
       payload.getItem('event.uid'),
       clean.custom, {
         draft,
         agendaId: agenda.id,
-        partial
+        access
       }
     );
     if (result.success) {
@@ -129,11 +131,12 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
 
   if (agenda.network && clean.networkCustom) {
     const result = await setCustom(
+      custom,
       agenda.network.formSchemaId,
       payload.getItem('event.uid'),
       clean.networkCustom, {
         agendaId: agenda.id,
-        partial
+        access
       }
     );
 

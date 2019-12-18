@@ -1,33 +1,28 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-
-const custom = require( '@openagenda/custom' );
-
-module.exports = async ( formSchemaId, eventUid, data, { agendaId, partial } ) => {
-
+module.exports = async (customService, formSchemaId, eventUid, data, { agendaId }) => {
   const result = {
     errors: []
   };
 
   try {
-
     const options = {
       context: { legacy: false },
       validate: false,
-      partial
+      partial: true // always true, considering that data is already validated
     }
 
-    if ( agendaId ) options.agendaId = agendaId;
+    if (agendaId) {
+      options.agendaId = agendaId;
+    }
 
-    _.assign( result, await custom( formSchemaId ).set( eventUid, data, options ) );
-
-  } catch( errors ) {
-
+    Object.assign(
+      result,
+      await customService(formSchemaId).set(eventUid, data, options)
+    );
+  } catch(errors) {
     result.errors = errors;
-
   }
 
   return result;
-
 }

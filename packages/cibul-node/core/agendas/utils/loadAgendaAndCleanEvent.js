@@ -44,7 +44,7 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
     aggregated,
     member,
     access
-  } = _.assign( {
+  } = {
     defaultLang: null,
     evaluateEvent: true,
     draft: false,
@@ -54,8 +54,9 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
     sourceAgenda: null,
     aggregated: false,
     member: null,
-    access: 'public'
-  }, typeof options === 'boolean' ? { evaluateEvent: options } : options );
+    access: 'public',
+    ...(typeof options === 'boolean' ? { evaluateEvent: options } : options )
+  };
 
   // api provides event data in event service format ( deep image object that includes credits and variants )
   const formSchemaData = formSchemaDataFormat ? data : fromEventServiceFormat( data, {

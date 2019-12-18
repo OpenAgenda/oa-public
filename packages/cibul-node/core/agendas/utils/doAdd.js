@@ -20,7 +20,8 @@ module.exports = async (services, payload, clean, options = {}) => {
 
   const {
     agendaEvents,
-    eventSearch
+    eventSearch,
+    custom
   } = services;
 
   log('info', 'processing agenda %s, event %s', agenda.uid, event.uid);
@@ -68,7 +69,7 @@ module.exports = async (services, payload, clean, options = {}) => {
 
   // create custom data
   if (agenda.formSchemaId && clean.custom) {
-    const result = await setCustom(agenda.formSchemaId, event.uid, clean.custom, {
+    const result = await setCustom(custom, agenda.formSchemaId, event.uid, clean.custom, {
       draft,
       agendaId: clean.agendaId
     });
@@ -81,7 +82,7 @@ module.exports = async (services, payload, clean, options = {}) => {
   }
 
   if (_.get(agenda, 'network.formSchemaId') && clean.networkCustom) {
-    const result = await setCustom(agenda.network.formSchemaId, event.uid, clean.networkCustom, {
+    const result = await setCustom(custom, agenda.network.formSchemaId, event.uid, clean.networkCustom, {
       draft,
       agendaId: clean.agendaId
     });

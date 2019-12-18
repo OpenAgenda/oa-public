@@ -1,6 +1,6 @@
 'use strict';
 
-//process.env.NODE_ENV = 'test';
+process.env.NODE_ENV = 'test';
 
 const _ = require('lodash');
 const fs = require('fs');
