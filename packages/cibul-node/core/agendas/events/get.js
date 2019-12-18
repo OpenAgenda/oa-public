@@ -47,15 +47,20 @@ module.exports = async (agendaUid, eventUid, options = {}) => {
   let network;
 
   if (!customOnly) {
+    const event = await events
+      .get({ uid: eventUid }, {
+        internal,
+        detailed
+      }).then(e => e ? _.omit(e, ['id']) : null);
+
+    if (!event) {
+      return null;
+    }
+
     Object.assign(
       result.event,
-      await events
-        .get({
-          uid: eventUid
-        }, {
-          internal, detailed
-        }).then(e => _.omit(e, ['id']))
-      );
+      event
+    );
   }
 
   const eventIsLoaded = _eventIsLoaded(result.event);
