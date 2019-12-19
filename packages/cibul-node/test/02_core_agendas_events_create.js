@@ -17,7 +17,7 @@ const assignClients = require('./utils/assignClients');
 
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core agenda events create', function() {
+describe('core - functional (server): core.agendas().events.create', function() {
   this.timeout(20000);
 
   const eventData = {
@@ -105,6 +105,7 @@ describe('core - functional (server): core agenda events create', function() {
         accessibility: { sl: true },
         'categories-agenda-metropolitain': 42,
         'thematiques-bordeaux-metropole' : [3, 4],
+        'custom_description': 'Oui bah non'
       }, {
         context: {
           userUid: memberUserUid
@@ -120,6 +121,10 @@ describe('core - functional (server): core agenda events create', function() {
 
       it('created event internal fields are not provided (id)', () => {
         should(event.id).equal(undefined);
+      });
+
+      it('created event does not include field with "moderator" read access', () => {
+        should(event.custom_description).equal(undefined);
       });
     });
 
@@ -148,6 +153,11 @@ describe('core - functional (server): core agenda events create', function() {
         data['thematiques-bordeaux-metropole'].should.eql([3, 4]);
 
         data['categories-agenda-metropolitain'].should.equal(42);
+      });
+
+      it('custom fields with write set for "moderator" are not edited through "contributor" access', async () => {
+        const data = await services.custom(2).get(event.uid);
+        should(data.custom_description).equal(undefined);
       });
 
       it('event is created on legacy event data structure', done => {
@@ -226,7 +236,7 @@ describe('core - functional (server): core agenda events create', function() {
           uid: 123
         },
         'categories-agenda-metropolitain': 42,
-        'thematiques-bordeaux-metropole' : [3, 4],
+        'thematiques-bordeaux-metropole' : [3, 4]
       }, {
         context: {
           userUid: 63170200
@@ -264,7 +274,7 @@ describe('core - functional (server): core agenda events create', function() {
 
   });
 
-  describe('simple create with returnPayload: true and access: "contributor"', function() {
+  describe('simple create with returnPayload: true and access: "moderator"', function() {
 
     let result;
 
