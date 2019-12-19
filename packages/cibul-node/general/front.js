@@ -95,11 +95,17 @@ module.exports = app => {
     unsubscribeSubmit
   );
 
+  app.get('/flash', (req, res, next) => {
+    req.app.services.sessions.setFlash(req, res, req.query.message || 'Flash! Aaanhaaan!');
+    res.redirect('/');
+  });
+
   app.get(
     '/start',
     preMw,
     start
   );
+
 
   app.get(
     [ '/decouvrir/:page', '/discover/:page', '/entdecken/:page' ],
@@ -193,7 +199,7 @@ async function corpo(cache, req, res, next) {
     {
       lang: page.getLang(),
       metas, // used?
-      scripts: [ {
+      scripts: [{
         content: `window._slaaskSettings = { key: "6b2ef2b1830ad6e1c43bbc726c8a9f98" };`
       }, {
         src: '//cdn.slaask.com/chat_loader.js'
@@ -201,7 +207,9 @@ async function corpo(cache, req, res, next) {
         src: '//code.jquery.com/jquery-2.2.4.min.js'
       }, {
         src: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
-      } ]
+      }, {
+        src: '/js/landing.js'
+      }]
     }
   );
 

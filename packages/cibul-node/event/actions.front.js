@@ -33,16 +33,17 @@ module.exports = app => {
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
     (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
-      .then(uid => core.agendas(req.agenda.uid)
-        .events
-        .get(uid, { detailed: true })
-        .then(event => {
-          if (!event) return next({ code: 404 });
-          req.event = event;
-          next();
-        })
-        .catch(next)
-      ),
+      .then(uid => {
+        if (!uid) {
+          return next({ code: 404 });
+        }
+        return core.agendas(req.agenda.uid).events.get(uid, { detailed: true })
+          .then(event => {
+            if (!event) return next({ code: 404 });
+            req.event = event;
+            next();
+          }).catch(next)
+      }),
     cmn.loadBaseData('oa.css'),
     actionShow
   );

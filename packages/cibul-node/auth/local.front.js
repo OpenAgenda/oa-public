@@ -7,6 +7,7 @@ const w = require( 'when' );
 const sessions = require( '@openagenda/sessions' );
 const invitationsSvc = require( '@openagenda/invitations' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/signin' ) );
+const getErrorLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/errors' ) );
 const log = require( '@openagenda/logs' )( 'auth/local' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/activation' ) );
 const agendaSvc = require( '../services/agenda' );
@@ -289,11 +290,11 @@ async function activateResend( req, res ) {
       } );
 
       if ( !user ) {
-        throw 'no account matches this email';
+        throw getErrorLabel('noAccountFound', req.lang);
       }
 
       if ( user && user.isActivated ) {
-        throw 'the account is already activated';
+        throw getErrorLabel('userAlreadyActivated', req.lang);
       }
 
       token = await usersSvc.tokens.findOne( {
@@ -410,7 +411,7 @@ function _handleSigninRequest( req, email, password, cb ) {
           password,
           user: null,
           errors: {
-            password: 'This password is incorrect'
+            password: getErrorLabel('incorrectPassword', req.lang)
           }
         } );
       }
