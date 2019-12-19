@@ -1565,10 +1565,10 @@
     "@openagenda/labels" "^2.0.7"
     lodash "^4.17.4"
 
-"@openagenda/es-node@^1.2.1":
-  version "1.2.1"
-  resolved "https://registry.yarnpkg.com/@openagenda/es-node/-/es-node-1.2.1.tgz#386ea7928f8e6fccb3f6bc5db70234775db66cbf"
-  integrity sha512-1EAhCF1TCLULdnIeLaMR86eXR2XpzsYQbeHytZVfdrtvRWQq6MSYaYaclLDnIOhgX8YGm5MQWFpXQba+G3To6A==
+"@openagenda/es-node@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.2.2.tgz#4469d68da62685082b3c9f89dccf180a165aa3ac"
+  integrity sha512-UsJyXhJ2nKLGURNwjLWq3hzm+z32PmkDUZKbJ8OU46rCBY4JvEawH48MeM5QFGVpDirqtAV/mMb5+p9y6sPvew==
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "~0.9"
