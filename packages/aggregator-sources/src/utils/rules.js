@@ -12,7 +12,9 @@ export function ruleToValues(rule, schema, intl) {
     return {};
   }
 
-  const { query, required, actions = [] } = rule;
+  const {
+    query, required, transform = [], actions = transform
+  } = rule;
 
   const result = {
     type: 'all',
@@ -26,7 +28,7 @@ export function ruleToValues(rule, schema, intl) {
   }
 
   if (schema) {
-    actions.forEach(action => {
+    [].concat(actions).forEach(action => {
       if (!action) {
         return;
       }
@@ -103,7 +105,7 @@ export function ruleToValues(rule, schema, intl) {
   if (query.tags) {
     Object.assign(result, {
       type: 'tags',
-      values: query.tags
+      values: [].concat(query.tags)
     });
 
     return result;
@@ -128,7 +130,7 @@ export function ruleToValues(rule, schema, intl) {
 export function valuesToRule(values, schema) {
   const { required } = values;
 
-  const actions = values.actions?.map(action => {
+  const transform = values.actions?.map(action => {
     if (action.field.value === 'state') {
       return {
         state: {
@@ -175,7 +177,7 @@ export function valuesToRule(values, schema) {
       return {
         query: {},
         required,
-        actions
+        transform
       };
     case 'location':
       return {
@@ -185,7 +187,7 @@ export function valuesToRule(values, schema) {
           }
         },
         required,
-        actions
+        transform
       };
     case 'tags':
       return {
@@ -193,7 +195,7 @@ export function valuesToRule(values, schema) {
           tags: values.values
         },
         required,
-        actions
+        transform
       };
     case 'extended':
       return {
@@ -201,7 +203,7 @@ export function valuesToRule(values, schema) {
           [values.field]: values.values
         },
         required,
-        actions
+        transform
       };
     default:
       return null;

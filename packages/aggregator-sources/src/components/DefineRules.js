@@ -63,6 +63,10 @@ const messages = defineMessages({
     id: 'aggregator-sources.DefineRules.tagFilter',
     defaultMessage: 'Tag filter'
   },
+  extendedFilter: {
+    id: 'aggregator-sources.DefineRules.extendedFilter',
+    defaultMessage: 'Additionnal field filter'
+  },
   addARule: {
     id: 'aggregator-sources.DefineRules.addARule',
     defaultMessage: 'Add a rule'
@@ -105,7 +109,7 @@ const messages = defineMessages({
   withActions: {
     id: 'aggregator-sources.DefineRules.withActions',
     defaultMessage:
-      '{actionCount, plural, =1 {avec 1 action} other {avec # actions}}'
+      '{actionCount, plural, =1 {with 1 action} other {with # actions}}'
   }
 });
 
@@ -329,11 +333,22 @@ function RuleItem({ rule, onUpdate, onRemove }) {
     rule.id
   ]);
 
-  const queryType = useMemo(() => {
-    const keys = Object.keys(rule.query);
+  const queryKey = useMemo(() => {
+    const keys = Object.keys(rule.query || {});
 
-    return keys.length ? keys[0] : 'all';
+    if (!keys.length) {
+      return null;
+    }
+
+    return keys[0];
   }, [rule.query]);
+  const queryType = useMemo(() => {
+    if (!queryKey) {
+      return 'all';
+    }
+
+    return ['location', 'tags'].includes(queryKey) ? queryKey : 'extended';
+  }, [queryKey]);
 
   return (
     <div className="row margin-v-sm">
@@ -349,7 +364,11 @@ function RuleItem({ rule, onUpdate, onRemove }) {
             ? Object.values(rule.query.location)[0].join(', ')
             : null}
 
-          {queryType === 'tags' ? rule.query.tags.join(', ') : null}
+          {queryType === 'tags' ? [].concat(rule.query.tags).join(', ') : null}
+
+          {queryType === 'extended'
+            ? [].concat(rule.query.tags).join(', ')
+            : null}
         </div>
 
         <span className="text-muted">
@@ -361,11 +380,15 @@ function RuleItem({ rule, onUpdate, onRemove }) {
 
           {queryType === 'tags' ? intl.formatMessage(messages.tagFilter) : null}
 
-          {rule?.actions?.length ? (
+          {queryType === 'extended'
+            ? intl.formatMessage(messages.extendedFilter)
+            : null}
+
+          {(rule.transform || rule.actions).length ? (
             <>
               {' '}
               {intl.formatMessage(messages.withActions, {
-                actionCount: rule.actions.length
+                actionCount: (rule.transform || rule.actions).length
               })}
             </>
           ) : null}
