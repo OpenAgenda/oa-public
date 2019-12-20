@@ -33,17 +33,17 @@ class NetworkEdit extends Component {
           settingsEnabled={true}
           editableExtensions={true}
           schema={schema}
-          extendedFrom={[ {
+          extendedFrom={[{
             schema: eventSchema,
             info: {
               label: 'Evénement',
               info: 'Champ événement.'
             }
-          } ]}
+          }]}
           onUpdate={onUpdate}
         />
-        <pre><code>{JSON.stringify( schema, null, 2 )}</code></pre>
-        <pre><code>{JSON.stringify( eventSchema, null, 2 )}</code></pre>
+        <pre><code>{JSON.stringify(schema, null, 2)}</code></pre>
+        <pre><code>{JSON.stringify(eventSchema, null, 2)}</code></pre>
       </div> : <Loading /> }
     </Canvas>
 
