@@ -115,17 +115,20 @@ async function _isValid( token, nonce = null ) {
 
   log( 'info', 'token is valid, verifying nonce', { token: token.token } );
 
-  await flagNonce( token, nonce );
-
+  await flagNonce(token, nonce);
 }
 
-function init( c ) {
-
+function init(c) {
   knex = c.knex;
 
+  return {
+    isValid,
+    getUser,
+    getUserFromKey
+  };
 }
 
-async function flagNonce( token = {}, nonce = null ) {
+async function flagNonce(token = {}, nonce = null) {
 
   const record = await knex( 'access_token_nonce' ).first( 'id' ).where( {
     access_token_id: token.id,
@@ -140,7 +143,7 @@ async function flagNonce( token = {}, nonce = null ) {
 
   }
 
-  await knex( 'access_token_nonce' ).insert( {
+  await knex('access_token_nonce').insert( {
     access_token_id: token.id,
     nonce
   } );

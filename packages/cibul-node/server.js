@@ -12,10 +12,11 @@ const WEB = process.argv.includes('web');
 supervisor(async loadTasks => {
   try {
     const services = await require('./services/init')();
+    const core = require('./core');
 
-    services.core = require('./core');
+    core.tasks.loadQueue();
 
-    services.core.tasks.loadQueue();
+    services.core = core;
 
     if (__DEVELOPMENT__) {
       require('source-map-support').install({ hookRequire: true });
@@ -94,7 +95,7 @@ supervisor(async loadTasks => {
     });
 
     if (WEB) {
-      require('./api');
+      require('./api')(core).listen(config.apiPort);
     }
 
     // only one process runs background tasks. supervisor handles that.

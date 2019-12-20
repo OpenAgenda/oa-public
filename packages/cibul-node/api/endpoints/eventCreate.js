@@ -1,49 +1,40 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const ih = require( 'immutability-helper' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const ih = require('immutability-helper');
+const VError = require('verror');
 
-const core = require( '../../core' );
-
-const config = require( '../../config' );
-
-module.exports = async ( req, res, next ) => {
+module.exports = async (req, res, next) => {
+  const create = req.services.core.agendas(req.agenda.uid).events.create
 
   // if there was an image uploaded with the post, it is loaded in req.file.path with multer
-  if ( _.get( req, 'file.path' ) ) {
-
-    _.set( req.parsedData, 'image.path', _.get( req, 'file.path', undefined ) );
-
+  if (_.get(req, 'file.path')) {
+    _.set(req.parsedData, 'image.path', _.get(req, 'file.path', undefined));
   }
 
   try {
-
-    const result = await core.agendas(req.agenda.uid).events.create( ih( req.parsedData, {
+    const event = await create(ih(req.parsedData, {
       ownerUid: { $set: req.user.uid },
       creatorUid: { $set: req.user.uid },
       agendaUid: { $set: req.agenda.uid }
-    } ) );
+    }), {
+      context: {
+        userUid: req.member.userUid
+      },
+      access: req.member.role
+    });
 
     res.json({
       success: true,
-      event: result.created
+      event
     });
-
-  } catch( e ) {
-
-    if ( e.name === 'validationError' ) {
-
-      return res.status( 400 ).json( {
-        errors: VError.info( e ).errors
-      } );
-
+  } catch(e) {
+    if (e.name === 'ValidationError') {
+      return res.status(400).json({
+        errors: e.detail
+      });
     } else {
-
-      next( new VError( e, 'create error' ) );
-
+      next(new VError(e, 'create error'));
     }
-
   }
-
 }
