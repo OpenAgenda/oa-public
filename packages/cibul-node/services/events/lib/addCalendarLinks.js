@@ -9,6 +9,10 @@ function _linkifyTime( time ) {
 }
 
 module.exports = function addCalendarLinks(event, eventUrl, agenda, lang) {
+  if (!event.timings) {
+    throw new Error('timings is not defined');
+  }
+
   event.timings.forEach( ( timing, i ) => {
     const eventTitle = getLocaleValue(event.title, lang)
     const eventDescription = getLocaleValue(event.description, lang)
@@ -42,7 +46,7 @@ module.exports = function addCalendarLinks(event, eventUrl, agenda, lang) {
     };
 
     if ( agenda ) {
-      timing.calendarLinks.ics = `${config.root}/${agenda.slug}/events/${event.uid}/ics?timing=${i}&dl=1`;
+      timing.calendarLinks.ics = `${config.root}/${agenda.slug}/events/${event.slug}/ics?timing=${i}&dl=1`;
     }
   });
 }

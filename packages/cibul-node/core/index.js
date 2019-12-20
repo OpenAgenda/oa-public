@@ -12,6 +12,6 @@ module.exports = {
   },
   loadServices: s => s ? Object.assign(services, s) : services,
   agendas: require('./agendas').bind(null, services),
-  networks: require('./networks'),
+  networks: require('./networks')(services),
   tasks
 }

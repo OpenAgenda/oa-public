@@ -232,11 +232,11 @@ function getUsers( req, res, next ) {
 
         if ( !req.loadedUser.id ) return next( new Error( 'User not found' ) );
 
-        membersSvc.list( { userUid: req.loadedUser.uid }, { limit: 500, order: 'id.desc' } ).then( members => {
+        membersSvc.list( { userUid: req.loadedUser.uid }, { limit: 1000, order: 'id.desc' } ).then( members => {
 
           agendasSvc.list( {
             uid: members.map( m => m.agendaUid )
-          }, 0, 500, { private: null }, ( err, agendas ) => {
+          }, 0, 1000, { private: null }, ( err, agendas ) => {
 
             model.lib.query( 'SELECT count(*) as nbrEvents, agenda_uid as agendaUid ' +
               'FROM agenda_event WHERE user_uid = ? GROUP BY agenda_uid',

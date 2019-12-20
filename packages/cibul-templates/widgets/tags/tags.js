@@ -28,7 +28,9 @@ function widget( elem, options ) {
 
   selectedTag = false,
 
-  tags = [], tagSlugs = [],
+  tags = [], tagSlugs = [], unusedTags = [],
+
+  isExclusive = false,
 
   requestTags = [], // tags which are in current request state
 
@@ -75,6 +77,8 @@ function widget( elem, options ) {
 
       _setTags( data, options.anchorConfig, elem.getAttribute( 'data-group' ) ? parseInt( elem.getAttribute( 'data-group' ) ) : null );
 
+      isExclusive = elem.getAttribute( 'data-exclusive' ) === '1';
+
       if ( !data.ebd || data.ebd.dcss.tags ) view.setDefaultStyle();
 
       log( 'init complete, enable to render' );
@@ -98,7 +102,7 @@ function widget( elem, options ) {
 
     selectedTag = false;
     requestTags = [];
-    
+
     if ( reqParams.tags ) {
 
       requestTags = ( typeof reqParams.tags == 'string' ) ? reqParams.tags.split(',') : reqParams.tags;
@@ -121,7 +125,7 @@ function widget( elem, options ) {
   }
 
   function clear() {
-    
+
     log( 'clearing, awaiting enable or disable to render' );
 
     activeTags = {};
@@ -135,7 +139,7 @@ function widget( elem, options ) {
   /**
    * include event tags in active tag set
    */
-  
+
   function include( eventItem ) {
 
     if ( eventItem.t && eventItem.t.length ) {
@@ -193,7 +197,11 @@ function widget( elem, options ) {
 
     _clearWidgetRequestTags();
 
-    requestTags.push( tag.slug );
+    if ( isExclusive ) {
+      requestTags = [ tag.slug ];
+    } else {
+      requestTags.push( tag.slug );
+    }
 
     _update();
 
@@ -222,10 +230,10 @@ function widget( elem, options ) {
     for ( var i = 0; i<arr.length; i++ ) {
 
       if ( arr[ i ] === val ) {
-        
+
         index = i;
         break;
-        
+
       }
 
     }
@@ -260,13 +268,13 @@ function widget( elem, options ) {
 
     });
 
-    if ( passed ) {
+    if ( passed && !isExclusive ) {
 
       updatedRequestParams.passed = '1';
 
     }
 
-    controller.update( 'tags', updatedRequestParams );
+    controller.update( 'tags', updatedRequestParams, isExclusive );
 
   }
 
@@ -304,7 +312,7 @@ function widget( elem, options ) {
       cn.forEach( data.t, function( tag ) {
 
         if ( group === tag.g || group === null ) {
-        
+
           tags.push( tag );
 
           tagSlugs.push( tag.s );
@@ -314,6 +322,13 @@ function widget( elem, options ) {
       } );
 
     }
+
+    const usedTags = data.ev.reduce((usedTags, e) => {
+      if (!e.t) return usedTags;
+      return usedTags.concat(e.t.filter(slug => tagSlugs.includes(slug) && !usedTags.includes(slug)));
+    }, []);
+
+    unusedTags = tagSlugs.filter(s => !usedTags.includes(s));
 
     log( 'widget initialized with %s tags', tags.length );
 
@@ -359,6 +374,12 @@ function widget( elem, options ) {
 
       }
 
+      if ( unusedTags.includes(tag.s) ) {
+
+        classes.push( 'unused' );
+
+      }
+
       if ( !count ) classes.push( 'no-current-match' );
 
       if ( typeof tag.g !== 'undefined' ) {
@@ -373,13 +394,13 @@ function widget( elem, options ) {
 
       }
 
-      data.tags.push( {
+      data.tags.push({
         label : tag.t,
         slug : tag.s,
         classes : ' ' + classes.join( ' ' ),
-        selected : selected,
-        count: count
-      } );
+        selected,
+        count
+      });
 
     });
 

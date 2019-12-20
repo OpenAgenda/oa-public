@@ -32,7 +32,6 @@ const legacyPages = {
 const cmn = require( '../lib/commons-app' );
 const newsletter = require( '@openagenda/newsletter' );
 const mails = require( '@openagenda/mails' );
-const cache = require( '@openagenda/simple-cache' )( 'landing' );
 const model = require( '../services/model' );
 const mwHelpers = require( '../services/lib/middlewareHelpers.js' );
 
@@ -42,15 +41,26 @@ const preMw = [
 ];
 
 module.exports = app => {
+  const cache = app.services.simpleCache('landing');
+  const cacheMw = (req, res, next) => {
+    cache.get(req.url, (err, cached) => {
+      if (err) return next(err);
+
+      if (!cached) return next();
+
+      res.set('Content-Type', 'text/html');
+      res.send(cached);
+    });
+  };
 
   app.get(
     [ '/', '/en', '/de', '/es', '/br' ],
     preMw,
     cmn.https,
     sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
-    _cache,
+    cacheMw,
     _setLang,
-    corpo
+    corpo.bind(null, cache)
   );
 
   app.get(
@@ -85,21 +95,27 @@ module.exports = app => {
     unsubscribeSubmit
   );
 
+  app.get('/flash', (req, res, next) => {
+    req.app.services.sessions.setFlash(req, res, req.query.message || 'Flash! Aaanhaaan!');
+    res.redirect('/');
+  });
+
   app.get(
     '/start',
     preMw,
     start
   );
 
+
   app.get(
     [ '/decouvrir/:page', '/discover/:page', '/entdecken/:page' ],
     preMw,
     cmn.https,
     _corpoBrowserCache,
-    _cache,
+    cacheMw,
     _redirectLang,
     _redirectLegacyLinks,
-    corpo
+    corpo.bind(null, cache)
   );
 
   app.get(
@@ -107,23 +123,6 @@ module.exports = app => {
     preMw,
     newFileKey
   );
-
-}
-
-
-function _cache( req, res, next ) {
-
-  cache.get( req.url, ( err, cached ) => {
-
-    if ( err ) return next( err );
-
-    if ( !cached ) return next();
-
-    res.set( 'Content-Type', 'text/html' );
-
-    res.send( cached );
-
-  } );
 
 }
 
@@ -167,7 +166,7 @@ function _setLang( req, res, next ) {
 }
 
 
-async function corpo( req, res, next ) {
+async function corpo(cache, req, res, next) {
 
   const pageName = req.params.page || req.url.substr( 1 );
 
@@ -200,7 +199,7 @@ async function corpo( req, res, next ) {
     {
       lang: page.getLang(),
       metas, // used?
-      scripts: [ {
+      scripts: [{
         content: `window._slaaskSettings = { key: "6b2ef2b1830ad6e1c43bbc726c8a9f98" };`
       }, {
         src: '//cdn.slaask.com/chat_loader.js'
@@ -208,7 +207,9 @@ async function corpo( req, res, next ) {
         src: '//code.jquery.com/jquery-2.2.4.min.js'
       }, {
         src: '//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js'
-      } ]
+      }, {
+        src: '/js/landing.js'
+      }]
     }
   );
 

@@ -787,6 +787,11 @@ function _query( str, args, cb ) {
 
   if ( !config ) return false;
 
+  if (!cb) {
+    cb = args;
+    args = {};
+  }
+
   if ( config.query ) {
 
     config.query( str, args, cb );

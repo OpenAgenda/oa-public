@@ -2,6 +2,9 @@
 
 exports.setOnReady = setOnReady;
 
+const labels = require('@openagenda/labels/agendas/datetime');
+const capitalize = require('lodash/capitalize');
+
 var UID = 0, LANG = 1,
 
 cn = require(  '../../js/lib/common/common.mod.js' ),
@@ -14,7 +17,8 @@ debug = require( 'debug' ),
 
 config = {
   langAttribute : 'data-lang',
-  defaultMonth : 'data-default-month'
+  defaultMonth : 'data-default-month',
+  isExclusiveAttribute: 'data-exclusive'
 },
 
 templates = {
@@ -37,6 +41,8 @@ var widget = function( elem, options ) {
   controller,
 
   enabled = false,
+
+  isExclusive = false,
 
   lang = 'en',
 
@@ -73,6 +79,8 @@ var widget = function( elem, options ) {
       log( 'overwriting lang to %s', lang );
 
     }
+
+    isExclusive = elem.getAttribute( config.isExclusiveAttribute ) === '1';
 
     controller = options.register( wLib.interface( 'calendar', uid, {
       enable : enable,
@@ -225,9 +233,9 @@ var widget = function( elem, options ) {
 
   function _update( range ) {
 
-    log( 'updating request parameters' );
+    log('updating request parameters' );
 
-    controller.update( 'calendar', range );
+    controller.update( 'calendar', range, isExclusive );
 
   }
 
@@ -244,7 +252,15 @@ var widget = function( elem, options ) {
       filter: _filterCalendar,
       onSelect: _onSelect,
       navDomContent: { prev: '<', next: '>'},
-      lang: lang
+      lang: lang,
+      monthNames: Object.keys(labels.january).reduce((monthNames, lang) => ({
+        ...monthNames,
+        [lang]: ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december' ].map(m => capitalize(labels[m][lang]))
+      }), {}),
+      weekDays: Object.keys(labels.january).reduce((weekDays, lang) => ({
+        ...weekDays,
+        [lang]: ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'].map(wd => capitalize(labels[wd][lang]).substr(0, 3))
+      }), {})
     } );
 
   }

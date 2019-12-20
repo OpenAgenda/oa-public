@@ -20,7 +20,7 @@ handler,
 
 favorites = require( './favorites' ),
 
-Masonry = require( 'masonry-layout' ), 
+Masonry = require( 'masonry-layout' ),
 
 imagesLoaded = require( 'imagesloaded' ),
 
@@ -131,7 +131,7 @@ function _initFacebook( params, list ) {
 
       }
 
-      window.location.href = domUtils.loadInLocation( { 
+      window.location.href = domUtils.loadInLocation( {
         search: newValues,
         fb: 1
       } );
@@ -158,11 +158,11 @@ function _initEmbedded( params ) {
 
   // pass on frame search/query changes to parent window
   window.cibul.getController( params.uid ).setProxy( {
-    update: function( newValues ) {
+    update: function( newValues, originWidget = null, isExclusive = false ) {
 
-      log( 'change in iframe %s', JSON.stringify( newValues ) );
+      log( 'change in iframe %s', JSON.stringify( { update: newValues, isExclusive, originWidget } ) );
 
-      handler.send( { update: newValues } );
+      handler.send( { update: newValues, isExclusive, originWidget } );
 
     }
   } );
@@ -204,7 +204,7 @@ function _loadNext() {
     handler.contentChange();
 
     favorites.sweep();
-    
+
   });
 
 }

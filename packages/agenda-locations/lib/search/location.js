@@ -323,6 +323,7 @@ module.exports.clean = function( l, refreshUpdatedAt ) {
     extId: l.extId,
     district: l.district,
     postalCode: l.postalCode,
+    insee: l.insee,
     website: l.website,
     timezone: l.timezone,
     links: l.links,

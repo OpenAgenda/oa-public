@@ -1,9 +1,13 @@
 'use strict';
 
-const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'auth/reset.front' );
+const labels = require('@openagenda/labels/auth/errors');
+const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
 const cmn = require( '../lib/commons-app' );
 const usersSvc = require( '../services/users' );
+const sessions = require('../../sessions');
+
+const getLabel = makeLabelGetter(labels);
 
 const config = require( '../config' );
 
@@ -35,13 +39,17 @@ function lostPassword( req, res ) {
 
 function lostPasswordSubmit( req, res ) {
 
-  _createAndSend( { email: req.body.email } )
+  _createAndSend( { email: req.body.email, req } )
 
-    .then( _ifValueIs( 'sent', true, _redirectToSignin( req, res, 'A password reset is being sent to your email' ) ) )
+    .then( _ifValueIs( 'sent', true, _redirectToSignin( req, res, getLabel('passwordResetSent', req.lang) ) ) )
 
     .then( _ifValueIsNot( 'sent', true, _render( req, res, 'auth/lostPassword' ) ) )
 
-    .then( () => log( 'done' ), cmn.catchError( req, res ) );
+    .then( () => log( 'done' ), err => {
+      sessions.setFlash(req, res, err.message);
+
+      res.redirect('/');
+    } );
 
 }
 
@@ -51,7 +59,7 @@ function resetPassword( req, res ) {
 
     .then( _ifValueIs( 'valid', true, _render( req, res, 'auth/resetPassword' ) ) )
 
-    .then( _ifValueIsNot( 'resolved', true, _redirectToSignin( req, res, 'The link is outdated. Try again.' ) ) )
+    .then( _ifValueIsNot( 'resolved', true, _redirectToSignin( req, res, getLabel('resetLinkOutdated', req.lang) ) ) )
 
     .then( () => log( 'done' ), cmn.catchError( req, res ) );
 
@@ -60,12 +68,13 @@ function resetPassword( req, res ) {
 function resetPasswordSubmit( req, res ) {
 
   updatePassword( {
+    req,
     token: req.params.token,
     password: req.body.password,
     repeat: req.body.repeat,
   } )
 
-    .then( _ifValueIs( 'success', true, _redirectToSignin( req, res, 'Your password has been updated.' ) ) )
+    .then( _ifValueIs( 'success', true, _redirectToSignin( req, res, getLabel('passwordUpdated', req.lang) ) ) )
 
     .then( _ifValueIsNot( 'resolved', true, _render( req, res, 'auth/resetPassword' ) ) )
 
@@ -150,9 +159,9 @@ async function _createAndSend( values ) {
 
     log( 'loaded user %s', JSON.stringify( result ) );
 
-    if ( !result ) throw new Error( 'No account matching this email was found' );
+    if ( !result ) throw new Error( getLabel('noAccountFound', values.req.lang) );
 
-    if ( !result.isActivated ) throw new Error( 'The account matching this email is not yet activated' );
+    if ( !result.isActivated ) throw new Error( getLabel('userNotActivated', values.req.lang) );
 
     values.user = result;
 
@@ -203,7 +212,7 @@ async function _verifyToken( values ) {
 
   if ( !values.valid ) {
 
-    values.message = 'token is not valid';
+    values.message = getLabel('invalidToken', values.req.lang);
 
   }
 
@@ -221,11 +230,11 @@ async function updatePassword( values ) {
 
     if ( !result ) {
 
-      values.message = 'user was not found';
+      values.message = getLabel('userNotFound', values.req.lang);
 
     } else if ( !result.isActivated ) {
 
-      values.message = 'user is not activated';
+      values.message = getLabel('userNotActivated', values.req.lang);
 
     } else {
 
@@ -237,13 +246,13 @@ async function updatePassword( values ) {
 
       if ( values.password !== values.repeat ) {
 
-        values.message = 'Passwords must match.';
+        values.message = getLabel('passwordsMustMatch', values.req.lang);
 
         return values;
 
       } else if ( !values.password.length ) {
 
-        values.message = 'Field cannot be empty.';
+        values.message = getLabel('fieldCannotBeEmpty', values.req.lang);
 
         return values;
 
@@ -257,7 +266,7 @@ async function updatePassword( values ) {
 
       } catch ( e ) {
 
-        throw 'the password could not be modified';
+        throw getLabel('passwordCouldNotBeModified', values.req.lang);
 
       }
 

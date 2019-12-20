@@ -10,6 +10,14 @@ module.exports = {
     "br": "Hiziv",
     "es": "hoy"
   },
+  "yesterday": {
+    "en": "yesterday",
+    "fr": "hier",
+    "es": "ayer",
+    "br": "dec'h",
+    "it": "ieri",
+    "de": "gestern"
+  },
   "tomorrow": {
     "fr": "Demain",
     "en": "Tomorrow",
@@ -45,5 +53,45 @@ module.exports = {
     "pl": "W tym miesiącu",
     "es": "Este mes",
     "br": "Ar miz-mañ"
+  },
+  "relativeToNowPast": {
+    "en": "%count% %units% ago",
+    "fr": "il y a %count% %units%",
+    "es": "hace %count% %units%",
+    "br": "pell zo %count% %units%",
+    "it": "%count% %units% fa",
+    "de": "vor %count% %units%"
+  },
+  "relativeToNowUpcoming": {
+    "en": "in %count% %units%",
+    "fr": "dans %count% %units%",
+    "es": "en %count% %units%",
+    "de": "in %count% %units%",
+    "it": "tra %count% %units%",
+    "br": "%count% %units%"
+  },
+  "days": {
+    "en": "days",
+    "fr": "jours",
+    "de": "tagen",
+    "it": "giorni",
+    "es": "dias",
+    "br": "deizioù"
+  },
+  "months": {
+    "en": "months",
+    "fr": "mois",
+    "de": "monat",
+    "it": "mese",
+    "es": "mes",
+    "br": "miz"
+  },
+  "years": {
+    "en": "years",
+    "fr": "ans",
+    "es": "años",
+    "de": "jahre",
+    "it": "anni",
+    "br": "bloaz"
   }
 }

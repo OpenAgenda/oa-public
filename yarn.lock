@@ -1565,10 +1565,10 @@
     "@openagenda/labels" "^2.0.7"
     lodash "^4.17.4"
 
-"@openagenda/es-node@^1.2.0":
-  version "1.2.0"
-  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.2.0.tgz#d305a97dd2a67b09aac7b90ec27e57e3ac5d1237"
-  integrity sha512-8JRw1ypiytH4dmvOk2OttxuDXgHAWzEykwzHlx+hbogaIdnQLU13B6uA7zFbBMSu1Gh4cAN9z/vRi796/Ua0OA==
+"@openagenda/es-node@^1.2.2":
+  version "1.2.2"
+  resolved "https://registry.npmjs.org/@openagenda/es-node/-/es-node-1.2.2.tgz#4469d68da62685082b3c9f89dccf180a165aa3ac"
+  integrity sha512-UsJyXhJ2nKLGURNwjLWq3hzm+z32PmkDUZKbJ8OU46rCBY4JvEawH48MeM5QFGVpDirqtAV/mMb5+p9y6sPvew==
   dependencies:
     "@openagenda/utils" "^1.0.2"
     async "~0.9"
@@ -10458,6 +10458,11 @@ hbs@^4.0.1:
     handlebars "4.3.5"
     walk "2.3.14"
 
+he@1.1.1:
+  version "1.1.1"
+  resolved "https://registry.npmjs.org/he/-/he-1.1.1.tgz#93410fd21b009735151f8868c2f271f3427e23fd"
+  integrity sha1-k0EP0hsAlzUVH4howvJx80J+I/0=
+
 he@1.2.0, he@1.2.x, he@^1.2.0:
   version "1.2.0"
   resolved "https://registry.npmjs.org/he/-/he-1.2.0.tgz#84ae65fa7eafb165fddb61566ae14baf05664f0f"
@@ -15131,6 +15136,13 @@ node-gyp@^3.8.0:
     semver "~5.3.0"
     tar "^2.0.0"
     which "1"
+
+node-html-parser@^1.1.16:
+  version "1.1.16"
+  resolved "https://registry.npmjs.org/node-html-parser/-/node-html-parser-1.1.16.tgz#59f072bcabf1cf6e23f7878a76e0c3b81b9194fa"
+  integrity sha512-cfqTZIYDdp5cGh3NvCD5dcEDP7hfyni7WgyFacmDynLlIZaF3GVlRk8yMARhWp/PobWt1KaCV8VKdP5LKWiVbg==
+  dependencies:
+    he "1.1.1"
 
 node-int64@^0.4.0:
   version "0.4.0"

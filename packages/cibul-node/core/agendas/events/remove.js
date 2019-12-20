@@ -13,6 +13,7 @@ const aggregators = require('../../../services/aggregators').instance;
 const createPayload = require('../utils/createPayload');
 const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
 const merge = require('../utils/merge');
+const refreshAgenda = require('../utils/refreshAgenda');
 
 const log = require('@openagenda/logs')('core/agendas/events/remove');
 
@@ -113,6 +114,8 @@ module.exports = async (services, agendaUid, eventUid, options) => {
       batched
     });
   }
+
+  await refreshAgenda(agenda.uid);
 
   const result = await payload.getResponse('removed', access);
 

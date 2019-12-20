@@ -60,9 +60,31 @@
 
   }
 
-  .Select-control {
+  .language-select__control {
 
     width: 10em;
+    min-height: 35px;
+
+  }
+
+  .language-select__control--is-focused {
+
+    border-color: lighten($oa-blue, 10)!important;
+    box-shadow: rgba(0, 0, 0, 0.075) 0px 1px 1px inset,rgba($oa-blue, 0.6) 0px 0px 8px;
+
+  }
+
+  .language-select__option--is-focused {
+
+    background: $oa-blue;
+    color: $oa-white;
+    cursor: pointer;
+
+  }
+
+  .language-select__indicator {
+
+    padding: 6px 8px 6px;
 
   }
 

@@ -25,12 +25,20 @@ module.exports = async ({
 
   const update = reference.sourceAgendaUid.filter(uid => uid!==sourceAgendaUid);
 
+  let result;
+
   if (reference.aggregated && !update.length) {
     log('no source references are left, event must be unlisted from aggregator agenda');
-    await unreferenceEvent(sourceAgendaUid, aggregatorAgendaUid, eventUid, { batched });
+    const { success, errors } = await unreferenceEvent(sourceAgendaUid, aggregatorAgendaUid, eventUid, { batched });
+    if (success) {
+      log('removed reference');
+      return { success: true };
+    } else {
+      log('failed to remove reference', errors);
+      return { success: false, errors };
+    }
   } else {
     log('other source references are present, current source ref must be removed');
     await unsetSourceUidOnExistingReference(aggregatorAgendaUid, eventUid, sourceAgendaUid);
   }
-  log('done');
 }

@@ -5,15 +5,19 @@ const ih = require('immutability-helper');
 const VError = require('verror');
 
 const log = require('@openagenda/logs')('core/agendas/events/update');
+
 const {
   toEventServiceFormat
 } = require('@openagenda/agenda-contribute/server/parse');
+
 
 const aggregators = require('../../../services/aggregators').instance;
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
 const processOEmbed = require('../utils/processOEmbed');
+
 const createPayload = require('../utils/createPayload');
+const refreshAgenda = require('../utils/refreshAgenda');
 const setCustom = require('../utils/setCustom');
 const merge = require('../utils/merge');
 const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
@@ -26,6 +30,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     agendas,
     agendaEvents,
     eventSearch,
+    oembed,
     custom
   } = services;
 
@@ -65,7 +70,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
 
   if (clean.event.longDescription) {
     try {
-      clean.event.links = await processOEmbed( clean.event.longDescription, clean.event.links );
+      clean.event.links = await processOEmbed(oembed, clean.event.longDescription, clean.event.links);
       log( 'retrieved %s links', clean.event.links.length );
     } catch ( e ) {
       log( 'error', 'could not retrieve oembeds', e );
@@ -178,14 +183,14 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     payload.setItem('agendaEvent', result.before, result.set);
   }
 
-  if (!partial) {
+  if (!draft) {
     try {
       await legacy.tagsAndCustom.set(agenda.id, payload.getItem('event.uid'), [
         agenda.formSchema,
         _.get(agenda, 'network.formSchema')
       ], [
-        clean.custom,
-        clean.networkCustom
+        partial && agenda.formSchemaId ? await custom(agenda.formSchemaId).get(eventUid) : clean.custom,
+        partial && agenda.network && agenda.network.formSchemaId ? await custom(agenda.network.formSchemaId).get(eventUid) : clean.networkCustom
       ] );
     } catch (e) {
       log('error', 'failed to set legacy tags and custom data', e);
@@ -216,6 +221,9 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     formSchema: payload.getFormSchema(),
     batched
   });
+
+
+  await refreshAgenda(agenda.uid);
 
   const response = await payload.getResponse('updated', access);
 

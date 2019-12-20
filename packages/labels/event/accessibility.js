@@ -73,7 +73,7 @@ module.exports = {
   },
   "input": {
     "en": "This event has amenities to facilitate accessibility",
-    "fr": "Cet événement inclus des aménagements à l'accessibilité",
+    "fr": "Cet événement inclut des aménagements à l'accessibilité",
     "de": "Dieses Veranstaltung verfügt über Annehmlichkeiten Zugänglichkeit zu erleichtern",
     "es": "Este evento incluye las mejoras a la accesibilidad",
     "br": "En darvoud-mañ ez eus aveadurioù da aesaat ar vonedusted"

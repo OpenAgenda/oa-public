@@ -89,7 +89,7 @@ describe.skip( 'locations', () => {
   } );
 } );
 
-describe.skip( 'events', () => {
+describe( 'events', () => {
   it( 'create & delete an event', async () => {
     const oa = new OaSdk( { secretKey: testconfig.secretKey } );
     await oa.connect();
@@ -117,8 +117,6 @@ describe.skip( 'events', () => {
     expect(success).toBeTruthy();
     expect(typeof event.uid).toBe('number');
     expect(event.title.fr).toBe('Un titre');
-
-    await oa.events.delete( testconfig.agendaUid, event.uid );
   } );
 
   it( 'create & delete an event - with keywords', async () => {

@@ -69,7 +69,7 @@
     <p>preview widget with custom template:</p>
     <div <%- backup ? 'class="gni cbpgpr"' : 'data-oapr' %> data-cbctl="<%= uid %>">
       <a href="#here">Voir l'agenda</a>
-      <!-- 
+      <!--
         Total à venir: {TotalEvents}
         <ul>
           {block:Events}
@@ -85,6 +85,10 @@
               {block:Tags}
                 <h1>{Tag}</h1>
               {/block:Tags}
+              {TicketUrl}
+              {block:Registration}
+                {Value}
+              {/block:Registration}
             </a>
           </li>
           {/block:Events}

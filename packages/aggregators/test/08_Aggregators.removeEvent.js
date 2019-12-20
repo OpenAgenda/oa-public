@@ -19,7 +19,7 @@ describe('Aggregators removeEvent', () => {
         aggregated: true
       }),
       unsetSourceUidOnExistingReference: tracker('unsetSourceUidOnExistingReference'),
-      unreferenceEvent: tracker('unreferenceEvent')
+      unreferenceEvent: tracker('unreferenceEvent', { success: true })
     }, {
       aggregatorAgendaUid: 123,
       sourceAgendaUid: 71413881,
@@ -37,7 +37,7 @@ describe('Aggregators removeEvent', () => {
         aggregated: true
       }),
       unsetSourceUidOnExistingReference: tracker('unsetSourceUidOnExistingReference'),
-      unreferenceEvent: tracker('unreferenceEvent')
+      unreferenceEvent: tracker('unreferenceEvent', { success: true })
     }, {
       aggregatorAgendaUid: 123,
       sourceAgendaUid: 71413881,
@@ -55,7 +55,7 @@ describe('Aggregators removeEvent', () => {
         aggregated: false
       }),
       unsetSourceUidOnExistingReference: tracker('unsetSourceUidOnExistingReference'),
-      unreferenceEvent: tracker('unreferenceEvent')
+      unreferenceEvent: tracker('unreferenceEvent', { success: true })
     }, {
       aggregatorAgendaUid: 123,
       sourceAgendaUid: 71413881,
@@ -63,6 +63,24 @@ describe('Aggregators removeEvent', () => {
     });
 
     tracker.calls.pop().name.should.equal('unsetSourceUidOnExistingReference');
+  });
+
+  it('if unreference fails, result provides success bool at false and errors', async () => {
+    const tracker = Tracker();
+    const result = await removeEvent({
+      getEventReference: tracker('getEventReference', {
+        sourceAgendaUid: [ 71413881 ],
+        aggregated: true
+      }),
+      unsetSourceUidOnExistingReference: tracker('unsetSourceUidOnExistingReference'),
+      unreferenceEvent: tracker('unreferenceEvent', { success: false, errors: ['error1'] })
+    }, {
+      aggregatorAgendaUid: 123,
+      sourceAgendaUid: 71413881,
+      eventUid: 1
+    });
+
+    result.should.eql({ success: false, errors: ['error1'] });
   });
 
 });

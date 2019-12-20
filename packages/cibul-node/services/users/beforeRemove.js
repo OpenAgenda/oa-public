@@ -18,11 +18,9 @@ module.exports = function beforeRemove( { services } ) {
       return ctx;
     }
 
-    // remove 100 members
-
     await promisify( activitiesSvc.feed( { entityType: 'user', entityUid: user.uid } ).remove )();
 
-    const members = await membersSvc.list( { userUid: user.uid }, { limit: 500 } );
+    const members = await membersSvc.list( { userUid: user.uid }, { limit: 1000 } );
 
     for ( const member of members ) {
 

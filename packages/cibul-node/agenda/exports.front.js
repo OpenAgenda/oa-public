@@ -37,14 +37,14 @@ module.exports = app => {
     '/agendas/:uid/events.json',
     preMw,
     _checkKey( ( req, res, next ) => res.status( 400 ).json( { error: 'Provided key is invalid' } ) ),
-    cacheMw.send( 'agendas', 'params.uid', cachedJson ),
+    cacheMw.send('agendas', 'params.uid', cachedJson),
     agendaSvc.mw.load( 'uid' ),
     cmn.ifIs( 'agenda.private', members.mw.loadOrFail ),
     agendaSvc.mw.search( perPage ),
     eventSvc.mw.cleanEvents,
     agendaSvc.mw.decorateEvents(),
     agendaSvc.mw.cleanJson,
-    cacheMw.set( 'agendas', 'params.uid', 30, _cacheContent ),
+    cacheMw.set('agendas', 'params.uid', 30, _cacheContent),
     gaTrack( 'events', 'export', 'json' ),
     json
   );
@@ -74,7 +74,7 @@ module.exports = app => {
         _.pick( req.agenda, [ 'title', 'description', 'slug', 'url' ] ),
         {
           tagSet: req.tagSet,
-          categorSet: req.categorySet,
+          categorySet: req.categorySet,
           locationSet: req.locationSettings,
           customSet: req.agenda.getCustomFieldsConfig(),
           embeds: req.embeds
@@ -229,7 +229,11 @@ function cachedJson( cached, req, res ) {
 
   res.set( 'Content-Type', 'application/json' );
 
-  res.send( parsedCache.response );
+  if (req.query.callback) {
+    res.send(req.query.callback + '(' + JSON.stringify(parsedCache.response) + ')');
+  } else {
+    res.send(parsedCache.response);
+  }
 }
 
 

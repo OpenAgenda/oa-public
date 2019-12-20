@@ -361,16 +361,12 @@ function browserCacheControlData( req, res, next ) {
 
 }
 
-function browserCache( req, res, next ) {
-
-  if ( _hasQueryOtherThan( req, 'callback' ) ) {
-
+function browserCache(req, res, next) {
+  if (_hasQueryOtherThan(req, 'callback')) {
     return next();
-
   }
 
-  mwh.compareModifiedSince( req.agenda.updatedAt, req, res, next )
-
+  mwh.compareModifiedSince(req.agenda.updatedAt, req, res, next);
 }
 
 
@@ -471,7 +467,7 @@ function buildPdf( req, res, next ) {
 
     stream.pause();
 
-    eInst.exportable( { filter: req.query.oaq }, ( err, clean ) => {
+    eInst.exportable( { filter: req.query.oaq, services: req.app.services }, ( err, clean ) => {
 
       if (_handleExportableError('pdf', eventData, err)) {
         return stream.resume();
@@ -554,7 +550,7 @@ function buildXlsx( includePrivateData ) {
         const eInst = eventSvc.instanciate( eventData );
 
         // clean event
-        eInst.exportable( ( err, clean ) => {
+        eInst.exportable({ services: req.app.services }, ( err, clean ) => {
 
           if (_handleExportableError('xlsx', eventData, err)) {
             processing--;
@@ -667,7 +663,7 @@ function buildCsv( includePrivateData ) {
         // instanciate
         const eInst = eventSvc.instanciate( eventData );
 
-        eInst.exportable( { protocol: 'https:' }, ( err, clean ) => {
+        eInst.exportable( { protocol: 'https:', services: req.app.services }, ( err, clean ) => {
 
           if (_handleExportableError('csv', eventData, err)) {
             processing--;

@@ -28,6 +28,7 @@ const members = require( '../services/members' );
 const eventFormat = require( '../services/event/middleware/format' );
 const pickEventImage = require( '../services/event/lib/pickImage' );
 const eventSvc = require( '../services/event' );
+const getLongDescriptionHTML = require('../services/event/lib/getLongDescriptionHTML');
 const layouts = require( '../services/lib/layouts' );
 const lib = require( '../lib/lib' );
 const mwHelpers = require( '../services/lib/middlewareHelpers' );
@@ -40,11 +41,11 @@ const preMw = [
 
 const middlewares = {
   show: [
-    agendaSvc.mw.search( perPage ),
+    agendaSvc.mw.search(perPage),
     _format,
     _formatShowLinks,
-    showXhr( 'agenda/show' ),
-    cmn.loadBaseData( _layoutData, 'oasfmain.css' ),
+    showXhr('agenda/show'),
+    cmn.loadBaseData(_layoutData, 'oasfmain.css'),
     show
   ],
   embedShow: [
@@ -55,9 +56,9 @@ const middlewares = {
     _formatCustomEmbedLinks,
     embedSvc.mw.renderEventItems,
     embedSvc.mw.renderHeader,
-    showXhr( 'agenda/embedShow' ),
+    showXhr('agenda/embedShow'),
     cmn.useEmbedGoogleAnalytics,
-    cmn.loadBaseData( _layoutData ),
+    cmn.loadBaseData(_layoutData),
     embedSvc.mw.loadCustomLayoutData,
     renderEmbedShow
   ]
@@ -577,7 +578,10 @@ function _formatEventItem( event, req, cb ) {
     image: img ? img/*.replace( 'cibuldev', 'cibul' )*/ : false,
     thumbnail: pickEventImage( config, inst, 'thumbnail' ),
     description: inst.getDescription(),
-    freeText: inst.getEnrichedFreeText( false ),
+    freeText: getLongDescriptionHTML({
+      lang: req.lang,
+      services: req.app.services
+    }, inst.getFreeText(), inst.getLinks()),
     placeName: inst.getLocationName(),
     address: inst.getAddress().label,
     placeNameLabel: inst.getLocationName().label,

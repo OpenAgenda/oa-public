@@ -1,6 +1,9 @@
 "use strict";
 
-const getLabel = require( '@openagenda/labels/makeLabelGetter' )( require( '@openagenda/labels/agendas/activeFilters' ) );
+const getLabel = require( '@openagenda/labels/makeLabelGetter' )( Object.assign(
+  require( '@openagenda/labels/agendas/activeFilters' ),
+  require( '@openagenda/labels/agendas/datetime' )
+) );
 
 const months = [
   'january',

@@ -314,14 +314,13 @@ module.exports = function( uid ) {
 
   }
 
-
   /**
    * controller
    *
    * called by widget when some agenda request parameters were updated
    */
 
-  function update( originWidget, updatedParams ) {
+  function update( originWidget, updatedParams, isExclusive ) {
 
     if ( arguments.length == 1 ) {
 
@@ -331,9 +330,9 @@ module.exports = function( uid ) {
 
     }
 
-    log( 'updating with %s', JSON.stringify( updatedParams ) );
+    log( 'updating with %s (%sexclusive) from %s', JSON.stringify( updatedParams ), isExclusive ? 'is ' : 'not ', originWidget );
 
-    var newParams = _clean( cn.extend( {}, currentRequestParams, {
+    var newParams = isExclusive ? updatedParams : _clean( cn.extend( {}, currentRequestParams, {
       uid: null,
       event: null
     }, updatedParams ) );
@@ -350,7 +349,7 @@ module.exports = function( uid ) {
 
     }
 
-    if ( proxy && proxy.update ) proxy.update( updatedParams );
+    if ( proxy && proxy.update ) proxy.update( updatedParams, originWidget, isExclusive );
 
     if ( window.oa && window.oa.onWidgetUpdate ) {
 

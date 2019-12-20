@@ -44,10 +44,6 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
 
   payload.setItem('agendaEvent', await agendaEvents(agendaUid).get(eventUid));
 
-  const {
-    id: agendaId
-  } = agenda;
-
   if (!customOnly) {
     const event = await events.get({
       uid: eventUid

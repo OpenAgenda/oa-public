@@ -56,7 +56,6 @@ export default class Events {
 
     return this.sdk.agent
       .patch( `${baseUrl.v2}/agendas/${agendaUid}/events/${eventUid}` )
-      .type( 'form' )
       .accept( 'json' )
       .query( { key: this.sdk.params.publicKey } )
       .set( 'access-token', this.sdk.accessToken )
@@ -80,10 +79,6 @@ export default class Events {
       .query( { key: this.sdk.params.publicKey } )
       .set( 'access-token', this.sdk.accessToken )
       .set( 'nonce', _.random( Math.pow( 10, 6 ) ) )
-      .field( {
-        access_token: this.sdk.accessToken,
-        nonce: _.random( Math.pow( 10, 6 ) )
-      } )
       .then( parseJsonResponse )
       .then( v => v.body );
   }
