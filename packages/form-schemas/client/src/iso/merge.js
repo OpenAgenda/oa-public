@@ -23,12 +23,13 @@ function mergeAll(...args) {
 
   if (!options.access) return merged;
 
-  const accessType = Object.keys(options.access)[0];
-  const access = options.access[accessType];
+  const accessTypes = Object.keys(options.access);
 
   return {
     ...merged,
-    fields: merged.fields.filter(f => !f[accessType] || f[accessType].includes(access))
+    fields: merged.fields.filter(f => accessTypes.length === accessTypes.filter(accessType => {
+      return !f[accessType] || f[accessType].includes(options.access[accessType])
+    }).length)
   }
 }
 

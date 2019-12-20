@@ -105,6 +105,7 @@ describe.only('unit - assigning schema properties to another schema', () => {
       fields: [{
         field: 'someagendafield',
         read: ['administrator'],
+        write: ['administrator', 'moderator'],
         fieldType: 'radio',
         options: [{
           id: 1,
@@ -135,6 +136,16 @@ describe.only('unit - assigning schema properties to another schema', () => {
         .map(f => f.field)
         .should.eql(['someagendafield', 'somenetworkfield']);
     });
+
+    it('if both read and write access options are provided and field does not match for one, field is excluded', () => {
+      merge(networkSchema, agendaSchema, { access: {
+        read: 'moderator',
+        write: 'moderator'
+      } }).fields
+        .map(f => f.field)
+        .should.eql(['somenetworkfield']);
+    });
+
   });
 
   describe('other', () => {
