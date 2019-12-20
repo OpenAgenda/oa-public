@@ -411,4 +411,84 @@ describe('core - functional (server): core.agendas().events.create()', function(
 
   });
 
+
+  describe('errors and exceptions', function() {
+    const validData = {
+      title: {
+        fr: 'Un événement'
+      },
+      description: {
+        fr: 'Un tout petit événement'
+      },
+      timings: [ {
+        begin: new Date( '2019-05-06T10:00:00' ),
+        end: new Date( '2019-05-06T11:00:00' )
+      } ],
+      location: {
+        uid: 123
+      },
+      'categories-agenda-metropolitain': 42,
+      'thematiques-bordeaux-metropole' : [3, 4]
+    };
+
+    const options = {
+      context: {
+        userUid: 63170200
+      },
+      access: 'contributor'
+    };
+
+    it('something about a validation error', async () => {
+      try {
+        await core.agendas(17026855).events.create(ih(validData, {
+          $unset: ['title']
+        }), options);
+      } catch (e) {
+        e.detail[0].should.eql({
+          lang: 'fr',
+          field: 'title',
+          code: 'required',
+          message: 'a string is required',
+          origin: '',
+          step: 'validation'
+        });
+      }
+    });
+
+    it('create with location uid matching no location returns validation error', async () => {
+      try {
+        await core.agendas(17026855).events.create(ih(validData, {
+          location: {
+            $set: { uid: 124 }
+          }
+        }), options);
+      } catch (e) {
+        e.detail.should.eql([{
+          field: 'location',
+          code: 'invalid',
+          message: 'provided location uid is invalid',
+          origin: undefined,
+          step: 'validation'
+        }]);
+      }
+    });
+
+    it('create without specified location returns validation error', async () => {
+      try {
+        await core.agendas(17026855).events.create(ih(validData, {
+          $unset: ['location']
+        }), options);
+      } catch (e) {
+        e.detail.should.eql([{
+          code: 'location.required',
+          message: 'a integer is required',
+          origin: undefined,
+          field: 'location',
+          step: 'validation'
+        }]);
+      }
+    });
+
+  });
+
 } );

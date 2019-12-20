@@ -17,6 +17,7 @@ const extractLanguages = require( '@openagenda/event-form/build/utils/extractLan
 const { fromEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
 const getAgendaWithNetworkAndSchemas = require( './getAgendaWithNetworkAndSchemas' );
+const ValidationError = require('./ValidationError');
 
 module.exports = async (services, agendaUid, data, options = {}) => {
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
@@ -132,11 +133,20 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
     agendaEventErrors.forEach(err => errors.push(_.set(err, 'step', 'agenda event data validation')));
   }
 
-  if (errors.length) {
-    throw new VError({
-      name: 'validationError',
-      info: { errors }
+  //_validateLocation(clean.event, location, errors);
+
+  if (clean.event && clean.event.location && !location) {
+    errors.push({
+      field: 'location',
+      code: 'invalid',
+      message: 'provided location uid is invalid',
+      origin: clean.locationUid,
+      step: 'validation'
     });
+  }
+
+  if (errors.length) {
+    throw new ValidationError(errors);
   }
 
   return clean;

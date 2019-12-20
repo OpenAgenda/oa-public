@@ -117,6 +117,22 @@ raw.push(knex('reviewer').insert([{
   actions_counter: 1
 }]));
 
+raw.push(knex('location').insert([{
+  id: 1,
+  uid: 123,
+  agenda_id: 218,
+  slug: 'la-boutique',
+  placename: 'La boutique',
+  address: '29 passage du Ponceau, Paris',
+  city: 'Paris',
+  country: 'FR',
+  latitude: 48.867688,
+  longitude: 2.351739,
+  store: JSON.stringify({
+    extId: 'fdsqfdsq'
+  })
+}]));
+
 raw.push(knex('review_category').insert([{
   id: 3454,
   slug: 'animation-loto',
