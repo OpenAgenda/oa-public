@@ -59,10 +59,8 @@ function makeGetResponse(services, data) {
 function getFormSchema(agenda, access = null) {
   return merge.schemasWithEvent(
     _.get(agenda, 'network.formSchema'),
-    _.get(agenda, 'formSchema'), // there, the event schema is not set.
-    access !== null ? {
-      access: { read: access }
-    } : null
+    _.get(agenda, 'formSchema'),
+    access !== null ? { read: access } : null
   );
 }
 

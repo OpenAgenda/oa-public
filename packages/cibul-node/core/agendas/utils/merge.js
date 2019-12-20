@@ -54,9 +54,10 @@ module.exports.event = mergeEvent;
 
 module.exports.schemas = merge;
 
-module.exports.schemasWithEvent = (...args) => eventFormSchema({
+module.exports.schemasWithEvent = (agendaSchema, networkSchema, access) => eventFormSchema({
   languages: true,
-  schemaExtensions: args,
+  schemaExtensions: [agendaSchema, networkSchema],
+  access,
   excludeNonDataFields: true
 });
 

@@ -80,11 +80,10 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
 
   const consolidatedSchema = eventSchema( {
     languages,
-    schemaExtensions: _asArray( schemaExtensions ).concat({
-      access: {
-        write: access
-      }
-    }),
+    schemaExtensions: _asArray(schemaExtensions),
+    access: {
+      write: access
+    },
     excludeEventFields: !evaluateEvent,
   } );
 

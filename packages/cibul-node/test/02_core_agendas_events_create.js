@@ -17,7 +17,7 @@ const assignClients = require('./utils/assignClients');
 
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core.agendas().events.create', function() {
+describe('core - functional (server): core.agendas().events.create()', function() {
   this.timeout(20000);
 
   const eventData = {

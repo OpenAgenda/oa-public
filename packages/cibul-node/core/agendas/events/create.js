@@ -14,7 +14,6 @@ const doAdd = require('../utils/doAdd');
 const processOEmbed = require('../utils/processOEmbed');
 const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
 
-
 module.exports = async (services, agendaUid, data, options = {}) => {
   log('info', 'processing', { agendaUid, options });
 
