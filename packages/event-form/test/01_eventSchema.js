@@ -100,11 +100,13 @@ describe('event-form eventSchema', () => {
     expect(es.fields.filter(f => f.field === 'languages').length).toEqual(0);
   });
 
-  test('internal event fields are part of schema if "includeInternalFields" option is true', () => {
+  test('internal event fields are part of schema if access is read "internal"', () => {
     const privateFields = ['id', 'uid', 'slug', 'draft', 'private', 'createdAt', 'updatedAt', 'timezone', 'agendaUid', 'locationUid'];
 
     const es = eventSchema({
-      includeInternalFields: true
+      access: {
+        read: 'internal'
+      }
     });
 
     expect(es.fields.filter(f => privateFields.includes(f.field)).length).toEqual(privateFields.length);

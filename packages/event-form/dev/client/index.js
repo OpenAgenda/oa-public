@@ -116,7 +116,10 @@ class Main extends Component {
           <SchemaEditorComponent onChange={this.onJSONChange.bind( this )} schemas={schemas} />
         </div>
         <div className="col-sm-4">
-          <EventForm schemaExtensions={schemas} devOnChange={this.onValuesChange.bind( this )} />
+          <EventForm
+            schemaExtensions={schemas}
+            devOnChange={this.onValuesChange.bind( this )}
+          />
         </div>
         <div className="col-sm-4">
           <pre>

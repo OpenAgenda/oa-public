@@ -21,17 +21,26 @@ const eventReferencesField = require('./fields/references');
 
 const schemaLanguages = require('./utils/schemaLanguages');
 
-module.exports = ({
-  interfaceLanguage,
-  locationRes,
-  referencesRes,
-  suggestionsRes,
-  languages,
-  fileStore,
-  schemaExtensions,
-  excludeEventFields,
-  excludeNonDataFields
-}) => {
+module.exports = (options = {}) => {
+
+  const {
+    interfaceLanguage,
+    locationRes,
+    referencesRes,
+    suggestionsRes,
+    languages,
+    fileStore,
+    schemaExtensions,
+    excludeEventFields,
+    excludeNonDataFields,
+    access
+  } = {
+    access: {
+      read: 'public',
+      write: 'public'
+    },
+    ...options
+  }
 
   const eventSchema = {
     custom: eventValidators,
@@ -192,7 +201,8 @@ module.exports = ({
     }));
   }
 
-  const finalSchema = hasExtensions ? merge.apply(null, [eventSchema].concat(schemaExtensions)) : eventSchema;
+  // here, for generating the form, provided access as write should suffice
+  const finalSchema = merge.apply(null, [eventSchema].concat(hasExtensions ? schemaExtensions : []).concat({ access }));
 
   if (hasExtensions && excludeEventFields) {
     const eventSchemaFields = eventSchema.fields.map(f => f.field);

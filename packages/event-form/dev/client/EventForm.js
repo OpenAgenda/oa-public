@@ -7,6 +7,7 @@ export default class DevEventForm extends Component {
   render() {
 
     return <EventForm
+      role="administrator"
       devOnChange={this.props.devOnChange}
       schemaExtensions={this.props.schemaExtensions}
       locationRes="/locations"
