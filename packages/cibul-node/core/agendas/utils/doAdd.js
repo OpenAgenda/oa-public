@@ -11,6 +11,7 @@ const { agendaIsOpen, userIsNotMember } = addContributor;
 const legacy = require( '../../../services/legacy' );
 const aggregators = require('../../../services/aggregators').instance;
 const legacyEventSearch = require('../../../services/elasticsearch');
+const refreshAgenda = require('./refreshAgenda');
 const setCustom = require('./setCustom');
 const merge = require('./merge');
 
@@ -104,7 +105,7 @@ module.exports = async (agenda, event, clean, options = {}) => {
   try {
     await legacy.tagsAndCustom.set(agenda.id, event.uid, [
       agenda.formSchema,
-      _.get( agenda, 'network.formSchema' )
+      _.get(agenda, 'network.formSchema')
     ], [
       clean.custom,
       clean.networkCustom
@@ -133,6 +134,8 @@ module.exports = async (agenda, event, clean, options = {}) => {
     ),
     batched
   });
+
+  await refreshAgenda(agenda.uid);
 
   return {
     success: true,

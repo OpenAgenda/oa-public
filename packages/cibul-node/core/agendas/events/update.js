@@ -1,20 +1,21 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const ih = require( 'immutability-helper' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const ih = require('immutability-helper');
+const VError = require('verror');
 
-const log = require( '@openagenda/logs' )( 'core/agendas/events/update' );
-const { toEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
+const log = require('@openagenda/logs')('core/agendas/events/update');
+const { toEventServiceFormat } = require('@openagenda/agenda-contribute/server/parse');
 
 const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
 const aggregators = require('../../../services/aggregators').instance;
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
-const processOEmbed = require( '../utils/processOEmbed' );
-const setCustom = require( '../utils/setCustom' );
+const processOEmbed = require('../utils/processOEmbed');
+const refreshAgenda = require('../utils/refreshAgenda');
+const setCustom = require('../utils/setCustom');
 const merge = require('../utils/merge');
-const validate = require( './validate' );
+const validate = require('./validate');
 
 module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   const {
@@ -221,6 +222,8 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     ),
     batched
   });
+
+  await refreshAgenda(agenda.uid);
 
   return {
     ...response,

@@ -12,6 +12,7 @@ const agendaEvents = require( '@openagenda/agenda-events' );
 const aggregators = require('../../../services/aggregators').instance;
 const getAgenda = require( '../utils/getAgenda' );
 const merge = require('../utils/merge');
+const refreshAgenda = require('../utils/refreshAgenda');
 
 const log = require('@openagenda/logs')('core/agendas/events/remove');
 
@@ -107,6 +108,8 @@ module.exports = async (agendaUid, eventUid, options) => {
       batched
     });
   }
+
+  await refreshAgenda(agenda.uid);
 
   return {
     success: true,
