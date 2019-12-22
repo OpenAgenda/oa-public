@@ -23,6 +23,7 @@ module.exports = core => {
   const app = express();
   const config = core.getConfig();
 
+  app.core = core;
   app.services = core.loadServices();
 
   const upload = multer({
@@ -38,8 +39,10 @@ module.exports = core => {
   app.post(/^\/v2.+/, mw.parseBodyData);
   app.patch(/^\/v2.+/, mw.parseBodyData);
 
+  app.post('/v2/requestAccessToken', mw.requestAccessToken);
+
   // access token control and user load
-  app.post(/^\/v2.+/, mw.verifyAndLoadAccessoTokenUser);
+  app.post(/^\/v2.+/, mw.verifyAndLoadAccessTokenUser);
   app.patch(/^\/v2.+/, mw.verifyAndLoadAccessTokenUser);
   app.delete(/^\/v2.+/, mw.verifyAndLoadAccessTokenUser);
 

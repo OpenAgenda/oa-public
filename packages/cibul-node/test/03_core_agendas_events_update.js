@@ -322,7 +322,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
         }]
       }, { formSchemaDataFormat: true });
 
-      (new Date(event.timings[0].begin)).getHours().should.equal(18);
+      (new Date(event.timings[0].begin)).getUTCHours().should.equal(17);
       (new Date(event.timings[0].begin)).getMinutes().should.equal(28);
 
     });

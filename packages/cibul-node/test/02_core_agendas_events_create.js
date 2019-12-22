@@ -2,6 +2,7 @@
 
 process.env.NODE_ENV = 'test';
 
+const axios = require('axios');
 const _ = require('lodash');
 const fs = require('fs');
 const ih = require('immutability-helper');
@@ -9,9 +10,10 @@ const mysql = require('mysql');
 const { promisify } = require('util');
 const should = require('should');
 
-const fixtures = require('./fixtures/02_core_agendas_events_create.sql');
 
+const api = require('../api');
 const core = require('../core');
+const fixtures = require('./fixtures/02_core_agendas_events_create.sql');
 
 const assignClients = require('./utils/assignClients');
 
@@ -21,7 +23,6 @@ describe('core - functional (server): core.agendas().events.create()', function(
   this.timeout(20000);
 
   const eventData = {
-    slug: 'un-evenement',
     title: {
       fr: 'Un événement'
     },
@@ -72,7 +73,8 @@ describe('core - functional (server): core.agendas().events.create()', function(
         'networks',
         'legacy',
         'users',
-        'keys'
+        'keys',
+        'accessTokens'
       ]
     });
   });
@@ -364,7 +366,6 @@ describe('core - functional (server): core.agendas().events.create()', function(
 
   });
 
-
   describe('data format variations', function () {
     let event;
 
@@ -410,7 +411,6 @@ describe('core - functional (server): core.agendas().events.create()', function(
     });
 
   });
-
 
   describe('errors and exceptions', function() {
     const validData = {
@@ -487,6 +487,72 @@ describe('core - functional (server): core.agendas().events.create()', function(
           step: 'validation'
         }]);
       }
+    });
+
+  });
+
+  describe('api', function() {
+
+    let server, accessToken, response;
+
+    before(done => {
+       server = api(core).listen(3000, done);
+    });
+
+    after(() => server.close());
+
+    before(async () => {
+      accessToken = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/v2/requestAccessToken',
+        headers: {
+          'content-type': 'application/json'
+        },
+        data: {
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
+        }
+      }).then(r => r.data.access_token);
+    });
+
+    before(async () => {
+      response = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/v2/agendas/17026855/events',
+        headers: {
+          'access-token': accessToken,
+          nonce: 123,
+          'content-type': 'application/json'
+        },
+        data: {
+          title: {
+            fr: 'Un événement créé par API'
+          },
+          description: {
+            fr: 'Un tout petit événement'
+          },
+          timings: [ {
+            begin: new Date( '2019-05-06T10:00:00' ),
+            end: new Date( '2019-05-06T11:00:00' )
+          } ],
+          keywords: {
+            fr: [ 'un', 'deux', 'trois' ]
+          },
+          location: {
+            uid: 123
+          },
+          'categories-agenda-metropolitain': 42,
+          'thematiques-bordeaux-metropole' : [3, 4],
+          accessibility: { sl: true }
+        }
+      }).then(r => r.data);
+    });
+
+    it('response gives success key at true if creation was a success', () => {
+      response.success.should.equal(true);
+    });
+
+    it('response provides created event in event key', () => {
+      response.event.slug.should.equal('un-evenement-cree-par-api');
     });
 
   });

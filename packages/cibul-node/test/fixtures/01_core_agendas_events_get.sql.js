@@ -7,34 +7,18 @@ const {
 
 const raw = resetAndCreateTables();
 
-raw.push(knex('review').insert([{
-  id: 1,
-  title: 'Une commune de Fraaance',
-  slug: 'une-commune-de-fraaance',
-  owner_id: 1,
-  uid: 1,
-  network_uid: 1
-}, {
-  id: 2,
-  title: 'Un agenda thématique',
-  slug: 'un-agenda-thematique',
-  owner_id: 1,
-  uid: 2,
-  network_uid: 1
-}]));
+raw.push(knex('review').insert([
+  require('./sql/agendas/01.json'),
+  require('./sql/agendas/02.json')
+]));
 
-raw.push(knex('network').insert([{
-  id: 1,
-  uid: 1,
-  title: 'Un réseau',
-  form_schema_id: 1
-}]));
+raw.push(knex('network').insert([
+  require('./sql/networks/01.json')
+]));
 
-raw.push(knex('user').insert([{
-  id: 1,
-  uid: 1,
-  full_name: 'Janine P.'
-}]));
+raw.push(knex('user').insert([
+  require('./sql/users/01.json')
+]));
 
 raw.push(knex('location').insert([{
   id: 1,

@@ -1,0 +1,63 @@
+'use strict';
+
+const TOKEN_LIFESPAN = 60*60*1000;
+const crypto = require('crypto');
+const log = require('@openagenda/logs')('services/accessTokens/generateTokenFromSecretKey');
+
+const getUserFromSecretKey = require('./getUserFromKey').secret;
+
+const getApiKeySetFromKey = require('./getApiKeySetFromKey');
+const isTokenValid = require('./isTokenValid');
+const getTokenDeath = require('./getTokenDeath');
+
+module.exports = async (knex, secretKey) => {
+  log('generating from secret key %s', secretKey);
+
+  const apiKeySet = await getApiKeySetFromKey(knex, 'api_secret', secretKey);
+
+  if (!apiKeySet) {
+    throw new Error('Invalid key');
+  }
+
+  const token = await knex('access_token')
+    .first(['id', 'token', 'created_at', 'lifespan'])
+    .where('api_key_set_id', apiKeySet.id)
+    .orderBy('id', 'desc');
+
+  const tokenDeath = token && getTokenDeath(token);
+  const tokenIsDead = token && (tokenDeath < new Date());
+
+  if (token && !tokenIsDead) {
+    const newLifespan = Math.ceil((new Date).getTime() + TOKEN_LIFESPAN - (token.created_at).getTime());
+
+    const update = {
+      lifespan: Math.floor(newLifespan / 1000),
+      updated_at: new Date
+    };
+
+    await knex('access_token')
+      .update(update)
+      .where('id', token.id);
+
+    return {
+      ...token,
+      ...update
+    }
+  } else {
+    const newToken = {
+      api_key_set_id: apiKeySet.id,
+      created_at: new Date,
+      updated_at: new Date,
+      token: crypto.createHmac('sha256', 'okilydokily')
+        .update(secretKey + (new Date).getTime() + apiKeySet.id)
+        .digest('hex')
+        .substr(0, 32),
+      lifespan: TOKEN_LIFESPAN / 1000
+    }
+
+    return {
+      ...newToken,
+      id: (await knex('access_token').insert(newToken))[0]
+    }
+  }
+}

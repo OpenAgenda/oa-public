@@ -59,29 +59,14 @@ raw.push(knex('review').insert([{
   })
 }]));
 
-raw.push(knex('user').insert([{
-  id: 50304,
-  uid: 63170203,
-  full_name: 'steve',
-  email: 'steve@oa.com',
-  culture: 'fr',
-  is_activated: 1,
-  password: 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65',
-  salt: '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3',
-  created_at: '2017-11-15 15:50:11',
-  updated_at: '2017-11-15 15:50:30',
-}, {
-  id: 50300,
-  uid: 63170200,
-  full_name: 'janine',
-  email: 'janine@oa.com',
-  culture: 'fr',
-  is_activated: 1,
-  password: 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65',
-  salt: '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3',
-  created_at: '2017-11-15 15:50:11',
-  updated_at: '2017-11-15 15:50:30'
-}]));
+raw.push(knex('user').insert([
+  require('./sql/users/50304.json'),
+  require('./sql/users/50300.json')
+]));
+
+raw.push(knex('api_key_set').insert([
+  { ...require('./sql/apiKeySets/01.json'), user_id: 50304 }
+]));
 
 raw.push(knex('form_schema').insert([{
   id: 2,
@@ -98,7 +83,7 @@ raw.push(knex('reviewer').insert([{
   id: 71385,
   user_id: 50304,
   review_id: 218,
-  user_uid: 63170200,
+  user_uid: 63170203,
   agenda_uid: 17026855,
   credential: 1,
   created_at: '2017-10-30 14:21:07',
@@ -113,6 +98,27 @@ raw.push(knex('reviewer').insert([{
     }
   }),
   organization: 'le-chat-fume',
+  deleted_user: 0,
+  actions_counter: 1
+}, {
+  id: 71386,
+  user_id: 50300,
+  review_id: 218,
+  user_uid: 63170200,
+  agenda_uid: 17026855,
+  credential: 1,
+  created_at: '2017-10-30 14:21:07',
+  updated_at: '2017-10-30 14:21:07',
+  store: JSON.stringify({
+    custom_fields:{
+      organization:"Le Chat Fume",
+      contact_number:"0688996549",
+      contact_name:"Th\\u00e9o Jouanneau",
+      contact_position:"directeur artistique",
+      email:"hello@lechiensepique.fr"
+    }
+  }),
+  organization: 'le-chien-se-pique',
   deleted_user: 0,
   actions_counter: 1
 }]));

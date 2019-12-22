@@ -31,6 +31,8 @@ module.exports = {
     'legacyEventReference.create.sql',
     'legacyCategorySet.create.sql',
     'legacyAgendaTag.create.sql',
-    'legacyTagSet.create.sql'
+    'legacyTagSet.create.sql',
+    'apiKeySet.create.sql',
+    'accessToken.create.sql'
   ].map(fx => fs.readFileSync(__dirname + '/' + fx, 'utf-8').replace(/;(\n|)$/, ''))
 }

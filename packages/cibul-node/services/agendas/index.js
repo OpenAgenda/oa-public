@@ -13,7 +13,7 @@ const onUpdate = require( './onUpdate' );
 
 const log = require( '@openagenda/logs' )( 'services/agendas' );
 
-module.exports.init = config=> {
+module.exports.init = config => {
   agendas.init( {
     knex: config.knex,
     mysql: config.db, // used by legacy unique value lib

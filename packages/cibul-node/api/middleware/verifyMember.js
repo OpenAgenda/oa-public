@@ -31,5 +31,7 @@ async function verify(roles, req, res, next) {
 
   req.member = member;
 
+  req.access = members.utils.getRoleSlug(req.member.role);
+
   next();
 }
