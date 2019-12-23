@@ -1,8 +1,10 @@
 'use strict';
 
 const log = require('@openagenda/logs')('services/eventSearch/update');
+
 const formatEventForIndex = require('./lib/formatEventForIndex');
 const getAgendaSearchIndex = require('./lib/getAgendaSearchIndex');
+const hasOtherPublishedReferences = require('./lib/hasOtherPublishedReferences');
 
 module.exports = ({ core, agendaEvents, eventSearch, queue }) => {
   queue.register({
@@ -10,11 +12,11 @@ module.exports = ({ core, agendaEvents, eventSearch, queue }) => {
     otherUpdate: otherUpdate.bind(null, { eventSearch, core })
   });
 
-  return async ({agenda, member, formSchema, event}) => {
+  return async ({ agenda, member, formSchema, event }) => {
 
     // is the provided agenda the origin agenda or is it the currently edited agenda?
     const data = formatEventForIndex(agenda, formSchema, event, member);
-    const searchIndex = getAgendaSearchIndex(agenda.uid);
+    const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
     if (!await searchIndex.exists()) {
       log('warn', 'not updating: index does not exist');
@@ -25,7 +27,7 @@ module.exports = ({ core, agendaEvents, eventSearch, queue }) => {
       uid: event.uid
     }, data, { refresh: true });
 
-    if (event.state !== 2 && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, eventUid) ) {
+    if (event.state !== 2 && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid) ) {
       await queue('eventIndexRemove', data);
     } else {
       await queue('eventIndexUpdate', data);

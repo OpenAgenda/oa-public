@@ -11,7 +11,8 @@ module.exports = async (services, agenda) => {
     elasticsearch: legacyEventSearch,
     keys,
     activities,
-    inboxes: Inbox
+    inboxes: Inbox,
+    eventSearch
   } = services;
 
   const controlDataSvc = legacy.controlData;
@@ -100,6 +101,12 @@ module.exports = async (services, agenda) => {
     }).create();
   } catch (e) {
     log('error', 'failed to create agenda key', e);
+  }
+
+  try {
+    await eventSearch.agendas(agenda.uid).rebuild();
+  } catch (e) {
+    log('error', 'failed to create agenda index');
   }
 
   log('done');
