@@ -10,7 +10,6 @@ const {
   toEventServiceFormat
 } = require('@openagenda/agenda-contribute/server/parse');
 
-
 const aggregators = require('../../../services/aggregators').instance;
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');

@@ -3,17 +3,15 @@
 process.env.NODE_ENV = 'test';
 
 const _ = require('lodash');
-const fs = require('fs');
-const ih = require('immutability-helper');
+const axios = require('axios');
 const mysql = require('mysql');
 const { promisify } = require('util');
 const should = require('should');
 
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/03_core_agendas_events_update.sql');
-
+const api = require('../api');
 const core = require('../core');
-
+const fixtures = require('./fixtures/03_core_agendas_events_update.sql');
 const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().events.update()', function() {
@@ -48,7 +46,8 @@ describe('core - functional (server): core.agendas().events.update()', function(
         'networks',
         'legacy',
         'users',
-        'keys'
+        'keys',
+        'accessTokens'
       ]
     });
   });
@@ -327,6 +326,74 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
     });
 
+  });
+
+  describe('api', function() {
+    let server, accessToken, response;
+
+    before(done => {
+       server = api(core).listen(3000, done);
+    });
+
+    after(() => server.close());
+
+    before(async () => {
+      accessToken = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/v2/requestAccessToken',
+        headers: {
+          'content-type': 'application/json'
+        },
+        data: {
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
+        }
+      }).then(r => r.data.access_token);
+    });
+
+    before(async () => {
+      response = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/v2/agendas/17026855/events/19201989',
+        headers: {
+          'access-token': accessToken,
+          nonce: 123,
+          'content-type': 'application/json'
+        },
+        data: {
+          state: 0,
+          featured: true,
+          title: {
+            fr: 'Un événement mis à jour via l\'api',
+            en: 'An updated event through the api'
+          },
+          description: {
+            fr: 'Une description',
+            en: 'A desc'
+          },
+          location: {
+            uid: 123
+          },
+          timings: [{
+            begin: new Date('2019-05-06T10:00:00'),
+            end: new Date('2019-05-06T11:00:00')
+          }, {
+            begin: new Date('2019-05-06T12:00:00'),
+            end: new Date('2019-05-06T13:00:00')
+          }],
+          'custom_description' : 'Meh',
+          'categories-agenda-metropolitain': 43,
+          'thematiques-bordeaux-metropole' : [3]
+        }
+      }).then(r => r.data);
+    });
+
+    it('response gives success key if update was a success', () => {
+      response.success.should.equal(true);
+    });
+
+    it('updated event is provided in event key', () => {
+      response.event.uid.should.equal(19201989);
+    });
   });
 
 });

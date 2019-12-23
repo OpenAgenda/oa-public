@@ -53,8 +53,8 @@ module.exports = core => {
   app.param('eventUid', mw.loadEvent);
 
   // control all the things
-  app.post('/v2/agendas/:agendaUid/events', mw.verifyMember);
-  app.patch('/v2/agendas/:agendaUid/events', mw.verifyMember);
+  app.post('/v2/agendas/:agendaUid/events*', mw.verifyMember);
+  app.patch('/v2/agendas/:agendaUid/events*', mw.verifyMember);
 
   app.post('/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);
   app.patch('/v2/agendas/:agendaUid/events/:eventUid',  mw.verifyEventEditionRights);

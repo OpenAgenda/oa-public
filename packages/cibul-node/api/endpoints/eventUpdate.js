@@ -4,7 +4,7 @@ const _ = require('lodash');
 const VError = require('verror');
 
 module.exports = async (req, res, next) => {
-  const update = req.services.core.agendas(req.agenda.uid).events.update;
+  const update = req.app.core.agendas(req.agenda.uid).events.update;
 
   // if there was an image uploaded with the post, it is loaded in req.file.path with multer
   if (_.get(req, 'file.path')) {
@@ -20,7 +20,7 @@ module.exports = async (req, res, next) => {
       context: {
         userUid: req.member.userUid
       },
-      access: req.member.role
+      access: req.access
     });
 
     res.json({

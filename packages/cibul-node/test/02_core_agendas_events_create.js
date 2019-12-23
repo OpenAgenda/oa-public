@@ -2,21 +2,17 @@
 
 process.env.NODE_ENV = 'test';
 
-const axios = require('axios');
 const _ = require('lodash');
-const fs = require('fs');
+const axios = require('axios');
 const ih = require('immutability-helper');
 const mysql = require('mysql');
 const { promisify } = require('util');
 const should = require('should');
 
-
 const api = require('../api');
+const assignClients = require('./utils/assignClients');
 const core = require('../core');
 const fixtures = require('./fixtures/02_core_agendas_events_create.sql');
-
-const assignClients = require('./utils/assignClients');
-
 const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().events.create()', function() {
@@ -492,7 +488,6 @@ describe('core - functional (server): core.agendas().events.create()', function(
   });
 
   describe('api', function() {
-
     let server, accessToken, response;
 
     before(done => {

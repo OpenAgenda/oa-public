@@ -56,16 +56,13 @@ raw.push(knex('review').insert([{
   settings: JSON.stringify({})
 }]));
 
-raw.push(knex('user').insert([{
-  id: 50304,
-  uid: 63170203,
-  full_name: 'steve',
-  email: 'steve@oa.com',
-  password: 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65',
-  salt: '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3',
-  created_at: '2017-11-15 15:50:11',
-  updated_at: '2017-11-15 15:50:30'
-}]));
+raw.push(knex('user').insert([
+  require('./sql/users/50304.json')
+]));
+
+raw.push(knex('api_key_set').insert([
+  { ...require('./sql/apiKeySets/01.json'), user_id: 50304 }
+]));
 
 raw.push(knex('network').insert([{
   id: 1,
