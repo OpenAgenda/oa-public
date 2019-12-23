@@ -6,12 +6,10 @@ const getMoreLikeThis = require( './getMoreLikeThis' );
 const getQuery = require( './getQuery' );
 const getSource = require( './getSource' );
 
-module.exports = ( mltRequest, mltOptions = {}, baseQuery = {} ) => {
+module.exports = (mltRequest, mltOptions = {}, baseQuery = {}) => {
+  const boostScores = _.get(mltOptions, 'boost');
 
-  const boostScores = _.get( mltOptions, 'boost' );
-
-  if ( boostScores ) {
-
+  if (boostScores) {
     return {
       query: {
         dis_max: {
@@ -20,18 +18,14 @@ module.exports = ( mltRequest, mltOptions = {}, baseQuery = {} ) => {
       },
       _source: getSource()
     }
-
   } else {
-
     return {
-      query: getQuery( baseQuery, {}, {
-        mlt: getMoreLikeThis( mltRequest )
-      } ),
+      query: getQuery(baseQuery, {}, {
+        mlt: getMoreLikeThis(mltRequest)
+      }),
       _source: getSource()
     }
-
   }
-
 }
 
 

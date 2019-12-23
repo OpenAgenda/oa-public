@@ -1,14 +1,14 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-module.exports = ( cleanQuery, extensionQueries, additionalMustParts = [] ) => {
+module.exports = (cleanQuery, extensionQueries, additionalMustParts = []) => {
 
   const query = {};
 
-  const mustParts = _getQueryMustParts( cleanQuery, extensionQueries ).concat( additionalMustParts );
+  const mustParts = _getQueryMustParts(cleanQuery, extensionQueries).concat(additionalMustParts);
 
-  const filterParts = _getQueryFilterParts( cleanQuery );
+  const filterParts = _getQueryFilterParts(cleanQuery);
 
   if ( mustParts.length === 1 && !filterParts.length ) {
 
@@ -27,106 +27,94 @@ module.exports = ( cleanQuery, extensionQueries, additionalMustParts = [] ) => {
 
   }
 
-  return query;   
+  return query;
 
 }
 
 
-function _getQueryFilterParts( cleanQuery ) {
-
+function _getQueryFilterParts(cleanQuery) {
   const parts = [];
 
-  if ( _.get( cleanQuery, 'localTime.gte' ) || _.get( cleanQuery, 'localTime.lte' ) ) {
-
-    parts.push( _localTime( cleanQuery.localTime ) );
-
+  if (_.get( cleanQuery, 'localTime.gte') || _.get(cleanQuery, 'localTime.lte')) {
+    parts.push(_localTime(cleanQuery.localTime));
   }
 
-  if ( _.get( cleanQuery, 'date.gte' ) || _.get( cleanQuery, 'date.lte' ) ) {
+  if (_.get(cleanQuery, 'date.gte') || _.get(cleanQuery, 'date.lte')) {
+    parts.push(_dateExcludingOngoing(cleanQuery.date));
+  }
 
-    parts.push( _dateExcludingOngoing( cleanQuery.date ) );
+  if (![undefined, null].includes(cleanQuery.state)) {
+    parts.push(_mustPart('term', 'state.code', cleanQuery.state));
+  }
 
+  if (cleanQuery.uid && cleanQuery.uid.length > 1) {
+    parts.push(_mustPart('in', 'uid', cleanQuery.uid));
+  } else if (cleanQuery.uid && cleanQuery.uid.length) {
+    parts.push(_mustPart('term', 'uid', cleanQuery.uid[0]));
   }
 
   return parts;
-
 }
 
 
-function _getQueryMustParts( cleanQuery, extensionQueries = {} ) {
+function _getQueryMustParts(cleanQuery, extensionQueries = {}) {
 
   const parts = [];
 
   // term constraints
-  
-  [
-    'uid', 
-    'slug',
-    [ 'keyword', 'search_internals_keywords', true ],
-    [ 'lang', 'search_internals_languages', true ],
-    [ 'locationUid', 'location.uid' ],
-    [ 'city', 'location.city' ],
-    [ 'region', 'location.region' ],
-    [ 'department', 'location.department' ],
-    [ 'countryCode', 'location.countryCode' ],
-    [ 'contributorUid', 'contributor.uid' ],
-    [ 'agendaUid', 'agenda.uid' ]
-  ].forEach( field => {
 
-    let fromField = _.isArray( field ) ? field[ 0 ] : field,
+  ['slug',
+    ['keyword', 'search_internals_keywords', true],
+    ['lang', 'search_internals_languages', true],
+    ['locationUid', 'location.uid'],
+    ['city', 'location.city'],
+    ['region', 'location.region'],
+    ['department', 'location.department'],
+    ['countryCode', 'location.countryCode'],
+    ['contributorUid', 'contributor.uid'],
+    ['agendaUid', 'agenda.uid']
+  ].forEach(field => {
+    const fromField = _.isArray(field) ? field[0] : field;
+    const toField = _.isArray(field) ? field[1] : field;
+    const and = _.isArray(field) ? field[2] : false;
 
-      toField = _.isArray( field ) ? field[ 1 ] : field,
-
-      and = _.isArray( field ) ? field[ 2 ] : false;
-
-    if ( _.get( cleanQuery, fromField, [] ).length > 1 && !and ) {
-
-      parts.push( _mustPart( 'in', toField, cleanQuery[ fromField ] ) );
-
+    if ( _.get(cleanQuery, fromField, [] ).length > 1 && !and) {
+      parts.push(_mustPart('in', toField, cleanQuery[ fromField ]));
     } else {
-
       _.get( cleanQuery, fromField, [] )
-        .map( _mustPart.bind( null, 'term', toField ) )
+        .map(_mustPart.bind(null, 'term', toField) )
         .forEach( p => parts.push( p ) );
-      
     }
-
-  } );
+  });
 
 
   // add bounds constraints
-  if ( 
-    _.get( cleanQuery, 'geo.northEast.lat' )
-    && _.get( cleanQuery, 'geo.northEast.lng' )
-    && _.get( cleanQuery, 'geo.southWest.lat' )
-    && _.get( cleanQuery, 'geo.southWest.lng' )
+  if (
+    _.get(cleanQuery, 'geo.northEast.lat')
+    && _.get(cleanQuery, 'geo.northEast.lng')
+    && _.get(cleanQuery, 'geo.southWest.lat')
+    && _.get(cleanQuery, 'geo.southWest.lng')
   ) {
-
-    parts.push( _geoBounds( cleanQuery.geo ) );
-
+    parts.push(_geoBounds(cleanQuery.geo));
   }
 
-
   // add multi_match search part
-  if ( cleanQuery.search ) {
-
-    parts.push( {
+  if (cleanQuery.search) {
+    parts.push({
       multi_match: {
         query: cleanQuery.search,
-        fields: [ 
+        fields: [
           'search_internals_title',
           'search_internals_description',
           'search_internals_keywords_text',
           'search_internals_full_address_text',
         ]
       }
-    } );
-
+    });
   }
 
-
   // add custom ( all is match )
-  
+
   if ( extensionQueries && _.keys( extensionQueries ).length ) {
 
     _.keys( extensionQueries ).forEach( extension => {

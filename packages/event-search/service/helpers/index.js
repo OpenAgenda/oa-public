@@ -21,10 +21,10 @@ module.exports = {
 
 function indexBulk( client, indexName, type, parsedEvents, { expire } ) {
 
-  let filteredEvents = parsedEvents; 
+  let filteredEvents = parsedEvents;
 
   // should make events expire when events are passed, so only index upcoming
-  if ( expire ) { 
+  if ( expire ) {
 
     filteredEvents = parsedEvents.filter( e => e.timings && ( lastTimingEndsIn( e ) > 0 ) );
 
@@ -40,7 +40,7 @@ function indexBulk( client, indexName, type, parsedEvents, { expire } ) {
       _ttl: expire && e.timings ? lastTimingEndsIn( e ) + 'd': undefined
     }
   }, e ] ) );
-  
+
   return client.bulk( {
     body,
     //requestTimeout: 60000 // ms
@@ -49,30 +49,16 @@ function indexBulk( client, indexName, type, parsedEvents, { expire } ) {
 }
 
 
-function checkList( listFunc ) {
-
-  if ( typeof listFunc !== 'function' ) {
-
-    throw new Error( 'list is not a function' ) 
-
+function checkList(listFunc) {
+  if (typeof listFunc !== 'function') {
+    throw new Error( 'list is not a function' )
   }
 
-  return listFunc( 0, 1 )
-
-  .catch( err => {
-
+  return listFunc(0, 0).catch(err => {
     throw new VError( err, 'provided list failed' );
-
-  } )
-
-  .then( events => {
-
-    if ( !_.isArray( events ) ) {
-
+  }).then(events => {
+    if (!_.isArray(events)) {
       throw new VError( 'list function is not giving a list' );
-
     }
-
-  } );
-
+  });
 }

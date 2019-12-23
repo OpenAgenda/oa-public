@@ -1,14 +1,16 @@
 "use strict";
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
 
-schema.register( {
-  text: require( '@openagenda/validators/text' ),
-  integer: require( '@openagenda/validators/integer' ),
-  latitude: require( '@openagenda/validators/latitude' ),
-  longitude: require( '@openagenda/validators/longitude' ),
-  date: require( '@openagenda/validators/date' )
-} );
+schema.register({
+  text: require('@openagenda/validators/text'),
+  integer: require('@openagenda/validators/integer'),
+  latitude: require('@openagenda/validators/latitude'),
+  longitude: require('@openagenda/validators/longitude'),
+  date: require('@openagenda/validators/date'),
+  choice: require('@openagenda/validators/choice'),
+  boolean: require('@openagenda/validators/boolean')
+});
 
 module.exports = schema( {
   uid: {
@@ -60,6 +62,11 @@ module.exports = schema( {
     type: 'integer',
     list: true
   },
+  state: {
+    optional: true,
+    type: 'integer',
+    default: 2
+  },
   geo: {
     fields: {
       northEast: {
@@ -108,7 +115,7 @@ module.exports = schema( {
   },
   sort: {
     type: 'choice',
-    options: [ 
+    options: [
       'updatedAt.desc',
       'updatedAt.asc',
       'location.name.asc',

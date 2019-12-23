@@ -6,9 +6,6 @@ const should = require('should');
 
 const config = require('../testconfig');
 
-const events = require('@openagenda/events/test/service');
-const contributors = require('./service/contributors');
-
 const custom = JSON.parse(fs.readFileSync(__dirname + '/service/custom.json', 'utf-8'));
 const Service = require('../');
 
@@ -19,34 +16,14 @@ describe( 'event search - functional: search', function() {
 
     this.timeout(40000);
 
-    before(done => {
-      events.initAndLoad(config.eventService, [{
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      }], { reset: true }, done);
-    });
-
     before(async () => {
-      let i = 0;
-
       service = Service(config);
 
-      // list must be prepared to give all needed data
-      // for index
-      function eventsList(offset, limit) {
-        return events.list( offset, limit, {
-          internal: true,
-          detailed: true
-        }).then(r => r.events.map(e => {
-          e.contributor = contributors[ i ];
-
-          e.contributor.uid = i++;
-
-          return e;
-        }));
-      }
-
-      await service('simple_search').rebuild({ eventsList });
+      await service('simple_search').rebuild({
+        eventsList: async (offset, limit) => {
+          return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_events.${offset}.${limit}.json`))
+        }
+      });
     });
 
     it('an event can be retrieved by uid', async () => {
@@ -143,15 +120,19 @@ describe( 'event search - functional: search', function() {
     } );
 
 
-    it( 'several events can be retrieved by uid at once', async () => {
+    it('several events can be retrieved by uid at once', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({ uid: [6, 11] });
 
-      let { events, total } = await service( 'simple_search' ).search( { uid: [ 6, 11 ] } );
+      total.should.equal(2);
 
-      total.should.equal( 2 );
-
-      events.map( e => e.slug ).should.eql( [ 'decouverte-du-handball-et-valorisation-du-mondial-de-handball', 'serres-la-claranda-cafe-citoyen' ] );
-
-    } );
+      events.map(e => e.slug).should.eql([
+        'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
+        'serres-la-claranda-cafe-citoyen'
+      ]);
+    });
 
 
     it( 'open search one or more words', async () => {
@@ -738,42 +719,13 @@ describe( 'event search - functional: search', function() {
 
     this.timeout( 10000 );
 
-    before( done => {
-
-      events.initAndLoad( config.eventService, [ {
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      } ], { reset: true }, done );
-
-    } );
-
-    before( async () => {
-
-      let i = 0;
-
+    before(async () => {
       service = Service(config);
 
-      // list must be prepared to give all needed data
-      // for index
-      function eventsList(offset, limit, cb) {
-        return events.list( offset, limit, {
-          internal: true,
-          detailed: true
-        } ).then(r => r.events.map(e => {
-          e.custom = _.pick(custom[ i ], [
-            'organizeremail', 'totalnumberofvisitors', 'authortestimony'
-          ]);
-
-          e.contributor = contributors[ i ];
-
-          e.contributor.uid = i++;
-
-          return e;
-        }));
-      }
-
-      await service( 'simple_search' ).rebuild( {
-        eventsList,
+      await service('simple_search').rebuild({
+        eventsList: async (offset, limit) => {
+          return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_customEvents.${offset}.${limit}.json`))
+        },
         extensions: {
           custom: {
             organizeremail: {
@@ -787,22 +739,25 @@ describe( 'event search - functional: search', function() {
             }
           }
         }
-      } );
+      });
 
-    } );
+    });
 
 
-    it( 'custom field is searched through custom key', async () => {
-
-      let { events, total } = await service( 'simple_search' ).search( {
+    it('custom field is searched through custom key', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({
         custom: {
           organizeremail: 'cannes@reedexpo.fr'
         }
-      }, {}, { extensions: 'custom' } );
+      }, {}, {
+        extensions: 'custom'
+      });
 
       total.should.equal( 1 );
-
-    } );
+    });
 
 
     it( 'flat form works as well', async () => {

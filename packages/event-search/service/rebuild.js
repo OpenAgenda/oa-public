@@ -4,7 +4,7 @@ const h = require('./helpers');
 const _ = require('lodash');
 const preParse = require('./index/preParse');
 const parseExtension = require('./extensions/parse');
-const log = require('@openagenda/logs' )( 'rebuild');
+const log = require('@openagenda/logs' )('rebuild');
 
 const limit = 10;
 

@@ -1,9 +1,9 @@
 "use strict";
 
-const should = require( 'should' );
-const query = require( '../service/query' );
+const should = require('should');
+const query = require('../service/query');
 
-describe( 'event-search - unit: query.validate', function() {
+describe('event-search - unit: query.validate', function() {
 
   /**
    * oaq.uid ( one or more )
@@ -20,21 +20,29 @@ describe( 'event-search - unit: query.validate', function() {
    * oaq.geo.topLeft.lng
    * oaq.geo.bottomRight.lat
    * oaq.geo.bottomRight.lng
+   * oaq.state
    * oaq.localTime.gte ( seconds from midnight )
    * oaq.localTime.lte ( seconds from midnight )
    * oaq.date.gte ( YYYY-MM-DDTHHmmss+tz )
    * oaq.date.lte ( YYYY-MM-DDTHHmmss+tz )
    * oaq.contributorUid
    */
-  
-  it( 'simple uid search dsl', () => {
 
-    let dsl = query( { uid: 123 } );
+  it('simple uid search dsl', () => {
+    const dsl = query({ uid: 123 });
 
-    dsl.should.eql( {
+    dsl.should.eql({
       query: {
-        term: {
-          uid: 123
+        bool: {
+          filter: [{
+            term: {
+              'state.code': 2
+            }
+          }, {
+            term: {
+              uid: 123
+            }
+          }]
         }
       },
       sort: [ {
@@ -62,7 +70,7 @@ describe( 'event-search - unit: query.validate', function() {
         ]
       }
     } );
-  
+
 
   } );
 
@@ -81,46 +89,54 @@ describe( 'event-search - unit: query.validate', function() {
   } );
 
 
-  it( 'simple custom field search', () => {
+  it('simple custom field search', () => {
 
-    let dsl = query( { 'custom.stand' : 'Hall A, S 123' }, {}, [ 'custom' ] );
+    const dsl = query({
+      'custom.stand' : 'Hall A, S 123'
+    }, {}, ['custom']);
 
-    dsl.should.eql( {
-      "sort": [
-        {
-          "timings.end": {
-            "mode": "min",
-            "order": "asc",
-            "nested_path": "timings",
-            "nested_filter": {
-              "range": {
-                "timings.end": {
-                  "gte": "now"
-                }
+    dsl.should.eql({
+      sort: [{
+        'timings.end': {
+          mode: 'min',
+          order: 'asc',
+          nested_path: 'timings',
+          nested_filter: {
+            range: {
+              'timings.end': {
+                gte: 'now'
               }
             }
           }
-        },
-        {
-          "search_internals_last_timing": {
-            "order": "desc"
-          }
         }
-      ],
-      "_source": {
-        "excludes": [
-          "search_internals_*",
-          "timings.search_internals_*"
+      }, {
+        search_internals_last_timing: {
+          order: 'desc'
+        }
+      }],
+      _source: {
+        excludes: [
+          'search_internals_*',
+          'timings.search_internals_*'
         ]
       },
-      "query": {
-        "match": {
-          "custom.stand": "Hall A, S 123"
+      query: {
+        bool: {
+          filter: [{
+            term: {
+              'state.code': 2
+            }
+          }],
+          must: [{
+            match: {
+              'custom.stand': 'Hall A, S 123'
+            }
+          }]
         }
       }
-    } );
+    });
 
-  } );
+  });
 
 
   it( 'returns a deep version of query', () => {
@@ -140,6 +156,6 @@ describe( 'event-search - unit: query.validate', function() {
     } );
 
   } );
-  
+
 
 } );

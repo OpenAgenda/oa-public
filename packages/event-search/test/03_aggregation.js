@@ -6,63 +6,27 @@ const ih = require('immutability-helper');
 const should = require('should');
 
 const config = require('../testconfig');
-
-const events = require('@openagenda/events/test/service');
-const contributors = require('./service/contributors');
-
-const custom = JSON.parse( fs.readFileSync( __dirname + '/service/custom.json', 'utf-8' ) );
 const Service = require('../');
 
 describe('event search - functional: search', function() {
 
   describe( 'simple', function() {
-
     let service;
 
-    this.timeout( 20000 );
+    this.timeout(20000);
 
-    before( done => {
-
-      events.initAndLoad(config.eventService, [{
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      }], { reset: true }, done);
-
-    } );
-
-    before( async () => {
-
-      let i = 0;
-
+    before(async () => {
       service = Service(config);
 
-      // list must be prepared to give all needed data
-      // for index
-      function eventsList( offset, limit ) {
-
-        return events.list( offset, limit, {
-          internal: true,
-          detailed: true
-        } ).then( r => r.events.map( e => {
-
-          e.contributor = contributors[ i ];
-
-          e.contributor.uid = i++;
-
-          return e;
-
-        } ) );
-
-      }
-
-      await service( 'simple_search' ).rebuild({ eventsList });
-
+      await service( 'simple_search' ).rebuild({
+        eventsList: async (offset, limit) => JSON.parse(
+          fs.readFileSync(`${__dirname}/fixtures/03_events.${offset}.${limit}.json`)
+        )
+      });
     } );
 
-
     it('keyword search, with aggregation', async () => {
-
-      let { aggregations } = await service( 'simple_search' ).search( {
+      const { aggregations } = await service( 'simple_search' ).search( {
         keyword: 'word'
       }, { size: 0 }, {
         aggregations: [
@@ -82,13 +46,10 @@ describe('event search - functional: search', function() {
           key: '2010-04-01', count: 2
         } ]
       } );
-
     });
 
-
     it('keyword search with timespan aggregation', async () => {
-
-      let { aggregations, events } = await service( 'simple_search' ).search( {
+      const { aggregations, events } = await service( 'simple_search' ).search( {
         keyword: 'word'
       }, { size: 2 }, {
         detailed: true, // timings is not part of standard, if timespan is
@@ -96,11 +57,9 @@ describe('event search - functional: search', function() {
       } );
 
       JSON.stringify(aggregations).should.eql( '{"timespan":{"first":"2010-04-01T14:00:00.000Z","last":"2010-04-01T22:00:00.000Z"}}');
-
     });
 
     it('keyword search using predefined aggregation', async () => {
-
       service = Service(ih( config, {
         predefinedAggregations: {
           $set: {
@@ -119,15 +78,14 @@ describe('event search - functional: search', function() {
         aggregations: 'keywords'
       } );
 
-      aggregations.should.eql( {
+      aggregations.should.eql({
         keywords: [
           { key: 'clé', count: 1 },
           { key: 'key', count: 1 },
           { key: 'mot', count: 1 },
           { key: 'word', count: 1 }
         ]
-      } );
-
+      });
     });
 
     it('search using predefined aggregation on agenda sub-object', async () => {

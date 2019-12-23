@@ -1,15 +1,11 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const fs = require( 'fs' );
-const should = require( 'should' );
+const _ = require('lodash');
+const fs = require('fs');
+const should = require('should');
 
 const config = require( '../testconfig' );
 
-const events = require( '@openagenda/events/test/service' );
-const contributors = require( './service/contributors' );
-
-const custom = JSON.parse( fs.readFileSync( __dirname + '/service/custom.json', 'utf-8' ) );
 const Service = require( '../' );
 const runDSLQuery = require('../service/helpers/runDSLQuery');
 
@@ -19,46 +15,15 @@ describe( 'event search - functional: more like this', function() {
 
   this.timeout( 20000 );
 
-  before( done => {
-
-    events.initAndLoad( config.eventService, [ {
-      table: 'event',
-      src: __dirname + '/service/moreLikeThisEvents.data.sql'
-    } ], { reset: true }, done );
-
-  } );
-
   before( async () => {
-
     service = Service(config);
 
     dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
 
-    let i = 0;
-
-    // list must be prepared to give all needed data
-    // for index
-    function eventsList( offset, limit ) {
-
-      return events.list( offset, limit, {
-        internal: true,
-        detailed: true
-      } ).then( r => r.events.map( e => {
-
-        e.custom = custom[ i ];
-
-        e.contributor = contributors[ i ];
-
-        e.contributor.uid = i++;
-
-        return e;
-
-      } ) );
-
-    }
-
     await service( 'simple_search' ).rebuild( {
-      eventsList,
+      eventsList: async (offset, limit) => JSON.parse(fs.readFileSync(
+        `${__dirname}/fixtures/16_events.${offset}.${limit}.json`
+      )),
       extensions: {
         custom: {
           multichoice: {
@@ -290,8 +255,7 @@ describe( 'event search - functional: more like this', function() {
     } );
 
 
-    it( 'boosted mlt on custom option ids and custom text', async () => {
-
+    it('boosted mlt on custom option ids and custom text', async () => {
       const sample = {
         custom: {
           organizername: 'Reed',
@@ -300,17 +264,28 @@ describe( 'event search - functional: more like this', function() {
         }
       };
 
-      const { events: events1 } = await service( 'simple_search' ).moreLikeThis( sample, {
-        boost: { singlechoice: 20, multichoice: 10 }
+      const {
+        events: events1
+      } = await service('simple_search').moreLikeThis(sample, {
+        boost: {
+          singlechoice: 30,
+          multichoice: 10
+        }
+      });
+
+
+      events1[0].slug.should.equal('finger_event_1');
+
+      const {
+        events: events2
+      } = await service( 'simple_search' ).moreLikeThis(sample, {
+        boost: {
+          singlechoice: 10,
+          multichoice: 30
+        }
       } );
 
-      events1[ 0 ].slug.should.equal( 'masdar_event_1' );
-
-      const { events: events2 } = await service( 'simple_search' ).moreLikeThis( sample, {
-        boost: { singlechoice: 10, multichoice: 20 }
-      } );
-
-      events2[ 0 ].slug.should.equal( 'finger_event_1' );
+      events2[0].slug.should.equal('finger_event_2');
 
     } );
 

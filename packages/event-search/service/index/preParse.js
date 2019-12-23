@@ -1,28 +1,23 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const moment = require( 'moment-timezone' );
+const _ = require('lodash');
+const moment = require('moment-timezone');
+const countries = require('@openagenda/countries');
+const dateRange = require('@openagenda/date-range');
 
-const countries = require( '@openagenda/countries' );
-const dateRange = require( '@openagenda/date-range' );
-
-module.exports = ( event, part = false ) => {
-
+module.exports = (event, part = false) => {
   let countryLabels = null;
 
   const parsed = {};
 
-  _.keys( event )
-    .filter( eventField => !part || ( event[ eventField ] !== undefined ) )
-    .forEach( eventField => {
+  _.keys(event)
+    .filter(eventField => !part || (event[ eventField ] !== undefined))
+    .forEach(eventField => {
 
-      if ( eventField === 'custom' ) {
-
-        parsed.custom = _custom( event.custom );
-
-      } else if ( eventField === 'location' ) {
-
-        if ( !event.location ) return;
+      if (eventField === 'custom') {
+        parsed.custom = _custom(event.custom);
+      } else if (eventField === 'location') {
+        if (!event.location) return;
 
         parsed.location = event.location;
 
@@ -84,7 +79,7 @@ module.exports = ( event, part = false ) => {
         parsed[ eventField ] = _.get( event, eventField );
 
       }
-    
+
   } );
 
   if ( event.title && event.description ) {
@@ -128,7 +123,7 @@ function _custom( custom ) {
 
 function _fullAddress( event, countryLabels ) {
 
-  return [ 
+  return [
     'location.address',
     'location.city',
     'location.region',

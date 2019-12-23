@@ -713,9 +713,9 @@ describe( 'event-search - unit: more like this search', function() {
 
   } );
 
-  describe( 'getMoreLikeThis parsing function', () => {
+  describe('getMoreLikeThis parsing function', () => {
 
-    it( 'keywords search maps to search_internals_keywords_text', () => {
+    it('keywords search maps to search_internals_keywords_text', () => {
 
       const mlt = getMoreLikeThis( {
         keywords: {
@@ -828,12 +828,12 @@ describe( 'event-search - unit: more like this search', function() {
 
     it( 'keywords search maps to search_internals_keywords_text', () => {
 
-      const dsl = wrapInMoreLikeThis( {
+      const dsl = wrapInMoreLikeThis({
         keywords: {
           fr: [ 'vin chaud' ],
           en: []
         }
-      } );
+      });
 
       dsl.query.should.eql( {
         mlt: {

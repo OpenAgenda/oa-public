@@ -1,93 +1,78 @@
 "use strict";
 
 const _ = require('lodash');
-const should = require( 'should' );
+const fs = require('fs');
+const should = require('should');
 
 const config = require( '../testconfig' );
 const runDSLQuery = require('../service/helpers/runDSLQuery');
-const events = require( '@openagenda/events/test/service' );
 const moment = require( 'moment-timezone' );
 const Service = require( '../' );
 
+describe('event-search - unit: dsl search', function() {
 
-describe( 'event-search - unit: dsl search', function() {
-
-  describe( 'simple search', function() {
-
+  describe('simple search', function() {
     let service, dslSearch;
 
     this.timeout(30000);
 
-    before( done => {
-
-      events.initAndLoad( config.eventService, [ {
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      } ], { reset: true }, done );
-
-    } );
-
-    before( async () => {
-
+    before(async () => {
       service = Service(config);
 
       dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
 
-      // list must be prepared to give all needed data
-      // for index
-      function eventsList( offset, limit ) {
+      await service( 'simple_search' ).rebuild({
+        eventsList: async (offset, limit) => {
+          return JSON.parse(fs.readFileSync(
+            `${__dirname}/fixtures/10_events.${offset}.${limit}.json`
+          ));
+        }
+      });
+    });
 
-        return events.list( offset, limit, {
-          internal: true,
-          detailed: true
-        } ).then( r => r.events );
-
-      }
-
-      await service( 'simple_search' ).rebuild( {
-        eventsList
-      } );
-
-    } );
-
-    it( 'an event can be retrieved by uid', async () => {
-
-      let dsl = {
+    it('an event can be retrieved by uid', async () => {
+      const {
+        events,
+        total
+      } = await dslSearch('simple_search', {
         query: {
-          term: {
-            uid: 6
+          bool: {
+            filter: [{
+              term: {
+                uid: 6
+              }
+            }]
           }
         }
-      };
+      });
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      total.should.equal(1);
+      events[0].slug.should.equal('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
+    });
 
-      total.should.equal( 1 );
-
-      events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
-
-    } );
-
-    it( 'several events can be retrieved by uid at once', async () => {
-
-      let dsl = {
+    it('several events can be retrieved by uid at once', async () => {
+      const {
+        events,
+        total
+      } = await dslSearch('simple_search', {
         query: {
-          in: {
-            uid: [ 6, 11 ]
+          bool: {
+            filter: [{
+              in: {
+                uid: [ 6, 11 ]
+              }
+            }]
           }
         }
-      };
+      });
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      total.should.equal(2);
 
-      total.should.equal( 2 );
-
-      events.map( e => e.slug ).should.eql( [
+      events.map(e => e.slug).should.eql([
         'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
         'serres-la-claranda-cafe-citoyen'
-      ] );
-
-    } );
+      ]);
+    });
 
     it( 'simple title search', async () => {
 
@@ -216,11 +201,29 @@ describe( 'event-search - unit: dsl search', function() {
 
       let { events, total } = await dslSearch( 'simple_search', dsl );
 
-      events.map( e => e.slug ).should.eql( [ 'multi_1', 'multi_2', 'multi_3' ] );
+      events.map( e => e.slug ).should.eql([ 'multi_1', 'multi_2', 'multi_3' ]);
 
     } );
 
+    it('filtering by state in agenda', async () => {
+      const {
+        events,
+        total
+      } = await dslSearch('simple_search', {
+        query: {
+          bool: {
+            filter: [{
+              term: {
+                'state.code': 2
+              }
+            }]
+          }
+        }
+      });
 
+      events.length.should.equal(1);
+      total.should.equal(1);
+    });
 
     it( 'filtering by timing to show only events starting within a certain time bracket ( independant of date )', async () => {
 

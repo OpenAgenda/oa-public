@@ -1,9 +1,9 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const validate = require( './validate' );
-const derelativize = require( '../helpers/derelativize' );
-const validateExtension = require( './validateExtension' );
+const _ = require('lodash');
+const validate = require('./validate');
+const derelativize = require('../helpers/derelativize');
+const validateExtension = require('./validateExtension');
 
 const {
   getQuery,

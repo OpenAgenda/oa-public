@@ -1,68 +1,45 @@
 "use strict";
 
-const should = require( 'should' );
-const config = require( '../testconfig' );
-const events = require( '@openagenda/events/test/service' );
-const Service = require( '../' );
+const fs = require('fs');
+const should = require('should');
+const config = require('../testconfig');
+const Service = require('../');
 
-describe( 'event search - functional: update', function() {
-
+describe('event search - functional: update', function() {
   let service;
 
-  this.timeout( 10000 );
+  this.timeout(10000);
 
-  before( done => {
-
-    events.initAndLoad( config.eventService, [ {
-      table: 'event',
-      src: __dirname + '/service/event.data.sql'
-    } ], { reset: true }, done );
-
-  } );
-
-  before( async () => {
-
+  before(async () => {
     service = Service(config);
 
-    // list must be prepared to give all needed data
-    // for index
-    function eventsList( offset, limit ) {
+    await service('test_index').rebuild({
+      eventsList: async (offset, limit) => JSON.parse(
+        fs.readFileSync(`${__dirname}/fixtures/06_events.${offset}.${limit}.json`)
+      )
+    });
+  });
 
-      return events.list( offset, limit, {
-        internal: true,
-        detailed: true
-      } ).then( r => r.events );
-
-    }
-
-    await service( 'test_index' ).rebuild( {
-      eventsList
-    } );
-
-  } );
-
-  it( 'udpate the title of an event', async () => {
-
-    const result = await service( 'test_index' ).update( { uid: 1 }, {
+  it('udpate the title of an event', async () => {
+    const result = await service('test_index').update({ uid: 1 }, {
       title: {
         fr: 'Look at me. I am the title now.'
       }
     }, {
       refresh: true
-    } );
+    });
 
     const {
       events,
       total
-    } = await service( 'test_index' ).search( { uid: 1 } );
+    } = await service('test_index').search({ uid: 1 });
 
-    events[ 0 ].title.should.eql( {
+    events[0].title.should.eql({
       fr: 'Look at me. I am the title now.'
-    } );
+    });
+  });
 
-  } );
-
-  it( 'updating the title means change can be searched after update', async () => {
+  it('updating the title means change can be searched after update', async () => {
 
     let result = await service( 'test_index' ).update( { uid: 2 }, {
       title: {

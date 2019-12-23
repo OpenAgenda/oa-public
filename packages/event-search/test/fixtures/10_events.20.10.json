@@ -1,0 +1,651 @@
+[
+  {
+    "id": 4,
+    "ownerUid": 789670,
+    "creatorUid": null,
+    "slug": "nearest_past_event_3",
+    "uid": 4,
+    "title": {
+      "fr": "Trié: Premier-Passe"
+    },
+    "description": {
+      "fr": "Premier-Passe"
+    },
+    "longDescription": {
+      "fr": "Premier-Passe"
+    },
+    "keywords": {},
+    "image": {
+      "base": "//openagendatst.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2017-04-01T12:00:00.000Z",
+        "end": "2017-04-01T13:00:00.000Z"
+      },
+      {
+        "begin": "2017-04-01T13:00:00.000Z",
+        "end": "2017-04-01T14:30:00.000Z"
+      }
+    ],
+    "updatedAt": "2016-11-04T05:10:42.000Z",
+    "createdAt": "2016-11-04T05:18:42.000Z",
+    "deletedAt": null,
+    "agendaUid": 7678670,
+    "locationUid": 1,
+    "accessibility": {},
+    "age": {
+      "min": 8,
+      "max": 17
+    },
+    "registration": [],
+    "fileKey": null,
+    "agenda": null,
+    "location": {
+      "uid": 1,
+      "name": "La boutique",
+      "address": "29 passage du Ponceau, Paris",
+      "latitude": 48.8675959,
+      "longitude": 2.3516408,
+      "district": "Paris 02",
+      "city": "Paris",
+      "department": "Paris",
+      "region": "Ile-de-France",
+      "countryCode": "FR",
+      "timezone": "Europe/Paris"
+    }
+  },
+  {
+    "id": 22,
+    "ownerUid": 65570947,
+    "creatorUid": null,
+    "slug": "new_york_event",
+    "uid": 22,
+    "title": {
+      "fr": "OtherTimezoneHoraires: un truc à New York",
+      "en": "A thing in New York"
+    },
+    "description": {
+      "fr": "un truc à New York",
+      "en": "A thing in New York"
+    },
+    "longDescription": {
+      "fr": "un truc à New York",
+      "en": "A thing in New York"
+    },
+    "keywords": {
+      "fr": [
+        "lieu"
+      ],
+      "en": []
+    },
+    "image": {
+      "base": "//openagendatst.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "timezone": "America/New_York",
+    "timings": [
+      {
+        "begin": "2016-10-24T12:00:00.000Z",
+        "end": "2016-10-24T13:00:00.000Z"
+      }
+    ],
+    "updatedAt": "2016-11-04T05:18:42.000Z",
+    "createdAt": "2016-11-04T05:18:42.000Z",
+    "deletedAt": null,
+    "agendaUid": 21475128,
+    "locationUid": 8896048,
+    "accessibility": {
+      "mi": true,
+      "hi": true,
+      "pi": true,
+      "vi": false,
+      "sl": true
+    },
+    "age": {
+      "min": 8,
+      "max": 17
+    },
+    "registration": [],
+    "fileKey": null,
+    "agenda": {
+      "uid": 21475128,
+      "title": "France Handball 2017",
+      "url": "http://www.francehandball2017.com"
+    },
+    "location": {
+      "uid": 8896048,
+      "name": "Tenri Cultural Institute",
+      "address": "43 West 13th Street Manhattan",
+      "latitude": 40.735507,
+      "longitude": -73.995091,
+      "city": "New York",
+      "department": "New York County",
+      "region": "New York",
+      "countryCode": "US",
+      "timezone": "America/New_York"
+    }
+  },
+  {
+    "id": 10,
+    "ownerUid": 789114,
+    "creatorUid": null,
+    "slug": "one_timing_fits_within bracket",
+    "uid": 10,
+    "title": {
+      "fr": "Horaires: Un horaire colle"
+    },
+    "description": {
+      "fr": "Horaires: Un horaire colle"
+    },
+    "longDescription": {
+      "fr": "Horaires: Un horaire colle"
+    },
+    "keywords": {},
+    "image": {
+      "base": "//openagendatst.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2010-04-01T14:00:00.000Z",
+        "end": "2010-04-01T18:00:00.000Z"
+      },
+      {
+        "begin": "2010-04-01T22:00:00.000Z",
+        "end": "2010-04-01T23:30:00.000Z"
+      }
+    ],
+    "updatedAt": "2016-11-04T05:18:42.000Z",
+    "createdAt": "2016-11-04T05:18:42.000Z",
+    "deletedAt": null,
+    "agendaUid": 7678114,
+    "locationUid": 1,
+    "accessibility": {},
+    "age": {
+      "min": 8,
+      "max": 17
+    },
+    "registration": [],
+    "fileKey": null,
+    "agenda": null,
+    "location": {
+      "uid": 1,
+      "name": "La boutique",
+      "address": "29 passage du Ponceau, Paris",
+      "latitude": 48.8675959,
+      "longitude": 2.3516408,
+      "district": "Paris 02",
+      "city": "Paris",
+      "department": "Paris",
+      "region": "Ile-de-France",
+      "countryCode": "FR",
+      "timezone": "Europe/Paris"
+    }
+  },
+  {
+    "id": 23,
+    "ownerUid": 797897,
+    "creatorUid": null,
+    "slug": "quimper_event",
+    "uid": 23,
+    "title": {
+      "fr": "Cet événement ne se déroule pas à Paris"
+    },
+    "description": {
+      "fr": "Cet événement ne se déroule pas à Paris"
+    },
+    "longDescription": {
+      "fr": "Cet événement ne se déroule pas à Paris"
+    },
+    "keywords": {
+      "fr": [
+        "prise",
+        "panneau",
+        "lieu"
+      ],
+      "en": [
+        "ouest",
+        "poster"
+      ]
+    },
+    "image": {
+      "base": "//openagendatst.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2010-04-01T14:00:00.000Z",
+        "end": "2010-04-01T18:00:00.000Z"
+      },
+      {
+        "begin": "2010-04-01T22:00:00.000Z",
+        "end": "2010-04-01T23:30:00.000Z"
+      }
+    ],
+    "updatedAt": "2016-11-04T05:18:42.000Z",
+    "createdAt": "2016-11-04T05:18:42.000Z",
+    "deletedAt": null,
+    "agendaUid": 796789,
+    "locationUid": 83357467,
+    "accessibility": {},
+    "age": {
+      "min": 8,
+      "max": 17
+    },
+    "registration": [],
+    "fileKey": null,
+    "agenda": null,
+    "location": {
+      "uid": 83357467,
+      "name": "Place Saint-Corentin",
+      "address": "Place Saint-Corentin, Quimper",
+      "latitude": 47.995788,
+      "longitude": -4.103017,
+      "city": "Quimper",
+      "department": "Finistère",
+      "region": "Bretagne",
+      "countryCode": "FR",
+      "timezone": "Europe/Paris"
+    }
+  },
+  {
+    "id": 100000,
+    "ownerUid": 789114,
+    "creatorUid": null,
+    "slug": "rhone_region_event",
+    "uid": 100000,
+    "title": {
+      "fr": "Un événement dans une region"
+    },
+    "description": {
+      "fr": "Un événement dans une region"
+    },
+    "longDescription": {
+      "fr": "Un événement dans une region"
+    },
+    "keywords": {
+      "fr": [
+        "lieu"
+      ],
+      "en": []
+    },
+    "image": {
+      "base": "//openagendatst.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2010-04-01T14:00:00.000Z",
+        "end": "2010-04-01T18:00:00.000Z"
+      }
+    ],
+    "updatedAt": "2016-11-04T05:18:42.000Z",
+    "createdAt": "2016-11-04T05:18:42.000Z",
+    "deletedAt": null,
+    "agendaUid": 7678114,
+    "locationUid": 65918542,
+    "accessibility": {},
+    "age": {
+      "min": 8,
+      "max": 17
+    },
+    "registration": [],
+    "fileKey": null,
+    "agenda": null,
+    "location": {
+      "uid": 65918542,
+      "name": "Musée de Valence - arts et archéologie",
+      "address": "4 place des Ormeaux, 26000 Valence",
+      "latitude": 44.931457,
+      "longitude": 4.889928,
+      "city": "Valence",
+      "department": "Drôme",
+      "region": "Auvergne-Rhône-Alpes",
+      "countryCode": "FR",
+      "timezone": "Europe/Paris"
+    }
+  },
+  {
+    "id": 11,
+    "ownerUid": 1,
+    "creatorUid": null,
+    "slug": "serres-la-claranda-cafe-citoyen",
+    "uid": 11,
+    "title": {
+      "fr": "Serres – La Claranda – Café citoyen"
+    },
+    "description": {
+      "fr": "Des grandes tablées, repas à 19h30 avec un menu unique et une soirée pour partager en musique, en lectures, en dansant, en jouant, en débattant …passionnément !"
+    },
+    "longDescription": {
+      "fr": "Menu unique, plat + dessert (option « végétarien » à préciser à la réservation). On n'est pas obligé de dîner pour participer aux Conviviales.\n« MAUVAISE LANGUE.. !! » une conférence débat de Philippe Blanchet sur le thème de la Glottophobie : la discrimination par la langue.\n[Détail évènement](http://www.laclaranda.eu/evenement.php?id=348)"
+    },
+    "keywords": {},
+    "image": {
+      "base": "//openagendatst.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2016-10-24T12:00:00.000Z",
+        "end": "2016-10-24T13:00:00.000Z"
+      },
+      {
+        "begin": "2016-10-24T13:00:00.000Z",
+        "end": "2016-10-24T14:30:00.000Z"
+      },
+      {
+        "begin": "2016-10-25T12:00:00.000Z",
+        "end": "2016-10-25T13:00:00.000Z"
+      },
+      {
+        "begin": "2016-10-25T13:00:00.000Z",
+        "end": "2016-10-25T14:30:00.000Z"
+      },
+      {
+        "begin": "2016-10-26T12:00:00.000Z",
+        "end": "2016-10-26T13:00:00.000Z"
+      },
+      {
+        "begin": "2016-10-26T13:00:00.000Z",
+        "end": "2016-10-26T14:30:00.000Z"
+      },
+      {
+        "begin": "2016-10-27T12:00:00.000Z",
+        "end": "2016-10-27T13:00:00.000Z"
+      },
+      {
+        "begin": "2016-10-27T13:00:00.000Z",
+        "end": "2016-10-27T14:30:00.000Z"
+      },
+      {
+        "begin": "2016-10-28T12:00:00.000Z",
+        "end": "2016-10-28T13:00:00.000Z"
+      },
+      {
+        "begin": "2016-10-28T13:00:00.000Z",
+        "end": "2016-10-28T14:30:00.000Z"
+      }
+    ],
+    "updatedAt": "2016-11-04T05:28:42.000Z",
+    "createdAt": "2016-11-04T05:28:42.000Z",
+    "deletedAt": null,
+    "agendaUid": 218,
+    "locationUid": 1,
+    "accessibility": {
+      "mi": true,
+      "hi": true,
+      "pi": true,
+      "vi": false,
+      "sl": true
+    },
+    "age": {
+      "min": 8,
+      "max": 17
+    },
+    "registration": [],
+    "fileKey": null,
+    "agenda": null,
+    "location": {
+      "uid": 1,
+      "name": "La boutique",
+      "address": "29 passage du Ponceau, Paris",
+      "latitude": 48.8675959,
+      "longitude": 2.3516408,
+      "district": "Paris 02",
+      "city": "Paris",
+      "department": "Paris",
+      "region": "Ile-de-France",
+      "countryCode": "FR",
+      "timezone": "Europe/Paris"
+    }
+  },
+  {
+    "id": 9,
+    "ownerUid": 789113,
+    "creatorUid": null,
+    "slug": "too_early_and_too_late",
+    "uid": 9,
+    "title": {
+      "fr": "Horaires: Trop tôt et trop tard"
+    },
+    "description": {
+      "fr": "Horaires: Trop tôt et trop tard"
+    },
+    "longDescription": {
+      "fr": "Horaires: Trop tôt et trop tard"
+    },
+    "keywords": {},
+    "image": {
+      "base": "//openagendatst.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2010-04-01T06:00:00.000Z",
+        "end": "2010-04-01T07:00:00.000Z"
+      },
+      {
+        "begin": "2010-04-01T21:00:00.000Z",
+        "end": "2010-04-01T21:30:00.000Z"
+      }
+    ],
+    "updatedAt": "2016-11-04T05:18:42.000Z",
+    "createdAt": "2016-11-04T05:18:42.000Z",
+    "deletedAt": null,
+    "agendaUid": 7678113,
+    "locationUid": 1,
+    "accessibility": {},
+    "age": {
+      "min": 8,
+      "max": 17
+    },
+    "registration": [],
+    "fileKey": null,
+    "agenda": null,
+    "location": {
+      "uid": 1,
+      "name": "La boutique",
+      "address": "29 passage du Ponceau, Paris",
+      "latitude": 48.8675959,
+      "longitude": 2.3516408,
+      "district": "Paris 02",
+      "city": "Paris",
+      "department": "Paris",
+      "region": "Ile-de-France",
+      "countryCode": "FR",
+      "timezone": "Europe/Paris"
+    }
+  },
+  {
+    "id": 7,
+    "ownerUid": 789111,
+    "creatorUid": null,
+    "slug": "too_early_morning",
+    "uid": 7,
+    "title": {
+      "fr": "Horaires: Trop tôt"
+    },
+    "description": {
+      "fr": "Horaires: Trop tôt"
+    },
+    "longDescription": {
+      "fr": "Horaires: Trop tôt"
+    },
+    "keywords": {},
+    "image": {
+      "base": "//openagendatst.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2010-04-01T05:00:00.000Z",
+        "end": "2010-04-01T06:00:00.000Z"
+      },
+      {
+        "begin": "2010-04-01T07:00:00.000Z",
+        "end": "2010-04-01T07:30:00.000Z"
+      }
+    ],
+    "updatedAt": "2016-11-04T05:18:42.000Z",
+    "createdAt": "2016-11-04T05:18:42.000Z",
+    "deletedAt": null,
+    "agendaUid": 7678111,
+    "locationUid": 1,
+    "accessibility": {},
+    "age": {
+      "min": 8,
+      "max": 17
+    },
+    "registration": [],
+    "fileKey": null,
+    "agenda": null,
+    "location": {
+      "uid": 1,
+      "name": "La boutique",
+      "address": "29 passage du Ponceau, Paris",
+      "latitude": 48.8675959,
+      "longitude": 2.3516408,
+      "district": "Paris 02",
+      "city": "Paris",
+      "department": "Paris",
+      "region": "Ile-de-France",
+      "countryCode": "FR",
+      "timezone": "Europe/Paris"
+    }
+  },
+  {
+    "id": 8,
+    "ownerUid": 789112,
+    "creatorUid": null,
+    "slug": "too_late_in_the_evening",
+    "uid": 8,
+    "title": {
+      "fr": "Horaires: Trop tard"
+    },
+    "description": {
+      "fr": "Horaires: Trop tard"
+    },
+    "longDescription": {
+      "fr": "Horaires: Trop tard"
+    },
+    "keywords": {},
+    "image": {
+      "base": "//openagendatst.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2010-04-01T23:00:00.000Z",
+        "end": "2010-04-01T23:30:00.000Z"
+      },
+      {
+        "begin": "2010-04-01T20:00:00.000Z",
+        "end": "2010-04-01T20:30:00.000Z"
+      }
+    ],
+    "updatedAt": "2016-11-04T05:18:42.000Z",
+    "createdAt": "2016-11-04T05:18:42.000Z",
+    "deletedAt": null,
+    "agendaUid": 7678112,
+    "locationUid": 1,
+    "accessibility": {},
+    "age": {
+      "min": 8,
+      "max": 17
+    },
+    "registration": [],
+    "fileKey": null,
+    "agenda": null,
+    "location": {
+      "uid": 1,
+      "name": "La boutique",
+      "address": "29 passage du Ponceau, Paris",
+      "latitude": 48.8675959,
+      "longitude": 2.3516408,
+      "district": "Paris 02",
+      "city": "Paris",
+      "department": "Paris",
+      "region": "Ile-de-France",
+      "countryCode": "FR",
+      "timezone": "Europe/Paris"
+    }
+  },
+  {
+    "id": 12,
+    "ownerUid": 789114,
+    "creatorUid": null,
+    "slug": "verdun_bound_box",
+    "uid": 12,
+    "title": {
+      "fr": "Kevin fume une clope"
+    },
+    "description": {
+      "fr": "Kevin fume une clope"
+    },
+    "longDescription": {
+      "fr": "Kevin fume une clope"
+    },
+    "keywords": {},
+    "image": {
+      "base": "//openagendatst.s3.amazonaws.com/"
+    },
+    "draft": 0,
+    "private": 0,
+    "timezone": "Europe/Paris",
+    "timings": [
+      {
+        "begin": "2010-04-01T14:00:00.000Z",
+        "end": "2010-04-01T18:00:00.000Z"
+      },
+      {
+        "begin": "2010-04-01T22:00:00.000Z",
+        "end": "2010-04-01T23:30:00.000Z"
+      }
+    ],
+    "updatedAt": "2016-11-04T05:18:42.000Z",
+    "createdAt": "2016-11-04T05:18:42.000Z",
+    "deletedAt": null,
+    "agendaUid": 7678114,
+    "locationUid": 10096987,
+    "accessibility": {},
+    "age": {
+      "min": 8,
+      "max": 17
+    },
+    "registration": [],
+    "fileKey": null,
+    "agenda": null,
+    "location": {
+      "uid": 10096987,
+      "name": "Monument A La Victoire",
+      "address": "rue Mazel, Verdun",
+      "latitude": 49.16075,
+      "longitude": 5.38461,
+      "city": "Verdun",
+      "department": "Meuse",
+      "region": "Grand Est",
+      "countryCode": "FR",
+      "timezone": "Europe/Paris"
+    }
+  }
+]

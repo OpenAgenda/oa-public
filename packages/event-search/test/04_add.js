@@ -39,7 +39,10 @@ describe('event search - functional: create', function() {
       begin: new Date( '2027-04-20T12:00:00+0100' ),
       end: new Date( '2027-04-20T13:00:00+0100' )
     }],
-    timezone: 'Europe/Paris'
+    timezone: 'Europe/Paris',
+    state: {
+      code: 2
+    }
   }
 
   before(done => {
