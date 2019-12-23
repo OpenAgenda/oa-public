@@ -30,7 +30,6 @@ const validateOptions = schema({
 });
 
 module.exports = (eventSearch, config) => {
-
   const assemble = Assemble(config);
 
   return agendaUid => {

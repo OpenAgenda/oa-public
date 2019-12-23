@@ -51,7 +51,7 @@ function init( config ) {
     searchEvents: promisify( search.bind( null, legacyLib ) )
   }
 
-  Object.assign( module.exports, {
+  return Object.assign( module.exports, {
     agendas: agendas.bind( null, {
       legacyLib,
       channel: config.mainChannel
@@ -66,7 +66,6 @@ function init( config ) {
     removeAgenda: legacyES.removeReview,
     ES: legacyLib
   } )
-
 }
 
 function agendas( { legacyLib, channel }, agenda ) {

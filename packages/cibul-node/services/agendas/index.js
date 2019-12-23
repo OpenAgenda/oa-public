@@ -13,7 +13,7 @@ const onUpdate = require( './onUpdate' );
 
 const log = require( '@openagenda/logs' )( 'services/agendas' );
 
-module.exports.init = config => {
+module.exports.init = (config, services) => {
   agendas.init( {
     knex: config.knex,
     mysql: config.db, // used by legacy unique value lib
@@ -28,7 +28,7 @@ module.exports.init = config => {
     defaultImagePath: config.aws.defaultImagePath,
     logger: config.getLogConfig( 'svc', 'agendas' ),
     interfaces: {
-      onCreate,
+      onCreate: onCreate.bind(null, services),
       onUpdate,
       beforeRemove,
       onRemove,
