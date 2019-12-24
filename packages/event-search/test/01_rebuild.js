@@ -118,7 +118,7 @@ describe('event-search - functional: rebuild', function() {
 
     let service;
 
-    this.timeout( 10000 );
+    this.timeout(20000);
 
     function eventsList( offset, limit ) {
 
