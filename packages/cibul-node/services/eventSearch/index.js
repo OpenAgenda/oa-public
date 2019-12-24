@@ -33,11 +33,11 @@ function init(config, services) {
   eventIndex({ eventSearch, queue });
 
   return Object.assign(eventSearch, {
-    agendas: agendaIndices,
-    events: eventTransverseOperations({ eventSearch, agendaIndices, queue }),
+    //agendas: agendaIndices,
+    //events: eventTransverseOperations({ eventSearch, agendaIndices, queue }),
     task: task.bind(null, { queue }),
     update: update(services, queue, eventSearch),
-    add: add({ eventSearch, queue, agendaEvents })
+    add: () => {}// add(services, queue, eventSearch)
   });
 }
 
