@@ -202,7 +202,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     log('error', 'could not update legacy search for event %s', eventUid, e);
   }
 
-  const event = payload.getCompiledEvent();
+  const event = await payload.getCompiledEvent();
 
   try {
     await eventSearch.update({
@@ -217,7 +217,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
 
   await aggregators.notify('updateEvent', {
     event,
-    before: payload.getEvent('before'),
+    before: await payload.getCompiledEvent('before'),
     agenda,
     formSchema: payload.getFormSchema(),
     batched

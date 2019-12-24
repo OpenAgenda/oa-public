@@ -124,7 +124,7 @@ module.exports = async (services, payload, clean, options = {}) => {
     log('error', 'could not update legacy search for event %s', event.uid);
   }
 
-  const compiledEvent = payload.getCompiledEvent();
+  const compiledEvent = await payload.getCompiledEvent();
 
   try {
     await eventSearch.add({

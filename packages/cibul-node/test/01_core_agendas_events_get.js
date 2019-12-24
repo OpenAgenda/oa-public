@@ -61,7 +61,6 @@ describe('core - functional (server): core.agendas().events.get()', function() {
       event = await core.agendas(2).events.get(1);
     });
 
-
     it('requested event is returned directly by get', () => {
       event.uid.should.equal(1);
     });

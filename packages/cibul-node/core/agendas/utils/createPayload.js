@@ -21,7 +21,7 @@ module.exports = (services, agenda, primaryKey, options) => {
     setItem: setItem.bind(null, data),
     getResponse: makeGetResponse(services, data, primaryKey),
     getAgenda: () => data.agendas.current,
-    getCompiledEvent: getCompiledEvent.bind(null, data),
+    getCompiledEvent: getCompiledEvent.bind(null, services, data),
     getEvent: getEvent.bind(null, data),
     getMember: getMember.bind(null, data),
     getFormSchema: getFormSchema.bind(null, data.agendas.current),
@@ -42,15 +42,14 @@ function makeGetResponse(services, data) {
       ...(typeof options === 'object' ? options : { access: options })
     };
 
-    data.agendas.origin =  await loadOriginAgenda(services, data);
     const formSchema = getFormSchema(data.agendas.current, access);
     return {
       success: true,
       agenda: data.agendas.current,
-      originAgenda: data.agendas.origin,
+      originAgenda: await getOriginAgenda(services, data),
       member: getMember(data),
       formSchema,
-      [primaryKey]: getCompiledEvent(data, 'after', access, formSchema, customOnly),
+      [primaryKey]: await getCompiledEvent(services, data, 'after', access, formSchema, customOnly),
       before: data.services.before.agendaEvent ? merge.eventFromObject(data.services.before) : null
     }
   }
@@ -64,16 +63,13 @@ function getFormSchema(agenda, access = null) {
   );
 }
 
-function getCompiledEvent(data, key = 'after', access = null, formSchema = null, customOnly = false) {
-  const originAgenda = _.pick(data.agendas.origin, [
-    'uid', 'slug', 'title', 'description', 'image', 'url'
-  ]);
+async function getCompiledEvent(services, data, key = 'after', access = null, formSchema = null, customOnly = false) {
   const includeFields = access === null ? null : (
       formSchema || getFormSchema(data.agendas.current, access)
     ).fields.map(f => f.field);
   return merge.eventFromObject(data.services[key], {
     includeFields,
-    originAgenda,
+    originAgenda: await getOriginAgenda(services, data),
     customOnly
   });
 }
@@ -90,20 +86,22 @@ function getMember(data) {
   return _.get(data, 'services.after.agendaEvent.member', null);
 }
 
-function loadOriginAgenda(services, data) {
+async function getOriginAgenda(services, data) {
   const event = data.services.after.event || data.services.before.event;
 
-  if (!event || !event.agendaUid) {
+  if (!data.agendas.origin && (!event || !event.agendaUid)) {
     return null;
   }
 
-  if (data.agendas.current.uid === event.agendaUid) {
-    return data.agendas.current;
+  if (!data.agendas.origin && (data.agendas.current.uid === event.agendaUid)) {
+    data.agendas.origin = data.agendas.current;
+  } else if (!data.agendas.origin) {
+    data.agendas.origin = await services.agendas.get({
+      uid: event.agendaUid
+    }, { private: null });
   }
 
-  return services.agendas.get({
-    uid: event.agendaUid
-  }, { private: null });
+  return _.pick(data.agendas.origin, ['uid', 'slug', 'title', 'description', 'image', 'url'])
 }
 
 function setItem({ services }, name, ...args) {

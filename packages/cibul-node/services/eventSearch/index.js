@@ -36,7 +36,7 @@ function init(config, services) {
     agendas: agendaIndices,
     events: eventTransverseOperations({ eventSearch, agendaIndices, queue }),
     task: task.bind(null, { queue }),
-    update: update({ eventSearch, queue, agendaEvents, core }),
+    update: update(services, queue, eventSearch),
     add: add({ eventSearch, queue, agendaEvents })
   });
 }

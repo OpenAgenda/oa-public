@@ -6,59 +6,95 @@ const formatEventForIndex = require('./lib/formatEventForIndex');
 const getAgendaSearchIndex = require('./lib/getAgendaSearchIndex');
 const hasOtherPublishedReferences = require('./lib/hasOtherPublishedReferences');
 
-module.exports = ({ core, agendaEvents, eventSearch, queue }) => {
+module.exports = (services, queue, eventSearch) => {
+  const {
+    agendaEvents
+  } = services;
+
   queue.register({
-    loadOtherUpdates: loadOtherUpdates.bind(null, { agendaEvents, eventSearch, queue }),
-    otherUpdate: otherUpdate.bind(null, { eventSearch, core })
+    loadOtherUpdates: loadOtherUpdates.bind(null, services, queue),
+    otherUpdate: otherUpdate.bind(null, services)
   });
 
   return async ({ agenda, member, formSchema, event }) => {
+    log('update');
 
-    // is the provided agenda the origin agenda or is it the currently edited agenda?
-    const data = formatEventForIndex(agenda, formSchema, event, member);
-    const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
+    const data = await updateAgendaIndex(eventSearch, {
+      agenda,
+      formSchema,
+      member,
+      event
+    });
 
-    if (!await searchIndex.exists()) {
-      log('warn', 'not updating: index does not exist');
-    }
-
-    // update the agenda index
-    await searchIndex.update({
-      uid: event.uid
-    }, data, { refresh: true });
-
+    log('update transverse index');
     if (event.state !== 2 && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid) ) {
       await queue('eventIndexRemove', data);
     } else {
       await queue('eventIndexUpdate', data);
     }
-    // queue to update the remaining impacted agenda indices
-    // await queue('loadOtherUpdates', agenda.uid, data.event.uid);
+
+    log('update other indices');
+    await queue('loadOtherUpdates', agenda.uid, event.uid);
 
     log('done');
   };
 }
 
-async function loadOtherUpdates({ agendaEvents, eventSearch, queue }, agendaUid, eventUid) {
+async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
+  const {
+    agendaEvents,
+    eventSearch
+  } = services;
+
+  log('loadOtherUpdates');
   const remainingAgendaUids = await agendaEvents.list.byEventUid(eventUid, {
     excludeAgendaUid: agendaUid
   }, 0, 1000).then(r => r.items.map(ae => ae.agendaUid));
 
-  // here you know if it is published somewhere or not
+  log('loadOtherUpdates: remainingAgendaUids: %j', remainingAgendaUids);
 
+  // here you know if it is published somewhere or not
   for (const remainingAgendaUid of remainingAgendaUids) {
     await queue('otherUpdate', remainingAgendaUid, eventUid);
   }
 }
 
-function otherUpdate({ eventSearch, core }, agendaUid, eventUid) {
+async function otherUpdate(services, agendaUid, eventUid) {
+  const { eventSearch, core } = services;
+
   log('otherUpdate', agendaUid, eventUid);
-  // core get needs some work xx
-  // core get to get info to
-  /**
-   const data = formatEventForIndex(agenda, formSchema, event, member);
-   await searchIndex.update({
-      uid: event.uid
-    }, data, { refresh: true });
-   */
+
+  const {
+    event,
+    member,
+    formSchema,
+    agenda
+  } = await core.agendas(agendaUid).events.get(eventUid, {
+    returnPayload: true,
+    access: 'internal'
+  });
+
+  return updateAgendaIndex(eventSearch, {
+    agenda,
+    formSchema,
+    member,
+    event
+  });
+}
+
+async function updateAgendaIndex(eventSearch, { agenda, formSchema, member, event }) {
+  log('updateAgendaIndex');
+  const data = formatEventForIndex(agenda, formSchema, event, member);
+  const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
+
+  if (!await searchIndex.exists()) {
+    log('warn', 'not updating: index does not exist');
+  }
+
+  log('update current agenda index');
+  await searchIndex.update({
+    uid: event.uid
+  }, data, { refresh: true });
+
+  return data;
 }

@@ -16,7 +16,7 @@ schema.register( {
   text: require( '@openagenda/validators/text' )
 } );
 
-const validateOptions = schema( {
+const validateOptions = schema({
   detailed: {
     type: 'boolean',
     default: false
@@ -42,21 +42,26 @@ const validateOptions = schema( {
     type: 'text',
     list: { max: 2 }
   }
-} );
+});
 
 
 module.exports = async (searchIndex, agendaUid, query, nav, options = {}) => {
+  const {
+    searchOptions,
+    parseEvent
+  } = await _prepare(agendaUid, options);
 
-  const { searchOptions, parseEvent } = await _prepare( agendaUid, options );
+  const {
+    events,
+    total,
+    aggregations
+  } = await searchIndex.search(query, nav, searchOptions);
 
-  return searchIndex.search( query, nav, searchOptions )
-
-    .then( ( { events, total, aggregations } ) => ( {
-      total,
-      events: events.map( parseEvent ),
-      aggregations
-    } ) );
-
+  return {
+    total,
+    events: events.map(parseEvent),
+    aggregations
+  };
 }
 
 
