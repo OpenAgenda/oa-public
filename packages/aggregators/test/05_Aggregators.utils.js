@@ -6,6 +6,7 @@ const convertTagsToSchemaOptionIds = require('../Aggregators/utils/convertTagsTo
 const convertSchemaOptionIdsToTags = require('../Aggregators/utils/convertSchemaOptionIdsToTags');
 const determineAggregationAction = require('../Aggregators/utils/determineAggregationAction');
 const pickSchemaValues = require('../Aggregators/utils/pickSchemaValues');
+const cleanRule = require('../Aggregators/utils/rules/clean');
 
 const fixtures = {
   jepOToJEP: require('./fixtures/evaluate.jep-2019-occitanie.to.albi.json'),
@@ -99,4 +100,69 @@ describe('Aggregators utils', () => {
 
   });
 
+  describe('cleanRule', () => {
+
+    it('transform object is parsed to list of actions', () => {
+      const clean = cleanRule({
+        query: {
+          tags: 'Animation Jeune public'
+        },
+        transform: {
+          tags: {
+            '$push': ['Animation']
+          }
+        },
+        required : false
+      });
+
+      clean.actions.should.eql([{
+        tags: {
+          '$push': ['Animation']
+        }
+      }]);
+    });
+
+    it('state in value is converted to an action', () => {
+      const clean = cleanRule({
+        query: {
+          location: {
+            city: 'Angles-sur-l\'Anglin'
+          }
+        },
+        value: {
+          state: 2
+        }
+      });
+
+      clean.actions.should.eql([{
+        state: {
+          $set: 2
+        }
+      }]);
+    });
+
+    it('geographic query list-values are reduced by geographic type', () => {
+      const clean = cleanRule({
+        query: {
+          location: [{
+            city: 'Lille'
+          }, {
+            city: 'Anstaing'
+          }, {
+            city: 'Armentières'
+          }, {
+            city: 'Aubers'
+          }, {
+            city: 'Baisieux'
+          }, {
+            city: 'La Bassée'
+          }]
+        }
+      });
+
+      clean.query.location.city.should.eql([
+        'Lille', 'Anstaing', 'Armentières', 'Aubers', 'Baisieux', 'La Bassée'
+      ]);
+    });
+  });
 });
