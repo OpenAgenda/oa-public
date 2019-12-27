@@ -70,9 +70,9 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
   if (clean.event.longDescription) {
     try {
       clean.event.links = await processOEmbed(oembed, clean.event.longDescription, clean.event.links);
-      log( 'retrieved %s links', clean.event.links.length );
-    } catch ( e ) {
-      log( 'error', 'could not retrieve oembeds', e );
+      log('retrieved %s links', clean.event.links.length);
+    } catch (e) {
+      log('error', 'could not retrieve oembeds', e);
     }
   }
 
@@ -212,7 +212,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
       event
     });
   } catch (e) {
-    log('error', 'could not update search indices for event %s.%s', agenda.uid, eventUid, e);
+    log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, e);
   }
 
   await aggregators.notify('updateEvent', {

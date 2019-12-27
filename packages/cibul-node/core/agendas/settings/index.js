@@ -1,23 +1,22 @@
 "use strict";
 
-const config = require( '../../../config' );
-
-const getMergedSchema = require( './getMergedSchema' );
-const getSchema = require( './getSchema' );
+const config = require('../../../config');
+const getMergedSchema = require('./getMergedSchema');
+const getSchema = require('./getSchema');
 const updateLegacySetFromSchema = require('./legacy/updateLegacySetFromSchema');
 const updateCustomFromSchema = require('./legacy/updateCustomFromSchema');
-const updateLegacy = require( './legacy/update' );
+const updateLegacy = require('./legacy/update');
 
-const updateSchemaFields = require( './updateSchemaFields' );
+const updateSchemaFields = require('./updateSchemaFields');
 
-module.exports = agendaUid => {
+module.exports = (services, agendaUid) => {
 
   return {
-    get: getMergedSchema.bind( null, agendaUid ), // deprecate
+    get: getMergedSchema.bind(null, services, agendaUid), // deprecate
     schema: {
       get: getSchema.bind(null, agendaUid),
       getNetwork: getSchema.network.bind(null, agendaUid),
-      getMerged: getMergedSchema.bind( null, agendaUid ),
+      getMerged: getMergedSchema.bind(null, services, agendaUid),
       updateFields: updateSchemaFields.bind( null, config, agendaUid )
     },
     legacy: {

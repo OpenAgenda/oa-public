@@ -18,6 +18,6 @@ async function update({ eventSearch }, data) {
 
 }
 
-async function remove({ eventSearch }) {
+async function remove({ eventSearch }, eventUid) {
 
 }

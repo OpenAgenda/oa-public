@@ -13,9 +13,9 @@ const fixtures = require('./fixtures/06_core_agendas_settings.sql');
 const config = require('../config');
 const core = require('../core');
 
-const schemaNames = require( './mock/schemaNames' );
-const getLogConfig = require( './mock/getLogConfig' );
-const assignClients = require( './utils/assignClients' );
+const schemaNames = require('./mock/schemaNames');
+const getLogConfig = require('./mock/getLogConfig');
+const assignClients = require('./utils/assignClients');
 
 const testConfig = {
   queues: {},
@@ -56,29 +56,25 @@ const testConfig = {
 };
 
 
-describe( 'core - functional ( server ): settings get', function() {
+describe('core - functional ( server ): settings get', function() {
+  this.timeout(20000);
 
-  this.timeout( 20000 );
+  before(async () => {
 
-  before( async () => {
-
-    const con = mysql.createConnection( _.extend( _.pick( config.db, [ 'user', 'password' ] ), {
+    const con = mysql.createConnection(_.extend( _.pick( config.db, [ 'user', 'password' ] ), {
       multipleStatements: true
-    } ) );
+    }));
 
-    const query = promisify( con.query.bind( con ) );
-
-    const result = await query( fixtures );
+    const query = promisify(con.query.bind(con));
+    const result = await query(fixtures);
 
     con.end();
+  });
 
-  } );
+  before(() => assignClients(testConfig));
 
-  before( () => assignClients( testConfig ) );
-
-  before( async () => {
-
-    await core.init( testConfig, {
+  before(async () => {
+    await core.init(testConfig, {
       enabled: [
         'queues',
         'events',
@@ -94,9 +90,8 @@ describe( 'core - functional ( server ): settings get', function() {
         'users',
         'keys'
       ]
-    } );
-
-  } );
+    });
+  });
 
   after( () => testConfig.knex.destroy() );
 

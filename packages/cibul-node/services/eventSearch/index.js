@@ -1,23 +1,19 @@
 "use strict";
 
-const _ = require( 'lodash' );
-
+const _ = require('lodash');
 const EventSearch = require('@openagenda/event-search');
-
-const AgendaIndices = require('./agendaIndices');
-const eventIndex = require('./lib/eventIndex');
-const buildSearchConfig = require('./lib/buildSearchConfig');
-const eventTransverseOperations = require('./eventTransverseOperations');
-const update = require('./update');
-const add = require('./add');
 const log = require('@openagenda/logs')('services/eventSearch');
 
-module.exports = {
-  init,
-  utils: EventSearch.utils
-}
+const eventIndex = require('./lib/eventIndex');
+const buildSearchConfig = require('./lib/buildSearchConfig');
 
-function init(config, services) {
+const add = require('./add');
+const update = require('./update');
+const remove = require('./remove');
+const agendaIndexSearch = require('./agendaIndexSearch');
+
+module.exports.init = (config, services) => {
+  log('init');
   const {
     queues,
     agendaEvents,
@@ -28,17 +24,15 @@ function init(config, services) {
 
   const queue = queues('eventSearch');
 
-  const agendaIndices = AgendaIndices(eventSearch, config);
-
   eventIndex({ eventSearch, queue });
 
-  return Object.assign(eventSearch, {
-    //agendas: agendaIndices,
-    //events: eventTransverseOperations({ eventSearch, agendaIndices, queue }),
+  return {
     task: task.bind(null, { queue }),
     update: update(services, queue, eventSearch),
-    add: () => {}// add(services, queue, eventSearch)
-  });
+    remove: remove(services, queue, eventSearch),
+    add: add(services, queue, eventSearch),
+    search: agendaIndexSearch.bind(null, eventSearch)
+  };
 }
 
 function task({ queue }) {

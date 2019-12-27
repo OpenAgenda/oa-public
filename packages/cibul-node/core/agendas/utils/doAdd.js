@@ -134,7 +134,7 @@ module.exports = async (services, payload, clean, options = {}) => {
       event: compiledEvent
     });
   } catch (e) {
-    log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid);
+    log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid, e);
   }
 
   await aggregators.notify('addEvent', {

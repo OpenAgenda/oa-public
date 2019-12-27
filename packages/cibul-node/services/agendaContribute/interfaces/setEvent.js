@@ -81,16 +81,16 @@ module.exports = async (agenda, user, current, data, options = {}) => {
 
       return {
         event,
-        success: result.success
+        success: true
       };
     }
   } catch (e) {
-    if (e.name === 'validationError') {
-      log('error', 'validation errors', e.jse_info.errors);
+    if (e.name === 'ValidationError') {
+      log('error', 'validation errors', e.detail);
 
       return {
         success: false,
-        errors: e.jse_info.errors,
+        errors: e.detail,
         event: null
       }
     };

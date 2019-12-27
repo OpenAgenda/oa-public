@@ -89,12 +89,15 @@ async function updateAgendaIndex(eventSearch, { agenda, formSchema, member, even
 
   if (!await searchIndex.exists()) {
     log('warn', 'not updating: index does not exist');
+    return;
   }
 
   log('update current agenda index');
   await searchIndex.update({
     uid: event.uid
   }, data, { refresh: true });
+
+  log('updated');
 
   return data;
 }

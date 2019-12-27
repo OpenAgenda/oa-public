@@ -18,6 +18,8 @@ module.exports = {
     'custom.create.sql',
     'agendaEvent.create.sql',
     'location.create.sql',
+    'aggregator.create.sql',
+    'aggregatorSource.create.sql',
     'legacyEvent.create.sql',
     'legacyEventEditor.create.sql',
     'legacyEventLocation.create.sql',

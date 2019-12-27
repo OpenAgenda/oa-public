@@ -5,7 +5,6 @@ const ih = require('immutability-helper');
 
 const log = require('@openagenda/logs')('core/agendas/events/get');
 
-const getAgenda = require('../utils/getAgenda');
 const getMergedSchema = require('../settings/getMergedSchema');
 const getNetwork = require('../utils/getNetwork');
 const createPayload = require('../utils/createPayload');

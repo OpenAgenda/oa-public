@@ -3,13 +3,6 @@
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
-const agendas = require( '@openagenda/agendas' );
-const custom = require( '@openagenda/custom' );
-const events = require( '@openagenda/events' );
-const formSchemas = require( '@openagenda/form-schemas' );
-const agendaEvents = require( '@openagenda/agenda-events' );
-
-const aggregators = require('../../../services/aggregators').instance;
 const createPayload = require('../utils/createPayload');
 const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
 const merge = require('../utils/merge');
@@ -19,6 +12,16 @@ const log = require('@openagenda/logs')('core/agendas/events/remove');
 
 module.exports = async (services, agendaUid, eventUid, options) => {
   log('removing event %s from agenda %s', eventUid, agendaUid, options);
+
+  const {
+    agendas,
+    agendaEvents,
+    aggregators,
+    custom,
+    events,
+    eventSearch,
+    formSchemas
+  } = services;
 
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);
 
@@ -113,6 +116,17 @@ module.exports = async (services, agendaUid, eventUid, options) => {
       agenda,
       batched
     });
+  }
+
+  try {
+    await eventSearch.remove({
+      event,
+      agenda,
+      deletion,
+      otherAgendaReferences: deletion ? remaining : []
+    });
+  } catch (e) {
+    log('error', 'could not remove event %s.%s from search indices', event.udi);
   }
 
   await refreshAgenda(agenda.uid);

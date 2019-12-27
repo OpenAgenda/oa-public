@@ -1,24 +1,30 @@
 'use strict';
 
-const log = require('@openagenda/logs')('services/eventSearch/addToEventIndex');
+const log = require('@openagenda/logs')('services/eventSearch/add');
 
 const formatEventForIndex = require('./lib/formatEventForIndex');
 const getAgendaSearchIndex = require('./lib/getAgendaSearchIndex');
 const hasOtherPublishedReferences = require('./lib/hasOtherPublishedReferences');
 
-module.exports = ({ eventSearch, agendaEvents, queue }) => {
+module.exports = (services, queue, eventSearch) => {
+  const {
+    agendaEvents
+  } = services;
 
   return async ({ agenda, member, formSchema, event }) => {
+    log('add');
+
     const data = formatEventForIndex(agenda, formSchema, event, member);
-    const searchIndex = getAgendaSearchIndex(agenda.uid);
+    const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
     if (!await searchIndex.exists()) {
-      log('warn', 'not updating: index does not exist');
+      log('warn', 'not adding: index does not exist');
+      return;
     }
 
-    await searchIndex.add({
-      uid: event.uid
-    }, data, { refresh: true });
+    const result = await searchIndex.add(data, { refresh: true });
+
+    log('added', result);
 
     if (event.state !== 2) {
       log('done');

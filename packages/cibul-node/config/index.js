@@ -814,8 +814,8 @@ const config = {
         //enable: 'oa:mailer/task/eventAggregation*',
         //enable: 'oa:legacy:*'
         //enable: 'oa:services/eventSearch/*,oa:uncaught,svc:*'
-        enable: 'oa:*,svc:*,-svc:mails/transporter'
-
+        //enable: 'oa:*,svc:*,-svc:mails/transporter'
+        enable: 'oa:*',
         //enable: 'oa:services/agenda/dispatcher'
         //enable: 'oa:*,svc:*',
         //enable: 'events/interfaces/legacy',

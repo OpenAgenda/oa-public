@@ -19,12 +19,6 @@ const createActivities = require( './lib/createActivities' );
 module.exports = async ({ config, services }, before, after, context) => {
   log('updated agenda-event from %j to %j, %j', before, after, _.pick(context, ['legacy', 'aggregated', 'batched']));
 
-  try {
-    await services.eventSearch.agendas( after.agendaUid ).update( after );
-  } catch ( e ) {
-    log( 'error', 'could not update event search', e );
-  }
-
   const { agenda, event, user } = await fallbackContextGet( 'onUpdate', after, context );
 
 
@@ -87,7 +81,7 @@ module.exports = async ({ config, services }, before, after, context) => {
     try {
       await createActivities({ agenda, event, user }, before, after);
     } catch (e) {
-      log.error( new VError( error, 'Cannot create state change activities' ) );
+      log.error( new VError(e, 'Cannot create state change activities' ) );
     }
   }
 }

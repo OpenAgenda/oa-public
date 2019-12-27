@@ -40,6 +40,7 @@ describe('core - functional (server): core agendas() events.remove()', function(
         'events',
         'agendas',
         'agendaEvents',
+        'aggregators',
         'agendaLocations',
         'formSchemas',
         'custom',
