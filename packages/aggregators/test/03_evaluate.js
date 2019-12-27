@@ -103,7 +103,7 @@ describe( 'evaluateRules', () => {
         tags: [ 'Cinéma - projection', 'Fête / festival' ]
       }
 
-      const rules = [ {
+      const rules = [{
         transform: {
           tags: { $set: [] }
         }
@@ -123,14 +123,14 @@ describe( 'evaluateRules', () => {
           tags: { $push: [ 'Fête - Festival' ] }
         },
         required: false
-      } ];
+      }];
 
-      evaluate( rules, data ).should.eql( {
+      evaluate(rules, data).should.eql({
         title: 'Evénement de la ville de Lille',
-        tags: [ 'Cinéma', 'Fête - Festival' ]
-      } );
+        tags: ['Cinéma', 'Fête - Festival']
+      });
 
-    } );
+    });
 
   } );
 

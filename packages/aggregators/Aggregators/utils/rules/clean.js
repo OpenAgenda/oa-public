@@ -33,7 +33,7 @@ function clean(dirty) {
 }
 
 function _cleanQuery(dirty) {
-  if (!dirty) return;
+  if (!dirty) return {};
 
   return Object.keys(dirty).reduce((clean, key) => {
     if (key === 'location' && dirty.location instanceof Array) {
