@@ -1,11 +1,11 @@
 'use strict';
 
-const preParse = require( './index/preParse' );
-const clean = require( './helpers/clean' );
-const lastTimingEndsIn = require( './helpers/lastTimingEndsIn' );
-const handleError = require( './helpers/handleError' );
-const _ = require( 'lodash' );
-const log = require( '@openagenda/logs' )( 'add' );
+const preParse = require('./index/preParse');
+const clean = require('./helpers/clean');
+const lastTimingEndsIn = require('./helpers/lastTimingEndsIn');
+const handleError = require('./helpers/handleError');
+const _ = require('lodash');
+const log = require('@openagenda/logs')('add');
 
 module.exports = async function(config, alias, event, options = {}) {
 
@@ -14,9 +14,9 @@ module.exports = async function(config, alias, event, options = {}) {
     expire: false
   }, options );
 
-  const { client, type } = config,
+  const { client, type } = config;
 
-    cleanEvent = clean( event );
+  const cleanEvent = clean(event);
 
   let ttl, lastTimingEndsInDays;
 
