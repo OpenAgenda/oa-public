@@ -243,7 +243,9 @@ async function eventMailSend(req, res, next) {
 
   try {
     const { event, formSchema } = await core.agendas(req.agenda.uid).events.get(req.event.uid, {
-      customOnly: true,
+      load: {
+        custom: true
+      },
       returnPayload: true,
       access: 'public',
     });

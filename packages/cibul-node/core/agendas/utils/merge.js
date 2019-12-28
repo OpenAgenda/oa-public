@@ -8,18 +8,21 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
   const {
     originAgenda,
     includeFields,
-    customOnly
+    load
   } = {
     includeFields: null,
     originAgenda: null,
-    customOnly: false,
+    load: {
+      event: true,
+      custom: true,
+      agendaEvent: true
+    },
     ...options
   };
 
-
   const compiled = {};
 
-  if (event && !customOnly) {
+  if (event && load.event) {
     Object.keys(event).forEach(eventField => {
       if (includeFields && !includeFields.includes(eventField)) {
         return;
@@ -37,13 +40,13 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
     });
   });
 
-  if (agendaEvent && !customOnly) {
+  if (agendaEvent && load.agendaEvent) {
     ['state', 'featured', 'sourceAgendaUid', 'aggregated'].forEach(aeField => {
       compiled[aeField] = agendaEvent[aeField];
     });
   }
 
-  if (originAgenda && !customOnly) {
+  if (originAgenda) {
     compiled.agenda = originAgenda;
   }
 

@@ -36,6 +36,7 @@ raw.push(knex('event_2').insert([{
   agenda_uid: 1,
   slug: 'event-1',
   uid: 1,
+  draft: 0,
   title: JSON.stringify({
     fr: 'Evénement 1'
   }),
@@ -58,6 +59,7 @@ raw.push(knex('event_2').insert([{
   agenda_uid: 1,
   slug: 'event-2',
   uid: 2,
+  draft: 0,
   title: JSON.stringify({
     fr: 'Evénement 2'
   }),

@@ -23,14 +23,18 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
   const {
     internal,
     lang,
-    customOnly,
+    load,
     access,
     returnPayload,
     detailed
   } = {
     internal: false, // load internal use fields ( id )
     lang: null,
-    customOnly: false, // only fetch custom values
+    load: {
+      event: true,
+      custom: true,
+      agendaEvent: true
+    },
     access: 'public',
     returnPayload: false,
     detailed: false,
@@ -43,7 +47,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
 
   payload.setItem('agendaEvent', await agendaEvents(agendaUid).get(eventUid));
 
-  if (!customOnly) {
+  if (load.event) {
     const event = await events.get({
       uid: eventUid
     }, {
@@ -63,27 +67,25 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     !payload.getItem('event').draft
   ) return null;
 
-  if (!payload.hasItem('event') && !customOnly) {
+  if (!payload.hasItem('event') && load.event) {
     return returnPayload ? payload.getResponse('event', access) : null;
   }
 
-  const loadCustomFields = payload.hasItem('event') || customOnly;
-
-  if (loadCustomFields && agenda.formSchemaId) {
+  if (load.custom && agenda.formSchemaId) {
     payload.setItem(
       'custom.agenda',
       await custom(agenda.formSchemaId).get(eventUid)
     );
   }
 
-  if (loadCustomFields && agenda.network) {
+  if (load.custom && agenda.network) {
     payload.setItem(
       'custom.network',
       await custom(_.get(agenda, 'network.formSchemaId')).get(eventUid)
     );
   }
 
-  const result = await payload.getResponse('event', { access, customOnly });
+  const result = await payload.getResponse('event', { access, load });
   return returnPayload ? result : result.event;
 }
 

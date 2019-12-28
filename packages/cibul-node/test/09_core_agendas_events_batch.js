@@ -56,7 +56,7 @@ const testConfig = {
 };
 
 describe('core - fuctional (server): events batch', function() {
-  this.timeout(20000);
+  this.timeout(10000);
 
   before( async () => {
 
@@ -113,6 +113,7 @@ describe('core - fuctional (server): events batch', function() {
         },
         error: function(...args) {
           //console.log('error', JSON.stringify(args));
+          done(new Error('error'));
         },
         success: function(...args) {
           if(args[0] === 'batchedUpdate') return done();

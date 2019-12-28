@@ -11,7 +11,7 @@ const validate = require('./validate');
 
 module.exports = (services, agendaUid) => ({
   get: get.bind(null, services, agendaUid),
-  list: list.bind(null, agendaUid),
+  list: list.bind(null, services, agendaUid),
   create: create.bind(null, services, agendaUid),
   add: add.bind(null, services, agendaUid),
   remove: remove.bind(null, services, agendaUid),

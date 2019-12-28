@@ -35,10 +35,15 @@ function makeGetResponse(services, data) {
   return async (primaryKey = 'event', options = {}) => {
     const {
       access,
-      customOnly
+      load
     } = {
       access: null,
-      customOnly: false,
+      load: {
+        custom: true,
+        event: true,
+        agendaEvent: true,
+        agenda: true
+      },
       ...(typeof options === 'object' ? options : { access: options })
     };
 
@@ -49,7 +54,7 @@ function makeGetResponse(services, data) {
       originAgenda: await getOriginAgenda(services, data),
       member: getMember(data),
       formSchema,
-      [primaryKey]: await getCompiledEvent(services, data, 'after', access, formSchema, customOnly),
+      [primaryKey]: await getCompiledEvent(services, data, 'after', access, formSchema, load),
       before: data.services.before.agendaEvent ? merge.eventFromObject(data.services.before) : null
     }
   }
@@ -63,14 +68,20 @@ function getFormSchema(agenda, access = null) {
   );
 }
 
-async function getCompiledEvent(services, data, key = 'after', access = null, formSchema = null, customOnly = false) {
+async function getCompiledEvent(services, data, key = 'after', access = null, formSchema = null, loadOption) {
+  const load = loadOption || {
+    custom: true,
+    event: true,
+    agendaEvent: true,
+    agenda: true
+  };
   const includeFields = access === null ? null : (
       formSchema || getFormSchema(data.agendas.current, access)
     ).fields.map(f => f.field);
   return merge.eventFromObject(data.services[key], {
     includeFields,
     originAgenda: await getOriginAgenda(services, data),
-    customOnly
+    load
   });
 }
 

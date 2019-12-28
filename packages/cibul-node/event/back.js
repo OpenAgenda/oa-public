@@ -36,9 +36,11 @@ module.exports = app => {
     legacyAgendaSvc.mw.load( 'uid' ),
     sessions.mw.loadOrRedirect,
     members.mw.load,
-    ( req, res, next ) => {
-      core.agendas( req.agenda.uid ).events.get( req.params.eventUid, {
-        customOnly: true,
+    (req, res, next) => {
+      core.agendas(req.agenda.uid).events.get(req.params.eventUid, {
+        load: {
+          custom: true
+        },
         returnPayload: true,
         access: req.member ? members.utils.getRoleSlug( req.member.role ) : 'nobody',
       } ).then( result => res.json({
