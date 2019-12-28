@@ -59,7 +59,6 @@ function list( query, offset, limit, options, cb ) {
         log( 'total for %j: %s', params.query, total );
 
       }
-
       events = await _list( knexQuery, params.limit, params.offset, {
         order: cleanQuery.order,
         internal: cleanOptions.internal,
@@ -99,12 +98,15 @@ function list( query, offset, limit, options, cb ) {
 
 function _list( knex, limit, offset, { order, internal, detailed, useDefaultImage, includePrivate, includeDraft, fetched } ) {
 
+
   // get fields which need to be in list
   let listFields = map
 
-    .filter( f => typeof f === 'string' || f.list === true || f.list === undefined || detailed )
+    .filter( f => typeof f === 'string' || f.list === true || f.list === undefined || detailed || fetched.length )
 
     .filter( f => {
+
+      if (fetched.length) return f;
 
       let internalField = typeof f !== 'string' && f.internal,
 

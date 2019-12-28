@@ -1,5 +1,8 @@
 "use strict";
 
+const fetchableFields = require('../databaseFieldMap')
+  .map(f => typeof f === 'string' ? f : f.obj);
+
 const schema = require( '@openagenda/validators/schema' );
 
 schema.register( {
@@ -36,7 +39,7 @@ module.exports = schema( {
   },
   fetched: {
     type: 'choice',
-    options: [ 'uid' ],
+    options: fetchableFields,
     default: null
   }
 } );
