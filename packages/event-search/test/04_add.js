@@ -1,8 +1,8 @@
 'use strict';
 
 const should = require('should');
+const fs = require('fs');
 const config = require('../testconfig');
-const events = require('@openagenda/events/test/service');
 const Service = require('../');
 
 
@@ -10,7 +10,7 @@ describe('event search - functional: create', function() {
 
   let service;
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   const eventData = {
     id: 679689,
@@ -45,30 +45,14 @@ describe('event search - functional: create', function() {
     }
   }
 
-  before(done => {
-
-    events.initAndLoad( config.eventService, [ {
-      table: 'event',
-      src: __dirname + '/service/event.data.sql'
-    } ], { reset: true }, done );
-
-  });
-
   before( async () => {
-
     service = Service(config);
 
     await service( 'test_index' ).rebuild( {
-      eventsList: function( offset, limit ) {
-
-        return events.list( offset, limit, {
-          internal: true,
-          detailed: true
-        } ).then( result => result.events );
-
+      eventsList: async function( offset, limit ) {
+        return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/04_events.${offset}.${limit}.json`));
       }
     } );
-
   } );
 
 

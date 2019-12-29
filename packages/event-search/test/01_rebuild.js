@@ -1,9 +1,7 @@
 'use strict';
 
+const fs = require('fs');
 const should = require('should');
-
-const events = require('@openagenda/events/test/service');
-
 const config = require('../testconfig');
 const Service = require('../');
 
@@ -11,31 +9,16 @@ describe('event-search - functional: rebuild', function() {
 
   describe('basic usage', function() {
 
-    let totalEvents;
+    const totalEvents = 30;
     let service;
 
-    this.timeout(20000);
+    this.timeout(30000);
 
     async function eventsList(offset, limit) {
-      return events.list(offset, limit, {
-        internal: true,
-        detailed: true,
-        private: null
-      }).then(r =>  r.events);
+      return JSON.parse(
+        fs.readFileSync(`${__dirname}/fixtures/01_events.${offset}.${limit}.json`)
+      );
     }
-
-    before(done => {
-      events.initAndLoad(config.eventService, [{
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      }], { reset: true }, async () => {
-        const result = await events.list({}, 0, 1, { total: true });
-
-        totalEvents = result.total;
-
-        done();
-      });
-    });
 
     beforeEach(() => {
       service = Service(config);
@@ -118,24 +101,13 @@ describe('event-search - functional: rebuild', function() {
 
     let service;
 
-    this.timeout(20000);
+    this.timeout(30000);
 
-    function eventsList( offset, limit ) {
-
-      return events.list( offset, limit, {
-        internal: true,
-        detailed: true,
-        private: null
-      } ).then( r => r.events );
-
+    async function eventsList(offset, limit) {
+      return JSON.parse(
+        fs.readFileSync(`${__dirname}/fixtures/01_events.${offset}.${limit}.json`)
+      );
     }
-
-    before(done => {
-      events.initAndLoad( config.eventService, [{
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      }], { reset: true }, done);
-    });
 
     beforeEach(() => {
       service = Service(config);

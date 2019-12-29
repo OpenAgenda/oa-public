@@ -1,46 +1,29 @@
 "use strict";
 
+const fs = require('fs');
 const should = require( 'should' );
-
-const events = require('@openagenda/events/test/service');
 
 const Service = require('../');
 
 const config = require('../testconfig');
 
-describe( 'event search - functional: deleteIndex', function() {
+describe('event search - functional: deleteIndex', function() {
 
-  describe( 'simple', function() {
+  describe('simple', function() {
 
     let service;
 
-    this.timeout( 10000 );
-
-    before( done => {
-
-      events.initAndLoad( config.eventService, [ {
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      } ], { reset: true }, done );
-
-    } );
+    this.timeout(30000);
 
     before(async () => {
-
       service = Service(config);
-
     });
 
     it( 'indices and alias are effectively removed', async () => {
 
       await service( 'simple_search' ).rebuild( {
-        eventsList: function( offset, limit ) {
-
-          return events.list( offset, limit, {
-            internal: true,
-            detailed: true
-          } ).then( r => r.events );
-
+        eventsList: async function( offset, limit ) {
+          return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/05_events.${offset}.${limit}.json`));
         }
       } );
 
@@ -64,6 +47,6 @@ describe( 'event search - functional: deleteIndex', function() {
 
     } );
 
-  } );
+  });
 
-} );
+});

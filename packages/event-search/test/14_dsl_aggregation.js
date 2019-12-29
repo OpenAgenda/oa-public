@@ -7,13 +7,11 @@ const _ = require( 'lodash' );
 const Service = require( '../' );
 const runDSLQuery = require('../service/helpers/runDSLQuery');
 
-
 const buildAggregationDsl = require( '../service/aggregation' );
 
 const parseAggregationResult = require( '../service/aggregation' ).parseResult;
 
 const geohashEvents = require( './service/geohashEvents.data' );
-
 
 describe( 'event-search - unit: dsl aggregation', function() {
 
