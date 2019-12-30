@@ -4,7 +4,7 @@ const _ = require('lodash');
 
 const getAggregator = require('../getAggregator');
 const validateListQuery = require('../validateListQuery');
-const extractRules = require('../extractRules');
+const extractRules = require('../rules/extract');
 
 module.exports = async ({ knex, getAgendasByUidsAndSearch }, aggregatorAgenda, query = {}, options = {}) => {
   const aggregatorId = await getAggregator(knex, aggregatorAgenda, true);

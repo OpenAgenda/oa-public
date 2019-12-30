@@ -2,9 +2,15 @@
 
 const schema = require('@openagenda/validators/schema');
 const integer = require('@openagenda/validators/integer');
+const pass = require('@openagenda/validators/pass');
+const boolean = require('@openagenda/validators/boolean');
+
+const cleanRule = require('../utils/rules/clean');
 
 schema.register({
-  integer
+  integer,
+  pass,
+  boolean
 });
 
 const ruleFields = {
@@ -12,7 +18,7 @@ const ruleFields = {
     optional: true,
     type: 'pass'
   },
-  transform: {
+  actions: {
     optional: true,
     type: 'pass'
   },
@@ -23,7 +29,7 @@ const ruleFields = {
   }
 }
 
-module.exports = schema({
+const validate = schema({
   version: {
     type: 'integer',
     optional: true,
@@ -35,4 +41,15 @@ module.exports = schema({
   }
 });
 
-module.exports.rule = schema(ruleFields);
+const validateRule = schema(ruleFields);
+
+module.exports = data => {
+  const rules = data instanceof Object && data.rules ? cleanRule(data.rules) : [];
+
+  return validate({
+    ...data,
+    rules
+  });
+}
+
+module.exports.rule = r => validateRule(cleanRule(r));

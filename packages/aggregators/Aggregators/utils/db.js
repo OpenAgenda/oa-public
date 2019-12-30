@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const cleanRules = require('./rules/clean');
 
 module.exports.toEntry = agg => {
   const entry = { review_id: agg.agendaId };
@@ -25,7 +26,7 @@ module.exports.fromEntry = entry => {
     if (entry[ef]) agg[_.camelCase(ef)] = entry[ef]
   });
 
-  agg.rules = entry.store ? JSON.parse(entry.store).rules : []
+  agg.rules = entry.store ? cleanRules(JSON.parse(entry.store).rules) : []
 
   return agg;
 }

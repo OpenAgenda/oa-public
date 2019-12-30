@@ -1,6 +1,6 @@
 'use strict';
 
-const extractRules = require('./extractRules');
+const extractRules = require('./rules/extract');
 
 module.exports = (knex, agenda, idOnly = false) => knex('aggregator')
   .first(idOnly ? ['id'] : ['id', 'store'])

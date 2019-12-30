@@ -3,7 +3,7 @@
 const _ = require('lodash');
 
 const validateListQuery = require('../validateListQuery');
-const extractRules = require('../extractRules');
+const extractRules = require('../rules/extract');
 
 module.exports = async ({
   knex,
@@ -27,7 +27,7 @@ module.exports = async ({
     .then(rows => rows.map(r => ({
       id: r.sourceId,
       agendaUid: r.agendaUid,
-      rules: extractRules('sourceStore', r.sourceId, r.sourceStore),
+      rules: extractRules('sourceStore', r.sourceId, r.sourceStore).map(cleanRules),
       aggregatorId: r.aggregatorId
     })));
 
