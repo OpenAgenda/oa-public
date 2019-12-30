@@ -17,6 +17,7 @@ module.exports = (config, parentApp) => {
 
   // this stays
   parentApp.all([
+    '/:agendaSlug/admin/aggregator',
     '/:agendaSlug/admin/sources',
     '/:agendaSlug/admin/sources/?*?',
     '/:agendaSlug/admin/sources/remove',
@@ -45,6 +46,13 @@ module.exports = (config, parentApp) => {
       req.sourceAgenda,
       req.body.rules
     ).then(res.json, next)
+  );
+
+  parentApp.get('/:agendaSlug/admin/aggregator',
+    bodyParser.json(),
+    (req, res, next) => aggregators
+      .set(req.agenda.uid, req.body)
+      .then(result => res.json(result), next)
   );
 
   parentApp.put('/:agendaSlug/admin/sources/refactor/:sourceId',
