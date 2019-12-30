@@ -2,16 +2,18 @@
 
 const ih = require('immutability-helper');
 const { merge } = require('@openagenda/form-schemas').utils;
-const eventFormSchema = require( '@openagenda/event-form/src/schema' );
+const eventFormSchema = require('@openagenda/event-form/src/schema');
 
 function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {}) {
   const {
     originAgenda,
     includeFields,
+    member,
     load
   } = {
     includeFields: null,
     originAgenda: null,
+    member: null,
     load: {
       event: true,
       custom: true,
@@ -48,6 +50,10 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
 
   if (originAgenda) {
     compiled.agenda = originAgenda;
+  }
+
+  if (member) {
+    compiled.member = member;
   }
 
   return compiled;

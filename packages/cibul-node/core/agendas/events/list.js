@@ -13,7 +13,8 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     events: eventsSvc,
     custom,
     agendas,
-    agendaLocations
+    agendaLocations,
+    members
   } = services;
 
   const {
@@ -34,7 +35,8 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     load: {
       event: true,
       agendaEvent: true,
-      custom: true
+      custom: true,
+      member: true
     },
     returnPayload: false,
     access: 'public',
@@ -92,16 +94,17 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
           'registration',
           'references',
           'links',
-          'fileKey'
+          'fileKey',
+          'timezone'
         ] : []
       ).concat(
-        access === 'internal' ? ['id',] : []
+        access === 'internal' ? ['id'] : []
       )
     })).events;
   }
 
   if (load.custom && agenda.formSchemaId) {
-    fetched.custom = (await custom(formSchemaId).list({
+    fetched.custom = (await custom(agenda.formSchemaId).list({
       identifier: eventUids
     })).items;
   }
@@ -118,11 +121,18 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     })).agendas.map(a => _.omit(a, ['id', 'indexed']));
   }
 
-  if (detailed && load.event) {
+  if (detailed && load.event && fetched.events.length) {
     fetched.locations = await listLocations(
       agendaLocations,
       fetched.events.map(e => e.locationUid)
     );
+  }
+
+  if (detailed && load.member) {
+    fetched.members = await members.list({
+      agendaUid: agenda.uid,
+      userUid: agendaEvents.map(ae => ae.userUid)
+    }, { limit }).then(m => m.map(m => _.pick(m, ['role', 'userUid', 'custom'])));
   }
 
   const compiledEvents = eventUids.map((uid, index) => {
@@ -130,8 +140,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     return { uid, ...merge.eventFromObject({
       agendaEvent: fetched.agendaEvents[index],
       event: load.event ? Object.assign(event, detailed ? {
-        location: _.find(fetched.locations, { uid: event.locationUid }, null),
-        agenda: _.find(fetched.originAgendas, { uid: event.agendaUid }, null)
+        location: _.find(fetched.locations, { uid: event.locationUid }, null)
       } : {}) : null,
       custom: load.custom ? {
         agenda: (_.find(fetched.custom, { identifier: uid }) || {}).custom,
@@ -140,6 +149,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     }, {
       includeFields: formSchema.fields.map(f => f.field),
       originAgenda: load.event ? _.find(fetched.originAgendas, { uid: event.agendaUid }) : null,
+      member: load.event ? _.find(fetched.members, { userUid: fetched.agendaEvents[index].userUid }, null) : null,
       load
     }) }
   });
@@ -150,7 +160,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
     success: true,
     agenda,
     formSchema
-  } : compiledEvents
+  } : compiledEvents;
 
 }
 

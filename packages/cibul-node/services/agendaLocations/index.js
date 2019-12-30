@@ -85,23 +85,19 @@ module.exports.init = async (config, services) => {
 }
 
 
-function _query( config, queryStr, values, cb ) {
-
-  const query = config.knex.raw( queryStr, values );
+function _query(config, queryStr, values, cb) {
+  const query = config.knex.raw(queryStr, values);
 
   query
     .then(
-      result => result[ 0 ],
+      result => {
+        return result[0];
+      },
       err => {
-
-        process.nextTick( () => cb( err ) );
-
+        process.nextTick(() => cb(err));
       }
     )
-    .then( rows => {
-
-      process.nextTick( () => cb( null, rows ) );
-
-    } );
-
+    .then(rows => {
+      process.nextTick(() => cb(null, rows));
+    });
 }

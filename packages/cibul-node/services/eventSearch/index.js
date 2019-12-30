@@ -11,6 +11,8 @@ const add = require('./add');
 const update = require('./update');
 const remove = require('./remove');
 const agendaIndexSearch = require('./agendaIndexSearch');
+const agendaIndexRebuild = require('./agendaIndexRebuild');
+const transverseIndex = require('./transverseIndex');
 
 module.exports.init = (config, services) => {
   log('init');
@@ -31,7 +33,12 @@ module.exports.init = (config, services) => {
     update: update(services, queue, eventSearch),
     remove: remove(services, queue, eventSearch),
     add: add(services, queue, eventSearch),
-    search: agendaIndexSearch.bind(null, eventSearch)
+    agendas: agenda => ({
+      search: agendaIndexSearch.bind(null, eventSearch, agenda),
+      rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda),
+      exists: () => eventSearch(`agendas:${agenda.uid}`).exists()
+    }),
+    transverseIndex: transverseIndex(services, eventSearch)
   };
 }
 

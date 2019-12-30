@@ -117,7 +117,17 @@ describe('core - functional (server): core.agendas().events.list()', function() 
         'officializedAt',
         'private'
       ]);
-    })
+    });
+
+    it('member is provided', () => {
+      events[0].member.should.eql({
+        role: 1,
+        userUid: 1,
+        custom: {
+          contactName: 'Jan'
+        }
+      });
+    });
   });
 
   describe('list with access option', () => {

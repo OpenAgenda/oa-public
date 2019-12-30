@@ -115,7 +115,7 @@ module.exports.task = services => {
 
       case 'search':
 
-        _resyncSearch(services.eventSearch, data.agendaUid);
+        _resyncSearch(services.core, services.eventSearch, data.agendaUid);
         break;
 
       case 'agendaEvents':
@@ -217,20 +217,17 @@ async function _resyncLegacySearch( agendaUid ) {
 
 }
 
-async function _resyncSearch( eventSearch, agendaUid ) {
+async function _resyncSearch(core, eventSearch, agendaUid ) {
+  const agenda = await core.agendas(agendaUid).get({ detailed: true });
 
-  log( 'info', 'resyncing agenda %d - new search index rebuild', agendaUid );
+  log('info', 'resyncing agenda %d - new search index rebuild', agendaUid);
 
   try {
+    const result = await eventSearch.agendas(agenda).rebuild();
 
-    const result = await eventSearch.agendas( agendaUid ).rebuild();
-
-    log( 'info', 'agenda %d, resynced search index', agendaUid, result );
-
+    log('info', 'agenda %d, resynced search index', agendaUid, result);
   } catch ( e ) {
-
     log( 'error', 'agenda %d, resync failed', agendaUid, e );
-
   }
 
 }

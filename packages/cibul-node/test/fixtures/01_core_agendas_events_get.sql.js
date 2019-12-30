@@ -20,9 +20,13 @@ raw.push(knex('user').insert([
   require('./sql/users/01.json')
 ]));
 
+
+raw.push(knex('reviewer').insert([
+  require('./sql/members/01.json')
+]));
+
 raw.push(knex('location').insert([{
   id: 1,
-  placename: 'La boutique',
   placename: 'La boutique',
   address: '29 passage du ponceau, Paris',
   latitude: 48.867583,

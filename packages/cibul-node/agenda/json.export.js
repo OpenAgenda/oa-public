@@ -15,7 +15,7 @@ module.exports = app => {
       if (!agenda) {
         return next({ code: 404 });
       }
-      eventSearch.search(agenda, req.query, req.query, req.query)
+      eventSearch.agendas(agenda).search(req.query, req.query, req.query)
         .then(result => req.query.geojson ? eventSearch.utils.parsers.geoJSON(result) : result)
         .then(result => {
           res.json(result);
