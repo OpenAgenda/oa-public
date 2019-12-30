@@ -1,5 +1,13 @@
+import { defineMessages } from 'react-intl';
 import getMultiLanguageLabel from './getMultiLanguageLabel';
 import stateMessages from './stateMessages';
+
+const messages = defineMessages({
+  inexistentOption: {
+    id: 'aggregator-sources.utils.rules.inexistentOption',
+    defaultMessage: '*Removed option*'
+  }
+});
 
 const stateTolabelId = state => ({
   0: 'stateToControl',
@@ -35,8 +43,10 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
     const foundOpt = fSchema.options.find(option => option.id === optId);
 
     return {
-      value: foundOpt.id,
-      label: getMultiLanguageLabel(foundOpt.label, intl.locale)
+      value: foundOpt ? foundOpt.id : optId,
+      label: foundOpt
+        ? getMultiLanguageLabel(foundOpt.label, intl.locale)
+        : intl.formatMessage(messages.inexistentOption)
     };
   };
 
@@ -47,7 +57,7 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
       }
 
       const actionKeys = Object.keys(action);
-      const ids = action[actionKeys[0]];
+      const ids = action[actionKeys[0]]?.$set || action[actionKeys[0]];
 
       if (actionKeys[0] === 'state') {
         result.actions.push({
@@ -152,7 +162,7 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
 export function valuesToRule(values, schema) {
   const { required } = values;
 
-  const transform = values.actions?.map(action => {
+  const actions = values.actions?.map(action => {
     if (action.field.value === 'state') {
       return {
         state: action.values.value
@@ -195,7 +205,7 @@ export function valuesToRule(values, schema) {
       return {
         query: {},
         required,
-        transform
+        actions
       };
     case 'location':
       return {
@@ -205,7 +215,7 @@ export function valuesToRule(values, schema) {
           }
         },
         required,
-        transform
+        actions
       };
     case 'tags':
       return {
@@ -213,7 +223,7 @@ export function valuesToRule(values, schema) {
           tags: values.values
         },
         required,
-        transform
+        actions
       };
     case 'extended': {
       return {
@@ -223,7 +233,7 @@ export function valuesToRule(values, schema) {
             : values.values.value // WTF
         },
         required,
-        transform
+        actions
       };
     }
     default:

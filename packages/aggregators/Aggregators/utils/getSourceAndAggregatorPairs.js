@@ -1,6 +1,6 @@
 'use strict';
 
-const extractRules = require('./extractRules');
+const extractRules = require('./rules/extract');
 const log = require('@openagenda/logs')('getSourceAndAggregatorPairs');
 
 module.exports = (knex, { id }) => knex('aggregator as ag')

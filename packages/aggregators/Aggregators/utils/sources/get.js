@@ -3,7 +3,7 @@
 const _ = require('lodash');
 
 const validateListQuery = require('../validateListQuery');
-const extractRules = require('../extractRules');
+const extractRules = require('../rules/extract');
 
 module.exports = async ({
   knex,

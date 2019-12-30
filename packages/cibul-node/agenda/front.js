@@ -41,11 +41,11 @@ const preMw = [
 
 const middlewares = {
   show: [
-    agendaSvc.mw.search( perPage ),
+    agendaSvc.mw.search(perPage),
     _format,
     _formatShowLinks,
-    showXhr( 'agenda/show' ),
-    cmn.loadBaseData( _layoutData, 'oasfmain.css' ),
+    showXhr('agenda/show'),
+    cmn.loadBaseData(_layoutData, 'oasfmain.css'),
     show
   ],
   embedShow: [
@@ -56,9 +56,9 @@ const middlewares = {
     _formatCustomEmbedLinks,
     embedSvc.mw.renderEventItems,
     embedSvc.mw.renderHeader,
-    showXhr( 'agenda/embedShow' ),
+    showXhr('agenda/embedShow'),
     cmn.useEmbedGoogleAnalytics,
-    cmn.loadBaseData( _layoutData ),
+    cmn.loadBaseData(_layoutData),
     embedSvc.mw.loadCustomLayoutData,
     renderEmbedShow
   ]

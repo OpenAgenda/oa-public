@@ -27,6 +27,9 @@ export default _.assign( ( state = {}, action = {} ) => {
     case actionTypes.SCHEMA_UPDATE:
       return ih( state, { schema: { $set: action.schema } } );
 
+    case actionTypes.LOAD:
+      return ih( state, { $unset: [ 'agendas', 'network' ] } );
+
     case actionTypes.LOAD_AGENDAS:
       return ih( state, { $unset: [ 'agendas', 'network' ] } );
 
@@ -151,6 +154,10 @@ async function _post( { dispatch, successType, res, data, failType } ) {
 function load() {
 
   return async ( dispatch, getState, history ) => {
+
+    dispatch( {
+      type: actionTypes.LOAD,
+    } );
 
     const successDispatch = {
       type: actionTypes.LOAD_SUCCESS

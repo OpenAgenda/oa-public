@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import React, { useMemo, useCallback, useEffect } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
 import { useForm, useFormState, Field } from 'react-final-form';
@@ -8,7 +8,7 @@ import ReactTagsInput from 'react-tagsinput';
 import ReactSelect from 'react-select';
 import { usePrevious } from 'react-use';
 import classNames from 'classnames';
-import { useMemoOne } from '../hooks/useMemoOne';
+import { useMemoOne, useCallbackOne } from '../hooks/useMemoOne';
 import getMultiLanguageLabel from '../utils/getMultiLanguageLabel';
 import stateMessages from '../utils/stateMessages';
 import BsField from './BsField';
@@ -485,6 +485,10 @@ function ActionFormPart({ name, aggregatorSchema }) {
     values,
     name
   ]);
+  const actionValues = useMemoOne(() => _.get(values, name)?.values, [
+    values,
+    name
+  ]);
 
   const fieldOptions = useMemoOne(
     () => aggregatorSchema.fields
@@ -539,10 +543,19 @@ function ActionFormPart({ name, aggregatorSchema }) {
   }, [fieldName, fieldSchema, intl]);
 
   useEffect(() => {
-    if (prevFieldName && fieldName && prevFieldName !== fieldName) {
+    const haveAllOptions = []
+      .concat(actionValues)
+      .every(actionValue => valuesOptions.find(v => _.isEqual(actionValue, v)));
+
+    if (
+      prevFieldName
+      && fieldName
+      && prevFieldName !== fieldName
+      && !haveAllOptions
+    ) {
       form.change(`${name}.values`, '');
     }
-  }, [prevFieldName, fieldName, name, form]);
+  }, [prevFieldName, fieldName, name, form, actionValues, valuesOptions]);
 
   return (
     <>
@@ -580,7 +593,7 @@ function ActionsFormPart({ aggregatorSchema }) {
   const form = useForm();
   const { values } = useFormState();
 
-  const leftFieldsToDefine = useMemo(
+  const leftFieldsToDefine = useMemoOne(
     () => aggregatorSchema.fields
       .filter(
         v => ['radio', 'checkbox'].includes(v.fieldType) && v.options?.length
@@ -591,14 +604,17 @@ function ActionsFormPart({ aggregatorSchema }) {
     [aggregatorSchema.fields, values.actions]
   );
 
-  const lastAction = useMemo(
+  const lastAction = useMemoOne(
     () => (values.actions ? values.actions[values.actions.length - 1] : null),
     [values.actions]
   );
 
-  const pushAction = useCallback(() => {
-    if (leftFieldsToDefine && (lastAction === null || lastAction?.field)) {
-      form.mutators.push('actions');
+  const pushAction = useCallbackOne(() => {
+    if (
+      leftFieldsToDefine
+      && (!values.actions?.length || (lastAction && lastAction.field))
+    ) {
+      form.mutators.push('actions', { field: '', value: '' });
     }
   }, [form.mutators, lastAction, leftFieldsToDefine]);
 

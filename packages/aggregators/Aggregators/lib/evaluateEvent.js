@@ -5,7 +5,7 @@ const Log = require('../utils/Log')('Aggregators/evaluateEvent');
 
 const convertTagsToSchemaOptionIds = require('../utils/convertTagsToSchemaOptionIds');
 const convertSchemaOptionIdsToTags = require('../utils/convertSchemaOptionIdsToTags');
-const evaluateRules = require('../../lib/rules');
+const evaluateRules = require('../utils/rules');
 const pickSchemaValues = require('../utils/pickSchemaValues');
 
 module.exports = async ({

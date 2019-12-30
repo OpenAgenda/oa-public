@@ -361,16 +361,12 @@ function browserCacheControlData( req, res, next ) {
 
 }
 
-function browserCache( req, res, next ) {
-
-  if ( _hasQueryOtherThan( req, 'callback' ) ) {
-
+function browserCache(req, res, next) {
+  if (_hasQueryOtherThan(req, 'callback')) {
     return next();
-
   }
 
-  mwh.compareModifiedSince( req.agenda.updatedAt, req, res, next )
-
+  mwh.compareModifiedSince(req.agenda.updatedAt, req, res, next);
 }
 
 
