@@ -124,7 +124,7 @@ function validate(intl, values, aggregatorSchema /* , sourceSchema */) {
     errors.subdivision = intl.formatMessage(messages.requiredSubdivision);
   }
 
-  if (values.type !== 'all' && !values.values?.length) {
+  if (values.type !== 'all' && !values.values) {
     errors.values = intl.formatMessage(messages.requiredValues);
   }
 
@@ -171,9 +171,9 @@ function validateActions(intl, rules, aggregatorSchema, sourceSchema) {
     .filter(v => v.fieldType !== 'abstract')
     .forEach(fieldSchema => {
       const aggAction = actions.find(v => v?.[fieldSchema.field]);
-      const hasValue = Array.isArray(aggAction?.[fieldSchema.field]?.$set)
-        ? aggAction[fieldSchema.field].$set.length
-        : aggAction?.[fieldSchema.field]?.$set;
+      const hasValue = Array.isArray(aggAction?.[fieldSchema.field])
+        ? aggAction[fieldSchema.field].length
+        : aggAction?.[fieldSchema.field];
       const inSourceSchema = sourceSchema.fields.find(
         v => v.schemaId
           && v.field === fieldSchema.field
@@ -321,7 +321,9 @@ function UpdateRuleSubmitButton({ handleSubmit, onCancel }) {
   );
 }
 
-function RuleItem({ rule, onUpdate, onRemove }) {
+function RuleItem({
+  rule, onUpdate, onRemove, sourceSchema
+}) {
   const intl = useIntl();
 
   const handleUpdate = useCallback(() => onUpdate(rule.id), [
@@ -342,6 +344,7 @@ function RuleItem({ rule, onUpdate, onRemove }) {
 
     return keys[0];
   }, [rule.query]);
+
   const queryType = useMemo(() => {
     if (!queryKey) {
       return 'all';
@@ -350,41 +353,57 @@ function RuleItem({ rule, onUpdate, onRemove }) {
     return ['location', 'tags'].includes(queryKey) ? queryKey : 'extended';
   }, [queryKey]);
 
+  const ruleValue = useMemoOne(() => {
+    switch (queryType) {
+      case 'all':
+        return intl.formatMessage(messages.noFilter);
+      case 'location':
+        return Object.values(rule.query.location)[0].join(', ');
+      case 'tags':
+        return [].concat(rule.query.tags).join(', ');
+      case 'extended': {
+        const key = Object.keys(rule.query)[0];
+        const fieldSchema = sourceSchema.fields.find(
+          _fieldSchema => _fieldSchema.field === key
+        );
+        const labels = []
+          .concat(rule.query[key])
+          .map(
+            id => fieldSchema?.options?.find(option => option.id === id) || id
+          )
+          .map(v => getMultiLanguageLabel(v?.label));
+
+        return intl.formatList(labels);
+      }
+      default:
+        return null;
+    }
+  }, [intl, queryType, rule, sourceSchema]);
+
+  const typeMessage = useMemoOne(() => {
+    switch (queryType) {
+      case 'all':
+        return intl.formatMessage(messages.allEvents);
+      case 'location':
+        return intl.formatMessage(messages.locationFilter);
+      case 'tags':
+        return intl.formatMessage(messages.tagFilter);
+      case 'extended':
+        return intl.formatMessage(messages.extendedFilter);
+      default:
+        return null;
+    }
+  }, [intl, queryType, rule]);
+
   return (
     <div className="row margin-v-sm">
       <div className="col-md-6">
-        <div className="rule-value">
-          {queryType === 'all' ? (
-            <div className="margin-top-xs">
-              {intl.formatMessage(messages.noFilter)}
-            </div>
-          ) : null}
-
-          {queryType === 'location'
-            ? Object.values(rule.query.location)[0].join(', ')
-            : null}
-
-          {queryType === 'tags' ? [].concat(rule.query.tags).join(', ') : null}
-
-          {queryType === 'extended'
-            ? [].concat(rule.query.tags).join(', ')
-            : null}
-        </div>
+        <div className="rule-value">{ruleValue}</div>
 
         <span className="text-muted">
-          {queryType === 'all' ? intl.formatMessage(messages.allEvents) : null}
+          {typeMessage}
 
-          {queryType === 'location'
-            ? intl.formatMessage(messages.locationFilter)
-            : null}
-
-          {queryType === 'tags' ? intl.formatMessage(messages.tagFilter) : null}
-
-          {queryType === 'extended'
-            ? intl.formatMessage(messages.extendedFilter)
-            : null}
-
-          {(rule.transform || rule.actions).length ? (
+          {(rule.transform || rule.actions)?.length ? (
             <>
               {' '}
               {intl.formatMessage(messages.withActions, {
@@ -548,7 +567,7 @@ export default function DefineRules({
 
       for (const item of json) {
         try {
-          const rule = ruleToValues(item, aggregatorSchema, intl);
+          const rule = ruleToValues(item, aggregatorSchema, sourceSchema, intl);
 
           addRule(rule);
         } catch (itemException) {
@@ -556,7 +575,7 @@ export default function DefineRules({
         }
       }
     },
-    [addRule, aggregatorSchema, intl]
+    [addRule, aggregatorSchema, sourceSchema, intl]
   );
 
   useEffect(() => {
@@ -578,8 +597,8 @@ export default function DefineRules({
       rule => rule.id === state.modeOptions.id
     );
 
-    return ruleToValues(ruleToUpdate, aggregatorSchema, intl);
-  }, [state.rules, state.modeOptions.id, aggregatorSchema, intl]);
+    return ruleToValues(ruleToUpdate, aggregatorSchema, sourceSchema, intl);
+  }, [state.rules, state.modeOptions.id, aggregatorSchema, sourceSchema, intl]);
 
   const submitElement = useMemo(
     () => (state.mode === 'list' ? (
@@ -648,6 +667,7 @@ export default function DefineRules({
             rule={rule}
             onUpdate={setModeUpdate}
             onRemove={removeRule}
+            sourceSchema={sourceSchema}
           />
         ))}
 
@@ -703,7 +723,7 @@ export default function DefineRules({
           onCancel={setModeList}
           component={RuleForm}
           SubmitButton={AddRuleSubmitButton}
-          disabledExtended /* ={!sourceSchema.fields.length} */
+          disabledExtended={!sourceSchema.fields.length}
           sourceSchema={sourceSchema}
           aggregatorSchema={aggregatorSchema}
         />
@@ -726,7 +746,7 @@ export default function DefineRules({
           component={RuleForm}
           initialValues={initialValues}
           SubmitButton={UpdateRuleSubmitButton}
-          disabledExtended /* ={!sourceSchema.fields.length} */
+          disabledExtended={!sourceSchema.fields.length}
           sourceSchema={sourceSchema}
           aggregatorSchema={aggregatorSchema}
         />

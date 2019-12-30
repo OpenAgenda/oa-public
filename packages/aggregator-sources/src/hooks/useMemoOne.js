@@ -2,10 +2,13 @@ import { useRef } from 'react';
 import shallowEqual from 'shallowequal';
 
 const useMemoOne = (compute, deps, equalityFn = shallowEqual) => {
-  const value = useRef(compute);
+  const isNew = useRef(true);
+  const value = useRef(isNew.current ? compute() : null);
   const previousDeps = useRef(deps);
 
-  if (!equalityFn(previousDeps, deps)) {
+  isNew.current = false;
+
+  if (!equalityFn(previousDeps.current, deps)) {
     previousDeps.current = deps;
     value.current = compute();
   }

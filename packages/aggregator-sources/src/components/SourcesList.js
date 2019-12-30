@@ -23,10 +23,20 @@ const messages = defineMessages({
     id: 'aggregator-sources.SourcesList.remove',
     defaultMessage: 'Remove'
   },
-  filtersSummary: {
-    id: 'aggregator-sources.SourcesList.filtersSummary',
+  geoFiltersSummary: {
+    id: 'aggregator-sources.SourcesList.geoFiltersSummary',
     defaultMessage:
-      '{geoCount, plural, =0 {No geographical filter} =1 {1 geographical filter} other {# geographical filters}} and {labelCount, plural, =0 {no label filter} =1 {1 label filter} other {# label filters}}'
+      '{geoCount, plural, =0 {0 geographical filter} =1 {1 geographical filter} other {# geographical filters}}'
+  },
+  labelFiltersSummary: {
+    id: 'aggregator-sources.SourcesList.labelFiltersSummary',
+    defaultMessage:
+      '{labelCount, plural, =0 {0 label filter} =1 {1 label filter} other {# label filters}}'
+  },
+  extendedFiltersSummary: {
+    id: 'aggregator-sources.SourcesList.extendedFiltersSummary',
+    defaultMessage:
+      '{extendedCount, plural, =0 {0 extended filter} =1 {1 extended filter} other {# extended filters}}'
   },
   noFilter: {
     id: 'aggregator-sources.SourcesList.noFilter',
@@ -57,7 +67,7 @@ function RulesSummary({ rules, schema }) {
   const info = useMemo(() => {
     const result = (rules || []).reduce(
       (accu, rule) => {
-        const values = ruleToValues(rule, schema, intl);
+        const values = ruleToValues(rule, schema, null, intl);
 
         if (values.type === 'location') {
           accu.geoCount += 1;
@@ -65,6 +75,10 @@ function RulesSummary({ rules, schema }) {
 
         if (values.type === 'tags') {
           accu.labelCount += 1;
+        }
+
+        if (values.type === 'extended') {
+          accu.extendedCount += 1;
         }
 
         if (values.actions.length) {
@@ -78,6 +92,7 @@ function RulesSummary({ rules, schema }) {
       {
         geoCount: 0,
         labelCount: 0,
+        extendedCount: 0,
         actionCount: 0,
         actionFields: []
       }
@@ -95,14 +110,23 @@ function RulesSummary({ rules, schema }) {
     return result;
   }, [intl, rules, schema]);
 
-  const hasFilter = info.geoCount + info.labelCount !== 0;
+  const hasFilter = info.geoCount + info.labelCount + info.extendedCount !== 0;
 
   const rulesJSON = useMemo(() => JSON.stringify(rules, null, 2), [rules]);
 
   return (
     <p className="rules-summary">
       {hasFilter
-        ? intl.formatMessage(messages.filtersSummary, info)
+        ? intl.formatList(
+          [
+            info.geoCount
+                && intl.formatMessage(messages.geoFiltersSummary, info),
+            info.labelCount
+                && intl.formatMessage(messages.labelFiltersSummary, info),
+            info.extendedCount
+                && intl.formatMessage(messages.extendedFiltersSummary, info)
+          ].filter(Boolean)
+        )
         : intl.formatMessage(messages.noFilter)}
 
       <br />

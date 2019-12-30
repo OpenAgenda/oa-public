@@ -300,15 +300,18 @@ export default function AddSourceModal({
 
     return index === selectedStepIndex;
   }, []);
-  const isActivable = useCallback((step, index, steps, selectedKey) => {
-    const selectedStepIndex = steps.findIndex(s => s.key === selectedKey);
+  const isActivable = useCallback(
+    (step, index, steps, selectedKey) => {
+      const selectedStepIndex = steps.findIndex(s => s.key === selectedKey);
 
-    if (step.key === 'defineRules' && selectedAgenda) {
-      return true;
-    }
+      if (step.key === 'defineRules' && selectedAgenda) {
+        return true;
+      }
 
-    return index < selectedStepIndex;
-  }, [selectedAgenda]);
+      return index < selectedStepIndex;
+    },
+    [selectedAgenda]
+  );
   const isPassed = useCallback((step, index, steps, selectedKey) => {
     const selectedStepIndex = steps.findIndex(s => s.key === selectedKey);
 

@@ -7,7 +7,7 @@ const stateTolabelId = state => ({
   2: 'statePublished'
 }[state]);
 
-export function ruleToValues(rule, schema, intl) {
+export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
   if (!rule) {
     return {};
   }
@@ -27,14 +27,27 @@ export function ruleToValues(rule, schema, intl) {
     return result;
   }
 
-  if (schema) {
+  const findOption = (fSchema, optId) => {
+    if (!optId || !fSchema?.options) {
+      return optId;
+    }
+
+    const foundOpt = fSchema.options.find(option => option.id === optId);
+
+    return {
+      value: foundOpt.id,
+      label: getMultiLanguageLabel(foundOpt.label, intl.locale)
+    };
+  };
+
+  if (aggregatorSchema) {
     [].concat(actions).forEach(action => {
       if (!action) {
         return;
       }
 
       const actionKeys = Object.keys(action);
-      const ids = action[actionKeys[0]]?.$set;
+      const ids = action[actionKeys[0]];
 
       if (actionKeys[0] === 'state') {
         result.actions.push({
@@ -49,30 +62,19 @@ export function ruleToValues(rule, schema, intl) {
         });
       }
 
-      const fieldSchema = schema.fields.find(v => v.field === actionKeys[0]);
+      const fieldSchema = aggregatorSchema.fields.find(
+        v => v.field === actionKeys[0]
+      );
 
       if (!fieldSchema) {
         return;
       }
 
-      const findOption = optId => {
-        if (!optId || !fieldSchema?.options) {
-          return optId;
-        }
-
-        const foundOpt = fieldSchema.options.find(
-          option => option.id === optId
-        );
-
-        return {
-          value: foundOpt.id,
-          label: getMultiLanguageLabel(foundOpt.label, intl.locale)
-        };
-      };
-
       const actionValues = Array.isArray(ids)
-        ? ids.map(findOption).filter(v => v !== undefined)
-        : findOption(ids);
+        ? ids
+          .map(id => findOption(fieldSchema, id, intl.locale))
+          .filter(v => v !== undefined)
+        : findOption(fieldSchema, ids, intl.locale);
 
       result.actions.push({
         field: {
@@ -115,10 +117,30 @@ export function ruleToValues(rule, schema, intl) {
 
   // Extended
   if (key) {
+    const ids = query[key];
+    const fieldSchema = sourceSchema?.fields.find(v => v.field === key);
+
+    // just for RuleSummary in SourcesList
+    if (!fieldSchema) {
+      return Object.assign(result, {
+        type: 'extended',
+        field: key,
+        values: ids
+      });
+    }
+
+    const fieldOption = {
+      value: fieldSchema.field,
+      label: getMultiLanguageLabel(fieldSchema.label, intl.locale)
+    };
+    const valuesOptions = Array.isArray(ids)
+      ? ids.map(id => findOption(fieldSchema, id))
+      : findOption(fieldSchema, ids);
+
     Object.assign(result, {
       type: 'extended',
-      field: key,
-      values: query[key]
+      field: fieldOption,
+      values: valuesOptions
     });
 
     return result;
@@ -133,9 +155,7 @@ export function valuesToRule(values, schema) {
   const transform = values.actions?.map(action => {
     if (action.field.value === 'state') {
       return {
-        state: {
-          $set: action.values.value
-        }
+        state: action.values.value
       };
     }
 
@@ -145,7 +165,7 @@ export function valuesToRule(values, schema) {
       return;
     }
 
-    let $set = action.values;
+    let actionValues = action.values;
 
     if (fieldSchema.options) {
       const findOption = opt => {
@@ -157,18 +177,16 @@ export function valuesToRule(values, schema) {
           option => option.id === opt.value
         );
 
-        return foundOpt.id;
+        return foundOpt?.id;
       };
 
-      $set = Array.isArray(action.values)
+      actionValues = Array.isArray(action.values)
         ? action.values.map(findOption).filter(v => v !== undefined)
         : findOption(action.values);
     }
 
     return {
-      [fieldSchema.field]: {
-        $set
-      }
+      [fieldSchema.field]: actionValues
     };
   });
 
@@ -197,14 +215,17 @@ export function valuesToRule(values, schema) {
         required,
         transform
       };
-    case 'extended':
+    case 'extended': {
       return {
         query: {
-          [values.field]: values.values
+          [values.field.value]: Array.isArray(values.values)
+            ? values.values.map(v => v.value)
+            : values.values.value // WTF
         },
         required,
         transform
       };
+    }
     default:
       return null;
   }

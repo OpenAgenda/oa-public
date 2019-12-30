@@ -66,6 +66,10 @@ const messages = defineMessages({
     id: 'aggregator-sources.RuleForm.subdivision',
     defaultMessage: 'Geographical subdivision:'
   },
+  field: {
+    id: 'aggregator-sources.RuleForm.field',
+    defaultMessage: 'Field:'
+  },
   selectField: {
     id: 'aggregator-sources.RuleForm.selectField',
     defaultMessage: 'Select a field'
@@ -326,8 +330,8 @@ function LocationFormPart() {
         <option value="region">{intl.formatMessage(messages.region)}</option>
       </Field>
 
-      <div className="form-group form-group-values">
-        <div className="row">
+      <div className="row">
+        <div className="form-group form-group-v-aligned">
           <label className="control-label col-sm-2" htmlFor="values">
             {intl.formatMessage(messages.values)}
           </label>
@@ -350,14 +354,17 @@ function LocationFormPart() {
   );
 }
 
-/* function ExtendedFormPart({ aggregatorSchema, sourceSchema }) {
+function ExtendedFormPart({ sourceSchema }) {
   const intl = useIntl();
+  const form = useForm();
 
   const options = useMemoOne(
-    () => sourceSchema.fields.map(({ field, label }) => ({
-      value: field,
-      label: getMultiLanguageLabel(label, intl.locale)
-    })),
+    () => sourceSchema.fields
+      .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
+      .map(({ field, label }) => ({
+        value: field,
+        label: getMultiLanguageLabel(label, intl.locale)
+      })),
     [sourceSchema]
   );
 
@@ -367,37 +374,85 @@ function LocationFormPart() {
     }
   });
 
-  const field = useMemoOne(
-    () => sourceSchema.fields.find(v => values?.field?.value && v.field === values.field?.value),
+  const fieldName = useMemoOne(() => values.field?.value, [values]);
+  const prevFieldName = usePrevious(fieldName);
+
+  const fieldSchema = useMemoOne(
+    () => sourceSchema.fields.find(v => v.field === fieldName),
     [values.field]
   );
 
+  useEffect(() => {
+    if (prevFieldName && fieldName && prevFieldName !== fieldName) {
+      form.change('values', '');
+    }
+  }, [prevFieldName, fieldName, form]);
+
+  const valuesOptions = useMemoOne(() => {
+    if (fieldSchema?.options) {
+      return fieldSchema.options.map(v => ({
+        value: v.id,
+        label: getMultiLanguageLabel(v.label, intl.locale)
+      }));
+    }
+  }, [fieldSchema]);
+
   return (
     <>
-      <Field
-        component={ReactSelectInput}
-        name="field"
-        className="form-group"
-        placeholder={intl.formatMessage(messages.selectField)}
-        noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-        options={options}
-        menuPosition="fixed"
-        isSearchable
-      />
+      <div className="row">
+        <div className="form-group form-group-v-aligned">
+          <label className="control-label col-sm-2" htmlFor="field">
+            {intl.formatMessage(messages.field)}
+          </label>
+
+          <div className="col-sm-10">
+            <Field
+              component={ReactSelectInput}
+              name="field"
+              placeholder={intl.formatMessage(messages.selectField)}
+              noOptionsMessage={() => intl.formatMessage(messages.noOption)}
+              options={options}
+              menuPosition="fixed"
+              styles={selectStyles}
+              isSearchable
+            />
+          </div>
+        </div>
+      </div>
 
       {values.field ? (
-        <p>Un truc</p>
+        <div className="row">
+          <div className="form-group form-group-v-aligned">
+            <label className="control-label col-sm-2" htmlFor="values">
+              {intl.formatMessage(messages.values)}
+            </label>
+
+            <div className="col-sm-10">
+              <Field
+                component={ReactSelectInput}
+                name="values"
+                placeholder={intl.formatMessage(messages.selectValue)}
+                noOptionsMessage={() => intl.formatMessage(messages.noOption)}
+                options={valuesOptions}
+                menuPosition="fixed"
+                styles={selectStyles}
+                isMulti={fieldSchema?.fieldType === 'checkbox'}
+                isSearchable
+              />
+            </div>
+          </div>
+        </div>
       ) : null}
     </>
   );
-} */
+}
 
 function TagsFormPart() {
   const intl = useIntl();
 
   return (
-    <div className="form-group form-group-values">
-      <div className="row">
+    <div className="row">
+      <div className="form-group form-group-v-aligned">
         <label className="control-label col-sm-2" htmlFor="values">
           {intl.formatMessage(messages.values)}
         </label>
@@ -448,7 +503,7 @@ function ActionFormPart({ name, aggregatorSchema }) {
         value: v.field,
         label: getMultiLanguageLabel(v.label, intl.locale)
       })),
-    [aggregatorSchema.fields]
+    [aggregatorSchema.fields, values.actions, intl]
   );
 
   const prevFieldName = usePrevious(fieldName);
@@ -481,7 +536,7 @@ function ActionFormPart({ name, aggregatorSchema }) {
         label: getMultiLanguageLabel(v.label, intl.locale)
       }));
     }
-  });
+  }, [fieldName, fieldSchema, intl]);
 
   useEffect(() => {
     if (prevFieldName && fieldName && prevFieldName !== fieldName) {
@@ -631,8 +686,8 @@ export default function RuleForm({
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="form-group form-group-type">
-        <div className="row">
+      <div className="row">
+        <div className="form-group form-group-v-aligned">
           <label className="control-label col-sm-2" htmlFor="type">
             {intl.formatMessage(messages.type)}
           </label>
@@ -676,7 +731,7 @@ export default function RuleForm({
 
             {!formState.dirtySinceLastSubmit && formState.submitErrors?.type ? (
               <div className="margin-top-xs margin-bottom-md text-danger">
-                {formState.submitErrors?.type}
+                {formState.submitErrors.type}
               </div>
             ) : null}
           </div>
@@ -684,37 +739,39 @@ export default function RuleForm({
       </div>
 
       {values.type === 'location' ? <LocationFormPart /> : null}
-      {/* values.type === 'extended' ? (
+      {values.type === 'extended' ? (
         <ExtendedFormPart
           aggregatorSchema={aggregatorSchema}
           sourceSchema={sourceSchema}
         />
-      ) : null */}
+      ) : null}
       {values.type === 'tags' ? <TagsFormPart /> : null}
 
       {values.type ? (
-        <div className="row checkbox">
-          <div className="col-sm-2">
-            <b>{intl.formatMessage(messages.required)}</b>
-          </div>
-          <div className="col-sm-10">
-            <div className="form-group">
-              <Field
-                component={Radio}
-                name="required"
-                type="checkbox"
-                label={intl.formatMessage(messages.requiredFilter)}
-                defaultValue // true
-              />
+        <>
+          <div className="row checkbox">
+            <div className="col-sm-2">
+              <b>{intl.formatMessage(messages.required)}</b>
+            </div>
+            <div className="col-sm-10">
+              <div className="form-group">
+                <Field
+                  component={Radio}
+                  name="required"
+                  type="checkbox"
+                  label={intl.formatMessage(messages.requiredFilter)}
+                  defaultValue // true
+                />
+              </div>
             </div>
           </div>
-        </div>
-      ) : null}
 
-      <ActionsFormPart
-        aggregatorSchema={aggregatorSchema}
-        sourceSchema={sourceSchema}
-      />
+          <ActionsFormPart
+            aggregatorSchema={aggregatorSchema}
+            sourceSchema={sourceSchema}
+          />
+        </>
+      ) : null}
 
       {error ? <p className="text-danger">{error}</p> : null}
 
