@@ -48,7 +48,7 @@ module.exports = (config, parentApp) => {
     ).then(res.json, next)
   );
 
-  parentApp.get('/:agendaSlug/admin/aggregator',
+  parentApp.post('/:agendaSlug/admin/aggregator',
     bodyParser.json(),
     (req, res, next) => aggregators
       .set(req.agenda.uid, req.body)
