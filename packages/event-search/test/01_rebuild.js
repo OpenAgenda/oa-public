@@ -14,9 +14,9 @@ describe('event-search - functional: rebuild', function() {
 
     this.timeout(30000);
 
-    async function eventsList(offset, limit) {
+    async function eventsList(lastId, limit) {
       return JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/01_events.${offset}.${limit}.json`)
+        fs.readFileSync(`${__dirname}/fixtures/01_events.${lastId}.${limit}.json`)
       );
     }
 
@@ -24,7 +24,7 @@ describe('event-search - functional: rebuild', function() {
       service = Service(config);
     });
 
-    describe('list evaluation', () => {
+    describe('01 - list evaluation', () => {
 
       it('if a input list is not provided, errors', async () => {
         try {
@@ -39,7 +39,7 @@ describe('event-search - functional: rebuild', function() {
 
         try {
           await service('test_alias').rebuild( {
-            eventsList: ( offset, limit) => new Promise( ( rs, rj ) => rj( new Error( 'crash!' ) ) )
+            eventsList: (lastId, limit) => new Promise( ( rs, rj ) => rj( new Error( 'crash!' ) ) )
           } );
         } catch(e) {
           err = e;
@@ -50,10 +50,10 @@ describe('event-search - functional: rebuild', function() {
 
     });
 
-    describe('index generation', () => {
+    describe('01 - index rebuild', () => {
 
       it('generated index name is given in result details', async () => {
-        const result = await service( 'test_alias' ).rebuild({
+        const result = await service('test_alias').rebuild({
           eventsList
         });
 

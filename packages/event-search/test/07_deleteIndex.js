@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const fs = require('fs');
 const should = require( 'should' );
@@ -7,7 +7,7 @@ const Service = require('../');
 
 const config = require('../testconfig');
 
-describe('event search - functional: deleteIndex', function() {
+describe('07 - event search - functional: deleteIndex', function() {
 
   describe('simple', function() {
 
@@ -22,8 +22,8 @@ describe('event search - functional: deleteIndex', function() {
     it( 'indices and alias are effectively removed', async () => {
 
       await service( 'simple_search' ).rebuild( {
-        eventsList: async function( offset, limit ) {
-          return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/05_events.${offset}.${limit}.json`));
+        eventsList: async function(lastId, limit) {
+          return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/05_events.${lastId}.${limit}.json`));
         }
       } );
 

@@ -1,4 +1,4 @@
-[
+{"lastId": 10, "events" : [
   {
     "id": 2,
     "ownerUid": 789679,
@@ -657,4 +657,4 @@
       "timezone": "Europe/Paris"
     }
   }
-]
+]}

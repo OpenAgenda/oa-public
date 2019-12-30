@@ -1,450 +1,453 @@
-[
-  {
-    "id": 131,
-    "ownerUid": 789678,
-    "creatorUid": null,
-    "slug": "finger_event_1",
-    "uid": 132,
-    "title": {
-      "fr": "Les doigts dans le nez"
-    },
-    "description": {
-      "fr": ""
-    },
-    "longDescription": {
-      "fr": ""
-    },
-    "keywords": {
-      "fr": [],
-      "en": []
-    },
-    "image": {
-      "base": "//openagendatst.s3.amazonaws.com/"
-    },
-    "draft": 0,
-    "private": 0,
-    "timezone": "Europe/Paris",
-    "timings": [
-      {
-        "begin": "2036-10-24T12:00:00.000Z",
-        "end": "2036-10-24T13:00:00.000Z"
+{
+  "lastId": -1,
+  "events": [
+    {
+      "id": 131,
+      "ownerUid": 789678,
+      "creatorUid": null,
+      "slug": "finger_event_1",
+      "uid": 132,
+      "title": {
+        "fr": "Les doigts dans le nez"
       },
-      {
-        "begin": "2036-10-24T13:00:00.000Z",
-        "end": "2036-10-24T14:30:00.000Z"
-      }
-    ],
-    "updatedAt": "2016-11-04T05:20:42.000Z",
-    "createdAt": "2016-11-04T05:18:42.000Z",
-    "deletedAt": null,
-    "agendaUid": 7678678,
-    "locationUid": 1,
-    "accessibility": {},
-    "age": {
-      "min": 8,
-      "max": 17
-    },
-    "registration": [],
-    "fileKey": null,
-    "agenda": null,
-    "location": {
-      "uid": 1,
-      "name": "La boutique",
-      "address": "29 passage du Ponceau, Paris",
-      "latitude": 48.8675959,
-      "longitude": 2.3516408,
-      "district": "Paris 02",
-      "city": "Paris",
-      "department": "Paris",
-      "region": "Ile-de-France",
-      "countryCode": "FR",
-      "timezone": "Europe/Paris"
-    },
-    "custom": {
-      "periodicity": "biannual",
-      "visitortypes": "professionalsonly",
-      "organizeremail": "visit@safisalons.fr",
-      "nomenclature": "Fabricants, distributeurs, importateurs, grossistes, ‚diteurs, créateurs en arts de la table, décoration, cadeau",
-      "visitorprofiles": "trade buyers, retailers, interior architects, gelleries, hotels, department stores, stylists",
-      "partner": "",
-      "partnerurl": "",
-      "organizername": "SAFI, filiale de Reed Expositions France et des Ateliers d'Art de France",
-      "organizerurl": "http://www.maison-objet.com",
-      "authortestimony": "",
-      "singlechoice": 1,
-      "multichoice": [
-        2,
-        3,
-        4
-      ]
-    },
-    "contributor": {
-      "name": "Danièle FRISTOT",
-      "organization": "Jardin des sciences - UFR Sci FA - Campus Bridoux",
-      "uid": 0
-    },
-    "state": {
-      "code": 2
-    }
-  },
-  {
-    "id": 156,
-    "ownerUid": 789678,
-    "creatorUid": null,
-    "slug": "finger_event_2",
-    "uid": 157,
-    "title": {
-      "fr": "Ou ailleurs"
-    },
-    "description": {
-      "fr": ""
-    },
-    "longDescription": {
-      "fr": ""
-    },
-    "keywords": {
-      "fr": [
-        "doigts",
-        "nez",
-        "ailleurs"
+      "description": {
+        "fr": ""
+      },
+      "longDescription": {
+        "fr": ""
+      },
+      "keywords": {
+        "fr": [],
+        "en": []
+      },
+      "image": {
+        "base": "//openagendatst.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2036-10-24T12:00:00.000Z",
+          "end": "2036-10-24T13:00:00.000Z"
+        },
+        {
+          "begin": "2036-10-24T13:00:00.000Z",
+          "end": "2036-10-24T14:30:00.000Z"
+        }
       ],
-      "en": []
-    },
-    "image": {
-      "base": "//openagendatst.s3.amazonaws.com/"
-    },
-    "draft": 0,
-    "private": 0,
-    "timezone": "Europe/Paris",
-    "timings": [
-      {
-        "begin": "2036-10-24T12:00:00.000Z",
-        "end": "2036-10-24T13:00:00.000Z"
+      "updatedAt": "2016-11-04T05:20:42.000Z",
+      "createdAt": "2016-11-04T05:18:42.000Z",
+      "deletedAt": null,
+      "agendaUid": 7678678,
+      "locationUid": 1,
+      "accessibility": {},
+      "age": {
+        "min": 8,
+        "max": 17
       },
-      {
-        "begin": "2036-10-24T13:00:00.000Z",
-        "end": "2036-10-24T14:30:00.000Z"
-      }
-    ],
-    "updatedAt": "2016-11-04T05:20:42.000Z",
-    "createdAt": "2016-11-04T05:18:42.000Z",
-    "deletedAt": null,
-    "agendaUid": 7678678,
-    "locationUid": 83357467,
-    "accessibility": {},
-    "age": {
-      "min": 8,
-      "max": 17
-    },
-    "registration": [],
-    "fileKey": null,
-    "agenda": null,
-    "location": {
-      "uid": 83357467,
-      "name": "Place Saint-Corentin",
-      "address": "Place Saint-Corentin, Quimper",
-      "latitude": 47.995788,
-      "longitude": -4.103017,
-      "city": "Quimper",
-      "department": "Finistère",
-      "region": "Bretagne",
-      "countryCode": "FR",
-      "timezone": "Europe/Paris"
-    },
-    "custom": {
-      "periodicity": "biannual",
-      "visitortypes": "professionalsonly",
-      "organizeremail": "info@bijorhca.com",
-      "nomenclature": "Bijoux Créateurs ; Bijoux Fantaisie et Haute Couture ; Bijoux Argent, Plaqué Or, Vermeil ; Bijoux Or et Joaillerie ; Equipement, Aménagement de Point de Vente ; Fournitures pour la Bijouterie Fantaisie ; Fournitures pour la Bijouterie Précieuse ; Gainerie et Outillage ; Informatique, prototypage, logiciels ; Montres ; Orfèvrerie ; Pierres précieuses et semi précieuses, perles ; Sécurité ; Services aux entreprises ; Imprimante 3D ; Logiciel 3D ; Logiciel de conception assistée par ordinateur ; Logiciel de gravure ; Logiciel de modélisation ; Logiciel de machines laser",
-      "visitorprofiles": "Retailer; Creation, Design; Manufacturer; Handicraft; Concept store; Wholesaler, Importer; E-Business; Purchasing Office; Purchasing Association; Central Buying Service; Networked Business (Headquarters); Art Gallery Boutique; Museum; Department Store; Duty Free; Design Agency; Perfume Shop, Hair Salon, Beauty Institute; Institutional Organization, Public Administration and Local Authority; Media, TV; Large Medium-Sized Surface; Consultancy ; Embassy ; Service provider",
-      "partner": "",
-      "partnerurl": "",
-      "organizername": "Reed Expositions France",
-      "organizerurl": "http://www.reedexpo.fr/",
-      "authortestimony": "Florence GOSSET (France) - Détaillante bijouterie fantaisie et accessoires de mode",
-      "singlechoice": 5,
-      "multichoice": [
-        6,
-        7,
-        8
-      ]
-    },
-    "contributor": {
-      "name": "Stéphane Flament",
-      "organization": "Faculté des Sciences et Technologies",
-      "uid": 1
-    },
-    "state": {
-      "code": 2
-    }
-  },
-  {
-    "id": 106,
-    "ownerUid": 789678,
-    "creatorUid": null,
-    "slug": "masdar_event_1",
-    "uid": 107,
-    "title": {
-      "fr": "Tri de bazar"
-    },
-    "description": {
-      "fr": "Bazar sorting"
-    },
-    "longDescription": {
-      "fr": ""
-    },
-    "keywords": {
-      "fr": [],
-      "en": []
-    },
-    "image": {
-      "base": "//openagendatst.s3.amazonaws.com/"
-    },
-    "draft": 0,
-    "private": 0,
-    "timezone": "Europe/Paris",
-    "timings": [
-      {
-        "begin": "2036-10-24T12:00:00.000Z",
-        "end": "2036-10-24T13:00:00.000Z"
+      "registration": [],
+      "fileKey": null,
+      "agenda": null,
+      "location": {
+        "uid": 1,
+        "name": "La boutique",
+        "address": "29 passage du Ponceau, Paris",
+        "latitude": 48.8675959,
+        "longitude": 2.3516408,
+        "district": "Paris 02",
+        "city": "Paris",
+        "department": "Paris",
+        "region": "Ile-de-France",
+        "countryCode": "FR",
+        "timezone": "Europe/Paris"
       },
-      {
-        "begin": "2036-10-24T13:00:00.000Z",
-        "end": "2036-10-24T14:30:00.000Z"
+      "custom": {
+        "periodicity": "biannual",
+        "visitortypes": "professionalsonly",
+        "organizeremail": "visit@safisalons.fr",
+        "nomenclature": "Fabricants, distributeurs, importateurs, grossistes, ‚diteurs, créateurs en arts de la table, décoration, cadeau",
+        "visitorprofiles": "trade buyers, retailers, interior architects, gelleries, hotels, department stores, stylists",
+        "partner": "",
+        "partnerurl": "",
+        "organizername": "SAFI, filiale de Reed Expositions France et des Ateliers d'Art de France",
+        "organizerurl": "http://www.maison-objet.com",
+        "authortestimony": "",
+        "singlechoice": 1,
+        "multichoice": [
+          2,
+          3,
+          4
+        ]
+      },
+      "contributor": {
+        "name": "Danièle FRISTOT",
+        "organization": "Jardin des sciences - UFR Sci FA - Campus Bridoux",
+        "uid": 0
+      },
+      "state": {
+        "code": 2
       }
-    ],
-    "updatedAt": "2016-11-04T05:20:42.000Z",
-    "createdAt": "2016-11-04T05:18:42.000Z",
-    "deletedAt": null,
-    "agendaUid": 7678678,
-    "locationUid": 1,
-    "accessibility": {},
-    "age": {
-      "min": 8,
-      "max": 17
     },
-    "registration": [],
-    "fileKey": null,
-    "agenda": null,
-    "location": {
-      "uid": 1,
-      "name": "La boutique",
-      "address": "29 passage du Ponceau, Paris",
-      "latitude": 48.8675959,
-      "longitude": 2.3516408,
-      "district": "Paris 02",
-      "city": "Paris",
-      "department": "Paris",
-      "region": "Ile-de-France",
-      "countryCode": "FR",
-      "timezone": "Europe/Paris"
-    },
-    "custom": {
-      "periodicity": "annual",
-      "visitortypes": "opentopublic",
-      "organizeremail": "cannes@reedexpo.fr",
-      "nomenclature": "Chantiers navals, fabricants, importateurs, négociants, agents, distributeurs, associations, institutionnels",
-      "visitorprofiles": "French and foreign trade and general public",
-      "partner": "Fédération des industries nautiques",
-      "partnerurl": "http://www.industriesnautiques.fr/",
-      "organizername": "Reed Expositions France, Paris",
-      "organizerurl": "http://www.reedexpo.fr/",
-      "authortestimony": "",
-      "multichoice": [
-        7
-      ]
-    },
-    "contributor": {
-      "name": "Anne MODAT",
-      "organization": "Université de Perpignan Via Domitia",
-      "uid": 2
-    },
-    "state": {
-      "code": 2
-    }
-  },
-  {
-    "id": 56,
-    "ownerUid": 789678,
-    "creatorUid": null,
-    "slug": "shop_event",
-    "uid": 57,
-    "title": {
-      "fr": "Première soirée à la boutique"
-    },
-    "description": {
-      "fr": "description"
-    },
-    "longDescription": {
-      "fr": "lDescription"
-    },
-    "keywords": {
-      "fr": [
-        "vin chaud"
+    {
+      "id": 156,
+      "ownerUid": 789678,
+      "creatorUid": null,
+      "slug": "finger_event_2",
+      "uid": 157,
+      "title": {
+        "fr": "Ou ailleurs"
+      },
+      "description": {
+        "fr": ""
+      },
+      "longDescription": {
+        "fr": ""
+      },
+      "keywords": {
+        "fr": [
+          "doigts",
+          "nez",
+          "ailleurs"
+        ],
+        "en": []
+      },
+      "image": {
+        "base": "//openagendatst.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2036-10-24T12:00:00.000Z",
+          "end": "2036-10-24T13:00:00.000Z"
+        },
+        {
+          "begin": "2036-10-24T13:00:00.000Z",
+          "end": "2036-10-24T14:30:00.000Z"
+        }
       ],
-      "en": [
-        "hot wine"
-      ]
-    },
-    "image": {
-      "base": "//openagendatst.s3.amazonaws.com/"
-    },
-    "draft": 0,
-    "private": 0,
-    "timezone": "Europe/Paris",
-    "timings": [
-      {
-        "begin": "2036-10-24T12:00:00.000Z",
-        "end": "2036-10-24T13:00:00.000Z"
+      "updatedAt": "2016-11-04T05:20:42.000Z",
+      "createdAt": "2016-11-04T05:18:42.000Z",
+      "deletedAt": null,
+      "agendaUid": 7678678,
+      "locationUid": 83357467,
+      "accessibility": {},
+      "age": {
+        "min": 8,
+        "max": 17
       },
-      {
-        "begin": "2036-10-24T13:00:00.000Z",
-        "end": "2036-10-24T14:30:00.000Z"
+      "registration": [],
+      "fileKey": null,
+      "agenda": null,
+      "location": {
+        "uid": 83357467,
+        "name": "Place Saint-Corentin",
+        "address": "Place Saint-Corentin, Quimper",
+        "latitude": 47.995788,
+        "longitude": -4.103017,
+        "city": "Quimper",
+        "department": "Finistère",
+        "region": "Bretagne",
+        "countryCode": "FR",
+        "timezone": "Europe/Paris"
+      },
+      "custom": {
+        "periodicity": "biannual",
+        "visitortypes": "professionalsonly",
+        "organizeremail": "info@bijorhca.com",
+        "nomenclature": "Bijoux Créateurs ; Bijoux Fantaisie et Haute Couture ; Bijoux Argent, Plaqué Or, Vermeil ; Bijoux Or et Joaillerie ; Equipement, Aménagement de Point de Vente ; Fournitures pour la Bijouterie Fantaisie ; Fournitures pour la Bijouterie Précieuse ; Gainerie et Outillage ; Informatique, prototypage, logiciels ; Montres ; Orfèvrerie ; Pierres précieuses et semi précieuses, perles ; Sécurité ; Services aux entreprises ; Imprimante 3D ; Logiciel 3D ; Logiciel de conception assistée par ordinateur ; Logiciel de gravure ; Logiciel de modélisation ; Logiciel de machines laser",
+        "visitorprofiles": "Retailer; Creation, Design; Manufacturer; Handicraft; Concept store; Wholesaler, Importer; E-Business; Purchasing Office; Purchasing Association; Central Buying Service; Networked Business (Headquarters); Art Gallery Boutique; Museum; Department Store; Duty Free; Design Agency; Perfume Shop, Hair Salon, Beauty Institute; Institutional Organization, Public Administration and Local Authority; Media, TV; Large Medium-Sized Surface; Consultancy ; Embassy ; Service provider",
+        "partner": "",
+        "partnerurl": "",
+        "organizername": "Reed Expositions France",
+        "organizerurl": "http://www.reedexpo.fr/",
+        "authortestimony": "Florence GOSSET (France) - Détaillante bijouterie fantaisie et accessoires de mode",
+        "singlechoice": 5,
+        "multichoice": [
+          6,
+          7,
+          8
+        ]
+      },
+      "contributor": {
+        "name": "Stéphane Flament",
+        "organization": "Faculté des Sciences et Technologies",
+        "uid": 1
+      },
+      "state": {
+        "code": 2
       }
-    ],
-    "updatedAt": "2016-11-04T05:20:42.000Z",
-    "createdAt": "2016-11-04T05:18:42.000Z",
-    "deletedAt": null,
-    "agendaUid": 7678678,
-    "locationUid": 1,
-    "accessibility": {},
-    "age": {
-      "min": 8,
-      "max": 17
     },
-    "registration": [],
-    "fileKey": null,
-    "agenda": null,
-    "location": {
-      "uid": 1,
-      "name": "La boutique",
-      "address": "29 passage du Ponceau, Paris",
-      "latitude": 48.8675959,
-      "longitude": 2.3516408,
-      "district": "Paris 02",
-      "city": "Paris",
-      "department": "Paris",
-      "region": "Ile-de-France",
-      "countryCode": "FR",
-      "timezone": "Europe/Paris"
-    },
-    "custom": {
-      "periodicity": "biennal",
-      "visitortypes": "professionalsonly",
-      "organizeremail": "laila.boudrar@reedexpo.fr",
-      "nomenclature": "•    Anti-terrorisme\n•    Associations, syndicats, organismes institutionnels\n•    Assurance\n•    Câbles, énergie, éclairage\n•    Cybersécurité nouveau\n•    Détection intrusion / alarmes\n•    Drones et robots nouveau\n•    Géolocalisation nouveau\n•    Identification et biométrie\n•    Contrôle d’accès\n•    Ingénierie, contrôle, conseil, formation\n•    Médias\n•    Prestations de services (surveillance humaine, transports sécurisés, télésurveillance, etc. ) \n•    Protection périmétrique\n•    Protection du travailleur isolé \n•    Réseaux, télécommunication, transmissions\n•    Sécurité mécanique et physique\n•    Sécurité intégrée / GTB / domotique nouveau\n•    Supervision, hypervision \n•    Vidéosurveillance",
-      "visitorprofiles": "End-users, internal and external specifiers",
-      "partner": "",
-      "partnerurl": "",
-      "organizername": "ADNOC",
-      "organizerurl": "http://www.reedexpo.fr/",
-      "authortestimony": "",
-      "singlechoice": 1,
-      "multichoice": [
-        10,
-        11
-      ]
-    },
-    "contributor": {
-      "name": "Joëlle Pornin",
-      "organization": "Ecole normale supérieure de Lyon",
-      "uid": 3
-    },
-    "state": {
-      "code": 2
-    }
-  },
-  {
-    "id": 81,
-    "ownerUid": 789678,
-    "creatorUid": null,
-    "slug": "shop_event_2",
-    "uid": 82,
-    "title": {
-      "fr": "Première soirée à la boutique"
-    },
-    "description": {
-      "fr": "description"
-    },
-    "longDescription": {
-      "fr": "lDescription"
-    },
-    "keywords": {
-      "fr": [
-        "vin chaud",
-        "bières",
-        "janine"
+    {
+      "id": 106,
+      "ownerUid": 789678,
+      "creatorUid": null,
+      "slug": "masdar_event_1",
+      "uid": 107,
+      "title": {
+        "fr": "Tri de bazar"
+      },
+      "description": {
+        "fr": "Bazar sorting"
+      },
+      "longDescription": {
+        "fr": ""
+      },
+      "keywords": {
+        "fr": [],
+        "en": []
+      },
+      "image": {
+        "base": "//openagendatst.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2036-10-24T12:00:00.000Z",
+          "end": "2036-10-24T13:00:00.000Z"
+        },
+        {
+          "begin": "2036-10-24T13:00:00.000Z",
+          "end": "2036-10-24T14:30:00.000Z"
+        }
       ],
-      "en": [
-        "hot wine"
-      ]
-    },
-    "image": {
-      "base": "//openagendatst.s3.amazonaws.com/"
-    },
-    "draft": 0,
-    "private": 0,
-    "timezone": "Europe/Paris",
-    "timings": [
-      {
-        "begin": "2036-10-24T12:00:00.000Z",
-        "end": "2036-10-24T13:00:00.000Z"
+      "updatedAt": "2016-11-04T05:20:42.000Z",
+      "createdAt": "2016-11-04T05:18:42.000Z",
+      "deletedAt": null,
+      "agendaUid": 7678678,
+      "locationUid": 1,
+      "accessibility": {},
+      "age": {
+        "min": 8,
+        "max": 17
       },
-      {
-        "begin": "2036-10-24T13:00:00.000Z",
-        "end": "2036-10-24T14:30:00.000Z"
+      "registration": [],
+      "fileKey": null,
+      "agenda": null,
+      "location": {
+        "uid": 1,
+        "name": "La boutique",
+        "address": "29 passage du Ponceau, Paris",
+        "latitude": 48.8675959,
+        "longitude": 2.3516408,
+        "district": "Paris 02",
+        "city": "Paris",
+        "department": "Paris",
+        "region": "Ile-de-France",
+        "countryCode": "FR",
+        "timezone": "Europe/Paris"
+      },
+      "custom": {
+        "periodicity": "annual",
+        "visitortypes": "opentopublic",
+        "organizeremail": "cannes@reedexpo.fr",
+        "nomenclature": "Chantiers navals, fabricants, importateurs, négociants, agents, distributeurs, associations, institutionnels",
+        "visitorprofiles": "French and foreign trade and general public",
+        "partner": "Fédération des industries nautiques",
+        "partnerurl": "http://www.industriesnautiques.fr/",
+        "organizername": "Reed Expositions France, Paris",
+        "organizerurl": "http://www.reedexpo.fr/",
+        "authortestimony": "",
+        "multichoice": [
+          7
+        ]
+      },
+      "contributor": {
+        "name": "Anne MODAT",
+        "organization": "Université de Perpignan Via Domitia",
+        "uid": 2
+      },
+      "state": {
+        "code": 2
       }
-    ],
-    "updatedAt": "2016-11-04T05:20:42.000Z",
-    "createdAt": "2016-11-04T05:18:42.000Z",
-    "deletedAt": null,
-    "agendaUid": 7678678,
-    "locationUid": 1,
-    "accessibility": {},
-    "age": {
-      "min": 8,
-      "max": 17
     },
-    "registration": [],
-    "fileKey": null,
-    "agenda": null,
-    "location": {
-      "uid": 1,
-      "name": "La boutique",
-      "address": "29 passage du Ponceau, Paris",
-      "latitude": 48.8675959,
-      "longitude": 2.3516408,
-      "district": "Paris 02",
-      "city": "Paris",
-      "department": "Paris",
-      "region": "Ile-de-France",
-      "countryCode": "FR",
-      "timezone": "Europe/Paris"
+    {
+      "id": 56,
+      "ownerUid": 789678,
+      "creatorUid": null,
+      "slug": "shop_event",
+      "uid": 57,
+      "title": {
+        "fr": "Première soirée à la boutique"
+      },
+      "description": {
+        "fr": "description"
+      },
+      "longDescription": {
+        "fr": "lDescription"
+      },
+      "keywords": {
+        "fr": [
+          "vin chaud"
+        ],
+        "en": [
+          "hot wine"
+        ]
+      },
+      "image": {
+        "base": "//openagendatst.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2036-10-24T12:00:00.000Z",
+          "end": "2036-10-24T13:00:00.000Z"
+        },
+        {
+          "begin": "2036-10-24T13:00:00.000Z",
+          "end": "2036-10-24T14:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2016-11-04T05:20:42.000Z",
+      "createdAt": "2016-11-04T05:18:42.000Z",
+      "deletedAt": null,
+      "agendaUid": 7678678,
+      "locationUid": 1,
+      "accessibility": {},
+      "age": {
+        "min": 8,
+        "max": 17
+      },
+      "registration": [],
+      "fileKey": null,
+      "agenda": null,
+      "location": {
+        "uid": 1,
+        "name": "La boutique",
+        "address": "29 passage du Ponceau, Paris",
+        "latitude": 48.8675959,
+        "longitude": 2.3516408,
+        "district": "Paris 02",
+        "city": "Paris",
+        "department": "Paris",
+        "region": "Ile-de-France",
+        "countryCode": "FR",
+        "timezone": "Europe/Paris"
+      },
+      "custom": {
+        "periodicity": "biennal",
+        "visitortypes": "professionalsonly",
+        "organizeremail": "laila.boudrar@reedexpo.fr",
+        "nomenclature": "•    Anti-terrorisme\n•    Associations, syndicats, organismes institutionnels\n•    Assurance\n•    Câbles, énergie, éclairage\n•    Cybersécurité nouveau\n•    Détection intrusion / alarmes\n•    Drones et robots nouveau\n•    Géolocalisation nouveau\n•    Identification et biométrie\n•    Contrôle d’accès\n•    Ingénierie, contrôle, conseil, formation\n•    Médias\n•    Prestations de services (surveillance humaine, transports sécurisés, télésurveillance, etc. ) \n•    Protection périmétrique\n•    Protection du travailleur isolé \n•    Réseaux, télécommunication, transmissions\n•    Sécurité mécanique et physique\n•    Sécurité intégrée / GTB / domotique nouveau\n•    Supervision, hypervision \n•    Vidéosurveillance",
+        "visitorprofiles": "End-users, internal and external specifiers",
+        "partner": "",
+        "partnerurl": "",
+        "organizername": "ADNOC",
+        "organizerurl": "http://www.reedexpo.fr/",
+        "authortestimony": "",
+        "singlechoice": 1,
+        "multichoice": [
+          10,
+          11
+        ]
+      },
+      "contributor": {
+        "name": "Joëlle Pornin",
+        "organization": "Ecole normale supérieure de Lyon",
+        "uid": 3
+      },
+      "state": {
+        "code": 2
+      }
     },
-    "custom": {
-      "periodicity": "annual",
-      "visitortypes": "professionalsonly",
-      "organizeremail": "visiter@iftm.fr",
-      "nomenclature": "Formation, Excursions - Visites guidées – Shopping, Ferries, Groupiste, Guide – Presse, Hôtellerie – Restauration, Intérim - agence pour l'emploi, Location de véhicules, Musée - Monument – Site, Nouvelles technologies, Office et Comité de Tourisme Etranger, Office et Comité de Tourisme France, Palais des congrès, Parc de loisirs, Rail, Réceptif France - Agence réceptive France, Réceptif ou Tour opérateur Etranger, Services, Thalassothérapie - Thermalisme - Spa - Bien-être, Tourisme fluvial, Tour-opérateur Français.",
-      "visitorprofiles": "Travel trade professionals (travel agents, market manager from tour operator, travel managers, events planners..)",
-      "partner": "",
-      "partnerurl": "",
-      "organizername": "OpenAgenda",
-      "organizerurl": "http://www.reedexpo.fr",
-      "authortestimony": "",
-      "singlechoice": 2,
-      "multichoice": [
-        12,
-        13
-      ]
-    },
-    "contributor": {
-      "name": "Marion LEVY",
-      "organization": "Parvis des Sciences",
-      "uid": 4
-    },
-    "state": {
-      "code": 2
+    {
+      "id": 81,
+      "ownerUid": 789678,
+      "creatorUid": null,
+      "slug": "shop_event_2",
+      "uid": 82,
+      "title": {
+        "fr": "Première soirée à la boutique"
+      },
+      "description": {
+        "fr": "description"
+      },
+      "longDescription": {
+        "fr": "lDescription"
+      },
+      "keywords": {
+        "fr": [
+          "vin chaud",
+          "bières",
+          "janine"
+        ],
+        "en": [
+          "hot wine"
+        ]
+      },
+      "image": {
+        "base": "//openagendatst.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2036-10-24T12:00:00.000Z",
+          "end": "2036-10-24T13:00:00.000Z"
+        },
+        {
+          "begin": "2036-10-24T13:00:00.000Z",
+          "end": "2036-10-24T14:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2016-11-04T05:20:42.000Z",
+      "createdAt": "2016-11-04T05:18:42.000Z",
+      "deletedAt": null,
+      "agendaUid": 7678678,
+      "locationUid": 1,
+      "accessibility": {},
+      "age": {
+        "min": 8,
+        "max": 17
+      },
+      "registration": [],
+      "fileKey": null,
+      "agenda": null,
+      "location": {
+        "uid": 1,
+        "name": "La boutique",
+        "address": "29 passage du Ponceau, Paris",
+        "latitude": 48.8675959,
+        "longitude": 2.3516408,
+        "district": "Paris 02",
+        "city": "Paris",
+        "department": "Paris",
+        "region": "Ile-de-France",
+        "countryCode": "FR",
+        "timezone": "Europe/Paris"
+      },
+      "custom": {
+        "periodicity": "annual",
+        "visitortypes": "professionalsonly",
+        "organizeremail": "visiter@iftm.fr",
+        "nomenclature": "Formation, Excursions - Visites guidées – Shopping, Ferries, Groupiste, Guide – Presse, Hôtellerie – Restauration, Intérim - agence pour l'emploi, Location de véhicules, Musée - Monument – Site, Nouvelles technologies, Office et Comité de Tourisme Etranger, Office et Comité de Tourisme France, Palais des congrès, Parc de loisirs, Rail, Réceptif France - Agence réceptive France, Réceptif ou Tour opérateur Etranger, Services, Thalassothérapie - Thermalisme - Spa - Bien-être, Tourisme fluvial, Tour-opérateur Français.",
+        "visitorprofiles": "Travel trade professionals (travel agents, market manager from tour operator, travel managers, events planners..)",
+        "partner": "",
+        "partnerurl": "",
+        "organizername": "OpenAgenda",
+        "organizerurl": "http://www.reedexpo.fr",
+        "authortestimony": "",
+        "singlechoice": 2,
+        "multichoice": [
+          12,
+          13
+        ]
+      },
+      "contributor": {
+        "name": "Marion LEVY",
+        "organization": "Parvis des Sciences",
+        "uid": 4
+      },
+      "state": {
+        "code": 2
+      }
     }
-  }
-]
+  ]
+}

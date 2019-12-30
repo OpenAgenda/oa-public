@@ -1,13 +1,13 @@
 "use strict";
 
-const should = require( 'should' );
-const config = require( '../testconfig' );
+const should = require('should');
+const config = require('../testconfig');
 
-const extParse = require( '../service/extensions/parse' );
+const extParse = require('../service/extensions/parse');
 
-describe( 'event-search - unit: extensions', function() {
+describe('08 - event-search - unit: extensions', function() {
 
-  it( 'parser converts validator schemas to mappings', () => {
+  it('parser converts validator schemas to mappings', () => {
 
     extParse( {
       captainAge: {
@@ -21,15 +21,14 @@ describe( 'event-search - unit: extensions', function() {
       }
     } )
 
-    .should.eql( { 
-      properties: { 
+    .should.eql({
+      properties: {
         captainAge: { type: 'integer' },
         expectedWeather: { type: 'text' },
         captainEmail: { type: 'keyword' },
         search_internal_keywords: { type: 'keyword' }
-      } 
-    } );
-
-  } );
+      }
+    });
+  });
 
 } );

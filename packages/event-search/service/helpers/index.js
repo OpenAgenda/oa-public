@@ -56,7 +56,7 @@ function checkList(listFunc) {
 
   return listFunc(0, 0).catch(err => {
     throw new VError( err, 'provided list failed' );
-  }).then(events => {
+  }).then(({events}) => {
     if (!_.isArray(events)) {
       throw new VError( 'list function is not giving a list' );
     }

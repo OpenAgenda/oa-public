@@ -20,8 +20,8 @@ describe( 'event search - functional: search', function() {
       service = Service(config);
 
       await service('simple_search').rebuild({
-        eventsList: async (offset, limit) => {
-          return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_events.${offset}.${limit}.json`))
+        eventsList: async (lastId, limit) => {
+          return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_events.${lastId}.${limit}.json`))
         }
       });
     });

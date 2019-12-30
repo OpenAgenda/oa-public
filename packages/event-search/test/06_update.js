@@ -5,7 +5,7 @@ const should = require('should');
 const config = require('../testconfig');
 const Service = require('../');
 
-describe('event search - functional: update', function() {
+describe('06 - event search - functional: update', function() {
   let service;
 
   this.timeout(10000);
@@ -14,8 +14,8 @@ describe('event search - functional: update', function() {
     service = Service(config);
 
     await service('test_index').rebuild({
-      eventsList: async (offset, limit) => JSON.parse(
-        fs.readFileSync(`${__dirname}/fixtures/06_events.${offset}.${limit}.json`)
+      eventsList: async (lastId, limit) => JSON.parse(
+        fs.readFileSync(`${__dirname}/fixtures/06_events.${lastId}.${limit}.json`)
       )
     });
   });

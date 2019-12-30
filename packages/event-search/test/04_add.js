@@ -5,8 +5,7 @@ const fs = require('fs');
 const config = require('../testconfig');
 const Service = require('../');
 
-
-describe('event search - functional: create', function() {
+describe('04 - event search - functional: create', function() {
 
   let service;
 
@@ -47,12 +46,11 @@ describe('event search - functional: create', function() {
 
   before( async () => {
     service = Service(config);
-
-    await service( 'test_index' ).rebuild( {
-      eventsList: async function( offset, limit ) {
-        return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/04_events.${offset}.${limit}.json`));
+    await service('test_index').rebuild({
+      eventsList: async function(lastId, limit ) {
+        return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/04_events.${lastId}.${limit}.json`));
       }
-    } );
+    });
   } );
 
 

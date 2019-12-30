@@ -36,7 +36,7 @@ module.exports = (formSchema, event) => {
 }
 
 function extractValueSet(formSchema, event, includeFieldEval) {
-  return formSchema.fields
+  return (formSchema ? formSchema.fields : [])
     .filter(includeFieldEval)
     .reduce((values, field) => ({
       ...values,

@@ -9,7 +9,7 @@ const config = require( '../testconfig' );
 const Service = require( '../' );
 const runDSLQuery = require('../service/helpers/runDSLQuery');
 
-describe( 'event search - functional: more like this', function() {
+describe('16 - event search - functional: more like this', function() {
 
   let service, dslSearch;
 
@@ -21,8 +21,8 @@ describe( 'event search - functional: more like this', function() {
     dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
 
     await service( 'simple_search' ).rebuild( {
-      eventsList: async (offset, limit) => JSON.parse(fs.readFileSync(
-        `${__dirname}/fixtures/16_events.${offset}.${limit}.json`
+      eventsList: async (lastId, limit) => JSON.parse(fs.readFileSync(
+        `${__dirname}/fixtures/16_events.${lastId}.${limit}.json`
       )),
       extensions: {
         custom: {

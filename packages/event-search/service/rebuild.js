@@ -12,9 +12,9 @@ const defaultExtensions = {
   contributor: require('./extensions/contributor.fields.js'),
 }
 
-const indexSettings = JSON.parse(require('fs' ).readFileSync(__dirname + '/index/settings.json', 'utf-8'));
+const indexSettings = require('./index/settings.json');
 
-module.exports = async (config, alias, options) => {
+module.exports = async (config, alias, options = {}) => {
   const {
     client,
     type
@@ -26,102 +26,85 @@ module.exports = async (config, alias, options) => {
     expire: false
   }, options);
 
-  _.extend( params.extensions, defaultExtensions );
+  Object.assign(params.extensions, defaultExtensions);
 
-  let offset = 0,
+  const extendedSettings = h.extendMapping( indexSettings, _.mapValues( params.extensions, parseExtension ) );
+  const counts = { indexed: 0 };
 
-    extendedSettings = h.extendMapping( indexSettings, _.mapValues( params.extensions, parseExtension ) ),
-
-    events = [],
-
-    counts = { indexed: 0 };
-
+  let lastId = 0;
+  let hasMore = true;
   // Prepare: check list func and create new index
 
-  await h.checkList( params.eventsList );
+  await h.checkList(params.eventsList);
 
-  const index = await h.createUniqueIndex( client, alias, extendedSettings );
+  const index = await h.createUniqueIndex(client, alias, extendedSettings);
 
   // Populate: use list func to populate new index
 
-  log( 'start populating new index');
+  log('start populating new index');
 
   try {
+    do {
+      const {
+        lastId: nextLastId,
+        events
+      } = await params.eventsList(lastId, limit);
 
-    while ( ( events = await params.eventsList( offset, limit ) ).length ) {
+      hasMore = !!events.length && (nextLastId !== -1);
 
-      log( 'bulk indexing from offset %s %s events ( total of %d timings )', offset, events.length, events.reduce( ( t, e ) => t + _.get( e, 'timings', [] ).length, 0 ) );
+      log('bulk indexing from lastId %s %s events (total of %d timings)', lastId, events.length, events.reduce((t, e) => t + _.get(e, 'timings', []).length, 0));
 
-      let bulkResult = {
-        took: 0,
-        errors: null,
-        items: []
-      };
+      const bulkJob = h.indexBulk(client, index, type, events.map(e => preParse(e)), { expire: params.expire });
 
-      let bulkJob = h.indexBulk( client, index, type, events.map( preParse ), { expire: params.expire } );
-
-      if ( bulkJob ) {
-
-        bulkResult = await bulkJob;
-
-      } else {
-
-        log( 'nothing to index in bulk job: all items were filtered out');
-
+      if (!bulkJob) {
+        log('nothing to index in bulk job: all items were filtered out');
+        lastId = nextLastId;
+        continue;
       }
 
-      log( 'info', 'bulk indexed offset %s on index %s, took %s', offset, index, ( bulkResult.took / 1000 ) + 's');
+      const bulkResult = await bulkJob;
 
-      if ( bulkResult.errors ) {
-
-        log( 'error', 'bulk index returned errors', bulkResult );
-
+      if (bulkResult.errors) {
+        log('error', 'bulk index returned errors', bulkResult);
       } else {
-
         counts.indexed += bulkResult.items.length;
-
+        log('info', 'bulk indexed lastId %s on index %s, took %s', lastId, index, (bulkResult.took / 1000) + 's');
       }
 
-      offset += limit;
+      lastId = nextLastId;
+    } while (hasMore);
+  } catch (e) {
+    log('error', 'index rebuild failed - deleting, not reassigning', e);
 
-    }
-
-  } catch ( e ) {
-
-    log( 'error', 'index rebuild failed - deleting, not reassigning', e );
-
-    await client.indices.delete( { index } );
+    await client.indices.delete({ index });
 
     throw e;
-
   }
 
-  log( 'info', 'reassign alias, %s, remove previous indices, refresh new index', alias );
+  log('info', 'reassign alias, %s, remove previous indices, refresh new index', alias);
 
   // Wrap up: re-assign alias, remove previous indices, refresh new index
 
   let previousIndices = [];
 
-  if ( await client.indices.existsAlias( { name: alias } ) ) {
-
-    previousIndices = Object.keys( await client.indices.getAlias( { name: alias } ) );
-
+  if (await client.indices.existsAlias({ name: alias })) {
+    previousIndices = Object.keys(await client.indices.getAlias({ name: alias }));
   }
 
-  await client.indices.putAlias( {
+  await client.indices.putAlias({
     index,
     name: alias
-  } );
+  });
 
-  while ( previousIndices.length ) {
-
-    await client.indices.delete( { index: previousIndices.pop() } );
-
+  while (previousIndices.length) {
+    await client.indices.delete({
+      index: previousIndices.pop()
+    });
   }
 
-  log( 'info', 'updated alias %s, removed %s previously associated indices', alias, previousIndices.length );
+  log('info', 'updated alias %s, removed %s previously associated indices', alias, previousIndices.length);
 
-  await client.indices.refresh( { index } );
+  await client.indices.refresh({ index });
 
   return {
     success: true,

@@ -8,7 +8,7 @@ const should = require('should');
 const config = require('../testconfig');
 const Service = require('../');
 
-describe('event search - functional: search', function() {
+describe('03 - event search - functional: search', function() {
 
   describe( 'simple', function() {
     let service;

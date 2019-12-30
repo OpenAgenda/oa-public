@@ -4,12 +4,12 @@ const _ = require('lodash');
 const fs = require('fs');
 const should = require('should');
 
-const config = require( '../testconfig' );
+const config = require('../testconfig');
 const runDSLQuery = require('../service/helpers/runDSLQuery');
-const moment = require( 'moment-timezone' );
-const Service = require( '../' );
+const moment = require('moment-timezone');
+const Service = require('../');
 
-describe('event-search - unit: dsl search', function() {
+describe('10 - event-search - unit: dsl search', function() {
 
   describe('simple search', function() {
     let service, dslSearch;
@@ -22,9 +22,9 @@ describe('event-search - unit: dsl search', function() {
       dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
 
       await service( 'simple_search' ).rebuild({
-        eventsList: async (offset, limit) => {
+        eventsList: async (lastId, limit) => {
           return JSON.parse(fs.readFileSync(
-            `${__dirname}/fixtures/10_events.${offset}.${limit}.json`
+            `${__dirname}/fixtures/10_events.${lastId}.${limit}.json`
           ));
         }
       });
