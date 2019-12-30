@@ -33,6 +33,10 @@ module.exports = schema( {
     type: 'boolean',
     default: false
   },
+  offsetAsLastId: {
+    type: 'boolean',
+    default: false
+  },
   html: {
     type: 'boolean',
     default: false
