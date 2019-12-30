@@ -219,8 +219,7 @@ function _detailed( events, options ) {
 
       let locationUids = events.map( e => e.locationUid ).filter( uid => uid );
 
-
-      if ( !locationUids.length ) {
+      if (!locationUids.length) {
 
         return rs( detailedEvents );
 
