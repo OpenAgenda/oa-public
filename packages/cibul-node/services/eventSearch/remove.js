@@ -24,7 +24,7 @@ module.exports = (services, queue, eventSearch) => {
 
     log('update transverse index');
     if (!otherAgendaReferences.map(ae => ae.state).filter(state === 2).length) {
-      await queue('eventIndexRemove', event.uid);
+      await queue('transverseIndexRemove', event.uid);
     }
 
     for (const { agendaUid } of otherAgendaReferences) {

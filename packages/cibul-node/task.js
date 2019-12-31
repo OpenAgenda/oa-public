@@ -132,5 +132,5 @@ module.exports = services => {
 
   services.eventSearch.task();
 
-  //services.eventSearch.transverseIndex.rebuild();
+  //services.eventSearch.transverse.rebuild();
 };

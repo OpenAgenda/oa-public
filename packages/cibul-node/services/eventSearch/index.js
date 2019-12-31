@@ -4,7 +4,6 @@ const _ = require('lodash');
 const EventSearch = require('@openagenda/event-search');
 const log = require('@openagenda/logs')('services/eventSearch');
 
-const eventIndex = require('./lib/eventIndex');
 const buildSearchConfig = require('./lib/buildSearchConfig');
 
 const add = require('./add');
@@ -23,10 +22,9 @@ module.exports.init = (config, services) => {
   } = services;
 
   const eventSearch = EventSearch(buildSearchConfig(config));
-
   const queue = queues('eventSearch');
 
-  eventIndex({ eventSearch, queue });
+  const transverseSearch = transverseIndex(services, eventSearch, queue);
 
   return {
     task: task.bind(null, { queue }),
@@ -38,7 +36,10 @@ module.exports.init = (config, services) => {
       rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda),
       exists: () => eventSearch(`agendas:${agenda.uid}`).exists()
     }),
-    transverseIndex: transverseIndex(services, eventSearch)
+    transverse: {
+      rebuild: () => queue('transverseIndexRebuild'),
+      search: transverseSearch
+    }
   };
 }
 

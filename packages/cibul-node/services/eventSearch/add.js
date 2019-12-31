@@ -32,7 +32,7 @@ module.exports = (services, queue, eventSearch) => {
     }
 
     if (!await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)) {
-      await queue('eventIndexUpdate', data);
+      await queue('transverseIndexUpdate', data);
     }
 
     log('done');

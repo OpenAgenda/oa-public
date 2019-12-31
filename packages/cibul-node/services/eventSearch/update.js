@@ -28,9 +28,9 @@ module.exports = (services, queue, eventSearch) => {
 
     log('update transverse index');
     if (event.state !== 2 && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid) ) {
-      await queue('eventIndexRemove', data);
+      await queue('transverseIndexRemove', data);
     } else {
-      await queue('eventIndexUpdate', data);
+      await queue('transverseIndexUpdate', data);
     }
 
     log('update other indices');
