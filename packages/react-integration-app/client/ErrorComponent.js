@@ -6,13 +6,15 @@ const defaultMessages = {
     oops: 'Oops !',
     sorry: 'Sorry, an error has occurred.',
     goToHome: 'Go to home',
-    contactSupport: 'Contact support'
+    contactSupport: 'Contact support',
+    retry: 'Retry'
   },
   fr: {
     oops: 'Oups !',
     sorry: "Désolé, une erreur s'est produite.",
     goToHome: "Aller à l'accueil",
-    contactSupport: 'Contacter le support'
+    contactSupport: 'Contacter le support',
+    retry: 'Réessayer'
   }
 };
 
@@ -22,6 +24,7 @@ const preStyle = {
 
 export default function ErrorComponent({
   error,
+  retry,
   componentStack,
   lang = 'en',
   messages = defaultMessages
@@ -42,10 +45,8 @@ export default function ErrorComponent({
           {typeof window === 'undefined' ? (
             <em>{error.message}</em>
           ) : (
-            <pre
-              className="text-left text-danger"
-              style={preStyle}
-            >{`${error.message}${componentStack}`}
+            <pre className="text-left text-danger" style={preStyle}>
+              {`${error.message}${componentStack}`}
             </pre>
           )}
         </div>
@@ -59,6 +60,14 @@ export default function ErrorComponent({
               defaultMessage="Contact support"
             />
           </a>
+          {process.env.NODE_ENV === 'development' && typeof retry === 'function' ? (
+            <>
+              {' '}
+              <button onClick={retry} type="button" className="btn btn-default">
+                <FormattedMessage id="retry" defaultMessage="Retry" />
+              </button>
+            </>
+          ) : null}
         </div>
       </div>
     </IntlProvider>
