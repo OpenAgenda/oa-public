@@ -1,6 +1,6 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 const handleError = require( './helpers/handleError' );
 const lastTimingEndsIn = require( './helpers/lastTimingEndsIn' );
 const parseQuery = require( './query' );
@@ -9,7 +9,7 @@ const parseDoc = require( './index/preParse' );
 const log = require( '@openagenda/logs' )( 'update' );
 
 
-module.exports = async function(config, alias, identifiers, eventPart, options = {} ) {
+module.exports = async function(config, alias, identifiers, eventPart, options = {}) {
   const params = Object.assign({
     refresh: false,
     expire: false

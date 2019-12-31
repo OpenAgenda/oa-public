@@ -5,7 +5,7 @@ const fs = require('fs');
 const config = require('../testconfig');
 const Service = require('../');
 
-describe('04 - event search - functional: create', function() {
+describe('04 - event search - functional: add', function() {
 
   let service;
 

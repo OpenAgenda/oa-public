@@ -20,22 +20,32 @@ module.exports = async (config, alias, options = {}) => {
     type
   } = config;
 
-  const params = Object.assign({
+  const {
+    eventsList,
+    extensions,
+    expire,
+    on
+  } = {
     eventsList: null,
     extensions: {},
-    expire: false
-  }, options);
+    expire: false,
+    on: {
+      bulk: () => {},
+      error: () => {}
+    },
+    ...options
+  };
 
-  Object.assign(params.extensions, defaultExtensions);
+  Object.assign(extensions, defaultExtensions);
 
-  const extendedSettings = h.extendMapping( indexSettings, _.mapValues( params.extensions, parseExtension ) );
+  const extendedSettings = h.extendMapping(indexSettings, _.mapValues(extensions, parseExtension));
   const counts = { indexed: 0 };
 
   let lastId = 0;
   let hasMore = true;
   // Prepare: check list func and create new index
 
-  await h.checkList(params.eventsList);
+  await h.checkList(eventsList);
 
   const index = await h.createUniqueIndex(client, alias, extendedSettings);
 
@@ -48,13 +58,13 @@ module.exports = async (config, alias, options = {}) => {
       const {
         lastId: nextLastId,
         events
-      } = await params.eventsList(lastId, limit);
+      } = await eventsList(lastId, limit);
 
       hasMore = !!events.length && (nextLastId !== -1);
 
       log('bulk indexing from lastId %s %s events (total of %d timings)', lastId, events.length, events.reduce((t, e) => t + _.get(e, 'timings', []).length, 0));
 
-      const bulkJob = h.indexBulk(client, index, type, events.map(e => preParse(e)), { expire: params.expire });
+      const bulkJob = h.indexBulk(client, index, type, events.map(e => preParse(e)), { expire });
 
       if (!bulkJob) {
         log('nothing to index in bulk job: all items were filtered out');
@@ -66,9 +76,11 @@ module.exports = async (config, alias, options = {}) => {
 
       if (bulkResult.errors) {
         log('error', 'bulk index returned errors', bulkResult);
+        on.error({ result: bulkResult, lastId });
       } else {
         counts.indexed += bulkResult.items.length;
         log('info', 'bulk indexed lastId %s on index %s, took %s', lastId, index, (bulkResult.took / 1000) + 's');
+        on.bulk({ lastId, counts, result: bulkResult });
       }
 
       lastId = nextLastId;
