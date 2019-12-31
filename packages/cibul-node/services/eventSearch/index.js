@@ -12,6 +12,7 @@ const remove = require('./remove');
 const agendaIndexSearch = require('./agendaIndexSearch');
 const agendaIndexRebuild = require('./agendaIndexRebuild');
 const transverseIndex = require('./transverseIndex');
+const getApp = require('./getApp');
 
 module.exports.init = (config, services) => {
   log('init');
@@ -37,9 +38,14 @@ module.exports.init = (config, services) => {
       exists: () => eventSearch(`agendas:${agenda.uid}`).exists()
     }),
     transverse: {
-      rebuild: () => queue('transverseIndexRebuild'),
+      rebuild: options => queue('transverseIndexRebuild', options),
       search: transverseSearch
-    }
+    },
+    getApp: getApp.bind(null, {
+      services,
+      transverseSearch,
+      queue
+    })
   };
 }
 

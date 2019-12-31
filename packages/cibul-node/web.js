@@ -3,7 +3,7 @@
 module.exports = app => {
   require('./services/users').expose(app);
   require('./services/mails').expose(app);
-  require('./event/search.front')(app);
+  app.use('/events/search', app.services.eventSearch.getApp());
   require('./agenda/back')(app);
   require('./inboxes/endpoints')(app);
   require('./inboxes/pages')(app);
@@ -49,4 +49,5 @@ module.exports = app => {
   require('./agenda/facebook.back')(app);
   require('./agenda/actions.front')(app);
   require('./agenda/exports.front')(app);
+
 };
