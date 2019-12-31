@@ -36,7 +36,7 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
   }
 
   const findOption = (fSchema, optId) => {
-    if (!optId || !fSchema?.options) {
+    if ([null, undefined].includes(optId) || !fSchema?.options) {
       return optId;
     }
 
@@ -57,7 +57,9 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
       }
 
       const actionKeys = Object.keys(action);
-      const ids = action[actionKeys[0]]?.$set || action[actionKeys[0]];
+      const ids = action[actionKeys[0]]?.$set !== undefined
+        ? action[actionKeys[0]].$set
+        : action[actionKeys[0]];
 
       if (actionKeys[0] === 'state') {
         result.actions.push({
