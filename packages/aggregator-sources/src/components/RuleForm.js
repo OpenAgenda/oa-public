@@ -545,7 +545,7 @@ function ActionFormPart({ name, aggregatorSchema }) {
   useEffect(() => {
     const haveAllOptions = []
       .concat(actionValues)
-      .every(actionValue => valuesOptions.find(v => _.isEqual(actionValue, v)));
+      .every(actionValue => valuesOptions?.find(v => _.isEqual(actionValue, v)));
 
     if (
       prevFieldName
