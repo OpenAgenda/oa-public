@@ -4,13 +4,13 @@ import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import {
   useHistory, useLocation, matchPath, Link
 } from 'react-router-dom';
-import ErrorBoundary from 'react-error-boundary';
 import compareRoles from '@openagenda/members/build/compareRoles';
 import Image from '@openagenda/react-components/build/Image';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
 import { useMemoOne } from '../hooks/useMemoOne';
 import useChildLayouts from '../hooks/useChildLayouts';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const TABS_IN_APP = [
   'members',

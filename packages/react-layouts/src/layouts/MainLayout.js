@@ -5,7 +5,6 @@ import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import { Link } from 'react-router-dom';
 import OutsideClickHandler from 'react-outside-click-handler';
-import ErrorBoundary from 'react-error-boundary';
 import classNames from 'classnames';
 import { useInterval } from 'react-use';
 import session from '@openagenda/sessions/client';
@@ -15,6 +14,7 @@ import Spinner from '@openagenda/react-components/build/Spinner';
 import useChildLayouts from '../hooks/useChildLayouts';
 import * as mainActions from '../reducers/main';
 import { useMemoOne } from '../hooks/useMemoOne';
+import ErrorBoundary from '../components/ErrorBoundary';
 
 const messages = defineMessages({
   search: {
