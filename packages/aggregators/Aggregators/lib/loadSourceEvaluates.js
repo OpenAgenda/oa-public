@@ -33,10 +33,10 @@ module.exports = async ({
         agenda: _.pick(sourceAgenda, ['slug','id','uid']),
         event: await loadEvent(sourceAgenda.uid, eventUid),
         aggregatorAgendaUid: aggregatorAgendaUid,
+        aggregatorRules,
         batched: true,
         formSchema,
-        sourceRules,
-        aggregatorRules
+        sourceRules
       });
     }
 

@@ -64,10 +64,10 @@ describe('Aggregators addSource', () => {
         'agenda',
         'event',
         'aggregatorAgendaUid',
+        'aggregatorRules',
         'batched',
         'formSchema',
-        'sourceRules',
-        'aggregatorRules'
+        'sourceRules'
       ]);
     });
 
