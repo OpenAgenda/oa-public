@@ -3,6 +3,7 @@
 const _ = require( 'lodash' );
 const sessions = require( '@openagenda/sessions' );
 const agendasSvc = require( '@openagenda/agendas' );
+const aggregatorsSvc = require('../services/aggregators').instance;
 const mw = require( '@openagenda/admin-agendas' ).mw;
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
@@ -39,18 +40,12 @@ module.exports = app => {
     async ( req, res, next ) => {
       try {
         if ( _.get( req, 'body.credentials.aggregator' ) ) {
-          const hasAggregator = await config.knex( config.schemas.aggregator )
-            .select( 'id' )
-            .where( 'review_id', req.agenda.id )
-            .limit( 1 );
+          const aggregator = await aggregatorsSvc.get( req.agenda.uid );
 
-          if ( !hasAggregator.length ) {
-            await config.knex( config.schemas.aggregator )
-              .insert( {
-                review_id: req.agenda.id,
-                created_at: new Date(),
-                updated_at: new Date()
-              } )
+          if (!aggregator) {
+            await aggregatorsSvc.set(req.agenda.uid, {
+              rules: []
+            });
           }
         }
 
