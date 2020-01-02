@@ -88,9 +88,11 @@ export default function useAgendasSearch({
         }
       });
 
-      return request({
-        search
-      }).then(
+      return Promise.resolve(
+        request({
+          search
+        })
+      ).then(
         data => dispatch({
           type: 'listSuccess',
           payload: {
@@ -128,10 +130,12 @@ export default function useAgendasSearch({
       }
     });
 
-    return request({
-      search: state.searchValue,
-      page: newPage
-    }).then(
+    return Promise.resolve(
+      request({
+        search: state.searchValue,
+        page: newPage
+      })
+    ).then(
       data => dispatch({
         type: 'nextPageSuccess',
         payload: {

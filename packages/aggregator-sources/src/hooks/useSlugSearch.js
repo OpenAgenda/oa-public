@@ -38,7 +38,7 @@ export default function useSlugSearch({ request }) {
     v => {
       dispatch({ type: 'get' });
 
-      return request(v).then(
+      return Promise.resolve(request(v)).then(
         data => dispatch({
           type: 'getSuccess',
           payload: {

@@ -20,9 +20,16 @@ export default function SlugSearch({ res, render }) {
   const validSlugRequest = useCallback(
     v => {
       try {
-        const slug = new URL(v).pathname.split('/')[1];
+        const { pathname } = new URL(v);
+        const slug = pathname && pathname !== '/' ? pathname.split('/')[1] : null;
 
-        return apiClient.get(res.replace(':slug', slug));
+        if (!slug) {
+          return null;
+        }
+
+        return apiClient
+          .get(res.replace(':slug', slug))
+          .then(agenda => (agenda?.uid ? agenda : null));
       } catch (e) {
         // console.log(e);
         return Promise.reject(new Error('badAgendaUrl'));
