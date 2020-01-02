@@ -124,8 +124,16 @@ function validate(intl, values, aggregatorSchema /* , sourceSchema */) {
     errors.subdivision = intl.formatMessage(messages.requiredSubdivision);
   }
 
-  if (values.type !== 'all' && !values.values) {
-    errors.values = intl.formatMessage(messages.requiredValues);
+  if (values.type === 'extended' && !values.extendedValues) {
+    errors.extendedValues = intl.formatMessage(messages.requiredValues);
+  }
+
+  if (values.type === 'location' && !values.locationValues) {
+    errors.locationValues = intl.formatMessage(messages.requiredValues);
+  }
+
+  if (values.type === 'tags' && !values.tagValues) {
+    errors.tagValues = intl.formatMessage(messages.requiredValues);
   }
 
   if ((values.type === 'all' || !values.required) && !values.actions?.length) {

@@ -109,7 +109,7 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
     Object.assign(result, {
       type: 'location',
       subdivision: key,
-      values: query.location[key]
+      locationValues: [].concat(query.location[key])
     });
 
     return result;
@@ -119,7 +119,7 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
   if (query.tags) {
     Object.assign(result, {
       type: 'tags',
-      values: [].concat(query.tags)
+      tagValues: [].concat(query.tags)
     });
 
     return result;
@@ -129,7 +129,7 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
 
   // Extended
   if (key) {
-    const ids = query[key];
+    const ids = [].concat(query[key]);
     const fieldSchema = sourceSchema?.fields.find(v => v.field === key);
 
     // just for RuleSummary in SourcesList
@@ -137,7 +137,7 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
       return Object.assign(result, {
         type: 'extended',
         field: key,
-        values: ids
+        extendedValues: ids
       });
     }
 
@@ -152,7 +152,7 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
     Object.assign(result, {
       type: 'extended',
       field: fieldOption,
-      values: valuesOptions
+      extendedValues: valuesOptions
     });
 
     return result;
@@ -213,7 +213,7 @@ export function valuesToRule(values, schema) {
       return {
         query: {
           location: {
-            [values.subdivision]: values.values
+            [values.subdivision]: values.locationValues
           }
         },
         required,
@@ -222,7 +222,7 @@ export function valuesToRule(values, schema) {
     case 'tags':
       return {
         query: {
-          tags: values.values
+          tags: values.tagValues
         },
         required,
         actions
@@ -230,9 +230,9 @@ export function valuesToRule(values, schema) {
     case 'extended': {
       return {
         query: {
-          [values.field.value]: Array.isArray(values.values)
-            ? values.values.map(v => v.value)
-            : values.values.value // WTF
+          [values.field.value]: Array.isArray(values.extendedValues)
+            ? values.extendedValues.map(v => v.value)
+            : values.extendedValues.value // WTF
         },
         required,
         actions

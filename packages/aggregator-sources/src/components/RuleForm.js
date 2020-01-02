@@ -99,6 +99,21 @@ const messages = defineMessages({
     id: 'aggregator-sources.RuleForm.actionsDescription',
     defaultMessage:
       'Select the fields to edit if the event matches the rule, and then assign them a value.'
+  },
+  helpFilterLocation: {
+    id: 'aggregator-sources.RuleForm.helpFilterLocation',
+    defaultMessage:
+      'Apply the rule to events corresponding to one or more cities, departments or regions.'
+  },
+  helpFilterExtended: {
+    id: 'aggregator-sources.RuleForm.helpFilterExtended',
+    defaultMessage:
+      'Apply the rule to events corresponding to one or more values coming from additional fields of the source.'
+  },
+  helpFilterTag: {
+    id: 'aggregator-sources.RuleForm.helpFilterTag',
+    defaultMessage:
+      'Apply the rule to events associated with optional values whose labels correspond.'
   }
 });
 
@@ -286,6 +301,7 @@ function Radio({
   spellCheck,
   autoFocus,
   disabled,
+  helpBlock,
   ...props
 }) {
   const inputAttrs = useMemo(
@@ -305,6 +321,7 @@ function Radio({
       <label htmlFor={id}>
         <input {...input} {...inputAttrs} /> {label}
       </label>
+      {ReactIs.isElement(helpBlock) ? helpBlock : null}
     </BsField>
   );
 }
@@ -332,14 +349,14 @@ function LocationFormPart() {
 
       <div className="row">
         <div className="form-group form-group-v-aligned">
-          <label className="control-label col-sm-2" htmlFor="values">
+          <label className="control-label col-sm-2" htmlFor="locationValues">
             {intl.formatMessage(messages.values)}
           </label>
 
           <div className="col-sm-10">
             <Field
               component={TagsInput}
-              name="values"
+              name="locationValues"
               className="form-control react-tagsinput"
               classNameGroup="form-inline"
               placeholder={intl.formatMessage(messages.addAValue)}
@@ -384,7 +401,7 @@ function ExtendedFormPart({ sourceSchema }) {
 
   useEffect(() => {
     if (prevFieldName && fieldName && prevFieldName !== fieldName) {
-      form.change('values', '');
+      form.change('extendedValues', '');
     }
   }, [prevFieldName, fieldName, form]);
 
@@ -423,14 +440,14 @@ function ExtendedFormPart({ sourceSchema }) {
       {values.field ? (
         <div className="row">
           <div className="form-group form-group-v-aligned">
-            <label className="control-label col-sm-2" htmlFor="values">
+            <label className="control-label col-sm-2" htmlFor="extendedValues">
               {intl.formatMessage(messages.values)}
             </label>
 
             <div className="col-sm-10">
               <Field
                 component={ReactSelectInput}
-                name="values"
+                name="extendedValues"
                 placeholder={intl.formatMessage(messages.selectValue)}
                 noOptionsMessage={() => intl.formatMessage(messages.noOption)}
                 options={valuesOptions}
@@ -453,14 +470,14 @@ function TagsFormPart() {
   return (
     <div className="row">
       <div className="form-group form-group-v-aligned">
-        <label className="control-label col-sm-2" htmlFor="values">
+        <label className="control-label col-sm-2" htmlFor="tagValues">
           {intl.formatMessage(messages.values)}
         </label>
 
         <div className="col-sm-10">
           <Field
             component={TagsInput}
-            name="values"
+            name="tagValues"
             className="form-control react-tagsinput"
             classNameGroup="form-inline"
             placeholder={intl.formatMessage(messages.addAValue)}
@@ -716,7 +733,13 @@ export default function RuleForm({
               label={intl.formatMessage(messages.locationFilter)}
               value="location"
               classNameGroup="radio"
+              helpBlock={(
+                <div className="radio-help-block">
+                  {intl.formatMessage(messages.helpFilterLocation)}
+                </div>
+              )}
             />
+
             <Field
               component={Radio}
               name="type"
@@ -727,7 +750,13 @@ export default function RuleForm({
                 disabled: disabledExtended
               })}
               disabled={disabledExtended}
+              helpBlock={(
+                <div className="radio-help-block">
+                  {intl.formatMessage(messages.helpFilterExtended)}
+                </div>
+              )}
             />
+
             <Field
               component={Radio}
               name="type"
@@ -735,7 +764,13 @@ export default function RuleForm({
               label={intl.formatMessage(messages.tagFilter)}
               value="tags"
               classNameGroup="radio"
+              helpBlock={(
+                <div className="radio-help-block">
+                  {intl.formatMessage(messages.helpFilterTag)}
+                </div>
+              )}
             />
+
             <Field
               component={Radio}
               name="type"

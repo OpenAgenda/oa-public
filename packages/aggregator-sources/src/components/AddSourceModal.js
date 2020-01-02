@@ -13,6 +13,8 @@ import AgendasSearch from './AgendasSearch';
 import SlugSearch from './SlugSearch';
 import DefineRules from './DefineRules';
 
+const DEFAULT_IMAGE = 'https://s3.eu-central-1.amazonaws.com/oastatic/graylogo140.png';
+
 const messages = defineMessages({
   modalTitle: {
     id: 'aggregator-sources.AddSourceModal.modalTitle',
@@ -103,6 +105,10 @@ const messages = defineMessages({
   cancel: {
     id: 'aggregator-sources.AddSourceModal.cancel',
     defaultMessage: 'Cancel'
+  },
+  noAgendas: {
+    id: 'aggregator-sources.AddSourceModal.noAgendas',
+    defaultMessage: 'No result'
   }
 });
 
@@ -124,14 +130,15 @@ function AgendaItem({ agenda, sources, onSelect }) {
     () => sources.some(source => source.agenda.uid === agenda.uid),
     [sources, agenda]
   );
+  const agendaImage = useMemo(() => agenda?.image ?? DEFAULT_IMAGE, [agenda]);
 
   if (alreadyInSources) {
     return (
       <div className="agenda-item media text-muted" key={agenda.uid}>
         <div className="media-left">
           <Image
-            src={agenda.image}
-            fallbackSrc={agenda.image.replace('cibuldev', 'cibul')}
+            src={agendaImage}
+            fallbackSrc={agendaImage.replace('cibuldev', 'cibul')}
             className="media-object ill avatar"
             alt={agenda.title}
           />
@@ -180,8 +187,8 @@ function AgendaItem({ agenda, sources, onSelect }) {
           onClick={onAgendaClick}
         >
           <Image
-            src={agenda.image}
-            fallbackSrc={agenda.image.replace('cibuldev', 'cibul')}
+            src={agendaImage}
+            fallbackSrc={agendaImage.replace('cibuldev', 'cibul')}
             className="media-object ill avatar"
             alt={agenda.title}
           />
@@ -432,20 +439,24 @@ export default function AddSourceModal({
                   </button>
                 </p>
 
-                <div>
-                  {state.agendas.length
-                    ? state.agendas.map(agenda => (
-                      <AgendaItem
-                        key={agenda.uid}
-                        sources={sources}
-                        agenda={agenda}
-                        onSelect={onSelectAgenda}
-                      />
-                    ))
-                    : null}
-                </div>
+                {state.agendas.length
+                  ? state.agendas.map(agenda => (
+                    <AgendaItem
+                      key={agenda.uid}
+                      sources={sources}
+                      agenda={agenda}
+                      onSelect={onSelectAgenda}
+                    />
+                  ))
+                  : null}
 
-                {state.nextLoading ? (
+                {!state.agendas.length && state.firstLoading === false ? (
+                  <div className="padding-v-sm text-center">
+                    {intl.formatMessage(messages.noAgendas)}
+                  </div>
+                ) : null}
+
+                {state.nextLoading || state.firstLoading ? (
                   <div
                     className="padding-v-md"
                     style={{ position: 'relative' }}
