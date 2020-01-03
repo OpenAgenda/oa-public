@@ -27,6 +27,12 @@ module.exports = services => {
     time: '19:00'
   } );*/
 
+  tfy( require( './services/activities' ).tasks.activities.cleanOld, {
+    // bootOffset: 1000,
+    period: 'daily',
+    time: '01:00'
+  } );
+
   tfy( require( './services/activities' ).tasks.notifications.prepareSummary, {
     // bootOffset: 1000,
     period: 'daily',
