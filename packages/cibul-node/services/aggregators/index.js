@@ -114,7 +114,8 @@ function init(config, services) {
           .then(ae => ae ? _.pick(ae, ['sourceAgendaUid', 'aggregated']) : null),
         listEventReferences: (agendaUid, lastId, aggregated = null) => services.core.agendas(agendaUid)
           .events.list({ state: 2, aggregated }, { lastId }, { load: { events: false, custom: false } }),
-        loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid).events.get(eventUid),
+        loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid)
+          .events.get(eventUid, { detailed: true }),
         getAgendasByUidsAndSearch: (agendaUids, search = null) => agendas.list({
           uid: agendaUids,
           ...(search ? { search } : {})
