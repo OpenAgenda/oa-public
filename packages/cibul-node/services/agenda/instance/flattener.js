@@ -674,26 +674,21 @@ function _defineCountryLabel( lang ) {
 
 
 
-function _extractGroupTags( group ) {
-
-  const groupSlugs = group.tags.map( t => t.slug );
+function _extractGroupTags(group) {
+  const groupIds = group.tags.map(t => t.id);
 
   return tags => {
-
-    if ( !utils.isArray( tags ) ) {
-
+    if (!utils.isArray(tags) ) {
       return '';
-
     }
 
-    return tags
+    // match must be based on id rather than slug
+    const groupTags = tags
+      .filter(t => groupIds.indexOf(t.id) !== -1)
+      .map(t => t.label).join('|');
 
-    .filter( t => groupSlugs.indexOf( t.slug ) !== -1 )
-
-    .map( t => t.label ).join( '|' )
-
+    return groupTags;
   }
-
 }
 
 
