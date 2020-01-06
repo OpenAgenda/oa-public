@@ -10,7 +10,7 @@ const aggregators = require( '@openagenda/aggregators' );
 const queue = require( '@openagenda/queue' );
 const { syncAgenda } = require( '@openagenda/inboxes/dist/tasks/sync' );
 const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
-const logs = require( '@openagenda/logs' );
+const logs = require('@openagenda/logs');
 
 const activitiesSvc = require( '../activities' );
 const agendaEventStats = require( './lib/agendaEventStats' );
