@@ -32,7 +32,9 @@ module.exports = class TimingsComponent extends Component {
     partialState.allowedTimings = _.get(props, 'field.enabledRanges')
       ? props.field.enabledRanges.map(v => ({
         begin: v.begin,
-        end: _extractDateString(addDays(v.end, 1))
+        end: v.end.includes('T')
+          ? v.end
+          : `${v.end}T23:59:59.999`
       }))
       : null;
 
