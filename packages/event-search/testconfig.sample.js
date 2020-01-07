@@ -3,7 +3,7 @@
 module.exports = {
 
   elasticsearch: {
-    host: 'localhost:9205',
+    node: 'localhost:9205',
     //log: 'trace'
   },
 

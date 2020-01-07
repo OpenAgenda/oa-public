@@ -1,25 +1,14 @@
-"use strict"
+'use strict';
 
-const ih = require( 'immutability-helper' );
+const ih = require('immutability-helper');
 
-module.exports = ( settings, extensions ) => {
-
-  let extended = {};
-
-  Object.keys( extensions ).forEach( namespace => {
-
-    extended[ namespace ] = {
-      '$set' : extensions[ namespace ]
-    }
-
-  } );
-
-  return ih( settings, { 
+module.exports = (settings, extensions) => {
+  return ih(settings, {
     mappings: {
-      event: {
-        properties: extended
-      }
+      properties: Object.keys(extensions).reduce((extended, namespace) => ({
+        ...extended,
+        [namespace]: { '$set' : extensions[namespace] }
+      }), {})
     }
-  } );
-
+  });
 }

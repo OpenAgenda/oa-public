@@ -6,7 +6,6 @@ const config = require('../testconfig');
 const Service = require('../');
 
 describe('04 - event search - functional: add', function() {
-
   let service;
 
   this.timeout( 20000 );
@@ -54,95 +53,40 @@ describe('04 - event search - functional: add', function() {
   } );
 
 
-  it( 'add an event to an index', async () => {
+  it('add an event to an index', async () => {
+    const result = await service('test_index').add(eventData, { refresh: true });
 
-    let result = await service( 'test_index' ).add( eventData, { refresh: true } );
+    result.success.should.equal(true);
 
-    result.success.should.equal( true );
+    await _timeout(1000);
 
-    await _timeout( 1000 );
+    let { events, total } = await service('test_index').search({ uid: 74367684 });
 
-    let { events, total } = await service( 'test_index' ).search( { uid: 74367684 } );
+    total.should.equal(1);
 
-    total.should.equal( 1 );
-
-    events[ 0 ].uid.should.equal( 74367684 );
-
-  } );
+    events[0].uid.should.equal(74367684);
+  });
 
 
-  it( 'add an event to an index that does not exist', async () => {
+  it('add an event to an index that does not exist', async () => {
+    const result = await service('blargh3').add(eventData, { refresh: true });
 
-    let result = await service( 'blargh3' ).add( eventData, { refresh: true } );
-
-    result.should.eql( {
+    result.should.eql({
       success: false,
       status: 404,
       message: 'index not found'
-    } );
+    });
+  });
 
-  } );
 
-
-  it( 'add nothing throws an error', async () => {
-
+  it('add nothing throws an error', async () => {
     try {
-
-      await service( 'test_index' ).add();
-
-    } catch ( e ) {
-
-      e.message.should.equal( 'data is unavailable for indexing' );
-
+      await service('test_index').add();
+    } catch (e) {
+      e.message.should.equal('data is unavailable for indexing');
     }
-
-  } );
-
-
-  it( 'add an expiring event to an index', async () => {
-
-    eventData.uid++; // avoid conflict with previous test
-
-    const timestamp = ( new Date() ).setDate( ( new Date() ).getDate() + 1 )
-
-    eventData.timings = [ {
-      begin: timestamp,
-      end: timestamp + 1
-    } ];
-
-    let result = await service( 'test_index' ).add( eventData, {
-      refresh: true,
-      expire: true
-    } );
-
-    result.ttl.should.equal( '1d' );
-
-  } );
-
-
-  it( 'add an expiring expired event to an index gives back unsuccessful operation report', async () => {
-
-    eventData.uid++;
-
-    eventData.timings = [ {
-      begin: _getYesterdayDate( 1 ),
-      end: _getYesterdayDate( 2 )
-    } ];
-
-    let result = await service( 'test_index' ).add( eventData, {
-      refresh: true,
-      expire: true
-    } );
-
-    result.should.eql( {
-      success: false,
-      message: 'negative ttl set',
-      lastTimingEndsInDays: -1
-    } );
-
-  } );
-
-} );
+  });
+});
 
 async function _timeout( ms ) {
 

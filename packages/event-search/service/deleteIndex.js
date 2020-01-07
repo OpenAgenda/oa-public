@@ -2,36 +2,27 @@
 
 const VError = require( 'verror' );
 const log = require('@openagenda/logs')('deleteIndex');
+const getAlias = require('./helpers/getAlias');
 
 module.exports = async (config, alias) => {
-  let { client } = config;
+  const { client } = config;
+  let removedIndices = 0;
 
-  let removedIndices = 0, toBeRemoved;
-
-  if (!await client.indices.existsAlias({ name: alias })) {
+  if (!await client.indices.existsAlias({ name: alias }).then(r => r.body)) {
     throw new VError('no index was found to be removed for alias %s', alias);
   }
 
-  const indices = Object.keys( await client.indices.getAlias( { name: alias } ) );
+  const indices = await getAlias(client, alias);
 
-  toBeRemoved = indices.length;
-
-  while ( indices.length ) {
-
-    let index = indices.pop();
+  while (indices.length) {
+    const index = indices.pop();
 
     try {
-
-      await client.indices.delete( { index } );
-
+      await client.indices.delete({ index });
       removedIndices++;
-
-    } catch( e ) {
-
-      log( 'error', 'could not delete index %s of alias %s: %s', index, alias, e );
-
+    } catch(e) {
+      log('error', 'could not delete index %s of alias %s: %s', index, alias, e);
     }
-
   }
 
   return {

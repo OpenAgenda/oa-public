@@ -8,76 +8,43 @@ const _ = require('lodash');
 const log = require('@openagenda/logs')('add');
 
 module.exports = async function(config, alias, event, options = {}) {
+  const params = Object.assign({
+    refresh: false
+  }, options);
 
-  const params = _.extend( {
-    refresh: false,
-    expire: false
-  }, options );
-
-  const { client, type } = config;
+  const { client } = config;
 
   const cleanEvent = clean(event);
-
-  let ttl, lastTimingEndsInDays;
-
-  if ( params.expire ) {
-
-    lastTimingEndsInDays = lastTimingEndsIn( cleanEvent );
-
-    if ( lastTimingEndsInDays < 0 ) {
-
-      return {
-        success: false,
-        message: 'negative ttl set',
-        lastTimingEndsInDays
-      }
-
-    }
-
-    ttl = lastTimingEndsInDays + 'd';
-
-  }
 
   let result;
 
   try {
-
-    result = await client.index( {
+    result = await client.index({
       index: alias,
       refresh: params.refresh,
-      type,
       id: cleanEvent.uid,
-      body: preParse( cleanEvent ),
-      ttl
-    } );
-
+      body: preParse(cleanEvent)
+    });
   } catch (err) {
     return handleError(config, err, 'failed to add event to index');
   }
 
-  if ( result.created ) {
-
-    log( 'info', 'event %j was added to alias %s', { uid: event.uid }, alias, {
+  if (result.body.result === 'created') {
+    log('info', 'event %j was added to alias %s', { uid: event.uid }, alias, {
       operation: 'add',
       alias,
       identifiers: { uid: event.uid }
-    } );
-
+    });
   } else {
-
-    log( 'warn', 'event %j was not added to alias %s', event.uid, alias, {
+    log('warn', 'event %j was not added to alias %s', event.uid, alias, {
       operation: 'add',
       alias,
       identifiers: { uid: event.uid },
-      result: result
-    } );
-
+      result
+    });
   }
-
 
   return {
-    success: !!result.created,
-    ttl
+    success: result.body.result === 'created'
   }
-
 }

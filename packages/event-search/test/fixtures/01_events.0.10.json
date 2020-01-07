@@ -63,6 +63,9 @@
       "region": "Ile-de-France",
       "countryCode": "FR",
       "timezone": "Europe/Paris"
+    },
+    "state": {
+      "code": 2
     }
   },
   {
@@ -122,6 +125,9 @@
       "region": "Ile-de-France",
       "countryCode": "FR",
       "timezone": "Europe/Paris"
+    },
+    "state": {
+      "code": 2
     }
   },
   {
@@ -181,6 +187,9 @@
       "region": "Ile-de-France",
       "countryCode": "FR",
       "timezone": "Europe/Paris"
+    },
+    "state": {
+      "code": 2
     }
   },
   {
@@ -240,6 +249,9 @@
       "region": "Ile-de-France",
       "countryCode": "FR",
       "timezone": "Europe/Paris"
+    },
+    "state": {
+      "code": 2
     }
   },
   {
@@ -299,6 +311,9 @@
       "region": "Ile-de-France",
       "countryCode": "FR",
       "timezone": "Europe/Paris"
+    },
+    "state": {
+      "code": 2
     }
   },
   {
@@ -358,6 +373,9 @@
       "region": "Ile-de-France",
       "countryCode": "FR",
       "timezone": "Europe/Paris"
+    },
+    "state": {
+      "code": 2
     }
   },
   {
@@ -417,6 +435,9 @@
       "region": "Ile-de-France",
       "countryCode": "FR",
       "timezone": "Europe/Paris"
+    },
+    "state": {
+      "code": 2
     }
   },
   {
@@ -526,6 +547,9 @@
       "region": "Ile-de-France",
       "countryCode": "FR",
       "timezone": "Europe/Paris"
+    },
+    "state": {
+      "code": 2
     }
   },
   {
@@ -589,6 +613,9 @@
       "region": "Vaud",
       "countryCode": "CH",
       "timezone": "Europe/Zurich"
+    },
+    "state": {
+      "code": 2
     }
   },
   {
@@ -655,6 +682,9 @@
       "region": "Ile-de-France",
       "countryCode": "FR",
       "timezone": "Europe/Paris"
+    },
+    "state": {
+      "code": 2
     }
   }
 ]}

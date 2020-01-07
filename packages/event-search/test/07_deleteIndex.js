@@ -1,7 +1,7 @@
 'use strict';
 
 const fs = require('fs');
-const should = require( 'should' );
+const should = require('should');
 
 const Service = require('../');
 
@@ -19,7 +19,7 @@ describe('07 - event search - functional: deleteIndex', function() {
       service = Service(config);
     });
 
-    it( 'indices and alias are effectively removed', async () => {
+    it('indices and alias are effectively removed', async () => {
 
       await service( 'simple_search' ).rebuild( {
         eventsList: async function(lastId, limit) {
@@ -27,25 +27,23 @@ describe('07 - event search - functional: deleteIndex', function() {
         }
       } );
 
-      let client = service.getConfig().client,
+      const client = service.getConfig().client;
 
-        indices = Object.keys( await client.indices.getAlias( {
-          name: 'simple_search'
-        } ) );
+      const indices = Object.keys((await client.indices.getAlias({
+        name: 'simple_search'
+      })).body);
 
-      ( await client.indices.existsAlias({ name: 'simple_search' } ) ).should.equal( true );
+      (await client.indices.existsAlias({ name: 'simple_search' })).body.should.equal(true);
 
       await service( 'simple_search' ).deleteIndex();
 
-      while ( indices.length ) {
-
-        ( await client.indices.exists( { index: indices.pop() } ) ).should.equal( false );
-
+      while (indices.length) {
+        (await client.indices.exists({ index: indices.pop() })).body.should.equal(false);
       }
 
-      ( await client.indices.existsAlias({ name: 'simple_search' } ) ).should.equal( false );
+      (await client.indices.existsAlias({ name: 'simple_search' })).body.should.equal( false );
 
-    } );
+    });
 
   });
 

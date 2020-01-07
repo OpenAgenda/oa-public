@@ -1,6 +1,9 @@
 "use strict";
 
 const h = require('./helpers');
+const textLog = require('./helpers/textLog');
+const existsAlias = require('./helpers/existsAlias');
+const getAlias = require('./helpers/getAlias');
 const _ = require('lodash');
 const preParse = require('./index/preParse');
 const parseExtension = require('./extensions/parse');
@@ -15,20 +18,19 @@ const defaultExtensions = {
 const indexSettings = require('./index/settings.json');
 
 module.exports = async (config, alias, options = {}) => {
+  log('called');
+
   const {
-    client,
-    type
+    client
   } = config;
 
   const {
     eventsList,
     extensions,
-    expire,
     on
   } = {
     eventsList: null,
     extensions: {},
-    expire: false,
     on: {
       bulk: () => {},
       error: () => {}
@@ -49,6 +51,8 @@ module.exports = async (config, alias, options = {}) => {
 
   const index = await h.createUniqueIndex(client, alias, extendedSettings);
 
+  textLog(extendedSettings);
+
   // Populate: use list func to populate new index
 
   log('start populating new index');
@@ -64,7 +68,7 @@ module.exports = async (config, alias, options = {}) => {
 
       log('bulk indexing from lastId %s %s events (total of %d timings)', lastId, events.length, events.reduce((t, e) => t + _.get(e, 'timings', []).length, 0));
 
-      const bulkJob = h.indexBulk(client, index, type, events.map(e => preParse(e)), { expire });
+      const bulkJob = h.indexBulk(client, index, events.map(e => preParse(e)));
 
       if (!bulkJob) {
         log('nothing to index in bulk job: all items were filtered out');
@@ -99,8 +103,8 @@ module.exports = async (config, alias, options = {}) => {
 
   let previousIndices = [];
 
-  if (await client.indices.existsAlias({ name: alias })) {
-    previousIndices = Object.keys(await client.indices.getAlias({ name: alias }));
+  if (await existsAlias(client, alias)) {
+    previousIndices = await getAlias(client, alias);
   }
 
   await client.indices.putAlias({

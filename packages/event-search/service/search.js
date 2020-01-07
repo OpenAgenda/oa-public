@@ -50,7 +50,7 @@ async function search(config, alias, query, nav = {}, options = {}) {
     total,
     aggregations,
     scrollId
-  } = await runDSLQuery(_.pick(config, ['client', 'type']), alias, cleanDsl, cleanNav.scroll ? cleanNav : {});
+  } = await runDSLQuery(_.pick(config, ['client']), alias, cleanDsl, cleanNav.scroll ? cleanNav : {});
 
   const eventParsers = _buildEventParsers(cleanOptions, aggregations);
 
@@ -72,8 +72,8 @@ function scroll(config, alias, scrollId, scroll) {
   return config.client
     .scroll({ scrollId, scroll })
     .then(res => ({
-      events: res.hits.hits.map( h => h[ '_source' ] ),
-      total: res.hits.total
+      events: res.body.hits.hits.map( h => h[ '_source' ] ),
+      total: res.body.hits.total.value
     }));
 }
 

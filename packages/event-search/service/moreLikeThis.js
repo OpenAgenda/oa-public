@@ -16,7 +16,7 @@ module.exports = async (config, alias, mltQuery, mltOptions, query) => {
 
   const dsl = getMoreLikeThisDsl(mltQuery, mltOptions, query);
 
-  const { events, total } = await runDSLQuery(_.pick(config, ['client', 'type']), alias, dsl);
+  const { events, total } = await runDSLQuery(_.pick(config, ['client']), alias, dsl);
 
   return { events, total };
 }

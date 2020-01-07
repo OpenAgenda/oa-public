@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const should = require('should');
 const config = require('../testconfig');

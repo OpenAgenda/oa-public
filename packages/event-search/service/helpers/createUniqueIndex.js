@@ -1,79 +1,59 @@
 "use strict";
 
-const w = require( 'when' ),
+const w = require('when');
+const async = require('async');
+const createIndexName = require('./createIndexName');
 
-  async = require( 'async' ),
-
-  createIndexName = require( './createIndexName' );
+const log = require('@openagenda/logs')('helpers/_createUniqueIndex');
 
 /**
  * create index name and test uniqueness
  */
-module.exports = async function( client, alias, settings ) {
+module.exports = async function(client, alias, settings) {
+  log('creating for alias %s', alias);
+  const indexName = await _createUniqueIndexName(client, alias);
 
-  const indexName = await _createUniqueIndexName( client, alias );
-
-  return await _createIndex( client, indexName, settings );
+  log('created %s', indexName);
+  return _createIndex( client, indexName, settings );
 
 }
 
 
-async function _createUniqueIndexName( client, alias, cb ) {
+async function _createUniqueIndexName(client, alias, cb) {
+  const baseName = createIndexName(alias);
+  let suffix = '';
 
-  let alreadyExists = null,
-
-    name = createIndexName( alias ),
-
-    indexName;
-
-  while ( alreadyExists === null || alreadyExists ) {
-
-    indexName = name;
-
-    if ( alreadyExists !== null ) {
-
-      indexName += '_' + Math.ceil( Math.random() * 1000 );
-
+  do {
+    if (!await _exists(client, baseName + suffix)) {
+      return baseName + suffix;
     }
-
-    alreadyExists = await _exists( client, indexName );
-
-  }
-
-  return indexName;
-
+    suffix = '_' + Math.ceil(Math.random() * 1000);
+  } while (true);
 }
 
 
 function _exists( client, index ) {
-
-  let d = w.defer();
-
-  client.indices.exists( { index }, ( err, exists ) => {
-
-    if ( err ) return d.reject( err );
-
-    d.resolve( exists );
-
-  } );
-
-  return d.promise;
-
+  return new Promise((rs, rj) => {
+    client.indices.exists({ index }, (err, { body }) => {
+      if (err) return rj(err);
+      rs(body);
+    });
+  });
 }
 
 
-function _createIndex( client, indexName, settings ) {
+function _createIndex(client, indexName, settings) {
 
   let d = w.defer();
 
-  client.indices.create( {
+  client.indices.create({
     index: indexName,
     body: settings
   }, err => {
 
     if ( err ) return d.reject( err );
 
-    d.resolve( indexName );  
+    d.resolve( indexName );
 
   } );
 

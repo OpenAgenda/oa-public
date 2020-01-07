@@ -38,8 +38,8 @@ const validate = schema( {
   format: {
     type: 'choice',
     unique: true,
-    options: [ 'YYYY-MM-dd', 'YYYY-MM', 'YYYY', 'YYYY-MM-dd HH:mm' ],
-    default: 'YYYY-MM-dd'
+    options: [ 'yyyy-MM-dd', 'yyyy-MM', 'yyyy', 'yyyy-MM-dd HH:mm' ],
+    default: 'yyyy-MM-dd'
   }
 } );
 

@@ -10,14 +10,13 @@ module.exports = async function(config, alias, identifiers, options = {} ) {
     refresh: false
   }, options );
 
-  const { client, type } = config;
+  const { client } = config;
 
   let res;
 
   try {
     res = await client.delete( {
       index: alias,
-      type: type,
       id: identifiers.uid,
       refresh: params.refresh
     } );
@@ -25,27 +24,22 @@ module.exports = async function(config, alias, identifiers, options = {} ) {
     return handleError(config, err, 'failed to remove event from index of alias %s', alias);
   }
 
-  if ( res.result === 'deleted' ) {
-
-    log( 'info', 'event %j was removed from alias %s', identifiers, alias, {
+  if (res.body.result === 'deleted') {
+    log('info', 'event %j was removed from alias %s', identifiers, alias, {
       operation: 'remove',
       alias,
       identifiers
-    } );
-
+    });
   } else {
-
-    log( 'warn', 'event %j was not removed from alias %s', identifiers, alias, {
+    log('warn', 'event %j was not removed from alias %s', identifiers, alias, {
       operation: 'remove',
       alias,
       identifiers
-    } );
-
+    });
   }
 
   return {
-    success: res.result === 'deleted',
-    message: res.result === 'deleted' ? 'event was removed' : 'event was not removed'
+    success: res.body.result === 'deleted',
+    message: res.body.result === 'deleted' ? 'event was removed' : 'event was not removed'
   }
-
 }

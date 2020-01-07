@@ -4,8 +4,9 @@ const fs = require('fs');
 const should = require('should');
 const config = require('../testconfig');
 const Service = require('../');
+const textLog = require('../service/helpers/textLog');
 
-describe('event-search - functional: rebuild', function() {
+describe('01 - event-search - functional: rebuild', function() {
 
   describe('basic usage', function() {
 
@@ -50,7 +51,7 @@ describe('event-search - functional: rebuild', function() {
 
     });
 
-    describe('01 - index rebuild', () => {
+    describe('01 - index rebuild', function() {
 
       it('generated index name is given in result details', async () => {
         const result = await service('test_alias').rebuild({
@@ -76,7 +77,7 @@ describe('event-search - functional: rebuild', function() {
 
         (await service.getConfig().client.indices.exists({
           index: result.detail.index
-        })).should.equal(true);
+        })).body.should.equal(true);
       });
 
       it('.exists endpoint indicates when an index does not exist', async () => {
@@ -95,13 +96,13 @@ describe('event-search - functional: rebuild', function() {
 
     } );
 
-  } );
+  });
 
-  describe( 'extending the mapping', function() {
+  describe('extending the mapping', function() {
 
     let service;
 
-    this.timeout(30000);
+    this.timeout(60000);
 
     async function eventsList(offset, limit) {
       return JSON.parse(
@@ -113,11 +114,11 @@ describe('event-search - functional: rebuild', function() {
       service = Service(config);
     });
 
-    it( 'takes schema fields and uses it to extend mapping', async () => {
+    it('takes schema fields and uses it to extend mapping', async () => {
 
       const config = service.getConfig();
 
-      await service( 'test_alias_extended' ).rebuild( {
+      await service('test_alias_extended').rebuild({
         eventsList,
         extensions: {
           custom: {
@@ -129,27 +130,34 @@ describe('event-search - functional: rebuild', function() {
             }
           }
         }
-      } );
+      });
+
+      /*
+        {
+          "body": {
+            "test_alias_extended_20200102t1036": {
+              "mappings": {
+      */
 
       // look at mapping
-      let result = await config.client.indices.getMapping( {
-        index: 'test_alias_extended',
-        type: config.type
-      } );
+      const mappings = await config.client.indices.getMapping({
+        index: 'test_alias_extended'
+      }).then(r => r.body[Object.keys(r.body)[0]].mappings);
 
-      result[ Object.keys( result )[ 0 ] ].mappings.event.properties.custom
 
-      .should.eql( { properties: {
-        expectedParticipants: {
-          type: 'integer'
-        },
-        inquiryEmail: {
-          type: 'keyword'
-        },
-        search_internal_keywords: {
-          type: 'keyword'
+      mappings.properties.custom.should.eql({
+        properties: {
+          expectedParticipants: {
+            type: 'integer'
+          },
+          inquiryEmail: {
+            type: 'keyword'
+          },
+          search_internal_keywords: {
+            type: 'keyword'
+          }
         }
-      } } );
+      });
 
     } );
 

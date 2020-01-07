@@ -43,7 +43,7 @@ describe('16 - event search - functional: more like this', function() {
 
   describe( 'dsl more like this', () => {
 
-    it( 'a more like this taken from keywords', async () => {
+    it('a more like this taken from keywords', async () => {
 
       /**
        * as seen in 15_ tests, array of values matches only
@@ -52,7 +52,7 @@ describe('16 - event search - functional: more like this', function() {
 
       const { events } = await dslSearch( 'simple_search', {
         query: {
-          mlt: {
+          more_like_this: {
             fields: [ 'search_internals_keywords' ],
             min_term_freq: 1,
             min_doc_freq: 1,
@@ -61,9 +61,8 @@ describe('16 - event search - functional: more like this', function() {
         }
       } );
 
-      events[ 0 ].uid.should.equal( 82 );
-
-    } );
+      events.map(e => e.uid).sort().should.eql([57, 82]);
+    });
 
   } );
 
@@ -77,46 +76,37 @@ describe('16 - event search - functional: more like this', function() {
         }
       } );
 
-      total.should.equal( 2 );
+      total.should.equal(2);
 
-      events.map( e => e.uid )
-
-        // as dataset changes, ordering is not constant.
-        .sort( ( e1, e2 ) => e1.id < e2.id )
-
-        .should.eql( [ 82, 57 ] );
+      events.map(e => e.uid).sort().should.eql([57, 82]);
 
     } );
 
-    it( 'mlt on two keywords', async () => {
-
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+    it('mlt on two keywords', async () => {
+      const { total, events } = await service('simple_search').moreLikeThis( {
         keywords: {
           fr: [ 'vin chaud', 'bières' ]
         }
       } );
 
       // still matches event with "vin chaud" keyword only
-      total.should.equal( 2 );
+      total.should.equal(2);
 
       // but event with all keywords comes in first
-      events[ 0 ].uid.should.equal( 82 );
+      events[0].uid.should.equal(82);
+    });
 
-    } );
-
-    it( 'mlt on title', async () => {
-
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+    it('mlt on title', async () => {
+      const { total, events } = await service('simple_search').moreLikeThis( {
         title: {
           fr: 'Bazar'
         }
-      } );
+      });
 
-      total.should.equal( 1 );
+      total.should.equal(1);
 
-      events[ 0 ].uid.should.equal( 107 );
-
-    } );
+      events[0].uid.should.equal(107);
+    });
 
     it( 'mlt on title and keywords', async () => {
 
@@ -129,7 +119,7 @@ describe('16 - event search - functional: more like this', function() {
         }
       } );
 
-      events.map( e => e.uid ).should.eql( [ 157, 132 ] );
+      events.map( e => e.uid ).should.eql( [132, 157] );
 
     } );
 
@@ -145,7 +135,7 @@ describe('16 - event search - functional: more like this', function() {
       };
 
       ( await service( 'simple_search' ).moreLikeThis( mltRequest, {
-        boost: { title: 20, keywords: 30 }
+        boost: { title: 20, keywords: 50 }
       } ) ).events.map( e => e.uid ).should.eql( [ 157, 132 ] );
 
       ( await service( 'simple_search' ).moreLikeThis( mltRequest, {
@@ -273,8 +263,7 @@ describe('16 - event search - functional: more like this', function() {
         }
       });
 
-
-      events1[0].slug.should.equal('finger_event_1');
+      events1[0].slug.should.equal('shop_event');
 
       const {
         events: events2
@@ -285,7 +274,7 @@ describe('16 - event search - functional: more like this', function() {
         }
       } );
 
-      events2[0].slug.should.equal('finger_event_2');
+      events2[0].slug.should.equal('masdar_event_1');
 
     } );
 

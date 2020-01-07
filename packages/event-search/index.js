@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
-const elasticsearch = require('elasticsearch');
+const elasticsearch = require('@elastic/elasticsearch');
 const logger = require('@openagenda/logs');
 
 const add = require('./service/add');
@@ -16,7 +16,7 @@ const update = require('./service/update');
 
 module.exports = c => {
   const config = Object.assign({
-    client: new elasticsearch.Client(_.pick(c.elasticsearch, ['host', 'log'])),
+    client: new elasticsearch.Client(_.pick(c.elasticsearch, ['node', 'log'])),
     type: 'event',
     baseSearchIncludes: searchIncludes.base,
     detailedSearchIncludes: searchIncludes.detailed
@@ -28,7 +28,7 @@ module.exports = c => {
 
   return Object.assign(alias => ({
     name: alias,
-    exists: () => config.client.indices.existsAlias({ name: alias }),
+    exists: () => config.client.indices.existsAlias({ name: alias }).then(r => r.body),
     rebuild: rebuild.bind(null, config, alias),
     deleteIndex: deleteIndex.bind(null, config, alias),
     search: search(config, alias),

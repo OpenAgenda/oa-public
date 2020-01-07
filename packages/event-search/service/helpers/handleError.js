@@ -1,13 +1,12 @@
-"use strict";
+'use strict';
 
-const VError = require( 'verror' );
-const _ = require( 'lodash' );
+const VError = require('verror');
+const _ = require('lodash');
 
 module.exports = (config, ...args) => {
-
   const err = args.shift();
 
-  if (_.isObject(err) && err.status === 404) {
+  if (_.isObject(err) && err.body.status === 404) {
     return {
       success: false,
       status: 404,

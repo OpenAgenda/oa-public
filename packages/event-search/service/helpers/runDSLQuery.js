@@ -1,10 +1,10 @@
-'use stric';
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
+const textLog = require('./textLog');
 
-module.exports = async ({ client, type }, alias, DSL, options = {}) => {
+module.exports = async ({ client }, alias, DSL, options = {}) => {
   const search = {
-    type,
     index: alias,
     body: DSL,
     scroll: options.scroll
@@ -12,12 +12,13 @@ module.exports = async ({ client, type }, alias, DSL, options = {}) => {
 
   const res = await client.search(search);
 
-  return Object.assign({
-    events: res.hits.hits.map(h => h['_source']),
-    total: res.hits.total,
-    scrollId: res['_scroll_id'],
-    searchAfter: DSL.sort && res.hits.hits.length ? res.hits.hits[res.hits.hits.length - 1].sort : null
-  }, DSL.aggregations ? {
-    aggregations: res.aggregations
-  } : {})
+  return {
+    events: res.body.hits.hits.map(h => h['_source']),
+    total: res.body.hits.total.value,
+    scrollId: res.body['_scroll_id'],
+    searchAfter: DSL.sort && res.body.hits.hits.length ? res.body.hits.hits[res.body.hits.hits.length - 1].sort : null,
+    ...(DSL.aggregations ? {
+      aggregations: res.body.aggregations
+    } : {})
+  };
 }

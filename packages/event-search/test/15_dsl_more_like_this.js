@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const config = require( '../testconfig' );
-const elasticsearch = require( 'elasticsearch' );
+const elasticsearch = require( '@elastic/elasticsearch' );
 const ih = require( 'immutability-helper' );
 const should = require( 'should' );
 
@@ -54,7 +54,7 @@ describe( 'event-search - unit: more like this search', function() {
   describe( 'on simple index', () => {
 
     const client = new elasticsearch.Client({
-      host: config.elasticsearch.host
+      node: config.elasticsearch.node
     });
 
     before( async () => {
@@ -63,22 +63,20 @@ describe( 'event-search - unit: more like this search', function() {
         index: 'simple_more_like_this',
         body: {
           mappings: {
-            notes: {
-              properties: {
-                note: {
-                  type: 'text',
-                },
-                category: {
-                  type: 'keyword'
-                },
-                tags: {
-                  type: 'keyword'
-                },
-                place: {
-                  properties: {
-                    name: {
-                      type: 'text'
-                    }
+            properties: {
+              note: {
+                type: 'text',
+              },
+              category: {
+                type: 'keyword'
+              },
+              tags: {
+                type: 'keyword'
+              },
+              place: {
+                properties: {
+                  name: {
+                    type: 'text'
                   }
                 }
               }
@@ -92,12 +90,10 @@ describe( 'event-search - unit: more like this search', function() {
     before( async () => {
 
       for( let item of moreLikeThisData ) {
-
         await client.index( {
           id: item.id,
           index: 'simple_more_like_this',
           refresh: true,
-          type: 'notes',
           body: item
         } );
 
@@ -114,9 +110,7 @@ describe( 'event-search - unit: more like this search', function() {
     } );
 
     it( 'matches text field content', async () => {
-
-      ( await client.search( {
-        type: 'notes',
+      (await client.search( {
         index: 'simple_more_like_this',
         body: {
           query: {
@@ -125,15 +119,14 @@ describe( 'event-search - unit: more like this search', function() {
             }
           }
         }
-      } ) ).hits.total.should.equal( 3 );
+      }).then(r => r.body.hits.total.value)).should.equal(3);
 
-      ( await client.search( {
-        type: 'notes',
+      (await client.search({
         index: 'simple_more_like_this',
         body: {
           query: {
-            mlt: {
-              fields: [ 'note' ],
+            more_like_this: {
+              fields: ['note'],
               like: 'This is not working.',
               min_term_freq: 1,
               max_query_terms: 12,
@@ -141,18 +134,16 @@ describe( 'event-search - unit: more like this search', function() {
             }
           }
         }
-      } ) ).hits.total.should.equal( 3 );
+      }).then(r => r.body.hits.total.value)).should.equal(3);
+    });
 
-    } );
+    it('works with keyword field too', async () => {
 
-    it( 'works with keyword field too', async () => {
-
-      ( await client.search( {
-        type: 'notes',
+      (await client.search( {
         index: 'simple_more_like_this',
         body: {
           query: {
-            mlt: {
+            more_like_this: {
               fields: [ 'category' ],
               like: 'plant',
               min_term_freq: 1,
@@ -160,18 +151,15 @@ describe( 'event-search - unit: more like this search', function() {
             }
           }
         }
-      } ) ).hits.total.should.equal( 2 );
+      } ) ).body.hits.total.value.should.equal(2);
+    });
 
-    } );
-
-    it( 'works on keywords inside arrays', async () => {
-
-      ( await client.search( {
-        type: 'notes',
+    it('works on keywords inside arrays', async () => {
+      (await client.search({
         index: 'simple_more_like_this',
         body: {
           query: {
-            mlt: {
+            more_like_this: {
               fields: [ 'tags' ],
               like: 'tree',
               min_term_freq: 1,
@@ -179,18 +167,15 @@ describe( 'event-search - unit: more like this search', function() {
             }
           }
         }
-      } ) ).hits.total.should.equal( 2 );
+      })).body.hits.total.value.should.equal(2);
+    });
 
-    } );
-
-    it( 'works on sub-objects too', async () => {
-
-      ( await client.search( {
-        type: 'notes',
+    it('works on sub-objects too', async () => {
+      (await client.search({
         index: 'simple_more_like_this',
         body: {
           query: {
-            mlt: {
+            more_like_this: {
               fields: [ 'tags', 'place.name' ],
               like: 'masdar',
               min_term_freq: 1,
@@ -198,19 +183,18 @@ describe( 'event-search - unit: more like this search', function() {
             }
           }
         }
-      } ) ).hits.total.should.greaterThanOrEqual( 2 );
+      })).body.hits.total.value.should.greaterThanOrEqual( 2 );
+    });
 
-    } );
+    describe('like with docs', () => {
 
-    describe( 'like with docs', () => {
+      const _searchNotes = _getSearchResult.bind(null, client, 'simple_more_like_this');
 
-      const _searchNotes = _getSearchResult.bind( null, client, 'simple_more_like_this', 'notes' );
-
-      it( 'array of keywords does not match in doc search', async () => {
+      it('array of keywords does not match in doc search', async () => {
 
         const result = await _searchNotes( {
           query: {
-            mlt: {
+            more_like_this: {
               fields: [ 'tags' ],
               min_term_freq: 1,
               min_doc_freq: 1,
@@ -223,15 +207,15 @@ describe( 'event-search - unit: more like this search', function() {
           }
         } )
 
-        _getIds( result ).should.eql( [] );
+        _getIds(result).should.eql( [] );
 
-      } );
+      });
 
       it( 'array of keywords matches plain text', async () => {
 
         const result = await _searchNotes( {
           query: {
-            mlt: {
+            more_like_this: {
               fields: [ 'tags' ],
               min_term_freq: 1,
               min_doc_freq: 1,
@@ -248,7 +232,7 @@ describe( 'event-search - unit: more like this search', function() {
 
         const result = await _searchNotes( {
           query: {
-            mlt: {
+            more_like_this: {
               fields: [ 'tags', 'note', 'place.name' ],
               min_term_freq: 1,
               min_doc_freq: 1,
@@ -279,14 +263,14 @@ describe( 'event-search - unit: more like this search', function() {
           query: {
             dis_max: {
               queries: [ {
-                mlt: {
+                more_like_this: {
                   fields: [ 'note' ],
                   min_term_freq: 1,
                   min_doc_freq: 1,
                   like: 'masdar'
                 }
               }, {
-                mlt: {
+                more_like_this: {
                   boost: 20,
                   fields: [ 'place.name' ],
                   min_term_freq: 1,
@@ -294,7 +278,7 @@ describe( 'event-search - unit: more like this search', function() {
                   like: 'masdar'
                 }
               }, {
-                mlt: {
+                more_like_this: {
                   boost: 30,
                   fields: [ 'tags' ],
                   min_term_freq: 1,
@@ -311,13 +295,13 @@ describe( 'event-search - unit: more like this search', function() {
       } );
 
 
-      it( 'mlt query can be filtered', async () => {
+      it('mlt query can be filtered', async () => {
 
         const result = await _searchNotes( {
           query: {
             bool: {
               must: {
-                mlt: {
+                more_like_this: {
                   fields: [ 'tags', 'note', 'place.name' ],
                   min_term_freq: 1,
                   min_doc_freq: 1,
@@ -340,9 +324,9 @@ describe( 'event-search - unit: more like this search', function() {
           }
         } );
 
-        _getIds( result, true ).should.eql( [ 1, 2 ] );
+        _getIds(result, true).should.eql([1]);
 
-      } );
+      });
 
 
       // this does not return constant result orders
@@ -351,7 +335,7 @@ describe( 'event-search - unit: more like this search', function() {
         // 5 has yup all over it
         _getIds( await _searchNotes( {
           query: {
-            mlt: {
+            more_like_this: {
               fields: [ 'tags', 'place.name', 'note' ],
               min_term_freq: 1,
               min_doc_freq: 1,
@@ -363,11 +347,10 @@ describe( 'event-search - unit: more like this search', function() {
       } );*/
 
 
-      it( 'mlt result count is limited to 10 by default', async () => {
-
+      it('mlt result count is limited to 10 by default', async () => {
         _getIds( await _searchNotes( {
           query: {
-            mlt: {
+            more_like_this: {
               fields: [ 'tags', 'place.name', 'note' ],
               min_term_freq: 1,
               min_doc_freq: 1,
@@ -375,18 +358,14 @@ describe( 'event-search - unit: more like this search', function() {
             }
           }
         } ) ).length.should.equal( 10 );
+      });
 
-      } );
-
-
-
-      it( 'mlt can be filtered', async () => {
-
-        _getIds( await _searchNotes( {
+      it('mlt can be filtered', async () => {
+        _getIds(await _searchNotes({
           query: {
             bool: {
               must: {
-                mlt: {
+                more_like_this: {
                   fields: [ 'note' ],
                   min_term_freq: 1,
                   min_doc_freq: 1,
@@ -400,16 +379,13 @@ describe( 'event-search - unit: more like this search', function() {
               }
             }
           }
-        } ), true ).should.eql( [ 1, 2 ] )
+        } ), true).should.eql([2, 1])
+      });
 
-      } );
-
-
-      it( 'mlt can be retrieved based on given document ids', async () => {
-
-        ( await _searchNotes( {
+      it('mlt can be retrieved based on given document ids', async () => {
+        (await _searchNotes( {
           query: {
-            mlt: {
+            more_like_this: {
               fields: [ 'place.name' ],
               min_term_freq: 1,
               min_doc_freq: 1,
@@ -418,17 +394,14 @@ describe( 'event-search - unit: more like this search', function() {
               } ]
             }
           }
-        } ) ).hits.hits[ 0 ]._source.id.should.equal( 2 );
-
-      } );
-
-
-    } );
+        } ) ).body.hits.hits[ 0 ]._source.id.should.equal( 2 );
+      });
+    });
 
   } );
 
 
-  describe( 'on event-like mapping', () => {
+  describe('on event-like mapping', () => {
 
     let service, dslSearch;
 
@@ -439,16 +412,19 @@ describe( 'event-search - unit: more like this search', function() {
     before(() => {
       service = Service(config);
 
-      dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
+      dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client']));
     });
 
     before( async () => {
 
       // list must be prepared to give all needed data
       // for index
-      function eventsList( offset, limit ) {
+      function eventsList(lastId, limit) {
 
-        return new Promise( rs => rs( moreLikeThisEvents.slice( offset, offset + limit ) ) );
+        return new Promise( rs => rs({
+          events: moreLikeThisEvents,
+          lastId: -1
+        }));
 
       }
 
@@ -473,9 +449,9 @@ describe( 'event-search - unit: more like this search', function() {
 
     } );
 
-    it( 'this returns events with Paris in internal full address field', async () => {
+    it('this returns events with Paris in internal full address field', async () => {
 
-      const result = await dslSearch( 'more_like_this', {
+      const result = await dslSearch('more_like_this', {
         query: {
           more_like_this: {
             fields: [ 'search_internals_full_address_text' ],
@@ -488,7 +464,7 @@ describe( 'event-search - unit: more like this search', function() {
             } ]
           }
         }
-      } );
+      });
 
       result.events[ 0 ].search_internals_full_address_text.indexOf( 'Paris' ).should.not.equal( -1 );
 
@@ -549,7 +525,7 @@ describe( 'event-search - unit: more like this search', function() {
 
       const { events } = await dslSearch( 'more_like_this', {
         query: {
-          mlt: {
+          more_like_this: {
             fields: [ 'custom.search_internals_keywords' ],
             min_term_freq: 1,
             min_doc_freq: 1,
@@ -640,7 +616,7 @@ describe( 'event-search - unit: more like this search', function() {
 
       const { events } = await dslSearch( 'more_like_this', {
         query: {
-          mlt: {
+          more_like_this: {
             fields: [ 'location.department' ],
             min_term_freq: 1,
             min_doc_freq: 1,
@@ -659,7 +635,6 @@ describe( 'event-search - unit: more like this search', function() {
 
 
     it( 'sort and source keys belong on the root', async () => {
-
       const moreLikeThisQuery = {
         query: {
           bool: {
@@ -675,13 +650,13 @@ describe( 'event-search - unit: more like this search', function() {
                 } ]
               }
             },
-            filter: {
-              /*range: {
+            /*filter: {
+              range: {
                 search_internals_last_timing: {
                   gte: 'now-1d/d'
                 }
-              }*/
-            }
+              }
+            }*/
           }
         },
         _source: {
@@ -836,7 +811,7 @@ describe( 'event-search - unit: more like this search', function() {
       });
 
       dsl.query.should.eql( {
-        mlt: {
+        more_like_this: {
           fields: [ 'search_internals_keywords_text' ],
           min_word_length: 3,
           min_term_freq: 1,
@@ -863,7 +838,7 @@ describe( 'event-search - unit: more like this search', function() {
       } );
 
       dsl.query.should.eql( {
-        mlt: {
+        more_like_this: {
           fields: [
             "custom.search_internals_keywords",
             "custom.sometextfield"
@@ -907,7 +882,7 @@ describe( 'event-search - unit: more like this search', function() {
         "dis_max": {
           "queries": [
             {
-              "mlt": {
+              "more_like_this": {
                 "fields": [
                   "custom.search_internals_keywords"
                 ],
@@ -930,7 +905,7 @@ describe( 'event-search - unit: more like this search', function() {
               }
             },
             {
-              "mlt": {
+              "more_like_this": {
                 "fields": [
                   "custom.search_internals_keywords"
                 ],
@@ -952,7 +927,7 @@ describe( 'event-search - unit: more like this search', function() {
                 }
               },
               {
-                "mlt": {
+                "more_like_this": {
                   "fields": [
                     "custom.search_internals_keywords",
                     "custom.sometextfield"
@@ -990,7 +965,7 @@ describe( 'event-search - unit: more like this search', function() {
 
 function _getIds( result, sort = false ) {
 
-  const ids = result.hits.hits.map( h => h._source.id );
+  const ids = result.body.hits.hits.map( h => h._source.id );
 
   if ( !sort ) return ids;
 
@@ -998,10 +973,10 @@ function _getIds( result, sort = false ) {
 
 }
 
-function _getSearchResult( client, index, type, body ) {
+function _getSearchResult( client, index, body ) {
 
   // getMoreLikeThis
 
-  return client.search( { type, index, body } );
+  return client.search( { index, body } );
 
 }

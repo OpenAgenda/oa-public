@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const fs = require('fs');
@@ -58,7 +58,7 @@ describe('10 - event-search - unit: dsl search', function() {
         query: {
           bool: {
             filter: [{
-              in: {
+              terms: {
                 uid: [ 6, 11 ]
               }
             }]
@@ -201,7 +201,7 @@ describe('10 - event-search - unit: dsl search', function() {
 
       let { events, total } = await dslSearch( 'simple_search', dsl );
 
-      events.map( e => e.slug ).should.eql([ 'multi_1', 'multi_2', 'multi_3' ]);
+      events.map(e => e.slug).should.eql(['multi_2', 'multi_1', 'multi_3']);
 
     } );
 
@@ -485,7 +485,7 @@ describe('10 - event-search - unit: dsl search', function() {
 
       let fetchedCount = 0;
 
-      let cacheFor = '1m';
+      const cacheFor = '1m';
 
       let { events, scrollId } = await dslSearch( 'simple_search', dsl, { scroll: cacheFor } );
 
@@ -495,7 +495,7 @@ describe('10 - event-search - unit: dsl search', function() {
 
       fetchedCount += events.length;
 
-      let result = await service('simple_search').search.scroll( scrollId, cacheFor );
+      const result = await service('simple_search').search.scroll(scrollId, cacheFor);
 
       fetchedCount += result.events.length;
 
@@ -536,7 +536,7 @@ describe('10 - event-search - unit: dsl search', function() {
 
       } catch ( err ) {
 
-        err.message.should.equal( '[illegal_state_exception] No matching token for number_type [BIG_INTEGER]' );
+        err.message.should.equal( 'illegal_argument_exception' );
 
       }
 

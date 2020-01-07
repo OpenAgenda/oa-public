@@ -11,43 +11,27 @@ const log = require( '@openagenda/logs' )( 'update' );
 
 module.exports = async function(config, alias, identifiers, eventPart, options = {}) {
   const params = Object.assign({
-    refresh: false,
-    expire: false
+    refresh: false
   }, options);
 
-  const { client, type } = config;
+  const { client } = config;
 
-  let ttl, lastTimingEndsInDays, res;
-
-  if (params.expire && eventPart.timings) {
-    lastTimingEndsInDays = lastTimingEndsIn(eventPart);
-    ttl = lastTimingEndsInDays + 'd';
-  }
-
-  if ( lastTimingEndsInDays !== undefined && lastTimingEndsInDays < 0 ) {
-    try {
-      return remove(config, alias, identifiers, options);
-    } catch ( err ) {
-      return handleError(config, err, 'failed to remove past event %s in index of alias %s', identifiers.uid, alias );
-    }
-  }
+  let res;
 
   try {
     res = await client.update({
       index: alias,
-      type,
       body: {
         doc: parseDoc(eventPart, true)
       },
       id: identifiers.uid,
-      refresh: params.refresh,
-      ttl
+      refresh: params.refresh
     });
   } catch (err) {
     return handleError(config,  err, 'failed to update event %s in index of alias %s', identifiers.uid, alias);
   }
 
-  if (res.result === 'updated') {
+  if (res.body.result === 'updated') {
     log('info', 'event %j was updated in alias %s', identifiers, alias, {
       operation: 'update',
       alias,
@@ -62,7 +46,6 @@ module.exports = async function(config, alias, identifiers, eventPart, options =
   }
 
   return {
-    success: res.result === 'updated',
-    ttl
+    success: res.body.result === 'updated'
   }
 }

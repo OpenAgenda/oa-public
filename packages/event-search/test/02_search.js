@@ -9,7 +9,7 @@ const config = require('../testconfig');
 const custom = JSON.parse(fs.readFileSync(__dirname + '/service/custom.json', 'utf-8'));
 const Service = require('../');
 
-describe( 'event search - functional: search', function() {
+describe('02 - event search - functional: search', function() {
 
   describe('simple', function() {
     let service;
@@ -34,11 +34,10 @@ describe( 'event search - functional: search', function() {
       events[0].slug.should.equal('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
     });
 
-    it( 'by default, only fields defined in service/config base fields are returned', async () => {
+    it('by default, only fields defined in service/config base fields are returned', async () => {
+      const { events, total } = await service('simple_search').search({ uid: 6 });
 
-      const { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
-
-      const postParseFields = [ 'contributor', 'lastTiming', 'nextTiming' ];
+      const postParseFields = ['contributor', 'lastTiming', 'nextTiming'];
 
       const expectedFields = service.getConfig().baseSearchIncludes.concat( postParseFields ).map( f => f.split( '.' )[ 0 ] );
 
@@ -46,30 +45,26 @@ describe( 'event search - functional: search', function() {
         .filter( field => !expectedFields.includes( field ) )
         .should.eql( [] );
 
-    } );
+    });
 
-    it( 'by default, event timings are converted to local timezone', async () => {
-
-      const { events, total } = await service( 'simple_search' ).search({ uid: 6 }, null, { detailed: true });
+    it('by default, event timings are converted to local timezone', async () => {
+      const { events, total } = await service('simple_search').search({ uid: 6 }, null, { detailed: true });
 
       events[0].timings[0].begin.should.equal('2016-10-24T14:00:00+02:00');
+    });
 
-    } );
+    it('by default, undetailed search returns location name, address, latitude and longitude', async () => {
+      const { events, total } = await service('simple_search').search({ uid: 6 });
 
-    it( 'by default, undetailed search returns location name, address, latitude and longitude', async () => {
+      _.keys(events[0].location).sort().should.eql(['address', 'latitude', 'longitude', 'name']);
+    });
 
-      const { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
-
-      _.keys( events[ 0 ].location ).sort().should.eql( [ 'address', 'latitude', 'longitude', 'name' ] );
-
-    } );
-
-    it( 'if monolingual option is set, multilingal fields are flattened to specified language', async () => {
+    it('if monolingual option is set, multilingal fields are flattened to specified language', async () => {
 
       const { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, {
         monolingual: 'fr',
         detailed: true
-      } );
+      });
 
       [
         'title',
@@ -77,19 +72,17 @@ describe( 'event search - functional: search', function() {
         'dateRange',
         'country',
         'longDescription'
-      ].map( f => events[ 0 ][ f ] ).forEach( data => {
+      ].map(f => events[0][f]).forEach(data => {
+        (typeof data).should.equal('string');
+      });
 
-        ( typeof data ).should.equal( 'string');
+    });
 
-      } );
+    it('all fields are returned when detailed option is true', async () => {
 
-    } );
+      let { events, total } = await service('simple_search').search({ uid: 6 }, null, { detailed: true });
 
-    it( 'all fields are returned when detailed option is true', async () => {
-
-      let { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, { detailed: true } );
-
-      Object.keys( events[ 0 ] ).should.eql( [
+      Object.keys(events[0]).should.eql([
         'longDescription',
         'country',
         'image',
@@ -115,9 +108,9 @@ describe( 'event search - functional: search', function() {
         'updatedAt',
         'lastTiming',
         'nextTiming'
-      ] );
+      ]);
 
-    } );
+    });
 
 
     it('several events can be retrieved by uid at once', async () => {
@@ -135,15 +128,13 @@ describe( 'event search - functional: search', function() {
     });
 
 
-    it( 'open search one or more words', async () => {
+    it('open search one or more words', async () => {
+      const { events, total } = await service('simple_search').search({ search: 'Mississipi' });
 
-      let { events, total } = await service( 'simple_search' ).search( { search: 'Mississipi' } );
+      total.should.equal(3);
 
-      total.should.equal( 3 );
-
-      events.map( e => e.slug ).should.eql( [ 'multi_1', 'multi_3', 'multi_2' ] );
-
-    } );
+      events.map(e => e.slug).should.eql(['multi_1', 'multi_2', 'multi_3']);
+    });
 
     it( 'search on word with apostrophe', async () => {
 
@@ -457,28 +448,27 @@ describe( 'event search - functional: search', function() {
       } );
 
 
-      it( 'timing aggregation: keyword search with results', async () => {
-
-        let { aggregations, events } = await service( 'simple_search' ).search( {
+      it('timing aggregation: keyword search with results', async () => {
+        const {
+          aggregations, events
+        } = await service('simple_search').search({
           date: {
-            gte: new Date( '2010-04-01' ),
-            lte: new Date( '2010-04-30' )
+            gte: new Date('2010-04-01'),
+            lte: new Date('2010-04-30')
           },
           keyword: 'word'
         }, { size: 0 }, {
-          aggregations: [ {
+          aggregations: [{
             type: 'timingsReverseHits'
-          } ]
-        } );
+          }]
+        });
 
-        aggregations.timingsReverseHits.length.should.equal( 30 );
+        aggregations.timingsReverseHits.length.should.equal(30);
 
-        aggregations.timingsReverseHits[ 0 ].count.should.equal( 1 );
+        aggregations.timingsReverseHits[0].count.should.equal(1);
 
-        aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ].uid.should.equal( 14 );
-
-      } );
-
+        aggregations.timingsReverseHits[0].sampleEvents[0].uid.should.equal(14);
+      });
 
       it( 'reverse timing aggregation parses sample events', async () => {
 
@@ -507,7 +497,6 @@ describe( 'event search - functional: search', function() {
     describe('stream', () => {
 
       it('simple streamed search returns all the events matching the search', async () => {
-
         const { total } = await service('simple_search').search();
 
         const stream = service('simple_search').search.stream();
@@ -524,7 +513,6 @@ describe( 'event search - functional: search', function() {
             rs();
           });
         });
-
       });
 
       it('streamed events appear in the same order as a regular search', async () => {
@@ -578,7 +566,7 @@ describe( 'event search - functional: search', function() {
 
         return new Promise(rs => {
           stream.on('end', () => {
-            total.should.equal(count + 1);
+            total.should.equal(count+1);
             rs();
           });
         });
@@ -587,9 +575,9 @@ describe( 'event search - functional: search', function() {
 
     } );
 
-    it( 'geolocation filtering', async () => {
+    it('geolocation filtering', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( {
+      let { events, total } = await service('simple_search').search({
         geo: {
           northEast: {
             lat: 50,
@@ -600,13 +588,12 @@ describe( 'event search - functional: search', function() {
             lng: 5
           }
         }
-      } );
+      });
 
-      total.should.equal( 1 );
+      total.should.equal(1);
 
-      events.map( e => e.slug ).should.eql( [ 'verdun_bound_box' ] );
-
-    } );
+      events.map(e => e.slug).should.eql([ 'verdun_bound_box' ]);
+    });
 
 
     it( 'sorting can show in order upcoming first and past second, then nearest from now first', async () => {
@@ -714,10 +701,10 @@ describe( 'event search - functional: search', function() {
 
   } );
 
-  describe( 'custom', function() {
+  describe('custom', function() {
     let service;
 
-    this.timeout( 10000 );
+    this.timeout(10000);
 
     before(async () => {
       service = Service(config);

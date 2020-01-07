@@ -40,63 +40,19 @@ describe('06 - event search - functional: update', function() {
   });
 
   it('updating the title means change can be searched after update', async () => {
-
-    let result = await service( 'test_index' ).update( { uid: 2 }, {
+    const result = await service('test_index').update({ uid: 2 }, {
       title: {
         en: 'Witness me!'
       }
-    }, { refresh: true } );
+    }, { refresh: true });
 
-    let { events, total } = await service( 'test_index' ).search( { search: 'Witness' } );
+    let { events, total } = await service('test_index').search({ search: 'Witness' });
 
-    total.should.equal( 1 );
+    total.should.equal(1);
 
-    events[ 0 ].title.should.eql( {
+    events[0].title.should.eql({
       en: 'Witness me!',
       fr: 'Trié: Presque le plus dans le futur'
-    } );
-
-  } );
-
-
-  describe( 'expiring event', () => {
-
-    it( 'when expiry is set returns includes ttl value', async () => {
-
-      const eventData = {
-        timezone: 'Europe/Paris',
-        timings: [ {
-          begin: ( new Date() ).setDate( ( new Date() ).getDate() + 1 ),
-          end: ( new Date() ).setDate( ( new Date() ).getDate() + 1 )
-        } ]
-      };
-
-      const result = await service( 'test_index' ).update( { uid: 2 }, eventData, { expire: true } );
-
-      result.ttl.should.eql( '1d' );
-
-    } );
-
-
-    it( 'when expiry is set and update sets event in the past, it is removed from index', async () => {
-
-      const eventData = {
-        timezone: 'Europe/Paris',
-        timings: [ {
-          begin: ( new Date() ).setDate( ( new Date() ).getDate() - 1 ),
-          end: ( new Date() ).setDate( ( new Date() ).getDate() - 1 )
-        } ]
-      };
-
-      const result = await service( 'test_index' ).update( { uid: 2 }, eventData, { expire: true } );
-
-      result.should.eql( {
-        success: true,
-        message: 'event was removed'
-      } );
-
-    } );
-
-  } );
-
-} );
+    });
+  });
+});

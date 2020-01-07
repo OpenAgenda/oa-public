@@ -19,33 +19,22 @@ module.exports = {
   removeTimingsAndTimezone: require( './removeTimingsAndTimezone' )
 }
 
-function indexBulk( client, indexName, type, parsedEvents, { expire } ) {
-
+function indexBulk(client, indexName, parsedEvents) {
   let filteredEvents = parsedEvents;
 
-  // should make events expire when events are passed, so only index upcoming
-  if ( expire ) {
+  if (!filteredEvents.length) return null;
 
-    filteredEvents = parsedEvents.filter( e => e.timings && ( lastTimingEndsIn( e ) > 0 ) );
-
-  }
-
-  if ( !filteredEvents.length ) return null;
-
-  const body = _.flatten( filteredEvents.map( e => [ {
+  const body = _.flatten(filteredEvents.map(e => [{
     index: {
       _index: indexName,
-      _type: type,
-      _id: e.uid,
-      _ttl: expire && e.timings ? lastTimingEndsIn( e ) + 'd': undefined
+      _id: e.uid
     }
-  }, e ] ) );
+  }, e]));
 
-  return client.bulk( {
+  return client.bulk({
     body,
     //requestTimeout: 60000 // ms
-  } );
-
+  }).then(r => r.body);
 }
 
 
@@ -55,10 +44,10 @@ function checkList(listFunc) {
   }
 
   return listFunc(0, 0).catch(err => {
-    throw new VError( err, 'provided list failed' );
+    throw new VError(err, 'provided list failed');
   }).then(({events}) => {
     if (!_.isArray(events)) {
-      throw new VError( 'list function is not giving a list' );
+      throw new VError('list function is not giving a list');
     }
   });
 }

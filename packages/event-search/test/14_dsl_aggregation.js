@@ -1,8 +1,9 @@
 "use strict";
 
-const should = require( 'should' );
+const _ = require('lodash');
+const should = require('should');
+
 const config = require( '../testconfig' );
-const _ = require( 'lodash' );
 
 const Service = require( '../' );
 const runDSLQuery = require('../service/helpers/runDSLQuery');
@@ -11,11 +12,11 @@ const buildAggregationDsl = require( '../service/aggregation' );
 
 const parseAggregationResult = require( '../service/aggregation' ).parseResult;
 
-const geohashEvents = require( './service/geohashEvents.data' );
+const geohashEvents = require('./service/geohashEvents.data');
 
-describe( 'event-search - unit: dsl aggregation', function() {
+describe('14 - event-search - unit: dsl aggregation', function() {
 
-  describe( 'aggregation options to dsl', function() {
+  describe('aggregation options to dsl', function() {
 
     // when a search is made on the service which requires
     // aggregated results, basic info on the requested aggregation is
@@ -196,10 +197,15 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
       // list must be prepared to give all needed data
       // for index
-      function eventsList( offset, limit ) {
+      async function eventsList(lastId, limit) {
+        const index = lastId === 0 ? 0 : _.findIndex(geohashEvents, { id: lastId }) + 1;
 
-        return new Promise( rs => rs( geohashEvents.slice( offset, offset + limit ) ) );
+        const events = geohashEvents.slice(index, index + limit);
 
+        return {
+          events,
+          lastId: (_.last(events) || { id: -1 }).id
+        };
       }
 
       await service( 'simple_search' ).rebuild( {
@@ -209,12 +215,11 @@ describe( 'event-search - unit: dsl aggregation', function() {
     } );
 
 
-    it( 'get min and max dates using stats aggregation', async () => {
-
+    it('get min and max dates using stats aggregation', async () => {
       const {
         aggregations
-      } = await dslSearch( 'simple_search', {
-        query: {}, // whatever
+      } = await dslSearch('simple_search', {
+        //query: {}, // whatever
         aggregations: {
           minMaxDays: {
             stats: {
@@ -222,23 +227,21 @@ describe( 'event-search - unit: dsl aggregation', function() {
             }
           }
         }
-      } );
+      });
 
-      _.pick( aggregations.minMaxDays, [
+      _.pick(aggregations.minMaxDays, [
         'min_as_string',
         'max_as_string'
-      ] ).should.eql( {
+      ]).should.eql({
         min_as_string: '2017-08-03T19:00:00.000Z',
         max_as_string: '2017-08-08T19:00:00.000Z'
-      } );
+      });
+    });
 
-    } );
-
-    it( 'get the min & max timings', async () => {
+    it('get the min & max timings', async () => {
 
       // I want the first timing and the last
       const { aggregations } = await dslSearch( 'simple_search', {
-        query: {},
         size: 0,
         aggregations: {
           timing_bounds: {
@@ -259,7 +262,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
             }
           }
         }
-      } );
+      });
 
       _.at( aggregations, [ 'timing_bounds.first.value_as_string', 'timing_bounds.last.value_as_string' ] )
 
@@ -268,15 +271,14 @@ describe( 'event-search - unit: dsl aggregation', function() {
     } );
 
 
-    it( 'group events by date range, with sample', async () => {
+    it('group events by date range, with sample', async () => {
 
       /**
        * here timings are nested. I need an aggregation giving me the documents
        * matching the nested timings in a histogram ( not necessarily though )
        */
 
-      let dsl = {
-        query: {},
+      const dsl = {
         aggregations: {
           days: {
             nested: {
@@ -287,7 +289,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
                 date_histogram: {
                   field: 'timings.begin',
                   interval: 'day',
-                  format: 'YYYY-MM-dd'
+                  format: 'yyyy-MM-dd'
                 },
                 aggs: {
                   day_to_event: {
@@ -316,19 +318,18 @@ describe( 'event-search - unit: dsl aggregation', function() {
         }
       }
 
-      let { events, aggregations } = await dslSearch( 'simple_search', dsl );
+      const { events, aggregations } = await dslSearch('simple_search', dsl);
 
-      aggregations.days.day.buckets.map( b => b.day_to_event.top.hits.total ).should.eql( [ 1, 1, 0, 2, 0, 1, 1 ] );
+      aggregations.days.day.buckets
+        .map(b => b.day_to_event.top.hits.total.value)
+        .should.eql([ 1, 1, 0, 2, 0, 1, 1 ]);
 
       aggregations.days.day.buckets[ 3 ].day_to_event.top.hits.hits.map( h => h._source.uid ).should.eql( [ 2222, 4444 ] );
+    });
 
-    } );
 
-
-    it( 'group events by date range, bounded', async () => {
-
-      let dsl = {
-        query: {},
+    it('group events by date range, bounded', async () => {
+      const dsl = {
         aggregations: {
           wigglytime: {
             nested: {
@@ -349,8 +350,7 @@ describe( 'event-search - unit: dsl aggregation', function() {
 
       let { events, aggregations } = await dslSearch( 'simple_search', dsl );
 
-
-      aggregations.wigglytime.datethingie.buckets.should.eql( [
+      aggregations.wigglytime.datethingie.buckets.should.eql([
         { key_as_string: '2017-08-02', key: 1501632000000, doc_count: 1 },
         { key_as_string: '2017-08-03', key: 1501718400000, doc_count: 1 },
         { key_as_string: '2017-08-04', key: 1501804800000, doc_count: 0 },
@@ -358,15 +358,12 @@ describe( 'event-search - unit: dsl aggregation', function() {
         { key_as_string: '2017-08-06', key: 1501977600000, doc_count: 0 },
         { key_as_string: '2017-08-07', key: 1502064000000, doc_count: 1 },
         { key_as_string: '2017-08-08', key: 1502150400000, doc_count: 1 }
-      ] );
+      ]);
+    });
 
-    } );
 
-
-    it( 'group events by location region', async () => {
-
-      let dsl = {
-        query: {},
+    it('group events by location region', async () => {
+      const dsl = {
         aggregations: {
           departmentthingie: {
             terms: { field: 'location.department' }
@@ -374,9 +371,9 @@ describe( 'event-search - unit: dsl aggregation', function() {
         }
       };
 
-      let { events, aggregations } = await dslSearch( 'simple_search', dsl );
+      let { events, aggregations } = await dslSearch('simple_search', dsl);
 
-      aggregations.departmentthingie.buckets.should.eql( [
+      aggregations.departmentthingie.buckets.should.eql([
         {
           key: 'Meuse',
           doc_count: 2
@@ -385,15 +382,13 @@ describe( 'event-search - unit: dsl aggregation', function() {
           key: 'Paris',
           doc_count: 2
         }
-      ] );
+      ]);
 
-    } );
+    });
 
 
-    it( 'geohash aggregation can be used to get event counts by geohash subdivision', async () => {
-
-      let dsl = {
-        query: {},
+    it('geohash aggregation can be used to get event counts by geohash subdivision', async () => {
+      const dsl = {
         aggregations: {
           ceteunpeupenible: {
             geohash_grid: {
@@ -407,17 +402,17 @@ describe( 'event-search - unit: dsl aggregation', function() {
       let {
         events,
         aggregations
-      } = await dslSearch( 'simple_search', dsl );
+      } = await dslSearch('simple_search', dsl);
 
-      aggregations.ceteunpeupenible.should.eql( {
+      aggregations.ceteunpeupenible.should.eql({
         buckets: [
           { key: 'u0ez', doc_count: 2 },
           { key: 'u09w', doc_count: 1 },
           { key: 'u09t', doc_count: 1 }
         ]
-      } );
+      });
 
-    } );
+    });
 
   } );
 

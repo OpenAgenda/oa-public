@@ -3,14 +3,14 @@
 const should = require( 'should' );
 const helpers = require( '../service/helpers' );
 const Service = require( '../' );
-const elasticsearch = require( 'elasticsearch' );
+const elasticsearch = require( '@elastic/elasticsearch' );
 const config = require( '../testconfig' );
 const w = require( 'when' );
 const async = require( 'async' );
 const _ = require( 'lodash' );
 const moment = require( 'moment' );
 
-describe( 'event-search - unit: helpers', function() {
+describe('event-search - unit: helpers', function() {
 
   this.timeout( 10000 );
 
@@ -24,9 +24,9 @@ describe( 'event-search - unit: helpers', function() {
 
   } );
 
-  describe( 'createIndexName', () => {
+  describe('createIndexName', () => {
 
-    it( 'created index name contains alias name and current datetime ( name_20170321t1128 )', () => {
+    it('created index name contains alias name and current datetime ( name_20170321t1128 )', () => {
 
       let aliasName = 'name';
 
@@ -34,9 +34,9 @@ describe( 'event-search - unit: helpers', function() {
 
         .test( helpers.createIndexName( aliasName ) ).should.equal( true );
 
-    } );
+    });
 
-  } );
+  });
 
 
   describe( 'appendNextAndLastTiming', () => {

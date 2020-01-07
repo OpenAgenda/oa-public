@@ -21,7 +21,7 @@ module.exports = (mltRequest, mltOptions = {}, baseQuery = {}) => {
   } else {
     return {
       query: getQuery(baseQuery, {}, {
-        mlt: getMoreLikeThis(mltRequest)
+        more_like_this: getMoreLikeThis(mltRequest)
       }),
       _source: getSource()
     }
@@ -42,14 +42,14 @@ function _spreadByBoostScores( mltRequest, scores, baseQuery = {} ) {
     if ( [ undefined, null ].includes( fieldValue ) ) return null;
 
     return getQuery( baseQuery, {}, {
-      mlt: ih( getMoreLikeThis( _.set( {}, scoredFieldPath, fieldValue ) ), {
+      more_like_this: ih( getMoreLikeThis( _.set( {}, scoredFieldPath, fieldValue ) ), {
         boost: { $set: scores[ scoredField ] },
         fields: { $set: [ boostedField ] }
       } )
     } );
 
   } ).filter( q => !!q ).concat( getQuery( baseQuery, {}, {
-    mlt: getMoreLikeThis( mltRequest )
+    more_like_this: getMoreLikeThis( mltRequest )
   } ) );
 
 }

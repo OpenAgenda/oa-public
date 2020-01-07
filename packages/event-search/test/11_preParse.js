@@ -1,18 +1,17 @@
 "use strict";
 
-const should = require( 'should' );
-const preParse = require( '../service/index/preParse' );
+const should = require('should');
+const preParse = require('../service/index/preParse');
 
-describe( 'event-search - unit: preParse', function() {
+describe('11 - event-search - unit: preParse', function() {
 
-  it( 'title is flattened into an array', () => {
-
-    preParse( {
+  it('title is flattened into an array', () => {
+    preParse({
       title: {
         fr: 'Un titre',
         en: 'A title'
       }
-    } ).should.eql( {
+    }).should.eql( {
       title: {
         fr: 'Un titre',
         en: 'A title'
@@ -21,8 +20,7 @@ describe( 'event-search - unit: preParse', function() {
         'Un titre',
         'A title'
       ]
-    } );
+    });
+  });
 
-  } );
-
-} );
+});

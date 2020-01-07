@@ -48,7 +48,7 @@ function _getQueryFilterParts(cleanQuery) {
   }
 
   if (cleanQuery.uid && cleanQuery.uid.length > 1) {
-    parts.push(_mustPart('in', 'uid', cleanQuery.uid));
+    parts.push(_mustPart('terms', 'uid', cleanQuery.uid));
   } else if (cleanQuery.uid && cleanQuery.uid.length) {
     parts.push(_mustPart('term', 'uid', cleanQuery.uid[0]));
   }
@@ -79,7 +79,7 @@ function _getQueryMustParts(cleanQuery, extensionQueries = {}) {
     const and = _.isArray(field) ? field[2] : false;
 
     if ( _.get(cleanQuery, fromField, [] ).length > 1 && !and) {
-      parts.push(_mustPart('in', toField, cleanQuery[ fromField ]));
+      parts.push(_mustPart('terms', toField, cleanQuery[ fromField ]));
     } else {
       _.get( cleanQuery, fromField, [] )
         .map(_mustPart.bind(null, 'term', toField) )

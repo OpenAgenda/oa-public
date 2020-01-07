@@ -3,7 +3,7 @@
 const should = require('should');
 const query = require('../service/query');
 
-describe('event-search - unit: query.validate', function() {
+describe('12 - event-search - unit: query.validate', function() {
 
   /**
    * oaq.uid ( one or more )
