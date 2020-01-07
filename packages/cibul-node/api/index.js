@@ -19,7 +19,8 @@ const events = {
 }
 
 const settings = {
-  get: require( './endpoints/settingsGet' )
+  get: require( './endpoints/settingsGet' ),
+  resync: require( './endpoints/settingsResync' )
 }
 
 const handleError = require( '../services/errors' ).bind( null, 'api' );
@@ -73,6 +74,11 @@ app.get( '/v2/agendas/:agendaUid/settings', [
   mw.verifyMember.allow( [ 'administrator' ] ),
   settings.get
 ] );
+
+app.post('/v2/agendas/:agendaUid/settings/resync', [
+  mw.verifySuperAdmin,
+  settings.resync
+]);
 
 app.use( ( err, req, res, next ) => {
 

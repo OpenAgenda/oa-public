@@ -718,7 +718,7 @@ function requireSuperAdmin( req, res, next ) {
 
     const id = session.id;
 
-    if ( [ 1, 2, 11258, 15453, 34577 ].indexOf( parseInt( id ) ) !== -1 ) {
+    if ( config.superAdminIds.indexOf( parseInt( id ) ) !== -1 ) {
 
       next();
 
