@@ -10386,7 +10386,7 @@ final-form-arrays@^3.0.2:
 
 final-form-calculate@^1.3.1:
   version "1.3.1"
-  resolved "https://registry.npmjs.org/final-form-calculate/-/final-form-calculate-1.3.1.tgz#463089114245afa97fea94712bfbfca11da8413e"
+  resolved "https://registry.yarnpkg.com/final-form-calculate/-/final-form-calculate-1.3.1.tgz#463089114245afa97fea94712bfbfca11da8413e"
   integrity sha512-vZCvQ08w9FIoHLkZMcJSIXQr5TAVLxHfLD0thmm50zcNyJESruqhgvurSjWYPLoJGnIgbIb94Rumdg5ZXX5WiQ==
 
 final-form-set-field-data@^1.0.2:

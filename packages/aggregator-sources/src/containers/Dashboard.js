@@ -23,6 +23,7 @@ import SourcesList from '../components/SourcesList';
 import AddSourceModal from '../components/AddSourceModal';
 import UpdateSourceModal from '../components/UpdateSourceModal';
 import RemoveSourceModal from '../components/RemoveSourceModal';
+import AggregatorRulesModal from '../components/AggregatorRulesModal';
 
 const fuseOptions = {
   shouldSort: true,
@@ -72,6 +73,23 @@ const messages = defineMessages({
   addASource: {
     id: 'aggregator-sources.Dashboard.addASource',
     defaultMessage: 'Add a source'
+  },
+  aggregatorWithoutFilter: {
+    id: 'aggregator-sources.Dashboard.aggregatorWithoutFilter',
+    defaultMessage: 'Aggregator not filtered'
+  },
+  aggregatorWithFilter: {
+    id: 'aggregator-sources.Dashboard.aggregatorWithFilter',
+    defaultMessage:
+      'Aggregator with {count, plural, =1 {# filter} other {# filters}}'
+  },
+  defineAggregatorFilters: {
+    id: 'aggregator-sources.Dashboard.defineAggregatorFilters',
+    defaultMessage: 'Define filters to apply for all aggregations'
+  },
+  modifyAggregatorFilters: {
+    id: 'aggregator-sources.Dashboard.modifyAggregatorFilters',
+    defaultMessage: 'Modify filters to apply for all aggregations'
   }
 });
 
@@ -96,6 +114,7 @@ function Dashboard({ agenda, agendaSchema }) {
   const res = useSelector(state => state.res);
   const loading = useSelector(state => _.get(state, 'sources.loading', true));
   const listLoading = useSelector(state => state.sources.listLoading);
+  const aggregator = useSelector(state => state.sources.aggregator);
   const agendaSources = useSelector(state => state.sources.data);
   const nextLoading = useSelector(state => state.sources.nextLoading);
   const modals = useSelector(state => state.modals);
@@ -131,6 +150,11 @@ function Dashboard({ agenda, agendaSchema }) {
     () => dispatch(modalsActions.showModal('addSource')),
     [dispatch]
   );
+  const showModalSetAggregatorRules = useCallback(
+    () => dispatch(modalsActions.showModal('setAggregatorRules')),
+    [dispatch]
+  );
+
   const closeModalAddSource = useCallback(
     () => dispatch(modalsActions.closeModal('addSource')),
     [dispatch]
@@ -143,6 +167,10 @@ function Dashboard({ agenda, agendaSchema }) {
     () => dispatch(modalsActions.closeModal('removeSource')),
     [dispatch]
   );
+  const closeModalSetAggregatorRules = useCallback(
+    () => dispatch(modalsActions.closeModal('setAggregatorRules')),
+    [dispatch]
+  );
 
   const debouncedSearch = useMemo(() => _.debounce(search, 400), [search]);
 
@@ -153,6 +181,14 @@ function Dashboard({ agenda, agendaSchema }) {
     [dispatch, value]
   );
 
+  const setAggregatorRules = useCallback(
+    rules => dispatch(sourcesActions.setAggregatorRules(rules)).then(() => {
+      closeModalSetAggregatorRules();
+
+      dispatch(sourcesActions.loadAggregator(params.slug));
+    }),
+    [closeModalSetAggregatorRules, dispatch, params.slug]
+  );
   const addSource = useCallback(
     (sourceAgenda, rules, evaluate) => dispatch(sourcesActions.add(sourceAgenda.uid, { rules, evaluate })).then(
       () => {
@@ -184,6 +220,7 @@ function Dashboard({ agenda, agendaSchema }) {
 
   useEffect(() => {
     dispatch(sourcesActions.load(params.slug, initialQuery.current));
+    dispatch(sourcesActions.loadAggregator(params.slug));
   }, [dispatch, params.slug]);
 
   if (loading) {
@@ -205,7 +242,27 @@ function Dashboard({ agenda, agendaSchema }) {
             placement="left"
           />
         </div>
+
+        <div>
+          {aggregator?.rules?.length
+            ? intl.formatMessage(messages.aggregatorWithFilter, {
+              count: aggregator?.rules?.length
+            })
+            : intl.formatMessage(messages.aggregatorWithoutFilter)}
+          :{' '}
+          <button
+            onClick={showModalSetAggregatorRules}
+            type="button"
+            className="btn btn-link-inline"
+          >
+            {aggregator?.rules?.length
+              ? intl.formatMessage(messages.modifyAggregatorFilters)
+              : intl.formatMessage(messages.defineAggregatorFilters)}
+          </button>
+        </div>
+
         <h2>{intl.formatMessage(messages.sourceAgendas)}</h2>
+
         <div className="margin-v-md">
           <ReactMarkdown
             className="text-muted"
@@ -215,6 +272,7 @@ function Dashboard({ agenda, agendaSchema }) {
             })}
           />
         </div>
+
         <Form initialValues={initialValues} onSubmit={onSearch}>
           {({ handleSubmit }) => (
             <form onSubmit={handleSubmit}>
@@ -257,7 +315,7 @@ function Dashboard({ agenda, agendaSchema }) {
           aggregatorSchema={agendaSchema}
         />
 
-        {!filteredSources || !filteredSources.length ? (
+        {!filteredSources?.length ? (
           <div className="text-center text-muted margin-v-md">
             {intl.formatMessage(messages.noResult)}
           </div>
@@ -270,22 +328,32 @@ function Dashboard({ agenda, agendaSchema }) {
         )}
       </div>
 
-      {modals.addSource && modals.addSource.visible ? (
+      {modals.setAggregatorRules?.visible ? (
+        <AggregatorRulesModal
+          agenda={agenda}
+          aggregator={aggregator}
+          aggregatorSchema={agendaSchema}
+          onClose={closeModalSetAggregatorRules}
+          onSubmit={setAggregatorRules}
+        />
+      ) : null}
+
+      {modals.addSource?.visible ? (
         <AddSourceModal
-          aggregator={agenda}
+          agenda={agenda}
           aggregatorSchema={agendaSchema}
           onClose={closeModalAddSource}
           onSubmit={addSource}
         />
       ) : null}
-      {modals.updateSource && modals.updateSource.visible ? (
+      {modals.updateSource?.visible ? (
         <UpdateSourceModal
           aggregatorSchema={agendaSchema}
           onClose={closeModalUpdateSource}
           onSubmit={updateSource}
         />
       ) : null}
-      {modals.removeSource && modals.removeSource.visible ? (
+      {modals.removeSource?.visible ? (
         <RemoveSourceModal
           onClose={closeModalRemoveSource}
           onRemove={removeSource}

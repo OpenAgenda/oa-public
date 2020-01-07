@@ -273,7 +273,7 @@ function RulesSubmitButton({ handleSubmit, onCancel }) {
 }
 
 export default function AddSourceModal({
-  aggregator,
+  agenda,
   aggregatorSchema,
   onSubmit,
   onClose
@@ -356,13 +356,13 @@ export default function AddSourceModal({
   );
 
   const onSelectAgenda = useCallback(
-    async agenda => {
-      agenda.schema = await apiClient.get(`/${agenda.slug}/settings/schema`);
+    async _agenda => {
+      agenda.schema = await apiClient.get(`/${_agenda.slug}/settings/schema`);
 
-      setSelectedAgenda(agenda);
+      setSelectedAgenda(_agenda);
       setSelectedStep('defineRules');
     },
-    [apiClient, setSelectedStep, setSelectedAgenda]
+    [agenda.schema, apiClient]
   );
 
   const selectStep = useCallback(
@@ -440,11 +440,11 @@ export default function AddSourceModal({
                 </p>
 
                 {state.agendas.length
-                  ? state.agendas.map(agenda => (
+                  ? state.agendas.map(_agenda => (
                     <AgendaItem
-                      key={agenda.uid}
+                      key={_agenda.uid}
                       sources={sources}
-                      agenda={agenda}
+                      agenda={_agenda}
                       onSelect={onSelectAgenda}
                     />
                   ))
@@ -524,7 +524,7 @@ export default function AddSourceModal({
                 <div className="margin-v-sm">
                   <p>
                     {intl.formatMessage(messages.evaluateMessage, {
-                      aggregator: <b>{aggregator.title}</b>,
+                      aggregator: <b>{agenda.title}</b>,
                       source: <b>{selectedAgenda.title}</b>,
                       ruleCount: rules.length
                     })}

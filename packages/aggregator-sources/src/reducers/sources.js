@@ -1,6 +1,9 @@
 const LOAD = 'aggregator-sources/sources/LOAD';
 const LOAD_SUCCESS = 'aggregator-sources/sources/LOAD_SUCCESS';
 const LOAD_FAIL = 'aggregator-sources/sources/LOAD_FAIL';
+const LOAD_AGGREGATOR = 'aggregator-sources/sources/LOAD_AGGREGATOR';
+const LOAD_AGGREGATOR_SUCCESS = 'aggregator-sources/sources/LOAD_AGGREGATOR_SUCCESS';
+const LOAD_AGGREGATOR_FAIL = 'aggregator-sources/sources/LOAD_AGGREGATOR_FAIL';
 const LIST = 'aggregator-sources/sources/LIST';
 const LIST_SUCCESS = 'aggregator-sources/sources/LIST_SUCCESS';
 const LIST_FAIL = 'aggregator-sources/sources/LIST_FAIL';
@@ -13,6 +16,9 @@ const UPDATE_FAIL = 'aggregator-sources/sources/UPDATE_FAIL';
 const REMOVE = 'aggregator-sources/sources/REMOVE';
 const REMOVE_SUCCESS = 'aggregator-sources/sources/REMOVE_SUCCESS';
 const REMOVE_FAIL = 'aggregator-sources/sources/REMOVE_FAIL';
+const SET_AGGREGATOR_RULES = 'aggregator-sources/sources/SET_AGGREGATOR_RULES';
+const SET_AGGREGATOR_RULES_SUCCESS = 'aggregator-sources/sources/SET_AGGREGATOR_RULES_SUCCESS';
+const SET_AGGREGATOR_RULES_FAIL = 'aggregator-sources/sources/SET_AGGREGATOR_RULES_FAIL';
 
 const initialState = {};
 
@@ -37,6 +43,16 @@ export default function reducer(state = initialState, action) {
         data: null,
         error: action.error,
         loading: false
+      };
+    case LOAD_AGGREGATOR_SUCCESS:
+      return {
+        ...state,
+        aggregator: action.result
+      };
+    case LOAD_AGGREGATOR_FAIL:
+      return {
+        ...state,
+        aggregator: null
       };
     case LIST:
       return {
@@ -90,6 +106,17 @@ export function load(slug, query) {
       const { res } = getState();
 
       return client.get(res.list.replace(':slug', slug), { params: query });
+    }
+  };
+}
+
+export function loadAggregator(slug) {
+  return {
+    types: [LOAD_AGGREGATOR, LOAD_AGGREGATOR_SUCCESS, LOAD_AGGREGATOR_FAIL],
+    promise: ({ client }, { getState }) => {
+      const { res } = getState();
+
+      return client.get(res.getAggregator.replace(':slug', slug));
     }
   };
 }
@@ -159,6 +186,25 @@ export function remove(id, { evaluate }) {
         params: {
           evaluate
         }
+      });
+    }
+  };
+}
+
+export function setAggregatorRules(rules) {
+  return {
+    types: [
+      SET_AGGREGATOR_RULES,
+      SET_AGGREGATOR_RULES_SUCCESS,
+      SET_AGGREGATOR_RULES_FAIL
+    ],
+    promise: ({ client, params }, { getState }) => {
+      const { res } = getState();
+
+      const url = res.setAggregator.replace(':slug', params.slug);
+
+      return client.post(url, {
+        rules
       });
     }
   };

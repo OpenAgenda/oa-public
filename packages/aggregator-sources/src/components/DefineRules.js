@@ -182,7 +182,12 @@ function validateActions(intl, rules, aggregatorSchema, sourceSchema) {
       const hasValue = Array.isArray(aggAction?.[fieldSchema.field])
         ? aggAction[fieldSchema.field].length
         : aggAction?.[fieldSchema.field];
-      const inSourceSchema = sourceSchema.fields.find(
+
+      if (!sourceSchema) {
+        return;
+      }
+
+      const inSourceSchema = sourceSchema.fields?.find(
         v => v.schemaId
           && v.field === fieldSchema.field
           && v.schemaId === fieldSchema.schemaId
@@ -473,21 +478,17 @@ export default function DefineRules({
 
   const requiredFields = useMemoOne(
     () => aggregatorSchema.fields.filter(field => {
-      const sourceField = sourceSchema.fields.find(
-        v => v.schemaId
+      const sourceField = sourceSchema?.fields?.find(
+          v => v.schemaId
             && v.field === field.field
             && v.schemaId === field.schemaId
-      );
+        );
 
       if (sourceField) {
         return false;
       }
 
-      if (field.fieldType !== 'abstract' && field.optional === false) {
-        return true;
-      }
-
-      return false;
+      return field.fieldType !== 'abstract' && field.optional === false;
     }),
     [aggregatorSchema.fields]
   );
@@ -560,17 +561,17 @@ export default function DefineRules({
         return;
       }
 
-      let json = null;
+      let json;
 
       try {
         json = JSON.parse(data);
-
-        if (!Array.isArray(json)) {
-          throw new Error('Invalid data: not an array');
-        }
       } catch (e) {
         // Unable to parse
         json = [];
+      }
+
+      if (!Array.isArray(json)) {
+        return;
       }
 
       for (const item of json) {
@@ -660,7 +661,7 @@ export default function DefineRules({
           {intl.formatMessage(messages.description, { br: <br key="br" /> })}
         </p>
 
-        {requiredFieldList.length ? (
+        {sourceSchema && requiredFieldList.length ? (
           <p>
             {intl.formatMessage(messages.requiredFieldsWarning, {
               fields: intl.formatList(requiredFieldList),
@@ -695,23 +696,25 @@ export default function DefineRules({
             </button>
           </p>
 
-          <p>
-            {navigator?.clipboard?.readText ? (
-              <button
-                type="button"
-                className="btn-link-inline"
-                onClick={pasteRules}
-              >
-                <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
-                {intl.formatMessage(messages.pasteRules)}
-              </button>
-            ) : (
-              <em className="text-muted">
-                <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
-                {intl.formatMessage(messages.manualPasteRules)}
-              </em>
-            )}
-          </p>
+          {sourceSchema ? (
+            <p>
+              {navigator?.clipboard?.readText ? (
+                <button
+                  type="button"
+                  className="btn-link-inline"
+                  onClick={pasteRules}
+                >
+                  <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
+                  {intl.formatMessage(messages.pasteRules)}
+                </button>
+              ) : (
+                <em className="text-muted">
+                  <i className="fa fa-sm fa-paste" aria-hidden="true" />{' '}
+                  {intl.formatMessage(messages.manualPasteRules)}
+                </em>
+              )}
+            </p>
+          ) : null}
         </div>
       </div>
     );
@@ -731,7 +734,7 @@ export default function DefineRules({
           onCancel={setModeList}
           component={RuleForm}
           SubmitButton={AddRuleSubmitButton}
-          disabledExtended={!sourceSchema.fields.length}
+          disabledExtended={!sourceSchema?.fields?.length}
           sourceSchema={sourceSchema}
           aggregatorSchema={aggregatorSchema}
         />
@@ -754,7 +757,7 @@ export default function DefineRules({
           component={RuleForm}
           initialValues={initialValues}
           SubmitButton={UpdateRuleSubmitButton}
-          disabledExtended={!sourceSchema.fields.length}
+          disabledExtended={!sourceSchema?.fields?.length}
           sourceSchema={sourceSchema}
           aggregatorSchema={aggregatorSchema}
         />

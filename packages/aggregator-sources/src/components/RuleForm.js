@@ -734,28 +734,30 @@ export default function RuleForm({
               value="location"
               classNameGroup="radio"
               helpBlock={(
-                <div className="radio-help-block">
+                <div className="radio-help-block text-muted">
                   {intl.formatMessage(messages.helpFilterLocation)}
                 </div>
               )}
             />
 
-            <Field
-              component={Radio}
-              name="type"
-              type="radio"
-              label={intl.formatMessage(messages.extendedFilter)}
-              value="extended"
-              classNameGroup={classNames('radio', {
-                disabled: disabledExtended
-              })}
-              disabled={disabledExtended}
-              helpBlock={(
-                <div className="radio-help-block">
-                  {intl.formatMessage(messages.helpFilterExtended)}
-                </div>
-              )}
-            />
+            {sourceSchema ? (
+              <Field
+                component={Radio}
+                name="type"
+                type="radio"
+                label={intl.formatMessage(messages.extendedFilter)}
+                value="extended"
+                classNameGroup={classNames('radio', {
+                  disabled: disabledExtended
+                })}
+                disabled={disabledExtended}
+                helpBlock={(
+                  <div className="radio-help-block text-muted">
+                    {intl.formatMessage(messages.helpFilterExtended)}
+                  </div>
+                )}
+              />
+            ) : null}
 
             <Field
               component={Radio}
@@ -765,7 +767,7 @@ export default function RuleForm({
               value="tags"
               classNameGroup="radio"
               helpBlock={(
-                <div className="radio-help-block">
+                <div className="radio-help-block text-muted">
                   {intl.formatMessage(messages.helpFilterTag)}
                 </div>
               )}
