@@ -15,6 +15,8 @@ const legacySvc = require('../../../services/legacy');
 const tasks = require('../../tasks');
 
 const updateSchemaFields = require('./updateSchemaFields');
+const createFormSchemaFromLegacy = require('./createFormSchemaFromLegacy');
+const pushDataToFormSchema = require('./pushDataToFormSchema');
 
 module.exports = services => {
   const resyncFn = {
@@ -24,7 +26,9 @@ module.exports = services => {
     updateLegacy: agendaUid => updateLegacy(config, agendaUid),
     rebuildControlData: agendaUid => legacySvc.controlData.rebuild(agendaUid),
     resyncLocationsIndex: agendaUid => resyncLocationsIndex(services, agendaUid),
-    resyncInbox: agendaUid => resyncInbox(services, agendaUid)
+    resyncInbox: agendaUid => resyncInbox(services, agendaUid),
+    createFormSchemaFromLegacy: agendaUid => createFormSchemaFromLegacy(services, agendaUid),
+    pushDataToFormSchema: agendaUid => pushDataToFormSchema(services, agendaUid)
   }
 
   tasks.register(resyncFn);
@@ -42,7 +46,9 @@ module.exports = services => {
       updateCategorySet: resyncFn.updateCategorySet.bind(null, agendaUid),
       updateCustom: resyncFn.updateCustomFromSchema.bind(null, agendaUid),
       update: resyncFn.updateLegacy.bind(null, agendaUid),
-      rebuildControlData: resyncFn.rebuildControlData.bind(null, agendaUid)
+      rebuildControlData: resyncFn.rebuildControlData.bind(null, agendaUid),
+      createFormSchema: resyncFn.createFormSchemaFromLegacy.bind(null, agendaUid),
+      pushDataToFormSchema: resyncFn.pushDataToFormSchema.bind(null, agendaUid)
     },
     resyncLocationsIndex: resyncFn.resyncLocationsIndex.bind(null, agendaUid),
     resyncInbox: resyncFn.resyncInbox.bind(null, agendaUid),
