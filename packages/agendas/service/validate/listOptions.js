@@ -40,5 +40,9 @@ module.exports = schema({
   includeFields: {
     type: 'text',
     list: true
+  },
+  offsetAsLastId: {
+    type: 'boolean',
+    default: false
   }
 });

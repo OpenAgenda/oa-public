@@ -44,9 +44,9 @@ describe( 'agendas - functional (server): list', function () {
 
   it( 'list with offset gets right agenda', done => {
 
-    svc.list( 0, 10, ( err, agendas ) => {
+    svc.list( 0, 10, { internal: true }, ( err, agendas ) => {
 
-      svc.list( {}, 4, 1, ( err, offsetAgendas ) => {
+      svc.list( {}, 4, 1, { internal: true }, ( err, offsetAgendas ) => {
 
         agendas.length.should.equal( 10 );
 
@@ -76,6 +76,35 @@ describe( 'agendas - functional (server): list', function () {
     } );
 
   } );
+
+  it('list with { offsetAsLastId } option allows for using id value as offset base', async () => {
+    const { agendas } = await svc.list({}, 4890, 1, {
+      offsetAsLastId: true,
+      internal: true
+    });
+
+    agendas[0].id.should.equal(4892);
+  });
+
+  it('list with { offsetAsLastId } and { order: id.desc } option allows for using id value as offset in reverse id order', async () => {
+    const { agendas } = await svc.list({
+      order: 'id.desc'
+    }, 4890, 1, {
+      offsetAsLastId: true,
+      internal: true
+    });
+
+    agendas[0].id.should.equal(4889);
+  });
+
+  it('list with { offsetAsLastId } provides lastId key in result', async () => {
+    const { lastId } = await svc.list({}, 4890, 1, {
+      offsetAsLastId: true,
+      internal: true
+    });
+
+    lastId.should.equal(4892);
+  });
 
   it( 'list with { internal: false } does not include internal fields', done => {
 

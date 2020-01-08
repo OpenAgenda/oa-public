@@ -55,26 +55,42 @@ async function promise(query, offset, limit, options = {}) {
 
   if (cleanQuery.order) {
     k.orderBy.apply(k, cleanQuery.order.split('.').map(_.snakeCase));
+  } else if (cleanOptions.offsetAsLastId) {
+    k.orderBy('id', 'asc');
   } else {
     k.orderBy('updated_at', 'desc');
   }
 
-  const rows = await k.select(_listFields(cleanOptions))
-    .limit(limit || 0)
-    .offset(offset || 0);
+  k.limit(limit || 0);
 
-  const agendas = rows.map(_parseDbEntry.bind(null, cleanOptions, config));
+  if (cleanOptions.offsetAsLastId && (cleanQuery.order === 'id.desc')) {
+    k.where('id', '<', offset);
+  } else if (cleanOptions.offsetAsLastId) {
+    k.where('id', '>', offset);
+  } else {
+    k.offset(offset || 0);
+  }
 
-  if (cleanOptions.detailed) {
-    for (const agenda of agendas) {
+  const agendas = await k
+    .select(_listFields(cleanOptions))
+    .then(r => r.map(_parseDbEntry.bind(null, cleanOptions, config)));
+
+  const lastId = _.get(_.last(agendas), 'id');
+
+  for (const agenda of agendas) {
+    if (cleanOptions.detailed) {
       await loadDetails(agenda);
+    }
+    if (!cleanOptions.internal) {
+      delete agenda.id;
     }
   }
 
   return {
     agendas,
-    total
-  }
+    total,
+    ...(cleanOptions.offsetAsLastId ? { lastId } : {})
+  };
 }
 
 
@@ -137,6 +153,11 @@ function _listFields(options) {
     if (typeof field === 'string') {
       return true;
     }
+
+    if (field.db === 'id') {
+      return true;
+    }
+
     if (options.includeFields.includes(field.obj)) {
       return true;
     }
