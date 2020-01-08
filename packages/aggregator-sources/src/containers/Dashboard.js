@@ -16,6 +16,7 @@ import qs from 'qs';
 import Fuse from 'fuse.js';
 import MoreInfo from '@openagenda/react-components/build/MoreInfo';
 import Spinner from '@openagenda/react-components/build/Spinner';
+import useApiClient from '@openagenda/react-utils/src/useApiClient';
 import * as modalsActions from '../reducers/modals';
 import * as sourcesActions from '../reducers/sources';
 import SearchInput from '../components/SearchInput';
@@ -110,9 +111,11 @@ function Dashboard({ agenda, agendaSchema }) {
 
   const intl = useIntl();
   const dispatch = useDispatch();
+  const apiClient = useApiClient();
 
   const res = useSelector(state => state.res);
   const loading = useSelector(state => _.get(state, 'sources.loading', true));
+  const loaded = useSelector(state => _.get(state, 'sources.loaded'));
   const listLoading = useSelector(state => state.sources.listLoading);
   const aggregator = useSelector(state => state.sources.aggregator);
   const agendaSources = useSelector(state => state.sources.data);
@@ -194,10 +197,15 @@ function Dashboard({ agenda, agendaSchema }) {
       () => {
         closeModalAddSource();
 
+        if (query.redirect) {
+          window.location.href = query.redirect;
+          return;
+        }
+
         return refresh();
       }
     ),
-    [dispatch, closeModalAddSource, refresh]
+    [dispatch, closeModalAddSource, query.redirect, refresh]
   );
   const updateSource = useCallback(
     (source, rules) => dispatch(sourcesActions.update(source.id, { rules })).then(() => {
@@ -211,9 +219,14 @@ function Dashboard({ agenda, agendaSchema }) {
     (source, evaluate) => dispatch(sourcesActions.remove(source.id, { evaluate })).then(() => {
       closeModalRemoveSource();
 
+      if (query.redirect) {
+        window.location.href = query.redirect;
+        return;
+      }
+
       return refresh();
     }),
-    [dispatch, closeModalRemoveSource, refresh]
+    [dispatch, closeModalRemoveSource, query.redirect, refresh]
   );
 
   const initialQuery = useRef(query);
@@ -222,6 +235,67 @@ function Dashboard({ agenda, agendaSchema }) {
     dispatch(sourcesActions.load(params.slug, initialQuery.current));
     dispatch(sourcesActions.loadAggregator(params.slug));
   }, [dispatch, params.slug]);
+
+  useEffect(() => {
+    if (!loaded || !query.addSource) {
+      return;
+    }
+
+    (async () => {
+      const { data: _agenda } = await apiClient
+        .get(res.getAgenda.replace(':slug', query.addSource))
+        .catch(() => null);
+
+      if (_agenda?.uid) {
+        dispatch(
+          modalsActions.showModal('addSource', { preselectedAgenda: _agenda })
+        );
+      }
+
+      history.replace({
+        ...history.location,
+        search: qs.stringify({ ...query, addSource: undefined })
+      });
+    })();
+  }, [
+    dispatch,
+    query.addSource,
+    res.getAgenda,
+    loaded,
+    query,
+    apiClient,
+    history
+  ]);
+
+  useEffect(() => {
+    if (!loaded || !query.removeSource) {
+      return;
+    }
+
+    (async () => {
+      // search agenda in sources
+      const source = agendaSources.find(
+        v => v.agenda.slug === query.removeSource
+      );
+
+      if (source?.id) {
+        dispatch(modalsActions.showModal('removeSource', { source }));
+      }
+
+      history.replace({
+        ...history.location,
+        search: qs.stringify({ ...query, removeSource: undefined })
+      });
+    })();
+  }, [
+    dispatch,
+    query.removeSource,
+    res.getAgenda,
+    loaded,
+    query,
+    agendaSources,
+    history
+  ]);
 
   if (loading) {
     return (
@@ -342,6 +416,7 @@ function Dashboard({ agenda, agendaSchema }) {
         <AddSourceModal
           agenda={agenda}
           aggregatorSchema={agendaSchema}
+          preselectedAgenda={modals.addSource.preselectedAgenda}
           onClose={closeModalAddSource}
           onSubmit={addSource}
         />

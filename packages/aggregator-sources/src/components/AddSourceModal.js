@@ -275,6 +275,7 @@ function RulesSubmitButton({ handleSubmit, onCancel }) {
 export default function AddSourceModal({
   agenda,
   aggregatorSchema,
+  preselectedAgenda,
   onSubmit,
   onClose
 }) {
@@ -282,8 +283,10 @@ export default function AddSourceModal({
   const apiClient = useApiClient();
 
   const [selectType, setSelectType] = useState('search'); // search || slug
-  const [selectedStep, setSelectedStep] = useState('selectAgenda');
-  const [selectedAgenda, setSelectedAgenda] = useState();
+  const [selectedStep, setSelectedStep] = useState(
+    preselectedAgenda ? 'defineRules' : 'selectAgenda'
+  );
+  const [selectedAgenda, setSelectedAgenda] = useState(preselectedAgenda);
   const [rules, setRules] = useState();
 
   const toggleSelectType = useCallback(
