@@ -51,7 +51,7 @@ describe('01 - event-search - functional: rebuild', function() {
 
     });
 
-    describe('01 - index rebuild', function() {
+    describe('index rebuild', function() {
 
       it('generated index name is given in result details', async () => {
         const result = await service('test_alias').rebuild({

@@ -1,10 +1,11 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const elasticsearch = require('@elastic/elasticsearch');
 const logger = require('@openagenda/logs');
 
 const add = require('./service/add');
+const deleteFloatingIndices = require('./service/deleteFloatingIndices')
 const deleteIndex = require('./service/deleteIndex');
 const moreLikeThis = require('./service/moreLikeThis');
 const rebuild = require('./service/rebuild');
@@ -35,9 +36,10 @@ module.exports = c => {
     moreLikeThis: moreLikeThis.bind(null, config, alias),
     add: add.bind(null, config, alias),
     update: update.bind(null, config, alias),
-    remove: remove.bind( null, config, alias)
+    remove: remove.bind(null, config, alias)
   }), {
-    getConfig: () => config
+    getConfig: () => config,
+    deleteFloatingIndices: deleteFloatingIndices.bind(null, config)
   })
 }
 
