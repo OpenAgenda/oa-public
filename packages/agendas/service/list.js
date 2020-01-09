@@ -75,7 +75,7 @@ async function promise(query, offset, limit, options = {}) {
     .select(_listFields(cleanOptions))
     .then(r => r.map(_parseDbEntry.bind(null, cleanOptions, config)));
 
-  const lastId = _.get(_.last(agendas), 'id');
+  const lastId = _.get(_.last(agendas), 'id', -1);
 
   for (const agenda of agendas) {
     if (cleanOptions.detailed) {
