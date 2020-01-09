@@ -14,6 +14,7 @@ const search = require('./service/search');
 const searchIncludes = require('./service/index/searchIncludes.json');
 const parsers = require('./parsers');
 const update = require('./service/update');
+const stats = require('./service/stats');
 
 module.exports = c => {
   const config = Object.assign({
@@ -39,7 +40,8 @@ module.exports = c => {
     remove: remove.bind(null, config, alias)
   }), {
     getConfig: () => config,
-    deleteFloatingIndices: deleteFloatingIndices.bind(null, config)
+    deleteFloatingIndices: deleteFloatingIndices.bind(null, config),
+    stats: stats.bind(null, config)
   })
 }
 
