@@ -827,13 +827,10 @@ const config = {
     },
     //useCache: false,
     db: {
-      //database: 'oadev',
-      database: 'oa',
-      //host: 'localhost',
-      host: 'oatest.cjlxznnlwwtq.eu-west-1.rds.amazonaws.com',
-      //password: 'grut',
-      password: prod.db.password,
-      user: 'root',
+      database: process.env.OA_MYSQL_DEV_DATABASE || 'oadev',
+      host: process.env.OA_MYSQL_DEV_HOST || 'localhost',
+      password: process.env.OA_MYSQL_DEV_PASSWORD || 'grut',
+      user: process.env.OA_MYSQL_DEV_USER || 'root',
       cache: true,
       //debug: true,
       timezone: 'UTC'
@@ -866,6 +863,10 @@ const config = {
     es53: {
       host: process.env.ELASTICSEARCH_533_DEV_HOST || 'localhost',
       port: process.env.ELASTICSEARCH_533_DEV_PORT || 9205
+    },
+    es75: {
+      host: process.env.OA_ELASTICSEARCH_750_DEV_HOST || 'localhost',
+      port: process.env.OA_ELASTICSEARCH_750_DEV_PORT || 9207
     },
     redis: {
       host: 'localhost',

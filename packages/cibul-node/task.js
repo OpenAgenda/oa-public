@@ -131,4 +131,6 @@ module.exports = services => {
   //require( '@openagenda/agenda-events' ).tasks.transferLegacyData( { interval: 500 } );
 
   services.eventSearch.task();
+
+  //services.eventSearch.rebuild();
 };

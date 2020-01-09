@@ -5,8 +5,7 @@ const onError = require('../../errors').bind(null, 'eventSearch');
 
 module.exports = config => ({
   elasticsearch: {
-    host: `${_.get(config, 'es53.host', 'localhost')}:${_.get(config, 'es53.port', 9200)}/`,
-    apiVersion: '5.3'
+    node: `http://${_.get(config, 'es75.host', 'localhost')}:${_.get(config, 'es75.port', 9200)}/`
   },
 
   predefinedAggregations: {

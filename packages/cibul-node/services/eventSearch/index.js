@@ -9,6 +9,7 @@ const buildSearchConfig = require('./lib/buildSearchConfig');
 const add = require('./add');
 const update = require('./update');
 const remove = require('./remove');
+const rebuild = require('./rebuild');
 const agendaIndexSearch = require('./agendaIndexSearch');
 const agendaIndexRebuild = require('./agendaIndexRebuild');
 const transverseIndex = require('./transverseIndex');
@@ -24,14 +25,21 @@ module.exports.init = (config, services) => {
 
   const eventSearch = EventSearch(buildSearchConfig(config));
   const queue = queues('eventSearch');
+  const rebuildQueue = queues('eventSearch:rebuild');
 
   const transverseSearch = transverseIndex(services, eventSearch, queue);
 
+  rebuildQueue.register({
+    agenda: agenda => agendaIndexRebuild(services, eventSearch, agenda),
+    transverse: options => queue('transverseIndexRebuild', options)
+  });
+
   return {
-    task: task.bind(null, { queue }),
+    task: task.bind(null, { queue, rebuildQueue }),
     update: update(services, queue, eventSearch),
     remove: remove(services, queue, eventSearch),
     add: add(services, queue, eventSearch),
+    rebuild: rebuild.bind(null, services, eventSearch, rebuildQueue),
     agendas: agenda => ({
       search: agendaIndexSearch.bind(null, eventSearch, agenda),
       rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda),
@@ -49,7 +57,7 @@ module.exports.init = (config, services) => {
   };
 }
 
-function task({ queue }) {
+function task({ queue, rebuildQueue }) {
   log('task');
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
@@ -57,4 +65,5 @@ function task({ queue }) {
   queue.on('success', (fn, args, result) => log(fn, 'success'));
 
   queue.run();
+  rebuildQueue.run();
 }
