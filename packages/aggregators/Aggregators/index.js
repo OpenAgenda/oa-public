@@ -84,12 +84,18 @@ module.exports = ({ knex, queues, interfaces, logger }) => {
         updateSourceEntry: updateSourceEntry.bind(null, knex),
         getAgendaSourceId: getAgendaSourceId.bind(null, knex),
         getMergedSchema: interfaces.getMergedSchema,
-        getSourceEntry: getSourceEntry.bind(null, knex)
+        getSourceEntry: getSourceEntry.bind(null, {
+          knex,
+          getAgendasByUidsAndSearch: interfaces.getAgendasByUidsAndSearch
+        })
       }),
       remove: removeSource.bind(null, {
         interfaces,
         enqueueLoadSourceRemoves: queue.bind(null, 'loadSourceRemoves'),
-        getSourceEntry: getSourceEntry.bind(null, knex),
+        getSourceEntry: getSourceEntry.bind(null, {
+          knex,
+          getAgendasByUidsAndSearch: interfaces.getAgendasByUidsAndSearch
+        }),
         removeSourceEntry: removeSourceEntry.bind(null, knex),
         getAgendaSourceId: getAgendaSourceId.bind(null, knex)
       })

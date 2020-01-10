@@ -48,7 +48,7 @@ function _cleanQuery(dirty) {
   }, {});
 }
 
-module.exports = dirty => {
+module.exports = (dirty = []) => {
   if (dirty instanceof Array) {
     return dirty.map(clean);
   } else {
