@@ -118,7 +118,7 @@ function init(config, services) {
         getAgendasByUidsAndSearch: (agendaUids, search = null) => agendas.list({
           uid: agendaUids,
           ...(search ? { search } : {})
-        }, 0, 200).then(({ agendas }) => agendas.map(a => _.pick(a, ['uid','title', 'image'])))
+        }, 0, 200, { internal: true, private: null }).then(({ agendas }) => agendas.map(a => _.pick(a, ['uid','title', 'image', 'id'])))
       }
     })
   );
