@@ -266,7 +266,13 @@ function actionShow( req, res ) {
 
     } else {
 
-      cmn.loadBaseData( 'oa.css' )( req, res, function() {
+      cmn.loadBaseData( 'oa.css' )( req, res, async function() {
+
+        req.baseData.indexed = _.get(
+          await req.app.services.agendas.get({ uid: req.agenda.uid }),
+          'indexed',
+          true
+        );
 
         cmn.render.apply( null, renderParams );
 
