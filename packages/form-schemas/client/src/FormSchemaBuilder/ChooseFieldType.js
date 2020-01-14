@@ -26,6 +26,10 @@ const fieldTypeChoices = [ {
   value: 'integer',
   label: labels.integerFieldType
 }, {
+  id: 7,
+  value: 'boolean',
+  label: labels.booleanFieldType
+}, {
   id: 2,
   value: 'radio',
   label: labels.radioFieldType
