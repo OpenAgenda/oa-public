@@ -18,10 +18,9 @@ module.exports = (rules, data) => {
   }
 
   const actionsByField = actions.reduce((actionsByField, action) => {
-    const actionField = Object.keys(action)[0];
     return {
       ...actionsByField,
-      [actionField]: (actionsByField[actionField] || []).concat(action[actionField])
+      [action.field]: (actionsByField[action.field] || []).concat(action.values)
     }
   }, {});
 

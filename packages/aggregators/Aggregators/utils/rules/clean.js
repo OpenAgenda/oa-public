@@ -12,10 +12,21 @@ function clean(dirty) {
   const actions = [];
 
   if (dirty[actionKey] instanceof Array) {
-    dirty[actionKey].forEach(a => actions.push(a));
+    dirty[actionKey].forEach(a => {
+      if (Object.keys(a).includes('field')) {
+        actions.push(a);
+      } else {
+        const field = Object.keys(a).pop();
+        actions.push({
+          field,
+          values: a[field]
+        });
+      }
+    });
   } else if (dirty[actionKey] instanceof Object) {
     Object.keys(dirty[actionKey]).forEach(f => actions.push({
-      [f]: dirty[actionKey][f]
+      field: f,
+      values: dirty[actionKey][f]
     }));
   }
 
@@ -23,9 +34,8 @@ function clean(dirty) {
 
   if (dirty.value && (dirty.value.state !== undefined)) {
     rule.actions.push({
-      state: {
-        $set: dirty.value.state
-      }
+      field: 'state',
+      values: { $set: dirty.value.state }
     });
   }
 
