@@ -1,0 +1,44 @@
+{
+  "name": "@openagenda/react-shared",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "license": "MIT",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "prepublish": "yarn clean && yarn build",
+    "build": "babel --copy-files src -d dist -s",
+    "clean": "rimraf build",
+    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
+    "lint-staged": "lint-staged"
+  },
+  "lint-staged": {
+    "**/*.js": [
+      "prettier-eslint --write --eslint-config-path .eslintrc",
+      "eslint -c .eslintrc",
+      "git add"
+    ]
+  },
+  "dependencies": {
+    "@babel/runtime-corejs3": "^7.7.4",
+    "core-js": "^3.4.7",
+    "shallowequal": "^1.1.0"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.7.4",
+    "@babel/core": "^7.7.4",
+    "@openagenda/babel-preset": "^1.1.1",
+    "@openagenda/eslint-config": "^1.0.0",
+    "eslint": "^6.8.0",
+    "lint-staged": "^9.5.0",
+    "prettier-eslint-cli": "^5.0.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "rimraf": "^3.0.0"
+  },
+  "peerDependencies": {
+    "react": "^16.12.0"
+  }
+}
