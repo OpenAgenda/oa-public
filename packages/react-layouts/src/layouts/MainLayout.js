@@ -11,9 +11,9 @@ import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
 import Modal from '@openagenda/react-components/build/Modal';
 import Spinner from '@openagenda/react-components/build/Spinner';
+import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
 import useChildLayouts from '../hooks/useChildLayouts';
 import * as mainActions from '../reducers/main';
-import { useMemoOne } from '../hooks/useMemoOne';
 import ErrorBoundary from '../components/ErrorBoundary';
 
 const messages = defineMessages({
