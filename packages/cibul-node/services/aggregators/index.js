@@ -123,10 +123,9 @@ function init(config, services) {
           internal: true,
           includeImagePath: true,
           useDefaultImage: true
-        })
-          .then(({ agendas }) => agendas.map(a =>
-            _.pick(a, ['id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt'])
-          ))
+        }).then(({ agendas }) => agendas.map(a =>
+          _.pick(a, ['id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt'])
+        ))
       }
     })
   );

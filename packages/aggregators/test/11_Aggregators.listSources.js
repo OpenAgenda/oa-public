@@ -47,7 +47,8 @@ describe('Aggregators list sources', () => {
     sources[0].rules.should.eql([{
       query: {},
       actions: [{
-        state: { '$set': 2 }
+        field: 'state',
+        values: { '$set': 2 }
       }],
       required: false
     }]);

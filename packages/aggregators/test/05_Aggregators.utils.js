@@ -213,6 +213,7 @@ describe('Aggregators utils', () => {
           categories: 3
         });
       });
+
     });
 
     describe('query', () => {
@@ -255,6 +256,25 @@ describe('Aggregators utils', () => {
 
         const ruleset = [{
           actions: [{
+            field: 'thematiques',
+            values: 13
+          }]
+        }];
+
+        const result = rules(ruleset, input);
+
+        result.should.eql({
+          thematiques: 13
+        });
+      });
+
+      it('same as previous, with legacy action structure (overwrite preexisting)', () => {
+        const input = {
+          thematiques: 12
+        };
+
+        const ruleset = [{
+          actions: [{
             thematiques: 13
           }]
         }];
@@ -267,6 +287,40 @@ describe('Aggregators utils', () => {
       });
 
       it('an action only overwrites pre-existing values if the corresponding query matches', () => {
+        const input = {
+          thematiques: [13, 19],
+          categorie: 3
+        };
+
+        const ruleset = [{
+          query: {
+            thematiques: [20]
+          },
+          required: false,
+          actions: [{
+            field: 'thematiques',
+            values: [22, 23]
+          }]
+        }, {
+          query: {
+            thematiques: [13]
+          },
+          required: false,
+          actions: [{
+            field: 'categorie',
+            values: 9
+          }]
+        }];
+
+        const result = rules(ruleset, input);
+
+        result.should.eql({
+          thematiques: [13, 19],
+          categorie: 9
+        });
+      });
+
+      it('same as previous, with legacy action structure (an action only overwrites pre-existing...)', () => {
         const input = {
           thematiques: [13, 19],
           categorie: 3
@@ -478,7 +532,6 @@ describe('Aggregators utils', () => {
     });
 
     describe('location filters', () => {
-
       const evaluate = rules.bind(null, [{
         query: {
           location: {
@@ -551,7 +604,6 @@ describe('Aggregators utils', () => {
           }
         });
       });
-
     });
 
     describe('legacy', () => {
@@ -580,7 +632,6 @@ describe('Aggregators utils', () => {
   });
 
   describe('cleanRule', () => {
-
     it('transform object is parsed to list of actions', () => {
       const clean = cleanRule({
         query: {
@@ -595,9 +646,8 @@ describe('Aggregators utils', () => {
       });
 
       clean.actions.should.eql([{
-        tags: {
-          '$push': ['Animation']
-        }
+        field: 'tags',
+        values: { '$push' : ['Animation'] }
       }]);
     });
 
@@ -614,9 +664,8 @@ describe('Aggregators utils', () => {
       });
 
       clean.actions.should.eql([{
-        state: {
-          $set: 2
-        }
+        field: 'state',
+        values: { '$set': 2 }
       }]);
     });
 

@@ -154,7 +154,7 @@ module.exports = {
   "textFieldType": {
     "fr": "Champ texte",
     "en": "Text field",
-    "es": "campo de texto"
+    "es": "Campo de texto"
   },
   "textareaFieldType": {
     "fr": "Texte (Paragraphe)",
@@ -164,7 +164,7 @@ module.exports = {
   "markdownFieldType": {
     "fr": "Texte enrichi",
     "en": "Rich text",
-    "es": "texto enriquecido"
+    "es": "Texto enriquecido"
   },
   "integerFieldType": {
     "fr": "Nombre entier",
@@ -174,7 +174,7 @@ module.exports = {
   "textMultilingualFieldType": {
     "fr": "Text multilingue",
     "en": "Multilingual text",
-    "es": "texto en varios idiomas"
+    "es": "Texto en varios idiomas"
   },
   "checkboxFieldType": {
     "fr": "Selection à choix multiples",
@@ -184,17 +184,22 @@ module.exports = {
   "radioFieldType": {
     "fr": "Sélection à choix unique",
     "en": "Single choice selection",
-    "es": "la selección de una sola elección"
+    "es": "Selección de una sola elección"
+  },
+  "booleanFieldType": {
+    "fr": "Case à cocher unique",
+    "en": "Single checkbox",
+    "es": "Unica checkbox"
   },
   "imageFieldType": {
     "fr": "Image",
     "en": "Image",
-    "es": "imagen"
+    "es": "Imagen"
   },
   "unknownFieldType": {
     "fr": "Type inconnu",
     "en": "Unknown type",
-    "es": "tipo desconocido"
+    "es": "Tipo desconocido"
   },
   "languagesFieldType": {
     "fr": "Langues de saisie",

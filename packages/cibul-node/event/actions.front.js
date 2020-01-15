@@ -186,10 +186,16 @@ function actionShow(req, res, next) {
           }
         }));
       }
-    }, err => {
+    }, async err => {
       if (err) {
         return next(err);
       }
+
+      req.baseData.indexed = _.get(
+        await req.app.services.agendas.get({ uid: req.agenda.uid }),
+        'indexed',
+        true
+      );
 
       return cmn.render(req, res, 'event/action', req.templateData);
     });

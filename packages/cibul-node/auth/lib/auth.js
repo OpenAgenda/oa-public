@@ -510,6 +510,7 @@ function _render( template, defaults ) {
         url: req.agenda.url
       };
 
+      data.indexed = req.agenda.indexed;
     }
 
     if ( asPromise ) {
