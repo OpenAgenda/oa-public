@@ -672,7 +672,7 @@ function ActionFormPart({ name, aggregatorAgendaSchema }) {
     }
 
     setAdvancedMode(s => !s);
-  });
+  }, [advancedMode, name, values]);
 
   useLayoutEffect(() => {
     if (prevFieldName && fieldName) {
