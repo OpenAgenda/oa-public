@@ -317,7 +317,7 @@ function SelectField({
     [onBlur, creatable]
   );
   const isValidNewOption = useCallback(
-    value => [undefined, null, ''].includes(value),
+    value => ![undefined, null, ''].includes(value),
     []
   );
 
@@ -558,14 +558,16 @@ function TagsFormPart({ schema }) {
   const { initialValues } = useFormState();
 
   const options = useMemoOne(
-    () => schema.fields
-      .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
-      .map(({ options: fieldOptions }) => fieldOptions)
-      .flat()
-      .map(v => ({
-        value: v.label,
-        label: getMultiLanguageLabel(v.label)
-      })),
+    () => (schema
+      ? schema.fields
+        .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
+        .map(({ options: fieldOptions }) => fieldOptions)
+        .flat()
+        .map(v => ({
+          value: v.label,
+          label: getMultiLanguageLabel(v.label)
+        }))
+      : []),
     [schema]
   );
 
@@ -949,9 +951,7 @@ export default function RuleForm({
           sourceSchema={sourceSchema}
         />
       ) : null}
-      {values.type === 'tags' ? (
-        <TagsFormPart schema={sourceSchema || aggregatorAgendaSchema} />
-      ) : null}
+      {values.type === 'tags' ? <TagsFormPart schema={sourceSchema} /> : null}
 
       {values.type ? (
         <>
