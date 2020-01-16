@@ -31,8 +31,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
       if (action.field === 'state') {
         result.actions.push({
           field: 'state',
-          values: ids,
-          automatic: false
+          values: ids
         });
       }
 
@@ -44,11 +43,17 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
         return;
       }
 
-      result.actions.push({
-        field: fieldSchema.field,
-        values: ids,
-        automatic: action.automatic
-      });
+      result.actions.push(
+        action.automatic
+          ? {
+            field: fieldSchema.field,
+            automatic: action.automatic
+          }
+          : {
+            field: fieldSchema.field,
+            values: ids
+          }
+      );
     });
   }
 
