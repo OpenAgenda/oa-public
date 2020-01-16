@@ -1,9 +1,9 @@
 'use strict';
 
+const _ = require('lodash');
 const should = require('should');
 
-const convertTagsToSchemaOptionIds = require('../Aggregators/utils/convertTagsToSchemaOptionIds');
-const convertSchemaOptionIdsToTags = require('../Aggregators/utils/convertSchemaOptionIdsToTags');
+const convertFieldOptionIdsToLabels = require('../Aggregators/utils/rules/convertFieldOptionIdsToLabels');
 const determineAggregationAction = require('../Aggregators/utils/determineAggregationAction');
 const pickSchemaValues = require('../Aggregators/utils/pickSchemaValues');
 const cleanRule = require('../Aggregators/utils/rules/clean');
@@ -16,43 +16,20 @@ const fixtures = {
   eventBeforeUnpublish: require('./fixtures/eventBeforeUnpublish'),
   eventNowUnpublish: require('./fixtures/eventNowUnpublish'),
   eventBeforeChange: require('./fixtures/eventBeforeChange'),
-  eventNowChange: require('./fixtures/eventNowChange')
+  eventNowChange: require('./fixtures/eventNowChange'),
+  simpleSourceSchema: require('./fixtures/simpleSourceSchema.json'),
+  simpleAggregatorSchema: require('./fixtures/simpleAggregatorSchema.json')
 };
 
 describe('Aggregators utils', () => {
 
-  describe('convertTagsToSchemaOptionIds', () => {
-
-    it('provides an object with id selection per field matching provided list of labels', () => {
-      const aggregatorSchemaSelectedOptionIds = convertTagsToSchemaOptionIds(fixtures.jepOToJEP.aggregatorSchema, [
-        'Offre pass Culture : cet évènement est spécifiquement pensé pour les jeunes de 18 ans. Je souhaite qu’il soit référencé sur le pass Culture. En cochant cette case, j’accepte l’utilisation de ces données par le pass Culture ainsi que les conditions générales d’utilisation de la plateforme : https://docs.passculture.app',
-        'Atelier / Démonstration / Savoir-faire',
-        'Tarif habituel'
-      ]);
-
-      aggregatorSchemaSelectedOptionIds.should.eql({
-        'types-devenement': 3,
-        'conditions-de-participation': [ 14 ],
-        'diffusion-sur-le-pass-culture': [ 1 ]
-      });
-    });
-
-  });
-
-  describe('convertSchemaOptionIdsToTags', () => {
+  describe('convertFieldOptionIdsToLabels', () => {
 
     it('provides the list of labels corresponding to the option ids provided', () => {
-      const tags = convertSchemaOptionIdsToTags(fixtures.jepOToJEP.aggregatorSchema, {
-        'types-devenement': 3,
-        'conditions-de-participation': [ 14 ],
-        'diffusion-sur-le-pass-culture': [ 1 ]
-      });
+      const field = _.find(fixtures.jepOToJEP.aggregatorSchema.fields, { field: 'conditions-de-participation' });
+      const labels = convertFieldOptionIdsToLabels(field, [14]);
 
-      tags.should.eql([
-        'Atelier / Démonstration / Savoir-faire',
-        'Tarif habituel',
-        'Offre pass Culture : cet évènement est spécifiquement pensé pour les jeunes de 18 ans. Je souhaite qu’il soit référencé sur le pass Culture. En cochant cette case, j’accepte l’utilisation de ces données par le pass Culture ainsi que les conditions générales d’utilisation de la plateforme : https://docs.passculture.app'
-      ]);
+      labels.should.eql(['Tarif habituel']);
     });
 
   });
@@ -110,7 +87,7 @@ describe('Aggregators utils', () => {
 
     describe('basic usage', () => {
 
-      it('a ruleset that matches a given value returns the value as result', () => {
+      it('a ruleset that matches a given value returns the data to be associated to the event when added to an aggregator', () => {
         const input = {
           thematiques: 1
         };
@@ -121,14 +98,30 @@ describe('Aggregators utils', () => {
           }
         }];
 
-        const result = rules(ruleset, input);
+        const result = rules(ruleset, null, null, input);
 
-        result.should.eql(input);
+        result.should.eql({});
       });
 
       it('a ruleset that does not match a given value return null', () => {
         const input = {
           thematiques: 12
+        };
+
+        const ruleset = [{
+          query: {
+            thematiques: [1]
+          }
+        }];
+
+        const result = rules(ruleset, null, null, input);
+
+        should(result).equal(null);
+      });
+
+      it('if provided schemas share the same fields, the values are maintained in response', () => {
+        const input = {
+          thematiques: 1
         }
 
         const ruleset = [{
@@ -137,10 +130,21 @@ describe('Aggregators utils', () => {
           }
         }];
 
-        const result = rules(ruleset, input);
+        const field = {
+          field: 'thematiques',
+          fieldType: 'checkbox',
+          schemaId: 1000
+        };
 
-        should(result).equal(null);
-      });
+        const sourceSchema = { fields: [field] };
+        const aggregatorSchema = { fields: [field] };
+
+        const result = rules(ruleset, sourceSchema, aggregatorSchema, input);
+
+        result.should.eql({
+          thematiques: 1
+        });
+      })
 
       it('a non-required rule is not required for a result to be provided', () => {
         const input = {
@@ -154,9 +158,9 @@ describe('Aggregators utils', () => {
           required: false
         }];
 
-        const result = rules(ruleset, input);
+        const result = rules(ruleset, null, null, input);
 
-        should(result).equal(input);
+        should(result).eql({});
       });
 
       it('a matching rule with actions applies actions to provided values to generate result', () => {
@@ -175,10 +179,9 @@ describe('Aggregators utils', () => {
           }]
         }];
 
-        const result = rules(ruleset, input);
+        const result = rules(ruleset, null, null, input);
 
         result.should.eql({
-          thematiques: 12,
           categories: 3,
           state: 2
         });
@@ -206,10 +209,9 @@ describe('Aggregators utils', () => {
           required: false
         }];
 
-        const result = rules(ruleset, input);
+        const result = rules(ruleset, null, null, input);
 
         result.should.eql({
-          thematiques: 12,
           categories: 3
         });
       });
@@ -229,7 +231,7 @@ describe('Aggregators utils', () => {
           }
         }];
 
-        rules(ruleset, input).should.eql(input);
+        rules(ruleset, null, null, input).should.eql({});
       });
 
       it('a query is required by default', () => {
@@ -243,7 +245,7 @@ describe('Aggregators utils', () => {
           }
         }];
 
-        should(rules(ruleset, input)).equal(null);
+        should(rules(ruleset, null, null, input)).equal(null);
       });
     });
 
@@ -261,7 +263,7 @@ describe('Aggregators utils', () => {
           }]
         }];
 
-        const result = rules(ruleset, input);
+        const result = rules(ruleset, null, null, input);
 
         result.should.eql({
           thematiques: 13
@@ -279,76 +281,10 @@ describe('Aggregators utils', () => {
           }]
         }];
 
-        const result = rules(ruleset, input);
+        const result = rules(ruleset, null, null, input);
 
         result.should.eql({
           thematiques: 13
-        });
-      });
-
-      it('an action only overwrites pre-existing values if the corresponding query matches', () => {
-        const input = {
-          thematiques: [13, 19],
-          categorie: 3
-        };
-
-        const ruleset = [{
-          query: {
-            thematiques: [20]
-          },
-          required: false,
-          actions: [{
-            field: 'thematiques',
-            values: [22, 23]
-          }]
-        }, {
-          query: {
-            thematiques: [13]
-          },
-          required: false,
-          actions: [{
-            field: 'categorie',
-            values: 9
-          }]
-        }];
-
-        const result = rules(ruleset, input);
-
-        result.should.eql({
-          thematiques: [13, 19],
-          categorie: 9
-        });
-      });
-
-      it('same as previous, with legacy action structure (an action only overwrites pre-existing...)', () => {
-        const input = {
-          thematiques: [13, 19],
-          categorie: 3
-        };
-
-        const ruleset = [{
-          query: {
-            thematiques: [20]
-          },
-          required: false,
-          actions: [{
-            thematiques: [22, 23]
-          }]
-        }, {
-          query: {
-            thematiques: [13]
-          },
-          required: false,
-          actions: [{
-            categorie: 9
-          }]
-        }];
-
-        const result = rules(ruleset, input);
-
-        result.should.eql({
-          thematiques: [13, 19],
-          categorie: 9
         });
       });
 
@@ -363,7 +299,7 @@ describe('Aggregators utils', () => {
           }]
         }];
 
-        const result = rules(ruleset, input);
+        const result = rules(ruleset, null, null, input);
 
         result.should.eql({
           thematiques: [12, 13]
@@ -381,7 +317,7 @@ describe('Aggregators utils', () => {
               $push: [13, 14]
             }
           }]
-        }], {}).should.eql({
+        }], null, null, {}).should.eql({
           thematiques: [12, 13, 14]
         });
       });
@@ -397,7 +333,7 @@ describe('Aggregators utils', () => {
               $push: [13, 14]
             }
           }]
-        }], {
+        }], null, null, {
           thematiques: 11
         }).should.eql({
           thematiques: [12, 13, 14]
@@ -417,12 +353,35 @@ describe('Aggregators utils', () => {
               $push: [13, 14]
             }
           }]
-        }], {
+        }], null, null, {
           thematiques: 11
         }).should.eql({
           thematiques: [12, 13, 14]
         });
       });
+    });
+
+    describe('automatic actions', () => {
+
+      it('associates id by matching on label when automatic is true', () => {
+
+        const result = rules([{
+          actions: [{
+            field: 'category',
+            automatic: true
+          }]
+        }], fixtures.simpleSourceSchema, fixtures.simpleAggregatorSchema, {
+          title: 'Mon event',
+          category: 12,
+          type: 1
+        });
+
+        result.should.eql({
+          category: [22]
+        });
+
+      });
+
     });
 
     describe('tag filters', () => {
@@ -432,16 +391,13 @@ describe('Aggregators utils', () => {
           query: {
             tags: ['Tag1']
           }
-        }]);
+        }], null, null);
 
         it('tag evaluate passes if data has tag specified in query', () => {
           evaluate({
             title: 'A thing',
             tags: ['Tag1', 'Tag2']
-          }).should.eql({
-            title: 'A thing',
-            tags: ['Tag1', 'Tag2']
-          });
+          }).should.eql({});
         });
 
         it('tag evaluate does not pass if data does not have tag specified in query', () => {
@@ -457,13 +413,10 @@ describe('Aggregators utils', () => {
               tags: ['Tag1']
             },
             required: false
-          }, {
+          }, null, null, {
             title: 'Another thing',
             tags: ['Tag3']
-          }).should.eql({
-            title: 'Another thing',
-            tags: ['Tag3']
-          });
+          }).should.eql({});
         });
       });
 
@@ -476,16 +429,13 @@ describe('Aggregators utils', () => {
             tags: { $set: ['Tag4'] }
           },
           required: false
-        });
+        }, null, null);
 
         it('if data does not match rule, there is no transform', () => {
           evaluate({
             title: 'Line 77',
             tags: ['Tag2']
-          }).should.eql({
-            title: 'Line 77',
-            tags: ['Tag2']
-          });
+          }).should.eql({});
         });
 
         it('if data matches rule and a transform is specified, it is applied', () => {
@@ -493,7 +443,6 @@ describe('Aggregators utils', () => {
             title: 'Transformed line 77',
             tags: [ 'Tag1', 'Tag77' ]
           }).should.eql({
-            title: 'Transformed line 77',
             tags: [ 'Tag4' ]
           });
         });
@@ -519,11 +468,10 @@ describe('Aggregators utils', () => {
               tags: { $push: ['Fête - Festival'] }
             },
             required: false
-          }], {
+          }], null, null, {
             title: 'Evénement de la ville de Lille',
             tags: [ 'Cinéma - projection', 'Fête / festival' ]
           }).should.eql({
-            title: 'Evénement de la ville de Lille',
             tags: [ 'Cinéma', 'Fête - Festival' ]
           })
         });
@@ -539,7 +487,7 @@ describe('Aggregators utils', () => {
             city: 'Courbevoie'
           }
         }
-      }])
+      }], null, null);
 
       it('if one location evaluated field does not match, the rule does not match', () => {
         should(evaluate({
@@ -558,13 +506,7 @@ describe('Aggregators utils', () => {
             region: 'Ile-de-France',
             city: 'Courbevoie'
           }
-        }).should.eql({
-          location: {
-            name: 'Chez oim',
-            region: 'Ile-de-France',
-            city: 'Courbevoie'
-          }
-        });
+        }).should.eql({});
       });
 
       it('when multiple locations are specified in the same rule, operand is OR', () => {
@@ -576,15 +518,11 @@ describe('Aggregators utils', () => {
               city: 'Toulouse'
             }]
           }
-        }], {
+        }], null, null, {
           location: {
             city: 'Toulouse'
           }
-        }).should.eql({
-          location: {
-            city: 'Toulouse'
-          }
-        });
+        }).should.eql({});
       });
 
       it('multiple values can be specified in the same filter field for an OR evaluation', () => {
@@ -594,15 +532,11 @@ describe('Aggregators utils', () => {
               city: ['Bordeaux', 'Toulouse']
             }
           }
-        }], {
+        }], null, null, {
           location: {
             city: 'Toulouse'
           }
-        }).should.eql({
-          location: {
-            city: 'Toulouse'
-          }
-        });
+        }).should.eql({});
       });
     });
 
@@ -612,11 +546,9 @@ describe('Aggregators utils', () => {
           query: {
             intercommunal_interest: true
           }
-        }], {
+        }], null, null, {
           intercommunal_interest: true
-        }).should.eql({
-          intercommunal_interest: true
-        });
+        }).should.eql({});
       });
 
       it('evaluation based on boolean value does not pass if boolean is different', () => {
@@ -624,7 +556,7 @@ describe('Aggregators utils', () => {
           query: {
             intercommunal_interest: true
           }
-        }], {
+        }], null, null, {
           intercommunal_interest: false
         })).equal(null);
       });
