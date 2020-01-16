@@ -597,14 +597,14 @@ function TagsFormPart({ schema }) {
 function ActionFormPart({ name, aggregatorAgendaSchema }) {
   const intl = useIntl();
   const form = useForm();
-  const { values, initialValues } = form.getState();
+  const { values, initialValues: initials } = form.getState();
 
   const fieldName = useMemoOne(() => _.get(values, name)?.field, [
     values,
     name
   ]);
   const prevFieldName = usePrevious(fieldName);
-  const initialAction = useRef(_.get(initialValues, name)).current;
+  const initialValues = useRef(initials).current;
 
   const actionValues = useMemoOne(() => _.get(values, name)?.values, [
     values,
@@ -684,15 +684,7 @@ function ActionFormPart({ name, aggregatorAgendaSchema }) {
         form.change(`${name}.values`, null);
       }
     }
-  }, [
-    actionValues,
-    fieldName,
-    form,
-    initialAction,
-    name,
-    prevFieldName,
-    valuesOptions
-  ]);
+  }, [actionValues, fieldName, form, name, prevFieldName, valuesOptions]);
 
   return (
     <>
