@@ -3,22 +3,19 @@
 const _ = require( 'lodash' );
 const w = require( 'when' );
 const log = require( '@openagenda/logs' )( 'auth/twitter.front' );
-const sessions = require( '@openagenda/sessions' );
 const labels = require('@openagenda/labels/auth/errors');
 const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
 const cmn = require( '../lib/commons-app' );
 const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'twitter' );
 const genUrl = require( '../services/genUrl' );
-const agendaSvc = require( '../services/agenda' );
-const usersSvc = require( '../services/users' );
 const config = require( '../config' );
 
 const getLabel = makeLabelGetter(labels);
 
 
-const key = _.get( config, 'auth.twitter.key' );
-const secret = _.get( config, 'auth.twitter.secret' );
+const key = _.get(config, 'auth.twitter.key');
+const secret = _.get(config, 'auth.twitter.secret');
 
 const twitterOptions = {
   consumerKey: key,
@@ -27,37 +24,82 @@ const twitterOptions = {
   skipExtendedUserProfile: true
 };
 
-const preMw = [
-  agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
-  cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-  sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
-];
-
-
 module.exports = app => {
+  const {
+    users,
+    agendas,
+    sessions
+  } = app.services;
 
-  if ( key ) {
-    pLib.loadStrategy( 'twitter', 'passport-twitter' );
+  const preMw = [
+    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) ),
+  ];
 
-    pLib.use( 'twitter-signin', 'twitter', {
+  if (key) {
+    pLib.loadStrategy('twitter', 'passport-twitter');
+
+    pLib.use('twitter-signin', 'twitter', {
       callbackURL: genUrl.abs( 'twitterSigninCallback' ),
       ...twitterOptions
-    }, _loadTwitterProfile );
+    }, _loadTwitterProfile);
 
-    pLib.use( 'twitter-signup', 'twitter', {
+    pLib.use('twitter-signup', 'twitter', {
       callbackURL: genUrl.abs( 'twitterSignupCallback' ),
       ...twitterOptions
-    }, _loadTwitterProfile );
+    }, _loadTwitterProfile);
   }
 
-  app.get( '/twitter/signin', preMw, signin );
-  app.get( '/:slug/twitter/signin', preMw, signin );
-  app.get( '/twitter/signin/callback', preMw, auth.serviceCallback( _processSignin ) );
-  app.get( '/twitter/signup', preMw, signup );
-  app.get( '/:slug/twitter/signup', preMw, signup );
-  app.get( '/twitter/email', preMw, email );
-  app.get( '/:slug/twitter/email', preMw, email );
-  app.get( '/twitter/signup/callback', preMw, auth.serviceCallback( _processSignup ) );
+  app.get(
+    '/twitter/signin',
+    preMw,
+    signin
+  );
+
+  app.get(
+    '/:agendaSlug/twitter/signin',
+    agendas.mw.load,
+    preMw,
+    signin
+  );
+
+  app.get(
+    '/twitter/signin/callback',
+    preMw,
+    auth.serviceCallback(_processSignin)
+  );
+
+  app.get(
+    '/twitter/signup',
+    preMw,
+    signup
+  );
+
+  app.get(
+    '/:agendaSlug/twitter/signup',
+    agendas.mw.load,
+    preMw,
+    signup
+  );
+
+  app.get(
+    '/twitter/email',
+    preMw,
+    email
+  );
+
+  app.get(
+    '/:agendaSlug/twitter/email',
+    agendas.mw.load,
+    preMw,
+    email
+  );
+
+  app.get(
+    '/twitter/signup/callback',
+    preMw,
+    auth.serviceCallback(_processSignup)
+  );
 
 };
 
@@ -223,6 +265,9 @@ function _loadTwitterProfile( req, token, refreshToken, profile, done ) {
 
 
 function _attemptUsernameLoad( values ) {
+  const {
+    users
+  } = values.req.app.services;
 
 
   return w.promise( function( resolve, reject ) {
@@ -246,7 +291,7 @@ function _attemptUsernameLoad( values ) {
 
         try {
 
-          values.user = await usersSvc.patch( values.user.uid, { tweeterId: values.profile.id }, { internal: true } );
+          values.user = await users.patch( values.user.uid, { tweeterId: values.profile.id }, { internal: true } );
 
           log( 'info', 'twitter id has been fetched and saved for user %s: %s', user.id, JSON.stringify( result ) );
 
@@ -272,7 +317,7 @@ function _redirectEmailFormIfNoProfileEmail( values ) {
   values.req.log( 'redirect if no email is found in query' );
 
   var redirectUrl = values.req.genUrl( values.req.agenda ? 'agendaTwitterEmail' : 'twitterEmail', [
-    values.req.query, values.req.agenda ? { slug: values.req.agenda.slug } : {}
+    values.req.query, values.req.agenda ? { slug: values.req.agenda.slug } : {}
   ] );
 
   if ( !values.req.query.email ) {
@@ -290,6 +335,9 @@ function _redirectEmailFormIfNoProfileEmail( values ) {
 }
 
 async function _createAndSend( values ) {
+  const {
+    users
+  } = values.req.app.services;
 
   log( 'creating activation token' );
 
@@ -305,7 +353,7 @@ async function _createAndSend( values ) {
 
     log( 'loading user based on values %s', JSON.stringify( user ) );
 
-    const result = await usersSvc.findOne( { query: user, detailed: true } );
+    const result = await users.findOne( { query: user, detailed: true } );
 
     log( 'loaded user %s', JSON.stringify( result ) );
 
@@ -319,14 +367,14 @@ async function _createAndSend( values ) {
 
   const optionals = _.pickBy( _.pick( values, 'iToken', 'invitation', 'redirect', 'agenda' ) );
 
-  let token = await usersSvc.tokens.findOne( {
+  let token = await users.tokens.findOne( {
     query: { userId: values.user.id, email: values.user.email, type: 'aa' },
   } );
 
   if ( token ) {
-    await usersSvc.config.interfaces.sendToken( config )( { result: token, params: { user: values.user, optionals } } );
+    await users.config.interfaces.sendToken( config )( { result: token, params: { user: values.user, optionals } } );
   } else {
-    token = await usersSvc.tokens.create(
+    token = await users.tokens.create(
       { userId: values.user.id, email: values.user.email, type: 'aa' },
       { user: values.user, optionals }
     );

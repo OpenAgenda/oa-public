@@ -7,6 +7,7 @@
     <link rel="shortcut icon" href="/images/favicon.ico" />
     <title><%= title %></title>
     <link rel="stylesheet" href="/css/oasfmain.css?v=1"/>
+    <meta name="robots" content="index, follow">
 <% for ( meta of metas ) { %>
     <meta property="<%= meta.property %>" content="<%= meta.content %>" />
 <% } %>

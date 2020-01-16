@@ -1,11 +1,9 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const sessions = require( '@openagenda/sessions' );
 const cmn = require( '../lib/commons-app' );
 const pLib = require( './lib/passport' );
 const auth = require( './lib/auth' )( 'facebook' );
-const agendaSvc = require( '../services/agenda' );
 const genUrl = require( '../services/genUrl' );
 const config = require( '../config' );
 
@@ -16,13 +14,16 @@ const facebookOptions = {
   profileFields: [ 'id', 'email', 'name' ]
 };
 
-const preMw = [
-  agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
-  cmn.loadBaseData( auth.layoutData, 'oa.css' ),
-  sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
-];
-
 module.exports = app => {
+  const {
+    sessions,
+    agendas,
+  } = app.services;
+
+  const preMw = [
+    cmn.loadBaseData( auth.layoutData, 'oa.css' ),
+    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/' ) )
+  ];
 
   if ( _.get( config, 'auth.facebook.id' ) ) {
     pLib.loadStrategy( 'facebook', 'passport-facebook' );
@@ -38,14 +39,43 @@ module.exports = app => {
     }, _loadFacebookProfile );
   }
 
-  app.get( '/facebook/signin', preMw, signin );
-  app.get( '/:slug/facebook/signin', preMw, signin );
-  app.get( '/facebook/signin/callback', preMw, auth.process( 'facebook', 'signin' ) );
+  app.get(
+    '/facebook/signin',
+    preMw,
+    signin
+  );
 
-  app.get( '/facebook/signup', preMw, signup );
-  app.get( '/:slug/facebook/signup', preMw, signup );
-  app.get( '/facebook/signup/callback', preMw, auth.process( 'facebook', 'signup' ) );
+  app.get(
+    '/:agendaSlug/facebook/signin',
+    agendas.mw.load,
+    preMw,
+    signin
+  );
 
+  app.get(
+    '/facebook/signin/callback',
+    preMw,
+    auth.process('facebook', 'signin')
+  );
+
+  app.get(
+    '/facebook/signup',
+    preMw,
+    signup
+  );
+
+  app.get(
+    '/:agendaSlug/facebook/signup',
+    agendas.mw.load,
+    preMw,
+    signup
+  );
+
+  app.get(
+    '/facebook/signup/callback',
+    preMw,
+    auth.process('facebook', 'signup')
+  );
 };
 
 

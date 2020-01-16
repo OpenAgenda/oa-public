@@ -1,0 +1,28 @@
+{
+  "fields" : [{
+    "field" : "comment",
+    "fieldType" : "text"
+  }, {
+    "schemaId" : 10000,
+    "field" : "category",
+    "fieldType" : "checkbox",
+    "options" : [{
+      "id": 12,
+      "label" : "Douze"
+    }, {
+      "id": 13,
+      "label" : "Treize"
+    }]
+  }, {
+    "schemaId" : 10000,
+    "field" : "type",
+    "fieldType" : "checkbox",
+    "options" : [{
+      "id": 1,
+      "label": "Concert"
+    }, {
+      "id": 2,
+      "label": "Expo"
+    }]
+  }]
+}

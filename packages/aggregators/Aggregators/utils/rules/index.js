@@ -1,10 +1,12 @@
 'use strict';
 
+const _ = require('lodash');
 const ih = require( 'immutability-helper' );
 const evaluateRule = require('./evaluateRule');
-const cleanRule = require('./clean')
+const cleanRule = require('./clean');
+const convertFieldOptionIdsToLabels = require('./convertFieldOptionIdsToLabels');
 
-module.exports = (rules, data) => {
+module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   const actions = [];
 
   for (const rule of [].concat(rules)) {
@@ -18,45 +20,96 @@ module.exports = (rules, data) => {
   }
 
   const actionsByField = actions.reduce((actionsByField, action) => {
-    const actionField = Object.keys(action)[0];
-    return {
-      ...actionsByField,
-      [actionField]: (actionsByField[actionField] || []).concat(action[actionField])
+    if (!actionsByField[action.field]) {
+      // is first action of field. must be $set
+      actionsByField[action.field] = [forceExplicitActionOperation(action, '$set')];
+    } else {
+      actionsByField[action.field].push(
+        forceExplicitActionOperation(action)
+      );
     }
+    return actionsByField;
   }, {});
 
-  // first action of any given field is necessarily a $set.
-  Object.keys(actionsByField).forEach(actionField => {
-    actionsByField[actionField][0] = {
-      $set: _extractActionValue(actionsByField[actionField][0])
+  // pick values common between two schemas as base for response
+  const base = aggregatorAgendaSchema && sourceAgendaSchema ? aggregatorAgendaSchema.fields.reduce((base, aggregatorSchemaField) => {
+    const fieldName = aggregatorSchemaField.field;
+    const matchingSourceField = sourceAgendaSchema.fields
+      .filter(f => f.schemaId === aggregatorSchemaField.schemaId).pop();
+
+    if (!matchingSourceField) return base;
+    if (data[fieldName] === undefined) return base;
+
+    return {
+      ...base,
+      [aggregatorSchemaField.field]: data[fieldName]
     }
-  });
+  }, {}) : {};
+
 
   // reduce to one transform per field
-  return ih(data, Object.keys(actionsByField).reduce((transform, field) => ({
+  const transform = Object.keys(actionsByField).reduce((transform, field) => ({
     ...transform,
-    [field]: actionsByField[field].reduce((fieldAction, action) => {
-      if (_extractActionOperation(action) === '$set') {
-        return { $set: _extractActionValue(action) };
-      } else {
-        return {
-          [_extractActionOperation(fieldAction)]: [].concat(_extractActionValue(fieldAction)).concat(_extractActionValue(action))
-        };
+    [field]: actionsByField[field].reduce((fieldTransform, action) => {
+      const actionOperation = Object.keys(action.values).pop();
+      const fieldOperation = Object.keys(fieldTransform).pop();
+      const actionValues = action.automatic ?
+        extractAutomaticValues(sourceAgendaSchema, aggregatorAgendaSchema, field, data)
+        : action.values[actionOperation];
+
+      const currentFieldTransformValues = [].concat(fieldTransform[fieldOperation]);
+      const updatedFieldTransformValues = actionOperation === '$set' ? actionValues : (currentFieldTransformValues || []).concat(actionValues);
+
+      return {
+        [actionOperation === '$set' ? actionOperation : fieldOperation] : updatedFieldTransformValues
       }
     }, {})
-  }), {}))
+  }), {});
+
+  return ih(base, transform);
 }
 
-function _extractActionOperation(action) {
-  if (!action instanceof Object) return '$set';
+function extractAutomaticValues(sourceAgendaSchema, aggregatorAgendaSchema, field, data) {
+  const sourceField = _.get(sourceAgendaSchema, 'fields', []).filter(f => f.field === field).pop();
+  const aggregatorField = _.get(aggregatorAgendaSchema, 'fields', []).filter(f => f.field === field).pop();
 
-  return Object.keys(action)[0];
+  if (!sourceField) return [];
+  if (!aggregatorField) return [];
+
+  const aggregatorOptionIdsByLabel = aggregatorField.options
+    .reduce((aggregatorOptionIdsByLabel, option) => {
+      const optionLabels = typeof option.label === 'string' ? [option.label] : Object.values(option.label);
+      return optionLabels.reduce((aggregatorOptionIdsByLabel, label) => ({
+        ...aggregatorOptionIdsByLabel,
+        [label] : option.id
+      }), aggregatorOptionIdsByLabel);
+    }, {});
+
+  const labels = convertFieldOptionIdsToLabels(sourceField, data[field] || []);
+
+  const matchingAggregationFieldOptionIds = labels.map(l => aggregatorOptionIdsByLabel[l]).filter(id => !!id);
+
+  return matchingAggregationFieldOptionIds;
 }
 
-function _extractActionValue(action) {
-  if (!(action instanceof Object)) {
-    return action;
+
+function forceExplicitActionOperation(action, forceOperation = null) {
+  const currentOperation = Object.keys(action.values || {}).shift();
+  const actionHasOperation = ['$set', '$push'].includes(currentOperation);
+
+  const actionValues = actionHasOperation ? action.values[currentOperation] : action.values;
+
+  if (forceOperation) {
+    return {
+      ...action,
+      values: { [forceOperation] : actionValues }
+    };
+  } else if (!currentOperation) {
+    return {
+      ...action,
+      values: { '$push' : actionValues }
+    };
   }
 
-  return action[Object.keys(action)[0]];
+  return action;
 }

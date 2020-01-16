@@ -52,8 +52,7 @@ describe('Aggregators evaluate', () => {
           public: [ 26 ],
           organisateur: [ 33 ],
           participation: null,
-          'evenement-ponctuel': null,
-          state: 2
+          'evenement-ponctuel': null
         });
       });
 

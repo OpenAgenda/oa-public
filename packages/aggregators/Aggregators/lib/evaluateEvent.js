@@ -3,8 +3,6 @@
 const ih = require('immutability-helper');
 const Log = require('../utils/Log')('Aggregators/evaluateEvent');
 
-const convertTagsToSchemaOptionIds = require('../utils/convertTagsToSchemaOptionIds');
-const convertSchemaOptionIdsToTags = require('../utils/convertSchemaOptionIdsToTags');
 const evaluateRules = require('../utils/rules');
 const pickSchemaValues = require('../utils/pickSchemaValues');
 
@@ -15,18 +13,15 @@ module.exports = async ({
   referenceEvent,
   enqueueRemove
 }, data) => {
-  const { agenda, event, aggregatorAgendaUid, batched } = data;
+  const {
+    agenda,
+    event,
+    aggregatorAgendaUid,
+    batched,
+    formSchema: sourceAgendaFormSchema
+  } = data;
+
   const log = Log(`${event.slug} of source ${agenda.slug} (${agenda.uid})`);
-
-  const tags = convertSchemaOptionIdsToTags(data.formSchema, event);
-
-  const eventWithTags = ih(event, {
-    tags: {
-      $set: tags
-    }
-  });
-
-  log('extracted tags: %s', tags);
 
   const rules = [].concat(
     data.aggregatorRules || []
@@ -34,7 +29,8 @@ module.exports = async ({
     data.sourceRules || []
   );
 
-  const evaluateResult = evaluateRules(rules, eventWithTags);
+  const aggregatorSchema = await getMergedSchema(aggregatorAgendaUid);
+  const evaluateResult = evaluateRules(rules, sourceAgendaFormSchema, aggregatorSchema, event);
   const reference = await getEventReference(aggregatorAgendaUid, event.uid);
   const shouldAggregate = rules.length ? !!evaluateResult : true;
 
@@ -60,15 +56,9 @@ module.exports = async ({
     return;
   }
 
-  const aggregatorSchema = await getMergedSchema(aggregatorAgendaUid);
-  const schemaValuesFromTags = convertTagsToSchemaOptionIds(aggregatorSchema, evaluateResult.tags);
-  const extendedValues = pickSchemaValues(aggregatorSchema, evaluateResult, schemaValuesFromTags);
+  const schemaValues = pickSchemaValues(aggregatorSchema, evaluateResult);
 
-  if (evaluateResult.state !== undefined) {
-    extendedValues.state = evaluateResult.state;
-  }
-
-  const { errors, success } = await referenceEvent(agenda, aggregatorAgendaUid, event.uid, extendedValues, { batched });
+  const { errors, success } = await referenceEvent(agenda, aggregatorAgendaUid, event.uid, schemaValues, { batched });
 
   if (success) {
     log('done', { step: 'referenced' });

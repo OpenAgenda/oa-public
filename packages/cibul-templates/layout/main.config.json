@@ -21,11 +21,10 @@
     "metas" : {
       "title" : "OpenAgenda",
       "description": "Communicate efficiently on your events",
-      "keywords" : "openagenda, events, agendas, open data, networked",
-      "robots" : "index, follow"
+      "keywords" : "openagenda, events, agendas, open data, networked"
     },
     "lang" : "fr"
   },
-  
+
   "js" : true
 }

@@ -22,11 +22,6 @@ module.exports = services => {
     period: 'hourly'
   } );
 
-  /*tfy( require( '@openagenda/agenda-monitor' ).tasks.evaluate, {
-    period: 'daily',
-    time: '19:00'
-  } );*/
-
   tfy( require( './services/activities' ).tasks.activities.cleanOld, {
     // bootOffset: 1000,
     period: 'daily',

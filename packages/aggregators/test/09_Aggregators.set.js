@@ -42,7 +42,8 @@ describe('Aggregators set and get', () => {
     results[0].rules.should.eql([{
       query: {},
       actions: [{
-        state: { '$set': 2 }
+        field: 'state',
+        values: { '$set': 2 }
       }],
       required: false
     }]);
@@ -59,8 +60,7 @@ describe('Aggregators set and get', () => {
   it('aggregator entry references review id', async () => {
     const entry = await f.client('aggregator').first('*').where('review_id', 219);
 
-    entry.store.should.equal('{"rules":[{"query":{},"actions":[{"state":{"$set":2}}],"required":true}]}');
+    entry.store.should.equal('{"rules":[{"query":{},"actions":[{"field":"state","values":{"$set":2}}],"required":true}]}');
   });
-
 
 });
