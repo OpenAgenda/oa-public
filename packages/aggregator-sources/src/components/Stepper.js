@@ -6,7 +6,7 @@ import React, {
   useLayoutEffect
 } from 'react';
 import classNames from 'classnames';
-import { useMemoOne } from '../hooks/useMemoOne';
+import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
 
 const defaultBgColor = 'rgba(0, 0, 0, 0)';
 

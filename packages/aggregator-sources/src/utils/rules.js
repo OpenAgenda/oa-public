@@ -1,21 +1,6 @@
-import { defineMessages } from 'react-intl';
 import getMultiLanguageLabel from './getMultiLanguageLabel';
-import stateMessages from './stateMessages';
 
-const messages = defineMessages({
-  inexistentOption: {
-    id: 'aggregator-sources.utils.rules.inexistentOption',
-    defaultMessage: '*Removed option*'
-  }
-});
-
-const stateTolabelId = state => ({
-  0: 'stateToControl',
-  1: 'stateControlled',
-  2: 'statePublished'
-}[state]);
-
-export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
+export function ruleToValues(rule, aggregatorAgendaSchema) {
   if (!rule) {
     return {};
   }
@@ -35,65 +20,34 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
     return result;
   }
 
-  const findOption = (fSchema, optId) => {
-    if ([null, undefined].includes(optId) || !fSchema?.options) {
-      return optId;
-    }
-
-    const foundOpt = fSchema.options.find(option => option.id === optId);
-
-    return {
-      value: foundOpt ? foundOpt.id : optId,
-      label: foundOpt
-        ? getMultiLanguageLabel(foundOpt.label, intl.locale)
-        : intl.formatMessage(messages.inexistentOption)
-    };
-  };
-
-  if (aggregatorSchema) {
+  if (aggregatorAgendaSchema) {
     [].concat(actions).forEach(action => {
       if (!action) {
         return;
       }
 
-      const actionKeys = Object.keys(action);
-      const ids = action[actionKeys[0]]?.$set !== undefined
-        ? action[actionKeys[0]].$set
-        : action[actionKeys[0]];
+      const ids = action.values?.$set !== undefined ? action.values.$set : action.values;
 
-      if (actionKeys[0] === 'state') {
+      if (action.field === 'state') {
         result.actions.push({
-          field: {
-            value: 'state',
-            label: intl.formatMessage(stateMessages.state)
-          },
-          values: {
-            value: ids,
-            label: intl.formatMessage(stateMessages[stateTolabelId(ids)])
-          }
+          field: 'state',
+          values: ids,
+          automatic: false
         });
       }
 
-      const fieldSchema = aggregatorSchema.fields.find(
-        v => v.field === actionKeys[0]
+      const fieldSchema = aggregatorAgendaSchema.fields.find(
+        v => v.field === action.field
       );
 
       if (!fieldSchema) {
         return;
       }
 
-      const actionValues = Array.isArray(ids)
-        ? ids
-          .map(id => findOption(fieldSchema, id, intl.locale))
-          .filter(v => v !== undefined)
-        : findOption(fieldSchema, ids, intl.locale);
-
       result.actions.push({
-        field: {
-          value: fieldSchema.field,
-          label: getMultiLanguageLabel(fieldSchema.label, intl.locale)
-        },
-        values: actionValues
+        field: fieldSchema.field,
+        values: ids,
+        automatic: action.automatic
       });
     });
   }
@@ -119,7 +73,7 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
   if (query.tags) {
     Object.assign(result, {
       type: 'tags',
-      tagValues: [].concat(query.tags)
+      tagValues: [].concat(query.tags).map(getMultiLanguageLabel)
     });
 
     return result;
@@ -129,33 +83,11 @@ export function ruleToValues(rule, aggregatorSchema, sourceSchema, intl) {
 
   // Extended
   if (key) {
-    const ids = [].concat(query[key]);
-    const fieldSchema = sourceSchema?.fields.find(v => v.field === key);
-
-    // just for RuleSummary in SourcesList
-    if (!fieldSchema) {
-      return Object.assign(result, {
-        type: 'extended',
-        field: key,
-        extendedValues: ids
-      });
-    }
-
-    const fieldOption = {
-      value: fieldSchema.field,
-      label: getMultiLanguageLabel(fieldSchema.label, intl.locale)
-    };
-    const valuesOptions = Array.isArray(ids)
-      ? ids.map(id => findOption(fieldSchema, id))
-      : findOption(fieldSchema, ids);
-
-    Object.assign(result, {
+    return Object.assign(result, {
       type: 'extended',
-      field: fieldOption,
-      extendedValues: valuesOptions
+      field: key,
+      extendedValues: query[key]
     });
-
-    return result;
   }
 
   return result;
@@ -165,40 +97,32 @@ export function valuesToRule(values, schema) {
   const { required } = values;
 
   const actions = values.actions?.map(action => {
-    if (action.field.value === 'state') {
+    if (action.field === 'state') {
       return {
-        state: action.values.value
+        field: 'state',
+        values: action.values,
+        automatic: false
       };
     }
 
-    const fieldSchema = schema.fields.find(v => v.field === action.field.value);
+    const fieldSchema = schema.fields.find(v => v.field === action.field);
 
     if (!fieldSchema) {
       return;
     }
 
-    let actionValues = action.values;
-
-    if (fieldSchema.options) {
-      const findOption = opt => {
-        if (!opt) {
-          return opt;
-        }
-
-        const foundOpt = fieldSchema.options.find(
-          option => option.id === opt.value
-        );
-
-        return foundOpt?.id;
+    if (action.automatic) {
+      return {
+        field: action.field,
+        values: null,
+        automatic: true
       };
-
-      actionValues = Array.isArray(action.values)
-        ? action.values.map(findOption).filter(v => v !== undefined)
-        : findOption(action.values);
     }
 
     return {
-      [fieldSchema.field]: actionValues
+      field: fieldSchema.field,
+      values: action.values,
+      automatic: false
     };
   });
 
@@ -230,9 +154,7 @@ export function valuesToRule(values, schema) {
     case 'extended': {
       return {
         query: {
-          [values.field.value]: Array.isArray(values.extendedValues)
-            ? values.extendedValues.map(v => v.value)
-            : values.extendedValues.value // WTF
+          [values.field]: values.extendedValues
         },
         required,
         actions

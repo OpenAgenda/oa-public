@@ -7,7 +7,7 @@ import Modal from '@openagenda/react-components/build/Modal';
 import Image from '@openagenda/react-components/build/Image';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import useApiClient from '@openagenda/react-utils/dist/useApiClient';
-import { useMemoOne } from '../hooks/useMemoOne';
+import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
 import Stepper from './Stepper';
 import AgendasSearch from './AgendasSearch';
 import SlugSearch from './SlugSearch';
@@ -273,8 +273,8 @@ function RulesSubmitButton({ handleSubmit, onCancel }) {
 }
 
 export default function AddSourceModal({
-  agenda,
-  aggregatorSchema,
+  aggregatorAgenda,
+  aggregatorAgendaSchema,
   preselectedAgenda,
   onSubmit,
   onClose
@@ -360,12 +360,14 @@ export default function AddSourceModal({
 
   const onSelectAgenda = useCallback(
     async _agenda => {
-      agenda.schema = await apiClient.get(`/${_agenda.slug}/settings/schema`);
+      aggregatorAgenda.schema = await apiClient.get(
+        `/${_agenda.slug}/settings/schema`
+      );
 
       setSelectedAgenda(_agenda);
       setSelectedStep('defineRules');
     },
-    [agenda.schema, apiClient]
+    [aggregatorAgenda.schema, apiClient]
   );
 
   const selectStep = useCallback(
@@ -511,7 +513,7 @@ export default function AddSourceModal({
 
         {selectedStep === 'defineRules' ? (
           <DefineRules
-            aggregatorSchema={aggregatorSchema}
+            aggregatorAgendaSchema={aggregatorAgendaSchema}
             sourceSchema={selectedAgenda?.schema}
             SubmitButton={RulesSubmitButton}
             initialRules={rules}
@@ -527,7 +529,7 @@ export default function AddSourceModal({
                 <div className="margin-v-sm">
                   <p>
                     {intl.formatMessage(messages.evaluateMessage, {
-                      aggregator: <b>{agenda.title}</b>,
+                      aggregator: <b>{aggregatorAgenda.title}</b>,
                       source: <b>{selectedAgenda.title}</b>,
                       ruleCount: rules.length
                     })}

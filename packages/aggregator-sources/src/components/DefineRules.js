@@ -8,7 +8,7 @@ import { Form } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
 import classNames from 'classnames';
-import { useMemoOne } from '../hooks/useMemoOne';
+import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
 import { ruleToValues, valuesToRule } from '../utils/rules';
 import readClipboard from '../utils/readClipboard';
 import getMultiLanguageLabel from '../utils/getMultiLanguageLabel';
@@ -113,7 +113,7 @@ const messages = defineMessages({
   }
 });
 
-function validate(intl, values, aggregatorSchema /* , sourceSchema */) {
+function validate(intl, values, aggregatorAgendaSchema /* , sourceSchema */) {
   const errors = {};
 
   if (!values.type) {
@@ -140,7 +140,7 @@ function validate(intl, values, aggregatorSchema /* , sourceSchema */) {
     errors[FORM_ERROR] = intl.formatMessage(messages.uselessRule);
   }
 
-  aggregatorSchema.fields
+  aggregatorAgendaSchema.fields
     .filter(v => v.fieldType !== 'abstract')
     .concat({
       field: 'state',
@@ -148,13 +148,13 @@ function validate(intl, values, aggregatorSchema /* , sourceSchema */) {
     })
     .forEach(fieldSchema => {
       const aggActionIndex = values.actions?.findIndex(
-        v => v?.field?.value && v.field.value === fieldSchema.field
+        v => v?.field && v.field === fieldSchema.field
       );
       const aggAction = values.actions?.[aggActionIndex];
 
       const hasValue = Array.isArray(aggAction?.values)
         ? aggAction.values.length
-        : ![undefined, null, ''].includes(aggAction?.values?.value);
+        : ![undefined, null, ''].includes(aggAction?.values);
 
       if (fieldSchema.optional === false && aggAction && !hasValue) {
         _.set(
@@ -170,12 +170,12 @@ function validate(intl, values, aggregatorSchema /* , sourceSchema */) {
   }
 }
 
-function validateActions(intl, rules, aggregatorSchema, sourceSchema) {
+function validateActions(intl, rules, aggregatorAgendaSchema, sourceSchema) {
   const missingFields = [];
 
   const actions = rules.flatMap(v => v.actions?.filter(Boolean));
 
-  aggregatorSchema.fields
+  aggregatorAgendaSchema.fields
     .filter(v => v.fieldType !== 'abstract')
     .forEach(fieldSchema => {
       const aggAction = actions.find(v => v?.[fieldSchema.field]);
@@ -371,9 +371,12 @@ function RuleItem({
       case 'all':
         return intl.formatMessage(messages.noFilter);
       case 'location':
-        return Object.values(rule.query.location)[0].join(', ');
+        return [].concat(Object.values(rule.query.location)[0]).join(', ');
       case 'tags':
-        return [].concat(rule.query.tags).join(', ');
+        return []
+          .concat(rule.query.tags)
+          .map(getMultiLanguageLabel)
+          .join(', ');
       case 'extended': {
         const key = Object.keys(rule.query)[0];
         const fieldSchema = sourceSchema.fields.find(
@@ -447,9 +450,10 @@ function RuleItem({
 }
 
 export default function DefineRules({
-  aggregatorSchema,
+  aggregatorAgendaSchema,
   sourceSchema,
   initialRules,
+  isAggregator,
   SubmitButton,
   onSubmit,
   onCancel
@@ -477,7 +481,11 @@ export default function DefineRules({
   const setModeUpdate = useCallback(id => setMode('update', { id }), [setMode]);
 
   const requiredFields = useMemoOne(
-    () => aggregatorSchema.fields.filter(field => {
+    () => aggregatorAgendaSchema.fields.filter(field => {
+      if (isAggregator) {
+        return false;
+      }
+
       const sourceField = sourceSchema?.fields?.find(
           v => v.schemaId
             && v.field === field.field
@@ -490,7 +498,7 @@ export default function DefineRules({
 
       return field.fieldType !== 'abstract' && field.optional === false;
     }),
-    [aggregatorSchema.fields]
+    [aggregatorAgendaSchema.fields]
   );
 
   const requiredFieldList = useMemo(
@@ -504,13 +512,18 @@ export default function DefineRules({
 
   const addRule = useCallback(
     values => {
-      const errors = validate(intl, values, aggregatorSchema, sourceSchema);
+      const errors = validate(
+        intl,
+        values,
+        aggregatorAgendaSchema,
+        sourceSchema
+      );
 
       if (errors) {
         return errors;
       }
 
-      const rule = valuesToRule(values, aggregatorSchema);
+      const rule = valuesToRule(values, aggregatorAgendaSchema);
 
       dispatch({
         type: 'addRule',
@@ -521,17 +534,22 @@ export default function DefineRules({
 
       setMode('list');
     },
-    [intl, aggregatorSchema, sourceSchema, setMode]
+    [intl, aggregatorAgendaSchema, sourceSchema, setMode]
   );
   const updateRule = useCallback(
     values => {
-      const errors = validate(intl, values, aggregatorSchema, sourceSchema);
+      const errors = validate(
+        intl,
+        values,
+        aggregatorAgendaSchema,
+        sourceSchema
+      );
 
       if (errors) {
         return errors;
       }
 
-      const rule = valuesToRule(values, aggregatorSchema);
+      const rule = valuesToRule(values, aggregatorAgendaSchema);
 
       dispatch({
         type: 'updateRule',
@@ -543,7 +561,7 @@ export default function DefineRules({
 
       setMode('list');
     },
-    [intl, aggregatorSchema, sourceSchema, state.modeOptions.id, setMode]
+    [intl, aggregatorAgendaSchema, sourceSchema, state.modeOptions.id, setMode]
   );
   const removeRule = useCallback(
     id => dispatch({
@@ -576,7 +594,7 @@ export default function DefineRules({
 
       for (const item of json) {
         try {
-          const rule = ruleToValues(item, aggregatorSchema, sourceSchema, intl);
+          const rule = ruleToValues(item, aggregatorAgendaSchema);
 
           addRule(rule);
         } catch (itemException) {
@@ -584,7 +602,7 @@ export default function DefineRules({
         }
       }
     },
-    [addRule, aggregatorSchema, sourceSchema, intl]
+    [addRule, aggregatorAgendaSchema]
   );
 
   useEffect(() => {
@@ -606,8 +624,8 @@ export default function DefineRules({
       rule => rule.id === state.modeOptions.id
     );
 
-    return ruleToValues(ruleToUpdate, aggregatorSchema, sourceSchema, intl);
-  }, [state.rules, state.modeOptions.id, aggregatorSchema, sourceSchema, intl]);
+    return ruleToValues(ruleToUpdate, aggregatorAgendaSchema);
+  }, [state.rules, state.modeOptions.id, aggregatorAgendaSchema]);
 
   const submitElement = useMemo(
     () => (state.mode === 'list' ? (
@@ -619,7 +637,7 @@ export default function DefineRules({
               const error = validateActions(
                 intl,
                 rules,
-                aggregatorSchema,
+                aggregatorAgendaSchema,
                 sourceSchema
               );
 
@@ -646,7 +664,7 @@ export default function DefineRules({
       SubmitButton,
       onCancel,
       intl,
-      aggregatorSchema,
+      aggregatorAgendaSchema,
       sourceSchema,
       onSubmit
     ]
@@ -726,6 +744,7 @@ export default function DefineRules({
         </h4>
 
         <Form
+          destroyOnUnregister
           onSubmit={addRule}
           mutators={{
             // potentially other mutators could be merged here
@@ -735,8 +754,9 @@ export default function DefineRules({
           component={RuleForm}
           SubmitButton={AddRuleSubmitButton}
           disabledExtended={!sourceSchema?.fields?.length}
+          isAggregator={isAggregator}
           sourceSchema={sourceSchema}
-          aggregatorSchema={aggregatorSchema}
+          aggregatorAgendaSchema={aggregatorAgendaSchema}
         />
       </div>
     );
@@ -748,6 +768,7 @@ export default function DefineRules({
         </h4>
 
         <Form
+          destroyOnUnregister
           onSubmit={updateRule}
           mutators={{
             // potentially other mutators could be merged here
@@ -759,7 +780,7 @@ export default function DefineRules({
           SubmitButton={UpdateRuleSubmitButton}
           disabledExtended={!sourceSchema?.fields?.length}
           sourceSchema={sourceSchema}
-          aggregatorSchema={aggregatorSchema}
+          aggregatorAgendaSchema={aggregatorAgendaSchema}
         />
       </div>
     );
