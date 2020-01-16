@@ -7,8 +7,8 @@ import {
 import compareRoles from '@openagenda/members/build/compareRoles';
 import Image from '@openagenda/react-components/build/Image';
 import Spinner from '@openagenda/react-components/build/Spinner';
+import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
-import { useMemoOne } from '../hooks/useMemoOne';
 import useChildLayouts from '../hooks/useChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
 

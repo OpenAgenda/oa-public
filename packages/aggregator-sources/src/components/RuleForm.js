@@ -1,14 +1,19 @@
 import _ from 'lodash';
-import React, { useMemo, useEffect } from 'react';
+import React, {
+  useMemo, useCallback, useEffect, useRef
+} from 'react';
 import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
 import { useForm, useFormState, Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
-import ReactTagsInput from 'react-tagsinput';
 import ReactSelect from 'react-select';
-import { usePrevious } from 'react-use';
+import CreatableSelect from 'react-select/creatable';
+import { usePrevious, useToggle } from 'react-use';
 import classNames from 'classnames';
-import { useMemoOne, useCallbackOne } from '../hooks/useMemoOne';
+import {
+  useMemoOne,
+  useCallbackOne
+} from '@openagenda/react-shared/dist/hooks/useMemoOne';
 import getMultiLanguageLabel from '../utils/getMultiLanguageLabel';
 import stateMessages from '../utils/stateMessages';
 import BsField from './BsField';
@@ -78,6 +83,10 @@ const messages = defineMessages({
     id: 'aggregator-sources.RuleForm.noOption',
     defaultMessage: 'No option'
   },
+  createOption: {
+    id: 'aggregator-sources.RuleForm.createOption',
+    defaultMessage: 'Add value {value}'
+  },
   selectValue: {
     id: 'aggregator-sources.RuleForm.selectValue',
     defaultMessage: 'Select a value'
@@ -114,6 +123,23 @@ const messages = defineMessages({
     id: 'aggregator-sources.RuleForm.helpFilterTag',
     defaultMessage:
       'Apply the rule to events associated with optional values whose labels correspond.'
+  },
+  automaticAssignment: {
+    id: 'aggregator-sources.RuleForm.automaticAssignment',
+    defaultMessage: 'Automatic assignment'
+  },
+  automaticDescription: {
+    id: 'aggregator-sources.RuleForm.automaticDescription',
+    defaultMessage:
+      'The values of the field will be defined automatically according to the values read from the source.'
+  },
+  modeSimple: {
+    id: 'aggregator-sources.RuleForm.modeSimple',
+    defaultMessage: 'Simple mode'
+  },
+  modeAdvanced: {
+    id: 'aggregator-sources.RuleForm.modeAdvanced',
+    defaultMessage: 'Advanced mode'
   }
 });
 
@@ -204,34 +230,14 @@ const selectStyles = {
 //   );
 // }
 
-function formatTags(value) {
-  return value === undefined ? [] : value;
-}
-
-function parseTags(tags) {
-  return tags.length ? tags : undefined;
-}
-
-function TagsInput({
-  input, meta, placeholder, ...props
+function ReactSelectInput({
+  innerRef, creatable, input, meta, ...rest
 }) {
-  const inputProps = useMemo(() => {
-    const hasValue = input.value && input.value.length;
-
-    return {
-      placeholder,
-      title: hasValue ? placeholder : undefined,
-      style: hasValue
-        ? {}
-        : {
-          width: '100%'
-        }
-    };
-  }, [placeholder, input.value]);
+  const SelectComponent = creatable ? CreatableSelect : ReactSelect;
 
   return (
     <>
-      <ReactTagsInput {...input} {...props} inputProps={inputProps} />
+      <SelectComponent ref={innerRef} {...input} {...rest} />
 
       {!meta.dirtySinceLastSubmit && meta.submitError ? (
         <div className="margin-top-xs margin-bottom-sm text-danger">
@@ -242,17 +248,90 @@ function TagsInput({
   );
 }
 
-function ReactSelectInput({ input, meta, ...rest }) {
-  return (
-    <>
-      <ReactSelect {...input} {...rest} />
+function SelectField({
+  name,
+  initialValue,
+  options,
+  creatable,
+  onBlur,
+  ...props
+}) {
+  const intl = useIntl();
+  const selectRef = useRef(null);
 
-      {!meta.dirtySinceLastSubmit && meta.submitError ? (
-        <div className="margin-top-xs margin-bottom-sm text-danger">
-          {meta.submitError}
-        </div>
-      ) : null}
-    </>
+  const format = useCallback(
+    selectedOption => {
+      if ([undefined, null, ''].includes(selectedOption)) {
+        return undefined;
+      }
+
+      const findOption = opt => options?.find(v => v.value === opt) ?? { label: opt, value: opt };
+
+      return Array.isArray(selectedOption)
+        ? selectedOption.map(findOption)
+        : findOption(selectedOption);
+    },
+    [options]
+  );
+  const parse = useCallback(value => {
+    const getValue = arg => arg?.value ?? arg;
+
+    return Array.isArray(value) ? value.map(getValue) : getValue(value);
+  }, []);
+  const formatCreateLabel = useCallback(
+    value => intl.formatMessage(messages.createOption, { value }),
+    [intl]
+  );
+  const handleBlur = useCallback(
+    (...args) => {
+      if (creatable) {
+        const {
+          state: { inputValue, value }
+        } = selectRef.current;
+
+        const alreadyInValue = inputValue.length
+          ? value.some(v => v.value === inputValue)
+          : true;
+
+        if (!alreadyInValue) {
+          selectRef.current.onChange([
+            ...value,
+            { label: inputValue, value: inputValue }
+          ]);
+        }
+      }
+
+      if (typeof onBlur === 'function') {
+        return onBlur(...args);
+      }
+    },
+    [onBlur, creatable]
+  );
+  const isValidNewOption = useCallback(
+    value => value !== undefined && value !== '',
+    []
+  );
+
+  const initialOption = useMemo(() => initialValue ?? format(initialValue), [
+    format,
+    initialValue
+  ]);
+
+  return (
+    <Field
+      name={name}
+      innerRef={selectRef}
+      component={ReactSelectInput}
+      options={options}
+      initialValue={initialOption}
+      creatable={creatable}
+      format={format}
+      parse={parse}
+      formatCreateLabel={formatCreateLabel}
+      onBlur={handleBlur}
+      isValidNewOption={creatable ? isValidNewOption : undefined}
+      {...props}
+    />
   );
 }
 
@@ -328,6 +407,7 @@ function Radio({
 
 function LocationFormPart() {
   const intl = useIntl();
+  const { initialValues } = useFormState();
 
   return (
     <>
@@ -354,15 +434,15 @@ function LocationFormPart() {
           </label>
 
           <div className="col-sm-10">
-            <Field
-              component={TagsInput}
+            <SelectField
               name="locationValues"
-              className="form-control react-tagsinput"
-              classNameGroup="form-inline"
               placeholder={intl.formatMessage(messages.addAValue)}
-              format={formatTags}
-              parse={parseTags}
-              addOnBlur
+              noOptionsMessage={() => intl.formatMessage(messages.noOption)}
+              menuPosition="fixed"
+              styles={selectStyles}
+              initialValue={initialValues?.locationValues}
+              isMulti
+              creatable
             />
           </div>
         </div>
@@ -374,6 +454,7 @@ function LocationFormPart() {
 function ExtendedFormPart({ sourceSchema }) {
   const intl = useIntl();
   const form = useForm();
+  const { values, initialValues } = form.getState();
 
   const options = useMemoOne(
     () => sourceSchema.fields
@@ -385,23 +466,17 @@ function ExtendedFormPart({ sourceSchema }) {
     [sourceSchema]
   );
 
-  const { values } = useFormState({
-    subscription: {
-      values: true
-    }
-  });
-
-  const fieldName = useMemoOne(() => values.field?.value, [values]);
+  const fieldName = useMemoOne(() => values.field, [values]);
   const prevFieldName = usePrevious(fieldName);
 
   const fieldSchema = useMemoOne(
     () => sourceSchema.fields.find(v => v.field === fieldName),
-    [values.field]
+    []
   );
 
   useEffect(() => {
     if (prevFieldName && fieldName && prevFieldName !== fieldName) {
-      form.change('extendedValues', '');
+      form.change('extendedValues', null);
     }
   }, [prevFieldName, fieldName, form]);
 
@@ -423,8 +498,7 @@ function ExtendedFormPart({ sourceSchema }) {
           </label>
 
           <div className="col-sm-10">
-            <Field
-              component={ReactSelectInput}
+            <SelectField
               name="field"
               placeholder={intl.formatMessage(messages.selectField)}
               noOptionsMessage={() => intl.formatMessage(messages.noOption)}
@@ -432,6 +506,7 @@ function ExtendedFormPart({ sourceSchema }) {
               menuPosition="fixed"
               styles={selectStyles}
               isSearchable
+              initialValue={initialValues?.field}
             />
           </div>
         </div>
@@ -445,9 +520,14 @@ function ExtendedFormPart({ sourceSchema }) {
             </label>
 
             <div className="col-sm-10">
-              <Field
-                component={ReactSelectInput}
+              <SelectField
                 name="extendedValues"
+                initialValue={
+                  values.field !== undefined
+                  && values.field === initialValues.field
+                    ? initialValues?.extendedValues
+                    : undefined
+                }
                 placeholder={intl.formatMessage(messages.selectValue)}
                 noOptionsMessage={() => intl.formatMessage(messages.noOption)}
                 options={valuesOptions}
@@ -464,8 +544,21 @@ function ExtendedFormPart({ sourceSchema }) {
   );
 }
 
-function TagsFormPart() {
+function TagsFormPart({ schema }) {
   const intl = useIntl();
+  const { initialValues } = useFormState();
+
+  const options = useMemoOne(
+    () => schema.fields
+      .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
+      .map(({ options: fieldOptions }) => fieldOptions)
+      .flat()
+      .map(v => ({
+        value: v.label,
+        label: getMultiLanguageLabel(v.label)
+      })),
+    [schema]
+  );
 
   return (
     <div className="row">
@@ -475,15 +568,16 @@ function TagsFormPart() {
         </label>
 
         <div className="col-sm-10">
-          <Field
-            component={TagsInput}
+          <SelectField
             name="tagValues"
-            className="form-control react-tagsinput"
-            classNameGroup="form-inline"
+            initialValue={initialValues?.tagValues}
             placeholder={intl.formatMessage(messages.addAValue)}
-            format={formatTags}
-            parse={parseTags}
-            addOnBlur
+            noOptionsMessage={() => intl.formatMessage(messages.noOption)}
+            options={options}
+            menuPosition="fixed"
+            styles={selectStyles}
+            isMulti
+            creatable
           />
         </div>
       </div>
@@ -491,24 +585,19 @@ function TagsFormPart() {
   );
 }
 
-function ActionFormPart({ name, aggregatorSchema }) {
-  const form = useForm();
+function ActionFormPart({ name, aggregatorAgendaSchema }) {
   const formState = useFormState();
   const intl = useIntl();
 
   const { values } = formState;
 
-  const fieldName = useMemoOne(() => _.get(values, name)?.field?.value, [
-    values,
-    name
-  ]);
-  const actionValues = useMemoOne(() => _.get(values, name)?.values, [
+  const fieldName = useMemoOne(() => _.get(values, name)?.field, [
     values,
     name
   ]);
 
   const fieldOptions = useMemoOne(
-    () => aggregatorSchema.fields
+    () => aggregatorAgendaSchema.fields
       .filter(
         v => ['radio', 'checkbox'].includes(v.fieldType) && v.options?.length
       )
@@ -518,20 +607,19 @@ function ActionFormPart({ name, aggregatorSchema }) {
       })
       .filter(
         v => v.field === fieldName
-            || !values.actions.find(w => w && v.field === w.field.value)
+            || !values.actions.find(w => w && v.field === w.field)
       )
       .map(v => ({
         value: v.field,
         label: getMultiLanguageLabel(v.label, intl.locale)
       })),
-    [aggregatorSchema.fields, values.actions, intl]
+    [aggregatorAgendaSchema.fields, values.actions, intl]
   );
 
-  const prevFieldName = usePrevious(fieldName);
-
   const fieldSchema = useMemoOne(
-    () => fieldName && aggregatorSchema.fields.find(v => v.field === fieldName),
-    [aggregatorSchema.fields, fieldName]
+    () => fieldName
+      && aggregatorAgendaSchema.fields.find(v => v.field === fieldName),
+    [aggregatorAgendaSchema.fields, fieldName]
   );
   const valuesOptions = useMemoOne(() => {
     if (fieldName === 'state') {
@@ -559,25 +647,13 @@ function ActionFormPart({ name, aggregatorSchema }) {
     }
   }, [fieldName, fieldSchema, intl]);
 
-  useEffect(() => {
-    const haveAllOptions = []
-      .concat(actionValues)
-      .every(actionValue => valuesOptions?.find(v => _.isEqual(actionValue, v)));
-
-    if (
-      prevFieldName
-      && fieldName
-      && prevFieldName !== fieldName
-      && !haveAllOptions
-    ) {
-      form.change(`${name}.values`, '');
-    }
-  }, [prevFieldName, fieldName, name, form, actionValues, valuesOptions]);
+  const [advancedMode, toggleAdvancedMode] = useToggle(
+    _.get(values, name)?.automatic
+  );
 
   return (
     <>
-      <Field
-        component={ReactSelectInput}
+      <SelectField
         name={`${name}.field`}
         placeholder={intl.formatMessage(messages.selectField)}
         noOptionsMessage={() => intl.formatMessage(messages.noOption)}
@@ -589,36 +665,70 @@ function ActionFormPart({ name, aggregatorSchema }) {
       />
 
       {valuesOptions ? (
-        <Field
-          component={ReactSelectInput}
-          name={`${name}.values`}
-          placeholder={intl.formatMessage(messages.selectValue)}
-          noOptionsMessage={() => intl.formatMessage(messages.noOption)}
-          options={valuesOptions}
-          menuPosition="fixed"
-          styles={selectStyles}
-          isMulti={fieldSchema?.fieldType === 'checkbox'}
-          isSearchable
-        />
+        <>
+          {advancedMode ? (
+            <Field
+              key="automatic"
+              component={Radio}
+              name={`${name}.automatic`}
+              initialValue={_.get(values, name)?.automatic ?? true}
+              defaultValue // true
+              type="checkbox"
+              label={intl.formatMessage(messages.automaticAssignment)}
+              classNameGroup="checkbox"
+              helpBlock={(
+                <div className="radio-help-block text-muted">
+                  {intl.formatMessage(messages.automaticDescription)}
+                </div>
+              )}
+            />
+          ) : (
+            <SelectField
+              key="values"
+              name={`${name}.values`}
+              placeholder={intl.formatMessage(messages.selectValue)}
+              noOptionsMessage={() => intl.formatMessage(messages.noOption)}
+              options={valuesOptions}
+              menuPosition="fixed"
+              styles={selectStyles}
+              isMulti={fieldSchema?.fieldType === 'checkbox'}
+              isSearchable
+            />
+          )}
+        </>
+      ) : null}
+
+      {fieldName && fieldName !== 'state' ? (
+        <div className="text-right margin-top-xs">
+          <button
+            onClick={toggleAdvancedMode}
+            type="button"
+            className="btn btn-link-inline"
+          >
+            {advancedMode
+              ? intl.formatMessage(messages.modeSimple)
+              : intl.formatMessage(messages.modeAdvanced)}
+          </button>
+        </div>
       ) : null}
     </>
   );
 }
 
-function ActionsFormPart({ aggregatorSchema }) {
+function ActionsFormPart({ aggregatorAgendaSchema }) {
   const intl = useIntl();
   const form = useForm();
-  const { values } = useFormState();
+  const { values } = form.getState();
 
   const leftFieldsToDefine = useMemoOne(
-    () => aggregatorSchema.fields
+    () => aggregatorAgendaSchema.fields
       .filter(
         v => ['radio', 'checkbox'].includes(v.fieldType) && v.options?.length
       )
       .concat({ field: 'state' })
-      .filter(v => !values.actions?.find(w => w && v.field === w.field.value))
+      .filter(v => !values.actions?.find(w => w && v.field === w.field))
       .length,
-    [aggregatorSchema.fields, values.actions]
+    [aggregatorAgendaSchema.fields, values.actions]
   );
 
   const lastAction = useMemoOne(
@@ -631,7 +741,7 @@ function ActionsFormPart({ aggregatorSchema }) {
       leftFieldsToDefine
       && (!values.actions?.length || (lastAction && lastAction.field))
     ) {
-      form.mutators.push('actions', { field: '', value: '' });
+      form.mutators.push('actions', { field: null, value: null });
     }
   }, [form.mutators, lastAction, leftFieldsToDefine]);
 
@@ -655,7 +765,7 @@ function ActionsFormPart({ aggregatorSchema }) {
                 <div className="form-group">
                   <ActionFormPart
                     name={name}
-                    aggregatorSchema={aggregatorSchema}
+                    aggregatorAgendaSchema={aggregatorAgendaSchema}
                   />
                 </div>
 
@@ -696,7 +806,8 @@ export default function RuleForm({
   values,
   options,
   disabledExtended,
-  aggregatorSchema,
+  isAggregator,
+  aggregatorAgendaSchema,
   sourceSchema
 }) {
   const intl = useIntl();
@@ -740,7 +851,7 @@ export default function RuleForm({
               )}
             />
 
-            {sourceSchema ? (
+            {isAggregator ? (
               <Field
                 component={Radio}
                 name="type"
@@ -794,11 +905,13 @@ export default function RuleForm({
       {values.type === 'location' ? <LocationFormPart /> : null}
       {values.type === 'extended' ? (
         <ExtendedFormPart
-          aggregatorSchema={aggregatorSchema}
+          aggregatorAgendaSchema={aggregatorAgendaSchema}
           sourceSchema={sourceSchema}
         />
       ) : null}
-      {values.type === 'tags' ? <TagsFormPart /> : null}
+      {values.type === 'tags' ? (
+        <TagsFormPart schema={sourceSchema || aggregatorAgendaSchema} />
+      ) : null}
 
       {values.type ? (
         <>
@@ -820,7 +933,7 @@ export default function RuleForm({
           </div>
 
           <ActionsFormPart
-            aggregatorSchema={aggregatorSchema}
+            aggregatorAgendaSchema={aggregatorAgendaSchema}
             sourceSchema={sourceSchema}
           />
         </>

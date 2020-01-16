@@ -11,14 +11,26 @@ async function cleanOld(config) {
   const date = new Date(Date.now() - keepTime);
   const strDate = `${date.getFullYear()}-${leadZero(date.getMonth() + 1)}-${leadZero(date.getDate())}`;
 
-  const [{ affectedRows }] = await knex
-    .raw(`delete from ${schemas.activity} where created_at < '${strDate}' limit 1000`);
+  const oldest = await knex(schemas.activity)
+    .select('id')
+    .first()
+    .where('created_at', '<', strDate)
+    .orderBy('id', 'DESC');
 
-  if (affectedRows > 0) {
-    await sleep(1000);
-
-    return cleanOld(config);
+  if (!oldest) {
+    return;
   }
+
+  let affectedRows;
+
+  do {
+    ([{ affectedRows }] = await knex
+      .raw(`delete from ?? where id <= ? limit 1000`, [schemas.activity, oldest.id]));
+
+    if (affectedRows) {
+      await sleep(1000);
+    }
+  } while (affectedRows);
 }
 
 module.exports = cleanOld;

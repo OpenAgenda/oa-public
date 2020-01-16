@@ -6,7 +6,7 @@ import { useHistory, useLocation } from 'react-router-dom';
 import shallowEqual from 'shallowequal';
 import qs from 'qs';
 import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
-import { useMemoOne } from './hooks/useMemoOne';
+import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
 import localeFr from './locales/fr';
 import localeEn from './locales/en';
 

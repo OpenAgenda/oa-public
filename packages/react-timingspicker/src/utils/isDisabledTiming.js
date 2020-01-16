@@ -12,7 +12,7 @@ export default (timing, disabled, enabled) => {
 
       return (
         dateFns.isWithinInterval(timing.begin, { start, end })
-            && dateFns.isWithinInterval(end, { start, end })
+            && dateFns.isWithinInterval(timing.end, { start, end })
       );
     })
     : true;

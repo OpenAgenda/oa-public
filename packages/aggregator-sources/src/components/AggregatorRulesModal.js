@@ -51,7 +51,7 @@ function RulesSubmitButton({ handleSubmit, onCancel }) {
 
 export default function AggregatorRulesModal({
   aggregator,
-  aggregatorSchema,
+  aggregatorAgendaSchema,
   onSubmit,
   onClose
 }) {
@@ -64,12 +64,13 @@ export default function AggregatorRulesModal({
       classNames={modalClassnames}
     >
       <DefineRules
-        aggregatorSchema={aggregatorSchema}
+        aggregatorAgendaSchema={aggregatorAgendaSchema}
         SubmitButton={RulesSubmitButton}
         initialRules={aggregator.rules}
         disableMissingFieldsValidation
         onSubmit={onSubmit}
         onCancel={onClose}
+        isAggregator
       />
     </Modal>
   );

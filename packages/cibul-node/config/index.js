@@ -775,14 +775,6 @@ const config = {
         agendaIcsEvents: {
           method: 'get',
           uri: '/agendas/:uid/events.ics'
-        },
-        agendaSourceAdd: {
-          method: 'get',
-          uri: '/agendas/:uid/addTo/:aggUid'
-        },
-        agendaSourceRemove: {
-          method: 'get',
-          uri: '/agendas/:uid/removeFrom/:aggUid'
         }
       },
       defaultGlobalsPrefix: ''

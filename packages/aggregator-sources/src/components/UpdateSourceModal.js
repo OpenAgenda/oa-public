@@ -53,7 +53,7 @@ function SubmitButton({ onCancel, handleSubmit }) {
 export default function UpdateSourceModal({
   onSubmit,
   onClose,
-  aggregatorSchema
+  aggregatorAgendaSchema
 }) {
   const intl = useIntl();
 
@@ -75,7 +75,7 @@ export default function UpdateSourceModal({
       <h4 className="text-center">{data.source.agenda.title}</h4>
       <div className="margin-top-sm">
         <DefineRules
-          aggregatorSchema={aggregatorSchema}
+          aggregatorAgendaSchema={aggregatorAgendaSchema}
           sourceSchema={data.schema}
           initialRules={data.source.rules}
           onSubmit={handleSubmit}

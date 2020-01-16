@@ -25,9 +25,9 @@
 <% if ( agendas.length ) { %>
 <% agendas.forEach( function( agenda ) { %>
 <% if ( agenda.aggregates ) { %>
-      <a class="btn btn-default checked uncheckable" href="<%= genUrl( 'agendaSourceRemove', { uid: uid, aggUid: agenda.aggUid } ) %>"><%= agenda.title %></a>
+      <a class="btn btn-default checked uncheckable" href="<%= `/${slug}/admin/sources?removeSource=${agenda.slug}` %>"><%= agenda.title %></a>
 <% } else { %>
-      <a class="btn btn-default" href="<%= genUrl( 'agendaSourceAdd', { uid: uid, aggUid: agenda.aggUid } ) %>"><%= agenda.title %></a>
+      <a class="btn btn-default" href="<%= `/${slug}/admin/sources?addSource=${agenda.slug}` %>"><%= agenda.title %></a>
 <% } %>
 <% }); %>
 <% } else { %>
