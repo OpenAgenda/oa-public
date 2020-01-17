@@ -1,6 +1,11 @@
 import _ from 'lodash';
 import React, {
-  useMemo, useCallback, useEffect, useRef
+  useMemo,
+  useCallback,
+  useState,
+  useEffect,
+  useLayoutEffect,
+  useRef
 } from 'react';
 import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
@@ -8,7 +13,7 @@ import { useForm, useFormState, Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import ReactSelect from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import { usePrevious, useToggle } from 'react-use';
+import { usePrevious } from 'react-use';
 import classNames from 'classnames';
 import {
   useMemoOne,
@@ -261,7 +266,11 @@ function SelectField({
 
   const format = useCallback(
     selectedOption => {
-      if ([undefined, null, ''].includes(selectedOption)) {
+      if (selectedOption === null) {
+        return null;
+      }
+
+      if ([undefined, ''].includes(selectedOption)) {
         return undefined;
       }
 
@@ -308,7 +317,7 @@ function SelectField({
     [onBlur, creatable]
   );
   const isValidNewOption = useCallback(
-    value => value !== undefined && value !== '',
+    value => [undefined, null, ''].includes(value),
     []
   );
 
@@ -586,12 +595,18 @@ function TagsFormPart({ schema }) {
 }
 
 function ActionFormPart({ name, aggregatorAgendaSchema }) {
-  const formState = useFormState();
   const intl = useIntl();
-
-  const { values } = formState;
+  const form = useForm();
+  const { values, initialValues } = form.getState();
 
   const fieldName = useMemoOne(() => _.get(values, name)?.field, [
+    values,
+    name
+  ]);
+  const prevFieldName = usePrevious(fieldName);
+  const initialAction = useRef(_.get(initialValues, name)).current;
+
+  const actionValues = useMemoOne(() => _.get(values, name)?.values, [
     values,
     name
   ]);
@@ -647,9 +662,37 @@ function ActionFormPart({ name, aggregatorAgendaSchema }) {
     }
   }, [fieldName, fieldSchema, intl]);
 
-  const [advancedMode, toggleAdvancedMode] = useToggle(
+  const [advancedMode, setAdvancedMode] = useState(
     _.get(values, name)?.automatic
   );
+  const [valuesBeforeAdvanced, setValuesBeforeAdvanced] = useState(undefined);
+  const toggleAdvancedMode = useCallback(() => {
+    if (!advancedMode) {
+      setValuesBeforeAdvanced(_.get(values, name)?.values);
+    }
+
+    setAdvancedMode(s => !s);
+  }, [advancedMode, name, values]);
+
+  useLayoutEffect(() => {
+    if (prevFieldName && fieldName) {
+      const haveAllOptions = []
+        .concat(actionValues)
+        .every(actionValue => valuesOptions?.find(v => _.isEqual(actionValue, v.value)));
+
+      if (prevFieldName !== fieldName && !haveAllOptions) {
+        form.change(`${name}.values`, null);
+      }
+    }
+  }, [
+    actionValues,
+    fieldName,
+    form,
+    initialAction,
+    name,
+    prevFieldName,
+    valuesOptions
+  ]);
 
   return (
     <>
@@ -671,7 +714,11 @@ function ActionFormPart({ name, aggregatorAgendaSchema }) {
               key="automatic"
               component={Radio}
               name={`${name}.automatic`}
-              initialValue={_.get(values, name)?.automatic ?? true}
+              initialValue={
+                _.get(values, name)?.automatic !== undefined
+                  ? _.get(values, name)?.automatic
+                  : _.get(initialValues, name)?.values === undefined
+              }
               defaultValue // true
               type="checkbox"
               label={intl.formatMessage(messages.automaticAssignment)}
@@ -692,6 +739,7 @@ function ActionFormPart({ name, aggregatorAgendaSchema }) {
               menuPosition="fixed"
               styles={selectStyles}
               isMulti={fieldSchema?.fieldType === 'checkbox'}
+              initialValue={valuesBeforeAdvanced}
               isSearchable
             />
           )}
@@ -741,7 +789,7 @@ function ActionsFormPart({ aggregatorAgendaSchema }) {
       leftFieldsToDefine
       && (!values.actions?.length || (lastAction && lastAction.field))
     ) {
-      form.mutators.push('actions', { field: null, value: null });
+      form.mutators.push('actions', { field: null });
     }
   }, [form.mutators, lastAction, leftFieldsToDefine]);
 
