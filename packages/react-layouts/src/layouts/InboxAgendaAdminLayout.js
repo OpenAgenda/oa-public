@@ -8,13 +8,13 @@ function InboxAgendaAdminLayout({
   onError,
   FallbackComponent
 }) {
-  const content = useChildLayouts(
+  const getContent = useChildLayouts(
     children,
     { extraProps, onError, FallbackComponent },
     childLayouts
   );
 
-  return <div className="inbox inbox-agenda-admin">{content}</div>;
+  return <div className="inbox inbox-agenda-admin">{getContent()}</div>;
 }
 
 InboxAgendaAdminLayout.layoutName = 'InboxAgendaAdminLayout';

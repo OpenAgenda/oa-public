@@ -262,7 +262,7 @@ function MainLayout({
     });
   }, [apiRoot, onSeeActivitiesClick]);
 
-  const content = useChildLayouts(
+  const getContent = useChildLayouts(
     children,
     { extraProps, onError, FallbackComponent },
     childLayouts
@@ -422,7 +422,7 @@ function MainLayout({
       </nav>
 
       <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
-        {userLoading ? <Loading /> : content}
+        {userLoading ? <Loading /> : getContent()}
 
         {flashMessage && flashMessage !== '' ? (
           <Modal>

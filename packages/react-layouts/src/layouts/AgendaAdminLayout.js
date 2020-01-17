@@ -176,7 +176,7 @@ function AgendaAdminLayout({
     [FallbackComponent, lang]
   );
 
-  const content = useChildLayouts(
+  const getContent = useChildLayouts(
     children,
     { extraProps, onError, FallbackComponent },
     childLayouts
@@ -232,7 +232,7 @@ function AgendaAdminLayout({
 
         <div className="col col-sm-9 body" style={{ paddingTop: 0 }}>
           <ErrorBoundary onError={onError} FallbackComponent={ErrorComponent}>
-            {content}
+            {getContent()}
           </ErrorBoundary>
         </div>
       </div>

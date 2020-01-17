@@ -8,7 +8,7 @@ function InboxUserLayout({
   onError,
   FallbackComponent
 }) {
-  const content = useChildLayouts(
+  const getContent = useChildLayouts(
     children,
     { extraProps, onError, FallbackComponent },
     childLayouts
@@ -19,7 +19,9 @@ function InboxUserLayout({
       <div className="row">
         <div className="col-sm-offset-2 col-sm-8">
           <div className="wsq">
-            <div className="inbox inbox-user padding-all-sm">{content}</div>
+            <div className="inbox inbox-user padding-all-sm">
+              {getContent()}
+            </div>
           </div>
         </div>
       </div>

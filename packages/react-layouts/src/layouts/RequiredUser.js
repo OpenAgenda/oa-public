@@ -29,7 +29,7 @@ function RequiredUser({
   onError,
   FallbackComponent
 }) {
-  const content = useChildLayouts(
+  const getContent = useChildLayouts(
     children,
     { extraProps, onError, FallbackComponent },
     childLayouts
@@ -45,7 +45,7 @@ function RequiredUser({
     return <Loading />;
   }
 
-  return content;
+  return getContent();
 }
 
 RequiredUser.layoutName = 'RequiredUser';
