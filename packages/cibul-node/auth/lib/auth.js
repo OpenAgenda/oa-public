@@ -427,7 +427,7 @@ function signin( values ) {
     } else if ( req.query.iToken && agendaSlug ) {
 
       // this is a invitation signin / signup, redirect to form.
-      redirectUrl = req.genUrl( 'agendaEventNew', { slug: agendaSlug } )
+      redirectUrl = `/${agendaSlug}/addEvent`;
 
     }
 
@@ -443,7 +443,7 @@ function signin( values ) {
 
     }
 
-    res.redirect( 302, agendaSlug ? req.genUrl( 'agendaShow', { slug: agendaSlug } ) : '/home' );
+    res.redirect( 302, agendaSlug ? `/${agendaSlug}/addEvent` : '/home' );
 
     d.resolve( values );
 

@@ -64,8 +64,7 @@
 <div id="content" class="no-event">
     <div class="container">
         <p class="display-none js_add_button">
-            <a class="btn btn-success btn-lg" href="<%= genUrl( 'agendaEventNew', { slug: agenda.slug } ) %>"
-               rel="nofollow"><%= __( 'addEvent' ) %></a>
+            <a class="btn btn-success btn-lg" href="/<%= agenda.slug %>/contribute" rel="nofollow"><%= __( 'addEvent' ) %></a>
         </p>
         <p><%= __( 'agendaHasNotEventsPublished' ) %></p>
     </div>

@@ -328,11 +328,6 @@ const config = {
     },
     routes: {
       globals: {
-        agendaEventNew: {
-          method: 'get',
-          uri: '/:slug/addevent',
-          legacy: true
-        },
         agendaEventEdit: {
           method: 'get',
           uri: '/:slug/event/:eventSlug/edit',

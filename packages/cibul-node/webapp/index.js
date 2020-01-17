@@ -46,7 +46,7 @@ const initialState = req => ({
         list: '/home/agendas',
         show: '/:slug',
         showPrivate: '/:slug.prv',
-        addEvent: `${phpPrefix}/:slug/addevent`,
+        addEvent: '/:slug/addevent',
         moderate: `${phpPrefix}/:slug/admin`,
         contact: '/:slug/contact'
       },
