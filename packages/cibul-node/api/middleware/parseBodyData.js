@@ -3,25 +3,30 @@
 const _ = require('lodash');
 const bodyParser = require('body-parser');
 const qs = require('qs');
+const log = require('@openagenda/logs')('parseBodyData');
 
 module.exports = [
   (req, res, next) => {
+    let parser;
 
-    let parser = bodyParser.json();
-
-    if (
+    if (req.headers['content-type'] === 'raw') {
+      log('applying talend body parser');
+      parser = parseTalendBody;
+    } else if (
       ( req.headers['content-type'] !== 'application/json' )
       && req.method !== 'PATCH'
     ) {
+      log('applying raw body parser with inflate');
       parser = bodyParser.raw({
         inflate: true,
         limit: '500kb',
         type: 'text/plain'
       });
+    } else {
+      parser = bodyParser.json();
     }
 
     parser(req, res, next);
-
   },
   ( req, res, next ) => {
 
@@ -50,3 +55,25 @@ module.exports = [
     next();
   }
 ]
+
+function parseTalendBody(req, res, next) {
+  let rawBody = '';
+  req.setEncoding('utf8');
+
+  req.on('data', chunk => {
+    rawBody += chunk;
+  });
+  req.on('end', () => {
+    try {
+      const parsed = qs.parse(rawBody);
+      req.body = {
+        ...parsed,
+        data: JSON.parse(parsed.data)
+      };
+      next();
+    } catch(e) {
+      next(e);
+    }
+  });
+  req.on('error', next);
+}
