@@ -42,7 +42,7 @@ module.exports = app => {
   app.get(
     '/signin',
     preMw,
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.middleware.ifLogged((req, res) => res.redirect(302, '/home')),
     _presetEmail,
     auth.renderSignin
   );
@@ -51,7 +51,7 @@ module.exports = app => {
     '/:agendaSlug/signin',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
     _presetEmail,
     auth.renderSignin
   );
@@ -67,7 +67,7 @@ module.exports = app => {
     '/:agendaSlug/signin',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
     signinSubmit
   );
 
@@ -84,7 +84,7 @@ module.exports = app => {
     '/:agendaSlug/signup',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
     _loadCaptcha,
     _guessFullName,
     auth.renderSignup
@@ -101,7 +101,7 @@ module.exports = app => {
     '/:agendaSlug/signup',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
     signupSubmit
   );
 
@@ -116,7 +116,7 @@ module.exports = app => {
     '/:agendaSlug/signup/complete',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
     signupComplete
   );
 
@@ -131,7 +131,7 @@ module.exports = app => {
     '/:agendaSlug/activate/resend',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
     activateResend
   );
 
@@ -146,7 +146,7 @@ module.exports = app => {
     '/:agendaSlug/activate/:token',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
     activate
   );
 

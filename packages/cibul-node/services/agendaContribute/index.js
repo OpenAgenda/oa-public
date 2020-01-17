@@ -10,8 +10,8 @@ const layout = require( '../lib/layouts' ).agenda;
 
 const cmn = require( '../../lib/commons-app' );
 
-const middlewares = require( './middlewares' );
-const interfaces = require( './interfaces' );
+const middlewares = require('./middlewares');
+const interfaces = require('./interfaces');
 
 const base64 = require( '@openagenda/utils/base64' );
 
@@ -30,8 +30,14 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
-    cmn.loadAgendaBy( { slug: 'agendaSlug' } ),
-    ( req, res, next ) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse( req, res, { code: 404 } )
+    parentApp.services.agendas.mw.load,
+    (req, res, next) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse(req, res, { code: 404 }),
+    (req, res, next) => {
+      if (!req.agenda.credentials.useContributeApp) {
+        return res.redirect(`/${req.agenda.slug}/addevent`);
+      }
+      next();
+    }
   ] );
 
   parentApp.all( [
