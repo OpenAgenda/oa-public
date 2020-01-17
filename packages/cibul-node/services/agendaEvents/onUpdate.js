@@ -5,7 +5,6 @@ const VError = require( 'verror' );
 
 const log = require( '@openagenda/logs' )( 'agendaEvents/onUpdate' );
 
-const aggregatorNotify = require( './lib/aggregatorNotify' );
 const coms = require( '../../lib/coms' );
 const config = require( '../../config' );
 const controlDataSvc = require( '../legacy' ).controlData;
@@ -41,14 +40,6 @@ module.exports = async ({ config, services }, before, after, context) => {
       log( 'error', 'control data remove failed', e );
     }
   }
-
-  aggregatorNotify.update({
-    agenda,
-    event,
-    before,
-    after,
-    batched: context.batched
-  });
 
   if (context.aggregated) {
     await transferCustomFromLegacy(agenda, event);

@@ -4,7 +4,6 @@ const _ = require('lodash');
 const marked = require('marked');
 const sessions = require( '@openagenda/sessions' );
 const agendasSvc = require( '@openagenda/agendas' );
-const aggregatorsSvc = require('../services/aggregators').instance;
 const mw = require( '@openagenda/admin-agendas' ).mw;
 const cmn = require( '../lib/commons-app' );
 const config = require( '../config' );
@@ -27,7 +26,8 @@ const preMw = [
 module.exports = app => {
   const {
     agendas,
-    events
+    events,
+    aggregators
   } = app.services;
 
   app.get('/admin/agendas/', preMw, index);
@@ -53,10 +53,10 @@ module.exports = app => {
     async ( req, res, next ) => {
       try {
         if ( _.get( req, 'body.credentials.aggregator' ) ) {
-          const aggregator = await aggregatorsSvc.get( req.agenda.uid );
+          const aggregator = await aggregators.get( req.agenda.uid );
 
           if (!aggregator) {
-            await aggregatorsSvc.set(req.agenda.uid, {
+            await aggregators.set(req.agenda.uid, {
               rules: []
             });
           }

@@ -63,8 +63,7 @@ module.exports = services => {
 
   require( './services/agenda/task' )();
 
-  require( './services/aggregators' ).task();
-  require( './services/aggregators' ).instance.task();
+  require('./services/aggregators').task();
 
   require( '@openagenda/email-strategie' ).task();
 
