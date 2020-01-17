@@ -744,7 +744,6 @@ export default function DefineRules({
         </h4>
 
         <Form
-          destroyOnUnregister
           onSubmit={addRule}
           mutators={{
             // potentially other mutators could be merged here
@@ -768,7 +767,6 @@ export default function DefineRules({
         </h4>
 
         <Form
-          destroyOnUnregister
           onSubmit={updateRule}
           mutators={{
             // potentially other mutators could be merged here
