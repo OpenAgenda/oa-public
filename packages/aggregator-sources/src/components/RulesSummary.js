@@ -55,7 +55,7 @@ export default function RulesSummary({ rules, schema }) {
           accu.extendedCount += 1;
         }
 
-        if (values.actions.length) {
+        if (values.actions?.length) {
           accu.actionCount += values.actions.length;
 
           Array.prototype.push.apply(

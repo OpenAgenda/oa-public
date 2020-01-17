@@ -359,15 +359,15 @@ export default function AddSourceModal({
   );
 
   const onSelectAgenda = useCallback(
-    async _agenda => {
-      aggregatorAgenda.schema = await apiClient.get(
-        `/${_agenda.slug}/settings/schema`
+    async sourceAgenda => {
+      sourceAgenda.schema = await apiClient.get(
+        `/${sourceAgenda.slug}/settings/schema`
       );
 
-      setSelectedAgenda(_agenda);
+      setSelectedAgenda(sourceAgenda);
       setSelectedStep('defineRules');
     },
-    [aggregatorAgenda.schema, apiClient]
+    [apiClient]
   );
 
   const selectStep = useCallback(
@@ -445,11 +445,11 @@ export default function AddSourceModal({
                 </p>
 
                 {state.agendas.length
-                  ? state.agendas.map(_agenda => (
+                  ? state.agendas.map(sourceAgenda => (
                     <AgendaItem
-                      key={_agenda.uid}
+                      key={sourceAgenda.uid}
                       sources={sources}
-                      agenda={_agenda}
+                      agenda={sourceAgenda}
                       onSelect={onSelectAgenda}
                     />
                   ))

@@ -537,7 +537,7 @@ function ExtendedFormPart({ sourceSchema }) {
                 name="extendedValues"
                 initialValue={
                   values.field !== undefined
-                  && values.field === initialValues.field
+                  && values.field === initialValues?.field
                     ? initialValues?.extendedValues
                     : undefined
                 }
@@ -614,8 +614,8 @@ function ActionFormPart({ id, name, aggregatorAgendaSchema }) {
   const initialValues = useRef(initials).current;
 
   const initialAction = useMemo(
-    () => initialValues.actions?.find(v => v.field === fieldName),
-    [fieldName, initialValues.actions]
+    () => initialValues?.actions?.find(v => v.field === fieldName),
+    [fieldName, initialValues]
   );
 
   const fieldOptions = useMemoOne(
