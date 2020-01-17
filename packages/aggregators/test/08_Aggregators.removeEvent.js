@@ -1,6 +1,6 @@
 'use strict';
 
-const removeEvent = require('../Aggregators/lib/removeEvent');
+const removeEvent = require('../lib/removeEvent');
 const should = require('should');
 
 const {

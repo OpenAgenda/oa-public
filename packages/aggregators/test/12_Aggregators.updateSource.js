@@ -2,7 +2,7 @@
 
 const should = require('should');
 
-const updateSource = require('../Aggregators/lib/updateSource');
+const updateSource = require('../lib/updateSource');
 
 const {
   asAsync,

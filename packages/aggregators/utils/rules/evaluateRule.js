@@ -1,6 +1,6 @@
 'use strict';
 
-const evaluateLocation = require('../../../lib/rules/location');
+const evaluateLocation = require('./location');
 
 module.exports = (rule, data) => {
   if (!data) {

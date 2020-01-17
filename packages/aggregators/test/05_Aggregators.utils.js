@@ -3,11 +3,11 @@
 const _ = require('lodash');
 const should = require('should');
 
-const convertFieldOptionIdsToLabels = require('../Aggregators/utils/rules/convertFieldOptionIdsToLabels');
-const determineAggregationAction = require('../Aggregators/utils/determineAggregationAction');
-const pickSchemaValues = require('../Aggregators/utils/pickSchemaValues');
-const cleanRule = require('../Aggregators/utils/rules/clean');
-const rules = require('../Aggregators/utils/rules');
+const convertFieldOptionIdsToLabels = require('../utils/rules/convertFieldOptionIdsToLabels');
+const determineAggregationAction = require('../utils/determineAggregationAction');
+const pickSchemaValues = require('../utils/pickSchemaValues');
+const cleanRule = require('../utils/rules/clean');
+const rules = require('../utils/rules');
 
 const fixtures = {
   jepOToJEP: require('./fixtures/evaluate.jep-2019-occitanie.to.albi.json'),
