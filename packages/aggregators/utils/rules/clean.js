@@ -13,6 +13,10 @@ function clean(dirty) {
 
   if (dirty[actionKey] instanceof Array) {
     dirty[actionKey].forEach(a => {
+      if (typeof a !== 'object' || a === null) {
+        return;
+      }
+
       if (Object.keys(a).includes('field')) {
         actions.push(a);
       } else {
