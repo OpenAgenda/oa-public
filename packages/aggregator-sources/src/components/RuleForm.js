@@ -283,6 +283,10 @@ function SelectField({
     [options]
   );
   const parse = useCallback(value => {
+    if (value === '') {
+      return undefined;
+    }
+
     const getValue = arg => arg?.value ?? arg;
 
     return Array.isArray(value) ? value.map(getValue) : getValue(value);
@@ -317,7 +321,7 @@ function SelectField({
     [onBlur, creatable]
   );
   const isValidNewOption = useCallback(
-    value => [undefined, null, ''].includes(value),
+    value => ![undefined, null, ''].includes(value),
     []
   );
 
@@ -558,14 +562,16 @@ function TagsFormPart({ schema }) {
   const { initialValues } = useFormState();
 
   const options = useMemoOne(
-    () => schema.fields
-      .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
-      .map(({ options: fieldOptions }) => fieldOptions)
-      .flat()
-      .map(v => ({
-        value: v.label,
-        label: getMultiLanguageLabel(v.label)
-      })),
+    () => (schema
+      ? schema.fields
+        .filter(v => ['radio', 'checkbox'].includes(v.fieldType))
+        .map(({ options: fieldOptions }) => fieldOptions)
+        .flat()
+        .map(v => ({
+          value: v.label,
+          label: getMultiLanguageLabel(v.label)
+        }))
+      : []),
     [schema]
   );
 
@@ -594,22 +600,23 @@ function TagsFormPart({ schema }) {
   );
 }
 
-function ActionFormPart({ name, aggregatorAgendaSchema }) {
+function ActionFormPart({ id, name, aggregatorAgendaSchema }) {
   const intl = useIntl();
   const form = useForm();
-  const { values, initialValues } = form.getState();
+  const { values, initialValues: initials } = form.getState();
 
-  const fieldName = useMemoOne(() => _.get(values, name)?.field, [
-    values,
-    name
+  const action = useMemo(() => values.actions.find(v => v.id === id), [
+    id,
+    values.actions
   ]);
+  const fieldName = useMemoOne(() => action?.field, [values, name]);
   const prevFieldName = usePrevious(fieldName);
-  const initialAction = useRef(_.get(initialValues, name)).current;
+  const initialValues = useRef(initials).current;
 
-  const actionValues = useMemoOne(() => _.get(values, name)?.values, [
-    values,
-    name
-  ]);
+  const initialAction = useMemo(
+    () => initialValues.actions?.find(v => v.field === fieldName),
+    [fieldName, initialValues.actions]
+  );
 
   const fieldOptions = useMemoOne(
     () => aggregatorAgendaSchema.fields
@@ -662,36 +669,45 @@ function ActionFormPart({ name, aggregatorAgendaSchema }) {
     }
   }, [fieldName, fieldSchema, intl]);
 
-  const [advancedMode, setAdvancedMode] = useState(
-    _.get(values, name)?.automatic
+  const [advancedMode, setAdvancedMode] = useState(action?.automatic);
+  const [valuesBeforeAdvanced, setValuesBeforeAdvanced] = useState(
+    action?.values
   );
-  const [valuesBeforeAdvanced, setValuesBeforeAdvanced] = useState(undefined);
   const toggleAdvancedMode = useCallback(() => {
     if (!advancedMode) {
-      setValuesBeforeAdvanced(_.get(values, name)?.values);
+      setValuesBeforeAdvanced(action?.values);
+      form.change(`${name}.values`, undefined);
+    } else {
+      form.change(`${name}.automatic`, undefined);
     }
 
-    setAdvancedMode(s => !s);
-  }, [advancedMode, name, values]);
+    setAdvancedMode(!advancedMode);
+  }, [action, advancedMode, form, name]);
 
   useLayoutEffect(() => {
     if (prevFieldName && fieldName) {
       const haveAllOptions = []
-        .concat(actionValues)
+        .concat(action?.values)
         .every(actionValue => valuesOptions?.find(v => _.isEqual(actionValue, v.value)));
 
       if (prevFieldName !== fieldName && !haveAllOptions) {
-        form.change(`${name}.values`, null);
+        setAdvancedMode(false);
+        setValuesBeforeAdvanced(undefined);
+
+        form.batch(() => {
+          form.change(`${name}.values`, undefined);
+          form.change(`${name}.automatic`, undefined);
+        });
       }
     }
   }, [
-    actionValues,
+    action,
     fieldName,
     form,
-    initialAction,
     name,
     prevFieldName,
-    valuesOptions
+    valuesOptions,
+    advancedMode
   ]);
 
   return (
@@ -714,11 +730,7 @@ function ActionFormPart({ name, aggregatorAgendaSchema }) {
               key="automatic"
               component={Radio}
               name={`${name}.automatic`}
-              initialValue={
-                _.get(values, name)?.automatic !== undefined
-                  ? _.get(values, name)?.automatic
-                  : _.get(initialValues, name)?.values === undefined
-              }
+              initialValue={initialAction?.automatic ?? true}
               defaultValue // true
               type="checkbox"
               label={intl.formatMessage(messages.automaticAssignment)}
@@ -789,7 +801,7 @@ function ActionsFormPart({ aggregatorAgendaSchema }) {
       leftFieldsToDefine
       && (!values.actions?.length || (lastAction && lastAction.field))
     ) {
-      form.mutators.push('actions', { field: null });
+      form.mutators.push('actions', { id: _.uniqueId(), field: null });
     }
   }, [form.mutators, lastAction, leftFieldsToDefine]);
 
@@ -809,9 +821,13 @@ function ActionsFormPart({ aggregatorAgendaSchema }) {
 
           <FieldArray name="actions">
             {({ fields }) => fields.map((name, index) => (
-              <div key={name} className="margin-top-sm actions-container">
+              <div
+                key={values.actions[index].id}
+                className="margin-top-sm actions-container"
+              >
                 <div className="form-group">
                   <ActionFormPart
+                    id={values.actions[index].id}
                     name={name}
                     aggregatorAgendaSchema={aggregatorAgendaSchema}
                   />
@@ -957,9 +973,7 @@ export default function RuleForm({
           sourceSchema={sourceSchema}
         />
       ) : null}
-      {values.type === 'tags' ? (
-        <TagsFormPart schema={sourceSchema || aggregatorAgendaSchema} />
-      ) : null}
+      {values.type === 'tags' ? <TagsFormPart schema={sourceSchema} /> : null}
 
       {values.type ? (
         <>

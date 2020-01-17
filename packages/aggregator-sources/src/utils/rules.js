@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import getMultiLanguageLabel from './getMultiLanguageLabel';
 
 export function ruleToValues(rule, aggregatorAgendaSchema) {
@@ -30,6 +31,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
 
       if (action.field === 'state') {
         result.actions.push({
+          id: _.uniqueId(),
           field: 'state',
           values: ids
         });
@@ -46,10 +48,12 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
       result.actions.push(
         action.automatic
           ? {
+            id: _.uniqueId(),
             field: fieldSchema.field,
             automatic: action.automatic
           }
           : {
+            id: _.uniqueId(),
             field: fieldSchema.field,
             values: ids
           }
