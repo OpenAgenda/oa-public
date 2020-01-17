@@ -18,7 +18,8 @@ const {
   AgendaAdminLayout,
   InboxUserLayout,
   InboxAgendaAdminLayout,
-  MainLayout
+  MainLayout,
+  RequiredUser
 } = require('@openagenda/react-layouts/dist/layouts');
 const createHomeApp = require('@openagenda/home/dist/app');
 const createUserSettingsApp = require('@openagenda/user-apps/dist/app');
@@ -88,77 +89,82 @@ module.exports = function match({
           req,
           history,
           initialState: state.home,
-          layout: MainLayout,
+          layout: [MainLayout, RequiredUser],
           reduxMiddleware
         }),
         userSettings: createUserSettingsApp({
           req,
           history,
           initialState: state.userSettings,
-          layout: MainLayout,
+          layout: [MainLayout, RequiredUser],
           reduxMiddleware
         }),
         agendaSettingsNew: createAgendaSettingsNewApp({
           req,
           history,
           initialState: state.agendaSettingsNew,
-          layout: MainLayout,
+          layout: [MainLayout, RequiredUser],
           reduxMiddleware
         }),
         userActivities: createUserActivitiesApp({
           req,
           history,
           initialState: state.userActivities,
-          layout: MainLayout,
+          layout: [MainLayout, RequiredUser],
           reduxMiddleware
         }),
         aggregatorSources: createAggregatorSourcesApp({
           req,
           history,
           initialState: state.aggregatorSources,
-          layout: [MainLayout, AgendaAdminLayout],
+          layout: [MainLayout, RequiredUser, AgendaAdminLayout],
           reduxMiddleware
         }),
         agendaSettingsEdit: createAgendaSettingsEditApp({
           req,
           history,
           initialState: state.agendaSettingsEdit,
-          layout: [MainLayout, AgendaAdminLayout],
+          layout: [MainLayout, RequiredUser, AgendaAdminLayout],
           reduxMiddleware
         }),
         inboxUser: createInboxApp({
           req,
           history,
           initialState: state.inboxUser,
-          layout: [MainLayout, InboxUserLayout],
+          layout: [MainLayout, RequiredUser, InboxUserLayout],
           reduxMiddleware
         }),
         support: createInboxApp({
           req,
           history,
           initialState: state.support,
-          layout: [MainLayout, InboxUserLayout],
+          layout: [MainLayout, RequiredUser, InboxUserLayout],
           reduxMiddleware
         }),
         agendaAdminInbox: createInboxApp({
           req,
           history,
           initialState: state.agendaAdminInbox,
-          layout: [MainLayout, AgendaAdminLayout, InboxAgendaAdminLayout],
+          layout: [
+            MainLayout,
+            RequiredUser,
+            AgendaAdminLayout,
+            InboxAgendaAdminLayout
+          ],
           reduxMiddleware
         }),
         members: createMembersApp({
           req,
           history,
           initialState: state.members,
-          layout: [MainLayout, AgendaAdminLayout],
+          layout: [MainLayout, RequiredUser, AgendaAdminLayout],
           reduxMiddleware
         }),
         agendaActivities: createAgendaActivitiesApp({
           req,
           history,
           initialState: state.agendaActivities,
-          layout: [MainLayout, AgendaAdminLayout],
+          layout: [MainLayout, RequiredUser, AgendaAdminLayout],
           reduxMiddleware
         })
       };
