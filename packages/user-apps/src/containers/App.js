@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
 import { reducer as formReducer } from 'redux-form';
