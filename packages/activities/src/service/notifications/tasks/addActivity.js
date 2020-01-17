@@ -2,7 +2,7 @@
 
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
-const log = require( '@openagenda/logs' )( 'activities/dist/notifications/tasks/addActivity' );
+const log = require( '@openagenda/logs' )( 'activities/notifications/tasks/addActivity' );
 const queue = require( '@openagenda/queue' );
 const promisePlusCb = require( '@openagenda/service-utils/promisePlusCb' );
 const groupBy = require( '../lib/groupBy' );

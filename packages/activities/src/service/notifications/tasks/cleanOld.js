@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require( '@openagenda/logs' )( 'activities/tasks/cleanOld' );
+const log = require( '@openagenda/logs' )( 'activities/notifications/tasks/cleanOld' );
 
 const defaultKeepTime = 1000 * 60 * 60 * 24 * 90; // 90 days
 
@@ -13,7 +13,7 @@ async function cleanOld(config) {
   const date = new Date(Date.now() - keepTime);
   const strDate = `${date.getFullYear()}-${leadZero(date.getMonth() + 1)}-${leadZero(date.getDate())}`;
 
-  const oldest = await knex(schemas.activity)
+  const oldest = await knex(schemas.feed_notification)
     .select('id')
     .first()
     .where('created_at', '<', strDate)
@@ -27,10 +27,10 @@ async function cleanOld(config) {
 
   do {
     ([{ affectedRows }] = await knex
-      .raw(`delete from ?? where id <= ? limit 1000`, [schemas.activity, oldest.id]));
+      .raw(`delete from ?? where id <= ? limit 1000`, [schemas.feed_notification, oldest.id]));
 
     if (affectedRows) {
-      log.info('%d old activities removed', affectedRows);
+      log.info('%d old notifications removed', affectedRows);
 
       await sleep(1000);
     }
