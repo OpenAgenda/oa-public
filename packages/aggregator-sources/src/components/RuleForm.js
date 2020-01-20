@@ -266,12 +266,8 @@ function SelectField({
 
   const format = useCallback(
     selectedOption => {
-      if (selectedOption === null) {
+      if ([undefined, null, ''].includes(selectedOption)) {
         return null;
-      }
-
-      if ([undefined, ''].includes(selectedOption)) {
-        return undefined;
       }
 
       const findOption = opt => options?.find(v => v.value === opt) ?? { label: opt, value: opt };
@@ -731,7 +727,6 @@ function ActionFormPart({ id, name, aggregatorAgendaSchema }) {
               component={Radio}
               name={`${name}.automatic`}
               initialValue={initialAction?.automatic ?? true}
-              defaultValue // true
               type="checkbox"
               label={intl.formatMessage(messages.automaticAssignment)}
               classNameGroup="checkbox"

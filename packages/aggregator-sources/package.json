@@ -51,7 +51,6 @@
     "react-use": "^13.12.2",
     "react-waypoint": "^9.0.2",
     "redial": "^0.5.0",
-    "shallowequal": "^1.1.0",
     "toggle-selection": "^1.0.6"
   },
   "devDependencies": {
