@@ -45,5 +45,9 @@ module.exports = {
   es53: {
     host: process.env.ELASTICSEARCH_533_DEV_HOST,
     port: process.env.ELASTICSEARCH_533_DEV_PORT
+  },
+  es75: {
+    host: process.env.OA_ELASTICSEARCH_750_DEV_HOST,
+    port: process.env.OA_ELASTICSEARCH_750_DEV_PORT
   }
 }

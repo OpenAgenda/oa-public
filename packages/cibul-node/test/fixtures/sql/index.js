@@ -35,6 +35,7 @@ module.exports = {
     'legacyAgendaTag.create.sql',
     'legacyTagSet.create.sql',
     'apiKeySet.create.sql',
+    'key.create.sql',
     'accessToken.create.sql'
   ].map(fx => fs.readFileSync(__dirname + '/' + fx, 'utf-8').replace(/;(\n|)$/, ''))
 }

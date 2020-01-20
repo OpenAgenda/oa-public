@@ -17,7 +17,8 @@ const schemaNames = require('./mock/schemaNames');
 const getLogConfig = require('./mock/getLogConfig');
 const assignClients = require('./utils/assignClients');
 
-const testConfig = {
+const testConfig = require('./testConfig');
+/*const testConfig = {
   queues: {},
   db: {
     user: 'root',
@@ -53,7 +54,7 @@ const testConfig = {
     port: process.env.ELASTICSEARCH_533_DEV_PORT
   },
   getLogConfig
-};
+};*/
 
 
 describe('core - functional ( server ): settings get', function() {

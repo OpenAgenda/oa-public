@@ -79,7 +79,7 @@ describe('core - functional (server): core.agendas().events.get()', function() {
     });
 
     it('origin agenda is provided', () => {
-      should(event.agenda).eql({
+      should(event.originAgenda).eql({
         uid: 1,
         title: 'Une commune de Fraaance',
         slug: 'une-commune-de-fraaance',

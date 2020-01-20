@@ -8,6 +8,8 @@ module.exports = config => ({
     node: `http://${_.get(config, 'es75.host', 'localhost')}:${_.get(config, 'es75.port', 9200)}/`
   },
 
+  defaultIndex: 'main',
+
   predefinedAggregations: {
 
     keywords: {

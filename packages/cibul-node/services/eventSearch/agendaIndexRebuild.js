@@ -25,7 +25,8 @@ module.exports = async (services, eventSearch, agenda) => {
         log('error', `${logPrefix} bulk failed`, { result, lastId });
       }
     },
-    eventsList: eventsList.bind(null, core, agenda)
+    eventsList: eventsList.bind(null, core, agenda),
+    formSchema: await core.agendas(agenda.uid).settings.schema.getMerged()
   });
 
   log(logPrefix + ' done');
@@ -33,29 +34,12 @@ module.exports = async (services, eventSearch, agenda) => {
   return result;
 }
 
-
-async function eventsList(core, agenda, lastId, limit) {
-  const {
-    lastId: newLastId,
-    events
-  } = await core.agendas(agenda.uid).events.list({}, {
+function eventsList(core, agenda, lastId, limit) {
+  return core.agendas(agenda.uid).events.list({}, {
     lastId,
     limit
   }, {
     returnPayload: true,
     detailed: true
-  }).then(({ events, formSchema, agenda, lastId }) => ({
-    lastId,
-    events: events.map(event => formatEventForIndex({
-      agenda,
-      formSchema,
-      event,
-      member: event.member
-    }))
-  }));
-
-  return {
-    lastId: newLastId,
-    events
-  }
+  }).then(({ events, lastId, agenda }) => ({ lastId, events }));
 }

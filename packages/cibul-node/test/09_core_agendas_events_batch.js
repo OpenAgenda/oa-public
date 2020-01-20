@@ -17,46 +17,10 @@ const schemaNames = require('./mock/schemaNames');
 const getLogConfig = require('./mock/getLogConfig');
 const assignClients = require('./utils/assignClients');
 
-const testConfig = {
-  queues: {},
-  db: {
-    user: 'root',
-    password: 'grut',
-    database: 'oatest'
-  },
-  redis: {
-    host: 'localhost',
-    port: 6379
-  },
-  schemas: schemaNames,
-  imageSizeLimits: [ 1000, 10000000 ],
-  tmpFolderPath: '/var/tmp/',
-  aws: {
-    bucket: 'openagendatst',
-    accessKeyId: config.aws.accessKeyId,
-    secretAccessKey: config.aws.secretAccessKey,
-    defaultImagePath: config.aws.defaultImagePath,
-    imageBucketPath: 'https://openagendatest.s3.amazonaws.com/'
-  },
-  esLocation: {
-    //log: [  ],
-    index: 'locations',
-    apiVersion: '1.3',
-    timeout: 30000
-  },
-  es: {
-    host: process.env.ELASTICSEARCH_134_DEV_HOST,
-    port: process.env.ELASTICSEARCH_134_DEV_PORT
-  },
-  es53: {
-    host: process.env.ELASTICSEARCH_533_DEV_HOST,
-    port: process.env.ELASTICSEARCH_533_DEV_PORT
-  },
-  getLogConfig
-};
+const testConfig = require('./testConfig');
 
 describe('core - fuctional (server): events batch', function() {
-  this.timeout(10000);
+  this.timeout(30000);
 
   before( async () => {
 

@@ -49,7 +49,7 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
   }
 
   if (originAgenda) {
-    compiled.agenda = originAgenda;
+    compiled.originAgenda = originAgenda;
   }
 
   if (member) {

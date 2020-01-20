@@ -15,7 +15,7 @@ const agendaIndexRebuild = require('./agendaIndexRebuild');
 const transverseIndex = require('./transverseIndex');
 const getApp = require('./getApp');
 
-module.exports.init = (config, services) => {
+module.exports.init = async (config, services) => {
   log('init');
   const {
     queues,
@@ -24,6 +24,9 @@ module.exports.init = (config, services) => {
   } = services;
 
   const eventSearch = EventSearch(buildSearchConfig(config));
+
+  await eventSearch.cluster.configure();
+
   const queue = queues('eventSearch');
   const rebuildQueue = queues('eventSearch:rebuild');
 
@@ -65,5 +68,7 @@ function task({ queue, rebuildQueue }) {
   queue.on('success', (fn, args, result) => log(fn, 'success'));
 
   queue.run();
+
+  rebuildQueue.on('error', (fn, args, error) => log('error', fn, args, error));
   rebuildQueue.run();
 }

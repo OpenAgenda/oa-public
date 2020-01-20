@@ -79,7 +79,7 @@ describe('core - functional (server): core.agendas().events.list()', function() 
     });
 
     it('origin agenda is not provided', () => {
-      should(events[0].agenda).equal(undefined);
+      should(events[0].originAgenda).equal(undefined);
     });
   });
 
@@ -104,7 +104,7 @@ describe('core - functional (server): core.agendas().events.list()', function() 
     });
 
     it('origin agenda is provided', () => {
-      Object.keys(events[0].agenda).should.eql([
+      Object.keys(events[0].originAgenda).should.eql([
         'slug',
         'uid',
         'official',
