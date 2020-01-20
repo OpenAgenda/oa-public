@@ -89,7 +89,7 @@ module.exports = function match({
           req,
           history,
           initialState: state.home,
-          layout: [MainLayout, RequiredUser],
+          layout: MainLayout,
           reduxMiddleware
         }),
         userSettings: createUserSettingsApp({
