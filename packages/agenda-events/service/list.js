@@ -72,9 +72,9 @@ async function listByLastId( agendaUid, query, lastId, limit = 20 ) {
   const items = await _list( cleanQuery, nav );
 
   return {
-    items: items.map( validate ),
+    items: items.map(validate),
     total: await _total(cleanQuery),
-    lastId: _.get( _.last( items ), 'id' )
+    lastId: _.get(_.last(items), 'id', -1)
   }
 
 }
