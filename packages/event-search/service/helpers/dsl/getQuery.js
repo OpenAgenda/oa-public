@@ -1,39 +1,39 @@
 'use strict';
 
 const _ = require('lodash');
+const getFormSchemaAdditionalFields = require('../../../utils/getFormSchemaAdditionalFields');
 
-module.exports = (cleanQuery, extensionQueries, additionalMustParts = []) => {
-
+module.exports = (cleanQuery, formSchema, additionalMustParts = []) => {
   const query = {};
+  const additionalFields = getFormSchemaAdditionalFields(formSchema);
 
-  const mustParts = _getQueryMustParts(cleanQuery, extensionQueries).concat(additionalMustParts);
+  const mustParts = _getQueryMustParts(cleanQuery, additionalFields).concat(additionalMustParts);
 
-  const filterParts = _getQueryFilterParts(cleanQuery);
+  const filterParts = _getQueryFilterParts(cleanQuery, additionalFields);
 
-  if ( mustParts.length === 1 && !filterParts.length ) {
+  if (mustParts.length === 1 && !filterParts.length) {
 
-    _.extend( query, mustParts[ 0 ] );
+    _.extend(query, mustParts[0]);
 
-  } else if ( mustParts.length > 1 || ( filterParts.length && mustParts.length ) ) {
-
-    _.set( query, 'bool.must', mustParts );
-
+  } else if (mustParts.length > 1 || (filterParts.length && mustParts.length)) {
+    _.set(query, 'bool.must', mustParts);
   }
 
 
-  if ( filterParts.length ) {
-
-    _.set( query, 'bool.filter', filterParts );
-
+  if (filterParts.length) {
+    _.set(query, 'bool.filter', filterParts);
   }
 
   return query;
-
 }
 
 
-function _getQueryFilterParts(cleanQuery) {
+function _getQueryFilterParts(cleanQuery, additionalFields) {
   const parts = [];
+
+  if (_.get(cleanQuery, 'set')) {
+    parts.push(_mustPart('term', '_set', cleanQuery.set));
+  }
 
   if (_.get( cleanQuery, 'localTime.gte') || _.get(cleanQuery, 'localTime.lte')) {
     parts.push(_localTime(cleanQuery.localTime));
@@ -44,7 +44,7 @@ function _getQueryFilterParts(cleanQuery) {
   }
 
   if (![undefined, null].includes(cleanQuery.state)) {
-    parts.push(_mustPart('term', 'state.code', cleanQuery.state));
+    parts.push(_mustPart('term', 'state', cleanQuery.state));
   }
 
   if (cleanQuery.uid && cleanQuery.uid.length > 1) {
@@ -53,26 +53,37 @@ function _getQueryFilterParts(cleanQuery) {
     parts.push(_mustPart('term', 'uid', cleanQuery.uid[0]));
   }
 
+  if (cleanQuery.slug && cleanQuery.slug.length > 1) {
+    parts.push(_mustPart('terms', 'slug', cleanQuery.slug));
+  } else if (cleanQuery.slug && cleanQuery.slug.length) {
+    parts.push(_mustPart('term', 'slug', cleanQuery.slug[0]));
+  }
+
+  additionalFields.forEach(field => {
+    if (cleanQuery[field.field] && ['email'].includes(field.fieldType)) {
+      parts.push(_mustPart('term', '_search_additional_keywords', cleanQuery[field.field]));
+    }
+  });
+
   return parts;
 }
 
 
-function _getQueryMustParts(cleanQuery, extensionQueries = {}) {
-
+function _getQueryMustParts(cleanQuery, additionalFields) {
   const parts = [];
 
   // term constraints
 
-  ['slug',
-    ['keyword', 'search_internals_keywords', true],
-    ['lang', 'search_internals_languages', true],
+  [
+    ['keyword', '_search_keywords', true],
+    ['lang', '_search_languages', true],
     ['locationUid', 'location.uid'],
     ['city', 'location.city'],
     ['region', 'location.region'],
     ['department', 'location.department'],
     ['countryCode', 'location.countryCode'],
-    ['contributorUid', 'contributor.uid'],
-    ['agendaUid', 'agenda.uid']
+    ['memberUid', 'member.uid'],
+    ['agendaUid', 'originAgenda.uid']
   ].forEach(field => {
     const fromField = _.isArray(field) ? field[0] : field;
     const toField = _.isArray(field) ? field[1] : field;
@@ -86,7 +97,6 @@ function _getQueryMustParts(cleanQuery, extensionQueries = {}) {
         .forEach( p => parts.push( p ) );
     }
   });
-
 
   // add bounds constraints
   if (
@@ -104,33 +114,16 @@ function _getQueryMustParts(cleanQuery, extensionQueries = {}) {
       multi_match: {
         query: cleanQuery.search,
         fields: [
-          'search_internals_title',
-          'search_internals_description',
-          'search_internals_keywords_text',
-          'search_internals_full_address_text',
+          '_search_title',
+          '_search_description',
+          '_search_keywords_text',
+          '_search_full_address_text',
         ]
       }
     });
   }
 
-  // add custom ( all is match )
-
-  if ( extensionQueries && _.keys( extensionQueries ).length ) {
-
-    _.keys( extensionQueries ).forEach( extension => {
-
-      _.keys( extensionQueries[ extension ] ).forEach( field => {
-
-        parts.push( _mustPart( 'match', extension + '.' + field, extensionQueries[ extension ][ field ] ) );
-
-      } );
-
-    } );
-
-  }
-
   return parts;
-
 }
 
 
@@ -171,7 +164,7 @@ function _localTime( t ) {
       path: 'timings',
       score_mode: 'min',
       query: { range: {
-        'timings.search_internals_begin_from_midnight' : range
+        'timings._search_begin_from_midnight' : range
       } }
     }
   };
@@ -182,7 +175,7 @@ function _geoBounds( b ) {
 
   return {
     geo_bounding_box: {
-      search_internals_location: {
+      _search_location: {
         top_left: { lat: b.northEast.lat, lon: b.southWest.lng },
         bottom_right: { lat: b.southWest.lat, lon: b.northEast.lng }
       }

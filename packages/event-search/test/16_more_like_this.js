@@ -53,7 +53,7 @@ describe('16 - event search - functional: more like this', function() {
       const { events } = await dslSearch( 'simple_search', {
         query: {
           more_like_this: {
-            fields: [ 'search_internals_keywords' ],
+            fields: [ '_search_keywords' ],
             min_term_freq: 1,
             min_doc_freq: 1,
             like: [ 'vin chaud' ]

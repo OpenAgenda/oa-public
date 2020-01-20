@@ -66,18 +66,15 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "visit@safisalons.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizer": 1200,
+      "organizeremail": "visit@safisalons.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Danièle FRISTOT",
         "organization": "Jardin des sciences - UFR Sci FA - Campus Bridoux",
         "uid": 0
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 42,
@@ -137,18 +134,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "info@bijorhca.com",
-        "authortestimony": "Florence GOSSET (France) - Détaillante bijouterie fantaisie et accessoires de mode"
-      },
-      "contributor": {
+      "organizeremail": "info@bijorhca.com",
+      "authortestimony": "Florence GOSSET (France) - Détaillante bijouterie fantaisie et accessoires de mode",
+      "member": {
         "name": "Stéphane Flament",
         "organization": "Faculté des Sciences et Technologies",
         "uid": 1
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 15,
@@ -208,18 +201,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "cannes@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "cannes@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Anne MODAT",
         "organization": "Université de Perpignan Via Domitia",
         "uid": 2
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 16,
@@ -279,18 +268,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "laila.boudrar@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "laila.boudrar@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Joëlle Pornin",
         "organization": "Ecole normale supérieure de Lyon",
         "uid": 3
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 17,
@@ -350,18 +335,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "visiter@iftm.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "visiter@iftm.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Marion LEVY",
         "organization": "Parvis des Sciences",
         "uid": 4
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 40,
@@ -421,18 +402,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "cynthia.david@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "cynthia.david@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Laure Grandhomme",
         "organization": "Université de technologie de Troyes",
         "uid": 5
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 41,
@@ -492,18 +469,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "visiter@iftm.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "visiter@iftm.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Clotilde Leducq",
         "organization": "Musée du peigne et de la plasturgie",
         "uid": 6
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 6,
@@ -613,18 +586,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "gwennaelle.le-bourhis@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "gwennaelle.le-bourhis@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Christian LAVIGNE",
         "organization": "ARS MATHEMATICA (association Loi de 1901)",
         "uid": 7
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 24,
@@ -688,18 +657,14 @@
         "countryCode": "CH",
         "timezone": "Europe/Zurich"
       },
-      "custom": {
-        "organizeremail": "contact@salonreeduca.com",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "contact@salonreeduca.com",
+      "authortestimony": "",
+      "member": {
         "name": "Céline Monthérat",
         "organization": "muséum d'histoire naturelle",
         "uid": 8
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 1,
@@ -766,18 +731,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "info@topfranchisemed.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "info@topfranchisemed.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Marie DONEDA",
         "organization": "Recreasciences CCSTI LIMOUSIN",
         "uid": 9
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     }
   ]
 }

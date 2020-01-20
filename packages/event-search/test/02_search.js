@@ -11,14 +11,21 @@ const Service = require('../');
 
 describe('02 - event search - functional: search', function() {
 
-  describe('simple', function() {
+  describe('simple use cases', function() {
     let service;
-
     this.timeout(40000);
 
     before(async () => {
       service = Service(config);
 
+      try {
+        await service.getConfig().client.indices.delete({
+          index: 'maintest'
+        });
+      } catch (e) {}
+    });
+
+    before(async () => {
       await service('simple_search').rebuild({
         eventsList: async (lastId, limit) => {
           return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_events.${lastId}.${limit}.json`))
@@ -34,6 +41,46 @@ describe('02 - event search - functional: search', function() {
       events[0].slug.should.equal('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
     });
 
+    it('several events can be retrieved by uid at once', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({ uid: [6, 11] });
+
+      total.should.equal(2);
+
+      events.map(e => e.slug).should.eql([
+        'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
+        'serres-la-claranda-cafe-citoyen'
+      ]);
+    });
+
+    it('an event can be retrieved with its slug', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({
+        slug: 'decouverte-du-handball-et-valorisation-du-mondial-de-handball'
+      });
+
+      events[0].uid.should.equal(6);
+    });
+
+    it('several events can be retrieved by slug at once', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({
+        slug: [
+          'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
+          'serres-la-claranda-cafe-citoyen'
+        ]
+      });
+
+      total.should.equal(2);
+      events.map(e => e.uid).should.eql([6, 11]);
+    });
+
     it('by default, only fields defined in service/config base fields are returned', async () => {
       const { events, total } = await service('simple_search').search({ uid: 6 });
 
@@ -41,14 +88,16 @@ describe('02 - event search - functional: search', function() {
 
       const expectedFields = service.getConfig().baseSearchIncludes.concat( postParseFields ).map( f => f.split( '.' )[ 0 ] );
 
-      _.keys( events[ 0 ] )
-        .filter( field => !expectedFields.includes( field ) )
-        .should.eql( [] );
-
+      _.keys(events[0])
+        .filter(field => !expectedFields.includes(field))
+        .should.eql([]);
     });
 
     it('by default, event timings are converted to local timezone', async () => {
-      const { events, total } = await service('simple_search').search({ uid: 6 }, null, { detailed: true });
+      const {
+        events,
+        total
+      } = await service('simple_search').search({ uid: 6 }, null, { detailed: true });
 
       events[0].timings[0].begin.should.equal('2016-10-24T14:00:00+02:00');
     });
@@ -61,7 +110,10 @@ describe('02 - event search - functional: search', function() {
 
     it('if monolingual option is set, multilingal fields are flattened to specified language', async () => {
 
-      const { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({ uid: 6 }, null, {
         monolingual: 'fr',
         detailed: true
       });
@@ -88,21 +140,22 @@ describe('02 - event search - functional: search', function() {
         'image',
         'private',
         'keywords',
-        'dateRange',
         'accessibility',
+        'dateRange',
         'timezone',
+        'originAgenda',
         'description',
         'title',
-        'agenda',
         'locationUid',
         'uid',
         'createdAt',
         'creatorUid',
-        'contributor',
         'draft',
         'timings',
+        'member',
         'registration',
         'location',
+        'state',
         'slug',
         'age',
         'updatedAt',
@@ -112,24 +165,13 @@ describe('02 - event search - functional: search', function() {
 
     });
 
-
-    it('several events can be retrieved by uid at once', async () => {
+    it('open search one or more words', async () => {
       const {
         events,
         total
-      } = await service('simple_search').search({ uid: [6, 11] });
-
-      total.should.equal(2);
-
-      events.map(e => e.slug).should.eql([
-        'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
-        'serres-la-claranda-cafe-citoyen'
-      ]);
-    });
-
-
-    it('open search one or more words', async () => {
-      const { events, total } = await service('simple_search').search({ search: 'Mississipi' });
+      } = await service('simple_search').search({
+        search: 'Mississipi'
+      });
 
       total.should.equal(3);
 
@@ -406,14 +448,14 @@ describe('02 - event search - functional: search', function() {
         }, { size: 0 }, {
           aggregations: [ {
             type: 'terms',
-            field: 'search_internals_keywords'
+            field: '_search_keywords'
           }, {
             type: 'timings'
           } ]
         } );
 
         aggregations.should.eql( {
-          search_internals_keywords: [
+          _search_keywords: [
             { key: 'clé', count: 1 },
             { key: 'key', count: 1 },
             { key: 'mot', count: 1 },
@@ -612,19 +654,17 @@ describe('02 - event search - functional: search', function() {
 
     } );
 
-    it( 'sorting works in updatedAt asc order', async () => {
+    it('sorting works in updatedAt asc order', async () => {
+      const { events, total } = await service('simple_search').search({
+        search: 'Trié',
+        sort: 'updatedAt.asc'
+      }, {}, { detailed: true });
 
-      let { events, total } = await service( 'simple_search' ).search( { search: 'Trié', sort: 'updatedAt.asc' }, {}, { detailed: true } );
-
-      events.forEach( ( e, i ) => {
-
-        if ( i === 0 ) return;
-
-        e.updatedAt.should.above( events[ i - 1 ].updatedAt );
-
-      } );
-
-    } );
+      events.forEach(( e, i ) => {
+        if (i === 0) return;
+        e.updatedAt.should.above(events[i - 1].updatedAt);
+      });
+    });
 
 
     it( 'sorting works in updatedAt desc order', async () => {
@@ -701,64 +741,74 @@ describe('02 - event search - functional: search', function() {
 
   } );
 
-  describe('custom', function() {
+  describe('additional fields', function() {
     let service;
 
-    this.timeout(10000);
+    this.timeout(30000);
+
+    const formSchema = {
+      fields: [{
+        schemaId: 12,
+        field: 'organizer',
+        fieldType: 'text'
+      }, {
+        schemaId: 12,
+        field: 'organizeremail',
+        fieldType: 'email'
+      }, {
+        schemaId: 12,
+        field: 'totalnumberofvisitors',
+        fieldType: 'integer'
+      }, {
+        schemaId: 12,
+        field: 'authortestimony',
+        fieldType: 'text'
+      }]
+    };
 
     before(async () => {
       service = Service(config);
 
-      await service('simple_search').rebuild({
+      const r = await service.getConfig().client.indices.delete({
+        index: 'maintest'
+      });
+    });
+
+    before(async () => {
+
+      const r = await service('simple_search').rebuild({
         eventsList: async (offset, limit) => {
           return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_customEvents.${offset}.${limit}.json`))
         },
-        extensions: {
-          custom: {
-            organizeremail: {
-              type: 'email'
-            },
-            totalnumberofvisitors: {
-              type: 'integer'
-            },
-            authortestimony: {
-              type: 'text'
-            }
-          }
-        }
+        formSchema
       });
 
     });
-
 
     it('custom field is searched through custom key', async () => {
       const {
         events,
         total
       } = await service('simple_search').search({
-        custom: {
-          organizeremail: 'cannes@reedexpo.fr'
-        }
+        organizeremail: 'cannes@reedexpo.fr'
       }, {}, {
-        extensions: 'custom'
+        formSchema
       });
 
-      total.should.equal( 1 );
+      total.should.equal(1);
     });
 
-
-    it( 'flat form works as well', async () => {
-
-      let { events, total } = await service( 'simple_search' ).search( {
+    it('backward compatibility', async () => {
+      const { events, total } = await service('simple_search').search({
         'custom.organizeremail' : 'cannes@reedexpo.fr'
-      }, {}, { extensions: 'custom' } );
+      }, {}, {
+        formSchema
+      });
 
-      total.should.equal( 1 );
+      total.should.equal(1);
+    });
 
-    } );
-
-
-    it( 'extension data is not part of detailed result by default', async () => {
+    it('extension data is not part of detailed result by default', async () => {
 
       let { events, total } = await service( 'simple_search' ).search( {
         'uid' : 15
@@ -766,35 +816,32 @@ describe('02 - event search - functional: search', function() {
 
       _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( false );
 
-    } );
+    });
 
 
-    it( 'extension data is part of result only if explicitely requested in options', async () => {
+    it('additional data is part of result', async () => {
+      const { events, total } = await service( 'simple_search' ).search( {
+        'organizeremail' : 'cannes@reedexpo.fr'
+      }, {}, { detailed: true, formSchema });
 
-      let { events, total } = await service( 'simple_search' ).search( {
-        'custom.organizeremail' : 'cannes@reedexpo.fr'
-      }, {}, { detailed: true, extensions: [ 'custom', 'contributor' ] } );
-
-      _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( true );
-
-    } );
+      _.keys(events[0]).includes('organizeremail').should.equal(true);
+    });
 
 
-    it( 'events from a specific agenda can be retrieved based on the agenda uid', async () => {
+    it('events from a specific agenda can be retrieved based on the agenda uid', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( {
+      let { events, total } = await service('simple_search').search({
         agendaUid : 21475128
-      }, {}, { detailed: true } );
+      }, {}, { detailed: true });
 
-      events[ 0 ].agenda.uid.should.equal( 21475128 );
-
-    } );
+      events[0].originAgenda.uid.should.equal(21475128);
+    });
 
 
     it( 'extension data can be merged into new object as specified in options', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( {
-        'custom.organizeremail' : 'cannes@reedexpo.fr'
+      let { events, total } = await service( 'simple_search' ).search({
+        'organizeremail' : 'cannes@reedexpo.fr'
       }, {}, {
         detailed: true,
         extensions: [ 'custom', 'contributor' ],

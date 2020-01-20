@@ -1,36 +1,35 @@
-"use strict";
+'use strict';
 
-const h = require('./helpers');
-const textLog = require('./helpers/textLog');
-const existsAlias = require('./helpers/existsAlias');
-const getAlias = require('./helpers/getAlias');
 const _ = require('lodash');
-const preParse = require('./index/preParse');
-const parseExtension = require('./extensions/parse');
-const log = require('@openagenda/logs' )('rebuild');
+const crypto = require('crypto');
+const getIndexName = require('./helpers/getIndexName');
+const getDocumentId = require('./helpers/getDocumentId');
+const formatEvent = require('../utils/formatEvent');
+const log = require('@openagenda/logs')('rebuild');
 
 const limit = 10;
 
-const defaultExtensions = {
-  contributor: require('./extensions/contributor.fields.js'),
-}
+const mapping = require('./index/mapping.json');
 
-const indexSettings = require('./index/settings.json');
-
-module.exports = async (config, alias, options = {}) => {
+module.exports = async (config, set, options = {}) => {
   log('called');
+  const operations = [];
+  let hasMore = true;
+  let lastId = 0;
+  let error = null;
 
   const {
-    client
+    client,
+    defaultIndex
   } = config;
 
   const {
     eventsList,
-    extensions,
+    formSchema,
     on
   } = {
     eventsList: null,
-    extensions: {},
+    formSchema: null,
     on: {
       bulk: () => {},
       error: () => {}
@@ -38,24 +37,30 @@ module.exports = async (config, alias, options = {}) => {
     ...options
   };
 
-  Object.assign(extensions, defaultExtensions);
+  const index = getIndexName(set, defaultIndex);
 
-  const extendedSettings = h.extendMapping(indexSettings, _.mapValues(extensions, parseExtension));
-  const counts = { indexed: 0 };
+  if (!await client.indices.exists({ index }).then(r => r.body)) {
+    log('creating index', index);
+    await client.indices.create({
+      index,
+      body: {
+        mappings: {
+          dynamic: false,
+          properties: mapping
+        }
+      }
+    });
+    operations.push(`index created: ${index}`);
+  }
 
-  let lastId = 0;
-  let hasMore = true;
-  // Prepare: check list func and create new index
+  const build = crypto.randomBytes(16).toString('hex');
+  operations.push(`generated unique build id: ${build}`);
 
-  await h.checkList(eventsList);
-
-  const index = await h.createUniqueIndex(client, alias, extendedSettings);
-
-  textLog(extendedSettings);
-
-  // Populate: use list func to populate new index
-
-  log('start populating new index');
+  const counts = {
+    created: 0,
+    updated: 0,
+    deleted: 0
+  };
 
   try {
     do {
@@ -64,70 +69,71 @@ module.exports = async (config, alias, options = {}) => {
         events
       } = await eventsList(lastId, limit);
 
-      hasMore = !!events.length && (nextLastId !== -1);
+      log('bulk indexing %s events from %s', events.length, lastId);
 
-      log('bulk indexing from lastId %s %s events (total of %d timings)', lastId, events.length, events.reduce((t, e) => t + _.get(e, 'timings', []).length, 0));
+      if (events.length) {
+        const r = await client.bulk({
+          index,
+          body: events.reduce((bulkOperations, event) => bulkOperations.concat([
+            { index: { _id: getDocumentId(set, event.uid) } },
+            { ...formatEvent(event, formSchema),
+              _build: build,
+              _set: set
+            }
+          ]), [])
+        }).then(r => r.body);
 
-      const bulkJob = h.indexBulk(client, index, events.map(e => preParse(e)));
+        if (r.errors) {
+          log('error', r.items.map(i => i.index.error));
+          throw new Error('bulk index failed');
+        }
 
-      if (!bulkJob) {
-        log('nothing to index in bulk job: all items were filtered out');
-        lastId = nextLastId;
-        continue;
+        counts.created += r.items.filter(i => i.index.result === 'created').length;
+        counts.updated += r.items.filter(i => i.index.result === 'updated').length;
       }
 
-      const bulkResult = await bulkJob;
-
-      if (bulkResult.errors) {
-        log('error', 'bulk index returned errors', bulkResult);
-        on.error({ result: bulkResult, lastId });
+      if (nextLastId === -1) {
+        hasMore = false;
       } else {
-        counts.indexed += bulkResult.items.length;
-        log('info', 'bulk indexed lastId %s on index %s, took %s', lastId, index, (bulkResult.took / 1000) + 's');
-        on.bulk({ lastId, counts, result: bulkResult });
+        lastId = nextLastId;
       }
-
-      lastId = nextLastId;
     } while (hasMore);
+
+    operations.push(`indexed ${counts.updated + counts.created} events, ${counts.updated} updated, ${counts.created} created`);
   } catch (e) {
-    log('error', 'index rebuild failed - deleting, not reassigning', e);
-
-    await client.indices.delete({ index });
-
-    throw e;
+    log('error', e);
+    error = e;
+    operations.push(`bulk operations failed`);
   }
-
-  log('info', 'reassign alias, %s, remove previous indices, refresh new index', alias);
-
-  // Wrap up: re-assign alias, remove previous indices, refresh new index
-
-  let previousIndices = [];
-
-  if (await existsAlias(client, alias)) {
-    previousIndices = await getAlias(client, alias);
-  }
-
-  await client.indices.putAlias({
-    index,
-    name: alias
-  });
-
-  while (previousIndices.length) {
-    await client.indices.delete({
-      index: previousIndices.pop()
-    });
-  }
-
-  log('info', 'updated alias %s, removed %s previously associated indices', alias, previousIndices.length);
 
   await client.indices.refresh({ index });
 
-  return {
-    success: true,
-    counts,
-    detail: {
-      index
+  counts.deleted = await client.deleteByQuery({
+    index,
+    refresh: true,
+    body: {
+      query: {
+        bool: {
+          must_not: {
+            term: {
+              _build: build
+            }
+          },
+          filter: {
+            term: {
+              _set: set
+            }
+          }
+        }
+      }
     }
-  }
+  }).then(r => r.body.deleted);
 
+  operations.push(`deleted ${counts.deleted} events from previous builds`);
+
+  return {
+    operations,
+    counts,
+    error
+  }
 }

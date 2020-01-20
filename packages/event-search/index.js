@@ -11,17 +11,19 @@ const moreLikeThis = require('./service/moreLikeThis');
 const rebuild = require('./service/rebuild');
 const remove = require('./service/remove');
 const search = require('./service/search');
+const exists = require('./service/exists');
 const searchIncludes = require('./service/index/searchIncludes.json');
 const parsers = require('./parsers');
 const update = require('./service/update');
-const stats = require('./service/stats');
+const Cluster = require('./service/cluster');
 
 module.exports = c => {
   const config = Object.assign({
     client: new elasticsearch.Client(_.pick(c.elasticsearch, ['node', 'log'])),
     type: 'event',
     baseSearchIncludes: searchIncludes.base,
-    detailedSearchIncludes: searchIncludes.detailed
+    detailedSearchIncludes: searchIncludes.detailed,
+    defaultIndex: 'main'
   }, c);
 
   if (c.logger) {
@@ -30,7 +32,7 @@ module.exports = c => {
 
   return Object.assign(alias => ({
     name: alias,
-    exists: () => config.client.indices.existsAlias({ name: alias }).then(r => r.body),
+    exists: exists.bind(null, config, alias),
     rebuild: rebuild.bind(null, config, alias),
     deleteIndex: deleteIndex.bind(null, config, alias),
     search: search(config, alias),
@@ -41,7 +43,7 @@ module.exports = c => {
   }), {
     getConfig: () => config,
     deleteFloatingIndices: deleteFloatingIndices.bind(null, config),
-    stats: stats.bind(null, config)
+    cluster: Cluster(config)
   })
 }
 

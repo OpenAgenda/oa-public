@@ -52,7 +52,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -66,14 +65,13 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Danièle FRISTOT",
         "organization": "Jardin des sciences - UFR Sci FA - Campus Bridoux",
         "uid": 0
       },
-      "state": {
-        "code": 2
-      }
+      "originAgenda": null
     },
     {
       "id": 42,
@@ -119,7 +117,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -133,14 +130,13 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Stéphane Flament",
         "organization": "Faculté des Sciences et Technologies",
         "uid": 1
       },
-      "state": {
-        "code": 2
-      }
+      "originAgenda": null
     },
     {
       "id": 15,
@@ -186,7 +182,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -200,14 +195,13 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Anne MODAT",
         "organization": "Université de Perpignan Via Domitia",
         "uid": 2
       },
-      "state": {
-        "code": 2
-      }
+      "originAgenda": null
     },
     {
       "id": 16,
@@ -253,7 +247,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -267,14 +260,13 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Joëlle Pornin",
         "organization": "Ecole normale supérieure de Lyon",
         "uid": 3
       },
-      "state": {
-        "code": 2
-      }
+      "originAgenda": null
     },
     {
       "id": 17,
@@ -320,7 +312,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -334,14 +325,13 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Marion LEVY",
         "organization": "Parvis des Sciences",
         "uid": 4
       },
-      "state": {
-        "code": 2
-      }
+      "originAgenda": null
     },
     {
       "id": 40,
@@ -387,7 +377,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -401,14 +390,13 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Laure Grandhomme",
         "organization": "Université de technologie de Troyes",
         "uid": 5
       },
-      "state": {
-        "code": 2
-      }
+      "originAgenda": null
     },
     {
       "id": 41,
@@ -454,7 +442,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -468,14 +455,13 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Clotilde Leducq",
         "organization": "Musée du peigne et de la plasturgie",
         "uid": 6
       },
-      "state": {
-        "code": 2
-      }
+      "originAgenda": null
     },
     {
       "id": 6,
@@ -567,11 +553,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": {
-        "uid": 21475128,
-        "title": "France Handball 2017",
-        "url": "http://www.francehandball2017.com"
-      },
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -585,13 +566,16 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Christian LAVIGNE",
         "organization": "ARS MATHEMATICA (association Loi de 1901)",
         "uid": 7
       },
-      "state": {
-        "code": 2
+      "originAgenda": {
+        "uid": 21475128,
+        "title": "France Handball 2017",
+        "url": "http://www.francehandball2017.com"
       }
     },
     {
@@ -643,7 +627,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 78656126,
         "name": "Caveau des terroirs",
@@ -656,14 +639,13 @@
         "countryCode": "CH",
         "timezone": "Europe/Zurich"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Céline Monthérat",
         "organization": "muséum d'histoire naturelle",
         "uid": 8
       },
-      "state": {
-        "code": 2
-      }
+      "originAgenda": null
     },
     {
       "id": 1,
@@ -716,7 +698,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -730,14 +711,13 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Marie DONEDA",
         "organization": "Recreasciences CCSTI LIMOUSIN",
         "uid": 9
       },
-      "state": {
-        "code": 2
-      }
+      "originAgenda": null
     }
   ]
 }

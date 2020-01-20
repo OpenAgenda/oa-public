@@ -6,7 +6,6 @@ const should = require('should');
 const parseOAEvent = require('../parsers/OAEvent');
 
 const emptyFormSchema = { fields: [] };
-const fixture = name => JSON.parse(fs.readFileSync(`fixtures/${name}.json`));
 
 describe('parseOAEvent', () => {
 

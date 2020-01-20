@@ -25,9 +25,9 @@ module.exports = (event, part = false) => {
 
         parsed.country = countryLabels;
 
-        parsed[ 'search_internals_full_address_text' ] = _fullAddress( event, countryLabels );
+        parsed[ '_search_full_address_text' ] = _fullAddress( event, countryLabels );
 
-        parsed[ 'search_internals_location' ] = {
+        parsed[ '_search_location' ] = {
           lat: _.get( event, 'location.latitude' ),
           lon: _.get( event, 'location.longitude' )
         };
@@ -36,11 +36,11 @@ module.exports = (event, part = false) => {
 
         parsed.dateRange = _dateRange( event.timings, event.timezone );
 
-        parsed[ 'search_internals_last_timing' ] = _reduceToLast( event.timings );
+        parsed[ '_search_last_timing' ] = _reduceToLast( event.timings );
 
         parsed.timings = event.timings.map( t => {
 
-          t[ 'search_internals_begin_from_midnight' ] = _secondsMidnightDiff( event.timezone, t.begin );
+          t[ '_search_begin_from_midnight' ] = _secondsMidnightDiff( event.timezone, t.begin );
 
           return t;
 
@@ -50,21 +50,21 @@ module.exports = (event, part = false) => {
 
         parsed.title = event.title;
 
-        parsed[ 'search_internals_title' ] = _flatten( event.title )
+        parsed[ '_search_title' ] = _flatten( event.title )
 
       } else if ( eventField === 'description' ) {
 
         parsed.description = event.description;
 
-        parsed[ 'search_internals_description' ] = _flatten( event.description );
+        parsed[ '_search_description' ] = _flatten( event.description );
 
       } else if ( eventField === 'keywords' ) {
 
         parsed.keywords = event.keywords;
 
-        parsed[ 'search_internals_keywords' ] = _flatten( event.keywords );
+        parsed[ '_search_keywords' ] = _flatten( event.keywords );
 
-        parsed[ 'search_internals_keywords_text' ] = _flatten( event.keywords );
+        parsed[ '_search_keywords_text' ] = _flatten( event.keywords );
 
       } else if ( eventField === 'agenda' ) {
 
@@ -72,7 +72,7 @@ module.exports = (event, part = false) => {
 
         parsed.agenda = event.agenda;
 
-        parsed[ 'search_internals_agenda' ] = _.toPairs( _.pick( event.agenda, [ 'uid', 'title', 'image' ] ) ).map( pair => pair.join( ':' ) ).join( '|' );
+        parsed[ '_search_agenda' ] = _.toPairs( _.pick( event.agenda, [ 'uid', 'title', 'image' ] ) ).map( pair => pair.join( ':' ) ).join( '|' );
 
       } else {
 
@@ -84,7 +84,7 @@ module.exports = (event, part = false) => {
 
   if ( event.title && event.description ) {
 
-    parsed.search_internals_languages = _extractLanguages( event, [ 'title', 'description', 'longDescription' ] );
+    parsed._search_languages = _extractLanguages( event, [ 'title', 'description', 'longDescription' ] );
 
   }
 
@@ -96,7 +96,7 @@ module.exports = (event, part = false) => {
 function _custom( custom ) {
 
   const parsed = {
-    search_internals_keywords: []
+    _search_keywords: []
   };
 
   _.keys( custom ).forEach( customField => {
@@ -108,7 +108,7 @@ function _custom( custom ) {
 
       [].concat( custom[ customField ] ).forEach( customValue => {
 
-        parsed[ 'search_internals_keywords' ].push( 'key' + customValue );
+        parsed[ '_search_keywords' ].push( 'key' + customValue );
 
       } );
 

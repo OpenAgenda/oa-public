@@ -15,9 +15,8 @@ module.exports = schema( {
     type: 'boolean',
     default: false
   },
-  extensions: {
-    type: 'text',
-    list: true
+  formSchema: {
+    type: 'pass',
   },
   merge: { // merge some fields. Example: customAdministrator and customContributor into custom
     type: 'pass',

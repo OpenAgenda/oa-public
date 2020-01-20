@@ -20,7 +20,7 @@ describe('06 - event search - functional: update', function() {
     });
   });
 
-  it('udpate the title of an event', async () => {
+  it.only('udpate the title of an event', async () => {
     const result = await service('test_index').update({ uid: 1 }, {
       title: {
         fr: 'Look at me. I am the title now.'

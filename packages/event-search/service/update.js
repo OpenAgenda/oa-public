@@ -1,51 +1,68 @@
 "use strict";
 
 const _ = require('lodash');
-const handleError = require( './helpers/handleError' );
-const lastTimingEndsIn = require( './helpers/lastTimingEndsIn' );
-const parseQuery = require( './query' );
-const remove = require( './remove' );
-const parseDoc = require( './index/preParse' );
-const log = require( '@openagenda/logs' )( 'update' );
+const formatEvent = require('../utils/formatEvent');
+const handleError = require('./helpers/handleError');
+const lastTimingEndsIn = require('./helpers/lastTimingEndsIn');
+const parseQuery = require('./query');
+const remove = require('./remove');
+const getDocumentId = require('./helpers/getDocumentId');
+const getIndexName = require('./helpers/getIndexName');
+const log = require('@openagenda/logs')('update');
 
 
-module.exports = async function(config, alias, identifiers, eventPart, options = {}) {
-  const params = Object.assign({
-    refresh: false
-  }, options);
+module.exports = async function(config, set, identifiers, eventPart, options = {}) {
+  const {
+    refresh,
+    formSchema
+  } = {
+    refresh: false,
+    formSchema: null,
+    ...options
+  };
 
-  const { client } = config;
+  const {
+    client,
+    defaultIndex
+  } = config;
 
-  let res;
-
-  try {
-    res = await client.update({
-      index: alias,
-      body: {
-        doc: parseDoc(eventPart, true)
-      },
-      id: identifiers.uid,
-      refresh: params.refresh
-    });
-  } catch (err) {
-    return handleError(config,  err, 'failed to update event %s in index of alias %s', identifiers.uid, alias);
+  if (!eventPart) {
+    throw new Error('data is unavailable');
   }
 
-  if (res.body.result === 'updated') {
-    log('info', 'event %j was updated in alias %s', identifiers, alias, {
+  let result;
+
+  try {
+    result = await client.update({
+      index: getIndexName(set, defaultIndex),
+      body: {
+        doc: {
+          ...formatEvent(eventPart, formSchema),
+          _set: set
+        }
+      },
+      id: getDocumentId(set, identifiers.uid),
+      refresh
+    });
+  } catch (err) {
+    return handleError(config,  err, 'failed to update event %s in index of set %s', identifiers.uid, set);
+  }
+
+  if (result.body.result === 'updated') {
+    log('info', 'event %j was updated in set %s', identifiers, set, {
       operation: 'update',
-      alias,
+      set,
       identifiers
     });
   } else {
-    log('warn', 'event %j was not updated in alias %s', identifiers, alias, {
+    log('warn', 'event %j was not updated in set %s', identifiers, set, {
       operation: 'update',
-      alias,
+      set,
       identifiers
     });
   }
 
   return {
-    success: res.body.result === 'updated'
+    success: result.body.result === 'updated'
   }
 }

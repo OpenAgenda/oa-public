@@ -45,7 +45,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -59,13 +58,11 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Bielle Simone",
         "organization": "MJC Pt du Sonnant / Ville de St Martin d'Hères",
         "uid": 10
-      },
-      "state": {
-        "code": 2
       }
     },
     {
@@ -112,7 +109,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -126,13 +122,11 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Bertrand PALLOT",
         "organization": "Club d'Astronomie des Monts du Lyonnais",
         "uid": 11
-      },
-      "state": {
-        "code": 2
       }
     },
     {
@@ -188,7 +182,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -202,13 +195,11 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Hervé JACQUEMIN",
         "organization": "Ecole des Mines de Saint-Etienne",
         "uid": 12
-      },
-      "state": {
-        "code": 2
       }
     },
     {
@@ -264,7 +255,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -278,13 +268,11 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "mireille de granrut",
         "organization": "lycée roosevelt",
         "uid": 13
-      },
-      "state": {
-        "code": 2
       }
     },
     {
@@ -331,7 +319,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -345,13 +332,11 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Ludivine Perard",
         "organization": "Bibliothèques de Chalons en Champagne",
         "uid": 14
-      },
-      "state": {
-        "code": 2
       }
     },
     {
@@ -398,7 +383,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -412,13 +396,11 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Magali Kitzmann",
         "organization": "Genopolys",
         "uid": 15
-      },
-      "state": {
-        "code": 2
       }
     },
     {
@@ -474,7 +456,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -488,13 +469,11 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Cossin COSSIN",
         "organization": "Laboratoire de recherche",
         "uid": 16
-      },
-      "state": {
-        "code": 2
       }
     },
     {
@@ -550,7 +529,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -564,13 +542,11 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Bérangère Dumont",
         "organization": "Ville de Saint-Priest / Pôle Château",
         "uid": 17
-      },
-      "state": {
-        "code": 2
       }
     },
     {
@@ -626,7 +602,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -640,13 +615,11 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Nicolas Aubertin",
         "organization": "MJC CS Nomade",
         "uid": 18
-      },
-      "state": {
-        "code": 2
       }
     },
     {
@@ -697,7 +670,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -711,13 +683,11 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "state": 2,
+      "member": {
         "name": "Sabrina Raz",
         "organization": "CNRS",
         "uid": 19
-      },
-      "state": {
-        "code": 2
       }
     }
   ]

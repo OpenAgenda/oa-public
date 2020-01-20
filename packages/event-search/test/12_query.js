@@ -59,14 +59,14 @@ describe('12 - event-search - unit: query.validate', function() {
           }
         }
       }, {
-        search_internals_last_timing: {
+        _search_last_timing: {
           order: 'desc'
         }
       } ],
       _source: {
         excludes: [
-          'search_internals_*',
-          'timings.search_internals_*'
+          '_*',
+          'timings._*'
         ]
       }
     } );
@@ -110,14 +110,14 @@ describe('12 - event-search - unit: query.validate', function() {
           }
         }
       }, {
-        search_internals_last_timing: {
+        _search_last_timing: {
           order: 'desc'
         }
       }],
       _source: {
         excludes: [
-          'search_internals_*',
-          'timings.search_internals_*'
+          '_*',
+          'timings._*'
         ]
       },
       query: {

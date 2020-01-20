@@ -45,7 +45,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -59,9 +58,7 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 13,
@@ -107,7 +104,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -121,9 +117,7 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 14,
@@ -178,7 +172,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -192,9 +185,7 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 18,
@@ -249,7 +240,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -263,9 +253,7 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 30,
@@ -311,7 +299,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -325,9 +312,7 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 31,
@@ -373,7 +358,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -387,9 +371,7 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 19,
@@ -444,7 +426,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -458,9 +439,7 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 20,
@@ -515,7 +494,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -529,9 +507,7 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 21,
@@ -586,7 +562,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -600,9 +575,7 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 3,
@@ -652,7 +625,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -666,9 +638,7 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     }
   ]
 }

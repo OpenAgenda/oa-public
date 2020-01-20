@@ -3,7 +3,7 @@
 module.exports = [ {
   uid: 1111,
   timezone: 'Europe/Paris',
-  search_internals_keywords: [ 'janine', 'ines', 'vitrine' ],
+  _search_keywords: [ 'janine', 'ines', 'vitrine' ],
   timings: [ {
     begin: '2017-08-03T09:00:00Z',
     end: '2017-08-03T19:00:00Z'

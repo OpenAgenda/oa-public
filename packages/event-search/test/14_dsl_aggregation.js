@@ -53,10 +53,10 @@ describe('14 - event-search - unit: dsl aggregation', function() {
       buildAggregationDsl( {}, [ 'keywords' ], {
         keywords: {
           type: 'terms',
-          field: 'search_internals_keywords',
+          field: '_search_keywords',
           destination: 'keywords'
         }
-      } ).should.eql( { keywords: { terms: { field: 'search_internals_keywords' } } } );
+      } ).should.eql( { keywords: { terms: { field: '_search_keywords' } } } );
 
     } );
 
@@ -223,7 +223,7 @@ describe('14 - event-search - unit: dsl aggregation', function() {
         aggregations: {
           minMaxDays: {
             stats: {
-              field: 'search_internals_last_timing' // the last timing of an event.
+              field: '_search_last_timing' // the last timing of an event.
             }
           }
         }
@@ -392,7 +392,7 @@ describe('14 - event-search - unit: dsl aggregation', function() {
         aggregations: {
           ceteunpeupenible: {
             geohash_grid: {
-              field: 'search_internals_location',
+              field: '_search_location',
               precision: 4
             }
           }

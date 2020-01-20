@@ -5,19 +5,35 @@ const VError = require('verror');
 
 const buildAggregationDsl = require('./aggregation');
 const runDSLQuery = require('./helpers/runDSLQuery');
+const getIndexName = require('./helpers/getIndexName');
 const instanciateSearchStream = require('./helpers/instanciateSearchStream');
 const h = require('./helpers');
 const parseAggregationResult = require('./aggregation').parseResult;
 const parseQuery = require('./query');
 const validateNav = require('./query/validateNav');
 const validateOptions = require('./query/validateOptions');
+const getFormSchemaAdditionalFields = require('../utils/getFormSchemaAdditionalFields');
 
 const log = require('@openagenda/logs')('search');
 
-async function search(config, alias, query, nav = {}, options = {}) {
-  log('searching on alias %s with query %j', alias, query);
+function _addIncludes({ baseSearchIncludes, detailedSearchIncludes }, { detailed, formSchema }) {
+  if (!detailed) {
+    return baseSearchIncludes;
+  }
+
+  return detailedSearchIncludes.concat(
+    getFormSchemaAdditionalFields(formSchema).map(f => f.field)
+  );
+}
+
+async function search(config, set, query = {}, nav = {}, options = {}) {
+  log('searching on set %s with query %j', set, query);
 
   let cleanNav = {}, cleanOptions = {}, cleanDsl;
+
+  const {
+    defaultIndex
+  } = config;
 
   try {
     cleanNav = validateNav(nav);
@@ -31,12 +47,16 @@ async function search(config, alias, query, nav = {}, options = {}) {
     throw new VError(e, 'options are not valid');
   }
 
+  const index = getIndexName(set, defaultIndex);
+
+  query.set = set;
+
   cleanDsl = parseQuery(
     query,
     cleanNav.size !== undefined ? cleanNav : {},
-    cleanOptions.extensions,
+    cleanOptions.formSchema,
     // includes
-    (cleanOptions.detailed ? config.detailedSearchIncludes.concat( cleanOptions.extensions ) : config.baseSearchIncludes)
+    _addIncludes(config, cleanOptions)
   );
 
   // sorting and _source added after
@@ -50,7 +70,7 @@ async function search(config, alias, query, nav = {}, options = {}) {
     total,
     aggregations,
     scrollId
-  } = await runDSLQuery(_.pick(config, ['client']), alias, cleanDsl, cleanNav.scroll ? cleanNav : {});
+  } = await runDSLQuery(_.pick(config, ['client']), index, cleanDsl, cleanNav.scroll ? cleanNav : {});
 
   const eventParsers = _buildEventParsers(cleanOptions, aggregations);
 
@@ -60,15 +80,14 @@ async function search(config, alias, query, nav = {}, options = {}) {
     aggregations = parseAggregationResult(config, options.aggregations, aggregations, config.predefinedAggregations, _parseEvents.bind( null, eventParsers ) );
   }
 
-  return Object.assign( {
+  return Object.assign({
     total,
     events: parsedEvents,
     scrollId
-  }, aggregations ? { aggregations } : {} );
-
+  }, aggregations ? { aggregations } : {});
 }
 
-function scroll(config, alias, scrollId, scroll) {
+function scroll(config, set, scrollId, scroll) {
   return config.client
     .scroll({ scrollId, scroll })
     .then(res => ({
@@ -77,16 +96,16 @@ function scroll(config, alias, scrollId, scroll) {
     }));
 }
 
-module.exports = (config, alias) => {
+module.exports = (config, set) => {
   const methods = {
-    search: search.bind(null, config, alias),
-    scroll: scroll.bind(null, config, alias)
+    search: search.bind(null, config, set),
+    scroll: scroll.bind(null, config, set)
   };
 
   return Object.assign(methods.search, {
     scroll: methods.scroll,
-    dsl: (DSL, options) => runDSLQuery(_.pick(config, ['client', 'type']), alias, DSL, options),
-    stream: instanciateSearchStream.bind(null, methods, alias)
+    dsl: (DSL, options) => runDSLQuery(_.pick(config, ['client', 'type']), set, DSL, options),
+    stream: instanciateSearchStream.bind(null, methods, set)
   });
 }
 

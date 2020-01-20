@@ -5,9 +5,9 @@ const _ = require( 'lodash' );
 const distributeByLanguage = require( './_distributeByLanguage' ).bind( null, [ 'title', 'description', 'keywords' ] );
 
 const fieldMap = {
-  keywords: 'search_internals_keywords_text',
-  title: 'search_internals_title',
-  description: 'search_internals_description'
+  keywords: '_search_keywords_text',
+  title: '_search_title',
+  description: '_search_description'
 };
 
 const getMLTField = field => _.get( fieldMap, field );
@@ -17,7 +17,7 @@ const getMLTLocationValue = location => [
 ].filter( f => !!location[ f ] ).map( f => location[ f ] ).join( ' ' );
 
 /**
- * keywords -> generic 'like' on search_internals_keywords
+ * keywords -> generic 'like' on _search_keywords
  */
 
 module.exports = mltQuery => {
@@ -28,7 +28,7 @@ module.exports = mltQuery => {
 
     if ( mltQuery.location ) {
 
-      mltDoc.search_internals_full_address_text = getMLTLocationValue( mltQuery.location );
+      mltDoc._search_full_address_text = getMLTLocationValue( mltQuery.location );
 
     }
 
@@ -42,9 +42,9 @@ module.exports = mltQuery => {
 
       if ( optionedValues.length ) {
 
-        fields.push( 'custom.search_internals_keywords' );
+        fields.push( 'custom._search_keywords' );
 
-        mltCustom[ 'search_internals_keywords' ] = optionedValues.map( o => 'key' + o );
+        mltCustom[ '_search_keywords' ] = optionedValues.map( o => 'key' + o );
 
       }
 

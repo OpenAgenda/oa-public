@@ -52,7 +52,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -66,9 +65,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 42,
@@ -114,7 +112,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -128,9 +125,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 15,
@@ -176,7 +172,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -190,9 +185,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 16,
@@ -238,7 +232,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -252,9 +245,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 17,
@@ -300,7 +292,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -314,9 +305,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 40,
@@ -362,7 +352,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -376,9 +365,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 41,
@@ -424,7 +412,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -438,9 +425,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 6,
@@ -532,11 +518,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": {
-        "uid": 21475128,
-        "title": "France Handball 2017",
-        "url": "http://www.francehandball2017.com"
-      },
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -550,8 +531,11 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
+      "state": 2,
+      "originAgenda": {
+        "uid": 21475128,
+        "title": "France Handball 2017",
+        "url": "http://www.francehandball2017.com"
       }
     },
     {
@@ -603,7 +587,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 78656126,
         "name": "Caveau des terroirs",
@@ -616,9 +599,8 @@
         "countryCode": "CH",
         "timezone": "Europe/Zurich"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 1,
@@ -671,7 +653,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -685,9 +666,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     }
   ]
 }

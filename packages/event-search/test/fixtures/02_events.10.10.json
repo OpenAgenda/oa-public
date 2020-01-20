@@ -59,14 +59,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Bielle Simone",
         "organization": "MJC Pt du Sonnant / Ville de St Martin d'Hères",
         "uid": 10
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 13,
@@ -126,14 +124,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Bertrand PALLOT",
         "organization": "Club d'Astronomie des Monts du Lyonnais",
         "uid": 11
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 14,
@@ -202,14 +198,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Hervé JACQUEMIN",
         "organization": "Ecole des Mines de Saint-Etienne",
         "uid": 12
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 18,
@@ -278,14 +272,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "mireille de granrut",
         "organization": "lycée roosevelt",
         "uid": 13
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 30,
@@ -345,14 +337,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Ludivine Perard",
         "organization": "Bibliothèques de Chalons en Champagne",
         "uid": 14
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 31,
@@ -412,14 +402,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Magali Kitzmann",
         "organization": "Genopolys",
         "uid": 15
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 19,
@@ -488,14 +476,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Cossin COSSIN",
         "organization": "Laboratoire de recherche",
         "uid": 16
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 20,
@@ -564,14 +550,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Bérangère Dumont",
         "organization": "Ville de Saint-Priest / Pôle Château",
         "uid": 17
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 21,
@@ -640,14 +624,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Nicolas Aubertin",
         "organization": "MJC CS Nomade",
         "uid": 18
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 3,
@@ -711,14 +693,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Sabrina Raz",
         "organization": "CNRS",
         "uid": 19
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     }
   ]
 }

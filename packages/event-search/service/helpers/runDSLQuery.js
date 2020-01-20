@@ -1,11 +1,10 @@
 'use strict';
 
 const _ = require('lodash');
-const textLog = require('./textLog');
 
-module.exports = async ({ client }, alias, DSL, options = {}) => {
+module.exports = async ({ client }, index, DSL, options = {}) => {
   const search = {
-    index: alias,
+    index,
     body: DSL,
     scroll: options.scroll
   };

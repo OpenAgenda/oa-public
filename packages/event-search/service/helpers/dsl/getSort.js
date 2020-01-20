@@ -36,7 +36,7 @@ module.exports = ( sorts = null ) => {
       }
     }
   }, {
-    search_internals_last_timing: { order: 'desc' }
+    _search_last_timing: { order: 'desc' }
   } ];
 
 }

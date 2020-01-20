@@ -19,8 +19,8 @@
                 "size" : ${ size },
                 "_source" : {
                   "excludes" : [
-                    "search_internals_*",
-                    "timings.search_internals_*"
+                    "_*",
+                    "timings._*"
                   ],
                   "includes" : ${ JSON.stringify( includes ) }
                 }

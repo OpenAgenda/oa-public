@@ -13,15 +13,15 @@ describe('05 - event search - functional: remove', function() {
   before(async () => {
     service = Service(config);
 
-    await service('test_index').rebuild({
+    await service('05_remove').rebuild({
       eventsList: async (lastId, limit) => {
         return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/05_events.${lastId}.${limit}.json`));
       }
     });
   });
 
-  it('remove an event from index by uid', async () => {
-    let result = await service('test_index').remove({
+  it('remove an event from set by uid', async () => {
+    let result = await service('05_remove').remove({
       uid: 1
     }, { refresh: true });
 

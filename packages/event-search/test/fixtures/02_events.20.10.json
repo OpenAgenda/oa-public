@@ -59,14 +59,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "F Marquet Centre-astro",
         "organization": "Médiathèque intercommunale Istres - Ouest Provence",
         "uid": 20
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 22,
@@ -139,14 +137,12 @@
         "countryCode": "US",
         "timezone": "America/New_York"
       },
-      "contributor": {
+      "member": {
         "name": "Aleport Maisondelamer",
         "organization": "Etablissement Public Territorial Est Ensemble",
         "uid": 21
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 10,
@@ -206,14 +202,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Anais Chery",
         "organization": "Université Grenoble Alpes",
         "uid": 22
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 23,
@@ -282,14 +276,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Sabine BOUDE",
         "organization": "Université Catholique de Lyon",
         "uid": 23
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 100000,
@@ -349,14 +341,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Virginie Thibaud Paris-sorbonne",
         "organization": "Université Paris-Sorbonne ",
         "uid": 24
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 11,
@@ -454,14 +444,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Iris Mattrat",
         "organization": "Bibliothèque Alexis de Tocqueville",
         "uid": 25
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 9,
@@ -521,14 +509,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Juliette MARCEAU",
         "organization": "LE PLUS - PALAIS DE L'UNIVERS ET DES SCIENCES",
         "uid": 26
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 7,
@@ -588,14 +574,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Sandrine BOYER",
         "organization": "Ville de Salon-de-Provence",
         "uid": 27
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 8,
@@ -655,14 +639,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "Nathalie GEY",
         "organization": "LEM3 Université de Lorraine UMR CNRS 7239",
         "uid": 28
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 12,
@@ -721,14 +703,12 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "contributor": {
+      "member": {
         "name": "David Emani",
         "organization": "Observatoire Océanologique de Villefranche-sur-Mer",
         "uid": 29
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     }
   ]
 }

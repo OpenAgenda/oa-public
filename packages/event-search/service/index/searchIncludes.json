@@ -6,15 +6,14 @@
     "image",
     "keywords",
     "slug",
-    "agenda.uid",
-    "agenda.title",
-    "agenda.image",
+    "originAgenda.uid",
+    "originAgenda.title",
+    "originAgenda.image",
     "timings",
     "location.name",
     "location.address",
     "location.latitude",
     "location.longitude",
-    "contributor.organization",
     "timezone"
   ],
   "detailed" : [
@@ -27,7 +26,7 @@
     "image",
     "uid",
     "slug",
-    "agenda",
+    "originAgenda",
     "creatorUid",
     "locationUid",
     "location",
@@ -41,6 +40,7 @@
     "private",
     "draft",
     "age",
-    "contributor"
+    "state",
+    "member"
   ]
 }

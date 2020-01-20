@@ -2,6 +2,8 @@
 
 const schema = require('@openagenda/validators/schema');
 
+const getFormSchemaAdditionalFields = require('../../utils/getFormSchemaAdditionalFields');
+
 schema.register({
   text: require('@openagenda/validators/text'),
   integer: require('@openagenda/validators/integer'),
@@ -12,7 +14,7 @@ schema.register({
   boolean: require('@openagenda/validators/boolean')
 });
 
-module.exports = schema( {
+const validate = schema({
   uid: {
     type: 'integer',
     list: true
@@ -22,6 +24,9 @@ module.exports = schema( {
     list: true
   },
   search: {
+    type: 'text'
+  },
+  set: {
     type: 'text'
   },
   keyword: {
@@ -127,4 +132,30 @@ module.exports = schema( {
     unique: false,
     default: null
   }
-} );
+});
+
+module.exports = (dirty, formSchema) => {
+  const clean = validate(dirty);
+
+  const additionalFields = getFormSchemaAdditionalFields(formSchema)
+    .map(f => f.field);
+
+  return {
+    ...clean,
+    ...additionalFields.reduce((additionalValues, field) => {
+      if (dirty[field] !== undefined) {
+        return {
+          ...additionalValues,
+          [field]: dirty[field]
+        };
+      }
+      if (dirty.custom && dirty.custom[field] !== undefined) {
+        return {
+          ...additionalValues,
+          [field]: dirty.custom[field]
+        };
+      }
+      return additionalValues;
+    }, {})
+  };
+}

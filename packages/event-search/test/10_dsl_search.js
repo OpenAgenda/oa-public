@@ -79,11 +79,11 @@ describe('10 - event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           match: {
-            search_internals_title: 'valorisation'
+            _search_title: 'valorisation'
           }
         },
         _source: {
-          excludes: [ 'search_internals_*' ]
+          excludes: [ '_search_*' ]
         }
       };
 
@@ -100,11 +100,11 @@ describe('10 - event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           match: {
-            search_internals_title: 'discovery'
+            _search_title: 'discovery'
           }
         },
         _source: {
-          excludes: [ 'search_internals_*' ]
+          excludes: [ '_search_*' ]
         }
       };
 
@@ -122,7 +122,7 @@ describe('10 - event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           match: {
-            search_internals_title: 'Trié'
+            _search_title: 'Trié'
           }
         },
         sort: [ {
@@ -153,7 +153,7 @@ describe('10 - event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           match: {
-            search_internals_title: 'Trié'
+            _search_title: 'Trié'
           }
         },
         sort: [ {
@@ -166,10 +166,10 @@ describe('10 - event-search - unit: dsl search', function() {
             }
           }
         }, {
-          search_internals_last_timing: { order: 'desc' }
+          _search_last_timing: { order: 'desc' }
         } ],
         _source: {
-          excludes: [ 'search_internals_*' ]
+          excludes: [ '_search_*' ]
         }
       };
 
@@ -194,7 +194,7 @@ describe('10 - event-search - unit: dsl search', function() {
         query: {
           multi_match: {
             query: 'mississipi',
-            fields: [ 'search_internals_title', 'search_internals_description', 'search_internals_keywords_text' ]
+            fields: [ '_search_title', '_search_description', '_search_keywords_text' ]
           }
         }
       };
@@ -232,7 +232,7 @@ describe('10 - event-search - unit: dsl search', function() {
           bool: {
             must: [ {
               match: {
-                search_internals_title: 'Horaires'
+                _search_title: 'Horaires'
               },
             }, ],
             // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
@@ -242,7 +242,7 @@ describe('10 - event-search - unit: dsl search', function() {
                 score_mode: 'min',
                 query: {
                   range: {
-                    'timings.search_internals_begin_from_midnight' : {
+                    'timings._search_begin_from_midnight' : {
                       gte: 13*60*60,
                       lte: 17*60*60
                     }
@@ -254,7 +254,7 @@ describe('10 - event-search - unit: dsl search', function() {
         },
         _source: {
           // excludes does not go deep.
-          excludes: [ 'search_internals_*', 'timings.search_internals_*' ]
+          excludes: [ '_search_*', 'timings._search_*' ]
         }
       };
 
@@ -272,7 +272,7 @@ describe('10 - event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           match: {
-            search_internals_title: 'OtherTimezoneHoraires'
+            _search_title: 'OtherTimezoneHoraires'
           }
         }
       };
@@ -298,7 +298,7 @@ describe('10 - event-search - unit: dsl search', function() {
           bool: {
             must: [ {
               match: {
-                search_internals_title: 'OtherTimezoneHoraires'
+                _search_title: 'OtherTimezoneHoraires'
               },
             }, ],
             // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
@@ -308,7 +308,7 @@ describe('10 - event-search - unit: dsl search', function() {
                 score_mode: 'min',
                 query: {
                   range: {
-                    'timings.search_internals_begin_from_midnight' : {
+                    'timings._search_begin_from_midnight' : {
                       gte: 8*60*60,
                       lte: 8*60*60
                     }
@@ -320,7 +320,7 @@ describe('10 - event-search - unit: dsl search', function() {
         },
         _source: {
           // excludes does not go deep.
-          excludes: [ 'search_internals_*', 'timings.search_internals_*' ]
+          excludes: [ '_search_*', 'timings._search_*' ]
         }
       };
 
@@ -357,7 +357,7 @@ describe('10 - event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           geo_bounding_box: {
-            search_internals_location: {
+            _search_location: {
               top_left: {
                 lat: 50,
                 lon: 5
@@ -385,7 +385,7 @@ describe('10 - event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           term: {
-            "search_internals_languages" : "de"
+            "_search_languages" : "de"
           }
         }
       }
@@ -404,7 +404,7 @@ describe('10 - event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           term: {
-            "search_internals_keywords" : "word"
+            "_search_keywords" : "word"
           }
         }
       }
@@ -424,11 +424,11 @@ describe('10 - event-search - unit: dsl search', function() {
           bool: {
             must: [ {
               term: {
-                search_internals_keywords: 'autre'
+                _search_keywords: 'autre'
               }
             }, {
               term: {
-                search_internals_keywords: 'clé'
+                _search_keywords: 'clé'
               }
             } ]
           }
@@ -522,7 +522,7 @@ describe('10 - event-search - unit: dsl search', function() {
             }
           }
         }, {
-          search_internals_last_timing: { order: 'desc' }
+          _search_last_timing: { order: 'desc' }
         } ]
       }
 
@@ -561,7 +561,7 @@ describe('10 - event-search - unit: dsl search', function() {
             }
           }
         }, {
-          search_internals_last_timing: { order: 'desc' }
+          _search_last_timing: { order: 'desc' }
         } ]
       }
 

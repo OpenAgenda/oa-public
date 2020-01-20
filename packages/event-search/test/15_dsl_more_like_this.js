@@ -454,19 +454,19 @@ describe( 'event-search - unit: more like this search', function() {
       const result = await dslSearch('more_like_this', {
         query: {
           more_like_this: {
-            fields: [ 'search_internals_full_address_text' ],
+            fields: [ '_search_full_address_text' ],
             min_term_freq: 1,
             min_doc_freq: 1,
             like: [ {
               doc: {
-                search_internals_full_address_text: 'Paris'
+                _search_full_address_text: 'Paris'
               }
             } ]
           }
         }
       });
 
-      result.events[ 0 ].search_internals_full_address_text.indexOf( 'Paris' ).should.not.equal( -1 );
+      result.events[ 0 ]._search_full_address_text.indexOf( 'Paris' ).should.not.equal( -1 );
 
     } );
 
@@ -476,14 +476,14 @@ describe( 'event-search - unit: more like this search', function() {
       const { events } = await dslSearch( 'more_like_this', {
         query: {
           more_like_this: {
-            fields: [ 'custom.search_internals_keywords' ],
+            fields: [ 'custom._search_keywords' ],
             min_word_length: 3,
             min_term_freq: 1,
             min_doc_freq: 1,
             like: [ {
               doc: {
                 custom: {
-                  search_internals_keywords: 'key4'
+                  _search_keywords: 'key4'
                 }
               }
             } ]
@@ -503,13 +503,13 @@ describe( 'event-search - unit: more like this search', function() {
       const { events } = await dslSearch( 'more_like_this', {
         query: {
           more_like_this: {
-            fields: [ 'custom.search_internals_keywords' ],
+            fields: [ 'custom._search_keywords' ],
             min_term_freq: 1,
             min_doc_freq: 1,
             like: [ {
               doc: {
                 custom: {
-                  search_internals_keywords: 'id-40'
+                  _search_keywords: 'id-40'
                 }
               }
             } ]
@@ -526,7 +526,7 @@ describe( 'event-search - unit: more like this search', function() {
       const { events } = await dslSearch( 'more_like_this', {
         query: {
           more_like_this: {
-            fields: [ 'custom.search_internals_keywords' ],
+            fields: [ 'custom._search_keywords' ],
             min_term_freq: 1,
             min_doc_freq: 1,
             min_word_length: 3,
@@ -536,9 +536,9 @@ describe( 'event-search - unit: more like this search', function() {
                   // more like this workds with texts and integers only
                   // so when an event is given as basis of mlt,
                   // with custom data, the schema must be known
-                  // and the custom data must be mltd with search_internals_keywords
+                  // and the custom data must be mltd with _search_keywords
                   // of custom extension.
-                  search_internals_keywords: [ 'key4', 'key12', 'key10' ]
+                  _search_keywords: [ 'key4', 'key12', 'key10' ]
                 }
               }
             } ]
@@ -561,19 +561,19 @@ describe( 'event-search - unit: more like this search', function() {
           bool: {
             must: {
               more_like_this: {
-                fields: [ 'search_internals_full_address_text' ],
+                fields: [ '_search_full_address_text' ],
                 min_term_freq: 1,
                 min_doc_freq: 1,
                 like: [ {
                   doc: {
-                    search_internals_full_address_text: 'Meuse'
+                    _search_full_address_text: 'Meuse'
                   }
                 } ]
               }
             },
             filter: {
               range: {
-                search_internals_last_timing: {
+                _search_last_timing: {
                   gte: 'now-1d/d'
                 }
               }
@@ -588,19 +588,19 @@ describe( 'event-search - unit: more like this search', function() {
           bool: {
             must: {
               more_like_this: {
-                fields: [ 'search_internals_full_address_text' ],
+                fields: [ '_search_full_address_text' ],
                 min_term_freq: 1,
                 min_doc_freq: 1,
                 like: [ {
                   doc: {
-                    search_internals_full_address_text: 'Paris'
+                    _search_full_address_text: 'Paris'
                   }
                 } ]
               }
             },
             filter: {
               range: {
-                search_internals_last_timing: {
+                _search_last_timing: {
                   gte: 'now-1d/d'
                 }
               }
@@ -640,19 +640,19 @@ describe( 'event-search - unit: more like this search', function() {
           bool: {
             must: {
               more_like_this: {
-                fields: [ 'search_internals_full_address_text' ],
+                fields: [ '_search_full_address_text' ],
                 min_term_freq: 1,
                 min_doc_freq: 1,
                 like: [ {
                   doc: {
-                    search_internals_full_address_text: 'Paris'
+                    _search_full_address_text: 'Paris'
                   }
                 } ]
               }
             },
             /*filter: {
               range: {
-                search_internals_last_timing: {
+                _search_last_timing: {
                   gte: 'now-1d/d'
                 }
               }
@@ -660,7 +660,7 @@ describe( 'event-search - unit: more like this search', function() {
           }
         },
         _source: {
-          excludes: [ 'search_internals_*', 'timings.search_internals_*' ],
+          excludes: [ '_search_*', 'timings._search_*' ],
           includes: [ 'uid' ]
         }
       };
@@ -690,7 +690,7 @@ describe( 'event-search - unit: more like this search', function() {
 
   describe('getMoreLikeThis parsing function', () => {
 
-    it('keywords search maps to search_internals_keywords_text', () => {
+    it('keywords search maps to _search_keywords_text', () => {
 
       const mlt = getMoreLikeThis( {
         keywords: {
@@ -699,13 +699,13 @@ describe( 'event-search - unit: more like this search', function() {
       } );
 
       mlt.should.eql( {
-        fields: [ 'search_internals_keywords_text' ],
+        fields: [ '_search_keywords_text' ],
         min_word_length: 3,
         min_term_freq: 1,
         min_doc_freq: 1,
         like: [ {
           doc: {
-            search_internals_keywords_text: 'vin chaud'
+            _search_keywords_text: 'vin chaud'
           }
         } ]
       } );
@@ -724,7 +724,7 @@ describe( 'event-search - unit: more like this search', function() {
 
       mlt.should.eql( {
         "fields": [
-          "custom.search_internals_keywords",
+          "custom._search_keywords",
           "custom.sometextfield"
         ],
         "min_word_length": 3,
@@ -734,7 +734,7 @@ describe( 'event-search - unit: more like this search', function() {
           {
             "doc": {
               "custom": {
-                "search_internals_keywords": [
+                "_search_keywords": [
                   'key12', 'key13', 'key4'
                 ],
                 "sometextfield": "compteur de flotte numérique"
@@ -775,7 +775,7 @@ describe( 'event-search - unit: more like this search', function() {
 
        mlt.like.forEach( l => {
 
-         l.doc.search_internals_full_address_text.should.equal( 'Meuse' );
+         l.doc._search_full_address_text.should.equal( 'Meuse' );
 
        } );
 
@@ -792,7 +792,7 @@ describe( 'event-search - unit: more like this search', function() {
         }
       } );
 
-      mlt.like[ 0 ].doc.search_internals_full_address_text.should.equal( 'Verdun Meuse Grand Est' );
+      mlt.like[ 0 ].doc._search_full_address_text.should.equal( 'Verdun Meuse Grand Est' );
 
     } );
 
@@ -801,7 +801,7 @@ describe( 'event-search - unit: more like this search', function() {
 
   describe( 'wrapInMoreLikeThis parsing function', () => {
 
-    it( 'keywords search maps to search_internals_keywords_text', () => {
+    it( 'keywords search maps to _search_keywords_text', () => {
 
       const dsl = wrapInMoreLikeThis({
         keywords: {
@@ -812,13 +812,13 @@ describe( 'event-search - unit: more like this search', function() {
 
       dsl.query.should.eql( {
         more_like_this: {
-          fields: [ 'search_internals_keywords_text' ],
+          fields: [ '_search_keywords_text' ],
           min_word_length: 3,
           min_term_freq: 1,
           min_doc_freq: 1,
           like: [ {
             doc: {
-              search_internals_keywords_text: 'vin chaud'
+              _search_keywords_text: 'vin chaud'
             }
           } ]
         }
@@ -840,7 +840,7 @@ describe( 'event-search - unit: more like this search', function() {
       dsl.query.should.eql( {
         more_like_this: {
           fields: [
-            "custom.search_internals_keywords",
+            "custom._search_keywords",
             "custom.sometextfield"
           ],
           "min_word_length": 3,
@@ -850,7 +850,7 @@ describe( 'event-search - unit: more like this search', function() {
             {
               "doc": {
                 "custom": {
-                  "search_internals_keywords": [
+                  "_search_keywords": [
                     'key12', 'key13', 'key4'
                   ],
                   "sometextfield": "compteur de flotte numérique"
@@ -884,7 +884,7 @@ describe( 'event-search - unit: more like this search', function() {
             {
               "more_like_this": {
                 "fields": [
-                  "custom.search_internals_keywords"
+                  "custom._search_keywords"
                 ],
                 "min_word_length": 3,
                 "min_term_freq": 1,
@@ -893,7 +893,7 @@ describe( 'event-search - unit: more like this search', function() {
                   {
                     "doc": {
                       "custom": {
-                        "search_internals_keywords": [
+                        "_search_keywords": [
                           "key12",
                           "key13"
                         ]
@@ -907,7 +907,7 @@ describe( 'event-search - unit: more like this search', function() {
             {
               "more_like_this": {
                 "fields": [
-                  "custom.search_internals_keywords"
+                  "custom._search_keywords"
                 ],
                 "min_word_length": 3,
                 "min_term_freq": 1,
@@ -916,7 +916,7 @@ describe( 'event-search - unit: more like this search', function() {
                   {
                     "doc": {
                       "custom": {
-                        "search_internals_keywords": [
+                        "_search_keywords": [
                           "key4"
                         ]
                       }
@@ -929,7 +929,7 @@ describe( 'event-search - unit: more like this search', function() {
               {
                 "more_like_this": {
                   "fields": [
-                    "custom.search_internals_keywords",
+                    "custom._search_keywords",
                     "custom.sometextfield"
                   ],
                   "min_word_length": 3,
@@ -939,7 +939,7 @@ describe( 'event-search - unit: more like this search', function() {
                     {
                       "doc": {
                         "custom": {
-                          "search_internals_keywords": [
+                          "_search_keywords": [
                             "key12",
                             "key13",
                             "key4"

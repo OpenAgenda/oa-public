@@ -37,7 +37,7 @@ function _spreadByBoostScores( mltRequest, scores, baseQuery = {} ) {
 
     const fieldValue = _.get( mltRequest, scoredFieldPath );
 
-    const boostedField = _isIntegerLike( fieldValue ) ? ( ( _isCustom( scoredFieldPath ) ? 'custom.' : '' ) + 'search_internals_keywords' ) : scoredFieldPath;
+    const boostedField = _isIntegerLike( fieldValue ) ? ( ( _isCustom( scoredFieldPath ) ? 'custom.' : '' ) + '_search_keywords' ) : scoredFieldPath;
 
     if ( [ undefined, null ].includes( fieldValue ) ) return null;
 

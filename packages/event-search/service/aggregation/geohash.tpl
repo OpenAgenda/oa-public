@@ -1,6 +1,6 @@
 {
   "geohash_grid" : {
-    "field" : "search_internals_location",
+    "field" : "_search_location",
     "precision" : ${ precision }
   }
 }

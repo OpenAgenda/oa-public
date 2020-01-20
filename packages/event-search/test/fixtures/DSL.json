@@ -28,8 +28,8 @@
                     "size": 3,
                     "_source": {
                       "excludes": [
-                        "search_internals_*",
-                        "timings.search_internals_*"
+                        "_*",
+                        "timings._*"
                       ],
                       "includes": [
                         "uid",
@@ -46,7 +46,6 @@
                         "location.address",
                         "location.latitude",
                         "location.longitude",
-                        "contributor.organization",
                         "timezone"
                       ]
                     }

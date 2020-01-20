@@ -1,44 +1,58 @@
 'use strict';
 
-const preParse = require('./index/preParse');
-const clean = require('./helpers/clean');
-const lastTimingEndsIn = require('./helpers/lastTimingEndsIn');
-const handleError = require('./helpers/handleError');
 const _ = require('lodash');
+const formatEvent = require('../utils/formatEvent');
+const lastTimingEndsIn = require('./helpers/lastTimingEndsIn');
+const getDocumentId = require('./helpers/getDocumentId');
+const getIndexName = require('./helpers/getIndexName');
+const handleError = require('./helpers/handleError');
 const log = require('@openagenda/logs')('add');
 
-module.exports = async function(config, alias, event, options = {}) {
-  const params = Object.assign({
-    refresh: false
-  }, options);
+module.exports = async function(config, set, event, options = {}) {
+  const {
+    refresh,
+    formSchema
+  } = {
+    refresh: false,
+    formSchema: null,
+    ...options
+  };
 
-  const { client } = config;
+  const {
+    client,
+    defaultIndex
+  } = config;
 
-  const cleanEvent = clean(event);
+  if (!event) {
+    throw new Error('data is unavailable');
+  }
 
   let result;
 
   try {
     result = await client.index({
-      index: alias,
-      refresh: params.refresh,
-      id: cleanEvent.uid,
-      body: preParse(cleanEvent)
+      index: getIndexName(set, defaultIndex),
+      refresh,
+      id: getDocumentId(set, event.uid),
+      body: {
+        ...formatEvent(event, formSchema),
+        _set: set
+      }
     });
   } catch (err) {
     return handleError(config, err, 'failed to add event to index');
   }
 
   if (result.body.result === 'created') {
-    log('info', 'event %j was added to alias %s', { uid: event.uid }, alias, {
+    log('info', 'event %j was added to set %s', { uid: event.uid }, set, {
       operation: 'add',
-      alias,
+      set,
       identifiers: { uid: event.uid }
     });
   } else {
-    log('warn', 'event %j was not added to alias %s', event.uid, alias, {
+    log('warn', 'event %j was not added to set %s', event.uid, set, {
       operation: 'add',
-      alias,
+      set,
       identifiers: { uid: event.uid },
       result
     });

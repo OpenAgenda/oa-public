@@ -8,7 +8,7 @@ const should = require('should');
 const config = require('../testconfig');
 const Service = require('../');
 
-describe('03 - event search - functional: search', function() {
+describe('03 - event search - functional: aggregation', function() {
 
   describe( 'simple', function() {
     let service;
@@ -26,17 +26,17 @@ describe('03 - event search - functional: search', function() {
     } );
 
     it('keyword search, with aggregation', async () => {
-      const { aggregations } = await service( 'simple_search' ).search( {
+      const { aggregations } = await service('simple_search').search({
         keyword: 'word'
       }, { size: 0 }, {
         aggregations: [
-          'search_internals_keywords',
+          '_search_keywords',
           { type: 'timings' }
         ]
       } );
 
       aggregations.should.eql( {
-        search_internals_keywords: [
+        _search_keywords: [
           { key: 'clé', count: 1 },
           { key: 'key', count: 1 },
           { key: 'mot', count: 1 },
@@ -65,7 +65,7 @@ describe('03 - event search - functional: search', function() {
           $set: {
             keywords: {
               type: 'terms',
-              field: 'search_internals_keywords',
+              field: '_search_keywords',
               destination: 'keywords'
             }
           }
@@ -94,7 +94,7 @@ describe('03 - event search - functional: search', function() {
           $set: {
             agendas: {
               type: 'objectsAsTerms',
-              field: 'search_internals_agenda',
+              field: '_search_agenda',
               destination: 'agendas'
             }
           }
@@ -111,6 +111,7 @@ describe('03 - event search - functional: search', function() {
         key: '21475128',
         count: 2,
         agenda: {
+          image: '',
           uid: '21475128',
           title: 'France Handball 2017'
         }

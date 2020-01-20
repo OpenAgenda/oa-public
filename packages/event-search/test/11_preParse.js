@@ -16,7 +16,7 @@ describe('11 - event-search - unit: preParse', function() {
         fr: 'Un titre',
         en: 'A title'
       },
-      search_internals_title: [
+      _search_title: [
         'Un titre',
         'A title'
       ]

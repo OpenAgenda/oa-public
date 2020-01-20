@@ -45,7 +45,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -59,19 +58,15 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "participant@world-efficiency.com",
-        "totalnumberofvisitors": "",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "participant@world-efficiency.com",
+      "totalnumberofvisitors": "",
+      "authortestimony": "",
+      "member": {
         "name": "F Marquet Centre-astro",
         "organization": "Médiathèque intercommunale Istres - Ouest Provence",
         "uid": 20
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 22,
@@ -127,7 +122,7 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": {
+      "originAgenda": {
         "uid": 21475128,
         "title": "France Handball 2017",
         "url": "http://www.francehandball2017.com"
@@ -144,18 +139,14 @@
         "countryCode": "US",
         "timezone": "America/New_York"
       },
-      "custom": {
-        "organizeremail": "visit@safisalons.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "visit@safisalons.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Aleport Maisondelamer",
         "organization": "Etablissement Public Territorial Est Ensemble",
         "uid": 21
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 10,
@@ -201,7 +192,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -215,18 +205,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "info@bijorhca.com",
-        "authortestimony": "Florence GOSSET (France) - Détaillante bijouterie fantaisie et accessoires de mode"
-      },
-      "contributor": {
+      "organizeremail": "info@bijorhca.com",
+      "authortestimony": "Florence GOSSET (France) - Détaillante bijouterie fantaisie et accessoires de mode",
+      "member": {
         "name": "Anais Chery",
         "organization": "Université Grenoble Alpes",
         "uid": 22
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 23,
@@ -282,7 +268,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 83357467,
         "name": "Place Saint-Corentin",
@@ -295,18 +280,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "organisation@itpartners.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "organisation@itpartners.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Sabine BOUDE",
         "organization": "Université Catholique de Lyon",
         "uid": 23
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 100000,
@@ -353,7 +334,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 65918542,
         "name": "Musée de Valence - arts et archéologie",
@@ -366,18 +346,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "anne-laure.perrin@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "anne-laure.perrin@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Virginie Thibaud Paris-sorbonne",
         "organization": "Université Paris-Sorbonne ",
         "uid": 24
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 11,
@@ -461,7 +437,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -475,18 +450,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "livre@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "livre@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Iris Mattrat",
         "organization": "Bibliothèque Alexis de Tocqueville",
         "uid": 25
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 9,
@@ -532,7 +503,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -546,18 +516,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "info@franchiseparis.com",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "info@franchiseparis.com",
+      "authortestimony": "",
+      "member": {
         "name": "Juliette MARCEAU",
         "organization": "LE PLUS - PALAIS DE L'UNIVERS ET DES SCIENCES",
         "uid": 26
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 7,
@@ -603,7 +569,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -617,18 +582,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "mathilde.sauziere@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "mathilde.sauziere@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Sandrine BOYER",
         "organization": "Ville de Salon-de-Provence",
         "uid": 27
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 8,
@@ -674,7 +635,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -688,18 +648,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "laure.de-saint-pierre@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "laure.de-saint-pierre@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Nathalie GEY",
         "organization": "LEM3 Université de Lorraine UMR CNRS 7239",
         "uid": 28
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 12,
@@ -745,7 +701,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 10096987,
         "name": "Monument A La Victoire",
@@ -758,18 +713,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "fabienne.palmas@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "fabienne.palmas@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "David Emani",
         "organization": "Observatoire Océanologique de Villefranche-sur-Mer",
         "uid": 29
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     }
   ]
 }

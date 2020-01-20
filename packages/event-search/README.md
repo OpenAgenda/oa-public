@@ -52,7 +52,7 @@ The integrating application's concern is to know which indices to update when an
       options: { queue: true, refresh: false }
     }, ... ]
 
-This way the integrating app keeps control over which indices have to be updated right away and which can be queued. 
+This way the integrating app keeps control over which indices have to be updated right away and which can be queued.
 
 But depending on the index, the custom data can differ. The update of event core data must be **partial** and exclude .contributor and .custom parts.
 
@@ -84,7 +84,7 @@ A parsing function converts a form schema definition into a property set underst
 
 What about private data? Not indexed to begin with.
 
-When I have my parser, I can define a new index with custom fields. 
+When I have my parser, I can define a new index with custom fields.
 But I still need to pump data in there.
 The data is assembled at the integrated app level
 and provided by the eventList function.
@@ -102,7 +102,7 @@ How does the event search lifecycle go?
 
  Stakeholder data? these are not handled at all right now. Plus, a stakeholder update may impact a multitude of events in an index. Like a tag label update. These are handled in a transverse way in an index. As a task.
 
- Stakeholder data needs to be added to mapping at rebuild. And needs to be updated in a transverse way, with 
+ Stakeholder data needs to be added to mapping at rebuild. And needs to be updated in a transverse way, with
 
 
 
@@ -163,7 +163,7 @@ For example here, events will be presented in the following order when listed: 0
                                 |    [ event 1 ]
                                 |               [ ...event 2.. ]
            [ .event 3 ]         |
-    [ event 4 ]                 |    
+    [ event 4 ]                 |
 
 
 Sorting tests demonstrate how this is achieved with Elasticsearch DSL.
@@ -186,3 +186,16 @@ Aggregation can be requested at the time of the search:
         field: 'location.department'
       } ]
     } );
+
+
+# Troubleshoot and design considerations
+
+The bulk index has a queue which is limited in size. When that limit is reached during indexing, 429 code errors are returned
+
+A large amount of aliases on the same index are not advised. Hundreds or thousands are ok.
+https://discuss.elastic.co/t/performance-of-many-index-aliases/182529/2
+
+Can I have multiple indexes on one shard? -> No
+https://bonsai.io/blog/multiple-indices-per-shard.html
+
+A large amount of Shards (1 shard = 1 lucene index instance) is not good.

@@ -45,7 +45,7 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -59,19 +59,16 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "info@fiac.com",
-        "totalnumberofvisitors": "",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizer": "Office de l'eau Réunion",
+      "organizeremail": "info@fiac.com",
+      "totalnumberofvisitors": "",
+      "authortestimony": "",
+      "member": {
         "name": "Bielle Simone",
         "organization": "MJC Pt du Sonnant / Ville de St Martin d'Hères",
         "uid": 10
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 13,
@@ -117,7 +114,7 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -131,18 +128,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "laure.besancon@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "laure.besancon@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Bertrand PALLOT",
         "organization": "Club d'Astronomie des Monts du Lyonnais",
         "uid": 11
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 14,
@@ -197,7 +190,7 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -211,18 +204,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "comicconparis@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "comicconparis@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Hervé JACQUEMIN",
         "organization": "Ecole des Mines de Saint-Etienne",
         "uid": 12
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 18,
@@ -277,7 +266,7 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -291,18 +280,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "info@batimat.com",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "info@batimat.com",
+      "authortestimony": "",
+      "member": {
         "name": "mireille de granrut",
         "organization": "lycée roosevelt",
         "uid": 13
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 30,
@@ -348,7 +333,7 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -362,18 +347,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "info@ideobain.com",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "info@ideobain.com",
+      "authortestimony": "",
+      "member": {
         "name": "Ludivine Perard",
         "organization": "Bibliothèques de Chalons en Champagne",
         "uid": 14
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 31,
@@ -419,7 +400,7 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -433,18 +414,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "info@interclimaelec.com",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "info@interclimaelec.com",
+      "authortestimony": "",
+      "member": {
         "name": "Magali Kitzmann",
         "organization": "Genopolys",
         "uid": 15
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 19,
@@ -499,7 +476,7 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -513,19 +490,15 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "violaine.henno@reedexpo.fr",
-        "totalnumberofvisitors": "",
-        "authortestimony": "Friedrich Laubscher Senior Project Lead, BAYER"
-      },
-      "contributor": {
+      "organizeremail": "violaine.henno@reedexpo.fr",
+      "totalnumberofvisitors": "",
+      "authortestimony": "Friedrich Laubscher Senior Project Lead, BAYER",
+      "member": {
         "name": "Cossin COSSIN",
         "organization": "Laboratoire de recherche",
         "uid": 16
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 20,
@@ -580,7 +553,7 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -594,18 +567,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "info@parisphoto.com",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "info@parisphoto.com",
+      "authortestimony": "",
+      "member": {
         "name": "Bérangère Dumont",
         "organization": "Ville de Saint-Priest / Pôle Château",
         "uid": 17
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 21,
@@ -660,7 +629,7 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -674,18 +643,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "funeraire@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "funeraire@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Nicolas Aubertin",
         "organization": "MJC CS Nomade",
         "uid": 18
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     },
     {
       "id": 3,
@@ -735,7 +700,7 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
+
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -749,18 +714,14 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "custom": {
-        "organizeremail": "piscine@reedexpo.fr",
-        "authortestimony": ""
-      },
-      "contributor": {
+      "organizeremail": "piscine@reedexpo.fr",
+      "authortestimony": "",
+      "member": {
         "name": "Sabrina Raz",
         "organization": "CNRS",
         "uid": 19
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2
     }
   ]
 }

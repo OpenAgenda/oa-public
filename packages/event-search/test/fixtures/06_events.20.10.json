@@ -45,7 +45,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -59,9 +58,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 22,
@@ -117,11 +115,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": {
-        "uid": 21475128,
-        "title": "France Handball 2017",
-        "url": "http://www.francehandball2017.com"
-      },
       "location": {
         "uid": 8896048,
         "name": "Tenri Cultural Institute",
@@ -134,8 +127,11 @@
         "countryCode": "US",
         "timezone": "America/New_York"
       },
-      "state": {
-        "code": 2
+      "state": 2,
+      "originAgenda": {
+        "uid": 21475128,
+        "title": "France Handball 2017",
+        "url": "http://www.francehandball2017.com"
       }
     },
     {
@@ -182,7 +178,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -196,9 +191,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 23,
@@ -254,7 +248,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 83357467,
         "name": "Place Saint-Corentin",
@@ -267,9 +260,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 100000,
@@ -316,7 +308,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 65918542,
         "name": "Musée de Valence - arts et archéologie",
@@ -329,9 +320,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 11,
@@ -415,7 +405,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -429,9 +418,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 9,
@@ -477,7 +465,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -491,9 +478,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 7,
@@ -539,7 +525,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -553,9 +538,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 8,
@@ -601,7 +585,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -615,9 +598,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     },
     {
       "id": 12,
@@ -663,7 +645,6 @@
       },
       "registration": [],
       "fileKey": null,
-      "agenda": null,
       "location": {
         "uid": 10096987,
         "name": "Monument A La Victoire",
@@ -676,9 +657,8 @@
         "countryCode": "FR",
         "timezone": "Europe/Paris"
       },
-      "state": {
-        "code": 2
-      }
+      "state": 2,
+      "originAgenda": null
     }
   ]
 }

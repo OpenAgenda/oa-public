@@ -30,17 +30,17 @@ module.exports = Object.assign(queryToDsl, {
  * @param  {array}  includes    fields to be included in search result
  * @return {[type]}
  */
-function queryToDsl(query = {}, nav = {}, extensions = null, includes = null) {
+function queryToDsl(query = {}, nav = {}, formSchema = null, includes = null) {
   const inflated = inflate(query);
 
   const derelativized = derelativize(inflated);
 
-  const clean = validate(derelativized);
+  const clean = validate(derelativized, formSchema);
 
-  const extensionParts = _extractExtensionParts(inflated, extensions);
+  //const extensionParts = _extractExtensionParts(inflated, extensions);
 
   const dsl = {
-    query: getQuery(clean, extensionParts),
+    query: getQuery(clean, formSchema),
     sort: getSort(clean.sort),
     _source: getSource(includes)
   };

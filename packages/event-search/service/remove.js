@@ -1,39 +1,43 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const handleError = require( './helpers/handleError' );
-const log = require( '@openagenda/logs' )( 'remove' );
+const getIndexName = require('./helpers/getIndexName');
+const handleError = require('./helpers/handleError');
+const getDocumentId = require('./helpers/getDocumentId');
+const log = require('@openagenda/logs')('remove');
 
-module.exports = async function(config, alias, identifiers, options = {} ) {
+module.exports = async function(config, set, identifiers, options = {} ) {
+  const {
+    refresh
+  } = {
+    refresh: false,
+    ...options
+  };
 
-  const params = _.extend( {
-    refresh: false
-  }, options );
-
-  const { client } = config;
+  const { client, defaultIndex } = config;
 
   let res;
 
   try {
     res = await client.delete( {
-      index: alias,
-      id: identifiers.uid,
-      refresh: params.refresh
+      index: getIndexName(set, defaultIndex),
+      id: getDocumentId(set, identifiers.uid),
+      refresh
     } );
   } catch (err) {
-    return handleError(config, err, 'failed to remove event from index of alias %s', alias);
+    return handleError(config, err, 'failed to remove event from index of set %s', set);
   }
 
   if (res.body.result === 'deleted') {
-    log('info', 'event %j was removed from alias %s', identifiers, alias, {
+    log('info', 'event %j was removed from set %s', identifiers, set, {
       operation: 'remove',
-      alias,
+      set,
       identifiers
     });
   } else {
-    log('warn', 'event %j was not removed from alias %s', identifiers, alias, {
+    log('warn', 'event %j was not removed from set %s', identifiers, set, {
       operation: 'remove',
-      alias,
+      set,
       identifiers
     });
   }
