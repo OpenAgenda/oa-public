@@ -13,7 +13,7 @@ module.exports = (event, formSchema = null) => {
 
   if (event.location) {
     const country = _.get(countries,
-      _.get(event, 'location.countryCode', '').toUpperCase()
+      (_.get(event, 'location.countryCode') || '').toUpperCase()
     , {});
     transform.country = {
       $set: country
