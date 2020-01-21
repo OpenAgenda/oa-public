@@ -29,7 +29,7 @@ module.exports = async (services, eventSearch, agenda) => {
     formSchema: await core.agendas(agenda.uid).settings.schema.getMerged()
   });
 
-  log(logPrefix + ' done');
+  log(logPrefix + ' done', result);
 
   return result;
 }
