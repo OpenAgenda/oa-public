@@ -7,6 +7,8 @@ const Users = require('@openagenda/users');
 const keys = require('@openagenda/keys');
 const agendas = require('@openagenda/agendas');
 const sessions = require('@openagenda/sessions');
+const activitiesSvc = require('../activities');
+const membersSvc = require('../members');
 const hooks = require('./hooks');
 const beforeCreate = require('./beforeCreate');
 const beforeRemove = require('./beforeRemove');
@@ -42,7 +44,10 @@ const instance = new Users({
     tmpPath: config.tmpFolderPath
   },
   interfaces: {
-    beforeRemove,
+    beforeRemove: beforeRemove.bind(null, { services: {
+      activities: activitiesSvc,
+      members: membersSvc
+    } }),
     beforeCreate,
     onCreate,
     onGenerateApiKey,
