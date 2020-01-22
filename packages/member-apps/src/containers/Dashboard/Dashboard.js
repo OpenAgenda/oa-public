@@ -311,10 +311,11 @@ class Dashboard extends Component {
               {getLabel(eventCount && eventCount > 1 ? 'events' : 'event')}
               {/* </span> */}
             </a>
+
             {(userCredential !== 3 || ![2, 3].includes(role)) && (
               <button
                 type="button"
-                className="btn btn-link text-muted"
+                className="btn btn-link text-muted margin-left-sm"
                 onClick={() => showModal('editMember', { member })}
               >
                 {getLabel('editProfile')}
@@ -323,7 +324,7 @@ class Dashboard extends Component {
             {!owner && (userCredential !== 3 || ![2, 3].includes(role)) && (
               <button
                 type="button"
-                className="btn btn-link text-muted"
+                className="btn btn-link text-muted margin-left-sm"
                 onClick={() => showModal('removeMember', { member })}
               >
                 {getLabel('removeMember')}
@@ -331,7 +332,7 @@ class Dashboard extends Component {
             )}
             {user && id !== member.id ? (
               <a
-                className="text-muted"
+                className="text-muted margin-left-sm"
                 href={`/${agenda.slug}/admin/members/${id}/contact?creationRedirect=${base64url}`}
               >
                 {getLabel('sendAMessage')}
@@ -341,7 +342,7 @@ class Dashboard extends Component {
               <button
                 type="button"
                 onClick={resendInvitationHandler}
-                className="btn btn-link text-muted"
+                className="btn btn-link text-muted margin-left-sm"
               >
                 {getLabel('resendInvitation')}
               </button>
