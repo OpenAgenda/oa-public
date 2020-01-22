@@ -3,14 +3,13 @@
 const _ = require( 'lodash' );
 const async = require( 'async' );
 const abilitiesSvc = require( '@openagenda/abilities' );
-const agendasSvc = require( '@openagenda/agendas' );
 const editableRules = require( './editableRules' );
-const cmn = require( '../../lib/commons-app' );
-
-const membersSvc = require( '../members' );
-const usersSvc = require( '../users' );
 
 const secureMw = ( req, res, next ) => {
+  const { services } = req.app;
+  const membersSvc = services.members;
+  const agendasSvc = services.agendas;
+
   switch( req.query.entityName ) {
     case 'user':
       if ( !req.user || !req.user.uid || parseInt( req.query.identifier ) !== req.user.uid ) {
@@ -64,7 +63,7 @@ module.exports = app => {
   );
 };
 
-module.exports.init = async config => {
+module.exports.init = async (config, services) => {
   abilitiesSvc.init( {
     knex: config.knex,
     mysql: config.db,
@@ -77,19 +76,19 @@ module.exports.init = async config => {
 
     interfaces: {
       getEntity: {
-        agenda: uid => agendasSvc.get( { uid }, { private: null } ),
-        member: id => membersSvc.get( id ),
-        user:  uid => usersSvc.get( uid )
+        agenda: uid => services.agendas.get( { uid }, { private: null } ),
+        member: id => services.members.get( id ),
+        user:  uid => services.users.get( uid )
       },
       listEntities: {
-        agenda: uids => agendasSvc.list( { uid: uids, order: 'updatedAt.desc' }, { private: null } ),
-        member: ids => membersSvc
+        agenda: uids => services.agendas.list( { uid: uids, order: 'updatedAt.desc' }, { private: null } ),
+        member: ids => services.members
           .list( { id: ids }, { limit: 200 }, { detailed: true } )
           .then( members => members.map( m => _.omit(
             m.agenda ? Object.assign( m, { agendaTitle: m.agenda.title } ) : m,
             [ 'agenda', 'user' ]
           ) ) ),
-        user: async uids => (await usersSvc.find( { query: { uid: { $in: uids } } } )).data
+        user: async uids => (await services.users.find( { query: { uid: { $in: uids } } } )).data
       },
       defaultFor: {
         user( { can, cannot, rules } ) {
@@ -171,7 +170,7 @@ module.exports.init = async config => {
         user: async ( ability, options ) => {
           const members = options.entities
             ? options.entities.members
-            : await membersSvc.list( { userUid: ability.identifier }, { limit: 200 } );
+            : await services.members.list( { userUid: ability.identifier }, { limit: 200 } );
 
           return {
             user: ability.identifier,

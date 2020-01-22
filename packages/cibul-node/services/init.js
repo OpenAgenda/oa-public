@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 global.__CLIENT__ = false;
 global.__SERVER__ = true;
@@ -116,7 +116,7 @@ function createInitier(config, options) {
     }
 
     return Promise.resolve(service.init(config, services))
-      .then( svc => {
+      .then(svc => {
         if (svc) services[name] = svc;
         log('info', name);
       })

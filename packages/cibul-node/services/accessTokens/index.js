@@ -9,7 +9,6 @@
 
 const VError = require( 'verror' );
 const log = require( '@openagenda/logs' )( 'services/accessTokens' );
-const usersSvc = require( '../users' );
 
 let knex;
 
@@ -20,7 +19,9 @@ module.exports = {
   getUserFromKey
 }
 
-async function getUserFromKey( keyString = null ) {
+async function getUserFromKey( services, keyString = null ) {
+
+  const usersSvc = services.users;
 
   if ( !keyString ) {
 
@@ -46,7 +47,9 @@ async function getUserFromKey( keyString = null ) {
 
 }
 
-async function getUser( tokenString = null, nonce = null ) {
+async function getUser( services, tokenString = null, nonce = null ) {
+
+  const usersSvc = services.users;
 
   const token = await _loadToken( tokenString );
 

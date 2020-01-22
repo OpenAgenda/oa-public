@@ -9,6 +9,7 @@ module.exports = async ( req, res, next ) => {
   try {
 
     req.user = await accessTokens.getUser(
+      req.app.services,
       _.get( req, 'headers.access-token', _.get( req, 'body.access_token' ) ),
       _.get( req, 'headers.nonce', _.get( req, 'body.nonce' ) )
     );

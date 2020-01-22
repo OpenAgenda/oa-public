@@ -17,7 +17,6 @@ const lib = require( '../lib/lib' );
 const membersSvc = require( '../services/members' );
 const model = require( '../services/model' );
 const adminSvc = require( '../services/admin/admin' );
-const usersSvc = require( '../services/users' );
 const config = require( '../config' );
 
 const supportTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/support.tpl', 'utf-8' ) );
@@ -131,7 +130,7 @@ function index( req, res ) {
 
   log( 'rendering index' );
 
-  wn.call( _getTotals )
+  wn.call( _getTotals.bind(null, req.app.services) )
 
     .spread( function ( rt, et, ut ) {
 
@@ -139,7 +138,7 @@ function index( req, res ) {
       totals.events = et;
       totals.users = ut;
 
-      return wn.call( _getTotalsWeek );
+      return wn.call( _getTotalsWeek.bind(null, req.app.services) );
 
     } )
 
@@ -149,7 +148,7 @@ function index( req, res ) {
       totalsWeek.events = etw;
       totalsWeek.users = utw;
 
-      return wn.call( _getTotalsMonth );
+      return wn.call( _getTotalsMonth.bind(null, req.app.services) );
 
     } )
 
@@ -185,7 +184,7 @@ function search( req, res ) {
   const start = moment( req.query.begin, 'DD-MM-YYYY' ).toDate();
   const end = moment( req.query.end, 'DD-MM-YYYY' ).endOf( 'day' ).toDate();
 
-  _getFork( start, end )
+  _getFork( req.app.services, start, end )
 
     .then( ( [ r, e, u ] ) => {
 
@@ -300,6 +299,8 @@ function getUsers( req, res, next ) {
 
 function userChangePassword( req, res ) {
 
+  const usersSvc = req.app.services.users;
+
   const { uid, password } = req.query;
 
   usersSvc
@@ -319,6 +320,8 @@ function userChangePassword( req, res ) {
 
 
 async function userActivate( req, res ) {
+
+  const usersSvc = req.app.services.users;
 
   if ( !req.loadedUser.isActivated ) {
 
@@ -340,6 +343,8 @@ async function userActivate( req, res ) {
 }
 
 function userUpdate( req, res, next ) {
+
+  const usersSvc = req.app.services.users;
 
   usersSvc.get( req.loadedUser.uid, { detailed: true, removed: null } )
     .then( async user => {
@@ -388,6 +393,8 @@ function userSignin( req, res ) {
 function _loadUser( type = 'get' ) {
 
   return ( req, res, next ) => {
+
+    const usersSvc = req.app.services.users;
 
     const request = req[ type === 'get' ? 'query' : 'body' ];
 
@@ -489,7 +496,9 @@ function eventsDiff( req, res ) {
 }
 
 
-function _getFork( begin, end ) {
+function _getFork( services, begin, end ) {
+
+  const usersSvc = services.users;
 
   return Promise.all( [
     promisify( model.reviews().total )( { createdAt: { gte: begin, lte: end } } ),
@@ -500,7 +509,9 @@ function _getFork( begin, end ) {
 
 }
 
-function _getTotals( cb ) {
+function _getTotals( services, cb ) {
+
+  const usersSvc = services.users;
 
   async.parallel( [
 
@@ -514,7 +525,9 @@ function _getTotals( cb ) {
   ], cb );
 }
 
-function _getTotalsWeek( cb ) {
+function _getTotalsWeek( services, cb ) {
+
+  const usersSvc = services.users;
 
   var weekStart = moment().subtract( 1, 'week' ).startOf( 'week' ).toDate(),
 
@@ -532,7 +545,9 @@ function _getTotalsWeek( cb ) {
   ], cb );
 }
 
-function _getTotalsMonth( cb ) {
+function _getTotalsMonth( services, cb ) {
+
+  const usersSvc = services.users;
 
   var monthStart = moment().subtract( 1, 'month' ).startOf( 'month' ).toDate(),
 

@@ -4,7 +4,6 @@ const _ = require( 'lodash' );
 const VError = require( 'verror' );
 const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'sessions' );
-const usersSvc = require( './users' );
 
 const service = {
   mw: {
