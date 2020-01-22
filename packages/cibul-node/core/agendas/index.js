@@ -15,7 +15,7 @@ module.exports = services => {
 
   return Object.assign(agendaUid => ({
     get: agendas.get.bind( null, { uid: agendaUid } ),
-    update: update.bind( null, agendaUid ),
+    update: update.bind(null, services, agendaUid),
     remove: remove.bind( null, agendaUid ),
     events: events(services, agendaUid),
     members: Object.assign( listMembers.bind( null, agendaUid ), {

@@ -9,13 +9,13 @@ module.exports = async (services, networkUid, agendaUid) => {
 
   if (!network) throw new Error('network not found');
 
-  const agenda = await agendasCore(services, agendaUid).get({ private: null });
+  const agenda = await agendasCore(services)(agendaUid).get({ private: null });
 
   if (!agenda) throw new Error('agenda not found');
 
   if (agenda.networkUid) throw new Error('agenda is already in a network');
 
-  return agendasCore(services, agenda).update({ networkUid }, {
+  return agendasCore(services)(agenda).update({ networkUid }, {
     protected: false,
     updateLegacy: true
   });
