@@ -137,6 +137,10 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
 
   const compiledEvents = eventUids.map((uid, index) => {
     const event = _.find(fetched.events, { uid });
+    if (!event) {
+      log('warn', 'event uid %s was not found', uid);
+      return null;
+    }
     return { uid, ...merge.eventFromObject({
       agendaEvent: fetched.agendaEvents[index],
       event: load.event ? Object.assign(event, detailed ? {
@@ -152,7 +156,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
       member: load.event ? _.find(fetched.members, { userUid: fetched.agendaEvents[index].userUid }, null) : null,
       load
     }) }
-  });
+  }).filter(event => !!event);
 
   return returnPayload ? {
     lastId: newLastId,

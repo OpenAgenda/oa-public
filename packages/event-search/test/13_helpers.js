@@ -3,6 +3,7 @@
 const should = require( 'should' );
 const helpers = require( '../service/helpers' );
 const Service = require( '../' );
+const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
 const elasticsearch = require( '@elastic/elasticsearch' );
 const config = require( '../testconfig' );
 const w = require( 'when' );
@@ -184,7 +185,7 @@ describe('event-search - unit: helpers', function() {
 
     it( 'when timings and local timezone are available in event, timings are converted', () => {
 
-      helpers.convertToLocalTimezone( {
+      convertToLocalTimezone( {
         timings: [ {
           begin: '2016-10-24T12:00:00.000Z',
           end: '2016-10-24T13:00:00.000Z'

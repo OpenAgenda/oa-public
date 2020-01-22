@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 const getMoreLikeThis = require( './getMoreLikeThis' );
-const getQuery = require( './getQuery' );
+const getQuery = require( '../../../utils/getDSLQueryPart' );
 const getSource = require( './getSource' );
 
 module.exports = (mltRequest, mltOptions = {}, baseQuery = {}) => {

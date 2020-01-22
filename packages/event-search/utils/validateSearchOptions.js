@@ -18,19 +18,10 @@ module.exports = schema( {
   formSchema: {
     type: 'pass',
   },
-  merge: { // merge some fields. Example: customAdministrator and customContributor into custom
-    type: 'pass',
-    default: null
-  },
   aggregations: {
     list: { default: null },
     type: 'pass' // aggregations are cleaned separately - see aggregation/index
   },
-  // moved to parser pure functions
-  /*geojson: {
-    type: 'boolean',
-    default: false
-  },*/
   monolingual: {
     type: 'text',
     default: null,

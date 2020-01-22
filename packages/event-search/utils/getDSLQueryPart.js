@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const getFormSchemaAdditionalFields = require('../../../utils/getFormSchemaAdditionalFields');
+const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 
 module.exports = (cleanQuery, formSchema, additionalMustParts = []) => {
   const query = {};
@@ -60,8 +60,20 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
   }
 
   additionalFields.forEach(field => {
-    if (cleanQuery[field.field] && ['email'].includes(field.fieldType)) {
-      parts.push(_mustPart('term', '_search_additional_keywords', cleanQuery[field.field]));
+    if (!cleanQuery[field.field]) return;
+
+    if (['email'].includes(field.fieldType)) {
+      parts.push(_mustPart(
+        'term',
+        '_search_additional_keywords',
+        cleanQuery[field.field]
+      ));
+    } else if (['radio', 'checkbox'].includes(field.fieldType)) {
+      parts.push(_mustPart(
+        'term',
+        '_search_additional_keywords',
+        [field.schemaId, cleanQuery[field.field]].join('.')
+      ));
     }
   });
 

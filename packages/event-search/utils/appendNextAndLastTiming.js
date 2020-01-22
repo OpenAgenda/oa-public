@@ -1,14 +1,11 @@
-"use strict";
+'use strict';
 
-const ih = require( 'immutability-helper' );
+const ih = require('immutability-helper');
 
 // assumes timings are sorted
 module.exports = event => {
-
-  if ( !event.timings || !event.timings.length ) {
-
+  if (!event.timings || !event.timings.length) {
     return event;
-
   }
 
   let last = event.timings.slice( -1 )[ 0 ],

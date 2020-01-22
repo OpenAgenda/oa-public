@@ -14,11 +14,11 @@ const {
   wrapInMoreLikeThis
 } = require('../helpers/dsl');
 
-module.exports = Object.assign(queryToDsl, {
+module.exports = {
   inflate,
   moreLikeThis,
   derelativize
-});
+};
 
 
 /**
@@ -30,23 +30,7 @@ module.exports = Object.assign(queryToDsl, {
  * @param  {array}  includes    fields to be included in search result
  * @return {[type]}
  */
-function queryToDsl(query = {}, nav = {}, formSchema = null, includes = null) {
-  const inflated = inflate(query);
 
-  const derelativized = derelativize(inflated);
-
-  const clean = validate(derelativized, formSchema);
-
-  //const extensionParts = _extractExtensionParts(inflated, extensions);
-
-  const dsl = {
-    query: getQuery(clean, formSchema),
-    sort: getSort(clean.sort),
-    _source: getSource(includes)
-  };
-
-  return nav ? Object.assign(dsl, getNav(nav)) : dsl;
-}
 
 function moreLikeThis(mltQuery, mltOptions, query = {}) {
   const cleanQuery = validate(inflate(query));

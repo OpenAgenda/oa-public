@@ -4,7 +4,6 @@ const _ = require('lodash');
 const formatEvent = require('../utils/formatEvent');
 const handleError = require('./helpers/handleError');
 const lastTimingEndsIn = require('./helpers/lastTimingEndsIn');
-const parseQuery = require('./query');
 const remove = require('./remove');
 const getDocumentId = require('./helpers/getDocumentId');
 const getIndexName = require('./helpers/getIndexName');

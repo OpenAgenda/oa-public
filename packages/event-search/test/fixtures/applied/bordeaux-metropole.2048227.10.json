@@ -1,0 +1,1334 @@
+{
+  "events": [
+    {
+      "uid": 90443833,
+      "slug": "30-ans-mediatheque-atelier-patisserie-enfants-jeux-et-lectures",
+      "title": {
+        "fr": "30 ans Médiathèque - Atelier pâtisserie ENFANTS // Jeux et lectures"
+      },
+      "description": {
+        "fr": "atelier pâtisserie"
+      },
+      "longDescription": {
+        "fr": "Atelier pâtisserie ENFANTS le 13 novembre à la médiathèque avec les - 6 ans à 10h30 et à 14h30 les + 6 ans (sur inscription 05 57 77 68 86, 14 participants par atelier). Animés par \"La pelle du jardin\"\n\n16h jeux et lectures à la médiathèque et à 17h goûter et dégustation des ateliers à la salle polyvalente avec la participation du Théâtre En Vrac Jeunes"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Gratuit sur inscription 05 57 77 68 86"
+      },
+      "image": {
+        "filename": "e9907a2b27834e4fa1f932a6859ce455.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 990
+        },
+        "variants": [
+          {
+            "filename": "e9907a2b27834e4fa1f932a6859ce455.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 2463,
+              "height": 3483
+            }
+          },
+          {
+            "filename": "e9907a2b27834e4fa1f932a6859ce455.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-13T09:30:00.000Z",
+          "end": "2019-11-13T11:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-13T13:30:00.000Z",
+          "end": "2019-11-13T15:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-13T15:00:00.000Z",
+          "end": "2019-11-13T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T14:06:21.000Z",
+      "createdAt": "2019-10-24T14:06:21.000Z",
+      "agendaUid": 22478436,
+      "locationUid": 12534546,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 12534546,
+        "slug": "mediatheque-de-carbon-blanc",
+        "name": "Médiathèque de Carbon-Blanc",
+        "address": "Carbon-Blanc",
+        "city": "Carbon-Blanc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33560",
+        "insee": "33096",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.896285,
+        "longitude": -0.503654,
+        "updatedAt": "2017-02-16T08:47:31.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-carbon-blanc",
+        "uid": 22478436,
+        "official": 1,
+        "title": "Ville de Carbon-Blanc",
+        "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+        "url": "http://www.carbon-blanc.fr",
+        "image": "agenda22478436.jpg",
+        "updatedAt": "2019-10-29T09:00:50.000Z",
+        "createdAt": "2017-02-15T09:58:10.000Z",
+        "officializedAt": "2018-06-12T13:17:55.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 41005388,
+      "slug": "30-ans-mediatheque-concours-patissiers-amateurs",
+      "title": {
+        "fr": "30 ans Médiathèque - Concours pâtissiers amateurs"
+      },
+      "description": {
+        "fr": "concours"
+      },
+      "longDescription": {
+        "fr": "\\> Concours pâtissiers amateurs adultes le 16 novembre au château Brignon\n\n9h-12h : 6 participants et 13h30-16h30 : 6 participants (sur inscription 05 57 77 68 86)"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Gratuit sur inscription 05 57 77 68 86"
+      },
+      "image": {
+        "filename": "c29ae5505a424d69a820fbf47fd8be84.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 990
+        },
+        "variants": [
+          {
+            "filename": "c29ae5505a424d69a820fbf47fd8be84.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 2463,
+              "height": 3483
+            }
+          },
+          {
+            "filename": "c29ae5505a424d69a820fbf47fd8be84.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-16T08:00:00.000Z",
+          "end": "2019-11-16T11:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-16T12:30:00.000Z",
+          "end": "2019-11-16T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T14:08:43.000Z",
+      "createdAt": "2019-10-24T14:08:43.000Z",
+      "agendaUid": 22478436,
+      "locationUid": 80798789,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 80798789,
+        "slug": "chateau-birgnon",
+        "name": "Château Birgnon",
+        "address": "5 rue San Martin de Valdeiglesias, Carbon-Blanc",
+        "city": "Carbon-Blanc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33560",
+        "insee": "33096",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.905067,
+        "longitude": -0.501878,
+        "updatedAt": "2018-01-16T08:48:17.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-carbon-blanc",
+        "uid": 22478436,
+        "official": 1,
+        "title": "Ville de Carbon-Blanc",
+        "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+        "url": "http://www.carbon-blanc.fr",
+        "image": "agenda22478436.jpg",
+        "updatedAt": "2019-10-29T09:00:50.000Z",
+        "createdAt": "2017-02-15T09:58:10.000Z",
+        "officializedAt": "2018-06-12T13:17:55.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 65607959,
+      "slug": "30-ans-mediatheque-rencontre-et-dedicaces-dominique-de-saint-mars-et-loic-aspa",
+      "title": {
+        "fr": "30 ans Médiathèque - Rencontre et dédicaces Dominique de Saint Mars et Loïc Aspa"
+      },
+      "description": {
+        "fr": "rencontre auteure jeunesse et pâtissier"
+      },
+      "longDescription": {
+        "fr": "17h : Rencontre avec Dominique de Saint Mars (écrivaine et auteure jeunesse) au cinéma suivie d'une séance de dédicaces\n\n18h : séance de dédicaces Loïc ASPA (pâtissier)"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre et gratuite"
+      },
+      "image": {
+        "filename": "3ec97b0d0d8f4f59986fe5ce750a90f9.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 990
+        },
+        "variants": [
+          {
+            "filename": "3ec97b0d0d8f4f59986fe5ce750a90f9.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 2463,
+              "height": 3483
+            }
+          },
+          {
+            "filename": "3ec97b0d0d8f4f59986fe5ce750a90f9.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-16T16:00:00.000Z",
+          "end": "2019-11-16T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T14:10:22.000Z",
+      "createdAt": "2019-10-24T14:10:22.000Z",
+      "agendaUid": 22478436,
+      "locationUid": 40090964,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 40090964,
+        "slug": "cinema-favols",
+        "name": "Cinéma Favols",
+        "address": "Carbon-Blanc",
+        "city": "Carbon-Blanc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33560",
+        "insee": "33096",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.896468,
+        "longitude": -0.503612,
+        "updatedAt": "2017-02-16T08:47:27.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-carbon-blanc",
+        "uid": 22478436,
+        "official": 1,
+        "title": "Ville de Carbon-Blanc",
+        "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+        "url": "http://www.carbon-blanc.fr",
+        "image": "agenda22478436.jpg",
+        "updatedAt": "2019-10-29T09:00:50.000Z",
+        "createdAt": "2017-02-15T09:58:10.000Z",
+        "officializedAt": "2018-06-12T13:17:55.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 90536708,
+      "slug": "30-ans-mediatheque-assiettes-gourmandes",
+      "title": {
+        "fr": "30 ans Médiathèque - assiettes gourmandes"
+      },
+      "description": {
+        "fr": "repas"
+      },
+      "longDescription": {
+        "fr": "19h30 : Assiettes gourmandes (3€ sur inscription 05 57 77 68 86 places limitées) avec la participation de l'ASCJB à la médiathèque"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "3€ sur inscription 05 57 77 68 86"
+      },
+      "image": {
+        "filename": "f358114f79ec4d62b26ccab78a2442ae.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 990
+        },
+        "variants": [
+          {
+            "filename": "f358114f79ec4d62b26ccab78a2442ae.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 2463,
+              "height": 3483
+            }
+          },
+          {
+            "filename": "f358114f79ec4d62b26ccab78a2442ae.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-16T18:30:00.000Z",
+          "end": "2019-11-16T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T14:13:25.000Z",
+      "createdAt": "2019-10-24T14:13:25.000Z",
+      "agendaUid": 22478436,
+      "locationUid": 12534546,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 12534546,
+        "slug": "mediatheque-de-carbon-blanc",
+        "name": "Médiathèque de Carbon-Blanc",
+        "address": "Carbon-Blanc",
+        "city": "Carbon-Blanc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33560",
+        "insee": "33096",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.896285,
+        "longitude": -0.503654,
+        "updatedAt": "2017-02-16T08:47:31.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-carbon-blanc",
+        "uid": 22478436,
+        "official": 1,
+        "title": "Ville de Carbon-Blanc",
+        "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+        "url": "http://www.carbon-blanc.fr",
+        "image": "agenda22478436.jpg",
+        "updatedAt": "2019-10-29T09:00:50.000Z",
+        "createdAt": "2017-02-15T09:58:10.000Z",
+        "officializedAt": "2018-06-12T13:17:55.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 87017756,
+      "slug": "30-ans-mediatheque-soiree-et-on-danse-aussi",
+      "title": {
+        "fr": "30 ans Médiathèque - soirée \"et on danse aussi...\""
+      },
+      "description": {
+        "fr": "soirée musicale"
+      },
+      "longDescription": {
+        "fr": "A partir de 21h soirée \"Et on danse aussi...\" salle polyvalente - entrée libre // boissons et gâteaux au profit de l'association Briques pour l'Avenir"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre et gratuite"
+      },
+      "image": {
+        "filename": "87f83b65c6cf4910ac0aef665db8303c.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 990
+        },
+        "variants": [
+          {
+            "filename": "87f83b65c6cf4910ac0aef665db8303c.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 2463,
+              "height": 3483
+            }
+          },
+          {
+            "filename": "87f83b65c6cf4910ac0aef665db8303c.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-16T20:00:00.000Z",
+          "end": "2019-11-16T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T14:16:02.000Z",
+      "createdAt": "2019-10-24T14:16:02.000Z",
+      "agendaUid": 22478436,
+      "locationUid": 54520130,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 54520130,
+        "slug": "salle-polyvalente-favols",
+        "name": "Salle polyvalente Favols",
+        "address": "Carbon-Blanc",
+        "city": "Carbon-Blanc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33560",
+        "insee": "33096",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.894174,
+        "longitude": -0.500582,
+        "updatedAt": "2017-02-16T08:47:23.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-carbon-blanc",
+        "uid": 22478436,
+        "official": 1,
+        "title": "Ville de Carbon-Blanc",
+        "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+        "url": "http://www.carbon-blanc.fr",
+        "image": "agenda22478436.jpg",
+        "updatedAt": "2019-10-29T09:00:50.000Z",
+        "createdAt": "2017-02-15T09:58:10.000Z",
+        "officializedAt": "2018-06-12T13:17:55.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 6220459,
+      "slug": "conference-histoire-de-l-art-le-paysage-dans-la-peinture",
+      "title": {
+        "fr": "Conférence Histoire de l’art : Le paysage dans la peinture,"
+      },
+      "description": {
+        "fr": "Son évolution du simple décor au sujet de tableau. Conférence animée par Isciane Labatut"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Réservation conseillée"
+      },
+      "image": {
+        "filename": "event_conference-histoire-de-l-art-le-paysage-dans-la-peinture_948086.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_conference-histoire-de-l-art-le-paysage-dans-la-peinture_948086.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_conference-histoire-de-l-art-le-paysage-dans-la-peinture_948086.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-02T16:30:00.000Z",
+          "end": "2020-06-02T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T14:45:48.000Z",
+      "createdAt": "2019-10-24T14:45:47.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 57 80 81 78"
+      ],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2019-10-28T16:51:38.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 24261775,
+      "slug": "entre-mots-entre-nous_81",
+      "title": {
+        "fr": "Entre mots, entre nous"
+      },
+      "description": {
+        "fr": "Au terme d’une année de lectures et de rencontres avec des artistes, les enfants des écoles primaires, du collège et des structures enfance et jeunesse exposent leurs réalisations."
+      },
+      "longDescription": {
+        "fr": "Remise des prix et vernissage de l’exposition le vendredi 12 juin à 17h30 à la médiathèque."
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {},
+      "image": {
+        "filename": "event_entre-mots-entre-nous_81_653602.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_entre-mots-entre-nous_81_653602.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_entre-mots-entre-nous_81_653602.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-12T15:30:00.000Z",
+          "end": "2020-06-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T07:30:00.000Z",
+          "end": "2020-06-13T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T11:30:00.000Z",
+          "end": "2020-06-13T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T13:00:00.000Z",
+          "end": "2020-06-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T08:00:00.000Z",
+          "end": "2020-06-17T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T12:00:00.000Z",
+          "end": "2020-06-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T15:00:00.000Z",
+          "end": "2020-06-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T08:00:00.000Z",
+          "end": "2020-06-19T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T13:00:00.000Z",
+          "end": "2020-06-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T07:30:00.000Z",
+          "end": "2020-06-20T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T11:30:00.000Z",
+          "end": "2020-06-20T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-23T13:00:00.000Z",
+          "end": "2020-06-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T08:00:00.000Z",
+          "end": "2020-06-24T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T12:00:00.000Z",
+          "end": "2020-06-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T15:00:00.000Z",
+          "end": "2020-06-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T08:00:00.000Z",
+          "end": "2020-06-26T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T13:00:00.000Z",
+          "end": "2020-06-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T07:30:00.000Z",
+          "end": "2020-06-27T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T11:30:00.000Z",
+          "end": "2020-06-27T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-30T13:00:00.000Z",
+          "end": "2020-06-30T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T14:59:02.000Z",
+      "createdAt": "2019-10-24T14:59:02.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2019-10-28T16:51:38.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 55057775,
+      "slug": "fete-de-la-musique_160",
+      "title": {
+        "fr": "Fête de la musique"
+      },
+      "description": {
+        "fr": "Musiciens amateurs ou confirmés, venez faire de la musique ou simplement écouter des groupes amateurs."
+      },
+      "longDescription": {
+        "fr": "Buvette et restauration sur place par l’amicale laïque.\n\nProgramme en cours. Disponible au printemps 2020 à la médiathèque."
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {},
+      "image": {
+        "filename": "event_fete-de-la-musique_160_328376.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_fete-de-la-musique_160_328376.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_fete-de-la-musique_160_328376.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-20T16:00:00.000Z",
+          "end": "2020-06-20T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T15:01:06.000Z",
+      "createdAt": "2019-10-24T15:01:06.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 51961514,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 51961514,
+        "slug": "parc-de-leurope870",
+        "name": "Parc de l'Europe",
+        "address": "Parc de l'Europe, Avenue de la République, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.896867,
+        "longitude": -0.516778,
+        "updatedAt": "2018-06-15T15:38:32.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2019-10-28T16:51:38.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 22038685,
+      "slug": "komodo-indonesie-la-terre-des-dragons-avec-terre-ocean",
+      "title": {
+        "fr": "Komodo(Indonésie), la terre des dragons avec Terre & Océan"
+      },
+      "description": {
+        "fr": "Matthieu Berroneau et ses compagnons sont partis à la rencontre du plus grand lézard du monde actuel. Cette expédition concrétise son rêve : photographier l'un des plus anciens reptiles de la planète."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "event_komodo-indonesie-la-terre-des-dragons-avec-terre-ocean_145808.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_komodo-indonesie-la-terre-des-dragons-avec-terre-ocean_145808.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_komodo-indonesie-la-terre-des-dragons-avec-terre-ocean_145808.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-07T17:30:00.000Z",
+          "end": "2019-11-07T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T15:07:01.000Z",
+      "createdAt": "2019-10-24T15:07:01.000Z",
+      "agendaUid": 23890347,
+      "locationUid": 88524565,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 88524565,
+        "slug": "maison-ecocitoyenne251",
+        "name": "Maison écocitoyenne",
+        "address": "Quai Richelieu, Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.838557,
+        "longitude": -0.567339,
+        "updatedAt": "2019-07-26T12:27:24.000Z",
+        "image": "location88524565.jpg",
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "thematiques-bordeaux-metropole": [
+        17,
+        22,
+        25
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "maison-ecocitoyenne",
+        "uid": 23890347,
+        "official": 1,
+        "title": "Maison écocitoyenne",
+        "description": "Lieu de sensibilisation au développement durable. Expositions, ateliers pratiques, conférences, Espace Info Energie...",
+        "url": "https://maisoneco.bordeaux-metropole.fr/",
+        "image": "agenda23890347.jpg",
+        "updatedAt": "2019-10-30T16:22:31.000Z",
+        "createdAt": "2017-06-30T09:35:50.000Z",
+        "officializedAt": "2017-11-22T10:59:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 91111013,
+      "slug": "dance-party_896",
+      "title": {
+        "fr": "Dance Party"
+      },
+      "description": {
+        "fr": "Préparez-vous à danser !"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Sur réservation"
+      },
+      "image": {
+        "filename": "event_dance-party_896_317704.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_dance-party_896_317704.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_dance-party_896_317704.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-10-30T14:00:00.000Z",
+          "end": "2019-10-30T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-25T13:40:05.000Z",
+      "createdAt": "2019-10-24T15:10:46.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "05 57 80 81 78"
+      ],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2019-10-28T16:51:38.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2048358
+}

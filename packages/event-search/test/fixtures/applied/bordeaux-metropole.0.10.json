@@ -1,0 +1,1320 @@
+{
+  "events": [
+    {
+      "uid": 19375109,
+      "slug": "rencontre-avec-sylvie-germain_555",
+      "title": {
+        "fr": "Rencontre avec Sylvie Germain"
+      },
+      "description": {
+        "fr": "Lettres du Monde, festival de littératures étrangères - 16ème édition L'Usage du monde"
+      },
+      "longDescription": {
+        "fr": "Romancière, essayiste et dramaturge française, Sylvie Germain construit depuis presque 30 ans une œuvre singulière, imposante et cohérente, couronnée de nombreux prix (prix Femina et Goncourt des lycéens entre autres).\n\nElle a publié en avril dernier _Le Vent reprend ses tours_, l'histoire de Nathan, jeune adulte parti sur les traces du vieil homme qui a marqué son enfance.\n\nRencontre suivie d'une dédicace, en partenariat avec la librairie Georges\n\nDans le cadre du Festival Lettres du Monde"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "event_rencontre-avec-sylvie-germain_555_635476.jpg",
+        "credits": "Bruno Levy",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_rencontre-avec-sylvie-germain_555_635476.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_rencontre-avec-sylvie-germain_555_635476.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-21T17:00:00.000Z",
+          "end": "2019-11-21T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T10:08:23.000Z",
+      "createdAt": "2019-10-18T08:32:24.000Z",
+      "agendaUid": 45217635,
+      "locationUid": 57665053,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 57665053,
+        "slug": "bibliotheque-du-haillan-30-rue-de-los-heros",
+        "name": "Bibliothèque du Haillan 30 rue de Los Héros",
+        "address": "30 rue de Los Heros 33185",
+        "city": "Le Haillan",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33185",
+        "insee": "33200",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.874013,
+        "longitude": -0.676303,
+        "updatedAt": "2019-01-25T08:29:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 56,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-lehaillan",
+        "uid": 45217635,
+        "official": 1,
+        "title": "Ville du Haillan",
+        "description": "Agenda des événements de la ville du Haillan",
+        "url": "http://www.ville-lehaillan.fr/",
+        "image": "agenda45217635.jpg",
+        "updatedAt": "2019-10-29T09:08:31.000Z",
+        "createdAt": "2017-02-10T16:05:10.000Z",
+        "officializedAt": "2018-06-12T13:16:54.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 56257525,
+      "slug": "stage-de-theatre_255394",
+      "title": {
+        "fr": "Stage de théâtre"
+      },
+      "description": {
+        "fr": "La \"gestuelle corporelle\" au programme de ce stage de théâtre proposé par le Théâtre Alizé, et animé par Céline Blanc"
+      },
+      "longDescription": {
+        "fr": "Prendre conscience de son corps, l’utiliser pour comprendre puis transmettre l’émotion, l’intention...\n\nRencontrer un personnage, un masque, travailler pour rendre le masque vivant. Voici ce qui guide ce stage d’initiation au travail du masque."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "40€ ; sur inscriptions"
+      },
+      "image": {
+        "filename": "856c2152c1214d71a9b350ef9a64a13e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "856c2152c1214d71a9b350ef9a64a13e.full.image.jpg",
+            "size": {
+              "height": 1000,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "856c2152c1214d71a9b350ef9a64a13e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-16T09:00:00.000Z",
+          "end": "2020-02-16T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T11:55:43.000Z",
+      "createdAt": "2019-10-18T11:55:32.000Z",
+      "agendaUid": 38598267,
+      "locationUid": 69345614,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "+33556862145"
+      ],
+      "location": {
+        "uid": 69345614,
+        "slug": "loscillo-theatroscope",
+        "name": "L'Oscillo Théâtroscope",
+        "address": "Domaine du Loret 33150 Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.858253,
+        "longitude": -0.509262,
+        "updatedAt": "2019-10-15T12:41:05.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-cenon",
+        "uid": 38598267,
+        "official": 1,
+        "title": "Ville de CENON",
+        "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+        "url": "",
+        "image": "agenda38598267.jpg",
+        "updatedAt": "2019-12-06T13:26:22.000Z",
+        "createdAt": "2017-01-24T10:19:36.000Z",
+        "officializedAt": "2018-06-12T13:17:03.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 79024526,
+      "slug": "j-veux-du-soleil_401",
+      "title": {
+        "fr": "J'veux du soleil!"
+      },
+      "description": {
+        "fr": "J'veux du soleil est un film documentaire français réalisé par Gilles Perret et François Ruffin. Un road movie dans la France des Gilets Jaunes."
+      },
+      "longDescription": {
+        "fr": "\"J'ai changé les plaquettes de frein et le liquide de refroidissement. 350 € chez Norauto...\" C'est parti pour un road-movie dans la France d'aujourd'hui! Avec leur humour et leur caméra, Gilles Perret et François Ruffin traversent le pays: à chaque rond-point en jaune, c'est comme un paquet-surprise qu'on ouvrirait. Qu'est-ce qui va en sortir ? Des rires ou des larmes ? De la tendresse ou de la colère ? De l'art ou du désespoir ? Les deux compères nous offrent des tranches d'humanité, saisissent cet instant magique où des femmes et des hommes, d'habitude résignés, se dressent et se redressent, avec fierté, avec beauté, pour réclamer leur part de bonheur."
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "5€"
+      },
+      "image": {
+        "filename": "event_j-veux-du-soleil_401_456618.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_j-veux-du-soleil_401_456618.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_j-veux-du-soleil_401_456618.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-19T19:30:00.000Z",
+          "end": "2019-11-19T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:40:38.000Z",
+      "createdAt": "2019-10-18T11:54:06.000Z",
+      "agendaUid": 82035501,
+      "locationUid": 17425946,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "reservation.signoret@ville-cenon.fr",
+        "0547305043",
+        "http://jereserve.maplace.fr/reservation.php?menu=evenement&societe=Espace+Simone+Signoret&filtre_lieu=ESPACE+SIMONE+SIGNORET&filtre_date=2019-11-19+20%3A30%3A00&filtre_spectacle=J%27veux+du+soleil"
+      ],
+      "location": {
+        "uid": 17425946,
+        "slug": "espace-simone-signoret630",
+        "name": "Espace Simone Signoret",
+        "address": "1 avenue Carnot 33150 Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.857664,
+        "longitude": -0.530037,
+        "updatedAt": "2017-03-29T08:38:57.000Z",
+        "image": "location17425946.jpg",
+        "description": {
+          "fr": "Nouvel équipement culturel  dédié au spectacle vivant, la salle Simone Signoret propose une programmation dense et diversifiée.  Du théâtre au stand up, en passant par la danse et les petites formes musicales, elle vient compléter l’offre culturelle de la ville. D’une capacité de 200 places, elle cultive la proximité avec les artistes et promeut leurs liens avec les spectateurs."
+        },
+        "website": "https://www.ville-cenon.fr/culture-et-loisirs/2266-espace-simone-signoret.html",
+        "phone": "0547305043",
+        "links": [
+          "https://www.facebook.com/Espace-Simone-Signoret-144974495951826/?fref=ts",
+          "http://jereserve.maplace.fr/reservation.php?societe=Espace+Simone+Signoret"
+        ],
+        "access": {
+          "fr": "En voiture :  Emprunter le pont de Pierre, continuer tout droit sur l'avenue Thiers jusqu'à la mairie de Cenon. Parking gratuit: site de l'Hôtel de Ville ///  En tramway Prendre la ligne A ,arrêt Mairie de Cenon Traverser la route pour rejoindre l'Espace Simone Signoret"
+        },
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "espace-simone-signoret",
+        "uid": 82035501,
+        "official": 1,
+        "title": "Espace Simone Signoret",
+        "description": "La programmation culturelle de l'Espace Signoret, salle de 200 places dédiée au spectacle vivant, située à Cenon.",
+        "url": "https://www.ville-cenon.fr/agenda/",
+        "image": "agenda82035501.jpg",
+        "updatedAt": "2019-10-28T10:40:29.000Z",
+        "createdAt": "2017-03-29T07:42:58.000Z",
+        "officializedAt": "2018-06-12T13:17:10.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 4874093,
+      "slug": "une-drole-d-histoire-de-l-art-du-vrai-et-du-faux-2e-partie",
+      "title": {
+        "fr": "Une drôle d'histoire de l'art - Du vrai et du faux (2e partie)"
+      },
+      "description": {
+        "fr": "« l’art est un mensonge qui dit la vérité » disait Picasso. Bernard Marcadé revient au Frac pour interroger l'art à l'époque de la post vérité."
+      },
+      "longDescription": {
+        "fr": "Du vrai et du faux, des fantômes, du sale et du propre, des jets coulures et autres fuites… De l’explosion au trou et à la poussière, avec, pour finir, une évocation de la paresse, tel est le menu de ces 10 conférences qui constitue « Une drôle d’histoire de l’art », qui pour être plaisante ou amusante, n’en est pas forcément toujours drôle. Dix rendez-vous sous le signe d’un Gai savoir visuel, animées par la jubilation et le plaisir de faire cohabiter des régimes visuels qui peuvent sembler disparates (art, cinéma, publicité, documentaire…) mais qui participent néanmoins de la culture visuelle de notre temps… Il s’agira toujours de partir d’œuvres contemporaines, issues pour l’essentiel de la collection du Frac Nouvelle-Aquitaine MÉCA, pour ensuite errer et se perdre dans les méandres de l’histoire et de la géographie de notre monde… Par Bernard Marcadé, critique d’art et commissaire d’exposition.\n\nSamedi 2 novembre à 15h30 il sera question, entre autres et dans le désordre, des œuvres d’Orson Welles et de Jean-Luc Godard ; d’Yves Klein, Jeff Wall et Guy Debord ; des grottes de Lascaux et des parcs d’attraction… Et plus précisément des relations entre la fiction et le documentaire."
+      },
+      "keywords": {
+        "fr": [
+          "conférences",
+          "histoire de l'art",
+          "fake news",
+          "art contemporain",
+          "bernard marcadé",
+          "Frac Nouvelle-aquitaine",
+          "MÉCA"
+        ]
+      },
+      "conditions": {
+        "fr": "contribution libre (1€ min)  Jauge limitée"
+      },
+      "image": {
+        "filename": "event_une-drole-d-histoire-de-l-art-du-vrai-et-du-faux-2e-partie_352351.jpg",
+        "credits": "Vue du Paris reconstitué à Hangzhou (résidence du Tiandu Cheng), photo DR",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_une-drole-d-histoire-de-l-art-du-vrai-et-du-faux-2e-partie_352351.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_une-drole-d-histoire-de-l-art-du-vrai-et-du-faux-2e-partie_352351.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-02T14:30:00.000Z",
+          "end": "2019-11-02T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:42:41.000Z",
+      "createdAt": "2019-10-17T10:40:41.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 47316842,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 47316842,
+        "slug": "la-meca221",
+        "name": "La MÉCA",
+        "address": "54 Quai de Paludate, 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.828013,
+        "longitude": -0.5525,
+        "updatedAt": "2019-10-14T15:30:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 46350401,
+      "slug": "la-conquete-de-l-art-causerie-philosophique",
+      "title": {
+        "fr": "La conquête de l'art : causerie philosophique"
+      },
+      "description": {
+        "fr": "Un moment d'échanges autour d'une sélection d'œuvres du Frac avec la philosophe praticienne Sophie Geoffrion dimanche 3 novembre."
+      },
+      "longDescription": {
+        "fr": "La philosophie et l’art reposent sur l’étonnement et l’émerveillement. Les deux disciplines ouvrent les voies d’accès aux joies de la pensée et à la saveur du sensible.\n\nÀ partir d’une sélection d’œuvres issues de la collection du Frac, la philosophe Sophie Geoffrion initie une causerie philosophique, un moment d’échanges et de partages pour faire vivre les idées. Nul besoin d’érudition pour s’interroger ou pour réfléchir. Ces causeries philosophiques permettent le mélange des genres, éveillent la réflexion et réveillent les sens."
+      },
+      "keywords": {
+        "fr": [
+          "philosophie",
+          "art contemporain",
+          "Frac MÉCA"
+        ]
+      },
+      "conditions": {
+        "fr": "Prix libre (1€ min), sur réservation ( jauge limitée )."
+      },
+      "image": {
+        "filename": "event_la-conquete-de-l-art-causerie-philosophique_934680.jpg",
+        "credits": "Conversation Nomade avec Céline Domengie photo DR.",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_la-conquete-de-l-art-causerie-philosophique_934680.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_la-conquete-de-l-art-causerie-philosophique_934680.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-03T15:00:00.000Z",
+          "end": "2019-11-03T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:42:57.000Z",
+      "createdAt": "2019-10-17T10:51:53.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 47316842,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "reservation@frac-meca.fr"
+      ],
+      "location": {
+        "uid": 47316842,
+        "slug": "la-meca221",
+        "name": "La MÉCA",
+        "address": "54 Quai de Paludate, 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.828013,
+        "longitude": -0.5525,
+        "updatedAt": "2019-10-14T15:30:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 31198552,
+      "slug": "festival-ritournelles-20",
+      "title": {
+        "fr": "Festival Ritournelles #20"
+      },
+      "description": {
+        "fr": "Pour ses 20 ans le festival littéraire Ritournelles investie les espaces du Frac."
+      },
+      "longDescription": {
+        "fr": "Le 9 novembre au Frac, Ritournelles programmeunaprès-midi de lectures-performances en résonance avec des œuvres choisies dans l’exposition inaugurale « Il est une fois dans l’Ouest » dont ce sera le dernier jour.\n\nAu programme : \n\n*   **14h30 :** Lecture-concert de Séverine Daucourt (voix) et Daniel Valdenaire (guitare) espace Trans de l’exposition. Lecture d’extraits de l’ouvrage Transparaître, Lanskine éditeur.\n*   **15h :** Lecture de L’Amour est plus froid que le lac de Liliane Giraudon\n*   **15h30 :** Performance HypnoQueende Violaine Lochu avec Julien Desprez (guitare)\n*   **16h30 :** Lectures mobiles de Didier Arnaudet dans trois espaces de l’exposition en dialogue avec les œuvres de Pascal Convert, Martial Raysse et Alexandre Delay\n*   **17h :** Performance Class Syndrome de Natsuko Uchino et Matthew Lutz-Kinoy. Une activation de l’œuvre Kruger Salad Set (2012) de Natsuko Uchino et Matthew Lutz-Kinoy, collection Frac Nouvelle-Aquitaine MÉCA"
+      },
+      "keywords": {
+        "fr": [
+          "art",
+          "Frac MÉCA",
+          "Littérature",
+          "perfomance",
+          "exposition",
+          "lecture",
+          "concert"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit sur présentation du ticket de l’exposition en cours « Il est une fois dans l’Ouest »"
+      },
+      "image": {
+        "filename": "event_festival-ritournelles-20_574263.jpg",
+        "credits": "Ritournelles, permanences de la littérature.",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_festival-ritournelles-20_574263.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_festival-ritournelles-20_574263.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-09T13:00:00.000Z",
+          "end": "2019-11-09T14:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-09T17:30:00.000Z",
+          "end": "2019-11-09T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:43:08.000Z",
+      "createdAt": "2019-10-17T11:10:29.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 47316842,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 47316842,
+        "slug": "la-meca221",
+        "name": "La MÉCA",
+        "address": "54 Quai de Paludate, 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.828013,
+        "longitude": -0.5525,
+        "updatedAt": "2019-10-14T15:30:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 32131854,
+      "slug": "nouveau-des-ateliers-qui-mettent-en-mouvement-les-touts-petits",
+      "title": {
+        "fr": "NOUVEAU : des ateliers qui mettent en mouvement les touts petits"
+      },
+      "description": {
+        "fr": "Le Frac organise à la MÉCA des ateliers de pratique artistique pour tout le monde. Et parce que les choses sont bien faites, ils s'adressent aussi aux familles."
+      },
+      "longDescription": {
+        "fr": "Découvrez les ateliers Archi Frac ! Des ateliers tout publics à partir de 2 ans.\n\nLes six livres-objets rassemblés sous le titre UPSIDE DOWN de Fanny Millard, édités par EXTRA, sollicitent les sens et le corps. Ils se manipulent, mobilisent l’attention, et, sans crier gare, vous mettent en mouvement dans les espaces de la MÉCA. Chaque livre, par sa morphologie, permet d’expérimenter une notion spatiale élémentaire et d’appréhender autrement le bâtiment.Découvrez les jeux d’échelle de la MÉCA, jouez avec ses grandes lignes, tournez autour, explorez les dedans et les dehors !"
+      },
+      "keywords": {
+        "fr": [
+          "enfants",
+          "familles",
+          "ateliers",
+          "art",
+          "architecture",
+          "découverte",
+          "frac MÉCA"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif libre (1€ min)"
+      },
+      "image": {
+        "filename": "event_nouveau-des-ateliers-qui-mettent-en-mouvement-les-touts-petits_579533.jpg",
+        "credits": "Atelier-UPSIDE-DOWN-©-EXTRA-Fanny-Millard",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_nouveau-des-ateliers-qui-mettent-en-mouvement-les-touts-petits_579533.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_nouveau-des-ateliers-qui-mettent-en-mouvement-les-touts-petits_579533.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-09T15:30:00.000Z",
+          "end": "2019-11-09T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:43:25.000Z",
+      "createdAt": "2019-10-17T11:15:51.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 47316842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 2,
+        "max": 99
+      },
+      "registration": [
+        "reservation@frac-meca.fr"
+      ],
+      "location": {
+        "uid": 47316842,
+        "slug": "la-meca221",
+        "name": "La MÉCA",
+        "address": "54 Quai de Paludate, 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.828013,
+        "longitude": -0.5525,
+        "updatedAt": "2019-10-14T15:30:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 95564069,
+      "slug": "danceperados-of-ireland_890",
+      "title": {
+        "fr": "DANCEPERADOS OF IRELAND"
+      },
+      "description": {
+        "fr": "La troupe des DANCEPERADOS OF IRELAND mêle l’Histoire avec le charme de la danse irlandaise, et l'enthousiasme du chant et de la musique."
+      },
+      "longDescription": {
+        "fr": "Avec les deux premiers spectacles, qui ne cessent de faire le tour du Monde depuis une décennie, la troupe des DANCEPERADOS OF IRELAND mêle l’Histoire avec le charme de la danse irlandaise, et l'enthousiasme du chant et de la musique. Les artistes s’attachent à présenter un spectacle de qualité, sincère et vivant, fidèle à l’esprit et à la sensibilité artistique si particulière des Irlandais, en privilégiant l’authenticité du spectacle, qui fait la beauté de la danse et de la musique traditionnelle irlandaise.\n\nLe spectacle \"Whiskey you are the Devil\" est une performance 100 % Live d'une durée de 2 heures, qui raconte l'histoire Whiskey irlandais par la musique, les chansons et la danse qui sont trois éléments chevillés à l'ADN de chaque irlandais. La direction musicale du spectacle est assurée par Eimhin Liddy, et la chorégraphie a été confiée à Michael Donnellan, deux fois champion du Monde de danse et danseur principal des compagnies Riverdance et Lord of the Dance. Avec les Danceperados of Ireland, il a relevé le défi de créer un spectacle parfait sur le plan de la technique chorégraphique, et d'’adapter l’histoire dramatique, écrite par le Directeur artistique Petr Pandula.\n\nChants, Musiques, Danses, découvrez le spectacle \"Whiskey you are the Devil !\" et embarquez pour un grand voyage en Irlande !"
+      },
+      "keywords": {
+        "fr": [
+          "musique",
+          "danse",
+          "irlande",
+          "spectacle"
+        ]
+      },
+      "conditions": {
+        "fr": "35.20 à 48.20 euros selon placement"
+      },
+      "image": {
+        "filename": "event_danceperados-of-ireland_890_147498.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_danceperados-of-ireland_890_147498.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_danceperados-of-ireland_890_147498.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-04T19:30:00.000Z",
+          "end": "2019-11-04T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:43:41.000Z",
+      "createdAt": "2019-10-17T11:40:48.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 324741,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/fiche/danceperados-of-ireland-1/47957"
+      ],
+      "location": {
+        "uid": 324741,
+        "slug": "theatre-femina1",
+        "name": "Théâtre Fémina",
+        "address": "10 rue de Grassi, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841362,
+        "longitude": -0.577233,
+        "updatedAt": "2019-07-11T09:42:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 82188704,
+      "slug": "kassav_238",
+      "title": {
+        "fr": "KASSAV'"
+      },
+      "description": {
+        "fr": "Le groupe Kassav' se produira le 9 novembre 2019 à l'Arkéa Arena de Bordeaux. Cette prestation sera l’occasion de fêter les 40 ans de ce groupe mythique."
+      },
+      "longDescription": {
+        "fr": "Le groupe Kassav' se produira le 9 novembre 2019 à l'Arkéa Arena de Bordeaux. Cette prestation sera l’occasion de fêter les 40 ans de ce groupe mythique.  \n\nKassav' a longtemps été considéré comme l’un des groupes français les plus célèbres au monde. Le groupe a joué sur les cinq continents et a donné des concerts aussi bien au Congo-Brazzaville, au Sénégal, aux États-Unis, au Japon et même en URSS. La musique de Kassav' a révolutionné la musique antillaise."
+      },
+      "keywords": {
+        "fr": [
+          "musique",
+          "antilles",
+          "show",
+          "spectacle"
+        ]
+      },
+      "conditions": {
+        "fr": "42 à 50 euros selon placement"
+      },
+      "image": {
+        "filename": "event_kassav_238_202269.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_kassav_238_202269.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_kassav_238_202269.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-09T19:30:00.000Z",
+          "end": "2019-11-09T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:43:55.000Z",
+      "createdAt": "2019-10-17T11:50:23.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 85320355,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/fiche/kassav-4/143777"
+      ],
+      "location": {
+        "uid": 85320355,
+        "slug": "arkea-arena",
+        "name": "Arkea Arena",
+        "address": "48-50 Avenue Jean Alfonséa, 33270 Floirac",
+        "city": "Floirac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33270",
+        "insee": "33167",
+        "countryCode": "FR",
+        "district": "Centre Équestre de la Burthe",
+        "latitude": 44.824772,
+        "longitude": -0.531365,
+        "updatedAt": "2019-10-10T13:37:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 8390861,
+      "slug": "riles_701",
+      "title": {
+        "fr": "RILES"
+      },
+      "description": {
+        "fr": "À tout juste 23 ans, Rilès a déjà monté son propre studio d’enregistrement en parallèle de son activité d’auteur, compositeur et interprète."
+      },
+      "longDescription": {
+        "fr": "À tout juste 23 ans, Rilès a déjà monté son propre studio d’enregistrement en parallèle de son activité d’auteur, compositeur et interprète. On le situe à la frontière entre rap, R&B et pop, sous une palette d’influences qui s’étend de la musique kabyle de ses origines et de la capoeira, jusqu’aux mastodontes américains (Kanye West, Chance The Rapper, Timbaland…). Pour bien débuter 2019, Riles annonce une tournée des Zéniths en novembre prochain à l’occasion du TIGER TOUR. »\n\nCATÉGORIE 1 : ASSIS / PLACEMENT LIBRE\n\nCATÉGORIE 2 : FOSSE / DEBOUT\n\nEARLY : FOSSE / DEBOUT - ACCÈS PRIORITAIRE À LA SALLE"
+      },
+      "keywords": {
+        "fr": [
+          "RAP",
+          "concert",
+          "spectacle",
+          "musique"
+        ]
+      },
+      "conditions": {
+        "fr": "33 à 34 euros selon placement"
+      },
+      "image": {
+        "filename": "event_riles_701_456410.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_riles_701_456410.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_riles_701_456410.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-13T19:00:00.000Z",
+          "end": "2019-11-13T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:44:05.000Z",
+      "createdAt": "2019-10-17T12:03:55.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 85320355,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/fiche/riles-9/48156"
+      ],
+      "location": {
+        "uid": 85320355,
+        "slug": "arkea-arena",
+        "name": "Arkea Arena",
+        "address": "48-50 Avenue Jean Alfonséa, 33270 Floirac",
+        "city": "Floirac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33270",
+        "insee": "33167",
+        "countryCode": "FR",
+        "district": "Centre Équestre de la Burthe",
+        "latitude": 44.824772,
+        "longitude": -0.531365,
+        "updatedAt": "2019-10-10T13:37:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2044006
+}

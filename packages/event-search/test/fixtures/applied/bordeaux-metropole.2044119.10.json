@@ -1,0 +1,1379 @@
+{
+  "events": [
+    {
+      "uid": 32134120,
+      "slug": "les-frangines_35751",
+      "title": {
+        "fr": "Les Frangines"
+      },
+      "description": {
+        "fr": "Les Frangines, Rocher de Palmer, Cenon"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "les frangines",
+          "pop",
+          "folk"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif unique : 26€"
+      },
+      "image": {
+        "filename": "987b42fb815442109d7fe7edef1bac04.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "987b42fb815442109d7fe7edef1bac04.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "987b42fb815442109d7fe7edef1bac04.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-24T19:30:00.000Z",
+          "end": "2020-01-24T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-19T01:05:06.000Z",
+      "createdAt": "2019-10-19T01:05:06.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/les.frangines/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 36328511,
+      "slug": "yasiin-bey-black-on-both-sides-20th-anniversary",
+      "title": {
+        "fr": "Yasiin Bey « Black On Both Sides 20TH Anniversary »"
+      },
+      "description": {
+        "fr": "20 ans depuis la sortie de Black On Both Sides, le premier album de Mos Def - rebaptisé depuis Yasiin Bey : un disque culte, cela méritait une tournée événement."
+      },
+      "longDescription": {
+        "fr": "Quelle maîtrise déjà, fin 1999, dans ce premier album studio du rappeur-acteur-activiste Yasiin Bey - connu à l’époque sous le nom de Mos Def. Grand classique instantané et indétrônable du rap US, l’opus est tricoté par des artistes aussi légendaires que Q-Tip et Ali Shaheed Muhammad du groupe A Tribe Called Quest, ou encore DJ Premier ou Psycho Les. Un disque qu'on adule immédiatement pour « ses infinies subtilités, son courage, son humour et sa grâce » (Les Inrocks). Il subjugue la critique, défraie la chronique avec son flow élégant, son acuité politique, son groove intarissable. « Mr Nigga » se bat contre les préjugés raciaux tout en prenant le temps d’encenser « Ms. Fat Booty » croisée dans les rues de son fief « Brooklyn » : Black On Both Sides est un monument, et son créateur un artiste unique. Appelez-le Yasiin Bey, il y tient depuis quelques années, et remerciez-le de célébrer avec nous son disque mythique, 20 ans après."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "yasiin bey"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 32€ / Plein tarif : 30€ / Tarif abonné : 27€"
+      },
+      "image": {
+        "filename": "554e3f816508448ca49b04ba7fe6935a.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "554e3f816508448ca49b04ba7fe6935a.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "554e3f816508448ca49b04ba7fe6935a.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T19:30:00.000Z",
+          "end": "2020-01-31T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T01:05:14.000Z",
+      "createdAt": "2019-10-19T01:05:07.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/yasiin.bey/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 6673215,
+      "slug": "mano-dino",
+      "title": {
+        "fr": "Mano Dino"
+      },
+      "description": {
+        "fr": "Spectacle marionnette à partir de 1 an, et jusqu'à 101 ans"
+      },
+      "longDescription": {
+        "fr": "Mano Dino \n\nest un spectacle de marionnette pour les tout-petits dans lequel les personnages sont des mains.\n\nDans un coin de verdure vit\n\nun tout petit animal :\n\nMano Dino.\n\nEn miniature.\n\nCet animal ressemble à une main.\n\nC’est un \n\ndinosaure\n\n.\n\nC'est pour cette raison qu'il s'appelle Mano Dino.\n\nMano pour main.\n\nDino pour dinosaure.\n\nMano Dino aime cueillir les fruits.\n\nPour cela, il monte aux arbres.\n\nPlus ils sont hauts, moins il a peur.\n\nMano Dino est agile comme une main\n\nmais bien moins gros qu'un dinosaure!\n\nAvec son ami, ils jouent à saute-mouton.\n\nQuand ils se disputent, Mano Dino reste seul dans son jardin.\n\nIl découvre ainsi que sa tristesse peut être bien plus grande que son jardin.\n\nMano Dino est si petit qu'un jour le vent l'emporte loin de chez lui.\n\nLe voilà perdu au milieu de l’océan."
+      },
+      "keywords": {
+        "fr": [
+          "marionnette spectacle enfant friiix club lucarne mano dino bordeaux"
+        ]
+      },
+      "conditions": {
+        "fr": "7 euros (enfants) / 5 euros (adultes)"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-10-30T10:00:00.000Z",
+          "end": "2019-10-30T11:00:00.000Z"
+        },
+        {
+          "begin": "2019-10-31T10:00:00.000Z",
+          "end": "2019-10-31T11:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-02T10:00:00.000Z",
+          "end": "2019-11-02T11:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-02T14:00:00.000Z",
+          "end": "2019-11-02T15:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-02T16:00:00.000Z",
+          "end": "2019-11-02T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-21T15:48:43.000Z",
+      "createdAt": "2019-10-21T14:37:41.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 81830059,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": 1,
+        "max": 99
+      },
+      "registration": [
+        "0635441130",
+        "fred@friiix.club"
+      ],
+      "location": {
+        "uid": 81830059,
+        "slug": "theatre-la-lucarne547",
+        "name": "Théâtre La Lucarne",
+        "address": "3 rue Beyssac 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.83262,
+        "longitude": -0.563664,
+        "updatedAt": "2019-10-21T15:51:29.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 2776752,
+      "slug": "atelier-du-compositeur_122",
+      "title": {
+        "fr": "Atelier du compositeur"
+      },
+      "description": {
+        "fr": "Entrez dans l'Atelier du compositeur !"
+      },
+      "longDescription": {
+        "fr": "Découvrez le savoir-faire des compositeurs et les enjeux de la création musicale dans une séance de moins d'une heure où instruments, technologies, langages et sons nouveaux, toujours passionnants, parfois surprenants, se mêlent sous vos yeux et vos oreilles.\n\nEmmanuel Filet, compositeur originaire de Dordogne, porte un intérêt particulier à l’improvisation et a écrit différentes pièces allant de l’instrument soliste à l’orchestre en passant par la musique de chambre, utilisant parfois les possibilités de l’électroacoustique.\n\nEntrez dans l'Atelier du Compositeur !"
+      },
+      "keywords": {
+        "fr": [
+          "composition"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre, dans la limite des places disponibles"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-29T17:30:00.000Z",
+          "end": "2019-11-29T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-21T15:48:57.000Z",
+      "createdAt": "2019-10-21T11:42:19.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 37071073,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 37071073,
+        "slug": "atelier-du-conservatoire-de-bordeaux",
+        "name": "Atelier du Conservatoire de Bordeaux",
+        "address": "rue Jacques D'Welles 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.831447,
+        "longitude": -0.560891,
+        "updatedAt": "2019-03-21T08:08:02.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 15659792,
+      "slug": "tacata-zimm-boom",
+      "title": {
+        "fr": "Tacata Zimm Boom !"
+      },
+      "description": {
+        "fr": "Concert d'appel à générosité"
+      },
+      "longDescription": {
+        "fr": "Jeudi 21 novembre 2019, participez à la soirée d’appel à générosité organisée en faveur des élèves de percussions du conservatoire en finançant l’achat d’un vibraphone.\n\nÀ votre arrivée, suivez le guide pour une déambulation en musique à la découverte des Vivres de l’Art et profitez d’un cocktail proposé par nos partenaires.\n\nAssistez ensuite à un concert autour de la relation entre musique et métal, matériau de prédilection de Jean-François Buisson qui nous fait le plaisir de nous accueillir. Vibraphones, marimbas, bongos, glockenspiels, tam-tams, cloches, cymbales et bols tibétains se mêlent aux matériaux bruts récoltés dans l’atelier du sculpteur pour explorer un univers musical contemporain à la fois brut et mélodique.\n\nPour soutenir l’achat d’un vibraphone, instrument de la famille des percussions, vous pouvez faire un don du montant de votre choix.\n\nÀ partir de 20€ par adulte et de 10€ par enfant (-12 ans), vous serez invités à la soirée d’appel à générosité (cocktail et concert)."
+      },
+      "keywords": {
+        "fr": [
+          "percussions"
+        ]
+      },
+      "conditions": {
+        "fr": "Dons et inscriptions au 05 56 33 94 35"
+      },
+      "image": {
+        "filename": "event_tacata-zimm-boom_736298.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_tacata-zimm-boom_736298.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_tacata-zimm-boom_736298.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-21T18:00:00.000Z",
+          "end": "2019-11-21T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-21T15:49:35.000Z",
+      "createdAt": "2019-10-21T11:41:26.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 67043946,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 67043946,
+        "slug": "les-vivres-de-lart205",
+        "name": "Les Vivres de l'Art",
+        "address": "4 rue Achard, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.864774,
+        "longitude": -0.549359,
+        "updatedAt": "2018-04-03T07:57:44.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 47609656,
+      "slug": "concert-au-quartier-libre",
+      "title": {
+        "fr": "Concert au Quartier Libre"
+      },
+      "description": {
+        "fr": "Au programme : des standards du jazz, des reprises de musiques actuelles et des compositions des élèves dans un bar musical devenu un pôle culturel incontournable du quartier Saint-Michel."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "jazz"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre, dans la limite des places disponibles"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-12T19:30:00.000Z",
+          "end": "2019-11-12T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-21T15:49:40.000Z",
+      "createdAt": "2019-10-21T11:39:27.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 68400338,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 68400338,
+        "slug": "le-quartier-libre854",
+        "name": "Le Quartier Libre",
+        "address": "30 rue des Vignes 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.832396,
+        "longitude": -0.565253,
+        "updatedAt": "2019-10-21T15:51:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 52272060,
+      "slug": "aurores-musicales_433",
+      "title": {
+        "fr": "Aurores Musicales"
+      },
+      "description": {
+        "fr": "Démarrez la journée avec 20 minutes de musique suivies d'un petit déjeuner"
+      },
+      "longDescription": {
+        "fr": "Un concert à 8h du matin ? Incroyable mais vrai. Venez partager un moment unique et convivial offert par le Conservatoire de Bordeaux et la Halle des Douves. Une formule originale pour démarrer votre journée en musique et échanger autour d’un petit déjeuner.\n\nVendredi 8 novembre : Clarinettes\n\nVendredi 29 novembre : Saxophones"
+      },
+      "keywords": {
+        "fr": [
+          "concerts matinaux"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit, sur réservations 15 jours avant l'événement"
+      },
+      "image": {
+        "filename": "59edb3839b5641b1837c400cd5c46b25.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "59edb3839b5641b1837c400cd5c46b25.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 2000,
+              "height": 1334
+            }
+          },
+          {
+            "filename": "59edb3839b5641b1837c400cd5c46b25.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-08T07:00:00.000Z",
+          "end": "2019-11-08T08:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-20T16:37:50.000Z",
+      "createdAt": "2019-10-21T11:36:32.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 62514882,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://conservatoiredebordeaux.eventbrite.com"
+      ],
+      "location": {
+        "uid": 62514882,
+        "slug": "marche-des-douves543",
+        "name": "Marché des Douves",
+        "address": "4 rue des Douves, 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": null,
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.830731,
+        "longitude": -0.566676,
+        "updatedAt": "2019-07-17T10:27:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 14497216,
+      "slug": "bertrand-cantat-et-caryl-ferey-paz",
+      "title": {
+        "fr": "Bertrand Cantat et Caryl Férey « Paz » (Annulé)"
+      },
+      "description": {
+        "fr": "En vertu de pressions multiples et d’une censure qui ne dit pas son nom, l’équipe de « PAZ » et le Rocher de Palmer se voient contraints d’annuler la représentation du 31 mars 2020."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "bertrand cantat et caryl férey"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "4f1a59310df546c2accea7da6f38013e.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "4f1a59310df546c2accea7da6f38013e.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "4f1a59310df546c2accea7da6f38013e.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-31T18:30:00.000Z",
+          "end": "2020-03-31T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T01:05:24.000Z",
+      "createdAt": "2019-10-22T01:05:06.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/bertrand.cantat/03.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 33413610,
+      "slug": "exposition-itineraires-des-photographes-voyageurs",
+      "title": {
+        "fr": "Exposition Itinéraires des Photographes Voyageurs"
+      },
+      "description": {
+        "fr": "Exposition Itinéraires des Photographes Voyageurs, Rocher de Palmer, Cenon"
+      },
+      "longDescription": {
+        "fr": "Le 30ème Festival Itinéraires des Photographes Voyageurs invite le public à découvrir, dans les principaux lieux culturels de la Métropole bordelaise, des expositions photographiques sur le thème du voyage. Programme complet début décembre."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "exposition",
+          "itinéraires des photographes voyageurs",
+          "photographie"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre, du lundi au vendredi et les soirs de concerts"
+      },
+      "image": {
+        "filename": "677e51d061694494a73b5400551ac9c3.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "677e51d061694494a73b5400551ac9c3.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "677e51d061694494a73b5400551ac9c3.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-01T12:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T12:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T12:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-06T12:00:00.000Z",
+          "end": "2020-04-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T12:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T12:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T12:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T12:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-13T12:00:00.000Z",
+          "end": "2020-04-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T12:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T12:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T12:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T12:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-20T12:00:00.000Z",
+          "end": "2020-04-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T12:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T12:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T12:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T12:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-27T12:00:00.000Z",
+          "end": "2020-04-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T12:00:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T12:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T12:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-25T01:05:16.000Z",
+      "createdAt": "2019-10-22T01:05:10.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/expositions/itineraires.photographes.voyageurs/2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 75559944,
+      "slug": "kompromat",
+      "title": {
+        "fr": "Kompromat"
+      },
+      "description": {
+        "fr": "Fruit de l’entente entre Rebeka Warrior et le producteur Vitalic, Kompromat s’approprie la culture des clubs berlinois pour créer une musique électronique punk, noire et profonde."
+      },
+      "longDescription": {
+        "fr": "Le duo 100% français au nom russe a su créer avec Traum und Existenz un univers non répertorié, envoûtant, appelant autant au cri de guerre qu’à la prière, oscillant entre l’électro, la pop ou le post-punk. Un univers quasi-apocalyptique où se rencontrent la musicalité du chant allemand de Rebeka Warrior (Sexy Sushi, Mansfield.TYA) et les atmosphères sombres et planantes du pape de l’électro française Vitalic, le tout dans une harmonie à la fois violente et poétique. Rythmiques et dansantes, les mélodies de Kompromat évoquent Kraftwerk, Nina Hagen ou l’Electronic Body Music de nos voisins belges. Une musique fatalement hédoniste, façonnée pour s’émouvoir, crier, hurler, pleurer et surtout danser les bras en l’air jusqu’à en oublier le reste !"
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "kompromat"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 24€ / Plein tarif : 22€ / Tarif abonné : 19€"
+      },
+      "image": {
+        "filename": "e8895bb1db374fec94e4c10f05461429.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "e8895bb1db374fec94e4c10f05461429.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "e8895bb1db374fec94e4c10f05461429.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-24T18:30:00.000Z",
+          "end": "2020-04-24T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T01:05:12.000Z",
+      "createdAt": "2019-10-22T01:05:12.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/kompromat/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2045275
+}

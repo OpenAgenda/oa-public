@@ -1,30 +1,23 @@
 'use strict';
 
 const _ = require('lodash');
+const ih = require('immutability-helper');
 const VError = require('verror');
 
 const buildAggregationDsl = require('./aggregation');
 const runDSLQuery = require('./helpers/runDSLQuery');
 const getIndexName = require('./helpers/getIndexName');
 const instanciateSearchStream = require('./helpers/instanciateSearchStream');
-const h = require('./helpers');
+const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
+const appendNextAndLastTiming = require('../utils/appendNextAndLastTiming');
+const monolingualize = require('../utils/monolingualize');
 const parseAggregationResult = require('./aggregation').parseResult;
-const parseQuery = require('./query');
+const queryToDSL = require('../utils/queryToDSL');
 const validateNav = require('./query/validateNav');
-const validateOptions = require('./query/validateOptions');
+const validateOptions = require('../utils/validateSearchOptions');
 const getFormSchemaAdditionalFields = require('../utils/getFormSchemaAdditionalFields');
 
 const log = require('@openagenda/logs')('search');
-
-function _addIncludes({ baseSearchIncludes, detailedSearchIncludes }, { detailed, formSchema }) {
-  if (!detailed) {
-    return baseSearchIncludes;
-  }
-
-  return detailedSearchIncludes.concat(
-    getFormSchemaAdditionalFields(formSchema).map(f => f.field)
-  );
-}
 
 async function search(config, set, query = {}, nav = {}, options = {}) {
   log('searching on set %s with query %j', set, query);
@@ -41,28 +34,29 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     throw new VError(e, 'nav is not valid');
   }
 
-  try {
-    cleanOptions = validateOptions(options);
-  } catch (e) {
-    throw new VError(e, 'options are not valid');
-  }
+  const {
+    detailed,
+    formSchema,
+    aggregations: requestedAggregations,
+    monolingual
+  } = validateOptions(options);
 
   const index = getIndexName(set, defaultIndex);
 
   query.set = set;
 
-  cleanDsl = parseQuery(
+  cleanDsl = queryToDSL(
     query,
     cleanNav.size !== undefined ? cleanNav : {},
-    cleanOptions.formSchema,
+    formSchema,
     // includes
-    _addIncludes(config, cleanOptions)
+    _defineIncludes(config, { detailed, formSchema })
   );
 
   // sorting and _source added after
 
-  if (cleanOptions.aggregations) {
-    cleanDsl.aggregations = buildAggregationDsl(config, cleanOptions.aggregations, config.predefinedAggregations, query);
+  if (requestedAggregations) {
+    cleanDsl.aggregations = buildAggregationDsl(config, requestedAggregations, config.predefinedAggregations, query);
   }
 
   let {
@@ -72,7 +66,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     scrollId
   } = await runDSLQuery(_.pick(config, ['client']), index, cleanDsl, cleanNav.scroll ? cleanNav : {});
 
-  const eventParsers = _buildEventParsers(cleanOptions, aggregations);
+  const eventParsers = _buildEventParsers({ detailed, monolingual }, aggregations);
 
   const parsedEvents = _parseEvents(eventParsers, events);
 
@@ -119,28 +113,22 @@ function _parseEvents( parsers, events ) {
   });
 }
 
+function _defineIncludes({ baseSearchIncludes, detailedSearchIncludes }, { detailed, formSchema }) {
+  const includes = [].concat(detailed ? detailedSearchIncludes : baseSearchIncludes);
 
-function _buildEventParsers( options, aggregations ) {
+  return formSchema ? includes.concat(
+    getFormSchemaAdditionalFields(formSchema).map(f => f.field)
+  ) : includes;
+}
 
-  let parsers = [ h.convertToLocalTimezone ];
-
-  if ( options.merge ) {
-
-    parsers.push( _merge.bind( null, options.merge ) );
-
-  }
-
-  parsers.push( h.appendNextAndLastTiming );
-
-  if ( !options.detailed ) {
-
-    parsers.push( h.removeTimingsAndTimezone );
-
-  }
-
-  if ( options.monolingual ) {
-
-    parsers.push( h.monolingual.bind( null, [
+function _buildEventParsers({ detailed, monolingual }, aggregations) {
+  return [
+    convertToLocalTimezone,
+    appendNextAndLastTiming
+  ].concat(
+    detailed ? [] : e => ih(e, { $unset: ['timings', 'timezone'] })
+  ).concat(
+    monolingual ? monolingualize.bind(null, [
       'title',
       'description',
       'keywords',
@@ -149,33 +137,6 @@ function _buildEventParsers( options, aggregations ) {
       'longDescription',
       'country',
       'location.description'
-    ], options.monolingual ) );
-
-  }
-
-  return parsers;
-
-}
-
-
-function _merge( rules, event ) {
-
-  let merged = {}, clean = {}, mergedFields = [];
-
-  Object.keys( rules ).forEach( r => {
-
-    merged[ r ] = {};
-
-    rules[ r ].forEach( fieldToBeMerged => {
-
-      mergedFields.push( fieldToBeMerged );
-
-      _.assign( merged[ r ], event[ fieldToBeMerged ] );
-
-    } );
-
-  } );
-
-  return _.extend( _.omit( event, mergedFields ), merged );
+    ], monolingual) : []);
 
 }

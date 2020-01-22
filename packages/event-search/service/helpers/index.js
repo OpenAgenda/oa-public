@@ -7,16 +7,12 @@ const lastTimingEndsIn = require( './lastTimingEndsIn' );
 
 module.exports = {
   geoJSON: require( './geoJSON' ),
-  monolingual: require( './monolingual' ),
   checkList,
   createIndexName: require( './createIndexName' ),
   createUniqueIndex: require( './createUniqueIndex' ),
   indexBulk,
   extendMapping: require( './extendMapping' ),
-  convertToLocalTimezone: require( './convertToLocalTimezone' ),
-  lastTimingEndsIn,
-  appendNextAndLastTiming: require( './appendNextAndLastTiming' ),
-  removeTimingsAndTimezone: require( './removeTimingsAndTimezone' )
+  lastTimingEndsIn
 }
 
 function indexBulk(client, indexName, parsedEvents) {

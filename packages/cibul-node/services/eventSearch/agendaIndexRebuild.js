@@ -5,6 +5,8 @@ const log = require('@openagenda/logs')('services/eventSearch/agendaIndexRebuild
 const formatEventForIndex = require('./lib/formatEventForIndex');
 const getAgendaSearchIndex = require('./lib/getAgendaSearchIndex');
 
+const fs = require('fs');
+
 module.exports = async (services, eventSearch, agenda) => {
   const {
     core
@@ -35,11 +37,22 @@ module.exports = async (services, eventSearch, agenda) => {
 }
 
 function eventsList(core, agenda, lastId, limit) {
+  let lId = lastId;
   return core.agendas(agenda.uid).events.list({}, {
     lastId,
     limit
   }, {
     returnPayload: true,
     detailed: true
-  }).then(({ events, lastId, agenda }) => ({ lastId, events }));
+  }).then(({ events, lastId, agenda, formSchema }) => {
+
+    fs.writeFileSync(`/var/tmp/${agenda.slug}.schema.json`, JSON.stringify(formSchema, null, 2));
+    fs.writeFileSync(`/var/tmp/${agenda.slug}.${lId}.${limit}.json`, JSON.stringify({
+      events,
+      lastId
+    }, null, 2));
+
+    return { lastId, events };
+
+  });
 }

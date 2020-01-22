@@ -101,12 +101,13 @@ module.exports = (event, formSchema = null) => {
           value: event[field.field]
         }))
         .filter(({ field, value }) => (
-          value !== undefined // there is a value
+          ![undefined, null].includes(value) // there is a value
         ) && (
-          ['email'].includes(field.fieldType)
+          ['email', 'radio', 'checkbox'].includes(field.fieldType)
         ))
         .reduce((keywords, { field, value }) => {
-          return keywords.concat(value);
+          return keywords.concat(['radio', 'checkbox'].includes(field.fieldType)
+            ? [].concat(value).map(v => [field.schemaId, v].join('.')) : value)
         }, [])
       };
   }
