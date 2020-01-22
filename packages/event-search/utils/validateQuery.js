@@ -69,7 +69,9 @@ const validate = schema({
   },
   state: {
     optional: true,
-    type: 'integer',
+    type: 'choice',
+    unique: true,
+    options: [null, -1, 0, 1, 2],
     default: 2
   },
   geo: {

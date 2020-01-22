@@ -67,7 +67,7 @@ module.exports = (event, formSchema = null) => {
     };
   }
   if (event.originAgenda) {
-    transform['_search_agenda'] = {
+    transform['_search_origin_agenda'] = {
       $set: ['uid', 'title', 'image']
         .map(field => [field, event.originAgenda[field]].join(':'))
         .join('|')

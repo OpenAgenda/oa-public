@@ -4,7 +4,7 @@ const _ = require('lodash');
 const ih = require('immutability-helper');
 const VError = require('verror');
 
-const buildAggregationDsl = require('./aggregation');
+const buildAggregationDSL = require('./aggregation');
 const runDSLQuery = require('./helpers/runDSLQuery');
 const getIndexName = require('./helpers/getIndexName');
 const instanciateSearchStream = require('./helpers/instanciateSearchStream');
@@ -25,7 +25,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   let cleanNav = {}, cleanOptions = {}, cleanDsl;
 
   const {
-    defaultIndex
+    defaultIndex,
+    predefinedAggregations
   } = config;
 
   try {
@@ -38,7 +39,8 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     detailed,
     formSchema,
     aggregations: requestedAggregations,
-    monolingual
+    monolingual,
+    first
   } = validateOptions(options);
 
   const index = getIndexName(set, defaultIndex);
@@ -56,7 +58,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   // sorting and _source added after
 
   if (requestedAggregations) {
-    cleanDsl.aggregations = buildAggregationDsl(config, requestedAggregations, config.predefinedAggregations, query);
+    cleanDsl.aggregations = buildAggregationDSL(config, requestedAggregations, predefinedAggregations, query);
   }
 
   let {
@@ -72,6 +74,10 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
 
   if (options.aggregations) {
     aggregations = parseAggregationResult(config, options.aggregations, aggregations, config.predefinedAggregations, _parseEvents.bind( null, eventParsers ) );
+  }
+
+  if (first) {
+    return parsedEvents.pop();
   }
 
   return Object.assign({

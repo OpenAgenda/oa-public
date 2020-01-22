@@ -47,15 +47,17 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
     parts.push(_mustPart('term', 'state', cleanQuery.state));
   }
 
-  if (cleanQuery.uid && cleanQuery.uid.length > 1) {
-    parts.push(_mustPart('terms', 'uid', cleanQuery.uid));
-  } else if (cleanQuery.uid && cleanQuery.uid.length) {
-    parts.push(_mustPart('term', 'uid', cleanQuery.uid[0]));
+  const uids = [].concat(cleanQuery.uid || []);
+  if (uids.length > 1) {
+    parts.push(_mustPart('terms', 'uid', uids));
+  } else if (uids.length === 1) {
+    parts.push(_mustPart('term', 'uid', uids[0]));
   }
 
-  if (cleanQuery.slug && cleanQuery.slug.length > 1) {
+  const slugs = [].concat(cleanQuery.slugs || []);
+  if (slugs.length > 1) {
     parts.push(_mustPart('terms', 'slug', cleanQuery.slug));
-  } else if (cleanQuery.slug && cleanQuery.slug.length) {
+  } else if (slugs.length === 1) {
     parts.push(_mustPart('term', 'slug', cleanQuery.slug[0]));
   }
 

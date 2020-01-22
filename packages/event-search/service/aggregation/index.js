@@ -33,14 +33,14 @@ const types = {
   }
 }
 
-module.exports = Object.assign(buildDsl, { parseResult });
+module.exports = Object.assign(buildDSL, { parseResult });
 
-function buildDsl(config, aggregators = [], predefined = {}, query = {}) {
+function buildDSL(config, aggregators = [], predefined = {}, query = {}) {
   log('bulding aggregation DSL');
 
   const dsl = {};
 
-  [].concat(aggregators).map(_cleanAggregatorConfiguration.bind( null, config, predefined, query ))
+  [].concat(aggregators).map(_cleanAggregatorConfiguration.bind(null, config, predefined, query))
 
     .forEach(({ type, field, destination, data }) => {
 
@@ -89,15 +89,10 @@ function _cleanAggregatorConfiguration(config, predefined = {}, query = {}, a) {
   let aObj, type, field, destination, data;
 
   if (typeof a !== 'string') {
-
     aObj = a;
-
-  } else if ( predefined[ a ] !== undefined ) {
-
+  } else if (predefined[a] !== undefined) {
     aObj = predefined[ a ];
-
   } else {
-
     aObj = {
       type: 'terms',
       field: a,
@@ -107,7 +102,6 @@ function _cleanAggregatorConfiguration(config, predefined = {}, query = {}, a) {
         field: a
       }
     }
-
   }
 
   type = aObj.type || 'terms';
@@ -122,7 +116,7 @@ function _cleanAggregatorConfiguration(config, predefined = {}, query = {}, a) {
     type,
     field,
     destination,
-    data: types[ type ].validate ? types[ type ].validate( data, { config } ) : data,
+    data: types[type].validate ? types[type].validate(data, { config }) : data,
     query
   };
 

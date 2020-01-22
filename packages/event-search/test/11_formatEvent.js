@@ -54,8 +54,8 @@ describe('11 - event-search - unit: formatEvent', function() {
     formatted['_search_languages'].should.eql(['fr', 'en']);
   });
 
-  it('_search_agenda is a string with info on agenda', () => {
-    formatted._search_agenda.should.eql('uid:123456|title:L\'agenda d\'origine je crois|image:https://fdqfdq.jpg')
+  it('_search_origin_agenda is a string with info on agenda', () => {
+    formatted._search_origin_agenda.should.eql('uid:123456|title:L\'agenda d\'origine je crois|image:https://fdqfdq.jpg')
   });
 
   it('_search_title contains the titles of the event', () => {

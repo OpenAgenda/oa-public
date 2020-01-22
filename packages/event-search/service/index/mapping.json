@@ -82,7 +82,7 @@
   "updatedAt": {
     "type": "date"
   },
-  "_search_agenda": {
+  "_search_origin_agenda": {
     "type": "keyword"
   },
   "_search_title": {
