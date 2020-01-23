@@ -210,7 +210,12 @@ const selectStyles = {
       backgroundColor: '#41acdd',
       color: '#ffffff'
     }
-  })
+  }),
+  menu: (base, state) => (state.selectProps.creatable && !state.selectProps.options?.length
+    ? {
+      display: 'none'
+    }
+    : base)
 };
 
 // function Input({
@@ -242,7 +247,12 @@ function ReactSelectInput({
 
   return (
     <>
-      <SelectComponent ref={innerRef} {...input} {...rest} />
+      <SelectComponent
+        ref={innerRef}
+        {...input}
+        creatable={creatable}
+        {...rest}
+      />
 
       {!meta.dirtySinceLastSubmit && meta.submitError ? (
         <div className="margin-top-xs margin-bottom-sm text-danger">
@@ -326,6 +336,16 @@ function SelectField({
     initialValue
   ]);
 
+  const components = useMemo(
+    () => (creatable && !options?.length
+      ? {
+        DropdownIndicator: () => null,
+        NoOptionsMessage: () => null
+      }
+      : undefined),
+    [creatable, options]
+  );
+
   return (
     <Field
       name={name}
@@ -339,6 +359,7 @@ function SelectField({
       formatCreateLabel={formatCreateLabel}
       onBlur={handleBlur}
       isValidNewOption={creatable ? isValidNewOption : undefined}
+      components={components}
       {...props}
     />
   );
