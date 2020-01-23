@@ -5,7 +5,6 @@ const invitations = require('@openagenda/invitations');
 const mails = require('@openagenda/mails');
 const members = require('@openagenda/members');
 const log = require('@openagenda/logs')('members/mail');
-const usersSvc = require('../../users');
 const activities = require('../../activities');
 const agendaLogo = require('./agendaLogo');
 const extractInvitationContext = require('./invitationContext');
@@ -16,18 +15,6 @@ module.exports = {
   resendInvitation,
   messages: require('./messages')
 };
-
-async function resendInvitation(config, { agenda, member }) {
-  const {
-    invitation
-  } = await invitations.get({ email: member.custom.email });
-
-  if (!invitation) {
-    throw new Error('There is no invitation for this member');
-  }
-
-  return sendInvitation(config, { invitation, agenda, member });
-}
 
 async function send(config, { member, context, agenda, message }) {
   log('send');
@@ -42,13 +29,25 @@ async function send(config, { member, context, agenda, message }) {
   });
 }
 
-async function sendInvitation(config, { invitation, member, context, agenda }) {
+async function resendInvitation(services, config, { agenda, member }) {
+  const {
+    invitation
+  } = await invitations.get({ email: member.custom.email });
+
+  if (!invitation) {
+    throw new Error('There is no invitation for this member');
+  }
+
+  return sendInvitation(services, config, { invitation, agenda, member });
+}
+
+async function sendInvitation(services, config, { invitation, member, context, agenda }) {
   log('sendInvitation');
 
   const invitationContext = extractInvitationContext(invitation, context);
 
   try {
-    await _createSenderActivity({ agenda, invitationContext, member });
+    await _createSenderActivity(services, { agenda, invitationContext, member });
   } catch (e) {
     log('error', 'could not create sender activity', e);
   }
@@ -104,8 +103,8 @@ function _send(config, { invitation, member, agenda, message, lang }) {
   });
 }
 
-async function _createSenderActivity({ agenda, invitationContext, member }) {
-  const user = await usersSvc.findOne({
+async function _createSenderActivity(services, { agenda, invitationContext, member }) {
+  const user = await services.users.findOne({
     query: {
       uid: invitationContext.sender.userUid
     }

@@ -14,10 +14,8 @@ const {
 
 const { send, sendInvitation } = require( './lib/mail' );
 
-const usersSvc = require( '../users' );
-
-module.exports = async ( { config, activityQueue }, member, context ) => {
-  log( 'created', member );
+module.exports = async ({ services, config, activityQueue }, member, context) => {
+  log('created', member);
 
   try {
     const agenda = await agendas.get({
@@ -27,31 +25,35 @@ module.exports = async ( { config, activityQueue }, member, context ) => {
       includeImagePath: true
     });
 
-    if ( !agenda ) throw new Error( 'Agenda not found' );
-
-    const user = member.userUid ? await usersSvc.findOne( {
-      query: { uid: member.userUid },
-      removed: null
-    } ) : null;
-
-    if ( !user && member.userUid ) throw new Error( 'User not found' );
-
-    if ( member.userUid ) {
-      return _memberIsExistingUser( { config, activityQueue }, { member, user, agenda, context } );
-    } else {
-      return _memberIsInvitedNonUser( { config, activityQueue }, { member, agenda, context } );
+    if (!agenda) {
+      throw new Error('Agenda not found');
     }
 
-  } catch ( e ) {
-    log( 'error', 'failed', { member, exception: e } );
-  }
-}
+    const user = member.userUid ? await services.users.findOne({
+      query: { uid: member.userUid },
+      removed: null
+    }) : null;
 
-async function _memberIsExistingUser( { config, activityQueue }, { member, user, agenda, context } ) {
+    if (!user && member.userUid) {
+      throw new Error('User not found');
+    }
+
+    if (member.userUid) {
+      return _memberIsExistingUser({ services, config, activityQueue }, { member, user, agenda, context });
+    } else {
+      return _memberIsInvitedNonUser({ services, config, activityQueue }, { member, agenda, context });
+    }
+
+  } catch (e) {
+    log('error', 'failed', { member, exception: e });
+  }
+};
+
+async function _memberIsExistingUser( { services, config, activityQueue }, { member, user, agenda, context } ) {
   log( 'member is existing user', member );
 
   if ( user.isNew ) {
-    await usersSvc.setNewFlag( user.uid, { isNew: false } );
+    await services.users.setNewFlag( user.uid, { isNew: false } );
   }
 
   try {
@@ -79,7 +81,7 @@ async function _memberIsExistingUser( { config, activityQueue }, { member, user,
   }
 
   const userFeedId = { entityType: 'user', entityUid: user.uid };
-  const agendaFeedId = { entityType: 'agenda', entityUid: agenda.uid }
+  const agendaFeedId = { entityType: 'agenda', entityUid: agenda.uid };
   try {
     await activities.feed( userFeedId )
       .follow( agendaFeedId, { credential: member.role } );
@@ -94,7 +96,7 @@ async function _memberIsExistingUser( { config, activityQueue }, { member, user,
     return;
   }
 
-  const senderUser = await usersSvc.findOne( {
+  const senderUser = await services.users.findOne( {
     query: { uid: senderUserUid },
     removed: null
   } );
@@ -117,12 +119,12 @@ async function _memberIsExistingUser( { config, activityQueue }, { member, user,
   }
 }
 
-async function _memberIsInvitedNonUser( { config }, { member, agenda, context } ) {
+async function _memberIsInvitedNonUser( { services, config }, { member, agenda, context } ) {
   log( 'member is not existing user, is invited' );
 
   const { invitation } = await invitations.assign( {
     email: member.custom.email
   }, 'linkMember', [ member, context ] );
 
-  return sendInvitation( config, { invitation, member, context, agenda } );
+  return sendInvitation( services, config, { invitation, member, context, agenda } );
 }

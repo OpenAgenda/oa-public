@@ -12,7 +12,6 @@ const getUsersDetails = require('./getUsersDetails');
 const onAction = require('./onAction');
 const onInboxCreate = require('./onInboxCreate');
 const onMessageCreate = require('./onMessageCreate');
-const usersSvc = require('../users');
 const membersSvc = require('../members');
 const config = require('../../config');
 
@@ -21,16 +20,16 @@ const loggerConfig = config.getLogConfig('oa', 'inboxes', false);
 log.setConfig(loggerConfig);
 
 
-const interfaces = {
-  getUsersDetails,
-  getInboxesDetails,
-  onInboxCreate,
-  onMessageCreate,
-  filterAction,
-  onAction
-};
+module.exports.init = async (c, services) => {
+  const interfaces = {
+    getUsersDetails: getUsersDetails.bind(null, services),
+    onMessageCreate: onMessageCreate.bind(null, services),
+    getInboxesDetails: getInboxesDetails.bind(null, services),
+    onInboxCreate,
+    filterAction,
+    onAction
+  };
 
-module.exports.init = async c => {
   await inboxes.init(
     _.merge(
       _.pick(c, [
@@ -54,7 +53,7 @@ module.exports.init = async c => {
         services: {
           agendas: () => agendasSvc,
           members: () => membersSvc,
-          users: () => usersSvc
+          users: () => services.users
         },
         interfaces,
         defaultAction: {
@@ -182,5 +181,6 @@ module.exports.init = async c => {
       }
     )
   );
+
   await inboxMw.init(_.merge({}, c, { interfaces, mw: { limit: 20 } }));
 };

@@ -9,10 +9,11 @@ const log = require( '@openagenda/logs' )( 'services/members/onRemove' );
 
 const activities = require( '../activities' );
 const controlDataSvc = require( '../legacy' ).controlData;
-const usersSvc = require( '../users' );
 
-module.exports = async ( { members, activityQueue }, member, context ) => {
+module.exports = async ( { services, members, activityQueue }, member, context ) => {
   log( 'removed', member );
+
+  const usersSvc = services.users;
 
   try {
 

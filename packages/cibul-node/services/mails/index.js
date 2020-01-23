@@ -61,7 +61,7 @@ module.exports.init = async (config, _services) => {
     disableVerify: config.mails.disableVerify,
 
     // Unsubscription
-    sendFilter: filterBouncingAndUnsubscribed.bind(null, config),
-    beforeSend: beforeSend.bind(null, config)
+    sendFilter: filterBouncingAndUnsubscribed.bind(null, services, config),
+    beforeSend: beforeSend.bind(null, services, config)
   });
 };

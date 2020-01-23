@@ -64,8 +64,8 @@ function init(c, services) {
       getUsersByUid: getUsersByUid.bind(null, services),
       getUserByEmail: getUserByEmail.bind(null, services),
       getAgendasByUid,
-      onCreate: onCreate.bind(null, { config, activityQueue }),
-      onRemove: onRemove.bind(null, { members, activityQueue }),
+      onCreate: onCreate.bind(null, { services, config, activityQueue }),
+      onRemove: onRemove.bind(null, { services, members, activityQueue }),
       onPatch: onPatch.bind(null, { services, config, activityQueue })
     }
   }));
@@ -225,7 +225,7 @@ function plugApp(parentApp) {
         next();
       }, next);
     },
-    (req, res, next) => mail.resendInvitation(config, {
+    (req, res, next) => mail.resendInvitation(req.app.services, config, {
       agenda: req.agenda,
       member: req.targetMember
     }).then(() => res.status(200).json({ message: 'pabim.' }), next)

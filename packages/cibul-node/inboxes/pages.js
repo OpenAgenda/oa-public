@@ -17,7 +17,6 @@ const config = require( '../config' );
 
 const members = require( '../services/members' );
 const sessions = require( '../services/sessions' );
-const usersSvc = require( '../services/users' );
 
 const app = express();
 const getLabel = makeLabelGetter( labels );
@@ -33,7 +32,9 @@ app.use(
   sessions.mw.loadOrRedirect,
   cmn.loadBaseData('oasfmain.css'),
   ( req, res, next ) => {
-    usersSvc.refresh( req.user.uid, {
+    const { services } = req.app;
+
+    services.users.refresh( req.user.uid, {
       lastInboxCheck: true
     } ).then( () => next() ).catch( next );
   },

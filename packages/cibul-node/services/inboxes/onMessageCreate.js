@@ -7,10 +7,10 @@ const agendasSvc = require('@openagenda/agendas');
 const mails = require('@openagenda/mails');
 const log = require('@openagenda/logs')('services/inboxes/onMessageCreate');
 const genUrl = require('../genUrl');
-const usersSvc = require('../../services/users');
 const membersSvc = require('../../services/members');
 
-module.exports = async (conversation, message) => {
+module.exports = async (services, conversation, message) => {
+  const usersSvc = services.users;
 
   try {
 

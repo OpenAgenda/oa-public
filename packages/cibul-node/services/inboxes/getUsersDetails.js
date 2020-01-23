@@ -1,9 +1,9 @@
 'use strict';
 
-const usersSvc = require('../users');
 const config = require('../../config');
 
-module.exports = async function getUsersDetails(usersToBeDetailed) {
+module.exports = async function getUsersDetails(services, usersToBeDetailed) {
+  const usersSvc = services.users;
 
   if (usersToBeDetailed.length === 0) {
     return [];

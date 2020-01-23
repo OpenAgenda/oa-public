@@ -3,10 +3,10 @@
 const _ = require('lodash');
 const log = require('@openagenda/logs')('services/mails/beforeSend');
 const createUnsubscriptionToken = require('./createUnsubscriptionToken');
-const usersSvc = require('../../users');
 
 
-module.exports = async (config, params) => {
+module.exports = async (services, config, params) => {
+  const usersSvc = services.users;
   const { address: email } = params.to;
 
   const recipientUser = await usersSvc.findOne({ query: { email } });

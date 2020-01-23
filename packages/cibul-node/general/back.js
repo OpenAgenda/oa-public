@@ -4,7 +4,6 @@ const _ = require('lodash');
 const { Inbox } = require('@openagenda/inboxes');
 const sessions = require('@openagenda/sessions');
 const mails = require('@openagenda/mails');
-const users = require('../services/users');
 const cmn = require('../lib/commons-app');
 
 function callToActionRequest(req, res) {
@@ -32,7 +31,9 @@ function callToActionRequest(req, res) {
 
 
 function _loadUser(detailed, req, res, next) {
-  users.findOne({ query: { id: req.user.id }, detailed: true })
+  const { services } = req.app;
+
+  services.users.findOne({ query: { id: req.user.id }, detailed: true })
     .then(user => {
       req.user = user;
 

@@ -6,7 +6,7 @@ const isUnsubscribed = require( './isUnsubscribed' );
 
 const log = require( '@openagenda/logs' )( 'services/mails/filterBouncingAndUnsubscribed' );
 
-module.exports = async ( config, params ) => {
+module.exports = async ( services, config, params ) => {
   const unsubscriptions = params.to.unsubscriptions;
   const abilityArgs = unsubscriptions && unsubscriptions.length
     ? _.find( unsubscriptions, 'memberId' ) || unsubscriptions[ unsubscriptions.length - 1 ]
@@ -38,8 +38,8 @@ module.exports = async ( config, params ) => {
 
   // member
   if ( memberId ) {
-    return !( await isUnsubscribed( config, { entityName: 'member', identifier: memberId }, ...rule ) );
+    return !( await isUnsubscribed( services, config, { entityName: 'member', identifier: memberId }, ...rule ) );
   }
 
-  return !( await isUnsubscribed( config, email, ...rule ) );
+  return !( await isUnsubscribed( services, config, email, ...rule ) );
 }

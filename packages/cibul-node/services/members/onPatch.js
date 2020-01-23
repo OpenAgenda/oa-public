@@ -15,7 +15,7 @@ const {
   isSuperiorToOrEqual
 } = require( '@openagenda/members' ).utils.compareRoles;
 
-module.exports = async ({ config, activityQueue, services }, before, member, context) => {
+module.exports = async ({ services, config, activityQueue }, before, member, context) => {
   log('patched', member);
 
   const usersSvc = services.users;
@@ -61,7 +61,7 @@ module.exports = async ({ config, activityQueue, services }, before, member, con
       log('user is a newly associated member');
       if (!senderUser) throw new Error('Sender user not found');
       try {
-        await _onNewMember({ usersSvc, agenda, user, senderUser, context, member, activityQueue });
+        await _onNewMember({ services, agenda, user, senderUser, context, member, activityQueue });
       } catch (e) {
         log('error', 'failed to register new member', e);
       }
@@ -118,7 +118,7 @@ module.exports = async ({ config, activityQueue, services }, before, member, con
       try {
         invitation.email = member.custom.email;
         await invitation.save();
-        await sendInvitation(config, { invitation, member, context, agenda });
+        await sendInvitation(services, config, { invitation, member, context, agenda });
       } catch (e) {
         log('error', 'failed to update invitation', e);
       }
@@ -129,7 +129,9 @@ module.exports = async ({ config, activityQueue, services }, before, member, con
   }
 };
 
-async function _onNewMember( { usersSvc, agenda, user, senderUser, context, member, activityQueue } ) {
+async function _onNewMember( { services, agenda, user, senderUser, context, member, activityQueue } ) {
+
+  const usersSvc = services.users;
 
   if ( user.isNew ) {
     await usersSvc.setNewFlag( user.uid, { isNew: false } );
