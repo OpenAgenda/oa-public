@@ -328,6 +328,31 @@ export default function AddSourceModal({
     return index < selectedStepIndex;
   }, []);
 
+  const onSelectAgenda = useCallback(
+    async sourceAgenda => {
+      sourceAgenda.schema = await apiClient.get(
+        `/${sourceAgenda.slug}/settings/schema`
+      );
+
+      setSelectedAgenda(sourceAgenda);
+      setSelectedStep('defineRules');
+    },
+    [apiClient]
+  );
+
+  const selectStep = useCallback(
+    key => {
+      if (key === 'selectAgenda') {
+        // setSelectedAgenda(null);
+        // setRules(null);
+        setSelectType('search');
+      }
+
+      setSelectedStep(key);
+    },
+    [setSelectType, setSelectedStep]
+  );
+
   const steps = useMemoOne(
     () => [
       {
@@ -355,32 +380,7 @@ export default function AddSourceModal({
         passed: isPassed
       }
     ],
-    [intl]
-  );
-
-  const onSelectAgenda = useCallback(
-    async sourceAgenda => {
-      sourceAgenda.schema = await apiClient.get(
-        `/${sourceAgenda.slug}/settings/schema`
-      );
-
-      setSelectedAgenda(sourceAgenda);
-      setSelectedStep('defineRules');
-    },
-    [apiClient]
-  );
-
-  const selectStep = useCallback(
-    key => {
-      if (key === 'selectAgenda') {
-        // setSelectedAgenda(null);
-        // setRules(null);
-        setSelectType('search');
-      }
-
-      setSelectedStep(key);
-    },
-    [setSelectType, setSelectedStep]
+    [intl, isActivable, isActive, isPassed]
   );
 
   const handleRulesSubmit = useCallback(

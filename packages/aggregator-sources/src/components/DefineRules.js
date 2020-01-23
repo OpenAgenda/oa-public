@@ -409,7 +409,7 @@ function RuleItem({
       default:
         return null;
     }
-  }, [intl, queryType, rule]);
+  }, [intl, queryType]);
 
   return (
     <div className="row margin-v-sm">
@@ -498,7 +498,7 @@ export default function DefineRules({
 
       return field.fieldType !== 'abstract' && field.optional === false;
     }),
-    [aggregatorAgendaSchema.fields]
+    [aggregatorAgendaSchema.fields, isAggregator, sourceSchema]
   );
 
   const requiredFieldList = useMemo(
