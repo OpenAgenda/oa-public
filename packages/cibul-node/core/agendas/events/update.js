@@ -207,7 +207,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
   const response = _compile(servicesResults);
 
   try {
-    await eventSearch.update(response.updated);
+    //await eventSearch.update(response.updated);
   } catch (e) {
     log('error', 'could not update search indices for event %s.%s', agenda.uid, eventUid, e);
   }

@@ -2,7 +2,7 @@
 
 const _ = require('lodash');
 const logs = require('@openagenda/logs');
-const log = logs('Aggregators');
+const log = logs('aggregators');
 
 const getAgendaSourceId = require('./utils/getAgendaSourceId');
 

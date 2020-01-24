@@ -13,20 +13,32 @@ describe('Aggregators removeEvent', () => {
 
   it('if reference shows add by aggregation and source is last source refered, unreferenceEvent is called', async () => {
     const tracker = Tracker();
+    const aggregatorAgendaUid = 123;
+    const sourceAgendaUid = 71413881;
+    const eventUid = 1;
+
     await removeEvent({
       getEventReference: tracker('getEventReference', {
-        sourceAgendaUid: [ 71413881 ],
+        sourceAgendaUid: [ sourceAgendaUid ],
         aggregated: true
       }),
       unsetSourceUidOnExistingReference: tracker('unsetSourceUidOnExistingReference'),
       unreferenceEvent: tracker('unreferenceEvent', { success: true })
     }, {
-      aggregatorAgendaUid: 123,
-      sourceAgendaUid: 71413881,
-      eventUid: 1
+      aggregatorAgendaUid,
+      sourceAgendaUid,
+      eventUid
     });
 
-    tracker.calls.pop().name.should.equal('unreferenceEvent');
+    const unreferenceCall = tracker.calls.pop();
+
+    unreferenceCall.name.should.equal('unreferenceEvent');
+    unreferenceCall.args.should.eql([
+      sourceAgendaUid,
+      aggregatorAgendaUid,
+      eventUid,
+      { batched: undefined }
+    ]);
   });
 
   it('if reference shows that other sources reference event, then unsetSourceUidOnExistingReference is called', async () => {

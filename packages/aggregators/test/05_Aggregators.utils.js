@@ -384,26 +384,69 @@ describe('Aggregators utils', () => {
 
     });
 
-    describe('tag filters', () => {
+    describe('label filters', () => {
+
+      const sourceAgendaSchema = {
+        fields: [{
+          field: 'tags',
+          fieldType: 'radio',
+          options: [{
+            id: 1,
+            label: {
+              fr: 'Tag1'
+            }
+          }, {
+            id: 2,
+            label: {
+              fr: 'Tag2'
+            }
+          }, {
+            id: 3,
+            label: {
+              fr: 'Tag3'
+            }
+          }, {
+            id: 4,
+            label: {
+              fr: 'Tag4'
+            }
+          }]
+        }]
+      };
+
+      const aggregatorAgendaSchema = {
+        fields: [{
+          field: 'type',
+          fieldType: 'checkbox',
+          options: [{
+            id: 1,
+            label: 'Type1'
+          }, {
+            id: 21,
+            label: 'Type21'
+          }]
+        }]
+      };
 
       describe('without actions', () => {
+
         const evaluate = rules.bind(null, [{
           query: {
             tags: ['Tag1']
           }
-        }], null, null);
+        }], sourceAgendaSchema, null);
 
         it('tag evaluate passes if data has tag specified in query', () => {
           evaluate({
             title: 'A thing',
-            tags: ['Tag1', 'Tag2']
+            tags: [1, 2]
           }).should.eql({});
         });
 
         it('tag evaluate does not pass if data does not have tag specified in query', () => {
           should(evaluate({
             title: 'A thing',
-            tags: ['Tag3']
+            tags: [3]
           })).eql(null);
         });
 
@@ -413,9 +456,9 @@ describe('Aggregators utils', () => {
               tags: ['Tag1']
             },
             required: false
-          }, null, null, {
+          }, sourceAgendaSchema, null, {
             title: 'Another thing',
-            tags: ['Tag3']
+            tags: [3]
           }).should.eql({});
         });
       });
@@ -426,53 +469,53 @@ describe('Aggregators utils', () => {
             tags: ['Tag1']
           },
           transform: {
-            tags: { $set: ['Tag4'] }
+            type: { $set: [1] }
           },
           required: false
-        }, null, null);
+        }, sourceAgendaSchema, aggregatorAgendaSchema);
 
         it('if data does not match rule, there is no transform', () => {
           evaluate({
             title: 'Line 77',
-            tags: ['Tag2']
+            tags: [2]
           }).should.eql({});
         });
 
         it('if data matches rule and a transform is specified, it is applied', () => {
           evaluate({
             title: 'Transformed line 77',
-            tags: [ 'Tag1', 'Tag77' ]
+            tags: [1, 33]
           }).should.eql({
-            tags: [ 'Tag4' ]
+            type: [1]
           });
         });
 
         it('multiple transforms can be brought by multiple rules', () => {
           const r = rules([{
             transform: {
-              tags: { $set: [] }
+              type: { $set: [] }
             }
           }, {
             query: {
-              tags: 'Cinéma - projection'
+              tags: ['Tag2']
             },
             transform: {
-              tags: { $push: ['Cinéma'] }
+              type: { $push: [1] }
             },
             required: false
           }, {
             query: {
-              tags: 'Fête / festival'
+              tags: ['Tag3']
             },
             transform: {
-              tags: { $push: ['Fête - Festival'] }
+              type: { $push: [21] }
             },
             required: false
-          }], null, null, {
+          }], sourceAgendaSchema, aggregatorAgendaSchema, {
             title: 'Evénement de la ville de Lille',
-            tags: [ 'Cinéma - projection', 'Fête / festival' ]
+            tags: [2, 3]
           }).should.eql({
-            tags: [ 'Cinéma', 'Fête - Festival' ]
+            type: [1, 21]
           })
         });
       });
