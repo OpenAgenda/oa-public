@@ -91,7 +91,7 @@ function Layout({ apps, ...props }) {
         || (typeof navigator === 'object' && navigator.language)
         || defaultLocale
     ).split('-')[0],
-    [location.search, userCulture]
+    [location.search, ssrLang, userCulture]
   );
 
   const i18n = useMemoOne(() => {
@@ -130,7 +130,7 @@ function Layout({ apps, ...props }) {
         />
       );
     }),
-    [visibleAppsByLayout, props]
+    [visibleAppsByLayout, props, history, i18n.locale]
   );
 
   return (
