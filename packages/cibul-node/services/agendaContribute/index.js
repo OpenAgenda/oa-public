@@ -8,6 +8,8 @@ const sessions = require( '@openagenda/sessions' );
 
 const layout = require( '../lib/layouts' ).agenda;
 
+const loadLegacyRoutes = require('./legacy');
+
 const cmn = require( '../../lib/commons-app' );
 
 const middlewares = require('./middlewares');
@@ -17,7 +19,10 @@ const base64 = require( '@openagenda/utils/base64' );
 
 let bucket;
 
-module.exports = _.extend( ( parentApp, path = '' ) => {
+module.exports = Object.assign( ( parentApp, path = '' ) => {
+  const {
+    agendas
+  } = parentApp.services;
 
   parentApp.use( '/dist/contribute',
     contribute.dist,
@@ -30,7 +35,7 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
     '/:agendaSlug/contribute/event/:eventUid',
     '/:agendaSlug/contribute/event/:eventUid/draft'
   ], [
-    parentApp.services.agendas.mw.load,
+    agendas.mw.load,
     (req, res, next) => _.get( req, 'agenda' ) ? next() : cmn.errorResponse(req, res, { code: 404 }),
     (req, res, next) => {
       if (!req.agenda.credentials.useContributeApp) {
@@ -112,6 +117,8 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
   } );
 
   parentApp.use( '/:agendaSlug/contribute', contribute.app );
+
+  loadLegacyRoutes(parentApp);
 
 }, {
   init
