@@ -12,6 +12,7 @@ module.exports = {
   addSource: () => log('warn', 'aggregator instance is not initialized'),
   removeSource: () => log('warn', 'aggregator instance is not initialized'),
   init: (config, services) => {
+    log('init');
     const {
       agendas
     } = services;
@@ -19,6 +20,7 @@ module.exports = {
     const aggregators = Aggregators({
       knex: config.knex,
       queues: services.queues,
+      logger: config.getLogConfig('svc', 'aggregators'),
       interfaces: {
         getMergedSchema: agendaUid => services
           .core.agendas(agendaUid)
