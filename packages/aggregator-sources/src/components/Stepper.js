@@ -31,19 +31,19 @@ function Step({
 }) {
   const activable = useMemoOne(
     () => getStepPropertyValue(step, 'activable', index, steps, ...additionals),
-    [step, index, additionals]
+    [step, index, steps, additionals]
   );
   const active = useMemoOne(
     () => getStepPropertyValue(step, 'active', index, steps, ...additionals),
-    [step, index, additionals]
+    [step, index, steps, additionals]
   );
   const passed = useMemoOne(
     () => getStepPropertyValue(step, 'passed', index, steps, ...additionals),
-    [step, index, additionals]
+    [step, index, steps, additionals]
   );
   const label = useMemoOne(
     () => getStepPropertyValue(step, 'label', index, steps, ...additionals),
-    [step, index, additionals]
+    [step, index, steps, additionals]
   );
 
   const onSelectStep = useCallback(

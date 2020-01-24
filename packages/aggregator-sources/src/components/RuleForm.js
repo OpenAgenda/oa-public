@@ -210,7 +210,12 @@ const selectStyles = {
       backgroundColor: '#41acdd',
       color: '#ffffff'
     }
-  })
+  }),
+  menu: (base, state) => (state.selectProps.creatable && !state.selectProps.options?.length
+    ? {
+      display: 'none'
+    }
+    : base)
 };
 
 // function Input({
@@ -242,7 +247,12 @@ function ReactSelectInput({
 
   return (
     <>
-      <SelectComponent ref={innerRef} {...input} {...rest} />
+      <SelectComponent
+        ref={innerRef}
+        {...input}
+        creatable={creatable}
+        {...rest}
+      />
 
       {!meta.dirtySinceLastSubmit && meta.submitError ? (
         <div className="margin-top-xs margin-bottom-sm text-danger">
@@ -326,6 +336,16 @@ function SelectField({
     initialValue
   ]);
 
+  const components = useMemo(
+    () => (creatable && !options?.length
+      ? {
+        DropdownIndicator: () => null,
+        NoOptionsMessage: () => null
+      }
+      : undefined),
+    [creatable, options]
+  );
+
   return (
     <Field
       name={name}
@@ -339,6 +359,7 @@ function SelectField({
       formatCreateLabel={formatCreateLabel}
       onBlur={handleBlur}
       isValidNewOption={creatable ? isValidNewOption : undefined}
+      components={components}
       {...props}
     />
   );
@@ -472,7 +493,7 @@ function ExtendedFormPart({ sourceSchema }) {
         value: field,
         label: getMultiLanguageLabel(label, intl.locale)
       })),
-    [sourceSchema]
+    [intl.locale, sourceSchema.fields]
   );
 
   const fieldName = useMemoOne(() => values.field, [values]);
@@ -480,7 +501,7 @@ function ExtendedFormPart({ sourceSchema }) {
 
   const fieldSchema = useMemoOne(
     () => sourceSchema.fields.find(v => v.field === fieldName),
-    []
+    [sourceSchema, fieldName]
   );
 
   useEffect(() => {
@@ -496,7 +517,7 @@ function ExtendedFormPart({ sourceSchema }) {
         label: getMultiLanguageLabel(v.label, intl.locale)
       }));
     }
-  }, [fieldSchema]);
+  }, [fieldSchema, intl.locale]);
 
   return (
     <>
@@ -605,7 +626,7 @@ function ActionFormPart({ id, name, aggregatorAgendaSchema }) {
     id,
     values.actions
   ]);
-  const fieldName = useMemoOne(() => action?.field, [values, name]);
+  const fieldName = useMemoOne(() => action?.field, [action]);
   const prevFieldName = usePrevious(fieldName);
   const initialValues = useRef(initials).current;
 
@@ -631,7 +652,7 @@ function ActionFormPart({ id, name, aggregatorAgendaSchema }) {
         value: v.field,
         label: getMultiLanguageLabel(v.label, intl.locale)
       })),
-    [aggregatorAgendaSchema.fields, values.actions, intl]
+    [aggregatorAgendaSchema.fields, intl, fieldName, values.actions]
   );
 
   const fieldSchema = useMemoOne(
@@ -798,7 +819,7 @@ function ActionsFormPart({ aggregatorAgendaSchema }) {
     ) {
       form.mutators.push('actions', { id: _.uniqueId(), field: null });
     }
-  }, [form.mutators, lastAction, leftFieldsToDefine]);
+  }, [form.mutators, lastAction, leftFieldsToDefine, values.actions]);
 
   if (!values.type) {
     return null;
@@ -910,7 +931,7 @@ export default function RuleForm({
               )}
             />
 
-            {isAggregator ? (
+            {!isAggregator ? (
               <Field
                 component={Radio}
                 name="type"
