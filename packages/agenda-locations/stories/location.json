@@ -1,0 +1,21 @@
+{
+  "region": "Bretagne",
+  "uid": 74897930,
+  "department": "Ille-et-Vilaine",
+  "state": 1,
+  "countryCode": "FR",
+  "image": "//openagendatst.s3.amazonaws.com/location74897930.jpg",
+  "access": null,
+  "city": "Rennes",
+  "updatedAt": "2014-03-24T05:30:36.000Z",
+  "postalCode": "35000",
+  "insee": null,
+  "address": "Place de la Mairie, Rennes",
+  "description": null,
+  "name": "Place de la Mairie, Rennes",
+  "longitude": -1.678957,
+  "latitude": 48.111343,
+  "agendaId": 123,
+  "district": null,
+  "eventCount": 37
+}
