@@ -10,7 +10,7 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   const actions = [];
 
   for (const rule of [].concat(rules)) {
-    const ruleActions = evaluateRule(cleanRule(rule), data);
+    const ruleActions = evaluateRule(cleanRule(rule), sourceAgendaSchema, aggregatorAgendaSchema, data);
 
     if (ruleActions === false) {
       return null;

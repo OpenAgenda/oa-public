@@ -1,6 +1,6 @@
 'use strict';
 
-const log = require('@openagenda/logs')('Aggregators/dispatch');
+const log = require('@openagenda/logs')('dispatch');
 
 const getSourceAndAggregatorPairs = require('../utils/getSourceAndAggregatorPairs');
 

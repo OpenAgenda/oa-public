@@ -37,8 +37,8 @@ module.exports = async ({
   if (reference && !shouldAggregate) {
     log('is already referenced, but should not be through current source', { step: 'alreadyReferenced' });
     return enqueueRemove({
-      agenda,
-      event,
+      sourceAgendaUid: agenda.uid,
+      eventUid: event.uid,
       aggregatorAgendaUid,
       reference,
       batched

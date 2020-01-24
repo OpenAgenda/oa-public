@@ -1,8 +1,9 @@
 'use strict';
 
 const evaluateLocation = require('./location');
+const evaluateLabels = require('./labels');
 
-module.exports = (rule, data) => {
+module.exports = (rule, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   if (!data) {
     throw new Error('data is required');
   }
@@ -12,8 +13,12 @@ module.exports = (rule, data) => {
     return required ? false : null;
   }
 
+  if (rule.query.tags && !evaluateLabels(sourceAgendaSchema, rule.query.tags, data)) {
+    return required ? false : null;
+  }
+
   const otherRuleFields = Object.keys(rule.query)
-    .filter(f => !['location'].includes(f));
+    .filter(f => !['location', 'tags'].includes(f));
 
   for (const ruleField of otherRuleFields) {
     const values = [].concat(data[ruleField]) || [];
