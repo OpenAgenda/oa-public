@@ -4,13 +4,14 @@ const _ = require('lodash');
 const elasticsearch = require('@elastic/elasticsearch');
 const logger = require('@openagenda/logs');
 
-const add = require('./service/add');
+const add = require('./add');
+const search = require('./search');
+
 const deleteFloatingIndices = require('./service/deleteFloatingIndices')
 const deleteIndex = require('./service/deleteIndex');
 const moreLikeThis = require('./service/moreLikeThis');
-const rebuild = require('./service/rebuild');
+const rebuild = require('./rebuild');
 const remove = require('./service/remove');
-const search = require('./service/search');
 const exists = require('./service/exists');
 const searchIncludes = require('./service/index/searchIncludes.json');
 const parsers = require('./parsers');

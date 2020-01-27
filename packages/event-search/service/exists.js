@@ -1,6 +1,6 @@
 'use strict';
 
-const getIndexName = require('./helpers/getIndexName');
+const getIndexName = require('../utils/getIndexName');
 
 module.exports = async (config, set, options = {}) => {
   const {

@@ -2,14 +2,14 @@
 
 const _ = require('lodash');
 const crypto = require('crypto');
-const getIndexName = require('./helpers/getIndexName');
-const getDocumentId = require('./helpers/getDocumentId');
-const formatEvent = require('../utils/formatEvent');
+const getIndexName = require('./utils/getIndexName');
+const getDocumentId = require('./utils/getDocumentId');
+const formatEvent = require('./utils/formatEvent');
 const log = require('@openagenda/logs')('rebuild');
 
 const limit = 10;
 
-const mapping = require('./index/mapping.json');
+const mapping = require('./service/index/mapping.json');
 
 module.exports = async (config, set, options = {}) => {
   log('called');

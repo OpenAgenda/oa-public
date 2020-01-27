@@ -1,11 +1,12 @@
 'use strict';
 
 const _ = require('lodash');
-const formatEvent = require('../utils/formatEvent');
-const lastTimingEndsIn = require('./helpers/lastTimingEndsIn');
-const getDocumentId = require('./helpers/getDocumentId');
-const getIndexName = require('./helpers/getIndexName');
-const handleError = require('./helpers/handleError');
+const VError = require('verror');
+const formatEvent = require('./utils/formatEvent');
+const lastTimingEndsIn = require('./utils/lastTimingEndsIn');
+const getDocumentId = require('./utils/getDocumentId');
+const getIndexName = require('./utils/getIndexName');
+
 const log = require('@openagenda/logs')('add');
 
 module.exports = async function(config, set, event, options = {}) {
@@ -40,7 +41,7 @@ module.exports = async function(config, set, event, options = {}) {
       }
     });
   } catch (err) {
-    return handleError(config, err, 'failed to add event to index');
+    throw new VError(err, 'failed to add event to index');
   }
 
   if (result.body.result === 'created') {

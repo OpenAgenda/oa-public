@@ -5,6 +5,7 @@ const fs = require('fs');
 const should = require('should');
 
 const config = require('../testconfig');
+const textLog = require('../utils/textLog');
 
 const Service = require('../');
 
@@ -19,6 +20,7 @@ describe('02 - event search - functional: Applied search', function() {
       service = Service(config);
     });
 
+/*
     before(async () => {
       try {
         await service.getConfig().client.indices.delete({
@@ -35,6 +37,7 @@ describe('02 - event search - functional: Applied search', function() {
         formSchema
       });
     });
+*/
 
     describe('Data structure', () => {
       const uid = 11438560;
@@ -203,32 +206,93 @@ describe('02 - event search - functional: Applied search', function() {
 
     describe('Aggregations', () => {
 
-      describe('timings', () => {
-        let timingsAggregation;
+      describe('keywords', () => {
+        let agg, agg2;
 
         before(async () => {
-          const result = await service('bdx').search({}, { size: 0 }, {
+          agg = await service('bdx').search({}, { size: 0 }, {
             detailed: true,
-            aggregations: [{
-              type: 'timings'
-            }]
-          });
+            aggregations: 'keywords'
+          }).then(r => r.aggregations.keywords);
 
-          timingsAggregation = result.aggregations.timings;
+          agg2 = await service('bdx').search({}, { size: 0 }, {
+            aggregations: {
+              type: 'keywords',
+              size: 20
+            }
+          }).then(r => r.aggregations.keywords);
         });
 
-        it('there are as many items in timings aggregation as there are dates in lifespan of result', () => {
-          timingsAggregation.length.should.equal(757);
+        it('default number of keywords retured is 10', () => {
+          agg.length.should.equal(10);
         });
 
-        it('each item is a { key, count } pair, the key being a date (YYYY-MM-DD)', () => {
-          _.first(timingsAggregation).should.eql({
-            key: '2018-12-15',
-            count: 1
+        it('size option allows to get more than 10 items', () => {
+          agg2.length.should.equal(20);
+        });
+
+        it('one item has a key and an event count', () => {
+          agg[0].should.eql({
+            key: 'concert',
+            eventCount: 88
           });
-          _.last(timingsAggregation).should.eql({
-            key: '2021-01-09',
-            count: 1
+        });
+
+      });
+
+      describe('timings', () => {
+
+        describe('by day', () => {
+          let agg;
+
+          before(async () => {
+            const result = await service('bdx').search({}, { size: 0 }, {
+              detailed: true,
+              aggregations: 'timings'
+            });
+
+            agg = result.aggregations.timings;
+          });
+
+          it('there are as many items in timings aggregation as there are dates in lifespan of result', () => {
+            agg.length.should.equal(757);
+          });
+
+          it('each item is a { key, timingsCount } pair, the key being a date (YYYY-MM-DD)', () => {
+            _.first(agg).should.eql({
+              key: '2018-12-15',
+              timingsCount: 1
+            });
+            _.last(agg).should.eql({
+              key: '2021-01-09',
+              timingsCount: 2
+            });
+          });
+
+        });
+
+        describe('by month', () => {
+          let agg;
+
+          before(async () => {
+            const result = await service('bdx').search({}, { size: 0 }, {
+              detailed: true,
+              aggregations: [{
+                type: 'timings',
+                interval: 'month',
+                format: 'YYYY-MM'
+              }]
+            });
+
+            agg = result.aggregations.timings;
+          });
+
+          it('key follows specified format', () => {
+            agg[0].key.should.equal('2018-12');
+          });
+
+          it('count is timings count', () => {
+            agg[0].timingsCount.should.equal(2);
           });
         });
 
@@ -253,9 +317,9 @@ describe('02 - event search - functional: Applied search', function() {
         it('each aggregation provides basic info on agenda', () => {
           originAgendaAggregation[0].should.eql({
             key: '94573624',
-            count: 80,
+            eventCount: 80,
             agenda: {
-              uid: '94573624',
+              uid: 94573624,
               title: 'Rocher de Palmer',
               image: 'agenda94573624.jpg'
             }
@@ -270,7 +334,7 @@ describe('02 - event search - functional: Applied search', function() {
         before(async () => {
           const result = await service('bdx').search({}, { size: 0 }, {
             detailed: true,
-            aggregations: [{ type: 'timespan' }]
+            aggregations: 'timespan'
           });
 
           timespanAggregation = result.aggregations.timespan;
@@ -287,7 +351,7 @@ describe('02 - event search - functional: Applied search', function() {
         });
       });
 
-      describe('timingsReverseHits', () => {
+      describe('eventsByDateRanges', () => {
         let TRHAggregation;
 
         before(async () => {
@@ -298,16 +362,14 @@ describe('02 - event search - functional: Applied search', function() {
             },
           }, { size: 0 }, {
             detailed: true,
-            aggregations: [{
-              type: 'timingsReverseHits'
-            }]
+            aggregations: 'eventsByDateRanges'
           });
 
-          TRHAggregation = result.aggregations.timingsReverseHits;
+          TRHAggregation = result.aggregations.eventsByDateRanges;
         });
 
         it('item of aggregation contains keys {key, count, sampleEvents}', () => {
-          Object.keys(TRHAggregation[0]).should.eql(['key', 'count', 'sampleEvents']);
+          Object.keys(TRHAggregation[0]).should.eql(['key', 'eventCount', 'sampleEvents']);
         });
 
         it('item.key is of format YYYY-MM-DD', () => {
@@ -315,7 +377,43 @@ describe('02 - event search - functional: Applied search', function() {
         });
 
         it('item.sampleEvents contains 3 events corresponding to provided key', () => {
-          TRHAggregation[0].sampleEvents.map(e => e.uid).should.eql([75721304, 16560750]);
+          TRHAggregation[0].sampleEvents.map(e => e.uid).sort().should.eql([16560750, 75721304]);
+        });
+
+      });
+
+      describe('additionalFields', () => {
+        let agg;
+
+        before(async () => {
+          agg = await service('bdx').search({
+            date: {
+              gte: new Date('2019-11-01'),
+              lte: new Date('2019-11-30')
+            },
+          }, { size: 0 }, {
+            detailed: true,
+            formSchema,
+            aggregations: 'additionalFields'
+          }).then(r => r.aggregations.additionalFields);
+        });
+
+        it('an object is provided with schema fields as keys', () => {
+          Object.keys(agg).should.eql([
+            'thematiques-bordeaux-metropole',
+            'intermunicipal_interest',
+            'categories-agenda-metropolitain'
+          ]);
+        });
+
+        it('each field lists event count corresponding to field option', () => {
+          agg['thematiques-bordeaux-metropole'][0].should.eql({
+            id: 9,
+            value: 'culture',
+            label: { fr: 'Culture' },
+            legacyId: null,
+            eventCount: 45
+          });
         });
 
       });

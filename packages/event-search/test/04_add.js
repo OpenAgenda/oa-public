@@ -36,8 +36,8 @@ describe('04 - event search - functional: add', function() {
       timezone : 'Europe/Paris'
     },
     timings: [{
-      begin: new Date( '2027-04-20T12:00:00+0100' ),
-      end: new Date( '2027-04-20T13:00:00+0100' )
+      begin: new Date('2027-04-20T12:00:00+0100'),
+      end: new Date('2027-04-20T13:00:00+0100')
     }],
     timezone: 'Europe/Paris',
     state: 2
@@ -71,7 +71,7 @@ describe('04 - event search - functional: add', function() {
     try {
       await service('test_index').add();
     } catch (e) {
-      e.message.should.equal('data is unavailable for indexing');
+      e.message.should.equal('data is unavailable');
     }
   });
 });

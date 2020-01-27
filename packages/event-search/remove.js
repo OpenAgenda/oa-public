@@ -1,9 +1,9 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const getIndexName = require('./helpers/getIndexName');
-const handleError = require('./helpers/handleError');
-const getDocumentId = require('./helpers/getDocumentId');
+const VError = require('verror');
+const getIndexName = require('./utils/getIndexName');
+const getDocumentId = require('./utils/getDocumentId');
 const log = require('@openagenda/logs')('remove');
 
 module.exports = async function(config, set, identifiers, options = {} ) {
@@ -25,7 +25,7 @@ module.exports = async function(config, set, identifiers, options = {} ) {
       refresh
     } );
   } catch (err) {
-    return handleError(config, err, 'failed to remove event from index of set %s', set);
+    throw new VError(err, 'failed to add event to index of set %s', set);
   }
 
   if (res.body.result === 'deleted') {

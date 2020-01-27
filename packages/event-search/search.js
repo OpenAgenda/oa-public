@@ -4,18 +4,22 @@ const _ = require('lodash');
 const ih = require('immutability-helper');
 const VError = require('verror');
 
-const buildAggregationDSL = require('./aggregation');
-const runDSLQuery = require('./helpers/runDSLQuery');
-const getIndexName = require('./helpers/getIndexName');
-const instanciateSearchStream = require('./helpers/instanciateSearchStream');
-const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
-const appendNextAndLastTiming = require('../utils/appendNextAndLastTiming');
-const monolingualize = require('../utils/monolingualize');
-const parseAggregationResult = require('./aggregation').parseResult;
-const queryToDSL = require('../utils/queryToDSL');
-const validateNav = require('./query/validateNav');
-const validateOptions = require('../utils/validateSearchOptions');
-const getFormSchemaAdditionalFields = require('../utils/getFormSchemaAdditionalFields');
+const textLog = require('./utils/textLog');
+
+const buildAggregationDSL = require('./service/aggregation');
+const aggregations = require('./aggregations');
+
+const runDSLQuery = require('./service/helpers/runDSLQuery');
+const getIndexName = require('./utils/getIndexName');
+const instanciateSearchStream = require('./service/helpers/instanciateSearchStream');
+const convertToLocalTimezone = require('./utils/convertToLocalTimezone');
+const appendNextAndLastTiming = require('./utils/appendNextAndLastTiming');
+const monolingualize = require('./utils/monolingualize');
+const parseAggregationResult = require('./service/aggregation').parseResult;
+const queryToDSL = require('./utils/queryToDSL');
+const validateNav = require('./service/query/validateNav');
+const validateOptions = require('./utils/validateSearchOptions');
+const getFormSchemaAdditionalFields = require('./utils/getFormSchemaAdditionalFields');
 
 const log = require('@openagenda/logs')('search');
 
@@ -44,6 +48,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   } = validateOptions(options);
 
   const index = getIndexName(set, defaultIndex);
+  const includes = _defineIncludes(config, { detailed, formSchema });
 
   query.set = set;
 
@@ -51,29 +56,33 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     query,
     cleanNav.size !== undefined ? cleanNav : {},
     formSchema,
-    // includes
-    _defineIncludes(config, { detailed, formSchema })
+    includes
   );
 
   // sorting and _source added after
 
   if (requestedAggregations) {
-    cleanDsl.aggregations = buildAggregationDSL(config, requestedAggregations, predefinedAggregations, query);
+    //cleanDsl.aggregations = buildAggregationDSL(config, requestedAggregations, predefinedAggregations, query);
+    //textLog(cleanDsl.aggregations);
+    //textLog(aggregations.formatDSL('dateGroups', { query, includes }));
+    cleanDsl.aggregations = aggregations.formatDSL(requestedAggregations, query, { includes, formSchema });
   }
 
   let {
     events,
     total,
-    aggregations,
+    aggregations: aggregationResults,
     scrollId
   } = await runDSLQuery(_.pick(config, ['client']), index, cleanDsl, cleanNav.scroll ? cleanNav : {});
 
-  const eventParsers = _buildEventParsers({ detailed, monolingual }, aggregations);
+  const eventParsers = _buildEventParsers({ detailed, monolingual }, aggregationResults);
 
   const parsedEvents = _parseEvents(eventParsers, events);
 
-  if (options.aggregations) {
-    aggregations = parseAggregationResult(config, options.aggregations, aggregations, config.predefinedAggregations, _parseEvents.bind( null, eventParsers ) );
+  if (requestedAggregations) {
+    //aggregationResults = parseAggregationResult(config, options.aggregations, aggregationResults, config.predefinedAggregations, _parseEvents.bind( null, eventParsers ) );
+    //textLog(aggregationResults);
+    aggregationResults = aggregations.formatResult(aggregationResults, { formSchema });
   }
 
   if (first) {
@@ -84,7 +93,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     total,
     events: parsedEvents,
     scrollId
-  }, aggregations ? { aggregations } : {});
+  }, aggregationResults ? { aggregations: aggregationResults } : {});
 }
 
 function scroll(config, set, scrollId, scroll) {
