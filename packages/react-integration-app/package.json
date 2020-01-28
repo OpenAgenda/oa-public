@@ -38,7 +38,7 @@
     "@openagenda/react-utils": "^4.0.0",
     "@openagenda/user-apps": "^1.1.2",
     "@welldone-software/why-did-you-render": "^3.3.9",
-    "core-js": "^3.4.7",
+    "core-js": "^3.6.4",
     "dom4": "^2.1.5",
     "flatted": "^2.0.1",
     "he": "^1.2.0",

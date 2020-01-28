@@ -33,7 +33,7 @@
     "@openagenda/react-utils": "^4.0.0",
     "babel-plugin-react-intl": "^5.1.10",
     "classnames": "^2.2.6",
-    "core-js": "^3.4.7",
+    "core-js": "^3.6.4",
     "final-form-arrays": "^3.0.2",
     "fuse.js": "^3.4.6",
     "lodash": "^4.17.11",

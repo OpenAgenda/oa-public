@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@babel/runtime-corejs3": "^7.7.4",
-    "core-js": "^3.4.7",
+    "core-js": "^3.6.4",
     "lodash": "^4.17.5",
     "superagent": "^3.8.2",
     "verror": "^1.10.0"
@@ -23,8 +23,8 @@
     "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.4",
     "@openagenda/babel-preset": "^1.1.1",
-    "babel-jest": "^24.9.0",
-    "jest": "^24.9.0",
+    "babel-jest": "^25.1.0",
+    "jest": "^25.1.0",
     "moment": "^2.20.1",
     "reload": "^3.0.2",
     "rimraf": "^3.0.0",

@@ -41,7 +41,7 @@
     "@openagenda/react-utils": "^4.0.0",
     "@openagenda/validators": "^2.2.1",
     "classnames": "^2.2.5",
-    "core-js": "^3.4.7",
+    "core-js": "^3.6.4",
     "history": "^4.10.1",
     "js-base64": "^2.5.1",
     "knex": "^0.19.5",

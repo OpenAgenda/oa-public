@@ -439,7 +439,9 @@ function _handleSigninRequest( req, email, password, cb ) {
 
       cb( null, user, { email, password, user } );
     } )
-    .catch( cb );
+    .catch( err => {
+      cb(err);
+    } );
 
 }
 

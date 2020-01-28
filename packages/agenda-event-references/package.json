@@ -24,7 +24,7 @@
     "@openagenda/react-components": "^2.2.1",
     "@openagenda/react-form-components": "^2.1.1",
     "@openagenda/utils": "^1.0.2",
-    "core-js": "^3.4.7",
+    "core-js": "^3.6.4",
     "create-react-class": "^15.5.2",
     "es6-promise": "^3.2.1",
     "immutability-helper": "^3.0.0",

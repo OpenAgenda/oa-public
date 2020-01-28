@@ -14,7 +14,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.7.4",
     "@openagenda/dom-utils": "^2.2.0",
-    "core-js": "^3.4.7",
+    "core-js": "^3.6.4",
     "create-react-class": "^15.5.3",
     "prop-types": "^15.7.2",
     "react-bootstrap": "^0.33.0",

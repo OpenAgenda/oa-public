@@ -32,7 +32,7 @@
     "@openagenda/react-utils": "^4.0.0",
     "@openagenda/validators": "^2.1.4",
     "classnames": "^2.2.5",
-    "core-js": "^3.4.7",
+    "core-js": "^3.6.4",
     "immutability-helper": "^3.0.0",
     "knex": "^0.19.5",
     "lodash": "^4.17.10",

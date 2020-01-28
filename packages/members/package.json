@@ -30,7 +30,7 @@
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/eslint-config": "^1.0.0",
     "eslint": "^6.8.0",
-    "jest": "^24.9.0",
+    "jest": "^25.1.0",
     "lint-staged": "^9.5.0",
     "mysql": "^2.13.0",
     "prettier-eslint-cli": "^5.0.0"

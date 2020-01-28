@@ -12,7 +12,7 @@
   "dependencies": {
     "@babel/runtime-corejs3": "^7.7.4",
     "@openagenda/labels": "^2.1.0",
-    "core-js": "^3.4.7",
+    "core-js": "^3.6.4",
     "css-loader": "^0.28.7",
     "immutability-helper": "^3.0.0",
     "lodash": "^4.17.4",

@@ -31,7 +31,7 @@
     "@openagenda/react-utils": "^4.0.0",
     "@openagenda/sessions": "^3.0.13",
     "classnames": "^2.2.6",
-    "core-js": "^3.4.7",
+    "core-js": "^3.6.4",
     "lodash": "^4.17.15",
     "qs": "^6.9.1",
     "react-error-boundary": "^1.2.5",
