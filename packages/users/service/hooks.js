@@ -1,9 +1,6 @@
 'use strict';
 
-const { inspect } = require('util');
-const debug = require('debug');
 const _ = require('lodash');
-const VError = require('verror');
 const {
   iff,
   keep,
@@ -13,7 +10,6 @@ const {
   setNow,
   isProvider
 } = require('feathers-hooks-common');
-const log = require('@openagenda/logs')('users/hooks');
 const schema = require('@openagenda/validators/schema');
 const validators = require('@openagenda/validators');
 const {
@@ -47,6 +43,7 @@ const {
   validate,
   verifyPassword
 } = require('../hooks');
+const { beforeWrapper, afterWrapper } = require('../utils/wrappers');
 const fields = require('./fields');
 
 schema.register({
@@ -104,7 +101,7 @@ const userResolvers = {
         return;
       }
 
-      const { config } = context.service;
+      const { config } = context.self;
 
       const result = await config.interfaces.keys.get({
         type: 'userPublic',
@@ -118,7 +115,7 @@ const userResolvers = {
         return;
       }
 
-      const { config } = context.service;
+      const { config } = context.self;
 
       const result = await config.interfaces.keys.get({
         type: 'userPrivate',
@@ -138,15 +135,17 @@ const afterAll = [
       return context;
     }
 
+    const additionalFields = [
+      'hasSocialAccount',
+      'hasLocalAccount',
+      'apiKey',
+      'apiSecret'
+    ];
+
     return keep(
       ...(context.params.detailed
-        ? [
-          ...fields.basic,
-          ...fields.detailed,
-          'hasSocialAccount',
-          'hasLocalAccount'
-        ]
-        : [...fields.basic, 'hasSocialAccount', 'hasLocalAccount'])
+        ? [...fields.basic, ...fields.detailed, ...additionalFields]
+        : [...fields.basic, ...additionalFields])
     )(context);
   },
   includeImagePathParamHook(),
@@ -181,9 +180,8 @@ const afterAll = [
 ];
 
 module.exports = {
-  before: {
-    all: [],
-    find: [
+  find: [
+    ...beforeWrapper(
       paramsFromClient('detailed', 'removed', 'includeImagePath'),
       removedParamHook(),
       detailedParamHook(),
@@ -191,16 +189,22 @@ module.exports = {
       snakeCaseQuery(),
       searchByKey(),
       searchKeyword()
-    ],
-    get: [
+    ),
+    ...afterWrapper(...afterAll, populateAccountTypes())
+  ],
+  get: [
+    ...beforeWrapper(
       stashBefore('before', { internal: true, provider: undefined }),
       paramsFromClient('detailed', 'removed', 'includeImagePath'),
       removedParamHook(),
       detailedParamHook(),
       softDelete(),
       snakeCaseQuery()
-    ],
-    create: [
+    ),
+    ...afterWrapper(...afterAll, populateAccountTypes())
+  ],
+  create: [
+    ...beforeWrapper(
       paramsFromClient('detailed', 'removed', 'includeImagePath'),
       context => validate({
         ...creationSchema,
@@ -238,8 +242,38 @@ module.exports = {
       softDelete(),
       snakeCase(),
       snakeCaseQuery()
-    ],
-    patch: [
+    ),
+    ...afterWrapper(
+      ...afterAll,
+      populateAccountTypes(),
+      async context => {
+        if (context.result && !context.result.isActivated) {
+          const tokensSvc = context.self.config.getTokensService();
+
+          context.params.activationToken = await tokensSvc.create(
+            {
+              type: 'activateAccount',
+              userId: context.result.id,
+              email: context.result.email
+            },
+            {
+              optionals: context.params.tokenOptionals,
+              user: context.result
+            }
+          );
+        }
+      },
+      callInterface('onCreate'),
+      iff(
+        context => context.result && context.result.isActivated,
+        callInterface('onActivation'),
+        fastJoin(userResolvers)
+      )
+    )
+  ],
+  update: [],
+  patch: [
+    ...beforeWrapper(
       stashBefore('before', { internal: true, provider: undefined }),
       iff(
         context => context.params.internal !== true,
@@ -268,18 +302,32 @@ module.exports = {
       formatStore(),
       snakeCase(),
       snakeCaseQuery()
-    ],
-    remove: [
+    ),
+    ...afterWrapper(
+      ...afterAll,
+      populateAccountTypes(),
+      iff(
+        context => !context.params.before.isActivated && context.result.isActivated,
+        callInterface('onActivation'),
+        fastJoin(userResolvers)
+      )
+    )
+  ],
+  remove: [
+    ...beforeWrapper(
       stashBefore('before', { internal: true, provider: undefined }),
       paramsFromClient('detailed', 'removed', 'includeImagePath'),
       softDelete(),
       callInterface('beforeRemove'),
       snakeCase(),
       snakeCaseQuery()
-    ],
-    setImageProfile: [softDelete()],
-    clearImageProfile: [softDelete()],
-    requestChangeEmail: [
+    ),
+    ...afterWrapper()
+  ],
+  setImageProfile: [...beforeWrapper(softDelete()), ...afterWrapper()],
+  clearImageProfile: [...beforeWrapper(softDelete()), ...afterWrapper()],
+  requestChangeEmail: [
+    ...beforeWrapper(
       stashBefore('before', { internal: true, provider: undefined }),
       softDelete(),
       validate({
@@ -298,8 +346,11 @@ module.exports = {
       setInStore('newEmail', 'data.newEmail'),
       keep('store'),
       formatStore()
-    ],
-    confirmChangeEmail: [
+    ),
+    ...afterWrapper(...afterAll, populateAccountTypes())
+  ],
+  confirmChangeEmail: [
+    ...beforeWrapper(
       stashBefore('before', { internal: true, provider: undefined }),
       softDelete(),
       isValidToken('params.before.store.newEmailToken', 'params.query.token'),
@@ -307,8 +358,11 @@ module.exports = {
       // changeEmailFromStore(),
       discardQuery('token'),
       keep()
-    ],
-    changePassword: [
+    ),
+    ...afterWrapper(...afterAll)
+  ],
+  changePassword: [
+    ...beforeWrapper(
       stashBefore('before', { internal: true, provider: undefined }),
       softDelete(),
       validate({
@@ -331,8 +385,11 @@ module.exports = {
       ),
       hashPassword('data.password', 'params.before.salt'),
       keep('password')
-    ],
-    generateApiKey: [
+    ),
+    ...afterWrapper(...afterAll, populateAccountTypes())
+  ],
+  generateApiKey: [
+    ...beforeWrapper(
       paramsFromClient(
         'detailed',
         'removed',
@@ -343,8 +400,15 @@ module.exports = {
       softDelete(),
       generateApiKey(),
       keep()
-    ],
-    setNewFlag: [
+    ),
+    ...afterWrapper(
+      ...afterAll,
+      populateAccountTypes(),
+      callInterface('onGenerateApiKey')
+    )
+  ],
+  setNewFlag: [
+    ...beforeWrapper(
       softDelete(),
       validate({
         isNew: {
@@ -354,94 +418,18 @@ module.exports = {
       }),
       keep('isNew'),
       snakeCase()
-    ],
-    refresh: [
+    ),
+    ...afterWrapper(...afterAll, populateAccountTypes())
+  ],
+  refresh: [
+    ...beforeWrapper(
       softDelete(),
       iff(dataExists('lastSignin'), setNow('lastSignin')),
       iff(dataExists('lastInboxCheck'), setNow('lastInboxCheck')),
       iff(dataExists('lastNotified'), setNow('lastNotified')),
       keep('lastSignin', 'lastInboxCheck', 'lastNotified'),
       snakeCase()
-    ]
-  },
-
-  after: {
-    all: [],
-    find: [...afterAll, populateAccountTypes()],
-    get: [...afterAll, populateAccountTypes()],
-    create: [
-      ...afterAll,
-      populateAccountTypes(),
-      async context => {
-        if (context.result && !context.result.isActivated) {
-          const tokensSvc = context.service.tokens;
-
-          context.params.activationToken = await tokensSvc.create(
-            {
-              type: 'activateAccount',
-              userId: context.result.id,
-              email: context.result.email
-            },
-            {
-              optionals: context.params.tokenOptionals,
-              user: context.result
-            }
-          );
-        }
-      },
-      callInterface('onCreate'),
-      iff(
-        context => context.result && context.result.isActivated,
-        callInterface('onActivation'),
-        fastJoin(userResolvers)
-      )
-    ],
-    patch: [
-      ...afterAll,
-      populateAccountTypes(),
-      iff(
-        context => !context.params.before.isActivated && context.result.isActivated,
-        callInterface('onActivation'),
-        fastJoin(userResolvers)
-      )
-    ],
-    remove: [],
-    setImageProfile: [],
-    clearImageProfile: [],
-    requestChangeEmail: [...afterAll, populateAccountTypes()],
-    confirmChangeEmail: afterAll,
-    changePassword: [...afterAll, populateAccountTypes()],
-    generateApiKey: [
-      ...afterAll,
-      populateAccountTypes(),
-      callInterface('onGenerateApiKey')
-    ],
-    setNewFlag: [...afterAll, populateAccountTypes()],
-    refresh: [...afterAll, populateAccountTypes()]
-  },
-
-  error(context) {
-    // Avoid soft delete error
-    if (
-      _.get(context, 'error.name') === 'NotFound'
-      && context.error.message.includes('No record found')
-    ) {
-      context.error = null;
-      context.result = null;
-      return context;
-    }
-
-    if (!(_.get(context, 'error.name') === 'NotFound')) {
-      const errorStack = context.error instanceof Error
-        ? `\n${VError.fullStack(context.error)}`
-        : '';
-
-      log.error(
-        `Error in service method '${context.method}'${errorStack}\n`,
-        inspect(_.omit(context.error, ['hook.app', 'hook.service']), {
-          colors: debug.useColors()
-        })
-      );
-    }
-  }
+    ),
+    ...afterWrapper(...afterAll, populateAccountTypes())
+  ]
 };

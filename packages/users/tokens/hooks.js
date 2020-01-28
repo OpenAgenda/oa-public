@@ -1,11 +1,7 @@
 'use strict';
 
-const { inspect } = require('util');
 const _ = require('lodash');
-const debug = require('debug');
-const VError = require('verror');
 const { disallow } = require('feathers-hooks-common');
-const log = require('@openagenda/logs')('users/tokens/hooks');
 const {
   callInterface,
   camelCase,
@@ -14,11 +10,12 @@ const {
   snakeCaseQuery,
   generateToken
 } = require('../hooks/index');
+const { beforeWrapper, afterWrapper } = require('../utils/wrappers');
 
 module.exports = {
-  before: {
-    all: disallow('external'),
-    find: [
+  find: [
+    ...beforeWrapper(
+      disallow('external'),
       context => {
         const query = context.params.query || {};
 
@@ -37,9 +34,22 @@ module.exports = {
       },
       snakeCase(),
       snakeCaseQuery()
-    ],
-    get: [snakeCase(), snakeCaseQuery()],
-    create: [
+    ),
+    ...afterWrapper(camelCase(), camelCaseQuery())
+  ],
+  get: [
+    ...beforeWrapper(disallow('external'), snakeCase(), snakeCaseQuery()),
+    ...afterWrapper(camelCase(), camelCaseQuery(), async context => {
+      if (!context.result && context.params.createIfNotExist) {
+        context.result = await this.create(
+          _.pick(context.params.query, 'email', 'type', 'userId')
+        );
+      }
+    })
+  ],
+  create: [
+    ...beforeWrapper(
+      disallow('external'),
       generateToken('data.token'),
       context => {
         switch (context.data.type) {
@@ -55,52 +65,19 @@ module.exports = {
       },
       snakeCase(),
       snakeCaseQuery()
-    ],
-    update: [],
-    patch: [],
-    remove: []
-  },
-
-  after: {
-    all: [camelCase(), camelCaseQuery()],
-    find: [],
-    get: [
-      async context => {
-        if (!context.result && context.params.createIfNotExist) {
-          context.result = await this.create(
-            _.pick(context.params.query, 'email', 'type', 'userId')
-          );
-        }
-      }
-    ],
-    create: [callInterface('sendToken')],
-    update: [],
-    patch: [],
-    remove: []
-  },
-
-  error(context) {
-    // Avoid soft delete error
-    if (
-      _.get(context, 'error.name') === 'NotFound'
-      && context.error.message.includes('No record found')
-    ) {
-      context.error = null;
-      context.result = null;
-      return context;
-    }
-
-    if (!(_.get(context, 'error.name') === 'NotFound')) {
-      const errorStack = context.error instanceof Error
-        ? `\n${VError.fullStack(context.error)}`
-        : '';
-
-      log.error(
-        `Error in service method '${context.method}'${errorStack}\n`,
-        inspect(_.omit(context.error, ['hook.app', 'hook.service']), {
-          colors: debug.useColors()
-        })
-      );
-    }
-  }
+    ),
+    ...afterWrapper(camelCase(), camelCaseQuery(), callInterface('sendToken'))
+  ],
+  update: [
+    ...beforeWrapper(disallow('external')),
+    ...afterWrapper(camelCase(), camelCaseQuery())
+  ],
+  patch: [
+    ...beforeWrapper(disallow('external')),
+    ...afterWrapper(camelCase(), camelCaseQuery())
+  ],
+  remove: [
+    ...beforeWrapper(disallow('external')),
+    ...afterWrapper(camelCase(), camelCaseQuery())
+  ]
 };

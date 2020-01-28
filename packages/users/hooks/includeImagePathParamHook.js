@@ -4,7 +4,7 @@ const { alterItems } = require('feathers-hooks-common');
 
 module.exports = function includeImagePathParamHook() {
   return context => {
-    const { config } = context.service;
+    const { config } = context.self;
 
     if (!context.params.includeImagePath || context.result === null) {
       return context;
