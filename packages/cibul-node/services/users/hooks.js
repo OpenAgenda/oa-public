@@ -1,7 +1,7 @@
 'use strict';
 
 const { iff, isProvider, disallow: _disallow } = require('feathers-hooks-common');
-const { withParams } = require('@feathersjs/hooks');
+const { withParams } = require('@openagenda/hooks');
 const errors = require('@feathersjs/errors');
 const restrictToUnlogged = require('./hooks/restrictToUnlogged');
 const restrictToCurrentUser = require('./hooks/restrictToCurrentUser');
