@@ -10,11 +10,11 @@ const {
   snakeCaseQuery,
   generateToken
 } = require('../hooks/index');
-const { beforeWrapper, afterWrapper } = require('../utils/wrappers');
+const { wrap } = require('../utils/wrappers');
 
 module.exports = {
-  find: [
-    ...beforeWrapper(
+  find: wrap({
+    before: [
       disallow('external'),
       context => {
         const query = context.params.query || {};
@@ -34,21 +34,25 @@ module.exports = {
       },
       snakeCase(),
       snakeCaseQuery()
-    ),
-    ...afterWrapper(camelCase(), camelCaseQuery())
-  ],
-  get: [
-    ...beforeWrapper(disallow('external'), snakeCase(), snakeCaseQuery()),
-    ...afterWrapper(camelCase(), camelCaseQuery(), async context => {
-      if (!context.result && context.params.createIfNotExist) {
-        context.result = await this.create(
-          _.pick(context.params.query, 'email', 'type', 'userId')
-        );
+    ],
+    after: [camelCase(), camelCaseQuery()]
+  }),
+  get: wrap({
+    before: [disallow('external'), snakeCase(), snakeCaseQuery()],
+    after: [
+      camelCase(),
+      camelCaseQuery(),
+      async context => {
+        if (!context.result && context.params.createIfNotExist) {
+          context.result = await this.create(
+            _.pick(context.params.query, 'email', 'type', 'userId')
+          );
+        }
       }
-    })
-  ],
-  create: [
-    ...beforeWrapper(
+    ]
+  }),
+  create: wrap({
+    before: [
       disallow('external'),
       generateToken('data.token'),
       context => {
@@ -65,19 +69,19 @@ module.exports = {
       },
       snakeCase(),
       snakeCaseQuery()
-    ),
-    ...afterWrapper(camelCase(), camelCaseQuery(), callInterface('sendToken'))
-  ],
-  update: [
-    ...beforeWrapper(disallow('external')),
-    ...afterWrapper(camelCase(), camelCaseQuery())
-  ],
-  patch: [
-    ...beforeWrapper(disallow('external')),
-    ...afterWrapper(camelCase(), camelCaseQuery())
-  ],
-  remove: [
-    ...beforeWrapper(disallow('external')),
-    ...afterWrapper(camelCase(), camelCaseQuery())
-  ]
+    ],
+    after: [camelCase(), camelCaseQuery(), callInterface('sendToken')]
+  }),
+  update: wrap({
+    before: [disallow('external')],
+    after: [camelCase(), camelCaseQuery()]
+  }),
+  patch: wrap({
+    before: [disallow('external')],
+    after: [camelCase(), camelCaseQuery()]
+  }),
+  remove: wrap({
+    before: [disallow('external')],
+    after: [camelCase(), camelCaseQuery()]
+  })
 };

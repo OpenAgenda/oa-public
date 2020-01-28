@@ -43,7 +43,7 @@ const {
   validate,
   verifyPassword
 } = require('../hooks');
-const { beforeWrapper, afterWrapper } = require('../utils/wrappers');
+const { wrap } = require('../utils/wrappers');
 const fields = require('./fields');
 
 schema.register({
@@ -180,8 +180,8 @@ const afterAll = [
 ];
 
 module.exports = {
-  find: [
-    ...beforeWrapper(
+  find: wrap({
+    before: [
       paramsFromClient('detailed', 'removed', 'includeImagePath'),
       removedParamHook(),
       detailedParamHook(),
@@ -189,22 +189,22 @@ module.exports = {
       snakeCaseQuery(),
       searchByKey(),
       searchKeyword()
-    ),
-    ...afterWrapper(...afterAll, populateAccountTypes())
-  ],
-  get: [
-    ...beforeWrapper(
+    ],
+    after: [...afterAll, populateAccountTypes()]
+  }),
+  get: wrap({
+    before: [
       stashBefore('before', { internal: true, provider: undefined }),
       paramsFromClient('detailed', 'removed', 'includeImagePath'),
       removedParamHook(),
       detailedParamHook(),
       softDelete(),
       snakeCaseQuery()
-    ),
-    ...afterWrapper(...afterAll, populateAccountTypes())
-  ],
-  create: [
-    ...beforeWrapper(
+    ],
+    after: [...afterAll, populateAccountTypes()]
+  }),
+  create: wrap({
+    before: [
       paramsFromClient('detailed', 'removed', 'includeImagePath'),
       context => validate({
         ...creationSchema,
@@ -242,8 +242,8 @@ module.exports = {
       softDelete(),
       snakeCase(),
       snakeCaseQuery()
-    ),
-    ...afterWrapper(
+    ],
+    after: [
       ...afterAll,
       populateAccountTypes(),
       async context => {
@@ -269,11 +269,11 @@ module.exports = {
         callInterface('onActivation'),
         fastJoin(userResolvers)
       )
-    )
-  ],
+    ]
+  }),
   update: [],
-  patch: [
-    ...beforeWrapper(
+  patch: wrap({
+    before: [
       stashBefore('before', { internal: true, provider: undefined }),
       iff(
         context => context.params.internal !== true,
@@ -302,8 +302,8 @@ module.exports = {
       formatStore(),
       snakeCase(),
       snakeCaseQuery()
-    ),
-    ...afterWrapper(
+    ],
+    after: [
       ...afterAll,
       populateAccountTypes(),
       iff(
@@ -311,23 +311,26 @@ module.exports = {
         callInterface('onActivation'),
         fastJoin(userResolvers)
       )
-    )
-  ],
-  remove: [
-    ...beforeWrapper(
+    ]
+  }),
+  remove: wrap({
+    before: [
       stashBefore('before', { internal: true, provider: undefined }),
       paramsFromClient('detailed', 'removed', 'includeImagePath'),
       softDelete(),
       callInterface('beforeRemove'),
       snakeCase(),
       snakeCaseQuery()
-    ),
-    ...afterWrapper()
-  ],
-  setImageProfile: [...beforeWrapper(softDelete()), ...afterWrapper()],
-  clearImageProfile: [...beforeWrapper(softDelete()), ...afterWrapper()],
-  requestChangeEmail: [
-    ...beforeWrapper(
+    ]
+  }),
+  setImageProfile: wrap({
+    before: softDelete()
+  }),
+  clearImageProfile: wrap({
+    before: softDelete()
+  }),
+  requestChangeEmail: wrap({
+    before: [
       stashBefore('before', { internal: true, provider: undefined }),
       softDelete(),
       validate({
@@ -346,11 +349,11 @@ module.exports = {
       setInStore('newEmail', 'data.newEmail'),
       keep('store'),
       formatStore()
-    ),
-    ...afterWrapper(...afterAll, populateAccountTypes())
-  ],
-  confirmChangeEmail: [
-    ...beforeWrapper(
+    ],
+    after: [...afterAll, populateAccountTypes()]
+  }),
+  confirmChangeEmail: wrap({
+    before: [
       stashBefore('before', { internal: true, provider: undefined }),
       softDelete(),
       isValidToken('params.before.store.newEmailToken', 'params.query.token'),
@@ -358,11 +361,11 @@ module.exports = {
       // changeEmailFromStore(),
       discardQuery('token'),
       keep()
-    ),
-    ...afterWrapper(...afterAll)
-  ],
-  changePassword: [
-    ...beforeWrapper(
+    ],
+    after: [...afterAll]
+  }),
+  changePassword: wrap({
+    before: [
       stashBefore('before', { internal: true, provider: undefined }),
       softDelete(),
       validate({
@@ -385,11 +388,11 @@ module.exports = {
       ),
       hashPassword('data.password', 'params.before.salt'),
       keep('password')
-    ),
-    ...afterWrapper(...afterAll, populateAccountTypes())
-  ],
-  generateApiKey: [
-    ...beforeWrapper(
+    ],
+    after: [...afterAll, populateAccountTypes()]
+  }),
+  generateApiKey: wrap({
+    before: [
       paramsFromClient(
         'detailed',
         'removed',
@@ -400,15 +403,15 @@ module.exports = {
       softDelete(),
       generateApiKey(),
       keep()
-    ),
-    ...afterWrapper(
+    ],
+    after: [
       ...afterAll,
       populateAccountTypes(),
       callInterface('onGenerateApiKey')
-    )
-  ],
-  setNewFlag: [
-    ...beforeWrapper(
+    ]
+  }),
+  setNewFlag: wrap({
+    before: [
       softDelete(),
       validate({
         isNew: {
@@ -418,18 +421,18 @@ module.exports = {
       }),
       keep('isNew'),
       snakeCase()
-    ),
-    ...afterWrapper(...afterAll, populateAccountTypes())
-  ],
-  refresh: [
-    ...beforeWrapper(
+    ],
+    after: [...afterAll, populateAccountTypes()]
+  }),
+  refresh: wrap({
+    before: [
       softDelete(),
       iff(dataExists('lastSignin'), setNow('lastSignin')),
       iff(dataExists('lastInboxCheck'), setNow('lastInboxCheck')),
       iff(dataExists('lastNotified'), setNow('lastNotified')),
       keep('lastSignin', 'lastInboxCheck', 'lastNotified'),
       snakeCase()
-    ),
-    ...afterWrapper(...afterAll, populateAccountTypes())
-  ]
+    ],
+    after: [...afterAll, populateAccountTypes()]
+  })
 };

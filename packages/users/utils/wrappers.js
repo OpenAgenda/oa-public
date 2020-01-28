@@ -1,35 +1,55 @@
 'use strict';
 
-const toBeforeHook = hook => async (context, next) => {
-  await hook(context);
-  await next();
-};
+function firstHook(context, next) {
+  context.params = context.params || {};
+  context.type = 'before';
+  return next();
+}
 
-const toAfterHook = hook => async (context, next) => {
-  await next();
-  await hook(context);
-};
+function lastHook(context, next) {
+  context.type = 'after';
+  return next();
+}
 
-const beforeWrapper = (...hooks) => [
-  (context, next) => {
-    context.params = context.params || {};
-    context.type = 'before';
-    return next();
-  },
-  ...hooks.map(toBeforeHook)
-];
+function toBeforeHook(hook) {
+  return async (context, next) => {
+    await hook(context);
+    await next();
+  };
+}
 
-const afterWrapper = (...hooks) => [
-  ...hooks.reverse().map(toAfterHook),
-  (context, next) => {
-    context.type = 'after';
-    return next();
-  }
-];
+function toAfterHook(hook) {
+  return async (context, next) => {
+    await next();
+    await hook(context);
+  };
+}
+
+function beforeWrapper(...hooks) {
+  return [firstHook, ...hooks.map(toBeforeHook)];
+}
+
+function afterWrapper(...hooks) {
+  return [...hooks.reverse().map(toAfterHook), lastHook];
+}
+
+function wrap({ async = [], before = [], after = [] } = {}) {
+  return [
+    ...[].concat(async),
+    firstHook,
+    ...[].concat(before).map(toBeforeHook),
+    ...[]
+      .concat(after)
+      .reverse()
+      .map(toAfterHook),
+    lastHook
+  ];
+}
 
 module.exports = {
-  toBeforeHook,
-  toAfterHook,
+  wrap,
   beforeWrapper,
-  afterWrapper
+  afterWrapper,
+  toBeforeHook,
+  toAfterHook
 };
