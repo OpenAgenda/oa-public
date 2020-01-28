@@ -1,84 +1,144 @@
 'use strict';
 
-const { iff, isProvider, disallow } = require('feathers-hooks-common');
-const update = require('immutability-helper');
+const { iff, isProvider, disallow: _disallow } = require('feathers-hooks-common');
+const { withParams } = require('@feathersjs/hooks');
 const errors = require('@feathersjs/errors');
-const Users = require('@openagenda/users');
 const restrictToUnlogged = require('./hooks/restrictToUnlogged');
 const restrictToCurrentUser = require('./hooks/restrictToCurrentUser');
 
-const restrictToCurrentUserIfExternal = [
+const restrictToCurrentUserIfExternal = () => async (context, next) => {
   iff(
     isProvider('external'),
     restrictToCurrentUser(),
-  )
-];
+  )(context);
 
-module.exports = update(Users.hooks, {
-  before: {
-    all: {
-      $unshift: [
-        context => {
-          if (context.id !== 'me') {
-            return;
-          }
+  await next();
+};
 
-          if (!context.params.user || !context.params.user.uid) {
-            throw new errors.NotAuthenticated('You should be logged');
-          }
+const restrictToUnloggedIfExternal = () => async (context, next) => {
+  iff(
+    isProvider('external'),
+    restrictToUnlogged(),
+  )(context);
 
-          context.id = context.params.user.uid;
-        }
-      ],
-    },
-    create: {
-      $unshift: [
-        iff(
-          isProvider('external'),
-          restrictToUnlogged()
-        )
-      ]
-    },
-    get: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    find: {
-      $unshift: [
-        disallow('external')
-      ]
-    },
-    update: {
-      $set: disallow()
-    },
-    patch: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    remove: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    setImageProfile: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    clearImageProfile: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    requestChangeEmail: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    // confirmChangeEmail: {
-    //   $unshift: restrictToCurrentUserIfExternal
-    // },
-    changePassword: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    generateApiKey: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    setNewFlag: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    refresh: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
+  await next();
+};
+
+const disallow = (...args) => async (context, next) => {
+  _disallow(...args)(context);
+  await next();
+};
+
+const replaceIdMe = () => async (context, next) => {
+  if (context.id !== 'me') {
+    return next();
   }
-});
+
+  if (!context.params.user || !context.params.user.uid) {
+    throw new errors.NotAuthenticated('You should be logged');
+  }
+
+  context.id = context.params.user.uid;
+
+  await next();
+};
+
+module.exports = {
+  find: {
+    middleware: [
+      replaceIdMe(),
+      disallow('external')
+    ],
+    context: withParams('params')
+  },
+  get: {
+    middleware: [
+      replaceIdMe(),
+      restrictToCurrentUserIfExternal()
+    ],
+    context: withParams('id', 'params')
+  },
+  create: {
+    middleware: [
+      replaceIdMe(),
+      restrictToUnloggedIfExternal()
+    ],
+    context: withParams('data', 'params')
+  },
+  update: {
+    middleware: [
+      replaceIdMe(),
+      disallow()
+    ],
+    context: withParams('id', 'data', 'params')
+  },
+  patch: {
+    middleware: [
+      replaceIdMe(),
+      restrictToCurrentUserIfExternal()
+    ],
+    context: withParams('id', 'data', 'params')
+  },
+  remove: {
+    middleware: [
+      replaceIdMe(),
+      restrictToCurrentUserIfExternal()
+    ],
+    context: withParams('id', 'params')
+  },
+  setImageProfile: {
+    middleware: [
+      replaceIdMe(),
+      restrictToCurrentUserIfExternal()
+    ],
+    context: withParams('id', 'data', 'params')
+  },
+  clearImageProfile: {
+    middleware: [
+      replaceIdMe(),
+      restrictToCurrentUserIfExternal()
+    ],
+    context: withParams('id', 'params')
+  },
+  requestChangeEmail: {
+    middleware: [
+      replaceIdMe(),
+      restrictToCurrentUserIfExternal()
+    ],
+    context: withParams('id', 'data', 'params')
+  },
+  confirmChangeEmail: {
+    middleware: [
+      replaceIdMe()
+    ],
+    context: withParams('id', 'params')
+  },
+  changePassword: {
+    middleware: [
+      replaceIdMe(),
+      restrictToCurrentUserIfExternal()
+    ],
+    context: withParams('id', 'data', 'params')
+  },
+  generateApiKey: {
+    middleware: [
+      replaceIdMe(),
+      restrictToCurrentUserIfExternal()
+    ],
+    context: withParams('id', 'params')
+  },
+  setNewFlag: {
+    middleware: [
+      replaceIdMe(),
+      restrictToCurrentUserIfExternal()
+    ],
+    context: withParams('id', 'data', 'params')
+  },
+  refresh: {
+    middleware: [
+      replaceIdMe(),
+      restrictToCurrentUserIfExternal()
+    ],
+    context: withParams('id', 'data', 'params')
+  }
+};
