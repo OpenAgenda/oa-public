@@ -10,21 +10,37 @@ const fixtures = {
 
 describe( '03 - utils - generateCustomSet', () => {
 
-  it( 'schema to text custom field', () => {
+  it('schema to text custom field', () => {
     generateCustomFields(
-      _get( 'schemas/text.json' )
+      _get('schemas/text.json')
     ).customFields.should.eql(
-      _get( 'customSets/text.json' )
+      _get('customSets/text.json')
     );
-  } );
+  });
 
-  it( 'schema to number custom field', () => {
+  it('schema to number custom field', () => {
     generateCustomFields(
-      _get( 'schemas/number.json' )
+      _get('schemas/number.json')
     ).customFields.should.eql(
-      _get( 'customSets/number.json' )
+      _get('customSets/number.json')
     );
-  } );
+  });
+
+  it('schema boolean to checkbox custom field', () => {
+    generateCustomFields(
+      _get('schemas/boolean.json')
+    ).customFields.should.eql(
+      _get('customSets/checkbox.json')
+    );
+  });
+
+  it('schema phone to text custom field', () => {
+    generateCustomFields(
+      _get('schemas/phone.json')
+    ).customFields.should.eql(
+      _get('customSets/textFromPhone.json')
+    );
+  });
 
   it( 'if read right is administrator and moderator, custom field should be administrator', () => {
     const { customFields } = generateCustomFields( {
