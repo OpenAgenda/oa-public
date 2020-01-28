@@ -6,23 +6,22 @@ const debug = require('debug');
 const VError = require('verror');
 const log = require('@openagenda/logs')('users/hooks/error');
 
-module.exports = () => async function notFoundHandler(context, next) {
+module.exports = () => async function errorHook(context, next) {
   try {
     await next();
   } catch (error) {
-    context.error = error;
-
     // Avoid not found error
     if (
-      _.get(context, 'error.name') === 'NotFound'
-    // && context.error.message.includes('No record found')
+      error.name === 'NotFound'
+        && error.message.includes('No record found')
     ) {
-      context.error = null;
       context.result = null;
-      return; // TODO return result or context ?
+      return context;
     }
 
-    if (!(_.get(context, 'error.name') === 'NotFound')) {
+    context.error = error;
+
+    if (error.name !== 'NotFound') {
       const errorStack = context.error instanceof Error
         ? `\n${VError.fullStack(context.error)}`
         : '';
