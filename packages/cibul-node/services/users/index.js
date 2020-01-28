@@ -4,6 +4,7 @@ const _ = require('lodash');
 const { hooks } = require('@openagenda/hooks');
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
+const errors = require('@feathersjs/errors');
 const Users = require('@openagenda/users');
 const keys = require('@openagenda/keys');
 const agendas = require('@openagenda/agendas');
@@ -28,6 +29,22 @@ function walkProtoChain(obj, walker = Object.getOwnPropertyNames) {
 
   return [...new Set(walker(obj).concat(inherited))];
 }
+
+function replaceIdMe() {
+  return async (context, next) => {
+    if (context.id !== 'me') {
+      return next();
+    }
+
+    if (!context.params.user || !context.params.user.uid) {
+      throw new errors.NotAuthenticated('You should be logged');
+    }
+
+    context.id = context.params.user.uid;
+
+    await next();
+  };
+};
 
 module.exports = {
   init,
@@ -156,10 +173,15 @@ async function init(config /* , services */) {
     logger: config.getLogConfig('svc', 'users', false)
   });
 
+  hooks(service, [
+    replaceIdMe()
+  ]);
   hooks(service, svcHooks);
 
-  for (const method of walkProtoChain(service)) {
-    module.exports[method] = service[method];
+  for (const prop of walkProtoChain(service)) {
+    module.exports[prop] = typeof service[prop] === 'function'
+      ? service[prop].bind(service)
+      : service[prop];
   }
 
   return service;

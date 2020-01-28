@@ -2841,10 +2841,10 @@
   dependencies:
     lodash "^4.17.4"
 
-"@openagenda/hooks@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@feathersjs/hooks/-/hooks-0.2.0.tgz#c6ed47a90a7fb6bca29a6264c16c8f840bc19411"
-  integrity sha512-tpJAd5fZxWU68aqKqGVJlklvkWjuZ/l76BvJP/TqQnm8V32CMkrgmqxNUlIzouhjbK/6B335ikIxk25ucrHWyw==
+"@openagenda/hooks@^0.3.1":
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/@openagenda/hooks/-/hooks-0.3.1.tgz#56af7e9841eed0744eb4bbff245ca330c1dfb8f4"
+  integrity sha512-tu/aUkNL8di0UVzNB+kyKGLES3TBwLoj/0WRwCUlOTAxPMHlUPNj63U9ddV5AJ1w6tbfAzla2iOj64xpw4woxA==
   dependencies:
     ts-loader "^6.2.1"
     webpack "^4.41.5"
