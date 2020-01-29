@@ -1,7 +1,6 @@
 'use strict';
 
 function firstHook(context, next) {
-  context.params = context.params || {};
   context.type = 'before';
   return next();
 }
