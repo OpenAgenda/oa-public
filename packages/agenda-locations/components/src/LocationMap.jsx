@@ -12,7 +12,7 @@ defaults = {
   tiles: '//{s}.tiles.mapbox.com/v3/foursquare.meku766r/{z}/{x}/{y}.png',
   markerIcon: '//s3-eu-west-1.amazonaws.com/cibulstatic/markerIcon.png',
   pos: [ 40, 0 ],
-  iconAnchor: [ 9, 25 ], 
+  iconAnchor: [ 9, 25 ],
   zoom: 2,
   focusedZoom: 13
 };
@@ -92,7 +92,7 @@ module.exports = createReactClass( {
     }
 
     L.tileLayer( defaults.tiles, {
-      //attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+      attribution: '&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
     }).addTo( this.map );
 
   },
