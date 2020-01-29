@@ -6,9 +6,11 @@ import labels from '@openagenda/labels/agenda-locations/selector';
 import createLabels from '@openagenda/labels/agenda-locations/create';
 import LocationForm from './LocationForm';
 import LocationSearch from './LocationSearch';
+import LocationConfirmation from './LocationConfirmation';
 import CreateFormHeader from './CreateFormHeader';
 
 class LocationSelector extends Component {
+
   static defaultProps = {
     mode: 'create',
     enableGeocode: true,
@@ -18,7 +20,9 @@ class LocationSelector extends Component {
       }
     },
     disableChange: false,
-    allowCreate: true
+    allowCreate: true,
+    confirmRequired: false,
+    detailedInfo: false
   }
 
   constructor(props) {
@@ -44,25 +48,41 @@ class LocationSelector extends Component {
     return str;
   }
 
-  onSelect(location) {
-    this.props.onChange(l, 'show');
+  onSelect(confirmRequired, location) {
+    this.props.onChange(confirmRequired ? 'confirm' : 'show', location);
+  }
+
+  onConfirm() {
+    this.props.onChange('show', this.props.location);
   }
 
   onCreateRequest(value) {
-    this.props.onChangeMode('create', { name: value });
+    this.props.onChange('create', { name: value });
   }
 
   switchToSearch() {
-    this.props.onChangeMode('search');
+    this.props.onChange('search');
+  }
+
+  renderConfirmation() {
+    return <LocationConfirmation
+      res={this.props.res}
+      lang={this.props.lang}
+      location={this.props.location}
+      mapboxKey={this.props.mapboxKey}
+      settings={this.props.settings}
+      onConfirm={this.onConfirm.bind(this)}
+      onCancel={this.switchToSearch.bind(this)}
+    />
   }
 
   renderSelected() {
     return <div className="selected-location">
       {!this.props.disableChange ? <div className="actions">
         <a
-          onClick={this.switchToSearch}
+          onClick={this.switchToSearch.bind(this)}
           className="btn btn-default">
-          {this.getLabel( l ? 'change' : 'find' )}
+          {this.getLabel(this.props.location ? 'change' : 'find')}
         </a>
       </div> : null}
       {this.props.location ? <div>
@@ -76,14 +96,15 @@ class LocationSelector extends Component {
   }
 
   renderSearch() {
+    const confirmRequired = !!_.get(this.props, 'confirmRequired');
     return <LocationSearch
       init={this.props.location ? this.props.location.name : ''}
       getLabel={this.getLabel.bind(this)}
       res={this.props.res}
       lang={this.props.lang}
-      onSelect={this.onSelect}
+      onSelect={this.onSelect.bind(this, confirmRequired)}
       allowCreate={this.props.allowCreate}
-      onCreateRequest={this.onCreateRequest}/>
+      onCreateRequest={this.onCreateRequest.bind(this)}/>
   }
 
   renderHeader() {
@@ -95,14 +116,14 @@ class LocationSelector extends Component {
 
   renderCreateForm() {
     return <LocationForm
-      Header={ this.renderHeader() }
+      Header={this.renderHeader()}
       settings={this.props.settings}
-      detailedInfo={this.props.settings.eventForm && this.props.settings.eventForm.detailed}
+      detailedInfo={(this.props.settings.eventForm && this.props.settings.eventForm.detailed) || this.props.detailedInfo}
       res={this.props.res}
       enableGeocode={this.props.enableGeocode}
       lang={this.props.lang}
-      onCancel={this.switchToSearch}
-      onSuccess={location => this.onSelect(location)}
+      onCancel={this.switchToSearch.bind(this)}
+      onSuccess={this.onSelect.bind(this, false)}
       labels={createLabels}
       location={this.props.location} />
   }
@@ -115,8 +136,8 @@ class LocationSelector extends Component {
         return this.renderSearch();
       } else if (mode === 'create') {
         return this.renderCreateForm();
-      } else if (mode === 'confirmation') {
-        return <p>Confirm</p>;
+      } else if (mode === 'confirm') {
+        return this.renderConfirmation();
       }
       return this.renderSelected();
     }

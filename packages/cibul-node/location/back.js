@@ -205,6 +205,7 @@ function show( req, res ) {
       title: req.agenda.title,
       uid: req.agenda.uid
     },
+    mapboxKey: config.mapboxAccessToken,
     res: {
       csv: req.genUrl( 'agendaAdminLocationsCsv', { slug: req.agenda.slug } ),
       index: req.genUrl( 'locationIndex', { slug: req.agenda.slug } ),

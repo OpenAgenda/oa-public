@@ -33,6 +33,7 @@ export default connect(
     locationRes={config.locationRes}
     referencesRes={config.referencesRes}
     suggestionsRes={config.suggestionsRes}
+    mapboxKey={config.mapboxKey}
     lang={config.lang}
     values={event}
     onSubmitSuccess={onCreateSuccess}

@@ -1,3 +1,4 @@
+import ih from 'immutability-helper';
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import createReactClass from 'create-react-class';
@@ -33,19 +34,26 @@ const res = {
     newUpload: `${apiRoot}/image`,
     newRemove: `${apiRoot}/image/remove`
   },
-  seeEvents: `${apiRoot}/:agendaSlug/admin?locationUid=:locationUid`
+  seeEvents: `${apiRoot}/:agendaSlug/admin?locationUid=:locationUid`,
+  suggestChange: `https://openagenda.com/mail-repair-cafe/locations/:locationUid/suggest-change/conversation/create`
 };
 
-storiesOf('Administration app')
+storiesOf('Administration app', module)
   .add('Main', () => adminStory({
     res,
     settings: agendaTestSettings
-  }))
+  }));
 
-storiesOf('Location form component')
+storiesOf('Location form component', module)
   .add('Search mode', () => selectorStory({
     res,
     settings: agendaTestSettings,
+    mode: 'search'
+  }))
+  .add('Search mode with confirm required', () => selectorStory({
+    res,
+    settings: agendaTestSettings,
+    confirmRequired: true,
     mode: 'search'
   }))
   .add('Creation mode', () => selectorStory({
@@ -53,6 +61,7 @@ storiesOf('Location form component')
     settings: agendaTestSettings,
     initialLocation: undefined,
     enableGeocode: true,
+    detailedInfo: true,
     mode: 'create'
   }))
   .add('Show mode', () => selectorStory({
@@ -62,6 +71,13 @@ storiesOf('Location form component')
     enableGeocode: true,
     mode: 'show'
   }))
+  .add('Confirm mode', () => selectorStory({
+    res,
+    settings: agendaTestSettings,
+    initialLocation: location,
+    enableGeocode: true,
+    mode: 'confirm'
+  }))
   .add('Creation mode with gelocation disabled', () => selectorStory({
     res,
     settings: agendaTestSettings,
@@ -69,7 +85,7 @@ storiesOf('Location form component')
     enableGeocode: false
   }));
 
-storiesOf('Term selector')
+storiesOf('Term selector', module)
   .add('Main', () => termStore({
     apiRoot
   }));

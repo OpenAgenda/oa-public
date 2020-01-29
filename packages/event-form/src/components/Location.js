@@ -79,14 +79,15 @@ class LocationComponent extends Component {
         newRemove: `${res}/image/remove`,
         upload: `${res}/:locationUid/image`,
         remove: `${res}/:locationUid/image/remove`
-      }
+      },
+      suggestChange: `${res}/:locationUid/suggest-change/conversation/create`
     }
 
   }
 
   getSettings() {
 
-    const settings = _.get( this.props, 'field.legacy', {} );
+    const settings = _.get(this.props, 'field.legacy', {});
 
     if ( settings.tagSet ) {
 
@@ -100,12 +101,13 @@ class LocationComponent extends Component {
 
   }
 
-  onChange( caller, mode, location ) {
+  onChange(mode, location) {
+    console.log(mode, location);
+    this.setState({ mode });
 
-    this.setState( { mode } );
-
-    this.props.onChange( location );
-
+    if (location !== undefined) {
+      this.props.onChange(location);
+    }
   }
 
   renderSelector() {
@@ -116,22 +118,29 @@ class LocationComponent extends Component {
     } = this.props;
 
     const {
-      default: defaultValue
+      default: defaultValue,
+      mapboxKey,
+      detailedInfo,
+      disableChange,
+      allowCreate,
+      confirmRequired
     } = this.props.field;
 
     return <LocationSelector
-      allowCreate={_.get( this.props, 'field.allowCreate' )}
+      allowCreate={allowCreate}
+      confirmRequired={confirmRequired}
+      mapboxKey={mapboxKey}
       mode={this.state.mode}
-      disableChange={_.get( this.props, 'field.disableChange' )}
+      disableChange={disableChange}
+      detailedInfo={detailedInfo}
       classNames={{
         input: ''
       }}
-      onChangeMode={this.onChange.bind( this, 'onChangeMode' )}
       location={_.assign( {}, defaultValue || {}, value )}
       lang={lang}
       settings={this.getSettings()}
       res={this.detailedRes()}
-      onChange={( location, mode ) => this.onChange( 'onChange', mode, location )}
+      onChange={this.onChange.bind(this)}
     />
 
   }
@@ -151,7 +160,7 @@ class LocationComponent extends Component {
 
     }
 
-    if ( this.state.mode === 'create' ) {
+    if (['create', 'confirm'].includes(this.state.mode)) {
 
       return <div>
         <div className="text-center" style={spinnerCanvasStyle} >
@@ -178,17 +187,15 @@ class LocationComponent extends Component {
 LocationComponent.propTypes = {
   value: PropTypes.object, // the location
   lang: PropTypes.string,
-  disableChange: PropTypes.bool,
-  allowCreate: PropTypes.bool,
-  legacy: PropTypes.object
+  legacy: PropTypes.object,
+  field: PropTypes.object
 };
 
 LocationComponent.defaultProps = {
   location: null,
   lang: 'en',
-  disableChange: false,
-  allowCreate: true,
-  legacy: {}
+  legacy: {},
+  field: null
 };
 
 

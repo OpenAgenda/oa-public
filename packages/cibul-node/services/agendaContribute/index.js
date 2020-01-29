@@ -112,18 +112,17 @@ module.exports = _.extend( ( parentApp, path = '' ) => {
 } );
 
 function init( config ) {
-
   bucket = config.aws.bucket;
 
-  contribute.init( {
+  contribute.init({
     logger: config.getLogConfig( 'svc', 'agendaContribute' ),
     CDNPath: config.aws.servicesBucketPath,
+    mapboxKey: config.mapboxAccessToken,
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/contribute' : null,
     layout,
     middlewares,
     interfaces
-  } );
-
+  });
 }
 
 

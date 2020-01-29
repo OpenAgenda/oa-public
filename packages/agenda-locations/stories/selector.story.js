@@ -13,20 +13,19 @@ class BaseSelectorStory extends Component {
   }
 
   render() {
-    return <div className="top-margined col-sm-8 col-sm-offset-2 wsq content">
+    return <div className="top-margined col-sm-6 col-sm-offset-3 wsq content">
       <SelectorApp
+        mapboxKey="pk.eyJ1Ijoia2FvcmUiLCJhIjoidDZ1UW5HWSJ9.VspmN8kRdEgRm2A91RjNow"
         settings={this.props.settings}
         location={this.state.location}
         mode={this.state.mode}
         lang="fr"
         allowCreate={true}
+        confirmRequired={this.props.confirmRequired}
         res={this.props.res}
         enableGeocode={this.props.enableGeocode}
-        onChange={(location, mode) => {
-          console.log(location);
-          this.setState({ location, mode });
-        }}
-        onChangeMode={(mode, location) => {
+        onChange={(mode, location) => {
+          console.log('onChange', mode);
           console.log(location);
           this.setState({ location, mode });
         }}
