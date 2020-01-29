@@ -2,7 +2,7 @@
 
 const { promisify } = require('util');
 const { Service } = require('feathers-knex');
-const { hooks, withParams } = require('@openagenda/hooks');
+const { hooks, withParams } = require('@feathersjs/hooks');
 const errors = require('@feathersjs/errors');
 const imageFiles = require('@openagenda/image-files');
 const Tokens = require('../tokens/Service');

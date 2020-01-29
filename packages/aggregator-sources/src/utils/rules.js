@@ -11,7 +11,8 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
   } = rule;
 
   const result = {
-    type: 'all',
+    withFilter: false,
+    withActions: false,
     required: Boolean(required),
     actions: []
   };
@@ -59,6 +60,10 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
           }
       );
     });
+
+    if (result.actions.length) {
+      result.withActions = true;
+    }
   }
 
   // Location
@@ -70,6 +75,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
     }
 
     Object.assign(result, {
+      withFilter: true,
       type: 'location',
       subdivision: key,
       locationValues: [].concat(query.location[key])
@@ -81,6 +87,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
   // Tags
   if (query.tags) {
     Object.assign(result, {
+      withFilter: true,
       type: 'tags',
       tagValues: [].concat(query.tags).map(getMultiLanguageLabel)
     });
@@ -93,6 +100,7 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
   // Extended
   if (key) {
     return Object.assign(result, {
+      withFilter: true,
       type: 'extended',
       field: key,
       extendedValues: query[key]
@@ -103,45 +111,49 @@ export function ruleToValues(rule, aggregatorAgendaSchema) {
 }
 
 export function valuesToRule(values, schema) {
-  const { required } = values;
+  const { withActions, withFilter, required } = values;
 
-  const actions = values.actions?.map(action => {
-    if (action.field === 'state') {
+  const actions = !withActions
+    ? []
+    : values.actions?.map(action => {
+      if (action.field === 'state') {
+        return {
+          field: 'state',
+          values: action.values,
+          automatic: false
+        };
+      }
+
+      const fieldSchema = schema.fields.find(v => v.field === action.field);
+
+      if (!fieldSchema) {
+        return;
+      }
+
+      if (action.automatic) {
+        return {
+          field: action.field,
+          values: null,
+          automatic: true
+        };
+      }
+
       return {
-        field: 'state',
+        field: fieldSchema.field,
         values: action.values,
         automatic: false
       };
-    }
+    });
 
-    const fieldSchema = schema.fields.find(v => v.field === action.field);
-
-    if (!fieldSchema) {
-      return;
-    }
-
-    if (action.automatic) {
-      return {
-        field: action.field,
-        values: null,
-        automatic: true
-      };
-    }
-
+  if (!withFilter) {
     return {
-      field: fieldSchema.field,
-      values: action.values,
-      automatic: false
+      query: {},
+      required,
+      actions
     };
-  });
+  }
 
   switch (values.type) {
-    case 'all':
-      return {
-        query: {},
-        required,
-        actions
-      };
     case 'location':
       return {
         query: {

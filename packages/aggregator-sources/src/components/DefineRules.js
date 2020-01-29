@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import * as ReactIs from 'react-is';
 import { defineMessages, useIntl } from 'react-intl';
-import { Form } from 'react-final-form';
+import { Form, useFormState } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
 import arrayMutators from 'final-form-arrays';
 import classNames from 'classnames';
@@ -110,6 +110,11 @@ const messages = defineMessages({
     id: 'aggregator-sources.DefineRules.withActions',
     defaultMessage:
       '{actionCount, plural, =1 {with 1 action} other {with # actions}}'
+  },
+  ruleDescription: {
+    id: 'aggregator-sources.DefineRules.ruleDescription',
+    defaultMessage:
+      'A rule consists of a filter and/or actions applied to each event published on the source.'
   }
 });
 
@@ -280,6 +285,13 @@ function reducer(state, action) {
 
 function AddRuleSubmitButton({ handleSubmit, onCancel }) {
   const intl = useIntl();
+  const { values } = useFormState();
+
+  const hasExtendedValues = Array.isArray(values.extendedValues)
+    ? values.extendedValues.length
+    : !['', null, undefined].includes(values.extendedValues);
+  const hasFilter = values.tagValues?.length || values.locationValues || hasExtendedValues;
+  const disabled = !hasFilter && !values.actions?.length;
 
   return (
     <div>
@@ -296,7 +308,8 @@ function AddRuleSubmitButton({ handleSubmit, onCancel }) {
       <div className="text-right">
         <button
           type="submit"
-          className="btn btn-primary"
+          disabled={disabled}
+          className={classNames('btn btn-primary', { disabled })}
           onClick={handleSubmit}
         >
           {intl.formatMessage(messages.add)}
@@ -739,9 +752,11 @@ export default function DefineRules({
   } else if (state.mode === 'add') {
     content = (
       <div className="margin-top-md">
-        <h4 className="text-center margin-bottom-sm">
+        <h4 className="margin-bottom-sm">
           {intl.formatMessage(messages.newRule)}
         </h4>
+
+        <p>{intl.formatMessage(messages.ruleDescription)}</p>
 
         <Form
           onSubmit={addRule}
@@ -762,9 +777,11 @@ export default function DefineRules({
   } else if (state.mode === 'update') {
     content = (
       <div className="margin-top-md">
-        <h4 className="text-center margin-bottom-sm">
+        <h4 className="margin-bottom-sm">
           {intl.formatMessage(messages.updateARule)}
         </h4>
+
+        <p>{intl.formatMessage(messages.ruleDescription)}</p>
 
         <Form
           onSubmit={updateRule}
