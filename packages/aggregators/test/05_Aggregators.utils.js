@@ -364,7 +364,6 @@ describe('Aggregators utils', () => {
     describe('automatic actions', () => {
 
       it('associates id by matching on label when automatic is true', () => {
-
         const result = rules([{
           actions: [{
             field: 'category',
@@ -379,7 +378,22 @@ describe('Aggregators utils', () => {
         result.should.eql({
           category: [22]
         });
+      });
 
+      it('label matching looks for match on all sources optioned fields', () => {
+        const result = rules([{
+          actions: [{
+            field: 'category',
+            automatic: true
+          }]
+        }], fixtures.simpleSourceSchema, fixtures.simpleAggregatorSchema, {
+          title: 'Mon event',
+          type: 3 // this option in agg has a label which matches one in some other field in source
+        });
+
+        result.should.eql({
+          category: [39]
+        });
       });
 
     });
