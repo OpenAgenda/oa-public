@@ -364,7 +364,6 @@ describe('Aggregators utils', () => {
     describe('automatic actions', () => {
 
       it('associates id by matching on label when automatic is true', () => {
-
         const result = rules([{
           actions: [{
             field: 'category',
@@ -379,7 +378,6 @@ describe('Aggregators utils', () => {
         result.should.eql({
           category: [22]
         });
-
       });
 
     });
