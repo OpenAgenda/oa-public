@@ -52,10 +52,6 @@ const messages = defineMessages({
     id: 'aggregator-sources.RuleForm.region',
     defaultMessage: 'Region'
   },
-  type: {
-    id: 'aggregator-sources.RuleForm.type',
-    defaultMessage: 'Type:'
-  },
   values: {
     id: 'aggregator-sources.RuleForm.values',
     defaultMessage: 'Values:'
@@ -219,6 +215,11 @@ const selectStyles = {
     ? {
       display: 'none'
     }
+    : base),
+  indicatorsContainer: (base, state) => (state.selectProps.creatable && !state.selectProps.options?.length
+    ? {
+      display: 'none'
+    }
     : base)
 };
 
@@ -312,9 +313,9 @@ function SelectField({
           state: { inputValue, value }
         } = selectRef.current;
 
-        const alreadyInValue = inputValue.length
-          ? value.some(v => v.value === inputValue)
-          : true;
+        const alreadyInValue = inputValue.length && value
+          ? value?.some(v => v.value === inputValue)
+          : !inputValue.length;
 
         if (!alreadyInValue) {
           selectRef.current.onChange([
@@ -340,15 +341,7 @@ function SelectField({
     initialValue
   ]);
 
-  const components = useMemo(
-    () => (creatable && !options?.length
-      ? {
-        DropdownIndicator: () => null,
-        NoOptionsMessage: () => null
-      }
-      : undefined),
-    [creatable, options]
-  );
+  const components = useMemo(() => undefined, []);
 
   return (
     <Field
@@ -866,6 +859,29 @@ function ActionsFormPart({ aggregatorAgendaSchema }) {
   );
 }
 
+const RequiredFieldPart = () => {
+  const intl = useIntl();
+
+  return (
+    <div className="row checkbox">
+      <div className="col-sm-2">
+        <b>{intl.formatMessage(messages.required)}</b>
+      </div>
+      <div className="col-sm-10">
+        <div className="form-group">
+          <Field
+            component={Radio}
+            name="required"
+            type="checkbox"
+            label={intl.formatMessage(messages.requiredFilter)}
+            defaultValue // true
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default function RuleForm({
   SubmitButton,
   handleSubmit,
@@ -915,97 +931,82 @@ export default function RuleForm({
 
       {values.withFilter ? (
         <div className="radio-sub-block">
-          <div className="row">
-            <div className="form-group form-group-v-aligned">
-              <label className="control-label col-sm-2" htmlFor="type">
-                {intl.formatMessage(messages.type)}
-              </label>
-
-              <div className="col-sm-10">
-                <Field
-                  component={Radio}
-                  name="type"
-                  type="radio"
-                  label={intl.formatMessage(messages.locationFilter)}
-                  value="location"
-                  classNameGroup="radio"
-                  helpBlock={(
-                    <div className="radio-sub-block text-muted">
-                      {intl.formatMessage(messages.helpFilterLocation)}
-                    </div>
-                  )}
-                />
-
-                {!isAggregator ? (
-                  <Field
-                    component={Radio}
-                    name="type"
-                    type="radio"
-                    label={intl.formatMessage(messages.extendedFilter)}
-                    value="extended"
-                    classNameGroup={classNames('radio', {
-                      disabled: disabledExtended
-                    })}
-                    disabled={disabledExtended}
-                    helpBlock={(
-                      <div className="radio-sub-block text-muted">
-                        {intl.formatMessage(messages.helpFilterExtended)}
-                      </div>
-                    )}
-                  />
-                ) : null}
-
-                <Field
-                  component={Radio}
-                  name="type"
-                  type="radio"
-                  label={intl.formatMessage(messages.tagFilter)}
-                  value="tags"
-                  classNameGroup="radio"
-                  helpBlock={(
-                    <div className="radio-sub-block text-muted">
-                      {intl.formatMessage(messages.helpFilterTag)}
-                    </div>
-                  )}
-                />
-
-                {!formState.dirtySinceLastSubmit
-                && formState.submitErrors?.type ? (
-                  <div className="margin-top-xs margin-bottom-md text-danger">
-                    {formState.submitErrors.type}
-                  </div>
-                  ) : null}
+          <Field
+            component={Radio}
+            name="type"
+            type="radio"
+            label={intl.formatMessage(messages.locationFilter)}
+            value="location"
+            classNameGroup="radio"
+            helpBlock={(
+              <div className="radio-sub-block text-muted">
+                {intl.formatMessage(messages.helpFilterLocation)}
               </div>
-            </div>
-          </div>
+            )}
+          />
 
-          {values.type === 'location' ? <LocationFormPart /> : null}
-          {values.type === 'extended' ? (
-            <ExtendedFormPart
-              aggregatorAgendaSchema={aggregatorAgendaSchema}
-              sourceSchema={sourceSchema}
+          {values.type === 'location' ? (
+            <div className="radio-sub-block">
+              <LocationFormPart />
+              <RequiredFieldPart />
+            </div>
+          ) : null}
+
+          {!isAggregator ? (
+            <Field
+              component={Radio}
+              name="type"
+              type="radio"
+              label={intl.formatMessage(messages.extendedFilter)}
+              value="extended"
+              classNameGroup={classNames('radio', {
+                disabled: disabledExtended
+              })}
+              disabled={disabledExtended}
+              helpBlock={(
+                <div className="radio-sub-block text-muted">
+                  {intl.formatMessage(messages.helpFilterExtended)}
+                </div>
+              )}
             />
           ) : null}
-          {values.type === 'tags' ? (
-            <TagsFormPart schema={sourceSchema} />
+
+          {values.type === 'extended' ? (
+            <div className="radio-sub-block">
+              <ExtendedFormPart
+                aggregatorAgendaSchema={aggregatorAgendaSchema}
+                sourceSchema={sourceSchema}
+              />
+              <RequiredFieldPart />
+            </div>
           ) : null}
 
-          <div className="row checkbox">
-            <div className="col-sm-2">
-              <b>{intl.formatMessage(messages.required)}</b>
-            </div>
-            <div className="col-sm-10">
-              <div className="form-group">
-                <Field
-                  component={Radio}
-                  name="required"
-                  type="checkbox"
-                  label={intl.formatMessage(messages.requiredFilter)}
-                  defaultValue // true
-                />
+          <Field
+            component={Radio}
+            name="type"
+            type="radio"
+            label={intl.formatMessage(messages.tagFilter)}
+            value="tags"
+            classNameGroup="radio"
+            helpBlock={(
+              <div className="radio-sub-block text-muted">
+                {intl.formatMessage(messages.helpFilterTag)}
               </div>
+            )}
+          />
+
+          {values.type === 'tags' ? (
+            <div className="radio-sub-block">
+              <TagsFormPart schema={sourceSchema} />
+              <RequiredFieldPart />
             </div>
-          </div>
+          ) : null}
+
+          {!formState.dirtySinceLastSubmit && formState.submitErrors?.type ? (
+            <div className="margin-top-xs margin-bottom-md text-danger">
+              {formState.submitErrors.type}
+            </div>
+          ) : null}
         </div>
       ) : null}
 

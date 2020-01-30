@@ -66,7 +66,7 @@
   "aggregator-sources.RuleForm.type": "Filtre:",
   "aggregator-sources.RuleForm.values": "Valeurs:",
   "aggregator-sources.RuleForm.required": "Requis:",
-  "aggregator-sources.RuleForm.subdivision": "Sous-division géographique:",
+  "aggregator-sources.RuleForm.subdivision": "Sous-division:",
   "aggregator-sources.RuleForm.field": "Champ:",
   "aggregator-sources.RuleForm.selectField": "Sélectionner un champ",
   "aggregator-sources.RuleForm.noOption": "Pas d'option",
