@@ -13,7 +13,7 @@ module.exports = function searchKeyword() {
 
       delete context.params.query.$search;
 
-      const query = context.service.createQuery(context.params);
+      const query = context.self.createQuery(context.params);
 
       query
         .where('full_name', 'like', `%${search}%`)

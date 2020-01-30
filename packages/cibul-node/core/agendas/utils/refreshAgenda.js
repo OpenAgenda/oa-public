@@ -7,9 +7,8 @@ const setAgenda = require('util').promisify(agendas.set);
 
 module.exports = async uid => {
   try {
-    await setAgenda({ uid }, { updatedAt: new Date() });
+    await setAgenda({ uid }, { updatedAt: new Date() }, { private: null });
   } catch (e) {
-    log('error', 'failed to refresh agenda %s: %j', uid);
-    console.log(e);
+    log('error', 'failed to refresh agenda %s: %j', uid, e);
   }
 }

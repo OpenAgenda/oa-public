@@ -15,6 +15,12 @@
   border: 1px solid $oa-gray-light;
 }
 
+.badge-muted {
+  color: $oa-gray-light;
+  background-color: $oa-white;
+  border: 1px solid $oa-gray-light;
+}
+
 a.badge:hover {
   color: $oa-blue;
   border: 1px solid $oa-blue;

@@ -1,26 +1,18 @@
 "use strict";
 
 const { promisify } = require( 'util' );
-const _ = require( 'lodash' );
-const ReactDOM = require( 'react-dom/server' );
-const { parsePath } = require('history');
 const moment = require( 'moment' );
 const wn = require( 'when/node' );
 const async = require( 'async' );
 const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'admin/back' );
 const agendasSvc = require( '@openagenda/agendas' );
-const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
-const wrapApp = require( '@openagenda/react-utils/dist/wrapApp' );
 const cmn = require( '../lib/commons-app' );
 const lib = require( '../lib/lib' );
 const membersSvc = require( '../services/members' );
 const model = require( '../services/model' );
 const adminSvc = require( '../services/admin/admin' );
 const usersSvc = require( '../services/users' );
-const config = require( '../config' );
-
-const supportTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/support.tpl', 'utf-8' ) );
 
 const preMw = [
   cmn.loadBaseData(),
@@ -41,84 +33,8 @@ module.exports = app => {
   app.get( '/admin/users/changePassword', preMw, userChangePassword );
   app.get( '/admin/eventsbyweek', preMw, eventsByWeek );
   app.get( '/admin/eventsdiff', preMw, eventsDiff );
-  app.get(
-    [
-      '/admin/support',
-      '/admin/support/conversation/:conversationId'
-    ],
-    preMw,
-    support
-  );
 
 };
-
-
-async function support( req, res, next ) {
-  const lang = req.lang || 'fr';
-  const staticContext = {};
-  const reactApp = createInboxApp( {
-    req,
-    initialState: {
-      settings: {
-        context: 'user',
-        prefix: '/admin/support',
-        lang: req.lang,
-        apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: 20,
-        autoFocus: true
-      },
-      res: {
-        author: '/admin/support/author.json',
-        conversations: {
-          create: '/admin/support/conversations.json',
-          list: '/admin/support/conversations.json',
-          action: '/admin/support/conversations/:conversationId/action/:code.json',
-          resume: '/admin/support/conversations/:conversationId/resume.json'
-        },
-        messages: {
-          list: '/admin/support/conversations/:conversationId/messages.json',
-          create: '/admin/support/conversations/:conversationId/messages.json',
-          prepareAttachment: '/admin/support/conversations/:conversationId/prepare-attachment',
-          addAttachment: '/admin/support/conversations/:conversationId/add-attachment'
-        }
-      }
-    }
-  } );
-  const { triggerHooks, store, history } = reactApp;
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if ( staticContext.status === 404 ) {
-      return next();
-    }
-
-    if ( staticContext.url ) {
-      return res.redirect( 302, staticContext.url );
-    }
-
-    const { pathname } = history.location;
-    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-      return res.redirect( 302, pathname );
-    }
-
-    res.send( supportTemplate( {
-      scriptParams: { initialState:state },
-      lang,
-      content,
-      preloaded: true
-    } ) );
-  } catch ( e ) {
-    next( e );
-  }
-}
 
 
 function index( req, res ) {

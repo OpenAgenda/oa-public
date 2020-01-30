@@ -20,9 +20,9 @@
     "prepublish": "yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.7.4",
+    "@babel/runtime-corejs3": "^7.8.3",
     "async": "^2.1.2",
-    "core-js": "^3.4.7",
+    "core-js": "^3.6.4",
     "crypto-js": "^3.1.9-1",
     "lodash": "^4.17.1",
     "marked": "^0.7.0",
@@ -31,11 +31,11 @@
     "to-markdown": "^3.0.3"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.4",
-    "@babel/core": "^7.7.4",
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
     "@openagenda/babel-preset": "^1.1.1",
-    "babel-jest": "^24.9.0",
-    "jest": "^24.9.0",
+    "babel-jest": "^25.1.0",
+    "jest": "^25.1.0",
     "should": "^13.2.3"
   }
 }

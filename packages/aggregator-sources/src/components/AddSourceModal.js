@@ -109,6 +109,10 @@ const messages = defineMessages({
   noAgendas: {
     id: 'aggregator-sources.AddSourceModal.noAgendas',
     defaultMessage: 'No result'
+  },
+  chooseAnotherSource: {
+    id: 'aggregator-sources.AddSourceModal.chooseAnotherSource',
+    defaultMessage: 'Choose another source'
   }
 });
 
@@ -123,7 +127,9 @@ const Radio = ({ id, input, children }) => (
   </label>
 );
 
-function AgendaItem({ agenda, sources, onSelect }) {
+function AgendaItem({
+  agenda, sources, onSelect, firstAction
+}) {
   const intl = useIntl();
   const onAgendaClick = useCallback(() => onSelect(agenda), [onSelect, agenda]);
   const alreadyInSources = useMemo(
@@ -228,13 +234,7 @@ function AgendaItem({ agenda, sources, onSelect }) {
             </div>
           )}
         </div>
-        <button
-          type="button"
-          className="btn btn-link-inline"
-          onClick={onAgendaClick}
-        >
-          {intl.formatMessage(messages.selectThisAgenda)}
-        </button>
+        {firstAction}
         &ensp;
         <a href={`/${agenda.slug}`} target="_blank" rel="noopener noreferrer">
           {intl.formatMessage(messages.showAgendaAction)}{' '}
@@ -423,7 +423,26 @@ export default function AddSourceModal({
           additionals={[selectedStep]}
         />
 
-        {selectedStep === 'selectAgenda' && selectType === 'search' ? (
+        {selectedStep === 'selectAgenda' && selectedAgenda ? (
+          <AgendaItem
+            agenda={selectedAgenda}
+            sources={sources}
+            onSelect={onSelectAgenda}
+            firstAction={(
+              <button
+                type="button"
+                className="btn btn-link-inline"
+                onClick={() => setSelectedAgenda()}
+              >
+                {intl.formatMessage(messages.chooseAnotherSource)}
+              </button>
+            )}
+          />
+        ) : null}
+
+        {selectedStep === 'selectAgenda'
+        && !selectedAgenda
+        && selectType === 'search' ? (
           <AgendasSearch
             res={agendaRes}
             fieldProps={fieldProps}
@@ -451,6 +470,15 @@ export default function AddSourceModal({
                       sources={sources}
                       agenda={sourceAgenda}
                       onSelect={onSelectAgenda}
+                      firstAction={(
+                        <button
+                          type="button"
+                          className="btn btn-link-inline"
+                          onClick={() => onSelectAgenda(sourceAgenda)}
+                        >
+                          {intl.formatMessage(messages.selectThisAgenda)}
+                        </button>
+                        )}
                     />
                   ))
                   : null}
@@ -474,9 +502,11 @@ export default function AddSourceModal({
               </>
             )}
           />
-        ) : null}
+          ) : null}
 
-        {selectedStep === 'selectAgenda' && selectType !== 'search' ? (
+        {selectedStep === 'selectAgenda'
+        && !selectedAgenda
+        && selectType !== 'search' ? (
           <SlugSearch
             res={slugRes}
             render={({ state, form }) => (
@@ -509,7 +539,7 @@ export default function AddSourceModal({
               </>
             )}
           />
-        ) : null}
+          ) : null}
 
         {selectedStep === 'defineRules' ? (
           <DefineRules

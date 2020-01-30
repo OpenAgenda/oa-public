@@ -19,6 +19,7 @@ const {
   InboxUserLayout,
   InboxAgendaAdminLayout,
   MainLayout,
+  RequiredSuperAdmin,
   RequiredUser
 } = require('@openagenda/react-layouts/dist/layouts');
 const createHomeApp = require('@openagenda/home/dist/app');
@@ -165,6 +166,19 @@ module.exports = function match({
           history,
           initialState: state.agendaActivities,
           layout: [MainLayout, RequiredUser, AgendaAdminLayout],
+          reduxMiddleware
+        }),
+        // Admin
+        adminSupport: createInboxApp({
+          req,
+          history,
+          initialState: state.adminSupport,
+          layout: [
+            MainLayout,
+            RequiredUser,
+            RequiredSuperAdmin,
+            InboxUserLayout
+          ],
           reduxMiddleware
         })
       };

@@ -1,4 +1,6 @@
 {
+  "react-layouts.AgendaAdminLayout.administration": "Administration",
+  "react-layouts.AgendaAdminLayout.return": "Return",
   "react-layouts.MainLayout.search": "Search",
   "react-layouts.MainLayout.help": "Help",
   "react-layouts.MainLayout.general": "General",

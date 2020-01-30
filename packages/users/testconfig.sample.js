@@ -49,7 +49,7 @@ module.exports = {
           return context;
         }
 
-        await context.service.generateApiKey(user.uid, {
+        await context.self.generateApiKey(user.uid, {
           publicKey: true
         });
       };

@@ -16,7 +16,8 @@ function useMemoOne(compute, deps, equalityFn = shallowEqual) {
   return value.current;
 }
 
-const useCallbackOne = (compute, deps, equalityFn) => useMemoOne(() => compute, deps, equalityFn);
+// eslint-disable-next-line react-hooks/exhaustive-deps
+const useCallbackOne = (compute, deps, equalityFn) => useMemoOne(() => compute, [compute], equalityFn);
 
 export default useMemoOne;
 

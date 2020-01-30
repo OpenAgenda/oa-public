@@ -65,6 +65,7 @@ class EventEdit extends Component {
                 withErrors={false}
                 fileStore={config.fileStore}
                 locationRes={config.locationRes}
+                mapboxKey={config.mapboxKey}
                 referencesRes={config.referencesRes}
                 suggestionsRes={config.suggestionsRes}
                 lang={config.lang}

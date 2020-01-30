@@ -70,10 +70,6 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
 }
 
 
-// looking at an aggregator field, and data coming from source
-// this data could match values on the aggregator based on the associated labels
-// 1. find out which labels are associated to the data on the source independently of the aggregatorField
-
 function extractAutomaticValues(sourceAgendaSchema, aggregatorAgendaSchema, aggregatorFieldName, data) {
   const sourceFieldsWithData = Object.keys(data);
   const optionedSourceFieldsWithData = sourceAgendaSchema.fields

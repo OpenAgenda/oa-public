@@ -9,7 +9,7 @@ module.exports = function softDelete(field, additionalParams = {}) {
   const deleteField = field || 'deleted';
 
   return context => {
-    const { service } = context;
+    const service = context.self;
     context.data = context.data || {};
     context.params.query = context.params.query || {};
     checkContext(context, 'before', null, 'softDelete');
