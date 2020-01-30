@@ -123,7 +123,7 @@ function plugApp(app) {
   }));
 }
 
-async function init(config /* , services */) {
+async function init(config, services) {
   const tokensService = new Users.Tokens({
     Model: config.knex,
     name: config.schemas.userToken,
@@ -158,7 +158,7 @@ async function init(config /* , services */) {
     },
     getTokensService: () => tokensService,
     interfaces: {
-      beforeRemove,
+      beforeRemove: beforeRemove.bind(null, { services }),
       beforeCreate,
       onCreate,
       onGenerateApiKey,
