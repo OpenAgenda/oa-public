@@ -15,7 +15,7 @@
     "build": "rimraf client/build && babel client/src -d client/build -s"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.8.3",
+    "@babel/runtime-corejs3": "^7.8.4",
     "@openagenda/labels": "^2.1.0",
     "@openagenda/logs": "^1.1.1",
     "@openagenda/mysql-table-store": "^1.0.0",
@@ -47,8 +47,8 @@
     "verror": "^1.10.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/bs-templates": "^2.2.0",
     "@openagenda/fixtures": "^2.0.1",
