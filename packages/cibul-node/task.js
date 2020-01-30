@@ -4,7 +4,7 @@ const agendaSearch = require( '@openagenda/agenda-search' );
 
 const tfy = require( './lib/taskify' );
 
-module.exports = services => {
+module.exports = (config, services) => {
 
   tfy( require( './general/jobs.task' ), { bootOffset: 1000 } );
 
@@ -135,6 +135,8 @@ module.exports = services => {
   require( '@openagenda/agenda-events' ).tasks.interfaces( { interval: 10 } );
 
   //require( '@openagenda/agenda-events' ).tasks.transferLegacyData( { interval: 500 } );
+
+  //require('./tasks/createMissingEventsFromLegacy')(config, services);
 
   services.eventSearch.task();
 };

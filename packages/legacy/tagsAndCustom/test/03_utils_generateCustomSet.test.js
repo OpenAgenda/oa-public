@@ -10,23 +10,39 @@ const fixtures = {
 
 describe( '03 - utils - generateCustomSet', () => {
 
-  it( 'schema to text custom field', () => {
+  it('schema to text custom field', () => {
     generateCustomFields(
-      _get( 'schemas/text.json' )
+      _get('schemas/text.json')
     ).customFields.should.eql(
-      _get( 'customSets/text.json' )
+      _get('customSets/text.json')
     );
-  } );
+  });
 
-  it( 'schema to number custom field', () => {
+  it('schema to number custom field', () => {
     generateCustomFields(
-      _get( 'schemas/number.json' )
+      _get('schemas/number.json')
     ).customFields.should.eql(
-      _get( 'customSets/number.json' )
+      _get('customSets/number.json')
     );
-  } );
+  });
 
-  it( 'if read right is administrator and moderator, custom field should be administrator', () => {
+  it('schema boolean to checkbox custom field', () => {
+    generateCustomFields(
+      _get('schemas/boolean.json')
+    ).customFields.should.eql(
+      _get('customSets/checkbox.json')
+    );
+  });
+
+  it('schema phone to text custom field', () => {
+    generateCustomFields(
+      _get('schemas/phone.json')
+    ).customFields.should.eql(
+      _get('customSets/textFromPhone.json')
+    );
+  });
+
+  it('if read right is administrator and moderator, custom field should be administrator', () => {
     const { customFields } = generateCustomFields( {
       fields: [ {
         field: 'Montant',
@@ -37,9 +53,9 @@ describe( '03 - utils - generateCustomSet', () => {
       } ]
     } );
     customFields[ 0 ].type.should.equal( 'administrator' );
-  } );
+  });
 
-  it( 'if read right is administrator, moderator and contributor, custom field should be private', () => {
+  it('if read right is administrator, moderator and contributor, custom field should be private', () => {
     const { customFields } = generateCustomFields( {
       fields: [ {
         field: 'Présentation',
@@ -51,7 +67,7 @@ describe( '03 - utils - generateCustomSet', () => {
       } ]
     } );
     customFields[ 0 ].type.should.equal( 'private' );
-  } );
+  });
 
   it('fix: maison des aines (villeneuve d\'ascq should see', () => {
     const { customFields } = generateCustomFields(fixtures.maisonDesAines, true);
@@ -59,9 +75,9 @@ describe( '03 - utils - generateCustomSet', () => {
     customFields.map( f => f.name ).should.eql( [ 'interetintercommunal', 'recurringevent' ] );
   });
 
-} );
+});
 
-function _get( fixtureFile ) {
-  return JSON.parse( fs.readFileSync( `${__dirname}/fixtures/${fixtureFile}`, 'utf-8' ) );
+function _get(fixtureFile) {
+  return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/${fixtureFile}`, 'utf-8'));
 }
 

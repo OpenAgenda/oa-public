@@ -132,6 +132,18 @@ body {
 
 }
 
+.info-block {
+
+  background-color: $oa-gray-lightest;
+  padding: 1em;
+  border: 1px solid $oa-gray-lighter;
+
+  label {
+    margin-right: 1em;
+  }
+
+}
+
 /**
  * content block of a white page
  */

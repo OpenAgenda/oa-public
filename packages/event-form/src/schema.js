@@ -24,6 +24,7 @@ const schemaLanguages = require( './utils/schemaLanguages' );
 module.exports = ( {
   interfaceLanguage,
   locationRes,
+  mapboxKey,
   referencesRes,
   suggestionsRes,
   languages,
@@ -121,7 +122,9 @@ module.exports = ( {
       optional: false,
       label: labels.location,
       sub: labels.locationSub,
-      res: locationRes
+      res: locationRes,
+      disableChange: false,
+      mapboxKey
     }, {
       field: 'timings',
       fieldType: 'timings',

@@ -51,7 +51,7 @@ module.exports = app => {
     '/:agendaSlug/signin',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
+    sessions.middleware.ifLogged(_redirectToContribute),
     _presetEmail,
     auth.renderSignin
   );
@@ -67,7 +67,7 @@ module.exports = app => {
     '/:agendaSlug/signin',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
+    sessions.middleware.ifLogged(_redirectToContribute),
     signinSubmit
   );
 
@@ -84,7 +84,7 @@ module.exports = app => {
     '/:agendaSlug/signup',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
+    sessions.middleware.ifLogged(_redirectToContribute),
     _loadCaptcha,
     _guessFullName,
     auth.renderSignup
@@ -101,7 +101,7 @@ module.exports = app => {
     '/:agendaSlug/signup',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
+    sessions.middleware.ifLogged(_redirectToContribute),
     signupSubmit
   );
 
@@ -116,7 +116,7 @@ module.exports = app => {
     '/:agendaSlug/signup/complete',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
+    sessions.middleware.ifLogged(_redirectToContribute),
     signupComplete
   );
 
@@ -131,7 +131,7 @@ module.exports = app => {
     '/:agendaSlug/activate/resend',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
+    sessions.middleware.ifLogged(_redirectToContribute),
     activateResend
   );
 
@@ -146,11 +146,15 @@ module.exports = app => {
     '/:agendaSlug/activate/:token',
     agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged((req, res) => res.redirect(302, `/${req.agenda.slug}/addevent`)),
+    sessions.middleware.ifLogged(_redirectToContribute),
     activate
   );
 
 };
+
+function _redirectToContribute(req, res, next) {
+  res.redirect(302, `/${req.agenda.slug}/addevent`);
+}
 
 
 function signinSubmit( req, res, next ) {
