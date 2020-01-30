@@ -69,11 +69,22 @@ module.exports = (rules, sourceAgendaSchema, aggregatorAgendaSchema, data) => {
   return ih(base, transform);
 }
 
-function extractAutomaticValues(sourceAgendaSchema, aggregatorAgendaSchema, field, data) {
-  const sourceField = _.get(sourceAgendaSchema, 'fields', []).filter(f => f.field === field).pop();
-  const aggregatorField = _.get(aggregatorAgendaSchema, 'fields', []).filter(f => f.field === field).pop();
 
-  if (!sourceField) return [];
+// looking at an aggregator field, and data coming from source
+// this data could match values on the aggregator based on the associated labels
+// 1. find out which labels are associated to the data on the source independently of the aggregatorField
+
+function extractAutomaticValues(sourceAgendaSchema, aggregatorAgendaSchema, aggregatorFieldName, data) {
+  const sourceFieldsWithData = Object.keys(data);
+  const optionedSourceFieldsWithData = sourceAgendaSchema.fields
+    .filter(f => !!f.options && sourceFieldsWithData.includes(f.field));
+
+  const labels = optionedSourceFieldsWithData.reduce((labels, sourceField) => labels.concat(convertFieldOptionIdsToLabels(sourceField, data[sourceField.field])), []);
+
+  if (!labels.length) return [];
+
+  const aggregatorField = aggregatorAgendaSchema.fields.filter(f => f.field === aggregatorFieldName).pop();
+
   if (!aggregatorField) return [];
 
   const aggregatorOptionIdsByLabel = aggregatorField.options
@@ -85,11 +96,7 @@ function extractAutomaticValues(sourceAgendaSchema, aggregatorAgendaSchema, fiel
       }), aggregatorOptionIdsByLabel);
     }, {});
 
-  const labels = convertFieldOptionIdsToLabels(sourceField, data[field] || []);
-
-  const matchingAggregationFieldOptionIds = labels.map(l => aggregatorOptionIdsByLabel[l]).filter(id => !!id);
-
-  return matchingAggregationFieldOptionIds;
+  return labels.map(l => aggregatorOptionIdsByLabel[l]).filter(id => !!id);
 }
 
 

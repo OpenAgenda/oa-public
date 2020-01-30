@@ -23,6 +23,11 @@
     }, {
       "id": 2,
       "label": "Expo"
+    }, {
+      "id": 3,
+      "label": {
+        "fr": "Schmilblick"
+      }
     }]
   }]
 }

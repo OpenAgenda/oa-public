@@ -380,6 +380,22 @@ describe('Aggregators utils', () => {
         });
       });
 
+      it('label matching looks for match on all sources optioned fields', () => {
+        const result = rules([{
+          actions: [{
+            field: 'category',
+            automatic: true
+          }]
+        }], fixtures.simpleSourceSchema, fixtures.simpleAggregatorSchema, {
+          title: 'Mon event',
+          type: 3 // this option in agg has a label which matches one in some other field in source
+        });
+
+        result.should.eql({
+          category: [39]
+        });
+      });
+
     });
 
     describe('label filters', () => {
