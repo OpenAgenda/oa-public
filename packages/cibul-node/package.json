@@ -15,7 +15,7 @@
     "@feathersjs/errors": "^4.5.1",
     "@feathersjs/express": "^4.5.1",
     "@feathersjs/feathers": "^4.5.1",
-    "@openagenda/hooks": "^0.3.2",
+    "@openagenda/hooks": "^0.3.3",
     "@loadable/component": "^5.12.0",
     "@openagenda/abilities": "^1.1.3",
     "@openagenda/activities": "^2.1.2",
