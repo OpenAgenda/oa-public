@@ -10,11 +10,11 @@ import { useInterval } from 'react-use';
 import session from '@openagenda/sessions/client';
 import notificationsHandler from '@openagenda/activity-apps/dist/client/notifications';
 import Modal from '@openagenda/react-components/build/Modal';
-import Spinner from '@openagenda/react-components/build/Spinner';
 import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
 import useChildLayouts from '../hooks/useChildLayouts';
 import * as mainActions from '../reducers/main';
 import ErrorBoundary from '../components/ErrorBoundary';
+import Loading from '../components/Loading';
 
 const messages = defineMessages({
   search: {
@@ -109,26 +109,6 @@ const HelpLink = React.memo(() => {
     </div>
   );
 });
-
-const Loading = () => (
-  <div
-    className="text-center margin-top-lg"
-    style={{
-      minHeight: 300,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}
-  >
-    <Spinner
-      mode="inline"
-      options={{
-        scale: 1,
-        width: 1
-      }}
-    />
-  </div>
-);
 
 function MainLayout({
   childLayouts,

@@ -263,6 +263,32 @@ const initialState = req => ({
     res: {
       list: '/:slug/admin/activities/list',
     }
+  },
+  // Admin
+  adminSupport: {
+    settings: {
+      context: 'user',
+      prefix: '/admin/support',
+      lang: req.lang,
+      apiRoot: `http://localhost:${config.port}`,
+      perPageLimit: 20,
+      autoFocus: true
+    },
+    res: {
+      author: '/admin/support/author.json',
+      conversations: {
+        create: '/admin/support/conversations.json',
+        list: '/admin/support/conversations.json',
+        action: '/admin/support/conversations/:conversationId/action/:code.json',
+        resume: '/admin/support/conversations/:conversationId/resume.json'
+      },
+      messages: {
+        list: '/admin/support/conversations/:conversationId/messages.json',
+        create: '/admin/support/conversations/:conversationId/messages.json',
+        prepareAttachment: '/admin/support/conversations/:conversationId/prepare-attachment',
+        addAttachment: '/admin/support/conversations/:conversationId/add-attachment'
+      }
+    }
   }
 });
 
@@ -296,7 +322,9 @@ module.exports = app => {
       '/:slug/admin/sources/?*?',
       '/:slug/admin/members/?*?',
       '/:slug/admin/activities/?*?',
-      '/:slug/admin/settings/?*?'
+      '/:slug/admin/settings/?*?',
+      // Admin
+      '/admin/support/?*?'
     ],
     cmn.loadLogger('webapp'),
     cmn.loadBaseData('oasfmain.css'),

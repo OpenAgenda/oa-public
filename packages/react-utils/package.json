@@ -16,9 +16,9 @@
     "prepublish": "yarn clean && yarn build"
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.7.4",
+    "@babel/runtime-corejs3": "^7.8.3",
     "axios": "^0.19.0",
-    "core-js": "^3.4.7",
+    "core-js": "^3.6.4",
     "hoist-non-react-statics": "^3.3.1",
     "lodash": "^4.17.4",
     "qs": "^6.9.1",
@@ -27,21 +27,21 @@
     "redial": "^0.5.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.4",
-    "@babel/core": "^7.7.4",
-    "@loadable/component": "^5.11.0",
+    "@babel/cli": "^7.8.3",
+    "@babel/core": "^7.8.3",
+    "@loadable/component": "^5.12.0",
     "@openagenda/babel-preset": "^1.1.1",
     "history": "^4.10.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.1.2",
-    "redux": "^4.0.1",
-    "rimraf": "^3.0.0"
+    "redux": "^4.0.5",
+    "rimraf": "^3.0.1"
   },
   "peerDependencies": {
-    "@loadable/component": "^5.11.0",
+    "@loadable/component": "^5.12.0",
     "react": "^16.12.0",
     "react-router-dom": "^5.0.0",
-    "redux": "^4.0.1"
+    "redux": "^4.0.5"
   }
 }

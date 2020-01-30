@@ -5,7 +5,6 @@ const path = require('path');
 const sinon = require('sinon');
 const tmp = require('tmp');
 const knexLib = require('knex');
-const feathers = require('@feathersjs/feathers');
 const fixtures = require('@openagenda/fixtures');
 const keysSvc = require('@openagenda/keys/test/service');
 const keysConfig = require('@openagenda/keys/service/config');
@@ -16,10 +15,10 @@ const Service = require('../');
 const crypto = require('../utils/crypto');
 const config = require('../testconfig');
 
-const { hooks } = Service;
-
 const database = `${config.mysql.database}_service`;
 let knex;
+
+const kaoreUid = 75052324;
 
 const getConfig = options => ({
   Model: knex,
@@ -32,8 +31,6 @@ const getConfig = options => ({
   schemas: config.schemas,
   ...options
 });
-
-const kaoreUid = 75052324;
 
 // function copySync(src, dest) {
 //   if (!fs.existsSync(src)) {
@@ -63,9 +60,9 @@ beforeEach(async () => {
     []
   );
 
-  // await knex.raw( `CREATE DATABASE IF NOT EXISTS \`${database}\`;` );
-  // await knex.raw( `USE \`${database}\`;` );
-  // knex.client.config.connection.database = database;
+  await knex.raw(`CREATE DATABASE IF NOT EXISTS \`${database}\`;`);
+  await knex.raw(`USE \`${database}\`;`);
+  knex.client.config.connection.database = database;
 
   fixtures.init({ mysql: { ...config.mysql, database } });
   files.init(config.files);
@@ -92,32 +89,26 @@ describe('Service', () => {
 
     expect(service).toBeInstanceOf(Service);
   });
-
-  it('in app', async () => {
-    const app = feathers();
-
-    app.use('/', new Service(getConfig()));
-
-    const service = app.service('/');
-
-    expect(service.get).toBeInstanceOf(Function);
-  });
 });
 
 describe('methods', () => {
-  let app;
   let service;
 
-  beforeEach(async () => {
-    app = feathers();
+  beforeEach(() => {
+    const conf = getConfig();
 
-    app.use('/', new Service(getConfig()));
+    const tokensService = new Service.Tokens({
+      Model: conf.Model,
+      name: conf.schemas.userToken,
+      id: 'id',
+      paginate: conf.paginate,
+      interfaces: conf.interfaces
+    });
 
-    service = app.service('/');
-
-    service.hooks(hooks);
-
-    app.setup();
+    service = new Service({
+      ...conf,
+      getTokensService: () => tokensService
+    });
   });
 
   describe('get', () => {
@@ -348,7 +339,9 @@ describe('methods', () => {
         { detailed: true }
       );
 
-      const token = await service.tokens.findOne({ query: { email } });
+      const token = await service.config
+        .getTokensService()
+        .findOne({ query: { email } });
       expect(user.email).toBe(email);
       expect(token.token).toHaveLength(32);
     });
@@ -365,7 +358,9 @@ describe('methods', () => {
         { detailed: true }
       );
 
-      const token = await service.tokens.findOne({ query: { email } });
+      const token = await service.config
+        .getTokensService()
+        .findOne({ query: { email } });
       expect(user.email).toBe(email);
       expect(token).toBeUndefined();
     });

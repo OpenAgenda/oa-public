@@ -1,16 +1,30 @@
 import _ from 'lodash';
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, {
+  useCallback, useEffect, useMemo, useLayoutEffect
+} from 'react';
+import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import {
   useHistory, useLocation, matchPath, Link
 } from 'react-router-dom';
 import compareRoles from '@openagenda/members/build/compareRoles';
 import Image from '@openagenda/react-components/build/Image';
-import Spinner from '@openagenda/react-components/build/Spinner';
 import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
 import * as agendaAdminActions from '../reducers/agendaAdmin';
 import useChildLayouts from '../hooks/useChildLayouts';
 import ErrorBoundary from '../components/ErrorBoundary';
+import Loading from '../components/Loading';
+
+const messages = defineMessages({
+  administration: {
+    id: 'react-layouts.AgendaAdminLayout.administration',
+    defaultMessage: 'Administration'
+  },
+  return: {
+    id: 'react-layouts.AgendaAdminLayout.return',
+    defaultMessage: 'Return'
+  }
+});
 
 const TABS_IN_APP = [
   'members',
@@ -82,26 +96,6 @@ function Sections({ agenda, role }) {
   ) : null));
 }
 
-const Loading = () => (
-  <div
-    className="text-center margin-top-lg"
-    style={{
-      minHeight: 300,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center'
-    }}
-  >
-    <Spinner
-      mode="inline"
-      options={{
-        scale: 1,
-        width: 1
-      }}
-    />
-  </div>
-);
-
 function AgendaAdminLayout({
   childLayouts,
   children,
@@ -109,6 +103,7 @@ function AgendaAdminLayout({
   FallbackComponent,
   extraProps: parentExtraProps
 }) {
+  const intl = useIntl();
   const history = useHistory();
   const location = useLocation();
 
@@ -168,7 +163,7 @@ function AgendaAdminLayout({
       sections,
       member
     }),
-    [parentExtraProps, agenda, member, role, sections]
+    [parentExtraProps, agenda, agendaSchema, role, sections, member]
   );
 
   const ErrorComponent = useCallback(
@@ -182,13 +177,17 @@ function AgendaAdminLayout({
     childLayouts
   );
 
-  if (loadError) {
-    if (user) {
-      history.replace('/home');
-    } else {
-      window.location.href = '/';
+  useLayoutEffect(() => {
+    if (loadError) {
+      if (user) {
+        history.replace('/home');
+      } else {
+        window.location.href = '/';
+      }
     }
+  }, [history, loadError, user]);
 
+  if (loadError) {
     // Display Loading waiting redirection
     return <Loading />;
   }
@@ -216,9 +215,9 @@ function AgendaAdminLayout({
 
         <div className={`col col-sm-${agenda.image ? '10' : '12'}`}>
           <h1>{agenda.title}</h1>
-          <p>Administration</p>
+          <p>{intl.formatMessage(messages.administration)}</p>
           <a className="url" href={`/${agenda.slug}`}>
-            Retour
+            {intl.formatMessage(messages.return)}
           </a>
         </div>
       </div>

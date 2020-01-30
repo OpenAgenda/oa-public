@@ -33,7 +33,7 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         loaded: true,
-        data: action.result.sources,
+        data: action.result.sources.reverse(),
         error: null,
         loading: false
       };
@@ -62,7 +62,7 @@ export default function reducer(state = initialState, action) {
     case LIST_SUCCESS:
       return {
         ...state,
-        data: action.result.sources,
+        data: action.result.sources.reverse(),
         error: null,
         listLoading: false
       };

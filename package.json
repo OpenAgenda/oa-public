@@ -27,11 +27,11 @@
     "**/react-dom": "16.12.0"
   },
   "devDependencies": {
-    "@babel/runtime-corejs3": "^7.7.4",
-    "codecov": "^3.6.1",
-    "core-js": "^3.4.7",
-    "husky": "^3.1.0",
-    "jest": "^24.9.0",
+    "@babel/runtime-corejs3": "^7.8.3",
+    "codecov": "^3.6.2",
+    "core-js": "^3.6.4",
+    "husky": "^4.2.1",
+    "jest": "^25.1.0",
     "lerna": "^2.11.0"
   },
   "husky": {

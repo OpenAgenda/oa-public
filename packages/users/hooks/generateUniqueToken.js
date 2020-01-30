@@ -11,7 +11,7 @@ module.exports = function generateUniqueToken(key) {
 
     _.set(query, key, token);
 
-    const result = await context.service.findOne({ query });
+    const result = await context.self.findOne({ query });
 
     if (result) {
       return generateUniqueToken(key)(context);

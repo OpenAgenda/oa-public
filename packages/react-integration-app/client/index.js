@@ -14,6 +14,7 @@ import {
   InboxUserLayout,
   InboxAgendaAdminLayout,
   MainLayout,
+  RequiredSuperAdmin,
   RequiredUser
 } from '@openagenda/react-layouts/src/layouts';
 import createAppHome from '@openagenda/home/src/app';
@@ -128,6 +129,13 @@ const apps = {
     history,
     initialState: initialState.agendaActivities,
     layout: [MainLayout, RequiredUser, AgendaAdminLayout],
+    reduxMiddleware
+  }),
+  // Admin
+  adminSupport: createInboxApp({
+    history,
+    initialState: initialState.adminSupport,
+    layout: [MainLayout, RequiredUser, RequiredSuperAdmin, InboxUserLayout],
     reduxMiddleware
   })
 };

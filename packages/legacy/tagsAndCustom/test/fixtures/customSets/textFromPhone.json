@@ -1,0 +1,10 @@
+[ {
+  "name": "organisateur-telephone",
+  "fieldType": "text",
+  "type": "administrator",
+  "optional": true,
+  "label": {
+    "fr": "Organisateur ( Téléphone )",
+    "en": "Organisateur ( Téléphone )"
+  }
+} ]

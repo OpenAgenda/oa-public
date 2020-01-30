@@ -27,6 +27,7 @@ module.exports = {
 const config = {
   layout: ( content, data ) => 'The service is not ready',
   CDNPath: null,
+  mapboxKey: null,
   frontAppPath: null,
   interfaces: {}
 }
@@ -46,7 +47,11 @@ function init( c ) {
     log( 'info', 'sending app canvas for agenda %s', _.get( req, 'agenda.slug' ) );
 
     const frontAppInit = {
-      config: _.set( req.config, 'schemaExtensions', _.get( req, 'schemaExtensions', [] ) ),
+      config: {
+        ...req.config,
+        mapboxKey: config.mapboxKey,
+        schemaExtensions: _.get(req, 'schemaExtensions', [])
+      },
       state: {
         member: req.member,
         event: parse.fromEventServiceFormat( req.event )
