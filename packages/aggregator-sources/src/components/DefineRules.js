@@ -121,7 +121,7 @@ const messages = defineMessages({
 function validate(intl, values, aggregatorAgendaSchema /* , sourceSchema */) {
   const errors = {};
 
-  if (!values.type) {
+  if (values.withFilter && !values.type) {
     errors.type = intl.formatMessage(messages.requiredType);
   }
 
@@ -183,10 +183,10 @@ function validateActions(intl, rules, aggregatorAgendaSchema, sourceSchema) {
   aggregatorAgendaSchema.fields
     .filter(v => v.fieldType !== 'abstract')
     .forEach(fieldSchema => {
-      const aggAction = actions.find(v => v?.[fieldSchema.field]);
-      const hasValue = Array.isArray(aggAction?.[fieldSchema.field])
-        ? aggAction[fieldSchema.field].length
-        : aggAction?.[fieldSchema.field];
+      const aggAction = actions.find(v => v.field === fieldSchema.field);
+      const hasValue = aggAction?.values && Array.isArray(aggAction.values)
+        ? !!aggAction.values.length
+        : false;
 
       if (!sourceSchema) {
         return;

@@ -20,7 +20,7 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.8.3",
+    "@babel/runtime-corejs3": "^7.8.4",
     "@formatjs/intl-listformat": "^1.4.1",
     "@formatjs/intl-pluralrules": "^1.5.2",
     "@formatjs/intl-relativetimeformat": "^4.5.9",
@@ -57,7 +57,7 @@
     "regenerator-runtime": "^0.13.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.8.3",
+    "@babel/core": "^7.8.4",
     "@loadable/webpack-plugin": "^5.12.0",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/eslint-config": "^1.0.0",

@@ -22,13 +22,13 @@
     ]
   },
   "dependencies": {
-    "@babel/runtime-corejs3": "^7.8.3",
+    "@babel/runtime-corejs3": "^7.8.4",
     "core-js": "^3.6.4",
     "shallowequal": "^1.1.0"
   },
   "devDependencies": {
-    "@babel/cli": "^7.8.3",
-    "@babel/core": "^7.8.3",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/eslint-config": "^1.0.0",
     "eslint": "^6.8.0",
