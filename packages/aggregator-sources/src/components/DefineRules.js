@@ -141,7 +141,10 @@ function validate(intl, values, aggregatorAgendaSchema /* , sourceSchema */) {
     errors.tagValues = intl.formatMessage(messages.requiredValues);
   }
 
-  if ((values.type === 'all' || !values.required) && !values.actions?.length) {
+  const hasSomeActions = values.withActions
+    && values.actions?.some(v => !['', null, undefined].includes(v.field));
+
+  if ((values.type === 'all' || !values.required) && !hasSomeActions) {
     errors[FORM_ERROR] = intl.formatMessage(messages.uselessRule);
   }
 
@@ -303,7 +306,10 @@ function AddRuleSubmitButton({ handleSubmit, onCancel }) {
     : !['', null, undefined].includes(values.extendedValues);
   const hasFilter = values.tagValues?.length || values.locationValues || hasExtendedValues;
   const disabled = !hasFilter
-    && !(values.actions || []).some(v => !['', null, undefined].includes(v.field));
+    && !(
+      values.withActions
+      && (values.actions || []).some(v => !['', null, undefined].includes(v.field))
+    );
 
   return (
     <div>
