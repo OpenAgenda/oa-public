@@ -20,7 +20,7 @@ describe('02 - event search - functional: Applied search', function() {
       service = Service(config);
     });
 
-/*
+
     before(async () => {
       try {
         await service.getConfig().client.indices.delete({
@@ -37,7 +37,7 @@ describe('02 - event search - functional: Applied search', function() {
         formSchema
       });
     });
-*/
+
 
     describe('Data structure', () => {
       const uid = 11438560;
@@ -95,6 +95,46 @@ describe('02 - event search - functional: Applied search', function() {
         it('additional fields are included in result', () => {
           event['thematiques-bordeaux-metropole'].should.eql([9]);
         });
+      });
+
+    });
+
+    describe('Search', () => {
+
+      it('events can be filtered by member', async () => {
+        const { events, total } = await service('bdx')
+          .search({ memberUid: 75052324 }, {});
+        total.should.equal(208);
+      });
+
+      it('events can be filtered by multiple members', async () => {
+        const { events, total } = await service('bdx')
+          .search({ memberUid: [75052324, 65133249] }, {});
+        total.should.equal(219);
+      });
+
+      it('events can be filtered by origin agenda', async () => {
+        const { events, total } = await service('bdx').search({
+          originAgendaUid: 19486837
+        }, {});
+
+        total.should.equal(1);
+      });
+
+      it('filter by city', async () => {
+        const { total } = await service('bdx').search({
+          city: 'Bordeaux'
+        }, {});
+
+        total.should.equal(94);
+      });
+
+      it('filter by department', async () => {
+        const { total } = await service('bdx').search({
+          department: 'Gironde'
+        }, {});
+
+        total.should.equal(334);
       });
 
     });
@@ -298,6 +338,60 @@ describe('02 - event search - functional: Applied search', function() {
 
       });
 
+      describe('location (regions, departments, cities)', () => {
+        let agg;
+
+        before(async () => {
+          const result = await service('bdx').search({}, { size: 0 }, {
+            detailed: true,
+            aggregations: ['regions', 'departments', 'cities']
+          });
+          agg = result.aggregations
+        });
+
+        it('regions aggregation', () => {
+          agg.regions.should.eql([
+            { key: 'Nouvelle-Aquitaine', eventCount: 339 },
+            { key: 'Île-de-France', eventCount: 1 }
+          ]);
+        });
+
+        it('departments aggregation', () => {
+          agg.departments[0].should.eql({ key: 'Gironde', eventCount: 334 });
+        });
+
+        it('cities aggregation', () => {
+          agg.cities[0].should.eql({ key: 'Bordeaux', eventCount: 94 });
+        });
+
+      });
+
+      describe('members', () => {
+        let agg;
+
+        before(async () => {
+          const result = await service('bdx').search({}, { size: 0 }, {
+            detailed: true,
+            aggregations: ['members']
+          });
+          agg = result.aggregations.members;
+          //textLog('members.json', agg);
+        });
+
+        it('each aggregation key is the user uid of the member', () => {
+          agg[0].key.should.equal('75052324');
+        });
+
+        it('each aggregation provides name and uid of member', () => {
+          agg[0].should.eql({
+            key: '75052324',
+            member: { uid: 75052324, name: 'Kaoré - OpenAgenda' },
+            eventCount: 208
+          });
+        });
+
+      });
+
       describe('origin agendas', () => {
         let originAgendaAggregation;
 
@@ -306,7 +400,6 @@ describe('02 - event search - functional: Applied search', function() {
             detailed: true,
             aggregations: ['originAgendas']
           });
-
           originAgendaAggregation = result.aggregations.originAgendas;
         });
 

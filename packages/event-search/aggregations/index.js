@@ -1,12 +1,18 @@
 'use strict';
 
+const geo = require('./geo');
+
 const aggregationTypes = {
   timespan: require('./timespan'),
   originAgendas: require('./originAgendas'),
   eventsByDateRanges: require('./eventsByDateRanges'),
   timings: require('./timings'),
   keywords: require('./keywords'),
-  additionalFields: require('./additionalFields')
+  members: require('./members'),
+  additionalFields: require('./additionalFields'),
+  regions: geo('region'),
+  departments: geo('department'),
+  cities: geo('city')
 }
 
 module.exports = {

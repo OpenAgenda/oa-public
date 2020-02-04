@@ -59,11 +59,11 @@ const validate = schema({
     max: 2,
     list: true
   },
-  contributorUid: {
+  memberUid: {
     type: 'integer',
     list: true
   },
-  agendaUid: {
+  originAgendaUid: {
     type: 'integer',
     list: true
   },
@@ -142,7 +142,7 @@ module.exports = (dirty, formSchema) => {
   const additionalFields = getFormSchemaAdditionalFields(formSchema)
     .map(f => f.field);
 
-  return {
+  const c = {
     ...clean,
     ...additionalFields.reduce((additionalValues, field) => {
       if (dirty[field] !== undefined) {
@@ -160,4 +160,6 @@ module.exports = (dirty, formSchema) => {
       return additionalValues;
     }, {})
   };
+
+  return c;
 }

@@ -4,8 +4,6 @@ const _ = require('lodash');
 const ih = require('immutability-helper');
 const VError = require('verror');
 
-const textLog = require('./utils/textLog');
-
 const buildAggregationDSL = require('./service/aggregation');
 const aggregations = require('./aggregations');
 
@@ -20,13 +18,17 @@ const queryToDSL = require('./utils/queryToDSL');
 const validateNav = require('./service/query/validateNav');
 const validateOptions = require('./utils/validateSearchOptions');
 const getFormSchemaAdditionalFields = require('./utils/getFormSchemaAdditionalFields');
+const spreadByMLTBoostScores = require('./utils/spreadByMLTBoostScores');
+const appendMLT = require('./utils/appendMLT');
+
+const textLog = require('./utils/textLog');
 
 const log = require('@openagenda/logs')('search');
 
 async function search(config, set, query = {}, nav = {}, options = {}) {
   log('searching on set %s with query %j', set, query);
 
-  let cleanNav = {}, cleanOptions = {}, cleanDsl;
+  let cleanNav = {}, cleanOptions = {}, cleanDSL;
 
   const {
     defaultIndex,
@@ -52,20 +54,28 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
 
   query.set = set;
 
-  cleanDsl = queryToDSL(
+  cleanDSL = queryToDSL(
     query,
     cleanNav.size !== undefined ? cleanNav : {},
     formSchema,
     includes
   );
 
+  if (query.mlt && query.boost) {
+    cleanDSL = spreadByMLTBoostScores(cleanDSL, query.mlt, query.boost);
+  } else if (query.mlt) {
+    cleanDSL = appendMLT(cleanDSL, query.mlt)
+  }
+
+  textLog(cleanDSL);
+
   // sorting and _source added after
 
   if (requestedAggregations) {
-    //cleanDsl.aggregations = buildAggregationDSL(config, requestedAggregations, predefinedAggregations, query);
-    //textLog(cleanDsl.aggregations);
+    //cleanDSL.aggregations = buildAggregationDSL(config, requestedAggregations, predefinedAggregations, query);
+    //textLog(cleanDSL.aggregations);
     //textLog(aggregations.formatDSL('dateGroups', { query, includes }));
-    cleanDsl.aggregations = aggregations.formatDSL(requestedAggregations, query, { includes, formSchema });
+    cleanDSL.aggregations = aggregations.formatDSL(requestedAggregations, query, { includes, formSchema });
   }
 
   let {
@@ -73,7 +83,7 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     total,
     aggregations: aggregationResults,
     scrollId
-  } = await runDSLQuery(_.pick(config, ['client']), index, cleanDsl, cleanNav.scroll ? cleanNav : {});
+  } = await runDSLQuery(_.pick(config, ['client']), index, cleanDSL, cleanNav.scroll ? cleanNav : {});
 
   const eventParsers = _buildEventParsers({ detailed, monolingual }, aggregationResults);
 

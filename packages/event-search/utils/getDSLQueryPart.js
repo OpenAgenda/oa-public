@@ -3,6 +3,18 @@
 const _ = require('lodash');
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
 
+const termsFiltersMap = {
+  memberUid: 'member.uid',
+  originAgendaUid: 'originAgenda.uid',
+  city: 'location.city',
+  department: 'location.department',
+  region: 'location.region',
+  countryCode: 'location.countryCode',
+  locationUid: 'location.uid',
+  uid: 'uid',
+  slug: 'slug',
+}
+
 module.exports = (cleanQuery, formSchema, additionalMustParts = []) => {
   const query = {};
   const additionalFields = getFormSchemaAdditionalFields(formSchema);
@@ -27,12 +39,21 @@ module.exports = (cleanQuery, formSchema, additionalMustParts = []) => {
   return query;
 }
 
+function _terms(fieldName, value) {
+  const values = [].concat(value);
+  return {
+    [values.length > 1 ? 'terms' : 'term']: {
+      [fieldName]: values.length > 1 ? values : values[0]
+    }
+  };
+}
 
 function _getQueryFilterParts(cleanQuery, additionalFields) {
+
   const parts = [];
 
   if (_.get(cleanQuery, 'set')) {
-    parts.push(_mustPart('term', '_set', cleanQuery.set));
+    parts.push({ term: { _set:  cleanQuery.set } });
   }
 
   if (_.get( cleanQuery, 'localTime.gte') || _.get(cleanQuery, 'localTime.lte')) {
@@ -43,22 +64,14 @@ function _getQueryFilterParts(cleanQuery, additionalFields) {
     parts.push(_dateExcludingOngoing(cleanQuery.date));
   }
 
+  Object.keys(termsFiltersMap)
+    .filter(key => cleanQuery[key] && cleanQuery[key].length)
+    .forEach(key => {
+      parts.push(_terms(termsFiltersMap[key], cleanQuery[key]));
+    });
+
   if (![undefined, null].includes(cleanQuery.state)) {
     parts.push(_mustPart('term', 'state', cleanQuery.state));
-  }
-
-  const uids = [].concat(cleanQuery.uid || []);
-  if (uids.length > 1) {
-    parts.push(_mustPart('terms', 'uid', uids));
-  } else if (uids.length === 1) {
-    parts.push(_mustPart('term', 'uid', uids[0]));
-  }
-
-  const slugs = [].concat(cleanQuery.slugs || []);
-  if (slugs.length > 1) {
-    parts.push(_mustPart('terms', 'slug', cleanQuery.slug));
-  } else if (slugs.length === 1) {
-    parts.push(_mustPart('term', 'slug', cleanQuery.slug[0]));
   }
 
   additionalFields.forEach(field => {
@@ -91,13 +104,6 @@ function _getQueryMustParts(cleanQuery, additionalFields) {
   [
     ['keyword', '_search_keywords', true],
     ['lang', '_search_languages', true],
-    ['locationUid', 'location.uid'],
-    ['city', 'location.city'],
-    ['region', 'location.region'],
-    ['department', 'location.department'],
-    ['countryCode', 'location.countryCode'],
-    ['memberUid', 'member.uid'],
-    ['agendaUid', 'originAgenda.uid']
   ].forEach(field => {
     const fromField = _.isArray(field) ? field[0] : field;
     const toField = _.isArray(field) ? field[1] : field;
@@ -198,14 +204,8 @@ function _geoBounds( b ) {
 
 }
 
-function _mustPart( queryType, fieldName, value ) {
-
-  let q = {};
-
-  q[ queryType ] = {};
-
-  q[ queryType ][ fieldName ] = value;
-
-  return q;
-
+function _mustPart(queryType, fieldName, value) {
+  return { [queryType]: {
+    [fieldName]: value
+  } };
 }

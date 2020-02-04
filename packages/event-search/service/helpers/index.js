@@ -3,7 +3,7 @@
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 const w = require( 'when' );
-const lastTimingEndsIn = require( './lastTimingEndsIn' );
+const lastTimingEndsIn = require( '../../utils/lastTimingEndsIn' );
 
 module.exports = {
   geoJSON: require( './geoJSON' ),

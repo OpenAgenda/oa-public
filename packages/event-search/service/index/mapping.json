@@ -66,6 +66,9 @@
       },
       "name": {
         "type": "text"
+      },
+      "_agg": {
+        "type": "keyword"
       }
     }
   },
@@ -76,14 +79,14 @@
       },
       "title": {
         "type": "text"
+      },
+      "_agg": {
+        "type": "keyword"
       }
     }
   },
   "updatedAt": {
     "type": "date"
-  },
-  "_search_origin_agenda": {
-    "type": "keyword"
   },
   "_search_title": {
     "type": "text",

@@ -4,19 +4,19 @@ const inflate = require('../utils/aggregatorObjects').inflate;
 
 module.exports.formatDSL = () => ({
   terms: {
-    field: 'originAgenda._agg'
+    field: 'member._agg'
   }
 })
 
 module.exports.formatResult = ({ buckets }) => buckets.map(bucket => {
-  const agenda = inflate(bucket.key);
+  const member = inflate(bucket.key);
 
-  const key = agenda.uid;
-  agenda.uid = parseInt(agenda.uid);
+  const key = member.uid;
+  member.uid = parseInt(member.uid);
 
   return {
     key,
-    agenda,
+    member,
     eventCount: bucket.doc_count
   }
 });

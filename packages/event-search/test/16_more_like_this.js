@@ -17,29 +17,27 @@ describe('16 - event search - functional: more like this', function() {
 
   before( async () => {
     service = Service(config);
+  });
 
-    dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
+  before(async () => {
+    try {
+      await service.getConfig().client.indices.delete({
+        index: 'maintest'
+      });
+    } catch (e) {}
+  });
 
-    await service( 'simple_search' ).rebuild( {
+  before(async () => {
+    await service( 'simple_search' ).rebuild({
       eventsList: async (lastId, limit) => JSON.parse(fs.readFileSync(
         `${__dirname}/fixtures/16_events.${lastId}.${limit}.json`
-      )),
-      extensions: {
-        custom: {
-          multichoice: {
-            type: 'integer'
-          },
-          singlechoice: {
-            type: 'integer'
-          },
-          organizername: {
-            type: 'text'
-          }
-        }
-      }
-    } );
+      ))
+    });
+  });
 
-  } );
+  before(async () => {
+    dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client']));
+  });
 
   describe( 'dsl more like this', () => {
 
@@ -50,13 +48,22 @@ describe('16 - event search - functional: more like this', function() {
        * for generic like search.
        */
 
-      const { events } = await dslSearch( 'simple_search', {
+      const { events } = await dslSearch( 'maintest', {
         query: {
-          more_like_this: {
-            fields: [ '_search_keywords' ],
-            min_term_freq: 1,
-            min_doc_freq: 1,
-            like: [ 'vin chaud' ]
+          bool: {
+            must: [{
+              more_like_this: {
+                fields: [ '_search_keywords' ],
+                min_term_freq: 1,
+                min_doc_freq: 1,
+                like: [ 'vin chaud' ]
+              }
+            }],
+            filter: [{
+              term: {
+                _set: 'simple_search'
+              }
+            }]
           }
         }
       } );
@@ -68,26 +75,24 @@ describe('16 - event search - functional: more like this', function() {
 
   describe( 'service more like this', () => {
 
-    it( 'mlt on one keyword', async () => {
-
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+    it('mlt on one keyword', async () => {
+      const { events, total } = await service('simple_search').moreLikeThis({
         keywords: {
           fr: [ 'vin chaud' ]
         }
-      } );
+      });
 
       total.should.equal(2);
 
       events.map(e => e.uid).sort().should.eql([57, 82]);
-
-    } );
+    });
 
     it('mlt on two keywords', async () => {
-      const { total, events } = await service('simple_search').moreLikeThis( {
+      const { total, events } = await service('simple_search').moreLikeThis({
         keywords: {
           fr: [ 'vin chaud', 'bières' ]
         }
-      } );
+      });
 
       // still matches event with "vin chaud" keyword only
       total.should.equal(2);
@@ -108,7 +113,21 @@ describe('16 - event search - functional: more like this', function() {
       events[0].uid.should.equal(107);
     });
 
-    it( 'mlt on title and keywords', async () => {
+    /*it('new mlt on title', async () => {
+      const { total, events } = await service('simple_search').search({
+        mlt: {
+          title: {
+            fr: 'Bazar'
+          }
+        }
+      });
+
+      total.should.equal(1);
+
+      events[0].uid.should.equal(107);
+    });*/
+
+    it('mlt on title and keywords', async () => {
 
       const { total, events } = await service( 'simple_search' ).moreLikeThis( {
         title: {
@@ -117,13 +136,12 @@ describe('16 - event search - functional: more like this', function() {
         keywords: {
           fr: [ 'doigts' ]
         }
-      } );
+      });
 
-      events.map( e => e.uid ).should.eql( [132, 157] );
+      events.map( e => e.uid ).should.eql([132, 157]);
+    });
 
-    } );
-
-    it( 'mlt on title and keywords with boosts', async () => {
+    it.only('mlt on title and keywords with boosts', async () => {
 
       const mltRequest = {
         title: {
@@ -136,15 +154,15 @@ describe('16 - event search - functional: more like this', function() {
 
       ( await service( 'simple_search' ).moreLikeThis( mltRequest, {
         boost: { title: 20, keywords: 50 }
-      } ) ).events.map( e => e.uid ).should.eql( [ 157, 132 ] );
+      } ) ).events.map( e => e.uid ).sort().should.eql( [ 132, 157 ] );
 
       ( await service( 'simple_search' ).moreLikeThis( mltRequest, {
         boost: { title: 50, keywords: 30 }
-      } ) ).events.map( e => e.uid ).should.eql( [ 132, 157 ] );
+      } ) ).events.map( e => e.uid ).sort().should.eql( [ 132, 157 ] );
 
-    } );
+    });
 
-    it( 'mlt on nothing should return empty result', async () => {
+    it('mlt on nothing should return empty result', async () => {
 
       const { total, events } = await service( 'simple_search' ).moreLikeThis( {} );
 
@@ -152,49 +170,45 @@ describe('16 - event search - functional: more like this', function() {
 
       events.length.should.equal( 0 );
 
-    } );
+    });
 
-    it( 'mlt on department', async () => {
-
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+    it('mlt on department', async () => {
+      const { total, events } = await service('simple_search').moreLikeThis( {
         location: {
           department: 'Finistère'
         }
-      } );
+      });
 
-      events[ 0 ].location.department.should.equal( 'Finistère' );
+      events[0].location.department.should.equal( 'Finistère' );
+    });
 
-    } );
 
-
-    it( 'mlt on custom option ids', async () => {
-
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+    it('mlt on custom option ids', async () => {
+      const { total, events } = await service('simple_search').moreLikeThis( {
         custom: {
           singlechoice: 5,
         }
-      } );
+      });
 
-      events.length.should.equal( 1 );
+      events.length.should.equal(1);
 
-      events[ 0 ].custom.singlechoice.should.equal( 5 );
+      events[0].custom.singlechoice.should.equal(5);
+    });
 
-    } );
 
+    it('mlt on custom option ids and custom text', async () => {
 
-    it( 'mlt on custom option ids and custom text', async () => {
-
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
+      const { total, events } = await service('simple_search').moreLikeThis({
         custom: {
           organizername: 'Reed',
           multichoice: 7,
           singlechoice: 5
         }
-      } );
+      });
 
-      total.should.equal( 3 );
+      total.should.equal(3);
 
-    } );
+    });
 
 
     it( 'mlt on custom option ids and custom text puts best match first', async () => {
@@ -276,7 +290,7 @@ describe('16 - event search - functional: more like this', function() {
 
       events2[0].slug.should.equal('masdar_event_1');
 
-    } );
+    });
 
   } );
 

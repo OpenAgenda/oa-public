@@ -1,6 +1,6 @@
 'use strict';
 
 module.exports = (formSchema = null) => {
-  if (!formSchema) return [];
-  return formSchema.fields.filter(field => field.schemaId !== undefined);
+  if (!formSchema || !formSchema.fields) return [];
+  return formSchema.fields.filter(field => ![undefined, null].includes(field.schemaId));
 }

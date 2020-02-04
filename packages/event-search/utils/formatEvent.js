@@ -7,6 +7,7 @@ const countries = require('@openagenda/labels/agenda-locations/countries');
 const dateRange = require('@openagenda/date-range');
 
 const getFormSchemaAdditionalFields = require('./getFormSchemaAdditionalFields');
+const aggObjects = require('./aggregatorObjects');
 
 module.exports = (event, formSchema = null) => {
   const transform = {};
@@ -67,17 +68,21 @@ module.exports = (event, formSchema = null) => {
     };
   }
   if (event.originAgenda) {
-    transform['_search_origin_agenda'] = {
-      $set: ['uid', 'title', 'image']
-        .map(field => [field, event.originAgenda[field]].join(':'))
-        .join('|')
-    };
+    transform.originAgenda = {
+      _agg: {
+        $set: aggObjects.flatten(event.originAgenda, ['uid', 'title', 'image'])
+      }
+    }
   }
   if (event.member) {
+    const member = {
+      uid: _.get(event, 'member.userUid', null),
+      name: _.get(event, 'member.custom.contactName', null)
+    };
     transform.member = {
       $set: {
-        uid: _.get(event, 'member.userUid', null),
-        name: _.get(event, 'member.custom.contactName', null)
+        ...member,
+        _agg: aggObjects.flatten(member, ['uid', 'name'])
       }
     };
   }

@@ -32,8 +32,10 @@ module.exports = {
  */
 
 
-function moreLikeThis(mltQuery, mltOptions, query = {}) {
+function moreLikeThis(set, mltQuery, mltOptions, query = {}) {
   const cleanQuery = validate(inflate(query));
+
+  cleanQuery.set = set;
 
   return wrapInMoreLikeThis(mltQuery, mltOptions, cleanQuery);
 }
