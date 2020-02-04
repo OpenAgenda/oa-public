@@ -501,7 +501,7 @@ function ExtendedFormPart({ sourceSchema }) {
     [sourceSchema, fieldName]
   );
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (prevFieldName && fieldName && prevFieldName !== fieldName) {
       form.change('extendedValues', null);
     }
@@ -817,6 +817,19 @@ function ActionsFormPart({ aggregatorAgendaSchema }) {
       form.mutators.push('actions', { id: _.uniqueId(), field: null });
     }
   }, [form.mutators, lastAction, leftFieldsToDefine, values.actions]);
+
+  const prevWithActions = usePrevious(!!values.withActions);
+
+  useEffect(() => {
+    // useLayoutEffect not working with pushAction
+    if (
+      values.withActions !== prevWithActions
+      && values.withActions
+      && !values.actions?.length
+    ) {
+      pushAction();
+    }
+  }, [values.withActions, prevWithActions, pushAction, values.actions]);
 
   return (
     <div className="form-group">
