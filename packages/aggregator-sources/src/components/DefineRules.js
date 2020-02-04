@@ -184,9 +184,9 @@ function validateActions(intl, rules, aggregatorAgendaSchema, sourceSchema) {
     .filter(v => v.fieldType !== 'abstract')
     .forEach(fieldSchema => {
       const aggAction = actions.find(v => v.field === fieldSchema.field);
-      const hasValue = aggAction?.values && Array.isArray(aggAction.values)
+      const hasValue = aggAction?.values && aggAction.values.length
         ? !!aggAction.values.length
-        : false;
+        : !!aggAction?.automatic;
 
       if (!sourceSchema) {
         return;
@@ -711,11 +711,7 @@ export default function DefineRules({
           />
         ))}
 
-        <div
-          className={classNames({
-            'text-center': !state.rules || !state.rules.length
-          })}
-        >
+        <div>
           <p>
             <button
               type="button"
