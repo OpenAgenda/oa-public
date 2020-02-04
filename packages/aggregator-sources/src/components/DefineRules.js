@@ -157,11 +157,16 @@ function validate(intl, values, aggregatorAgendaSchema /* , sourceSchema */) {
       );
       const aggAction = values.actions?.[aggActionIndex];
 
-      const hasValue = Array.isArray(aggAction?.values)
-        ? aggAction.values.length
-        : ![undefined, null, ''].includes(aggAction?.values);
+      const hasValue = aggAction?.values && aggAction.values.length
+        ? !!aggAction.values.length
+        : false;
+      const isAuto = aggAction?.automatic;
 
-      if (fieldSchema.optional === false && aggAction && !hasValue) {
+      if (
+        fieldSchema.optional === false
+        && aggAction
+        && !(hasValue || isAuto)
+      ) {
         _.set(
           errors,
           ['actions', aggActionIndex, 'values'],
@@ -186,7 +191,8 @@ function validateActions(intl, rules, aggregatorAgendaSchema, sourceSchema) {
       const aggAction = actions.find(v => v.field === fieldSchema.field);
       const hasValue = aggAction?.values && aggAction.values.length
         ? !!aggAction.values.length
-        : !!aggAction?.automatic;
+        : false;
+      const isAuto = !!aggAction?.automatic;
 
       if (!sourceSchema) {
         return;
@@ -198,7 +204,12 @@ function validateActions(intl, rules, aggregatorAgendaSchema, sourceSchema) {
           && v.schemaId === fieldSchema.schemaId
       );
 
-      if (!inSourceSchema && fieldSchema.optional === false && !hasValue) {
+      if (
+        !inSourceSchema
+        && fieldSchema.optional === false
+        && !aggAction
+        && !(hasValue || isAuto)
+      ) {
         missingFields.push(fieldSchema);
       }
     });
@@ -291,7 +302,8 @@ function AddRuleSubmitButton({ handleSubmit, onCancel }) {
     ? values.extendedValues.length
     : !['', null, undefined].includes(values.extendedValues);
   const hasFilter = values.tagValues?.length || values.locationValues || hasExtendedValues;
-  const disabled = !hasFilter && !values.actions?.length;
+  const disabled = !hasFilter
+    && !(values.actions || []).some(v => !['', null, undefined].includes(v.field));
 
   return (
     <div>
