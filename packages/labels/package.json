@@ -19,12 +19,12 @@
   "dependencies": {
     "immutability-helper": "^3.0.1",
     "intl-messageformat": "^7.8.4",
-    "intl-messageformat-parser": "^3.5.0",
+    "intl-messageformat-parser": "^3.6.4",
     "prompt-confirm": "^2.0.4",
     "prompt-input": "^3.0.0"
   },
   "devDependencies": {
-    "mocha": "^6.2.1",
+    "mocha": "^7.0.1",
     "should": "^13.2.3"
   }
 }
