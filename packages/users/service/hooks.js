@@ -19,7 +19,6 @@ const {
   checkUnicity,
   coerce,
   compareFields,
-  dataExists,
   detailedParamHook,
   formatStore,
   generateApiKey,
@@ -87,7 +86,6 @@ const creationSchema = {
     type: 'text'
   }
 };
-
 const softDelete = () => _softDelete('isRemoved', {
   provider: undefined,
   detailed: true,
@@ -427,9 +425,9 @@ module.exports = {
   refresh: wrap({
     before: [
       softDelete(),
-      iff(dataExists('lastSignin'), setNow('lastSignin')),
-      iff(dataExists('lastInboxCheck'), setNow('lastInboxCheck')),
-      iff(dataExists('lastNotified'), setNow('lastNotified')),
+      iff(ctx => _.has(ctx.data, 'lastSignin'), setNow('lastSignin')),
+      iff(ctx => _.has(ctx.data, 'lastInboxCheck'), setNow('lastInboxCheck')),
+      iff(ctx => _.has(ctx.data, 'lastNotified'), setNow('lastNotified')),
       keep('lastSignin', 'lastInboxCheck', 'lastNotified'),
       snakeCase()
     ],

@@ -28,7 +28,7 @@
     "@openagenda/logs": "^1.1.2",
     "@openagenda/validators": "^2.2.2",
     "debug": "^4.1.1",
-    "feathers-hooks-common": "^4.20.7",
+    "feathers-hooks-common": "^5.0.2",
     "feathers-knex": "^7.1.0",
     "knex": "^0.20.8",
     "lodash": "^4.17.15",
