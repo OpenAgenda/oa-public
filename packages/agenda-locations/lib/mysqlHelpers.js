@@ -15,8 +15,8 @@ function insert( query, table, data, cb ) {
 
   const fields = Object.keys( rows[ 0 ] );
 
-  const insertQuery = [ 'insert into', table ].concat( [ 
-    '(', fields.join( ', ' ), ') values' 
+  const insertQuery = [ 'insert into', table ].concat( [
+    '(', fields.join( ', ' ), ') values'
   ] );
 
   let insertRows;
@@ -45,7 +45,7 @@ function update( query, table, wheres, values, cb ) {
   updateQuery.push( [ 'update', table, 'set' ].join(' ') );
 
   // filter out identifiers from update values
-  
+
   _.keys( wheres ).forEach( ( k ) => {
 
     delete filtered[ k ];
@@ -81,7 +81,7 @@ function update( query, table, wheres, values, cb ) {
 
   updateQuery.push( whereParts.join( ' and ' ) );
 
-  query( updateQuery.join( ' ' ), [], cb );
+  query( updateQuery.join( ' ' ), undefined, cb );
 
 }
 
