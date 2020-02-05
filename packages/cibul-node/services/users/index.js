@@ -156,9 +156,10 @@ async function init(config, services) {
       secretAccessKey: config.aws.secretAccessKey,
       tmpPath: config.tmpFolderPath
     },
+    services,
     getTokensService: () => tokensService,
     interfaces: {
-      beforeRemove: beforeRemove.bind(null, { services }),
+      beforeRemove,
       beforeCreate,
       onCreate,
       onGenerateApiKey,
