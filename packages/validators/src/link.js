@@ -59,11 +59,12 @@ module.exports = config => {
 
     }
 
-    if ( _isEmail( clean ) ) throw error;
+    const startsWithProtocol = /^((http(s|):|)\/\/|mailto\:)/.test(clean);
 
+    if ( !startsWithProtocol && _isEmail( clean ) ) throw error;
 
     // add http:// if link is like www.google.com ( protocol missing )
-    if ( !/^((http(s|):|)\/\/|mailto\:)/.test( clean ) ) {
+    if (!startsWithProtocol) {
 
       clean = 'http://' + clean;
 
@@ -94,7 +95,6 @@ module.exports = config => {
     if ( !isURL( clean, {
       allow_protocol_relative_urls: true
     } ) ) {
-
       throw error;
 
     }
