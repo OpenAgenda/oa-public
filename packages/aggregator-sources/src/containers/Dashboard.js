@@ -126,7 +126,7 @@ function Dashboard({
   const nextLoading = useSelector(state => state.sources.nextLoading);
   const modals = useSelector(state => state.modals);
 
-  const fuse = useMemo(() => new Fuse(agendaSources, fuseOptions), [
+  const fuse = useMemo(() => new Fuse(agendaSources || [], fuseOptions), [
     agendaSources
   ]);
 

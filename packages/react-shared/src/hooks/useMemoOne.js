@@ -6,8 +6,10 @@ function useMemoOne(compute, deps, equalityFn = shallowEqual) {
   const previousDeps = useRef(null);
 
   if (
-    !Array.isArray(previousDeps.current)
-    || !equalityFn(previousDeps.current, deps)
+    !Array.isArray(deps)
+    || !Array.isArray(previousDeps.current)
+    || deps.length !== previousDeps.current.length
+    || deps.some((dep, index) => !equalityFn(dep, previousDeps.current[index]))
   ) {
     previousDeps.current = deps;
     value.current = compute();

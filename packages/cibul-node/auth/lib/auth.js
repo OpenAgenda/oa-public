@@ -433,7 +433,7 @@ function signin( values ) {
     } else if ( req.query.iToken && agendaSlug ) {
 
       // this is a invitation signin / signup, redirect to form.
-      redirectUrl = `/${agendaSlug}/addEvent`;
+      redirectUrl = `/${agendaSlug}/contribute`;
 
     }
 
@@ -449,7 +449,7 @@ function signin( values ) {
 
     }
 
-    res.redirect( 302, agendaSlug ? `/${agendaSlug}/addEvent` : '/home' );
+    res.redirect( 302, agendaSlug ? `/${agendaSlug}/contribute` : '/home' );
 
     d.resolve( values );
 

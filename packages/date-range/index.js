@@ -26,7 +26,7 @@ module.exports = function( timings, lang, timezone ) {
 
   firstDate, lastDate,
 
-  p = patterns();
+  p = patterns(timezone);
 
   if ( !timings || !timings.length || ! ( timings instanceof Array ) ) {
 

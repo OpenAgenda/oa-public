@@ -72,7 +72,7 @@ module.exports = function match({
           res: {
             main: {
               getUser: '/users/me',
-              hasInboxNews: '/latest-inbox-timestamp'
+              checkInboxNews: '/latest-inbox-timestamp'
             },
             agendaAdmin: {
               loadAgenda: '/:slug/admin/layout',

@@ -141,7 +141,10 @@ function validate(intl, values, aggregatorAgendaSchema /* , sourceSchema */) {
     errors.tagValues = intl.formatMessage(messages.requiredValues);
   }
 
-  if ((values.type === 'all' || !values.required) && !values.actions?.length) {
+  const hasSomeActions = values.withActions
+    && values.actions?.some(v => !['', null, undefined].includes(v.field));
+
+  if ((values.type === 'all' || !values.required) && !hasSomeActions) {
     errors[FORM_ERROR] = intl.formatMessage(messages.uselessRule);
   }
 
@@ -157,11 +160,16 @@ function validate(intl, values, aggregatorAgendaSchema /* , sourceSchema */) {
       );
       const aggAction = values.actions?.[aggActionIndex];
 
-      const hasValue = Array.isArray(aggAction?.values)
-        ? aggAction.values.length
-        : ![undefined, null, ''].includes(aggAction?.values);
+      const hasValue = aggAction?.values && aggAction.values.length
+        ? !!aggAction.values.length
+        : false;
+      const isAuto = aggAction?.automatic;
 
-      if (fieldSchema.optional === false && aggAction && !hasValue) {
+      if (
+        fieldSchema.optional === false
+        && aggAction
+        && !(hasValue || isAuto)
+      ) {
         _.set(
           errors,
           ['actions', aggActionIndex, 'values'],
@@ -184,9 +192,10 @@ function validateActions(intl, rules, aggregatorAgendaSchema, sourceSchema) {
     .filter(v => v.fieldType !== 'abstract')
     .forEach(fieldSchema => {
       const aggAction = actions.find(v => v.field === fieldSchema.field);
-      const hasValue = aggAction?.values && Array.isArray(aggAction.values)
+      const hasValue = aggAction?.values && aggAction.values.length
         ? !!aggAction.values.length
         : false;
+      const isAuto = !!aggAction?.automatic;
 
       if (!sourceSchema) {
         return;
@@ -198,7 +207,12 @@ function validateActions(intl, rules, aggregatorAgendaSchema, sourceSchema) {
           && v.schemaId === fieldSchema.schemaId
       );
 
-      if (!inSourceSchema && fieldSchema.optional === false && !hasValue) {
+      if (
+        !inSourceSchema
+        && fieldSchema.optional === false
+        && !aggAction
+        && !(hasValue || isAuto)
+      ) {
         missingFields.push(fieldSchema);
       }
     });
@@ -291,7 +305,11 @@ function AddRuleSubmitButton({ handleSubmit, onCancel }) {
     ? values.extendedValues.length
     : !['', null, undefined].includes(values.extendedValues);
   const hasFilter = values.tagValues?.length || values.locationValues || hasExtendedValues;
-  const disabled = !hasFilter && !values.actions?.length;
+  const disabled = !hasFilter
+    && !(
+      values.withActions
+      && (values.actions || []).some(v => !['', null, undefined].includes(v.field))
+    );
 
   return (
     <div>
@@ -711,11 +729,7 @@ export default function DefineRules({
           />
         ))}
 
-        <div
-          className={classNames({
-            'text-center': !state.rules || !state.rules.length
-          })}
-        >
+        <div>
           <p>
             <button
               type="button"

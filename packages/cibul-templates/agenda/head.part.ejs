@@ -7,7 +7,7 @@
       --><div class="col-sm-2 avatar-container">
 <% if ( agenda.image ) { %>
       <a href="<%= genUrl( 'agendaShow', { slug: agenda.slug } ) %>">
-        <img class="avatar" src="<%= _i( agenda.image ) %>" alt="<%= agenda.title %>">
+        <img class="avatar" src="<%= agenda.image && agenda.image.match(/^(?:(?:https?|ftp):\/\/|\/\/)/) ? agenda.image : _i(agenda.image) %>" alt="<%= agenda.title %>">
       </a>
 <% } %>
       </div><!--

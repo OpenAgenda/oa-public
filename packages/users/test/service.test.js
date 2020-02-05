@@ -469,6 +469,21 @@ describe('methods', () => {
         ]
       });
     });
+
+    it('attempt to requestChangeEmail with a bad email (ends with ;)', async () => {
+      await expect(
+        service.requestChangeEmail(kaoreUid, {
+          newEmail: 'romain.lange@gmail.com;'
+        })
+      ).rejects.toMatchObject({
+        errors: [
+          {
+            field: 'newEmail',
+            code: 'email.invalid'
+          }
+        ]
+      });
+    });
   });
 
   describe('confirmChangeEmail', () => {

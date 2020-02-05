@@ -153,7 +153,7 @@ module.exports = app => {
 };
 
 function _redirectToContribute(req, res, next) {
-  res.redirect(302, `/${req.agenda.slug}/addevent`);
+  res.redirect(302, `/${req.agenda.slug}/contribute`);
 }
 
 

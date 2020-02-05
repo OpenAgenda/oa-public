@@ -7,7 +7,6 @@ const changeEmailFromStore = require('./changeEmailFromStore');
 const checkUnicity = require('./checkUnicity');
 const coerce = require('./coerce');
 const compareFields = require('./compareFields');
-const dataExists = require('./dataExists');
 const detailedParamHook = require('./detailedParamHook');
 const error = require('./error');
 const formatStore = require('./formatStore');
@@ -40,7 +39,6 @@ module.exports = {
   checkUnicity,
   coerce,
   compareFields,
-  dataExists,
   detailedParamHook,
   error,
   formatStore,
