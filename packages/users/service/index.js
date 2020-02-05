@@ -2,7 +2,7 @@
 
 const { promisify } = require('util');
 const { Service } = require('feathers-knex');
-const { hooks, withParams } = require('@openagenda/hooks');
+const { hooks } = require('@openagenda/hooks');
 const errors = require('@feathersjs/errors');
 const imageFiles = require('@openagenda/image-files');
 const Tokens = require('../tokens/Service');
@@ -214,88 +214,5 @@ module.exports.Tokens = Tokens;
 hooks(Users.prototype, [errorHook()]);
 hooks(Tokens.prototype, [errorHook()]);
 
-hooks(Users.prototype, {
-  find: {
-    middleware: usersHooks.find,
-    context: withParams(['params', {}])
-  },
-  get: {
-    middleware: usersHooks.get,
-    context: withParams('id', ['params', {}])
-  },
-  create: {
-    middleware: usersHooks.create,
-    context: withParams('data', ['params', {}])
-  },
-  update: {
-    middleware: usersHooks.update,
-    context: withParams('id', 'data', ['params', {}])
-  },
-  patch: {
-    middleware: usersHooks.patch,
-    context: withParams('id', 'data', ['params', {}])
-  },
-  remove: {
-    middleware: usersHooks.remove,
-    context: withParams('id', ['params', {}])
-  },
-  setImageProfile: {
-    middleware: usersHooks.setImageProfile,
-    context: withParams('id', 'data', ['params', {}])
-  },
-  clearImageProfile: {
-    middleware: usersHooks.clearImageProfile,
-    context: withParams('id', ['params', {}])
-  },
-  requestChangeEmail: {
-    middleware: usersHooks.requestChangeEmail,
-    context: withParams('id', 'data', ['params', {}])
-  },
-  confirmChangeEmail: {
-    middleware: usersHooks.confirmChangeEmail,
-    context: withParams('id', ['params', {}])
-  },
-  changePassword: {
-    middleware: usersHooks.changePassword,
-    context: withParams('id', 'data', ['params', {}])
-  },
-  generateApiKey: {
-    middleware: usersHooks.generateApiKey,
-    context: withParams('id', ['params', {}])
-  },
-  setNewFlag: {
-    middleware: usersHooks.setNewFlag,
-    context: withParams('id', 'data', ['params', {}])
-  },
-  refresh: {
-    middleware: usersHooks.refresh,
-    context: withParams('id', 'data', ['params', {}])
-  }
-});
-
-hooks(Tokens.prototype, {
-  find: {
-    middleware: tokensHooks.find,
-    context: withParams(['params', {}])
-  },
-  get: {
-    middleware: tokensHooks.get,
-    context: withParams('id', ['params', {}])
-  },
-  create: {
-    middleware: tokensHooks.create,
-    context: withParams('data', ['params', {}])
-  },
-  update: {
-    middleware: tokensHooks.update,
-    context: withParams('id', 'data', ['params', {}])
-  },
-  patch: {
-    middleware: tokensHooks.patch,
-    context: withParams('id', 'data', ['params', {}])
-  },
-  remove: {
-    middleware: tokensHooks.remove,
-    context: withParams('id', ['params', {}])
-  }
-});
+hooks(Users.prototype, usersHooks);
+hooks(Tokens.prototype, tokensHooks);
