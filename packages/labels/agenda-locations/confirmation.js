@@ -2,8 +2,8 @@
 
 module.exports = {
   guide: {
-    fr: 'Verification du lieu choisi',
-    en: 'Chosen location verification'
+    fr: 'Ce lieu est-il correctement décrit ?',
+    en: 'Are the details of this location correct ?'
   },
   guideDetail: {
     fr: 'Si certaines modifications doivent être apportées, détaillez-les via le bouton ci-dessous avant de confirmer votre sélection.',
@@ -17,13 +17,17 @@ module.exports = {
     fr: 'Suggérer une modification',
     en: 'Suggest a change'
   },
+  hoverInfo: {
+    fr: 'Cette information n\'est pas correcte? Cliquez sur le bouton en entête de cette modale pour détailler les modifications à apporter',
+    en: 'This information is not correct? Click on the button on top of this menu to detail the changes to bring'
+  },
   suggestChangeMessage: {
     fr: 'Un nouvel onglet s\'est ouvert dans votre navigateur. Détaillez-y les modifications que vous désirez apporter avant de sélectionner le lieu.',
     en: 'A new tab was opened in your browser. Provide the details of the change in the dialog before confirming your selection'
   },
   confirm: {
-    fr: 'Valider la sélection',
-    en: 'Confirm selection'
+    fr: 'Confirmer',
+    en: 'Confirm'
   },
   description: {
     fr: 'Description',

@@ -17,9 +17,9 @@ const getLabel = makeLabelGetter(confirmationLabels);
 import flattenTagSetLabels from './flattenTagSetLabels';
 
 const getPreferredLang = (obj, lang) => {
-  return Object.keys(obj || {}).includes(lang) ? lang : Object.keys(obj || {}).pop();
+  return (Object.keys(obj || {}).includes(lang) ? lang : Object.keys(obj || {}).pop()) || lang;
 }
-const existingLangs = location => {
+const getExistingLangs = location => {
   return ['description', 'access'].reduce((langs, field) => {
     for (const fieldLang of Object.keys(location[field] || {})) {
       if (!langs.includes(fieldLang)) {
@@ -58,6 +58,8 @@ class LocationConfirmation extends Component {
       mapboxKey
     } = this.props;
 
+    const existingLangs = getExistingLangs(location);
+
     const {
       contentLang
     } = this.state;
@@ -67,28 +69,28 @@ class LocationConfirmation extends Component {
         <label>{getLabel('guide', lang)}</label>
         <p>{getLabel('guideDetail', lang)}</p>
       </div>
-      <div className="info-block margin-bottom-md">
+      <div className="info-block margin-bottom-md text-center">
         <div>
           <a
             target="_blank"
             href={res.suggestChange.replace(':locationUid', location.uid)}
             onClick={() => this.setState({ suggestChangeMessage: true })}
-            className="btn btn-default margin-right-sm margin-bottom-sm">{getLabel('suggest', lang)}</a>
+            className="btn btn-default margin-h-sm margin-bottom-sm">{getLabel('suggest', lang)}</a>
           <button onClick={onCancel} className="btn btn-default margin-bottom-sm">{getLabel('cancel', lang)}</button>
           {this.state.suggestChangeMessage ? <div className="margin-bottom-sm">{getLabel('suggestChangeMessage', lang)}</div> : null}
         </div>
         <div>
-          <button onClick={onConfirm} className="btn btn-primary margin-right-sm">{getLabel('confirm', lang)}</button>
+          <button onClick={onConfirm} className="btn btn-primary margin-h-sm">{getLabel('confirm', lang)}</button>
         </div>
       </div>
       <div className="margin-bottom-md">
         <label>{location.name}</label>
-        <p>{location.address}</p>
-        <a target="_blank" href={`https://www.openstreetmap.org/?mlat=${location.latitude}&mlon=${location.longitude}#map=17/${location.latitude}/${location.longitude}`}>
+        <p title={getLabel('hoverInfo', lang)}>{location.address}</p>
+        <a title={getLabel('hoverInfo', lang)} target="_blank" href={`https://www.openstreetmap.org/?mlat=${location.latitude}&mlon=${location.longitude}#map=17/${location.latitude}/${location.longitude}`}>
           <img className="img-responsive" src={staticLink(location, mapboxKey)} />
         </a>
       </div>
-      <div className="margin-top-sm">
+      <div className="margin-top-sm" title={getLabel('hoverInfo', lang)}>
         <ul className="list-inline">{extraGeoFields.map(f => <li key={'geo-' + f}>
           <div className={'badge badge-default margin-bottom-xs ' + (location[f] ? 'badge-outline-primary' : 'badge-outline-default')}>
            <span>{getFormLabel(f, lang)}: {location[f] || getLabel('emptyGeo', lang)}</span>
@@ -97,7 +99,7 @@ class LocationConfirmation extends Component {
       </div>
       {settings.tagSet ? flattenTagSetLabels(settings.tagSet, lang).groups.map((group, i) => <div key={'tag-group-' + i}className="margin-top-sm">
         <label>{group.name}</label>
-        <ul className="list-inline">
+        <ul className="list-unstyled" title={getLabel('hoverInfo', lang)}>
           {group.tags.map(tag => <li key={'tag-' + tag.id}>
             <div className={(location.tags || []).filter(t => t.id === tag.id).length ? 'badge badge-default badge-outline-primary margin-bottom-xs' : 'badge badge-muted margin-bottom-xs'}>
               <span>{tag.label}</span>
@@ -105,9 +107,7 @@ class LocationConfirmation extends Component {
           </li>)}
         </ul>
       </div>) : null}
-      <div className="margin-top-sm">
-      </div>
-      <ul className="list-unstyled">
+      <ul className="list-unstyled" title={getLabel('hoverInfo', lang)}>
         <li>
           <label>{getFormLabel('phone', lang)} </label>: <span>{location.phone || <i>{getLabel('noValue', lang)}</i>}</span>
         </li>
@@ -123,13 +123,13 @@ class LocationConfirmation extends Component {
         </li>
       </ul>
 
-      <div className="padding-v-sm">
+      <div className="padding-v-sm" title={getLabel('hoverInfo', lang)}>
         <label>{getLabel('image', lang)}</label>
         {location.image ? <img className="img-responsive" src={location.image} /> : <p><i>{getLabel('noImage', lang)}</i></p>}
       </div>
       <div>
         <ul className="nav nav-pills pull-right">
-          {existingLangs(location).map(fieldLang => <li
+          {existingLangs.map(fieldLang => <li
             key={`lang-tab-${fieldLang}`}
             onClick={this.toggleCurrentLang.bind(this, fieldLang)}
             role="presentation"
@@ -138,10 +138,10 @@ class LocationConfirmation extends Component {
             <a href="#">{fieldLang.toUpperCase()}</a>
           </li>)}
         </ul>
-        <div className="padding-top-md">
+        <div className="padding-top-md" title={getLabel('hoverInfo', lang)}>
           {['description', 'access'].map(mlField => <div key={'field-' + mlField}>
             <label>{getLabel(mlField, lang)}</label>
-            <p>{location[mlField] && location[mlField][contentLang] ? location[mlField][contentLang] : <i>{getLabel('noContent', { lang: contentLang }, lang)}</i>}</p>
+            <p>{location[mlField] && location[mlField][contentLang] ? location[mlField][contentLang] : <i>{getLabel(existingLangs.length ? 'noContent' : 'noValue', { lang: contentLang.toUpperCase() }, lang)}</i>}</p>
           </div>)}
         </div>
       </div>
