@@ -321,7 +321,7 @@ async function eventMailSend(req, res, next) {
           image: req.event.image ? config.aws.imageBucketPath + req.event.image.filename : null,
           location: _.mapValues(
             _.pick(req.event.location, 'name', 'address', 'region', 'city', 'postalCode'),
-            v => v.toString()
+            v => v && typeof v.toString === 'function' ? v.toString() : v
           ),
           dates: getDates(req.event, req.lang)
         },
