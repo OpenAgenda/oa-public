@@ -130,9 +130,11 @@ function MainLayout({
 
   const dispatch = useDispatch();
 
-  const loadLayoutData = useCallback(() => dispatch(mainActions.getUser()), [
-    dispatch
-  ]);
+  const loadLayoutData = useCallback(() => {
+    if (!user) {
+      dispatch(mainActions.getUser());
+    }
+  }, [dispatch, user]);
 
   const checkInboxNews = useCallback(
     () => dispatch(mainActions.checkInboxNews()),
