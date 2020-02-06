@@ -123,6 +123,7 @@ function MainLayout({
   const [userPanelOpened, setUserPanelOpened] = useState(false);
 
   const user = useSelector(state => state.main.user, shallowEqual);
+  const userLoaded = useSelector(state => state.main.userLoaded);
   const userLoading = useSelector(state => _.get(state, 'main.userLoading', true));
   const apiRoot = useSelector(state => state.main.apiRoot);
   const inboxLoaded = useSelector(state => state.main.inboxLoaded);
@@ -131,10 +132,10 @@ function MainLayout({
   const dispatch = useDispatch();
 
   const loadLayoutData = useCallback(() => {
-    if (!user) {
+    if (!userLoaded) {
       dispatch(mainActions.getUser());
     }
-  }, [dispatch, user]);
+  }, [dispatch, userLoaded]);
 
   const checkInboxNews = useCallback(
     () => dispatch(mainActions.checkInboxNews()),

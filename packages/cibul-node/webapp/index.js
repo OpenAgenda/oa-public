@@ -41,7 +41,8 @@ const initialState = async req => {
         apiRoot,
         lang: req.lang,
         user,
-        userLoading: !user
+        userLoaded: true,
+        userLoading: false
       },
       res: {
         main: {
