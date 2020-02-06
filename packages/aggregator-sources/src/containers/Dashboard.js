@@ -246,7 +246,7 @@ function Dashboard({
     }
 
     (async () => {
-      const { data: _agenda } = await apiClient
+      const _agenda = await apiClient
         .get(res.getAgenda.replace(':slug', query.addSource))
         .catch(() => null);
 
