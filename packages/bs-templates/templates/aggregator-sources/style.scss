@@ -1,20 +1,85 @@
-@import "../layout/base";
+@import '../layout/base';
 @import '../agenda-admin/style';
 @import '../components/agenda-item';
 @import '../form-components/input-with-icon';
 
-.aggregator-sources {
 
+.aggregator-sources {
   .search {
     width: 50%;
   }
 
-  .agenda-item {
-    padding: 1em 20px;
+  .form-group-v-aligned {
+    display: flex;
 
-    a {
-      display: inline-block;
+    label.control-label {
+      align-items: center;
+      display: flex;
+      margin-bottom: 2px;
     }
+  }
+
+  .react-tagsinput {
+    display: inline-table;
+    background-color: $oa-white;
+    border: 1px solid $oa-gray-light;
+    overflow: hidden;
+    padding: 2px 5px;
+    cursor: text;
+
+    &--focused {
+      border-color: $oa-blue;
+    }
+
+    &-tag {
+      background-color: $oa-blue;
+      border-radius: 2px;
+      border: 1px solid $oa-blue;
+      color: $oa-white;
+      display: inline-block;
+      font-family: sans-serif;
+      font-size: 14px;
+      line-height: 14px;
+      font-weight: 400;
+      margin-right: 5px;
+      margin-bottom: 2px;
+      padding: 5px;
+    }
+
+    &-remove {
+      color: $oa-white;
+      cursor: pointer;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    &-tag a::before {
+      content: " ×";
+    }
+
+    &-input {
+      background: transparent;
+      border: 0;
+      color: $oa-black;
+      font-family: sans-serif;
+      font-weight: 400;
+      outline: none;
+      padding: 5px;
+      width: 80px;
+    }
+  }
+
+  .radio-sub-block {
+    //color: lighten($oa-black, 25%);
+    margin-left: 20px;
+  }
+
+  .cancel-button-left {
+    padding-left: 0;
+  }
+
+  .agenda-item {
+    padding: 1em 0;
 
     .actions a + a {
       margin-left: 12px;
@@ -26,24 +91,58 @@
     }
 
     .media-body {
-      .actions a {
-        font-size: 13px;
-        text-decoration: none;
-        color: #777777;
+      p {
+        margin-top: .5em;
+        margin-bottom: .5em;
+      }
 
-        &:hover {
-          color: #41acdd;
+      .rules-copy {
+        display: none;
+        margin-left: 5px;
+      }
+
+      .rules-summary:hover .rules-copy {
+        display: inline-block;
+      }
+
+      .actions {
+        & > *:not(:last-child) {
+          margin-right: 5px;
+        }
+
+        a {
+          &:hover, &:focus {
+            text-decoration: underline;
+          }
         }
       }
     }
+  }
 
-    .official i {
-      vertical-align: middle;
+  .actions-container {
+    position: relative;
+    margin-right: 28px;
+
+    .remove-action {
+      position: absolute;
+      top: 8px;
+      right: -20px;
+    }
+  }
+
+  .popup-content {
+    .search {
+      width: 100%;
+    }
+
+    .rule-value {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
   }
 
   @media (max-width: $screen-sm) {
-
     h2 {
       margin: 0;
     }
@@ -55,7 +154,5 @@
     .header {
       padding: 20px 30px;
     }
-
   }
-
 }

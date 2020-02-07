@@ -4,9 +4,9 @@
   "scripts": {
     "prepublish": "yarn build",
     "test": "jest --runInBand --testEnvironment=node",
-    "lint": "eslint -c .eslintrc '**/*.js'",
+    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
     "build": "rimraf build && babel iso -d build -s",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
   },
   "lint-staged": {
@@ -25,13 +25,13 @@
     "slug": "0.9.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.6.3",
-    "@babel/core": "^7.6.3",
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.8.4",
     "@openagenda/babel-preset": "^1.1.1",
     "@openagenda/eslint-config": "^1.0.0",
-    "eslint": "^6.5.1",
-    "jest": "^24.9.0",
-    "lint-staged": "^9.4.2",
+    "eslint": "^6.8.0",
+    "jest": "^25.1.0",
+    "lint-staged": "^9.5.0",
     "mysql": "^2.13.0",
     "prettier-eslint-cli": "^5.0.0"
   }

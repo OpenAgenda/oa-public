@@ -1,60 +1,144 @@
 import './polyfill';
-
+import * as RHL from 'react-hot-loader';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import * as ReactIs from 'react-is';
-import { HelmetProvider } from 'react-helmet-async';
 import { createBrowserHistory } from 'history';
 import NProgress from 'nprogress';
 import IScroll from 'iscroll';
 import { parse } from 'flatted/esm';
 import he from 'he';
 import { loadableReady } from '@loadable/component';
-import du from '@openagenda/dom-utils';
-import wrapApp from '@openagenda/react-utils/dist/wrapApp';
-import { HeaderManager, Header } from '@openagenda/react-layouts';
+import { LayoutManager } from '@openagenda/react-layouts/src';
+import {
+  AgendaAdminLayout,
+  InboxUserLayout,
+  InboxAgendaAdminLayout,
+  MainLayout,
+  RequiredSuperAdmin,
+  RequiredUser
+} from '@openagenda/react-layouts/src/layouts';
 import createAppHome from '@openagenda/home/src/app';
 import createAppUserSettings from '@openagenda/user-apps/src/app';
 import createAgendaSettingsNewApp from '@openagenda/agenda-settings/src/client/createApp';
-import createActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
-import NotFound from './NotFound';
-import NotFoundDisplayer from './NotFoundDisplayer';
-import RootHelmet from '../RootHelmet';
+import createAgendaSettingsEditApp from '@openagenda/agenda-settings/src/client/editApp';
+import createUserActivitiesApp from '@openagenda/activity-apps/src/client/apps/user';
+import createAgendaActivitiesApp from '@openagenda/activity-apps/src/client/apps/agenda';
+import createAggregatorSourcesApp from '@openagenda/aggregator-sources/src/app';
+import createInboxApp from '@openagenda/inbox-apps/src/apps/inbox';
+import createMembersApp from '@openagenda/member-apps/src/app';
+import createReduxMiddleware from '../reduxMiddleware';
+import Root from './Root';
+
+if (!module.hot) {
+  RHL.AppContainer.warnAboutHMRDisabled = false;
+  RHL.hot.shouldWrapWithAppContainer = false;
+}
+
+RHL.setConfig({ trackTailUpdates: false });
+
+// if (process.env.NODE_ENV === 'development') {
+//   const whyDidYouRender = require('@welldone-software/why-did-you-render');
+//   whyDidYouRender(React);
+// }
 
 window.IScroll = IScroll;
 
 const history = createBrowserHistory();
 
-const initialState = parse(he.decode(document.querySelector('#initialState').innerHTML || '{}'));
+const initialState = parse(
+  he.decode(document.querySelector('#initialState').innerHTML || '{}')
+);
 
 NProgress.configure({ trickleSpeed: 200 });
 
 const onLocationChangeStart = () => NProgress.start();
 const onLocationChangeFinish = () => NProgress.done();
 
+const layoutStore = LayoutManager.createStore(initialState.layout, history);
+
+const reduxMiddleware = createReduxMiddleware(layoutStore);
+
 // create apps with the good initialState
 const apps = {
   home: createAppHome({
     history,
-    // Header: () => <HeaderSelector type="main" />,
-    initialState: initialState.home
+    initialState: initialState.home,
+    layout: MainLayout,
+    reduxMiddleware
   }),
   userSettings: createAppUserSettings({
     history,
-    initialState: initialState.userSettings
+    initialState: initialState.userSettings,
+    layout: [MainLayout, RequiredUser],
+    reduxMiddleware
   }),
   agendaSettingsNew: createAgendaSettingsNewApp({
     history,
-    initialState: initialState.agendaSettingsNew
+    initialState: initialState.agendaSettingsNew,
+    layout: [MainLayout, RequiredUser],
+    reduxMiddleware
   }),
-  userActivities: createActivitiesApp({
+  userActivities: createUserActivitiesApp({
     history,
-    initialState: initialState.userActivities
+    initialState: initialState.userActivities,
+    layout: [MainLayout, RequiredUser],
+    reduxMiddleware
+  }),
+  aggregatorSources: createAggregatorSourcesApp({
+    history,
+    initialState: initialState.aggregatorSources,
+    layout: [MainLayout, RequiredUser, AgendaAdminLayout],
+    reduxMiddleware
+  }),
+  agendaSettingsEdit: createAgendaSettingsEditApp({
+    history,
+    initialState: initialState.agendaSettingsEdit,
+    layout: [MainLayout, RequiredUser, AgendaAdminLayout],
+    reduxMiddleware
+  }),
+  inboxUser: createInboxApp({
+    history,
+    initialState: initialState.inboxUser,
+    layout: [MainLayout, RequiredUser, InboxUserLayout],
+    reduxMiddleware
+  }),
+  support: createInboxApp({
+    history,
+    initialState: initialState.support,
+    layout: [MainLayout, RequiredUser, InboxUserLayout],
+    reduxMiddleware
+  }),
+  agendaAdminInbox: createInboxApp({
+    history,
+    initialState: initialState.agendaAdminInbox,
+    layout: [
+      MainLayout,
+      RequiredUser,
+      AgendaAdminLayout,
+      InboxAgendaAdminLayout
+    ],
+    reduxMiddleware
+  }),
+  member: createMembersApp({
+    history,
+    initialState: initialState.members,
+    layout: [MainLayout, RequiredUser, AgendaAdminLayout],
+    reduxMiddleware
+  }),
+  agendaActivities: createAgendaActivitiesApp({
+    history,
+    initialState: initialState.agendaActivities,
+    layout: [MainLayout, RequiredUser, AgendaAdminLayout],
+    reduxMiddleware
+  }),
+  // Admin
+  adminSupport: createInboxApp({
+    history,
+    initialState: initialState.adminSupport,
+    layout: [MainLayout, RequiredUser, RequiredSuperAdmin, InboxUserLayout],
+    reduxMiddleware
   })
 };
-
-const headerStore = HeaderManager.createStore(initialState.header);
-
 
 loadableReady(async () => {
   // Trigger 'inject' before render, needed for the first render (in @connect)
@@ -69,36 +153,27 @@ loadableReady(async () => {
     }))
   );
 
-  const Content = () => (
-    <>
-      {Object.values(apps)
-        .map(({ Content }, i) =>
-          ReactIs.isValidElementType(Content) ? <Content key={i} /> : Content
-        )}
+  const render = (forceRender = false) => {
+    const element = (
+      <Root
+        apps={apps}
+        layoutStore={layoutStore}
+        history={history}
+        triggerHooks={triggerHooks}
+      />
+    );
+    const canvas = document.querySelector('#root');
 
-      <NotFoundDisplayer history={history} apps={apps}>
-        <NotFound />
-      </NotFoundDisplayer>
-    </>
-  );
+    if (!forceRender && canvas.hasChildNodes()) {
+      ReactDOM.hydrate(element, canvas);
+    } else {
+      ReactDOM.render(element, canvas);
+    }
+  };
 
-  const element = (
-    <HelmetProvider>
-      <RootHelmet />
+  render();
 
-      <HeaderManager store={headerStore}>
-        <Header history={history} />
-
-        {wrapApp({ Content, history, triggerHooks })}
-      </HeaderManager>
-    </HelmetProvider>
-  );
-
-  const canvas = du.el('#root');
-
-  if (canvas.hasChildNodes()) {
-    ReactDOM.hydrate(element, canvas);
-  } else {
-    ReactDOM.render(element, canvas);
+  if (module.hot) {
+    module.hot.accept(() => render(true));
   }
 });

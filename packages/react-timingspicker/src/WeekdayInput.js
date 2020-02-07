@@ -2,7 +2,11 @@ import React, { Component } from 'react';
 import * as dateFns from 'date-fns';
 import WeekdayPicker from './WeekdayPicker';
 
-class WeekdayInput extends Component {
+export default class WeekdayInput extends Component {
+  static defaultProps = {
+    visible: true
+  };
+
   static getDerivedStateFromProps(props, state) {
     const { input, intl, weekStartsOn } = props;
     const derivedState = {};
@@ -100,9 +104,3 @@ class WeekdayInput extends Component {
     );
   }
 }
-
-WeekdayInput.defaultProps = {
-  visible: true
-};
-
-export default WeekdayInput;

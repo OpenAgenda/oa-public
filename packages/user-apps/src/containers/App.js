@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
 import { provideHooks } from 'redial';
 import { reducer as formReducer } from 'redux-form';
@@ -16,11 +15,6 @@ const getLabel = makeGetterLabel( labels );
     userSettings: userSettingsActions.default
   } )
 } )
-@connect(
-  state => ({
-    lang: state.settings.lang
-  })
-)
 export default class App extends Component {
   static childContextTypes = {
     lang: PropTypes.string,
@@ -37,7 +31,7 @@ export default class App extends Component {
   }
 
   render() {
-    const { lang, route } = this.props;
+    const { route, user, lang } = this.props;
 
     return (
       <div className="container user-settings">
@@ -49,7 +43,7 @@ export default class App extends Component {
                   <h2>{getLabel( 'accountParameters', lang )}</h2>
                 </div>
 
-                {renderRoutes( route.routes )}
+                {renderRoutes( route.routes, { user, lang } )}
               </div>
             </div>
           </div>

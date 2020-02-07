@@ -4,7 +4,6 @@ const log = require( '@openagenda/logs' )( 'auth/reset.front' );
 const labels = require('@openagenda/labels/auth/errors');
 const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
 const cmn = require( '../lib/commons-app' );
-const usersSvc = require( '../services/users' );
 const sessions = require('../../sessions');
 
 const getLabel = makeLabelGetter(labels);
@@ -39,7 +38,9 @@ function lostPassword( req, res ) {
 
 function lostPasswordSubmit( req, res ) {
 
-  _createAndSend( { email: req.body.email, req } )
+  const { services } = req.app;
+
+  _createAndSend( services, { email: req.body.email, req } )
 
     .then( _ifValueIs( 'sent', true, _redirectToSignin( req, res, getLabel('passwordResetSent', req.lang) ) ) )
 
@@ -55,7 +56,9 @@ function lostPasswordSubmit( req, res ) {
 
 function resetPassword( req, res ) {
 
-  _verifyToken( { token: req.params.token } )
+  const { services } = req.app;
+
+  _verifyToken( services, { token: req.params.token } )
 
     .then( _ifValueIs( 'valid', true, _render( req, res, 'auth/resetPassword' ) ) )
 
@@ -67,12 +70,17 @@ function resetPassword( req, res ) {
 
 function resetPasswordSubmit( req, res ) {
 
-  updatePassword( {
-    req,
-    token: req.params.token,
-    password: req.body.password,
-    repeat: req.body.repeat,
-  } )
+  const { services } = req.app;
+
+  updatePassword(
+    services,
+    {
+      req,
+      token: req.params.token,
+      password: req.body.password,
+      repeat: req.body.repeat,
+    }
+  )
 
     .then( _ifValueIs( 'success', true, _redirectToSignin( req, res, getLabel('passwordUpdated', req.lang) ) ) )
 
@@ -139,9 +147,11 @@ function _redirectToSignin( req, res, message ) {
 
 }
 
-async function _createAndSend( values ) {
+async function _createAndSend( services, values ) {
 
   log( 'creating activation token' );
+
+  const { users: usersSvc } = services;
 
   const user = values.user ? _.pick( values.user, 'id', 'uid', 'email' ) : { email: values.email };
 
@@ -197,7 +207,9 @@ async function _createAndSend( values ) {
 
 }
 
-async function _verifyToken( values ) {
+async function _verifyToken( services, values ) {
+
+  const { users: usersSvc } = req.app;
 
   const token = await usersSvc.tokens.findOne( {
     query: {
@@ -220,9 +232,11 @@ async function _verifyToken( values ) {
 
 }
 
-async function updatePassword( values ) {
+async function updatePassword( services, values ) {
 
-  await _verifyToken( values );
+  const { users: usersSvc } = services;
+
+  await _verifyToken( services, values );
 
   if ( values.valid ) {
 

@@ -8,10 +8,13 @@ import apiClient from '@openagenda/react-utils/dist/apiClient';
 import createStore from '@openagenda/react-utils/dist/createStore';
 import clientMiddleware from '@openagenda/react-utils/dist/clientMiddleware';
 import du from '@openagenda/dom-utils';
-import getReducers from '../../redux/reducer';
 import { ConversationFormApp } from '../../containers';
 import { onReady } from './openConversationForm';
-import * as actions from '../../redux/modules/conversationForm';
+import * as actions from '../../reducers/conversationForm';
+import inboxReducer from '../../reducers/inbox';
+import conversationReducer from '../../reducers/conversation';
+import conversationFormReducer from '../../reducers/conversationForm';
+import modalsReducer from '../../reducers/modals';
 
 function parseJsonField( value ) {
   try {
@@ -42,10 +45,10 @@ export default function ( options = {} ) {
   const { initialState, req, selector, appDestClassName } = _.merge( {}, defaults, options );
   const { apiRoot } = initialState.settings;
 
-  const client = apiClient( apiRoot, req );
+  const client = apiClient( apiRoot, req, { legacy: true } );
   const history = options.history || createMemoryHistory();
   const store = createStore(
-    getReducers,
+    null,
     initialState,
     compose(
       applyMiddleware(
@@ -58,6 +61,12 @@ export default function ( options = {} ) {
     )
   );
 
+  store.inject({
+    inbox: inboxReducer,
+    conversation: conversationReducer,
+    conversationForm: conversationFormReducer,
+    modals: modalsReducer
+  });
 
   const openConversationForm = bindActionCreators( data => {
     if ( data instanceof Event ) {

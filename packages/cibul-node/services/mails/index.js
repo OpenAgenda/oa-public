@@ -19,7 +19,7 @@ const Queues = require('../queues');
 const stripHtml = html =>
   sanitizeHtml(html, { allowedTags: [], allowedAttributes: {} });
 
-module.exports.expose = app => {
+module.exports.plugApp = app => {
   app.post('/incoming-emails', incomingEmailsMw({ services }));
 };
 

@@ -30,6 +30,7 @@ module.exports.andAuthorize = (members, requiredRole, options = {}) => {
 
   return (req, res, next) => {
     log( 'load and authorize', requiredRole );
+
     _load(members, options, req).then(() => {
       if (req.member && isSuperiorToOrEqual(req.member.role, requiredRole)) {
         next();
@@ -60,6 +61,7 @@ module.exports.orFail = (members, req, res, next) => {
 
 async function _load(members, {agendaNamespace}, req) {
   if (!req.user) return;
+
   return members.get( {
     agendaUid: _.get(req, agendaNamespace || 'agenda').uid,
     userUid: req.user.uid

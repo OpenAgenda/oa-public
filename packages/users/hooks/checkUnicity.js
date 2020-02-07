@@ -9,7 +9,7 @@ module.exports = function checkUnicity(field, dataKey = `data.${field}`) {
       return;
     }
 
-    const result = await context.service.find({
+    const result = await context.self.find({
       query: {
         [field]: _.get(context, dataKey),
         $limit: 0

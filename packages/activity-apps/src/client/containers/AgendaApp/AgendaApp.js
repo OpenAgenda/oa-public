@@ -1,10 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
+import { reducer as formReducer } from 'redux-form';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/activities/agenda';
+import modalsReducer from '../../redux/modules/modals';
+import activitiesReducer from '../../redux/modules/activities';
 
+@provideHooks({
+  inject: ({ store }) => store.inject({
+    form: formReducer,
+    modals: modalsReducer,
+    activities: activitiesReducer
+  })
+})
 @connect(
   state => ({
     res: state.res,
@@ -29,11 +40,11 @@ export default class AgendaApp extends Component {
   }
 
   render() {
-    const { route } = this.props;
+    const { route, agenda, member, role } = this.props;
 
     return (
       <div className="activity-agenda-admin">
-        {renderRoutes( route.routes )}
+        {renderRoutes( route.routes, { agenda, member, role } )}
       </div>
     );
   }

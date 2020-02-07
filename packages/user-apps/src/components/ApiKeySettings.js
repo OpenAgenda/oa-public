@@ -5,8 +5,7 @@ import { connect } from 'react-redux';
 
 
 @connect( state => ({
-  prefix: state.settings.prefix,
-  user: state.userSettings.user
+  prefix: state.settings.prefix
 }) )
 @withRouter
 export default class ApiKeySettings extends Component {

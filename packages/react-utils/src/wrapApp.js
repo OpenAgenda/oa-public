@@ -15,13 +15,14 @@ export default function wrapApp( app, options = {} ) {
   const {
     req,
     staticContext,
-    extractor
+    extractor,
+    extraProps
   } = options;
 
   const baseElement = (
     <ScrollToTop>
       <RouterTrigger trigger={triggerHooks}>
-        <Content />
+        <Content extraProps={extraProps} />
       </RouterTrigger>
     </ScrollToTop>
   );
@@ -33,7 +34,7 @@ export default function wrapApp( app, options = {} ) {
       </StaticRouter>
     </LoadableContext.Provider>
   ) : (
-    <Router history={history}>
+    <Router history={history} key={Math.random()}>
       {baseElement}
     </Router>
   );

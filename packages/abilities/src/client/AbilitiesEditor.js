@@ -49,7 +49,13 @@ function getInitialValues(rules) {
     _.pick(nextProps, ['entityName', 'identifier', 'locale'])
   ) || !shallowEqual(props.abilitiesFetcher, nextProps.abilitiesFetcher)
 )
-class AbilitiesEditor extends Component {
+export default class AbilitiesEditor extends Component {
+  static defaultProps = {
+    locale: 'en',
+    filterInput: false,
+    filterInputPlaceholder: ''
+  };
+
   constructor(props) {
     super(props);
 
@@ -164,11 +170,3 @@ class AbilitiesEditor extends Component {
     );
   }
 }
-
-AbilitiesEditor.defaultProps = {
-  locale: 'en',
-  filterInput: false,
-  filterInputPlaceholder: ''
-};
-
-export default AbilitiesEditor;

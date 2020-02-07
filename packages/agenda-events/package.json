@@ -21,7 +21,7 @@
   "devDependencies": {
     "@openagenda/fixtures": "^2.0.1",
     "immutability-helper": "^2.2.2",
-    "mocha": "^6.2.1",
+    "mocha": "^7.0.1",
     "should": "^13.2.3"
   },
   "keywords": [],

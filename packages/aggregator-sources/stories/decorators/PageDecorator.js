@@ -11,7 +11,7 @@ export default storyFn => (
             </a>
           </li>
           <li className="menu-item js_menu_item js_menu_item_settings_contribution">
-            <a href="#">
+            <a href="/">
               <span>Contribution</span>
             </a>
           </li>

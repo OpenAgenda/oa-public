@@ -367,7 +367,13 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     if ( req.agenda ) {
 
-      layoutData.agenda = req.agenda;
+      // agenda.image depends to includeImagePath option
+      layoutData.agenda = {
+        ...req.agenda,
+        image: req.agenda.image && req.agenda.image.match(/^(?:(?:https?|ftp):\/\/|\/\/)/)
+          ? req.agenda.image
+          : config.aws.imageBucketPath + req.agenda.image
+      };
 
       res.send( layouts.agenda( renderError( data ), layoutData ) );
 

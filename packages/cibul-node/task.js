@@ -28,6 +28,12 @@ module.exports = (config, services) => {
     time: '01:00'
   } );
 
+  tfy( require( './services/activities' ).tasks.notifications.cleanOld, {
+    // bootOffset: 1000,
+    period: 'daily',
+    time: '01:30'
+  } );
+
   tfy( require( './services/activities' ).tasks.notifications.prepareSummary, {
     // bootOffset: 1000,
     period: 'daily',
@@ -63,8 +69,7 @@ module.exports = (config, services) => {
 
   require( './services/agenda/task' )();
 
-  require( './services/aggregators' ).task();
-  require( './services/aggregators' ).instance.task();
+  require('./services/aggregators').task();
 
   require( '@openagenda/email-strategie' ).task();
 

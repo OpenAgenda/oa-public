@@ -78,6 +78,24 @@
     padding-left: 10px;
   }
 
+  .navbar-nav {
+    .inbox, .profile, .notifications {
+      a, button.btn.btn-link-inline {
+        position: relative;
+        padding: 18px;
+        font-size: 14px;
+        line-height: 14px;
+        display: inline-block;
+        color: #777;
+
+        &:hover, &:focus {
+          color:#333;
+          text-decoration: none;
+        }
+      }
+    }
+  }
+
   .language-menu {
 
     & > a {
@@ -113,21 +131,11 @@
 
     position: static;
 
-    & > a {
-      padding-top: 15px;
-      padding-bottom: 15px;
-      display: inline-block;
-      cursor: pointer;
-
-      img {
-
-        margin-top: -5px;
-        margin-bottom: -5px;
-        width: 30px;
-        max-height: 30px;
-
-      }
-
+    & > a img, & > button img {
+      margin-top: -10px;
+      margin-bottom: -10px;
+      width: 30px;
+      max-height: 30px;
     }
 
     .dropdown-menu {
@@ -150,18 +158,10 @@
             color: #333;
             padding: 10px 0;
             display: block;
-          }
 
-          &:hover {
-
-            //background: #f5f5f5;
-
-            a {
-
+            &:hover {
               text-decoration: none;
-
             }
-
           }
 
         }

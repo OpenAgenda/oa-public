@@ -1,41 +1,49 @@
-import React, { Component } from 'react'
+import { Component } from 'react';
 import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 
 export default class NotFoundDisplayer extends Component {
-  isNotFound = () => {
-    const { history, apps } = this.props;
+  unlisten = this.props.history.listen(this.handleLocationChange);
 
-    return Object.values( apps )
-      .every( app =>
-        !( app.routes && matchRoutes( app.routes, history.location.pathname ).length )
-      );
-  };
+  constructor(props) {
+    super(props);
 
-  state = {
-    display: this.isNotFound()
-  };
+    this.state = {
+      display: this.isNotFound()
+    };
+  }
 
   componentDidMount() {
     this.handleLocationChange();
   }
 
-  handleLocationChange = () => {
-    const display = this.isNotFound();
+  shouldComponentUpdate(nextProps, nextState) {
+    const { state } = this;
 
-    if ( display !== this.state.display ) {
-      this.setState( { display } );
-    }
-  };
-
-  unlisten = this.props.history.listen( this.handleLocationChange );
+    return state.display !== nextState.display;
+  }
 
   componentWillUnmount() {
     this.unlisten();
   }
 
-  shouldComponentUpdate( nextProps, nextState ) {
-    return this.state.display !== nextState.display;
-  }
+  handleLocationChange = () => {
+    const display = this.isNotFound();
+
+    if (display !== this.state.display) {
+      this.setState({ display });
+    }
+  };
+
+  isNotFound = () => {
+    const { history, apps } = this.props;
+
+    return Object.values(apps).every(
+      app => !(
+        app.routes
+          && matchRoutes(app.routes, history.location.pathname).length
+      )
+    );
+  };
 
   render() {
     const { children } = this.props;

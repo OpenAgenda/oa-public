@@ -20,7 +20,7 @@ module.exports = ({ core, agendaEvents, eventSearch, queue }) => {
 }
 
 async function update({ eventSearch }, data) {
-  log('update', data.agendaEvent.agendaUid, data.event.uid);
+  //log('update', data.agendaEvent.agendaUid, data.event.uid);
 }
 
 async function loadOtherUpdates({ agendaEvents, eventSearch, queue }, agendaUid, eventUid) {

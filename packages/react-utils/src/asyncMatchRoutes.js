@@ -13,7 +13,7 @@ function getParams( match ) {
   }, {} );
 }
 
-const asyncMatchRoutes = ( routes, pathname, { preloadPropName = 'preload', skipPreload } = {} ) => {
+const asyncMatchRoutes = ( routes, pathname, { preloadPropName = 'load', skipPreload } = {} ) => {
   const match = matchRoutes( routes, pathname.split( '?' )[ 0 ] );
   const params = getParams( match );
   let components = match.map( v => v.route.component );
@@ -39,5 +39,6 @@ const asyncMatchRoutes = ( routes, pathname, { preloadPropName = 'preload', skip
 };
 
 asyncMatchRoutes.matchRoutes = matchRoutes;
+asyncMatchRoutes.getParams = getParams;
 
 export default asyncMatchRoutes;

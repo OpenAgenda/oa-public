@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import cn from 'classnames';
 import moment from 'moment';
 import { connect } from 'react-redux';
 import marked from 'marked';
 import qs from 'qs';
-import { AuthorAvatar, ConversationTitle, Link } from '../';
+import { AuthorAvatar, ConversationTitle, Link, LinkContainer } from '../';
+import I18nContext from '../../contexts/I18nContext';
 import getDestinationInbox from '../../utils/getDestinationInbox';
 
 @connect(
@@ -19,16 +19,14 @@ export default class ConversationItem extends Component {
     this.TitleEntityComponent = ::this.TitleEntityComponent;
   }
 
-  static contextTypes = {
-    getLabel: PropTypes.func
-  };
+  static contextType = I18nContext;
 
   renderAuthorSentence( { destinationInbox } ) {
-    const { getLabel } = this.context;
     const { user, conversation } = this.props;
+    const { getLabel, lang } = this.context;
     const { latestMessage } = conversation;
 
-    const creationDate = moment( latestMessage.createdAt );
+    const creationDate = moment( latestMessage.createdAt ).locale(lang);
     const firstMessage = creationDate.diff( moment( conversation.createdAt ), 'seconds' ) <= 2;
     const creator = {
       inbox: conversation.latestMessage && conversation.latestMessage.inbox
@@ -78,19 +76,21 @@ export default class ConversationItem extends Component {
   }
 
   TitleEntityComponent( { children, type, agendaUid, eventUid, locationUid } ) {
+    const { agenda } = this.props;
     const { context } = this.props.settings;
 
     switch ( type ) {
       case 'agenda':
-        return <Link to={`/agendas/${agendaUid}`} external>{children}</Link>;
+        return <Link to={`/agendas/${agendaUid}`} agenda={agenda} external>{children}</Link>;
       case 'event':
-        return <Link to={`/agendas/${agendaUid}/events/${eventUid}`} external>{children}</Link>;
+        return <Link to={`/agendas/${agendaUid}/events/${eventUid}`} agenda={agenda} external>{children}</Link>;
       case 'location':
         if ( context === 'agenda' ) {
           return (
             <Link
               to={`/agendas/${agendaUid}/admin/locations?uids[]=${locationUid}`}
               className="conversation-title-entity"
+              agenda={agenda}
               external
             >
               {children}
@@ -143,7 +143,7 @@ export default class ConversationItem extends Component {
   }
 
   render() {
-    const { user, conversation } = this.props;
+    const { user, conversation, agenda } = this.props;
     const { getLabel } = this.context;
 
     if ( !conversation.latestMessage ) {
@@ -206,7 +206,7 @@ export default class ConversationItem extends Component {
             {this.renderAttachments( latestMessage.attachments )}
           </div>
 
-          <Link to={`/conversation/${conversation.id}`}>
+          <Link to={`/conversation/${conversation.id}`} agenda={agenda}>
             {getLabel( 'viewConversation' )}
           </Link>
         </div>

@@ -248,7 +248,7 @@ describe('members - functional - list', () => {
   });
 
   describe('stream', () => {
-    test('takes args as list but without pagination info', done => {
+    test('takes args as list but without pagination info', () => new Promise(done => {
       // limit is not needed here, just for testing buffer refill
       const stream = svc.stream(
         { agendaUid: 1 },
@@ -269,7 +269,7 @@ describe('members - functional - list', () => {
 
         done();
       });
-    });
+    }));
   });
 
   describe('detailed', () => {

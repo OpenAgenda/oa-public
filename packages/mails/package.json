@@ -9,13 +9,13 @@
   "scripts": {
     "start": "nodemon server.dev.js -w $MAILS_TEMPLATES_DIR",
     "test": "jest --forceExit --detectOpenHandles",
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'",
-    "lint": "eslint -c .eslintrc '**/*.js'",
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'",
+    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'",
     "lint-staged": "lint-staged"
   },
   "dependencies": {
     "@openagenda/logs": "^1.1.2",
-    "ejs": "^2.7.1",
+    "ejs": "^2.7.4",
     "express": "^4.17.1",
     "isemail": "^3.2.0",
     "lodash": "^4.17.15",
@@ -25,17 +25,17 @@
     "nodemailer": "^6.3.0",
     "nodemon": "^1.19.3",
     "redis": "^2.8.0",
-    "reload": "^3.0.2",
+    "reload": "^3.0.4",
     "verror": "^1.10.0",
     "walk": "^2.3.14"
   },
   "devDependencies": {
     "@openagenda/eslint-config": "^1.0.0",
     "@openagenda/queues": "^1.2.2",
-    "eslint": "^6.5.1",
+    "eslint": "^6.8.0",
     "html-to-text": "^5.1.1",
-    "jest": "^24.9.0",
-    "lint-staged": "^9.4.2",
+    "jest": "^25.1.0",
+    "lint-staged": "^9.5.0",
     "prettier-eslint-cli": "^5.0.0"
   },
   "nodemonConfig": {

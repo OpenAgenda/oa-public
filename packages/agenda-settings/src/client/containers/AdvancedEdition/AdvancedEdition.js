@@ -16,7 +16,6 @@ const zendeskRes = {
 
 @connect(
   state => ({
-    agenda: state.agenda.data,
     modals: state.modals
   }),
   { ...modalsActions, removeKey: keysActions.remove, editAgenda: agendaActions.edit }

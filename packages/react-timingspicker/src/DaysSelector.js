@@ -34,6 +34,15 @@ function formatTimingValue(intl, begin, end, breakpoint) {
 }
 
 class DaysSelector extends Component {
+  static defaultProps = {
+    step: 60 * 60, // seconds in a grid visible vertical increment
+    selectableStep: 30 * 60, // seconds in a grid vertical selectable increment
+    cellHeight: 40, // in pixels
+    timingLimit: ONE_DAY, // maximum allow duration of a timing
+    value: null,
+    onChange: null
+  };
+
   bodyRef = React.createRef();
 
   constructor(props) {
@@ -1244,14 +1253,5 @@ class DaysSelector extends Component {
     );
   }
 }
-
-DaysSelector.defaultProps = {
-  step: 60 * 60, // seconds in a grid visible vertical increment
-  selectableStep: 30 * 60, // seconds in a grid vertical selectable increment
-  cellHeight: 40, // in pixels
-  timingLimit: ONE_DAY, // maximum allow duration of a timing
-  value: null,
-  onChange: null
-};
 
 export default injectIntl(DaysSelector, { forwardRef: true });

@@ -1,7 +1,6 @@
 import extend from 'lodash/extend';
+import isEmail from 'validator/lib/isEmail';
 import listify from './listify';
-
-const emailRgx = /[a-z0-9!#$%&'*+\/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+\/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/i;
 
 export default config => {
 
@@ -32,7 +31,7 @@ export default config => {
 
     }
 
-    if ( clean.indexOf( ' ' ) !== -1 || !emailRgx.test( clean ) ) {
+    if ( clean.indexOf( ' ' ) !== -1 || !isEmail( clean ) ) {
 
       throw [ {
         field: params.field,

@@ -3,7 +3,7 @@
 const _ = require('lodash');
 const should = require('should');
 const config = require('../config.test');
-const createInstance = require('../').createInstance;
+const createInstance = require('../');
 const fixtures = require('./fixtures');
 const Tracker = require('./utils').Tracker;
 

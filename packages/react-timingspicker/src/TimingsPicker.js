@@ -64,7 +64,21 @@ function getClosestTiming(value) {
   return next || first;
 }
 
-class TimingsPicker extends Component {
+export default class TimingsPicker extends Component {
+  static defaultProps = {
+    value: null,
+    onChange: null,
+    timingLimit: ONE_DAY,
+    classNamePrefix: 'rtp__',
+    breakpoints: {
+      xs: 590,
+      sm: 640,
+      md: 768
+    },
+    locale: 'en',
+    locales: null
+  };
+
   schedulerRef = React.createRef();
 
   constructor(props) {
@@ -261,19 +275,3 @@ class TimingsPicker extends Component {
     );
   }
 }
-
-TimingsPicker.defaultProps = {
-  value: null,
-  onChange: null,
-  timingLimit: ONE_DAY,
-  classNamePrefix: 'rtp__',
-  breakpoints: {
-    xs: 590,
-    sm: 640,
-    md: 768
-  },
-  locale: 'en',
-  locales: null
-};
-
-export default TimingsPicker;

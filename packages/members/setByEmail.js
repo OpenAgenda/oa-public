@@ -5,7 +5,7 @@ const log = require('@openagenda/logs')('setByEmail');
 const getByEmail = require('./get').byEmail;
 const patch = require('./patch');
 const create = require('./create');
-const { isSuperiorTo } = require('./lib/compareRoles');
+const { isSuperiorTo } = require('./iso/compareRoles');
 
 const defaultQueueName = 'membersBulkSetEmails';
 

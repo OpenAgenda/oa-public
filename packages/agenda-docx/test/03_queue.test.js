@@ -3,19 +3,17 @@ const queue = require('../server/queue');
 describe('unit - queue', () => {
   describe('init', () => {
     test('redis availability is tested at init', async () => {
-      try {
-        await queue.init({
+      await expect(
+        queue.init({
           namespace: 'testoadocx',
           redis: {
             port: 6389,
             host: 'localhost'
           }
-        });
-      } catch (e) {
-        expect(e.jse_shortmsg).toBe(
-          'oa-docx init - Could not connect to redis'
-        );
-      }
+        })
+      ).rejects.toMatchObject({
+        jse_shortmsg: 'oa-docx init - Could not connect to redis'
+      });
     });
   });
 
@@ -44,7 +42,7 @@ describe('unit - queue', () => {
       expect(await queue.pop()).toEqual({ uid: 123, data: 'oui?' });
     });
 
-    test('wait for queue', cb => {
+    test('wait for queue', async () => new Promise(cb => {
       // nothing has been queued at time of call
       queue.waitAndPop().then(data => {
         expect(data).toEqual({ et: 'bim' });
@@ -53,6 +51,6 @@ describe('unit - queue', () => {
       });
 
       queue({ et: 'bim' });
-    });
+    }));
   });
 });

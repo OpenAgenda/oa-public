@@ -132,7 +132,27 @@ const ChildEntityRule = ({ ruleName, rules }) => {
   );
 };
 
-class AbilitiesForm extends Component {
+export default class AbilitiesForm extends Component {
+  static propTypes = {
+    form: PropTypes.objectOf(PropTypes.any),
+    rules: PropTypes.arrayOf(PropTypes.object),
+    entityName: PropTypes.string.isRequired,
+    identifier: PropTypes.number.isRequired,
+    handleSubmit: PropTypes.func,
+    HeaderComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
+    searchChildKey: PropTypes.string,
+    filterInputPlaceholder: PropTypes.string
+  };
+
+  static defaultProps = {
+    rules: null,
+    form: null,
+    handleSubmit: null,
+    HeaderComponent: null,
+    searchChildKey: null,
+    filterInputPlaceholder: ''
+  };
+
   debouncedSearch = _.debounce(value => {
     this.setState({ debouncedSearch: value });
   }, 500);
@@ -399,25 +419,3 @@ class AbilitiesForm extends Component {
     );
   }
 }
-
-AbilitiesForm.propTypes = {
-  form: PropTypes.objectOf(PropTypes.any),
-  rules: PropTypes.arrayOf(PropTypes.object),
-  entityName: PropTypes.string.isRequired,
-  identifier: PropTypes.number.isRequired,
-  handleSubmit: PropTypes.func,
-  HeaderComponent: PropTypes.oneOfType([PropTypes.node, PropTypes.func]),
-  searchChildKey: PropTypes.string,
-  filterInputPlaceholder: PropTypes.string
-};
-
-AbilitiesForm.defaultProps = {
-  rules: null,
-  form: null,
-  handleSubmit: null,
-  HeaderComponent: null,
-  searchChildKey: null,
-  filterInputPlaceholder: ''
-};
-
-export default AbilitiesForm;

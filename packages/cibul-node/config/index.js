@@ -328,11 +328,6 @@ const config = {
     },
     routes: {
       globals: {
-        agendaEventNew: {
-          method: 'get',
-          uri: '/:slug/addevent',
-          legacy: true
-        },
         agendaEventEdit: {
           method: 'get',
           uri: '/:slug/event/:eventSlug/edit',
@@ -775,14 +770,6 @@ const config = {
         agendaIcsEvents: {
           method: 'get',
           uri: '/agendas/:uid/events.ics'
-        },
-        agendaSourceAdd: {
-          method: 'get',
-          uri: '/agendas/:uid/addTo/:aggUid'
-        },
-        agendaSourceRemove: {
-          method: 'get',
-          uri: '/agendas/:uid/removeFrom/:aggUid'
         }
       },
       defaultGlobalsPrefix: ''
