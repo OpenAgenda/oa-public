@@ -1,4 +1,5 @@
-import React, { useMemo, useLayoutEffect } from 'react';
+import React, { useMemo } from 'react';
+import { useIsomorphicLayoutEffect } from 'react-use';
 import { useHistory } from 'react-router-dom';
 import useChildLayouts from '../hooks/useChildLayouts';
 import Loading from '../components/Loading';
@@ -22,7 +23,7 @@ function RequiredSuperAdmin({
     [extraProps.user]
   );
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (![75052324, 99999999, 31046551].includes(extraProps.user?.uid)) {
       history.replace('/home');
     }
