@@ -20,7 +20,7 @@ export default function SlugSearch({ res, render }) {
   const validSlugRequest = useCallback(
     v => {
       try {
-        const { pathname } = new URL(v);
+        const { pathname } = new URL(v, 'https://openagenda.com');
         const slug = pathname && pathname !== '/' ? pathname.split('/')[1] : null;
 
         if (!slug) {
