@@ -1,7 +1,6 @@
 import _ from 'lodash';
-import React, {
-  useCallback, useEffect, useMemo, useLayoutEffect
-} from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
+import { useIsomorphicLayoutEffect } from 'react-use';
 import { defineMessages, useIntl } from 'react-intl';
 import { useSelector, useDispatch, shallowEqual } from 'react-redux';
 import {
@@ -177,7 +176,7 @@ function AgendaAdminLayout({
     childLayouts
   );
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (loadError) {
       if (user) {
         history.replace('/home');
