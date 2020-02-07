@@ -1,10 +1,7 @@
 import React, {
-  useCallback,
-  useState,
-  useMemo,
-  useRef,
-  useLayoutEffect
+  useCallback, useState, useMemo, useRef
 } from 'react';
+import { useIsomorphicLayoutEffect } from 'react-use';
 import classNames from 'classnames';
 import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
 
@@ -110,7 +107,7 @@ export default function Stepper({ steps = [], onSelect, additionals }) {
   const [bgColor, setBbColor] = useState(defaultBgColor);
   const stepStyle = useMemo(() => ({ backgroundColor: bgColor }), [bgColor]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (containerRef.current) {
       const closestBgColor = getClosestBgColor(containerRef.current);
 

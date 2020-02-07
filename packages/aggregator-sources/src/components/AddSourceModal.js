@@ -464,23 +464,29 @@ export default function AddSourceModal({
                 </p>
 
                 {state.agendas.length
-                  ? state.agendas.map(sourceAgenda => (
-                    <AgendaItem
-                      key={sourceAgenda.uid}
-                      sources={sources}
-                      agenda={sourceAgenda}
-                      onSelect={onSelectAgenda}
-                      firstAction={(
-                        <button
-                          type="button"
-                          className="btn btn-link-inline"
-                          onClick={() => onSelectAgenda(sourceAgenda)}
-                        >
-                          {intl.formatMessage(messages.selectThisAgenda)}
-                        </button>
-                        )}
-                    />
-                  ))
+                  ? state.agendas.map(sourceAgenda => {
+                    if (sourceAgenda.uid === aggregatorAgenda.uid) {
+                      return null;
+                    }
+
+                    return (
+                      <AgendaItem
+                        key={sourceAgenda.uid}
+                        sources={sources}
+                        agenda={sourceAgenda}
+                        onSelect={onSelectAgenda}
+                        firstAction={(
+                          <button
+                            type="button"
+                            className="btn btn-link-inline"
+                            onClick={() => onSelectAgenda(sourceAgenda)}
+                          >
+                            {intl.formatMessage(messages.selectThisAgenda)}
+                          </button>
+                          )}
+                      />
+                    );
+                  })
                   : null}
 
                 {!state.agendas.length && state.firstLoading === false ? (
@@ -527,12 +533,21 @@ export default function AddSourceModal({
                 </p>
 
                 <div>
-                  {state.agenda ? (
+                  {state.agenda && state.agenda.uid !== aggregatorAgenda.uid ? (
                     <AgendaItem
                       key={state.agenda.uid}
                       sources={sources}
                       agenda={state.agenda}
                       onSelect={onSelectAgenda}
+                      firstAction={(
+                        <button
+                          type="button"
+                          className="btn btn-link-inline"
+                          onClick={() => onSelectAgenda(state.agenda)}
+                        >
+                          {intl.formatMessage(messages.selectThisAgenda)}
+                        </button>
+                      )}
                     />
                   ) : null}
                 </div>

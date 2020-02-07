@@ -4,7 +4,6 @@ import React, {
   useCallback,
   useState,
   useEffect,
-  useLayoutEffect,
   useRef
 } from 'react';
 import * as ReactIs from 'react-is';
@@ -13,7 +12,7 @@ import { useForm, useFormState, Field } from 'react-final-form';
 import { FieldArray } from 'react-final-form-arrays';
 import ReactSelect from 'react-select';
 import CreatableSelect from 'react-select/creatable';
-import { usePrevious } from 'react-use';
+import { usePrevious, useIsomorphicLayoutEffect } from 'react-use';
 import classNames from 'classnames';
 import {
   useMemoOne,
@@ -501,7 +500,7 @@ function ExtendedFormPart({ sourceSchema }) {
     [sourceSchema, fieldName]
   );
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (prevFieldName && fieldName && prevFieldName !== fieldName) {
       form.change('extendedValues', null);
     }
@@ -698,7 +697,7 @@ function ActionFormPart({ id, name, aggregatorAgendaSchema }) {
     setAdvancedMode(!advancedMode);
   }, [action, advancedMode, form, name]);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (prevFieldName && fieldName) {
       const haveAllOptions = []
         .concat(action?.values)
@@ -821,7 +820,7 @@ function ActionsFormPart({ aggregatorAgendaSchema }) {
   const prevWithActions = usePrevious(!!values.withActions);
 
   useEffect(() => {
-    // useLayoutEffect not working with pushAction
+    // useLayoutEffect/useIsomorphicLayoutEffect not working with pushAction
     if (
       values.withActions !== prevWithActions
       && values.withActions
