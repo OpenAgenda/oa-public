@@ -10,14 +10,13 @@ import * as activitiesActions from '../../redux/modules/activities';
 import { ActivityItem } from '../../components';
 
 @provideHooks( {
-  fetch: async ( { store: { dispatch, getState }, location } ) => {
-    const state = getState();
+  fetch: async ( { store: { dispatch }, location, params } ) => {
     const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
     const promises = [];
 
-    if ( !activitiesActions.isLoaded( state ) ) {
-      promises.push( dispatch( activitiesActions.load( query ) ) );
-    }
+    // if ( !activitiesActions.isLoaded( state ) ) {
+      promises.push( dispatch( activitiesActions.load( query, { slug: params.slug } ) ) );
+    // }
 
     return Promise.all( __CLIENT__ ? [] : promises );
   }
@@ -57,9 +56,9 @@ export default class AgendaDashboard extends Component {
   };
 
   nextPage = () => {
-    const { loading, nextLoading, activities, query, nextPage, lastPage } = this.props;
+    const { loading, nextLoading, activities, query, nextPage, lastPage, agenda } = this.props;
     if ( !activities || !activities.length || loading || nextLoading || lastPage ) return;
-    nextPage( query, activities[ activities.length - 1 ].id );
+    nextPage( query, activities[ activities.length - 1 ].id, agenda );
   };
 
   throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );

@@ -1,15 +1,12 @@
-import _ from 'lodash';
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Component } from 'react';
 import moment from 'moment';
 import marked from 'marked';
 import qs from 'qs';
 import { AuthorAvatar } from '../';
+import I18nContext from '../../contexts/I18nContext';
 
 export default class MessageItem extends Component {
-  static contextTypes = {
-    getLabel: PropTypes.func
-  };
+  static contextType = I18nContext;
 
   renderAttachments() {
     const { message: { attachments } } = this.props;
@@ -32,7 +29,7 @@ export default class MessageItem extends Component {
           } )}`;
 
           return (
-            <Fragment key={attachment.id}>
+            <React.Fragment key={attachment.id}>
               {i === 0 ? ' ' : ', '}
               <a
                 href={link}
@@ -43,7 +40,7 @@ export default class MessageItem extends Component {
                 {isImage ?
                   <img src={link} alt={attachment.filename} className="attachment-image"/> : attachment.originalName}
               </a>
-            </Fragment>
+            </React.Fragment>
           );
         } )}
       </div>
@@ -54,13 +51,13 @@ export default class MessageItem extends Component {
 
   render() {
     const { message } = this.props;
-    const { getLabel } = this.context;
+    const { getLabel, lang } = this.context;
 
     if ( !message ) {
       return null;
     }
 
-    const creationDate = moment( message.createdAt );
+    const creationDate = moment( message.createdAt ).locale(lang);
 
     return (
       <div className="media">

@@ -1,15 +1,12 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
 import { renderField, renderInput, renderSelect } from '../../utils/form';
 import I18nContext from '../../contexts/I18nContext';
 import validate from './validate';
 
-@connect(state => ({
-  roles: state.agenda.roles,
-  userCredential: state.member.role
-}))
-class EditMembersForm extends Component {
+export default class EditMemberForm extends Component {
+  static contextType = I18nContext;
+
   constructor(props) {
     super(props);
     this.renderField = this::renderField;
@@ -19,11 +16,9 @@ class EditMembersForm extends Component {
 
   render() {
     const {
-      member, roles, userCredential, onSubmit
+      member, agenda, userCredential, onSubmit
     } = this.props;
     const custom = (member && member.custom) || {};
-
-    const haveRole = value => roles.some(role => role.code === value);
 
     return (
       <Form
@@ -94,18 +89,16 @@ class EditMembersForm extends Component {
                   <option value="0" hidden>
                     {getLabel('selectRole')}
                   </option>
-                  {haveRole(4) && (
+                  {agenda.private ? (
                     <option value="4">{getLabel('reader')}</option>
-                  )}
-                  {haveRole(1) && (
-                    <option value="1">{getLabel('contributor')}</option>
-                  )}
-                  {userCredential === 2 && haveRole(3) && (
+                  ) : null}
+                  <option value="1">{getLabel('contributor')}</option>
+                  {userCredential === 2 && agenda.credentials.moderators ? (
                     <option value="3">{getLabel('moderator')}</option>
-                  )}
-                  {userCredential === 2 && haveRole(2) && (
+                  ) : null}
+                  {userCredential === 2 ? (
                     <option value="2">{getLabel('administrator')}</option>
-                  )}
+                  ) : null}
                 </Field>
 
                 <div className="text-center">
@@ -121,7 +114,3 @@ class EditMembersForm extends Component {
     );
   }
 }
-
-EditMembersForm.contextType = I18nContext;
-
-export default EditMembersForm;

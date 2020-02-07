@@ -3,7 +3,6 @@
 const wn = require( 'when/node' );
 
 const agendasSvc = require( '@openagenda/agendas' );
-const aggregatorNotify = require( './lib/aggregatorNotify' );
 const coms = require( '../../lib/coms' );
 const oldEventSvc = require( '../event' );
 const legacyEventSearch = require( '../elasticsearch' );
@@ -38,9 +37,5 @@ module.exports = async ({ services }, ae, context ) => {
     return;
 
   }
-
-  if ( context.legacy ) return;
-
-  aggregatorNotify.remove( { agenda, event } );
 
 }

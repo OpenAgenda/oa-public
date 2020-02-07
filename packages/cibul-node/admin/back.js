@@ -1,25 +1,17 @@
 "use strict";
 
 const { promisify } = require( 'util' );
-const _ = require( 'lodash' );
-const ReactDOM = require( 'react-dom/server' );
-const { parsePath } = require('history');
 const moment = require( 'moment' );
 const wn = require( 'when/node' );
 const async = require( 'async' );
 const sessions = require( '@openagenda/sessions' );
 const log = require( '@openagenda/logs' )( 'admin/back' );
 const agendasSvc = require( '@openagenda/agendas' );
-const createInboxApp = require( '@openagenda/inbox-apps/dist/apps/inbox' );
-const wrapApp = require( '@openagenda/react-utils/dist/wrapApp' );
 const cmn = require( '../lib/commons-app' );
 const lib = require( '../lib/lib' );
 const membersSvc = require( '../services/members' );
 const model = require( '../services/model' );
 const adminSvc = require( '../services/admin/admin' );
-const config = require( '../config' );
-
-const supportTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/support.tpl', 'utf-8' ) );
 
 const preMw = [
   cmn.loadBaseData(),
@@ -40,97 +32,20 @@ module.exports = app => {
   app.get( '/admin/users/changePassword', preMw, userChangePassword );
   app.get( '/admin/eventsbyweek', preMw, eventsByWeek );
   app.get( '/admin/eventsdiff', preMw, eventsDiff );
-  app.get(
-    [
-      '/admin/support',
-      '/admin/support/conversation/:conversationId'
-    ],
-    preMw,
-    support
-  );
 
 };
 
 
-async function support( req, res, next ) {
-  const lang = req.lang || 'fr';
-  const staticContext = {};
-  const reactApp = createInboxApp( {
-    req,
-    initialState: {
-      settings: {
-        context: 'user',
-        prefix: '/admin/support',
-        lang: req.lang,
-        apiRoot: `http://localhost:${config.port}`,
-        perPageLimit: 20,
-        autoFocus: true
-      },
-      res: {
-        author: '/admin/support/author.json',
-        conversations: {
-          create: '/admin/support/conversations.json',
-          list: '/admin/support/conversations.json',
-          action: '/admin/support/conversations/:conversationId/action/:code.json',
-          resume: '/admin/support/conversations/:conversationId/resume.json'
-        },
-        messages: {
-          list: '/admin/support/conversations/:conversationId/messages.json',
-          create: '/admin/support/conversations/:conversationId/messages.json',
-          prepareAttachment: '/admin/support/conversations/:conversationId/prepare-attachment',
-          addAttachment: '/admin/support/conversations/:conversationId/add-attachment'
-        }
-      }
-    }
-  } );
-  const { triggerHooks, store, history } = reactApp;
-
-  try {
-    await triggerHooks();
-
-    const content = ReactDOM.renderToString( wrapApp( reactApp, { req, staticContext } ) );
-
-    const state = store.getState();
-
-    // Remove apiRoot used only on server side
-    state.settings.apiRoot = '';
-
-    if ( staticContext.status === 404 ) {
-      return next();
-    }
-
-    if ( staticContext.url ) {
-      return res.redirect( 302, staticContext.url );
-    }
-
-    const { pathname } = history.location;
-    if (decodeURIComponent(parsePath(req.originalUrl).pathname) !== decodeURIComponent(pathname)) {
-      return res.redirect( 302, pathname );
-    }
-
-    res.send( supportTemplate( {
-      scriptParams: { initialState:state },
-      lang,
-      content,
-      preloaded: true
-    } ) );
-  } catch ( e ) {
-    next( e );
-  }
-}
-
-
 function index( req, res ) {
 
-  var totals = {},
-
-    totalsWeek = {},
-
-    totalsMonth = {};
+  const { services } = req.app;
+  const totals = {};
+  const totalsWeek = {};
+  const totalsMonth = {};
 
   log( 'rendering index' );
 
-  wn.call( _getTotals.bind(null, req.app.services) )
+  wn.call( _getTotals.bind(null, services) )
 
     .spread( function ( rt, et, ut ) {
 
@@ -138,7 +53,7 @@ function index( req, res ) {
       totals.events = et;
       totals.users = ut;
 
-      return wn.call( _getTotalsWeek.bind(null, req.app.services) );
+      return wn.call( _getTotalsWeek.bind(null, services) );
 
     } )
 
@@ -148,7 +63,7 @@ function index( req, res ) {
       totalsWeek.events = etw;
       totalsWeek.users = utw;
 
-      return wn.call( _getTotalsMonth.bind(null, req.app.services) );
+      return wn.call( _getTotalsMonth.bind(null, services) );
 
     } )
 
@@ -181,10 +96,11 @@ function throwTestError( req, res, next ) {
 
 function search( req, res ) {
 
+  const { services } = req.app;
   const start = moment( req.query.begin, 'DD-MM-YYYY' ).toDate();
   const end = moment( req.query.end, 'DD-MM-YYYY' ).endOf( 'day' ).toDate();
 
-  _getFork( req.app.services, start, end )
+  _getFork( services, start, end )
 
     .then( ( [ r, e, u ] ) => {
 
@@ -299,8 +215,7 @@ function getUsers( req, res, next ) {
 
 function userChangePassword( req, res ) {
 
-  const usersSvc = req.app.services.users;
-
+  const { users: usersSvc } = req.app.services;
   const { uid, password } = req.query;
 
   usersSvc
@@ -321,7 +236,7 @@ function userChangePassword( req, res ) {
 
 async function userActivate( req, res ) {
 
-  const usersSvc = req.app.services.users;
+  const { users: usersSvc } = req.app.services;
 
   if ( !req.loadedUser.isActivated ) {
 
@@ -344,7 +259,7 @@ async function userActivate( req, res ) {
 
 function userUpdate( req, res, next ) {
 
-  const usersSvc = req.app.services.users;
+  const { users: usersSvc } = req.app.services;
 
   usersSvc.get( req.loadedUser.uid, { detailed: true, removed: null } )
     .then( async user => {
@@ -394,7 +309,7 @@ function _loadUser( type = 'get' ) {
 
   return ( req, res, next ) => {
 
-    const usersSvc = req.app.services.users;
+    const { users: usersSvc } = req.app.services;
 
     const request = req[ type === 'get' ? 'query' : 'body' ];
 
@@ -498,7 +413,7 @@ function eventsDiff( req, res ) {
 
 function _getFork( services, begin, end ) {
 
-  const usersSvc = services.users;
+  const { users: usersSvc } = req.app.services;
 
   return Promise.all( [
     promisify( model.reviews().total )( { createdAt: { gte: begin, lte: end } } ),
@@ -526,12 +441,10 @@ function _getTotals( services, cb ) {
 }
 
 function _getTotalsWeek( services, cb ) {
-
   const usersSvc = services.users;
 
-  var weekStart = moment().subtract( 1, 'week' ).startOf( 'week' ).toDate(),
-
-    weekStop = moment().subtract( 1, 'week' ).endOf( 'week' ).toDate();
+  const weekStart = moment().subtract( 1, 'week' ).startOf( 'week' ).toDate();
+  const weekStop = moment().subtract( 1, 'week' ).endOf( 'week' ).toDate();
 
   async.parallel( [
 
@@ -546,12 +459,10 @@ function _getTotalsWeek( services, cb ) {
 }
 
 function _getTotalsMonth( services, cb ) {
-
   const usersSvc = services.users;
 
-  var monthStart = moment().subtract( 1, 'month' ).startOf( 'month' ).toDate(),
-
-    monthStop = moment().subtract( 1, 'month' ).endOf( 'month' ).toDate();
+  const monthStart = moment().subtract( 1, 'month' ).startOf( 'month' ).toDate();
+  const monthStop = moment().subtract( 1, 'month' ).endOf( 'month' ).toDate();
 
   async.parallel( [
 
@@ -567,28 +478,22 @@ function _getTotalsMonth( services, cb ) {
 }
 
 
-var _layoutData = function ( totals, totalsWeek, totalsMonth ) {
-
+function _layoutData( totals, totalsWeek, totalsMonth ) {
   return {
-
     events: {
       total: totals.events,
       totalInWeek: totalsWeek.events,
       totalInMonth: totalsMonth.events
     },
-
     reviews: {
       total: totals.reviews,
       totalInWeek: totalsWeek.reviews,
       totalInMonth: totalsMonth.reviews
     },
-
     users: {
       total: totals.users,
       totalInWeek: totalsWeek.users,
       totalInMonth: totalsMonth.users
     }
-
   };
-
 };

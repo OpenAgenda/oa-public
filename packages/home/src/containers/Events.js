@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { hot } from 'react-hot-loader/root';
+import { Link } from 'react-router-dom';
 import { provideHooks } from 'redial';
 import { connect } from 'react-redux';
 import { Form, Field } from 'react-final-form';
@@ -11,36 +12,81 @@ import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
 import Image from '@openagenda/react-components/build/Image';
 import SearchInput from '@openagenda/react-components/build/SearchInput';
+import I18nContext from '../contexts/I18nContext';
 import * as agendasActions from '../reducers/agendas';
 import * as eventsActions from '../reducers/events';
 import * as modalsActions from '../reducers/modals';
 import { setTab } from '../reducers/menu';
-import AgendasSearch from './AgendasSearch';
+import AgendasSearch from '../components/AgendasSearch';
 
-@provideHooks( {
-  fetch: ( { store: { dispatch, getState }, history } ) => {
-    const state = getState();
+function AgendaItem({ agenda, res, getLabel }) {
+  const itemLink = (agenda.useContributeApp
+    ? res.agendas.contribute
+    : res.agendas.addEvent
+  ).replace(':slug', agenda.slug);
 
-    if ( !state.settings.userUid ) {
-      return history.replace( '/' );
-    }
+  return (
+    <div className="agenda-item media" key={agenda.uid}>
+      <div className="media-left">
+        <a href={itemLink}>
+          <Image
+            src={agenda.image}
+            fallbackSrc={agenda.image.replace('cibuldev', 'cibul')}
+            className="media-object ill avatar"
+            alt={agenda.title}
+          />
+        </a>
+      </div>
+      <div className="media-body">
+        <div className="title media-heading">
+          <a href={itemLink}>
+            <strong>{agenda.title}</strong>
 
-    dispatch(setTab('events'));
-  },
-  defer: async ( { store: { dispatch }, location } ) => {
-    const query = qs.parse( location.search, { ignoreQueryPrefix: true } );
+            {!!agenda.official && (
+              <span className="official">
+                <i />
+                <div className="tooltip right" role="tooltip">
+                  <div className="tooltip-arrow" />
+                  <div className="tooltip-inner">
+                    {getLabel('officialAgenda')}
+                  </div>
+                </div>
+              </span>
+            )}
+          </a>
+
+          {!!agenda.private && (
+            <div className="tooltip-icon">
+              <i className="fa fa-unlock-alt" />
+              <div className="tooltip right" role="tooltip">
+                <div className="tooltip-arrow" />
+                <div className="tooltip-inner">{getLabel('privateAgenda')}</div>
+              </div>
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+@hot
+@provideHooks({
+  fetch: ({ store: { dispatch } }) => dispatch(setTab('events')),
+  defer: async ({ store: { dispatch }, location }) => {
+    const query = qs.parse(location.search, { ignoreQueryPrefix: true });
     const promises = [];
 
     // if ( !eventsActions.isLoaded( state ) ) {
-      promises.push( dispatch( eventsActions.load( query ) ) );
+    promises.push(dispatch(eventsActions.load(query)));
     // }
 
     return promises;
   }
-} )
+})
 @connect(
-  ( state, props ) => ({
-    query: qs.parse( props.location.search, { ignoreQueryPrefix: true } ),
+  (state, props) => ({
+    query: qs.parse(props.location.search, { ignoreQueryPrefix: true }),
     res: state.res,
     events: state.events.data,
     page: state.events.page,
@@ -49,130 +95,128 @@ import AgendasSearch from './AgendasSearch';
     listLoading: state.events.listLoading,
     nextLoading: state.events.nextLoading,
     perPageLimit: state.settings.perPageLimit,
-    lang: state.settings.lang,
     modals: state.modals
   }),
   { ...eventsActions, ...modalsActions, agendasLoad: agendasActions.load }
 )
 export default class Events extends Component {
+  static contextType = I18nContext;
 
-  static propTypes = {
-    list: PropTypes.func,
-    nextPage: PropTypes.func,
-    res: PropTypes.object,
-    events: PropTypes.array,
-    page: PropTypes.number,
-    total: PropTypes.number,
-    loading: PropTypes.bool,
-    listLoading: PropTypes.bool,
-    nextLoading: PropTypes.bool,
-    perPageLimit: PropTypes.number,
-    showModal: PropTypes.func,
-    closeModal: PropTypes.func,
-    modals: PropTypes.object
-  };
+  constructor(props, context) {
+    super(props, context);
 
-  static contextTypes = {
-    getLabel: PropTypes.func
-  };
+    const { query } = props;
 
-  state = {
-    value: this.props.query && this.props.query.search
-      ? this.props.query.search
-      : undefined
-  };
+    this.state = {
+      value: query && query.search ? query.search : undefined
+    };
 
-  search = () => this.props.list( { search: this.state.value } )
-    .finally( () => {
-      this.props.history.push( {
-        ...this.props.location,
-        search: qs.stringify( { ...this.props.query, search: this.state.value || undefined } )
-      } );
-    } );
+    this.debouncedSearch = debounce(this.search, 400);
 
-  debouncedSearch = debounce( this.search, 400 );
+    this.throttledNextPage = throttle(this.nextPage, 400, { trailing: false });
 
-  onSearch = value => this.setState( {
-    previousValue: this.state.value,
-    value
-  }, () => {
-    this.debouncedSearch();
-  } );
-
-  nextPage = () => {
-    const { page, total, search, loading, listLoading, nextLoading, events, perPageLimit } = this.props;
-    if ( !events || !events.length || loading || listLoading || nextLoading || page * perPageLimit >= total ) return;
-    this.props.nextPage( { search }, (page || 1) + 1 );
-  };
-
-  throttledNextPage = throttle( this.nextPage, 400, { trailing: false } );
-
-  getMultilangLabel( field, defaultValue = '' ) {
-    if ( field === null || typeof field !== 'object' ) return field || defaultValue;
-    return field[ this.props.lang ] || field[ Object.keys( field )[ 0 ] ] || defaultValue;
+    this.searchInputProps = {
+      placeholder: context.getLabel('searchAgenda'),
+      classNameGroup: 'form-group search',
+      className: 'form-control',
+      autoComplete: 'off',
+      autoFocus: true
+    };
   }
 
-  getEventShowLink( event ) {
+  search = () => this.props.list({ search: this.state.value }).finally(() => {
+    this.props.history.push({
+      ...this.props.location,
+      search: qs.stringify({
+        ...this.props.query,
+        search: this.state.value || undefined
+      })
+    });
+  });
+
+  onSearch = value => this.setState(
+    prevState => ({
+      previousValue: prevState.value,
+      value
+    }),
+    () => {
+      this.debouncedSearch();
+    }
+  );
+
+  nextPage = () => {
+    const {
+      page,
+      total,
+      search,
+      loading,
+      listLoading,
+      nextLoading,
+      events,
+      perPageLimit
+    } = this.props;
+    if (
+      !events
+      || !events.length
+      || loading
+      || listLoading
+      || nextLoading
+      || page * perPageLimit >= total
+    ) return;
+    this.props.nextPage({ search }, (page || 1) + 1);
+  };
+
+  getMultilangLabel = (field, defaultValue = '') => {
+    if (field === null || typeof field !== 'object') return field || defaultValue;
+    return (
+      field[this.props.lang] || field[Object.keys(field)[0]] || defaultValue
+    );
+  };
+
+  getEventShowLink = event => {
     const { res } = this.props;
 
-    if ( event.draft ) {
-
-      return this.getEventEditLink( event );
-
+    if (event.draft) {
+      return this.getEventEditLink(event);
     }
 
-    if ( !event.agenda ) {
+    if (!event.agenda) {
       return '#';
     }
 
-    return res.events[ event.private ? 'showPrivate' : 'show' ]
-      .replace( ':slug', event.agenda.slug )
-      .replace( ':eventSlug', event.slug );
-  }
+    return res.events[event.private ? 'showPrivate' : 'show']
+      .replace(':slug', event.agenda.slug)
+      .replace(':eventSlug', event.slug);
+  };
 
-  getEventEditLink( event ) {
-
+  getEventEditLink = event => {
     const { res } = this.props;
 
     return res.events.edit
-      .replace( ':slug', event.agenda && event.agenda.slug )
-      .replace( ':eventSlug', event.slug );
+      .replace(':slug', event.agenda && event.agenda.slug)
+      .replace(':eventSlug', event.slug);
+  };
 
-  }
-
-  getImagePath( image ) {
-    const thumbnail = Array.isArray( image.variants ) ? image.variants.find( v => v.type === 'thumbnail' ) : null;
+  getImagePath = image => {
+    const thumbnail = Array.isArray(image.variants)
+      ? image.variants.find(v => v.type === 'thumbnail')
+      : null;
 
     const { filename } = thumbnail || image;
     const { base } = image;
 
-    const trailingBaseSlash = base.slice( -1 ) === '/';
-    const leadingFilenameSlash = filename.slice( 1 ) === '/';
+    const trailingBaseSlash = base.slice(-1) === '/';
+    const leadingFilenameSlash = filename.slice(1) === '/';
 
-    if ( trailingBaseSlash && leadingFilenameSlash ) {
-      return base.slice( 0, -1 ) + filename;
+    if (trailingBaseSlash && leadingFilenameSlash) {
+      return base.slice(0, -1) + filename;
     }
 
-    if ( trailingBaseSlash || leadingFilenameSlash ) {
+    if (trailingBaseSlash || leadingFilenameSlash) {
       return base + filename;
     }
 
-    return base + '/' + filename;
-  }
-
-  renderModalHeader = () => {
-    const { res } = this.props;
-    const { getLabel } = this.context;
-
-    return (
-      <div className="header hidden-xs">
-        <div className="pull-right margin-bottom-md">
-          <Link to={res.agendas.create} className="btn btn-primary create-agenda">
-            {getLabel( 'createAgenda' )}
-          </Link>
-        </div>
-      </div>
-    );
+    return `${base}/${filename}`;
   };
 
   fieldIsVisible = () => {
@@ -189,15 +233,22 @@ export default class Events extends Component {
 
   render() {
     const {
-      res, events, loading, listLoading, nextLoading,
-      perPageLimit, total, query,
-      showModal, closeModal, modals, agendasLoad
+      res,
+      events,
+      loading,
+      listLoading,
+      nextLoading,
+      query,
+      showModal,
+      closeModal,
+      modals,
+      agendasLoad
     } = this.props;
     const { getLabel } = this.context;
 
     const selectAgendasModal = modals.selectAgenda || {};
 
-    if ( loading ) {
+    if (loading) {
       return <Spinner />;
     }
 
@@ -212,14 +263,13 @@ export default class Events extends Component {
           <div className="padding-v-sm">
             <div className="header padding-h-md">
               <div className="hidden-xs pull-right">
-                <a
-                  onClick={() => agendasLoad( 'selectAgendasForCreateEvent' )
-                    .then( () => showModal( 'selectAgenda' ) )}
+                <button
+                  onClick={() => agendasLoad('selectAgendasForCreateEvent').then(() => showModal('selectAgenda'))}
                   className="btn btn-primary"
                   type="button"
                 >
-                  {getLabel( 'createEvent' )}
-                </a>
+                  {getLabel('createEvent')}
+                </button>
               </div>
             </div>
             <form className="padding-h-md" onSubmit={handleSubmit}>
@@ -229,93 +279,168 @@ export default class Events extends Component {
                 type="text"
                 classNameGroup="search"
                 className="form-control"
-                placeholder={getLabel( 'searchEvent' )}
-                action={value => this.onSearch( value === '' ? undefined : value )}
+                placeholder={getLabel('searchEvent')}
+                action={value => this.onSearch(value === '' ? undefined : value)}
                 loading={listLoading}
                 visible={this.fieldIsVisible()}
               />
             </form>
-            <div className="clearfix"></div>
+            <div className="clearfix" />
             <ul className="list-unstyled padding-top-sm">
-              {events && events.map( event => (
-                <li key={event.uid} className={'event-item media' + (event.draft ? ' draft' : '')}>
-                  <div className="padding-all-md">
-                    <div className="media-left">
-                      <a
-                        href={this.getEventShowLink( event )}
-                      >
-                        <Image
-                          src={this.getImagePath( event.image )}
-                          fallbackSrc={this.getImagePath( event.image ).replace( 'cibuldev', 'cibul' )}
-                          className="media-object ill avatar"
-                          alt={this.getMultilangLabel( event.title, getLabel( 'noTitle' ) )}
-                        />
-                      </a>
-                    </div>
-                    <div className="media-body">
-                      <a href={this.getEventShowLink( event )}>
-                        <div className="title media-heading">
-                          {event.agenda ? (
-                            <div className="agenda">{event.agenda.title}</div>
-                          ) : null}
-                          <strong>{this.getMultilangLabel( event.title , getLabel( 'noTitle' ) )}</strong>
-                          {!!event.private ? (
-                            <div className="tooltip-icon">
-                              <i className="fa fa-unlock-alt"></i>
-                              <div className="tooltip right" role="tooltip">
-                                <div className="tooltip-arrow"></div>
-                                <div className="tooltip-inner">{getLabel( 'privateEvent' )}</div>
+              {events
+                && events.map(event => (
+                  <li
+                    key={event.uid}
+                    className={`event-item media${event.draft ? ' draft' : ''}`}
+                  >
+                    <div className="padding-all-md">
+                      <div className="media-left">
+                        <a href={this.getEventShowLink(event)}>
+                          <Image
+                            src={this.getImagePath(event.image)}
+                            fallbackSrc={this.getImagePath(event.image).replace(
+                              'cibuldev',
+                              'cibul'
+                            )}
+                            className="media-object ill avatar"
+                            alt={this.getMultilangLabel(
+                              event.title,
+                              getLabel('noTitle')
+                            )}
+                          />
+                        </a>
+                      </div>
+                      <div className="media-body">
+                        <a href={this.getEventShowLink(event)}>
+                          <div className="title media-heading">
+                            {event.agenda ? (
+                              <div className="agenda">{event.agenda.title}</div>
+                            ) : null}
+                            <strong>
+                              {this.getMultilangLabel(
+                                event.title,
+                                getLabel('noTitle')
+                              )}
+                            </strong>
+                            {event.private ? (
+                              <div className="tooltip-icon">
+                                <i className="fa fa-unlock-alt" />
+                                <div className="tooltip right" role="tooltip">
+                                  <div className="tooltip-arrow" />
+                                  <div className="tooltip-inner">
+                                    {getLabel('privateEvent')}
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          ) : null}
-                          {/* !!event.draft && <div className="badge badge-sm badge-default">{getLabel( 'draft' )}</div> */}
-                        </div>
-                        <div className="event-detail-part">
-                          { event.location && event.location.name ? event.location.name : getLabel('noLocation') }
-                        </div>
-                        <div className="event-detail-part">
-                          {event.timerange}
-                        </div>
-                      </a>
+                            ) : null}
+                            {/* !!event.draft && <div className="badge badge-sm badge-default">{getLabel( 'draft' )}</div> */}
+                          </div>
+                          <div className="event-detail-part">
+                            {event.location && event.location.name
+                              ? event.location.name
+                              : getLabel('noLocation')}
+                          </div>
+                          <div className="event-detail-part">
+                            {event.timerange}
+                          </div>
+                        </a>
 
-                      {event.agenda ? <div className="actions">
-                        {event.draft ? <span className="badge badge-sm badge-default">{getLabel( 'draft' )}</span> : null}
-                        <a href={this.getEventEditLink( event )}>{getLabel( 'modify' )}</a>
-                      </div> : null}
+                        {event.agenda ? (
+                          <div className="actions">
+                            {event.draft ? (
+                              <span className="badge badge-sm badge-default">
+                                {getLabel('draft')}
+                              </span>
+                            ) : null}
+                            <a href={this.getEventEditLink(event)}>
+                              {getLabel('modify')}
+                            </a>
+                          </div>
+                        ) : null}
+                      </div>
                     </div>
+                  </li>
+                ))}
+
+              {!events
+                || (!events.length && (
+                  <div className="text-center text-muted margin-top-md">
+                    {getLabel(
+                      values.search || query.search
+                        ? 'noResult'
+                        : 'noEventsCreated'
+                    )}
                   </div>
+                ))}
+
+              {nextLoading && (
+                <li className="padding-v-md" style={{ position: 'relative' }}>
+                  <Spinner />
                 </li>
-              ) )}
-
-              {!events || !events.length && <div className="text-center text-muted margin-top-md">
-                {getLabel( values.search || query.search ? 'noResult' : 'noEventsCreated' )}
-              </div>}
-
-              {nextLoading && <li className="padding-v-md" style={{ position: 'relative' }}>
-                <Spinner/>
-              </li>}
+              )}
             </ul>
 
-            <Waypoint onEnter={this.throttledNextPage}/>
+            <Waypoint onEnter={this.throttledNextPage} />
 
-            {selectAgendasModal.visible && <Modal
-              title={getLabel( 'selectAgenda' )}
-              onClose={() => closeModal( 'selectAgenda' )}
-              classNames={{
-                overlay: 'popup-overlay big'
-              }}
-              disableBodyScroll
-            >
-              <AgendasSearch
-                id="selectAgendasForCreateEvent"
-                getTitleLink={ agenda => ( agenda.useContributeApp ? res.agendas.contribute : res.agendas.addEvent ).replace( ':slug', agenda.slug ) }
-                createButtonIfEmpty
-              />
-            </Modal>}
+            {selectAgendasModal.visible && (
+              <Modal
+                title={getLabel('selectAgenda')}
+                onClose={() => closeModal('selectAgenda')}
+                classNames={{
+                  overlay: 'popup-overlay big'
+                }}
+                disableBodyScroll
+              >
+                <AgendasSearch
+                  res={res.agendas.list}
+                  fieldProps={this.searchInputProps}
+                  render={({ state, form, nextPage }) => (
+                    <div>
+                      {form}
+
+                      <div>
+                        {state.agendas.length
+                          ? state.agendas.map(agenda => (
+                            <AgendaItem
+                              key={agenda.uid}
+                              agenda={agenda}
+                              res={res}
+                              getLabel={getLabel}
+                            />
+                          ))
+                          : null}
+                      </div>
+
+                      {!state.agendas.length ? (
+                        <div className="text-center text-muted margin-top-md">
+                          <Link
+                            to={res.agendas.create}
+                            className="btn btn-primary"
+                            type="button"
+                          >
+                            {getLabel('createAgenda')}
+                          </Link>
+                        </div>
+                      ) : null}
+
+                      {state.nextLoading ? (
+                        <div
+                          className="padding-v-md"
+                          style={{ position: 'relative' }}
+                        >
+                          <Spinner />
+                        </div>
+                      ) : null}
+
+                      <Waypoint onEnter={nextPage} />
+                    </div>
+                  )}
+                />
+              </Modal>
+            )}
           </div>
         )}
       />
     );
   }
-
-};
+}

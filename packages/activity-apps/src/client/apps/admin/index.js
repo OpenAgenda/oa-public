@@ -38,13 +38,13 @@ function getDefaultHistory( req ) {
 export default function ( options ) {
   const {
     initialState,
-    Header,
+    layout,
     req,
     notFoundKey = _.uniqueId( 'activityAppsAdmin' )
   } = _.merge( {}, defaults, options );
   const { apiRoot, prefix } = initialState.settings;
 
-  const client = apiClient( apiRoot, req );
+  const client = apiClient( apiRoot, req, { legacy: true } );
   const history = options.history || getDefaultHistory( req );
   const helpers = {};
   const store = createStore(
@@ -74,7 +74,6 @@ export default function ( options ) {
     <NotFound.Capture notFoundKey={notFoundKey}>
       <RouterTrigger trigger={triggerHooks}>
         <Provider store={store} context={ReactReduxContext}>
-          {Header ? <Header history={history} /> : null}
           {renderRoutes( routes )}
         </Provider>
       </RouterTrigger>
@@ -97,6 +96,7 @@ export default function ( options ) {
     element,
     notFoundKey,
     staticContext,
-    triggerHooks
+    triggerHooks,
+    layout
   };
 };

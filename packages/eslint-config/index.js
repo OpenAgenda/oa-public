@@ -41,10 +41,10 @@ module.exports = {
 
   rules: {
     strict: ['error', 'safe'],
-    'no-param-reassign': ["error", { "props": false }],
+    'no-param-reassign': ['error', { props: false }],
     'no-underscore-dangle': 'off',
     'no-restricted-syntax': 'off',
-    'no-plusplus': ["error", { "allowForLoopAfterthoughts": true }],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
     'no-continue': 'off',
     'no-await-in-loop': 'off',
     'consistent-return': 'off',
@@ -88,24 +88,71 @@ module.exports = {
       }
     ],
     'react/jsx-one-expression-per-line': 'off',
+    'react/jsx-props-no-spreading': [
+      'error',
+      {
+        html: 'enforce',
+        custom: 'ignore',
+        exceptions: ['input', 'textarea', 'select']
+      }
+    ],
     'react/prop-types': [
       'error',
       {
         skipUndeclared: true
       }
     ],
-    'react/jsx-props-no-spreading': [
+    'react/sort-comp': [
+      // TODO remove this with next airbnb version
       'error',
       {
-        html: 'enforce',
-        custom: 'ignore',
-        exceptions: [
-          'input',
-          'textarea',
-          'select'
-        ]
+        order: [
+          'static-variables',
+          'static-methods',
+          'instance-variables',
+          'lifecycle',
+          '/^on.+$/',
+          'getters',
+          'setters',
+          '/^(get|set)(?!(InitialState$|DefaultProps$|ChildContext$)).+$/',
+          'instance-methods',
+          'everything-else',
+          'rendering'
+        ],
+        groups: {
+          lifecycle: [
+            'displayName',
+            'propTypes',
+            'contextTypes',
+            'childContextTypes',
+            'mixins',
+            'statics',
+            'defaultProps',
+            'constructor',
+            'getDefaultProps',
+            'getInitialState',
+            'state',
+            'getChildContext',
+            'getDerivedStateFromProps',
+            'componentWillMount',
+            'UNSAFE_componentWillMount',
+            'componentDidMount',
+            'componentWillReceiveProps',
+            'UNSAFE_componentWillReceiveProps',
+            'shouldComponentUpdate',
+            'componentWillUpdate',
+            'UNSAFE_componentWillUpdate',
+            'getSnapshotBeforeUpdate',
+            'componentDidUpdate',
+            'componentDidCatch',
+            'componentWillUnmount',
+            'componentDidCatch'
+          ],
+          rendering: ['/^render.+$/', 'render']
+        }
       }
     ],
+    'react/static-property-placement': ['error', 'static public field'],
 
     'jsx-a11y/label-has-for': [
       'error',
@@ -123,6 +170,11 @@ module.exports = {
     ],
 
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn'
+    'react-hooks/exhaustive-deps': [
+      'warn',
+      {
+        additionalHooks: 'useMemoOne|useCallbackOne'
+      }
+    ]
   }
 };

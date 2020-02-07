@@ -4,13 +4,9 @@ var patternLibs = [
   require( './lib/week.pattern.js' )
 ];
 
-module.exports = function() {
+module.exports = function(timezone) {
 
-  var patterns = patternLibs.map( function( p ) {
-
-    return p();
-
-  } );
+  var patterns = patternLibs.map(p => p(timezone));
 
   return {
     add: add,

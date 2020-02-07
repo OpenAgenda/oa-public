@@ -12,8 +12,7 @@ import nl2br from '@openagenda/react-utils/dist/nl2br';
   destroyOnUnmount: false
 } )
 @connect( state => ({
-  prefix: state.settings.prefix,
-  user: state.userSettings.user
+  prefix: state.settings.prefix
 }) )
 @withRouter
 export default class ProfileSettings extends Component {

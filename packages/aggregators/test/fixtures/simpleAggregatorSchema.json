@@ -1,0 +1,31 @@
+{
+  "fields" : [{
+    "field" : "comment",
+    "fieldType" : "text"
+  }, {
+    "schemaId" : 20000,
+    "field" : "category",
+    "fieldType" : "radio",
+    "options" : [{
+      "id": 22,
+      "label" : { "fr": "Douze" }
+    }, {
+      "id": 30,
+      "label" : "Treize"
+    }, {
+      "id": 39,
+      "label" : "Schmilblick"
+    }]
+  }, {
+    "schemaId" : 20000,
+    "field" : "type",
+    "fieldType" : "checkbox",
+    "options" : [{
+      "id": 100,
+      "label": "Concert"
+    }, {
+      "id": 101,
+      "label": "Expo"
+    }]
+  }]
+}

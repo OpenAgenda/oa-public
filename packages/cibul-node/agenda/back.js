@@ -146,7 +146,7 @@ function _gettingStarted(req, res, next) {
           agenda: req.genUrl( 'agendaShow', { slug: req.agenda.slug } ),
           setImage: req.genUrl( 'agendaSettingsSetImage', { slug: req.agenda.slug } ),
           clearImage: req.genUrl( 'agendaSettingsClearImage', { slug: req.agenda.slug } ),
-          addEvent: req.genUrl( 'agendaEventNew', { slug: req.agenda.slug } ),
+          addEvent: `/${req.agenda.slug}/contribute`,
           createEmbed: `/${req.agenda.slug}/admin/webembed`
         },
         lang: _.get( req, 'lang', 'fr' )

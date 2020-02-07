@@ -79,7 +79,8 @@ describe( 'email validator', () => {
       validate = validators.email(),
 
       notEmails = [
-        'momo@bertho@gmail.com'
+        'momo@bertho@gmail.com',
+        'kevin.bertho@gmail.com;'
       ];
 
     notEmails.forEach( notEmail => {
@@ -103,12 +104,12 @@ describe( 'email validator', () => {
   it( 'validate lists of emails for non optional validator', () => {
 
     let emails = [
-      
+
     ], errors = [];
 
     try {
 
-      validators.email( { list: true, optional: false } )( [] );  
+      validators.email( { list: true, optional: false } )( [] );
 
     } catch( e ) {
 
@@ -116,11 +117,11 @@ describe( 'email validator', () => {
 
     }
 
-    expect(errors).toEqual([ { 
+    expect(errors).toEqual([ {
       field: undefined,
       code: 'list.required',
       message: 'list cannot be empty',
-      origin: [] 
+      origin: []
     } ]);
 
   } );

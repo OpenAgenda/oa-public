@@ -5,8 +5,8 @@ import * as dateFns from 'date-fns';
 import ReactResizeDetector from 'react-resize-detector';
 import classNames from 'classnames';
 import { IntlProvider } from 'react-intl';
-import localeEn from './locales/en';
-import localeFr from './locales/fr';
+import localeEn from './locales/en.json';
+import localeFr from './locales/fr.json';
 import Stats from './Stats';
 import Header from './Header';
 import Scheduler from './Scheduler';
@@ -64,7 +64,21 @@ function getClosestTiming(value) {
   return next || first;
 }
 
-class TimingsPicker extends Component {
+export default class TimingsPicker extends Component {
+  static defaultProps = {
+    value: null,
+    onChange: null,
+    timingLimit: ONE_DAY,
+    classNamePrefix: 'rtp__',
+    breakpoints: {
+      xs: 590,
+      sm: 640,
+      md: 768
+    },
+    locale: 'en',
+    locales: null
+  };
+
   schedulerRef = React.createRef();
 
   constructor(props) {
@@ -261,19 +275,3 @@ class TimingsPicker extends Component {
     );
   }
 }
-
-TimingsPicker.defaultProps = {
-  value: null,
-  onChange: null,
-  timingLimit: ONE_DAY,
-  classNamePrefix: 'rtp__',
-  breakpoints: {
-    xs: 590,
-    sm: 640,
-    md: 768
-  },
-  locale: 'en',
-  locales: null
-};
-
-export default TimingsPicker;

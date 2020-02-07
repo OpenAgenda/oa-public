@@ -4,8 +4,8 @@ const initialState = {
   tab: null
 };
 
-export default function reducer( state = initialState, action ) {
-  switch ( action.type ) {
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
     case SET_TAB:
       return {
         ...state,
@@ -16,7 +16,7 @@ export default function reducer( state = initialState, action ) {
   }
 }
 
-export function setTab( tab ) {
+export function setTab(tab) {
   return {
     type: SET_TAB,
     tab

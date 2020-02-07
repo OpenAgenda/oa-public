@@ -764,30 +764,20 @@ function _hasQueryOtherThan( req, exceptions ) {
 }
 
 
-function _cleanXlsxRow( row ) {
-
-  var clean = {};
-
-  for( let c in row ) {
-
-    if ( typeof row[ c ] == 'string' ) {
-
-      clean[ c ] = utils.cleanString( row[ c ] );
-
-    } else if ( utils.isArray( row[ c ] ) ) {
-
-      clean[ c ] = row[ c ].join( ', ' ) + '';
-
+function _cleanXlsxRow(row) {
+  return Object.keys(row).reduce((clean, c) => {
+    if (typeof row[c] == 'string') {
+      return {
+        ...clean,
+        [c]: utils.cleanString(row[c]).replace(/\n/g, '\r\n')
+      }
     } else {
-
-      clean[ c ] = row[ c ] + '';
-
+      return {
+        ...clean,
+        [c]: (row[c] instanceof Array ? row[c].join(', ') : row[c]) + ''
+      }
     }
-
-  }
-
-  return clean;
-
+  }, {});
 }
 
 

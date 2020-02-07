@@ -1,6 +1,7 @@
 .agenda-item {
 
-  & > a {
+  & > a,
+  & > button.btn.btn-link-inline {
 
     color: inherit;
 
@@ -16,7 +17,12 @@
 
   .title {
 
-    a { color: inherit; }
+    a,
+    button.btn.btn-link-inline {
+
+      color: inherit;
+
+    }
 
   }
 
@@ -26,16 +32,12 @@
 
   }
 
-  .official {
-    vertical-align: middle;
-  }
-
   padding: 1em 2em;
 
   a {
 
     text-decoration: none;
-    display: block;
+    display: inline-block;
 
   }
 

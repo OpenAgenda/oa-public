@@ -28,7 +28,7 @@
     "when": "^3.7.5"
   },
   "devDependencies": {
-    "mocha": "^6.2.1",
+    "mocha": "^7.0.1",
     "should": "^13.2.3"
   }
 }

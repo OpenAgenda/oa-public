@@ -1,7 +1,6 @@
 "use strict";
 
 const _ = require( 'lodash' );
-const { promisify } = require( 'util' );
 const contributionTypes = require( '@openagenda/agendas' ).contributionTypes;
 const members = require( '../../../services/members' );
 const users = require( '../../../services/users' );

@@ -1,71 +1,102 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import { hot } from 'react-hot-loader/root';
 import _ from 'lodash';
-import { connect } from 'react-redux';
+import { connect, ReactReduxContext } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { provideHooks } from 'redial';
-import { getContext } from 'recompose';
 import { Waypoint } from 'react-waypoint';
 import qs from 'qs';
+import withContext from '@openagenda/react-utils/dist/withContext';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import nl2br from '@openagenda/react-utils/dist/nl2br';
+import I18nContext from '../../contexts/I18nContext';
 import { Breadcrumb, ConversationList, LinkContainer, AuthorAvatar, ConversationForm } from '../../components';
-import * as inboxActions from '../../redux/modules/inbox';
-import * as conversationActions from '../../redux/modules/conversation';
-import * as conversationFormActions from '../../redux/modules/conversationForm';
-import * as modalActions from '../../redux/modules/modals';
+import * as inboxActions from '../../reducers/inbox';
+import * as conversationActions from '../../reducers/conversation';
+import * as conversationFormActions from '../../reducers/conversationForm';
+import * as modalActions from '../../reducers/modals';
 import removeTrailingSlash from '../../utils/removeTrailingSlash';
 import setFlashMessage from '../../utils/setFlashMessage';
 
-function asyncLoad( { store: { getState, dispatch }, location, history } ) {
+function asyncLoad({ store: { getState, dispatch }, location, history, agenda }) {
   const state = getState();
   const { prefix, focusFistConversation, hideEmptyList, topListForm } = state.settings;
   const query = focusFistConversation ? { limit: 1 } : {};
 
+  let promise;
+
   query.total = true;
 
-  return dispatch( inboxActions.load( query ) )
-    .then( async result => {
+  if (topListForm && !conversationActions.isAuthorLoaded(state)) {
+    promise = Promise.all([
+      dispatch(conversationActions.loadAuthor(agenda)),
+      dispatch(inboxActions.load(query, agenda))
+    ]);
+  } else {
+    promise = dispatch(inboxActions.load(query, agenda));
+  }
 
-      if ( topListForm && !conversationActions.isAuthorLoaded( state ) ) {
-        await dispatch( conversationActions.loadAuthor() );
-      }
+  return promise
+    .then(async result => {
 
-      if ( location.state && location.state.showListAllowed ) {
+      if (location.state && location.state.showListAllowed) {
         return true;
       }
 
-      if ( (hideEmptyList) && result.conversations && !result.conversations.length ) {
-        return history.replace( prefix + '/conversation/create' );
+      const baseUrl = prefix.replace(':slug', agenda && agenda.slug);
+
+      if ((hideEmptyList) && result.conversations && !result.conversations.length) {
+        return history.replace(baseUrl + '/conversation/create');
       }
 
-      if ( focusFistConversation ) {
-        if ( result.conversations && !result.conversations.length ) {
-          return history.replace( prefix + '/conversation/create' );
-        } else if ( result.conversations && result.conversations.length && !result.conversations[ 0 ].closedAt ) {
-          return history.replace( `${prefix}/conversation/${result.conversations[ 0 ].id}` );
+      if (focusFistConversation) {
+        if (result.conversations && !result.conversations.length) {
+          return history.replace(baseUrl + '/conversation/create');
+        } else if (result.conversations && result.conversations.length && !result.conversations[0].closedAt) {
+          return history.replace(`${baseUrl}/conversation/${result.conversations[0].id}`);
         }
       }
-    } );
+    });
+
+  // return dispatch(inboxActions.load(query))
+  //   .then(async result => {
+  //
+  //     if (topListForm && !conversationActions.isAuthorLoaded(state)) {
+  //       await dispatch(conversationActions.loadAuthor());
+  //     }
+  //
+  //     if (location.state && location.state.showListAllowed) {
+  //       return true;
+  //     }
+  //
+  //     if ((hideEmptyList) && result.conversations && !result.conversations.length) {
+  //       return history.replace(prefix + '/conversation/create');
+  //     }
+  //
+  //     if (focusFistConversation) {
+  //       if (result.conversations && !result.conversations.length) {
+  //         return history.replace(prefix + '/conversation/create');
+  //       } else if (result.conversations && result.conversations.length && !result.conversations[0].closedAt) {
+  //         return history.replace(`${prefix}/conversation/${result.conversations[0].id}`);
+  //       }
+  //     }
+  //   });
 }
 
-@provideHooks( {
-  fetch: async ( { store, location, history } ) => {
-    const promise = asyncLoad( { store, location, history } );
-
-    return Promise.resolve( __CLIENT__ ? null : promise );
-  }
-} )
+// @provideHooks({
+//   defer: ({ store, location, history, ...others }) => {
+//     console.log(others);
+//     // asyncLoad({ store, location, history, agenda }).catch(() => null);
+//   }
+// })
 @connect(
-  ( state, props ) => {
-    const query = qs.parse( props.location.search, { ignoreQueryPrefix: true } );
+  (state, props) => {
+    const query = qs.parse(props.location.search, { ignoreQueryPrefix: true });
 
     return {
       initialValues: query.origin
-        ? _.merge( state.settings.defaultQuery, { params: { origin: query.origin } } )
+        ? _.merge(state.settings.defaultQuery, { params: { origin: query.origin } })
         : state.settings.defaultQuery,
       settings: state.settings,
-      user: state.user,
       conversations: state.inbox.data,
       total: state.inbox.total,
       totalOpened: state.inbox.totalOpened,
@@ -75,20 +106,26 @@ function asyncLoad( { store: { getState, dispatch }, location, history } ) {
       nextLoading: state.inbox.nextLoading,
       lastPage: state.inbox.lastPage,
       author: state.conversation.author,
-      agenda: state.agenda,
       res: state.res
     };
   },
   { ...conversationActions, ...inboxActions, ...conversationFormActions, ...modalActions }
 )
-@getContext( {
-  getLabel: PropTypes.func,
-  store: PropTypes.object
-} )
+@withContext(ReactReduxContext, 'reactReduxContext')
 @withRouter
-export default class Inbox extends Component {
-  FormWrapper = ( { handleSubmit, error, children } ) => {
-    const { getLabel, settings, author } = this.props;
+class Inbox extends Component {
+  static contextType = I18nContext;
+
+  componentDidMount() {
+    const { reactReduxContext, location, history, agenda } = this.props;
+    const { store } = reactReduxContext;
+
+    asyncLoad({ store, location, history, agenda }).catch(() => null);
+  }
+
+  FormWrapper = ({ handleSubmit, error, children }) => {
+    const { settings, author } = this.props;
+    const { getLabel } = this.context;
     const { belowMessageDesc } = settings;
 
     return (
@@ -99,21 +136,21 @@ export default class Inbox extends Component {
 
         {author.inbox && author.inbox.type !== 'user' && author.inboxUser
           ? <div className="margin-bottom-sm">
-            {getLabel( 'yourMessageWillBeSigned' )} <b>{author.inbox.name}</b>
+            {getLabel('yourMessageWillBeSigned')} <b>{author.inbox.name}</b>
           </div>
           : null}
 
         {belowMessageDesc
-          ? <div className="margin-bottom-xs" dangerouslySetInnerHTML={{ __html: belowMessageDesc }}/>
+          ? <div className="margin-bottom-xs" dangerouslySetInnerHTML={{ __html: belowMessageDesc }} />
           : null}
 
-        <button type="submit" className="btn btn-primary margin-top-xs">{getLabel( 'send' )}</button>
+        <button type="submit" className="btn btn-primary margin-top-xs">{getLabel('send')}</button>
       </form>
     );
-  }
+  };
 
   nextPage = () => {
-    const { lastPage, loading, nextLoading, conversations } = this.props;
+    const { lastPage, loading, nextLoading, conversations, agenda } = this.props;
 
     if (
       !conversations || !conversations.length
@@ -123,42 +160,44 @@ export default class Inbox extends Component {
       return;
     }
 
-    this.props.nextPage();
+    this.props.nextPage(agenda);
   };
 
-  throttledNextPage = _.throttle( this.nextPage, 400, { trailing: false } );
+  throttledNextPage = _.throttle(this.nextPage, 400, { trailing: false });
 
-  renderCreationButton = ( { unclosedConvs } ) => {
-    const { settings, history, getLabel } = this.props;
+  renderCreationButton = ({ unclosedConvs }) => {
+    const { settings, history, agenda } = this.props;
+    const { getLabel } = this.context;
     const { allowCreateConversation, topListForm, creationButtonLabel, allClosedForCreate } = settings;
 
     const creationButton = (
-      <LinkContainer to="/conversation/create">
+      <LinkContainer to="/conversation/create" agenda={agenda}>
         {path => (
           <button
             className="btn btn-info btn-creation pull-right"
-            onClick={() => history.push( path )}
+            onClick={() => history.push(path)}
           >
-            {creationButtonLabel ? creationButtonLabel : getLabel( 'createConversation' )}
+            {creationButtonLabel ? creationButtonLabel : getLabel('createConversation')}
           </button>
         )}
       </LinkContainer>
     );
 
-    if ( allClosedForCreate && unclosedConvs.length ) {
+    if (allClosedForCreate && unclosedConvs.length) {
       return null;
     }
 
     return allowCreateConversation && !topListForm ? creationButton : null;
-  }
+  };
 
   render() {
     const {
       loading, loaded,
-      conversations, nextLoading, history, getLabel, showModal,
+      conversations, nextLoading, history, showModal,
       createConversation, author, initialValues, settings, user,
       attachFileToMessage, res, agenda, totalOpened, totalClosed
     } = this.props;
+    const { getLabel } = this.context;
 
     const {
       ContentWrapper, topListForm, prefix, emptyInboxLabel,
@@ -167,25 +206,21 @@ export default class Inbox extends Component {
       displayHelp, allowCreateConversation, focusFistConversation
     } = settings;
 
-    const [ unclosedConvs, closedConvs ] = _.partition( conversations, o => !o.closedAt );
+    const [unclosedConvs, closedConvs] = _.partition(conversations, o => !o.closedAt);
 
     const content = loading || !loaded
-      ? <div className="text-center padding-v-md">
-        <Spinner loading={loading} mode="inline" options={{
-          width: 1,
-          length: 6,
-          radius: 10,
-          color: '#666'
-        }}/>
-      </div>
-      : (
+      ? (
+        <div className="padding-v-md" style={{ position: 'relative' }}>
+          <Spinner />
+        </div>
+      ) : (
         <Fragment>
           <div className="inbox-head">
-            {this.renderCreationButton( { unclosedConvs } )}
+            {this.renderCreationButton({ unclosedConvs })}
 
             {displayHelp ? (
               <a
-                title={getLabel( 'needHelp' )}
+                title={getLabel('needHelp')}
                 target="_blank"
                 href="https://openagenda.zendesk.com/hc/fr/articles/360000370713"
                 className="pull-right"
@@ -197,44 +232,50 @@ export default class Inbox extends Component {
             {topListForm && ((allowCreateConversation && !focusFistConversation) || !unclosedConvs.length) && !maskCreationSubtitle
               ? (
                 <Breadcrumb
-                  breadParts={[ {
-                    component: creationSubtitle ? creationSubtitle : getLabel( 'newConversation' )
-                  } ]}
+                  breadParts={[
+                    {
+                      component: creationSubtitle ? creationSubtitle : getLabel('newConversation')
+                    }
+                  ]}
                   disableFirstPartLink
                 />
-              ) : <Breadcrumb/>}
+              ) : <Breadcrumb />}
           </div>
 
           {topListForm && ((allowCreateConversation && !focusFistConversation) || !unclosedConvs.length) ? <Fragment>
-            {creationDesc ? <p dangerouslySetInnerHTML={{ __html: creationDesc }}/> : null}
+            {creationDesc ? <p dangerouslySetInnerHTML={{ __html: creationDesc }} /> : null}
 
             <div className="media">
               <div className="media-left">
-                <AuthorAvatar author={author}/>
+                <AuthorAvatar author={author} />
               </div>
               <div className="media-body">
-                <h4 className="media-heading margin-bottom-sm">{getAuthorName( author )}</h4>
+                <h4 className="media-heading margin-bottom-sm">{getAuthorName(author)}</h4>
 
                 <ConversationForm
                   initialValues={initialValues}
                   Wrapper={this.FormWrapper}
                   onSubmit={createConversation}
-                  uploadEndpoint={res.messages.prepareAttachment.replace( ':agendaUid', agenda && agenda.uid ) + '/s3/params'}
+                  uploadEndpoint={res.messages.prepareAttachment.replace(
+                    ':agendaUid',
+                    agenda && agenda.uid
+                  ) + '/s3/params'}
                   onConversationCreate={conversation => {
-                    if ( onConversationCreateRedirect ) {
-                      if ( onConversationCreateFlash ) {
-                        setFlashMessage( onConversationCreateFlash );
+                    if (onConversationCreateRedirect) {
+                      if (onConversationCreateFlash) {
+                        setFlashMessage(onConversationCreateFlash);
                       }
 
                       window.location.href = onConversationCreateRedirect;
                     } else {
-                      const url = removeTrailingSlash( prefix ) + `/conversation/${conversation.id}`;
-                      history.push( url );
+                      const url = removeTrailingSlash(prefix.replace(':slug', agenda && agenda.slug))
+                        + `/conversation/${conversation.id}`;
+                      history.push(url);
 
-                      if ( onConversationCreateFlash ) {
-                        showModal( 'messageSent', { message: onConversationCreateFlash } );
+                      if (onConversationCreateFlash) {
+                        showModal('messageSent', { message: onConversationCreateFlash });
                       } else {
-                        showModal( 'messageSent' );
+                        showModal('messageSent');
                       }
                     }
                   }}
@@ -248,37 +289,39 @@ export default class Inbox extends Component {
             {unclosedConvs.length ? totalOpened : totalClosed}{' '}
             {getLabel(
               unclosedConvs.length
-                ? 'ongoingConversation' + (unclosedConvs.length > 1 ? 's' : '' )
-                : 'pastConversation' + (closedConvs.length > 1 ? 's' : '' )
+                ? 'ongoingConversation' + (unclosedConvs.length > 1 ? 's' : '')
+                : 'pastConversation' + (closedConvs.length > 1 ? 's' : '')
             )}
           </h4> : null}
 
           {unclosedConvs.length
-            ? <ConversationList conversations={unclosedConvs} user={user}/>
-            : <ConversationList conversations={closedConvs} user={user}/>}
+            ? <ConversationList conversations={unclosedConvs} user={user} agenda={agenda} />
+            : <ConversationList conversations={closedConvs} user={user} agenda={agenda} />}
 
           {unclosedConvs.length && closedConvs.length ? <Fragment>
             <h4 className="margin-bottom-md">
               {totalClosed}{' '}
-              {getLabel( 'pastConversation' + (closedConvs.length > 1 ? 's' : '' ) )}
+              {getLabel('pastConversation' + (closedConvs.length > 1 ? 's' : ''))}
             </h4>
 
-            <ConversationList conversations={closedConvs} user={user}/>
+            <ConversationList conversations={closedConvs} user={user} agenda={agenda} />
           </Fragment> : null}
 
-          {/*{conversations && conversations.length ? <ConversationList conversations={conversations}/> : null}*/}
+          {/*{conversations && conversations.length ? <ConversationList conversations={conversations} agenda={agenda}/> : null}*/}
 
           {!conversations || !conversations.length ?
             <div className="padding-v-md">
-              {nl2br( emptyInboxLabel ? emptyInboxLabel : getLabel( 'noResult' ) )}
+              {nl2br(getLabel(emptyInboxLabel || 'noResult'))}
             </div> :
             null}
 
-          {nextLoading && <div className="padding-v-md" style={{ position: 'relative' }}>
-            <Spinner/>
-          </div>}
+          {nextLoading && (
+            <div className="padding-v-md" style={{ position: 'relative' }}>
+              <Spinner />
+            </div>
+          )}
 
-          <Waypoint onEnter={this.throttledNextPage}/>
+          <Waypoint onEnter={this.throttledNextPage} />
         </Fragment>
       );
 
@@ -286,12 +329,14 @@ export default class Inbox extends Component {
       ? <ContentWrapper>{content}</ContentWrapper>
       : content;
   }
-};
+}
 
-function getAuthorName( obj ) {
-  if ( obj.inboxUser ) {
+function getAuthorName(obj) {
+  if (obj.inboxUser) {
     return obj.inboxUser.name;
   }
 
   return obj.inbox.name;
 }
+
+export default hot(Inbox);

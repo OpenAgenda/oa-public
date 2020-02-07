@@ -10,8 +10,10 @@ const Link = compose(
     prefix: state.settings.prefix
   }) ),
   mapProps( props => ({
-    ..._.omit( props, 'prefix', 'external', props.external ? 'to' : undefined ),
-    [ props.external ? 'href' : 'to' ]: (props.external ? '' : removeTrailingSlash( props.prefix )) + props.to,
+    ..._.omit( props, 'prefix', 'external', 'agenda', props.external ? 'to' : undefined ),
+    [ props.external ? 'href' : 'to' ]: (props.external
+      ? ''
+      : removeTrailingSlash( props.prefix.replace(':slug', props.agenda && props.agenda.slug) )) + props.to,
     component: props.external ? 'a' : RouterLink,
     dispatch: undefined
   }) )

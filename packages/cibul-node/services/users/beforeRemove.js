@@ -3,13 +3,12 @@ const { promisify } = require('util');
 /**
  * this interface will prevent user removal if not correctly executed
  */
-module.exports = function beforeRemove({ services }) {
-  const {
-    activities: activitiesSvc,
-    members: membersSvc
-  } = services;
-
+module.exports = function beforeRemove() {
   return async ctx => {
+    const {
+      activities: activitiesSvc,
+      members: membersSvc
+    } = ctx.self.config.services;
     const user = ctx.params.before;
 
     if (!user) {

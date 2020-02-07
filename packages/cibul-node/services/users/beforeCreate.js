@@ -1,6 +1,5 @@
 'use strict';
 
-const { promisify } = require( 'util' );
 const invitationsSvc = require( '@openagenda/invitations' );
 const agendasSvc = require( '@openagenda/agendas' );
 

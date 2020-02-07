@@ -1,8 +1,8 @@
 "use strict";
 
 module.exports = app => {
-  require('./services/users').expose(app);
-  require('./services/mails').expose(app);
+  require('./services/users').plugApp(app);
+  require('./services/mails').plugApp(app);
   require('./event/search.front')(app);
   require('./agenda/back')(app);
   require('./inboxes/endpoints')(app);
@@ -36,12 +36,13 @@ module.exports = app => {
   require('./agenda/embeds.back')(app);
   require('./location/front')(app);
   require('./agenda/customized.back')(app);
-  require('./webapp')(app);
-  require('./location/back')(app);
+  app.services.aggregators.plugApp(app);
   require('./agenda/settings.back')(app);
-  require('./services/aggregators').plugApp(app);
   require('./services/members')(app);
   require('./agenda/activities.back')(app);
+  require('./webapp')(app);
+  require('./location/back')(app);
+  require('./services/agendas').plugApp(app);
   require('./services/activities')(app);
   require('./agenda/shares.front')(app);
   require('./agenda/front')(app);

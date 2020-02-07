@@ -1,8 +1,9 @@
 "use strict";
 
-var labels = require( '@openagenda/labels/agendas/range' );
+var labels = require('@openagenda/labels/agendas/range');
+const moment = require('moment-timezone');
 
-module.exports = function() {
+module.exports = function(timezone = 'Europe/Paris') {
 
   var weekdays = [], count = 0;
 
@@ -13,7 +14,7 @@ module.exports = function() {
 
   function add( timing ) {
 
-    var day = timing.start.getDay();
+    var day = moment.tz(timing.start, timezone).day();
 
     count++;
 

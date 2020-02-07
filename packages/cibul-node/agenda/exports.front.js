@@ -19,15 +19,12 @@ const cacheMw = require( '../lib/cache.mw' );
 const gaTrack = require( '../lib/gaTrack.mw' );
 const config = require( '../config' );
 
-const aggregators = require('../services/aggregators').instance;
-
 const perPage = 20;
 
 const preMw = [
   cmn.redirectLegacySearch,
   cmn.loadLogger( 'agenda front' )
 ];
-
 
 module.exports = app => {
 
@@ -236,101 +233,24 @@ function cachedJson( cached, req, res ) {
   }
 }
 
-
 function addSource(req, res, next) {
-
-  const _redirect = () => res.redirect(302,
-    req.genUrl('agendaShow', { slug: req.agenda.slug })
-  );
-
-  _aggregatorVersion(req.aggregatorAgenda).then(version => {
-    if (version === 2) {
-      aggregators.sources.add(req.aggregatorAgenda, req.agenda).then(() => {
-        sessions.setFlash(req, res, getAggLabel('sourceAdded', {
-          source: '<strong>' + req.agenda.title + '</strong>',
-          agg: '<strong>' + req.aggregatorAgenda.title + '</strong>'
-        }, req.lang));
-        _redirect();
-      });
-    } else {
-      req.aggregatorAgenda.sources.add( req.agenda, async ( err, result ) => {
-
-        if (err) return next(err);
-
-        if (result.added) {
-
-          sessions.setFlash( req, res, getAggLabel( 'sourceAdded', {
-            source: '<strong>' + req.agenda.title + '</strong>',
-            agg: '<strong>' + req.aggregatorAgenda.title + '</strong>'
-          }, req.lang ) );
-
-          let entities = {};
-
-          try {
-            const { user, member, agenda, source } = entities = await loadNeedsForActivity( req );
-            await addSourceAddActivity( { user, member, agenda, source } );
-          } catch ( e ) {
-            req.log( 'error', 'failed adding activity of type agenda.addSource', { member: entities.member, exception: e } );
-          }
-
-        } else if (result.loop) {
-
-          sessions.setFlash( req, res, getAggLabel( 'aggregationLoop', req.lang ) );
-
-        }
-
-        _redirect();
-
-      });
-    }
+  req.app.services.aggregators.sources.add(req.aggregatorAgenda, req.agenda).then(() => {
+    sessions.setFlash(req, res, getAggLabel('sourceAdded', {
+      source: '<strong>' + req.agenda.title + '</strong>',
+      agg: '<strong>' + req.aggregatorAgenda.title + '</strong>'
+    }, req.lang));
+    res.redirect(302, `/${req.agenda.slug}`);
   });
 }
 
 function removeSource(req, res, next) {
-
-  const _flashAndRedirect = () => {
-    sessions.setFlash( req, res, getAggLabel('sourceRemoved', {
+  req.app.services.aggregators.sources.remove(req.aggregatorAgenda, req.agenda).then(() => {
+    sessions.setFlash(req, res, getAggLabel('sourceRemoved', {
       source: '<strong>' + req.agenda.title + '</strong>',
       agg: '<strong>' + req.aggregatorAgenda.title + '</strong>'
-    }, req.lang ) );
-    res.redirect(302, req.genUrl('agendaShow', { slug: req.agenda.slug }));
-  }
-
-  _aggregatorVersion(req.aggregatorAgenda).then(version => {
-    if (version === 2) {
-      aggregators.sources.remove(req.aggregatorAgenda, req.agenda).then(() => {
-        _flashAndRedirect();
-      });
-    } else {
-      req.aggregatorAgenda.sources.remove(req.agenda, async err => {
-        if ( err ) return next( err );
-
-        let entities = {};
-
-        try {
-          const {
-            user,
-            member,
-            agenda,
-            source
-          } = entities = await loadNeedsForActivity(req);
-          await addRemoveSourceActivity({ user, member, agenda, source });
-        } catch ( e ) {
-          req.log( 'error', 'failed adding activity of type agenda.removeSource', { member: entities.member, exception: e } );
-        }
-
-        _flashAndRedirect();
-      });
-    }
+    }, req.lang));
+    res.redirect(302, `/${req.agenda.slug}`);
   });
-
-}
-
-function _aggregatorVersion(agenda) {
-  return config.knex('aggregator')
-    .first(['version'])
-    .where('review_id', agenda.id)
-    .then(agg => agg && agg.version === 2 ? 2 : 1);
 }
 
 async function addSourceAddActivity( { user, member, agenda, source } ) {

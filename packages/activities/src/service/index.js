@@ -9,6 +9,7 @@ const activities = require('./activities');
 const notifications = require('./notifications');
 
 const cleanOldActivitiesTask = require('./activities/tasks/cleanOld')
+const cleanOldNotificationsTask = require('./notifications/tasks/cleanOld')
 const addActivityTask = require('./notifications/tasks/addActivity');
 const prepareSummaryTask = require('./notifications/tasks/prepareSummary');
 const sendSummary = require('./notifications/tasks/sendSummary');
@@ -58,7 +59,8 @@ async function Service(c) {
       notifications: {
         addActivity: addActivityTask(config),
         prepareSummary: prepareSummaryTask.bind(null, config),
-        sendSummary: sendSummary(config)
+        sendSummary: sendSummary(config),
+        cleanOld: cleanOldNotificationsTask.bind(null, config)
       }
     }
   });

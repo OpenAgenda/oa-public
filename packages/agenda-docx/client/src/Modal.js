@@ -2,7 +2,27 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import * as bodyScroll from './utils/bodyScroll';
 
-class Modal extends Component {
+export default class Modal extends Component {
+  static propTypes = {
+    children: PropTypes.node,
+    title: PropTypes.node,
+    visible: PropTypes.bool,
+    onClose: PropTypes.func,
+    disableBodyScroll: PropTypes.bool,
+    classNames: PropTypes.objectOf(PropTypes.string)
+  };
+
+  static defaultProps = {
+    children: null,
+    title: null,
+    visible: true,
+    disableBodyScroll: false,
+    onClose: null,
+    classNames: {
+      overlay: 'popup-overlay'
+    }
+  };
+
   constructor(props) {
     super(props);
 
@@ -128,25 +148,3 @@ class Modal extends Component {
     );
   }
 }
-
-Modal.propTypes = {
-  children: PropTypes.node,
-  title: PropTypes.node,
-  visible: PropTypes.bool,
-  onClose: PropTypes.func,
-  disableBodyScroll: PropTypes.bool,
-  classNames: PropTypes.objectOf(PropTypes.string)
-};
-
-Modal.defaultProps = {
-  children: null,
-  title: null,
-  visible: true,
-  disableBodyScroll: false,
-  onClose: null,
-  classNames: {
-    overlay: 'popup-overlay'
-  }
-};
-
-export default Modal;

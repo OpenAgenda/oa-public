@@ -1,84 +1,71 @@
 'use strict';
 
-const { iff, isProvider, disallow } = require('feathers-hooks-common');
-const update = require('immutability-helper');
-const errors = require('@feathersjs/errors');
-const Users = require('@openagenda/users');
+const { iff, isProvider, disallow: _disallow } = require('feathers-hooks-common');
 const restrictToUnlogged = require('./hooks/restrictToUnlogged');
 const restrictToCurrentUser = require('./hooks/restrictToCurrentUser');
 
-const restrictToCurrentUserIfExternal = [
+const restrictToCurrentUserIfExternal = () => async (context, next) => {
   iff(
     isProvider('external'),
     restrictToCurrentUser(),
-  )
-];
+  )(context);
 
-module.exports = update(Users.hooks, {
-  before: {
-    all: {
-      $unshift: [
-        context => {
-          if (context.id !== 'me') {
-            return;
-          }
+  await next();
+};
 
-          if (!context.params.user || !context.params.user.uid) {
-            throw new errors.NotAuthenticated('You should be logged');
-          }
+const restrictToUnloggedIfExternal = () => async (context, next) => {
+  iff(
+    isProvider('external'),
+    restrictToUnlogged(),
+  )(context);
 
-          context.id = context.params.user.uid;
-        }
-      ],
-    },
-    create: {
-      $unshift: [
-        iff(
-          isProvider('external'),
-          restrictToUnlogged()
-        )
-      ]
-    },
-    get: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    find: {
-      $unshift: [
-        disallow('external')
-      ]
-    },
-    update: {
-      $set: disallow()
-    },
-    patch: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    remove: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    setImageProfile: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    clearImageProfile: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    requestChangeEmail: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    // confirmChangeEmail: {
-    //   $unshift: restrictToCurrentUserIfExternal
-    // },
-    changePassword: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    generateApiKey: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    setNewFlag: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-    refresh: {
-      $unshift: restrictToCurrentUserIfExternal
-    },
-  }
-});
+  await next();
+};
+
+const disallow = (...args) => async (context, next) => {
+  _disallow(...args)(context);
+  await next();
+};
+
+module.exports = {
+  find: [
+    disallow('external')
+  ],
+  get: [
+    restrictToCurrentUserIfExternal()
+  ],
+  create: [
+    restrictToUnloggedIfExternal()
+  ],
+  update: [
+    disallow()
+  ],
+  patch: [
+    restrictToCurrentUserIfExternal()
+  ],
+  remove: [
+    restrictToCurrentUserIfExternal()
+  ],
+  setImageProfile: [
+    restrictToCurrentUserIfExternal()
+  ],
+  clearImageProfile: [
+    restrictToCurrentUserIfExternal()
+  ],
+  requestChangeEmail: [
+    restrictToCurrentUserIfExternal()
+  ],
+  confirmChangeEmail: [],
+  changePassword: [
+    restrictToCurrentUserIfExternal()
+  ],
+  generateApiKey: [
+    restrictToCurrentUserIfExternal()
+  ],
+  setNewFlag: [
+    restrictToCurrentUserIfExternal()
+  ],
+  refresh: [
+    restrictToCurrentUserIfExternal()
+  ]
+};

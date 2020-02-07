@@ -35,8 +35,7 @@ const mw = {
   loadContext: require('./middleware/loadContext'),
   invite: require('./middleware/invite'),
   sendMessage: require('./middleware/sendMessage'),
-  spreadsheet: require('./middleware/spreadsheet'),
-  page: require('./middleware/page')
+  spreadsheet: require('./middleware/spreadsheet')
 }
 
 const members = {};
@@ -129,12 +128,6 @@ function plugApp(parentApp) {
       req.order = 'actionsCounter.desc';
       next();
     }
-  );
-
-  parentApp.get(
-    '/:agendaSlug/admin/members',
-    mw.loadAgenda.roles,
-    mw.page.bind(null, _.pick(config, ['port']))
   );
 
   parentApp.get(

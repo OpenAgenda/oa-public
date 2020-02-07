@@ -24,9 +24,8 @@ const registeredFieldsSelector = formName => createSelector(
 const getRegisteredFields = registeredFieldsSelector( FORM_NAME );
 
 @connect(
-  state => ({
-    initialValues: { settings: { contribution: state.agenda.data.settings.contribution } },
-    agenda: state.agenda.data,
+  (state, props) => ({
+    initialValues: { settings: { contribution: props.agenda.settings.contribution } },
     registeredFields: getRegisteredFields( state )
   }),
   {

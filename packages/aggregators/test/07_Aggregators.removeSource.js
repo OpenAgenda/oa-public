@@ -2,8 +2,8 @@
 
 const should = require('should');
 
-const removeSource = require('../Aggregators/lib/removeSource');
-const loadSourceRemoves = require('../Aggregators/lib/loadSourceRemoves');
+const removeSource = require('../lib/removeSource');
+const loadSourceRemoves = require('../lib/loadSourceRemoves');
 
 const {
   asAsync,

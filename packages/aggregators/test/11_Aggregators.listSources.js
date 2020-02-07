@@ -2,7 +2,7 @@
 
 const should = require('should');
 const config = require('../config.test');
-const createInstance = require('../').createInstance;
+const createInstance = require('../');
 const fixtures = require('./fixtures');
 const getAgendasByUidsAndSearch = require('./fixtures/getAgendasByUidsAndSearch');
 

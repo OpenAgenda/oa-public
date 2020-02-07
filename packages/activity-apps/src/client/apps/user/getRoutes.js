@@ -1,13 +1,13 @@
 import loadable from '@openagenda/react-utils/dist/loadable';
 
-const UserApp = loadable( () =>
-  import( /* webpackChunkName: "home-UserActivitiesApp" */ '../../containers/UserApp/UserApp' )
+const UserApp = loadable(() =>
+  import( /* webpackChunkName: "activities-UserActivitiesApp" */ '../../containers/UserApp/UserApp' )
 );
-const UserDashboard = loadable( () =>
-  import( /* webpackChunkName: "home-UserActivitiesDashboard" */ '../../containers/UserDashboard/UserDashboard' )
+const UserDashboard = loadable(() =>
+  import( /* webpackChunkName: "activities-UserActivitiesDashboard" */ '../../containers/UserDashboard/UserDashboard' )
 );
 
-export default function ( prefix = '' ) {
+export default function (prefix = '') {
   return [
     {
       path: prefix,

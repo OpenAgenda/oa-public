@@ -63,7 +63,7 @@ module.exports = {
   },
   'agenda.acceptInvitation': {
     en: '{actor} has accepted the invitation to become {credential} on {target}.',
-    fr: "{actorCount, plural, one {{actor} a accepté} other {{actor} ont accepté}} l'invitation pour devenir {credential} sur {target}."
+    fr: "{actorCount, plural, one {{actor} a accepté} other {{actor} ont accepté}} l''invitation pour devenir {credential} sur {target}."
   },
   'agenda.addMember': {
     en: '{actor} added {object} as {credential} on {target}.',
@@ -74,7 +74,7 @@ module.exports = {
     fr: '{actor} vous a ajouté comme {credential} sur {target}.',
     de: '{actor} hinzugefügt Sie als {credential} auf {target}.',
     es: '{actor} te ha añadido como credencial {target}.',
-    br: "{actor} en/he deus ouzhpennet ac'hanoc'h evel {credential} war {target}."
+    br: "{actor} en/he deus ouzhpennet ac''hanoc''h evel {credential} war {target}."
   },
   'agenda.removeMember': {
     en: '{actor} removed {object} ({credential}) from {target}.',
@@ -93,7 +93,7 @@ module.exports = {
     fr: '{actor} vous a nommé {credential} sur {target}.',
     de: '{actor} Sie als {credential} auf {target} ernannt.',
     es: '{actor} te ha llamado de {credential} en {target}.',
-    br: "{actor} en/he deus anvet ac'hanoc'h da {credential} war {target}."
+    br: "{actor} en/he deus anvet ac''hanoc''h da {credential} war {target}."
   },
   'agenda.addSource': {
     en: '{actor} added {object} as a source on {target}.',
@@ -105,7 +105,7 @@ module.exports = {
   },
   'agenda.create': {
     en: '{actor} created the agenda {target}.',
-    fr: "{actor} a créé l'agenda {target}.",
+    fr: "{actor} a créé l''agenda {target}.",
     de: '{actor} der Kalender {target} erstellt.',
     es: '{actor} creó  el {agenda} {target}.',
     br: '{actor} en/he deus krouet an deiziataer {target}.'
@@ -120,18 +120,18 @@ module.exports = {
   },
   'agenda.rename': {
     en: '{actor} renamed the agenda {beforeTitle} to {afterTitle}.',
-    fr: "{actorCount, plural, one {{actor} a renommé} other {{actor} ont renommé}} l'agenda {beforeTitle} en {afterTitle}."
+    fr: "{actorCount, plural, one {{actor} a renommé} other {{actor} ont renommé}} l''agenda {beforeTitle} en {afterTitle}."
   },
   'agenda.setOfficial': {
     en: 'The agenda {target} became official.',
-    fr: "L'agenda {target} est devenu officiel.",
+    fr: "L''agenda {target} est devenu officiel.",
     de: 'Die Kalender {target} wurde offiziell.',
     es: 'El objetivo {agenda} se hizo oficial.',
     br: 'Deuet eo an deiziataer {target} da vezañ ofisiel.'
   },
   'agenda.setUnofficial': {
     en: 'The agenda {target} became unofficial.',
-    fr: "L'agenda {target} est devenu non officiel.",
+    fr: "L''agenda {target} est devenu non officiel.",
     de: 'Die Kalender {target} wurde inoffiziell.',
     es: 'El agenda de destino se convirtió en oficial.',
     br: 'Deuet eo an deiziataer {target} da vezañ diofisiel.'

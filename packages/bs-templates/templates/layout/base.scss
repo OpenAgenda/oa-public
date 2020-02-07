@@ -132,6 +132,18 @@ body {
 
 }
 
+.info-block {
+
+  background-color: $oa-gray-lightest;
+  padding: 1em;
+  border: 1px solid $oa-gray-lighter;
+
+  label {
+    margin-right: 1em;
+  }
+
+}
+
 /**
  * content block of a white page
  */
@@ -219,6 +231,7 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
 
     position: absolute;
     bottom: 10px;
+    top: 50%;
     left: 24px;
     padding: 2px;
 
@@ -275,6 +288,16 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
 
 }
 
+.btn-link-inline {
+  @extend .btn-link;
+
+  padding: 0;
+  border: none;
+  vertical-align: baseline;
+  text-align: inherit;
+  white-space: normal;
+}
+
 .oa-col-canvas {
 
   max-width: 680px;
@@ -298,4 +321,24 @@ a.discreet {
 
   }
 
+}
+
+.btn-link {
+  @each $name, $color in (success: $brand-success, info: $brand-info, warning: $brand-warning, danger: $brand-danger) {
+    &.text-#{$name} {
+      color: darken($color, 10%) !important;
+
+      &:hover, &:focus {
+        text-decoration: underline darken($color, 10%) !important;
+      }
+    }
+  }
+}
+
+.fa-xs {
+  font-size: .75em;
+}
+
+.fa-sm {
+  font-size: .875em;
 }

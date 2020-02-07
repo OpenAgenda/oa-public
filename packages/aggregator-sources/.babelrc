@@ -2,5 +2,14 @@
   "presets": [
     "@openagenda"
   ],
+  "plugins": [
+    "@loadable/babel-plugin",
+    [
+      "react-intl",
+      {
+        "messagesDir": "./dist/messages/"
+      }
+    ]
+  ],
   "sourceType": "unambiguous"
 }

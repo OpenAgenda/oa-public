@@ -1,0 +1,57 @@
+'use strict';
+
+const _ = require('lodash');
+const marked = require('marked');
+const getLabel = require('@openagenda/labels/makeLabelGetter')(
+  require('@openagenda/labels/event/addEvent')
+);
+const layouts = require('../../lib/layouts');
+
+const renderAddEvent = _.template(
+  require('fs').readFileSync(__dirname + '/addEvent.tpl', 'utf-8')
+);
+
+module.exports = app => {
+  const {
+    agendas
+  } = app.services;
+
+  app.get(['/:agendaSlug/addevent', '/:agendaSlug/event/:eventSlug/edit'],
+    agendas.mw.load,
+    (req, res, next) => {
+      if (!req.agenda) return next({ code: 404 });
+      next();
+    },
+    (req, res, next) => {
+      if (!req.params.eventSlug) {
+        return next();
+      }
+      events.get({ slug: req.params.eventSlug }).then(event => {
+        req.event = event;
+        next();
+      });
+    },
+    (req, res, next) => {
+      if (!req.agenda.credentials.useContributeApp) {
+        return next();
+      }
+      res.redirect(301, req.event
+        ? `/${req.agenda.slug}/contribute/event/${req.event.uid}`
+        : `/${req.agenda.slug}/contribute`
+      );
+    },
+    (req, res, next) => {
+      res.send(layouts.agenda(renderAddEvent({
+        title: getLabel('title', req.lang),
+        message: marked(getLabel('message', req.lang)),
+        support: getLabel('support', req.lang),
+        supportLink: `/support?origin=${encodeURIComponent(`/${req.agenda.slug}/addevent`)}`
+      }), {
+        agenda: req.agenda,
+        lang: req.lang,
+        title: '/addevent'
+      }));
+    }
+  );
+
+}

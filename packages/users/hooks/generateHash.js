@@ -1,8 +1,9 @@
 'use strict';
 
-const { alterItems, setByDot } = require('feathers-hooks-common');
+const _ = require('lodash');
+const { alterItems } = require('feathers-hooks-common');
 const crypto = require('../utils/crypto');
 
 module.exports = function generateHash(field) {
-  return alterItems(rec => setByDot(rec, field, crypto.randomHash()));
+  return alterItems(rec => _.set(rec, field, crypto.randomHash()));
 };

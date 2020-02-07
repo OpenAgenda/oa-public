@@ -1,146 +1,172 @@
-import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { useMemo, useCallback, useEffect } from 'react';
+import { hot } from 'react-hot-loader/root';
+import { provideHooks } from 'redial';
+import { useStore, useSelector } from 'react-redux';
 import { renderRoutes } from 'react-router-config';
-import { getContext, withContext } from 'recompose';
-import moment from 'moment';
 import cn from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/inboxes';
+import useApiClient from '@openagenda/react-utils/dist/useApiClient';
 import Modal from '@openagenda/react-components/build/Modal';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import * as modalActions from '../../redux/modules/modals';
+import I18nContext from '../../contexts/I18nContext';
+import inboxReducer from '../../reducers/inbox';
+import conversationReducer from '../../reducers/conversation';
+import conversationFormReducer from '../../reducers/conversationForm';
+import modalsReducer, * as modalsActions from '../../reducers/modals';
 
-import 'moment/locale/fr';
+const overlayStyle = { overlay: 'popup-overlay big' };
 
-@connect(
-  state => ({
-    res: state.res,
-    settings: state.settings,
-    modals: state.modals,
-    actionLoading: state.conversation.actionLoading
-  }),
-  { ...modalActions }
-)
-@withContext(
-  {
-    lang: PropTypes.string,
-    getLabel: PropTypes.func,
-  },
-  ({ settings }) => ({
-    lang: settings.lang,
-    getLabel: (label, values = {}) => makeGetterLabel(labels)(label, values, settings.lang)
-  })
-)
-@getContext({
-  lang: PropTypes.string,
-  getLabel: PropTypes.func
-})
-export default class App extends Component {
-  constructor(props) {
-    super(props);
+function App({ route, user, agenda, role }) {
+  const store = useStore();
 
-    moment.locale(props.lang || 'fr');
-  }
+  const { lang, Wrapper } = useSelector(state => state.settings);
+  const res = useSelector(state => state.res);
+  const modals = useSelector(state => state.modals);
+  const actionLoading = useSelector(state => state.conversation.actionLoading);
 
-  render() {
-    const {
-      modals, closeModal, lang,
-      settings: { Wrapper }, route, getLabel, actionLoading
-    } = this.props;
+  const apiClient = useApiClient();
 
-    const messageSentModal = modals && modals.messageSent || {};
-    const closeConfirmationModal = modals && modals.closeConfirmation || {};
-    const actionConfirmationModal = modals && modals.actionConfirmation || {};
+  useEffect(
+    () => {
+      if (res.refreshCheck) {
+        apiClient.get(res.refreshCheck).catch(null);
+      }
+    },
+    [apiClient, res.refreshCheck]
+  );
 
-    const content = (
-      <Fragment>
-        {renderRoutes(route.routes)}
+  const getLabel = useCallback(
+    (label, values = {}) => makeGetterLabel(labels)(label, values, lang),
+    [lang]
+  );
 
-        {messageSentModal.visible ? <Modal
+  const i18nContextValue = useMemo(
+    () => ({
+      lang: lang,
+      getLabel: getLabel
+    }),
+    [lang, getLabel]
+  );
+
+  const closeModalMessageSent = useCallback(
+    () => store.dispatch(modalsActions.closeModal('messageSent')),
+    [store.dispatch]
+  );
+  const closeModalCloseConfirmation = useCallback(
+    () => store.dispatch(modalsActions.closeModal('closeConfirmation')),
+    [store.dispatch]
+  );
+  const closeModalActionConfirmation = useCallback(
+    () => store.dispatch(modalsActions.closeModal('actionConfirmation')),
+    [store.dispatch]
+  );
+
+  const confirmModalCloseConfirmation = useCallback(
+    () => modals.closeConfirmation.params.onAction(modals.closeConfirmation.params.action.code)
+      .finally(() => store.dispatch(modalsActions.closeModal('closeConfirmation'))),
+    [store.dispatch, modals.closeConfirmation]
+  );
+  const confirmModalActionConfirmation = useCallback(
+    () => modals.actionConfirmation.params.onAction(modals.actionConfirmation.params.action.code)
+      .finally(() => store.dispatch(modalsActions.closeModal('actionConfirmation'))),
+    [store.dispatch, modals.actionConfirmation]
+  );
+
+  const content = (
+    <I18nContext.Provider value={i18nContextValue}>
+      {renderRoutes(route.routes, { user, agenda, role })}
+
+      {modals.messageSent && modals.messageSent.visible ? (
+        <Modal
           title={getLabel('messageSent')}
-          onClose={() => closeModal('messageSent')}
-          classNames={{ overlay: 'popup-overlay big' }}
+          onClose={closeModalMessageSent}
+          classNames={overlayStyle}
         >
           <div className="margin-top-sm text-center">
-            {messageSentModal.params.onConversationCreateFlash
-              ? messageSentModal.params.onConversationCreateFlash
+            {modals.messageSent.params.onConversationCreateFlash
+              ? modals.messageSent.params.onConversationCreateFlash
               : getLabel('yourMessageHasBeenSent')}
           </div>
           <div className="margin-top-sm text-center">
-            <button className="btn btn-primary" onClick={() => closeModal('messageSent')}>
+            <button className="btn btn-primary" onClick={closeModalMessageSent}>
               {getLabel('close')}
             </button>
           </div>
-        </Modal> : null}
+        </Modal>
+      ) : null}
 
-        {closeConfirmationModal.visible ? <Modal
+      {modals.closeConfirmation && modals.closeConfirmation.visible ? (
+        <Modal
           title={getLabel('closeConversation')}
-          onClose={() => closeModal('closeConfirmation')}
-          classNames={{ overlay: 'popup-overlay big' }}
+          onClose={closeModalCloseConfirmation}
+          classNames={overlayStyle}
         >
           <div className="margin-top-sm text-center">{getLabel('closeConversationDesc')}</div>
           <div className="margin-top-sm">
-            <button className="btn btn-primary" onClick={() => closeModal('closeConfirmation')}>
+            <button className="btn btn-primary" onClick={closeModalCloseConfirmation}>
               {getLabel('cancel')}
             </button>
-            <button
-              className="btn btn-danger pull-right" onClick={async () => {
-              await closeConfirmationModal.params.onAction(closeConfirmationModal.params.action.code);
-              closeModal('closeConfirmation');
-            }}
-            >
+            <button className="btn btn-danger pull-right" onClick={confirmModalCloseConfirmation}>
               {getLabel('close')}
 
               {actionLoading && (
                 <span className="margin-h-sm">
-                  <Spinner mode="inline" />
-                </span>
+                <Spinner mode="inline" />
+              </span>
               )}
             </button>
           </div>
-        </Modal> : null}
+        </Modal>
+      ) : null}
 
-        {actionConfirmationModal.visible ? <Modal
-          title={actionConfirmationModal.params.action.confirmationModalTitle[lang]}
-          onClose={() => closeModal('actionConfirmation')}
-          classNames={{ overlay: 'popup-overlay big' }}
+      {modals.actionConfirmation && modals.actionConfirmation.visible ? (
+        <Modal
+          title={modals.actionConfirmation.params.action.confirmationModalTitle[lang]}
+          onClose={closeModalActionConfirmation}
+          classNames={overlayStyle}
         >
           <div className="margin-top-sm text-center">
-            {actionConfirmationModal.params.action.confirmationModalLabel[lang]}
+            {modals.actionConfirmation.params.action.confirmationModalLabel[lang]}
           </div>
           <div className="margin-top-sm">
-            <button className="btn btn-primary" onClick={() => closeModal('actionConfirmation')}>
+            <button className="btn btn-primary" onClick={closeModalActionConfirmation}>
               {getLabel('cancel')}
             </button>
             <button
-              className={cn('btn', `btn-${actionConfirmationModal.params.action.kind}`, 'pull-right')}
-              onClick={async () => {
-                await actionConfirmationModal.params.onAction(actionConfirmationModal.params.action.code);
-                closeModal('actionConfirmation');
-              }}
+              className={cn('btn', `btn-${modals.actionConfirmation.params.action.kind}`, 'pull-right')}
+              onClick={confirmModalActionConfirmation}
             >
               {getLabel('confirm')}
 
               {actionLoading && (
                 <span className="margin-h-sm">
-                  <Spinner mode="inline" />
-                </span>
+                <Spinner mode="inline" />
+              </span>
               )}
             </button>
           </div>
-        </Modal> : null}
-      </Fragment>
+        </Modal>
+      ) : null}
+    </I18nContext.Provider>
+  );
+
+  if (Wrapper) {
+    return (
+      <Wrapper>
+        {content}
+      </Wrapper>
     );
-
-    if (Wrapper) {
-      return (
-        <Wrapper>
-          {content}
-        </Wrapper>
-      );
-    }
-
-    return content;
   }
+
+  return content;
 }
+
+export default hot(provideHooks({
+  inject: ({ store }) => store.inject({
+    inbox: inboxReducer,
+    conversation: conversationReducer,
+    conversationForm: conversationFormReducer,
+    modals: modalsReducer
+  })
+})(App));

@@ -23,17 +23,17 @@ const initialState = {
 };
 
 const catchValidation = res => {
-  if ( res.errors ) {
-    throw new SubmissionError( Object.assign( ...res.errors.map( v => ({ [ v.field ]: v.message }) ) ) );
+  if (res.errors) {
+    throw new SubmissionError(Object.assign(...res.errors.map(v => ({ [v.field]: v.message }))));
   }
-  if ( res.response && res.response.error && res.response.error.message ) {
-    throw new SubmissionError( { _error: res.response.error.message } );
+  if (res.response && res.response.error && res.response.error.message) {
+    throw new SubmissionError({ _error: res.response.error.message });
   }
-  return Promise.reject( res );
+  return Promise.reject(res);
 };
 
-export default function reducer( state = initialState, action = {} ) {
-  switch ( action.type ) {
+export default function reducer(state = initialState, action = {}) {
+  switch (action.type) {
     case LOAD:
       return {
         ...state,
@@ -56,7 +56,7 @@ export default function reducer( state = initialState, action = {} ) {
         error: typeof action.error === 'string' ? action.error : 'Error'
       };
     case IMAGE_UPLOADED:
-      if ( action.error ) return state;
+      if (action.error) return state;
       return {
         ...state,
         imageChanged: true,
@@ -75,29 +75,29 @@ export default function reducer( state = initialState, action = {} ) {
   }
 };
 
-export function formPlugin( state = {}, action ) {
-  switch ( action.type ) {
+export function formPlugin(state = {}, action) {
+  switch (action.type) {
     case formActionTypes.CHANGE:
-      if ( !state.values ) {
+      if (!state.values) {
         return {
           ...state,
           slugModified: false
         };
       }
-      if ( action.meta.field === 'slug' ) {
+      if (action.meta.field === 'slug') {
         return {
           ...state,
           slugModified: action.payload !== ''
         }
       }
-      if ( action.meta.field !== 'title' || state.slugModified ) {
+      if (action.meta.field !== 'title' || state.slugModified) {
         return state;
       }
       return {
         ...state,
         values: {
           ...state.values,
-          slug: slug( action.payload, { lower: true } )
+          slug: slug(action.payload, { lower: true })
         }
       };
     default:
@@ -105,45 +105,30 @@ export function formPlugin( state = {}, action ) {
   }
 }
 
-export function isLoaded( globalState ) {
-  return globalState.agenda && globalState.agenda.loaded;
-}
-
-export function load() {
+export function create(data) {
   return {
-    types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
-    promise: ( { client }, { getState } ) => {
-      const { res, agenda } = getState();
-
-      return client.get( res.get.replace( ':uid', agenda.uid ) );
-    }
-  };
-}
-
-export function create( data ) {
-  return {
-    types: [ CREATE, CREATE_SUCCESS, CREATE_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [CREATE, CREATE_SUCCESS, CREATE_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.post( res.create, data ).catch( catchValidation );
+      return client.post(res.create, data).catch(catchValidation);
     }
   };
 }
 
-export function edit( data ) {
+export function edit(data) {
   return {
-    types: [ EDIT, EDIT_SUCCESS, EDIT_FAIL ],
-    promise: ( { client }, { getState } ) => {
-      const { res, agenda } = getState();
+    types: [EDIT, EDIT_SUCCESS, EDIT_FAIL],
+    promise: ({ client, params }, { getState }) => {
+      const { res } = getState();
 
-      return client.post( res.set.replace( ':slug', agenda.data.slug ), data )
-        .catch( catchValidation );
+      return client.post(res.set.replace(':slug', params.slug), data)
+        .catch(catchValidation);
     }
   };
 }
 
-export function imageUploaded( image, error ) {
+export function imageUploaded(image, error) {
   return {
     type: IMAGE_UPLOADED,
     image,
@@ -151,24 +136,24 @@ export function imageUploaded( image, error ) {
   };
 }
 
-export function checkSlug( data ) {
+export function checkSlug(data) {
   return {
-    types: [ CHECK_SLUG, CHECK_SLUG_SUCCESS, CHECK_SLUG_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [CHECK_SLUG, CHECK_SLUG_SUCCESS, CHECK_SLUG_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.post( res.slugAvailable, data );
+      return client.post(res.slugAvailable, data);
     }
   };
 }
 
 export function remove() {
   return {
-    types: [ REMOVE, REMOVE_SUCCESS, REMOVE_FAIL ],
-    promise: ( { client }, { getState } ) => {
-      const { res, agenda } = getState();
+    types: [REMOVE, REMOVE_SUCCESS, REMOVE_FAIL],
+    promise: ({ client, params }, { getState }) => {
+      const { res } = getState();
 
-      return client.post( res.remove.replace( ':slug', agenda.data.slug ) );
+      return client.post(res.remove.replace(':slug', params.slug));
     }
   };
 }

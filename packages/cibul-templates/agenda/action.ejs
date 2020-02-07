@@ -70,9 +70,9 @@
 <% if ( agendas.length ) { %>
 <% agendas.forEach( function( aggAgenda ) { %>
 <% if ( aggAgenda.aggregates ) { %>
-          <a class="btn btn-default checked uncheckable" href="<%= genUrl( 'agendaSourceRemove', { uid: agenda.uid, aggUid: aggAgenda.aggUid } ) %>"><%= aggAgenda.title %></a>
+          <a class="btn btn-default checked uncheckable" href="<%= `/${aggAgenda.slug}/admin/sources?removeSource=${agenda.slug}${typeof redirect !== 'undefined' ? `&redirect=${redirect}`: '' }` %>"><%= aggAgenda.title %></a>
 <% } else { %>
-          <a class="btn btn-default" href="<%= genUrl( 'agendaSourceAdd', { uid: agenda.uid, aggUid: aggAgenda.aggUid } ) %>"><%= aggAgenda.title %></a>
+          <a class="btn btn-default" href="<%= `/${aggAgenda.slug}/admin/sources?addSource=${agenda.slug}${typeof redirect !== 'undefined' ? `&redirect=${redirect}`: '' }` %>"><%= aggAgenda.title %></a>
 <% } %>
 <% }); %>
 <% } else { %>

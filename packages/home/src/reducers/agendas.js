@@ -10,21 +10,21 @@ const NEXT_PAGE_FAIL = 'home/agendas/NEXT_PAGE_FAIL';
 
 const initialState = {};
 
-export default function reducer( state = initialState, action ) {
-  switch ( action.type ) {
+export default function reducer(state = initialState, action) {
+  switch (action.type) {
     case LOAD:
       return {
         ...state,
-        [ action.key ]: {
-          ...state[ action.key ],
+        [action.key]: {
+          ...state[action.key],
           loading: true
         }
       };
     case LOAD_SUCCESS:
       return {
         ...state,
-        [ action.key ]: {
-          ...state[ action.key ],
+        [action.key]: {
+          ...state[action.key],
           loaded: true,
           data: action.result.agendas,
           total: action.result.total,
@@ -36,8 +36,8 @@ export default function reducer( state = initialState, action ) {
     case LOAD_FAIL:
       return {
         ...state,
-        [ action.key ]: {
-          ...state[ action.key ],
+        [action.key]: {
+          ...state[action.key],
           data: null,
           total: null,
           page: 1,
@@ -48,16 +48,16 @@ export default function reducer( state = initialState, action ) {
     case LIST:
       return {
         ...state,
-        [ action.key ]: {
-          ...state[ action.key ],
+        [action.key]: {
+          ...state[action.key],
           listLoading: true
         }
       };
     case LIST_SUCCESS:
       return {
         ...state,
-        [ action.key ]: {
-          ...state[ action.key ],
+        [action.key]: {
+          ...state[action.key],
           data: action.result.agendas,
           total: action.result.total,
           page: 1,
@@ -68,8 +68,8 @@ export default function reducer( state = initialState, action ) {
     case LIST_FAIL:
       return {
         ...state,
-        [ action.key ]: {
-          ...state[ action.key ],
+        [action.key]: {
+          ...state[action.key],
           data: null,
           total: null,
           page: 1,
@@ -80,17 +80,17 @@ export default function reducer( state = initialState, action ) {
     case NEXT_PAGE:
       return {
         ...state,
-        [ action.key ]: {
-          ...state[ action.key ],
+        [action.key]: {
+          ...state[action.key],
           nextLoading: true
         }
       };
     case NEXT_PAGE_SUCCESS:
       return {
         ...state,
-        [ action.key ]: {
-          ...state[ action.key ],
-          data: [ ...state[ action.key ].data, ...action.result.agendas ],
+        [action.key]: {
+          ...state[action.key],
+          data: [...state[action.key].data, ...action.result.agendas],
           total: action.result.total,
           page: action.page,
           error: null,
@@ -100,8 +100,8 @@ export default function reducer( state = initialState, action ) {
     case NEXT_PAGE_FAIL:
       return {
         ...state,
-        [ action.key ]: {
-          ...state[ action.key ],
+        [action.key]: {
+          ...state[action.key],
           error: action.error,
           nextLoading: false
         }
@@ -111,43 +111,47 @@ export default function reducer( state = initialState, action ) {
   }
 }
 
-export function isLoaded( key, globalState ) {
-  return globalState.agendas && globalState.agendas[ key ] && globalState.agendas[ key ].loaded;
+export function isLoaded(key, globalState) {
+  return (
+    globalState.agendas
+    && globalState.agendas[key]
+    && globalState.agendas[key].loaded
+  );
 }
 
-export function load( key, query ) {
+export function load(key, query) {
   return {
     key,
-    types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [LOAD, LOAD_SUCCESS, LOAD_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.agendas.list, { params: query } );
+      return client.get(res.agendas.list, { params: query });
     }
   };
 }
 
-export function list( key, query ) {
+export function list(key, query) {
   return {
     key,
-    types: [ LIST, LIST_SUCCESS, LIST_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [LIST, LIST_SUCCESS, LIST_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.agendas.list, { params: query } );
+      return client.get(res.agendas.list, { params: query });
     }
-  }
+  };
 }
 
-export function nextPage( key, query, page ) {
+export function nextPage(key, query, page) {
   return {
     key,
     page,
-    types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
-    promise: ( { client }, { getState } ) => {
+    types: [NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL],
+    promise: ({ client }, { getState }) => {
       const { res } = getState();
 
-      return client.get( res.agendas.list, { params: { ...query, page } } );
+      return client.get(res.agendas.list, { params: { ...query, page } });
     }
-  }
+  };
 }

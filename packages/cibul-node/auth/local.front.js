@@ -42,7 +42,7 @@ module.exports = app => {
   app.get(
     '/signin',
     preMw,
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.middleware.ifLogged((req, res) => res.redirect(302, '/home')),
     _presetEmail,
     auth.renderSignin
   );
@@ -153,7 +153,7 @@ module.exports = app => {
 };
 
 function _redirectToContribute(req, res, next) {
-  res.redirect(302, `/${req.agenda.slug}/addevent`);
+  res.redirect(302, `/${req.agenda.slug}/contribute`);
 }
 
 
@@ -443,7 +443,9 @@ function _handleSigninRequest( req, email, password, cb ) {
 
       cb( null, user, { email, password, user } );
     } )
-    .catch( cb );
+    .catch( err => {
+      cb(err);
+    } );
 
 }
 

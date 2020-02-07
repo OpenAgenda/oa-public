@@ -177,9 +177,9 @@ export function updateUser( data = {} ) {
         } );
 
         dispatch( displayMessage( 'updateProfile', true ) );
-        if ( userSettings.user.culture !== result.culture ) {
-          location.reload();
-        }
+        // if ( userSettings.user.culture !== result.culture ) {
+        //   location.reload();
+        // }
         setTimeout( () => dispatch( displayMessage( 'updateProfile', false ) ), 2000 );
 
         return result;

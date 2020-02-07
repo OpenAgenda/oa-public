@@ -52,7 +52,7 @@ The first line are useful for does not ignore the dotfiles (.storybook, .babelrc
 ```json
 {
   "scripts": {
-    "lint": "eslint -c .eslintrc '**/*.js'"
+    "lint": "eslint -c .eslintrc $(pwd)'/**/*.js'"
   }
 }
 ```
@@ -73,7 +73,7 @@ yarn add -D prettier-eslint-cli
 ```json
 {
   "scripts": {
-    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc '**/*.js'"
+    "prettier": "prettier-eslint --write --eslint-config-path .eslintrc $(pwd)'/**/*.js'"
   }
 }
 ```

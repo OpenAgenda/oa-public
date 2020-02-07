@@ -1,4 +1,4 @@
-<div class="popup-overlay js_close_popup share-menu">
+<div class="agenda-popup-overlay js_close_popup share-menu">
   <section>
     <header class="popup-title">
       <h2><%= __('Import / Add to my agenda') %></h2>
@@ -25,9 +25,9 @@
 <% if ( agendas.length ) { %>
 <% agendas.forEach( function( agenda ) { %>
 <% if ( agenda.aggregates ) { %>
-      <a class="btn btn-default checked uncheckable" href="<%= genUrl( 'agendaSourceRemove', { uid: uid, aggUid: agenda.aggUid } ) %>"><%= agenda.title %></a>
+      <a class="btn btn-default checked uncheckable" href="<%= `/${slug}/admin/sources?removeSource=${agenda.slug}` %>"><%= agenda.title %></a>
 <% } else { %>
-      <a class="btn btn-default" href="<%= genUrl( 'agendaSourceAdd', { uid: uid, aggUid: agenda.aggUid } ) %>"><%= agenda.title %></a>
+      <a class="btn btn-default" href="<%= `/${slug}/admin/sources?addSource=${agenda.slug}` %>"><%= agenda.title %></a>
 <% } %>
 <% }); %>
 <% } else { %>

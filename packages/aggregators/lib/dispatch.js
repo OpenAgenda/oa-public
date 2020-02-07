@@ -1,0 +1,30 @@
+'use strict';
+
+const log = require('@openagenda/logs')('dispatch');
+
+const getSourceAndAggregatorPairs = require('../utils/getSourceAndAggregatorPairs');
+
+module.exports = async ({ queue, knex }, action, data) => {
+  log('dispatch');
+  const { agenda, event } = data;
+
+  const aggregators = await getSourceAndAggregatorPairs(knex, agenda);
+
+  for (const ag of aggregators) {
+    if (action === 'evaluateEvent') {
+      await queue('evaluateEvent', {
+        aggregatorAgendaUid: ag.agendaUid,
+        sourceRules: ag.sourceRules,
+        aggregatorRules: ag.aggregatorRules,
+        ...data
+      });
+    } else {
+      await queue('removeEvent', {
+        aggregatorAgendaUid: ag.agendaUid,
+        sourceAgendaUid: agenda.uid,
+        eventUid: event.uid,
+        ...data
+      });
+    }
+  }
+}

@@ -131,6 +131,7 @@ function actionShow( req, res ) {
     includeActionLinks: false,
     scriptParams: {
       uid: req.agenda.uid,
+      slug: req.agenda.slug,
       lang: req.lang,
       languages: []
     },
@@ -171,6 +172,7 @@ function actionShow( req, res ) {
       return w.promise( ( rs, rj ) => {
 
         values.agendas = [];
+        values.redirect = encodeURIComponent(req.originalUrl);
 
         var aIds = [];
 
@@ -197,6 +199,7 @@ function actionShow( req, res ) {
                 id: a.id,
                 title: a.title,
                 aggUid: a.uid,
+                slug: a.slug,
                 aggregates: false
               } );
 

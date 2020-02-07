@@ -40,7 +40,7 @@ export default function duplicateApp( options ) {
     agendaImage
   } = _.merge( {}, defaults, options );
 
-  const client = apiClient( '' );
+  const client = apiClient( '', null, { legacy: true } );
   const store = createStore(
     () => ({
       agendas: agendasReducer,

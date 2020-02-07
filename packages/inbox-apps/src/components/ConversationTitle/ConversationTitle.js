@@ -1,25 +1,24 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { getContext } from 'recompose';
 import { connect } from 'react-redux';
+import I18nContext from '../../contexts/I18nContext';
 import getDestinationInbox from '../../utils/getDestinationInbox';
 
 @connect( state => ({
   settings: state.settings
 }) )
-@getContext( {
-  getLabel: PropTypes.func
-} )
 export default class ConversationTitle extends Component {
   static defaultProps = {
     EntityComponent: ( { children } ) => <span className="text-muted">{children}</span>
   };
 
+  static contextType = I18nContext;
+
   render() {
     const {
       user, conversation, EntityComponent,
-      settings: { context }, getLabel
+      settings: { context }
     } = this.props;
+    const { getLabel } = this.context;
 
     const destinationInbox = getDestinationInbox( { user, conversation } );
 
