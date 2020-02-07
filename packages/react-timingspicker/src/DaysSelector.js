@@ -740,8 +740,8 @@ class DaysSelector extends Component {
     if (
       !isDisabled
       && (selection.length > 1
-        || (!dateFns.isEqual(selection[0].begin, valueToResize.begin)
-          || !dateFns.isEqual(selection[0].end, valueToResize.end)))
+        || !dateFns.isEqual(selection[0].begin, valueToResize.begin)
+        || !dateFns.isEqual(selection[0].end, valueToResize.end))
     ) {
       const newValue = [...filteredValue, ...selection];
 

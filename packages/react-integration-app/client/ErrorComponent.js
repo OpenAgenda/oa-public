@@ -11,8 +11,8 @@ const defaultMessages = {
   },
   fr: {
     oops: 'Oups !',
-    sorry: 'Désolé, une erreur s\'est produite.',
-    goToHome: 'Aller à l\'accueil',
+    sorry: "Désolé, une erreur s''est produite.",
+    goToHome: "Aller à l''accueil",
     contactSupport: 'Contacter le support',
     retry: 'Réessayer'
   }
@@ -60,14 +60,15 @@ export default function ErrorComponent({
               defaultMessage="Contact support"
             />
           </a>
-          {process.env.NODE_ENV === 'development' && typeof retry === 'function' ? (
+          {process.env.NODE_ENV === 'development'
+          && typeof retry === 'function' ? (
             <>
               {' '}
               <button onClick={retry} type="button" className="btn btn-default">
                 <FormattedMessage id="retry" defaultMessage="Retry" />
               </button>
             </>
-          ) : null}
+            ) : null}
         </div>
       </div>
     </IntlProvider>
