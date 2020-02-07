@@ -12,7 +12,6 @@ const lib = require( '../lib/lib' );
 const membersSvc = require( '../services/members' );
 const model = require( '../services/model' );
 const adminSvc = require( '../services/admin/admin' );
-const usersSvc = require( '../services/users' );
 
 const preMw = [
   cmn.loadBaseData(),
@@ -39,15 +38,14 @@ module.exports = app => {
 
 function index( req, res ) {
 
-  var totals = {},
-
-    totalsWeek = {},
-
-    totalsMonth = {};
+  const { services } = req.app;
+  const totals = {};
+  const totalsWeek = {};
+  const totalsMonth = {};
 
   log( 'rendering index' );
 
-  wn.call( _getTotals )
+  wn.call( _getTotals.bind(null, services) )
 
     .spread( function ( rt, et, ut ) {
 
@@ -55,7 +53,7 @@ function index( req, res ) {
       totals.events = et;
       totals.users = ut;
 
-      return wn.call( _getTotalsWeek );
+      return wn.call( _getTotalsWeek.bind(null, services) );
 
     } )
 
@@ -65,7 +63,7 @@ function index( req, res ) {
       totalsWeek.events = etw;
       totalsWeek.users = utw;
 
-      return wn.call( _getTotalsMonth );
+      return wn.call( _getTotalsMonth.bind(null, services) );
 
     } )
 
@@ -98,10 +96,11 @@ function throwTestError( req, res, next ) {
 
 function search( req, res ) {
 
+  const { services } = req.app;
   const start = moment( req.query.begin, 'DD-MM-YYYY' ).toDate();
   const end = moment( req.query.end, 'DD-MM-YYYY' ).endOf( 'day' ).toDate();
 
-  _getFork( start, end )
+  _getFork( services, start, end )
 
     .then( ( [ r, e, u ] ) => {
 
@@ -216,6 +215,7 @@ function getUsers( req, res, next ) {
 
 function userChangePassword( req, res ) {
 
+  const { users: usersSvc } = req.app.services;
   const { uid, password } = req.query;
 
   usersSvc
@@ -235,6 +235,8 @@ function userChangePassword( req, res ) {
 
 
 async function userActivate( req, res ) {
+
+  const { users: usersSvc } = req.app.services;
 
   if ( !req.loadedUser.isActivated ) {
 
@@ -256,6 +258,8 @@ async function userActivate( req, res ) {
 }
 
 function userUpdate( req, res, next ) {
+
+  const { users: usersSvc } = req.app.services;
 
   usersSvc.get( req.loadedUser.uid, { detailed: true, removed: null } )
     .then( async user => {
@@ -304,6 +308,8 @@ function userSignin( req, res ) {
 function _loadUser( type = 'get' ) {
 
   return ( req, res, next ) => {
+
+    const { users: usersSvc } = req.app.services;
 
     const request = req[ type === 'get' ? 'query' : 'body' ];
 
@@ -405,7 +411,9 @@ function eventsDiff( req, res ) {
 }
 
 
-function _getFork( begin, end ) {
+function _getFork( services, begin, end ) {
+
+  const { users: usersSvc } = req.app.services;
 
   return Promise.all( [
     promisify( model.reviews().total )( { createdAt: { gte: begin, lte: end } } ),
@@ -416,7 +424,9 @@ function _getFork( begin, end ) {
 
 }
 
-function _getTotals( cb ) {
+function _getTotals( services, cb ) {
+
+  const { users: usersSvc } = req.app.services;
 
   async.parallel( [
 
@@ -430,11 +440,12 @@ function _getTotals( cb ) {
   ], cb );
 }
 
-function _getTotalsWeek( cb ) {
+function _getTotalsWeek( services, cb ) {
 
-  var weekStart = moment().subtract( 1, 'week' ).startOf( 'week' ).toDate(),
+  const { users: usersSvc } = req.app.services;
 
-    weekStop = moment().subtract( 1, 'week' ).endOf( 'week' ).toDate();
+  const weekStart = moment().subtract( 1, 'week' ).startOf( 'week' ).toDate();
+  const weekStop = moment().subtract( 1, 'week' ).endOf( 'week' ).toDate();
 
   async.parallel( [
 
@@ -448,11 +459,12 @@ function _getTotalsWeek( cb ) {
   ], cb );
 }
 
-function _getTotalsMonth( cb ) {
+function _getTotalsMonth( services, cb ) {
 
-  var monthStart = moment().subtract( 1, 'month' ).startOf( 'month' ).toDate(),
+  const { users: usersSvc } = req.app.services;
 
-    monthStop = moment().subtract( 1, 'month' ).endOf( 'month' ).toDate();
+  const monthStart = moment().subtract( 1, 'month' ).startOf( 'month' ).toDate();
+  const monthStop = moment().subtract( 1, 'month' ).endOf( 'month' ).toDate();
 
   async.parallel( [
 
@@ -468,28 +480,22 @@ function _getTotalsMonth( cb ) {
 }
 
 
-var _layoutData = function ( totals, totalsWeek, totalsMonth ) {
-
+function _layoutData( totals, totalsWeek, totalsMonth ) {
   return {
-
     events: {
       total: totals.events,
       totalInWeek: totalsWeek.events,
       totalInMonth: totalsMonth.events
     },
-
     reviews: {
       total: totals.reviews,
       totalInWeek: totalsWeek.reviews,
       totalInMonth: totalsMonth.reviews
     },
-
     users: {
       total: totals.users,
       totalInWeek: totalsWeek.users,
       totalInMonth: totalsMonth.users
     }
-
   };
-
 };

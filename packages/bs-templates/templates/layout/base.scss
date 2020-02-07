@@ -292,9 +292,10 @@ ul.nav.navbar-nav.navbar-right > li.inbox {
   @extend .btn-link;
 
   padding: 0;
-  line-height: 1em;
   border: none;
   vertical-align: baseline;
+  text-align: inherit;
+  white-space: normal;
 }
 
 .oa-col-canvas {

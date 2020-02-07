@@ -160,9 +160,9 @@ function validate(intl, values, aggregatorAgendaSchema /* , sourceSchema */) {
       );
       const aggAction = values.actions?.[aggActionIndex];
 
-      const hasValue = aggAction?.values && aggAction.values.length
-        ? !!aggAction.values.length
-        : false;
+      const hasValue = Array.isArray(aggAction?.values)
+        ? aggAction.values.length
+        : ![null, undefined, ''].includes(aggAction?.values);
       const isAuto = aggAction?.automatic;
 
       if (
@@ -192,9 +192,9 @@ function validateActions(intl, rules, aggregatorAgendaSchema, sourceSchema) {
     .filter(v => v.fieldType !== 'abstract')
     .forEach(fieldSchema => {
       const aggAction = actions.find(v => v.field === fieldSchema.field);
-      const hasValue = aggAction?.values && aggAction.values.length
-        ? !!aggAction.values.length
-        : false;
+      const hasValue = Array.isArray(aggAction?.values)
+        ? aggAction.values.length
+        : ![null, undefined, ''].includes(aggAction?.values);
       const isAuto = !!aggAction?.automatic;
 
       if (!sourceSchema) {
@@ -432,15 +432,21 @@ function RuleItem({
       case 'all':
         return intl.formatMessage(messages.allEvents);
       case 'location':
-        return intl.formatMessage(messages.locationFilter);
+        return intl.formatMessage(messages.locationFilter, {
+          required: rule.required
+        });
       case 'tags':
-        return intl.formatMessage(messages.tagFilter);
+        return intl.formatMessage(messages.tagFilter, {
+          required: rule.required
+        });
       case 'extended':
-        return intl.formatMessage(messages.extendedFilter);
+        return intl.formatMessage(messages.extendedFilter, {
+          required: rule.required
+        });
       default:
         return null;
     }
-  }, [intl, queryType]);
+  }, [intl, queryType, rule.required]);
 
   return (
     <div className="row margin-v-sm">
