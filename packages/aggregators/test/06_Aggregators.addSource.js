@@ -3,8 +3,8 @@
 const fs = require('fs');
 const should = require('should');
 
-const addSource = require('../Aggregators/lib/addSource');
-const loadSourceEvaluates = require('../Aggregators/lib/loadSourceEvaluates');
+const addSource = require('../lib/addSource');
+const loadSourceEvaluates = require('../lib/loadSourceEvaluates');
 
 describe('Aggregators addSource', () => {
 
@@ -64,10 +64,10 @@ describe('Aggregators addSource', () => {
         'agenda',
         'event',
         'aggregatorAgendaUid',
+        'aggregatorRules',
         'batched',
         'formSchema',
-        'sourceRules',
-        'aggregatorRules'
+        'sourceRules'
       ]);
     });
 

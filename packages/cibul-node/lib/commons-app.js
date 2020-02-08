@@ -367,7 +367,13 @@ function errorResponse( req, res, error, jsonResponse ) {
 
     if ( req.agenda ) {
 
-      layoutData.agenda = req.agenda;
+      // agenda.image depends to includeImagePath option
+      layoutData.agenda = {
+        ...req.agenda,
+        image: req.agenda.image && req.agenda.image.match(/^(?:(?:https?|ftp):\/\/|\/\/)/)
+          ? req.agenda.image
+          : config.aws.imageBucketPath + req.agenda.image
+      };
 
       res.send( layouts.agenda( renderError( data ), layoutData ) );
 
@@ -718,7 +724,7 @@ function requireSuperAdmin( req, res, next ) {
 
     const id = session.id;
 
-    if ( [ 1, 2, 11258, 15453, 34577 ].indexOf( parseInt( id ) ) !== -1 ) {
+    if ( config.superAdminIds.indexOf( parseInt( id ) ) !== -1 ) {
 
       next();
 

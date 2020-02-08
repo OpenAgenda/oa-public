@@ -38,6 +38,7 @@ describe('core - functional (server): core.agendas().get', function() {
         'queues',
         'events',
         'agendas',
+        'aggregators',
         'agendaEvents',
         'agendaLocations',
         'formSchemas',

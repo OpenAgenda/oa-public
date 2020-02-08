@@ -80,6 +80,7 @@ describe('core - functional ( server ): settings get', function() {
         'queues',
         'events',
         'agendas',
+        'aggregators',
         'agendaEvents',
         'agendaLocations',
         'formSchemas',

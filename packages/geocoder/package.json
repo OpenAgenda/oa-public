@@ -7,12 +7,12 @@
     "test": "mocha"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.19.0",
     "lodash": "^4.17.4",
     "point-in-polygon": "^1.0.1"
   },
   "devDependencies": {
-    "mocha": "^6.2.1",
+    "mocha": "^7.0.1",
     "should": "^13.2.3"
   }
 }

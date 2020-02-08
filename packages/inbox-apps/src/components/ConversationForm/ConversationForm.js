@@ -3,7 +3,7 @@ import _ from 'lodash';
 import PropTypes from 'prop-types';
 import { Form, Field } from 'react-final-form';
 import { FORM_ERROR } from 'final-form';
-import { mapProps, getContext } from 'recompose';
+import { mapProps } from 'recompose';
 import superagent from 'superagent';
 import Uppy from 'uppy/lib/core';
 import { Dashboard, StatusBar } from 'uppy/lib/react';
@@ -12,6 +12,7 @@ import Modal from '@openagenda/react-components/build/Modal';
 import validate from './validate';
 import { renderTextarea } from '../../utils/form';
 import * as uppyLocales from '../../locales/uppyLocales';
+import I18nContext from '../../contexts/I18nContext';
 
 
 function parseJsonValue(value) {
@@ -31,11 +32,6 @@ function parseJsonValue(value) {
     params: parseJsonValue(props.initialValues.params)
   }
 } : props))
-@getContext({
-  getLabel: PropTypes.func,
-  lang: PropTypes.string,
-  store: PropTypes.object
-})
 export default class ConversationForm extends Component {
   static propTypes = {
     Wrapper: PropTypes.oneOfType([
@@ -48,6 +44,8 @@ export default class ConversationForm extends Component {
     Wrapper: 'div',
     autoFocus: false
   };
+
+  static contextType = I18nContext;
 
   state = {
     modalOpen: false
@@ -106,7 +104,8 @@ export default class ConversationForm extends Component {
   };
 
   handleSubmit = async (data, form) => {
-    const { onSubmit, onConversationCreate, onFileUploaded, getLabel } = this.props;
+    const { onSubmit, onConversationCreate, onFileUploaded } = this.props;
+    const { getLabel } = this.context;
 
     let conversation;
 
@@ -156,7 +155,8 @@ export default class ConversationForm extends Component {
   };
 
   render() {
-    const { getLabel, initialValues, Wrapper, lang, autoFocus } = this.props;
+    const { initialValues, Wrapper, lang, autoFocus } = this.props;
+    const { getLabel } = this.context;
 
     const numberFiles = Object.keys(this.uppy.getState().files).length;
 

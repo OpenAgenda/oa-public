@@ -3,7 +3,7 @@
 const fs = require('fs');
 const should = require('should');
 
-const evaluate = require('../Aggregators/lib/evaluateEvent');
+const evaluate = require('../lib/evaluateEvent');
 
 describe('Aggregators evaluate', () => {
 
@@ -52,8 +52,7 @@ describe('Aggregators evaluate', () => {
           public: [ 26 ],
           organisateur: [ 33 ],
           participation: null,
-          'evenement-ponctuel': null,
-          state: 2
+          'evenement-ponctuel': null
         });
       });
 

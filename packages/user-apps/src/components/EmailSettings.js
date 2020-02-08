@@ -11,8 +11,7 @@ import { connect } from 'react-redux';
   destroyOnUnmount: false
 } )
 @connect( state => ({
-  prefix: state.settings.prefix,
-  user: state.userSettings.user
+  prefix: state.settings.prefix
 }) )
 @withRouter
 export default class EmailSettings extends Component {

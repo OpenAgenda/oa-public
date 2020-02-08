@@ -4,14 +4,11 @@ const https = require( 'https' );
 const _ = require( 'lodash' );
 const qs = require( 'qs' );
 const w = require( 'when' );
-const sessions = require( '@openagenda/sessions' );
 const invitationsSvc = require( '@openagenda/invitations' );
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/signin' ) );
 const getErrorLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/errors' ) );
 const log = require( '@openagenda/logs' )( 'auth/local' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/auth/activation' ) );
-const agendaSvc = require( '../services/agenda' );
-const usersSvc = require( '../services/users' );
 const cmn = require( '../lib/commons-app' );
 const auth = require( './lib/auth' );
 const pLib = require( './lib/passport' );
@@ -25,12 +22,15 @@ const useOptions = {
 
 const preMw = [
   cmn.https,
-  agendaSvc.mw.load( 'slug', { basicLoad: true, cache: true, required: false } ),
   cmn.loadBaseData( auth.layoutData, 'oasfmain.css' )
 ];
 
 
 module.exports = app => {
+  const {
+    sessions,
+    agendas,
+  } = app.services;
 
   log( 'initing' );
 
@@ -42,15 +42,16 @@ module.exports = app => {
   app.get(
     '/signin',
     preMw,
-    sessions.middleware.ifLogged( ( req, res ) => res.redirect( 302, '/home' ) ),
+    sessions.middleware.ifLogged((req, res) => res.redirect(302, '/home')),
     _presetEmail,
     auth.renderSignin
   );
 
   app.get(
-    '/:slug/signin',
+    '/:agendaSlug/signin',
+    agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged(_redirectToContribute),
     _presetEmail,
     auth.renderSignin
   );
@@ -63,9 +64,10 @@ module.exports = app => {
   );
 
   app.post(
-    '/:slug/signin',
+    '/:agendaSlug/signin',
+    agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged(_redirectToContribute),
     signinSubmit
   );
 
@@ -79,9 +81,10 @@ module.exports = app => {
   );
 
   app.get(
-    '/:slug/signup',
+    '/:agendaSlug/signup',
+    agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged(_redirectToContribute),
     _loadCaptcha,
     _guessFullName,
     auth.renderSignup
@@ -95,9 +98,10 @@ module.exports = app => {
   );
 
   app.post(
-    '/:slug/signup',
+    '/:agendaSlug/signup',
+    agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged(_redirectToContribute),
     signupSubmit
   );
 
@@ -109,9 +113,10 @@ module.exports = app => {
   );
 
   app.get(
-    '/:slug/signup/complete',
+    '/:agendaSlug/signup/complete',
+    agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged(_redirectToContribute),
     signupComplete
   );
 
@@ -123,9 +128,10 @@ module.exports = app => {
   );
 
   app.get(
-    '/:slug/activate/resend',
+    '/:agendaSlug/activate/resend',
+    agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged(_redirectToContribute),
     activateResend
   );
 
@@ -137,13 +143,18 @@ module.exports = app => {
   );
 
   app.get(
-    '/:slug/activate/:token',
+    '/:agendaSlug/activate/:token',
+    agendas.mw.load,
     preMw,
-    sessions.middleware.ifLogged( cmn.redirectTo( 'agendaEventNew', { slug: 'slug' } ) ),
+    sessions.middleware.ifLogged(_redirectToContribute),
     activate
   );
 
 };
+
+function _redirectToContribute(req, res, next) {
+  res.redirect(302, `/${req.agenda.slug}/contribute`);
+}
 
 
 function signinSubmit( req, res, next ) {
@@ -186,6 +197,10 @@ function signinSubmit( req, res, next ) {
 
 
 function signupSubmit( req, res ) {
+  const {
+    users
+  } = req.app.services;
+  log('signupSubmit');
 
   w( { req, res, data: req.body } )
 
@@ -206,7 +221,9 @@ function signupSubmit( req, res ) {
       }
 
       try {
-        const user = await usersSvc.create( {
+        log('creating user');
+
+        const user = await users.create( {
           fullName: req.body.full_name,
           email: req.body.email,
           password: req.body.password,
@@ -218,9 +235,11 @@ function signupSubmit( req, res ) {
         } );
 
         if ( user ) {
+          log('created user');
           values.user = user;
         }
-      } catch ( err ) {
+      } catch (err) {
+        log('error', err);
         values.data.errors = {};
 
         if ( err && _.find( err.errors, { field: 'email', code: 'email.invalid' } ) ) {
@@ -266,6 +285,7 @@ function signupComplete( req, res ) {
   const resendQuery = Object.assign( auth.loadOptionals( req ), { email: req.query.email } );
 
   cmn.render( req, res, 'auth/activation', {
+    indexed: false,
     agenda: req.agenda,
     resend: ( req.agenda ? `/${req.agenda.slug}/activate/resend` : '/activate/resend' ) + qs.stringify( resendQuery, { addQueryPrefix: true } )
   } );
@@ -274,6 +294,9 @@ function signupComplete( req, res ) {
 
 
 async function activateResend( req, res ) {
+  const {
+    users
+  } = req.app.services;
 
   if ( !req.query.email ) {
     auth.renderEmail( { req, res, title: 'Resend activation mail' } );
@@ -284,7 +307,7 @@ async function activateResend( req, res ) {
     const optionals = _.pickBy( _.pick( req.query, 'iToken', 'invitation', 'redirect', 'agenda' ) );
 
     try {
-      user = await usersSvc.findOne( {
+      user = await users.findOne( {
         query: { email: req.query.email },
         detailed: true
       } );
@@ -297,17 +320,17 @@ async function activateResend( req, res ) {
         throw getErrorLabel('userAlreadyActivated', req.lang);
       }
 
-      token = await usersSvc.tokens.findOne( {
+      token = await users.tokens.findOne( {
         query: { userId: user.id, email: user.email, type: 'aa' },
       } );
 
       if ( token ) {
-        await usersSvc.config.interfaces.sendToken( config )( {
+        await users.config.interfaces.sendToken( config )( {
           result: token,
           params: { user, optionals }
         } );
       } else {
-        token = await usersSvc.tokens.create(
+        token = await users.tokens.create(
           { userId: user.id, email: user.email, type: 'aa' },
           { user, optionals }
         );
@@ -341,12 +364,16 @@ async function activateResend( req, res ) {
 
 
 async function activate( req, res ) {
+  const {
+    users,
+    agendas
+  } = req.app.services;
 
   const optionals = _.pickBy( _.pick( req.query, 'iToken', 'invitation', 'redirect', 'agenda' ) );
 
   try {
 
-    const user = await usersSvc.activate( 0, { token: req.params.token }, { optionals } );
+    const user = await users.activate( 0, { token: req.params.token }, { optionals } );
 
     if ( !req.query || !req.query.invitation ) {
 
@@ -364,21 +391,16 @@ async function activate( req, res ) {
 
         const agendaId = actions[ 0 ].params[ 0 ].agendaId;
 
-        return agendaSvc.get( { id: agendaId }, ( err, agenda ) => {
+        agendas.get({ id: agendaId }, (err, agenda) => {
 
-          if ( err ) {
-
-            req.log( 'error', err );
-
+          if (err) {
+            req.log('error', err);
           } else {
-
             req.agenda = agenda;
-
           }
 
-          auth.signin( { req, res, user } );
-
-        } );
+          auth.signin({ req, res, user });
+        });
 
       }
 
@@ -400,8 +422,9 @@ async function activate( req, res ) {
 
 
 function _handleSigninRequest( req, email, password, cb ) {
+  const { users } = req.app.services;
 
-  usersSvc.verifyPassword( password, {
+  users.verifyPassword( password, {
     query: { email }
   } )
     .then( async validPassword => {
@@ -416,11 +439,13 @@ function _handleSigninRequest( req, email, password, cb ) {
         } );
       }
 
-      const user = await usersSvc.findOne( { query: { email }, detailed: true } );
+      const user = await users.findOne( { query: { email }, detailed: true } );
 
       cb( null, user, { email, password, user } );
     } )
-    .catch( cb );
+    .catch( err => {
+      cb(err);
+    } );
 
 }
 

@@ -3,29 +3,29 @@
 const _ = require('lodash');
 
 const eventValidators = {
-  registration: require('./validators/registration'),
-  age: require('./validators/age'),
-  accessibility: require('./validators/accessibility'),
-  keywords: require('./validators/keywords'),
-  timings: require('./validators/timings'),
-  location: require('./validators/location'),
-  languages: require('./validators/languages'),
-  references: require('./validators/references')
-};
+  registration: require( './validators/registration' ),
+  age: require( './validators/age' ),
+  accessibility: require( './validators/accessibility' ),
+  keywords: require( './validators/keywords' ),
+  timings: require( './validators/timings' ),
+  location: require( './validators/location' ),
+  languages: require( './validators/languages' ),
+  references: require( './validators/references' )
+}
 
-const labels = require('@openagenda/labels/event/form');
+const labels = require( '@openagenda/labels/event/form' );
 
-const merge = require('@openagenda/form-schemas/client/build/iso/merge');
+const merge = require( '@openagenda/form-schemas/client/build/iso/merge' );
 
-const eventReferencesField = require('./fields/references');
+const eventReferencesField = require( './fields/references' );
 
-const schemaLanguages = require('./utils/schemaLanguages');
+const schemaLanguages = require( './utils/schemaLanguages' );
 
 module.exports = (options = {}) => {
-
   const {
     interfaceLanguage,
     locationRes,
+    mapboxKey,
     referencesRes,
     suggestionsRes,
     languages,
@@ -40,7 +40,7 @@ module.exports = (options = {}) => {
       write: 'public'
     },
     ...options
-  }
+  };
 
   const eventSchema = {
     custom: eventValidators,
@@ -179,7 +179,9 @@ module.exports = (options = {}) => {
       optional: false,
       label: labels.location,
       sub: labels.locationSub,
-      res: locationRes
+      res: locationRes,
+      disableChange: false,
+      mapboxKey
     }, {
       field: 'timings',
       fieldType: 'timings',

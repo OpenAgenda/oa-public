@@ -5,6 +5,7 @@ const VError = require( 'verror' );
 
 const createPayload = require('../utils/createPayload');
 const getAgendaWithNetworkAndSchemas = require('../utils/getAgendaWithNetworkAndSchemas');
+
 const merge = require('../utils/merge');
 const refreshAgenda = require('../utils/refreshAgenda');
 

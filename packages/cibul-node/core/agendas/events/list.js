@@ -65,6 +65,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   const eventUids = agendaEvents.map(ae => ae.eventUid);
 
   if (load.event) {
+    log('loading events');
     fetched.events = (await eventsSvc.list({
       uid: eventUids
     }, {
@@ -104,6 +105,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
   }
 
   if (load.custom && agenda.formSchemaId) {
+    log('loading custom data');
     fetched.custom = (await custom(agenda.formSchemaId).list({
       identifier: eventUids
     })).items;
@@ -137,7 +139,7 @@ module.exports = async (services, agendaUid, query = {}, nav = {}, options = {})
 
   const compiledEvents = eventUids.map((uid, index) => {
     const event = _.find(fetched.events, { uid });
-    if (!event) {
+    if (load.event && !event) {
       log('warn', 'event uid %s was not found', uid);
       return null;
     }

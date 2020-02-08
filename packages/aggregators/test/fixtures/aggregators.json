@@ -1,5 +1,6 @@
 [ {
   "id": 1,
   "review_id": 218,
-  "version": 2
+  "version": 2,
+  "store": "{\"rules\":[{\"value\":{\"state\":2}, \"required\":false}]}"
 } ]

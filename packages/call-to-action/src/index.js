@@ -26,10 +26,10 @@ export default function ( options ) {
     selector: '.js_call_to_action'
   }, options );
 
-  const { initialState, req, selector } = params;
-  const { apiRoot, prefix } = initialState.settings;
+  const { initialState, req } = params;
+  const { apiRoot } = initialState.settings;
 
-  const client = apiClient( apiRoot, req );
+  const client = apiClient( apiRoot, req, { legacy: true } );
   const store = createStore(
     getReducers,
     initialState,

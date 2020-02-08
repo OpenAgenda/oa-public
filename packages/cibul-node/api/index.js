@@ -5,6 +5,7 @@ const express = require('express');
 const multer = require('multer');
 
 const logRequests = require('../services/logRequests');
+const log = require('@openagenda/logs')('api');
 const mw = require('./middleware');
 
 const events = {
@@ -14,12 +15,15 @@ const events = {
 };
 
 const settings = {
-  get: require('./endpoints/settingsGet')
+  get: require('./endpoints/settingsGet'),
+  resync: require('./endpoints/settingsResync')
 };
 
 const handleError = require('../services/errors').bind(null, 'api');
 
 module.exports = core => {
+  log('init');
+
   const app = express();
   const config = core.getConfig();
 
@@ -30,6 +34,7 @@ module.exports = core => {
     dest: config.tmpFolderPath
   });
 
+  log('middleware');
   app.use(logRequests.middleware);
 
   // should only apply to create and upload really
@@ -75,6 +80,12 @@ module.exports = core => {
     settings.get
   ]);
 
+  app.post('/v2/agendas/:agendaUid/settings/resync', [
+    mw.verifySuperAdmin,
+    settings.resync
+  ]);
+
+
   app.use((err, req, res, next) => {
     handleError(new VError({
       cause: err,
@@ -89,6 +100,8 @@ module.exports = core => {
       message: 'server trouble.. send an short mail to support to receive detailed feedback: support@openagenda.com'
     });
   });
+
+  log('done');
 
   return app;
 }

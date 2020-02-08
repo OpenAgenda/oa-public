@@ -45,6 +45,7 @@ describe('core - fuctional (server): events batch', function() {
         'agendas',
         'agendaEvents',
         'agendaLocations',
+        'aggregators',
         'formSchemas',
         'custom',
         'eventSearch',

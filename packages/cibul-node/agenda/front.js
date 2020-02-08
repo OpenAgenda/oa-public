@@ -200,6 +200,19 @@ module.exports = app => {
     redirect
   );
 
+  app.get('/agendas/:uid/contribute',
+    agendas.middleware.load({
+      private: null,
+      namespaces: { identifiers: { uid: 'params.uid' } }
+    }),
+    (req, res, next) => {
+      if (!req.agenda) {
+        return next();
+      }
+      res.redirect(301, `/${req.agenda.slug}/contribute`);
+    }
+  );
+
   app.get(
     '/:slug.prv',
     preMw,

@@ -13,6 +13,7 @@ const config = {
   all: {
     env: 'production',
     corpoLastUpdate: '2017-10-31T12:07:29.000Z',
+    superAdminIds: [1, 2, 11258, 15453],
     jsVersion: 42,
     cssVersion: 2,
     interfaceLanguages: [ 'fr', 'en', 'de', 'es', 'br' ],
@@ -327,11 +328,6 @@ const config = {
     },
     routes: {
       globals: {
-        agendaEventNew: {
-          method: 'get',
-          uri: '/:slug/addevent',
-          legacy: true
-        },
         agendaEventEdit: {
           method: 'get',
           uri: '/:slug/event/:eventSlug/edit',
@@ -774,14 +770,6 @@ const config = {
         agendaIcsEvents: {
           method: 'get',
           uri: '/agendas/:uid/events.ics'
-        },
-        agendaSourceAdd: {
-          method: 'get',
-          uri: '/agendas/:uid/addTo/:aggUid'
-        },
-        agendaSourceRemove: {
-          method: 'get',
-          uri: '/agendas/:uid/removeFrom/:aggUid'
         }
       },
       defaultGlobalsPrefix: ''

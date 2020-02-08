@@ -20,10 +20,12 @@ import utils from '@openagenda/utils';
 
 import actions from './formActions';
 import CountryField from './CountryField';
+import flattenTagSetLabels from './flattenTagSetLabels';
 import LocationMap from './LocationMap';
 import StateToggler from './StateToggler';
 import suggestionHelpers from './suggestions.helpers.js';
 import validate from './validate';
+import extraGeoFields from './extraGeoFields';
 
 const _ = {
   assign: require( 'lodash/assign' ),
@@ -35,6 +37,7 @@ const _ = {
   upperCase: require( 'lodash/upperCase' ),
   isString: require( 'lodash/isString' )
 }
+
 
 const alternativeMaxLength = 50;
 
@@ -995,7 +998,7 @@ module.exports = createReactClass( {
         <GroupTagSelector
           lang={this.props.lang}
           name='tags'
-          set={this.props.settings.tagSet}
+          set={flattenTagSetLabels(this.props.settings.tagSet, this.props.lang)}
           onChange={this.onChange}
           tagBottom={this.renderTagAlternative}
           disabledTagIds={this.props.disableNoAlternatives ? suggestionHelpers.getSameAsSuggestedTagIds( this.props.settings.tagSet, this.props.location, this.props.alternatives ) : []}
@@ -1034,7 +1037,7 @@ module.exports = createReactClass( {
       && _.get( this.state, 'location.latitude' )
     ) {
 
-      [ 'district', 'city', 'region', 'department', 'postalCode', 'insee' ].forEach( field => {
+      extraGeoFields.forEach( field => {
         geo[ field ] = _.get( this.state, [ 'location', field ], null );
       } );
 

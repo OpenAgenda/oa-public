@@ -88,31 +88,31 @@ export function isLoaded( globalState ) {
   return globalState.activities && globalState.activities.loaded;
 }
 
-export function load( query ) {
+export function load( query, agenda ) {
   return ( { dispatch, getState } ) => {
     const { settings, res } = getState();
 
     return dispatch( {
       types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
       perPageLimit: settings.perPageLimit,
-      promise: ( { client } ) => client.get( res.list, { params: query } )
+      promise: ( { client } ) => client.get( res.list.replace(':slug', agenda && agenda.slug), { params: query } )
     } );
   };
 }
 
-export function list( query ) {
+export function list( query, agenda ) {
   return ( { dispatch, getState } ) => {
     const { settings, res } = getState();
 
     return dispatch( {
       types: [ LIST, LIST_SUCCESS, LIST_FAIL ],
       perPageLimit: settings.perPageLimit,
-      promise: ( { client } ) => client.get( res.list, { params: query } )
+      promise: ( { client } ) => client.get( res.list.replace(':slug', agenda && agenda.slug), { params: query } )
     } );
   };
 }
 
-export function nextPage( query, fromId ) {
+export function nextPage( query, fromId, agenda ) {
   return ( { dispatch, getState } ) => {
     const { settings, res } = getState();
 
@@ -120,7 +120,7 @@ export function nextPage( query, fromId ) {
       types: [ NEXT_PAGE, NEXT_PAGE_SUCCESS, NEXT_PAGE_FAIL ],
       fromId,
       perPageLimit: settings.perPageLimit,
-      promise: ( { client } ) => client.get( res.list, {
+      promise: ( { client } ) => client.get( res.list.replace(':slug', agenda && agenda.slug), {
         params: {
           ...query,
           fromId

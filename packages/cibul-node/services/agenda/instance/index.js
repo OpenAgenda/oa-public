@@ -14,8 +14,6 @@ var model = require( '../../model' ),
 
   search = require( './search' ),
 
-  sources = require( './sources' ),
-
   async = require( 'async' ),
 
   log = require( '@openagenda/logs' )( 'services/agenda/instance' ),
@@ -70,11 +68,6 @@ function instanciate( data ) {
     'searchStream',
     'aggregate',
     'resync'
-  ] );
-
-  sources( svcInstance, instance, [
-    'sources.add',
-    'sources.remove'
   ] );
 
   flattener( svcInstance, instance, [

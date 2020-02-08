@@ -177,7 +177,6 @@ module.exports = function ( options ) {
       jsFilePath: '/js/inboxesEvent.js',
       functionName: 'renderInboxEvent',
       initialState: {
-        user,
         settings: {
           context: 'event',
           prefix: '',
@@ -224,13 +223,17 @@ module.exports = function ( options ) {
             addAttachment: resBasePath + '/inbox/conversations/:conversationId/add-attachment'
           }
         },
-        agenda: {
-          uid: params.agendaUid
-        },
         event: {
           uid: params.uid
         }
       },
+      extraProps: {
+        user,
+        agenda: {
+          uid: params.agendaUid,
+          slug: params.agendaSlug
+        }
+      }
     }, () => {
 
       const canvasElem = document.querySelector( '.js_inbox_event_canvas' );

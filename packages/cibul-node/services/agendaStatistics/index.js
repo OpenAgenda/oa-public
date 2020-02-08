@@ -6,11 +6,10 @@ const { promisify } = require( 'util' );
 const agendasSvc = require( '@openagenda/agendas' );
 const agendaEvents = require( '@openagenda/agenda-events' );
 const formSchemas = require( '@openagenda/form-schemas' );
-const aggregators = require( '@openagenda/aggregators' );
 const queue = require( '@openagenda/queue' );
 const { syncAgenda } = require( '@openagenda/inboxes/dist/tasks/sync' );
 const rebuildActivityFeeds = require( '@openagenda/activities/dist/service/rebuild' ).rebuild;
-const logs = require( '@openagenda/logs' );
+const logs = require('@openagenda/logs');
 
 const activitiesSvc = require( '../activities' );
 const agendaEventStats = require( './lib/agendaEventStats' );
@@ -46,7 +45,6 @@ module.exports = async (services, agendaUid) => {
       resyncAgendaEvents: `${config.root}/${agenda.slug}/admin/stats/resync/agendaEvents`,
       resyncInbox: `${config.root}/${agenda.slug}/admin/stats/resync/inbox`,
       resyncActivityFeeds: `${config.root}/${agenda.slug}/admin/stats/resync/activityFeeds`,
-      resyncAggregator: `${config.root}/${agenda.slug}/admin/stats/resync/aggregator`,
       resyncLegacyDatasetToCustom: `${config.root}/${agenda.slug}/admin/stats/resync/custom`,
       resyncCustomDatasetToLegacy: `${config.root}/${agenda.slug}/admin/stats/resync/customToLegacy`,
       resyncControlData: `${config.root}/${agenda.slug}/admin/stats/resync/controlData`,
@@ -106,11 +104,6 @@ module.exports.task = services => {
       case 'customToLegacy' :
 
         legacyTagsAndCustom.setAll( data.agendaUid );
-        break;
-
-      case 'aggregator':
-
-        aggregators.resync( { uid: data.agendaUid } );
         break;
 
       case 'search':

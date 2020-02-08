@@ -9,7 +9,7 @@ const patch = require('./patch');
 const remove = require('./remove');
 const setByEmail = require('./setByEmail');
 const roles = require('./iso/roles');
-const compareRoles = require('./lib/compareRoles');
+const compareRoles = require('./iso/compareRoles');
 const getRoleCode = require('./iso/getRoleCode');
 const getRoleSlug = require('./iso/getRoleSlug');
 

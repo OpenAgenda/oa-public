@@ -6,7 +6,6 @@ import AbilitiesEditor from '@openagenda/abilities/build/client/AbilitiesEditor'
 
 
 @connect( state => ({
-  user: state.userSettings.user,
   prefix: state.settings.prefix
 }) )
 @withRouter

@@ -1,6 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
+const log = require('@openagenda/logs')('api/middleware/verifyAndLoadAccessTokenUser');
 
 module.exports = async (req, res, next) => {
   try {

@@ -235,20 +235,22 @@ describe('members - functional - list', () => {
 
     test('fix: ordering with after always sorts id asc', async () => {
       expect(
-        (await svc.list(
-          { agendaUid: 1 },
-          {
-            limit: 2,
-            order: 'actionsCounter.desc',
-            after: [5, 2]
-          }
-        ))[0].id
+        (
+          await svc.list(
+            { agendaUid: 1 },
+            {
+              limit: 2,
+              order: 'actionsCounter.desc',
+              after: [5, 2]
+            }
+          )
+        )[0].id
       ).toBe(4);
     });
   });
 
   describe('stream', () => {
-    test('takes args as list but without pagination info', done => {
+    test('takes args as list but without pagination info', () => new Promise(done => {
       // limit is not needed here, just for testing buffer refill
       const stream = svc.stream(
         { agendaUid: 1 },
@@ -269,7 +271,7 @@ describe('members - functional - list', () => {
 
         done();
       });
-    });
+    }));
   });
 
   describe('detailed', () => {

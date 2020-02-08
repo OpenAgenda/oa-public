@@ -7,7 +7,6 @@ const log = require('@openagenda/logs' )( 'agendaEvents/onCreate');
 
 const custom = require('@openagenda/custom');
 
-const aggregatorNotify = require('./lib/aggregatorNotify');
 const legacyEventSearch = require('../elasticsearch');
 const activitiesSvc = require('../activities');
 const fallbackContextGet = require('./lib/fallbackContextGet');
@@ -85,14 +84,6 @@ module.exports = async ({ config, services }, ae, context) => {
       log('error', 'could not update legacy search for event %s', event.slug);
     }
   }
-
-  aggregatorNotify.create({
-    agenda,
-    event,
-    agendaEvent: ae,
-    batched: context.batched
-  });
-
 
   /**
    * control data is used for displaying widget data

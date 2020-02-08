@@ -1,0 +1,1852 @@
+{
+  "sources": [
+    {
+      "id": 4762,
+      "agendaUid": 99573258,
+      "rules": [],
+      "agenda": {
+        "id": 12874,
+        "uid": 99573258,
+        "slug": "amc-promotion",
+        "title": "AMC PROMOTION",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4763,
+      "agendaUid": 85932188,
+      "rules": [],
+      "agenda": {
+        "id": 12875,
+        "uid": 85932188,
+        "slug": "angers-expo-congres261",
+        "title": "ANGERS EXPO CONGRES",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4764,
+      "agendaUid": 33335040,
+      "rules": [],
+      "agenda": {
+        "id": 12876,
+        "uid": 33335040,
+        "slug": "association-foire-de-la-haute-savoie-mont-blanc-rochexpo",
+        "title": "ASSOCIATION FOIRE DE LA HAUTE-SAVOIE MONT-BLANC (ROCHEXPO)",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4765,
+      "agendaUid": 3858649,
+      "rules": [],
+      "agenda": {
+        "id": 12877,
+        "uid": 3858649,
+        "slug": "association-gap-foire-expo",
+        "title": "ASSOCIATION GAP FOIRE EXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4766,
+      "agendaUid": 10499102,
+      "rules": [],
+      "agenda": {
+        "id": 12878,
+        "uid": 10499102,
+        "slug": "ateliers-dart-de-france",
+        "title": "ATELIERS D'ART DE FRANCE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4767,
+      "agendaUid": 74303099,
+      "rules": [],
+      "agenda": {
+        "id": 12879,
+        "uid": 74303099,
+        "slug": "atout-organisation-science",
+        "title": "ATOUT ORGANISATION SCIENCE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4768,
+      "agendaUid": 34958619,
+      "rules": [],
+      "agenda": {
+        "id": 12880,
+        "uid": 34958619,
+        "slug": "aurillac-developpement",
+        "title": "AURILLAC DEVELOPPEMENT",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4769,
+      "agendaUid": 46676857,
+      "rules": [],
+      "agenda": {
+        "id": 12881,
+        "uid": 46676857,
+        "slug": "avignon-tourisme",
+        "title": "AVIGNON TOURISME",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4770,
+      "agendaUid": 84040328,
+      "rules": [],
+      "agenda": {
+        "id": 12882,
+        "uid": 84040328,
+        "slug": "birp",
+        "title": "BIRP",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4771,
+      "agendaUid": 30816548,
+      "rules": [],
+      "agenda": {
+        "id": 12883,
+        "uid": 30816548,
+        "slug": "brestaim-events",
+        "title": "BREST'AIM EVENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4772,
+      "agendaUid": 73640344,
+      "rules": [],
+      "agenda": {
+        "id": 12884,
+        "uid": 73640344,
+        "slug": "caen-event",
+        "title": "CAEN EVENT",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4773,
+      "agendaUid": 47880539,
+      "rules": [],
+      "agenda": {
+        "id": 12885,
+        "uid": 47880539,
+        "slug": "cci-du-gard-delegation-ales",
+        "title": "CCI DU GARD - Délégation Alès",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4774,
+      "agendaUid": 61458061,
+      "rules": [],
+      "agenda": {
+        "id": 12886,
+        "uid": 61458061,
+        "slug": "cci-du-gard-delegation-nimes",
+        "title": "CCI DU GARD - Délégation Nîmes",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4775,
+      "agendaUid": 59490219,
+      "rules": [],
+      "agenda": {
+        "id": 12887,
+        "uid": 59490219,
+        "slug": "cci-du-pays-darles-palais-des-congres-darles",
+        "title": "CCI DU PAYS D'ARLES - PALAIS DES CONGRES D'ARLES",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4776,
+      "agendaUid": 46294157,
+      "rules": [],
+      "agenda": {
+        "id": 12888,
+        "uid": 46294157,
+        "slug": "cci-ille-et-vilaine-delegation-de-saint-malo",
+        "title": "CCI ILLE-ET-VILAINE - Délégation de Saint-Malo",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4777,
+      "agendaUid": 87883898,
+      "rules": [],
+      "agenda": {
+        "id": 12889,
+        "uid": 87883898,
+        "slug": "centre-france-parc-expo",
+        "title": "CENTRE FRANCE PARC EXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4778,
+      "agendaUid": 63203910,
+      "rules": [],
+      "agenda": {
+        "id": 12890,
+        "uid": 63203910,
+        "slug": "centre-international-de-deauville",
+        "title": "CENTRE INTERNATIONAL DE DEAUVILLE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4779,
+      "agendaUid": 70938752,
+      "rules": [],
+      "agenda": {
+        "id": 12891,
+        "uid": 70938752,
+        "slug": "chorus-sa",
+        "title": "CHORUS SA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4780,
+      "agendaUid": 98489381,
+      "rules": [],
+      "agenda": {
+        "id": 12892,
+        "uid": 98489381,
+        "slug": "coges",
+        "title": "COGES",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4781,
+      "agendaUid": 2773364,
+      "rules": [],
+      "agenda": {
+        "id": 12893,
+        "uid": 2773364,
+        "slug": "colloquium-paris-sa",
+        "title": "COLLOQUIUM PARIS SA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4782,
+      "agendaUid": 30701486,
+      "rules": [],
+      "agenda": {
+        "id": 12894,
+        "uid": 30701486,
+        "slug": "colmar-expo-sa",
+        "title": "COLMAR EXPO SA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4783,
+      "agendaUid": 2881709,
+      "rules": [],
+      "agenda": {
+        "id": 12895,
+        "uid": 2881709,
+        "slug": "comite-des-fetes-foires-et-salons-de-la-rochelle",
+        "title": "COMITE DES FETES, FOIRES ET SALONS DE LA ROCHELLE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4784,
+      "agendaUid": 1477137,
+      "rules": [],
+      "agenda": {
+        "id": 12896,
+        "uid": 1477137,
+        "slug": "communica-organisation",
+        "title": "COMMUNICA ORGANISATION",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4785,
+      "agendaUid": 65701556,
+      "rules": [],
+      "agenda": {
+        "id": 12897,
+        "uid": 65701556,
+        "slug": "conceptum-exhibitions-sa",
+        "title": "CONCEPTUM EXHIBITIONS SA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4786,
+      "agendaUid": 22111724,
+      "rules": [],
+      "agenda": {
+        "id": 12898,
+        "uid": 22111724,
+        "slug": "congres-et-expositions-de-bordeaux",
+        "title": "CONGRES ET EXPOSITIONS DE BORDEAUX",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4787,
+      "agendaUid": 6924762,
+      "rules": [],
+      "agenda": {
+        "id": 12899,
+        "uid": 6924762,
+        "slug": "continental-xpo",
+        "title": "CONTINENTAL XPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4788,
+      "agendaUid": 98349057,
+      "rules": [],
+      "agenda": {
+        "id": 12900,
+        "uid": 98349057,
+        "slug": "db-tahiti",
+        "title": "DB TAHITI",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4789,
+      "agendaUid": 19546629,
+      "rules": [],
+      "agenda": {
+        "id": 12901,
+        "uid": 19546629,
+        "slug": "dijon-congrexpo",
+        "title": "DIJON CONGREXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4790,
+      "agendaUid": 81326429,
+      "rules": [],
+      "agenda": {
+        "id": 12902,
+        "uid": 81326429,
+        "slug": "disney-business-solutions",
+        "title": "DISNEY BUSINESS SOLUTIONS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4791,
+      "agendaUid": 52610906,
+      "rules": [],
+      "agenda": {
+        "id": 12903,
+        "uid": 52610906,
+        "slug": "dunkerque-kursaal",
+        "title": "DUNKERQUE KURSAAL",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4792,
+      "agendaUid": 61499223,
+      "rules": [],
+      "agenda": {
+        "id": 12904,
+        "uid": 61499223,
+        "slug": "europa-organisation",
+        "title": "EUROPA ORGANISATION",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4793,
+      "agendaUid": 41597342,
+      "rules": [],
+      "agenda": {
+        "id": 12905,
+        "uid": 41597342,
+        "slug": "europain-gestion-sas",
+        "title": "EUROPAIN GESTION SAS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4794,
+      "agendaUid": 23525170,
+      "rules": [],
+      "agenda": {
+        "id": 12906,
+        "uid": 23525170,
+        "slug": "europexpo",
+        "title": "EUROPEXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4795,
+      "agendaUid": 26624222,
+      "rules": [],
+      "agenda": {
+        "id": 12907,
+        "uid": 26624222,
+        "slug": "eurovet",
+        "title": "EUROVET",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4796,
+      "agendaUid": 13621026,
+      "rules": [],
+      "agenda": {
+        "id": 12908,
+        "uid": 13621026,
+        "slug": "event-international",
+        "title": "EVENT INTERNATIONAL",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4797,
+      "agendaUid": 51935835,
+      "rules": [],
+      "agenda": {
+        "id": 12909,
+        "uid": 51935835,
+        "slug": "eventime",
+        "title": "EVENTIME",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4798,
+      "agendaUid": 24489366,
+      "rules": [],
+      "agenda": {
+        "id": 12910,
+        "uid": 24489366,
+        "slug": "expomedia",
+        "title": "EXPOMEDIA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4799,
+      "agendaUid": 56527704,
+      "rules": [],
+      "agenda": {
+        "id": 12911,
+        "uid": 56527704,
+        "slug": "exponantes",
+        "title": "EXPONANTES",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4800,
+      "agendaUid": 16718098,
+      "rules": [],
+      "agenda": {
+        "id": 12912,
+        "uid": 16718098,
+        "slug": "expos-salons-anima",
+        "title": "EXPOS SALONS ANIMA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4801,
+      "agendaUid": 3267514,
+      "rules": [],
+      "agenda": {
+        "id": 12913,
+        "uid": 3267514,
+        "slug": "fdhpa-17",
+        "title": "FDHPA 17",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4802,
+      "agendaUid": 31511250,
+      "rules": [],
+      "agenda": {
+        "id": 12914,
+        "uid": 31511250,
+        "slug": "federation-francaise-de-football",
+        "title": "FEDERATION FRANCAISE DE FOOTBALL",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4803,
+      "agendaUid": 67796531,
+      "rules": [],
+      "agenda": {
+        "id": 12915,
+        "uid": 67796531,
+        "slug": "federation-francaise-de-tennis",
+        "title": "FEDERATION FRANCAISE DE TENNIS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4804,
+      "agendaUid": 95892304,
+      "rules": [],
+      "agenda": {
+        "id": 12916,
+        "uid": 95892304,
+        "slug": "federation-francaise-du-sport-dentreprise-ffse",
+        "title": "FEDERATION FRANCAISE DU SPORT D'ENTREPRISE (FFSE)",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4805,
+      "agendaUid": 56257213,
+      "rules": [],
+      "agenda": {
+        "id": 12917,
+        "uid": 56257213,
+        "slug": "foire-de-bere-chateaubriant",
+        "title": "FOIRE DE BERE - CHATEAUBRIANT",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4806,
+      "agendaUid": 54839884,
+      "rules": [],
+      "agenda": {
+        "id": 12918,
+        "uid": 54839884,
+        "slug": "foire-du-dauphine-romans",
+        "title": "FOIRE DU DAUPHINE - ROMANS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4807,
+      "agendaUid": 99253230,
+      "rules": [],
+      "agenda": {
+        "id": 12920,
+        "uid": 99253230,
+        "slug": "foire-exposition-de-la-lavande-digne",
+        "title": "FOIRE-EXPOSITION DE LA LAVANDE - DIGNE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4809,
+      "agendaUid": 25551373,
+      "rules": [],
+      "agenda": {
+        "id": 12922,
+        "uid": 25551373,
+        "slug": "foire-exposition-des-vins-du-var-et-de-provence",
+        "title": "FOIRE-EXPOSITION DES VINS DU VAR ET DE PROVENCE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4810,
+      "agendaUid": 63876404,
+      "rules": [],
+      "agenda": {
+        "id": 12919,
+        "uid": 63876404,
+        "slug": "foire-internationale-de-clermont-ferrand-cournon",
+        "title": "FOIRE INTERNATIONALE DE CLERMONT-FERRAND COURNON",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4811,
+      "agendaUid": 61506705,
+      "rules": [],
+      "agenda": {
+        "id": 12923,
+        "uid": 61506705,
+        "slug": "france-conventions",
+        "title": "FRANCE CONVENTIONS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4812,
+      "agendaUid": 59100768,
+      "rules": [],
+      "agenda": {
+        "id": 12924,
+        "uid": 59100768,
+        "slug": "france-expo",
+        "title": "FRANCE EXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4814,
+      "agendaUid": 44068102,
+      "rules": [],
+      "agenda": {
+        "id": 12926,
+        "uid": 44068102,
+        "slug": "grand-nancy-congres-et-evenements",
+        "title": "GRAND NANCY CONGRES ET EVENEMENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4815,
+      "agendaUid": 49432865,
+      "rules": [],
+      "agenda": {
+        "id": 12927,
+        "uid": 49432865,
+        "slug": "grand-pavois-organisation",
+        "title": "GRAND PAVOIS ORGANISATION",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4816,
+      "agendaUid": 91908974,
+      "rules": [],
+      "agenda": {
+        "id": 12928,
+        "uid": 91908974,
+        "slug": "groupe-altice-media",
+        "title": "GROUPE ALTICE MEDIA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4817,
+      "agendaUid": 432596,
+      "rules": [],
+      "agenda": {
+        "id": 12929,
+        "uid": 432596,
+        "slug": "groupe-reunir",
+        "title": "GROUPE REUNIR",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4818,
+      "agendaUid": 44848790,
+      "rules": [],
+      "agenda": {
+        "id": 12930,
+        "uid": 44848790,
+        "slug": "groupe-spat-sas",
+        "title": "GROUPE SPAT SAS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4819,
+      "agendaUid": 52032903,
+      "rules": [],
+      "agenda": {
+        "id": 12931,
+        "uid": 52032903,
+        "slug": "groupe-studyrama",
+        "title": "GROUPE STUDYRAMA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4820,
+      "agendaUid": 48054395,
+      "rules": [],
+      "agenda": {
+        "id": 12932,
+        "uid": 48054395,
+        "slug": "heavent-expo",
+        "title": "HEAVENT EXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4821,
+      "agendaUid": 34354086,
+      "rules": [],
+      "agenda": {
+        "id": 12933,
+        "uid": 34354086,
+        "slug": "hopscotch-groupe",
+        "title": "HOPSCOTCH GROUPE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4822,
+      "agendaUid": 67262053,
+      "rules": [],
+      "agenda": {
+        "id": 12934,
+        "uid": 67262053,
+        "slug": "hp-communication",
+        "title": "HP COMMUNICATION",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4823,
+      "agendaUid": 93273548,
+      "rules": [],
+      "agenda": {
+        "id": 12935,
+        "uid": 93273548,
+        "slug": "ilevents",
+        "title": "ILEVENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4824,
+      "agendaUid": 85865892,
+      "rules": [],
+      "agenda": {
+        "id": 12936,
+        "uid": 85865892,
+        "slug": "infopro-digital",
+        "title": "INFOPRO DIGITAL",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4825,
+      "agendaUid": 78387190,
+      "rules": [],
+      "agenda": {
+        "id": 12937,
+        "uid": 78387190,
+        "slug": "infopromotions-groupe-solutions",
+        "title": "INFOPROMOTIONS - GROUPE SOLUTIONS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4826,
+      "agendaUid": 23231741,
+      "rules": [],
+      "agenda": {
+        "id": 12938,
+        "uid": 23231741,
+        "slug": "insight-outside",
+        "title": "INSIGHT OUTSIDE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4827,
+      "agendaUid": 81289109,
+      "rules": [],
+      "agenda": {
+        "id": 12939,
+        "uid": 81289109,
+        "slug": "jeanne-and-louis-productions",
+        "title": "JEANNE & LOUIS PRODUCTIONS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4828,
+      "agendaUid": 50827712,
+      "rules": [],
+      "agenda": {
+        "id": 12940,
+        "uid": 50827712,
+        "slug": "la-halle-sem-gemport-des-mascareignes",
+        "title": "LA HALLE - SEM GEM'PORT DES MASCAREIGNES",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4829,
+      "agendaUid": 55345058,
+      "rules": [],
+      "agenda": {
+        "id": 12941,
+        "uid": 55345058,
+        "slug": "la-rochelle-evenements822",
+        "title": "LA ROCHELLE EVENEMENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4830,
+      "agendaUid": 81470906,
+      "rules": [],
+      "agenda": {
+        "id": 12942,
+        "uid": 81470906,
+        "slug": "le-mans-evenements-seml",
+        "title": "LE MANS EVENEMENTS SEML",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4831,
+      "agendaUid": 38330275,
+      "rules": [],
+      "agenda": {
+        "id": 12943,
+        "uid": 38330275,
+        "slug": "le-scarabee-roanne",
+        "title": "LE SCARABEE - ROANNE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4833,
+      "agendaUid": 98089817,
+      "rules": [],
+      "agenda": {
+        "id": 12945,
+        "uid": 98089817,
+        "slug": "lille-grand-palais",
+        "title": "LILLE GRAND PALAIS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4835,
+      "agendaUid": 14512267,
+      "rules": [],
+      "agenda": {
+        "id": 12947,
+        "uid": 14512267,
+        "slug": "mci-france-membre-de-levenement",
+        "title": "MCI FRANCE (Membre de LÉVÉNEMENT)",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4836,
+      "agendaUid": 32130476,
+      "rules": [],
+      "agenda": {
+        "id": 12948,
+        "uid": 32130476,
+        "slug": "meet-and-com",
+        "title": "MEET AND COM",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4837,
+      "agendaUid": 30167935,
+      "rules": [],
+      "agenda": {
+        "id": 12949,
+        "uid": 30167935,
+        "slug": "megacite-societe-dexploitation-du-centre-dexposition-et-de-congres-damiens-metropole",
+        "title": "MEGACITE - SOCIETE D'EXPLOITATION DU CENTRE D'EXPOSITION ET DE CONGRES D'AMIENS METROPOLE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4838,
+      "agendaUid": 14222670,
+      "rules": [],
+      "agenda": {
+        "id": 12950,
+        "uid": 14222670,
+        "slug": "messe-frankfurt-france-sas",
+        "title": "MESSE FRANKFURT FRANCE S.A.S",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4839,
+      "agendaUid": 15421838,
+      "rules": [],
+      "agenda": {
+        "id": 12951,
+        "uid": 15421838,
+        "slug": "metz-evenements990",
+        "title": "METZ-EVENEMENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4840,
+      "agendaUid": 39827943,
+      "rules": [],
+      "agenda": {
+        "id": 12952,
+        "uid": 39827943,
+        "slug": "micronora",
+        "title": "MICRONORA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4841,
+      "agendaUid": 52487189,
+      "rules": [],
+      "agenda": {
+        "id": 12953,
+        "uid": 52487189,
+        "slug": "micropolis-parc-des-expositions-et-congres-de-besancon",
+        "title": "MICROPOLIS - PARC DES EXPOSITIONS ET CONGRES DE BESANCON",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4842,
+      "agendaUid": 91124594,
+      "rules": [],
+      "agenda": {
+        "id": 12954,
+        "uid": 91124594,
+        "slug": "monev",
+        "title": "MONEV",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4843,
+      "agendaUid": 67636361,
+      "rules": [],
+      "agenda": {
+        "id": 12955,
+        "uid": 67636361,
+        "slug": "montpellier-events",
+        "title": "MONTPELLIER EVENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4844,
+      "agendaUid": 80380967,
+      "rules": [],
+      "agenda": {
+        "id": 12956,
+        "uid": 80380967,
+        "slug": "mulhouse-expo-saeml",
+        "title": "MULHOUSE EXPO SAEML",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4845,
+      "agendaUid": 79726467,
+      "rules": [],
+      "agenda": {
+        "id": 12957,
+        "uid": 79726467,
+        "slug": "niort-foire-exposition",
+        "title": "NIORT FOIRE-EXPOSITION",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4846,
+      "agendaUid": 48950215,
+      "rules": [],
+      "agenda": {
+        "id": 12958,
+        "uid": 48950215,
+        "slug": "nordev-sem",
+        "title": "NORDEV SEM",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4847,
+      "agendaUid": 81356705,
+      "rules": [],
+      "agenda": {
+        "id": 12959,
+        "uid": 81356705,
+        "slug": "normandexpo-le-havre",
+        "title": "NORMAND'EXPO - LE HAVRE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4848,
+      "agendaUid": 98126729,
+      "rules": [],
+      "agenda": {
+        "id": 12960,
+        "uid": 98126729,
+        "slug": "orgexpo",
+        "title": "ORGEXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4849,
+      "agendaUid": 54959987,
+      "rules": [],
+      "agenda": {
+        "id": 12961,
+        "uid": 54959987,
+        "slug": "orleans-val-de-loire-evenements",
+        "title": "ORLEANS VAL DE LOIRE EVENEMENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4850,
+      "agendaUid": 26911847,
+      "rules": [],
+      "agenda": {
+        "id": 12962,
+        "uid": 26911847,
+        "slug": "overcome",
+        "title": "OVERCOME",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4851,
+      "agendaUid": 99543310,
+      "rules": [],
+      "agenda": {
+        "id": 12964,
+        "uid": 99543310,
+        "slug": "parc-des-expositions-de-grand-poitiers",
+        "title": "PARC DES EXPOSITIONS DE GRAND POITIERS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4852,
+      "agendaUid": 55502408,
+      "rules": [],
+      "agenda": {
+        "id": 12965,
+        "uid": 55502408,
+        "slug": "parc-des-expositions-de-pau",
+        "title": "PARC DES EXPOSITIONS DE PAU",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4853,
+      "agendaUid": 58902931,
+      "rules": [],
+      "agenda": {
+        "id": 12966,
+        "uid": 58902931,
+        "slug": "parc-des-expositions-du-perigord",
+        "title": "PARC DES EXPOSITIONS DU PERIGORD",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4854,
+      "agendaUid": 11234919,
+      "rules": [],
+      "agenda": {
+        "id": 12963,
+        "uid": 11234919,
+        "slug": "parc-des-expositions-le-havre-snc-docks-cafe_x000d_-groupe-spass",
+        "title": "PARC DES EXPOSITIONS - LE HAVRE - SNC DOCKS CAFE_x000D_\nGROUPE S.PASS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4855,
+      "agendaUid": 52494407,
+      "rules": [],
+      "agenda": {
+        "id": 12967,
+        "uid": 52494407,
+        "slug": "pg-promotion",
+        "title": "PG PROMOTION",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4856,
+      "agendaUid": 52870273,
+      "rules": [],
+      "agenda": {
+        "id": 12968,
+        "uid": 52870273,
+        "slug": "regie-gayant-expo",
+        "title": "REGIE GAYANT EXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4857,
+      "agendaUid": 85455387,
+      "rules": [],
+      "agenda": {
+        "id": 12969,
+        "uid": 85455387,
+        "slug": "reims-evenements",
+        "title": "REIMS EVENEMENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4858,
+      "agendaUid": 61118586,
+      "rules": [],
+      "agenda": {
+        "id": 12970,
+        "uid": 61118586,
+        "slug": "rouen-expo-evenements",
+        "title": "ROUEN EXPO EVENEMENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4859,
+      "agendaUid": 85019326,
+      "rules": [],
+      "agenda": {
+        "id": 12971,
+        "uid": 85019326,
+        "slug": "safi",
+        "title": "SAFI",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4860,
+      "agendaUid": 78455922,
+      "rules": [],
+      "agenda": {
+        "id": 12972,
+        "uid": 78455922,
+        "slug": "safim-marseille",
+        "title": "SAFIM Marseille",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4861,
+      "agendaUid": 99284094,
+      "rules": [],
+      "agenda": {
+        "id": 12973,
+        "uid": 99284094,
+        "slug": "saint-brieuc-expo-congres",
+        "title": "SAINT BRIEUC EXPO CONGRES",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4862,
+      "agendaUid": 14141103,
+      "rules": [],
+      "agenda": {
+        "id": 12974,
+        "uid": 14141103,
+        "slug": "saint-etienne-parc-expo",
+        "title": "SAINT ETIENNE PARC EXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4863,
+      "agendaUid": 11601621,
+      "rules": [],
+      "agenda": {
+        "id": 12975,
+        "uid": 11601621,
+        "slug": "salons-professionnels-europeens",
+        "title": "SALONS PROFESSIONNELS EUROPEENS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4864,
+      "agendaUid": 40184650,
+      "rules": [],
+      "agenda": {
+        "id": 12976,
+        "uid": 40184650,
+        "slug": "savoiexpo-chambery",
+        "title": "SAVOIEXPO - CHAMBERY",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4865,
+      "agendaUid": 10497211,
+      "rules": [],
+      "agenda": {
+        "id": 12977,
+        "uid": 10497211,
+        "slug": "siae-salon-international-de-laeronautique-et-de-lespace",
+        "title": "SIAE (SALON INTERNATIONAL DE L'AERONAUTIQUE ET DE L'ESPACE)",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4866,
+      "agendaUid": 73836481,
+      "rules": [],
+      "agenda": {
+        "id": 12978,
+        "uid": 73836481,
+        "slug": "societe-europeenne-de-cardiologie",
+        "title": "SOCIETE EUROPEENNE DE CARDIOLOGIE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4867,
+      "agendaUid": 88453501,
+      "rules": [],
+      "agenda": {
+        "id": 12979,
+        "uid": 88453501,
+        "slug": "sogena-societe-dorganisation-et-de-gestion-des-evenements-navals-et-darmements",
+        "title": "SOGENA (SOCIETE D'ORGANISATION ET DE GESTION DES EVENEMENTS NAVALS ET D'ARMEMENTS)",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4868,
+      "agendaUid": 45032818,
+      "rules": [],
+      "agenda": {
+        "id": 12980,
+        "uid": 45032818,
+        "slug": "sogofif",
+        "title": "SOGOFIF",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4869,
+      "agendaUid": 19801748,
+      "rules": [],
+      "agenda": {
+        "id": 12981,
+        "uid": 19801748,
+        "slug": "sommet-de-lelevage-sas",
+        "title": "SOMMET DE L'ELEVAGE SAS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4870,
+      "agendaUid": 62827245,
+      "rules": [],
+      "agenda": {
+        "id": 12982,
+        "uid": 62827245,
+        "slug": "spas-organisation",
+        "title": "SPAS ORGANISATION",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4871,
+      "agendaUid": 49310329,
+      "rules": [],
+      "agenda": {
+        "id": 12983,
+        "uid": 49310329,
+        "slug": "strasbourg-evenements531",
+        "title": "STRASBOURG EVENEMENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4872,
+      "agendaUid": 96314053,
+      "rules": [],
+      "agenda": {
+        "id": 12984,
+        "uid": 96314053,
+        "slug": "tarbes-expo-pyrenees-congres",
+        "title": "TARBES EXPO PYRENEES CONGRES",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4873,
+      "agendaUid": 93403412,
+      "rules": [],
+      "agenda": {
+        "id": 12985,
+        "uid": 93403412,
+        "slug": "tax-free-world-association-tfwa",
+        "title": "TAX FREE WORLD ASSOCIATION - TFWA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4874,
+      "agendaUid": 95170795,
+      "rules": [],
+      "agenda": {
+        "id": 12986,
+        "uid": 95170795,
+        "slug": "territoires-and-co",
+        "title": "TERRITOIRES AND CO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4875,
+      "agendaUid": 61433515,
+      "rules": [],
+      "agenda": {
+        "id": 12987,
+        "uid": 61433515,
+        "slug": "tours-evenements-grand-hall-parc-des-expositions",
+        "title": "TOURS EVENEMENTS - GRAND-HALL - PARC DES EXPOSITIONS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4876,
+      "agendaUid": 878289,
+      "rules": [],
+      "agenda": {
+        "id": 12988,
+        "uid": 878289,
+        "slug": "ucia-expos-sas-chalons-en-champagne",
+        "title": "UCIA EXPOS SAS - CHALONS-EN-CHAMPAGNE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4877,
+      "agendaUid": 10935277,
+      "rules": [],
+      "agenda": {
+        "id": 12989,
+        "uid": 10935277,
+        "slug": "union-nationale-du-sport-scolaire-unss",
+        "title": "UNION NATIONALE DU SPORT SCOLAIRE - UNSS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4878,
+      "agendaUid": 35897733,
+      "rules": [],
+      "agenda": {
+        "id": 12990,
+        "uid": 35897733,
+        "slug": "val-disere-centre-de-congres-henri-oreiller",
+        "title": "VAL D'ISERE CENTRE DE CONGRES HENRI OREILLER",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4879,
+      "agendaUid": 2953144,
+      "rules": [],
+      "agenda": {
+        "id": 12991,
+        "uid": 2953144,
+        "slug": "verdun-expo-meuse",
+        "title": "VERDUN EXPO MEUSE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4880,
+      "agendaUid": 80456219,
+      "rules": [],
+      "agenda": {
+        "id": 12992,
+        "uid": 80456219,
+        "slug": "vignerons-independants-de-france",
+        "title": "VIGNERONS INDEPENDANTS DE FRANCE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4881,
+      "agendaUid": 91038223,
+      "rules": [],
+      "agenda": {
+        "id": 12993,
+        "uid": 91038223,
+        "slug": "vinexpo",
+        "title": "VINEXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4882,
+      "agendaUid": 47684368,
+      "rules": [],
+      "agenda": {
+        "id": 12994,
+        "uid": 47684368,
+        "slug": "weyou-group",
+        "title": "WEYOU GROUP",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 4883,
+      "agendaUid": 7109654,
+      "rules": [],
+      "agenda": {
+        "id": 12995,
+        "uid": 7109654,
+        "slug": "world-trade-center-grenoble-centre-de-congres-de-la-cci-de-grenoble",
+        "title": "WORLD TRADE CENTER GRENOBLE - CENTRE DE CONGRES DE LA CCI DE GRENOBLE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6048,
+      "agendaUid": 86362224,
+      "rules": [],
+      "agenda": {
+        "id": 16473,
+        "uid": 86362224,
+        "slug": "letudiant",
+        "title": "L'ETUDIANT",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6050,
+      "agendaUid": 17861808,
+      "rules": [],
+      "agenda": {
+        "id": 16475,
+        "uid": 17861808,
+        "slug": "wsn-developpement-646",
+        "title": "WSN DEVELOPPEMENT",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6051,
+      "agendaUid": 155896,
+      "rules": [],
+      "agenda": {
+        "id": 16476,
+        "uid": 155896,
+        "slug": "nautic-festival-sa-nautic-salon-nautique-international-de-paris",
+        "title": "NAUTIC FESTIVAL SA\nNAUTIC - SALON NAUTIQUE INTERNATIONAL DE PARIS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6052,
+      "agendaUid": 95880954,
+      "rules": [],
+      "agenda": {
+        "id": 16477,
+        "uid": 95880954,
+        "slug": "editions-lva",
+        "title": "EDITIONS LVA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6053,
+      "agendaUid": 71629265,
+      "rules": [],
+      "agenda": {
+        "id": 16478,
+        "uid": 71629265,
+        "slug": "nicexpo",
+        "title": "NICEXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6055,
+      "agendaUid": 47895876,
+      "rules": [],
+      "agenda": {
+        "id": 16480,
+        "uid": 47895876,
+        "slug": "ainterexpo",
+        "title": "AINTEREXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6056,
+      "agendaUid": 26038405,
+      "rules": [],
+      "agenda": {
+        "id": 16481,
+        "uid": 26038405,
+        "slug": "grand-nancy-congres-et-evenements-sapl",
+        "title": "GRAND NANCY CONGRES ET EVENEMENTS (SAPL)",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6058,
+      "agendaUid": 58967032,
+      "rules": [],
+      "agenda": {
+        "id": 16483,
+        "uid": 58967032,
+        "slug": "angers-loire-tourisme-expo-congres-altec-destination-angers",
+        "title": "ANGERS LOIRE TOURISME EXPO CONGRES (ALTEC) - DESTINATION ANGERS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6059,
+      "agendaUid": 27834799,
+      "rules": [],
+      "agenda": {
+        "id": 16484,
+        "uid": 27834799,
+        "slug": "centre-france-evenements",
+        "title": "CENTRE FRANCE EVENEMENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6060,
+      "agendaUid": 78230117,
+      "rules": [],
+      "agenda": {
+        "id": 16485,
+        "uid": 78230117,
+        "slug": "nivexpo-foires-et-salons-nivernais-morvan",
+        "title": "NIVEXPO - FOIRES ET SALONS NIVERNAIS MORVAN",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6061,
+      "agendaUid": 67295514,
+      "rules": [],
+      "agenda": {
+        "id": 16486,
+        "uid": 67295514,
+        "slug": "cci-de-tarbes-et-des-hautes-pyrenees",
+        "title": "CCI DE TARBES ET DES HAUTES PYRENEES",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6062,
+      "agendaUid": 53748287,
+      "rules": [],
+      "agenda": {
+        "id": 16487,
+        "uid": 53748287,
+        "slug": "parc-des-expositions-de-saint-lo",
+        "title": "PARC DES EXPOSITIONS DE SAINT-LÔ",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6064,
+      "agendaUid": 49443482,
+      "rules": [],
+      "agenda": {
+        "id": 16489,
+        "uid": 49443482,
+        "slug": "mairie-de-castres",
+        "title": "MAIRIE DE CASTRES",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6065,
+      "agendaUid": 92038816,
+      "rules": [],
+      "agenda": {
+        "id": 16490,
+        "uid": 92038816,
+        "slug": "reed-midem-a-memberof-reed-exhibitions",
+        "title": "REED MIDEM - A MEMBEROF REED EXHIBITIONS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6066,
+      "agendaUid": 71775428,
+      "rules": [],
+      "agenda": {
+        "id": 16491,
+        "uid": 71775428,
+        "slug": "atout-events",
+        "title": "ATOUT EVENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6067,
+      "agendaUid": 88849852,
+      "rules": [],
+      "agenda": {
+        "id": 16492,
+        "uid": 88849852,
+        "slug": "sadeca-nice",
+        "title": "SADECA - NICE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6068,
+      "agendaUid": 88742175,
+      "rules": [],
+      "agenda": {
+        "id": 16493,
+        "uid": 88742175,
+        "slug": "space",
+        "title": "SPACE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6069,
+      "agendaUid": 55891708,
+      "rules": [],
+      "agenda": {
+        "id": 16494,
+        "uid": 55891708,
+        "slug": "a-determiner",
+        "title": "A DETERMINER",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6070,
+      "agendaUid": 11165589,
+      "rules": [],
+      "agenda": {
+        "id": 16495,
+        "uid": 11165589,
+        "slug": "performance-organisation",
+        "title": "PERFORMANCE ORGANISATION",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6071,
+      "agendaUid": 43084167,
+      "rules": [],
+      "agenda": {
+        "id": 16496,
+        "uid": 43084167,
+        "slug": "terralies-association",
+        "title": "TERRALIES ASSOCIATION",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6072,
+      "agendaUid": 85773319,
+      "rules": [],
+      "agenda": {
+        "id": 16497,
+        "uid": 85773319,
+        "slug": "sportair",
+        "title": "SPORTAIR",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6073,
+      "agendaUid": 30560030,
+      "rules": [],
+      "agenda": {
+        "id": 16498,
+        "uid": 30560030,
+        "slug": "artibat-capeb-pays-de-la-loire",
+        "title": "ARTIBAT (CAPEB PAYS DE LA LOIRE)",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6074,
+      "agendaUid": 32134876,
+      "rules": [],
+      "agenda": {
+        "id": 16499,
+        "uid": 32134876,
+        "slug": "segepex-parc-des-expositions-palais-des-congres-lorient",
+        "title": "SEGEPEX - PARC DES EXPOSITIONS / PALAIS DES CONGRES LORIENT",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6075,
+      "agendaUid": 29570702,
+      "rules": [],
+      "agenda": {
+        "id": 16500,
+        "uid": 29570702,
+        "slug": "generation-numerique",
+        "title": "GENERATION NUMERIQUE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6076,
+      "agendaUid": 1048922,
+      "rules": [],
+      "agenda": {
+        "id": 16501,
+        "uid": 1048922,
+        "slug": "cote-maison",
+        "title": "COTE MAISON",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6077,
+      "agendaUid": 57581188,
+      "rules": [],
+      "agenda": {
+        "id": 16502,
+        "uid": 57581188,
+        "slug": "sem-sogevaldi",
+        "title": "SEM SOGEVALDI",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6078,
+      "agendaUid": 87588567,
+      "rules": [],
+      "agenda": {
+        "id": 16503,
+        "uid": 87588567,
+        "slug": "activa-france",
+        "title": "ACTIVA FRANCE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6079,
+      "agendaUid": 39894249,
+      "rules": [],
+      "agenda": {
+        "id": 16504,
+        "uid": 39894249,
+        "slug": "expo-ouest-international",
+        "title": "EXPO OUEST INTERNATIONAL",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6080,
+      "agendaUid": 46198108,
+      "rules": [],
+      "agenda": {
+        "id": 16505,
+        "uid": 46198108,
+        "slug": "cci-de-la-rochelle",
+        "title": "CCI DE LA ROCHELLE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6081,
+      "agendaUid": 80730453,
+      "rules": [],
+      "agenda": {
+        "id": 16506,
+        "uid": 80730453,
+        "slug": "premiere-vision-sa",
+        "title": "PREMIERE VISION SA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6082,
+      "agendaUid": 92033236,
+      "rules": [],
+      "agenda": {
+        "id": 16507,
+        "uid": 92033236,
+        "slug": "cobees",
+        "title": "COBees",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6083,
+      "agendaUid": 32386295,
+      "rules": [],
+      "agenda": {
+        "id": 16508,
+        "uid": 32386295,
+        "slug": "goral-expo",
+        "title": "GORAL EXPO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6084,
+      "agendaUid": 99975114,
+      "rules": [],
+      "agenda": {
+        "id": 16509,
+        "uid": 99975114,
+        "slug": "standing-events",
+        "title": "STANDING EVENTS",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6085,
+      "agendaUid": 27763121,
+      "rules": [],
+      "agenda": {
+        "id": 16510,
+        "uid": 27763121,
+        "slug": "lexposia",
+        "title": "LEXPOSIA",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6086,
+      "agendaUid": 11962028,
+      "rules": [],
+      "agenda": {
+        "id": 16511,
+        "uid": 11962028,
+        "slug": "experience-montagne",
+        "title": "EXPERIENCE MONTAGNE",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    },
+    {
+      "id": 6087,
+      "agendaUid": 61657848,
+      "rules": [],
+      "agenda": {
+        "id": 16512,
+        "uid": 61657848,
+        "slug": "ilago",
+        "title": "ILAGO",
+        "image": "https://cibuldev.s3.amazonaws.com/agenda53458132.jpg"
+      }
+    }
+  ]
+}

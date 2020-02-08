@@ -47,6 +47,8 @@ async function _sendMessage( config, member, { message, agenda, lang, replyTo } 
 
   if ( !email ) {
     return log( 'member is not associated to an email' );
+  } else {
+    log('processing sendMessage to email %s', email);
   }
 
   const invitation = await _loadInvitation( member );

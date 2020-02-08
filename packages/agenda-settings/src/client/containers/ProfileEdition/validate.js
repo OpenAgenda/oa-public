@@ -33,7 +33,7 @@ export function asyncValidate( values, dispatch, props ) {
     slug: values.slug,
     excludeUid: props.initialValues.uid
   } ) )
-    .then( ( { error } ) => {
+    .catch( error => {
       if ( error && error.errors ) {
         throw Object.assign( ...error.errors.map( v => ({ [v.field]: v.code }) ) );
       }

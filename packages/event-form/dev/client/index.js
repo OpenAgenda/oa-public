@@ -9,6 +9,9 @@ if ( module.hot ) module.hot.accept();
 import EventForm from './EventForm';
 import SchemaEditorComponent from './SchemaEditorComponent';
 import validateFormField from '@openagenda/form-schemas/iso/validateField';
+import {
+  mapboxKey
+} from '../../testconfig';
 
 const storeKey = 'eventFormSandbox';
 
@@ -116,10 +119,7 @@ class Main extends Component {
           <SchemaEditorComponent onChange={this.onJSONChange.bind( this )} schemas={schemas} />
         </div>
         <div className="col-sm-4">
-          <EventForm
-            schemaExtensions={schemas}
-            devOnChange={this.onValuesChange.bind( this )}
-          />
+          <EventForm mapboxKey={mapboxKey} schemaExtensions={schemas} devOnChange={this.onValuesChange.bind( this )} />
         </div>
         <div className="col-sm-4">
           <pre>

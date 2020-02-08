@@ -2,6 +2,10 @@
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
+if (process.env.NODE_ENV === 'development') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+}
+
 const supervisor = require('./lib/supervisor');
 
 const ADMIN = process.argv.includes('admin');
@@ -101,7 +105,7 @@ supervisor(async loadTasks => {
     // only one process runs background tasks. supervisor handles that.
     // only 'task' types run tasks
     if (loadTasks && TASK) {
-      require('./task')(services);
+      require('./task')(config, services);
     }
   } catch (e) {
     const logs = require('@openagenda/logs');

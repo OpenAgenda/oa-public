@@ -75,6 +75,13 @@ function Timetable(props) {
 }
 
 class Scheduler extends Component {
+  static defaultProps = {
+    step: 60 * 60,
+    timingFormat: 'HH:mm',
+    cellHeight: 40,
+    timingLimit: ONE_DAY
+  };
+
   schedulerRef = React.createRef();
 
   selectorRef = React.createRef();
@@ -602,12 +609,5 @@ class Scheduler extends Component {
     );
   }
 }
-
-Scheduler.defaultProps = {
-  step: 60 * 60,
-  timingFormat: 'HH:mm',
-  cellHeight: 40,
-  timingLimit: ONE_DAY
-};
 
 export default injectIntl(Scheduler, { forwardRef: true });

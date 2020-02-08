@@ -3,6 +3,7 @@
 const _ = require('lodash');
 const ih = require('immutability-helper');
 const VError = require('verror');
+const log = require('@openagenda/logs')('api/eventCreate');
 
 module.exports = async (req, res, next) => {
   const create = req.app.core.agendas(req.agenda.uid).events.create;

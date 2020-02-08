@@ -49,10 +49,14 @@ async function open( request, response, identifier ) {
 
   // validate user data
 
+  const latestActivity = new Date();
+  const expires = new Date(latestActivity.getTime() + config.expire * 1000);
+
   try {
 
     sessionUser = validate( _.extend( {
-      latestActivity: new Date()
+      latestActivity,
+      expires
     }, user ) );
 
   } catch ( errors ) {
@@ -82,7 +86,10 @@ async function open( request, response, identifier ) {
 
   // store session in cookie
 
-  cookieData = cookieValidate( { user: sessionUser } );
+  cookieData = cookieValidate( {
+    user: sessionUser,
+    expires
+  } );
 
   cleanSession( request.session, cookieData );
 

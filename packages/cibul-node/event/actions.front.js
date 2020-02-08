@@ -186,10 +186,16 @@ function actionShow(req, res, next) {
           }
         }));
       }
-    }, err => {
+    }, async err => {
       if (err) {
         return next(err);
       }
+
+      req.baseData.indexed = _.get(
+        await req.app.services.agendas.get({ uid: req.agenda.uid }),
+        'indexed',
+        true
+      );
 
       return cmn.render(req, res, 'event/action', req.templateData);
     });
@@ -317,7 +323,7 @@ async function eventMailSend(req, res, next) {
           image: req.event.image ? config.aws.imageBucketPath + req.event.image.filename : null,
           location: _.mapValues(
             _.pick(req.event.location, 'name', 'address', 'region', 'city', 'postalCode'),
-            v => v.toString()
+            v => v && typeof v.toString === 'function' ? v.toString() : v
           ),
           dates: getDates(req.event, req.lang)
         },

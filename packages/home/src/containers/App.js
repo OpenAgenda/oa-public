@@ -1,95 +1,100 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { useCallback, useMemo } from 'react';
+import { hot } from 'react-hot-loader/root';
 import { provideHooks } from 'redial';
-import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
+import { useIsomorphicLayoutEffect } from 'react-use';
 import classNames from 'classnames';
 import makeGetterLabel from '@openagenda/labels';
 import labels from '@openagenda/labels/home';
-import { MenuItem } from '../components';
+import I18nContext from '../contexts/I18nContext';
+import MenuItem from '../components/MenuItem';
 import menuReducer from '../reducers/menu';
 import agendasReducer from '../reducers/agendas';
 import eventsReducer from '../reducers/events';
 import modalsReducer from '../reducers/modals';
 
-@provideHooks( {
-  inject: ( { store } ) => store.inject( {
-    menu: menuReducer,
-    events: eventsReducer,
-    agendas: agendasReducer,
-    modals: modalsReducer
-  } )
-} )
-@connect(
-  state => ({
-    res: state.res,
-    lang: state.settings.lang,
-    isNew: state.settings.isNew,
-    userUid: state.settings.userUid,
-    prefix: state.settings.prefix,
-    tab: state.menu.tab,
-    total: state.agendas.homeAgendas && state.agendas.homeAgendas.total
-  })
-)
-export default class App extends Component {
+function App({ route, user, lang }) {
+  const prefix = useSelector(state => state.settings.prefix);
+  const tab = useSelector(state => state.menu.tab);
+  const total = useSelector(
+    state => state.agendas.homeAgendas && state.agendas.homeAgendas.total
+  );
 
-  static childContextTypes = {
-    lang: PropTypes.string,
-    getLabel: PropTypes.func
-  };
+  const getLabel = useCallback(
+    (label, values = {}) => makeGetterLabel(labels)(label, values, lang),
+    [lang]
+  );
 
-  getChildContext() {
-    const { lang } = this.props;
-
-    return {
+  const i18nContextValue = useMemo(
+    () => ({
       lang,
-      getLabel: label => makeGetterLabel( labels )( label, lang )
-    };
+      getLabel
+    }),
+    [lang, getLabel]
+  );
+
+  const history = useHistory();
+
+  useIsomorphicLayoutEffect(() => {
+    if (!user || !user.uid) {
+      const historyObj = typeof window === 'undefined' ? history : window.location;
+
+      historyObj.replace('/');
+    }
+  }, [user, history]);
+
+  if (!user || !user.uid) {
+    return null;
   }
 
-  render() {
-
-    const { route, tab, isNew, prefix, total } = this.props;
-    const { getLabel } = this.getChildContext();
-
-    if ( isNew && !total ) {
-      return (
+  return (
+    <I18nContext.Provider value={i18nContextValue}>
+      {user.isNew && !total ? (
         <div className="container top-margined home">
           <div className="col-sm-8 col-sm-offset-2">
             <div className="row wsq">
               <div className="content">
-                {renderRoutes( route.routes )}
+                {renderRoutes(route.routes, { user, lang })}
               </div>
             </div>
           </div>
         </div>
-      );
-    }
-
-    return (
-      <div className={classNames( 'container top-margined home', { [ `home-${tab}` ]: tab } )}>
-        <div className="row">
-          <div className="col-sm-8 col-sm-offset-2">
-            <ul className="home-nav list-inline">
-              <MenuItem
-                linkTo={prefix || '/'}
-                active={tab === 'agendas'}>
-                {getLabel( 'myAgendas' )}
-              </MenuItem>
-              <MenuItem
-                linkTo={prefix + '/events'}
-                active={tab === 'events'}>
-                {getLabel( 'myEvents' )}
-              </MenuItem>
-            </ul>
-            <div className="wsq">
-              {renderRoutes( route.routes )}
+      ) : (
+        <div
+          className={classNames('container top-margined home', {
+            [`home-${tab}`]: tab
+          })}
+        >
+          <div className="row">
+            <div className="col-sm-8 col-sm-offset-2">
+              <ul className="home-nav list-inline">
+                <MenuItem linkTo={prefix || '/'} active={tab === 'agendas'}>
+                  {getLabel('myAgendas')}
+                </MenuItem>
+                <MenuItem linkTo={`${prefix}/events`} active={tab === 'events'}>
+                  {getLabel('myEvents')}
+                </MenuItem>
+              </ul>
+              <div className="wsq">
+                {renderRoutes(route.routes, { user, lang })}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    );
-
-  }
-
+      )}
+    </I18nContext.Provider>
+  );
 }
+
+export default hot(
+  provideHooks({
+    inject: ({ store }) => store.inject({
+      menu: menuReducer,
+      events: eventsReducer,
+      agendas: agendasReducer,
+      modals: modalsReducer
+    })
+  })(App)
+);

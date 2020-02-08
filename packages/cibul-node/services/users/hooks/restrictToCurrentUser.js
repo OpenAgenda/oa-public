@@ -1,5 +1,7 @@
 'use strict';
 
+const errors = require('@feathersjs/errors');
+
 module.exports = function restrictToCurrentUser() {
   return context => {
     if (!context.params.user) {

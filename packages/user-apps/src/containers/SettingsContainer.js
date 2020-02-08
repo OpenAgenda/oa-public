@@ -2,7 +2,6 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { provideHooks } from 'redial';
 import Spinner from '@openagenda/react-components/build/Spinner';
 import Modal from '@openagenda/react-components/build/Modal';
 import * as userSettingsActions from '../reducers/userSettings';
@@ -16,28 +15,9 @@ import {
 } from '../components';
 
 
-@provideHooks( {
-  fetch: async ( { store: { dispatch, getState }, history } ) => {
-    const state = getState();
-    const promises = [];
-
-    if ( !userSettingsActions.isLoaded( state ) ) {
-      promises.push(
-        dispatch( userSettingsActions.load() )
-          .catch( () => {
-            history.replace( '/' );
-          } )
-      );
-    }
-
-    return Promise.all( __CLIENT__ ? [] : promises );
-  }
-} )
 @connect(
   state => ({
     res: state.res,
-    loading: state.userSettings.loading,
-    user: state.userSettings.user,
     successMessagesDisplayed: state.userSettings.successMessagesDisplayed,
     modal: state.userSettings.modal
   }),
@@ -50,8 +30,8 @@ export default class SettingsContainer extends Component {
       history,
       route,
       res,
-      loading,
       user,
+      lang,
       updateUser,
       deleteAccount,
       changeEmail,
@@ -68,60 +48,64 @@ export default class SettingsContainer extends Component {
 
     return (
       <div className="table-responsive" style={{ padding: '15px 0', position: 'relative' }}>
-        {loading
-          ? (
-            <div style={{ margin: '150px 0' }}>
-              <Spinner />
-            </div>
-          )
-          : (
-            <table className="table">
-              <tbody>
-              <ProfileSettings
-                activeTab={route.activeTab === 'profile'}
-                onSubmit={updateUser}
-                initialValues={_.pick( user, 'fullName', 'culture' )}
-                deleteAccount={deleteAccount}
-                displayModal={displayModal}
-                successMessageDisplayed={profileMessageDisplayed}
-              />
+        <table className="table">
+          <tbody>
+          <ProfileSettings
+            activeTab={route.activeTab === 'profile'}
+            onSubmit={updateUser}
+            initialValues={_.pick( user, 'fullName', 'culture' )}
+            deleteAccount={deleteAccount}
+            displayModal={displayModal}
+            successMessageDisplayed={profileMessageDisplayed}
+            user={user}
+            lang={lang}
+          />
 
-              <ImageSettings
-                activeTab={route.activeTab === 'image'}
-                history={history}
-                onUpdate={image => updateUser( { image } )}
-                uploadImageRes={res.uploadProfileImage}
-                removeImageRes={res.removeProfileImage}
-                image={user && user.image || ''}
-              />
+          <ImageSettings
+            activeTab={route.activeTab === 'image'}
+            history={history}
+            onUpdate={image => updateUser( { image } )}
+            uploadImageRes={res.uploadProfileImage}
+            removeImageRes={res.removeProfileImage}
+            image={user && user.image || ''}
+            user={user}
+            lang={lang}
+          />
 
-              {user.hasLocalAccount ? (
-                <>
-                  <EmailSettings
-                    activeTab={route.activeTab === 'email'}
-                    onSubmit={changeEmail}
-                    successMessageDisplayed={emailMessageDisplayed}
-                  />
-                  <PasswordSettings
-                    activeTab={route.activeTab === 'password'}
-                    onSubmit={changePassword}
-                    successMessageDisplayed={passwordMessageDisplayed}
-                  />
-                </>
-              ) : null}
-
-              <ApiKeySettings
-                activeTab={route.activeTab === 'apiKey'}
-                generateApiKey={generateApiKey}
-                displayModal={displayModal}
+          {user.hasLocalAccount ? (
+            <>
+              <EmailSettings
+                activeTab={route.activeTab === 'email'}
+                onSubmit={changeEmail}
+                successMessageDisplayed={emailMessageDisplayed}
+                user={user}
+                lang={lang}
               />
-
-              <UnsubscribedSettings
-                activeTab={route.activeTab === 'emails'}
+              <PasswordSettings
+                activeTab={route.activeTab === 'password'}
+                onSubmit={changePassword}
+                successMessageDisplayed={passwordMessageDisplayed}
+                user={user}
+                lang={lang}
               />
-              </tbody>
-            </table>
-          )}
+            </>
+          ) : null}
+
+          <ApiKeySettings
+            activeTab={route.activeTab === 'apiKey'}
+            generateApiKey={generateApiKey}
+            displayModal={displayModal}
+            user={user}
+            lang={lang}
+          />
+
+          <UnsubscribedSettings
+            activeTab={route.activeTab === 'emails'}
+            user={user}
+            lang={lang}
+          />
+          </tbody>
+        </table>
 
         <Modal
           visible={modal.visible || false}

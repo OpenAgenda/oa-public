@@ -38,6 +38,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
         'events',
         'agendas',
         'agendaEvents',
+        'aggregators',
         'agendaLocations',
         'formSchemas',
         'custom',

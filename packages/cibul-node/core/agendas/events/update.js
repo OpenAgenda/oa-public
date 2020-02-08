@@ -10,7 +10,6 @@ const {
   toEventServiceFormat
 } = require('@openagenda/agenda-contribute/server/parse');
 
-const aggregators = require('../../../services/aggregators').instance;
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
 const processOEmbed = require('../utils/processOEmbed');
@@ -30,6 +29,7 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     agendaEvents,
     eventSearch,
     oembed,
+    aggregators,
     custom
   } = services;
 

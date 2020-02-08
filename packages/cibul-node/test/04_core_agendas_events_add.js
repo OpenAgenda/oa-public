@@ -39,6 +39,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
         'queues',
         'events',
         'agendas',
+        'aggregators',
         'agendaEvents',
         'agendaLocations',
         'formSchemas',

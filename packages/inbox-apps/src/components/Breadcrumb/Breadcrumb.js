@@ -1,15 +1,13 @@
 import React, { Component, Fragment } from 'react';
-import PropTypes from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import { getContext } from 'recompose';
 import cn from 'classnames';
 import { LinkContainer } from '../';
+import I18nContext from '../../contexts/I18nContext';
 
-@getContext( {
-  getLabel: PropTypes.func
-} )
 @withRouter
 export default class Breadcrumb extends Component {
+  static contextType = I18nContext;
+
   renderParts() {
     const { breadParts } = this.props;
 
@@ -33,14 +31,15 @@ export default class Breadcrumb extends Component {
   }
 
   render() {
-    const { getLabel, breadParts, disableFirstPartLink, history } = this.props;
+    const { breadParts, disableFirstPartLink, history, agenda } = this.props;
+    const { getLabel } = this.context;
 
     const noParts = !breadParts || !breadParts.length;
 
     const homePart = disableFirstPartLink || noParts
       ? getLabel( 'inbox' )
       : (
-        <LinkContainer to="/">
+        <LinkContainer to="/" agenda={agenda}>
           {path => (
             <a
               role="button"

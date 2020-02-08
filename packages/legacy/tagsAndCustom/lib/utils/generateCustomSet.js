@@ -17,6 +17,8 @@ const schemaToCustom = {
   link: 'url',
   email: 'email',
   checkbox: 'checkbox',
+  boolean: 'checkbox',
+  phone: 'text',
   radio: 'radio'
 }
 

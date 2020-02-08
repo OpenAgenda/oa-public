@@ -124,6 +124,7 @@ export default class EventForm extends Component {
         suggestionsRes: p.suggestionsRes,
         referencesRes: p.referencesRes,
         locationRes: p.locationRes,
+        mapboxKey: p.mapboxKey,
         languages,
         fileStore: p.fileStore,
         schemaExtensions: p.schemaExtensions,

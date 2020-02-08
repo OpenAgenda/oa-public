@@ -13,7 +13,6 @@ const log = require( '@openagenda/logs' )( 'auth/lib/auth' );
 const cmn = require( '../../lib/commons-app' );
 const lib = require( '../../lib/lib' );
 const config = require( '../../config' );
-const usersSvc = require( '../../services/users' );
 const pLib = require( './passport' );
 const loadAgenda = require( '../../services/agenda' ).mw.load( 'slug', { basicLoad: true, cache: true, required: false } );
 
@@ -114,7 +113,7 @@ function init( service ) {
 
       }
 
-      authenticate( values.profile.id, ( err, user, data ) => {
+      authenticate( values, ( err, user, data ) => {
 
         if ( err ) values.err = err;
 
@@ -193,7 +192,7 @@ function init( service ) {
 
       }
 
-      create( {
+      create( values, {
         id: values.profile.id,
         email: values.profile.email,
         fullName,
@@ -278,7 +277,7 @@ lib.extend( init, exposed );
 
 function serviceCreate( fieldName, activate ) {
 
-  return ( data, optionals, cb ) => {
+  return ( values, data, optionals, cb ) => {
 
     if ( !cb ) {
       cb = optionals;
@@ -295,7 +294,9 @@ function serviceCreate( fieldName, activate ) {
 
     log( 'creating user with %j', createData );
 
-    usersSvc.create( createData, { detailed: true, tokenOptionals: optionals, optionals } )
+    const { services } = values.req.app;
+
+    services.users.create( createData, { detailed: true, tokenOptionals: optionals, optionals } )
       .then( user => {
         if ( user ) {
           log( 'user successfully created' );
@@ -320,14 +321,17 @@ function serviceCreate( fieldName, activate ) {
 
 function serviceAuthenticate( fieldName ) {
 
-  return ( id, cb ) => {
+  return ( _values, cb ) => {
 
+    const { id } = _values.profile;
     const values = {
       fieldName,
       id,
     };
 
-    usersSvc.findOne( {
+    const { services } = _values.req.app;
+
+    services.users.findOne( {
       query: { [ fieldName ]: id },
       detailed: true,
     } )
@@ -397,13 +401,15 @@ function signin( values ) {
 
   values.req.log( 'info', 'signing in user %s', user.email );
 
+  const { services } = req.app;
+
   sessions.open( req, res, user, async ( err, session ) => {
 
     if ( err ) req.log( 'error', { message: 'could not open session', error: err } );
 
     let redirectUrl;
 
-    usersSvc.refresh( user.uid, {
+    services.users.refresh( user.uid, {
       lastSignin: true
     } )
       .catch( err => {
@@ -427,7 +433,7 @@ function signin( values ) {
     } else if ( req.query.iToken && agendaSlug ) {
 
       // this is a invitation signin / signup, redirect to form.
-      redirectUrl = req.genUrl( 'agendaEventNew', { slug: agendaSlug } )
+      redirectUrl = `/${agendaSlug}/contribute`;
 
     }
 
@@ -443,7 +449,7 @@ function signin( values ) {
 
     }
 
-    res.redirect( 302, agendaSlug ? req.genUrl( 'agendaShow', { slug: agendaSlug } ) : '/home' );
+    res.redirect( 302, agendaSlug ? `/${agendaSlug}/contribute` : '/home' );
 
     d.resolve( values );
 
@@ -510,6 +516,7 @@ function _render( template, defaults ) {
         url: req.agenda.url
       };
 
+      data.indexed = req.agenda.indexed;
     }
 
     if ( asPromise ) {

@@ -1,6 +1,6 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 const sessions = require( '@openagenda/sessions' );
 const agendasSvc = require( '@openagenda/agendas' );
 const mw = require( '@openagenda/admin-agendas' ).mw;
@@ -15,10 +15,15 @@ const preMw = [
 
 
 module.exports = app => {
+  const {
+    agendas,
+    events,
+    aggregators
+  } = app.services;
 
-  app.get( '/admin/agendas/', preMw, index );
-  app.get( '/admin/agendas/search', preMw, mw.agendas.list );
-  app.get( '/admin/agendas/get', preMw, mw.agendas.get );
+  app.get('/admin/agendas/', preMw, index);
+  app.get('/admin/agendas/search', preMw, mw.agendas.list);
+  app.get('/admin/agendas/get', preMw, mw.agendas.get);
 
   app.post(
     '/admin/agendas/:uid',
@@ -39,18 +44,12 @@ module.exports = app => {
     async ( req, res, next ) => {
       try {
         if ( _.get( req, 'body.credentials.aggregator' ) ) {
-          const hasAggregator = await config.knex( config.schemas.aggregator )
-            .select( 'id' )
-            .where( 'review_id', req.agenda.id )
-            .limit( 1 );
+          const aggregator = await aggregators.get( req.agenda.uid );
 
-          if ( !hasAggregator.length ) {
-            await config.knex( config.schemas.aggregator )
-              .insert( {
-                review_id: req.agenda.id,
-                created_at: new Date(),
-                updated_at: new Date()
-              } )
+          if (!aggregator) {
+            await aggregators.set(req.agenda.uid, {
+              rules: []
+            });
           }
         }
 
@@ -66,13 +65,9 @@ module.exports = app => {
     '/admin/agendas/members/search',
     preMw,
     ( req, res, next ) => {
-
       req.query.agendaId = req.query.agendaId ? parseInt( req.query.agendaId ) : null;
-
       req.query.order = 'role.desc';
-
       next();
-
     },
     mw.members.list
   );
@@ -81,7 +76,6 @@ module.exports = app => {
 
 
 function index( req, res ) {
-
   cmn.render( req, res, 'admin/agendas', req.templateData );
-
 }
+

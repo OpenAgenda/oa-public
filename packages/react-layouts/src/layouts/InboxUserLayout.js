@@ -1,0 +1,34 @@
+import React from 'react';
+import useChildLayouts from '../hooks/useChildLayouts';
+
+function InboxUserLayout({
+  childLayouts,
+  children,
+  extraProps,
+  onError,
+  FallbackComponent
+}) {
+  const getContent = useChildLayouts(
+    children,
+    { extraProps, onError, FallbackComponent },
+    childLayouts
+  );
+
+  return (
+    <div className="container top-margined">
+      <div className="row">
+        <div className="col-sm-offset-2 col-sm-8">
+          <div className="wsq">
+            <div className="inbox inbox-user padding-all-sm">
+              {getContent()}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+InboxUserLayout.layoutName = 'InboxUserLayout';
+
+export default InboxUserLayout;

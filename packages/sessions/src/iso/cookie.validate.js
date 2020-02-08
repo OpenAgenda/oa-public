@@ -63,6 +63,10 @@ const fields = {
         optional: true
       }
     }
+  },
+  expires: {
+    type: 'date',
+    optional: true
   }
 };
 

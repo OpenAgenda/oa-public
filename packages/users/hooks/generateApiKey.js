@@ -2,7 +2,7 @@
 
 module.exports = function generateApiKey() {
   return async context => {
-    const { config } = context.service;
+    const { config } = context.self;
     const { keys } = config.interfaces;
     const { publicKey, secretKey } = context.params;
 

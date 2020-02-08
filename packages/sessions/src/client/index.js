@@ -11,6 +11,7 @@ let cookies = require( 'cookies-js' );
 
 module.exports = {
   getUser,
+  getExpires,
   notifications: {
     getCount: getNotificationCount,
     setCount: setNotificationCount
@@ -30,6 +31,15 @@ module.exports = {
 function getUser() {
 
   return _getSession().user || null;
+
+}
+
+
+function getExpires() {
+
+  const date = _getSession().expires || null;
+
+  return date ? new Date(date) : null;
 
 }
 
@@ -142,7 +152,7 @@ function _getWritable() {
 function _get( name, validate, useDefault = false ) {
 
   let cookieValue = cookies.get( name ), clean;
-  
+
   if ( !cookieValue ) return useDefault ? validate.default : null;
 
   try {
