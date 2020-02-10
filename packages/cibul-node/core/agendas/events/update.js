@@ -202,33 +202,25 @@ async function update(services, agendaUid, eventUid, data, options = {}) {
     log('error', 'could not update legacy search for event %s', eventUid, e);
   }
 
-  const event = await payload.getCompiledEvent();
+  const response = await payload.getResponse('event', access);
 
   try {
-    await eventSearch.update({
-      agenda,
-      formSchema: payload.getFormSchema(),
-      member: payload.getMember(),
-      event
-    });
+    await eventSearch.update(response);
   } catch (e) {
     log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, e);
   }
 
   await aggregators.notify('updateEvent', {
-    event,
+    event: await payload.getCompiledEvent(),
     before: await payload.getCompiledEvent('before'),
     agenda,
     formSchema: payload.getFormSchema(),
     batched
   });
 
-
   await refreshAgenda(agenda.uid);
 
-  const response = await payload.getResponse('updated', access);
-
-  return returnPayload ? response : response.updated;
+  return returnPayload ? response : response.event;
 }
 
 function patch(services, agendaUid, eventUid, data, options = {}) {

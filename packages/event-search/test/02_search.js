@@ -109,7 +109,6 @@ describe('02 - event search - functional: search', function() {
     });
 
     it('if monolingual option is set, multilingal fields are flattened to specified language', async () => {
-
       const {
         events,
         total
@@ -127,7 +126,6 @@ describe('02 - event search - functional: search', function() {
       ].map(f => events[0][f]).forEach(data => {
         (typeof data).should.equal('string');
       });
-
     });
 
     it('all fields are returned when detailed option is true', async () => {
@@ -439,55 +437,47 @@ describe('02 - event search - functional: search', function() {
     } );
 
 
-    describe( 'aggregation', () => {
+    describe('aggregation', () => {
 
-      it( 'keyword search, with aggregation', async () => {
-
-        let { aggregations } = await service( 'simple_search' ).search( {
+      it('keyword search, with aggregation', async () => {
+        const {
+          aggregations
+        } = await service('simple_search').search({
           keyword: 'word'
         }, { size: 0 }, {
-          aggregations: [ {
-            type: 'terms',
-            field: '_search_keywords'
-          }, {
-            type: 'timings'
-          } ]
-        } );
+          aggregations: ['keywords', 'timings']
+        });
 
         aggregations.should.eql( {
-          _search_keywords: [
-            { key: 'clé', count: 1 },
-            { key: 'key', count: 1 },
-            { key: 'mot', count: 1 },
-            { key: 'word', count: 1 }
+          keywords: [
+            { key: 'clé', eventCount: 1 },
+            { key: 'key', eventCount: 1 },
+            { key: 'mot', eventCount: 1 },
+            { key: 'word', eventCount: 1 }
           ],
-          timings: [ {
-            key: '2010-04-01', count: 2
-          } ]
-        } );
+          timings: [{
+            key: '2010-04-01', timingCount: 2
+          }]
+        });
+      });
 
-      } );
 
+      it('timing aggregation: search is bounded by current month', async () => {
 
-      it( 'timing aggregation: search is bounded by current month', async () => {
-
-        let { aggregations, total } = await service( 'simple_search' ).search( {
+        let { aggregations, total } = await service('simple_search').search({
           keyword: 'word'
         }, { size: 0 }, {
-          aggregations: [ {
-            type: 'timingsReverseHits'
-          } ]
-        } );
+          aggregations: 'eventsByDateRanges'
+        });
 
-        total.should.equal( 1 );
+        total.should.equal(1);
 
         // one day for each. Depends of the month
-        aggregations.timingsReverseHits.length.should.aboveOrEqual( 28 );
-        aggregations.timingsReverseHits.length.should.belowOrEqual( 31 );
+        aggregations.eventsByDateRanges.length.should.aboveOrEqual(28);
+        aggregations.eventsByDateRanges.length.should.belowOrEqual(31);
 
-        aggregations.timingsReverseHits.filter( h => h.count !== 0 ).length.should.equal( 0 );
-
-      } );
+        aggregations.eventsByDateRanges.filter(h => h.eventCount !== 0).length.should.equal(0);
+      });
 
 
       it('timing aggregation: keyword search with results', async () => {
@@ -500,41 +490,16 @@ describe('02 - event search - functional: search', function() {
           },
           keyword: 'word'
         }, { size: 0 }, {
-          aggregations: [{
-            type: 'timingsReverseHits'
-          }]
+          aggregations: 'eventsByDateRanges'
         });
 
-        aggregations.timingsReverseHits.length.should.equal(30);
+        aggregations.eventsByDateRanges.length.should.equal(30);
 
-        aggregations.timingsReverseHits[0].count.should.equal(1);
+        aggregations.eventsByDateRanges[0].eventCount.should.equal(1);
 
-        aggregations.timingsReverseHits[0].sampleEvents[0].uid.should.equal(14);
+        aggregations.eventsByDateRanges[0].sampleEvents[0].uid.should.equal(14);
       });
-
-      it( 'reverse timing aggregation parses sample events', async () => {
-
-        let { aggregations, events } = await service( 'simple_search' ).search( {
-          date: {
-            gte: new Date( '2010-04-01' ),
-            lte: new Date( '2010-04-30' )
-          },
-          keyword: 'word'
-        }, { size: 0 }, {
-          aggregations: [ {
-            type: 'timingsReverseHits'
-          } ]
-        } );
-
-        const sampleEvent = aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ];
-
-        should( sampleEvent.timings ).equal( undefined );
-
-        sampleEvent.lastTiming.begin.should.equal( '2010-04-02T00:00:00+02:00');
-
-      } );
-
-    } );
+    });
 
     describe('stream', () => {
 
@@ -829,34 +794,12 @@ describe('02 - event search - functional: search', function() {
 
 
     it('events from a specific agenda can be retrieved based on the agenda uid', async () => {
-
-      let { events, total } = await service('simple_search').search({
-        agendaUid : 21475128
+      const { events, total } = await service('simple_search').search({
+        originAgendaUid : 21475128
       }, {}, { detailed: true });
 
       events[0].originAgenda.uid.should.equal(21475128);
     });
-
-
-    it( 'extension data can be merged into new object as specified in options', async () => {
-
-      let { events, total } = await service( 'simple_search' ).search({
-        'organizeremail' : 'cannes@reedexpo.fr'
-      }, {}, {
-        detailed: true,
-        extensions: [ 'custom', 'contributor' ],
-        merge: {
-          mergedExtended: [ 'custom', 'contributor' ]
-        }
-      } );
-
-      _.keys( events[ 0 ] ).includes( 'mergedExtended' ).should.equal( true );
-
-      _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( false );
-
-      _.keys( events[ 0 ] ).includes( 'contributor' ).should.equal( false );
-
-    } );
 
   } );
 

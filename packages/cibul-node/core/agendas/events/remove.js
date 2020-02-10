@@ -124,10 +124,10 @@ module.exports = async (services, agendaUid, eventUid, options) => {
       event,
       agenda,
       deletion,
-      otherAgendaReferences: deletion ? remaining : []
+      otherAgendaReferences: remaining.items
     });
   } catch (e) {
-    log('error', 'could not remove event %s.%s from search indices', event.udi);
+    log('error', 'could not remove event %s.%s from search indices', event.uid, e);
   }
 
   await refreshAgenda(agenda.uid);

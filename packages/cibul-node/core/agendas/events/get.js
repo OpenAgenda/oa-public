@@ -33,7 +33,8 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
     load: {
       event: true,
       custom: true,
-      agendaEvent: true
+      agendaEvent: true,
+      member: true
     },
     access: 'public',
     returnPayload: false,
@@ -45,7 +46,7 @@ module.exports = async (services, agendaUid, eventUid, options = {}) => {
 
   const payload = createPayload(services, agenda);
 
-  payload.setItem('agendaEvent', await agendaEvents(agendaUid).get(eventUid));
+  payload.setItem('agendaEvent', await agendaEvents(agendaUid).get(eventUid, { decorate: ['member'] }));
 
   if (load.event) {
     const event = await events.get({

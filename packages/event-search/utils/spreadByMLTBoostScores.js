@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const ih = require('immutability-helper');
 
 const getMLTDSLPart = require('./getMLTDSLPart');
@@ -9,7 +10,7 @@ module.exports = (DSL, MLTRequest, scores) => ih(DSL, {
     $set: {
       dis_max: {
         queries: Object.keys(scores).map(scoredField => {
-          const fieldValue = MLTRequest[scoredField];
+          const fieldValue = _.get(MLTRequest, scoredField);
           const boostedField = _isIntegerLike(fieldValue)
             ? '_search_keywords'
             : scoredField;
@@ -23,7 +24,7 @@ module.exports = (DSL, MLTRequest, scores) => ih(DSL, {
               must: {
                 $set: (DSL.query.bool.must || []).concat({
                   more_like_this: {
-                    ...getMLTDSLPart({[scoredField]: fieldValue }),
+                    ...getMLTDSLPart(_.set({}, scoredField, fieldValue)),
                     boost: scores[scoredField],
                     fields: [boostedField]
                   }

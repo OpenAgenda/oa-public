@@ -62,7 +62,7 @@ function init(c, services) {
       getEventCountByUserUid,
       getUsersByUid: getUsersByUid.bind(null, services),
       getUserByEmail: getUserByEmail.bind(null, services),
-      getAgendasByUid,
+      getAgendasByUid: getAgendasByUid.bind(null, services),
       onCreate: onCreate.bind(null, { config, activityQueue }),
       onRemove: onRemove.bind(null, { members, activityQueue }),
       onPatch: onPatch.bind(null, { services, config, activityQueue })

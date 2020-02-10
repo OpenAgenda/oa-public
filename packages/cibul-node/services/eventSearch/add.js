@@ -14,15 +14,14 @@ module.exports = (services, queue, eventSearch) => {
   return async ({ agenda, member, formSchema, event }) => {
     log('add');
 
-    const data = formatEventForIndex(agenda, formSchema, event, member);
     const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
-    if (!await searchIndex.exists()) {
-      log('warn', 'not adding: index does not exist');
-      return;
-    }
+    const data = {
+      ...event,
+      member
+    };
 
-    const result = await searchIndex.add(data, { refresh: true });
+    const result = await searchIndex.add(data, { refresh: true, formSchema });
 
     log('added', result);
 
@@ -32,7 +31,7 @@ module.exports = (services, queue, eventSearch) => {
     }
 
     if (!await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid)) {
-      await queue('transverseIndexUpdate', data);
+      await queue('transverseIndexUpdate', event);
     }
 
     log('done');

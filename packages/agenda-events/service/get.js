@@ -26,12 +26,11 @@ async function get(agendaUid, eventUid, options = {}) {
     'event_uid' : eventUid
   } );
 
-  if (decorate.includes('member') && config.interfaces.getMembers) {
+  if (decorate.includes('member') && config.interfaces.getMembers && ae) {
     ae.member = ae.userUid ? _.get( await config.interfaces.getMembers([ae]), '0') : null;
   }
 
   return ae;
-
 }
 
 async function byLegacyId( agendaId, eventId ) {

@@ -112,7 +112,7 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     payload.setItem('event', result.event);
   }
 
-  await doAdd(services, payload, ih(clean, {
+  const response = await doAdd(services, payload, ih(clean, {
     agendaEvent: {
       canEdit: { $set: true }
     },
@@ -120,12 +120,11 @@ module.exports = async (services, agendaUid, data, options = {}) => {
     agendaId: { $set: agenda.id }
   }), {
     draft,
-    userUid: contextUserUid
+    userUid: contextUserUid,
+    access
   });
 
-  const response = await payload.getResponse('created', access);
-
-  return returnPayload ? response : response.created;
+  return returnPayload ? response : response.event;
 }
 
 function _extractOwnerAndCreator(data, contextUserUid) {

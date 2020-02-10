@@ -19,7 +19,7 @@ module.exports = (services, queue, eventSearch) => {
   return async ({ agenda, member, formSchema, event }) => {
     log('update');
 
-    const data = await updateAgendaIndex(eventSearch, {
+    await updateAgendaIndex(eventSearch, {
       agenda,
       formSchema,
       member,
@@ -28,9 +28,9 @@ module.exports = (services, queue, eventSearch) => {
 
     log('update transverse index');
     if (event.state !== 2 && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid) ) {
-      await queue('transverseIndexRemove', data);
+      await queue('transverseIndexRemove', event);
     } else {
-      await queue('transverseIndexUpdate', data);
+      await queue('transverseIndexUpdate', event);
     }
 
     log('update other indices');
@@ -84,20 +84,18 @@ async function otherUpdate(services, agendaUid, eventUid) {
 
 async function updateAgendaIndex(eventSearch, { agenda, formSchema, member, event }) {
   log('updateAgendaIndex');
-  const data = formatEventForIndex(agenda, formSchema, event, member);
-  const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
-  if (!await searchIndex.exists()) {
-    log('warn', 'not updating: index does not exist');
-    return;
-  }
+  const data = {
+    ...event,
+    member
+  };
+
+  const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
   log('update current agenda index');
   await searchIndex.update({
     uid: event.uid
-  }, data, { refresh: true });
+  }, data, { refresh: true, formSchema });
 
   log('updated');
-
-  return data;
 }

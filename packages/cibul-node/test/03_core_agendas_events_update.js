@@ -241,12 +241,12 @@ describe('core - functional (server): core.agendas().events.update()', function(
         result.success.should.equal(true);
       });
 
-      it('updated event is provided in updated response key', () => {
-        result.updated.description.fr.should.equal('Une description');
+      it('updated event is provided in event response key', () => {
+        result.event.description.fr.should.equal('Une description');
       });
 
-      it('patched data is in updated event', () => {
-        result.updated.state.should.equal(-1);
+      it('patched data is in event', () => {
+        result.event.state.should.equal(-1);
       });
 
     });

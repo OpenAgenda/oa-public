@@ -32,13 +32,17 @@ module.exports = async (services, payload, clean, options = {}) => {
     aggregated,
     sourceAgenda,
     draft,
-    userUid
+    userUid,
+    access,
+    primaryResponseKey
   } = {
     batched: false,
     aggregated: false,
     sourceAgenda: null,
     draft: false,
     userUid: null,
+    primaryResponseKey: 'event',
+    access: 'public',
     ...options
   };
 
@@ -96,7 +100,7 @@ module.exports = async (services, payload, clean, options = {}) => {
   }
 
   if (draft) {
-    return;
+    return payload.getResponse(primaryResponseKey, access);
   }
 
 
@@ -124,25 +128,22 @@ module.exports = async (services, payload, clean, options = {}) => {
     log('error', 'could not update legacy search for event %s', event.uid);
   }
 
-  const compiledEvent = await payload.getCompiledEvent();
+  const response = await payload.getResponse(primaryResponseKey, access);
 
   try {
-    await eventSearch.add({
-      agenda,
-      formSchema: payload.getFormSchema(),
-      member: payload.getMember(),
-      event: compiledEvent
-    });
+    await eventSearch.add(response);
   } catch (e) {
     log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid, e);
   }
 
   await aggregators.notify('addEvent', {
-    event: compiledEvent,
+    event: await payload.getCompiledEvent(),
     agenda,
     formSchema: payload.getFormSchema(),
     batched
   });
 
   await refreshAgenda(agenda.uid);
+
+  return response;
 }

@@ -18,13 +18,14 @@ module.exports = (services, queue, eventSearch) => {
       log('error', 'failed to remove event from agenda %s index: %s', agenda.uid, e.message);
     }
 
-    if (!deletion) {
-      return log('done');
-    }
 
     log('update transverse index');
-    if (!otherAgendaReferences.map(ae => ae.state).filter(state === 2).length) {
+    if (!otherAgendaReferences.filter(ae => ae.state === 2).length) {
       await queue('transverseIndexRemove', event.uid);
+    }
+
+    if (!deletion) {
+      return log('done');
     }
 
     for (const { agendaUid } of otherAgendaReferences) {
@@ -39,11 +40,6 @@ async function removeFromAgendaIndex(eventSearch, agendaUid, eventUid, refresh =
   log('removeFromAgendaIndex');
 
   const searchIndex = getAgendaSearchIndex(eventSearch, agendaUid);
-
-  if (!await searchIndex.exists()) {
-    log('warn', 'not removing: index for agenda %s does not exist', agendaUid);
-    return;
-  }
 
   return searchIndex.remove({ uid: eventUid }, { refresh });
 }

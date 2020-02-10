@@ -36,7 +36,7 @@ describe('11 - event-search - unit: formatEvent', function() {
       begin: new Date('2020-01-19T08:20:00'),
       end: new Date('2020-01-19T16:30:00')
     }],
-    agenda: {
+    originAgenda: {
       uid: 123456,
       title: 'L\'agenda d\'origine je crois',
       image: 'https://fdqfdq.jpg'
@@ -55,7 +55,7 @@ describe('11 - event-search - unit: formatEvent', function() {
   });
 
   it('_search_origin_agenda is a string with info on agenda', () => {
-    formatted._search_origin_agenda.should.eql('uid:123456|title:L\'agenda d\'origine je crois|image:https://fdqfdq.jpg')
+    formatted.originAgenda._agg.should.eql('uid:123456|title:L\'agenda d\'origine je crois|image:https://fdqfdq.jpg')
   });
 
   it('_search_title contains the titles of the event', () => {
@@ -81,12 +81,12 @@ describe('11 - event-search - unit: formatEvent', function() {
   });
 
   it('country labels are in document', () => {
-    formatted.country.should.eql([
-      'France (Metropolitan)',
-      'France (Métropole)',
-      'Frankreich (Metropolitan)',
-      'Francia (Metropolitana)'
-    ]);
+    formatted.country.should.eql({
+      en: 'France (Metropolitan)',
+      fr: 'France (Métropole)',
+      de: 'Frankreich (Metropolitan)',
+      es: 'Francia (Metropolitana)'
+    });
   });
 
   it('_search_full_address_text key contains a strict with address-specific information', () => {
@@ -105,24 +105,3 @@ describe('11 - event-search - unit: formatEvent', function() {
   });
 
 });
-
-/*it('country labels are in document', () => {
-  })
-
-  /*it('title is flattened into an array', () => {
-    preParse({
-      title: {
-        fr: 'Un titre',
-        en: 'A title'
-      }
-    }).should.eql( {
-      title: {
-        fr: 'Un titre',
-        en: 'A title'
-      },
-      _search_title: [
-        'Un titre',
-        'A title'
-      ]
-    });
-  });*/

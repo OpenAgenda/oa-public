@@ -128,7 +128,8 @@ const validate = schema({
       'location.name.asc',
       'location.city.asc',
       'location.name.desc',
-      'location.city.desc'
+      'location.city.desc',
+      'score'
     ],
     optional: true,
     unique: false,

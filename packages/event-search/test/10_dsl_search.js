@@ -19,9 +19,9 @@ describe('10 - event-search - unit: dsl search', function() {
     before(async () => {
       service = Service(config);
 
-      dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
+      dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client']));
 
-      await service( 'simple_search' ).rebuild({
+      await service('simple_search').rebuild({
         eventsList: async (lastId, limit) => {
           return JSON.parse(fs.readFileSync(
             `${__dirname}/fixtures/10_events.${lastId}.${limit}.json`
@@ -209,12 +209,16 @@ describe('10 - event-search - unit: dsl search', function() {
       const {
         events,
         total
-      } = await dslSearch('simple_search', {
+      } = await dslSearch('maintest', {
         query: {
           bool: {
             filter: [{
               term: {
-                'state.code': 2
+                _set: 'simple_search'
+              }
+            },{
+              term: {
+                state: 1
               }
             }]
           }

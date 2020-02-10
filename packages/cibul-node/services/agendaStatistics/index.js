@@ -30,14 +30,15 @@ const log = require( '@openagenda/logs' )( 'services/agendaStatistics' );
 let q;
 
 module.exports = async (services, agendaUid) => {
-
-  const agenda = await config.knex( 'review' ).first( [ 'id', 'slug', 'form_schema_id' ] ).where( 'uid', agendaUid );
+  const agenda = await config.knex('review')
+    .first(['id', 'uid', 'slug', 'form_schema_id'])
+    .where('uid', agendaUid);
 
   return {
     db: await db( agenda.id ),
     legacySearch: await legacySearch( agenda.id ),
     agendaEvents: await agendaEventStats( agendaUid ),
-    search: await searchStats(services.eventSearch, agendaUid),
+    search: await searchStats(services.eventSearch, agenda),
     hasFormSchema: !!agenda.form_schema_id,
     actions: {
       resyncLegacySearch: `${config.root}/${agenda.slug}/admin/stats/resync/legacySearch`,
@@ -54,7 +55,6 @@ module.exports = async (services, agendaUid) => {
       formSchemaToCustom: `${config.root}/${agenda.slug}/admin/stats/transfer-to-custom`,
     }
   }
-
 }
 
 module.exports.init = c => {

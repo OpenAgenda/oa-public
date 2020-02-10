@@ -96,11 +96,11 @@ describe('core - functional (server): core.agendas().events add()', function() {
     });
 
     it('agenda event reference is flagged as aggregated', () => {
-      result.added.aggregated.should.equal(true)
+      result.event.aggregated.should.equal(true)
     });
 
     it('agenda event reference stores agenda source uid', () => {
-      result.added.sourceAgendaUid.should.eql([17026855]);
+      result.event.sourceAgendaUid.should.eql([17026855]);
     });
   });
 

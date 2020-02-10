@@ -13,8 +13,8 @@ module.exports = (search, MLTQuery, MLTOptions, query) => {
   };
 
   return search({
-    ...(query || {}),
+    ...(query || { sort: 'score' }),
     mlt: MLTQuery,
     boost: MLTOptions ? MLTOptions.boost : null
-  });
+  }, MLTOptions, MLTOptions);
 }

@@ -3,7 +3,9 @@
 const _ = require('lodash');
 
 module.exports = (sorts = null) => {
-  if (![].concat(sorts ? sorts : []).length) {
+  if (sorts[0] === 'score') return null;
+
+  if (!sorts.length) {
     return [{
       'timings.end' : {
         mode: 'min',

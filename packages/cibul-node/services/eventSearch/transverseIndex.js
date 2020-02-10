@@ -22,15 +22,15 @@ async function transverseIndexRemove(searchIndex, eventUid) {
   return searchIndex.remove({ uid: eventUid });
 }
 
-async function transverseIndexUpdate(searchIndex, data) {
-  const { uid } = data.uid;
+async function transverseIndexUpdate(searchIndex, event) {
+  const { uid } = event;
 
   if (await searchIndex.search({ uid }).then(r => r.total)) {
     log('updating event %s in transverse index', uid);
-    return searchIndex.update({ uid }, data, { expire: true });
+    return searchIndex.update({ uid }, event);
   } else {
     log('adding event %s to transverse index', uid);
-    return searchIndex.add(data, { expire: true });
+    return searchIndex.add(event);
   }
 }
 

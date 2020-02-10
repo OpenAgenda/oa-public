@@ -137,6 +137,39 @@ describe('02 - event search - functional: Applied search', function() {
         total.should.equal(334);
       });
 
+      it('scroll through results', async () => {
+        const {
+          total,
+          events,
+          scrollId
+        } = await service('bdx').search({}, {
+          scroll: '1m'
+        }, {
+          detailed: true,
+          formSchema
+        });
+
+        let hasMore = true;
+
+        do {
+          const {
+            events: moreEvents
+          } = await service('bdx').search.scroll(scrollId, '1m');
+
+          if (moreEvents.length) {
+            moreEvents.forEach(e => events.push(e));
+          } else {
+            hasMore = false;
+          }
+        } while (hasMore);
+
+        events.length.should.equal(total);
+
+        events.forEach(e => {
+          //console.log(e.location);
+        });
+      });
+
     });
 
     describe('Additional fields search', () => {
@@ -298,14 +331,14 @@ describe('02 - event search - functional: Applied search', function() {
             agg.length.should.equal(757);
           });
 
-          it('each item is a { key, timingsCount } pair, the key being a date (YYYY-MM-DD)', () => {
+          it('each item is a { key, timingCount } pair, the key being a date (YYYY-MM-DD)', () => {
             _.first(agg).should.eql({
               key: '2018-12-15',
-              timingsCount: 1
+              timingCount: 1
             });
             _.last(agg).should.eql({
               key: '2021-01-09',
-              timingsCount: 2
+              timingCount: 2
             });
           });
 
@@ -332,7 +365,7 @@ describe('02 - event search - functional: Applied search', function() {
           });
 
           it('count is timings count', () => {
-            agg[0].timingsCount.should.equal(2);
+            agg[0].timingCount.should.equal(2);
           });
         });
 
@@ -508,6 +541,93 @@ describe('02 - event search - functional: Applied search', function() {
             eventCount: 45
           });
         });
+
+      });
+
+    });
+
+    describe('More like this', () => {
+
+      it('on title alone', async () => {
+        const { events } = await service('bdx').moreLikeThis({
+          title: { fr: 'Sieste musicale' }
+        }, { size: 3 });
+
+        events.map(e => e.slug).should.eql([
+          'sieste-musicale-mosaique-londonienne',
+          'sieste-musicale-rutilants-trombones',
+          'sieste-musicale-inspirant-amour'
+        ]);
+      });
+
+      it('on keywords alone', async () => {
+        const { events } = await service('bdx').moreLikeThis({
+          keywords: { fr: ['jazz'] }
+        }, { size: 3 });
+
+        events.map(e => e.slug).should.eql([
+          'concert-au-quartier-libre',
+          'tremplin-martignas-sur-jazz',
+          'jazz-club-obradovic-tixier'
+        ]);
+      });
+
+      it('on title and keywords', async () => {
+        const { events } = await service('bdx').moreLikeThis({
+          title: { fr: 'Sieste musicale' },
+          keywords: { fr: ['jazz'] }
+        }, { size: 3 });
+
+        events.map(e => e.slug).should.eql([
+          'sieste-musicale-mosaique-londonienne',
+          'sieste-musicale-rutilants-trombones',
+          'sieste-musicale-inspirant-amour'
+        ]);
+      });
+
+      it('on title and keywords with boosted keywords', async () => {
+        const { events, total } = await service('bdx').moreLikeThis({
+          title: { fr: 'Sieste musicale' },
+          keywords: { fr: ['jazz'] }
+        }, { size: 3, boost: { keywords: 30, title: 10 } });
+
+        events.map(e => e.slug).should.eql([
+          'concert-au-quartier-libre',
+          'tremplin-martignas-sur-jazz',
+          'jazz-club-obradovic-tixier'
+        ]);
+      });
+
+      it('on additional field of radio type', async () => {
+        const { events, total } = await service('bdx').moreLikeThis({
+          'thematiques-bordeaux-metropole': '3933.9'
+        }, { size: 3, formSchema, detailed: true });
+
+        for (const event of events ) {
+          event['thematiques-bordeaux-metropole'].includes(9).should.equal(true);
+        }
+      });
+
+      it('on additional field of radio type without scheamId prefixed', async () => {
+        const { events, total } = await service('bdx').moreLikeThis({
+          'thematiques-bordeaux-metropole': '9'
+        }, { size: 3, formSchema, detailed: true });
+
+        for (const event of events ) {
+          event['thematiques-bordeaux-metropole'].includes(9).should.equal(true);
+        }
+      });
+
+      it('on location', async () => {
+        const { events, total } = await service('bdx').moreLikeThis({
+          location: {
+            city: 'Bassens'
+          }
+        }, { size: 3, detailed: true });
+
+        for (const event of events) {
+          event.location.city.should.equal('Bassens');
+        }
 
       });
 

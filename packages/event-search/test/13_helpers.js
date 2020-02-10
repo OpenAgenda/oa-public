@@ -4,6 +4,8 @@ const should = require( 'should' );
 const helpers = require( '../service/helpers' );
 const Service = require( '../' );
 const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
+const appendNextAndLastTiming = require('../utils/appendNextAndLastTiming');
+const monolingual = require('../utils/monolingualize');
 const elasticsearch = require( '@elastic/elasticsearch' );
 const config = require( '../testconfig' );
 const w = require( 'when' );
@@ -40,81 +42,77 @@ describe('event-search - unit: helpers', function() {
   });
 
 
-  describe( 'appendNextAndLastTiming', () => {
+  describe('appendNextAndLastTiming', () => {
 
-    it( 'returns object decorated with next and last timing', () => {
-
+    it('returns object decorated with next and last timing', () => {
       const next = {
-        begin: _dateStrFromNow( 1 ),
-        end: _dateStrFromNow( 1 ),
+        begin: _dateStrFromNow(1),
+        end: _dateStrFromNow(1),
       },
 
       last = {
-        begin: _dateStrFromNow( 3 ),
-        end: _dateStrFromNow( 3 )
+        begin: _dateStrFromNow(3),
+        end: _dateStrFromNow(3)
       }
 
-      const { nextTiming, lastTiming } = helpers.appendNextAndLastTiming( {
-        timings: [ {
-          begin: _dateStrFromNow( -2 ),
-          end: _dateStrFromNow( -2 ),
+      const { nextTiming, lastTiming } = appendNextAndLastTiming({
+        timings: [{
+          begin: _dateStrFromNow(-2),
+          end: _dateStrFromNow(-2),
         }, {
-          begin: _dateStrFromNow( -1 ),
-          end: _dateStrFromNow( -1 ),
+          begin: _dateStrFromNow(-1),
+          end: _dateStrFromNow(-1),
         }, next, {
-          begin: _dateStrFromNow( 2 ),
-          end: _dateStrFromNow( 2 ),
-        }, last ]
-      } );
+          begin: _dateStrFromNow(2),
+          end: _dateStrFromNow(2),
+        }, last]
+      });
 
-      nextTiming.should.eql( next );
+      nextTiming.should.eql(next);
 
-      lastTiming.should.eql( last );
-
-    } );
-
-  } );
+      lastTiming.should.eql(last);
+    });
+  });
 
 
-  describe( 'monolingual', () => {
+  describe('monolingual', () => {
 
-    it( 'if an empty array is provided, filter is not applied', () => {
+    it('if an empty array is provided, filter is not applied', () => {
+      const h = monolingual.bind(null, [ 'title' ], []);
 
-      const h = helpers.monolingual.bind( null, [ 'title' ], [] );
-
-      const result = h( {
-        title: { fr: 'La guerre des gaules', en: 'War of the Gauls' }
-      } );
+      const result = h({
+        title: {
+          fr: 'La guerre des gaules',
+          en: 'War of the Gauls'
+        }
+      });
 
       result.should.eql( {
         title: { fr: 'La guerre des gaules', en: 'War of the Gauls' }
-      } );
+      });
+    });
 
-    } );
+    it('returns object with specified fields set from multilingual to monolingual', () => {
 
-    it( 'returns object with specified fields set from multilingual to monolingual', () => {
+      const h = monolingual.bind(null, ['title', 'description', 'registration'], 'fr');
 
-      const h = helpers.monolingual.bind( null, [ 'title', 'description', 'registration' ], 'fr' );
-
-      const result = h( {
+      const result = h({
         title: { fr: 'Gros', en: 'Fat' },
         description: { fr: 'Bonjour', en: 'Hello' },
         registration: null
-      } );
+      });
 
-      result.should.eql( {
+      result.should.eql({
         title: 'Gros',
         description: 'Bonjour',
         registration: null
-      } );
+      });
+    });
 
-    } );
+    it('following languages are considered as fallback languages', () => {
+      const h = monolingual.bind( null, ['title', 'description', 'registration'], ['es', 'en']);
 
-    it( 'following languages are considered as fallback languages', () => {
-
-      const h = helpers.monolingual.bind( null, [ 'title', 'description', 'registration' ], [ 'es', 'en' ] );
-
-      const result = h( {
+      const result = h({
         title: {
           fr: 'Un cheval',
           es: 'Un caballo',
@@ -124,32 +122,27 @@ describe('event-search - unit: helpers', function() {
           fr: 'Une vache',
           en: 'A cow'
         }
-      } );
+      });
 
-      result.should.eql( {
+      result.should.eql({
         title: 'Un caballo',
         description: 'A cow'
-      } );
+      });
+    });
 
-    } );
+    it('unset field is ignored', () => {
+      const h = monolingual.bind(null, ['title', 'description'], ['es', 'en']);
 
-    it( 'unset field is ignored', () => {
-
-      const h = helpers.monolingual.bind( null, [ 'title', 'description' ], [ 'es', 'en' ] );
-
-      h( {
+      h({
         title: { es: 'La luna llena' }
-      } )
-
-      .should.eql( {
+      }).should.eql( {
         title: 'La luna llena'
-      } );
+      });
+    });
 
-    } );
+  });
 
-  } );
-
-  describe( 'geoJSON', () => {
+  describe('geoJSON', () => {
 
     it( 'geoJSON format is added to data', () => {
 
@@ -178,7 +171,7 @@ describe('event-search - unit: helpers', function() {
 
     } );
 
-  } );
+  });
 
 
   describe( 'convertToLocalTimezone', () => {

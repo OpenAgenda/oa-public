@@ -62,12 +62,13 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
   );
 
   if (query.mlt && query.boost) {
-    cleanDSL = spreadByMLTBoostScores(cleanDSL, query.mlt, query.boost);
+    cleanDSL = spreadByMLTBoostScores(cleanDSL, query.mlt, query.boost, { formSchema });
   } else if (query.mlt) {
-    cleanDSL = appendMLT(cleanDSL, query.mlt)
+    cleanDSL = appendMLT(cleanDSL, query.mlt, { formSchema })
   }
 
   textLog(cleanDSL);
+  //textLog(set + '.json', { cleanDSL, query });
 
   // sorting and _source added after
 
@@ -111,7 +112,8 @@ function scroll(config, set, scrollId, scroll) {
     .scroll({ scrollId, scroll })
     .then(res => ({
       events: res.body.hits.hits.map( h => h[ '_source' ] ),
-      total: res.body.hits.total.value
+      total: res.body.hits.total.value,
+      scrollId: res.body._scroll_id
     }));
 }
 

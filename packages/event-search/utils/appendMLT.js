@@ -4,9 +4,9 @@ const ih = require('immutability-helper');
 
 const getMLTDSLPart = require('./getMLTDSLPart');
 
-module.exports = (DSL, MLTRequest) => {
+module.exports = (DSL, MLTRequest, options) => {
   const must = (DSL.query.bool.must || []).concat({
-    more_like_this: getMLTDSLPart(MLTRequest)
+    more_like_this: getMLTDSLPart(MLTRequest, options)
   });
 
   return ih(DSL, {

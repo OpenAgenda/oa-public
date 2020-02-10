@@ -45,5 +45,5 @@ module.exports.formatDSL = (query, options = {}) => {
 
 module.exports.formatResult = result => result.timings.buckets.map(b => ({
   key: b.key_as_string,
-  timingsCount: b.doc_count
+  timingCount: b.doc_count
 }));

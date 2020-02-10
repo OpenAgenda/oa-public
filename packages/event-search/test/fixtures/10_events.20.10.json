@@ -1,5 +1,5 @@
 {
-  "lastId": 30,
+  "lastId": -1,
   "events": [
     {
       "id": 4,
@@ -46,6 +46,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -177,6 +178,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -246,6 +248,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
+      "state": 2,
       "location": {
         "uid": 83357467,
         "name": "Place Saint-Corentin",
@@ -305,6 +308,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
+      "state": 2,
       "location": {
         "uid": 65918542,
         "name": "Musée de Valence - arts et archéologie",
@@ -401,6 +405,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -460,6 +465,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -519,6 +525,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -578,6 +585,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -637,6 +645,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
+      "state": 2,
       "location": {
         "uid": 10096987,
         "name": "Monument A La Victoire",

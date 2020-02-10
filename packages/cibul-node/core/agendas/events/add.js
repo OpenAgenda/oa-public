@@ -65,14 +65,13 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
 
   payload.setItem('event', null, event);
 
-  await doAdd(services, payload, clean, {
+  const response = await doAdd(services, payload, clean, {
     batched,
     aggregated,
     sourceAgenda,
-    userUid: member ? member.userUid : null
+    userUid: member ? member.userUid : null,
+    access
   });
 
-  const response = await payload.getResponse('added', access);
-
-  return returnPayload ? response : response.added;
+  return returnPayload ? response : response.event;
 }

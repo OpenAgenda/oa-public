@@ -27,10 +27,7 @@
     "image": {
       "base": "//openagendatst.s3.amazonaws.com/"
     },
-    "state": {
-      "code": 2,
-      "featured": false
-    },
+    "state": 2,
     "draft": 0,
     "private": 0,
     "timezone": "Europe/Paris",
@@ -73,6 +70,7 @@
   },
   {
     "id": 42,
+    "state": 2,
     "ownerUid": 789115,
     "creatorUid": null,
     "slug": "apostrophe",
@@ -132,6 +130,7 @@
   },
   {
     "id": 15,
+    "state": 2,
     "ownerUid": 565756,
     "creatorUid": null,
     "slug": "bracketed_timestamp_1",
@@ -191,6 +190,7 @@
   },
   {
     "id": 16,
+    "state": 2,
     "ownerUid": 678967,
     "creatorUid": null,
     "slug": "bracketed_timestamp_2",
@@ -250,6 +250,7 @@
   },
   {
     "id": 17,
+    "state": 1,
     "ownerUid": 43243,
     "creatorUid": null,
     "slug": "bracketed_timestamp_3",
@@ -309,6 +310,7 @@
   },
   {
     "id": 40,
+    "state": 2,
     "ownerUid": 789114,
     "creatorUid": null,
     "slug": "date_1",
@@ -368,6 +370,7 @@
   },
   {
     "id": 41,
+    "state": 2,
     "ownerUid": 789114,
     "creatorUid": null,
     "slug": "date_2",
@@ -427,6 +430,7 @@
   },
   {
     "id": 6,
+    "state": 2,
     "ownerUid": 65570947,
     "creatorUid": null,
     "slug": "decouverte-du-handball-et-valorisation-du-mondial-de-handball",
@@ -536,6 +540,7 @@
   },
   {
     "id": 24,
+    "state": 2,
     "ownerUid": 797897,
     "creatorUid": null,
     "slug": "evenement_suisse",
@@ -599,6 +604,7 @@
   },
   {
     "id": 1,
+    "state": 2,
     "ownerUid": 789678,
     "creatorUid": null,
     "slug": "furthest_in_the_future_2",

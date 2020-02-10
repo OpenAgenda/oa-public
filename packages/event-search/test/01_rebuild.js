@@ -32,7 +32,7 @@ describe('01 - event-search - functional: rebuild', function() {
 
         before(async () => {
           try {
-            await service.getConfig().client.indices.delete({ index: 'main' })
+            await service.getConfig().client.indices.delete({ index: 'maintest' })
           } catch (e) {}
         });
 
@@ -43,7 +43,7 @@ describe('01 - event-search - functional: rebuild', function() {
         });
 
         it('index is created if not existing', async () => {
-          const r = await service.getConfig().client.indices.exists({ index: 'main' });
+          const r = await service.getConfig().client.indices.exists({ index: 'maintest' });
           r.body.should.equal(true);
         });
 
@@ -62,7 +62,7 @@ describe('01 - event-search - functional: rebuild', function() {
 
         before(async () => {
           try {
-            await service.getConfig().client.indices.delete({ index: 'main' })
+            await service.getConfig().client.indices.delete({ index: 'maintest' })
           } catch (e) {}
         });
 

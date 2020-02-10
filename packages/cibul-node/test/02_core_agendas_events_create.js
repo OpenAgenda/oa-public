@@ -254,8 +254,8 @@ describe('core - functional (server): core.agendas().events.create()', function(
         .filter(f=> f.field === 'custom_description').length.should.equal(0);
     });
 
-    it('created event is provided in created key', () => {
-      result.created.title.fr.should.equal('Un événement');
+    it('created event is provided in event key', () => {
+      result.event.title.fr.should.equal('Un événement');
     });
 
     it('success boolean is provided as true', () => {
@@ -263,10 +263,22 @@ describe('core - functional (server): core.agendas().events.create()', function(
     });
 
     it('event id is not in result', () => {
-      should(result.created.id).equal(undefined);
+      should(result.event.id).equal(undefined);
     });
 
-    it('agenda is in result', () => {
+    it('originAgenda is in created event', () => {
+      result.event.originAgenda.uid.should.equal(17026855);
+    });
+
+    it('state is in event', () => {
+      result.event.state.should.equal(2);
+    });
+
+    it('member is part of payload', () => {
+      result.member.userUid.should.equal(63170200);
+    });
+
+    it('agenda is part payload', () => {
       result.agenda.uid.should.equal(17026855);
     });
 

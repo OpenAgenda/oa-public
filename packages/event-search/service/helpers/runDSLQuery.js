@@ -11,9 +11,9 @@ module.exports = async ({ client }, index, DSL, options = {}) => {
     scroll: options.scroll
   };
 
-  textLog(DSL);
 
   const res = await client.search(search);
+  //textLog(res);
 
   return {
     events: res.body.hits.hits.map(h => h['_source']),

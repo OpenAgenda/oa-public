@@ -65,11 +65,11 @@ describe('core - functional (server): core.agendas().events.get()', function() {
       event.uid.should.equal(1);
     });
 
-    it('extended field is provided', () => {
+    it('additional field is provided', () => {
       event.thematique.should.equal(2);
     });
 
-    it('extended restricted access field is not provided', () => {
+    it('additional restricted access field is not provided', () => {
       should(event.note).equal(undefined);
     });
 
@@ -109,12 +109,37 @@ describe('core - functional (server): core.agendas().events.get()', function() {
   });
 
   describe('get with access option', () => {
-    it('if null is set on access, all extended fields are provided', async () => {
-      const event = await core.agendas(2).events.get(1, { access: null });
 
-      event.thematique.should.equal(2);
-      event.note.should.equal('Une note interne pour les administrateurs');
+    describe('access: null', () => {
+      let event;
+
+      before(async () => {
+        event = await core.agendas(2).events.get(1, { access: null });
+      });
+
+      it('all additional fields are provided', async () => {
+        event.thematique.should.equal(2);
+        event.note.should.equal('Une note interne pour les administrateurs');
+      });
+
+      it('member is provided if detailed is true', async () => {
+        event.member.userUid.should.equal(1);
+      });
     });
+
+    describe('access: public', () => {
+      let event;
+
+      before(async () => {
+        event = await core.agendas(2).events.get(1);
+      });
+
+      it('member is not provided', () => {
+        should(event.member).equal(undefined);
+      });
+    });
+
+
 
     it('if provided access value does not match set value in field, value is not provided', async () => {
       const event = await core.agendas(2).events.get(1, { access: 'moderator' });

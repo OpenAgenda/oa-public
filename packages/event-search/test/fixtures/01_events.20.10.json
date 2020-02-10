@@ -1,5 +1,5 @@
 {
-  "lastId": 30,
+  "lastId": -1,
   "events": [
     {
       "id": 4,
@@ -46,9 +46,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
-      "state": {
-        "code": 2
-      },
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -122,9 +120,7 @@
         "title": "France Handball 2017",
         "url": "http://www.francehandball2017.com"
       },
-      "state": {
-        "code": 2
-      },
+      "state": 2,
       "location": {
         "uid": 8896048,
         "name": "Tenri Cultural Institute",
@@ -183,9 +179,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
-      "state": {
-        "code": 2
-      },
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -255,9 +249,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
-      "state": {
-        "code": 2
-      },
+      "state": 2,
       "location": {
         "uid": 83357467,
         "name": "Place Saint-Corentin",
@@ -317,9 +309,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
-      "state": {
-        "code": 2
-      },
+      "state": 2,
       "location": {
         "uid": 65918542,
         "name": "Musée de Valence - arts et archéologie",
@@ -416,9 +406,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
-      "state": {
-        "code": 2
-      },
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -478,9 +466,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
-      "state": {
-        "code": 2
-      },
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -540,9 +526,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
-      "state": {
-        "code": 2
-      },
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -602,9 +586,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
-      "state": {
-        "code": 2
-      },
+      "state": 2,
       "location": {
         "uid": 1,
         "name": "La boutique",
@@ -664,9 +646,7 @@
       "registration": [],
       "fileKey": null,
       "agenda": null,
-      "state": {
-        "code": 2
-      },
+      "state": 2,
       "location": {
         "uid": 10096987,
         "name": "Monument A La Victoire",

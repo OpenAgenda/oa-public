@@ -57,9 +57,7 @@
       "countryCode": "FR",
       "timezone": "Europe/Paris"
     },
-    "state": {
-      "code": 2
-    }
+    "state": 2
   },
   {
     "id": 13,
@@ -119,9 +117,7 @@
       "countryCode": "FR",
       "timezone": "Europe/Paris"
     },
-    "state": {
-      "code": 2
-    }
+    "state": 2
   },
   {
     "id": 14,
@@ -190,9 +186,7 @@
       "countryCode": "FR",
       "timezone": "Europe/Paris"
     },
-    "state": {
-      "code": 2
-    }
+    "state": 2
   },
   {
     "id": 18,
@@ -261,9 +255,7 @@
       "countryCode": "FR",
       "timezone": "Europe/Paris"
     },
-    "state": {
-      "code": 2
-    }
+    "state": 2
   },
   {
     "id": 30,
@@ -323,9 +315,7 @@
       "countryCode": "FR",
       "timezone": "Europe/Paris"
     },
-    "state": {
-      "code": 2
-    }
+    "state": 2
   },
   {
     "id": 31,
@@ -385,9 +375,7 @@
       "countryCode": "FR",
       "timezone": "Europe/Paris"
     },
-    "state": {
-      "code": 2
-    }
+    "state": 2
   },
   {
     "id": 19,
@@ -456,9 +444,7 @@
       "countryCode": "FR",
       "timezone": "Europe/Paris"
     },
-    "state": {
-      "code": 2
-    }
+    "state": 2
   },
   {
     "id": 20,
@@ -527,9 +513,7 @@
       "countryCode": "FR",
       "timezone": "Europe/Paris"
     },
-    "state": {
-      "code": 2
-    }
+    "state": 2
   },
   {
     "id": 21,
@@ -598,9 +582,7 @@
       "countryCode": "FR",
       "timezone": "Europe/Paris"
     },
-    "state": {
-      "code": 2
-    }
+    "state": 2
   },
   {
     "id": 3,
@@ -664,8 +646,6 @@
       "countryCode": "FR",
       "timezone": "Europe/Paris"
     },
-    "state": {
-      "code": 2
-    }
+    "state": 2
   }
 ]}

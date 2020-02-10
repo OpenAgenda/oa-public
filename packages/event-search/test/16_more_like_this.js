@@ -141,7 +141,7 @@ describe('16 - event search - functional: more like this', function() {
       events.map( e => e.uid ).should.eql([132, 157]);
     });
 
-    it.only('mlt on title and keywords with boosts', async () => {
+    it('mlt on title and keywords with boosts', async () => {
 
       const mltRequest = {
         title: {
@@ -172,78 +172,28 @@ describe('16 - event search - functional: more like this', function() {
 
     });
 
-    it('mlt on department', async () => {
-      const { total, events } = await service('simple_search').moreLikeThis( {
-        location: {
-          department: 'Finistère'
-        }
-      });
-
-      events[0].location.department.should.equal( 'Finistère' );
-    });
-
-
-    it('mlt on custom option ids', async () => {
-      const { total, events } = await service('simple_search').moreLikeThis( {
-        custom: {
-          singlechoice: 5,
-        }
-      });
-
-      events.length.should.equal(1);
-
-      events[0].custom.singlechoice.should.equal(5);
-    });
-
-
-    it('mlt on custom option ids and custom text', async () => {
-
+    it('mlt on department with title in different department', async () => {
       const { total, events } = await service('simple_search').moreLikeThis({
-        custom: {
-          organizername: 'Reed',
-          multichoice: 7,
-          singlechoice: 5
-        }
-      });
-
-      total.should.equal(3);
-
-    });
-
-
-    it( 'mlt on custom option ids and custom text puts best match first', async () => {
-
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
-        custom: {
-          organizername: 'Reed',
-          multichoice: 7,
-          singlechoice: 5
-        }
-      } );
-
-      events[ 0 ].custom.organizername.should.equal( 'Reed Expositions France' );
-
-      events[ 0 ].custom.multichoice.includes( 7 ).should.equal( true );
-
-    } );
-
-
-    it( 'mlt on department with title in different department', async () => {
-
-      const { total, events } = await service( 'simple_search' ).moreLikeThis( {
         keywords: {
-          fr: [ 'janine' ] // like shop_event_2
+          fr: ['janine'] // like shop_event_2
         },
         location: {
           department: 'Finistère' // like finger_event_2
         }
-      }, { boost: { keywords : 10, 'location.department' : 20 } } );
+      }, {
+        boost: {
+          keywords : 10,
+          'location.department' : 20
+        }
+      });
 
-      events.map( e => e.slug ).should.eql( [ 'finger_event_2', 'shop_event_2' ] );
+      events.map(e => e.slug).should.eql([
+        'finger_event_2',
+        'shop_event_2'
+      ]);
+    });
 
-    } );
-
-    it( 'mlt on department with title in different department with different boost', async () => {
+    it('mlt on department with title in different department with different boost', async () => {
 
       const { total, events } = await service( 'simple_search' ).moreLikeThis( {
         keywords: {
@@ -255,40 +205,6 @@ describe('16 - event search - functional: more like this', function() {
       }, { boost: { keywords : 20, 'location.department' : 10 } } );
 
       events.map( e => e.slug ).should.eql( [ 'shop_event_2', 'finger_event_2' ] );
-
-    } );
-
-
-    it('boosted mlt on custom option ids and custom text', async () => {
-      const sample = {
-        custom: {
-          organizername: 'Reed',
-          multichoice: 7,
-          singlechoice: 1
-        }
-      };
-
-      const {
-        events: events1
-      } = await service('simple_search').moreLikeThis(sample, {
-        boost: {
-          singlechoice: 30,
-          multichoice: 10
-        }
-      });
-
-      events1[0].slug.should.equal('shop_event');
-
-      const {
-        events: events2
-      } = await service( 'simple_search' ).moreLikeThis(sample, {
-        boost: {
-          singlechoice: 10,
-          multichoice: 30
-        }
-      } );
-
-      events2[0].slug.should.equal('masdar_event_1');
 
     });
 

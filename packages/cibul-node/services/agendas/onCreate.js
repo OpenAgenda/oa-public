@@ -104,7 +104,7 @@ module.exports = async (services, agenda) => {
   }
 
   try {
-    await eventSearch.agendas(agenda.uid).rebuild();
+    await eventSearch.agendas(agenda).rebuild();
   } catch (e) {
     log('error', 'failed to create agenda index');
   }

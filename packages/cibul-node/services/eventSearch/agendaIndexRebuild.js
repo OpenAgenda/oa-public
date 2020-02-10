@@ -45,14 +45,12 @@ function eventsList(core, agenda, lastId, limit) {
     returnPayload: true,
     detailed: true
   }).then(({ events, lastId, agenda, formSchema }) => {
-
-    fs.writeFileSync(`/var/tmp/${agenda.slug}.schema.json`, JSON.stringify(formSchema, null, 2));
+    /*fs.writeFileSync(`/var/tmp/${agenda.slug}.schema.json`, JSON.stringify(formSchema, null, 2));
     fs.writeFileSync(`/var/tmp/${agenda.slug}.${lId}.${limit}.json`, JSON.stringify({
       events,
       lastId
-    }, null, 2));
+    }, null, 2));*/
 
     return { lastId, events };
-
   });
 }

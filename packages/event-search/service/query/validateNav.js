@@ -1,39 +1,29 @@
-"use strict";
+'use strict';
 
-const schema = require( '@openagenda/validators/schema' );
+const schema = require('@openagenda/validators/schema');
 
-schema.register( {
-  integer: require( '@openagenda/validators/integer' ),
-  regex: require( '@openagenda/validators/regex' )
-} );
-
+schema.register({
+  integer: require('@openagenda/validators/integer'),
+  regex: require('@openagenda/validators/regex')
+});
 
 module.exports = nav => {
+  const clean = navValidator(nav);
 
-  let clean = navValidator( nav );
-
-  if ( clean.scroll ) {
-
-    return {
-      scroll: clean.scroll,
-      size: clean.size
-    }
-
-  }
-
-  return {
+  return clean.scroll ? {
+    scroll: clean.scroll,
+    size: clean.size
+  } : {
     from: clean.from,
     size: clean.size
   }
-
 }
 
-
-let navValidator = schema( {
+const navValidator = schema({
   scroll: {
     type: 'regex',
     optional: true,
-    regex: /^[0-9]([0-9])m$/ 
+    regex: /^[0-9]([0-9]|)m$/
   },
   from: {
     type: 'integer',
@@ -45,4 +35,4 @@ let navValidator = schema( {
     optional: true,
     default: 20
   }
-} );
+});

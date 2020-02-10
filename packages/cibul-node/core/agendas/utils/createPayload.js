@@ -42,17 +42,23 @@ function makeGetResponse(services, data) {
         custom: true,
         event: true,
         agendaEvent: true,
-        agenda: true
+        agenda: true,
+        member: true
       },
       ...(typeof options === 'object' ? options : { access: options })
     };
 
     const formSchema = getFormSchema(data.agendas.current, access);
+    const member = getMember(data);
+
+    if (!['public', 'contributor'].includes(access) && load.member) {
+      data.member = member;
+    }
     return {
       success: true,
       agenda: data.agendas.current,
       originAgenda: await getOriginAgenda(services, data),
-      member: getMember(data),
+      member: member,
       formSchema,
       [primaryKey]: await getCompiledEvent(services, data, 'after', access, formSchema, load),
       before: data.services.before.agendaEvent ? merge.eventFromObject(data.services.before) : null
@@ -73,7 +79,8 @@ async function getCompiledEvent(services, data, key = 'after', access = null, fo
     custom: true,
     event: true,
     agendaEvent: true,
-    agenda: true
+    agenda: true,
+    member: true
   };
   const includeFields = access === null ? null : (
       formSchema || getFormSchema(data.agendas.current, access)
@@ -81,6 +88,7 @@ async function getCompiledEvent(services, data, key = 'after', access = null, fo
   return merge.eventFromObject(data.services[key], {
     includeFields,
     originAgenda: await getOriginAgenda(services, data),
+    member: data.member,
     load
   });
 }

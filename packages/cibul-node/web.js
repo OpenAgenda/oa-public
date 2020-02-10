@@ -3,7 +3,7 @@
 module.exports = app => {
   require('./services/users').plugApp(app);
   require('./services/mails').plugApp(app);
-  require('./event/search.front')(app);
+  app.use('/events/search', app.services.eventSearch.getApp());
   require('./agenda/back')(app);
   require('./inboxes/endpoints')(app);
   require('./inboxes/pages')(app);

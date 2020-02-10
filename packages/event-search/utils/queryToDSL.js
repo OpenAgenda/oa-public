@@ -22,11 +22,12 @@ module.exports = (query = {}, nav = {}, formSchema = null, includes = null) => {
 
   const DSL = {
     query: getDSLQueryPart(clean, formSchema),
-    sort: getDSLSortPart(clean.sort),
     _source: getDSLSourcePart(includes)
   };
 
-  textLog(DSL);
+  const sort = getDSLSortPart(clean.sort);
+
+  if (sort) DSL.sort = sort;
 
   return nav ? Object.assign(DSL, getDSLNav(nav)) : DSL;
 }
