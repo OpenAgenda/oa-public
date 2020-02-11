@@ -7,16 +7,12 @@ const logger = require('@openagenda/logs');
 const add = require('./add');
 const Search = require('./search');
 
-const deleteFloatingIndices = require('./service/deleteFloatingIndices')
-const deleteIndex = require('./service/deleteIndex');
 const moreLikeThis = require('./moreLikeThis');
 const rebuild = require('./rebuild');
 const remove = require('./remove');
-const exists = require('./service/exists');
-const searchIncludes = require('./service/index/searchIncludes.json');
-const parsers = require('./parsers');
+const searchIncludes = require('./config/searchIncludes.json');
 const update = require('./update');
-const Cluster = require('./service/cluster');
+const Cluster = require('./cluster');
 
 module.exports = c => {
   const config = Object.assign({
@@ -36,9 +32,7 @@ module.exports = c => {
 
     return {
       name: alias,
-      exists: exists.bind(null, config, alias),
       rebuild: rebuild.bind(null, config, alias),
-      deleteIndex: deleteIndex.bind(null, config, alias),
       search,
       moreLikeThis: moreLikeThis.bind(null, search),
       add: add.bind(null, config, alias),
@@ -47,11 +41,10 @@ module.exports = c => {
     };
   }, {
     getConfig: () => config,
-    deleteFloatingIndices: deleteFloatingIndices.bind(null, config),
     cluster: Cluster(config)
   });
 }
 
 module.exports.utils = {
-  parsers
+  geoJSON: require('./utils/geoJSON')
 }

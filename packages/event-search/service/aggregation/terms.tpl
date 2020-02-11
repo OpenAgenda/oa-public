@@ -1,5 +1,0 @@
-{
-  "terms" : {
-    "field": "${ field }"
-  }
-}

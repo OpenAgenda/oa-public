@@ -1,19 +1,23 @@
 "use strict";
 
-const should = require( 'should' );
-const helpers = require( '../service/helpers' );
-const Service = require( '../' );
-const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
-const appendNextAndLastTiming = require('../utils/appendNextAndLastTiming');
-const monolingual = require('../utils/monolingualize');
-const elasticsearch = require( '@elastic/elasticsearch' );
-const config = require( '../testconfig' );
-const w = require( 'when' );
-const async = require( 'async' );
-const _ = require( 'lodash' );
-const moment = require( 'moment' );
+const _ = require('lodash');
+const elasticsearch = require('@elastic/elasticsearch');
+const moment = require('moment');
+const should = require('should');
 
-describe('event-search - unit: helpers', function() {
+const appendNextAndLastTiming = require('../utils/appendNextAndLastTiming');
+const convertToLocalTimezone = require('../utils/convertToLocalTimezone');
+const derelativize = require('../utils/derelativize');
+const geoJSON = require('../utils/geoJSON');
+const lastTimingEndsIn = require('../utils/lastTimingEndsIn');
+const monolingual = require('../utils/monolingualize');
+
+const config = require('../testconfig');
+const Service = require( '../' );
+const fixtures = require('./service/parsers/geoJSON.in.json');
+const expected = require('./service/parsers/geoJSON.out.json');
+
+describe('event-search - unit: utils', function() {
 
   this.timeout( 10000 );
 
@@ -26,21 +30,6 @@ describe('event-search - unit: helpers', function() {
     client = service.getConfig().client;
 
   } );
-
-  describe('createIndexName', () => {
-
-    it('created index name contains alias name and current datetime ( name_20170321t1128 )', () => {
-
-      let aliasName = 'name';
-
-      ( new RegExp( '^' + aliasName + '_20[0-9][0-9][0-1][0-9][0-3][0-9]t[0-2][0-9][0-5][0-9]$' ) )
-
-        .test( helpers.createIndexName( aliasName ) ).should.equal( true );
-
-    });
-
-  });
-
 
   describe('appendNextAndLastTiming', () => {
 
@@ -74,6 +63,22 @@ describe('event-search - unit: helpers', function() {
     });
   });
 
+  describe('other', () => {
+    it('geoJSON post parsers transforms search result into geoJSON data', () => {
+      geoJSON(fixtures).should.eql(expected);
+    });
+
+    it('derelativize - converts relative term with absolute', () => {
+      const query = derelativize({
+        date: {
+          gte: 'today',
+          timezone: 'Europe/Paris'
+        }
+      });
+
+      (query.date.gte instanceof Date).should.equal(true);
+    });
+  });
 
   describe('monolingual', () => {
 
@@ -142,37 +147,6 @@ describe('event-search - unit: helpers', function() {
 
   });
 
-  describe('geoJSON', () => {
-
-    it( 'geoJSON format is added to data', () => {
-
-      helpers.geoJSON( {
-        location: {
-          name: 'Somewhere',
-          description: 'A description of somewhere',
-          latitude: 45,
-          longitude: 23
-        }
-      } )
-
-      .should.eql( {
-        location: {
-          type: 'Feature',
-          geometry: {
-            type: 'Point',
-            coordinates: [ 45, 23 ]
-          },
-          properties: {
-            name: 'Somewhere',
-            description: 'A description of somewhere'
-          }
-        }
-      } );
-
-    } );
-
-  });
-
 
   describe( 'convertToLocalTimezone', () => {
 
@@ -210,7 +184,7 @@ describe('event-search - unit: helpers', function() {
         end: _dateStrFromNow( 2 )
       } ];
 
-      helpers.lastTimingEndsIn( { timings } ).should.equal( 5 );
+      lastTimingEndsIn( { timings } ).should.equal( 5 );
 
     } );
 
@@ -222,7 +196,7 @@ describe('event-search - unit: helpers', function() {
       end: _getYesterdayDate( 1 )
     } ];
 
-    helpers.lastTimingEndsIn( { timings } ).should.equal( -1 );
+    lastTimingEndsIn( { timings } ).should.equal( -1 );
 
   } );
 

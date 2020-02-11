@@ -3,7 +3,7 @@
 const should = require('should');
 const config = require('../testconfig');
 const Service = require('../');
-const Cluster = require('../service/cluster');
+const Cluster = require('../cluster');
 
 describe('20 - event-search - util: cluster', function() {
   let service, deletedIndices, stats;

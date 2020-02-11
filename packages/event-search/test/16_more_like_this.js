@@ -7,7 +7,7 @@ const should = require('should');
 const config = require( '../testconfig' );
 
 const Service = require( '../' );
-const runDSLQuery = require('../service/helpers/runDSLQuery');
+const postDSL = require('../utils/postDSL');
 
 describe('16 - event search - functional: more like this', function() {
 
@@ -36,7 +36,7 @@ describe('16 - event search - functional: more like this', function() {
   });
 
   before(async () => {
-    dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client']));
+    dslSearch = postDSL.bind(null, _.pick(service.getConfig(), ['client']));
   });
 
   describe( 'dsl more like this', () => {

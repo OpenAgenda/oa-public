@@ -51,10 +51,6 @@ describe('01 - event-search - functional: rebuild', function() {
           result.operations.length.should.equal(4);
         });
 
-        it('.exists returns true if index exists', async () => {
-          (await service('someagendaidentifier').exists()).should.equal(true);
-        });
-
       });
 
       describe('with deletions', () => {

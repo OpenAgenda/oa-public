@@ -5,7 +5,7 @@ const fs = require('fs');
 const should = require('should');
 
 const config = require('../testconfig');
-const runDSLQuery = require('../service/helpers/runDSLQuery');
+const postDSL = require('../utils/postDSL');
 const moment = require('moment-timezone');
 const Service = require('../');
 
@@ -19,7 +19,7 @@ describe('10 - event-search - unit: dsl search', function() {
     before(async () => {
       service = Service(config);
 
-      dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client']));
+      dslSearch = postDSL.bind(null, _.pick(service.getConfig(), ['client']));
 
       await service('simple_search').rebuild({
         eventsList: async (lastId, limit) => {

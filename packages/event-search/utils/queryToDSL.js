@@ -1,7 +1,7 @@
 'use strict';
 
 const _ = require('lodash');
-const derelativize = require('../service/helpers/derelativize');
+const derelativize = require('./derelativize');
 const validateQuery = require('./validateQuery');
 const getDSLNav = require('./getDSLNavPart');
 const getDSLQueryPart = require('./getDSLQueryPart');

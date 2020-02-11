@@ -9,7 +9,7 @@ const log = require('@openagenda/logs')('rebuild');
 
 const limit = 10;
 
-const mapping = require('./service/index/mapping.json');
+const mapping = require('./config/mapping.json');
 
 module.exports = async (config, set, options = {}) => {
   log('called');
