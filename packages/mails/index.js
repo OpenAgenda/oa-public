@@ -38,7 +38,10 @@ async function sendMail(options = {}) {
   }
 
   const defaultLang = options.lang || config.defaults.lang;
-  const compiled = options.template && options.queue === false
+  const enqueue = typeof options.queue !== 'undefined'
+    ? options.queue
+    : config.defaults.queue !== false && config.queues;
+  const compiled = options.template && enqueue
     ? await templater.compile(options.template, {
       ..._.pick(options, 'disableHtml', 'disableText', 'disableSubject'),
       lang: defaultLang
@@ -76,7 +79,7 @@ async function sendMail(options = {}) {
     };
 
     try {
-      if (params.queue === false) {
+      if (!enqueue) {
         if (typeof config.sendFilter === 'function') {
           const allowed = await config.sendFilter(params);
 
@@ -93,33 +96,37 @@ async function sendMail(options = {}) {
           await config.beforeSend(params);
         }
 
-        if (compiled) {
-          const labels = (config.translations.labels || {})[params.template] || {};
-          params.data.__ = config.translations.makeLabelGetter(
-            labels,
-            params.data.lang
-          );
+        const labels = params.labels
+          || (config.translations.labels || {})[params.template]
+          || {};
+        params.data.__ = config.translations.makeLabelGetter(
+          labels,
+          params.data.lang
+        );
 
-          if (!params.disableHtml && compiled.html) {
+        if (compiled) {
+          if (compiled.html) {
             params.html = compiled.html(params.data);
           }
 
-          if (!params.disableText && compiled.text) {
+          if (compiled.text) {
             params.text = compiled.text(params.data);
           }
 
-          if (!params.disableSubject && compiled.subject) {
+          if (compiled.subject) {
             params.subject = compiled.subject(params.data);
           }
+        } else {
+          Object.assign(
+            params,
+            await templater.render(params.template, params.data, params)
+          );
         }
       }
 
-      const method = params.queue === false
+      const method = !enqueue
         ? config.transporter.sendMail.bind(config.transporter)
-        : config.queues.prepareMails.bind(
-          config.queues.prepareMails,
-          'method'
-        );
+        : config.queues.prepareMails.bind(config.queues.prepareMails, 'method');
       const result = await method(params);
 
       results.push(result);

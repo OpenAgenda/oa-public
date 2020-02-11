@@ -16,6 +16,10 @@ const cache = new LRU();
 const readFile = promisify(fs.readFile);
 
 function getCompiledRenderer(compiled, type, templateName, opts) {
+  if (opts[`disable${_.upperFirst(type)}`] || !compiled[type]) {
+    return null;
+  }
+
   let { __ } = opts;
   if (!__) {
     const labels = (config.translations.labels || {})[templateName] || {};
@@ -157,18 +161,9 @@ async function compile(templateName, opts = {}) {
   }
 
   const result = {
-    html:
-      opts.disableHtml || !compiled.html
-        ? null
-        : getCompiledRenderer(compiled, 'html', templateName, opts),
-    text:
-      opts.disableText || !compiled.text
-        ? null
-        : getCompiledRenderer(compiled, 'text', templateName, opts),
-    subject:
-      opts.disableSubject || !compiled.subject
-        ? null
-        : getCompiledRenderer(compiled, 'subject', templateName, opts)
+    html: getCompiledRenderer(compiled, 'html', templateName, opts),
+    text: getCompiledRenderer(compiled, 'text', templateName, opts),
+    subject: getCompiledRenderer(compiled, 'subject', templateName, opts)
   };
 
   cache.set(cacheKeyRaw, {

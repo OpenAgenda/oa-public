@@ -43,7 +43,7 @@ async function init(c = {}) {
   Object.assign(config, c);
 
   // Queue
-  if (config.Queues && config.defaults.queue !== false) {
+  if (config.Queues) {
     config.queues = {
       prepareMails: await config.Queues(`pre-${config.queueName}`),
       sendMails: await config.Queues(config.queueName)
