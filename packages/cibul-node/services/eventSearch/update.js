@@ -2,7 +2,6 @@
 
 const log = require('@openagenda/logs')('services/eventSearch/update');
 
-const formatEventForIndex = require('./lib/formatEventForIndex');
 const getAgendaSearchIndex = require('./lib/getAgendaSearchIndex');
 const hasOtherPublishedReferences = require('./lib/hasOtherPublishedReferences');
 

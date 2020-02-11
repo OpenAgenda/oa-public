@@ -33,8 +33,5 @@ module.exports = async (services, eventSearch, rebuildQueue) => {
 
   log('info', 'completed rebuild queueing for %s agendas', count);
 
-  await eventSearch.deleteFloatingIndices();
   await rebuildQueue('transverse');
-
-  // list by agenad
 }

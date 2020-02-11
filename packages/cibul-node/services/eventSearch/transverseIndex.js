@@ -2,7 +2,6 @@
 
 const LIMIT = 20;
 
-const formatEventForIndex = require('./lib/formatEventForIndex');
 const log = require('@openagenda/logs')('services/eventSearch/transverseIndex');
 
 module.exports = (services, eventSearch, queue) => {
@@ -78,7 +77,7 @@ async function transverseIndexRebuild(services, searchIndex, options = {}) {
 
       return {
         lastId: newLastId,
-        events: events.map(event => formatEventForIndex({ event }))
+        events
       }
     },
     on: {

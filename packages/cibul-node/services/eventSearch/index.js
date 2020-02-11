@@ -45,8 +45,7 @@ module.exports.init = async (config, services) => {
     rebuild: rebuild.bind(null, services, eventSearch, rebuildQueue),
     agendas: agenda => ({
       search: agendaIndexSearch.bind(null, eventSearch, agenda),
-      rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda),
-      exists: () => eventSearch(`agendas:${agenda.uid}`).exists()
+      rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda)
     }),
     transverse: {
       rebuild: options => queue('transverseIndexRebuild', options),

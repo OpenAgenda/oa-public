@@ -2,7 +2,6 @@
 
 const log = require('@openagenda/logs')('services/eventSearch/agendaIndexRebuild');
 
-const formatEventForIndex = require('./lib/formatEventForIndex');
 const getAgendaSearchIndex = require('./lib/getAgendaSearchIndex');
 
 const fs = require('fs');
