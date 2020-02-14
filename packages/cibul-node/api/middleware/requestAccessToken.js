@@ -4,7 +4,7 @@ const log = require('@openagenda/logs')('api/middleware/requestAccessToken');
 
 module.exports = async (req, res, next) => {
   try {
-    const token = await req.app.core.users.generateToken(req.parsedData.code);
+    const token = await req.app.core.users({ secretKey: req.parsedData.code }).generateToken();
 
     res.json({
       access_token: token.token,

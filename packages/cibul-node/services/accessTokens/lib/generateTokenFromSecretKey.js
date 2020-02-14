@@ -10,7 +10,7 @@ const getApiKeySetFromKey = require('./getApiKeySetFromKey');
 const isTokenValid = require('./isTokenValid');
 const getTokenDeath = require('./getTokenDeath');
 
-module.exports = async (knex, secretKey) => {
+module.exports = async (knex, { secretKey }) => {
   log('generating from secret key %s', secretKey);
 
   const apiKeySet = await getApiKeySetFromKey(knex, 'api_secret', secretKey);

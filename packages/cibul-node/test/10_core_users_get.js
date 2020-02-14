@@ -82,7 +82,10 @@ describe('core - functional (server): core.users().get', function() {
       lifespan: 100
     }).where('id', 2);
 
-    const token = await core.users.generateToken('N0ty3poxNSTt5KTzxPJHUG6896UseQhM');
+    const token = await core.users({
+      secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
+    }).generateToken();
+
     token.id.should.equal(2);
     token.lifespan.should.equal(3600);
   });
@@ -93,7 +96,9 @@ describe('core - functional (server): core.users().get', function() {
       lifespan: 0
     }).where('id', 2);
 
-    const token = await core.users.generateToken('N0ty3poxNSTt5KTzxPJHUG6896UseQhM');
+    const token = await core.users({
+      secretKey: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
+    }).generateToken();
 
     token.id.should.equal(3);
     token.lifespan.should.equal(3600);

@@ -5,9 +5,8 @@ const Settings = require('./settings');
 const create = require('./create');
 const update = require('./update');
 const remove = require('./remove');
+const members = require('./members');
 const get = require('./get');
-
-const listMembers = require( './members/list' );
 
 module.exports = services => {
   const settings = Settings(services);
@@ -15,9 +14,9 @@ module.exports = services => {
   return Object.assign(agendaUid => ({
     get: get.bind(null, services, agendaUid),
     update: update.bind(null, services, agendaUid),
-    remove: remove.bind( null, agendaUid ),
+    remove: remove.bind(null, agendaUid),
     events: events(services, agendaUid),
-    members: Object.assign(listMembers.bind( null, agendaUid ), {}),
+    members: members(services, agendaUid),
     settings: settings(agendaUid)
   }), { create });
 }

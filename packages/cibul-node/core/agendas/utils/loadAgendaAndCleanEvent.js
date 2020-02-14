@@ -17,7 +17,7 @@ const extractLanguages = require( '@openagenda/event-form/build/utils/extractLan
 const { fromEventServiceFormat } = require( '@openagenda/agenda-contribute/server/parse' );
 
 const getAgendaWithNetworkAndSchemas = require( './getAgendaWithNetworkAndSchemas' );
-const ValidationError = require('./ValidationError');
+const ValidationError = require('../../utils/ValidationError');
 
 module.exports = async (services, agendaUid, data, options = {}) => {
   const agenda = await getAgendaWithNetworkAndSchemas(services, agendaUid);

@@ -80,10 +80,22 @@ module.exports = core => {
     settings.get
   ]);
 
+  app.get('/v2/agendas/:agendaUid/members', [
+    mw.verifyMember.allow(['administrator']),
+    (req, res, next) => req.app.core
+      .agendas(req.agenda.uid).members.list(req.query)
+      .then(data => res.json({...data, success: true }), next)
+  ]);
+
   app.post('/v2/agendas/:agendaUid/settings/resync', [
     mw.verifySuperAdmin,
     settings.resync
   ]);
+
+  app.get('/v2/me/agendas', (req, res, next) => {
+    core.users(req.user).agendas.list(req.query)
+      .then(data => res.json({...data, success: true }), next);
+  });
 
 
   app.use((err, req, res, next) => {
@@ -95,6 +107,12 @@ module.exports = core => {
         query: req.query
       }
     }));
+
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({
+        errors: err.detail
+      });
+    }
 
     return res.status(500).json({
       message: 'server trouble.. send an short mail to support to receive detailed feedback: support@openagenda.com'
