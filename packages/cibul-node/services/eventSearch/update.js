@@ -12,7 +12,7 @@ module.exports = (services, queue, eventSearch) => {
 
   queue.register({
     loadOtherUpdates: loadOtherUpdates.bind(null, services, queue),
-    otherUpdate: otherUpdate.bind(null, services)
+    otherUpdate: otherUpdate.bind(null, services, eventSearch)
   });
 
   return async ({ agenda, member, formSchema, event }) => {
@@ -41,8 +41,7 @@ module.exports = (services, queue, eventSearch) => {
 
 async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
   const {
-    agendaEvents,
-    eventSearch
+    agendaEvents
   } = services;
 
   log('loadOtherUpdates');
@@ -58,8 +57,8 @@ async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
   }
 }
 
-async function otherUpdate(services, agendaUid, eventUid) {
-  const { eventSearch, core } = services;
+async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
+  const { core } = services;
 
   log('otherUpdate', agendaUid, eventUid);
 
