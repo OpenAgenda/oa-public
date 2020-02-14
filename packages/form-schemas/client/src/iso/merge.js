@@ -1,19 +1,39 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const ih = require( 'immutability-helper' );
+const _ = require('lodash');
+const ih = require('immutability-helper');
 
 module.exports = mergeAll;
 
-function mergeAll( ...args ) {
+function mergeAll(...args) {
+  const options = {
+    access: null
+  };
 
-  if ( args.length === 1 ) return _.first( args );
+  if (args.length === 1) return _.first(args);
 
-  return args.slice( 1 ).reduce( reduceFields, _assignSchemaIdToNonAbstractFields( args[ 0 ] ) );
+  if (_.last(args) && _.last(args).access !== undefined) {
+    Object.assign(options, args.pop());
+  }
 
+  const merged = args.slice(1).reduce(
+    reduceFields,
+    _assignSchemaIdToNonAbstractFields(args[0])
+  );
+
+  if (!options.access) return merged;
+
+  const accessTypes = Object.keys(options.access);
+
+  return {
+    ...merged,
+    fields: merged.fields.filter(f => accessTypes.length === accessTypes.filter(accessType => {
+      return !f[accessType] || f[accessType].includes(options.access[accessType])
+    }).length)
+  }
 }
 
-function reduceFields( mergedIn, mergeWith ) {
+function reduceFields(mergedIn, mergeWith) {
 
   if ( !_.get( mergeWith, 'fields' ) ) return mergedIn;
 

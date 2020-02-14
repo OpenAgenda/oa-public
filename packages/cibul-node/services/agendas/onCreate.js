@@ -1,31 +1,35 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
+const log = require('@openagenda/logs')('services/agendas/onCreate');
 
-const activities = require( '../activities' );
-const { Inbox } = require( '@openagenda/inboxes' );
-const keys = require( '@openagenda/keys' );
-const log = require( '@openagenda/logs' )( 'services/agendas/onCreate' );
+module.exports = async (services, agenda) => {
+  const {
+    members,
+    users: usersSvc,
+    legacy,
+    elasticsearch: legacyEventSearch,
+    keys,
+    activities,
+    inboxes: Inbox,
+    eventSearch
+  } = services;
 
-const controlDataSvc = require( '../legacy' ).controlData;
-const legacyEventSearch = require( '../elasticsearch' );
-const usersSvc = require('../users');
-const membersSvc = require('../members');
+  const controlDataSvc = legacy.controlData;
 
-module.exports = async agenda => {
   try {
-    await legacyEventSearch.updateAgenda( agenda.id );
+    await legacyEventSearch.updateAgenda(agenda.id);
   } catch (e) {
-    log( 'error', 'could not update legacy search for agenda %s', agenda.slug, e );
+    log('error', 'could not update legacy search for agenda %s', agenda.slug, e);
   }
 
   // inbox
   try {
-    log( 'create inbox (agenda uid %d)', agenda.uid );
-    await new Inbox().create( {
+    log('create inbox (agenda uid %d)', agenda.uid);
+    await new Inbox().create({
       type: 'agenda',
       identifier: agenda.uid
-    } );
+    });
   } catch (e) {
     log('error', 'failed to create agenda inbox', e);
   }
@@ -63,7 +67,7 @@ module.exports = async agenda => {
     log('error', 'failed to set agenda control data', e);
   }
 
-  const { member } = await membersSvc.create({
+  const { member } = await members.create({
     agendaUid: agenda.uid,
     userUid: user.uid,
     role: 2
@@ -97,6 +101,12 @@ module.exports = async agenda => {
     }).create();
   } catch (e) {
     log('error', 'failed to create agenda key', e);
+  }
+
+  try {
+    await eventSearch.agendas(agenda).rebuild();
+  } catch (e) {
+    log('error', 'failed to create agenda index');
   }
 
   log('done');

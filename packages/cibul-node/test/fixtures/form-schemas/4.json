@@ -1,0 +1,123 @@
+{
+  "custom": null,
+  "defaultLabelLanguage": null,
+  "nextOptionId": 37,
+  "id": 21,
+  "fields": [
+    {
+      "field": "thematiques-metropolitaines",
+      "label": {
+        "fr": "Thématiques Métropolitaines",
+        "en": "Thématiques Métropolitaines"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "default": [
+        8
+      ],
+      "info": {
+        "fr": "*Merci de saisir un champ ci-dessous (il apparaîtra dans l’étiquette rose-orangée de la vignette de présentation et permet d'effectuer une recherche pertinente)",
+        "en": "*Merci de saisir un champ ci-dessous (il apparaîtra dans l’étiquette rose-orangée de la vignette de présentation et permet d'effectuer une recherche pertinente)"
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 3,
+          "value": "culture",
+          "label": {
+            "fr": "Culture"
+          }
+        },
+        {
+          "id": 4,
+          "value": "economie-innovation",
+          "label": {
+            "fr": "Economie - Innovation"
+          }
+        },
+        {
+          "id": 5,
+          "value": "education",
+          "label": {
+            "fr": "Éducation"
+          }
+        },
+        {
+          "id": 6,
+          "value": "emploi",
+          "label": {
+            "fr": "Emploi"
+          }
+        },
+        {
+          "id": 7,
+          "value": "international",
+          "label": {
+            "fr": "International"
+          }
+        },
+        {
+          "id": 8,
+          "value": "loisirs",
+          "label": {
+            "fr": "Loisirs"
+          }
+        },
+        {
+          "id": 9,
+          "value": "nature-environnement",
+          "label": {
+            "fr": "Nature - Environnement"
+          }
+        },
+        {
+          "id": 10,
+          "value": "patrimoine",
+          "label": {
+            "fr": "Patrimoine"
+          }
+        },
+        {
+          "id": 11,
+          "value": "social-sante",
+          "label": {
+            "fr": "Social - Santé"
+          }
+        },
+        {
+          "id": 12,
+          "value": "sports",
+          "label": {
+            "fr": "Sports"
+          }
+        },
+        {
+          "id": 13,
+          "value": "transports-deplacements",
+          "label": {
+            "fr": "Transports - Déplacements"
+          }
+        },
+        {
+          "id": 14,
+          "value": "urbanisme",
+          "label": {
+            "fr": "Urbanisme"
+          }
+        }
+      ],
+      "fieldType": "checkbox"
+    }
+  ]
+}

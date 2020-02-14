@@ -14,7 +14,7 @@ function loadFromLegacy( cb ) {
   if ( !svc ) return cb( 'task: service is not initialized' );
 
   // scan agendas: for each, load legacy settings, merge and update.
-  let offset = 0, more = true, 
+  let offset = 0, more = true,
 
   result = {
     processed: 0
@@ -22,7 +22,7 @@ function loadFromLegacy( cb ) {
 
   async.whilst( () => more, wcb => {
 
-    svc.list( offset, 1, ( err, agendas ) => {
+    svc.list( offset, 1, { internal: true }, ( err, agendas ) => {
 
       more = !!agendas.length;
       offset++;

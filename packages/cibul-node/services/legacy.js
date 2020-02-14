@@ -25,6 +25,7 @@ module.exports.init = config => {
     queue: Queues( 'legacyTagsAndCustom' )
   } ) );
 
+  return module.exports;
 }
 
 module.exports.task = () => {

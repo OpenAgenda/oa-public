@@ -88,6 +88,7 @@ module.exports = {
           _.pick(a, ['id', 'uid', 'title', 'slug', 'image', 'official', 'createdAt', 'updatedAt'])
         ))
       }
+
     });
 
     // for compatibility with legacy refs

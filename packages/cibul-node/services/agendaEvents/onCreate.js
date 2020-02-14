@@ -99,8 +99,6 @@ module.exports = async ({ config, services }, ae, context) => {
 
   }
 
-  _addToSearchIndex(services.eventSearch, ae);
-
   try {
 
     let eventFeed = {
@@ -151,18 +149,6 @@ module.exports = async ({ config, services }, ae, context) => {
   } catch ( e ) {
 
     log( 'error', e );
-
-  }
-
-}
-
-async function _addToSearchIndex(eventSearch, ae) {
-
-  const result = await eventSearch.agendas( ae.agendaUid ).add( ae );
-
-  if ( !_.get( result, 'success' ) ) {
-
-    log( 'warn', 'could not index event in agenda index (%s.%s)', ae.agendaUid, ae.eventUid );
 
   }
 

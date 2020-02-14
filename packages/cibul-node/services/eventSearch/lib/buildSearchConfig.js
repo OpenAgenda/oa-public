@@ -3,60 +3,19 @@
 const _ = require('lodash');
 const onError = require('../../errors').bind(null, 'eventSearch');
 
-module.exports = config => ({
-  elasticsearch: {
-    host: `${_.get(config, 'es53.host', 'localhost')}:${_.get(config, 'es53.port', 9200)}/`,
-    apiVersion: '5.3'
-  },
+const log = require('@openagenda/logs')('services/eventSearch/buildSearchConfig');
 
-  predefinedAggregations: {
+module.exports = config => {
+  const node = _.get(config, 'es75.host', 'http://localhost:9200');
 
-    keywords: {
-      type: 'terms',
-      field: 'search_internals_keywords',
-      destination: 'keywords'
+  log('using elasticsearch node %s', node);
+
+  return {
+    elasticsearch: {
+      node
     },
+    defaultIndex: process.env.NODE_ENV === 'production' ? 'main' : 'dev',
 
-    timingsByMonth: {
-      type: 'timings',
-      format: 'YYYY-MM',
-      interval: 'month',
-      destination: 'timingsByMonth'
-    },
-
-    languages: {
-      type: 'terms',
-      field: 'search_internals_languages',
-      destination: 'languages'
-    },
-
-    eventsByMonthlyDay: {
-      type: 'timingsReverseHits',
-      format: 'YYYY-MM-dd',
-      interval: 'day',
-      destination: 'days'
-    },
-
-    eventsByWeeklyDay: {
-      type: 'timingsReverseHits',
-      format: 'YYYY-MM-dd',
-      interval: 'day',
-      destination: 'days',
-      size: 10
-    },
-
-    agendas: {
-      type: 'objectsAsTerms',
-      field: 'search_internals_agenda',
-      destination: 'agendas'
-    }
-
-  },
-
-  logger: config.getLogConfig('svc', 'eventSearch'),
-
-  interfaces: {
-    onError
-  },
-
-});
+    logger: config.getLogConfig('svc', 'eventSearch')
+  }
+}

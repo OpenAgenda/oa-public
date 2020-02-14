@@ -4,8 +4,6 @@ const _ = require( 'lodash' );
 const ih = require( 'immutability-helper' );
 const VError = require( 'verror' );
 
-const agendaEvents = require( '@openagenda/agenda-events' );
-
 const addContributor = require( './addContributor' );
 const { agendaIsOpen, userIsNotMember } = addContributor;
 const legacy = require( '../../../services/legacy' );
@@ -17,7 +15,16 @@ const merge = require('./merge');
 
 const log = require('@openagenda/logs')('core/agendas/utils/doAdd');
 
-module.exports = async (agenda, event, clean, options = {}) => {
+module.exports = async (services, payload, clean, options = {}) => {
+  const agenda = payload.getAgenda();
+  const event = payload.getEvent();
+
+  const {
+    agendaEvents,
+    eventSearch,
+    custom
+  } = services;
+
   log('info', 'processing agenda %s, event %s', agenda.uid, event.uid);
 
   const {
@@ -25,19 +32,18 @@ module.exports = async (agenda, event, clean, options = {}) => {
     aggregated,
     sourceAgenda,
     draft,
-    userUid
+    userUid,
+    access,
+    primaryResponseKey
   } = {
     batched: false,
     aggregated: false,
     sourceAgenda: null,
     draft: false,
     userUid: null,
+    primaryResponseKey: 'event',
+    access: 'public',
     ...options
-  };
-
-  const added = {
-    agendaEvent: null,
-    custom: null
   };
 
   if (!userUid) {
@@ -46,7 +52,7 @@ module.exports = async (agenda, event, clean, options = {}) => {
 
   if (!draft) {
     try {
-      const { created } = await agendaEvents(agenda.uid).create(event.uid, clean.agendaEvent, {
+      const { created, before } = await agendaEvents(agenda.uid).create(event.uid, clean.agendaEvent, {
         transferToLegacy: true, // directive to replicate to legacy data structure
         context: {
           event,
@@ -60,7 +66,7 @@ module.exports = async (agenda, event, clean, options = {}) => {
         decorate: ['member']
       });
 
-      added.agendaEvent = created;
+      payload.setItem('agendaEvent', before, created);
     } catch (e) {
       throw new VError(e, 'Could not create agenda-event reference for agenda uid %s and event uid %s', agenda.uid, event.uid);
     }
@@ -68,20 +74,20 @@ module.exports = async (agenda, event, clean, options = {}) => {
 
   // create custom data
   if (agenda.formSchemaId && clean.custom) {
-    const result = await setCustom(agenda.formSchemaId, event.uid, clean.custom, {
+    const result = await setCustom(custom, agenda.formSchemaId, event.uid, clean.custom, {
       draft,
       agendaId: clean.agendaId
     });
 
     if (result.errors.length) {
-      log( 'error', 'could not set custom data', result.errors );
+      log('error', 'could not set custom data', result.errors);
     }
 
-    added.custom = result.custom;
+    payload.setItem('custom.agenda', result.before, result.custom);
   }
 
   if (_.get(agenda, 'network.formSchemaId') && clean.networkCustom) {
-    const result = await setCustom(agenda.network.formSchemaId, event.uid, clean.networkCustom, {
+    const result = await setCustom(custom, agenda.network.formSchemaId, event.uid, clean.networkCustom, {
       draft,
       agendaId: clean.agendaId
     });
@@ -90,14 +96,11 @@ module.exports = async (agenda, event, clean, options = {}) => {
       log('error', 'could not set network custom data', result.errors);
     }
 
-    added.networkCustom = result.custom;
+    payload.setItem('custom.network', result.before, result.custom);
   }
 
   if (draft) {
-    return {
-      success: true,
-      added
-    }
+    return payload.getResponse(primaryResponseKey, access);
   }
 
 
@@ -125,20 +128,22 @@ module.exports = async (agenda, event, clean, options = {}) => {
     log('error', 'could not update legacy search for event %s', event.uid);
   }
 
+  const response = await payload.getResponse(primaryResponseKey, access);
+
+  try {
+    await eventSearch.add(response);
+  } catch (e) {
+    log('error', 'could not add event %s.%s to search indices', agenda.uid, event.uid, e);
+  }
+
   await aggregators.notify('addEvent', {
-    event: merge.event(event, added.agendaEvent, added.networkCustom, added.custom),
+    event: await payload.getCompiledEvent(),
     agenda,
-    formSchema: merge.schemas(
-      _.get(agenda, 'network.formSchema'),
-      _.get(agenda, 'formSchema')
-    ),
+    formSchema: payload.getFormSchema(),
     batched
   });
 
   await refreshAgenda(agenda.uid);
 
-  return {
-    success: true,
-    added
-  }
+  return response;
 }

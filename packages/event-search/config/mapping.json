@@ -1,0 +1,119 @@
+{
+  "uid": {
+    "type": "integer"
+  },
+  "slug": {
+    "type": "keyword"
+  },
+  "_build": {
+    "type": "keyword"
+  },
+  "_set": {
+    "type": "keyword"
+  },
+  "timings": {
+    "type": "nested",
+    "properties": {
+      "begin": {
+        "type": "date"
+      },
+      "end": {
+        "type": "date"
+      },
+      "_search_begin_from_midnight": {
+        "type": "integer"
+      }
+    }
+  },
+  "location": {
+    "properties": {
+      "uid": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "keyword"
+      },
+      "district": {
+        "type": "keyword"
+      },
+      "city": {
+        "type": "keyword"
+      },
+      "department": {
+        "type": "keyword"
+      },
+      "region": {
+        "type": "keyword"
+      },
+      "countryCode": {
+        "type": "keyword"
+      },
+      "country": {
+        "type": "keyword"
+      }
+    }
+  },
+  "state": {
+    "type": "integer"
+  },
+  "featured": {
+    "type": "boolean"
+  },
+  "member": {
+    "properties": {
+      "uid": {
+        "type": "integer"
+      },
+      "name": {
+        "type": "text"
+      },
+      "_agg": {
+        "type": "keyword"
+      }
+    }
+  },
+  "originAgenda": {
+    "properties": {
+      "uid": {
+        "type": "integer"
+      },
+      "title": {
+        "type": "text"
+      },
+      "_agg": {
+        "type": "keyword"
+      }
+    }
+  },
+  "updatedAt": {
+    "type": "date"
+  },
+  "_search_title": {
+    "type": "text",
+    "analyzer": "simple"
+  },
+  "_search_description": {
+    "type": "text"
+  },
+  "_search_languages": {
+    "type": "keyword"
+  },
+  "_search_last_timing": {
+    "type": "date"
+  },
+  "_search_location": {
+    "type": "geo_point"
+  },
+  "_search_keywords": {
+    "type": "keyword"
+  },
+  "_search_keywords_text": {
+    "type": "text"
+  },
+  "_search_full_address_text": {
+    "type": "text"
+  },
+  "_search_additional_keywords": {
+    "type": "keyword"
+  }
+}

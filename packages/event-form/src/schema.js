@@ -1,6 +1,6 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
 const eventValidators = {
   registration: require( './validators/registration' ),
@@ -21,21 +21,78 @@ const eventReferencesField = require( './fields/references' );
 
 const schemaLanguages = require( './utils/schemaLanguages' );
 
-module.exports = ( {
-  interfaceLanguage,
-  locationRes,
-  mapboxKey,
-  referencesRes,
-  suggestionsRes,
-  languages,
-  fileStore,
-  schemaExtensions,
-  excludeEventFields
-} ) => {
+module.exports = (options = {}) => {
+  const {
+    interfaceLanguage,
+    locationRes,
+    mapboxKey,
+    referencesRes,
+    suggestionsRes,
+    languages,
+    fileStore,
+    schemaExtensions,
+    excludeEventFields,
+    excludeNonDataFields,
+    access
+  } = {
+    access: {
+      read: 'public',
+      write: 'public'
+    },
+    ...options
+  };
 
   const eventSchema = {
     custom: eventValidators,
-    fields: [ {
+    fields: [{
+      field: 'id',
+      fieldType: 'integer',
+      optional: false,
+      read: ['internal'],
+      write: ['internal']
+    }, {
+      field: 'uid',
+      fieldType: 'integer',
+      optional: false,
+      write: ['internal']
+    }, {
+      field: 'slug',
+      fieldType: 'text',
+      optional: false,
+      write: ['internal']
+    }, {
+      field: 'private',
+      fieldType: 'boolean',
+      default: false,
+      write: ['internal']
+    }, {
+      field: 'timezone',
+      fieldType: 'text',
+      write: ['internal']
+    }, {
+      field: 'draft',
+      fieldType: 'boolean',
+      default: false,
+      write: ['internal']
+    }, {
+      field: 'createdAt',
+      fieldType: 'date',
+      write: ['internal']
+    }, {
+      field: 'updatedAt',
+      fieldType: 'date',
+      write: ['internal']
+    }, {
+      field: 'agendaUid',
+      fieldType: 'integer',
+      optional: false,
+      write: ['internal']
+    }, {
+      field: 'locationUid',
+      fieldType: 'integer',
+      optional: false,
+      write: ['internal']
+    }, {
       "field" : "image",
       "fieldType" : "image",
       "optional" : true,
@@ -132,40 +189,38 @@ module.exports = ( {
       label: labels.timings,
       info: labels.timingsInfo,
       helpLink: 'https://openagenda.zendesk.com/hc/fr/articles/202667461-Saisir-les-horaires-de-votre-%C3%A9v%C3%A9nement'
-    } ]
+    }]
   }
 
-  const hasExtensions = _.isArray( schemaExtensions );
+  const hasExtensions = _.isArray(schemaExtensions);
 
-  if ( hasExtensions && _hasReferencesField( schemaExtensions ) ) {
-
-    eventSchema.fields.push( eventReferencesField( {
+  if (hasExtensions && _hasReferencesField(schemaExtensions)) {
+    eventSchema.fields.push(eventReferencesField({
       res: {
         references: referencesRes,
         suggestions: suggestionsRes
       }
-    } ) );
-
+    }));
   }
 
-  const finalSchema = hasExtensions ? merge.apply( null, [ eventSchema ].concat( schemaExtensions ) ) : eventSchema;
+  // here, for generating the form, provided access as write should suffice
+  const finalSchema = merge.apply(null, [eventSchema].concat(hasExtensions ? schemaExtensions : []).concat({ access }));
 
-  if ( hasExtensions && excludeEventFields ) {
-
-    const eventSchemaFields = eventSchema.fields.map( f => f.field );
-
-    finalSchema.fields = finalSchema.fields.filter( f => !eventSchemaFields.includes( f.field ) );
-
+  if (hasExtensions && excludeEventFields) {
+    const eventSchemaFields = eventSchema.fields.map(f => f.field);
+    finalSchema.fields = finalSchema.fields.filter(f => !eventSchemaFields.includes(f.field));
   }
 
-  return schemaLanguages.set( finalSchema, interfaceLanguage, languages );
+  if (excludeNonDataFields) {
+    finalSchema.fields = finalSchema.fields.filter(f => f.field !== 'languages');
+  }
 
+  return schemaLanguages.set(finalSchema, interfaceLanguage, languages);
 }
 
 
 function _hasReferencesField( schemaExtensions ) {
-
-  return !!_.flatten( schemaExtensions.map( s => s.fields ) )
-    .filter( f => f.field === 'references' ).length;
-
+  return !!_.flatten(
+    schemaExtensions.filter(s => !!s && s.fields).map(s => s.fields)
+  ).filter(f => f.field === 'references').length;
 }

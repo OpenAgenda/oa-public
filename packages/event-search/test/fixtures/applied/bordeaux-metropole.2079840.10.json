@@ -1,0 +1,1353 @@
+{
+  "events": [
+    {
+      "uid": 39456653,
+      "slug": "exposition-debit-dart",
+      "title": {
+        "fr": "Exposition \"Débit d'art\""
+      },
+      "description": {
+        "fr": "Du 29 novembre au 15 décembre, découvrez l'exposition collective sur le thème \"Les quatre éléments\"."
+      },
+      "longDescription": {
+        "fr": "**Du 29 novembre au 15 décembre 2019**, le musée Georges de Sonneville propose l'exposition collective _**\"Débit d'art\"**_. Cette année, découvrez des peintres, sculpteurs, photographes de Gironde sur le thème des Quatre éléments.\n\n### Informations\n\nOuverture les vendredi, samedi, dimanche et jours fériés de 14h à 18h,\n\nTél : 05 56 75 28 03"
+      },
+      "keywords": {
+        "fr": [
+          "exposition"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "f4e840f015034e45a3c47d6b67b35665.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 276,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f4e840f015034e45a3c47d6b67b35665.full.image.jpg",
+            "size": {
+              "height": 480,
+              "width": 1220
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f4e840f015034e45a3c47d6b67b35665.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-29T13:00:00.000Z",
+          "end": "2019-11-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-30T13:00:00.000Z",
+          "end": "2019-11-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-01T13:00:00.000Z",
+          "end": "2019-12-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-06T13:00:00.000Z",
+          "end": "2019-12-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-07T13:00:00.000Z",
+          "end": "2019-12-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-08T13:00:00.000Z",
+          "end": "2019-12-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-13T13:00:00.000Z",
+          "end": "2019-12-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-14T13:00:00.000Z",
+          "end": "2019-12-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-15T13:00:00.000Z",
+          "end": "2019-12-15T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-20T08:24:49.000Z",
+      "createdAt": "2019-11-20T08:24:37.000Z",
+      "agendaUid": 35828405,
+      "locationUid": 2617794,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 75 28 03",
+        "museesonneville@ville-gradignan.fr"
+      ],
+      "location": {
+        "uid": 2617794,
+        "slug": "musee-georges-de-sonneville999",
+        "name": "Musée Georges de Sonneville",
+        "address": "1 rue de Chartrèze, 33170 Gradignan",
+        "city": "Gradignan",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33170",
+        "insee": "33192",
+        "countryCode": "FR",
+        "district": "Sabatey",
+        "latitude": 44.76514,
+        "longitude": -0.619955,
+        "updatedAt": "2019-09-10T09:25:26.000Z",
+        "image": null,
+        "description": {},
+        "website": "https://www.gradignan.fr/culture/musees/musee-de-sonneville-396.html",
+        "email": "museesonneville@ville-gradignan.fr",
+        "phone": "0556752803",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-gradignan",
+        "uid": 35828405,
+        "official": 0,
+        "title": "Ville de Gradignan",
+        "description": "Agenda de tous les événements de la commune de Gradignan",
+        "url": "https://www.gradignan.fr/",
+        "image": "agenda35828405.jpg",
+        "updatedAt": "2019-10-30T15:48:14.000Z",
+        "createdAt": "2017-04-10T10:35:39.000Z",
+        "officializedAt": null,
+        "private": 0
+      }
+    },
+    {
+      "uid": 76777792,
+      "slug": "dommages_878420",
+      "title": {
+        "fr": "\"Dommages\""
+      },
+      "description": {
+        "fr": "Comédie"
+      },
+      "longDescription": {
+        "fr": "### \"DOMMAGES EST UNE SORTE D’HOMMAGE AU VAUDEVILLE, ÉNERGÉTIQUE ET DÉJANTÉ\"\n\nAttention ce spectacle contient du gluten, ainsi que des morceaux de catch, de poésie lyrique, de féminisme, un soupçon de Beethoven, une pincée de Perry Mason et des Princes de LU.\n\nUne pièce composée à 8 mains et mise en scène au cordeau.\n\nAvec **Céline Groussard, Elodie Poux et Julie Villers**\n\nTextes : Céline Groussard, Elodie Poux, Julie Villers et Michel Frenna.\n\nMise en scène : Michel Frenna\n\nDans cette pièce composée à 8 mains et mise en scène au cordeau, nous avons le plaisir de retrouver Eliodie Poux, qui avait emballé le public lors de la saison culturelle 2018 avec le syndrome du Playmobil !"
+      },
+      "keywords": {
+        "fr": [
+          "comédie",
+          "dommages",
+          "spectacle",
+          "théâtre",
+          "humour"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit sur réservation obligatoire en mairie à partir du 18/11 pour les Bouliacais et à partir du 2/12 pour les habitants hors commune"
+      },
+      "image": {
+        "filename": "770c316bb23c4f16a0635cad874ca260.base.image.jpg",
+        "credits": "Christine Coquilleau",
+        "size": {
+          "height": 416,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "770c316bb23c4f16a0635cad874ca260.full.image.jpg",
+            "size": {
+              "height": 516,
+              "width": 870
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "770c316bb23c4f16a0635cad874ca260.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-13T19:30:00.000Z",
+          "end": "2019-12-13T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-20T09:06:44.000Z",
+      "createdAt": "2019-11-20T09:06:13.000Z",
+      "agendaUid": 77293970,
+      "locationUid": 67972195,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "05.57.97.18.22"
+      ],
+      "location": {
+        "uid": 67972195,
+        "slug": "salle-des-fetes-bouliac",
+        "name": "Salle des fêtes Bouliac",
+        "address": "Parc de Vialle",
+        "city": "Bouliac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33270",
+        "insee": "33065",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.817145,
+        "longitude": -0.504217,
+        "updatedAt": "2017-10-03T09:30:43.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-bouliac",
+        "uid": 77293970,
+        "official": 1,
+        "title": "Ville de Bouliac",
+        "description": "Agenda de tous les événements de la commune de Bouliac",
+        "url": "http://www.ville-bouliac.fr/",
+        "image": "agenda77293970.jpg",
+        "updatedAt": "2019-10-30T15:49:58.000Z",
+        "createdAt": "2017-04-10T10:33:05.000Z",
+        "officializedAt": "2018-06-12T13:20:08.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 71892104,
+      "slug": "piano-furioso-au-theatre-femina",
+      "title": {
+        "fr": "Piano Furioso au Théâtre Fémina"
+      },
+      "description": {
+        "fr": "« Piano Furioso , Opus 2 » interprété par Gilles Ramade."
+      },
+      "longDescription": {
+        "fr": "« Piano Furioso , Opus 2 » interprété par Gilles Ramade.\n\nInsatiable baroudeur, à la fois pianiste, chanteur, compositeur, chef d'orchestre auteur et comédien, Gilles Ramade a fait de la dispersion un art.\n\nSon dernier spectacle, Piano Furioso, est à son image : insolent, surprenant, inclassable. Il bouscule les codes académiques et s'attaque à la bienséance du classique. Sa rencontre avec Jérémy Ferrari était une évidence.\n\nUn show déluré et hilarant, mené de main de maître par un virtuose partageant sa passion entre Bach, Ray Charles, Gainsbourg et bien d'autres... Toutes les générations rient avec le maestro."
+      },
+      "keywords": {
+        "fr": [
+          "piano",
+          "spectacle",
+          "bordeaux"
+        ]
+      },
+      "conditions": {
+        "fr": "30€"
+      },
+      "image": {
+        "filename": "ad39544399714cab9db2c052f4de9029.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1050,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ad39544399714cab9db2c052f4de9029.full.image.jpg",
+            "size": {
+              "height": 960,
+              "width": 640
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ad39544399714cab9db2c052f4de9029.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-18T19:30:00.000Z",
+          "end": "2019-12-18T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-20T16:41:20.000Z",
+      "createdAt": "2019-11-20T13:22:56.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 324741,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "https://www.box.fr/fiche/piano-furioso-1/48187"
+      ],
+      "location": {
+        "uid": 324741,
+        "slug": "theatre-femina1",
+        "name": "Théâtre Fémina",
+        "address": "10 rue de Grassi, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841362,
+        "longitude": -0.577233,
+        "updatedAt": "2019-07-11T09:42:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "Piano Furioso au Théâtre Fémina",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 67263297,
+      "slug": "stomp-au-theatre-femina",
+      "title": {
+        "fr": "Stomp au Théâtre Fémina"
+      },
+      "description": {
+        "fr": "Depuis sa création par Luke Cresswell et Steve McNicholas en 1991, STOMP a été joué plus de 20 000 fois et vu par 15 millions de spectateurs dans le monde, dont 1 million de Français !"
+      },
+      "longDescription": {
+        "fr": "Depuis sa création par Luke Cresswell et Steve McNicholas en 1991, STOMP a été joué plus de 20 000 fois et vu par 15 millions de spectateurs dans le monde, dont 1 million de Français ! Point d’orgue de cette success-story, STOMP a été l’un des grands événements de la cérémonie de clôture des JO 2012 de Londres ! Cette éclatante prestation qui a réuni 40 Stompers sur scène (un record !), a été vue par plus de 4 milliards de téléspectateurs dans le monde. Venus des quatre coins du globe, les Stompers sont choisis pour leur forte personnalité, chacun apportant sa touche personnelle au caractère de la troupe. Ensemble sur scène, huit trublions transforment avec virtuosité (et beaucoup d’humour !) n’importe quel ustensile lambda en véritable machine à rythmes. Tuyaux, seaux, bouées, poubelles, balais, éviers, boîtes d’allumettes, rien ne leur échappe ! Les sons s’entremêlent, se percutent, se répondent pour faire de ce spectacle, mené tambour battant, une incroyable symphonie de rythmes."
+      },
+      "keywords": {
+        "fr": [
+          "spectacle",
+          "bordeaux"
+        ]
+      },
+      "conditions": {
+        "fr": "de 34.50 à 57.60€"
+      },
+      "image": {
+        "filename": "7cb13eb4789444768662c332b12a2c14.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1031,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7cb13eb4789444768662c332b12a2c14.full.image.jpg",
+            "size": {
+              "height": 942,
+              "width": 640
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7cb13eb4789444768662c332b12a2c14.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-06T19:00:00.000Z",
+          "end": "2019-12-06T21:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-07T14:00:00.000Z",
+          "end": "2019-12-07T15:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-07T19:00:00.000Z",
+          "end": "2019-12-07T21:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-08T14:00:00.000Z",
+          "end": "2019-12-08T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-20T16:41:40.000Z",
+      "createdAt": "2019-11-20T11:28:49.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 324741,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/representations/stomp-3"
+      ],
+      "location": {
+        "uid": 324741,
+        "slug": "theatre-femina1",
+        "name": "Théâtre Fémina",
+        "address": "10 rue de Grassi, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841362,
+        "longitude": -0.577233,
+        "updatedAt": "2019-07-11T09:42:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "Stomp au Théâtre Fémina",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 13507708,
+      "slug": "jeanfi-janssens-au-theatre-femina",
+      "title": {
+        "fr": "Jeanfi Janssens au Théatre Fémina"
+      },
+      "description": {
+        "fr": "Le parcours hilarant d’un steward qui monte... qui monte !"
+      },
+      "longDescription": {
+        "fr": "Le parcours hilarant d’un steward qui monte... qui monte !\n\nReconversion réussie pour Jeanfi Janssens, ce steward devenu en moins d’un an la coqueluche du\n\npublic.\n\nVous l’avez peut-être déjà croisé sur un vol long courrier ou découvert lors de passages TV remarqués\n\nchez Stéphane Plaza, Arthur, Michel Drucker, ou encore à la radio aux côtés de Laurent Ruquier… Ce steward\n\nexubérant, accro à la chirurgie esthétique et victime des crédits conso, nous conte l'envers d'un décor unique et\n\ndélirant, de son enfance dans le nord de la France aux passagers qu'il sert à bord...\n\nAvec son accent ch'ti et son incroyable répartie, Jeanfi Décolle vous dépaysera à coup sûr et vous rappellera de\n\nne jamais oublier d'où l'on vient."
+      },
+      "keywords": {
+        "fr": [
+          "spectacle",
+          "humour"
+        ]
+      },
+      "conditions": {
+        "fr": "36 à 40€"
+      },
+      "image": {
+        "filename": "48cd383d4282451db591c5d7382c11ca.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 920,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "48cd383d4282451db591c5d7382c11ca.full.image.jpg",
+            "size": {
+              "height": 841,
+              "width": 640
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "48cd383d4282451db591c5d7382c11ca.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-30T19:00:00.000Z",
+          "end": "2019-11-30T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-20T16:41:59.000Z",
+      "createdAt": "2019-11-20T11:14:00.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 324741,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/fiche/jeanfi-janssens-33/75179"
+      ],
+      "location": {
+        "uid": 324741,
+        "slug": "theatre-femina1",
+        "name": "Théâtre Fémina",
+        "address": "10 rue de Grassi, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841362,
+        "longitude": -0.577233,
+        "updatedAt": "2019-07-11T09:42:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "Jeanfi Janssens au Théâtre Fémina",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 39288715,
+      "slug": "dinos_434985",
+      "title": {
+        "fr": "Dinos"
+      },
+      "description": {
+        "fr": "Surdoué du rap, poète de la rue, Dinos brille par son application et n’a de cesse d’aiguiser une plume empreinte de spleen et de mélancolie."
+      },
+      "longDescription": {
+        "fr": "Dinos le savait, après le vent de fraîcheur engendré par son premier projet Imany, il lui fallait confirmer sa stature en visant encore plus loin, en tuant le symbole pour mieux se confronter à un nouveau processus créatif. Pour Taciturne, l’artiste explore une autre façon de créer en saisissant l’inspiration du moment. Dinos devient peintre qui, par ses coups de pinceau, accompagne les réflexions d’un homme sur son rapport à la notoriété, le quartier, la religion, l’amour… Au fil de l’album, il dissémine avec finesse la complexité de sa pensée par petites touches d’harmonies et de couleurs. Taciturne, un trait de personnalité qui caractérise le rappeur, lorsqu’il peine à retranscrire son état à ceux qui l’entourent. Une retranscription ici menée en musique, où l’art permet à l’homme de se dévoiler, faisant de ce nouvel album une oeuvre puissante et précieuse. Sûrement l’une des plus attendues de l’année."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "dinos",
+          "rap"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 22€ / Plein tarif : 20€ / Tarif abonné : 17€"
+      },
+      "image": {
+        "filename": "78521130ba99446dbf98c4490cdcf868.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "78521130ba99446dbf98c4490cdcf868.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "78521130ba99446dbf98c4490cdcf868.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-20T19:30:00.000Z",
+          "end": "2020-02-20T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-21T02:05:06.000Z",
+      "createdAt": "2019-11-21T02:05:06.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/dinos/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 14782585,
+      "slug": "melingo_55377",
+      "title": {
+        "fr": "Melingo"
+      },
+      "description": {
+        "fr": "Davantage qu’un nouvel album, c’est la poursuite d’un voyage que nous propose le grand Melingo avec Oasis, sorte d’opéra étrange peuplé de personnages surréalistes."
+      },
+      "longDescription": {
+        "fr": "Dans son nouvel opus, qui clôt une trilogie entamée avec Linyera en 2014 et Anda en 2016, l’Argentin Daniel Melingo suit un personnage boiteux nommé Linyera, clochard céleste échappé d’un conte halluciné. On y devine une quête initiatique explorant les origines hellènes de Melingo : son grand-père était en effet un « turco », comme on appelle les Grecs en Argentine, et on découvre qu’il n’y a qu’un pas du tango au rebetiko, cette musique des repris de justice et des fumeurs de haschich née dans le port de Thessalonique. On suit donc les aventures et les réincarnations du héros Linyera croisant un diseur de bonne aventure, des proxénètes plus ou moins attachants, un humain devenu chien meurtrier, une femme-chamane, une danseuse muette, des traqueurs de tigres et autres mercenaires sentimentaux… Baroque et surréaliste, l’univers de Melingo nous bouleverse plus que jamais."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "melingo",
+          "tango"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 27€ / Plein tarif : 25€ / Tarif abonné : 22€ - Places numérotées"
+      },
+      "image": {
+        "filename": "f99897ddf37648d081df24b5f5a3b97a.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "f99897ddf37648d081df24b5f5a3b97a.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "f99897ddf37648d081df24b5f5a3b97a.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-11T18:30:00.000Z",
+          "end": "2020-04-11T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-22T02:05:16.000Z",
+      "createdAt": "2019-11-21T02:05:06.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/melingo/04.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 83892510,
+      "slug": "andre-minvielle-albert-marcoeur-antoine-berland",
+      "title": {
+        "fr": "André Minvielle, Albert Marcœur & Antoine Berland « La Piste aux oiseaux »"
+      },
+      "description": {
+        "fr": "Le fascinant André Minvielle a pris sous son aile un projet en trio inspiré par les « murmurations » des oiseaux."
+      },
+      "longDescription": {
+        "fr": "Infatigable explorateur de la langue et du son, le vocaliste gascon André Minvielle est le fil rouge de notre saison 2019-2020. Cette fois-ci, il revient avec deux autres talentueux « collecteurs de sons », comme lui fascinés par les vocalises des oiseaux, chacun apportant son propre bagage pour enrichir un audacieux syncrétisme musical. Le plus bel hommage possible rendu aux créateurs du ciel sonore contemporain."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "andré minvielle",
+          "albert marcœur",
+          "antoine berland",
+          "inclassable"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 17€ / Plein tarif : 15€ / Tarif abonné : 12€"
+      },
+      "image": {
+        "filename": "4a515df5e77e43a188941e6a07bb537c.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "4a515df5e77e43a188941e6a07bb537c.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "4a515df5e77e43a188941e6a07bb537c.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-30T18:30:00.000Z",
+          "end": "2020-04-30T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-22T02:05:19.000Z",
+      "createdAt": "2019-11-21T02:05:10.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/andre.minvielle/04.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 57801481,
+      "slug": "drole-de-noel",
+      "title": {
+        "fr": "Drôle de Noël"
+      },
+      "description": {
+        "fr": "Cette année Drôle de Noël a 10 ans, fêtons-le ensemble !"
+      },
+      "longDescription": {
+        "fr": "**Cette année Drôle de Noël a 10 ans, fêtons-le ensemble !**\n\n**Vendredi 20 décembre**\n\nde 10h à 19h : le marché de Noël se tiendra dans un espace chauffé et couvert.\n\nà 18h : concert de Noël par les élèves de l’EMMD Talence\n\n**Samedi 21 décembre**\n\nde 10h à 22h : Marché de Noël\n\nà 19h : « MOMENTO » spectacle son et lumière, création de David Proteau (Ruggieri), Projections monumentales sur le château Peixotto.\n\n\"Une expérience émotionnelle en trois dimensions !\"\n\n\"Une exclusivité talençaise exceptionnelle et inédite !\"\n\n**_﻿﻿ \"Spectacle en continu\"_**\n\n**Tartiflette offerte par la Ville Marrons et vin chaud**\n\n**Dimanche 22 décembre**\n\nde 10h à 18h : Marché de Noël\n\n**Du lundi 23 au dimanche 29 décembre**\n\nde 14h30 à 18h30 :\n\nAnimations pour enfants jusqu’à 12 ans : structures gonflables, jeux d’échecs, ateliers créatifs, maquillage, fresque géante, buvette\n\n**Mardi 24 décembre**\n\nà partir de 14h30 : Ateliers maquillage\n\nà 16h : Goûter et photos avec le Père Noël\n\nLes enfants, postez votre lettre avant le 15 décembre dans la boîte aux lettres du parc Peixotto (entrée passerelle médiathèque) !\n\nAvec Babychou Services, ID’Créa, Nicole Tauziède, Marie Dupuy, Jacques Eychenne\n\nAvec le concours du CIC, de l’UGC Talence, de la boulangerie du Forum, de L’Alcala"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "8bae28f1dcf44ac6aad7710c82b6bf5f.base.image.jpg",
+        "size": {
+          "width": 701,
+          "height": 992
+        },
+        "variants": [
+          {
+            "filename": "8bae28f1dcf44ac6aad7710c82b6bf5f.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1274,
+              "height": 1804
+            }
+          },
+          {
+            "filename": "8bae28f1dcf44ac6aad7710c82b6bf5f.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-21T09:00:00.000Z",
+          "end": "2019-12-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-22T09:00:00.000Z",
+          "end": "2019-12-22T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-23T08:00:00.000Z",
+          "end": "2019-12-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-24T08:00:00.000Z",
+          "end": "2019-12-24T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-21T08:50:18.000Z",
+      "createdAt": "2019-11-21T08:50:18.000Z",
+      "agendaUid": 54892589,
+      "locationUid": 35222559,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 84 78 82",
+        "contact@talenceevenements.fr"
+      ],
+      "location": {
+        "uid": 35222559,
+        "slug": "parc-peixotto865",
+        "name": "Parc Peixotto",
+        "address": "Peixotto 33400 Talence",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.807117,
+        "longitude": -0.592783,
+        "updatedAt": "2019-06-17T08:00:56.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 53,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-talence",
+        "uid": 54892589,
+        "official": 1,
+        "title": "Ville de Talence",
+        "description": "Agenda de tous les événements de la commune de Talence.",
+        "url": "http://www.talence.fr",
+        "image": "agenda54892589.jpg",
+        "updatedAt": "2019-10-27T11:02:56.000Z",
+        "createdAt": "2017-02-10T16:12:45.000Z",
+        "officializedAt": "2019-04-05T11:29:36.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 94986285,
+      "slug": "le-lieu-de-larchive",
+      "title": {
+        "fr": "« Le Lieu de l’archive »"
+      },
+      "description": {
+        "fr": "Conférence par Yoann Thommerel, directeur du Développement culturel de l’IMEC"
+      },
+      "longDescription": {
+        "fr": "Pour permettre à un large public de découvrir sa collection d’archives, l’IMEC invite chaque année un écrivain, un artiste ou un philosophe à y puiser la matière d’une exposition et d’un livre dans le cadre d’une carte blanche. C’est chaque fois une expérience inédite au cœur de l’archive qui se joue et s’invente. La dernière en date, imaginée par Valérie Mréjen, a pour titre ‘Soustraction’, un projet aussi plastique que littéraire, qui nous montre avec force comment les archives peuvent ouvrir la voie à la réinvention et à la fiction.\n\nConférence dans le cadre de l’exposition « Doucement, doucement » Séquence #3 : Veiller.\n\nVisite et présentation du projet par les commissaires d’exposition Emmanuel Aragon, artiste et Marie-Sylvie Barrère, conservatrice en chef, chargée du développement artistique et culturel aux Archives Bordeaux Métropole.\n\nEntrée libre et gratuite\n\nUn projet mené en partenariat avec le collectif grŒp.\n\nhttp://groep.fr/\n\n\\+ d’infos sur l’imec\n\nhttps://www.imec-archives.com/"
+      },
+      "keywords": {
+        "fr": [
+          "archives",
+          "art contemporain",
+          "édition",
+          "exposition"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre et gratuite"
+      },
+      "image": {
+        "filename": "2678a06f28354daa8ec4465fe4c310a2.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 967
+        },
+        "variants": [
+          {
+            "filename": "2678a06f28354daa8ec4465fe4c310a2.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 2864,
+              "height": 3954
+            }
+          },
+          {
+            "filename": "2678a06f28354daa8ec4465fe4c310a2.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": "© imec",
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-03T18:00:00.000Z",
+          "end": "2019-12-03T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-21T10:15:16.000Z",
+      "createdAt": "2019-11-21T10:15:16.000Z",
+      "agendaUid": 70173944,
+      "locationUid": 8150947,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 8150947,
+        "slug": "archives-bordeaux-metropole834",
+        "name": "Archives Bordeaux Métropole",
+        "address": "Parvis des Archives, Bordeaux",
+        "city": "Bordeaux",
+        "region": null,
+        "department": null,
+        "postalCode": "33100",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.846773,
+        "longitude": -0.554291,
+        "updatedAt": "2018-01-11T10:16:09.000Z",
+        "image": "location8150947.jpg",
+        "description": {
+          "fr": "Les Archives Bordeaux Métropole collectent, conservent, classent et communiquent au public les archives qui leur sont confiées tant par les administrations métropolitaine et communales que par des particuliers, familles, entreprises ou associations. Elles proposent un programme tout public d’expositions, de visites, de conférences et d’ateliers.\nOuvert du lundi au vendredi de 9h30 à 17h"
+        },
+        "website": "http://archives.bordeaux-metropole.fr/",
+        "phone": "05 56 10 20 55",
+        "links": [
+          "https://www.facebook.com/ArchivesBxM/",
+          "https://twitter.com/ArchivesBxM"
+        ],
+        "access": {
+          "fr": "Entrée libre"
+        },
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": "© Archives Bordeaux Métropole, photo  Bernard Rakotomanga"
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "archives-bordeaux-metropole",
+        "uid": 70173944,
+        "official": 1,
+        "title": "Archives Bordeaux Métropole",
+        "description": "Programme des expositions, visites, conférences et ateliers des Archives Bordeaux Métropole.",
+        "url": "http://archives.bordeaux-metropole.fr/",
+        "image": "agenda70173944.jpg",
+        "updatedAt": "2019-10-30T16:18:04.000Z",
+        "createdAt": "2018-01-09T14:07:17.000Z",
+        "officializedAt": "2018-01-09T16:16:03.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2081031
+}

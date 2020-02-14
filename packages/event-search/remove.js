@@ -1,0 +1,49 @@
+"use strict";
+
+const _ = require( 'lodash' );
+const VError = require('verror');
+const getIndexName = require('./utils/getIndexName');
+const getDocumentId = require('./utils/getDocumentId');
+const log = require('@openagenda/logs')('remove');
+
+module.exports = async function(config, set, identifiers, options = {} ) {
+  const {
+    refresh
+  } = {
+    refresh: false,
+    ...options
+  };
+
+  const { client, defaultIndex } = config;
+
+  let res;
+
+  try {
+    res = await client.delete( {
+      index: getIndexName(set, defaultIndex),
+      id: getDocumentId(set, identifiers.uid),
+      refresh
+    } );
+  } catch (err) {
+    throw new VError(err, 'failed to add event to index of set %s', set);
+  }
+
+  if (res.body.result === 'deleted') {
+    log('info', 'event %j was removed from set %s', identifiers, set, {
+      operation: 'remove',
+      set,
+      identifiers
+    });
+  } else {
+    log('warn', 'event %j was not removed from set %s', identifiers, set, {
+      operation: 'remove',
+      set,
+      identifiers
+    });
+  }
+
+  return {
+    success: res.body.result === 'deleted',
+    message: res.body.result === 'deleted' ? 'event was removed' : 'event was not removed'
+  }
+}

@@ -12,7 +12,7 @@ const batchable = ['update', 'remove'];
 
 module.exports = services => {
   tasks.register( {
-    agendaBatchList,
+    agendaBatchList: agendaBatchList.bind(null, services),
     batchedUpdate: batchedUpdate.bind(null, services),
     batchedRemove
   } );
@@ -22,14 +22,19 @@ module.exports = services => {
   }
 }
 
-async function agendaBatchList(agendaUid, operation, query, ...args) {
+async function agendaBatchList(services, agendaUid, operation, query, ...args) {
   let lastId = 0;
 
   while (lastId !== -1) {
     const {
       events,
       lastId: nextLastId
-    } = await list(agendaUid, query, { lastId }, { load: { events: false, custom: false } });
+    } = await list(services, agendaUid, query, { lastId }, {
+      load: {
+        agendaEvent: true,
+      },
+      returnPayload: true
+    });
 
     for (const event of events) {
       await tasks.enqueue.apply(null, ['batched' + _.capitalize(operation), agendaUid, event.uid].concat(args).flat());

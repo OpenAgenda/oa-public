@@ -46,7 +46,7 @@ module.exports = schema( {
   },
   order: {
     type: 'choice',
-    options: [ 'updatedAt.desc', 'createdAt.desc', 'updatedAt.asc', 'updatedAt.desc' ],
+    options: [ 'updatedAt.desc', 'createdAt.desc', 'updatedAt.asc', 'updatedAt.desc', 'id.desc', 'id.asc' ],
     default: null,
     unique: true
   }

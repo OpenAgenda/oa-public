@@ -34,11 +34,11 @@ module.exports = services => {
   tasks.register(resyncFn);
 
   return agendaUid => ({
-    get: getMergedSchema.bind( null, agendaUid ), // deprecate
+    get: getMergedSchema.bind(null, services, agendaUid), // deprecate
     schema: {
       get: getSchema.bind(null, agendaUid),
       getNetwork: getSchema.network.bind(null, agendaUid),
-      getMerged: getMergedSchema.bind( null, agendaUid ),
+      getMerged: getMergedSchema.bind(null, services, agendaUid),
       updateFields: updateSchemaFields.bind( null, config, agendaUid )
     },
     legacy: {

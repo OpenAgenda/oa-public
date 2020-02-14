@@ -1,13 +1,12 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const keys = require( '@openagenda/keys' );
+const _ = require('lodash');
+const keys = require('@openagenda/keys');
 
 module.exports.init = async config => {
-
-  await keys.init( {
+  await keys.init({
     mysql: config.db,
-    schemas: _.pick( config.schemas, 'key', 'user', 'apiKeySet' ),
+    schemas: _.pick(config.schemas, 'key', 'user', 'apiKeySet'),
     migrations: {
       tableName: 'key_migrations'
     },
@@ -17,6 +16,7 @@ module.exports.init = async config => {
     cache: {
       duration: 60
     }
-  } );
+  });
 
+  return keys;
 }

@@ -132,11 +132,13 @@ module.exports = (config, services) => {
   require( './services/agendaEvents/legacy' ).task();
 
   // handle interfaces for grouped operations ( a remove of a 100 refs queues 100 onRemoves executions )
-  require( '@openagenda/agenda-events' ).tasks.interfaces( { interval: 10 } );
+  services.agendaEvents.tasks.interfaces( { interval: 10 } );
 
   //require( '@openagenda/agenda-events' ).tasks.transferLegacyData( { interval: 500 } );
 
   //require('./tasks/createMissingEventsFromLegacy')(config, services);
 
   services.eventSearch.task();
+
+  //services.eventSearch.rebuild();
 };

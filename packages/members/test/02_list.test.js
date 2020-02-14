@@ -235,14 +235,16 @@ describe('members - functional - list', () => {
 
     test('fix: ordering with after always sorts id asc', async () => {
       expect(
-        (await svc.list(
-          { agendaUid: 1 },
-          {
-            limit: 2,
-            order: 'actionsCounter.desc',
-            after: [5, 2]
-          }
-        ))[0].id
+        (
+          await svc.list(
+            { agendaUid: 1 },
+            {
+              limit: 2,
+              order: 'actionsCounter.desc',
+              after: [5, 2]
+            }
+          )
+        )[0].id
       ).toBe(4);
     });
   });

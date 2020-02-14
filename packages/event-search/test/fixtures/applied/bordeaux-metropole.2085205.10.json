@@ -1,0 +1,1381 @@
+{
+  "events": [
+    {
+      "uid": 12753820,
+      "slug": "simi-salon-de-limmobilier-dentreprise",
+      "title": {
+        "fr": "SIMI : salon de l'immobilier d'entreprise"
+      },
+      "description": {
+        "fr": "Bordeaux Métropole est présente au SIMI, salon de l'immobilier d'entreprise, à Paris pour présenter les possibilités d'investissement sur le territoire."
+      },
+      "longDescription": {
+        "fr": "Le SIMI, événement de référence pour les acteurs de l’industrie immobilière en France.\n\nLe SIMI rassemble pendant trois jours plus de 30 454 professionnels et 470 sociétés et collectivités participantes représentant l’intégralité de l’offre immobilière et foncière, et également l’ensemble des services associés à l’immobilier et l’entreprise. A ce titre sont présentes les offres, situées en France, de bureaux, logistique et activité, immobilier commercial de centre-ville comme de retail park. Il tient compte aussi de l’évolution et de la mutation présente et à venir de l’écosystème, notamment avec le déploiement du digital au sein des bâtiments.\n\nLe stand Magnetic Bordeaux sera situé dans le hall Ternes, B13, niveau 1.\n\nPalais des Congrès de Paris – Porte Maillot – Niveaux 1, 2, 3 & 4.\n\nTout le programme sur : [https://www.magnetic-bordeaux.fr](https://www.magnetic-bordeaux.fr)"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Payant, sur inscription"
+      },
+      "image": {
+        "filename": "1a1d3183a8af422a8b6d3a0edc288fc2.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 379
+        },
+        "variants": [
+          {
+            "filename": "1a1d3183a8af422a8b6d3a0edc288fc2.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 870,
+              "height": 470
+            }
+          },
+          {
+            "filename": "1a1d3183a8af422a8b6d3a0edc288fc2.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": "Arthur Pequin",
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-11T08:00:00.000Z",
+          "end": "2019-12-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-12T08:00:00.000Z",
+          "end": "2019-12-12T20:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-13T08:00:00.000Z",
+          "end": "2019-12-13T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-29T15:59:03.000Z",
+      "createdAt": "2019-11-28T15:02:11.000Z",
+      "agendaUid": 83549053,
+      "locationUid": 72903844,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.salonsimi.com/"
+      ],
+      "location": {
+        "uid": 72903844,
+        "slug": "palais-des-congres-de-paris36",
+        "name": "Palais des Congrès de Paris",
+        "address": "Porte Maillot Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75017",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.87868,
+        "longitude": 2.283584,
+        "updatedAt": "2017-11-24T07:24:08.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 54,
+      "thematiques-bordeaux-metropole": [
+        13,
+        15,
+        19,
+        24,
+        35
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bordeaux-metropole",
+        "uid": 83549053,
+        "official": 1,
+        "title": "Bordeaux Métropole",
+        "description": "Agenda des événements  sur le territoire de Bordeaux Métropole",
+        "url": "http://www.bordeaux-metropole.fr/Agenda",
+        "image": "agenda83549053.jpg",
+        "updatedAt": "2019-12-11T11:36:58.000Z",
+        "createdAt": "2017-01-05T14:24:14.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 65133249,
+        "custom": {
+          "email": "mtaquet@bordeaux-metropole.fr",
+          "organization": "Bordeaux Métropole",
+          "contactNumber": "05 56 99 88 15",
+          "contactName": "Morgane Taquet",
+          "contactPosition": "Chargée de communication numérique"
+        }
+      }
+    },
+    {
+      "uid": 17623416,
+      "slug": "visions-dart",
+      "title": {
+        "fr": "Visions d'Art"
+      },
+      "description": {
+        "fr": "Exposition du sculpteur Fredange, la brodeuse d'Art Jocelyne Bonneuil et le peintre Plamlac"
+      },
+      "longDescription": {
+        "fr": "Vous êtes cordialement invités à ma prochaine exposition du 30 novembre au 7 décembre de 14h à 19h.\n\nJe partage la chapelle de Cestas Gazinet (rue Marc Nouaux) avec Jocelyne Bonneuil, Brodeuse d'Art et Plamlac, Peintre.\n\nVous pourrez découvrir ou redécouvrir une quinzaine de mes sculptures et, présentée pour la première fois \"Maïko\", une Sculpture réalisée avec le concours de Jocelyne Bonneuil et Yoan Pellet (ébéniste).\n\nTous les jours de 19h à 21h (sauf lundi) des conférences, des concerts, des démonstrations présentés par les 3 artistes ou par des invités de haut niveau !\n\nSur le programme joint, vous verrez les dates de mes interventions.\n\n**\\> Journée spéciale Samedi 7 décembre : je sculpterai de 11h à 18h. Après la pause pour le tirage au sort des gagnants de notre tombola au profit du Téléthon (chacun des 3 artistes mettra un lot en jeu, achat des billets durant toute la semaine), à 19h, je ferai une démonstration commentée avec présentation des différences physiques Homme/ Femme et du processus de vieillissement.**\n\nMerci de partager !\n\nNous vous attendons nombreux !"
+      },
+      "keywords": {
+        "fr": [
+          "sculpture",
+          "exposition",
+          "broderie",
+          "bijoux",
+          "peinture",
+          "cestas",
+          "académique",
+          "anatomie",
+          "conférence",
+          "concert",
+          "présentation",
+          "démonstration",
+          "modelage"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "3d7bbb0697b542a392378ccb65206c6b.base.image.jpg",
+        "credits": "www.fredange.fr",
+        "size": {
+          "height": 993,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3d7bbb0697b542a392378ccb65206c6b.full.image.jpg",
+            "size": {
+              "height": 787,
+              "width": 555
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3d7bbb0697b542a392378ccb65206c6b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-30T17:30:00.000Z",
+          "end": "2019-11-30T20:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-01T10:00:00.000Z",
+          "end": "2019-12-01T20:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-02T13:00:00.000Z",
+          "end": "2019-12-02T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-03T13:00:00.000Z",
+          "end": "2019-12-03T20:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-04T13:00:00.000Z",
+          "end": "2019-12-04T20:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-05T13:00:00.000Z",
+          "end": "2019-12-05T20:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-06T13:00:00.000Z",
+          "end": "2019-12-06T20:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-07T10:00:00.000Z",
+          "end": "2019-12-07T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-29T09:50:34.000Z",
+      "createdAt": "2019-11-28T15:52:27.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 88979692,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 88979692,
+        "slug": "chapelle-de-gazinet",
+        "name": "Chapelle de Gazinet",
+        "address": "Cestas",
+        "city": "Cestas",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33610",
+        "insee": "33122",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.741157,
+        "longitude": -0.684123,
+        "updatedAt": "2019-11-29T09:49:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 99381918,
+      "slug": "pierre-lapointe_484569",
+      "title": {
+        "fr": "Pierre Lapointe"
+      },
+      "description": {
+        "fr": "Le cœur tendre de la chanson francophone revient avec un nouvel album pour nous aider à tromper l’ennui."
+      },
+      "longDescription": {
+        "fr": "Pierre Lapointe chante les délices de la mélancolie amoureuse, parfois avec une touche d’ironie mordante, toujours avec un lyrisme raffiné. Ce Québécois qui aime les chansons tristes colore les mélodies par ses mots. Ils finissent par imprégner notre mémoire et ne nous quittent plus d’une semelle. Épaulé par son grand ami Albin de la Simone dans la réalisation de son dernier opus, Pour déjouer l’ennui, le dandy a comme toujours tiré ses arrangements à quatre épingles pour habiller son univers délicat. Bien et beau dans sa peau, l’artiste sait nous toucher en plein coeur et ce, à chacun de ses passages - pour nous, de véritables pèlerinages - au Rocher de Palmer."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "pierre lapointe",
+          "chanson"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 30€ / Plein tarif : 28€ / Tarif abonné : 25€ - Places numérotées"
+      },
+      "image": {
+        "filename": "5558c913eaac4c4ba31e802974d8f990.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "5558c913eaac4c4ba31e802974d8f990.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "5558c913eaac4c4ba31e802974d8f990.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-22T18:30:00.000Z",
+          "end": "2020-05-22T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-30T02:05:09.000Z",
+      "createdAt": "2019-11-30T02:05:09.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/pierre.lapointe/05.2020.php"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 79075344,
+      "slug": "salon-du-jardin-de-bordeaux",
+      "title": {
+        "fr": "Salon du Jardin de Bordeaux"
+      },
+      "description": {
+        "fr": "6 univers du jardin, nouvelles tendances et innovations, mises en scène inspirantes, professionnels passionnés, artisans, conférences, expositions et ateliers pour tous."
+      },
+      "longDescription": {
+        "fr": "Le Salon du Jardin de Bordeaux sera le lieu ressourçant de ce début de printemps 2020 : mises en scène inspirantes, professionnels passionnés, échanges avec les artisans, conférences, expositions et ateliers pour tous. Ce sera également l’occasion de découvrir les nouvelles tendances et innovations. En tout, 6 univers seront mis à l’honneur : horticulture, jardinage, aménagement, loisirs extérieurs, spas et piscines et enfin artisanat et nouvelles technologies.\n\nLes 20, 21 et 22 Mars 2020, le Salon du Jardin de Bordeaux répondra aux attentes et besoins de tous les visiteurs quel que soit leur profil (jardiniers experts, ou amateurs, adeptes du jardinage urbain, porteurs de projets ou simples visiteurs en quête de découvertes)."
+      },
+      "keywords": {
+        "fr": [
+          "jardin",
+          "nature",
+          "amenagement",
+          "conference",
+          "ateliers",
+          "innovation",
+          "paysagiste",
+          "artistes",
+          "faune",
+          "flore",
+          "projet",
+          "conseil",
+          "jardinage urbain",
+          "potager",
+          "fleurs",
+          "végétaux",
+          "marché",
+          "arbres",
+          "expositions",
+          "jardinage",
+          "balcon",
+          "loisirs exterieurs",
+          "artisanat",
+          "piscine",
+          "spas"
+        ]
+      },
+      "conditions": {
+        "fr": "Coût moyen de l'entrée : 7€ TTC"
+      },
+      "image": {
+        "filename": "6d6249f0da214689b8c21a64db0b0696.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 440,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "6d6249f0da214689b8c21a64db0b0696.full.image.jpg",
+            "size": {
+              "height": 980,
+              "width": 1560
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "6d6249f0da214689b8c21a64db0b0696.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-20T09:00:00.000Z",
+          "end": "2020-03-20T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T09:00:00.000Z",
+          "end": "2020-03-22T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-02T16:15:59.000Z",
+      "createdAt": "2019-11-29T11:27:13.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 80934885,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 80934885,
+        "slug": "parc-des-expositions-de-bordeaux288",
+        "name": "Parc des Expositions de Bordeaux",
+        "address": "Cours Charles Bricaud, 33300 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Maritime",
+        "latitude": 44.886524,
+        "longitude": -0.560445,
+        "updatedAt": "2019-09-12T15:52:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": "Le Salon du Jardin de Bordeaux sera le lieu ressourçant de ce début de printemps 2020 : mises en scène inspirantes, professionnels passionnés, échanges avec les artisans, conférences, expositions et ateliers pour tous. Ce sera également l’occasion de découvrir les nouvelles tendances et innovations. En tout, 6 univers seront mis à l’honneur : horticulture, jardinage, aménagement, loisirs extérieurs, spas et piscines et enfin artisanat et nouvelles technologies.\nLes 20, 21 et 22 Mars 2020, le Salon du Jardin de Bordeaux répondra aux attentes et besoins de tous les visiteurs quel que soit leur profil (jardiniers experts, ou amateurs, adeptes du jardinage urbain, porteurs de projets ou simples visiteurs en quête de découvertes).",
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 54,
+      "thematiques-bordeaux-metropole": [
+        25
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 11271277,
+      "slug": "grain-histoire-de-fous",
+      "title": {
+        "fr": "G.R.A.I.N Histoire de fous"
+      },
+      "description": {
+        "fr": "\"Un stage de théâtre le temps d'une folle journée...\""
+      },
+      "longDescription": {
+        "fr": "Marie-Magdeleine, de la compagnie Mmm, débarque au **G.R.A.I.N**. (_le Groupe de réhabilitation après un internement ou n’importe_), préfabriqué brinquebalant où elle devra animer un stage de théâtre. **Une comédienne, huit personnages**. Une farce sur la représentation de la folie et la folie de la représentation où il sera peu ou prou question de Schumann, Van Gogh, Marilyn, Batman et des troubles du comportement.\n\nÉcriture et mise en scène : Marie-Magdeleine Sommier & Julien Marot\n\nAvec : Marie-Magdeleine Sommier\n\nRégie : Joseph Sommier\n\nLa Compagnie Mmm reviendra en mai avec le spectacle \"La famille vient en mangeant\".\n\n**Vendredi 17 janvier décembre à 20h, à l’Auditorium du Pôle culturel de la Haye.**\n\nÀ partir de **14 ans** // Durée **1 h 40** // **Gratuit**, sur réservation !\n\n**Réservations ouvertes :** [https://www.weezevent.com/grain-une-hisoire-de-fous](https://www.weezevent.com/grain-une-hisoire-de-fous)"
+      },
+      "keywords": {
+        "fr": [
+          "Théâtre",
+          "Farce",
+          "Folie",
+          "TOC",
+          "Compagnie MMM",
+          "Représentation",
+          "Spectacle"
+        ]
+      },
+      "conditions": {
+        "fr": "Spectacle gratuit, sur réservation"
+      },
+      "image": {
+        "filename": "5e72a8400bf040eeac78d87e2c560580.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "5e72a8400bf040eeac78d87e2c560580.full.image.jpg",
+            "size": {
+              "height": 787,
+              "width": 1181
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "5e72a8400bf040eeac78d87e2c560580.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T19:00:00.000Z",
+          "end": "2020-01-17T20:40:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-10T10:10:42.000Z",
+      "createdAt": "2019-11-27T10:03:12.000Z",
+      "agendaUid": 82433240,
+      "locationUid": 54591162,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 14,
+        "max": 99
+      },
+      "registration": [
+        "animation-culture@taillan-medoc.fr"
+      ],
+      "location": {
+        "uid": 54591162,
+        "slug": "auditorium-du-pole-culturel-de-la-haye",
+        "name": "Auditorium du Pôle Culturel de la Haye",
+        "address": "8 rue de Calavet, 33320, Le Taillan-Médoc",
+        "city": "Le Taillan-Médoc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33320",
+        "insee": "33519",
+        "countryCode": "FR",
+        "district": "Hontane",
+        "latitude": 44.911219,
+        "longitude": -0.681538,
+        "updatedAt": "2019-10-15T13:30:38.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-du-taillan-medoc",
+        "uid": 82433240,
+        "official": 1,
+        "title": "Ville du Taillan-Médoc",
+        "description": "Aux portes du Médoc et à une dizaine de kilomètres au Nord-­Ouest de Bordeaux, Le Taillan ­Médoc est une des communes de Bordeaux Métropole.",
+        "url": "http://www.taillan-medoc.fr/",
+        "image": "agenda82433240.jpg",
+        "updatedAt": "2019-10-28T15:18:30.000Z",
+        "createdAt": "2019-06-06T07:36:49.000Z",
+        "officializedAt": "2019-07-09T08:38:27.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 98967645,
+      "slug": "le-pole-express_43603",
+      "title": {
+        "fr": "Le Pôle Express"
+      },
+      "description": {
+        "fr": "Cinéma de noël"
+      },
+      "longDescription": {
+        "fr": "Un petit garçon continue à croire en l'existence du Père Noël, et ce malgré les doutes et les moqueries de ses camarades. Au soir de Noël, un mystérieux train vient le chercher et l'emmène au Pôle Nord à la rencontre du légendaire personnage...\n\n**Goûter offert pour les petits et les grands.**\n\n[https://www.ville-bouliac.fr/cinema-de-noel-6/](https://www.ville-bouliac.fr/cinema-de-noel-6/)"
+      },
+      "keywords": {
+        "fr": [
+          "cinéma",
+          "noël",
+          "dessin animé"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "4b50c711f0af497c9135577c1b2d4fc1.base.image.jpg",
+        "credits": "D.R",
+        "size": {
+          "height": 398,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4b50c711f0af497c9135577c1b2d4fc1.full.image.jpg",
+            "size": {
+              "height": 494,
+              "width": 870
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4b50c711f0af497c9135577c1b2d4fc1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-26T14:00:00.000Z",
+          "end": "2019-12-26T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-03T16:06:30.000Z",
+      "createdAt": "2019-12-03T16:05:46.000Z",
+      "agendaUid": 77293970,
+      "locationUid": 67972195,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 3,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 67972195,
+        "slug": "salle-des-fetes-bouliac",
+        "name": "Salle des fêtes Bouliac",
+        "address": "Parc de Vialle",
+        "city": "Bouliac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33270",
+        "insee": "33065",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.817145,
+        "longitude": -0.504217,
+        "updatedAt": "2017-10-03T09:30:43.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [
+        2
+      ],
+      "categories-agenda-metropolitain": 45,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-bouliac",
+        "uid": 77293970,
+        "official": 1,
+        "title": "Ville de Bouliac",
+        "description": "Agenda de tous les événements de la commune de Bouliac",
+        "url": "http://www.ville-bouliac.fr/",
+        "image": "agenda77293970.jpg",
+        "updatedAt": "2019-10-30T15:49:58.000Z",
+        "createdAt": "2017-04-10T10:33:05.000Z",
+        "officializedAt": "2018-06-12T13:20:08.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 95112540,
+      "slug": "tournoi-de-petanque-handi-valide",
+      "title": {
+        "fr": "Tournoi de pétanque handi-valide"
+      },
+      "description": {
+        "fr": "Tournoi de pétanque handi-valide organisé par le Comité de Pétanque et de jeu provençal de la Gironde et le CMOB Pétanque de Bassens"
+      },
+      "longDescription": {
+        "fr": "Tournoi ouvert à toutes les personnes en situation de handicap en mixité (handivalide) doublette ou triplette selon le nombre des participants. Tombola au profit du Téléthon."
+      },
+      "keywords": {
+        "fr": [
+          "tournoi",
+          "pétanque",
+          "Téléthon"
+        ]
+      },
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "f68b2a96bb95491b962f2e4c7928864a.base.image.jpg",
+        "size": {
+          "width": 701,
+          "height": 991
+        },
+        "variants": [
+          {
+            "filename": "f68b2a96bb95491b962f2e4c7928864a.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 2480,
+              "height": 3508
+            }
+          },
+          {
+            "filename": "f68b2a96bb95491b962f2e4c7928864a.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-15T12:30:00.000Z",
+          "end": "2019-12-15T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-04T15:29:12.000Z",
+      "createdAt": "2019-12-04T15:29:12.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 91737305,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "06 32 15 15 24"
+      ],
+      "location": {
+        "uid": 91737305,
+        "slug": "espace-garonne636",
+        "name": "Espace Garonne",
+        "address": "avenue des Griffons 33530 Bassens",
+        "city": null,
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.889274,
+        "longitude": -0.516685,
+        "updatedAt": "2018-05-24T12:40:45.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [
+        2
+      ],
+      "categories-agenda-metropolitain": 51,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2019-10-28T16:51:38.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 22160661,
+      "slug": "jean-michel-bernard-and-friends",
+      "title": {
+        "fr": "Jean-Michel Bernard & Friends play Jerry Goldsmith"
+      },
+      "description": {
+        "fr": "Le célèbre compositeur de musiques de films Jean-Michel Bernard rend hommage, entouré de son sextet jazz, à l’un de ses grands homologues hollywoodiens, Jerry Goldsmith."
+      },
+      "longDescription": {
+        "fr": "Alien, Chinatown, Star Trek, La Quatrième dimension… L’œuvre de Jerry Goldsmith a rythmé tout un pan du septième art. Le festival Ciné-Notes, placé pour cette troisième édition sous le signe des « monstres et créatures », ne pouvait que lui rendre hommage ! Et pour ce faire, Jean-Michel Bernard était tout désigné : il a composé pour Michel Gondry (La science des rêves) et Martin Scorsese (Hugo Cabret), arrangé pour Ennio Morricone et fait un bout de route avec Lalo Schifrin. Un rendez-vous immanquable pour ceux qui aiment tendre l’oreille à la musique du cinéma."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "bordeaux",
+          "concert",
+          "musique",
+          "jean-michel bernard",
+          "friends play jerry goldsmith",
+          "jazz"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif guichet : 27€ / Plein tarif : 25€ / Tarif abonné et réduit : 22€"
+      },
+      "image": {
+        "filename": "3982176e55bb43f3b6340c3618be4336.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "3982176e55bb43f3b6340c3618be4336.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "3982176e55bb43f3b6340c3618be4336.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-18T19:00:00.000Z",
+          "end": "2020-03-18T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-16T02:05:15.000Z",
+      "createdAt": "2019-12-05T02:05:06.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/artistes/cine.notes/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 53566516,
+      "slug": "projection-reggae-ambassadors-100-reggae-francais",
+      "title": {
+        "fr": "Projection « Reggae Ambassadors. 100% Reggae français »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer, des films documentaires sont projetés, autant portraits d'artistes que panoramas ou historiques d'un genre musical."
+      },
+      "longDescription": {
+        "fr": "Un film d’Alexandre Grondeau et Andréa Dautelle (La Lune sur le Toit / Respect Productions - 2018). Plongée dans l’histoire du reggae français, des premiers pas de Pablo Master et Daddy Yod dans les squats parisiens du début des années 1980, au Bercy/AccorHôtels Arena rempli par Admiral T en 2017, en passant par Princess Erika, les Raggasonic, Pierpoljak, Dub Inc et Danakil. En écho au concert de Balik, le soir même."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "projection"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "15287805fd8c48eebdcf285edb0b3d02.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "15287805fd8c48eebdcf285edb0b3d02.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "15287805fd8c48eebdcf285edb0b3d02.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-05T14:00:00.000Z",
+          "end": "2020-02-05T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-16T02:05:12.000Z",
+      "createdAt": "2019-12-06T02:05:04.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/projections/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 45,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 24635292,
+      "slug": "sieste-musicale-mosaique-londonienne",
+      "title": {
+        "fr": "Sieste musicale « Mosaïque londonienne »"
+      },
+      "description": {
+        "fr": "À la Cabane du monde du Rocher de Palmer, installé dans des transats, (re)découvrez l'histoire et la modernité musicale de territoires au son des musiques du monde."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique",
+          "sieste musicale"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "db049c53f86a40b881dd0fdfaecc4739.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "db049c53f86a40b881dd0fdfaecc4739.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "db049c53f86a40b881dd0fdfaecc4739.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-06T14:00:00.000Z",
+          "end": "2020-02-06T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-06T02:05:07.000Z",
+      "createdAt": "2019-12-06T02:05:07.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/cabanedumonde/siestes.musicales/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "thematiques-bordeaux-metropole": [],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2097856
+}

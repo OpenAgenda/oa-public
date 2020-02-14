@@ -1,0 +1,1301 @@
+{
+  "events": [
+    {
+      "uid": 59813301,
+      "slug": "marre-du-metro-boulot-dodo-et-si-vous-choisissiez-le-tiers-lieu-testerdemain",
+      "title": {
+        "fr": "Marre du métro-boulot-dodo ? Et si vous choisissiez le tiers-lieu #TesterDemain"
+      },
+      "description": {
+        "fr": "Midi-démo"
+      },
+      "longDescription": {
+        "fr": "Open space, atelier partagé, fablab, services hybrides… les tiers-lieux se développent à la ville mais aussi à la campagne. Comment fonctionnent-ils ? Que nous disent-ils de notre rapport au travail ? Chloé Rivolet de la Coopérative tiers-lieu(x) nous présente ces nouveaux espaces du « faire ensemble ».\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
+      },
+      "keywords": {
+        "fr": [
+          "tiers-lieu",
+          "coworking"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - sur inscription"
+      },
+      "image": {
+        "filename": "event_marre-du-metro-boulot-dodo-et-si-vous-choisissiez-le-tiers-lieu-testerdemain_657267.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_marre-du-metro-boulot-dodo-et-si-vous-choisissiez-le-tiers-lieu-testerdemain_657267.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_marre-du-metro-boulot-dodo-et-si-vous-choisissiez-le-tiers-lieu-testerdemain_657267.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-25T11:00:00.000Z",
+          "end": "2019-11-25T13:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T09:34:31.000Z",
+      "createdAt": "2019-10-24T09:34:31.000Z",
+      "agendaUid": 99132411,
+      "locationUid": 95069313,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://formulaire.bordeaux-metropole.fr/inscription-aux-ateliers-tester-demain-0"
+      ],
+      "location": {
+        "uid": 95069313,
+        "slug": "c2d-conseil-de-developpement-durable-de-bordeaux-metropole",
+        "name": "C2D - Conseil de développement durable de Bordeaux Métropole",
+        "address": "Hôtel de Bordeaux Métropole Esplanade Charles De Gaulle 33045 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.837373,
+        "longitude": -0.58374,
+        "updatedAt": "2017-10-04T07:56:46.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "agenda-du-c2d-de-bordeaux-metropole",
+        "uid": 99132411,
+        "official": 1,
+        "title": "C2D de Bordeaux Métropole",
+        "description": "Agenda des événements du Conseil de Développement Durable de Bordeaux Métropole",
+        "url": "http://c2d.bordeaux-metropole.fr",
+        "image": "agenda99132411.jpg",
+        "updatedAt": "2019-10-30T08:21:46.000Z",
+        "createdAt": "2017-02-15T10:06:43.000Z",
+        "officializedAt": "2018-04-09T14:55:25.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 6908407,
+      "slug": "et-je-danse-aussi-par-la-cie-de-la-moisson",
+      "title": {
+        "fr": "Et je danse aussi par la Cie de la Moisson."
+      },
+      "description": {
+        "fr": "Pièce musicale adaptée du roman d’Anne-Laure Bondoux et Jean-Claude Mourlevat."
+      },
+      "longDescription": {
+        "fr": "Un roman plein d’humour et d’humanité, né d’un échange de mails entre les deux auteurs suite à leur rencontre à un salon du livre.\n\n_**Présence des auteurs pendant le spectacle.**_\n\n**Dans le cadre de Presqu’île en pages.**"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Réservation conseillée"
+      },
+      "image": {
+        "filename": "event_et-je-danse-aussi-par-la-cie-de-la-moisson_202645.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_et-je-danse-aussi-par-la-cie-de-la-moisson_202645.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_et-je-danse-aussi-par-la-cie-de-la-moisson_202645.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T19:00:00.000Z",
+          "end": "2020-01-31T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T09:39:44.000Z",
+      "createdAt": "2019-10-24T09:39:43.000Z",
+      "agendaUid": 41375362,
+      "locationUid": 79717109,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "05 57 80 81 78"
+      ],
+      "location": {
+        "uid": 79717109,
+        "slug": "mediatheque111",
+        "name": "Médiathèque François Mitterrand",
+        "address": "rue du 8 Mai 1945, 33530 Bassens",
+        "city": "Bassens",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33530",
+        "insee": "33032",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.899674,
+        "longitude": -0.516285,
+        "updatedAt": "2018-02-14T09:17:00.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-bassens",
+        "uid": 41375362,
+        "official": 1,
+        "title": "Ville de Bassens",
+        "description": "L'agenda de tous les événements de la commune de Bassens",
+        "url": null,
+        "image": "agenda41375362.jpg",
+        "updatedAt": "2019-10-28T16:51:38.000Z",
+        "createdAt": "2017-02-10T15:55:02.000Z",
+        "officializedAt": "2018-06-12T13:18:13.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 91036272,
+      "slug": "debutez-la-facilitation-graphique-testerdemain",
+      "title": {
+        "fr": "Débutez la facilitation graphique #TesterDemain"
+      },
+      "description": {
+        "fr": "Atelier"
+      },
+      "longDescription": {
+        "fr": "Comment se servir d’un visuel pour se faire comprendre ou résumer tout un débat ? Nathalie Latrille de Sur les murs nous fera découvrir et expérimenter la prise de note graphique et la carte mentale. Ces outils permettent de mieux appréhender des sujets complexes, organiser des idées, synthétiser, communiquer, capter l’attention, mémoriser…\n\nDécouvrez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
+      },
+      "keywords": {
+        "fr": [
+          "sketchnote",
+          "facilitation graphique"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - sur inscription"
+      },
+      "image": {
+        "filename": "event_debutez-la-facilitation-graphique-testerdemain_55294.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_debutez-la-facilitation-graphique-testerdemain_55294.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_debutez-la-facilitation-graphique-testerdemain_55294.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-25T17:30:00.000Z",
+          "end": "2019-11-25T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T09:41:13.000Z",
+      "createdAt": "2019-10-24T09:40:37.000Z",
+      "agendaUid": 99132411,
+      "locationUid": 95069313,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://formulaire.bordeaux-metropole.fr/inscription-aux-ateliers-tester-demain-0"
+      ],
+      "location": {
+        "uid": 95069313,
+        "slug": "c2d-conseil-de-developpement-durable-de-bordeaux-metropole",
+        "name": "C2D - Conseil de développement durable de Bordeaux Métropole",
+        "address": "Hôtel de Bordeaux Métropole Esplanade Charles De Gaulle 33045 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.837373,
+        "longitude": -0.58374,
+        "updatedAt": "2017-10-04T07:56:46.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "agenda-du-c2d-de-bordeaux-metropole",
+        "uid": 99132411,
+        "official": 1,
+        "title": "C2D de Bordeaux Métropole",
+        "description": "Agenda des événements du Conseil de Développement Durable de Bordeaux Métropole",
+        "url": "http://c2d.bordeaux-metropole.fr",
+        "image": "agenda99132411.jpg",
+        "updatedAt": "2019-10-30T08:21:46.000Z",
+        "createdAt": "2017-02-15T10:06:43.000Z",
+        "officializedAt": "2018-04-09T14:55:25.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 1279253,
+      "slug": "programmez-un-robot-testerdemain",
+      "title": {
+        "fr": "Programmez un robot #TesterDemain"
+      },
+      "description": {
+        "fr": "Atelier"
+      },
+      "longDescription": {
+        "fr": "Thymio, Nao, Arduino ne vous disent rien ? Stéphane Brunel du laboratoire IMS au CNRS et Laurent Verdier de la Robocup Junior font les présentations : histoire, composition, fonction… avant de se lancer dans la mécanique et la programmation.\n\nDécouvrez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
+      },
+      "keywords": {
+        "fr": [
+          "robot",
+          "codage",
+          "thymio"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - sur inscription"
+      },
+      "image": {
+        "filename": "event_programmez-un-robot-testerdemain_507218.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_programmez-un-robot-testerdemain_507218.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_programmez-un-robot-testerdemain_507218.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-25T17:30:00.000Z",
+          "end": "2019-11-25T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T09:44:39.000Z",
+      "createdAt": "2019-10-24T09:44:38.000Z",
+      "agendaUid": 99132411,
+      "locationUid": 95069313,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://formulaire.bordeaux-metropole.fr/inscription-aux-ateliers-tester-demain-0"
+      ],
+      "location": {
+        "uid": 95069313,
+        "slug": "c2d-conseil-de-developpement-durable-de-bordeaux-metropole",
+        "name": "C2D - Conseil de développement durable de Bordeaux Métropole",
+        "address": "Hôtel de Bordeaux Métropole Esplanade Charles De Gaulle 33045 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.837373,
+        "longitude": -0.58374,
+        "updatedAt": "2017-10-04T07:56:46.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "agenda-du-c2d-de-bordeaux-metropole",
+        "uid": 99132411,
+        "official": 1,
+        "title": "C2D de Bordeaux Métropole",
+        "description": "Agenda des événements du Conseil de Développement Durable de Bordeaux Métropole",
+        "url": "http://c2d.bordeaux-metropole.fr",
+        "image": "agenda99132411.jpg",
+        "updatedAt": "2019-10-30T08:21:46.000Z",
+        "createdAt": "2017-02-15T10:06:43.000Z",
+        "officializedAt": "2018-04-09T14:55:25.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 58871313,
+      "slug": "la-datavisualisation-nouvel-eldorado-du-journalisme-testerdemain",
+      "title": {
+        "fr": "La datavisualisation, nouvel eldorado du journalisme ? #TesterDemain"
+      },
+      "description": {
+        "fr": "Midi-démo"
+      },
+      "longDescription": {
+        "fr": "La quantité de données accessibles sur le Web a fait émerger un nouveau type de journalisme. Il s’appuie sur la datavisualisation pour décrypter les faits et les rendre accessibles au public. Rayya Roumanos de l’IJBA, nous éclaire sur les coulisses du datajournalisme.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019*)"
+      },
+      "keywords": {
+        "fr": [
+          "data",
+          "datajournalisme"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - sur inscription"
+      },
+      "image": {
+        "filename": "event_la-datavisualisation-nouvel-eldorado-du-journalisme-testerdemain_54907.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_la-datavisualisation-nouvel-eldorado-du-journalisme-testerdemain_54907.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_la-datavisualisation-nouvel-eldorado-du-journalisme-testerdemain_54907.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-26T11:00:00.000Z",
+          "end": "2019-11-26T13:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T09:47:38.000Z",
+      "createdAt": "2019-10-24T09:47:37.000Z",
+      "agendaUid": 99132411,
+      "locationUid": 95069313,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://formulaire.bordeaux-metropole.fr/inscription-aux-ateliers-tester-demain-0"
+      ],
+      "location": {
+        "uid": 95069313,
+        "slug": "c2d-conseil-de-developpement-durable-de-bordeaux-metropole",
+        "name": "C2D - Conseil de développement durable de Bordeaux Métropole",
+        "address": "Hôtel de Bordeaux Métropole Esplanade Charles De Gaulle 33045 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.837373,
+        "longitude": -0.58374,
+        "updatedAt": "2017-10-04T07:56:46.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "agenda-du-c2d-de-bordeaux-metropole",
+        "uid": 99132411,
+        "official": 1,
+        "title": "C2D de Bordeaux Métropole",
+        "description": "Agenda des événements du Conseil de Développement Durable de Bordeaux Métropole",
+        "url": "http://c2d.bordeaux-metropole.fr",
+        "image": "agenda99132411.jpg",
+        "updatedAt": "2019-10-30T08:21:46.000Z",
+        "createdAt": "2017-02-15T10:06:43.000Z",
+        "officializedAt": "2018-04-09T14:55:25.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 26782995,
+      "slug": "apprenez-a-coder-sur-un-batiment-testerdemain",
+      "title": {
+        "fr": "Apprenez à coder... sur un bâtiment ! #TesterDemain"
+      },
+      "description": {
+        "fr": "Atelier"
+      },
+      "longDescription": {
+        "fr": "Le code et la programmation informatiques ne sont pas réservés aux experts ! Yoan Mollard nous le démontre grâce au système Arbalet Frontage et nous invite à mettre en lumière, de manière ludique et créative, une façade de plus de 200 m².\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
+      },
+      "keywords": {
+        "fr": [
+          "codage",
+          "pixelart"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - sur inscription"
+      },
+      "image": {
+        "filename": "event_apprenez-a-coder-sur-un-batiment-testerdemain_824338.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_apprenez-a-coder-sur-un-batiment-testerdemain_824338.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_apprenez-a-coder-sur-un-batiment-testerdemain_824338.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-26T17:30:00.000Z",
+          "end": "2019-11-26T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T09:56:42.000Z",
+      "createdAt": "2019-10-24T09:56:42.000Z",
+      "agendaUid": 99132411,
+      "locationUid": 30389951,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://formulaire.bordeaux-metropole.fr/inscription-aux-ateliers-tester-demain-0"
+      ],
+      "location": {
+        "uid": 30389951,
+        "slug": "peixotto",
+        "name": "peixotto",
+        "address": "allée peixotto 33400 Talence",
+        "city": "Talence",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33400",
+        "insee": "33522",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.807363,
+        "longitude": -0.589882,
+        "updatedAt": "2019-10-24T09:56:10.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "agenda-du-c2d-de-bordeaux-metropole",
+        "uid": 99132411,
+        "official": 1,
+        "title": "C2D de Bordeaux Métropole",
+        "description": "Agenda des événements du Conseil de Développement Durable de Bordeaux Métropole",
+        "url": "http://c2d.bordeaux-metropole.fr",
+        "image": "agenda99132411.jpg",
+        "updatedAt": "2019-10-30T08:21:46.000Z",
+        "createdAt": "2017-02-15T10:06:43.000Z",
+        "officializedAt": "2018-04-09T14:55:25.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 54810607,
+      "slug": "a-vos-marques-prets-designez-testerdemain",
+      "title": {
+        "fr": "A vos marques, prêts... designez ! #TesterDemain"
+      },
+      "description": {
+        "fr": "Atelier"
+      },
+      "longDescription": {
+        "fr": "Format d’accélération labellisé Google pour résoudre tout type de problème en moins de 5 jours, le Design Sprint favorise l’innovation en adoptant une démarche collaborative centrée sur l’utilisateur (d’une appli, d’un espace public…). Hélène Desliens d’Experteez, sera notre Sprint Master pour cet atelier.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
+      },
+      "keywords": {
+        "fr": [
+          "design"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - sur inscription"
+      },
+      "image": {
+        "filename": "event_a-vos-marques-prets-designez-testerdemain_728254.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_a-vos-marques-prets-designez-testerdemain_728254.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_a-vos-marques-prets-designez-testerdemain_728254.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-26T17:30:00.000Z",
+          "end": "2019-11-26T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:01:36.000Z",
+      "createdAt": "2019-10-24T10:01:35.000Z",
+      "agendaUid": 99132411,
+      "locationUid": 59028178,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://formulaire.bordeaux-metropole.fr/inscription-aux-ateliers-tester-demain-0"
+      ],
+      "location": {
+        "uid": 59028178,
+        "slug": "sesame",
+        "name": "SESAME",
+        "address": "13 Place Canteloup, 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.833791,
+        "longitude": -0.565755,
+        "updatedAt": "2019-10-24T10:01:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "agenda-du-c2d-de-bordeaux-metropole",
+        "uid": 99132411,
+        "official": 1,
+        "title": "C2D de Bordeaux Métropole",
+        "description": "Agenda des événements du Conseil de Développement Durable de Bordeaux Métropole",
+        "url": "http://c2d.bordeaux-metropole.fr",
+        "image": "agenda99132411.jpg",
+        "updatedAt": "2019-10-30T08:21:46.000Z",
+        "createdAt": "2017-02-15T10:06:43.000Z",
+        "officializedAt": "2018-04-09T14:55:25.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 79595940,
+      "slug": "proteger-la-nature-merci-les-lacs-testerdemain",
+      "title": {
+        "fr": "Protéger la nature, merci les lacs #TesterDemain"
+      },
+      "description": {
+        "fr": "Midi-démo"
+      },
+      "longDescription": {
+        "fr": "Zones d’échanges entre les écosystèmes terrestre et aquatique, les rives des lacs et leurs zones littorales abritent une forte biodiversité. Vincent Bertrin de l’IRSTEA nous explique comment évoluent ces écosystèmes lacustres et comment les protéger du changement climatique et de l’activité humaine.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
+      },
+      "keywords": {
+        "fr": [
+          "biodiversité",
+          "écologie"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - sur inscription"
+      },
+      "image": {
+        "filename": "event_proteger-la-nature-merci-les-lacs-testerdemain_683923.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_proteger-la-nature-merci-les-lacs-testerdemain_683923.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_proteger-la-nature-merci-les-lacs-testerdemain_683923.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-27T11:00:00.000Z",
+          "end": "2019-11-27T13:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:06:03.000Z",
+      "createdAt": "2019-10-24T10:06:02.000Z",
+      "agendaUid": 99132411,
+      "locationUid": 95069313,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://formulaire.bordeaux-metropole.fr/inscription-aux-ateliers-tester-demain-0"
+      ],
+      "location": {
+        "uid": 95069313,
+        "slug": "c2d-conseil-de-developpement-durable-de-bordeaux-metropole",
+        "name": "C2D - Conseil de développement durable de Bordeaux Métropole",
+        "address": "Hôtel de Bordeaux Métropole Esplanade Charles De Gaulle 33045 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.837373,
+        "longitude": -0.58374,
+        "updatedAt": "2017-10-04T07:56:46.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "agenda-du-c2d-de-bordeaux-metropole",
+        "uid": 99132411,
+        "official": 1,
+        "title": "C2D de Bordeaux Métropole",
+        "description": "Agenda des événements du Conseil de Développement Durable de Bordeaux Métropole",
+        "url": "http://c2d.bordeaux-metropole.fr",
+        "image": "agenda99132411.jpg",
+        "updatedAt": "2019-10-30T08:21:46.000Z",
+        "createdAt": "2017-02-15T10:06:43.000Z",
+        "officializedAt": "2018-04-09T14:55:25.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 87855155,
+      "slug": "gamification-laissez-vous-prendre-au-jeu-testerdemain",
+      "title": {
+        "fr": "Gamification : laissez-vous prendre au jeu #TesterDemain"
+      },
+      "description": {
+        "fr": "Atelier"
+      },
+      "longDescription": {
+        "fr": "Nouvelle tendance, la gamification est utilisée dans de nombreux domaines : éducation, marketing, civisme… Quels ressorts psychologiques mobilisent les jeux ? Pourquoi sont-ils si addictifs ? Vincent Jouanneau de Cap Sciences, nous invite à un atelier test pour comprendre la mécanique des jeux.\n\nRetrouvez le reste du programme de TesterDemain : \n\n[https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019](https://c2d.bordeaux-metropole.fr/Travaux-en-cours/TesterDemain-2019/TESTERDEMAIN-2019)"
+      },
+      "keywords": {
+        "fr": [
+          "game"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit - sur inscription"
+      },
+      "image": {
+        "filename": "event_gamification-laissez-vous-prendre-au-jeu-testerdemain_905670.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_gamification-laissez-vous-prendre-au-jeu-testerdemain_905670.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_gamification-laissez-vous-prendre-au-jeu-testerdemain_905670.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-27T17:30:00.000Z",
+          "end": "2019-11-27T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:09:33.000Z",
+      "createdAt": "2019-10-24T10:09:33.000Z",
+      "agendaUid": 99132411,
+      "locationUid": 78811443,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://formulaire.bordeaux-metropole.fr/inscription-aux-ateliers-tester-demain-0"
+      ],
+      "location": {
+        "uid": 78811443,
+        "slug": "cap-sciences102",
+        "name": "Cap Sciences",
+        "address": "Hangar 20, quai de Bacalan Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.856773,
+        "longitude": -0.560627,
+        "updatedAt": "2019-05-09T14:49:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "agenda-du-c2d-de-bordeaux-metropole",
+        "uid": 99132411,
+        "official": 1,
+        "title": "C2D de Bordeaux Métropole",
+        "description": "Agenda des événements du Conseil de Développement Durable de Bordeaux Métropole",
+        "url": "http://c2d.bordeaux-metropole.fr",
+        "image": "agenda99132411.jpg",
+        "updatedAt": "2019-10-30T08:21:46.000Z",
+        "createdAt": "2017-02-15T10:06:43.000Z",
+        "officializedAt": "2018-04-09T14:55:25.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 43399992,
+      "slug": "au-bout-du-fil-avec-recup-r_777",
+      "title": {
+        "fr": "Au bout du fil avec Récup'R"
+      },
+      "description": {
+        "fr": "Avec les chambres à air de vélo, la créativité n'a pas de limites. Apprenez à travailler ce matériau en fabriquant des bijoux originaux et durables, pour vous ou pour offrir."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "event_au-bout-du-fil-avec-recup-r_777_552758.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_au-bout-du-fil-avec-recup-r_777_552758.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_au-bout-du-fil-avec-recup-r_777_552758.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-14T13:00:00.000Z",
+          "end": "2019-11-14T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-24T10:19:55.000Z",
+      "createdAt": "2019-10-24T10:11:07.000Z",
+      "agendaUid": 23890347,
+      "locationUid": 88524565,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://maisoneco.bordeaux-metropole.fr/s-inscrire-a-un-atelier",
+        "05 24 57 65 20"
+      ],
+      "location": {
+        "uid": 88524565,
+        "slug": "maison-ecocitoyenne251",
+        "name": "Maison écocitoyenne",
+        "address": "Quai Richelieu, Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.838557,
+        "longitude": -0.567339,
+        "updatedAt": "2019-07-26T12:27:24.000Z",
+        "image": "location88524565.jpg",
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "thematiques-bordeaux-metropole": [
+        10,
+        11,
+        17
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "maison-ecocitoyenne",
+        "uid": 23890347,
+        "official": 1,
+        "title": "Maison écocitoyenne",
+        "description": "Lieu de sensibilisation au développement durable. Expositions, ateliers pratiques, conférences, Espace Info Energie...",
+        "url": "https://maisoneco.bordeaux-metropole.fr/",
+        "image": "agenda23890347.jpg",
+        "updatedAt": "2019-10-30T16:22:31.000Z",
+        "createdAt": "2017-06-30T09:35:50.000Z",
+        "officializedAt": "2017-11-22T10:59:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2047870
+}

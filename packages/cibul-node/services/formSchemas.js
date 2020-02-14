@@ -4,7 +4,6 @@ const _ = require( 'lodash' );
 const formSchemas = require( '@openagenda/form-schemas' );
 
 module.exports.init = config => {
-
   formSchemas.init( {
     knex: config.knex,
     tmpFolder: config.tmpFolderPath,
@@ -26,5 +25,4 @@ module.exports.init = config => {
   } );
 
   return formSchemas;
-
 }

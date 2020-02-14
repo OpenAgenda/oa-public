@@ -1,0 +1,1549 @@
+{
+  "events": [
+    {
+      "uid": 23462074,
+      "slug": "les-epices-avec-achillee-et-ciboulette",
+      "title": {
+        "fr": "Les  épices avec Achillée et Ciboulette"
+      },
+      "description": {
+        "fr": "Quelles différences entre épices et condiments ? Quels sont les composants des mélanges condimentaires bien connus ? Quelles plantes nous apportent saveurs et bienfaits en cuisine ?"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Entrée libre, sur inscription"
+      },
+      "image": {
+        "filename": "event_les-epices-avec-achillee-et-ciboulette_924640.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_les-epices-avec-achillee-et-ciboulette_924640.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_les-epices-avec-achillee-et-ciboulette_924640.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-09T10:00:00.000Z",
+          "end": "2019-11-09T12:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T14:40:58.000Z",
+      "createdAt": "2019-10-22T14:37:20.000Z",
+      "agendaUid": 23890347,
+      "locationUid": 88524565,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://maisoneco.bordeaux-metropole.fr/s-inscrire-a-un-atelier",
+        "05 24 57 65 20"
+      ],
+      "location": {
+        "uid": 88524565,
+        "slug": "maison-ecocitoyenne251",
+        "name": "Maison écocitoyenne",
+        "address": "Quai Richelieu, Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.838557,
+        "longitude": -0.567339,
+        "updatedAt": "2019-07-26T12:27:24.000Z",
+        "image": "location88524565.jpg",
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "thematiques-bordeaux-metropole": [
+        17,
+        32
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "maison-ecocitoyenne",
+        "uid": 23890347,
+        "official": 1,
+        "title": "Maison écocitoyenne",
+        "description": "Lieu de sensibilisation au développement durable. Expositions, ateliers pratiques, conférences, Espace Info Energie...",
+        "url": "https://maisoneco.bordeaux-metropole.fr/",
+        "image": "agenda23890347.jpg",
+        "updatedAt": "2019-10-30T16:22:31.000Z",
+        "createdAt": "2017-06-30T09:35:50.000Z",
+        "officializedAt": "2017-11-22T10:59:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 10509676,
+      "slug": "exposition-du-collectif-albab",
+      "title": {
+        "fr": "Exposition du Collectif ALBAB"
+      },
+      "description": {
+        "fr": "Auditeurs Libres des Beaux-Arts de Bordeaux"
+      },
+      "longDescription": {
+        "fr": "Créée en 2008, l’association cherche à développer les échanges culturels, favoriser la création et la participation à la vie artistique. Toute personne ayant suivi le cursus d’**Auditeurs Libres de l’école des Beaux-Arts de Bordeaux** ou une école d’art, peut devenir membres de l’association **ALBAB**.\n\nPour cette exposition à Bouliac, **le collectif exposera 9 de ses artistes peintres, plasticiens et sculpteurs:**\n\n*   Michel BOISSEAU\n*   Antoinette DAO\n*   Francine DELMER\n*   Laure DERCOURT\n*   Raymond DUBOURG\n*   Sylvie HONNART\n*   Jean-Jacques JOLY\n*   Nicole ROUSSE\n*   M.C Valentine\n\n### Vernissage vendredi 22 novembre 2019 à 19h30  \nEntrée libre\n\n[https://www.ville-bouliac.fr/exposition-du-collectif-albab/](https://www.ville-bouliac.fr/exposition-du-collectif-albab/)"
+      },
+      "keywords": {
+        "fr": [
+          "eposition",
+          "sculptures",
+          "art",
+          "Beaux-arts de Bordeaux",
+          "peintures",
+          "oeuvres"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "event_exposition-du-collectif-albab_798044.jpg",
+        "credits": "Collectif Albab",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_exposition-du-collectif-albab_798044.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_exposition-du-collectif-albab_798044.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-22T18:30:00.000Z",
+          "end": "2019-11-22T20:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-23T09:30:00.000Z",
+          "end": "2019-11-23T11:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-23T13:00:00.000Z",
+          "end": "2019-11-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-24T09:30:00.000Z",
+          "end": "2019-11-24T11:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-24T13:00:00.000Z",
+          "end": "2019-11-24T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T14:57:12.000Z",
+      "createdAt": "2019-10-22T14:48:57.000Z",
+      "agendaUid": 77293970,
+      "locationUid": 46992352,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 46992352,
+        "slug": "centre-culturel-francois-mauriac",
+        "name": "centre culturel François Mauriac",
+        "address": "Rue de l'église Bouliac",
+        "city": "Bouliac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33270",
+        "insee": "33065",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.813448,
+        "longitude": -0.504133,
+        "updatedAt": "2017-10-03T08:33:33.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-bouliac",
+        "uid": 77293970,
+        "official": 1,
+        "title": "Ville de Bouliac",
+        "description": "Agenda de tous les événements de la commune de Bouliac",
+        "url": "http://www.ville-bouliac.fr/",
+        "image": "agenda77293970.jpg",
+        "updatedAt": "2019-10-30T15:49:58.000Z",
+        "createdAt": "2017-04-10T10:33:05.000Z",
+        "officializedAt": "2018-06-12T13:20:08.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 84683334,
+      "slug": "peinture-a-la-chaux-avec-color-rare",
+      "title": {
+        "fr": "Peinture à la chaux avec Color'Rare"
+      },
+      "description": {
+        "fr": "Vous souhaitez restaurer et décorer chez vous ? Pourquoi ne pas utiliser la chaux pour une maison saine. Faites un tour d’horizon des applications et des possibilités en intérieur et en extérieur."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Entrée libre, sur inscription"
+      },
+      "image": {
+        "filename": "event_peinture-a-la-chaux-avec-color-rare_850857.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_peinture-a-la-chaux-avec-color-rare_850857.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_peinture-a-la-chaux-avec-color-rare_850857.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-13T13:30:00.000Z",
+          "end": "2019-11-13T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T15:11:16.000Z",
+      "createdAt": "2019-10-22T15:11:15.000Z",
+      "agendaUid": 23890347,
+      "locationUid": 88524565,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://maisoneco.bordeaux-metropole.fr/s-inscrire-a-un-atelier",
+        "05 24 57 65 20"
+      ],
+      "location": {
+        "uid": 88524565,
+        "slug": "maison-ecocitoyenne251",
+        "name": "Maison écocitoyenne",
+        "address": "Quai Richelieu, Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.838557,
+        "longitude": -0.567339,
+        "updatedAt": "2019-07-26T12:27:24.000Z",
+        "image": "location88524565.jpg",
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "thematiques-bordeaux-metropole": [
+        11,
+        17,
+        20
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "maison-ecocitoyenne",
+        "uid": 23890347,
+        "official": 1,
+        "title": "Maison écocitoyenne",
+        "description": "Lieu de sensibilisation au développement durable. Expositions, ateliers pratiques, conférences, Espace Info Energie...",
+        "url": "https://maisoneco.bordeaux-metropole.fr/",
+        "image": "agenda23890347.jpg",
+        "updatedAt": "2019-10-30T16:22:31.000Z",
+        "createdAt": "2017-06-30T09:35:50.000Z",
+        "officializedAt": "2017-11-22T10:59:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 34446043,
+      "slug": "roue-libre-avec-recup-r_867",
+      "title": {
+        "fr": "Roue libre avec Récup'R"
+      },
+      "description": {
+        "fr": "Le diagnostic de sécurité de notre vélo passe par de petites réparations. C'est facile avec l'aide d'un expert et indispensable pour rouler en confiance !"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Antrée libre"
+      },
+      "image": {
+        "filename": "event_roue-libre-avec-recup-r_867_364483.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_roue-libre-avec-recup-r_867_364483.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_roue-libre-avec-recup-r_867_364483.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-14T13:00:00.000Z",
+          "end": "2019-11-14T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T15:34:05.000Z",
+      "createdAt": "2019-10-22T15:34:04.000Z",
+      "agendaUid": 23890347,
+      "locationUid": 88524565,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 88524565,
+        "slug": "maison-ecocitoyenne251",
+        "name": "Maison écocitoyenne",
+        "address": "Quai Richelieu, Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.838557,
+        "longitude": -0.567339,
+        "updatedAt": "2019-07-26T12:27:24.000Z",
+        "image": "location88524565.jpg",
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": null,
+      "thematiques-bordeaux-metropole": [
+        17,
+        38
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "maison-ecocitoyenne",
+        "uid": 23890347,
+        "official": 1,
+        "title": "Maison écocitoyenne",
+        "description": "Lieu de sensibilisation au développement durable. Expositions, ateliers pratiques, conférences, Espace Info Energie...",
+        "url": "https://maisoneco.bordeaux-metropole.fr/",
+        "image": "agenda23890347.jpg",
+        "updatedAt": "2019-10-30T16:22:31.000Z",
+        "createdAt": "2017-06-30T09:35:50.000Z",
+        "officializedAt": "2017-11-22T10:59:19.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 60624800,
+      "slug": "theatre-faisons-comme-si",
+      "title": {
+        "fr": "Théâtre Faisons comme si..."
+      },
+      "description": {
+        "fr": "théatre"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "théatre"
+        ]
+      },
+      "conditions": {
+        "fr": "participation libre au chapeau"
+      },
+      "image": {
+        "filename": "57254365fd8444efb63ddaa579e5ec74.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 991
+        },
+        "variants": [
+          {
+            "filename": "57254365fd8444efb63ddaa579e5ec74.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 794,
+              "height": 1123
+            }
+          },
+          {
+            "filename": "57254365fd8444efb63ddaa579e5ec74.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-09T19:30:00.000Z",
+          "end": "2019-11-09T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-22T15:39:08.000Z",
+      "createdAt": "2019-10-22T15:39:08.000Z",
+      "agendaUid": 22478436,
+      "locationUid": 36908557,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 36908557,
+        "slug": "cinema-favols198",
+        "name": "cinéma Favols",
+        "address": "parc favols carbon-blanc",
+        "city": "Carbon-Blanc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33560",
+        "insee": "33096",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.89389,
+        "longitude": -0.50666,
+        "updatedAt": "2018-09-06T20:30:59.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-carbon-blanc",
+        "uid": 22478436,
+        "official": 1,
+        "title": "Ville de Carbon-Blanc",
+        "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+        "url": "http://www.carbon-blanc.fr",
+        "image": "agenda22478436.jpg",
+        "updatedAt": "2019-10-29T09:00:50.000Z",
+        "createdAt": "2017-02-15T09:58:10.000Z",
+        "officializedAt": "2018-06-12T13:17:55.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 68503255,
+      "slug": "exposition-arts-and-energies-renouvelables",
+      "title": {
+        "fr": "Exposition \"Arts & Énergies Renouvelables\""
+      },
+      "description": {
+        "fr": "Le Centre culturel Château Pamer accueille \"Arts & énergies renouvelables\", une exposition de Kamel Ghabte."
+      },
+      "longDescription": {
+        "fr": "La création de cette exposition est la suite logique d’un travail artistique et de recherche mené depuis quelques années par Kamel Ghabte. Depuis très jeune, l’artiste manipule de nombreuses machines qui lui ont permis de travailler le son, la vidéo et de manière plus large le numérique. Il s’est rendu compte que le numérique pouvait individualiser et habituer nos cerveaux à de mauvaises connexions. Pour palier à cela, il décide de dédier son travail artistique à un questionnement qui lui est propre: l’interactivité en temps réel.\n\nPlus concrètement, il réfléchit et crée dans le but de produire de la\n\nrencontre :\n\n*   Une rencontre sensible, entre une œuvre et des humains\n\n*   Une rencontre numérique, entre un artiste et une machine\n\n*   Une rencontre humaine, entre humains\n\n*   Une rencontre artistique, entre différentes disciplines\n\nAvec l’exposition « Arts & Énergies Renouvelables », il décide\n\nd’aller plus loin, en proposant un nouveau regard : le numérique\n\npeut-il accompagner à sauver la planète ?\n\n*   **Vernissage: jeudi 7 novembre à partir de 18h30**"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Gratuit"
+      },
+      "image": {
+        "filename": "a4ff8c1566664ab08abe81376aa354ba.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a4ff8c1566664ab08abe81376aa354ba.full.image.jpg",
+            "size": {
+              "height": 1000,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a4ff8c1566664ab08abe81376aa354ba.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-04T13:00:00.000Z",
+          "end": "2019-11-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-05T08:30:00.000Z",
+          "end": "2019-11-05T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-05T13:00:00.000Z",
+          "end": "2019-11-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-06T08:30:00.000Z",
+          "end": "2019-11-06T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-06T13:00:00.000Z",
+          "end": "2019-11-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-07T08:30:00.000Z",
+          "end": "2019-11-07T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-07T13:00:00.000Z",
+          "end": "2019-11-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-08T08:30:00.000Z",
+          "end": "2019-11-08T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-08T13:00:00.000Z",
+          "end": "2019-11-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-11T13:00:00.000Z",
+          "end": "2019-11-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-12T08:30:00.000Z",
+          "end": "2019-11-12T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-12T13:00:00.000Z",
+          "end": "2019-11-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-13T08:30:00.000Z",
+          "end": "2019-11-13T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-13T13:00:00.000Z",
+          "end": "2019-11-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-14T08:30:00.000Z",
+          "end": "2019-11-14T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-14T13:00:00.000Z",
+          "end": "2019-11-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-15T08:30:00.000Z",
+          "end": "2019-11-15T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-15T13:00:00.000Z",
+          "end": "2019-11-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-18T13:00:00.000Z",
+          "end": "2019-11-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-19T08:30:00.000Z",
+          "end": "2019-11-19T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-19T13:00:00.000Z",
+          "end": "2019-11-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-20T08:30:00.000Z",
+          "end": "2019-11-20T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-20T13:00:00.000Z",
+          "end": "2019-11-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-21T08:30:00.000Z",
+          "end": "2019-11-21T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-21T13:00:00.000Z",
+          "end": "2019-11-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-22T08:30:00.000Z",
+          "end": "2019-11-22T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-22T13:00:00.000Z",
+          "end": "2019-11-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-25T13:00:00.000Z",
+          "end": "2019-11-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-26T08:30:00.000Z",
+          "end": "2019-11-26T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-26T13:00:00.000Z",
+          "end": "2019-11-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-27T08:30:00.000Z",
+          "end": "2019-11-27T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-27T13:00:00.000Z",
+          "end": "2019-11-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-28T08:30:00.000Z",
+          "end": "2019-11-28T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-28T13:00:00.000Z",
+          "end": "2019-11-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-29T08:30:00.000Z",
+          "end": "2019-11-29T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-29T13:00:00.000Z",
+          "end": "2019-11-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-02T13:00:00.000Z",
+          "end": "2019-12-02T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-03T08:30:00.000Z",
+          "end": "2019-12-03T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-03T13:00:00.000Z",
+          "end": "2019-12-03T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-04T08:30:00.000Z",
+          "end": "2019-12-04T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-04T13:00:00.000Z",
+          "end": "2019-12-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-05T08:30:00.000Z",
+          "end": "2019-12-05T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-05T13:00:00.000Z",
+          "end": "2019-12-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-06T08:30:00.000Z",
+          "end": "2019-12-06T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-06T13:00:00.000Z",
+          "end": "2019-12-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-09T13:00:00.000Z",
+          "end": "2019-12-09T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-10T08:30:00.000Z",
+          "end": "2019-12-10T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-10T13:00:00.000Z",
+          "end": "2019-12-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-11T08:30:00.000Z",
+          "end": "2019-12-11T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-11T13:00:00.000Z",
+          "end": "2019-12-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-12T08:30:00.000Z",
+          "end": "2019-12-12T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-12T13:00:00.000Z",
+          "end": "2019-12-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2019-12-13T08:30:00.000Z",
+          "end": "2019-12-13T11:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-13T13:00:00.000Z",
+          "end": "2019-12-13T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-23T07:56:19.000Z",
+      "createdAt": "2019-10-23T07:55:51.000Z",
+      "agendaUid": 38598267,
+      "locationUid": 79787708,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "+33556863843",
+        "http://www.culture-cenon.fr"
+      ],
+      "location": {
+        "uid": 79787708,
+        "slug": "centre-culturel-chateau-palmer853",
+        "name": "Centre culturel Château Palmer",
+        "address": "Rue Aristide Briand, 33150 Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.523679,
+        "updatedAt": "2019-06-05T10:06:18.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-cenon",
+        "uid": 38598267,
+        "official": 1,
+        "title": "Ville de CENON",
+        "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+        "url": "",
+        "image": "agenda38598267.jpg",
+        "updatedAt": "2019-12-06T13:26:22.000Z",
+        "createdAt": "2017-01-24T10:19:36.000Z",
+        "officializedAt": "2018-06-12T13:17:03.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 21427732,
+      "slug": "soutiens-ta-sante-salon-bien-etre",
+      "title": {
+        "fr": "Soutiens ta santé ! Salon bien-être"
+      },
+      "description": {
+        "fr": "Partez à la découverte des médecines douces et alternatives à travers stands, ateliers et conférences. Vivez une expérience artistique et sensorielle inédite avec un bain sonore à écouter au sol."
+      },
+      "longDescription": {
+        "fr": "Au sein du Pôle Culturel Evasion transformé pour l’occasion en temple du bien-être, partez à la découverte des médecines douces et alternatives à l’aide des multiples stands, ateliers et conférences proposés. En clôture de l’événement, vivez une expérience artistique et sensorielle inédite avec un bain sonore à écouter au sol, assis ou allongé.\n\nAteliers et conférences sur inscription le jour même.\n\nRestauration sur place"
+      },
+      "keywords": {
+        "fr": [
+          "bien-être",
+          "pôle culturel évasion",
+          "culture",
+          "ambarès-et-lagrave",
+          "médecine douce",
+          "médecine alternative",
+          "bain sonore"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "event_soutiens-ta-sante-salon-bien-etre_199581.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_soutiens-ta-sante-salon-bien-etre_199581.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_soutiens-ta-sante-salon-bien-etre_199581.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-10-26T08:00:00.000Z",
+          "end": "2019-10-26T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-23T12:40:50.000Z",
+      "createdAt": "2019-10-23T12:40:00.000Z",
+      "agendaUid": 58816119,
+      "locationUid": 1848894,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 56 77 34 70"
+      ],
+      "location": {
+        "uid": 1848894,
+        "slug": "pole-culturel-evsion",
+        "name": "Pôle Culturel Ev@sion",
+        "address": "Place de la république 33440 Ambarès et Lagrave",
+        "city": "Ambarès-et-Lagrave",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33440",
+        "insee": "33003",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.926845,
+        "longitude": -0.487862,
+        "updatedAt": "2017-10-11T11:45:22.000Z",
+        "image": "location1848894.jpg",
+        "description": {},
+        "website": "http://evasion.ville-ambaresetlagrave.fr/",
+        "phone": "05 56 77 36 26",
+        "links": [
+          "https://www.facebook.com/pole.culturel.evasion/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "DR"
+      },
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-ambares-et-lagrave",
+        "uid": 58816119,
+        "official": 0,
+        "title": "Ville de Ambarès-et-Lagrave",
+        "description": "Agenda de tous les événements de la commune",
+        "url": "http://www.ville-ambaresetlagrave.fr",
+        "image": "agenda58816119.jpg",
+        "updatedAt": "2019-10-30T13:43:47.000Z",
+        "createdAt": "2017-04-10T10:29:28.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 738913,
+      "slug": "exposition-dune-guerre-a-lautre",
+      "title": {
+        "fr": "Exposition \"D'une guerre à l'autre\""
+      },
+      "description": {
+        "fr": "exposition sur la France de l'entre-deux-guerres"
+      },
+      "longDescription": {
+        "fr": "« D’une guerre à l’autre » : exposition prêtée par l’ONAC (Office Nationale des Anciens Combattants) avec 40 panneaux présentant la France de l’Entre-deux-guerres, la paix ratée, la reconstruction, la Société traumatisée, ses évolutions, la montée des périls et la spirale vers la guerre. À la salle polyvalente Favols du 5 au 11 novembre de 14h30 à 17h30 avec le 6 novembre à 18h30 une visite commentée de l’exposition par Yves Castex et Jean-Paul Grasset.\n\nEntrée libre et gratuite."
+      },
+      "keywords": {
+        "fr": [
+          "exposition",
+          "seconde guerre",
+          null
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre et gratuite"
+      },
+      "image": {
+        "filename": "db7589c84bf04763bc068e0a42c73b65.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 370
+        },
+        "variants": [
+          {
+            "filename": "db7589c84bf04763bc068e0a42c73b65.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 4724,
+              "height": 2496
+            }
+          },
+          {
+            "filename": "db7589c84bf04763bc068e0a42c73b65.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 201,
+              "height": 201
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-05T13:30:00.000Z",
+          "end": "2019-11-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-06T13:30:00.000Z",
+          "end": "2019-11-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-06T17:30:00.000Z",
+          "end": "2019-11-06T19:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-07T13:30:00.000Z",
+          "end": "2019-11-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-08T13:30:00.000Z",
+          "end": "2019-11-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-09T13:30:00.000Z",
+          "end": "2019-11-09T16:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-10T13:30:00.000Z",
+          "end": "2019-11-10T16:30:00.000Z"
+        },
+        {
+          "begin": "2019-11-11T13:30:00.000Z",
+          "end": "2019-11-11T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-23T13:08:55.000Z",
+      "createdAt": "2019-10-23T13:08:55.000Z",
+      "agendaUid": 22478436,
+      "locationUid": 54520130,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 54520130,
+        "slug": "salle-polyvalente-favols",
+        "name": "Salle polyvalente Favols",
+        "address": "Carbon-Blanc",
+        "city": "Carbon-Blanc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33560",
+        "insee": "33096",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.894174,
+        "longitude": -0.500582,
+        "updatedAt": "2017-02-16T08:47:23.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 52,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-carbon-blanc",
+        "uid": 22478436,
+        "official": 1,
+        "title": "Ville de Carbon-Blanc",
+        "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+        "url": "http://www.carbon-blanc.fr",
+        "image": "agenda22478436.jpg",
+        "updatedAt": "2019-10-29T09:00:50.000Z",
+        "createdAt": "2017-02-15T09:58:10.000Z",
+        "officializedAt": "2018-06-12T13:17:55.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 22038398,
+      "slug": "projection-du-film-ils-ont-filme-la-guerre-en-couleurs",
+      "title": {
+        "fr": "Projection du film \"Ils ont filmé la guerre en couleurs\""
+      },
+      "description": {
+        "fr": "dans le cadre de la commémoration de l'armistice du 11 novembre 1918, projection du film \"Ils ont filmé la guerre en couleurs\""
+      },
+      "longDescription": {
+        "fr": "Projection « Ils ont filmé la guerre en couleurs » - Cinéma Favols le 8 novembre à 19h : diffusion du film documentaire sur la Seconde Guerre Mondiale, réalisé par René-Jean Bouyer et commenté par André Dussolier. Pour la première fois, et après une dizaine d’années de recherche de deux sociétés d’archives anglaises, ces images tournées initialement en couleurs, en Kodachrome pour celles provenant de Grande Bretagne et des Etats-Unis et en Agfacolor pour celles tournées par les troupes allemandes, ont été rassemblées. Ces archives qui proviennent à la fois de cinéastes amateurs et professionnels, étaient dispersées à travers le monde.\n\nCe film documentaire, diffusé par France 2, qui avait pour but de sensibiliser un public jeune aux évènements de la guerre de 39/45 par l’utilisation d’images en couleurs, détient depuis 2000 le record d’audience d’un documentaire et est toujours largement utilisé en tant que support pédagogique."
+      },
+      "keywords": {
+        "fr": [
+          "film",
+          "guerre",
+          null
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre et gratuite"
+      },
+      "image": {
+        "filename": "08c87c6a51b3413db6796949ec74a792.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 525
+        },
+        "variants": [
+          {
+            "filename": "08c87c6a51b3413db6796949ec74a792.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 4000,
+              "height": 3000
+            }
+          },
+          {
+            "filename": "08c87c6a51b3413db6796949ec74a792.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-08T18:00:00.000Z",
+          "end": "2019-11-08T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-23T13:15:11.000Z",
+      "createdAt": "2019-10-23T13:15:11.000Z",
+      "agendaUid": 22478436,
+      "locationUid": 40090964,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 40090964,
+        "slug": "cinema-favols",
+        "name": "Cinéma Favols",
+        "address": "Carbon-Blanc",
+        "city": "Carbon-Blanc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33560",
+        "insee": "33096",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.896468,
+        "longitude": -0.503612,
+        "updatedAt": "2017-02-16T08:47:27.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 45,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-carbon-blanc",
+        "uid": 22478436,
+        "official": 1,
+        "title": "Ville de Carbon-Blanc",
+        "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+        "url": "http://www.carbon-blanc.fr",
+        "image": "agenda22478436.jpg",
+        "updatedAt": "2019-10-29T09:00:50.000Z",
+        "createdAt": "2017-02-15T09:58:10.000Z",
+        "officializedAt": "2018-06-12T13:17:55.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 42912676,
+      "slug": "ceremonie-commemorative-du-11-novembre-1918_484581",
+      "title": {
+        "fr": "Cérémonie commémorative du 11 novembre 1918"
+      },
+      "description": {
+        "fr": "Cérémonie commémorative"
+      },
+      "longDescription": {
+        "fr": "Cérémonie commémorative du 11 novembre 1918, le lundi 11 novembre à 11h30 au Monument aux Morts suivie d’un vin d’honneur à la salle polyvalente Favols. Avec la participation des écoles, du collège et de l'école de musique."
+      },
+      "keywords": {
+        "fr": [
+          "cérémonie",
+          "hommage",
+          "souvenirs"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "e8bc04cd4b4c415bb8ff40a08cc49d9c.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 370
+        },
+        "variants": [
+          {
+            "filename": "e8bc04cd4b4c415bb8ff40a08cc49d9c.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 4724,
+              "height": 2496
+            }
+          },
+          {
+            "filename": "e8bc04cd4b4c415bb8ff40a08cc49d9c.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 201,
+              "height": 201
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-11T10:30:00.000Z",
+          "end": "2019-11-11T11:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-23T13:18:41.000Z",
+      "createdAt": "2019-10-23T13:18:41.000Z",
+      "agendaUid": 22478436,
+      "locationUid": 47272789,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 47272789,
+        "slug": "monument-aux-morts124",
+        "name": "Monument aux Morts",
+        "address": "Carbon Blanc",
+        "city": "Carbon-Blanc",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33560",
+        "insee": "33096",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.893772,
+        "longitude": -0.50503,
+        "updatedAt": "2019-08-20T12:47:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 44,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-carbon-blanc",
+        "uid": 22478436,
+        "official": 1,
+        "title": "Ville de Carbon-Blanc",
+        "description": "Agenda de tous les événements de la commune de Carbon-Blanc",
+        "url": "http://www.carbon-blanc.fr",
+        "image": "agenda22478436.jpg",
+        "updatedAt": "2019-10-29T09:00:50.000Z",
+        "createdAt": "2017-02-15T09:58:10.000Z",
+        "officializedAt": "2018-06-12T13:17:55.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2047034
+}

@@ -3,13 +3,15 @@
 const _ = require( 'lodash' );
 const VError = require( 'verror' );
 
-const agendas = require( '@openagenda/agendas' );
-const formSchemas = require( '@openagenda/form-schemas' );
-
 const getNetwork = require( './getNetwork' );
 const getSchemas = require( './getSchemas' );
 
-module.exports = async agendaUid => {
+module.exports = async (services, agendaUid) => {
+
+  const {
+    agendas,
+    formSchemas
+  } = services;
 
   const agenda = await agendas.get( { uid: agendaUid }, {
     internal: true,

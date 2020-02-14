@@ -1,20 +1,43 @@
 "use strict";
 
-const _ = require( 'lodash' );
-const states = require( '@openagenda/agenda-events' ).states;
+const _ = require('lodash');
+const states = require('@openagenda/agenda-events').states;
 
-module.exports = async (eventSearch, agendaUid) => {
+module.exports = async (eventSearch, agenda) => {
+  const {
+    total
+  } = await eventSearch.agendas(agenda).search({ state: null }, { size: 0 });
 
-  if ( !await eventSearch.agendas( agendaUid ).exists() ) return null;
+  const {
+    total: published
+  } = await eventSearch.agendas(agenda).search({
+    state: states.PUBLISHED
+  }, { size: 0 });
 
-  const { total } = await eventSearch.agendas( agendaUid ).search( {}, { size: 0 } );
+  const {
+    total: toBeCompleted
+  } = await eventSearch.agendas(agenda).search({
+    state: states.TOCONTROL
+  }, { size: 0 });
 
-  const { total: published } = await eventSearch.agendas( agendaUid ).search( { 'state.code' : states.PUBLISHED }, { size: 0 } );
+  const {
+    total: readyToPublish
+  } = await eventSearch.agendas(agenda).search({
+    state: states.CONTROLLED
+  }, { size: 0 });
 
-  const { total: toBeCompleted } = await eventSearch.agendas( agendaUid ).search( { 'state.code' : states.TOCONTROL }, { size: 0 } );
+  const {
+    total: refused
+  } = await eventSearch.agendas(agenda).search({
+    state: states.REFUSED
+  }, { size: 0 });
 
-  const { total: ready } = await eventSearch.agendas( agendaUid ).search( { 'state.code' : states.CONTROLLED }, { size: 0 } );
-
-  return { total, published, ready, toBeCompleted, checksum: total === published + toBeCompleted + ready };
-
+  return {
+    total,
+    published,
+    readyToPublish,
+    toBeCompleted,
+    refused,
+    checksum: total === published + toBeCompleted + readyToPublish + refused
+  };
 }

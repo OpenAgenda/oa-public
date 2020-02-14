@@ -15,8 +15,6 @@ module.exports = async ({ services }, ae, context ) => {
 
   // use context.userUid. will be null if nothing was specified at remove
 
-  services.eventSearch.agendas( ae.agendaUid ).remove( ae );
-
   const agenda = await wn.call( agendasSvc.get, { uid: ae.agendaUid }, { internal: true, private: null } );
 
   const event = await wn.call( oldEventSvc.get, { uid: ae.eventUid } );
