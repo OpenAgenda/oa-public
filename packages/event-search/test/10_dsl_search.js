@@ -12,14 +12,20 @@ const Service = require('../');
 describe('10 - event-search - unit: dsl search', function() {
 
   describe('simple search', function() {
-    let service, dslSearch;
+    let service, post;
 
     this.timeout(30000);
 
     before(async () => {
       service = Service(config);
 
-      dslSearch = postDSL.bind(null, _.pick(service.getConfig(), ['client']));
+      try {
+        await service.getConfig().client.indices.delete({
+          index: 'test'
+        });
+      } catch (e) {}
+
+      post = postDSL.bind(null, _.pick(service.getConfig(), ['client']));
 
       await service('simple_search').rebuild({
         eventsList: async (lastId, limit) => {
@@ -34,12 +40,16 @@ describe('10 - event-search - unit: dsl search', function() {
       const {
         events,
         total
-      } = await dslSearch('simple_search', {
+      } = await post('test', {
         query: {
           bool: {
             filter: [{
               term: {
                 uid: 6
+              }
+            }, {
+              term: {
+                _set: 'simple_search'
               }
             }]
           }
@@ -54,7 +64,7 @@ describe('10 - event-search - unit: dsl search', function() {
       const {
         events,
         total
-      } = await dslSearch('simple_search', {
+      } = await post('test', {
         query: {
           bool: {
             filter: [{
@@ -87,7 +97,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -108,7 +118,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -132,7 +142,7 @@ describe('10 - event-search - unit: dsl search', function() {
         } ]
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 5 );
 
@@ -173,7 +183,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 5 );
 
@@ -199,7 +209,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl);
 
       events.map(e => e.slug).should.eql(['multi_2', 'multi_1', 'multi_3']);
 
@@ -209,7 +219,7 @@ describe('10 - event-search - unit: dsl search', function() {
       const {
         events,
         total
-      } = await dslSearch('maintest', {
+      } = await post('test', {
         query: {
           bool: {
             filter: [{
@@ -262,7 +272,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -281,12 +291,14 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       events[ 0 ].dateRange.should.eql( {
-        fr: 'Lundi 24 octobre 2016, 08h00',
         ar: 'الإثنين ٢٤ أكتوبر ٢٠١٦, 08:00',
-        en: 'Monday 24 October 2016, 08:00'
+        de: 'Montag 24 Oktober 2016, 08:00',
+        fr: 'Lundi 24 octobre 2016, 08h00',
+        en: 'Monday 24 October 2016, 08:00',
+        es: 'Monday 24 October 2016, 08:00'
       } );
 
     } );
@@ -328,7 +340,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -347,7 +359,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -375,7 +387,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl )
+      let { events, total } = await post('test', dsl )
 
       total.should.equal( 1 );
 
@@ -394,7 +406,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -413,7 +425,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -439,7 +451,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -472,7 +484,7 @@ describe('10 - event-search - unit: dsl search', function() {
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       events.map( e => e.slug ).should.eql( [ 'bracketed_timestamp_1', 'bracketed_timestamp_2', 'bracketed_timestamp_3' ] );
 
@@ -491,7 +503,7 @@ describe('10 - event-search - unit: dsl search', function() {
 
       const cacheFor = '1m';
 
-      let { events, scrollId } = await dslSearch( 'simple_search', dsl, { scroll: cacheFor } );
+      let { events, scrollId } = await post('test', dsl, { scroll: cacheFor } );
 
       fetchedCount += events.length;
 
@@ -530,13 +542,13 @@ describe('10 - event-search - unit: dsl search', function() {
         } ]
       }
 
-      let { events, total, searchAfter } = await dslSearch( 'simple_search', dsl );
+      let { events, total, searchAfter } = await post('test', dsl );
 
       dsl[ 'search_after' ] = searchAfter;
 
       try {
 
-        await dslSearch( 'simple_search', dsl );
+        await post('test', dsl );
 
       } catch ( err ) {
 
@@ -569,13 +581,13 @@ describe('10 - event-search - unit: dsl search', function() {
         } ]
       }
 
-      let { events } = await dslSearch( 'simple_search', dsl );
+      let { events } = await post('test', dsl );
 
       let fourth = events[ 3 ].uid;
 
       dsl.from = 3;
 
-       events = ( await dslSearch( 'simple_search', dsl ) ).events;
+       events = ( await post('test', dsl ) ).events;
 
       events[ 0 ].uid.should.equal( fourth );
 

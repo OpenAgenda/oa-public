@@ -20,7 +20,7 @@ describe('02 - event search - functional: search', function() {
 
       try {
         await service.getConfig().client.indices.delete({
-          index: 'maintest'
+          index: 'test'
         });
       } catch (e) {}
     });
@@ -735,7 +735,7 @@ describe('02 - event search - functional: search', function() {
       service = Service(config);
 
       const r = await service.getConfig().client.indices.delete({
-        index: 'maintest'
+        index: 'test'
       });
     });
 

@@ -24,7 +24,7 @@ describe('02 - event search - functional: Applied search', function() {
     before(async () => {
       try {
         await service.getConfig().client.indices.delete({
-          index: 'maintest'
+          index: 'test'
         });
       } catch (e) {}
     });

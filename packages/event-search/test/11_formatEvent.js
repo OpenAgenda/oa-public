@@ -30,11 +30,11 @@ describe('11 - event-search - unit: formatEvent', function() {
       timezone: 'Europe/Paris'
     },
     timings: [{
-      begin: new Date('2020-01-18T10:05:00'),
-      end: new Date('2020-01-18T18:30:00')
+      begin: new Date('2020-01-18T10:05:00+0100'),
+      end: new Date('2020-01-18T18:30:00+0100')
     }, {
-      begin: new Date('2020-01-19T08:20:00'),
-      end: new Date('2020-01-19T16:30:00')
+      begin: new Date('2020-01-19T08:20:00+0100'),
+      end: new Date('2020-01-19T16:30:00+0100')
     }],
     originAgenda: {
       uid: 123456,

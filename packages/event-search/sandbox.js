@@ -2,12 +2,17 @@
 
 const fs = require('fs');
 const ih = require('immutability-helper');
-
-const file = __dirname + '/test/fixtures/16_events.10.10.json';
-
-const data = require(file);
+const axios = require('axios');
 
 (async () => {
+
+  // get json export data of bdx to test legacy lib
+  //axios.get('https://d.openagenda.com/...')
+
+})();
+
+async function fixFixtures(fxFile) {
+  const data = JSON.parse(fs.readFileSync(fxFile));
 
   const formatted = [];
 
@@ -29,5 +34,4 @@ const data = require(file);
   });
 
   fs.writeFileSync(file, JSON.stringify({ ...data, events: formatted }, null, 2));
-
-})();
+}

@@ -22,7 +22,7 @@ describe('16 - event search - functional: more like this', function() {
   before(async () => {
     try {
       await service.getConfig().client.indices.delete({
-        index: 'maintest'
+        index: 'test'
       });
     } catch (e) {}
   });
@@ -48,7 +48,7 @@ describe('16 - event search - functional: more like this', function() {
        * for generic like search.
        */
 
-      const { events } = await dslSearch( 'maintest', {
+      const { events } = await dslSearch( 'test', {
         query: {
           bool: {
             must: [{
