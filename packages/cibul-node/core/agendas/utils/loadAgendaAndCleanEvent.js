@@ -41,7 +41,7 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
     formSchemaDataFormat,
     defaultLang,
     optionalSecondaryFields,
-    sourceAgenda,
+    paths,
     aggregated,
     member,
     access
@@ -52,7 +52,7 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
     partial: false,
     formSchemaDataFormat: false,
     optionalSecondaryFields: false,
-    sourceAgenda: null,
+    paths: null,
     aggregated: false,
     member: null,
     access: 'public',
@@ -125,7 +125,7 @@ function validateEvent({ formSchema, networkFormSchema, location }, data, option
     clean.agendaEvent = validateAgendaEvent({
       ...data,
       aggregated,
-      sourceAgendaUid: sourceAgenda ? [sourceAgenda.uid] : [],
+      sourcePaths: paths || [],
       userUid: member ? member.userUid : (data.userUid || data.ownerUid)
     }, { optionalSecondaryFields, partial });
 

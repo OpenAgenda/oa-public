@@ -11,12 +11,14 @@ const should = require('should');
 
 const api = require('../api');
 const assignClients = require('./utils/assignClients');
-const core = require('../core');
-const fixtures = require('./fixtures/02_core_agendas_events_create.sql');
+const Core = require('../core');
+const Services = require('../services/init');
+const fixtures = require('./fixtures/002.sql');
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core.agendas().events.create()', function() {
+describe('02 - core - functional (server): core.agendas().events.create()', function() {
   this.timeout(20000);
+  let core;
 
   const eventData = {
     title: {
@@ -55,7 +57,7 @@ describe('core - functional (server): core.agendas().events.create()', function(
   before(() => assignClients(testConfig));
 
   before(async () => {
-    await core.init(testConfig, {
+    const services = await Services(testConfig, {
       enabled: [
         'queues',
         'events',
@@ -70,9 +72,12 @@ describe('core - functional (server): core.agendas().events.create()', function(
         'legacy',
         'users',
         'keys',
-        'accessTokens'
+        'accessTokens',
+        'tracker'
       ]
     });
+
+    core = Core(services, testConfig);
   });
 
   after(() => testConfig.knex.destroy());
@@ -127,16 +132,15 @@ describe('core - functional (server): core.agendas().events.create()', function(
     });
 
     describe('persistence', () => {
-      const services = core.loadServices();
 
       it('contributing member is associated to event', async () => {
-        const ae = await services.agendaEvents(17026855).get(event.uid);
+        const ae = await core.services.agendaEvents(17026855).get(event.uid);
 
         ae.userUid.should.equal(63170200);
       });
 
       it('event owner is contributing member', async () => {
-        const eventSvcEvent = await services.events.get({
+        const eventSvcEvent = await core.services.events.get({
           uid: event.uid
         }, {
           internal: true
@@ -146,7 +150,7 @@ describe('core - functional (server): core.agendas().events.create()', function(
       });
 
       it('agenda custom values are stored in agenda custom schema', async () => {
-        const data = await services.custom(2).get(event.uid);
+        const data = await core.services.custom(2).get(event.uid);
 
         data['thematiques-bordeaux-metropole'].should.eql([3, 4]);
 
@@ -154,19 +158,19 @@ describe('core - functional (server): core.agendas().events.create()', function(
       });
 
       it('custom fields with write set for "moderator" are not edited through "contributor" access', async () => {
-        const data = await services.custom(2).get(event.uid);
+        const data = await core.services.custom(2).get(event.uid);
         should(data.custom_description).equal(undefined);
       });
 
       it('event is created on legacy event data structure', done => {
-        services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
+        core.services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
           legacyEvent.uid.should.equal(event.uid);
           done();
         });
       });
 
       it('accessibility is saved in event and legacy event', done => {
-        services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
+        core.services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
           legacyEvent.accessibility.should.eql({
             mi: false,
             hi: false,
@@ -326,7 +330,6 @@ describe('core - functional (server): core.agendas().events.create()', function(
 
     const memberUserUid = 63170200;
     const agendaUid = 17026855;
-    const services = core.loadServices();
 
     before(async () => {
       event = await core.agendas(agendaUid).events.create({
@@ -348,20 +351,20 @@ describe('core - functional (server): core.agendas().events.create()', function(
     });
 
     it('draft event is not referenced in agenda', async () => {
-      const ae = await services.agendaEvents(agendaUid).get(event.uid);
+      const ae = await core.services.agendaEvents(agendaUid).get(event.uid);
 
       should(ae).equal(null);
     });
 
     it('no legacy event is created for draft', done => {
-      services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
+      core.services.events.legacy.get({ uid: event.uid }, (err, legacyEvent) => {
         should(legacyEvent).equal(null);
         done();
       });
     });
 
     it('custom data is stored even if incomplete', async () => {
-      const data = await services.custom(2).get(event.uid);
+      const data = await core.services.custom(2).get(event.uid);
 
       data.should.eql({
         intermunicipal_interest: [],

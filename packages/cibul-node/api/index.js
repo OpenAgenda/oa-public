@@ -23,15 +23,13 @@ const handleError = require('../services/errors').bind(null, 'api');
 
 module.exports = core => {
   log('init');
-
   const app = express();
-  const config = core.getConfig();
 
   app.core = core;
-  app.services = core.loadServices();
+  app.services = core.services;
 
   const upload = multer({
-    dest: config.tmpFolderPath
+    dest: core.getConfig().tmpFolderPath
   });
 
   log('middleware');

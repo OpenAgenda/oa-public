@@ -14,7 +14,8 @@ module.exports = {
   init: (config, services) => {
     log('init');
     const {
-      agendas
+      agendas,
+      tracker
     } = services;
 
     const aggregators = Aggregators({
@@ -22,20 +23,22 @@ module.exports = {
       queues: services.queues,
       logger: config.getLogConfig('svc', 'aggregators'),
       interfaces: {
-        getMergedSchema: agendaUid => services
-          .core.agendas(agendaUid)
-          .settings.schema.getMerged(),
-        setSourceUidOnExistingReference: services.agendaEvents.utils.setSourceUid,
-        unsetSourceUidOnExistingReference: services.agendaEvents.utils.unsetSourceUid,
-        referenceEvent: async (sourceAgenda, aggregatorAgendaUid, eventUid, data, { batched }) => {
+        getMergedSchema: agendaUid => {
+          return services.core.agendas(agendaUid).settings.schema.getMerged()
+        },
+        updateSourcePaths: services.agendaEvents.utils.setSourcePaths,
+        referenceEvent: async (aggregatorAgendaUid, eventUid, data, { batched, paths, sourceAgenda }) => {
+          tracker('aggregators.referenceEvent');
           try {
             await services.core
               .agendas(aggregatorAgendaUid)
               .events.add(eventUid, data, {
                 aggregated: true,
+                paths,
                 sourceAgenda,
                 batched
               });
+            tracker('aggregators.referenceEvent.done');
             return {
               success: true
             }
@@ -52,7 +55,7 @@ module.exports = {
             };
           }
         },
-        unreferenceEvent: async (sourceAgendaUid, aggregatorAgendaUid, eventUid, { batched }) => {
+        unreferenceEvent: async (aggregatorAgendaUid, eventUid, { batched }) => {
           try {
             await services.core.agendas(aggregatorAgendaUid).events.remove(eventUid, { batched });
             return {
@@ -72,7 +75,10 @@ module.exports = {
         },
         getEventReference: (agendaUid, eventUid) => services
           .agendaEvents(agendaUid).get(eventUid)
-          .then(ae => ae ? _.pick(ae, ['sourceAgendaUid', 'aggregated']) : null),
+          .then(ae => ae ? {
+            sourcePaths: ae.sourceAgendaUid,
+            aggregated: ae.aggregated
+          } : null),
         listEventReferences: (agendaUid, lastId, aggregated = null) => services.core.agendas(agendaUid)
           .events.list({ state: 2, aggregated }, { lastId }, { load: { events: false, custom: false } }),
         loadEvent: (agendaUid, eventUid) => services.core.agendas(agendaUid)

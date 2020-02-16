@@ -19,6 +19,7 @@ const membersSvc = require('../members');
 const usersSvc = require('../users');
 
 module.exports = async ({ config, services }, ae, context) => {
+  services.tracker('agendaEvents.onCreate');
   log('created agenda-event %j', ae, _.pick(context, ['legacy', 'aggregated', 'batched']));
 
   // use context.userUid. will be null when nothing was specified at create
@@ -135,15 +136,14 @@ module.exports = async ({ config, services }, ae, context) => {
       }
     }
 
-    // If it's a real creation, not an agregation
-    if (!context.aggregated) {
+    if (context.aggregated) {
+      await _addEventAggregationActivity(eventFeed, { agenda, event }, context);
+    } else {
       if (ae.agendaUid === event.agendaUid) {
         await _addEventCreationActivity(eventFeed, { agenda, event, user }, context);
       } else {
         await _addEventAdditionActivity(eventFeed, { agenda, event, user }, context);
       }
-    } else if (context.aggregated) {
-      await _addEventAggregationActivity(eventFeed, { agenda, event }, context);
     }
 
   } catch ( e ) {

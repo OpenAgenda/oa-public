@@ -4,7 +4,7 @@ const agendaSearch = require( '@openagenda/agenda-search' );
 
 const tfy = require( './lib/taskify' );
 
-module.exports = (config, services) => {
+module.exports = (config, core, services) => {
 
   tfy( require( './general/jobs.task' ), { bootOffset: 1000 } );
 
@@ -85,7 +85,7 @@ module.exports = (config, services) => {
 
   require( './services/legacy' ).task();
 
-  require( './core' ).tasks();
+  core.tasks();
 
   require( './services/agendaLocations' ).task();
 

@@ -8,10 +8,10 @@ const mysql = require('mysql');
 const { promisify } = require('util');
 const should = require('should');
 
-const fixtures = require('./fixtures/09_core_agendas_events_batch.sql');
+const fixtures = require('./fixtures/010.sql');
 
-const config = require('../config');
-const core = require('../core');
+const Services = require('../services/init');
+const Core = require('../core');
 
 const schemaNames = require('./mock/schemaNames');
 const getLogConfig = require('./mock/getLogConfig');
@@ -19,12 +19,12 @@ const assignClients = require('./utils/assignClients');
 
 const testConfig = require('./testConfig');
 
-describe('core - fuctional (server): events batch', function() {
+describe('09 - core - fuctional (server): core.agendas().events.batch()', function() {
   this.timeout(30000);
+  let core;
 
-  before( async () => {
-
-    const con = mysql.createConnection(Object.assign( _.pick(config.db, ['user', 'password']), {
+  before(async () => {
+    const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, ['user', 'password']), {
       multipleStatements: true
     }));
 
@@ -33,12 +33,12 @@ describe('core - fuctional (server): events batch', function() {
     const result = await query(fixtures);
 
     con.end();
-  } );
+  });
 
   before(() => assignClients(testConfig));
 
   before(async () => {
-    await core.init(testConfig, {
+    const services = await Services(testConfig, {
       enabled: [
         'queues',
         'events',
@@ -53,9 +53,12 @@ describe('core - fuctional (server): events batch', function() {
         'networks',
         'legacy',
         'users',
-        'keys'
+        'keys',
+        'trackers'
       ]
     });
+
+    core = Core(services, testConfig);
   });
 
   after(() => testConfig.knex.destroy());
@@ -77,7 +80,7 @@ describe('core - fuctional (server): events batch', function() {
           //console.log('execute', args);
         },
         error: function(...args) {
-          //console.log('error', JSON.stringify(args));
+          console.log('error', JSON.stringify(args));
           done(new Error('error'));
         },
         success: function(...args) {

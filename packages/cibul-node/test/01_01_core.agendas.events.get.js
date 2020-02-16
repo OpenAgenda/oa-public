@@ -9,14 +9,17 @@ const { promisify } = require('util');
 const should = require('should');
 
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/01_core_agendas_events_get.sql');
+const fixtures = require('./fixtures/001.sql');
 
-const core = require('../core');
+const Core = require('../core');
+const Services = require('../services/init');
 
 const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().events.get()', function() {
   this.timeout(20000);
+
+  let core;
 
   before(async () => {
     const con = mysql.createConnection(Object.assign( _.pick(testConfig.db, ['user', 'password']), {
@@ -33,7 +36,7 @@ describe('core - functional (server): core.agendas().events.get()', function() {
   before(() => assignClients(testConfig));
 
   before(async () => {
-    await core.init(testConfig, {
+    const services = await Services(testConfig, {
       enabled: [
         'queues',
         'events',
@@ -50,6 +53,8 @@ describe('core - functional (server): core.agendas().events.get()', function() {
         'keys'
       ]
     });
+
+    core = Core(services, testConfig);
   });
 
   after(() => testConfig.knex.destroy());
@@ -225,6 +230,12 @@ describe('core - functional (server): core.agendas().events.get()', function() {
   });
 
   describe('other', () => {
+
+    it('get on event includes source paths', async () => {
+      const ev = await core.agendas(2).events.get(2);
+
+      ev.sourcePaths.should.eql([[1]]);
+    });
 
     it('get non-existing event returns null', async () => {
       should(await core.agendas(2).events.get(18978979)).equal(null);

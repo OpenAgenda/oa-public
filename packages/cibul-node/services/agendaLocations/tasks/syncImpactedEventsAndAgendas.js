@@ -2,14 +2,17 @@
 
 const _ = require( 'lodash' );
 
-const agendaEvents = require( '@openagenda/agenda-events' );
-const events = require( '@openagenda/events' );
 const log = require( '@openagenda/logs' )( 'services/agendaLocations/tasks/reindexImpactedEvents' );
 
-const legacyEventSearch = require( '../../elasticsearch' );
-const controlData = require( '../../legacy' ).controlData;
+module.exports = async function(services, before, after) {
+  const {
+    elasticsearch: legacyEventSearch,
+    legacy,
+    events,
+    agendaEvents
+  } = services;
 
-module.exports = async function( before, after ) {
+  const controlData = legacy.controlData;
 
   const uids = await events
     .list( { locationUid: before.uid }, 0, 1000, { fetched: [ 'uid' ] } )

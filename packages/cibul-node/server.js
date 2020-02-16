@@ -12,15 +12,19 @@ const ADMIN = process.argv.includes('admin');
 const TASK = process.argv.includes('task');
 const WEB = process.argv.includes('web');
 
+const Core = require('./core');
 
 supervisor(async loadTasks => {
   try {
+    const config = require('./config');
     const services = await require('./services/init')();
-    const core = require('./core');
-
-    core.tasks.loadQueue();
+    const core = Core(services, config);
 
     services.core = core;
+
+    const {
+      sessions
+    } = services;
 
     if (__DEVELOPMENT__) {
       require('source-map-support').install({ hookRequire: true });
@@ -31,16 +35,13 @@ supervisor(async loadTasks => {
 
     log('info', 'running server');
 
-    const sessions = require('@openagenda/sessions');
     const app = require('./app');
     const cmn = require('./lib/commons-app');
     const genUrl = require('./services/genUrl').getSingleton();
-    const config = require('./config');
     const admin = require('./admin');
     const web = require('./web');
 
     app.services = services;
-    services.core.loadServices(services);
 
     app.use(sessions.middleware);
     app.use(sessions.middleware.load({ detailed: true }));
@@ -105,7 +106,7 @@ supervisor(async loadTasks => {
     // only one process runs background tasks. supervisor handles that.
     // only 'task' types run tasks
     if (loadTasks && TASK) {
-      require('./task')(config, services);
+      require('./task')(config, core, services);
     }
   } catch (e) {
     const logs = require('@openagenda/logs');

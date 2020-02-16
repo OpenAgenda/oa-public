@@ -20,6 +20,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
 
   const {
     aggregated,
+    paths,
     sourceAgenda,
     batched,
     context,
@@ -27,6 +28,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     returnPayload
   } = Object.assign({
     aggregated: false,
+    paths: null,
     sourceAgenda: null,
     batched: false,
     context: {},
@@ -44,7 +46,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     agenda
   } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
     evaluateEvent: false,
-    sourceAgenda,
+    paths,
     aggregated,
     member
   });

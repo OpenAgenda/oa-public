@@ -22,26 +22,27 @@ module.exports = async (services, payload, clean, options = {}) => {
   const {
     agendaEvents,
     eventSearch,
-    custom
+    custom,
+    tracker
   } = services;
 
   log('info', 'processing agenda %s, event %s', agenda.uid, event.uid);
+  tracker('core.agendas.doAdd');
 
   const {
     batched,
     aggregated,
+    paths,
     sourceAgenda,
     draft,
     userUid,
-    access,
-    primaryResponseKey
+    access
   } = {
     batched: false,
     aggregated: false,
+    paths: null,
     sourceAgenda: null,
     draft: false,
-    userUid: null,
-    primaryResponseKey: 'event',
     access: 'public',
     ...options
   };
@@ -100,7 +101,7 @@ module.exports = async (services, payload, clean, options = {}) => {
   }
 
   if (draft) {
-    return payload.getResponse(primaryResponseKey, access);
+    return payload.getResponse('event', access);
   }
 
 
@@ -128,7 +129,10 @@ module.exports = async (services, payload, clean, options = {}) => {
     log('error', 'could not update legacy search for event %s', event.uid);
   }
 
-  const response = await payload.getResponse(primaryResponseKey, access);
+  const response = payload.getResponse('event', access);
+  const compiledEvent = await payload.getCompiledEvent(); // full access for internal use
+  const formSchema = payload.getFormSchema(); // full access for internal use
+  const { member } = response;
 
   try {
     await eventSearch.add(response);
@@ -137,9 +141,9 @@ module.exports = async (services, payload, clean, options = {}) => {
   }
 
   await aggregators.notify('addEvent', {
-    event: await payload.getCompiledEvent(),
+    event: compiledEvent,
     agenda,
-    formSchema: payload.getFormSchema(),
+    formSchema,
     batched
   });
 

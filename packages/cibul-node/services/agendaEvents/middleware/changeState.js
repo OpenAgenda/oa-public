@@ -1,7 +1,6 @@
 "use strict";
 
 const states = require('@openagenda/agenda-events').states;
-const core = require( '../../../core' );
 const sessions = require('../../sessions');
 
 const actionLabels = require('@openagenda/labels')(
@@ -28,7 +27,7 @@ const labels = {
 };
 
 module.exports = (req, res, next) => {
-  core.agendas( req.agenda.uid ).events.update( req.event.uid, {
+  req.app.services.core.agendas( req.agenda.uid ).events.update( req.event.uid, {
     state: req.params.state
   }, {
     partial: true,
@@ -49,7 +48,7 @@ module.exports.batched = (req, res, next) => {
     return _redirect(req, res);
   }
 
-  core.agendas(req.agenda.uid).events.batch('update', {
+  req.app.services.core.agendas(req.agenda.uid).events.batch('update', {
     state: stateSwitch[0]
   }, {
     state: stateSwitch[1]

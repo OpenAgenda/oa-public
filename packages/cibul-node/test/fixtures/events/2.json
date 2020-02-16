@@ -1,0 +1,33 @@
+{
+  "title": {
+    "fr": "Un événement"
+  },
+  "description": {
+    "fr": "Test de la lib core"
+  },
+  "timings": [
+    {
+      "begin": "2019-05-06T10:00:00.000Z",
+      "end": "2019-05-06T11:00:00.000Z"
+    }
+  ],
+  "keywords": {
+    "fr": [
+      "un",
+      "deux",
+      "trois"
+    ]
+  },
+  "location": {
+    "uid": 123
+  },
+  "accessibility": {
+    "sl": true
+  },
+  "categories-agenda-metropolitain": 42,
+  "thematiques-bordeaux-metropole": [
+    3,
+    4
+  ],
+  "custom_description": "Oui bah non"
+}

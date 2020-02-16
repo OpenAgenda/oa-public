@@ -1,31 +1,33 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const eventSvc = require( '@openagenda/events' );
-const log = require( '@openagenda/logs' )( 'services/agendaLocations/locationsWillMerge' );
+const log = require('@openagenda/logs')('services/agendaLocations/locationsWillMerge');
 
-module.exports = ( mergeInLocation, locations, cb ) => {
+module.exports = (services, mergeInLocation, locations, cb ) => {
 
   log( 'info', 'processing event updates for merging of locations %j into %s', locations.map( l => l.uid ), mergeInLocation.uid );
 
-  locationsWillMerge( mergeInLocation, locations ).then( () => cb(), cb );
+  locationsWillMerge(services, mergeInLocation, locations).then( () => cb(), cb );
 
 }
 
-async function locationsWillMerge( mergeInLocation, locations ) {
+async function locationsWillMerge(services, mergeInLocation, locations) {
 
   const newLocationUid = _.get( mergeInLocation, 'uid' );
 
-  for ( const locationUid of locations.map( l => l.uid ) ) {
+  for (const locationUid of locations.map( l => l.uid )) {
 
-    await _updateEventLocationUids( locationUid, newLocationUid );
+    await _updateEventLocationUids(services, locationUid, newLocationUid );
 
   }
 
 }
 
-async function _updateEventLocationUids( locationUid, newLocationUid ) {
+async function _updateEventLocationUids(services, locationUid, newLocationUid) {
+  const {
+    events: eventSvc
+  } = services;
 
   let uid = null, offset = 0;
 

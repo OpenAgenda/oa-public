@@ -5,12 +5,14 @@ const ih = require( 'immutability-helper' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaContribute/interfaces/setEvent' );
 
-const members = require( '../../members' );
-const core = require( '../../../core' );
-
 const config = require( '../../../config' );
 
-module.exports = async (agenda, user, current, data, options = {}) => {
+module.exports = async (services, agenda, user, current, data, options = {}) => {
+  const {
+    core,
+    members
+  } = services;
+
   const { draft } = Object.assign({
     draft: false
   }, options);
@@ -36,7 +38,7 @@ module.exports = async (agenda, user, current, data, options = {}) => {
 
   // define which state the event should take
 
-  if (!isNew && !isDraft && await _shouldBeModerated(agenda, user)) {
+  if (!isNew && !isDraft && await _shouldBeModerated(members, agenda, user)) {
     log('event is not new and not a draft and should be moderated on change');
 
     transforms.state = { $set: 0 };
@@ -104,7 +106,7 @@ module.exports = async (agenda, user, current, data, options = {}) => {
   }
 }
 
-async function _shouldBeModerated(agenda, user) {
+async function _shouldBeModerated(members, agenda, user) {
 
   try {
 

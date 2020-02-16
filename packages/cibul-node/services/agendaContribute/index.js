@@ -1,27 +1,27 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
 const agendas = require( '@openagenda/agendas' );
-const contribute = require( '@openagenda/agenda-contribute' );
-const sessions = require( '@openagenda/sessions' );
+const contribute = require('@openagenda/agenda-contribute');
 
-const layout = require( '../lib/layouts' ).agenda;
+const layout = require('../lib/layouts').agenda;
 
 const loadLegacyRoutes = require('./legacy');
 
-const cmn = require( '../../lib/commons-app' );
+const cmn = require('../../lib/commons-app');
 
 const middlewares = require('./middlewares');
 const interfaces = require('./interfaces');
 
-const base64 = require( '@openagenda/utils/base64' );
+const base64 = require('@openagenda/utils/base64');
 
 let bucket;
 
 module.exports = Object.assign( ( parentApp, path = '' ) => {
   const {
-    agendas
+    agendas,
+    sessions
   } = parentApp.services;
 
   parentApp.use( '/dist/contribute',
@@ -124,7 +124,7 @@ module.exports = Object.assign( ( parentApp, path = '' ) => {
   init
 } );
 
-function init( config ) {
+function init(config, services) {
   bucket = config.aws.bucket;
 
   contribute.init({
@@ -134,13 +134,11 @@ function init( config ) {
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/contribute' : null,
     layout,
     middlewares,
-    interfaces
+    interfaces: interfaces(services)
   });
 }
 
 
-function _redirectToSignup( req, res ) {
-
-  res.redirect( 302, `/${req.agenda.slug}/signup?redirect=${base64.encode( req.originalUrl )}${req.lang !== 'fr' ? '&lang=' + req.lang : ''}` )
-
+function _redirectToSignup(req, res) {
+  res.redirect(302, `/${req.agenda.slug}/signup?redirect=${base64.encode( req.originalUrl )}${req.lang !== 'fr' ? '&lang=' + req.lang : ''}`)
 }

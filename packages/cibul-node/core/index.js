@@ -1,21 +1,23 @@
 "use strict";
 
 const tasks = require('./tasks');
-const initServices = require( '../services/init' );
+const Agendas = require('./agendas');
+const Networks = require('./networks');
+const Users = require('./users');
+const Tasks = require('./tasks');
 
-const services = {};
-const config = {};
+module.exports = (services, config) => {
+  const core = {
+    services,
+    tasks: Tasks(services),
+    getConfig: () => config
+  };
 
-module.exports = {
-  init: async (c, options = {}) => {
-    Object.assign(services, await initServices(c, options));
-    Object.assign(config, c);
-    tasks.loadQueue();
-  },
-  loadServices: s => s ? Object.assign(services, s) : services,
-  agendas: require('./agendas')(services),
-  networks: require('./networks')(services),
-  users: require('./users')(services),
-  getConfig: () => config,
-  tasks
+  core.agendas = Agendas(core);
+  core.networks = Networks(core);
+  core.users = Users(services);
+
+  services.core = core;
+
+  return core;
 }

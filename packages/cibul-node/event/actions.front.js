@@ -15,7 +15,6 @@ const getActionLabel = require('@openagenda/labels')(
 const log = require('@openagenda/logs')('event/actions');
 const agendaEventsSvc = require('@openagenda/agenda-events');
 
-const core = require('../core');
 const agendaSvc = require('../services/agenda');
 const cmn = require('../lib/commons-app');
 const config = require('../config');
@@ -37,7 +36,7 @@ module.exports = app => {
         if (!uid) {
           return next({ code: 404 });
         }
-        return core.agendas(req.agenda.uid).events.get(uid, { detailed: true })
+        return req.app.services.core.agendas(req.agenda.uid).events.get(uid, { detailed: true })
           .then(event => {
             if (!event) return next({ code: 404 });
             req.event = event;
@@ -53,7 +52,7 @@ module.exports = app => {
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
     (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
-      .then(uid => core.agendas(req.agenda.uid)
+      .then(uid => req.app.services.core.agendas(req.agenda.uid)
         .events
         .get(uid, { detailed: true })
         .then(result => {
@@ -75,7 +74,7 @@ module.exports = app => {
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
     (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
-      .then(uid => core.agendas(req.agenda.uid)
+      .then(uid => req.app.services.core.agendas(req.agenda.uid)
         .events
         .get(uid, { detailed: true })
         .then(result => {
@@ -96,7 +95,7 @@ module.exports = app => {
     agendaSvc.mw.load('slug'),
     cmn.ifIs('agenda.private', membersSvc.mw.loadOrFail),
     (req, res, next) => eventsSvc.get.slugToUid(req.params.eventSlug)
-      .then(uid => core.agendas(req.agenda.uid)
+      .then(uid => req.app.services.core.agendas(req.agenda.uid)
         .events
         .get(uid, { detailed: true }))
         .then(result => {
@@ -248,7 +247,7 @@ async function eventMailSend(req, res, next) {
   let customData = null;
 
   try {
-    const { event, formSchema } = await core.agendas(req.agenda.uid).events.get(req.event.uid, {
+    const { event, formSchema } = await req.app.services.core.agendas(req.agenda.uid).events.get(req.event.uid, {
       load: {
         custom: true
       },

@@ -10,7 +10,7 @@ const agendaSchemaRouter = AgendaSchema.router;
 const cmn = require( '../../lib/commons-app' );
 const getSchema = require( './interfaces/getSchema' );
 const getSchemaExtensions = require( './interfaces/getSchemaExtensions' );
-const setSchemaFields = require( './interfaces/setSchemaFields' );
+const setSchemaFields = require('./interfaces/setSchemaFields');
 
 const sessions = require( '../sessions' );
 const members = require( '../members' );
@@ -31,7 +31,7 @@ module.exports = parentApp => {
   );
 };
 
-module.exports.init = config => {
+module.exports.init = (config, services) => {
   agendaSchemaRouter.setLayout( layouts.load( 'agendaAdmin', {
     selectedTab: 'schema',
     role: 'administrator'
@@ -49,7 +49,7 @@ module.exports.init = config => {
       } ),
       getSchemaExtensions,
       getSchema,
-      setSchemaFields
+      setSchemaFields: setSchemaFields.bind(null, services)
     }
   } ) );
 }

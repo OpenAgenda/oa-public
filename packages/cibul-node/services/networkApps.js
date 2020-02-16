@@ -1,16 +1,13 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const agendas = require( '@openagenda/agendas' );
 const NetworkApps = require( '@openagenda/network-apps' );
-const sessions = require( '@openagenda/sessions' );
 const eventFormSchema = require( '@openagenda/event-form/src/schema' );
 
 const log = require( '@openagenda/logs' )( 'services/networkApps' );
 
 const cmn = require( '../lib/commons-app' );
-const core = require( '../core' );
 
 const layout = require( './lib/layouts' ).load( 'main', {
   title: 'Admin des réseaux'
@@ -26,14 +23,18 @@ module.exports = parentApp => {
   );
 
   parentApp.use( '/admin/networks',
-    sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    parentApp.services.sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
     cmn.requireSuperAdmin,
     router
   );
 
 }
 
-module.exports.init = config => {
+module.exports.init = (config, services) => {
+  const {
+    agendas,
+    sessions
+  } = services;
 
   router.setLayout( layout );
 
@@ -50,7 +51,7 @@ module.exports.init = config => {
       getLoggedUser: async req => req.user,
       addAgendaToNetwork,
       createAgenda,
-      createNetwork: core.networks.create
+      createNetwork: data => services.networks.create(data)
     }
   } ) );
 

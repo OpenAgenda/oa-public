@@ -8,7 +8,6 @@ const contributorLabels = require( '@openagenda/labels/event/contributors' );
 const eventReferences = require( '@openagenda/agenda-event-references' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
 
-const core = require( '../core' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
@@ -37,7 +36,7 @@ module.exports = app => {
     sessions.mw.loadOrRedirect,
     members.mw.load,
     (req, res, next) => {
-      core.agendas(req.agenda.uid).events.get(req.params.eventUid, {
+      req.app.services.core.agendas(req.agenda.uid).events.get(req.params.eventUid, {
         load: {
           custom: true
         },
@@ -115,7 +114,7 @@ module.exports = app => {
 
       }
 
-      core.agendas( req.params.uid ).settings.get().then( settings => {
+      req.app.services.core.agendas( req.params.uid ).settings.get().then( settings => {
 
         req.formSchemaFields = _.get( settings, 'fields', [] );
 
@@ -307,7 +306,7 @@ function _xhrResponse( req, res, next ) {
 function _changeFeatured( req, res, next ) {
   req.log('updating featured to %s', req.params.type);
 
-  core.agendas(req.agenda.uid).events.update(req.event.uid, {
+  req.app.services.core.agendas(req.agenda.uid).events.update(req.event.uid, {
     featured: req.params.type === 'featured'
   }, {
     partial: true,

@@ -1,0 +1,72 @@
+{
+  "tag_set": {
+    "groups": [
+      {
+        "tags": [
+          {
+            "id": 9661,
+            "label": "Administration",
+            "schemaOptionId": "2.3",
+            "slug": "administration"
+          },
+          {
+            "id": 9662,
+            "label": "Aéronautique",
+            "schemaOptionId": "2.4",
+            "slug": "aeronautique"
+          }
+        ]
+      }
+    ]
+  },
+  "category_set": {
+    "categories": [
+      {
+        "id": 3454,
+        "label": "Animation - Loto",
+        "slug": "animation-loto"
+      },
+      {
+        "id": 3455,
+        "label": "Atelier",
+        "slug": "atelier"
+      },
+      {
+        "id": 3456,
+        "label": "Cérémonie",
+        "slug": "ceremonie"
+      },
+      {
+        "id": 3457,
+        "label": "Cinéma - Projection",
+        "slug": "cinema-projection"
+      }
+    ]
+  },
+  "review_category": [
+    {
+      "category": "Animation - Loto",
+      "id": 3454,
+      "review_id": 218,
+      "slug": "animation-loto"
+    },
+    {
+      "category": "Atelier",
+      "id": 3455,
+      "review_id": 218,
+      "slug": "atelier"
+    },
+    {
+      "category": "Cérémonie",
+      "id": 3456,
+      "review_id": 218,
+      "slug": "ceremonie"
+    },
+    {
+      "category": "Cinéma - Projection",
+      "id": 3457,
+      "review_id": 218,
+      "slug": "cinema-projection"
+    }
+  ]
+}

@@ -10,14 +10,16 @@ const { promisify } = require('util');
 const should = require('should');
 
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/04_core_agendas_events_add.sql');
+const fixtures = require('./fixtures/005.sql');
 
-const core = require('../core');
+const Services = require('../services/init');
+const Core = require('../core');
 
 const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().events add()', function() {
   this.timeout(20000);
+  let core;
 
   before(async () => {
     const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
@@ -34,7 +36,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
   before(() => assignClients(testConfig));
 
   before(async () => {
-    await core.init(testConfig, {
+    const services = await Services(testConfig, {
       enabled: [
         'queues',
         'events',
@@ -49,9 +51,12 @@ describe('core - functional (server): core.agendas().events add()', function() {
         'networks',
         'legacy',
         'users',
-        'keys'
+        'keys',
+        'tracker'
       ]
     });
+
+    core = Core(services, testConfig);
   });
 
   after(() => testConfig.knex.destroy());
@@ -87,9 +92,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
         state: 2,
         'thematiques-metropolitaines': 3
       }, {
-        sourceAgenda: {
-          uid: 17026855
-        },
+        paths: [[82910283, 17026855]],
         aggregated: true,
         returnPayload: true
       });
@@ -100,7 +103,7 @@ describe('core - functional (server): core.agendas().events add()', function() {
     });
 
     it('agenda event reference stores agenda source uid', () => {
-      result.event.sourceAgendaUid.should.eql([17026855]);
+      result.event.sourcePaths.should.eql([[82910283, 17026855]]);
     });
   });
 

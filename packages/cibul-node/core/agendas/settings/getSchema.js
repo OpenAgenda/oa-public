@@ -1,24 +1,30 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const formSchemas = require( '@openagenda/form-schemas' );
-
-const getAgenda = require( '../utils/getAgenda' );
+const getAgenda = require('../utils/getAgenda');
 const getNetwork = require('../utils/getNetwork');
 
-module.exports = async agendaOrUid => {
-  const agenda = _.isObject( agendaOrUid ) ? agendaOrUid : await getAgenda( agendaOrUid );
+module.exports = async (services, agendaOrUid) => {
+  const {
+    formSchemas
+  } = services;
 
-  return agenda.formSchemaId ? Object.assign( { id: agenda.formSchemaId }, await formSchemas.get( agenda.formSchemaId ) ) : null;
+  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+
+  return agenda.formSchemaId ? Object.assign({ id: agenda.formSchemaId }, await formSchemas.get(agenda.formSchemaId)) : null;
 }
 
-module.exports.network = async agendaOrUid => {
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(agendaOrUid);
+module.exports.network = async (services, agendaOrUid) => {
+  const {
+    formSchemas
+  } = services;
+
+  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
   if (!agenda || !agenda.networkUid) {
     return null;
   }
-  const network = await getNetwork(agenda.networkUid);
+  const network = await getNetwork(services, agenda.networkUid);
 
   return network.formSchemaId ? Object.assign({
     id: network.formSchemaId

@@ -43,7 +43,7 @@ function mergeEvent(event, agendaEvent, networkCustom, agendaCustom, options = {
   });
 
   if (agendaEvent && load.agendaEvent) {
-    ['state', 'featured', 'sourceAgendaUid', 'aggregated'].forEach(aeField => {
+    ['state', 'featured', 'sourcePaths', 'aggregated'].forEach(aeField => {
       compiled[aeField] = agendaEvent[aeField];
     });
   }

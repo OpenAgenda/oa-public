@@ -1,26 +1,34 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const { promisify } = require( 'util' );
+const _ = require('lodash');
+const { promisify } = require('util');
 
-const agendas = require( '@openagenda/agendas' );
-const FormSchema = require( '@openagenda/form-schemas/iso/FormSchema' );
-const formSchemas = require( '@openagenda/form-schemas' );
-const log = require( '@openagenda/logs' )( 'core/agendas/settings/updateFields' );
+const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
+const log = require('@openagenda/logs')('core/agendas/settings/updateFields');
 
-const updateLegacy = require( './legacy/update' );
+const updateLegacy = require('./legacy/update');
+const getAgenda = require('../utils/getAgenda');
+const getSchema = require('./getSchema');
 
-const getAgenda = require( '../utils/getAgenda' );
-const setAgenda = promisify( agendas.set );
-const getSchema = require( './getSchema' );
+module.exports = async (core, agendaOrUid, updatedFields) => {
+  const {
+    services
+  } = core;
 
-module.exports = async ( config, agendaOrUid, updatedFields ) => {
+  const {
+    formSchemas,
+    agendas
+  } = services;
 
-  const agenda = _.isObject( agendaOrUid ) ? agendaOrUid : await getAgenda( agendaOrUid );
+  const setAgenda = promisify(agendas.set);
 
-  const agendaSchema = await getSchema( agenda );
+  const config = core.getConfig();
 
-  const fs = new FormSchema( agendaSchema );
+  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
+
+  const agendaSchema = await getSchema(services, agenda);
+
+  const fs = new FormSchema(agendaSchema);
 
   fs.updateFields( updatedFields );
 
@@ -38,11 +46,11 @@ module.exports = async ( config, agendaOrUid, updatedFields ) => {
 
     log( 'schema is associated with agenda, updating' );
 
-    await formSchemas.update( agendaSchema.id, fs.getData() );
+    await formSchemas.update(agendaSchema.id, fs.getData());
 
   }
 
-  await updateLegacy( config, agenda, true );
+  await updateLegacy(core, agenda, true);
 
   return true;
 

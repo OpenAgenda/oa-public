@@ -42,6 +42,7 @@ module.exports = async function (configObject, options = {}) {
   // init services
 
   await init('errors', require('./errors'));
+  await init('tracker', require('./tracker'));
   await init('queues', require('./queues'));
   await init('users', require('./users'));
   await init('abilities', require('./abilities'));
@@ -84,14 +85,13 @@ module.exports = async function (configObject, options = {}) {
   await init('logRequests', require('./logRequests'));
   await init('mails', require('./mails'));
   await init('model', require('./model'));
+  await init('sessions', require('./sessions'));
   await init('networkApps', require('./networkApps'));
   await init('networks', require('./networks'));
   await init('newsletter', require('./newsletter'));
   await init('oembed', require('./oembed'));
   await init('portals', require('./portals'));
-  await init('sessions', require('./sessions'));
   await init('simpleCache', require('./simpleCache'));
-  await init('surveys', require('./surveys'));
   await init('unsubscribed', require('./unsubscribed'));
 
   const timeDiff = new Date().getTime() - t.getTime();

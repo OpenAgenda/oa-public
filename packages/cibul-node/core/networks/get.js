@@ -1,3 +1,3 @@
-const networks = require( '../../services/networks' );
+'use strict';
 
-module.exports = networkUid => networks.get( networkUid );
+module.exports = (services, networkUid) => services.networks.get(networkUid);

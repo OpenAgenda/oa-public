@@ -21,8 +21,6 @@ const custom = require( './lib/custom' );
 const searchStats = require( './lib/search' );
 const legacyTagsAndCustom = require( '../legacy' ).tagsAndCustom;
 
-const core = require( '../../core' );
-
 const agendasList = promisify( agendasSvc.list );
 
 const log = require( '@openagenda/logs' )( 'services/agendaStatistics' );
@@ -64,24 +62,6 @@ module.exports.init = c => {
 }
 
 module.exports.resync = ( agendaUid, type ) => q( { operation: 'resync', agendaUid, type } );
-
-module.exports.transferFormSchema = agenda => {
-
-  log( 'transferring form schema from legacy to form schema db for agenda %d', agenda.uid );
-
-  return formSchemas.legacy.transfer( agenda.id );
-
-}
-
-module.exports.formSchemaToTagSet = (agenda, force) => core
-  .agendas(agenda.uid).settings.legacy
-  .updateTagSet(force);
-
-module.exports.formSchemaToCategorySet = (agenda, force) => core
-  .agendas(agenda.uid).settings.legacy
-  .updateCategorySet(force);
-
-module.exports.formSchemaToCustom = ( agenda, force ) => core.agendas( agenda.uid ).settings.legacy.updateCustom( force );
 
 module.exports.task = services => {
 

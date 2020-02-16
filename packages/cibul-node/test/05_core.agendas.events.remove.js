@@ -10,14 +10,16 @@ const { promisify } = require('util');
 const should = require('should');
 
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/05_core_agendas_events_remove.sql');
+const fixtures = require('./fixtures/006.sql');
 
-const core = require('../core');
+const Services = require('../services/init');
+const Core = require('../core');
 
 const testConfig = require('./testConfig');
 
 describe('core - functional (server): core agendas() events.remove()', function() {
   this.timeout(20000);
+  let core;
 
   before(async () => {
     const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
@@ -34,7 +36,7 @@ describe('core - functional (server): core agendas() events.remove()', function(
   before(() => assignClients(testConfig));
 
   before(async () => {
-    await core.init(testConfig, {
+    const services = await Services(testConfig, {
       enabled: [
         'queues',
         'events',
@@ -52,6 +54,8 @@ describe('core - functional (server): core agendas() events.remove()', function(
         'keys'
       ]
     });
+
+    core = Core(services, testConfig);
   });
 
   after(() => testConfig.knex.destroy());

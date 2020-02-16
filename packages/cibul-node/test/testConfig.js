@@ -5,6 +5,7 @@ const schemaNames = require('./mock/schemaNames');
 const getLogConfig = require('./mock/getLogConfig');
 
 module.exports = {
+  track: true,
   queues: {},
   db: {
     user: 'root',

@@ -9,15 +9,16 @@ const { promisify } = require('util');
 const should = require('should');
 
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/10_core_users_get.sql');
+const fixtures = require('./fixtures/011.sql');
 
-const core = require('../core');
+const Services = require('../services/init');
+const Core = require('../core');
 
 const testConfig = require('./testConfig');
 
-describe('core - functional (server): core.users().get', function() {
-
+describe('10 - core - functional (server): core.users().get()', function() {
   this.timeout(10000);
+  let core;
 
   before(async () => {
     const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
@@ -34,7 +35,7 @@ describe('core - functional (server): core.users().get', function() {
   before(() => assignClients(testConfig));
 
   before(async () => {
-    await core.init(testConfig, {
+    const services = await Services(testConfig, {
       enabled: [
         'accessTokens',
         'queues',
@@ -49,9 +50,12 @@ describe('core - functional (server): core.users().get', function() {
         'networks',
         'legacy',
         'users',
-        'keys'
+        'keys',
+        'trackers'
       ]
     });
+
+    core = Core(services, testConfig);
   });
 
   after(() => testConfig.knex.destroy());

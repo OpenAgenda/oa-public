@@ -8,16 +8,17 @@ const { promisify } = require('util');
 const should = require('should');
 
 const assignClients = require('./utils/assignClients');
-const fixtures = require('./fixtures/08_core_agendas_members_list.sql');
+const fixtures = require('./fixtures/012.sql');
 
 const api = require('../api');
-const core = require('../core');
+const Services = require('../services/init');
+const Core = require('../core');
 
 const testConfig = require('./testConfig');
 
-describe('08 - core - functional (server): core.agendas().members.list', function() {
-
+describe('11 - core - functional (server): core.users().agendas.list()', function() {
   this.timeout(10000);
+  let core;
 
   before(async () => {
     const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
@@ -34,7 +35,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
   before(() => assignClients(testConfig));
 
   before(async () => {
-    await core.init(testConfig, {
+    const services = await Services(testConfig, {
       enabled: [
         'accessTokens',
         'queues',
@@ -49,9 +50,12 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
         'networks',
         'legacy',
         'users',
-        'keys'
+        'keys',
+        'trackers'
       ]
     });
+
+    core = Core(services, testConfig);
   });
 
   after(() => testConfig.knex.destroy());
@@ -60,23 +64,65 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
     let result;
 
     before(async () => {
-      result = await core.agendas({ uid: 2 }).members.list({ limit: 2 });
+      result = await core.users({ uid: 1 }).agendas.list({ limit: 2 });
     });
 
     it('total, items and after keys are part of results', () => {
-      result.total.should.equal(5);
-
+      result.total.should.equal(4);
       _.isArray(result.items).should.equal(true);
       _.isInteger(result.after).should.equal(true);
     });
 
-    it('next result set can be fetched using "after" value', async () => {
-      const nextResult = await core.agendas({ uid: 2 })
-        .members.list({ after: result.after });
-
-      nextResult.items.length.should.equal(3);
+    it('items provide agenda details', () => {
+      result.items[0].title.should.equal('Un agenda thématique');
     });
 
+    it('a member key in each item provide details on member information', () => {
+      result.items[0].member.should.eql({
+        name: 'Jan',
+        email: null,
+        organization: null,
+        phone: null,
+        position: null,
+        role: 'contributor'
+      });
+    });
+
+  });
+
+  describe('navigation', function() {
+    const results = [];
+
+    before(async () => {
+      let after = null;
+      do {
+        const result = await core.users({
+          uid: 1
+        }).agendas.list({
+          limit: 2,
+          after
+        });
+
+        after = result.after;
+
+        results.push(result);
+      } while (_.last(results).items.length)
+    });
+
+    it('provided after key can be used to fetch next results', () => {
+      const titles = results.reduce((titles, { items }) => titles.concat(items.map(item => item.title)), [])
+
+      titles.should.eql([
+        'Un agenda thématique',
+        'Les Plus Beaux Villages de France',
+        "Office de tourisme La Baule - Presqu'île de Guérande",
+        'Parc de la Villette'
+      ]);
+    });
+
+    it('last after is null', () => {
+      should(_.last(results).after).equal(null);
+    });
   });
 
   describe('api', function() {
@@ -94,7 +140,7 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
       before(async () => {
         response = await axios({
           method: 'get',
-          url: `http://localhost:3000/v2/agendas/2/members?key=${key}`
+          url: `http://localhost:3000/v2/me/agendas?key=${key}`
         }).then(r => r.data);
       });
 
@@ -109,35 +155,6 @@ describe('08 - core - functional (server): core.agendas().members.list', functio
 
     });
 
-    describe('invalid call', () => {
-      before(async () => {
-        try {
-          await axios({
-            method: 'get',
-            url: `http://localhost:3000/v2/agendas/2/members?key=${key}&limit=1111`
-          })
-        } catch (e) {
-          response = e.response;
-        }
-      });
-
-      it('status is 400 if invalid query is provided', () => {
-        response.status.should.equal(400);
-      });
-
-      it('validation errors are provided in body', () => {
-        response.data.errors.should.eql([
-          {
-            code: 'integer.toobig',
-            message: 'the integer is too big',
-            values: { max: 100 },
-            origin: '1111',
-            field: 'limit'
-          }
-        ]);
-      });
-
-    });
   });
 
 });

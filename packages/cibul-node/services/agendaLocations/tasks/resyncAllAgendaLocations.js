@@ -3,12 +3,14 @@
 const _ = require( 'lodash' );
 const { promisify } = require( 'util' );
 
-const agendaLocations = require( '@openagenda/agenda-locations' );
 const log = require( '@openagenda/logs' )( 'services/agendaLocations/tasks/resyncAllAgendaLocations' );
 
-const resync = promisify( agendaLocations.resync );
+module.exports = async function(services, knex, startFromId) {
+  const {
+    agendaLocations
+  } = services;
 
-module.exports = async function( knex, startFromId ) {
+  const resync = promisify(agendaLocations.resync);
 
   let agenda = {
     id: startFromId || 99999999

@@ -3,6 +3,7 @@
 const log = require('@openagenda/logs')('events/interfaces/onCreate');
 
 module.exports = (services, event, context) => {
+  services.tracker('events.onCreate');
   log('info', 'created event %s with context %j', event.uid, context);
 
   if (event.creatorUid) {

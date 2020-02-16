@@ -5,7 +5,6 @@ const ih = require( 'immutability-helper' );
 const qs = require( 'qs' );
 
 const agendaSvc = require( '@openagenda/agendas' );
-const core = require( '../core' );
 
 const getLabel = require( '@openagenda/labels' )( require( '@openagenda/labels/event/show' ) );
 const errorLabels = require( '@openagenda/labels/errors' );
@@ -742,7 +741,7 @@ function wrap( fn ) {
 
 function _loadAgendaCoreSettings( req, res, next ) {
 
-  core.agendas( req.agenda.uid ).settings.get().then( settings => {
+  req.app.services.core.agendas( req.agenda.uid ).settings.get().then( settings => {
 
     req.agendaSettings = settings;
 

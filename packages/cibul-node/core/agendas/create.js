@@ -1,19 +1,21 @@
 "use strict";
 
-const agendas = require( '@openagenda/agendas' );
-const { promisify } = require( 'util' );
-const setAgenda = promisify( agendas.set );
+const { promisify } = require('util');
 
-const agendaSettings = require( './settings' );
+module.exports = async (core, data, options = {} ) => {
+  const setAgenda = promisify(core.services.agendas.set);
 
-module.exports = async ( data, options = {} ) => {
+  const {
+    success,
+    agenda
+  } = await setAgenda(data);
 
-  const { success, agenda } = await setAgenda( data );
+  if (!success) {
+    throw new Error('could not create agenda');
+  }
 
-  if ( !success ) throw new Error( 'could not create agenda' );
-
-  if ( options.updateLegacy ) {
-    await agendaSettings( agenda.uid ).legacy.update( true );
+  if (options.updateLegacy) {
+    await core.agendas(agenda.uid).settings.legacy.update(true);
   }
 
   return agenda;

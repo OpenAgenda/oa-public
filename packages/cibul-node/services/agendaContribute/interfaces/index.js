@@ -1,10 +1,8 @@
-"use strict";
+'use strict';
 
-const uuidV4 = require( 'uuid/v4' );
-
-module.exports = {
-  setMember: require( './setMember' ),
-  setEvent: require( './setEvent' ),
-  generateUniqueFileKey: require( './generateUniqueFileKey' ),
-  deleteDraftEvent: require( './deleteDraftEvent' )
-}
+module.exports = services => ({
+  setMember: require('./setMember').bind(null, services),
+  setEvent: require('./setEvent').bind(null, services),
+  generateUniqueFileKey: require('./generateUniqueFileKey'),
+  deleteDraftEvent: require('./deleteDraftEvent').bind(null, services)
+})

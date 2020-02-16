@@ -7,7 +7,6 @@ module.exports = app => {
   require('./agenda/back')(app);
   require('./inboxes/endpoints')(app);
   require('./inboxes/pages')(app);
-  require('./services/surveys')(app);
   require('./services/agendaContribute')(app);
   require('./services/agendaEvents')(app);
   require('./services/agendaSchema')(app);

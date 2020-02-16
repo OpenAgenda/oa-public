@@ -10,12 +10,14 @@ const should = require('should');
 
 const assignClients = require('./utils/assignClients');
 const api = require('../api');
-const core = require('../core');
-const fixtures = require('./fixtures/03_core_agendas_events_update.sql');
+const Services = require('../services/init');
+const Core = require('../core');
+const fixtures = require('./fixtures/004.sql');
 const testConfig = require('./testConfig');
 
 describe('core - functional (server): core.agendas().events.update()', function() {
   this.timeout(20000);
+  let core;
 
   before(async () => {
     const con = mysql.createConnection(Object.assign(_.pick(testConfig.db, ['user', 'password']), {
@@ -32,7 +34,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
   before(() => assignClients(testConfig));
 
   before(async () => {
-    await core.init(testConfig, {
+    const services = await Services(testConfig, {
       enabled: [
         'queues',
         'events',
@@ -48,9 +50,12 @@ describe('core - functional (server): core.agendas().events.update()', function(
         'legacy',
         'users',
         'keys',
-        'accessTokens'
+        'accessTokens',
+        'tracker'
       ]
     });
+
+    core = Core(services, testConfig);
   });
 
   after(() => testConfig.knex.destroy());
@@ -106,16 +111,15 @@ describe('core - functional (server): core.agendas().events.update()', function(
     });
 
     describe('persistence', () => {
-      const services = core.loadServices();
 
       it('custom values are updated', async () => {
-        const data = await services.custom(2).get(event.uid);
+        const data = await core.services.custom(2).get(event.uid);
 
         data['thematiques-bordeaux-metropole'].should.eql([3])
       });
 
       it('event state in agenda is updated', async () => {
-        const { state } = await services.agendaEvents(17026855).get(19201989);
+        const { state } = await core.services.agendaEvents(17026855).get(19201989);
 
         state.should.equal(0);
       });
@@ -171,14 +175,14 @@ describe('core - functional (server): core.agendas().events.update()', function(
     }));
 
     it('a contributor access cannot update an administrator field', async () => {
-      const data = await core.loadServices().custom(5).get(19390293);
+      const data = await core.services.custom(5).get(19390293);
       data.should.eql({
         'organisation-interne': 'Il faut que Thérèse y soit'
       });
     });
 
     it('an administrator access can update an administrator field', async () => {
-      const data = await core.loadServices().custom(5).get(19390294);
+      const data = await core.services.custom(5).get(19390294);
       data.should.eql({
         'organisation-interne': 'Il faut que René y aille'
       });
@@ -209,7 +213,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
     });
 
     it('update is still draft', async () => {
-      const e = await core.loadServices().events.get({ uid: 83902931 });
+      const e = await core.services.events.get({ uid: 83902931 });
       e.draft.should.equal(1);
     });
 
@@ -218,7 +222,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
     });
 
     it('custom data is updated', async () => {
-      const data = await core.loadServices().custom(2).get(83902931);
+      const data = await core.services.custom(2).get(83902931);
       data['thematiques-bordeaux-metropole'].should.eql([4]);
     });
 
@@ -252,7 +256,6 @@ describe('core - functional (server): core.agendas().events.update()', function(
     });
 
     describe('persistence', () => {
-      const services = core.loadServices();
 
       it('legacy model is patched', async () => {
         const record = await testConfig.knex('review_article')
@@ -267,12 +270,11 @@ describe('core - functional (server): core.agendas().events.update()', function(
   });
 
   describe('other', () => {
-    const services = core.loadServices();
 
     it('if state is not specified in provided data, state is not updated', async () => {
       const {
         state: currentState
-      } = await services.agendaEvents(17026855).get(19201989);
+      } = await core.services.agendaEvents(17026855).get(19201989);
 
       await core.agendas(17026855).events.update(19201989, {
         featured: true,
@@ -300,7 +302,7 @@ describe('core - functional (server): core.agendas().events.update()', function(
 
       const {
         state: updatedState
-      } = await services.agendaEvents(17026855).get(19201989);
+      } = await core.services.agendaEvents(17026855).get(19201989);
 
       currentState.should.equal(updatedState);
     });

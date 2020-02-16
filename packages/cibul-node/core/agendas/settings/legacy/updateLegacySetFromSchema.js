@@ -25,13 +25,17 @@ const operations = {
 
 const log = require('@openagenda/logs')('core/agendas/settings/legacy/updateLegacySet');
 
-module.exports = async (config, agendaOrUid, type, force = false) => {
+module.exports = async (core, agendaOrUid, type, force = false) => {
+  const config = core.getConfig();
+  const {
+    services
+  } = core;
 
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(agendaOrUid);
+  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
 
   log(`transferring from form-schema to ${type}-set and custom fields`, agenda.uid, agenda.slug);
 
-  const schema = await getMergedSchema(agenda);
+  const schema = await getMergedSchema(services, agenda);
 
   if (!schema) return {
     message: `No schema was found for agenda ${agenda.uid}`
@@ -72,7 +76,7 @@ module.exports = async (config, agendaOrUid, type, force = false) => {
     const {
       message: schemaUpdateMessage,
       schema: updatedSchema
-    } = await setSchemaFieldOrigins(agenda, fields.map(f => f.field), type);
+    } = await setSchemaFieldOrigins(services, agenda, fields.map(f => f.field), type);
 
     res.messages.push(schemaUpdateMessage);
 

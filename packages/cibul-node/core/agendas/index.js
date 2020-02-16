@@ -8,15 +8,15 @@ const remove = require('./remove');
 const members = require('./members');
 const get = require('./get');
 
-module.exports = services => {
-  const settings = Settings(services);
+module.exports = core => {
+  const settings = Settings(core);
 
   return Object.assign(agendaUid => ({
-    get: get.bind(null, services, agendaUid),
-    update: update.bind(null, services, agendaUid),
+    get: get.bind(null, core.services, agendaUid),
+    update: update.bind(null, core.services, agendaUid),
     remove: remove.bind(null, agendaUid),
-    events: events(services, agendaUid),
-    members: members(services, agendaUid),
+    events: events(core, agendaUid),
+    members: members(core.services, agendaUid),
     settings: settings(agendaUid)
   }), { create });
 }

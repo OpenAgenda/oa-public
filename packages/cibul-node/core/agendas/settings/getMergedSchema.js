@@ -5,7 +5,7 @@ const _ = require('lodash');
 const getAgenda = require('../utils/getAgenda');
 const getNetwork = require('../utils/getNetwork');
 
-module.exports = async (services, agendaOrUid, options = {} ) => {
+module.exports = async (services, agendaOrUid, options = {}) => {
   const {
     formSchemas
   } = services;
@@ -17,7 +17,7 @@ module.exports = async (services, agendaOrUid, options = {} ) => {
     ...options
   };
 
-  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(agendaOrUid);
+  const agenda = _.isObject(agendaOrUid) ? agendaOrUid : await getAgenda(services, agendaOrUid);
 
   const {
     id: agendaId,
@@ -25,7 +25,7 @@ module.exports = async (services, agendaOrUid, options = {} ) => {
     formSchemaId
   } = agenda;
 
-  const network = preloadedNetwork || await getNetwork(networkUid);
+  const network = preloadedNetwork || await getNetwork(services, networkUid);
 
   const formSchema = await _loadFormSchema(formSchemas, agendaId, formSchemaId, !!_.get(network, 'formSchemaId'));
 

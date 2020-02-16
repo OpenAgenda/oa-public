@@ -3,7 +3,6 @@
 const config = require( '../config' );
 
 const _ = require( 'lodash' );
-const core = require('../core');
 const cmn = require( '../lib/commons-app' );
 const qs = require( 'qs' );
 
@@ -554,7 +553,7 @@ function eventDelete( req, res, next ) {
   const userUid = req.query.userUid || null;
   const agendaUid = req.query.agendaUid || null;
 
-  core.agendas(agendaUid).events.remove(req.event.uid).then( () => {
+  req.app.services.core.agendas(agendaUid).events.remove(req.event.uid).then( () => {
     log('deleted event', req.event.uid);
   }, err => {
     log('error', err);

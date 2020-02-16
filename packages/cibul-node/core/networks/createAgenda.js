@@ -1,7 +1,7 @@
 "use strict";
 
-const createAgenda = require( '../agendas/create' );
+const createAgenda = require('../agendas/create');
 
-module.exports = ( networkUid, data ) => createAgenda( { ...data, networkUid }, {
+module.exports = (core, networkUid, data) => createAgenda(core, { ...data, networkUid }, {
   updateLegacy: true
-} );
+});

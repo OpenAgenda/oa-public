@@ -2,18 +2,18 @@
 
 const _ = require( 'lodash' );
 
-const eventSvc = require( '@openagenda/events' );
 const log = require( '@openagenda/logs' )( 'services/agendaLocations/locationsWillRemove' );
 
-module.exports = ( location, cb ) => {
-
+module.exports = (services, location, cb) => {
   log( 'info', 'deleting events associated with location of uid %s', location.uid );
 
-  locationsWillRemove( location ).then( () => cb(), cb );
-
+  locationsWillRemove(services, location).then( () => cb(), cb );
 }
 
-async function locationsWillRemove( location ) {
+async function locationsWillRemove(services, location) {
+  const {
+    events: eventSvc
+  } = services;
 
   if ( !location.uid ) throw Error( 'Location uid is not defined' );
 
