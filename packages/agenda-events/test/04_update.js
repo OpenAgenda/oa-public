@@ -163,12 +163,12 @@ describe( 'agendaEvents - functional (server): update', function() {
 
     } );
 
-    it('update on sourceAgendaUid field replaces previous list', async () => {
+    it('update on sourcePaths field replaces previous list', async () => {
       const result = await svc(62792452).update(60059313, {
-        sourceAgendaUid: [88]
+        sourcePaths: [88, [11]]
       });
 
-      result.updated.sourceAgendaUid.should.eql([88]);
+      result.updated.sourcePaths.should.eql([88, [11]]);
     });
 
     it( 'update without state does not change current state', async () => {

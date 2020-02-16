@@ -8,10 +8,10 @@ const validateOptions = require('./lib/validateOptions');
 
 let config, knex;
 
-module.exports = _.extend( get, {
+module.exports = Object.assign(get, {
   init: ( c, k ) => { config = c; knex = k },
   byLegacyId
-} );
+});
 
 async function get(agendaUid, eventUid, options = {}) {
   if (!agendaUid) throw new Error('Agenda uid is missing');
@@ -21,13 +21,13 @@ async function get(agendaUid, eventUid, options = {}) {
     decorate
   } = validateOptions(options);
 
-  const ae = await _get( {
-    'agenda_uid' : agendaUid,
-    'event_uid' : eventUid
-  } );
+  const ae = await _get({
+    'agenda_uid': agendaUid,
+    'event_uid': eventUid
+  });
 
   if (decorate.includes('member') && config.interfaces.getMembers && ae) {
-    ae.member = ae.userUid ? _.get( await config.interfaces.getMembers([ae]), '0') : null;
+    ae.member = ae.userUid ? _.get(await config.interfaces.getMembers([ae]), '0') : null;
   }
 
   return ae;
