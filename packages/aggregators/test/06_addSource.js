@@ -6,7 +6,7 @@ const should = require('should');
 const addSource = require('../lib/addSource');
 const loadSourceEvaluates = require('../lib/loadSourceEvaluates');
 
-describe('Aggregators addSource', () => {
+describe('06 - addSource', () => {
 
   describe('addSource', () => {
 

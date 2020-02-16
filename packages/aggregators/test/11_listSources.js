@@ -6,7 +6,7 @@ const createInstance = require('../');
 const fixtures = require('./fixtures');
 const getAgendasByUidsAndSearch = require('./fixtures/getAgendasByUidsAndSearch');
 
-describe('Aggregators list sources', () => {
+describe('11 - list sources', () => {
   const agenda = { id: 218 };
 
   const f = fixtures(config.mysql);

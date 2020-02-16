@@ -11,7 +11,7 @@ const {
   getJSON
 } = require('./utils');
 
-describe('Aggregators removeSource', () => {
+describe('07 - removeSource', () => {
 
   describe('removeSource', () => {
 

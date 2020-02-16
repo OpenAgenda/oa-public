@@ -7,7 +7,7 @@ const createInstance = require('../');
 const fixtures = require('./fixtures');
 const Tracker = require('./utils').Tracker;
 
-describe('Aggregators set and get', () => {
+describe('09 - set and get', () => {
   const f = fixtures(config.mysql);
   let svc;
   const tracker = Tracker();

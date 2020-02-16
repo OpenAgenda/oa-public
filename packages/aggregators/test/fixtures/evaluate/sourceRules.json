@@ -1,0 +1,8 @@
+[{
+  "query": {
+    "location": {
+      "city": "Courbevoie"
+    }
+  },
+  "required": true
+}]

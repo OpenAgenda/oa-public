@@ -2,9 +2,11 @@
 
 const Log = require('../utils/Log')('Aggregators/removeEvent');
 
+const paths = require('../utils/paths');
+
 module.exports = async ({
   getEventReference,
-  unsetSourceUidOnExistingReference,
+  updateSourcePaths,
   unreferenceEvent
 }, data) => {
   const {
@@ -23,13 +25,13 @@ module.exports = async ({
     return;
   }
 
-  const update = reference.sourceAgendaUid.filter(uid => uid!==sourceAgendaUid);
+  const updatedPaths = paths.getFiltered(reference.sourcePaths, sourceAgendaUid);
 
   let result;
 
-  if (reference.aggregated && !update.length) {
+  if (reference.aggregated && !updatedPaths.length) {
     log('no source references are left, event must be unlisted from aggregator agenda');
-    const { success, errors } = await unreferenceEvent(sourceAgendaUid, aggregatorAgendaUid, eventUid, { batched });
+    const { success, errors } = await unreferenceEvent(aggregatorAgendaUid, eventUid, { batched });
     if (success) {
       log('removed reference');
       return { success: true };
@@ -39,6 +41,6 @@ module.exports = async ({
     }
   } else {
     log('other source references are present, current source ref must be removed');
-    await unsetSourceUidOnExistingReference(aggregatorAgendaUid, eventUid, sourceAgendaUid);
+    await updateSourcePaths(aggregatorAgendaUid, eventUid, updatedPaths);
   }
 }

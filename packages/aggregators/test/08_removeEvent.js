@@ -9,7 +9,7 @@ const {
   getJSON
 } = require('./utils');
 
-describe('Aggregators removeEvent', () => {
+describe('08 - removeEvent', () => {
 
   it('if reference shows add by aggregation and source is last source refered, unreferenceEvent is called', async () => {
     const tracker = Tracker();
@@ -22,7 +22,7 @@ describe('Aggregators removeEvent', () => {
         sourceAgendaUid: [ sourceAgendaUid ],
         aggregated: true
       }),
-      unsetSourceUidOnExistingReference: tracker('unsetSourceUidOnExistingReference'),
+      updateSourcePaths: tracker('updateSourcePaths'),
       unreferenceEvent: tracker('unreferenceEvent', { success: true })
     }, {
       aggregatorAgendaUid,
@@ -34,21 +34,20 @@ describe('Aggregators removeEvent', () => {
 
     unreferenceCall.name.should.equal('unreferenceEvent');
     unreferenceCall.args.should.eql([
-      sourceAgendaUid,
       aggregatorAgendaUid,
       eventUid,
       { batched: undefined }
     ]);
   });
 
-  it('if reference shows that other sources reference event, then unsetSourceUidOnExistingReference is called', async () => {
+  it('if reference shows that other sources reference event, then updateSourcePaths is called', async () => {
     const tracker = Tracker();
     await removeEvent({
       getEventReference: tracker('getEventReference', {
-        sourceAgendaUid: [ 71413881, 54674789 ],
+        sourcePaths: [ [71413881], [54674789] ],
         aggregated: true
       }),
-      unsetSourceUidOnExistingReference: tracker('unsetSourceUidOnExistingReference'),
+      updateSourcePaths: tracker('updateSourcePaths'),
       unreferenceEvent: tracker('unreferenceEvent', { success: true })
     }, {
       aggregatorAgendaUid: 123,
@@ -56,17 +55,17 @@ describe('Aggregators removeEvent', () => {
       eventUid: 1
     });
 
-    tracker.calls.pop().name.should.equal('unsetSourceUidOnExistingReference');
+    tracker.calls.pop().name.should.equal('updateSourcePaths');
   });
 
-  it('if reference shows that event was not added to aggregator agenda through aggregation, then unsetSourceUidOnExistingReference event if source is last', async () => {
+  it('if reference shows that event was not added to aggregator agenda through aggregation, then updateSourcePaths event if source is last', async () => {
     const tracker = Tracker();
     await removeEvent({
       getEventReference: tracker('getEventReference', {
-        sourceAgendaUid: [ 71413881 ],
+        sourcePaths: [ 71413881 ],
         aggregated: false
       }),
-      unsetSourceUidOnExistingReference: tracker('unsetSourceUidOnExistingReference'),
+      updateSourcePaths: tracker('updateSourcePaths'),
       unreferenceEvent: tracker('unreferenceEvent', { success: true })
     }, {
       aggregatorAgendaUid: 123,
@@ -74,7 +73,7 @@ describe('Aggregators removeEvent', () => {
       eventUid: 1
     });
 
-    tracker.calls.pop().name.should.equal('unsetSourceUidOnExistingReference');
+    tracker.calls.pop().name.should.equal('updateSourcePaths');
   });
 
   it('if unreference fails, result provides success bool at false and errors', async () => {

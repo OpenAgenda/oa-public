@@ -38,12 +38,12 @@ module.exports = ({ knex, queues, interfaces, logger }) => {
       referenceEvent: interfaces.referenceEvent,
       getMergedSchema: interfaces.getMergedSchema,
       getEventReference: interfaces.getEventReference,
-      setSourceUidOnExistingReference: interfaces.setSourceUidOnExistingReference,
+      updateSourcePaths: interfaces.updateSourcePaths,
       enqueueRemove: queue.bind(null, 'removeEvent')
     }),
     removeEvent: removeEvent.bind(null, _.pick(interfaces, [
       'getEventReference',
-      'unsetSourceUidOnExistingReference',
+      'updateSourcePaths',
       'unreferenceEvent'
     ])),
     loadSourceEvaluates: loadSourceEvaluates.bind(null, {
@@ -111,4 +111,11 @@ module.exports = ({ knex, queues, interfaces, logger }) => {
 
 function task({ queue }) {
   queue.run();
+
+  return {
+    stopAndClear: async () => {
+      await queue.clear();
+      await queue.stop();
+    }
+  }
 }

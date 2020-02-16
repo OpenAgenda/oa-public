@@ -21,7 +21,7 @@ const fixtures = {
   simpleAggregatorSchema: require('./fixtures/simpleAggregatorSchema.json')
 };
 
-describe('Aggregators utils', () => {
+describe('05 - utils', () => {
 
   describe('convertFieldOptionIdsToLabels', () => {
 
