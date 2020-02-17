@@ -213,7 +213,7 @@ async function _createAndSend( services, values ) {
 
 async function _verifyToken( services, values ) {
 
-  const { users: usersSvc } = req.app;
+  const { tokens: tokensSvc } = services;
 
   const token = await tokensSvc.findOne( {
     query: {
@@ -238,7 +238,10 @@ async function _verifyToken( services, values ) {
 
 async function updatePassword( services, values ) {
 
-  const { users: usersSvc } = services;
+  const {
+    users: usersSvc,
+    tokens: tokensSvc
+  } = services;
 
   await _verifyToken( services, values );
 
