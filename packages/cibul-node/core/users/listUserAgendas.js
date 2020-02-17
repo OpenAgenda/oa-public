@@ -11,7 +11,9 @@ module.exports = async (services, identifier, nav = {}) => {
     members: membersSvc
   } = services;
 
-  const user = await users.findOne(validateIdentifier(identifier));
+  const user = await users.findOne({
+    query: validateIdentifier(identifier, { pickOne: true })
+  });
 
   if (!user) {
     throw new Error('Not found');

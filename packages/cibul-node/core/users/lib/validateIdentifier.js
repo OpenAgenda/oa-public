@@ -7,7 +7,7 @@ schema.register({
   text: require('@openagenda/validators/text')
 });
 
-module.exports = schema({
+const validate = schema({
   uid: {
     type: 'integer',
     optional: true
@@ -17,3 +17,16 @@ module.exports = schema({
     optional: true
   }
 });
+
+module.exports = (dirty, options = {}) => {
+  const clean = validate(dirty);
+
+  if (options.pickOne) {
+    const field = Object.keys(clean).filter(key => !!clean[key])[0];
+    return {
+      [field]: clean[field]
+    }
+  }
+
+  return clean;
+}
