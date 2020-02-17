@@ -25,8 +25,9 @@ router.get( '/', async ( req, res, next ) => {
 
   try {
     res.json( await router.service.listNetworks() );
-  } catch ( e ) {
-    next( e );
+  } catch (e) {
+    log('error', e);
+    next(e);
   }
 
 } );
