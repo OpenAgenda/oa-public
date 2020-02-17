@@ -15,26 +15,11 @@ module.exports.init = async (config, services) => {
     logger: config.getLogConfig( 'svc', 'agenda-event-references', false ),
     interfaces: {
       events,
-      suggestions: suggestions.bind(null, services)
+      suggestions: (agendaUid, sample, options = {}, cb) => cb(null, []) // unused
     }
   } );
 
 }
-
-
-function suggestions(services, agendaUid, sample, options = {}, cb) {
-
-  log('retrieving suggestions for agenda', agendaUid, { sample } );
-
-  services.eventSearch.agendas( agendaUid ).moreLikeThis( sample, options )
-    .then(result => _.get(result, 'events', [] ).filter( e => !_.get( options, 'exclude', [] ).includes( '' + e.uid ) ) )
-    .then(events => {
-      log('retrieved %s suggestions', events.length);
-      cb(null, events);
-    }).catch( err => cb( err ) );
-
-}
-
 
 function events( agendaId, refQuery, options, cb ) {
 

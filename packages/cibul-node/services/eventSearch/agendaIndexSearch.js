@@ -13,32 +13,8 @@ module.exports = async (eventSearch, agenda, query, nav, options = {}) => {
   const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
 
   log('agenda %s', agenda.uid);
-  const {
-    searchOptions,
-    parseEvent
-  } = await _prepare(agenda, options);
 
-  const {
-    events,
-    total,
-    aggregations
-  } = await searchIndex.search(query, nav, searchOptions);
-
-  return {
-    total,
-    events: events.map(parseEvent),
-    aggregations
-  };
-}
-
-module.exports.moreLikeThis = async (searchIndex, sample, options) => {
-  // do it on keywords, title, custom ids, custom text.
-  return searchIndex.moreLikeThis(sample, options, {
-    date: {
-      gte: JSON.stringify(new Date()).split( 'T' )[0],
-      timezone: 'Europe/Paris'
-    }
-  });
+  return searchIndex.search(query, nav, options);
 }
 
 module.exports.stream = async (searchIndex, agenda, query, options = {}) => {
