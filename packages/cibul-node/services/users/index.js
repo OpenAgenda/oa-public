@@ -185,5 +185,7 @@ async function init(config, services) {
       : service[prop];
   }
 
+  services.tokens = tokensService;
+
   return service;
 }

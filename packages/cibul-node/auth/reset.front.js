@@ -1,5 +1,6 @@
 'use strict';
 
+const _ = require('lodash');
 const log = require( '@openagenda/logs' )( 'auth/reset.front' );
 const labels = require('@openagenda/labels/auth/errors');
 const makeLabelGetter = require('@openagenda/labels/makeLabelGetter');
@@ -47,7 +48,7 @@ function lostPasswordSubmit( req, res ) {
     .then( _ifValueIsNot( 'sent', true, _render( req, res, 'auth/lostPassword' ) ) )
 
     .then( () => log( 'done' ), err => {
-      sessions.setFlash(req, res, err.message);
+      services.sessions.setFlash(req, res, err.message);
 
       res.redirect('/');
     } );
@@ -151,7 +152,10 @@ async function _createAndSend( services, values ) {
 
   log( 'creating activation token' );
 
-  const { users: usersSvc } = services;
+  const {
+    users: usersSvc,
+    tokens: tokensSvc
+  } = services;
 
   const user = values.user ? _.pick( values.user, 'id', 'uid', 'email' ) : { email: values.email };
 
@@ -177,7 +181,7 @@ async function _createAndSend( services, values ) {
 
   }
 
-  let token = await usersSvc.tokens.findOne( {
+  let token = await tokensSvc.findOne( {
     query: {
       userId: values.user.id,
       email: values.user.email,
@@ -186,9 +190,9 @@ async function _createAndSend( services, values ) {
   } );
 
   if ( token ) {
-    await usersSvc.config.interfaces.sendToken( config )( { result: token, params: { user: values.user } } );
+    await tokensSvc.config.interfaces.sendToken( config )( { result: token, params: { user: values.user } } );
   } else {
-    token = await usersSvc.tokens.create(
+    token = await tokensSvc.create(
       {
         userId: values.user.id,
         email: values.user.email,
@@ -211,7 +215,7 @@ async function _verifyToken( services, values ) {
 
   const { users: usersSvc } = req.app;
 
-  const token = await usersSvc.tokens.findOne( {
+  const token = await tokensSvc.findOne( {
     query: {
       token: values.token,
       type: 'lp',
@@ -286,7 +290,7 @@ async function updatePassword( services, values ) {
 
       if ( values.success ) {
 
-        await usersSvc.tokens.remove( values.loadedToken.id );
+        await tokensSvc.remove( values.loadedToken.id );
 
         log( 'token was successfully removed' );
 
