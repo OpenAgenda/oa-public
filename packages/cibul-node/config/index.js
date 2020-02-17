@@ -199,6 +199,9 @@ const config = {
       host: prod.elasticsearch.v5_3.host,
       port: prod.elasticsearch.v5_3.port
     },
+    es75: {
+      host: prod.elasticsearch.v7_5.host
+    },
     esLocation: {
       log: [ {
         type: 'stdio',
