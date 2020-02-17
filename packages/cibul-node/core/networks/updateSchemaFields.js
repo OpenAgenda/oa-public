@@ -4,7 +4,6 @@ const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 
 const log = require( '@openagenda/logs' )('core/networks/updateSchemaFields');
 
-const getNetwork = require('./get');
 const patchNetwork = require('./patch');
 const getAgendas = require('./getAgendas');
 
@@ -23,7 +22,7 @@ module.exports = core => {
   } = services;
 
   return async (networkUid, updatedFields) => {
-    const network = await getNetwork(services, networkUid);
+    const network = await core.networks(networkUid).get(networkUid);
 
     if (!network) {
       throw new Error('network not found');

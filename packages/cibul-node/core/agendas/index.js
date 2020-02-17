@@ -13,10 +13,12 @@ module.exports = core => {
 
   return Object.assign(agendaUid => ({
     get: get.bind(null, core.services, agendaUid),
-    update: update.bind(null, core.services, agendaUid),
+    update: update.bind(null, core, agendaUid),
     remove: remove.bind(null, agendaUid),
     events: events(core, agendaUid),
     members: members(core.services, agendaUid),
     settings: settings(agendaUid)
-  }), { create });
+  }), {
+    create: create.bind(null, core)
+  });
 }

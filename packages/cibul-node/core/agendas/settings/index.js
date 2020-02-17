@@ -19,6 +19,7 @@ module.exports = core => {
     tasks,
     services
   } = core;
+
   const config = core.getConfig();
 
   const {

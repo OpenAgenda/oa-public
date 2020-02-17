@@ -2,8 +2,8 @@
 
 const _ = require('lodash');
 
-const NetworkApps = require( '@openagenda/network-apps' );
-const eventFormSchema = require( '@openagenda/event-form/src/schema' );
+const NetworkApps = require('@openagenda/network-apps');
+const eventFormSchema = require('@openagenda/event-form/src/schema');
 
 const log = require( '@openagenda/logs' )( 'services/networkApps' );
 
@@ -16,18 +16,16 @@ const layout = require( './lib/layouts' ).load( 'main', {
 const router = NetworkApps.router;
 
 module.exports = parentApp => {
-
-  parentApp.use( '/dist/networkApps',
+  parentApp.use('/dist/networkApps',
     router.dist,
-    ( req, res, next ) => res.send( 404 )
+    (req, res, next) => res.send(404)
   );
 
   parentApp.use( '/admin/networks',
-    parentApp.services.sessions.middleware.ifUnlogged( ( req, res ) => res.redirect( 302, '/' ) ),
+    parentApp.services.sessions.middleware.ifUnlogged(( req, res ) => res.redirect(302, '/')),
     cmn.requireSuperAdmin,
     router
   );
-
 }
 
 module.exports.init = (config, services) => {
@@ -36,29 +34,33 @@ module.exports.init = (config, services) => {
     sessions
   } = services;
 
-  router.setLayout( layout );
+  router.setLayout(layout);
 
-  router.setService( NetworkApps( {
+  router.setService(NetworkApps({
     CDNPath: config.aws.servicesBucketPath,
     frontAppPath: process.env.NODE_ENV !== 'production' ? '/dist/networkApps' : null,
+    logger: config.getLogConfig('svc', 'networkApps'),
     interfaces: {
       getEventSchema: () => eventFormSchema( { languages: true } ),
-      listNetworks: () => core.networks.list(),
-      getNetwork: uid => core.networks( uid ).get(),
-      getNetworkSchema: uid => core.networks( uid ).schema.get(),
-      setNetworkSchemaFields: ( uid, fields ) => core.networks( uid ).schema.updateFields( fields ),
-      getNetworkAgendas: uid => core.networks( uid ).agendas(),
+      listNetworks: () => services.core.networks.list(),
+      getNetwork: uid => services.core.networks( uid ).get(),
+      getNetworkSchema: uid => services.core.networks( uid ).schema.get(),
+      setNetworkSchemaFields: ( uid, fields ) => services.core.networks( uid ).schema.updateFields( fields ),
+      getNetworkAgendas: uid => services.core.networks(uid).agendas(),
       getLoggedUser: async req => req.user,
-      addAgendaToNetwork,
-      createAgenda,
+      addAgendaToNetwork: addAgendaToNetwork.bind(null, services),
+      createAgenda: createAgenda.bind(null, services),
       createNetwork: data => services.networks.create(data)
     }
-  } ) );
+  }));
 
 }
 
 
-async function createAgenda( networkUid, data, user ) {
+async function createAgenda(services, networkUid, data, user ) {
+  const {
+    core
+  } = services;
 
   return core.networks( networkUid ).agendas.create( {
     ...data,
@@ -67,7 +69,12 @@ async function createAgenda( networkUid, data, user ) {
 
 }
 
-async function addAgendaToNetwork(uid, dirtySlug) {
+async function addAgendaToNetwork(services, uid, dirtySlug) {
+  const {
+    agendas,
+    core
+  } = services;
+
   const slug = (
     dirtySlug.split( '?' ).shift()
   ).split( '/' ).pop();
@@ -80,7 +87,7 @@ async function addAgendaToNetwork(uid, dirtySlug) {
     throw new Error('Not found');
   }
 
-  await core.networks( uid ).agendas.add(agenda.uid);
+  await core.networks(uid).agendas.add(agenda.uid);
 
   return agenda;
 }
