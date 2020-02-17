@@ -336,7 +336,8 @@ function _redirectEmailFormIfNoProfileEmail( values ) {
 
 async function _createAndSend( values ) {
   const {
-    users
+    users,
+    tokens
   } = values.req.app.services;
 
   log( 'creating activation token' );
@@ -367,14 +368,14 @@ async function _createAndSend( values ) {
 
   const optionals = _.pickBy( _.pick( values, 'iToken', 'invitation', 'redirect', 'agenda' ) );
 
-  let token = await users.tokens.findOne( {
+  let token = await tokens.findOne( {
     query: { userId: values.user.id, email: values.user.email, type: 'aa' },
   } );
 
   if ( token ) {
     await users.config.interfaces.sendToken( config )( { result: token, params: { user: values.user, optionals } } );
   } else {
-    token = await users.tokens.create(
+    token = await tokens.create(
       { userId: values.user.id, email: values.user.email, type: 'aa' },
       { user: values.user, optionals }
     );
