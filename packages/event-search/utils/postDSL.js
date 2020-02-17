@@ -9,7 +9,7 @@ module.exports = async ({ client }, index, DSL, options = {}) => {
     body: DSL,
     scroll: options.scroll
   });
-  //textLog(res);
+  //textLog(DSL);
 
   return {
     events: res.body.hits.hits.map(h => h['_source']),

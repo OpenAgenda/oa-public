@@ -65,9 +65,6 @@ async function search(config, set, query = {}, nav = {}, options = {}) {
     cleanDSL = appendMLT(cleanDSL, query.mlt, { formSchema })
   }
 
-  textLog(cleanDSL);
-  //textLog(set + '.json', { cleanDSL, query });
-
   // sorting and _source added after
 
   if (requestedAggregations) {

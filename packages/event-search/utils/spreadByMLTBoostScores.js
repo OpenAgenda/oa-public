@@ -5,14 +5,14 @@ const ih = require('immutability-helper');
 
 const getMLTDSLPart = require('./getMLTDSLPart');
 
-module.exports = (DSL, MLTRequest, scores) => ih(DSL, {
+module.exports = (DSL, MLTRequest, scores, options) => ih(DSL, {
   query: {
     $set: {
       dis_max: {
         queries: Object.keys(scores).map(scoredField => {
           const fieldValue = _.get(MLTRequest, scoredField);
           const boostedField = _isIntegerLike(fieldValue)
-            ? '_search_keywords'
+            ? '_search_additional_keywords'
             : scoredField;
 
           if ([undefined, null].includes(fieldValue)) {
@@ -24,7 +24,7 @@ module.exports = (DSL, MLTRequest, scores) => ih(DSL, {
               must: {
                 $set: (DSL.query.bool.must || []).concat({
                   more_like_this: {
-                    ...getMLTDSLPart(_.set({}, scoredField, fieldValue)),
+                    ...getMLTDSLPart(_.set({}, scoredField, fieldValue), options),
                     boost: scores[scoredField],
                     fields: [boostedField]
                   }
@@ -32,7 +32,7 @@ module.exports = (DSL, MLTRequest, scores) => ih(DSL, {
               }
             }
           });
-        })
+        }).filter(q => !!q)
       }
     }
   }

@@ -1,0 +1,1010 @@
+{
+  "custom": null,
+  "fields": [
+    {
+      "field": "internal_remarks",
+      "label": {
+        "en": "Internal remarks",
+        "fr": "Remarques internes"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "en": "This field allows you to indicate to Infocom your remarks if any concerning the treatment of this event.",
+        "fr": "Ce champ vous permet d'indiquer à Infocom vos éventuelles remarques concernant le traitement de cet événement."
+      },
+      "sub": {
+        "en": "This field is currently multilingual",
+        "fr": "Ce champ est actuellement multilingue"
+      },
+      "placeholder": null,
+      "write": null,
+      "read": [
+        "moderator"
+      ],
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "languages": [],
+      "fieldType": "textarea",
+      "schemaId": 9661
+    },
+    {
+      "field": "service-contributeur",
+      "label": {
+        "en": "Service Contributeur",
+        "fr": "Service Contributeur"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "en": "Indiquez quel est le service responsable de l'événement. Si l'événement est organisé par plusieurs services, vous pouvez en cocher plusieurs. Cette information ne sera pas publique; elle utile uniquement pour l'interne.",
+        "fr": "Indiquez quel est le service responsable de l'événement. Si l'événement est organisé par plusieurs services, vous pouvez en cocher plusieurs. Cette information ne sera pas publique; elle utile uniquement pour l'interne."
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 1,
+          "value": "infocom",
+          "label": {
+            "fr": "INFOCOM",
+            "en": "INFOCOM"
+          }
+        },
+        {
+          "id": 2,
+          "value": "a21",
+          "label": {
+            "fr": "A21",
+            "en": "A21"
+          }
+        },
+        {
+          "id": 3,
+          "value": "ari",
+          "label": {
+            "fr": "ARI",
+            "en": "ARI"
+          }
+        },
+        {
+          "id": 4,
+          "value": "bge",
+          "label": {
+            "fr": "BGE",
+            "en": "BGE"
+          }
+        },
+        {
+          "id": 5,
+          "value": "bmu",
+          "label": {
+            "fr": "BMU",
+            "en": "BMU"
+          }
+        },
+        {
+          "id": 6,
+          "value": "cjb",
+          "label": {
+            "fr": "CJB",
+            "en": "CJB"
+          }
+        },
+        {
+          "id": 7,
+          "value": "dej",
+          "label": {
+            "fr": "DEJ",
+            "en": "DEJ"
+          }
+        },
+        {
+          "id": 8,
+          "value": "dcs",
+          "label": {
+            "fr": "DCS",
+            "en": "DCS"
+          }
+        },
+        {
+          "id": 9,
+          "value": "dfl",
+          "label": {
+            "fr": "DFL",
+            "en": "DFL"
+          }
+        },
+        {
+          "id": 56,
+          "value": "fmac",
+          "label": {
+            "en": "FMAC",
+            "fr": "FMAC"
+          }
+        },
+        {
+          "id": 10,
+          "value": "mah",
+          "label": {
+            "fr": "MAH",
+            "en": "MAH"
+          }
+        },
+        {
+          "id": 11,
+          "value": "meg",
+          "label": {
+            "fr": "MEG",
+            "en": "MEG"
+          }
+        },
+        {
+          "id": 12,
+          "value": "mhn",
+          "label": {
+            "fr": "MHN",
+            "en": "MHN"
+          }
+        },
+        {
+          "id": 13,
+          "value": "soc",
+          "label": {
+            "fr": "SOC",
+            "en": "SOC"
+          }
+        },
+        {
+          "id": 14,
+          "value": "spo",
+          "label": {
+            "fr": "SPO",
+            "en": "SPO"
+          }
+        },
+        {
+          "id": 54,
+          "value": "vh",
+          "label": {
+            "fr": "VH",
+            "en": "VH"
+          }
+        },
+        {
+          "id": 55,
+          "value": "ext",
+          "label": {
+            "fr": "Contributeur Externe",
+            "en": "Contributeur Externe"
+          }
+        }
+      ],
+      "fieldType": "radio",
+      "schemaId": 9661
+    },
+    {
+      "field": "languages",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "title",
+      "info": {
+        "en": "Le titre ne doit pas dépasser 140 caractères",
+        "fr": "Le titre ne doit pas dépasser 140 caractères"
+      },
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "infocom_title",
+      "label": "Titre Infocom",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": "Reformulez si besoin ce titre (pour éviter les contenus dupliqués sur d'autres sites et pour situer le contexte), qui apparaîtra sur le site officiel de la Ville de Genève.",
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "languages": [],
+      "fieldType": "text",
+      "schemaId": 9711
+    },
+    {
+      "field": "description",
+      "label": {
+        "en": "Chapeau",
+        "fr": "Chapeau"
+      },
+      "info": {
+        "en": "Le chapeau doit résumer en quelques phrases votre texte, et contenir des mots clés. Il doit répondre brièvement (200 signes environ) à 5 questions: Quoi? Qui? Où? Quand? Pourquoi?",
+        "fr": "Le chapeau doit résumer en quelques phrases votre texte, et contenir des mots clés. Il doit répondre brièvement (200 signes environ) à 5 questions: Quoi? Qui? Où? Quand? Pourquoi?"
+      },
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "infocom_cap",
+      "label": "Chapeau Infocom",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": "Reformulez si besoin ce chapeau (pour éviter les contenus dupliqués sur d'autres sites et pour situer le contexte), qui apparaîtra sur le site officiel de la Ville de Genève.",
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 9711
+    },
+    {
+      "field": "longDescription",
+      "label": {
+        "en": "Texte",
+        "fr": "Texte"
+      },
+      "info": {
+        "en": "Vous pouvez saisir et mettre en page votre texte, et y ajouter si besoin une vidéo, un document, un extrait sonore ou des liens. Pour cela, inscrivez-les sous forme de lien url directement dans le corps du texte.",
+        "fr": "Vous pouvez saisir et mettre en page votre texte, et y ajouter si besoin une vidéo, un document, un extrait sonore ou des liens. Pour cela, inscrivez-les sous forme de lien url directement dans le corps du texte."
+      },
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "infocom_text",
+      "label": "Texte Infocom",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": "Reformulez si besoin ce texte, qui apparaîtra sur le site officiel de la Ville de Genève.",
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "html",
+      "schemaId": 9711
+    },
+    {
+      "field": "type-devenement",
+      "label": {
+        "en": "Type d'événement",
+        "fr": "Type d'événement"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "en": "Veuillez choisir un type d'événement pour cet événement. Ces tags permettent aux utilisateurs de trier les événements selon leurs intérêts.",
+        "fr": "Veuillez choisir un type d'événement pour cet événement. Ces tags permettent aux utilisateurs de trier les événements selon leurs intérêts."
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 34,
+          "value": "animation",
+          "label": {
+            "fr": "Animation"
+          }
+        },
+        {
+          "id": 35,
+          "value": "atelier",
+          "label": {
+            "fr": "Atelier"
+          }
+        },
+        {
+          "id": 36,
+          "value": "balade",
+          "label": {
+            "fr": "Balade"
+          }
+        },
+        {
+          "id": 37,
+          "value": "competition",
+          "label": {
+            "fr": "Compétition"
+          }
+        },
+        {
+          "id": 38,
+          "value": "concert",
+          "label": {
+            "fr": "Concert"
+          }
+        },
+        {
+          "id": 39,
+          "value": "conference-rencontre",
+          "label": {
+            "fr": "Conférence-Rencontre"
+          }
+        },
+        {
+          "id": 40,
+          "value": "danse",
+          "label": {
+            "fr": "Danse"
+          }
+        },
+        {
+          "id": 41,
+          "value": "exposition",
+          "label": {
+            "fr": "Exposition"
+          }
+        },
+        {
+          "id": 61,
+          "value": "festival",
+          "label": {
+            "en": "Festival",
+            "fr": "Festival"
+          }
+        },
+        {
+          "id": 42,
+          "value": "inauguration",
+          "label": {
+            "fr": "Inauguration"
+          }
+        },
+        {
+          "id": 43,
+          "value": "lecture",
+          "label": {
+            "fr": "Lecture"
+          }
+        },
+        {
+          "id": 44,
+          "value": "manifestation",
+          "label": {
+            "fr": "Manifestation"
+          }
+        },
+        {
+          "id": 45,
+          "value": "projection",
+          "label": {
+            "fr": "Projection"
+          }
+        },
+        {
+          "id": 46,
+          "value": "spectacle",
+          "label": {
+            "fr": "Spectacle"
+          }
+        },
+        {
+          "id": 47,
+          "value": "theatre",
+          "label": {
+            "fr": "Théâtre"
+          }
+        },
+        {
+          "id": 48,
+          "value": "visite-commentee",
+          "label": {
+            "fr": "Visite commentée"
+          }
+        }
+      ],
+      "fieldType": "radio",
+      "schemaId": 9661
+    },
+    {
+      "field": "timings",
+      "info": {
+        "en": "Indiquez les horaires et dates de l'événement, en précisant si l'événement est récurrent et excluant les jours de fermeture.",
+        "fr": "Indiquez les horaires et dates de l'événement, en précisant si l'événement est récurrent et excluant les jours de fermeture."
+      },
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "location",
+      "default": {
+        "countryCode": "CH",
+        "city": "Genève",
+        "latitude": 46.2050579,
+        "longitude": 6.126579
+      },
+      "info": {
+        "en": "Recherchez le lieu de votre événement dans la base mise à disposition. S'il ne s'y trouve pas ou si vous désirez en afficher plusieurs, sélectionnez \"autre lieu\" puis remplissez le champ texte \"autre lieu\" ci-dessous.",
+        "fr": "Recherchez le lieu de votre événement dans la base mise à disposition. S'il ne s'y trouve pas ou si vous désirez en afficher plusieurs, sélectionnez \"autre lieu\" puis remplissez le champ texte \"autre lieu\" ci-dessous."
+      },
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "other_place",
+      "label": {
+        "en": "Other place",
+        "fr": "Autre lieu"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "en": "Si le lieu de votre événement ne se trouve pas dans la liste suggérée ci-dessus, saisissez le nom et les coordonnées de votre lieu en format texte.",
+        "fr": "Si le lieu de votre événement ne se trouve pas dans la liste suggérée ci-dessus, saisissez le nom et les coordonnées de votre lieu en format texte."
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": 300,
+      "fieldType": "text",
+      "schemaId": 9661
+    },
+    {
+      "field": "quartiers",
+      "origin": "tags",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "publics-cibles",
+      "label": {
+        "en": "Public(s) cible(s)",
+        "fr": "Public(s) cible(s)"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "en": "Cochez le(s) public(s) qui sont spécialement concernés par cet événement. Si l'événement s'adresse à un public large, cochez \"Tous publics\".",
+        "fr": "Cochez le(s) public(s) qui sont spécialement concernés par cet événement. Si l'événement s'adresse à un public large, cochez \"Tous publics\"."
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 26,
+          "value": "jeunes",
+          "label": {
+            "fr": "Jeunes"
+          }
+        },
+        {
+          "id": 27,
+          "value": "enfants-et-famille",
+          "label": {
+            "fr": "Enfants et famille"
+          }
+        },
+        {
+          "id": 28,
+          "value": "personnes-en-situation-de-handicap",
+          "label": {
+            "fr": "Personnes en situation de handicap"
+          }
+        },
+        {
+          "id": 29,
+          "value": "seniors-et-retraite-e-s",
+          "label": {
+            "fr": "Seniors et retraité-e-s"
+          }
+        },
+        {
+          "id": 30,
+          "value": "tous-publics",
+          "label": {
+            "fr": "Tous publics"
+          }
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 9661
+    },
+    {
+      "field": "age",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "accessibility",
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "conditions",
+      "label": {
+        "en": "Tarifs et conditions",
+        "fr": "Tarifs et conditions"
+      },
+      "info": {
+        "en": "Le prix doit être indiqué de manière suivante: CHF 0.- ou CHF 0.50, en mentionnnant les différentes catégories (normal/réduit)",
+        "fr": "Le prix doit être indiqué de manière suivante: CHF 0.- ou CHF 0.50, en mentionnnant les différentes catégories (normal/réduit)"
+      },
+      "placeholder": {
+        "en": "Prix",
+        "fr": "Prix"
+      },
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "organisation-de-levenement",
+      "label": {
+        "en": "Organisation de l'événement",
+        "fr": "Organisation de l'événement"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "en": "Indiquez ici si l'événement est organisé par la Ville de Genève (=un événement Ville de Genève); est soutenu par la Ville de Genève d'une façon ou d'une autre (prêt de la salle, financement d'une partie, personnel à disposition, etc.) ou s'il est organisé par un organisme externe à l'administration et n'est pas soutenu. Cette information sera affichée sur la page de l'événement. Si \"Un événement organisé par un externe\" est sélectionné, veillez à compléter les champs \"Organisateur\" et \"Site web de l'organisateur\"",
+        "fr": "Indiquez ici si l'événement est organisé par la Ville de Genève (=un événement Ville de Genève); est soutenu par la Ville de Genève d'une façon ou d'une autre (prêt de la salle, financement d'une partie, personnel à disposition, etc.) ou s'il est organisé par un organisme externe à l'administration et n'est pas soutenu. Cette information sera affichée sur la page de l'événement. Si \"Un événement organisé par un externe\" est sélectionné, veillez à compléter les champs \"Organisateur\" et \"Site web de l'organisateur\""
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 31,
+          "value": "evenement-vdg",
+          "label": {
+            "fr": "Evénement VDG",
+            "en": "Evénement VDG"
+          }
+        },
+        {
+          "id": 32,
+          "value": "evenement-soutenu-par-vdg",
+          "label": {
+            "fr": "Evénement soutenu par VDG",
+            "en": "Evénement soutenu par VDG"
+          }
+        },
+        {
+          "id": 33,
+          "value": "evenement-organise-par-un-externe",
+          "label": {
+            "fr": "Evénement organisé par un externe",
+            "en": "Evénement organisé par un externe"
+          }
+        }
+      ],
+      "fieldType": "radio",
+      "schemaId": 9661
+    },
+    {
+      "field": "organisator",
+      "label": {
+        "en": "Organisateur",
+        "fr": "Organisateur"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "en": "Introduisez le nom de-s organisateur-s",
+        "fr": "Introduisez le nom de-s organisateur-s"
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 9661
+    },
+    {
+      "field": "organisator_url",
+      "label": {
+        "en": "Organisator url",
+        "fr": "Organisateur url"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "en": "Introduisez l'adresse du site web ou de la Facebook de l'organisateur",
+        "fr": "Introduisez l'adresse du site web ou de la Facebook de l'organisateur"
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 9661
+    },
+    {
+      "field": "registration",
+      "label": {
+        "en": "Réservation et billetterie",
+        "fr": "Réservation et billetterie"
+      },
+      "info": {
+        "en": "Indiquez les détails de contacts ou renvoyer vers le site de la billetterie",
+        "fr": "Indiquez les détails de contacts ou renvoyer vers le site de la billetterie"
+      },
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "image",
+      "label": {
+        "en": "Charger une image",
+        "fr": "Charger une image"
+      },
+      "info": {
+        "en": "Uploadez une image qui ne doit pas dépasser 6 Mo et être au format JPEG ou PNG. Assurez-vous de bien avoir le droit de publier cette image sur le web (droits d'auteur)",
+        "fr": "Uploadez une image qui ne doit pas dépasser 6 Mo et être au format JPEG ou PNG. Assurez-vous de bien avoir le droit de publier cette image sur le web (droits d'auteur)"
+      },
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "imageCredits",
+      "label": {
+        "en": "Crédits de l'image",
+        "fr": "Crédits de l'image"
+      },
+      "info": {
+        "en": "Créditez l'image en indiquant le nom de son propriétaire ou de son auteur. Si vous ne le connaissez pas et que l'image est libre de droits, indiquez simplement DR.",
+        "fr": "Créditez l'image en indiquant le nom de son propriétaire ou de son auteur. Si vous ne le connaissez pas et que l'image est libre de droits, indiquez simplement DR."
+      },
+      "optional": false,
+      "fieldType": "abstract",
+      "schemaId": null
+    },
+    {
+      "field": "image_alt_text",
+      "label": {
+        "en": "Texte alternatif à l'image",
+        "fr": "Texte alternatif à l'image"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "en": "Décrivez ce que vous voyez dans l'image pour les personnes en situation de handicap",
+        "fr": "Décrivez ce que vous voyez dans l'image pour les personnes en situation de handicap"
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "custom",
+      "enableWith": "image",
+      "related": [
+        "image"
+      ],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 9661
+    },
+    {
+      "field": "image_infocom",
+      "label": "Image Infocom",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": null,
+      "related": [],
+      "extensions": [
+        "jpg",
+        "bmp",
+        "png"
+      ],
+      "store": {
+        "type": "s3",
+        "bucket": "oa"
+      },
+      "fieldType": "image",
+      "schemaId": 9711
+    },
+    {
+      "field": "image_infocom_credits",
+      "label": "Crédits image Infocom",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": "image_infocom",
+      "related": [
+        "image_infocom"
+      ],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 9711
+    },
+    {
+      "field": "image_infocom_alt",
+      "label": "Texte alternatif de l'image Infocom",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": "image_infocom",
+      "related": [
+        "image_infocom"
+      ],
+      "min": null,
+      "max": null,
+      "languages": [],
+      "fieldType": "text",
+      "schemaId": 9711
+    },
+    {
+      "field": "thematiques-internes",
+      "label": {
+        "en": "Thématiques internes",
+        "fr": "Thématiques internes"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "en": "Ces tags permettent d'afficher ces événements sur des pages spécifiques du site officiel de la Ville.",
+        "fr": "Ces tags permettent d'afficher ces événements sur des pages spécifiques du site officiel de la Ville."
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 57,
+          "value": "climat",
+          "label": {
+            "en": "Climate",
+            "fr": "Climat"
+          }
+        },
+        {
+          "id": 49,
+          "value": "culture-vdg",
+          "label": {
+            "fr": "Culture VDG",
+            "en": "Culture VDG"
+          }
+        },
+        {
+          "id": 53,
+          "value": "developpement-durable",
+          "label": {
+            "fr": "Développement durable",
+            "en": "Développement durable"
+          }
+        },
+        {
+          "id": 58,
+          "value": "diversite",
+          "label": {
+            "en": "Diversity",
+            "fr": "Diversité"
+          }
+        },
+        {
+          "id": 52,
+          "value": "intergenerationnel",
+          "label": {
+            "fr": "Intergénérationnel",
+            "en": "Intergénérationnel"
+          }
+        },
+        {
+          "id": 59,
+          "value": "nourrir-la-ville",
+          "label": {
+            "en": "Feed the city",
+            "fr": "Nourrir la ville"
+          }
+        },
+        {
+          "id": 50,
+          "value": "sport",
+          "label": {
+            "fr": "Sport",
+            "en": "Sport"
+          }
+        },
+        {
+          "id": 51,
+          "value": "espaces-de-quartier",
+          "label": {
+            "fr": "Espaces de quartier",
+            "en": "Espaces de quartier"
+          }
+        },
+        {
+          "id": 60,
+          "value": "zero-sexisme",
+          "label": {
+            "en": "Zero Sexism",
+            "fr": "Zéro Sexisme"
+          }
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 9661
+    },
+    {
+      "field": "labels",
+      "label": {
+        "en": "Labels",
+        "fr": "Labels"
+      },
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": {
+        "en": "Ces labels permettent aux internautes de filtrer les événements en fonction du type d'activités qu'ils recherchent.",
+        "fr": "Ces labels permettent aux internautes de filtrer les événements en fonction du type d'activités qu'ils recherchent."
+      },
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 24,
+          "value": "100-gratuit",
+          "label": {
+            "fr": "100% gratuit",
+            "en": "100% gratuit"
+          }
+        },
+        {
+          "id": 25,
+          "value": "en-plein-air",
+          "label": {
+            "fr": "En plein air",
+            "en": "En plein air"
+          }
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 9661
+    },
+    {
+      "field": "references",
+      "related": [
+        "type-devenement",
+        "publics-cibles",
+        "location"
+      ],
+      "fieldType": "abstract",
+      "boost": {
+        "type-devenement": 50,
+        "publics-cibles": 10,
+        "location": 5
+      },
+      "suggest": true,
+      "schemaId": null
+    },
+    {
+      "field": "keywords",
+      "display": false,
+      "fieldType": "abstract",
+      "schemaId": null
+    }
+  ]
+}
