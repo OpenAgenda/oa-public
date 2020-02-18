@@ -59,7 +59,6 @@ module.exports = async function (configObject, options = {}) {
   await init('agendaEvents', require('./agendaEvents'));
   await init('agendaLocations', require('./agendaLocations'));
   await init('agendaMonitor', require('./agendaMonitor'));
-  await init('agendaSchema', require('./agendaSchema'));
   await init('agendaSearch', require('./agendaSearch'));
   await init('agendaSettings', require('./agendaSettings'));
   await init('agendaStatistics', require('./agendaStatistics'));
@@ -93,6 +92,7 @@ module.exports = async function (configObject, options = {}) {
   await init('portals', require('./portals'));
   await init('simpleCache', require('./simpleCache'));
   await init('unsubscribed', require('./unsubscribed'));
+  await init('agendaSchema', require('./agendaSchema'));
 
   const timeDiff = new Date().getTime() - t.getTime();
 

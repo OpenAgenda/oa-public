@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const FormSchema = require('@openagenda/form-schemas/iso/FormSchema');
 
