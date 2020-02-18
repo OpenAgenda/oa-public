@@ -9,53 +9,19 @@ const {
 
 const raw = resetAndCreateTables();
 
-raw.push(knex('review').insert([{
-  id: 218,
-  uid: 17026855,
-  title: 'La Gargouille',
-  slug: 'la-gargouille',
-  description: 'Une petite description',
-  owner_id: 50304,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  official: 0,
-  private: 0,
-  credentials: '{}',
-  form_schema_id: 2,
-  settings: JSON.stringify({
-    contribution: {
-      type: 1
-    }
-  })
-}, {
-  id: 219,
-  uid: 17026800,
-  title: 'Le Fennec',
-  slug: 'le-fennec',
-  description: 'Une petite description',
-  owner_id: 50304,
-  created_at: '2016-01-11 13:07:08',
-  updated_at: '2016-01-18 16:14:06',
-  official: 0,
-  credentials: '{}',
-  form_schema_id: 4,
-  settings: JSON.stringify({
-    contribution: {
-      defaultState: 1
-    }
-  })
-}]));
+raw.push(knex('review').insert([
+  require('./sql/agendas/218.json'),
+  require('./sql/agendas/219.json'),
+  require('./sql/agendas/221.json')
+]));
 
-raw.push(knex('user').insert([{
-  id: 50304,
-  uid: 63170203,
-  full_name: 'steve',
-  email: 'steve@oa.com',
-  password: 'a3bcf2ede1e72cf6123d1226d5d079bf03b68d65',
-  salt: '6OLumvJLubAklsDhuJJiuVQJTAX8MfF3',
-  created_at: '2017-11-15 15:50:11',
-  updated_at: '2017-11-15 15:50:30'
-}]));
+raw.push(knex('user').insert([
+  require('./sql/users/50304.json')
+]));
+
+raw.push(knex('api_key_set').insert([
+  { ...require('./sql/apiKeySets/01.json'), user_id: 50304 }
+]));
 
 raw.push(knex('form_schema').insert([{
   id: 2,
@@ -65,49 +31,10 @@ raw.push(knex('form_schema').insert([{
   store: fs.readFileSync(__dirname + '/form-schemas/4.json')
 }]));
 
-raw.push(knex('reviewer').insert([{
-  id: 71385,
-  user_id: 50304,
-  review_id: 218,
-  user_uid: 63170203,
-  agenda_uid: 17026855,
-  credential: 1,
-  created_at: '2017-10-30 14:21:07',
-  updated_at: '2017-10-30 14:21:07',
-  store: JSON.stringify({
-    custom_fields:{
-      organization: 'Le Chat Fume',
-      contact_number: '0688996549',
-      contact_name: "Th\\u00e9o Jouanneau",
-      contact_position: 'directeur artistique',
-      email: 'hello@lechatfume.fr'
-    }
-  }),
-  organization: 'le-chat-fume',
-  deleted_user: 0,
-  actions_counter: 1
-}, {
-  id: 71386,
-  user_id: 50304,
-  review_id: 219,
-  user_uid: 63170203,
-  agenda_uid: 17026800,
-  credential: 1,
-  created_at: '2017-10-30 14:21:07',
-  updated_at: '2017-10-30 14:21:07',
-  store: JSON.stringify({
-    custom_fields:{
-      organization: 'Le Renard Fume',
-      contact_number: '0681996549',
-      contact_name: "Th\\u00e9o Jouanneau",
-      contact_position: 'directeur artistique',
-      email: 'hello@lerenardfume.fr'
-    }
-  }),
-  organization: 'le-renard-fume',
-  deleted_user: 0,
-  actions_counter: 0
-}]));
+raw.push(knex('reviewer').insert([
+  require('./sql/members/71385.json'),
+  require('./sql/members/71386.json')
+]));
 
 raw.push(knex('location').insert([{
   id: 1,
@@ -437,6 +364,13 @@ raw.push(knex('event').insert([{
   owner_id: 50304,
   created_at: '2019-12-14T10:00:00.000Z',
   updated_at: '2019-12-14T10:00:00.000Z'
+}, {
+  id: 3,
+  uid: 90298390,
+  slug: 'encore-un-autre-event',
+  owner_id: 50304,
+  created_at: '2020-02-18T10:00:00.000Z',
+  updated_at: '2020-02-18T10:00:00.000Z'
 }]));
 
 raw.push(knex('event_location').insert([{
@@ -450,7 +384,7 @@ raw.push(knex('event_location').insert([{
   location_id: 1,
   event_id: 2,
   created_at: '2019-12-14T10:00:00.000Z',
-  updated_at: '2019-12-14T10:00:00.000Z'
+  updated_at: '2019-12-14T11:00:00.000Z'
 }]));
 
 raw.push(knex('occurrence').insert([{
@@ -461,10 +395,17 @@ raw.push(knex('occurrence').insert([{
   time_start: '10:00:00',
   time_end: '11:00:00'
 }, {
-  id: 1,
+  id: 2,
   location_id: 1,
   event_id: 2,
   date: '2019-05-08',
+  time_start: '10:00:00',
+  time_end: '11:00:00'
+}, {
+  id: 3,
+  location_id: 1,
+  event_id: 3,
+  date: '2020-02-18',
   time_start: '10:00:00',
   time_end: '11:00:00'
 }]));
@@ -532,6 +473,27 @@ raw.push(knex('event_2').insert([{
   agenda_uid: 17026855,
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00'),
+}, {
+  id: 15,
+  uid: 90298390,
+  slug: 'encore-un-autre-event',
+  owner_uid: 63170203,
+  creator_uid: 63170203,
+  title: JSON.stringify({
+    fr: 'Encore un autre event'
+  }),
+  description: JSON.stringify({
+    fr: 'Une desc'
+  }),
+  draft: 0,
+  timings: JSON.stringify([{
+    begin: new Date('2020-02-18T10:00:00'),
+    end: new Date('2020-02-18T18:00:00'),
+  }]),
+  location_uid: 123,
+  agenda_uid: 17026855,
+  created_at: new Date('2020-02-18T10:00:00'),
+  updated_at: new Date('2020-02-18T10:00:00')
 }]));
 
 raw.push(knex('agenda_event').insert([{
@@ -564,6 +526,14 @@ raw.push(knex('agenda_event').insert([{
   state: 2,
   created_at: new Date('2019-05-06T10:00:00'),
   updated_at: new Date('2019-05-06T10:00:00')
+}, {
+  event_uid: 90298390,
+  agenda_uid: 17026855,
+  user_uid: 63170203,
+  state: 2,
+  created_at: new Date('2020-02-18T10:00:00'),
+  updated_at: new Date('2020-02-18T10:00:00'),
+  can_edit: 1
 }]));
 
 raw.push(knex('review_article').insert([{
@@ -597,6 +567,15 @@ raw.push(knex('review_article').insert([{
   id: 124,
   event_id: 2,
   review_id: 219,
+  state: 2,
+  is_published: 1,
+  user_id: 50304,
+  created_at: new Date('2019-05-06T10:00:00'),
+  updated_at: new Date('2019-05-06T10:00:00')
+}, {
+  id: 125,
+  event_id: 3,
+  review_id: 218,
   state: 2,
   is_published: 1,
   user_id: 50304,

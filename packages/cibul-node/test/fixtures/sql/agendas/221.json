@@ -1,0 +1,15 @@
+{
+  "created_at": "2016-01-11 13:07:08",
+  "credentials": "{}",
+  "description": "Une petite description",
+  "form_schema_id": 2,
+  "id": 221,
+  "official": 0,
+  "owner_id": 50304,
+  "private": 0,
+  "settings": "{\"contribution\": {\"type\": 1}}",
+  "slug": "expolaroid-strasbourg-2020",
+  "title": "Expolaroid Strasbourg 2020",
+  "uid": 17026800,
+  "updated_at": "2016-01-18 16:14:06"
+}
