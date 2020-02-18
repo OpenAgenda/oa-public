@@ -13,7 +13,8 @@ const renderAddEvent = _.template(
 
 module.exports = app => {
   const {
-    agendas
+    agendas,
+    events
   } = app.services;
 
   app.get(['/:agendaSlug/addevent', '/:agendaSlug/event/:eventSlug/edit'],
