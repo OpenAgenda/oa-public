@@ -45,7 +45,7 @@ function list( query, offset, limit, options, cb ) {
 
     try {
 
-      cleanOptions = validateOptions( params.options );
+      cleanOptions = validateOptions(params.options);
 
       const cleanQuery = validateQuery( params.query );
 
@@ -60,6 +60,7 @@ function list( query, offset, limit, options, cb ) {
         log( 'total for %j: %s', params.query, total );
 
       }
+
       events = await _list( knexQuery, params.limit, params.offset, {
         order: cleanQuery.order,
         internal: cleanOptions.internal,

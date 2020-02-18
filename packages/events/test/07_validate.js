@@ -5,6 +5,8 @@ const should = require( 'should' );
 const validate = require( '../service/validate' );
 const frontValidate = require( '../service/validate/front' );
 const draftValidate = require( '../service/validate' ).draft;
+const validateListOptions = require('../service/validate/listOptions');
+
 
 describe( 'events -07- unit (iso): validation', () => {
 
@@ -280,6 +282,24 @@ describe( 'events -07- unit (iso): validation', () => {
     } );
 
   } );
+
+  describe('validateOptions', () => {
+
+    it('fix - validates the list options', () => {
+      const clean = validateListOptions({
+        private: null,
+        total: true,
+        detailed: true,
+        useDefaultImage: true,
+        internal: false,
+        fetched: null,
+        offsetAsLastId: false
+      });
+
+      clean.useDefaultImage.should.equal(true);
+    });
+
+  });
 
 } );
 
