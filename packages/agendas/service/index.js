@@ -15,6 +15,7 @@ const remove = require( './remove' );
 const set = require( './set' );
 const slugs = require( './slugs' );
 const validate = require( './validate' );
+const omitInternals = require( './lib/omitInternals' );
 
 const service = {
   init,
@@ -35,7 +36,10 @@ const service = {
     loadFromLegacy: require( '../tasks/loadFromLegacy' )
   },
   getConfig: () => config,
-  contributionTypes: require( './validate/contributionTypes' )
+  contributionTypes: require( './validate/contributionTypes' ),
+  utils: {
+    omitInternals
+  }
 };
 
 const log = logger( 'index' );

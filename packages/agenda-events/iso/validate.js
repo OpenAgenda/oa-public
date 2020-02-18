@@ -13,11 +13,12 @@ const _ = {
 }
 
 schema.register( {
-  integer: require( '@openagenda/validators/integer' ),
-  boolean: require( '@openagenda/validators/boolean' ),
-  choice: require( '@openagenda/validators/choice' ),
-  date: require( '@openagenda/validators/date' ),
-  text: require( '@openagenda/validators/text' )
+  integer: require('@openagenda/validators/integer'),
+  boolean: require('@openagenda/validators/boolean'),
+  choice: require('@openagenda/validators/choice'),
+  date: require('@openagenda/validators/date'),
+  pass: require('@openagenda/validators/pass'),
+  text: require('@openagenda/validators/text')
 } );
 
 let validate, validateData;
@@ -68,8 +69,8 @@ function init( { eventStates } ) {
       type: 'boolean',
       default: false
     },
-    sourceAgendaUid: {
-      type: 'integer',
+    sourcePaths: {
+      type: 'pass',
       list: true
     },
     featured: {
@@ -105,7 +106,7 @@ function init( { eventStates } ) {
     'state',
     'featured',
     'userUid',
-    'sourceAgendaUid',
+    'sourcePaths',
     'aggregated'
   ]));
 
@@ -120,7 +121,7 @@ function _postClean( v, c, { optionalSecondaryFields } ) {
   return _.omit(c, [
     'state',
     'featured',
-    'sourceAgendaUid',
+    'sourcePaths',
     'aggregated'
   ].filter(f => _.get(v, f, null) === null));
 }

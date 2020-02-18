@@ -1,42 +1,41 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const VError = require( 'verror' );
+const _ = require('lodash');
+const VError = require('verror');
 
-const agendas = require( '@openagenda/agendas' );
-const formSchemas = require( '@openagenda/form-schemas' );
+const getNetwork = require('./getNetwork');
+const getSchemas = require('./getSchemas');
 
-const getNetwork = require( './getNetwork' );
-const getSchemas = require( './getSchemas' );
+module.exports = async (services, agendaUid) => {
 
-module.exports = async agendaUid => {
+  const {
+    agendas,
+    formSchemas
+  } = services;
 
-  const agenda = await agendas.get( { uid: agendaUid }, {
+  const agenda = await agendas.get({ uid: agendaUid }, {
     internal: true,
     private: null,
     includeImagePath: true
-  } );
+  });
 
-  if ( !agenda ) {
-
-    throw new VError( 'agenda of uid %d was not found', agendaUid );
-
+  if (!agenda) {
+    throw new VError('agenda of uid %d was not found', agendaUid);
   }
 
-  agenda.network = await getNetwork( agenda.networkUid );
+  agenda.network = await getNetwork(services, agenda.networkUid);
 
   const [
     formSchema,
     networkSchema
-  ] = await getSchemas( [
+  ] = await getSchemas(services, [
     agenda.formSchemaId,
-    _.get( agenda, 'network.formSchemaId' )
-  ] );
+    _.get(agenda, 'network.formSchemaId')
+  ]);
 
-  if ( formSchema ) agenda.formSchema = formSchema;
+  if (formSchema) agenda.formSchema = formSchema;
 
-  if ( networkSchema ) agenda.network.formSchema = networkSchema;
+  if (networkSchema) agenda.network.formSchema = networkSchema;
 
   return agenda;
-
 }

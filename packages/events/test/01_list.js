@@ -2,172 +2,184 @@
 
 process.env.NODE_ENV = 'test';
 
-const _ = require( 'lodash' );
-const async = require( 'async' );
-const mysql = require( 'mysql' );
-const should = require( 'should' );
+const _ = require('lodash');
+const async = require('async');
+const mysql = require('mysql');
+const should = require('should');
 
-const config = require( '../testconfig' );
-const svc = require( './service' );
+const config = require('../testconfig');
+const svc = require('./service');
 
-describe( 'events - functional (server): list', function() {
+describe('events - functional (server): list', function() {
 
-  this.timeout( 50000 );
+  this.timeout(50000);
 
-  before( done => {
+  before(done => {
 
-    svc.initAndLoad( config, done );
+    svc.initAndLoad(config, done);
 
-  } );
+  });
 
-  after( svc.shutdown );
+  after(svc.shutdown);
 
-  it( 'simple list', done => {
+  it('simple list', done => {
 
-    svc.list( 0, 5, ( err, events ) => {
+    svc.list(0, 5, (err, events ) => {
 
-      should( err ).equal( null );
+      should(err).equal(null);
 
-      events.length.should.equal( 5 );
-
-      done();
-
-    } );
-
-  } );
-
-
-  it( 'base list does not include draft or private events', done => {
-
-    svc.list( 0, 20, ( err, events ) => {
-
-      events.filter( e => e.private ).length.should.equal( 0 );
-
-      events.filter( e => e.draft ).length.should.equal( 0 );
+      events.length.should.equal(5);
 
       done();
 
-    } );
+    });
 
-  } );
+  });
 
 
-  it( 'search searches', done => {
+  it('base list does not include draft or private events', done => {
 
-    svc.list( { search: 'Pierre' }, 0, 10, ( err, events ) => {
+    svc.list(0, 20, (err, events ) => {
 
-      events.length.should.not.equal( 0 );
+      events.filter(e => e.private).length.should.equal(0);
 
-      events.map( e => JSON.stringify( e.title ).toLowerCase() )
-        .filter( t => t.includes( 'pierre' ) )
+      events.filter(e => e.draft).length.should.equal(0);
+
+      done();
+
+    });
+
+  });
+
+
+  it('search searches', done => {
+
+    svc.list({ search: 'Pierre' }, 0, 10, (err, events ) => {
+
+      events.length.should.not.equal(0);
+
+      events.map(e => JSON.stringify(e.title).toLowerCase() )
+        .filter(t => t.includes('pierre' ) )
         .length
-        .should.equal( events.length );
+        .should.equal(events.length);
 
       done();
 
-    } );
+    });
 
-  } );
-
-
-  it( 'gives a promise if no callback is defined', async () => {
-
-    const result = await svc.list( { search: 'Pierre' }, 0, 2 );
-
-    result.events.length.should.equal( 2 );
-
-  } );
+  });
 
 
-  it( 'search by uids', async () => {
+  it('gives a promise if no callback is defined', async () => {
 
-    const result = await svc.list( { uid: [ 68645096, 74935370, 18957259 ] }, 0, 20 );
+    const result = await svc.list({ search: 'Pierre' }, 0, 2);
 
-    result.events.map( e => e.uid ).should.eql( [ 18957259, 68645096, 74935370 ] );
+    result.events.length.should.equal(2);
 
-  } );
-
-  it( 'search by location uid', async () => {
-
-    const { total } = await svc.list( { locationUid: 27085826 }, 0, 20, { total: true } );
-
-    total.should.equal( 9 );
-
-  } );
+  });
 
 
-  it( 'retrieve events created after a given date', async () => {
+  it('search by uids', async () => {
 
-    const result = await svc.list( {
-      createdAt: new Date( '2017-01-01' ),
-      uid: [ 68645096, 74935370, 18957259 ]
-    }, 0, 20 );
+    const result = await svc.list({ uid: [68645096, 74935370, 18957259] }, 0, 20);
 
-    result.events.length.should.equal( 1 );
+    result.events.map(e => e.uid).should.eql([18957259, 68645096, 74935370]);
 
-    result.events[ 0 ].uid.should.equal( 18957259 );
+  });
 
-  } );
+  it('search by location uid', async () => {
+
+    const { total } = await svc.list({ locationUid: 27085826 }, 0, 20, { total: true });
+
+    total.should.equal(9);
+
+  });
 
 
-  it( 'list with private to true gets private events only', done => {
+  it('retrieve events created after a given date', async () => {
 
-    svc.list(  0, 20, { private: true }, ( err, events ) => {
+    const result = await svc.list({
+      createdAt: new Date('2017-01-01' ),
+      uid: [68645096, 74935370, 18957259]
+    }, 0, 20);
 
-      events.filter( e => e.private ).length.should.equal( events.length );
+    result.events.length.should.equal(1);
 
-      done();
+    result.events[0].uid.should.equal(18957259);
 
-    } );
+  });
 
-  } );
+  it('offsetAsLastId option uses offset param as lastId', async () => {
+    const { events } = await svc.list({}, 145553, 1, { offsetAsLastId: true, internal: true });
 
-  it( 'list with private to null gets both private and non private events', done => {
+    events[0].id.should.greaterThan(145553);
+  });
 
-    svc.list( { uid: [ 3564473, 64549836, 48641508 ] }, 0, 20, { private: null }, ( err, events ) => {
+  it('when offsetAsLastId is set, lastId is provided in response', async () => {
+    const { lastId } = await svc.list({}, 145553, 1, { offsetAsLastId: true });
 
-      events.filter( e => !e.private ).length.should.not.equal( 0 );
+    lastId.should.greaterThan(145553);
+  });
 
-      events.filter( e => e.private ).length.should.not.equal( 0 );
+
+  it('list with private to true gets private events only', done => {
+
+    svc.list(0, 20, { private: true }, (err, events ) => {
+
+      events.filter(e => e.private).length.should.equal(events.length);
 
       done();
 
-    } );
+    });
 
-  } );
+  });
 
+  it('list with private to null gets both private and non private events', done => {
 
-  it( 'list with private in query to true gets private events only', done => {
+    svc.list({ uid: [3564473, 64549836, 48641508] }, 0, 20, { private: null }, (err, events ) => {
 
-    svc.list( { private: true }, 0, 20, ( err, events ) => {
+      events.filter(e => !e.private).length.should.not.equal(0);
 
-      events.filter( e => e.private ).length.should.equal( events.length );
-
-      done();
-
-    } );
-
-  } );
-
-  it( 'list with private in query to null gets both private and non private events', done => {
-
-    svc.list( { private: null, uid: [ 3564473, 64549836, 48641508 ] }, 0, 20, ( err, events ) => {
-
-      events.filter( e => !e.private ).length.should.not.equal( 0 );
-
-      events.filter( e => e.private ).length.should.not.equal( 0 );
+      events.filter(e => e.private).length.should.not.equal(0);
 
       done();
 
-    } );
+    });
 
-  } );
+  });
 
-  it( 'only list fields are given', done => {
 
-    svc.list( 0, 1, ( err, events ) => {
+  it('list with private in query to true gets private events only', done => {
 
-      Object.keys( events[ 0 ] ).should.eql( [
+    svc.list({ private: true }, 0, 20, (err, events ) => {
+
+      events.filter(e => e.private).length.should.equal(events.length);
+
+      done();
+
+    });
+
+  });
+
+  it('list with private in query to null gets both private and non private events', done => {
+
+    svc.list({ private: null, uid: [3564473, 64549836, 48641508] }, 0, 20, (err, events ) => {
+
+      events.filter(e => !e.private).length.should.not.equal(0);
+
+      events.filter(e => e.private).length.should.not.equal(0);
+
+      done();
+
+    });
+
+  });
+
+  it('only list fields are given', done => {
+
+    svc.list(0, 1, (err, events ) => {
+
+      Object.keys(events[0]).should.eql([
         'slug',
         'uid',
         'title',
@@ -181,33 +193,33 @@ describe( 'events - functional (server): list', function() {
         'accessibility',
         'age',
         'registration'
-      ] );
+     ]);
 
       done();
 
-    } );
+    });
 
-  } );
+  });
 
-  it( 'keywords appear as lists', done => {
+  it('keywords appear as lists', done => {
 
-    svc.list( { uid: 48641508 }, 0, 1, ( err, events ) => {
+    svc.list({ uid: 48641508 }, 0, 1, (err, events ) => {
 
-      events[ 0 ].keywords.should.eql( {
-        fr: [ 'famille', 'animation', 'enfant', 'monument' ]
-      } );
+      events[0].keywords.should.eql({
+        fr: ['famille', 'animation', 'enfant', 'monument']
+      });
 
       done();
 
-    } );
+    });
 
   } )
 
-  it( 'if detailed option is set, non-list fields are also given', done => {
+  it('if detailed option is set, non-list fields are also given', done => {
 
-    svc.list( 0, 1, { detailed: true }, ( err, events ) => {
+    svc.list(0, 1, { detailed: true }, (err, events ) => {
 
-      Object.keys( events[ 0 ] ).should.eql( [
+      Object.keys(events[0]).should.eql([
         'slug',
         'uid',
         'title',
@@ -229,33 +241,33 @@ describe( 'events - functional (server): list', function() {
         'fileKey',
         'agenda',
         'location'
-      ] );
+     ]);
 
       done();
 
-    } );
+    });
 
-  } );
+  });
 
-  it( 'if detailed and html options are set, longDescription is parsed into html and set in html field', done => {
+  it('if detailed and html options are set, longDescription is parsed into html and set in html field', done => {
 
-    svc.list( { uid: 3681352 }, 0, 100, { detailed: true, html: true }, ( err, events ) => {
+    svc.list({ uid: 3681352 }, 0, 100, { detailed: true, html: true }, (err, events ) => {
 
-      events[ 0 ].html.should.eql( {
+      events[0].html.should.eql({
         fr: '<p>Championnat de France.</p>\n<p>Tournois réservé aux Espoirs, Vétérans</p>\n'
-      } );
+      });
 
       done();
 
-    } );
+    });
 
-  } );
+  });
 
-  it( 'if detailed option is set, additional information is fetched for location and origin agenda', done => {
+  it('if detailed option is set, additional information is fetched for location and origin agenda', done => {
 
-    svc.list( { uid: [ 1517683 ] }, 0, 1, { detailed: true }, ( err, events ) => {
+    svc.list({ uid: [1517683] }, 0, 1, { detailed: true }, (err, events ) => {
 
-      _.pick( events[ 0 ], [ 'location', 'agenda' ] ).should.eql( {
+      _.pick(events[0], ['location', 'agenda']).should.eql({
         location: {
           name: 'La case de Janine',
           uid: 25756772,
@@ -269,76 +281,76 @@ describe( 'events - functional (server): list', function() {
           image: null,
           offical: true
         }
-      } );
+      });
 
       done();
 
-    } );
+    });
 
-  } );
+  });
 
-  it( 'only specified fields can be fetched', async () => {
+  it('only specified fields can be fetched', async () => {
 
-    const { events } = await svc.list( { uid: 48641508 }, 0, 1, { fetched: [ 'uid' ] } );
+    const { events } = await svc.list({ uid: 48641508 }, 0, 1, { fetched: ['uid'] });
 
-    events.should.eql( [ {
+    events.should.eql([{
       uid: 48641508
-    } ] );
+    }]);
 
-  } );
-
-
-  it( 'if image is provided, image path is placed in base key', done => {
-
-    svc.list( { uid: 48641508 }, 0, 1, ( err, events ) => {
-
-      events[ 0 ].image.base.should.equal( config.image.base );
-
-      done();
-
-    } );
-
-  } );
+  });
 
 
-  it( 'if draft is specified in query, it is added to fields', done => {
+  it('if image is provided, image path is placed in base key', done => {
 
-    svc.list( { draft: null }, 0, 1, ( err, events ) => {
+    svc.list({ uid: 48641508 }, 0, 1, (err, events ) => {
 
-      Object.keys( events[ 0 ] ).indexOf( 'draft' ).should.not.equal( -1 );
+      events[0].image.base.should.equal(config.image.base);
 
       done();
 
-    } );
+    });
 
-  } );
-
-
-  it( 'if private is specified in query, it is added to fields', done => {
-
-    svc.list( { private: null }, 0, 1, ( err, events ) => {
-
-      Object.keys( events[ 0 ] ).indexOf( 'private' ).should.not.equal( -1 );
-
-      done();
-
-    } );
-
-  } );
+  });
 
 
-  it( 'list does not give deleted events', done => {
+  it('if draft is specified in query, it is added to fields', done => {
 
-    svc.list( { uid: [ 31638453, 1517683, 68645096 ] }, 0, 20, ( err, events ) => {
+    svc.list({ draft: null }, 0, 1, (err, events ) => {
 
-      events.filter( e => e.uid === 31638453 ).length.should.equal( 0 );
-
-      events.filter( e => [ 1517683, 68645096 ].indexOf( e.uid ) !== -1 ).length.should.equal( 2 );
+      Object.keys(events[0]).indexOf('draft').should.not.equal(-1);
 
       done();
 
-    } );
+    });
 
-  } );
+  });
 
-} );
+
+  it('if private is specified in query, it is added to fields', done => {
+
+    svc.list({ private: null }, 0, 1, (err, events ) => {
+
+      Object.keys(events[0]).indexOf('private').should.not.equal(-1);
+
+      done();
+
+    });
+
+  });
+
+
+  it('list does not give deleted events', done => {
+
+    svc.list({ uid: [31638453, 1517683, 68645096] }, 0, 20, (err, events ) => {
+
+      events.filter(e => e.uid === 31638453).length.should.equal(0);
+
+      events.filter(e => [1517683, 68645096].indexOf(e.uid ) !== -1).length.should.equal(2);
+
+      done();
+
+    });
+
+  });
+
+});

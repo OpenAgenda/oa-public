@@ -11,14 +11,14 @@ module.exports = async (services, config, params) => {
 
   const recipientUser = await usersSvc.findOne({ query: { email } });
 
-  await defineUnsubscriptionLinks(config, recipientUser, params);
-
-  await defineReplyToHeaders(config, recipientUser, params);
+  await defineUnsubscriptionLinks(services, config, recipientUser, params);
 };
 
 
-async function defineUnsubscriptionLinks(config, recipientUser, params) {
+async function defineUnsubscriptionLinks(services, config, recipientUser, params) {
   log('processing', _.get(params, 'to.address'));
+
+  const usersSvc = services.users;
 
   const {
     unsubscriptions,
@@ -63,26 +63,5 @@ async function defineUnsubscriptionLinks(config, recipientUser, params) {
   }
 
   log('done', params.list);
-}
-
-async function defineReplyToHeaders(config, recipientUser, params) {
-  // Only for inboxMessage for now
-
-  // if (params.template === 'inboxMessage') {
-  //   const { data, conversation } = params;
-  //   const { senderName } = data;
-  //
-  //   const reference = `inboxMessage/${conversation.id}@mail.openagenda.com`;
-  //
-  //   params.from = {
-  //     name: senderName,
-  //     address: 'notifications@mail.openagenda.com'
-  //   };
-  //
-  //   params.headers = Object.assign(params.headers || {}, {
-  //     References: reference,
-  //     'In-Reply-To': reference
-  //   });
-  // }
 }
 

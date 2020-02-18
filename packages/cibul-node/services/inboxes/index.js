@@ -19,7 +19,6 @@ const loggerConfig = config.getLogConfig('oa', 'inboxes', false);
 
 log.setConfig(loggerConfig);
 
-
 module.exports.init = async (c, services) => {
   const interfaces = {
     getUsersDetails: getUsersDetails.bind(null, services),
@@ -183,4 +182,6 @@ module.exports.init = async (c, services) => {
   );
 
   await inboxMw.init(_.merge({}, c, { interfaces, mw: { limit: 20 } }));
+
+  return inboxes;
 };

@@ -4,7 +4,6 @@ const mw = require( '@openagenda/agenda-settings' ).mw;
 const keysMw = require( '@openagenda/keys/middleware' );
 const labels = require( '@openagenda/labels/agenda-settings/agendaEdition' );
 const getLabel = require( '@openagenda/labels' )( labels );
-const core = require( '../core' );
 const cmn = require( '../lib/commons-app' );
 const sessions = require( '../services/sessions' );
 const members = require( '../services/members' );
@@ -64,8 +63,8 @@ module.exports = app => {
     sessions.mw.loadOrRedirect,
     cmn.loadAgenda,
     members.mw.loadAndAuthorize('administrator'),
-    ( req, res, next ) => {
-      core.agendas( req.agenda.uid ).remove().then( () => {
+    (req, res, next) => {
+      req.app.services.core.agendas( req.agenda.uid ).remove().then( () => {
         sessions.setFlash( req, res, getLabel( 'agendaRemoved', req.lang ) );
         res.json( { redirectTo: '/home' } );
       }, next );

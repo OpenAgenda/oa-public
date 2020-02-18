@@ -3,7 +3,6 @@
 const _ = require( 'lodash' );
 const unserialize = require( 'locutus/php/var/unserialize' );
 
-const core = require( '../core' );
 const redirectTemplate = _.template( require( 'fs' ).readFileSync( __dirname + '/redirect.tpl', 'utf-8' ) );
 
 module.exports = config => {
@@ -60,7 +59,7 @@ function loadFacebookMetas( config, req, res, next ) {
 
 function loadEvent( config, req, res, next ) {
 
-  core.agendas( req.params.agendaUid ).events.get( req.params.eventUid, { lang: req.lang, internal: true } ).then( event => {
+  req.app.services.core.agendas( req.params.agendaUid ).events.get( req.params.eventUid, { lang: req.lang, internal: true } ).then( event => {
 
     if ( !event ) return next( 404 );
 

@@ -1,0 +1,11 @@
+{
+  "fields": [{
+    "field": "organisation-interne",
+    "label": "Organisation interne",
+    "fieldType": "text",
+    "origin": "custom",
+    "optional": false,
+    "read": ["administrator"],
+    "write": ["administrator"]
+  }]
+}

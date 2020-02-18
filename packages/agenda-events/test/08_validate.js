@@ -27,57 +27,56 @@ describe( 'agendaEvents - functional (server): validation', function() {
       state: 2,
       featured: true,
       userUid: null,
-      sourceAgendaUid: [],
+      sourcePaths: [],
       aggregated: false
     } );
 
   } );
 
-  it( 'base validate endpoint has a field key as any validators validator would', () => {
+  it('base validate endpoint has a field key as any validators validator would', () => {
 
-    _.keys( svc.validate.fields ).should.eql( [
+    _.keys(svc.validate.fields).should.eql([
       'state',
       'featured',
       'userUid',
-      'sourceAgendaUid',
+      'sourcePaths',
       'aggregated'
-    ] );
+    ]);
 
-  } );
+  });
 
-  it( 'validate endpoint assigns default state value when it is unspecified', () => {
+  it('validate endpoint assigns default state value when it is unspecified', () => {
 
-    svc.validate( {
+    svc.validate({
       featured: true
-    } ).should.eql( {
+    }).should.eql( {
       state: 2,
       featured: true,
       userUid: null,
-      sourceAgendaUid: [],
+      sourcePaths: [],
       aggregated: false
-    } );
+    });
 
-  } );
+  });
 
   it( 'validate endpoint does not include state if not provided and optional state option is set', () => {
 
-    svc.validate( {
+    svc.validate({
       featured: true
-    }, { optionalSecondaryFields: true } ).should.eql( {
+    }, { optionalSecondaryFields: true }).should.eql({
       featured: true,
       userUid: null
-    } );
+    });
 
   } );
 
-  it( 'validate can do things partially', () => {
+  it('validate can do things partially', () => {
 
-    svc.validate( {
+    svc.validate({
       state: 0
-    }, { partial: true } ).should.eql( {
+    }, { partial: true }).should.eql({
       state: 0
-    } );
+    });
+  });
 
-  } );
-
-} );
+});

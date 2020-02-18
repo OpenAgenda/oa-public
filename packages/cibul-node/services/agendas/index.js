@@ -5,7 +5,6 @@ const agendas = require('@openagenda/agendas');
 const imageFiles = require('@openagenda/image-files');
 const { Inbox } = require('@openagenda/inboxes');
 const cmn = require('../../lib/commons-app');
-const core = require('../../core');
 const controlDataSvc = require('../legacy').controlData;
 const activities = require('../activities');
 const { parser: agendaAdminParser } = require('../lib/layouts/agendaAdmin');
@@ -33,7 +32,7 @@ const checkUser = (req, res, next) => {
   return next();
 };
 
-module.exports.init = config => {
+module.exports.init = (config, services) => {
   agendas.init({
     knex: config.knex,
     mysql: config.db, // used by legacy unique value lib
@@ -48,7 +47,7 @@ module.exports.init = config => {
     defaultImagePath: config.aws.defaultImagePath,
     logger: config.getLogConfig('svc', 'agendas'),
     interfaces: {
-      onCreate,
+      onCreate: onCreate.bind(null, services),
       onUpdate,
       beforeRemove,
       onRemove,
@@ -67,7 +66,8 @@ module.exports.init = config => {
 module.exports.plugApp = app => {
   const {
     sessions,
-    members
+    members,
+    core
   } = app.services;
 
   app.get(
@@ -99,7 +99,7 @@ module.exports.plugApp = app => {
     cmn.loadAgenda,
     async (req, res, next) => {
       try {
-        const schema = await core.agendas(req.agenda.uid).settings.schema.getMerged();
+        const schema = await req.app.services.core.agendas(req.agenda.uid).settings.schema.getMerged();
 
         res.send({
           ...schema,

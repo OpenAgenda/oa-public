@@ -21,8 +21,6 @@ const custom = require( './lib/custom' );
 const searchStats = require( './lib/search' );
 const legacyTagsAndCustom = require( '../legacy' ).tagsAndCustom;
 
-const core = require( '../../core' );
-
 const agendasList = promisify( agendasSvc.list );
 
 const log = require( '@openagenda/logs' )( 'services/agendaStatistics' );
@@ -30,14 +28,15 @@ const log = require( '@openagenda/logs' )( 'services/agendaStatistics' );
 let q;
 
 module.exports = async (services, agendaUid) => {
-
-  const agenda = await config.knex( 'review' ).first( [ 'id', 'slug', 'form_schema_id' ] ).where( 'uid', agendaUid );
+  const agenda = await config.knex('review')
+    .first(['id', 'uid', 'slug', 'form_schema_id'])
+    .where('uid', agendaUid);
 
   return {
     db: await db( agenda.id ),
     legacySearch: await legacySearch( agenda.id ),
     agendaEvents: await agendaEventStats( agendaUid ),
-    search: await searchStats(services.eventSearch, agendaUid),
+    search: await searchStats(services.eventSearch, agenda),
     hasFormSchema: !!agenda.form_schema_id,
     actions: {
       resyncLegacySearch: `${config.root}/${agenda.slug}/admin/stats/resync/legacySearch`,
@@ -54,7 +53,6 @@ module.exports = async (services, agendaUid) => {
       formSchemaToCustom: `${config.root}/${agenda.slug}/admin/stats/transfer-to-custom`,
     }
   }
-
 }
 
 module.exports.init = c => {
@@ -64,24 +62,6 @@ module.exports.init = c => {
 }
 
 module.exports.resync = ( agendaUid, type ) => q( { operation: 'resync', agendaUid, type } );
-
-module.exports.transferFormSchema = agenda => {
-
-  log( 'transferring form schema from legacy to form schema db for agenda %d', agenda.uid );
-
-  return formSchemas.legacy.transfer( agenda.id );
-
-}
-
-module.exports.formSchemaToTagSet = (agenda, force) => core
-  .agendas(agenda.uid).settings.legacy
-  .updateTagSet(force);
-
-module.exports.formSchemaToCategorySet = (agenda, force) => core
-  .agendas(agenda.uid).settings.legacy
-  .updateCategorySet(force);
-
-module.exports.formSchemaToCustom = ( agenda, force ) => core.agendas( agenda.uid ).settings.legacy.updateCustom( force );
 
 module.exports.task = services => {
 
@@ -108,7 +88,7 @@ module.exports.task = services => {
 
       case 'search':
 
-        _resyncSearch(services.eventSearch, data.agendaUid);
+        _resyncSearch(services.core, services.eventSearch, data.agendaUid);
         break;
 
       case 'agendaEvents':
@@ -210,20 +190,17 @@ async function _resyncLegacySearch( agendaUid ) {
 
 }
 
-async function _resyncSearch( eventSearch, agendaUid ) {
+async function _resyncSearch(core, eventSearch, agendaUid ) {
+  const agenda = await core.agendas(agendaUid).get({ detailed: true });
 
-  log( 'info', 'resyncing agenda %d - new search index rebuild', agendaUid );
+  log('info', 'resyncing agenda %d - new search index rebuild', agendaUid);
 
   try {
+    const result = await eventSearch.agendas(agenda).rebuild();
 
-    const result = await eventSearch.agendas( agendaUid ).rebuild();
-
-    log( 'info', 'agenda %d, resynced search index', agendaUid, result );
-
+    log('info', 'agenda %d, resynced search index', agendaUid, result);
   } catch ( e ) {
-
     log( 'error', 'agenda %d, resync failed', agendaUid, e );
-
   }
 
 }

@@ -1,108 +1,103 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
-const should = require( 'should' );
+const fs = require('fs');
+const should = require('should');
 
-const config = require( '../testconfig' );
-const runDSLQuery = require('../service/helpers/runDSLQuery');
-const events = require( '@openagenda/events/test/service' );
-const moment = require( 'moment-timezone' );
-const Service = require( '../' );
+const config = require('../testconfig');
+const postDSL = require('../utils/postDSL');
+const moment = require('moment-timezone');
+const Service = require('../');
 
+describe('10 - event-search - unit: dsl search', function() {
 
-describe( 'event-search - unit: dsl search', function() {
-
-  describe( 'simple search', function() {
-
-    let service, dslSearch;
+  describe('simple search', function() {
+    let service, post;
 
     this.timeout(30000);
 
-    before( done => {
-
-      events.initAndLoad( config.eventService, [ {
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      } ], { reset: true }, done );
-
-    } );
-
-    before( async () => {
-
+    before(async () => {
       service = Service(config);
 
-      dslSearch = runDSLQuery.bind(null, _.pick(service.getConfig(), ['client', 'type']));
+      try {
+        await service.getConfig().client.indices.delete({
+          index: 'test'
+        });
+      } catch (e) {}
 
-      // list must be prepared to give all needed data
-      // for index
-      function eventsList( offset, limit ) {
+      post = postDSL.bind(null, _.pick(service.getConfig(), ['client']));
 
-        return events.list( offset, limit, {
-          internal: true,
-          detailed: true
-        } ).then( r => r.events );
+      await service('simple_search').rebuild({
+        eventsList: async (lastId, limit) => {
+          return JSON.parse(fs.readFileSync(
+            `${__dirname}/fixtures/10_events.${lastId}.${limit}.json`
+          ));
+        }
+      });
+    });
 
-      }
-
-      await service( 'simple_search' ).rebuild( {
-        eventsList
-      } );
-
-    } );
-
-    it( 'an event can be retrieved by uid', async () => {
-
-      let dsl = {
+    it('an event can be retrieved by uid', async () => {
+      const {
+        events,
+        total
+      } = await post('test', {
         query: {
-          term: {
-            uid: 6
+          bool: {
+            filter: [{
+              term: {
+                uid: 6
+              }
+            }, {
+              term: {
+                _set: 'simple_search'
+              }
+            }]
           }
         }
-      };
+      });
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      total.should.equal(1);
+      events[0].slug.should.equal('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
+    });
 
-      total.should.equal( 1 );
-
-      events[ 0 ].slug.should.equal( 'decouverte-du-handball-et-valorisation-du-mondial-de-handball' );
-
-    } );
-
-    it( 'several events can be retrieved by uid at once', async () => {
-
-      let dsl = {
+    it('several events can be retrieved by uid at once', async () => {
+      const {
+        events,
+        total
+      } = await post('test', {
         query: {
-          in: {
-            uid: [ 6, 11 ]
+          bool: {
+            filter: [{
+              terms: {
+                uid: [ 6, 11 ]
+              }
+            }]
           }
         }
-      };
+      });
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      total.should.equal(2);
 
-      total.should.equal( 2 );
-
-      events.map( e => e.slug ).should.eql( [
+      events.map(e => e.slug).should.eql([
         'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
         'serres-la-claranda-cafe-citoyen'
-      ] );
-
-    } );
+      ]);
+    });
 
     it( 'simple title search', async () => {
 
       let dsl = {
         query: {
           match: {
-            search_internals_title: 'valorisation'
+            _search_title: 'valorisation'
           }
         },
         _source: {
-          excludes: [ 'search_internals_*' ]
+          excludes: [ '_search_*' ]
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -115,15 +110,15 @@ describe( 'event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           match: {
-            search_internals_title: 'discovery'
+            _search_title: 'discovery'
           }
         },
         _source: {
-          excludes: [ 'search_internals_*' ]
+          excludes: [ '_search_*' ]
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -137,7 +132,7 @@ describe( 'event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           match: {
-            search_internals_title: 'Trié'
+            _search_title: 'Trié'
           }
         },
         sort: [ {
@@ -147,7 +142,7 @@ describe( 'event-search - unit: dsl search', function() {
         } ]
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 5 );
 
@@ -168,7 +163,7 @@ describe( 'event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           match: {
-            search_internals_title: 'Trié'
+            _search_title: 'Trié'
           }
         },
         sort: [ {
@@ -181,14 +176,14 @@ describe( 'event-search - unit: dsl search', function() {
             }
           }
         }, {
-          search_internals_last_timing: { order: 'desc' }
+          _search_last_timing: { order: 'desc' }
         } ],
         _source: {
-          excludes: [ 'search_internals_*' ]
+          excludes: [ '_search_*' ]
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 5 );
 
@@ -209,18 +204,40 @@ describe( 'event-search - unit: dsl search', function() {
         query: {
           multi_match: {
             query: 'mississipi',
-            fields: [ 'search_internals_title', 'search_internals_description', 'search_internals_keywords_text' ]
+            fields: [ '_search_title', '_search_description', '_search_keywords_text' ]
           }
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl);
 
-      events.map( e => e.slug ).should.eql( [ 'multi_1', 'multi_2', 'multi_3' ] );
+      events.map(e => e.slug).should.eql(['multi_2', 'multi_1', 'multi_3']);
 
     } );
 
+    it('filtering by state in agenda', async () => {
+      const {
+        events,
+        total
+      } = await post('test', {
+        query: {
+          bool: {
+            filter: [{
+              term: {
+                _set: 'simple_search'
+              }
+            },{
+              term: {
+                state: 1
+              }
+            }]
+          }
+        }
+      });
 
+      events.length.should.equal(1);
+      total.should.equal(1);
+    });
 
     it( 'filtering by timing to show only events starting within a certain time bracket ( independant of date )', async () => {
 
@@ -229,7 +246,7 @@ describe( 'event-search - unit: dsl search', function() {
           bool: {
             must: [ {
               match: {
-                search_internals_title: 'Horaires'
+                _search_title: 'Horaires'
               },
             }, ],
             // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
@@ -239,7 +256,7 @@ describe( 'event-search - unit: dsl search', function() {
                 score_mode: 'min',
                 query: {
                   range: {
-                    'timings.search_internals_begin_from_midnight' : {
+                    'timings._search_begin_from_midnight' : {
                       gte: 13*60*60,
                       lte: 17*60*60
                     }
@@ -251,11 +268,11 @@ describe( 'event-search - unit: dsl search', function() {
         },
         _source: {
           // excludes does not go deep.
-          excludes: [ 'search_internals_*', 'timings.search_internals_*' ]
+          excludes: [ '_search_*', 'timings._search_*' ]
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -269,17 +286,19 @@ describe( 'event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           match: {
-            search_internals_title: 'OtherTimezoneHoraires'
+            _search_title: 'OtherTimezoneHoraires'
           }
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       events[ 0 ].dateRange.should.eql( {
-        fr: 'Lundi 24 octobre 2016, 08h00',
         ar: 'الإثنين ٢٤ أكتوبر ٢٠١٦, 08:00',
-        en: 'Monday 24 October 2016, 08:00'
+        de: 'Montag 24 Oktober 2016, 08:00',
+        fr: 'Lundi 24 octobre 2016, 08h00',
+        en: 'Monday 24 October 2016, 08:00',
+        es: 'Monday 24 October 2016, 08:00'
       } );
 
     } );
@@ -295,7 +314,7 @@ describe( 'event-search - unit: dsl search', function() {
           bool: {
             must: [ {
               match: {
-                search_internals_title: 'OtherTimezoneHoraires'
+                _search_title: 'OtherTimezoneHoraires'
               },
             }, ],
             // doc: https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html
@@ -305,7 +324,7 @@ describe( 'event-search - unit: dsl search', function() {
                 score_mode: 'min',
                 query: {
                   range: {
-                    'timings.search_internals_begin_from_midnight' : {
+                    'timings._search_begin_from_midnight' : {
                       gte: 8*60*60,
                       lte: 8*60*60
                     }
@@ -317,11 +336,11 @@ describe( 'event-search - unit: dsl search', function() {
         },
         _source: {
           // excludes does not go deep.
-          excludes: [ 'search_internals_*', 'timings.search_internals_*' ]
+          excludes: [ '_search_*', 'timings._search_*' ]
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -340,7 +359,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -354,7 +373,7 @@ describe( 'event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           geo_bounding_box: {
-            search_internals_location: {
+            _search_location: {
               top_left: {
                 lat: 50,
                 lon: 5
@@ -368,7 +387,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       };
 
-      let { events, total } = await dslSearch( 'simple_search', dsl )
+      let { events, total } = await post('test', dsl )
 
       total.should.equal( 1 );
 
@@ -382,12 +401,12 @@ describe( 'event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           term: {
-            "search_internals_languages" : "de"
+            "_search_languages" : "de"
           }
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -401,12 +420,12 @@ describe( 'event-search - unit: dsl search', function() {
       let dsl = {
         query: {
           term: {
-            "search_internals_keywords" : "word"
+            "_search_keywords" : "word"
           }
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -421,18 +440,18 @@ describe( 'event-search - unit: dsl search', function() {
           bool: {
             must: [ {
               term: {
-                search_internals_keywords: 'autre'
+                _search_keywords: 'autre'
               }
             }, {
               term: {
-                search_internals_keywords: 'clé'
+                _search_keywords: 'clé'
               }
             } ]
           }
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       total.should.equal( 1 );
 
@@ -465,7 +484,7 @@ describe( 'event-search - unit: dsl search', function() {
         }
       }
 
-      let { events, total } = await dslSearch( 'simple_search', dsl );
+      let { events, total } = await post('test', dsl );
 
       events.map( e => e.slug ).should.eql( [ 'bracketed_timestamp_1', 'bracketed_timestamp_2', 'bracketed_timestamp_3' ] );
 
@@ -482,9 +501,9 @@ describe( 'event-search - unit: dsl search', function() {
 
       let fetchedCount = 0;
 
-      let cacheFor = '1m';
+      const cacheFor = '1m';
 
-      let { events, scrollId } = await dslSearch( 'simple_search', dsl, { scroll: cacheFor } );
+      let { events, scrollId } = await post('test', dsl, { scroll: cacheFor } );
 
       fetchedCount += events.length;
 
@@ -492,7 +511,7 @@ describe( 'event-search - unit: dsl search', function() {
 
       fetchedCount += events.length;
 
-      let result = await service('simple_search').search.scroll( scrollId, cacheFor );
+      const result = await service('simple_search').search.scroll(scrollId, cacheFor);
 
       fetchedCount += result.events.length;
 
@@ -519,21 +538,21 @@ describe( 'event-search - unit: dsl search', function() {
             }
           }
         }, {
-          search_internals_last_timing: { order: 'desc' }
+          _search_last_timing: { order: 'desc' }
         } ]
       }
 
-      let { events, total, searchAfter } = await dslSearch( 'simple_search', dsl );
+      let { events, total, searchAfter } = await post('test', dsl );
 
       dsl[ 'search_after' ] = searchAfter;
 
       try {
 
-        await dslSearch( 'simple_search', dsl );
+        await post('test', dsl );
 
       } catch ( err ) {
 
-        err.message.should.equal( '[illegal_state_exception] No matching token for number_type [BIG_INTEGER]' );
+        err.message.should.equal( 'illegal_argument_exception' );
 
       }
 
@@ -558,17 +577,17 @@ describe( 'event-search - unit: dsl search', function() {
             }
           }
         }, {
-          search_internals_last_timing: { order: 'desc' }
+          _search_last_timing: { order: 'desc' }
         } ]
       }
 
-      let { events } = await dslSearch( 'simple_search', dsl );
+      let { events } = await post('test', dsl );
 
       let fourth = events[ 3 ].uid;
 
       dsl.from = 3;
 
-       events = ( await dslSearch( 'simple_search', dsl ) ).events;
+       events = ( await post('test', dsl ) ).events;
 
       events[ 0 ].uid.should.equal( fourth );
 

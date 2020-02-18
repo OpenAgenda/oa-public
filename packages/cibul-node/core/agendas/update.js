@@ -7,8 +7,8 @@ const log = require('@openagenda/logs')('core/agendas/update');
 
 const agendaSettings = require('./settings');
 
-module.exports = async (services, agendaOrUid, data, options = {}) => {
-  const setAgenda = promisify(services.agendas.set);
+module.exports = async (core, agendaOrUid, data, options = {}) => {
+  const setAgenda = promisify(core.services.agendas.set);
 
   const agendaUid = _.isObject(agendaOrUid) ? agendaOrUid.uid : agendaOrUid;
 
@@ -20,7 +20,7 @@ module.exports = async (services, agendaOrUid, data, options = {}) => {
 
   if (options.updateLegacy) {
     log('updating legacy settings of agenda');
-    await agendaSettings(services)(agenda).legacy.update( true );
+    await agendaSettings(core)(agenda).legacy.update( true );
   }
 
   return agenda;

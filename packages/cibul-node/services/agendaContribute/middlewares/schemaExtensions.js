@@ -1,12 +1,15 @@
 'use strict';
 
 const _ = require('lodash');
-const formSchemas = require('@openagenda/form-schemas');
-const networks = require('../../networks');
 
 const log = require('@openagenda/logs')('services/agendaContribute/middlewares/schemas');
 
 module.exports = async (req, res, next) => {
+  const {
+    networks,
+    formSchemas
+  } = req.app.services;
+
   req.schemaExtensions = [];
 
   if (_.get(req, 'agenda.networkUid')) {

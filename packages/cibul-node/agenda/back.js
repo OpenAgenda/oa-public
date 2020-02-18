@@ -65,29 +65,29 @@ app.get( '/:agendaSlug/admin/stats',
   ) )
 )
 
-app.get( '/:agendaSlug/admin/stats/transfer-form-schema', async ( req, res ) => {
+app.get('/:agendaSlug/admin/stats/transfer-form-schema', async (req, res) => {
+  res.json(await req.app.services.core.agendas(req.agenda.uid)
+    .settings.legacy.createFormSchema()
+  );
+});
 
-  res.json( await agendaStatistics.transferFormSchema( req.agenda ) );
+app.get('/:agendaSlug/admin/stats/transfer-to-tagset', async (req, res) => {
+  res.json(await req.app.services.core.agendas(req.agenda.uid)
+    .settings.legacy.updateTagSet(req.query.force)
+  );
+});
 
-} );
+app.get('/:agendaSlug/admin/stats/transfer-to-categoryset', async (req, res) => {
+  res.json(await req.app.services.core.agendas(req.agenda.uid)
+    .settings.legacy.updateCategorySet(req.query.force)
+  );
+});
 
-app.get( '/:agendaSlug/admin/stats/transfer-to-tagset', async ( req, res ) => {
-
-  res.json( await agendaStatistics.formSchemaToTagSet( req.agenda, !!req.query.force ) );
-
-} );
-
-app.get( '/:agendaSlug/admin/stats/transfer-to-categoryset', async ( req, res ) => {
-
-  res.json( await agendaStatistics.formSchemaToCategorySet( req.agenda, !!req.query.force ) );
-
-} );
-
-app.get( '/:agendaSlug/admin/stats/transfer-to-custom', async ( req, res ) => {
-
-  res.json( await agendaStatistics.formSchemaToCustom( req.agenda, !!req.query.force ) );
-
-} );
+app.get('/:agendaSlug/admin/stats/transfer-to-custom', async (req, res) => {
+  res.json(await req.app.services.core.agendas(req.agenda.uid)
+    .settings.legacy.updateCustom(req.query.force)
+  );
+});
 
 
 

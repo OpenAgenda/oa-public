@@ -5,9 +5,25 @@ const agendasSvc = require( '@openagenda/agendas' );
 const gaTrack = require( '../lib/gaTrack.mw' );
 
 module.exports = app => {
+  app.get( '/agendas/:agendaUid/events.v2.json', (req, res, next) => {
+    const {
+      eventSearch,
+      core
+    } = app.services;
 
-  app.get( '/agendas/:agendaUid/events.v2.json', ( req, res, next ) => {
-
+    core.agendas(req.params.agendaUid).get({ detailed: true }).then(agenda => {
+      if (!agenda) {
+        return next({ code: 404 });
+      }
+      eventSearch.agendas(agenda).search(req.query, req.query, req.query)
+        .then(result => req.query.geojson ? eventSearch.utils.geoJSON(result) : result)
+        .then(result => {
+          res.json(result);
+          gaTrack('events', 'export', 'json')(req);
+        })
+        .catch(next);
+    }, next);
+/*
     // here options must be separated from
     app.services.eventSearch.agendas(req.params.agendaUid).search(req.query, req.query, req.query)
 
@@ -25,8 +41,7 @@ module.exports = app => {
         } );
       } )
 
-      .catch( err => next( err ) );
+      .catch( err => next( err ) );*/
 
-  } );
-
+  });
 };

@@ -4,7 +4,7 @@ const agendaSearch = require( '@openagenda/agenda-search' );
 
 const tfy = require( './lib/taskify' );
 
-module.exports = (config, services) => {
+module.exports = (config, core, services) => {
 
   tfy( require( './general/jobs.task' ), { bootOffset: 1000 } );
 
@@ -85,7 +85,7 @@ module.exports = (config, services) => {
 
   require( './services/legacy' ).task();
 
-  require( './core' ).tasks();
+  core.tasks();
 
   require( './services/agendaLocations' ).task();
 
@@ -132,11 +132,13 @@ module.exports = (config, services) => {
   require( './services/agendaEvents/legacy' ).task();
 
   // handle interfaces for grouped operations ( a remove of a 100 refs queues 100 onRemoves executions )
-  require( '@openagenda/agenda-events' ).tasks.interfaces( { interval: 10 } );
+  services.agendaEvents.tasks.interfaces( { interval: 10 } );
 
   //require( '@openagenda/agenda-events' ).tasks.transferLegacyData( { interval: 500 } );
 
   //require('./tasks/createMissingEventsFromLegacy')(config, services);
 
   services.eventSearch.task();
+
+  //services.eventSearch.rebuild();
 };

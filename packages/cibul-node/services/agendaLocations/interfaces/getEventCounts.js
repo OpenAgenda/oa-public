@@ -1,10 +1,8 @@
 "use strict";
 
-const agendas = require( '@openagenda/agendas' );
+module.exports = async (services, knex, agendaIdentifiers, locationUids) => {
 
-module.exports = async ( knex, agendaIdentifiers, locationUids ) => {
-
-  const agenda = await agendas.get( agendaIdentifiers, { private: null } );
+  const agenda = await services.agendas.get( agendaIdentifiers, { private: null } );
 
   if ( !agenda ) return [];
 

@@ -5,11 +5,12 @@ const _ = require( 'lodash' );
 const invitations = require( '@openagenda/invitations' );
 const log = require( '@openagenda/logs' )( 'services/invitations' );
 
-const members = require( './members' );
+module.exports.init = (config, services) => {
+  const {
+    members
+  } = services;
 
-module.exports.init = config => {
-
-  invitations.init( {
+  invitations.init({
     mysql: config.db,
     schemas: config.schemas,
     interfaces: {
@@ -17,14 +18,18 @@ module.exports.init = config => {
     },
     actions: {
       linkMember: ( executeData, actionParams, cb ) => {
-        _linkMember( executeData, actionParams ).then( () => cb(), cb );
+        _linkMember(services, executeData, actionParams ).then( () => cb(), cb );
       }
     }
-  } );
+  });
 
+  return invitations;
 }
 
-async function _linkMember( { user }, [ member, context ] ) {
+async function _linkMember(services, { user }, [ member, context ]) {
+  const {
+    members
+  } = services;
 
   log( 'linking', user, member, context );
 
@@ -38,11 +43,11 @@ async function _linkMember( { user }, [ member, context ] ) {
     _.get( currentMember, 'custom.contactName', user.fullName )
   );
 
-  return members.patch( member.id, {
+  return members.patch(member.id, {
     userUid: user.uid,
     custom: customData
   }, {
     context,
     requireCustom: false
-  } );
+  });
 }

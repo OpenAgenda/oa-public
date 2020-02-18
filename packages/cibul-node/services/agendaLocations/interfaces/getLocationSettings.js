@@ -1,14 +1,15 @@
 "use strict";
 
-const _ = require( 'lodash' );
+const _ = require('lodash');
 
-const agendas = require( '@openagenda/agendas' );
 const flattenLocationTagSet = require( '@openagenda/event-form/build/utils/flattenLocationTagSet' );
 const log = require( '@openagenda/logs' )( 'services/agendaLocations/interfaces/getAgendaLocations' );
 
-const core = require( '../../../core' );
-
-module.exports = async ( agendaId, options, cb ) => {
+module.exports = async (services, agendaId, options, cb) => {
+  const {
+    core,
+    agendas
+  } = services;
 
   const agenda = await agendas.get( { id: agendaId }, { private: null } );
 

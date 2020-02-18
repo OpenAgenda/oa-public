@@ -67,7 +67,8 @@ function validateType( value, custom = {} ) {
  */
 function validate( value, options = {} ) {
 
-  const custom = _.get( options, 'custom', {} );
+  const custom = _.get(options, 'custom', {});
+  const requireLabels = _.get(options, 'requireLabels', true);
 
   const type = validateType( value, custom );
 
@@ -79,7 +80,8 @@ function validate( value, options = {} ) {
   const fieldSchema = buildFieldSchema(
     isCustomField ? 'custom' : type, {
     defaultLabelLanguage: options.defaultLabelLanguage,
-    isMultilingual: areFieldLabelsMultilingual( value )
+    isMultilingual: areFieldLabelsMultilingual( value ),
+    requireLabels
   } );
 
   const clean = schema( isAbstract ? _stripUndefinedSchemaFields( fieldSchema, value ) : fieldSchema )( value );
@@ -155,10 +157,12 @@ function buildFieldSchema( type, options = {} ) {
   const {
     languages,
     defaultLabelLanguage,
-    isMultilingual
+    isMultilingual,
+    requireLabels
   } = _.assign( {
     defaultLabelLanguage: null,
-    isMultilingual: true
+    isMultilingual: true,
+    requireLabels: true
   }, options );
 
   const labelFieldType = isMultilingual || defaultLabelLanguage ? 'multilingual' : 'text';
@@ -176,7 +180,7 @@ function buildFieldSchema( type, options = {} ) {
     // the label to be displayed in the form
     label: {
       type: labelFieldType,
-      optional: false,
+      optional: !requireLabels,
       defaultLanguage: defaultLabelLanguage
     },
 

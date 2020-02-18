@@ -1,0 +1,805 @@
+{
+  "events": [
+    {
+      "uid": 50429909,
+      "slug": "trente-trente-parcours-dans-la-ville-bordeaux",
+      "title": {
+        "fr": "Trente Trente : Parcours dans la ville, Bordeaux"
+      },
+      "description": {
+        "fr": "Du 21 janvier au 01 février, Trente Trente donne la parole aux artistes de la création contemporaine et offre une programmation de formes scéniques hybrides."
+      },
+      "longDescription": {
+        "fr": "PARCOURS DANS LA VILLE, BORDEAUX\n\nLe parcours dans la ville vous permet de découvrir jusqu'à 7 spectacles dans 5 lieux. Tout de détail → [http://bit.ly/parcoursdanslaville](http://bit.ly/parcoursdanslaville)\n\nLES FILLES MAL GARDÉES\n\nAnthony Egéa\n\nAtelier des Marches\n\n15h et 19h45\n\nDanse - Création\n\n30 minutes\n\nTrois filles sur pointes dans un espace délimité. Une sorte de ring, de cage, de dance floor… ou plutôt un espace d’expérimentation d’une danse qui casse les codes.\n\nRAIN\n\nMeytal Blanaru\n\nAtelier des Marches\n\n15h45 et 20h30\n\nDanse - Avant-première\n\n20 minutes\n\nMeytal Blanaru puise son inspiration dans un des souvenirs d’enfance le plus marquant de sa vie.\n\nÉTUDE(S) DE CHUTE(S)\n\nTrucmuche cie / Michaël Allibert\n\nMarché de Lerme\n\n16h45 et 18h45\n\nInstallation/Performance\n\n35 minutes\n\nIl y a une dimension créatrice dans la chute. Elle est le point de rupture d'un état d'être à un autre, le seuil d'une transformation immanente.\n\nDESIRE'S SERIES #1\n\nSine Qua Non Art\n\nHalle des Chartrons\n\n17h45\n\nPerformance - Création\n\n40 minutes\n\nUn solo performatif fait de cordes, de fleurs et de corps brut, né de la rencontre avec le photographe et plasticien brésilien Fabio Da Motta.\n\nLA COQUILLE OU LE SON DU GIBET\n\nHervé Rigaud, Jonathan Pontier et Élise Servières\n\nLe Performance\n\n16h30 et 18h45\n\nMusique/voix - Création\n\n30 minutes\n\nAppréhender Villon n’est pas chose aisée. Parce que le vieux français. Pourtant sa poésie et sa « sonorité » résiste au passage du temps.\n\nBIBI HA BIBI\n\nAloun Marchal et Henrique Furtado\n\nGlob Théâtre\n\n20h30\n\nPièce musicale et chorégraphique\n\n35 minutes\n\nEn combi-short moulant, Aloun Marchal et Henrique Furtado s’affrontent du regard, se campent au centre du plateau et poussent un cri du ventre : le challenge est lancé.\n\nDRIFT (I)\n\nThomas Bîrzan et Mario Barrantes Espinoza\n\nGlob Théâtre\n\n22h\n\nPerformance\n\n35 minutes\n\nDanse, concert live ou sculpture vivante ? Drift (I) est une exploration de la lenteur qui défie les genres et interroge notre regard.\n\n────────────────────────────────\n\n• Toute la programmation : [www.trentetrente.com](http://www.trentetrente.com)\n\n• Réserver :\n\nParcours 1 (navette) : 33€ (TP) / 23€ (TR)\n\nParcours 2 : 28€ (TP) / 18€ (TR)\n\nSpectacle à l'unité : 6€\n\nBilletterie : [http://bit.ly/billetterieTrenteTrente](http://bit.ly/billetterieTrenteTrente)\n\n05 56 17 03 83\n\n────────────────────────────────\n\n• Nous suivre :\n\ninsta : [http://www.instagram.com/trentetrente.lesrencontres/](http://www.instagram.com/trentetrente.lesrencontres/)\n\nfb : Trente Trente - Les Rencontres\n\n#trentetrente2020"
+      },
+      "keywords": {
+        "fr": [
+          "danse",
+          "cirque",
+          "théâtre",
+          "art",
+          "art du spectacle",
+          "performance"
+        ]
+      },
+      "conditions": {
+        "fr": "Parcours 1 (navette) : 33€ (TP) / 23€ (TR)  /  Parcours 2 : 28€ (TP) / 18€ (TR)  /  Spectacle à l'unité : 6€  / Tarif réduit pour les étudiants, demandeurs d'emploi, séniors"
+      },
+      "image": {
+        "filename": "9b5ed58ea8bb4edb87b33c2bcb3d3523.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 367,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9b5ed58ea8bb4edb87b33c2bcb3d3523.full.image.jpg",
+            "size": {
+              "height": 1072,
+              "width": 2048
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9b5ed58ea8bb4edb87b33c2bcb3d3523.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-25T13:00:00.000Z",
+          "end": "2020-01-25T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-17T16:54:16.000Z",
+      "createdAt": "2019-12-16T09:39:12.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 4368024,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/billetterieTrenteTrente",
+        "05 56 17 03 83"
+      ],
+      "location": {
+        "uid": 4368024,
+        "slug": "trente-trente-les-rencontres",
+        "name": "Trente Trente - Les Rencontres",
+        "address": "17 rue Victor Billon, 33110 Bordeaux",
+        "city": "Le Bouscat",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33200",
+        "insee": "33069",
+        "countryCode": "FR",
+        "district": "Caudéran",
+        "latitude": 44.856764,
+        "longitude": -0.598314,
+        "updatedAt": "2019-12-16T09:33:53.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 86668470,
+      "slug": "trente-trente-soiree-parcours-bordeaux",
+      "title": {
+        "fr": "Trente Trente : soirée parcours, Bordeaux"
+      },
+      "description": {
+        "fr": "Du 21 janvier au 01 février, Trente Trente donne la parole aux artistes de la création contemporaine et offre une programmation de formes scéniques hybrides."
+      },
+      "longDescription": {
+        "fr": "• SOIRÉE PARCOURS, BORDEAUX\n\nUn parcours du Glob théâtre à la La Manufacture - CDCN, ou une soirée complète à la La Manufacture - CDCN, deux parcours sont possibles. Tout le détail → http://bit.ly/soiréeparcours\n\nBIBI HA BIBI\n\nAloun Marchal et Henrique Furtado\n\nGlob Théâtre - 18h45\n\nPièce musicale et chorégraphique\n\n35 minutes\n\nEn combi-short moulant, Aloun Marchal et Henrique Furtado s’affrontent du regard, se campent au centre du plateau et poussent un cri du ventre : le challenge est lancé.\n\nFOGHORN\n\nJeanne Brouaye\n\nLa Manufacture - 19h30\n\nPièce pour deux interprètes , leurs vêtements et deux tas de laine\n\n40 minutes\n\nJeanne Brouaye sonde la forme de nos révoltes, et cherche à dompter l’impuissance en lui opposant une résistance qui témoigne de notre capacité à inventer encore et toujours des mondes possibles.\n\nEXISTE EN CIEL\n\nThéo Touvet\n\nLa Manufacture - 20h30\n\nRoue Cyr\n\n5,30 minutes\n\nUn cercle. Symbole d'infini, de cycle, de vie. Un homme, emporté dans l'espace par le tourbillon temporel de la vie, s'agite, brasse de l'air, du vent.\n\nDANS MA CHAMBRE, ÉPISODE 02\n\nMathieu Ma Fille Foundation\n\nLa Manufacture - 21h30\n\nThéâtre/Cirque\n\n40 minutes\n\nDans ma chambre - Episode 02 réunit faute de local adéquat un artiste de cirque (Edouard Peurichard) et un acteur (Arnaud Saury)...\n\n────────────────────────────────\n\n• Toute la programmation : www.trentetrente.com\n\n────────────────────────────────\n\n• Nous suivre :\n\ninsta : http://www.instagram.com/trentetrente.lesrencontres/\n\nfb : Trente Trente - Les Rencontres\n\n#trentetrente2020"
+      },
+      "keywords": {
+        "fr": [
+          "danse",
+          "performance",
+          "cirque",
+          "art",
+          "art du spectacle",
+          "théâtre"
+        ]
+      },
+      "conditions": {
+        "fr": "20€ (TP) / 13€ (TR) / Tarif réduit pour les étudiants, demandeurs d'emploi, séniors"
+      },
+      "image": {
+        "filename": "60ddf9357f074dd18f8f7be76a719617.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 367,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "60ddf9357f074dd18f8f7be76a719617.full.image.jpg",
+            "size": {
+              "height": 1072,
+              "width": 2048
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "60ddf9357f074dd18f8f7be76a719617.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-24T17:30:00.000Z",
+          "end": "2020-01-24T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-17T16:54:27.000Z",
+      "createdAt": "2019-12-16T09:34:25.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 4368024,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/billetterieTrenteTrente",
+        "05 56 17 03 83"
+      ],
+      "location": {
+        "uid": 4368024,
+        "slug": "trente-trente-les-rencontres",
+        "name": "Trente Trente - Les Rencontres",
+        "address": "17 rue Victor Billon, 33110 Bordeaux",
+        "city": "Le Bouscat",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33200",
+        "insee": "33069",
+        "countryCode": "FR",
+        "district": "Caudéran",
+        "latitude": 44.856764,
+        "longitude": -0.598314,
+        "updatedAt": "2019-12-16T09:33:53.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 67718458,
+      "slug": "trente-trente-workshop-trucmuche-cie-michael-allibert",
+      "title": {
+        "fr": "Trente Trente : workshop Trucmuche cie - Michaël Allibert"
+      },
+      "description": {
+        "fr": "Du 21 janvier au 01 février, Trente Trente donne la parole aux artistes de la création contemporaine et offre une programmation de formes scéniques hybrides."
+      },
+      "longDescription": {
+        "fr": "• WORKSHOP\n\nMichaël Allibert propose d’expérimenter les grands axes de sa démarche chorégraphique : la lenteur et l’immobilité dans le cadre de la création Étude(s) de chute(s).\n\nLe motif de l’immobilité est envisagé comme une suspension du mouvement. Il interrompt la narration gestuelle d’une chute, son inéluctabilité. Ce motif est aussi un endroit de connivence chorégraphique avec l’objet sculptural et son intrinsèque inertie.\n\nLa lenteur (considérée comme une durée d’exposition au sens photographique du terme) invite à une lecture patiente du geste en mettant à l’épreuve la tentation d’un regard consumériste, avide de rapidité ou de spectaculaire. Elle ouvre des temps introspectifs tout en concrétisant la notion de temps.\n\nTRUCMUCHE CIE\n\nLa collaboration artistique entre Michael Allibert et Jérôme Grivel a commencé avec l’installation chorégraphique La nuit est tombée sur le royaume, un projet autour des questions d’ordre(s) et de désordre(s). Bien que leurs pratiques soient différentes (l’un est chorégraphe, l’autre plasticien), les lignes de force qui traversent leurs travaux respectifs se rejoignent. Chacun à sa façon, ils mettent en place des dispositifs de perception, des propositions pour appréhender son propre corps, celui des autres et celui de l’espace qui les entoure. www.trucmuche.org/territoire\n\n────────────────────────────────\n\n• Vendredi 24.01 - de 13h à 17h\n\n17h - Restitution publique\n\nMarché de Lerme - Bordeaux\n\nOuvert à tous à partir de 15 ans\n\n20€ (+5€ d'adhésion à la cie Les Marches de l'Été)\n\nL'inscription au workshop donne accès au spectacle Étude(s) de chute(s) samedi 25.01 au Marché de Lerme (16h45 ou 18h45)\n\n• Infos et inscriptions par mail : direction@trentetrente.com\n\n• Toute la programmation : www.trentetrente.com\n\n• Billetterie : http://bit.ly/billetterieTrenteTrente\n\n05 56 17 03 83\n\n────────────────────────────────\n\n• Nous suivre :\n\ninsta : http://www.instagram.com/trentetrente.lesrencontres/\n\nfb : Trente Trente - Les Rencontres\n\n#trentetrente2020"
+      },
+      "keywords": {
+        "fr": [
+          "danse",
+          "performance",
+          "cirque",
+          "théâtre",
+          "art",
+          "art du spectacle"
+        ]
+      },
+      "conditions": {
+        "fr": "20€ + 5€ d'adhésion à la Cie Les Marches de l'Été"
+      },
+      "image": {
+        "filename": "a36594cf6ef346499d971a13edc59102.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 367,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a36594cf6ef346499d971a13edc59102.full.image.jpg",
+            "size": {
+              "height": 1072,
+              "width": 2048
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a36594cf6ef346499d971a13edc59102.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-24T12:00:00.000Z",
+          "end": "2020-01-24T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-17T16:54:37.000Z",
+      "createdAt": "2019-12-16T09:29:04.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 27356357,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "direction@trentetrente.com",
+        "http://bit.ly/billetterieTrenteTrente",
+        "05 56 17 03 83"
+      ],
+      "location": {
+        "uid": 27356357,
+        "slug": "marche-de-lerme341",
+        "name": "Marché de Lerme",
+        "address": "Place de Lerme, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.847393,
+        "longitude": -0.585611,
+        "updatedAt": "2019-12-16T09:28:53.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 44452457,
+      "slug": "trente-trente-soiree-carte-blanche",
+      "title": {
+        "fr": "Trente Trente : soirée carte blanche"
+      },
+      "description": {
+        "fr": "Du 21 janvier au 01 février, Trente Trente donne la parole aux artistes de la création contemporaine et offre une programmation de formes scéniques hybrides."
+      },
+      "longDescription": {
+        "fr": "• CAFÉ POMPIER - SOIRÉE CARTE BLANCHE AUX PERFORMEURS ANNABELLE CHAMBON ET CÉDRIC CHARRON\n\nLES PROTOTYPES DU VIVANT\n\nExposition performative collective commissionnée par Annabelle Chambon, Cédric Charron et Emilie Houdent.\n\nAvec Sophie Dalès, Bertrand Grimault, Marta Jonville-Pile, Dina Khuseyn, Johann Loiseau, Elisabeth Saint-Jalmes, Yacine Sif El Islam, et 26 étudiants de l'école des Beaux-Arts de Bordeaux.\n\nEntre l’urgente nécessité de laisser la nature reprendre ses droits et l’expansion de l’intelligence artificielle, comment reconsidérer la condition humaine ? Quelles nouvelles sensibilités peuvent s’exprimer à l’aune d’une reconfiguration du vivant ? Base de vie et promesse d’altérité, le corps est tant matière que symbole, figure que prototype. A l’intersection de l’organique et de l’imaginaire, il se pense par l’expérience. Au gré de l’exposition et sous la forme de performances, vidéos, installations, sept artistes et les étudiants des Beaux-Arts et vous invitent à les suivre dans cette troublante initiation au futur.\n\n8 performances suivies d'un concert de rockabilly speedé sur synthétiseurs modulaires, par Mari Lanera et Jean-Emmanuel Belot.\n\n────────────────────────────────\n\n• Toute la programmation : www.trentetrente.com\n\n────────────────────────────────\n\n• Nous suivre :\n\ninsta : http://www.instagram.com/trentetrente.lesrencontres/\n\nfb : Trente Trente - Les Rencontres\n\n#trentetrente2020"
+      },
+      "keywords": {
+        "fr": [
+          "danse",
+          "performance",
+          "art",
+          "art du spectacle",
+          "art vivant",
+          "cirque",
+          "théâtre"
+        ]
+      },
+      "conditions": {
+        "fr": "Gratuit, sur réservation"
+      },
+      "image": {
+        "filename": "347cd322efb449f596720e63ae17d735.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 367,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "347cd322efb449f596720e63ae17d735.full.image.jpg",
+            "size": {
+              "height": 1072,
+              "width": 2048
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "347cd322efb449f596720e63ae17d735.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-23T17:30:00.000Z",
+          "end": "2020-01-23T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-17T16:54:50.000Z",
+      "createdAt": "2019-12-16T09:23:29.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 76669959,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/billetterieTrenteTrente",
+        "05 56 17 03 83"
+      ],
+      "location": {
+        "uid": 76669959,
+        "slug": "cafe-pompier972",
+        "name": "Café pompier",
+        "address": "7  place Renaudel, 33800 Bordeaux",
+        "city": "Le Bouscat",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33110",
+        "insee": "33069",
+        "countryCode": "FR",
+        "district": "Lafon Féline",
+        "latitude": 44.86915,
+        "longitude": -0.615261,
+        "updatedAt": "2019-12-16T09:22:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 30744958,
+      "slug": "trente-trente-a-la-manufacture-cdcn",
+      "title": {
+        "fr": "Trente Trente à la Manufacture CDCN"
+      },
+      "description": {
+        "fr": "Du 21 janvier au 01 février, Trente Trente donne la parole aux artistes de la création contemporaine et offre une programmation de formes scéniques hybrides."
+      },
+      "longDescription": {
+        "fr": "• LA MANUFACTURE CDCN, BORDEAUX\n\nBSTRD\n\nKaterina Andreou\n\n20h\n\nDanse\n\n42 minutes\n\nAvec pour seule partenaire de scène une platine vinyle, Katerina Andreou remet en jeu la limite entre autonomie et autorité, conditionnement et libre arbitre...\n\nBLUE PRINCE BLACK SHEEP\n\nCarlotta Sagna et Amancio Gonzalez\n\n21h15\n\nDanse\n\n30 minutes\n\nUn peu à la façon de Bartleby le personnage d’Herman Melville, notre héros se met à l’écart de la réalité et se façonne un cocon protecteur et imaginaire...\n\n────────────────────────────────\n\n• Toute la programmation : www.trentetrente.com\n\n────────────────────────────────\n\n• Nous suivre :\n\ninsta : http://www.instagram.com/trentetrente.lesrencontres/\n\nfb : Trente Trente - Les Rencontres\n\n#trentetrente2020"
+      },
+      "keywords": {
+        "fr": [
+          "danse",
+          "performance",
+          "théâtre",
+          "art",
+          "art du spectacle",
+          "cirque"
+        ]
+      },
+      "conditions": {
+        "fr": "20€ (TP) / 13€ (TR) / Tarif réduit pour les étudiants, demandeurs d'emploi, séniors"
+      },
+      "image": {
+        "filename": "ee945158d64b4efca38a4ef7d3632a36.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 367,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ee945158d64b4efca38a4ef7d3632a36.full.image.jpg",
+            "size": {
+              "height": 1072,
+              "width": 2048
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ee945158d64b4efca38a4ef7d3632a36.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-22T19:00:00.000Z",
+          "end": "2020-01-22T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-17T16:55:00.000Z",
+      "createdAt": "2019-12-16T09:15:03.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 27180914,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/billetterieTrenteTrente",
+        "05 56 17 03 83"
+      ],
+      "location": {
+        "uid": 27180914,
+        "slug": "la-manufacture-cdcn84",
+        "name": "La Manufacture - CDCN",
+        "address": "226 Boulevard Albert 1er, 33800 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33800",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Sud",
+        "latitude": 44.812816,
+        "longitude": -0.558294,
+        "updatedAt": "2019-12-16T09:14:36.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    },
+    {
+      "uid": 80986869,
+      "slug": "trente-trente-soiree-cirque-a-lagora-pnc",
+      "title": {
+        "fr": "Trente Trente : soirée cirque à l'Agora PNC"
+      },
+      "description": {
+        "fr": "Du 21 janvier au 01 février, Trente Trente donne la parole aux artistes de la création contemporaine et offre une programmation de formes scéniques hybrides."
+      },
+      "longDescription": {
+        "fr": "• AGORA PNC, BOULAZAC\n\nNavette Bordeaux-Boulazac, départ 17h30 Porte de Bourgogne\n\nDANS TON CIRQUE - POUR EN FINIR AVEC LA FINESSE\n\nL’Association du Vide\n\n19h/22h30\n\nCirque - Création\n\n\"Balancer dans le vide ce qu’on a de talent et de courage, tenir à 10 mètres du sol à la force du poignet, attraper en plein vol un corps fragile, changer de costume en un clin d’œil...\"\n\nDANS MA CHAMBRE, ÉPISODE 02\n\nMathieu Ma Fille Foundation\n\n20h15 (Auditorium)\n\nThéâtre/Cirque\n\nDans ma chambre - épisode 02 réunit faute de local adéquat un artiste de cirque (Edouard Peurichard) et un acteur (Arnaud Saury).\n\nTANTRIC ÉQUATION\n\nErik Baron/d-zAkord\n\n21h15\n\nMusique - Création\n\nPuissant chœur de guitares qui délivre des flots de matières sonores à coup d'archets ou de frottements d'éponges métalliques sur les cordes...\n\nÀ NOS VERTIGES\n\nEmma Verbèke et Corentin Diana\n\n21h45 (Auditorium)\n\nCirque - Création\n\nLa plate-forme en mouvement est instable et fuyante à chaque appui.\n\n────────────────────────────────\n\n• Toute la programmation : www.trentetrente.com\n\n────────────────────────────────\n\n• Nous suivre :\n\ninsta : http://www.instagram.com/trentetrente.lesrencontres/\n\nfb : Trente Trente - Les Rencontres\n\n#trentetrente2020"
+      },
+      "keywords": {
+        "fr": [
+          "spectacle",
+          "cirque",
+          "art vivant",
+          "théâtre",
+          "danse",
+          "performance"
+        ]
+      },
+      "conditions": {
+        "fr": "20€ (TP) / 10€ (TR) / Navette 5€ / Tarif réduit pour les étudiants, demandeurs d'emploi, séniors"
+      },
+      "image": {
+        "filename": "467efe8baecc49498428e3af39076891.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 367,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "467efe8baecc49498428e3af39076891.full.image.jpg",
+            "size": {
+              "height": 1072,
+              "width": 2048
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "467efe8baecc49498428e3af39076891.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-21T18:00:00.000Z",
+          "end": "2020-01-21T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-17T16:55:11.000Z",
+      "createdAt": "2019-12-16T09:01:37.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 96575817,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/billetterieTrenteTrente",
+        "05 56 17 03 83"
+      ],
+      "location": {
+        "uid": 96575817,
+        "slug": "agora-pnc-boulazac",
+        "name": "Agora PNC Boulazac",
+        "address": "Avenue de l'Agora, 24750 Boulazac",
+        "city": "Boulazac Isle Manoire",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Dordogne",
+        "postalCode": "24750",
+        "insee": "24053",
+        "countryCode": "FR",
+        "district": "Boulazac",
+        "latitude": 45.182119,
+        "longitude": 0.761367,
+        "updatedAt": "2019-12-16T08:56:56.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 59,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      }
+    }
+  ],
+  "lastId": 2109072
+}

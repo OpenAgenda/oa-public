@@ -8,18 +8,20 @@ const contributorLabels = require( '@openagenda/labels/event/contributors' );
 const eventReferences = require( '@openagenda/agenda-event-references' );
 const __ = require( '@openagenda/labels' )( require( '@openagenda/labels/event/states' ) );
 
-const core = require( '../core' );
 const cmn = require( '../lib/commons-app' );
 const eventSvc = require( '../services/event' );
 const legacyAgendaSvc = require( '../services/agenda' );
 const activitiesSvc = require( '../services/activities' );
-const sessions = require('../services/sessions');
-const members = require('../services/members');
 
 const getAgendaTags = promisify( require( '@openagenda/agenda-tags' ).get );
 
 
 module.exports = app => {
+  const {
+    sessions,
+    members,
+    agendas
+  } = app.services;
 
   app.get(
     '/:slug/events/:eventSlug/featured/:type',
@@ -36,12 +38,17 @@ module.exports = app => {
     legacyAgendaSvc.mw.load( 'uid' ),
     sessions.mw.loadOrRedirect,
     members.mw.load,
-    ( req, res, next ) => {
-      core.agendas( req.agenda.uid ).events.get( req.params.eventUid, {
-        customOnly: true,
-        includeSchema: true,
+    (req, res, next) => {
+      req.app.services.core.agendas(req.agenda.uid).events.get(req.params.eventUid, {
+        load: {
+          custom: true
+        },
+        returnPayload: true,
         access: req.member ? members.utils.getRoleSlug( req.member.role ) : 'nobody',
-      } ).then( result => res.json( result ) );
+      } ).then( result => res.json({
+        event: result.event,
+        schema: result.formSchema
+      }));
     }
   );
 
@@ -95,39 +102,54 @@ module.exports = app => {
     (req, res) => res.json( _.pick( req, [ 'events' ] ) )
   );
 
-  app.get(
-    [ '/agendas/:uid/events/suggestions', '/agendas/:uid/events/:eventUid/suggestions' ],
-    sessions.mw.loadOrRedirect,
-    cmn.loadAgendaBy('uid'),
+  app.get([
+    '/agendas/:uid/events/suggestions',
+    '/agendas/:uid/events/:eventUid/suggestions'
+  ], sessions.mw.loadOrRedirect,
+    agendas.mw.loadBy({ path: 'params.uid', field: 'uid' }),
     members.mw.load,
-    ( req, res, next ) => {
-
+    (req, res, next) => {
+      req.sample = Object.keys(req.query.sample).reduce((clean, field) => {
+        if (field === 'custom') { // custom key is no longer necessary
+          return {
+            ...clean,
+            ...req.query.sample.custom
+          }
+        } else {
+          return {
+            ...clean,
+            [field]: req.query.sample[field]
+          }
+        }
+      }, {});
       req.agendaUid = req.params.uid;
-
-      if ( req.params.eventUid ) {
-
-        req.query.exclude = [ req.params.eventUid ].concat( req.query.exclude || [] );
-
-      }
-
-      core.agendas( req.params.uid ).settings.get().then( settings => {
-
-        req.formSchemaFields = _.get( settings, 'fields', [] );
-
+      req.exclude = (req.query.exclude || []).concat(req.params.eventUid || []).map(e => parseInt(e));
+      req.app.services.core.agendas(req.params.uid).settings.get().then(formSchema => {
+        req.formSchema = formSchema;
         next();
-
-      }, next );
-
+      });
     },
-    eventReferences.mw.suggestions,
-    ( req, res ) => res.json( {
-      events: _monolingual(
-        req.events.slice( 0, parseInt( _.get( req.query, 'limit', 20 ) ) ),
-        [ 'title', 'dateRange', 'description' ],
-        req.lang
-      )
-    } )
-  );
+    (req, res, next) => {
+      req.app.services.eventSearch.agendas(req.agenda).search({
+        date: {
+          gte: JSON.stringify(new Date()).split( 'T' )[0],
+          timezone: 'Europe/Paris'
+        },
+        mlt: req.sample,
+        boost: req.query.boost,
+        state: ['administrator', 'moderator'].includes(members.utils.getRoleSlug(req.member.role)) ? null : 2
+      }, {}, {
+        formSchema: req.formSchema
+      }).then(({ events }) => {
+        res.json({
+          events: _monolingual(events
+            .filter(e => !req.exclude.includes(e.uid))
+            .slice(0, parseInt(req.query.limit || 20)),
+          ['title', 'dateRange', 'description'],
+          req.lang)
+        });
+      });
+    });
 
   app.get(
     '/agendas/:uid/events/:eventUid/activities',
@@ -302,7 +324,7 @@ function _xhrResponse( req, res, next ) {
 function _changeFeatured( req, res, next ) {
   req.log('updating featured to %s', req.params.type);
 
-  core.agendas(req.agenda.uid).events.update(req.event.uid, {
+  req.app.services.core.agendas(req.agenda.uid).events.update(req.event.uid, {
     featured: req.params.type === 'featured'
   }, {
     partial: true,

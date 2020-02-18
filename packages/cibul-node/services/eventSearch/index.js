@@ -1,22 +1,22 @@
 "use strict";
 
-const _ = require( 'lodash' );
-
+const _ = require('lodash');
 const EventSearch = require('@openagenda/event-search');
-
-const AgendaIndices = require('./agendaIndices');
-const buildSearchConfig = require('./lib/buildSearchConfig');
-const eventTransverseOperations = require('./eventTransverseOperations');
-const update = require('./update');
-
 const log = require('@openagenda/logs')('services/eventSearch');
 
-module.exports = {
-  init,
-  utils: EventSearch.utils
-}
+const buildSearchConfig = require('./lib/buildSearchConfig');
 
-function init(config, services) {
+const add = require('./add');
+const update = require('./update');
+const remove = require('./remove');
+const rebuild = require('./rebuild');
+const agendaIndexSearch = require('./agendaIndexSearch');
+const agendaIndexRebuild = require('./agendaIndexRebuild');
+const transverseIndex = require('./transverseIndex');
+const getApp = require('./getApp');
+
+module.exports.init = async (config, services) => {
+  log('init');
   const {
     queues,
     agendaEvents,
@@ -25,19 +25,41 @@ function init(config, services) {
 
   const eventSearch = EventSearch(buildSearchConfig(config));
 
+  await eventSearch.cluster.configure();
+
   const queue = queues('eventSearch');
+  const rebuildQueue = queues('eventSearch:rebuild');
 
-  const agendaIndices = AgendaIndices(eventSearch, config);
+  const transverseSearch = transverseIndex(services, eventSearch, queue);
 
-  return Object.assign(eventSearch, {
-    agendas: agendaIndices,
-    events: eventTransverseOperations({ eventSearch, agendaIndices, queue }),
-    task: task.bind(null, { queue }),
-    update: update({ eventSearch, queue, agendaEvents, core })
+  rebuildQueue.register({
+    agenda: agenda => agendaIndexRebuild(services, eventSearch, agenda),
+    transverse: options => queue('transverseIndexRebuild', options)
   });
+
+  return {
+    task: task.bind(null, { queue, rebuildQueue }),
+    update: update(services, queue, eventSearch),
+    remove: remove(services, queue, eventSearch),
+    add: add(services, queue, eventSearch),
+    rebuild: rebuild.bind(null, services, eventSearch, rebuildQueue),
+    agendas: agenda => ({
+      search: agendaIndexSearch.bind(null, eventSearch, agenda),
+      rebuild: agendaIndexRebuild.bind(null, services, eventSearch, agenda)
+    }),
+    transverse: {
+      rebuild: options => queue('transverseIndexRebuild', options),
+      search: transverseSearch
+    },
+    getApp: getApp.bind(null, {
+      services,
+      transverseSearch,
+      queue
+    })
+  };
 }
 
-function task({ queue }) {
+function task({ queue, rebuildQueue }) {
   log('task');
 
   queue.on('error', (fn, args, error) => log('error', fn, args, error));
@@ -45,4 +67,7 @@ function task({ queue }) {
   queue.on('success', (fn, args, result) => log(fn, 'success'));
 
   queue.run();
+
+  rebuildQueue.on('error', (fn, args, error) => log('error', fn, args, error));
+  rebuildQueue.run();
 }

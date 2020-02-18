@@ -163,7 +163,7 @@ async function init(config, services) {
       beforeCreate,
       onCreate,
       onGenerateApiKey,
-      onActivation,
+      onActivation: onActivation.bind(null, services),
       getAgenda: (agendaUid, cb) => agendas.get({ uid: agendaUid }, cb),
       keys: {
         get: identifiers => keys(identifiers).get(),
@@ -184,6 +184,8 @@ async function init(config, services) {
       ? service[prop].bind(service)
       : service[prop];
   }
+
+  services.tokens = tokensService;
 
   return service;
 }

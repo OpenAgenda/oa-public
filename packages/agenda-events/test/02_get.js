@@ -37,7 +37,7 @@ describe('agendaEvents - functional (server): get', function() {
       eventUid: 10974548,
       userUid: 12312312,
       aggregated: false,
-      sourceAgendaUid: [],
+      sourcePaths: [],
       state: config.eventStates.VALIDATED,
       featured: false,
       canEdit: false,
@@ -71,28 +71,28 @@ describe('agendaEvents - functional (server): get', function() {
     error.message.should.equal('Agenda uid is missing');
   });
 
-  it('get provides empty sourceAgendaUid list when none are stored in entry', async () => {
+  it('get provides empty sourcePaths list when none are stored in entry', async () => {
     const ae = await svc(62792452).get(53117383);
 
-    ae.sourceAgendaUid.should.eql([]);
+    ae.sourcePaths.should.eql([]);
   });
 
-  it('get provides sourceAgendaUid as list of uids when a json is stored in entry', async () => {
+  it('get provides sourcePaths as list of uids (or list of list) when a json is stored in entry', async () => {
     const ae = await svc(62792452).get(60059313);
 
-    ae.sourceAgendaUid.should.eql([11, 22, 33]);
+    ae.sourcePaths.should.eql([11, [22], 33]);
   });
 
 
   it( 'get by legacy id', async () => {
     let ref = await get.byLegacyId( 42, 24 );
 
-    _.omit( ref, [ 'updatedAt', 'createdAt' ] ).should.eql( {
+    _.omit(ref, ['updatedAt', 'createdAt']).should.eql( {
       eventUid: 10974548,
       agendaUid: 62792452,
       userUid: 12312312,
       aggregated: false,
-      sourceAgendaUid: [],
+      sourcePaths: [],
       featured: false,
       canEdit: false,
       state: config.eventStates.VALIDATED,

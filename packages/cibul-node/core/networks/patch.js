@@ -1,3 +1,3 @@
-const networks = require( '../../services/networks' );
+'use strict';
 
-module.exports = ( networkUid, data ) => networks.patch( networkUid, data );
+module.exports = (services, networkUid, data) => services.networks.patch(networkUid, data);

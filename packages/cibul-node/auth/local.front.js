@@ -295,7 +295,8 @@ function signupComplete( req, res ) {
 
 async function activateResend( req, res ) {
   const {
-    users
+    users,
+    tokens,
   } = req.app.services;
 
   if ( !req.query.email ) {
@@ -320,7 +321,7 @@ async function activateResend( req, res ) {
         throw getErrorLabel('userAlreadyActivated', req.lang);
       }
 
-      token = await users.tokens.findOne( {
+      token = await tokens.findOne( {
         query: { userId: user.id, email: user.email, type: 'aa' },
       } );
 
@@ -330,7 +331,7 @@ async function activateResend( req, res ) {
           params: { user, optionals }
         } );
       } else {
-        token = await users.tokens.create(
+        token = await tokens.create(
           { userId: user.id, email: user.email, type: 'aa' },
           { user, optionals }
         );

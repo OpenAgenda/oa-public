@@ -1,0 +1,76 @@
+{
+  "query": {
+    "bool": {
+      "filter": [
+        {
+          "term": {
+            "_set": "agendas_17821345"
+          }
+        }
+      ]
+    }
+  },
+  "_source": {
+    "excludes": [
+      "_*",
+      "timings._*"
+    ],
+    "includes": [
+      "uid",
+      "title",
+      "dateRange",
+      "image",
+      "keywords",
+      "slug",
+      "originAgenda.uid",
+      "originAgenda.title",
+      "originAgenda.image",
+      "timings",
+      "location.name",
+      "location.address",
+      "location.latitude",
+      "location.longitude",
+      "timezone",
+      "internal_remarks",
+      "service-contributeur",
+      "infocom_title",
+      "infocom_cap",
+      "infocom_text",
+      "type-devenement",
+      "other_place",
+      "publics-cibles",
+      "organisation-de-levenement",
+      "organisator",
+      "organisator_url",
+      "image_alt_text",
+      "image_infocom",
+      "image_infocom_credits",
+      "image_infocom_alt",
+      "thematiques-internes",
+      "labels"
+    ]
+  },
+  "sort": [
+    {
+      "timings.end": {
+        "mode": "min",
+        "order": "asc",
+        "nested_path": "timings",
+        "nested_filter": {
+          "range": {
+            "timings.end": {
+              "gte": "now"
+            }
+          }
+        }
+      }
+    },
+    {
+      "_search_last_timing": {
+        "order": "desc"
+      }
+    }
+  ],
+  "from": 0,
+  "size": 20
+}

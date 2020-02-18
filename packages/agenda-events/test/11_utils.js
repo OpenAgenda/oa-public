@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const _ = require( 'lodash' );
 const mysql = require( 'mysql' );
@@ -9,7 +9,7 @@ const svc = require( './service' );
 const config = require( '../testconfig' );
 
 
-describe('agendaEvents - functional (server): update', function() {
+describe('agendaEvents - functional (server): utils', function() {
   this.timeout(5000);
 
   before(done => {
@@ -18,37 +18,21 @@ describe('agendaEvents - functional (server): update', function() {
 
   afterEach(() => {
     svc.init(config);
-  } );
+  });
 
-  describe('setSourceUid', () => {
+  describe('setSourcePaths', () => {
     let result;
 
     before(async () => {
-      result = await svc.utils.setSourceUid(62792452, 10974548, 123);
+      result = await svc.utils.setSourcePaths(62792452, 10974548, [[123]]);
     });
 
     it('updated ref includes set source uid', () => {
-      result.updated.sourceAgendaUid.should.eql([123]);
+      result.updated.sourcePaths.should.eql([[123]]);
     });
 
     it('ref before did not include source uid', () => {
-      result.before.sourceAgendaUid.should.eql([]);
-    });
-  });
-
-  describe('unsetSourceUid', () => {
-    let result;
-
-    before(async () => {
-      result = await svc.utils.unsetSourceUid(62792452, 60059313, 22);
-    });
-
-    it('updated ref excludes unset source uid', () => {
-      result.updated.sourceAgendaUid.should.eql([11,33]);
-    });
-
-    it('ref before included unset source uid', () => {
-      result.before.sourceAgendaUid.should.eql([11,22, 33]);
+      result.before.sourcePaths.should.eql([]);
     });
   });
 

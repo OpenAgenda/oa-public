@@ -2,28 +2,35 @@
 
 const log = require('@openagenda/logs')('core/agendas/settings');
 
-const config = require('../../../config');
-
 const getMergedSchema = require( './getMergedSchema' );
-const getSchema = require( './getSchema' );
+const getSchema = require('./getSchema');
 const updateLegacySetFromSchema = require('./legacy/updateLegacySetFromSchema');
 const updateCustomFromSchema = require('./legacy/updateCustomFromSchema');
 const updateLegacy = require('./legacy/update');
 const resyncLocationsIndex = require('./resyncLocationsIndex');
 const resyncInbox = require('./resyncInbox');
-const legacySvc = require('../../../services/legacy');
-const tasks = require('../../tasks');
 
 const updateSchemaFields = require('./updateSchemaFields');
 const createFormSchemaFromLegacy = require('./createFormSchemaFromLegacy');
 const pushDataToFormSchema = require('./pushDataToFormSchema');
 
-module.exports = services => {
+module.exports = core => {
+  const {
+    tasks,
+    services
+  } = core;
+
+  const config = core.getConfig();
+
+  const {
+    legacy: legacySvc
+  } = services;
+
   const resyncFn = {
-    updateTagSet: agendaUid => updateLegacySetFromSchema(config, agendaUid, 'tags'),
-    updateCategorySet: agendaUid => updateLegacySetFromSchema(config, agendaUid, 'categories'),
-    updateCustomFromSchema: agendaUid => updateCustomFromSchema(config, agendaUid),
-    updateLegacy: agendaUid => updateLegacy(config, agendaUid),
+    updateTagSet: agendaUid => updateLegacySetFromSchema(core, agendaUid, 'tags'),
+    updateCategorySet: agendaUid => updateLegacySetFromSchema(core, agendaUid, 'categories'),
+    updateCustomFromSchema: (agendaUid, force = false) => updateCustomFromSchema(core, agendaUid, force),
+    updateLegacy: agendaUid => updateLegacy(core, agendaUid),
     rebuildControlData: agendaUid => legacySvc.controlData.rebuild(agendaUid),
     resyncLocationsIndex: agendaUid => resyncLocationsIndex(services, agendaUid),
     resyncInbox: agendaUid => resyncInbox(services, agendaUid),
@@ -34,12 +41,12 @@ module.exports = services => {
   tasks.register(resyncFn);
 
   return agendaUid => ({
-    get: getMergedSchema.bind( null, agendaUid ), // deprecate
+    get: getMergedSchema.bind(null, services, agendaUid), // deprecate
     schema: {
-      get: getSchema.bind(null, agendaUid),
-      getNetwork: getSchema.network.bind(null, agendaUid),
-      getMerged: getMergedSchema.bind( null, agendaUid ),
-      updateFields: updateSchemaFields.bind( null, config, agendaUid )
+      get: getSchema.bind(null, services, agendaUid),
+      getNetwork: getSchema.network.bind(null, services, agendaUid),
+      getMerged: getMergedSchema.bind(null, services, agendaUid),
+      updateFields: updateSchemaFields.bind(null, core, agendaUid)
     },
     legacy: {
       updateTagSet: resyncFn.updateTagSet.bind(null, agendaUid),

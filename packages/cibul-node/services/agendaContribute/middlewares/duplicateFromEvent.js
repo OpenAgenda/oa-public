@@ -5,9 +5,10 @@ const ih = require( 'immutability-helper' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaContribute/middlewares/duplicateFromEvent' );
 
-const core = require( '../../../core' );
-
 module.exports = async ( req, res, next ) => {
+  const {
+    core
+  } = req.app.services;
 
   const agendaUid = _.get( req, 'query.agendaUid', req.agenda.uid );
 

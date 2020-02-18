@@ -88,13 +88,13 @@ describe( 'agendaEvents - functional (server): list', function() {
     result.total.should.equal(2288);
   } );
 
-  it( 'list for serveral event uids', async () => {
+  it( 'list for several event uids', async () => {
 
     const result = await svc( 62792452 ).list({
       eventUid: [ 54434612, 28028226 ]
     });
 
-    result.items.length.should.equal( 2 );
+    result.items.length.should.equal(2);
 
   } );
 
@@ -114,16 +114,28 @@ describe( 'agendaEvents - functional (server): list', function() {
 
   } );
 
+  it('list by event uid', async () => {
+    const { items } = await svc.list.byEventUid(54434612, 0, 20);
+
+    items.length.should.equal(1);
+  });
+
+  it('list by event uid and filtering out agenda uid from results', async () => {
+    const { items } = await svc.list.byEventUid(54434612, { excludeAgendaUid: 62792452 }, 0, 1);
+
+    items.length.should.equal(0);
+  });
+
   it('an item contains agenda & event references, state, featured bool and custom data', async () => {
 
     const result = await svc(62792452).list(0, 1);
 
-    Object.keys( result.items[ 0 ] ).should.eql([
+    Object.keys(result.items[0]).should.eql([
       'eventUid',
       'agendaUid',
       'userUid',
       'aggregated',
-      'sourceAgendaUid',
+      'sourcePaths',
       'featured',
       'canEdit',
       'state',

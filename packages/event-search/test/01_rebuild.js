@@ -1,186 +1,97 @@
 'use strict';
 
+const _ = require('lodash');
+const fs = require('fs');
 const should = require('should');
-
-const events = require('@openagenda/events/test/service');
-
 const config = require('../testconfig');
 const Service = require('../');
 
-describe('event-search - functional: rebuild', function() {
+describe('01 - event-search - functional: rebuild', function() {
 
   describe('basic usage', function() {
 
-    let totalEvents;
+    const totalEvents = 30;
     let service;
 
-    this.timeout(20000);
+    this.timeout(30000);
 
-    async function eventsList(offset, limit) {
-      return events.list(offset, limit, {
-        internal: true,
-        detailed: true,
-        private: null
-      }).then(r =>  r.events);
+    async function eventsList(lastId, limit) {
+      return JSON.parse(
+        fs.readFileSync(`${__dirname}/fixtures/01_events.${lastId}.${limit}.json`)
+      );
     }
 
-    before(done => {
-      events.initAndLoad(config.eventService, [{
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      }], { reset: true }, async () => {
-        const result = await events.list({}, 0, 1, { total: true });
-
-        totalEvents = result.total;
-
-        done();
-      });
-    });
-
-    beforeEach(() => {
+    before(() => {
       service = Service(config);
     });
 
-    describe('list evaluation', () => {
+    describe('set rebuild', function() {
 
-      it('if a input list is not provided, errors', async () => {
-        try {
-          await service('test_alias').rebuild('not a function');
-        } catch( err ) {
-          err.message.should.equal('list is not a function');
-        }
-      } );
+      describe('simple', () => {
+        let result;
 
-      it('if list returns an error, it is encapsulated', async () => {
-        let err;
-
-        try {
-          await service('test_alias').rebuild( {
-            eventsList: ( offset, limit) => new Promise( ( rs, rj ) => rj( new Error( 'crash!' ) ) )
-          } );
-        } catch(e) {
-          err = e;
-        }
-
-        err.message.should.equal('provided list failed: crash!');
-      });
-
-    });
-
-    describe('index generation', () => {
-
-      it('generated index name is given in result details', async () => {
-        const result = await service( 'test_alias' ).rebuild({
-          eventsList
+        before(async () => {
+          try {
+            await service.getConfig().client.indices.delete({ index: 'test' })
+          } catch (e) {}
         });
 
-        // index will look like this: test_alias_20170327T1013
-        result.detail.index.substr(0, 10).should.equal('test_alias');
-      });
-
-      it('result gives number of indexed events', async () => {
-        const result = await service('test_alias').rebuild({
-          eventsList
+        before(async () => {
+          result = await service('someagendaidentifier').rebuild({
+            eventsList
+          });
         });
 
-        result.counts.indexed.should.equal(totalEvents);
-      });
-
-      it('index is effectively created', async () => {
-        const result = await service( 'test_alias' ).rebuild({
-          eventsList
+        it('index is created if not existing', async () => {
+          const r = await service.getConfig().client.indices.exists({ index: 'test' });
+          r.body.should.equal(true);
         });
 
-        (await service.getConfig().client.indices.exists({
-          index: result.detail.index
-        })).should.equal(true);
+        it('a rebuild accounts for 4 main operations if index is created', () => {
+          result.operations.length.should.equal(4);
+        });
+
       });
 
-      it('.exists endpoint indicates when an index does not exist', async () => {
-        const exists = await service('this_alias_does_not_exist').exists();
+      describe('with deletions', () => {
+        let result;
 
-        exists.should.equal(false);
-      });
+        before(async () => {
+          try {
+            await service.getConfig().client.indices.delete({ index: 'test' })
+          } catch (e) {}
+        });
 
-      it('.exists endpoint indicates when an alias/index exists', async () => {
+        before(async () => {
+          await service('someagendaidentifier').rebuild({
+            eventsList
+          });
+        });
 
-        const exists = await service( 'test_alias' ).exists();
-
-        exists.should.equal( true );
-
-      } );
-
-    } );
-
-  } );
-
-  describe( 'extending the mapping', function() {
-
-    let service;
-
-    this.timeout( 10000 );
-
-    function eventsList( offset, limit ) {
-
-      return events.list( offset, limit, {
-        internal: true,
-        detailed: true,
-        private: null
-      } ).then( r => r.events );
-
-    }
-
-    before(done => {
-      events.initAndLoad( config.eventService, [{
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      }], { reset: true }, done);
-    });
-
-    beforeEach(() => {
-      service = Service(config);
-    });
-
-    it( 'takes schema fields and uses it to extend mapping', async () => {
-
-      const config = service.getConfig();
-
-      await service( 'test_alias_extended' ).rebuild( {
-        eventsList,
-        extensions: {
-          custom: {
-            expectedParticipants: {
-              type: 'integer'
-            },
-            inquiryEmail: {
-              type: 'email'
+        before(async () => {
+          result = await service('someagendaidentifier').rebuild({
+            eventsList: async (lastId, limit) => {
+              const payload = JSON.parse(
+                fs.readFileSync(`${__dirname}/fixtures/01_events.${lastId}.${limit}.json`)
+              );
+              payload.events.pop(); // removing an event
+              return payload;
             }
-          }
-        }
-      } );
+          });
+        });
 
-      // look at mapping
-      let result = await config.client.indices.getMapping( {
-        index: 'test_alias_extended',
-        type: config.type
-      } );
+        it('result provides updates count', () => {
+          result.counts.updated.should.equal(27);
+        });
 
-      result[ Object.keys( result )[ 0 ] ].mappings.event.properties.custom
+        it('result provides deleted count', () => {
+          result.counts.deleted.should.equal(3);
+        });
 
-      .should.eql( { properties: {
-        expectedParticipants: {
-          type: 'integer'
-        },
-        inquiryEmail: {
-          type: 'keyword'
-        },
-        search_internal_keywords: {
-          type: 'keyword'
-        }
-      } } );
+      });
 
-    } );
+    });
 
-  } );
+  });
 
-} );
+});

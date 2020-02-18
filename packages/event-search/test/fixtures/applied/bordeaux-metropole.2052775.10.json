@@ -1,0 +1,1390 @@
+{
+  "events": [
+    {
+      "uid": 188359,
+      "slug": "dragonforce-au-krakatoa",
+      "title": {
+        "fr": "DRAGONFORCE au KRAKATOA"
+      },
+      "description": {
+        "fr": "Dragonforce en concert le 12.02.20 au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "Base présente en Accord avec Veryshow :\n\n## DRAGONFORCE (Power Metal / UK)\n\nFormé en 1999, DragonForce est un groupe de power metal britannique originaire de Londres. Le groupe a beaucoup tourné, aux côtés de Helloween, W.A.S.P ou Iron Maiden, avant de se produire en tête d’affiche. Dans leurs paroles, il est souvent question de héros, de batailles, d’épées et de voyages épiques. Très connus pour leur jeu de guitare très rapide, ils seront de retour à l’automne 2019 avec un neuvième album studio, l’occasion de repartir en tournée et de nous présenter un show épique, plein de surprises.\n\nhttps://youtu.be/0jgrCKhxE1s\n\nInfos pratiques:\n\nOuverture des portes: 20h00\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "dragonforce",
+          "power metal",
+          "krakatoa",
+          "bordeaux",
+          "mérignac"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs :  Prévente: 27€ (hors frais de location)"
+      },
+      "image": {
+        "filename": "event_dragonforce-au-krakatoa_834264.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_dragonforce-au-krakatoa_834264.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_dragonforce-au-krakatoa_834264.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-12T18:30:00.000Z",
+          "end": "2020-02-12T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T13:43:04.000Z",
+      "createdAt": "2019-10-29T11:22:43.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/dragonforce/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 48860126,
+      "slug": "thylacine-au-krakatoa",
+      "title": {
+        "fr": "THYLACINE au KRAKATOA"
+      },
+      "description": {
+        "fr": "Thylacine en concert le 08.02.20 au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "Krakatoa Transrock présente :\n\nTHYLACINE\n---------\n\nQu’importe si le thylacine, sorte de mammifère au pelage tigré, vient de Tasmanie, c’est en Argentine que le jeune prodige de la scène électro française a décidé d’enregistrer son deuxième album. Pour donner suite à « Transsiberrian », son premier essai composé en 2015 à bord du train qui relie Moscou à Vladivostock, Thylacine s’est offert une caravane datée de 1972, la fameuse Airstream tout en aluminium et l’a lui-même, magnifiquement transformée en studio d’enregistrement. Il embarque ensuite sa belle américaine sur un cargo pour la récupérer un mois plus tard à Buenos Aires. Direction la Cordillère des Andes.\n\nC’est l’attrait de l’inconnu et l’absence absolue de repère qui donnent envie à Thylacine de s’évader en Amérique du Sud pour enrichir son electronica, et conjuguer à merveille les mélodies aériennes de Moderat, la touche solaire d’un Nicolas Cruz, et la puissance techno d’un Paul Kalkbrenner.Immergé dans des paysages désertiques et lunaires, Thylacine se rapproche de sonorités plus acoustiques, et retrouve aussi le saxophone, son instrument de prédilection.C’est une électro hypnotisante que l’on imagine au fil des kilomètres de routes, composée en solitaire dans l’intimité de son studio nomade, au milieu de canyons multicolores, de dunes de sable, de forêts de cactus géants, et de sommets enneigés…\n\nInfos pratiques:\n\nOuverture des portes: 19h30\n\nDébut des concerts: 20h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "Thylacine",
+          "électro",
+          "krakatoa",
+          "bordeaux",
+          "mérignac"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs :  Oh Oui (la carte du Krakatoa): 20€ / CE: 20€ / Prévente: 22€ (hors frais de location) / Guichet: 25€"
+      },
+      "image": {
+        "filename": "event_thylacine-au-krakatoa_828359.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_thylacine-au-krakatoa_828359.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_thylacine-au-krakatoa_828359.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T18:30:00.000Z",
+          "end": "2020-02-08T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T13:42:06.000Z",
+      "createdAt": "2019-10-29T11:18:25.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/thylacine-2/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 78427542,
+      "slug": "les-wampas-au-krakatoa",
+      "title": {
+        "fr": "LES WAMPAS au KRAKATOA"
+      },
+      "description": {
+        "fr": "Les Wampas en concert le 07.02.20 au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "Krakatoa Transrock présente :\n\nLES WAMPAS\n----------\n\nLes Wampas sont un groupe de rock alternatif et punk rock français, originaire de la région parisienne. Formé en 1983, le groupe repose essentiellement sur le chanteur Didier Wampas, il était en même temps électricien à la RATP avant de partir en retraite début 2012. La composition qui a beaucoup évolué depuis leurs débuts, comprend actuellement Jean-Michel Lejoux (basse, ex-Satellites), Effello (guitare), Nicolas Schauer (batterie) et Tony Truant (guitare, ex-Dogs).”\n\nLes Wampas ont enregistré un nouveau CD….15 nouveaux titres en Janvier 2017. Une salve de pépites affreuses, sales et amusantesDidier – Roi incontesté depuis 30 ans – vous y invite à sucer sa roue, rend un vibrant hommage aux belges, présente une belle mère (la vôtre?) et révise ses classiques.Pendant ce temps le tempo explose, la basse ronfle et les guitares rugissent, crachent, hoquètent un rock & roll – yéyé – punk qui ne s‘embarrasse d’aucune règle.Après « Les Wampas font la gueule » en 2014 et un best off en 2015, le nouveau CD sera prétexte à renouveler le répertoire des concerts, emportements scéniques en perspective…\n\nInfos pratiques:\n\nOuverture des portes: 19h30\n\nDébut des concerts: 20h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "les wampas",
+          "krakatoa",
+          "bordeaux",
+          "mérignac",
+          "punk",
+          "rock"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs :  Oh Oui (la carte du Krakatoa): 19€ / CE: 19€ / Prévente: 21€ (hors frais de location) / Guichet: 24€"
+      },
+      "image": {
+        "filename": "event_les-wampas-au-krakatoa_121254.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_les-wampas-au-krakatoa_121254.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_les-wampas-au-krakatoa_121254.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-07T18:30:00.000Z",
+          "end": "2020-02-07T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T13:40:57.000Z",
+      "createdAt": "2019-10-29T11:14:48.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/les-wampas-2/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 16473931,
+      "slug": "la-rue-ketanou-au-krakatoa",
+      "title": {
+        "fr": "LA RUE KÉTANOU + Gari Grèu au KRAKATOA"
+      },
+      "description": {
+        "fr": "La Rue Kétanou en concert le 06.02.20 au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "PYRPROD (L.2-146643) présente :\n\nLA RUE KETANOU (Musique Tzigane, Chanson / France)\n--------------------------------------------------\n\nLa Rue Kétanou, c'est d'abord un slogan, une devise, un état d'esprit. \"C'est pas nous qui sommes à la rue, c'est la Rue Kétanou ». Un trio fantasque devenu, après avoir fêté leurs 20 ans, un quatuor avec l'arrivée de Pierre Luquet, leur enfant spirituel comme ils disent... Vingt ans d'cavale, de chansons festives, réalistes et engagées, de guitares, d'airs d'accordéon, d'harmonica et de percussions endiablées !\n\nVingt ans et La Rue Ketanou est toujours là, chansonniers et poètes, funambules acoustiques extravagants, suivis par un public toujours aussi nombreux. Un public qui pourra les retrouver sur les routes de France dès 2019 alors qu'ils sont en préparation d'un tout nouvel album (sortie prévue janvier 2020) !\n\nInfos pratiques:\n\nOuverture des portes: 20h30"
+      },
+      "keywords": {
+        "fr": [
+          "la rue kétanou",
+          "krakatoa",
+          "bordeaux",
+          "mérignac",
+          "chanson",
+          "musique tzigane"
+        ]
+      },
+      "conditions": {
+        "fr": "Prévente: 27€ (hors frais de location)"
+      },
+      "image": {
+        "filename": "event_la-rue-ketanou-au-krakatoa_125335.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_la-rue-ketanou-au-krakatoa_125335.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_la-rue-ketanou-au-krakatoa_125335.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-06T18:30:00.000Z",
+          "end": "2020-02-06T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-12T15:08:36.000Z",
+      "createdAt": "2019-10-29T11:10:43.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/la-rue-ketanou-2/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 10852821,
+      "slug": "insane-clown-posse-dope-d-o-d-au-krakatoa",
+      "title": {
+        "fr": "INSANE CLOWN POSSE & DOPE D.O.D au KRAKATOA"
+      },
+      "description": {
+        "fr": "Insane Clown Posse & Dope D.O.D en concert le 30.01.20 au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "Krakatoa Transrock présente :\n\n**Juggalos!** Les clowns déments dont leur retour en Europe en Janvier 2020!Retrouvez Insane Clown Posse en compagnie du duos Dope D.O.D !\n\n“Fearless Fred Fury”, le dernier album d'Isane Clown Posse a défoncé les charts et est disponible partout.Le nouvel album de DOPE D.O.D sortia en décembre, découvrez dès maintenant leur dernier single \"Scooby Doo Gang\" sortie en juin dernier.\n\nInfos pratiques:\n\nOuverture des portes: 19h30\n\nDébut des concerts: 20h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "insane clown posse",
+          "dope d.o.d",
+          "krakatoa",
+          "bordeaux",
+          "mérignac",
+          "hip-hop"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs : Oh Oui (la carte du Krakatoa): 18€ / CE: 18€ / Prévente: 20€ (hors frais de location) / Guichet: 23€"
+      },
+      "image": {
+        "filename": "event_insane-clown-posse-dope-d-o-d-au-krakatoa_965771.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_insane-clown-posse-dope-d-o-d-au-krakatoa_965771.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_insane-clown-posse-dope-d-o-d-au-krakatoa_965771.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-30T18:30:00.000Z",
+          "end": "2020-01-30T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T13:37:02.000Z",
+      "createdAt": "2019-10-29T11:07:42.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/insane-clown-posse-dope-d-o-d/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 67123520,
+      "slug": "the-darkness-dz-deathrays-au-krakatoa",
+      "title": {
+        "fr": "THE DARKNESS + DZ Deathrays au KRAKATOA"
+      },
+      "description": {
+        "fr": "The Darkness + DZ Deathrays en concert le 27.01.20 au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "Base Productions et Krakatoa Transrock présentent avec l’accord de Veryshow :\n\nTHE DARKNESS\n------------\n\nThe Darkness est en quelque sorte une preuve supplémentaire de la culture musicale qui règne en Angleterre. Voilà un groupe qui est capable d'aller à la limite extrême de la parodie des grands anciens du Hard Rock et du Heavy Metal, tout en étant bon musicalement et en ne sombrant pas dans le ridicule.\n\nEn choisissant de recréer la folie et la démesure des années 70 et 80 avec son Glam Metal, The Darkness vise juste dès \"Permission to Land\" en 2003, porté par le fulgurant single « I Believe in a Thing Called Love ». Ce premier album excitant se double d'un succès mondial, amplifié par les prestations scéniques déjantées du chanteur Justin Hawkins.\n\nFin 2017, The Darkness était de retour avec son 5e album, \"Pinewood Smile\". Fruit d'une inspiration féconde, l'album témoigne brillamment de la manière dont les frangins Hawkins et leurs acolytes ont su mettre leur talent au service de compositions vivifiantes et ingénieuses, portées par une guitare incisive et un chant hors norme.\n\nCette tournée sera l'occasion de revenir sur la folle carrière de The Darkness !\n\n### DZ Deathrays (Dance Punk / AUS )\n\nLe groupe de dance punk australien DZ Deathrays était de retour en 2018 avec son nouvel album « Bloody Lovely ». Après de multiples tournées et avoir assuré la première partie des Foo Fighters, retrouvez DZ Deathrays en 1ère partie de The Darkness !\n\nInfos pratiques :\n\nOuverture des portes: 19h30\n\nDébut des concerts: 20h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "the darkness",
+          "dz deathrays",
+          "rock",
+          "krakatoa",
+          "bordeaux",
+          "mérignac"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs: 32€ (frais de loc inclus)"
+      },
+      "image": {
+        "filename": "event_the-darkness-dz-deathrays-au-krakatoa_461678.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_the-darkness-dz-deathrays-au-krakatoa_461678.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_the-darkness-dz-deathrays-au-krakatoa_461678.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-27T18:30:00.000Z",
+          "end": "2020-01-27T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T13:35:28.000Z",
+      "createdAt": "2019-10-29T11:02:57.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/the-darkness/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 71948909,
+      "slug": "krakaboum",
+      "title": {
+        "fr": "KRAKABOUM"
+      },
+      "description": {
+        "fr": "Rendez-vous incontournable de notre programmation jeune public, la Krakaboum est de retour!"
+      },
+      "longDescription": {
+        "fr": "Krakakids présente :\n\nKRAKABOUM !\n-----------\n\nRendez-vous incontournable de notre programmation jeune public, la Krakaboum est de retour! Un concentré de danse, de découvertes musicales et de belle humeur! Une boum pour les petits et les moins grands, leurs parents et amis. Un dancefloor, des DJs sur scène, bonbons, boules à facettes et surprises pour une après-midi de danse effrénée …\n\nRetour sur la dernière Krakaboum\n\nInfos Krakakids : [actionculturelle@krakatoa.org](mailto:actionculturelle@krakatoa.org) // Tél : 05 56 24 18 28\n\nInscrivez-vous à la newsletter Krakakids sur notre site ! (espace newsletter en bas de cette page à droite)\n\nOuverture des portes: 15h15\n\nDébut de la BOUM: 15h30"
+      },
+      "keywords": {
+        "fr": [
+          "krakaboum",
+          "krakatoa",
+          "bordeaux",
+          "mérignac",
+          "jeune public",
+          "krakakids"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif: 5€ (hors frais de location) pour les adultes et enfants à partir de 3 ans. Enfants de moins de 3 ans invités : prévenir à l’adresse : promo@krakatoa.org"
+      },
+      "image": {
+        "filename": "event_krakaboum_244860.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_krakaboum_244860.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_krakaboum_244860.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-14T14:15:00.000Z",
+          "end": "2019-12-14T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T13:33:21.000Z",
+      "createdAt": "2019-10-29T10:58:30.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/krakaboum-3/",
+        "05 56 24 34 29",
+        "promo@krakatoa.org"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 31152682,
+      "slug": "maxenss-arobase-tour-julien-granel-au-krakatoa",
+      "title": {
+        "fr": "MAXENSS (AROBASE TOUR) + JULIEN GRANEL au KRAKATOA"
+      },
+      "description": {
+        "fr": "Maxenss (Arobase Tour) et Julien Granel en concert le 07.12 au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "Krakatoa Transrock et la Rock School Barbey présentent en accord avec FURAX:\n\nMAXENSS // AROBASE TOUR\n-----------------------\n\nLa candeur des mots effleure l’austérité des propos. Qu’on se laisse influencer par sa dérision joyeuse ou ses approches agressives, Maxenss, sur scène comme à l’image, aborde la mélancolie et nous laisse imaginer d’elle qu’elle est la racine de son monde. Un monde à fleur de peau, peu tranquille, qui viendra donner à sa pop décomplexée un parfum de rose enivrant.\n\n### JULIEN GRANEL\n\nIl y a une phrase à ne jamais prononcer devant Julien Granel : “Tu ne peux pas le faire”. L’impossible le tente, l’excite. Le défi comme oxygène. C’est un enfant des Landes, aujourd’hui 23 ans, qui navigue désormais entre Paris, Bordeaux et le monde.\n\nSeul sur scène, il improvise, danse comme un damné, expulse et donne, il (re)vit. Et quand Julien Granel ne tourne pas dans les clubs hexagonaux avec son pote Maxenss, c’est avec Angèle, une autre amie, qu’il dévore du bitume pour la tournée des Zénith de la chanteuse belge et ses 150 000 fans annoncés.Musique, danse, vidéo, photo, mode, il ne snobe rien, s’intéresse à tout. Il déborde, il dévore, il avance, encore et encore. Émulation vitale et permanente. Il veut être hypnotisé, saisi, touché. “Défait”, son nouveau single, raconte tout ça et bien plus encore.\n\nInfos pratiques:\n\nOuverture des portes: 19h30\n\nDébut des concerts: 20h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "mexenss",
+          "julien granel",
+          "krakatoa",
+          "bordeaux",
+          "mérignac",
+          "smac",
+          "rock school barbey",
+          "barbey",
+          "pop"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs : Oh Oui (la carte du Krakatoa): 10€ / CE: 10€ / Prévente: 12€ (hors frais de location) / Guichet: 15€"
+      },
+      "image": {
+        "filename": "event_maxenss-arobase-tour-julien-granel-au-krakatoa_423833.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_maxenss-arobase-tour-julien-granel-au-krakatoa_423833.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_maxenss-arobase-tour-julien-granel-au-krakatoa_423833.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-07T18:30:00.000Z",
+          "end": "2019-11-07T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T13:23:46.000Z",
+      "createdAt": "2019-10-29T10:54:47.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/maxenss-arobase-tour/",
+        "promo@krakatoa.org",
+        "05 56 24 34 29"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 93233255,
+      "slug": "di-vin-sang-bd-concert-au-krakatoa",
+      "title": {
+        "fr": "DI VIN SANG - BD CONCERT au KRAKATOA"
+      },
+      "description": {
+        "fr": "C’est le nom de cette toute première bande dessinée peinte à la main avec du vin rouge."
+      },
+      "longDescription": {
+        "fr": "La Cave à Dessins présente:\n\nDI VIN SANG - BD CONCERT\n------------------------\n\nA l’aide de son intrigante technique mise au point pour peindre avec du vin, Mauro Ceballos a eu l’idée d’assembler l’histoire du Chili et du Bordelais dans une bande dessinée. Un support dans lequel s'entremêlent plusieurs chroniques originales pour conter l'histoire du vin chilien et son étroite relation avec le vignoble bordelais.Ainsi fut créé le premier livre réalisé au vin rouge : 2.200 heures de travail à la main furent nécessaires pour écrire, dessiner et peindre ce projet titanesque.Coté vin, le vigneron Olivier Cazenave propriétaire du Château de Bel, soutient le projet par la production de 6.000 bouteilles de cette incroyable « peinture » dans une cuvée réservée\n\nLa publication de cet album est parallèlement travaillée en format audiovisuel. Ainsi sera lié par un mariage artistique le cinéma, la musique, la littérature et le spectacle vivant avec la création d'une BD Concert.\n\nPendant 60 minutes, le spectateur devient lecteur, emporté par l'histoire visuelle, musicale et littéraire du vin chilien.Un projet porté par trois créateurs venus d'horizons différents, le Chili, Le Venezuela et la France avec le dessinateur Mauro Ceballos, le réalisateur Sergio Santamaria et le musicien multi-instrumentiste Waagal."
+      },
+      "keywords": {
+        "fr": [
+          "di vin sang",
+          "krakatoa",
+          "bordeaux",
+          "merignac",
+          "bd concert"
+        ]
+      },
+      "conditions": {
+        "fr": "Prévente: 18€ (hors frais de location) / Guichet: 20€"
+      },
+      "image": {
+        "filename": "event_di-vin-sang-bd-concert-au-krakatoa_269772.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_di-vin-sang-bd-concert-au-krakatoa_269772.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_di-vin-sang-bd-concert-au-krakatoa_269772.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-06T20:00:00.000Z",
+          "end": "2019-12-06T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T13:32:40.000Z",
+      "createdAt": "2019-10-29T10:50:31.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/di-vin-sang-bd-concert/",
+        "05 56 24 34 29",
+        "promo@krakatoa.org"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 65772568,
+      "slug": "rencontre-export-de-la-musique-en-chine",
+      "title": {
+        "fr": "Rencontre « Export de la musique en Chine »"
+      },
+      "description": {
+        "fr": "Organisée par les entreprises des industries musicales de Nouvelle-Aquitaine, la rencontre professionnelle portera sur le thème de l’export de la musique en Chine."
+      },
+      "longDescription": {
+        "fr": "Les acteurs et entreprises de la filière musicale de Nouvelle-Aquitaine accueillent une délégation de professionnels chinois du secteur de la musique en décembre prochain, à Bordeaux. Cette rencontre aura pour objectif de permettre des temps d’échange et de partage entre professionnels chinois et français et de mettre en place des perspectives de coopération."
+      },
+      "keywords": {
+        "fr": [
+          "rocher de palmer",
+          "cenon",
+          "rencontre",
+          "musique"
+        ]
+      },
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "3d6f0c676edf4c668e4753511168bf97.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 467
+        },
+        "variants": [
+          {
+            "filename": "3d6f0c676edf4c668e4753511168bf97.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 1920,
+              "height": 1280
+            }
+          },
+          {
+            "filename": "3d6f0c676edf4c668e4753511168bf97.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-10T13:00:00.000Z",
+          "end": "2019-12-10T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-09T02:05:13.000Z",
+      "createdAt": "2019-10-30T02:05:07.000Z",
+      "agendaUid": 94573624,
+      "locationUid": 18191842,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://lerocherdepalmer.fr/rencontres/chine/"
+      ],
+      "location": {
+        "uid": 18191842,
+        "slug": "rocher-de-palmer587",
+        "name": "Rocher de Palmer",
+        "address": "1 rue Aristide Briand Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.862735,
+        "longitude": -0.524859,
+        "updatedAt": "2019-02-03T08:12:50.000Z",
+        "image": "location18191842.jpg",
+        "description": {
+          "fr": "Le Rocher de Palmer c'est 6700 m2 dédiés aux cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux."
+        },
+        "website": "https://lerocherdepalmer.fr",
+        "phone": "00 33 5 56 74 80 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [
+        1
+      ],
+      "recurring": [],
+      "categories-agenda-metropolitain": 47,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "rocher-de-palmer",
+        "uid": 94573624,
+        "official": 1,
+        "title": "Rocher de Palmer",
+        "description": "Le Rocher de Palmer c'est 6700 m2 dédiés aux musiques et cultures du monde sous la direction artistique de Musiques de Nuit à Cenon près de Bordeaux.",
+        "url": "https://lerocherdepalmer.fr/",
+        "image": "agenda94573624.jpg",
+        "updatedAt": "2019-07-15T16:04:08.000Z",
+        "createdAt": "2017-06-02T15:32:00.000Z",
+        "officializedAt": "2018-06-12T13:17:23.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2053825
+}

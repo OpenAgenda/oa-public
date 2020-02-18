@@ -1,0 +1,1380 @@
+{
+  "events": [
+    {
+      "uid": 62701977,
+      "slug": "lysistrata-the-psychotic-monks-it-it-anita-au-krakatoa",
+      "title": {
+        "fr": "LYSISTRATA + THE PSYCHOTIC MONKS + IT IT ANITA au KRAKATOA"
+      },
+      "description": {
+        "fr": "Un plateau Vicious Circle avec la venue de Lysistrata, The Psychotic Monks et It It Anita !"
+      },
+      "longDescription": {
+        "fr": "Krakatoa Transrock présente :\n\nLYSISTRATA\n----------\n\nFer de lance d'une nouvelle scène indie-rock en France, Lysistrata ne vous laissera aucune chance. Réussissant comme peu la digestion des différents courants de la discipline, Théo, Max et Ben, vingtaine en poche, ont déjà érigé leur bâtisse à une hauteur vertigineuse. Murs du son et mélodies vicieuses, labyrinthes noise et émotion frontale, c'est marqués que vous ressortirez de leurs griffes innocentes ; marqués et heureux. Leur enthousiasme se propageant désormais à l'échelle européenne, le deuxième album de Lysistrata est très attendu et sortira à l'automne 2019 chez Vicious Circle Records. Après un premier passage qui avait retourné le Krakatoa en avril 2018, nous les attendons avec une impatience non dissimulée...\n\nTHE PSYCHOTIC MONKS (Noise Rock / France)\n-----------------------------------------\n\nEn perpétuelle découverte, s'enivrant d'expérimentations, les Psychotic Monks nourrissent une révolte qui prend forme sur scène, ils s'y transforment. Se mêle à la révolte le fantasme d'un frisson autre, la recherche d'un exutoire collectif, à travers la musique. En concert, à travers une illusion du chaos – illusion instable –, ils donnent à vivre un moment de scission, pendant lequel notre sensibilité et nos émotions pourraient trouver un interlocuteur : crier, par l’intermédiaire de quatre pantins dévoués dont chacun peut être le marionnettiste. Déléguer son malaise moderne à des marionnettes sans retenue et observer ce qu’il en résulte. Désireux de trouver ce qui a du sens, ce qui peut avoir du sens, pour ceux perdus comme eux, qui ne trouvent rien qui les guide ou les apaise aujourd’hui ; et qu’ils invitent chaleureusement à embarquer sur leur vaisseau dystopique.\n\nIT IT ANITA (Noise Post-punk / Belgique)\n----------------------------------------\n\nLes rockeurs belges de It It Anita donnent tout. Adoubés sur scène depuis plusieurs années, ils dévoileront un deuxième album, Laurent, grande réussite qui les révélera par-delà les frontières du Royaume. Pour ce deuxième album, les It It Anita ont fait ce qu’il fallait faire : la même chose mais en beaucoup plus radical. Plus puissant mais plus mélodique, plus survolté mais plus construit, plus fédérateur mais plus personnel. Avec Laurent, It It Anita se place en position de choix parmi des contemporains comme Metz, And So I Watch You From Afar, Idles, Lysistrata etc., nouvelle génération de musiciens hyper-douée qui tout en respectant la maison noise/rock 90’s, en défonce les murs pour mieux faire jaillir son énergie et sa sensibilité d’aujourd’hui.\n\nInfos pratiques:\n\nOuverture des portes: 19h30\n\nDébut des concerts: 20h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "Lysistrata",
+          "The Psychotic Monls",
+          "It It Anita",
+          "Rock",
+          "Vicious Circle",
+          "Krakatoa",
+          "Bordeaux",
+          "Mérignac"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs : Oh oui: 15€ / CE: 15€ / Prévente: 17€ (hors frais de location) / Guichet: 20€"
+      },
+      "image": {
+        "filename": "event_lysistrata-the-psychotic-monks-it-it-anita-au-krakatoa_642812.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_lysistrata-the-psychotic-monks-it-it-anita-au-krakatoa_642812.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_lysistrata-the-psychotic-monks-it-it-anita-au-krakatoa_642812.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-27T18:30:00.000Z",
+          "end": "2019-11-27T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T14:15:32.000Z",
+      "createdAt": "2019-10-28T14:26:22.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/lysistrata-psychotic-monks-it-it-anita/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 48722892,
+      "slug": "gouter-concert-kolingo",
+      "title": {
+        "fr": "GOÛTER CONCERT : KOLINGO"
+      },
+      "description": {
+        "fr": "Nous imaginons au fil des saisons, des concerts et rendez-vous adaptés pour les accompagner dans une découverte belle, joyeuse et active des Musiques Actuelles !"
+      },
+      "longDescription": {
+        "fr": "Krakakids présentent :\n\nKOLINGO\n-------\n\nKolingo c'est un groove sacrément envoûtant, à base de voix chaleureuses et invitantes, de guitare, percussions et contrebasse.une musique rythmée et chaleureuse prête à vous envelopper aussi bien qu'à vous faire danser !\n\nJoyeux moment de découverte, le goûter-concert rassemble enfants, parents et amis autour d’artistes musiciens.\n\nA l’issue du concert et après un échange en bord de scène, tout le monde se retrouve autour d’un goûter, l’occasion de prolonger cette belle rencontre !\n\nAttention jauge limitée pour le bien être des Kids. Dépêchez-vous de réserver !\n\nOuverture des portes: 15h15 / Début du Goûter concert: 15h30\n\nPour les enfants de moins de 3 ans invités, prévenir à l’adresse : [promo@krakatoa.org](http://mailto:promo@krakatoa.org)\n\nInfos Krakakids : [actionculturelle@krakatoa.org](http://mailto:Krakakidsactionculturelle@krakatoa.org) //Tél : 05 56 24 18 28"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Tarifs : 5€ (hors frais de location) par personne."
+      },
+      "image": {
+        "filename": "event_gouter-concert-kolingo_100689.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_gouter-concert-kolingo_100689.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_gouter-concert-kolingo_100689.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-23T14:15:00.000Z",
+          "end": "2019-11-23T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T14:12:53.000Z",
+      "createdAt": "2019-10-28T14:19:29.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/gouter-concert-kolingo/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 51753705,
+      "slug": "oxmo-puccino-maras-alexinho",
+      "title": {
+        "fr": "COMPLET : OXMO PUCCINO + Maras & Alexinho au KRAKATOA"
+      },
+      "description": {
+        "fr": "Oxmo Puccino + Maras & Alexinho en concert au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "Krakatoa Transrock présente :\n\nOXMO PUCCINO\n------------\n\nOxmo Puccino est un homme de paix, un rassembleur qui concentre son regard sur le beau des choses. Loin d'être naïf, ses analyses de la réalité du monde sont lucides et parfois crues. Il finalise actuellement son huitième album réalisé par Eddie Purple & Phazz. Un véritable album de rap aux déclinaisons multiples éclatées par les explorations musicales et ses figures de style.\n\n### MARAS & ALEXINHO\n\nMaras a quitté sans regrets les requins de la finance pour naviguer dans d’autres eaux, tout aussi internationales, mais plus sensibles et engagées. Alexinho, jeune prodige du beatbox s’est embarqué pour une résidence à Lomé avec le rappeur où ils ont créé Sixième Verre. Les lignes de mélodies puissantes et l’infrabass du beatboxer nantais apportent une teinte incomparable à leur univers musical. La vie qui ressort de la fusion avec le texte fait vibrer le coeur et la conscience avec humour et gravité.Habité d’une énergie singulière, le duo cumule les titres de Champion du Monde de Beatbox 2018, Champion de France Redbull Dernier Mot 2018 ou encore Vice-Champion du Monde de Freestyle Rap (EOW 2016). Si toutes leurs scènes rencontrent le succès, de Tokyo à Hambourg, en passant par Buenos Aires, c’est que l’interaction de ces artistes avec le public reflète leur envie de partager et leur générosité\n\nInfos pratiques:\n\nOuverture des portes: 19h30\n\nDébut des concerts: 20h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "Hip-Hop",
+          "Oxmo Puccino",
+          "Maras & Alexinho",
+          "Krakatoa",
+          "Bordeaux",
+          "Mérignac"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs : COMPLET"
+      },
+      "image": {
+        "filename": "event_oxmo-puccino-maras-alexinho_86117.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_oxmo-puccino-maras-alexinho_86117.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_oxmo-puccino-maras-alexinho_86117.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-21T18:30:00.000Z",
+          "end": "2019-11-21T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-21T14:41:53.000Z",
+      "createdAt": "2019-10-28T14:15:52.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/oxmo-puccino-1-ere-partie/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 41335950,
+      "slug": "hubert-lenoir-requin-chagrin-au-krakatoa",
+      "title": {
+        "fr": "HUBERT LENOIR + Requin Chagrin au KRAKATOA"
+      },
+      "description": {
+        "fr": "Hubert Lenoir et Requin Chagrin en concert au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "Krakatoa Transrock présente :\n\nHUBERT LENOIR (Glam Rock / Quebec)\n----------------------------------\n\nHubert Lenoir, 23 ans, est un jeune garçon, auteur, compositeur et interprète rempli de bonnes intentions. Il a grandi à Beauport en banlieue de la ville de Québec.À 17 ans, il forme avec son frère le groupe The Seasons. En 2014, ils font paraître leur premier album intitulé Pulp, à l’origine d’une reconnaissance critique et d’un accueil enthousiaste du public. S’en suit une tournée qui dure plus de deux ans et qui les fait voyager un peu partout dans le monde, de Berlin à Los Angeles. Malgré le succès du groupe, Hubert continue à chanter dans les rues où il offre des performances explosives et excentriques.Au retour d'une longue tournée, il vit une année de tumultes, d'insomnie, de fast-food et de blockbusters, lors de laquelle s’écrit et s’enregistre Darlène, un album concept qui est accompagné d'un roman du même nom, écrit par Noémie D. Leclerc, sa meilleure amie et son amie de cœur. L’album se réalise entièrement à Québec, sa ville natale. Hubert Lenoir y marie les influences de R&B, de glam rock, de prog, de rock psychédélique, de jazz et fait de Darlène une oeuvre pop, éclectique, imprévisible et audacieuse. Darlène est un opéra post-moderne sur le coming of age d’une génération.\n\nREQUIN CHAGRIN (Pop / France)\n-----------------------------\n\nProjet initié par la chanteuse et guitariste Marion Brunetto, Requin Chagrin est un drôle de poisson. Influencé autant par les courants surf-rock des années 60 que par la pop francophone des années 80, le quatuor développe des mélodies enivrantes baignées de soleil et d’insouciance. Guitares flamboyantes et chaloupées et textes mélancoliques évoquant espoir et errance nous invitent à nous laisser porter au gré des vagues.\n\nInfos pratiques:\n\nOuverture des portes: 19h30\n\nDébut des concerts: 20h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "Hubert Lenoir",
+          "Requin Chagrin",
+          "Glam Rock",
+          "Krakatoa",
+          "Bordeaux",
+          "Mérignac"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs : Oh oui: 15 / CE: 15€ / Prévente: 17€ (hors frais de location) / Guichet: 20€"
+      },
+      "image": {
+        "filename": "event_hubert-lenoir-requin-chagrin-au-krakatoa_254688.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_hubert-lenoir-requin-chagrin-au-krakatoa_254688.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_hubert-lenoir-requin-chagrin-au-krakatoa_254688.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-16T18:30:00.000Z",
+          "end": "2019-11-16T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T14:10:26.000Z",
+      "createdAt": "2019-10-28T14:11:56.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/hubert-lenoir-requin-chagrin/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 93240561,
+      "slug": "alpha-wann-infinit-k-s-a-au-krakatoa",
+      "title": {
+        "fr": "ALPHA WANN + Infinit + K.S.A au KRAKATOA"
+      },
+      "description": {
+        "fr": "Alpha Wann, Infinit et K.S.A en concert au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "Krakatoa Transrock et la Rock School Barbey présentent:\n\nALPHA WANN\n----------\n\nAprès avoir clôturé la série Alph Lauren en 2018 avec un 3ème volet, Alpha Wann est de retour sur scène avec son 1er album solo intitulé \"Une Main Lave L'Autre\". Fondateur de \"Don Dada Records\", Alpha Wann et son partenaire Louis Don Dada, défendront UMLA accompagnés d'Infinit' (rappeur affilié au label) et K.S.A. en 1ère partie.\n\nInfos pratiques:\n\nOuverture des portes: 19h30\n\nDébut des concerts: 20h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "alpha wann",
+          "infinit",
+          "K.S.A.",
+          "krakatoa",
+          "bordeaux",
+          "mérignac",
+          "rap"
+        ]
+      },
+      "conditions": {
+        "fr": "Oh oui: 18€ / CE: 18€ / Prévente: 20€ (hors frais de location) / Guichet: 23€"
+      },
+      "image": {
+        "filename": "event_alpha-wann-infinit-k-s-a-au-krakatoa_611602.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_alpha-wann-infinit-k-s-a-au-krakatoa_611602.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_alpha-wann-infinit-k-s-a-au-krakatoa_611602.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-15T18:30:00.000Z",
+          "end": "2019-11-15T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T14:08:54.000Z",
+      "createdAt": "2019-10-28T14:06:55.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/alpha-wann-infinit-k-s-a/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 57762733,
+      "slug": "festival-aller-retour-eliasse-kolinga-indios-y-banqueros-modelo",
+      "title": {
+        "fr": "FESTIVAL ALLER RETOUR : ELIASSE + KOLINGA + INDIOS Y BANQUEROS + MODELO"
+      },
+      "description": {
+        "fr": "Les associations Kiéki Musiques (Bordeaux, Fr) et Aragón Musical (Saragosse, Es) vous proposent un voyage musical aller-retour entre la France et l’Espagne"
+      },
+      "longDescription": {
+        "fr": "Les associations Kiéki Musiques (Bordeaux, Fr) et Aragón Musical (Saragosse, Es) vous proposent un voyage musical aller-retour entre la France et l’Espagne en collaboration avec Krakatoa-Transrock (33) Ampli Billère et les ACP (64) :\n\nELIASSE (Blues Rock from Comoros / Bordeaux)\n--------------------------------------------\n\nArtiste originaire des Comores, archipel de l’Océan Indien aux identités culturelles fortes et plurielles, Eliasse trace depuis une dizaine d'années son chemin dans cette Babel de la Sono mondiale. De son premier groupe folk à celui du chanteur Maalesh, de ses compagnonnages ou collaborations (comme percussionniste ou choriste) avec Baco, Mikidache, M’Toro Chamou, Nawal, jusqu’à son envol solo et un premier album « Marahaba » en 2008, il prépare en 2019 la sortie de son deuxième opus « Amani Way », à paraître sur le label Soulbeats Records.\n\nAux rythmes ternaires traditionnels comoriens (twaraba, mgodro, shigoma, sérebwalolo…), Eliasse marie rythmes binaires occidentaux (blues, funk, rock). Ses textes, mélange de dialectes autochtones qu’il épice de français, anglais, malgache ou swahili, mêlent métaphores poétiques et points de vue et font de ce natif de Moroni un chanteur assez unique qu’on dira engagé mais qu’il préfère qualifier de « conscient ». Un chanteur qui apporte un vent de fraîcheur et une indéniable novation du côté de l’Océan Indien mais qui témoigne aussi d’un fort attachement à une histoire musicale, celle des pionniers des années 70 lorsque les Iles de la lune revendiquaient leur émancipation.\n\nKOLINGA (Afro-Folk-Groove / Bordeaux)\n-------------------------------------\n\nAprès 4 ans d'existence, un album : Earthquake et près de 150 concerts en duo, le groupe Kolinga se sépare des loopers pour donner à sa musique une autre dimension en intégrant de nouveaux musiciens. Du français à l'anglais en passant par le lingala, langue du Congo cher à la chanteuse Rébecca M'Boungou, leurs chansons qui puisent dans les racines de la \"Black Music\", n'en sont que plus intenses et généreuses. Avec elle, Arnaud Estor à la guitare, Jérôme Martineau-Ricotti à la batterie, Nico Martin à la basse, Jérémie Poirier-Quinot aux claviers, choeurs et flûte traversière et enfin Vianney Desplantes à l'euphonium et au flugabone, sont autant de personnalités musicales éloignées qui en vérité parlent le même langage, celui de la musique ressentie qui nous invite à un voyage singulier, mais aussi celui du groove, de la transe enivrante et des rythmes ancrés.\n\nINDIOS Y BANQUEROS (Espagne)\n----------------------------\n\n¿Qué pasa cuando una maña, un cántabro y un gato deciden aliarse? Un atraco de los buenos. Así nació Indios y Banqueros, una banda de pop alternativo DIY con voz de soul que compone canciones que huyen del pop estereotipado. En sus temas se entretejen teclados, guitarras, bajos y ukeleles aderezados con sintetizadores, producidos a caballo entre los portátiles de sus miembros, que se suman a la voz de su cantante y a letras con mensaje.\n\nEn 2019 continúan su trayectoria de directos, buscando confirmarse como grupo emergente en la escena nacional a través de nuevas canciones, con muchas ganas de demostrar su evolución como músicos y productores.\"\n\nMODELO (Espagne)\n----------------\n\nModelo es un proyecto que surge en 2019 de la mano de dos músicos aragoneses establecidos en Brighton (UK), José Lapieza (Villanueva de Gallego, 1996) y Jorge Doherty (Zaragoza, 1994). Esta propuesta está formada por un duo explosivo que mezcla los sonidos del pop más actual con la electrónica más potente con el único objetivo de generar un espectáculo que no deja indiferente. Su show es una fiesta continua donde la interactuación con el público es máxima. A pesar de su juventud, su trayectoria como músicos aragoneses les aporta una gran experiencia. Jorge, compositor y vocalista de la banda UV Ultravioleta, acaba de regresar de una gira de más de 15 conciertos por México. Han tocado en festivales como el Fárdelej Music Festival de Arnedo donde han podido compartir cartel con Lori Meyers, Ivan Ferreiro, La Habitación Roja y otros muchos grandes artistas. José Lapieza, productor y baterista afincado en Brighton, está haciéndose un nombre en la isla anglosajona trabajando con artistas de diferentes nacionalidades y diferentes estilos como RnB, New Soul y Pop. Actualmente se encuentran en Brighton trabajando en su disco debut que grabarán este verano en Brighton Electric Studios (estudio de grabación de la banda Royal Blood).\n\nInfos pratiques:\n\nOuverture des portes: 19h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "festival aller retour",
+          "eliasse",
+          "kolinga",
+          "indios y banqueros",
+          "modelo",
+          "musiques latines",
+          "krakatoa",
+          "bordeaux",
+          "mérignac"
+        ]
+      },
+      "conditions": {
+        "fr": "Prévente : 4€"
+      },
+      "image": {
+        "filename": "event_festival-aller-retour-eliasse-kolinga-indios-y-banqueros-modelo_30682.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_festival-aller-retour-eliasse-kolinga-indios-y-banqueros-modelo_30682.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_festival-aller-retour-eliasse-kolinga-indios-y-banqueros-modelo_30682.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-08T18:30:00.000Z",
+          "end": "2019-11-08T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T14:07:29.000Z",
+      "createdAt": "2019-10-28T13:45:56.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/festival-aller-retour-eliasse-kolinga-indios-y-banqueros-modelo/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 3426865,
+      "slug": "makala-yudimah-au-krakatoa",
+      "title": {
+        "fr": "MAKALA + Yudimah au KRAKATOA"
+      },
+      "description": {
+        "fr": "MAKALA + Yudimah en concert au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "Krakatoa Transrock présente :\n\nMAKALA (Rap / Suisse)\n---------------------\n\nL’heure du changement approche... Deux ans de méditation, de création et de travail. 21 chansons. Une philosophie simple. Un univers métaphorique. De nombreux egos mis au service d’un album. La tête sur terre, les pieds sur la lune, Makala fait parti des nouveaux guides. “Pas de message pour la jeunesse, j’ai RS\\* pour qu’ils renaissent”. \\[Album 1er, 16ème chanson, 1er couplet\\] Comprendre Radio Suicide aide à se connaître, et se connaître aide à comprendre Makala. Sa confiance augmente sans cesse et Lui permet d’être plus exigeant, plus déterminé et donc plus libre.\n\n\\*RS : Radio Suicide - Nouvel album de Makala\n\n### YUDIMAH(Hip-Hop / France)\n\nYUDIMAH est un artiste accompagné par la Pépinière du Krakatoa.\n\nLa musique de Yudimah prend racine au carrefour d’influences musicales diverses mais précises. Le confort bordelais y côtoie la rudesse inspirée et poétique des français Disiz et Youssoupha. Il se nourrit de la sensualité, de la spiritualité et du groove d’un Kendrick Lamar, d’un Ryan Leslie ou encore de l’incontournable J.Cole.\n\nAprès un bout d’essai en 2016, The Crown, qui l’aide à définir son propre univers, et surtout un premier véritable album, en 2017, The Kingdom, Yudimah mûrit et circonscrit son projet musical à un hip-hop d’ordre quasi sacré où l’aspiration à élever les consciences, à réfléchir et à chercher la paix intérieure se conjugue à un flow agile et d’une fluidité exemplaire. Aujourd’hui, à presque 25 ans, Yudimah a choisi son camp.\n\nLà où certains chantent avec leur colère et les poings tendus, le jeune homme qui interprète ses textes, en anglais et plus rarement en français, et compose aussi pas mal de ses musiques, se pose en éclaireur de conscience quelque part entre le hip-hop et le RnB. L’originalité véritable de Yudimah tient dans sa capacité à exprimer des messages clairs sans jamais être pontifiant ou passer pour l’un de ces rappeurs prêcheurs qui ennuient après quelques minutes.\n\nInfos pratiques:\n\nOuverture des portes: 19h30\n\nDébut des concerts: 20h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "Makala",
+          "Yudimah",
+          "krakatoa",
+          "bordeaux",
+          "mérignac",
+          "hip-hop",
+          "rap"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs : Oh oui: 13€ / CE: 13€ / Prévente: 15€ (hors frais de location) / Guichet: 18€"
+      },
+      "image": {
+        "filename": "event_makala-yudimah-au-krakatoa_137901.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_makala-yudimah-au-krakatoa_137901.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_makala-yudimah-au-krakatoa_137901.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-07T18:30:00.000Z",
+          "end": "2019-11-07T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T14:05:29.000Z",
+      "createdAt": "2019-10-28T13:38:45.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/makala-yudimah/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 42195237,
+      "slug": "stage-pour-adultes-capoeira-yoga-vinyasa",
+      "title": {
+        "fr": "Stage pour adultes Capoeira & Yoga Vinyasa"
+      },
+      "description": {
+        "fr": "Venez profiter d'une session yoga Vinyasa (synchronisation du mouvement sur la respiration), initiation au chant brésilien et aux instruments traditionnels de capoeira suivie d'une session de capoeira"
+      },
+      "longDescription": {
+        "fr": "_**Session de Yoga Vinyasa**_\n\nVinyasa signifie littéralement « synchronisation du mouvement sur la respiration ». C’est un Yoga rythmé, tonique et créatif, qui apporte l’apaisement du mental par l’action.  \nCe Yoga développe force, endurance et sens de l’équilibre.  \nIl tonifie la musculature et redonne de la souplesse à la colonne vertébrale.  \nL’attention sera également portée sur l’auto grandissement, la respiration et l’alignement postural adapté aux particularités physiques de chacun.\n\n**_Session de Capoeira_**\n\n30 minutes d'initiation au chant brésilien et aux instruments puis cours de Capoeira de 1h20\\. Le cours est accessible à tous niveaux. Mettant à profit les acquis du Yoga, votre professeur, William, porte une attention particulière à la biomécanique, l’écoute des limites de son corps, la conscience du mouvement et la gestion de la respiration dans les phases d’efforts intenses.\n\nMinimum 8 participants Maximum 18 personnes\n\n_**Inscription au siège de l'AGJA 8 rue Gambetta 33200 Bordeaux**_ (Lundi 8h30-12h30 / 15h-18h, Mardi 14h-18h30, Mercredi 8h45-13h / 14h-18h, Jeudi 8h45-12h15 / 14h-18h, Vendredi 8h45-12h15/14h-17h30)"
+      },
+      "keywords": {
+        "fr": [
+          "agja",
+          "capoeira",
+          "sport",
+          "santé",
+          "yoga",
+          "chantbrésilien",
+          "yogavinyasa",
+          "bienetre",
+          "stage"
+        ]
+      },
+      "conditions": {
+        "fr": "35"
+      },
+      "image": {
+        "filename": "event_stage-pour-adultes-capoeira-yoga-vinyasa_753167.jpg",
+        "credits": "AGJA",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_stage-pour-adultes-capoeira-yoga-vinyasa_753167.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_stage-pour-adultes-capoeira-yoga-vinyasa_753167.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-02T09:00:00.000Z",
+          "end": "2019-11-02T12:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-29T10:03:33.000Z",
+      "createdAt": "2019-10-25T13:42:43.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 40082192,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 18,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 40082192,
+        "slug": "salle-de-lussy",
+        "name": "Salle de Lussy",
+        "address": "10 avenue Bel Air 33200 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33200",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Caudéran",
+        "latitude": 44.840893,
+        "longitude": -0.607974,
+        "updatedAt": "2019-10-29T10:06:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 39798150,
+      "slug": "guts-opsa-deheli-au-krakatoa",
+      "title": {
+        "fr": "GUTS + OPSA DEHËLI au KRAKATOA"
+      },
+      "description": {
+        "fr": "GUTS et  OPSA DEHËLI en co-plateau au Krakatoa."
+      },
+      "longDescription": {
+        "fr": "Bleu citron présente :\n\nGUTS + OPSA DEHËLI en co-plateau au Krakatoa\n--------------------------------------------\n\n(Hip-Hop / Brass House / France)\n--------------------------------\n\n► écouter : [https://youtu.be/JqUPDAFPqxk](https://youtu.be/JqUPDAFPqxk)\n\nC’est d’abord l’idée d’un retour à ses fondamentaux de beatmaker qui s’était installée dans l’esprit de Guts. Un retour aux samplers et au séquençage. Découper, pitcher, filtrer, découper encore, programmer, déconstruire pour mieux construire. Un travail en solitaire à peu près à l’opposé de ce qu’il avait vécu ces trois dernières années et la sortie d’Eternal, un album enregistré avec son Pura Vida Band, puis un show rodé, développé et perfectionné pendant des tournées en France et en Europe.\n\nAlors, ce demi-tour vers le beatmaking, Guts l’a finalement remis en dessous de sa pile d’idées et en a fait remonter une autre, celle de faire un album radicalement différent des précédents.\n\nExpérimental, ensoleillé, qui explorerait toutes ces vibrations venues de l’hémisphère sud que Guts collecte depuis des années en s’adonnant à sa passion du diggin’. Celles avec lesquelles il embrase ses dj sets, celles qu’il a patiemment collectées sur les cinq volumes de ses compilations Beach Diggin’."
+      },
+      "keywords": {
+        "fr": [
+          "guts",
+          "opsa dehëli",
+          "krakatoa",
+          "bordeaux",
+          "mérignac",
+          "hip-hop",
+          "brass house"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarif : 24 €"
+      },
+      "image": {
+        "filename": "event_guts-opsa-deheli-au-krakatoa_456190.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_guts-opsa-deheli-au-krakatoa_456190.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_guts-opsa-deheli-au-krakatoa_456190.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-06T18:30:00.000Z",
+          "end": "2019-11-06T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T14:03:54.000Z",
+      "createdAt": "2019-10-25T12:15:37.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/guts-too-many-zouz/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 50100409,
+      "slug": "belle-and-sebastian-gordon-au-krakatoa",
+      "title": {
+        "fr": "BELLE AND SEBASTIAN + Gordon au KRAKATOA"
+      },
+      "description": {
+        "fr": "Belle and Sebastian + Gordon le 02/11/19 au Krakatoa"
+      },
+      "longDescription": {
+        "fr": "Krakatoa Transrock présente :\n\nBELLE AND SEBASTIAN\n-------------------\n\nUne vingtaine d’années de carrière, et toujours autant de classe. Deux ans après la sortie de leur dernier album, « Girl In Peacetime Want to Dance », et un peu moins d’une année après avoir dévoilé un coffret collector baptisé « The Jeepster Single Collection », Belle and Sebastian sont de retour.\n\nLeur musique possède toujours cet impérissable mélange de joie et de mélancolie qui les caractérise depuis leurs débuts. Ce qui a changé, c’est la manière dont le groupe souhaite la diffuser : dans les prochains mois, Belle and Sebastian vont faire cadeau au monde de l’équivalent d’un double album somptueusement mélodique, délicieusement intelligent, à la fois doux comme un ruisseau d’été et pressant comme un torrent.\n\nLes Ecossais présenteront leur nouvel album prévu pour septembre, Days of the Bagnold Summer (BO du film éponyme)\n\n### GORDON\n\n(Pop / Bordeaux)\n\nLes fulgurances power pop de Gordon allient préciosité et pugnacité. Les bordelais sont pressés. La basse et la batterie se tirent la bourre. Les voix, choeurs, guitares et trompettes, galopent en éclaireurs. Toujours au service des chansons. Des chansons d'amour au sprint. Certes vitaminées, mais aussi précises et concises.Gordon à déjà a son actif deux EP’s vinyles. Le « rouge » et le « bleu ». Un troisième, le « jaune », mixé par Pedro Resende (de Tahiti 80) et masterisé au Canada par Philip Shaw Bova (Foxwarren, Devendra Banhart) est complètement imminent. Vous découvrirez sur scène ces nouvelles compositions.\n\nInfos pratiques :\n\nOuverture des portes: 19h30\n\nDébut des concerts: 20h30\n\nToute la soirée: food et dj set dans le hall"
+      },
+      "keywords": {
+        "fr": [
+          "belle and sebastian",
+          "gordon",
+          "pop",
+          "krakatoa",
+          "bordeaux",
+          "mérignac"
+        ]
+      },
+      "conditions": {
+        "fr": "Tarifs :Oh oui: 26€ / CE: 26€ / Prévente: 28€ / (hors frais de location) / Guichet: 31€"
+      },
+      "image": {
+        "filename": "event_belle-and-sebastian-gordon-au-krakatoa_62046.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_belle-and-sebastian-gordon-au-krakatoa_62046.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_belle-and-sebastian-gordon-au-krakatoa_62046.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-02T18:30:00.000Z",
+          "end": "2019-11-02T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-11-18T14:09:15.000Z",
+      "createdAt": "2019-10-25T10:56:50.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 77046218,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.krakatoa.org/evenements/belle-and-sebastian/"
+      ],
+      "location": {
+        "uid": 77046218,
+        "slug": "krakatoa-3-avenue-victor-hugo-33700-merignac",
+        "name": "Krakatoa",
+        "address": "3 avenue Victor Hugo 33700 Mérignac",
+        "city": "Mérignac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33700",
+        "insee": null,
+        "countryCode": "FR",
+        "district": "Arlac",
+        "latitude": 44.82366,
+        "longitude": -0.62488,
+        "updatedAt": "2019-11-20T16:44:17.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 46,
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2051029
+}

@@ -1,22 +1,28 @@
-"use strict";
+'use strict';
 
 const _ = require('lodash');
 const ih = require('immutability-helper');
 const VError = require('verror');
 
 const log = require('@openagenda/logs')('core/agendas/events/update');
-const { toEventServiceFormat } = require('@openagenda/agenda-contribute/server/parse');
 
-const getAgendaWithNetworkAndSchemas = require( '../utils/getAgendaWithNetworkAndSchemas' );
+const {
+  toEventServiceFormat
+} = require('@openagenda/agenda-contribute/server/parse');
+
 const legacy = require('../../../services/legacy');
 const legacyEventSearch = require('../../../services/elasticsearch');
 const processOEmbed = require('../utils/processOEmbed');
+
+const createPayload = require('../utils/createPayload');
 const refreshAgenda = require('../utils/refreshAgenda');
 const setCustom = require('../utils/setCustom');
 const merge = require('../utils/merge');
-const validate = require('./validate');
+const loadAgendaAndCleanEvent = require('../utils/loadAgendaAndCleanEvent');
 
-module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
+async function update(services, agendaUid, eventUid, data, options = {}) {
+  log('processing', { agendaUid, eventUid, options });
+
   const {
     events,
     agendas,
@@ -27,50 +33,46 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     custom
   } = services;
 
-  log('processing', { agendaUid, eventUid, options });
-
-  const contextUserUid = _.get( options, 'context.userUid' ) || _.get( data, 'creatorUid' );
+  const contextUserUid = _.get(options, 'context.userUid') || _.get(data, 'creatorUid');
 
   const {
     draft,
     partial,
     formSchemaDataFormat,
     defaultLang,
-    batched
-  } = Object.assign({
+    batched,
+    access,
+    returnPayload
+  } = {
     draft: false,
     partial: false,
     formSchemaDataFormat: false,
     defaultLang: 'en',
-    batched: false
-  }, options || {});
-
-  const agenda = await getAgendaWithNetworkAndSchemas(agendaUid);
-
-  const {
-    network,
-    formSchemaId,
-    id: agendaId
-  } = agenda;
-
-  const servicesResults = {
-    before: {},
-    updated: {}
+    batched: false,
+    access: 'public',
+    returnPayload: false,
+    ...options
   };
 
-  // pre-validate data. if state is not specified, it should not be forced.
-  const clean = await validate.loaded({
-    formSchema: agenda.formSchema,
-    networkFormSchema: _.get( agenda, 'network.formSchema' ),
-    defaultLang
-  }, data, { draft, formSchemaDataFormat, optionalSecondaryFields: true, partial });
+  const {
+    clean,
+    agenda
+  } = await loadAgendaAndCleanEvent(services, agendaUid, data, {
+    draft,
+    formSchemaDataFormat,
+    optionalSecondaryFields: true,
+    partial,
+    access
+  });
+
+  const payload = createPayload(services, agenda);
 
   if (clean.event.longDescription) {
     try {
       clean.event.links = await processOEmbed(oembed, clean.event.longDescription, clean.event.links);
-      log( 'retrieved %s links', clean.event.links.length );
-    } catch ( e ) {
-      log( 'error', 'could not retrieve oembeds', e );
+      log('retrieved %s links', clean.event.links.length);
+    } catch (e) {
+      log('error', 'could not retrieve oembeds', e);
     }
   }
 
@@ -83,7 +85,7 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
 
   try {
     result = await events.update({ uid: eventUid }, eventServiceDataFormat, {
-    context: {
+      context: {
         agendaUid,
         userUid: contextUserUid,
         updateSearchIndex: false
@@ -92,74 +94,71 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
       internal: true,
       transferToLegacy: !draft,
       draft
-    } );
+    });
   } catch (e) {
-    log( 'error', 'failed to update event', {
+    log('error', 'failed to update event', {
       agendaUid: agenda.uid,
       eventUid,
       eventServiceDataFormat,
       error: e
-    } );
+    });
     throw e;
   }
 
   if (!result.valid) {
-    log( 'error', 'update was not successful', result );
-    throw new VError( {
+    log('error', 'update was not successful', result);
+    throw new VError({
       name: 'validationError',
       info: {
         errors: result.errors
       }
-    } );
+    });
   } else {
-    servicesResults.before.event = result.before;
-    servicesResults.updated.event = result.event;
+    payload.setItem('event', result.before, result.event);
   }
 
   if (agenda.formSchemaId && clean.custom) {
     const result = await setCustom(
+      custom,
       agenda.formSchemaId,
-      servicesResults.updated.event.uid,
+      payload.getItem('event.uid'),
       clean.custom, {
         draft,
-        agendaId,
-        partial
+        agendaId: agenda.id,
+        access
       }
     );
     if (result.success) {
-      _.set(servicesResults, 'before.custom.agenda', result.before);
-      _.set(servicesResults, 'updated.custom.agenda', result.custom);
+      payload.setItem('custom.agenda', result.before, result.custom);
     }
   }
 
   if (agenda.network && clean.networkCustom) {
     const result = await setCustom(
+      custom,
       agenda.network.formSchemaId,
-      servicesResults.updated.event.uid,
+      payload.getItem('event.uid'),
       clean.networkCustom, {
-        agendaId, partial
+        agendaId: agenda.id,
+        access
       }
     );
 
     if (result.success) {
-      _.set(servicesResults, 'before.custom.network', result.before);
-      _.set(servicesResults, 'updated.custom.network', result.custom);
+      payload.setItem('custom.network', result.before, result.custom);
     }
   }
 
   if (draft) {
-    return {
-      success: true,
-      ..._compile(servicesResults)
-    }
+    const response = await payload.getResponse('updated', access);
+    return returnPayload ? response : response.updated;
   }
-
 
   // event is not draft (anymore)
 
   if (clean.agendaEvent) {
     try {
-      result = await agendaEvents(agendaUid).set(servicesResults.updated.event.uid, ih(clean.agendaEvent, {
+      result = await agendaEvents(agendaUid).set(payload.getItem('event.uid'), ih(clean.agendaEvent, {
         create: {
           $set: { canEdit: true }
         }
@@ -169,32 +168,31 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
           aggregated: false,
           legacy: false,
           userUid: contextUserUid,
-          event: servicesResults.updated.event,
+          event: payload.getItem('event'),
           agenda,
           batched
         },
         decorate: ['member']
       });
     } catch(e) {
-      console.log('failed to update agendaEvent ref', e);
+      log('error', 'failed to update agendaEvent ref', e);
       throw e;
     }
 
-    servicesResults.updated.agendaEvent = result.set;
-    servicesResults.before.agendaEvent = result.before;
+    payload.setItem('agendaEvent', result.before, result.set);
   }
 
   if (!draft) {
     try {
-      await legacy.tagsAndCustom.set( agenda.id, servicesResults.updated.event.uid, [
+      await legacy.tagsAndCustom.set(agenda.id, payload.getItem('event.uid'), [
         agenda.formSchema,
-        _.get( agenda, 'network.formSchema' )
+        _.get(agenda, 'network.formSchema')
       ], [
         partial && agenda.formSchemaId ? await custom(agenda.formSchemaId).get(eventUid) : clean.custom,
         partial && agenda.network && agenda.network.formSchemaId ? await custom(agenda.network.formSchemaId).get(eventUid) : clean.networkCustom
       ] );
-    } catch ( e ) {
-      log( 'error', 'failed to set legacy tags and custom data', e );
+    } catch (e) {
+      log('error', 'failed to set legacy tags and custom data', e);
     }
   }
 
@@ -204,36 +202,34 @@ module.exports = async (services, agendaUid, eventUid, data, options = {}) => {
     log('error', 'could not update legacy search for event %s', eventUid, e);
   }
 
-  const response = _compile(servicesResults);
+  const response = await payload.getResponse('event', access);
 
   try {
-    //await eventSearch.update(response.updated);
+    await eventSearch.update(response);
   } catch (e) {
-    log('error', 'could not update search indices for event %s.%s', agenda.uid, eventUid, e);
+    log('error', 'could not update search indices for event %s.%s: %s', agenda.uid, eventUid, e);
   }
 
   await aggregators.notify('updateEvent', {
-    event: response.updated,
-    before: response.before,
+    event: await payload.getCompiledEvent(),
+    before: await payload.getCompiledEvent('before'),
     agenda,
-    formSchema: merge.schemas(
-      _.get(agenda, 'network.formSchema'),
-      _.get(agenda, 'formSchema')
-    ),
+    formSchema: payload.getFormSchema(),
     batched
   });
 
   await refreshAgenda(agenda.uid);
 
-  return {
-    ...response,
-    success: true
-  }
+  return returnPayload ? response : response.event;
 }
 
-function _compile(servicesResults) {
-  return {
-    updated: merge.eventFromObject(servicesResults.updated),
-    before: servicesResults.before.agendaEvent ? merge.eventFromObject(servicesResults.before) : null
-  };
+function patch(services, agendaUid, eventUid, data, options = {}) {
+  return update(services, agendaUid, eventUid, data, {
+    ...options,
+    partial: true
+  });
 }
+
+module.exports = Object.assign(update, { patch });
+
+

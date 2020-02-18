@@ -4,32 +4,31 @@ const { promisify } = require( 'util' );
 
 const _ = require( 'lodash' );
 
-const agendaLocations = require( '@openagenda/agenda-locations' );
+const agendaLocations = require('@openagenda/agenda-locations');
 const log = require( '@openagenda/logs' )( 'services/agendaLocations' );
 
 const internalEventSvc = require( '../event' );
 
-const agendas = require( '@openagenda/agendas' );
-
-const getLocationSettings = require( './interfaces/getLocationSettings' );
-const locationsWillMerge = require( './interfaces/locationsWillMerge' );
-const locationWillRemove = require( './interfaces/locationWillRemove' );
+const getLocationSettings = require('./interfaces/getLocationSettings');
+const locationsWillMerge = require('./interfaces/locationsWillMerge');
+const locationWillRemove = require('./interfaces/locationWillRemove');
 const getAgendaSettings = require( './interfaces/getAgendaSettings' );
 const getEventCounts = require( './interfaces/getEventCounts' );
-const onUpdate = require( './interfaces/onUpdate' );
-const onCreate = require( './interfaces/onCreate' );
 
-const syncImpactedEventsAndAgendas = require( './tasks/syncImpactedEventsAndAgendas' );
-const resyncAllAgendaLocations = require( './tasks/resyncAllAgendaLocations' );
+const onUpdate = require('./interfaces/onUpdate');
+const onCreate = require('./interfaces/onCreate');
+
+const syncImpactedEventsAndAgendas = require('./tasks/syncImpactedEventsAndAgendas');
+const resyncAllAgendaLocations = require('./tasks/resyncAllAgendaLocations');
 
 module.exports.init = async (config, services) => {
 
   const queue = services.queues('locations');
 
-  queue.register( {
-    syncImpactedEventsAndAgendas,
-    resyncAllAgendaLocations: resyncAllAgendaLocations.bind( null, config.knex ),
-  } );
+  queue.register({
+    syncImpactedEventsAndAgendas: syncImpactedEventsAndAgendas.bind(null, services),
+    resyncAllAgendaLocations: resyncAllAgendaLocations.bind(null, services, config.knex),
+  });
 
   queue.on( 'error', ( task, args, err ) => log( 'error', 'task %s error', task, err ) );
 
@@ -62,17 +61,17 @@ module.exports.init = async (config, services) => {
     // callbacks for updating other app services when changes occur
     interfaces: {
       ...internalEventSvc.locations,
-      getAgendaSettings,
-      getLocationSettings,
-      locationsWillMerge,
-      locationWillRemove,
+      getAgendaSettings: getAgendaSettings.bind(null, services),
+      getLocationSettings: getLocationSettings.bind(null, services),
+      locationsWillMerge: locationsWillMerge.bind(null, services),
+      locationWillRemove: locationWillRemove.bind(null, services),
       onUpdate: onUpdate.bind( null, {
         queue
       } ),
       onCreate: onCreate.bind( null, {
         queue
       } ),
-      getEventCounts: getEventCounts.bind( null, config.knex )
+      getEventCounts: getEventCounts.bind(null, services, config.knex)
     },
     logger: config.getLogConfig( 'svc', 'agendaLocations' )
   } );
@@ -82,27 +81,22 @@ module.exports.init = async (config, services) => {
   module.exports.resync = startId => queue( 'resyncAllAgendaLocations', startId );
 
   return agendaLocations;
-
 }
 
 
-function _query( config, queryStr, values, cb ) {
-
-  const query = config.knex.raw( queryStr, values );
+function _query(config, queryStr, values, cb) {
+  const query = config.knex.raw(queryStr, values);
 
   query
     .then(
-      result => result[ 0 ],
+      result => {
+        return result[0];
+      },
       err => {
-
-        process.nextTick( () => cb( err ) );
-
+        process.nextTick(() => cb(err));
       }
     )
-    .then( rows => {
-
-      process.nextTick( () => cb( null, rows ) );
-
-    } );
-
+    .then(rows => {
+      process.nextTick(() => cb(null, rows));
+    });
 }

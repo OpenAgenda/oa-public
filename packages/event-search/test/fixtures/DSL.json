@@ -1,0 +1,61 @@
+{
+  "from": 0,
+  "size": 0,
+  "aggregations": {
+    "timingsReverseHits": {
+      "nested": {
+        "path": "timings"
+      },
+      "aggregations": {
+        "timings": {
+          "date_range": {
+            "field": "timings.begin",
+            "format": "yyyy-MM-dd",
+            "ranges": [
+              {
+                "from": "2010-04-01",
+                "to": "2010-04-02"
+              }
+            ],
+            "time_zone": "Europe/Paris"
+          },
+          "aggregations": {
+            "timing_to_event": {
+              "reverse_nested": {},
+              "aggs": {
+                "top": {
+                  "top_hits": {
+                    "size": 3,
+                    "_source": {
+                      "excludes": [
+                        "_*",
+                        "timings._*"
+                      ],
+                      "includes": [
+                        "uid",
+                        "title",
+                        "dateRange",
+                        "image",
+                        "keywords",
+                        "slug",
+                        "agenda.uid",
+                        "agenda.title",
+                        "agenda.image",
+                        "timings",
+                        "location.name",
+                        "location.address",
+                        "location.latitude",
+                        "location.longitude",
+                        "timezone"
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,16 +1,16 @@
 'use strict';
 
 const should = require('should');
+const fs = require('fs');
 const config = require('../testconfig');
-const events = require('@openagenda/events/test/service');
 const Service = require('../');
 
+const _timeout = ms => new Promise(rs => setTimeout(rs, ms));
 
-describe('event search - functional: create', function() {
-
+describe('04 - event search - functional: add', function() {
   let service;
 
-  this.timeout( 10000 );
+  this.timeout( 20000 );
 
   const eventData = {
     id: 679689,
@@ -36,138 +36,45 @@ describe('event search - functional: create', function() {
       timezone : 'Europe/Paris'
     },
     timings: [{
-      begin: new Date( '2027-04-20T12:00:00+0100' ),
-      end: new Date( '2027-04-20T13:00:00+0100' )
+      begin: new Date('2027-04-20T12:00:00+0100'),
+      end: new Date('2027-04-20T13:00:00+0100')
     }],
-    timezone: 'Europe/Paris'
+    timezone: 'Europe/Paris',
+    state: 2
   }
 
-  before(done => {
+  before( async () => {
+    service = Service(config);
+    await service('04_add').rebuild({
+      eventsList: async (lastId, limit ) => {
+        return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/04_events.${lastId}.${limit}.json`));
+      }
+    });
+  } );
 
-    events.initAndLoad( config.eventService, [ {
-      table: 'event',
-      src: __dirname + '/service/event.data.sql'
-    } ], { reset: true }, done );
 
+  it('add an event to a set', async () => {
+    const result = await service('04_add').add(eventData, { refresh: true });
+
+    result.success.should.equal(true);
+
+    await _timeout(1000);
+
+    let { events, total } = await service('04_add').search({ uid: 74367684 });
+
+    total.should.equal(1);
+
+    events[0].uid.should.equal(74367684);
   });
 
-  before( async () => {
-
-    service = Service(config);
-
-    await service( 'test_index' ).rebuild( {
-      eventsList: function( offset, limit ) {
-
-        return events.list( offset, limit, {
-          internal: true,
-          detailed: true
-        } ).then( result => result.events );
-
-      }
-    } );
-
-  } );
-
-
-  it( 'add an event to an index', async () => {
-
-    let result = await service( 'test_index' ).add( eventData, { refresh: true } );
-
-    result.success.should.equal( true );
-
-    await _timeout( 1000 );
-
-    let { events, total } = await service( 'test_index' ).search( { uid: 74367684 } );
-
-    total.should.equal( 1 );
-
-    events[ 0 ].uid.should.equal( 74367684 );
-
-  } );
-
-
-  it( 'add an event to an index that does not exist', async () => {
-
-    let result = await service( 'blargh3' ).add( eventData, { refresh: true } );
-
-    result.should.eql( {
-      success: false,
-      status: 404,
-      message: 'index not found'
-    } );
-
-  } );
-
-
-  it( 'add nothing throws an error', async () => {
-
+  it('add nothing throws an error', async () => {
     try {
-
-      await service( 'test_index' ).add();
-
-    } catch ( e ) {
-
-      e.message.should.equal( 'data is unavailable for indexing' );
-
+      await service('test_index').add();
+    } catch (e) {
+      e.message.should.equal('data is unavailable');
     }
-
-  } );
-
-
-  it( 'add an expiring event to an index', async () => {
-
-    eventData.uid++; // avoid conflict with previous test
-
-    const timestamp = ( new Date() ).setDate( ( new Date() ).getDate() + 1 )
-
-    eventData.timings = [ {
-      begin: timestamp,
-      end: timestamp + 1
-    } ];
-
-    let result = await service( 'test_index' ).add( eventData, {
-      refresh: true,
-      expire: true
-    } );
-
-    result.ttl.should.equal( '1d' );
-
-  } );
-
-
-  it( 'add an expiring expired event to an index gives back unsuccessful operation report', async () => {
-
-    eventData.uid++;
-
-    eventData.timings = [ {
-      begin: _getYesterdayDate( 1 ),
-      end: _getYesterdayDate( 2 )
-    } ];
-
-    let result = await service( 'test_index' ).add( eventData, {
-      refresh: true,
-      expire: true
-    } );
-
-    result.should.eql( {
-      success: false,
-      message: 'negative ttl set',
-      lastTimingEndsInDays: -1
-    } );
-
-  } );
-
-} );
-
-async function _timeout( ms ) {
-
-  return new Promise( rs => {
-
-    setTimeout( rs, ms );
-
-  } );
-
-}
+  });
+});
 
 function _getYesterdayDate( secondsOffset ) {
 

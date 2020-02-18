@@ -1,0 +1,1348 @@
+{
+  "events": [
+    {
+      "uid": 9860484,
+      "slug": "haroun_330",
+      "title": {
+        "fr": "Haroun"
+      },
+      "description": {
+        "fr": "Tête de premier de la classe et sourire en coin, Haroun lève le doigt avant de vanner. Sans vulgarité, ni violence, juste des vérités qui tapent là où ça fait rire."
+      },
+      "longDescription": {
+        "fr": "Tête de premier de la classe et sourire en coin, Haroun lève le doigt avant de vanner. Sans vulgarité, ni violence, juste des vérités qui tapent là où ça fait rire.\n\nUn spectacle sans concession où l'humour est une arme de réflexion massive.\n\nReconnu pour son écriture acérée, sa justesse et ses analyses fines, Haroun renouvelle l'art du stand-up.\n\nMetteur en scène :\n\nThierno Thioune"
+      },
+      "keywords": {
+        "fr": [
+          "humour",
+          "rire",
+          "comédie"
+        ]
+      },
+      "conditions": {
+        "fr": "38 à 42 euros selon placement"
+      },
+      "image": {
+        "filename": "event_haroun_330_50593.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_haroun_330_50593.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_haroun_330_50593.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-14T19:30:00.000Z",
+          "end": "2019-11-14T21:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-15T19:30:00.000Z",
+          "end": "2019-11-15T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:44:20.000Z",
+      "createdAt": "2019-10-17T12:09:38.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 324741,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/representations/haroun-7"
+      ],
+      "location": {
+        "uid": 324741,
+        "slug": "theatre-femina1",
+        "name": "Théâtre Fémina",
+        "address": "10 rue de Grassi, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841362,
+        "longitude": -0.577233,
+        "updatedAt": "2019-07-11T09:42:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 77495468,
+      "slug": "saez_364",
+      "title": {
+        "fr": "SAEZ"
+      },
+      "description": {
+        "fr": "Le poète français SAEZ sortira son nouvel album « A Dieu » en février 2019 et sera en concert le 16 novembre 2019 à l'Arkéa Arena de Bordeaux !"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "poete"
+        ]
+      },
+      "conditions": {
+        "fr": "44 à 49.50 euros selon placement"
+      },
+      "image": {
+        "filename": "event_saez_364_542402.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_saez_364_542402.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_saez_364_542402.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-16T19:30:00.000Z",
+          "end": "2019-11-16T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:44:31.000Z",
+      "createdAt": "2019-10-17T12:30:31.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 85320355,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/fiche/saez-18/48212"
+      ],
+      "location": {
+        "uid": 85320355,
+        "slug": "arkea-arena",
+        "name": "Arkea Arena",
+        "address": "48-50 Avenue Jean Alfonséa, 33270 Floirac",
+        "city": "Floirac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33270",
+        "insee": "33167",
+        "countryCode": "FR",
+        "district": "Centre Équestre de la Burthe",
+        "latitude": 44.824772,
+        "longitude": -0.531365,
+        "updatedAt": "2019-10-10T13:37:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 80136789,
+      "slug": "marx-bird",
+      "title": {
+        "fr": "Marx Bird"
+      },
+      "description": {
+        "fr": "Max Bird sur scène, c’est un peu comme si Jim Carrey présentait « C’est Pas Sorcier »."
+      },
+      "longDescription": {
+        "fr": "Max Bird sur scène, c’est un peu comme si Jim Carrey présentait « C’est Pas Sorcier ».A la fois instructif, visuel et déjanté, le comédien s’éloigne des codes du one man show et nous emporte dans des contrées humoristiques nouvelles, à la recherche d’un oiseau rare dans la jungle d’Amazonie, dans les méandres microscopiques du corps humain ou encore au milieu des querelles divines de l’Egypte ancienne. \n\nMax Bird sautille, captive, émeut et permet même au public... de prendre les commandes !"
+      },
+      "keywords": {
+        "fr": [
+          "youtube",
+          "spectacle",
+          "humour"
+        ]
+      },
+      "conditions": {
+        "fr": "33 euros"
+      },
+      "image": {
+        "filename": "event_marx-bird_53079.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_marx-bird_53079.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_marx-bird_53079.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-16T19:30:00.000Z",
+          "end": "2019-11-16T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:44:40.000Z",
+      "createdAt": "2019-10-17T12:42:47.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 324741,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/fiche/max-bird-9/119290"
+      ],
+      "location": {
+        "uid": 324741,
+        "slug": "theatre-femina1",
+        "name": "Théâtre Fémina",
+        "address": "10 rue de Grassi, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841362,
+        "longitude": -0.577233,
+        "updatedAt": "2019-07-11T09:42:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 92991434,
+      "slug": "patrick-bruel_821",
+      "title": {
+        "fr": "Patrick Bruel"
+      },
+      "description": {
+        "fr": "Nouveau show, nouvel album et toujours la touche Bruel : le TOUR 2019 de Patrick Bruel vous fera voyager ici et là, entre succès mythiques et audaces toujours inattendues."
+      },
+      "longDescription": {
+        "fr": "Nouveau show, nouvel album et toujours la touche Bruel : le TOUR 2019 de Patrick Bruel vous fera voyager ici et là, entre succès mythiques et audaces toujours inattendues.\n\nDes millions d’albums vendus, des tournées gigantesques et des concerts qui restent gravés dans les mémoires, retrouvez Patrick Bruel dans les plus grandes salles de France, Suisse, Belgique et Canada entre autres à partir de février 2019.\n\nL’aventure continue…!"
+      },
+      "keywords": {
+        "fr": [
+          "concert"
+        ]
+      },
+      "conditions": {
+        "fr": "39 à 80 euros selon placement"
+      },
+      "image": {
+        "filename": "event_patrick-bruel_821_486044.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_patrick-bruel_821_486044.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_patrick-bruel_821_486044.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-19T19:30:00.000Z",
+          "end": "2019-11-19T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:44:49.000Z",
+      "createdAt": "2019-10-17T12:56:13.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 85320355,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/fiche/patrick-bruel-4/135835"
+      ],
+      "location": {
+        "uid": 85320355,
+        "slug": "arkea-arena",
+        "name": "Arkea Arena",
+        "address": "48-50 Avenue Jean Alfonséa, 33270 Floirac",
+        "city": "Floirac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33270",
+        "insee": "33167",
+        "countryCode": "FR",
+        "district": "Centre Équestre de la Burthe",
+        "latitude": 44.824772,
+        "longitude": -0.531365,
+        "updatedAt": "2019-10-10T13:37:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 21370896,
+      "slug": "olivier-deck-nympheas",
+      "title": {
+        "fr": "OLIVIER DECK / Nymphéas"
+      },
+      "description": {
+        "fr": "Exposition de photographies"
+      },
+      "longDescription": {
+        "fr": "**OLIVIER DECK** / Nymphéas\n\n___\n\n**Exposition** du 14 novembre au 21 décembre 2019\n\n**Vernissage** jeudi 14 novembre à partir de 18h30 en présence du photographe \n\n« Nymphéas, conversation avec le reflet sur l'étang, est un cycle photographique créé en 2018\\. Chaque jour, je sors de la maison pour arpenter \"l'espace immédiat\". Ici, mes pas me ramènent jour après jour près d'un étang. A la façon d'un Josef Sudek photographiant inlassablement la fenêtre de son atelier, je photographie la fenêtre de la surface. Six mois de photographie, une, deux fois par jour, pour cette méditation poétique, ce regard intérieur. Impressions monochromatiques en hommage à Claude Monet et ses Nymphéas, l'un des premières grandes révélations picturales de ma vie. »\n\n___\n\n**SAMEDI 30 NOVEMBRE A 11H / Atelier de slow looking**\n\nL’art de regarder s’apprend et c’est ce que vous propose Simone Raskin, formatrice culturelle, dans le cadre de l’exposition « Nymphéas » à arrêt sur l’image galerie : regarder l’oeuvre du photographe Olivier Deck en pleine conscience, en prenant le temps de s’arrêter devant une seule photographie.\n\nVous avez certainement visité de nombreux musées et galeries et contemplé tout autant d’œuvres d’art. Mais avez-vous pris le temps de ralentir et de ne vous concentrer que sur une seule œuvre afin d’en capter toute son essence ?\n\nC’est ce que propose cet atelier à travers la pratique du slow looking. Exercer son regard, ralentir, laisser traîner ses yeux sur une œuvre, le slow looking utilise des techniques pour apprendre à voir plus et de façon plus personnelle et profonde.\n\n**arrêt sur l'image galerie : samedi 30 novembre à 11h**\n\n**Inscription avec Simone Raskin : [simone@artderegarder.com](mailto:simone@artderegarder.com)**\n\n**Tarif spécial : 15 euros**\n\n**Le nombre des participants est limité à 12 personnes.**"
+      },
+      "keywords": {
+        "fr": []
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "event_olivier-deck-nympheas_507929.jpg",
+        "credits": "Nymphéas 1, 2018 © Olivier Deck",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_olivier-deck-nympheas_507929.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_olivier-deck-nympheas_507929.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-14T13:30:00.000Z",
+          "end": "2019-11-14T17:30:00.000Z"
+        },
+        {
+          "begin": "2019-12-21T13:30:00.000Z",
+          "end": "2019-12-21T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:44:59.000Z",
+      "createdAt": "2019-10-17T14:03:55.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 70908527,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 70908527,
+        "slug": "arret-sur-limage-galerie247",
+        "name": "arrêt sur l'image galerie",
+        "address": "45 cours du Médoc 33300 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Chartrons - Grand Parc - Jardin Public",
+        "latitude": 44.858069,
+        "longitude": -0.566428,
+        "updatedAt": "2019-10-29T10:08:52.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 73774683,
+      "slug": "guillermo-guiz_818",
+      "title": {
+        "fr": "GUILLERMO GUIZ"
+      },
+      "description": {
+        "fr": "C’est l’histoire d’un jeune trentenaire qui fait le point sur ce qu’il est devenu, alors que c’était un chouette enfant, dans ses souvenirs."
+      },
+      "longDescription": {
+        "fr": "Guillermo Guiz a un bon fond\n\nC’est l’histoire d’un jeune trentenaire qui fait le point sur ce qu’il est devenu, alors que c’était un chouette enfant, dans ses souvenirs. Quelqu’un de bien ou pas, au final ? Est-ce que ses actions, parfois glorieuses, parfois beaucoup moins, voire pas du tout, font de lui un chic type ou une ordure ? A moins que l’on puisse être les deux.\n\nRetrouvez également Guillermo dans la série « Roi de la vanne » sur Canal Plus et sur France Inter dans l’émission de Nagui « La Bande Originale » ."
+      },
+      "keywords": {
+        "fr": [
+          "humour",
+          "rire",
+          "radio",
+          "canal plus",
+          "france inter",
+          "comédie"
+        ]
+      },
+      "conditions": {
+        "fr": "30 euros"
+      },
+      "image": {
+        "filename": "event_guillermo-guiz_818_79515.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_guillermo-guiz_818_79515.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_guillermo-guiz_818_79515.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-20T19:30:00.000Z",
+          "end": "2019-11-20T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:45:15.000Z",
+      "createdAt": "2019-10-17T15:12:26.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 324741,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/fiche/guillermo-guiz-2/48185"
+      ],
+      "location": {
+        "uid": 324741,
+        "slug": "theatre-femina1",
+        "name": "Théâtre Fémina",
+        "address": "10 rue de Grassi, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841362,
+        "longitude": -0.577233,
+        "updatedAt": "2019-07-11T09:42:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 48315921,
+      "slug": "zazie_219",
+      "title": {
+        "fr": "ZAZIE"
+      },
+      "description": {
+        "fr": "Zazie quitte l’autoroute et reprend le chemin de la tournée !"
+      },
+      "longDescription": {
+        "fr": "Zaziessenciel Tour Zazie quitte l’autoroute et reprend le chemin de la tournée ! Portée par les succès de son sublime dixième album et du single phénomène « speed », l’incomparable Zazie revient enfin sur scène avec le « Zaziessenciel Tour » qui démarrera le 29 mai prochain. Zazie et ses musiciens sillonneront les routes de France, de la Belgique et du Luxembourg et poseront notamment leurs valises à l’Olympia (Paris) du 12 au 16 novembre 2019\\. Allez hop !"
+      },
+      "keywords": {
+        "fr": [
+          "musique",
+          "zazie",
+          "concert",
+          "spectacle",
+          "the voice"
+        ]
+      },
+      "conditions": {
+        "fr": "25 à 69 euros selon placement"
+      },
+      "image": {
+        "filename": "event_zazie_219_64773.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_zazie_219_64773.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_zazie_219_64773.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-21T19:00:00.000Z",
+          "end": "2019-11-21T21:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-22T19:00:00.000Z",
+          "end": "2019-11-22T21:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-23T19:00:00.000Z",
+          "end": "2019-11-23T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:49:14.000Z",
+      "createdAt": "2019-10-17T15:18:01.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 324741,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/representations/zazie-3"
+      ],
+      "location": {
+        "uid": 324741,
+        "slug": "theatre-femina1",
+        "name": "Théâtre Fémina",
+        "address": "10 rue de Grassi, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841362,
+        "longitude": -0.577233,
+        "updatedAt": "2019-07-11T09:42:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 84891727,
+      "slug": "sellig_658",
+      "title": {
+        "fr": "SELLIG"
+      },
+      "description": {
+        "fr": "Après 20 ans de carrière SELLIG s’est produit sur toutes les scènes parisiennes et françaises, du Point Virgule à l’Olympia."
+      },
+      "longDescription": {
+        "fr": "Seelig - Episode 5\n\nAprès 20 ans de carrière SELLIG s’est produit sur toutes les scènes parisiennes et françaises, du Point Virgule à l’Olympia. Avec ce 5ème spectacle « Episode 5 » aussi délirant que familiale, SELLIG nous entraîne dans l'exploration de notre quotidien riche de situations à la fois agaçantes et drôles. Il compare le passé au présent : « était-ce vraiment mieux avant ? ». Vous partirez à la montagne avec sa truculente soeur et son célèbre beau-frère Bernard pour un séjour plus que mouvementé et vous découvrirez, entre autre, comment garder son calme dans les embouteillages. Dans cet épisode 5, SELLIG renoue également avec les personnages, vous ferez la connaissance d'un comédien haut en couleur qui trouve le monde qui l’entoure extravagant.\n\nIl est inutile d'avoir vu les épisodes précédents de SELLIG pour venir rire en famille ou entre amis avec son spectacle : « EPISODE 5 »"
+      },
+      "keywords": {
+        "fr": [
+          "comedie",
+          "rire",
+          "humour"
+        ]
+      },
+      "conditions": {
+        "fr": "32 euros"
+      },
+      "image": {
+        "filename": "event_sellig_658_704750.jpg",
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_sellig_658_704750.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_sellig_658_704750.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-24T15:00:00.000Z",
+          "end": "2019-11-24T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T12:49:29.000Z",
+      "createdAt": "2019-10-17T15:23:16.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 324741,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.box.fr/fiche/sellig-13/48018"
+      ],
+      "location": {
+        "uid": 324741,
+        "slug": "theatre-femina1",
+        "name": "Théâtre Fémina",
+        "address": "10 rue de Grassi, 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.841362,
+        "longitude": -0.577233,
+        "updatedAt": "2019-07-11T09:42:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 42604148,
+      "slug": "exposition-des-sections-agja-peinture-sur-soie-patchwork-encadrement-cartonnage",
+      "title": {
+        "fr": "Exposition des sections AGJA peinture sur soie, patchwork, encadrement, cartonnage"
+      },
+      "description": {
+        "fr": "Les adhérentes de nos sections créatives rivalisent d’idées et de talents pour donner vie à des objets grâce à 4 techniques artistiques : patchwork, peinture sur soie, encadrement et cartonnage."
+      },
+      "longDescription": {
+        "fr": "Foulards, Tableaux, Patchworks… Les adhérentes de nos sections créatives rivalisent d’idées et de talents pour donner vie à des objets tous plus délicats les uns que les autres grâce à 4 techniques artistiques différentes  : le patchwork, la peinture sur soie, l’encadrement et le cartonnage.\n\nL’entrée est libre, amateurs, professionnels ou simplement curieux, n’hésitez pas à venir nous voir !"
+      },
+      "keywords": {
+        "fr": [
+          "patchwork",
+          "peinturesursoie",
+          "encadrement",
+          "cartonnage",
+          "exposition",
+          "agja",
+          "culture",
+          "travauxmanuels",
+          "bordeaux",
+          "cauderan",
+          "association",
+          "chartreusestandre",
+          "artistique",
+          "artiste"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "event_exposition-des-sections-agja-peinture-sur-soie-patchwork-encadrement-cartonnage_141111.jpg",
+        "credits": "AGJA",
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "evfevent_exposition-des-sections-agja-peinture-sur-soie-patchwork-encadrement-cartonnage_141111.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "evtbevent_exposition-des-sections-agja-peinture-sur-soie-patchwork-encadrement-cartonnage_141111.jpg",
+            "size": {
+              "height": null,
+              "width": null
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-11-04T12:30:00.000Z",
+          "end": "2019-11-04T19:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-05T12:30:00.000Z",
+          "end": "2019-11-05T19:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-06T12:30:00.000Z",
+          "end": "2019-11-06T19:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-07T12:30:00.000Z",
+          "end": "2019-11-07T19:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-08T12:30:00.000Z",
+          "end": "2019-11-08T19:00:00.000Z"
+        },
+        {
+          "begin": "2019-11-09T12:30:00.000Z",
+          "end": "2019-11-09T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-25T14:20:20.000Z",
+      "createdAt": "2019-10-18T07:19:08.000Z",
+      "agendaUid": 1108324,
+      "locationUid": 96457835,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 96457835,
+        "slug": "chatreuse-saint-andre",
+        "name": "Chartreuse Saint André de Caudéran",
+        "address": "194 avenue du Marechal de Lattre de Tassigny 33200 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33200",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Caudéran",
+        "latitude": 44.8582,
+        "longitude": -0.623909,
+        "updatedAt": "2019-10-29T10:09:51.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "thematiques-bordeaux-metropole": [
+        9
+      ],
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "un-air-de-bordeaux",
+        "uid": 1108324,
+        "official": 1,
+        "title": "Un air de Bordeaux",
+        "description": "UN AIR DE BORDEAUX – le webzine local de Bordeaux Tourisme.\nLoisirs, culture & nature...Laissez-vous surprendre par les pépites cachées tout près de chez vous !",
+        "url": "http://www.unairdebordeaux.fr",
+        "image": "agenda1108324.jpg",
+        "updatedAt": "2019-12-17T07:58:11.000Z",
+        "createdAt": "2017-09-25T16:03:24.000Z",
+        "officializedAt": "2018-05-17T14:21:06.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    },
+    {
+      "uid": 89208428,
+      "slug": "stage-theatre-enfants_413897",
+      "title": {
+        "fr": "Stage théâtre enfants"
+      },
+      "description": {
+        "fr": "Le Théâtre Alizé propose une stage de théâtre aux enfants de 8 à 12 ans, sur le thème \"niassance d'un personnage\", animé par Karine Boutillon"
+      },
+      "longDescription": {
+        "fr": "Comment faire pour que mon corps soit en accord avec mes mots et exprime mes émotions ?\n\nQue faire du corps du comédien en jeu ?\n\nNous aborderons la composition physique d’un personnage par les différents aspects de la pratique du jeu théâtral (mime, expression corporelle, improvisation)\n\nParticipants : Pour un effectif de 10 à 14 enfants de 8 à 12 ans maîtrisant la lecture.\n\nPrévoir une tenue souple et confortable, noire si possible, sinon \"neutre\" (gris, blanc).\n\nNiveau requis : Maîtrise de la lecture\n\nPrévoir le pique-nique du midi"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "40€; sur inscriptions"
+      },
+      "image": {
+        "filename": "e627cbd534a549108ed6cf54b2d11d2b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e627cbd534a549108ed6cf54b2d11d2b.full.image.jpg",
+            "size": {
+              "height": 1000,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e627cbd534a549108ed6cf54b2d11d2b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-10-18T14:05:49.000Z",
+      "createdAt": "2019-10-18T14:05:28.000Z",
+      "agendaUid": 38598267,
+      "locationUid": 69345614,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "+33556862145"
+      ],
+      "location": {
+        "uid": 69345614,
+        "slug": "loscillo-theatroscope",
+        "name": "L'Oscillo Théâtroscope",
+        "address": "Domaine du Loret 33150 Cenon",
+        "city": "Cenon",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33150",
+        "insee": "33119",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.858253,
+        "longitude": -0.509262,
+        "updatedAt": "2019-10-15T12:41:05.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "custom_description": null,
+      "intermunicipal_interest": [],
+      "recurring": [],
+      "categories-agenda-metropolitain": 43,
+      "state": 2,
+      "featured": false,
+      "sourceAgendaUid": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "ville-de-cenon",
+        "uid": 38598267,
+        "official": 1,
+        "title": "Ville de CENON",
+        "description": "Tous les événements culturels, sportifs mais aussi les réunions publiques, conseils municipaux et conseils de quartiers.",
+        "url": "",
+        "image": "agenda38598267.jpg",
+        "updatedAt": "2019-12-06T13:26:22.000Z",
+        "createdAt": "2017-01-24T10:19:36.000Z",
+        "officializedAt": "2018-06-12T13:17:03.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75052324,
+        "custom": {
+          "email": "kaore@openagenda.com",
+          "contactName": "Kaoré - OpenAgenda"
+        }
+      }
+    }
+  ],
+  "lastId": 2044119
+}

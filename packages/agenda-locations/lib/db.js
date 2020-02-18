@@ -761,7 +761,7 @@ function _runQuery( targetField ) {
 
       if ( err ) return d.reject( err );
 
-      v[ targetField ] = rows.map( _fromDbFields );
+      v[ targetField ] = (rows || []).map( _fromDbFields );
 
       d.resolve( v );
 

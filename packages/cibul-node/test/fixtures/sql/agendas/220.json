@@ -1,0 +1,14 @@
+{
+  "id": 220,
+  "uid": 58025176,
+  "title": "La Gargule",
+  "slug": "la-gargule",
+  "description": "Une petite description",
+  "owner_id": 50304,
+  "created_at": "2016-01-11 13:07:08",
+  "updated_at": "2016-01-18 16:14:06",
+  "official": 0,
+  "credentials": "{}",
+  "form_schema_id": 3,
+  "settings": "{\"contribution\": {\"type\": 1}}"
+}

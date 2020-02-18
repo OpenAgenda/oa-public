@@ -1,22 +1,20 @@
-"use strict";
+'use strict';
 
-const { promisify } = require( 'util' );
-const VError = require( 'verror' );
+const { promisify } = require('util');
+const VError = require('verror');
 
-const networks = require( '../../../services/networks' );
+module.exports = async (services, networkUid) => {
+  const {
+    networks
+  } = services;
 
-module.exports = async networkUid => {
+  if (!networkUid) return null;
 
-  if ( !networkUid ) return null;
+  const network = await networks.get(networkUid);
 
-  const network = await networks.get( networkUid );
-
-  if ( !network ) {
-
-    throw new VError( 'network of uid %d was not found', networkUid );
-
+  if (!network) {
+    throw new VError('network of uid %d was not found', networkUid);
   }
 
   return network;
-
 }

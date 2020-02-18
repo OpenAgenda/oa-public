@@ -32,7 +32,8 @@ function list( query, offset, limit, options, cb ) {
       internal: false,
       detailed: false,
       useDefaultImage: false,
-      fetched: null
+      fetched: null,
+      offsetAsLastId: false
     }
   } );
 
@@ -40,7 +41,7 @@ function list( query, offset, limit, options, cb ) {
 
     if ( !knex ) return rj( new Error( 'events service was not initialized' ) );
 
-    let total, events = [], cleanOptions;
+    let total, events = [], lastId, cleanOptions;
 
     try {
 
@@ -59,52 +60,75 @@ function list( query, offset, limit, options, cb ) {
         log( 'total for %j: %s', params.query, total );
 
       }
-
       events = await _list( knexQuery, params.limit, params.offset, {
         order: cleanQuery.order,
         internal: cleanOptions.internal,
         detailed: cleanOptions.detailed,
         fetched: cleanOptions.fetched,
-        useDefaultImage: params.options.useDefaultImage,
+        useDefaultImage: cleanOptions.useDefaultImage,
+        offsetAsLastId: cleanOptions.offsetAsLastId,
         includePrivate,
         includeDraft: cleanQuery.draft || cleanQuery.draft === null
       } );
 
-      if ( cleanOptions.detailed ) {
+      lastId = (_.last(events) || {}).id;
 
-        events = await _detailed( events, cleanOptions );
-
+      if (cleanOptions.detailed) {
+        events = await _detailed(events, cleanOptions);
       }
 
-    } catch ( e ) {
+      if (cleanOptions.offsetAsLastId && !cleanOptions.internal) {
+        events = events.map(e => _.omit(e, ['id']));
+      }
 
+    } catch (e) {
       return rj( e );
-
     }
 
-    rs( _.pick( { events, total }, cleanOptions.total ? [ 'events', 'total' ] : [ 'events' ] ) );
+    const result = {
+      events
+    };
 
-  } );
+    if (cleanOptions.total) {
+      result.total = total;
+    }
 
-  if ( !params.cb ) return p;
+    if (cleanOptions.offsetAsLastId) {
+      result.lastId = lastId;
+    }
 
-  w( p ).done( result => process.nextTick( () => {
+    rs(result);
+  });
 
-    params.cb( null, result.events, result.total );
+  if (!params.cb) return p;
 
-  } ), params.cb );
+  w(p).done(result => process.nextTick(() => {
+    params.cb.apply(null, [null].concat(['events', 'total', 'lastId'].map(f => result[f])));
+  }), params.cb);
 
 }
 
 
-function _list( knex, limit, offset, { order, internal, detailed, useDefaultImage, includePrivate, includeDraft, fetched } ) {
+function _list(knex, limit, offset, {
+  order,
+  internal,
+  detailed,
+  useDefaultImage,
+  includePrivate,
+  includeDraft,
+  offsetAsLastId,
+  fetched
+}) {
+
 
   // get fields which need to be in list
   let listFields = map
 
-    .filter( f => typeof f === 'string' || f.list === true || f.list === undefined || detailed )
+    .filter( f => typeof f === 'string' || f.list === true || f.list === undefined || detailed || fetched.length )
 
     .filter( f => {
+
+      if (fetched.length) return f;
 
       let internalField = typeof f !== 'string' && f.internal,
 
@@ -122,6 +146,8 @@ function _list( knex, limit, offset, { order, internal, detailed, useDefaultImag
 
   if ( includeDraft ) listFields.push( 'draft' );
 
+  if (offsetAsLastId && !internal) listFields.push('id');
+
   if ( order ) {
 
     let orderParts = order.split( '.' );
@@ -132,11 +158,17 @@ function _list( knex, limit, offset, { order, internal, detailed, useDefaultImag
 
   log( 'launching list query for fields %j', listFields );
 
-  return knex
-    .select.apply( knex, listFields )
-    .limit( limit || 0 )
-    .offset( offset || 0 )
-    .then( events => {
+  const q = knex
+    .select.apply(knex, listFields)
+    .limit(limit || 0);
+
+  if (offsetAsLastId) {
+    knex.where('id', '>', offset || 0);
+  } else {
+    knex.offset(offset || 0);
+  }
+
+  return knex.then( events => {
 
       log( 'fetched %s events', events.length );
 
@@ -187,8 +219,7 @@ function _detailed( events, options ) {
 
       let locationUids = events.map( e => e.locationUid ).filter( uid => uid );
 
-
-      if ( !locationUids.length ) {
+      if (!locationUids.length) {
 
         return rs( detailedEvents );
 

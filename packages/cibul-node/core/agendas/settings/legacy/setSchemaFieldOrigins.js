@@ -1,19 +1,20 @@
-"use strict";
+'use strict';
 
-const _ = require( 'lodash' );
-const ih = require( 'immutability-helper' );
+const _ = require('lodash');
+const ih = require('immutability-helper');
 
-const formSchemas = require( '@openagenda/form-schemas' );
+const getSchema = require('../getSchema');
 
-const getSchema = require( '../getSchema' );
-
-module.exports = async ( agenda, fieldNames = [], origin = null ) => {
+module.exports = async (services, agenda, fieldNames = [], origin = null) => {
+  const {
+    formSchemas
+  } = services;
 
   if ( !fieldNames.length ) return {
     message: 'no fields for which origin needs to be set'
   };
 
-  const schema = await getSchema( agenda );
+  const schema = await getSchema(services, agenda);
 
   if ( !schema ) return {
     message: 'no schema exists for agenda, will not be updated with origin'

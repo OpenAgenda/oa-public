@@ -6,47 +6,31 @@ const should = require('should');
 
 const config = require('../testconfig');
 
-const events = require('@openagenda/events/test/service');
-const contributors = require('./service/contributors');
-
 const custom = JSON.parse(fs.readFileSync(__dirname + '/service/custom.json', 'utf-8'));
 const Service = require('../');
 
-describe( 'event search - functional: search', function() {
+describe('02 - event search - functional: search', function() {
 
-  describe('simple', function() {
+  describe('simple use cases', function() {
     let service;
-
     this.timeout(40000);
 
-    before(done => {
-      events.initAndLoad(config.eventService, [{
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      }], { reset: true }, done);
+    before(async () => {
+      service = Service(config);
+
+      try {
+        await service.getConfig().client.indices.delete({
+          index: 'test'
+        });
+      } catch (e) {}
     });
 
     before(async () => {
-      let i = 0;
-
-      service = Service(config);
-
-      // list must be prepared to give all needed data
-      // for index
-      function eventsList(offset, limit) {
-        return events.list( offset, limit, {
-          internal: true,
-          detailed: true
-        }).then(r => r.events.map(e => {
-          e.contributor = contributors[ i ];
-
-          e.contributor.uid = i++;
-
-          return e;
-        }));
-      }
-
-      await service('simple_search').rebuild({ eventsList });
+      await service('simple_search').rebuild({
+        eventsList: async (lastId, limit) => {
+          return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_events.${lastId}.${limit}.json`))
+        }
+      });
     });
 
     it('an event can be retrieved by uid', async () => {
@@ -57,42 +41,81 @@ describe( 'event search - functional: search', function() {
       events[0].slug.should.equal('decouverte-du-handball-et-valorisation-du-mondial-de-handball');
     });
 
-    it( 'by default, only fields defined in service/config base fields are returned', async () => {
+    it('several events can be retrieved by uid at once', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({ uid: [6, 11] });
 
-      const { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
+      total.should.equal(2);
 
-      const postParseFields = [ 'contributor', 'lastTiming', 'nextTiming' ];
+      events.map(e => e.slug).should.eql([
+        'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
+        'serres-la-claranda-cafe-citoyen'
+      ]);
+    });
+
+    it('an event can be retrieved with its slug', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({
+        slug: 'decouverte-du-handball-et-valorisation-du-mondial-de-handball'
+      });
+
+      events[0].uid.should.equal(6);
+    });
+
+    it('several events can be retrieved by slug at once', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({
+        slug: [
+          'decouverte-du-handball-et-valorisation-du-mondial-de-handball',
+          'serres-la-claranda-cafe-citoyen'
+        ]
+      });
+
+      total.should.equal(2);
+      events.map(e => e.uid).should.eql([6, 11]);
+    });
+
+    it('by default, only fields defined in service/config base fields are returned', async () => {
+      const { events, total } = await service('simple_search').search({ uid: 6 });
+
+      const postParseFields = ['contributor', 'lastTiming', 'nextTiming'];
 
       const expectedFields = service.getConfig().baseSearchIncludes.concat( postParseFields ).map( f => f.split( '.' )[ 0 ] );
 
-      _.keys( events[ 0 ] )
-        .filter( field => !expectedFields.includes( field ) )
-        .should.eql( [] );
+      _.keys(events[0])
+        .filter(field => !expectedFields.includes(field))
+        .should.eql([]);
+    });
 
-    } );
-
-    it( 'by default, event timings are converted to local timezone', async () => {
-
-      const { events, total } = await service( 'simple_search' ).search({ uid: 6 }, null, { detailed: true });
+    it('by default, event timings are converted to local timezone', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({ uid: 6 }, null, { detailed: true });
 
       events[0].timings[0].begin.should.equal('2016-10-24T14:00:00+02:00');
+    });
 
-    } );
+    it('by default, undetailed search returns location name, address, latitude and longitude', async () => {
+      const { events, total } = await service('simple_search').search({ uid: 6 });
 
-    it( 'by default, undetailed search returns location name, address, latitude and longitude', async () => {
+      _.keys(events[0].location).sort().should.eql(['address', 'latitude', 'longitude', 'name']);
+    });
 
-      const { events, total } = await service( 'simple_search' ).search( { uid: 6 } );
-
-      _.keys( events[ 0 ].location ).sort().should.eql( [ 'address', 'latitude', 'longitude', 'name' ] );
-
-    } );
-
-    it( 'if monolingual option is set, multilingal fields are flattened to specified language', async () => {
-
-      const { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, {
+    it('if monolingual option is set, multilingal fields are flattened to specified language', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({ uid: 6 }, null, {
         monolingual: 'fr',
         detailed: true
-      } );
+      });
 
       [
         'title',
@@ -100,69 +123,58 @@ describe( 'event search - functional: search', function() {
         'dateRange',
         'country',
         'longDescription'
-      ].map( f => events[ 0 ][ f ] ).forEach( data => {
+      ].map(f => events[0][f]).forEach(data => {
+        (typeof data).should.equal('string');
+      });
+    });
 
-        ( typeof data ).should.equal( 'string');
+    it('all fields are returned when detailed option is true', async () => {
 
-      } );
+      let { events, total } = await service('simple_search').search({ uid: 6 }, null, { detailed: true });
 
-    } );
-
-    it( 'all fields are returned when detailed option is true', async () => {
-
-      let { events, total } = await service( 'simple_search' ).search( { uid: 6 }, null, { detailed: true } );
-
-      Object.keys( events[ 0 ] ).should.eql( [
+      Object.keys(events[0]).should.eql([
         'longDescription',
         'country',
         'image',
         'private',
         'keywords',
-        'dateRange',
         'accessibility',
+        'dateRange',
         'timezone',
+        'originAgenda',
         'description',
         'title',
-        'agenda',
         'locationUid',
         'uid',
         'createdAt',
         'creatorUid',
-        'contributor',
         'draft',
         'timings',
+        'member',
         'registration',
         'location',
+        'state',
         'slug',
         'age',
         'updatedAt',
         'lastTiming',
         'nextTiming'
-      ] );
+      ]);
 
-    } );
+    });
 
+    it('open search one or more words', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({
+        search: 'Mississipi'
+      });
 
-    it( 'several events can be retrieved by uid at once', async () => {
+      total.should.equal(3);
 
-      let { events, total } = await service( 'simple_search' ).search( { uid: [ 6, 11 ] } );
-
-      total.should.equal( 2 );
-
-      events.map( e => e.slug ).should.eql( [ 'decouverte-du-handball-et-valorisation-du-mondial-de-handball', 'serres-la-claranda-cafe-citoyen' ] );
-
-    } );
-
-
-    it( 'open search one or more words', async () => {
-
-      let { events, total } = await service( 'simple_search' ).search( { search: 'Mississipi' } );
-
-      total.should.equal( 3 );
-
-      events.map( e => e.slug ).should.eql( [ 'multi_1', 'multi_3', 'multi_2' ] );
-
-    } );
+      events.map(e => e.slug).should.eql(['multi_1', 'multi_2', 'multi_3']);
+    });
 
     it( 'search on word with apostrophe', async () => {
 
@@ -425,108 +437,73 @@ describe( 'event search - functional: search', function() {
     } );
 
 
-    describe( 'aggregation', () => {
+    describe('aggregation', () => {
 
-      it( 'keyword search, with aggregation', async () => {
-
-        let { aggregations } = await service( 'simple_search' ).search( {
+      it('keyword search, with aggregation', async () => {
+        const {
+          aggregations
+        } = await service('simple_search').search({
           keyword: 'word'
         }, { size: 0 }, {
-          aggregations: [ {
-            type: 'terms',
-            field: 'search_internals_keywords'
-          }, {
-            type: 'timings'
-          } ]
-        } );
+          aggregations: ['keywords', 'timings']
+        });
 
         aggregations.should.eql( {
-          search_internals_keywords: [
-            { key: 'clé', count: 1 },
-            { key: 'key', count: 1 },
-            { key: 'mot', count: 1 },
-            { key: 'word', count: 1 }
+          keywords: [
+            { key: 'clé', eventCount: 1 },
+            { key: 'key', eventCount: 1 },
+            { key: 'mot', eventCount: 1 },
+            { key: 'word', eventCount: 1 }
           ],
-          timings: [ {
-            key: '2010-04-01', count: 2
-          } ]
-        } );
+          timings: [{
+            key: '2010-04-01', timingCount: 2
+          }]
+        });
+      });
 
-      } );
 
+      it('timing aggregation: search is bounded by current month', async () => {
 
-      it( 'timing aggregation: search is bounded by current month', async () => {
-
-        let { aggregations, total } = await service( 'simple_search' ).search( {
+        let { aggregations, total } = await service('simple_search').search({
           keyword: 'word'
         }, { size: 0 }, {
-          aggregations: [ {
-            type: 'timingsReverseHits'
-          } ]
-        } );
+          aggregations: 'eventsByDateRanges'
+        });
 
-        total.should.equal( 1 );
+        total.should.equal(1);
 
         // one day for each. Depends of the month
-        aggregations.timingsReverseHits.length.should.aboveOrEqual( 28 );
-        aggregations.timingsReverseHits.length.should.belowOrEqual( 31 );
+        aggregations.eventsByDateRanges.length.should.aboveOrEqual(28);
+        aggregations.eventsByDateRanges.length.should.belowOrEqual(31);
 
-        aggregations.timingsReverseHits.filter( h => h.count !== 0 ).length.should.equal( 0 );
+        aggregations.eventsByDateRanges.filter(h => h.eventCount !== 0).length.should.equal(0);
+      });
 
-      } );
 
-
-      it( 'timing aggregation: keyword search with results', async () => {
-
-        let { aggregations, events } = await service( 'simple_search' ).search( {
+      it('timing aggregation: keyword search with results', async () => {
+        const {
+          aggregations, events
+        } = await service('simple_search').search({
           date: {
-            gte: new Date( '2010-04-01' ),
-            lte: new Date( '2010-04-30' )
+            gte: new Date('2010-04-01'),
+            lte: new Date('2010-04-30')
           },
           keyword: 'word'
         }, { size: 0 }, {
-          aggregations: [ {
-            type: 'timingsReverseHits'
-          } ]
-        } );
+          aggregations: 'eventsByDateRanges'
+        });
 
-        aggregations.timingsReverseHits.length.should.equal( 30 );
+        aggregations.eventsByDateRanges.length.should.equal(30);
 
-        aggregations.timingsReverseHits[ 0 ].count.should.equal( 1 );
+        aggregations.eventsByDateRanges[0].eventCount.should.equal(1);
 
-        aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ].uid.should.equal( 14 );
-
-      } );
-
-
-      it( 'reverse timing aggregation parses sample events', async () => {
-
-        let { aggregations, events } = await service( 'simple_search' ).search( {
-          date: {
-            gte: new Date( '2010-04-01' ),
-            lte: new Date( '2010-04-30' )
-          },
-          keyword: 'word'
-        }, { size: 0 }, {
-          aggregations: [ {
-            type: 'timingsReverseHits'
-          } ]
-        } );
-
-        const sampleEvent = aggregations.timingsReverseHits[ 0 ].sampleEvents[ 0 ];
-
-        should( sampleEvent.timings ).equal( undefined );
-
-        sampleEvent.lastTiming.begin.should.equal( '2010-04-02T00:00:00+02:00');
-
-      } );
-
-    } );
+        aggregations.eventsByDateRanges[0].sampleEvents[0].uid.should.equal(14);
+      });
+    });
 
     describe('stream', () => {
 
       it('simple streamed search returns all the events matching the search', async () => {
-
         const { total } = await service('simple_search').search();
 
         const stream = service('simple_search').search.stream();
@@ -543,7 +520,6 @@ describe( 'event search - functional: search', function() {
             rs();
           });
         });
-
       });
 
       it('streamed events appear in the same order as a regular search', async () => {
@@ -597,7 +573,7 @@ describe( 'event search - functional: search', function() {
 
         return new Promise(rs => {
           stream.on('end', () => {
-            total.should.equal(count + 1);
+            total.should.equal(count+1);
             rs();
           });
         });
@@ -606,9 +582,9 @@ describe( 'event search - functional: search', function() {
 
     } );
 
-    it( 'geolocation filtering', async () => {
+    it('geolocation filtering', async () => {
 
-      let { events, total } = await service( 'simple_search' ).search( {
+      let { events, total } = await service('simple_search').search({
         geo: {
           northEast: {
             lat: 50,
@@ -619,13 +595,12 @@ describe( 'event search - functional: search', function() {
             lng: 5
           }
         }
-      } );
+      });
 
-      total.should.equal( 1 );
+      total.should.equal(1);
 
-      events.map( e => e.slug ).should.eql( [ 'verdun_bound_box' ] );
-
-    } );
+      events.map(e => e.slug).should.eql([ 'verdun_bound_box' ]);
+    });
 
 
     it( 'sorting can show in order upcoming first and past second, then nearest from now first', async () => {
@@ -644,19 +619,17 @@ describe( 'event search - functional: search', function() {
 
     } );
 
-    it( 'sorting works in updatedAt asc order', async () => {
+    it('sorting works in updatedAt asc order', async () => {
+      const { events, total } = await service('simple_search').search({
+        search: 'Trié',
+        sort: 'updatedAt.asc'
+      }, {}, { detailed: true });
 
-      let { events, total } = await service( 'simple_search' ).search( { search: 'Trié', sort: 'updatedAt.asc' }, {}, { detailed: true } );
-
-      events.forEach( ( e, i ) => {
-
-        if ( i === 0 ) return;
-
-        e.updatedAt.should.above( events[ i - 1 ].updatedAt );
-
-      } );
-
-    } );
+      events.forEach(( e, i ) => {
+        if (i === 0) return;
+        e.updatedAt.should.above(events[i - 1].updatedAt);
+      });
+    });
 
 
     it( 'sorting works in updatedAt desc order', async () => {
@@ -733,90 +706,74 @@ describe( 'event search - functional: search', function() {
 
   } );
 
-  describe( 'custom', function() {
+  describe('additional fields', function() {
     let service;
 
-    this.timeout( 10000 );
+    this.timeout(30000);
 
-    before( done => {
+    const formSchema = {
+      fields: [{
+        schemaId: 12,
+        field: 'organizer',
+        fieldType: 'text'
+      }, {
+        schemaId: 12,
+        field: 'organizeremail',
+        fieldType: 'email'
+      }, {
+        schemaId: 12,
+        field: 'totalnumberofvisitors',
+        fieldType: 'integer'
+      }, {
+        schemaId: 12,
+        field: 'authortestimony',
+        fieldType: 'text'
+      }]
+    };
 
-      events.initAndLoad( config.eventService, [ {
-        table: 'event',
-        src: __dirname + '/service/event.data.sql'
-      } ], { reset: true }, done );
-
-    } );
-
-    before( async () => {
-
-      let i = 0;
-
+    before(async () => {
       service = Service(config);
 
-      // list must be prepared to give all needed data
-      // for index
-      function eventsList(offset, limit, cb) {
-        return events.list( offset, limit, {
-          internal: true,
-          detailed: true
-        } ).then(r => r.events.map(e => {
-          e.custom = _.pick(custom[ i ], [
-            'organizeremail', 'totalnumberofvisitors', 'authortestimony'
-          ]);
+      const r = await service.getConfig().client.indices.delete({
+        index: 'test'
+      });
+    });
 
-          e.contributor = contributors[ i ];
+    before(async () => {
 
-          e.contributor.uid = i++;
+      const r = await service('simple_search').rebuild({
+        eventsList: async (offset, limit) => {
+          return JSON.parse(fs.readFileSync(`${__dirname}/fixtures/02_customEvents.${offset}.${limit}.json`))
+        },
+        formSchema
+      });
 
-          return e;
-        }));
-      }
+    });
 
-      await service( 'simple_search' ).rebuild( {
-        eventsList,
-        extensions: {
-          custom: {
-            organizeremail: {
-              type: 'email'
-            },
-            totalnumberofvisitors: {
-              type: 'integer'
-            },
-            authortestimony: {
-              type: 'text'
-            }
-          }
-        }
-      } );
+    it('custom field is searched through custom key', async () => {
+      const {
+        events,
+        total
+      } = await service('simple_search').search({
+        organizeremail: 'cannes@reedexpo.fr'
+      }, {}, {
+        formSchema
+      });
 
-    } );
+      total.should.equal(1);
+    });
 
-
-    it( 'custom field is searched through custom key', async () => {
-
-      let { events, total } = await service( 'simple_search' ).search( {
-        custom: {
-          organizeremail: 'cannes@reedexpo.fr'
-        }
-      }, {}, { extensions: 'custom' } );
-
-      total.should.equal( 1 );
-
-    } );
-
-
-    it( 'flat form works as well', async () => {
-
-      let { events, total } = await service( 'simple_search' ).search( {
+    it('backward compatibility', async () => {
+      const { events, total } = await service('simple_search').search({
         'custom.organizeremail' : 'cannes@reedexpo.fr'
-      }, {}, { extensions: 'custom' } );
+      }, {}, {
+        formSchema
+      });
 
-      total.should.equal( 1 );
+      total.should.equal(1);
+    });
 
-    } );
-
-
-    it( 'extension data is not part of detailed result by default', async () => {
+    it('extension data is not part of detailed result by default', async () => {
 
       let { events, total } = await service( 'simple_search' ).search( {
         'uid' : 15
@@ -824,50 +781,25 @@ describe( 'event search - functional: search', function() {
 
       _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( false );
 
-    } );
+    });
 
 
-    it( 'extension data is part of result only if explicitely requested in options', async () => {
+    it('additional data is part of result', async () => {
+      const { events, total } = await service( 'simple_search' ).search( {
+        'organizeremail' : 'cannes@reedexpo.fr'
+      }, {}, { detailed: true, formSchema });
 
-      let { events, total } = await service( 'simple_search' ).search( {
-        'custom.organizeremail' : 'cannes@reedexpo.fr'
-      }, {}, { detailed: true, extensions: [ 'custom', 'contributor' ] } );
-
-      _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( true );
-
-    } );
+      _.keys(events[0]).includes('organizeremail').should.equal(true);
+    });
 
 
-    it( 'events from a specific agenda can be retrieved based on the agenda uid', async () => {
+    it('events from a specific agenda can be retrieved based on the agenda uid', async () => {
+      const { events, total } = await service('simple_search').search({
+        originAgendaUid : 21475128
+      }, {}, { detailed: true });
 
-      let { events, total } = await service( 'simple_search' ).search( {
-        agendaUid : 21475128
-      }, {}, { detailed: true } );
-
-      events[ 0 ].agenda.uid.should.equal( 21475128 );
-
-    } );
-
-
-    it( 'extension data can be merged into new object as specified in options', async () => {
-
-      let { events, total } = await service( 'simple_search' ).search( {
-        'custom.organizeremail' : 'cannes@reedexpo.fr'
-      }, {}, {
-        detailed: true,
-        extensions: [ 'custom', 'contributor' ],
-        merge: {
-          mergedExtended: [ 'custom', 'contributor' ]
-        }
-      } );
-
-      _.keys( events[ 0 ] ).includes( 'mergedExtended' ).should.equal( true );
-
-      _.keys( events[ 0 ] ).includes( 'custom' ).should.equal( false );
-
-      _.keys( events[ 0 ] ).includes( 'contributor' ).should.equal( false );
-
-    } );
+      events[0].originAgenda.uid.should.equal(21475128);
+    });
 
   } );
 

@@ -2,43 +2,98 @@
 
 const log = require('@openagenda/logs')('services/eventSearch/update');
 
-module.exports = ({ core, agendaEvents, eventSearch, queue }) => {
+const getAgendaSearchIndex = require('./lib/getAgendaSearchIndex');
+const hasOtherPublishedReferences = require('./lib/hasOtherPublishedReferences');
+
+module.exports = (services, queue, eventSearch) => {
+  const {
+    agendaEvents
+  } = services;
+
   queue.register({
-    eventIndexUpdate: eventIndexUpdate.bind(null, eventSearch),
-    loadOtherUpdates: loadOtherUpdates.bind(null, { agendaEvents, eventSearch, queue }),
-    otherUpdate: otherUpdate.bind(null, { eventSearch, core })
+    loadOtherUpdates: loadOtherUpdates.bind(null, services, queue),
+    otherUpdate: otherUpdate.bind(null, services, eventSearch)
   });
 
-  return async data => {
-    // update the agenda index
-    await update({ eventSearch }, data);
-    // queue to update the event transverse index
-    await queue('eventIndexUpdate', data.event);
-    // queue to update the remaining impacted agenda indices
-    await queue('loadOtherUpdates', data.agendaEvent.agendaUid, data.event.uid);
+  return async ({ agenda, member, formSchema, event }) => {
+    log('update');
+
+    await updateAgendaIndex(eventSearch, {
+      agenda,
+      formSchema,
+      member,
+      event
+    });
+
+    log('update transverse index');
+    if (event.state !== 2 && !await hasOtherPublishedReferences(agendaEvents, agenda.uid, event.uid) ) {
+      await queue('transverseIndexRemove', event);
+    } else {
+      await queue('transverseIndexUpdate', event);
+    }
+
+    log('update other indices');
+    await queue('loadOtherUpdates', agenda.uid, event.uid);
+
+    log('done');
   };
 }
 
-async function update({ eventSearch }, data) {
-  //log('update', data.agendaEvent.agendaUid, data.event.uid);
-}
+async function loadOtherUpdates(services, queue, agendaUid, eventUid) {
+  const {
+    agendaEvents
+  } = services;
 
-async function loadOtherUpdates({ agendaEvents, eventSearch, queue }, agendaUid, eventUid) {
-  const remainingAgendaUids = await agendaEvents.list.byEventUid(eventUid, 0, 1000)
-    .then(result => result
-      .items.filter(ae => ae.agendaUid !== agendaUid)
-      .map(ae => ae.agendaUid)
-    );
+  log('loadOtherUpdates');
+  const remainingAgendaUids = await agendaEvents.list.byEventUid(eventUid, {
+    excludeAgendaUid: agendaUid
+  }, 0, 1000).then(r => r.items.map(ae => ae.agendaUid));
 
+  log('loadOtherUpdates: remainingAgendaUids: %j', remainingAgendaUids);
+
+  // here you know if it is published somewhere or not
   for (const remainingAgendaUid of remainingAgendaUids) {
     await queue('otherUpdate', remainingAgendaUid, eventUid);
   }
 }
 
-function eventIndexUpdate(eventSearch, event) {
-  log('eventIndexUpdate', event.uid);
+async function otherUpdate(services, eventSearch, agendaUid, eventUid) {
+  const { core } = services;
+
+  log('otherUpdate', agendaUid, eventUid);
+
+  const {
+    event,
+    member,
+    formSchema,
+    agenda
+  } = await core.agendas(agendaUid).events.get(eventUid, {
+    returnPayload: true,
+    access: 'internal'
+  });
+
+  return updateAgendaIndex(eventSearch, {
+    agenda,
+    formSchema,
+    member,
+    event
+  });
 }
 
-function otherUpdate({ eventSearch, core }, agendaUid, eventUid) {
-  log('otherUpdate', agendaUid, eventUid);
+async function updateAgendaIndex(eventSearch, { agenda, formSchema, member, event }) {
+  log('updateAgendaIndex');
+
+  const data = {
+    ...event,
+    member
+  };
+
+  const searchIndex = getAgendaSearchIndex(eventSearch, agenda.uid);
+
+  log('update current agenda index');
+  await searchIndex.update({
+    uid: event.uid
+  }, data, { refresh: true, formSchema });
+
+  log('updated');
 }

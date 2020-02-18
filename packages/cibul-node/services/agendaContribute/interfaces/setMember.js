@@ -6,9 +6,11 @@ const { promisify } = require( 'util' );
 const VError = require( 'verror' );
 
 const log = require( '@openagenda/logs' )( 'services/agendaContribute/interfaces/setMember' );
-const members = require( '../../members' );
 
-module.exports = async ( agenda, user, current, posted ) => {
+module.exports = async (services, agenda, user, current, posted) => {
+  const {
+    members
+  } = services;
 
   try {
 

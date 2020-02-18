@@ -116,8 +116,10 @@ export default class EventForm extends Component {
 
     const p = props || this.props;
 
+    console.log(p);
+
     return {
-      schema: eventSchema( {
+      schema: eventSchema({
         interfaceLanguage: p.lang,
         suggestionsRes: p.suggestionsRes,
         referencesRes: p.referencesRes,
@@ -125,8 +127,11 @@ export default class EventForm extends Component {
         mapboxKey: p.mapboxKey,
         languages,
         fileStore: p.fileStore,
-        schemaExtensions: p.schemaExtensions
-      } ),
+        schemaExtensions: p.schemaExtensions,
+        access: {
+          write: p.role
+        }
+      }),
       hash: JSON.stringify( languages ) // only language changes may trigger schema changes
     }
 

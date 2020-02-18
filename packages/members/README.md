@@ -27,6 +27,7 @@ Identifiers is an object containing an `agendaUid` and or a `userUid` key. Or at
  * **order**: Defaults at id.asc; Possible values: `id.asc`, `id.desc`, `slug.asc`, `slug.desc`, `actionsCounter.asc`, `actionsCounter.desc`
  * **limit**: Number of members retrieved for one list call. Defaults at 20.
  * **offset**: Offset from wich list should start
+ * **after**: To be used instead of offset for better performance on big datasets.
 
 ### Options
 

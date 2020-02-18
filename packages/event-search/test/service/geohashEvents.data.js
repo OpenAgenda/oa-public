@@ -1,6 +1,7 @@
 "use strict";
 
-module.exports = [ {
+module.exports = [{
+  id: 1,
   uid: 1111,
   timezone: 'Europe/Paris',
   timings: [ {
@@ -18,6 +19,7 @@ module.exports = [ {
     department: 'Paris'
   }
 }, {
+  id: 2,
   uid: 2222,
   timezone: 'Europe/Paris',
   timings: [ {
@@ -35,6 +37,7 @@ module.exports = [ {
     department: 'Paris'
   }
 }, {
+  id: 3,
   uid: 3333,
   timezone: 'Europe/Paris',
   timings: [ {
@@ -52,6 +55,7 @@ module.exports = [ {
     department: 'Meuse'
   }
 }, {
+  id: 4,
   uid: 4444,
   timezone: 'Europe/Paris',
   timings: [ {
@@ -68,4 +72,4 @@ module.exports = [ {
     longitude : 5.38461,
     department: 'Meuse'
   }
-} ];
+}];

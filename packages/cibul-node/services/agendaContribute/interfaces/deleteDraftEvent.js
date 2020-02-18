@@ -2,9 +2,10 @@
 
 const _ = require( 'lodash' );
 
-const core = require( '../../../core' );
-
-module.exports = async ( agenda, user, event ) => {
+module.exports = async (services, agenda, user, event) => {
+  const {
+    core
+  } = services;
 
   if ( !_.get( event, 'draft' ) ) throw new Error( 'Event is not a draft' );
 
