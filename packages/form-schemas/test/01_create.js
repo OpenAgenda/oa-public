@@ -1,32 +1,36 @@
-"use strict";
+'use strict';
 
-process.env.NODE_ENV = 'test';
+const should = require('should');
 
-const svc = require( './service' ),
+const Service = require('../server');
+const config = require('../testconfig');
+const fixtures = require('./service/fixtures');
 
-  _ = require( 'lodash' ),
+describe('form-schemas -01- functional (server): create', () => {
+  let svc;
 
-  config = require( '../testconfig' ),
+  before(async () => {
+    await fixtures(config.mysql, [
+      'reset.sql',
+      'form_schema.data.sql'
+    ]);
+  });
 
-  should = require( 'should' );
+  before(() => {
+    config.mysql.database = 'oatest_fs';
+    svc = Service(config);
+  });
 
-describe( 'form-schemas -01- functional (server): create', () => {
+  after(() => {
+    svc.internals.client.destroy();
+  });
 
-  before( done => {
+  it('simple create', async () => {
+    const result = await svc.create({
+      data: true
+    });
 
-    svc.initAndLoad( config, () => {
-
-      done();
-
-    } );
-
-  } );
-
-  it( 'simple create', async () => {
-
-    let result = await svc.create( { data: true } );
-
-    result.should.eql( {
+    result.should.eql({
       success: true,
       id: 2,
       formSchema: {
@@ -35,8 +39,7 @@ describe( 'form-schemas -01- functional (server): create', () => {
         nextOptionId: 1,
         fields: []
       }
-    } );
-
-  } );
+    });
+  });
 
 } );
