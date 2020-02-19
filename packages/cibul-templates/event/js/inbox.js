@@ -4,6 +4,12 @@ import ReactDOM from 'react-dom';
 import createApp from '@openagenda/inbox-apps/dist/apps/inbox';
 import wrapApp from '@openagenda/react-utils/dist/wrapApp';
 import du from '@openagenda/dom-utils';
+import * as RHL from 'react-hot-loader';
+
+if (!module.hot) {
+  RHL.AppContainer.warnAboutHMRDisabled = false;
+  RHL.hot.shouldWrapWithAppContainer = false;
+}
 
 const defaults = {
   initialState: {
@@ -18,6 +24,10 @@ const defaults = {
 
 window.hook( options => {
   const { initialState } = _.merge( {}, defaults, options );
+  const extraProps = {
+    agenda: initialState.agenda,
+    ...options.extraProps
+  };
 
-  ReactDOM.render( wrapApp( createApp( { initialState } ) ), du.el( '.js_canvas' ) );
+  ReactDOM.render( wrapApp( createApp( { initialState } ), { extraProps } ), du.el( '.js_canvas' ) );
 } );
