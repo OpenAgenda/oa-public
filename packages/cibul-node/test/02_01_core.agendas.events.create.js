@@ -8,12 +8,16 @@ const ih = require('immutability-helper');
 const mysql = require('mysql');
 const { promisify } = require('util');
 const should = require('should');
+const request = require('superagent');
 
 const api = require('../api');
 const assignClients = require('./utils/assignClients');
 const Core = require('../core');
 const Services = require('../services/init');
-const fixtures = require('./fixtures/002.sql');
+const fixtures = {
+  sql: require('./fixtures/002.sql'),
+  events: require('./fixtures/events')
+};
 const testConfig = require('./testConfig');
 
 describe('02 - core - functional (server): core.agendas().events.create()', function() {
@@ -49,7 +53,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
     const query = promisify(con.query.bind(con));
 
-    const result = await query(fixtures);
+    const result = await query(fixtures.sql);
 
     con.end();
   });
@@ -564,6 +568,20 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
 
     it('response provides created event in event key', () => {
       response.event.slug.should.equal('un-evenement-cree-par-api');
+    });
+
+    it('create with superagent', async () => {
+      const response = await request.post('http://localhost:3000/v2/agendas/17026855/events')
+        .type('form')
+        .accept('json')
+        .query({ key: null })
+        .set('access-token', accessToken)
+        .set('nonce', _.random(Math.pow(10, 6)))
+        .field({
+          data: JSON.stringify(fixtures.events[3])
+        });
+
+      response.body.success.should.equal(true);
     });
 
   });
