@@ -3,12 +3,13 @@
 process.env.NODE_ENV = 'test';
 
 const _ = require('lodash');
-const fs = require('fs');
+const axios = require('axios');
 const ih = require('immutability-helper');
 const mysql = require('mysql');
 const { promisify } = require('util');
 const should = require('should');
 
+const api = require('../api');
 const assignClients = require('./utils/assignClients');
 const fixtures = require('./fixtures/006.sql');
 
@@ -51,7 +52,8 @@ describe('core - functional (server): core agendas() events.remove()', function(
         'networks',
         'legacy',
         'users',
-        'keys'
+        'keys',
+        'accessTokens'
       ]
     });
 
@@ -103,6 +105,50 @@ describe('core - functional (server): core agendas() events.remove()', function(
     it('draft event is removed', () => {
       eventBefore.uid.should.equal(89378913);
       should(eventAfter).equal(null);
+    });
+
+  });
+
+  describe('api', () => {
+    let server, accessToken, response;
+
+    before(done => {
+       server = api(core).listen(3000, done);
+    });
+
+    after(() => server.close());
+
+    before(async () => {
+      accessToken = await axios({
+        method: 'post',
+        url: 'http://localhost:3000/v2/requestAccessToken',
+        headers: {
+          'content-type': 'application/json'
+        },
+        data: {
+          code: 'N0ty3poxNSTt5KTzxPJHUG6896UseQhM'
+        }
+      }).then(r => r.data.access_token);
+    });
+
+    before(async () => {
+      response = await axios({
+        method: 'delete',
+        url: 'http://localhost:3000/v2/agendas/17026855/events/90298390',
+        headers: {
+          'content-type': 'application/json',
+          'access-token': accessToken,
+          nonce: 129038
+        }
+      }).then(r => r.data);
+    });
+
+    it('response gives success key at true if creation was a success', () => {
+      response.success.should.equal(true);
+    });
+
+    it('response provides the deleted event', () => {
+      response.event.uid.should.equal(90298390);
     });
 
   });
