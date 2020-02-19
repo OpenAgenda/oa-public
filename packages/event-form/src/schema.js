@@ -79,6 +79,14 @@ module.exports = (options = {}) => {
       fieldType: 'date',
       write: ['internal']
     }, {
+      field: 'creatorUid',
+      fieldType: 'integer',
+      write: ['internal']
+    }, {
+      field: 'ownerUid',
+      fieldType: 'integer',
+      write: ['internal']
+    }, {
       field: 'updatedAt',
       fieldType: 'date',
       write: ['internal']
