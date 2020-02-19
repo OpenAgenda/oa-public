@@ -23,11 +23,11 @@ export default class ImageSettings extends Component {
 
     return (
       <tr
-        onClick={!activeTab ? () => history.push( prefix + '/image' ) : null}
+        onClick={!activeTab ? () => history.push( prefix + '/image', { fromUserApps: true } ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? () => history.push( prefix + '/' ) : null}
+          onClick={activeTab ? () => history.push( prefix + '/', { fromUserApps: true } ) : null}
           className="col-md-3" style={{ cursor: 'pointer' }}
         >
           {getLabel( 'profileImage' )}
