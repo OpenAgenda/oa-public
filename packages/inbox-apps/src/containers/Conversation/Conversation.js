@@ -83,8 +83,8 @@ class Conversation extends Component {
   };
 
   sendMessage = data => {
-    const { match, sendMessage } = this.props;
-    return sendMessage(match.params.conversationId, data)
+    const { match, sendMessage, agenda } = this.props;
+    return sendMessage(match.params.conversationId, data, agenda)
       // .then(v => {
       //   if (v[FORM_ERROR]) {
       //     throw v;
