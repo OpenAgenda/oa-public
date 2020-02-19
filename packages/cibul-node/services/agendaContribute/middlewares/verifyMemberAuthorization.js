@@ -61,6 +61,7 @@ function _draft( req, res, next ) {
   log( 'event is draft' );
 
   if ( req.user.uid !== req.event.creatorUid ) {
+    log('user is not draft owner', { userUid: req.user.uid, creatorUid: req.event.creatorUid });
     return next( {
       code: 403,
       message: getLabel( 'noAccessToDraft', req.lang )
