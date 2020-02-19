@@ -32,11 +32,11 @@ export default class ApiKeySettings extends Component {
 
     return (
       <tr
-        onClick={!activeTab ? () => history.push( prefix + '/apiKey' ) : null}
+        onClick={!activeTab ? () => history.push( prefix + '/apiKey', { fromUserApps: true } ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? () => history.push( prefix + '/' ) : null}
+          onClick={activeTab ? () => history.push( prefix + '/', { fromUserApps: true } ) : null}
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >
