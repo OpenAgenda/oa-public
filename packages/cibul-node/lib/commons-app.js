@@ -717,28 +717,7 @@ function https(req, res, next) {
 
 
 function requireSuperAdmin( req, res, next ) {
-
-  sessions.get( req, { detailed: true }, ( err, session ) => {
-
-    if ( err ) return next( err );
-
-    const id = session.id;
-
-    if ( config.superAdminIds.indexOf( parseInt( id ) ) !== -1 ) {
-
-      next();
-
-    } else {
-
-      sessions.setFlash( req, res, 'Eerrh nooo, no esta, nooo, bye bye.' );
-
-      res.redirect( 302, '/' );
-
-    }
-
-  } )
-
-
+  req.app.services.sessions.mw.requireSuperAdmin(req, res, next);
 }
 
 function checkAgendaCredential(name) {

@@ -10,6 +10,7 @@ module.exports = handler;
 
 module.exports.init = c => {
   log.setConfig(c.getLogConfig('oa', 'errors', false));
+  return handler;
 }
 
 function handler(namespace, err) {
