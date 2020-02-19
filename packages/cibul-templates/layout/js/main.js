@@ -14,6 +14,13 @@ require( 'intl/locale-data/jsonp/br' );
 // import ie8 from 'dom-utils/ie8'; // useful for ie11 too
 // import ie9 from 'dom-utils/ie9'; // useful for ie11 too
 
+const RHL = require('react-hot-loader');
+
+if (!module.hot) {
+  RHL.AppContainer.warnAboutHMRDisabled = false;
+  RHL.hot.shouldWrapWithAppContainer = false;
+}
+
 const layout = require( './layout' );
 
 var utils = require( '@openagenda/utils' ),

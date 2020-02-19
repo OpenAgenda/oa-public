@@ -42,7 +42,7 @@ app.get(
   sessions.mw.load,
   checkUser,
   ( req, res, next ) => {
-    usersSvc.refresh( req.user.uid, {
+    req.app.services.users.refresh( req.user.uid, {
       lastInboxCheck: true
     } ).then( () => res.sendStatus(200) ).catch( next );
   }
