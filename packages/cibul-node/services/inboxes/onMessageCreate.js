@@ -49,7 +49,7 @@ module.exports = async (services, conversation, message) => {
           .value();
 
         sendMailPromises.push(
-          sendMail({ inboxUser: inboxUserToNotify, conversation, message })
+          sendMail(services, { inboxUser: inboxUserToNotify, conversation, message })
         );
       }
 
@@ -71,7 +71,9 @@ async function inboxIdsToInboxUsers(inboxes, ids) {
   }, 0, 10000)).data, o => ({ ...o, inbox: _.find(inboxes, ['id', o.inboxId]) }));
 }
 
-async function getSenderName({ inboxUser, conversation, message }) {
+async function getSenderName(services, { inboxUser, conversation, message }) {
+  const usersSvc = services.users;
+
   const conv = await Inbox.user(inboxUser.userUid).conversations.get(conversation.id);
   const msg = await conv.messages.get(message.id);
 
@@ -91,7 +93,7 @@ async function getSenderName({ inboxUser, conversation, message }) {
   }
 }
 
-async function sendMail({ inboxUser, conversation, message }) {
+async function sendMail(services, { inboxUser, conversation, message }) {
   const getAgenda = promisify(agendasSvc.get);
 
   const { user } = inboxUser;
@@ -120,7 +122,7 @@ async function sendMail({ inboxUser, conversation, message }) {
     ? genUrl.abs('agendaAdminInboxConversation', { slug: agenda.slug, conversationId: conversation.id })
     : genUrl.abs('homeInboxConversation', { conversationId: conversation.id });
 
-  const senderName = await getSenderName({ inboxUser, conversation, message });
+  const senderName = await getSenderName(services, { inboxUser, conversation, message });
 
   const unsubscriptions = agenda
     ? [
