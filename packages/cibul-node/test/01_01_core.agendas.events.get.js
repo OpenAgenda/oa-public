@@ -144,8 +144,6 @@ describe('core - functional (server): core.agendas().events.get()', function() {
       });
     });
 
-
-
     it('if provided access value does not match set value in field, value is not provided', async () => {
       const event = await core.agendas(2).events.get(1, { access: 'moderator' });
 
@@ -221,6 +219,10 @@ describe('core - functional (server): core.agendas().events.get()', function() {
 
     it('event id field is provided if access is internal', () => {
       internalResult.event.id.should.equal(1);
+    });
+
+    it('creatorUid is provided if access is internal', () => {
+      internalResult.event.creatorUid.should.equal(1);
     });
 
     it('id field is present if formSchema if access is internal', () => {

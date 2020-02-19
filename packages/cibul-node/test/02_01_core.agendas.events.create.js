@@ -62,6 +62,7 @@ describe('02 - core - functional (server): core.agendas().events.create()', func
         'queues',
         'events',
         'agendas',
+        'aggregators',
         'agendaEvents',
         'agendaLocations',
         'formSchemas',
