@@ -324,7 +324,9 @@ function _xhrResponse( req, res, next ) {
 function _changeFeatured( req, res, next ) {
   req.log('updating featured to %s', req.params.type);
 
-  req.app.services.core.agendas(req.agenda.uid).events.update(req.event.uid, {
+  const { core, sessions } = req.app.services;
+
+  core.agendas(req.agenda.uid).events.update(req.event.uid, {
     featured: req.params.type === 'featured'
   }, {
     partial: true,
