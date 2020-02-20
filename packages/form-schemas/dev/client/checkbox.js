@@ -35,7 +35,12 @@ class Main extends Component {
             id: 3,
             value: 'option-three',
             label: 'Option three'
-          } ]
+          }, {
+            id: 4,
+            value: 'option-four',
+            label: 'Option four',
+            display: false
+          }]
         } ]
       }
     }

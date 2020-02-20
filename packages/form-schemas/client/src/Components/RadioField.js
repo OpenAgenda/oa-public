@@ -49,7 +49,7 @@ export default class RadioField extends Component {
     const { value, lang } = this.props;
 
     return <Fragment>
-      {options.concat( optional ? [ {
+      {options.filter(o => o.display).concat( optional ? [ {
         label: getLabel( 'noChoice', lang ),
         id: null
       } ] : [] ).map( o => <div

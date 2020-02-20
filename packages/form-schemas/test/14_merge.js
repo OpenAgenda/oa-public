@@ -6,7 +6,7 @@ const should = require('should');
 
 const merge = require('../iso/merge');
 
-describe.only('unit - assigning schema properties to another schema', () => {
+describe('unit - assigning schema properties to another schema', () => {
 
   describe('simple merge', () => {
 
