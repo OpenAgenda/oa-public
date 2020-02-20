@@ -3,11 +3,9 @@
 const { promisify } = require('util');
 const _ = require('lodash');
 const { Inbox, InboxUsers } = require('@openagenda/inboxes');
-const agendasSvc = require('@openagenda/agendas');
 const mails = require('@openagenda/mails');
 const log = require('@openagenda/logs')('services/inboxes/onMessageCreate');
 const genUrl = require('../genUrl');
-const membersSvc = require('../../services/members');
 
 module.exports = async (services, conversation, message) => {
   const usersSvc = services.users;
@@ -72,7 +70,10 @@ async function inboxIdsToInboxUsers(inboxes, ids) {
 }
 
 async function getSenderName(services, { inboxUser, conversation, message }) {
-  const usersSvc = services.users;
+  const {
+    users: usersSvc,
+    agendas: agendasSvc
+  } = services;
 
   const conv = await Inbox.user(inboxUser.userUid).conversations.get(conversation.id);
   const msg = await conv.messages.get(message.id);
@@ -94,6 +95,11 @@ async function getSenderName(services, { inboxUser, conversation, message }) {
 }
 
 async function sendMail(services, { inboxUser, conversation, message }) {
+  const {
+    agendas: agendasSvc,
+    members: membersSvc
+  } = services;
+
   const getAgenda = promisify(agendasSvc.get);
 
   const { user } = inboxUser;
