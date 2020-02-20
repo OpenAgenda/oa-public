@@ -63,7 +63,6 @@
   "aggregator-sources.RuleForm.city": "Ville",
   "aggregator-sources.RuleForm.department": "Département",
   "aggregator-sources.RuleForm.region": "Région",
-  "aggregator-sources.RuleForm.type": "Filtre:",
   "aggregator-sources.RuleForm.values": "Valeurs:",
   "aggregator-sources.RuleForm.required": "Requis:",
   "aggregator-sources.RuleForm.subdivision": "Sous-division:",

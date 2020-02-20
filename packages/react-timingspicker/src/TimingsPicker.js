@@ -5,18 +5,12 @@ import * as dateFns from 'date-fns';
 import ReactResizeDetector from 'react-resize-detector';
 import classNames from 'classnames';
 import { IntlProvider } from 'react-intl';
-import localeEn from './locales/en.json';
-import localeFr from './locales/fr.json';
 import Stats from './Stats';
 import Header from './Header';
 import Scheduler from './Scheduler';
+import locales from './locales';
 
 const ONE_DAY = 60 * 60 * 24;
-
-const localeData = {
-  en: localeEn,
-  fr: localeFr
-};
 
 const weekStartsDay = {
   en: 0,
@@ -124,7 +118,7 @@ export default class TimingsPicker extends Component {
       derivedState.locale = props.locale;
       derivedState.locales = props.locales;
       derivedState.messages = {
-        ...localeData[props.locale],
+        ...locales[props.locale],
         ...(props.locales && props.locales[props.locale])
       };
     }
