@@ -1,0 +1,1321 @@
+{
+  "events": [
+    {
+      "uid": 57451799,
+      "ownerUid": 62194851,
+      "creatorUid": 62194851,
+      "slug": "tous-en-bulles-ptit-cafe-bd",
+      "title": {
+        "fr": "TOUS EN BULLES ! - Rencontre avec Bertrand MUNIER",
+        "en": "TOUS EN BULLES! - Meeting with Bertrand MUNIER"
+      },
+      "description": {
+        "fr": "P'tit café BD",
+        "en": "P'tit café BD"
+      },
+      "longDescription": {
+        "fr": "Rencontre animée par Bertrand MUNIER, journaliste-auteur\n\nD’après sa BD « Les Vosges, une Terre d’Histoire » sortie en décembre 2019 aux éditions du Signe\n\nSuivi d’une séance de dédicace par la Maison de la Presse\n\nPetit déjeuner offert, places limitées, sur inscription uniquement",
+        "en": "Moderated by Bertrand MUNIER, journalist-author\nBased on his comic book «Les Vosges, une Terre d'Histoire» released in December 2019\nFollowed by a signing session by the Maison de la Presse\nComplimentary breakfast, limited seating, upon registration only"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "sur inscription",
+        "en": "on registration"
+      },
+      "image": {
+        "filename": "ff3b799399da4f1d9f7fbb9fb07399f5.base.image.jpg",
+        "credits": "Est Républicain",
+        "size": {
+          "height": 403,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ff3b799399da4f1d9f7fbb9fb07399f5.full.image.jpg",
+            "size": {
+              "height": 690,
+              "width": 1200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ff3b799399da4f1d9f7fbb9fb07399f5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T10:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-15T12:42:09.000Z",
+      "createdAt": "2020-02-15T11:25:32.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57891537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 57891537,
+        "slug": "bibliotheque-mediatheque-de-vittel430",
+        "name": "Bibliothèque-Médiathèque de Vittel",
+        "address": "402 rue saint Nicolas 88800 VITTEL",
+        "city": "Vittel",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88800",
+        "insee": "88516",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.205591,
+        "longitude": 5.946095,
+        "updatedAt": "2020-02-14T16:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62194851,
+        "custom": {
+          "organization": "BIBLIOTHEQUE-MEDIATHEQUE DE VITTEL",
+          "contactName": "Marie AUBERT",
+          "contactNumber": "0329089853",
+          "contactPosition": "directrice",
+          "email": "maubert@ville-vittel.fr"
+        }
+      }
+    },
+    {
+      "uid": 5744046,
+      "ownerUid": 62194851,
+      "creatorUid": 62194851,
+      "slug": "tous-en-bulles-rencontre-avec-marty-planchais",
+      "title": {
+        "fr": "TOUS EN BULLES ! - Rencontre avec Marty PLANCHAIS",
+        "en": "TOUS EN BULLES! - Meeting with Marty PLANCHAIS"
+      },
+      "description": {
+        "fr": "Rencontre scolaire avec Marty Planchais, dessinateur",
+        "en": "School meeting with Marty Planchais, cartoonist"
+      },
+      "longDescription": {
+        "fr": "Rencontre scolaire avec Marty Planchais, dessinateur\n----------------------------------------------------\n\nLe dessinateur Marty PLANCHAIS sera présent à la médiathèque de Vittel le jeudi et le vendredi 2-3 avril à la rencontre des classes primaires de la ville pour parler de sa BD \"Le Petit Bourreau de Montfleury\" aux éditoons Sarbacane.\n\nUne rencontre tout public se fera le samedi 4 avril de 11h à 17h avec notre partenaire libraire la maison de la presse dans le cadre des 48h de la BD !",
+        "en": "## School meeting with Marty Planchais, cartoonist\nThe cartoonist Marty PLANCHAIS will be present at the media library of Vittel on Thursday and Friday 2-3 April at the meeting of the primary classes of the city to talk about his comic book \"Le Petit Bourreau de Montfleury\" to the Sarbacane editors.\nAn all-public meeting will be held on Saturday 4 April from 11am to 5pm with our bookseller partner, the press house, as part of the 48h comic book festival!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9804080ae85a467f98dc9d9cf2cde914.base.image.jpg",
+        "credits": "FranceTVinfo",
+        "size": {
+          "height": 263,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9804080ae85a467f98dc9d9cf2cde914.full.image.jpg",
+            "size": {
+              "height": 255,
+              "width": 680
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9804080ae85a467f98dc9d9cf2cde914.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-02T08:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T08:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-15T12:42:45.000Z",
+      "createdAt": "2020-02-15T11:13:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57891537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 57891537,
+        "slug": "bibliotheque-mediatheque-de-vittel430",
+        "name": "Bibliothèque-Médiathèque de Vittel",
+        "address": "402 rue saint Nicolas 88800 VITTEL",
+        "city": "Vittel",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88800",
+        "insee": "88516",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.205591,
+        "longitude": 5.946095,
+        "updatedAt": "2020-02-14T16:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Ecoles primaires de VITTEL - Maison de la Presse de Vittel",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62194851,
+        "custom": {
+          "organization": "BIBLIOTHEQUE-MEDIATHEQUE DE VITTEL",
+          "contactName": "Marie AUBERT",
+          "contactNumber": "0329089853",
+          "contactPosition": "directrice",
+          "email": "maubert@ville-vittel.fr"
+        }
+      }
+    },
+    {
+      "uid": 57682395,
+      "ownerUid": 62194851,
+      "creatorUid": 62194851,
+      "slug": "tous-en-bulles-rencontre-avec-peb-and-fox",
+      "title": {
+        "fr": "TOUS EN BULLES ! - Rencontre avec PEB & FOX",
+        "en": "ALL IN BUBBLES! - Meeting with PEB & FOX"
+      },
+      "description": {
+        "fr": "Rencontre scolaire avec PEB & FOX !",
+        "en": "School meeting with PEB & FOX!"
+      },
+      "longDescription": {
+        "fr": "Rencontre de PEB & FOX avec les classes du collège Jules Verne à Vittel le jeudi et vendredi 2-3 avril 2020\n-----------------------------------------------------------------------------------------------------------\n\nDerrière ces noms courts se cachent deux amis qui ont décidé de faire de leur passion leur métier : créateurs de BD.\n\nPeb (Pierre-Etienne Bertrand) et Fox (Aurélien Heckler) se sont rencontrés sur les bancs de la faculté d’économie. D’un côté, il y a Fox, qui dessine depuis toujours. Son trait, son coup de crayon sont remarqués rapidement par ses proches. De l’autre, Peb, qui ne dessine pas mais scénarise.\n\nIls commencent par animer des ateliers périscolaires autour de la BD puis fournissent pour Côté Mômes plusieurs illustrations d’affilée. Le déclic a lieu en 2007 lorsque Spirou Magazine publie une dizaine de leurs strips à la suite. S’ensuivent des publications. Leur premier ouvrage sort en 2008.\n\nIls participent également à la relance de la maison d’édition Le Potager moderne, spécialisée en BD, avec la volonté de garder le même souci de qualité dans l’exécution. Cette démarche s’inscrit aussi dans la création d’un pôle fort autour de la BD pour l’ensemble de l’agglomération nancéienne (basé à Maxéville).\n\nUne rencontre tout public se fera le samedi 4 avril de 11h à 17h avec notre partenaire libraire la maison de la presse dans le cadre des 48h de la BD !",
+        "en": "## Meeting of PEB & FOX with the classes of the Jules Verne college in Vittel on Thursday and Friday 2-3 April 2020\nBehind these short names are two friends who have decided to make their passion their profession: creators of comics.\nPeb (Pierre-Etienne Bertrand) and Fox (Aurélien Heckler) met on the benches of the faculty of economics. On the one hand, there is Fox, who has always drawn. His line, his pencil stroke are quickly noticed by his relatives. On the other hand, Peb, who does not draw but script.\nThey start by facilitating extracurricular workshops around the comic strip and then provide for Côté Mômes several illustrations in a row. The click takes place in 2007 when Spirou Magazine publishes ten of their strips in a row. Publications follow. Their first book came out in 2008.\nThey also participate in the revival of the modern publishing house Le Potager, specialized in comics, with the will to keep the same concern for quality in execution. This approach is also part of the creation of a strong pole around the comic strip for the entire Nancy agglomeration (based in Maxéville).\nAn all-public meeting will be held on Saturday 4 April from 11am to 5pm with our bookseller partner, the press house, as part of the 48h comic book festival!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "62d8a238e983454190a8eed09b0ab808.base.image.jpg",
+        "credits": "Peb & Fox",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "62d8a238e983454190a8eed09b0ab808.full.image.jpg",
+            "size": {
+              "height": 300,
+              "width": 300
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "62d8a238e983454190a8eed09b0ab808.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-02T08:00:00.000Z",
+          "end": "2020-04-02T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T08:00:00.000Z",
+          "end": "2020-04-03T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-15T12:42:24.000Z",
+      "createdAt": "2020-02-15T11:17:13.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57891537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 57891537,
+        "slug": "bibliotheque-mediatheque-de-vittel430",
+        "name": "Bibliothèque-Médiathèque de Vittel",
+        "address": "402 rue saint Nicolas 88800 VITTEL",
+        "city": "Vittel",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88800",
+        "insee": "88516",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.205591,
+        "longitude": 5.946095,
+        "updatedAt": "2020-02-14T16:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Collège Jules Verne - Maison de la Presse de Vittel",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62194851,
+        "custom": {
+          "organization": "BIBLIOTHEQUE-MEDIATHEQUE DE VITTEL",
+          "contactName": "Marie AUBERT",
+          "contactNumber": "0329089853",
+          "contactPosition": "directrice",
+          "email": "maubert@ville-vittel.fr"
+        }
+      }
+    },
+    {
+      "uid": 91391799,
+      "ownerUid": 62194851,
+      "creatorUid": 62194851,
+      "slug": "tous-en-bulles-cafe-litteraire-bd",
+      "title": {
+        "fr": "TOUS EN BULLES ! - café littéraire BD",
+        "en": "TOUS EN BULLES! - literary café"
+      },
+      "description": {
+        "fr": "Des Livres & Vous, café littéraire",
+        "en": "Books & You, literary café"
+      },
+      "longDescription": {
+        "fr": "### Le rendez-vous mensuel \"DES LIVRES & VOUS\"\n\n### spécial BD à la médiathèque de VITTEL !\n\nVenez partager vos coups de coeur BD ado/adulte et découvrir la sélection des bibliothécaires en présence des auteurs et illustrateurs PEB & FOX qui présenteront leurs BDs et également leur maison d'édition lorraine LE POTAGER MODERNE, spécialisée en BD. A découvrir !",
+        "en": "### The monthly appointment \"DES LIVRES & VOUS\"\n### BD special at the VITTEL media library!\nCome and share your teen/adult comics favourites and discover the selection of librarians in the presence of authors and illustrators PEB & FOX who will present their Bds and also their publishing house lorraine LE POTAGER MODERNE, specialized in BD. To discover!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "ouvert à tous",
+        "en": "open to all"
+      },
+      "image": {
+        "filename": "28de865f1fa94d7faf4741357ba14c4b.base.image.jpg",
+        "credits": "Médiathèque de Vittel",
+        "size": {
+          "height": 669,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "28de865f1fa94d7faf4741357ba14c4b.full.image.jpg",
+            "size": {
+              "height": 644,
+              "width": 674
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "28de865f1fa94d7faf4741357ba14c4b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T10:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-15T12:42:22.000Z",
+      "createdAt": "2020-02-15T11:07:37.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57891537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 13,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 57891537,
+        "slug": "bibliotheque-mediatheque-de-vittel430",
+        "name": "Bibliothèque-Médiathèque de Vittel",
+        "address": "402 rue saint Nicolas 88800 VITTEL",
+        "city": "Vittel",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88800",
+        "insee": "88516",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.205591,
+        "longitude": 5.946095,
+        "updatedAt": "2020-02-14T16:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62194851,
+        "custom": {
+          "organization": "BIBLIOTHEQUE-MEDIATHEQUE DE VITTEL",
+          "contactName": "Marie AUBERT",
+          "contactNumber": "0329089853",
+          "contactPosition": "directrice",
+          "email": "maubert@ville-vittel.fr"
+        }
+      }
+    },
+    {
+      "uid": 74043350,
+      "ownerUid": 62194851,
+      "creatorUid": 62194851,
+      "slug": "tous-en-bulles-atelier-multimedia-bd",
+      "title": {
+        "fr": "TOUS EN BULLES ! - Atelier multimédia BD",
+        "en": "TOUS EN BULLES! - BD Multimedia Workshop"
+      },
+      "description": {
+        "fr": "Réalise ta propre BD avec BDnF !",
+        "en": "Make your own comic with Bdnf!"
+      },
+      "longDescription": {
+        "fr": "Atelier multimédia autour de BDnF, la fabrique à BD\n---------------------------------------------------\n\nDisponible gratuitement, sur ordinateur et tablette et dans une version simplifiée sur smartphone, l’application BdnF permet de réaliser des bandes dessinées ou tout autre récit multimédia mêlant illustration et texte.\n\nhttps://www.bnf.fr/fr/bdnf-la-fabrique-bd-de-la-bnf",
+        "en": "## Multimedia workshop around Bdnf, the comic strip factory\nAvailable free of charge, on a computer and tablet and in a simplified version on a smartphone, the Bdnf app allows you to create comic books or any other multimedia story combining illustration and text.\n[https://www.bnf.fr/fr/bdnf-la-fabrique-bd-de-la-bnf](https://www.bnf.fr/fr/bdnf-la-fabrique-bd-de-la-bnf)"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "sur inscription uniquement",
+        "en": "on registration only"
+      },
+      "image": {
+        "filename": "6a781930485d4926b89bfe2b58323607.base.image.jpg",
+        "credits": "BDnF",
+        "size": {
+          "height": 334,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "6a781930485d4926b89bfe2b58323607.full.image.jpg",
+            "size": {
+              "height": 572,
+              "width": 1200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "6a781930485d4926b89bfe2b58323607.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-01T12:00:00.000Z",
+          "end": "2020-04-01T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-15T12:42:37.000Z",
+      "createdAt": "2020-02-15T11:01:49.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57891537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 57891537,
+        "slug": "bibliotheque-mediatheque-de-vittel430",
+        "name": "Bibliothèque-Médiathèque de Vittel",
+        "address": "402 rue saint Nicolas 88800 VITTEL",
+        "city": "Vittel",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88800",
+        "insee": "88516",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.205591,
+        "longitude": 5.946095,
+        "updatedAt": "2020-02-14T16:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62194851,
+        "custom": {
+          "organization": "BIBLIOTHEQUE-MEDIATHEQUE DE VITTEL",
+          "contactName": "Marie AUBERT",
+          "contactNumber": "0329089853",
+          "contactPosition": "directrice",
+          "email": "maubert@ville-vittel.fr"
+        }
+      }
+    },
+    {
+      "uid": 17253774,
+      "ownerUid": 62194851,
+      "creatorUid": 62194851,
+      "slug": "tous-en-bulles-atelier-crea-bd",
+      "title": {
+        "fr": "TOUS EN BULLES ! - Atelier Créa' BD",
+        "en": "ALL IN BUBBLES! - Atelier Créa' BD"
+      },
+      "description": {
+        "fr": "Viens créer ton onomatopée spécial BD !",
+        "en": "Come create your special comic book onomatopoeia!"
+      },
+      "longDescription": {
+        "fr": "Création d'onomatopées à la bibliothèque.\n\nOuvert à tous à partir de 6 ans !",
+        "en": "Creation of onomatopoeias in the library.\nOpen to all from 6 years old!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "sur inscription uniquement",
+        "en": "on registration only"
+      },
+      "image": {
+        "filename": "a19f653994ec420c8f9a7a06731b6528.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 934,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a19f653994ec420c8f9a7a06731b6528.full.image.jpg",
+            "size": {
+              "height": 896,
+              "width": 672
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a19f653994ec420c8f9a7a06731b6528.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-15T14:00:00.000Z",
+          "end": "2020-04-15T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-15T12:42:16.000Z",
+      "createdAt": "2020-02-15T10:47:39.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57891537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 57891537,
+        "slug": "bibliotheque-mediatheque-de-vittel430",
+        "name": "Bibliothèque-Médiathèque de Vittel",
+        "address": "402 rue saint Nicolas 88800 VITTEL",
+        "city": "Vittel",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88800",
+        "insee": "88516",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.205591,
+        "longitude": 5.946095,
+        "updatedAt": "2020-02-14T16:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62194851,
+        "custom": {
+          "organization": "BIBLIOTHEQUE-MEDIATHEQUE DE VITTEL",
+          "contactName": "Marie AUBERT",
+          "contactNumber": "0329089853",
+          "contactPosition": "directrice",
+          "email": "maubert@ville-vittel.fr"
+        }
+      }
+    },
+    {
+      "uid": 9928143,
+      "ownerUid": 62194851,
+      "creatorUid": 62194851,
+      "slug": "tous-en-bulles-expo-bd",
+      "title": {
+        "fr": "TOUS EN BULLES ! - Expo BD",
+        "en": "TOUS EN BULLES! - BD Expo"
+      },
+      "description": {
+        "fr": "Expo dessins BD \"Héroscope\"",
+        "en": "Exhibition BD drawings \"Héroscope\""
+      },
+      "longDescription": {
+        "fr": "Exposition dessins \"Héroscope\" par Manu' Art du 4 avril au 29 avril 2020 à la galerie d'exposition de la médiathèque de Vittel\n\nVernissage le samedi 4 avril à 11h30, entrée libre\n\nÂgé de 47ans, originaire d'Epinal la Cité des Images, professeur d’espagnol à l’IUT d’Epinal Hubert CURIEN et avant tout fan de comics depuis plus de 40ans ; les super-héros ont toujours été un modèle. Mais plus encore que les personnages, les êtres exemplaires furent et sont encore les créateurs de ces héros. En total autodidacte, des heures à regarder, comprendre, imiter et absorber les différents styles et les diverses techniques. Longtemps restée une activité privée, depuis un an elle s’est ouverte sur l’extérieur et s’est significativement intensifiée. Feutres, aquarelle, acrylique, couleurs ou noir et blanc ; les dessins sont des hommages, des réinterprétations, des mélanges d’univers, des contextualisations urbaines de l’imaginaire. La création comme exutoire à cette réalité et le dessin comme thérapie.",
+        "en": "Exhibition drawings \"Heroscope\" by Manu' Art from 4 April to 29 April 2020 at the exhibition gallery of the media library of Vittel\nOpening on Saturday 4 April at 11.30 am, free admission\n47 years old, originally from Epinal la Cité des Images, Spanish teacher at the IUT of Epinal Hubert CURIEN and above all a fan of comics for more than 40 years; superheroes have always been a model. But even more than the characters, exemplary beings were and still are the creators of these heroes. In total self-taught, hours to look, understand, imitate and absorb the different styles and techniques. Long remained a private activity, for a year it opened on the outside and has significantly intensified. Felts, watercolours, acrylics, colors or black and white; the drawings are tributes, reinterpretations, mixtures of universes, urban contextualisations of the imaginary. Creation as an outlet for this reality and drawing as therapy."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "62a4fa907df9417aaa042458b0d2e533.base.image.jpg",
+        "credits": "Manu' Art",
+        "size": {
+          "height": 994,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "62a4fa907df9417aaa042458b0d2e533.full.image.jpg",
+            "size": {
+              "height": 2845,
+              "width": 2005
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "62a4fa907df9417aaa042458b0d2e533.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T08:30:00.000Z",
+          "end": "2020-04-04T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T08:30:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:30:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T08:30:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T08:30:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:30:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T08:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T08:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T08:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T08:30:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:30:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T08:30:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T08:30:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:30:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T08:30:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T08:30:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-15T12:42:33.000Z",
+      "createdAt": "2020-02-15T10:34:27.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57891537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 57891537,
+        "slug": "bibliotheque-mediatheque-de-vittel430",
+        "name": "Bibliothèque-Médiathèque de Vittel",
+        "address": "402 rue saint Nicolas 88800 VITTEL",
+        "city": "Vittel",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88800",
+        "insee": "88516",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.205591,
+        "longitude": 5.946095,
+        "updatedAt": "2020-02-14T16:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62194851,
+        "custom": {
+          "organization": "BIBLIOTHEQUE-MEDIATHEQUE DE VITTEL",
+          "contactName": "Marie AUBERT",
+          "contactNumber": "0329089853",
+          "contactPosition": "directrice",
+          "email": "maubert@ville-vittel.fr"
+        }
+      }
+    },
+    {
+      "uid": 24003566,
+      "ownerUid": 62194851,
+      "creatorUid": 62194851,
+      "slug": "tous-en-bulles-lexpo-pirates",
+      "title": {
+        "fr": "TOUS EN BULLES ! - L'Expo Pirates",
+        "en": "ALL IN BUBBLES! - Pirate Expo"
+      },
+      "description": {
+        "fr": "Exposition Pirates, à tes crayons moussaillon !",
+        "en": "Pirates exhibition, to your Moussaillon pencils!"
+      },
+      "longDescription": {
+        "fr": "Exposition ludique d'après la BD d'Olivier Sapiot, Lili Crochette et Monsieur Mouche aux éditions La Gouttière\n\nNous proposons aux tous jeunes matelots (dès 6 ans) d’embarquer à bord de l’Expo Pirate. Au fil des panneaux, les jeunes lecteurs pourront s’initier au dessin et à certains codes graphiques présentés sous forme de mini-jeux et exercices simplifiés. Tout cela dans l’ambiance exotique et pétillante de la série Lili Crochette et Monsieur Mouche.\n\nAventures et dépaysement garantis !",
+        "en": "Playful exhibition based on the comic book by Olivier Sapiot, Lili Crochette and Monsieur Mouche at La Gouttière\nWe offer all young sailors (from the age of 6) to board the Pirate Expo. Over the course of the panels, young readers will be able to learn about drawing and certain graphic codes presented in the form of mini-games and simplified exercises. All this in the exotic and sparkling atmosphere of the series Lili Crochette and Monsieur Mouche.\nAdventures and change of scenery guaranteed!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "436c5663b22d45c4857d6d9f98e8e1eb.base.image.jpg",
+        "credits": "la Bulle expo",
+        "size": {
+          "height": 491,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "436c5663b22d45c4857d6d9f98e8e1eb.full.image.jpg",
+            "size": {
+              "height": 868,
+              "width": 1240
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "436c5663b22d45c4857d6d9f98e8e1eb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T08:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T08:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T08:00:00.000Z",
+          "end": "2020-04-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T08:30:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:30:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T08:30:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T08:30:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:30:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T08:30:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:30:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T08:30:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T08:30:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:30:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T08:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T08:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T08:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-15T12:42:30.000Z",
+      "createdAt": "2020-02-15T10:39:58.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57891537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 57891537,
+        "slug": "bibliotheque-mediatheque-de-vittel430",
+        "name": "Bibliothèque-Médiathèque de Vittel",
+        "address": "402 rue saint Nicolas 88800 VITTEL",
+        "city": "Vittel",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88800",
+        "insee": "88516",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.205591,
+        "longitude": 5.946095,
+        "updatedAt": "2020-02-14T16:44:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62194851,
+        "custom": {
+          "organization": "BIBLIOTHEQUE-MEDIATHEQUE DE VITTEL",
+          "contactName": "Marie AUBERT",
+          "contactNumber": "0329089853",
+          "contactPosition": "directrice",
+          "email": "maubert@ville-vittel.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2174894
+}

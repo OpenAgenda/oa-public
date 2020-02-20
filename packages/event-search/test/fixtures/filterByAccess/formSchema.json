@@ -1,0 +1,1054 @@
+{
+  "custom": {},
+  "fields": [
+    {
+      "languages": [],
+      "field": "title",
+      "fieldType": "text",
+      "optional": false,
+      "max": 140,
+      "label": "Titre de l'événement",
+      "placeholder": "Le titre de votre événement",
+      "purpose": {
+        "fr": "Titre de l'événement",
+        "en": "Title of the event",
+        "es": "Nombre del evento"
+      },
+      "sub": "",
+      "schemaId": null,
+      "info": "Utilisez le nom de votre événement (exemple : Conférence sur le manga) plutôt que le nom de votre lieu (exemple : Bibliothèque municipale) de manière à optimiser la recherche par mot clé "
+    },
+    {
+      "field": "type-devenement",
+      "label": "Type d'événement",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": "Quel type d'événement organisez-vous ?",
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 681,
+          "value": "animation-jeux-jeux-de-societe-jeux-video-jeux-devasionescape-game",
+          "label": {
+            "en": "Animation, jeux (jeux de société, jeux vidéo, jeux d’évasion/escape game)"
+          }
+        },
+        {
+          "id": 682,
+          "value": "atelier",
+          "label": {
+            "en": "Atelier"
+          }
+        },
+        {
+          "id": 684,
+          "value": "concours",
+          "label": {
+            "en": "Concours"
+          }
+        },
+        {
+          "id": 685,
+          "value": "conference-et-table-ronde",
+          "label": {
+            "en": "Conférence et table-ronde"
+          }
+        },
+        {
+          "id": 686,
+          "value": "exposition",
+          "label": {
+            "en": "Exposition"
+          }
+        },
+        {
+          "id": 688,
+          "value": "lecture",
+          "label": {
+            "en": "Lecture"
+          }
+        },
+        {
+          "id": 771,
+          "value": "masterclass",
+          "label": {
+            "en": "Masterclass"
+          }
+        },
+        {
+          "id": 704,
+          "value": "partage-de-coups-de-coeur-conseils-de-lecture",
+          "label": {
+            "en": "Partage de coups de cœur, conseils de lecture"
+          }
+        },
+        {
+          "id": 705,
+          "value": "prix-et-palmares",
+          "label": {
+            "en": "Prix et palmarès"
+          }
+        },
+        {
+          "id": 706,
+          "value": "projection",
+          "label": {
+            "en": "Projection"
+          }
+        },
+        {
+          "id": 707,
+          "value": "rencontre-dauteurs",
+          "label": {
+            "en": "Rencontre d'auteur(s)"
+          }
+        },
+        {
+          "id": 708,
+          "value": "spectacle-danse-concert-performance-theatre",
+          "label": {
+            "en": "Spectacle (danse, concert, performance, théâtre…)"
+          }
+        },
+        {
+          "id": 709,
+          "value": "salon-festival",
+          "label": {
+            "en": "Salon, festival"
+          }
+        },
+        {
+          "id": 710,
+          "value": "visite-guideevisite-insolite",
+          "label": {
+            "en": "Visite guidée/visite insolite"
+          }
+        },
+        {
+          "id": 711,
+          "value": "autre",
+          "label": {
+            "en": "Autre"
+          }
+        }
+      ],
+      "fieldType": "radio",
+      "schemaId": 20178
+    },
+    {
+      "field": "autre-type-devenement",
+      "label": "Autre type d'événement",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": null,
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 20178
+    },
+    {
+      "field": "type-de-public-concerne",
+      "label": "Type de public concerné",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 760,
+          "value": "tout-public",
+          "label": {
+            "en": "Tout public"
+          }
+        },
+        {
+          "id": 761,
+          "value": "jeune-public",
+          "label": {
+            "en": "Jeune public"
+          }
+        },
+        {
+          "id": 762,
+          "value": "public-adulte",
+          "label": {
+            "en": "Public adulte"
+          }
+        },
+        {
+          "id": 763,
+          "value": "reserve-aux-scolaires",
+          "label": {
+            "en": "Réservé aux scolaires"
+          }
+        },
+        {
+          "id": 775,
+          "value": "publics-empeches",
+          "label": {
+            "en": "Publics empêchés"
+          }
+        }
+      ],
+      "fieldType": "radio",
+      "schemaId": 20178
+    },
+    {
+      "field": "age",
+      "fieldType": "age",
+      "optional": true,
+      "label": "Âge du public ciblé",
+      "schemaId": null
+    },
+    {
+      "field": "gratuite",
+      "label": "Tarif",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 66,
+          "value": "gratuit",
+          "label": {
+            "en": "Gratuit"
+          }
+        },
+        {
+          "id": 67,
+          "value": "payant",
+          "label": {
+            "en": "Payant"
+          }
+        }
+      ],
+      "fieldType": "radio",
+      "schemaId": 20178
+    },
+    {
+      "field": "tarif",
+      "label": "Si payant, précisez le tarif",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": null,
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 20178
+    },
+    {
+      "languages": [],
+      "field": "conditions",
+      "fieldType": "text",
+      "label": "Conditions de participation",
+      "max": 255,
+      "placeholder": "Sur inscription, lieu de rendez-vous...",
+      "sub": "",
+      "schemaId": null,
+      "display": true
+    },
+    {
+      "field": "animation-accessible-aux-publics-empeches",
+      "label": "Animation accessible aux publics empêchés",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 740,
+          "value": "oui",
+          "label": {
+            "en": "Oui"
+          }
+        },
+        {
+          "id": 741,
+          "value": "non",
+          "label": {
+            "en": "Non"
+          }
+        },
+        {
+          "id": 774,
+          "value": "non-renseigne",
+          "label": {
+            "en": "Non renseigné"
+          }
+        }
+      ],
+      "fieldType": "radio",
+      "schemaId": 20178
+    },
+    {
+      "field": "type-de-public-empeche",
+      "label": "Type de public empêché",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": false,
+      "origin": null,
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 20178
+    },
+    {
+      "field": "accessibility",
+      "fieldType": "accessibility",
+      "optional": true,
+      "label": "Type de public empêché",
+      "schemaId": null,
+      "display": true
+    },
+    {
+      "field": "particularites",
+      "label": "Particularités. À renseigner uniquement si l'événement correspond à une :",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": [
+        "administrator",
+        "moderator"
+      ],
+      "read": [
+        "administrator",
+        "moderator"
+      ],
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 610,
+          "value": "operation-labellisee-un-evenement-bd-2020",
+          "label": {
+            "en": "Opération labellisée « Un événement BD 2020 »"
+          }
+        },
+        {
+          "id": 777,
+          "value": "ville-partenaire",
+          "label": {
+            "en": "Ville partenaire"
+          }
+        },
+        {
+          "id": 776,
+          "value": "operation-referencee-dans-le-cadre-de-bd-2020",
+          "label": {
+            "en": "Opération référencée dans le cadre de BD 2020"
+          }
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 20178
+    },
+    {
+      "field": "si-autre-manifestation-du-ministere-de-la-culture-precisez",
+      "label": "Si votre événement s'inscrit également dans une autre manifestation, précisez laquelle",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 615,
+          "value": "nuit-de-la-lecture-ministere-de-la-culture",
+          "label": {
+            "en": "Nuit de la lecture (ministère de la Culture)"
+          }
+        },
+        {
+          "id": 616,
+          "value": "semaine-de-la-langue-francaise-et-de-la-francophonie-ministere-de-la-culture",
+          "label": {
+            "en": "Semaine de la langue française et de la francophonie (ministère de la Culture)"
+          }
+        },
+        {
+          "id": 617,
+          "value": "nuit-des-musees-ministere-de-la-culture",
+          "label": {
+            "en": "Nuit des musées (ministère de la Culture)"
+          }
+        },
+        {
+          "id": 618,
+          "value": "rendez-vous-aux-jardins-ministere-de-la-culture",
+          "label": {
+            "en": "Rendez-vous aux jardins (ministère de la Culture)"
+          }
+        },
+        {
+          "id": 730,
+          "value": "fete-de-la-musique-ministere-de-la-culture",
+          "label": {
+            "en": "Fête de la musique (ministère de la Culture)"
+          }
+        },
+        {
+          "id": 619,
+          "value": "journees-europeennes-du-patrimoine-ministere-de-la-culture",
+          "label": {
+            "en": "Journées européennes du patrimoine (ministère de la Culture)"
+          }
+        },
+        {
+          "id": 620,
+          "value": "journees-nationales-de-larchitecture-ministere-de-la-culture",
+          "label": {
+            "en": "Journées nationales de l’architecture (ministère de la Culture)"
+          }
+        },
+        {
+          "id": 731,
+          "value": "partir-en-livre-centre-national-du-livre",
+          "label": {
+            "en": "Partir en livre (Centre national du livre)"
+          }
+        },
+        {
+          "id": 732,
+          "value": "autre",
+          "label": {
+            "en": "Autre"
+          }
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 20178
+    },
+    {
+      "field": "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation",
+      "label": "Si autre, précisez le nom et l'organisateur de la manifestation",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": null,
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 20178
+    },
+    {
+      "field": "type-de-structure",
+      "label": "Type de structure",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "options": [
+        {
+          "id": 621,
+          "value": "association",
+          "label": {
+            "en": "Association"
+          }
+        },
+        {
+          "id": 623,
+          "value": "bibliothequemediatheque",
+          "label": {
+            "en": "Bibliothèque/Médiathèque"
+          }
+        },
+        {
+          "id": 624,
+          "value": "bibliotheque-universitaire",
+          "label": {
+            "en": "Bibliothèque universitaire"
+          }
+        },
+        {
+          "id": 630,
+          "value": "centre-culturel",
+          "label": {
+            "en": "Centre culturel"
+          }
+        },
+        {
+          "id": 631,
+          "value": "centre-social",
+          "label": {
+            "en": "Centre social"
+          }
+        },
+        {
+          "id": 632,
+          "value": "collectivite-territoriale",
+          "label": {
+            "en": "Collectivité territoriale"
+          }
+        },
+        {
+          "id": 627,
+          "value": "ecoleetablissement-scolaire",
+          "label": {
+            "en": "École/Établissement scolaire"
+          }
+        },
+        {
+          "id": 628,
+          "value": "editeur",
+          "label": {
+            "en": "Éditeur"
+          }
+        },
+        {
+          "id": 634,
+          "value": "etablissement-hospitaliermedico-social",
+          "label": {
+            "en": "Établissement hospitalier/médico-social"
+          }
+        },
+        {
+          "id": 633,
+          "value": "etablissement-penitentiaire",
+          "label": {
+            "en": "Établissement pénitentiaire"
+          }
+        },
+        {
+          "id": 626,
+          "value": "librairie",
+          "label": {
+            "en": "Librairie"
+          }
+        },
+        {
+          "id": 635,
+          "value": "musee",
+          "label": {
+            "en": "Musée"
+          }
+        },
+        {
+          "id": 772,
+          "value": "partenaire-prive",
+          "label": {
+            "en": "Partenaire privé"
+          }
+        },
+        {
+          "id": 629,
+          "value": "structure-basee-a-letranger",
+          "label": {
+            "en": "Structure basée à l'étranger"
+          }
+        },
+        {
+          "id": 636,
+          "value": "autre",
+          "label": {
+            "en": "Autre"
+          }
+        }
+      ],
+      "fieldType": "radio",
+      "schemaId": 20178
+    },
+    {
+      "field": "si-autre-precisez",
+      "label": "Si autre, précisez",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": null,
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 20178
+    },
+    {
+      "field": "structure-partenaire",
+      "label": "Structure partenaire",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": "Si votre événement est proposé en partenariat avec une autre structure, précisez laquelle",
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": null,
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 20178
+    },
+    {
+      "field": "image",
+      "fieldType": "image",
+      "optional": true,
+      "label": "Image de l'événement",
+      "info": "Chargez une image d'au moins 1 Mo",
+      "extensions": [
+        "jpg",
+        "bmp",
+        "png",
+        "jpeg"
+      ],
+      "schemaId": null
+    },
+    {
+      "field": "imageCredits",
+      "fieldType": "text",
+      "optional": true,
+      "label": "Crédits de l'image",
+      "enableWith": "image",
+      "schemaId": null,
+      "info": "Les événements disposant d'une image ont un taux de clic deux fois plus élevé ! L'image doit présenter 500 pixels de largeur minimum."
+    },
+    {
+      "field": "location",
+      "fieldType": "location",
+      "optional": false,
+      "label": {
+        "fr": "Lieu",
+        "en": "Location",
+        "it": "Posizione",
+        "de": "Ort",
+        "es": "lugar",
+        "br": "Lec'h"
+      },
+      "sub": {
+        "fr": "Si aucun lieu ne correspond à votre saisie, ajoutez-le en cliquant sur 'Créer un lieu'",
+        "en": "If no location matches the name, add a new location by clicking on 'Create a new location'",
+        "it": "Se nessun luogo corrisponde alla tua voce, aggiungilo cliccando su 'Crea un luogo'.",
+        "de": "Wenn kein Standort mit dem Namen übereinstimmt, füge einen neuen Standort hinzu, indem du auf \"Neuen Standort erstellen\" klickst.",
+        "es": "Si hay lugar corresponda a su entrada, añadirlo haciendo clic en 'Crear un lugar'",
+        "br": "Ma ne glot lec'h ebet gant an hini ho peus skrivet, klikit war \"Krouiñ ul lec'h\" da ouzhpennañ anezhañ"
+      },
+      "disableChange": false,
+      "schemaId": null
+    },
+    {
+      "field": "timings",
+      "fieldType": "timings",
+      "optional": false,
+      "label": {
+        "fr": "Horaires",
+        "en": "Timings",
+        "it": "Orari",
+        "de": "Timings",
+        "es": "horario",
+        "br": "Eurioù"
+      },
+      "info": {
+        "fr": "Définissez les horaires de votre événement",
+        "en": "Specify timings for your event",
+        "it": "Definire gli orari del vostro evento",
+        "de": "Festlegen von Zeitplänen für Ihre Veranstaltung",
+        "es": "Ajuste el tiempo de su evento",
+        "br": "Lakait eurioù ho tarvoud"
+      },
+      "helpLink": "https://openagenda.zendesk.com/hc/fr/articles/202667461-Saisir-les-horaires-de-votre-%C3%A9v%C3%A9nement",
+      "schemaId": null,
+      "enabledRanges": [
+        {
+          "begin": "2020-01-01",
+          "end": "2020-12-31"
+        }
+      ],
+      "component": "@openagenda/react-timingspicker"
+    },
+    {
+      "languages": [],
+      "field": "description",
+      "fieldType": "text",
+      "optional": false,
+      "max": 200,
+      "label": {
+        "fr": "Description courte",
+        "en": "Short description",
+        "it": "Breve descrizione",
+        "de": "Kurzbeschreibung",
+        "es": "Descripción corta",
+        "br": "Deskrivadur berr"
+      },
+      "purpose": {
+        "fr": "Description pour les affichages réduits ou liste",
+        "en": "Description for short or list displays",
+        "es": "Descripción de las pequeñas pantallas o lista"
+      },
+      "placeholder": {
+        "fr": "Une courte description de votre événement",
+        "en": "A short description of your event",
+        "it": "Una breve descrizione del vostro evento",
+        "de": "Eine kurze Beschreibung Ihrer Veranstaltung",
+        "es": "Una breve descripción de su evento",
+        "br": "Un deskrivadur berr eus ho tarvoud"
+      },
+      "sub": {
+        "fr": "",
+        "en": "",
+        "it": "",
+        "de": "#VALUE!",
+        "es": ""
+      },
+      "schemaId": null
+    },
+    {
+      "languages": [],
+      "field": "longDescription",
+      "fieldType": "markdown",
+      "label": {
+        "fr": "Description longue",
+        "en": "Long description",
+        "it": "Descrizione lunga",
+        "de": "Lange Beschreibung",
+        "es": "Descripción larga",
+        "br": "Deskrivadur hir"
+      },
+      "max": 10000,
+      "sub": {
+        "fr": "",
+        "en": "",
+        "it": "",
+        "de": "#VALUE!",
+        "es": ""
+      },
+      "placeholder": {
+        "fr": "Saisissez une description détaillée de votre événement.",
+        "en": "Type in a detailed description of your event.",
+        "it": "Inserisci una descrizione dettagliata del tuo evento.",
+        "de": "Gebe eine detaillierte Beschreibung deiner Veranstaltung ein.",
+        "es": "Introduzca una descripción detallada de su evento.",
+        "br": "Skrivit un deskrivadur dre ar munud eus ho tarvoud."
+      },
+      "schemaId": null
+    },
+    {
+      "field": "registration",
+      "fieldType": "registration",
+      "optional": true,
+      "label": "Outils d'inscription",
+      "info": "Liens, emails ou numéros de téléphone",
+      "sub": "Séparez les items par des tabulations ou des virgules",
+      "schemaId": null
+    },
+    {
+      "languages": [],
+      "field": "keywords",
+      "fieldType": "keywords",
+      "optional": true,
+      "max": 255,
+      "label": "Mots clés",
+      "placeholder": "Séparez les mots clés par des tabulations ou des virgules",
+      "sub": "Les mots clés sont utiles pour les fonctions de recherche",
+      "schemaId": null,
+      "display": false
+    },
+    {
+      "field": "diffusion-sur-le-pass-culture",
+      "label": "Diffusion sur le pass culture",
+      "help": "Contacter l'équipe du pass",
+      "helpLink": "mailto:support.passculture@beta.gouv.fr",
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "tags",
+      "enableWith": null,
+      "related": [],
+      "min": null,
+      "max": null,
+      "options": [
+        {
+          "id": 1,
+          "value": "offre-pass-culture-cet-evenement-est-specifiquement-pense-pour-les-jeunes-de-18-ans-je-souhaite-quil-soit-reference-sur-le-pass-culture-en-cochant-cette-case-jaccepte-lutilisation-de-ces-donnees-par-le-pass-culture-ainsi-que-les-conditions-generales-dutilisation-de-la-plateforme-httpsdocspasscultureapp",
+          "label": {
+            "en": "Offre pass culture : cet événement est spécifiquement pensé pour les jeunes de 18 ans. Je souhaite qu’il soit référencé sur le pass Culture. En cochant cette case, j’accepte l’utilisation de ces données par le pass Culture ainsi que les conditions générales d’utilisation de la plateforme : https://docs.passculture.app"
+          }
+        }
+      ],
+      "fieldType": "checkbox",
+      "schemaId": 20178
+    },
+    {
+      "field": "siret",
+      "label": "Numéro SIRET de mon établissement (ou à défaut, numéro de SIREN)",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": null,
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "custom",
+      "enableWith": "diffusion-sur-le-pass-culture",
+      "related": [
+        "diffusion-sur-le-pass-culture"
+      ],
+      "min": null,
+      "max": 20,
+      "fieldType": "text",
+      "schemaId": 20178
+    },
+    {
+      "field": "prix-pass-culture",
+      "label": "Prix de l'événement tel qu'affiché sur le pass Culture",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": "Merci d'indiquer un nombre entier, saisissez « 0 » si l'événement est gratuit.",
+      "sub": null,
+      "placeholder": null,
+      "write": null,
+      "read": null,
+      "optional": false,
+      "display": true,
+      "origin": "custom",
+      "enableWith": "diffusion-sur-le-pass-culture",
+      "related": [
+        "diffusion-sur-le-pass-culture"
+      ],
+      "min": null,
+      "max": 100,
+      "fieldType": "number",
+      "schemaId": 20178
+    },
+    {
+      "field": "url-pass-culture",
+      "label": "URL pass culture",
+      "help": null,
+      "helpLink": null,
+      "helpContent": null,
+      "info": "Champ réservé à l'équipe du pass Culture, ne pas modifier si vous n'en faîtes pas partie svp",
+      "sub": null,
+      "placeholder": null,
+      "write": [
+        "administrator",
+        "moderator"
+      ],
+      "read": null,
+      "optional": true,
+      "display": true,
+      "origin": "custom",
+      "enableWith": "diffusion-sur-le-pass-culture",
+      "related": [
+        "diffusion-sur-le-pass-culture"
+      ],
+      "min": null,
+      "max": null,
+      "fieldType": "text",
+      "schemaId": 20178
+    },
+    {
+      "field": "uid",
+      "fieldType": "integer",
+      "optional": false,
+      "write": [
+        "internal"
+      ],
+      "schemaId": null
+    },
+    {
+      "field": "slug",
+      "fieldType": "text",
+      "optional": false,
+      "write": [
+        "internal"
+      ],
+      "schemaId": null
+    },
+    {
+      "field": "private",
+      "fieldType": "boolean",
+      "default": false,
+      "write": [
+        "internal"
+      ],
+      "schemaId": null
+    },
+    {
+      "field": "timezone",
+      "fieldType": "text",
+      "write": [
+        "internal"
+      ],
+      "schemaId": null
+    },
+    {
+      "field": "draft",
+      "fieldType": "boolean",
+      "default": false,
+      "write": [
+        "internal"
+      ],
+      "schemaId": null
+    },
+    {
+      "field": "createdAt",
+      "fieldType": "date",
+      "write": [
+        "internal"
+      ],
+      "schemaId": null
+    },
+    {
+      "field": "creatorUid",
+      "fieldType": "integer",
+      "write": [
+        "internal"
+      ],
+      "schemaId": null
+    },
+    {
+      "field": "ownerUid",
+      "fieldType": "integer",
+      "write": [
+        "internal"
+      ],
+      "schemaId": null
+    },
+    {
+      "field": "updatedAt",
+      "fieldType": "date",
+      "write": [
+        "internal"
+      ],
+      "schemaId": null
+    },
+    {
+      "field": "agendaUid",
+      "fieldType": "integer",
+      "optional": false,
+      "write": [
+        "internal"
+      ],
+      "schemaId": null
+    },
+    {
+      "field": "locationUid",
+      "fieldType": "integer",
+      "optional": false,
+      "write": [
+        "internal"
+      ],
+      "schemaId": null
+    }
+  ]
+}

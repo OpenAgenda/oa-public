@@ -1,0 +1,1525 @@
+{
+  "events": [
+    {
+      "uid": 37954987,
+      "ownerUid": 34867058,
+      "creatorUid": 34867058,
+      "slug": "bd-en-classe",
+      "title": {
+        "fr": "Atelier de bande dessiné - BD en classe"
+      },
+      "description": {
+        "fr": "Comme outil pédagogique pour renforcer l'apprentissage de la langue française."
+      },
+      "longDescription": {
+        "fr": "L'atelier s'adresse aux personnes placées sous main de justice de la Maison d'arrêt de Villepinte. Il né du partenariat avec les unités pédagogique de l'éducation nationale et souhaite offrir aux apprenants des nouveaux outils d'apprentissage de la langue française.\n\nLa bande dessiné permet de mobiliser de manière ludique les acquis de la personne et de réfléchir aux diverses problématiques, personnelles comme sociétales."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Atelier réservé aux personnes detenues."
+      },
+      "image": {
+        "filename": "90b8163067734e879aeb244a73bca566.base.image.jpg",
+        "credits": "@ Nicolai Pinheiro",
+        "size": {
+          "height": 833,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "90b8163067734e879aeb244a73bca566.full.image.jpg",
+            "size": {
+              "height": 2526,
+              "width": 2123
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "90b8163067734e879aeb244a73bca566.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-10T07:30:00.000Z",
+          "end": "2020-03-10T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T07:30:00.000Z",
+          "end": "2020-03-11T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T07:30:00.000Z",
+          "end": "2020-03-12T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T07:30:00.000Z",
+          "end": "2020-03-17T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T07:30:00.000Z",
+          "end": "2020-03-18T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T07:30:00.000Z",
+          "end": "2020-03-19T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T07:30:00.000Z",
+          "end": "2020-03-20T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T06:30:00.000Z",
+          "end": "2020-05-05T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T06:30:00.000Z",
+          "end": "2020-05-06T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T06:30:00.000Z",
+          "end": "2020-05-07T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T06:30:00.000Z",
+          "end": "2020-05-08T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T06:30:00.000Z",
+          "end": "2020-05-13T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T06:30:00.000Z",
+          "end": "2020-05-14T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T06:30:00.000Z",
+          "end": "2020-05-15T14:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-04T15:16:49.000Z",
+      "createdAt": "2020-02-03T16:45:48.000Z",
+      "agendaUid": 54317282,
+      "locationUid": 28764225,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 19,
+        "max": 40
+      },
+      "registration": [],
+      "location": {
+        "uid": 28764225,
+        "slug": "association-memoire-de-lavenir49",
+        "name": "Association Mémoire de l'Avenir",
+        "address": "45 rue Ramponeau 75020 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75020",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 20e Arrondissement",
+        "latitude": 48.87169,
+        "longitude": 2.381364,
+        "updatedAt": "2020-02-04T08:38:29.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 775,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        616
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "slff-2020",
+        "uid": 54317282,
+        "official": 0,
+        "title": "Semaine de la langue française et de la Francophonie 2020",
+        "description": "Fêtez la langue française et célébrez sa richesse du 14 au 22 mars 2020. Retrouvez les informations et conditions pour participer sur notre site internet.",
+        "url": "https://semainelanguefrancaise.culture.gouv.fr",
+        "image": "agenda54317282.jpg",
+        "updatedAt": "2020-02-16T11:36:04.000Z",
+        "createdAt": "2019-12-03T11:30:31.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 34867058,
+        "custom": {
+          "organization": "Association Memoire de l'avenir",
+          "contactName": "Margherita Poli",
+          "contactNumber": "06 45 00 17 78",
+          "contactPosition": "Responsable pedagogique",
+          "email": "m.poli@memoire-a-venir.org"
+        }
+      }
+    },
+    {
+      "uid": 37640909,
+      "ownerUid": 89557287,
+      "creatorUid": 89557287,
+      "slug": "cafe-bd_108829",
+      "title": {
+        "en": "Café BD",
+        "fr": "Café BD"
+      },
+      "description": {
+        "en": "One of our booksellers will present the latest comic strip acquisitions (adult and youth) of the La Prairie Media Library",
+        "fr": "Un de nos libraires viendra présenter les dernières acquisitions en bande dessinée (adulte et jeunesse) de la médiathèque La Prairie"
+      },
+      "longDescription": {
+        "en": "One of our booksellers will present the latest comic strip acquisitions (adult and youth) of the La Prairie Media Library from 10:30 to 12:00.\nA moment of exchange and sharing around the comic book, a good coffee and some cookies.",
+        "fr": "Un de nos libraires viendra présenter les dernières acquisitions en bande dessinée (adulte et jeunesse) de la médiathèque La Prairie de 10h30 à 12h.\n\nUn moment d'échange et de partage autour de la bande dessinée, d'un bon café et de quelques biscuits."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "ab700908910645caa63a685abaeb36d6.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 972,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ab700908910645caa63a685abaeb36d6.full.image.jpg",
+            "size": {
+              "height": 3458,
+              "width": 2492
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ab700908910645caa63a685abaeb36d6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T09:30:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T10:47:13.000Z",
+      "createdAt": "2020-02-03T16:48:35.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32760787,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 32760787,
+        "slug": "mediatheque-la-prairie242",
+        "name": "Médiathèque La Prairie",
+        "address": "14 chemin de la Prairie 74000 Annecy",
+        "city": "Annecy",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Haute-Savoie",
+        "postalCode": "74000",
+        "insee": "74010",
+        "countryCode": "FR",
+        "district": "Annecy",
+        "latitude": 45.886056,
+        "longitude": 6.117558,
+        "updatedAt": "2020-02-04T08:35:14.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque La Prairie",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 89557287,
+        "custom": {
+          "organization": "momie annecy",
+          "contactName": "Agathe Lavaud",
+          "contactNumber": "0450510904",
+          "contactPosition": "Madame la Directrice",
+          "email": "momieannecy@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 41516315,
+      "ownerUid": 89557287,
+      "creatorUid": 89557287,
+      "slug": "cafe-bd_410047",
+      "title": {
+        "en": "Café BD",
+        "fr": "Café BD"
+      },
+      "description": {
+        "en": "One of our booksellers will present the latest comic strip acquisitions (adult and youth) of the media library Les Romans",
+        "fr": "Un de nos libraires viendra présenter les dernières acquisitions en bande dessinée (adulte et jeunesse) de la médiathèque Les Romains"
+      },
+      "longDescription": {
+        "en": "One of our booksellers will present the latest comic strip acquisitions (adult and youth) of the La Prairie Media Library from 10:30 to 12:00.\nA moment of exchange and sharing around the comic book, a good coffee and some cookies.",
+        "fr": "Un de nos libraires viendra présenter les dernières acquisitions en bande-dessinée (adulte et jeunesse) de la médiathèque La Prairie de 10h30 à 12h.\n\nUn moment d'échange et de partage autour de la bande-dessinée, d'un bon café et de quelques biscuits."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "e052e90f77894224855fd04e4885a7fe.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 972,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e052e90f77894224855fd04e4885a7fe.full.image.jpg",
+            "size": {
+              "height": 3458,
+              "width": 2492
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e052e90f77894224855fd04e4885a7fe.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-14T09:30:00.000Z",
+          "end": "2020-03-14T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T10:47:34.000Z",
+      "createdAt": "2020-02-03T16:57:18.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 63868677,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 63868677,
+        "slug": "mediatheque-les-romains27",
+        "name": "Médiathèque Les Romains",
+        "address": "1 boulevard de la Rocade 74000 Annecy",
+        "city": "Annecy",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Haute-Savoie",
+        "postalCode": "74000",
+        "insee": "74010",
+        "countryCode": "FR",
+        "district": "Annecy",
+        "latitude": 45.906427,
+        "longitude": 6.114751,
+        "updatedAt": "2020-02-04T08:35:33.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque Les Romains",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 89557287,
+        "custom": {
+          "organization": "momie annecy",
+          "contactName": "Agathe Lavaud",
+          "contactNumber": "0450510904",
+          "contactPosition": "Madame la Directrice",
+          "email": "momieannecy@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 66777919,
+      "ownerUid": 45853828,
+      "creatorUid": 45853828,
+      "slug": "exposition-vade-retro-tristanas-a-la-chaufferie-strasbourg",
+      "title": {
+        "fr": "Exposition \"Vade Retro Tristanas\""
+      },
+      "description": {
+        "fr": "\"Vade Retro Tristanas\" est une exposition suite à un workshop des étudiants avec Pascal Leyder, artiste au «S» Grand Atelier. Une exposition dans le cadre des Rencontres de l’illustration 2020"
+      },
+      "longDescription": {
+        "fr": "\"Il y a longtemps, très très longtemps, Jésus Triste est venue sur la terre nous apporter l’Allégresse. C’était à la S, en Belle Gique, dans le Jardin d’Ardenne, à Vielsalem, aujourd’hui Vielsalm. Là toujours jaillissent la Frémok et la Joie éternelle, la Grâce et l’Amour dominical. En témoigneront les oeuvres choisies pour cette exposition sensationnée et sensationnelle. Avé Luïa!\"\n\nAvec les artistes : Adolpho Avril, Yvan Alagbé, Jean-Michel Bansart, Richard Bawin, Marie Bodson, Nicole Claude, Olivier Deprez, DoubleBob, Anaïd Ferté, Dominique Goblet, Pascal Leyder, Jean-Christophe Long, Benoît Monjoie, Dominique Théâte…\n\nCommissariat : Yvan Alagbé, atelier d'Illustration de la HEAR\n\nEn collaboration avec l’atelier Impression(s)\n\n_Ouvert les vendredi, samedi et dimanche de 14 à 18h_\n\n_Vernissage le jeudi 26 mars 2020 à 18h30_\n\n_Exposition du 20 au 29 mars 2020_\n\n[_www.lachaufferie.hear.fr_](http://www.lachaufferie.hear.fr)"
+      },
+      "keywords": {
+        "fr": [
+          "Vade Retro Tristanas",
+          "La Chaufferie",
+          "Exposition",
+          "Illustration"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "fb8b8b62c1af49128f7b3905ce629025.base.image.jpg",
+        "credits": "L'Évangile Doré de Jésus Triste © Rémi Pierlot",
+        "size": {
+          "height": 996,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "fb8b8b62c1af49128f7b3905ce629025.full.image.jpg",
+            "size": {
+              "height": 2041,
+              "width": 1435
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "fb8b8b62c1af49128f7b3905ce629025.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T13:00:00.000Z",
+          "end": "2020-03-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T17:30:00.000Z",
+          "end": "2020-03-26T19:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T13:00:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-29T12:00:00.000Z",
+          "end": "2020-03-29T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-04T08:49:10.000Z",
+      "createdAt": "2019-11-20T14:52:09.000Z",
+      "agendaUid": 16190989,
+      "locationUid": 15785012,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 15785012,
+        "slug": "la-chaufferiehear",
+        "name": "La Chaufferie–HEAR",
+        "address": "5 rue de la Manufacture des Tabacs",
+        "city": "Strasbourg",
+        "region": "Grand Est",
+        "department": "Bas-Rhin",
+        "postalCode": "67000",
+        "insee": "67482",
+        "countryCode": "FR",
+        "district": "Krutenau",
+        "latitude": 48.58116,
+        "longitude": 7.759419,
+        "updatedAt": "2019-11-20T14:50:37.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "haute-ecole-des-arts-du-rhin",
+        "uid": 16190989,
+        "official": 1,
+        "title": "Haute école des arts du Rhin",
+        "description": "La HEAR participe à l'année de la BD 2020 à travers ses différents événements.",
+        "url": "http://www.hear.fr",
+        "image": "agenda16190989.jpg",
+        "updatedAt": "2019-11-21T12:23:24.000Z",
+        "createdAt": "2019-11-20T13:38:23.000Z",
+        "officializedAt": "2019-11-21T12:23:24.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 90695693,
+      "ownerUid": 87229225,
+      "creatorUid": 87229225,
+      "slug": "atelier-bd-numerique_928463",
+      "title": {
+        "fr": "Atelier BD numérique",
+        "en": "Digital BD Workshop"
+      },
+      "description": {
+        "fr": "Venez vous initier à la création d'une bande dessinée en réalité augmentée ! Avec la compagnie Zinc Arts et cultures numériques",
+        "en": "Come and learn how to create a cartoon in augmented reality! With the company Zinc Arts et cultures numériques"
+      },
+      "longDescription": {
+        "fr": "Comment créer une case de BD en réalité augmentée ? En superposant à l'illustration de départ des éléments numériques comme des sons, des images 2D et 3D, ou des vidéos... Si cette expérience vous tente, inscrivez-vous à cet atelier animé par un intervenant de la compagnie Zinc Arts et cultures numériques.\n\nÀ cette occasion, vous pourrez vous initier à la création et à l'écriture graphique et numérique, en expérimentant des techniques et des outils différents. La case de BD que vous choisirez sera animée puis incrustée en réalité augmentée.",
+        "en": "How do I create an augmented reality comic box? By superimposing on the starting illustration digital elements such as sounds, 2D and 3D images, or videos... If you are interested in this experience, sign up for this workshop hosted by a speaker from Zinc Arts et cultures numériques.\nOn this occasion, you can learn about graphic and digital creation and writing, experimenting with different techniques and tools. The comic box you choose will be animated and then embedded in augmented reality."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "5da3732d89534d4aae42f02514de6587.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "5da3732d89534d4aae42f02514de6587.full.image.jpg",
+            "size": {
+              "height": 2988,
+              "width": 3984
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "5da3732d89534d4aae42f02514de6587.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-28T08:30:00.000Z",
+          "end": "2020-02-28T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T13:00:00.000Z",
+          "end": "2020-02-28T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-04T15:02:18.000Z",
+      "createdAt": "2020-02-04T14:01:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 9326220,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 18
+      },
+      "registration": [
+        "04 42 11 27 55"
+      ],
+      "location": {
+        "uid": 9326220,
+        "slug": "mediatheque-de-fos-sur-mer",
+        "name": "Médiathèque de Fos-sur-Mer",
+        "address": "40 rue des Nénuphars 13270 Fos-sur-Mer",
+        "city": "Fos-sur-Mer",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13270",
+        "insee": "13039",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.445209,
+        "longitude": 4.943218,
+        "updatedAt": "2020-02-04T14:09:10.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 87229225,
+        "custom": {
+          "organization": "Médiathèque Intercommunale Istres Ouest Provence",
+          "contactName": "Elodie La Orden",
+          "contactNumber": "04 90 58 53 53",
+          "contactPosition": "Responsable département Langues et littérature",
+          "email": "elodie.la-orden@ampmetropole.fr"
+        }
+      }
+    },
+    {
+      "uid": 54468066,
+      "ownerUid": 48460579,
+      "creatorUid": 48460579,
+      "slug": "causerie-les-adaptations-de-limage-a-lecran",
+      "title": {
+        "fr": "Causerie \"Les adaptations : de l'image à l'écran\"",
+        "en": "Talk \"Adaptations: from the image to the screen\""
+      },
+      "description": {
+        "fr": "Discussion autour des adaptations cinématographiques des BD, des mangas et des comics",
+        "en": "Discussion around cinematographic adaptations of comic books, comics and comics"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "sur inscription",
+        "en": "on registration"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-23T08:30:00.000Z",
+          "end": "2020-05-23T10:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-04T15:02:16.000Z",
+      "createdAt": "2020-02-04T14:35:29.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 17327008,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 17327008,
+        "slug": "mediatheque-verlaine720",
+        "name": "Médiathèque Verlaine",
+        "address": "1 place de la Bibliothèque 57000 Metz",
+        "city": "Metz",
+        "region": "Grand Est",
+        "department": "Moselle",
+        "postalCode": "57045",
+        "insee": "57463",
+        "countryCode": "FR",
+        "district": "Bellecroix",
+        "latitude": 49.125109,
+        "longitude": 6.176775,
+        "updatedAt": "2020-02-04T14:35:22.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 48460579,
+        "custom": {
+          "organization": "Médiathèque",
+          "contactName": "Emeline Lamotte",
+          "contactNumber": "03-87-68-25-35",
+          "contactPosition": "bibliothécaire",
+          "email": "elamotte@mairie-metz.fr"
+        }
+      }
+    },
+    {
+      "uid": 68246042,
+      "ownerUid": 67451029,
+      "creatorUid": 67451029,
+      "slug": "prix-japannecy-2020",
+      "title": {
+        "fr": "Prix japannecy 2020",
+        "en": "Japan Price 2020"
+      },
+      "description": {
+        "fr": "Prix manga japannecy",
+        "en": "Prix manga japannecy"
+      },
+      "longDescription": {
+        "fr": "Votez pour votre manga préféré parmi 3 catégories : Seinen, Shojo et Shonen",
+        "en": "Vote for your favorite manga from 3 categories: Seinen, Shojo and Shonen"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "00e93ab99c844ef788be612a8998c2d3.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "00e93ab99c844ef788be612a8998c2d3.full.image.jpg",
+            "size": {
+              "height": 437,
+              "width": 583
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "00e93ab99c844ef788be612a8998c2d3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-03T07:00:00.000Z",
+          "end": "2020-02-03T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-05T11:04:16.000Z",
+      "createdAt": "2020-02-05T09:00:25.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10136123,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 18
+      },
+      "registration": [],
+      "location": {
+        "uid": 10136123,
+        "slug": "cdi-st-michel-annecy",
+        "name": "Groupement scolaire Saint-Michel",
+        "address": "27 faubourg des Balmettes 74000 Annecy",
+        "city": "Annecy",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Haute-Savoie",
+        "postalCode": "74000",
+        "insee": "74010",
+        "countryCode": "FR",
+        "district": "Annecy",
+        "latitude": 45.891879,
+        "longitude": 6.12219,
+        "updatedAt": "2020-02-05T11:02:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque annecy, Brise glace annecy",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 67451029,
+        "custom": {
+          "organization": "CDI St Michel Annecy",
+          "contactName": "GUIDI MIRYAM",
+          "contactNumber": "0688628218",
+          "contactPosition": "DOCUMENTALISTE",
+          "email": "miryamguidi@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 33791802,
+      "ownerUid": 38594952,
+      "creatorUid": 38594952,
+      "slug": "festival-de-la-bd-de-nimes",
+      "title": {
+        "en": "Nîmes comics festival",
+        "fr": "Festival de la BD de Nîmes"
+      },
+      "description": {
+        "en": "More than 40 authors and cartoonists, for all tastes, for all ages! Debates, screenings, exhibitions, workshops, concerts, performances... also punctuate the dedication sessions!",
+        "fr": "Plus de 40 auteurs et dessinateurs, pour tous les goûts, pour tous les âges !  Des débats, projections, expositions, ateliers, concerts, performances... rythment également les séances de dédicace !"
+      },
+      "longDescription": {
+        "en": "The Nîmes comic strip festival will be held on the esplanade Charles de Gaulle (very close to the Roman arenas). Now taking place in biennale, this festival welcomes 40 authors. The program of these three days dedicated to the 9th art: debates, meetings, workshops, exhibitions, shows and of course signing sessions.\nDreaming, escaping, drawing, coloring... the esplanade Charles de Gaulle takes on the appearance of a gigantic place dedicated to the 9th art. A large space where the comic strip festival of Nîmes, with its authors present and its procession of animations, is addressed to all amateurs but also neophytes of all ages. The authors will present their new albums and lend themselves to the game of dedications but it will also be possible to express themselves on the big coloring wall, to learn about comic books during workshops, to listen to the authors talk about their work on the comic book forum, to attend projections or «impro-drawn battles»...\nAnd why not also make a stop on the reading area around the bus-bédébus which will also offer the loan of works.\nOn Thursday, authors will visit schools in Nîmes, at the CHU, at the prison, for privileged meetings.\nFrom the youth comic book to the alternative comic book, from the heroic-fantasy to the realistic comic book, from the manga to the comics whose heroes are known to all, it is a tray of authors that will allow each one to find his happiness and get the dedication of his dreams.",
+        "fr": "Le festival de la BD de Nîmes se tiendra sur l’esplanade Charles de Gaulle (tout près des arènes romaines). Se déroulant désormais en biennale, ce festival accueille 40 auteurs. Au programme de ces trois jours consacrés au 9e art : des débats, des rencontres, des ateliers, des expositions, des spectacles et bien sûr des séances de dédicaces.\n\nRêver, s’évader, dessiner, colorier... l’esplanade Charles de Gaulle prend des allures de gigantesque lieu dédié au 9e art. Un grand espace où le festival de la bande dessinée de Nîmes, avec ses auteurs présents et son cortège d’animations, s’adresse à tous les amateurs mais aussi aux néophytes de tous âges. Les auteurs présenteront leurs nouveaux albums et se prêteront au jeu des dédicaces mais il sera également possible de s’exprimer sur le grand mur de coloriage, de s’initier à la BD lors d’ateliers, d’écouter les auteurs parler de leur travail sur le Forum BD, d’assister à des projections ou à des «battles impro-dessinées»...\n\nEt pourquoi pas également faire une halte sur l'espace lecture autour du médiabus-bédébus qui proposera également le prêt d'ouvrages.\n\nLe jeudi, des auteurs se rendront dans des écoles de Nîmes, au CHU, à la maison d’arrêt, pour des rencontres privilégiées.\n\nDe la BD jeunesse à la BD alternative, de l’heroïc-fantasy à la BD réaliste, du manga aux BD dont les héros sont connus de tous, c’est un plateau d’auteurs qui permettra à chacun de trouver son bonheur et d’obtenir la dédicace de ses rêves."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-08T12:00:00.000Z",
+          "end": "2020-05-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T08:00:00.000Z",
+          "end": "2020-05-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T08:00:00.000Z",
+          "end": "2020-05-10T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-05T11:06:38.000Z",
+      "createdAt": "2019-12-16T08:54:42.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 41461253,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://festivalbdnimes.com/"
+      ],
+      "location": {
+        "uid": 41461253,
+        "slug": "esplanade-charles-de-gaulle449",
+        "name": "Esplanade Charles de Gaulle",
+        "address": "Esplanade Charles de Gaulle 30000 Nîmes",
+        "city": "Nîmes",
+        "region": "Occitanie",
+        "department": "Gard",
+        "postalCode": null,
+        "insee": "30189",
+        "countryCode": "FR",
+        "district": "Triangle de la Gare",
+        "latitude": 43.835231,
+        "longitude": 4.362096,
+        "updatedAt": "2019-12-16T08:54:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 38594952,
+        "custom": {
+          "organization": "MPO",
+          "contactName": "Stéphane Corsia",
+          "contactNumber": "04 92 07 86 62",
+          "contactPosition": "co-gérant",
+          "email": "s.corsia@mpocom.com"
+        }
+      }
+    },
+    {
+      "uid": 47753628,
+      "ownerUid": 22683386,
+      "creatorUid": 22683386,
+      "slug": "lugdunum-bd-festival-6",
+      "title": {
+        "fr": "Lugdunum BD Festival #6",
+        "en": "Lugdunum BD Festival #6"
+      },
+      "description": {
+        "fr": "Journée BD au Lugdunum - Musée et théâtres romains",
+        "en": "Comic Strip Day at Lugdunum - Museum and Roman Theatres"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec des auteur(e)s de bande dessinée et programmation spéciale autour des héros et des héroïnes gallo-romain(e)s, mais pas seulement !\n\nDédicaces, battles d'impro BD, ateliers pour enfants...\n\nStand :\n\n\\- librairie Glénat\n\n\\- Éditions Lapin\n\nEn présence de :\n\n\\- Alice Chaa\n\n\\- Arthur Gavat\n\n\\- Barly Baruti\n\n\\- Buma\n\n\\- Claudine Morel\n\n\\- Elodie Shanta\n\n\\- Florent Maudoux\n\n\\- Garage Deloffre\n\n\\- Jérôme Jouvray\n\n\\- Jibé\n\n\\- Lilas Cognet\n\n\\- Mohammed Shennawy\n\n\\- Nicolas Wild\n\n\\- Obion\n\n\\- Philippe Brocard\n\n\\- Princess H\n\n\\- Thierry Mery\n\n\\- Yann Damezin",
+        "en": "Meeting with comic book authors and special programming around Gallo-Roman heroes and heroines, but not only!\nAutographs, comic book improv battles, children’s workshops...\nStand:\n- Glénat bookstore\n- Éditions Lapin\nIn the presence of:\n- Alice Chaa\n- Arthur Gavat\n- Barly Baruti\n- Buma\n- Claudine Morel\n- Elodie Shanta\n- Florent Maudoux\n- Deloffre Garage\n- Jérôme Jouvray\n- Jibé\n- Lilac Cognet\n- Mohammed Shennawy\n- Nicolas Wild\n- Obion\n- Philippe Brocard\n- Princess H\n- Thierry Mery\n- Yann Damezin"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "42b68333bc3a4281bc3026309a961a21.base.image.jpg",
+        "credits": "Lyon BD Organisation",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "42b68333bc3a4281bc3026309a961a21.full.image.jpg",
+            "size": {
+              "height": 2304,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "42b68333bc3a4281bc3026309a961a21.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-01T09:00:00.000Z",
+          "end": "2020-03-01T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-05T14:07:31.000Z",
+      "createdAt": "2020-02-05T13:21:12.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 49015854,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.lyonbd.com/"
+      ],
+      "location": {
+        "uid": 49015854,
+        "slug": "lugdunum-musee-et-theatres-romains582",
+        "name": "Lugdunum, musée et théâtres romains",
+        "address": "17 rue Cléberg 69005 Lyon",
+        "city": "Lyon",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Métropole de Lyon",
+        "postalCode": "69005",
+        "insee": "69123",
+        "countryCode": "FR",
+        "district": "Lyon 5e Arrondissement",
+        "latitude": 45.760524,
+        "longitude": 4.820062,
+        "updatedAt": "2020-02-05T13:30:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": "rencontres",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Lyon BD Organisation",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Lugdunum, Musée et Théâtres romains",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 22683386,
+        "custom": {
+          "organization": "Lyon BD",
+          "contactName": "Solenne Chassagne",
+          "contactNumber": "06 67 63 27 16",
+          "contactPosition": "Responsable de communication",
+          "email": "solenne.chassagne@lyonbd.com"
+        }
+      }
+    },
+    {
+      "uid": 99082135,
+      "ownerUid": 2081108,
+      "creatorUid": 2081108,
+      "slug": "bla-bla-litteraire-special-bandes-dessinees",
+      "title": {
+        "en": "Bla Bla literary \"Special comic books\"",
+        "fr": "Bla Bla littéraire \"Spécial bandes dessinées\""
+      },
+      "description": {
+        "en": "Bla Bla literary \"Special comic books\"",
+        "fr": "Bla Bla littéraire \"Spécial bandes dessinées\""
+      },
+      "longDescription": {
+        "en": "A presentation of a selection of comics by readers and librarians.",
+        "fr": "Une présentation d'une sélection de bandes dessinées par les lecteurs et les bibliothécaires."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "960919da9c574a9ab43ad8b014e6a4df.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 298,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "960919da9c574a9ab43ad8b014e6a4df.full.image.jpg",
+            "size": {
+              "height": 953,
+              "width": 2241
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "960919da9c574a9ab43ad8b014e6a4df.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T09:30:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-05T17:08:15.000Z",
+      "createdAt": "2020-01-29T15:17:54.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 71232261,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 71232261,
+        "slug": "bibliotheque-de-la-demi-lune",
+        "name": "Bibliothèque de la demi-lune",
+        "address": "1 rue de l'Enfer 91250 Saintry-sur-Seine",
+        "city": "Saintry-sur-Seine",
+        "region": "Île-de-France",
+        "department": "Essonne",
+        "postalCode": "91250",
+        "insee": "91577",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.596069,
+        "longitude": 2.494372,
+        "updatedAt": "2020-01-09T12:41:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2081108,
+        "custom": {
+          "organization": "Service culturel de Saintry-Sur-Seine",
+          "contactName": "Hélène Ramis",
+          "contactNumber": "0160755625",
+          "contactPosition": "Responsable culture et bibliothèque",
+          "email": "h.ramis@saintry-sur-seine.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2156279
+}

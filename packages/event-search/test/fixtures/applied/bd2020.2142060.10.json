@@ -1,0 +1,1582 @@
+{
+  "events": [
+    {
+      "uid": 26431777,
+      "ownerUid": 28830833,
+      "creatorUid": 28830833,
+      "slug": "auxerre-galactic-days",
+      "title": {
+        "fr": "Auxerre Galactic Days",
+        "en": "Auxerre Galactic Days"
+      },
+      "description": {
+        "fr": "Salon dédié à la science-fiction",
+        "en": "Exhibition dedicated to science-fiction"
+      },
+      "longDescription": {
+        "fr": "Le salon de la science-fiction auxerrois.\n\nAu programme :\n\nAuteurs littératures, auteurs BD, conférences, animations, expositions.\n\nRenseignements complémentaires à venir.",
+        "en": "The science-fiction exhibition Auxerrois.  \nOn the programme are:  \nLiterary authors, comic book authors, conferences, animations, exhibitions.  \nAdditional information to come."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-17T12:00:00.000Z",
+          "end": "2020-10-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-18T08:00:00.000Z",
+          "end": "2020-10-18T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T17:54:16.000Z",
+      "createdAt": "2020-01-28T12:20:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 92801360,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 92801360,
+        "slug": "complexe-sportif-rene-yves-aubin",
+        "name": "Complexe sportif René Yves Aubin",
+        "address": "Boulevard de Verdun 89000 Auxerre",
+        "city": "Auxerre",
+        "region": "Bourgogne-Franche-Comté",
+        "department": "Yonne",
+        "postalCode": "89000",
+        "insee": "89024",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.804251,
+        "longitude": 3.554034,
+        "updatedAt": "2020-01-28T16:27:37.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3 €",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 28830833,
+        "custom": {
+          "organization": "Association Aux'I.D",
+          "contactName": "Romain Gondy",
+          "contactNumber": "0681673744",
+          "contactPosition": "Vice président",
+          "email": "asso.auxid@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 23933571,
+      "ownerUid": 23965563,
+      "creatorUid": 23965563,
+      "slug": "au-temps-buller-un-festival-de-bande-dessinee-dans-votre-librairie",
+      "title": {
+        "en": "\"Au temps buller\" : a comic strip festival in your bookstore !",
+        "fr": "\"Au Temps Buller\" : un festival de bande-dessinee dans votre librairie !"
+      },
+      "description": {
+        "en": "Au Temps Buller : 4 talented comic writers to meet (Lille) !",
+        "fr": "Au Temps Buller  4 auteurs de BD talentueux à rencontrer (Lille) !"
+      },
+      "longDescription": {
+        "en": "«**Au Temps Buller**» is the name of this festival, the comic is its universe, four is the number of its exceptional guests, Saturday, February 8 is the date to mark with a huge cross on your calendar! Whether you are comics enthusiasts, amateurs or totally novices, you will love this day! After the Angoulême festival, the comic book world is moving to your favourite booksellers. We are concocting a small program rich in drawings, challenges and delusions. In the meantime, let us introduce the authors who will be present on this day:\n**Juliette Boutant**\nDetermined to become a cartoonist, Juliette Boutant studied at the École européenne supérieure de l'image d'Angoulême. She then moved to Brussels. It is thanks to the narrative experiments that she keeps on her blog that Thomas Mathieu contacts her for the Crocodiles project. Juliette takes a poetic look at the sometimes harsh subjects of intimate life. _The crocodiles still_ appeared in 2019 at Casterman denounces the sexist acts of which one can be a victim or witness.\n**Vincent Caut**\nBorn in 1991, Vincent Caut was noticed very early on. At 17, he received a first prize at the Festival de BD d'Angoulême. He has worked extensively for youth for many years in magazines such as _Okapi_ and _Astrapi_. In recent years, he has notably distinguished himself with his _AVNI_ comic series for children published in the journal _Toboggan_ and at BD KIDS and whose last volume has just released at the end of 2019.\n**Olivier Perret**\nOlivier Perret works in Lille in the Malterie workshop. In 2012, he published his first solo album at Boîte à Bulles: _D'air pur et d'eau fraîche_. Followed in 2016 by _Journées rouges et boulettes bleues_. In 2017 is published by Delcourt: _A few days to live_ that immerses us in the heart of palliative care in Roubaix. In February 2020, he publishes _Ils ont tué Léo Frank_, historical thriller inspired by a true story and published by Steinkis editions.\n**Paul Rey**\nBorn in Lyon on the Croix-Rousse hill, Paul Rey studied Fine Arts in Angoulême. He co-founded Fidèle éditions. He now lives in Paris, and essentially does comic books and illustration. He wrote and drew two short stories for the magazine _Citrus_. _Winter Garden is_ his first comic book published at Sarbacane where GMO and planet protection are treated in the light of a very near future.",
+        "fr": "« **Au Temps Buller** » est le nom de ce festival, la BD est son univers, quatre est le nombre de ses invités exceptionnels, le samedi 8 février est la date à marquer d’une énorme croix sur votre calendrier ! Que vous soyez passionnés de BD, amateurs ou totalement novices, vous allez aimer cette journée ! Après le festival d’Angoulême, le monde de la BD prend ses quartiers chez vos libraires préférés. Nous sommes en train de concocter un petit programme riche en dessins, en défis et en délires. En attendant, laissez-nous vous présenter les auteurs qui seront présents lors de cette journée :\n\n**Juliette Boutant**\n\nDéterminée à devenir dessinatrice, Juliette Boutant fait ses études à l’École européenne supérieure de l’image d’Angoulême. Elle s’installe ensuite à Bruxelles. C’est grâce aux expérimentations narratives qu’elle tient sur son blog que Thomas Mathieu la contacte pour le projet Crocodiles. Juliette porte un regard poétique sur les sujets parfois durs de la vie intime. _Les crocodiles sont toujours là_ paru en 2019 chez Casterman dénonce les actes sexistes dont on peut être victime ou témoin.\n\n**Vincent Caut**\n\nNé en 1991, Vincent Caut s’est fait très tôt remarquer. À 17 ans, il reçoit un premier prix au Festival de BD d’Angoulême. Il travaille beaucoup pour la jeunesse depuis de nombreuses années dans des magazines comme _Okapi_ ou _Astrapi_. Ces dernières années, il s’est notamment distingué avec sa série de BD pour enfants _AVNI_ publiée dans la revue _Toboggan_ et chez BD KIDS et dont le dernier tome vient de sortir fin 2019.\n\n**Olivier Perret**\n\nOlivier Perret travaille à Lille dans l’atelier de la Malterie. En 2012, il publie à la Boite à Bulles : _D’air pur et d’eau fraîche_, son premier album solo. Suivi en 2016 de _Journées rouges et boulettes bleues_. En 2017 est publié aux éditions Delcourt : _Quelques jours à vivre_ qui nous plonge au cœur des soins palliatifs de Roubaix. En février 2020, il publie _Ils ont tué Léo Frank_, polar historique inspiré d’une histoire vraie et publié aux éditions Steinkis.\n\n**Paul Rey**\n\nNé à Lyon sur la colline de la Croix-Rousse, Paul Rey a étudié aux Beaux-Arts d’Angoulême. Il a cofondé Fidèle éditions. Il vit maintenant à Paris, et fait essentiellement de la bande dessinée et de l’illustration. Il a notamment écrit et dessiné deux histoires courtes pour la revue _Citrus_. _Jardin d’hiver_ est sa première bande dessinée publiée chez Sarbacane où OGM et protection de la planète sont traités à la lumière d’un très proche avenir."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Bookstore Au temps lire",
+        "fr": "Librairie Au temps lire"
+      },
+      "image": {
+        "filename": "131bc4c09b49483eb8ba23e1e29a4b60.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "131bc4c09b49483eb8ba23e1e29a4b60.full.image.jpg",
+            "size": {
+              "height": 3500,
+              "width": 3500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "131bc4c09b49483eb8ba23e1e29a4b60.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T09:30:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T18:24:46.000Z",
+      "createdAt": "2020-01-28T14:02:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 20019086,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "https://autempslire.com/2020/01/15/samedi-8-fevrier-au-temps-buller-3eme-edition-de-votre-festival-de-bd/",
+        "contact@autempslire.fr",
+        "0320924326"
+      ],
+      "location": {
+        "uid": 20019086,
+        "slug": "librairie-au-temps-lire638",
+        "name": "Librairie Au Temps Lire",
+        "address": "404 avenue de Dunkerque 59130 Lambersart",
+        "city": "Lambersart",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59130",
+        "insee": "59328",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.641441,
+        "longitude": 3.018267,
+        "updatedAt": "2020-01-28T16:53:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 23965563,
+        "custom": {
+          "organization": "Librairie AU TEMPS LIRE",
+          "contactName": "Mikael Deren",
+          "contactNumber": "03 20 92 43 26",
+          "contactPosition": "Libraire",
+          "email": "contact@autempslire.fr"
+        }
+      }
+    },
+    {
+      "uid": 72612,
+      "ownerUid": 15284875,
+      "creatorUid": 15284875,
+      "slug": "la-grosse-boule",
+      "title": {
+        "fr": "La Grosse Boule",
+        "en": "The Big Ball"
+      },
+      "description": {
+        "fr": "Un arbitre intraitable défie public et dessinateurs·trices. Il faudra être fort pour que vos dessins ne finissent pas dans la Grosse Boule !",
+        "en": "An uncompromising referee challenges audiences and cartoonists. It will be necessary to be strong so that your drawings do not end up in the Big Ball!"
+      },
+      "longDescription": {
+        "fr": "L’arbitre intraitable Jean-Guy Toxic défie public et dessinateurs. Il faudra être fort pour que vos dessins ne finissent pas dans la Grosse Boule ! Avec Loïc Sécheresse, Delphine Vaute et Tangui Jossic.\n\nLe maître de cérémonie propose un défi : réaliser – en musique et en 6 minutes – une illustration en contournant les pièges tendus ! Les deux illustrateurs dessinent sur des grandes feuilles, le public sur un format plus petit.\n\nÀ la fin de chaque défi, le public vote pour le dessinateur qui a le mieux déjoué les pièges ! Et l’arbitre vote pour le meilleur dessin du public.\n\nLes dessins sélectionnés sont affichés, tandis que les autres sont froissés et rassemblés en une grosse boule de papier…",
+        "en": "Unfailing referee Jean-Guy Toxic defies audiences and cartoonists. It will be necessary to be strong for your drawings not to end up in the Big Ball! With Loïc Sécheresse, Delphine Vaute and Tangui Jossic.\nThe Master of Ceremonies presents a challenge – in music and in 6 minutes – to create an illustration by circumventing tense traps! The two illustrators draw on large sheets, the audience on a smaller format.\nAt the end of each challenge, the audience votes for the cartoonist who has best thwarted the pitfalls! And the referee votes for the best public drawing.\nThe selected drawings are displayed, while the others are wrinkled and gathered into a large ball of paper…"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "511f145b9d854c4c9be55af182cc8d76.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 934,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "511f145b9d854c4c9be55af182cc8d76.full.image.jpg",
+            "size": {
+              "height": 2363,
+              "width": 1772
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "511f145b9d854c4c9be55af182cc8d76.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-02T14:00:00.000Z",
+          "end": "2020-02-02T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T18:05:36.000Z",
+      "createdAt": "2020-01-28T14:36:10.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 40455594,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.maisonfumetti.fr/grosse-boule-floresca-guepin/"
+      ],
+      "location": {
+        "uid": 40455594,
+        "slug": "mediatheque-floresca-guepin984",
+        "name": "Médiathèque Floresca Guépin",
+        "address": "15 rue de la Haluchère 44000 Nantes",
+        "city": "Nantes",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44300",
+        "insee": "44109",
+        "countryCode": "FR",
+        "district": "Doulon - Bottière",
+        "latitude": 47.240816,
+        "longitude": -1.512822,
+        "updatedAt": "2020-01-28T17:00:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèque municipale de Nantes",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 15284875,
+        "custom": {
+          "organization": "Maison Fumetti",
+          "contactName": "Brochard Thomas",
+          "contactNumber": "0252107052",
+          "contactPosition": "coordinateur",
+          "email": "contact@maisonfumetti.fr"
+        }
+      }
+    },
+    {
+      "uid": 69583424,
+      "ownerUid": 15284875,
+      "creatorUid": 15284875,
+      "slug": "blexbolex",
+      "title": {
+        "fr": "Exposition sur Blexbolex",
+        "en": "Exhibition about Blexbolex"
+      },
+      "description": {
+        "fr": "Exposition sur l'œuvre de Blexbolex",
+        "en": "Exhibition on the work of Blexbolex"
+      },
+      "longDescription": {
+        "fr": "Sérigraphe, auteur, illustrateur, enseignant, l’artiste Blexbolex travaille de nombreux supports, et a publié chez de multiples éditeurs.\n\nCette grande exposition propose un regard nouveau sur le travail de cet artiste reconnu internationalement, avec un parcours à travers la carrière de l’artiste, avec une centaine d’oeuvres exposées : peintures originales, tirages sérigraphiés, masques...",
+        "en": "Serigrapher, author, illustrator, teacher, the artist Blexbolex works many supports, and has published at multiple publishers.\nThis great exhibition offers a new look at the work of this internationally recognized artist, with a journey through the artist’s career, with a hundred or so works on display: original paintings, screen-printed prints, masks..."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "cede71492fb44fdc923a7434aaf69eb6.base.image.jpg",
+        "credits": "Blexbolex",
+        "size": {
+          "height": 1050,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "cede71492fb44fdc923a7434aaf69eb6.full.image.jpg",
+            "size": {
+              "height": 1200,
+              "width": 800
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "cede71492fb44fdc923a7434aaf69eb6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-29T16:00:00.000Z",
+          "end": "2020-04-29T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T11:30:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T11:30:00.000Z",
+          "end": "2020-05-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T11:30:00.000Z",
+          "end": "2020-05-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T11:30:00.000Z",
+          "end": "2020-05-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T11:30:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T11:30:00.000Z",
+          "end": "2020-05-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T11:30:00.000Z",
+          "end": "2020-05-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T11:30:00.000Z",
+          "end": "2020-05-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T11:30:00.000Z",
+          "end": "2020-05-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T11:30:00.000Z",
+          "end": "2020-05-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T11:30:00.000Z",
+          "end": "2020-05-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T11:30:00.000Z",
+          "end": "2020-05-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T11:30:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T11:30:00.000Z",
+          "end": "2020-05-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T11:30:00.000Z",
+          "end": "2020-05-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T11:30:00.000Z",
+          "end": "2020-05-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T11:30:00.000Z",
+          "end": "2020-05-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T11:30:00.000Z",
+          "end": "2020-05-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T11:30:00.000Z",
+          "end": "2020-05-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T11:30:00.000Z",
+          "end": "2020-05-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T11:30:00.000Z",
+          "end": "2020-06-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T11:30:00.000Z",
+          "end": "2020-06-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T11:30:00.000Z",
+          "end": "2020-06-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T11:30:00.000Z",
+          "end": "2020-06-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T11:30:00.000Z",
+          "end": "2020-06-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T11:30:00.000Z",
+          "end": "2020-06-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T11:30:00.000Z",
+          "end": "2020-06-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T11:30:00.000Z",
+          "end": "2020-06-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T11:30:00.000Z",
+          "end": "2020-06-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T11:30:00.000Z",
+          "end": "2020-06-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T11:30:00.000Z",
+          "end": "2020-06-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T11:30:00.000Z",
+          "end": "2020-06-20T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T21:29:01.000Z",
+      "createdAt": "2020-01-28T14:55:55.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 63950712,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.maisonfumetti.fr/blexbolex/"
+      ],
+      "location": {
+        "uid": 63950712,
+        "slug": "maison-fumetti",
+        "name": "Maison Fumetti",
+        "address": "6 cour Jules Durand 44000 Nantes",
+        "city": "Nantes",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44000",
+        "insee": "44109",
+        "countryCode": "FR",
+        "district": "Malakoff - Saint-Donatien",
+        "latitude": 47.21998,
+        "longitude": -1.536201,
+        "updatedAt": "2020-01-28T17:06:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Fumetti",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 15284875,
+        "custom": {
+          "organization": "Maison Fumetti",
+          "contactName": "Brochard Thomas",
+          "contactNumber": "0252107052",
+          "contactPosition": "coordinateur",
+          "email": "contact@maisonfumetti.fr"
+        }
+      }
+    },
+    {
+      "uid": 81055721,
+      "ownerUid": 15284875,
+      "creatorUid": 15284875,
+      "slug": "antipasti-ndegree30-rencontre-avec-frederik-peeters",
+      "title": {
+        "en": "Antipasti n°30: meeting with Frederik Peeters",
+        "fr": "Antipasti n°30 : rencontre avec Frederik Peeters"
+      },
+      "description": {
+        "en": "Meeting with author Frederik Peeters",
+        "fr": "Rencontre avec l'auteur Frederik Peeters"
+      },
+      "longDescription": {
+        "en": "Maison Fumetti and the Atlantide festival receive Frederik Peeters!\nThe Antipasti of Maison Fumetti are questions, sweet or salty, crispy or mellow, crunchy-greedy, asked to a comic book author, to make you want to immerse yourself in his work. They are served hot with beautiful squares, drawings, sketches, inspirations of the moment, or cold with memories, evocations, regrets, failures.\nFor this thirtieth Antipasti, Henri Landré and Tangui Jossic will receive Frederik Peeters, author of _Blue Pill_, _Aâma_, and most recently of the hallucinated and apocalyptic work _Saccage_ (éditions Atrabile).",
+        "fr": "Maison Fumetti et le festival Atlantide reçoivent Frederik Peeters !\n\nLes Antipasti de Maison Fumetti sont des questions, douces ou salées, croustillantes ou moelleuses, croquant-gourmandes, posées à un auteur de bande dessinée, pour vous donner envie de vous plonger dans son œuvre. Ils sont servis chauds avec des belles cases, des dessins, des croquis, des inspirations du moment, ou froides avec des souvenirs, des évocations, des regrets, des ratés.\n\nPour ce trentième Antipasti, Henri Landré et Tangui Jossic recevront Frederik Peeters, auteur de _Pilule bleue_, _Aâma_, et dernièrement de l’œuvre hallucinée et apocalyptique _Saccage_ (éditions Atrabile)."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "3d36ced56cd649698c2339ea0e12f9fb.base.image.jpg",
+        "credits": "Frederik Peeters",
+        "size": {
+          "height": 991,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3d36ced56cd649698c2339ea0e12f9fb.full.image.jpg",
+            "size": {
+              "height": 3508,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3d36ced56cd649698c2339ea0e12f9fb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-06T16:30:00.000Z",
+          "end": "2020-03-06T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T22:25:17.000Z",
+      "createdAt": "2020-01-28T14:59:33.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 87521570,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.maisonfumetti.fr/antipasti-n30/"
+      ],
+      "location": {
+        "uid": 87521570,
+        "slug": "lieu-unique500",
+        "name": "Lieu Unique",
+        "address": "Quai Ferdinand-Favre 44000 Nantes",
+        "city": "Nantes",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44923",
+        "insee": "44109",
+        "countryCode": "FR",
+        "district": "Centre Ville",
+        "latitude": 47.213008,
+        "longitude": -1.541764,
+        "updatedAt": "2020-01-28T17:08:42.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Atlantide",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Atlantide",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 15284875,
+        "custom": {
+          "organization": "Maison Fumetti",
+          "contactName": "Brochard Thomas",
+          "contactNumber": "0252107052",
+          "contactPosition": "coordinateur",
+          "email": "contact@maisonfumetti.fr"
+        }
+      }
+    },
+    {
+      "uid": 41863797,
+      "ownerUid": 22562913,
+      "creatorUid": 22562913,
+      "slug": "apero-dedicace-avec-pierre-place",
+      "title": {
+        "fr": "Rencontre avec Pierre Place",
+        "en": "Meeting with Pierre Place"
+      },
+      "description": {
+        "fr": "Prochain rendez-vous à la librairie avec Pierre Place et son superbe album Muertos aux éditions Glénat BD ! À ne pas rater !",
+        "en": "Next rendez-vous with Pierre Place and his superb album Muertos at éditions Glénat BD ! Don’t miss it !"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9cafc62080c14b5fb32c934c6a2e23d3.base.image.jpg",
+        "credits": "©glenat ©pierreplace",
+        "size": {
+          "height": 934,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9cafc62080c14b5fb32c934c6a2e23d3.full.image.jpg",
+            "size": {
+              "height": 2362,
+              "width": 1772
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9cafc62080c14b5fb32c934c6a2e23d3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-21T16:00:00.000Z",
+          "end": "2020-02-21T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T21:34:23.000Z",
+      "createdAt": "2020-01-28T15:02:11.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 80270300,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.facebook.com/events/3390766567660088/",
+        "https://www.canalbd.net/la-tete-a-toto_catalogue_evenementdetail_Apero-dedicace-avec-Pierre-PLACE--8392",
+        "https://posts.gle/EK33h",
+        "https://twitter.com/la_tete_a_toto/status/1222170043548688385",
+        "lateteatoto@canalbd.net",
+        "01 42 36 79 52",
+        "https://www.instagram.com/p/B73hoI_i52U/?utm_source=ig_web_copy_link"
+      ],
+      "location": {
+        "uid": 80270300,
+        "slug": "librairie-la-tete-a-toto",
+        "name": "Librairie La Tête à Toto",
+        "address": "22 rue Poissonnière 75002 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75002",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 2e Arrondissement",
+        "latitude": 48.869541,
+        "longitude": 2.347904,
+        "updatedAt": "2019-12-30T09:37:12.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 22562913,
+        "custom": {
+          "organization": "La Tête à Toto",
+          "contactName": "Anthony RESARD",
+          "contactNumber": "01 42 36 79 52",
+          "contactPosition": "Gérant",
+          "email": "lateteatoto@canalbd.net"
+        }
+      }
+    },
+    {
+      "uid": 68364049,
+      "ownerUid": 7681961,
+      "creatorUid": 7681961,
+      "slug": "dedicace-felix-meynet",
+      "title": {
+        "fr": "Rencontre avec Félix Meynet (complet!)"
+      },
+      "description": {
+        "fr": "Venez rencontrer Félix Meynet à l'occasions de la sortie du tome 5 de la série \"Sauvage\" !"
+      },
+      "longDescription": {
+        "fr": "Dédicace complète !"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "7a9b846f3e73416ca4a2a24ebf1a87d4.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7a9b846f3e73416ca4a2a24ebf1a87d4.full.image.jpg",
+            "size": {
+              "height": 4961,
+              "width": 3508
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7a9b846f3e73416ca4a2a24ebf1a87d4.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T12:30:00.000Z",
+          "end": "2020-02-08T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T12:51:11.000Z",
+      "createdAt": "2020-01-28T15:48:42.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 50182095,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 50182095,
+        "slug": "librairie-matiere-grise",
+        "name": "Librairie Matière Grise",
+        "address": "70 avenue de la République 92120 Montrouge",
+        "city": "Montrouge",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92120",
+        "insee": "92049",
+        "countryCode": "FR",
+        "district": "Quartier Vieux Montrouge",
+        "latitude": 48.816608,
+        "longitude": 2.318302,
+        "updatedAt": "2020-01-21T11:09:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 7681961,
+        "custom": {
+          "organization": "Librairie Matière Grise",
+          "contactName": "Thomas Delautre",
+          "contactNumber": "01 46 89 71 49",
+          "contactPosition": "gérant",
+          "email": "dedicace@librairiematieregrise.fr"
+        }
+      }
+    },
+    {
+      "uid": 63314933,
+      "ownerUid": 66832544,
+      "creatorUid": 66832544,
+      "slug": "venez-buller-a-cusset",
+      "title": {
+        "fr": "Venez buller à Cusset",
+        "en": "Come bubble to Cusset"
+      },
+      "description": {
+        "fr": "3e festival \"Venez buller à Cusset\"",
+        "en": "3rd \"Come bubble in Cusset\" festival"
+      },
+      "longDescription": {
+        "fr": "Une journée dédiée à l'univers de la BD : ateliers d'illustration avec des professionnels, dédicaces, expositions, rencontres, espace librairie, ludothèque et médiathèque éphémère, animations, rendez-vous des talents amateurs et professionnels, Broc'BD.",
+        "en": "A day dedicated to the world of comics: illustration workshops with professionals, dedications, exhibitions, meetings, library space, games library and ephemeral media library, animations, meetings of amateur and professional talents, Broc'BD."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-26T08:00:00.000Z",
+          "end": "2020-09-26T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T21:37:18.000Z",
+      "createdAt": "2020-01-28T16:02:26.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 89024586,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 89024586,
+        "slug": "cusset623",
+        "name": "Mairie de Cusset",
+        "address": "Place Victor Hugo 03300 Cusset",
+        "city": "Cusset",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Allier",
+        "postalCode": "03300",
+        "insee": "03095",
+        "countryCode": "FR",
+        "district": "Moulin de Capitan",
+        "latitude": 46.132211,
+        "longitude": 3.456389,
+        "updatedAt": "2020-01-28T17:41:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 66832544,
+        "custom": {
+          "organization": "Mairie de Cusset",
+          "contactName": "Martine PARIS",
+          "contactNumber": "0470309511",
+          "contactPosition": "Bibliothécaire",
+          "email": "martine.paris@ville-cusset.fr"
+        }
+      }
+    },
+    {
+      "uid": 53997230,
+      "ownerUid": 7681961,
+      "creatorUid": 7681961,
+      "slug": "soiree-de-lancement-pour-la-bd-accouche",
+      "title": {
+        "fr": "Soirée de lancement de la BD Accouche !",
+        "en": "Launch party for the comic book Accouche!"
+      },
+      "description": {
+        "fr": "Soirée de lancement pour la Bd Accouche ! en présence des deux auteures : Justine Saint-Lo et Fleur Godart",
+        "en": "Launch party for the BD \"Accouche!\" in the presence of the two authors: Justine Saint-Lo and Fleur Godart"
+      },
+      "longDescription": {
+        "fr": "Nous vous donnons rendez-vous le vendredi 14 février à partir de 19h pour le lancement de la bande dessinée _Accouche !_\n\nCe sera l'occasion de trinquer avec les deux auteures : Justine Saint-Lô et Fleur Godart.\n\nDans cet ouvrage, Justine Saint-Lô et Fleur Godart soulèvent le voile de pudeur qui recouvre le moment de l’accouchement.\n\nElles sont allées à la rencontre de parents et de professionnel.les de l’obstétrique pour qu’ils leur parlent de leur expérience de l’enfantement.\n\nCe document graphique fait entendre toutes les voix, évite l’opposition frontale et caricaturale des opinions et priorise l’importance du respect du choix des femmes. Il informe pour mieux choisir.\n\nJustine Saint-Lô dessine la représentation de l’accouchement d’une manière simple et crue, donnant à voir un moment parfois violent, parfois doux, mais toujours très intense.",
+        "en": "We will see you on Friday, February 14th from 7pm for the launch of the comic _Accouche !_  \nThis will be the occasion to toast with the two authors : Justine Saint-Lô and Fleur Godart.  \nIn this book, Justine Saint-Lô et Fleur Godart raises the veil of modesty that covers the moment of childbirth.  \nThey went to meet parents and obstetrician professionals to talk about their childbirth experience.  \nThis graphic document makes all voices heard, avoids frontal opposition and caricatural opinions and prioritizes the importance of respect for women’s choice. It informs to better choose.  \nJustine Saint-Lô draws the representation of childbirth in a simple and raw way, giving to see a moment sometimes violent, sometimes sweet, but always very intense."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "f570b5e545064166a95aa18d1703c435.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 919,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f570b5e545064166a95aa18d1703c435.full.image.jpg",
+            "size": {
+              "height": 2976,
+              "width": 2268
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f570b5e545064166a95aa18d1703c435.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-14T18:00:00.000Z",
+          "end": "2020-02-14T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T21:41:51.000Z",
+      "createdAt": "2020-01-28T18:16:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 50182095,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 50182095,
+        "slug": "librairie-matiere-grise",
+        "name": "Librairie Matière Grise",
+        "address": "70 avenue de la République 92120 Montrouge",
+        "city": "Montrouge",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92120",
+        "insee": "92049",
+        "countryCode": "FR",
+        "district": "Quartier Vieux Montrouge",
+        "latitude": 48.816608,
+        "longitude": 2.318302,
+        "updatedAt": "2020-01-21T11:09:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 7681961,
+        "custom": {
+          "organization": "Librairie Matière Grise",
+          "contactName": "Thomas Delautre",
+          "contactNumber": "01 46 89 71 49",
+          "contactPosition": "gérant",
+          "email": "dedicace@librairiematieregrise.fr"
+        }
+      }
+    },
+    {
+      "uid": 36400766,
+      "ownerUid": 62280207,
+      "creatorUid": 62280207,
+      "slug": "10e-festival-international-de-street-painting-toulon",
+      "title": {
+        "fr": "10e Festival international de street painting",
+        "en": "10th international street painting Festival"
+      },
+      "description": {
+        "fr": "Le Festival international de street painting de Toulon est dédié à l’art du dessin éphémère au sol",
+        "en": "The Toulon international street painting Festival is dedicated to the art of ephemeral drawing on the ground"
+      },
+      "longDescription": {
+        "fr": "**L’événement majeur du street painting en France**\n\nLe Festival international de street painting est dédié à l’art du dessin éphémère au sol.\n\nSoutenu par la politique culturelle de la ville de Toulon, Ma Région Sud ainsi que divers partenaires privés et internationaux, le festival fonde son exigence sur une accessibilité libre à tous types de publics afin que chacun se forge sa propre culture dans l’espace urbain.\n\nCréation, innovation, découverte et invitation sont la marque de fabrique imprimée par l’événement dans un lieu emblématique de la ville. Le temps d’un week-end, la place d’Armes de Toulon se métamorphose en une véritable galerie d'art éphémère à ciel ouvert donnant à voir une large diversité de propositions où de jeunes artistes amateurs figurent au même titre que des artistes consacrés venus des quatre coins du monde.\n\n**13 et 14 juin 2020**\n\nPlacée sous l’année du ministère de la Culture BD2020 consacrée au 9e art, la 10e édition du festival se mettra aux couleurs de la bande dessinée afin de favoriser les approches : graphique, narrative, historique, psychologique, idéologique... exaltant la passion du mot et de l’image.\n\nUne nouvelle scénographie inédite élaborée sous forme de bulles permettra au public de découvrir de manière originale et ludique les univers multiples du 9e art, de la bande dessinée francophone, aux mangas en passant par le genre comics et fantasy.\n\n**Concours de dessin**\n\nDepuis 2011, le festival organise un concours de dessin afin de faire émerger de nouveaux talents et favoriser leur mobilité sur la scène artistique internationale. En 2020, le concours sera doté de quatre prix prestigieux dont deux prix permettront aux lauréats de se produire sur divers événements en Europe mais également au Festival Bella Via, Mexique .\n\nEn partenariat avec Charlemagne Beaux-Arts, le concours est ouvert aux médiathèques de l’agglomération toulonnaise pour initier davantage un jeune public au langage du 9e art ainsi qu’aux techniques spécifiques du street painting.",
+        "en": "**THE MAJOR EVENT**\n\n**STREET PAINTING IN FRANCE**\n\nSupported by the cultural policy of the city of Toulon, Ma Région Sud as well as various private and international partners, the festival bases its requirement on free accessibility to all types of audiences so that each one forge his own culture in the urban space.  \nCreation, innovation, discovery and invitation are the trademark printed by the event in an emblematic place of the city. Over the course of a weekend, the Place d'Armes de Toulon is transformed into a real gallery of ephemeral open-air art giving to see a wide variety of proposals where young amateur artists appear as well as dedicated artists from all over the world.\n\n**13 and 14 June 2020**\n\nPlaced under the year of the Ministry of Culture BD2020 dedicated to the 9th Art, the 10th edition of the festival will take on the colors of the comic book in order to promote the approaches: graphic, narrative, historical, psychological, ideological... exalting the passion of the word and the image.  \nA new, unpublished scenography developed in the form of bubbles will allow the public to discover in an original and playful way the multiple universes of the 9th Art, the French comic strip, the Mangas, the genre Comics and Fantasy.\n\n**Design contest**\n\nSince 2011, the festival has been organizing a drawing competition to help new talent emerge and promote their mobility on the international art scene. In 2020, the contest will feature four prestigious prizes, two of which will allow the winners to perform on various events in Europe but also at the Bella Via Festival, Mexico .  \nIn partnership with Charlemagne Beaux-Arts, the competition is open to the media libraries of the Toulouse area to introduce a young audience to the language of the 9th Art as well as to the specific techniques of street painting."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "3a752309b95949279a645eaa7b4c3d19.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 583,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3a752309b95949279a645eaa7b4c3d19.full.image.jpg",
+            "size": {
+              "height": 2000,
+              "width": 2405
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3a752309b95949279a645eaa7b4c3d19.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-13T08:00:00.000Z",
+          "end": "2020-06-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-14T08:00:00.000Z",
+          "end": "2020-06-14T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-02T16:06:18.000Z",
+      "createdAt": "2019-10-17T14:16:58.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 94468067,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "compagnieho@gmail.com"
+      ],
+      "location": {
+        "uid": 94468067,
+        "slug": "place-darmes291",
+        "name": "Place d'Armes",
+        "address": "Place d'Armes 83000 Toulon",
+        "city": "Toulon",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Var",
+        "postalCode": "83800",
+        "insee": "83137",
+        "countryCode": "FR",
+        "district": "Centre Ville",
+        "latitude": 43.124019,
+        "longitude": 5.92918,
+        "updatedAt": "2019-11-23T10:39:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Ville de Toulon",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62280207,
+        "custom": {
+          "organization": "Compagnie HO",
+          "contactName": "Marie-France Pelletier",
+          "contactNumber": "06 60 69 61 07",
+          "contactPosition": "Présidente",
+          "email": "compagnieho@gmail.com"
+        }
+      }
+    }
+  ],
+  "lastId": 2142852
+}

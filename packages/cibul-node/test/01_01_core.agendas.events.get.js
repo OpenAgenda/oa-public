@@ -132,6 +132,19 @@ describe('core - functional (server): core.agendas().events.get()', function() {
       });
     });
 
+    describe('access: internal', () => {
+      let event;
+
+      before(async () => {
+        event = await core.agendas(2).events.get(1, { access: 'internal' });
+      });
+
+      it('all additional fields are provided', async () => {
+        event.thematique.should.equal(2);
+        event.note.should.equal('Une note interne pour les administrateurs');
+      });
+    });
+
     describe('access: public', () => {
       let event;
 

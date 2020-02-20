@@ -1,0 +1,2421 @@
+{
+  "events": [
+    {
+      "uid": 76162766,
+      "ownerUid": 98613742,
+      "creatorUid": 98613742,
+      "slug": "rencontre-avec-alain-kokor-a-lescale-mediatheque",
+      "title": {
+        "fr": "Rencontre avec Alain Kokor à L'Escale médiathèque",
+        "en": "Meeting with Alain Kokor at L'Escale médiathèque"
+      },
+      "description": {
+        "fr": "Rencontre avec Alain Kokor",
+        "en": "Meeting with Alain Kokor"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Alain Kokor auteur de bande dessinée adulte et jeunesse à L'Escale médiathèque :\n\n*   Discussion avec l'auteur havrais autour de sa dernière réalisation _L'ours est un écrivain comme les autres_\n*   Séance de dédicace",
+        "en": "Meeting with Alain Kokor, author of adult and youth comic at L'Escale médiathèque:\n*   Discussion with the author Havrais around his last realization _The bear is a writer like the others_\n*   Signing session"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "5b526f2c64764f9cbcf7c70527dc64f7.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "5b526f2c64764f9cbcf7c70527dc64f7.full.image.jpg",
+            "size": {
+              "height": 900,
+              "width": 1600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "5b526f2c64764f9cbcf7c70527dc64f7.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-07T16:00:00.000Z",
+          "end": "2020-02-07T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:15.000Z",
+      "createdAt": "2019-12-17T13:20:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 74279882,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [
+        "0235131018"
+      ],
+      "location": {
+        "uid": 74279882,
+        "slug": "mediatheque-lescale818",
+        "name": "L'Escale médiathèque",
+        "address": "10 bis rue Charles de Gaulle 76280 Saint-Jouin-Bruneval",
+        "city": "Saint-Jouin-Bruneval",
+        "region": "Normandie",
+        "department": "Seine-Maritime",
+        "postalCode": "76280",
+        "insee": "76167",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.642683,
+        "longitude": 0.162961,
+        "updatedAt": "2019-12-17T14:20:04.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 98613742,
+        "custom": {
+          "organization": "Médiathèque l'Escale",
+          "contactName": "Kerscaven Clothilde",
+          "contactNumber": "0235131018",
+          "contactPosition": "Adjoint du patrimoine",
+          "email": "mediatheque@st-jouin-bruneval.fr"
+        }
+      }
+    },
+    {
+      "uid": 77663293,
+      "ownerUid": 98613742,
+      "creatorUid": 98613742,
+      "slug": "lescale-mediatheque-fete-la-bd",
+      "title": {
+        "fr": "Exposition \"Ariol, un petit âne comme toi\"",
+        "en": "Exhibition: \"Ariol, a little donkey like you\""
+      },
+      "description": {
+        "fr": "Ariol, un petit âne comme toi / La Bulle Expositions",
+        "en": "Ariol, a little donkey like you/ La Bulle Expositions"
+      },
+      "longDescription": {
+        "fr": "**Ariol, un petit âne comme toi / La Bulle Expositions**\n\nPour découvrir l'univers d'Ariol, la BD crée par Emmanuel Guibert et Marc Boutavent (Bayard / BD Kids).\n\nAriol est une petit âne bleu à lunettes. Il vit avec Avoine, son papa, et Mule, sa maman. Son meilleur copain est un petit cochon pas très poli, Ramono, et il est secrètement amoureux de Pétula, une jolie vache avec des tâches de rousseur. Monsieur Le Blount, un grand chine sévère mais juste est son instituteur. Et le Chevalier Cheval est son super-héros adoré !\n\nBref, Ariol est exactement comme vous et moi !\n\nNombreux supports de jeux et planches à créer !",
+        "en": "**Ariol, a little donkey like you/ La Bulle Expositions**\nTo discover the universe of Ariol, the comic created by Emmanuel Guibert and Marc Boutavent (Bayard/ BD Kids).\nAriol is a little blue donkey with glasses. He lives with Avoine, his dad, and Mule, his mom. His best friend is a rude little pig, Ramono, and he’s secretly in love with Petula, a pretty cow with freckles. Monsieur Le Blount, a great China severe but just is his teacher. And the Knight Horse is his beloved superhero!\nIn short, Ariol is exactly like you and me!\nMany games supports and boards to create!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "6e4621bd0fc04256b73ccb92112183a4.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1172,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "6e4621bd0fc04256b73ccb92112183a4.full.image.jpg",
+            "size": {
+              "height": 256,
+              "width": 153
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "6e4621bd0fc04256b73ccb92112183a4.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-23T14:00:00.000Z",
+          "end": "2020-04-23T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T14:00:00.000Z",
+          "end": "2020-04-24T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T14:00:00.000Z",
+          "end": "2020-04-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T14:00:00.000Z",
+          "end": "2020-04-29T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T14:00:00.000Z",
+          "end": "2020-04-30T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T14:00:00.000Z",
+          "end": "2020-05-01T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T14:00:00.000Z",
+          "end": "2020-05-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T14:00:00.000Z",
+          "end": "2020-05-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T14:00:00.000Z",
+          "end": "2020-05-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T14:00:00.000Z",
+          "end": "2020-05-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T14:00:00.000Z",
+          "end": "2020-05-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T14:00:00.000Z",
+          "end": "2020-05-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T14:00:00.000Z",
+          "end": "2020-05-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T14:00:00.000Z",
+          "end": "2020-05-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T14:00:00.000Z",
+          "end": "2020-05-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T14:00:00.000Z",
+          "end": "2020-05-20T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T14:00:00.000Z",
+          "end": "2020-05-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T14:00:00.000Z",
+          "end": "2020-05-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T14:00:00.000Z",
+          "end": "2020-05-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T14:00:00.000Z",
+          "end": "2020-05-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T14:00:00.000Z",
+          "end": "2020-05-28T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:34.000Z",
+      "createdAt": "2019-12-17T13:33:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 74279882,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "0235131018"
+      ],
+      "location": {
+        "uid": 74279882,
+        "slug": "mediatheque-lescale818",
+        "name": "L'Escale médiathèque",
+        "address": "10 bis rue Charles de Gaulle 76280 Saint-Jouin-Bruneval",
+        "city": "Saint-Jouin-Bruneval",
+        "region": "Normandie",
+        "department": "Seine-Maritime",
+        "postalCode": "76280",
+        "insee": "76167",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.642683,
+        "longitude": 0.162961,
+        "updatedAt": "2019-12-17T14:20:04.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 98613742,
+        "custom": {
+          "organization": "Médiathèque l'Escale",
+          "contactName": "Kerscaven Clothilde",
+          "contactNumber": "0235131018",
+          "contactPosition": "Adjoint du patrimoine",
+          "email": "mediatheque@st-jouin-bruneval.fr"
+        }
+      }
+    },
+    {
+      "uid": 89814601,
+      "ownerUid": 22162845,
+      "creatorUid": 22162845,
+      "slug": "les-carnets-de-cerise-le-spectacle",
+      "title": {
+        "fr": "Les carnets de Cerise, le spectacle",
+        "en": "Cherry’s notebooks, the show"
+      },
+      "description": {
+        "fr": "Opéra-BD adapté de la BD éponyme par la compagnie Gone Prod",
+        "en": "Opera-BD adapted from the eponymous comic by the company Gone Prod"
+      },
+      "longDescription": {
+        "fr": "Cerise est une petite fille âgée de 10 ans et demi qui vit seule avec sa mère. Elle rêve de devenir romancière. Son sujet favori : les gens et plus particulièrement les adultes. Elle adore les observer pour tenter de deviner leurs secrets.\n\nBien loin du spectacle pour enfants, les réalisateurs Mathieu Frey et Fred Demoor proposent une performance touchante et sincère. Les dessins d’Aurélie Neyret et le scénario de Joris Chamblain prennent vie d’une manière nouvelle, offrant aux spectateurs une immersion inédite dans l’univers de Cerise.\n\nLe spectacle mêle théâtre, musique et vidéo dans un opéra-BD pour deux interprètes.\n\nCette invitation à appréhender son passé et ses émotions séduira petits et grands. Une franche réussite !",
+        "en": "Cerise is a 10 and a half year old girl who lives alone with her mother. She dreams of becoming a novelist. Her favourite subject: people and especially adults. She loves watching them to try to guess their secrets.\nFar from the children’s show, directors Mathieu Frey and Fred Demoor offer a touching and sincere performance. Aurélie Neyret’s drawings and Joris Chamblain’s screenplay come to life in a new way, offering spectators a new immersion in the world of Cerise.\nThe show combines theatre, music and video in a comic book opera for two performers.\nThis invitation to apprehend his past and his emotions will seduce both young and old. A frank success!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "daeddc2fd83f429d997e6ede21120920.base.image.jpg",
+        "credits": "Les Carnets de Cerise, Chamblain-Neyret©Editions Soleil 2012-2017",
+        "size": {
+          "height": 413,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "daeddc2fd83f429d997e6ede21120920.full.image.jpg",
+            "size": {
+              "height": 1028,
+              "width": 1743
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "daeddc2fd83f429d997e6ede21120920.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-16T14:00:00.000Z",
+          "end": "2020-05-16T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:43.000Z",
+      "createdAt": "2019-12-17T14:15:22.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 9702013,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 121
+      },
+      "registration": [
+        "http://mediatheque.sorgues.fr/"
+      ],
+      "location": {
+        "uid": 9702013,
+        "slug": "mediatheque-jean-tortel103",
+        "name": "Médiathèque Jean Tortel",
+        "address": "285 avenue d'Avignon 84700 Sorges",
+        "city": "Sorgues",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Vaucluse",
+        "postalCode": "84700",
+        "insee": "84129",
+        "countryCode": "FR",
+        "district": "La Feraille",
+        "latitude": 44.005757,
+        "longitude": 4.870854,
+        "updatedAt": "2019-12-17T14:05:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 22162845,
+        "custom": {
+          "organization": "Médiathèque Jean Tortel - Sorgues",
+          "contactName": "Jérôme Bouhours",
+          "contactNumber": "0490397133",
+          "contactPosition": "Directeur de la Médiathèque",
+          "email": "j.bouhours@sorgues.fr"
+        }
+      }
+    },
+    {
+      "uid": 82630549,
+      "ownerUid": 42975265,
+      "creatorUid": 42975265,
+      "slug": "exposition-itinerante-bd-and-immigration",
+      "title": {
+        "fr": "Exposition itinérante  \"Bande dessinée et immigrations\"",
+        "en": "Travelling Exhibition \"Comic Strip and Immigration\""
+      },
+      "description": {
+        "fr": "Cette exposition s'attache à souligner comment le voyage, la migration et l'exil ont joué un rôle important dans le processus de création artistique de la BD depuis le XIXe siècle",
+        "en": "This exhibition aims to highlight how travel, migration and exile have played an important role in the artistic creation process of comic books since the 19th century"
+      },
+      "longDescription": {
+        "fr": "**\"Bande dessinée et immigrations\"**\n------------------------------------\n\n### Un siècle d'histoire",
+        "en": "## **\"Comic book and immigration\"**\n### A century of history"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Au travers d'un large réseau de partenaires diffuseurs sur tout le territoire français et au niveau international via les instituts français",
+        "en": "Through a wide network of broadcasting partners throughout France and internationally via the French institutes"
+      },
+      "image": {
+        "filename": "c6af64f8d2cb4b22ab291acdb48c3567.base.image.jpg",
+        "credits": "Zeina Abirached, le piano oriental (c) Casterman 2015",
+        "size": {
+          "height": 1051,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c6af64f8d2cb4b22ab291acdb48c3567.full.image.jpg",
+            "size": {
+              "height": 7087,
+              "width": 4724
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c6af64f8d2cb4b22ab291acdb48c3567.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-01T13:00:00.000Z",
+          "end": "2020-01-01T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T13:00:00.000Z",
+          "end": "2020-01-08T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T13:00:00.000Z",
+          "end": "2020-01-15T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T13:00:00.000Z",
+          "end": "2020-01-29T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T13:00:00.000Z",
+          "end": "2020-02-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T13:00:00.000Z",
+          "end": "2020-02-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T13:00:00.000Z",
+          "end": "2020-03-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T13:00:00.000Z",
+          "end": "2020-03-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T12:00:00.000Z",
+          "end": "2020-04-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T12:00:00.000Z",
+          "end": "2020-04-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T12:00:00.000Z",
+          "end": "2020-04-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T12:00:00.000Z",
+          "end": "2020-04-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T12:00:00.000Z",
+          "end": "2020-04-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T12:00:00.000Z",
+          "end": "2020-05-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T12:00:00.000Z",
+          "end": "2020-05-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T12:00:00.000Z",
+          "end": "2020-05-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T12:00:00.000Z",
+          "end": "2020-05-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T12:00:00.000Z",
+          "end": "2020-06-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T12:00:00.000Z",
+          "end": "2020-06-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T12:00:00.000Z",
+          "end": "2020-06-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T12:00:00.000Z",
+          "end": "2020-06-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-01T12:00:00.000Z",
+          "end": "2020-07-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-08T12:00:00.000Z",
+          "end": "2020-07-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-15T12:00:00.000Z",
+          "end": "2020-07-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-22T12:00:00.000Z",
+          "end": "2020-07-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-29T12:00:00.000Z",
+          "end": "2020-07-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T12:00:00.000Z",
+          "end": "2020-08-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T12:00:00.000Z",
+          "end": "2020-08-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T12:00:00.000Z",
+          "end": "2020-08-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-26T12:00:00.000Z",
+          "end": "2020-08-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-02T12:00:00.000Z",
+          "end": "2020-09-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-09T12:00:00.000Z",
+          "end": "2020-09-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-16T12:00:00.000Z",
+          "end": "2020-09-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-23T12:00:00.000Z",
+          "end": "2020-09-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-30T12:00:00.000Z",
+          "end": "2020-09-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-07T12:00:00.000Z",
+          "end": "2020-10-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-14T12:00:00.000Z",
+          "end": "2020-10-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-21T12:00:00.000Z",
+          "end": "2020-10-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-28T13:00:00.000Z",
+          "end": "2020-10-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-04T13:00:00.000Z",
+          "end": "2020-11-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-11T13:00:00.000Z",
+          "end": "2020-11-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-18T13:00:00.000Z",
+          "end": "2020-11-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T13:00:00.000Z",
+          "end": "2020-11-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-02T13:00:00.000Z",
+          "end": "2020-12-02T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-09T13:00:00.000Z",
+          "end": "2020-12-09T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-16T13:00:00.000Z",
+          "end": "2020-12-16T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-23T13:00:00.000Z",
+          "end": "2020-12-23T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-30T13:00:00.000Z",
+          "end": "2020-12-30T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:01.000Z",
+      "createdAt": "2019-12-17T16:47:30.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 16062135,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "https://www.histoire-immigration.fr",
+        "zoe.barry@palais-portedoree.fr",
+        "01 53 59 64 01"
+      ],
+      "location": {
+        "uid": 16062135,
+        "slug": "musee-national-de-lhistoire-de-limmigration709",
+        "name": "Musée national de l'histoire de l'immigration",
+        "address": "293 avenue Daumesnil 75012 Paris",
+        "city": "Saint-Mandé",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75012",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 12e Arrondissement",
+        "latitude": 48.834641,
+        "longitude": 2.40959,
+        "updatedAt": "2019-12-18T10:05:05.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": "Cette exposition itinérante peut être accompagnée d'une programmation (médiation, conférence, ateliers de pratique artistique, spectacle vivant,...)",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Animation d'un réseau de partenaires du musée sur tout le territoire national et à l'international",
+      "type-de-structure": 636,
+      "si-autre-precisez": "Toutes ces structures sont susceptibles de diffuser et d'accompagner l'exposition itinérante \"Bande dessinée et immigrations\"",
+      "structure-partenaire": "Cité internationale de la BD ; Ligue de l'enseignement centre Val de Loire ; Canopé Auvergne Rhônes Alpes ; Centre du Patrimoine arménien ; Canopé Grand Est ; Festival Interbiby Reims ; Canopé Guyane ; Canopé Hauts de France ; Confédération de la ligue d el'enseignement ; Ligue des droits de l'homme Limousin ; Rahmi ; Ligue d el'enseignement Occitanie ; agence régionale du livre PACA ; Institut français ; Institut français d'Allemagne",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "130 002 728 00017",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 1,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 42975265,
+        "custom": {
+          "organization": "Musée national de l'histoire de l'immigration",
+          "contactName": "Agnès Arquez Roth",
+          "contactNumber": "01 53 59 64 01",
+          "contactPosition": "Cheffe de service réseau & Partenariats",
+          "email": "agnes.arquez-roth@palais-portedoree.fr"
+        }
+      }
+    },
+    {
+      "uid": 12096565,
+      "ownerUid": 5103684,
+      "creatorUid": 5103684,
+      "slug": "musical-bd-spectacle-chante-et-dessine",
+      "title": {
+        "fr": "\"Musical BD\", spectacle chanté et dessiné",
+        "en": "\"Musical BD\", show sung and drawn"
+      },
+      "description": {
+        "fr": "Vivez une expérience sonore et visuelle avec cette parenthèse américaine proposée par le Chromatic Vocal Group et Winoc. Des grands classiques de la comédie musicale alliés à la BD",
+        "en": "Experience a sound and visual experience with this American parenthesis offered by the Chromatic Vocal Group and Winoc. From the great classics of musical comedy to comics"
+      },
+      "longDescription": {
+        "fr": "\"Musical BD\", spectacle chanté et dessiné.\n------------------------------------------\n\n### Vivez une expérience sonore et visuelle avec cette parenthèse américaine proposée par le Chromatic Vocal Group et Winoc.\n\n### Au travers des compositeurs emblématiques américains Keith Hampton, John Kander, Oscar Hammerstein et bien entendu Georges Gershwin, découvrez une _love story_ racontée, chantée et illustrée en direct.\n\n### Des grands classiques de la comédie musicale, en passant par les standards de jazz mais aussi les musiques chorales américaines, laissez vous envoûter par l’alliance de la musique et de la bande dessinée.",
+        "en": "## \"Musical BD\", show sung and drawn.\n### Experience a sound and visual experience with this American parenthesis offered by the Chromatic Vocal Group and Winoc.\n### Through iconic American composers Keith Hampton, John Kander, Oscar Hammerstein and of course Georges Gershwin, discover a _love story_ told, sung and illustrated live.\n### From the great classics of musical comedy, to jazz standards and American choral music, let yourself be enchanted by the combination of music and comic books."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "0b43f2f6a164454caa849eee5d546dd6.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 468,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0b43f2f6a164454caa849eee5d546dd6.full.image.jpg",
+            "size": {
+              "height": 570,
+              "width": 854
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0b43f2f6a164454caa849eee5d546dd6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T15:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:29.000Z",
+      "createdAt": "2019-12-17T17:03:32.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 70887903,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 70887903,
+        "slug": "mediatheque-de-saint-amand-les-eaux",
+        "name": "Médiathèque de Saint-Amand-les-Eaux",
+        "address": "Jardins de l'Abbaye 59230 Saint-Amand-les-Eaux",
+        "city": "Saint-Amand-les-Eaux",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59230",
+        "insee": "59526",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.449152,
+        "longitude": 3.428114,
+        "updatedAt": "2019-12-18T10:12:38.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "La communauté d'agglomération de la Porte du Hainaut",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 5103684,
+        "custom": {
+          "organization": "Médiathèque de Saint-Amand-les-eaux",
+          "contactName": "Isabelle LEBAS",
+          "contactNumber": "03-27-22-49-84",
+          "contactPosition": "Agent de Bibliothèque",
+          "email": "ilebas@mediatheque-st-amand.com"
+        }
+      }
+    },
+    {
+      "uid": 58678927,
+      "ownerUid": 23139152,
+      "creatorUid": 23139152,
+      "slug": "rencontre-dedicaces_150265",
+      "title": {
+        "fr": "Rencontre-dédicaces à la médiathèque de Vauchevrier",
+        "en": "Meeting-dedication at the Vauchevrier media library"
+      },
+      "description": {
+        "fr": "Rencontre-dédicaces avec 3 auteurs du castelrenaudais",
+        "en": "Meeting-dedication with 3 authors of the Castelrenaudais"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "67b27415b5584e829e14f9e9f23a3e5b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "67b27415b5584e829e14f9e9f23a3e5b.full.image.jpg",
+            "size": {
+              "height": 2339,
+              "width": 1654
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "67b27415b5584e829e14f9e9f23a3e5b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:38.000Z",
+      "createdAt": "2019-12-18T09:06:05.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 76697482,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "mediatheque@ville-chateau-renault.fr"
+      ],
+      "location": {
+        "uid": 76697482,
+        "slug": "mediatheque-de-vauchevrier-37110-chateau-renault",
+        "name": "Médiathèque de Vauchevrier",
+        "address": "Rue de Vauchevrier 37110 Château-Renault",
+        "city": "Château-Renault",
+        "region": "Centre-Val de Loire",
+        "department": "Indre-et-Loire",
+        "postalCode": "37110",
+        "insee": "37063",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.596635,
+        "longitude": 0.907136,
+        "updatedAt": "2019-12-18T10:16:29.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Communauté de commune du Castelrenaudais",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 23139152,
+        "custom": {
+          "organization": "Médiathèque de Vauchevrier",
+          "contactName": "baudry sybille",
+          "contactNumber": "0247296042",
+          "contactPosition": "gestion de la bibliotheque",
+          "email": "mediatheque@ville-chateau-renault.fr"
+        }
+      }
+    },
+    {
+      "uid": 53666065,
+      "ownerUid": 95017085,
+      "creatorUid": 95017085,
+      "slug": "humour-and-bd",
+      "title": {
+        "fr": "Exposition de planche de Fabrice Erre et James",
+        "en": "Plate exhibition by Fabrice Erre and James"
+      },
+      "description": {
+        "fr": "Exposition de Fabrice Erre et James",
+        "en": "Exhibition by Fabrice Erre and James"
+      },
+      "longDescription": {
+        "fr": "Exposition originale composée d’une sélection de planches, strips et dessins d’humour des dessinateurs James, directeur de la toute nouvelle collection humour _Pataquès_ chez Delcourt, et Fabrice Erre également agrégé d’histoire et professeur d’histoire-géographie, publié chez différents éditeurs : Fluide Glacial, Dargaud pour _Une année au lycée_ et Dupuis notamment pour sa dernière série _Walter Appleduck_. Tous deux manient avec talent le burlesque et l’absurde pour le plus grand plaisir des lecteurs !\n\nRencontres avec Fabrice Erre et James en partenariat avec la librairie Comic Strips Café d’Antibes samedi 7 mars à 11h.",
+        "en": "Original exhibition consisting of a selection of plates, strips and humor drawings by cartoonists James, director of the brand new _Pataquès_ humour collection at Delcourt, and Fabrice Erre also associate of history and professor of history-geography, published by various publishers: Fluide Glacial, Dargaud for _Une année au lycée_ and Dupuis for his latest series _Walter Appleduck_. Both handle burlesque and absurd with talent for the greatest pleasure of readers!\nMeetings with Fabrice Erre and James in partnership with the bookstore Comic Strips Café d'Antibes on Saturday, March 7 at 11am."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "16a4f36be161419bb874fe517a8a678c.base.image.jpg",
+        "credits": "Editions Dupuis",
+        "size": {
+          "height": 966,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "16a4f36be161419bb874fe517a8a678c.full.image.jpg",
+            "size": {
+              "height": 1103,
+              "width": 800
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "16a4f36be161419bb874fe517a8a678c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-20T11:00:00.000Z",
+          "end": "2020-02-20T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T11:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T11:00:00.000Z",
+          "end": "2020-02-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T11:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T11:00:00.000Z",
+          "end": "2020-02-27T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T11:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T11:00:00.000Z",
+          "end": "2020-03-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T11:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T11:00:00.000Z",
+          "end": "2020-03-05T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T11:00:00.000Z",
+          "end": "2020-03-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T11:00:00.000Z",
+          "end": "2020-03-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T11:00:00.000Z",
+          "end": "2020-03-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T11:00:00.000Z",
+          "end": "2020-03-12T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T11:00:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T11:00:00.000Z",
+          "end": "2020-03-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T11:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T11:00:00.000Z",
+          "end": "2020-03-19T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T11:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:23.000Z",
+      "createdAt": "2019-12-18T09:37:00.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 65140044,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 92 19 76 00"
+      ],
+      "location": {
+        "uid": 65140044,
+        "slug": "mediatheque-colette-de-valbonne-sophia-antipolis150",
+        "name": "Médiathèque Colette de Valbonne",
+        "address": "1855 route des Dolines 06560 Valbonne",
+        "city": "Valbonne",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06560",
+        "insee": "06152",
+        "countryCode": "FR",
+        "district": "Sophia Antipolis",
+        "latitude": 43.623953,
+        "longitude": 7.047432,
+        "updatedAt": "2019-12-18T13:20:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95017085,
+        "custom": {
+          "organization": "Médiathèques de la Communauté d'agglomération Sophia Antipolis",
+          "contactName": "Amélie ROUSTAN",
+          "contactNumber": "04 89 87 72 91",
+          "contactPosition": "Coordinatrice action culturelle",
+          "email": "a.roustan@agglo-casa.fr"
+        }
+      }
+    },
+    {
+      "uid": 95150291,
+      "ownerUid": 95017085,
+      "creatorUid": 95017085,
+      "slug": "grosse-betise",
+      "title": {
+        "fr": "Exposition \"Grosse bêtise\"",
+        "en": "Exhibition \"Big mistake\""
+      },
+      "description": {
+        "fr": "Exposition expliquant les techniques de la bande dessinée",
+        "en": "Exhibition explaining comic book techniques"
+      },
+      "longDescription": {
+        "fr": "Exposition \"Grosse bêtise\"\n--------------------------\n\nExposition pédagogique avec panneaux interactifs et ludiques expliquant les techniques de la bande dessinée à travers l’album jeunesse _Petite souris, Grosse bêtise_ de Loïc Dauvillier et Alain Kokor, paru en 2009 aux éditions de la Gouttière.\n\n_Petite souris, Grosse bêtise_, c’est l’histoire d’une petite fille comme les autres mais dont les dents n’ont pas commencé à tomber. Une petite Suzie attachante, volontaire et débrouillarde. Peut-être un peu trop débrouillarde…",
+        "en": "## Exhibition \"Big mistake\"\nPedagogical exhibition with interactive and playful panels explaining the techniques of the comic book through the youth album _Petite souris, Grosse bêtise_ by Loïc Dauvillier and Alain Kokor, published in 2009 by Éditions de la Gouttière.\n_Little mouse, big mistake_, it’s the story of a little girl like the others but whose teeth did not start to fall. A cute, willing, resourceful little Suzie. Maybe a little too resourceful…"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "e54a8e0741c445b5931cece7867c9fb5.base.image.jpg",
+        "credits": "Editions de la Gouttière",
+        "size": {
+          "height": 946,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e54a8e0741c445b5931cece7867c9fb5.full.image.jpg",
+            "size": {
+              "height": 2026,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e54a8e0741c445b5931cece7867c9fb5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-14T09:00:00.000Z",
+          "end": "2020-01-14T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T13:00:00.000Z",
+          "end": "2020-01-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T13:00:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T14:00:00.000Z",
+          "end": "2020-01-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T14:00:00.000Z",
+          "end": "2020-01-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T13:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T09:00:00.000Z",
+          "end": "2020-01-21T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T13:00:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T14:00:00.000Z",
+          "end": "2020-01-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T14:00:00.000Z",
+          "end": "2020-01-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T13:00:00.000Z",
+          "end": "2020-01-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T09:00:00.000Z",
+          "end": "2020-01-28T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T13:00:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T13:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T14:00:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T14:00:00.000Z",
+          "end": "2020-01-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T13:00:00.000Z",
+          "end": "2020-02-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T09:00:00.000Z",
+          "end": "2020-02-04T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T13:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T14:00:00.000Z",
+          "end": "2020-02-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T14:00:00.000Z",
+          "end": "2020-02-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T13:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T09:00:00.000Z",
+          "end": "2020-02-11T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T13:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T14:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T14:00:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T13:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T09:00:00.000Z",
+          "end": "2020-02-18T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T13:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T13:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T14:00:00.000Z",
+          "end": "2020-02-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T14:00:00.000Z",
+          "end": "2020-02-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T13:00:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T09:00:00.000Z",
+          "end": "2020-02-25T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T13:00:00.000Z",
+          "end": "2020-02-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T13:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T14:00:00.000Z",
+          "end": "2020-02-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T14:00:00.000Z",
+          "end": "2020-02-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T13:00:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T09:00:00.000Z",
+          "end": "2020-03-03T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T13:00:00.000Z",
+          "end": "2020-03-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T13:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T14:00:00.000Z",
+          "end": "2020-03-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T14:00:00.000Z",
+          "end": "2020-03-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T13:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T09:00:00.000Z",
+          "end": "2020-03-10T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T13:00:00.000Z",
+          "end": "2020-03-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T13:00:00.000Z",
+          "end": "2020-03-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T14:00:00.000Z",
+          "end": "2020-03-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T14:00:00.000Z",
+          "end": "2020-03-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T13:00:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:36.000Z",
+      "createdAt": "2019-12-18T09:47:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 45211223,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 83 88 10 00"
+      ],
+      "location": {
+        "uid": 45211223,
+        "slug": "mediatheque-sonia-delaunay",
+        "name": "Médiathèque Sonia Delaunay",
+        "address": "4 chemin Neuf 06410 Biot",
+        "city": "Biot",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06410",
+        "insee": "06018",
+        "countryCode": "FR",
+        "district": "Saint-Philippe",
+        "latitude": 43.628014,
+        "longitude": 7.096062,
+        "updatedAt": "2019-11-29T10:23:14.000Z",
+        "image": null,
+        "description": {
+          "fr": "1 000 m² construits dans l’ancienne poterie, patrimoine du village de Biot.\nPôles d’excellence : les arts du feu, l’art du XXe siècle, le design industriel et les technologies de l’information et de la communication.\nEspaces :\n• Jeunesse,\n• Adultes & Documentation Commune,\n• Musiques et cinéma avec jeux vidéo en accès libre,\n• Salle d'action culturelle,\n• Espace café, presse,\n• Un patio offre une salle de lecture en extérieur.\n\nHoraires :\nMardi : 10h - 13h / 14h - 18h\nMercredi : 10h - 13h / 14h - 18h\nJeudi : 15h - 18h\nVendredi : 15h - 18h\nSamedi : 10h - 13h / 14h - 18h"
+        },
+        "website": "http://www.ma-mediatheque.net/",
+        "email": null,
+        "phone": "04 83 88 10 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95017085,
+        "custom": {
+          "organization": "Médiathèques de la Communauté d'agglomération Sophia Antipolis",
+          "contactName": "Amélie ROUSTAN",
+          "contactNumber": "04 89 87 72 91",
+          "contactPosition": "Coordinatrice action culturelle",
+          "email": "a.roustan@agglo-casa.fr"
+        }
+      }
+    },
+    {
+      "uid": 69679411,
+      "ownerUid": 95017085,
+      "creatorUid": 95017085,
+      "slug": "grosse-betise_787186",
+      "title": {
+        "fr": "Exposition \"Grosse bêtise\"",
+        "en": "Exhibition \"Big mistake\""
+      },
+      "description": {
+        "fr": "Exposition expliquant les techniques de la bande dessinée",
+        "en": "Exhibition explaining comic book techniques"
+      },
+      "longDescription": {
+        "fr": "Exposition \"Grosse bêtise\"\n--------------------------\n\nExposition pédagogique avec panneaux interactifs et ludiques expliquant les techniques de la bande dessinée à travers l’album jeunesse _Petite souris, Grosse bêtise_ de Loïc Dauvillier et Alain Kokor, paru en 2009 aux éditions de la Gouttière.\n\n_Petite souris, Grosse bêtise_, c’est l’histoire d’une petite fille comme les autres mais dont les dents n’ont pas commencé à tomber. Une petite Suzie attachante, volontaire et débrouillarde. Peut-être un peu trop débrouillarde…",
+        "en": "## Exhibition \"Big mistake\"\nPedagogical exhibition with interactive and playful panels explaining the techniques of the comic book through the youth album _Petite souris, Grosse bêtise_ by Loïc Dauvillier and Alain Kokor, published in 2009 by Éditions de la Gouttière.\n_Little mouse, big mistake_, it’s the story of a little girl like the others but whose teeth did not start to fall. A cute, willing, resourceful little Suzie. Maybe a little too resourceful…"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "e54a8e0741c445b5931cece7867c9fb5.base.image.jpg",
+        "credits": "Editions de la Gouttière",
+        "size": {
+          "height": 946,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e54a8e0741c445b5931cece7867c9fb5.full.image.jpg",
+            "size": {
+              "height": 2026,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e54a8e0741c445b5931cece7867c9fb5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-24T11:00:00.000Z",
+          "end": "2020-03-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T11:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T11:00:00.000Z",
+          "end": "2020-03-26T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T11:00:00.000Z",
+          "end": "2020-03-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T10:00:00.000Z",
+          "end": "2020-03-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T10:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T10:00:00.000Z",
+          "end": "2020-04-02T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T10:00:00.000Z",
+          "end": "2020-04-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T10:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T10:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T10:00:00.000Z",
+          "end": "2020-04-09T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T10:00:00.000Z",
+          "end": "2020-04-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T10:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T10:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T10:00:00.000Z",
+          "end": "2020-04-16T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T10:00:00.000Z",
+          "end": "2020-04-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T10:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T10:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T10:00:00.000Z",
+          "end": "2020-04-23T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T10:00:00.000Z",
+          "end": "2020-04-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T10:00:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T10:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T10:00:00.000Z",
+          "end": "2020-04-30T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T10:00:00.000Z",
+          "end": "2020-05-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T08:00:00.000Z",
+          "end": "2020-05-02T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T10:00:00.000Z",
+          "end": "2020-05-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T10:00:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T10:00:00.000Z",
+          "end": "2020-05-07T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T10:00:00.000Z",
+          "end": "2020-05-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T08:00:00.000Z",
+          "end": "2020-05-09T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T10:00:00.000Z",
+          "end": "2020-05-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T10:00:00.000Z",
+          "end": "2020-05-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T10:00:00.000Z",
+          "end": "2020-05-14T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T10:00:00.000Z",
+          "end": "2020-05-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:08.000Z",
+      "createdAt": "2019-12-18T09:58:13.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 65140044,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 92 19 76 00"
+      ],
+      "location": {
+        "uid": 65140044,
+        "slug": "mediatheque-colette-de-valbonne-sophia-antipolis150",
+        "name": "Médiathèque Colette de Valbonne",
+        "address": "1855 route des Dolines 06560 Valbonne",
+        "city": "Valbonne",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06560",
+        "insee": "06152",
+        "countryCode": "FR",
+        "district": "Sophia Antipolis",
+        "latitude": 43.623953,
+        "longitude": 7.047432,
+        "updatedAt": "2019-12-18T13:20:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95017085,
+        "custom": {
+          "organization": "Médiathèques de la Communauté d'agglomération Sophia Antipolis",
+          "contactName": "Amélie ROUSTAN",
+          "contactNumber": "04 89 87 72 91",
+          "contactPosition": "Coordinatrice action culturelle",
+          "email": "a.roustan@agglo-casa.fr"
+        }
+      }
+    },
+    {
+      "uid": 36203139,
+      "ownerUid": 95017085,
+      "creatorUid": 95017085,
+      "slug": "grosse-betise_448279",
+      "title": {
+        "fr": "Exposition \"Grosse bêtise\"",
+        "en": "Exhibition \"Big mistake\""
+      },
+      "description": {
+        "fr": "Exposition expliquant les techniques de la bande dessinée",
+        "en": "Exhibition explaining comic book techniques"
+      },
+      "longDescription": {
+        "fr": "Exposition \"Grosse bêtise\"\n--------------------------\n\nExposition pédagogique avec panneaux interactifs et ludiques expliquant les techniques de la bande dessinée à travers l’album jeunesse _Petite souris, Grosse bêtise_ de Loïc Dauvillier et Alain Kokor, paru en 2009 aux éditions de la Gouttière.\n\n_Petite souris, Grosse bêtise_, c’est l’histoire d’une petite fille comme les autres mais dont les dents n’ont pas commencé à tomber. Une petite Suzie attachante, volontaire et débrouillarde. Peut-être un peu trop débrouillarde…",
+        "en": "## Exhibition \"Big mistake\"\nPedagogical exhibition with interactive and playful panels explaining the techniques of the comic book through the youth album _Petite souris, Grosse bêtise_ by Loïc Dauvillier and Alain Kokor, published in 2009 by Éditions de la Gouttière.\n_Little mouse, big mistake_, it’s the story of a little girl like the others but whose teeth did not start to fall. A cute, willing, resourceful little Suzie. Maybe a little too resourceful…"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "e54a8e0741c445b5931cece7867c9fb5.base.image.jpg",
+        "credits": "Editions de la Gouttière",
+        "size": {
+          "height": 946,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e54a8e0741c445b5931cece7867c9fb5.full.image.jpg",
+            "size": {
+              "height": 2026,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e54a8e0741c445b5931cece7867c9fb5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-19T11:00:00.000Z",
+          "end": "2020-05-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T07:30:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T11:00:00.000Z",
+          "end": "2020-05-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T11:00:00.000Z",
+          "end": "2020-05-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T07:30:00.000Z",
+          "end": "2020-05-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T11:00:00.000Z",
+          "end": "2020-05-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T07:30:00.000Z",
+          "end": "2020-05-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T11:00:00.000Z",
+          "end": "2020-05-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T11:00:00.000Z",
+          "end": "2020-05-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T07:30:00.000Z",
+          "end": "2020-05-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-02T11:00:00.000Z",
+          "end": "2020-06-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T07:30:00.000Z",
+          "end": "2020-06-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T11:00:00.000Z",
+          "end": "2020-06-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T11:00:00.000Z",
+          "end": "2020-06-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T07:30:00.000Z",
+          "end": "2020-06-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T11:00:00.000Z",
+          "end": "2020-06-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T07:30:00.000Z",
+          "end": "2020-06-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T11:00:00.000Z",
+          "end": "2020-06-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T11:00:00.000Z",
+          "end": "2020-06-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T07:30:00.000Z",
+          "end": "2020-06-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T11:00:00.000Z",
+          "end": "2020-06-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T07:30:00.000Z",
+          "end": "2020-06-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T11:00:00.000Z",
+          "end": "2020-06-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T11:00:00.000Z",
+          "end": "2020-06-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T07:30:00.000Z",
+          "end": "2020-06-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-23T11:00:00.000Z",
+          "end": "2020-06-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T07:30:00.000Z",
+          "end": "2020-06-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T11:00:00.000Z",
+          "end": "2020-06-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T11:00:00.000Z",
+          "end": "2020-06-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T07:30:00.000Z",
+          "end": "2020-06-27T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:33.000Z",
+      "createdAt": "2019-12-18T10:04:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19810335,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 92 19 75 80"
+      ],
+      "location": {
+        "uid": 19810335,
+        "slug": "mediatheque-albert-camus-dantibes918",
+        "name": "Médiathèque Albert Camus",
+        "address": "19 bis boulevard Chancel 06600 Antibes",
+        "city": "Antibes",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06160",
+        "insee": "06004",
+        "countryCode": "FR",
+        "district": "Juan-les-Pins",
+        "latitude": 43.58006,
+        "longitude": 7.119316,
+        "updatedAt": "2019-12-18T10:17:27.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95017085,
+        "custom": {
+          "organization": "Médiathèques de la Communauté d'agglomération Sophia Antipolis",
+          "contactName": "Amélie ROUSTAN",
+          "contactNumber": "04 89 87 72 91",
+          "contactPosition": "Coordinatrice action culturelle",
+          "email": "a.roustan@agglo-casa.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2109877
+}

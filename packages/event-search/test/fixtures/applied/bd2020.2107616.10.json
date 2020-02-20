@@ -1,0 +1,1467 @@
+{
+  "events": [
+    {
+      "uid": 42452188,
+      "ownerUid": 87589006,
+      "creatorUid": 87589006,
+      "slug": "exposition-faites-du-rock-avec-lucien",
+      "title": {
+        "fr": "Exposition \"Faites du rock avec Lucien !\""
+      },
+      "description": {
+        "fr": "Exposition autour de Lucien, le personnage fétiche de Franck Margerin"
+      },
+      "longDescription": {
+        "fr": "À la fois ludique et pédagogique, l’expo \"Faites du rock avec Lucien\" présente une sélection des travaux de Franck Margerin : des planches couleurs grand format, une galerie d’illustrations et de travaux plus rares - inédits pour certains - des croquis et des ébauches présentés avec leur version finalisée, des planches au stade intermédiaire de leur conception, et des pages en cours de colorisation.\n\nRépondez aux questions du quiz sur le rock qui vous sera proposé, vous pourrez peut-être gagner une reproduction d’une planche de bande dessinée dédicacée en direct par Frank Margerin !"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "5ce4483b5e614c838d9b0f095c461600.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 631,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "5ce4483b5e614c838d9b0f095c461600.full.image.jpg",
+            "size": {
+              "height": 2217,
+              "width": 2461
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "5ce4483b5e614c838d9b0f095c461600.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T14:30:00.000Z",
+          "end": "2020-01-18T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-31T11:21:01.000Z",
+      "createdAt": "2019-11-27T13:05:35.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 66388286,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 66388286,
+        "slug": "pole-wilson985",
+        "name": "Pôle Wilson",
+        "address": "6 avenue de la Paix 78230 Le Pecq",
+        "city": "Le Pecq",
+        "region": "Île-de-France",
+        "department": "Yvelines",
+        "postalCode": "78230",
+        "insee": "78481",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.897138,
+        "longitude": 2.111128,
+        "updatedAt": "2019-12-16T13:20:29.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 54202184,
+      "ownerUid": 87589006,
+      "creatorUid": 87589006,
+      "slug": "rencontre-avec-franck-margerin",
+      "title": {
+        "fr": "Rencontre avec Franck Margerin"
+      },
+      "description": {
+        "fr": "Rencontre conviviale suivie d'une séance de dédicaces des albums de l'auteur."
+      },
+      "longDescription": {
+        "fr": "Vous avez toujours rêvé de rencontrer Franck Margerin ou vous venez de découvrir son oeuvre ? Vous admirez le talent de ces personnes qui d’un coup de crayon savent créer un personnage et raconter une histoire ?\n\nVenez passer la soirée avec Frank Margerin. Lors d’une rencontre conviviale et décontractée, le sympathique et talentueux dessinateur de bande dessinée reviendra sur son parcours et vous parlera de son travail.\n\nIl se prêtera esnuite avec plaisir au jeu des questions-réponses.\n\nÀ l’issue de la rencontre, vous pourrez acheter des albums de Franck Margerin ou venir avec les vôtres, pour vous les faire dédicacer. Ce sera aussi le moment pour les heureux lauréats du quiz et du blind-test de recevoir leur prix des mains du dessinateur."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "caf87a4f92df4515a5d98cb50dc0b73b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "caf87a4f92df4515a5d98cb50dc0b73b.full.image.jpg",
+            "size": {
+              "height": 1536,
+              "width": 2048
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "caf87a4f92df4515a5d98cb50dc0b73b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T19:30:00.000Z",
+          "end": "2020-01-18T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-31T11:22:20.000Z",
+      "createdAt": "2019-12-04T10:45:56.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 66388286,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 66388286,
+        "slug": "pole-wilson985",
+        "name": "Pôle Wilson",
+        "address": "6 avenue de la Paix 78230 Le Pecq",
+        "city": "Le Pecq",
+        "region": "Île-de-France",
+        "department": "Yvelines",
+        "postalCode": "78230",
+        "insee": "78481",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.897138,
+        "longitude": 2.111128,
+        "updatedAt": "2019-12-16T13:20:29.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 46082653,
+      "ownerUid": 24913418,
+      "creatorUid": 24913418,
+      "slug": "atelier-bd-avec-guillaume-matthias",
+      "title": {
+        "fr": "Atelier BD avec Guillaume Matthias"
+      },
+      "description": {
+        "fr": "Atelier bande dessinée mené par Guillaume Matthias, auteur des Aventures de Bertrand Keufterian"
+      },
+      "longDescription": {
+        "fr": "Vous rêvez de vous lancer dans la BD ? Alors venez rejoindre Guillaume Matthias, auteur des _Aventures de Bertrand Keufterian_ pour profiter de ses conseils et créer votre propre planche !"
+      },
+      "keywords": {
+        "fr": [
+          "BD",
+          "atelier",
+          "participatif"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T18:00:00.000Z",
+          "end": "2020-01-18T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-31T11:22:46.000Z",
+      "createdAt": "2019-12-07T13:29:55.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 29976716,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "servicesauxpublics@mairie-metz.fr"
+      ],
+      "location": {
+        "uid": 29976716,
+        "slug": "lagora833",
+        "name": "L'Agora",
+        "address": "4 rue Théodore de Gargan 57050 Metz",
+        "city": "Metz",
+        "region": "Grand Est",
+        "department": "Moselle",
+        "postalCode": "57045",
+        "insee": "57463",
+        "countryCode": "FR",
+        "district": "Devant-les-Ponts",
+        "latitude": 49.136584,
+        "longitude": 6.166198,
+        "updatedAt": "2019-12-16T13:28:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 55140787,
+      "ownerUid": 24913418,
+      "creatorUid": 24913418,
+      "slug": "rencontre-avec-guillaume-matthias",
+      "title": {
+        "fr": "Rencontre avec Guillaume Matthias"
+      },
+      "description": {
+        "fr": "Rencontre avec Guillaume Matthias, auteur des Aventures de Bertrand Keufterian."
+      },
+      "longDescription": {
+        "fr": "Venez rencontrer Guillaume Matthias créateur des _Aventures de Bertrand Keufterian_ et découvrir le métier d'auteur de BD.\n\nDe la création d'un personnage à la mise en page et en passant par le scénario, venez poser toutes vos questions !"
+      },
+      "keywords": {
+        "fr": [
+          "Rencontre",
+          "BD"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T20:00:00.000Z",
+          "end": "2020-01-18T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-31T11:38:48.000Z",
+      "createdAt": "2019-12-07T13:32:42.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 29976716,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 29976716,
+        "slug": "lagora833",
+        "name": "L'Agora",
+        "address": "4 rue Théodore de Gargan 57050 Metz",
+        "city": "Metz",
+        "region": "Grand Est",
+        "department": "Moselle",
+        "postalCode": "57045",
+        "insee": "57463",
+        "countryCode": "FR",
+        "district": "Devant-les-Ponts",
+        "latitude": 49.136584,
+        "longitude": 6.166198,
+        "updatedAt": "2019-12-16T13:28:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 47592364,
+      "ownerUid": 24913418,
+      "creatorUid": 24913418,
+      "slug": "1856",
+      "title": {
+        "fr": "Spectacle 18.56"
+      },
+      "description": {
+        "fr": "18.56 est un conte de science-fiction surréaliste issu de l'album écrit par Aalehx. Accompagné de ses 3 musiciens sur scène, il fait voyager le public entre atomes et galaxies"
+      },
+      "longDescription": {
+        "fr": "18.56 est un concept visuel et sonore issu de l’album du même titre. Sur scène, des projections nébuleuses font voyager le public entre atomes et galaxies, à bord d'un vaisseau spatial. Grâce à leurs voix et leurs instruments, les musiciens Julien Destange, Aurore Reichert, Rebecca Noël et Aalehx accompagnent ce conte de science-fiction surréaliste dans des ambiances musicales et des textures sonores originales."
+      },
+      "keywords": {
+        "fr": [
+          "entrée libre",
+          "spectacle"
+        ]
+      },
+      "conditions": {
+        "fr": "Dans la limite des places disponibles"
+      },
+      "image": {
+        "filename": "9f15fea70fe143d38ca589e2351daa0d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 284,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9f15fea70fe143d38ca589e2351daa0d.full.image.jpg",
+            "size": {
+              "height": 778,
+              "width": 1920
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9f15fea70fe143d38ca589e2351daa0d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T17:00:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-31T11:38:52.000Z",
+      "createdAt": "2019-12-07T13:03:48.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 29976716,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 29976716,
+        "slug": "lagora833",
+        "name": "L'Agora",
+        "address": "4 rue Théodore de Gargan 57050 Metz",
+        "city": "Metz",
+        "region": "Grand Est",
+        "department": "Moselle",
+        "postalCode": "57045",
+        "insee": "57463",
+        "countryCode": "FR",
+        "district": "Devant-les-Ponts",
+        "latitude": 49.136584,
+        "longitude": 6.166198,
+        "updatedAt": "2019-12-16T13:28:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 76042072,
+      "ownerUid": 8097895,
+      "creatorUid": 8097895,
+      "slug": "rencontre-avec-m-bernard-capo-amphi-sapphira",
+      "title": {
+        "fr": "Rencontre avec M. Bernard Capo à l'amphithéâtre Sapphira"
+      },
+      "description": {
+        "fr": "Présentation des différentes phases de construction d'une bande dessinée"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "BD auteur"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T17:15:00.000Z",
+          "end": "2020-01-17T18:15:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-31T11:39:21.000Z",
+      "createdAt": "2019-12-08T11:10:35.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 31256030,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 31256030,
+        "slug": "insa-centre-val-de-loire359",
+        "name": "INSA Centre Val de Loire",
+        "address": "88 boulevard Lahitolle 18000 Bourges",
+        "city": "Bourges",
+        "region": "Centre-Val de Loire",
+        "department": "Cher",
+        "postalCode": "18000",
+        "insee": "18033",
+        "countryCode": "FR",
+        "district": "Port-Sec Nord",
+        "latitude": 47.083075,
+        "longitude": 2.417715,
+        "updatedAt": "2019-12-16T13:39:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 30310815,
+      "ownerUid": 43747577,
+      "creatorUid": 43747577,
+      "slug": "8eme-festival-interplanetaire-de-bande-dessinee-de-reims",
+      "title": {
+        "fr": "8e festival interplanétaire de bande dessinée de Reims",
+        "en": "8th Interplanetary Comic Strip Festival of Reims"
+      },
+      "description": {
+        "fr": "Un festival enthousiaste et ré-créatif",
+        "en": "An enthusiastic and re-creative festival"
+      },
+      "longDescription": {
+        "fr": "Nous développons avec le FIBDR un événement festif qui mêle spectacles, rencontres, animations et expositions mettant à l’honneur auteurs et dessinateurs de bandes dessinées et créatifs des arts graphiques.\n\nLe festival se déroule sur les deux mois de septembre et octobre. Il se compose d’un week-end temps-fort au Temps des Cerises qui mêle convention (dédicaces, rencontres) et spectacles (concert dessinée, rallye dessinée) et d’une série d’expositions chez nos partenaires, elles-mêmes ponctuées de vernissages, ateliers participatifs et rencontres d’auteurs.\n\nNous cherchons par cette manifestation à atteindre trois objectifs principaux : faire la part belle aux auteurs de notre région et souligner toute la créativité de ce genre en perpétuelle ébullition. Nous cherchons enfin à rendre vivant la bande dessinée et les arts graphiques en général par des ateliers, des rencontres et interactions avec les publics sous des formats originaux.",
+        "en": "Together with the FIBDR, we are developing a festive event that combines shows, meetings, events and exhibitions featuring authors and cartoonists of comic books and creative graphic arts.\nThe festival takes place over the two months of September and October. It consists of a time-strong weekend at Le Temps des Cerises that mixes convention (dedications, meetings) and shows (concert drawn, rally drawn) and a series of exhibitions at our partners, themselves punctuated by openings, participatory workshops and author meetings.\nThis event seeks to achieve three main objectives: to highlight the authors of our region and to highlight all the creativity of this kind in perpetual boiling. Finally, we seek to bring comic books and graphic arts in general to life through workshops, meetings and interactions with audiences in original formats."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c6034c5f578945009358c131faf45cdf.base.image.jpg",
+        "credits": "Asso TRAC",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c6034c5f578945009358c131faf45cdf.full.image.jpg",
+            "size": {
+              "height": 3648,
+              "width": 5472
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c6034c5f578945009358c131faf45cdf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-25T16:00:00.000Z",
+          "end": "2020-09-25T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-26T12:00:00.000Z",
+          "end": "2020-09-26T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:14.000Z",
+      "createdAt": "2019-12-16T13:52:55.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 72776462,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "https://www.facebook.com/FIBDR/",
+        "jonglissimo.trac@free.fr",
+        "03 26 86 05 72"
+      ],
+      "location": {
+        "uid": 72776462,
+        "slug": "le-temps-des-cerises595",
+        "name": "Le Temps des Cerises",
+        "address": "30 rue de la Cerisaie 51100 Reims",
+        "city": "Reims",
+        "region": "Grand Est",
+        "department": "Marne",
+        "postalCode": "51100",
+        "insee": "51454",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.230564,
+        "longitude": 4.056355,
+        "updatedAt": "2019-12-16T13:43:04.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Atelier 510 TTC",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 43747577,
+        "custom": {
+          "organization": "Association TRAC",
+          "contactName": "Eric Mangeot",
+          "contactNumber": "03 26 86 05 72",
+          "contactPosition": "Secrétaire général",
+          "email": "jonglissimo.trac@free.fr"
+        }
+      }
+    },
+    {
+      "uid": 80947315,
+      "ownerUid": 57196228,
+      "creatorUid": 57196228,
+      "slug": "exposition-autour-du-9e-art",
+      "title": {
+        "fr": "Exposition \"Autour du 9e art\""
+      },
+      "description": {
+        "fr": "Exposition des oeuvres de l'artiste Gaetan Antoine à la médiathèque du Nouvion-en-Thiérache"
+      },
+      "longDescription": {
+        "fr": "L'artiste nous présente ses oeuvres autour du 9e art à l'espace muséal de la médiathèque du Nouvion pendant les horaires d'ouvertue de la médiathèque !"
+      },
+      "keywords": {
+        "fr": [
+          "exposition",
+          "art",
+          "oeuvres statues"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "8ef84caab12d4672a1e1c0c783be9437.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1245,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8ef84caab12d4672a1e1c0c783be9437.full.image.jpg",
+            "size": {
+              "height": 960,
+              "width": 540
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8ef84caab12d4672a1e1c0c783be9437.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-16T08:30:00.000Z",
+          "end": "2020-01-16T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T12:30:00.000Z",
+          "end": "2020-01-16T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T08:30:00.000Z",
+          "end": "2020-01-17T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T12:30:00.000Z",
+          "end": "2020-01-17T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T12:30:00.000Z",
+          "end": "2020-01-18T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-31T11:41:00.000Z",
+      "createdAt": "2019-12-10T07:52:46.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 64612123,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 64612123,
+        "slug": "bibliotheque-municipale-du-nouvion-en-thierache887",
+        "name": "Bibliothèque municipale du Nouvion-en-Thiérache",
+        "address": "19 rue Théodore Blot 02170 Le Nouvion-en-Thiérache",
+        "city": "Le Nouvion-en-Thiérache",
+        "region": "Hauts-de-France",
+        "department": "Aisne",
+        "postalCode": "02170",
+        "insee": "02558",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.016975,
+        "longitude": 3.78783,
+        "updatedAt": "2019-12-16T14:05:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 22876602,
+      "ownerUid": 57196228,
+      "creatorUid": 57196228,
+      "slug": "ateliers-dessins-de-bandes-dessinees",
+      "title": {
+        "fr": "Atelier dessins de bandes dessinées"
+      },
+      "description": {
+        "fr": "Atelier \"De la lecture au dessins\""
+      },
+      "longDescription": {
+        "fr": "L'artiste Gaëtan Antoine propose deux ateliers de dessins BD à la médiathèque du Nouvion-en-Thiérache de 13h30 à 16h30 et de 17h30 à 19h30."
+      },
+      "keywords": {
+        "fr": [
+          "dessins / bande dessinée / planche/ artiste"
+        ]
+      },
+      "conditions": {
+        "fr": "Nombre de participants 15 / Inscription obligatoire en médiathèque"
+      },
+      "image": {
+        "filename": "859195915ce7464588c3fb35abc51dac.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 994,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "859195915ce7464588c3fb35abc51dac.full.image.jpg",
+            "size": {
+              "height": 2724,
+              "width": 1920
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "859195915ce7464588c3fb35abc51dac.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T12:30:00.000Z",
+          "end": "2020-01-18T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T16:30:00.000Z",
+          "end": "2020-01-18T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-20T08:59:02.000Z",
+      "createdAt": "2019-12-10T07:45:06.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 64612123,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 64612123,
+        "slug": "bibliotheque-municipale-du-nouvion-en-thierache887",
+        "name": "Bibliothèque municipale du Nouvion-en-Thiérache",
+        "address": "19 rue Théodore Blot 02170 Le Nouvion-en-Thiérache",
+        "city": "Le Nouvion-en-Thiérache",
+        "region": "Hauts-de-France",
+        "department": "Aisne",
+        "postalCode": "02170",
+        "insee": "02558",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.016975,
+        "longitude": 3.78783,
+        "updatedAt": "2019-12-16T14:05:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 23053749,
+      "ownerUid": 73434618,
+      "creatorUid": 73434618,
+      "slug": "apero-bd_348541",
+      "title": {
+        "fr": "Apéro BD"
+      },
+      "description": {
+        "fr": "Venez découvrir la sélection BD proposée par Sylvain, libraire"
+      },
+      "longDescription": {
+        "fr": "Echanges entre lecteurs et Sylvain Insergueix, libraire et spécialiste de la bande dessinée, autour de ses coups de cœur de l’année 2019 et de la sélection d’Angoulême."
+      },
+      "keywords": {
+        "fr": [
+          "Echanges autour de la BD",
+          "Coups de coeur en bande dessinée",
+          "Sélection BD Angoulême 2020"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "e17fde646bd94cb2b14727860401e746.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e17fde646bd94cb2b14727860401e746.full.image.jpg",
+            "size": {
+              "height": 768,
+              "width": 1024
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e17fde646bd94cb2b14727860401e746.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T19:00:00.000Z",
+          "end": "2020-01-18T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-20T08:58:22.000Z",
+      "createdAt": "2019-12-10T12:48:28.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 36972517,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 36972517,
+        "slug": "mediatheque-blaise-cendrars368",
+        "name": "Médiathèque Blaise Cendrars",
+        "address": "5 place Auguste Romagné 78700 Conflans-Sainte-Honorine",
+        "city": "Conflans-Sainte-Honorine",
+        "region": "Île-de-France",
+        "department": "Yvelines",
+        "postalCode": "78700",
+        "insee": "78172",
+        "countryCode": "FR",
+        "district": "Plateau Carnot",
+        "latitude": 48.997971,
+        "longitude": 2.098077,
+        "updatedAt": "2019-12-16T14:14:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2107813
+}

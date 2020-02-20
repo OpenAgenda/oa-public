@@ -1,0 +1,1908 @@
+{
+  "events": [
+    {
+      "uid": 63904073,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "mois-de-la-bd-exposition-comics-and-super-heros_157557",
+      "title": {
+        "fr": "Mois de la BD - Exposition \"Comics & super-héros\"",
+        "en": "Mois de la BD - Exhibition \"Comics & superheroes\""
+      },
+      "description": {
+        "fr": "Bienvenue aux super-héros !",
+        "en": "Welcome to the superheroes!"
+      },
+      "longDescription": {
+        "fr": "**Découvrez l’exposition \"Comics & super-héros\" !**\n\nDes grandes firmes américaines Marvel et DC Comics aux productions françaises, de Stan Lee à Franck Miller, l’exposition propose de plonger dans l’univers de ces personnages en costume.\n\nRetrouvez Batman, Iron Man, Wonder Woman et bien d’autres...\n\nUn parcours à découvrir dans les 8 communes.",
+        "en": "**Discover the exhibition \"Comics & superheroes\"!**\nFrom major American companies Marvel and DC Comics to French productions, from Stan Lee to Franck Miller, the exhibition proposes to dive into the universe of these characters in costume.\nFind Batman, Iron Man, Wonder Woman and more...\nA journey to discover in the 8 communes."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "58b722b77bf8489daeca6d4618e611dd.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T17:00:00.000Z",
+          "end": "2020-01-31T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T16:30:00.000Z",
+          "end": "2020-02-05T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T17:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T16:30:00.000Z",
+          "end": "2020-02-12T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T17:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T16:30:00.000Z",
+          "end": "2020-02-19T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T17:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T16:30:00.000Z",
+          "end": "2020-02-26T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T17:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:12.000Z",
+      "createdAt": "2020-01-27T15:39:49.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 78698952,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.paysdesherbiers.fr/actualites/mois-de-la-bande-dessinee-2/",
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr"
+      ],
+      "location": {
+        "uid": 78698952,
+        "slug": "bibliotheque-des-epesses",
+        "name": "Bibliothèque des Épesses",
+        "address": "2 place Monseigneur Bonneau 85590 Les Épesses",
+        "city": "Les Épesses",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85590",
+        "insee": "85082",
+        "countryCode": "FR",
+        "district": "Moulin de l'Aujardière",
+        "latitude": 46.883497,
+        "longitude": -0.89967,
+        "updatedAt": "2020-01-27T19:37:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 80554962,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "mois-de-la-bd-exposition-comics-and-super-heros_113104",
+      "title": {
+        "fr": "Mois de la BD - Exposition \"Comics & super-héros\"",
+        "en": "Mois de la BD - Exhibition \"Comics & superheroes\""
+      },
+      "description": {
+        "fr": "Bienvenue aux super-héros !",
+        "en": "Welcome to the superheroes!"
+      },
+      "longDescription": {
+        "fr": "**Découvrez l’exposition \"Comics & super-héros\" !**\n\nDes grandes firmes américaines Marvel et DC Comics aux productions françaises, de Stan Lee à Franck Miller, l’exposition propose de plonger dans l’univers de ces personnages en costume.\n\nRetrouvez Batman, Iron Man, Wonder Woman et bien d’autres...\n\nUn parcours à découvrir dans les 8 communes.",
+        "en": "**Discover the exhibition \"Comics & superheroes\"!**\nFrom major American companies Marvel and DC Comics to French productions, from Stan Lee to Franck Miller, the exhibition proposes to dive into the universe of these characters in costume.\nFind Batman, Iron Man, Wonder Woman and more...\nA journey to discover in the 8 communes."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "58b722b77bf8489daeca6d4618e611dd.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T09:30:00.000Z",
+          "end": "2020-02-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T16:00:00.000Z",
+          "end": "2020-02-04T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:30:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T16:00:00.000Z",
+          "end": "2020-02-11T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:30:00.000Z",
+          "end": "2020-02-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T16:00:00.000Z",
+          "end": "2020-02-18T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:30:00.000Z",
+          "end": "2020-02-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T16:00:00.000Z",
+          "end": "2020-02-25T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:30:00.000Z",
+          "end": "2020-02-29T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:20.000Z",
+      "createdAt": "2020-01-27T15:43:26.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 87523545,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.paysdesherbiers.fr/actualites/mois-de-la-bande-dessinee-2/",
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr"
+      ],
+      "location": {
+        "uid": 87523545,
+        "slug": "bibliotheque-saint-paul-en-pareds",
+        "name": "Bibliothèque Saint-Paul-en-Pareds",
+        "address": "42 rue de l’Église 85500 Saint-Paul-en-Pareds",
+        "city": "Saint-Paul-en-Pareds",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85500",
+        "insee": "85259",
+        "countryCode": "FR",
+        "district": "Moulin de Saint-Paul",
+        "latitude": 46.823387,
+        "longitude": -0.986153,
+        "updatedAt": "2020-01-27T19:41:07.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 2446106,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "mois-de-la-bd-exposition-comics-and-super-heros_611840",
+      "title": {
+        "fr": "Mois de la BD - Exposition \"Comics & super-héros\"",
+        "en": "Mois de la BD - Exhibition \"Comics & superheroes\""
+      },
+      "description": {
+        "fr": "Bienvenue aux super-héros !",
+        "en": "Welcome to the superheroes!"
+      },
+      "longDescription": {
+        "fr": "**Découvrez l’exposition \"Comics & super-héros\" !**\n\nDes grandes firmes américaines Marvel et DC Comics aux productions françaises, de Stan Lee à Franck Miller, l’exposition propose de plonger dans l’univers de ces personnages en costume.\n\nRetrouvez Batman, Iron Man, Wonder Woman et bien d’autres...\n\nUn parcours à découvrir dans les 8 communes.",
+        "en": "**Discover the exhibition \"Comics & superheroes\"!**\nFrom major American companies Marvel and DC Comics to French productions, from Stan Lee to Franck Miller, the exhibition proposes to dive into the universe of these characters in costume.\nFind Batman, Iron Man, Wonder Woman and more...\nA journey to discover in the 8 communes."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "58b722b77bf8489daeca6d4618e611dd.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T15:45:00.000Z",
+          "end": "2020-01-31T17:45:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:30:00.000Z",
+          "end": "2020-02-01T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T15:45:00.000Z",
+          "end": "2020-02-04T17:45:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T15:45:00.000Z",
+          "end": "2020-02-07T17:45:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:30:00.000Z",
+          "end": "2020-02-08T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T15:45:00.000Z",
+          "end": "2020-02-11T17:45:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T15:45:00.000Z",
+          "end": "2020-02-14T17:45:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:30:00.000Z",
+          "end": "2020-02-15T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T15:45:00.000Z",
+          "end": "2020-02-18T17:45:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T15:45:00.000Z",
+          "end": "2020-02-21T17:45:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:30:00.000Z",
+          "end": "2020-02-22T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T15:45:00.000Z",
+          "end": "2020-02-25T17:45:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T15:45:00.000Z",
+          "end": "2020-02-28T17:45:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:30:00.000Z",
+          "end": "2020-02-29T10:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:05.000Z",
+      "createdAt": "2020-01-27T15:50:54.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 90123551,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.paysdesherbiers.fr/actualites/mois-de-la-bande-dessinee-2/",
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr"
+      ],
+      "location": {
+        "uid": 90123551,
+        "slug": "bibliotheque-de-beaurepaire-85",
+        "name": "Bibliothèque de Beaurepaire",
+        "address": "Rue du 8 mai 85500 Beaurepaire",
+        "city": "Charleville-Mézières",
+        "region": "Grand Est",
+        "department": "Ardennes",
+        "postalCode": "08000",
+        "insee": "08105",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.749945,
+        "longitude": 4.729071,
+        "updatedAt": "2020-01-27T19:44:12.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 25369835,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "mois-de-la-bd-exposition-comics-and-super-heros_843557",
+      "title": {
+        "fr": "Mois de la BD - Exposition \"Comics & super-héros\"",
+        "en": "Mois de la BD - Exhibition \"Comics & superheroes\""
+      },
+      "description": {
+        "fr": "Bienvenue aux super-héros !",
+        "en": "Welcome to the superheroes!"
+      },
+      "longDescription": {
+        "fr": "**Découvrez l’exposition \"Comics & super-héros\" !**\n\nDes grandes firmes américaines Marvel et DC Comics aux productions françaises, de Stan Lee à Franck Miller, l’exposition propose de plonger dans l’univers de ces personnages en costume.\n\nRetrouvez Batman, Iron Man, Wonder Woman et bien d’autres...\n\nUn parcours à découvrir dans les 8 communes.",
+        "en": "**Discover the exhibition \"Comics & superheroes\"!**\nFrom major American companies Marvel and DC Comics to French productions, from Stan Lee to Franck Miller, the exhibition proposes to dive into the universe of these characters in costume.\nFind Batman, Iron Man, Wonder Woman and more...\nA journey to discover in the 8 communes."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "58b722b77bf8489daeca6d4618e611dd.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T15:30:00.000Z",
+          "end": "2020-01-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T10:00:00.000Z",
+          "end": "2020-02-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T15:30:00.000Z",
+          "end": "2020-02-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T10:00:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T15:30:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T10:00:00.000Z",
+          "end": "2020-02-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T15:30:00.000Z",
+          "end": "2020-02-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T10:00:00.000Z",
+          "end": "2020-02-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T15:30:00.000Z",
+          "end": "2020-02-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T10:00:00.000Z",
+          "end": "2020-02-29T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:03.000Z",
+      "createdAt": "2020-01-27T15:55:51.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 60406967,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.paysdesherbiers.fr/actualites/mois-de-la-bande-dessinee-2/",
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr"
+      ],
+      "location": {
+        "uid": 60406967,
+        "slug": "bibliotheque-de-saint-mars-la-reorthe",
+        "name": "Bibliothèque de Saint-Mars-la-Réorthe",
+        "address": "Place Charles Gaschignard 85590 Saint-Mars-la-Réorthe",
+        "city": "Saint-Mars-la-Réorthe",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85590",
+        "insee": "85242",
+        "countryCode": "FR",
+        "district": "La Clef des Champs",
+        "latitude": 46.862711,
+        "longitude": -0.925399,
+        "updatedAt": "2020-01-27T19:45:26.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 80951415,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "mois-de-la-bd-exposition-comics-and-super-heros_598275",
+      "title": {
+        "fr": "Mois de la BD - Exposition \"Comics & super-héros\"",
+        "en": "Mois de la BD - Exhibition \"Comics & superheroes\""
+      },
+      "description": {
+        "fr": "Bienvenue aux super-héros !",
+        "en": "Welcome to the superheroes!"
+      },
+      "longDescription": {
+        "fr": "**Découvrez l’exposition \"Comics & super-héros\" !**\n\nDes grandes firmes américaines Marvel et DC Comics aux productions françaises, de Stan Lee à Franck Miller, l’exposition propose de plonger dans l’univers de ces personnages en costume.\n\nRetrouvez Batman, Iron Man, Wonder Woman et bien d’autres...\n\nUn parcours à découvrir dans les 8 communes.",
+        "en": "**Discover the exhibition \"Comics & superheroes\"!**\nFrom major American companies Marvel and DC Comics to French productions, from Stan Lee to Franck Miller, the exhibition proposes to dive into the universe of these characters in costume.\nFind Batman, Iron Man, Wonder Woman and more...\nA journey to discover in the 8 communes."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "58b722b77bf8489daeca6d4618e611dd.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T15:30:00.000Z",
+          "end": "2020-02-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T15:30:00.000Z",
+          "end": "2020-02-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T15:30:00.000Z",
+          "end": "2020-02-20T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T15:30:00.000Z",
+          "end": "2020-02-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:12.000Z",
+      "createdAt": "2020-01-27T15:58:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 42829314,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.paysdesherbiers.fr/actualites/mois-de-la-bande-dessinee-2/",
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr"
+      ],
+      "location": {
+        "uid": 42829314,
+        "slug": "bibliotheque-de-vendrennes",
+        "name": "Bibliothèque de Vendrennes",
+        "address": "8 bis route de l'Océan 85250 Vendrennes",
+        "city": "Vendrennes",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85250",
+        "insee": "85301",
+        "countryCode": "FR",
+        "district": "Domaine du Blanc",
+        "latitude": 46.825245,
+        "longitude": -1.12294,
+        "updatedAt": "2020-01-27T19:46:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 18178495,
+      "ownerUid": 93795906,
+      "creatorUid": 93795906,
+      "slug": "fete-du-livre-et-de-la-bd",
+      "title": {
+        "fr": "Fête du livre et de la BD",
+        "en": "Book and Comic Book Festival"
+      },
+      "description": {
+        "fr": "Fête tous publics en milieu rural avec rencontres d'auteurs rythmée par des ateliers, spectacles, conférences et jeux, qui clôture une quinzaine littéraire en Cœur du Var",
+        "en": "All-public festival in rural areas with meetings of authors punctuated by workshops, shows, conferences and games, which closes about fifteen literary works in the Heart of the Var"
+      },
+      "longDescription": {
+        "fr": "Rencontres et dédicaces d’auteurs de tous genres, BD, littérature, poésie, jeunesse.\n\nUn fête en présence d’une cinquantaine d'auteurs, de deux libraires, de maisons d'édition régionales. Deux spectacles : jeunesse et tout public, des ateliers pour tous, de nombreuses animations et jeux : un quiz littéraire organisé avec les auteurs.\n\nDurant les deux semaines qui précèdent la fête, nous organisons sur les différentes communes des événements hors les murs dans les bibliothèques/médiathèques pour la jeunesse et pour les adultes (contes, ateliers, conférence, spectacles, apéritif littéraire) et nous organisons avec les écoles et collèges des interventions d'auteurs en classe.",
+        "en": "Meetings and dedications of authors of all genres, comics, literature, poetry, youth.\nA party attended by some fifty authors, two booksellers, regional publishing houses. Two shows: youth and general public, workshops for all, numerous animations and games: a literary quiz organized with the authors.\nDuring the two weeks leading up to the festival, we organize events outside the walls in the libraries/media libraries for youth and adults (storytelling, workshops, conferences, shows, literary aperitif) and we organize in-class author interventions with schools and colleges."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-17T07:30:00.000Z",
+          "end": "2020-05-17T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:23:58.000Z",
+      "createdAt": "2020-01-27T20:56:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 51072558,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://www.fetedulivredegonfaron.fr",
+        "larevanchedelane@gmail.com"
+      ],
+      "location": {
+        "uid": 51072558,
+        "slug": "gonfaron-salle-paul-morel",
+        "name": "Salle Paul Maurel",
+        "address": "83590 Gonfaron",
+        "city": "Gonfaron",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Var",
+        "postalCode": "83590",
+        "insee": "83067",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.319905,
+        "longitude": 6.289785,
+        "updatedAt": "2020-01-28T09:10:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 93795906,
+        "custom": {
+          "organization": "fête du livre de Gonfaron (83)",
+          "contactName": "Magali Martin",
+          "contactNumber": "0614743192",
+          "contactPosition": "Trésoriére de l'association",
+          "email": "magali.martin@fetedulivredegonfaron.fr"
+        }
+      }
+    },
+    {
+      "uid": 27433919,
+      "ownerUid": 3076940,
+      "creatorUid": 3076940,
+      "slug": "beire-le-chatel-invite-la-bd",
+      "title": {
+        "fr": "Beire-le-Châtel invite la BD",
+        "en": "Beire-le-Châtel invites the comic"
+      },
+      "description": {
+        "fr": "Festival de bande dessinée (8e édition)",
+        "en": "Comic Strip Festival (8th edition)"
+      },
+      "longDescription": {
+        "fr": "Ce festival BD, organisé en Bourgogne près de Dijon par une bande de passionnés de bande dessinée, se déroulera les 20 et 21 juin 2020, de 10h à 18h, à Beire-le-Châtel (une vingtaine de kilomètres au nord-est de Dijon, proche Mirebeau-sur-Bèze, en Côte-d'Or).\n\nAu programme, une trentaine d'auteurs, illustrateurs, scénaristes seront présents sur les deux jours pour dédicacer leurs œuvres, parler de leur univers et échanger avec vous.\n\nDes expositions, des animations, des ateliers seront présentés.",
+        "en": "This comic strip festival, organized in Burgundy near Dijon by a comic strip enthusiast, will take place on 20 and 21 June 2020, from 10am to 6pm, in Beire-le-Châtel (about twenty kilometers northeast of Dijon, near Mirebeau-sur-Bèze, in Côte-d'Or).\nOn the program, some thirty authors, illustrators and screenwriters will be present over the two days to dedicate their works, talk about their universe and exchange with you.\nExhibitions, activities and workshops will be presented."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "3a43824c5ac3452e989fc15923f7b425.base.image.jpg",
+        "credits": "Affiche réalisée par Laurent Sieurac",
+        "size": {
+          "height": 1029,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3a43824c5ac3452e989fc15923f7b425.full.image.jpg",
+            "size": {
+              "height": 1763,
+              "width": 1200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3a43824c5ac3452e989fc15923f7b425.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-20T08:00:00.000Z",
+          "end": "2020-06-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-21T08:00:00.000Z",
+          "end": "2020-06-21T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:23:55.000Z",
+      "createdAt": "2020-01-27T08:20:13.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 7373552,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "contact@bdbeire.com"
+      ],
+      "location": {
+        "uid": 7373552,
+        "slug": "festival-beire-le-chatel-invite-la-bd-21310-beire-le-chatel",
+        "name": "Festival de Beire-le-Châtel invite la BD",
+        "address": "Chemin de l'Etrée 21310 Beire-le-Châtel",
+        "city": "Beire-le-Châtel",
+        "region": "Bourgogne-Franche-Comté",
+        "department": "Côte-d'Or",
+        "postalCode": "21310",
+        "insee": "21056",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.408567,
+        "longitude": 5.205649,
+        "updatedAt": "2020-01-27T08:16:10.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 3076940,
+        "custom": {
+          "organization": "Les Croqueurs de Bulles",
+          "contactName": "Michel BURDIN",
+          "contactNumber": "0675281524",
+          "contactPosition": "Membre de l'association",
+          "email": "mburdin@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 1254073,
+      "ownerUid": 28830833,
+      "creatorUid": 28830833,
+      "slug": "auxerre-fait-son-angouleme-salon-bd",
+      "title": {
+        "fr": "Auxerre fait son Angoulême - Salon BD",
+        "en": "Auxerre fait son Angoulême - Comic Book Fair"
+      },
+      "description": {
+        "fr": "Salon, exposition, dédicaces avec auteurs",
+        "en": "Exhibition, exhibition, autographs with authors"
+      },
+      "longDescription": {
+        "fr": "Un salon, des expos de planches de bandes dessinées, des caricatures ou encore des ateliers BD pour enfants et adolescents, des rencontres avec des auteurs, des animations, ...\n\n_Les dédicaces seront soumises à achat._\n\nVente de BD neuves et occasions\n\nGrande tombola\n\nPossibilité de se restaurer sur place.\n\n**Samedi 22**\n\n14h30-15h30 et 16h-17h : atelier dessin destiné aux enfants \"Super héros zanimos\", animé par Mag' Martin du collectif Draw'ID\n\n19h : grand battle de dessin dans la grande salle du théâtre\n\n**Dimanche 23**\n\n15h : conférence par Mickael Géreaume de Komics Initiativ sur son métier d'éditeur, et notamment l'utilisation de la plateforme Ulule.\n\nListe des auteurs présents :\n\nBa-Man - Maniez Patrick\n\nBillard Josselin\n\nCellectif DRAW'ID\n\nDiolot Clément\n\nDuf - Dufour Philippe\n\nFredgri - Grivaud Fred\n\nGéraume Mickaël\n\nGondy Romain\n\nHatch Strange\n\nJo-Hell\n\nMetal - Métaut Julien\n\nNamé\n\nPagani Baptiste\n\nSourya\n\nVallet Dominik\n\nAmani Sandra",
+        "en": "A living room, exhibitions of comic books, cartoons or comic book workshops for children and adolescents, meetings with authors, animations, ...  \n_The dedication will be subject to purchase._  \nSale of new comics AND occasions  \nBig raffle  \nPossibility to eat on site.  \n**Saturday the 22nd**  \n14h30-15h30 et 16h-17h: drawing workshop for children \"Super heroes zanimos\" animated by Mag' Martin, of the Draw'ID Collective  \n7pm: great Drawing Battle in the Great Theatre Hall  \n**Sunday 23**  \n3pm: lecture by Mickael Géreaume of Komics Initiative on his job as editor and in particular the use of the Ulule platform.  \nList of authors present:  \nBa-Man - Maniez Patrick\n\nBillard Josselin\n\nCellectif DRAW'ID\n\nDiolot Clément\n\nDuf - Dufour Philippe\n\nFredgri - Grivaud Fred\n\nGéraume Mickaël\n\nGondy Romain\n\nHatch Strange\n\nJo-Hell\n\nMetal - Métaut Julien\n\nNamé\n\nPagani Baptiste\n\nSourya\n\nVallet Dominik\n\nAmani Sandra"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "02c023bd780e4060a0ab2779285c4952.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "02c023bd780e4060a0ab2779285c4952.full.image.jpg",
+            "size": {
+              "height": 3508,
+              "width": 2481
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "02c023bd780e4060a0ab2779285c4952.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-22T13:00:00.000Z",
+          "end": "2020-02-22T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T09:00:00.000Z",
+          "end": "2020-02-23T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T17:48:53.000Z",
+      "createdAt": "2020-01-28T12:03:17.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 95617291,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 95617291,
+        "slug": "theatre-dauxerre962",
+        "name": "Théâtre d'Auxerre",
+        "address": "54 rue Joubert 89000 Auxerre",
+        "city": "Auxerre",
+        "region": "Bourgogne-Franche-Comté",
+        "department": "Yonne",
+        "postalCode": "89000",
+        "insee": "89024",
+        "countryCode": "FR",
+        "district": "Le Moulin de Billy",
+        "latitude": 47.795033,
+        "longitude": 3.573107,
+        "updatedAt": "2020-01-28T16:06:18.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "MJC d'Auxerre, Bibliothèque Municipale d'Auxerre Jacques Lacarrière, Cultura Auxerre, Espace d'Accueil et d'animation La Boussole",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 28830833,
+        "custom": {
+          "organization": "Association Aux'I.D",
+          "contactName": "Romain Gondy",
+          "contactNumber": "0681673744",
+          "contactPosition": "Vice président",
+          "email": "asso.auxid@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 21184729,
+      "ownerUid": 28830833,
+      "creatorUid": 28830833,
+      "slug": "auxerre-fait-son-angouleme-24h-bd",
+      "title": {
+        "en": "Auxerre fait son Angoulême - 24h BD",
+        "fr": "Auxerre fait son Angoulême - 24h BD"
+      },
+      "description": {
+        "en": "24h of the comic",
+        "fr": "24h de la BD"
+      },
+      "longDescription": {
+        "en": "Professionals and enthusiasts indulge in the now traditional exercise at Auxerre of the 24h comic strip.\nThe objective: to produce 24 comic strips (including cover and cover 4) in 24 hours, respecting the theme unveiled at the beginning of the event.\nPre-registrants will be offered meals. For others, you will have to insure by yourself.\nInformation by email at: [info.24hde.la.bd@gmail.com](mailto:info.24hde.la.bd@gmail.com)",
+        "fr": "Professionnels et amateurs se plient à l'exercice désormais traditionnel à Auxerre des 24h de la BD.\n\nL'objectif : réaliser 24 planches de BD (couverture et 4e de couverture comprise) en 24h, en respectant le thème dévoilé au début de l'épreuve.\n\nLes inscrits au préalable se verront offrir les repas. Pour les autres, il faudra assurer par soi-même.\n\nInformations par mail à : [info.24hde.la.bd@gmail.com](mailto:info.24hde.la.bd@gmail.com)"
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Register by email at: [24hde.la.bd@gmail.com](mailto:24hde.la.bd@gmail.com)",
+        "fr": "Inscription par mail à : 24hde.la.bd@gmail.com"
+      },
+      "image": {
+        "filename": "9fc06ca840aa46328c9e2e75295b7749.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9fc06ca840aa46328c9e2e75295b7749.full.image.jpg",
+            "size": {
+              "height": 3508,
+              "width": 2481
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9fc06ca840aa46328c9e2e75295b7749.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-15T14:00:00.000Z",
+          "end": "2020-02-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T23:00:00.000Z",
+          "end": "2020-02-16T15:59:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T18:24:35.000Z",
+      "createdAt": "2020-01-28T12:10:10.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 79746344,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [
+        "24hde.la.bd@gmail.com"
+      ],
+      "location": {
+        "uid": 79746344,
+        "slug": "mjc-dauxerre",
+        "name": "Maison des Jeunes et de la Culture",
+        "address": "Impasse Saint Pierre 89000 Auxerre",
+        "city": "Auxerre",
+        "region": "Bourgogne-Franche-Comté",
+        "department": "Yonne",
+        "postalCode": "89000",
+        "insee": "89024",
+        "countryCode": "FR",
+        "district": "Le Moulin de Billy",
+        "latitude": 47.795055,
+        "longitude": 3.575043,
+        "updatedAt": "2020-01-28T16:50:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "MJC d'Auxerre, Bibliothèque Municipale d'Auxerre Jacques Lacarrière, Cultura Auxerre, Espace d'Accueil et d'animation La Boussole",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 28830833,
+        "custom": {
+          "organization": "Association Aux'I.D",
+          "contactName": "Romain Gondy",
+          "contactNumber": "0681673744",
+          "contactPosition": "Vice président",
+          "email": "asso.auxid@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 14024993,
+      "ownerUid": 28830833,
+      "creatorUid": 28830833,
+      "slug": "exposition-les-demons-de-mary",
+      "title": {
+        "fr": "Exposition \"Les démons de Mary\"",
+        "en": "Exhibition \"Demons of Mary\""
+      },
+      "description": {
+        "fr": "Exposition grands format de BD",
+        "en": "Large format comic strip exhibition"
+      },
+      "longDescription": {
+        "fr": "Par le collectif Draw’ID\n\nDu samedi 11 janvier au samedi 22 février\n\nEt si, cette année, l’exposition qui annonce le festival \"Auxerre fait son Angoulême\" n’était pas juste une exposition autour de l’illustration et de la BD ?\n\nEt si, cette année, l’exposition c’était une BD ?\n\nEt si cette BD était en format géant ?\n\nEt si la fin de cette BD était une fresque réalisée en direct devant et avec le public ?\n\nEt si cette fresque comprenait aussi des parties en volume ?\n\nÀ l’origine de ce projet, les membres du collectif Draw’ID ont invité un auteur, des illustrateur·trice·s. et des crafteur·teuse·s de l’association Aux’ID mais aussi des artistes de lointains horizons, spécialisés dans le style manga ou comics, à travailler autour d’un seul et même scénario ayant pour sujet Mary Shelley, en écho au spectacle Mary par l’ensemble XXI.n le 22 janvier. Une histoire d’une dizaine de pages et autant de styles différents à venir découvrir.\n\nN’hésitez pas à venir à la rencontre des artistes et/ou participer à la fresque tout au long de la journée. Nous clôturerons ce moment convivial avec le vernissage de l’exposition.",
+        "en": "By the collective Draw'ID  \nFrom Saturday 11 January to Saturday 22 February  \n  \nWhat if, this year, the exhibition that announces the Auxerre festival makes its Angoulême was not just an exhibition around illustration and comics?  \nWhat if this year’s show was a comic book?  \nWhat if this comic is in giant format?  \nWhat if the end of this comic was a live fresco in front of and with the audience?  \nWhat if this fresco also includes volume parts?  \nAt the origin of this project, the members of the Draw'ID collective invited an author, illustrators. and crafters from the association Aux'ID but also artists from distant horizons, specialized in the style of manga or comics, to work around one and the same scenario having as its subject Mary Shelley, in echo to the show Mary by the ensemble XXI. n January 22. A story of about ten pages and as many different styles to come and discover.  \nDo not hesitate to come to meet the artists and/or participate in the fresco throughout the day. We will close this convivial moment with the opening of the exhibition."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "0166ac09816c4407b6a98d10e5afd973.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 992,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0166ac09816c4407b6a98d10e5afd973.full.image.jpg",
+            "size": {
+              "height": 960,
+              "width": 678
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0166ac09816c4407b6a98d10e5afd973.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-11T08:00:00.000Z",
+          "end": "2020-01-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T12:30:00.000Z",
+          "end": "2020-01-14T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T08:30:00.000Z",
+          "end": "2020-01-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T12:30:00.000Z",
+          "end": "2020-01-15T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T08:30:00.000Z",
+          "end": "2020-01-16T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T12:30:00.000Z",
+          "end": "2020-01-16T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T12:30:00.000Z",
+          "end": "2020-01-17T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T13:00:00.000Z",
+          "end": "2020-01-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T12:30:00.000Z",
+          "end": "2020-01-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T08:30:00.000Z",
+          "end": "2020-01-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T12:30:00.000Z",
+          "end": "2020-01-22T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T08:30:00.000Z",
+          "end": "2020-01-23T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T12:30:00.000Z",
+          "end": "2020-01-23T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T12:30:00.000Z",
+          "end": "2020-01-24T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T13:00:00.000Z",
+          "end": "2020-01-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T12:30:00.000Z",
+          "end": "2020-01-28T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T08:30:00.000Z",
+          "end": "2020-01-29T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T12:30:00.000Z",
+          "end": "2020-01-29T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T08:30:00.000Z",
+          "end": "2020-01-30T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T12:30:00.000Z",
+          "end": "2020-01-30T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T12:30:00.000Z",
+          "end": "2020-01-31T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T13:00:00.000Z",
+          "end": "2020-02-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T12:30:00.000Z",
+          "end": "2020-02-04T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T08:30:00.000Z",
+          "end": "2020-02-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T12:30:00.000Z",
+          "end": "2020-02-05T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T08:30:00.000Z",
+          "end": "2020-02-06T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T12:30:00.000Z",
+          "end": "2020-02-06T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T12:30:00.000Z",
+          "end": "2020-02-07T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T13:00:00.000Z",
+          "end": "2020-02-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T12:30:00.000Z",
+          "end": "2020-02-11T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T08:30:00.000Z",
+          "end": "2020-02-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T12:30:00.000Z",
+          "end": "2020-02-12T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T08:30:00.000Z",
+          "end": "2020-02-13T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T12:30:00.000Z",
+          "end": "2020-02-13T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T12:30:00.000Z",
+          "end": "2020-02-14T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T13:00:00.000Z",
+          "end": "2020-02-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T12:30:00.000Z",
+          "end": "2020-02-18T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T08:30:00.000Z",
+          "end": "2020-02-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T12:30:00.000Z",
+          "end": "2020-02-19T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T08:30:00.000Z",
+          "end": "2020-02-20T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T12:30:00.000Z",
+          "end": "2020-02-20T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T12:30:00.000Z",
+          "end": "2020-02-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T13:00:00.000Z",
+          "end": "2020-02-22T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T17:52:36.000Z",
+      "createdAt": "2020-01-28T12:17:30.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 95617291,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 95617291,
+        "slug": "theatre-dauxerre962",
+        "name": "Théâtre d'Auxerre",
+        "address": "54 rue Joubert 89000 Auxerre",
+        "city": "Auxerre",
+        "region": "Bourgogne-Franche-Comté",
+        "department": "Yonne",
+        "postalCode": "89000",
+        "insee": "89024",
+        "countryCode": "FR",
+        "district": "Le Moulin de Billy",
+        "latitude": 47.795033,
+        "longitude": 3.573107,
+        "updatedAt": "2020-01-28T16:06:18.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": "Association Aux'ID",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 28830833,
+        "custom": {
+          "organization": "Association Aux'I.D",
+          "contactName": "Romain Gondy",
+          "contactNumber": "0681673744",
+          "contactPosition": "Vice président",
+          "email": "asso.auxid@gmail.com"
+        }
+      }
+    }
+  ],
+  "lastId": 2142060
+}

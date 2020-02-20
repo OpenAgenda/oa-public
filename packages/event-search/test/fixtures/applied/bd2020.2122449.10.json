@@ -1,0 +1,1554 @@
+{
+  "events": [
+    {
+      "uid": 51457271,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "festival-bulles-en-val-cafe-bd-avec-presentation-de-coups-de-coeur-bd",
+      "title": {
+        "fr": "Festival \"Bulles en Val\" - Café BD avec présentation de coups de cœur BD",
+        "en": "Festival \"Bulles en Val\" - Comic Strip Café with Comic Strip Heart Presentation"
+      },
+      "description": {
+        "fr": "19e festival \"Bulles en Val\" à la médiathèque de la Loire",
+        "en": "19th \"Bulles en Val\" festival at the Media Library of the Loire"
+      },
+      "longDescription": {
+        "fr": "**À la médiathèque de la Loire**\n\n[http://www.mediathequesaintdenisenval.net-](http://www.mediathequesaintdenisenval.net-)\n\nExposition \"Créer une BD avec Gaspard\" par BD BOUM du 13 au 30 janvier.\n\n**Samedi 1er février à 10h, café BD avec présentation de coups de cœur BD et auteurs de Bulles en Val.**\n\nMardi 18 février à 15h, atelier manga par Christophe Cointault (à partir de 9 ans sur inscription).\n\nMardi 25 février à 14h, atelier « Viens créer ton masque manga » (à partir de 6 ans sur inscription).\n\n4 mars à 16h, contes illustrés de la cie Troll avec Mickael Roux.",
+        "en": "**At the Media Library of the Loire**\n[http://www.mediathequesaintdenisenval.net-](http://www.mediathequesaintdenisenval.net-)\nExhibition \"Create a comic book with Gaspard\" by BD BOUM from 13 to 30 January.\n**Saturday 1 February at 10 am, comic strip café with a presentation of comic book favourites and authors of Bulles en Val.**\nTuesday 18 February at 3 pm, manga workshop by Christophe Cointault (from 9 years old on registration).\nTuesday 25 February at 14h, workshop «Viens créer ton masque manga» (from 6 years on registration).\nMarch 4th at 4pm, illustrated tales of the cie Troll with Mickael Roux."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c1f90f0ffbd24f11aa020b02e605cce8.base.image.jpg",
+        "credits": "Laurent Astier - Bulles en Val",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c1f90f0ffbd24f11aa020b02e605cce8.full.image.jpg",
+            "size": {
+              "height": 1240,
+              "width": 877
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c1f90f0ffbd24f11aa020b02e605cce8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:30.000Z",
+      "createdAt": "2020-01-09T08:38:54.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 75629239,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "bullesenval@free.fr",
+        "https://www.facebook.com/bullesenval/",
+        "07 68 40 17 37"
+      ],
+      "location": {
+        "uid": 75629239,
+        "slug": "mediatheque-de-la-loire680",
+        "name": "Médiathèque de la Loire",
+        "address": "260 rue des Écoles 45560 Saint-Denis-en-Val",
+        "city": "Saint-Denis-en-Val",
+        "region": "Centre-Val de Loire",
+        "department": "Loiret",
+        "postalCode": "45560",
+        "insee": "45274",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.879653,
+        "longitude": 1.956645,
+        "updatedAt": "2020-01-08T08:29:45.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 57943041,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "festival-bulles-en-val-atelier-manga-par-christophe-cointault",
+      "title": {
+        "fr": "Festival \"Bulles en Val\" - Atelier manga par Christophe Cointault",
+        "en": "Festival \"Bulles en Val\" - Workshop manga by Christophe Cointault"
+      },
+      "description": {
+        "fr": "19e festival \"Bulles en Val\" à la médiathèque de la Loire",
+        "en": "19th \"Bulles en Val\" festival at the Media Library of the Loire"
+      },
+      "longDescription": {
+        "fr": "**À la médiathèque de la Loire**\n\n[http://www.mediathequesaintdenisenval.net-](http://www.mediathequesaintdenisenval.net-)\n\nExposition \"Créer une BD avec Gaspard\" par BD BOUM du 13 au 30 janvier.\n\nSamedi 1er février à 10h, café BD avec présentation de coups de cœur BD et auteurs de Bulles en Val.\n\n**Mardi 18 février à 15h, atelier manga par Christophe Cointault (à partir de 9 ans sur inscription).**\n\nMardi 25 février à 14h, atelier « Viens créer ton masque manga » (à partir de 6 ans sur inscription).\n\n4 mars à 16h, contes illustrés de la cie Troll avec Mickael Roux.",
+        "en": "**At the Media Library of the Loire**\n[http://www.mediathequesaintdenisenval.net-](http://www.mediathequesaintdenisenval.net-)\nExhibition \"Create a comic book with Gaspard\" by BD BOUM from 13 to 30 January.\nSaturday 1st February at 10am, comic strip café with a presentation of comic book favourites and authors of Bulles en Val.\n**Tuesday 18 February at 3pm, manga workshop by Christophe Cointault (from 9 years old on registration).**\nTuesday 25 February at 14h, workshop «Viens créer ton masque manga» (from 6 years on registration).\nMarch 4th at 4pm, illustrated tales of the cie Troll with Mickael Roux."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c1f90f0ffbd24f11aa020b02e605cce8.base.image.jpg",
+        "credits": "Laurent Astier - Bulles en Val",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c1f90f0ffbd24f11aa020b02e605cce8.full.image.jpg",
+            "size": {
+              "height": 1240,
+              "width": 877
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c1f90f0ffbd24f11aa020b02e605cce8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-18T14:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:17.000Z",
+      "createdAt": "2020-01-09T08:41:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 75629239,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "bullesenval@free.fr",
+        "https://www.facebook.com/bullesenval/",
+        "07 68 40 17 37"
+      ],
+      "location": {
+        "uid": 75629239,
+        "slug": "mediatheque-de-la-loire680",
+        "name": "Médiathèque de la Loire",
+        "address": "260 rue des Écoles 45560 Saint-Denis-en-Val",
+        "city": "Saint-Denis-en-Val",
+        "region": "Centre-Val de Loire",
+        "department": "Loiret",
+        "postalCode": "45560",
+        "insee": "45274",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.879653,
+        "longitude": 1.956645,
+        "updatedAt": "2020-01-08T08:29:45.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": "Atelier à partir de 9 ans sur inscription",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 42774565,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "festival-bulles-en-val-atelier-viens-creer-ton-masque-manga",
+      "title": {
+        "fr": "Festival \"Bulles en Val\" - Atelier \"Viens créer ton masque manga\"",
+        "en": "Festival \"Bulles en Val\" - Workshop \"Come create your manga mask\""
+      },
+      "description": {
+        "fr": "19e festival \"Bulles en Val\" à la médiathèque de la Loire",
+        "en": "19th \"Bulles en Val\" festival at the Media Library of the Loire"
+      },
+      "longDescription": {
+        "fr": "**À la médiathèque de la Loire**\n\n[http://www.mediathequesaintdenisenval.net-](http://www.mediathequesaintdenisenval.net-)\n\nExposition \"Créer une BD avec Gaspard\" par BD BOUM du 13 au 30 janvier.\n\nSamedi 1er février à 10h, café BD avec présentation de coups de cœur BD et auteurs de Bulles en Val.\n\nMardi 18 février à 15h, atelier manga par Christophe Cointault (à partir de 9 ans sur inscription).\n\n**Mardi 25 février à 14h, atelier « Viens créer ton masque manga » (à partir de 6 ans sur inscription).**\n\n4 mars à 16h, contes illustrés de la cie Troll avec Mickael Roux.",
+        "en": "**At the Media Library of the Loire**\n[http://www.mediathequesaintdenisenval.net-](http://www.mediathequesaintdenisenval.net-)\nExhibition \"Create a comic book with Gaspard\" by BD BOUM from 13 to 30 January.\nSaturday 1 February at 10 am, comic strip café with a presentation of comic book favourites and authors of Bulles en Val.\nTuesday 18 February at 3 pm, manga workshop by Christophe Cointault (from 9 years old on registration).\n**Tuesday 25 February at 14h, workshop «Viens créer ton masque manga» (from 6 years on registration).**\nMarch 4th at 4pm, illustrated tales of the cie Troll with Mickael Roux."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Atelier à partir de 6 ans, sur inscription",
+        "en": "Workshop from 6 years old, upon registration"
+      },
+      "image": {
+        "filename": "c1f90f0ffbd24f11aa020b02e605cce8.base.image.jpg",
+        "credits": "Laurent Astier - Bulles en Val",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c1f90f0ffbd24f11aa020b02e605cce8.full.image.jpg",
+            "size": {
+              "height": 1240,
+              "width": 877
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c1f90f0ffbd24f11aa020b02e605cce8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-25T13:00:00.000Z",
+          "end": "2020-02-25T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:08.000Z",
+      "createdAt": "2020-01-09T08:47:16.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 75629239,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "bullesenval@free.fr",
+        "https://www.facebook.com/bullesenval/",
+        "07 68 40 17 37"
+      ],
+      "location": {
+        "uid": 75629239,
+        "slug": "mediatheque-de-la-loire680",
+        "name": "Médiathèque de la Loire",
+        "address": "260 rue des Écoles 45560 Saint-Denis-en-Val",
+        "city": "Saint-Denis-en-Val",
+        "region": "Centre-Val de Loire",
+        "department": "Loiret",
+        "postalCode": "45560",
+        "insee": "45274",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.879653,
+        "longitude": 1.956645,
+        "updatedAt": "2020-01-08T08:29:45.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 7435209,
+      "ownerUid": 68181799,
+      "creatorUid": 68181799,
+      "slug": "quiz-bd-pour-les-4-ans-de-bubble",
+      "title": {
+        "fr": "Quiz BD et fête des 4 ans de Bubble, pour les fans de BD, comics et mangas",
+        "en": "Comic book quiz and 4 years of Bubble party, for fans of comics and mangas"
+      },
+      "description": {
+        "fr": "Bubble, le meilleur service dédiée aux fans de BD, comics et mangas propose un quiz autour d'un verre !",
+        "en": "Bubble, the best service dedicated to fans of comics and mangas offers a quiz around a glass!"
+      },
+      "longDescription": {
+        "fr": "Rendez-vous à tous les fans et amateurs de BD, comics et mangas pour une rencontre exceptionnelle autour d'un verre, avec un quiz à 18h00.",
+        "en": "Meet all fans and fans of comics, comics and mangas for an exceptional meeting around a drink, with a quiz at 6:00 pm."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "https://www.appbubble.co/",
+        "en": "[https://www.appbubble.co/](https://www.appbubble.co/)"
+      },
+      "image": {
+        "filename": "662a98873c2f4c92801ba80cb7bdd7b3.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 350,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "662a98873c2f4c92801ba80cb7bdd7b3.full.image.jpg",
+            "size": {
+              "height": 540,
+              "width": 1080
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "662a98873c2f4c92801ba80cb7bdd7b3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T17:00:00.000Z",
+          "end": "2020-02-01T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:12.000Z",
+      "createdAt": "2020-01-09T08:51:17.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64049656,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.eventbrite.fr/e/billets-bubble-fete-ses-4-ans-87660748659?aff=affiliate1"
+      ],
+      "location": {
+        "uid": 64049656,
+        "slug": "bar-le-cinq-sens-14-rue-massillon-16000-angouleme",
+        "name": "Bar le Cinq sens",
+        "address": "14 rue Massillon 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.649875,
+        "longitude": 0.156119,
+        "updatedAt": "2020-01-09T08:59:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Média BD, comics et manga",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 68181799,
+        "custom": {
+          "organization": "Bubble",
+          "contactName": "Sonia Callier Taylor",
+          "contactNumber": "0628507641",
+          "contactPosition": "Responsable communication",
+          "email": "sonia@appbubble.co"
+        }
+      }
+    },
+    {
+      "uid": 63540414,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "festival-bulles-en-val-contes-illustres-de-la-compagnie-troll-avec-mickael-roux",
+      "title": {
+        "fr": "Festival \"Bulles en Val\" - Contes illustrés de la compagnie Troll avec Mickaël Roux",
+        "en": "Festival \"Bulles en Val\" - Illustrated tales of the Troll company with Mickaël Roux"
+      },
+      "description": {
+        "fr": "19e festival \"Bulles en Val\" à la médiathèque de la Loire",
+        "en": "19th \"Bulles en Val\" festival at the Media Library of the Loire"
+      },
+      "longDescription": {
+        "fr": "**À la médiathèque de la Loire**\n\n[http://www.mediathequesaintdenisenval.net-](http://www.mediathequesaintdenisenval.net-)\n\nExposition \"Créer une BD avec Gaspard\" par BD BOUM du 13 au 30 janvier.\n\nSamedi 1er février à 10h, café BD avec présentation de coups de cœur BD et auteurs de Bulles en Val.\n\nMardi 18 février à 15h, atelier manga par Christophe Cointault (à partir de 9 ans sur inscription).\n\nMardi 25 février à 14h, atelier « Viens créer ton masque manga » (à partir de 6 ans sur inscription).\n\n**Mercredi 4 mars à 16h, contes illustrés de la cie Troll avec Mickaël Roux.**",
+        "en": "**At the Media Library of the Loire**\n[http://www.mediathequesaintdenisenval.net-](http://www.mediathequesaintdenisenval.net-)\nExhibition \"Create a comic book with Gaspard\" by BD BOUM from 13 to 30 January.\nSaturday 1 February at 10 am, comic strip café with a presentation of comic book favourites and authors of Bulles en Val.\nTuesday 18 February at 3 pm, manga workshop by Christophe Cointault (from 9 years old on registration).\nTuesday 25 February at 14h, workshop «Viens créer ton masque manga» (from 6 years on registration).\n**Wednesday 4 March at 4 pm, illustrated tales of the cie Troll with Mickaël Roux.**"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c1f90f0ffbd24f11aa020b02e605cce8.base.image.jpg",
+        "credits": "Laurent Astier - Bulles en Val",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c1f90f0ffbd24f11aa020b02e605cce8.full.image.jpg",
+            "size": {
+              "height": 1240,
+              "width": 877
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c1f90f0ffbd24f11aa020b02e605cce8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-04T15:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:03.000Z",
+      "createdAt": "2020-01-09T08:52:18.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 75629239,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "bullesenval@free.fr",
+        "https://www.facebook.com/bullesenval/",
+        "07 68 40 17 37"
+      ],
+      "location": {
+        "uid": 75629239,
+        "slug": "mediatheque-de-la-loire680",
+        "name": "Médiathèque de la Loire",
+        "address": "260 rue des Écoles 45560 Saint-Denis-en-Val",
+        "city": "Saint-Denis-en-Val",
+        "region": "Centre-Val de Loire",
+        "department": "Loiret",
+        "postalCode": "45560",
+        "insee": "45274",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.879653,
+        "longitude": 1.956645,
+        "updatedAt": "2020-01-08T08:29:45.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 60486837,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "rencontre-avec-le-scenariste-et-illustrateur-de-bandes-dessinees-alain-buisson",
+      "title": {
+        "fr": "Rencontre avec le scénariste et illustrateur de bandes dessinées Alain Buisson",
+        "en": "Meeting with writer and illustrator Alain Buisson"
+      },
+      "description": {
+        "fr": "Rencontre avec le scénariste et illustrateur Alain Buisson",
+        "en": "Meeting with screenwriter and illustrator Alain Buisson"
+      },
+      "longDescription": {
+        "fr": "Vous rêvez de rancontrer un auteur-illustrateur de bandes dessinées ? Alain Buisson sera présent à la bibliothèque de Saint-Maurice-lès-Châteauneuf pour vous faire découvrir le dernier tome des aventures d'Émile Tartarin et Camomille dont l'action se déroule au sein du village. Une enquète policière on ne peut plus ... locale !",
+        "en": "Do you dream of holding a grudge against a comic book writer? Alain Buisson will be present at the library of Saint-Maurice-lès-Châteauneuf to make you discover the last volume of the adventures of Émile Tartarin and Camomile, which takes place in the village. A police investigation can no longer ... local!"
+      },
+      "keywords": {
+        "fr": [
+          "rencontre et dédicace d'auteur",
+          "bande dessinée"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "c55ed077b5ed4f8faceddafe4f5c8a99.base.image.jpg",
+        "credits": "Alain Buisson",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c55ed077b5ed4f8faceddafe4f5c8a99.full.image.jpg",
+            "size": {
+              "height": 600,
+              "width": 424
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c55ed077b5ed4f8faceddafe4f5c8a99.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T15:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:09.000Z",
+      "createdAt": "2020-01-09T11:02:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 84398151,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 84398151,
+        "slug": "bibliotheque-de-saint-maurice-les-chateauneuf",
+        "name": "Bibliothèque de Saint-Maurice-lès-Châteauneuf",
+        "address": "71740 Saint-Maurice-lès-Châteauneuf",
+        "city": "Saint-Maurice-lès-Châteauneuf",
+        "region": "Bourgogne-Franche-Comté",
+        "department": "Saône-et-Loire",
+        "postalCode": "71740",
+        "insee": "71463",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 46.2271,
+        "longitude": 4.24986,
+        "updatedAt": "2020-01-09T11:00:12.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 90117655,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "exposition-anuki-la-bd-des-petits",
+      "title": {
+        "fr": "Exposition \"Anuki\", la BD des petits !",
+        "en": "Exhibition \"Anuki\", the comic book of the little ones!"
+      },
+      "description": {
+        "fr": "Un exposition pour comprendre comment marche le 9e art de manière ludique",
+        "en": "An exhibition to understand how the 9th art works in a playful way"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c898b82c91a14103b67074f4ebbeb733.base.image.jpg",
+        "credits": "F. Maupomé – S. Sénégas – Editions de la Gouttière – Collection La bulle expositions",
+        "size": {
+          "height": 408,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c898b82c91a14103b67074f4ebbeb733.full.image.jpg",
+            "size": {
+              "height": 862,
+              "width": 1480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c898b82c91a14103b67074f4ebbeb733.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-16T14:00:00.000Z",
+          "end": "2020-01-16T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T13:00:00.000Z",
+          "end": "2020-01-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T11:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:55.000Z",
+      "createdAt": "2020-01-09T11:07:42.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 91202571,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 91202571,
+        "slug": "bibliotheque-municipale-detival-les-le-mans660",
+        "name": "Bibliothèque municipale d'Étival-lès-le-Mans",
+        "address": "1 route de Voivres 72700 Étival-lès-le-Mans",
+        "city": "Étival-lès-le-Mans",
+        "region": "Pays de la Loire",
+        "department": "Sarthe",
+        "postalCode": "72700",
+        "insee": "72127",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.95455,
+        "longitude": 0.086483,
+        "updatedAt": "2020-01-09T13:28:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Sarthe lecture, bibliothèque départementale de la Sarthe",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 55255432,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "grand-plongeon-dans-la-bd_794543",
+      "title": {
+        "fr": "Grand plongeon dans la BD",
+        "en": "Big dive in comics"
+      },
+      "description": {
+        "fr": "2020 sera aussi l'année de la BD. La Bulle Gantière invite le public à faire un grand plongeon pour 12 heures de BD à l'Étoile bleue",
+        "en": "2020 will also be the year of the comic book. La Bulle Gantière invites the public to make a big dive for 12 hours of comic book at the Blue Star"
+      },
+      "longDescription": {
+        "fr": "L’association La Bulle Gantière a pour but de promouvoir la bande dessinée par le biais de conférences, d’expositions, de dédicaces, de festivals et toutes autres manifestations thématiques.\n\n« Les rencontres BD » qui existent maintenant depuis 11 ans au mois de juin ont eu l’honneur d’accueillir de prestigieux auteurs comme Patrick Sobral, Isabelle Dethan ou Eric Albert. Ce salon est désormais bien inscrit dans le calendrier des amateurs.\n\nLaurent Janmart est le président de l'association La Bulle Gantière, à l'origine de cette manifestation. \"Nous avons acquis au fil des années une belle notoriété qui nous permet de grandir tous les ans un peu plus… trente-cinq auteurs sont invités chaque année. Ce salon a des prétentions réelles. Nous avons la chance d'avoir des auteurs belges de haut niveau comme Hermann, qui a obtenu le grand prix du festival d'Angoulême en 2016. Notre salon a acquis une belle réputation grâce à tous ces auteurs devenus des fidèles\".\n\n**Pour la Nuit de la lecture, nous présenterons des planches d’Henry Blanc d’après le classique du feuilleton radiophonique \"Signé Furax\".**",
+        "en": "La Bulle Gantière aims to promote comic books through conferences, exhibitions, dedications, festivals and other thematic events.\n“Comic Strip Encounters”, which have now been in existence for 11 years in June, had the honour of welcoming prestigious authors such as Patrick Sobral, Isabelle Dethan and Eric Albert. This fair is now well placed in the amateur calendar.\nLaurent Janmart is the president of the association La Bulle Gantière, at the origin of this event. \" Over the years we have developed a great reputation that allows us to grow each year a little more… 35 authors are invited each year. This fair has real claims. We are lucky to have high-level Belgian authors like Hermann, who won the Angoulême festival grand prize in 2016\\. Our fair has acquired a fine reputation thanks to all these authors who have become faithful\".\n**For the Nuit de la lecture, we will present plates by Henry Blanc after the classic radio series \"Signé Furax\".**"
+      },
+      "keywords": {
+        "fr": [
+          "BD",
+          "Saint-Junien",
+          "Bulle gantière",
+          "Signé Furax",
+          "etoile bleue"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T18:30:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T23:00:00.000Z",
+          "end": "2020-01-19T06:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:54.000Z",
+      "createdAt": "2020-01-09T11:15:32.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 29585679,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 29585679,
+        "slug": "theatre-letoile-bleue",
+        "name": "Théâtre l'Étoile bleue",
+        "address": "Rue Renan 87200 Saint-Junien",
+        "city": "Saint-Junien",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87200",
+        "insee": "87154",
+        "countryCode": "FR",
+        "district": "Lotissement de Précoin",
+        "latitude": 45.886027,
+        "longitude": 0.901289,
+        "updatedAt": "2020-01-09T11:09:34.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 630,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bulle Gantière et collectif Champ Libre",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 57107431,
+      "ownerUid": 2081108,
+      "creatorUid": 2081108,
+      "slug": "la-creation-dune-bande-dessinee",
+      "title": {
+        "fr": "Exposition sur la création d'une bande dessinée",
+        "en": "Exhibition on the creation of a comic book"
+      },
+      "description": {
+        "fr": "Découverte des étapes de fabrication d'une bande dessinée",
+        "en": "Discover the steps of making a comic book"
+      },
+      "longDescription": {
+        "fr": "Réalisée par les éditions P'tits Louis et au travers de l'album \"_Le guide ou le secret de Léonard de Vinci,_ cette exposition permet de découvrir les étapes nécessaires à la réalisation d'une bande dessinée.",
+        "en": "Directed by the P'tits Louis editions and through the album \"_Le guide ou le secret de Léonard de Vinci,_ this exhibition allows to discover the necessary steps to the realization of a comic book."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "82d68f8b27744e3aa0dc35327dcc7b6b.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 924
+        },
+        "variants": [
+          {
+            "filename": "82d68f8b27744e3aa0dc35327dcc7b6b.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 2275,
+              "height": 3000
+            }
+          },
+          {
+            "filename": "82d68f8b27744e3aa0dc35327dcc7b6b.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 201,
+              "height": 201
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:30:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T14:00:00.000Z",
+          "end": "2020-02-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T13:00:00.000Z",
+          "end": "2020-02-08T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T13:30:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T14:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T14:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T14:00:00.000Z",
+          "end": "2020-02-14T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T14:30:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T14:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-29T09:26:24.000Z",
+      "createdAt": "2020-01-09T11:56:23.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 71232261,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "bibliotheque@saintry-sur-seine.fr"
+      ],
+      "location": {
+        "uid": 71232261,
+        "slug": "bibliotheque-de-la-demi-lune",
+        "name": "Bibliothèque de la demi-lune",
+        "address": "1 rue de l'Enfer 91250 Saintry-sur-Seine",
+        "city": "Saintry-sur-Seine",
+        "region": "Île-de-France",
+        "department": "Essonne",
+        "postalCode": "91250",
+        "insee": "91577",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.596069,
+        "longitude": 2.494372,
+        "updatedAt": "2020-01-09T12:41:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2081108,
+        "custom": {
+          "organization": "Service culturel de Saintry-Sur-Seine",
+          "contactName": "Hélène Ramis",
+          "contactNumber": "0160755625",
+          "contactPosition": "Responsable culture et bibliothèque",
+          "email": "h.ramis@saintry-sur-seine.fr"
+        }
+      }
+    },
+    {
+      "uid": 80817877,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "venez-vivre-une-immersion-nocturne-dans-la-foret-bfm-a-la-decouverte-de-clairieres-insolites-performance-dessinee_746799",
+      "title": {
+        "fr": "Venez vivre une immersion nocturne dans la forêt \"Bfm\", à la découverte de clairières insolites... Performance dessinée",
+        "en": "Come and experience a night immersion in the forest \"Bfm\", discovering unusual clearings... Performance dessinée"
+      },
+      "description": {
+        "fr": "Tout au long de la soirée, venez vous promener dans une bibliothèque littéralement transformée en forêt de livres",
+        "en": "Throughout the evening, come for a walk in a library literally transformed into a forest of books"
+      },
+      "longDescription": {
+        "fr": "### **Une performance dessinée**\n\n**La clairière qui croque**\n\nInvité d’honneur de la soirée, l’auteur de bande dessinée **Lomig** vous plonge _Dans la forêt_, titre de son dernier album adapté de Jean Hegland. Assistez à une heure de performance dessinée sur des lectures littéraires qui bruissent, vivent et bondissent et participez à la réalisation d’un immense cadavre exquis dessiné, en compagnie de l’artiste ! Petits et grands, imaginez, croquez et mettez en couleurs !",
+        "en": "### **A performance drawn**\n**The glade that chews**\nGuest of honor of the evening, the comic book author **Lomig** plunges you _into the forest_, title of his last album adapted from Jean Hegland. Attend an hour of performance drawn on literary readings that rustle, live and leap and participate in the realization of a huge exquisite corpse drawn, in the company of the artist! Young and old, imagine, bite and color!"
+      },
+      "keywords": {
+        "fr": [
+          "Contes",
+          "Jeux",
+          "Musique",
+          "Ateliers",
+          "Poésie"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "dee28fcbc02e4f57bb03c1c976e5639b.base.image.jpg",
+        "credits": "Lomig",
+        "size": {
+          "height": 974,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "dee28fcbc02e4f57bb03c1c976e5639b.full.image.jpg",
+            "size": {
+              "height": 712,
+              "width": 512
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "dee28fcbc02e4f57bb03c1c976e5639b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T17:00:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:00.000Z",
+      "createdAt": "2020-01-09T12:48:58.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 27690743,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 27690743,
+        "slug": "bibliotheque-francophone-multimedia827",
+        "name": "Bibliothèque francophone multimédia",
+        "address": "2 place Aimé Césaire 87032 Limoges",
+        "city": "Limoges",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": null,
+        "insee": "87085",
+        "countryCode": "FR",
+        "district": "Clos Moreau",
+        "latitude": 45.826719,
+        "longitude": 1.259296,
+        "updatedAt": "2020-01-09T12:45:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2122959
+}

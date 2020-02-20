@@ -1,0 +1,1752 @@
+{
+  "events": [
+    {
+      "uid": 44544800,
+      "ownerUid": 95078908,
+      "creatorUid": 95078908,
+      "slug": "de-la-case-a-lecran",
+      "title": {
+        "fr": "De la case à l'écran",
+        "en": "From box to screen"
+      },
+      "description": {
+        "fr": "Projection de l'adaptation cinéma d'une bande dessinée",
+        "en": "Projection of the movie adaptation of a comic book"
+      },
+      "longDescription": {
+        "fr": "Ce cycle autour de la bande dessinée se clôt avec la projection de l'adaptation cinéma d'une bande dessinée.",
+        "en": "This cycle around the comic book ends with the projection of the movie adaptation of a comic book."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "d45f722c1d3c49fcb7ee970848776a2b.base.image.jpg",
+        "credits": "Pixabay",
+        "size": {
+          "height": 220,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d45f722c1d3c49fcb7ee970848776a2b.full.image.jpg",
+            "size": {
+              "height": 603,
+              "width": 1920
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d45f722c1d3c49fcb7ee970848776a2b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-07-03T18:00:00.000Z",
+          "end": "2020-07-03T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:37.000Z",
+      "createdAt": "2020-01-09T17:26:30.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64260810,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 64 90 75 05"
+      ],
+      "location": {
+        "uid": 64260810,
+        "slug": "bibliotheque-darpajon",
+        "name": "Bibliothèque d'Arpajon",
+        "address": "31 rue Dauvilliers 91290 Arpajon",
+        "city": "Arpajon",
+        "region": "Île-de-France",
+        "department": "Essonne",
+        "postalCode": "91290",
+        "insee": "91021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.58965,
+        "longitude": 2.252535,
+        "updatedAt": "2020-01-09T17:48:03.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95078908,
+        "custom": {
+          "organization": "Bibliothèque d'Arpajon",
+          "contactName": "Justine Veillard",
+          "contactNumber": "0164907505",
+          "contactPosition": "Médiatrice culturelle",
+          "email": "j.veillard@coeuressonne.fr"
+        }
+      }
+    },
+    {
+      "uid": 56407575,
+      "ownerUid": 82919231,
+      "creatorUid": 82919231,
+      "slug": "exposition-david-peremony",
+      "title": {
+        "fr": "Exposition \"David Peremony\"",
+        "en": "Exhibition \"David Peremony\""
+      },
+      "description": {
+        "fr": "Exposition de planches et dessins originaux du 1er album de David Peremony : Billy Symphony",
+        "en": "Exhibition of plates and original drawings of David Peremony’s 1st album: Billy Symphony"
+      },
+      "longDescription": {
+        "fr": "À traverers une dizaine de planches et de dessins originaux, les visiteurs pourront découvrir le travail de ce jeune auteur dont le 1er album de BD sans texte, _Billy Symphony_, sortira le 17 janvier.\n\n_Billy Symphony_, c'est l'histoire d'un jeune garçon qui va tomber amoureux d'un saxophone, va tout mettre en œuvre pour se l'offrir et va partir - accompagné d'un oiseau mélodieux - à la rencontre du succès.\n\nUne belle aventure empreinte de tendresse, de jazz, d'amitié et d'aventures.",
+        "en": "At work around ten original plates and drawings, visitors will be able to discover the work of this young author, whose first comic book album without text, _Billy Symphony_, will be released on January 17.\n_Billy Symphony_, it is the story of a young boy who will fall in love with a saxophone, will do everything to afford it and will leave - accompanied by a melodious bird - to meet success.\nA beautiful adventure full of tenderness, jazz, friendship and adventures."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4a22d5c443394b0aa50698c28e19fe51.base.image.jpg",
+        "credits": "Éditions de la Gouttière/David Peremony",
+        "size": {
+          "height": 941,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4a22d5c443394b0aa50698c28e19fe51.full.image.jpg",
+            "size": {
+              "height": 746,
+              "width": 555
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4a22d5c443394b0aa50698c28e19fe51.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-06T09:00:00.000Z",
+          "end": "2020-01-06T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T09:00:00.000Z",
+          "end": "2020-01-07T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T09:00:00.000Z",
+          "end": "2020-01-08T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T09:00:00.000Z",
+          "end": "2020-01-09T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T09:00:00.000Z",
+          "end": "2020-01-10T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T09:00:00.000Z",
+          "end": "2020-01-11T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T09:00:00.000Z",
+          "end": "2020-01-13T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T09:00:00.000Z",
+          "end": "2020-01-14T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T09:00:00.000Z",
+          "end": "2020-01-16T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T09:00:00.000Z",
+          "end": "2020-01-17T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T09:00:00.000Z",
+          "end": "2020-01-20T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T09:00:00.000Z",
+          "end": "2020-01-21T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T09:00:00.000Z",
+          "end": "2020-01-23T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T09:00:00.000Z",
+          "end": "2020-01-24T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T09:00:00.000Z",
+          "end": "2020-01-27T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T09:00:00.000Z",
+          "end": "2020-01-28T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T09:00:00.000Z",
+          "end": "2020-01-30T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T09:00:00.000Z",
+          "end": "2020-01-31T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T09:00:00.000Z",
+          "end": "2020-02-03T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T09:00:00.000Z",
+          "end": "2020-02-04T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:00.000Z",
+      "createdAt": "2020-01-09T17:31:32.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 95353819,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 95353819,
+        "slug": "librairie-bulles-en-stock",
+        "name": "Librairie Bulles en Stock",
+        "address": "4 rue du Marché Lanselles 80000 Amiens",
+        "city": "Amiens",
+        "region": "Hauts-de-France",
+        "department": "Somme",
+        "postalCode": "80000",
+        "insee": "80021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.895497,
+        "longitude": 2.297752,
+        "updatedAt": "2020-01-09T17:08:16.000Z",
+        "image": "location95353819.jpg",
+        "description": {
+          "fr": "Bulles en Stock c'est avant tout LA librairie BD de référence à Amiens avec plus de 50.000 ouvrages de bande-dessinée en stock. Et depuis peu, Bulles en Stock c'est aussi un espace d'exposition au milieu des livres pour découvrir le travail des auteurs."
+        },
+        "website": "https://www.bulleenstock.com/",
+        "email": null,
+        "phone": "00 33 3 22 91 50 10",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 82919231,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": "nicolas.mallet.rp@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 61008942,
+      "ownerUid": 82919231,
+      "creatorUid": 82919231,
+      "slug": "exposition-black-butler",
+      "title": {
+        "fr": "Exposition \"Black Butler\"",
+        "en": "Exhibition \"Black Butler\""
+      },
+      "description": {
+        "fr": "Exposition présentant la série Black Butler (éditions Kana)",
+        "en": "Exhibition presenting the series Black Butler (éditions Kana)"
+      },
+      "longDescription": {
+        "fr": "À travers différents panneaux présentant la série et des reproductions de planches, entrez dans l'univers de _Black Butler_, un manga shonen fantastique signé Yana Toboso.",
+        "en": "Through various panels presenting the series and reproductions of boards, enter the universe of _Black Butler_, a fantastic shonen manga by Yana Toboso."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "65c107e9344c44209bcc030067bbd690.base.image.jpg",
+        "credits": "Ed. Kana",
+        "size": {
+          "height": 992,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "65c107e9344c44209bcc030067bbd690.full.image.jpg",
+            "size": {
+              "height": 510,
+              "width": 360
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "65c107e9344c44209bcc030067bbd690.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-06T09:00:00.000Z",
+          "end": "2020-02-06T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T09:00:00.000Z",
+          "end": "2020-02-07T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T09:00:00.000Z",
+          "end": "2020-02-10T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T09:00:00.000Z",
+          "end": "2020-02-11T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T09:00:00.000Z",
+          "end": "2020-02-13T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T09:00:00.000Z",
+          "end": "2020-02-14T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T09:00:00.000Z",
+          "end": "2020-02-17T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T09:00:00.000Z",
+          "end": "2020-02-18T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T09:00:00.000Z",
+          "end": "2020-02-20T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T09:00:00.000Z",
+          "end": "2020-02-21T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T09:00:00.000Z",
+          "end": "2020-02-24T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T09:00:00.000Z",
+          "end": "2020-02-25T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T09:00:00.000Z",
+          "end": "2020-02-27T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T09:00:00.000Z",
+          "end": "2020-02-28T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:13.000Z",
+      "createdAt": "2020-01-09T17:44:39.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 95353819,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 95353819,
+        "slug": "librairie-bulles-en-stock",
+        "name": "Librairie Bulles en Stock",
+        "address": "4 rue du Marché Lanselles 80000 Amiens",
+        "city": "Amiens",
+        "region": "Hauts-de-France",
+        "department": "Somme",
+        "postalCode": "80000",
+        "insee": "80021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.895497,
+        "longitude": 2.297752,
+        "updatedAt": "2020-01-09T17:08:16.000Z",
+        "image": "location95353819.jpg",
+        "description": {
+          "fr": "Bulles en Stock c'est avant tout LA librairie BD de référence à Amiens avec plus de 50.000 ouvrages de bande-dessinée en stock. Et depuis peu, Bulles en Stock c'est aussi un espace d'exposition au milieu des livres pour découvrir le travail des auteurs."
+        },
+        "website": "https://www.bulleenstock.com/",
+        "email": null,
+        "phone": "00 33 3 22 91 50 10",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 82919231,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": "nicolas.mallet.rp@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 91048785,
+      "ownerUid": 22562913,
+      "creatorUid": 22562913,
+      "slug": "apero-dedicace-avec-bezian-and-joel-parnotte",
+      "title": {
+        "fr": "Rencontre avec Bezian et Joël Parnotte et dédicace",
+        "en": "Meeting with Bezian and Joël Parnotte and dedication"
+      },
+      "description": {
+        "fr": "Nouvelle date donc pour cette belle soirée de reprise de dédicaces de l'année !",
+        "en": "New date for this beautiful evening of dedication of the year!"
+      },
+      "longDescription": {
+        "fr": "Nouvelle date donc pour cette belle soirée de reprise de dédicaces de l'année ! Bezian pour _Karoo_ aux éditions Delcourt et Joël Parnotte, dessinateur de _Aristophania_ tome 2 chez Dargaud !",
+        "en": "New date for this beautiful evening of dedication of the year! Bezian for _Karoo_ by Delcourt and Joël Parnotte, cartoonist of _Aristophania_ tome 2 by Dargaud!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "29259efa06ad4983be42b1a8f6055729.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 934,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "29259efa06ad4983be42b1a8f6055729.full.image.jpg",
+            "size": {
+              "height": 4096,
+              "width": 3072
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "29259efa06ad4983be42b1a8f6055729.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T16:00:00.000Z",
+          "end": "2020-01-17T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:29:00.000Z",
+      "createdAt": "2020-01-09T19:40:59.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 80270300,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.canalbd.net/la-tete-a-toto_catalogue_evenementdetail_Apero-dedicace-avec-BEZIAN-e-Joel-PARNOTTE--8224",
+        "https://www.facebook.com/events/841438232993625/",
+        "lateteatoto@canalbd.net",
+        "01 42 36 79 52",
+        "https://twitter.com/la_tete_a_toto/status/1215357506874216449"
+      ],
+      "location": {
+        "uid": 80270300,
+        "slug": "librairie-la-tete-a-toto",
+        "name": "Librairie La Tête à Toto",
+        "address": "22 rue Poissonnière 75002 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75002",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 2e Arrondissement",
+        "latitude": 48.869541,
+        "longitude": 2.347904,
+        "updatedAt": "2019-12-30T09:37:12.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 22562913,
+        "custom": {
+          "organization": "La Tête à Toto",
+          "contactName": "Anthony RESARD",
+          "contactNumber": "01 42 36 79 52",
+          "contactPosition": "Gérant",
+          "email": "lateteatoto@canalbd.net"
+        }
+      }
+    },
+    {
+      "uid": 78258152,
+      "ownerUid": 14270961,
+      "creatorUid": 14270961,
+      "slug": "journee-de-la-bd-au-lp",
+      "title": {
+        "fr": "Journée de la BD au lycée professionnel",
+        "en": "Comic Strip Day at the Vocational High School"
+      },
+      "description": {
+        "fr": "Journées de découverte de la BD sur le thème \"La ville dans la BD\" avec ateliers lecture et dessin, jeux, animations et exposition",
+        "en": "Comic Strip Discovery Days on the theme \"City in Comic Strip\" with reading and drawing workshops, games, animations and exhibition"
+      },
+      "longDescription": {
+        "fr": "Les élèves du club BD du lycée organsisent 3 journées de la BD pendant la semaine culturelle du lycée \"Vis ma ville\". L'accent sera mis sur la ville dans la BD et le manga. Un prix de lecture, un concours de dessin seront organisés. Le club proposera une exposition sur la ville dans la BD. Jeux et animations seront proposées. Conférence d'une auteur de BD (à définir) sur la façon dont il représente la ville dans ses BD",
+        "en": "The students of the high school comic strip club organize 3 comic strip days during the cultural week of the high school \"Live my city\". The focus will be on the city in comics and manga. A book prize, a drawing contest will be organized. The club will propose an exhibition on the city in the comic book. Games and animations will be proposed. Lecture by a comic book author (to be defined) on how he represents the city in his comic books"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Elèves du lycée et partenaires de l'Education nationale",
+        "en": "High school students and National Education partners"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-08T07:00:00.000Z",
+          "end": "2020-04-08T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T07:00:00.000Z",
+          "end": "2020-04-09T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T12:00:00.000Z",
+          "end": "2020-04-09T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T12:30:00.000Z",
+          "end": "2020-04-09T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T13:00:00.000Z",
+          "end": "2020-04-09T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T13:30:00.000Z",
+          "end": "2020-04-09T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T14:00:00.000Z",
+          "end": "2020-04-09T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T14:30:00.000Z",
+          "end": "2020-04-09T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T07:00:00.000Z",
+          "end": "2020-04-10T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T12:00:00.000Z",
+          "end": "2020-04-10T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T12:30:00.000Z",
+          "end": "2020-04-10T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T13:00:00.000Z",
+          "end": "2020-04-10T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T13:30:00.000Z",
+          "end": "2020-04-10T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T14:00:00.000Z",
+          "end": "2020-04-10T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T14:30:00.000Z",
+          "end": "2020-04-10T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:28.000Z",
+      "createdAt": "2020-01-10T10:08:21.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 15110719,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 14,
+        "max": 20
+      },
+      "registration": [
+        "0684374414",
+        "thorelflorent1985@gmail.com"
+      ],
+      "location": {
+        "uid": 15110719,
+        "slug": "lp-joliot-curie-oignies",
+        "name": "Lycée professionnel Joliot-Curie",
+        "address": "9 rue Léo Lagrange 62590 Oignies",
+        "city": "Oignies",
+        "region": "Hauts-de-France",
+        "department": "Pas-de-Calais",
+        "postalCode": "62590",
+        "insee": "62637",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.465086,
+        "longitude": 2.99435,
+        "updatedAt": "2020-01-10T13:45:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Ateliers, prix de lecture, atelier dessin, jeux, exposition",
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 14270961,
+        "custom": {
+          "organization": "Club BD LP Joliot-Curie",
+          "contactName": "Florent Thorel",
+          "contactNumber": "0684374414",
+          "contactPosition": "PLP Lettres-Histoire",
+          "email": "thorelflorent1985@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 59650589,
+      "ownerUid": 11793645,
+      "creatorUid": 11793645,
+      "slug": "expositions-clerisse-en-multicolore-et-la-bulle-des-lecteurs",
+      "title": {
+        "fr": "Exposition \"Clérisse en multicolore\"",
+        "en": "Exhibition \"Clérisse en multicolore\""
+      },
+      "description": {
+        "fr": "Le Département de la Charente vous propose l'exposition \"Clérisse en multicolore\"",
+        "en": "The Charente Department proposes the exhibition \"Clérisse en multicolore\""
+      },
+      "longDescription": {
+        "fr": "Vous êtes conviés à un voyage dans l’univers pictural d’Alexandre Clérisse aux palettes de couleurs éblouissantes. Autour de deux de ses albums - _Alfred, Pedro et Quentin sont sur un plateau_ et _Une année sans Cthulhu_ (avec Thierry Smolderen) aux éditions Dargaud -, cette exposition vous permettra notamment de découvrir des planches, extraits et illustrations, ainsi que des estampes réalisées grâce au savoir-faire de la Fabrique des Mains Sales d’Angoulême.\n\nRencontres et dédicaces le samedi 1er et le dimanche 2 février à 15h",
+        "en": "You are invited to a journey into the pictorial universe of Alexandre Clérisse with dazzling colours. Around two of his albums - _Alfred, Pedro and Quentin are on a stage_ and _Une année sans Cthulhu_ (with Thierry Smolderen) at Dargaud Publishing -, this exhibition will allow you to discover plates, extracts and illustrations, as well as prints made thanks to the know-how of the Angoulême Mains Sales Factory.\nMeetings and dedications on Saturday 1st and Sunday 2nd February at 3pm"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Rencontres avec les auteurs le samedi et dimanche sur réservation au 05 16 09 75 13 ou evenement@lacharente.fr",
+        "en": "Meetings with authors on Saturday and Sunday by reservation at 05 16 09 75 13 or [evenement@lacharente.fr](mailto:evenement@lacharente.fr)"
+      },
+      "image": {
+        "filename": "40b64930bf44409b888d755aa7b4971c.base.image.jpg",
+        "credits": "Alexandre Clérisse / CD16",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "40b64930bf44409b888d755aa7b4971c.full.image.jpg",
+            "size": {
+              "height": 2481,
+              "width": 1755
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "40b64930bf44409b888d755aa7b4971c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-30T09:00:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T09:00:00.000Z",
+          "end": "2020-01-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T09:00:00.000Z",
+          "end": "2020-02-02T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:57.000Z",
+      "createdAt": "2020-01-10T13:44:45.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 94801672,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "http://www.lacharente.fr"
+      ],
+      "location": {
+        "uid": 94801672,
+        "slug": "conseil-departemental-de-la-charente",
+        "name": "Conseil départemental de la Charente",
+        "address": "31 boulevard Émile Roux 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.645316,
+        "longitude": 0.157204,
+        "updatedAt": "2020-01-10T13:46:18.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 11793645,
+        "custom": {
+          "organization": "Département de la Charente",
+          "contactName": "Thomas DESVEAUX-SINTRE",
+          "contactNumber": "0516097450",
+          "contactPosition": "Chargé de communication",
+          "email": "tdesveaux@lacharente.fr"
+        }
+      }
+    },
+    {
+      "uid": 13731430,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "exposition-de-la-4e-edition-de-la-bulle-des-lecteurs",
+      "title": {
+        "fr": "Exposition de la 4e édition de La Bulle des lecteurs",
+        "en": "Exhibition of the 4th edition of La Bulle des lecteurs"
+      },
+      "description": {
+        "fr": "Le Département de la Charente vous propose la découverte de la sélection La Bulle des lecteurs",
+        "en": "The Charente Department invites you to discover the selection La Bulle des lecteurs"
+      },
+      "longDescription": {
+        "fr": "Outre l'exposition \"Clérisse en multicolore\", Le Département vous propose de découvrir également la sélection de **La Bulle des lecteurs** qui, pour sa 4e édition, vous présente les planches des six bandes dessinées sélectionnées, réalisées par des auteurs résidant en Nouvelle-Aquitaine. Exposition en lien avec le service départemental de la lecture.",
+        "en": "In addition to the exhibition \"Clérisse en multicolore\", Le Département also invites you to discover the selection of **La Bulle des lecteurs** which, for its 4th edition, presents the plates of the six selected comic books, made by authors living in New Aquitaine. Exhibition in connection with the departmental reading service."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur réservation au 05 16 09 75 13 ou evenement@lacharente.fr",
+        "en": "On reservation at 05 16 09 75 13 or [evenement@lacharente.fr](mailto:evenement@lacharente.fr)"
+      },
+      "image": {
+        "filename": "40b64930bf44409b888d755aa7b4971c.base.image.jpg",
+        "credits": "Alexandre Clérisse / CD16",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "40b64930bf44409b888d755aa7b4971c.full.image.jpg",
+            "size": {
+              "height": 2481,
+              "width": 1755
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "40b64930bf44409b888d755aa7b4971c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-30T09:00:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T09:00:00.000Z",
+          "end": "2020-01-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T09:00:00.000Z",
+          "end": "2020-02-02T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:36.000Z",
+      "createdAt": "2020-01-10T14:07:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 94801672,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "http://www.lacharente.fr"
+      ],
+      "location": {
+        "uid": 94801672,
+        "slug": "conseil-departemental-de-la-charente",
+        "name": "Conseil départemental de la Charente",
+        "address": "31 boulevard Émile Roux 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.645316,
+        "longitude": 0.157204,
+        "updatedAt": "2020-01-10T13:46:18.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 53621787,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "rencontre-avec-alexandre-clerisse-dans-le-cadre-de-lexposition-clerisse-en-multicolore",
+      "title": {
+        "fr": "Rencontre avec Alexandre Clérisse dans le cadre de l'exposition \"Clérisse en multicolore\"",
+        "en": "Meeting with Alexandre Clérisse during the exhibition \"Clérisse en multicolore\""
+      },
+      "description": {
+        "fr": "Le Département de la Charente vous propose une rencontre avec Alexandre Clérisse",
+        "en": "The Charente Department proposes a meeting with Alexandre Clérisse"
+      },
+      "longDescription": {
+        "fr": "Vous êtes conviés à un voyage dans l’univers pictural d’Alexandre Clérisse aux palettes de couleurs éblouissantes. Autour de deux de ses albums - _Alfred, Pedro et Quentin sont sur un plateau_ et _Une année sans Cthulhu_ (avec Thierry Smolderen) aux éditions Dargaud -, cette exposition vous permettra notamment de découvrir des planches, extraits et illustrations, ainsi que des estampes réalisées grâce au savoir-faire de la Fabrique des Mains Sales d’Angoulême.\n\n**Rencontre et dédicace le samedi 1er et le dimanche 2 février à 15h.**",
+        "en": "You are invited to a journey into the pictorial universe of Alexandre Clérisse with dazzling colours. Around two of his albums - _Alfred, Pedro and Quentin are on a stage_ and _Une année sans Cthulhu_ (with Thierry Smolderen) at Dargaud Publishing -, this exhibition will allow you to discover plates, extracts and illustrations, as well as prints made thanks to the know-how of the Angoulême Mains Sales Factory.\n**Meeting and dedication on Saturday 1st and Sunday 2nd February at 3pm.**"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur réservation au 05 16 09 75 13 ou evenement@lacharente.fr",
+        "en": "On reservation at 05 16 09 75 13 or [evenement@lacharente.fr](mailto:evenement@lacharente.fr)"
+      },
+      "image": {
+        "filename": "40b64930bf44409b888d755aa7b4971c.base.image.jpg",
+        "credits": "Alexandre Clérisse / CD16",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "40b64930bf44409b888d755aa7b4971c.full.image.jpg",
+            "size": {
+              "height": 2481,
+              "width": 1755
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "40b64930bf44409b888d755aa7b4971c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T14:00:00.000Z",
+          "end": "2020-02-01T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T14:00:00.000Z",
+          "end": "2020-02-02T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:33.000Z",
+      "createdAt": "2020-01-10T14:12:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 94801672,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "http://www.lacharente.fr"
+      ],
+      "location": {
+        "uid": 94801672,
+        "slug": "conseil-departemental-de-la-charente",
+        "name": "Conseil départemental de la Charente",
+        "address": "31 boulevard Émile Roux 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.645316,
+        "longitude": 0.157204,
+        "updatedAt": "2020-01-10T13:46:18.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 35306535,
+      "ownerUid": 34596851,
+      "creatorUid": 34596851,
+      "slug": "initiation-a-la-bd",
+      "title": {
+        "fr": "Initiation à la BD",
+        "en": "Initiation to comic strip"
+      },
+      "description": {
+        "fr": "Élaboration d’un scénario, création d’un story-board…",
+        "en": "Developing a scenario, creating a story-board…"
+      },
+      "longDescription": {
+        "fr": "Élaboration d’un scénario, création d’un story-board…des premiers croquis aux crayonnés, participez à un stage d’initiation à la bande-dessinée. Apprenez différentes techniques et envisagez quelques pistes pour réaliser une BD avec l'aide d'un auteur chevronné.",
+        "en": "Create a script, create a story board… from the first sketches to pencils, participate in an introductory course to comic books. Learn different techniques and consider a few ways to create a comic book with the help of an experienced author."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "f12bd10aa3a84359acea007b6bc8b7fc.base.image.jpg",
+        "credits": "Les Bédéastes imageurs",
+        "size": {
+          "height": 350,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f12bd10aa3a84359acea007b6bc8b7fc.full.image.jpg",
+            "size": {
+              "height": 250,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f12bd10aa3a84359acea007b6bc8b7fc.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T12:30:00.000Z",
+          "end": "2020-02-01T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:18.000Z",
+      "createdAt": "2020-01-10T14:18:56.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 56354339,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [
+        "02 97 01 62 69",
+        "http://mediatheque.mairie-vannes.fr"
+      ],
+      "location": {
+        "uid": 56354339,
+        "slug": "mediatheques-du-palais-des-arts",
+        "name": "Médiathèques du palais des Arts",
+        "address": "Place de Bretagne 56000 Vannes",
+        "city": "Vannes",
+        "region": "Bretagne",
+        "department": "Morbihan",
+        "postalCode": "56000",
+        "insee": "56260",
+        "countryCode": "FR",
+        "district": "Nord - Gare",
+        "latitude": 47.661204,
+        "longitude": -2.760949,
+        "updatedAt": "2020-01-10T14:14:02.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 34596851,
+        "custom": {
+          "organization": "Médiathèques de Vannes",
+          "contactName": "Françoise Le Viavant",
+          "contactNumber": "02 97 01 62 69",
+          "contactPosition": "Directrice du réseau des médiathèques de Vannes",
+          "email": "mediatheque@mairie-vannes.fr"
+        }
+      }
+    },
+    {
+      "uid": 13563914,
+      "ownerUid": 34596851,
+      "creatorUid": 34596851,
+      "slug": "le-dessin-manga",
+      "title": {
+        "fr": "Le dessin manga",
+        "en": "The drawing manga"
+      },
+      "description": {
+        "fr": "Réalisez quelques croquis avec des techniques dignes des meilleurs mangakas...",
+        "en": "Make some sketches with techniques worthy of the best mangakas..."
+      },
+      "longDescription": {
+        "fr": "Réalisez quelques croquis avec des techniques dignes des meilleurs mangakas, faites vivre le héros tout droit sorti de votre imagination et créez votre histoire !\n\nAtelier animé par l’association Bédéastes imageurs.",
+        "en": "Make some sketches with techniques worthy of the best mangakas, live the hero straight out of your imagination and create your story!\nWorkshop facilitated by the association Bédéastes imageurs."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "f12bd10aa3a84359acea007b6bc8b7fc.base.image.jpg",
+        "credits": "Les Bédéastes imageurs",
+        "size": {
+          "height": 350,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f12bd10aa3a84359acea007b6bc8b7fc.full.image.jpg",
+            "size": {
+              "height": 250,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f12bd10aa3a84359acea007b6bc8b7fc.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:23.000Z",
+      "createdAt": "2020-01-10T14:21:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 24355343,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 12
+      },
+      "registration": [
+        "02 97 01 62 69",
+        "http://mediatheque.mairie-vannes.fr"
+      ],
+      "location": {
+        "uid": 24355343,
+        "slug": "mediatheque-de-menimur943",
+        "name": "Médiathèque de Ménimur",
+        "address": "18 rue Marie Laurencin 56000 Vannes",
+        "city": "Vannes",
+        "region": "Bretagne",
+        "department": "Morbihan",
+        "postalCode": "56000",
+        "insee": "56260",
+        "countryCode": "FR",
+        "district": "Nord - Ménimur",
+        "latitude": 47.674186,
+        "longitude": -2.767805,
+        "updatedAt": "2020-01-10T15:02:10.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 34596851,
+        "custom": {
+          "organization": "Médiathèques de Vannes",
+          "contactName": "Françoise Le Viavant",
+          "contactNumber": "02 97 01 62 69",
+          "contactPosition": "Directrice du réseau des médiathèques de Vannes",
+          "email": "mediatheque@mairie-vannes.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2124321
+}

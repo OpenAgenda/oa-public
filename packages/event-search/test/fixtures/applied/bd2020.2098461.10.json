@@ -1,0 +1,1782 @@
+{
+  "events": [
+    {
+      "uid": 61083023,
+      "ownerUid": 92555368,
+      "creatorUid": 92555368,
+      "slug": "happy-hour-les-mangas-du-prix-jit-scolaire",
+      "title": {
+        "fr": "Happy hour « Les mangas du prix JIT scolaire »",
+        "en": "Happy hour «Les mangas du prix JIT scolaire»"
+      },
+      "description": {
+        "fr": "« Les mangas du prix JIT scolaire »",
+        "en": "«School JIT Award Mangas»"
+      },
+      "longDescription": {
+        "fr": "Pendant notre \"Happy hour\", venez découvrir la projection des teasers réalisés par les participants du prix et la présentation de la sélection de cette année autour du thème : \"Des livres et les mangas\".\n\nLe prix JIT scolaire est un projet qui associe le réseau des médiathèques avec plusieurs collèges. Les élèves participants sont invités à lire des mangas et à réfléchir autour d’un thème en lien avec la sélection grâce à l’accompagnement des bibliothécaires et de leurs professeurs. Dans le même temps, ils doivent réaliser différents teasers afin de mettre en avant les titres de la sélection.",
+        "en": "During our \"Happy hour\", come and discover the screening of the teasers made by the participants of the prize and the presentation of this year’s selection around the theme: \"Books and mangas\".\nThe JIT School Award is a project that links the media library network with several colleges. Participating students are invited to read mangas and reflect on a theme related to selection through the support of librarians and their teachers. At the same time, they have to make different teasers in order to highlight the titles of the selection."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T15:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:55.000Z",
+      "createdAt": "2019-12-06T15:15:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 94426702,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 94426702,
+        "slug": "castres696",
+        "name": "Bibliothèque municipale de Castres",
+        "address": "2 avenue du Sidobre 81100 Castres",
+        "city": "Castres",
+        "region": "Occitanie",
+        "department": "Tarn",
+        "postalCode": "81100",
+        "insee": "81042",
+        "countryCode": "FR",
+        "district": "La Parulle",
+        "latitude": 43.632076,
+        "longitude": 2.279336,
+        "updatedAt": "2019-12-09T07:55:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 92555368,
+        "custom": {
+          "organization": "Réseau des médiathèques Castres-Labruguière-Mazamet",
+          "contactName": "MAGNAVAL Elodie",
+          "contactNumber": "05 63 62 41 60",
+          "contactPosition": "Chargée de communication",
+          "email": "elodie.magnaval@castres-mazamet.com"
+        }
+      }
+    },
+    {
+      "uid": 48388800,
+      "ownerUid": 13419491,
+      "creatorUid": 13419491,
+      "slug": "decouverte-de-la-bd-historique-mise-en-dessin-dun-scenario-realise-avec-laide-de-nicolas-grivel",
+      "title": {
+        "fr": "Découverte de la BD historique : mise en dessin d'un scénario réalisé avec l'aide de Nicolas Grivel",
+        "en": "Discovery of the historical comic book: drawing of a scenario made with the help of Nicolas Grivel"
+      },
+      "description": {
+        "fr": "Mise en dessin d'un scénario BD",
+        "en": "Drawing of a comic book scenario"
+      },
+      "longDescription": {
+        "fr": "Le mangaka Abdesselam Boutadjine va accompagner deux classes du collège Guillaume Apollinaire du Tholy dans la mise en dessin de leur scénario BD. Ce dernier a été écrit en novembre-décembre 2019, avec l'aide de Nicolas Grivel, agent littéraire et facilitateur de talent, à partir de témoignages récoltés par les élèves.",
+        "en": "The mangaka Abdesselam Boutadjine will accompany two classes of the Collège Guillaume Apollinaire du Tholy in the drawing of their comic book. It was written in November-December 2019, with the help of Nicolas Grivel, literary agent and talent facilitator, based on testimonies collected by the students."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d39d59cd5ba647f09d005e0b85d3cae8.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 446,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d39d59cd5ba647f09d005e0b85d3cae8.full.image.jpg",
+            "size": {
+              "height": 929,
+              "width": 1460
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d39d59cd5ba647f09d005e0b85d3cae8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-10T07:00:00.000Z",
+          "end": "2020-01-10T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T12:00:00.000Z",
+          "end": "2020-01-10T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T07:00:00.000Z",
+          "end": "2020-01-15T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:52.000Z",
+      "createdAt": "2019-12-06T16:25:38.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 49019819,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 13
+      },
+      "registration": [],
+      "location": {
+        "uid": 49019819,
+        "slug": "college-guillaume-apollinaire",
+        "name": "Collège Guillaume Apollinaire",
+        "address": "4 rue des Walherois 88530 Le Tholy",
+        "city": "Le Tholy",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88530",
+        "insee": "88470",
+        "countryCode": "FR",
+        "district": "Les Gouttes du Tholy",
+        "latitude": 48.085119,
+        "longitude": 6.748324,
+        "updatedAt": "2019-12-09T08:03:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Collège Guillaume Apollinaire",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 13419491,
+        "custom": {
+          "organization": "Médiathèque intercommunale des Hautes Vosges",
+          "contactName": "CLAIRE BULET",
+          "contactNumber": "0329233636",
+          "contactPosition": "Responsable du secteur Jeunesse",
+          "email": "cbulet@cchautesvosges.fr"
+        }
+      }
+    },
+    {
+      "uid": 27120349,
+      "ownerUid": 13419491,
+      "creatorUid": 13419491,
+      "slug": "decouverte-de-la-bd-historique-mise-en-dessin-dun-scenario-realise-avec-laide-de-nicolas-grivel_559961",
+      "title": {
+        "fr": "Découverte de la BD historique : mise en dessin d'un scénario réalisé avec l'aide de Nicolas Grivel",
+        "en": "Discovery of the historical comic book: drawing of a scenario made with the help of Nicolas Grivel"
+      },
+      "description": {
+        "fr": "Mise en dessin d'un scénario BD",
+        "en": "Drawing of a comic book scenario"
+      },
+      "longDescription": {
+        "fr": "Le mangaka Abdesselam Boutadjine va accompagner une classe du collège du Ban de Vagney dans la mise en dessin de leur scénario BD. Ce dernier a été écrit en novembre-décembre 2019, avec l'aide de Nicolas Grivel, agent littéraire et facilitateur de talent, à partir de témoignages récoltés par les élèves.",
+        "en": "The mangaka Abdesselam Boutadjine will accompany a class from the Ban de Vagney College in the drawing of their comic book script. It was written in November-December 2019, with the help of Nicolas Grivel, literary agent and talent facilitator, based on testimonies collected by the students."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d39d59cd5ba647f09d005e0b85d3cae8.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 446,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d39d59cd5ba647f09d005e0b85d3cae8.full.image.jpg",
+            "size": {
+              "height": 929,
+              "width": 1460
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d39d59cd5ba647f09d005e0b85d3cae8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-06T08:30:00.000Z",
+          "end": "2020-01-06T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T07:30:00.000Z",
+          "end": "2020-01-08T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T13:00:00.000Z",
+          "end": "2020-01-17T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:42:02.000Z",
+      "createdAt": "2019-12-06T16:28:18.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 4307250,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 13
+      },
+      "registration": [],
+      "location": {
+        "uid": 4307250,
+        "slug": "college-du-ban-de-vagney",
+        "name": "Collège du Ban de Vagney",
+        "address": "5 rue Jules Ferry 88120 Vagney",
+        "city": "Vagney",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88120",
+        "insee": "88486",
+        "countryCode": "FR",
+        "district": "Prémerupt",
+        "latitude": 48.005181,
+        "longitude": 6.716836,
+        "updatedAt": "2019-12-09T08:09:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Collège du Ban de Vagney",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 13419491,
+        "custom": {
+          "organization": "Médiathèque intercommunale des Hautes Vosges",
+          "contactName": "CLAIRE BULET",
+          "contactNumber": "0329233636",
+          "contactPosition": "Responsable du secteur Jeunesse",
+          "email": "cbulet@cchautesvosges.fr"
+        }
+      }
+    },
+    {
+      "uid": 90088076,
+      "ownerUid": 13419491,
+      "creatorUid": 13419491,
+      "slug": "decouverte-de-la-bd-historique-mise-en-dessin-dun-scenario-realise-avec-laide-de-nicolas-grivel_597557",
+      "title": {
+        "fr": "Découverte de la BD historique : mise en dessin d'un scénario réalisé avec l'aide de Nicolas Grivel",
+        "en": "Discovery of the historical comic book: drawing of a scenario made with the help of Nicolas Grivel"
+      },
+      "description": {
+        "fr": "Mise en dessin d'un scénario BD",
+        "en": "Drawing of a comic book scenario"
+      },
+      "longDescription": {
+        "fr": "Le mangaka Abdesselam Boutadjine va accompagner la classe des CE2-CM1-CM2 dans la mise en dessin de leur scénario BD. Ce dernier a été écrit en novembre-décembre 2019, avec l'aide de Nicolas Grivel, agent littéraire et facilitateur de talent, à partir de témoignages récoltés par les élèves.",
+        "en": "The mangaka Abdesselam Boutadjine will accompany the class of the Third-Fifth-Fifth-Fifth Grade in the drawing of their comic book script. It was written in November-December 2019, with the help of Nicolas Grivel, literary agent and talent facilitator, based on testimonies collected by the students."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d39d59cd5ba647f09d005e0b85d3cae8.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 446,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d39d59cd5ba647f09d005e0b85d3cae8.full.image.jpg",
+            "size": {
+              "height": 929,
+              "width": 1460
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d39d59cd5ba647f09d005e0b85d3cae8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-06T13:00:00.000Z",
+          "end": "2020-01-06T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T13:00:00.000Z",
+          "end": "2020-01-07T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T09:00:00.000Z",
+          "end": "2020-01-17T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:48.000Z",
+      "createdAt": "2019-12-06T16:30:33.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 34733541,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 10
+      },
+      "registration": [],
+      "location": {
+        "uid": 34733541,
+        "slug": "ecole-primaire-de-rochesson",
+        "name": "École primaire de Rochesson",
+        "address": "10 Grande Rue 88120 Rochesson",
+        "city": "Rochesson",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88120",
+        "insee": "88391",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.022706,
+        "longitude": 6.788567,
+        "updatedAt": "2019-12-09T08:11:15.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "École primaire de Rochesson",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 13419491,
+        "custom": {
+          "organization": "Médiathèque intercommunale des Hautes Vosges",
+          "contactName": "CLAIRE BULET",
+          "contactNumber": "0329233636",
+          "contactPosition": "Responsable du secteur Jeunesse",
+          "email": "cbulet@cchautesvosges.fr"
+        }
+      }
+    },
+    {
+      "uid": 1932642,
+      "ownerUid": 13419491,
+      "creatorUid": 13419491,
+      "slug": "la-bd-historique-tu-connais",
+      "title": {
+        "fr": "La BD historique : tu connais ?",
+        "en": "The historical comic: you know?"
+      },
+      "description": {
+        "fr": "Exposition de planches de BD",
+        "en": "Exhibition of comic strip"
+      },
+      "longDescription": {
+        "fr": "Une exposition de planches de BD des jeunes de l'école de Rochesson et des collèges de Vagney et du Tholy qui ont participé au cours de l'année scolaire 2019-2020 à un Contrat territorial d'éducation artistique et culturelle autour de la bande dessinée historique.\n\nDans un premier temps, ils ont découvert une sélection de bandes dessinées historiques avec Frédéric Kilfiger, libraire à l'Octopus (Épinal). Ensuite, ils ont récolté des témoignages qu'ils ont mis en scénario avec Nicolas Grivel, agent littéraire spécialisé dans la bande dessinée. Enfin, le mangaka Abdesselam Boutadjine les a accompagnés dans la mise en dessin du scénario.\n\nIl aurait été dommage de ne pas partager leurs créations !\n\nLeur travail est à découvrir du 12 mai au 5 juin.",
+        "en": "An exhibition of comic strips of young people from the school of Rochesson and the colleges of Vagney and Tholy who participated during the 2019-2020 school year in a Contract territorial of arts and cultural education around the historical comic book.\nAt first, they discovered a selection of historical comic books with Frédéric Kilfiger, bookseller at the Octopus (Épinal). Then they collected testimonies that they put in script with Nicolas Grivel, a literary agent specialized in comic books. Finally, the mangaka Abdesselam Boutadjine accompanied them in the drawing of the script.\nIt would have been a shame not to share their creations!\nTheir work is to be discovered from May 12 to June 5."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d24e98966f2341309082972c8670a4d3.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 446,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d24e98966f2341309082972c8670a4d3.full.image.jpg",
+            "size": {
+              "height": 929,
+              "width": 1460
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d24e98966f2341309082972c8670a4d3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-12T14:00:00.000Z",
+          "end": "2020-05-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T08:00:00.000Z",
+          "end": "2020-05-13T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T13:00:00.000Z",
+          "end": "2020-05-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T13:00:00.000Z",
+          "end": "2020-05-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T13:00:00.000Z",
+          "end": "2020-05-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T12:00:00.000Z",
+          "end": "2020-05-16T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T14:00:00.000Z",
+          "end": "2020-05-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T08:00:00.000Z",
+          "end": "2020-05-20T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T13:00:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T13:00:00.000Z",
+          "end": "2020-05-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T13:00:00.000Z",
+          "end": "2020-05-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T08:00:00.000Z",
+          "end": "2020-05-23T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T12:00:00.000Z",
+          "end": "2020-05-23T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T14:00:00.000Z",
+          "end": "2020-05-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T08:00:00.000Z",
+          "end": "2020-05-27T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T13:00:00.000Z",
+          "end": "2020-05-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T13:00:00.000Z",
+          "end": "2020-05-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T13:00:00.000Z",
+          "end": "2020-05-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T08:00:00.000Z",
+          "end": "2020-05-30T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T12:00:00.000Z",
+          "end": "2020-05-30T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-02T14:00:00.000Z",
+          "end": "2020-06-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T08:00:00.000Z",
+          "end": "2020-06-03T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T13:00:00.000Z",
+          "end": "2020-06-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T13:00:00.000Z",
+          "end": "2020-06-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T13:00:00.000Z",
+          "end": "2020-06-05T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:56.000Z",
+      "createdAt": "2019-12-06T16:49:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 92610994,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 92610994,
+        "slug": "mediatheque-intercommunale-des-hautes-vosges79",
+        "name": "Médiathèque intercommunale des Hautes Vosges",
+        "address": "Place de la Libération 88120 Vagney",
+        "city": "Vagney",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88120",
+        "insee": "88486",
+        "countryCode": "FR",
+        "district": "Prémerupt",
+        "latitude": 48.009171,
+        "longitude": 6.715406,
+        "updatedAt": "2019-12-09T08:12:29.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 13419491,
+        "custom": {
+          "organization": "Médiathèque intercommunale des Hautes Vosges",
+          "contactName": "CLAIRE BULET",
+          "contactNumber": "0329233636",
+          "contactPosition": "Responsable du secteur Jeunesse",
+          "email": "cbulet@cchautesvosges.fr"
+        }
+      }
+    },
+    {
+      "uid": 46850232,
+      "ownerUid": 87343587,
+      "creatorUid": 87343587,
+      "slug": "participez-a-lelection-du-prix-jeunes-lecteurs-2020",
+      "title": {
+        "fr": "Participez à l’élection du Prix jeunes lecteurs 2020",
+        "en": "Participate in the 2020 Young Readers Award"
+      },
+      "description": {
+        "fr": "Dans ce cadre la médiathèque Verlaine, participe au Prix jeune lecteur en partenariat avec l'association Imagin'Artois.",
+        "en": "In this context the Verlaine media library, participates in the Young Reader Award in partnership with the association Imagin'Artois."
+      },
+      "longDescription": {
+        "fr": "La sélection est composée des albums suivants :\n\n\\- _Les croques_ t.01, de Léa MAZE / La gouttière\n\n\\- _RAOWL, la belle et l'affreux_, de TIBO / Depuis\n\n\\- _Le fils de l'ursari_, de Xavier-Laurent PETIT / Rue de sèvres\n\n\\- _Hercule agent intergalactique_, t.01, de Vincent ZABUS / Lombard\n\n\\- _Mimosa_, de Catmalou, collection Noctambule\n\n\\- _Frangins_, de Max de RADIGUES, collection P'tit Sarbac\n\n\\- _Mort et détérré_, de Jocelyn BOISVERT / Dupuis\n\n\\- _Le loup_, de Jean-Marc ROCHETTE / Casterman\n\nChaque lecteur participant remplira un bulletin de vote en désignant par ordre de préférence ses trois albums préférés de 1 à 3. Les bulletins de vote sont disponibles au bureau de prêt et la date limite de participation est fixée 8 mars 2020.\n\nConcernant la journée dédiée aux scolaires, une classe de CM de l'école Molière participera au prix et assistera à l'intervention d'un auteur pour un échange.",
+        "en": "The selection consists of the following albums:\n- _Les croques_ t.01, by Léa MAZE/ La gouttière\n- _RAOWL, la belle et l'affreux_, by TIBO / Since\n- _Le fils de l'ursari_, by Xavier-Laurent PETIT / Rue de sèvres\n- _Hercule intergalactic agent_, t.01, by Vincent ZABUS/ Lombard\n- _Mimosa_, Catmalou, Noctambule Collection\n- _Frangins_, by Max de RADIGUES, P'tit Sarbac collection\n- _Death and death_, by Jocelyn BOISVERT/ Dupuis\n- _Le loup_, by Jean-Marc ROCHETTE/ Casterman\nEach participating reader will complete a ballot in order of preference for their favourite three albums from 1 to 3\\. Ballots are available at the Lending Office and the deadline for participation is March 8, 2020.\nConcerning the day dedicated to school students, a class of CM of the Molière school will participate in the prize and attend the intervention of an author for an exchange."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-02T13:00:00.000Z",
+          "end": "2020-01-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T09:30:00.000Z",
+          "end": "2020-01-03T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T13:00:00.000Z",
+          "end": "2020-01-03T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T09:00:00.000Z",
+          "end": "2020-01-04T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T09:30:00.000Z",
+          "end": "2020-01-04T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T13:00:00.000Z",
+          "end": "2020-01-04T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:41.000Z",
+      "createdAt": "2019-12-09T13:28:22.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11752918,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 11752918,
+        "slug": "mediatheque-verlaine3",
+        "name": "Médiathèque Verlaine",
+        "address": "2 rue Charles Péguy 6200 Arras",
+        "city": "Arras",
+        "region": "Hauts-de-France",
+        "department": "Pas-de-Calais",
+        "postalCode": "62000",
+        "insee": "62041",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.302041,
+        "longitude": 2.749108,
+        "updatedAt": "2019-12-11T19:41:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 87343587,
+        "custom": {
+          "organization": "Médiathèque Verlaine",
+          "contactName": "Maggy Bilde",
+          "contactNumber": "0321712666",
+          "contactPosition": "responsable communication",
+          "email": "m-bilde@ville-arras.fr"
+        }
+      }
+    },
+    {
+      "uid": 14803042,
+      "ownerUid": 87343587,
+      "creatorUid": 87343587,
+      "slug": "le-triangle-secret",
+      "title": {
+        "fr": "Exposition \"Le triangle secret\"",
+        "en": "Exhibition \"The secret triangle\""
+      },
+      "description": {
+        "fr": "Une exposition d'une centaine de planches et de dessins originaux ainsi que d'objets liés à la série \"Le triangle secret\"",
+        "en": "An exhibition of a hundred original plates and drawings as well as objects related to the series \"The secret triangle\""
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-23T11:30:00.000Z",
+          "end": "2020-04-23T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T08:00:00.000Z",
+          "end": "2020-04-24T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T08:30:00.000Z",
+          "end": "2020-04-24T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T12:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:30:00.000Z",
+          "end": "2020-04-25T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T12:00:00.000Z",
+          "end": "2020-04-25T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:35.000Z",
+      "createdAt": "2019-12-09T13:38:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 7082489,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 7082489,
+        "slug": "mediatheque-saint-vaast",
+        "name": "Médiathèque Saint-Vaast",
+        "address": "22 rue Paul Doumer 62000 Arras",
+        "city": "Arras",
+        "region": "Hauts-de-France",
+        "department": "Pas-de-Calais",
+        "postalCode": "62000",
+        "insee": "62041",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.292148,
+        "longitude": 2.772005,
+        "updatedAt": "2019-12-11T19:42:56.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 87343587,
+        "custom": {
+          "organization": "Médiathèque Verlaine",
+          "contactName": "Maggy Bilde",
+          "contactNumber": "0321712666",
+          "contactPosition": "responsable communication",
+          "email": "m-bilde@ville-arras.fr"
+        }
+      }
+    },
+    {
+      "uid": 91340979,
+      "ownerUid": 99916048,
+      "creatorUid": 99916048,
+      "slug": "bourse-bd-dodos-tarbes",
+      "title": {
+        "fr": "Bourse BD d'Odos-Tarbes",
+        "en": "Bourse BD d'Odos-Tarbes"
+      },
+      "description": {
+        "fr": "Bourse BD d'occasion",
+        "en": "Used BD Scholarship"
+      },
+      "longDescription": {
+        "fr": "28e édition (14 ans d'existence)\n\nBourse BD d'occasion, BD, mangas, comics, petits-formats, produits dérivés. (25 à 30 exposants)\n\nDédicaces d'auteurs régionaux auto-édités (3 à 4)\n\nExposition thématique.\n\nLa bourse BD d'Odos est l'unique rendez-vous BD des Hautes-Pyrénées.\n\nElle permet de promouvoir et de donner un accès économique à la bande-dessinée dans le département.\n\nElle est organisée par une association de lecteurs et de collectionneurs de BD créée en 2006.",
+        "en": "28th edition (14 years of existence)\nUsed comic book, comic book, comic book, comics, small-format, derivatives. (25 to 30 exhibitors)\nSelf-published regional authors' dedications (3 to 4)\nThematic exhibition.\nThe Odos comic book exchange is the only comic book meeting in the Hautes-Pyrénées.\nIt makes it possible to promote and give economic access to comics in the department.\nIt is organized by an association of comic book readers and collectors created in 2006."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "f70805a2725c4526a18bcd22395de469.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f70805a2725c4526a18bcd22395de469.full.image.jpg",
+            "size": {
+              "height": 7014,
+              "width": 4960
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f70805a2725c4526a18bcd22395de469.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-17T06:30:00.000Z",
+          "end": "2020-05-17T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:34:37.000Z",
+      "createdAt": "2019-12-09T14:24:40.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 6536475,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "contact@mangebullesbd65.fr"
+      ],
+      "location": {
+        "uid": 6536475,
+        "slug": "salle-polyvalente-65800-odos",
+        "name": "Salle polyvalente",
+        "address": "Place Marguerite de Navarre 65800 Odos",
+        "city": "Odos",
+        "region": "Occitanie",
+        "department": "Hautes-Pyrénées",
+        "postalCode": "65310",
+        "insee": "65331",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.197716,
+        "longitude": 0.057914,
+        "updatedAt": "2019-12-12T15:04:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99916048,
+        "custom": {
+          "organization": "Association MangebullesBD 65",
+          "contactName": "Eric Nicolas",
+          "contactNumber": "0679023157",
+          "contactPosition": "Président de l'association",
+          "email": "eric.nicolas27@wanadoo.fr"
+        }
+      }
+    },
+    {
+      "uid": 27438122,
+      "ownerUid": 2724208,
+      "creatorUid": 2724208,
+      "slug": "ric-graphic-bd-aix-2020",
+      "title": {
+        "fr": "Exposition \"Ric Graphic\" - Festival BD 2020 d'Aix-en-Provence",
+        "en": "Exhibition \"Ric Graphic\" - Festival BD 2020 d'Aix-en-Provence"
+      },
+      "description": {
+        "fr": "Exposition \"RIC GRAPHIC dans le cadre du festival BD 2020 d'Aix-en-Provence",
+        "en": "Exhibition \"RIC GRAPHIC as part of the BD 2020 festival in Aix-en-Provence"
+      },
+      "longDescription": {
+        "fr": "**RIC GRAPHIC**\n---------------\n\n### **EXPOSITION - CRÉATION - RENCONTRE - ATELIER**\n\nRic Hochet de barque à Aix-en-Provence ! 10 ans après la disparition de son créateur Tibet, le festival s’empare du mythe et rend un hommage décalé aux aventures du plus pop de tous les héros du journal de Tintin. Porsche jaune et veste mouchetée exigées à l’entrée. _Avec Simon Van Liemt et David Vandermeulen._\n\n**\\+ d'infos sur** [**bd-aix.com**](http://www.bd-aix.com/)\n\n**Organisée par Les rencontres du 9e art d'Aix-en-Provence.**",
+        "en": "## **RIC GRAPHIC**\n### **EXHIBITION - CREATION - MEETING - WORKSHOP**\nRic Hochet boat in Aix-en-Provence! 10 years after the disappearance of its creator Tibet, the festival takes hold of the myth and pays a staggered tribute to the adventures of the most pop of all the heroes of the Tintin newspaper. Yellow Porsche and speckled jacket required at the entrance. _With Simon Van Liemt and David Vandermeulen._\n+ **more info on** [**bd-aix.com**](http://www.bd-aix.com/)\n**Organised by Les rencontres du 9e art d'Aix-en-Provence.**"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "libre",
+        "en": "free"
+      },
+      "image": {
+        "filename": "7c110d64473049f0afadf4ed27cd01be.base.image.jpg",
+        "credits": "TIBET- VANDERMEULEN-Ric Remix",
+        "size": {
+          "height": 445,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7c110d64473049f0afadf4ed27cd01be.full.image.jpg",
+            "size": {
+              "height": 954,
+              "width": 1502
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7c110d64473049f0afadf4ed27cd01be.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T11:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T11:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T11:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T11:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T11:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T11:00:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T11:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T11:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T11:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T11:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T11:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T11:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T11:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T11:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T11:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T11:00:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T11:00:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T11:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T11:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T11:00:00.000Z",
+          "end": "2020-05-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T11:00:00.000Z",
+          "end": "2020-05-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T11:00:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T11:00:00.000Z",
+          "end": "2020-05-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T11:00:00.000Z",
+          "end": "2020-05-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T11:00:00.000Z",
+          "end": "2020-05-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T11:00:00.000Z",
+          "end": "2020-05-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T11:00:00.000Z",
+          "end": "2020-05-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T11:00:00.000Z",
+          "end": "2020-05-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T11:00:00.000Z",
+          "end": "2020-05-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T11:00:00.000Z",
+          "end": "2020-05-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T11:00:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T11:00:00.000Z",
+          "end": "2020-05-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T11:00:00.000Z",
+          "end": "2020-05-23T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:59:56.000Z",
+      "createdAt": "2019-12-09T11:07:43.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 95328231,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://www.bd-aix.com"
+      ],
+      "location": {
+        "uid": 95328231,
+        "slug": "cite-du-livre-galerie-zola",
+        "name": "Cité du livre - Galerie Zola",
+        "address": "9 rue des Allumettes 13100 Aix-en-Provence",
+        "city": "Aix-en-Provence",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13627",
+        "insee": "13001",
+        "countryCode": "FR",
+        "district": "Cuques",
+        "latitude": 43.525216,
+        "longitude": 5.440375,
+        "updatedAt": "2019-12-12T15:08:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Rencontres du 9e art - Office de tourisme d'Aix-en-Provence",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2724208,
+        "custom": {
+          "organization": "Les Rencontres du 9e Art - Aix-en-Provence",
+          "contactName": "Laurence Laugier",
+          "contactNumber": "04 42 161 161",
+          "contactPosition": "Chargée de mission",
+          "email": "laurence@bd-aix.com"
+        }
+      }
+    },
+    {
+      "uid": 2795169,
+      "ownerUid": 81856731,
+      "creatorUid": 81856731,
+      "slug": "festival-la-bd-se-livre",
+      "title": {
+        "en": "Festival \"La BD se livre\"",
+        "fr": "Festival \"La BD se livre\""
+      },
+      "description": {
+        "en": "An all public fair to meet and discover more than 19 comic book authors",
+        "fr": "Un salon tout public pour rencontrer et découvrir plus de 19 auteurs et autrices de BD"
+      },
+      "longDescription": {
+        "en": "Come and meet authors including Hubb, Jean-Yves Mitton, Christophe Cazenove, Jacques Terpant, Magda, Mic, Pauline Roland, Olivier Roman, Renaud, Virginie Greiner, Serge Scotto, Laurent Sieurac, Johan Troïanowski, Céline Guillard...",
+        "fr": "Venez rencontrer des auteurs et autrices parmi lesquels Hubb, Jean-Yves Mitton, Christophe Cazenove, Jacques Terpant, Magda, Mic, Pauline Roland, Olivier Roman, Renaud, Virginie Greiner, Serge Scotto, Laurent Sieurac, Johan Troïanowski, Céline Guillard..."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "fb947b972a0c43499459c14ae3995033.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "fb947b972a0c43499459c14ae3995033.full.image.jpg",
+            "size": {
+              "height": 3508,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "fb947b972a0c43499459c14ae3995033.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-07T13:00:00.000Z",
+          "end": "2020-03-07T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T13:30:00.000Z",
+          "end": "2020-03-07T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T14:00:00.000Z",
+          "end": "2020-03-07T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T14:30:00.000Z",
+          "end": "2020-03-07T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T15:00:00.000Z",
+          "end": "2020-03-07T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T15:30:00.000Z",
+          "end": "2020-03-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T16:00:00.000Z",
+          "end": "2020-03-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T16:30:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T09:00:00.000Z",
+          "end": "2020-03-08T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T09:30:00.000Z",
+          "end": "2020-03-08T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T10:00:00.000Z",
+          "end": "2020-03-08T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T10:30:00.000Z",
+          "end": "2020-03-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T13:00:00.000Z",
+          "end": "2020-03-08T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T13:30:00.000Z",
+          "end": "2020-03-08T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T14:00:00.000Z",
+          "end": "2020-03-08T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T14:30:00.000Z",
+          "end": "2020-03-08T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T15:00:00.000Z",
+          "end": "2020-03-08T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T15:30:00.000Z",
+          "end": "2020-03-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T16:00:00.000Z",
+          "end": "2020-03-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T16:30:00.000Z",
+          "end": "2020-03-08T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-29T09:27:36.000Z",
+      "createdAt": "2019-12-10T08:47:50.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 54067257,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 54067257,
+        "slug": "espace-van-gogh-13200-arles",
+        "name": "Espace Van Gogh",
+        "address": "Place Félix Rey 13200 Arles",
+        "city": "Arles",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13200",
+        "insee": "13004",
+        "countryCode": "FR",
+        "district": "Centre-Ville",
+        "latitude": 43.67593,
+        "longitude": 4.626194,
+        "updatedAt": "2019-12-10T09:19:53.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Arles l=se livre organisé par la ville d'Arles",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81856731,
+        "custom": {
+          "organization": "Association \"9ème AR't'LES\"",
+          "contactName": "Alain Genot",
+          "contactNumber": "0611191585",
+          "contactPosition": "Représentant de l'association, membre de la direction collégiale.",
+          "email": "alaingenot@hotmail.com"
+        }
+      }
+    }
+  ],
+  "lastId": 2100264
+}

@@ -9,7 +9,7 @@ module.exports = config => {
 
   return {
     loadEvent: loadEvent.bind( null, config ),
-    loadSiteURL: loadSiteURL.bind( null, config ),
+    loadSiteURL: loadSiteURL.bind(null, config),
     loadFacebookMetas: loadFacebookMetas.bind( null, config ),
     render: render.bind( null, config )
   }
@@ -57,26 +57,28 @@ function loadFacebookMetas( config, req, res, next ) {
 }
 
 
-function loadEvent( config, req, res, next ) {
+function loadEvent(config, req, res, next) {
+  req.app.services.core.agendas(req.params.agendaUid)
+    .events.get(req.params.eventUid, {
+      lang: req.lang,
+      internal: true,
+      returnPayload: true
+    }).then(({ event, agenda }) => {
+      if (!event) {
+        return next(404);
+      }
 
-  req.app.services.core.agendas( req.params.agendaUid ).events.get( req.params.eventUid, { lang: req.lang, internal: true } ).then( event => {
+      req.agenda = agenda;
+      req.event = event;
 
-    if ( !event ) return next( 404 );
+      next();
+    }, err => {
+      req.log('error', err);
 
-    req.agenda = _.get( event, 'agenda' );
-
-    req.event = _.omit( event, [ 'agenda' ] );
-
-    next();
-
-  }, err => {
-
-    req.log( 'error', err );
-
-    next( { code: _.get( err, 'message' ).indexOf( 'not found' ) === -1 ? 500 : 404 } );
-
-  } );
-
+      next({
+        code: _.get(err, 'message').indexOf('not found') === -1 ? 500 : 404
+      });
+    });
 }
 
 function loadSiteURL( config, req, res, next ) {

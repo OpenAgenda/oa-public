@@ -32,5 +32,10 @@ module.exports = schema( {
     list: {
       max: 2
     }
+  },
+  access: {
+    type: 'text',
+    default: 'public',
+    optional: true
   }
 } );

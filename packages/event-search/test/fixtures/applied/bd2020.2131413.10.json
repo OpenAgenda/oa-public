@@ -1,0 +1,1750 @@
+{
+  "events": [
+    {
+      "uid": 6956512,
+      "ownerUid": 24162045,
+      "creatorUid": 24162045,
+      "slug": "rencontrez-chadia-chaibi-loueslati",
+      "title": {
+        "fr": "Rencontrez Chadia Chaibi Loueslati",
+        "en": "Meet Chadia Chaibi Loueslati"
+      },
+      "description": {
+        "fr": "Séance de dédicaces avec l'auteure Chadia Chaibi Loueslati",
+        "en": "Book signing with author Chadia Chaibi Loueslati"
+      },
+      "longDescription": {
+        "fr": "Séance de dédicaces avec l'auteure Chadia Chaibi Loueslati pour la bande dessinée _Nos vacances au bled_.",
+        "en": "Signing session with author Chadia Chaibi Loueslati for the comic book _Nos vacances au bled_."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "7db0798a32a04dd982f31eb970bb2cef.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1245,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7db0798a32a04dd982f31eb970bb2cef.full.image.jpg",
+            "size": {
+              "height": 1920,
+              "width": 1080
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7db0798a32a04dd982f31eb970bb2cef.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T14:00:00.000Z",
+          "end": "2020-01-18T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:29:58.000Z",
+      "createdAt": "2020-01-15T15:48:38.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 4449840,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 4449840,
+        "slug": "fnac-strasbourg258",
+        "name": "Fnac Strasbourg",
+        "address": "22 place Kléber 67000 Strasbourg",
+        "city": "Strasbourg",
+        "region": "Grand Est",
+        "department": "Bas-Rhin",
+        "postalCode": null,
+        "insee": "67482",
+        "countryCode": "FR",
+        "district": "Krutenau",
+        "latitude": 48.583311,
+        "longitude": 7.745962,
+        "updatedAt": "2020-01-15T15:25:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 24162045,
+        "custom": {
+          "organization": "FNAC",
+          "contactName": "Léa DESHAYES",
+          "contactNumber": "01 55 21 54 14",
+          "contactPosition": "Assistante Programmation Culturelle",
+          "email": "lea.deshayes@fnacdarty.com"
+        }
+      }
+    },
+    {
+      "uid": 13970070,
+      "ownerUid": 24162045,
+      "creatorUid": 24162045,
+      "slug": "rencontrez-leopold-lemarchand-et-mister-box",
+      "title": {
+        "fr": "Rencontrez Léopold Lemarchand et Mister Box",
+        "en": "Meet Léopold Lemarchand and Mister Box"
+      },
+      "description": {
+        "fr": "Séance de dédicaces avec l'auteur Léopold Lemarchand et le dessinateur Mister Box",
+        "en": "Book signing with author Léopold Lemarchand and cartoonist Mister Box"
+      },
+      "longDescription": {
+        "fr": "Séance de dédicaces avec l'auteur Léopold Lemarchand et le dessinateur Mister Box à l'occasion de la parution de leur dernière BD _Gérald, le type qui prenait tout au premier degré_.",
+        "en": "Signing session with author Léopold Lemarchand and cartoonist Mister Box on the occasion of the release of their latest comic book _Gérald, the guy who took everything at first degree_."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "72d6332935bd4f2787c8fce75d6519ae.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1245,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "72d6332935bd4f2787c8fce75d6519ae.full.image.jpg",
+            "size": {
+              "height": 1920,
+              "width": 1080
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "72d6332935bd4f2787c8fce75d6519ae.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T14:00:00.000Z",
+          "end": "2020-02-08T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:30:06.000Z",
+      "createdAt": "2020-01-15T15:55:51.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 33268274,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 33268274,
+        "slug": "fnac-lille",
+        "name": "Fnac Lille",
+        "address": "20 rue Saint-Nicolas 59000 Lille",
+        "city": "Lille",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59000",
+        "insee": "59350",
+        "countryCode": "FR",
+        "district": "Lille-Centre",
+        "latitude": 50.63579,
+        "longitude": 3.0651,
+        "updatedAt": "2020-01-15T16:04:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 24162045,
+        "custom": {
+          "organization": "FNAC",
+          "contactName": "Léa DESHAYES",
+          "contactNumber": "01 55 21 54 14",
+          "contactPosition": "Assistante Programmation Culturelle",
+          "email": "lea.deshayes@fnacdarty.com"
+        }
+      }
+    },
+    {
+      "uid": 4083448,
+      "ownerUid": 24162045,
+      "creatorUid": 24162045,
+      "slug": "rencontrez-benoit-dahan-et-cyril-lieron",
+      "title": {
+        "fr": "Rencontrez Benoit Dahan et Cyril Liéron",
+        "en": "Meet Benoit Dahan and Cyril Liéron"
+      },
+      "description": {
+        "fr": "Séance de dédicaces avec l'auteur Cyril Liéron et le dessinateur Benoit Dahan",
+        "en": "Signing session with author Cyril Liéron and cartoonist Benoit Dahan"
+      },
+      "longDescription": {
+        "fr": "Séance de dédicaces avec l'auteur Cyril Liéron et le dessinateur Benoit Dahan à l'occasion de la sortie de leur BD _Dans la tête de Sherlock Holmes_, finaliste du Prix BD Fnac France Inter.",
+        "en": "Signing session with author Cyril Liéron and cartoonist Benoit Dahan on the occasion of the release of their comic book _Dans la tête by Sherlock Holmes_, finalist of the Fnac France Inter Comics Prize."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "965b9b75b38a4603b004fd72d45c53e0.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1245,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "965b9b75b38a4603b004fd72d45c53e0.full.image.jpg",
+            "size": {
+              "height": 1920,
+              "width": 1080
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "965b9b75b38a4603b004fd72d45c53e0.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T14:00:00.000Z",
+          "end": "2020-03-21T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:30:04.000Z",
+      "createdAt": "2020-01-15T16:08:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 33268274,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 33268274,
+        "slug": "fnac-lille",
+        "name": "Fnac Lille",
+        "address": "20 rue Saint-Nicolas 59000 Lille",
+        "city": "Lille",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59000",
+        "insee": "59350",
+        "countryCode": "FR",
+        "district": "Lille-Centre",
+        "latitude": 50.63579,
+        "longitude": 3.0651,
+        "updatedAt": "2020-01-15T16:04:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 24162045,
+        "custom": {
+          "organization": "FNAC",
+          "contactName": "Léa DESHAYES",
+          "contactNumber": "01 55 21 54 14",
+          "contactPosition": "Assistante Programmation Culturelle",
+          "email": "lea.deshayes@fnacdarty.com"
+        }
+      }
+    },
+    {
+      "uid": 58240542,
+      "ownerUid": 26850728,
+      "creatorUid": 26850728,
+      "slug": "biennale-de-la-poesie-et-de-la-bande-dessinee",
+      "title": {
+        "fr": "Biennale de la poésie et de la bande dessinée",
+        "en": "Biennale of poetry and comics"
+      },
+      "description": {
+        "fr": "Biennale de la Poésie - Aïe, quand la Poésie rencontre la Bande-Dessinée",
+        "en": "Biennale de la Poésie - Aïe, quand la Poésie rencontre la Bande-Dessinée"
+      },
+      "longDescription": {
+        "fr": "_La poésie reste une des meilleures façons d’aborder toutes les questions._\n\n_Grâce à l’humour et à la distance du dessin, nous entrons au cœur des sujets._\n\n_Dans ces temps un peu moroses, notre dessein est de faire pétiller la poésie comme le champagne ... en y ajoutant les bulles de la bande dessinée._\n\n_Par là, nous souhaitons rendre la poésie accessible à tous._\n\n_La poésie n’est pas qu’une affaire de littérature ou de philosophie, elle est aussi une façon globale d’explorer les espaces intérieurs, d’approcher le savoir, de comprendre le présent – une manière singulière d’être au monde._\n\n_Tout le monde ici pourra apprécier que par l’humour et une certaine distance beaucoup de sujets peuvent être abordés avec densité et légèreté._\n\n_La poésie et la bande dessinée peuvent aborder TOUS les sujets, et ouvrir ainsi les possibilités de discussions entre les idées, les opinions et les croyances les plus diverses._\n\n_C’est peut-être à la lisière des sujets que les débats sont les plus fertiles._\n\nCette biennale sera l'occasion d'organiser des temps forts, composés de rencontres, d'événements et d'expositions. Les artistes que nous accueillons en résidence présenteront leurs travaux réalisés autour de ce thème, et nous organiserons la Biennale au sein de nos murs, dans le village d'Epaux-Bézu.\n\nTout au long de l'année, nous organisons aussi des actions avec nos partenaires scolaires autour de cette thématique, et ces actions donneront lieu à des restitutions des projets réalisés lors de portes ouvertes et expositions avec les établissements.",
+        "en": "_Poetry remains one of the best ways to address all issues._\n_Thanks to the humour and the distance of the drawing, we enter the heart of the subjects._\n_In these somewhat gloomy times, our plan is to make poetry sparkle like champagne ... by adding the bubbles of the comic book._\n_In this way, we want to make poetry accessible to all._\n_Poetry is not only a matter of literature or philosophy, it is also a global way to explore inner spaces, to approach knowledge, to understand the present – a singular way of being in the world._\n_Everyone here will appreciate that by humour and a certain distance many topics can be addressed with density and lightness._\n_Poetry and comic books can address ALL topics, opening up the possibilities for discussion between the most diverse ideas, opinions and beliefs._\n_It is perhaps at the edge of the subjects that the debates are most fertile._\nThis biennial will be the occasion to organize highlights, composed of meetings, events and exhibitions. The artists we welcome in residence will present their work on this theme, and we will organize the Biennale within our walls, in the village of Epaux-Bézu.\nThroughout the year, we also organize actions with our school partners around this theme, and these actions will give rise to presentations of projects carried out during open doors and exhibitions with institutions."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "7a65ce69715c4d5aa2f66688d2c07e19.base.image.jpg",
+        "credits": "Lizières",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7a65ce69715c4d5aa2f66688d2c07e19.full.image.jpg",
+            "size": {
+              "height": 3264,
+              "width": 4352
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7a65ce69715c4d5aa2f66688d2c07e19.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-12T22:00:00.000Z",
+          "end": "2020-04-13T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-13T22:00:00.000Z",
+          "end": "2020-04-14T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T22:00:00.000Z",
+          "end": "2020-04-15T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T22:00:00.000Z",
+          "end": "2020-04-16T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T22:00:00.000Z",
+          "end": "2020-04-17T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T22:00:00.000Z",
+          "end": "2020-04-18T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T22:00:00.000Z",
+          "end": "2020-04-19T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-19T22:00:00.000Z",
+          "end": "2020-04-20T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-20T22:00:00.000Z",
+          "end": "2020-04-21T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T22:00:00.000Z",
+          "end": "2020-04-22T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T22:00:00.000Z",
+          "end": "2020-04-23T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T22:00:00.000Z",
+          "end": "2020-04-24T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T22:00:00.000Z",
+          "end": "2020-04-25T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T22:00:00.000Z",
+          "end": "2020-04-26T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T22:00:00.000Z",
+          "end": "2020-04-27T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-27T22:00:00.000Z",
+          "end": "2020-04-28T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T22:00:00.000Z",
+          "end": "2020-04-29T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T22:00:00.000Z",
+          "end": "2020-04-30T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T22:00:00.000Z",
+          "end": "2020-05-01T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T22:00:00.000Z",
+          "end": "2020-05-02T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T22:00:00.000Z",
+          "end": "2020-05-03T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T22:00:00.000Z",
+          "end": "2020-05-04T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-04T22:00:00.000Z",
+          "end": "2020-05-05T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T22:00:00.000Z",
+          "end": "2020-05-06T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T22:00:00.000Z",
+          "end": "2020-05-07T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T22:00:00.000Z",
+          "end": "2020-05-08T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T22:00:00.000Z",
+          "end": "2020-05-09T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T22:00:00.000Z",
+          "end": "2020-05-10T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T22:00:00.000Z",
+          "end": "2020-05-11T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-11T22:00:00.000Z",
+          "end": "2020-05-12T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T22:00:00.000Z",
+          "end": "2020-05-13T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T22:00:00.000Z",
+          "end": "2020-05-14T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T22:00:00.000Z",
+          "end": "2020-05-15T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T22:00:00.000Z",
+          "end": "2020-05-16T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T22:00:00.000Z",
+          "end": "2020-05-17T21:59:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:29:58.000Z",
+      "createdAt": "2020-01-10T16:50:12.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 41466295,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "administration@lizieres.org",
+        "http://www.lizieres.org"
+      ],
+      "location": {
+        "uid": 41466295,
+        "slug": "lizieres",
+        "name": "Lizières",
+        "address": "02400 Épaux-Bézu",
+        "city": "Épaux-Bézu",
+        "region": "Hauts-de-France",
+        "department": "Aisne",
+        "postalCode": "02400",
+        "insee": "02279",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.109167,
+        "longitude": 3.348333,
+        "updatedAt": "2020-01-13T09:23:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": "Biennale",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "53212822000011",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 26850728,
+        "custom": {
+          "organization": "Les Amis de Lizières",
+          "contactName": "Clémence Khan",
+          "contactNumber": "0673314194",
+          "contactPosition": "Coordinatrice Générale",
+          "email": "administration@lizieres.org"
+        }
+      }
+    },
+    {
+      "uid": 2506296,
+      "ownerUid": 42971997,
+      "creatorUid": 42971997,
+      "slug": "rencontre-avec-marguerite-abouet",
+      "title": {
+        "fr": "Rencontre avec Marguerite Abouet",
+        "en": "Meeting with Marguerite Abouet"
+      },
+      "description": {
+        "fr": "Rencontre avec la scénariste de BD Aya de Yopougon après la projection du film qu'elle a adapté de son oeuvre",
+        "en": "Meeting with comic book writer Aya of Yopougon after the screening of the film she adapted from her work"
+      },
+      "longDescription": {
+        "fr": "Marguerite Abouet naît en 1971 à Abidjan en Côte-d’Ivoire et grandit dans le quartier populaire de Yopougon jusqu’à ses 12 ans, quand elle émigre à Paris. Elle scénarise en 2006 le premier tome d’Aya de Yopougon, illustré par Clément Oubrerie, véritable succès public primé à Angoulème. Elle se consacre depuis à l’écriture de scénarios pour la bande dessinée (_Commissaire Kouamé_, _Akissi_, _Bienvenue_…) ou la télévision. Elle a co-réalisé l’adaptation cinéma de sa BD _Aya de Yopougon_, qui sera projetée au Cinéville avant la rencontre.",
+        "en": "Marguerite Abouet was born in 1971 in Abidjan, Côte-d'Ivoire and grew up in the working-class district of Yopougon until _she was_ 12 when she emigrated to Paris. In 2006, she staged the first volume of Aya de Yopougon, illustrated by Clément Oubrerie, a real public success award-winning film in Angoulème. She has since devoted herself to writing scripts for comic books (_Commissioner Kouamé_, _Akissi_, Bienvenue_…) or television. She co-directed the movie adaptation of her Yopougon comic strip _Aya, which will be screened at Cinéville before the meeting."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Libre, possibilité d'inscription pour assurer sa place",
+        "en": "Free, registration option to secure your place"
+      },
+      "image": {
+        "filename": "50254f59d9a64272b6f3251fea36b1d2.base.image.jpg",
+        "credits": "Couverture d'Aya de Yopougon T3, Clément Oubrerie & Marguerire Abouet, Gallimard",
+        "size": {
+          "height": 987,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "50254f59d9a64272b6f3251fea36b1d2.full.image.jpg",
+            "size": {
+              "height": 2560,
+              "width": 1816
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "50254f59d9a64272b6f3251fea36b1d2.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-14T15:00:00.000Z",
+          "end": "2020-03-14T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T15:30:00.000Z",
+          "end": "2020-03-14T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:29:43.000Z",
+      "createdAt": "2020-01-16T06:59:35.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 21308818,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 9,
+        "max": 99
+      },
+      "registration": [
+        "02 43 49 47 48"
+      ],
+      "location": {
+        "uid": 21308818,
+        "slug": "bibliotheque-albert-legendre356",
+        "name": "Bibliothèque Albert-Legendre",
+        "address": "Place de Hercé 53000 Laval",
+        "city": "Laval",
+        "region": "Pays de la Loire",
+        "department": "Mayenne",
+        "postalCode": "53000",
+        "insee": "53130",
+        "countryCode": "FR",
+        "district": "La Brochardière",
+        "latitude": 48.06602,
+        "longitude": -0.771671,
+        "updatedAt": "2020-01-16T08:01:22.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Reflet des cinémas africains",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Atmosphère 53",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 42971997,
+        "custom": {
+          "organization": "Bibliothèque de Laval",
+          "contactName": "Maël Rannou",
+          "contactNumber": "0628273475",
+          "contactPosition": "Bibliothécaire et auteur",
+          "email": "mael.rannou@laval.fr"
+        }
+      }
+    },
+    {
+      "uid": 29196838,
+      "ownerUid": 976918,
+      "creatorUid": 976918,
+      "slug": "concert-bd-la-saga-de-grimr",
+      "title": {
+        "fr": "Concert BD La Saga de Grimr",
+        "en": "Concert BD La Saga de Grimr"
+      },
+      "description": {
+        "fr": "L'idée d'adapter la Saga de Grimr en BD-concert est née du désir de voir les planches féroces de Jérémie Moreau se libérer du papier et prendre vie dans un autre espace",
+        "en": "The idea to adapt the Saga of Grimr in BD-concert was born from the desire to see Jérémie Moreau’s fierce plates free themselves from paper and come to life in another space"
+      },
+      "longDescription": {
+        "fr": "_La Saga de Grimr_ est une quête d’identité tragique dans un décor\n\ngrandiose. Le héros y est confronté à chacun des piliers de la\n\nculture islandaise : le prestige de la généalogie, le culte de la\n\nloi et la superstition.\n\nL'idée d'adapter _La Saga de Grimr_ en BD-concert est née du désir\n\nde voir les planches féroces de Jérémie Moreau se libérer du papier\n\net prendre vie dans un autre espace. La nature indomptable\n\nislandaise qu'il met en scène, semble en effet menacer à tout\n\nmoment d'échapper au livre qui la garde.\n\nFauve d’Or au Festival international de la bande dessinée d’Angoulême\n\n2018\n\nDistribution\n\nSolHess: chant, guitares, basse\n\nJérôme d’Aviau: batterie, clavier, mélodica, glockenspiel,\n\nFrédérick Cazaux: clavier, basse, harpe celtique, boîtes à musique et componiums, mélodica.\n\nBenjamin Lacquement: réalisateur et régisseur vidéo\n\nScénario et dessin de Jérémie Moreau\n\nCréation lumière de Christophe Turpault\n\nRégisseur son:Marie Savignat\n\nChargé de productionet de diffusion : Dominique Trento\n\nD’après _La Saga de Grimr_ de Jérémie Moreau – éditions Delcourt 2017",
+        "en": "_Grimr’s Saga_ is a tragic quest for identity in a setting\nthe hero is confronted with each of the pillars of the\nIcelandic culture: the prestige of genealogy, the cult of the\nlaw and superstition.\n_La Saga de Grimr_ en BD-concert est né du désir\nto see Jérémie Moreau’s fierce boards free of paper\nand take life in another space. The indomitable nature\nIcelandic that he staged, indeed seems to threaten to any\ntime to escape the book that holds her.\nFauve d'Or at the Angoulême International Comic Strip Festival\n2018\nDistribution\nSolhess: vocals, guitars, bass\nJérôme d'Aviau: drums, keyboard, melody, glockenspiel,\nFrédérick Cazaux: keyboard, bass, Celtic harp, music boxes and componiums, melody.\nBenjamin Lacquement: director and video manager\nScreenplay and drawing by Jérémie Moreau\nLight creation by Christophe Turpault\nSound manager:Marie Savignat\nProduction and dissemination manager: Dominique Trento\nBased on _La Saga de Grimr_ by Jérémie Moreau – éditions Delcourt 2017"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "f7457608342a4ae9b80a2d29c7542a1c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 930,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f7457608342a4ae9b80a2d29c7542a1c.full.image.jpg",
+            "size": {
+              "height": 2008,
+              "width": 1513
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f7457608342a4ae9b80a2d29c7542a1c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-27T16:30:00.000Z",
+          "end": "2020-05-27T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:29:48.000Z",
+      "createdAt": "2020-01-16T10:07:35.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 50394353,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "http://www.latestedebuch.fr",
+        "06 60 71 60 03"
+      ],
+      "location": {
+        "uid": 50394353,
+        "slug": "theatre-cravey",
+        "name": "Théâtre Cravey",
+        "address": "Rue Gilbert Sore 33260 La Teste-de-Buch",
+        "city": "La Teste-de-Buch",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33260",
+        "insee": "33529",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.631294,
+        "longitude": -1.150806,
+        "updatedAt": "2020-01-16T10:06:55.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "5 €",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon BD 2020 organisé par la Mairie de La Teste-de-Buch",
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 976918,
+        "custom": {
+          "organization": "Bibliothèque Municipale de La Teste de Buch",
+          "contactName": "Adele Turquais",
+          "contactNumber": "0557524122",
+          "contactPosition": "Agent administratif",
+          "email": "lacentralelatestedebuch@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 82801584,
+      "ownerUid": 24162045,
+      "creatorUid": 24162045,
+      "slug": "rencontrez-penelope-bagieu",
+      "title": {
+        "fr": "Rencontrez Pénélope Bagieu",
+        "en": "Meet Penelope Bagieu"
+      },
+      "description": {
+        "fr": "Venez rencontrer l'auteure de bandes dessinées Pénélope Bagieu",
+        "en": "Come and meet the author of comic books Penelope Bagieu"
+      },
+      "longDescription": {
+        "fr": "Venez rencontrer l'auteure de bandes dessinées Pénélope Bagieu lors d'une séance de dédicaces à l'occasion de la sortie de sa nouvelle BD _Sacrées sorcières_.",
+        "en": "Come and meet the author of comic books Pénélope Bagieu during a signing session on the occasion of the release of her new comic book _Sacrées sorcières_."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "31c6c5bb44e648118d49be88d69de4a7.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1245,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "31c6c5bb44e648118d49be88d69de4a7.full.image.jpg",
+            "size": {
+              "height": 1920,
+              "width": 1080
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "31c6c5bb44e648118d49be88d69de4a7.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T16:00:00.000Z",
+          "end": "2020-02-08T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:29:45.000Z",
+      "createdAt": "2020-01-16T14:43:50.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 53823434,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 53823434,
+        "slug": "fnac-montparnasse621",
+        "name": "Fnac Montparnasse",
+        "address": "136 rue de Rennes 75006 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75006",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 6e Arrondissement",
+        "latitude": 48.845945,
+        "longitude": 2.325714,
+        "updatedAt": "2020-01-15T15:25:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 24162045,
+        "custom": {
+          "organization": "FNAC",
+          "contactName": "Léa DESHAYES",
+          "contactNumber": "01 55 21 54 14",
+          "contactPosition": "Assistante Programmation Culturelle",
+          "email": "lea.deshayes@fnacdarty.com"
+        }
+      }
+    },
+    {
+      "uid": 88812735,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "1-bd-en-3-vignettes_327069",
+      "title": {
+        "fr": "1 BD en 3 vignettes",
+        "en": "1 comic strip in 3 vignettes"
+      },
+      "description": {
+        "fr": "Jeu-concours 1 BD en 3 vignettes",
+        "en": "Contest 1 comic strip in 3 vignettes"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "Cadeau",
+          "Jeu",
+          "Concours",
+          "Dessin",
+          "Oeuvre",
+          "BD",
+          "Prix"
+        ]
+      },
+      "conditions": {
+        "fr": "À gagner : un prix enfant et un prix adulte",
+        "en": "To be won: a child prize and an adult prize"
+      },
+      "image": {
+        "filename": "a834649fed9846e8bd7a1ce69cfe5554.base.image.jpg",
+        "credits": "© CDCBGS",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a834649fed9846e8bd7a1ce69cfe5554.full.image.jpg",
+            "size": {
+              "height": 842,
+              "width": 595
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a834649fed9846e8bd7a1ce69cfe5554.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-19T13:00:00.000Z",
+          "end": "2020-01-19T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:29:42.000Z",
+      "createdAt": "2020-01-16T16:09:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64261194,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 64261194,
+        "slug": "bibliotheque-de-culan487",
+        "name": "Bibliothèque de Culan",
+        "address": "2 rue de la Pêcherie 18270 Culan",
+        "city": "Culan",
+        "region": "Centre-Val de Loire",
+        "department": "Cher",
+        "postalCode": "18270",
+        "insee": "18083",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 46.548038,
+        "longitude": 2.349105,
+        "updatedAt": "2020-01-16T16:07:02.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 25596125,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "exposition-comme-une-bete-en-case_181103",
+      "title": {
+        "fr": "Exposition \"Comme une Bête en case\"",
+        "en": "Exhibition \"Like a Beast in a Box\""
+      },
+      "description": {
+        "fr": "Dans le cadre de l'opération BD 2020, une exposition pour les petits comme pour les grands sur les animaux en bande dessinée est à découvrir à la bibliothèque de Culan !",
+        "en": "As part of Operation BD 2020, an exhibition for children and adults about animals in comic books is to be discovered at the Culan library!"
+      },
+      "longDescription": {
+        "fr": "L' exposition \"**Comme une Bête en case**\" vous est présenté à la bibliothèque de Culan, jusqu'au 5 février 2020. Cette exposition propose une sélection de 16 des meilleures séries et albums de bande dessinée contemporaine dont les animaux sont les héros. Pour toucher un plus large public, l'exposition présente 8 séries à destination des adultes et 8 pour les enfants. Chacun des 8 panneaux jeunesse présente un jeu original et interactif. Les bandes desssinées présentées accompagnent l'exposition, ainsi qu'un livret d'activités.",
+        "en": "The exhibition \"**Comme une Bête en case**\" is presented to you at the library of Culan, until February 5, 2020\\. This exhibition features a selection of 16 of the best contemporary comic book series and albums whose animals are the heroes. To reach a wider audience, the exhibition presents 8 series for adults and 8 for children. Each of the 8 youth panels presents an original and interactive game. The drawings presented accompany the exhibition, as well as an activity booklet."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "de3652dc12c54ae3ae44922f45ec793a.base.image.jpg",
+        "credits": "© La Bulle Exposition",
+        "size": {
+          "height": 1000,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "de3652dc12c54ae3ae44922f45ec793a.full.image.jpg",
+            "size": {
+              "height": 857,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "de3652dc12c54ae3ae44922f45ec793a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T08:00:00.000Z",
+          "end": "2020-01-20T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T13:00:00.000Z",
+          "end": "2020-01-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T08:00:00.000Z",
+          "end": "2020-01-21T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T13:00:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T08:00:00.000Z",
+          "end": "2020-01-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T08:00:00.000Z",
+          "end": "2020-01-23T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T13:00:00.000Z",
+          "end": "2020-01-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T08:00:00.000Z",
+          "end": "2020-01-24T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T13:00:00.000Z",
+          "end": "2020-01-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T08:00:00.000Z",
+          "end": "2020-01-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T13:00:00.000Z",
+          "end": "2020-01-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T08:00:00.000Z",
+          "end": "2020-01-27T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T13:00:00.000Z",
+          "end": "2020-01-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T08:00:00.000Z",
+          "end": "2020-01-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T13:00:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T08:00:00.000Z",
+          "end": "2020-01-29T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T13:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T08:00:00.000Z",
+          "end": "2020-01-30T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T13:00:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T08:00:00.000Z",
+          "end": "2020-01-31T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T13:00:00.000Z",
+          "end": "2020-01-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T08:00:00.000Z",
+          "end": "2020-02-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T13:00:00.000Z",
+          "end": "2020-02-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T08:00:00.000Z",
+          "end": "2020-02-03T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T13:00:00.000Z",
+          "end": "2020-02-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T08:00:00.000Z",
+          "end": "2020-02-04T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T13:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T08:00:00.000Z",
+          "end": "2020-02-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:29:41.000Z",
+      "createdAt": "2020-01-16T16:13:12.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64261194,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 64261194,
+        "slug": "bibliotheque-de-culan487",
+        "name": "Bibliothèque de Culan",
+        "address": "2 rue de la Pêcherie 18270 Culan",
+        "city": "Culan",
+        "region": "Centre-Val de Loire",
+        "department": "Cher",
+        "postalCode": "18270",
+        "insee": "18083",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 46.548038,
+        "longitude": 2.349105,
+        "updatedAt": "2020-01-16T16:07:02.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 624,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 95868159,
+      "ownerUid": 29696094,
+      "creatorUid": 29696094,
+      "slug": "atelier-bd-avec-greg-blondin-dessinateur",
+      "title": {
+        "fr": "Atelier BD avec Greg Blondin, dessinateur",
+        "en": "Comic book workshop with Greg Blondin, cartoonist"
+      },
+      "description": {
+        "fr": "Atelier BD avec le dessinateur Greg Blondin et concours de dessins sur le thème : dessinez votre héros de livre préféré",
+        "en": "Comic book workshop with cartoonist Greg Blondin and theme drawing competition: draw your favorite book hero"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "14f5bb1356554acca249c2cb019eba08.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "14f5bb1356554acca249c2cb019eba08.full.image.jpg",
+            "size": {
+              "height": 2056,
+              "width": 3088
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "14f5bb1356554acca249c2cb019eba08.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T13:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:29:38.000Z",
+      "createdAt": "2020-01-16T16:27:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 33713940,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "03 44 25 25 80"
+      ],
+      "location": {
+        "uid": 33713940,
+        "slug": "mediatheque-chanut",
+        "name": "Médiathèque Chanut",
+        "address": "Allée Nelson 60175 Creil",
+        "city": "Creil",
+        "region": "Hauts-de-France",
+        "department": "Oise",
+        "postalCode": "60100",
+        "insee": "60175",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.259764,
+        "longitude": 2.473374,
+        "updatedAt": "2020-01-16T16:31:07.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 29696094,
+        "custom": {
+          "organization": "Médiathèques de Creil",
+          "contactName": "Cormont Delphine",
+          "contactNumber": "03 44 25 25 80",
+          "contactPosition": "Responsable communication",
+          "email": "delphine.cormont@mairie-creil.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2132489
+}

@@ -11,11 +11,17 @@ const derelativize = require('../utils/derelativize');
 const geoJSON = require('../utils/geoJSON');
 const lastTimingEndsIn = require('../utils/lastTimingEndsIn');
 const monolingual = require('../utils/monolingualize');
+const filterByAccess = require('../utils/filterByAccess');
 
 const config = require('../testconfig');
 const Service = require( '../' );
 const fixtures = require('./service/parsers/geoJSON.in.json');
 const expected = require('./service/parsers/geoJSON.out.json');
+
+const fba = {
+  formSchema: require('./fixtures/filterByAccess/formSchema.json'),
+  event: require('./fixtures/filterByAccess/event.json')
+}
 
 describe('event-search - unit: utils', function() {
 
@@ -23,13 +29,11 @@ describe('event-search - unit: utils', function() {
 
   let client, service;
 
-  before( () => {
-
+  before(() => {
     service = Service(config);
 
     client = service.getConfig().client;
-
-  } );
+  });
 
   describe('appendNextAndLastTiming', () => {
 
@@ -147,6 +151,21 @@ describe('event-search - unit: utils', function() {
 
   });
 
+  describe('filterByAccess', () => {
+
+    it('public filters out non public fields', () => {
+      const event = filterByAccess(fba.formSchema, 'public', fba.event);
+
+      should(event['particularites']).equal(undefined);
+    });
+
+    it('"administrator" access includes administrator read fields', () => {
+      const event = filterByAccess(fba.formSchema, 'administrator', fba.event);
+
+      should(event['particularites']).eql([776]);
+    });
+
+  });
 
   describe( 'convertToLocalTimezone', () => {
 
@@ -196,7 +215,7 @@ describe('event-search - unit: utils', function() {
       end: _getYesterdayDate( 1 )
     } ];
 
-    lastTimingEndsIn( { timings } ).should.equal( -1 );
+    lastTimingEndsIn({ timings }).should.equal( -1 );
 
   } );
 

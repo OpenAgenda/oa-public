@@ -1,0 +1,1905 @@
+{
+  "events": [
+    {
+      "uid": 53286933,
+      "ownerUid": 54305073,
+      "creatorUid": 54305073,
+      "slug": "litterature-et-bande-dessinee-golo-dessine-panait-istrati-et-georgia-marras-dessine-lart-de-la-joie-de-goliarda-sapienza",
+      "title": {
+        "fr": "Littérature et bande dessinée : Golo dessine Panaït Istrati et Georgia Marras dessine L’Art de la joie de Goliarda Sapienza",
+        "en": "Literature and comics: Golo draws Panaït Istrati and Georgia Marras draws L'Art de la joie by Goliarda Sapienza"
+      },
+      "description": {
+        "fr": "Golo dessine Panaït Istrati, lu par Daniel Crumb et Georgia Marras dessine L’Art de la joie de Goliarda Sapienza lu par Francy Brethenoux",
+        "en": "Golo draws Panaït Istrati, read by Daniel Crumb and Georgia Marras draws L'Art de la joie by Goliarda Sapienza read by Francy Brethenoux"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "ef26e8f55873425b8f0b75c1057dbd7c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 464,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ef26e8f55873425b8f0b75c1057dbd7c.full.image.jpg",
+            "size": {
+              "height": 749,
+              "width": 1130
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ef26e8f55873425b8f0b75c1057dbd7c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-10T16:30:00.000Z",
+          "end": "2020-06-10T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:20.000Z",
+      "createdAt": "2019-11-22T10:26:49.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32666371,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0545945600"
+      ],
+      "location": {
+        "uid": 32666371,
+        "slug": "lalpha897",
+        "name": "Médiathèque L'Alpha",
+        "address": "1 rue Coulomb 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.654559,
+        "longitude": 0.162722,
+        "updatedAt": "2019-11-22T10:31:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 54305073,
+        "custom": {
+          "organization": "Méditahèque L'Alpha d'Angoulême",
+          "contactName": "Charlène Leroux",
+          "contactNumber": "0545945600",
+          "contactPosition": "Chargée de communication",
+          "email": "c.leroux@grandangouleme.fr"
+        }
+      }
+    },
+    {
+      "uid": 55889053,
+      "ownerUid": 54305073,
+      "creatorUid": 54305073,
+      "slug": "litterature-et-bande-dessinee-lucas-methe-dessine-recits-dun-pelerin-russe-lu-par-olivier-noel",
+      "title": {
+        "fr": "Littérature et bande dessinée : Lucas Méthé dessine Récits d’un pèlerin russe lu par Olivier Noël",
+        "en": "Literature and comic book: Lucas Méthé draws Récits d'un pèlerin russe lu par Olivier Noël"
+      },
+      "description": {
+        "fr": "Lucas Méthé dessine Récits d’un pèlerin russe lu par Olivier Noël",
+        "en": "Lucas Méthé draws Tales of a Russian pilgrim read by Olivier Noël"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "23c21041f65747fda2b03aed72a13762.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 992,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "23c21041f65747fda2b03aed72a13762.full.image.jpg",
+            "size": {
+              "height": 708,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "23c21041f65747fda2b03aed72a13762.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-17T16:30:00.000Z",
+          "end": "2020-06-17T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:23.000Z",
+      "createdAt": "2019-11-22T10:28:10.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32666371,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0545945600"
+      ],
+      "location": {
+        "uid": 32666371,
+        "slug": "lalpha897",
+        "name": "Médiathèque L'Alpha",
+        "address": "1 rue Coulomb 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.654559,
+        "longitude": 0.162722,
+        "updatedAt": "2019-11-22T10:31:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 54305073,
+        "custom": {
+          "organization": "Méditahèque L'Alpha d'Angoulême",
+          "contactName": "Charlène Leroux",
+          "contactNumber": "0545945600",
+          "contactPosition": "Chargée de communication",
+          "email": "c.leroux@grandangouleme.fr"
+        }
+      }
+    },
+    {
+      "uid": 82983781,
+      "ownerUid": 54305073,
+      "creatorUid": 54305073,
+      "slug": "exposition-la-cite-des-romantiques-dalain-francois",
+      "title": {
+        "fr": "Exposition \"La cité des romantiques\" d’Alain François",
+        "en": "Exhibition \"The City of Romantics\" by Alain François"
+      },
+      "description": {
+        "fr": "Exposition de portraits d’autrices et d'auteurs sur le parvis par Alain François",
+        "en": "Exhibition of portraits of autrices and authors on the square by Alain François"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre de cette résidence artistique, Alain François a réalisé une série de portraits d’auteur.rices ou d’éditeur.rices d’Angoulême choisis pour leur actualité éditoriale récente. Il n'expose pas seulement une série de portraits, mais aussi renvoie aux livres que ces auteur.rices produisent, pour souligner l’étrange identité de cette agglomération, et ainsi, au-delà de la démarche artistique, mettre en jeu les dimensions sociales et communicationnelles de ce projet.\n\nLes artistes photographiés sont Olivier Balez, Golo, Giorgio Marras, Lucas Methé, Yoon Sun Park, Aude Soleihac, Yunbo, Samir Dahmani, Mai-Li Bernard, Julien Maffre, Nathalie Ferlut, Elric Dufau et Delphine Rieu.",
+        "en": "As part of this artistic residency, Alain François has produced a series of portraits of author.rices or publisher.rices of Angoulême chosen for their recent editorial news. It does not only exhibit a series of portraits, but also refers to the books produced by these authors, in order to underline the strange identity of this agglomeration, and thus, beyond the artistic approach, involve the social and communication dimensions of this project.\nThe photographed artists are Olivier Balez, Golo, Giorgio Marras, Lucas Methé, Yoon Sun Park, Aude Soleihac, Yunbo, Samir Dahmani, Mai-Li Bernard, Julien Maffre, Nathalie Ferlut, Elric Dufau and Delphine Rieu."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "f7e269b4ec254dda97135efaf98e9cd8.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f7e269b4ec254dda97135efaf98e9cd8.full.image.jpg",
+            "size": {
+              "height": 542,
+              "width": 814
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f7e269b4ec254dda97135efaf98e9cd8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-05T08:00:00.000Z",
+          "end": "2020-05-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T08:00:00.000Z",
+          "end": "2020-05-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T10:00:00.000Z",
+          "end": "2020-05-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T08:00:00.000Z",
+          "end": "2020-05-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T08:00:00.000Z",
+          "end": "2020-05-09T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T08:00:00.000Z",
+          "end": "2020-05-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T08:00:00.000Z",
+          "end": "2020-05-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T10:00:00.000Z",
+          "end": "2020-05-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T08:00:00.000Z",
+          "end": "2020-05-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T08:00:00.000Z",
+          "end": "2020-05-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T08:00:00.000Z",
+          "end": "2020-05-20T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T10:00:00.000Z",
+          "end": "2020-05-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T08:00:00.000Z",
+          "end": "2020-05-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T08:00:00.000Z",
+          "end": "2020-05-23T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T08:00:00.000Z",
+          "end": "2020-05-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T08:00:00.000Z",
+          "end": "2020-05-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T10:00:00.000Z",
+          "end": "2020-05-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T08:00:00.000Z",
+          "end": "2020-05-29T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T08:00:00.000Z",
+          "end": "2020-05-30T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-02T08:00:00.000Z",
+          "end": "2020-06-02T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T08:00:00.000Z",
+          "end": "2020-06-03T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T10:00:00.000Z",
+          "end": "2020-06-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T08:00:00.000Z",
+          "end": "2020-06-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T08:00:00.000Z",
+          "end": "2020-06-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T08:00:00.000Z",
+          "end": "2020-06-09T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T08:00:00.000Z",
+          "end": "2020-06-10T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T10:00:00.000Z",
+          "end": "2020-06-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T08:00:00.000Z",
+          "end": "2020-06-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T08:00:00.000Z",
+          "end": "2020-06-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T08:00:00.000Z",
+          "end": "2020-06-16T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T08:00:00.000Z",
+          "end": "2020-06-17T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T10:00:00.000Z",
+          "end": "2020-06-18T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T08:00:00.000Z",
+          "end": "2020-06-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T08:00:00.000Z",
+          "end": "2020-06-20T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-23T08:00:00.000Z",
+          "end": "2020-06-23T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T08:00:00.000Z",
+          "end": "2020-06-24T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T10:00:00.000Z",
+          "end": "2020-06-25T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T08:00:00.000Z",
+          "end": "2020-06-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T08:00:00.000Z",
+          "end": "2020-06-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-30T08:00:00.000Z",
+          "end": "2020-06-30T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-01T08:00:00.000Z",
+          "end": "2020-07-01T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-02T10:00:00.000Z",
+          "end": "2020-07-02T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-03T08:00:00.000Z",
+          "end": "2020-07-03T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-04T08:00:00.000Z",
+          "end": "2020-07-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-07T08:00:00.000Z",
+          "end": "2020-07-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-08T08:00:00.000Z",
+          "end": "2020-07-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-09T10:00:00.000Z",
+          "end": "2020-07-09T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-10T08:00:00.000Z",
+          "end": "2020-07-10T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-11T08:00:00.000Z",
+          "end": "2020-07-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-14T08:00:00.000Z",
+          "end": "2020-07-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-15T08:00:00.000Z",
+          "end": "2020-07-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-16T10:00:00.000Z",
+          "end": "2020-07-16T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-17T08:00:00.000Z",
+          "end": "2020-07-17T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-18T08:00:00.000Z",
+          "end": "2020-07-18T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-21T08:00:00.000Z",
+          "end": "2020-07-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-22T08:00:00.000Z",
+          "end": "2020-07-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-23T10:00:00.000Z",
+          "end": "2020-07-23T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-24T08:00:00.000Z",
+          "end": "2020-07-24T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-25T08:00:00.000Z",
+          "end": "2020-07-25T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-28T08:00:00.000Z",
+          "end": "2020-07-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-29T08:00:00.000Z",
+          "end": "2020-07-29T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-30T10:00:00.000Z",
+          "end": "2020-07-30T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-07-31T08:00:00.000Z",
+          "end": "2020-07-31T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-01T08:00:00.000Z",
+          "end": "2020-08-01T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-04T08:00:00.000Z",
+          "end": "2020-08-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T08:00:00.000Z",
+          "end": "2020-08-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-06T10:00:00.000Z",
+          "end": "2020-08-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-07T08:00:00.000Z",
+          "end": "2020-08-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-08T08:00:00.000Z",
+          "end": "2020-08-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-11T08:00:00.000Z",
+          "end": "2020-08-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T08:00:00.000Z",
+          "end": "2020-08-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-13T10:00:00.000Z",
+          "end": "2020-08-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-14T08:00:00.000Z",
+          "end": "2020-08-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-15T08:00:00.000Z",
+          "end": "2020-08-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-18T08:00:00.000Z",
+          "end": "2020-08-18T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T08:00:00.000Z",
+          "end": "2020-08-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-20T10:00:00.000Z",
+          "end": "2020-08-20T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-21T08:00:00.000Z",
+          "end": "2020-08-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-22T08:00:00.000Z",
+          "end": "2020-08-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-25T08:00:00.000Z",
+          "end": "2020-08-25T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-26T08:00:00.000Z",
+          "end": "2020-08-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-27T10:00:00.000Z",
+          "end": "2020-08-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-28T08:00:00.000Z",
+          "end": "2020-08-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-08-29T08:00:00.000Z",
+          "end": "2020-08-29T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-01T08:00:00.000Z",
+          "end": "2020-09-01T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-02T08:00:00.000Z",
+          "end": "2020-09-02T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-03T10:00:00.000Z",
+          "end": "2020-09-03T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-04T08:00:00.000Z",
+          "end": "2020-09-04T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-05T08:00:00.000Z",
+          "end": "2020-09-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-08T08:00:00.000Z",
+          "end": "2020-09-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-09T08:00:00.000Z",
+          "end": "2020-09-09T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-10T10:00:00.000Z",
+          "end": "2020-09-10T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-11T08:00:00.000Z",
+          "end": "2020-09-11T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-12T08:00:00.000Z",
+          "end": "2020-09-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-15T08:00:00.000Z",
+          "end": "2020-09-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-16T08:00:00.000Z",
+          "end": "2020-09-16T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-17T10:00:00.000Z",
+          "end": "2020-09-17T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-18T08:00:00.000Z",
+          "end": "2020-09-18T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-19T08:00:00.000Z",
+          "end": "2020-09-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-22T08:00:00.000Z",
+          "end": "2020-09-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-23T08:00:00.000Z",
+          "end": "2020-09-23T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-24T10:00:00.000Z",
+          "end": "2020-09-24T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-25T08:00:00.000Z",
+          "end": "2020-09-25T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-26T08:00:00.000Z",
+          "end": "2020-09-26T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:15.000Z",
+      "createdAt": "2019-11-22T10:34:44.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32666371,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0545945600"
+      ],
+      "location": {
+        "uid": 32666371,
+        "slug": "lalpha897",
+        "name": "Médiathèque L'Alpha",
+        "address": "1 rue Coulomb 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": "L'Houmeau",
+        "latitude": 45.654559,
+        "longitude": 0.162722,
+        "updatedAt": "2019-11-22T10:31:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 54305073,
+        "custom": {
+          "organization": "Méditahèque L'Alpha d'Angoulême",
+          "contactName": "Charlène Leroux",
+          "contactNumber": "0545945600",
+          "contactPosition": "Chargée de communication",
+          "email": "c.leroux@grandangouleme.fr"
+        }
+      }
+    },
+    {
+      "uid": 59405201,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "les-auteurs-cest-classe-rencontres-scolaires_803943",
+      "title": {
+        "fr": "\"Les auteurs c'est classe !\", rencontres scolaires",
+        "en": "\"Authors are classy!\", school meetings"
+      },
+      "description": {
+        "fr": "De la BD avec Fabien Rypert pour les 6e, des albums de Sylvain Victor pour un jumelage CM2/6e... les séances s'annoncent riches, drôles et touchantes",
+        "en": "Comics with Fabien Rypert for the 6th, albums by Sylvain Victor for a CM2/6th match... the sessions are expected to be rich, funny and touching"
+      },
+      "longDescription": {
+        "fr": "**De la BD avec Fabien Rypert pour les 6e, des albums de Sylvain Victor pour un jumelage CM2/6e... les séances s'annoncent riches, drôles et touchantes.**\n\nLa bibliothèque d’Hazebrouck, en partenariat avec l'Inspection de l'Éducation nationale de sa circonscription, mène une opération de rencontres dans les établissements scolaires, \"Les auteurs c’est classe !\". Cette action consiste à faire découvrir aux écoliers les ouvrages d’un auteur proposés par la bibliothèque dès le mois d’octobre. Puis en janvier, à l’occasion de la Nuit de la lecture et du salon Les Bouquinales, l’équipe de la bibliothèque organise des rencontres entre ces auteurs et les élèves dans leurs classes.",
+        "en": "**Comics with Fabien Rypert for the 6th, albums by Sylvain Victor for a CM2/6th match... the sessions are expected to be rich, funny and touching.**\nHazebrouck’s library, in partnership with the Inspectorate of National Education of its constituency, conducts a meeting operation in schools, \"Authors are classy!\". This action consists in making schoolchildren discover the works of an author proposed by the library as early as October. Then in January, on the occasion of the Nuit de la lecture and the salon Les Bouquinales, the library team organizes meetings between these authors and students in their classes."
+      },
+      "keywords": {
+        "fr": [
+          "rencontres d'auteur"
+        ]
+      },
+      "conditions": {
+        "fr": "Inscription clôturée",
+        "en": "Entry closed"
+      },
+      "image": {
+        "filename": "384d6ca8eaeb422db9512857e1ff4955.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 454,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "384d6ca8eaeb422db9512857e1ff4955.full.image.jpg",
+            "size": {
+              "height": 241,
+              "width": 372
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "384d6ca8eaeb422db9512857e1ff4955.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-16T09:30:00.000Z",
+          "end": "2020-01-16T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T13:00:00.000Z",
+          "end": "2020-01-16T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T08:30:00.000Z",
+          "end": "2020-01-17T10:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:51:54.000Z",
+      "createdAt": "2019-11-22T11:13:40.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 7234329,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 11,
+        "max": 12
+      },
+      "registration": [],
+      "location": {
+        "uid": 7234329,
+        "slug": "college-fernande-benoist492",
+        "name": "Collège Fernande Benoist",
+        "address": "93 rue de Thérouanne 59190 Hazebrouck",
+        "city": "Hazebrouck",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59190",
+        "insee": "59295",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.715262,
+        "longitude": 2.530162,
+        "updatedAt": "2019-11-22T11:08:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Rectorat, IEN",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 55634113,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "et-si-on-bullait-partage-de-coups-de-coeur",
+      "title": {
+        "fr": "\"Et si on bullait ?\", partage de coups de cœur",
+        "en": "\"What if we bully?\" Heartbreak sharing"
+      },
+      "description": {
+        "fr": "Venez partager vos coups de coeur sur les bandes dessinées autour d'un café, d'un thé et de quelques gourmandises.",
+        "en": "Come and share your favourite comic books with a coffee, tea and a few treats."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "BD",
+          "Petit dejeuner"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "af940f47405947888229226d3914dd2a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "af940f47405947888229226d3914dd2a.full.image.jpg",
+            "size": {
+              "height": 3456,
+              "width": 5184
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "af940f47405947888229226d3914dd2a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T09:30:00.000Z",
+          "end": "2020-01-18T11:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:51:56.000Z",
+      "createdAt": "2019-11-22T11:24:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43362847,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 43362847,
+        "slug": "bibliotheque-gaston-chaissac",
+        "name": "Bibliothèque Gaston Chaissac",
+        "address": "Rue du Marché 89200 Avallon",
+        "city": "Avallon",
+        "region": "Bourgogne-Franche-Comté",
+        "department": "Yonne",
+        "postalCode": "89200",
+        "insee": "89025",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.488517,
+        "longitude": 3.90587,
+        "updatedAt": "2019-11-22T11:18:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 2170539,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "et-si-on-bullait-marcel-pagnol-dans-tous-ses-etats_438294",
+      "title": {
+        "fr": "\"Et si on bullait ?\", Marcel Pagnol dans tous ses états",
+        "en": "\"What if we bullied?\" Marcel Pagnol in all his moods"
+      },
+      "description": {
+        "fr": "\"Marcel Pagnol dans tous ses états, lectures en parallèle de la BD et du roman",
+        "en": "\"Marcel Pagnol in all his states, parallel readings of the comic book and the novel"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "BD",
+          "lectures"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "43f5cb33e1d04d62b51fe9e0e592c6f5.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "43f5cb33e1d04d62b51fe9e0e592c6f5.full.image.jpg",
+            "size": {
+              "height": 3456,
+              "width": 5184
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "43f5cb33e1d04d62b51fe9e0e592c6f5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T14:00:00.000Z",
+          "end": "2020-01-18T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:51:51.000Z",
+      "createdAt": "2019-11-22T11:33:56.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 36018897,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 36018897,
+        "slug": "bibliotheque-max-pol-fouchet777",
+        "name": "Bibliothèque Max-Pol Fouchet",
+        "address": "Avenue de la République 89200 Avallon",
+        "city": "Avallon",
+        "region": "Bourgogne-Franche-Comté",
+        "department": "Yonne",
+        "postalCode": "89200",
+        "insee": "89025",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.48872,
+        "longitude": 3.899359,
+        "updatedAt": "2019-11-22T11:27:50.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://avallon.sezhame.decalog.net/",
+        "email": null,
+        "phone": "03 86 34 46 18",
+        "links": [
+          "http://facebook.com/mediathequeavallon"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 59275157,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "et-si-on-bullait-animations-autour-de-la-bd",
+      "title": {
+        "fr": "\"Et si on bullait ?\", animations autour de la BD",
+        "en": "\"What if we bully?\" animations around the comic book"
+      },
+      "description": {
+        "fr": "BD : ateliers et animations autour de la BD et mangas, jeux, quizz...",
+        "en": "Comics: workshops and animations around comics and mangas, games, quizzes..."
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "BD",
+          "lectures"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "43f5cb33e1d04d62b51fe9e0e592c6f5.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "43f5cb33e1d04d62b51fe9e0e592c6f5.full.image.jpg",
+            "size": {
+              "height": 3456,
+              "width": 5184
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "43f5cb33e1d04d62b51fe9e0e592c6f5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T14:30:00.000Z",
+          "end": "2020-01-18T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:51:50.000Z",
+      "createdAt": "2019-11-22T11:39:04.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 36018897,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 36018897,
+        "slug": "bibliotheque-max-pol-fouchet777",
+        "name": "Bibliothèque Max-Pol Fouchet",
+        "address": "Avenue de la République 89200 Avallon",
+        "city": "Avallon",
+        "region": "Bourgogne-Franche-Comté",
+        "department": "Yonne",
+        "postalCode": "89200",
+        "insee": "89025",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.48872,
+        "longitude": 3.899359,
+        "updatedAt": "2019-11-22T11:27:50.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://avallon.sezhame.decalog.net/",
+        "email": null,
+        "phone": "03 86 34 46 18",
+        "links": [
+          "http://facebook.com/mediathequeavallon"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 99918724,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "bd-concert_474203",
+      "title": {
+        "fr": "BD concert",
+        "en": "BD concert"
+      },
+      "description": {
+        "fr": "Une histoire sans paroles portée par une musique qui croise influences pop, jazz, traditionnelle et improvisée",
+        "en": "A story without words carried by a music that crosses influences pop, jazz, traditional and improvised"
+      },
+      "longDescription": {
+        "fr": "Zenzika est né en 2004 de la rencontre entre une triplette de soufflants – Serge Hildesheim, Olivier Ricard, Jean Lamur – et un percussionniste hors pair – Hervé Catil.\n\nUne musique à écouter mais aussi à voir car les cinq musiciens s’attachent à explorer les liens entre arts graphiques et musique, notamment à travers la forme du BD concert.\n\n\"Un océan d'amour\" de Grégory Panaccione et Wilfrid Lupano\n\nCette bande dessinée est une formidable histoire pleine de rebondissements et de surprises.\n\nElle emprunte au burlesque le plus échevelé, son rythme, ses situations cocasses et son duo homme chétif/maîtresse de maison robuste. Wilfrid Lupano et Grégory Panaccione composent un récit muet qui pétille de malice pour inventer des séquences servies par un découpage de haut vol.\n\nLes deux complices s’ingénient à créer et mettre en scène des épisodes qui éloigneront, géographiquement, un couple que chacun imagine inséparable depuis le premier jour de leur union.\n\nUne histoire sans paroles portée par une musique qui croise influences pop, jazz, traditionnelle et improvisée.",
+        "en": "Zenzika was born in 2004 from the encounter between a triplet of blowers – Serge Hildesheim, Olivier Ricard, Jean Lamur – and an outstanding percussionist – Hervé Catil.\nA music to listen to but also to see because the five musicians are dedicated to exploring the links between graphic arts and music, especially through the form of concert comics.\n\"An ocean of love\" by Grégory Panaccione and Wilfrid Lupano\nThis comic is a great story full of twists and surprises.\nShe borrows from the most scruffy burlesque, her rhythm, her funny situations and her duo of puny man/robust housekeeper. Wilfrid Lupano and Grégory Panaccione compose a silent story that sparkles with malice to invent sequences served by a high-flying cutting.\nThe two accomplices work to create and stage episodes that will geographically distance a couple that everyone imagines inseparable since the first day of their union.\nA story without words carried by a music that crosses influences pop, jazz, traditional and improvised."
+      },
+      "keywords": {
+        "fr": [
+          "bd concert"
+        ]
+      },
+      "conditions": {
+        "fr": "Nombre de place limité - Inscription indispensable",
+        "en": "Limited space - Registration required"
+      },
+      "image": {
+        "filename": "dc42b7c098534966bfc150523e5ef576.base.image.jpg",
+        "credits": "DR",
+        "size": {
+          "height": 277,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "dc42b7c098534966bfc150523e5ef576.full.image.jpg",
+            "size": {
+              "height": 253,
+              "width": 640
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "dc42b7c098534966bfc150523e5ef576.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T17:00:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:51:56.000Z",
+      "createdAt": "2019-11-22T11:45:20.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 89629155,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [
+        "0432611016"
+      ],
+      "location": {
+        "uid": 89629155,
+        "slug": "bibliotheque-de-molleges",
+        "name": "Bibliothèque de Mollégès",
+        "address": "151 route de Saint Andiol 13940 Mollégès",
+        "city": "Mollégès",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13940",
+        "insee": "13064",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.807329,
+        "longitude": 4.948934,
+        "updatedAt": "2019-11-22T11:42:06.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [
+          "https://www.facebook.com/bibmolleges/"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 63319858,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "rencontre-dauteur-de-bande-dessinee",
+      "title": {
+        "fr": "Rencontre d'auteur de bande dessinée",
+        "en": "Comic book author meeting"
+      },
+      "description": {
+        "fr": "Rencontre, échange et dédicace avec un auteur de bande dessinée à la Maison d'arrêt de Carcassonne",
+        "en": "Meeting, exchange and dedication with a comic book author at the Maison d'arrêt de Carcassonne"
+      },
+      "longDescription": {
+        "fr": "Afin de célébrer la Nuit de la lecture ainsi que l'Année de la bande dessinnée, le SPIP de l'Aude proposera à une dizaine de personnes détenues à la Maison d'arrêt de Carcassonne de rencontrer un auteur de bande dessinée dans la bibliothèque de l'établissement, lors duquel les participants pourront échanger avec l'auteur invité sur son/ses oeuvre(s), son parcours d'écrivain et toutes questions en rapport avec ses réalisations en tant qu'écrivain et co-auteur de BD. La rencontre sera ponctuée d'une collation et clôturée par une séance de dédicace.",
+        "en": "In order to celebrate the Nuit de la lecture as well as the Year of the comic strip, the SPIP de l'Aude will propose to ten people detained at the Maison d'arrêt de Carcassonne to meet a comic book author in the library of the establishment, where participants can exchange with the invited author about his/her work(s), his or her career as a writer and any questions related to his or her achievements as a writer and co-author of comic books. The meeting will be punctuated with a snack and closed with a signing session."
+      },
+      "keywords": {
+        "fr": [
+          "Rencontre d'auteur / dédicace / bande-dessinée"
+        ]
+      },
+      "conditions": {
+        "fr": "Nombre de place limité - Inscriptions extérieures à l'établissement impossibles",
+        "en": "Limited space - Inscriptions outside the establishment impossible"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T13:00:00.000Z",
+          "end": "2020-01-17T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:52:00.000Z",
+      "createdAt": "2019-11-22T11:52:36.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 56473666,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 18,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 56473666,
+        "slug": "maison-darret-de-carcassonne521",
+        "name": "Maison d'arrêt de Carcassonne",
+        "address": "3 avenue du Général Leclerc 11000 Carcassonne",
+        "city": "Carcassonne",
+        "region": "Occitanie",
+        "department": "Aude",
+        "postalCode": "11000",
+        "insee": "11069",
+        "countryCode": "FR",
+        "district": "Saint-Pierre",
+        "latitude": 43.211233,
+        "longitude": 2.360537,
+        "updatedAt": "2019-11-22T11:48:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 633,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèque départementale",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 99328271,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "atelier-trouvez-votre-bande-dessinee-ideale_537483",
+      "title": {
+        "fr": "Atelier : trouvez votre bande dessinée idéale",
+        "en": "Workshop: find your ideal comic book"
+      },
+      "description": {
+        "fr": "Répondez à un questionnaire numérique et trouvez la BD faite pour vous !",
+        "en": "Answer a digital questionnaire and find the comic for you!"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "bande dessinée",
+          "atelier",
+          "bd"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T19:00:00.000Z",
+          "end": "2020-01-18T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:51:37.000Z",
+      "createdAt": "2019-11-22T12:30:54.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 13976903,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 13976903,
+        "slug": "mediatheque-georges-wolinski325",
+        "name": "Médiathèque Georges-Wolinski",
+        "address": "36 rue de la République 93160 Noisy-le-Grand",
+        "city": "Noisy-le-Grand",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93160",
+        "insee": "93051",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.846067,
+        "longitude": 2.553069,
+        "updatedAt": "2019-11-22T12:28:56.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2082206
+}

@@ -1,0 +1,1512 @@
+{
+  "events": [
+    {
+      "uid": 42165672,
+      "ownerUid": 32033845,
+      "creatorUid": 32033845,
+      "slug": "intraitable-2-de-choi-kyu-sok",
+      "title": {
+        "fr": "Intraitable (2) de Choi Kyu-Sok"
+      },
+      "description": {
+        "fr": "Rencontre Nicolas Finet et Kate Amuroso, éditeur et traductrice de ce deuxième tome publié aux Éditions Rue de l'échiquier de la série \"Intraitable\" de l'auteur coréeen Choi Kyu-Sok."
+      },
+      "longDescription": {
+        "fr": "Jeudi 19 mars le salon Jacques Kerchache vous invite, dans le cadre de l'année de la BD 2020, à 18h30:\n\nRencontre Nicolas Finet et Kate Amuroso, éditeur et traductrice de ce deuxième tome publié aux Éditions Rue de l'échiquier de la série \"Intraitable\" de l'auteur coréeen Choi Kyu-Sok.\n\nCe deuxième tome de Choi Kyu-Sok publié aux éditions L'Echiquier poursuit la transposition en fiction de l’implantation conflictuelle – et finalement ratée – de Carrefour en Corée. Cet opus montre comment les salariés peuvent se fédérer face au pouvoir des multinationales, et notamment à quel point cette organisation collective peut se révéler difficile quand on est face à un patron passé maître dans la technique de « diviser pour mieux régner ».\n\nRemarquable de maîtrise et de brio, Choi Kyu-sok continue de dépeindre avec finesse les rouages du système propre aux grandes entreprises et de brosser un portrait complexe et nuancé de la société coréenne contemporaine, en mettant en lumière, plus particulièrement dans ce volume, le rôle essentiel du syndicalisme coréen.\n\nAvec Nicolas Finet, directeur du domaine BD aux éditions l’Echiquier, est un auteur, éditeur, documentariste, consultant, journaliste et conférencier français. Il valorise aujourd’hui, à travers ces différentes activités, sa connaissance approfondie des cultures asiatiques contemporaines ainsi que son compagnonnage de longue date avec la bande dessinée et Kette Amoruso, la traductrice.\n\n?En savoir plus sur l'événement: http://bit.ly/Intraitable\n\n?Tout savoir sur 2020, la Bande Dessinée au musée: http://bit.ly/BD2020mqb"
+      },
+      "keywords": {
+        "fr": [
+          "Inttraitable",
+          "Choi Kyu-Sok",
+          "Quai Branly"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre et gratuite dans la limite des places disponibles"
+      },
+      "image": {
+        "filename": "d82345591a07425abb9eb84ceb914bd1.base.image.jpg",
+        "credits": "© musée du quai Branly - Jacques Chirac, photo Julien Brachhammer",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d82345591a07425abb9eb84ceb914bd1.full.image.jpg",
+            "size": {
+              "height": 1000,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d82345591a07425abb9eb84ceb914bd1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-19T17:30:00.000Z",
+          "end": "2020-03-19T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-20T10:55:44.000Z",
+      "createdAt": "2019-12-19T13:32:09.000Z",
+      "agendaUid": 40060290,
+      "locationUid": 85456772,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/Intraitable"
+      ],
+      "location": {
+        "uid": 85456772,
+        "slug": "musee-du-quai-branly-jacques-chirac455",
+        "name": "Musée du quai Branly - Jacques Chirac",
+        "address": "222 rue de l'université 75007 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75007",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 7e Arrondissement",
+        "latitude": 48.860225,
+        "longitude": 2.297367,
+        "updatedAt": "2019-12-19T13:11:09.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd-2020-mqb",
+        "uid": 40060290,
+        "official": 0,
+        "title": "BD 2020 MQB",
+        "description": "Le programme du salon de lecture du musée du quai Branly à l'occasion de l'année de la BD",
+        "url": "http://www.quaibranly.fr/fr/expositions-evenements/au-musee/rendez-vous-du-salon-de-lecture-jacques-kerchache/details-de-levenement/e/2020-annee-de-la-bd-38690/",
+        "image": null,
+        "updatedAt": "2019-12-19T12:28:22.000Z",
+        "createdAt": "2019-12-19T12:28:22.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 32033845,
+        "custom": {
+          "organization": "musée du quai Branly - Jacques Chirac",
+          "contactName": "Pierre Yves Belfils",
+          "contactNumber": "0156617121",
+          "contactPosition": "Responsable des périodiques",
+          "email": "pyb@quaibranly.fr"
+        }
+      }
+    },
+    {
+      "uid": 82622758,
+      "ownerUid": 32033845,
+      "creatorUid": 32033845,
+      "slug": "dans-les-coulisses-de-bolchoi-arena",
+      "title": {
+        "fr": "Dans les coulisses de \"Bolchoï Arena\""
+      },
+      "description": {
+        "fr": "Rencontre et signature avec aseyn et Boulet (Bouletcorp) à l'occasion de la parution du 2e tome de \"Bolchoï Arena\" aux Éditions Delcourt"
+      },
+      "longDescription": {
+        "fr": "Mercredi 19 février le salon de lecture Jacques Kerchache, dans le cadre de l'année de la BD 2020, vous donne rendez-vous à 16h:\n\nRencontre et signature avec aseyn et Boulet (Bouletcorp) à l'occasion de la parution du 2e tome de \"Bolchoï Arena\" aux Éditions Delcourt\n\nDans un futur proche, le Bolchoi, réseau mondial de réalité virtuelle, a remplacé Internet et pris le dessus sur le monde réel. Réplique parfaite de notre univers, il a relancé l’exploration spatiale car c’est aussi un immense simulateur pour les technologies futures. Marje, étudiante en astrophysique, va y faire ses premiers pas, guidée par son amie Dana, et découvrir les limites du Bolchoi et du réel…\n\nRencontre et signature avec Aseyn, talentueux dessinateur (Libération, Le Monde Diplomatique…) qui reviendra sur la conception de cette série BD éditée chez Delcourt qui puise notamment une partie de ses influences dans le manga d’action des années 90 : Katsuhiro Otomo (Akira), Masamune Shirow Ghost in the Shell et Appleseed, mais aussi les comic books ou le jeux vidéo…\n\nEt Boulet, auteur du scénario, dessinateur connu surtout pour son blog (http://www.bouletcorp.com/), où il publie des récits sur sa vie quotidienne - dont est tirée la série Notes (chez Delcourt) – et partage ses coups de cœur, jeunes talents et petites pépites.\n\n?En savoir plus sur l'événement: http://bit.ly/BolchoiArena\n\n?Tout savoir sur 2020, la Bande Dessinée au musée: http://bit.ly/BD2020mqb"
+      },
+      "keywords": {
+        "fr": [
+          "Bolchoi Arena",
+          "BD",
+          "Quai Branly"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre et gratuite dans la limite des places disponibles"
+      },
+      "image": {
+        "filename": "54a623f264a34f38a61ca54e2257b357.base.image.jpg",
+        "credits": "© musée du quai Branly - Jacques Chirac, photo Julien Brachhammer",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "54a623f264a34f38a61ca54e2257b357.full.image.jpg",
+            "size": {
+              "height": 1000,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "54a623f264a34f38a61ca54e2257b357.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-19T15:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-20T10:56:43.000Z",
+      "createdAt": "2019-12-19T13:26:22.000Z",
+      "agendaUid": 40060290,
+      "locationUid": 85456772,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://bit.ly/BolchoiArena"
+      ],
+      "location": {
+        "uid": 85456772,
+        "slug": "musee-du-quai-branly-jacques-chirac455",
+        "name": "Musée du quai Branly - Jacques Chirac",
+        "address": "222 rue de l'université 75007 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75007",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 7e Arrondissement",
+        "latitude": 48.860225,
+        "longitude": 2.297367,
+        "updatedAt": "2019-12-19T13:11:09.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd-2020-mqb",
+        "uid": 40060290,
+        "official": 0,
+        "title": "BD 2020 MQB",
+        "description": "Le programme du salon de lecture du musée du quai Branly à l'occasion de l'année de la BD",
+        "url": "http://www.quaibranly.fr/fr/expositions-evenements/au-musee/rendez-vous-du-salon-de-lecture-jacques-kerchache/details-de-levenement/e/2020-annee-de-la-bd-38690/",
+        "image": null,
+        "updatedAt": "2019-12-19T12:28:22.000Z",
+        "createdAt": "2019-12-19T12:28:22.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 32033845,
+        "custom": {
+          "organization": "musée du quai Branly - Jacques Chirac",
+          "contactName": "Pierre Yves Belfils",
+          "contactNumber": "0156617121",
+          "contactPosition": "Responsable des périodiques",
+          "email": "pyb@quaibranly.fr"
+        }
+      }
+    },
+    {
+      "uid": 67619282,
+      "ownerUid": 976918,
+      "creatorUid": 976918,
+      "slug": "atelier-bd_513537",
+      "title": {
+        "fr": "Atelier BD",
+        "en": "Atelier BD"
+      },
+      "description": {
+        "fr": "La biblio vous propose un atelier BD. Venez apprendre à dessiner, créer et illustrer votre propre BD. Possibilité de venir à une ou plusieurs séances.",
+        "en": "The library offers you a comic book workshop. Come learn to draw, create and illustrate your own comic book. Possibility to come to one or more sessions."
+      },
+      "longDescription": {
+        "fr": "À l’occasion du salon BD qui se déroulera les 30 et 31 mai prochains, la biblio vous propose un atelier bande dessinée. Avec Clément Diolot, illustrateur, créateur de bandes dessinées et cartooniste, venez apprendre à dessiner, créer et illustrer votre propre BD.\n\nPossibilité de venir à une ou plusieurs séances.\n\nGratuit sur inscription, à partir de 8 ans",
+        "en": "On the occasion of the comic book fair which will take place on 30 and 31 May, the library offers a comic book workshop. With Clément Diolot, illustrator, cartoonist and cartoonist, come learn how to draw, create and illustrate your own comic book.\nPossibility to come to one or more sessions.\nFree upon registration, from 8 years"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription au 05 57 52 41 70",
+        "en": "On registration at 05 57 52 41 70"
+      },
+      "image": {
+        "filename": "ee6c0cbb519d4662a03ec691a815c7f4.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ee6c0cbb519d4662a03ec691a815c7f4.full.image.jpg",
+            "size": {
+              "height": 1080,
+              "width": 1920
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ee6c0cbb519d4662a03ec691a815c7f4.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-08T13:00:00.000Z",
+          "end": "2020-01-08T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T13:00:00.000Z",
+          "end": "2020-01-29T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T12:00:00.000Z",
+          "end": "2020-04-08T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:38:53.000Z",
+      "createdAt": "2019-12-20T10:29:12.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 96339431,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "0557524170"
+      ],
+      "location": {
+        "uid": 96339431,
+        "slug": "bibliotheque-municipale-de-la-teste-de-buch271",
+        "name": "Bibliothèque municipale de La Teste de Buch",
+        "address": "Place Jean Hameau 33260 La Teste-de-Buch",
+        "city": "La Teste-de-Buch",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33260",
+        "insee": "33529",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.632728,
+        "longitude": -1.145629,
+        "updatedAt": "2019-12-20T10:49:51.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Salon BD organisé par la ville La Teste de Buch",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 976918,
+        "custom": {
+          "organization": "Bibliothèque Municipale de La Teste de Buch",
+          "contactName": "Adele Turquais",
+          "contactNumber": "0557524122",
+          "contactPosition": "Agent administratif",
+          "email": "lacentralelatestedebuch@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 25859949,
+      "ownerUid": 976918,
+      "creatorUid": 976918,
+      "slug": "cocktail-comics",
+      "title": {
+        "fr": "Cocktail comics",
+        "en": "Cocktail comics"
+      },
+      "description": {
+        "fr": "Ce mois-ci, plongez dans l’univers des Tortues Ninja ou précisément : les Teenage Mutant Ninja Turtles",
+        "en": "This month, dive into the world of Ninja Turtles or specifically: Teenage Mutant Ninja Turtles"
+      },
+      "longDescription": {
+        "fr": "Ce mois-ci, plongez dans l’univers des Tortues Ninja ou précisément : les Teenage Mutant Ninja Turtles. Le succès fulgurant de ce comic des années 80 qui ne devait être qu’un o_ne shot_ a permis à ces personnages mangeurs de pizzas, de devenir des emblèmes de la _pop culture_. La sélection sera ensuite disponible dans les bacs de la centrale et la bibliothèque.\n\nEn partenariat avec Benoît Talbot du collectif LesComics.fr",
+        "en": "This month, dive into the world of Ninja Turtles or specifically: Teenage Mutant Ninja Turtles. The dazzling success of this 80’s comic which was to be only an o_ne shot_ allowed these pizza-eating characters to become emblems of _pop culture_. The selection will then be available in the central and library bins.\nIn partnership with Benoît Talbot of the collective Lescomics.fr"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "a8ddb00a2ea44c07ad2302993f520e1c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a8ddb00a2ea44c07ad2302993f520e1c.full.image.jpg",
+            "size": {
+              "height": 1080,
+              "width": 1920
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a8ddb00a2ea44c07ad2302993f520e1c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-25T16:30:00.000Z",
+          "end": "2020-01-25T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:20.000Z",
+      "createdAt": "2019-12-20T10:43:00.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64367015,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "0557524122"
+      ],
+      "location": {
+        "uid": 64367015,
+        "slug": "la-centrale531",
+        "name": "La Centrale",
+        "address": "Esplanade Edmond Doré 33260 La Teste-de-Buch",
+        "city": "La Teste-de-Buch",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33260",
+        "insee": "33529",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.537241,
+        "longitude": -1.156015,
+        "updatedAt": "2019-12-20T10:50:51.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 976918,
+        "custom": {
+          "organization": "Bibliothèque Municipale de La Teste de Buch",
+          "contactName": "Adele Turquais",
+          "contactNumber": "0557524122",
+          "contactPosition": "Agent administratif",
+          "email": "lacentralelatestedebuch@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 10588524,
+      "ownerUid": 38511331,
+      "creatorUid": 38511331,
+      "slug": "ariols-show",
+      "title": {
+        "fr": "Ariol’s Show",
+        "en": "Ariol’s Show"
+      },
+      "description": {
+        "fr": "Par Emmanuel Guibert et Marc Boutavant accompagne s à la guitare par Bastien Lallemant",
+        "en": "By Emmanuel Guibert and Marc Boutavant accompanies on guitar by Bastien Lallemant"
+      },
+      "longDescription": {
+        "fr": "Depuis plus de quinze ans, les aventures d’Ariol, le petit âne bleu, re jouissent petits et grands. E lève de CM1, Ariol vit avec ses parents : son père Avoine et sa mère Mule, surnomme e Mumule. Ariol a un meilleur copain, le petit cochon Ramono, une amoureuse, Pe tula, jolie vache avec des taches de rousseur, et des collections. Il passe ses vacances chez ses grands-parents, Papi Atole et Mami Annette… Et surtout, Ariol a une passion pour « Le Chevalier Cheval », son he ros pre fe re , personnage de bande dessine e cre e  par Guibole, qui passe toute la semaine sauf le week-end (rediffusion le dimanche !) à la te le  sur Canaltoon. Bastien Lallemant se joint à Emmanuel Guibert et Marc Boutavant pour une lecture joyeuse : saynètes, dessins, musique… un festiv-Ariol !\n\nCréation Les Correspondances de Manosque / Maison de la poésie – Paris.",
+        "en": "For more than fifteen years, the adventures of Ariol, the little blue donkey, re enjoy small and large. A fourth grader, Ariol lives with his parents: his father Avoine and his mother Mule, nicknamed Mumule. Ariol has a better boyfriend, little pig Ramono, a lover, Pe tula, pretty cow with freckles, and collections. He spends his holidays with his grandparents, Papi Atole and Mami Annette… And most of all, Ariol has a passion for «Le Chevalier Cheval», his favourite he ros pre fe re, a cartoon character created by Guibole, who spends all week except the weekend (reruns on Sundays!) at te le sur Canaltoon. Bastien Lallemant joins Emmanuel Guibert and Marc Boutavant for a joyful reading: saynètes, dessins, musique… un festiv-Ariol!\nCreation Les Correspondances de Manosque / Maison de la poésie – Paris."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "2e7ac1c6e084415387e2097f92ab349b.base.image.jpg",
+        "credits": "Zamora - Label & Productions",
+        "size": {
+          "height": 701,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2e7ac1c6e084415387e2097f92ab349b.full.image.jpg",
+            "size": {
+              "height": 546,
+              "width": 546
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2e7ac1c6e084415387e2097f92ab349b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-14T16:00:00.000Z",
+          "end": "2020-05-14T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:29.000Z",
+      "createdAt": "2019-12-20T10:57:38.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43833605,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 43833605,
+        "slug": "bibliotheque-alexis-de-tocqueville789",
+        "name": "Bibliothèque Alexis de Tocqueville",
+        "address": "23 quai François Mitterrand 14000 Caen",
+        "city": "Caen",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14000",
+        "insee": "14118",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.18166,
+        "longitude": -0.350147,
+        "updatedAt": "2019-12-20T10:50:10.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Époque salon des livres de Caen",
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèque Alexis de Tocqueville",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 38511331,
+        "custom": {
+          "organization": "Époque salon des livres de Caen",
+          "contactName": "Angèle BARI",
+          "contactNumber": "0231304792",
+          "contactPosition": "chargée de logistique et de l'accueil",
+          "email": "a.bari@caen.fr"
+        }
+      }
+    },
+    {
+      "uid": 22182988,
+      "ownerUid": 64495840,
+      "creatorUid": 64495840,
+      "slug": "dessine-moi-les-sciences-sociales-bande-dessinee-et-sciences-sociales",
+      "title": {
+        "fr": "Dessine-moi les sciences sociales ? Bande dessinée et sciences sociales",
+        "en": "Draw me the social sciences? Comic book and social sciences"
+      },
+      "description": {
+        "fr": "Deux tables rondes pour discuter des représentations des sciences sociales en bande dessinée et de la transmission des savoirs à travers le 9e art",
+        "en": "Two round tables to discuss the representations of social sciences in comics and the transmission of knowledge through the 9th art"
+      },
+      "longDescription": {
+        "fr": "Comment représenter les sciences sociales en bande dessinée ? et de quelle manière le 9e art s’approprie-t-il les savoirs produits par la recherche universitaire ? La bande dessinée peut-elle contribuer à la connaissance de la société selon des modalités différentes et complémentaires de la recherche savante ?\n\nÀ un moment où les modes d'écriture et de diffusion des sciences sociales se diversifient, c’est à la découverte de tout un système d’échanges – de personnes, de connaissances, de méthodes et d’outils – que vous convie l’association EHESS Alumni, l’association des anciens et anciennes élèves, étudiants et des amis de l’École des hautes études en sciences sociales (EHESS), à travers « Dessine-moi les sciences sociales ? Bande dessinée et sciences sociales ».\n\nL’événement, qui aura lieu le jeudi 27 février 2019 à l’EHESS, se composera de deux tables rondes. La première rassemblera des témoignages de diplômés et d’étudiants de l’EHESS travaillant sur ou dans le monde de la bande dessinée. La seconde, à laquelle Benoît Peeters, ancien élève de l’EHESS, interviendra en qualité d’invité d’honneur, réunira des artistes et des chercheurs et chercheuses de l’École ayant participé à des projets de BD, pour mieux débattre de la transmission des savoirs produits par les sciences sociales au travers de la bande-dessinée.\n\nEn parallèle des tables rondes, deux auteures – Morgane Parisi et Naïs Coq – croqueront en direct les interventions.",
+        "en": "How to represent social sciences in comic books? and how does the 9th art appropriate the knowledge produced by university research? Can comic books contribute to the knowledge of society in different and complementary ways to scholarly research?\nAt a time when the modes of writing and disseminating the social sciences are becoming more diverse, it is with the discovery of a whole system of exchanges – of people, knowledge, methods and tools – that the association EHESS Alumni invites you, the association of former students, students and friends of the École des hautes études en sciences sociales (EHESS), through Dessine-moi les sciences sociales? Comic book and social sciences».\nThe event, which will take place on Thursday, February 27, 2019 at the EHESS, will consist of two round tables. The first will gather testimonials from graduates and students of the EHESS working on or in the world of comics. The second, in which Benoît Peeters, a former student of the EHESS, will act as guest of honour, will bring together artists and researchers from the School who have participated in comic book projects, to better debate the transmission of knowledge produced by the social sciences through comic books.\nIn parallel to the round tables, two authors – Morgane Parisi and Naïs Coq – will be taking part in the presentations."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "83977c92d9384942bad6f8d3f3416fb3.base.image.jpg",
+        "credits": "© Anne-Charlotte Moreau / EHESS",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "83977c92d9384942bad6f8d3f3416fb3.full.image.jpg",
+            "size": {
+              "height": 4961,
+              "width": 3508
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "83977c92d9384942bad6f8d3f3416fb3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-27T16:00:00.000Z",
+          "end": "2020-02-27T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:38:50.000Z",
+      "createdAt": "2019-12-20T11:09:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 93663240,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 93663240,
+        "slug": "ehess275",
+        "name": "École des hautes études en sciences sociales (EHESS)",
+        "address": "105 boulevard Raspail 75007 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75007",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 7e Arrondissement",
+        "latitude": 48.846071,
+        "longitude": 2.328611,
+        "updatedAt": "2019-12-20T11:10:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Casterman",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64495840,
+        "custom": {
+          "organization": "EHESS Alumni",
+          "contactName": "Maxime Lerolle",
+          "contactNumber": "0149542438",
+          "contactPosition": "Chargé de communication",
+          "email": "maxime.lerolle@ehess.fr"
+        }
+      }
+    },
+    {
+      "uid": 45994651,
+      "ownerUid": 38511331,
+      "creatorUid": 38511331,
+      "slug": "epoque-salon-des-livres-de-caen",
+      "title": {
+        "fr": "Époque, salon des livres de Caen",
+        "en": "Epoch, book fair of Caen"
+      },
+      "description": {
+        "fr": "Époque, le salon des livres de Caen",
+        "en": "Epoch, the book fair of Caen"
+      },
+      "longDescription": {
+        "fr": "À l’occasion de l’événement national « 2020, année de la BD » _Époque, le salon des livres de Caen_, qui a toujours accordé une place de choix à la bande dessinée, proposera un focus BD qui débutera le 14 mai avec une journée professionnelle spéciale BD ! Organisée en partenariat avec Normandie Livre & Lecture à la bibliothèque Alexis de Tocqueville, la journée s’achèvera avec le spectacle Ariol’s Show (Emmanuel Guibert, Bastien Lallemand et Marc Boutavant). Et, pour les amateurs de jazz, une soirée BD-concert ouverte à tous sera proposé le 16 mai autour d’Alan Cope personnage principal des romans graphiques d’Emmanuel Guibert.\n\nTout au long du salon du livre, les 16 et 17 mai, chacun pourra également profiter d’une programmation spécifique (exposition, ateliers, animations, dédicaces et rencontres) dans un espace dédié à la BD. _Époque_, _le salon des livres de Caen_ est une manifestation tout public et totalement gratuite.",
+        "en": "On the occasion of the national event «2020, year of the comic» _Époque, the book fair of Caen_, which has always given a place of choice to the comic, will propose a comic focus that will start on May 14 with a professional day special comic! Organized in partnership with Normandie Livre & Lecture at the Alexis de Tocqueville library, the day will end with the show Ariol’s Show (Emmanuel Guibert, Bastien Lallemand and Marc Boutavant). And, for jazz lovers, a BD-concert evening open to all will be proposed on May 16 around Alan Cope main character of the graphic novels of Emmanuel Guibert.\nThroughout the book fair, on 16 and 17 May, everyone will also be able to enjoy a specific programme (exhibition, workshops, animations, dedications and meetings) in a space dedicated to comics. _The Book Fair of Caen_ is a public event and completely free of charge."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "662ce43068ec42c08e416a404d9d39b2.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 254,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "662ce43068ec42c08e416a404d9d39b2.full.image.jpg",
+            "size": {
+              "height": 135,
+              "width": 373
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "662ce43068ec42c08e416a404d9d39b2.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-14T07:30:00.000Z",
+          "end": "2020-05-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T07:30:00.000Z",
+          "end": "2020-05-15T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T07:30:00.000Z",
+          "end": "2020-05-16T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T07:30:00.000Z",
+          "end": "2020-05-17T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T10:27:20.000Z",
+      "createdAt": "2019-12-20T11:09:39.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 17032666,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 17032666,
+        "slug": "caen365",
+        "name": "Ville de Caen",
+        "address": "14000 Caen",
+        "city": "Caen",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14000",
+        "insee": "14118",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.182801,
+        "longitude": -0.369082,
+        "updatedAt": "2020-02-06T10:27:09.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Époque, salon des livres de Caen",
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèque Alexis de Tocqueville, Normandie Livre et Lecture",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 38511331,
+        "custom": {
+          "organization": "Époque salon des livres de Caen",
+          "contactName": "Angèle BARI",
+          "contactNumber": "0231304792",
+          "contactPosition": "chargée de logistique et de l'accueil",
+          "email": "a.bari@caen.fr"
+        }
+      }
+    },
+    {
+      "uid": 48764002,
+      "ownerUid": 42106288,
+      "creatorUid": 42106288,
+      "slug": "atelier-bd-dhumour-avec-matthieu-mainpin",
+      "title": {
+        "fr": "Atelier BD d'humour avec Matthieu Mainpin",
+        "en": "Comic book workshop with Matthieu Mainpin"
+      },
+      "description": {
+        "fr": "Venez vous initier au 9e art avec le bédéaste Mathieu Mainpin !",
+        "en": "Come and learn the 9th art with Mathieu Mainpin!"
+      },
+      "longDescription": {
+        "fr": "Atelier de création et d'initiation aux techniques de la BD.",
+        "en": "Creation workshop and introduction to BD techniques."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "25100d69a7104eebab5022ad7b174d24.base.image.jpg",
+        "credits": "@MathieuMainpin",
+        "size": {
+          "height": 438,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "25100d69a7104eebab5022ad7b174d24.full.image.jpg",
+            "size": {
+              "height": 448,
+              "width": 717
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "25100d69a7104eebab5022ad7b174d24.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-11T14:00:00.000Z",
+          "end": "2020-01-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T14:00:00.000Z",
+          "end": "2020-01-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T14:00:00.000Z",
+          "end": "2020-02-01T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T14:00:00.000Z",
+          "end": "2020-02-08T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:38:32.000Z",
+      "createdAt": "2019-12-20T11:32:05.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 98018035,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "01.71.86.34.60",
+        "https://www.mediatheques-plainecommune.fr/",
+        "https://www.facebook.com/mediathequesSaintDenis/"
+      ],
+      "location": {
+        "uid": 98018035,
+        "slug": "mediatheque-gulliver190",
+        "name": "Médiathèque Gulliver",
+        "address": "7 rue du Plouich 93200 Saint-Denis",
+        "city": "Saint-Denis",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93200",
+        "insee": "93066",
+        "countryCode": "FR",
+        "district": "La Plaine Saint-Denis",
+        "latitude": 48.941876,
+        "longitude": 2.380998,
+        "updatedAt": "2019-12-20T14:38:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 42106288,
+        "custom": {
+          "organization": "Médiathèques Plaine Commune",
+          "contactName": "Pascal Gianninelli",
+          "contactNumber": "01.71.86.32.00",
+          "contactPosition": "Responsable actions culturelles",
+          "email": "pascal.gianninelli@plainecommune.com.fr"
+        }
+      }
+    },
+    {
+      "uid": 57169989,
+      "ownerUid": 42106288,
+      "creatorUid": 42106288,
+      "slug": "le-comite-manga-de-la-mediatheque-gulliver",
+      "title": {
+        "fr": "Le comité manga de la médiathèque Gulliver",
+        "en": "The manga committee of the Gulliver Media Library"
+      },
+      "description": {
+        "fr": "Le comité manga de la médiathèque Gulliver - Plaine Commune",
+        "en": "The manga committee of the media library Gulliver - Plaine Commune"
+      },
+      "longDescription": {
+        "fr": "La médiathèque propose aux ados un rendez-vous convivial pour échanger autour de la culture manga.\n\nShôjo, seinen, shônen...Venez partagez vos coups de cœur entre initié.e.s !",
+        "en": "The media library offers teens a convivial meeting to exchange about manga culture.\nShôjo, seinen, shônen... Come and share your favourites between initiates.e.s!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9e2cfa228c954b7f98c4498b5cf3ccbf.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 438,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9e2cfa228c954b7f98c4498b5cf3ccbf.full.image.jpg",
+            "size": {
+              "height": 448,
+              "width": 717
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9e2cfa228c954b7f98c4498b5cf3ccbf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-22T16:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T16:00:00.000Z",
+          "end": "2020-02-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T16:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T15:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T15:00:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T15:00:00.000Z",
+          "end": "2020-06-24T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:38:30.000Z",
+      "createdAt": "2019-12-20T11:40:19.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 98018035,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "01.71.86.34.60",
+        "https://www.mediatheques-plainecommune.fr/",
+        "https://www.facebook.com/mediathequesSaintDenis/"
+      ],
+      "location": {
+        "uid": 98018035,
+        "slug": "mediatheque-gulliver190",
+        "name": "Médiathèque Gulliver",
+        "address": "7 rue du Plouich 93200 Saint-Denis",
+        "city": "Saint-Denis",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93200",
+        "insee": "93066",
+        "countryCode": "FR",
+        "district": "La Plaine Saint-Denis",
+        "latitude": 48.941876,
+        "longitude": 2.380998,
+        "updatedAt": "2019-12-20T14:38:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 42106288,
+        "custom": {
+          "organization": "Médiathèques Plaine Commune",
+          "contactName": "Pascal Gianninelli",
+          "contactNumber": "01.71.86.32.00",
+          "contactPosition": "Responsable actions culturelles",
+          "email": "pascal.gianninelli@plainecommune.com.fr"
+        }
+      }
+    },
+    {
+      "uid": 32747940,
+      "ownerUid": 42106288,
+      "creatorUid": 42106288,
+      "slug": "rencontre-creative-avec-boris-hurtel",
+      "title": {
+        "fr": "Rencontre créative avec Boris Hurtel",
+        "en": "Creative meeting with Boris Hurtel"
+      },
+      "description": {
+        "fr": "Rencontre créative avec Boris Hurtel",
+        "en": "Creative meeting with Boris Hurtel"
+      },
+      "longDescription": {
+        "fr": "Fan de BD ? Critique avisé.e. ? Joignez la théorie à la pratique, guidé.e par le bédéaste Boris Hurtel ! Venez échanger autour de l'univers si particulier de Boris Hurtel, auteur des _Contes Névrotiques_ dans le cadre de sa résidense au musée Paul Eluard de Saint-Denis.\n\nCet échange sera suivi d'un atelier pour, à votre tour, exprimer votre créativité !\n\nAucune connaissance préalable n'est requise, juste une inscription auprès des bibliothécaires.\n\nÀ partir de 15 ans.",
+        "en": "Fan of comic books? Wise criticism.e. ? Join theory to practice, guided. e by the comic writer Boris Hurtel! Come and talk about the special universe of Boris Hurtel, author of the _Neurotic Tales_ as part of his residency at the Paul Eluard Museum in Saint-Denis.\nThis exchange will be followed by a workshop to, in turn, express your creativity!\nNo prior knowledge is required, just registration with librarians.\nFrom 15 years old."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "ede45d80d0ba4c7f871ad9b4b7d128f8.base.image.jpg",
+        "credits": "Boris Hurtel",
+        "size": {
+          "height": 366,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ede45d80d0ba4c7f871ad9b4b7d128f8.full.image.jpg",
+            "size": {
+              "height": 627,
+              "width": 1200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ede45d80d0ba4c7f871ad9b4b7d128f8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-07T17:00:00.000Z",
+          "end": "2020-01-07T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:38:28.000Z",
+      "createdAt": "2019-12-20T11:54:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 90307534,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [
+        "01.71.86.32.00",
+        "https://www.mediatheques-plainecommune.fr/",
+        "https://www.facebook.com/mediathequesSaintDenis/"
+      ],
+      "location": {
+        "uid": 90307534,
+        "slug": "mediatheque-centre-ville-saint-denis-plaine-commune618",
+        "name": "Médiathèque Centre-Ville Saint-Denis - Plaine Commune",
+        "address": "4 place de la Légion d'Honneur 93200 Saint-Denis",
+        "city": "Saint-Denis",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93200",
+        "insee": "93066",
+        "countryCode": "FR",
+        "district": "La Plaine Saint-Denis",
+        "latitude": 48.934758,
+        "longitude": 2.358313,
+        "updatedAt": "2019-12-20T14:38:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 42106288,
+        "custom": {
+          "organization": "Médiathèques Plaine Commune",
+          "contactName": "Pascal Gianninelli",
+          "contactNumber": "01.71.86.32.00",
+          "contactPosition": "Responsable actions culturelles",
+          "email": "pascal.gianninelli@plainecommune.com.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2112374
+}

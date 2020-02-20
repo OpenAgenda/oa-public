@@ -1,0 +1,2426 @@
+{
+  "events": [
+    {
+      "uid": 76422668,
+      "ownerUid": 13392710,
+      "creatorUid": 13392710,
+      "slug": "musee-ephemere-du-cinema-exposition-goscinny-et-le-cinema-asterix-lucky-lucke-et-cie",
+      "title": {
+        "en": "Ephemeral Museum of Cinema, exhibition Goscinny et le cinéma, Asterix, Lucky Lucke et cie",
+        "fr": "Musée éphémère du cinéma, exposition Goscinny et le cinéma, Astérix, Lucky Lucke et cie"
+      },
+      "description": {
+        "en": "Goscinny was inspired in her comic books by the greatest masterpieces of cinema, from peplum to western and musical comedy",
+        "fr": "Goscinny s’est inspiré dans ses bandes dessinées des plus grands chefs-d’œuvre du cinéma, du péplum au western en passant par la comédie musicale"
+      },
+      "longDescription": {
+        "en": "Fascinated by the seventh art from her childhood, Goscinny was inspired in her comic books by the greatest masterpieces of cinema, from peplum to western through musical comedy. Playful and interactive, punctuated with costumes and sets, the exhibition looks at original plates and film excerpts to reveal the importance of cinema in the work of this brilliant screenwriter. At the heart of the journey, the re-enactment of the Idéfix studios, which he created, dreaming of Walt Disney, will reveal all the stages of creating a cartoon. 40 years after the death of their creator, Asterix, Lucky Luke, the Daltons, Iznogoud and Little Nicolas became full-fledged movie characters. Successful bet for «Walt Goscinny»!",
+        "fr": "Passionné par le septième art dès son enfance, Goscinny s’est inspiré dans ses bandes dessinées des plus grands chefs-d’œuvre du cinéma, du péplum au western en passant par la comédie musicale. Ludique et interactive, ponctuée de costumes et décors, l’exposition met en regard planches originales et extraits de films pour révéler l’importance du cinéma dans le travail de ce scénariste de génie. Au cœur du parcours, la reconstitution des studios Idéfix, qu’il a créés, se rêvant en Walt Disney, dévoilera toutes les étapes de création d’un dessin animé. 40 ans après la mort de leur créateur, Astérix, Lucky Luke, les Dalton, Iznogoud et le Petit Nicolas sont devenus des personnages de cinéma à part entière. Pari réussi pour « Walt Goscinny » !"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-07-14T12:00:00.000Z",
+          "end": "2020-07-14T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-15T12:00:00.000Z",
+          "end": "2020-07-15T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-16T12:00:00.000Z",
+          "end": "2020-07-16T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-17T12:00:00.000Z",
+          "end": "2020-07-17T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-18T12:00:00.000Z",
+          "end": "2020-07-18T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T12:00:00.000Z",
+          "end": "2020-07-19T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-20T12:00:00.000Z",
+          "end": "2020-07-20T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-21T12:00:00.000Z",
+          "end": "2020-07-21T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-22T12:00:00.000Z",
+          "end": "2020-07-22T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-23T12:00:00.000Z",
+          "end": "2020-07-23T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-24T12:00:00.000Z",
+          "end": "2020-07-24T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-25T12:00:00.000Z",
+          "end": "2020-07-25T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-26T12:00:00.000Z",
+          "end": "2020-07-26T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-27T12:00:00.000Z",
+          "end": "2020-07-27T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-28T12:00:00.000Z",
+          "end": "2020-07-28T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-29T12:00:00.000Z",
+          "end": "2020-07-29T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-30T12:00:00.000Z",
+          "end": "2020-07-30T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-31T12:00:00.000Z",
+          "end": "2020-07-31T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-01T12:00:00.000Z",
+          "end": "2020-08-01T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-02T12:00:00.000Z",
+          "end": "2020-08-02T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-03T12:00:00.000Z",
+          "end": "2020-08-03T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-04T12:00:00.000Z",
+          "end": "2020-08-04T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T12:00:00.000Z",
+          "end": "2020-08-05T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-06T12:00:00.000Z",
+          "end": "2020-08-06T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-07T12:00:00.000Z",
+          "end": "2020-08-07T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-08T12:00:00.000Z",
+          "end": "2020-08-08T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-09T12:00:00.000Z",
+          "end": "2020-08-09T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-10T12:00:00.000Z",
+          "end": "2020-08-10T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-11T12:00:00.000Z",
+          "end": "2020-08-11T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T12:00:00.000Z",
+          "end": "2020-08-12T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-13T12:00:00.000Z",
+          "end": "2020-08-13T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-14T12:00:00.000Z",
+          "end": "2020-08-14T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-15T12:00:00.000Z",
+          "end": "2020-08-15T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-16T12:00:00.000Z",
+          "end": "2020-08-16T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-17T12:00:00.000Z",
+          "end": "2020-08-17T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-18T12:00:00.000Z",
+          "end": "2020-08-18T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T12:00:00.000Z",
+          "end": "2020-08-19T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-20T12:00:00.000Z",
+          "end": "2020-08-20T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-21T12:00:00.000Z",
+          "end": "2020-08-21T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-22T12:00:00.000Z",
+          "end": "2020-08-22T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-23T12:00:00.000Z",
+          "end": "2020-08-23T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T08:56:50.000Z",
+      "createdAt": "2020-01-30T10:15:10.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 6831085,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.cannes.com"
+      ],
+      "location": {
+        "uid": 6831085,
+        "slug": "palais-des-festivals-et-des-congres656",
+        "name": "Palais des festivals et des congrès",
+        "address": "La croisette 06400 Cannes",
+        "city": "Cannes",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06400",
+        "insee": "06029",
+        "countryCode": "FR",
+        "district": "Saint-Nicolas",
+        "latitude": 43.55149,
+        "longitude": 7.017954,
+        "updatedAt": "2020-02-01T09:18:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "2 euros",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "La Cinémathèque française",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 13392710,
+        "custom": {
+          "organization": "Mairie de Cannes",
+          "contactName": "Magali Barsante",
+          "contactNumber": "0497064481",
+          "contactPosition": "communication culture",
+          "email": "magali.barsante@ville-cannes.fr"
+        }
+      }
+    },
+    {
+      "uid": 57589701,
+      "ownerUid": 86423028,
+      "creatorUid": 86423028,
+      "slug": "atelier-avec-loic-chevallier-autour-de-la-bd-2eme-edition",
+      "title": {
+        "en": "Atelier avec Loïc Chevallier autour de la BD #2e édition",
+        "fr": "Atelier avec Loïc Chevallier  autour de la BD #2e édition"
+      },
+      "description": {
+        "en": "Immerse yourself in the rich worlds of the artists of the Touraine workshop \"Pop\" through an exhibition of their drawings and participate in a free workshop",
+        "fr": "Plongez dans les univers foisonnants des artistes de l’atelier tourangeau \"Pop\" à travers une exposition de leurs dessins et participez à un atelier gratuit"
+      },
+      "longDescription": {
+        "en": "Immerse yourself in the rich worlds of the artists of the Touraine workshop \"Pop\" through an exhibition of their drawings and participate in a free workshop with Loïc Chevallier and \"Imagine the end of history\".\nPencil and felt kits are welcome.\nSales and dedication will be organised at the end of the workshop.",
+        "fr": "Plongez dans les univers foisonnants des artistes de l’atelier tourangeau \"Pop\" à travers une exposition de leurs dessins et participez à un atelier gratuit avec Loïc Chevallier et \"Imaginez la fin de l'histoire\".\n\nTrousses de crayons et feutres seront les bienvenus.\n\nDes ventes-dédicaces seront organisées à l’issue de l'atelier."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Free on registration: 02 47 43 17 43",
+        "fr": "Gratuit sur inscription : 02 47 43 17 43"
+      },
+      "image": {
+        "filename": "f0d79bde0def426caedb262c39d35063.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 937,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f0d79bde0def426caedb262c39d35063.full.image.jpg",
+            "size": {
+              "height": 911,
+              "width": 681
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f0d79bde0def426caedb262c39d35063.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-29T13:00:00.000Z",
+          "end": "2020-02-29T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T08:56:47.000Z",
+      "createdAt": "2020-01-30T10:39:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11872104,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 17
+      },
+      "registration": [
+        "https://www.ville-chambray-les-tours.fr/evenement/autour-de-la-bd-atelier-2eme-edition-4/",
+        "https://www.facebook.com/events/1011659502523368/",
+        "02 47 43 17 43"
+      ],
+      "location": {
+        "uid": 11872104,
+        "slug": "mediatheque-de-chambray-les-tours692",
+        "name": "Médiathèque de Chambray-lès-Tours",
+        "address": "Place Võru 37170 Chambray-lès-Tours",
+        "city": "Chambray-lès-Tours",
+        "region": "Centre-Val de Loire",
+        "department": "Indre-et-Loire",
+        "postalCode": "37170",
+        "insee": "37050",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.343836,
+        "longitude": 0.707409,
+        "updatedAt": "2020-02-01T09:18:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 86423028,
+        "custom": {
+          "organization": "Médiathèque de Chambray-lès-Tours",
+          "contactName": "Noëmie BIGOT",
+          "contactNumber": "02 47 43 17 43",
+          "contactPosition": "Service communication",
+          "email": "nbigot@ville-chambray-les-tours.fr"
+        }
+      }
+    },
+    {
+      "uid": 9220450,
+      "ownerUid": 4329035,
+      "creatorUid": 4329035,
+      "slug": "les-origines-de-la-bande-dessinee-europeenne_328738",
+      "title": {
+        "fr": "Exposition \"Les origines de la bande dessinée européenne\"",
+        "en": "\"The origins of European comics\""
+      },
+      "description": {
+        "fr": "Les origines de la bande dessinée européenne",
+        "en": "The origins of the strip"
+      },
+      "longDescription": {
+        "fr": "Cette exposition, soigneusement conçue par nos spécialistes BD maison, est la première partie d’une série consacrée à l’histoire de la bande dessinée européenne.",
+        "en": "This exhibition, carefully designed by our in-house comic book specialists, is the first part of a series dedicated to the history of European comic books."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4c4083b376c6455aa8b1d8e459c8ffdf.base.image.jpg",
+        "credits": "British Museum",
+        "size": {
+          "height": 491,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4c4083b376c6455aa8b1d8e459c8ffdf.full.image.jpg",
+            "size": {
+              "height": 526,
+              "width": 750
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4c4083b376c6455aa8b1d8e459c8ffdf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-30T08:00:00.000Z",
+          "end": "2020-03-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T08:00:00.000Z",
+          "end": "2020-03-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T08:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T08:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-06T08:00:00.000Z",
+          "end": "2020-04-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T08:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T08:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T08:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-13T08:00:00.000Z",
+          "end": "2020-04-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T08:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T08:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T08:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-20T08:00:00.000Z",
+          "end": "2020-04-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T08:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T08:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T08:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-27T08:00:00.000Z",
+          "end": "2020-04-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T08:00:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T08:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T08:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T08:00:00.000Z",
+          "end": "2020-05-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T08:00:00.000Z",
+          "end": "2020-05-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-04T08:00:00.000Z",
+          "end": "2020-05-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T08:00:00.000Z",
+          "end": "2020-05-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T08:00:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T08:00:00.000Z",
+          "end": "2020-05-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T08:00:00.000Z",
+          "end": "2020-05-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T08:00:00.000Z",
+          "end": "2020-05-09T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T08:16:35.000Z",
+      "createdAt": "2020-01-30T13:23:49.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 5892605,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 5892605,
+        "slug": "bfm-centre-ville305",
+        "name": "Bfm centre-ville",
+        "address": "2 place Aimé-Césaire 87000 Limoges",
+        "city": "Limoges",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": null,
+        "insee": "87085",
+        "countryCode": "FR",
+        "district": "Clos Moreau",
+        "latitude": 45.826719,
+        "longitude": 1.259296,
+        "updatedAt": "2020-02-01T09:19:20.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 4329035,
+        "custom": {
+          "organization": "Bibliothèque francophone multimédia",
+          "contactName": "Claire Soubranne",
+          "contactNumber": "05 55 45 96 09",
+          "contactPosition": "Chargée de l'acion culturelle et de la communication",
+          "email": "claire.soubranne@limoges.fr"
+        }
+      }
+    },
+    {
+      "uid": 46733662,
+      "ownerUid": 56682220,
+      "creatorUid": 56682220,
+      "slug": "realiser-un-album-de-bd",
+      "title": {
+        "en": "Make a comic book album",
+        "fr": "Réaliser un album de BD"
+      },
+      "description": {
+        "en": "Make a comic book, the theme is an investigation on the town of Condat",
+        "fr": "Réaliser un album de BD, le thème est une enquête sur la commune de Condat"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "7f8d11a10643415a9ca0f143fa9d0edc.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7f8d11a10643415a9ca0f143fa9d0edc.full.image.jpg",
+            "size": {
+              "height": 667,
+              "width": 1000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7f8d11a10643415a9ca0f143fa9d0edc.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-27T13:00:00.000Z",
+          "end": "2020-01-27T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T13:30:00.000Z",
+          "end": "2020-01-27T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T14:00:00.000Z",
+          "end": "2020-01-27T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T14:30:00.000Z",
+          "end": "2020-01-27T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T08:30:00.000Z",
+          "end": "2020-01-28T09:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T09:00:00.000Z",
+          "end": "2020-01-28T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T09:30:00.000Z",
+          "end": "2020-01-28T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T10:00:00.000Z",
+          "end": "2020-01-28T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T10:30:00.000Z",
+          "end": "2020-01-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T13:00:00.000Z",
+          "end": "2020-01-28T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T13:30:00.000Z",
+          "end": "2020-01-28T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T14:00:00.000Z",
+          "end": "2020-01-28T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T14:30:00.000Z",
+          "end": "2020-01-28T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T09:00:00.000Z",
+          "end": "2020-01-30T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T09:30:00.000Z",
+          "end": "2020-01-30T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T10:00:00.000Z",
+          "end": "2020-01-30T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T10:30:00.000Z",
+          "end": "2020-01-30T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T13:00:00.000Z",
+          "end": "2020-01-30T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T13:30:00.000Z",
+          "end": "2020-01-30T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T14:00:00.000Z",
+          "end": "2020-01-30T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T14:30:00.000Z",
+          "end": "2020-01-30T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T09:00:00.000Z",
+          "end": "2020-01-31T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T09:30:00.000Z",
+          "end": "2020-01-31T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T10:00:00.000Z",
+          "end": "2020-01-31T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T10:30:00.000Z",
+          "end": "2020-01-31T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T13:00:00.000Z",
+          "end": "2020-01-31T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T13:30:00.000Z",
+          "end": "2020-01-31T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T14:00:00.000Z",
+          "end": "2020-01-31T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T14:30:00.000Z",
+          "end": "2020-01-31T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T08:56:45.000Z",
+      "createdAt": "2020-01-30T18:29:35.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 548836,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 8
+      },
+      "registration": [],
+      "location": {
+        "uid": 548836,
+        "slug": "ecole-jean-rostand",
+        "name": "École Jean Rostand",
+        "address": "Allée Jean Rostand 87920 Condat-sur-Vienne",
+        "city": "Condat-sur-Vienne",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87920",
+        "insee": "87048",
+        "countryCode": "FR",
+        "district": "Chez le Rat",
+        "latitude": 45.791155,
+        "longitude": 1.234576,
+        "updatedAt": "2020-02-01T09:22:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 56682220,
+        "custom": {
+          "organization": "Ecole Jean Rostand",
+          "contactName": "Didier Klingler",
+          "contactNumber": "0681851461",
+          "contactPosition": "professeur des écoles",
+          "email": "didier.klingler@wanadoo.fr"
+        }
+      }
+    },
+    {
+      "uid": 78240205,
+      "ownerUid": 40500155,
+      "creatorUid": 40500155,
+      "slug": "4eme-edition-du-festival-bd-au-chateau-de-malbrouck-a-manderen",
+      "title": {
+        "en": "4th edition of the International Comic Strip Festival at Malbrouck Castle",
+        "fr": "4ème édition du Festival International de la Bande Dessinée au château de Malbrouck"
+      },
+      "description": {
+        "en": "With its success in its first three editions, the Comic Strip Festival returns to Malbrouck Castle. He will be present in parallel to a public exhibition dedicated to Asterix.",
+        "fr": "Fort de son succès pour ses trois premières éditions, le Festival de la bande dessinée revient au château de Malbrouck. Il sera présent en parallèle à une exposition grand public dédiée à Astérix."
+      },
+      "longDescription": {
+        "en": "At a time when the sunny days are back, the Comic Strip Festival is like every year now. Beginners, enthusiasts, amateurs or simply curious about comics were invited on 13 and 14 June 2020.\nOn the program, dedication sessions, animations, conferences, historical reconstruction camps, a unique exhibition that made the happiness of young and old alike during this moment rich in encounters.\n**A few figures:**\n*   **50 authors, cartoonists, colorists and cartoonists** of different nationalities\n*   **7 meetings and conferences** attended by authors and guests\n*   **12 stands** composing the Village of the book (sale of comics, fanzines, goodies, silkscreens,...)\n*   **20 Marvel and Star Wars cosplayers** from the 501st Legion\n*   **70 reenactors** from **5 eras**: Teutonic Order, Monk soldiers, 13th century/ Lothringen Landsknecht, Mercenaries lansquenets, 16th century/ Nessamelda, pirate troop, 18th century (educational animations and _escape game_)/ British hunters, Duke of Wellington Army, Battle of the Arapiles, 1812/ The Foot Soldiers of Lorraine, First World War, 20th Century\n*   **2 unusual nights for 2 people** to win in the historical recontitution camps\n*   **More than 1,000 Casterman prizes** to be won during the scavenger hunt\nThis festival is a public event with activities that will delight young and old alike.",
+        "fr": "À l’heure où les beaux jours sont de retour, le Festival BD est comme chaque année maintenant au rendez-vous. Néophytes, passionnés, amateurs ou simplement curieux de la bande dessinée ont été conviés les 13 et 14 juin 2020.\n\nAu programme, des séances de dédicace, des animations, des conférences, des camps de reconstitution historique, une exposition unique qui ont fait le bonheur des petits comme des grands lors de ce moment riche en rencontres.\n\n**Quelques chiffres :**\n\n*   **50 auteurs, dessinateurs, coloristes et scénaristes** de bandes dessinées de nationalités différentes\n*   **7 rencontres et conférences** en présence d'auteurs et d'invités\n*   **12 stands** composant le Village du livre (vente de bandes dessinées, fanzines, goodies, sérigraphies,...)\n*   **20 cosplayers Marvel et Star Wars** de la 501st Legion en déambulation\n*   **70 reconstituteurs** en provenance de **5 époques** : Teutonic Order, Moines soldats, XIIIe siècle / Lothringen Landsknecht, Mercenaires lansquenets, XVIe siècle / Nessamelda, troupe de pirates, XVIIIe siècle (animations pédagogiques et _escape game_) / Chasseurs britanniques, armée du Duc de Wellington, bataille des Arapiles, 1812 / Les Fantassins de Lorraine, Première Guerre mondiale, XXe siècle\n*   **2 nuits insolites pour 2 personnes** à remporter au sein des camps de recontitution historique\n*   **Plus de de 1 000 lots Casterman** à remporter lors de la chasse au trésor\n\nCe festival est un événement grand public avec des animations qui raviront les petits comme les grands."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d79ce747cfe64d49bef0f3e9b46d39ea.base.image.jpg",
+        "credits": "Département de la Moselle",
+        "size": {
+          "height": 1049,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d79ce747cfe64d49bef0f3e9b46d39ea.full.image.jpg",
+            "size": {
+              "height": 7360,
+              "width": 4912
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d79ce747cfe64d49bef0f3e9b46d39ea.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-13T08:00:00.000Z",
+          "end": "2020-06-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-14T08:00:00.000Z",
+          "end": "2020-06-14T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T11:56:47.000Z",
+      "createdAt": "2020-01-31T08:18:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 16245474,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://festivalbd.moselle.fr/"
+      ],
+      "location": {
+        "uid": 16245474,
+        "slug": "chateau-de-malbrouck-manderen",
+        "name": "Château de Malbrouck Manderen",
+        "address": "57480 Manderen",
+        "city": "Manderen-Ritzing",
+        "region": "Grand Est",
+        "department": "Moselle",
+        "postalCode": "57480",
+        "insee": "57439",
+        "countryCode": "FR",
+        "district": "Manderen",
+        "latitude": 49.451656,
+        "longitude": 6.451542,
+        "updatedAt": "2020-02-01T09:23:06.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "5 €",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Département de la Moselle",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 40500155,
+        "custom": {
+          "organization": "Moselle Arts Vivants",
+          "contactName": "Emilie Manguette",
+          "contactNumber": "0387568994",
+          "contactPosition": "Assistante de production",
+          "email": "emilie.manguette@moselle.fr"
+        }
+      }
+    },
+    {
+      "uid": 96222337,
+      "ownerUid": 80218872,
+      "creatorUid": 80218872,
+      "slug": "new-cherbourg-stories-lexpo_75922",
+      "title": {
+        "en": "Exhibition \"New Cherbourg Stories\"",
+        "fr": "Exposition \"New Cherbourg Stories\""
+      },
+      "description": {
+        "en": "Exhibition dedicated to the universe of New Cherbourg Stories, comic book by Pierre Gabus and Romuald Reutimann. The series features an imaginary version of the city of Cherbourg",
+        "fr": "Exposition consacrée à l'univers de New Cherbourg Stories, bande dessinée de Pierre Gabus et Romuald Reutimann. La série met en scène une version imaginaire de la ville de Cherbourg"
+      },
+      "longDescription": {
+        "en": "_New Cherbourg Stories_ is a comic book series created by two Cherbourgeois authors: Pierre Gabus, scriptwriter, and Romuald Reutimann, cartoonist. The story, halfway between the thriller and the fantasy, depicts the city of Cherbourg. An imaginary Cherbourg, revisited like an American metropolis of the 1930s. Renamed \"New Cherbourg\", the city is both familiar and extraordinary. The urban space, the streets, the buildings represented are very real, but their appearance and their use are different. The streets of the city centre are based on pre-war American urban codes: brick buildings and architectures, advertising posters and illuminated signs, tramway.\nThe first two episodes of the series _Coups de feu au Roule Palace_ and _Dans le ventre du Lala Bama_, were published in 2018 and 2019 as an American comic book. They were pre-published in the daily press and then printed in the form of a comic book - a flexible booklet of some 30 pages - distributed in local press houses and bookstores. In 2020, the episodes will be brought together by Casterman as a hardcover album, broadcast in France and abroad.\nThe Thomas Henry Museum proposed to Romuald Reutimann to develop the graphic universe of the series through 20 large drawings. Each scene has as backdrop an emblematic place of the port city, revisited in a \"New Cherbourg\" way: the Italian theatre, the transatlantic station, the trading area, the Napoleon square. Visual cues, present on most of the images, allow to locate the space (mountain of the Roule, water tower of the Fauconnière, towers of the Casino). Easily recognizable, the viewpoints are accessible to pedestrians. Some images contain action scenes that do not yet appear in the series: they are narrative tracks, which open up perspectives for history and may be exploited in future episodes.",
+        "fr": "_New Cherbourg Stories_ est une série de bande dessinée créée par deux auteurs cherbourgeois : Pierre Gabus, scénariste, et Romuald Reutimann, dessinateur. L’histoire, à mi-chemin entre le polar et le fantastique, met en scène la ville de Cherbourg. Un Cherbourg imaginaire, revisité à la façon d’une métropole américaine des années 1930. Rebaptisée \"New Cherbourg\", la ville est à la fois familière et extraordinaire. L’espace urbain, les rues, les bâtiments représentés sont bien réels, mais leur apparence et leur usage sont différents. Les rues du centre-ville reprennent les codes urbains américains d’avant-guerre : buildings et architectures de briques, affiches publicitaires et enseignes lumineuses, tramway.\n\nLes deux premiers épisodes de la série _Coups de feu au Roule Palace_ et _Dans le ventre du Lala Bama_, ont été publiés en 2018 et 2019 à la façon d’une bande dessinée américaine. Ils ont été prépubliés dans la presse quotidienne, puis ont été imprimés sous la forme d’un comic book - fascicule souple d’une trentaine de pages – distribué dans les maisons de la presse et les librairies locales. En 2020, les épisodes seront réunis par Casterman sous forme d’un album cartonné, diffusé en France et à l’étranger.\n\nLe musée Thomas Henry a proposé à Romuald Reutimann de développer l’univers graphique de la série à travers 20 grands dessins. Chaque scène a pour toile de fond un lieu emblématiques de la cité portuaire, revisité façon \"New Cherbourg\" : le théâtre à l’italienne, la gare transatlantique, le bassin du commerce, la place Napoléon. Des repères visuels, présents sur la plupart des images, permettent de situer l’espace (montagne du Roule, château d’eau de la Fauconnière, tours du Casino). Facilement reconnaissables, les points de vue sont accessibles aux piétons. Certaines images contiennent des scènes d’actions qui ne figurent pas – encore - dans la série : il s’agit de pistes narratives, qui ouvrent des perspectives pour l’histoire et feront peut être l’objet d’une exploitation dans les épisodes futurs."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "152508069fad41bcb3d26284ded5b81d.base.image.jpg",
+        "credits": "Romuald Reutimann, Au pied du Roule Palace, 2018, Cherbourg-en-Cotentin, musée Thomas Henry",
+        "size": {
+          "height": 1032,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "152508069fad41bcb3d26284ded5b81d.full.image.jpg",
+            "size": {
+              "height": 2500,
+              "width": 1697
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "152508069fad41bcb3d26284ded5b81d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-02T09:00:00.000Z",
+          "end": "2020-01-02T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-02T13:00:00.000Z",
+          "end": "2020-01-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T09:00:00.000Z",
+          "end": "2020-01-03T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T13:00:00.000Z",
+          "end": "2020-01-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T12:00:00.000Z",
+          "end": "2020-01-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-05T12:00:00.000Z",
+          "end": "2020-01-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T09:00:00.000Z",
+          "end": "2020-01-07T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T13:00:00.000Z",
+          "end": "2020-01-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T09:00:00.000Z",
+          "end": "2020-01-08T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T13:00:00.000Z",
+          "end": "2020-01-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T09:00:00.000Z",
+          "end": "2020-01-09T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T13:00:00.000Z",
+          "end": "2020-01-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T09:00:00.000Z",
+          "end": "2020-01-10T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T13:00:00.000Z",
+          "end": "2020-01-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T12:00:00.000Z",
+          "end": "2020-01-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T12:00:00.000Z",
+          "end": "2020-01-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T09:00:00.000Z",
+          "end": "2020-01-14T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T13:00:00.000Z",
+          "end": "2020-01-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T13:00:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T09:00:00.000Z",
+          "end": "2020-01-16T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T13:00:00.000Z",
+          "end": "2020-01-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T09:00:00.000Z",
+          "end": "2020-01-17T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T13:00:00.000Z",
+          "end": "2020-01-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T12:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T12:00:00.000Z",
+          "end": "2020-01-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T09:00:00.000Z",
+          "end": "2020-01-21T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T13:00:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T13:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T09:00:00.000Z",
+          "end": "2020-01-23T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T13:00:00.000Z",
+          "end": "2020-01-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T09:00:00.000Z",
+          "end": "2020-01-24T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T13:00:00.000Z",
+          "end": "2020-01-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T12:00:00.000Z",
+          "end": "2020-01-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T12:00:00.000Z",
+          "end": "2020-01-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T09:00:00.000Z",
+          "end": "2020-01-28T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T13:00:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T13:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T09:00:00.000Z",
+          "end": "2020-01-30T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T13:00:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T09:00:00.000Z",
+          "end": "2020-01-31T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T13:00:00.000Z",
+          "end": "2020-01-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T12:00:00.000Z",
+          "end": "2020-02-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T12:00:00.000Z",
+          "end": "2020-02-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T09:00:00.000Z",
+          "end": "2020-02-04T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T13:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T09:00:00.000Z",
+          "end": "2020-02-06T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T13:00:00.000Z",
+          "end": "2020-02-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T09:00:00.000Z",
+          "end": "2020-02-07T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T13:00:00.000Z",
+          "end": "2020-02-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T12:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T12:00:00.000Z",
+          "end": "2020-02-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T09:00:00.000Z",
+          "end": "2020-02-11T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T13:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T09:00:00.000Z",
+          "end": "2020-02-13T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T13:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T09:00:00.000Z",
+          "end": "2020-02-14T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T13:00:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T12:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T12:00:00.000Z",
+          "end": "2020-02-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T09:00:00.000Z",
+          "end": "2020-02-18T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T13:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T13:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T09:00:00.000Z",
+          "end": "2020-02-20T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T13:00:00.000Z",
+          "end": "2020-02-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T09:00:00.000Z",
+          "end": "2020-02-21T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T13:00:00.000Z",
+          "end": "2020-02-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T12:00:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T12:00:00.000Z",
+          "end": "2020-02-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T09:00:00.000Z",
+          "end": "2020-02-25T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T13:00:00.000Z",
+          "end": "2020-02-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T13:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T09:00:00.000Z",
+          "end": "2020-02-27T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T13:00:00.000Z",
+          "end": "2020-02-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T09:00:00.000Z",
+          "end": "2020-02-28T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T13:00:00.000Z",
+          "end": "2020-02-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T12:00:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T12:00:00.000Z",
+          "end": "2020-03-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T09:00:00.000Z",
+          "end": "2020-03-03T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T13:00:00.000Z",
+          "end": "2020-03-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T13:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T09:00:00.000Z",
+          "end": "2020-03-05T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T13:00:00.000Z",
+          "end": "2020-03-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T09:00:00.000Z",
+          "end": "2020-03-06T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T13:00:00.000Z",
+          "end": "2020-03-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T12:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T12:00:00.000Z",
+          "end": "2020-03-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T09:00:00.000Z",
+          "end": "2020-03-10T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T13:00:00.000Z",
+          "end": "2020-03-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T13:00:00.000Z",
+          "end": "2020-03-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T09:00:00.000Z",
+          "end": "2020-03-12T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T13:00:00.000Z",
+          "end": "2020-03-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T09:00:00.000Z",
+          "end": "2020-03-13T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T13:00:00.000Z",
+          "end": "2020-03-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T12:00:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T12:00:00.000Z",
+          "end": "2020-03-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T09:00:00.000Z",
+          "end": "2020-03-17T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T13:00:00.000Z",
+          "end": "2020-03-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T09:00:00.000Z",
+          "end": "2020-03-19T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T13:00:00.000Z",
+          "end": "2020-03-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T09:00:00.000Z",
+          "end": "2020-03-20T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T12:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T12:00:00.000Z",
+          "end": "2020-03-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T09:00:00.000Z",
+          "end": "2020-03-24T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T13:00:00.000Z",
+          "end": "2020-03-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T09:00:00.000Z",
+          "end": "2020-03-26T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T13:00:00.000Z",
+          "end": "2020-03-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T09:00:00.000Z",
+          "end": "2020-03-27T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T13:00:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T12:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T08:56:40.000Z",
+      "createdAt": "2020-01-31T10:49:04.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 25076907,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://www.cherbourg.fr/musees",
+        "musees@cherbourg.fr",
+        "02 33 23 39 30"
+      ],
+      "location": {
+        "uid": 25076907,
+        "slug": "musee-thomas-henry62",
+        "name": "Musée Thomas Henry",
+        "address": "Esplanade de la Laïcité 50100 Cherbourg-en-Cotentin",
+        "city": "Cherbourg-en-Cotentin",
+        "region": "Normandie",
+        "department": "Manche",
+        "postalCode": "50130",
+        "insee": "50129",
+        "countryCode": "FR",
+        "district": "Cherbourg-Octeville",
+        "latitude": 49.636986,
+        "longitude": -1.622948,
+        "updatedAt": "2019-12-03T14:53:20.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "Plein tarif : 5 €. Gratuit pour tous chaque mercredi et tous les jours pour les moins de 26 ans.",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 80218872,
+        "custom": {
+          "organization": "Musée Thomas Henry Cherbourg-en-Cotentin",
+          "contactName": "Louise Hallet",
+          "contactNumber": "0233233930",
+          "contactPosition": "Directrice",
+          "email": "louise.hallet@cherbourg.fr"
+        }
+      }
+    },
+    {
+      "uid": 73821958,
+      "ownerUid": 5383505,
+      "creatorUid": 5383505,
+      "slug": "stage-numerique-dragons-dragonnes-et-dragonneaux_117599",
+      "title": {
+        "fr": "Stage numérique \"Dragons, dragonnes et dragonneaux\""
+      },
+      "description": {
+        "fr": "Apprentissage et approfondissement des notions de dessin numérique autour de la figure légendaire du dragon"
+      },
+      "longDescription": {
+        "fr": "Stage numérique \"Dragons, dragonnes et dragonneaux\" :\n\nDu lundi 17 au vendredi 21 février 2020 de 14h à 16h\n\nPour les jeunes de 12 ans et plus.\n\nEncadré par Nicholas Gomes.\n\nApprentissage et approfondissement des notions de dessin numérique autour de la figure légendaire du dragon.\n\nLa Maison de la bd se charge de mettre à disposition le matériel nécessaire pour le bon déroulement des stages.\n\nPour l’inscription, merci de nous contacter au 02 54 42 49 22 ou par mail à [bdboum@bdboum.com](mailto:bdboum@bdboum.com)\n\n\\*En cas de désistement 7 jours, ou moins, avant le stage, aucun remboursement ne sera effectué."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "0e9a54449f2e401aa3a16fee18226724.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 395,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0e9a54449f2e401aa3a16fee18226724.full.image.jpg",
+            "size": {
+              "height": 347,
+              "width": 615
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0e9a54449f2e401aa3a16fee18226724.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-17T13:00:00.000Z",
+          "end": "2020-02-17T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T13:00:00.000Z",
+          "end": "2020-02-18T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T13:00:00.000Z",
+          "end": "2020-02-19T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T13:00:00.000Z",
+          "end": "2020-02-20T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T13:00:00.000Z",
+          "end": "2020-02-21T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T08:27:22.000Z",
+      "createdAt": "2020-01-31T11:45:57.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 77981115,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 18
+      },
+      "registration": [
+        "http://www.maisondelabd.com/maison-de-la-bd/cours-a-l-annee-stages-et-formations/736-stages-d-hiver-a-la-maison-de-la-bd-2020"
+      ],
+      "location": {
+        "uid": 77981115,
+        "slug": "maison-de-la-bd83",
+        "name": "Maison de la BD",
+        "address": "3 rue des Jacobins 41000 Blois",
+        "city": "Blois",
+        "region": "Centre-Val de Loire",
+        "department": "Loir-et-Cher",
+        "postalCode": "41000",
+        "insee": "41018",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.585091,
+        "longitude": 1.332439,
+        "updatedAt": "2020-01-14T14:55:36.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 67,
+      "tarif": "Tarif : 40 € - Tarif PCE : 32 € par participant",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": 32,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 5383505,
+        "custom": {
+          "organization": "MAISON DE LA BD",
+          "contactName": "BRUNO GENINI",
+          "contactNumber": "0254424922",
+          "contactPosition": "DIRECTEUR",
+          "email": "bdboum@bdboum.com"
+        }
+      }
+    },
+    {
+      "uid": 91112987,
+      "ownerUid": 5383505,
+      "creatorUid": 5383505,
+      "slug": "stage-dessins-magiques_136",
+      "title": {
+        "en": "Stage \"Magic drawings\"",
+        "fr": "Stage \"Dessins magiques\""
+      },
+      "description": {
+        "en": "Creations around optical illusions and other visual effects",
+        "fr": "Créations autour des illusions d’optiques et autres effets visuels"
+      },
+      "longDescription": {
+        "en": "Stage \"Magic drawings\"\nFrom Monday 24 to Friday 28 February 2020 from 10am to 12pm\nSupervised by Sébastien Duforestel.\nCreations around optical illusions and other visual effects.\nLa Maison de la bd is in charge of providing the necessary equipment for the smooth running of the courses.\nFor registration, please contact us at 02 54 42 49 22 or by email at [bdboum@bdboum.com](mailto:bdboum@bdboum.com)\n*If cancelled 7 days or less prior to the internship, no refund will be made.",
+        "fr": "Stage \"Dessins magiques\"\n\nDu lundi 24 au vendredi 28 février 2020 de 10h à 12h\n\nEncadré par Sébastien Duforestel.\n\nCréations autour des illusions d’optiques et autres effets visuels.\n\nLa Maison de la bd se charge de mettre à disposition le matériel nécessaire pour le bon déroulement des stages.\n\nPour l’inscription, merci de nous contacter au 02 54 42 49 22 ou par mail à [bdboum@bdboum.com](mailto:bdboum@bdboum.com)\n\n\\*En cas de désistement 7 jours, ou moins, avant le stage, aucun remboursement ne sera effectué."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "On registration",
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "7fe0e963da624cfabdb9d640453dd79f.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 388,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7fe0e963da624cfabdb9d640453dd79f.full.image.jpg",
+            "size": {
+              "height": 342,
+              "width": 618
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7fe0e963da624cfabdb9d640453dd79f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-24T09:00:00.000Z",
+          "end": "2020-02-24T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T09:00:00.000Z",
+          "end": "2020-02-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T09:00:00.000Z",
+          "end": "2020-02-27T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T09:00:00.000Z",
+          "end": "2020-02-28T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T08:56:27.000Z",
+      "createdAt": "2020-01-31T13:08:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 77981115,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 12
+      },
+      "registration": [
+        "http://www.maisondelabd.com/maison-de-la-bd/cours-a-l-annee-stages-et-formations/736-stages-d-hiver-a-la-maison-de-la-bd-2020"
+      ],
+      "location": {
+        "uid": 77981115,
+        "slug": "maison-de-la-bd83",
+        "name": "Maison de la BD",
+        "address": "3 rue des Jacobins 41000 Blois",
+        "city": "Blois",
+        "region": "Centre-Val de Loire",
+        "department": "Loir-et-Cher",
+        "postalCode": "41000",
+        "insee": "41018",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.585091,
+        "longitude": 1.332439,
+        "updatedAt": "2020-01-14T14:55:36.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 67,
+      "tarif": "Tarif : 40 € par participant",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 5383505,
+        "custom": {
+          "organization": "MAISON DE LA BD",
+          "contactName": "BRUNO GENINI",
+          "contactNumber": "0254424922",
+          "contactPosition": "DIRECTEUR",
+          "email": "bdboum@bdboum.com"
+        }
+      }
+    },
+    {
+      "uid": 74969040,
+      "ownerUid": 5383505,
+      "creatorUid": 5383505,
+      "slug": "stage-manga_936598",
+      "title": {
+        "en": "Training course \"Manga\"",
+        "fr": "Stage \"Manga\""
+      },
+      "description": {
+        "en": "Production of plates from the codes of the Shonen and the Shojo",
+        "fr": "Réalisation de planches à partir des codes du Shonen et du Shojo"
+      },
+      "longDescription": {
+        "en": "For children over 12\nTraining course \"Manga\"\nFrom Monday 24 to Friday 28 February 2020 from 14h to 16h\nSupervised by Mathilde Landry.\nProduction of plates from the codes of the Shonen and the Shojo.\nLa Maison de la bd is in charge of providing the necessary equipment for the smooth running of the courses.\nFor registration, please contact us at 02 54 42 49 22 or by email at [bdboum@bdboum.com](mailto:bdboum@bdboum.com)\n*If cancelled 7 days or less prior to the internship, no refund will be made.",
+        "fr": "Pour les enfants de plus de 12 ans\n\nStage \"Manga\"\n\nDu lundi 24 au vendredi 28 février 2020 de 14h à 16h\n\nEncadré par Mathilde Landry.\n\nRéalisation de planches à partir des codes du Shonen et du Shojo.\n\nLa Maison de la bd se charge de mettre à disposition le matériel nécessaire pour le bon déroulement des stages.\n\nPour l’inscription, merci de nous contacter au 02 54 42 49 22 ou par mail à [bdboum@bdboum.com](mailto:bdboum@bdboum.com)\n\n\\*En cas de désistement 7 jours, ou moins, avant le stage, aucun remboursement ne sera effectué."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "On registration",
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "0bfdb9788a954bc085f439f13d7bea56.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 393,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0bfdb9788a954bc085f439f13d7bea56.full.image.jpg",
+            "size": {
+              "height": 349,
+              "width": 622
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0bfdb9788a954bc085f439f13d7bea56.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-24T13:00:00.000Z",
+          "end": "2020-02-24T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T13:00:00.000Z",
+          "end": "2020-02-25T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T13:00:00.000Z",
+          "end": "2020-02-26T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T13:00:00.000Z",
+          "end": "2020-02-27T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T13:00:00.000Z",
+          "end": "2020-02-28T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T08:56:35.000Z",
+      "createdAt": "2020-01-31T13:16:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 77981115,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 18
+      },
+      "registration": [
+        "http://www.maisondelabd.com/maison-de-la-bd/cours-a-l-annee-stages-et-formations/736-stages-d-hiver-a-la-maison-de-la-bd-2020"
+      ],
+      "location": {
+        "uid": 77981115,
+        "slug": "maison-de-la-bd83",
+        "name": "Maison de la BD",
+        "address": "3 rue des Jacobins 41000 Blois",
+        "city": "Blois",
+        "region": "Centre-Val de Loire",
+        "department": "Loir-et-Cher",
+        "postalCode": "41000",
+        "insee": "41018",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.585091,
+        "longitude": 1.332439,
+        "updatedAt": "2020-01-14T14:55:36.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 67,
+      "tarif": "Tarif : 40 € par participant - Tarif PCE : 32 € par participant",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 5383505,
+        "custom": {
+          "organization": "MAISON DE LA BD",
+          "contactName": "BRUNO GENINI",
+          "contactNumber": "0254424922",
+          "contactPosition": "DIRECTEUR",
+          "email": "bdboum@bdboum.com"
+        }
+      }
+    },
+    {
+      "uid": 11648678,
+      "ownerUid": 78512780,
+      "creatorUid": 78512780,
+      "slug": "festival-normandiebulle",
+      "title": {
+        "fr": "Festival \"Normandiebulle\"",
+        "en": "Festival \"Normandiebulle\""
+      },
+      "description": {
+        "fr": "Festival de la bande dessinée : auteurs en dédicaces (avec Emem en invité d'honneur), expositions, ateliers, spectacles,...",
+        "en": "Comic Strip Festival: authors in dedications (with Emem as guest of honor), exhibitions, workshops, shows,..."
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "45ddfc0a8417448e8206b824f1dc0136.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 557,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "45ddfc0a8417448e8206b824f1dc0136.full.image.jpg",
+            "size": {
+              "height": 1296,
+              "width": 1629
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "45ddfc0a8417448e8206b824f1dc0136.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-26T08:00:00.000Z",
+          "end": "2020-09-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-27T08:00:00.000Z",
+          "end": "2020-09-27T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-03T08:33:56.000Z",
+      "createdAt": "2020-01-31T15:34:00.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 1460921,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 1460921,
+        "slug": "tennis-couverts-allee-de-la-gare",
+        "name": "Tennis couverts",
+        "address": "Allée de la Gare 76160 Darnétal",
+        "city": "Darnétal",
+        "region": "Normandie",
+        "department": "Seine-Maritime",
+        "postalCode": "76160",
+        "insee": "76212",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.444908,
+        "longitude": 1.151915,
+        "updatedAt": "2020-02-01T09:25:34.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "4 € / 6 € la journée ; 8 € le pass 2 jours",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Ville de Darnétal",
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 78512780,
+        "custom": {
+          "organization": "Ville de Darnétal",
+          "contactName": "Cécile Dupuis",
+          "contactNumber": "02 32 12 31 64",
+          "contactPosition": "Chargée de communication",
+          "email": "cecile-dupuis@mairie-darnetal.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2151925
+}

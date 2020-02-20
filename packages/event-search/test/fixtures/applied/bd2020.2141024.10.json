@@ -1,0 +1,1757 @@
+{
+  "events": [
+    {
+      "uid": 81662566,
+      "ownerUid": 32118231,
+      "creatorUid": 32118231,
+      "slug": "atelier-bd-avec-ana-dess",
+      "title": {
+        "fr": "Atelier BD avec Ana Dess",
+        "en": "Comic book workshop with Ana Dess"
+      },
+      "description": {
+        "fr": "Atelier bande dessinée avec illustratrice",
+        "en": "Cartoon workshop with illustrator"
+      },
+      "longDescription": {
+        "fr": "Samedi 8 février, Ana Dess ([https://www.anadess.com/blog/](https://www.anadess.com/blog/)) sera à la bibliothèque de Creys-Mépieu pour animer un atelier.\n\nLes enfants, à partir de 8 ans, découvriront avec elle les codes de la bande dessinée et comment donner vie à leur propre histoire.",
+        "en": "On Saturday, February 8, Ana Dess ([https://www.anadess.com/blog/](https://www.anadess.com/blog/)) will be at the Creys-Mépieu library to host a workshop.\nChildren, from the age of 8, will discover with her the codes of the comic book and how to give life to their own history."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Gratuit, sur inscription",
+        "en": "Free of charge, upon registration"
+      },
+      "image": {
+        "filename": "dc103a0467964aa4993710e5dddb9c39.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 350,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "dc103a0467964aa4993710e5dddb9c39.full.image.jpg",
+            "size": {
+              "height": 400,
+              "width": 800
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "dc103a0467964aa4993710e5dddb9c39.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T13:00:00.000Z",
+          "end": "2020-02-08T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T14:00:00.000Z",
+          "end": "2020-02-08T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:25:15.000Z",
+      "createdAt": "2020-01-27T13:45:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 18046737,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 15
+      },
+      "registration": [
+        "bibcreysmepie@yahoo.fr",
+        "0474977264"
+      ],
+      "location": {
+        "uid": 18046737,
+        "slug": "bibliotheque-de-creys-mepieu591",
+        "name": "Bibliothèque de Creys-Mépieu",
+        "address": "389 Grande Rue 38510 Creys-Mépieu",
+        "city": "Creys-Mépieu",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Isère",
+        "postalCode": "38510",
+        "insee": "38139",
+        "countryCode": "FR",
+        "district": "Creys",
+        "latitude": 45.738917,
+        "longitude": 5.475508,
+        "updatedAt": "2020-01-27T13:47:28.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 32118231,
+        "custom": {
+          "organization": "Bibliothèque de Creys-Mépieu",
+          "contactName": "Aurélie Mendonça",
+          "contactNumber": "04 74 97 72 64",
+          "contactPosition": "Responsable",
+          "email": "bibcreysmepieu@yahoo.fr"
+        }
+      }
+    },
+    {
+      "uid": 99326234,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "animation-a-vous-de-plancher",
+      "title": {
+        "fr": "Mois de la BD - Animation \"À vous de plancher !\"",
+        "en": "Mois de la BD - Animation \"À vous de plancher!\""
+      },
+      "description": {
+        "fr": "Partez à la rencontre de vos supers-héros à travers des défis, des jeux de société, des quiz et la réalisation d'un \"Paper Toy\"",
+        "en": "Meet your superheroes through challenges, board games, quizzes and the creation of a \"Paper Toy\""
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-06T17:00:00.000Z",
+          "end": "2020-03-06T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-30T15:13:42.000Z",
+      "createdAt": "2020-01-27T14:03:04.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 87523545,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://docs.google.com/forms/d/e/1FAIpQLSeroA8Vcg_a0q_HrgJzD5udJ27FFN4JTuz5BNhvSDDVPJDg7w/viewform",
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr"
+      ],
+      "location": {
+        "uid": 87523545,
+        "slug": "bibliotheque-saint-paul-en-pareds",
+        "name": "Bibliothèque Saint-Paul-en-Pareds",
+        "address": "42 rue de l’Église 85500 Saint-Paul-en-Pareds",
+        "city": "Saint-Paul-en-Pareds",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85500",
+        "insee": "85259",
+        "countryCode": "FR",
+        "district": "Moulin de Saint-Paul",
+        "latitude": 46.823387,
+        "longitude": -0.986153,
+        "updatedAt": "2020-01-27T19:41:07.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 56262658,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "animation-a-vous-de-plancher_622135",
+      "title": {
+        "fr": "Mois de la BD - Animation \"À vous de plancher !\"",
+        "en": "Mois de la BD - Animation \"À vous de plancher!\""
+      },
+      "description": {
+        "fr": "Partez à la rencontre de vos supers-héros à travers des défis, des jeux de société, des quiz et la réalisation d'un \"Paper Toy\"",
+        "en": "Meet your superheroes through challenges, board games, quizzes and the creation of a \"Paper Toy\""
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-05T13:30:00.000Z",
+          "end": "2020-02-05T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:45.000Z",
+      "createdAt": "2020-01-27T14:05:14.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 78698952,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr",
+        "https://docs.google.com/forms/d/e/1FAIpQLSfW-ooMPiPdWuUUrJtjFTjRNCOKqWbMwvjRHSx4MtRlNUIqkw/viewform"
+      ],
+      "location": {
+        "uid": 78698952,
+        "slug": "bibliotheque-des-epesses",
+        "name": "Bibliothèque des Épesses",
+        "address": "2 place Monseigneur Bonneau 85590 Les Épesses",
+        "city": "Les Épesses",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85590",
+        "insee": "85082",
+        "countryCode": "FR",
+        "district": "Moulin de l'Aujardière",
+        "latitude": 46.883497,
+        "longitude": -0.89967,
+        "updatedAt": "2020-01-27T19:37:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 8327595,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "animation-a-vous-de-plancher_956502",
+      "title": {
+        "fr": "Mois de la BD - Animation \"À vous de plancher !\"",
+        "en": "Mois de la BD - Animation \"À vous de plancher!\""
+      },
+      "description": {
+        "fr": "Partez à la rencontre de vos supers-héros à travers des défis, des jeux de société, des quiz et la réalisation d'un \"Paper Toy\"",
+        "en": "Meet your superheroes through challenges, board games, quizzes and the creation of a \"Paper Toy\""
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-12T14:00:00.000Z",
+          "end": "2020-02-12T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:43.000Z",
+      "createdAt": "2020-01-27T14:07:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3422537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr",
+        "https://docs.google.com/forms/d/e/1FAIpQLScXnPt4ZS3VvqkYfupGHAorolcGSyHf4U_exCLHBir1C2nj0A/viewform"
+      ],
+      "location": {
+        "uid": 3422537,
+        "slug": "bibliotheque-de-mesnard-la-barotiere",
+        "name": "Bibliothèque de Mesnard-la-Barotière",
+        "address": "11 rue de la Vieille Église 85500 Mesnard-la-Barotière",
+        "city": "Mesnard-la-Barotière",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85500",
+        "insee": "85144",
+        "countryCode": "FR",
+        "district": "La Gautrie",
+        "latitude": 46.859873,
+        "longitude": -1.097444,
+        "updatedAt": "2020-01-27T19:38:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 71393981,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "animation-a-vous-de-plancher_238604",
+      "title": {
+        "fr": "Mois de la BD - Animation \"À vous de plancher !\"",
+        "en": "Mois de la BD - Animation \"À vous de plancher!\""
+      },
+      "description": {
+        "fr": "Partez à la rencontre de vos supers-héros à travers des défis, des jeux de société, des quiz et la réalisation d'un \"Paper Toy\"",
+        "en": "Meet your superheroes through challenges, board games, quizzes and the creation of a \"Paper Toy\""
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-19T14:00:00.000Z",
+          "end": "2020-02-19T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:41.000Z",
+      "createdAt": "2020-01-27T14:09:56.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 39926742,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr",
+        "https://docs.google.com/forms/d/e/1FAIpQLSfoUr1uyetzZ2vPaDisIX_1eaURfrjgPtw4UNpuKgXIxYhAnw/viewform"
+      ],
+      "location": {
+        "uid": 39926742,
+        "slug": "bibliotheque-des-herbiers",
+        "name": "Bibliothèque des Herbiers",
+        "address": "8 rue des Bains Douches 85500 Les Herbiers",
+        "city": "Les Herbiers",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85500",
+        "insee": "85153",
+        "countryCode": "FR",
+        "district": "La Poirière",
+        "latitude": 46.870034,
+        "longitude": -1.010997,
+        "updatedAt": "2020-01-27T19:41:43.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 66092369,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "animation-a-vous-de-plancher_396594",
+      "title": {
+        "fr": "Mois de la BD - Animation \"À vous de plancher !\"",
+        "en": "Mois de la BD - Animation \"À vous de plancher!\""
+      },
+      "description": {
+        "fr": "Partez à la rencontre de vos supers-héros à travers des défis, des jeux de société, des quiz et la réalisation d'un \"Paper Toy\"",
+        "en": "Meet your superheroes through challenges, board games, quizzes and the creation of a \"Paper Toy\""
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-25T13:30:00.000Z",
+          "end": "2020-02-25T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:39.000Z",
+      "createdAt": "2020-01-27T14:11:17.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 49176293,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr",
+        "https://docs.google.com/forms/d/e/1FAIpQLSdtWn-Ext6PpEuuV1z5ZPhaiB0fSuEnft_aKjj6n-7ChlSu5w/viewform"
+      ],
+      "location": {
+        "uid": 49176293,
+        "slug": "bibliotheque-de-mouchamps",
+        "name": "Bibliothèque de Mouchamps",
+        "address": "3 rue de l’Église 85640 Mouchamps",
+        "city": "Mouchamps",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85640",
+        "insee": "85153",
+        "countryCode": "FR",
+        "district": "La Gare",
+        "latitude": 46.779608,
+        "longitude": -1.062291,
+        "updatedAt": "2020-01-27T19:42:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 43395415,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "animation-maquillage",
+      "title": {
+        "fr": "Mois de la BD - Animation maquillage",
+        "en": "Mois de la BD - Animation makeup"
+      },
+      "description": {
+        "fr": "Transformez-vous en super-héros grâce aux talents de notre maquilleuse !",
+        "en": "Turn into superheroes thanks to the talents of our makeup artist!"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "86dc8bfe6dbb41bb8d48c5586db8d500.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-12T09:30:00.000Z",
+          "end": "2020-02-12T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:26.000Z",
+      "createdAt": "2020-01-27T14:13:19.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 39926742,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr",
+        "https://www.paysdesherbiers.fr/actualites/mois-de-la-bande-dessinee-2/"
+      ],
+      "location": {
+        "uid": 39926742,
+        "slug": "bibliotheque-des-herbiers",
+        "name": "Bibliothèque des Herbiers",
+        "address": "8 rue des Bains Douches 85500 Les Herbiers",
+        "city": "Les Herbiers",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85500",
+        "insee": "85153",
+        "countryCode": "FR",
+        "district": "La Poirière",
+        "latitude": 46.870034,
+        "longitude": -1.010997,
+        "updatedAt": "2020-01-27T19:41:43.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 69202200,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "mois-de-la-bd-exposition-comics-and-super-heros",
+      "title": {
+        "fr": "Mois de la BD - Exposition \"Comics & super-héros\"",
+        "en": "Mois de la BD - Exhibition \"Comics & superheroes\""
+      },
+      "description": {
+        "fr": "Bienvenue aux super-héros !",
+        "en": "Welcome to the superheroes!"
+      },
+      "longDescription": {
+        "fr": "**Découvrez l’exposition \"Comics & super-héros\" !**\n\nDes grandes firmes américaines Marvel et DC Comics aux productions françaises, de Stan Lee à Franck Miller, l’exposition propose de plonger dans l’univers de ces personnages en costume.\n\nRetrouvez Batman, Iron Man, Wonder Woman et bien d’autres...\n\nUn parcours à découvrir dans les 8 communes.",
+        "en": "**Discover the exhibition \"Comics & superheroes\"!**\nFrom major American companies Marvel and DC Comics to French productions, from Stan Lee to Franck Miller, the exhibition proposes to dive into the universe of these characters in costume.\nFind Batman, Iron Man, Wonder Woman and more...\nA journey to discover in the 8 communes."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "58b722b77bf8489daeca6d4618e611dd.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T08:45:00.000Z",
+          "end": "2020-01-31T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T15:00:00.000Z",
+          "end": "2020-02-04T17:15:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T08:45:00.000Z",
+          "end": "2020-02-05T11:15:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T14:30:00.000Z",
+          "end": "2020-02-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T17:30:00.000Z",
+          "end": "2020-02-05T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T08:45:00.000Z",
+          "end": "2020-02-07T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T15:00:00.000Z",
+          "end": "2020-02-11T17:15:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T08:45:00.000Z",
+          "end": "2020-02-12T11:15:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T14:30:00.000Z",
+          "end": "2020-02-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T17:30:00.000Z",
+          "end": "2020-02-12T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T08:45:00.000Z",
+          "end": "2020-02-14T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T15:00:00.000Z",
+          "end": "2020-02-18T17:15:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T08:45:00.000Z",
+          "end": "2020-02-19T11:15:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T14:30:00.000Z",
+          "end": "2020-02-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T17:30:00.000Z",
+          "end": "2020-02-19T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T08:45:00.000Z",
+          "end": "2020-02-21T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T15:00:00.000Z",
+          "end": "2020-02-25T17:15:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T08:45:00.000Z",
+          "end": "2020-02-26T11:15:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T14:30:00.000Z",
+          "end": "2020-02-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T17:30:00.000Z",
+          "end": "2020-02-26T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T08:45:00.000Z",
+          "end": "2020-02-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:36.000Z",
+      "createdAt": "2020-01-27T15:13:36.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 49176293,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.paysdesherbiers.fr/actualites/mois-de-la-bande-dessinee-2/",
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr"
+      ],
+      "location": {
+        "uid": 49176293,
+        "slug": "bibliotheque-de-mouchamps",
+        "name": "Bibliothèque de Mouchamps",
+        "address": "3 rue de l’Église 85640 Mouchamps",
+        "city": "Mouchamps",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85640",
+        "insee": "85153",
+        "countryCode": "FR",
+        "district": "La Gare",
+        "latitude": 46.779608,
+        "longitude": -1.062291,
+        "updatedAt": "2020-01-27T19:42:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 57774107,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "mois-de-la-bd-exposition-comics-and-super-heros_170180",
+      "title": {
+        "fr": "Mois de la BD - Exposition \"Comics & super-héros\"",
+        "en": "Mois de la BD - Exhibition \"Comics & superheroes\""
+      },
+      "description": {
+        "fr": "Bienvenue aux super-héros !",
+        "en": "Welcome to the superheroes!"
+      },
+      "longDescription": {
+        "fr": "**Découvrez l’exposition \"Comics & super-héros\" !**\n\nDes grandes firmes américaines Marvel et DC Comics aux productions françaises, de Stan Lee à Franck Miller, l’exposition propose de plonger dans l’univers de ces personnages en costume.\n\nRetrouvez Batman, Iron Man, Wonder Woman et bien d’autres...\n\nUn parcours à découvrir dans les 8 communes.",
+        "en": "**Discover the exhibition \"Comics & superheroes\"!**\nFrom major American companies Marvel and DC Comics to French productions, from Stan Lee to Franck Miller, the exhibition proposes to dive into the universe of these characters in costume.\nFind Batman, Iron Man, Wonder Woman and more...\nA journey to discover in the 8 communes."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "58b722b77bf8489daeca6d4618e611dd.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-31T14:30:00.000Z",
+          "end": "2020-01-31T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T13:00:00.000Z",
+          "end": "2020-02-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T15:30:00.000Z",
+          "end": "2020-02-04T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T09:00:00.000Z",
+          "end": "2020-02-06T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T14:30:00.000Z",
+          "end": "2020-02-07T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T13:00:00.000Z",
+          "end": "2020-02-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T15:30:00.000Z",
+          "end": "2020-02-11T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T09:00:00.000Z",
+          "end": "2020-02-13T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T14:30:00.000Z",
+          "end": "2020-02-14T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T13:00:00.000Z",
+          "end": "2020-02-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T15:30:00.000Z",
+          "end": "2020-02-18T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T13:00:00.000Z",
+          "end": "2020-02-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T09:00:00.000Z",
+          "end": "2020-02-20T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T14:30:00.000Z",
+          "end": "2020-02-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T13:00:00.000Z",
+          "end": "2020-02-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T15:30:00.000Z",
+          "end": "2020-02-25T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T13:00:00.000Z",
+          "end": "2020-02-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T09:00:00.000Z",
+          "end": "2020-02-27T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T14:30:00.000Z",
+          "end": "2020-02-28T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T13:00:00.000Z",
+          "end": "2020-02-29T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T14:20:10.000Z",
+      "createdAt": "2020-01-27T15:35:20.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 39926742,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.paysdesherbiers.fr/actualites/mois-de-la-bande-dessinee-2/",
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr"
+      ],
+      "location": {
+        "uid": 39926742,
+        "slug": "bibliotheque-des-herbiers",
+        "name": "Bibliothèque des Herbiers",
+        "address": "8 rue des Bains Douches 85500 Les Herbiers",
+        "city": "Les Herbiers",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85500",
+        "insee": "85153",
+        "countryCode": "FR",
+        "district": "La Poirière",
+        "latitude": 46.870034,
+        "longitude": -1.010997,
+        "updatedAt": "2020-01-27T19:41:43.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 45729738,
+      "ownerUid": 99390451,
+      "creatorUid": 99390451,
+      "slug": "mois-de-la-bd-exposition-comics-and-super-heros_873513",
+      "title": {
+        "fr": "Mois de la BD - Exposition \"Comics & super-héros\"",
+        "en": "Mois de la BD - Exhibition \"Comics & superheroes\""
+      },
+      "description": {
+        "fr": "Bienvenue aux super-héros !",
+        "en": "Welcome to the superheroes!"
+      },
+      "longDescription": {
+        "fr": "**Découvrez l’exposition \"Comics & super-héros\" !**\n\nDes grandes firmes américaines Marvel et DC Comics aux productions françaises, de Stan Lee à Franck Miller, l’exposition propose de plonger dans l’univers de ces personnages en costume.\n\nRetrouvez Batman, Iron Man, Wonder Woman et bien d’autres...\n\nUn parcours à découvrir dans les 8 communes.",
+        "en": "**Discover the exhibition \"Comics & superheroes\"!**\nFrom major American companies Marvel and DC Comics to French productions, from Stan Lee to Franck Miller, the exhibition proposes to dive into the universe of these characters in costume.\nFind Batman, Iron Man, Wonder Woman and more...\nA journey to discover in the 8 communes."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "58b722b77bf8489daeca6d4618e611dd.base.image.jpg",
+        "credits": "Pays des Herbiers",
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.full.image.jpg",
+            "size": {
+              "height": 1191,
+              "width": 842
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "58b722b77bf8489daeca6d4618e611dd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T10:00:00.000Z",
+          "end": "2020-02-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T15:30:00.000Z",
+          "end": "2020-02-03T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T16:00:00.000Z",
+          "end": "2020-02-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T15:30:00.000Z",
+          "end": "2020-02-10T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T16:00:00.000Z",
+          "end": "2020-02-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T10:00:00.000Z",
+          "end": "2020-02-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T15:30:00.000Z",
+          "end": "2020-02-17T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T16:00:00.000Z",
+          "end": "2020-02-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T15:30:00.000Z",
+          "end": "2020-02-24T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T16:00:00.000Z",
+          "end": "2020-02-26T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:26.000Z",
+      "createdAt": "2020-01-27T15:37:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3422537,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.paysdesherbiers.fr/actualites/mois-de-la-bande-dessinee-2/",
+        "02 51 67 01 71",
+        "bibliotheque.lesherbiers@paysdesherbiers.fr"
+      ],
+      "location": {
+        "uid": 3422537,
+        "slug": "bibliotheque-de-mesnard-la-barotiere",
+        "name": "Bibliothèque de Mesnard-la-Barotière",
+        "address": "11 rue de la Vieille Église 85500 Mesnard-la-Barotière",
+        "city": "Mesnard-la-Barotière",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85500",
+        "insee": "85144",
+        "countryCode": "FR",
+        "district": "La Gautrie",
+        "latitude": 46.859873,
+        "longitude": -1.097444,
+        "updatedAt": "2020-01-27T19:38:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 99390451,
+        "custom": {
+          "organization": "Pays des Herbiers",
+          "contactName": "Justine Batôt",
+          "contactNumber": "02 51 67 01 71",
+          "contactPosition": "Assistante communication",
+          "email": "justine.batot@paysdesherbiers.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2141332
+}

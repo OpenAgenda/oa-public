@@ -1,0 +1,1671 @@
+{
+  "events": [
+    {
+      "uid": 81527718,
+      "ownerUid": 97667585,
+      "creatorUid": 97667585,
+      "slug": "rochfort-en-bulles",
+      "title": {
+        "fr": "Roch'Fort en Bulles",
+        "en": "Roch'Fort in Bulles"
+      },
+      "description": {
+        "fr": "Festival de BD de Rochefort",
+        "en": "Rochefort Comic Strip Festival"
+      },
+      "longDescription": {
+        "fr": "Le festival est de retour sur 2 jours, 3 lieux, pour ce 12e épisode autour de la bande dessinée.\n\nNous accueillerons plus d’une trentaine d’auteurs qui vont dessiner, animer, signer, dédicacer au Palais des congrès, au musée national de la Marine et à la Corderie royale.\n\n3 sites incontournables pour rencontrer les auteurs, voir les expositions de planches originales, les planches réalisées par les scolaires lors de notre concours de planches, mais aussi acheter des ouvrages, participer aux ateliers de dessins gratuits, participer au concours de cosplay et aux autres animations gratuites….\n\nFidèle à sa tradition, le festival gratuit s’adresse à tous les publics.",
+        "en": "The festival is back on 2 days, 3 places, for this 12th episode around the comic.\nWe will welcome more than thirty authors who will draw, animate, sign, dedicate to the Palais des congrès, the Musée national de la Marine and the Corderie royale.\n3 essential sites to meet the authors, see the exhibitions of original plates, the plates made by the students during our contest of plates, but also to buy works, participate in the workshops of free drawings, participate in the cosplay contest and other free activities….\nTrue to its tradition, the free festival is open to all audiences."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9822e9016aba4c3db432661b82445eb9.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 996,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9822e9016aba4c3db432661b82445eb9.full.image.jpg",
+            "size": {
+              "height": 3459,
+              "width": 2433
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9822e9016aba4c3db432661b82445eb9.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-05T08:00:00.000Z",
+          "end": "2020-09-05T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-05T08:30:00.000Z",
+          "end": "2020-09-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-06T08:00:00.000Z",
+          "end": "2020-09-06T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:07.000Z",
+      "createdAt": "2019-10-17T12:56:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 8590057,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": 3,
+        "max": 99
+      },
+      "registration": [
+        "https://rochefort-bd.fr"
+      ],
+      "location": {
+        "uid": 8590057,
+        "slug": "palais-des-congres656",
+        "name": "Palais des congrès",
+        "address": "72 rue Toufaire 17300 Rochefort",
+        "city": "Rochefort",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente-Maritime",
+        "postalCode": "17300",
+        "insee": "17299",
+        "countryCode": "FR",
+        "district": "Centre Ville",
+        "latitude": 45.939204,
+        "longitude": -0.958117,
+        "updatedAt": "2019-10-17T14:36:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "51029090100014",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 97667585,
+        "custom": {
+          "organization": "LES FORTS EN BULLES",
+          "contactName": "EMMANUEL ROTTARO",
+          "contactNumber": "0612405915",
+          "contactPosition": "TRESORIER",
+          "email": "emrottaro@hotmail.com"
+        }
+      }
+    },
+    {
+      "uid": 86814255,
+      "ownerUid": 87889363,
+      "creatorUid": 87889363,
+      "slug": "la-bd-sinvite-a-rueil-11eme-edition",
+      "title": {
+        "en": "La BD s'invite à Rueil",
+        "fr": "La BD s'invite à Rueil"
+      },
+      "description": {
+        "en": "For its 11th edition of the festival \"La BD s'invite à Rueil\" offers a carte blanche to Jérémie Moreau, Fauve d'or for the best album in 2018 for La saga de Grimr.",
+        "fr": "Pour sa 11ème édition du festival \"La BD s'invite à Rueil\" propose une carte blanche à Jérémie Moreau, Fauve d'or du meilleur album en 2018 pour La saga de Grimr."
+      },
+      "longDescription": {
+        "en": "On March 7, come to meet writers and cartoonists to exchange with them about their universe.\nThe carte blanche offered to Jérémie Moreau will allow you to discover his work as well as the authors he wished to highlight.\nThroughout the day the media library will celebrate the 9th Art with workshops, exhibitions, events and meetings.\nMore information about [http://bd92500.blogspot.com/? m=1](http://bd92500.blogspot.com/?m=1)\n### Autographs: 10h-13h/ 15h-18h\nNumerous authors and illustrators will be present to dedicate their albums\n• **Jérémie MOREAU** (_Penss et les plis du monde_, Delcourt 2019)\n• **Jean-Baptiste ANDREAE** (_Azimut_, West Winds 2019)\n• **Lucrèce ANDREAE** (_Flipette and Vénère_, Delcourt 2020)\n• **Claire BRAUD** (_Site forbidden to the public_, Casterman 2016)\n• **DAWID** (_Supers_, Editions de la Gouttière 2019)\n• **Vincent DJINDA** (_And yet they dance_, Rounds in O 2020)\n• **EVEMARIE** (_Hey June_, Delcourt 2020)\n• **Laurent GALANDON** (_Retour de flammes_, Glénat 2020)\n• **Patrice LE SOURD** (_César and Bibi_, Clair de lune 2020)\n• **Lionel MARTY** (_Road therapy_, Bamboo 2018)\n• **Giacomo NANNI** (_Act of God_, Here Even 2019) > Prize for audacity at the Angoulême Festival 2020\n• **Gaétan NOCQ** (_The W report: infiltrated in Auschwitz_, Daniel Maghen 2019)\n• **Baptiste PAGANI** (_The Golden Path_, Ankama 2019)\n• **Vincent PERRIOT** (_Negalyod_, Casterman 2018)\n• **Gabrielle PIQUET** (_La mécanique du sage_, Atrabile 2020)\n• **Paul REY** (_Winter Garden,_ Sarbacane 2019)\n• **Clément RIZZO** (_African Women’s Association_, Marabulles 2020)\n• **RUDOLPH** (_Amazon_, Dargaud 2020)\n• ...\nFree entry\n### Workshops and activities\n• **Youth illustration workshop with Dawid.**\nFrom 8 years - From 11h to 12h\nLimited number of places: registration at the youth centre or at 01 47 14 54 54\n• **Youth illustration workshop with Baptiste Pagani.**\nFrom 10 years - From 16h to 17h\nLimited number of places: registration at the youth centre or at 01 47 14 54 54\n• **Creating digital DB on tablet and computer**\nFrom 7 years old – From 10 am to 12 pm and from 2 pm to 6 pm\nRegistrations in order of arrival of participants - Limited number of places\n• **Track game «Les Zindics anonymes»** from the eponymous comic (Ed. Dupuis).\nFrom 6 years - From 15h to 17h\n### Spectacle\nIn connection with the exhibition «Sempé» held at the Grognard workshop until 31 March, the media library, in partnership with the association Rueil Culture Loisirs, proposes the **show «Marcellin Caillou»** **by the Ateliers du Capricorne**.\nA large blank page becomes a castle from which Sempe’s drawings will emerge. A theatre of original and inventive paper, illuminated by video images. We find all the tenderness, humour and poetry of Sempé.\nFrom 6 years. 2 performances: at 11h and 15h\nRegistration at the reception of the media library or at 01.47.14.54.54\n### Exhibitions\n• Original plates by Jérémie Moreau\n• Giacomo Nanni’s “Act of God”\n• \"Supers\" by Dawid and Frédéric Maupomé\n• “Hubert Reeves explains us” at Lombard editions\n• Presentation of guest authors\nFree entry",
+        "fr": "Le 7 mars prochain venez à la rencontre de scénaristes et de dessinateurs de bandes dessinées pour échanger avec eux autour de leur univers.\n\nLa carte blanche proposée à Jérémie Moreau vous permettra de découvrir son travail ainsi que des auteurs qu’il a souhaité mettre en lumière.\n\nTout au long de la journée la médiathèque célébrera le 9e Art avec des ateliers, des expositions, des animations et des rencontres.\n\nPlus d’informations sur http://bd92500.blogspot.com/?m=1\n\n### Dédicaces : 10h-13h / 15h-18h\n\nDe nombreux auteurs et illustrateurs seront présents pour dédicacer leurs albums\n\n• **Jérémie MOREAU** (_Penss et les plis du monde_, Delcourt 2019)\n\n• **Jean-Baptiste ANDREAE** (_Azimut_, Vents d’ouest 2019)\n\n• **Lucrèce ANDREAE** (_Flipette et Vénère_, Delcourt 2020)\n\n• **Claire BRAUD** (_Chantier interdit au public_, Casterman 2016)\n\n• **DAWID** (_Supers_, Editions de la Gouttière 2019)\n\n• **Vincent DJINDA** (_Et pourtant elles dansent_, Des ronds dans l’O 2020)\n\n• **EVEMARIE** (_Hey June_, Delcourt 2020)\n\n• **Laurent GALANDON** (_Retour de flammes_, Glénat 2020)\n\n• **Patrice LE SOURD** (_César et Bibi_, Clair de lune 2020)\n\n• **Lionel MARTY** (_Road therapy_, Bamboo 2018)\n\n• **Giacomo NANNI** (_Acte de Dieu_, Ici Même 2019) > Prix de l'audace au Festival d’Angoulême 2020\n\n• **Gaétan NOCQ** (_Le rapport W : infiltré à Auschwitz_, Daniel Maghen 2019)\n\n• **Baptiste PAGANI** (_The Golden Path_, Ankama 2019)\n\n• **Vincent PERRIOT** (_Negalyod_, Casterman 2018)\n\n• **Gabrielle PIQUET** (_La mécanique du sage_, Atrabile 2020)\n\n• **Paul REY** (_Jardin d’hiver_, Sarbacane 2019)\n\n• **Clément RIZZO** (_L’association des femmes africaines_, Marabulles 2020)\n\n• **RODOLPHE** (_Amazonie_, Dargaud 2020)\n\n• ...\n\n► Entrée libre\n\n### Ateliers et animations\n\n• **Atelier d’illustrations jeunesse avec Dawid.**\n\nÀ partir de 8 ans - De 11h à 12h\n\nNombre de places limité : inscription au pôle jeunesse ou au 01 47 14 54 54\n\n• **Atelier d’illustrations jeunesse avec Baptiste Pagani.**\n\nÀ partir de 10 ans - De 16h à 17h\n\nNombre de places limité : inscription au pôle jeunesse ou au 01 47 14 54 54\n\n• **Création de BD numérique sur tablette et ordinateur**\n\nÀ partir de 7 ans – De 10h à 12h et de 14h à 18h\n\nInscriptions dans l’ordre d’arrivée des participants - Nombre de places limité\n\n• **Jeu de piste « Les Zindics anonymes »** à partir de la BD éponyme (Ed. Dupuis).\n\nÀ partir de 6 ans - De 15h à 17h\n\n### Spectacle\n\nEn lien avec l’exposition « Sempé » se tenant à l’atelier Grognard jusqu’au 31 mars, la médiathèque, en partenariat avec l’association Rueil Culture Loisirs, vous propose le **spectacle « Marcellin Caillou »** **par les Ateliers du Capricorne**.\n\nUne grande page blanche se convertit en castelet d’où vont surgir les dessins de Sempé. Un théâtre de papier original et inventif, éclairé par des images vidéo. On y retrouve toute la tendresse, l’humour et la poésie de Sempé.\n\nÀ partir de 6 ans. 2 représentations : à 11h et 15h\n\n► Inscription à l’accueil de la médiathèque ou au 01.47.14.54.54\n\n### Expositions\n\n• Planches originales de Jérémie Moreau\n\n• « Acte de Dieu » de Giacomo Nanni\n\n• « Supers » de Dawid et Frédéric Maupomé\n\n• « Hubert Reeves nous explique » aux éditions du Lombard\n\n• Présentation des auteurs invités\n\n► Entrée libre"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "8715b2f900ed44aaae34f81a0fc0a573.base.image.jpg",
+        "credits": "Jérémie Moreau",
+        "size": {
+          "height": 1049,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8715b2f900ed44aaae34f81a0fc0a573.full.image.jpg",
+            "size": {
+              "height": 2382,
+              "width": 1590
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8715b2f900ed44aaae34f81a0fc0a573.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-08T23:28:25.000Z",
+      "createdAt": "2019-10-17T14:35:35.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 66832619,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 66832619,
+        "slug": "mediatheque-jacques-baumel791",
+        "name": "Médiathèque Jacques Baumel",
+        "address": "21 boulevard du maréchal Foch 92500 Rueil-Malmaison",
+        "city": "Rueil-Malmaison",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92500",
+        "insee": "92063",
+        "countryCode": "FR",
+        "district": "Village Centre-ville",
+        "latitude": 48.877797,
+        "longitude": 2.179842,
+        "updatedAt": "2019-10-17T14:37:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Les Extraits",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 87889363,
+        "custom": {
+          "organization": "Médiathèques de Rueil-Malmaison",
+          "contactName": "Violette Dupont",
+          "contactNumber": "0147145454",
+          "contactPosition": "Chargée des actions culturelles",
+          "email": "violette.dupont@mairie-rueilmalmaison.fr"
+        }
+      }
+    },
+    {
+      "uid": 13766456,
+      "ownerUid": 39042864,
+      "creatorUid": 39042864,
+      "slug": "4eme-fete-de-la-bd-dales",
+      "title": {
+        "fr": "Festival de la BD d'Alès",
+        "en": "Alès Comic Strip Festival"
+      },
+      "description": {
+        "fr": "4e festival de la BD d'Alès avec animations, dédicaces, exposition, table ronde, tombolas...",
+        "en": "4th Alès Comic Strip Festival with activities, dedication, exhibition, round table, raffles..."
+      },
+      "longDescription": {
+        "fr": "Au programme de ce week-end !!!\n\nNos espaces partenaires :\n\nLes libraires de la \"Librairie Alès BD\"\n\nBouquiniste - \"La bouquinerie d'Alès\"\n\nEspace médiathèque - \"Médiathèque Alphonse Daudet\"\n\nL'atelier BD par Jean-Charles Bréard\n\nEspace jeux de société par \"La Casa Jeux\"\n\nAnimations :\n\nStand maquillage avec Caroline (offert par l'association)\n\nAtelier BD par Magali Paillat, coloriste (offert par l'association, places limitées)\n\nFresque à colorier, en libre service pour le jeune public\n\nSur grand écran : dédicaces projetées et « Portraits d’auteurs » par Jépida\n\nConférence ou table-ronde avec Domas \"Les BD, premières lectures\"\n\nExpositions\n\nUn espace caricaturiste\n\nL'association Bulles Cévenoles vous propose sur son stand des tombolas avec des goodies à gagner.\n\nEt aussi :\n\nEx-liobris exclusif « Les sisters à Alès » par William\n\nEspace buvette avec la bière exclusive du festival par \"La Casa'Bières\" !\n\nRésultats du 3e concours scolaire et remise des lots\n\nRemise du 2e prix des lecteurs, trophée \"Pascal Guefucci\"",
+        "en": "On the program this weekend!!!\nOur partner areas:\nBooksellers of the \"Librairie Alès BD\"\nBouquiniste - \"La bouquinerie d'Alès\"\nMedia library - \"Media library Alphonse Daudet\"\nL'atelier BD by Jean-Charles Bréard\nSpace board games by \"La Casa Jeux\"\nAnimations:\nMakeup stand with Caroline (offered by the association)\nComic book workshop by Magali Paillat, colorist (offered by the association, limited places)\nColouring fresco, self-service for young audiences\nOn the big screen: screened autographs and «Portraits of authors» by Jépida\nConference or round table with Domas \"Comics, first readings\"\nExhibitions\nA cartoonist space\nThe association Bulles Cévenoles offers you on its stand raffles with goodies to win.\nAnd also:\nEx-liobris exclusive «Les sisters à Alès» by William\nSnack bar area with exclusive festival beer by \"La Casa'Bières\"!\nResults of the 3rd school competition and presentation of prizes\nPresentation of the 2nd prize of the readers, trophy \"Pascal Guefucci\""
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "89b0ddcfd98a4186a5ceed25f84970ad.base.image.jpg",
+        "credits": "Juan",
+        "size": {
+          "height": 913,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "89b0ddcfd98a4186a5ceed25f84970ad.full.image.jpg",
+            "size": {
+              "height": 3694,
+              "width": 2835
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "89b0ddcfd98a4186a5ceed25f84970ad.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-19T08:00:00.000Z",
+          "end": "2020-04-19T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:02.000Z",
+      "createdAt": "2019-10-17T18:39:37.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 77486861,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "bullescevenoles@gmail.com",
+        "http://www.festivalbdales.sitew.fr"
+      ],
+      "location": {
+        "uid": 77486861,
+        "slug": "espace-ales-cazot",
+        "name": "Espace Alès Cazot",
+        "address": "Rue Jules Cazot 30100 Alès",
+        "city": "Alès",
+        "region": "Occitanie",
+        "department": "Gard",
+        "postalCode": "30100",
+        "insee": "30007",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.12449,
+        "longitude": 4.075546,
+        "updatedAt": "2019-10-18T07:43:03.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 39042864,
+        "custom": {
+          "organization": "Association Bulles Cévenoles",
+          "contactName": "Raphael BERNAT",
+          "contactNumber": "0770304565",
+          "contactPosition": "Président",
+          "email": "bullescevenoles@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 44313520,
+      "ownerUid": 47132774,
+      "creatorUid": 47132774,
+      "slug": "eauze-bd",
+      "title": {
+        "fr": "Éauze BD",
+        "en": "Éauze BD"
+      },
+      "description": {
+        "fr": "32 auteurs internationaux dans le Gers",
+        "en": "32 international authors in the Gers"
+      },
+      "longDescription": {
+        "fr": "L'entrée gratuite permet à plus de 3000 visiteurs et vacanciers de venir rencontrer les auteurs le dimanche. Des chaises sont founies aux lecteurs qui attendant dans les queues. Des bouteilles d'eau sont distibuées gratuitement s'il fait un peu trop chaud. Et les rencontres avec les auteurs se font dans une ambiance familiale et décontractée. C'est pour ces raisons que des grands noms de la BD nous font confiance et sont nos meilleurs ambassadeurs.",
+        "en": "Free admission allows more than 3000 visitors and holidaymakers to come and meet the authors on Sundays. Chairs are nosed at the readers who wait in the tails. Bottles of water are distributed free of charge if it is a little too hot. And the meetings with the authors take place in a family and relaxed atmosphere. It is for these reasons that great comic book names trust us and are our best ambassadors."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "36566b7b08bb44bdb1b690c5c89e133d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 698,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "36566b7b08bb44bdb1b690c5c89e133d.full.image.jpg",
+            "size": {
+              "height": 1732,
+              "width": 1737
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "36566b7b08bb44bdb1b690c5c89e133d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-08-02T08:00:00.000Z",
+          "end": "2020-08-02T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:04.000Z",
+      "createdAt": "2019-10-17T17:29:54.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 60854360,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://www.eauzebd.com"
+      ],
+      "location": {
+        "uid": 60854360,
+        "slug": "salle-des-fetes651",
+        "name": "Salle des fêtes",
+        "address": "Esplanade Mitterrand 32800 Eauze",
+        "city": "Eauze",
+        "region": "Occitanie",
+        "department": "Gers",
+        "postalCode": "32800",
+        "insee": "32119",
+        "countryCode": "FR",
+        "district": "Gachiot",
+        "latitude": 43.861265,
+        "longitude": 0.101662,
+        "updatedAt": "2019-10-18T07:42:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 47132774,
+        "custom": {
+          "organization": "ÉAUZE BD",
+          "contactName": "SERGE ERNST",
+          "contactNumber": "0688324891",
+          "contactPosition": "Auteur",
+          "email": "sergeernst@me.com"
+        }
+      }
+    },
+    {
+      "uid": 52938708,
+      "ownerUid": 28120691,
+      "creatorUid": 28120691,
+      "slug": "croqueurs-de-bulles",
+      "title": {
+        "fr": "Croqueurs de bulles",
+        "en": "Bubble Eaters"
+      },
+      "description": {
+        "fr": "Cercle de lecteurs autour du 9e art.",
+        "en": "Circle of readers around the 9th art."
+      },
+      "longDescription": {
+        "fr": "Les Croqueurs de bulles se retrouvent une fois par trimestre, le vendredi soir à 19h dans une ambiance conviviale.\n\nIls échangent alors leurs impressions sur une liste de 6 titres de BD, mangas ou comics.\n\nIls décortiquent alors le scénario, les illustrations, la mise en page… qu’ils aient apprécié la lecture ou non !\n\nTous les amateurs du genre sont les bienvenus à ces réunions, qui sont avant-tout l’occasion de découvrir des trésors du 9e art et de partager des coups de coeur.\n\nAvec les Croqueurs de bulles, on croque des bandes dessinées, mais aussi des petites douceurs à boire et à manger apportées par chacun…",
+        "en": "The Bubble Eaters meet once a quarter, on Friday evening at 7pm in a friendly atmosphere.\nThey then exchange their impressions on a list of 6 comic books, mangas or comics.\nThey then unpack the script, the illustrations, the layout… whether they enjoyed reading or not!\nAll lovers of the genre are welcome to attend these meetings, which are first and foremost the opportunity to discover treasures of the 9th art and to share a heartbeat.\nWith the Bubble Eaters, you will not only have comic books, but also small sweets to drink and eat brought by everyone…"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "9e5233f376f6453a864eec44f87c8c1c.base.image.jpg",
+        "credits": "Ville d'Hennebont",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9e5233f376f6453a864eec44f87c8c1c.full.image.jpg",
+            "size": {
+              "height": 2480,
+              "width": 1754
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9e5233f376f6453a864eec44f87c8c1c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-07T18:00:00.000Z",
+          "end": "2020-02-07T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:12.000Z",
+      "createdAt": "2019-10-18T15:07:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 14607074,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [
+        "http://www.bm-hennebont.fr/",
+        "https://www.facebook.com/MediathequedHennebont/",
+        "0297365302"
+      ],
+      "location": {
+        "uid": 14607074,
+        "slug": "mediatheque-eugene-guillevic",
+        "name": "Médiathèque Eugène Guillevic",
+        "address": "15 rue Gabriel Péri 56700 Hennebont",
+        "city": "Hennebont",
+        "region": "Bretagne",
+        "department": "Morbihan",
+        "postalCode": "56700",
+        "insee": "56083",
+        "countryCode": "FR",
+        "district": "Milin Glas",
+        "latitude": 47.80824,
+        "longitude": -3.275125,
+        "updatedAt": "2019-10-21T08:07:54.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": "Cercle de lecteurs BD",
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 28120691,
+        "custom": {
+          "organization": "Médiathèque Eugène Guillevic",
+          "contactName": "Emeline Vigreux",
+          "contactNumber": "0297365302",
+          "contactPosition": "Bibliothécaire",
+          "email": "evigreux@mairie-hennebont.fr"
+        }
+      }
+    },
+    {
+      "uid": 40219430,
+      "ownerUid": 2983947,
+      "creatorUid": 2983947,
+      "slug": "sevrier-bd-2020-8e-edition",
+      "title": {
+        "fr": "Sevrier BD 2020 8e édition",
+        "en": "Sevrier BD 2020 8th edition"
+      },
+      "description": {
+        "fr": "Festival de BD tout public",
+        "en": "All Public Comic Strip Festival"
+      },
+      "longDescription": {
+        "fr": "Sur un week-end, une trentaine d’auteurs dédicaceront et différentes animations ponctueront le salon : battle de dessin, sculpture de personnage de BD en direct, atelier sérigraphie, expositions autour de la BD, mur des dessins d’auteur, animations pour les enfants (raconte-tapis pour les bébés, kamishibai, maquillage, jeux de socioété, lectures...).",
+        "en": "Over a weekend, some thirty authors will dedicate and various animations will punctuate the show: drawing battle, live comic book character sculpture, screen printing workshop, exhibitions around comic strip, wall of author drawings, animations for children (carpet-telling for babies, kamishibai, make-up, socio-summer games, reading...)."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "3c528720120940298b3b2a8455afafcb.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 869,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3c528720120940298b3b2a8455afafcb.full.image.jpg",
+            "size": {
+              "height": 4289,
+              "width": 3455
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3c528720120940298b3b2a8455afafcb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-03T08:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T08:00:00.000Z",
+          "end": "2020-04-05T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:08.000Z",
+      "createdAt": "2019-10-18T15:10:32.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 85067452,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 1,
+        "max": 99
+      },
+      "registration": [
+        "gaelle@bdfugue.com"
+      ],
+      "location": {
+        "uid": 85067452,
+        "slug": "complexe-danimation",
+        "name": "Complexe d'animation",
+        "address": "2000 route d'Albertville 74320 Sévrier",
+        "city": "Sevrier",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Haute-Savoie",
+        "postalCode": "74320",
+        "insee": "74267",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.850263,
+        "longitude": 6.145403,
+        "updatedAt": "2019-10-21T08:06:51.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "1€ pour les 12-18 ans, 3€ pour les adultes",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Sevrier BD",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie BD Fugue café Annecy",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2983947,
+        "custom": {
+          "organization": "SEVRIER BD",
+          "contactName": "Gaëlle Poirier",
+          "contactNumber": "0689445122",
+          "contactPosition": "vice présidente",
+          "email": "gaelle@bdfugue.com"
+        }
+      }
+    },
+    {
+      "uid": 62740141,
+      "ownerUid": 26753283,
+      "creatorUid": 26753283,
+      "slug": "festival-de-bandes-dessinees-villersbd",
+      "title": {
+        "fr": "Festival de bande dessinée VillersBD",
+        "en": "Villersbd Comic Strip Festival"
+      },
+      "description": {
+        "fr": "Festival de BD",
+        "en": "Comic Strip Festival"
+      },
+      "longDescription": {
+        "fr": "Une quarantaine d'auteurs en dédicace\n\nExpositions de travaux de collègiens\n\nExposition des planches du concours de planche\n\nAtelier papercraft\n\nAtelier contes et yoga\n\nAtelier astronomie",
+        "en": "Forty authors in dedication\nExhibitions of works by students\nExhibition of the boards of the board contest\nPapercraft workshop\nStorytelling and Yoga Workshop\nAstronomy workshop"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "70d22a59a70e4fc6b4c3ea70784a1f17.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1094,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "70d22a59a70e4fc6b4c3ea70784a1f17.full.image.jpg",
+            "size": {
+              "height": 934,
+              "width": 598
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "70d22a59a70e4fc6b4c3ea70784a1f17.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T08:00:00.000Z",
+          "end": "2020-05-17T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:10.000Z",
+      "createdAt": "2019-10-18T19:59:58.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 62249681,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 3,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 62249681,
+        "slug": "chateau-de-mdame-de-graffigny-et-centre-culturel-des-ecraignes-villers-les-nancy",
+        "name": "Château de Mdame de Graffigny et centre culturel des Écraignes",
+        "address": "1 rue Albert 1er 54600 Villers-lès-Nancy",
+        "city": "Villers-lès-Nancy",
+        "region": "Grand Est",
+        "department": "Meurthe-et-Moselle",
+        "postalCode": "54600",
+        "insee": "54578",
+        "countryCode": "FR",
+        "district": "Clairlieu",
+        "latitude": 48.669372,
+        "longitude": 6.144997,
+        "updatedAt": "2019-10-21T08:10:09.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "gratuit jusqu'à 14 ans , 1 euro lycéens, apprentis, étudiants; 2 euros adultes",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 26753283,
+        "custom": {
+          "organization": "VILLERSBD",
+          "contactName": "Suzanne Masini",
+          "contactNumber": "0671473250",
+          "contactPosition": "Présidente de VillersBD",
+          "email": "suzanne_masini@yahoo.fr"
+        }
+      }
+    },
+    {
+      "uid": 42580004,
+      "ownerUid": 66248687,
+      "creatorUid": 66248687,
+      "slug": "festival-enimie-livres-jeux-and-bd-2020",
+      "title": {
+        "fr": "Festival ENIMIE BD",
+        "en": "Festival ENIMIE BD"
+      },
+      "description": {
+        "fr": "13e édition en 2020 du festival ENIMIE",
+        "en": "13th edition of the ENIMIE festival in 2020"
+      },
+      "longDescription": {
+        "fr": "13e édition du festival annuel de l'association ENIMIE BD avec présence d'auteurs locaux, nationaux et internationaux en dédicaces, ateliers, animations, conférences, expositions. Temps de valorisation des actions menées tout au long de l'année au sein de la médiathèque et en lien avec tous les publics scolaires, maison d'arrêt, établissements médico-sociaux, CIDFF 48.\n\nFestival soutenu par les collectivités territoriales (Région Occitanie, Conseil départemental de Lozère, communauté de communes et commune Gorges du Tarn Causses), l'office du tourisme du territoire et le mécénat de la Fondation Orange et de la MGEN.",
+        "en": "13th edition of the annual festival of the association ENIMIE BD with the presence of local, national and international authors in dedication, workshops, animations, conferences, exhibitions. Time for valuing the actions carried out throughout the year within the media library and in connection with all school audiences, prison, medical and social institutions, CIDFF 48.\nFestival supported by local authorities (Occitanie Region, Lozère County Council, community of municipalities and Tarn Causses Gorges municipality), the local tourism office and the sponsorship of the Orange Foundation and the MGEN."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Accès libre",
+        "en": "Free access"
+      },
+      "image": {
+        "filename": "91e96e2b622d4506aa3d217de31d071d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 640,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "91e96e2b622d4506aa3d217de31d071d.full.image.jpg",
+            "size": {
+              "height": 181,
+              "width": 198
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "91e96e2b622d4506aa3d217de31d071d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-27T07:00:00.000Z",
+          "end": "2020-06-27T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T07:30:00.000Z",
+          "end": "2020-06-27T08:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T08:00:00.000Z",
+          "end": "2020-06-27T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T08:30:00.000Z",
+          "end": "2020-06-27T09:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T09:00:00.000Z",
+          "end": "2020-06-27T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T11:00:00.000Z",
+          "end": "2020-06-27T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T11:30:00.000Z",
+          "end": "2020-06-27T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T12:00:00.000Z",
+          "end": "2020-06-27T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T12:30:00.000Z",
+          "end": "2020-06-27T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T13:00:00.000Z",
+          "end": "2020-06-27T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T13:30:00.000Z",
+          "end": "2020-06-27T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T14:00:00.000Z",
+          "end": "2020-06-27T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T14:30:00.000Z",
+          "end": "2020-06-27T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T15:00:00.000Z",
+          "end": "2020-06-27T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T15:30:00.000Z",
+          "end": "2020-06-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T16:00:00.000Z",
+          "end": "2020-06-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T16:30:00.000Z",
+          "end": "2020-06-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T19:00:00.000Z",
+          "end": "2020-06-27T19:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T19:30:00.000Z",
+          "end": "2020-06-27T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T07:00:00.000Z",
+          "end": "2020-06-28T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T07:30:00.000Z",
+          "end": "2020-06-28T08:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T08:00:00.000Z",
+          "end": "2020-06-28T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T08:30:00.000Z",
+          "end": "2020-06-28T09:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T09:00:00.000Z",
+          "end": "2020-06-28T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T09:30:00.000Z",
+          "end": "2020-06-28T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T10:00:00.000Z",
+          "end": "2020-06-28T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T10:30:00.000Z",
+          "end": "2020-06-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T12:00:00.000Z",
+          "end": "2020-06-28T12:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T12:30:00.000Z",
+          "end": "2020-06-28T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T13:00:00.000Z",
+          "end": "2020-06-28T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T13:30:00.000Z",
+          "end": "2020-06-28T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T14:00:00.000Z",
+          "end": "2020-06-28T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T14:30:00.000Z",
+          "end": "2020-06-28T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T15:00:00.000Z",
+          "end": "2020-06-28T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T15:30:00.000Z",
+          "end": "2020-06-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T16:00:00.000Z",
+          "end": "2020-06-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T16:30:00.000Z",
+          "end": "2020-06-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T17:00:00.000Z",
+          "end": "2020-06-28T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:05.000Z",
+      "createdAt": "2019-10-19T17:41:53.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 88938747,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.enimie-bd.fr"
+      ],
+      "location": {
+        "uid": 88938747,
+        "slug": "espace-burle",
+        "name": "Espace Burle",
+        "address": "Sainte-Enimie 48210 Gorges du Tarn Causses",
+        "city": "Gorges du Tarn Causses",
+        "region": "Occitanie",
+        "department": "Lozère",
+        "postalCode": "48210",
+        "insee": "48146",
+        "countryCode": "FR",
+        "district": "Sainte-Enimie",
+        "latitude": 44.37643,
+        "longitude": 3.430579,
+        "updatedAt": "2019-10-21T08:13:20.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque Gorges du Tarn, Fondation ORANGE, MGEN, Conseil Régional Occitanie, Conseil départemental Lozère, Communauté de commune Causses Gorges Cévennes, Commune Gorges du Tarn Causses",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 66248687,
+        "custom": {
+          "organization": "Association ENIMIE BD",
+          "contactName": "Philippe COGOLUEGNES",
+          "contactNumber": "0686973505",
+          "contactPosition": "Président",
+          "email": "enimiebd@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 16763080,
+      "ownerUid": 50754120,
+      "creatorUid": 50754120,
+      "slug": "lautrec-objectif-bulles",
+      "title": {
+        "fr": "Lautrec objectif bulles",
+        "en": "Lautrec lens bubbles"
+      },
+      "description": {
+        "fr": "Festival de bande dessinée",
+        "en": "Comic Strip Festival"
+      },
+      "longDescription": {
+        "fr": "Seconde édition du festival de bande dessinée de Lautrec dans le Tarn. Dédicaces, performances, films d'animation pour le jeune public...",
+        "en": "Second edition of the comic strip festival of Lautrec in the Tarn. Dedications, performances, animated films for young audiences..."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4fcf829b067d4580af65f4d0ce5054dd.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1004,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4fcf829b067d4580af65f4d0ce5054dd.full.image.jpg",
+            "size": {
+              "height": 761,
+              "width": 531
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4fcf829b067d4580af65f4d0ce5054dd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-05T06:00:00.000Z",
+          "end": "2020-09-05T06:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-05T16:30:00.000Z",
+          "end": "2020-09-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-06T06:00:00.000Z",
+          "end": "2020-09-06T06:30:00.000Z"
+        },
+        {
+          "begin": "2020-09-06T16:00:00.000Z",
+          "end": "2020-09-06T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:03.000Z",
+      "createdAt": "2019-10-21T06:03:16.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 35065248,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 1,
+        "max": 99
+      },
+      "registration": [
+        "http://www.lautrecobjectifbulles.fr",
+        "lautrecobjectifbulles@gmail.com"
+      ],
+      "location": {
+        "uid": 35065248,
+        "slug": "lautrec437",
+        "name": "Association Lautrec objectif bulles",
+        "address": "Rue du Mercadial 81440 Lautrec",
+        "city": "Lautrec",
+        "region": "Occitanie",
+        "department": "Tarn",
+        "postalCode": "81440",
+        "insee": "81139",
+        "countryCode": "FR",
+        "district": "L'Oustalarié",
+        "latitude": 43.706919,
+        "longitude": 2.13852,
+        "updatedAt": "2019-10-21T08:22:11.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "médiathèque",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 50754120,
+        "custom": {
+          "organization": "lautrec objectif bulles",
+          "contactName": "fabrice fombeur",
+          "contactNumber": "0669559688",
+          "contactPosition": "président",
+          "email": "lautrecobjectifbulles@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 50275898,
+      "ownerUid": 7065349,
+      "creatorUid": 7065349,
+      "slug": "roubaix-comics-festival_795549",
+      "title": {
+        "fr": "Roubaix Comics festival",
+        "en": "Roubaix Comics festival"
+      },
+      "description": {
+        "fr": "Le Roubaix Comics festival est l’événement incontournable pour les amateurs et les fans de bande dessinée anglo-saxonne",
+        "en": "The Roubaix Comics festival is the unmissable event for amateurs and fans of Anglo-Saxon comics"
+      },
+      "longDescription": {
+        "fr": "Cette manifestation annuelle rassemble à la fois les passionnés de comics en version originale, les lecteurs de bande dessinées américaines traduites en français, mais aussi les nombreux fans (petits et grands) de super-héros portés depuis quelques années sur grand écran ou dans des séries TV.\n\nLe Roubaix Festival Comics est le seul festival 100% comics en France. Face à des salons plus ouverts aux mélanges des genres, ce festival s'est imposé au fil des années comme un rendez-vous incontournable pour les afficionados du comics parfois venus de très loin. La situation géographique des Hauts-de-France permet à des fans de venir\n\nfacilement des pays frontaliers comme la Belgique, l’Angleterre, l’Allemagne. Le festival attire de nombreux visiteurs de la métropole lilloise, mais également de toute la Région (depuis le littoral jusqu'en Picardie) et de la France entière.\n\nLe Roubaix Festival Comics est l’occasion exceptionnelle de rencontrer, le temps d’un week-end, un plateau inédit d’auteurs anglo-saxons et européens, de scénaristes et de dessinateurs de comics, invités tout spécialement pour cet événement. Ce festival est donc l’opportunité inédite d’échanger avec des artistes, de faire signer ou dédicacer leurs\n\nœuvres, d’acheter des ouvrages importés et parfois rares, de s’offrir des dessins personnalisés sur commission, des lithographies rares et des impressions exclusivement réalisées pour cette manifestation, voire même des planches originales.\n\nDans une ambiance conviviale et décontractée, cette manifestation propose également de nombreuses animations autour des super-héros (expositions, conférences, cosplay,\n\ntombola), ouvre ses portes à des artistes locaux, accueille des librairies spécialisées en bandes dessinées (installées dans la métropole et partenaires de longue date), s’associe à des initiatives de cœur (Wonder Augustine), se mobilise pour des causes importantes (cette année, la journée internationale des droits des femmes).\n\nCollectionneurs ou simples amateurs, tous se donnent rendez-vous pour cet événement annuel, conçu, organisé et piloté par l’association Art Thémis. En 2019, cet événement se déroule pour la première fois à Roubaix. Pour cette seconde édition roubaisienne, le RCF retrouve la très belle salle Watremez pour le week-end du 7 et 8 mars 2020.\n\nLe Roubaix Comics festival, c’est donc une manifestation pop et culturelle, d’envergure internationale (par la présence des auteurs), accessible à la fois aux lecteurs de bande dessinées, aux amateurs de l’univers des comics, aux dénicheurs d’univers graphiques différents comme aux fans les plus exigeants.",
+        "en": "This annual event brings together comic book enthusiasts in original versions, American comic book readers translated into French, as well as many fans (big and small) of superheroes worn in recent years on big screen or in TV series.\nThe Roubaix Festival Comics is the only 100% comics festival in France. In front of fairs more open to mixtures of genres, this festival has established itself over the years as an unmissable rendezvous for comic afficionados sometimes from far away. The geographical location of Hauts-de-France allows fans to come\nThe European Parliament has been very active in this area. The festival attracts many visitors from the metropolis of Lille, but also from the whole region (from the coast to Picardy) and from all over France.\nThe Roubaix Festival Comics is an exceptional opportunity to meet, over the course of a weekend, a new set of Anglo-Saxon and European authors, screenwriters and comic cartoonists, invited especially for this event. This festival is therefore an unprecedented opportunity to exchange with artists, to have their signatures or autographs signed\nworks, to buy imported and sometimes rare works, to buy custom designs on commission, rare lithographs and prints made exclusively for this event, or even original plates.\nIn a friendly and relaxed atmosphere, this event also offers numerous activities around superheroes (exhibitions, conferences, cosplay,\nraffle), opens its doors to local artists, hosts bookstores specialized in comic books (based in the metropolis and long-standing partners), joins in heart initiatives (Wonder Augustine), mobilizes for important causes (this year, International Women’s Day).\nCollectors or simple amateurs, all come together for this annual event, designed, organized and piloted by the association Art Thémis. In 2019, this event takes place for the first time in Roubaix. For this second edition roubaisienne, the RCF finds the beautiful Watremez room for the weekend of 7 and 8 March 2020.\nThe Roubaix Comics festival is therefore a pop and cultural event, of international scale (by the presence of authors), accessible to both comic book readers, fans of the comic universe, the fans of different graphic universes as well as the most demanding fans."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "8047b2d3d1dd49f492e946aca958f565.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 312,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8047b2d3d1dd49f492e946aca958f565.full.image.jpg",
+            "size": {
+              "height": 1366,
+              "width": 3069
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8047b2d3d1dd49f492e946aca958f565.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T09:00:00.000Z",
+          "end": "2020-03-08T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:57:01.000Z",
+      "createdAt": "2019-10-21T13:31:43.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 27954866,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [
+        "http://www.roubaixcomicsfestival.com/"
+      ],
+      "location": {
+        "uid": 27954866,
+        "slug": "salle-watremez-roubaix",
+        "name": "Salle Watremez",
+        "address": "13 rue de l'Hospice 59100 Roubaix",
+        "city": "Roubaix",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59100",
+        "insee": "59512",
+        "countryCode": "FR",
+        "district": "Centre",
+        "latitude": 50.692241,
+        "longitude": 3.170064,
+        "updatedAt": "2019-10-21T14:16:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "8 € / 5 €",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 7065349,
+        "custom": {
+          "organization": "association Art Thémis",
+          "contactName": "Bruno Grave",
+          "contactNumber": "0600000000",
+          "contactPosition": "président de l'association",
+          "email": "contact@roubaixcomicsfestival.com"
+        }
+      }
+    }
+  ],
+  "lastId": 2044988
+}

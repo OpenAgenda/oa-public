@@ -1,0 +1,2152 @@
+{
+  "events": [
+    {
+      "uid": 21639118,
+      "ownerUid": 73900793,
+      "creatorUid": 73900793,
+      "slug": "retrospective-alix-lart-de-jacques-martin",
+      "title": {
+        "fr": "Rétrospective Alix, l'art de Jacques Martin",
+        "en": "Alix retrospective, the art of Jacques Martin"
+      },
+      "description": {
+        "fr": "Alix, le célèbre personnage de bande dessinée créé par Jacques Martin, prend ses quartiers d'hiver à Versailles.",
+        "en": "Alix, the famous cartoon character created by Jacques Martin, takes his winter quarters in Versailles."
+      },
+      "longDescription": {
+        "fr": "Alix, le célèbre personnage de bande dessinée créé par Jacques Martin en 1948, prend ses quartiers d'hiver à Versaille dans le cadre d'une exposition exceptionnelle comprenant plus de 350 dessins originaux.\n\nUne exposition conçue en partenariat avec le Festival de bande dessinée d'Angoulême.",
+        "en": "Alix, the famous cartoon character created by Jacques Martin in 1948, takes his winter quarters in Versaille as part of an exceptional exhibition featuring more than 350 original drawings.\nAn exhibition designed in partnership with the Angoulême Comic Strip Festival."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "45253baec880472cb287c4b308a1d75b.base.image.jpg",
+        "credits": "(c) Jacques Martin",
+        "size": {
+          "height": 778,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "45253baec880472cb287c4b308a1d75b.full.image.jpg",
+            "size": {
+              "height": 490,
+              "width": 441
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "45253baec880472cb287c4b308a1d75b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-19T11:00:00.000Z",
+          "end": "2020-02-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T11:00:00.000Z",
+          "end": "2020-02-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T11:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T11:00:00.000Z",
+          "end": "2020-02-22T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T11:00:00.000Z",
+          "end": "2020-02-23T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T11:00:00.000Z",
+          "end": "2020-02-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T11:00:00.000Z",
+          "end": "2020-02-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T11:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T11:00:00.000Z",
+          "end": "2020-02-29T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T11:00:00.000Z",
+          "end": "2020-03-01T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T11:00:00.000Z",
+          "end": "2020-03-04T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T11:00:00.000Z",
+          "end": "2020-03-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T11:00:00.000Z",
+          "end": "2020-03-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T11:00:00.000Z",
+          "end": "2020-03-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T11:00:00.000Z",
+          "end": "2020-03-08T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T11:00:00.000Z",
+          "end": "2020-03-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T11:00:00.000Z",
+          "end": "2020-03-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T11:00:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T11:00:00.000Z",
+          "end": "2020-03-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T11:00:00.000Z",
+          "end": "2020-03-15T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T11:00:00.000Z",
+          "end": "2020-03-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T11:00:00.000Z",
+          "end": "2020-03-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T11:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T11:00:00.000Z",
+          "end": "2020-03-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T11:00:00.000Z",
+          "end": "2020-03-22T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T11:00:00.000Z",
+          "end": "2020-03-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T11:00:00.000Z",
+          "end": "2020-03-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T11:00:00.000Z",
+          "end": "2020-03-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T11:00:00.000Z",
+          "end": "2020-03-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-29T10:00:00.000Z",
+          "end": "2020-03-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T10:00:00.000Z",
+          "end": "2020-04-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T10:00:00.000Z",
+          "end": "2020-04-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T10:00:00.000Z",
+          "end": "2020-04-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T10:00:00.000Z",
+          "end": "2020-04-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T10:00:00.000Z",
+          "end": "2020-04-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T10:00:00.000Z",
+          "end": "2020-04-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T10:00:00.000Z",
+          "end": "2020-04-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T10:00:00.000Z",
+          "end": "2020-04-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T10:00:00.000Z",
+          "end": "2020-04-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-12T10:00:00.000Z",
+          "end": "2020-04-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T10:00:00.000Z",
+          "end": "2020-04-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T10:00:00.000Z",
+          "end": "2020-04-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T10:00:00.000Z",
+          "end": "2020-04-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T10:00:00.000Z",
+          "end": "2020-04-18T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:34.000Z",
+      "createdAt": "2019-11-15T13:35:18.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 70238140,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 70238140,
+        "slug": "espace-richaud233",
+        "name": "Espace Richaud",
+        "address": "78 boulevard de la Reine 78000 Versailles",
+        "city": "Versailles",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "78000",
+        "insee": "78646",
+        "countryCode": "FR",
+        "district": "Notre-Dame",
+        "latitude": 48.808685,
+        "longitude": 2.134207,
+        "updatedAt": "2019-11-18T11:09:19.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "5 € - Entrée libre pour les moins de 26 ans",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 630,
+      "si-autre-precisez": null,
+      "structure-partenaire": "VILLE DE VERSAILLES",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 73900793,
+        "custom": {
+          "organization": "Casterman",
+          "contactName": "Marie-Thérèse VIEIRA",
+          "contactNumber": "01 55 28 12 40",
+          "contactPosition": "Chargée Relations Salons Libraires",
+          "email": "mt.vieira@casterman.com"
+        }
+      }
+    },
+    {
+      "uid": 17628875,
+      "ownerUid": 76516082,
+      "creatorUid": 76516082,
+      "slug": "concours-scolaire-le-telegramme",
+      "title": {
+        "fr": "Concours scolaire - Le Trégor",
+        "en": "School Competition - Le Trégor"
+      },
+      "description": {
+        "fr": "Concours scolaire de planche de BD",
+        "en": "Comic Strip School Contest"
+      },
+      "longDescription": {
+        "fr": "Règlement\n---------\n\n### Article 1\n\nLe concours scolaire Le Trégor, organisé par le festival BD de Perros-Guirec, est ouvert à toutes les classes des écoles primaires et des collèges.\n\n### Article 2\n\nLe thème du concours 2020 est “Animal ...Rit !”.\n\n### Article 3\n\nÀ partir de ce thème, les concurrents devront réaliser une planche (1 seule planche) de format A3 (297x420 mm), en couleur ou en noir et blanc. Le choix du style est libre : fantastique, humoristique, policier, poétique, historique, science-fiction...\n\n### Article 4\n\nPublication de la planche gagnante pour les trois catégories dans le jJournal Le Trégor. Des prix seront remis aux trois niveaux : cycle 2, cycle 3 et cycle 4 .\n\nLe meilleur scénario sera primé. Le jury se réserve le droit de décerner d’autres prix. Les résultats seront communiqués par courrier, sur Facebook et sur le site Internet du festival à partir du 20 mars. Les prix seront à retirer soit pendant le festival à l’accueil du Palais des congrès, soit après le festival au service culture, vie associative et communication.\n\n### Article 5\n\nLes dessins devront obligatoirement être déposés ou expédiés au service culture, vie associative et communication, 12 rue des 7 Îles, mairie, BP 147, 22700 Perros-Guirec, au plus tard le 14 février 2020, le cachet de la poste faisant foi. Il sera indiqué lisiblement au dos et au centre de la planche les : nom, prénom, âge, adresse, téléphone, mail du ou des auteurs, ainsi que l’adresse de l’établissement scolaire concerné.\n\n### Article 6\n\nLe jury du concours, constitué de professionnels, désignera les gagnants selon les critères suivants : qualité graphique, originalité du scénario, respect du thème, respect du règlement et des consignes de présentation.\n\n### Article 7\n\nLes planches des concurrents seront exposées lors des journées scolaires du festival BD. Une partie de ces planches sera sélectionnée pour être exposée pendant le festival. Toutes les planches seront à retirer au service culture, vie associative et communication, après le festival pour les établissements de proximité, et pour les autres établissements les planches seront expédiées par courrier.\n\n### Article 8\n\nLe simple fait de participer à ce concours entraîne l’acceptation pleine et entière du présent règlement.",
+        "en": "## Regulations\n### Article 1\nThe school competition Le Trégor, organized by the comic strip festival of Perros-Guirec, is open to all classes of primary schools and colleges.\n### Article 2\nThe theme of the 2020 contest is “Animal ... Laughs!”.\n### Article 3\nFrom this theme, the competitors will have to create a A3 (297x420 mm) sheet (1 only) in colour or in black and white. The choice of style is free: fantastic, humorous, police, poetic, historical, science fiction...\n### Article 4\nPublication of the winning board for the three categories in the jJournal Le Trégor. Awards will be presented at the three levels: Cycle 2, Cycle 3 and Cycle 4.\nThe best screenplay will receive an award. The jury reserves the right to award further prizes. The results will be communicated by mail, on Facebook and on the festival website from 20 March. The prizes are to be withdrawn either during the festival at the reception of the Palais des congrès, or after the festival at the service of culture, community life and communication.\n### Article 5\nThe drawings must be deposited or sent to the service culture, associative life and communication, 12 rue des 7 Îles, mairie, BP 147, 22700 Perros-Guirec, at the latest by 14 February 2020, the postmark being authentic. It will be legibly indicated on the back and centre of the sheet: name, first name, age, address, telephone, e-mail of the author or authors, as well as the address of the school concerned.\n### Article 6\nThe jury of the competition, made up of professionals, will select the winners according to the following criteria: graphic quality, originality of the script, respect of the theme, respect of the rules and presentation instructions.\n### Article 7\nThe plates of the competitors will be exhibited during the school days of the comic strip festival. Some of these boards will be selected for exhibition during the festival. All the plates will be removed to the service culture, associative life and communication, after the festival for the establishments of proximity, and for the other establishments the plates will be sent by mail.\n### Article 8\nThe mere fact of participating in this contest entails the full acceptance of this Policy."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "bc636451e8f04a90b99b11de77b88355.base.image.jpg",
+        "credits": "Festival BD de Perros-Guirec",
+        "size": {
+          "height": 994,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "bc636451e8f04a90b99b11de77b88355.full.image.jpg",
+            "size": {
+              "height": 2480,
+              "width": 1748
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "bc636451e8f04a90b99b11de77b88355.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2019-12-31T23:00:00.000Z",
+          "end": "2020-01-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-01T23:00:00.000Z",
+          "end": "2020-01-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-02T23:00:00.000Z",
+          "end": "2020-01-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T23:00:00.000Z",
+          "end": "2020-01-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T23:00:00.000Z",
+          "end": "2020-01-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-05T23:00:00.000Z",
+          "end": "2020-01-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-06T23:00:00.000Z",
+          "end": "2020-01-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T23:00:00.000Z",
+          "end": "2020-01-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T23:00:00.000Z",
+          "end": "2020-01-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T23:00:00.000Z",
+          "end": "2020-01-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T23:00:00.000Z",
+          "end": "2020-01-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T23:00:00.000Z",
+          "end": "2020-01-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T23:00:00.000Z",
+          "end": "2020-01-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T23:00:00.000Z",
+          "end": "2020-01-14T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T23:00:00.000Z",
+          "end": "2020-01-15T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T23:00:00.000Z",
+          "end": "2020-01-16T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T23:00:00.000Z",
+          "end": "2020-01-17T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T23:00:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T23:00:00.000Z",
+          "end": "2020-01-19T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T23:00:00.000Z",
+          "end": "2020-01-20T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T23:00:00.000Z",
+          "end": "2020-01-21T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T23:00:00.000Z",
+          "end": "2020-01-22T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T23:00:00.000Z",
+          "end": "2020-01-23T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T23:00:00.000Z",
+          "end": "2020-01-24T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T23:00:00.000Z",
+          "end": "2020-01-25T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T23:00:00.000Z",
+          "end": "2020-01-26T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T23:00:00.000Z",
+          "end": "2020-01-27T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T23:00:00.000Z",
+          "end": "2020-01-28T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T23:00:00.000Z",
+          "end": "2020-01-29T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T23:00:00.000Z",
+          "end": "2020-01-30T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T23:00:00.000Z",
+          "end": "2020-01-31T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T23:00:00.000Z",
+          "end": "2020-02-01T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T23:00:00.000Z",
+          "end": "2020-02-02T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T23:00:00.000Z",
+          "end": "2020-02-03T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T23:00:00.000Z",
+          "end": "2020-02-04T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T23:00:00.000Z",
+          "end": "2020-02-05T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T23:00:00.000Z",
+          "end": "2020-02-06T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T23:00:00.000Z",
+          "end": "2020-02-07T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T23:00:00.000Z",
+          "end": "2020-02-08T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T23:00:00.000Z",
+          "end": "2020-02-09T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T23:00:00.000Z",
+          "end": "2020-02-10T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T23:00:00.000Z",
+          "end": "2020-02-11T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T23:00:00.000Z",
+          "end": "2020-02-12T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T23:00:00.000Z",
+          "end": "2020-02-13T22:59:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T23:00:00.000Z",
+          "end": "2020-02-14T22:59:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:48.000Z",
+      "createdAt": "2019-11-16T20:40:18.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 86924866,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 15
+      },
+      "registration": [
+        "02.96.49.02.45",
+        "animation@perros-guirec.com",
+        "http://www.bdperros.com"
+      ],
+      "location": {
+        "uid": 86924866,
+        "slug": "service-culture-vie-associative-et-communication",
+        "name": "Service culture, vie associative et communication",
+        "address": "Place de l'Hôtel de Ville 22700 Perros-Guirec",
+        "city": "Perros-Guirec",
+        "region": "Bretagne",
+        "department": "Côtes-d'Armor",
+        "postalCode": "22700",
+        "insee": "22168",
+        "countryCode": "FR",
+        "district": "Crec'h Guégan",
+        "latitude": 48.815946,
+        "longitude": -3.444194,
+        "updatedAt": "2019-11-18T09:50:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival BD de Perros-Guirec",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Journal Le Trégor",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 76516082,
+        "custom": {
+          "organization": "Festival BD de Perros-Guirec",
+          "contactName": "Jérémy Senabre",
+          "contactNumber": "0698231419",
+          "contactPosition": "Président",
+          "email": "contact@bdperros.com"
+        }
+      }
+    },
+    {
+      "uid": 64162982,
+      "ownerUid": 31847580,
+      "creatorUid": 31847580,
+      "slug": "histoire-de-lart-cherche-personnages",
+      "title": {
+        "fr": "Histoire de l'art cherche personnages...",
+        "en": "Art History seeks characters..."
+      },
+      "description": {
+        "fr": "Un parcours thématique conçu par le CAPC en association avec la CIBDI d’Angoulême et la Fondation Gandur pour l’Art, Genève, associant des œuvres de leurs fonds respectifs.",
+        "en": "A thematic journey designed by the CAPC in association with the CIBDI of Angoulême and the Gandur Foundation for Art, Geneva, combining works from their respective funds."
+      },
+      "longDescription": {
+        "fr": "**Dans le cadre de la saison culturelle Liberté ! Bordeaux 2019, le CAPC musée d’art contemporain de Bordeaux s’associe à la Cité internationale de la bande dessinée et de l’image (CIBDI) d’Angoulême et son musée, ainsi qu’à la Fondation Gandur pour l’Art, Genève, afin de présenter une importante exposition collective à partir de leurs fonds respectifs.**\n\n\\----\n\nDes œuvres majeures de la Fondation Gandur pour l’Art issues de la figuration narrative (des peintures des années 1960-70 de Gilles Aillaud, Erró, Gérard Fromanger ou encore Jacques Monory) côtoient ainsi des œuvres originales (planches, romans graphiques mais aussi installations) d’auteurs, de scénaristes, de dessinateurs contemporains, complétées par des œuvres choisies de la collection du CAPC, le tout dans un parcours thématique à la scénographie originale, empruntant son vocabulaire formel au roman visuel de Martin Vaughn-James La Cage.\n\nIntitulée Histoire de l’art cherche personnages…, cette exposition rassemble une centaine d’œuvres autour de ce qui peut définir l’être humain : de sa figuration à sa condition, en tant qu’individu confronté à son environnement, à son histoire et à autrui.\n\nUne première aile de l’exposition thématise, de manière formelle, la question de ses modes de représentation et d’existence. De sa présence en creux à sa disparition en passant par son devenir animal, son incomplétude et sa prolifération, il s’agit d’une quête : celle de la figure humaine. L’autre aile de l’exposition, plus narrative, se caractérise quant à elle par une quête de sens ou plutôt de ce qui « fait sens » pour l’homme. Comment envisage-t-il son existence (matérielle, morale, sociale), comment gère-t-il son rapport aux autres ou à lui-même (ses « démons ») ? Comment l’histoire individuelle, la petite histoire, rejoint-elle la grande ?\n\nLes enjeux de ce projet commun seront, entre autres, d’interroger les changements majeurs et les accomplissements survenus dans les arts figuratifs depuis la fin des années 1960. Comment les auteurs repensent-ils la question de la narration ou celle de la critique sociale et politique ? Comment investissent-ils un champ du réel, cette « précieuse mouvance de la vie » dont parlait le critique d’art Gérald Gassiot-Talabot, que les bouleversements sociaux, économiques, géopolitiques et technologiques ont profondément transformée ?\n\nAvec : Absalon, Valerio Adami, Gilles Aillaud, Leonor Antunes, Eduardo Arroyo, David B., Christian Babou, Pierre Buraglio, Charles Burns, Cham, Pascal Convert, Hervé Di Rosa, Noël Dolla, Philippe Dupuy, Equipo Crónica, Equipo Realidad, Erró, Richard Fauguet, Chohreh Feyzdjou, André Franquin, Gérard Fromanger, Jochen Gerner, Claude Gilli, Marcel Gotlieb, Emmanuel Guibert, Keith Haring, Noritoshi Hirakawa, On Kawara, Patrice Killoffer, Peter Klasen, les ready-made appartiennent à tout le monde®, Suehiro Maruo, Marc-Antoine Mathieu, Mario Merz, Pierre Molinier, Jacques Monory, Chantal Montellier, Bernard Pagès, Bernard Rancillac, Ruppert & Mulot, Claude Rutault, Joe Sacco, Johanna Schipper, Antonio Seguí, Richard Serra, Joann Sfar, Pierre Soulages, Art Spiegelman, Benjamin Swaim, Lewis Trondheim, Johannes Van der Beek, Martin Vaughn-James, Claude Viallat, Chris Ware, Willem, Winshluss, Raphaël Zarka.\n\nCommissaires : Alice Motard avec Anne Cadenet et François Poisay (CAPC musée d’art contemporain de Bordeaux) ; Anne Hélène Hoog (Cité internationale de la bande dessinée et de l’image, Angoulême) ; Yan Schubert (Fondation Gandur pour l’Art, Genève)\n\nScénographie : Éric Troussicot assisté de Coline Clavelloux (Sils Maria architecture)\n\nConservation et conception de l’accrochage des œuvres graphiques : Rebeca Zea assistée d’Emma Barada et d’Olivia Bayle\n\nLivret de l’exposition : Philippe Dupuy avec la complicité de Rémy Sellier\n\nProgrammation audiovisuelle du Cinéma : Thomas Bernard pour La Véranda. Avec : Blanquet & Olive, Julie Doucet, Pierre La Police, Fabio Viscogliosi, Winshluss\n\nCette exposition est organisée conjointement avec la Cité internationale de la bande dessinée et de l’image, Angoulême et la Fondation Gandur pour l’Art, Genève.",
+        "en": "**As part of the cultural season Freedom! Bordeaux 2019, the CAPC musée d'art contemporain de Bordeaux is associated with the Cité internationale de la bande dessinée et de l'image (CIBDI) d'Angoulême and its museum, as well as the Gandur Foundation for Art, Geneva, in order to present an important collective exhibition from their respective funds.**\n---\nMajor works of the Gandur Foundation for Art from narrative figuration (paintings of the years 1960-70 by Gilles Aillaud, Erró, Gérard Fromanger or Jacques Monory) thus rub shoulders with original works (plates, graphic novels but also installations) authors, writers, contemporary cartoonists, supplemented by selected works from the CAPC collection, all in a thematic journey to original scenography, borrowing its formal vocabulary from the visual novel by Martin Vaughn-James La Cage.\nEntitled Art History seeks characters… , this exhibition gathers about a hundred works around what can define the human being: from his figuration to his condition, as an individual confronted with his environment, his history and with others.\nA first wing of the exhibition thematizes, formally, the question of its modes of representation and existence. From its hollow presence to its disappearance through its animal becoming, its incompleteness and its proliferation, it is a quest: that of the human figure. The other wing of the exhibition, more narrative, is characterized by a search for meaning, or rather, for what “makes sense” for man. How does he see his existence (material, moral, social), how does he manage his relationship with others or with himself (his “demons”)? How does the individual story, the little story, join the big one?\nThe stakes of this joint project will be, among other things, to question the major changes and achievements in the figurative arts since the late 1960s. How do authors rethink the question of narration or social and political criticism? How do they invest a field of reality, that «precious movement of life» spoken about by art critic Gérald Gassiot-Talabot, that social, economic, geopolitical and technological upheavals have profoundly transformed?\nCast: Absalon, Valerio Adami, Gilles Aillaud, Leonor Antunes, Eduardo Arroyo, David B., Christian Babou, Pierre Buraglio, Charles Burns, Cham, Pascal Convert, Hervé Di Rosa, Noël Dolla, Philippe Dupuy, Equipo Crónica, Equipo Realidad, Erró, Richard Fauguet, Chohreh Feyzdjou, André Franquin, Gérard Fromanger, Jochen Gerner, Claude Gilli, Marcel Gotlieb, Emmanuel Guibert, Keith Haring, Noritoshi Hirakawa, On Kawara, Patrice Killoffer, Peter Klasen, ready-made belong to the whole world, Suehiro Maruo, Marc-Antoine Mathieu, Mario Merz, Pierre Molinier, Jacques Monory, Chantal Montellier, Bernard Pagès, Bernard Rancillac, Ruppert & Mulot, Claude Rutault, Joe Sacco, Johanna Schipper, Antonio Seguí, Richard Serra, Joann Sfar, Pierre Soulages, Art Spiegelman, Benjamin Swaim, Lewis Trondheim, Johannes Van der Beek, Martin Vaughn-James, Claude Viallat, Chris Ware, Willem, Winshluss, Raphaël Zarka.\nCurators: Alice Motard with Anne Cadenet and François Poisay (CAPC musée d'art contemporain de Bordeaux); Anne Hélène Hoog (Cité internationale de la bande dessinée et de l'image, Angoulême); Yan Schubert (Gandur Foundation for Art, Geneva)\nSet design: Éric Troussicot assisted by Coline Clavelloux (Sils Maria architecture)\nConservation and design of graphic artworks: Rebeca Zea assisted by Emma Barada and Olivia Bayle\nExhibition booklet: Philippe Dupuy with the complicity of Rémy Sellier\nAudiovisual programming of Cinema: Thomas Bernard for La Véranda. Starring: Blanquet & Olive, Julie Doucet, Pierre La Police, Fabio Viscogliosi, Winshluss\nThis exhibition is organized jointly with the Cité internationale de la bande dessinée et de l'image, Angoulême and the Gandur Foundation for Art, Geneva."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "2f741f71772743be84f531cb397cb849.base.image.jpg",
+        "credits": "Jacques Monory, Meurtre n° V – Variation avec miroir, 1968. Huile sur toile et miroir avec impact de balle, 92,2 x 100 cm Inv. FGA-BA-MONOR-0004 Fondation Gandur pour l’Art, Genève. Photographe : Sandra Pointet © Adagp, Paris, 2019",
+        "size": {
+          "height": 644,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2f741f71772743be84f531cb397cb849.full.image.jpg",
+            "size": {
+              "height": 552,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2f741f71772743be84f531cb397cb849.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-28T10:00:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T10:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T10:00:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T10:00:00.000Z",
+          "end": "2020-01-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T10:00:00.000Z",
+          "end": "2020-02-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T10:00:00.000Z",
+          "end": "2020-02-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T10:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T10:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T10:00:00.000Z",
+          "end": "2020-02-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T10:00:00.000Z",
+          "end": "2020-02-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T10:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T10:00:00.000Z",
+          "end": "2020-02-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T10:30:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T10:30:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T10:30:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T10:30:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T10:30:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T10:30:00.000Z",
+          "end": "2020-02-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T10:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T10:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T10:00:00.000Z",
+          "end": "2020-02-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T10:00:00.000Z",
+          "end": "2020-02-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T10:00:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T10:00:00.000Z",
+          "end": "2020-02-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T10:00:00.000Z",
+          "end": "2020-02-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T10:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T10:00:00.000Z",
+          "end": "2020-02-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T10:00:00.000Z",
+          "end": "2020-02-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T10:00:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T10:00:00.000Z",
+          "end": "2020-03-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T10:00:00.000Z",
+          "end": "2020-03-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T10:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T10:00:00.000Z",
+          "end": "2020-03-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T10:00:00.000Z",
+          "end": "2020-03-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T10:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T10:00:00.000Z",
+          "end": "2020-03-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T10:00:00.000Z",
+          "end": "2020-03-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T10:00:00.000Z",
+          "end": "2020-03-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T10:00:00.000Z",
+          "end": "2020-03-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T10:00:00.000Z",
+          "end": "2020-03-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T10:00:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T10:00:00.000Z",
+          "end": "2020-03-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T10:00:00.000Z",
+          "end": "2020-03-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T10:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T10:00:00.000Z",
+          "end": "2020-03-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T10:00:00.000Z",
+          "end": "2020-03-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T10:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T10:00:00.000Z",
+          "end": "2020-03-22T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-04T09:44:19.000Z",
+      "createdAt": "2019-11-18T10:25:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 21710865,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 21710865,
+        "slug": "capc-musee-dart-contemporain-de-bordeaux198",
+        "name": "CAPC, musée d'art contemporain de Bordeaux",
+        "address": "7 rue Ferrère 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Chartrons - Grand Parc - Jardin Public",
+        "latitude": 44.848238,
+        "longitude": -0.571983,
+        "updatedAt": "2019-11-18T11:12:49.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "Entrée du musée 7 € - Tarif réduit 4 €",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Cité internationale de la bande dessinée et de l'image (CIBDI) d'Angoulême et la Fondation Gandur pour l'Art de Genève",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 31847580,
+        "custom": {
+          "organization": "CAPC musée d'art contemporain de Bordeaux",
+          "contactName": "Pierre Capc",
+          "contactNumber": "05 56 00 81 50",
+          "contactPosition": "Communication",
+          "email": "capc-com@mairie-bordeaux.fr"
+        }
+      }
+    },
+    {
+      "uid": 6788089,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "apprenez-langlais-avec-asterix-le-gaulois_682787",
+      "title": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois",
+        "en": "Learn English with Asterix the Gaul"
+      },
+      "description": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois à travers ses BD en français et en anglais",
+        "en": "Learn English with Astérix le Gaulois through his comics in French and English"
+      },
+      "longDescription": {
+        "fr": "Les cours commenceront le jeudi 28 novembre après inscription au comptoir à 19h30. Ils auront lieu tous les jeudis à 20h à la bibliothèque de Saint-Priest-Ligoure (hors vacances scolaires).",
+        "en": "Classes will begin on Thursday, November 28 after registration at the counter at 7:30 pm. They will be held every Thursday at 8:00 pm at the library of Saint-Priest-Ligoure (excluding school holidays)."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "76b19d462f5244a386ea9a1127aa3289.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 606,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.full.image.jpg",
+            "size": {
+              "height": 263,
+              "width": 304
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-16T19:00:00.000Z",
+          "end": "2020-01-16T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:31.000Z",
+      "createdAt": "2019-11-18T13:44:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 90098254,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 9,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 90098254,
+        "slug": "bibliotheque-de-saint-priest-ligoure526",
+        "name": "Bibliothèque de Saint-Priest-Ligoure",
+        "address": "Rue Cécile Sabourdy 87800 Saint-Priest-Ligoure",
+        "city": "Saint-Priest-Ligoure",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87800",
+        "insee": "87039",
+        "countryCode": "FR",
+        "district": "La Planche",
+        "latitude": 45.650644,
+        "longitude": 1.291398,
+        "updatedAt": "2019-11-18T11:10:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": "Cours d'anglais rigolo",
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3.50 euros l'heure",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 85814476,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "apprenez-langlais-avec-asterix-le-gaulois_718902",
+      "title": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois",
+        "en": "Learn English with Asterix the Gaul"
+      },
+      "description": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois à travers ses BD en français et en anglais",
+        "en": "Learn English with Astérix le Gaulois through his comics in French and English"
+      },
+      "longDescription": {
+        "fr": "Les cours commenceront le jeudi 28 novembre après inscription au comptoir à 19h30. Ils auront lieu tous les jeudis à 20h à la bibliothèque de Saint-Priest-Ligoure (hors vacances scolaires).",
+        "en": "Classes will begin on Thursday, November 28 after registration at the counter at 7:30 pm. They will be held every Thursday at 8:00 pm at the library of Saint-Priest-Ligoure (excluding school holidays)."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "76b19d462f5244a386ea9a1127aa3289.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 606,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.full.image.jpg",
+            "size": {
+              "height": 263,
+              "width": 304
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-23T19:00:00.000Z",
+          "end": "2020-01-23T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:24.000Z",
+      "createdAt": "2019-11-18T14:09:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 90098254,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 9,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 90098254,
+        "slug": "bibliotheque-de-saint-priest-ligoure526",
+        "name": "Bibliothèque de Saint-Priest-Ligoure",
+        "address": "Rue Cécile Sabourdy 87800 Saint-Priest-Ligoure",
+        "city": "Saint-Priest-Ligoure",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87800",
+        "insee": "87039",
+        "countryCode": "FR",
+        "district": "La Planche",
+        "latitude": 45.650644,
+        "longitude": 1.291398,
+        "updatedAt": "2019-11-18T11:10:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": "Cours d'anglais rigolo",
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3.50 euros l'heure",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 88867528,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "apprenez-langlais-avec-asterix-le-gaulois_376688",
+      "title": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois",
+        "en": "Learn English with Asterix the Gaul"
+      },
+      "description": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois à travers ses BD en français et en anglais",
+        "en": "Learn English with Astérix le Gaulois through his comics in French and English"
+      },
+      "longDescription": {
+        "fr": "Les cours commenceront le jeudi 28 novembre après inscription au comptoir à 19h30. Ils auront lieu tous les jeudis à 20h à la bibliothèque de Saint-Priest-Ligoure (hors vacances scolaires).",
+        "en": "Classes will begin on Thursday, November 28 after registration at the counter at 7:30 pm. They will be held every Thursday at 8:00 pm at the library of Saint-Priest-Ligoure (excluding school holidays)."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "76b19d462f5244a386ea9a1127aa3289.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 606,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.full.image.jpg",
+            "size": {
+              "height": 263,
+              "width": 304
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-30T19:00:00.000Z",
+          "end": "2020-01-30T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:20.000Z",
+      "createdAt": "2019-11-18T14:12:38.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 90098254,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 9,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 90098254,
+        "slug": "bibliotheque-de-saint-priest-ligoure526",
+        "name": "Bibliothèque de Saint-Priest-Ligoure",
+        "address": "Rue Cécile Sabourdy 87800 Saint-Priest-Ligoure",
+        "city": "Saint-Priest-Ligoure",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87800",
+        "insee": "87039",
+        "countryCode": "FR",
+        "district": "La Planche",
+        "latitude": 45.650644,
+        "longitude": 1.291398,
+        "updatedAt": "2019-11-18T11:10:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": "Cours d'anglais rigolo",
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3.50 euros l'heure",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 8910985,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "apprenez-langlais-avec-asterix-le-gaulois_914966",
+      "title": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois",
+        "en": "Learn English with Asterix the Gaul"
+      },
+      "description": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois à travers ses BD en français et en anglais",
+        "en": "Learn English with Astérix le Gaulois through his comics in French and English"
+      },
+      "longDescription": {
+        "fr": "Les cours commenceront le jeudi 28 novembre après inscription au comptoir à 19h30. Ils auront lieu tous les jeudis à 20h à la bibliothèque de Saint-Priest-Ligoure (hors vacances scolaires).",
+        "en": "Classes will begin on Thursday, November 28 after registration at the counter at 7:30 pm. They will be held every Thursday at 8:00 pm at the library of Saint-Priest-Ligoure (excluding school holidays)."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "76b19d462f5244a386ea9a1127aa3289.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 606,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.full.image.jpg",
+            "size": {
+              "height": 263,
+              "width": 304
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-06T19:00:00.000Z",
+          "end": "2020-02-06T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:22.000Z",
+      "createdAt": "2019-11-18T14:14:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 90098254,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 9,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 90098254,
+        "slug": "bibliotheque-de-saint-priest-ligoure526",
+        "name": "Bibliothèque de Saint-Priest-Ligoure",
+        "address": "Rue Cécile Sabourdy 87800 Saint-Priest-Ligoure",
+        "city": "Saint-Priest-Ligoure",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87800",
+        "insee": "87039",
+        "countryCode": "FR",
+        "district": "La Planche",
+        "latitude": 45.650644,
+        "longitude": 1.291398,
+        "updatedAt": "2019-11-18T11:10:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": "Cours d'anglais rigolo",
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3.50 euros l'heure",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 98710885,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "apprenez-langlais-avec-asterix-le-gaulois_936181",
+      "title": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois",
+        "en": "Learn English with Asterix the Gaul"
+      },
+      "description": {
+        "fr": "Apprenez l'anglais avec Astérix le Gaulois à travers ses BD en français et en anglais",
+        "en": "Learn English with Astérix le Gaulois through his comics in French and English"
+      },
+      "longDescription": {
+        "fr": "Les cours commenceront le jeudi 28 novembre après inscription au comptoir à 19h30. Ils auront lieu tous les jeudis à 20h à la bibliothèque de Saint-Priest-Ligoure (hors vacances scolaires).",
+        "en": "Classes will begin on Thursday, November 28 after registration at the counter at 7:30 pm. They will be held every Thursday at 8:00 pm at the library of Saint-Priest-Ligoure (excluding school holidays)."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "76b19d462f5244a386ea9a1127aa3289.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 606,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.full.image.jpg",
+            "size": {
+              "height": 263,
+              "width": 304
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "76b19d462f5244a386ea9a1127aa3289.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-13T19:00:00.000Z",
+          "end": "2020-02-13T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:17.000Z",
+      "createdAt": "2019-11-18T14:14:54.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 90098254,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 9,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 90098254,
+        "slug": "bibliotheque-de-saint-priest-ligoure526",
+        "name": "Bibliothèque de Saint-Priest-Ligoure",
+        "address": "Rue Cécile Sabourdy 87800 Saint-Priest-Ligoure",
+        "city": "Saint-Priest-Ligoure",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Haute-Vienne",
+        "postalCode": "87800",
+        "insee": "87039",
+        "countryCode": "FR",
+        "district": "La Planche",
+        "latitude": 45.650644,
+        "longitude": 1.291398,
+        "updatedAt": "2019-11-18T11:10:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": "Cours d'anglais rigolo",
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3.50 euros l'heure",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 7785193,
+      "ownerUid": 58076267,
+      "creatorUid": 58076267,
+      "slug": "fabcaro-ou-la-zai-zai-zai-zai-attitude-a-la-mediatheque-de-saint-sebastien-sur-loire",
+      "title": {
+        "fr": "Fabcaro ou la Zaï zaï zaï zaï attitude à la médiathèque de Saint-Sébastien-sur-Loire",
+        "en": "Fabcaro or the Zaï zaï zaï zaï attitude at the media library of San Sebastian-sur-Loire"
+      },
+      "description": {
+        "fr": "Exposition de bande dessinée qui met en lumière le travail de Fabcaro",
+        "en": "Cartoon exhibition that highlights Fabcaro’s work"
+      },
+      "longDescription": {
+        "fr": "**Humour incisif et décalé en bande-dessinée**\n\nAvec le succès de Zaï Zaï Zaï Zaï, autofiction burlesque aux accents satiriques, le grand public a découvert l’humour incisif et décalé de Fabcaro. Depuis une dizaine d’années, et autant d’albums personnels, celui-ci se met en scène dans son quotidien d’auteur de bande dessinée aux prises avec un monde à la fois banal et absurde où chacun tente de trouver sa place. L’exposition qui lui est aujourd’hui consacrée présente les grandes lignes de cette oeuvre.\n\n**Tanx, Gilles Rochier et Émilie Plateau**\n\nCe parcours est parsemé de rencontres avec d’autres auteurs : Tanx, Émilie Plateau, Gilles Rochier. Des travaux de ces derniers seront exposés pour leur proximité avec Fabcaro. Car eux aussi utilisent leur personne pour parler du reste du monde. Certains avec rage, d’autres avec empathie ou naïveté, mais tous les trois avec une pointe d’humour.\n\n**Entrée libre du mardi au samedi aux horaires d’ouverture au public de la médiathèque**\n\n**Médiation / Visites commentées du mercredi au dimanche de 15h à 18h (excepté le dimanche 5 janvier)**",
+        "en": "**Sharp and quirky comic humour**\nWith the success of Zaï Zaï Zaï Zaï, a burlesque autofiction with satirical accents, the general public discovered Fabcaro’s incisive and quirky humour. For the past ten years, and as many personal albums, he has been on stage in his daily life as a comic book writer struggling with a world that is both banal and absurd, where everyone tries to find their place. The exhibition dedicated to him today presents the broad outlines of this work.\n**Tanx, Gilles Rochier and Émilie Plateau**\nThis course is dotted with meetings with other authors: Tanx, Émilie Plateau, Gilles Rochier. Works of the latter will be exposed for their closeness to Fabcaro. For they too use their person to talk about the rest of the world. Some with rage, others with empathy or naivety, but all three with a hint of humor.\n**Free admission from Tuesday to Saturday at the public opening times of the media library**\n**Mediation/ Guided tours from Wednesday to Sunday from 3pm to 6pm (except Sunday, January 5th)**"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "b30367d119d9494db3123d0c91e9ee2a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b30367d119d9494db3123d0c91e9ee2a.full.image.jpg",
+            "size": {
+              "height": 720,
+              "width": 1280
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b30367d119d9494db3123d0c91e9ee2a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-01T09:00:00.000Z",
+          "end": "2020-01-01T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-01T12:30:00.000Z",
+          "end": "2020-01-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-02T14:00:00.000Z",
+          "end": "2020-01-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T15:00:00.000Z",
+          "end": "2020-01-03T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T09:00:00.000Z",
+          "end": "2020-01-04T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T12:30:00.000Z",
+          "end": "2020-01-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T09:00:00.000Z",
+          "end": "2020-01-07T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T15:00:00.000Z",
+          "end": "2020-01-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T09:00:00.000Z",
+          "end": "2020-01-08T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T12:30:00.000Z",
+          "end": "2020-01-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T14:00:00.000Z",
+          "end": "2020-01-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T15:00:00.000Z",
+          "end": "2020-01-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T09:00:00.000Z",
+          "end": "2020-01-11T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T12:30:00.000Z",
+          "end": "2020-01-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T14:00:00.000Z",
+          "end": "2020-01-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T09:00:00.000Z",
+          "end": "2020-01-14T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T15:00:00.000Z",
+          "end": "2020-01-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T12:30:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:14.000Z",
+      "createdAt": "2019-11-19T11:12:52.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 14345675,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "02 40 80 86 05",
+        "mediation@saintsebastien.fr"
+      ],
+      "location": {
+        "uid": 14345675,
+        "slug": "mediatheque850",
+        "name": "Médiathèque de Saint-Sébastien-sur-Loire",
+        "address": "10 rue Jean Macé 44230 Saint-Sébastien-sur-Loire",
+        "city": "Saint-Sébastien-sur-Loire",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44230",
+        "insee": "44190",
+        "countryCode": "FR",
+        "district": "La Fontaine",
+        "latitude": 47.205769,
+        "longitude": -1.50576,
+        "updatedAt": "2019-11-19T12:43:15.000Z",
+        "image": null,
+        "description": {},
+        "website": "https://mediatheque.saintsebastien.fr/",
+        "email": null,
+        "phone": "02 40 80 86 20",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 58076267,
+        "custom": {
+          "organization": "6 pieds sous terre",
+          "contactName": "Zelda Hadener",
+          "contactNumber": "0659291699",
+          "contactPosition": "éditrice",
+          "email": "zeldahadener@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 63119544,
+      "ownerUid": 46826883,
+      "creatorUid": 46826883,
+      "slug": "exposition-sur-le-moyen-age-dans-la-bande-dessinee",
+      "title": {
+        "fr": "Exposition sur le Moyen Âge dans la bande dessinée",
+        "en": "Exhibition on the Middle Ages in comic books"
+      },
+      "description": {
+        "fr": "Exposition sur le Moyen Âge dan la bande dessinée",
+        "en": "Exhibition on the Middle Ages in the comic book"
+      },
+      "longDescription": {
+        "fr": "L'exposition proposera un historique de la bande dessinée médiévaliste en s'attachant principalment aux auteurs franco-belge.\n\nCe tour d'horizon se clôturera par un ecourte visite du musée communal pour découvrir des pièces remarquables datant pour certaines du Moyen Âge.",
+        "en": "The exhibition will offer a history of medieval comic books, focusing mainly on Franco-Belgian authors.\nThis tour will conclude with a short visit of the communal museum to discover remarkable pieces dating to some of the Middle Ages."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "2346d5488ea04d6ca8d6da4c1e848a5c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1003,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2346d5488ea04d6ca8d6da4c1e848a5c.full.image.jpg",
+            "size": {
+              "height": 640,
+              "width": 447
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2346d5488ea04d6ca8d6da4c1e848a5c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Brussels",
+      "timings": [
+        {
+          "begin": "2020-01-03T13:00:00.000Z",
+          "end": "2020-01-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T13:00:00.000Z",
+          "end": "2020-01-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-05T13:00:00.000Z",
+          "end": "2020-01-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T13:00:00.000Z",
+          "end": "2020-01-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T13:00:00.000Z",
+          "end": "2020-01-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T13:00:00.000Z",
+          "end": "2020-01-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T13:00:00.000Z",
+          "end": "2020-01-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T13:00:00.000Z",
+          "end": "2020-01-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T13:00:00.000Z",
+          "end": "2020-01-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T13:00:00.000Z",
+          "end": "2020-01-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T13:00:00.000Z",
+          "end": "2020-01-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T13:00:00.000Z",
+          "end": "2020-01-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T13:00:00.000Z",
+          "end": "2020-01-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T13:00:00.000Z",
+          "end": "2020-02-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T13:00:00.000Z",
+          "end": "2020-02-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T13:00:00.000Z",
+          "end": "2020-02-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T13:00:00.000Z",
+          "end": "2020-02-08T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:53:11.000Z",
+      "createdAt": "2019-11-19T20:17:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 69613157,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "http://www.acte2.be"
+      ],
+      "location": {
+        "uid": 69613157,
+        "slug": "huy-belgique",
+        "name": "Musée communal de Huy",
+        "address": "Rue Vankeerberghen, 20 4500 Huy",
+        "city": "Huy",
+        "region": "Wallonie",
+        "department": null,
+        "postalCode": "4500",
+        "insee": null,
+        "countryCode": "BE",
+        "district": null,
+        "latitude": 50.518747,
+        "longitude": 5.243457,
+        "updatedAt": "2019-11-20T07:52:55.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Brussels",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 630,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 46826883,
+        "custom": {
+          "organization": "Centre culturel régional de Huy",
+          "contactName": "Aurélien Juen",
+          "contactNumber": "+3285211206",
+          "contactPosition": "Coordinateur de projet",
+          "email": "aurelien.juen@ccah.be"
+        }
+      }
+    }
+  ],
+  "lastId": 2079934
+}

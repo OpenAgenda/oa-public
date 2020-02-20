@@ -1,0 +1,1690 @@
+{
+  "events": [
+    {
+      "uid": 42492232,
+      "ownerUid": 3219048,
+      "creatorUid": 3219048,
+      "slug": "preambulles-decrochage-et-atelier-dessin",
+      "title": {
+        "fr": "PréamBulles : décrochage et atelier dessin",
+        "en": "Preambles: stall and drawing workshop"
+      },
+      "description": {
+        "fr": "Atelier dessin",
+        "en": "Drawing workshop"
+      },
+      "longDescription": {
+        "fr": "Atelier dessin suivi d'une boum et d'un goûter.",
+        "en": "Drawing workshop followed by a boom and a snack."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Réservation au 05 45 65 34 89",
+        "en": "Reservation at 05 45 65 34 89"
+      },
+      "image": {
+        "filename": "1ce8e9619c70427e9f8e772d35e822ec.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 267,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1ce8e9619c70427e9f8e772d35e822ec.full.image.jpg",
+            "size": {
+              "height": 1313,
+              "width": 3450
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1ce8e9619c70427e9f8e772d35e822ec.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-25T13:00:00.000Z",
+          "end": "2020-01-25T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:02.000Z",
+      "createdAt": "2019-12-13T14:55:35.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 87485476,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 87485476,
+        "slug": "centre-culturel-de-ruelle-sur-touvre",
+        "name": "Centre culturel de Ruelle-sur-Touvre",
+        "address": "Place Auguste Rouyer 16600 Ruelle-sur-Touvre",
+        "city": "Ruelle-sur-Touvre",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16600",
+        "insee": "16291",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.678408,
+        "longitude": 0.229928,
+        "updatedAt": "2019-12-16T08:49:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 3219048,
+        "custom": {
+          "organization": "Médiathèque de Ruelle sur Touvre",
+          "contactName": "Nathalie Vieillard Baron",
+          "contactNumber": "05 45 65 34 89",
+          "contactPosition": "Responsable médiathèque",
+          "email": "nvieillard.fileas@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 65712304,
+      "ownerUid": 3219048,
+      "creatorUid": 3219048,
+      "slug": "preambulles-expositions",
+      "title": {
+        "fr": "PréamBulles : exposition de Sonia Paoloni",
+        "en": "Preambles: exhibition of Sonia Paoloni"
+      },
+      "description": {
+        "fr": "Exposition de Sonia Paoloni, auteure des livres \"Anna qui chante\" et \"Rebdbone\"",
+        "en": "Exhibition by Sonia Paoloni, author of the books \"Anna singing\" and \"Rebdbone\""
+      },
+      "longDescription": {
+        "fr": "PréamBulles, 6e édition \"BD et musique\"\n\nOuverture du centre culturel du 20 au 25 janvier de 15h à 18h pour la visite des expositions.\n\n**Exposition de Sonia Paoloni, auteure des livres \"Anna qui chante\" et \"Rebdbone\"** et exposition \"L'autre nom du rock and roll\".",
+        "en": "Preambles, 6th edition \"Comics and music\"\nOpening of the cultural centre from 20 to 25 January from 3 to 6 pm for the visit of the exhibitions.\n**Exhibition by Sonia Paoloni, author of the books \"Anna singing\" and \"Rebdbone\"** and exhibition \"L'autre nom du rock and roll\"."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "e26ee6df25534afaa4dabdb6b885c84e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 267,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e26ee6df25534afaa4dabdb6b885c84e.full.image.jpg",
+            "size": {
+              "height": 1313,
+              "width": 3450
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e26ee6df25534afaa4dabdb6b885c84e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-20T14:00:00.000Z",
+          "end": "2020-01-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T14:00:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T14:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T14:00:00.000Z",
+          "end": "2020-01-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T14:00:00.000Z",
+          "end": "2020-01-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T14:00:00.000Z",
+          "end": "2020-01-25T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:01.000Z",
+      "createdAt": "2019-12-13T14:57:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 22279201,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 22279201,
+        "slug": "theatre-jean-ferrat688",
+        "name": "Théâtre Jean Ferrat",
+        "address": "Place du Champ de Mars 16600 Ruelle-sur-Touvre",
+        "city": "Ruelle-sur-Touvre",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16600",
+        "insee": "16291",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.67635,
+        "longitude": 0.218875,
+        "updatedAt": "2019-12-16T08:49:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 3219048,
+        "custom": {
+          "organization": "Médiathèque de Ruelle sur Touvre",
+          "contactName": "Nathalie Vieillard Baron",
+          "contactNumber": "05 45 65 34 89",
+          "contactPosition": "Responsable médiathèque",
+          "email": "nvieillard.fileas@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 18309579,
+      "ownerUid": 3932743,
+      "creatorUid": 3932743,
+      "slug": "exposition-je-reve-dailleurs",
+      "title": {
+        "fr": "Exposition \"Je rêve d'ailleurs\"",
+        "en": "Exhibition \"Je rêve d'ailleurs\""
+      },
+      "description": {
+        "fr": "Exposition de Fred Bernard",
+        "en": "Exhibition by Fred Bernard"
+      },
+      "longDescription": {
+        "fr": "La bibliothèque de l'IUT Lyon 1 site Villeurbanne Doua est heureuse d'accueillir et de vous présenter l'exposition \" Je rêve d'ailleurs \" de l'auteur, illustrateur Fred Bernard. Cette exposition vous fera voyager à travers ses nombreux dessins, carnets de voyage et planches.\n\nFred Bernard nous fait l'honneur de sa présence le premier jour de l'exposition.",
+        "en": "The library of the IUT Lyon 1 site Villeurbanne Doua is pleased to welcome and present the exhibition \"Je rêve d'ailleurs \" by the author, illustrator Fred Bernard. This exhibition will make you travel through its many drawings, travel notebooks and plates.\nFred Bernard honoured us with his presence on the first day of the exhibition."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "38a28a3565704c6b88e9c6147aed81f4.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "38a28a3565704c6b88e9c6147aed81f4.full.image.jpg",
+            "size": {
+              "height": 2245,
+              "width": 1587
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "38a28a3565704c6b88e9c6147aed81f4.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-07T07:30:00.000Z",
+          "end": "2020-01-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T07:30:00.000Z",
+          "end": "2020-01-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T07:30:00.000Z",
+          "end": "2020-01-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T07:30:00.000Z",
+          "end": "2020-01-10T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T07:30:00.000Z",
+          "end": "2020-01-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T07:30:00.000Z",
+          "end": "2020-01-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T07:30:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T07:30:00.000Z",
+          "end": "2020-01-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T07:30:00.000Z",
+          "end": "2020-01-17T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T07:30:00.000Z",
+          "end": "2020-01-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T07:30:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T07:30:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T07:30:00.000Z",
+          "end": "2020-01-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T07:30:00.000Z",
+          "end": "2020-01-24T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T07:30:00.000Z",
+          "end": "2020-01-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T07:30:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T07:30:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T07:30:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:10.000Z",
+      "createdAt": "2019-12-13T15:43:20.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 41187127,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 41187127,
+        "slug": "bibliotheque-iut-lyon-1-site-villeurbanne-doua",
+        "name": "Bibliothèque IUT Lyon 1 site Villeurbanne Doua",
+        "address": "1 rue de la Technologie 69100 Villeurbanne",
+        "city": "Villeurbanne",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Métropole de Lyon",
+        "postalCode": "69100",
+        "insee": "69266",
+        "countryCode": "FR",
+        "district": "Croix-Luizet",
+        "latitude": 45.786291,
+        "longitude": 4.882028,
+        "updatedAt": "2019-12-16T08:52:51.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 624,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 3932743,
+        "custom": {
+          "organization": "Bibliothèque IUT Lyon 1 site Villeurbanne DOUA",
+          "contactName": "Clara LEIVA",
+          "contactNumber": "0472692196",
+          "contactPosition": "Stagiaire à la Bibliothèque IUT Lyon 1 site Villeurbanne DOUA",
+          "email": "clara.leiva@univ-lyon1.fr"
+        }
+      }
+    },
+    {
+      "uid": 74563377,
+      "ownerUid": 6567993,
+      "creatorUid": 6567993,
+      "slug": "concert-dessine-or-voyages-sonographiques-or-laurent-bonneau-et-allan-saisain",
+      "title": {
+        "fr": "Concert dessiné \"Voyages sonographiques\" par Laurent Bonneau et Allan Saisain",
+        "en": "Concert \"Voyages sonographiques\" by Laurent Bonneau and Allan Saisain"
+      },
+      "description": {
+        "fr": "\"Voyages sonographiques\" est un spectacle singulier, une rencontre artistique entre bande dessinée et musique",
+        "en": "\"Sonographic Travel\" is a singular spectacle, an artistic encounter between comic books and music"
+      },
+      "longDescription": {
+        "fr": "\"Voyages sonographiques_\"_ est un spectacle singulier, une rencontre artistique entre bande dessinée et musique. Allan Sainsain compose en direct, associant guitare, voix, sons électroniques, enregistrements de nature, jouant avec sa propre palette de couleurs pour livrer une bande originale sensible. Laurent Bonneau, dessine en direct. On contemple sa dextérité, ses impulsions, son regard aiguisé et les matières qui s’animent pour prendre vie sur le papier. Chaque représentation est improvisée offrant un voyage vers une destination éphémère. Une ode à la liberté et à la créativité.\n\navec Laurent Bonneau : dessin - peinture\n\nAllan Saisain : musique - chant",
+        "en": "\"Voyages sonographiques_\"_ is a singular spectacle, an artistic encounter between comic books and music. Allan Sainsain composes live, combining guitar, voice, electronic sounds, nature recordings, playing with his own color palette to deliver a sensitive soundtrack. Laurent Bonneau, drawing live. We contemplate his dexterity, his impulses, his sharp gaze and the materials that animate to take life on paper. Each performance is improvised offering a journey to an ephemeral destination. An ode to freedom and creativity.\nwith Laurent Bonneau: drawing - painting\nAllan Saisain: music - singing"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Ouvert à tous, places limitées",
+        "en": "Open to all, limited spaces"
+      },
+      "image": {
+        "filename": "a0628b1557564475bd10bf47544122e3.base.image.jpg",
+        "credits": "JP BONINCONTRO",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a0628b1557564475bd10bf47544122e3.full.image.jpg",
+            "size": {
+              "height": 500,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a0628b1557564475bd10bf47544122e3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T17:00:00.000Z",
+          "end": "2020-02-08T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:07.000Z",
+      "createdAt": "2019-12-13T16:05:08.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 22766783,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "mediatheque@beziers-mediterranee.fr",
+        "04 99 41 05 50"
+      ],
+      "location": {
+        "uid": 22766783,
+        "slug": "mediatheque-andre-malraux427",
+        "name": "Médiathèque André Malraux",
+        "address": "1 place du 14 juillet 34500 Béziers",
+        "city": "Béziers",
+        "region": "Occitanie",
+        "department": "Hérault",
+        "postalCode": "34500",
+        "insee": "34032",
+        "countryCode": "FR",
+        "district": "Mercorent",
+        "latitude": 43.347502,
+        "longitude": 3.222391,
+        "updatedAt": "2019-12-16T08:53:55.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "243 400 769",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 6567993,
+        "custom": {
+          "organization": "Médiathèque André Malraux",
+          "contactName": "Emilie SOULIER",
+          "contactNumber": "04 99 41 31 17",
+          "contactPosition": "Chargée de médiation et promotion culturelle",
+          "email": "emiliesoulier@beziers-mediterranee.fr"
+        }
+      }
+    },
+    {
+      "uid": 23276783,
+      "ownerUid": 6567993,
+      "creatorUid": 6567993,
+      "slug": "arret-sur-image-or-laurent-bonneau",
+      "title": {
+        "fr": "\"Arrêt sur image\" avec Laurent Bonneau",
+        "en": "\"Arrêt sur image\" with Laurent Bonneau"
+      },
+      "description": {
+        "fr": "Laurent Bonneau reviendra plus particulièrement lors de cette séance. Il y analysera ses récits, ses découpages, ses couleurs, ses lumières",
+        "en": "Laurent Bonneau will especially come back during this session. He will analyze his stories, his cut-outs, his colors, his lights"
+      },
+      "longDescription": {
+        "fr": "Après un cursus artistique à Bordeaux et des études d’animation à Paris, Laurent Bonneau signe en 2010 aux côtés de son frère Julien un thriller urbain surprenant avec la trilogie _Métropolitan_. En 2013, il sort Douce pincée de lèvres en ce matin d’été pour lequel il est à la fois scénariste et dessinateur et _Rêves Syncopés_ avec Mathilde Ramadier au scénario qu’il retrouvera pour _Et il foula la terre avec légèreté_ en 2017. Mais c’est sur ses oeuvres : _Ceux qui me restent_ ; _On sème la folie_ et _Les Brûlures_ que Laurent Bonneau reviendra plus particulièrement lors de cette séance. Il y analysera ses récits, ses découpages, ses couleurs, ses lumières.\n\nPar Laurent Bonneau, dessinateur et scénariste de bandes dessinées françaises",
+        "en": "After studying art in Bordeaux and animation in Paris, Laurent Bonneau signed in 2010 alongside his brother Julien a surprising urban thriller with the Metropolitan trilogy. In 2013, he takes out Douce pinch of lips this summer morning for which he is both a screenwriter and a cartoonist and _Rêves Syncopés_ with Mathilde Ramadier to the screenplay that he will find again for _Et il foula la terre avec légèreté_ en 2017\\. But it is on his works: _Those that remain to me_; _On sememe la folie_ et _Les Brûlures_ that Laurent Bonneau will return especially during this session. He will analyze his stories, his cuts, his colors, his lights.\nBy Laurent Bonneau, French cartoonist and cartoonist"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Ouvert à tous, places limitées",
+        "en": "Open to all, limited spaces"
+      },
+      "image": {
+        "filename": "4b1054a0ed484a8a82a365a9ed180bfb.base.image.jpg",
+        "credits": "Agglomération Béziers Méditerranée",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4b1054a0ed484a8a82a365a9ed180bfb.full.image.jpg",
+            "size": {
+              "height": 500,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4b1054a0ed484a8a82a365a9ed180bfb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T14:00:00.000Z",
+          "end": "2020-02-08T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:04.000Z",
+      "createdAt": "2019-12-13T16:09:21.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 22766783,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [
+        "mediatheque@beziers-mediterranee.fr",
+        "04 99 41 05 50"
+      ],
+      "location": {
+        "uid": 22766783,
+        "slug": "mediatheque-andre-malraux427",
+        "name": "Médiathèque André Malraux",
+        "address": "1 place du 14 juillet 34500 Béziers",
+        "city": "Béziers",
+        "region": "Occitanie",
+        "department": "Hérault",
+        "postalCode": "34500",
+        "insee": "34032",
+        "countryCode": "FR",
+        "district": "Mercorent",
+        "latitude": 43.347502,
+        "longitude": 3.222391,
+        "updatedAt": "2019-12-16T08:53:55.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "243 400 769",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 6567993,
+        "custom": {
+          "organization": "Médiathèque André Malraux",
+          "contactName": "Emilie SOULIER",
+          "contactNumber": "04 99 41 31 17",
+          "contactPosition": "Chargée de médiation et promotion culturelle",
+          "email": "emiliesoulier@beziers-mediterranee.fr"
+        }
+      }
+    },
+    {
+      "uid": 43188341,
+      "ownerUid": 66076030,
+      "creatorUid": 66076030,
+      "slug": "faites-du-rock-avec-lucien-frank-margerin",
+      "title": {
+        "fr": "Exposition \"Faites du rock avec Lucien\" de Frank Margerin",
+        "en": "\"Rock with Lucien\" exhibition by Frank Margerin"
+      },
+      "description": {
+        "fr": "Exposition réalisée par L'Empreinte du Rock",
+        "en": "Exhibition by L'Empreinte du Rock"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre du festival \"Musiques à Brie\", l'Hôtel-Dieu accueille l'auteur de BD, Frank Margerin. Son personnage, Lucien, trimballe son perfecto et sa banane dans une saga qui s'étale sur une trentaine d'années, pour raconter à sa manière l'histoire du rock hexagonal.",
+        "en": "As part of the festival \"Musiques à Brie\", the Hôtel-Dieu welcomes the comic book author, Frank Margerin. His character, Lucien, carries his perfecto and banana around in a saga that spreads over thirty years, to tell in his own way the story of hexagonal rock."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre",
+        "en": "Free entry"
+      },
+      "image": {
+        "filename": "1c440ad2807f42869cdd565f5b7739a5.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1c440ad2807f42869cdd565f5b7739a5.full.image.jpg",
+            "size": {
+              "height": 1241,
+              "width": 877
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1c440ad2807f42869cdd565f5b7739a5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-04T14:00:00.000Z",
+          "end": "2020-01-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-05T09:00:00.000Z",
+          "end": "2020-01-05T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-05T14:00:00.000Z",
+          "end": "2020-01-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T14:00:00.000Z",
+          "end": "2020-01-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T14:00:00.000Z",
+          "end": "2020-01-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T09:00:00.000Z",
+          "end": "2020-01-12T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T14:00:00.000Z",
+          "end": "2020-01-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T14:00:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T14:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T09:00:00.000Z",
+          "end": "2020-01-19T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T14:00:00.000Z",
+          "end": "2020-01-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T14:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T14:00:00.000Z",
+          "end": "2020-01-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T09:00:00.000Z",
+          "end": "2020-01-26T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T14:00:00.000Z",
+          "end": "2020-01-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T14:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T14:00:00.000Z",
+          "end": "2020-02-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T09:00:00.000Z",
+          "end": "2020-02-02T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T14:00:00.000Z",
+          "end": "2020-02-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T14:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T14:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T09:00:00.000Z",
+          "end": "2020-02-09T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T14:00:00.000Z",
+          "end": "2020-02-09T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:57.000Z",
+      "createdAt": "2019-12-13T16:10:46.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 65196705,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.briecomterobert.fr/Brie-Scope/Agenda-de-vos-sorties/Saison-culturelle/Exposition-Faites-du-rock-avec-Lucien"
+      ],
+      "location": {
+        "uid": 65196705,
+        "slug": "hotel-dieu85",
+        "name": "Hôtel-Dieu",
+        "address": "Rue des Halles 77170 Brie-Comte-Robert",
+        "city": "Brie-Comte-Robert",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77170",
+        "insee": "77053",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.691278,
+        "longitude": 2.608933,
+        "updatedAt": "2019-12-16T08:53:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival \"Musiques à Brie\"",
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "L'Empreinte du Rock",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 66076030,
+        "custom": {
+          "organization": "Mairie de Brie-Comte-Robert",
+          "contactName": "Isabelle Malaquin",
+          "contactNumber": "01 60 62 64 12",
+          "contactPosition": "Chargée des Arts Visuels",
+          "email": "imalaquin@briecomterobert.fr"
+        }
+      }
+    },
+    {
+      "uid": 94012264,
+      "ownerUid": 6567993,
+      "creatorUid": 6567993,
+      "slug": "arret-sur-image-or-nicolai-pinheiro",
+      "title": {
+        "fr": "\"Arrêt sur image\" avec Nicolaï Pinheiro",
+        "en": "\"Freeze on image\" with Nicolaï Pinheiro"
+      },
+      "description": {
+        "fr": "Nicolaï Pinheiro sera présent à la médiathèque afin de vous parler de son art, de la composition de ses planches et de ses références artistiques",
+        "en": "Nicolaï Pinheiro will be present at the media library to talk to you about his art, the composition of his plates and his artistic references"
+      },
+      "longDescription": {
+        "fr": "Né à Rio de Janeiro et arrivé en France à l’âge de 18 ans, Nicolaï Pinheiro est scénariste et dessinateur de bande dessinée depuis plus de 10 ans. Diversifiant ses activités d’illustrateur, il participe au magazine _Psikopat_ avant de publier les deux tomes de _Venise_. Sa dernière oeuvre, _Lapa la nuit_, est tout simplement magnifique. Nicolaï Pinheiro sera présent à la médiathèque afin de vous parler de son art, de la composition de ses planches et de ses références artistiques.\n\nAvec Nicolaï Pinheiro, scénariste et dessinateur de BD",
+        "en": "Born in Rio de Janeiro and arrived in France at the age of 18, Nicolaï Pinheiro has been a writer and cartoonist for more than 10 years. Diversifying his activities as an illustrator, he participated in the magazine _Psikopat_ before publishing the two volumes of _Venice_. His last work, _Lapa by night_, is simply magnificent. Nicolaï Pinheiro will be present at the media library to talk to you about his art, the composition of his plates and his artistic references.\nWith Nicolaï Pinheiro, screenwriter and cartoonist"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Ouvert à tous, places limitées",
+        "en": "Open to all, limited spaces"
+      },
+      "image": {
+        "filename": "346cd80993c144e6b0d5caf26b1d6095.base.image.jpg",
+        "credits": "Nicolaï Pinheiro",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "346cd80993c144e6b0d5caf26b1d6095.full.image.jpg",
+            "size": {
+              "height": 500,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "346cd80993c144e6b0d5caf26b1d6095.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-14T15:00:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:49.000Z",
+      "createdAt": "2019-12-13T16:11:22.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 22766783,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [
+        "mediatheque@beziers-mediterranee.fr",
+        "04 99 41 05 50"
+      ],
+      "location": {
+        "uid": 22766783,
+        "slug": "mediatheque-andre-malraux427",
+        "name": "Médiathèque André Malraux",
+        "address": "1 place du 14 juillet 34500 Béziers",
+        "city": "Béziers",
+        "region": "Occitanie",
+        "department": "Hérault",
+        "postalCode": "34500",
+        "insee": "34032",
+        "countryCode": "FR",
+        "district": "Mercorent",
+        "latitude": 43.347502,
+        "longitude": 3.222391,
+        "updatedAt": "2019-12-16T08:53:55.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "243 400 769",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 6567993,
+        "custom": {
+          "organization": "Médiathèque André Malraux",
+          "contactName": "Emilie SOULIER",
+          "contactNumber": "04 99 41 31 17",
+          "contactPosition": "Chargée de médiation et promotion culturelle",
+          "email": "emiliesoulier@beziers-mediterranee.fr"
+        }
+      }
+    },
+    {
+      "uid": 2031046,
+      "ownerUid": 6567993,
+      "creatorUid": 6567993,
+      "slug": "arret-sur-image-or-ludovic-debeurme",
+      "title": {
+        "fr": "\"Arrêt sur image\" avec Ludovic Debeurme",
+        "en": "\"Freeze on image\" with Ludovic Debeurme"
+      },
+      "description": {
+        "fr": "Ludovic Debeurme reviendra sur ses différentes inspirations et analysera son travail de créateur de BD à partir de dessins et certaines de ses planches",
+        "en": "Ludovic Debeurme will review his different inspirations and analyse his work as a comic book designer from drawings and some of his plates"
+      },
+      "longDescription": {
+        "fr": "Par son trait unique et la qualité de ses récits, Ludovic Debeurme sort des sentiers battus de la bande dessinée dite classique. Débutant comme illustrateur pour la presse jeunesse, il signe sa première oeuvre _Céfalus_ en 2002. Mais c’est en 2007, avec Lucille qu’il recevra le prix « Essentiel » du Festival d’Angoulême et deviendra incontournable. Il s’en suivra des albums virtuoses comme _Le grand autre_, _Terra Maxima_ ou _René_. Sa dernière oeuvre en trois volumes, _Epiphania_, nous questionne sur l’avenir du monde. Lors de cette séance, Ludovic Debeurme reviendra sur ses différentes inspirations et analysera son travail de créateur de BD à partir de dessins et certaines de ses planches.\n\nAvec Ludovic Debeurme, auteur et illustrateur de bande dessinée",
+        "en": "Ludovic Debeurme’s unique character and the quality of his stories take him off the beaten path of the so-called classic comic book. Beginning as an illustrator for the youth press, he signed his first work _Céfalus_ in 2002\\. But it was in 2007, with Lucille, that he received the «Essential» prize of the Angoulême Festival and became unavoidable. It will follow virtuoso albums like _Le grand autre_, _Terra Maxima_ or _René_. His last work in three volumes, _Epiphania_, questions the future of the world. During this session, Ludovic Debeurme will review his different inspirations and analyze his work as a comic book designer from drawings and some of his plates.\nWith Ludovic Debeurme, author and cartoon illustrator"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Ouvert à tous, places limitées",
+        "en": "Open to all, limited spaces"
+      },
+      "image": {
+        "filename": "1f3e60b364ad437aa1c29ad6f133e3bd.base.image.jpg",
+        "credits": "Ludovic Debeurme",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1f3e60b364ad437aa1c29ad6f133e3bd.full.image.jpg",
+            "size": {
+              "height": 500,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1f3e60b364ad437aa1c29ad6f133e3bd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-15T15:30:00.000Z",
+          "end": "2020-02-15T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:43.000Z",
+      "createdAt": "2019-12-13T16:13:20.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 22766783,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 16,
+        "max": 99
+      },
+      "registration": [
+        "mediatheque@beziers-mediterranee.fr",
+        "04 99 41 05 50"
+      ],
+      "location": {
+        "uid": 22766783,
+        "slug": "mediatheque-andre-malraux427",
+        "name": "Médiathèque André Malraux",
+        "address": "1 place du 14 juillet 34500 Béziers",
+        "city": "Béziers",
+        "region": "Occitanie",
+        "department": "Hérault",
+        "postalCode": "34500",
+        "insee": "34032",
+        "countryCode": "FR",
+        "district": "Mercorent",
+        "latitude": 43.347502,
+        "longitude": 3.222391,
+        "updatedAt": "2019-12-16T08:53:55.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "243 400 769",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 6567993,
+        "custom": {
+          "organization": "Médiathèque André Malraux",
+          "contactName": "Emilie SOULIER",
+          "contactNumber": "04 99 41 31 17",
+          "contactPosition": "Chargée de médiation et promotion culturelle",
+          "email": "emiliesoulier@beziers-mediterranee.fr"
+        }
+      }
+    },
+    {
+      "uid": 94703125,
+      "ownerUid": 66076030,
+      "creatorUid": 66076030,
+      "slug": "dedicace-conference-rencontre-avec-frank-margerin",
+      "title": {
+        "fr": "Rencontre avec Frank Margerin",
+        "en": "Meeting with Frank Margerin"
+      },
+      "description": {
+        "fr": "Conférence-rencontre avec Frank Margerin",
+        "en": "Conference-meeting with Frank Margerin"
+      },
+      "longDescription": {
+        "fr": "Conférence-rencontre avec Frank Margerin accompagné d'un quiz 100% rock et d'une séance de dédicace.",
+        "en": "Conference-meeting with Frank Margerin accompanied by a 100% rock quiz and a signing session."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Hôtel-Dieu",
+        "en": "Hôtel-Dieu"
+      },
+      "image": {
+        "filename": "6ab031af927d42b391d33209c5743465.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "6ab031af927d42b391d33209c5743465.full.image.jpg",
+            "size": {
+              "height": 1241,
+              "width": 877
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "6ab031af927d42b391d33209c5743465.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T18:00:00.000Z",
+          "end": "2020-01-17T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:40.000Z",
+      "createdAt": "2019-12-13T16:33:29.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 65196705,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.briecomterobert.fr/Brie-Scope/Agenda-de-vos-sorties/Saison-culturelle/Exposition-Faites-du-rock-avec-Lucien"
+      ],
+      "location": {
+        "uid": 65196705,
+        "slug": "hotel-dieu85",
+        "name": "Hôtel-Dieu",
+        "address": "Rue des Halles 77170 Brie-Comte-Robert",
+        "city": "Brie-Comte-Robert",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77170",
+        "insee": "77053",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.691278,
+        "longitude": 2.608933,
+        "updatedAt": "2019-12-16T08:53:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival \"Musiques à Brie\"",
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "L'Empreinte du rock",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 66076030,
+        "custom": {
+          "organization": "Mairie de Brie-Comte-Robert",
+          "contactName": "Isabelle Malaquin",
+          "contactNumber": "01 60 62 64 12",
+          "contactPosition": "Chargée des Arts Visuels",
+          "email": "imalaquin@briecomterobert.fr"
+        }
+      }
+    },
+    {
+      "uid": 1229225,
+      "ownerUid": 1091436,
+      "creatorUid": 1091436,
+      "slug": "exposition-des-caricatures-dabeillez-vous",
+      "title": {
+        "fr": "Exposition des caricatures d'Abeillez-vous !",
+        "en": "Exhibition of caricatures of Abeillez-vous!"
+      },
+      "description": {
+        "fr": "Exposition des caricatures extraites des livres \"Abeillez-vous !\" d'illustres dessinateurs de BD et de comédiens associés à des films inspirés de la BD",
+        "en": "Exhibition of cartoons from the books \"Abeillez-vous!\" illustrious cartoonists and actors associated with films inspired by comic books"
+      },
+      "longDescription": {
+        "fr": "### \"Abeillez-vous !\" dans le cadre du 47e festival de la BD d'Angoulême\n\n### Exposition des caricatures signées Fred Coicault extraites des livres _Abeillez-vous !_ d'illustres dessinateurs de BD (Uderzo, Goscinny, Hergé, Morris, Moebius, Zep...) et de comédiens (Gérard Depardieu, Catherine Deneuve, Alain Delon, Jean Dujardin, Clovis Cornillac, Edouard Baer, Alain Chabat...) associés à des films inspirés de la BD.",
+        "en": "### \"Abeillez-vous!\" as part of the 47th Angoulême comic strip festival\n### Exhibition of cartoons signed Fred Coicault extracted from the books _Abeillez-vous!_ illustrious cartoonists (Uderzo, Goscinny, Hergé, Morris, Moebius, Zep...) and actors (Gérard Depardieu, Catherine Deneuve, Alain Delon, Jean Dujardin, Clovis Cornillac, Edouard Baer, Alain Chabat...) associated with films inspired by comics."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "82252abc964c4ff38be0a51ffd981ac1.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "82252abc964c4ff38be0a51ffd981ac1.full.image.jpg",
+            "size": {
+              "height": 1754,
+              "width": 1240
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "82252abc964c4ff38be0a51ffd981ac1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-30T09:00:00.000Z",
+          "end": "2020-01-30T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T09:00:00.000Z",
+          "end": "2020-01-31T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T09:00:00.000Z",
+          "end": "2020-02-02T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:38.000Z",
+      "createdAt": "2019-12-13T17:48:03.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19581614,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "hr@herverousseau.com"
+      ],
+      "location": {
+        "uid": 19581614,
+        "slug": "librairie-cosmopolite217",
+        "name": "Librairie Cosmopolite",
+        "address": "Galerie du Champ de Mars 16000 Angoulême",
+        "city": "Angoulême",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16000",
+        "insee": "16015",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.651275,
+        "longitude": 0.157675,
+        "updatedAt": "2019-12-16T09:04:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Ville d'Angoulême, ONG R20, Stéphane Plaza Immobilier",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 1091436,
+        "custom": {
+          "organization": "Abeillez-vous !",
+          "contactName": "Hervé Rousseau",
+          "contactNumber": "0683202247",
+          "contactPosition": "Écrivain",
+          "email": "hr@herverousseau.com"
+        }
+      }
+    }
+  ],
+  "lastId": 2107051
+}

@@ -1,0 +1,1517 @@
+{
+  "events": [
+    {
+      "uid": 67676234,
+      "ownerUid": 70333085,
+      "creatorUid": 70333085,
+      "slug": "12-regards-de-femmes-sur-12-femmes-de-bd_797091",
+      "title": {
+        "en": "12 women’s views on 12 women’s comics - Interview with Véro Cazot",
+        "fr": "12 regards de femmes sur 12 femmes de BD - Rencontre avec Véro Cazot"
+      },
+      "description": {
+        "en": "Interview with Véro Cazot, screenwriter",
+        "fr": "Rencontre avec Véro Cazot, scénariste"
+      },
+      "longDescription": {
+        "en": "On the occasion of the publication of the first volume of **_Olive_** (drawing by Lucy Mazel, Dupuis, March 2020), the author of the highly noted _**Betty Boob**_ (drawing by Julie Rocheleau, Casterman, 2017) evokes the female figures of her dreamlike and sensitive stories: They love freedom and breathe poetry into their lives.\nThe Apsotrophe, auditorium",
+        "fr": "À l’occasion de la parution du premier tome de **_Olive_** (dessin de Lucy Mazel, Dupuis, mars 2020), l’autrice de la très remarquée _**Betty Boob**_ (dessin de Julie Rocheleau, Casterman, 2017) évoque les figures féminines de ses histoires oniriques et sensibles : éprises de liberté, elles insufflent un vent de poésie dans leur vie.\n\nL'Apsotrophe, auditorium"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "a3e90e9d2d9a438493ca62dcee18843a.base.image.jpg",
+        "credits": "© Vero Cazot",
+        "size": {
+          "height": 526,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a3e90e9d2d9a438493ca62dcee18843a.full.image.jpg",
+            "size": {
+              "height": 1537,
+              "width": 2049
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a3e90e9d2d9a438493ca62dcee18843a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-15T14:30:00.000Z",
+          "end": "2020-02-15T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T08:10:30.000Z",
+      "createdAt": "2020-02-05T17:14:50.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10499334,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 10499334,
+        "slug": "mediatheque-lapostrophe305",
+        "name": "Médiathèque L'Apostrophe",
+        "address": "1 boulevard Maurice Viollette 28000 Chartres",
+        "city": "Chartres",
+        "region": "Centre-Val de Loire",
+        "department": "Eure-et-Loir",
+        "postalCode": "28000",
+        "insee": "28085",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.446999,
+        "longitude": 1.483268,
+        "updatedAt": "2020-02-05T16:22:34.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 70333085,
+        "custom": {
+          "organization": "Médiathèque de Chartres",
+          "contactName": "Myriam Vallot",
+          "contactNumber": "02 37 23 42 00",
+          "contactPosition": "Directrice-adjointe des bibliothèques",
+          "email": "myriam.vallot@agglo-ville.chartres.fr"
+        }
+      }
+    },
+    {
+      "uid": 79506377,
+      "ownerUid": 51148888,
+      "creatorUid": 51148888,
+      "slug": "dedikatz-dedicace-jeu-et-spectacle-dessine",
+      "title": {
+        "fr": "DEDIKATZ, dédicace, jeu et spectacle dessiné ! Avec Richard Guerineau",
+        "en": "DEDIKATZ, dedication, game and show! With Richard Guerineau"
+      },
+      "description": {
+        "fr": "R. Guerineau dessinera en public sur écran géant un dessin dont le thème est tenu secret. La première personne du public à avoir deviné son thème remporte le dessin signé. 12 dessins x 10 minutes !",
+        "en": "R. Guerineau will draw in public on a giant screen a drawing whose theme is kept secret. The first person in the audience to have guessed his theme wins the signed drawing. 12 drawings x 10 minutes!"
+      },
+      "longDescription": {
+        "fr": "C’est le nouveau jeu qui fait sensation dans le monde de la BD. Un auteur dessine en public sur écran géant un dessin dont le thème est tenu secret. Le public doit deviner ce thème. Le premier à avoir trouvé juste remporte le dessin A3 signé par l’auteur. 12 dessins, 10 minutes, 10 euros, DÉDIKATZ c’est à la fois une soirée jeu palpitante, un quiz de culture générale, un spectacle dessiné et une dédicace interactive !",
+        "en": "It is the new game that makes a sensation in the world of comics. An author draws in public on a giant screen a drawing whose theme is kept secret. The public must guess this theme. The first to have found just won the A3 drawing signed by the author. 12 drawings, 10 minutes, 10 euros, DÉDIKATZ is at the same time an exciting game evening, a quiz of general culture, a show drawn and an interactive dedication!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription obligatoire auprès de la librairie",
+        "en": "Compulsory registration with the bookstore"
+      },
+      "image": {
+        "filename": "0f71bb60db5d4e7f9e8baa2836f099ed.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 492,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0f71bb60db5d4e7f9e8baa2836f099ed.full.image.jpg",
+            "size": {
+              "height": 188,
+              "width": 268
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0f71bb60db5d4e7f9e8baa2836f099ed.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-27T18:30:00.000Z",
+          "end": "2020-02-27T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T07:59:48.000Z",
+      "createdAt": "2020-02-05T17:38:36.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 71998801,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [
+        "krazykatlib@canalbd.net",
+        "0556520660",
+        "http://www.canalbd.net/krazy-kat",
+        "http://www.canalbd.net/krazy-kat,"
+      ],
+      "location": {
+        "uid": 71998801,
+        "slug": "librairie-krazy-kat",
+        "name": "Librairie Krazy Kat",
+        "address": "10 rue de la Merci 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.838904,
+        "longitude": -0.573667,
+        "updatedAt": "2020-02-06T07:49:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "10 euros et une consommation offerte",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "45397993200010",
+      "prix-pass-culture": 10,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 51148888,
+        "custom": {
+          "organization": "LIbrairie KRAZY KAT Bordeaux, BDs, mangas, comics",
+          "contactName": "Matthieu SAINT-DENIS",
+          "contactNumber": "0556521660",
+          "contactPosition": "Propriétaire, Gérant, Libraire",
+          "email": "krazykatlib@canalbd.net"
+        }
+      }
+    },
+    {
+      "uid": 70962050,
+      "ownerUid": 51148888,
+      "creatorUid": 51148888,
+      "slug": "dedikatz-dedicace-jeu-et-spectacle-dessine-avec-regis-lejonc",
+      "title": {
+        "en": "DEDIKATZ, dedication, game and show! With Régis Lejonc",
+        "fr": "DEDIKATZ, dédicace, jeu et spectacle dessiné ! Avec Régis Lejonc"
+      },
+      "description": {
+        "en": "Régis Lejonc will draw drawings with secret themes in public on a giant screen. The first person in the audience to have guessed his theme wins the signed drawing. 12 drawings x 10 minutes!",
+        "fr": "Régis Lejonc dessinera en public sur écran géant des dessins aux thèmes tenus secrets. La première personne du public à avoir deviné son thème remporte le dessin signé. 12 dessins x 10 minutes !"
+      },
+      "longDescription": {
+        "en": "The Media Library of Podensac - Convergence Garonne presents the new game of the bookstore Krazy Kat that makes a sensation in the world of comics. An author draws in public on a giant screen a drawing whose theme is kept secret. The public must guess this theme. The first to find just won the A3 drawing signed by the author. 12 drawings of 10 minutes each, DÉDIKATZ is at the same time an exciting game evening, a quiz of general culture, a show drawn and an interactive dedication!",
+        "fr": "La médiathèque de Podensac - Convergence Garonne présente le nouveau jeu de la librairie Krazy Kat qui fait sensation dans le monde de la BD. Un auteur dessine en public sur écran géant un dessin dont le thème est tenu secret. Le public doit deviner ce thème. Le premier à avoir trouvé juste remporte le dessin A3 signé par l’auteur. 12 dessins de 10 minutes chacun, DÉDIKATZ c’est à la fois une soirée jeu palpitante, un quiz de culture générale, un spectacle dessiné et une dédicace interactive !"
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Recommended registration with the Podensac Media Library",
+        "fr": "Inscription conseillée auprès de la médiathèque de Podensac"
+      },
+      "image": {
+        "filename": "e23ef7a3397f4037b530a1e3d5c212e7.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 492,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e23ef7a3397f4037b530a1e3d5c212e7.full.image.jpg",
+            "size": {
+              "height": 188,
+              "width": 268
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e23ef7a3397f4037b530a1e3d5c212e7.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-21T19:30:00.000Z",
+          "end": "2020-02-21T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T08:10:25.000Z",
+      "createdAt": "2020-02-05T17:51:51.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 25129476,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "05 56 76 38 00"
+      ],
+      "location": {
+        "uid": 25129476,
+        "slug": "mediatheque-de-podensac222",
+        "name": "Médiathèque de Podensac",
+        "address": "12 rue du Maréchal Leclerc 33720 Podensac",
+        "city": "Podensac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33720",
+        "insee": "33327",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.647586,
+        "longitude": -0.355733,
+        "updatedAt": "2020-02-06T07:49:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Mediathèque de Podensac - Convergence Garonne",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "45397993200010",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 51148888,
+        "custom": {
+          "organization": "LIbrairie KRAZY KAT Bordeaux, BDs, mangas, comics",
+          "contactName": "Matthieu SAINT-DENIS",
+          "contactNumber": "0556521660",
+          "contactPosition": "Propriétaire, Gérant, Libraire",
+          "email": "krazykatlib@canalbd.net"
+        }
+      }
+    },
+    {
+      "uid": 2655649,
+      "ownerUid": 51148888,
+      "creatorUid": 51148888,
+      "slug": "dedikatz-dedicace-jeu-et-spectacle-dessine-avec-adrien-demont",
+      "title": {
+        "en": "DEDIKATZ, dedication, game and show! With Adrien Demont",
+        "fr": "DEDIKATZ, dédicace, jeu et spectacle dessiné ! Avec Adrien Demont"
+      },
+      "description": {
+        "en": "Adrien Demont will draw drawings with secret themes in public on a giant screen. The first person in the audience to have guessed his theme wins the signed drawing. 12 drawings x 10 minutes!",
+        "fr": "Adrien Demont dessinera en public sur écran géant des dessins aux thèmes tenus secrets. La première personne du public à avoir deviné son thème remporte le dessin signé. 12 dessins x 10 minutes !"
+      },
+      "longDescription": {
+        "en": "The festival of laughter, Les fous rire de Bordeaux, presents the new game of the bookstore Krazy Kat that makes a sensation in the world of comics. An author draws in public on a giant screen a drawing whose theme is kept secret. The public must guess this theme. The first to find just won the A3 drawing signed by the author. 12 drawings of 10 minutes each, DÉDIKATZ is at the same time an exciting game evening, a quiz of general culture, a show drawn and an interactive dedication!",
+        "fr": "Le festival du rire, Les fous rire de Bordeaux, présente le nouveau jeu de la librairie Krazy Kat qui fait sensation dans le monde de la BD. Un auteur dessine en public sur écran géant un dessin dont le thème est tenu secret. Le public doit deviner ce thème. Le premier à avoir trouvé juste remporte le dessin A3 signé par l’auteur. 12 dessins de 10 minutes chacun, DÉDIKATZ c’est à la fois une soirée jeu palpitante, un quiz de culture générale, un spectacle dessiné et une dédicace interactive !"
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Recommended registration at the festival Les fous rire de Bordeaux",
+        "fr": "Inscription conseillée auprès du festival Les fous rire de Bordeaux"
+      },
+      "image": {
+        "filename": "158eb438fb7c414eab83033c51e84740.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 492,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "158eb438fb7c414eab83033c51e84740.full.image.jpg",
+            "size": {
+              "height": 188,
+              "width": 268
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "158eb438fb7c414eab83033c51e84740.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-15T14:00:00.000Z",
+          "end": "2020-03-15T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T08:10:30.000Z",
+      "createdAt": "2020-02-05T18:04:10.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 24662777,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "05 56 48 26 26",
+        "http://www.box.fr",
+        "contact@lesfousriresdebordeaux.fr"
+      ],
+      "location": {
+        "uid": 24662777,
+        "slug": "eglise-saint-remi618",
+        "name": "Église Saint-Rémi",
+        "address": "4 rue Jouannet 33000 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33000",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Centre ville",
+        "latitude": 44.84168,
+        "longitude": -0.571938,
+        "updatedAt": "2020-02-06T07:50:04.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 772,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Festival Les fous rire de Bordeaux du 1er au 21 mars 2020",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "45397993200010",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 51148888,
+        "custom": {
+          "organization": "LIbrairie KRAZY KAT Bordeaux, BDs, mangas, comics",
+          "contactName": "Matthieu SAINT-DENIS",
+          "contactNumber": "0556521660",
+          "contactPosition": "Propriétaire, Gérant, Libraire",
+          "email": "krazykatlib@canalbd.net"
+        }
+      }
+    },
+    {
+      "uid": 8028221,
+      "ownerUid": 47353363,
+      "creatorUid": 47353363,
+      "slug": "livra-vannes-salon-litteraire",
+      "title": {
+        "en": "\"Livr'à Vannes\", literary Salon",
+        "fr": "\"Livr'à Vannes\", salon littéraire"
+      },
+      "description": {
+        "en": "The 13th edition of the book fair in Vannes will be held in the gardens of the ramparts, in the heart of the city, on June 5, 6 and 7, 2020",
+        "fr": "La 13e édition du salon du livre à Vannes se tiendra dans les jardins des remparts, en cœur de ville, les 5, 6 et 7 juin 2020"
+      },
+      "longDescription": {
+        "en": "\"Livr'**à Vannes\", literary salon**\nAfter a first regionalist exhibition experience from 2004 to 2007, the city of Vannes decided in 2008 to give a more open and ambitious dimension to this literary event which today welcomes more than 150 authors and receives 30,000 visitors.\nMaking the richness and diversity of national and regional publishing known to the widest possible audience is one of the objectives of this event, which today holds a unique place in the panorama of book fairs and festivals.\nChaired by Patrick Mahé, the exhibition \"Livr'à Vannes\" is organized by the city of Vannes, in partnership with five general or specialized booksellers located in the municipality. Sylvie Rostain provides artistic programming.\nBuilding on the success of past editions, the city of Vannes wishes to establish the fame and quality of programming, with a cultural, educational and artistic dimension, while broadening its reach at the national level for this 13th edition to be held in the gardens of the ramparts, in the heart of the city, on June 5, 6 and 7, 2020.\n**A friendly atmosphere, meetings, favourites!**\nThe literary salon is intended for all audiences, which is why its access is entirely free and free for visitors.\nThe registration of the event at the end of the school year also allows a real upstream work with the National Education and in fact expands the programming of the youth authors.\nThe active participation of the library’s services also makes it possible to offer book professionals a study day linked to the evolution of the professions.\nThe exhibition will be held on June 5, 6 and 7, 2020 in the garden of the ramparts, in the heart of the city. It will take place under a main capital of 1,000 m² (called the Grande librairie), four annex capitals of 150 m² each dedicated to the various literary activities (literary cafés, workshops, conferences, etc.) organized within the framework of the exhibition.\nThere is also a photocall and a press area dedicated to journalists present at the fair.\n\"Livr'à Vannes\" is organized by the city of Vannes in partnership with two general bookstores (Cheminant and Le Silence de la Mer) and three specialized bookstores of the city (Lenn Ha Dilenn, Jardin des bulles, l'Archipel des mots), with the support of the Institut culturel de Bretagne and the Breton Language Office.\nThe five booksellers are associated with the construction of the program of the fair days; they also present their catalogues and ensure the sales on the site.\nThe Steering Committee is made up of elected officials and book, culture and education professionals.\nHe is assisted by the artistic director, Sylvie Rostain, who is responsible for the implementation of programming and relations with authors and publishers.\nThe different literary genres are represented: novels, essays, youth, regionalism, comics.\nLiterary prizes* are associated with the show:\n- the price of the town of Vannes\n- The price of Breton-language novel;\n- Young adult prizes;\n_* For more than 10 years, many authors who have received the Prix Goncourt, Renaudot… have come to the show to meet the public._",
+        "fr": "\"**Livr'à Vannes\", salon littéraire**\n\nAprès une première expérience de salon régionaliste de 2004 à 2007, la ville de Vannes a décidé en 2008 de donner une dimension plus ouverte et plus ambitieuse à cet événement littéraire qui accueille aujourd’hui plus de 150 auteurs et reçoit 30 000 visiteurs.\n\nFaire découvrir la richesse et la diversité de l’édition nationale et régionale à un public le plus large possible est l’un des objectifs de cette manifestation, qui tient aujourd’hui une place singulière dans le panorama des salons et festivals du livre.\n\nPrésidé par Patrick Mahé, le salon \"Livr'à Vannes\" est organisé par la ville de Vannes, en partenariat avec cinq libraires généralistes ou spécialisés installés sur la commune. Sylvie Rostain assure la programmation artistique.\n\nForte du succès des éditions passées, la ville de Vannes souhaite asseoir la renommée et la qualité de la programmation, avec une dimension culturelle, éducative et artistique, tout en élargissant son rayonnement au plan national pour cette 13e édition qui se tiendra dans les jardins des remparts, en cœur de ville, les 5, 6 et 7 juin 2020.\n\n**Une ambiance conviviale, des rencontres, des coups de cœurs !**\n\nLe salon littéraire est destiné à tous les publics, c’est pourquoi son accès est entièrement libre et gratuit pour les visiteurs.\n\nL’inscription de la manifestation en fin d’année scolaire autorise également un véritable travail en amont avec l’Education nationale et étoffe de fait la programmation des auteurs jeunesse.\n\nLa participation active des services de la médiathèque permet également de proposer aux professionnels du livre une journée d’étude liée à l’évolution des métiers.\n\nLe salon se tiendra les 5, 6 et 7 juin 2020 dans le jardin des remparts, en cœur de ville. Il se déroulera sous un chapiteau principal de 1 000 m² (dénommé la Grande librairie), quatre chapiteaux annexes de 150 m² chacun étant dédiés aux diverses animations littéraires (cafés littéraires, ateliers, conférences…) organisées dans le cadre du salon.\n\nÉgalement à disposition un photocall et un espace presse dédié aux journalistes présents sur le salon.\n\n\"Livr’à Vannes\" est organisé par la ville de Vannes en partenariat avec deux librairies généralistes (Cheminant et Le Silence de la Mer) et trois librairies spécialisées de la ville (Lenn Ha Dilenn, Jardin des bulles, l’Archipel des mots), avec l’appui de l’Institut culturel de Bretagne et de l’office de la langue bretonne.\n\nLes cinq libraires sont associés à la construction de la programmation des journées du salon ; ils présentent également leurs catalogues et assurent les ventes sur le site.\n\nLe comité de pilotage est composé d’élus et de professionnels du livre, de la culture et de l’enseignement.\n\nIl est assisté par la directrice artistique, Sylvie Rostain, qui se charge de la mise en oeuvre de la programmation et des relations avec les auteurs et éditeurs.\n\nLes différents genres littéraires sont représentés : romans, essais, jeunesse, régionalisme, bandes dessinées.\n\nDes prix littéraires\\* sont associés au salon :\n\n\\- le prix de la ville de Vannes\n\n\\- le prix du roman en langue bretonne\n\n\\- le prix jeunes adultes\n\n_\\* Depuis plus de 10 ans, de nombreux auteurs ayant reçu les Prix Goncourt, Renaudot… sont venus sur le salon à la rencontre du public._"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "033b6056a2eb471e8a9659c4d34f277f.base.image.jpg",
+        "credits": "Mairie de Vannes",
+        "size": {
+          "height": 981,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "033b6056a2eb471e8a9659c4d34f277f.full.image.jpg",
+            "size": {
+              "height": 745,
+              "width": 532
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "033b6056a2eb471e8a9659c4d34f277f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-05T12:00:00.000Z",
+          "end": "2020-06-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T08:00:00.000Z",
+          "end": "2020-06-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-07T08:00:00.000Z",
+          "end": "2020-06-07T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T09:10:32.000Z",
+      "createdAt": "2020-02-06T08:06:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 78658099,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 78658099,
+        "slug": "jardin-des-remparts476",
+        "name": "Jardin des remparts",
+        "address": "Rue Francis Decker 56000 Vannes",
+        "city": "Vannes",
+        "region": "Bretagne",
+        "department": "Morbihan",
+        "postalCode": "56000",
+        "insee": "56260",
+        "countryCode": "FR",
+        "district": "Centre - Le Port",
+        "latitude": 47.658491,
+        "longitude": -2.75507,
+        "updatedAt": "2020-02-05T16:22:18.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Cheminant, Le Silence de la Mer, Lenn Ha Dilenn, Jardin des bulles, l'Archipel des mots",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "21560260800014",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 47353363,
+        "custom": {
+          "organization": "Mairie de Vannes",
+          "contactName": "Gaelle Le Gourrierec",
+          "contactNumber": "02 97 01 60 30",
+          "contactPosition": "Communication",
+          "email": "communication@mairie-vannes.fr"
+        }
+      }
+    },
+    {
+      "uid": 54400700,
+      "ownerUid": 89557287,
+      "creatorUid": 89557287,
+      "slug": "757172",
+      "title": {
+        "fr": "Jean-Christophe Chauzy en dédicace",
+        "en": "Jean-Christophe Chauzy in dedication"
+      },
+      "description": {
+        "fr": "Samedi 8 février, nous recevrons Jean-Christophe Chauzy en dédicace pour le quatrième et dernier tome de sa série",
+        "en": "Saturday, February 8, we will receive Jean-Christophe Chauzy in dedication for the fourth and last volume of his series"
+      },
+      "longDescription": {
+        "fr": "**Le superbe Jean-Christophe Chauzy sera en dédicace à la librairie Momie Annecy samedi 8 février de 15h à 19h pour la sortie du tome qui cloture la quadrilogie** _**Le Reste du Monde**_**.**\n\nLe rattrapage c'est par ici pour ceux qui n'auraient pas suivi :\n\nMarie et ses 2 jeunes fils passent leurs vacances d'été dans leur chalet des Pyrénées, loin de la capitale et de leur père qui vient de quitter le foyer familial pour une jeune femme. Les derniers jours avant la rentrée se profilent et il va être temps de rentrer à Paris. Marie profite que ses garçons soient chez des voisins pour préparer les sacs et ruminer contre son mari.\n\nSauf que ce soir-là un énorme orage éclate suivi d'un violent séisme. Le lendemain à la lumière du jour c'est encore pire, plus de réseaux, de téléphone ou de radio et plus Marie descend vers la civilisation plus la situation semble grave...\n\nComment garder son humanité quand la fin du monde sonne ? Où aller ? Quoi faire ? Comment survivre et trouver un endroit sûr ? Un indispensable du genre post-apocalyptique terminé en 4 tomes et qui se passe en France s'il vous plait !\n\n_La dédicace est ouverte à tout le monde._\n\n_Il n'y a pas de réservation nécessaire ou de tickets._\n\n_Pour que chacun puisse profiter d'un temps avec l'auteur, il sera fait une dédicace par personne._\n\n_Une seconde dédicace pourra être faite en refaisant la queue et selon l'affluence._\n\n_Le règlement des livres se fait avant la dédicace._\n\n_Si vous venez avec vos propres livres merci de le faire savoir en arrivant à nos libraires pour éviter tout malentendu._",
+        "en": "**The superb Jean-Christophe Chauzy will be in dedication at the bookstore Momie Annecy on Saturday 8 February from 3pm to 7pm for the release of the book that closes the** quadrilogy _**The Rest of the World**_**.**\nCatching up is around here for those who didn’t follow:\nMarie and her two young sons spend their summer holidays in their Pyrenean chalet, far from the capital and from their father who has just left the family home for a young woman. The last few days before school begins and it will be time to return to Paris. Marie takes advantage of her boys being with neighbours to prepare the bags and ruminate against her husband.\nBut that night a huge storm broke out followed by a violent earthquake. The next day in the light of day it is even worse, more networks, telephone or radio and the more Mary descends towards civilization the more serious the situation seems...\nHow to keep your humanity when the end of the world rings? Where to go? What to do? How to survive and find a safe place? Un indispensable du genre post-apocalyptique terminé en 4 tomes et qui se passe en France s'il vous plaît!\n_The dedication is open to everyone._\n_There is no reservation required or tickets._\n_So that everyone can enjoy a time with the author, it will be made a dedication per person._\n_A second dedication can be made by redoing the queue and depending on the number of people._\n_Book regulations are made before the signing._\n_If you come with your own books please let us know by arriving at our booksellers to avoid any misunderstanding._"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "a486b9867414431bb1462d78f7d2e040.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a486b9867414431bb1462d78f7d2e040.full.image.jpg",
+            "size": {
+              "height": 3508,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a486b9867414431bb1462d78f7d2e040.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T14:00:00.000Z",
+          "end": "2020-02-08T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:39:25.000Z",
+      "createdAt": "2020-02-04T09:32:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 22572885,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 22572885,
+        "slug": "librairie-momie-annecy-bd",
+        "name": "Librairie Momie Annecy BD",
+        "address": "75 rue Carnot 74000 Annecy",
+        "city": "Annecy",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Haute-Savoie",
+        "postalCode": "74000",
+        "insee": "74010",
+        "countryCode": "FR",
+        "district": "Annecy",
+        "latitude": 45.90525,
+        "longitude": 6.12378,
+        "updatedAt": "2020-02-04T09:52:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 89557287,
+        "custom": {
+          "organization": "momie annecy",
+          "contactName": "Agathe Lavaud",
+          "contactNumber": "0450510904",
+          "contactPosition": "Madame la Directrice",
+          "email": "momieannecy@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 95414581,
+      "ownerUid": 89557287,
+      "creatorUid": 89557287,
+      "slug": "lorraine-les-bains-en-dedicace",
+      "title": {
+        "fr": "Lorraine Les Bains en dédicace",
+        "en": "Lorraine Les Bains in dedication"
+      },
+      "description": {
+        "fr": "La géniale Lorraine Les Bains sera présente pour dédicacer sa superbe bande dessinée",
+        "en": "The brilliant Lorraine Les Bains will be there to dedicate her beautiful comic"
+      },
+      "longDescription": {
+        "fr": "**La géniale Lorraine Les Bains sera présente le samedi 29 février de 15h à 19h pour vous rencontrer et dédicacer son incroyable bande déssiné** _**Waldo**_**.**\n\nNotre coup de cœur :\n\nWaldo Maelfait, star incontestée de la chanson, est sur le point de recevoir un « Micro d’or » pour récompenser l’ensemble de sa carrière. Mais le précieux trophée ne sera jamais remis à l’idole des français.es, puisque son meilleur ami Djiordjio le retrouve mort, prisonnier de son sèche-linge !\n\nLa nouvelle de ce meurtre abominable bouleverse dans les chaumières, de la villa bourgeoise à la coloc écolo, en passant par la petite maison de Maryse, gouvernante attitrée du chanteur vedette.\n\nQue l’on se soit trémoussé en diable sur son plus gros tube, « les côtelettes de l’aube », ou qu’on ne supporte pas le personnage grossier et extravagant qui a fait polémique, on a forcément un avis à donner sur Waldo, et à plus forte raison sur sa disparition ! D’autant plus lorsque trois ados découvrent par hasard le cadavre d’une jeune femme tuée à coups de fourchette dans une maison abandonnée, non loin du cimetière. Mais… n’est-ce pas la fameuse voix de « Douces nénettes » que l’on entend au loin ? Et oui les jeunes, il semblerait que Waldo ne soit pas ravi de partager son caveau avec sa vieille tante Geneviève. Si seulement quelqu’un tendait l’oreille…\n\nDans _Waldo_, on ne voit aucun protagoniste : on les entend parler à travers les fenêtres, comme si on épiait les conversations. On devine les personnages derrière les façades de leurs maisons, et leurs voix suffisent à notre imagination, laissant notre regard se perdre dans les toitures, briques, colombages et autres crépis subtilement aquarellés.\n\nCoup de génie pour Lorraine Les Bains qui, sous couvert de nous embarquer dans un polar absurde et délirant, nous livre en fait une vision délicieusement caustique de notre société. Même pas besoin de le voir pour y croire !",
+        "en": "**The brilliant Lorraine Les Bains will be present on Saturday, February 29th from 3pm to 7pm to meet you and dedicate her incredible dedicated _**Waldo**_ tape****.**\nOur favourite thing of all:\nWaldo Maelfait, an undisputed song star, is about to receive a “Gold Mic” to reward her entire career. But the precious trophy will never be given to the idol of the French.es, since his best friend Djiordjio finds him dead, prisoner of his dryer!\nThe news of this abominable murder is shattering in the cottages, from the bourgeois villa to the eco-friendly roommate, passing by the little house of Maryse, the housekeeper of the star singer.\nWhether you’ve tripped like a devil on your biggest hit, «the chops of dawn», or you can’t stand the rude and extravagant character who made controversy, you have to have a say in Waldo, let alone his disappearance! All the more so when three teenagers accidentally discover the body of a young woman killed with a fork in an abandoned house, not far from the cemetery. But… isn’t that the famous voice of “Sweet Bitches” that you hear in the distance? And yes, young people, it seems that Waldo is not happy to share his vault with his old aunt Geneviève. If only someone would listen—\nIn _Waldo_, we don’t see any protagonists: we hear them talking through the windows, as if we were watching the conversations. We can guess the characters behind the facades of their houses, and their voices suffice to our imagination, letting our eyes get lost in the roofs, bricks, half-timbers and other subtly watered plasters.\nA stroke of genius for Lorraine Les Bains, who, under the guise of embarking on an absurd and delusional thriller, gives us a deliciously caustic vision of our society. You don’t even have to see it to believe it!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "173a49f5a47c4c49a0304402ff9236b7.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "173a49f5a47c4c49a0304402ff9236b7.full.image.jpg",
+            "size": {
+              "height": 3508,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "173a49f5a47c4c49a0304402ff9236b7.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-29T14:00:00.000Z",
+          "end": "2020-02-29T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T09:39:10.000Z",
+      "createdAt": "2020-02-06T09:30:51.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 22572885,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 14,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 22572885,
+        "slug": "librairie-momie-annecy-bd",
+        "name": "Librairie Momie Annecy BD",
+        "address": "75 rue Carnot 74000 Annecy",
+        "city": "Annecy",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Haute-Savoie",
+        "postalCode": "74000",
+        "insee": "74010",
+        "countryCode": "FR",
+        "district": "Annecy",
+        "latitude": 45.90525,
+        "longitude": 6.12378,
+        "updatedAt": "2020-02-04T09:52:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": "Dédicace",
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 89557287,
+        "custom": {
+          "organization": "momie annecy",
+          "contactName": "Agathe Lavaud",
+          "contactNumber": "0450510904",
+          "contactPosition": "Madame la Directrice",
+          "email": "momieannecy@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 40129903,
+      "ownerUid": 25371453,
+      "creatorUid": 25371453,
+      "slug": "bandes-dessinees-mangas-et-comics-un-panorama-editorial",
+      "title": {
+        "fr": "Bandes dessinées, mangas et comics : un panorama éditorial",
+        "en": "Comic books, mangas and comics: an editorial panorama"
+      },
+      "description": {
+        "fr": "Bandes dessinées, mangas et comics : un panorama éditorial",
+        "en": "Comic books, mangas and comics: an editorial panorama"
+      },
+      "longDescription": {
+        "fr": "À travers un panorama éditorial du secteur des bandes dessinées, mangas et comics, nous vous invitons à venir écouter les suggestions d’Antoine et de Stéphane, libraires à Momie Grenoble afin de repartir avec des pistes de lecture, des idées pour vos achats et des conseils pour renseigner les usagers de vos bibliothèques.\n\nIntervenants : Antoine et Stéphane, libraires à Momie Grenoble\n\nDe 13h à 17h :\n\n\\- présentation de BD et de romans graphiques\n\n\\- présentation de comics\n\n\\- présentation de mangas et de manhuas\n\nDe 17h à 18h :\n\n\\- consultation sur place d’ouvrages",
+        "en": "Through an editorial panorama of the comic book, manga and comic book industry, we invite you to come and listen to the suggestions of Antoine and Stéphane, booksellers at Momie Grenoble in order to start again with reading tracks, ideas for your purchases and tips for educating your library users.\nSpeakers: Antoine and Stéphane, booksellers at Momie Grenoble\nFrom 1pm to 5pm:\n- Presentation of comics and graphic novels;\n- Presentation of comics\n- Presentation of mangas and manhuas;\nFrom 5pm to 6pm:\n- On-site consultation of works;"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription https://mediatheque-departementale.isere.fr/inscription-en-ligne.aspx",
+        "en": "Upon registration [https://mediatheque-departementale.isere.fr/inscription-en-ligne.aspx](https://mediatheque-departementale.isere.fr/inscription-en-ligne.aspx)"
+      },
+      "image": {
+        "filename": "f0b6dbff0d124620bd37777374b29b84.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 698,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f0b6dbff0d124620bd37777374b29b84.full.image.jpg",
+            "size": {
+              "height": 544,
+              "width": 546
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f0b6dbff0d124620bd37777374b29b84.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-18T12:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T11:11:06.000Z",
+      "createdAt": "2020-02-06T10:17:05.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 20830347,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "mediath@isere.fr",
+        "https://mediatheque-departementale.isere.fr/inscription-en-ligne.aspx"
+      ],
+      "location": {
+        "uid": 20830347,
+        "slug": "archives-departementales-de-lisere6",
+        "name": "Archives départementales de l'Isère",
+        "address": "2 rue Auguste Prudhomme 38000 Grenoble",
+        "city": "Grenoble",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Isère",
+        "postalCode": "38000",
+        "insee": "38185",
+        "countryCode": "FR",
+        "district": "Secteur 2",
+        "latitude": 45.191123,
+        "longitude": 5.736822,
+        "updatedAt": "2020-02-06T10:18:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Momie Grenoble",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 25371453,
+        "custom": {
+          "organization": "Médiathèque départementale de l'Isère",
+          "contactName": "Redon Delphine",
+          "contactNumber": "0476633070",
+          "contactPosition": "Chargée de formation",
+          "email": "delphine.redon@isere.fr"
+        }
+      }
+    },
+    {
+      "uid": 72156084,
+      "ownerUid": 89557287,
+      "creatorUid": 89557287,
+      "slug": "concert-bd-groenland-manhattan-de-chloe-cruchaudet",
+      "title": {
+        "fr": "Concert BD \"Groenland Manhattan\" de Chloé Cruchaudet",
+        "en": "Concert BD \"Groenland Manhattan\" by Chloé Cruchaudet"
+      },
+      "description": {
+        "fr": "Concert BD \"Groenland Manhattan\" d'après le livre de Chloé Cruchaudet à la salle Le Rabelais. Suivi d'une séance de dédicace.",
+        "en": "\"Groenland Manhattan\" comic book concert based on Chloé Cruchaudet’s book in the Rabelais room. Followed by a signing session."
+      },
+      "longDescription": {
+        "fr": "**Un BD concert inspiré d’une histoire authentique où les sonorités nous font voyager de la froideur des grands espaces arctiques aux vapeurs inquiétantes des rues bondées de Manhattan.**\n\nExtrême Nord du Groenland, 1897. Une fois encore, l’américain Robert Peary n’a pas réussi à planter son drapeau au pôle Nord malgré l’aide de ceux qu’on appelle encore les Esquimaux. Mais pour l’explorateur, pas question de rentrer les mains vides. L’idée lui vient alors de ramener des souvenirs vivants, de vrais « sauvages » polaires en chair et en os. L’un d’entre eux, Minik, n’est encore qu’un enfant quand il embarque à destination de New York…\n\nPortée par deux musiciens multi-instrumentistes nourris aux sons électro-polaires, au chant katajak urbain et aux airs populaires de la vieille Europe, cette histoire vraie aborde avec justesse et sensibilité des thématiques comme le déracinement et le choc des cultures.\n\nVenez découvrir un autre moyen de vivre la bande dessinée.\n\nLe concert sera suivi d'un bord de scène pour échanger avec les artistes et d'une séance de dédicaces.\n\nUn stand sera tenu par la librairie Momie Annecy BD.\n\nSur les musiques de : Stéphane Milleret (accordéon diatonique, accordina, machines) et Sébastien Tron (vielle à roue électro, claviers, voix)",
+        "en": "**A concert comic book inspired by an authentic story where the sounds make us travel from the coldness of the great arctic spaces to the disturbing vapors of the crowded streets of Manhattan.**\nExtreme Northern Greenland, 1897\\. Once again, the American Robert Peary failed to plant his flag at the North Pole despite the help of those who are still called the Eskimos. But for the explorer, there is no question of returning empty-handed. The idea then came to him to bring back living memories, real polar “savages” in flesh and blood. One of them, Minik, is still just a kid when he ships to New York…\nCarried by two multi-instrumentalist musicians nourished by electro-polar sounds, urban katajak singing and the popular tunes of old Europe, this true story rightly and sensitively addresses themes such as uprooting and the clash of cultures.\nCome and discover another way to live the comic book.\nThe concert will be followed by a stage edge to exchange with the artists and a signing session.\nA stand will be held by the bookstore Momie Annecy BD.\nOn the musics of: Stéphane Milleret (diatonic accordion, accordina, machines) and Sébastien Tron (old wheel electro, keyboards, voice)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "85207bc810a64408b0ed2a16e8e06cb1.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 974,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "85207bc810a64408b0ed2a16e8e06cb1.full.image.jpg",
+            "size": {
+              "height": 480,
+              "width": 345
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "85207bc810a64408b0ed2a16e8e06cb1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-02T18:00:00.000Z",
+          "end": "2020-04-02T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T11:10:57.000Z",
+      "createdAt": "2020-02-06T10:23:03.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 85492445,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "04 50 57 07 84"
+      ],
+      "location": {
+        "uid": 85492445,
+        "slug": "salle-le-rabelais",
+        "name": "Salle le Rabelais",
+        "address": "21 route de Frangy Meythet 74960 Annecy",
+        "city": "Annecy",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Haute-Savoie",
+        "postalCode": "74960",
+        "insee": "74010",
+        "countryCode": "FR",
+        "district": "Meythet",
+        "latitude": 45.910251,
+        "longitude": 6.095756,
+        "updatedAt": "2020-02-06T10:16:15.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "Plein tarif 15 € - Tarif réduit 12 € - Tarif moins de 12 ans 8€",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Salle de spectacle",
+      "structure-partenaire": "Librairie Momie Annecy BD",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 89557287,
+        "custom": {
+          "organization": "momie annecy",
+          "contactName": "Agathe Lavaud",
+          "contactNumber": "0450510904",
+          "contactPosition": "Madame la Directrice",
+          "email": "momieannecy@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 87884525,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "pret-en-bulles-exposition-anuki",
+      "title": {
+        "fr": "Prêt en bulles - Exposition \"Anuki\"",
+        "en": "Ready in bubbles"
+      },
+      "description": {
+        "fr": "Exposition autour de la BD \"Anuki\"",
+        "en": "Exhibition"
+      },
+      "longDescription": {
+        "fr": "Toutes les informations : [mediatheque.convergence-garonne.fr](http://mediatheque.convergence-garonne.fr/)",
+        "en": "*   Exhibition around the comic book \"Anuki\"  \n    All information: [mediatheque.convergence-garonne.fr](http://mediatheque.convergence-garonne.fr/)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "0833e8bd346a4376b769bee605b1e629.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 471,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0833e8bd346a4376b769bee605b1e629.full.image.jpg",
+            "size": {
+              "height": 616,
+              "width": 917
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0833e8bd346a4376b769bee605b1e629.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-07T14:00:00.000Z",
+          "end": "2020-01-07T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T09:00:00.000Z",
+          "end": "2020-01-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T15:00:00.000Z",
+          "end": "2020-01-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T15:00:00.000Z",
+          "end": "2020-01-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T09:00:00.000Z",
+          "end": "2020-01-11T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T10:52:49.000Z",
+      "createdAt": "2020-02-06T10:52:44.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 25129476,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 3,
+        "max": 99
+      },
+      "registration": [
+        "0556270158"
+      ],
+      "location": {
+        "uid": 25129476,
+        "slug": "mediatheque-de-podensac222",
+        "name": "Médiathèque de Podensac",
+        "address": "12 rue du Maréchal Leclerc 33720 Podensac",
+        "city": "Podensac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33720",
+        "insee": "33327",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.647586,
+        "longitude": -0.355733,
+        "updatedAt": "2020-02-06T07:49:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2157137
+}

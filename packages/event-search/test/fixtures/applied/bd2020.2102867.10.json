@@ -1,0 +1,1825 @@
+{
+  "events": [
+    {
+      "uid": 2991848,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "petit-poilu_777257",
+      "title": {
+        "fr": "Exposition \"Petit Poilu\"",
+        "en": "Exhibition \"Petit Poilu\""
+      },
+      "description": {
+        "fr": "\"Petit poilu\"… tu connais ! Mais Céline Fraipon et Pierre Bailly ?",
+        "en": "\"Little hairy\"… you know! But Céline Fraipon and Pierre Bailly?"
+      },
+      "longDescription": {
+        "fr": "\"Petit poilu\"… tu connais ! Mais Céline Fraipon et Pierre Bailly ? Viens faire connaissance avec les auteurs de la série préférée, travailler ton imagination, découvrir comment est construite une page, décoder les émotions sur le visage de ce petit personnage malicieux… Une belle approche de la bande dessinée sans texte.",
+        "en": "\"Little hairy\"… you know! But Céline Fraipon and Pierre Bailly? Come and meet the authors of the favourite series, work on your imagination, discover how a page is built, decode the emotions on the face of this malicious little character… A nice approach to cartoon without text."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d465b67861084d96a4854a8c2d883c92.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 934,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d465b67861084d96a4854a8c2d883c92.full.image.jpg",
+            "size": {
+              "height": 400,
+              "width": 300
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d465b67861084d96a4854a8c2d883c92.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-16T16:00:00.000Z",
+          "end": "2020-03-16T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T15:00:00.000Z",
+          "end": "2020-03-17T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T15:00:00.000Z",
+          "end": "2020-03-20T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T12:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:18.000Z",
+      "createdAt": "2019-12-11T14:25:17.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43238691,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "contact@bmi.agglo-epinal.fr",
+        "03 29 34 80 79"
+      ],
+      "location": {
+        "uid": 43238691,
+        "slug": "mediatheque-de-deyvillers579",
+        "name": "Médiathèque de Deyvillers",
+        "address": "2 rue des Acacias 88000 Deyvillers",
+        "city": "Deyvillers",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88000",
+        "insee": "88132",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.201812,
+        "longitude": 6.514289,
+        "updatedAt": "2019-12-12T15:11:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 4764953,
+      "ownerUid": 93420042,
+      "creatorUid": 93420042,
+      "slug": "dessinez-cest-gagne-avec-lauteur-de-bd-marc-vedrines",
+      "title": {
+        "fr": "Dessinez c’est gagné avec l’auteur de BD Marc Védrines"
+      },
+      "description": {
+        "fr": "Devinez les personnages de BD dessinés par Marc Védrines"
+      },
+      "longDescription": {
+        "fr": "Par équipe, tentez de **deviner les personnages de BD** dessinés par Marc Védrines."
+      },
+      "keywords": {
+        "fr": [
+          "BD",
+          "Dessin",
+          "Dessiner c'est gagner",
+          "Marc Vedrines"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "d0dcdb33fc9948f587e2d5f2282151ce.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d0dcdb33fc9948f587e2d5f2282151ce.full.image.jpg",
+            "size": {
+              "height": 500,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d0dcdb33fc9948f587e2d5f2282151ce.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T18:30:00.000Z",
+          "end": "2020-01-18T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-27T14:25:54.000Z",
+      "createdAt": "2019-12-04T14:53:36.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 1519975,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 1519975,
+        "slug": "mediatheque-de-saint-cloud_20057",
+        "name": "Médiathèque de Saint-Cloud",
+        "address": "60 rue Gounod 92210 Saint-Cloud",
+        "city": "Saint-Cloud",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92210",
+        "insee": "92064",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.84348,
+        "longitude": 2.208714,
+        "updatedAt": "2019-09-23T14:17:12.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 88387109,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": "claire@facondepenser.com"
+        }
+      }
+    },
+    {
+      "uid": 4764953,
+      "ownerUid": 93420042,
+      "creatorUid": 93420042,
+      "slug": "dessinez-cest-gagne-avec-lauteur-de-bd-marc-vedrines",
+      "title": {
+        "fr": "Dessinez c’est gagné avec l’auteur de BD Marc Védrines"
+      },
+      "description": {
+        "fr": "Devinez les personnages de BD dessinés par Marc Védrines"
+      },
+      "longDescription": {
+        "fr": "Par équipe, tentez de **deviner les personnages de BD** dessinés par Marc Védrines."
+      },
+      "keywords": {
+        "fr": [
+          "BD",
+          "Dessin",
+          "Dessiner c'est gagner",
+          "Marc Vedrines"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "d0dcdb33fc9948f587e2d5f2282151ce.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d0dcdb33fc9948f587e2d5f2282151ce.full.image.jpg",
+            "size": {
+              "height": 500,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d0dcdb33fc9948f587e2d5f2282151ce.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T18:30:00.000Z",
+          "end": "2020-01-18T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-27T14:25:54.000Z",
+      "createdAt": "2019-12-04T14:53:36.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 1519975,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 1519975,
+        "slug": "mediatheque-de-saint-cloud_20057",
+        "name": "Médiathèque de Saint-Cloud",
+        "address": "60 rue Gounod 92210 Saint-Cloud",
+        "city": "Saint-Cloud",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92210",
+        "insee": "92064",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.84348,
+        "longitude": 2.208714,
+        "updatedAt": "2019-09-23T14:17:12.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 88387109,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": "claire@facondepenser.com"
+        }
+      }
+    },
+    {
+      "uid": 80876769,
+      "ownerUid": 56608426,
+      "creatorUid": 56608426,
+      "slug": "exposition-laurent-astier",
+      "title": {
+        "fr": "Festival \"Bulles en Val\" - Exposition \"Laurent Astier\"",
+        "en": "Festival \"Bulles en Val\" - Exhibition \"Laurent Astier\""
+      },
+      "description": {
+        "fr": "Exposition de planches originales de Laurent Astier, invité d'honneur de \"Bulles en Val\"",
+        "en": "Exhibition of original plates by Laurent Astier, guest of honor of \"Bulles en Val\""
+      },
+      "longDescription": {
+        "fr": "Planches et croquis originaux de Laurent Astier, invité d'honneur du 19e festival \"Bulles en Val\".\n\nPrésence de l'auteur mercredi 5 février à 18h pour une table ronde animée par Stéphane Berducat chroniqueur BD L'Accro des Bulles.",
+        "en": "Original plates and sketches by Laurent Astier, guest of honor of the 19th festival \"Bulles en Val\".\nPresence of the author Wednesday 5 February at 6pm for a round table moderated by Stéphane Berducat BD columnist L'Accro des Bulles."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c96a6f55288645f28837f130c1125168.base.image.jpg",
+        "credits": "Laurent Astier - Bulles en Val",
+        "size": {
+          "height": 982,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c96a6f55288645f28837f130c1125168.full.image.jpg",
+            "size": {
+              "height": 2339,
+              "width": 1669
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c96a6f55288645f28837f130c1125168.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T14:00:00.000Z",
+          "end": "2020-02-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T14:00:00.000Z",
+          "end": "2020-02-07T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T13:00:00.000Z",
+          "end": "2020-02-08T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T14:00:00.000Z",
+          "end": "2020-02-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T14:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T14:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T14:00:00.000Z",
+          "end": "2020-02-14T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T13:00:00.000Z",
+          "end": "2020-02-15T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T14:00:00.000Z",
+          "end": "2020-02-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T14:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T13:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T14:00:00.000Z",
+          "end": "2020-02-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T14:00:00.000Z",
+          "end": "2020-02-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T13:00:00.000Z",
+          "end": "2020-02-22T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T14:00:00.000Z",
+          "end": "2020-02-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T14:00:00.000Z",
+          "end": "2020-02-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T13:00:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T14:00:00.000Z",
+          "end": "2020-02-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T14:00:00.000Z",
+          "end": "2020-02-28T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T13:00:00.000Z",
+          "end": "2020-02-29T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-02T14:00:00.000Z",
+          "end": "2020-03-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T14:00:00.000Z",
+          "end": "2020-03-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T09:00:00.000Z",
+          "end": "2020-03-04T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T13:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:33:22.000Z",
+      "createdAt": "2019-12-12T10:02:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 75629239,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "https://www.mediathequesaintdenisenval.net/"
+      ],
+      "location": {
+        "uid": 75629239,
+        "slug": "mediatheque-de-la-loire680",
+        "name": "Médiathèque de la Loire",
+        "address": "260 rue des Écoles 45560 Saint-Denis-en-Val",
+        "city": "Saint-Denis-en-Val",
+        "region": "Centre-Val de Loire",
+        "department": "Loiret",
+        "postalCode": "45560",
+        "insee": "45274",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.879653,
+        "longitude": 1.956645,
+        "updatedAt": "2020-01-08T08:29:45.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 56608426,
+        "custom": {
+          "organization": "BULLES EN VAL",
+          "contactName": "Jean-Pierre MEUNIER",
+          "contactNumber": "0620302799",
+          "contactPosition": "Responsable",
+          "email": "jpmomcl@free.fr"
+        }
+      }
+    },
+    {
+      "uid": 48329169,
+      "ownerUid": 83189840,
+      "creatorUid": 83189840,
+      "slug": "pret-en-bulles",
+      "title": {
+        "en": "Ready in bubbles",
+        "fr": "Prêt en bulles"
+      },
+      "description": {
+        "en": "Exhibition, workshops, games, presentation of favourites around comics",
+        "fr": "Exposition, ateliers, jeux, présentation de coups de cœur autour de la BD"
+      },
+      "longDescription": {
+        "en": "**From February 4 to 22 at the Portets library**:\n\n*   Krazy Kat’s Bordeaux bookstore favourites presented at breakfast\n*   Evening games around comics and drawing\n*   Dedikatz Party, the designed game from the Krazy Kat bookstore  \n    The principle? Guess what the illustrator draws in front of your eyes! The fastest wins the signed drawing!\n*   Comic book workshops with Clément Fabre  \n    All information: [mediatheque.convergence-garonne.fr](http://mediatheque.convergence-garonne.fr/)",
+        "fr": "**Du 4 au 22 février à la bibliothèque de Portets**\n\n*   Présentation des coups de cœur de la librairie bordelaise Krazy Kat autour d'un petit déjeuner\n    \n*   Soirée jeux autour de la bande-dessinée et du dessin\n    \n*   Soirée Dedikatz, le jeu dessiné de la librairie Krazy Kat\n    \n\n*   Ateliers bande dessinée avec Clément Fabre\n\nToutes les informations : [mediatheque.convergence-garonne.fr](http://mediatheque.convergence-garonne.fr/)"
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "Workshops on registration",
+        "fr": "Ateliers sur inscription"
+      },
+      "image": {
+        "filename": "0833e8bd346a4376b769bee605b1e629.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 471,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0833e8bd346a4376b769bee605b1e629.full.image.jpg",
+            "size": {
+              "height": 616,
+              "width": 917
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0833e8bd346a4376b769bee605b1e629.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-03T16:00:00.000Z",
+          "end": "2020-02-03T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T15:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:30:00.000Z",
+          "end": "2020-02-08T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T16:00:00.000Z",
+          "end": "2020-02-10T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T15:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T18:00:00.000Z",
+          "end": "2020-02-14T22:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:30:00.000Z",
+          "end": "2020-02-15T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T16:00:00.000Z",
+          "end": "2020-02-17T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T15:00:00.000Z",
+          "end": "2020-02-19T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T15:30:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T18:30:00.000Z",
+          "end": "2020-02-21T22:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:30:00.000Z",
+          "end": "2020-02-22T11:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T11:10:49.000Z",
+      "createdAt": "2019-11-29T11:27:46.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 4359779,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 3,
+        "max": 99
+      },
+      "registration": [
+        "0556270158"
+      ],
+      "location": {
+        "uid": 4359779,
+        "slug": "bibliotheque-de-portets679",
+        "name": "Bibliothèque de Portets",
+        "address": "4 Grand-rue 33640 Portets",
+        "city": "Portets",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33640",
+        "insee": "33334",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.696628,
+        "longitude": -0.424071,
+        "updatedAt": "2019-11-29T11:21:36.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Krazy Kat, Bordeaux",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 83189840,
+        "custom": {
+          "organization": "Communauté de Communes Convergence Garonne",
+          "contactName": "Perrine Ley",
+          "contactNumber": "0556270158",
+          "contactPosition": "Responsable action culturelle réseau de lecture publique",
+          "email": "perrine.ley@convergence-garonne.fr"
+        }
+      }
+    },
+    {
+      "uid": 11986111,
+      "ownerUid": 4734835,
+      "creatorUid": 4734835,
+      "slug": "les-passagers-du-livre-baka-bertrand-escaich-et-caroline-roque",
+      "title": {
+        "fr": "Les passagers du livre : BeKa (Bertrand Escaich et Caroline Roque)",
+        "en": "The book passengers: Beka (Bertrand Escaich and Caroline Roque)"
+      },
+      "description": {
+        "fr": "BeKa (Bertrand Escaich et Caroline Roque), scénaristes de bandes dessinées, auteurs jeunesse",
+        "en": "Beka (Bertrand Escaich and Caroline Roque), cartoonists, youth authors"
+      },
+      "longDescription": {
+        "fr": "2020 sera l’année de la bande dessinée. A cette occasion, Les passagers du livre proposent un rendez-vous autour des albums jeunesse ! Au sommaire ?\n\nUne rencontre avec Bertrand Escaich et Caroline Roque qui se consacrent depuis 2002 à l’écriture de scénarios de bandes dessinées sous le pseudonyme commun BeKa (contraction de leurs deux prénoms). D’abord édités chez Bamboo puis chez Dargaud et Dupuis, ces deux auteurs combinent leurs talents pour créer des séries de bandes dessinées variées. Vous avez sûrement entendu parler des succès de _Studio Danse_ ou bien de _Le jour où\\_… ou encore des \\_Fées Valentines_.\n\nEntre deux BD, Bertrand et Caroline signent aussi des romans et albums jeunesse. Un rendez-vous de littérature vivante, autour de l’écriture scénaristique, des images et de la jeunesse.",
+        "en": "2020 will be the year of the comic. On this occasion, Les passagers du livre propose a rendezvous around the youth albums! At the summary?\nAn encounter with Bertrand Escaich and Caroline Roque who have been working since 2002 on writing comic book scripts under the common pseudonym Beka (contraction of their two names). First published by Bamboo, then by Dargaud and Dupuis, these two authors combine their talents to create various comic book series. You’ve probably heard of the successes of _Studio Danse_ or _Le jour où_… or the _Fées Valentines_.\nBetween two comic books, Bertrand and Caroline also sign novels and youth albums. A rendezvous of living literature, around scriptwriting, images and youth."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "2fea648217884c4a89032b319d835c9b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2fea648217884c4a89032b319d835c9b.full.image.jpg",
+            "size": {
+              "height": 1181,
+              "width": 1772
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2fea648217884c4a89032b319d835c9b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-15T17:30:00.000Z",
+          "end": "2020-01-15T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:25.000Z",
+      "createdAt": "2019-12-13T11:28:38.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 38566849,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 38566849,
+        "slug": "lestive360",
+        "name": "L'Estive",
+        "address": "20 avenue du général de Gaulle 09000 Foix",
+        "city": "Foix",
+        "region": "Occitanie",
+        "department": "Ariège",
+        "postalCode": "09000",
+        "insee": "09122",
+        "countryCode": "FR",
+        "district": "La Coume",
+        "latitude": 42.961049,
+        "longitude": 1.609193,
+        "updatedAt": "2019-12-16T08:41:33.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "En partenariat avec l'Oeil du souffleur. Avec la librairie Majuscule Surre et la médiathèque de Foix. En partenariat avec Radio Transparence et le restaurant Le Phoebus.",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 4734835,
+        "custom": {
+          "organization": "L'Estive - Scène nationale de Foix et de l'Ariège",
+          "contactName": "Claire Aranguren",
+          "contactNumber": "05 61 05 05 55",
+          "contactPosition": "Chargée de communication",
+          "email": "webmaster@lestive.com"
+        }
+      }
+    },
+    {
+      "uid": 90892286,
+      "ownerUid": 58439056,
+      "creatorUid": 58439056,
+      "slug": "exposition-lart-de-morris_331974",
+      "title": {
+        "fr": "Exposition \"L'art de Morris\"",
+        "en": "Exhibition \"The Art of Morris\""
+      },
+      "description": {
+        "fr": "Lucky Luke est l'Homme qui tire plus vite que son ombre. Venez (re)découvrir ce personnage incontournable et intemporel. L'exposition présente de nombreuses planches inédites et tout l'art de Morris",
+        "en": "Lucky Luke is the Man who pulls faster than his shadow. Come (re)discover this essential and timeless character. The exhibition presents many unpublished plates and all the art of Morris"
+      },
+      "longDescription": {
+        "fr": "Lucky Luke est l'Homme qui tire plus vite que son ombre, il fait partie de ces quelques personnages intemporels et immédiatement reconnaissables de la bande dessinée francophone - au même titre que Tintin, Astérix, Spirou et une poignée d'autres. Ce personnage transgénérationnel est connu dans de nombreux pays et continue de connaître un grand succès : les albums de Lucky Luke ont été traduits en 29 langues et vendus à plus de 300 millions d'exemplaires à travers le monde et la série a fait l'objet de nombreuses adaptations audiovisuelles.\n\nCette exposition exceptionnelle présente en grand nombre des planches de Lucky Luke. Jamais exposées pour la plupart, précieusement archivées depuis des dizaines d'années à la demande de l'auteur, ces pages sont des documents d'exception qui permettent au public de se trouver au plus près de l'oeuvre de Morris, de voir toute la maestria du trait du dessinateur, la qualité de sa mise en couleur et ses nombreuses influences !",
+        "en": "Lucky Luke is the Man who pulls faster than his shadow, he is one of those few timeless and immediately recognizable characters of the French comic - just like Tintin, Asterix, Spirou and a handful of others. This transgenerational character is known in many countries and continues to be a great success: Lucky Luke’s albums have been translated into 29 languages and sold to more than 300 million copies worldwide, and the series has undergone numerous audiovisual adaptations.\nThis exceptional exhibition features many of Lucky Luke’s plates. Never exhibited for the most part, carefully archived for decades at the request of the author, these pages are exceptional documents that allow the public to be closer to the work of Morris, to see all the mastery of the draughtsman’s trait, the quality of its colour setting and its many influences!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9aa19a9e7ad54171aecfecd1feffb5fd.base.image.jpg",
+        "credits": "Ville de Clichy, Lucky Comics, festival d'Angoulême",
+        "size": {
+          "height": 1051,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9aa19a9e7ad54171aecfecd1feffb5fd.full.image.jpg",
+            "size": {
+              "height": 7087,
+              "width": 4724
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9aa19a9e7ad54171aecfecd1feffb5fd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-02T08:00:00.000Z",
+          "end": "2020-01-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T08:00:00.000Z",
+          "end": "2020-01-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T08:00:00.000Z",
+          "end": "2020-01-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-06T08:00:00.000Z",
+          "end": "2020-01-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T08:00:00.000Z",
+          "end": "2020-01-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T08:00:00.000Z",
+          "end": "2020-01-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T08:00:00.000Z",
+          "end": "2020-01-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T08:00:00.000Z",
+          "end": "2020-01-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T08:00:00.000Z",
+          "end": "2020-01-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-13T08:00:00.000Z",
+          "end": "2020-01-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T08:00:00.000Z",
+          "end": "2020-01-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T08:00:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T08:00:00.000Z",
+          "end": "2020-01-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T08:00:00.000Z",
+          "end": "2020-01-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T08:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T08:00:00.000Z",
+          "end": "2020-01-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T08:00:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T08:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T08:00:00.000Z",
+          "end": "2020-01-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T08:00:00.000Z",
+          "end": "2020-01-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T08:00:00.000Z",
+          "end": "2020-01-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-27T08:00:00.000Z",
+          "end": "2020-01-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T08:00:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T08:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T08:00:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T08:00:00.000Z",
+          "end": "2020-01-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T08:00:00.000Z",
+          "end": "2020-02-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-03T08:00:00.000Z",
+          "end": "2020-02-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T08:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T08:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T08:00:00.000Z",
+          "end": "2020-02-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T08:00:00.000Z",
+          "end": "2020-02-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T08:00:00.000Z",
+          "end": "2020-02-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T08:00:00.000Z",
+          "end": "2020-02-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T08:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T08:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T08:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T08:00:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T08:00:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:21.000Z",
+      "createdAt": "2019-12-13T13:42:50.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 9175324,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "0147153161",
+        "pavillon.vendome@ville-clichy.fr"
+      ],
+      "location": {
+        "uid": 9175324,
+        "slug": "pavillon-vendome426",
+        "name": "Pavillon Vendôme",
+        "address": "7 rue du Landy 92110 Clichy",
+        "city": "Clichy",
+        "region": "Île-de-France",
+        "department": "Hauts-de-Seine",
+        "postalCode": "92110",
+        "insee": "92024",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.904824,
+        "longitude": 2.303926,
+        "updatedAt": "2019-12-16T08:41:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 630,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Festival international de la bande dessinée d'Angoulême",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 58439056,
+        "custom": {
+          "organization": "Pavillon Vendôme",
+          "contactName": "Muriel Tacaille",
+          "contactNumber": "0147153161",
+          "contactPosition": "Directrice",
+          "email": "muriel.tacaille@ville-clichy.fr"
+        }
+      }
+    },
+    {
+      "uid": 80010307,
+      "ownerUid": 3219048,
+      "creatorUid": 3219048,
+      "slug": "preambulles-apero-bd",
+      "title": {
+        "fr": "PréamBulles : apéro BD",
+        "en": "Preambles: apéro BD"
+      },
+      "description": {
+        "fr": "Apéro BD",
+        "en": "Apéro BD"
+      },
+      "longDescription": {
+        "fr": "Apéro BD animé par Philippe Tomblaine avec Sonia Paoloni.",
+        "en": "Cocktail party hosted by Philippe Tomblaine with Sonia Paoloni."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "38758811c3cf40a1999e143a9cf71b74.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 267,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "38758811c3cf40a1999e143a9cf71b74.full.image.jpg",
+            "size": {
+              "height": 1313,
+              "width": 3450
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "38758811c3cf40a1999e143a9cf71b74.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-21T17:00:00.000Z",
+          "end": "2020-01-21T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:25:05.000Z",
+      "createdAt": "2019-12-13T14:48:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 87485476,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 14,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 87485476,
+        "slug": "centre-culturel-de-ruelle-sur-touvre",
+        "name": "Centre culturel de Ruelle-sur-Touvre",
+        "address": "Place Auguste Rouyer 16600 Ruelle-sur-Touvre",
+        "city": "Ruelle-sur-Touvre",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16600",
+        "insee": "16291",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.678408,
+        "longitude": 0.229928,
+        "updatedAt": "2019-12-16T08:49:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Apéro BD",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Magélis ; l'Atelier du Marquis ; les Amis du Musée de la BD Angoulême",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 3219048,
+        "custom": {
+          "organization": "Médiathèque de Ruelle sur Touvre",
+          "contactName": "Nathalie Vieillard Baron",
+          "contactNumber": "05 45 65 34 89",
+          "contactPosition": "Responsable médiathèque",
+          "email": "nvieillard.fileas@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 28726885,
+      "ownerUid": 3219048,
+      "creatorUid": 3219048,
+      "slug": "preambulles-atelier-avec-sonia-paoloni",
+      "title": {
+        "fr": "PréamBulles : atelier avec Sonia Paoloni",
+        "en": "Preambles: workshop with Sonia Paoloni"
+      },
+      "description": {
+        "fr": "Atelier avec l'auteure Sonia Paoloni",
+        "en": "Workshop with author Sonia Paoloni"
+      },
+      "longDescription": {
+        "fr": "Atelier avec Sonia Paoloni.",
+        "en": "Workshop with Sonia Paoloni."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription au 05 45 65 34 89",
+        "en": "On registration at 05 45 65 34 89"
+      },
+      "image": {
+        "filename": "6995c7a1ff4b480995e1c175325e3d00.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 267,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "6995c7a1ff4b480995e1c175325e3d00.full.image.jpg",
+            "size": {
+              "height": 1313,
+              "width": 3450
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "6995c7a1ff4b480995e1c175325e3d00.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-22T14:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:06.000Z",
+      "createdAt": "2019-12-13T14:50:56.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 87485476,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "05 45 65 34 89"
+      ],
+      "location": {
+        "uid": 87485476,
+        "slug": "centre-culturel-de-ruelle-sur-touvre",
+        "name": "Centre culturel de Ruelle-sur-Touvre",
+        "address": "Place Auguste Rouyer 16600 Ruelle-sur-Touvre",
+        "city": "Ruelle-sur-Touvre",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16600",
+        "insee": "16291",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.678408,
+        "longitude": 0.229928,
+        "updatedAt": "2019-12-16T08:49:39.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 3219048,
+        "custom": {
+          "organization": "Médiathèque de Ruelle sur Touvre",
+          "contactName": "Nathalie Vieillard Baron",
+          "contactNumber": "05 45 65 34 89",
+          "contactPosition": "Responsable médiathèque",
+          "email": "nvieillard.fileas@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 1527810,
+      "ownerUid": 3219048,
+      "creatorUid": 3219048,
+      "slug": "preambulles-spectacle-vox-populi",
+      "title": {
+        "fr": "PréamBulles : spectacle Vox Populi",
+        "en": "Preambles: show Vox Populi"
+      },
+      "description": {
+        "fr": "Spectacle",
+        "en": "Spectacle"
+      },
+      "longDescription": {
+        "fr": "Spectacle au théâtre Jean Ferrat par la compagnie Vox Populi.",
+        "en": "Performance at the Jean Ferrat theatre by the Vox Populi company."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "78406f7702dd4983bf48e91995a99644.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 267,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "78406f7702dd4983bf48e91995a99644.full.image.jpg",
+            "size": {
+              "height": 1313,
+              "width": 3450
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "78406f7702dd4983bf48e91995a99644.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-24T19:00:00.000Z",
+          "end": "2020-01-24T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:40:16.000Z",
+      "createdAt": "2019-12-13T14:53:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 22279201,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 22279201,
+        "slug": "theatre-jean-ferrat688",
+        "name": "Théâtre Jean Ferrat",
+        "address": "Place du Champ de Mars 16600 Ruelle-sur-Touvre",
+        "city": "Ruelle-sur-Touvre",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente",
+        "postalCode": "16600",
+        "insee": "16291",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.67635,
+        "longitude": 0.218875,
+        "updatedAt": "2019-12-16T08:49:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 3219048,
+        "custom": {
+          "organization": "Médiathèque de Ruelle sur Touvre",
+          "contactName": "Nathalie Vieillard Baron",
+          "contactNumber": "05 45 65 34 89",
+          "contactPosition": "Responsable médiathèque",
+          "email": "nvieillard.fileas@gmail.com"
+        }
+      }
+    }
+  ],
+  "lastId": 2105998
+}
