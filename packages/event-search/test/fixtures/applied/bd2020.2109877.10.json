@@ -1,0 +1,1992 @@
+{
+  "events": [
+    {
+      "uid": 88500072,
+      "ownerUid": 95017085,
+      "creatorUid": 95017085,
+      "slug": "letranger_665739",
+      "title": {
+        "fr": "Exposition de planches de L'Étranger",
+        "en": "Exhibition of plates of The Foreigner"
+      },
+      "description": {
+        "fr": "Exposition des planches de la bande dessinée L'Étranger",
+        "en": "Exhibition of the plates of the comic book L'Étranger"
+      },
+      "longDescription": {
+        "fr": "_L'Étranger_\n------------\n\n### Ferrandez / Camus\n\nExposition des planches de la bande dessinée _L'Étranger_, adaptation de l'oeuvre d'Albert Camus par Jacques Ferrandez (éditions Gallimard-Fétiche, 2013) produite par Les rencontres du 9e art, festival de bande dessinée et\n\nautres arts associes à Aix-en-Provence.\n\nSur le modèle du roman éponyme d’Albert Camus, l’exposition se construit en deux parties, l’ambiance des rues et des plages algériennes, puis la prison et la salle d’interrogatoire. Un jeu de regards se crée entre le livre d’Albert Camus et l’univers graphique de Jacques Ferrandez, qui nous offre une relecture passionnante en bande dessinée, sans en épuiser le mystère. Il poursuit dans cette oeuvre ses carnets d’orient, qui sont pour lui un retour sur son enfance passée à Alger et un hommage à ces terres orientales qui lui sont chères et qu’il décrit et peint avec sensualité, en mettant en lumière Alger la blanche.\n\n_L'Étranger_ n’est pas son premier contact avec Albert Camus dont il est un lecteur assidu. Il avait déjà réalisé une adaptation de la nouvelle _L'Hôte_ qui avait aussi fait l’objet d’une exposition. Il a également adapté _Le Premier_\n\n_homme_ en 2017.\n\nDu 11 février au 28 mars 2020, hall d’exposition, niveau 0 Médiathèque Albert Camus",
+        "en": "## _The Foreigner_\n### Ferrandez/ Camus\nExhibition of the plates of the comic strip _L'Étranger_, adapted from the work of Albert Camus by Jacques Ferrandez (éditions Gallimard-Fétiche, 2013) produced by Les rencontres du 9e art, comic strip festival and\nother arts associated with Aix-en-Provence.\nOn the model of the eponymous novel by Albert Camus, the exhibition is built in two parts, the atmosphere of the Algerian streets and beaches, then the prison and the interrogation room. A game of looks is created between the book of Albert Camus and the graphic universe of Jacques Ferrandez, which offers us an exciting rereading in comic book, without exhausting the mystery. In this work he continues his oriental notebooks, which are for him a return on his childhood spent in Algiers and a tribute to those eastern lands which are dear to him and which he describes and paints with sensuality, highlighting Algiers the white.\n_The Stranger_ is not his first contact with Albert Camus, of whom he is an assiduous reader. He had already made an adaptation of _the new Host_ which had also been the subject of an exhibition. He also adapted _The First_\n_man_ in 2017.\nFrom 11 February to 28 March 2020, exhibition hall, level 0 Médiathèque Albert Camus"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre.",
+        "en": "Free entry."
+      },
+      "image": {
+        "filename": "fed196ef02124105a71b7e62698a19cf.base.image.jpg",
+        "credits": "Editions Gallimard - Fétiche",
+        "size": {
+          "height": 927,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "fed196ef02124105a71b7e62698a19cf.full.image.jpg",
+            "size": {
+              "height": 2560,
+              "width": 1935
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "fed196ef02124105a71b7e62698a19cf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-11T12:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T08:30:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T12:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T12:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T08:30:00.000Z",
+          "end": "2020-02-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T12:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T08:30:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T12:00:00.000Z",
+          "end": "2020-02-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T12:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T08:30:00.000Z",
+          "end": "2020-02-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T12:00:00.000Z",
+          "end": "2020-02-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T08:30:00.000Z",
+          "end": "2020-02-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T12:00:00.000Z",
+          "end": "2020-02-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T12:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T08:30:00.000Z",
+          "end": "2020-02-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T12:00:00.000Z",
+          "end": "2020-03-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T08:30:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T12:00:00.000Z",
+          "end": "2020-03-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T12:00:00.000Z",
+          "end": "2020-03-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T08:30:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T12:00:00.000Z",
+          "end": "2020-03-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T08:30:00.000Z",
+          "end": "2020-03-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T12:00:00.000Z",
+          "end": "2020-03-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T12:00:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T08:30:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T12:00:00.000Z",
+          "end": "2020-03-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T08:30:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T12:00:00.000Z",
+          "end": "2020-03-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T12:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T08:30:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T12:00:00.000Z",
+          "end": "2020-03-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T08:30:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T12:00:00.000Z",
+          "end": "2020-03-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T12:00:00.000Z",
+          "end": "2020-03-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T08:30:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:19.000Z",
+      "createdAt": "2019-12-18T10:25:06.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19810335,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 92 19 75 80"
+      ],
+      "location": {
+        "uid": 19810335,
+        "slug": "mediatheque-albert-camus-dantibes918",
+        "name": "Médiathèque Albert Camus",
+        "address": "19 bis boulevard Chancel 06600 Antibes",
+        "city": "Antibes",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06160",
+        "insee": "06004",
+        "countryCode": "FR",
+        "district": "Juan-les-Pins",
+        "latitude": 43.58006,
+        "longitude": 7.119316,
+        "updatedAt": "2019-12-18T10:17:27.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95017085,
+        "custom": {
+          "organization": "Médiathèques de la Communauté d'agglomération Sophia Antipolis",
+          "contactName": "Amélie ROUSTAN",
+          "contactNumber": "04 89 87 72 91",
+          "contactPosition": "Coordinatrice action culturelle",
+          "email": "a.roustan@agglo-casa.fr"
+        }
+      }
+    },
+    {
+      "uid": 86937504,
+      "ownerUid": 95017085,
+      "creatorUid": 95017085,
+      "slug": "la-bd-dans-la-presse",
+      "title": {
+        "fr": "Exposition \"La BD dans la presse\"",
+        "en": "Exhibition \"Comics in the Press\""
+      },
+      "description": {
+        "fr": "Exposition \"La BD dans la presse\"",
+        "en": "Exhibition \"Comics in the Press\""
+      },
+      "longDescription": {
+        "fr": "\"La BD dans la presse\"\n----------------------\n\nExposition représentant les différents styles de planche de bande dessinée dans la presse.\n\nDu 17 mars au 30 mai 2020, espaces d’exposition médiathèque Sonia Delaunay",
+        "en": "## \"Comics in the Press\"\nExhibition representing the different styles of cartoon board in the press.\nFrom March 17 to May 30, 2020, media library exhibition spaces Sonia Delaunay"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "624bfd34a47c430b9bcbb48bcaf4041e.base.image.jpg",
+        "credits": "Stock Adobe",
+        "size": {
+          "height": 399,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "624bfd34a47c430b9bcbb48bcaf4041e.full.image.jpg",
+            "size": {
+              "height": 250,
+              "width": 439
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "624bfd34a47c430b9bcbb48bcaf4041e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-17T09:00:00.000Z",
+          "end": "2020-03-17T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T13:00:00.000Z",
+          "end": "2020-03-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T14:00:00.000Z",
+          "end": "2020-03-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T14:00:00.000Z",
+          "end": "2020-03-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T09:00:00.000Z",
+          "end": "2020-03-24T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T13:00:00.000Z",
+          "end": "2020-03-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T14:00:00.000Z",
+          "end": "2020-03-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T14:00:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T08:00:00.000Z",
+          "end": "2020-03-31T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T12:00:00.000Z",
+          "end": "2020-03-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T12:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T13:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T13:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T12:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T08:00:00.000Z",
+          "end": "2020-04-07T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T12:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:00:00.000Z",
+          "end": "2020-04-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T12:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T13:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T13:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T12:00:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T08:00:00.000Z",
+          "end": "2020-04-14T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T12:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T12:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T13:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T13:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T12:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T08:00:00.000Z",
+          "end": "2020-04-21T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T12:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T12:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T13:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T13:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T12:00:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T08:00:00.000Z",
+          "end": "2020-04-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T12:00:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T08:00:00.000Z",
+          "end": "2020-04-29T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T12:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T13:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T13:00:00.000Z",
+          "end": "2020-05-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T08:00:00.000Z",
+          "end": "2020-05-02T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T12:00:00.000Z",
+          "end": "2020-05-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T08:00:00.000Z",
+          "end": "2020-05-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T12:00:00.000Z",
+          "end": "2020-05-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T08:00:00.000Z",
+          "end": "2020-05-06T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T12:00:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T13:00:00.000Z",
+          "end": "2020-05-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T13:00:00.000Z",
+          "end": "2020-05-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T08:00:00.000Z",
+          "end": "2020-05-09T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T12:00:00.000Z",
+          "end": "2020-05-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T08:00:00.000Z",
+          "end": "2020-05-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T12:00:00.000Z",
+          "end": "2020-05-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T08:00:00.000Z",
+          "end": "2020-05-13T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T12:00:00.000Z",
+          "end": "2020-05-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T13:00:00.000Z",
+          "end": "2020-05-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T13:00:00.000Z",
+          "end": "2020-05-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T12:00:00.000Z",
+          "end": "2020-05-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T08:00:00.000Z",
+          "end": "2020-05-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T12:00:00.000Z",
+          "end": "2020-05-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T08:00:00.000Z",
+          "end": "2020-05-20T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T12:00:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T13:00:00.000Z",
+          "end": "2020-05-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T13:00:00.000Z",
+          "end": "2020-05-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T08:00:00.000Z",
+          "end": "2020-05-23T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T12:00:00.000Z",
+          "end": "2020-05-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T08:00:00.000Z",
+          "end": "2020-05-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T12:00:00.000Z",
+          "end": "2020-05-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T08:00:00.000Z",
+          "end": "2020-05-27T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T12:00:00.000Z",
+          "end": "2020-05-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T13:00:00.000Z",
+          "end": "2020-05-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T13:00:00.000Z",
+          "end": "2020-05-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T08:00:00.000Z",
+          "end": "2020-05-30T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T12:00:00.000Z",
+          "end": "2020-05-30T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:15.000Z",
+      "createdAt": "2019-12-18T10:34:41.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 45211223,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 83 88 10 00"
+      ],
+      "location": {
+        "uid": 45211223,
+        "slug": "mediatheque-sonia-delaunay",
+        "name": "Médiathèque Sonia Delaunay",
+        "address": "4 chemin Neuf 06410 Biot",
+        "city": "Biot",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06410",
+        "insee": "06018",
+        "countryCode": "FR",
+        "district": "Saint-Philippe",
+        "latitude": 43.628014,
+        "longitude": 7.096062,
+        "updatedAt": "2019-11-29T10:23:14.000Z",
+        "image": null,
+        "description": {
+          "fr": "1 000 m² construits dans l’ancienne poterie, patrimoine du village de Biot.\nPôles d’excellence : les arts du feu, l’art du XXe siècle, le design industriel et les technologies de l’information et de la communication.\nEspaces :\n• Jeunesse,\n• Adultes & Documentation Commune,\n• Musiques et cinéma avec jeux vidéo en accès libre,\n• Salle d'action culturelle,\n• Espace café, presse,\n• Un patio offre une salle de lecture en extérieur.\n\nHoraires :\nMardi : 10h - 13h / 14h - 18h\nMercredi : 10h - 13h / 14h - 18h\nJeudi : 15h - 18h\nVendredi : 15h - 18h\nSamedi : 10h - 13h / 14h - 18h"
+        },
+        "website": "http://www.ma-mediatheque.net/",
+        "email": null,
+        "phone": "04 83 88 10 00",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Semaine de la Presse",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95017085,
+        "custom": {
+          "organization": "Médiathèques de la Communauté d'agglomération Sophia Antipolis",
+          "contactName": "Amélie ROUSTAN",
+          "contactNumber": "04 89 87 72 91",
+          "contactPosition": "Coordinatrice action culturelle",
+          "email": "a.roustan@agglo-casa.fr"
+        }
+      }
+    },
+    {
+      "uid": 75984201,
+      "ownerUid": 95017085,
+      "creatorUid": 95017085,
+      "slug": "rencontre-avec-jacques-ferrandez",
+      "title": {
+        "fr": "Rencontre avec Jacques Ferrandez",
+        "en": "Meeting with Jacques Ferrandez"
+      },
+      "description": {
+        "fr": "Rencontre avec Jacques Ferrandez, visite de l'exposition et lectures",
+        "en": "Meeting with Jacques Ferrandez, visit to the exhibition and readings"
+      },
+      "longDescription": {
+        "fr": "Jacques Ferrandez\n-----------------\n\n### Rencontre avec Jacques Ferrandez, visite de l'exposition et lectures d'extraits d’oeuvres de l’auteur Albert Camus par les bibliothécaires, suivies d’une séance de dédicaces avec la librairie Masséna d’Antibes.\n\n« Beaucoup de choses, et depuis longtemps en effet, me lient à Camus. Il me semble que j’ai grandi avec. Je suis né dans le quartier populaire de Belcourt, à Alger, et mes grands-parents avaient un petit magasin de chaussures au 96 rue de Lyon. Albert Camus a passé toute son enfance et son adolescence au 93, en face. Son trajet entre Belcourt et le lycée Bugeaud, à l’autre bout d’Alger qu’il raconte dans _Le Premier homme_, mon père qui a fréquenté le même lycée venant du même quartier me l’avait raconté presque avec les mêmes mots. Son appartenance à l’Algérie, son\n\ndéchirement au moment de la guerre d’Indépendance, tout cela me touche beaucoup. » Jacques Ferrandez.\n\nVendredi 13 mars à 17h30, hall d'exposition, niveau 0",
+        "en": "## Jacques Ferrandez\n### Meeting with Jacques Ferrandez, visit of the exhibition and reading of excerpts from the author Albert Camus by the librarians, followed by a signing session with the bookstore Masséna d'Antibes.\nA lot of things, and indeed for a long time, bind me to Camus. I seem to have grown up with it. I was born in the popular district of Belcourt, in Algiers, and my grandparents had a small shoe store at 96 rue de Lyon. Albert Camus spent his entire childhood and adolescence at 93 across the street. His journey between Belcourt and Bugeaud High School, on the other side of Algiers, which he recounts in _The First Man_, my father, who attended the same high school from the same district, told it to me in almost the same words. Its membership in Algeria, its\ntearing at the time of the War of Independence, all this affects me. ” Jacques Ferrandez.\nFriday 13 March at 5:30 pm, Exhibition Hall, Level 0"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Dans la limite des places disponibles",
+        "en": "Within available places"
+      },
+      "image": {
+        "filename": "0b45618fb297469a900ed835070b1ce6.base.image.jpg",
+        "credits": "DR",
+        "size": {
+          "height": 875,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0b45618fb297469a900ed835070b1ce6.full.image.jpg",
+            "size": {
+              "height": 6140,
+              "width": 4912
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0b45618fb297469a900ed835070b1ce6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-13T16:30:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:38:47.000Z",
+      "createdAt": "2019-12-18T10:43:08.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19810335,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 92 19 75 80"
+      ],
+      "location": {
+        "uid": 19810335,
+        "slug": "mediatheque-albert-camus-dantibes918",
+        "name": "Médiathèque Albert Camus",
+        "address": "19 bis boulevard Chancel 06600 Antibes",
+        "city": "Antibes",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06160",
+        "insee": "06004",
+        "countryCode": "FR",
+        "district": "Juan-les-Pins",
+        "latitude": 43.58006,
+        "longitude": 7.119316,
+        "updatedAt": "2019-12-18T10:17:27.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95017085,
+        "custom": {
+          "organization": "Médiathèques de la Communauté d'agglomération Sophia Antipolis",
+          "contactName": "Amélie ROUSTAN",
+          "contactNumber": "04 89 87 72 91",
+          "contactPosition": "Coordinatrice action culturelle",
+          "email": "a.roustan@agglo-casa.fr"
+        }
+      }
+    },
+    {
+      "uid": 97528808,
+      "ownerUid": 13360181,
+      "creatorUid": 13360181,
+      "slug": "completement-mytho-rencontre-dedicace-avec-philippe-larbier",
+      "title": {
+        "fr": "« Complètement mytho ! » : rencontre et dédicace avec Philippe Larbier",
+        "en": "«Completely mytho!»: meeting and dedication with Philippe Larbier"
+      },
+      "description": {
+        "fr": "Rencontre et dédicace avec Philippe Larbier",
+        "en": "Meeting and dedication with Philippe Larbier"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec le dessinateur et bédéiste tourangeau **Philippe Larbier.** Dessinateur de presse dans le _Journal de Mickey_, Philippe Larbier signe notamment chez Delcourt les séries _Les Blagues belges_ et _Les Blagues de retraités_. Il rejoint l’éditeur Bamboo avec la série _Les Fondus du jeu_, suivie des _petits Mythos_, cette bande dessinée mettant en scène des caricatures des dieux, déesses, héros et créatures de la mythologie gréco-romaine.",
+        "en": "Meeting with the Touraine cartoonist and comic writer **Philippe Larbier.** Philippe Larbier, a press designer in _Mickey’s Journal_, writes the series _Les Blagues belges_ and _Les Blagues de retraités_. He joins the publisher Bamboo with the series _Les Fondus du jeu_, followed by the _little Mythos_, this comic strip featuring caricatures of the gods, goddesses, heroes and creatures of Greco-Roman mythology."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "393027965e5143e989393e14add9b51c.base.image.jpg",
+        "credits": "© Philippe Larbier (éditions Bamboo)",
+        "size": {
+          "height": 737,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "393027965e5143e989393e14add9b51c.full.image.jpg",
+            "size": {
+              "height": 3772,
+              "width": 3586
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "393027965e5143e989393e14add9b51c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-01T14:00:00.000Z",
+          "end": "2020-02-01T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:14.000Z",
+      "createdAt": "2019-12-18T10:47:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 28602681,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 28602681,
+        "slug": "mediatheque-de-joue-les-tours440",
+        "name": "Médiathèque de Joué-lès-Tours",
+        "address": "1 rue du 8 mai 1945 37300 Joué-lès-Tours",
+        "city": "Joué-lès-Tours",
+        "region": "Centre-Val de Loire",
+        "department": "Indre-et-Loire",
+        "postalCode": "37300",
+        "insee": "37122",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 47.351091,
+        "longitude": 0.662252,
+        "updatedAt": "2019-12-18T10:45:45.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 13360181,
+        "custom": {
+          "organization": "Médiathèque de Joué-lès-Tours",
+          "contactName": "David DUFOIS",
+          "contactNumber": "02.47.73.32.05",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "d.dufois@jouelestours.fr"
+        }
+      }
+    },
+    {
+      "uid": 37975488,
+      "ownerUid": 95017085,
+      "creatorUid": 95017085,
+      "slug": "rencontre-avec-fabrice-erre-et-james_892319",
+      "title": {
+        "fr": "Rencontre avec Fabrice Erre et James",
+        "en": "Meeting with Fabrice Erre and James"
+      },
+      "description": {
+        "fr": "Rencontre avec Fabrice Erre et James",
+        "en": "Meeting with Fabrice Erre and James"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Fabrice Erre et James,\n-------------------------------------\n\n### suivie d’une séance de dédicaces avec la librairie Comic Strips Café d'Antibes.\n\nFabrice Erre est enseignant et auteur de bandes dessinées. Il s'attache, dans ses récits humoristiques, à parodier et à mettre en scène les comportements humains, des petites faiblesses individuelles aux manipulations de masse. Agrégé et docteur en histoire, il a également soutenu une thèse sur la presse satirique du XIXe siècle et publié un essai sur la caricature politique. Outre ses collaborations pour le label Six pieds sous terre avec _Démonax_ (2006), _La Mécanique de l'angoisse_ (2011), pour\n\nDargaud Z comme _Don Diego_ (2012), avec Fabcaro, et _Une année au lycée_ (3 tomes, 2016), il participe à la revue numérique _Mauvais esprit_ avec James, co-fondateur.\n\nJames, de son vrai nom Laurent Percelay, est scénariste et dessinateur BD installé à Antibes depuis quelques années et également directeur de la collection Humour Pataquès chez Delcourt. Il publie plusieurs albums chez Six pieds sous terre et chez Dargaud, notamment la série _Dans mon open-space_ sur les affres de la vie de bureau. Enfin, sur son blog Ottoprod Inc, il publie des strips drôlissimes intitulés _La Vérité Nue_, qui feront bientôt l’objet d’un album.",
+        "en": "## Meeting with Fabrice Erre and James,\n### followed by a signing session with the bookstore Comic Strips Café d'Antibes.\nFabrice Erre is a teacher and author of comic books. In his humorous stories, he focuses on parodying and staging human behaviour, from small individual weaknesses to mass manipulation. An associate and doctor of history, he also defended a thesis on the satirical press of the 19th century and published an essay on political caricature. In addition to his collaborations for the label Six pieds sous terre with _Démonax_ (2006), _La Mécanique de l'angoisse_ (2011), for\nDargaud Z as _Don Diego_ (2012), with Fabcaro, and _Une année au lycée_ (3 tomes, 2016), he participates in the digital magazine _Mauvais esprit_ with James, co-founder.\nJames, whose real name is Laurent Percelay, is a writer and cartoonist based in Antibes for a few years and also director of the Humour Pataquès collection at Delcourt. He publishes several albums at Six pieds sous terre and Dargaud, including the series _Dans mon open-space_ sur les affres de la vie de bureau. Finally, on his blog Ottoprod Inc, he publishes funny strips entitled _La Vérité Nue_, which will soon be the subject of an album."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre, dans la limite des places disponibles.",
+        "en": "Free admission, subject to availability."
+      },
+      "image": {
+        "filename": "f00ca5bd149443788fcf780642d5695f.base.image.jpg",
+        "credits": "DR",
+        "size": {
+          "height": 395,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f00ca5bd149443788fcf780642d5695f.full.image.jpg",
+            "size": {
+              "height": 339,
+              "width": 601
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f00ca5bd149443788fcf780642d5695f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-07T10:00:00.000Z",
+          "end": "2020-03-07T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:06.000Z",
+      "createdAt": "2019-12-18T12:49:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 65140044,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 92 19 76 00"
+      ],
+      "location": {
+        "uid": 65140044,
+        "slug": "mediatheque-colette-de-valbonne-sophia-antipolis150",
+        "name": "Médiathèque Colette de Valbonne",
+        "address": "1855 route des Dolines 06560 Valbonne",
+        "city": "Valbonne",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06560",
+        "insee": "06152",
+        "countryCode": "FR",
+        "district": "Sophia Antipolis",
+        "latitude": 43.623953,
+        "longitude": 7.047432,
+        "updatedAt": "2019-12-18T13:20:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95017085,
+        "custom": {
+          "organization": "Médiathèques de la Communauté d'agglomération Sophia Antipolis",
+          "contactName": "Amélie ROUSTAN",
+          "contactNumber": "04 89 87 72 91",
+          "contactPosition": "Coordinatrice action culturelle",
+          "email": "a.roustan@agglo-casa.fr"
+        }
+      }
+    },
+    {
+      "uid": 38580330,
+      "ownerUid": 95017085,
+      "creatorUid": 95017085,
+      "slug": "rencontre-avec-lou-lubie",
+      "title": {
+        "fr": "Rencontre avec Lou Lubie",
+        "en": "Meeting with Lou Lubie"
+      },
+      "description": {
+        "fr": "Rencontre avec Lou Lubie",
+        "en": "Meeting with Lou Lubie"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Lou Lubie,\n-------------------------\n\n### auteur de _Goupil ou face,_ une bande dessinée qui aborde les troubles bipolaires.\n\nCette rencontre est proposée dans le cadre des Semaines nationales d’information en santé mentale et en partenariat avec le Conseil local de santé mentale d’Antibes.\n\nSuivie d’une séance de dédicaces avec la librairie Masséna d’Antibes.\n\nLou Lubie est originaire de l’île de la Réunion, où elle publie deux romans et trois bandes dessinées. De ses études en Game design (conception de jeux vidéo), elle garde un goût prononcé pour l'interaction. Elle fonde en 2008 le Forum dessiné, site communautaire qui permet à des dessinateurs de tous niveaux de créer ensemble de la bande dessinée numérique. Dans son sixième livre, _Goupil ou face_, elle dévoile le revers de ce parcours apparemment sans ombre : les dépressions à répétition, les brusques changements d’humeur et l’instabilité quotidienne.\n\nVendredi 20 mars à 17h, auditorium, niveau 0 Médiathèque Albert Camus\n\nInscriptions auprès de l’espace Information - Documentation & Patrimoine, niveau 0, niveau 3, ou au 04 92 19 75 80.",
+        "en": "## Meeting with Lou Lubie,\n### author of _Goupil ou face,_ a comic book that addresses bipolar disorders.\nThis meeting is proposed as part of the National Mental Health Information Week and in partnership with the Local Mental Health Council of Antibes.\nFollowed by a signing session with the bookstore Masséna d'Antibes.\nLou Lubie is from Reunion Island, where she publishes two novels and three comic books. From her studies in Game design (video game design), she keeps a strong taste for interaction. In 2008, she founded the Forum dessiné, a community site that allows cartoonists of all levels to create digital comic books together. In her sixth book, _Goupil ou face_, she reveals the other side of this seemingly shadowless journey: repeated depressions, sudden mood swings and daily instability.\nFriday 20 March at 5 pm, auditorium, level 0 Médiathèque Albert Camus\nRegistration at the Information - Documentation & Heritage area, level 0, level 3, or at 04 92 19 75 80."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscriptions sur place ou au 04 92 19 75 80",
+        "en": "Registrations on site or at 04 92 19 75 80"
+      },
+      "image": {
+        "filename": "9e4e2891d6b042d78e6e53b6bf900797.base.image.jpg",
+        "credits": "DR",
+        "size": {
+          "height": 1049,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9e4e2891d6b042d78e6e53b6bf900797.full.image.jpg",
+            "size": {
+              "height": 1200,
+              "width": 801
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9e4e2891d6b042d78e6e53b6bf900797.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-20T16:00:00.000Z",
+          "end": "2020-03-20T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:03.000Z",
+      "createdAt": "2019-12-18T12:55:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19810335,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 92 19 75 80"
+      ],
+      "location": {
+        "uid": 19810335,
+        "slug": "mediatheque-albert-camus-dantibes918",
+        "name": "Médiathèque Albert Camus",
+        "address": "19 bis boulevard Chancel 06600 Antibes",
+        "city": "Antibes",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06160",
+        "insee": "06004",
+        "countryCode": "FR",
+        "district": "Juan-les-Pins",
+        "latitude": 43.58006,
+        "longitude": 7.119316,
+        "updatedAt": "2019-12-18T10:17:27.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Semaine nationale de la Santé mentale",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95017085,
+        "custom": {
+          "organization": "Médiathèques de la Communauté d'agglomération Sophia Antipolis",
+          "contactName": "Amélie ROUSTAN",
+          "contactNumber": "04 89 87 72 91",
+          "contactPosition": "Coordinatrice action culturelle",
+          "email": "a.roustan@agglo-casa.fr"
+        }
+      }
+    },
+    {
+      "uid": 53221731,
+      "ownerUid": 95017085,
+      "creatorUid": 95017085,
+      "slug": "un-ocean-damour",
+      "title": {
+        "fr": "\"Un océan d'amour\", BD-concert",
+        "en": "\"An ocean of love\", BD-concert"
+      },
+      "description": {
+        "fr": "BD-concert par le groupe Zenziki",
+        "en": "BD-concert by the group Zenziki"
+      },
+      "longDescription": {
+        "fr": "### \"Un océan d’amour\"\n\n### BD-concert par le groupe Zenzika qui porte cette histoire sans paroles avec une musique qui croise influences pop, jazz, traditionnelle et improvisée.\n\n« Chaque matin, Monsieur part pêcher au large des côtes bretonnes. Mais ce jour-là, c'est lui qui est pêché par un effrayant bateau-usine. Pendant ce temps, Madame attend. Sourde aux complaintes des bigoudènes, convaincue que son homme est en vie, elle part à sa recherche. C'est le début d'un périlleux chassé-croisé, sur un océan dans tous ses états. Une histoire muette avec moults mouettes! »\n\nUn Océan d'amour, Lupano-Panaccione\n\n© Editions Delcourt – 2014\n\nWilfrid Lupano et Gregory Panaccione composent un récit muet qui pétille de malice. Habité par des personnages hyper expressifs, \"Un océan d'amour\" réussit tour à tour, à nous faire éclater de rire, nous angoisser, mais surtout à nous bouleverser. Car sous son vernis de farce, cette rafraîchissante bande dessinée fait, au fond, l'éloge de cet amour inconditionnel, dont on oublie parfois trop facilement d'entretenir la flamme.",
+        "en": "### \"An ocean of love\"\n### BD-concert by the band Zenzika who carries this story without words with music that crosses influences pop, jazz, traditional and improvised.\nEvery morning, Monsieur goes fishing off the coast of Brittany. But that day, it is he who is caught by a frightening factory boat. During this time, Madame waits. Deaf to the complaints of bigoudens, convinced that her man is alive, she goes in search of her. It is the beginning of a perilous hunted-crossed ocean in all its states. A mute story with moults seagulls!”\nAn Ocean of Love, Lupano-Panaccione\nEditions Delcourt – 2014\nWilfrid Lupano and Gregory Panaccione compose a mute tale that sparkles with malice. Inhabited by hyper-expressive characters, \"Un océan d'amour\" succeeds in turn, to make us burst with laughter, to worry, but especially to upset us. Because under its farce varnish, this refreshing comic strip, at its core, praises this unconditional love, from which we sometimes forget too easily to maintain the flame."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Dans la limite des places disponibles",
+        "en": "Within available places"
+      },
+      "image": {
+        "filename": "d28b764f83e441b8b6b92f7130974a93.base.image.jpg",
+        "credits": "DR",
+        "size": {
+          "height": 412,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d28b764f83e441b8b6b92f7130974a93.full.image.jpg",
+            "size": {
+              "height": 2896,
+              "width": 4928
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d28b764f83e441b8b6b92f7130974a93.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-29T15:00:00.000Z",
+          "end": "2020-02-29T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:12.000Z",
+      "createdAt": "2019-12-18T13:01:05.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19810335,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 92 19 75 80"
+      ],
+      "location": {
+        "uid": 19810335,
+        "slug": "mediatheque-albert-camus-dantibes918",
+        "name": "Médiathèque Albert Camus",
+        "address": "19 bis boulevard Chancel 06600 Antibes",
+        "city": "Antibes",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06160",
+        "insee": "06004",
+        "countryCode": "FR",
+        "district": "Juan-les-Pins",
+        "latitude": 43.58006,
+        "longitude": 7.119316,
+        "updatedAt": "2019-12-18T10:17:27.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95017085,
+        "custom": {
+          "organization": "Médiathèques de la Communauté d'agglomération Sophia Antipolis",
+          "contactName": "Amélie ROUSTAN",
+          "contactNumber": "04 89 87 72 91",
+          "contactPosition": "Coordinatrice action culturelle",
+          "email": "a.roustan@agglo-casa.fr"
+        }
+      }
+    },
+    {
+      "uid": 31515555,
+      "ownerUid": 95017085,
+      "creatorUid": 95017085,
+      "slug": "poison_702819",
+      "title": {
+        "fr": "Concert dessiné \"Poison\"",
+        "en": "Cartoon concert \"Poison\""
+      },
+      "description": {
+        "fr": "\"Poison\", concert dessiné",
+        "en": "\"Poison\", cartoon concert"
+      },
+      "longDescription": {
+        "fr": "Concert dessiné\n---------------\n\n### par Matthieu Chiara et Jean-Charles Andrieu de Levis, illustrateurs de bande dessinée\n\nUne jeune femme amérindienne est mordue par un serpent mortel. Dans l’univers hostile des grands canyons\n\naméricains parviendra-t-elle à trouver les ingrédients qui lui permettront de confectionner le remède dont elle a\n\nbesoin ?\n\nJean-Charles Andrieu de Levis et Matthieu Chiara sont deux illustrateurs diplômés de la Haute école des arts du Rhin à Strasbourg. Ils ont déjà réalisé ensemble de nombreux concerts et performances dessinées ainsi que divers projets de publication. L’histoire est racontée par des dessins réalisés en direct et projetés sur fond d’une musique _liv_e à la\n\nguitare.",
+        "en": "## Concert dessiné\n### by Matthieu Chiara and Jean-Charles Andrieu de Levis, cartoon illustrators\nA young Amerindian woman is bitten by a deadly snake. In the hostile universe of the great canyons\nwill she be able to find the ingredients that will allow her to make the remedy she has\nneed?\nJean-Charles Andrieu de Levis and Matthieu Chiara are two illustrators who graduated from the Haute école des arts du Rhin in Strasbourg. Together they have already produced numerous concerts and performances as well as various publishing projects. The story is told by drawings made live and projected against a background of music\nguitar."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Réservations sur place ou au 04 92 02 36 70.",
+        "en": "Reservations on site or at 04 92 02 36 70."
+      },
+      "image": {
+        "filename": "52c1de84d042443e823ecc76af54239a.base.image.jpg",
+        "credits": "Matthieu Chiara et Jean-Charles Andrieu de Levis",
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "52c1de84d042443e823ecc76af54239a.full.image.jpg",
+            "size": {
+              "height": 1080,
+              "width": 1920
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "52c1de84d042443e823ecc76af54239a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-14T09:30:00.000Z",
+          "end": "2020-03-14T10:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:09.000Z",
+      "createdAt": "2019-12-18T13:10:37.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 14678473,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 14678473,
+        "slug": "mediatheque-jean-dormesson-de-villeneuve-loubet797",
+        "name": "Médiathèque Jean d'Ormesson de Villeneuve Loubet",
+        "address": "30 allée Simone Veil 06270 Villeneuve-Loubet",
+        "city": "Villeneuve-Loubet",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06270",
+        "insee": "06161",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.655445,
+        "longitude": 7.127143,
+        "updatedAt": "2019-12-18T13:24:59.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95017085,
+        "custom": {
+          "organization": "Médiathèques de la Communauté d'agglomération Sophia Antipolis",
+          "contactName": "Amélie ROUSTAN",
+          "contactNumber": "04 89 87 72 91",
+          "contactPosition": "Coordinatrice action culturelle",
+          "email": "a.roustan@agglo-casa.fr"
+        }
+      }
+    },
+    {
+      "uid": 26807961,
+      "ownerUid": 8090929,
+      "creatorUid": 8090929,
+      "slug": "la-nuit-de-la-lecture-a-amiens_231329",
+      "title": {
+        "fr": "Animations jeune public \"On a marché sur la bulle\""
+      },
+      "description": {
+        "fr": "Partez à la découverte de la bande dessinée dans la ville d'Amiens"
+      },
+      "longDescription": {
+        "fr": "Partez à la découverte de la bande dessinée dans la ville d'Amiens grâce à un jeu de piste qui vous menèra dans les lieux phares de la lecture à Amiens !\n\nÀ la bibliothèque Louis Aragon ...\n\n\\- des ateliers dessins (tous pulics) : deux ateliers enfants et deux ateliers ados/adulte à 19h et à 21h - sur inscriptions au 03 22 72 82 76\n\n\\- un espace pour découvrir la programmation des 25es Rendez-vous de la bande dessinée d'Amiens\n\n\\- une exposition inédite consacrée au prix Révélation bande dessinée des lycéens Hauts-de-France\n\n**\\- des animations jeune public de 19h à 21h**\n\n\\- deux performances dessinées de Cyril Pedrosa à 20h et à 22h15\n\nRécuperez un tampon dans chaque librairie indépendante amiénoise puis rendez-vous à la bibliothèque sur les stands du festival pour avoir la chance de gagner un super cadeau !\n\nRetrouvez toutes ces infos sur notre site internet [www.onamarchesurlabulle.fr](http://www.onamarchesurlabulle.fr)"
+      },
+      "keywords": {
+        "fr": [
+          "amiens",
+          "dessin",
+          "bande dessinée",
+          "bibliotheque",
+          "jeune public",
+          "exposition"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "1111502f3e54479484e9033160f200da.base.image.jpg",
+        "credits": "Dessin : David Périmony",
+        "size": {
+          "height": 988,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1111502f3e54479484e9033160f200da.full.image.jpg",
+            "size": {
+              "height": 1196,
+              "width": 848
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1111502f3e54479484e9033160f200da.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T18:00:00.000Z",
+          "end": "2020-01-18T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-18T13:52:56.000Z",
+      "createdAt": "2019-12-17T10:35:56.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 10885476,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 14
+      },
+      "registration": [],
+      "location": {
+        "uid": 10885476,
+        "slug": "bibliotheque-louis-aragon721",
+        "name": "Bibliothèque Louis Aragon",
+        "address": "50 rue de la République 80000 Amiens",
+        "city": "Amiens",
+        "region": "Hauts-de-France",
+        "department": "Somme",
+        "postalCode": "80000",
+        "insee": "80021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.88981,
+        "longitude": 2.295554,
+        "updatedAt": "2019-12-18T13:48:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 60057629,
+      "ownerUid": 8090929,
+      "creatorUid": 8090929,
+      "slug": "la-nuit-de-la-lecture-a-amiens_679017",
+      "title": {
+        "fr": "Exposition sur le prix Révélation bande dessinée des lycéens Hauts-de-France"
+      },
+      "description": {
+        "fr": "Partez à la découverte de la bande dessinée dans la ville d'Amiens"
+      },
+      "longDescription": {
+        "fr": "Partez à la découverte de la bande dessinée dans la ville d'Amiens grâce à un jeu de piste qui vous menèra dans les lieux phares de la lecture à Amiens !\n\nÀ la bibliothèque Louis Aragon ...\n\n\\- des ateliers dessins (tous pulics) : deux ateliers enfants et deux ateliers ados/adulte à 19h et à 21h - sur inscriptions au 03 22 72 82 76\n\n\\- un espace pour découvrir la programmation des 25es Rendez-vous de la bande dessinée d'Amiens\n\n**\\- une exposition inédite consacrée au prix Révélation bande dessinée des lycéens Hauts-de-France**\n\n\\- des animations jeune public de 19h à 21h\n\n\\- deux performances dessinées de Cyril Pedrosa à 20h et à 22h15\n\nRécuperez un tampon dans chaque librairie indépendante amiénoise puis rendez-vous à la bibliothèque sur les stands du festival pour avoir la chance de gagner un super cadeau !\n\nRetrouvez toutes ces infos sur notre site internet [www.onamarchesurlabulle.fr](http://www.onamarchesurlabulle.fr)"
+      },
+      "keywords": {
+        "fr": [
+          "amiens",
+          "dessin",
+          "bande dessinée",
+          "bibliotheque",
+          "jeune public",
+          "exposition"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "1111502f3e54479484e9033160f200da.base.image.jpg",
+        "credits": "Dessin : David Périmony",
+        "size": {
+          "height": 988,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1111502f3e54479484e9033160f200da.full.image.jpg",
+            "size": {
+              "height": 1196,
+              "width": 848
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1111502f3e54479484e9033160f200da.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T18:00:00.000Z",
+          "end": "2020-01-18T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-18T13:55:19.000Z",
+      "createdAt": "2019-12-17T10:34:23.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 10885476,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 10885476,
+        "slug": "bibliotheque-louis-aragon721",
+        "name": "Bibliothèque Louis Aragon",
+        "address": "50 rue de la République 80000 Amiens",
+        "city": "Amiens",
+        "region": "Hauts-de-France",
+        "department": "Somme",
+        "postalCode": "80000",
+        "insee": "80021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.88981,
+        "longitude": 2.295554,
+        "updatedAt": "2019-12-18T13:48:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2110172
+}

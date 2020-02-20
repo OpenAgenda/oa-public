@@ -15,7 +15,6 @@ module.exports = async (services, eventSearch, rebuildQueue) => {
       agendas,
       lastId: newLastId
     } = await agendasSvc.list({
-      //search: 'Ville de CENON',
       order: 'id.desc'
     }, lastId, 100, {
       offsetAsLastId: true,
@@ -33,5 +32,5 @@ module.exports = async (services, eventSearch, rebuildQueue) => {
 
   log('info', 'completed rebuild queueing for %s agendas', count);
 
-  await rebuildQueue('transverse');
+  await rebuildQueue('transverseIndexRebuild');
 }

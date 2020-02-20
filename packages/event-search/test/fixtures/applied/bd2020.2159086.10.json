@@ -1,0 +1,1729 @@
+{
+  "events": [
+    {
+      "uid": 72570709,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "mac-orlan-et-la-bd",
+      "title": {
+        "fr": "Mac Orlan et la BD"
+      },
+      "description": {
+        "fr": "Pierre Mac Orlan a participé à l'émergence de la BD"
+      },
+      "longDescription": {
+        "fr": "Cette exposition éclaire sur l’un des précurseurs de la bande dessinée que fut Pierre Mac Orlan dés le début du XXe siècle.\n\nElle reproduit de nombreux dessins et aborde le thème de l’illustration et de la bande dessinée proprement dite.\n\nPlusieurs panneaux sont consacrés aux adaptations en BD des livres de Mac Orlan par des auteurs contemporains : J. Cubaud, Riff Reb’s, David B.\n\nExposition prêtée par Département de Seine-et-Marne, musée de la Seine-et-Marne."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d52f917d060d46269274ddbe9e2e517c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 875,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d52f917d060d46269274ddbe9e2e517c.full.image.jpg",
+            "size": {
+              "height": 720,
+              "width": 576
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d52f917d060d46269274ddbe9e2e517c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-31T10:00:00.000Z",
+          "end": "2020-03-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T10:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T10:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T10:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T10:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T10:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T10:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T10:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T10:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T10:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T10:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T11:19:44.000Z",
+      "createdAt": "2019-12-19T13:49:52.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10196542,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "01-60-56-04-70"
+      ],
+      "location": {
+        "uid": 10196542,
+        "slug": "mediatheque-astrolabe237",
+        "name": "Médiathèque Astrolabe",
+        "address": "25 rue du Château 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.536653,
+        "longitude": 2.656787,
+        "updatedAt": "2019-12-19T13:36:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Exposition prêtée par le Musée de Seine-et-Marne",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 28870297,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "valise-de-jeux-autour-de-la-bd",
+      "title": {
+        "en": "Suitcase of games around the comic",
+        "fr": "Valise de jeux autour de la BD"
+      },
+      "description": {
+        "en": "Society games around comics",
+        "fr": "Jeux de sociétés autour de la bande dessinée"
+      },
+      "longDescription": {
+        "en": "To find the worlds of Lincoln, Corto Maltese, Blake and Mortimer, Game Over, Cardline, the dungeon of Naheulbeuck, Naruto, the superheroes of DC Comics...\nSuitcase of games on loan from the departmental media library of Seine-et-Marne.",
+        "fr": "Pour retrouver les univers de Lincoln, Corto Maltese, Blake et Mortimer, Game Over, Cardline, le donjon de Naheulbeuck, Naruto, les super-héros de DC Comics...\n\nValise de jeux prêtée par la médiathèque départementale de Seine-et-Marne."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "47dd1604a7e041f8872da4f35d93cd28.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 481,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "47dd1604a7e041f8872da4f35d93cd28.full.image.jpg",
+            "size": {
+              "height": 186,
+              "width": 271
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "47dd1604a7e041f8872da4f35d93cd28.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T12:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T12:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T12:18:10.000Z",
+      "createdAt": "2019-12-19T14:43:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 56750046,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "01-64-09-72-92"
+      ],
+      "location": {
+        "uid": 56750046,
+        "slug": "la-boussole-2-rue-claude-bernard-77000-melun",
+        "name": "La Boussole",
+        "address": "2 rue Claude Bernard 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.542677,
+        "longitude": 2.675684,
+        "updatedAt": "2019-12-19T15:03:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Valise prêtée par la Médiathèque départemantale de Seine et Marne",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 8992516,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "exposition-chateaux-bordeaux",
+      "title": {
+        "en": "Exhibition \"Châteaux Bordeaux\"",
+        "fr": "Exposition \"Châteaux Bordeaux\""
+      },
+      "description": {
+        "en": "Exhibition of the series \"Châteaux Bordeaux\" by Corbeyran and Espé",
+        "fr": "Exposition de la série \"Châteaux Bordeaux\" de Corbeyran et Espé"
+      },
+      "longDescription": {
+        "fr": "Exposition prêtée par l'éditeur Glénat.",
+        "en": "Exhibition on loan from the publisher Glénat."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "6d02913246a0480190f5ce7512c9d353.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 457,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "6d02913246a0480190f5ce7512c9d353.full.image.jpg",
+            "size": {
+              "height": 391,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "6d02913246a0480190f5ce7512c9d353.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-24T11:00:00.000Z",
+          "end": "2020-03-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T11:00:00.000Z",
+          "end": "2020-03-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T11:00:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-29T12:00:00.000Z",
+          "end": "2020-03-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T10:00:00.000Z",
+          "end": "2020-03-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T10:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T10:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T10:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T10:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T10:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T10:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T10:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T10:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T10:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T12:18:12.000Z",
+      "createdAt": "2020-01-04T16:27:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10196542,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 10196542,
+        "slug": "mediatheque-astrolabe237",
+        "name": "Médiathèque Astrolabe",
+        "address": "25 rue du Château 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.536653,
+        "longitude": 2.656787,
+        "updatedAt": "2019-12-19T13:36:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 90029882,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "3d-bulles",
+      "title": {
+        "en": "3D bubbles !",
+        "fr": "3D bulles !"
+      },
+      "description": {
+        "en": "On the occasion of the 48h comic, come create your own phylactère in 3D to mount on close or key-ring",
+        "fr": "À l'occasion des 48h BD, viens créer ton propre phylactère en 3D à monter sur proche ou en porte-clé"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9c71807fd2d34b5798815f28dd55843d.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 526,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9c71807fd2d34b5798815f28dd55843d.full.image.jpg",
+            "size": {
+              "height": 2248,
+              "width": 2996
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9c71807fd2d34b5798815f28dd55843d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T12:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T12:18:11.000Z",
+      "createdAt": "2020-01-30T11:27:05.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10196542,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 10196542,
+        "slug": "mediatheque-astrolabe237",
+        "name": "Médiathèque Astrolabe",
+        "address": "25 rue du Château 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.536653,
+        "longitude": 2.656787,
+        "updatedAt": "2019-12-19T13:36:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 74415539,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "battle-de-dessin_693887",
+      "title": {
+        "en": "Drawing Battle",
+        "fr": "Battle de dessin"
+      },
+      "description": {
+        "en": "A Mr Loyal, a musician, two cartoonists. Here is the recipe for a good drawing battle !",
+        "fr": "Un M. Loyal, un musicien, deux dessinateurs. Voici la recette pour une bonne battle de dessin !"
+      },
+      "longDescription": {
+        "en": "By the company \"Once upon a time\".",
+        "fr": "Par la compagnie \"Il était une fois\"."
+      },
+      "keywords": {},
+      "conditions": {
+        "en": "On registration",
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "3ae0f27578f641209d2eba77553b8682.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 520,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3ae0f27578f641209d2eba77553b8682.full.image.jpg",
+            "size": {
+              "height": 427,
+              "width": 575
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3ae0f27578f641209d2eba77553b8682.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T13:00:00.000Z",
+          "end": "2020-04-04T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T12:18:06.000Z",
+      "createdAt": "2019-12-19T16:20:26.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10196542,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "contact@astrolabe-melun.fr",
+        "01-60-56-04-70"
+      ],
+      "location": {
+        "uid": 10196542,
+        "slug": "mediatheque-astrolabe237",
+        "name": "Médiathèque Astrolabe",
+        "address": "25 rue du Château 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.536653,
+        "longitude": 2.656787,
+        "updatedAt": "2019-12-19T13:36:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 55155545,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "ecran-autrement",
+      "title": {
+        "fr": "L'écran autrement : quand la BD s'anime",
+        "en": "Screen otherwise : when comic books come alive"
+      },
+      "description": {
+        "fr": "Quand la BD s'anime",
+        "en": "When comic books come alive"
+      },
+      "longDescription": {
+        "fr": "\"Allez, on vous aide : une bécasse, bretonnante, pas si stupide que ça..\"",
+        "en": "\"Come on, we’re helping you out, a woodcock, not so stupid.\""
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "3b03603760174170911e86ce04bc248a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 420,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3b03603760174170911e86ce04bc248a.full.image.jpg",
+            "size": {
+              "height": 300,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3b03603760174170911e86ce04bc248a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-01T12:30:00.000Z",
+          "end": "2020-04-01T14:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T11:46:02.000Z",
+      "createdAt": "2019-12-19T15:44:16.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10196542,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [
+        "contact@astrolabe-melun.fr",
+        "01-60-56-04-70"
+      ],
+      "location": {
+        "uid": 10196542,
+        "slug": "mediatheque-astrolabe237",
+        "name": "Médiathèque Astrolabe",
+        "address": "25 rue du Château 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.536653,
+        "longitude": 2.656787,
+        "updatedAt": "2019-12-19T13:36:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 59226553,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "ecran-autrement_688160",
+      "title": {
+        "en": "Screen otherwise : when comic books come alive",
+        "fr": "L'écran autrement : quand la BD s'anime"
+      },
+      "description": {
+        "en": "A film with \"Un pavillon, une niche, un papa, une maman et un petit garçon, fils unique et complice... In short a real dog life!\"",
+        "fr": "Un film avec \"Un pavillon, une niche, un papa, une maman et un petit garçon, fils unique et complice... Bref une vraie vie de chien!\""
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "en": "Upon registration",
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "917599137bb8448f896f8f9c6a6c67fe.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 420,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "917599137bb8448f896f8f9c6a6c67fe.full.image.jpg",
+            "size": {
+              "height": 300,
+              "width": 500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "917599137bb8448f896f8f9c6a6c67fe.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T15:30:00.000Z",
+          "end": "2020-04-04T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T12:18:04.000Z",
+      "createdAt": "2019-12-20T12:45:11.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10196542,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "contact@astrolabe-melun.fr",
+        "01-60-56-04-70"
+      ],
+      "location": {
+        "uid": 10196542,
+        "slug": "mediatheque-astrolabe237",
+        "name": "Médiathèque Astrolabe",
+        "address": "25 rue du Château 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.536653,
+        "longitude": 2.656787,
+        "updatedAt": "2019-12-19T13:36:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 86079847,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "pictionnary-bd",
+      "title": {
+        "en": "Pictionnary BD",
+        "fr": "Pictionnary BD"
+      },
+      "description": {
+        "en": "The principle is simple, each team will make guesses, thanks to the drawing (scribbles accepted!), of words related to the universe of the comic (characters, objects, animals...)",
+        "fr": "Le principe est simple, chaque équipe fera deviner, grâce au dessin (gribouillis acceptés !), des mots en lien avec l’univers de la BD (personnages, objets, animaux...)"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "910b93f902d74e12ae2baacc99a08ab5.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 599,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "910b93f902d74e12ae2baacc99a08ab5.full.image.jpg",
+            "size": {
+              "height": 2120,
+              "width": 2481
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "910b93f902d74e12ae2baacc99a08ab5.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T13:00:00.000Z",
+          "end": "2020-04-04T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T12:18:05.000Z",
+      "createdAt": "2020-01-16T13:48:11.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 56750046,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 56750046,
+        "slug": "la-boussole-2-rue-claude-bernard-77000-melun",
+        "name": "La Boussole",
+        "address": "2 rue Claude Bernard 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.542677,
+        "longitude": 2.675684,
+        "updatedAt": "2019-12-19T15:03:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48 H BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 27654119,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "jeu-de-piste_722259",
+      "title": {
+        "fr": "Jeu de piste",
+        "en": "Game of track"
+      },
+      "description": {
+        "fr": "Retrouvez dans la médiathèque des héros de bande dessinée cachés dans les différents espaces !",
+        "en": "Find in the media library comic heroes hidden in different spaces !"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9f3a531ffeec47dbbe8da95bb3fb94da.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 683,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9f3a531ffeec47dbbe8da95bb3fb94da.full.image.jpg",
+            "size": {
+              "height": 234,
+              "width": 240
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9f3a531ffeec47dbbe8da95bb3fb94da.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T10:00:00.000Z",
+          "end": "2020-04-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T10:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T10:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T10:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T10:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T10:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T10:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T10:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T11:34:59.000Z",
+      "createdAt": "2019-12-19T16:59:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10196542,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "01-60-56-04-70"
+      ],
+      "location": {
+        "uid": 10196542,
+        "slug": "mediatheque-astrolabe237",
+        "name": "Médiathèque Astrolabe",
+        "address": "25 rue du Château 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.536653,
+        "longitude": 2.656787,
+        "updatedAt": "2019-12-19T13:36:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    },
+    {
+      "uid": 10402257,
+      "ownerUid": 91116304,
+      "creatorUid": 91116304,
+      "slug": "jeu-de-piste_853320",
+      "title": {
+        "en": "Game of track",
+        "fr": "Jeu de piste"
+      },
+      "description": {
+        "en": "Find Hidden Cartoon Heroes at the Compass",
+        "fr": "Retrouvez des héros de bande dessinée cachés à la Boussole"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9feb9adc71894319aa01725ff878dba2.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 746,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9feb9adc71894319aa01725ff878dba2.full.image.jpg",
+            "size": {
+              "height": 330,
+              "width": 310
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9feb9adc71894319aa01725ff878dba2.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T12:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T12:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-07T12:18:04.000Z",
+      "createdAt": "2019-12-20T17:03:40.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 56750046,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 56750046,
+        "slug": "la-boussole-2-rue-claude-bernard-77000-melun",
+        "name": "La Boussole",
+        "address": "2 rue Claude Bernard 77000 Melun",
+        "city": "Melun",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77000",
+        "insee": "77487",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.542677,
+        "longitude": 2.675684,
+        "updatedAt": "2019-12-19T15:03:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "48h BD",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91116304,
+        "custom": {
+          "organization": "Médiathèque Astrolabe",
+          "contactName": "Véronique LIVRET",
+          "contactNumber": "01-60-56-04-70",
+          "contactPosition": "Bibliothécaire- Référente BD",
+          "email": "vlivret@astrolabe-melun.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2159133
+}

@@ -1,0 +1,1472 @@
+{
+  "events": [
+    {
+      "uid": 29077889,
+      "ownerUid": 73434618,
+      "creatorUid": 73434618,
+      "slug": "projection-dune-bande-dessinee-numerique-phallaina",
+      "title": {
+        "fr": "Projection d'une bande dessinée numérique : Phallaina"
+      },
+      "description": {
+        "fr": "Phallaina : de la bande dessinée à la bande défilée numérique"
+      },
+      "longDescription": {
+        "fr": "Plongez dans l’histoire d’Audrey et de ses hallucinations. _Phallaina_ : une bande dessinée numérique originale de Marietta Ren (présentée au festival d’Angoulême 2016)."
+      },
+      "keywords": {
+        "fr": [
+          "BD numérique",
+          "Bande dessinée sur écran",
+          "bande dessinée numérique",
+          null
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "9708e0e8e59b4f89a2ab63acca293674.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 355,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9708e0e8e59b4f89a2ab63acca293674.full.image.jpg",
+            "size": {
+              "height": 377,
+              "width": 745
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9708e0e8e59b4f89a2ab63acca293674.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T17:00:00.000Z",
+          "end": "2020-01-18T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-20T08:57:56.000Z",
+      "createdAt": "2019-12-10T12:22:13.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 36972517,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 36972517,
+        "slug": "mediatheque-blaise-cendrars368",
+        "name": "Médiathèque Blaise Cendrars",
+        "address": "5 place Auguste Romagné 78700 Conflans-Sainte-Honorine",
+        "city": "Conflans-Sainte-Honorine",
+        "region": "Île-de-France",
+        "department": "Yvelines",
+        "postalCode": "78700",
+        "insee": "78172",
+        "countryCode": "FR",
+        "district": "Plateau Carnot",
+        "latitude": 48.997971,
+        "longitude": 2.098077,
+        "updatedAt": "2019-12-16T14:14:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 54969141,
+      "ownerUid": 11426558,
+      "creatorUid": 11426558,
+      "slug": "conte-enfants",
+      "title": {
+        "fr": "Conte pour enfants"
+      },
+      "description": {
+        "fr": "Les auteurs d'Alioth le croqueur de nuages, seront présents"
+      },
+      "longDescription": {
+        "fr": "_Alioth Le croqueur de nuages_ : présence des auteurs et lecture"
+      },
+      "keywords": {
+        "fr": [
+          "Conte enfants"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "2c70e7cd640a4e3b833669318daf840c.base.image.jpg",
+        "size": {
+          "width": 701,
+          "height": 715
+        },
+        "variants": [
+          {
+            "filename": "2c70e7cd640a4e3b833669318daf840c.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 637,
+              "height": 650
+            }
+          },
+          {
+            "filename": "2c70e7cd640a4e3b833669318daf840c.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": "moi-même",
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T15:00:00.000Z",
+          "end": "2020-01-18T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-23T13:50:12.000Z",
+      "createdAt": "2019-12-10T16:26:37.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 45189347,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 1,
+        "max": 9
+      },
+      "registration": [],
+      "location": {
+        "uid": 45189347,
+        "slug": "mairie-salle-du-conseil-municipal475",
+        "name": "Mairie - Salle du conseil municipal",
+        "address": "9 place Don Jean Bellon 06850 Saint-Auban",
+        "city": "Saint-Auban",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Alpes-Maritimes",
+        "postalCode": "06850",
+        "insee": "06116",
+        "countryCode": "FR",
+        "district": "Les Basses Baumettes",
+        "latitude": 43.848505,
+        "longitude": 6.726209,
+        "updatedAt": "2019-12-16T14:25:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 688,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 10480371,
+      "ownerUid": 21983574,
+      "creatorUid": 21983574,
+      "slug": "stage-de-dessin-la-bande-dessinee",
+      "title": {
+        "fr": "Stage de dessin : la bande dessinée",
+        "en": "Drawing stage: the comic book"
+      },
+      "description": {
+        "fr": "Didier initie les plus jeunes au 9e art avec un stage de dessin sur deux après-midis pendant les vacances d'hiver",
+        "en": "Didier introduces the youngest to the 9th art with a drawing course on two afternoons during the winter holidays"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "ba6e09f3bd9e45218790ec504cafb22c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1034,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ba6e09f3bd9e45218790ec504cafb22c.full.image.jpg",
+            "size": {
+              "height": 3661,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ba6e09f3bd9e45218790ec504cafb22c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Monaco",
+      "timings": [
+        {
+          "begin": "2020-02-24T13:30:00.000Z",
+          "end": "2020-02-24T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T13:30:00.000Z",
+          "end": "2020-02-25T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:23.000Z",
+      "createdAt": "2019-12-16T14:51:40.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64270803,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 12
+      },
+      "registration": [
+        "+37793152272",
+        "http://www.mediatheque.mc"
+      ],
+      "location": {
+        "uid": 64270803,
+        "slug": "bibliotheque-princesse-caroline",
+        "name": "Bibliothèque Princesse Caroline",
+        "address": "1 boulevard Albert 1er 98000 Monaco",
+        "city": "Monaco",
+        "region": null,
+        "department": null,
+        "postalCode": "98000",
+        "insee": null,
+        "countryCode": "MC",
+        "district": "La Condamine",
+        "latitude": 43.73657,
+        "longitude": 7.421432,
+        "updatedAt": "2019-12-16T15:05:01.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Monaco",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 21983574,
+        "custom": {
+          "organization": "Médiathèque de Monaco",
+          "contactName": "Céline SABINE",
+          "contactNumber": "+37793152940",
+          "contactPosition": "Directeur adjoint",
+          "email": "csabine@mairie.mc"
+        }
+      }
+    },
+    {
+      "uid": 63987684,
+      "ownerUid": 21983574,
+      "creatorUid": 21983574,
+      "slug": "cine-pop-corn-snowpiercer-de-bong-joon-ho",
+      "title": {
+        "fr": "Ciné pop-corn : Snowpiercer de Bong Joon-ho",
+        "en": "Popcorn Movie: Snowpiercer by Bong Joon-ho"
+      },
+      "description": {
+        "fr": "Une séance ciné alternative et décontractée.",
+        "en": "An alternative and relaxed movie session."
+      },
+      "longDescription": {
+        "fr": "Cycle adaptation de bd au cinéma",
+        "en": "Comic film adaptation cycle"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre et gratuite",
+        "en": "Free and free admission"
+      },
+      "image": {
+        "filename": "a4ae38ccd8c44619b703fac9b405c5aa.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1034,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a4ae38ccd8c44619b703fac9b405c5aa.full.image.jpg",
+            "size": {
+              "height": 3661,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a4ae38ccd8c44619b703fac9b405c5aa.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Monaco",
+      "timings": [
+        {
+          "begin": "2020-01-22T18:00:00.000Z",
+          "end": "2020-01-22T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:59:19.000Z",
+      "createdAt": "2019-12-16T14:59:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 79186773,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "http://www.mediatheque.mc",
+        "+37793306448"
+      ],
+      "location": {
+        "uid": 79186773,
+        "slug": "sonotheque-jose-notari-videotheque",
+        "name": "Sonothèque José Notari - Vidéothèque",
+        "address": "Villa Lamartine, 19 Boulevard Princesse Charlotte 98000 Monaco",
+        "city": "Monaco",
+        "region": null,
+        "department": null,
+        "postalCode": "98000",
+        "insee": null,
+        "countryCode": "MC",
+        "district": "Monte-Carlo",
+        "latitude": 43.740832,
+        "longitude": 7.424886,
+        "updatedAt": "2019-12-16T15:06:04.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Monaco",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 21983574,
+        "custom": {
+          "organization": "Médiathèque de Monaco",
+          "contactName": "Céline SABINE",
+          "contactNumber": "+37793152940",
+          "contactPosition": "Directeur adjoint",
+          "email": "csabine@mairie.mc"
+        }
+      }
+    },
+    {
+      "uid": 4848249,
+      "ownerUid": 21983574,
+      "creatorUid": 21983574,
+      "slug": "cine-pop-corn-ghost-world-de-terry-zwigoff",
+      "title": {
+        "fr": "Ciné pop-corn : Ghost World, de Terry Zwigoff",
+        "en": "Pop-corn film: Ghost World, by Terry Zwigoff"
+      },
+      "description": {
+        "fr": "Une séance ciné alternative et décontractée",
+        "en": "An alternative and relaxed movie session"
+      },
+      "longDescription": {
+        "fr": "Cycle adaptation de bd au cinéma",
+        "en": "Comic film adaptation cycle"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre et gratuite",
+        "en": "Free and free admission"
+      },
+      "image": {
+        "filename": "adbf74a2c63c4f2d8fc85323a831c0a2.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1034,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "adbf74a2c63c4f2d8fc85323a831c0a2.full.image.jpg",
+            "size": {
+              "height": 3661,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "adbf74a2c63c4f2d8fc85323a831c0a2.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Monaco",
+      "timings": [
+        {
+          "begin": "2020-03-04T18:00:00.000Z",
+          "end": "2020-03-04T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:59:06.000Z",
+      "createdAt": "2019-12-16T15:03:26.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 79186773,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "http://www.mediatheque.mc",
+        "+37793306448"
+      ],
+      "location": {
+        "uid": 79186773,
+        "slug": "sonotheque-jose-notari-videotheque",
+        "name": "Sonothèque José Notari - Vidéothèque",
+        "address": "Villa Lamartine, 19 Boulevard Princesse Charlotte 98000 Monaco",
+        "city": "Monaco",
+        "region": null,
+        "department": null,
+        "postalCode": "98000",
+        "insee": null,
+        "countryCode": "MC",
+        "district": "Monte-Carlo",
+        "latitude": 43.740832,
+        "longitude": 7.424886,
+        "updatedAt": "2019-12-16T15:06:04.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Monaco",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 1,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 21983574,
+        "custom": {
+          "organization": "Médiathèque de Monaco",
+          "contactName": "Céline SABINE",
+          "contactNumber": "+37793152940",
+          "contactPosition": "Directeur adjoint",
+          "email": "csabine@mairie.mc"
+        }
+      }
+    },
+    {
+      "uid": 32248984,
+      "ownerUid": 21983574,
+      "creatorUid": 21983574,
+      "slug": "cine-pop-corn-les-veces-etaient-fermes-de-linterieur-de-patrice-leconte",
+      "title": {
+        "fr": "Ciné pop-corn : Les vécés étaient fermés de l'intérieur, de Patrice Leconte",
+        "en": "Ciné pop-corn: Les vécés were closed from the inside, by Patrice Leconte"
+      },
+      "description": {
+        "fr": "Une séance ciné alternative et décontractée",
+        "en": "An alternative and relaxed movie session"
+      },
+      "longDescription": {
+        "fr": "Cycle adaptations de bd au cinéma.",
+        "en": "Cycle of comic book adaptations to cinema."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre et gratuite",
+        "en": "Free and free admission"
+      },
+      "image": {
+        "filename": "0419cb30b07e44338de0255d0ef98cbf.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1034,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0419cb30b07e44338de0255d0ef98cbf.full.image.jpg",
+            "size": {
+              "height": 3661,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0419cb30b07e44338de0255d0ef98cbf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Monaco",
+      "timings": [
+        {
+          "begin": "2020-02-26T18:00:00.000Z",
+          "end": "2020-02-26T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:21.000Z",
+      "createdAt": "2019-12-16T15:09:42.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 79186773,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "http://www.mediatheque.mc",
+        "+37793306448"
+      ],
+      "location": {
+        "uid": 79186773,
+        "slug": "sonotheque-jose-notari-videotheque",
+        "name": "Sonothèque José Notari - Vidéothèque",
+        "address": "Villa Lamartine, 19 Boulevard Princesse Charlotte 98000 Monaco",
+        "city": "Monaco",
+        "region": null,
+        "department": null,
+        "postalCode": "98000",
+        "insee": null,
+        "countryCode": "MC",
+        "district": "Monte-Carlo",
+        "latitude": 43.740832,
+        "longitude": 7.424886,
+        "updatedAt": "2019-12-16T15:06:04.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Monaco",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 1,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 21983574,
+        "custom": {
+          "organization": "Médiathèque de Monaco",
+          "contactName": "Céline SABINE",
+          "contactNumber": "+37793152940",
+          "contactPosition": "Directeur adjoint",
+          "email": "csabine@mairie.mc"
+        }
+      }
+    },
+    {
+      "uid": 38480176,
+      "ownerUid": 21983574,
+      "creatorUid": 21983574,
+      "slug": "lancement-du-manga-blitz",
+      "title": {
+        "fr": "Lancement du manga Blitz",
+        "en": "Launch of the Blitz manga"
+      },
+      "description": {
+        "fr": "En présence de l'auteur et du mangaka, lancement officiel du manga Blitz",
+        "en": "In the presence of the author and the mangaka, official launch of the manga Blitz"
+      },
+      "longDescription": {
+        "fr": "Sortie officielle du manga _Blitz_, de la maison d’édition monégasque Iwa, supervisé et parrainé par Garry KASPAROV en personne. Créé par Cédric BISCAY (producteur des jeux vidéo Shenmue 3, Twin Mirror et de la série d’animation Astroboy Reboot), en collaboration avec Harumo Sanazaki (auteure de plus de 130 mangas) et mis en image par le mangaka Daitarô Nishihara.\n\n_Blitz_ se déroule à la fois au Japon et à Monaco. Il raconte l'histoire d’un collégien qui cherche à tout prix un moyen de se rapprocher d'une de ses camarades, qui elle, se passionne pour les échecs. Il choisit donc de s'inspirer des techniques du plus grand joueur d'échecs de l'Histoire : Garry Kasparov. Mais un événement inattendu va transférer toutes les connaissances du joueur russe dans son esprit ...",
+        "en": "Official release of the manga _Blitz_, from the Monegasque publishing house Iwa, supervised and sponsored by Garry KASPAROV in person. Created by Cédric BISCAY (producer of the video games Shenmue 3, Twin Mirror and the animation series Astroboy Reboot), in collaboration with Harumo Sanazaki (author of more than 130 mangas) and imaged by the mangaka Daitarô Nishihara.\n_Blitz_ takes place in both Japan and Monaco. He tells the story of a college boy who is desperate for a way to connect with one of her classmates, who is passionate about chess. He chose to draw inspiration from the techniques of the greatest chess player in history: Garry Kasparov. But an unexpected event will transfer all the knowledge of the Russian player into his mind ..."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "03d2a977f9654249989fc8c85411bddd.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 994,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "03d2a977f9654249989fc8c85411bddd.full.image.jpg",
+            "size": {
+              "height": 765,
+              "width": 539
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "03d2a977f9654249989fc8c85411bddd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Monaco",
+      "timings": [
+        {
+          "begin": "2020-02-13T17:00:00.000Z",
+          "end": "2020-02-13T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:35:42.000Z",
+      "createdAt": "2019-12-16T15:18:28.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 74952639,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "http://www.mediatheque.mc",
+        "+37793152940"
+      ],
+      "location": {
+        "uid": 74952639,
+        "slug": "bibliotheque-louis-notari",
+        "name": "Bibliothèque Louis Notari",
+        "address": "8 rue Louis Notari 98000 Monaco",
+        "city": "Monaco",
+        "region": null,
+        "department": null,
+        "postalCode": "98000",
+        "insee": null,
+        "countryCode": "MC",
+        "district": "La Condamine",
+        "latitude": 43.734918,
+        "longitude": 7.420494,
+        "updatedAt": "2019-12-16T15:43:49.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Monaco",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Shibuya Productions",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 21983574,
+        "custom": {
+          "organization": "Médiathèque de Monaco",
+          "contactName": "Céline SABINE",
+          "contactNumber": "+37793152940",
+          "contactPosition": "Directeur adjoint",
+          "email": "csabine@mairie.mc"
+        }
+      }
+    },
+    {
+      "uid": 84668439,
+      "ownerUid": 90694919,
+      "creatorUid": 90694919,
+      "slug": "rencontre-avec-fabien-toulme_605494",
+      "title": {
+        "fr": "Rencontre avec Fabien Toulmé",
+        "en": "Meeting with Fabien Toulmé"
+      },
+      "description": {
+        "fr": "Rencontre avec l'auteur Fabien Toulmé à la bibliothèque Bacalan",
+        "en": "Meeting with author Fabien Toulmé at the Bacalan library"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-09T08:00:00.000Z",
+          "end": "2020-05-09T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:20.000Z",
+      "createdAt": "2019-12-16T15:40:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 63994758,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 63994758,
+        "slug": "bibliotheque-bacalan183",
+        "name": "Bibliothèque Bacalan",
+        "address": "196 rue Achard 33300 Bordeaux",
+        "city": "Bordeaux",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Gironde",
+        "postalCode": "33300",
+        "insee": "33063",
+        "countryCode": "FR",
+        "district": "Bordeaux Maritime",
+        "latitude": 44.873431,
+        "longitude": -0.546005,
+        "updatedAt": "2019-12-16T15:42:12.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Regard 9",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 90694919,
+        "custom": {
+          "organization": "Bibliothèques de Bordeaux",
+          "contactName": "Julie Calmus",
+          "contactNumber": "0556103000",
+          "contactPosition": "Responsable Développement des Publics",
+          "email": "j.calmus@mairie-bordeaux.fr"
+        }
+      }
+    },
+    {
+      "uid": 720740,
+      "ownerUid": 11074858,
+      "creatorUid": 11074858,
+      "slug": "la-rencontre-renversante-des-explolecteurs",
+      "title": {
+        "fr": "Rencontre avec Florence Hinckel et Noémie Honein",
+        "en": "Meeting with Florence Hinckel and Noémie Honein"
+      },
+      "description": {
+        "fr": "Deux autrices se croisent pour une coop’ de dessin/écriture qui promet d’être renversante !",
+        "en": "Two autrices meet for a drawing/writing coop that promises to be astounding!"
+      },
+      "longDescription": {
+        "fr": "### Florence Hinckel et Noémie Honein\n\n### La rencontre renversante des Explo'lecteurs\n\nIci deux autrices se croisent pour une coop’ de dessin/écriture qui promet d’être renversante ! D’un côté l’autrice Florence Hinckel a publié une quarantaine de romans et reçu plus de trente prix littéraires. En s’adressant aux enfants comme aux plus grands, elle aime varier les genres. De l’autre, Noémie Honein : illustration, BD, peinture, autofiction : aucun genre ni technique ne lui échappe ! L’univers féministe est le sujet sur lequel les deux artistes vont se rejoindre, autour du roman _Renversante_ de Florence Hinckel.\n\nCette rencontre est organisée dans le cadre du prix des explolecteurs, mené par le Pavillon Blanc et la librairie La Préface. _Renversante_ est en cours de lecture par 6 classes de CM2 de Colomiers.",
+        "en": "### Florence Hinckel and Noémie Honein\n### The astonishing meeting of Explo'lecteurs\nHere two authors meet for a drawing/writing coop that promises to be astounding! On the one hand the author Florence Hinckel has published some forty novels and received more than thirty literary prizes. Speaking to children and adults alike, she likes to vary genres. On the other hand, Noémie Honein: illustration, comics, painting, autofiction: no genre or technique escapes her! The feminist universe is the subject on which the two artists will join, around the novel _Renversante_ by Florence Hinckel.\nThis meeting is organized within the framework of the explolectors' prize, led by the Pavillon Blanc and the bookstore La Préface. _Astounding_ is being read by 6 Colomiers fourth-graders."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "e02bca7b7ca343439228b4a3ecfad09a.base.image.jpg",
+        "credits": "Noémie Honein",
+        "size": {
+          "height": 498,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e02bca7b7ca343439228b4a3ecfad09a.full.image.jpg",
+            "size": {
+              "height": 682,
+              "width": 960
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e02bca7b7ca343439228b4a3ecfad09a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-21T16:30:00.000Z",
+          "end": "2020-01-21T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:18.000Z",
+      "createdAt": "2019-12-17T09:07:15.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 4570778,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "05 61 63 50 00",
+        "contact@pavillonblanc-colomiers.fr"
+      ],
+      "location": {
+        "uid": 4570778,
+        "slug": "pavillon-blanc-henri-molina224",
+        "name": "Pavillon Blanc Henri-Molina",
+        "address": "4 place Alex-Raymond 31770 Colomiers",
+        "city": "Colomiers",
+        "region": "Occitanie",
+        "department": "Haute-Garonne",
+        "postalCode": "31770",
+        "insee": "31149",
+        "countryCode": "FR",
+        "district": "Plein Centre",
+        "latitude": 43.610182,
+        "longitude": 1.334518,
+        "updatedAt": "2019-12-17T09:26:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Pavillon Blanc Henri-Molina",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 11074858,
+        "custom": {
+          "organization": "Festival BD de Colomiers",
+          "contactName": "Hélène Picot",
+          "contactNumber": "0561152382",
+          "contactPosition": "Chargée de communication",
+          "email": "helene.picot@mairie-colomiers.fr"
+        }
+      }
+    },
+    {
+      "uid": 3879149,
+      "ownerUid": 80192632,
+      "creatorUid": 80192632,
+      "slug": "soiree-bd-avec-cmaucler-et-froussel",
+      "title": {
+        "fr": "Soirée BD avec C. Maucler et F. Roussel"
+      },
+      "description": {
+        "fr": "Rencontre autour de la BD avec C. Maucler et F. Roussel qui proposeront des ateliers de dessin et des animations"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "5d75b5ffdb9242bb9f708de37585b4da.base.image.jpg",
+        "size": {
+          "width": 700,
+          "height": 990
+        },
+        "variants": [
+          {
+            "filename": "5d75b5ffdb9242bb9f708de37585b4da.full.image.jpg",
+            "type": "full",
+            "size": {
+              "width": 3508,
+              "height": 4961
+            }
+          },
+          {
+            "filename": "5d75b5ffdb9242bb9f708de37585b4da.thumb.image.jpg",
+            "type": "thumbnail",
+            "size": {
+              "width": 200,
+              "height": 200
+            }
+          }
+        ],
+        "credits": null,
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T16:00:00.000Z",
+          "end": "2020-01-17T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-15T14:10:12.000Z",
+      "createdAt": "2019-12-10T14:14:27.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 3580925,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 3580925,
+        "slug": "bibliotheque-sciencessport-claude-oytana165",
+        "name": "Bibliothèque Sciences/Sport Claude Oytana",
+        "address": "45b avenue de l'Observatoire 25000 Besançon",
+        "city": "Besançon",
+        "region": "Bourgogne-Franche-Comté",
+        "department": "Doubs",
+        "postalCode": "25000",
+        "insee": "25056",
+        "countryCode": "FR",
+        "district": "Montrapon-Monboucons",
+        "latitude": 47.24588,
+        "longitude": 6.00086,
+        "updatedAt": "2019-12-17T09:30:19.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 624,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2108403
+}

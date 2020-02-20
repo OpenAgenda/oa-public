@@ -6,7 +6,9 @@ const log = require('@openagenda/logs')('services/agendaContribute/middlewares/e
 
 module.exports = ( req, res, next ) => {
   req.app.services.core.agendas(req.agenda.uid)
-    .events.get(req.params.eventUid, { internal: true })
+    .events.get(req.params.eventUid, {
+      access: 'internal'
+    })
     .then(event => {
       if (!event) return next(404);
 

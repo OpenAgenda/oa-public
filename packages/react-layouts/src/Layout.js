@@ -7,13 +7,8 @@ import shallowEqual from 'shallowequal';
 import qs from 'qs';
 import { matchRoutes } from '@openagenda/react-utils/dist/asyncMatchRoutes';
 import { useMemoOne } from '@openagenda/react-shared/dist/hooks/useMemoOne';
-import localeFr from './locales/fr.json';
-import localeEn from './locales/en.json';
+import locales from './locales';
 
-const messages = {
-  fr: localeFr,
-  en: localeEn
-};
 const defaultLocale = 'fr';
 
 function getVisibleAppsByLayout(apps, pathname) {
@@ -95,11 +90,11 @@ function Layout({ apps, ...props }) {
   );
 
   const i18n = useMemoOne(() => {
-    const usedLocale = messages[userLang] ? userLang : defaultLocale;
+    const usedLocale = locales[userLang] ? userLang : defaultLocale;
 
     return {
       locale: usedLocale,
-      messages: messages[usedLocale]
+      messages: locales[usedLocale]
     };
   }, [userLang]);
 

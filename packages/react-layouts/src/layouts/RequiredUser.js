@@ -1,4 +1,5 @@
 import React from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import useChildLayouts from '../hooks/useChildLayouts';
 import Loading from '../components/Loading';
 
@@ -9,6 +10,8 @@ function RequiredUser({
   onError,
   FallbackComponent
 }) {
+  const history = useHistory();
+  const location = useLocation();
   const getContent = useChildLayouts(
     children,
     { extraProps, onError, FallbackComponent },
@@ -16,10 +19,14 @@ function RequiredUser({
   );
 
   if (!extraProps.user) {
-    const url = window.location.pathname + window.location.search;
+    const url = location.pathname + location.search;
     const base64Url = Buffer.from(url).toString('base64');
 
-    window.location.href = `/signin?redirect=${base64Url}`;
+    if (typeof window === 'undefined') {
+      history.replace(`/signin?redirect=${base64Url}`);
+    } else {
+      window.location.href = `/signin?redirect=${base64Url}`;
+    }
 
     // Display Loading waiting redirection
     return <Loading />;

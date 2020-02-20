@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@feathersjs/errors": "^4.5.1",
-    "@openagenda/hooks": "^0.3.3",
+    "@feathersjs/hooks": "^0.4.0-alpha.0",
     "@openagenda/logs": "^1.1.2",
     "@openagenda/validators": "^2.2.2",
     "debug": "^4.1.1",

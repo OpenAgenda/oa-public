@@ -1,7 +1,7 @@
 "use strict";
 
 const _ = require('lodash');
-const { hooks } = require('@openagenda/hooks');
+const { hooks } = require('@feathersjs/hooks');
 const feathers = require('@feathersjs/feathers');
 const express = require('@feathersjs/express');
 const errors = require('@feathersjs/errors');
@@ -83,14 +83,14 @@ function plugApp(app) {
   app.delete('/users/:__feathersId', getHandler('remove', ['id', 'params'])(service));
   app.delete('/users', getHandler('remove', ['id', 'params'])(service));
 
-  app.post('/users/setImageProfile', getHandler('setImageProfile', ['id', 'data', 'params'])(service));
-  app.post('/users/clearImageProfile', getHandler('clearImageProfile', ['id', 'params'])(service));
-  app.patch('/users/requestChangeEmail', getHandler('requestChangeEmail', ['id', 'data', 'params'])(service));
-  app.get('/users/confirmChangeEmail', getHandler('confirmChangeEmail', ['id', 'params'])(service));
-  app.patch('/users/changePassword', getHandler('changePassword', ['id', 'data', 'params'])(service));
-  app.get('/users/generateApiKey', getHandler('generateApiKey', ['id', 'params'])(service));
-  app.patch('/users/setNewFlag', getHandler('setNewFlag', ['id', 'data', 'params'])(service));
-  app.patch('/users/refresh', getHandler('refresh', ['id', 'data', 'params'])(service));
+  app.post('/users/:__feathersId/setImageProfile', getHandler('setImageProfile', ['id', 'data', 'params'])(service));
+  app.post('/users/:__feathersId/clearImageProfile', getHandler('clearImageProfile', ['id', 'params'])(service));
+  app.patch('/users/:__feathersId/requestChangeEmail', getHandler('requestChangeEmail', ['id', 'data', 'params'])(service));
+  app.get('/users/:__feathersId/confirmChangeEmail', getHandler('confirmChangeEmail', ['id', 'params'])(service));
+  app.patch('/users/:__feathersId/changePassword', getHandler('changePassword', ['id', 'data', 'params'])(service));
+  app.get('/users/:__feathersId/generateApiKey', getHandler('generateApiKey', ['id', 'params'])(service));
+  app.patch('/users/:__feathersId/setNewFlag', getHandler('setNewFlag', ['id', 'data', 'params'])(service));
+  app.patch('/users/:__feathersId/refresh', getHandler('refresh', ['id', 'data', 'params'])(service));
 
   // update session after a user patch
   app.patch(
@@ -164,6 +164,7 @@ async function init(config, services) {
       onCreate,
       onGenerateApiKey,
       onActivation: onActivation.bind(null, services),
+      sendToken: sendToken.bind(null, config),
       getAgenda: (agendaUid, cb) => agendas.get({ uid: agendaUid }, cb),
       keys: {
         get: identifiers => keys(identifiers).get(),

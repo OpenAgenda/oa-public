@@ -1,0 +1,1517 @@
+{
+  "events": [
+    {
+      "uid": 3232393,
+      "ownerUid": 9414374,
+      "creatorUid": 9414374,
+      "slug": "les-comics-de-la-bd-avant-tout_400797",
+      "title": {
+        "fr": "Les comics : de la BD avant tout !",
+        "en": "Comics: comic books first!"
+      },
+      "description": {
+        "fr": "Comics jeunesse : Mickey, Donald et toi ?",
+        "en": "Youth comics: Mickey, you and Donald?"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "cd9cb012d9c64da2b9d13f754c363620.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "cd9cb012d9c64da2b9d13f754c363620.full.image.jpg",
+            "size": {
+              "height": 2000,
+              "width": 1414
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "cd9cb012d9c64da2b9d13f754c363620.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T15:00:00.000Z",
+          "end": "2020-03-21T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T15:30:00.000Z",
+          "end": "2020-03-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T16:00:00.000Z",
+          "end": "2020-03-21T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:35.000Z",
+      "createdAt": "2020-01-13T08:31:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 26074487,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 26074487,
+        "slug": "mediatheque-de-jaude-clermont-auvergne-metropole519",
+        "name": "Médiathèque de Jaude",
+        "address": "9 place Louis Aragon 63000 Clermont-Ferrand",
+        "city": "Clermont-Ferrand",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Puy-de-Dôme",
+        "postalCode": "63000",
+        "insee": "63113",
+        "countryCode": "FR",
+        "district": "Les Salins",
+        "latitude": 45.774862,
+        "longitude": 3.083979,
+        "updatedAt": "2020-01-08T10:43:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Mediathèque de Jaude",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 9414374,
+        "custom": {
+          "organization": "Clermont Culture BD 63",
+          "contactName": "Florence BAIRROS",
+          "contactNumber": "0623807278",
+          "contactPosition": "Animatrice",
+          "email": "Floflo.07@live.fr"
+        }
+      }
+    },
+    {
+      "uid": 4538444,
+      "ownerUid": 63804710,
+      "creatorUid": 63804710,
+      "slug": "lucien-et-frank-margerin",
+      "title": {
+        "fr": "Exposition \"Lucien et Frank Margerin\"",
+        "en": "Exhibition \"Lucien and Frank Margerin\""
+      },
+      "description": {
+        "fr": "Pour redécouvrir Lucien, Ricky, Gillou et les années 70",
+        "en": "To rediscover Lucien, Ricky, Gillou and the 70’s"
+      },
+      "longDescription": {
+        "fr": "Christophe Pons est passionné de Frank Margerin. Il collectionne de près ou de loin tout ce qui se rapporte à son auteur de BD favori. Il nous fait partager ses trésors du 7 au 15 janvier 2020.",
+        "en": "Christophe Pons is passionate about Frank Margerin. He collects everything related to his favourite comic book author. He shares his treasures with us from January 7 to 15, 2020."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "22e9d4b6a1984f0e944526e742ee9770.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 616,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "22e9d4b6a1984f0e944526e742ee9770.full.image.jpg",
+            "size": {
+              "height": 1266,
+              "width": 1440
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "22e9d4b6a1984f0e944526e742ee9770.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-02T15:00:00.000Z",
+          "end": "2020-01-02T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T15:00:00.000Z",
+          "end": "2020-01-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T09:00:00.000Z",
+          "end": "2020-01-08T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T15:00:00.000Z",
+          "end": "2020-01-09T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T11:00:00.000Z",
+          "end": "2020-01-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T09:00:00.000Z",
+          "end": "2020-01-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T15:00:00.000Z",
+          "end": "2020-01-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T12:46:22.000Z",
+      "createdAt": "2020-01-13T11:15:17.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 89451636,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 89451636,
+        "slug": "mediatheque-la-passerelle585",
+        "name": "Médiathèque La Passerelle",
+        "address": "1 place des Rencontres 26500 Bourg-Lès-Valence",
+        "city": "Bourg-lès-Valence",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Drôme",
+        "postalCode": "26500",
+        "insee": "26058",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.946314,
+        "longitude": 4.892726,
+        "updatedAt": "2020-01-13T11:29:27.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Ville de Valence, association Mistral Palace et Comedy Palace",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 63804710,
+        "custom": {
+          "organization": "Réseau des médiathèques de Valence Romans Agglomération",
+          "contactName": "Martine Villeton Pachot",
+          "contactNumber": "04 75 79 21 25",
+          "contactPosition": "Directrice adjointe",
+          "email": "martine.villeton-pachot@valenceromansagglo.fr"
+        }
+      }
+    },
+    {
+      "uid": 82045338,
+      "ownerUid": 62977621,
+      "creatorUid": 62977621,
+      "slug": "charlotte-perriand-une-vie-de-creation",
+      "title": {
+        "fr": "Concert dessiné \"Charlotte Perriand – Une vie de création\"",
+        "en": "\"Charlotte Perriand – A Life of Creation\" Cartoon Concert"
+      },
+      "description": {
+        "fr": "Par Charles Berberian et Albin de la Simone",
+        "en": "By Charles Berberian and Albin de la Simone"
+      },
+      "longDescription": {
+        "fr": "Charlotte Perriand (1903-1999) est une architecte qui a travaillé avec Le Corbusier, Jean Prouvé et Pierre Jeanneret. Elle a marqué l’histoire du design contemporain grâce à des créations que tout le monde connaît sans savoir forcément qu’elle en était l’auteure.\n\nLa lecture d’extraits de son livre autobiographique sera accompagnée de dessins tirés de la BD _Charlotte Perriand, une architecte au Japon_ et de dessins faits en direct sur scène par Charles Berberian. Albin de la Simone a quant à lui choisi une douzaine de chansons de son répertoire pour dresser un portrait en musique de l’artiste.",
+        "en": "Charlotte Perriand (1903-1999) is an architect who worked with Le Corbusier, Jean Prouvé and Pierre Jeanneret. She has marked the history of contemporary design with creations that everyone knows without necessarily knowing that she was the author.\nExcerpts from her autobiographical book will be accompanied by drawings from the comic book _Charlotte Perriand, an architect in Japan_ and drawings made live on stage by Charles Berberian. Albin de la Simone has chosen a dozen songs from his repertoire to draw a portrait in music of the artist."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur réservation",
+        "en": "By reservation"
+      },
+      "image": {
+        "filename": "c9849b3c5113485bba1722f68dfc175a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c9849b3c5113485bba1722f68dfc175a.full.image.jpg",
+            "size": {
+              "height": 1500,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c9849b3c5113485bba1722f68dfc175a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-15T20:00:00.000Z",
+          "end": "2020-01-15T21:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:19.000Z",
+      "createdAt": "2020-01-13T15:15:54.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 52820036,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 52820036,
+        "slug": "maison-de-la-poesie600",
+        "name": "Maison de la poésie",
+        "address": "157 rue Saint-Martin 75003 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75003",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 3e Arrondissement",
+        "latitude": 48.86218,
+        "longitude": 2.351857,
+        "updatedAt": "2020-01-14T11:09:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 67,
+      "tarif": "Tarif : 15 € / adhérent : 10 €",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 630,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62977621,
+        "custom": {
+          "organization": "Maison de la poésie",
+          "contactName": "Miranda Morgand",
+          "contactNumber": "01 44 54 53 00",
+          "contactPosition": "stagiaire communication",
+          "email": "mirandamorgand75@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 4563119,
+      "ownerUid": 62977621,
+      "creatorUid": 62977621,
+      "slug": "aj-dungo-waves",
+      "title": {
+        "fr": "Rencontre avec AJ Dungo, auteur de la BD In waves",
+        "en": "Interview with AJ Dungo, author of the comic book In waves"
+      },
+      "description": {
+        "fr": "Rencontre animée par Stéphane Jarno",
+        "en": "Meeting moderated by Stéphane Jarno"
+      },
+      "longDescription": {
+        "fr": "Entre les plis et les remous des vagues, naît le récit bouleversant d’une tragique histoire d’amour, portée par un trait en lignes ondoyantes. AJ Dungo est originaire de Los Angeles. Il a rencontré Kristen au lycée mais, alors qu’il tombait amoureux, la jeune fille, elle, tombait malade, atteinte d’un cancer qui allait l’emporter dix ans plus tard. Dans ce premier roman graphique, l’artiste convoque l’histoire du surf pour chevaucher l’océan et sublimer les émotions du deuil jusqu’au frisson.",
+        "en": "Between the folds and ripples of the waves is born the heartbreaking account of a tragic love story, carried by a line in wavy lines. AJ Dungo is from Los Angeles. He met Kristen in high school but, as he fell in love, the girl fell ill, suffering from a cancer that would take him away ten years later. In this first graphic novel, the artist summons the history of surfing to ride the ocean and sublimate the emotions of mourning to the thrill."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur réservation",
+        "en": "By reservation"
+      },
+      "image": {
+        "filename": "9c6a999968b44209844d00bae14502c4.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9c6a999968b44209844d00bae14502c4.full.image.jpg",
+            "size": {
+              "height": 1000,
+              "width": 1000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9c6a999968b44209844d00bae14502c4.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-28T18:00:00.000Z",
+          "end": "2020-01-28T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:34.000Z",
+      "createdAt": "2020-01-13T15:29:29.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 52820036,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 52820036,
+        "slug": "maison-de-la-poesie600",
+        "name": "Maison de la poésie",
+        "address": "157 rue Saint-Martin 75003 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75003",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 3e Arrondissement",
+        "latitude": 48.86218,
+        "longitude": 2.351857,
+        "updatedAt": "2020-01-14T11:09:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 67,
+      "tarif": "Tarif : 5 € / Gratuit pour les adhérents",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 630,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 62977621,
+        "custom": {
+          "organization": "Maison de la poésie",
+          "contactName": "Miranda Morgand",
+          "contactNumber": "01 44 54 53 00",
+          "contactPosition": "stagiaire communication",
+          "email": "mirandamorgand75@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 54343277,
+      "ownerUid": 88476237,
+      "creatorUid": 88476237,
+      "slug": "32emes-journees-de-la-bd",
+      "title": {
+        "fr": "32es Journées de la BD",
+        "en": "32nd Comic Strip Days"
+      },
+      "description": {
+        "fr": "32e édition du festival des Journées de la BD !",
+        "en": "32nd edition of the Journées de la BD festival!"
+      },
+      "longDescription": {
+        "fr": "Vous pourrez échanger avec une quarantaine d'auteurs réunis autour de Frank Margerin.",
+        "en": "You will be able to exchange with some forty authors gathered around Frank Margerin."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "3e45f43984d34bfdbba312b105b61263.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3e45f43984d34bfdbba312b105b61263.full.image.jpg",
+            "size": {
+              "height": 2404,
+              "width": 1700
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3e45f43984d34bfdbba312b105b61263.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T08:00:00.000Z",
+          "end": "2020-04-26T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:15.000Z",
+      "createdAt": "2020-01-13T21:56:49.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 83365677,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "journeesbd@free.fr"
+      ],
+      "location": {
+        "uid": 83365677,
+        "slug": "espace-rene-cassin441",
+        "name": "Espace René Cassin",
+        "address": "1 boulevard Jean Monnet 44640 Le Pellerin",
+        "city": "Le Pellerin",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44640",
+        "insee": "44120",
+        "countryCode": "FR",
+        "district": "Le Margat",
+        "latitude": 47.19432,
+        "longitude": -1.761203,
+        "updatedAt": "2020-01-14T11:03:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3 € à partir de 12 ans",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 88476237,
+        "custom": {
+          "organization": "Association Les Journées de la BD",
+          "contactName": "Frédéric Landron",
+          "contactNumber": "06.43.09.17.89",
+          "contactPosition": "Président",
+          "email": "journeesbd@free.fr"
+        }
+      }
+    },
+    {
+      "uid": 55822719,
+      "ownerUid": 83861749,
+      "creatorUid": 83861749,
+      "slug": "tetra",
+      "title": {
+        "en": "TETRA Workshop",
+        "fr": "Atelier TETRA"
+      },
+      "description": {
+        "en": "Workshop for engraving",
+        "fr": "Atelier pour graver"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "en": "On registration",
+        "fr": "Sur inscription"
+      },
+      "image": {
+        "filename": "32557fd86bba4b3d9e324f0166e1e2ec.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "32557fd86bba4b3d9e324f0166e1e2ec.full.image.jpg",
+            "size": {
+              "height": 1152,
+              "width": 2048
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "32557fd86bba4b3d9e324f0166e1e2ec.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-22T09:30:00.000Z",
+          "end": "2020-02-22T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T10:00:00.000Z",
+          "end": "2020-02-22T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T10:30:00.000Z",
+          "end": "2020-02-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T11:00:00.000Z",
+          "end": "2020-02-22T11:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T13:11:22.000Z",
+      "createdAt": "2020-01-14T08:54:52.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 93517379,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 93517379,
+        "slug": "bibliotheque-oscar-niemeyer-le-havre677",
+        "name": "Bibliothèque Oscar Niemeyer",
+        "address": "Place Oscar Niemeyer 76600 Le Havre",
+        "city": "Le Havre",
+        "region": "Normandie",
+        "department": "Seine-Maritime",
+        "postalCode": "7660",
+        "insee": "76351",
+        "countryCode": "FR",
+        "district": "Saint-François",
+        "latitude": 49.490694,
+        "longitude": 0.106799,
+        "updatedAt": "2020-01-14T11:06:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 83861749,
+        "custom": {
+          "organization": "Mairie du Havre",
+          "contactName": "Jennifer Pressoir",
+          "contactNumber": "0235194898",
+          "contactPosition": "Responsable communication réseau des bibliothèques",
+          "email": "jennifer.pressoir@lehavre.fr"
+        }
+      }
+    },
+    {
+      "uid": 23616878,
+      "ownerUid": 83861749,
+      "creatorUid": 83861749,
+      "slug": "rencontre-avec-claire-fauvel",
+      "title": {
+        "fr": "Week-end à buller - Rencontre avec Claire Fauvel",
+        "en": "Bubble weekend - Meeting with Claire Fauvel"
+      },
+      "description": {
+        "fr": "Rencontre avec Claire Fauvel",
+        "en": "Meeting with Claire Fauvel"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Claire Fauvel dans le cadre du Week-end à buller (2e édition) au Havre.\n\nAuteure et illustratrice BD",
+        "en": "Meeting with Claire Fauvel during the Week-end à buller (2nd edition) in Le Havre.\nAuthor and illustrator BD"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "838dff2a4baa4762867efddca3beb57a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1051,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "838dff2a4baa4762867efddca3beb57a.full.image.jpg",
+            "size": {
+              "height": 5462,
+              "width": 3641
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "838dff2a4baa4762867efddca3beb57a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T10:30:00.000Z",
+          "end": "2020-03-21T11:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:12.000Z",
+      "createdAt": "2020-01-14T08:59:20.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 93517379,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 3,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 93517379,
+        "slug": "bibliotheque-oscar-niemeyer-le-havre677",
+        "name": "Bibliothèque Oscar Niemeyer",
+        "address": "Place Oscar Niemeyer 76600 Le Havre",
+        "city": "Le Havre",
+        "region": "Normandie",
+        "department": "Seine-Maritime",
+        "postalCode": "7660",
+        "insee": "76351",
+        "countryCode": "FR",
+        "district": "Saint-François",
+        "latitude": 49.490694,
+        "longitude": 0.106799,
+        "updatedAt": "2020-01-14T11:06:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 83861749,
+        "custom": {
+          "organization": "Mairie du Havre",
+          "contactName": "Jennifer Pressoir",
+          "contactNumber": "0235194898",
+          "contactPosition": "Responsable communication réseau des bibliothèques",
+          "email": "jennifer.pressoir@lehavre.fr"
+        }
+      }
+    },
+    {
+      "uid": 98260396,
+      "ownerUid": 83861749,
+      "creatorUid": 83861749,
+      "slug": "week-end-a-buller",
+      "title": {
+        "fr": "Week-end à buller - Performances graphiques en live",
+        "en": "Week-end à buller - Live graphics"
+      },
+      "description": {
+        "fr": "Performances graphiques en live",
+        "en": "Live graphics performance"
+      },
+      "longDescription": {
+        "fr": "Mathilde Payen, Claire Fauvel, Elisabeth Holleville et Thomas Gilbert, illsutrateurs BD performent en public.",
+        "en": "Mathilde Payen, Claire Fauvel, Elisabeth Holleville and Thomas Gilbert, comic book writers performing in public."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T13:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:30:00.000Z",
+          "end": "2020-03-21T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T14:00:00.000Z",
+          "end": "2020-03-21T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T14:30:00.000Z",
+          "end": "2020-03-21T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T09:30:00.000Z",
+          "end": "2020-03-22T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T10:00:00.000Z",
+          "end": "2020-03-22T10:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:07.000Z",
+      "createdAt": "2020-01-14T09:02:44.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 93517379,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 93517379,
+        "slug": "bibliotheque-oscar-niemeyer-le-havre677",
+        "name": "Bibliothèque Oscar Niemeyer",
+        "address": "Place Oscar Niemeyer 76600 Le Havre",
+        "city": "Le Havre",
+        "region": "Normandie",
+        "department": "Seine-Maritime",
+        "postalCode": "7660",
+        "insee": "76351",
+        "countryCode": "FR",
+        "district": "Saint-François",
+        "latitude": 49.490694,
+        "longitude": 0.106799,
+        "updatedAt": "2020-01-14T11:06:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 83861749,
+        "custom": {
+          "organization": "Mairie du Havre",
+          "contactName": "Jennifer Pressoir",
+          "contactNumber": "0235194898",
+          "contactPosition": "Responsable communication réseau des bibliothèques",
+          "email": "jennifer.pressoir@lehavre.fr"
+        }
+      }
+    },
+    {
+      "uid": 48997380,
+      "ownerUid": 83861749,
+      "creatorUid": 83861749,
+      "slug": "week-end-a-buller_350446",
+      "title": {
+        "fr": "Week- end à buller - Concert dessiné de Claire Fauvel",
+        "en": "Week- end à buller - Concert dessiné de Claire Fauvel"
+      },
+      "description": {
+        "fr": "Concert dessiné",
+        "en": "Concert dessiné"
+      },
+      "longDescription": {
+        "fr": "Avec Claire Fauvel, auteure de _La nuit est mon royaume_ et les musiciens du CEM (centre d'expression musicale), les Jean Kevin.",
+        "en": "With Claire Fauvel, author of _La nuit est mon royaume_ and the musicians of CEM (centre d'expression musicale), the Jean Kevin."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c45113a7b47b4afaaf3c44ba00f1ad9a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 981,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c45113a7b47b4afaaf3c44ba00f1ad9a.full.image.jpg",
+            "size": {
+              "height": 1654,
+              "width": 1181
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c45113a7b47b4afaaf3c44ba00f1ad9a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T15:30:00.000Z",
+          "end": "2020-03-21T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:10.000Z",
+      "createdAt": "2020-01-14T09:06:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 93517379,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 93517379,
+        "slug": "bibliotheque-oscar-niemeyer-le-havre677",
+        "name": "Bibliothèque Oscar Niemeyer",
+        "address": "Place Oscar Niemeyer 76600 Le Havre",
+        "city": "Le Havre",
+        "region": "Normandie",
+        "department": "Seine-Maritime",
+        "postalCode": "7660",
+        "insee": "76351",
+        "countryCode": "FR",
+        "district": "Saint-François",
+        "latitude": 49.490694,
+        "longitude": 0.106799,
+        "updatedAt": "2020-01-14T11:06:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 83861749,
+        "custom": {
+          "organization": "Mairie du Havre",
+          "contactName": "Jennifer Pressoir",
+          "contactNumber": "0235194898",
+          "contactPosition": "Responsable communication réseau des bibliothèques",
+          "email": "jennifer.pressoir@lehavre.fr"
+        }
+      }
+    },
+    {
+      "uid": 59749105,
+      "ownerUid": 83861749,
+      "creatorUid": 83861749,
+      "slug": "week-end-a-buller_815013",
+      "title": {
+        "fr": "Week-end à buller - Rencontres avec des auteurs",
+        "en": "Week-end à buller - Meetings with authors"
+      },
+      "description": {
+        "fr": "Vente-dédicace des auteurs invités du Week-end à buller",
+        "en": "Vente-dédicace des auteurs invités du Week-end à buller"
+      },
+      "longDescription": {
+        "fr": "En présence de la librairie La Galerne.",
+        "en": "In the presence of the bookstore La Galerne."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T16:30:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T17:00:00.000Z",
+          "end": "2020-03-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T16:00:00.000Z",
+          "end": "2020-03-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T16:30:00.000Z",
+          "end": "2020-03-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T17:00:00.000Z",
+          "end": "2020-03-22T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:31:17.000Z",
+      "createdAt": "2020-01-14T09:08:55.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 93517379,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 93517379,
+        "slug": "bibliotheque-oscar-niemeyer-le-havre677",
+        "name": "Bibliothèque Oscar Niemeyer",
+        "address": "Place Oscar Niemeyer 76600 Le Havre",
+        "city": "Le Havre",
+        "region": "Normandie",
+        "department": "Seine-Maritime",
+        "postalCode": "7660",
+        "insee": "76351",
+        "countryCode": "FR",
+        "district": "Saint-François",
+        "latitude": 49.490694,
+        "longitude": 0.106799,
+        "updatedAt": "2020-01-14T11:06:50.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 83861749,
+        "custom": {
+          "organization": "Mairie du Havre",
+          "contactName": "Jennifer Pressoir",
+          "contactNumber": "0235194898",
+          "contactPosition": "Responsable communication réseau des bibliothèques",
+          "email": "jennifer.pressoir@lehavre.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2128811
+}

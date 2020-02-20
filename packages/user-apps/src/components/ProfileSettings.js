@@ -67,11 +67,11 @@ export default class ProfileSettings extends Component {
 
     return (
       <tr
-        onClick={!activeTab ? () => history.push( prefix + '/profile' ) : null}
+        onClick={!activeTab ? () => history.push( prefix + '/profile', { fromUserApps: true } ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? () => history.push( prefix + '/' ) : null}
+          onClick={activeTab ? () => history.push( prefix + '/', { fromUserApps: true } ) : null}
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >

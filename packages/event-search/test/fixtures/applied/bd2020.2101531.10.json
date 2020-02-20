@@ -1,0 +1,2201 @@
+{
+  "events": [
+    {
+      "uid": 38004521,
+      "ownerUid": 2286949,
+      "creatorUid": 2286949,
+      "slug": "tac-o-tac-et-rebonds",
+      "title": {
+        "fr": "\"Tac o tac et rebonds\" avec Bibeur Lu & Clam",
+        "en": "\"Tac o tac et rebonds\" with Bibeur Lu & Clam"
+      },
+      "description": {
+        "fr": "\"Tac o tac et rebonds\" avec Bibeur Lu & Clam",
+        "en": "\"Tac o tac et rebonds\" with Bibeur Lu & Clam"
+      },
+      "longDescription": {
+        "fr": "Deux séances de quarante minutes chacune.\n\nTout fonctionne avec l'interaction du public présent et les dessinateurs **(Bibeur Lu & Clam)**. Les gens \"lancent\" un mot et les dessinateurs embrayent directement en dessinant.",
+        "en": "Two sessions of forty minutes each.\nEverything works with the interaction of the present audience and the draughtsmen **(Bibeur Lu & Clam)**. The people \"throw\" a word and the draughtsmen ignite directly by drawing."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "c90d3239d1bc488896d30619bb5d9d90.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 749,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c90d3239d1bc488896d30619bb5d9d90.full.image.jpg",
+            "size": {
+              "height": 572,
+              "width": 535
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c90d3239d1bc488896d30619bb5d9d90.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T17:00:00.000Z",
+          "end": "2020-01-18T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:35.000Z",
+      "createdAt": "2019-12-11T09:31:56.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3230885,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 3230885,
+        "slug": "mediatheque-de-lannion",
+        "name": "Médiathèque de Lannion",
+        "address": "2 rue de Kerampont 22300 Lannion",
+        "city": "Lannion",
+        "region": "Bretagne",
+        "department": "Côtes-d'Armor",
+        "postalCode": "22300",
+        "insee": "22113",
+        "countryCode": "FR",
+        "district": "Tachen An Hospital",
+        "latitude": 48.730257,
+        "longitude": -3.460908,
+        "updatedAt": "2019-11-30T13:13:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2286949,
+        "custom": {
+          "organization": "Mediathèque de Lannion - Festival BD de Perros-Guirec",
+          "contactName": "Luc LEGAY",
+          "contactNumber": "02-96-37-99-10",
+          "contactPosition": "Responsable BD",
+          "email": "luc.legay@lannion.bzh"
+        }
+      }
+    },
+    {
+      "uid": 19310629,
+      "ownerUid": 73526589,
+      "creatorUid": 73526589,
+      "slug": "exposition_615539",
+      "title": {
+        "fr": "Exposition \"La rive graphique de la musique\"",
+        "en": "Exhibition \"The graphic edge of music\""
+      },
+      "description": {
+        "fr": "\"La rive graphique de la musique\" : illustrations autour des univers de Klô Pelgag et de Nosfell par Ludovic Debeurme",
+        "en": "\"The graphic edge of music\": illustrations around the universes of Klô Pelgag and Nosfell by Ludovic Debeurme"
+      },
+      "longDescription": {
+        "fr": "Auteur de bandes dessinées, Ludovic Debeurme s’est intéressé aux univers de ces deux artistes. L’exposition contient des reproductions d'illustrations issues de l'album CD \"L'étoile thoracique\" de Klo Pelgag, du conte musical mis en image de Nosfell \"Le Lac aux Vélies\", de la bande dessinée \"Epiphania\" et des affiches de concerts.\n\nComposition de l’exposition : 16 illustrations au format 60x90 cm, 8 illustrations au format 70x100 cm et 25 documents d’accompagnement : 3 CD audio et 22 ouvrages (bandes dessinées de Ludovic Debeurme). Exposition présentée par la médiathèque du Conseil départemental du Cantal.",
+        "en": "Author of comic books, Ludovic Debeurme has taken an interest in the worlds of these two artists. The exhibition contains reproductions of illustrations from the CD album \"L'étoile thoracique\" by Klo Pelgag, the musical tale shot by Nosfell \"Le Lac aux Vélies\", the comic book \"Epiphania\" and concert posters.\nComposition of the exhibition: 16 illustrations in 60x90 cm format, 8 illustrations in 70x100 cm format and 25 accompanying documents: 3 audio Cds and 22 books (comic books by Ludovic Debeurme). Exhibition presented by the media library of the Departmental Council of Cantal."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "15631563ab9c487e955c7ed5fe79c7b6.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 645,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "15631563ab9c487e955c7ed5fe79c7b6.full.image.jpg",
+            "size": {
+              "height": 3263,
+              "width": 3543
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "15631563ab9c487e955c7ed5fe79c7b6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-08-01T07:00:00.000Z",
+          "end": "2020-08-01T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-04T07:00:00.000Z",
+          "end": "2020-08-04T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T07:00:00.000Z",
+          "end": "2020-08-05T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T12:00:00.000Z",
+          "end": "2020-08-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-06T12:00:00.000Z",
+          "end": "2020-08-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-07T13:00:00.000Z",
+          "end": "2020-08-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-08T07:00:00.000Z",
+          "end": "2020-08-08T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-11T07:00:00.000Z",
+          "end": "2020-08-11T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T07:00:00.000Z",
+          "end": "2020-08-12T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T12:00:00.000Z",
+          "end": "2020-08-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-13T12:00:00.000Z",
+          "end": "2020-08-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-14T13:00:00.000Z",
+          "end": "2020-08-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-15T07:00:00.000Z",
+          "end": "2020-08-15T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-18T07:00:00.000Z",
+          "end": "2020-08-18T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T07:00:00.000Z",
+          "end": "2020-08-19T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T12:00:00.000Z",
+          "end": "2020-08-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-20T12:00:00.000Z",
+          "end": "2020-08-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-21T13:00:00.000Z",
+          "end": "2020-08-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-22T07:00:00.000Z",
+          "end": "2020-08-22T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-25T07:00:00.000Z",
+          "end": "2020-08-25T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-26T07:00:00.000Z",
+          "end": "2020-08-26T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-26T12:00:00.000Z",
+          "end": "2020-08-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-27T12:00:00.000Z",
+          "end": "2020-08-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-28T13:00:00.000Z",
+          "end": "2020-08-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-29T07:00:00.000Z",
+          "end": "2020-08-29T10:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-29T09:11:34.000Z",
+      "createdAt": "2019-12-04T16:33:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 92357959,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "09 67 47 92 80"
+      ],
+      "location": {
+        "uid": 92357959,
+        "slug": "mediatheque-neuveglise",
+        "name": "Médiathèque communautaire de Neuvéglise-sur-Truyère",
+        "address": "15260 Neuvéglise-sur-Truyère",
+        "city": "Neuvéglise-sur-Truyère",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Cantal",
+        "postalCode": "15260",
+        "insee": "15142",
+        "countryCode": "FR",
+        "district": "Rue des animations",
+        "latitude": 44.935872,
+        "longitude": 2.982412,
+        "updatedAt": "2019-12-12T15:07:51.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque départementale Cantal",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 73526589,
+        "custom": {
+          "organization": "Médiathèque communautaire de Neuvéglise-sur-Truyère",
+          "contactName": "Françoise LABORIE",
+          "contactNumber": "09 67 47 92 80",
+          "contactPosition": "Médiathécaire",
+          "email": "medianeuveglise@saintflourco.fr"
+        }
+      }
+    },
+    {
+      "uid": 32489845,
+      "ownerUid": 2724208,
+      "creatorUid": 2724208,
+      "slug": "la-une-saffiche-en-bd-festival-bd-aix-2020",
+      "title": {
+        "fr": "Exposition \"La Une s'affiche en BD\" - Festival 2020 de BD d'Aix-en-Provence",
+        "en": "Exhibition \"La Une s'affiche en BD\" - Festival 2020 de BD d'Aix-en-Provence"
+      },
+      "description": {
+        "fr": "Exposition \"La Une s'affiche en BD\" dans le cadre du festival 2020 de BD d'Aix-en-Provence",
+        "en": "Exhibition \"La Une s'affiche en BD\" as part of the 2020 comic strip festival in Aix-en-Provence"
+      },
+      "longDescription": {
+        "fr": "**LA UNE S'AFFICHE EN BD - ALAIN BLAISE**\n-----------------------------------------\n\n### **CRÉATIONS - EXPOSITION - RENCONTRE - WORKSHOP**\n\n**Alain Blaise** revient, pour la première fois, sur son aventure à la direction artistique de **Libération** et présente une exposition des dessins qui, durant 15 ans, ont marque  l’histoire du quotidien. On lui doit l’arrivée, dans les colonnes du journal, de Willem, Sardon, David B. ou Killofer...\n\n**\\+ d'infos sur** [**bd-aix.com**](http://www.bd-aix.com/)\n\n**Organisée par Les rencontres du 9e art d'Aix-en-Provence.**",
+        "en": "## **LA UNE S'AFFICHE EN BD - ALAIN BLAISE**\n### **CREATIONS - EXHIBITION - MEETING - WORKSHOP**\n**Alain Blaise** returns, for the first time, to his adventure at the artistic direction of **Libération** and presents an exhibition of drawings that, for 15 years, have marked the history of everyday life. We owe him the arrival, in the columns of the newspaper, of Willem, Sardon, David B. or Killofer...\n+ **more info on** [**bd-aix.com**](http://www.bd-aix.com/)\n**Organised by Les rencontres du 9e art d'Aix-en-Provence.**"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d55833bdf2074fe4ac4688a55d589220.base.image.jpg",
+        "credits": "Killofer - Libération",
+        "size": {
+          "height": 633,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d55833bdf2074fe4ac4688a55d589220.full.image.jpg",
+            "size": {
+              "height": 1445,
+              "width": 1600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d55833bdf2074fe4ac4688a55d589220.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T12:00:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T07:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T07:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T07:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T07:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T12:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-20T07:00:00.000Z",
+          "end": "2020-04-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T07:00:00.000Z",
+          "end": "2020-04-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T07:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T07:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T07:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T12:00:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-27T07:00:00.000Z",
+          "end": "2020-04-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T07:00:00.000Z",
+          "end": "2020-04-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T07:00:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T07:00:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T08:00:00.000Z",
+          "end": "2020-05-02T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T12:00:00.000Z",
+          "end": "2020-05-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-04T07:00:00.000Z",
+          "end": "2020-05-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T07:00:00.000Z",
+          "end": "2020-05-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T07:00:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T07:00:00.000Z",
+          "end": "2020-05-07T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:00:00.000Z",
+      "createdAt": "2019-12-10T15:57:45.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 16184496,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://www.bd-aix.com/"
+      ],
+      "location": {
+        "uid": 16184496,
+        "slug": "ecole-intuitlab",
+        "name": "École Intuit.Lab",
+        "address": "17 rue Lieutaud 13100 Aix-en-Provence",
+        "city": "Aix-en-Provence",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13090",
+        "insee": "13001",
+        "countryCode": "FR",
+        "district": "Cuques",
+        "latitude": 43.528487,
+        "longitude": 5.445388,
+        "updatedAt": "2019-12-12T15:06:33.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Les rencontres du 9e art - Office de tourisme d'Aix-en-Provence",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2724208,
+        "custom": {
+          "organization": "Les Rencontres du 9e Art - Aix-en-Provence",
+          "contactName": "Laurence Laugier",
+          "contactNumber": "04 42 161 161",
+          "contactPosition": "Chargée de mission",
+          "email": "laurence@bd-aix.com"
+        }
+      }
+    },
+    {
+      "uid": 2780798,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "les-heros-au-quotidien_990134",
+      "title": {
+        "fr": "Exposition \"Les héros au quotidien\"",
+        "en": "Exhibition \"Heroes in everyday life\""
+      },
+      "description": {
+        "fr": "Exposition proposée par Manu’Art, artiste spinalien et fan de comics",
+        "en": "Exhibition proposed by Manu'Art, Spinalien artist and comic book fan"
+      },
+      "longDescription": {
+        "fr": "Que font les héros de nos fictions lorsqu'ils ne vivent pas de folles aventures ? C'est ce qu'a voulu découvrir Manu'Art, en représentant des personnages de bandes dessinées accomplissant des actions que nous exerçons tous au quotidien. Faire la vaisselle, préparer un repas, faire des courses... Les héros ont aussi besoin d'accomplir des tâches qui leur permettent de vivre en dehors de leurs activités professionnelles. Finalement, ne sommes-nous tous pas des héros qui s'ignorent ?",
+        "en": "What do the heroes of our fictions do when they do not live crazy adventures? This is what Manu'Art wanted to discover, representing comic book characters doing actions that we all do on a daily basis. Doing dishes, preparing meals, shopping... Heroes also need to perform tasks that allow them to live outside of their professional activities. After all, aren’t we all heroes who ignore each other?"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "72cbe5c9a78f4076bae48ccc6ce88746.base.image.jpg",
+        "credits": "Creative commons",
+        "size": {
+          "height": 379,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "72cbe5c9a78f4076bae48ccc6ce88746.full.image.jpg",
+            "size": {
+              "height": 1079,
+              "width": 1998
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "72cbe5c9a78f4076bae48ccc6ce88746.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-14T12:00:00.000Z",
+          "end": "2020-01-14T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T12:00:00.000Z",
+          "end": "2020-01-16T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T12:00:00.000Z",
+          "end": "2020-01-17T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T13:00:00.000Z",
+          "end": "2020-01-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T12:00:00.000Z",
+          "end": "2020-01-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T12:00:00.000Z",
+          "end": "2020-01-23T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T12:00:00.000Z",
+          "end": "2020-01-24T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T13:00:00.000Z",
+          "end": "2020-01-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T12:00:00.000Z",
+          "end": "2020-01-28T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T12:00:00.000Z",
+          "end": "2020-01-30T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T12:00:00.000Z",
+          "end": "2020-01-31T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T13:00:00.000Z",
+          "end": "2020-02-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T12:00:00.000Z",
+          "end": "2020-02-04T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T12:00:00.000Z",
+          "end": "2020-02-06T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T12:00:00.000Z",
+          "end": "2020-02-07T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T13:00:00.000Z",
+          "end": "2020-02-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T12:00:00.000Z",
+          "end": "2020-02-11T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T12:00:00.000Z",
+          "end": "2020-02-13T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T12:00:00.000Z",
+          "end": "2020-02-14T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T13:00:00.000Z",
+          "end": "2020-02-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T12:00:00.000Z",
+          "end": "2020-02-18T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T09:00:00.000Z",
+          "end": "2020-02-19T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T12:00:00.000Z",
+          "end": "2020-02-20T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T12:00:00.000Z",
+          "end": "2020-02-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T09:00:00.000Z",
+          "end": "2020-02-22T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T13:00:00.000Z",
+          "end": "2020-02-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-25T12:00:00.000Z",
+          "end": "2020-02-25T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T09:00:00.000Z",
+          "end": "2020-02-26T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T12:00:00.000Z",
+          "end": "2020-02-27T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T12:00:00.000Z",
+          "end": "2020-02-28T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T09:00:00.000Z",
+          "end": "2020-02-29T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T13:00:00.000Z",
+          "end": "2020-03-01T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:18.000Z",
+      "createdAt": "2019-12-11T10:42:52.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 19727425,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 19727425,
+        "slug": "bibliotheque-multimedia-intercommunale-depinal",
+        "name": "Bibliothèque multimédia intercommunale d'Épinal",
+        "address": "48 rue Saint-Michel 88000 Épinal",
+        "city": "Épinal",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88000",
+        "insee": "88160",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.177805,
+        "longitude": 6.458702,
+        "updatedAt": "2019-12-12T15:11:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 89299221,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "les-heros-au-quotidien_316813",
+      "title": {
+        "fr": "Exposition \"Les héros au quotidien\"",
+        "en": "Exhibition \"Heroes in everyday life\""
+      },
+      "description": {
+        "fr": "Exposition proposée par Manu’Art, artiste spinalien et fan de comics",
+        "en": "Exhibition proposed by Manu'Art, Spinalien artist and comic book fan"
+      },
+      "longDescription": {
+        "fr": "Que font les héros de nos fictions lorsqu'ils ne vivent pas de folles aventures ? C'est ce qu'a voulu découvrir Manu'Art, en représentant des personnages de bandes-dessinées accomplissant des actions que nous exerçons tous au quotidien. Faire la vaisselle, préparer un repas, faire des courses... Les héros ont aussi besoin d'accomplir des tâches qui leur permettent de vivre en dehors de leurs activités professionnelles. Finalement, ne sommes-nous tous pas des héros qui s'ignorent ?",
+        "en": "What do the heroes of our fictions do when they do not live crazy adventures? This is what Manu'Art wanted to discover, representing comic book characters doing actions that we all do on a daily basis. Doing dishes, preparing meals, shopping... Heroes also need to perform tasks that allow them to live outside of their professional activities. After all, aren’t we all heroes who ignore each other?"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "72cbe5c9a78f4076bae48ccc6ce88746.base.image.jpg",
+        "credits": "Creative commons",
+        "size": {
+          "height": 379,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "72cbe5c9a78f4076bae48ccc6ce88746.full.image.jpg",
+            "size": {
+              "height": 1079,
+              "width": 1998
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "72cbe5c9a78f4076bae48ccc6ce88746.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-03T15:00:00.000Z",
+          "end": "2020-03-03T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T13:00:00.000Z",
+          "end": "2020-03-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T15:00:00.000Z",
+          "end": "2020-03-05T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T09:00:00.000Z",
+          "end": "2020-03-07T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T15:00:00.000Z",
+          "end": "2020-03-10T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T13:00:00.000Z",
+          "end": "2020-03-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T15:00:00.000Z",
+          "end": "2020-03-12T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T12:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:22.000Z",
+      "createdAt": "2019-12-11T10:45:50.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43238691,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 43238691,
+        "slug": "mediatheque-de-deyvillers579",
+        "name": "Médiathèque de Deyvillers",
+        "address": "2 rue des Acacias 88000 Deyvillers",
+        "city": "Deyvillers",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88000",
+        "insee": "88132",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.201812,
+        "longitude": 6.514289,
+        "updatedAt": "2019-12-12T15:11:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 31237365,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "les-heros-au-quotidien_850176",
+      "title": {
+        "fr": "Exposition \"Les héros au quotidien\"",
+        "en": "Exhibition \"Heroes in everyday life\""
+      },
+      "description": {
+        "fr": "Exposition proposée par Manu’Art, artiste spinalien et fan de comics",
+        "en": "Exhibition proposed by Manu'Art, Spinalien artist and comic book fan"
+      },
+      "longDescription": {
+        "fr": "Que font les héros de nos fictions lorsqu'ils ne vivent pas de folles aventures ? C'est ce qu'a voulu découvrir Manu'Art, en représentant des personnages de bandes-dessinées accomplissant des actions que nous exerçons tous au quotidien. Faire la vaisselle, préparer un repas, faire des courses... Les héros ont aussi besoin d'accomplir des tâches qui leur permettent de vivre en dehors de leurs activités professionnelles. Finalement, ne sommes-nous tous pas des héros qui s'ignorent ?",
+        "en": "What do the heroes of our fictions do when they do not live crazy adventures? This is what Manu'Art wanted to discover, representing comic book characters doing actions that we all do on a daily basis. Doing dishes, preparing meals, shopping... Heroes also need to perform tasks that allow them to live outside of their professional activities. After all, aren’t we all heroes who ignore each other?"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "72cbe5c9a78f4076bae48ccc6ce88746.base.image.jpg",
+        "credits": "Creative commons",
+        "size": {
+          "height": 379,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "72cbe5c9a78f4076bae48ccc6ce88746.full.image.jpg",
+            "size": {
+              "height": 1079,
+              "width": 1998
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "72cbe5c9a78f4076bae48ccc6ce88746.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-17T09:00:00.000Z",
+          "end": "2020-03-17T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T13:00:00.000Z",
+          "end": "2020-03-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T13:00:00.000Z",
+          "end": "2020-03-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T09:00:00.000Z",
+          "end": "2020-03-24T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T13:00:00.000Z",
+          "end": "2020-03-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T13:00:00.000Z",
+          "end": "2020-03-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T13:00:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:26.000Z",
+      "createdAt": "2019-12-11T10:48:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 13188246,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 13188246,
+        "slug": "mediatheque-de-thaon-les-vosges615",
+        "name": "Médiathèque de Thaon-les-Vosges",
+        "address": "6 bis rue du Marché 88150 Thaon-les-Vosges",
+        "city": "Capavenir-Vosges",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88150",
+        "insee": "88465",
+        "countryCode": "FR",
+        "district": "Thaon-les-Vosges",
+        "latitude": 48.252469,
+        "longitude": 6.420783,
+        "updatedAt": "2019-12-12T15:10:43.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 54901990,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "dessine-moi-un-heros",
+      "title": {
+        "fr": "Atelier \"Dessine-moi un héros\"",
+        "en": "Workshop \"Draw me a hero\""
+      },
+      "description": {
+        "fr": "Ateliers animés par Manu’Art.  Crée ton super-héros, invente ses super-pouvoirs, imagine son super costume avec un pro du crayon",
+        "en": "Workshops hosted by Manu'Art. Create your superhero, invent his superpowers, imagine his super costume with a pencil pro"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "c1fccb9cdb334307be1e7775ddba4cf5.base.image.jpg",
+        "credits": "Manu'Art",
+        "size": {
+          "height": 995,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c1fccb9cdb334307be1e7775ddba4cf5.full.image.jpg",
+            "size": {
+              "height": 960,
+              "width": 676
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c1fccb9cdb334307be1e7775ddba4cf5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:08.000Z",
+      "createdAt": "2019-12-11T10:51:12.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 13188246,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "contact@bmi.agglo-epinal.fr",
+        "0329290203"
+      ],
+      "location": {
+        "uid": 13188246,
+        "slug": "mediatheque-de-thaon-les-vosges615",
+        "name": "Médiathèque de Thaon-les-Vosges",
+        "address": "6 bis rue du Marché 88150 Thaon-les-Vosges",
+        "city": "Capavenir-Vosges",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88150",
+        "insee": "88465",
+        "countryCode": "FR",
+        "district": "Thaon-les-Vosges",
+        "latitude": 48.252469,
+        "longitude": 6.420783,
+        "updatedAt": "2019-12-12T15:10:43.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 79358569,
+      "ownerUid": 2724208,
+      "creatorUid": 2724208,
+      "slug": "plonk-and-replonk-festival-bd-aix-2020",
+      "title": {
+        "fr": "Exposition \"Plonk & Replonk\" - Festival BD 2020 d'Aix-en-Provence",
+        "en": "Exhibition \"Plonk & Replonk\" - Festival BD 2020 d'Aix-en-Provence"
+      },
+      "description": {
+        "fr": "Exposition \"Plonk & Replonk\" dans le cadre du Festival BD Aix 2020",
+        "en": "Exhibition \"Plonk & Replonk\" as part of the BD Aix 2020 Festival"
+      },
+      "longDescription": {
+        "fr": "**PLONK & REPLONK**\n-------------------\n\n### **CRÉATIONS - EXPOSITION - RENCONTRE - PERFORMANCE**\n\n**Plonk & Replonk** prennent leurs quartiers d’éte  à la Roque-d'Anthéron. Une double exposition hors les murs du trio suisse qui s’amuse à afficher leurs célèbres détournements pour un ping _plonk_ des plus réjouissants.\n\n**\\+ d'infos sur** [**bd-aix.com**](http://www.bd-aix.com/)\n\n**Organisée par Les rencontres du 9e art d'Aix-en-Provence.**",
+        "en": "## **PLONK & REPLONK**\n### **CREATIONS - EXHIBITION - MEETING - PERFORMANCE**\n**Plonk & Replonk** take their summer quarters to the Roque-d'Anthéron. A double exhibition outside the walls of the Swiss trio that has fun displaying their famous hijackings for a most delightful ping _plonk_.\n+ **more info on** [**bd-aix.com**](http://www.bd-aix.com/)\n**Organised by Les rencontres du 9e art d'Aix-en-Provence.**"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "110ecfd347fa45e2a88c4a371add3d85.base.image.jpg",
+        "credits": "Plonk & Replonk - bdaix2020",
+        "size": {
+          "height": 485,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "110ecfd347fa45e2a88c4a371add3d85.full.image.jpg",
+            "size": {
+              "height": 830,
+              "width": 1200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "110ecfd347fa45e2a88c4a371add3d85.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T07:00:00.000Z",
+          "end": "2020-04-04T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T12:30:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T07:00:00.000Z",
+          "end": "2020-04-05T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-05T12:30:00.000Z",
+          "end": "2020-04-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T07:00:00.000Z",
+          "end": "2020-04-07T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T07:00:00.000Z",
+          "end": "2020-04-08T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T12:30:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T07:00:00.000Z",
+          "end": "2020-04-09T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T12:30:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T07:00:00.000Z",
+          "end": "2020-04-10T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T12:30:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T07:00:00.000Z",
+          "end": "2020-04-11T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T12:30:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-12T07:00:00.000Z",
+          "end": "2020-04-12T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-12T12:30:00.000Z",
+          "end": "2020-04-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T07:00:00.000Z",
+          "end": "2020-04-14T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T07:00:00.000Z",
+          "end": "2020-04-15T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T12:30:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T07:00:00.000Z",
+          "end": "2020-04-16T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T12:30:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T07:00:00.000Z",
+          "end": "2020-04-17T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T12:30:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T07:00:00.000Z",
+          "end": "2020-04-18T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T12:30:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-19T07:00:00.000Z",
+          "end": "2020-04-19T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-19T12:30:00.000Z",
+          "end": "2020-04-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T07:00:00.000Z",
+          "end": "2020-04-21T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T07:00:00.000Z",
+          "end": "2020-04-22T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T12:30:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T07:00:00.000Z",
+          "end": "2020-04-23T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T12:30:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T07:00:00.000Z",
+          "end": "2020-04-24T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T12:30:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T07:00:00.000Z",
+          "end": "2020-04-25T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T12:30:00.000Z",
+          "end": "2020-04-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T07:00:00.000Z",
+          "end": "2020-04-26T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T12:30:00.000Z",
+          "end": "2020-04-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T07:00:00.000Z",
+          "end": "2020-04-28T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T07:00:00.000Z",
+          "end": "2020-04-29T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T12:30:00.000Z",
+          "end": "2020-04-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T07:00:00.000Z",
+          "end": "2020-04-30T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T12:30:00.000Z",
+          "end": "2020-04-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T07:00:00.000Z",
+          "end": "2020-05-02T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-02T12:30:00.000Z",
+          "end": "2020-05-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T07:00:00.000Z",
+          "end": "2020-05-03T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T12:30:00.000Z",
+          "end": "2020-05-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T07:00:00.000Z",
+          "end": "2020-05-05T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T07:00:00.000Z",
+          "end": "2020-05-06T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T12:30:00.000Z",
+          "end": "2020-05-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T07:00:00.000Z",
+          "end": "2020-05-07T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T12:30:00.000Z",
+          "end": "2020-05-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T07:00:00.000Z",
+          "end": "2020-05-09T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T12:30:00.000Z",
+          "end": "2020-05-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T07:00:00.000Z",
+          "end": "2020-05-10T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T12:30:00.000Z",
+          "end": "2020-05-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T07:00:00.000Z",
+          "end": "2020-05-12T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T07:00:00.000Z",
+          "end": "2020-05-13T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T12:30:00.000Z",
+          "end": "2020-05-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T07:00:00.000Z",
+          "end": "2020-05-14T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T12:30:00.000Z",
+          "end": "2020-05-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T07:00:00.000Z",
+          "end": "2020-05-15T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T12:30:00.000Z",
+          "end": "2020-05-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T07:00:00.000Z",
+          "end": "2020-05-16T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T12:30:00.000Z",
+          "end": "2020-05-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T07:00:00.000Z",
+          "end": "2020-05-17T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T12:30:00.000Z",
+          "end": "2020-05-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T07:00:00.000Z",
+          "end": "2020-05-19T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T07:00:00.000Z",
+          "end": "2020-05-20T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T12:30:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T07:00:00.000Z",
+          "end": "2020-05-22T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T12:30:00.000Z",
+          "end": "2020-05-22T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:59:31.000Z",
+      "createdAt": "2019-12-11T10:32:19.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 45538857,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "http://www.bd-aix.com/"
+      ],
+      "location": {
+        "uid": 45538857,
+        "slug": "office-de-tourisme-galerie",
+        "name": "Office de tourisme - Galerie",
+        "address": "13 cours Foch 13640 La Roque-d'Anthéron",
+        "city": "La Roque-d'Anthéron",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13640",
+        "insee": "13084",
+        "countryCode": "FR",
+        "district": "Le Piquet",
+        "latitude": 43.717261,
+        "longitude": 5.309168,
+        "updatedAt": "2019-12-13T07:58:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Les rencontres du 9e art - Office de tourisme d'Aix-en-Provence",
+      "structure-partenaire": "Association Patrimoine Art & Culture - Mairie de La Roque-d'Anthéron",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2724208,
+        "custom": {
+          "organization": "Les Rencontres du 9e Art - Aix-en-Provence",
+          "contactName": "Laurence Laugier",
+          "contactNumber": "04 42 161 161",
+          "contactPosition": "Chargée de mission",
+          "email": "laurence@bd-aix.com"
+        }
+      }
+    },
+    {
+      "uid": 10092339,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "dessine-moi-un-heros_366966",
+      "title": {
+        "fr": "Atelier \"Dessine-moi un héros\"",
+        "en": "Workshop \"Draw me a hero\""
+      },
+      "description": {
+        "fr": "Crée ton super-héros avec un pro du crayon !",
+        "en": "Create your superhero with a pencil professional!"
+      },
+      "longDescription": {
+        "fr": "Ateliers animés par Manu’Art.\n\nCrée ton super-héros, invente ses super-pouvoirs, imagine son super costume avec un pro du crayon.",
+        "en": "Workshops hosted by Manu'Art.\nCreate your superhero, invent his superpowers, imagine his super suit with a pencil pro."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "c1fccb9cdb334307be1e7775ddba4cf5.base.image.jpg",
+        "credits": "Manu'Art",
+        "size": {
+          "height": 995,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "c1fccb9cdb334307be1e7775ddba4cf5.full.image.jpg",
+            "size": {
+              "height": 960,
+              "width": 676
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "c1fccb9cdb334307be1e7775ddba4cf5.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-15T13:00:00.000Z",
+          "end": "2020-02-15T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:51.000Z",
+      "createdAt": "2019-12-11T10:53:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 26808255,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "contact@bmi.agglo-epinal.fr",
+        "0329346986"
+      ],
+      "location": {
+        "uid": 26808255,
+        "slug": "relais-bmi-de-golbey",
+        "name": "Relais bibliothèque multimédia intercommunale de Golbey",
+        "address": "2 rue Jean Bossu 88190 Golbey",
+        "city": "Golbey",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88190",
+        "insee": "88209",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.196469,
+        "longitude": 6.439365,
+        "updatedAt": "2019-12-13T08:00:02.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 33961146,
+      "ownerUid": 64264081,
+      "creatorUid": 64264081,
+      "slug": "dessine-moi-un-heros_380717",
+      "title": {
+        "fr": "Atelier \"Dessine-moi un héros\"",
+        "en": "Workshop \"Draw me a hero\""
+      },
+      "description": {
+        "fr": "Ateliers animés par Manu’Art.  Crée ton super-héros, invente ses super-pouvoirs, imagine son super costume avec un pro du crayon !",
+        "en": "Workshops hosted by Manu'Art. Create your superhero, invent his superpowers, imagine his super costume with a pencil pro!"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Inscription conseillée",
+        "en": "Recommended registration"
+      },
+      "image": {
+        "filename": "3179ead7325f4168b6308293506e6d1e.base.image.jpg",
+        "credits": "Manu'Art",
+        "size": {
+          "height": 995,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3179ead7325f4168b6308293506e6d1e.full.image.jpg",
+            "size": {
+              "height": 960,
+              "width": 676
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3179ead7325f4168b6308293506e6d1e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-25T13:00:00.000Z",
+          "end": "2020-01-25T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:41:17.000Z",
+      "createdAt": "2019-12-11T10:57:21.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11444904,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "mediathequebainslesbains@bmi.agglo-epinal.fr",
+        "0329366922"
+      ],
+      "location": {
+        "uid": 11444904,
+        "slug": "mediatheque-de-bains-les-bains264",
+        "name": "Médiathèque de Bains-les-Bains",
+        "address": "5 rue du Général Leclerc 88240 Bains-les-Bains",
+        "city": "La Vôge-les-Bains",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88240",
+        "insee": "88029",
+        "countryCode": "FR",
+        "district": "Bains-les-Bains",
+        "latitude": 48.002723,
+        "longitude": 6.264101,
+        "updatedAt": "2019-12-11T19:47:09.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 64264081,
+        "custom": {
+          "organization": "bibliothèque multimédia intercommunale d'Épinal",
+          "contactName": "Aurélie DEMANGE",
+          "contactNumber": "0329399820",
+          "contactPosition": "Responsable de l'action culturelle et de la communication",
+          "email": "contact@bmi.agglo-epinal.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2102005
+}

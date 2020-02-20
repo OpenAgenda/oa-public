@@ -337,7 +337,13 @@ class DaysSelector extends Component {
   onSelectionMouseUp = e => {
     window.removeEventListener('pointermove', this.onSelectionMouseMove);
 
-    const { onSelect, onChange } = this.props;
+    const {
+      onSelect,
+      onChange,
+      editOnClick,
+      openEditModal,
+      selectableStep
+    } = this.props;
     const { value, selectionStart, reducedAllowedTimings } = this.state;
 
     if (!selectionStart) {
@@ -378,6 +384,14 @@ class DaysSelector extends Component {
       if (typeof onChange === 'function') {
         onChange(newValue);
       }
+    }
+
+    if (
+      editOnClick
+      && selection.length === 1
+      && dateFns.differenceInMilliseconds(end, begin) / 1000 <= selectableStep
+    ) {
+      setTimeout(() => openEditModal(selection[0]));
     }
   };
 

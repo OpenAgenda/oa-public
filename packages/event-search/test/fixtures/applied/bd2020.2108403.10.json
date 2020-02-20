@@ -1,0 +1,1681 @@
+{
+  "events": [
+    {
+      "uid": 9778179,
+      "ownerUid": 9503174,
+      "creatorUid": 9503174,
+      "slug": "echange-autour-de-la-bd",
+      "title": {
+        "fr": "Échange autour de la BD"
+      },
+      "description": {
+        "fr": "Échange autour de la BD pour inaugurer, lors de la Nuit de la lecture, 2020 l'Année de la bande dessinée !"
+      },
+      "longDescription": {
+        "fr": "Échange autour de la BD pour inaugurer BD 2020 !\n\nLa librairie Bulles DO - La voie des Bulles animera cet échange avec le public."
+      },
+      "keywords": {
+        "fr": [
+          "BD",
+          "Libraire",
+          "Librairie",
+          "Médiathèque",
+          "BRAS PANON",
+          "Ile de la Réunion"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre et gratuite (sous réserve de places disponibles)"
+      },
+      "image": {
+        "filename": "0efc9973333b4094b24a2f3135b4cd8c.base.image.jpg",
+        "credits": "Hugues RODELIN",
+        "size": {
+          "height": 491,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0efc9973333b4094b24a2f3135b4cd8c.full.image.jpg",
+            "size": {
+              "height": 420,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0efc9973333b4094b24a2f3135b4cd8c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Indian/Reunion",
+      "timings": [
+        {
+          "begin": "2020-01-18T13:00:00.000Z",
+          "end": "2020-01-18T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-16T05:14:55.000Z",
+      "createdAt": "2019-12-10T13:44:39.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 49390988,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": true
+      },
+      "age": {
+        "min": 6,
+        "max": 121
+      },
+      "registration": [
+        "mediatheque@braspanon.re",
+        "0262512525"
+      ],
+      "location": {
+        "uid": 49390988,
+        "slug": "mediatheque-de-bras-panon390_16916_20057",
+        "name": "Médiathèque de Bras-Panon",
+        "address": "Coeur de Ville, RN2 97412 Bras-Panon",
+        "city": null,
+        "region": "La Réunion",
+        "department": "La Réunion",
+        "postalCode": "97412",
+        "insee": null,
+        "countryCode": "RE",
+        "district": null,
+        "latitude": -20.99558,
+        "longitude": 55.676785,
+        "updatedAt": "2019-09-23T14:09:14.000Z",
+        "image": null,
+        "description": {},
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Indian/Reunion",
+        "imageCredits": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 1556877,
+      "ownerUid": 61784004,
+      "creatorUid": 61784004,
+      "slug": "atelier-bd_770144",
+      "title": {
+        "fr": "Atelier BD"
+      },
+      "description": {
+        "fr": "Atelier de création d'une bande dessinée"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "BD atelier création"
+        ]
+      },
+      "conditions": {
+        "fr": "À partir de 10 ans"
+      },
+      "image": {
+        "filename": "0a36a47cc8c74b91960a0c76511b856e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 964,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0a36a47cc8c74b91960a0c76511b856e.full.image.jpg",
+            "size": {
+              "height": 4095,
+              "width": 2975
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0a36a47cc8c74b91960a0c76511b856e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T19:00:00.000Z",
+          "end": "2020-01-18T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2019-12-20T09:35:49.000Z",
+      "createdAt": "2019-12-10T14:08:26.000Z",
+      "agendaUid": 83309350,
+      "locationUid": 38153473,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "0387941295"
+      ],
+      "location": {
+        "uid": 38153473,
+        "slug": "creanto-la-mediatheque584",
+        "name": "Créanto la médiathèque",
+        "address": "4 rue de Metz 57690 Créhange",
+        "city": "Créhange",
+        "region": "Grand Est",
+        "department": "Moselle",
+        "postalCode": "57690",
+        "insee": "57159",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.066699,
+        "longitude": 6.581655,
+        "updatedAt": "2019-12-17T09:40:56.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "nuitlecture-2020",
+        "uid": 83309350,
+        "official": 1,
+        "title": "Nuit de la lecture 2020",
+        "description": "La Nuit de la lecture se déroule le samedi 18 janvier 2020. Retrouvez les informations et conditions pour participer à l'événement sur notre site internet.",
+        "url": "http://nuitdelalecture.fr",
+        "image": "agenda83309350.jpg",
+        "updatedAt": "2020-02-04T11:59:21.000Z",
+        "createdAt": "2019-04-29T14:35:10.000Z",
+        "officializedAt": "2019-09-23T13:49:43.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 77283889,
+      "ownerUid": 56328592,
+      "creatorUid": 56328592,
+      "slug": "semaine-de-la-bande-dessinee",
+      "title": {
+        "fr": "Semaine de la bande dessinée",
+        "en": "Comic Book Week"
+      },
+      "description": {
+        "fr": "La bande dessinée dans tous ses états !",
+        "en": "The comic book in all its states!"
+      },
+      "longDescription": {
+        "fr": "Une semaine entièrrement consacée à la bande dessinée : exposition, ateliers d'écriture, ateliers artistiques, ateliers gastronomiques, projections (la BD adaptée au cinéma), un club lecture \"spécial BD\", des rencontres...",
+        "en": "A week dedicated to comic books: exhibition, writing workshops, artistic workshops, gastronomic workshops, screenings (the comic book adapted to cinema), a \"comic book\" club, meetings..."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur incription",
+        "en": "On incription"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-14T08:00:00.000Z",
+          "end": "2020-10-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-15T12:00:00.000Z",
+          "end": "2020-10-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-16T12:00:00.000Z",
+          "end": "2020-10-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-17T08:00:00.000Z",
+          "end": "2020-10-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-20T12:00:00.000Z",
+          "end": "2020-10-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-21T08:00:00.000Z",
+          "end": "2020-10-21T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-06T10:59:04.000Z",
+      "createdAt": "2019-12-17T09:49:46.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 74297740,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "03-21-40-51-55"
+      ],
+      "location": {
+        "uid": 74297740,
+        "slug": "mediatheque-de-courcelles-les-lens",
+        "name": "Médiathèque de Courcelles-les-Lens",
+        "address": "4 rue Louis Blanc 62970 Courcelles-les-Lens",
+        "city": "Courcelles-lès-Lens",
+        "region": "Hauts-de-France",
+        "department": "Pas-de-Calais",
+        "postalCode": "62970",
+        "insee": "62249",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.416626,
+        "longitude": 3.025485,
+        "updatedAt": "2019-12-17T10:04:36.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": "Exposition, rencontre, conférence, projections",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 56328592,
+        "custom": {
+          "organization": "Médiathèque de Courcelles-les-Lens",
+          "contactName": "Sébastien PETIT",
+          "contactNumber": "03-21-40-51-55",
+          "contactPosition": "Directeur",
+          "email": "s.petit@courcelles-les-lens.fr"
+        }
+      }
+    },
+    {
+      "uid": 57121950,
+      "ownerUid": 77512574,
+      "creatorUid": 77512574,
+      "slug": "en-voyage-avec-mafalda",
+      "title": {
+        "fr": "Exposition \"En voyage avec Mafalda\"",
+        "en": "Exhibition \"Travelling with Mafalda\""
+      },
+      "description": {
+        "fr": "Plongez dans l'univers du célèbre personnage de bande dessinée",
+        "en": "Immerse yourself in the world of the famous cartoon character"
+      },
+      "longDescription": {
+        "fr": "Mafalda est un personnage de bande dessinée créé par l’argentin Quino. Phénomène planétaire de la BD, publiées dans 50 pays, traduites en 20 langues, les aventures de Mafalda se sont vendues à plus de 50 millions d’exemplaires. Depuis quelques années les hommages au personnage se multiplient témoignant qu’à 50 ans Mafalda n’a pas pris une ride !",
+        "en": "Mafalda is a cartoon character created by the Argentinean Quino. A worldwide phenomenon of comics, published in 50 countries, translated into 20 languages, Mafalda’s adventures sold more than 50 million copies. In recent years, tributes to the character have been multiplying, testifying that at the age of 50 Mafalda has not aged a day!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "bbea666488af48d8894db38221608f23.base.image.jpg",
+        "credits": "Quino",
+        "size": {
+          "height": 856,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "bbea666488af48d8894db38221608f23.full.image.jpg",
+            "size": {
+              "height": 1600,
+              "width": 1309
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "bbea666488af48d8894db38221608f23.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-03T13:00:00.000Z",
+          "end": "2020-02-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T08:00:00.000Z",
+          "end": "2020-02-04T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T13:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T08:00:00.000Z",
+          "end": "2020-02-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T08:00:00.000Z",
+          "end": "2020-02-06T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T13:00:00.000Z",
+          "end": "2020-02-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T13:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T08:00:00.000Z",
+          "end": "2020-02-08T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-10T13:00:00.000Z",
+          "end": "2020-02-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T08:00:00.000Z",
+          "end": "2020-02-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T13:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T08:00:00.000Z",
+          "end": "2020-02-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T08:00:00.000Z",
+          "end": "2020-02-13T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T13:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T13:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T08:00:00.000Z",
+          "end": "2020-02-15T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-17T13:00:00.000Z",
+          "end": "2020-02-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T08:00:00.000Z",
+          "end": "2020-02-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-18T13:00:00.000Z",
+          "end": "2020-02-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T08:00:00.000Z",
+          "end": "2020-02-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T13:00:00.000Z",
+          "end": "2020-02-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T08:00:00.000Z",
+          "end": "2020-02-20T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T13:00:00.000Z",
+          "end": "2020-02-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T13:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T08:00:00.000Z",
+          "end": "2020-02-22T13:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-24T13:00:00.000Z",
+          "end": "2020-02-24T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:39:11.000Z",
+      "createdAt": "2019-12-17T10:05:16.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11464014,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 11464014,
+        "slug": "mediatheque-la-fabrique35",
+        "name": "Médiathèque La Fabrique",
+        "address": "20 rue Georges Leroy 14140 Livarot",
+        "city": "Livarot-Pays-d'Auge",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14140",
+        "insee": "14371",
+        "countryCode": "FR",
+        "district": "Livarot",
+        "latitude": 49.008104,
+        "longitude": 0.151172,
+        "updatedAt": "2019-12-17T10:05:12.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèque du Calvados",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 77512574,
+        "custom": {
+          "organization": "Pôle Lecture Publique",
+          "contactName": "Karen LEMIRE",
+          "contactNumber": "02 31 48 41 00",
+          "contactPosition": "Chargée de communication du Pôle Lecture Publique",
+          "email": "klemire@agglo-lisieux.fr"
+        }
+      }
+    },
+    {
+      "uid": 43428231,
+      "ownerUid": 77512574,
+      "creatorUid": 77512574,
+      "slug": "bastien-loukia",
+      "title": {
+        "fr": "Exposition de planches d'Erik Satie : cinq nouvelles en forme de poire de Bastien Loukia",
+        "en": "Erik Satie’s plate exhibition: five new pear-shaped pieces by Bastien Loukia"
+      },
+      "description": {
+        "fr": "Exposition de planches originales de la BD Erik Satie, cinq nouvelles en forme de poire",
+        "en": "Exhibition of original plates of the comic book Erik Satie, five new pear-shaped"
+      },
+      "longDescription": {
+        "fr": "Les planches originales de la BD _Erik Satie : cinq nouvelles en forme de poire_ (2016) exposées à la médiathèque. Le roman graphique, composé de cinq histoires courtes, retrace la vie stupéfiante de ce grand compositeur qu’était Satie, à travers son esprit novateur, sa philosophie progressiste, et les grands courants artistiques de la fin XIXe et du début du XXe siècle. L’exposition regroupe plusieurs planches originales de la bande dessinée.",
+        "en": "The original plates of the _Erik Satie comic strip: five new pear-shaped pieces_ (2016) on display at the media library. The graphic novel, composed of five short stories, traces the amazing life of this great composer, Satie, through his innovative spirit, his progressive philosophy, and the great artistic currents of the late 19th and early 20th centuries. The exhibition gathers several original plates of the comic book."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "53cfac19d6734c8291b1d9041c2b4695.base.image.jpg",
+        "credits": "Bastien Loukia",
+        "size": {
+          "height": 442,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "53cfac19d6734c8291b1d9041c2b4695.full.image.jpg",
+            "size": {
+              "height": 1150,
+              "width": 1824
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "53cfac19d6734c8291b1d9041c2b4695.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-05T08:30:00.000Z",
+          "end": "2020-02-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T12:00:00.000Z",
+          "end": "2020-02-05T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T12:00:00.000Z",
+          "end": "2020-02-06T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T12:00:00.000Z",
+          "end": "2020-02-07T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T08:30:00.000Z",
+          "end": "2020-02-08T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T08:30:00.000Z",
+          "end": "2020-02-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T12:00:00.000Z",
+          "end": "2020-02-12T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T12:00:00.000Z",
+          "end": "2020-02-13T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T12:00:00.000Z",
+          "end": "2020-02-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T08:30:00.000Z",
+          "end": "2020-02-15T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T08:30:00.000Z",
+          "end": "2020-02-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T12:00:00.000Z",
+          "end": "2020-02-19T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T12:00:00.000Z",
+          "end": "2020-02-20T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T12:00:00.000Z",
+          "end": "2020-02-21T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T08:30:00.000Z",
+          "end": "2020-02-22T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T08:30:00.000Z",
+          "end": "2020-02-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T12:00:00.000Z",
+          "end": "2020-02-26T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T12:00:00.000Z",
+          "end": "2020-02-27T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T12:00:00.000Z",
+          "end": "2020-02-28T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T08:30:00.000Z",
+          "end": "2020-02-29T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:59:04.000Z",
+      "createdAt": "2019-12-17T10:08:35.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 95860104,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 95860104,
+        "slug": "mediatheque-andre-malraux990",
+        "name": "Médiathèque André-Malraux",
+        "address": "Place de la République 14100 Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14100",
+        "insee": "14303",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.143791,
+        "longitude": 0.224531,
+        "updatedAt": "2019-12-17T10:03:37.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 77512574,
+        "custom": {
+          "organization": "Pôle Lecture Publique",
+          "contactName": "Karen LEMIRE",
+          "contactNumber": "02 31 48 41 00",
+          "contactPosition": "Chargée de communication du Pôle Lecture Publique",
+          "email": "klemire@agglo-lisieux.fr"
+        }
+      }
+    },
+    {
+      "uid": 81574282,
+      "ownerUid": 77512574,
+      "creatorUid": 77512574,
+      "slug": "atelier-bd-numerique_976183",
+      "title": {
+        "fr": "Atelier BD numérique",
+        "en": "Digital BD Workshop"
+      },
+      "description": {
+        "fr": "Réalise tes propres planches de BD à l'aide d'un ordinateur ou d'une tablette. Dessine les personnages, intègre les bulles et invente ta propre histoire !",
+        "en": "Make your own comic strips using a computer or tablet. Draw the characters, integrate the bubbles and invent your own story!"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "d5593a6d39cb47adb3fbf8290e495f2d.base.image.jpg",
+        "credits": "AdobeStock",
+        "size": {
+          "height": 615,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d5593a6d39cb47adb3fbf8290e495f2d.full.image.jpg",
+            "size": {
+              "height": 2169,
+              "width": 2471
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d5593a6d39cb47adb3fbf8290e495f2d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:59:01.000Z",
+      "createdAt": "2019-12-17T10:12:22.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 11464014,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 15
+      },
+      "registration": [
+        "mediatheque-livarot@agglo-lisieux.fr",
+        "http://www.mediatheque-livarot.fr",
+        "02 31 61 88 18"
+      ],
+      "location": {
+        "uid": 11464014,
+        "slug": "mediatheque-la-fabrique35",
+        "name": "Médiathèque La Fabrique",
+        "address": "20 rue Georges Leroy 14140 Livarot",
+        "city": "Livarot-Pays-d'Auge",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14140",
+        "insee": "14371",
+        "countryCode": "FR",
+        "district": "Livarot",
+        "latitude": 49.008104,
+        "longitude": 0.151172,
+        "updatedAt": "2019-12-17T10:05:12.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 77512574,
+        "custom": {
+          "organization": "Pôle Lecture Publique",
+          "contactName": "Karen LEMIRE",
+          "contactNumber": "02 31 48 41 00",
+          "contactPosition": "Chargée de communication du Pôle Lecture Publique",
+          "email": "klemire@agglo-lisieux.fr"
+        }
+      }
+    },
+    {
+      "uid": 15442240,
+      "ownerUid": 18691644,
+      "creatorUid": 18691644,
+      "slug": "coup-de-coeur-du-vendredi",
+      "title": {
+        "fr": "\"Coups de cœur du vendredi\" avec la librairie Aventures BD de Dunkerque",
+        "en": "\"Coups de cœur du vendredi\" with the bookstore Aventures BD de Dunkerque"
+      },
+      "description": {
+        "fr": "Partarge de lectures et de coups de cœur de BD",
+        "en": "Reading books and comic book favourites"
+      },
+      "longDescription": {
+        "fr": "Venez partager vos lectures de bande dessinée avec les bibliothécaires ! Chacun à tour de rôle présente son ou ses coups de cœur et rédige quelques phrases sur un signet qui accompagnera le document, et invitera les lecteurs suivants à y ajouter leur avis.\n\nCe vendredi, la librairie Aventures BD de Dunkerque présentera des nouveautés et des coups de coeurs !",
+        "en": "Come and share your comic book reading with the librarians! Each person in turn presents his or her favourite word(s) and writes a few sentences on a bookmark that will accompany the document, inviting the following readers to add their opinion.\nThis Friday, the bookstore Aventures BD of Dunkerque will present novelties and heart beats!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "905db86adc154ea0bb1af853980ac37e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1000,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "905db86adc154ea0bb1af853980ac37e.full.image.jpg",
+            "size": {
+              "height": 2013,
+              "width": 1410
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "905db86adc154ea0bb1af853980ac37e.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-06T17:00:00.000Z",
+          "end": "2020-03-06T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:59:11.000Z",
+      "createdAt": "2019-12-17T10:13:42.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 5531221,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "03 28 51 34 34",
+        "https://www.facebook.com/mediathequedegravelines/"
+      ],
+      "location": {
+        "uid": 5531221,
+        "slug": "mediatheque-municipale-de-gravelines456",
+        "name": "Médiathèque municipale de Gravelines",
+        "address": "15 rue de Calais 59820 Gravelines",
+        "city": "Gravelines",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59820",
+        "insee": "59273",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.985476,
+        "longitude": 2.125915,
+        "updatedAt": "2019-12-17T10:27:33.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 704,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Aventures BD Dunkerque",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 18691644,
+        "custom": {
+          "organization": "Médiathèque Municipale de Gravelines",
+          "contactName": "Laure Lamirand",
+          "contactNumber": "03 28 51 34 34",
+          "contactPosition": "Directrice de la Médiathèque",
+          "email": "l.lamirand@ville-gravelines.fr"
+        }
+      }
+    },
+    {
+      "uid": 76932895,
+      "ownerUid": 77512574,
+      "creatorUid": 77512574,
+      "slug": "cafe-bd-exceptionnel-rencontre-avec-bastien-loukia",
+      "title": {
+        "fr": "Café BD exceptionnel avec Bastien Loukia",
+        "en": "Exceptional comic strip café with Bastien Loukia"
+      },
+      "description": {
+        "fr": "Rencontre avec l'auteur honfleurais pour son adaptation BD de Crime et châtiment",
+        "en": "Interview with the author honored for his comic book adaptation of Crime and punishment"
+      },
+      "longDescription": {
+        "fr": "Nous recevions Bastien Loukia l'année dernière pour évoquer la sortie de _Erik Satie : cinq nouvelles en forme de poire_ (2016). Nous accueillons à nouveau cet artiste honfleurais pour _Crime et châtiment_ (2019), première adaptation en bande dessinée d’un sommet de la littérature russe, Dostoïevski. À la fois scénariste et illustrateur du projet, Loukia met sa voix et son talent au service de la finesse psychologique et sociologique du romancier russe. Ses planches aux couleurs intenses et aux traits habités nous plongent au coeur des ténèbres dostoïevskiennes, celles de la condition humaine.",
+        "en": "We received Bastien Loukia last year to evoke the release of _Erik Satie: five new pear shaped (_2016). We welcome again this honored artist for _Crime and Punishment_ (2019), first comic strip adaptation of a Russian literature summit, Dostoyevsky. Both writer and illustrator of the project, Loukia puts his voice and his talent at the service of the psychological and sociological finesse of the Russian novelist. Its boards of intense colors and inhabited traits plunge us into the heart of the darkness of the Dostoyevsky, those of the human condition."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "cf227e61953e41cbb938d35b162fd29f.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 952,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "cf227e61953e41cbb938d35b162fd29f.full.image.jpg",
+            "size": {
+              "height": 799,
+              "width": 588
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "cf227e61953e41cbb938d35b162fd29f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:56.000Z",
+      "createdAt": "2019-12-17T10:14:33.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 95860104,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 95860104,
+        "slug": "mediatheque-andre-malraux990",
+        "name": "Médiathèque André-Malraux",
+        "address": "Place de la République 14100 Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14100",
+        "insee": "14303",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.143791,
+        "longitude": 0.224531,
+        "updatedAt": "2019-12-17T10:03:37.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 77512574,
+        "custom": {
+          "organization": "Pôle Lecture Publique",
+          "contactName": "Karen LEMIRE",
+          "contactNumber": "02 31 48 41 00",
+          "contactPosition": "Chargée de communication du Pôle Lecture Publique",
+          "email": "klemire@agglo-lisieux.fr"
+        }
+      }
+    },
+    {
+      "uid": 42797354,
+      "ownerUid": 77512574,
+      "creatorUid": 77512574,
+      "slug": "jamais-trop-tard-pour-se-reveiller",
+      "title": {
+        "fr": "Atelier \"Jamais trop tard pour se réveiller !\"",
+        "en": "\"Never too late to wake up!\""
+      },
+      "description": {
+        "fr": "Atelier de dessin animé par Cyprien Guilbert, graphiste",
+        "en": "Cartoon workshop by Cyprien Guilbert, graphic designer"
+      },
+      "longDescription": {
+        "fr": "À partir de la découverte de l’univers de _Little Nemo_, dont on fête les 115 ans cette année, chaque enfant mettra en scène son propre rêve, en rapport avec le thème du réchauffement climatique. Crayon, gomme, feutres, ciseaux, colle… seront utilisés pour construire cette petite séquence.",
+        "en": "Starting with the discovery of the world of _Little Nemo_, of which we are celebrating 115 years this year, each child will stage his own dream, in connection with the theme of global warming. Pencil, eraser, felt, scissors, glue… will be used to build this little sequence."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur réservation",
+        "en": "By reservation"
+      },
+      "image": {
+        "filename": "83a2140942384040b7d50c28c18e8b2f.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1074,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "83a2140942384040b7d50c28c18e8b2f.full.image.jpg",
+            "size": {
+              "height": 500,
+              "width": 326
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "83a2140942384040b7d50c28c18e8b2f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T14:00:00.000Z",
+          "end": "2020-02-08T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T14:00:00.000Z",
+          "end": "2020-02-15T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:58:54.000Z",
+      "createdAt": "2019-12-17T10:18:20.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 95860104,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [
+        "http://www.mediatheque-lisieux.fr",
+        "02 31 48 41 00",
+        "mediatheque-lisieux@agglo-lisieux.fr"
+      ],
+      "location": {
+        "uid": 95860104,
+        "slug": "mediatheque-andre-malraux990",
+        "name": "Médiathèque André-Malraux",
+        "address": "Place de la République 14100 Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14100",
+        "insee": "14303",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.143791,
+        "longitude": 0.224531,
+        "updatedAt": "2019-12-17T10:03:37.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 77512574,
+        "custom": {
+          "organization": "Pôle Lecture Publique",
+          "contactName": "Karen LEMIRE",
+          "contactNumber": "02 31 48 41 00",
+          "contactPosition": "Chargée de communication du Pôle Lecture Publique",
+          "email": "klemire@agglo-lisieux.fr"
+        }
+      }
+    },
+    {
+      "uid": 9224980,
+      "ownerUid": 77512574,
+      "creatorUid": 77512574,
+      "slug": "spider-man-new-generation",
+      "title": {
+        "fr": "Projection de Spider-Man, new generation",
+        "en": "Spider-Man screening, new generation"
+      },
+      "description": {
+        "fr": "Du cinéma à la médiathèque !",
+        "en": "From the cinema to the media library!"
+      },
+      "longDescription": {
+        "fr": "_Spider-Man, new generation_ de Bob Persichetti et Peter Ramsey (2018, 1h57min) : les aventures de Miles Morales, un adolescent afro-américain et portoricain qui vit à Brooklyn et s’efforce de s’intégrer dans son nouveau collège à Manhattan. Mais la vie de Miles se complique quand il se fait mordre par une araignée radioactive et se découvre des superpouvoirs…",
+        "en": "_Spider-Man, new generation_ by Bob Persichetti and Peter Ramsey (2018, 1h57min): the adventures of Miles Morales, an African-American and Puerto Rican teenager who lives in Brooklyn and strives to integrate into his new college in Manhattan. But Miles' life gets complicated when he gets bitten by a radioactive spider and discovers superpowers…"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "372064663d8847ccbd128b7b6144087a.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 934,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "372064663d8847ccbd128b7b6144087a.full.image.jpg",
+            "size": {
+              "height": 1600,
+              "width": 1200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "372064663d8847ccbd128b7b6144087a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-29T14:00:00.000Z",
+          "end": "2020-02-29T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:59:03.000Z",
+      "createdAt": "2019-12-17T10:20:52.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 95860104,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 95860104,
+        "slug": "mediatheque-andre-malraux990",
+        "name": "Médiathèque André-Malraux",
+        "address": "Place de la République 14100 Lisieux",
+        "city": "Lisieux",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14100",
+        "insee": "14303",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.143791,
+        "longitude": 0.224531,
+        "updatedAt": "2019-12-17T10:03:37.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 77512574,
+        "custom": {
+          "organization": "Pôle Lecture Publique",
+          "contactName": "Karen LEMIRE",
+          "contactNumber": "02 31 48 41 00",
+          "contactPosition": "Chargée de communication du Pôle Lecture Publique",
+          "email": "klemire@agglo-lisieux.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2108493
+}

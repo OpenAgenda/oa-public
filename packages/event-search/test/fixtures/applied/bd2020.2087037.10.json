@@ -1,0 +1,1789 @@
+{
+  "events": [
+    {
+      "uid": 52097627,
+      "ownerUid": 66400917,
+      "creatorUid": 66400917,
+      "slug": "recontre-avec-fred-bernard",
+      "title": {
+        "fr": "Recontre avec Fred Bernard",
+        "en": "Meeting with Fred Bernard"
+      },
+      "description": {
+        "fr": "Auteur de bandes dessinées, de récits pour la jeunesse et illustrateur français, Fred Bernard sera présent à la médiathèque pour une rencontre autour de son exposition et de ses œuvres",
+        "en": "Author of comic books, youth stories and French illustrator, Fred Bernard will be present at the media library for a meeting around his exhibition and his works"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Fred Bernard\n---------------------------\n\nautour de son expostion et de ses oeuvres.",
+        "en": "## Meeting with Fred Bernard\naround his exhibition and his works."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-10T18:00:00.000Z",
+          "end": "2020-03-10T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:46:08.000Z",
+      "createdAt": "2019-11-29T13:22:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 65760774,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0251064343",
+        "http://www.terresdemontaigu.fr",
+        "mediatheque.calliope@terresdemontaigu.fr"
+      ],
+      "location": {
+        "uid": 65760774,
+        "slug": "mediatheque-calliope6",
+        "name": "Médiathèque Calliopé",
+        "address": "Parc des Rochettes, 35 avenue Villebois Mareuil 85600 Montaigu-Vendée",
+        "city": "Montaigu-Vendée",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85600",
+        "insee": "85146",
+        "countryCode": "FR",
+        "district": "Montaigu",
+        "latitude": 46.981531,
+        "longitude": -1.317392,
+        "updatedAt": "2019-11-29T10:31:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 66400917,
+        "custom": {
+          "organization": "Médiathèque",
+          "contactName": "Claire Weber",
+          "contactNumber": "0251064343",
+          "contactPosition": "Médiatrice du livre",
+          "email": "c.weber@terresdemontaigu.fr"
+        }
+      }
+    },
+    {
+      "uid": 22277507,
+      "ownerUid": 96519412,
+      "creatorUid": 96519412,
+      "slug": "art-et-bd-6eme-edition-de-bdgreaterecouvertes-a-saint-germain-en-laye",
+      "title": {
+        "fr": "\"Art et BD\", 6e édition de BD>ECOUVERTES à Saint-Germain-en-Laye",
+        "en": "\"Art et BD\", 6th edition of BD>ECOUVERTES in Saint-Germain-en-Laye"
+      },
+      "description": {
+        "fr": "\"Art et BD\", 6e édition de BD>ECOUVERTES, le mois de la BD organisé par les médiathèques de Saint-Germain-en-Laye",
+        "en": "\"Art et BD\", 6th edition of BD>ECOUVERTES, the month of BD organized by the media libraries of Saint-Germain-en-Laye"
+      },
+      "longDescription": {
+        "fr": "Expositions, rencontres/dédicaces, ateliers, projection, battle de dessin... Depuis 2015, les médiathèques de Saint-Germain-en-Laye présentent chaque année, entre janvier et février, un programme autour de la BD. Jean Dytar est à l'honneur pour cette 6e édition de BD>ECOUVERTES sur le thème \"Art et BD\". Ce mois de la BD 2020 se déroulera à la médiathèque du jardin des Arts et à la médiathèque George-Sand du 14 janvier au 15 février.",
+        "en": "Exhibitions, meetings/dedication, workshops, projection, drawing battle... Since 2015, the Saint-Germain-en-Laye media libraries have been presenting a comic book program every year between January and February. Jean Dytar is in the spotlight for this 6th edition of BD>ECOUVERTES on the theme \"Art and BD\". The 2020 Comic Book Month will take place at the Arts Garden Media Library and the George Sand Media Library from January 14 to February 15."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "7a8c7d5226324bff94af19ff699d50a8.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1027,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7a8c7d5226324bff94af19ff699d50a8.full.image.jpg",
+            "size": {
+              "height": 4989,
+              "width": 3402
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7a8c7d5226324bff94af19ff699d50a8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-14T12:00:00.000Z",
+          "end": "2020-01-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T09:00:00.000Z",
+          "end": "2020-01-15T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T12:00:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T12:00:00.000Z",
+          "end": "2020-01-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T12:00:00.000Z",
+          "end": "2020-01-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T12:00:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T12:00:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T09:00:00.000Z",
+          "end": "2020-01-22T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T12:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T12:00:00.000Z",
+          "end": "2020-01-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T12:00:00.000Z",
+          "end": "2020-01-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T09:00:00.000Z",
+          "end": "2020-01-25T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T12:00:00.000Z",
+          "end": "2020-01-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-28T12:00:00.000Z",
+          "end": "2020-01-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T09:00:00.000Z",
+          "end": "2020-01-29T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T12:00:00.000Z",
+          "end": "2020-01-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T12:00:00.000Z",
+          "end": "2020-01-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T12:00:00.000Z",
+          "end": "2020-01-31T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T09:00:00.000Z",
+          "end": "2020-02-01T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T12:00:00.000Z",
+          "end": "2020-02-01T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-04T12:00:00.000Z",
+          "end": "2020-02-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T09:00:00.000Z",
+          "end": "2020-02-05T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T12:00:00.000Z",
+          "end": "2020-02-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T12:00:00.000Z",
+          "end": "2020-02-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T12:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T12:00:00.000Z",
+          "end": "2020-02-08T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-11T12:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T09:00:00.000Z",
+          "end": "2020-02-12T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T12:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T12:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T12:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T09:00:00.000Z",
+          "end": "2020-02-15T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T12:00:00.000Z",
+          "end": "2020-02-15T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:59:58.000Z",
+      "createdAt": "2019-11-29T12:37:11.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 39582956,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://mediatheques.saintgermainenlaye.fr"
+      ],
+      "location": {
+        "uid": 39582956,
+        "slug": "mediatheque-du-jardin-des-arts-saint-germain-en-laye",
+        "name": "Médiathèque du jardin des arts",
+        "address": "9 rue Henri IV 78100 Saint-Germain-en-Laye",
+        "city": "Saint-Germain-en-Laye",
+        "region": "Île-de-France",
+        "department": "Yvelines",
+        "postalCode": "78100",
+        "insee": "78551",
+        "countryCode": "FR",
+        "district": "Saint-Germain-en-Laye",
+        "latitude": 48.896497,
+        "longitude": 2.097253,
+        "updatedAt": "2019-11-29T10:24:06.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Gibert-Joseph de Saint-Germain-en-Laye",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 96519412,
+        "custom": {
+          "organization": "Médiathèques de Saint-germain-en-Laye",
+          "contactName": "MARC FONTANA",
+          "contactNumber": "+33170464000",
+          "contactPosition": "Directeur",
+          "email": "marc.fontana@saintgermainenlaye.fr"
+        }
+      }
+    },
+    {
+      "uid": 23051146,
+      "ownerUid": 51019345,
+      "creatorUid": 51019345,
+      "slug": "la-semaine-de-la-bd",
+      "title": {
+        "fr": "Semaine de la BD - Exposition des élèves de l'école d'art plastique de Mézidon sur le thème de la BD",
+        "en": "Comic Book Week - Exhibition of students from the Mézidon School of Plastic Art on the theme of comic book"
+      },
+      "description": {
+        "fr": "Exposition de peinture autour de la BD",
+        "en": "Painting exhibition around comic strip"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre de l'année de la BD, semaine sur la BD avec au programme : **exposition des élèves de l'école d'art plastique de Mézidon sur le thème de la BD**, dessin de doudou, animation \"quel animal dessine l'auteur\" puis dessin à la demande le mercredi 12 février avec la participation de la compagnie Grafouniages et atelier abécédaire pour finir une séance de dédicaces des auteurs. Pour clôturer cette semaine le vendredi 14 février, la bibliothèque offre le gouter aux enfants et propose une animation autour de la BD. Surprise !!!",
+        "en": "As part of the comic book year, comic book week with the program: **exhibition of the students of the plastic art school of Mézidon on the theme of comic** book, doudou drawing, animation \"what animal draws the author\" then drawing on request on Wednesday 12 February with the participation of the company Grafouniages and abécédaire workshop to finish a signing session of the authors. To close this week on Friday, February 14th, the library offers children a taste and offers animation around the comic book. Surprise!!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-11T08:00:00.000Z",
+          "end": "2020-02-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T08:00:00.000Z",
+          "end": "2020-02-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T08:00:00.000Z",
+          "end": "2020-02-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T08:00:00.000Z",
+          "end": "2020-02-14T16:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T16:30:00.000Z",
+          "end": "2020-02-14T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:46:05.000Z",
+      "createdAt": "2019-11-29T14:49:27.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 32778783,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "bibliotheque-mezidon@agglo-lisieux.fr",
+        "02 31 20 14 20"
+      ],
+      "location": {
+        "uid": 32778783,
+        "slug": "bibliotheque-de-mezidon",
+        "name": "Bibliothèque de Mézidon",
+        "address": "128 rue Jules Guesde 14270 Mézidon Vallée d'Auge",
+        "city": "Mézidon Vallée d'Auge",
+        "region": "Normandie",
+        "department": "Calvados",
+        "postalCode": "14270",
+        "insee": "14431",
+        "countryCode": "FR",
+        "district": "Mézidon-Canon",
+        "latitude": 49.081058,
+        "longitude": -0.057395,
+        "updatedAt": "2019-11-30T13:13:08.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "École d'art plastique de Mézidon",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 51019345,
+        "custom": {
+          "organization": "BIbliothèque de Mézidon",
+          "contactName": "Tartois Solène",
+          "contactNumber": "0231201420",
+          "contactPosition": "Responsable de la bibliothèque",
+          "email": "startois@agglo-lisieux.fr"
+        }
+      }
+    },
+    {
+      "uid": 52714433,
+      "ownerUid": 2286949,
+      "creatorUid": 2286949,
+      "slug": "planches-de-la-bd-de-pascal-bresson-simon-veil-limmortelle",
+      "title": {
+        "fr": "Exposition de planches de la BD Simone Veil, l'immortelle de Hervé Duphot (dessinateur) et Pascal Bresson (scénariste).",
+        "en": "Exhibition of plates by Simone Veil, the immortal of Hervé Duphot (cartoonist) and Pascal Bresson (screenwriter)."
+      },
+      "description": {
+        "fr": "Exposition de planches de la BD Simone Veil, l'immortelle de Hervé Duphot (dessinateur) et Pascal Bresson (scénariste).",
+        "en": "Exhibition of plates by Simone Veil, the immortal of Hervé Duphot (cartoonist) and Pascal Bresson (screenwriter)."
+      },
+      "longDescription": {
+        "fr": "Exposition de planches de la BD de Bresson _Simon Veil, l'immortelle_ dans la galerie Sainte-Anne et présentation de livres dans la galerie de l'escalier (BD des auteurs invités au festival BD de Perros-Guirec, BD de Pascal Bresson, livre sur Simone Veil, IVG, 2e guerre mondiale).",
+        "en": "Exhibition of plates of the Bresson comic book _Simon Veil, the immortal_ in the gallery Sainte-Anne and presentation of books in the gallery of the staircase (BD of the authors invited to the festival BD of Perros-Guirec, BD of Pascal Bresson, book on Simone Veil, IVG, 2nd world war)."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9923814fa8f149058d1af7f37ef7c727.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 919,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9923814fa8f149058d1af7f37ef7c727.full.image.jpg",
+            "size": {
+              "height": 799,
+              "width": 609
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9923814fa8f149058d1af7f37ef7c727.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-17T13:00:00.000Z",
+          "end": "2020-03-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T09:00:00.000Z",
+          "end": "2020-03-19T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T09:00:00.000Z",
+          "end": "2020-03-20T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T13:00:00.000Z",
+          "end": "2020-03-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T09:00:00.000Z",
+          "end": "2020-03-26T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T09:00:00.000Z",
+          "end": "2020-03-27T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T13:00:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T12:00:00.000Z",
+          "end": "2020-03-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T08:00:00.000Z",
+          "end": "2020-04-01T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T12:00:00.000Z",
+          "end": "2020-04-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T08:00:00.000Z",
+          "end": "2020-04-02T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T08:00:00.000Z",
+          "end": "2020-04-03T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T12:00:00.000Z",
+          "end": "2020-04-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T08:00:00.000Z",
+          "end": "2020-04-04T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-04T12:00:00.000Z",
+          "end": "2020-04-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T12:00:00.000Z",
+          "end": "2020-04-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T08:00:00.000Z",
+          "end": "2020-04-08T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T12:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T08:00:00.000Z",
+          "end": "2020-04-09T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T08:00:00.000Z",
+          "end": "2020-04-10T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T12:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T08:00:00.000Z",
+          "end": "2020-04-11T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T12:00:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T12:00:00.000Z",
+          "end": "2020-04-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T08:00:00.000Z",
+          "end": "2020-04-15T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T12:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T08:00:00.000Z",
+          "end": "2020-04-16T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T08:00:00.000Z",
+          "end": "2020-04-17T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T12:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T08:00:00.000Z",
+          "end": "2020-04-18T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T12:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T12:00:00.000Z",
+          "end": "2020-04-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T08:00:00.000Z",
+          "end": "2020-04-22T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T12:00:00.000Z",
+          "end": "2020-04-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T12:00:00.000Z",
+          "end": "2020-04-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T08:00:00.000Z",
+          "end": "2020-04-24T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T12:00:00.000Z",
+          "end": "2020-04-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-04-25T12:00:00.000Z",
+          "end": "2020-04-25T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:46:02.000Z",
+      "createdAt": "2019-11-30T10:04:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3230885,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 3230885,
+        "slug": "mediatheque-de-lannion",
+        "name": "Médiathèque de Lannion",
+        "address": "2 rue de Kerampont 22300 Lannion",
+        "city": "Lannion",
+        "region": "Bretagne",
+        "department": "Côtes-d'Armor",
+        "postalCode": "22300",
+        "insee": "22113",
+        "countryCode": "FR",
+        "district": "Tachen An Hospital",
+        "latitude": 48.730257,
+        "longitude": -3.460908,
+        "updatedAt": "2019-11-30T13:13:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Festival BD de Perros-Guirec",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2286949,
+        "custom": {
+          "organization": "Mediathèque de Lannion - Festival BD de Perros-Guirec",
+          "contactName": "Luc LEGAY",
+          "contactNumber": "02-96-37-99-10",
+          "contactPosition": "Responsable BD",
+          "email": "luc.legay@lannion.bzh"
+        }
+      }
+    },
+    {
+      "uid": 36682818,
+      "ownerUid": 2286949,
+      "creatorUid": 2286949,
+      "slug": "projection-du-film-bourgeon-le-romancier-de-la-bd-de-christian-lejale",
+      "title": {
+        "fr": "Projection du film \"Bourgeon, le romancier de la BD\" de Christian Lejale",
+        "en": "Screening of the film \"Bourgeon, the comic novelist\" by Christian Lejale"
+      },
+      "description": {
+        "fr": "Projection du film \"Bourgeon, le romancier de la BD\" de Christian Lejale",
+        "en": "Screening of the film \"Bourgeon, the comic novelist\" by Christian Lejale"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "36f7fc53bbef4708992a0627eb9f8b7e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "36f7fc53bbef4708992a0627eb9f8b7e.full.image.jpg",
+            "size": {
+              "height": 675,
+              "width": 1200
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "36f7fc53bbef4708992a0627eb9f8b7e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T14:00:00.000Z",
+          "end": "2020-03-21T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:45:44.000Z",
+      "createdAt": "2019-11-30T10:38:51.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3230885,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 3230885,
+        "slug": "mediatheque-de-lannion",
+        "name": "Médiathèque de Lannion",
+        "address": "2 rue de Kerampont 22300 Lannion",
+        "city": "Lannion",
+        "region": "Bretagne",
+        "department": "Côtes-d'Armor",
+        "postalCode": "22300",
+        "insee": "22113",
+        "countryCode": "FR",
+        "district": "Tachen An Hospital",
+        "latitude": 48.730257,
+        "longitude": -3.460908,
+        "updatedAt": "2019-11-30T13:13:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Festival BD de Perros-Guirec et Zoom Bretagne",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2286949,
+        "custom": {
+          "organization": "Mediathèque de Lannion - Festival BD de Perros-Guirec",
+          "contactName": "Luc LEGAY",
+          "contactNumber": "02-96-37-99-10",
+          "contactPosition": "Responsable BD",
+          "email": "luc.legay@lannion.bzh"
+        }
+      }
+    },
+    {
+      "uid": 94942982,
+      "ownerUid": 2286949,
+      "creatorUid": 2286949,
+      "slug": "accueil-de-classes-pour-rencontrer-pascal-bresson-simon-veil-limmortelle",
+      "title": {
+        "fr": "Accueil de classes pour rencontrer Pascal Bresson scénariste de Simone Veil, l'immortelle",
+        "en": "Classes to meet Pascal Bresson, writer of Simone Veil, the immortal"
+      },
+      "description": {
+        "fr": "Accueil de classes pour rencontrer Pascal Bresson scénariste de Simone Veil, l'immortelle",
+        "en": "Classes to meet Pascal Bresson, writer of Simone Veil, the immortal"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "bcbfbce92f884a0dbc8bbc84e15b7dd3.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 484,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "bcbfbce92f884a0dbc8bbc84e15b7dd3.full.image.jpg",
+            "size": {
+              "height": 152,
+              "width": 220
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "bcbfbce92f884a0dbc8bbc84e15b7dd3.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-26T09:00:00.000Z",
+          "end": "2020-03-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T13:00:00.000Z",
+          "end": "2020-03-26T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T09:00:00.000Z",
+          "end": "2020-03-27T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:45:58.000Z",
+      "createdAt": "2019-11-30T10:44:47.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3230885,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 14,
+        "max": 20
+      },
+      "registration": [],
+      "location": {
+        "uid": 3230885,
+        "slug": "mediatheque-de-lannion",
+        "name": "Médiathèque de Lannion",
+        "address": "2 rue de Kerampont 22300 Lannion",
+        "city": "Lannion",
+        "region": "Bretagne",
+        "department": "Côtes-d'Armor",
+        "postalCode": "22300",
+        "insee": "22113",
+        "countryCode": "FR",
+        "district": "Tachen An Hospital",
+        "latitude": 48.730257,
+        "longitude": -3.460908,
+        "updatedAt": "2019-11-30T13:13:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Festival BD de Perros-Guirec",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2286949,
+        "custom": {
+          "organization": "Mediathèque de Lannion - Festival BD de Perros-Guirec",
+          "contactName": "Luc LEGAY",
+          "contactNumber": "02-96-37-99-10",
+          "contactPosition": "Responsable BD",
+          "email": "luc.legay@lannion.bzh"
+        }
+      }
+    },
+    {
+      "uid": 95575887,
+      "ownerUid": 2286949,
+      "creatorUid": 2286949,
+      "slug": "journee-professionnelle-avec-rencontre-de-pascal-bresson",
+      "title": {
+        "fr": "Journée professionnelle avec rencontre de Pascal Bresson",
+        "en": "Professional day with meeting of Pascal Bresson"
+      },
+      "description": {
+        "fr": "Journée professionnelle avec rencontre de Pascal Bresson",
+        "en": "Professional day with meeting of Pascal Bresson"
+      },
+      "longDescription": {
+        "fr": "À l'occasion du **festival BD de Perros-Guirec,** la **médiathèque de Lannion** et la **bibliothèque des Côtes d'Armor (BCA)** proposent une formation gratuite ouverte aux **bénévoles et professionnels des bibliothèques**, des **centres de documentation et professeurs de l’Éducation nationale**.\n\nVendredi 27 mars 2020 à la médiathèque de Lannion – Salle de conférence.\n\n**Intervenant** : **Raphaëlla Barré**, journaliste et critique de BD (L'Avis des bulles)\n\n**9h30** : point sur l'édition de la BD. Un récapitulatif des BD à ne pas rater de l'année passée.\n\n**11h** : les comics aux U.S.A.\n\nAllons voir du côté des éditeurs indépendants ou/et moins connus du public français afin de faire découvrir des séries qui sortent du carcan Marvel et DC.Études de cas : la mort de Captain America, l’homosexualité dans la bande dessinée, la critique du super héros...\n\n**13h30** : la science-fiction dans la bande dessinée.\n\nDans les trois grandes zones : comics, manga, franco-belge. Chacune ayant des codes, des thèmes récurrents en fonction de sa culture et de son histoire.\n\n**15h0** : rencontre avec [Pascal BRESSON](https://www.bedetheque.com/auteur-17426-BD-Bresson-Pascal.html) puis dédicace.",
+        "en": "At the **Perros-Guirec comic strip festival,** the Lannion Media **Library and the Côtes d'Armor Library (BCA)** offer free training open to **volunteers and professionals from libraries**, **documentation centres and teachers of National Education**.\nFriday, March 27, 2020 at the Lannion Media Library – Boardroom.\n**Speaker**: **Raphaëlla Barré**, journalist and comic book critic (L'Avis des bulles)\n**9h30**: update on the edition of the comic. A summary of the comic books not to be missed from last year.\n**11am**: comics in the U.S.\nLet’s take a look at the independent publishers or/and less known to the French public in order to discover series that come out of the Marvel and DC straitjacket.Case studies: the death of Captain America, homosexuality in the comic book, the criticism of the superhero...\n**13.30**: science fiction in comic books.\nIn the three main zones: comics, manga, franco-belgian. Each has codes, recurring themes according to its culture and history.\n**15h0**: meeting with [Pascal BRESSON](https://www.bedetheque.com/auteur-17426-BD-Bresson-Pascal.html) then signing."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscrition et réservé aux bénévoles & professionnels des bibliothèques, des centres de documentation & professeurs de l’Education Nationale.",
+        "en": "On registration and reserved for volunteers & professionals of libraries, documentation centers & teachers of the National Education."
+      },
+      "image": {
+        "filename": "3972fd43106e41d6ae5a8d17629130cb.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 699,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3972fd43106e41d6ae5a8d17629130cb.full.image.jpg",
+            "size": {
+              "height": 599,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3972fd43106e41d6ae5a8d17629130cb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-27T08:30:00.000Z",
+          "end": "2020-03-27T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T12:30:00.000Z",
+          "end": "2020-03-27T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:45:54.000Z",
+      "createdAt": "2019-11-30T10:55:41.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3230885,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "02-96-37-99-10"
+      ],
+      "location": {
+        "uid": 3230885,
+        "slug": "mediatheque-de-lannion",
+        "name": "Médiathèque de Lannion",
+        "address": "2 rue de Kerampont 22300 Lannion",
+        "city": "Lannion",
+        "region": "Bretagne",
+        "department": "Côtes-d'Armor",
+        "postalCode": "22300",
+        "insee": "22113",
+        "countryCode": "FR",
+        "district": "Tachen An Hospital",
+        "latitude": 48.730257,
+        "longitude": -3.460908,
+        "updatedAt": "2019-11-30T13:13:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 762,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Festival BD de Perros-Guirec et Bibliothèque des Cotes d'Armor",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2286949,
+        "custom": {
+          "organization": "Mediathèque de Lannion - Festival BD de Perros-Guirec",
+          "contactName": "Luc LEGAY",
+          "contactNumber": "02-96-37-99-10",
+          "contactPosition": "Responsable BD",
+          "email": "luc.legay@lannion.bzh"
+        }
+      }
+    },
+    {
+      "uid": 87192902,
+      "ownerUid": 2286949,
+      "creatorUid": 2286949,
+      "slug": "dedicace-pascal-bresson",
+      "title": {
+        "fr": "Rencontre avec Pascal Bresson et dédicaces",
+        "en": "Meeting with Pascal Bresson and dedication"
+      },
+      "description": {
+        "fr": "Dédicace de Pascal Bresson",
+        "en": "Dedication by Pascal Bresson"
+      },
+      "longDescription": {
+        "fr": "Pascal Bresson est né le 22 décembre 1969 à Reims. Il vit actuellement en Bretagne. Depuis sa plus tendre enfance, il se passionne pour le dessin. C'est en découvrant les enquêtes de Ric Hochet dessinées par Tibet dans le journal \"Tintin\", qu'à 6 ans, il ambitionne de devenir un jour dessinateur. C'est vers l'âge de 12 ans (aidé par ses amis dessinateurs Tibet, René Follet et Mohamed Aouamri) qu'il concrétise son rêve en dessinant pour un journal Canadien « 9e Art », une histoire complète pour un hommage à EP Jacobs... Vers 17 ans, il devient pendant plus de 2 ans, illustrateur d'articles de presse pour le quotidien régional _L'Union_. En 1994, il publie une histoire de cinq planches dans le journal _A Suivre_ chez Casterman et de nombreuses histoires pour divers fanzines... Chemin faisant, Pascal remporte quatre fois le concours d'affiche du Cirque européen de Reims et se spécialise dans l'illustrations pour la jeunesse. C'est ainsi qu'il publie de nombreux ouvrages chez de nombreux éditeurs tels que Hemma, Tournesol, Syros, Magnard... Il connaît un franc succès en 2000 avec la série Poulpia, la petite pieuvre écologique avec Brice Tarvel au scénario (éditions Coeur de Loup)... et c'est à cette époque qu'il devient ami avec le célèbre Nicolas Hulot. Pascal Bresson a aussi dessiné et écrit pour les éditions Ouest-France Terre-Neuvas, l'impitoyable métier (3 prix dont celui de la ville de Brest) et Guillaume Seznec, une vie retrouvée en collaboration avec son ami Denis Seznec, le petit fils... En 2010, Pascal scénarise 3 séries BD aux éditions Glénat : _L'Affaire Seznec_ T.1 (avec Guy Michel au dessin), _L'Affaire Dominici_ (avec René Follet au dessin) et _Ushuaïa BD_ T.1 ou les _Nouvelles aventures de Nicolas Hulot_ (dessin Curd Ridel). Sa plus grande joie, c'est de pouvoir faire ce métier avec passion et sincérité...\n\nTexte © Glénat",
+        "en": "Pascal Bresson was born on 22 December 1969 in Reims. He currently lives in Brittany. Since his earliest childhood, he has been passionate about drawing. It is by discovering the investigations of Ric Hochet drawn by Tibet in the newspaper \"Tintin\", that at 6 years old, he aspires to become a cartoonist one day. It was around the age of 12 (helped by his friends cartoonists Tibet, René Follet and Mohamed Aouamri) that he realized his dream by drawing for a Canadian newspaper «9th Art», a complete story for a tribute to EP Jacobs... At the age of 17, for more than 2 years, he became an illustrator of press articles for the regional daily newspaper _L'Union_. In 1994, he published a story of five plates in the newspaper _A Suivre_ chez Casterman and many stories for various fanzines... Along the way, Pascal won four times the poster competition of the European Circus of Reims and specializes in illustrations for youth. For example, he publishes numerous books with many publishers such as Hemma, Tournesol, Syros, Magnard... He had a great success in 2000 with the series Poulpia, the small ecological octopus with Brice Tarvel in the script (editions Coeur de Loup)... and it was at this time that he became friends with the famous Nicolas Hulot. Pascal Bresson also designed and wrote for the editions Ouest-France Terre-Neuvas, l'impitoyable métier (3 prix including that of the city of Brest) and Guillaume Seznec, a life rediscovered in collaboration with his friend Denis Seznec, the grandson... In 2010, Pascal set up 3 comic book series by Glénat: _L'Affaire Seznec_ T.1 (with Guy Michel in drawing), _L'Affaire Dominici_ (with René Follet in drawing) and _Ushuaïa BD_ T.1 or Nicolas Hulot’s Nouvelles aventures (drawing Curd Ridel). His greatest joy is to be able to do this job with passion and sincerity...[End of translation]\nTexte © Glénat"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4619455c46f44389a24402c91e1b66d4.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 699,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4619455c46f44389a24402c91e1b66d4.full.image.jpg",
+            "size": {
+              "height": 599,
+              "width": 600
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4619455c46f44389a24402c91e1b66d4.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-27T16:00:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:45:39.000Z",
+      "createdAt": "2019-11-30T10:58:25.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3230885,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 3230885,
+        "slug": "mediatheque-de-lannion",
+        "name": "Médiathèque de Lannion",
+        "address": "2 rue de Kerampont 22300 Lannion",
+        "city": "Lannion",
+        "region": "Bretagne",
+        "department": "Côtes-d'Armor",
+        "postalCode": "22300",
+        "insee": "22113",
+        "countryCode": "FR",
+        "district": "Tachen An Hospital",
+        "latitude": 48.730257,
+        "longitude": -3.460908,
+        "updatedAt": "2019-11-30T13:13:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Festival BD de Perros-Guirec et librairie Gwalarn",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2286949,
+        "custom": {
+          "organization": "Mediathèque de Lannion - Festival BD de Perros-Guirec",
+          "contactName": "Luc LEGAY",
+          "contactNumber": "02-96-37-99-10",
+          "contactPosition": "Responsable BD",
+          "email": "luc.legay@lannion.bzh"
+        }
+      }
+    },
+    {
+      "uid": 24218599,
+      "ownerUid": 2286949,
+      "creatorUid": 2286949,
+      "slug": "spectacle-bd-concert-hamlet-avec-sebastien-vassant-illustrateur-et-matthieu-donarier-musicien-encore-sous-reserve",
+      "title": {
+        "fr": "Spectacle BD-concert Hamlet avec Sébastien Vassant, illustrateur et Matthieu Donarier, musicien (sous réserve)",
+        "en": "BD-concert show Hamlet with Sébastien Vassant, illustrator and Matthieu Donarier, musician (subject to reservation)"
+      },
+      "description": {
+        "fr": "Spectacle BD-concert Hamlet",
+        "en": "BD-concert show Hamlet"
+      },
+      "longDescription": {
+        "fr": "Adaption sans paroles, en images et musique, de “La tragique histoire de Hamlet, prince de Danemark” de William Shakespeare.\n\nComment raconter Hamlet avec plumes, encres, pinceaux, peintures et instruments de musique ? Voilà l’enjeu. Hamlet, cette histoire universelle que tout le monde croit connaître, est un drame, un vrai, c’est une terrible tragédie portée par un scénario implacable digne de la grande tradition du western ou du film noir. On tremble, et on rigole, aussi.\n\nLe choix est clair et diablement efficace : Sébastien Vassant et Matthieu Donarier font le pari de la création en direct, sans aucune bande enregistrée ni dessins préparés à l’avance. On peut alors, tour à tour, se faire happer par l’histoire en plongeant dans l’écran et la musique, ou observer le duo bricoler aux côtés du public un cinéma muet éphémère, chaque fois réinventé.",
+        "en": "Adaptation without words, in images and music, of “The tragic story of Hamlet, Prince of Denmark” by William Shakespeare.\nHow to tell Hamlet with feathers, inks, brushes, paintings and musical instruments? That’s the issue. Hamlet, this universal story that everyone thinks everyone knows is a drama, a real one, it is a terrible tragedy carried by an implacable script worthy of the great tradition of western or film noir. We’re shaking, and we’re laughing, too.\nThe choice is clear and devilishly effective: Sébastien Vassant and Matthieu Donarier are betting on live creation, without any recorded tapes or drawings prepared in advance. One can then, one by one, get caught up in history by diving into the screen and the music, or watch the duo tinker with the audience a silent cinema ephemeral, each time reinvented."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "a4f388f6858043d6bfb1ff58a8281788.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1000,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a4f388f6858043d6bfb1ff58a8281788.full.image.jpg",
+            "size": {
+              "height": 800,
+              "width": 560
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a4f388f6858043d6bfb1ff58a8281788.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-11T13:00:00.000Z",
+          "end": "2020-04-11T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:45:44.000Z",
+      "createdAt": "2019-11-30T11:03:23.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3230885,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 3230885,
+        "slug": "mediatheque-de-lannion",
+        "name": "Médiathèque de Lannion",
+        "address": "2 rue de Kerampont 22300 Lannion",
+        "city": "Lannion",
+        "region": "Bretagne",
+        "department": "Côtes-d'Armor",
+        "postalCode": "22300",
+        "insee": "22113",
+        "countryCode": "FR",
+        "district": "Tachen An Hospital",
+        "latitude": 48.730257,
+        "longitude": -3.460908,
+        "updatedAt": "2019-11-30T13:13:47.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival BD de Perros-Guirec",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 2286949,
+        "custom": {
+          "organization": "Mediathèque de Lannion - Festival BD de Perros-Guirec",
+          "contactName": "Luc LEGAY",
+          "contactNumber": "02-96-37-99-10",
+          "contactPosition": "Responsable BD",
+          "email": "luc.legay@lannion.bzh"
+        }
+      }
+    },
+    {
+      "uid": 13092454,
+      "ownerUid": 28153719,
+      "creatorUid": 28153719,
+      "slug": "atelier-dessin-bd-enants-ado",
+      "title": {
+        "fr": "Atelier dessin-BD pour enfants et adolescents",
+        "en": "Comic drawing workshop for children and adolescents"
+      },
+      "description": {
+        "fr": "Créer une planche de BD",
+        "en": "Create a comic strip"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "9d8eb533fcd94baab1ebfffa2e4333a6.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 649,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9d8eb533fcd94baab1ebfffa2e4333a6.full.image.jpg",
+            "size": {
+              "height": 949,
+              "width": 1024
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9d8eb533fcd94baab1ebfffa2e4333a6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-27T14:00:00.000Z",
+          "end": "2020-02-27T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:45:40.000Z",
+      "createdAt": "2019-11-30T16:11:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 41641809,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 14
+      },
+      "registration": [
+        "04.90.04.06.41",
+        "mediatheque@apt.fr"
+      ],
+      "location": {
+        "uid": 41641809,
+        "slug": "mediatheque-dapt",
+        "name": "Médiathèque d'Apt",
+        "address": "Place Carnot 84400 Apt",
+        "city": "Apt",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Vaucluse",
+        "postalCode": "84400",
+        "insee": "84003",
+        "countryCode": "FR",
+        "district": "Rocsalière",
+        "latitude": 43.876634,
+        "longitude": 5.396711,
+        "updatedAt": "2019-12-01T15:13:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 28153719,
+        "custom": {
+          "organization": "Mediathèque d'Apt",
+          "contactName": "Ilaria Fontebasso",
+          "contactNumber": "0490040641",
+          "contactPosition": "Bibliothécaire",
+          "email": "ilaria.fontebasso@apt.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2087451
+}

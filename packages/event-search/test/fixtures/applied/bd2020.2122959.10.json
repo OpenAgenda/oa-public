@@ -1,0 +1,1547 @@
+{
+  "events": [
+    {
+      "uid": 75747939,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "performance-de-cyril-pedrosa",
+      "title": {
+        "fr": "Performances de Cyril Pedrosa",
+        "en": "Performances by Cyril Pedrosa"
+      },
+      "description": {
+        "fr": "Deux performances dessinées",
+        "en": "Two performances drawn"
+      },
+      "longDescription": {
+        "fr": "À la bibliothèque Louis Aragon :\n\n\\- des ateliers dessins (tous pulics) : deux ateliers enfants et deux ateliers ados/adulte à 19h et à 21h - sur inscriptions au 03 22 72 82 76\n\n\\- un espace pour découvrir la programmation des 25es Rendez-vous de la bande dessinée d'Amiens\n\n\\- une exposition inédite consacrée au prix Révélation bande dessinée des lycéens Hauts-de-France\n\n\\- des animations jeune public de 19h à 21h\n\n**\\- deux performances dessinées de Cyril Pedrosa à 20h et à 22h15**\n\nRécuperez un tampon dans chaque librairie indépendante amiénoise puis rendez-vous à la Bibliothèque sur les stands du festival pour avoir la chance de gagner un super cadeau !\n\nRetrouvez toutes ces infos sur notre site internet [www.onamarchesurlabulle.fr](http://www.onamarchesurlabulle.fr)",
+        "en": "At the Louis Aragon Library:\n- drawing workshops (all pulics): two children’s workshops and two teen/adult workshops at 7 pm and 9 pm - by registration at 03 22 72 82 76\n- A space to discover the programming of the 25th Rendez-vous de la bande dessinée d'Amiens\n- an unpublished exhibition dedicated to the Prix Révélation bande dessinée des lycéens Hauts-de-France;\n- Young audience activities from 19.00 to 21.00;\n**- two drawn performances by Cyril Pedrosa at 8 pm and 10.15 pm**\nCollect a stamp from each Amienoise independent bookstore and then go to the Library on the festival stands to have the chance to win a great gift!\nFind all this information on our website [www.onamarchesurlabulle.fr](http://www.onamarchesurlabulle.fr)"
+      },
+      "keywords": {
+        "fr": [
+          "amiens",
+          "dessin",
+          "bande dessinée",
+          "bibliotheque",
+          "jeune public",
+          "exposition"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "1111502f3e54479484e9033160f200da.base.image.jpg",
+        "credits": "David Périmony",
+        "size": {
+          "height": 988,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1111502f3e54479484e9033160f200da.full.image.jpg",
+            "size": {
+              "height": 1196,
+              "width": 848
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1111502f3e54479484e9033160f200da.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T19:00:00.000Z",
+          "end": "2020-01-18T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T21:00:00.000Z",
+          "end": "2020-01-18T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:58.000Z",
+      "createdAt": "2020-01-09T12:55:17.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10885476,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 10885476,
+        "slug": "bibliotheque-louis-aragon721",
+        "name": "Bibliothèque Louis Aragon",
+        "address": "50 rue de la République 80000 Amiens",
+        "city": "Amiens",
+        "region": "Hauts-de-France",
+        "department": "Somme",
+        "postalCode": "80000",
+        "insee": "80021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.88981,
+        "longitude": 2.295554,
+        "updatedAt": "2019-12-18T13:48:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèque Louis Aragon",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 56038984,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "ateliers-de-dessin-pour-partir-a-la-decouverte-de-la-bande-dessinee",
+      "title": {
+        "fr": "Ateliers de dessin",
+        "en": "Drawing workshops"
+      },
+      "description": {
+        "fr": "À la découverte de la bande dessinée dans la ville d'Amiens",
+        "en": "Discover the comic book in the city of Amiens"
+      },
+      "longDescription": {
+        "fr": "Partez à la découverte de la bande dessinée grâce à un jeu de piste qui vous menèra dans les lieux phares de la lecture à Amiens !\n\nDeux ateliers enfants et deux ateliers ados/adulte à 19h et à 21h\n\nSur inscriptions au 03 22 72 82 76\n\nRetrouvez toutes ces infos sur notre site internet [www.onamarchesurlabulle.fr](http://www.onamarchesurlabulle.fr)",
+        "en": "Discover the comic book with a track game that will take you to the highlights of reading in Amiens!\nTwo children’s workshops and two teen/adult workshops at 7pm and 9pm\nBy registrations on 03 22 72 82 76\nFind all this information on our website [www.onamarchesurlabulle.fr](http://www.onamarchesurlabulle.fr)"
+      },
+      "keywords": {
+        "fr": [
+          "amiens",
+          "dessin",
+          "bande dessinée",
+          "bibliotheque",
+          "jeune public"
+        ]
+      },
+      "conditions": {
+        "fr": "12 places par atelier et par créneau",
+        "en": "12 seats per workshop and niche"
+      },
+      "image": {
+        "filename": "1111502f3e54479484e9033160f200da.base.image.jpg",
+        "credits": "David Périmony",
+        "size": {
+          "height": 988,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1111502f3e54479484e9033160f200da.full.image.jpg",
+            "size": {
+              "height": 1196,
+              "width": 848
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1111502f3e54479484e9033160f200da.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T18:00:00.000Z",
+          "end": "2020-01-18T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T20:00:00.000Z",
+          "end": "2020-01-18T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:42.000Z",
+      "createdAt": "2020-01-09T13:00:41.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10885476,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "0322728276"
+      ],
+      "location": {
+        "uid": 10885476,
+        "slug": "bibliotheque-louis-aragon721",
+        "name": "Bibliothèque Louis Aragon",
+        "address": "50 rue de la République 80000 Amiens",
+        "city": "Amiens",
+        "region": "Hauts-de-France",
+        "department": "Somme",
+        "postalCode": "80000",
+        "insee": "80021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.88981,
+        "longitude": 2.295554,
+        "updatedAt": "2019-12-18T13:48:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèque Louis Aragon",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 4740430,
+      "ownerUid": 71430263,
+      "creatorUid": 71430263,
+      "slug": "conference-comics",
+      "title": {
+        "fr": "Conférence \"Les comics : de la BD avant tout !\"",
+        "en": "Lecture \"Comics: Comics First!\""
+      },
+      "description": {
+        "fr": "Les comics Marvel",
+        "en": "The comics Marvel"
+      },
+      "longDescription": {
+        "fr": "À l’occasion de l’année de la bande dessinée, l’**association Clermont Culture BD 63** et la médiathèque de Jaude vous proposent quatre rencontres autour de la bande dessinée américaine.\n\nSavez-vous que les plus gros succès cinématographiques d’aujourd’hui sont issus de comics pour la plupart ? Au cours de ces quatre rencontres, nous vous invitons à découvrir les plus emblématiques d’entre eux.\n\nChaque séance comprend un quiz sur les thèmes proposés, la présentation des ouvrages disponibles à la médiathèque et dans le réseau, ainsi qu’une bibliographie étendue pour les intéressés.\n\n*   **Le 25 janvier, venez découvrir la genèse de Marvel Comics. Et oui, Spiderman et les Avengers sont nés sur du papier avant de conquérir les écrans.**",
+        "en": "On the occasion of the year of the comic book, the **association Clermont Culture BD 63** and the media library of Jaude propose you four meetings around the American comic book.\nDid you know that most of today’s biggest movie hits come from comics? During these four meetings, we invite you to discover the most emblematic of them.\nEach session includes a quiz on the proposed topics, the presentation of the works available in the media library and in the network, as well as an extensive bibliography for interested parties.\n*   **On January 25, come and discover the genesis of Marvel Comics. And yes, Spiderman and the Avengers were born on paper before conquering the screens.**"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription / Nombre limité à 20 personnes",
+        "en": "Upon registration/ Number limited to 20 persons"
+      },
+      "image": {
+        "filename": "576384ae6d0a4a12bee8ea35bf57489c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "576384ae6d0a4a12bee8ea35bf57489c.full.image.jpg",
+            "size": {
+              "height": 2000,
+              "width": 1414
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "576384ae6d0a4a12bee8ea35bf57489c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-25T15:00:00.000Z",
+          "end": "2020-01-25T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:51.000Z",
+      "createdAt": "2020-01-08T10:45:17.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 26074487,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 63 66 95 00",
+        "animations-jaude@clermontmetropole.eu"
+      ],
+      "location": {
+        "uid": 26074487,
+        "slug": "mediatheque-de-jaude-clermont-auvergne-metropole519",
+        "name": "Médiathèque de Jaude",
+        "address": "9 place Louis Aragon 63000 Clermont-Ferrand",
+        "city": "Clermont-Ferrand",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Puy-de-Dôme",
+        "postalCode": "63000",
+        "insee": "63113",
+        "countryCode": "FR",
+        "district": "Les Salins",
+        "latitude": 45.774862,
+        "longitude": 3.083979,
+        "updatedAt": "2020-01-08T10:43:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Association Culture BD 63",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 71430263,
+        "custom": {
+          "organization": "Médiathèque de Jaude - Clermont Auvergne Métropole",
+          "contactName": "Charlotte Ortalo",
+          "contactNumber": "04 63 66 95 00",
+          "contactPosition": "Bibliothécaire",
+          "email": "animations-jaude@clermontmetropole.eu"
+        }
+      }
+    },
+    {
+      "uid": 57058098,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "jeu-de-piste-sur-la-bande-dessinee-dans-la-ville-damiens",
+      "title": {
+        "fr": "Jeu de piste sur la bande dessinée dans la ville d'Amiens",
+        "en": "Cartoon track game in the city of Amiens"
+      },
+      "description": {
+        "fr": "Nuit de la lecture à Amiens",
+        "en": "Reading night in Amiens"
+      },
+      "longDescription": {
+        "fr": "**Partez à la découverte de la bande dessinée dans la ville d'Amiens grâce à un jeu de piste qui vous menèra dans les lieux phares de la lecture à Amiens !**\n\nRécuperez un tampon dans chaque librairie indépendante amiénoise puis rendez-vous à la bibliothèque sur les stands du festival pour avoir la chance de gagner un super cadeau !\n\nRetrouvez toutes ces infos sur notre site internet [www.onamarchesurlabulle.fr](http://www.onamarchesurlabulle.fr)",
+        "en": "**Discover the comic strip in the city of Amiens with a track game that will take you to the highlights of reading in Amiens!**\nCollect a stamp from each Amienoise independent bookstore and then go to the library on the festival stands to have the chance to win a great gift!\nFind all this information on our website [www.onamarchesurlabulle.fr](http://www.onamarchesurlabulle.fr)"
+      },
+      "keywords": {
+        "fr": [
+          "dedicaces",
+          "librairie independante",
+          "amiens",
+          "performance",
+          "dessin",
+          "bande dessinée",
+          "bibliotheque",
+          "jeu de piste",
+          "exposition",
+          "animation",
+          "jeune public",
+          "pedrosa",
+          "perimony",
+          "de monfreid"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "1111502f3e54479484e9033160f200da.base.image.jpg",
+        "credits": "David Périmony",
+        "size": {
+          "height": 988,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1111502f3e54479484e9033160f200da.full.image.jpg",
+            "size": {
+              "height": 1196,
+              "width": 848
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1111502f3e54479484e9033160f200da.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T16:30:00.000Z",
+          "end": "2020-01-18T22:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:44.000Z",
+      "createdAt": "2020-01-09T13:04:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 10885476,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 10885476,
+        "slug": "bibliotheque-louis-aragon721",
+        "name": "Bibliothèque Louis Aragon",
+        "address": "50 rue de la République 80000 Amiens",
+        "city": "Amiens",
+        "region": "Hauts-de-France",
+        "department": "Somme",
+        "postalCode": "80000",
+        "insee": "80021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.88981,
+        "longitude": 2.295554,
+        "updatedAt": "2019-12-18T13:48:25.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Bibliothèque Louis Aragon, Bulle en Stock, librairie Martelle, librairie Pages d'encre, Librairie du Labyrinthe",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 77384333,
+      "ownerUid": 71430263,
+      "creatorUid": 71430263,
+      "slug": "conference-les-comics-de-la-bd-avant-tout_29130",
+      "title": {
+        "fr": "Conférence \"Les comics : de la BD avant tout !\"",
+        "en": "Lecture \"Comics: Comics First!\""
+      },
+      "description": {
+        "fr": "Les DC Comics",
+        "en": "The DC Comics"
+      },
+      "longDescription": {
+        "fr": "À l’occasion de l’année de la bande dessinée, l’association Clermont Culture BD 63 et la médiathèque de Jaude vous proposent quatre rencontres autour de la bande dessinée américaine.\n\nSavez-vous que les plus gros succès cinématographiques d’aujourd’hui sont issus de comics pour la plupart ? Au cours de ces quatre rencontres, nous vous invitons à découvrir les plus emblématiques d’entre eux.\n\nChaque séance comprend un quiz sur les thèmes proposés, la présentation des ouvrages disponibles à la médiathèque et dans le réseau, ainsi qu’une bibliographie étendue pour les intéressés.\n\n• Le 15 février, focus sur le célèbre trio de DC Comics composé de Batman, Superman et Wonder-Woman.",
+        "en": "On the occasion of the year of the comic book, the association Clermont Culture BD 63 and the media library of Jaude propose you four meetings around the American comic book.\nDid you know that most of today’s biggest movie hits come from comics? During these four meetings, we invite you to discover the most emblematic of them.\nEach session includes a quiz on the proposed topics, the presentation of the works available in the media library and in the network, as well as an extensive bibliography for interested parties.\n• February 15th, focus on the famous DC Comics trio of Batman, Superman and Wonder-Woman."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription / Nombre limité à 20 personnes",
+        "en": "Upon registration/ Number limited to 20 persons"
+      },
+      "image": {
+        "filename": "11b2421387974ce4817f54c7059e0379.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "11b2421387974ce4817f54c7059e0379.full.image.jpg",
+            "size": {
+              "height": 2000,
+              "width": 1414
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "11b2421387974ce4817f54c7059e0379.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-15T15:00:00.000Z",
+          "end": "2020-02-15T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:25:01.000Z",
+      "createdAt": "2020-01-09T14:28:17.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 26074487,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 63 66 95 00",
+        "animations-jaude@clermontmetropole.eu"
+      ],
+      "location": {
+        "uid": 26074487,
+        "slug": "mediatheque-de-jaude-clermont-auvergne-metropole519",
+        "name": "Médiathèque de Jaude",
+        "address": "9 place Louis Aragon 63000 Clermont-Ferrand",
+        "city": "Clermont-Ferrand",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Puy-de-Dôme",
+        "postalCode": "63000",
+        "insee": "63113",
+        "countryCode": "FR",
+        "district": "Les Salins",
+        "latitude": 45.774862,
+        "longitude": 3.083979,
+        "updatedAt": "2020-01-08T10:43:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "association Clermont Culture BD 63",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 71430263,
+        "custom": {
+          "organization": "Médiathèque de Jaude - Clermont Auvergne Métropole",
+          "contactName": "Charlotte Ortalo",
+          "contactNumber": "04 63 66 95 00",
+          "contactPosition": "Bibliothécaire",
+          "email": "animations-jaude@clermontmetropole.eu"
+        }
+      }
+    },
+    {
+      "uid": 44864254,
+      "ownerUid": 71430263,
+      "creatorUid": 71430263,
+      "slug": "conference-les-comics-de-la-bd-avant-tout_465207",
+      "title": {
+        "fr": "Conférence \"Les comics : de la BD avant tout !\"",
+        "en": "Lecture \"Comics: Comics First!\""
+      },
+      "description": {
+        "fr": "Les comics jeunesse",
+        "en": "The youth comics"
+      },
+      "longDescription": {
+        "fr": "À l’occasion de l’année de la bande dessinée, l’association Clermont Culture BD 63 et la médiathèque de Jaude vous proposent quatre rencontres autour de la bande dessinée américaine.\n\nSavez-vous que les plus gros succès cinématographiques d’aujourd’hui sont issus de comics pour la plupart ? Au cours de ces quatre rencontres, nous vous invitons à découvrir les plus emblématiques d’entre eux.\n\nChaque séance comprend un quiz sur les thèmes proposés, la présentation des ouvrages disponibles à la médiathèque et dans le réseau, ainsi qu’une bibliographie étendue pour les intéressés.\n\n*   Le 21 mars, retrouvez des plaisirs de lecture de l’enfance, avec les comics jeunesses représentés par Mickey et Donald mais également par Snoopy, Calvin et Hobbes qui vous décrocheront forcément un sourire !",
+        "en": "On the occasion of the year of the comic book, the association Clermont Culture BD 63 and the media library of Jaude propose you four meetings around the American comic book.\nDid you know that most of today’s biggest movie hits come from comics? During these four meetings, we invite you to discover the most emblematic of them.\nEach session includes a quiz on the proposed topics, the presentation of the works available in the media library and in the network, as well as an extensive bibliography for interested parties.\n*   On March 21, discover childhood reading pleasures, with the young comics represented by Mickey and Donald but also by Snoopy, Calvin and Hobbes who will inevitably give you a smile!"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription / Nombre limité à 20 personnes",
+        "en": "Upon registration/ Number limited to 20 persons"
+      },
+      "image": {
+        "filename": "11b2421387974ce4817f54c7059e0379.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "11b2421387974ce4817f54c7059e0379.full.image.jpg",
+            "size": {
+              "height": 2000,
+              "width": 1414
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "11b2421387974ce4817f54c7059e0379.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-21T15:00:00.000Z",
+          "end": "2020-03-21T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:41.000Z",
+      "createdAt": "2020-01-09T14:29:16.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 26074487,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 63 66 95 00",
+        "animations-jaude@clermontmetropole.eu"
+      ],
+      "location": {
+        "uid": 26074487,
+        "slug": "mediatheque-de-jaude-clermont-auvergne-metropole519",
+        "name": "Médiathèque de Jaude",
+        "address": "9 place Louis Aragon 63000 Clermont-Ferrand",
+        "city": "Clermont-Ferrand",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Puy-de-Dôme",
+        "postalCode": "63000",
+        "insee": "63113",
+        "countryCode": "FR",
+        "district": "Les Salins",
+        "latitude": 45.774862,
+        "longitude": 3.083979,
+        "updatedAt": "2020-01-08T10:43:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "association Clermont Culture BD 63",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 71430263,
+        "custom": {
+          "organization": "Médiathèque de Jaude - Clermont Auvergne Métropole",
+          "contactName": "Charlotte Ortalo",
+          "contactNumber": "04 63 66 95 00",
+          "contactPosition": "Bibliothécaire",
+          "email": "animations-jaude@clermontmetropole.eu"
+        }
+      }
+    },
+    {
+      "uid": 47812019,
+      "ownerUid": 71430263,
+      "creatorUid": 71430263,
+      "slug": "conference-les-comics-de-la-bd-avant-tout_247399",
+      "title": {
+        "fr": "Conférence \"Les comics : de la BD avant tout !\"",
+        "en": "Lecture \"Comics: Comics First!\""
+      },
+      "description": {
+        "fr": "Les comics du nouveau millénaire",
+        "en": "Comics of the new millennium"
+      },
+      "longDescription": {
+        "fr": "À l’occasion de l’année de la bande dessinée, l’association Clermont Culture BD 63 et la médiathèque de Jaude vous proposent quatre rencontres autour de la bande dessinée américaine.\n\nSavez-vous que les plus gros succès cinématographiques d’aujourd’hui sont issus de comics pour la plupart ? Au cours de ces quatre rencontres, nous vous invitons à découvrir les plus emblématiques d’entre eux.\n\nChaque séance comprend un quiz sur les thèmes proposés, la présentation des ouvrages disponibles à la médiathèque et dans le réseau, ainsi qu’une bibliographie étendue pour les intéressés.\n\n*   Le 11 avril, soyez curieux avec votre époque en vous intéressant aux comics du nouveau millénaire : Walking dead, Fables, Saga…",
+        "en": "On the occasion of the year of the comic book, the association Clermont Culture BD 63 and the media library of Jaude propose you four meetings around the American comic book.\nDid you know that most of today’s biggest movie hits come from comics? During these four meetings, we invite you to discover the most emblematic of them.\nEach session includes a quiz on the proposed topics, the presentation of the works available in the media library and in the network, as well as an extensive bibliography for interested parties.\n*   On April 11, be curious about your era by taking an interest in the comics of the new millennium: Walking dead, Fables, Saga…"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription / Nombre limité à 20 personnes",
+        "en": "Upon registration/ Number limited to 20 persons"
+      },
+      "image": {
+        "filename": "11b2421387974ce4817f54c7059e0379.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 991,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "11b2421387974ce4817f54c7059e0379.full.image.jpg",
+            "size": {
+              "height": 2000,
+              "width": 1414
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "11b2421387974ce4817f54c7059e0379.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-11T14:00:00.000Z",
+          "end": "2020-04-11T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:24:49.000Z",
+      "createdAt": "2020-01-09T14:30:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 26074487,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 63 66 95 00",
+        "animations-jaude@clermontmetropole.eu"
+      ],
+      "location": {
+        "uid": 26074487,
+        "slug": "mediatheque-de-jaude-clermont-auvergne-metropole519",
+        "name": "Médiathèque de Jaude",
+        "address": "9 place Louis Aragon 63000 Clermont-Ferrand",
+        "city": "Clermont-Ferrand",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Puy-de-Dôme",
+        "postalCode": "63000",
+        "insee": "63113",
+        "countryCode": "FR",
+        "district": "Les Salins",
+        "latitude": 45.774862,
+        "longitude": 3.083979,
+        "updatedAt": "2020-01-08T10:43:16.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "association Clermont Culture BD 63",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 71430263,
+        "custom": {
+          "organization": "Médiathèque de Jaude - Clermont Auvergne Métropole",
+          "contactName": "Charlotte Ortalo",
+          "contactNumber": "04 63 66 95 00",
+          "contactPosition": "Bibliothécaire",
+          "email": "animations-jaude@clermontmetropole.eu"
+        }
+      }
+    },
+    {
+      "uid": 13035325,
+      "ownerUid": 95078908,
+      "creatorUid": 95078908,
+      "slug": "en-route-pour-angouleme",
+      "title": {
+        "fr": "En route pour Angoulême",
+        "en": "On the way to Angoulême"
+      },
+      "description": {
+        "fr": "Une présentation de l'histoire du festival d'Angoulême et de quelques albums primés",
+        "en": "A presentation of the history of the Angoulême festival and some award-winning albums"
+      },
+      "longDescription": {
+        "fr": "Une soirée autour du festival d'Angoulême. Au programme : une présentation de l'histoire du festival et de quelques-uns des albums primés ces dernières années. Elle sera suivie d'un temps d'échange avec le public ainsi qu'une dégustation.",
+        "en": "An evening around the Angoulême festival. On the programme: a presentation of the history of the festival and some of the award-winning albums in recent years. It will be followed by a time of exchange with the public as well as a tasting."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "a5b9b70ca7864252869b88f6bd7fd76f.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 383,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a5b9b70ca7864252869b88f6bd7fd76f.full.image.jpg",
+            "size": {
+              "height": 642,
+              "width": 1176
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a5b9b70ca7864252869b88f6bd7fd76f.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-24T19:00:00.000Z",
+          "end": "2020-01-24T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:35.000Z",
+      "createdAt": "2020-01-09T17:11:42.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64260810,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 64 90 75 05"
+      ],
+      "location": {
+        "uid": 64260810,
+        "slug": "bibliotheque-darpajon",
+        "name": "Bibliothèque d'Arpajon",
+        "address": "31 rue Dauvilliers 91290 Arpajon",
+        "city": "Arpajon",
+        "region": "Île-de-France",
+        "department": "Essonne",
+        "postalCode": "91290",
+        "insee": "91021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.58965,
+        "longitude": 2.252535,
+        "updatedAt": "2020-01-09T17:48:03.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95078908,
+        "custom": {
+          "organization": "Bibliothèque d'Arpajon",
+          "contactName": "Justine Veillard",
+          "contactNumber": "0164907505",
+          "contactPosition": "Médiatrice culturelle",
+          "email": "j.veillard@coeuressonne.fr"
+        }
+      }
+    },
+    {
+      "uid": 54140637,
+      "ownerUid": 95078908,
+      "creatorUid": 95078908,
+      "slug": "bande-dessinee-avez-vous-le-code",
+      "title": {
+        "fr": "Bande dessinée : avez-vous le code ?",
+        "en": "Comic book: do you have the code?"
+      },
+      "description": {
+        "fr": "Une soirée autour de la narration en bande dessinée et ses spécificités",
+        "en": "An evening around comic book narration and its specificities"
+      },
+      "longDescription": {
+        "fr": "La soirée sera centrée sur les caractéristiques de la narration en bande dessinée : quelles sont-elles ? Qu'apportent-elles ? Comment les bédéastes ont-ils/elles joué avec ? Le tout sera illustré par une sélection d'albums de différentes époques, pays et tendances. La séance sera suivie d'un temps d'échange avec le public.",
+        "en": "The evening will focus on the characteristics of comic book narration: what are they? What do they bring? How did the Bédéastes play with it? It will be illustrated by a selection of albums from different eras, countries and trends. The session will be followed by a time to exchange with the public."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "bc82e008b4cf477bb30a26732a4dd4eb.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 465,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "bc82e008b4cf477bb30a26732a4dd4eb.full.image.jpg",
+            "size": {
+              "height": 780,
+              "width": 1176
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "bc82e008b4cf477bb30a26732a4dd4eb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-27T19:00:00.000Z",
+          "end": "2020-03-27T20:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:33.000Z",
+      "createdAt": "2020-01-09T17:18:01.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64260810,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 64 90 75 05"
+      ],
+      "location": {
+        "uid": 64260810,
+        "slug": "bibliotheque-darpajon",
+        "name": "Bibliothèque d'Arpajon",
+        "address": "31 rue Dauvilliers 91290 Arpajon",
+        "city": "Arpajon",
+        "region": "Île-de-France",
+        "department": "Essonne",
+        "postalCode": "91290",
+        "insee": "91021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.58965,
+        "longitude": 2.252535,
+        "updatedAt": "2020-01-09T17:48:03.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 685,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95078908,
+        "custom": {
+          "organization": "Bibliothèque d'Arpajon",
+          "contactName": "Justine Veillard",
+          "contactNumber": "0164907505",
+          "contactPosition": "Médiatrice culturelle",
+          "email": "j.veillard@coeuressonne.fr"
+        }
+      }
+    },
+    {
+      "uid": 19418810,
+      "ownerUid": 95078908,
+      "creatorUid": 95078908,
+      "slug": "profession-bedeaste",
+      "title": {
+        "fr": "Profession bédéaste",
+        "en": "Bédéaste profession"
+      },
+      "description": {
+        "fr": "Un temps d'échange entre un.e auteur.ice et le public autour de la profession de bédéaste",
+        "en": "A time of exchange between a. e author.ice and the public around the profession of bédéaste"
+      },
+      "longDescription": {
+        "fr": "Comment devient-on auteur.ice ? Quel est le parcours d'une bande dessinée avant son édition ? À quoi ressemble la vie professionnelle d'un.e bédéaste ? Autant de questions que le public sera invité à poser à l'auteur.ice invité.e, au cours d'un temps d'échange qui portera aussi bien sur sa profession que sur son travail personnel.",
+        "en": "How does one become an author.ice? What is the course of a comic strip before it is published? What is the professional life of a. e bédéaste? As many questions as the public will be invited to ask the guest.ice author. e, during a period of exchange which will concern both his profession and his personal work."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "a25df7629f134994a3c7893731fb4272.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 356,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a25df7629f134994a3c7893731fb4272.full.image.jpg",
+            "size": {
+              "height": 720,
+              "width": 1416
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a25df7629f134994a3c7893731fb4272.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-13T18:00:00.000Z",
+          "end": "2020-05-13T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:32:31.000Z",
+      "createdAt": "2020-01-09T17:23:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 64260810,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 64 90 75 05"
+      ],
+      "location": {
+        "uid": 64260810,
+        "slug": "bibliotheque-darpajon",
+        "name": "Bibliothèque d'Arpajon",
+        "address": "31 rue Dauvilliers 91290 Arpajon",
+        "city": "Arpajon",
+        "region": "Île-de-France",
+        "department": "Essonne",
+        "postalCode": "91290",
+        "insee": "91021",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.58965,
+        "longitude": 2.252535,
+        "updatedAt": "2020-01-09T17:48:03.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 741,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 95078908,
+        "custom": {
+          "organization": "Bibliothèque d'Arpajon",
+          "contactName": "Justine Veillard",
+          "contactNumber": "0164907505",
+          "contactPosition": "Médiatrice culturelle",
+          "email": "j.veillard@coeuressonne.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2123441
+}

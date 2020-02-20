@@ -1,0 +1,1505 @@
+{
+  "events": [
+    {
+      "uid": 38141893,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "jeu-de-piste-avec-nos-heros-de-bandes-dessinees",
+      "title": {
+        "fr": "Jeu de piste avec nos héros de bandes dessinées",
+        "en": "Track game with our comic book heroes"
+      },
+      "description": {
+        "fr": "Aidez Ariana du Menhir à retrouver le script de l’adaptation d’Astérix et la Transitalique !",
+        "en": "Help Ariana of Menhir find the script of the adaptation of Asterix and the Transitalique!"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "Jeu"
+        ]
+      },
+      "conditions": {
+        "fr": "Inscriptions directement à la bibliothèque ou par téléphone.",
+        "en": "Registration directly at the library or by telephone."
+      },
+      "image": {
+        "filename": "8be0b7f274854d9ab9357bc9e70f75c2.base.image.jpg",
+        "credits": "Miika Laaksonen",
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "8be0b7f274854d9ab9357bc9e70f75c2.full.image.jpg",
+            "size": {
+              "height": 2592,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "8be0b7f274854d9ab9357bc9e70f75c2.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T14:30:00.000Z",
+          "end": "2020-01-18T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:38.000Z",
+      "createdAt": "2019-11-06T16:20:58.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 43924013,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 99
+      },
+      "registration": [
+        "01 60 0 5 60 55"
+      ],
+      "location": {
+        "uid": 43924013,
+        "slug": "mediatheque-du-ru-de-nesles592",
+        "name": "Médiathèque du Ru de Nesles",
+        "address": "15 avenue des Pyramides 77420 Champs-sur-Marne",
+        "city": "Champs-sur-Marne",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77420",
+        "insee": "77083",
+        "countryCode": "FR",
+        "district": "Cité Descartes",
+        "latitude": 48.850916,
+        "longitude": 2.585525,
+        "updatedAt": "2019-11-06T15:50:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 85020382,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "exposition-bulles-en-fete_186809",
+      "title": {
+        "fr": "Exposition \"Bulles en fête\"",
+        "en": "Exhibition \"Bulles en fête\""
+      },
+      "description": {
+        "fr": "Exposition jeunes",
+        "en": "Exhibition for young people"
+      },
+      "longDescription": {
+        "fr": "La BTP présente en ouverture de l’année de la BD « Bulles en fête », Une exposition de planches de BD, réalisées lors de « Top vakans » durant le mois de juillet et août, par des jeunes des communes d’Awala-Yalimapo, Apatou et Saint-Georges.",
+        "en": "The BTP presents in opening of the year of the comic book «Bulles en fête», an exhibition of comic strips, realized during «Top vakans» during the month of July and August, by young people from the communes of Awala-Yalimapo, Apatou and Saint-Georges."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "38ca1458ad10412b963e65295cb622c8.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 964,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "38ca1458ad10412b963e65295cb622c8.full.image.jpg",
+            "size": {
+              "height": 640,
+              "width": 465
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "38ca1458ad10412b963e65295cb622c8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "America/Cayenne",
+      "timings": [
+        {
+          "begin": "2020-01-17T19:30:00.000Z",
+          "end": "2020-01-18T02:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:41.000Z",
+      "createdAt": "2019-11-07T10:06:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 5787914,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 5787914,
+        "slug": "bibliotheque-territoriale-de-pret335",
+        "name": "Bibliothèque territoriale de prêt",
+        "address": "7 rue du Carbet 97300 Cayenne",
+        "city": "Cayenne",
+        "region": "Guyane",
+        "department": null,
+        "postalCode": "97300",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 4.931086,
+        "longitude": -52.322549,
+        "updatedAt": "2019-11-07T10:02:02.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "America/Cayenne",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "20005267800014",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 20836216,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "rencontre-dauteur_454304",
+      "title": {
+        "fr": "Rencontre d'auteur",
+        "en": "Meeting of author"
+      },
+      "description": {
+        "fr": "Espace libraires et bédéistes",
+        "en": "Booksellers and comic books"
+      },
+      "longDescription": {
+        "fr": "La BTP propose « Bulles en fête » pour découvrir de manière ludique des animations autour du livre. Le public peut venir consulter les nouvelles parutions, échanger ou encore jouer autour des mots et découvrir la richesse des collections. Un espace\" libraires et bédéistes\" est offert pour des rencontres avec des professionnels. Dédicaces et vente de livres à prix cassés, principalement pour des jeunes en zone d’éducation prioritaire.",
+        "en": "La BTP proposes «Bulles en fête» to discover entertaining animations around the book. The public can come and see the new releases, exchange or play around words and discover the richness of the collections. A space \"booksellers and cartoonists\" is offered for meetings with professionals. Dedications and sale of books at discounted prices, mainly for young people in priority education area."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "2c149b7094a74948bd965840c89b8d41.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 525,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2c149b7094a74948bd965840c89b8d41.full.image.jpg",
+            "size": {
+              "height": 1536,
+              "width": 2048
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2c149b7094a74948bd965840c89b8d41.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "America/Cayenne",
+      "timings": [
+        {
+          "begin": "2020-01-17T19:30:00.000Z",
+          "end": "2020-01-18T02:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:25.000Z",
+      "createdAt": "2019-11-07T10:09:39.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 5787914,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 5787914,
+        "slug": "bibliotheque-territoriale-de-pret335",
+        "name": "Bibliothèque territoriale de prêt",
+        "address": "7 rue du Carbet 97300 Cayenne",
+        "city": "Cayenne",
+        "region": "Guyane",
+        "department": null,
+        "postalCode": "97300",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 4.931086,
+        "longitude": -52.322549,
+        "updatedAt": "2019-11-07T10:02:02.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "America/Cayenne",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "200052667800014",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 55433803,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "lire-en-marionnette_408244",
+      "title": {
+        "fr": "Lire en marionnette",
+        "en": "Reading in a puppet"
+      },
+      "description": {
+        "fr": "Spectacle de marionnettes avec des héros de BD",
+        "en": "Puppet show with comic book heroes"
+      },
+      "longDescription": {
+        "fr": "La bibliothèque territoriale de prêt présente, dans le cadre de l’année de la BD « Bulles en fête », un spectacle de marionnettes pour clôturer la soirée des petits et sur le thème de la bande dessinée.",
+        "en": "As part of the “Bulles en fête” comic year, the territorial loan library presents a puppet show to close the children’s evening and on the theme of comic books."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "d84c92e2362b41c389f6ecacb15b587e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 934,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d84c92e2362b41c389f6ecacb15b587e.full.image.jpg",
+            "size": {
+              "height": 4160,
+              "width": 3120
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d84c92e2362b41c389f6ecacb15b587e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "America/Cayenne",
+      "timings": [
+        {
+          "begin": "2020-01-17T21:00:00.000Z",
+          "end": "2020-01-17T22:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:33.000Z",
+      "createdAt": "2019-11-07T10:13:29.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 5787914,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 5787914,
+        "slug": "bibliotheque-territoriale-de-pret335",
+        "name": "Bibliothèque territoriale de prêt",
+        "address": "7 rue du Carbet 97300 Cayenne",
+        "city": "Cayenne",
+        "region": "Guyane",
+        "department": null,
+        "postalCode": "97300",
+        "insee": null,
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 4.931086,
+        "longitude": -52.322549,
+        "updatedAt": "2019-11-07T10:02:02.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "America/Cayenne",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 65469226,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "ateliers-autour-de-la-bd",
+      "title": {
+        "fr": "Ateliers autour de la BD",
+        "en": "Workshops around the comic strip"
+      },
+      "description": {
+        "fr": "Atelier autour de la BD",
+        "en": "Workshop around the comic strip"
+      },
+      "longDescription": {
+        "fr": "Des jeux imaginés par les élèves du club CDI seront proposés aux élèves inscrits (de la 6e à la 3e). Ils seront disposés sur différentes tables et les participants pourront les tester les uns après les autres. Tous les jeux auront pour point commun le thème de la BD.",
+        "en": "Games devised by the students of the CDI club will be offered to registered students (from 6th to 3rd). They will be arranged on different tables and participants will be able to test them one after the other. All the games will share the theme of the comic book."
+      },
+      "keywords": {
+        "fr": [
+          "Jeux",
+          "BD"
+        ]
+      },
+      "conditions": {
+        "fr": "30 élèves maximum",
+        "en": "30 students maximum"
+      },
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T15:30:00.000Z",
+          "end": "2020-01-17T17:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:23.000Z",
+      "createdAt": "2019-11-07T10:20:10.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 76740816,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 74 86 28 38"
+      ],
+      "location": {
+        "uid": 76740816,
+        "slug": "cdi-du-college-jeanne-darc",
+        "name": "CDI du collège Jeanne d'Arc",
+        "address": "2 rue Raymond Poincaré 38550 Le Péage-de-Roussillon",
+        "city": "Le Péage-de-Roussillon",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Isère",
+        "postalCode": "38550",
+        "insee": "38298",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.368552,
+        "longitude": 4.797618,
+        "updatedAt": "2019-11-07T10:17:10.000Z",
+        "image": null,
+        "description": {},
+        "website": "http://www.csja.fr/scolaire/index.php",
+        "email": null,
+        "phone": "04 74 86 28 38",
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 31484622,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "liberez-le-marsu_374319",
+      "title": {
+        "fr": "Libérez le Marsu !",
+        "en": "Let go of the Marsu!"
+      },
+      "description": {
+        "fr": "Jeu de piste pour libérer le Marsupilami",
+        "en": "Track game to free the Marsupilami"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:30.000Z",
+      "createdAt": "2019-11-07T10:47:34.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 91564394,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 91564394,
+        "slug": "mediatheque-louis-aragon589",
+        "name": "Médiathèque Louis Aragon",
+        "address": "Espace Agora 24750 Boulazac",
+        "city": "Boulazac",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Dordogne",
+        "postalCode": "24750",
+        "insee": "24053",
+        "countryCode": "FR",
+        "district": "Boulazac",
+        "latitude": 45.18018,
+        "longitude": 0.769133,
+        "updatedAt": "2019-11-07T10:44:55.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 30509097,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "chasse-aux-tresors_758840",
+      "title": {
+        "fr": "Chasse aux trésors",
+        "en": "Treasure hunt"
+      },
+      "description": {
+        "fr": "Chasse aux trésors",
+        "en": "Treasure hunt"
+      },
+      "longDescription": {
+        "fr": "Chasse aux trésors de type jeu de piste dans la médiathèque avec pour thème la bande dessinée et ses personnages.",
+        "en": "Treasure hunt of type track game in the media library with theme comic book and its characters."
+      },
+      "keywords": {
+        "fr": [
+          "bd chasse aux trésors jeu de piste"
+        ]
+      },
+      "conditions": {
+        "fr": "Nombre limité de places, sur inscription",
+        "en": "Limited number of places, upon registration"
+      },
+      "image": {
+        "filename": "14605e4a03c64ba2baa17734638413d1.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 228,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "14605e4a03c64ba2baa17734638413d1.full.image.jpg",
+            "size": {
+              "height": 282,
+              "width": 868
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "14605e4a03c64ba2baa17734638413d1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T15:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:18.000Z",
+      "createdAt": "2019-11-07T11:05:29.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 73103499,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "0495511150"
+      ],
+      "location": {
+        "uid": 73103499,
+        "slug": "mediatheque-sampiero327",
+        "name": "Médiathèque Sampiero",
+        "address": "21 boulevard Sampiero 20000 Ajaccio",
+        "city": "Ajaccio",
+        "region": "Corse",
+        "department": "Corse-du-Sud",
+        "postalCode": "20090",
+        "insee": "2A004",
+        "countryCode": "FR",
+        "district": "Vieille Ville",
+        "latitude": 41.923895,
+        "longitude": 8.739087,
+        "updatedAt": "2019-11-07T11:00:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 70958984,
+      "ownerUid": 42898705,
+      "creatorUid": 42898705,
+      "slug": "formula-bula-bande-dessinee-et-plus-si-affinites",
+      "title": {
+        "fr": "Formula Bula, bande dessinée et plus si affinités",
+        "en": "Formula Bula, comic book and more if affinities"
+      },
+      "description": {
+        "fr": "Formula Bula, bande dessinée et plus si affinités, est une manifestation dédiée à toutes les familles du 9e art, on prend le temps de rencontrer les auteurs et les éditeurs.",
+        "en": "Formula Bula, comic book and more if affinities, is an event dedicated to all 9th art families, we take the time to meet the authors and publishers."
+      },
+      "longDescription": {
+        "fr": "Formula Bula, bande dessinée et plus si affinités, est une manifestation dédiée à toutes les familles du 9e art, les légendes du 9e art y côtoient les jeunes pousses, on y découvre des travaux rares, des propositions aventureuses et poétiques, et surtout on prend le temps de rencontrer les auteurs. Formula Bula propose une programmation à la fois exigeante et remarquée faites de formats inventifs qui font son succès chaque année en septembre et octobre dans une dizaine de lieux à Paris et en Île-de-France; production d’expositions, croisières le long du canal de l’Ourcq, tête-à-tête entre auteurs et lecteurs autour d’une planche originale, échanges de bande dessinée, Prix National du meilleur fanzine réalisé par les moins de 18 ans, matinée dédiée aux professionnels, visites guidées faites par des éditeurs dans un village d’éditeurs éco-responsable où la restauration vous propose de découvrir des produits cultivés naturellement le long du canal de l’Ourcq. À Formula Bula se sont croisés Tomi Ungerer, Tristan Garcia et Emil Bravo, Emil Ferris, Nine Antico, Marion Montaigne, Étienne Klein et Masse, Émilie Gleason, Anne Simon, Sempé et Françoise Mouly, Michel Piccoli et Riad Sattouf, Blexbolex et Paul Cox, Bluch et Michel Hazanavicius. Un beau mélange des genres qui fait notre signature et attire chaque année environ 20 000 visiteurs.",
+        "en": "Formula Bula, comic book and more if affinities, is a manifestation dedicated to all the families of the 9th art, the legends of the 9th art meet the young shoots, we discover rare works, adventurous and poetic proposals, and above all we take the time to meet the authors. Formula Bula proposes a program that is both demanding and noticed, made of inventive formats that make its success each year in September and October in ten locations in Paris and Île-de-France; production of exhibitions, cruises along the Ourcq canal, one-on-one between authors and readers around an original board, comic book exchanges, National Prize for the best fanzine produced by under-18s, morning dedicated to professionals, guided tours by publishers in an eco-friendly publishers' villageresponsible where the restaurant offers you to discover products grown naturally along the Ourcq canal. Formula Bula was joined by Tomi Ungerer, Tristan Garcia and Emil Bravo, Emil Ferris, Nine Antico, Marion Montaigne, Étienne Klein and Masse, Émilie Gleason, Anne Simon, Sempé and Françoise Mouly, Michel Piccoli and Riad Sattouf, Blexbolex and Paul Cox, Bluch and Michel Hazanavicius. A beautiful blend of genres that makes our signature and attracts about 20,000 visitors each year."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "60f6afa0904042d38e27458d8863e3d4.base.image.jpg",
+        "credits": "@Cizo /Studioburo Affiche 2019",
+        "size": {
+          "height": 991,
+          "width": 701
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "60f6afa0904042d38e27458d8863e3d4.full.image.jpg",
+            "size": {
+              "height": 3508,
+              "width": 2480
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "60f6afa0904042d38e27458d8863e3d4.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-09-22T16:00:00.000Z",
+          "end": "2020-09-22T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-23T13:00:00.000Z",
+          "end": "2020-09-23T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-24T16:00:00.000Z",
+          "end": "2020-09-24T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-25T07:00:00.000Z",
+          "end": "2020-09-25T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-09-26T07:00:00.000Z",
+          "end": "2020-09-26T21:59:00.000Z"
+        },
+        {
+          "begin": "2020-09-27T07:00:00.000Z",
+          "end": "2020-09-27T21:59:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:00:18.000Z",
+      "createdAt": "2019-11-07T10:06:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3114859,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": false,
+        "vi": true,
+        "sl": true
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [
+        "prospection@ferrailleprod.com"
+      ],
+      "location": {
+        "uid": 3114859,
+        "slug": "mediatheque-francoise-sagan795",
+        "name": "Médiathèque Françoise Sagan",
+        "address": "8 rue Léon Schwartzenberg 75010 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75010",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 10e Arrondissement",
+        "latitude": 48.875637,
+        "longitude": 2.353757,
+        "updatedAt": "2019-11-07T09:50:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": "Expositions",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque Françoise Sagan, Point Éphémère, Galerie d'Art, Espace Jemmapes, Le Louvre, Canal de l'Ourcq",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "509 494 902 00034",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 42898705,
+        "custom": {
+          "organization": "Ferraille",
+          "contactName": "marina corro",
+          "contactNumber": "0633727952",
+          "contactPosition": "En charge de la médiation et des partenariats",
+          "email": "marinacorro@ferrailleprod.com"
+        }
+      }
+    },
+    {
+      "uid": 84069336,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "nuit-du-japon-dessine-ton-manga_103510",
+      "title": {
+        "fr": "Nuit du Japon, dessine ton manga",
+        "en": "Night of Japan, draw your manga"
+      },
+      "description": {
+        "fr": "Avec Valentin Debauge, dessinateur de BD et de mangas, formé à l’école Eurasiam à Paris et au Japon",
+        "en": "With Valentin Debauge, cartoonist and manga artist, trained at the Eurasiam school in Paris and Japan"
+      },
+      "longDescription": {},
+      "keywords": {
+        "fr": [
+          "Japon Mangas"
+        ]
+      },
+      "conditions": {
+        "fr": "Inscriptions directement à la bibliothèque ou par téléphone.",
+        "en": "Registration directly at the library or by telephone."
+      },
+      "image": {
+        "filename": "b3bed2300571457f811ddb053595300b.base.image.jpg",
+        "credits": "Valentin Debauge",
+        "size": {
+          "height": 996,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b3bed2300571457f811ddb053595300b.full.image.jpg",
+            "size": {
+              "height": 4960,
+              "width": 3488
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b3bed2300571457f811ddb053595300b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T17:00:00.000Z",
+          "end": "2020-01-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T19:30:00.000Z",
+          "end": "2020-01-18T20:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:26.000Z",
+      "createdAt": "2019-11-07T12:42:52.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 93986877,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 12,
+        "max": 99
+      },
+      "registration": [
+        "01 60 37 78 90"
+      ],
+      "location": {
+        "uid": 93986877,
+        "slug": "mediatheque-du-segrais799",
+        "name": "Médiathèque du Segrais",
+        "address": "1 boulevard Camille-Saint-Saens 77185 Lognes",
+        "city": "Torcy",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77185",
+        "insee": "77468",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.838586,
+        "longitude": 2.649805,
+        "updatedAt": "2019-11-07T12:38:53.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 46878893,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "exposition-les-techniques-du-9e-art-lire-et-ecrire-la-bande-dessinee",
+      "title": {
+        "fr": "Exposition « Les techniques du 9e art... lire et écrire la bande dessinée »",
+        "en": "Exhibition «Les techniques du 9e art... lire et écrire la bande dessinée»"
+      },
+      "description": {
+        "fr": "Découvrez les codes qui régissent le 9e art et apprenez les étapes indispensables qui permettent de créer en bande dessinée.",
+        "en": "Discover the codes that govern the 9th art and learn the essential steps that make it possible to create in comic strip."
+      },
+      "longDescription": {
+        "fr": "Guidés par les dessins de Michel Falardeau, qui symbolisent les étapes de l’écriture de la bande dessinée, découvrez ou redécouvrez les codes qui régissent le 9e art et apprenez les étapes indispensables qui permettent de créer en bande dessinée.",
+        "en": "Guided by Michel Falardeau’s drawings, which symbolize the stages of comic book writing, discover or rediscover the codes that govern the 9th art and learn the indispensable steps that make it possible to create in comic book."
+      },
+      "keywords": {
+        "fr": [
+          "exposition",
+          "bande dessinée"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "9b1fd26f59f9462fa5d682b455d65282.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 838,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9b1fd26f59f9462fa5d682b455d65282.full.image.jpg",
+            "size": {
+              "height": 669,
+              "width": 559
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9b1fd26f59f9462fa5d682b455d65282.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T15:00:00.000Z",
+          "end": "2020-01-17T21:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:13.000Z",
+      "createdAt": "2019-11-07T12:48:44.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 44209658,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 44209658,
+        "slug": "medilude-de-saint-apollinaire",
+        "name": "Médi@lude de Saint-Apollinaire",
+        "address": "145 rue de Moirey 21850 Saint-Apollinaire",
+        "city": "Saint-Apollinaire",
+        "region": "Bourgogne-Franche-Comté",
+        "department": "Côte-d'Or",
+        "postalCode": "21850",
+        "insee": "21189",
+        "countryCode": "FR",
+        "district": "Rente de Champlève",
+        "latitude": 47.333824,
+        "longitude": 5.087781,
+        "updatedAt": "2019-11-07T12:46:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    }
+  ],
+  "lastId": 2070745
+}

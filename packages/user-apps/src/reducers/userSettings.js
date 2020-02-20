@@ -123,8 +123,14 @@ export function isLoaded( globalState ) {
 export function load() {
   return {
     types: [ LOAD, LOAD_SUCCESS, LOAD_FAIL ],
-    promise: async ( { client }, { getState, dispatch } ) => {
-      const { res } = getState();
+    promise: async ( { client, history }, { getState, dispatch } ) => {
+      const { res, userSettings } = getState();
+
+      const { fromUserApps } = history.location.state || {};
+
+      if (userSettings.loaded && fromUserApps) {
+        return userSettings.user;
+      }
 
       const user = await client.get( res.getMe, {
         params: {
@@ -171,7 +177,8 @@ export function updateUser( data = {} ) {
         const result = await client.patch( res.updateProfile, data, {
           params: {
             $client: {
-              includeImagePath: true
+              includeImagePath: true,
+              detailed: true
             }
           }
         } );
@@ -220,7 +227,8 @@ export function changeEmail( data ) {
         const result = await client.patch( res.changeEmail, data, {
           params: {
             $client: {
-              includeImagePath: true
+              includeImagePath: true,
+              detailed: true
             }
           }
         } );
@@ -262,7 +270,8 @@ export function changePassword( data ) {
         const result = await client.patch( res.changePassword, data, {
           params: {
             $client: {
-              includeImagePath: true
+              includeImagePath: true,
+              detailed: true
             }
           }
         } );
@@ -295,6 +304,7 @@ export function generateApiKey( secret ) {
         params: {
           $client: {
             includeImagePath: true,
+            detailed: true,
             [ secret ? 'secretKey' : 'publicKey' ]: true
           }
         }

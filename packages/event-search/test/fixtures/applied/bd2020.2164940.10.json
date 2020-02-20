@@ -1,0 +1,2424 @@
+{
+  "events": [
+    {
+      "uid": 66461390,
+      "ownerUid": 68681623,
+      "creatorUid": 68681623,
+      "slug": "les-carnets-de-cerise_917521",
+      "title": {
+        "fr": "Exposition \"Les carnets de Cerise\"",
+        "en": "Exhibition \"Les carnets de Cerise\""
+      },
+      "description": {
+        "fr": "Cerise est une petite fille âgée de 11 ans qui vit seule avec sa mère. Elle rêve de devenir romancière et adore observer les adultes pour tenter de deviner leurs secrets !",
+        "en": "Cerise is an 11-year-old girl who lives alone with her mother. She dreams of becoming a novelist and loves watching adults to try to guess their secrets!"
+      },
+      "longDescription": {
+        "fr": "L'exposition propose une immersion totale dans l'univers attachant de la jeune héroïne. Basée sur l'univers de la série _Les carnets de Cerise_, cette exposition interactive invite les visiteurs à se glisser dans la peau d'un inspecteur en herbe en faisant appel à leur sens de l'analyse et à leur logique afin de trouver les solutions aux mini-jeux proposés sur l'ensemble des panneaux.",
+        "en": "The exhibition offers a total immersion in the engaging universe of young heroine. Based on the universe of the series _Les carnets de Cerise_, this interactive exhibition invites visitors to slip into the skin of a budding inspector by appealing to their sense of analysis and logic in order to find solutions to the mini-solutionsgames proposed on all panels."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "87592cadb2bc4c0ebd2da6887cf14eeb.base.image.jpg",
+        "credits": "© La Bulle expositions",
+        "size": {
+          "height": 1000,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "87592cadb2bc4c0ebd2da6887cf14eeb.full.image.jpg",
+            "size": {
+              "height": 600,
+              "width": 420
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "87592cadb2bc4c0ebd2da6887cf14eeb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-30T11:30:00.000Z",
+          "end": "2020-10-30T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T09:00:00.000Z",
+          "end": "2020-11-24T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T13:00:00.000Z",
+          "end": "2020-11-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T09:00:00.000Z",
+          "end": "2020-11-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T13:00:00.000Z",
+          "end": "2020-11-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T09:00:00.000Z",
+          "end": "2020-11-27T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T13:00:00.000Z",
+          "end": "2020-11-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T09:00:00.000Z",
+          "end": "2020-11-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T13:00:00.000Z",
+          "end": "2020-11-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-29T09:00:00.000Z",
+          "end": "2020-11-29T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-01T09:00:00.000Z",
+          "end": "2020-12-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-01T13:00:00.000Z",
+          "end": "2020-12-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-02T09:00:00.000Z",
+          "end": "2020-12-02T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-02T13:00:00.000Z",
+          "end": "2020-12-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-04T09:00:00.000Z",
+          "end": "2020-12-04T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-04T13:00:00.000Z",
+          "end": "2020-12-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-05T09:00:00.000Z",
+          "end": "2020-12-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-05T13:00:00.000Z",
+          "end": "2020-12-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-06T09:00:00.000Z",
+          "end": "2020-12-06T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-08T09:00:00.000Z",
+          "end": "2020-12-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-08T13:00:00.000Z",
+          "end": "2020-12-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-09T09:00:00.000Z",
+          "end": "2020-12-09T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-09T13:00:00.000Z",
+          "end": "2020-12-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-11T09:00:00.000Z",
+          "end": "2020-12-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-11T13:00:00.000Z",
+          "end": "2020-12-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-12T09:00:00.000Z",
+          "end": "2020-12-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-12T13:00:00.000Z",
+          "end": "2020-12-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-13T09:00:00.000Z",
+          "end": "2020-12-13T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-15T09:00:00.000Z",
+          "end": "2020-12-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-15T13:00:00.000Z",
+          "end": "2020-12-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-16T09:00:00.000Z",
+          "end": "2020-12-16T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-16T13:00:00.000Z",
+          "end": "2020-12-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-18T09:00:00.000Z",
+          "end": "2020-12-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-18T13:00:00.000Z",
+          "end": "2020-12-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-19T09:00:00.000Z",
+          "end": "2020-12-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-19T13:00:00.000Z",
+          "end": "2020-12-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-20T09:00:00.000Z",
+          "end": "2020-12-20T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T16:39:11.000Z",
+      "createdAt": "2020-02-10T15:47:56.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 52261499,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "mediatheque@loonplage.org",
+        "http://www.lesbalises.fr",
+        "06 28 58 67 50"
+      ],
+      "location": {
+        "uid": 52261499,
+        "slug": "mediatheque-marcel-pagnol506",
+        "name": "Médiathèque Marcel Pagnol",
+        "address": "60 b rue Georges Pompidou 59279 Loon-Plage",
+        "city": "Loon-Plage",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59279",
+        "insee": "59359",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 50.996004,
+        "longitude": 2.223292,
+        "updatedAt": "2020-02-10T09:38:20.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Réseau des Balises (communauté urbaine de Dunkerque) et médiathèque départementale du Nord",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 68681623,
+        "custom": {
+          "organization": "médiathèque marcel pagnol",
+          "contactName": "laurence brismalein",
+          "contactNumber": "0328586750",
+          "contactPosition": "directrice",
+          "email": "l.brismalein@loonplage.org"
+        }
+      }
+    },
+    {
+      "uid": 32385432,
+      "ownerUid": 24162045,
+      "creatorUid": 24162045,
+      "slug": "rencontrez-gerard-berthelot",
+      "title": {
+        "fr": "Rencontrez Gérard Berthelot",
+        "en": "Meet Gérard Berthelot"
+      },
+      "description": {
+        "fr": "La Fnac Angers reçoit le dessinateur en séance de dédicaces",
+        "en": "The Fnac Angers receives the cartoonist in signing session"
+      },
+      "longDescription": {
+        "fr": "La Fnac Angers reçoit le dessinateur en séance de dédicaces pour ses BD _Kop_a et _Angers_.",
+        "en": "Fnac Angers receives the cartoonist in signing session for his comics _Kop_a and _Angers_."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "9998210822604edea34f00f6352e4c8e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1245,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "9998210822604edea34f00f6352e4c8e.full.image.jpg",
+            "size": {
+              "height": 1920,
+              "width": 1080
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "9998210822604edea34f00f6352e4c8e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-22T14:00:00.000Z",
+          "end": "2020-02-22T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-10T16:39:17.000Z",
+      "createdAt": "2020-02-10T16:13:02.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 68171341,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.fnac.com/Angers/Gerard-Berthelot/cp47445/w-4?SpaceID=122"
+      ],
+      "location": {
+        "uid": 68171341,
+        "slug": "fnac-angers",
+        "name": "Fnac Angers",
+        "address": "25 rue Lenepveu 49023 Angers",
+        "city": "Angers",
+        "region": "Pays de la Loire",
+        "department": "Maine-et-Loire",
+        "postalCode": "49051",
+        "insee": "49007",
+        "countryCode": "FR",
+        "district": "Le Port de l'Île",
+        "latitude": 47.472122,
+        "longitude": -0.55116,
+        "updatedAt": "2020-02-10T16:17:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 626,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "33447335200048",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 24162045,
+        "custom": {
+          "organization": "FNAC",
+          "contactName": "Léa DESHAYES",
+          "contactNumber": "01 55 21 54 14",
+          "contactPosition": "Assistante Programmation Culturelle",
+          "email": "lea.deshayes@fnacdarty.com"
+        }
+      }
+    },
+    {
+      "uid": 80217919,
+      "ownerUid": 23596435,
+      "creatorUid": 23596435,
+      "slug": "phares-quand-les-phares-inspirentla-bande-dessinee",
+      "title": {
+        "en": "Exhibition \"Lighthouses\", when lighthouses inspire... the comic book",
+        "fr": "Exposition \"Phares\", quand les phares inspirent... la bande dessinée"
+      },
+      "description": {
+        "en": "When lighthouses inspire… comic strip",
+        "fr": "Quand les phares inspirent… la bande dessinée"
+      },
+      "longDescription": {
+        "en": "Planted at the end of the earth, signalling the rocky line of the coasts, implemented and guarded by rigorous, solitary men, the lighthouses fascinated the artists.\nHere, they are the authors of comic books.\nThe images that follow one another along this walk will allow you to meet many of them.\nThe comic book has appropriated the theme. The pencil, pen or brush of the designer declines the object, plants the decor, distributes the roles according to its plastic singularity. Here is the artist torn between maritime realism and the legendary charge of a place where the obsessive delusions of a guardian. Here the storm is under the skull of the artists. Convinced that they must, in one stroke, give to see the moving elements or the madness of men.\nWe invite you to continue discovering the exhibition … when LIGHTHOUSES inspire… at the Maison des Écrivains de la Mer, facing the sea, near the Josephine tower, one of the fires of the port of Saint-Gilles-Croix-de-Vie.",
+        "fr": "Plantés à l’extrémité des terres, signalant le trait rocheux des côtes, mis en œuvre et gardés par des hommes rigoureux, solitaires, les phares ont fasciné les artistes.\n\nIci, ce sont les auteurs de bandes dessinées.\n\nLes images qui se succèdent le long de cette promenade vous permettront de croiser bon nombre d’entre eux.\n\nLa bande dessinée s’est approprié le thème. Le crayon, la plume ou le pinceau du dessinateur décline l’objet, plante le décor, distribue les rôles au gré de sa singularité plastique. Voilà l’artiste déchiré entre le réalisme maritime et la charge légendaire d’un lieu où les délires obsessionnels d’un gardien. Ici la tempête est sous le crâne des artistes. Convaincus qu’ils doivent, d’un trait, donner à voir les éléments en mouvement ou la folie des hommes.\n\nNous vous invitons à poursuivre la découverte de l’exposition sur les phares à la Maison des écrivains de la mer, face au large, près de la tour Joséphine, l’un des feux du port de Saint-Gilles-Croix-de-Vie."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4e8e5742ff78419a987b184bedd1a513.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1050,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4e8e5742ff78419a987b184bedd1a513.full.image.jpg",
+            "size": {
+              "height": 850,
+              "width": 567
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4e8e5742ff78419a987b184bedd1a513.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-02T13:00:00.000Z",
+          "end": "2020-05-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-03T13:00:00.000Z",
+          "end": "2020-05-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T13:00:00.000Z",
+          "end": "2020-05-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-09T13:00:00.000Z",
+          "end": "2020-05-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-10T13:00:00.000Z",
+          "end": "2020-05-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T13:00:00.000Z",
+          "end": "2020-05-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T13:00:00.000Z",
+          "end": "2020-05-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T13:00:00.000Z",
+          "end": "2020-05-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T13:00:00.000Z",
+          "end": "2020-05-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T13:00:00.000Z",
+          "end": "2020-05-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-24T13:00:00.000Z",
+          "end": "2020-05-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T13:00:00.000Z",
+          "end": "2020-05-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T13:00:00.000Z",
+          "end": "2020-05-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-31T13:00:00.000Z",
+          "end": "2020-05-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T13:00:00.000Z",
+          "end": "2020-06-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T13:00:00.000Z",
+          "end": "2020-06-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-07T13:00:00.000Z",
+          "end": "2020-06-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T13:00:00.000Z",
+          "end": "2020-06-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T13:00:00.000Z",
+          "end": "2020-06-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-14T13:00:00.000Z",
+          "end": "2020-06-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T13:00:00.000Z",
+          "end": "2020-06-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T13:00:00.000Z",
+          "end": "2020-06-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-21T13:00:00.000Z",
+          "end": "2020-06-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T13:00:00.000Z",
+          "end": "2020-06-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T13:00:00.000Z",
+          "end": "2020-06-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-28T13:00:00.000Z",
+          "end": "2020-06-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-01T13:00:00.000Z",
+          "end": "2020-07-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-02T13:00:00.000Z",
+          "end": "2020-07-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-03T13:00:00.000Z",
+          "end": "2020-07-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-04T13:00:00.000Z",
+          "end": "2020-07-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-05T13:00:00.000Z",
+          "end": "2020-07-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-08T13:00:00.000Z",
+          "end": "2020-07-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-09T13:00:00.000Z",
+          "end": "2020-07-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-10T13:00:00.000Z",
+          "end": "2020-07-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-11T13:00:00.000Z",
+          "end": "2020-07-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-12T13:00:00.000Z",
+          "end": "2020-07-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-15T13:00:00.000Z",
+          "end": "2020-07-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-16T13:00:00.000Z",
+          "end": "2020-07-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-17T13:00:00.000Z",
+          "end": "2020-07-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-18T13:00:00.000Z",
+          "end": "2020-07-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-19T13:00:00.000Z",
+          "end": "2020-07-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-22T13:00:00.000Z",
+          "end": "2020-07-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-23T13:00:00.000Z",
+          "end": "2020-07-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-24T13:00:00.000Z",
+          "end": "2020-07-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-25T13:00:00.000Z",
+          "end": "2020-07-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-26T13:00:00.000Z",
+          "end": "2020-07-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-29T13:00:00.000Z",
+          "end": "2020-07-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-30T13:00:00.000Z",
+          "end": "2020-07-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-07-31T13:00:00.000Z",
+          "end": "2020-07-31T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-01T13:00:00.000Z",
+          "end": "2020-08-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-02T13:00:00.000Z",
+          "end": "2020-08-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-05T13:00:00.000Z",
+          "end": "2020-08-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-06T13:00:00.000Z",
+          "end": "2020-08-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-07T13:00:00.000Z",
+          "end": "2020-08-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-08T13:00:00.000Z",
+          "end": "2020-08-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-09T13:00:00.000Z",
+          "end": "2020-08-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-12T13:00:00.000Z",
+          "end": "2020-08-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-13T13:00:00.000Z",
+          "end": "2020-08-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-14T13:00:00.000Z",
+          "end": "2020-08-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-15T13:00:00.000Z",
+          "end": "2020-08-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-16T13:00:00.000Z",
+          "end": "2020-08-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-19T13:00:00.000Z",
+          "end": "2020-08-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-20T13:00:00.000Z",
+          "end": "2020-08-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-21T13:00:00.000Z",
+          "end": "2020-08-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-22T13:00:00.000Z",
+          "end": "2020-08-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-23T13:00:00.000Z",
+          "end": "2020-08-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-26T13:00:00.000Z",
+          "end": "2020-08-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-27T13:00:00.000Z",
+          "end": "2020-08-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-28T13:00:00.000Z",
+          "end": "2020-08-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-29T13:00:00.000Z",
+          "end": "2020-08-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-08-30T13:00:00.000Z",
+          "end": "2020-08-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-03T13:00:00.000Z",
+          "end": "2020-09-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-05T13:00:00.000Z",
+          "end": "2020-09-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-06T13:00:00.000Z",
+          "end": "2020-09-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-10T13:00:00.000Z",
+          "end": "2020-09-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-12T13:00:00.000Z",
+          "end": "2020-09-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-13T13:00:00.000Z",
+          "end": "2020-09-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-17T13:00:00.000Z",
+          "end": "2020-09-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-19T13:00:00.000Z",
+          "end": "2020-09-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-20T13:00:00.000Z",
+          "end": "2020-09-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-24T13:00:00.000Z",
+          "end": "2020-09-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-26T13:00:00.000Z",
+          "end": "2020-09-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-09-27T13:00:00.000Z",
+          "end": "2020-09-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-01T13:00:00.000Z",
+          "end": "2020-10-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-03T13:00:00.000Z",
+          "end": "2020-10-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-04T13:00:00.000Z",
+          "end": "2020-10-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-08T13:00:00.000Z",
+          "end": "2020-10-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-10T13:00:00.000Z",
+          "end": "2020-10-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-11T13:00:00.000Z",
+          "end": "2020-10-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-15T13:00:00.000Z",
+          "end": "2020-10-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-17T13:00:00.000Z",
+          "end": "2020-10-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-18T13:00:00.000Z",
+          "end": "2020-10-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-22T13:00:00.000Z",
+          "end": "2020-10-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-24T13:00:00.000Z",
+          "end": "2020-10-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-25T14:00:00.000Z",
+          "end": "2020-10-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-29T14:00:00.000Z",
+          "end": "2020-10-29T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-31T14:00:00.000Z",
+          "end": "2020-10-31T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-01T14:00:00.000Z",
+          "end": "2020-11-01T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-05T14:00:00.000Z",
+          "end": "2020-11-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-07T14:00:00.000Z",
+          "end": "2020-11-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-08T14:00:00.000Z",
+          "end": "2020-11-08T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-12T14:00:00.000Z",
+          "end": "2020-11-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-14T14:00:00.000Z",
+          "end": "2020-11-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-15T14:00:00.000Z",
+          "end": "2020-11-15T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-19T14:00:00.000Z",
+          "end": "2020-11-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-21T14:00:00.000Z",
+          "end": "2020-11-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-22T14:00:00.000Z",
+          "end": "2020-11-22T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T14:00:00.000Z",
+          "end": "2020-11-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T14:00:00.000Z",
+          "end": "2020-11-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-29T14:00:00.000Z",
+          "end": "2020-11-29T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-03T14:00:00.000Z",
+          "end": "2020-12-03T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-05T14:00:00.000Z",
+          "end": "2020-12-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-06T14:00:00.000Z",
+          "end": "2020-12-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-10T14:00:00.000Z",
+          "end": "2020-12-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-12T14:00:00.000Z",
+          "end": "2020-12-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-13T14:00:00.000Z",
+          "end": "2020-12-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-17T14:00:00.000Z",
+          "end": "2020-12-17T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-19T14:00:00.000Z",
+          "end": "2020-12-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-20T14:00:00.000Z",
+          "end": "2020-12-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-24T14:00:00.000Z",
+          "end": "2020-12-24T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-26T14:00:00.000Z",
+          "end": "2020-12-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-27T14:00:00.000Z",
+          "end": "2020-12-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-31T14:00:00.000Z",
+          "end": "2020-12-31T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-11T13:09:14.000Z",
+      "createdAt": "2020-02-10T17:42:40.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 58235445,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 110
+      },
+      "registration": [
+        "http://maisonecrivainsdelamer.fr",
+        "maisonecrivainsdelamer@orange.fr",
+        "0966932655"
+      ],
+      "location": {
+        "uid": 58235445,
+        "slug": "promenade-ragon-85800-saint-gilles-croix-de-vie",
+        "name": "Promenade Marcel Ragon - Maison des écrivains de la mer",
+        "address": "9 avenue Jean Cristau 85800 Saint-Gilles-Croix-de-Vie",
+        "city": "Saint-Gilles-Croix-de-Vie",
+        "region": "Pays de la Loire",
+        "department": "Vendée",
+        "postalCode": "85800",
+        "insee": "85222",
+        "countryCode": "FR",
+        "district": "La Croix",
+        "latitude": 46.698037,
+        "longitude": -1.947579,
+        "updatedAt": "2020-02-11T13:10:52.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        619
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "SEMVIE (gestionnaire port de plaisance)",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 23596435,
+        "custom": {
+          "organization": "Maison des Ecrivains de la Mer",
+          "contactName": "Gauvrit",
+          "contactNumber": "0652330924",
+          "contactPosition": "Vice-président",
+          "email": "maisondesecrivainsdelamer@orange.fr"
+        }
+      }
+    },
+    {
+      "uid": 12030721,
+      "ownerUid": 33508414,
+      "creatorUid": 33508414,
+      "slug": "32eme-edition-des-journees-de-la-bd",
+      "title": {
+        "en": "32e édition des Journées de la BD",
+        "fr": "32e édition des Journées de la BD"
+      },
+      "description": {
+        "en": "Comic Strip Festival with 45 authors and guest Franck Margerin",
+        "fr": "Festival BD avec 45 auteurs et Franck Margerin invité d'honneur"
+      },
+      "longDescription": {
+        "en": "### 45 expected authors, with comics for all audiences!\n- Franck Margerin\n- Thierry Girod\n- Gwendal Lemercier\n- Bruno and Corentin Loth\n- Moderate Arm\n- Eric Ivars\n- Briac\n- Frédéric Coicault\n- Guillaume Néel\n- Beno\n- Olivier Romain\n- Pascal Croci\n- Rune Ryberg (Denmark)\n- TTT Corp: Nantes fanzine\nand full, full of cartoonists/writers!\nGo to our website:\n[www.journeesbd.fr](http://www.journeesbd.fr)\nor on our facebook page!!",
+        "fr": "### 45 auteurs attendus, avec des BD pour tout public !\n\n\\- Franck Margerin\n\n\\- Thierry Girod\n\n\\- Gwendal Lemercier\n\n\\- Bruno et Corentin Loth\n\n\\- Armelle Modéré\n\n\\- Eric Ivars\n\n\\- Briac\n\n\\- Frédéric Coicault\n\n\\- Guillaume Néel\n\n\\- Beno\n\n\\- Olivier Romain\n\n\\- Pascal Croci\n\n\\- Rune Ryberg (Danemark)\n\n\\- TTT Corp: fanzine nantais\n\net pleins, pleins de dessinateurs/scénaristes !!\n\nRendez-vous sur notre site:\n\n[www.journeesbd.fr](http://www.journeesbd.fr)\n\nou sur notre page facebook !!!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "ae000b960c224223a96068bb365b1ac1.base.image.jpg",
+        "credits": "32EME EDITION DU FESTIVAL BD DES JOURNEES DE LA BD",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ae000b960c224223a96068bb365b1ac1.full.image.jpg",
+            "size": {
+              "height": 2121,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ae000b960c224223a96068bb365b1ac1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T08:00:00.000Z",
+          "end": "2020-04-26T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-11T09:47:00.000Z",
+      "createdAt": "2020-02-10T18:20:50.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 83365677,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 83365677,
+        "slug": "espace-rene-cassin441",
+        "name": "Espace René Cassin",
+        "address": "1 boulevard Jean Monnet 44640 Le Pellerin",
+        "city": "Le Pellerin",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44640",
+        "insee": "44120",
+        "countryCode": "FR",
+        "district": "Le Margat",
+        "latitude": 47.19432,
+        "longitude": -1.761203,
+        "updatedAt": "2020-01-14T11:03:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3,5 € et gratuit pour les moins de 12 ans",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 33508414,
+        "custom": {
+          "organization": "LES JOURNEES DE LA BD",
+          "contactName": "Jean-Christophe DENNI",
+          "contactNumber": "0626314585",
+          "contactPosition": "Trésorier et Commission Auteurs et Responsable Librairie Temporaire",
+          "email": "jeanchristophe24@yahoo.fr"
+        }
+      }
+    },
+    {
+      "uid": 71561626,
+      "ownerUid": 33508414,
+      "creatorUid": 33508414,
+      "slug": "32eme-edition-des-journees-de-la-bd_235824",
+      "title": {
+        "fr": "32e édition des Journées de la BD - Prix \"Vicky et Vicky\" et prix du festival",
+        "en": "32e édition des Journées de la BD"
+      },
+      "description": {
+        "fr": "Prix \"Vicky et Vicky\" et prix du festival",
+        "en": "Prix \"Vicky et Vicky\" et prix du festival"
+      },
+      "longDescription": {
+        "fr": "Le prix \"Vick et Vicky\" (parrainé par les éditions PtitLouis) est décerné à un jeune auteur qui ne doit pas avoir dessiné plus de 2 BD dans sa courte carrière :-)\n\nLe prix du festival est décerné à un auteur présent sur le festival et récompense une BD coup de œur des organisateurs.",
+        "en": "The Vick and Vicky Prize (sponsored by Ptitlouis editions) is awarded to a young author; he must not have drawn more than 2 comics in his short career:-)\n\nThe prize of the festival is awarded to an author present on the festival and awards a comic strip favorite of the organizers"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "ae000b960c224223a96068bb365b1ac1.base.image.jpg",
+        "credits": "32EME EDITION DU FESTIVAL BD DES JOURNEES DE LA BD",
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ae000b960c224223a96068bb365b1ac1.full.image.jpg",
+            "size": {
+              "height": 2121,
+              "width": 1500
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ae000b960c224223a96068bb365b1ac1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-25T08:00:00.000Z",
+          "end": "2020-04-25T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-26T08:00:00.000Z",
+          "end": "2020-04-26T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-11T09:07:58.000Z",
+      "createdAt": "2020-02-10T18:25:39.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 83365677,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 83365677,
+        "slug": "espace-rene-cassin441",
+        "name": "Espace René Cassin",
+        "address": "1 boulevard Jean Monnet 44640 Le Pellerin",
+        "city": "Le Pellerin",
+        "region": "Pays de la Loire",
+        "department": "Loire-Atlantique",
+        "postalCode": "44640",
+        "insee": "44120",
+        "countryCode": "FR",
+        "district": "Le Margat",
+        "latitude": 47.19432,
+        "longitude": -1.761203,
+        "updatedAt": "2020-01-14T11:03:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "3,5 € et gratuit pour les moins de 12 ans",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 33508414,
+        "custom": {
+          "organization": "LES JOURNEES DE LA BD",
+          "contactName": "Jean-Christophe DENNI",
+          "contactNumber": "0626314585",
+          "contactPosition": "Trésorier et Commission Auteurs et Responsable Librairie Temporaire",
+          "email": "jeanchristophe24@yahoo.fr"
+        }
+      }
+    },
+    {
+      "uid": 24035466,
+      "ownerUid": 42894527,
+      "creatorUid": 42894527,
+      "slug": "histoires-sans-fin",
+      "title": {
+        "fr": "Histoires sans fin",
+        "en": "Endless stories"
+      },
+      "description": {
+        "fr": "Atelier BD avec Martin Delagrèverie, dessinateur",
+        "en": "Comic book workshop with Martin Delagrèverie, cartoonist"
+      },
+      "longDescription": {
+        "fr": "À vos plumes, prêts… esquissez ! Initiez-vous à la bande dessinée avec Martin Delagrèverie, dessinateur professionnel, et créez votre planche à partir d’une histoire inachevée.\n\nDécouvrez ici l'univers artistique de l'auteur : [http://www.larvuk.fr](http://www.larvuk.fr)\n\nCet atelier est proposé en écho à l'exposition \"La guerre après la guerre\", présentée au Cpa jusqu'au 15 mars 2020.\n\n**Tarif : 5 € / Plus d'infos : le-cpa.com**",
+        "en": "Feathers up, ready… skew! Introduce yourself to comic books with professional cartoonist Martin Delagrèverie and create your board from an unfinished story.\nDiscover the author’s artistic universe here: [http://www.larvuk.fr](http://www.larvuk.fr)\nThis workshop is proposed in echo to the exhibition \"The war after the war\", presented at the Cpa until 15 March 2020.\n**Price: €5/ More info: le-cpa.com**"
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription uniquement",
+        "en": "On registration only"
+      },
+      "image": {
+        "filename": "7bb0c9c2901d4c3e883e188697c66abb.base.image.jpg",
+        "credits": "Martin Delagrèverie",
+        "size": {
+          "height": 467,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7bb0c9c2901d4c3e883e188697c66abb.full.image.jpg",
+            "size": {
+              "height": 2304,
+              "width": 3456
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7bb0c9c2901d4c3e883e188697c66abb.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-06T09:00:00.000Z",
+          "end": "2020-03-06T11:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T13:00:00.000Z",
+          "end": "2020-03-06T15:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-11T12:44:11.000Z",
+      "createdAt": "2020-01-28T10:13:29.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 51173374,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 9,
+        "max": 99
+      },
+      "registration": [
+        "contact@le-cpa.com"
+      ],
+      "location": {
+        "uid": 51173374,
+        "slug": "le-cpa",
+        "name": "Le Cpa - Centre du patrimoine arménien",
+        "address": "14 rue Louis Gallet 26000 Valence",
+        "city": "Valence",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Drôme",
+        "postalCode": "26000",
+        "insee": "26362",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.931392,
+        "longitude": 4.893585,
+        "updatedAt": "2020-01-28T10:18:40.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "5 €",
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 42894527,
+        "custom": {
+          "organization": "Le Cpa",
+          "contactName": "Chrystèle Roveda",
+          "contactNumber": "04 75 80 13 00",
+          "contactPosition": "Responsable du pôle des Publics",
+          "email": "chrystele.roveda@valenceromansagglo.fr"
+        }
+      }
+    },
+    {
+      "uid": 20497129,
+      "ownerUid": 18662827,
+      "creatorUid": 18662827,
+      "slug": "4eme-salon-bd-du-musee-de-la-grande-guerre-de-meaux",
+      "title": {
+        "en": "4th BD Salon of the Museum of the Great War of Meaux",
+        "fr": "4e salon BD du musée de la Grande Guerre de Meaux"
+      },
+      "description": {
+        "en": "4th BD Exhibition of the Great War Museum: Industrial and Mechanical Warfare",
+        "fr": "4e salon BD du musée de la Grande Guerre : guerre industrielle et mécanique"
+      },
+      "longDescription": {
+        "en": "### 4th comic book exhibition of the Museum of the Great War of the Country of Meaux, on the theme of industrial and mechanical war.\nIn the presence of:\n- David Vandermeulen\n- Pat Mills\n- Christian Rossi\n- Cédric Apikian\n- Bruno Loth\n- Jean-Pierre Pécau\n- Benoît Blary\n- Séverine Gauthier\n- Laurent Frédéric Bollé\n- Patrick Bousquet\n- Régis Hector\nOn the programme, dedications and two-way visits by some authors to the museum’s collections in connection with their works, with a cultural mediator.",
+        "fr": "### 4e salon BD du musée de la Grande Guerre du Pays de Meaux, sur le thème de la guerre industrielle et mécanique.\n\nEn présence de :\n\n\\- David Vandermeulen\n\n\\- Pat Mills\n\n\\- Christian Rossi\n\n\\- Cédric Apikian\n\n\\- Bruno Loth\n\n\\- Jean-Pierre Pécau\n\n\\- Benoît Blary\n\n\\- Séverine Gauthier\n\n\\- Laurent Frédéric Bollé\n\n\\- Patrick Bousquet\n\n\\- Régis Hector\n\nAu programme, dédicaces et visites à deux voix de certains auteurs dans les collections du musée en rapport avec leurs œuvres, avec un médiateur culturel."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "13d3a0884ff84f928c12da5eb4096a3b.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "13d3a0884ff84f928c12da5eb4096a3b.full.image.jpg",
+            "size": {
+              "height": 1587,
+              "width": 1123
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "13d3a0884ff84f928c12da5eb4096a3b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-01T13:00:00.000Z",
+          "end": "2020-03-01T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-11T14:49:00.000Z",
+      "createdAt": "2020-02-11T13:24:24.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3991323,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": true,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.museedelagrandeguerre.eu"
+      ],
+      "location": {
+        "uid": 3991323,
+        "slug": "musee-de-la-grande-guerre-du-pays-de-meaux332",
+        "name": "Musée de la Grande Guerre du Pays de Meaux",
+        "address": "Rue Lazare Ponticelli 77100 Meaux",
+        "city": "Meaux",
+        "region": "Île-de-France",
+        "department": "Seine-et-Marne",
+        "postalCode": "77100",
+        "insee": "77284",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.970103,
+        "longitude": 2.905557,
+        "updatedAt": "2020-02-11T09:08:58.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 18662827,
+        "custom": {
+          "organization": "Musée de la Grande Guerre du Pays de Meaux",
+          "contactName": "Matthieu Louvet",
+          "contactNumber": "0183690567",
+          "contactPosition": "Médiateur culturel",
+          "email": "matthieu.louvet@meaux.fr"
+        }
+      }
+    },
+    {
+      "uid": 41020249,
+      "ownerUid": 58076267,
+      "creatorUid": 58076267,
+      "slug": "exposition-zinozorrus",
+      "title": {
+        "en": "\"Zinozorrus\" exhibition",
+        "fr": "Exposition \"Zinozorrus\""
+      },
+      "description": {
+        "en": "Exhibition of plates of the newspaper Zinozorrus published by Le Chant des muses",
+        "fr": "Exposition de planches du journal Zinozorrus édité par Le Chant des muses"
+      },
+      "longDescription": {
+        "en": "**Exhibition visible from May 15 to June 27**\n**Opening Friday 15 May from 6pm to 10pm**\n**Nocturne Saturday 16 May**\nChant des muses publishes books and magazines devoted to drawing, poetry and humour. Their newspaper \"Zinozorrus\" is a comic book, drawing and cartoon \"old-fashioned\", like \"Monthly Charlie\". Old people of the old, and even of the very old, as well as young or less young people at work are published. The exhibition covers most of the authors who participate in the newspaper: Touïs, Théophile Alexandre Steinlen, Hugot, Elzie Crisler Segar, Pierre Arnau, Masse, David Richard, Benjamin Rabier, Pierre Guitton, Kristin Meller, Gérald Poussin, Petit-Roulet, Opper, Jean-Claude Lourdel, Lorraine les Bains, Emmanuelle Jamme, Oscar jacobsson, Philippe Caza, George Herriman, Violette Guyot, Philippe Gerbaud, Caran d'Ache, Loïc Bonnefont, Xavier Dole, lucas Méthé…",
+        "fr": "**Expo visible du 15 mai au 27 juin**\n\n**Vernissage vendredi 15 mai de 18h a 22h**\n\n**Nocturne samedi 16 mai**\n\nLe Chant des muses édite des livres et revues consacrés au dessin, à la poésie et à l’humour. Leur journal \"Zinozorrus\" est un journal de BD, dessin et cartoon \"à l'ancienne\", façon \"Charlie Mensuel\". Y sont publiés des vieux de la vieille, et même de la très vieille ainsi que des jeunots ou moins jeunots au travail un poil décalé. L'expo fait le tour de la plupart des auteurs qui participent au journal : Touïs, Théophile Alexandre Steinlen, Hugot, Elzie Crisler Segar, Pierre Arnau, Masse, David Richard, Benjamin Rabier, Pierre Guitton, Kristin Meller, Gérald Poussin, Petit-Roulet, Opper, Jean-Claude Lourdel, Lorraine les Bains, Emmanuelle Jamme, Oscar jacobsson, Philippe Caza, George Herriman, Violette Guyot, Philippe Gerbaud, Caran d'Ache, Loïc Bonnefont, Xavier Dole, lucas Méthé…"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "e908c76eb32e43c18a270b942624e219.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e908c76eb32e43c18a270b942624e219.full.image.jpg",
+            "size": {
+              "height": 1637,
+              "width": 1158
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e908c76eb32e43c18a270b942624e219.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-15T16:00:00.000Z",
+          "end": "2020-05-15T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T08:00:00.000Z",
+          "end": "2020-05-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T08:00:00.000Z",
+          "end": "2020-05-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T08:00:00.000Z",
+          "end": "2020-05-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T08:00:00.000Z",
+          "end": "2020-05-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T08:00:00.000Z",
+          "end": "2020-05-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T08:00:00.000Z",
+          "end": "2020-05-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T08:00:00.000Z",
+          "end": "2020-05-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T08:00:00.000Z",
+          "end": "2020-05-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T08:00:00.000Z",
+          "end": "2020-05-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T08:00:00.000Z",
+          "end": "2020-05-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-30T08:00:00.000Z",
+          "end": "2020-05-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-02T08:00:00.000Z",
+          "end": "2020-06-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T08:00:00.000Z",
+          "end": "2020-06-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T08:00:00.000Z",
+          "end": "2020-06-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T08:00:00.000Z",
+          "end": "2020-06-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-06T08:00:00.000Z",
+          "end": "2020-06-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T08:00:00.000Z",
+          "end": "2020-06-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T08:00:00.000Z",
+          "end": "2020-06-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T08:00:00.000Z",
+          "end": "2020-06-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T08:00:00.000Z",
+          "end": "2020-06-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-13T08:00:00.000Z",
+          "end": "2020-06-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T08:00:00.000Z",
+          "end": "2020-06-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T08:00:00.000Z",
+          "end": "2020-06-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T08:00:00.000Z",
+          "end": "2020-06-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T08:00:00.000Z",
+          "end": "2020-06-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-20T08:00:00.000Z",
+          "end": "2020-06-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-23T08:00:00.000Z",
+          "end": "2020-06-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-24T08:00:00.000Z",
+          "end": "2020-06-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-25T08:00:00.000Z",
+          "end": "2020-06-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-26T08:00:00.000Z",
+          "end": "2020-06-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-27T08:00:00.000Z",
+          "end": "2020-06-27T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-11T15:50:26.000Z",
+      "createdAt": "2020-02-11T14:46:10.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 13319566,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 13319566,
+        "slug": "en-traits-libres",
+        "name": "En traits libres",
+        "address": "2 rue du Bayle 34000 Montpellier",
+        "city": "Montpellier",
+        "region": "Occitanie",
+        "department": "Hérault",
+        "postalCode": "34062",
+        "insee": "34172",
+        "countryCode": "FR",
+        "district": "Centre",
+        "latitude": 43.61062,
+        "longitude": 3.875067,
+        "updatedAt": "2020-02-11T15:14:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Le Chant des muses",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 58076267,
+        "custom": {
+          "organization": "6 pieds sous terre",
+          "contactName": "Zelda Hadener",
+          "contactNumber": "0659291699",
+          "contactPosition": "éditrice",
+          "email": "zeldahadener@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 67718343,
+      "ownerUid": 14575543,
+      "creatorUid": 14575543,
+      "slug": "exposition-apocalypses-de-francois-avril-et-philippe-druillet",
+      "title": {
+        "fr": "Exposition \"Apocalypses\" de François Avril et Philippe Druillet",
+        "en": "Exhibition \"Apocalypses\" by François Avril and Philippe Druillet"
+      },
+      "description": {
+        "fr": "La galerie Barbier a le plaisir d'accueillir François Avril et Philippe Druillet pour une exposition de peintures réalisées à quatre mains par les deux artistes",
+        "en": "The Barbier gallery is pleased to welcome François Avril and Philippe Druillet for an exhibition of paintings made with four hands by the two artists"
+      },
+      "longDescription": {
+        "fr": "La galerie Barbier a le plaisir d’accueillir **François Avril** et **Philippe Druillet** pour l’exposition **\"Apocalypses\"**, qui présentera une trentaine d’œuvres réalisées à quatre mains par les deux artistes.\n\n**Philippe Druillet** est né en 1944 à Toulouse. Membre fondateur du journal de bande dessinée Métal Hurlant, il est l’auteur, notamment, de _La Nuit_ (1976) et _Salammbô_ (1981) où il explose les cadres de la bande dessinée. En 1988, il reçoit le Grand Prix de la ville d’Angoulême pour l’ensemble de son œuvre.\n\n**François Avril** est né à Paris en1961. Après avoir étudié le dessin, il s’illustre dans la bande dessinée, la publicité, les magazines et la presse quotidienne. Proche de l’art contemporain, il est notamment reconnu pour son travail pictural.\n\nCe projet, né de l’admiration mutuelle entre les deux artistes, les a menés à créer ensemble, sur le même support, des peintures monumentales où leurs deux univers, pourtant si éloignés, dialoguent en harmonie.\n\n\"_Il faut respecter l’autre, énormément, parce qu’il ne s’agit pas de tirer la couverture à soi. Ce n’est pas un combat, c’est un accord. Et c’est ce que nous avons réussi à faire, je crois.\"_ **François Avril**\n\n\" _ll n’y a pas de fautes. On peut parfois s’associer avec quelqu’un pour une exposition et puis on voit qu’il y a des erreurs ou – comment dire – une incompréhension. Mais, ici, chaque fois que je vois le travail terminé, je me dis “mais c’est l’évidence même_”.\" **Philippe Druillet**\n\nÀ l’occasion de l’exposition, la galerie publie _Apocalypses_, ouvrage réunissant les œuvres de **François Avril** et **Philippe Druillet** ainsi qu’un entretien avec les deux artistes.",
+        "en": "The Barbier gallery is pleased to welcome **François Avril** and **Philippe Druillet** for the exhibition **\"Apocalypses\"**, which will present some thirty works made with four hands by the two artists.\n**Philippe Druillet** was born in 1944 in Toulouse. A founding member of the comic book Métal Hurlant, he is the author, among others, of _La Nuit_ (1976) and _Salammbô_ (1981) where he explodes the frames of the comic book. In 1988, he received the Grand Prix of the city of Angoulême for his entire work.\n**François Avril** was born in Paris in 1961\\. After studying drawing, he distinguished himself in comic books, advertising, magazines and the daily press. Close to contemporary art, he is recognized for his pictorial work.\nThis project, born of the mutual admiration between the two artists, led them to create together, on the same medium, monumental paintings where their two universes, though so distant, dialogue in harmony.\n\"_You have to respect the other, enormously, because it is not a matter of drawing the cover. It is not a fight, it is an agreement. And that is what we managed to do, I believe.\"_ **François Avril**\n\"There are no faults. Sometimes you can associate with someone for an exhibition and then you see that there are mistakes or – how to put it – a misunderstanding. But here, every time I see the work done, I say to myself “but it’s the same thing”.” **Philippe Druillet**\nOn the occasion of the exhibition, the gallery publishes _Apocalypses_, a book bringing together the works of **François Avril** and **Philippe Druillet** as well as an interview with the two artists."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "4d1b255405a141aaab31ebfbe322cbef.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1008,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "4d1b255405a141aaab31ebfbe322cbef.full.image.jpg",
+            "size": {
+              "height": 1000,
+              "width": 695
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "4d1b255405a141aaab31ebfbe322cbef.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-27T18:00:00.000Z",
+          "end": "2020-02-27T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T13:00:00.000Z",
+          "end": "2020-02-28T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T13:00:00.000Z",
+          "end": "2020-02-29T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T13:00:00.000Z",
+          "end": "2020-03-03T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T13:00:00.000Z",
+          "end": "2020-03-04T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T13:00:00.000Z",
+          "end": "2020-03-05T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T13:00:00.000Z",
+          "end": "2020-03-06T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T13:00:00.000Z",
+          "end": "2020-03-07T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T13:00:00.000Z",
+          "end": "2020-03-10T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T13:00:00.000Z",
+          "end": "2020-03-11T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T13:00:00.000Z",
+          "end": "2020-03-12T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T13:00:00.000Z",
+          "end": "2020-03-13T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T13:00:00.000Z",
+          "end": "2020-03-14T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T13:00:00.000Z",
+          "end": "2020-03-17T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T13:00:00.000Z",
+          "end": "2020-03-19T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T13:00:00.000Z",
+          "end": "2020-03-24T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T13:00:00.000Z",
+          "end": "2020-03-26T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T13:00:00.000Z",
+          "end": "2020-03-27T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-11T15:50:11.000Z",
+      "createdAt": "2020-02-11T15:05:59.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3593467,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "info@galeriebarbier.com"
+      ],
+      "location": {
+        "uid": 3593467,
+        "slug": "galerie-barbier93",
+        "name": "Galerie Barbier",
+        "address": "10 rue Choron 75009 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75009",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 9e Arrondissement",
+        "latitude": 48.877524,
+        "longitude": 2.341413,
+        "updatedAt": "2020-02-11T15:03:13.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Galerie",
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 14575543,
+        "custom": {
+          "organization": "Galerie Barbier",
+          "contactName": "Jean-Baptiste Barbier",
+          "contactNumber": "0680062995",
+          "contactPosition": "Gérant",
+          "email": "info@galeriebarbier.com"
+        }
+      }
+    },
+    {
+      "uid": 77995605,
+      "ownerUid": 14575543,
+      "creatorUid": 14575543,
+      "slug": "exposition-apocalypses",
+      "title": {
+        "fr": "Exposition Apocalypses de François Avril et Philippe Druillet"
+      },
+      "description": {
+        "fr": "La Galerie Barbier a le plaisir d'accueillir François Avril et Philippe Druillet pour une exposition de peintures réalisées à quatre mains par les deux artistes."
+      },
+      "longDescription": {
+        "fr": "La galerie Barbier a le plaisir d’accueillir **François Avril** et **Philippe Druillet** pour l’exposition **Apocalypses**, qui présentera une trentaine d’oeuvres réalisées à quatre mains par les deux artistes.\n\n**Philippe Druillet** est né en 1944 à Toulouse. Membre fondateur du journal de bande dessinée Métal Hurlant, il est l’auteur, notamment, de _La Nuit_ (1976) et _Salammbô_ (1981) où il explose les cadres de la bande dessinée. En 1988, il reçoit le Grand Prix de la Ville d’Angoulême pour l’ensemble de son oeuvre.\n\n**François Avril** est né à Paris en1961. Après avoir étudié le dessin, il s’illustre dans la bande dessinée, la publicité, les magazines et la presse quotidienne. Proche de l’art contemporain, il est notamment reconnu pour son travail pictural.\n\nCe projet, né de l’admiration mutuelle entre les deux artistes, les a menés à créer ensemble, sur le même support, des peintures monumentales où leurs deux univers, pourtant si éloignés, dialoguent en harmonie.\n\n« _Il faut respecter l’autre, énormément, parce qu’il ne s’agit pas de tirer la couverture à soi. Ce n’est pas un combat, c’est un accord. Et c’est ce que nous avons réussi à faire, je crois._ » **François AVRIL**\n\n« _ll n’y a pas de fautes. On peut parfois s’associer avec quelqu’un pour une exposition et puis on voit qu’il y a des erreurs ou – comment dire – une incompréhension. Mais, ici, chaque fois que je vois le travail terminé, je me dis “mais c’est l’évidence même_”. » **Philippe DRUILLET**\n\nÀ l’occasion de l’exposition, la galerie publie _Apocalypses,_ ouvrage réunissant les oeuvres de **François Avril** et **Philippe Druillet** ainsi qu’un entretien avec les deux artistes."
+      },
+      "keywords": {
+        "fr": [
+          "Druillet",
+          "Avril",
+          "BD",
+          "peintures",
+          "dessins",
+          "originaux",
+          "Barbier"
+        ]
+      },
+      "conditions": {
+        "fr": "Entrée libre"
+      },
+      "image": {
+        "filename": "a46a28f6b6194000b70c1e3f001698da.base.image.jpg",
+        "credits": "Philipe Druillet & François Avril",
+        "size": {
+          "height": 1008,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "a46a28f6b6194000b70c1e3f001698da.full.image.jpg",
+            "size": {
+              "height": 1000,
+              "width": 695
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "a46a28f6b6194000b70c1e3f001698da.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-27T18:00:00.000Z",
+          "end": "2020-02-27T20:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T13:00:00.000Z",
+          "end": "2020-02-28T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T13:00:00.000Z",
+          "end": "2020-02-29T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T13:00:00.000Z",
+          "end": "2020-03-03T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T13:00:00.000Z",
+          "end": "2020-03-04T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T13:00:00.000Z",
+          "end": "2020-03-05T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T13:00:00.000Z",
+          "end": "2020-03-06T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T13:00:00.000Z",
+          "end": "2020-03-07T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T13:00:00.000Z",
+          "end": "2020-03-10T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T13:00:00.000Z",
+          "end": "2020-03-11T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T13:00:00.000Z",
+          "end": "2020-03-12T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T13:00:00.000Z",
+          "end": "2020-03-13T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T13:00:00.000Z",
+          "end": "2020-03-14T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T13:00:00.000Z",
+          "end": "2020-03-17T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T13:00:00.000Z",
+          "end": "2020-03-19T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T13:00:00.000Z",
+          "end": "2020-03-24T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T13:00:00.000Z",
+          "end": "2020-03-26T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T13:00:00.000Z",
+          "end": "2020-03-27T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-11T15:23:36.000Z",
+      "createdAt": "2020-02-11T14:03:01.000Z",
+      "agendaUid": 90185293,
+      "locationUid": 36849711,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "info@galeriebarbier.com"
+      ],
+      "location": {
+        "uid": 36849711,
+        "slug": "galerie-barbier",
+        "name": "Galerie Barbier",
+        "address": "10, rue Choron, 75009 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75009",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 9e Arrondissement",
+        "latitude": 48.877524,
+        "longitude": 2.341413,
+        "updatedAt": "2020-02-11T13:54:32.000Z",
+        "image": "location36849711.jpg",
+        "description": {
+          "fr": "Dirigée par Jean-Baptiste Barbier, la galerie Barbier est une galerie d’art dont l’objet est la valorisation et la diffusion des Arts Graphiques et de la Bande Dessinée en particulier. Elle achète, expose et propose à la vente des dessins originaux et des planches originales de BD."
+        },
+        "website": "http://www.galeriebarbier.com",
+        "email": "info@galeriebarbier.com",
+        "phone": "0680062995",
+        "links": [
+          "https://www.facebook.com/galeriebarbier/",
+          "https://twitter.com/GalerieBarbier"
+        ],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": "Jean-Claude Gotting",
+        "extId": null
+      },
+      "state": 1,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "galerie-barbier",
+        "uid": 90185293,
+        "official": 0,
+        "title": "Galerie Barbier",
+        "description": "La galerie Barbier est une galerie d’art dont l’objet est la valorisation et la diffusion des Arts Graphiques et de la Bande Dessinée en particulier.",
+        "url": "http://www.galeriebarbier.com",
+        "image": "agenda90185293.jpg",
+        "updatedAt": "2020-02-11T14:16:05.000Z",
+        "createdAt": "2020-02-11T13:40:47.000Z",
+        "officializedAt": null,
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 14575543,
+        "custom": {
+          "organization": "Galerie Barbier",
+          "contactName": "Jean-Baptiste Barbier",
+          "contactNumber": "0680062995",
+          "contactPosition": "Gérant",
+          "email": "info@galeriebarbier.com"
+        }
+      }
+    }
+  ],
+  "lastId": 2166250
+}

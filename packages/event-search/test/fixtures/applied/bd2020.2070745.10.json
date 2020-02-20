@@ -1,0 +1,1948 @@
+{
+  "events": [
+    {
+      "uid": 55132590,
+      "ownerUid": 75945681,
+      "creatorUid": 75945681,
+      "slug": "projection-des-coups-de-coeur-bd-et-mangas-du-college-palissy-sous-forme-de-booktubes-a-la-mediatheque-francoise-sagan-paris-10e",
+      "title": {
+        "fr": "Projection des coups de cœur BD et mangas du collège Palissy sous forme de booktubes à la médiathèque Françoise Sagan",
+        "en": "Screening of comic books and mangas from Palissy College as booktubes at the Françoise Sagan Media Library"
+      },
+      "description": {
+        "fr": "Pour célébrer 2020, année officielle de la BD, les élèves du Club lecture du collège Palissy (Paris) ont réalisé des capsules vidéos où ils présenteront leurs coups de cœur BD à la médiathèque Sagan",
+        "en": "To celebrate 2020, the official year of the comic book, the students of the Reading Club of the Palissy College (Paris) have made video capsules where they will present their favorite comic books at t"
+      },
+      "longDescription": {
+        "fr": "Pour célébrer 2020, année officielle de la BD, les élèves du Club lecture du collège Palissy (Paris) se sont filmés en train de présenter leurs coups de cœur BD et mangas. Ces vidéos, réalisées à la manière des booktubeurs, seront projetées à la Médiathèque Françoise Sagan le samedi 18 janvier 2020.",
+        "en": "To celebrate 2020, the official year of comic books, the students of the Reading Club of Palissy College (Paris) filmed themselves presenting their favourite comic books and mangas. These videos, made in the manner of bookrunners, will be screened at the Médiathèque Françoise Sagan on Saturday, January 18, 2020."
+      },
+      "keywords": {
+        "fr": [
+          "BD",
+          "mangas",
+          "vidéos",
+          "coups de coeur",
+          "médiathèque Sagan",
+          "collège palissy"
+        ]
+      },
+      "conditions": {},
+      "image": {
+        "filename": "ea68990e374e4c149ffa27fc80e75069.base.image.jpg",
+        "credits": "A. L.",
+        "size": {
+          "height": 481,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "ea68990e374e4c149ffa27fc80e75069.full.image.jpg",
+            "size": {
+              "height": 2682,
+              "width": 3904
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "ea68990e374e4c149ffa27fc80e75069.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T14:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:18.000Z",
+      "createdAt": "2019-11-07T13:49:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 3114859,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 3114859,
+        "slug": "mediatheque-francoise-sagan795",
+        "name": "Médiathèque Françoise Sagan",
+        "address": "8 rue Léon Schwartzenberg 75010 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75010",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 10e Arrondissement",
+        "latitude": 48.875637,
+        "longitude": 2.353757,
+        "updatedAt": "2019-11-07T09:50:30.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 706,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Médiathèque Françoise Sagan",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 2,
+        "userUid": 75945681,
+        "custom": {
+          "organization": null,
+          "contactName": null,
+          "contactNumber": null,
+          "contactPosition": null,
+          "email": null
+        }
+      }
+    },
+    {
+      "uid": 19970562,
+      "ownerUid": 29604434,
+      "creatorUid": 29604434,
+      "slug": "residence-artistique-dun-auteur-illustrateur-de-bande-dessinee",
+      "title": {
+        "fr": "Résidence artistique d'un auteur-illustrateur de bande dessinée",
+        "en": "Artistic residence of a comic book author-illustrator"
+      },
+      "description": {
+        "fr": "L'auteur-illustrateur Eric Stoffel sera accueilli à Fréjus dans le cadre d'une résidence artistique du 25 novembre 2019 au 29 mai 2020",
+        "en": "Author-illustrator Eric Stoffel will be welcomed in Fréjus as part of an artistic residency from November 25, 2019 to May 29, 2020"
+      },
+      "longDescription": {
+        "fr": "Depuis 2017, la ville de Fréjus a choisi la bande dessinée comme medium privilégié de transmission ; en témoigne l'édition des 3 tomes de la bande dessinée ''Fréjus, 2 000 ans d'histoire'' aux éditions Rayclame.\n\nPour prolonger ce travail autour de la bande dessinée et des actions menées dans le cadre de la convention Education artistique et culturelle (EAC), la direction de l'action culturelle et du patrimoine met en place une résidence artistique avec un auteur-illustrateur de bande dessinée, Eric Stoffel.\n\nL'auteur Eric Stoffel rencontrera tous les publics pour expliquer sa démarche artistique et proposera d'expérimenter la pratique de la bande dessinée en situation réelle.\n\nCes actions débuteront le 25 novembre 2019 et s'achèveront à la fin mai 2020 autour d'une grande exposition rassemblant les travaux des différents publics engagés dans ce projet.",
+        "en": "Since 2017, the city of Fréjus has chosen comic strip as the preferred medium for transmission; this is evidenced by the edition of the 3 volumes of the comic book 'Fréjus, 2000 years of history', published by Rayclame.\nTo extend this work around the comic strip and the actions carried out within the framework of the Convention Artistic and Cultural Education (EAC), the Directorate of Cultural Action and Heritage sets up an artistic residence with an author-cartoon illustrator, Eric Stoffel.\nThe author Eric Stoffel will meet all audiences to explain his artistic approach and propose to experiment the practice of comic strip in real situations.\nThese actions will begin on 25 November 2019 and will end at the end of May 2020 around a large exhibition bringing together the works of the various audiences involved in this project."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "3f99fb73ca584c138227efd8985ad87c.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 612,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3f99fb73ca584c138227efd8985ad87c.full.image.jpg",
+            "size": {
+              "height": 1901,
+              "width": 2177
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3f99fb73ca584c138227efd8985ad87c.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-13T07:00:00.000Z",
+          "end": "2020-01-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-14T07:00:00.000Z",
+          "end": "2020-01-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T07:00:00.000Z",
+          "end": "2020-01-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T07:00:00.000Z",
+          "end": "2020-01-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T07:00:00.000Z",
+          "end": "2020-01-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T07:00:00.000Z",
+          "end": "2020-01-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-20T07:00:00.000Z",
+          "end": "2020-01-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-21T07:00:00.000Z",
+          "end": "2020-01-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T07:00:00.000Z",
+          "end": "2020-01-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T07:00:00.000Z",
+          "end": "2020-01-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T07:00:00.000Z",
+          "end": "2020-01-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T07:00:00.000Z",
+          "end": "2020-01-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-06T06:00:00.000Z",
+          "end": "2020-04-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T06:00:00.000Z",
+          "end": "2020-04-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T06:00:00.000Z",
+          "end": "2020-04-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T06:00:00.000Z",
+          "end": "2020-04-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T06:00:00.000Z",
+          "end": "2020-04-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-11T06:00:00.000Z",
+          "end": "2020-04-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-13T06:00:00.000Z",
+          "end": "2020-04-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T06:00:00.000Z",
+          "end": "2020-04-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T06:00:00.000Z",
+          "end": "2020-04-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T06:00:00.000Z",
+          "end": "2020-04-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T06:00:00.000Z",
+          "end": "2020-04-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-18T06:00:00.000Z",
+          "end": "2020-04-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-18T06:00:00.000Z",
+          "end": "2020-05-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T06:00:00.000Z",
+          "end": "2020-05-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T06:00:00.000Z",
+          "end": "2020-05-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T06:00:00.000Z",
+          "end": "2020-05-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T06:00:00.000Z",
+          "end": "2020-05-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-23T06:00:00.000Z",
+          "end": "2020-05-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-25T06:00:00.000Z",
+          "end": "2020-05-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T06:00:00.000Z",
+          "end": "2020-05-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T06:00:00.000Z",
+          "end": "2020-05-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T06:00:00.000Z",
+          "end": "2020-05-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T06:00:00.000Z",
+          "end": "2020-05-29T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:10.000Z",
+      "createdAt": "2019-11-07T14:40:48.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 28012320,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 6,
+        "max": 99
+      },
+      "registration": [
+        "s.bibliotheque@ville-frejus.fr",
+        "c.mouton@ville-frejus.fr"
+      ],
+      "location": {
+        "uid": 28012320,
+        "slug": "mediatheque-villa-marie890",
+        "name": "Médiathèque Villa-Marie",
+        "address": "447 rue Aristide Briand 83600 Fréjus",
+        "city": "Fréjus",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Var",
+        "postalCode": "83600",
+        "insee": "83061",
+        "countryCode": "FR",
+        "district": "Port Fréjus",
+        "latitude": 43.433191,
+        "longitude": 6.740516,
+        "updatedAt": "2019-11-08T07:55:46.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 711,
+      "autre-type-devenement": "Résidence artistique",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 29604434,
+        "custom": {
+          "organization": "MEDIATHEQUE VILLA MARIE",
+          "contactName": "Claire MOUTON",
+          "contactNumber": "04.94.51.01.89",
+          "contactPosition": "Responsable Animations Adultes et Communication",
+          "email": "c.mouton@ville-frejus.fr"
+        }
+      }
+    },
+    {
+      "uid": 98559463,
+      "ownerUid": 84492064,
+      "creatorUid": 84492064,
+      "slug": "festival-bulles-en-loire",
+      "title": {
+        "fr": "Festival Bulles en Loire",
+        "en": "Festival Bulles en Loire"
+      },
+      "description": {
+        "fr": "Salon de bande dessinée tout public",
+        "en": "Cartoon lounge for all audiences"
+      },
+      "longDescription": {
+        "fr": "Outre les rencontres avec les auteurs de bande dessinée, scénaristes ou illustrateurs, le festival Bulles en Loire présente la particularité de proposer **un concours de bande dessinée destiné aux amateurs âgés de 14 ans et plus qui se déroule pendant la durée du salon** (sur inscription préalable avant le 3 février 2020). Librairie neuve et occasions, expositions, animations jeune public, fanzine...",
+        "en": "In addition to meetings with comic book authors, screenwriters or illustrators, the Bulles en Loire festival presents the particularity of proposing **a comic book contest for amateurs aged 14 years and older that takes place during the duration of the show** (by prior registration before 3 February 2020). New bookshop and occasions, exhibitions, animations for young audiences, fanzine..."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "2ed201f20e854da187dbcd7c361999ae.base.image.jpg",
+        "credits": "Bruno Gilson",
+        "size": {
+          "height": 1079,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "2ed201f20e854da187dbcd7c361999ae.full.image.jpg",
+            "size": {
+              "height": 800,
+              "width": 519
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "2ed201f20e854da187dbcd7c361999ae.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-29T13:00:00.000Z",
+          "end": "2020-02-29T18:30:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T09:00:00.000Z",
+          "end": "2020-03-01T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:03.000Z",
+      "createdAt": "2019-10-18T17:15:27.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 2647342,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 7,
+        "max": 77
+      },
+      "registration": [
+        "http://www.bullesenloire.calonnanim.fr"
+      ],
+      "location": {
+        "uid": 2647342,
+        "slug": "espace-layon",
+        "name": "Espace Layon",
+        "address": "21 avenue du 11 Novembre 49290 Chalonnes-sur-Loire",
+        "city": "Chalonnes-sur-Loire",
+        "region": "Pays de la Loire",
+        "department": "Maine-et-Loire",
+        "postalCode": "49290",
+        "insee": "49063",
+        "countryCode": "FR",
+        "district": "Les Bureaux",
+        "latitude": 47.34648,
+        "longitude": -0.777793,
+        "updatedAt": "2019-11-08T07:58:24.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": "concours de bandes dessinées amateurs",
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "CALONN'ANIM",
+      "structure-partenaire": "Mairie de Chalonnes-sur-Loire",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 84492064,
+        "custom": {
+          "organization": "CALONN'ANIM",
+          "contactName": "Joelle PERRAULT",
+          "contactNumber": "0241779567",
+          "contactPosition": "Communication",
+          "email": "festibdchalonnes@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 75601593,
+      "ownerUid": 21804477,
+      "creatorUid": 21804477,
+      "slug": "exposition_233690",
+      "title": {
+        "fr": "Exposition \"Hélène Jégado : un bol d'Arsenic \"",
+        "en": "Exhibition \"Hélène Jégado: un bol d'Arsenic\""
+      },
+      "description": {
+        "fr": "Hélène Jégado : Un bol d'Arsenic ?",
+        "en": "Hélène Jégado: A bowl of Arsenic?"
+      },
+      "longDescription": {
+        "fr": "Cette exposition c'est l’occasion de se replonger dans cette sordide histoire du XIXe siècle. Notamment à travers les planches de la bande dessinée Arsenic d’Olivier Keraval et Luc Monnerais (SIXTO éditions) et des documents d’archives (une visite guidée de l’office de tourisme est aussi mise en place).\n\nNé en 1803 dans une famille pauvre de Plouhinec, dans le Morbihan, Hélène Jégado, surnommée « Fleur de Tonnerre » par sa mère, se retrouve très tôt orpheline. Après avoir été recueillie par ses tantes, elle devient par la suite cuisinière dans différentes familles bourgeoises. C’est alors qu’elle va débuter sa sinistre carrière d’empoisonneuse. Avec ses maîtres de maison comme premières victimes. Son mode opératoire ? Hélène Jégado dissout de l’arsenic dans les plats qu’elle prépare.",
+        "en": "This exhibition is an opportunity to plunge back into the sordid history of the 19th century. Notably through the boards of the comic book Arsenic by Olivier Keraval and Luc Monnrais (SIXTO editions) and archival documents (a guided tour of the tourist office is also set up).\nBorn in 1803 to a poor family in Plouhinec, Morbihan, Hélène Jégado, nicknamed \"Fleur de Tonnerre\" by her mother, soon found herself an orphan. After being taken in by her aunts, she later became a cook in various bourgeois families. It is then that she will begin her sinister career as a poisoner. With her householders as first victims. Her modus operandi? Hélène Jégado dissolves arsenic in the dishes she prepares."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "accès libre",
+        "en": "free access"
+      },
+      "image": {
+        "filename": "7da101ec75c44046a3cb27eedd4ab38f.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 838,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7da101ec75c44046a3cb27eedd4ab38f.full.image.jpg",
+            "size": {
+              "height": 731,
+              "width": 611
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7da101ec75c44046a3cb27eedd4ab38f.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-05T12:30:00.000Z",
+          "end": "2020-05-05T16:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:00.000Z",
+      "createdAt": "2019-11-07T16:04:54.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 54000321,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 5,
+        "max": 99
+      },
+      "registration": [
+        "http://mediatheques.fougeres-agglo.bzh"
+      ],
+      "location": {
+        "uid": 54000321,
+        "slug": "mediatheque-de-fougeres631",
+        "name": "Médiathèque de Fougères",
+        "address": "2 esplanade des Chaussonnières 35300 Fougères",
+        "city": "Fougères",
+        "region": "Bretagne",
+        "department": "Ille-et-Vilaine",
+        "postalCode": "35300",
+        "insee": "35115",
+        "countryCode": "FR",
+        "district": "Écartelée - Bonabry - Orières - Paron",
+        "latitude": 48.350192,
+        "longitude": -1.194549,
+        "updatedAt": "2019-11-08T07:56:38.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque de Fougères",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 21804477,
+        "custom": {
+          "organization": "Médiathèque de Fougères",
+          "contactName": "Szymczyk Olga",
+          "contactNumber": "02 23 51 10 90",
+          "contactPosition": "médiation culturelle",
+          "email": "oszymczyk@fougeres-agglo.bzh"
+        }
+      }
+    },
+    {
+      "uid": 7204313,
+      "ownerUid": 97964391,
+      "creatorUid": 97964391,
+      "slug": "festival-de-bande-dessinee-et-de-limage-projetee-quai-des-bulles",
+      "title": {
+        "fr": "Festival de bande dessinée et de l'image projetée Quai des Bulles",
+        "en": "Cartoon festival and projected image Quai des Bulles"
+      },
+      "description": {
+        "fr": "Expositions, animations, rencontres et cinéma - Salon du livre",
+        "en": "Exhibitions, animations, meetings and cinema - Book fair"
+      },
+      "longDescription": {
+        "fr": "_**Découvrez la 40e édition de Quai des Bulles, festival de la bande dessinée et de l'image projetée à Saint-Malo (35).**_\n\n**\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\*\\***\n\n**Au programme :**\n\n8 **expositions** originales\n\n**Cinéma :** projection de 6 longs métrages\n\n**Le Forum**\n\nConférences, discussions et image projetée\n\nFilms, documentaires et courts métrages\n\n**Contes à Bulles**\n\n3 spectacles originaux mettant en scène conteur, musicien et dessinateur.\n\n**Concert dessinée**\n\n**Le Bistro**\n\nRencontres et discussions autour de l’actualité de la BD\n\nDirects radios\n\nMusique\n\n**Rencontres pro-amateurs**\n\nLieu d’échanges entre professionnels de la BD et dessinateurs/scénaristes amateurs\n\n**Espace jeunesse**\n\nAteliers, animations et jeux autour de l’univers d’Akissi\n\nHalte-garderie (2 à 6 ans)\n\n**750 auteurs de bande dessinée attendus**\n\n**170 exposants à l’espace Quai St-Malo**\n\nEditeurs/Libraires\n\nFanzines/Para BD\n\nBoutique et Café Quai des Bulles\n\nRestauration rapide\n\nEt partout en ville, expositions, animations et rencontres !",
+        "en": "_**Discover the 40th edition of Quai des Bulles, a comic strip and image festival projected in Saint-Malo (35).**_\n*************************************************\n**On the programme are:**\n8 original **exhibitions**\n**Cinema:** screening of 6 feature films\n**The Forum**\nConferences, discussions and projected image\nFilms, documentaries and short films\n**Tales in Bulles**\n3 original shows featuring storyteller, musician and cartoonist.\n**Concert dessinée**\n**The Bistro**\nMeetings and discussions on current affairs in comics\nDirect radio stations\nMusic\n**Pro-amateur meetings**\nPlace for exchanges between comic book professionals and amateur cartoonists/screenwriters\n**Espace jeunesse**\nWorkshops, animations and games around the universe of Akissi\nDrop-in daycare (2 to 6 years)\n**750 expected comic book authors**\n**170 exhibitors at the Quai St-Malo space**\nPublishers/Booksellers\nFanzines/Para BD\nBoutique and Café Quai des Bulles\nFast food service\nAnd throughout the city, exhibitions, events and meetings!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "3cc5f113eed94858b14f206293f06c7a.base.image.jpg",
+        "credits": "Quai des Bulles / Peeters 2014",
+        "size": {
+          "height": 898,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3cc5f113eed94858b14f206293f06c7a.full.image.jpg",
+            "size": {
+              "height": 898,
+              "width": 700
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3cc5f113eed94858b14f206293f06c7a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-10-23T07:30:00.000Z",
+          "end": "2020-10-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-24T07:30:00.000Z",
+          "end": "2020-10-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-10-25T08:30:00.000Z",
+          "end": "2020-10-25T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:06.000Z",
+      "createdAt": "2019-11-08T08:33:08.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 75078274,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "info@quaidesbulles.com",
+        "0299403963",
+        "http://www.quaidesbulles.com"
+      ],
+      "location": {
+        "uid": 75078274,
+        "slug": "palais-du-grand-large689",
+        "name": "Palais du grand large",
+        "address": "1 quai Duguay-Trouin 35400 Saint-Malo",
+        "city": "Saint-Malo",
+        "region": "Bretagne",
+        "department": "Ille-et-Vilaine",
+        "postalCode": "35400",
+        "insee": "35288",
+        "countryCode": "FR",
+        "district": "Courtoisville - Sillon - Moka",
+        "latitude": 48.651865,
+        "longitude": -2.014815,
+        "updatedAt": "2019-11-08T09:43:21.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "10 € par jour - Gratuit pour les moins de 12 ans",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 97964391,
+        "custom": {
+          "organization": "Quai des Bulles",
+          "contactName": "Florian AUBIN",
+          "contactNumber": "0285856530",
+          "contactPosition": "Directeur",
+          "email": "florian@quaidesbulles.com"
+        }
+      }
+    },
+    {
+      "uid": 59787787,
+      "ownerUid": 80132217,
+      "creatorUid": 80132217,
+      "slug": "les-bd-de-jeanne",
+      "title": {
+        "fr": "Les BD de Jeanne",
+        "en": "The comics of Jeanne"
+      },
+      "description": {
+        "fr": "Concours  : lecture de 6 BD avec un quiz à compléter",
+        "en": "Contest: reading 6 comics with a quiz to complete"
+      },
+      "longDescription": {
+        "fr": "A partir du 9 novembre 2020, 6 BD sélectionnées seront disponibles au CDI du lycée. Les élèves de seconde qui le souhaitent viennent lire les 6 BD sur place puis remplissent un quiz. Un tirage au sort, début décembre, permet de connaître le ou la gagnant(e) d'un chèque-cadeau d'une enseigne culturelle.",
+        "en": "From 9 November 2020, 6 selected comics will be available at the High School CDI. Second graders who wish to come and read the 6 comic books on site then fill out a quiz. A random draw at the beginning of December will identify the winner of a cultural sign’s gift certificate."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Etre lycéen en classe de seconde",
+        "en": "Being a high school student in a second class"
+      },
+      "image": {
+        "filename": "f85796c5c3794a38b6a383137f279306.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 628,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f85796c5c3794a38b6a383137f279306.full.image.jpg",
+            "size": {
+              "height": 1024,
+              "width": 1143
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f85796c5c3794a38b6a383137f279306.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-11-09T07:00:00.000Z",
+          "end": "2020-11-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-10T07:00:00.000Z",
+          "end": "2020-11-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-11T07:00:00.000Z",
+          "end": "2020-11-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-12T07:00:00.000Z",
+          "end": "2020-11-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-13T07:00:00.000Z",
+          "end": "2020-11-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-14T07:00:00.000Z",
+          "end": "2020-11-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-15T07:00:00.000Z",
+          "end": "2020-11-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-16T07:00:00.000Z",
+          "end": "2020-11-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-17T07:00:00.000Z",
+          "end": "2020-11-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-18T07:00:00.000Z",
+          "end": "2020-11-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-19T07:00:00.000Z",
+          "end": "2020-11-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-20T07:00:00.000Z",
+          "end": "2020-11-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-21T07:00:00.000Z",
+          "end": "2020-11-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-22T07:00:00.000Z",
+          "end": "2020-11-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-23T07:00:00.000Z",
+          "end": "2020-11-23T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-23T07:30:00.000Z",
+          "end": "2020-11-23T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-23T08:30:00.000Z",
+          "end": "2020-11-23T09:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-23T09:00:00.000Z",
+          "end": "2020-11-23T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-23T09:30:00.000Z",
+          "end": "2020-11-23T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-23T10:00:00.000Z",
+          "end": "2020-11-23T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-23T10:30:00.000Z",
+          "end": "2020-11-23T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-23T14:00:00.000Z",
+          "end": "2020-11-23T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-23T15:00:00.000Z",
+          "end": "2020-11-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T07:00:00.000Z",
+          "end": "2020-11-24T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T07:30:00.000Z",
+          "end": "2020-11-24T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T08:30:00.000Z",
+          "end": "2020-11-24T09:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T09:00:00.000Z",
+          "end": "2020-11-24T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T09:30:00.000Z",
+          "end": "2020-11-24T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T10:00:00.000Z",
+          "end": "2020-11-24T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T10:30:00.000Z",
+          "end": "2020-11-24T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T14:00:00.000Z",
+          "end": "2020-11-24T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T15:00:00.000Z",
+          "end": "2020-11-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T07:00:00.000Z",
+          "end": "2020-11-25T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T07:30:00.000Z",
+          "end": "2020-11-25T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T08:30:00.000Z",
+          "end": "2020-11-25T09:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T09:00:00.000Z",
+          "end": "2020-11-25T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T09:30:00.000Z",
+          "end": "2020-11-25T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T10:00:00.000Z",
+          "end": "2020-11-25T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T10:30:00.000Z",
+          "end": "2020-11-25T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T14:00:00.000Z",
+          "end": "2020-11-25T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T15:00:00.000Z",
+          "end": "2020-11-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T07:00:00.000Z",
+          "end": "2020-11-26T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T07:30:00.000Z",
+          "end": "2020-11-26T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T08:30:00.000Z",
+          "end": "2020-11-26T09:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T09:00:00.000Z",
+          "end": "2020-11-26T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T10:00:00.000Z",
+          "end": "2020-11-26T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T10:30:00.000Z",
+          "end": "2020-11-26T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T14:00:00.000Z",
+          "end": "2020-11-26T14:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T14:30:00.000Z",
+          "end": "2020-11-26T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T15:00:00.000Z",
+          "end": "2020-11-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T07:00:00.000Z",
+          "end": "2020-11-27T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T07:30:00.000Z",
+          "end": "2020-11-27T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T08:30:00.000Z",
+          "end": "2020-11-27T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T09:30:00.000Z",
+          "end": "2020-11-27T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T10:00:00.000Z",
+          "end": "2020-11-27T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T10:30:00.000Z",
+          "end": "2020-11-27T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T14:00:00.000Z",
+          "end": "2020-11-27T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T15:00:00.000Z",
+          "end": "2020-11-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T07:00:00.000Z",
+          "end": "2020-11-28T07:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T07:30:00.000Z",
+          "end": "2020-11-28T08:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T08:30:00.000Z",
+          "end": "2020-11-28T09:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T09:30:00.000Z",
+          "end": "2020-11-28T10:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T10:00:00.000Z",
+          "end": "2020-11-28T10:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T10:30:00.000Z",
+          "end": "2020-11-28T14:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T14:00:00.000Z",
+          "end": "2020-11-28T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T15:00:00.000Z",
+          "end": "2020-11-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-29T07:00:00.000Z",
+          "end": "2020-11-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-30T07:00:00.000Z",
+          "end": "2020-11-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-01T07:00:00.000Z",
+          "end": "2020-12-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-02T07:00:00.000Z",
+          "end": "2020-12-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-03T07:00:00.000Z",
+          "end": "2020-12-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-04T07:00:00.000Z",
+          "end": "2020-12-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-05T07:00:00.000Z",
+          "end": "2020-12-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-06T07:00:00.000Z",
+          "end": "2020-12-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-07T07:00:00.000Z",
+          "end": "2020-12-07T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-07T15:30:00.000Z",
+          "end": "2020-12-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-08T07:00:00.000Z",
+          "end": "2020-12-08T15:30:00.000Z"
+        },
+        {
+          "begin": "2020-12-08T15:30:00.000Z",
+          "end": "2020-12-08T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:08.000Z",
+      "createdAt": "2019-11-08T13:12:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 28405288,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 16
+      },
+      "registration": [],
+      "location": {
+        "uid": 28405288,
+        "slug": "centre-scolaire-jeanne-darc",
+        "name": "Centre scolaire Jeanne d'Arc",
+        "address": "2 rue Raymond Poincaré 38550 Le Péage-de-Roussillon",
+        "city": "Le Péage-de-Roussillon",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Isère",
+        "postalCode": "38550",
+        "insee": "38298",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 45.368552,
+        "longitude": 4.797618,
+        "updatedAt": "2019-11-28T08:11:22.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 80132217,
+        "custom": {
+          "organization": "Centre Scolaire Jeanne d'Arc",
+          "contactName": "Laure FUGIER",
+          "contactNumber": "0474862838",
+          "contactPosition": "Professeure documentaliste",
+          "email": "laure.fugier@csja.fr"
+        }
+      }
+    },
+    {
+      "uid": 37558189,
+      "ownerUid": 65107634,
+      "creatorUid": 65107634,
+      "slug": "bernardflao-mejanes",
+      "title": {
+        "fr": "Rencontre avec Fred Bernard et Benjamin Flao",
+        "en": "Meeting with Fred Bernard and Benjamin Flao"
+      },
+      "description": {
+        "fr": "Rencontre avec Fred Bernard et Benjamin Flao, auteurs de Essence aux éditions Futuropolis",
+        "en": "Meeting with Fred Bernard and Benjamin Flao, authors of Essence by Futuropolis"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "3895a5e4e48d4658932298696435a725.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 723,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3895a5e4e48d4658932298696435a725.full.image.jpg",
+            "size": {
+              "height": 2402,
+              "width": 2328
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3895a5e4e48d4658932298696435a725.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-14T17:30:00.000Z",
+          "end": "2020-01-14T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:25:07.000Z",
+      "createdAt": "2019-10-29T15:56:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 55194813,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 42 91 98 88"
+      ],
+      "location": {
+        "uid": 55194813,
+        "slug": "bibliotheque-mejanes545",
+        "name": "Bibliothèque Méjanes",
+        "address": "8 rue des Allumettes 13100 Aix-en-Provence",
+        "city": "Aix-en-Provence",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Bouches-du-Rhône",
+        "postalCode": "13627",
+        "insee": "13001",
+        "countryCode": "FR",
+        "district": "Cuques",
+        "latitude": 43.525216,
+        "longitude": 5.440375,
+        "updatedAt": "2019-11-08T13:53:52.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65107634,
+        "custom": {
+          "organization": "Agence régionale du Livre Provence-Alpes-Côte d'Azur",
+          "contactName": "Laurie Asplanato",
+          "contactNumber": "0442916523",
+          "contactPosition": "Assistante du Prix littéraire",
+          "email": "laurie.asplanato@livre-provencealpescotedazur.fr"
+        }
+      }
+    },
+    {
+      "uid": 25244596,
+      "ownerUid": 65107634,
+      "creatorUid": 65107634,
+      "slug": "rencontre-fred-bernard-et-benjamin-flao-essence-futuropolis",
+      "title": {
+        "fr": "Rencontre avec Fred Bernard et Benjamin Flao",
+        "en": "Meeting with Fred Bernard and Benjamin Flao"
+      },
+      "description": {
+        "fr": "Rencontre avec Fred Bernard et Benjamin Flao, auteurs de la BD Essence (Futuropolis)",
+        "en": "Interview with Fred Bernard and Benjamin Flao, authors of the comic Essence (Futuropolis)"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Fred Bernard et Benjamin Flao, auteurs de la BD Essence (Futuropolis) dans le cadre du Prix littéraire des lycéens et apprentis de la région Sud.",
+        "en": "Meeting with Fred Bernard and Benjamin Flao, authors of the comic book Essence (Futuropolis) as part of the Literary Prize for Students and Apprentices of the Southern Region."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "0542fc7833414eff89a2f23a51747f48.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 723,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0542fc7833414eff89a2f23a51747f48.full.image.jpg",
+            "size": {
+              "height": 2402,
+              "width": 2328
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0542fc7833414eff89a2f23a51747f48.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-15T17:00:00.000Z",
+          "end": "2020-01-15T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:55:04.000Z",
+      "createdAt": "2019-11-08T14:08:54.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 75653618,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 90 85 36 74"
+      ],
+      "location": {
+        "uid": 75653618,
+        "slug": "librairie-la-crognotte-rieuse",
+        "name": "Librairie La Crognotte rieuse",
+        "address": "52 rue des Fourbisseurs 84000 Avignon",
+        "city": "Avignon",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Vaucluse",
+        "postalCode": "84000",
+        "insee": "84007",
+        "countryCode": "FR",
+        "district": "Quartier Nord Rocade",
+        "latitude": 43.947285,
+        "longitude": 4.807554,
+        "updatedAt": "2019-11-08T15:48:31.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65107634,
+        "custom": {
+          "organization": "Agence régionale du Livre Provence-Alpes-Côte d'Azur",
+          "contactName": "Laurie Asplanato",
+          "contactNumber": "0442916523",
+          "contactPosition": "Assistante du Prix littéraire",
+          "email": "laurie.asplanato@livre-provencealpescotedazur.fr"
+        }
+      }
+    },
+    {
+      "uid": 85174030,
+      "ownerUid": 65107634,
+      "creatorUid": 65107634,
+      "slug": "rencontre-fred-bernard-et-benjamin-flao-essence-futuropolis_559902",
+      "title": {
+        "fr": "Rencontre avec Fred Bernard et Benjamin Flao",
+        "en": "Meeting with Fred Bernard and Benjamin Flao"
+      },
+      "description": {
+        "fr": "Rencontre avec Fred Bernard et Benjamin Flao, auteurs de la BD Essence (Futuropolis)",
+        "en": "Interview with Fred Bernard and Benjamin Flao, authors of the comic Essence (Futuropolis)"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Fred Bernard et Benjamin Flao, auteurs de la BD Essence (Futuropolis) dans le cadre du Prix littéraire des lycéens et apprentis de la région Sud",
+        "en": "Meeting with Fred Bernard and Benjamin Flao, authors of the comic book Essence (Futuropolis) as part of the Literary Prize for Students and Apprentices of the Southern Region"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "1d88d475b0644980bf7a421b445143d6.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 723,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1d88d475b0644980bf7a421b445143d6.full.image.jpg",
+            "size": {
+              "height": 2402,
+              "width": 2328
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1d88d475b0644980bf7a421b445143d6.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-17T18:00:00.000Z",
+          "end": "2020-01-17T19:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:50.000Z",
+      "createdAt": "2019-11-08T14:14:21.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 51715448,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 99
+      },
+      "registration": [
+        "04 92 31 50 19"
+      ],
+      "location": {
+        "uid": 51715448,
+        "slug": "librairie-la-ruelle788",
+        "name": "Librairie La Ruelle",
+        "address": "18 place Général de Gaulle 04000 Digne-les-Bains",
+        "city": "Réchicourt-le-Château",
+        "region": "Grand Est",
+        "department": "Moselle",
+        "postalCode": "57810",
+        "insee": "57564",
+        "countryCode": "FR",
+        "district": "Col des Français",
+        "latitude": 48.665572,
+        "longitude": 6.842061,
+        "updatedAt": "2019-11-08T15:51:44.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65107634,
+        "custom": {
+          "organization": "Agence régionale du Livre Provence-Alpes-Côte d'Azur",
+          "contactName": "Laurie Asplanato",
+          "contactNumber": "0442916523",
+          "contactPosition": "Assistante du Prix littéraire",
+          "email": "laurie.asplanato@livre-provencealpescotedazur.fr"
+        }
+      }
+    },
+    {
+      "uid": 44490689,
+      "ownerUid": 65107634,
+      "creatorUid": 65107634,
+      "slug": "rencontre-avec-emilie-gleason-ted-drole-de-coco-editions-atrabile",
+      "title": {
+        "fr": "Rencontre avec Émilie Gleason",
+        "en": "Meeting with Émilie Gleason"
+      },
+      "description": {
+        "fr": "Rencontre avec Émilie Gleason, auteure de Ted drôle de coco (éditions Atrabile)",
+        "en": "Interview with Émilie Gleason, author of Ted drôle de coco (éditions Atrabile)"
+      },
+      "longDescription": {
+        "fr": "Rencontre avec Émilie Gleason, auteure de Ted drôle de coco (éditions Atrabile) dans le cadre du Prix littéraire des lycéens et apprentis de la région Sud",
+        "en": "Meeting with Émilie Gleason, author of Ted drôle de coco (Atrabile editions) as part of the Literary Prize for Students and Apprentices of the South Region"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "1af0b55a502143f5add8ebd70c09248e.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 987,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1af0b55a502143f5add8ebd70c09248e.full.image.jpg",
+            "size": {
+              "height": 1280,
+              "width": 908
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1af0b55a502143f5add8ebd70c09248e.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-21T17:30:00.000Z",
+          "end": "2020-01-21T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:54:47.000Z",
+      "createdAt": "2019-11-08T14:21:19.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 37845579,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "04 90 85 15 59"
+      ],
+      "location": {
+        "uid": 37845579,
+        "slug": "bibliotheque-ceccano213",
+        "name": "Bibliothèque Ceccano",
+        "address": "2 bis rue Laboureur 84000 Avignon",
+        "city": "Avignon",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Vaucluse",
+        "postalCode": "84000",
+        "insee": "84007",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 43.949249,
+        "longitude": 4.805901,
+        "updatedAt": "2019-11-08T15:49:06.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix littéraire des lycéens et apprentis de la région Provence-Alpes-Côte d'Azur",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 65107634,
+        "custom": {
+          "organization": "Agence régionale du Livre Provence-Alpes-Côte d'Azur",
+          "contactName": "Laurie Asplanato",
+          "contactNumber": "0442916523",
+          "contactPosition": "Assistante du Prix littéraire",
+          "email": "laurie.asplanato@livre-provencealpescotedazur.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2071809
+}

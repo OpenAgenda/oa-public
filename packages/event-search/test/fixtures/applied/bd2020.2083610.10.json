@@ -1,0 +1,1824 @@
+{
+  "events": [
+    {
+      "uid": 96044551,
+      "ownerUid": 70211133,
+      "creatorUid": 70211133,
+      "slug": "atelier-bd-avec-delphine-le-lay-et-alexis-horellou",
+      "title": {
+        "fr": "Atelier BD avec Delphine Le Lay et Alexis Horellou",
+        "en": "Comic book workshop with Delphine Le Lay and Alexis Horellou"
+      },
+      "description": {
+        "fr": "Atelier d'initiation à la bande dessinée avec Delphine Le Lay et Alexis Horellou",
+        "en": "Initiation workshop with Delphine Le Lay and Alexis Horellou"
+      },
+      "longDescription": {
+        "fr": "Depuis 2007, Alexis Horellou et Delphine Le Lay multiplient les projets. Après avoir réalisé des décors et marionnettes pour un court-métrage d’animation, ils se lancent dans la bande dessinée, Delphine au scénario et Alexis au dessin. Ensemble, ils publient _Le Souffle court_ (Les Enfants rouges), _Lyz et ses cadavres exquis_ (Petit à Petit) et, dans une veine historico-sociale, _Plogoff et 100 maisons_ (Delcourt). Avec _Ralentir_ (Le Lombard), les deux auteurs réalisent une fiction sur le thème de la décroissance. _Lucien et les mystérieux phénomènes_ (Casterman), sélectionné dans la catégorie 11-14 ans du prix BD Bulles d’Océan, poursuit cette expérience fictionnelle, non dénuée de liens avec le réel. Avec cette BD, ils réalisent un album accessible à un large public, qui propose une synthèse entre plusieurs de leurs thèmes de prédilection : les légendes bretonnes, le fantastique, le retour à la terre et l’éducation des enfants au \"zéro déchet\".\n\nIls ont également créé ensemble une petite structure d’édition, Vanille Goudron, avec laquelle ils publient chaque année un recueil de BD et illustrations, _Jukebox_, qui rassemble autour d’un thème une quarantaine d’auteurs.\n\nLors de cet atelier, les auteurs nous parleront du travail réalisé sur l’album _Lucien et les mystérieux phénomènes_ puis ils vous guideront pour réaliser votre propre planche BD à la médiathèque.\n\nCet atelier sera suivi d’une séance de dédicaces.",
+        "en": "Since 2007, Alexis Horellou and Delphine Le Lay have been multiplying projects. After directing sets and puppets for an animated short film, they embark on the comic strip, Delphine on the script and Alexis on the drawing. Together they publish _Le Souffle court_ (Les Enfants rouges), _Lyz and his exquisite corpses_ (Petit à Petit) and, in a historical-social vein, _Plogoff and 100 houses_ (Delcourt). With _Ralentir_ (Le Lombard), the two authors make a fiction on the theme of decay. _Lucien et les mystérieux phénomènes_ (Casterman), selected in the 11-14 year-old category of the BD Bulles d'Océan prize, continues this fictional experience, not devoid of links with the real. With this comic book, they make an album accessible to a wide audience, which offers a synthesis between several of their favorite themes: the Breton legends, the fantastic, the return to the land and the education of children at \"zero waste\".\nThey also created together a small publishing structure, Vanille Goudron, with which they publish each year a collection of comics and illustrations, _Jukebox_, which gathers around a theme some forty authors.\nDuring this workshop, the authors will tell us about the work done on the album _Lucien and the mysterious phenomena_ and then they will guide you to create your own comic strip at the media library.[End of translation]\nCet atelier sera suivi d’une séance de dédicaces."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription au 05 46 84 29 31",
+        "en": "On registration at 05 46 84 29 31"
+      },
+      "image": {
+        "filename": "e1a96311bf884ffeaf4124d770e0b86b.base.image.jpg",
+        "credits": "Lucien et les mystérieux phénomènes, Le Lay et Horellou, Casterman",
+        "size": {
+          "height": 966,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "e1a96311bf884ffeaf4124d770e0b86b.full.image.jpg",
+            "size": {
+              "height": 640,
+              "width": 464
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "e1a96311bf884ffeaf4124d770e0b86b.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T09:00:00.000Z",
+          "end": "2020-01-18T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:48:57.000Z",
+      "createdAt": "2019-11-26T13:26:33.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 75607953,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 46 84 29 31"
+      ],
+      "location": {
+        "uid": 75607953,
+        "slug": "mediatheque-de-fouras-les-bains657",
+        "name": "Médiathèque de Fouras-les-Bains",
+        "address": "Rue du Général Bruncher 17450 Fouras",
+        "city": "Fouras",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente-Maritime",
+        "postalCode": "17450",
+        "insee": "17168",
+        "countryCode": "FR",
+        "district": "Cheveroche",
+        "latitude": 45.986941,
+        "longitude": -1.096827,
+        "updatedAt": "2019-11-26T15:02:00.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Prix BD Bulles d'Océan - Communauté d'agglomération Rochefort Océan",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Bulles en cavale",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 70211133,
+        "custom": {
+          "organization": "Réseau des médiathèques Rochefort Océan",
+          "contactName": "Charlotte Couturier",
+          "contactNumber": "0516843551",
+          "contactPosition": "Chargée de mission",
+          "email": "c.couturier@agglo-rochefortocean.fr"
+        }
+      }
+    },
+    {
+      "uid": 20262185,
+      "ownerUid": 70211133,
+      "creatorUid": 70211133,
+      "slug": "nuit-de-la-lecture_893832",
+      "title": {
+        "fr": "Delphine Le Lay et Alexis Horellou, auteur et illustrateur de bandes dessinées à la médiathèque de Rochefort",
+        "en": "Delphine Le Lay and Alexis Horellou, author and illustrator of comic books at the Rochefort media library"
+      },
+      "description": {
+        "fr": "A l'occasion de la Nuit de la lecture, Delphine Le Lay et Alexis Horellou proposeront une fresque réalisée en direct",
+        "en": "On the occasion of the Nuit de la lecture, Delphine Le Lay and Alexis Horellou will propose a live fresco"
+      },
+      "longDescription": {
+        "fr": "Pour cette 4e édition de la Nuit de la lecture, la médiathèque de Rochefort vous propose de plonger, de nuit, dans des mondes imaginaires! Plusieurs activités vous seront proposées et Delphine Le Lay et Alexis Horellou, auteur et illustrateur de bandes dessinées, proposeront une fresque réalisée en direct, inspirée de l’atmosphère particulière de cette Nuit de la lecture.",
+        "en": "For this 4th edition of the Nuit de la lecture, the media library of Rochefort invites you to dive, at night, into imaginary worlds! Several activities will be proposed to you and Delphine Le Lay and Alexis Horellou, author and illustrator of comic books, will propose a fresco realized live, inspired by the particular atmosphere of this Night of reading."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Médiathèque de Rochefort",
+        "en": "Media library of Rochefort"
+      },
+      "image": {
+        "filename": "d45cf7a792a844acb927a0e3a465cb37.base.image.jpg",
+        "credits": "Ministère de la Culture",
+        "size": {
+          "height": 700,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "d45cf7a792a844acb927a0e3a465cb37.full.image.jpg",
+            "size": {
+              "height": 1080,
+              "width": 1080
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "d45cf7a792a844acb927a0e3a465cb37.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-18T19:00:00.000Z",
+          "end": "2020-01-18T22:59:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:49:03.000Z",
+      "createdAt": "2019-11-26T13:30:41.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 28286917,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 46 82 66 00",
+        "http://mediatheques.rochefortocean.fr/"
+      ],
+      "location": {
+        "uid": 28286917,
+        "slug": "mediatheque-de-rochefort804",
+        "name": "Médiathèque de Rochefort",
+        "address": "Passage des Amériques Royale 17312 Rochefort",
+        "city": "Rochefort",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente-Maritime",
+        "postalCode": "17300",
+        "insee": "17299",
+        "countryCode": "FR",
+        "district": "Centre Ville",
+        "latitude": 45.939653,
+        "longitude": -0.956572,
+        "updatedAt": "2019-11-26T13:34:58.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        615
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 70211133,
+        "custom": {
+          "organization": "Réseau des médiathèques Rochefort Océan",
+          "contactName": "Charlotte Couturier",
+          "contactNumber": "0516843551",
+          "contactPosition": "Chargée de mission",
+          "email": "c.couturier@agglo-rochefortocean.fr"
+        }
+      }
+    },
+    {
+      "uid": 39936888,
+      "ownerUid": 47983873,
+      "creatorUid": 47983873,
+      "slug": "invente-ton-personnage-de-bd",
+      "title": {
+        "fr": "Invente ton personnage de BD",
+        "en": "Invent your comic character"
+      },
+      "description": {
+        "fr": "Invente ton personnage de BD",
+        "en": "Invent your comic character"
+      },
+      "longDescription": {
+        "fr": "En plusieurs séances à la bibliothèque, les élèves de classes de CE2 et CM1 sont invités à inventer et dessiner leur personnage de BD. Ils disposent de tous supports dessinés et imprimés pour s'aider et s'inspirer de personnages de BD existants. A l'issue de ce travail, une exposition aura lieu à la bibliothèque et un jury, présidé par un dessinateur professionnel, déterminera le dessin du personnage de BD le plus original.",
+        "en": "In several sessions at the library, students in grades 3 and 4 are invited to invent and draw their comic book characters. They have all the drawn and printed media to help themselves and draw inspiration from existing comic characters. At the end of this work, an exhibition will be held at the library and a jury, chaired by a professional cartoonist, will determine the drawing of the most original comic character."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-31T07:00:00.000Z",
+          "end": "2020-03-31T08:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T07:00:00.000Z",
+          "end": "2020-04-07T08:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T07:00:00.000Z",
+          "end": "2020-04-14T08:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T07:00:00.000Z",
+          "end": "2020-04-21T08:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T07:00:00.000Z",
+          "end": "2020-04-28T08:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T14:30:00.000Z",
+          "end": "2020-05-05T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:48:54.000Z",
+      "createdAt": "2019-11-26T13:34:46.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 73853139,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 10
+      },
+      "registration": [
+        "bibliotheque@ville-tcv.fr"
+      ],
+      "location": {
+        "uid": 73853139,
+        "slug": "bibliotheque-michel-butor825",
+        "name": "Bibliothèque Michel Butor",
+        "address": "Place de la Mairie 59229 Téteghem-Coudekerque-Village",
+        "city": "Téteghem-Coudekerque-Village",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59380",
+        "insee": "59588",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 51.009179,
+        "longitude": 2.453082,
+        "updatedAt": "2019-11-26T13:29:10.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 684,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Ecole primaire de la ville",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 47983873,
+        "custom": {
+          "organization": "Bibliothèque",
+          "contactName": "Jeanne Pehourticq",
+          "contactNumber": "0328243170",
+          "contactPosition": "bibliothécaire",
+          "email": "bibliotheque@ville-tcv.fr"
+        }
+      }
+    },
+    {
+      "uid": 7898260,
+      "ownerUid": 70211133,
+      "creatorUid": 70211133,
+      "slug": "atelier-dinitiation-a-la-bande-dessinee",
+      "title": {
+        "fr": "Atelier d'initiation à la bande dessinée",
+        "en": "Comic Strip Initiation Workshop"
+      },
+      "description": {
+        "fr": "Un atelier pour s'initier aux techniques de dessin de la bande dessinée!",
+        "en": "A workshop to learn the drawing techniques of comic books!"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre d’une résidence d’artiste et en lien avec le prix BD Bulles d’Océan, la communauté d’agglomération accueille Thibaut Lambert. Influencé par son pays natal, la Belgique, cet auteur et illustrateur de bande dessinée est comme ainsi dire né dans une bulle. Tout l’inspire, l’amour, les voyages, la maladie, les rencontres... Thibaut Lambert vous propose des ateliers d’initiations à la bande dessinée afin de mettre en lumière chaque facette de cet art protéiforme, populaire, parfois irrévérencieux et engagé. Cet atelier, ouvert à tous, vous fera en outre découvrir les différentes étapes de création d’un album.\n\nL’atelier sera suivi d’une séance de dédicace.",
+        "en": "As part of an artist’s residency and in connection with the BD Bulles d'Océan award, the agglomeration community welcomes Thibaut Lambert. Influenced by his native country, Belgium, this author and cartoonist is as it were born in a bubble. Everything inspires him, love, travel, sickness, encounters... Thibaut Lambert proposes workshops of initiations to the comic strip in order to highlight every facet of this protein art, popular, sometimes irreverent and committed. This workshop, open to all, will also make you discover the different stages of creating an album.\nThe workshop will be followed by a signing session."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription au 05 46 84 01 27",
+        "en": "On registration at 05 46 84 01 27"
+      },
+      "image": {
+        "filename": "0fcf5f941a854900aebc316c3b8bce9d.base.image.jpg",
+        "credits": "Thibaut Lambert",
+        "size": {
+          "height": 1027,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0fcf5f941a854900aebc316c3b8bce9d.full.image.jpg",
+            "size": {
+              "height": 2598,
+              "width": 1772
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0fcf5f941a854900aebc316c3b8bce9d.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T09:00:00.000Z",
+          "end": "2020-02-08T11:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:49:00.000Z",
+      "createdAt": "2019-11-26T13:36:54.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 5633960,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "05 46 84 01 27",
+        "http://mediatheques.rochefortocean.fr/"
+      ],
+      "location": {
+        "uid": 5633960,
+        "slug": "mediatheque-de-tonnay-charente",
+        "name": "Médiathèque de Tonnay-Charente",
+        "address": "81 rue Alsace Lorraine 17430 Tonnay-Charente",
+        "city": "Tonnay-Charente",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente-Maritime",
+        "postalCode": "17430",
+        "insee": "17449",
+        "countryCode": "FR",
+        "district": "Le Moulin de la Traine",
+        "latitude": 45.942865,
+        "longitude": -0.888969,
+        "updatedAt": "2019-11-26T13:35:49.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Bulles en cavale",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 70211133,
+        "custom": {
+          "organization": "Réseau des médiathèques Rochefort Océan",
+          "contactName": "Charlotte Couturier",
+          "contactNumber": "0516843551",
+          "contactPosition": "Chargée de mission",
+          "email": "c.couturier@agglo-rochefortocean.fr"
+        }
+      }
+    },
+    {
+      "uid": 67675751,
+      "ownerUid": 70211133,
+      "creatorUid": 70211133,
+      "slug": "atelier-dinitiation-a-la-bande-dessinee_435115",
+      "title": {
+        "fr": "Atelier d'initiation à la bande dessinée",
+        "en": "Comic Strip Initiation Workshop"
+      },
+      "description": {
+        "fr": "Un atelier pour s'initer aux techniques de dessin de la bande dessinée!",
+        "en": "A workshop to learn the drawing techniques of comic books!"
+      },
+      "longDescription": {
+        "fr": "Dans le cadre d’une résidence d’artiste et en lien avec le prix BD Bulles d’Océan, la communauté d’agglomération accueille Thibaut Lambert. Influencé par son pays natal, la Belgique, cet auteur et illustrateur de bande dessinée est comme ainsi dire né dans une bulle. Tout l’inspire, l’amour, les voyages, la maladie, les rencontres... Thibaut Lambert vous propose des ateliers d’initiations à la bande dessinée afin de mettre en lumière chaque facette de cet art protéiforme, populaire, parfois irrévérencieux et engagé. Cet atelier, ouvert à tous, vous fera en outre découvrir les différentes étapes de création d’un album.\n\nL’atelier sera suivi d’une séance de dédicace.",
+        "en": "As part of an artist’s residency and in connection with the BD Bulles d'Océan award, the agglomeration community welcomes Thibaut Lambert. Influenced by his native country, Belgium, this author and cartoonist is as it were born in a bubble. Everything inspires him, love, travel, sickness, encounters... Thibaut Lambert proposes workshops of initiations to the comic strip in order to highlight every facet of this protein art, popular, sometimes irreverent and committed. This workshop, open to all, will also make you discover the different stages of creating an album.\nThe workshop will be followed by a signing session."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription au 05 46 78 24 47",
+        "en": "On registration at 05 46 78 24 47"
+      },
+      "image": {
+        "filename": "3f5c80b54dcf4fbf894093bff15a2fc8.base.image.jpg",
+        "credits": "Thibaut Lambert",
+        "size": {
+          "height": 1027,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "3f5c80b54dcf4fbf894093bff15a2fc8.full.image.jpg",
+            "size": {
+              "height": 2598,
+              "width": 1772
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "3f5c80b54dcf4fbf894093bff15a2fc8.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-02-08T14:00:00.000Z",
+          "end": "2020-02-08T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:48:46.000Z",
+      "createdAt": "2019-11-26T13:39:32.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 65032485,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://mediatheques.rochefortocean.fr/",
+        "05 46 78 24 47"
+      ],
+      "location": {
+        "uid": 65032485,
+        "slug": "bibliotheque-de-breuil-magne",
+        "name": "Bibliothèque de Breuil-Magné",
+        "address": "19 place des Caneteries 17870 Breuil-Magné",
+        "city": "Breuil-Magné",
+        "region": "Nouvelle-Aquitaine",
+        "department": "Charente-Maritime",
+        "postalCode": "17870",
+        "insee": "17065",
+        "countryCode": "FR",
+        "district": "La Lance",
+        "latitude": 45.983886,
+        "longitude": -0.959219,
+        "updatedAt": "2019-11-26T13:41:58.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 682,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Librairie Bulles en cavale",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 70211133,
+        "custom": {
+          "organization": "Réseau des médiathèques Rochefort Océan",
+          "contactName": "Charlotte Couturier",
+          "contactNumber": "0516843551",
+          "contactPosition": "Chargée de mission",
+          "email": "c.couturier@agglo-rochefortocean.fr"
+        }
+      }
+    },
+    {
+      "uid": 82040149,
+      "ownerUid": 81383186,
+      "creatorUid": 81383186,
+      "slug": "concert-dessine-le-piano-oriental",
+      "title": {
+        "fr": "Concert dessiné : Le piano oriental",
+        "en": "Cartoon concert: The oriental piano"
+      },
+      "description": {
+        "fr": "Du Liban à la France, en arabe et en français, Zeina Abirached rapproche l’Orient et l’Occident avec une fabuleuse histoire d’un piano bilingue.",
+        "en": "From Lebanon to France, in Arabic and French, Zeina Abirached brings the East and the West closer together with a fabulous story of a bilingual piano."
+      },
+      "longDescription": {
+        "fr": "Du Liban à la France, en arabe et en français, Zeina Abirached rapproche l’Orient et l’Occident avec une fabuleuse histoire d’un piano bilingue. Un récit inspiré de la vie de son ancêtre, inventeur d'un nouvel instrument de musique dans le Beyrouth des années 1960. Folle tentative pour rapprocher les traditions musicales d'Orient et d'Occident, ce piano au destin méconnu n'aura vu le jour qu'en un seul exemplaire, juste avant que la guerre civile ne s'abatte sur le Liban.\n\nUn concert dessiné en mots et en images par la dessinatrice **Zeina Abirached**, accompagnée par le pianiste **Stéphane Tsapis**.",
+        "en": "From Lebanon to France, in Arabic and French, Zeina Abirached brings the East and the West closer together with a fabulous story of a bilingual piano. A story inspired by the life of his ancestor, inventor of a new musical instrument in Beirut in the 1960s. A mad attempt to bring the musical traditions of the East and the West closer together, this piano with its little-known destiny will have seen the light of day in a single example, just before the civil war hits Lebanon.\nA concert designed in words and images by the artist **Zeina Abirached**, accompanied by the pianist **Stéphane Tsapis**."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "7ef93a6fa422443a9cc889911505babf.base.image.jpg",
+        "credits": "DR",
+        "size": {
+          "height": 495,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "7ef93a6fa422443a9cc889911505babf.full.image.jpg",
+            "size": {
+              "height": 1070,
+              "width": 1514
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "7ef93a6fa422443a9cc889911505babf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-14T17:00:00.000Z",
+          "end": "2020-05-14T18:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T14:00:14.000Z",
+      "createdAt": "2019-11-21T10:55:36.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 42562870,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [],
+      "location": {
+        "uid": 42562870,
+        "slug": "mediatheque-marguerite-yourcenar538",
+        "name": "Médiathèque Marguerite Yourcenar",
+        "address": "41 rue d'Alleray 75015 Paris",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75015",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 15e Arrondissement",
+        "latitude": 48.836773,
+        "longitude": 2.303679,
+        "updatedAt": "2019-11-21T11:18:05.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Médiathèque Marguerite Yourcenar",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 81383186,
+        "custom": {
+          "organization": "Bibliocité",
+          "contactName": "annabelle Allain",
+          "contactNumber": "0144788046",
+          "contactPosition": "Responsable de la communication",
+          "email": "annabelle.allain@bibliocite.fr"
+        }
+      }
+    },
+    {
+      "uid": 12198342,
+      "ownerUid": 31768839,
+      "creatorUid": 31768839,
+      "slug": "exposition-les-carnets-de-cerise",
+      "title": {
+        "fr": "Exposition : Les Carnets de Cerise",
+        "en": "Exhibition: Les Carnets de Cerise"
+      },
+      "description": {
+        "fr": "Exposition interactive basée sur l’univers de la série Les Carnets de Cerise de Joris Chamblain et Aurélie Neyret",
+        "en": "Interactive exhibition based on the universe of the series Les Carnets de Cerise by Joris Chamblain and Aurélie Neyret"
+      },
+      "longDescription": {
+        "fr": "Une exposition qui invite les visiteurs à se glisser dans la peau d’un inspecteur en herbe.",
+        "en": "An exhibition that invites visitors to slip into the shoes of a budding inspector."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre",
+        "en": "Free entry"
+      },
+      "image": {
+        "filename": "656dabfbe749425892d5deaeb245a34a.base.image.jpg",
+        "credits": "Auteurs des Carnets de Cerise : Aurélie Neyret et Joris Chamblain (exposition créée par l'association \"On a marché sur la Bulle\" et diffusée en exclusivité par \"La Bulle Exposition\", 03 22 72 82 77)",
+        "size": {
+          "height": 1001,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "656dabfbe749425892d5deaeb245a34a.full.image.jpg",
+            "size": {
+              "height": 2953,
+              "width": 2067
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "656dabfbe749425892d5deaeb245a34a.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-09T13:00:00.000Z",
+          "end": "2020-03-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T13:00:00.000Z",
+          "end": "2020-03-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T09:00:00.000Z",
+          "end": "2020-03-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T13:00:00.000Z",
+          "end": "2020-03-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T13:00:00.000Z",
+          "end": "2020-03-12T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T13:00:00.000Z",
+          "end": "2020-03-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T09:00:00.000Z",
+          "end": "2020-03-14T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T13:00:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-16T13:00:00.000Z",
+          "end": "2020-03-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T13:00:00.000Z",
+          "end": "2020-03-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T09:00:00.000Z",
+          "end": "2020-03-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T13:00:00.000Z",
+          "end": "2020-03-19T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T09:00:00.000Z",
+          "end": "2020-03-21T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-23T13:00:00.000Z",
+          "end": "2020-03-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T13:00:00.000Z",
+          "end": "2020-03-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T09:00:00.000Z",
+          "end": "2020-03-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T13:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T13:00:00.000Z",
+          "end": "2020-03-26T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T13:00:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T09:00:00.000Z",
+          "end": "2020-03-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T13:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:48:43.000Z",
+      "createdAt": "2019-11-27T11:39:43.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 48034420,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 99
+      },
+      "registration": [],
+      "location": {
+        "uid": 48034420,
+        "slug": "bibliotheque-pierre-bourdan-de-marly-le-roi",
+        "name": "Bibliothèque Pierre Bourdan",
+        "address": "37 avenue de Saint-Germain 78160 Marly-le-Roi",
+        "city": "Marly-le-Roi",
+        "region": "Île-de-France",
+        "department": "Yvelines",
+        "postalCode": "78160",
+        "insee": "78372",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.87749,
+        "longitude": 2.096589,
+        "updatedAt": "2019-11-27T12:54:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival du film de Marly (thème 2020 : la bande dessinée)",
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Le Cinéma le Fontenelle et Le Centre Culturel Jean Vilar de Marly-le-Roi",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 31768839,
+        "custom": {
+          "organization": "Bibliothèque Pierre Bourdan de Marly-le-Roi",
+          "contactName": "Pascaline Brand",
+          "contactNumber": "01.39.58.68.47",
+          "contactPosition": "Directrice de la bibliothèque",
+          "email": "bibliotheque@marlyleroi.fr"
+        }
+      }
+    },
+    {
+      "uid": 20590850,
+      "ownerUid": 97532887,
+      "creatorUid": 97532887,
+      "slug": "leau-dessinee",
+      "title": {
+        "fr": "Exposition \"L'eau dessinée\"",
+        "en": "Exhibition \"L'eau dessinée\""
+      },
+      "description": {
+        "fr": "\"L’eau dessinée\" raconte une histoire d’eau à travers la bande dessinée et l’illustration, des voyages à la science-fiction en passant par des questions environnementales ou des histoires insulaires",
+        "en": "\"Water drawn\" tells a story of water through comics and illustration, from trips to science fiction to environmental issues or island stories"
+      },
+      "longDescription": {
+        "fr": "_L’eau dessinée_ raconte une histoire d’eau à travers la bande dessinée et l’illustration, des voyages à la science-fiction en passant par des questions environnementales ou des histoires insulaires. Dans une scénographie joyeuse et ludique, plus de trois cents documents et objets sont présentés, rassemblant des originaux, des manuscrits, des illustrés, des films animés, destinés aux amateurs ou inconditionnels de bandes dessinées et de romans graphiques.\n\nLe papier virevolte dans tous les espaces de la Fondation pour révéler la matière de l’eau, son lien avec le paysage et l’environnement, les narrations du voyage et des mondes imaginaires, ou encore son rapport à l’homme et au corps.\n\nConstituée à partir des collections patrimoniales de la Cité internationale de la bande dessinée et de l’image (Angoulême), de prêts d’auteurs, d’éditeurs et de collectionneurs, l’exposition retrace plus d’un siècle d’histoire de l’image dessinée et illustrée sur le thème de l’eau ayant inspiré une multitude de récits.\n\nDes premiers auteurs de la fin du XIXe siècle ayant donné le ton à la bande dessinée – Christophe, Georges Omry, Marcel Turlin ... – jusqu’aux héritiers de la ligne claire – Bruno Le Floc’h, Christian Cailleaux… – en passant par les iconiques François Boucq, Moebius ou François Schuiten, puis la période contemporaine et le renouvellement du genre via le roman graphique – Nathalie Ferlut, Jens Harder, Nicolas de Crécy, Marine Blandin, Maruo...– on découvre les diverses approches des auteurs et dessinateurs.\n\nUn ensemble d’artistes diplômés de la HEAR est également mis à l’honneur, la Haute Ecole des Arts du Rhin étant notamment connue pour son département d’illustration. L'image en mouvement vient également ponctuer cette promenade illustrée avec les films d'animation d'étudiants de l'EMCA.\n\nPlongez dans un siècle de BD et d'illustrations !",
+        "en": "_Drawn water tells a_ story of water through comic books and illustration, from trips to science fiction to environmental issues and island stories. In a joyful and playful scenography, more than three hundred documents and objects are presented, bringing together originals, manuscripts, illustrated, animated films, intended for fans or fans of comic books and graphic novels.\nThe paper turns around in all the spaces of the Foundation to reveal the matter of water, its connection with the landscape and the environment, the narrations of travel and imaginary worlds, or its relationship to man and body.\nConstituted from the heritage collections of the Cité internationale de la bande dessinée et de l'image (Angoulême), loans from authors, publishers and collectors, the exhibition traces more than a century of history of the picture drawn and illustrated on the theme of water having inspired a multitude of stories.\nFrom the first authors of the late 19th century who set the tone for comic books – Christophe, Georges Omry, Marcel Turlin ... – to the clear-line heirs – Bruno Le Floc'h, Christian Cailleaux… – through iconic François Boucq, Moebius or François Schuiten, then the contemporary period and the renewal of the genre via graphic novel – Nathalie Ferlut, Jens Harder, Nicolas de Crécy, Marine Blandin, Maruo...– we discover the various approaches of authors and draughtsmen.\nA group of artists who have graduated from HEAR is also featured, the Haute Ecole des Arts du Rhin being known for its illustration department. The moving image also punctuates this walk illustrated with animated films by EMCA students.[End of translation]\nPlongez dans un siècle de BD et d'illustrations !"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "b4e445c945db4217ab74098a48a3ce78.base.image.jpg",
+        "credits": "Christian Cailleaux / Futuropolis",
+        "size": {
+          "height": 1050,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b4e445c945db4217ab74098a48a3ce78.full.image.jpg",
+            "size": {
+              "height": 2835,
+              "width": 1890
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b4e445c945db4217ab74098a48a3ce78.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-02T10:00:00.000Z",
+          "end": "2020-01-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-03T10:00:00.000Z",
+          "end": "2020-01-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-04T10:00:00.000Z",
+          "end": "2020-01-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-05T10:00:00.000Z",
+          "end": "2020-01-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T10:00:00.000Z",
+          "end": "2020-01-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T10:00:00.000Z",
+          "end": "2020-01-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T10:00:00.000Z",
+          "end": "2020-01-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T10:00:00.000Z",
+          "end": "2020-01-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-12T10:00:00.000Z",
+          "end": "2020-01-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-15T10:00:00.000Z",
+          "end": "2020-01-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-16T10:00:00.000Z",
+          "end": "2020-01-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-17T10:00:00.000Z",
+          "end": "2020-01-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-18T10:00:00.000Z",
+          "end": "2020-01-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-19T10:00:00.000Z",
+          "end": "2020-01-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-22T10:00:00.000Z",
+          "end": "2020-01-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-23T10:00:00.000Z",
+          "end": "2020-01-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-24T10:00:00.000Z",
+          "end": "2020-01-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-25T10:00:00.000Z",
+          "end": "2020-01-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-26T10:00:00.000Z",
+          "end": "2020-01-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-29T10:00:00.000Z",
+          "end": "2020-01-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T10:00:00.000Z",
+          "end": "2020-01-30T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T10:00:00.000Z",
+          "end": "2020-01-31T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T10:00:00.000Z",
+          "end": "2020-02-01T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-02T10:00:00.000Z",
+          "end": "2020-02-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T10:00:00.000Z",
+          "end": "2020-02-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T10:00:00.000Z",
+          "end": "2020-02-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T10:00:00.000Z",
+          "end": "2020-02-07T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T10:00:00.000Z",
+          "end": "2020-02-08T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-09T10:00:00.000Z",
+          "end": "2020-02-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T10:00:00.000Z",
+          "end": "2020-02-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T10:00:00.000Z",
+          "end": "2020-02-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T10:00:00.000Z",
+          "end": "2020-02-14T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T10:00:00.000Z",
+          "end": "2020-02-15T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-16T10:00:00.000Z",
+          "end": "2020-02-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T10:00:00.000Z",
+          "end": "2020-02-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T10:00:00.000Z",
+          "end": "2020-02-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T10:00:00.000Z",
+          "end": "2020-02-21T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T10:00:00.000Z",
+          "end": "2020-02-22T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-23T10:00:00.000Z",
+          "end": "2020-02-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T10:00:00.000Z",
+          "end": "2020-02-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T10:00:00.000Z",
+          "end": "2020-02-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T10:00:00.000Z",
+          "end": "2020-02-28T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T10:00:00.000Z",
+          "end": "2020-02-29T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-01T10:00:00.000Z",
+          "end": "2020-03-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T10:00:00.000Z",
+          "end": "2020-03-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T10:00:00.000Z",
+          "end": "2020-03-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T10:00:00.000Z",
+          "end": "2020-03-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T10:00:00.000Z",
+          "end": "2020-03-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T10:00:00.000Z",
+          "end": "2020-03-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T10:00:00.000Z",
+          "end": "2020-03-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T10:00:00.000Z",
+          "end": "2020-03-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T10:00:00.000Z",
+          "end": "2020-03-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T10:00:00.000Z",
+          "end": "2020-03-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-15T10:00:00.000Z",
+          "end": "2020-03-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T10:00:00.000Z",
+          "end": "2020-03-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T10:00:00.000Z",
+          "end": "2020-03-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T10:00:00.000Z",
+          "end": "2020-03-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T10:00:00.000Z",
+          "end": "2020-03-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-22T10:00:00.000Z",
+          "end": "2020-03-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T10:00:00.000Z",
+          "end": "2020-03-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T10:00:00.000Z",
+          "end": "2020-03-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T10:00:00.000Z",
+          "end": "2020-03-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-28T10:00:00.000Z",
+          "end": "2020-03-28T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T16:12:33.000Z",
+      "createdAt": "2019-11-27T11:14:29.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 67406508,
+      "accessibility": {
+        "mi": true,
+        "hi": true,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "info@fondationfrancoisschneider.org",
+        "0389821010",
+        "https://www.fondationfrancoisschneider.org"
+      ],
+      "location": {
+        "uid": 67406508,
+        "slug": "fondation-francois-schneider244",
+        "name": "Fondation François Schneider",
+        "address": "27 rue de la Première Armée 68700 Wattwiller",
+        "city": "Wattwiller",
+        "region": "Grand Est",
+        "department": "Haut-Rhin",
+        "postalCode": "68700",
+        "insee": "68359",
+        "countryCode": "FR",
+        "district": "Hirtzenstein",
+        "latitude": 47.837493,
+        "longitude": 7.174286,
+        "updatedAt": "2019-11-06T13:21:57.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "Plein tarif : 5 € - Tarif réduit : 3 €",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        610
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Centre d'art - Fondation philanthropique",
+      "structure-partenaire": "Cité internationale de la bande dessinée et de l'image",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 97532887,
+        "custom": {
+          "organization": "Fondation François Schneider",
+          "contactName": "Candice Felder",
+          "contactNumber": "03 89 82 10 10",
+          "contactPosition": "Graphiste",
+          "email": "c.felder@fondationfrancoisschneider.org"
+        }
+      }
+    },
+    {
+      "uid": 79940580,
+      "ownerUid": 48290490,
+      "creatorUid": 48290490,
+      "slug": "merybulles",
+      "title": {
+        "fr": "Mérybulles",
+        "en": "Mérybulles"
+      },
+      "description": {
+        "fr": "2e salon de la bande dessinée et de la littérature jeunesse",
+        "en": "2nd Comic Book and Children’s Literature Fair"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": null,
+        "credits": null,
+        "size": {
+          "height": null,
+          "width": null
+        },
+        "variants": [],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-07T13:00:00.000Z",
+          "end": "2020-03-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-08T09:00:00.000Z",
+          "end": "2020-03-08T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:48:52.000Z",
+      "createdAt": "2019-11-27T18:02:18.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 27261915,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "mediatheque@merysuroise.fr",
+        "01.30.36.40.58",
+        "http://www.merysuroire.fr"
+      ],
+      "location": {
+        "uid": 27261915,
+        "slug": "la-luciole216",
+        "name": "La Luciole",
+        "address": "1 route de Pontoise 95540 Méry-sur-Oise",
+        "city": "Méry-sur-Oise",
+        "region": "Île-de-France",
+        "department": "Val-d'Oise",
+        "postalCode": "95540",
+        "insee": "95394",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 49.05979,
+        "longitude": 2.16729,
+        "updatedAt": "2019-11-27T20:15:51.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Association \"La 9e BD\"",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 48290490,
+        "custom": {
+          "organization": "Méry-sur-Oise",
+          "contactName": "Anaïs Robinet",
+          "contactNumber": "01.30.36.40.58",
+          "contactPosition": "responsable de la médiathèque",
+          "email": "mediatheque@merysuroise.fr"
+        }
+      }
+    },
+    {
+      "uid": 22751083,
+      "ownerUid": 91720881,
+      "creatorUid": 91720881,
+      "slug": "mais-qui-est-ce",
+      "title": {
+        "fr": "Mais, qui est-ce ?",
+        "en": "But who is he?"
+      },
+      "description": {
+        "fr": "Un personnage célèbre de la bande dessinée s'est échappé de son livre ! À toi de le retrouver !",
+        "en": "A famous cartoon character has escaped from his book! It’s up to you to find him!"
+      },
+      "longDescription": {},
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription à partir du 23 mai 2020",
+        "en": "Upon registration from 23 May 2020"
+      },
+      "image": {
+        "filename": "474d9e51c7894475883870c3116170b1.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1156,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "474d9e51c7894475883870c3116170b1.full.image.jpg",
+            "size": {
+              "height": 944,
+              "width": 572
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "474d9e51c7894475883870c3116170b1.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-06-06T12:30:00.000Z",
+          "end": "2020-06-06T13:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-01-28T13:48:40.000Z",
+      "createdAt": "2019-11-28T08:37:12.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 73972358,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 8,
+        "max": 14
+      },
+      "registration": [
+        "03 28 29 66 33"
+      ],
+      "location": {
+        "uid": 73972358,
+        "slug": "mediatheque-emile-zola352",
+        "name": "Médiathèque Emile Zola",
+        "address": "Boulevard de l’Aurore 59430 Saint-Pol-sur-Mer",
+        "city": "Dunkerque",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59430",
+        "insee": "59183",
+        "countryCode": "FR",
+        "district": "Saint-Pol-sur-Mer",
+        "latitude": 51.026888,
+        "longitude": 2.341494,
+        "updatedAt": "2019-11-28T10:16:41.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 1,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [
+        776
+      ],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 2,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 91720881,
+        "custom": {
+          "organization": "Médiathèque Emile Zola",
+          "contactName": "Dominique Dujardin",
+          "contactNumber": "03 28 29 66 33",
+          "contactPosition": "Coordinatrice des animations",
+          "email": "charlotte.flahauw@ville-saintpolsurmer.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2084871
+}

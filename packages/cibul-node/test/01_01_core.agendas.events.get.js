@@ -132,6 +132,19 @@ describe('core - functional (server): core.agendas().events.get()', function() {
       });
     });
 
+    describe('access: internal', () => {
+      let event;
+
+      before(async () => {
+        event = await core.agendas(2).events.get(1, { access: 'internal' });
+      });
+
+      it('all additional fields are provided', async () => {
+        event.thematique.should.equal(2);
+        event.note.should.equal('Une note interne pour les administrateurs');
+      });
+    });
+
     describe('access: public', () => {
       let event;
 
@@ -143,8 +156,6 @@ describe('core - functional (server): core.agendas().events.get()', function() {
         should(event.member).equal(undefined);
       });
     });
-
-
 
     it('if provided access value does not match set value in field, value is not provided', async () => {
       const event = await core.agendas(2).events.get(1, { access: 'moderator' });
@@ -221,6 +232,10 @@ describe('core - functional (server): core.agendas().events.get()', function() {
 
     it('event id field is provided if access is internal', () => {
       internalResult.event.id.should.equal(1);
+    });
+
+    it('creatorUid is provided if access is internal', () => {
+      internalResult.event.creatorUid.should.equal(1);
     });
 
     it('id field is present if formSchema if access is internal', () => {

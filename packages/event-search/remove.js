@@ -19,13 +19,14 @@ module.exports = async function(config, set, identifiers, options = {} ) {
   let res;
 
   try {
-    res = await client.delete( {
+    res = await client.delete({
       index: getIndexName(set, defaultIndex),
       id: getDocumentId(set, identifiers.uid),
       refresh
-    } );
+    });
   } catch (err) {
-    throw new VError(err, 'failed to add event to index of set %s', set);
+    console.log(err);
+    throw new VError(err, 'failed to remove event from set %s', set);
   }
 
   if (res.body.result === 'deleted') {

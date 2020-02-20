@@ -21,11 +21,11 @@ export default class UnsubscribedSettings extends Component {
 
     return (
       <tr
-        onClick={!activeTab ? () => history.push( prefix + '/emails' ) : null}
+        onClick={!activeTab ? () => history.push( prefix + '/emails', { fromUserApps: true } ) : null}
         className={!activeTab ? 'inactive' : ''}
       >
         <td
-          onClick={activeTab ? () => history.push( prefix + '/' ) : null}
+          onClick={activeTab ? () => history.push( prefix + '/', { fromUserApps: true } ) : null}
           className="col-md-3"
           style={{ cursor: 'pointer' }}
         >

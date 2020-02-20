@@ -1,0 +1,2344 @@
+{
+  "events": [
+    {
+      "uid": 25142194,
+      "ownerUid": 46479456,
+      "creatorUid": 46479456,
+      "slug": "soiree-contee-dessinee",
+      "title": {
+        "fr": "Soirée contée-dessinée",
+        "en": "Evening contée-dessinée"
+      },
+      "description": {
+        "fr": "Une performance inédite au coeur du verger ! Autour de l’exposition temporaire « Chut ! une histoire de la fraude » des récits sont mis en dessin et en musique en direct, sous les yeux des spectateurs",
+        "en": "An unprecedented performance in the heart of the orchard! Around the temporary exhibition «Chut! A History of Fraud» Stories are put into drawing and live music, before the eyes of spectators"
+      },
+      "longDescription": {
+        "fr": "Autour de l’exposition temporaire « Chut ! une histoire de la fraude » les récits de la conteuse Delphine Garczynska sont mis en dessin et en musique sous les yeux et les oreilles des spectateurs par l'artiste Maxime Belloche, dessinateur et illustrateur, et par Matthieu Garz musicien. Des anecdotes, des témoignages, tragiques ou amusants, authentiques ou imaginaires, mais qui s'inspirent tous d'un fond de vérité dissimulée !",
+        "en": "Around the temporary exhibition «Chut! A History of Fraud” the stories of storyteller Delphine Garczynska are put in drawing and music under the eyes and ears of the audience by artist Maxime Belloche, cartoonist and illustrator, and by musician Matthieu Garz. Anecdotes, testimonies, tragic or amusing, authentic or imaginary, but all inspired by a background of hidden truth!"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "f5f247be336a497fa350c48466264c89.base.image.jpg",
+        "credits": "PNRNM",
+        "size": {
+          "height": 433,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "f5f247be336a497fa350c48466264c89.full.image.jpg",
+            "size": {
+              "height": 2414,
+              "width": 3903
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "f5f247be336a497fa350c48466264c89.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-08-20T18:00:00.000Z",
+          "end": "2020-08-20T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T17:08:00.000Z",
+      "createdAt": "2020-02-13T16:09:25.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 85786325,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "02 33 59 56 22",
+        "museedupoire@parc-normandie-maine.fr"
+      ],
+      "location": {
+        "uid": 85786325,
+        "slug": "musee-du-poire625",
+        "name": "Musée du Poiré",
+        "address": "La Logeraie, 50720 BARENTON",
+        "city": "Barenton",
+        "region": "Normandie",
+        "department": "Manche",
+        "postalCode": "50720",
+        "insee": "50029",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.587091,
+        "longitude": -0.807115,
+        "updatedAt": "2020-02-13T16:31:56.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 708,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 46479456,
+        "custom": {
+          "organization": "Musée du Poiré",
+          "contactName": "Bérengère JEHAN",
+          "contactNumber": "02 33 59 56 22",
+          "contactPosition": "Responsable du Musée",
+          "email": "museedupoire@parc-normandie-maine.fr"
+        }
+      }
+    },
+    {
+      "uid": 37860170,
+      "ownerUid": 63804710,
+      "creatorUid": 63804710,
+      "slug": "prix-mangavore",
+      "title": {
+        "fr": "Prix mangavore",
+        "en": "Mangavore price"
+      },
+      "description": {
+        "fr": "Voter pour son manga préféré",
+        "en": "Vote for her favorite manga"
+      },
+      "longDescription": {
+        "fr": "Tu as entre 11 et 18 ans, tu aimes les mangas, viens découvrir la sélection des 10 mangas retenus par les bibliothécaires du réseau pour le 4ème prix Mangavore et vote pour ton manga préféré.\n\nRencontre d'un mangaka, qui fera une présentation et une démonstration de son travail le 18 avril dès 14h à la Médiathèque Simone de Beauvoir à Romans.",
+        "en": "You are between 11 and 18 years old, you love mangas, come and discover the selection of the 10 mangas selected by the librarians of the network for the 4th prize Mangavore and vote for your favorite manga.\nMeeting of a mangaka, who will make a presentation and a demonstration of his work on April 18 from 14h at the Médiathèque Simone de Beauvoir in Romans."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Sur inscription",
+        "en": "On registration"
+      },
+      "image": {
+        "filename": "bbd3c8c166384fb9871a0c0bb73d33ed.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "bbd3c8c166384fb9871a0c0bb73d33ed.full.image.jpg",
+            "size": {
+              "height": 4961,
+              "width": 3508
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "bbd3c8c166384fb9871a0c0bb73d33ed.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-07T09:00:00.000Z",
+          "end": "2020-01-07T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-07T13:00:00.000Z",
+          "end": "2020-01-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-08T09:00:00.000Z",
+          "end": "2020-01-08T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-09T15:00:00.000Z",
+          "end": "2020-01-09T19:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T09:00:00.000Z",
+          "end": "2020-01-10T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-10T13:00:00.000Z",
+          "end": "2020-01-10T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-11T09:00:00.000Z",
+          "end": "2020-01-11T17:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T18:07:07.000Z",
+      "createdAt": "2020-02-13T17:16:19.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 69822711,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 11,
+        "max": 18
+      },
+      "registration": [
+        "http://mediatheques.valenceromansagglo.fr/"
+      ],
+      "location": {
+        "uid": 69822711,
+        "slug": "mediatheques-valence-romans-agglomeration",
+        "name": "Médiathèques Valence Romans Agglomération",
+        "address": "26000 valence",
+        "city": "Valence",
+        "region": "Auvergne-Rhône-Alpes",
+        "department": "Drôme",
+        "postalCode": "26000",
+        "insee": "26362",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 44.933228,
+        "longitude": 4.892081,
+        "updatedAt": "2020-02-13T17:02:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 705,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 761,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 623,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 63804710,
+        "custom": {
+          "organization": "Réseau des médiathèques de Valence Romans Agglomération",
+          "contactName": "Martine Villeton Pachot",
+          "contactNumber": "04 75 79 21 25",
+          "contactPosition": "Directrice adjointe",
+          "email": "martine.villeton-pachot@valenceromansagglo.fr"
+        }
+      }
+    },
+    {
+      "uid": 62293499,
+      "ownerUid": 24002588,
+      "creatorUid": 24002588,
+      "slug": "expositionvente-des-planches-originales-du-tome-5-de-sauvage-black-calavera-dessinees-par-felix-meynet-du-7-au-29-fevrier-2020",
+      "title": {
+        "fr": "EXPOSITION-VENTE des planches originales du tome 5 de Sauvage : Black Calavera dessinées par Félix MEYNET Du 7 au 29 février 2020",
+        "en": "EXHIBITION-SALE of the original plates of volume 5 of Sauvage: Black Calavera designed by Félix MEYNET From 7 to 29 February 2020"
+      },
+      "description": {
+        "fr": "À l'occasion de la parution chez Casterman du tome 5 de Sauvage : Black Calavera la Galerie 9e Art expose les planches de l'album du jeudi 6 février au samedi 29 février 2020",
+        "en": "On the occasion of the release by Casterman of volume 5 of Sauvage: Black Calavera the 9th Art Gallery exhibits the plates of the album from Thursday 6 February to Saturday 29 February 2020"
+      },
+      "longDescription": {
+        "fr": "### La Galerie 9ème Art, en partenariat avec les Éditions Casterman, expose du 7 au 29 février 2020 une sélection de planches et d’autres travaux préparatoires du tome 5 de _Sauvage_.\n\n**Paru le 5 février 2020 chez Casterman l'album a été dessiné et mis en couleur par Félix Meynet et scénarisé par Yann Le Pennetier.**\n\n« _Depuis la fin de la guerre civile, les troupes françaises au Mexique s’interrogent sur les intentions de leurs voisins américains. Afin d’éviter tout incident diplomatique et d’obtenir des renseignements de première main, Félix Sauvage et son camarade Hugon sont envoyés comme espions à Brownsville. Après une bagarre qui tourne mal, ce dernier est capturé par les troupes américaines et condamné à mort. Alors qu’il tente de le sauver, Félix croise la route d’Esmeralda, qui a rejoint une troupe de saltimbanques et effectue des danses sensuelles laissant entrevoir un étrange tatouage sur son épaule : une calavera noire. Les routes de Félix et Esmeralda vont-elles se rejoindre ou se séparer pour de bon ? Quel avenir est encore possible pour Félix Sauvage dans un contexte militaire où il se sent trahi ?_ »\n\n[https://www.casterman.com/Bande-dessinee/Catalogue/albums-sauvage/sauvage-5-black-calavera](https://www.casterman.com/Bande-dessinee/Catalogue/albums-sauvage/sauvage-5-black-calavera)",
+        "en": "### The 9th Art Gallery, in partnership with Casterman Publishing, exhibits from 7 to 29 February 2020 a selection of plates and other preparatory works of _Sauvage_’s volume 5.\n**Released on February 5, 2020 by Casterman, the album has been designed and coloured by Félix Meynet and scripted by Yann Le Pennetier.**\n_Since the end of the civil war, French troops in Mexico have been questioning the intentions of their American neighbours. In order to avoid any diplomatic incident and to obtain first-hand information, Félix Sauvage and his comrade Hugon were sent as spies to Brownsville. After a fight that went wrong, he was captured by American troops and sentenced to death. As he tries to save him, Félix crosses the road of Esmeralda, who joined a troupe of acrobats and performs sensual dances that reveal a strange tattoo on his shoulder: a black calavera. Will the roads of Felix and Esmeralda meet or part for good? What future is still possible for Félix Sauvage in a military context where he feels betrayed?_»\n[https://www.casterman.com/Bande-dessinee/Catalogue/albums-sauvage/sauvage-5-black-calavera](https://www.casterman.com/Bande-dessinee/Catalogue/albums-sauvage/sauvage-5-black-calavera)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "b0d221efb1b14e32af646c08707f5aaf.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 1038,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "b0d221efb1b14e32af646c08707f5aaf.full.image.jpg",
+            "size": {
+              "height": 1677,
+              "width": 1131
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "b0d221efb1b14e32af646c08707f5aaf.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-01-29T13:00:00.000Z",
+          "end": "2020-01-29T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-30T13:00:00.000Z",
+          "end": "2020-01-30T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-01-31T13:00:00.000Z",
+          "end": "2020-01-31T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T10:00:00.000Z",
+          "end": "2020-02-01T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-01T13:00:00.000Z",
+          "end": "2020-02-01T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-05T13:00:00.000Z",
+          "end": "2020-02-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-06T13:00:00.000Z",
+          "end": "2020-02-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-07T13:00:00.000Z",
+          "end": "2020-02-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T10:00:00.000Z",
+          "end": "2020-02-08T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-08T13:00:00.000Z",
+          "end": "2020-02-08T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-12T13:00:00.000Z",
+          "end": "2020-02-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-13T13:00:00.000Z",
+          "end": "2020-02-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-14T13:00:00.000Z",
+          "end": "2020-02-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T10:00:00.000Z",
+          "end": "2020-02-15T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-15T13:00:00.000Z",
+          "end": "2020-02-15T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-19T13:00:00.000Z",
+          "end": "2020-02-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-20T13:00:00.000Z",
+          "end": "2020-02-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-21T13:00:00.000Z",
+          "end": "2020-02-21T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T10:00:00.000Z",
+          "end": "2020-02-22T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-22T13:00:00.000Z",
+          "end": "2020-02-22T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-26T13:00:00.000Z",
+          "end": "2020-02-26T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-27T13:00:00.000Z",
+          "end": "2020-02-27T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-28T13:00:00.000Z",
+          "end": "2020-02-28T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T10:00:00.000Z",
+          "end": "2020-02-29T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-02-29T13:00:00.000Z",
+          "end": "2020-02-29T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T18:07:04.000Z",
+      "createdAt": "2020-02-13T17:20:12.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 30520208,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 70
+      },
+      "registration": [
+        "http://www.galerie9art.com/",
+        "http://www.galerie9art.fr/index.php?expo=377"
+      ],
+      "location": {
+        "uid": 30520208,
+        "slug": "galerie-9e-art",
+        "name": "Galerie 9e Art",
+        "address": "4 rue crétet",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75009",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 9e Arrondissement",
+        "latitude": 48.881939,
+        "longitude": 2.341637,
+        "updatedAt": "2020-02-13T17:04:42.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Galerie",
+      "structure-partenaire": "Éditions Casterman",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "440 960 102 00 00 18",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 24002588,
+        "custom": {
+          "organization": "Galerie 9e Art",
+          "contactName": "Charlotte Vermersch",
+          "contactNumber": "01 73 77 21 40",
+          "contactPosition": "Assistante galeriste",
+          "email": "charlotte.vermersch@galerie9art.fr"
+        }
+      }
+    },
+    {
+      "uid": 34314394,
+      "ownerUid": 24002588,
+      "creatorUid": 24002588,
+      "slug": "exposition-vente-des-planches-originales-du-tome-15-de-corto-maltese-le-jour-de-tarowean-de-ruben-pellejero-du-5-au-21-mars-2020",
+      "title": {
+        "fr": "EXPOSITION-VENTE des planches originales du tome 15 de Corto Maltese : Le jour de Tarowean de Rubén PELLEJERO du 5 au 21 mars 2020.",
+        "en": "EXHIBITION-SALE of the original plates of volume 15 of Corto Maltese: Tarowean day of Rubén PELLEJERO from 5 to 21 March 2020."
+      },
+      "description": {
+        "fr": "À l'occasion de la parution chez Casterman du tome 15 de Corto Maltese : Le jour de Tarowean, la Galerie 9e Art expose les planches de l'album du 5 au 21 mars 2020",
+        "en": "On the occasion of the release by Casterman of volume 15 of Corto Maltese: Tarowean Day, the 9th Art Gallery exhibits the plates of the album from March 5 to 21, 2020"
+      },
+      "longDescription": {
+        "fr": "### La Galerie 9ème Art, en partenariat avec les Éditions Casterman, expose du 5 au 21 mars 2020 une sélection de planches et d’illustrations du tome 15 de _Corto Maltese_. **Le vernissage se déroulera le mercredi 4 mars à partir de 18h à la Galerie.**\n\n**Paru le 6 novembre 2019 chez Casterman, l'album a été dessiné par Rubén Pellejero et scénarisé par Juan Díaz Canales d'après l'oeuvre d'Hugo Pratt.**\n\n« _Retour dans les mers du Sud pour Corto et Raspoutine !_\n\n_Tasmanie, automne 1912. Corto et Raspoutine libèrent un jeune homme, Calaboose, emprisonné sur une île abandonnée. Ils l’emmènent avec eux à travers l’océan indien jusqu’à Bornéo, où ils rencontrent le sultan de Sarawak, potentat anglais, qui règne sur l’exploitation de l’hévéa par les indigènes. Cette ressource naturelle est indispensable à l’Empire britannique et la révolte qui gronde chez les Dayaks menace les intérêts de la couronne. Corto se retrouve à jouer les médiateurs et à prendre sous son aile une jeune paralytique, Ratu « la sirène », dont Calaboose tombe amoureux. Corto et ses amis prennent ensuite la direction du Pacifique Sud et de l’île d’Escondida, pour y retrouver le commanditaire de leur mission, le mystérieux Moine, qui a une idée bien précise quant à l’avenir du couple de tourtereaux... Une nouvelle aventure qui fleure bon les embruns du Pacifique, dans la droite ligne du premier épisode mythique de la série,_ La Ballade de la mer salée_._ »\n\n[https://www.casterman.com/Bande-dessinee/Catalogue/corto-maltese-edition-couleurs/corto-maltese-15-le-jour-de-tarowean](https://www.casterman.com/Bande-dessinee/Catalogue/corto-maltese-edition-couleurs/corto-maltese-15-le-jour-de-tarowean)",
+        "en": "### The 9th Art Gallery, in partnership with Casterman Publishing, exhibits from 5 to 21 March 2020 a selection of plates and illustrations from volume 15 of _Corto Maltese_. **The opening will take place on Wednesday 4 March from 6pm at the Gallery.**\n**Released on November 6, 2019 by Casterman, the album was designed by Rubén Pellejero and written by Juan Díaz Canales after the work of Hugo Pratt.**\n«_Back to the South Seas for Corto and Rasputin!_\n_Tasmania, autumn 1912\\. Corto and Rasputin release a young man, Calaboose, imprisoned on an abandoned island. They take him with them across the Indian Ocean to Borneo, where they meet the Sultan of Sarawak, English potentate, who rules the exploitation of the rubber by the natives. This natural resource is indispensable to the British Empire and the revolt among the Dayaks threatens the interests of the crown. Corto finds himself playing the mediators and taking under his wing a young paralytic, Ratu «the mermaid», of whom Calaboose falls in love. Corto and his friends then take the direction of the South Pacific and the island of Escondida, to meet the sponsor of their mission, the mysterious Monk, who has a clear idea about the future of the couple of lovebirds... A new adventure that smelled Pacific spray, in line with the first mythical episode of the series,_ La Ballade de la mer salée_. _”\n[https://www.casterman.com/Bande-dessinee/Catalogue/corto-maltese-edition-couleurs/corto-maltese-15-le-jour-de-tarowean](https://www.casterman.com/Bande-dessinee/Catalogue/corto-maltese-edition-couleurs/corto-maltese-15-le-jour-de-tarowean)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "5d3d0c90ebe84fc69640c4261ed862f2.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 916,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "5d3d0c90ebe84fc69640c4261ed862f2.full.image.jpg",
+            "size": {
+              "height": 3000,
+              "width": 2295
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "5d3d0c90ebe84fc69640c4261ed862f2.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-05T13:00:00.000Z",
+          "end": "2020-03-05T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T13:00:00.000Z",
+          "end": "2020-03-06T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T10:00:00.000Z",
+          "end": "2020-03-07T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-07T13:00:00.000Z",
+          "end": "2020-03-07T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T13:00:00.000Z",
+          "end": "2020-03-11T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T13:00:00.000Z",
+          "end": "2020-03-12T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T13:00:00.000Z",
+          "end": "2020-03-13T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T10:00:00.000Z",
+          "end": "2020-03-14T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-14T13:00:00.000Z",
+          "end": "2020-03-14T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T13:00:00.000Z",
+          "end": "2020-03-18T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T13:00:00.000Z",
+          "end": "2020-03-19T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T13:00:00.000Z",
+          "end": "2020-03-20T18:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T10:00:00.000Z",
+          "end": "2020-03-21T12:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-21T13:00:00.000Z",
+          "end": "2020-03-21T18:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-13T19:07:07.000Z",
+      "createdAt": "2020-02-13T18:06:31.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 30520208,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 15,
+        "max": 70
+      },
+      "registration": [
+        "http://www.galerie9art.com/",
+        "http://www.galerie9art.fr/index.php?expo=378"
+      ],
+      "location": {
+        "uid": 30520208,
+        "slug": "galerie-9e-art",
+        "name": "Galerie 9e Art",
+        "address": "4 rue crétet",
+        "city": "Paris",
+        "region": "Île-de-France",
+        "department": "Paris",
+        "postalCode": "75009",
+        "insee": "75056",
+        "countryCode": "FR",
+        "district": "Paris 9e Arrondissement",
+        "latitude": 48.881939,
+        "longitude": 2.341637,
+        "updatedAt": "2020-02-13T17:04:42.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 636,
+      "si-autre-precisez": "Galerie",
+      "structure-partenaire": "Éditions Casterman",
+      "diffusion-sur-le-pass-culture": [
+        1
+      ],
+      "siret": "440 960 102 00 00 18",
+      "prix-pass-culture": 0,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 24002588,
+        "custom": {
+          "organization": "Galerie 9e Art",
+          "contactName": "Charlotte Vermersch",
+          "contactNumber": "01 73 77 21 40",
+          "contactPosition": "Assistante galeriste",
+          "email": "charlotte.vermersch@galerie9art.fr"
+        }
+      }
+    },
+    {
+      "uid": 52028435,
+      "ownerUid": 97111034,
+      "creatorUid": 97111034,
+      "slug": "aux-origines-de-la-bande-dessinee-limagerie-populaire",
+      "title": {
+        "fr": "Aux sources de la bande-dessinée: l'imagerie populaire",
+        "en": "The sources of comic books: popular imagery"
+      },
+      "description": {
+        "fr": "Regard sur la concurrence stimulante entre l’imagerie d’Epinal et la Maison Quantin à Paris, à l’origine de la BD enfantine au XIXe siècle.",
+        "en": "A look at the stimulating competition between the imagery of Epinal and the Maison Quantin in Paris, at the origin of childhood comic books in the 19th century."
+      },
+      "longDescription": {
+        "fr": "L’exposition montrera l’apport essentiel de l’imagerie populaire dans la genèse et le développement de la bande-dessinée en France, particulièrement du point de vue de l’enfance. Dès les années 1840, l’imagerie Pellerin d’Epinal édite en effet des planches d’historiettes compartimentées en cases, chacune accompagnée de textes, qui laissent présager de ce que sera la bande-dessinée au début du XXe siècle : une suite d’images narratives, satiriques ou moralisatrice, destinée aux adultes qui s’enrichira très vite d’une production à destination de la jeunesse.\n\nEn 1886, à Paris, c'est l’imprimeur-éditeur Albert Quantin, spécialiste du livre d’art et des ouvrages illustrés, qui se lance dans la grande aventure de l’édition à destination de la jeunesse, selon un objectif double : plaire et instruire à la fois. Avec son « Imagerie artistique », il souhaite faire souffler un vent de modernité sur le marché de l’imagerie pour enfants. Il entend notamment dépoussiérer le schéma imposé par les fameuses images d’Épinal. Sur le fond, la moralité cède quelque peu le pas au divertissement. Sur la forme, le cadre strict des vignettes est révolutionné : les cases se plient aux nécessités du récit, s’ornementent voire disparaissent, des éléments sortent fréquemment du cadre. Des artistes issus de la presse parisienne, auxquels Quantin fait appel, introduisent leur patte et renouvellent le genre de l’imagerie pour enfants. 77 dessinateurs participent à cette entreprise, au nombre desquels on compte les célèbres Théophile-Alexandre Steinlen, Caran d’Ache, Benjamin Rabier, Job ou encore Félix Lacaille. La diversité de ces dessinateurs confère aux séries un renouvellement constant.\n\nL'exposition revient sur la concurrence entre ces deux éditeurs, concurrence stimulante pour l'Imagerie d'Epinal qui a su ainsi faire évoluer sa production.\n\n(Exposition présentée du 7 novembre 2020 au 7 mars 2021)",
+        "en": "The exhibition will show the essential contribution of popular imagery in the genesis and development of comic books in France, especially from the point of view of childhood. As early as 1840, the imagery Pellerin d'Epinal publishes, in fact, historiette plates compartmentalized in boxes, each accompanied by texts, which foreshadow what the comic book would be at the beginning of the 20th century: a series of narrative images, satirical or moralizing, intended for adults who will soon be enriched by a production intended for young people.\nIn 1886, in Paris, it was the printer-publisher Albert Quantin, specialist of the art book and illustrated works, who embarked on the great adventure of publishing for the youth, according to a double objective: to please and instruct at the same time. With his «Artistic Imagery», he wants to blow a wind of modernity into the market of imaging for children. He intends in particular to dust off the scheme imposed by the famous images of Épinal. In substance, morality gives way to entertainment. On the form, the strict frame of the thumbnails is revolutionized: the boxes bend to the needs of the narrative, ornament or even disappear, elements frequently leave the frame. Artists from the Parisian press, to whom Quantin appeals, introduce their paws and renew the image genre for children. 77 draughtsmen take part in this undertaking, including the famous Théophile-Alexandre Steinlen, Caran d'Ache, Benjamin Rabier, Job and Félix Lacaille. The diversity of these designers gives the series a constant renewal.\nThe exhibition looks back at the competition between these two publishers, a stimulating competition for Epinal Imagery, which has thus managed to evolve its production.[End of translation]\n(Exposition présentée du 7 novembre 2020 au 7 mars 2021)"
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "103e1a49285645e984f7e5b6fd8e8025.base.image.jpg",
+        "credits": "Léo Brac, Le Lion apprivoisé, 1891, Imagerie Pellerin, série aux Armes d'Epinal / Musée de l'Image - Ville d'Epinal - photo Hélène Royer",
+        "size": {
+          "height": 918,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "103e1a49285645e984f7e5b6fd8e8025.full.image.jpg",
+            "size": {
+              "height": 768,
+              "width": 586
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "103e1a49285645e984f7e5b6fd8e8025.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-11-07T08:30:00.000Z",
+          "end": "2020-11-07T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-07T13:00:00.000Z",
+          "end": "2020-11-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-08T09:00:00.000Z",
+          "end": "2020-11-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-08T13:00:00.000Z",
+          "end": "2020-11-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-09T13:00:00.000Z",
+          "end": "2020-11-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-10T08:30:00.000Z",
+          "end": "2020-11-10T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-10T13:00:00.000Z",
+          "end": "2020-11-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-11T08:30:00.000Z",
+          "end": "2020-11-11T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-11T13:00:00.000Z",
+          "end": "2020-11-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-12T08:30:00.000Z",
+          "end": "2020-11-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-12T13:00:00.000Z",
+          "end": "2020-11-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-13T08:30:00.000Z",
+          "end": "2020-11-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-14T08:30:00.000Z",
+          "end": "2020-11-14T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-14T13:00:00.000Z",
+          "end": "2020-11-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-15T09:00:00.000Z",
+          "end": "2020-11-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-15T13:00:00.000Z",
+          "end": "2020-11-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-16T13:00:00.000Z",
+          "end": "2020-11-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-17T08:30:00.000Z",
+          "end": "2020-11-17T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-17T13:00:00.000Z",
+          "end": "2020-11-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-18T08:30:00.000Z",
+          "end": "2020-11-18T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-18T13:00:00.000Z",
+          "end": "2020-11-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-19T08:30:00.000Z",
+          "end": "2020-11-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-19T13:00:00.000Z",
+          "end": "2020-11-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-20T08:30:00.000Z",
+          "end": "2020-11-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-21T08:30:00.000Z",
+          "end": "2020-11-21T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-21T13:00:00.000Z",
+          "end": "2020-11-21T17:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-22T09:00:00.000Z",
+          "end": "2020-11-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-22T13:00:00.000Z",
+          "end": "2020-11-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-23T13:00:00.000Z",
+          "end": "2020-11-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T08:30:00.000Z",
+          "end": "2020-11-24T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-24T13:00:00.000Z",
+          "end": "2020-11-24T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T08:30:00.000Z",
+          "end": "2020-11-25T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-25T13:00:00.000Z",
+          "end": "2020-11-25T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T08:30:00.000Z",
+          "end": "2020-11-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-26T13:00:00.000Z",
+          "end": "2020-11-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-27T08:30:00.000Z",
+          "end": "2020-11-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T08:30:00.000Z",
+          "end": "2020-11-28T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-28T13:00:00.000Z",
+          "end": "2020-11-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-29T09:00:00.000Z",
+          "end": "2020-11-29T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-29T13:00:00.000Z",
+          "end": "2020-11-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-11-30T13:00:00.000Z",
+          "end": "2020-11-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-01T08:30:00.000Z",
+          "end": "2020-12-01T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-01T13:00:00.000Z",
+          "end": "2020-12-01T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-02T08:30:00.000Z",
+          "end": "2020-12-02T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-02T13:00:00.000Z",
+          "end": "2020-12-02T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-03T08:30:00.000Z",
+          "end": "2020-12-03T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-03T13:00:00.000Z",
+          "end": "2020-12-03T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-04T08:30:00.000Z",
+          "end": "2020-12-04T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-05T08:30:00.000Z",
+          "end": "2020-12-05T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-05T13:00:00.000Z",
+          "end": "2020-12-05T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-06T09:00:00.000Z",
+          "end": "2020-12-06T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-06T13:00:00.000Z",
+          "end": "2020-12-06T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-07T13:00:00.000Z",
+          "end": "2020-12-07T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-08T08:30:00.000Z",
+          "end": "2020-12-08T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-08T13:00:00.000Z",
+          "end": "2020-12-08T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-09T08:30:00.000Z",
+          "end": "2020-12-09T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-09T13:00:00.000Z",
+          "end": "2020-12-09T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-10T08:30:00.000Z",
+          "end": "2020-12-10T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-10T13:00:00.000Z",
+          "end": "2020-12-10T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-11T08:30:00.000Z",
+          "end": "2020-12-11T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-12T08:30:00.000Z",
+          "end": "2020-12-12T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-12T13:00:00.000Z",
+          "end": "2020-12-12T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-13T09:00:00.000Z",
+          "end": "2020-12-13T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-13T13:00:00.000Z",
+          "end": "2020-12-13T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-14T13:00:00.000Z",
+          "end": "2020-12-14T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-15T08:30:00.000Z",
+          "end": "2020-12-15T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-15T13:00:00.000Z",
+          "end": "2020-12-15T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-16T08:30:00.000Z",
+          "end": "2020-12-16T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-16T13:00:00.000Z",
+          "end": "2020-12-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-17T08:30:00.000Z",
+          "end": "2020-12-17T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-17T13:00:00.000Z",
+          "end": "2020-12-17T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-18T08:30:00.000Z",
+          "end": "2020-12-18T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-19T08:30:00.000Z",
+          "end": "2020-12-19T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-19T13:00:00.000Z",
+          "end": "2020-12-19T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-20T09:00:00.000Z",
+          "end": "2020-12-20T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-20T13:00:00.000Z",
+          "end": "2020-12-20T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-21T13:00:00.000Z",
+          "end": "2020-12-21T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-22T08:30:00.000Z",
+          "end": "2020-12-22T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-22T13:00:00.000Z",
+          "end": "2020-12-22T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-23T08:30:00.000Z",
+          "end": "2020-12-23T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-23T13:00:00.000Z",
+          "end": "2020-12-23T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-24T08:30:00.000Z",
+          "end": "2020-12-24T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-24T13:00:00.000Z",
+          "end": "2020-12-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-26T08:30:00.000Z",
+          "end": "2020-12-26T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-26T13:00:00.000Z",
+          "end": "2020-12-26T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-27T09:00:00.000Z",
+          "end": "2020-12-27T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-27T13:00:00.000Z",
+          "end": "2020-12-27T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-28T13:00:00.000Z",
+          "end": "2020-12-28T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-29T08:30:00.000Z",
+          "end": "2020-12-29T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-29T13:00:00.000Z",
+          "end": "2020-12-29T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-30T08:30:00.000Z",
+          "end": "2020-12-30T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-30T13:00:00.000Z",
+          "end": "2020-12-30T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-31T08:30:00.000Z",
+          "end": "2020-12-31T11:00:00.000Z"
+        },
+        {
+          "begin": "2020-12-31T13:00:00.000Z",
+          "end": "2020-12-31T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T09:11:36.000Z",
+      "createdAt": "2020-02-13T16:56:42.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 84698604,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.museedelimage.fr"
+      ],
+      "location": {
+        "uid": 84698604,
+        "slug": "musee-de-limage344",
+        "name": "Musée de l'Image",
+        "address": "42 quai de Dogneville, Epinal 88000",
+        "city": "Épinal",
+        "region": "Grand Est",
+        "department": "Vosges",
+        "postalCode": "88000",
+        "insee": "88160",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.183868,
+        "longitude": 6.446526,
+        "updatedAt": "2020-02-14T07:46:48.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 686,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 67,
+      "tarif": "6 € plein tarif, 4,5 € tarif réduit, 1 € jusqu'à 18 ans, gratuité jusqu'à 6 ans",
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 635,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Cité internationale de la bande-dessinée et de l'image - Angoulême",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 97111034,
+        "custom": {
+          "organization": "Musée de l'Image - Ville d'Epinal",
+          "contactName": "Christelle Rochette",
+          "contactNumber": "03 29 81 48 30",
+          "contactPosition": "Directrice",
+          "email": "christelle.rochette@epinal.fr"
+        }
+      }
+    },
+    {
+      "uid": 32849284,
+      "ownerUid": 32118283,
+      "creatorUid": 32118283,
+      "slug": "fete-du-livre-dhyeres",
+      "title": {
+        "fr": "Fête du livre d'Hyères",
+        "en": "Fête du livre d'Hyères"
+      },
+      "description": {
+        "fr": "Fête du livre d'Hyères",
+        "en": "Fête du livre d'Hyères"
+      },
+      "longDescription": {
+        "fr": "Plus de 150 auteurs présents sur la fête du livre d'Hyères. Cette année un focus particulier sur la Bd avec 30 auteurs et un invité d'honneur, Jacques Ferrandez. Au programme : rencontres, ateliers, exposition, table-ronde ...",
+        "en": "More than 150 authors present on the feast of the book of Hyères. This year a special focus on comics with 30 authors and a guest of honor, Jacques Ferrandez. On the programme: meetings, workshops, exhibition, round table..."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "48657256f6bc4ccc8aaf8ea5e8aafabd.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 990,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "48657256f6bc4ccc8aaf8ea5e8aafabd.full.image.jpg",
+            "size": {
+              "height": 4961,
+              "width": 3508
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "48657256f6bc4ccc8aaf8ea5e8aafabd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-05-16T08:00:00.000Z",
+          "end": "2020-05-16T17:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-17T08:00:00.000Z",
+          "end": "2020-05-17T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T09:11:33.000Z",
+      "createdAt": "2020-02-14T08:36:30.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 86918676,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 0,
+        "max": 99
+      },
+      "registration": [
+        "https://fetedulivre.hyeres.fr/"
+      ],
+      "location": {
+        "uid": 86918676,
+        "slug": "hyeres398",
+        "name": "Hyères",
+        "address": "Forum du casino",
+        "city": "Hyères",
+        "region": "Provence-Alpes-Côte d'Azur",
+        "department": "Var",
+        "postalCode": "83400",
+        "insee": "83069",
+        "countryCode": "FR",
+        "district": "Costebelle",
+        "latitude": 43.118285,
+        "longitude": 6.132339,
+        "updatedAt": "2020-02-14T08:49:23.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 632,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Association Cap Culture",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 32118283,
+        "custom": {
+          "organization": "Mairie d'Hyères - Fête du livre",
+          "contactName": "Valentin BREST",
+          "contactNumber": "0494000078",
+          "contactPosition": "Coordinateur fête du livre Hyères",
+          "email": "vbrest@mairie-hyeres.com"
+        }
+      }
+    },
+    {
+      "uid": 48649431,
+      "ownerUid": 33536790,
+      "creatorUid": 33536790,
+      "slug": "festival-livre-and-mer",
+      "title": {
+        "fr": "Festival Livre & Mer",
+        "en": "Book & Sea Festival"
+      },
+      "description": {
+        "fr": "Exposition \"Barbe-Rouge, 60 ans d'aventures\"",
+        "en": "Exhibition \"Red Beard, 60 years of adventures\""
+      },
+      "longDescription": {
+        "fr": "Apparu le 29 octobre 1959 dans le n° 1 de la mythique revue Pilote, Barbe-Rouge est incontestablement le plus célèbre pirate de la bande dessinée franco-belge. Après ses créateurs Jean-Michel Charlier et Victor Hubinon, d'autres auteurs animeront le fameux Démon des Caraïbes : les dessinateurs Jijé & Lorg, Christian Gaty, Patrice Pellerin, Marc Bourgne, et les scénaristes Jean Ollivier et Christian Perrissin - ce dernier signant avec le dessinateur Daniel Redondo la série-parallèle \"La Jeunesse de Barbe-Rouge\". Après 16 années d'absence, avec l'album \"Pendu haut et court\" qui paraît à l'automne 2020, Barbe-Rouge est enfin de retour sous la plume de Jean-Charles Kraehn et les pinceaux de Stefano Carloni ! Le Festival Livre & Mer 2020 présente une exceptionnelle exposition réunissant des documents rares voire inédits : toutes les couvertures de l'hebdomadaire Pilote où apparaît Barbe-Rouge, une sélection de planches (fac-similés et originaux) signées Victor Hubinon, Jijé & Lorg, Christian Gaty, Patrice Pellerin, Marc Bourgne, Daniel Redondo et Stefano Carloni, des albums en éditions originales...",
+        "en": "Appearing on October 29, 1959 in the first issue of the mythical magazine Pilote, Barbe-Rouge is undoubtedly the most famous pirate of the Franco-Belgian comic book. After its creators Jean-Michel Charlier and Victor Hubinon, other authors will animate the famous Caribbean Demon: the cartoonists Jijé & Lorg, Christian Gaty, Patrice Pellerin, Marc Bourgne, and the screenwriters Jean Ollivier and Christian Perrissin - the latter signing with the cartoonist Daniel Redondo the parallel series \"La Jeunesse de Barbe-Rouge\". After 16 years of absence, with the album \"Pendu haut et court\" which appears in autumn 2020, Barbe-Rouge is finally back under the pen of Jean-Charles Kraehn and the brushes of Stefano Carloni! The Book & Sea Festival 2020 presents an exceptional exhibition bringing together rare and even unpublished documents: all the covers of the weekly Pilote where appears Barbe-Rouge, a selection of plates (facsimiles and originals) signed Victor Hubinon, Jijé & Lorg, Christian Gaty, Patrice Pellerin, Marc Bourgne, Daniel Redondo and Stefano Carloni, albums in original editions..."
+      },
+      "keywords": {},
+      "conditions": {
+        "fr": "Entrée libre",
+        "en": "Free entry"
+      },
+      "image": {
+        "filename": "0088f117ff8e49cbb8f7a737b47dc240.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 993,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "0088f117ff8e49cbb8f7a737b47dc240.full.image.jpg",
+            "size": {
+              "height": 941,
+              "width": 664
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "0088f117ff8e49cbb8f7a737b47dc240.thumb.image.jpg",
+            "size": {
+              "height": 201,
+              "width": 201
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-11-13T09:00:00.000Z",
+          "end": "2020-11-13T19:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-14T09:00:00.000Z",
+          "end": "2020-11-14T19:30:00.000Z"
+        },
+        {
+          "begin": "2020-11-15T09:00:00.000Z",
+          "end": "2020-11-15T19:30:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T09:11:15.000Z",
+      "createdAt": "2020-02-14T09:06:49.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 36931782,
+      "accessibility": {
+        "mi": true,
+        "hi": false,
+        "pi": true,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "http://www.livremer.org",
+        "festival@livremer.org",
+        "0298975272"
+      ],
+      "location": {
+        "uid": 36931782,
+        "slug": "centre-des-arts-de-concarneau",
+        "name": "Centre des Arts de Concarneau",
+        "address": "Boulevard Bougainville",
+        "city": "Concarneau",
+        "region": "Bretagne",
+        "department": "Finistère",
+        "postalCode": "29900",
+        "insee": "29039",
+        "countryCode": "FR",
+        "district": "Keriolet",
+        "latitude": 47.870034,
+        "longitude": -3.92178,
+        "updatedAt": "2020-02-14T09:02:59.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 709,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 33536790,
+        "custom": {
+          "organization": "Festival Livre & Mer",
+          "contactName": "Brieg HASLÉ-LE GALL",
+          "contactNumber": "0298975272",
+          "contactPosition": "Vice-président",
+          "email": "brieg.acbd@gmail.com"
+        }
+      }
+    },
+    {
+      "uid": 89629380,
+      "ownerUid": 54226327,
+      "creatorUid": 54226327,
+      "slug": "defi-lecture-bd",
+      "title": {
+        "fr": "Défi lecture BD",
+        "en": "BD Reading Challenge"
+      },
+      "description": {
+        "fr": "Organisation d'un défi lecture autour de la bande dessinée pour les élèves de CM2 et de 6ème.",
+        "en": "Organizing a comic book challenge for students in grades 5 and 6."
+      },
+      "longDescription": {
+        "fr": "Un défi lecture autour de la bande dessinée est organisé dans le cadre de la liaison cycle 3 pour les élèves de CM2 et de 6ème. 6 classes sont concernées.\n\nUne classe de 6ème est jumelée avec une de CM2. Pour chaque binôme, 20 bandes dessinées ont été sélectionnées, en fonction des propositions des libraires et de nos découvertes. L'objectif pour les élèves est de lire un maximum d'albums (lecture plaisir), de découvrir des styles et des histoires variés. En mai-juin, les binômes se rencontrent au CDI pour des activités autour des sélections.",
+        "en": "A comic book challenge is being organised as part of the Cycle 3 link for students in grades 5 and 6\\. 6 classes are concerned.\nA sixth-grade class is paired with a fifth-grader. For each pair, 20 comic books were selected, based on the proposals of the booksellers and our discoveries. The goal for students is to read as many albums as possible (fun reading), to discover various styles and stories. In May-June, the pairs meet at the CDI for activities around selections."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "1a7ede6b3ee3474b96b5fd39b6045fcd.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 611,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "1a7ede6b3ee3474b96b5fd39b6045fcd.full.image.jpg",
+            "size": {
+              "height": 625,
+              "width": 717
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "1a7ede6b3ee3474b96b5fd39b6045fcd.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-02T07:30:00.000Z",
+          "end": "2020-03-02T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-03T07:30:00.000Z",
+          "end": "2020-03-03T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-04T07:30:00.000Z",
+          "end": "2020-03-04T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-05T07:30:00.000Z",
+          "end": "2020-03-05T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-06T07:30:00.000Z",
+          "end": "2020-03-06T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-09T07:30:00.000Z",
+          "end": "2020-03-09T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-10T07:30:00.000Z",
+          "end": "2020-03-10T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-11T07:30:00.000Z",
+          "end": "2020-03-11T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-12T07:30:00.000Z",
+          "end": "2020-03-12T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-13T07:30:00.000Z",
+          "end": "2020-03-13T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-16T07:30:00.000Z",
+          "end": "2020-03-16T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-17T07:30:00.000Z",
+          "end": "2020-03-17T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-18T07:30:00.000Z",
+          "end": "2020-03-18T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-19T07:30:00.000Z",
+          "end": "2020-03-19T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-20T07:30:00.000Z",
+          "end": "2020-03-20T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-23T07:30:00.000Z",
+          "end": "2020-03-23T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-24T07:30:00.000Z",
+          "end": "2020-03-24T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-25T07:30:00.000Z",
+          "end": "2020-03-25T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-26T07:30:00.000Z",
+          "end": "2020-03-26T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-27T07:30:00.000Z",
+          "end": "2020-03-27T16:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-30T06:30:00.000Z",
+          "end": "2020-03-30T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-03-31T06:30:00.000Z",
+          "end": "2020-03-31T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-01T06:30:00.000Z",
+          "end": "2020-04-01T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-02T06:30:00.000Z",
+          "end": "2020-04-02T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-03T06:30:00.000Z",
+          "end": "2020-04-03T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-06T06:30:00.000Z",
+          "end": "2020-04-06T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-07T06:30:00.000Z",
+          "end": "2020-04-07T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-08T06:30:00.000Z",
+          "end": "2020-04-08T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-09T06:30:00.000Z",
+          "end": "2020-04-09T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-10T06:30:00.000Z",
+          "end": "2020-04-10T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-13T06:30:00.000Z",
+          "end": "2020-04-13T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-14T06:30:00.000Z",
+          "end": "2020-04-14T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-15T06:30:00.000Z",
+          "end": "2020-04-15T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-16T06:30:00.000Z",
+          "end": "2020-04-16T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-17T06:30:00.000Z",
+          "end": "2020-04-17T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-20T06:30:00.000Z",
+          "end": "2020-04-20T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-21T06:30:00.000Z",
+          "end": "2020-04-21T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-22T06:30:00.000Z",
+          "end": "2020-04-22T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-23T06:30:00.000Z",
+          "end": "2020-04-23T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-24T06:30:00.000Z",
+          "end": "2020-04-24T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-27T06:30:00.000Z",
+          "end": "2020-04-27T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-28T06:30:00.000Z",
+          "end": "2020-04-28T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-29T06:30:00.000Z",
+          "end": "2020-04-29T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-04-30T06:30:00.000Z",
+          "end": "2020-04-30T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-01T06:30:00.000Z",
+          "end": "2020-05-01T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-04T06:30:00.000Z",
+          "end": "2020-05-04T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-05T06:30:00.000Z",
+          "end": "2020-05-05T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-06T06:30:00.000Z",
+          "end": "2020-05-06T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-07T06:30:00.000Z",
+          "end": "2020-05-07T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-08T06:30:00.000Z",
+          "end": "2020-05-08T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-11T06:30:00.000Z",
+          "end": "2020-05-11T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-12T06:30:00.000Z",
+          "end": "2020-05-12T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-13T06:30:00.000Z",
+          "end": "2020-05-13T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-14T06:30:00.000Z",
+          "end": "2020-05-14T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-15T06:30:00.000Z",
+          "end": "2020-05-15T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-18T06:30:00.000Z",
+          "end": "2020-05-18T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-19T06:30:00.000Z",
+          "end": "2020-05-19T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-20T06:30:00.000Z",
+          "end": "2020-05-20T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-21T06:30:00.000Z",
+          "end": "2020-05-21T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-22T06:30:00.000Z",
+          "end": "2020-05-22T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-25T06:30:00.000Z",
+          "end": "2020-05-25T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-26T06:30:00.000Z",
+          "end": "2020-05-26T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-27T06:30:00.000Z",
+          "end": "2020-05-27T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-28T06:30:00.000Z",
+          "end": "2020-05-28T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-05-29T06:30:00.000Z",
+          "end": "2020-05-29T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-01T06:30:00.000Z",
+          "end": "2020-06-01T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-02T06:30:00.000Z",
+          "end": "2020-06-02T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-03T06:30:00.000Z",
+          "end": "2020-06-03T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-04T06:30:00.000Z",
+          "end": "2020-06-04T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-05T06:30:00.000Z",
+          "end": "2020-06-05T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-08T06:30:00.000Z",
+          "end": "2020-06-08T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-09T06:30:00.000Z",
+          "end": "2020-06-09T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-10T06:30:00.000Z",
+          "end": "2020-06-10T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-11T06:30:00.000Z",
+          "end": "2020-06-11T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-12T06:30:00.000Z",
+          "end": "2020-06-12T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-15T06:30:00.000Z",
+          "end": "2020-06-15T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-16T06:30:00.000Z",
+          "end": "2020-06-16T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-17T06:30:00.000Z",
+          "end": "2020-06-17T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-18T06:30:00.000Z",
+          "end": "2020-06-18T15:00:00.000Z"
+        },
+        {
+          "begin": "2020-06-19T06:30:00.000Z",
+          "end": "2020-06-19T15:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T11:12:53.000Z",
+      "createdAt": "2020-02-14T10:48:09.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 57569160,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": 10,
+        "max": 12
+      },
+      "registration": [
+        "cdi.0593235w@ac-lille.fr"
+      ],
+      "location": {
+        "uid": 57569160,
+        "slug": "college-boris-vian410",
+        "name": "Collège Boris Vian",
+        "address": "260bis, rue Pierre Legrand BP50020 59007 Lille cedex",
+        "city": "Lille",
+        "region": "Hauts-de-France",
+        "department": "Nord",
+        "postalCode": "59000",
+        "insee": "59350",
+        "countryCode": "FR",
+        "district": "Fives",
+        "latitude": 50.632247,
+        "longitude": 3.088634,
+        "updatedAt": "2020-02-14T08:49:12.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 681,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 763,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 740,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 627,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 54226327,
+        "custom": {
+          "organization": "Collège Boris Vian (Lille)",
+          "contactName": "Céline BEREZOWSKI",
+          "contactNumber": "0320340450",
+          "contactPosition": "Professeur documentaliste",
+          "email": "cdi.0593235w@ac-lille.fr"
+        }
+      }
+    },
+    {
+      "uid": 38086290,
+      "ownerUid": 79075927,
+      "creatorUid": 79075927,
+      "slug": "rencontre-avec-sophie-lambda-and-fanny-vella",
+      "title": {
+        "fr": "Rencontre avec Sophie Lambda & Fanny Vella",
+        "en": "Meeting with Sophie Lambda & Fanny Vella"
+      },
+      "description": {
+        "fr": "Fanny Vella et Sophie Lambda sont deux jeunes autrices qui, avec des styles graphiques très différent, ont abordé le thème de la relation toxique, qu’elle s’accompagne ou non de violence conjugale.",
+        "en": "Fanny Vella and Sophie Lambda are two young authors who, with very different graphic styles, have addressed the theme of the toxic relationship, whether or not it is accompanied by domestic violence."
+      },
+      "longDescription": {
+        "fr": "Usant du roman graphique non seulement comme moyen de raconter des histoires, mais également comme support de transmission du savoir, d’échange d’expériences et de vulgarisation des connaissances, Fanny Vella et Sophie Lambda dessinent le portrait d’un type de personnalité largement commenté dans la littérature spécialisée : celui des pervers narcissiques, des vampires psychiques et autres manipulateurs, qui peuvent dans le pire des cas se rendre coupable de féminicide.\n\nUne façon, parfois, de mettre à distance sa propre histoire en la décortiquant (ç’est le cas pour Sophie Lambda), mais également d’offrir des clés de lecture à d’autres victimes potentielles. Poser ainsi des images et des mots sur cet enfer vécu de l’intérieur, comprendre ce mécanisme qui enferme et paralyse, et tendre la main pour aider à sortir de cette impasse autodestructrice. C’est là tout l’enjeu de leur travail – et de cette rencontre.\n\n### Les invités\n\n**Sophie Lambda** est illustratrice, blogueuse et autrice de bande dessinée. En 2019, elle réalise seule la bande dessinée _Tant pis pour l’amour_ _ou_ _comment j’ai survécu à un manipulateur_ (Delcourt).\n\nIllustratrice et autrice de bande dessinée, **Fanny Vella** a publié _Le Seuil_, qui parle de la fin d’une relation toxique et violente, ainsi qu’une série de portraits réalisée pour rendre hommage aux victimes de féminicides.",
+        "en": "Using the graphic novel not only as a means of telling stories, but also as a medium for the transmission of knowledge, the exchange of experience and the extension of knowledge, Fanny Vella and Sophie Lambda draw a portrait of a type of personality widely commented in the specialized literature: that of narcissistic perverts, psychic vampires and other manipulators, who can in the worst case be guilty of femicide.\nA way, sometimes, to distance one’s own story by dissecting it (this is the case for Sophie Lambda), but also to offer reading keys to other potential victims. To put images and words on this hell lived from within, to understand this mechanism that locks and paralyzes, and to reach out to help get out of this self-destructive impasse. This is what their work – and this meeting – is all about.\n### The guests\n**Sophie Lambda** is an illustrator, blogger and comic book writer. In 2019, she realizes alone the comic _Tant pis pour l'amour_ _or_ _how I survived a manipulator_ (Delcourt).\nIllustrator and cartoonist **Fanny Vella** has published _Le Seuil_, which talks about the end of a toxic and violent relationship, as well as a series of portraits created to pay tribute to the victims of feminicides."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "320ae5128a2549889af2edb7d5cc9516.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "320ae5128a2549889af2edb7d5cc9516.full.image.jpg",
+            "size": {
+              "height": 4500,
+              "width": 8000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "320ae5128a2549889af2edb7d5cc9516.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-03-28T15:00:00.000Z",
+          "end": "2020-03-28T16:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T11:12:34.000Z",
+      "createdAt": "2020-02-14T10:49:30.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 54631734,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.hors-limites.fr/edition/edition-2020/rencontre-avec-sophie-lambda-fanny-vella/28-03-2020-16-00/"
+      ],
+      "location": {
+        "uid": 54631734,
+        "slug": "1-mail-de-legalite",
+        "name": "1 mail de l'Égalité",
+        "address": "La Courneuve",
+        "city": "La Courneuve",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93120",
+        "insee": "93027",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.926724,
+        "longitude": 2.389612,
+        "updatedAt": "2020-02-14T10:40:35.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [
+        732
+      ],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": "Festival Hors Limites en Seine-Saint-Denis",
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": null,
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 79075927,
+        "custom": {
+          "organization": "Association Bibliothèques en Seine-Saint-Denis",
+          "contactName": "Hélène Loupias",
+          "contactNumber": "0148459552",
+          "contactPosition": "Chargée de coordination de projets",
+          "email": "helene.loupias@bibliotheques93.fr"
+        }
+      }
+    },
+    {
+      "uid": 29995805,
+      "ownerUid": 79075927,
+      "creatorUid": 79075927,
+      "slug": "rencontre-avec-gregoire-carle-and-audrey-chenu",
+      "title": {
+        "fr": "Rencontre avec Grégoire Carlé & Audrey Chenu",
+        "en": "Meeting with Grégoire Carlé & Audrey Chenu"
+      },
+      "description": {
+        "fr": "Cette rencontre est l’aboutissement d’un travail autour de la boxe et de la langue, par le recours à la poésie ou au slam.",
+        "en": "This encounter is the culmination of a work around boxing and language, through the use of poetry or slam."
+      },
+      "longDescription": {
+        "fr": "Rendant hommage à la boxe, Nine Antico et Grégoire Carlé retrace dans Il était 2 fois Arthur, le combat historique à Barcelone en 1916 de deux icônes de la liberté, Jack « Arthur » Johnson, premier champion du monde poids lourd noir de l’histoire, et Arthur Cravan, poète aventurier, pseudo-boxeur et neveu d’Oscar Wilde. Alors que tout les oppose, ils ont en commun ce désir furieux d’échapper à leur condition sociale et de braver les préjugés en se défiant sur le ring.\n\nCette rencontre, inscrite dans un projet mené sur l’année par les médiathèques d’Épinay-sur-Seine avec des adolescents et la boxeuse Audrey Chenu, est l’aboutissement d’un travail autour de la boxe et de la langue, par le recours à la poésie ou au slam.\n\nCet échange entre Grégoire Carlé et Audrey Chenu est donc l’occasion d’aborder l’histoire de la boxe et l’évolution de ses représentations par la bande dessinée, mais aussi sous le prisme du féminisme.\n\n### Les invités\n\n**Grégoire Carlé** est auteur de bande dessinée. Il apublié chez l’Association la trilogie _Baku_ (2008-2010), _La Nuit du capricorne_ (2013), _Philoctète et les femmes_ (2014) et _Trou zombie_ (2018). Il dessine en 2017 les décors du film d’animation La Nuit des sacs plastiques réalisé par Gabriel Harel.\n\n**Audrey Chenu** est enseignante, slameuse et boxeuse. Elle est l’autrice d’une autobiographie, _Girlfight_ (2013), qui témoigne de son expérience carcérale et de son engagement militant. Elle créait en 2016 son association de cours de boxe et d’autodéfense non mixte destinée aux femmes et aux enfants à Saint-Denis.",
+        "en": "Paying tribute to boxing, Nine Antico and Grégoire Carlé retrace in Il était 2 fois Arthur, le combat historique à Barcelone en 1916 de deux icônes de la liberté, Jack «Arthur» Johnson, premier champion du monde heavyweight noir de l'histoire, et Arthur Cravan, poète aventurier, Oscar Wilde’s pseudo-boxer and nephew. While they are opposed by everything, they have in common this furious desire to escape their social condition and to defy prejudice by challenging themselves in the ring.\nThis meeting, part of a year-round project conducted by the Épinay-sur-Seine media libraries with teenagers and boxer Audrey Chenu, is the culmination of a work around boxing and language, through the use of poetry or slam.\nThis exchange between Grégoire Carlé and Audrey Chenu is therefore an opportunity to discuss the history of boxing and the evolution of its representations through comics, but also under the prism of feminism.\n### The guests\n**Grégoire Carlé** is a comic book writer. He published the _Baku_ trilogy (2008-2010), _La Nuit du capricorne_ (2013), _Philoctète et les femmes_ (2014) and _Trou zombie_ (2018). In 2017, he drew the scenery for the animated film La Nuit des sacs plastiques directed by Gabriel Harel.\n**Audrey Chenu** is a teacher, slammer and boxer. She is the author of an autobiography, _Girlfight_ (2013), which speaks to her prison experience and her advocacy. In 2016, she created her association of boxing and nonhybrid self-defence classes for women and children in Saint-Denis."
+      },
+      "keywords": {},
+      "conditions": {},
+      "image": {
+        "filename": "953abfd1c5c64f68b7bf06a7bdf03096.base.image.jpg",
+        "credits": null,
+        "size": {
+          "height": 394,
+          "width": 700
+        },
+        "variants": [
+          {
+            "type": "full",
+            "filename": "953abfd1c5c64f68b7bf06a7bdf03096.full.image.jpg",
+            "size": {
+              "height": 4500,
+              "width": 8000
+            }
+          },
+          {
+            "type": "thumbnail",
+            "filename": "953abfd1c5c64f68b7bf06a7bdf03096.thumb.image.jpg",
+            "size": {
+              "height": 200,
+              "width": 200
+            }
+          }
+        ],
+        "base": "https://cibuldev.s3.amazonaws.com/"
+      },
+      "draft": 0,
+      "private": 0,
+      "timezone": "Europe/Paris",
+      "timings": [
+        {
+          "begin": "2020-04-04T13:00:00.000Z",
+          "end": "2020-04-04T14:00:00.000Z"
+        }
+      ],
+      "updatedAt": "2020-02-14T11:12:31.000Z",
+      "createdAt": "2020-02-14T10:57:07.000Z",
+      "agendaUid": 13988937,
+      "locationUid": 91736115,
+      "accessibility": {
+        "mi": false,
+        "hi": false,
+        "pi": false,
+        "vi": false,
+        "sl": false
+      },
+      "age": {
+        "min": null,
+        "max": null
+      },
+      "registration": [
+        "https://www.hors-limites.fr/edition/edition-2020/rencontre-avec-grgoire-carl-audrey-chenu/04-04-2020-15-00/"
+      ],
+      "location": {
+        "uid": 91736115,
+        "slug": "49-rue-de-paris",
+        "name": "49 rue de Paris",
+        "address": "Épinay-sur-Seine",
+        "city": "Épinay-sur-Seine",
+        "region": "Île-de-France",
+        "department": "Seine-Saint-Denis",
+        "postalCode": "93800",
+        "insee": "93031",
+        "countryCode": "FR",
+        "district": null,
+        "latitude": 48.952518,
+        "longitude": 2.314504,
+        "updatedAt": "2020-02-14T10:52:51.000Z",
+        "image": null,
+        "description": {},
+        "email": null,
+        "phone": null,
+        "links": [],
+        "access": {},
+        "state": 0,
+        "timezone": "Europe/Paris",
+        "imageCredits": null,
+        "extId": null
+      },
+      "type-devenement": 707,
+      "autre-type-devenement": null,
+      "type-de-public-concerne": 760,
+      "gratuite": 66,
+      "tarif": null,
+      "animation-accessible-aux-publics-empeches": 774,
+      "type-de-public-empeche": null,
+      "particularites": [],
+      "si-autre-manifestation-du-ministere-de-la-culture-precisez": [],
+      "si-autre-precisez-le-nom-et-lorganisateur-de-la-manifestation": null,
+      "type-de-structure": 621,
+      "si-autre-precisez": null,
+      "structure-partenaire": "Dans le cadre de BD 2020 : la France aime le 9e art, un programme initié par le ministère de la Culture, soutenu par le Centre national du livre et la Cité internationale de la bande dessinée et de l’image",
+      "diffusion-sur-le-pass-culture": [],
+      "siret": null,
+      "prix-pass-culture": null,
+      "url-pass-culture": null,
+      "state": 0,
+      "featured": false,
+      "sourcePaths": [],
+      "aggregated": false,
+      "originAgenda": {
+        "slug": "bd2020",
+        "uid": 13988937,
+        "official": 1,
+        "title": "BD 2020",
+        "description": "BD 2020 se déroulera de janvier 2020 à janvier 2021. Toutes les informations pour contribuer au succès de l'année consacrée au 9e art sur notre site internet",
+        "url": "https://www.bd2020.culture.gouv.fr/",
+        "image": "agenda13988937.jpg",
+        "updatedAt": "2020-02-20T07:47:37.000Z",
+        "createdAt": "2019-10-01T13:32:40.000Z",
+        "officializedAt": "2019-10-08T13:43:36.000Z",
+        "private": 0
+      },
+      "member": {
+        "role": 1,
+        "userUid": 79075927,
+        "custom": {
+          "organization": "Association Bibliothèques en Seine-Saint-Denis",
+          "contactName": "Hélène Loupias",
+          "contactNumber": "0148459552",
+          "contactPosition": "Chargée de coordination de projets",
+          "email": "helene.loupias@bibliotheques93.fr"
+        }
+      }
+    }
+  ],
+  "lastId": 2173906
+}
