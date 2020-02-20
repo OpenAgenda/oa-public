@@ -2,7 +2,7 @@
 
 const { Service } = require('feathers-knex');
 const { disallow } = require('feathers-hooks-common');
-const { hooks, withParams } = require('@openagenda/hooks');
+const { hooks, withParams } = require('@feathersjs/hooks');
 const {
   callInterface,
   camelCase,

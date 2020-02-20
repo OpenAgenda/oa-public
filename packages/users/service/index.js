@@ -12,7 +12,7 @@ const {
   setNow,
   isProvider
 } = require('feathers-hooks-common');
-const { hooks, withParams } = require('@openagenda/hooks');
+const { hooks, withParams } = require('@feathersjs/hooks');
 const errors = require('@feathersjs/errors');
 const schema = require('@openagenda/validators/schema');
 const validators = require('@openagenda/validators');

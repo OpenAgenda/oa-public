@@ -54,10 +54,7 @@ supervisor(async loadTasks => {
       next();
     });
 
-    app.use((req, res, next) => {
-      req.log = logs('req', { url: req.originalUrl });
-      next();
-    });
+    app.use(cmn.loadLogger());
 
     app.use(cmn.lang);
 
