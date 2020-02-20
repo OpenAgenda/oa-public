@@ -8,16 +8,10 @@ import { Form } from 'react-final-form';
 import setFieldDataMutator from 'final-form-set-field-data';
 import { IntlProvider, FormattedMessage } from 'react-intl';
 import Spinner from '@openagenda/react-components/build/Spinner';
-import localeEn from '../locales/en.json';
-import localeFr from '../locales/fr.json';
+import locales from '../locales';
 import AbilitiesForm from './AbilitiesForm';
 import withFetcher from './withFetcher';
 import getChildCheckboxDecorator from './getChildCheckboxDecorator';
-
-const localeData = {
-  en: localeEn,
-  fr: localeFr
-};
 
 function getInitialValues(rules) {
   return rules.reduce((result, rule) => {
@@ -161,7 +155,7 @@ export default class AbilitiesEditor extends Component {
 
   render() {
     const { locale } = this.props;
-    const messages = localeData[locale] || localeData.en;
+    const messages = locales[locale] || locales.en;
 
     return (
       <IntlProvider locale={locale} key={locale} messages={messages}>
