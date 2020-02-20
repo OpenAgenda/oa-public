@@ -94,7 +94,7 @@ function Layout({ apps, ...props }) {
 
     return {
       locale: usedLocale,
-      locales: locales[usedLocale]
+      messages: locales[usedLocale]
     };
   }, [userLang]);
 
